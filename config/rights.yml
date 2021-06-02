@@ -1161,6 +1161,22 @@ contracts:
     - "backend/contracts#update"
     - "backend/contracts#win"
 
+crop_groups:
+  read:
+    actions:
+    - "backend/crop_groups#edit"
+    - "backend/crop_groups#index"
+    - "backend/crop_groups#list"
+    - "backend/crop_groups#new"
+    - "backend/crop_groups#show"
+  write:
+    dependencies:
+    - read-crop_groups
+    actions:
+    - "backend/crop_groups#create"
+    - "backend/crop_groups#destroy"
+    - "backend/crop_groups#update"
+    - "backend/crop_groups#duplicate"
 cultivable_zones:
   read:
     actions:

@@ -5,9 +5,6 @@ deu:
         auxiliary: "Hilfs"
         # main: "Main"
         # standalone: "Standalone"
-      production_campaign:
-        at_cycle_end: "Am Zyklusende"
-        at_cycle_start: "Bei Zyklusbeginn"
       production_cycle:
         annual: "jährlich"
         perennial: "mehrjährig"

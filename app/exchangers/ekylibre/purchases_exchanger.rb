@@ -173,6 +173,7 @@ module Ekylibre
             reference_number: r.reference_number,
             supplier: supplier,
             nature: PurchaseNature.actives.first,
+            reconciliation_state: :accepted,
             description: r.description
           )
           if @attachments_dir.present?
@@ -201,6 +202,7 @@ module Ekylibre
           # puts r.variant_code.inspect.red
 
           purchase.items.create!(role: r.role, quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
+          purchase.save!
         end
 
         w.check_point

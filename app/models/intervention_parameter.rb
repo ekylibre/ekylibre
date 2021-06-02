@@ -56,6 +56,7 @@
 #  quantity_value           :decimal(19, 4)
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -63,7 +64,6 @@
 #  usage_id                 :string
 #  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
-#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionParameter < ApplicationRecord
@@ -73,10 +73,13 @@ class InterventionParameter < ApplicationRecord
   belongs_to :intervention, inverse_of: :parameters
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
 
+  serialize :specie_variety, HashSerializer
+  store_accessor :specie_variety, :specie_variety_name
+
   has_interval :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
+  validates :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
   validates :imputation_ratio, :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }

@@ -1,0 +1,90 @@
+- main_toolbar do |t|
+  = t.edit resource
+  - budget = resource.budget_of(current_campaign)
+  - if budget && budget.items.any?
+    = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
+  - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
+    = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
+
+  = t.export :land_parcel_register, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), label: :print_land_parcel_register
+  = tool_to(:compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false)
+
+- main_period_selector(:year)
+
+= main_informations attachment: true do
+  .big-infos
+    .med-info.important
+      %span.title= :net_surface_area.tl
+      %span.value= resource.decorate.human_net_surface_area(current_campaign)
+
+    .med-info.important
+      %span.title= :working_area.tl
+      %span.value= resource.decorate.human_working_zone_area(current_campaign)
+
+    .med-info.important
+      %span.title= :pfi_activity.tl
+      %span.value= PfiCampaignsActivitiesIntervention.pfi_value_on_activity_campaign(resource, current_campaign)
+
+  = attributes_list do |l|
+    - l.attribute :production_system
+    - l.attribute :production_cycle
+    - l.attribute :use_countings
+    - l.attribute :use_gradings
+    - l.attribute :use_seasons
+    - l.attribute :use_tactics
+    -# if resource.use_gradings
+      - l.attribute :measure_grading_net_mass
+      - if resource.measure_grading_net_mass
+        - l.attribute :grading_net_mass_unit
+      - l.attribute :measure_grading_sizes
+      - if resource.measure_grading_sizes
+        - l.attribute :grading_sizes_indicator
+        - l.attribute :grading_sizes_unit
+
+= cobbles do |c|
+
+  - if current_campaign
+    - c.cobble :budget do
+      = render 'budget'
+  -# c.cobble :details do
+    = attributes_list do |l|
+      - l.attribute :nature
+      - l.attribute :family
+      - l.attribute :production_system_name
+      - if resource.with_cultivation
+        - l.attribute :cultivation_variety
+      - if resource.with_supports
+        - l.attribute :support_variety
+      - l.attribute :production_cycle
+
+  - if resource.productions.of_campaign(current_campaign).any?
+
+    - if resource.inspectionable?
+      - dimension = resource.unit_preference(current_user)
+
+    - c.cobble :map do
+      - data = support_series(resource)
+      - if data.empty?
+        .placeholding-message= :no_production_defined_for_current_campaign.tn
+      - else
+        = visualization(async_url: backend_visualizations_inspections_visualizations_path(dimension: dimension, inspections_ids: resource.inspections.pluck(:id).join(',')), optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path) do |v|
+          - v.serie :main, data
+          - v.simple :support, :main
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
+
+  - c.cobble(:production_costs, title: :production_costs.tl) do
+    = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs(current_campaign) }
+
+  - if resource.with_supports
+    - c.cobble(:land_parcels) do
+      = render 'productions'
+
+  - if resource.inspectionable?
+    - dimension = resource.unit_preference(current_user)
+    - async_cobble :stock_in_ground, params: { id: resource.id, dimension: dimension }, cobble: c  do
+      = render 'backend/inspections/unit_selector', activity: resource
+
+    - async_cobble :inspections, params: { id: resource.id }, cobble: c

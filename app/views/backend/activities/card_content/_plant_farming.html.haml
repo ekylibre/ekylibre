@@ -1,0 +1,10 @@
+.activity-indicators
+  .activity-indicator.size{class: activity.family}
+    = activity.size_during(campaign).round(1).l(precision: 2)
+  .activity-indicator.cumulated-time
+    = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
+  .activity-indicator.cash
+    = activity.total_costs.to_i.l(currency: currency.name)
+  .activity-indicator.ift
+    = :pfi_interventions.tl
+    = PfiCampaignsActivitiesIntervention.pfi_value_on_activity_campaign(activity, current_campaign)

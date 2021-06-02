@@ -1,7 +1,7 @@
 = render 'backend/shared/financial_year_warning' if Preference.get(:permanent_stock_inventory, true).boolean_value
 = kujaku do |k|
   - k.text
-  - k.multi_choice :state, data: [:in_progress, :done, :validated].map { |s| { label: s.tl, name: s } }
+  - k.multi_choice :state, label: :element_status.tl, data: [:in_progress, :done, :validated].map { |s| { label: s.tl, name: s } }
   - k.multi_choice :nature, data: [{ label: :planned.tl(count: 1), name: :request }, { label: :conducted.tl, name: :record }]
   - k.list :cultivable_zone, value_label: :name
   - procedure_names = Intervention.used_procedures.collect { |p| [p.human_name, p.name.to_s] }.sort_by(&:first)

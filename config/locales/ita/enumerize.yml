@@ -5,9 +5,6 @@ ita:
         auxiliary: "Ausiliario"
         main: "Principale"
         standalone: "Indipendente, autonomo"
-      production_campaign:
-        at_cycle_end: "A fine ciclo"
-        at_cycle_start: "A inizio ciclo"
       production_cycle:
         annual: "Annuale"
         perennial: "Perenne"

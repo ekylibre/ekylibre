@@ -77,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -97,9 +100,6 @@ class Animal < Bioproduct
 
   validates :identification_number, presence: true
   validates :identification_number, uniqueness: true
-
-  scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }
-  scope :mothers, -> { indicate(sex: 'female', reproductor: true).order(:name) }
 
   enumerize :birth_date_completeness, in: %i[year month_year full_date]
   enumerize :filiation_status, in: %i[unknown certified uncertified]

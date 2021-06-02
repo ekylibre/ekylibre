@@ -23,7 +23,7 @@ using Ekylibre::Utils::DateSoftParse
 module Backend
   class InterventionsController < Backend::BaseController
     manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
-                     continue: %i[nature procedure_name]
+                     continue: %i[nature procedure_name crop_group_ids]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -241,10 +241,18 @@ module Backend
             notify_warning_now(:no_product_matching_current_filter)
             unsafe_params.delete('targets_attributes')
             unsafe_params.delete('group_parameters_attributes')
-            # unsafe_params.slice!('targets_attributes', 'group_parameters_attributes')
-          else
-            nil
           end
+        end
+      end
+
+      if params[:procedure_name].present? && params[:crop_group_ids].present?
+        crop_group_params_computation = ::Interventions::CropGroupParamsComputation.new(params[:procedure_name], params[:crop_group_ids])
+        options.merge!(crop_group_params_computation.options)
+        options[:intervention_crop_groups_attributes] = params[:crop_group_ids].map{ |id| { crop_group_id: id } }
+        if crop_group_params_computation.rejected_crops.any?
+          notify_warning_now(:intervention_crops_rejected,
+                             crops: helpers.as_unordered_list(crop_group_params_computation.rejected_crops.map(&:name)),
+                             html: true)
         end
       end
 
@@ -275,7 +283,7 @@ module Backend
         end
       end
 
-      %i[doers inputs outputs tools participations working_periods].each do |param|
+      %i[doers inputs outputs tools participations working_periods intervention_crop_groups].each do |param|
         next unless params.include? :intervention
 
         options[:"#{param}_attributes"] = permitted_params["#{param}_attributes"] || []
@@ -306,6 +314,10 @@ module Backend
         end.compact
 
         p.set! nil
+      end
+
+      if options[:warning]
+        notify_warning_now(options[:warning], html: true)
       end
 
       @intervention = Intervention.new(options)
@@ -638,7 +650,7 @@ module Backend
 
       date = DateTime.soft_parse(params_obj.date)
       date_end = DateTime.soft_parse(params_obj.date_end) || date
-      parcels = Product.find_by_id(params_obj.targets)
+      parcels = Product.find(params_obj.targets)
       ignore_intervention = params_obj.intervention
 
       harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new

@@ -35,6 +35,9 @@ Rails.application.configure do
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
 
+  # Allow every Ekylibre url to subscribe to actionCable
+  config.action_cable.allowed_request_origins = [/https?:\/\/.{1,40}\.(ekylibre|ekyviti)(-dev)?\.(com|io|farm)/]
+
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Specifies the header that your server uses for sending files.

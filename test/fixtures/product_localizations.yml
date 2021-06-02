@@ -782,55 +782,6 @@ product_localizations_061:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-07 15:50:04.447619000 Z
   updater_id: 1
-product_localizations_062:
-  created_at: 2014-11-07 15:50:04.473732000 Z
-  creator_id: 1
-  id: 79
-  intervention_id: 18
-  lock_version: 0
-  nature: transfer
-  product_id: 85
-  started_at: 2014-07-01 12:35:00.000000000 Z
-  stopped_at: 2014-08-01 00:00:00.000000000 Z
-  updated_at: 2014-11-07 15:50:04.473732000 Z
-  updater_id: 1
-product_localizations_063:
-  container_id: 80
-  created_at: 2014-11-07 15:50:04.484722000 Z
-  creator_id: 1
-  id: 80
-  intervention_id: 18
-  lock_version: 0
-  nature: interior
-  product_id: 85
-  started_at: 2014-08-01 00:00:00.000000000 Z
-  stopped_at: 2014-08-01 00:20:00.000000000 Z
-  updated_at: 2014-11-07 15:50:04.484722000 Z
-  updater_id: 1
-product_localizations_064:
-  created_at: 2014-11-07 15:50:04.615321000 Z
-  creator_id: 1
-  id: 81
-  intervention_id: 18
-  lock_version: 0
-  nature: transfer
-  product_id: 85
-  started_at: 2014-08-01 00:20:00.000000000 Z
-  stopped_at: 2014-08-31 11:45:00.000000000 Z
-  updated_at: 2014-11-07 15:50:04.615321000 Z
-  updater_id: 1
-product_localizations_065:
-  container_id: 14
-  created_at: 2014-11-07 15:50:04.624295000 Z
-  creator_id: 1
-  id: 82
-  intervention_id: 18
-  lock_version: 0
-  nature: interior
-  product_id: 85
-  started_at: 2014-08-31 11:45:00.000000000 Z
-  updated_at: 2014-11-07 15:50:04.624295000 Z
-  updater_id: 1
 product_localizations_066:
   container_id: 21
   created_at: 2014-11-07 16:47:34.957281000 Z

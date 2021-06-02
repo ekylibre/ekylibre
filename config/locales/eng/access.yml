@@ -27,6 +27,7 @@ eng:
       contracts: "Contracts"
       cultivable_zones: "Cultivable zones"
       custom_fields: "Custom fields"
+      crop_groups: "Crop groups"
       deposits: "Deposits"
       districts: "Districts"
       document_templates: "Document templates"

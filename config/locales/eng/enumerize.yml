@@ -9,9 +9,6 @@ eng:
         auxiliary: "Auxiliary"
         main: "Main"
         standalone: "Standalone"
-      production_campaign:
-        at_cycle_end: "At cycle end"
-        at_cycle_start: "At cycle start"
       production_cycle:
         annual: "Annual"
         perennial: "Perennial"
@@ -34,6 +31,7 @@ eng:
         border: "Border"
         buffer: "Buffer"
         cultivation: "Cultivation"
+        headland_cultivation: "Headland cultivation"
         fallow_land: "Fallow land"
         none: "None"
     activity_tactic:
@@ -99,6 +97,10 @@ eng:
         sale: "Sale"
         stock: "Stock"
         travel_cost: "Travel"
+    crop_group:
+      target:
+        land_parcel: Land parcel
+        plant: Plant
     crumb:
       nature:
         hard_start: "Hard start"
@@ -117,6 +119,27 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
+    cvi_cadastral_plant:
+      state:
+        planted: "Planted"
+        removed_with_authorization: "Removed with authorization"
+      type_of_occupancy:
+        owner: "Owner"
+        tenant_farming: "Tenant farming"
+    cvi_cultivable_zone:
+      land_parcels_status:
+        not_started: "Not Started"
+        started: "In progress"
+        completed: "Completed"
+    formatted_cvi_cultivable_zone:
+      land_parcels_status:
+          not_started: "Not Started"
+          started: "In progress"
+          completed: "Completed"
+    cvi_statement:
+      state:
+        converted: "Converted"
+        to_convert: "To convert"
     debt_transfer:
       nature:
         purchase_regularization: "Purchase regularization"
@@ -300,6 +323,12 @@ eng:
       nature:
         background: "Background"
         overlay: "Overlay"
+    analytic_segment:
+      name:
+        activities: "Activities"
+        project_budgets: "Budgets"
+        teams: "Teams"
+        equipments: "Equipments"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activity"
@@ -354,6 +383,11 @@ eng:
         record: "Record"
         spatial_reference_system: "Spatial reference system"
         string: "String"
+    product:
+      type_of_occupancy:
+        owner: "Owner"
+        rent: "Rent"
+        sharecropper: "Sharecropper"
     product_enjoyment:
       nature:
         other: "Other"
@@ -594,6 +628,14 @@ eng:
         authorized: "Authorized"
         provisional: "Provisional"
         withdrawn: "Withdrawn"
+    ride:
+      nature:
+        work: "Work"
+        road: "Road"
+    ride_set:
+      nature:
+        work: "Work"
+        road: "Road"
     sale:
       payment_delay:
         # 1 week: "1 week"
@@ -650,7 +692,7 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
-        # payslips: "Payslips"
+        payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Accounting categories"
@@ -658,10 +700,13 @@ eng:
         product_natures: "Product natures"
         products: "Products"
         purchases: "Purchases"
+        ride: "Ride"
+        ride_sets: "Ride sets"
         sales: "Sales"
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+        wine_incoming_harvests: "Wine incoming harvests"
     shipment:
       delivery_mode:
         # third: "Third"

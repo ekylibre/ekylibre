@@ -4,9 +4,15 @@ fra:
       notify_accountant: |
         Bonjour %{accountant_full_name},
 
-        Un nouvel échange comptable %{exchange_name} est disponible en provenance de %{name}.
+        Un nouvel échange comptable est disponible en provenance de %{name}
+
+        - exercice comptable : %{financial_year_name}
+        - période du %{started_on} au %{stopped_on}
+        - format de données : %{exchange_format}
 
         Vous le retrouverez en pièce jointe de ce mail.
+
+        Pour en savoir plus, sur les échanges comptables, veuillez consulter ce lien %{help_doc_url}
 
         Cordialement
 

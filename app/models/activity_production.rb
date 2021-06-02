@@ -25,39 +25,43 @@
 #
 # == Table: activity_productions
 #
-#  activity_id         :integer          not null
-#  campaign_id         :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivable_zone_id  :integer
-#  custom_fields       :jsonb
-#  custom_name         :string
-#  id                  :integer          not null, primary key
-#  irrigated           :boolean          default(FALSE), not null
-#  lock_version        :integer          default(0), not null
-#  nitrate_fixing      :boolean          default(FALSE), not null
-#  rank_number         :integer          not null
-#  season_id           :integer
-#  size_indicator_name :string           not null
-#  size_unit_name      :string
-#  size_value          :decimal(19, 4)   not null
-#  started_on          :date
-#  state               :string
-#  stopped_on          :date
-#  support_id          :integer          not null
-#  support_nature      :string
-#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id           :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  usage               :string           not null
+#  activity_id          :integer          not null
+#  campaign_id          :integer
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  cultivable_zone_id   :integer
+#  custom_fields        :jsonb
+#  custom_name          :string
+#  id                   :integer          not null, primary key
+#  irrigated            :boolean          default(FALSE), not null
+#  lock_version         :integer          default(0), not null
+#  nitrate_fixing       :boolean          default(FALSE), not null
+#  production_nature_id :integer
+#  provider             :jsonb            default("{}")
+#  rank_number          :integer          not null
+#  season_id            :integer
+#  size_indicator_name  :string           not null
+#  size_unit_name       :string
+#  size_value           :decimal(19, 4)   not null
+#  started_on           :date
+#  starting_year        :integer
+#  state                :string
+#  stopped_on           :date
+#  support_id           :integer          not null
+#  support_nature       :string
+#  support_shape        :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id            :integer
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  usage                :string           not null
 #
 
 class ActivityProduction < ApplicationRecord
   include Attachable
   include Customizable
+  include Providable
 
-  enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
+  refers_to :support_nature, class_name: 'ProductionSupportNature'
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -77,25 +81,26 @@ class ActivityProduction < ApplicationRecord
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
+  belongs_to :production_nature, class_name: 'MasterProductionNature', foreign_key: :production_nature_id
 
-  has_geometry :support_shape, type: :multi_polygon
+  has_geometry :support_shape, :headland_shape, type: :multi_polygon
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :custom_name, :state, length: { maximum: 500 }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
-  validates :state, length: { maximum: 500 }, allow_blank: true
   validates :stopped_on, timeliness: { on_or_after: ->(activity_production) { activity_production.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :rank_number, uniqueness: { scope: :activity_id }
-  validates :started_on, presence: true
+  validates :started_on, :stopped_on, presence: true
   # validates_presence_of :cultivable_zone, :support_nature, if: :plant_farming?
-  validates :support_nature, presence: { if: :plant_farming? }
-  validates :campaign, :stopped_on, presence: { if: :annual? }
-  validates :started_on, presence: true
+  validates :support_nature, presence: { if: -> { plant_farming? || vine_farming? } }
+  validates :campaign, presence: { if: :annual? }
+  validates :starting_year, presence: { if: :perennial? }, allow_blank: true, numericality: { greater_than_or_equal_to: ->(activity_production) { activity_production.started_on.year }, less_than_or_equal_to: ->(activity_production) { activity_production.stopped_on.year } }
   validates :support, presence: true
   validates_associated :support
 
@@ -105,10 +110,10 @@ class ActivityProduction < ApplicationRecord
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
-  delegate :animal_farming?, :plant_farming?, :tool_maintaining?,
-           :at_cycle_start?, :at_cycle_end?, :use_seasons?, :use_tactics?,
+  delegate :animal_farming?, :plant_farming?, :tool_maintaining?, :vine_farming?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
-           :color, :annual?, :perennial?, to: :activity, allow_nil: true
+           :color, :annual?, :perennial?, :production_started_on_year,
+           :production_stopped_on_year, :life_duration, :production_started_on, :production_stopped_on, to: :activity, allow_nil: true
 
   scope :of_campaign, lambda { |campaign|
     where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
@@ -173,14 +178,16 @@ class ActivityProduction < ApplicationRecord
 
   before_validation do
     self.started_on ||= Date.today
-    self.usage = Onoma::ProductionUsage.first unless usage
+    self.usage ||= Onoma::ProductionUsage.first
+    self.support_nature ||= :cultivation
     if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
+      self.stopped_on ||= self.started_on + life_duration.to_i.year if perennial?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
       if valid_period_for_support?
-        if plant_farming?
+        if plant_farming? || vine_farming?
           initialize_land_parcel_support!
         elsif animal_farming?
           initialize_animal_group_support!
@@ -195,6 +202,10 @@ class ActivityProduction < ApplicationRecord
   before_validation(on: :create) do
     self.state ||= :opened
     true
+  end
+
+  validate do
+    errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape && support_shape.empty?
   end
 
   after_save do
@@ -229,16 +240,6 @@ class ActivityProduction < ApplicationRecord
       end
       ancestors
     end.flatten.uniq
-  end
-
-  def computed_support_name
-    list = []
-    list << cultivable_zone.name if cultivable_zone
-    list << campaign.name if campaign
-    list << activity.name
-    list << :rank.t(number: rank_number)
-    list.reverse! if 'i18n.dir'.t == 'rtl'
-    list.join(' ')
   end
 
   # compile unique work_number for support
@@ -408,23 +409,23 @@ class ActivityProduction < ApplicationRecord
   end
 
   def started_on_for(campaign)
-    return self.started_on if annual?
+    return started_on if annual?
 
-    on = begin
-           Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
-         rescue
-           Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day - 1)
-         end
-    on -= 1.year if at_cycle_end?
-    on
+    begin
+      Date.civil(campaign.harvest_year + production_started_on_year, production_started_on.month, production_started_on.day)
+    rescue
+      Date.civil(campaign.harvest_year, 1, 1)
+    end
   end
 
   def stopped_on_for(campaign)
     return stopped_on if annual?
 
-    on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day) - 1
-    on += 1.year if at_cycle_start?
-    on
+    begin
+      Date.civil(campaign.harvest_year + production_stopped_on_year, production_stopped_on.month, production_stopped_on.day)
+    rescue
+      Date.civil(campaign.harvest_year, 12, 31)
+    end
   end
 
   # Used for find current campaign for given production
@@ -736,21 +737,28 @@ class ActivityProduction < ApplicationRecord
     "#{support_work_number} - #{net_surface_area.convert(:hectare).round(2)}"
   end
 
+  def human_area(unit = :hectare)
+    if support_shape
+      support_shape_area.convert(unit).round(2).l(precision: 2)
+    end
+  end
+
   # Returns unique i18nized name for given production
   # FIXME: Not unique if interactor fails
   def name(_options = {})
     interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
                  .call(activity_production: self)
 
-    return interactor.build_name if interactor.success?
-
-    if interactor.fail?
+    if interactor.success?
+      interactor.build_name
+      # interactor is not loaded before the rake first run task
+    else
       list = []
+      list << cultivable_zone.name if cultivable_zone && (plant_farming? || vine_farming?)
       list << activity.name
-      list << campaign.harvest_year.to_s if activity.annual? && started_on
+      list << campaign.harvest_year.to_s if activity.annual? && started_on && campaign_id
       # list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-      list << cultivable_zone.name if cultivable_zone && plant_farming?
-      # list << :rank.t(number: rank_number)
+      list << :rank.t(number: rank_number)
       list = list.reverse! if 'i18n.dir'.t == 'rtl'
       list.join(' ')
     end

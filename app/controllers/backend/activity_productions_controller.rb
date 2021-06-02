@@ -35,7 +35,7 @@ module Backend
     end
 
     # List interventions for one production support
-    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT intervention_id FROM activity_productions_interventions WHERE activity_production_id = ?)", 'record', 'params[:id]'.c], order: { created_at: :desc }, line_class: :status) do |t|
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT activity_productions_interventions.intervention_id FROM activity_productions_interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = activity_productions_interventions.intervention_id WHERE activity_production_id = ? AND campaigns_interventions.campaign_id = ?)", 'record', 'params[:id]'.c, 'current_campaign'.c], order: { created_at: :desc }, line_class: :status) do |t|
       t.column :name, url: true
       # t.status
       t.column :started_at
@@ -94,6 +94,10 @@ module Backend
         tactic_id: params[:tactic_id],
         usage: params[:usage]
       )
+
+      if params[:activity_id] && activity = Activity.find(params[:activity_id])
+        @activity_production.attributes = ActivityProductions::DefaultAttributesValueBuilder.build(activity, current_campaign)
+      end
 
       t3e(@activity_production.attributes.merge(name: @activity_production.name))
       render(locals: { cancel_url: :back, with_continue: false })

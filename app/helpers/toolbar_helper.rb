@@ -41,11 +41,11 @@ module ToolbarHelper
           nature = Onoma::DocumentNature.find(nature_name)
           modal_id = nature.name.to_s + '-exporting'
           if Document.of(nature.name, key).any?
-            @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id, document_label: options[:document_label])
+            @template.content_for :popover, @template.render('backend/shared/export', nature: nature, key: key, modal_id: modal_id, document_label: options[:document_label], target: options[:target])
             menu.item options[:item_label] || nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
           else
             DocumentTemplate.of_nature(nature.name).each do |template|
-              menu.item(options[:item_label] || template.name, @template.params.merge(format: :pdf, template: template.id, key: key))
+              menu.item(options[:item_label] || template.name, @template.params.merge(format: :pdf, template: template.id, key: key), target: options[:target])
             end
           end
         end
@@ -56,7 +56,7 @@ module ToolbarHelper
     def import(*formats, label: :import, **options)
       @template.dropdown_menu_button(label) do |menu|
         formats.each do |format|
-          menu.item(format, controller: "/backend/#{options[:controller]}", action: "import_#{format}")
+          menu.item(format.tl, controller: "/backend/#{options[:controller]}", action: "import_#{format}")
         end
       end
     end

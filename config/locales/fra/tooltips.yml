@@ -23,6 +23,10 @@ fra:
         request: "Planifiée"
         rejected: "Rejetée"
         done: "Terminée"
+      issue:
+        go: "Incident résolu"
+        caution: "Résolution de l'incident"
+        stop: "Incident en cours"
       loan:
         go: "En cours"
         caution: "Brouillon"

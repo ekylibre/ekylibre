@@ -2,7 +2,8 @@
   = purchase_invoice_badges @purchase_invoice
 
 - main_toolbar class: 'main-toolbar-fullwidth' do |t|
-  = t.export :purchases_invoice
+  = t.export(:purchases_invoice, target: "_blank")
+  
   = t.edit resource if resource.updateable?
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.destroy

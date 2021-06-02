@@ -64,6 +64,9 @@ class FixedAssetDepreciation < ApplicationRecord
   scope :not_accountable, -> { where(accountable: false) }
   scope :not_locked, -> { where(locked: false) }
   scope :up_to, ->(date) { where('fixed_asset_depreciations.stopped_on <= ?', date) }
+  scope :on, ->(date) {
+    where('fixed_asset_depreciations.stopped_on >= ? AND fixed_asset_depreciations.started_on <= ?', date, date)
+  }
 
   scope :with_active_asset_up_to, lambda { |date|
     joins(:fixed_asset)

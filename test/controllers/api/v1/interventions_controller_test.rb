@@ -160,6 +160,7 @@ module Api
         variant = create(:product_nature_variant)
         product = create(:seed_product)
         product.variant.read!(:net_mass, '2000 kilogram')
+        ActiveSupport::Deprecation.warn('variety param is deprecated, should be replaced by specie_variety_name')
         params = {
           procedure_name: 'sowing',
           providers: { zero_id: 5 },
@@ -220,7 +221,7 @@ module Api
         intervention = Intervention.find(id)
         assert_equal 2, intervention.group_parameters.count
         assert_equal 2, intervention.outputs.count
-        assert_equal 'test', intervention.outputs.last.variety
+        assert_equal 'test', intervention.outputs.last.specie_variety_name
         assert_equal 'test2', intervention.outputs.last.batch_number
       end
 

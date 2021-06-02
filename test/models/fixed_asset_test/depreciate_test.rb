@@ -15,7 +15,7 @@ module FixedAssetTest
       assert fa.start_up
 
       # Initial depreciation
-      assert_equal 1, FixedAsset.depreciate(until: Date.new(2017, 12, 31))
+      assert_equal 1, FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: Date.new(2017, 12, 31))
       fa.reload
 
       assert_equal 1, fa.depreciations.where(accountable: true).count
@@ -29,7 +29,7 @@ module FixedAssetTest
       FinancialYearLocker.new.lock!(FinancialYear.on(Date.new(2017, 1, 2)))
 
       # Next year, depreciate again
-      assert_equal 1, FixedAsset.depreciate(until: Date.new(2018, 12, 31))
+      assert_equal 1, FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: Date.new(2018, 12, 31))
       fa.reload
 
       _, dep, *other = fa.depreciations
@@ -39,7 +39,7 @@ module FixedAssetTest
       assert other.all? { |d| d.journal_entry.nil? }, "The remaining depreciations should not have a journal_entry"
 
       # Depreciations without financial years should not be modified
-      assert_equal 0, FixedAsset.depreciate(until: Date.new(2020, 10, 17))
+      assert_equal 0, FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: Date.new(2020, 10, 17))
       fa.reload
 
       _first, _second, *other = fa.depreciations

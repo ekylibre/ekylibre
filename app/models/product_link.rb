@@ -55,6 +55,8 @@ class ProductLink < ApplicationRecord
   # ]VALIDATORS]
   validates :linked, presence: true
 
+  delegate :name, to: :linked, prefix: true
+
   scope :with, ->(nature) { where(nature: nature.to_s) }
 
   # Returns all the siblings

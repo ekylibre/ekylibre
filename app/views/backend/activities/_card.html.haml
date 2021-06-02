@@ -5,15 +5,7 @@
   = link_to('', {controller: :activities, action: :show, id: activity.id }, attrs.merge(class: 'activity-avatar', title: activity.name))
   .activity-content
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)
-    .activity-indicators
-      .activity-indicator.size
-        = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
-      .activity-indicator.cumulated-time
-        = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
-      .activity-indicator.opened-issues
-        = activity.opened_issues_count.to_s + '/' + activity.issues_count.to_s
-      .activity-indicator.ift
-        = :pfi_interventions.tl
-        = PfiCampaignsActivitiesIntervention.pfi_value_on_activity_campaign(activity, current_campaign)
-      .activity-indicator.cash
-        = activity.total_costs.to_i.l(currency: currency.name)
+    - if %w[administering animal_farming plant_farming tool_maintaining vine_farming].include?(activity.family)
+      = render "backend/activities/card_content/#{activity.family}", activity: activity, campaign: campaign, currency: currency
+    - else 
+      = render "backend/activities/card_content/default", activity: activity, campaign: campaign, currency: currency

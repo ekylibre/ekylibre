@@ -30,7 +30,10 @@
 #  creator_id                         :integer
 #  currency                           :string           not null
 #  custom_fields                      :jsonb
+#  financial_year_exchange_id         :integer
 #  id                                 :integer          not null, primary key
+#  isacompta_code                     :string
+#  isacompta_label                    :string
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
@@ -128,6 +131,33 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal BigDecimal(balance[1][3]), sale.amount - sale.pretax_amount
     assert_equal BigDecimal(balance[3][2]), sale.amount
     assert_equal BigDecimal(balance[3][3]), sale.amount
+  end
+
+  test 'journal currently exchanged with isacompta format should require isacompta code and isacompta label presence + check length' do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    exchange = create(:financial_year_exchange, financial_year: fy, format: :isacompta)
+    journal = build(:journal, financial_year_exchange_id: exchange.id)
+    assert_not journal.valid?, 'Require isacompta fields'
+
+    journal.isacompta_label = 'My new isacompta label'
+    journal.isacompta_code = 'ABC'
+    assert_not journal.valid?, 'Isacompta code should have a maximum of 2 caracters'
+
+    journal.isacompta_code = 'AB'
+    journal.isacompta_label = 'This label contains more than 30 caracters and is not valid'
+    assert_not journal.valid?, 'Isacompta label should have a maximum of 30 caracters'
+
+    journal.isacompta_label = 'My new isacompta label'
+    assert journal.valid?, 'Should be valid'
+  end
+
+  test 'journal currently exchanged with ekyagri format should not require isacompta code and isacompta label presence' do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    exchange = create(:financial_year_exchange, financial_year: fy, format: :ekyagri)
+    journal = build(:journal, financial_year_exchange_id: exchange.id)
+    assert journal.valid?, 'Should be valid'
   end
 
   private

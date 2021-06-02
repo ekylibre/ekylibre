@@ -179,10 +179,9 @@ module Procedo
         # Impact changes on attributes of parameter based on given field
         def impact_on_attributes(field = nil)
           reference.attributes.each do |attribute|
-            next unless field != attribute.name
+            next if field == attribute.name
 
             if attribute.default_value? && attribute.default_value_with_environment_variable?(field, :self)
-
               next if attribute.condition? && !usable_attribute?(attribute)
 
               value = compute_attribute(attribute)

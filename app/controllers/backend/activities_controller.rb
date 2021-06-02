@@ -35,9 +35,15 @@ module Backend
       t.column :cultivation_variety, hidden: true
       t.column :with_supports
       t.column :support_variety, hidden: true
+      t.column :isacompta_analytic_code, hidden: AnalyticSegment.where(name: 'activities').none?
     end
 
     def index
+      missing_code_count = Activity.where('isacompta_analytic_code IS NULL').count
+      segment = AnalyticSegment.find_by(name: 'activities')
+      if segment.presence && missing_code_count > 0
+        notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+      end
       @currency = Onoma::Currency.find(Preference[:currency])
       activities_of_campaign = Activity.of_campaign(current_campaign)
       @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
@@ -122,25 +128,6 @@ module Backend
       activity_ids << @activity.id
       PfiReportJob.perform_later(campaign, activity_ids, current_user)
       notify_success(:document_in_preparation)
-    end
-
-    # Returns wanted varieties proposition for given family_name
-    def family
-      unless family = Onoma::ActivityFamily[params[:name]]
-        head :not_found
-        return
-      end
-      data = {
-        label: family.human_name,
-        name: family.name
-      }
-      if family.cultivation_variety.present?
-        data[:cultivation_varieties] = Onoma::Variety.selection_hash(family.cultivation_variety)
-      end
-      if family.support_variety.present?
-        data[:support_varieties] = Onoma::Variety.selection_hash(family.support_variety)
-      end
-      render json: data
     end
 
     # List of productions for one activity

@@ -22,9 +22,9 @@
         = label_tag :target.tl, nil, class: 'control-label'
 
         .controls
-          = radio_button_tag 'target', 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          = radio_button_tag "target#{f.index}", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
           = label_tag :plant.tl
-          = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = radio_button_tag "target#{f.index}", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
     - product_data = {}
@@ -84,7 +84,7 @@
 
   - if reference.quantified?
     = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
-  
+
   - if f.object.reference_name.to_sym == :plant_medicine # Display usage informations of product
     = render 'intervention_usage_informations'
 
@@ -97,17 +97,16 @@
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?
       - if reference.procedure.of_category?(:planting)
-        = f.input :variety, as: :hidden, input_html: { data: { intervention_updater: prefix + 'variety' }}
+        = f.input :specie_variety_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'specie_variety_name' }}
         = f.input :batch_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'batch_number' }}
       - else
         = f.input :new_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_name' }}
     - else
       - if reference.procedure.of_category?(:planting)
-        = f.input :variety, input_html: { data: { intervention_updater: prefix + 'variety' }}
+        = f.input :specie_variety_name,label: reference.procedure.of_category?(:vine_planting) ? :variety_vine.tl : :variety.tl, input_html: { data: { intervention_updater: prefix + 'specie_variety_name' }}
         = f.input :batch_number, input_html: { data: { intervention_updater: prefix + 'batch_number' }}
       - else
         = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
-
   - if (attr = reference.attribute(:identification_number))
     - if attr.hidden?
       = f.input :identification_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'identification_number' }}
@@ -123,7 +122,8 @@
     - if attr.hidden?
       = f.input :new_variant_id, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
     - else
-      = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+      -#= f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+      = f.referenced_association :new_variant, source: { scope: reference.attribute(:new_variant).scope_hash.merge(availables: true), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_variant_id' } }, new: false
 
   - if reference.attribute(:working_zone)
     - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)

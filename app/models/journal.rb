@@ -32,7 +32,10 @@
 #  creator_id                         :integer
 #  currency                           :string           not null
 #  custom_fields                      :jsonb
+#  financial_year_exchange_id         :integer
 #  id                                 :integer          not null, primary key
+#  isacompta_code                     :string
+#  isacompta_label                    :string
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
@@ -52,6 +55,10 @@ class Journal < ApplicationRecord
   attr_readonly :currency
   refers_to :currency
   belongs_to :accountant, class_name: 'Entity'
+  belongs_to :financial_year_exchange
+  delegate :ekyagri?, :isacompta?, to: :financial_year_exchange,
+    prefix: :exchanged_with_format, allow_nil: true
+
   has_many :cashes, dependent: :restrict_with_exception
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
@@ -71,6 +78,9 @@ class Journal < ApplicationRecord
   validates :code, uniqueness: true, format: { with: /\A[A-Z0-9]+\z/ }, length: { maximum: 4 }
   validates :name, uniqueness: true
   validates :accountant, absence: true, unless: :various_without_cash?
+  validates_format_of :isacompta_code, with: /\A[A-Z0-9]+\z/, if: -> { isacompta_code? || exchanged_with_format_isacompta? }
+  validates_length_of :isacompta_code, is: 2, if: -> { isacompta_code? || exchanged_with_format_isacompta? }
+  validates_length_of :isacompta_label, maximum: 30, if: -> { isacompta_label? || exchanged_with_format_isacompta? }
 
   selects_among_all :used_for_affairs, :used_for_gaps, :used_for_unbilled_payables, if: :various?, scope: :currency
   selects_among_all :used_for_permanent_stock_inventory, if: :stocks?, scope: :currency
@@ -97,6 +107,7 @@ class Journal < ApplicationRecord
   scope :fixed_assets,    -> { where(nature: 'fixed_assets') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
   scope :purchases_or_fixed_assets, -> { where(nature: %w[purchases fixed_assets]) }
+  scope :currently_exchanged, -> { joins(:financial_year_exchange).where("financial_year_exchanges.format = 'isacompta' AND (isacompta_code IS NULL OR isacompta_label IS NULL)") }
 
   before_validation(on: :create) do
     self.closed_on ||= FinancialYear.last_closure
@@ -150,7 +161,7 @@ class Journal < ApplicationRecord
 
   protect(on: :destroy) do
     entries.any? || entry_items.any? || cashes.any? || sale_natures.any? ||
-      purchase_natures.any? || incoming_payment_modes.any?
+      purchase_natures.any? || incoming_payment_modes.any? || exchanged_with_format_isacompta?
   end
 
   # Prints human name of current state

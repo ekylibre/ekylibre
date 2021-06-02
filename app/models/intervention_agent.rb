@@ -56,6 +56,7 @@
 #  quantity_value           :decimal(19, 4)
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -63,7 +64,6 @@
 #  usage_id                 :string
 #  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
-#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 

@@ -71,7 +71,7 @@
 
 - unless @draft_entries_count < 1
   .footer-btn-container
-    %button{ class: [('btn btn-default no-icn'),('disabled' if !@can_validate)], type: 'button', 'data-toggle': 'modal', 'data-target': '#entries-validation-modal' }= t("labels.validate_x_entries", count: @entries_to_validate_count)
+    %button{ class: [('btn btn-default no-icn'),('disabled' if !@can_validate)], type: 'button', 'data-toggle': 'modal', 'data-target': '#entries-validation-modal' }= t("labels.validate_x_entries", count: @draft_entries_count)
 
 
 .modal.fade#entries-validation-modal{ tabindex: '-1', role: 'dialog' }
@@ -86,4 +86,4 @@
         = :journal_entries_deletion_confirmation_message.tl
       .modal-footer
         %button.btn.btn-default.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl
-        = link_to t("labels.validate_x_entries", count: @entries_to_validate_count), { controller: :draft_journals, action: :confirm_all, from: @current_from_date, to: @current_to_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: 'btn btn-primary no-icn', method: :post}
+        = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, from: @current_from_date, to: @current_to_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: 'btn btn-primary no-icn', method: :post}

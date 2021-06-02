@@ -3,24 +3,41 @@
 - content_for :main_title do
   - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
   - if activity
+    - controller_name = controller_path
+    - controller_name += "_of_plant" if resource.plant_farming?
     - action_title_key << '_specified'
-  = "actions.#{controller_path}.#{action_title_key}".t(activity: activity.name)
+  = "actions.#{controller_name}.#{action_title_key}".t(activity: activity.name)
 
+- config = ActivityProductions::FormConfigBuilder.build(f.object)
 = field_set do
-  -# = f.input :name
   = f.referenced_association :activity, as: :hidden
+
   - if activity.annual?
-    - f.object.campaign ||= current_campaign
-    = f.referenced_association :campaign, disabled: f.object.persisted?
-  = f.date_range
+    = f.referenced_association :campaign, disabled: f.object.persisted?, required: true
+    = f.date_range(:started_on, :stopped_on, required: true, input_html: { data: { started_on_year_relative: f.object.activity.production_started_on_year || 0,  stopped_on_year_relative: f.object.activity.production_stopped_on_year || 1 } })
+
+  - if activity.perennial?
+    = f.input :started_on, label: (activity.plant_farming? || activity.vine_farming?) ? :work_start_on_support_vegetal.tl : :work_start_on_support_animal.tl
+    = f.input(:production_cycle_period, label: :full_production_period.tl, required: true, wrapper: :append) do
+      = content_tag(:span, :from_year.tl, class: 'add-on')
+      = f.input :starting_year, collection: config.fetch(:starting_year_collection), include_blank:false, error: false, wrapper: :simplest
+      = content_tag(:span, :until.tl, class: 'add-on')
+      = f.input(:stopped_on, wrapper: :simplest)
+      = f.error :starting_year
+
   - if f.object.use_seasons?
     = f.association :season, as: :radio_buttons, collection: activity.seasons
-  - if activity.plant_farming?
+
+  - if activity.vine_farming? || activity.plant_farming?
+    = f.referenced_association :production_nature,
+      new: false, source: { scope: { of_species: config.fetch(:production_nature_specie_scope) } },
+      value: activity.production_nature_id
+
+  - if activity.vine_farming? || activity.plant_farming?
     -# Vegetal cropsra
-    = f.input :support_nature, as: :radio_buttons
-    - f.object.usage ||= :grain
-    = f.input :usage
-    - if activity && activity.production_system.present?
+    = f.input :usage, collection: config.fetch(:usage_collection), selected: activity.main_output_name
+    = f.referenced_nomenclature :support_nature, as: :radio_buttons, collection: config.fetch(:support_nature_collection), checked: :cultivation
+    - if activity.production_system.present?
       - source = { scope: { of_production_system: activity.production_system.name } }
     = f.referenced_association :cultivable_zone, source: source
     - if @land_parcel_naming_format
@@ -31,15 +48,20 @@
         = f.input_field :custom_name
         = content_tag(:span, '', data: { support_name_preview: { activity_production: { activity_id: activity.id, campaign_id: current_campaign.id } }})
         = link_to(:configure_naming_format.tl, edit_backend_naming_format_land_parcel_path(@land_parcel_naming_format), target: :_blank)
-    = f.shape :support_shape, required: true
     = f.input :irrigated
     = f.input :nitrate_fixing
+    = f.shape :support_shape, required: true
+
   - elsif activity.animal_farming?
     -# Animal farming
+    = f.input :usage, collection: config.fetch(:usage_collection), selected: activity.main_output_name
+    = f.referenced_nomenclature :support_nature, as: :radio_buttons, collection: config.fetch(:support_nature_collection), checked: :animal_group
     = f.referenced_association :support, source: { scope: { of_variety: :animal_group } }, new: {controller: :animal_groups}
     = f.input :size_value, label: :indicative_group_size.tl
+
   - elsif activity.tool_maintaining?
     = f.input :size_value, label: ActivityProduction.human_attribute_name(:size)
+
   - elsif activity.with_supports
     -# Other families
     = f.referenced_association :support

@@ -72,6 +72,7 @@ fra:
     bird_band: "Bande d'oiseaux" #?
     bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
+    candles: "Bougies"
     caregiver: "Soigneur"
     chemical_mix: "Mélange de produits de protection des végétaux" #?
     chemical_storage: "Stockage de produits de protection des végétaux" #?
@@ -91,11 +92,13 @@ fra:
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
+    cutting_equipment: "Équipement de coupe"
     destination_tank: "Cuve de destination"
     disinfectant: "Désinfectant"
     doer: "Opérateur"
     driver: "Conducteur"
     eggs: "Œufs"
+    electric_pruning_shears: "Sécateur electrique"
     energy: "Energie"
     equipment: "Équipement"
     excrement: "Excrément" #?
@@ -117,6 +120,7 @@ fra:
     food_storage: "Stockage du mélange" #?
     forager: "Ensileuse"
     forager_driver: "Conducteur d’ensileuse"
+    frost_protection_equipment: "Équipement de protection anti-gel"
     fruit_harvester: "Récolteuse de fruit" #?
     fruits: "Fruits" #?
     fuel: "Carburant"
@@ -136,6 +140,7 @@ fra:
     grinder: "Broyeur"
     group: "Groupe" #?
     hand_drawn: "Tireuse"
+    hand_tying: "Pince à lier"
     harrow: "Herse"
     harvester_man: "Récolteur" #?
     hay_rake: "Andaineur"
@@ -152,6 +157,8 @@ fra:
     insecticide_to_input: "Insecticide à distribuer" #?
     insemination: "Insémination"
     inseminator: "Inséminateur"
+    interrow_hill_remover: "Décavaillonneuse"
+    interrow_hiller: "Chausseuse | Rechausseuse"
     item: "Pièce"
     item_to_change: "Pièce changée" #?
     items: "Éléments" #?
@@ -159,6 +166,7 @@ fra:
     juice: "Jus"
     juice_to_ferment: "Jus à fermenter"
     land_parcel: "Parcelle"
+    leaves_remover: "Effeuilleuse"
     lifter: "Souleveuse"
     litter: "Litière"
     maintained: "Maintenu" #?
@@ -207,12 +215,14 @@ fra:
     pollinating_insects: "Insectes pollinisateurs"
     pollination_tool: "Outil de pollinisation"
     poultry: "Volailles"
+    pre_pruner: "Outil de taille"
     prepared_product: "Produit préparé"
     press: "Presse"
     product_to_prepare: "Produit à préparer"
     product_to_sort: "Produits à trier"
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
+    protective_sleeves: "Manchon de protection"
     pruner: "Sécateur" #?
     raised_manure: "Fumier collecté"
     replacement_part: "Pièce de remplacement"
@@ -234,6 +244,7 @@ fra:
     seedlings: "Plants"
     seeds: "Semences"
     seeds_to_sow: "Semence à semer" #?
+    shoot_grinder: "Broyeur de sarments"
     sieve_shaker: "Tamiseuse"
     silage: "Ensilage"
     silage_to_deliver: "Ensilage à livrer" #?
@@ -273,6 +284,7 @@ fra:
     tractor: "Tracteur"
     trailed_equipment: "Outil tracté"
     trailer: "Remorque"
+    trunck_cleaner: "Épampreuse"
     tunnel: "Tunnel/Chenille"
     tunnel_implanter: "Outil de pose de tunnel/chenille"
     tunnel_remover: "Outil de retrait de tunnel/chenille"
@@ -281,6 +293,10 @@ fra:
     vehicle: "Véhicule"
     vial: "Paillette"
     vial_to_give: "Paillette à utiliser" #?
+    vine_lifter: "Arracheuse de vigne"
+    vine_planter: "Planteuse de vigne"
+    vine_shoot_extractor: "Tireuse de bois"
+    vine_trimmer: "Rogneuse"
     walnuts: "Noix" #?
     water: "Eau"
     water_to_spread: "Eau à apporter" #?
@@ -298,6 +314,7 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
+    wire_lifter: "Releveuse"
     work: "Opération sur équipement"
     worker: "Travailleur"
     zone: "Zone"
@@ -331,6 +348,7 @@ fra:
     double_seed_mixing: "Mélange de semences avec deux semences" #?
     double_spraying_on_cultivation: "Pulvérisation sur culture (deux spécialités)" #?
     double_spraying_on_land_parcel: "Pulvérisation sur parcelle (deux spécialités)" #?
+    earth_work: "Terrassement"
     egg_collecting: "Ramassage d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
@@ -411,7 +429,7 @@ fra:
     plowing: "Labour"
     plums_harvest: "Récolte de prunes" #?
     pollination: "Pollinisation"
-    product_evolution: "Evolution d'un produit" #?
+    product_evolution: "Évolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
     seedbed_preparing: "Préparation du lit de semences"
@@ -442,9 +460,50 @@ fra:
     tunnel_installation: "Pose de chenille ou tunnel"
     tunnel_removing: "Retrait de chenille ou tunnel"
     uncompacting: "Décompactage"
+    vine_capsuls_dispersing: "Pose de capsules de bio-contrôle"
+    vine_complanting: "Complantation"
+    vine_folding: "Pliage"
+    vine_frost_protecting: "Protection anti-gel"
+    vine_grapes_removing: "Éclaircissage"
+    vine_grubbing: "Arrachage"
     vine_harvest: "Vendange" #?
+    vine_inter_row_grinding: "Broyage/roulage couvert inter-rang"
+    vine_inter_row_hill_removing: "Déchaussage"
+    vine_inter_row_hilling: "Chaussage | Rechaussage"
+    vine_inter_row_sowing: "Semis inter-rang"
+    vine_inter_row_weeding: "Désherbage inter-rang" #?
+    vine_layering: "Marcottage"
+    vine_leaves_fertilizing: "Fertilisation foliaire"
+    vine_leaves_removing: "Effeuillage"
+    vine_lifting: "Relevage"
+    vine_planting: "Plantation"
+    vine_plowing: "Labour"
+    vine_pre_pruning: "Pré-taillage"
+    vine_pruning: "Taille"
+    vine_pulling: "Retrait pieds morts/malades"
+    vine_raking: "Hersage"
+    vine_shearing: "Tonte"
+    vine_shoot_extracting: "Tirage des bois"
+    vine_shoot_grinding: "Broyage des sarments"
+    vine_sleeves_net_protecting: "Pose/dépose de manchons/protections"
+    vine_soil_fertilizing: "Épandage engrais | Amendement"
+    vine_spraying_with_fertilizing: "Pulvérisation (avec fertilisation)"
+    vine_spraying_without_fertilizing: "Pulvérisation (sans fertilisation)"
+    vine_trimming: "Écimage | Rognage"
+    vine_trunk_cleaning_debudding: "Épamprage | Ébourgeonnage"
+    vine_uncompacting: "Décompactage | Sous-solage"
+    vine_chemical_weeding: "Désherbage chimique"
     walnuts_harvest: "Récolte de noix" #?
     walnuts_transport: "Transport de noix" #?
     watering: "Irrigation" #?
     wine_blending: "Assemblage de vin"
     wine_bottling: "Mise en bouteille"
+    vine_trellising_maintenance: "Sécaillage | Carassonage"
+    vine_wire_tension: "Tension des fils"
+    vine_stakes_replacing: "Changement des piquets"
+    vine_watering: "Arrosage des vignes"
+    vine_watering_with_fertilizing: "Fertirrigation"
+    vine_watering_installation: "Installation de l'irrigation"
+    vine_wire_lifting_dropping: "Tombée des fils de levage"
+    vine_trellising_construction: "Construction palissage"
+    vine_trellising_destruction: "Destruction palissage"

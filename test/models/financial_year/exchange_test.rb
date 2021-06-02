@@ -15,6 +15,7 @@ module FinancialYearTest
     end
 
     test 'create exchange when it has no opened exchange but journal booked by the accountant' do
+      FinancialYearExchange.delete_all
       accountant = create(:entity, :accountant, :with_booked_journals)
       year = financial_years(:financial_years_025)
       assert year.update_column(:accountant_id, accountant.id)

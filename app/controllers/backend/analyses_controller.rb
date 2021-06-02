@@ -29,6 +29,8 @@ module Backend
     #   :variant_id
     def self.analyses_conditions
       code = search_conditions(entities: [:full_name], analyses: %i[reference_number number]) + " ||= []\n"
+      code << "  c[0] << \" AND #{Analysis.table_name}.nature != ?\"\n"
+      code << "  c << 'sensor_analysis'\n"
       code << "  if params[:sampler_id].to_i > 0\n"
       code << "    c[0] << \" AND \#{Entity.table_name}.id = ?\"\n"
       code << "    c << params[:sampler_id].to_i\n"
@@ -45,7 +47,8 @@ module Backend
 
     list(conditions: analyses_conditions) do |t|
       t.action :edit
-      t.action :destroy
+      t.action :destroy, if: :destroyable?
+      t.column :has_attachments, datatype: :boolean, class: 'center'
       t.column :number, url: true
       t.column :reference_number, url: true
       t.column :nature
@@ -58,8 +61,8 @@ module Backend
 
     list :items, model: :analysis_items, conditions: { analysis_id: 'params[:id]'.c } do |t|
       t.column :indicator, datatype: :item
-      t.column :value, datatype: :measure
-      t.column :annotation
+      t.column :value, datatype: :measure, class: 'center'
+      t.column :annotation, class: 'center'
     end
   end
 end

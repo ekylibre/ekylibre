@@ -1,0 +1,4 @@
+.nested-fields
+  = link_to_remove_nested_association('crop', f)
+  = f.hidden_field :crop_type, input_html: { value: target.camelize }
+  = f.referenced_association :crop, source: target.pluralize.to_sym , new: false, label: :land_parcel_plant.tl

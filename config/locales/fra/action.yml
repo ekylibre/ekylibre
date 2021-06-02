@@ -38,6 +38,10 @@ fra:
       new: "Nouvelle production"
       new_specified: "Nouvelle production de %{activity}"
       show: "Production\_: %{name}"
+    backend/activity_productions_of_plant:
+      edit_specified: "Modifier la parcelle de %{activity}"
+      new_specified: "Nouvelle parcelle de %{activity}"
+      show: "Parcelle\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"
       detach: "Dissocier une affaire"
@@ -52,6 +56,10 @@ fra:
       show: "Analyse N°%{number}"
     backend/analysis_items:
       new: "Nouvel élèment d’analyse"
+    backend/analytic_sequences:
+      index: "Séquence analytique"
+      new: "Nouvelle séquence analytique"
+      edit: "Modifier séquence analytique"
     backend/animal_foods: #?
       index: "Alimentation animale" #?
     backend/animal_groups:
@@ -152,6 +160,11 @@ fra:
       show: "Contrat %{number}"
     backend/crumbs:
       index: "Miettes"
+    backend/crop_groups:
+      edit: "Modifier le groupement parcellaire\_: %{name}"
+      index: "Groupements parcellaires"
+      new: "Nouveau groupement parcellaire"
+      show: "Groupement parcellaire\_: %{name}"
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
       index: "Zones cultivables"
@@ -908,7 +921,7 @@ fra:
       # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
-      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une population de %{population} car il est unique."
+      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une quantité de %{population} car il est unique."
       # invalid_shape: "The geographic shape is invalid"
       # invalid_time: "%{attribute} is not a valid time"
       # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
@@ -1046,6 +1059,24 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    vineyard_area: "Surface encepagée"
+    productive_plants_yield: "Pieds productifs estimés"
+    young_plants_yield: "Jeunes plants estimés"
+    vine_area: "Superficie encépagée"
+    vine_certification: "Appellation / AOP / IGP"
+    vine_plants_interval: "Inter-pied"
+    vine_rows_interval: "Inter-rang"
+    vine_variety_name: "Cépage"
+    planting_campaign: "Campagne de plantation"
+    activate_transmit_analytic_codes: "La séquence analytique est disponible en sélectionnant l’option 'Transmettre les codes analytiques' de l’échange comptable au format Isacompta dans un exercice comptable"
+    isacompta_format_exchanges: "Échanges au format Isacompta"
+    ekyagri_format_exchanges: "Échanges au format Ekylibre"
+    complete_isacompta_journal_code_html: "Complétez les codes des journaux Isacompta sélectionnés dans votre échange comptable : %{journals_link}"
+    number_of_animals: "Membres"
+    warning_could_not_use_ift: "Attention, si la production de référence n'est pas renseignée, les IFT ne pourront pas être calculés."
+    start_state_of_production: "1ère année de production (plantation année N)"
+    isacompta_format_exchanges: "Échanges au format Isacompta"
+    ekyagri_format_exchanges: "Échanges au format Ekylibre"
     csv_format: "Format CSV"
     fec_txt_format: "Format FEC TXT"
     fec_xml_format: "Format FEC XML"
@@ -1058,9 +1089,18 @@ fra:
     journal_entries_csv_export: "Exporter un CSV"
     accountant_notified: "Le comptable a bien été notifié"
     configure_naming_format: "Paramétrer le format de nommage"
+    configure_label_format: "Paramétrer le format de l’étiquette"
     free_field_naming_format_hint: "Vous pouvez ajouter un champ libre personnalisé en paramétrant votre format de nommage"
     land_parcel_support_name: "Nom de la parcelle"
     free_field: "Champ libre"
+    variety: "Variété"
+    variety_vine: "Cépage"
+    use: "Usage"
+    land_parcel_plant: "Parcelle / Culture"
+    land_parcels_plants: "Parcelles / Cultures"
+    add_crop: "Ajouter une Parcelle / Culture"
+    add_use: "Ajouter un usage"
+    total_area: "Superficie totale"
     abilities: "Compétences" #?
     accepted: "Acceptée"
     accepted_for_paiment: "Acceptée pour paiement"
@@ -1146,6 +1186,7 @@ fra:
     add_fax: "Ajouter un n° de fax"
     add_fees: "Ajouter des frais"
     add_field: "Ajouter un champ"
+    add_segment: "Ajouter un segment"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d’agréage"
     add_incoming_payment: "Ajouter un encaissement"
@@ -1405,6 +1446,7 @@ fra:
     centralizing_account: "Compte centralisateur"
     centralizing_accounts: "Comptes centralisateurs"
     centralizing_journal: "Journal centralisateur"
+    cfonb: "Format CFONB"
     change: "Changer"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
@@ -1874,6 +1916,8 @@ fra:
     fees: "Frais"
     fertilizers: "Engrais"
     field: "Champ %{counter}"
+    sequence: "Séquence %{counter}"
+    fill_analytic_codes_of_your_segments: "Pour transmettre les codes analytiques lors de l’échange comptable Isacompta, vous devez renseigner les codes analytiques de vos %{segment}"
     field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
@@ -1882,6 +1926,7 @@ fra:
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"
     file_trimming: "Découpage du fichier :"
+    fill_analytic_codes_of_your_activities: "Renseigner vos codes analytiques ISACOMPTA | %{missing_code_count} manquants sur le segment %{segment}"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
@@ -1937,6 +1982,12 @@ fra:
     forecast_harvest_week: "Semaine de récolte"
     france_maaid: "N° AMM" #?
     from: "À partir du"
+    from_year: "À partir de"
+    to_next_year: "Au"
+    production_cycle_period: "Campagne annuelle de production (année N)"
+    full_production_period: "Campagnes prévisionnelles de pleine production "
+    work_start_on_support_animal: "Date de début"
+    work_start_on_support_vegetal: "Début des travaux sur la parcelle"
     from_to_date: "du %{from} au %{to}"
     fruit_yield: "Rendement fruit"
     full_name: "Client"
@@ -2095,6 +2146,7 @@ fra:
     irreversible_operation: "Cette opération est irréversible"
     irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritant par contact cutané et inhalation, irritation sévère des yeux"
     is: "Est"
+    isacompta_analytic_code: "Code analytique ISACOMPTA"
     # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Incident"
     issues: "Incidents"
@@ -2315,7 +2367,7 @@ fra:
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
     net_production_sales: "Ventes nettes de production"
-    net_surface_area: "Surface nette"
+    net_surface_area: "Surface totale"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     neutral_area_category: "Catégorie de SNA"
@@ -2407,6 +2459,7 @@ fra:
     non_compliant_with_request: "Non conforme par rapport à l'attente"
     none: "Aucun"
     normal: "Régime du réel normal"
+    notification_time: "Il y a %{time}"
     not_allowed_for_organic_farming: "Ce produit n'est pas utilisable en agriculture biologique"
     not_assessable_operations: "Opérations non imposables" #?
     not_begins: "Ne commence pas par" #?
@@ -2432,6 +2485,7 @@ fra:
     number_with_param: "N° %{number}"
     numbers: "Numéros"
     objective_costs_per_hectare: "Objectif de coûts totaux (/ha)" #?
+    ofx: "Format OFX"
     on_account: "À remettre sur le compte"
     on_all_exercises: "sur tous les exercices"
     one_condition: "au moins une condition"
@@ -2571,7 +2625,7 @@ fra:
     pluviometry: "Pluviométrie"
     point: "Point"
     points: "Points"
-    population: "Population"
+    population: "Quantité"
     postal_zone_x: "%{name} (%{postal_code})" #?
     potassium_concentration: "Teneur en potassium (K)"
     potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
@@ -2619,6 +2673,7 @@ fra:
     product_nature: "Type de produit"
     product_nature_category: "Catégorie comptable"
     product_nature_variants: "Variantes"
+    product_nature_variant: "Variante"
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
@@ -2628,7 +2683,7 @@ fra:
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
     production_distribution: "Répartition de la production"
-    production_nature: "Type de production"
+    production_nature: "Production de référence"
     production_others_charges: "Autres charges"
     production_purchases: "Achats d'approvisionnements"
     production_support: "Support de production"
@@ -3223,6 +3278,7 @@ fra:
     user_status: "État"
     users: "Utilisateurs"
     uses: "Matériel" #?
+    using_crop_groups: "Intervention faite sur un groupement parcellaire"
     valid: "Valider"
     validate: "Valider"
     validate_crumbs_for_x_interventions:
@@ -3485,7 +3541,8 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
     y: "Oui" #?
-    year: "Année"
+    year: "an"
+    year_long: "Année"
     year_end: "Fin d'exercice"
     year_start: "Début d'exercice"
     yearly: "Annuelle" #?
@@ -3522,6 +3579,7 @@ fra:
       before_add_a_plant_add_a_x_html: "Avant d’ajouter une culture, vous devez d’abord ajouter\_: %{x}"
       before_add_a_land_parcel_add_a_x_html: "Avant d’ajouter une parcelle, vous devez d’abord ajouter\_: %{x}"
       before_journal_import_assumed_format_x: "Avant l'import, vérifiez que votre fichier respecte bien ces règles\_: %{x}"
+      intervention_crops_rejected: "Les parcelles/Cultures suivantes n'ont pas pu être définies comme cible, car elle ne correspondent pas aux critères de l'intervention\_: %{crops}"
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_add_bank_statement_item: "Vous ne pouvez pas ajouter de nouvelle ligne parce que vous n’avez pas de relevé bancaire ce jour-là."
@@ -3537,6 +3595,7 @@ fra:
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
       changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
       changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
+      check_mandatory_company_informations_x: "Vous pouvez vérifier les informations légales de votre société (BODACC, SIRENE, RNCS) en cliquant sur votre numéro de SIREN\_: %{x}"
       closed_financial_periods: "L'immobilisation se déroule sur des périodes comptables clôturée."
       closed_financial_year_exchange: "L’échange a été correctement clôturé"
       closed_financial_years: "L’exercice a été correctement clôturé"
@@ -3583,6 +3642,7 @@ fra:
       importation_finished: "L’importation est terminée."
       incompatible_browser: "Votre navigateur ne semble pas compatible. Le navigateur Firefox est recommandé pour utiliser Ekylibre."
       information_success_print: "Création réussie ! Vous pouvez maintenant lancer l'impression via le bouton 'Imprimer'."
+      information_success_download: "Création réussie ! Vous pouvez maintenant lancer le téléchargement via le bouton 'Télécharger'."
       informations_feed_is_unreachable: "Le flux d’informations (%{url}) est inaccessible. Message d’erreur\_: %{message}"
       integrate_tools_you_are_using_every_day: "Intégrez les outils que vous utilisez tous les jours"
       invalid_file_nature: "Type de fichier invalide" #?

@@ -29,6 +29,8 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :name, url: true
+      t.column :variant, url: true
+      t.column :member_variant, url: true
       t.column :description
     end
 

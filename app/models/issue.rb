@@ -158,6 +158,10 @@ class Issue < ApplicationRecord
     end
   end
 
+  def human_status
+    I18n.t("tooltips.models.issue.#{status}")
+  end
+
   def picture_path(style = :original)
     picture.path(style)
   end

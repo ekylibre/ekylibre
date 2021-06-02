@@ -1490,7 +1490,6 @@ deu:
     # product_type: "Product type"
     # product_work_number: "Product work number"
     production: "Produktion"
-    production_campaign: "Produktionskampagne"
     production_cycle: "Der Produktionszyklus"
     # production_nature: "Production nature"
     production_support: "Produktionsunterstützung"

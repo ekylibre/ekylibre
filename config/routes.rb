@@ -137,7 +137,7 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy sales purchases stocks production humans tools settings].each do |part|
+        %i[home relationship accountancy sales purchases stocks production humans tools settings idea].each do |part|
           get part
         end
         get :sandbox
@@ -241,7 +241,6 @@ Rails.application.routes.draw do
 
     resources :activities, concerns: %i[list unroll] do
       collection do
-        get :family
         post :duplicate
       end
       member do
@@ -283,6 +282,8 @@ Rails.application.routes.draw do
     end
 
     resources :analysis_items, only: [:new]
+
+    resources :analytic_sequences, except: %i[show]
 
     resources :animal_groups, concerns: :products do
       member do
@@ -411,6 +412,23 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :crops, concerns: %i[unroll]
+
+    resources :crop_groups, concerns: %i[list unroll] do
+      member do
+        post :duplicate
+      end
+      member do
+        get :list_plants
+        get :list_productions
+        get :list_interventions
+
+      end
+      collection do
+        get :unroll_list
+      end
+    end
+
     resources :cultivable_zones, concerns: %i[list unroll], path: 'cultivable-zones' do
       member do
         get :list_productions
@@ -514,6 +532,7 @@ Rails.application.routes.draw do
       member do
         get :list_interventions_on_field
         get :list_equipment_maintenance_interventions
+        get :list_links
       end
     end
 
@@ -564,7 +583,8 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
-        get :list_exchanges
+        get :list_ekyagri_format_exchanges
+        get :list_isacompta_format_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
       end
@@ -812,7 +832,9 @@ Rails.application.routes.draw do
 
     resources :map_editor_shapes, only: :index
 
-    resources :master_production_natures, only: [], concerns: %i[unroll]
+    resources :master_production_natures, only: [:show], concerns: %i[unroll]
+
+    resources :master_production_outputs, only: [:index]
 
     resources :matters do
       concerns :products, :list
@@ -906,6 +928,8 @@ Rails.application.routes.draw do
         get :sepa
       end
     end
+
+    resources :production_usages, only: %i[show]
 
     # resources :contacts, concerns: :entities
 
@@ -1310,6 +1334,12 @@ Rails.application.routes.draw do
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
     resources :gaps, only: %i[index show destroy]
+
+    resources :varieties, only: [] do
+      collection do
+        get :selection
+      end
+    end
   end
 
   root to: 'public#index'

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_inter_row_sowing" categories="vine_soil_working_and_maintenance" actions="sowing" position="70">
+    <parameters>
+        <target name="plant" filter="is vitis and has indicator shape">
+          <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        </target>
+        <input name="seeds" filter="is seed and derives from plant and can grow" cardinality="*">
+          <handler name="population"/>
+          <handler indicator="net_mass" unit="kilogram"
+                   if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                   backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                   forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+          <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                   if="PRODUCT..net_mass? and sum_working_zone_areas(plant) != 0"
+                   backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(plant, :hectare)"
+                   forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        </input>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="sower"   filter="can sow" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

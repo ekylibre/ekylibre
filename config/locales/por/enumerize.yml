@@ -5,9 +5,6 @@ por:
         auxiliary: "Auxiliar"
         main: "Principal"
         standalone: "Standalone"
-      production_campaign:
-        at_cycle_end: "No final do ciclo"
-        at_cycle_start: "No início do ciclo"
       production_cycle:
         annual: "Anual"
         perennial: "Perene"

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_planting" categories="vine_planting, planting" actions="planting" position="10">
+    <parameters>
+      <group name="zone">
+        <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
+          <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        </target>
+        <output name="plant" filter="is vitis" cardinality="1" distribution="target">
+          <attribute name="new_name"/>
+          <reading name="certification_label"/>
+          <reading name="plants_interval"/>
+          <reading name="rows_interval"/>
+          <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
+            <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT? and VARIANT.net_surface_area != 0" to="population"/>
+          </reading>
+        </output>
+      </group>
+      <input name="plants" filter="is seedling and derives from vitis and can grow">
+        <handler name="population"/>
+      </input>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="vine_planter" filter="is equipment and can implant" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

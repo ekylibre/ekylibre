@@ -3,7 +3,7 @@ module Backend
   class FinancialYearExchangesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     include ActiveJob::TestHelper
 
-    test_restfully_all_actions except: %i[journal_entries_export journal_entries_import notify_accountant notify_accountant_modal close toto]
+    test_restfully_all_actions except: %i[journal_entries_export journal_entries_import notify_accountant notify_accountant_modal close create]
     # TODO: Write tests for #journal_entries_export, #journal_entries_import, #notify_accountant, #close
 
     journal_entries_export_formats = %i[csv fec_txt fec_xml]
@@ -35,6 +35,26 @@ module Backend
       assert Notification.find_by(message: :error_during_file_generation.tl)
     end
 
+    test 'selecting journals should set financial year exchange id then close should remove it' do
+      empty_db
+      fy = create(:financial_year, year: 2021)
+      journal1 = create(:journal)
+      journal2 = create(:journal)
+      journal3 = create(:journal)
+      journal4 = create(:journal)
+      post :create, params: { financial_year_exchange: { financial_year_id: fy.id, started_on: '15/01/2021', stopped_on: '20/01/2021', exported_journal_ids: [journal1.id, journal2.id, journal3.id] } }
+      exchange = FinancialYearExchange.last
+      assert_equal exchange.id, journal1.reload.financial_year_exchange_id
+      assert_equal exchange.id, journal2.reload.financial_year_exchange_id
+      assert_equal exchange.id, journal3.reload.financial_year_exchange_id
+      assert_equal nil, journal4.reload.financial_year_exchange_id
+      get :close, params: { id: exchange.id }
+      assert_equal nil, journal1.reload.financial_year_exchange_id
+      assert_equal nil, journal2.reload.financial_year_exchange_id
+      assert_equal nil, journal3.reload.financial_year_exchange_id
+      assert_equal nil, journal4.reload.financial_year_exchange_id
+    end
+
     private def run_journal_entries_export_with_format(format)
       exchange_setup
       perform_enqueued_jobs do
@@ -49,7 +69,7 @@ module Backend
       document = notification.target
       assert document
       assert document.file
-      assert_equal document.file_content_type, "application/zip"
+      assert_equal "application/zip", document.file_content_type
     end
 
     private def run_notify_accountant_with_format(format)
@@ -67,16 +87,22 @@ module Backend
       FinancialYear.delete_all
       FinancialYearExchange.delete_all
       Notification.delete_all
+      Inventory.delete_all
+      Payslip.delete_all
+      PayslipNature.delete_all
+      Journal.delete_all
     end
 
     private def exchange_setup
       empty_db
+      create(:journal)
       fy = create(:financial_year, year: 2021)
       @exchange = create(:financial_year_exchange, financial_year: fy)
     end
 
     private def exchange_setup_with_accountant(with_email: true)
       empty_db
+      create(:journal)
       accountant = if with_email
                      create(:entity, :with_email)
                    else

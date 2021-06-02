@@ -40,6 +40,8 @@ class ProjectBudget < ApplicationRecord
   validates :name, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :name, presence: true
+  validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
+
   has_many :purchase_items
   has_many :reception_items, class_name: 'ParcelItem', foreign_key: :project_budget_id
 end

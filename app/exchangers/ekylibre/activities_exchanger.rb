@@ -63,6 +63,7 @@ module Ekylibre
             cultivation_variety: r.variety,
             support_variety: :animal_group,
             with_supports: true,
+            production_cycle: :perennial,
             size_indicator: 'members_population'
           )
         elsif family <= :administering

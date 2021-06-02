@@ -9,9 +9,6 @@ fra:
         auxiliary: "Auxiliaire"
         main: "Principale"
         standalone: "Indépendante"
-      production_campaign:
-        at_cycle_end: "Celle de la fin de cycle (Année N+1)"
-        at_cycle_start: "Celle du début de cycle (Année N)"
       production_cycle:
         annual: "Annuelle"
         perennial: "Pérenne"
@@ -34,6 +31,7 @@ fra:
         border: "Bordure"
         buffer: "Zone tampon"
         cultivation: "Culture"
+        headland_cultivation: "Culture avec tournières"
         fallow_land: "Jachère"
         none: "Aucun"
     activity_tactic:
@@ -99,6 +97,10 @@ fra:
         sale: "Vente"
         stock: "Stock"
         travel_cost: "Déplacement"
+    crop_group:
+      target:
+        land_parcel: Parcelle
+        plant: Culture
     crumb:
       nature:
         hard_start: "Dur début"
@@ -117,6 +119,26 @@ fra:
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
         text: "Texte"
+    cvi_cadastral_plant:
+      state:
+        planted: "Plantées"
+        removed_with_authorization: "Arrachées avec autorisation"
+      type_of_occupancy:
+        owner: "Propriétaire"
+        tenant_farming: "Fermage"
+    cvi_land_parcel:
+      state:
+        planted: "Plantées"
+        removed_with_authorization: "Arrachées avec autorisation"
+    cvi_cultivable_zone:
+      land_parcels_status:
+        not_started: "Non commencé"
+        started: "En cours"
+        completed: "Terminé"
+    cvi_statement:
+      state:
+        converted: "Parcellaire converti"
+        to_convert: "Parcellaire à convertir"
     debt_transfer:
       nature:
         purchase_regularization: "Régularisation d'achat"
@@ -295,6 +317,12 @@ fra:
       nature:
         background: "Fond"
         overlay: "Calque"
+    analytic_segment:
+      name:
+        activities: "Activités"
+        project_budgets: "Budgets internes"
+        teams: "Équipes"
+        equipments: "Équipements"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activité"
@@ -344,6 +372,11 @@ fra:
         record: "Enregistrement"
         spatial_reference_system: "Système de référence spatiale"
         string: "Chaîne"
+    product:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Fermage"
+        sharecropper: "Métayage"
     product_enjoyment:
       nature:
         other: "Autre"
@@ -520,6 +553,14 @@ fra:
         authorized: "Autorisé"
         provisional: "Provisoire"
         withdrawn: "Retiré"
+    ride:
+      nature:
+        work: "Travail"
+        road: "Route"
+    ride_set:
+      nature:
+        work: "Travail"
+        road: "Route"
     sale: #?
       payment_delay: #?
         1 week: "à réception" #?
@@ -571,6 +612,7 @@ fra:
         outgoing_payment_lists: "Listes de paiement sortant"
         outgoing_payments: "Décaissements"
         parcels: "Colis"
+        payslips: "Salaires"
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories comptables"
@@ -578,10 +620,14 @@ fra:
         product_natures: "Types de produits"
         products: "Produits"
         purchases: "Achats"
+        ride: "Sections d'un trajet"
+        ride_sets: "Trajets géolocalisés"
         sales: "Ventes"
-        sales_invoices: "Factures"
+        sales_invoices: "Factures de ventes"
         subscriptions: "Abonnements"
         tax_declarations: "Déclarations fiscales"
+        wine_incoming_harvest: "Réception de vendange"
+
     synchronization_operation:
       operation_name:
         authenticate: "Authentification"

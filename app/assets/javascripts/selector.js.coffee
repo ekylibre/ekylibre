@@ -179,9 +179,9 @@
           @initializing = false
         if triggerEvents is true
           @valueField.trigger "selector:change", [null, was_initializing]
-          @valueField.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @}}))
+          @valueField.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @, wasInitializing: was_initializing}}))
           @element.trigger "selector:change", [selectedElement, was_initializing]
-          @element.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @}}))
+          @element.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @, wasInitializing: was_initializing}}))
         @valueField.trigger "selector:set"
         @element.trigger "selector:set"
       $(document).data('editedMode', false)
@@ -329,6 +329,11 @@
             unless selected.is(":first-child")
               selected.removeClass "selected"
               selected.prev().addClass "selected"
+      if code is 46 or code is 8 # backspace or delete
+        if @element.val().length == 0
+          @valueField.val ""
+          @valueField.trigger "selector:cleared"
+          @element.trigger "selector:cleared",
       true
 
     _focusOut: (event) ->

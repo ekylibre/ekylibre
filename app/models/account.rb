@@ -611,6 +611,29 @@ class Account < ApplicationRecord
     letter
   end
 
+  def new_isacompta_letter(financial_year_id)
+    # get last isacompta letter in account for financial_year_id
+    last_i_letter = last_isacompta_letter[financial_year_id.to_s]
+    # check if there not items with an isacompta_letter
+    present_items = journal_entry_items.where(financial_year_id: financial_year_id)
+    # if items exist, take existing_isacompta_letter.succ
+    if (last_i_letter.nil? || last_i_letter.blank?) && present_items.any? && present_items.pluck(:isacompta_letter).compact.uniq.count > 0
+      last_i_letter = present_items.reorder('isacompta_letter DESC').first.isacompta_letter
+    end
+    # if no items exist, take first letter
+    if last_i_letter.nil? || last_i_letter.blank?
+      isacompta_letter = 'AAA'
+    elsif last_i_letter == 'ZZZ'
+      isacompta_letter = 'AA1'
+    elsif last_i_letter == 'ZZ9'
+      raise StandardError.new("Isacompta letter is full.")
+    else
+      isacompta_letter = last_i_letter.succ
+    end
+    update_column(:last_isacompta_letter, { financial_year_id.to_s => isacompta_letter })
+    isacompta_letter
+  end
+
   # Finds entry items to mark, checks their "markability" and
   # if.all valids mark.all with a new letter or the first defined before
   def mark_entries(*journal_entries)
@@ -629,6 +652,10 @@ class Account < ApplicationRecord
       letter ||= new_letter
       items = journal_entry_items.where(conditions)
       items.update_all(letter: letter)
+      financial_years = items.select(:financial_year_id).distinct.pluck(:financial_year_id)
+      financial_years.each do |financial_year_id|
+        items.where(financial_year_id: financial_year_id).update_all(isacompta_letter: new_isacompta_letter(financial_year_id))
+      end
 
       # Merge affairs if all entry items selected belong to one AND same affair third
       resources = items.map(&:entry).map(&:resource)
@@ -644,14 +671,16 @@ class Account < ApplicationRecord
     return nil unless item_ids.is_a?(Array) && item_ids.any?
 
     letter ||= new_letter
+    # WARNING we have multiple financial year id for items but normaly not
+    isacompta_letter = new_isacompta_letter(journal_entry_items.first.financial_year_id)
     conditions = ['id IN (?) AND (letter IS NULL OR LENGTH(TRIM(COALESCE(letter, \'\'))) <= 0 OR letter SIMILAR TO \'[A-z]+\\*\')', item_ids]
-    journal_entry_items.where(conditions).update_all(letter: letter)
+    journal_entry_items.where(conditions).update_all(letter: letter, isacompta_letter: isacompta_letter)
     letter
   end
 
   # Unmark.all the entry items concerned by the +letter+
   def unmark(letter)
-    journal_entry_items.where(letter: letter).update_all(letter: nil)
+    journal_entry_items.where(letter: letter).update_all(letter: nil, isacompta_letter: nil)
   end
 
   # Check if the balance of the entry items of the given +letter+ is zero.

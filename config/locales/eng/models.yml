@@ -32,7 +32,7 @@ eng:
       invalid_child: "At least one value of %{attribute} is invalid."
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
-      invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
+      invalid_population_for_unitary_product: "The equipment %{name} cannot have a quantity of %{population} as it is supposed to be unique."
       invalid_shape: "The geographic shape is invalid"
       invalid_time: "%{attribute} is not a valid time"
       invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
@@ -50,7 +50,6 @@ eng:
       not_a_number: "%{attribute} is not a number"
       not_an_end_of_month: "%{attribute} must be an end of month"
       not_an_integer: "%{attribute} must be an integer"
-      not_available_in_ekyagri: "\"%{feature}\" is not available in EkyAgri."
       not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
@@ -70,6 +69,7 @@ eng:
       record_is_not_valid: "The record is invalid"
       should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
+      start_date_before_end_date: "Start date must be before end date."
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -82,20 +82,51 @@ eng:
         <<: *error_messages
   activerecord:
     attributes:
+      financial_year_exchange:
+        transmit_isacompta_analytic_codes: 'Transmit the Isacompta analytical codes'
       account:
         cumulated_absolute_credit_balance: "Credit balance"
         cumulated_absolute_debit_balance: "Debit balance"
+      activity:
+        start_state_of_production: "Start state of production"
+        life_duration: "life duration"
+        production_cycle_period: "Production campaign period"
+        isacompta_analytic_code: "isacompta analytic code"
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"
       activity_tactic:
         mode: "Planning type"
+      animal: #?
+        born_at: "Born on" #?
+        variety: "Breed" #?
+        dead_at: "Release date"
       animal_group:
         born_at: "Created at"
+        dead_at: "End date"
       building:
         born_at: "Built at"
       cashes:
         main_account: "Main account"
+      cvi_cadastral_plant:
+        area: "Area"
+        cadastral_reference: "Cadastral reference"
+        land_parcel_id: "Cadastral reference id"
+        work_number: "Cadastral land parcel number"
+        rootstock_number: "Rootstock"
+        state: "State"
+      cvi_statement:
+        cadastral_plant_count: "Cadastral plant count"
+        cadastral_sub_plant_count: "Cadastral sub plant count"
+        created_at: "Date of import"
+        cvi_number: "Cvi number"
+        extraction_date: "Extraction date"
+        farm_name: "Wine estate"
+        state: "State"
+        total_area: "Total area"
+      cvi_land_parcel:
+        activity_id: Activity
+        land_modification_date: "Removed at"
       document:
         filename: "File"
       document_template:
@@ -135,13 +166,19 @@ eng:
         name: "Entry item label"
       land_parcel:
         born_at: "Created at"
+        dead_at: "End date"
       land_parcel_group:
         born_at: "Created at"
       loan:
         ongoing_at: "Fund raising at"
         started_on: "First repayment started on"
+      matter:
+        born_at: "In stock since"
+        dead_at: "Destroyed/consommed on" #?
       naming_format_field:
         field_name: "Field"
+      notification:
+        done: "Done"
       outgoing_payment:
         delivered: "Given to recipient"
         list: "Disbursement list"
@@ -160,6 +197,7 @@ eng:
         reception_planned_at: "Planned at"
       plant:
         born_at: "Planted at"
+        dead_at: "Destroyed/harvested on"
       plant_counting:
         plant: "Product"
         plant_activity: "Activity"
@@ -212,6 +250,12 @@ eng:
         lib_court: "Number"
         status: "Allowed"
         usage_conditions: "Usage conditions"
+      ride:
+        sleep_duration: "Break time"
+      ride_set:
+        provider_vendor: "Provider"
+        road: "Total distance (km)"
+        sleep_duration: "Break time"
       sale:
         affair_balance: "Balance"
         contact: "Address for the estimate"
@@ -235,6 +279,31 @@ eng:
         deductible: "Deductible"
         fixed_asset_deductible: "Deductible on assets"
         intracommunity_payable: "Intracommunity payable"
+      worker: #?
+        variety: "Qualification" #?
+        born_at: "Created on"
+        dead_at: "Release date"
+        age: "Years in the company"
+      wine_incoming_harvest:
+        harvest_dock: "Harvest dock"
+        harvest_nature: "Harvest nature"
+        harvest_transportation_duration: "Harvest transportation duration"
+        last_load: "Last load"
+        pressing_schedule: "Pressing schedule"
+        pressing_started_at: "Pressing started at"
+        quantity_unit: "Unit"
+        quantity_value: "Quantity"
+        sedimentation_duration: "Sedimentation duration"
+        tavp: 'TAVP (%vol.)'
+        ticket_number: "Ticket"
+        vehicle_trailer: "Vehicle trailer"
+      wine_incoming_harvest_plant:
+        harvest_percentage_received: "Area harvested (%)"
+        net_harvest_area: "Area harvested (ha)"
+        plant: "Plant"
+        plant_specie_variety_name: "Specie"
+      wine_incoming_harvest_storage:
+        storage: "Storage tank"
     errors:
       messages:
         <<: *error_messages
@@ -315,7 +384,9 @@ eng:
       cultivable_zone: "Cultivable zone"
       custom_field: "Custom field"
       custom_field_choice: "Custom field choice"
-      custom_name: "Custom name"
+      cvi_cultivable_zone: "CVI cultivable zone"
+      cvi_land_parcel: "CVI land parcel"
+      custom_name: "custom name"
       cvi_cadastral_plant: "CVI cadastral plants"
       cvi_cadastral_plant_cvi_land_parcel: "CVI cadastral land parcels"
       cvi_statement: "CVI statement"
@@ -416,6 +487,7 @@ eng:
       payslip_nature: "Payslip type"
       payslip_payment: "Payslip payment"
       plant: "Plant"
+      planting_campaign: "Tree-planting campaign"
       plant_counting: "Plant counting"
       plant_counting_item: "Plant counting item"
       plant_density_abacus: "Plant density abacus"
@@ -440,8 +512,9 @@ eng:
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
       product_phase: "Product phase"
-      product_population: "Product population"
+      product_population: "Product quantity"
       product_reading: "Product reading"
+      production_nature: "Production nature"
       # project_budget: "Project budget"
       purchase: "Purchase"
       purchase_affair: "Purchase affair"
@@ -535,6 +608,14 @@ eng:
       wine_incoming_harvest_storage: "Wine incoming harvest storage"
       zone: "Zone"
   attributes:
+    starting_year: "Starting year"
+    isacompta_code: "Isacompta code"
+    isacompta_label: "Isacompta label"
+    declared_area: "Declared area"
+    calculated_area: "Calculated area"
+    rootstock_name: "Rootstock"
+    rootstock_names: "Rootstock(s)"
+    product_human_name_fra: "Product"
     abilities: "Abilities"
     abilities_list: "Abilities list"
     absolute_credit: "Absolute credit"
@@ -578,7 +659,7 @@ eng:
     activity_productions: "Activity productions"
     actor: "Actor"
     actual_number: "Actual number"
-    actual_population: "Actual population"
+    actual_population: "Actual quantity"
     actual_shape: "Actual shape"
     address: "Address"
     addresses: "Addresses"
@@ -961,7 +1042,7 @@ eng:
     executor: "Executor"
     exit_on: "Exit on"
     exit_reason: "Exit reason"
-    expected_population: "Expected population"
+    expected_population: "Expected quantity"
     expected_shape: "Expected shape"
     expected_stop_amount: "Expected stop amount"
     expected_yield: "Expected yield"
@@ -1123,7 +1204,7 @@ eng:
     initial_movement: "Initial movement"
     initial_number: "Initial number"
     initial_owner: "Initial owner"
-    initial_population: "Initial population"
+    initial_population: "Initial quantity"
     initial_releasing_amount: "Initial releasing amount"
     initial_shape: "Initial shape"
     initialization_vectors: "Initialization vectors"
@@ -1186,6 +1267,7 @@ eng:
     irregular_batch: "Irregular batch"
     irrigated: "Irrigated"
     irrigation_water_nitrogen: "Irrigation water nitrogen"
+    isacompta_letter: "Isacompta Letter"
     islet: "Islet"
     islet_number: "Islet number"
     islets: "Islets"
@@ -1472,9 +1554,9 @@ eng:
     point: "Point"
     point_value: "Point value"
     points: "Points"
-    population: "Population"
+    population: "Quantity"
     population_counting: "Population counting"
-    populations: "Populations"
+    populations: "Quantities"
     position: "Position"
     post: "Post"
     postal_code: "Postal code"
@@ -1529,9 +1611,7 @@ eng:
     product_type: "Product type"
     product_work_number: "Product work number"
     production: "Production"
-    production_campaign: "Production campaign"
     production_cycle: "Production cycle"
-    production_nature: "Production nature"
     production_support: "Production support"
     production_supports: "Production supports"
     production_system: "Production system"
@@ -1668,6 +1748,7 @@ eng:
     retrieval_status: "Retrieval status"
     revenues: "Revenues"
     rgt: "Right"
+    rides: "Sections of the geolocated ride"
     rights: "Rights"
     # risk_code: "Risk code"
     # risk_phrase: "Risk phrase"

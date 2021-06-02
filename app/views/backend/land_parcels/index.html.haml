@@ -3,7 +3,7 @@
 = janus do |j|
   - main_toolbar do |t|
     .controls
-      %button{class: "btn btn-default #{'disabled' unless (Activity.any? { |activity| activity.plant_farming? } && CultivableZone.any?) }", id: "generate-land-parcel-btn"}
+      %button{class: "btn btn-default #{'disabled' unless (Activity.any? { |activity| activity.plant_farming? || activity.vine_farming?  } && CultivableZone.any?) }", id: "generate-land-parcel-btn"}
         = :generate_land_parcel.tl
   - land_parcels_map(janus: j, optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path) if LandParcel.any?
   - j.face :list do

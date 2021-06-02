@@ -3,10 +3,19 @@ class FinancialYearExchangeExportJob < ApplicationJob
   queue_as :default
   include Rails.application.routes.url_helpers
 
+  # format csv / fec_txt / fec_xml
   def perform(exchange, format, user, notify_accountant: false)
-    zipname = "#{Time.now.to_i}FEC#{exchange.stopped_on.l(format: '%Y%m%d')}.zip"
+    # send email attached document to accountant or create document in Ekylibre
     begin
       build_zip(exchange, format) do |tempzip|
+        # build zipname
+        if format == 'csv'
+          zipname = "#{Time.now.to_i}CSV#{exchange.stopped_on.l(format: '%Y%m%d')}.zip"
+        elsif format == 'fec_txt' || format == 'fec_xml'
+          zipname = "#{Time.now.to_i}FEC#{exchange.stopped_on.l(format: '%Y%m%d')}.zip"
+        else
+          raise InvalidFormatError.new("Format '#{format}' is not supported")
+        end
         if notify_accountant
           FinancialYearExchangeExportMailer.notify_accountant(exchange, user, tempzip, zipname).deliver_now
           user.notifications.create!(accountant_notified_notification_params)

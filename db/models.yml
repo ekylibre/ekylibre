@@ -16,6 +16,8 @@
 - alert_phase
 - analysis
 - analysis_item
+- analytic_segment
+- analytic_sequence
 - animal
 - animal_group
 - attachment
@@ -40,10 +42,18 @@
 - catalog_item
 - contract
 - contract_item
+- crop_group
+- crop_group_item
+- crop_group_labelling
 - crumb
 - cultivable_zone
 - custom_field
 - custom_field_choice
+- cvi_cadastral_plant
+- cvi_cadastral_plant_cvi_land_parcel
+- cvi_cultivable_zone
+- cvi_land_parcel
+- cvi_statement
 - dashboard
 - debt_transfer
 - delivery
@@ -73,6 +83,10 @@
 - guide
 - guide_analysis
 - guide_analysis_point
+- idea_diagnostic
+- idea_diagnostic_item
+- idea_diagnostic_item_value
+- idea_diagnostic_result
 - identifier
 - import
 - incoming_payment
@@ -84,6 +98,7 @@
 - intervention
 - intervention_agent
 - intervention_costing
+- intervention_crop_group
 - intervention_doer
 - intervention_group_parameter
 - intervention_input
@@ -109,6 +124,7 @@
 - listing_node_item
 - loan
 - loan_repayment
+- location
 - manure_management_plan
 - manure_management_plan_zone
 - map_layer
@@ -130,6 +146,8 @@
 - payslip_affair
 - payslip_nature
 - payslip_payment
+- pfi_campaigns_activities_intervention
+- pfi_intervention_parameter
 - plant
 - plant_counting
 - plant_counting_item
@@ -170,6 +188,8 @@
 - reception_item
 - registered_legal_position
 - regularization
+- ride
+- ride_set
 - role
 - sale
 - sale_affair
@@ -201,5 +221,10 @@
 - user
 - version
 - wice_grid_serialized_query
+- wine_incoming_harvest
+- wine_incoming_harvest_input
+- wine_incoming_harvest_plant
+- wine_incoming_harvest_press
+- wine_incoming_harvest_storage
 - worker
 - zone

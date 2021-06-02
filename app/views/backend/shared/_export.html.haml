@@ -7,9 +7,9 @@
     .modal-body.thumbs
       - Document.of(nature.name, key).each do |document|
         .thumb
-          = link_to(backend_document_path(document, format: :pdf)) do
+          = link_to(backend_document_path(document, format: :pdf), target: :_blank) do
             = image_tag(backend_document_path(document, format: :jpg))
-          = link_to(backend_document_path(document)) do
+          = link_to(backend_document_path(document), target: :_blank) do
             .archived-at= document.updated_at.l
             .template-name= document_name
   - else
@@ -20,5 +20,8 @@
     - if templates.any?
       = dropdown_menu_button(:print, dropup: true) do |menu|
         - templates.each do |template|
-          - menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key))
+          - if target.present?
+            - menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key), target: target)
+          - else
+            - menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key))
     = button_tag(:close.tl, class: 'btn btn-default', data: { dismiss: 'modal' })

@@ -21,7 +21,7 @@
 
 - main_toolbar do |t|
   = dropdown_menu_button(:generate_plant.tl, main_class: "btn btn-default #{'disabled' if LandParcel.count.zero? && Matter.of_variety("seed").count.zero?}") do |d|
-    -  %w[sowing mechanical_planting all_in_one_sowing sowing_with_spraying].each do |variety|
+    -  %w[sowing mechanical_planting all_in_one_sowing sowing_with_spraying vine_planting].each do |variety|
       - d.item variety.tl, { controller: "/backend/interventions", action: :new, procedure_name: variety }
 
 = janus do |j|

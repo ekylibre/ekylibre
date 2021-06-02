@@ -1,0 +1,14 @@
+- main_toolbar do |t|
+  = t.new(params: { redirect: nil })
+
+= kujaku do |k|
+  - k.text
+  - k.helper do
+    %div.label-container
+      %label= :use.tl
+    = select_tag(:label, options_for_select([""] + @labels.map{ |s| [s.name, s.name]}))
+
+= toolbar do |t|
+  = t.new(nature: :request, label: :add_intervention_request.tl, params: { controller: :interventions }, class: 'disabled' ,id: 'new-intervention-request-crop-groups')
+  = t.new(nature: :record, label: :add_intervention_record.tl, params: { controller: :interventions }, class: 'disabled', id: 'new-intervention-record-crop-groups')
+= main_list

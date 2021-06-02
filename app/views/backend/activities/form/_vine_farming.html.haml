@@ -1,0 +1,71 @@
+= field_set do
+  = f.input :name
+  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, class: "disabled" }
+  = f.referenced_nomenclature :production_system
+  - family = Onoma::ActivityFamily[f.object.family]
+  - hint = content_tag :span, class: 'hint-warning' do
+    %i.icon.icon-warning
+    = :warning_could_not_use_ift.tl
+  - is_vegetal_farming = f.object.plant_farming? || f.object.vine_farming?
+  = f.referenced_association :production_nature, new: false, wrapper_html: { style: "display: #{is_vegetal_farming ? 'block' : 'none'}" }, hint: hint
+  - with_cultivation = family.cultivation_variety.present?
+  = f.referenced_nomenclature :cultivation_variety, required: with_cultivation,
+                                                      input_html: { data: { family_cultivation_variety: family.cultivation_variety }},
+                                                      collection: (with_cultivation ? Onoma::Variety.selection(family.cultivation_variety) : []),
+                                                      wrapper_html: { style: "display: #{with_cultivation ? 'block' : 'none'}" }
+  = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
+  = f.input(:production_cycle_period, label: :production_cycle_period.tl, wrapper: :append) do
+    = content_tag(:span, :from.tl, class: 'add-on')
+    = f.input(:production_started_on, input_html: { data: { flatpickr_alt_format: 'd-F',flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
+    = content_tag(:span, :year_long.tl, class: 'add-on')
+    = f.input(:production_started_on_year, collection: [["N-1", -1 ],["N", 0]], wrapper: :simplest)
+    = content_tag(:span, :to_next_year.tl, class: 'add-on')
+    = f.input(:production_stopped_on, input_html: { data: { flatpickr_alt_format: 'd-F', flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
+    = content_tag(:span, :year_long.tl, class: 'add-on')
+    = f.input(:production_stopped_on_year, collection: [["N", 0],["N+1", 1]], input_html: {class: f.object.production_stopped_on_year == 0 ? 'disabled' : ''}, wrapper: :simplest)
+  - is_perennial_vegetal_farming = is_vegetal_farming && f.object.perennial?
+  - if is_vegetal_farming
+    .perennial-production-cycle-options
+      = f.input :start_state_of_production_year, label: :start_state_of_production.tl,
+                                                  collection: f.object.production_nature && f.object.production_nature.start_state_of_production.values.any? && f.object.production_nature.start_state_of_production.values || (1..5).map { |year| MasterProductionNature::StartStateOfProduction.new(year: year, key: "n_#{year}") },
+                                                  label_method: lambda { |ssop| ssop.label(locale: locale) }, value_method: :year,
+                                                  required: is_perennial_vegetal_farming
+      = f.input :life_duration, required: is_perennial_vegetal_farming, wrapper: :append do
+        = f.input_field :life_duration
+        %span.add-on= :year.tl.pluralize
+  = f.input :description
+  - if AnalyticSegment.where(name: 'activities').exists?
+    = f.input :isacompta_analytic_code
+  = f.custom_fields
+
+= field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
+  = f.input :use_gradings, show: '#inspections-fields'
+  #inspections-fields
+    = f.input :measure_grading_items_count
+    = f.input :measure_grading_net_mass, show: '#grading_net_mass'
+    #grading_net_mass
+      - unit_collection = Onoma::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
+      = f.referenced_nomenclature :grading_net_mass_unit, collection: unit_collection.selection(false), include_blanks: false
+    = f.input :measure_grading_sizes, show: '#grading_sizes'
+    #grading_sizes
+      = f.referenced_nomenclature :grading_sizes_indicator, collection: Onoma::Indicator.where(unit: Onoma::Unit.where(dimension: :distance)).selection, include_blanks: false
+      = f.referenced_nomenclature :grading_sizes_unit, collection: Onoma::Unit.where(dimension: :distance).selection, include_blanks: false
+
+    = f.nested_association(:inspection_calibration_scales)
+    = f.nested_association(:inspection_point_natures)
+
+= field_set(:countings, title: Activity.human_attribute_name(:countings)) do
+  = f.input :use_countings, show: '#countings-fields'
+  #countings-fields
+    = f.nested_association :plant_density_abaci
+
+= field_set(:seasons, title: Activity.human_attribute_name(:seasons)) do
+  = f.input :use_seasons, show: '#seasons-fields'
+  #seasons-fields
+    = f.nested_association(:seasons)
+
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)

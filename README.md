@@ -1,22 +1,30 @@
 # Ekylibre
 
-Ekylibre is a simple enterprise management web application for farmers and small
-enterprises. Ekylibre is written with Ruby on Rails framework and use
-PostgreSQL/PostGIS stack. More details can be found on the official website
-http://ekylibre.org.
+Ekylibre is a farm management information system (aka FMIS) web application.
+
+Ekylibre is written with [Ruby on Rails framework](https://rubyonrails.org/) and use
+[PostgreSQL](https://www.postgresql.org/) and [PostGIS](https://postgis.net/) stack.
+
+More details can be found on the official website https://ekylibre.com
 
 ## Screenshot
 
 [![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
 
-## Installation
+## Global requirement
 
-This installation method works with Debian-like OS (Debian, Ubuntu, Linux
-Mint...):
+Global requirement before installing Ekylibre
 
-* [Français](https://wiki.ekylibre.org/fr/guides/developement)
+* [Ubuntu 18.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/57016415/Ubuntu+18.04)
+* [Ubuntu 20.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11829377/Ubuntu+20.04+LTS)
+* [MacOS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11763849/MAC+OS)
 
-Ekylibre depends on PostgreSQL (≥ 9.5) and PostGIS (≥ 2.2).
+## Ekylibre Installation
+
+This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
+
+* [Lexicon-cli](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/9338928/Lexicon-cli+Installation)
+* [Installation Ekylibre](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/7405675/Eky+Installation)
 
 ## Contributing
 
@@ -39,14 +47,14 @@ We encourage you to contribute to Ekylibre.
 ## See also
 
 * [Forum](http://forum.ekylibre.org)
-* [Documentation](http://wiki.ekylibre.org)
-* [Demo](http://demo.ekylibre.farm)
+* [User Documentation - FR](https://doc.ekylibre.com/v2/fr/demarrage/)
+* [Official Demo](http://demo.ekylibre.farm)
+* [Official Demo dataset - FR](https://github.com/ekylibre/first_run-demo)
 
 ## Follow us
 
 * [Twitter](https://twitter.com/Ekylibre)
 * [Facebook](https://www.facebook.com/ekylibre)
-* [Google+](https://plus.google.com/106303796269953490281/about)
 * [YouTube](http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g)
 
 ## License

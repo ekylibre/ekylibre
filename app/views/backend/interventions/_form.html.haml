@@ -1,7 +1,7 @@
-#intervention-form
+- procedure = f.object.procedure
+%div{id: 'intervention-form', data: {procedure_set: procedure.present?}}
   - if f.object.errors.any? && Rails.env.development?
     = f.object.errors.inspect
-  - procedure = f.object.procedure
   - content_for :main_title do
     - interpolations = { number: f.object.number, nature: f.object.nature.l }
     - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
@@ -53,6 +53,8 @@
 
     = field_set :parameters do
       - procedure.each_parameter do |parameter|
+        - if [:zone, :plant,:land_parcel, :cultivation].include? parameter.name
+          = render '/backend/interventions/crop_group_field', f: f
         = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
       -# - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
@@ -62,17 +64,20 @@
       = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
   - else # Root Procedure Natures
     - main_period_selector(:year)
-    - Onoma::ActivityFamily.find_each do |family|
-      - categories = Onoma::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
-      - next unless categories.any?
+    - activity_families = Activity.pluck(:family).push("administering", "processing", "tool_maintaining").uniq
+    - nomen_activity_families = Onoma::ActivityFamily.list.select{ |e| activity_families.include?(e.name)}
+    - ListSorter.new(:activity_families, nomen_activity_families).sort.each do |family|
+      - procedure_categories = Onoma::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
+      - next unless procedure_categories.any?
       .activity-family
         .activity-family-heading
           %h2.activity-family-title= family.human_name
         .activity-family-body
-          - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
-            = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
-              - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-                - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature], intervention: params[:intervention], targets_attributes: params[:targets_attributes], group_parameters_attributes: params[:group_parameters_attributes] }
+          - ListSorter.new(:procedure_categories, procedure_categories).sort.each do |procedure_category|
+            = dropdown_menu_button(procedure_category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
+              - procedures = Procedo::Procedure.of_main_category(procedure_category.name.to_sym)
+              - procedures.sort_by(&:position).each do |procedure|
+                - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature], crop_group_ids: params[:crop_group_ids], targets_attributes: params[:targets_attributes], group_parameters_attributes: params[:group_parameters_attributes]}
 
     - form_action_content(:after) do
       %span.pull-right

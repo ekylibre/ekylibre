@@ -68,9 +68,7 @@ class Intervention < ApplicationRecord
   include Providable
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
-  # TODO: Uncoment the following line and remove the one below once ekyviti procedures are merged
-  # PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying chemical_mechanical_weeding].freeze
-  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying chemical_mechanical_weeding].freeze
+  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -89,6 +87,8 @@ class Intervention < ApplicationRecord
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
+  has_many :intervention_crop_groups, dependent: :destroy
+  has_many :crop_groups, through: :intervention_crop_groups
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -146,7 +146,7 @@ class Intervention < ApplicationRecord
     HABTM_Activities
   end
 
-  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|

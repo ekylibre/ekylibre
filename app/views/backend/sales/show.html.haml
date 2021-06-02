@@ -3,7 +3,7 @@
   - exports << :sales_invoice if resource.invoice?
   - exports << :sales_order if resource.order?
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
-  = t.export(*exports, key: :number)
+  = t.export(*exports, key: :number, target: "_blank")
   = t.duplicate resource, method: :post, params: {redirect: nil}
   - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
     - shipment_items_attributes = resource.items.map do |item|

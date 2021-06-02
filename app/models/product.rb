@@ -77,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -157,16 +160,29 @@ class Product < ApplicationRecord
   has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
   has_many :intervention_targets, inverse_of: :product
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
+  has_many :intervention_targets, inverse_of: :product
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
+
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
   has_geometry :initial_geolocation, type: :point
+
+  enumerize :type_of_occupancy, in: %i[owner rent sharecropper], predicates: true
+
+  serialize :specie_variety, HashSerializer
+  store_accessor :specie_variety, :specie_variety_name
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|
@@ -299,6 +315,11 @@ class Product < ApplicationRecord
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
+  scope :land_parcels, -> { where(type: 'LandParcel') }
+  scope :animals, -> { where(type: 'Animal') }
+
+  scope :fathers, -> { animals.indicate(sex: 'male', reproductor: true).order(:name) }
+  scope :mothers, -> { animals.indicate(sex: 'female', reproductor: true).order(:name) }
 
   scope :mine, -> { of_owner(:own) }
   scope :mine_or_undefined, ->(at = nil) {
@@ -649,22 +670,26 @@ class Product < ApplicationRecord
   # Returns an evaluated price (without taxes) for the product in an intervention context
   # options could contains a parameter :at for the datetime of a catalog price
   # unit_price in a purchase context
+  # unit price in incoming item
   # or unit_price in a sale context
   # or unit_price in catalog price
   def evaluated_price(_options = {})
     filter = {
       variant_id: variant_id
     }
-    incoming_item = incoming_parcel_item
-    incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = parcel_items.with_nature(:outgoing).first
+    incoming_item = parcel_item_storings.last.parcel_item if parcel_item_storings.any?
+    incoming_purchase_item = incoming_item.purchase_invoice_item if incoming_item
+    outgoing_item = outgoing_parcel_item
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     price = if incoming_purchase_item
               # search a price in purchase item via incoming item price
               incoming_purchase_item.unit_pretax_amount
+            # search a price in incoming item price
+            elsif incoming_item && incoming_item.unit_pretax_amount != 0.0
+              incoming_item.unit_pretax_amount
+            # search a price in sale item via outgoing item price
             elsif outgoing_sale_item
-              # search a price in sale item via outgoing item price
               outgoing_sale_item.unit_pretax_amount
             elsif catalog_item = variant.catalog_items.limit(1).first
               # search a price in catalog price

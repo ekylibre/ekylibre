@@ -1,5 +1,5 @@
 - main_toolbar name: :main do |t|
-  = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
+  = t.export(:animal_list, key: Time.zone.now.to_s, resource: @animals, target: "_blank")
   = t.menu :new.tl do |menu|
     - menu.item :add_entrance.tl, { controller: :receptions, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.item :add_exit.tl, { controller: :shipments, action: :new }, data: { toggle: 'dialog', refresh: true }

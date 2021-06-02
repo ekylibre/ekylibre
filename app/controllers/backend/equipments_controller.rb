@@ -52,6 +52,12 @@ module Backend
       t.status
       t.column :state, hidden: true
       t.column :container, url: true
+      t.column :isacompta_analytic_code, hidden: AnalyticSegment.where(name: 'equipments').none?
+    end
+
+    list(:links, model: :product_link, conditions: { product_id: 'params[:id]'.c }) do |t|
+      t.column :nature
+      t.column :linked_id, url: { controller: 'backend/equipments', id: 'RECORD.linked_id'.c }, label_method: :linked_name
     end
 
     list(:interventions_on_field, model: :intervention_parameters, joins: :intervention, conditions: [
@@ -93,6 +99,19 @@ module Backend
       t.column :actions, label_method: :human_actions_names, through: :intervention
       t.column :human_working_duration, through: :intervention
       t.column :human_working_zone_area, through: :intervention
+    end
+
+    def index
+      missing_code_count = Equipment.where("isacompta_analytic_code IS NULL OR isacompta_analytic_code = ''").count
+      segment = AnalyticSegment.find_by(name: 'equipments')
+      if segment.presence && missing_code_count > 0
+        notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+      end
+      respond_to do |format|
+        format.html
+        format.xml  { render xml:  resource_model.all }
+        format.json { render json: resource_model.all }
+      end
     end
   end
 end

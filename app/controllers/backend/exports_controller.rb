@@ -62,7 +62,7 @@ module Backend
         redirect_back(fallback_location: { action: :index })
       else
         if (aggregator_parameters - params.keys).empty?
-          notify(:information_success_print)
+          params[:id] == 'exchange_accountancy_file_fr'? notify(:information_success_download) : notify(:information_success_print)
           @btn_class = 'btn-primary'
         end
         respond_with @aggregator
