@@ -53,7 +53,12 @@ class FinancialYearExchangeImport
 
     def ensure_all_journals_exists
       journal_codes = parsed.map { |row| row[:journal] }.uniq
-      existing_journal_codes = Journal.where(code: journal_codes).pluck(:code)
+      if exchange.format == 'isacompta'
+        existing_journal_codes = Journal.where(isacompta_code: journal_codes).pluck(:isacompta_code)
+      else
+        existing_journal_codes = Journal.where(code: journal_codes).pluck(:code)
+      end
+
       return true if existing_journal_codes.length == journal_codes.length
 
       message = I18n.translate('activerecord.errors.models.financial_year_exchange.csv_file_journals_invalid', codes: (journal_codes - existing_journal_codes).join(', '))

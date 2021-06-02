@@ -3,7 +3,10 @@ namespace :maintenance do
   namespace :journal_entry_items do
     desc 'Generate isacompta letters for journal_entry_items'
     task generate_isacompta_letters: :environment do
-      Ekylibre::Tenant.switch_each do
+      tenant = ENV['TENANT']
+      raise "Missing argument TENANT" unless tenant
+
+      Ekylibre::Tenant.switch(tenant) do
         puts "Updating #{Ekylibre::Tenant.current} tenant"
         FinancialYear.find_each do |financial_year|
           isacompta_letter = 'AAA'
