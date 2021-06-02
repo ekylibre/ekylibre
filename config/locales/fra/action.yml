@@ -162,9 +162,9 @@ fra:
       index: "Miettes"
     backend/crop_groups:
       edit: "Modifier le groupement parcellaire\_: %{name}"
-      index: "Groupements de parcellaire"
-      new: "Nouveau groupement de parcellaire"
-      show: "Groupement de parcellaire\_: %{name}"
+      index: "Groupements parcellaires"
+      new: "Nouveau groupement parcellaire"
+      show: "Groupement parcellaire\_: %{name}"
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
       index: "Zones cultivables"
