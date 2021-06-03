@@ -58,7 +58,7 @@ module Backend
         format.json { render json: resource_model.all }
         format.pdf {
           return unless (template = find_and_check :document_template, params[:template])
-          
+
           PrinterJob.perform_later('Printers::PhytosanitaryRegisterPrinter', template: template, campaign: current_campaign, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to backend_activities_path

@@ -2,6 +2,11 @@
 
 module Printers
   class PhytosanitaryRegisterPrinter < PrinterBase
+    IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
+    HARVESTING_PROCEDURE_NAMES = %w[straw_bunching harvesting direct_silage].freeze
+    SPRAYING_PROCEDURE_NAMES = %w[all_in_one_sowing chemical_mechanical_weeding spraying sowing_with_spraying spraying
+                                  vine_chemical_weeding vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying].freeze
+
     class << self
       # TODO: move this elsewhere when refactoring the Document Management System
       def build_key(campaign:, activity: nil)
@@ -13,59 +18,111 @@ module Printers
       end
     end
 
-    def initialize(*_args, campaign:, template:, **_options)
+    def initialize(*_args, campaign:, activity: nil, template:, **_options)
       super(template: template)
-
-      @campaign = campaign
-    end
-
-    def get_productions_for_dataset
-      ActivityProduction.of_campaign(campaign)
+      if activity.present?
+        @campaign = campaign
+        @activity_production = activity
+      else
+        @campaign = campaign
+        @activity_production = ActivityProduction.of_campaign(@campaign)
+      end
     end
 
     def key
       if activity.present?
-        self.class.build_key campaign: campaign, activity: activity
+        self.class.build_key campaign: @campaign, activity: @activity_production
       else
-        self.class.build_key campaign: campaign
+        self.class.build_key campaign: @campaign
       end
     end
 
+    def select_intervention(activity, filters)
+      activity.interventions.select{|intervention| filters.include? intervention.procedure_name}.uniq
+    end
+
+    def min_start_date(intervention)
+      if intervention.present?
+        intervention.map(&:started_at).max.strftime('%d/%m/%Y')
+      else
+        "-"
+      end
+    end
+
+    def max_stop_date(intervention)
+      if intervention.present?
+        intervention.map(&:stopped_at).max.strftime('%d/%m/%Y')
+      else
+        "-"
+      end
+    end
+
+    def compare_date(min_date, max_date)
+      if min_date == max_date
+        "Le #{max_date}"
+      else
+        "Du #{min_date}\nau #{max_date}"
+      end
+    end
+
+    def period_intervention(activity, filters)
+      select_int = select_intervention(activity, filters)
+      min_date = min_start_date(select_int)
+      max_date = max_stop_date(select_int)
+      compare_date(min_date, max_date)
+    end
+
+    def worked_area(target)
+      worked_area = if target.working_area.present?
+        target.working_area
+      else
+        target.product.net_surface_area
+      end
+      worked_area.in_hectare.round(3)
+    end
+
+    def total_area(intervention,production_id)
+      target = intervention.targets.select{|target| production_id == target.product.activity_production_id}
+      target.inject(0){|sum, tar| sum + worked_area(tar).to_d}.in_hectare
+    end
+
     def compute_dataset
-      productions = get_productions_for_dataset.select { |production| production.plant_farming? || production.vine_farming? }
+      productions = @activity_production.map do |production|
+        {
+          name: production.name,
+          surface: production.net_surface_area.in_hectare.round_l,
+          cultivable_zone: production.cultivable_zone.name,
+          activity: production.activity.name,
+          started_at: production.started_on.to_date.l,
+          stopped_at: production.stopped_on.to_date.l,
+          specie: production.activity.production_nature,
+          variety: None(),
+          sowing_period: period_intervention(production, IMPLANTATION_PROCEDURE_NAMES),
+          harvest_period: period_intervention(production, HARVESTING_PROCEDURE_NAMES),
+          intervention: select_intervention(production, SPRAYING_PROCEDURE_NAMES).map do |intervention|
+            {
+              name: "#{intervention.procedure_name.l} n°#{intervention.number}",
+              date: compare_date(intervention.started_at.to_date.l, intervention.stopped_at.to_date.l),
+              period: "De #{intervention.started_at.strftime('%Hh%M')}\nà #{intervention.stopped_at.strftime('%Hh%M')}",
+              working_zone: total_area(intervention,production.id),
+              description: intervention.description
+            }
+          end
+        }
+      end
     end
 
     def generate(r)
       dataset = compute_dataset
-      #  Outside Tables
-      r.add_field 'INTERV_NAME', @intervention.name
-      r.add_field 'INTERV_DATE', @intervention.started_at.strftime("%d/%m/%Y")
-      r.add_field 'AREA', total_area.round_l
-      r.add_field 'INTERV_DESC', @intervention.description
-      # Inside Table-targets
-      r.add_table('Table-target', dataset.targets, header: true) do |t|
-        t.add_field(:tar_name) { |target| target[:name] }
-        t.add_field(:tar_type) { |target| target[:type] }
-        t.add_field(:tar_area) { |target| target[:area]}
-        t.add_field(:tar_pct) { |target| target[:pct]}
-        t.add_field(:tar_w_area) { |target| target[:w_area]}
+      # Productions
+      r.add_table('Tableau1', dataset) do |t|
+        t.add_field(:production_name) { |production| production[:name] }
+        t.add_field(:production_surface_area) { |production| production[:surface] }
+        t.add_field(:started_on) { |production| production[:started_on] }
+        t.add_field(:stopped_on) { |production| production[:stopped_on] }
+        t.add_field(:cultivable_zone) { |production| production[:cultivable_zone] }
+        t.add_field(:specie) { |production| production[:specie] }
       end
-      #  Inside Table-input
-      r.add_table('Table-input', dataset.inputs, header: true, skip_if_empty: true) do |t|
-        t.add_field(:input_name) { |input| input[:name] }
-        t.add_field(:input_rate) { |input| input[:rate] }
-        t.add_field(:input_quantity) { |input| input[:quantity] }
-      end
-      #  Inside Table-worker
-      r.add_table('Table-worker', dataset.doers, header: true, skip_if_empty: true) do |t|
-        t.add_field(:worker_name) { |doer| doer[:name] }
-      end
-      #  Inside Table-tools
-      r.add_table('Table-tools', dataset.tools, header: true, skip_if_empty: true) do |t|
-        t.add_field(:tool_name) { |tool| tool[:name] }
-        t.add_field(:tool_nature) { |tool| tool[:nature] }
-      end
-      r.add_field 'COMPANY_ADDRESS', Entity.of_company.default_mail_address&.coordinate
     end
   end
 end
