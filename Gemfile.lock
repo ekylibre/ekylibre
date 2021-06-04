@@ -29,16 +29,6 @@ GIT
       nokogiri (>= 1.5.0)
       rubyzip (~> 1.2.0)
 
-GIT
-  remote: https://gitlab.com/ekylibre/onoma.git
-  revision: c4c3af35c8d2ed45d60d4bb2271717a6f84a957c
-  branch: master
-  specs:
-    onoma (0.5.5)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -335,7 +325,8 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.5.1)
+    mini_portile2 (2.5.2)
+      net-ftp (~> 0.1)
     minitest (5.14.4)
     minitest-reporters (1.4.3)
       ansi
@@ -347,12 +338,16 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-ftp (0.1.2)
+      net-protocol
+      time
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
+    net-protocol (0.1.0)
     netrc (0.11.0)
     nio4r (2.5.5)
-    nokogiri (1.11.5)
+    nokogiri (1.11.6)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     nori (2.6.0)
@@ -369,6 +364,10 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
+    onoma (0.5.6)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
@@ -578,6 +577,7 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    time (0.1.0)
     time_diff (0.3.0)
       activesupport
       i18n
@@ -714,7 +714,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma!
+  onoma (~> 0.5.6)
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
