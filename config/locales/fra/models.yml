@@ -559,7 +559,7 @@ fra:
         account: #?
           attributes: #?
             number: #?
-              cant_start_with_0: "Le numéro ne peut pas commencer par un '0'" #?
+              cant_start_with_0: "Le numéro ne peut pas commencer par un '0' (numéro de compte %{number})" #?
               centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
               incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)" #?
               radical_class: "Le numéro ne peut pas correspondre à une classe radicale" #?
