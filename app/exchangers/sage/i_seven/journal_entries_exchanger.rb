@@ -53,14 +53,13 @@ module Sage
         valid = true
         if financial_year.nil?
           valid = false
-          w.error "The financial year is needed for #{file_info.period_stopped_on}"
+          raise StandardError.new(tl(:errors, :financial_year_needed, stopped_on: file_info.period_stopped_on))
         end
         valid
       end
 
       def import
         accounts = retrieve_account(file_info.doc)
-
         accounts
           .select { |_k, account| account.auxiliary? }
           .each do |sage_number, entity_account|
@@ -70,11 +69,14 @@ module Sage
         entries = entries_items(file_info.doc, financial_year)
         w.count = entries.count
         entries.each do |_key, entry|
-          JournalEntry.create!(entry)
-          w.check_point
+          begin
+            JournalEntry.create!(entry)
+            w.check_point
+          rescue
+            journal = entry[:journal]
+            raise StandardError.new(tl(:errors, :incorrect_account_number_length, name: journal.name, number: journal.id))
+          end
         end
-      rescue Accountancy::AccountNumberNormalizer::NormalizationError
-        raise StandardError.new(tl(:errors, :incorrect_account_number_length))
       end
 
       private

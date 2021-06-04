@@ -12,7 +12,8 @@ fra:
         errors:
           expected_nature_journal: "La nature attendue du journal %{name} devrait être %{expected_nature}, actuellement: %{nature}"
           radical_class_number_unauthorized: "Le compte ne peut pas être créé. Le numéro fourni (%{number}) ne peut pas correspondre à une classe radicale"
-          incorrect_account_number_length: "La longueur du numéro de compte ne peut être différente de votre paramétrage"
+          incorrect_account_number_length: "L’écriture comptable %{name} n’a pas pu s’enregistrer. Numéro déjà existant : %{number}. Veuillez vérifier dans Configuration le nombre de caractères des comptes généraux."
+          financial_year_needed: "Un exercice comptable se terminant au %{stopped_on} est nécessaire."
           unreachable_code: "Code inaccessible"
   exchangers:
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
