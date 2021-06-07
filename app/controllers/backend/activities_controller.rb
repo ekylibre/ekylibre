@@ -59,7 +59,7 @@ module Backend
         format.pdf {
           return unless (template = find_and_check :document_template, params[:template])
 
-          PrinterJob.perform_later('Printers::PhytosanitaryRegisterPrinter', template: template, campaign: current_campaign, perform_as: current_user)
+          PrinterJob.perform_later(tl("activity_printers.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to backend_activities_path
         }
@@ -77,7 +77,7 @@ module Backend
         format.pdf do
           return unless (template = find_and_check :document_template, params[:template])
 
-          PrinterJob.perform_later('Printers::LandParcelRegisterActivityPrinter', template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
+          PrinterJob.perform_later(tl("activity_printers.show.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to backend_activity_path(@activity)
         end
