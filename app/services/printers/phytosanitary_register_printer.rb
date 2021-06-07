@@ -24,6 +24,7 @@ module Printers
       super(template: template)
       if activity.present?
         @campaign = campaign
+        @activity = activity
         @activity_production = activity
       else
         @campaign = campaign
@@ -32,10 +33,19 @@ module Printers
     end
 
     def key
-      if activity.present?
+      if @activity.present?
         self.class.build_key campaign: @campaign, activity: @activity_production
       else
         self.class.build_key campaign: @campaign
+      end
+    end
+
+    def document_name
+      if @activity.present?
+        "#{template.nature.human_name} - #{@campaign.name}\n
+        #{@activity.name}"
+      else
+        "#{template.nature.human_name} - #{@campaign.name}"
       end
     end
 
@@ -168,8 +178,7 @@ module Printers
           surface: production.net_surface_area.in_hectare.round_l,
           cultivable_zone: production.cultivable_zone.name,
           activity: production.activity.name,
-          started_at: production.started_on.to_date.l,
-          stopped_at: production.stopped_on.to_date.l,
+          period: compare_date(production.started_on.to_date.l, production.stopped_on.to_date.l),
           specie: production_nature(production),
           variety: select_variety(production),
           sowing_period: period_intervention(production, IMPLANTATION_PROCEDURE_NAMES),
@@ -178,8 +187,8 @@ module Printers
             if select_input(intervention).any?
             {
               name: "#{intervention.procedure_name.l} n°#{intervention.number}",
-              date: compare_date(intervention.started_at.to_date.l, intervention.stopped_at.to_date.l),
-              period: "De #{intervention.started_at.strftime('%Hh%M')}\nà #{intervention.stopped_at.strftime('%Hh%M')}",
+              start: "#{intervention.started_at.to_date.l}\n#{intervention.started_at.strftime('%Hh%M')}",
+              stop: "#{intervention.stopped_at.to_date.l}\n#{intervention.stopped_at.strftime('%Hh%M')}",
               working_zone: total_area_production(intervention,production.id),
               description: intervention.description,
               inputs: select_input(intervention).map do |input|
@@ -191,7 +200,7 @@ module Printers
               end
             }
             end
-          end
+          end.compact
         }
       end
     end
@@ -199,14 +208,36 @@ module Printers
     def generate(r)
       dataset = compute_dataset
       # Productions
-      r.add_table('Tableau1', dataset) do |t|
-        t.add_field(:production_name) { |production| production[:name] }
-        t.add_field(:production_surface_area) { |production| production[:surface] }
-        t.add_field(:started_on) { |production| production[:started_on] }
-        t.add_field(:stopped_on) { |production| production[:stopped_on] }
-        t.add_field(:cultivable_zone) { |production| production[:cultivable_zone] }
-        t.add_field(:specie) { |production| production[:specie] }
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+
+      r.add_section('Section-production', dataset) do |s|
+        s.add_field(:production_name)  { |production| production[:name] }
+        s.add_field(:production_surface_area)  { |production| production[:surface] }
+        s.add_field(:cultivable_zone)  { |production| production[:cultivable_zone] }
+        s.add_field(:activity)  { |production| production[:activity] }
+        s.add_field(:production_period)  { |production| production[:period] }
+        s.add_field(:production_nature)  { |production| production[:specie] }
+        s.add_table('Table-varieties', :variety) do |t|
+          t.add_field(:variety_name) { |variety| variety[:name] }
+          t.add_field(:variety_surface) { |variety| variety[:surface] }
+        end
+        s.add_field(:sowing_period)  { |production| production[:sowing_period] }
+        s.add_field(:harvest_period)  { |production| production[:harvest_period] }
+        s.add_table('Table-intervention', :intervention) do |tt|
+          tt.add_field(:intervention_name)  { |intervention| intervention[:name] }
+          tt.add_field(:intervention_start)  { |intervention| intervention[:start] }
+          tt.add_field(:intervention_stop)  { |intervention| intervention[:stop] }
+          tt.add_field(:working_zone)  { |intervention| intervention[:working_zone] }
+          tt.add_field(:description)  { |intervention| intervention[:description] }
+          tt.add_table('Table-input', :inputs) do |t_input|
+            t_input.add_field(:input_name)  { |input| input[:input_name] }
+            t_input.add_field(:input_quantity)  { |input| input[:input_quantity] }
+            t_input.add_field(:input_usage)  { |input| input[:input_usage] }
+          end
+        end
       end
+      r.add_field 'COMPANY_ADDRESS', Entity.of_company.default_mail_address&.coordinate
     end
   end
 end
