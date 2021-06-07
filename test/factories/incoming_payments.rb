@@ -4,7 +4,9 @@ FactoryBot.define do
       at { nil }
     end
     amount { 5000.0 }
+    commission_amount { nil }
     currency { 'EUR' }
+    received { true }
     association :mode, factory: :incoming_payment_mode
     association :payer, factory: :entity
     provider { }

@@ -1121,6 +1121,10 @@ fra:
     account_lettered: "Lettrées"
     account_lettering_state: "État des écritures"
     account_mark: "Lettrer le compte" #?
+    account_number_with_less_than_3_caracters:
+      none: "L’écriture présente un compte comptable avec un numéro inférieur à 3 caractères"
+      one: "L’écriture présente 1 compte comptable avec un numéro inférieur à 3 caractères"
+      other: "L’écriture présente %{invalid_count} comptes comptable avec un numéro inférieur à 3 caractères"
     account_other_assets: "Divers" #?
     account_provision: "Provisions pour risques et charges" #?
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —" #?
@@ -1264,6 +1268,7 @@ fra:
     all_cash_balances: "Soldes des comptes" #?
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
+    all_entries_are_fec_compliant: "Toutes les écritures sont conformes avec le FEC"
     all_entries_balanced: "Toutes les écritures sont équilibrées."
     all_exchanges_closed: "Tous les échanges comptables sont clôturés"
     all_f: "Toutes" #?
@@ -1595,6 +1600,7 @@ fra:
     created_at_by: "Créé le %{at} par %{author}"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
     created_by_ago: "Créé par %{author} %{when}"
+    created_on_free_day: "L’écriture a été passée le week-end ou un jour férié"
     credit: "Crédit"
     credit_account_balance: "Solde créditeur: %{value}€"
     credit_balance: "110 - Report à nouveau (solde créditeur), exercice antérieur"
@@ -1802,8 +1808,13 @@ fra:
     entries: "Écritures"
     entries_to_balance: "Des écritures sont à équilibrer"
     entries_to_point: "Écritures à pointer"
+    entry_item_account_name_not_uniq:
+      none: "L’écriture utilise un compte comptable dont le libellé n'est pas unique"
+      one: "L’écriture présente le compte comptable %{accounts_number} avec un libellé non unique"
+      other: "L’écriture présente les comptes comptables %{accounts_number} avec un libellé non unique"
     entry_item_label: "Libellé de l'écriture"
     entry_items: "Lignes d’écriture"
+    entry_name_not_uniq: "L'écriture présente un libellé non unique"
     entry_resource_label: "Pièce"
     environment_h4: "Environnement H4"
     equipment: "Équipement"
@@ -1819,10 +1830,11 @@ fra:
     equipment_variants_specie_variety: "Marque / Modèle"
     equipments: "Équipements"
     equities: "Capitaux propres"
-    error: "Désolé..."
+    error: "Erreur"
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
     error_sale_already_paid: "La vente a déjà été payée en totalité" #?
     errors_explanation: "Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation"
+    errors_list: "Liste des erreurs"
     establish_capital_goods: "Biens constituant des immobilisations" #?
     establishment: "Établissement" #?
     establishments: "Établissements" #?
@@ -1913,6 +1925,9 @@ fra:
     extraordinary_income: "Produits exceptionnels"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    fec_compliance: "Conformité FEC"
+    fec_compliant_entry: "L'écriture est conforme avec le FEC"
+    fec_errors: "Erreurs FEC"
     fees: "Frais"
     fertilizers: "Engrais"
     field: "Champ %{counter}"
@@ -1972,6 +1987,7 @@ fra:
     first_check_number: "Numéro du premier chèque"
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
+    fiscal: "Fisc"
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Amortissements"
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des amortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
@@ -2125,6 +2141,7 @@ fra:
       recommended: "Préconisée" #?
       undone: "En attente" #?
     intracommunautary_vat: "TVA Intra-communautaire"
+    invalid_entries_list: "Liste des écritures invalides"
     invalid_file: "Fichier invalide"
     invalid_format: "Format invalide"
     inventories: "Inventaires"
@@ -2159,6 +2176,7 @@ fra:
     journal_entries: "Écritures"
     journal_entries_deletion_confirmation_message: "Une fois validées, vous ne pourrez plus modifier ou supprimer ces écritures. Êtes-vous sûr de vouloir valider ces écritures ?"
     journal_entries_states: "États des écritures utilisées"
+    journal_entry_balance_is_not_equal_to_zero: "La balance de l'écriture n'est pas équilibrée"
     journal_entry_items: "Lignes d’écritures comptables"
     journal_entry_items_with_taxes_out_of_range:
       one: "%{count} ligne d'écriture avec des taxes qui précèdent la date de début de la déclaration"
@@ -2230,6 +2248,7 @@ fra:
     letter_options: "Lettre" #?
     letterable: "Lettrable"
     lettered: "Lettré"
+    lettered_at_before_printed_on: "La date de l'écriture est postérieure à la date de lettrage"
     lettering_account_client: "Lettrage des comptes clients" #?
     lettering_account_supplier: "Lettrage des comptes fournisseurs" #?
     lettering_modes: #?
@@ -2357,12 +2376,15 @@ fra:
     n_1_guidance_2: "Lorsque la période est inférieure à la durée d'un exercice complet, la balance N-1 apparaissant porte néanmoins sur l'intégralité de l'exercice comptable précédent."
     n_1_trial_balance_display: "Affichage de la période N-1 de la balance comptable"
     name: "Nom"
+    name_already_exists: "Attention, ce nom existe déjà"
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
     needed_quantity: "Quantité nécessaire"
+    # negative_debit_or_credit: "The entry has a negative debit or credit"
+    negative_or_empty_debit_or_credit: "L’écriture possède un débit ou un crédit négatif ou nul" #?
     net_income: "Résultat d’exercice"
     net_margin: "Marge nette" #?
     net_mass: "Masse nette"
@@ -2457,6 +2479,9 @@ fra:
     nominal_storable_easement_area: "Surface de stockage au sol"
     non_compliant: "Non conforme"
     non_compliant_with_request: "Non conforme par rapport à l'attente"
+    non_fec_compliant_entry:
+      one: "L'écriture est non conforme avec le FEC avec l'erreur suivante : %{errors}"
+      other: "L'écriture est non conforme avec le FEC avec les erreurs suivantes : %{errors}"
     none: "Aucun"
     normal: "Régime du réel normal"
     notification_time: "Il y a %{time}"
@@ -2489,6 +2514,7 @@ fra:
     on_account: "À remettre sur le compte"
     on_all_exercises: "sur tous les exercices"
     one_condition: "au moins une condition"
+    only_whitespace_caracters: "L'écriture présente un nom contenant uniquement des espaces"
     open_a_campaign: "Ouvrir une campagne de production" #?
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
@@ -2530,6 +2556,7 @@ fra:
     others_debts_state_debts: "État (TVA et taxes)"
     others_debts_supplier_receivables: "Fournisseurs d'exploitation et comptes rattachés"
     others_debts_total: "Autres dettes" #?
+    out_of_current_financial_year: "L’écriture présente une date de valeur sur un autre exercice"
     outgoing: "Sortant" #?
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"
@@ -2660,6 +2687,7 @@ fra:
     print_land_parcel_register: "Imprimer le cahier de traçabilité" #?
     # print_lant_parcel_register: "Print the land parcel register"
     print_with_template: "Imprimer %{name}" #?
+    printed_on_more_than_60_days_ago: "L’écriture présente une date de valeur supérieure à 60 jours par rapport à date du jour"
     printing_document: "Impression de %{document}"
     procedure: "Procédure" #?
     procedure_name: "Nom de la procedure" #?
@@ -2794,6 +2822,8 @@ fra:
     register_intervention_request: "Enregistrer la demande d’intervention"
     regressive_options: "Options de l'amortissement dégressif"
     regulated_reserves: "1064 - Réserves réglementées"
+    regulation: "Regul"
+    reimputation: "Réaffectation"
     rejected: "Refusé"
     related_people: "En lien avec" #?
     relationship: "Tiers"
@@ -2811,6 +2841,7 @@ fra:
     renewed: "Renouvellés"
     reopen: "Déclôturer" #?
     reopen_journal: "Déclôturer le journal" #?
+    reordering: "Reclassement"
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
     repayments_graph: "Graphique des remboursements"
@@ -2849,6 +2880,7 @@ fra:
     rights: "Droits"
     risk_and_charges_provisions: "Provisions pour risques et charges"
     risks: "Dangers"
+    risky_keyword: "L’écriture présente des mots clefs sujets à erreur"
     role: "Rôle"
     role_name: "Entrez le nom du rôle puis attribuez lui ses droits" #?
     roles: "Rôles"
@@ -2984,13 +3016,15 @@ fra:
     social_expenses: "Charges sociales"
     soil_varieties: "Nature des sols" #?
     sold_on: "Cédée le"
+    sorry: "Désolé..."
     source: "Source de données"
     sowable: "Semable" #?
     sowed_at: "Semé le" #?
     sowing: "Semis"
     sowing_with_spraying: "Semis avec pulvérisation"
-    spraying_map: "Carte de pulvérisation" #?
+    special_caracter: "L'écriture présente un nom contenant des caractères spéciaux"
     spray_volume: "Volume de bouillie"
+    spraying_map: "Carte de pulvérisation" #?
     standard: "Standard" #?
     standard_vat: "TVA Standard"
     start: "Du"
@@ -3291,6 +3325,7 @@ fra:
     validated: "Validée"
     validated_by: "Validée par"
     validated_vat_declaration: "État de TVA définitif"
+    value_on_debit_and_credit: "Une valeur est présente au débit et au crédit"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variant: "Variante"
@@ -3342,6 +3377,9 @@ fra:
     working_zone_overlaps_nta: "La zone travaillée chevauche la ZNT"
     wrong_identifiers: "La connexion n'a pas pu aboutir"
     workload: "Charge de travail"
+    x_account_number_with_less_than_3_caracters:
+      one: "1 écriture présente un compte comptable avec un numéro inférieur à 3 caractères"
+      other: "%{count} écritures présentent un compte comptable avec un numéro inférieur à 3 caractères"
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
@@ -3360,6 +3398,9 @@ fra:
     x_countings:
       one: "%{count} comptage"
       other: "%{count} comptages"
+    x_created_on_free_day:
+      one: "1 écriture a été passée le week-end ou un jour férié"
+      other: "%{count} écritures ont été passées le week-end ou un jour férié"
     x_days:
       one: "%{count} jour"
       other: "%{count} jours"
@@ -3375,6 +3416,12 @@ fra:
     x_entity_links:
       one: "%{count} lien"
       other: "%{count} liens"
+    x_entry_item_account_name_not_uniq:
+      one: "1 écriture présente un compte comptable avec un libellé non unique"
+      other: "%{count} écritures présentent un compte comptable avec un libellé non unique"
+    x_entry_name_not_uniq:
+      one: "1 écriture présente un libellé non unique"
+      other: "%{count} écritures présentent un libellé non unique"
     x_equipment_maintenance_interventions:
       one: "%{count} intervention de maintenance"
       other: "%{count} interventions de maintenance"
@@ -3423,6 +3470,9 @@ fra:
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
+    x_lettered_at_before_printed_on:
+      one: "1 écriture présente une date d'écriture postérieure à sa date de lettrage"
+      other: "%{count} écritures présentent une date d'écriture postérieure à sa date de lettrage"
     x_mandates: #?
       one: "%{count} responsabilité" #?
       other: "%{count} responsabilités" #?
@@ -3435,6 +3485,9 @@ fra:
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"
+    x_negative_or_empty_debit_or_credit:
+      one: "1 écriture possède un débit ou un crédit négatif ou nul"
+      other: "%{count} écritures possèdent un débit ou un crédit négatif ou nul"
     x_notifications:
       one: "%{count} notification"
       other: "%{count} notifications"
@@ -3442,9 +3495,15 @@ fra:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} de %{y}"
+    x_only_whitespace_caracters:
+      one: "1 écriture présente un nom contenant uniquement des espaces"
+      other: "%{count} écritures présentent un nom contenant uniquement des espaces"
     x_operations: #?
       one: "%{count} travail" #?
       other: "%{count} travaux" #?
+    x_out_of_current_financial_year:
+      one: "1 écriture présente une date de valeur sur un autre exercice"
+      other: "%{count} écritures présentent une date de valeur sur un autre exercice"
     x_outgoing_parcels:
       one: "%{count} colis sortant"
       other: "%{count} colis sortants"
@@ -3460,6 +3519,9 @@ fra:
     x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
+    x_printed_on_more_than_60_days_ago:
+      one: "1 écriture présente une date de valeur inférieure à 60 jours par rapport à date du jour"
+      other: "%{count} écritures présentent une date de valeur inférieure à 60 jours par rapport à date du jour"
     x_purchase_invoices: #?
       one: "%{count} facture" #?
       other: "%{count} factures" #?
@@ -3487,6 +3549,9 @@ fra:
     x_results:
       one: "%{count} résultat trouvé"
       other: "%{count} résultats trouvés"
+    x_risky_keyword:
+      one: "1 écriture présente des mots clefs sujets à erreur"
+      other: "%{count} écritures présentent des mots clefs sujets à erreur"
     x_sale_opportunities:
       one: "%{count} opportunité"
       other: "%{count} opportunités"
@@ -3502,6 +3567,9 @@ fra:
     x_shipments:
       one: "%{count} expédition"
       other: "%{count} expéditions"
+    x_special_caracter:
+      one: "1 écriture présente un nom contenant des caractères spéciaux"
+      other: "%{count} écritures présentent un nom contenant des caractères spéciaux"
     x_stock_transfers_to_confirm: #?
       one: "%{count} transfert à effectuer" #?
       other: "%{count} transferts à effectuer" #?
@@ -3531,6 +3599,9 @@ fra:
     x_unpaid_sales:
       one: "%{count} vente impayée"
       other: "%{count} ventes impayées"
+    x_value_on_debit_and_credit:
+      one: "1 écriture a une valeur présente au débit et au crédit"
+      other: "%{count} écritures ont une valeur présente au débit et au crédit"
     x_waiting_incoming_parcels:
       one: "%{count} colis à réceptionner en attente"
       other: "%{count} colis à réceptionner en attente"
@@ -3540,6 +3611,9 @@ fra:
     x_years:
       one: "%{count} an"
       other: "%{count} ans"
+    x_zero_value_on_debit_and_credit:
+      one: "1 écriture a une valeur 0 présente au débit et au crédit"
+      other: "%{count} écritures ont une valeur 0 présente au débit et au crédit"
     y: "Oui" #?
     year: "an"
     year_long: "Année"
@@ -3554,6 +3628,7 @@ fra:
     yield_by_calibrations: "Rendement par calibre" #?
     you_can_close_financial_year: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close}"
     you_can_close_financial_year_to_open_a_new_one: "Vous pouvez clôturer ou verrouiller votre exercice %{financial_year_to_close} pour ouvrir %{financial_year_to_open}"
+    zero_value_on_debit_and_credit: "La valeur 0 est présente au débit et au crédit"
     zone_natures: "Zones"
     zones: "Zones"
   notifications:
@@ -3626,6 +3701,10 @@ fra:
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
       feature_in_development: "Fonctionnalité à venir dans une prochaine version de notre appli mobile <u><a href='https://play.google.com/store/apps/details?id=ekylibre.zero' target='_blank'>Zero</a></u>"
+      fec_data_error_file_generated: "Votre fichier d'erreurs de données FEC a été généré avec succès" #?
+      # fec_error_file_generated: "Your FEC error file was successfully generated"
+      fec_export_file_generated: "Votre fichier d'export FEC a été généré avec succès"
+      fec_structure_error_file_generated: "Votre fichier d'erreurs de structure FEC a été généré avec succès" #?
       file_generated: "Votre fichier a été généré avec succès"
       financial_year_already_closed: "L'exercice a déjà été clôturé."
       financial_year_is_not_past: "L'exercice est encore en cours."
@@ -3692,6 +3771,9 @@ fra:
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
       no_depositable_payments: "Il n’y a pas de règlements à remettre en banque"
       no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
+      no_fec_data_error: "Les données de toutes les écritures de l'export sont conformes avec le FEC" #?
+      # no_fec_error: "All the export entries are FEC compliant"
+      no_fec_structure_error: "La structure de toutes les écritures de l'export sont conformes avec le FEC" #?
       no_financial_year: "Aucun exercice enregistré" #?
       no_fixed_assets_given: "Pas d’immobilisations données"
       no_inspections_given: "Aucune inspection donnée"
@@ -3796,6 +3878,7 @@ fra:
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
     catalog_price_item_addition_if_blank: "Compléter le catalogue de prix pendant les achats et ventes"
+    check_fec_compliance: "Contrôler la conformité des écritures dans le brouillard pour export FEC"
     client_account_radix: "Radical comptable du compte client"
     commercial_accountancy_workflow: "Utiliser la comptabilité d'engagement"
     country: "Pays"

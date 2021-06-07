@@ -29,6 +29,14 @@ GIT
       nokogiri (>= 1.5.0)
       rubyzip (~> 1.2.0)
 
+GIT
+  remote: https://gitlab.com/ekylibre/xsd_errors_parser.git
+  revision: 28b3c703463642ca52194038294bddabefc1fee3
+  branch: master
+  specs:
+    xml_errors_parser (0.0.3)
+      i18n
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -245,6 +253,7 @@ GEM
       tilt
     hashery (2.1.2)
     hashie (4.1.0)
+    holidays (8.4.1)
     hpricot (0.8.6)
     http (4.1.1)
       addressable (~> 2.3)
@@ -693,6 +702,7 @@ DEPENDENCIES
   git (~> 1.8)
   gpgme (~> 2.0)
   haml (~> 5.2)
+  holidays
   http_accept_language (~> 2.1)
   humanize (~> 2.5)
   i18n-complements (>= 0.0.14)
@@ -771,6 +781,7 @@ DEPENDENCIES
   web-console (~> 3.0)
   webpacker (~> 4.x)
   wice_grid (~> 4.0)
+  xml_errors_parser!
   yard (~> 0.9.26)
 
 RUBY VERSION

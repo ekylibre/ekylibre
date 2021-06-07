@@ -1,0 +1,23 @@
+- if @fec_error_count
+  = modal_header(:invalid_entries_list.tl)
+  .modal-body
+    %ul
+      - if @fec_error_count.values.all?{ |count| count.zero?}
+        %span= :all_entries_are_fec_compliant.tl
+      - else
+        - @fec_error_count.each do |name, count|
+          - next if count.zero?
+          %li= "x_#{name}".tl(count: count)
+- else
+  = modal_header(:confirmation.tl)
+  .modal-body
+    = :journal_entries_deletion_confirmation_message.tl
+
+.modal-footer
+  = form_tag(action: :confirm) do
+    = button_tag :close.tl, class: "btn btn-default", data: { dismiss: 'modal' }
+    = hidden_field_tag 'from', params[:from]
+    = hidden_field_tag 'to', params[:to]
+    = hidden_field_tag 'journal_id', params[:journal_id] if params[:journal_id]
+    = submit_tag(:validate_x_entries.tl(count: params[:draft_entries_count].to_i), name: :validate)
+

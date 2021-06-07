@@ -114,18 +114,14 @@ module FinancialYearTest
       assert create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :opened), 'There are still at least 2 financial years opened'
     end
 
-    test 'can not create accountant elements on a closed financial year' do
-      FinancialYear.delete_all
-      year = create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :closed)
-
-      create_accountant_elements_should_raise '06-01-2017'
-    end
-
     test 'can not create accountant elements on a locked financial year' do
       FinancialYear.delete_all
       year = create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :locked)
 
-      create_accountant_elements_should_raise '06-01-2017'
+      assert_raise(ActiveRecord::RecordInvalid) {create(:sale, invoiced_at: '06-01-2017')}
+      assert_raise(ActiveRecord::RecordInvalid) {create(:purchase_invoice, invoiced_at: '06-01-2017')}
+      assert_raise(ActiveRecord::RecordInvalid) {create(:cash_transfer, transfered_at: '06-01-2017')}
+      assert_raise(ActiveRecord::RecordInvalid) {create(:parcel, given_at: '06-01-2017')}
     end
 
     test 'destroy all consecutive financial years without entries' do
@@ -152,11 +148,5 @@ module FinancialYearTest
       assert FinancialYear.where(id: FinancialYear.consecutive_destroyables.map(&:id)).delete_all
     end
 
-    def create_accountant_elements_should_raise(accounting_date)
-      assert_raise(ActiveRecord::RecordInvalid) { create(:sale, invoiced_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:purchase_invoice, invoiced_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:cash_transfer, transfered_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
-    end
   end
 end

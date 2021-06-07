@@ -6,6 +6,7 @@ FactoryBot.define do
     }
 
     association :nature, factory: :sale_nature
+    # association :affair, factory: :sale_affair
     amount { 5000.0 }
     sequence(:number) { |n| "S00#{n}" }
     downpayment_amount { 0.0 }

@@ -1,0 +1,15 @@
+= modal_header(:fec_errors.tl)
+.modal-body
+  = :errors_list.tl
+  %ul
+    - errors.each do |error|
+      - if error == "entry_item_account_name_not_uniq"
+        - duplicated_number_accounts = entry.duplicated_number_accounts
+        %li= error.tl(accounts_number: duplicated_number_accounts.to_sentence, count: duplicated_number_accounts.count)
+      - elsif error == "account_number_with_less_than_3_caracters"
+        - invalid_count = entry.invalid_accounts_number_count
+        %li= error.tl(invalid_count: invalid_count, count: invalid_count)
+      - else
+        %li= error.tl
+.modal-footer
+  = button_tag :close.tl, class: "btn btn-default", data: { dismiss: 'modal' }

@@ -6,7 +6,7 @@ module Backend
     test 'Show with pdf Should create a job' do
       sign_in_user
       request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'
-      get :show, params: { id: 'fr_pcg82_balance_sheet', format: 'pdf' }
+      get :show, params: { id: 'animal_husbandry_register', format: 'pdf' }
       assert_enqueued_jobs 1
       assert_response :redirect
     end
@@ -14,14 +14,14 @@ module Backend
     test 'Show with option to show preview to true should respond with success' do
       sign_in_user
       set_pref(true)
-      get :show, params: { id: 'fr_pcg82_balance_sheet' }
+      get :show, params: { id: 'animal_husbandry_register' }
       assert_response :success
     end
 
     test 'Show with option to show preview to false should respond with success' do
       sign_in_user
       set_pref(false)
-      get :show, params: { id: 'fr_pcg82_balance_sheet' }
+      get :show, params: { id: 'animal_husbandry_register' }
       assert_response :success
     end
 
