@@ -14,7 +14,8 @@ function psql_exec {
     psql_exec 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
     psql_exec 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
     psql_exec 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
-
+    psql_exec 'CREATE EXTENSION IF NOT EXISTS "pg_trgm" SCHEMA postgis;'
+    
     cp -f test/ci/database.yml config/database.yml
 
     gpg --import 'test/fixture-files/my-private-key.asc'

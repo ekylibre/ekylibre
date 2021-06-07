@@ -101,13 +101,15 @@ module Backend
         end
 
         format.xml do
-          FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'xml')
+          Fec::ExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'xml')
+          Fec::DataErrorJob.perform_later(@financial_year, params[:fiscal_position], current_user) if JournalEntry.fec_compliance_preference
           notify_success(:document_in_preparation)
           redirect_back(fallback_location: { action: :index })
         end
 
         format.text do
-          FecExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'text')
+          Fec::ExportJob.perform_later(@financial_year, params[:fiscal_position], params[:interval], current_user, 'text')
+          Fec::DataErrorJob.perform_later(@financial_year, params[:fiscal_position], current_user) if JournalEntry.fec_compliance_preference
           notify_success(:document_in_preparation)
           redirect_back(fallback_location: { action: :index })
         end

@@ -1,0 +1,3 @@
+$('#confirmation-modal').find('.modal-content').empty();
+$('#confirmation-modal').find('.modal-content').append("<%= escape_javascript(render partial: 'confirmation_modal')%>");
+$('#confirmation-modal').modal('show');

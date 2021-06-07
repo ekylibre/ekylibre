@@ -565,6 +565,15 @@ class Account < ApplicationRecord
       Regexp.new("^(#{reconcilable_prefixes.join('|')})")
     end
 
+    def with_non_uniq_name
+      Account.where(nature: 'general')
+             .select(:name)
+             .group(:name)
+             .having("count(*) > 1")
+             .count
+             .keys
+    end
+
     private
 
       # @deprecated

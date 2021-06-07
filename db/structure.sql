@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.21
--- Dumped by pg_dump version 9.6.21
+-- Dumped from database version 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,16 +31,10 @@ CREATE SCHEMA postgis;
 
 
 --
--- Name: deny_changes(); Type: FUNCTION; Schema: lexicon; Owner: -
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE FUNCTION lexicon.deny_changes() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-  BEGIN
-    RAISE EXCEPTION '% denied on % (master data)', TG_OP, TG_RELNAME;
-  END;
-$$;
+CREATE SCHEMA public;
 
 
 --
@@ -92,6 +86,43 @@ CREATE FUNCTION public.compute_outgoing_payment_list_cache() RETURNS trigger
                 RETURN NEW;
               END
             $$;
+
+
+--
+-- Name: compute_partial_isacompta_lettering(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.compute_partial_isacompta_lettering() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+  DECLARE
+    journal_entry_item_ids integer DEFAULT NULL;
+    new_letter varchar DEFAULT NULL;
+  BEGIN
+    IF NEW.letter <> OLD.letter THEN
+      journal_entry_item_ids := NEW.id;
+      new_letter := NEW.letter;
+    END IF;
+    
+    UPDATE journal_entry_items
+    SET isacompta_letter = (CASE
+      WHEN RIGHT(new_letter, 1) = '*'
+        THEN CASE
+          WHEN LEFT(journal_entry_items.isacompta_letter, 1) = '#'
+          THEN journal_entry_items.isacompta_letter
+          ELSE '#' || journal_entry_items.isacompta_letter
+        END
+        ELSE CASE
+          WHEN LEFT(journal_entry_items.isacompta_letter, 1) != '#'
+          THEN journal_entry_items.isacompta_letter
+          ELSE '#' || journal_entry_items.isacompta_letter
+        END
+      END)
+    WHERE id = journal_entry_item_ids;
+
+    RETURN NEW;
+  END;
+$$;
 
 
 --
@@ -214,7 +245,7 @@ $$;
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: cadastral_land_parcel_zones; Type: TABLE; Schema: lexicon; Owner: -
@@ -305,6 +336,7 @@ CREATE TABLE lexicon.master_production_natures (
     human_name_fra character varying NOT NULL,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
+    main_input character varying,
     agroedi_crop_code character varying,
     season character varying,
     pfi_crop_code character varying,
@@ -438,8 +470,8 @@ CREATE TABLE lexicon.registered_hydro_items (
     name jsonb,
     nature character varying,
     point postgis.geometry(Point,4326),
-    shape postgis.geometry(MultiPolygonZM,4326),
-    lines postgis.geometry(MultiLineStringZM,4326)
+    shape postgis.geometry(MultiPolygon,4326),
+    lines postgis.geometry(MultiLineString,4326)
 );
 
 
@@ -663,10 +695,24 @@ CREATE TABLE lexicon.registered_protected_designation_of_origins (
 --
 
 CREATE TABLE lexicon.registered_seeds (
-    number integer NOT NULL,
-    specie character varying NOT NULL,
-    name jsonb,
-    complete_name jsonb
+    id character varying NOT NULL,
+    id_specie character varying NOT NULL,
+    specie_name jsonb,
+    specie_name_fra character varying,
+    variety_name character varying,
+    registration_date date
+);
+
+
+--
+-- Name: taxonomy; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.taxonomy (
+    id character varying NOT NULL,
+    parent character varying NOT NULL,
+    taxonomic_rank character varying NOT NULL,
+    name jsonb
 );
 
 
@@ -922,6 +968,7 @@ CREATE TABLE public.account_balances (
 --
 
 CREATE SEQUENCE public.account_balances_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -969,6 +1016,7 @@ CREATE TABLE public.accounts (
 --
 
 CREATE SEQUENCE public.accounts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1006,7 +1054,6 @@ CREATE TABLE public.activities (
     size_unit_name character varying,
     suspended boolean DEFAULT false NOT NULL,
     production_cycle character varying NOT NULL,
-    production_campaign character varying,
     custom_fields jsonb,
     use_countings boolean DEFAULT false NOT NULL,
     use_gradings boolean DEFAULT false NOT NULL,
@@ -1020,7 +1067,14 @@ CREATE TABLE public.activities (
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
     codes jsonb,
-    production_nature_id integer
+    production_nature_id integer,
+    isacompta_analytic_code character varying(2),
+    production_started_on date,
+    production_stopped_on date,
+    start_state_of_production_year integer,
+    life_duration numeric(5,2),
+    production_started_on_year integer,
+    production_stopped_on_year integer
 );
 
 
@@ -1071,7 +1125,11 @@ CREATE TABLE public.activity_productions (
     custom_fields jsonb,
     season_id integer,
     tactic_id integer,
-    custom_name character varying
+    custom_name character varying,
+    headland_shape postgis.geometry(Geometry,4326),
+    provider jsonb DEFAULT '{}'::jsonb,
+    production_nature_id integer,
+    starting_year integer
 );
 
 
@@ -1116,6 +1174,7 @@ CREATE VIEW public.activities_campaigns AS
 --
 
 CREATE SEQUENCE public.activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1309,7 +1368,8 @@ CREATE TABLE public.products (
     activity_production_id integer,
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
-    provider jsonb DEFAULT '{}'::jsonb
+    provider jsonb DEFAULT '{}'::jsonb,
+    isacompta_analytic_code character varying(2)
 );
 
 
@@ -1365,6 +1425,7 @@ CREATE TABLE public.activity_budget_items (
 --
 
 CREATE SEQUENCE public.activity_budget_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1384,6 +1445,7 @@ ALTER SEQUENCE public.activity_budget_items_id_seq OWNED BY public.activity_budg
 --
 
 CREATE SEQUENCE public.activity_budgets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1420,6 +1482,7 @@ CREATE TABLE public.activity_distributions (
 --
 
 CREATE SEQUENCE public.activity_distributions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1457,6 +1520,7 @@ CREATE TABLE public.activity_inspection_calibration_natures (
 --
 
 CREATE SEQUENCE public.activity_inspection_calibration_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1493,6 +1557,7 @@ CREATE TABLE public.activity_inspection_calibration_scales (
 --
 
 CREATE SEQUENCE public.activity_inspection_calibration_scales_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1529,6 +1594,7 @@ CREATE TABLE public.activity_inspection_point_natures (
 --
 
 CREATE SEQUENCE public.activity_inspection_point_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1552,8 +1618,16 @@ CREATE VIEW public.activity_productions_campaigns AS
     ap.id AS activity_production_id
    FROM ((public.activity_productions ap
      JOIN public.activities a ON ((ap.activity_id = a.id)))
-     LEFT JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR ((c.id IS NOT NULL) AND ((a.production_cycle)::text = 'perennial'::text) AND ((((a.production_campaign)::text = 'at_cycle_start'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision >= date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))))) OR (((a.production_campaign)::text = 'at_cycle_end'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision > date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))))))
-  ORDER BY c.id;
+     JOIN public.campaigns c ON ((c.id = ap.campaign_id)))
+  WHERE ((a.production_cycle)::text = 'annual'::text)
+UNION
+ SELECT DISTINCT c.id AS campaign_id,
+    ap.id AS activity_production_id
+   FROM ((public.activity_productions ap
+     JOIN public.campaigns c ON ((((date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))) OR ((date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))
+     JOIN public.activities a ON ((ap.activity_id = a.id)))
+  WHERE (((a.production_cycle)::text = 'perennial'::text) AND (ap.stopped_on IS NOT NULL) AND (ap.started_on IS NOT NULL))
+  ORDER BY 1, 2;
 
 
 --
@@ -1561,6 +1635,7 @@ CREATE VIEW public.activity_productions_campaigns AS
 --
 
 CREATE SEQUENCE public.activity_productions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1616,6 +1691,7 @@ CREATE TABLE public.activity_seasons (
 --
 
 CREATE SEQUENCE public.activity_seasons_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1654,6 +1730,7 @@ CREATE TABLE public.activity_tactics (
 --
 
 CREATE SEQUENCE public.activity_tactics_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1708,6 +1785,7 @@ CREATE TABLE public.affairs (
 --
 
 CREATE SEQUENCE public.affairs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1744,6 +1822,7 @@ CREATE TABLE public.alert_phases (
 --
 
 CREATE SEQUENCE public.alert_phases_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1779,6 +1858,7 @@ CREATE TABLE public.alerts (
 --
 
 CREATE SEQUENCE public.alerts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1829,6 +1909,7 @@ CREATE TABLE public.analyses (
 --
 
 CREATE SEQUENCE public.analyses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1879,6 +1960,7 @@ CREATE TABLE public.analysis_items (
 --
 
 CREATE SEQUENCE public.analysis_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1891,6 +1973,71 @@ CREATE SEQUENCE public.analysis_items_id_seq
 --
 
 ALTER SEQUENCE public.analysis_items_id_seq OWNED BY public.analysis_items.id;
+
+
+--
+-- Name: analytic_segments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.analytic_segments (
+    id integer NOT NULL,
+    analytic_sequence_id integer NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: analytic_segments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.analytic_segments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: analytic_segments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.analytic_segments_id_seq OWNED BY public.analytic_segments.id;
+
+
+--
+-- Name: analytic_sequences; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.analytic_sequences (
+    id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: analytic_sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.analytic_sequences_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: analytic_sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.analytic_sequences_id_seq OWNED BY public.analytic_sequences.id;
 
 
 --
@@ -1931,6 +2078,7 @@ CREATE TABLE public.attachments (
 --
 
 CREATE SEQUENCE public.attachments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1977,6 +2125,7 @@ CREATE TABLE public.bank_statement_items (
 --
 
 CREATE SEQUENCE public.bank_statement_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2022,6 +2171,7 @@ CREATE TABLE public.bank_statements (
 --
 
 CREATE SEQUENCE public.bank_statements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2067,6 +2217,7 @@ CREATE TABLE public.call_messages (
 --
 
 CREATE SEQUENCE public.call_messages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2106,6 +2257,7 @@ CREATE TABLE public.calls (
 --
 
 CREATE SEQUENCE public.calls_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2125,6 +2277,7 @@ ALTER SEQUENCE public.calls_id_seq OWNED BY public.calls.id;
 --
 
 CREATE SEQUENCE public.campaigns_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2178,6 +2331,7 @@ CREATE TABLE public.cap_islets (
 --
 
 CREATE SEQUENCE public.cap_islets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2219,6 +2373,7 @@ CREATE TABLE public.cap_land_parcels (
 --
 
 CREATE SEQUENCE public.cap_land_parcels_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2257,6 +2412,7 @@ CREATE TABLE public.cap_neutral_areas (
 --
 
 CREATE SEQUENCE public.cap_neutral_areas_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2295,6 +2451,7 @@ CREATE TABLE public.cap_statements (
 --
 
 CREATE SEQUENCE public.cap_statements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2336,6 +2493,7 @@ CREATE TABLE public.cash_sessions (
 --
 
 CREATE SEQUENCE public.cash_sessions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2383,6 +2541,7 @@ CREATE TABLE public.cash_transfers (
 --
 
 CREATE SEQUENCE public.cash_transfers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2442,6 +2601,7 @@ CREATE TABLE public.cashes (
 --
 
 CREATE SEQUENCE public.cashes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2484,6 +2644,7 @@ CREATE TABLE public.catalog_items (
 --
 
 CREATE SEQUENCE public.catalog_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2525,6 +2686,7 @@ CREATE TABLE public.catalogs (
 --
 
 CREATE SEQUENCE public.catalogs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2563,6 +2725,7 @@ CREATE TABLE public.contract_items (
 --
 
 CREATE SEQUENCE public.contract_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2607,6 +2770,7 @@ CREATE TABLE public.contracts (
 --
 
 CREATE SEQUENCE public.contracts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2643,6 +2807,7 @@ CREATE TABLE public.crop_group_items (
 --
 
 CREATE SEQUENCE public.crop_group_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2678,6 +2843,7 @@ CREATE TABLE public.crop_group_labellings (
 --
 
 CREATE SEQUENCE public.crop_group_labellings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2713,6 +2879,7 @@ CREATE TABLE public.crop_groups (
 --
 
 CREATE SEQUENCE public.crop_groups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2757,6 +2924,7 @@ CREATE TABLE public.crumbs (
 --
 
 CREATE SEQUENCE public.crumbs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2802,6 +2970,7 @@ CREATE TABLE public.cultivable_zones (
 --
 
 CREATE SEQUENCE public.cultivable_zones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2839,6 +3008,7 @@ CREATE TABLE public.custom_field_choices (
 --
 
 CREATE SEQUENCE public.custom_field_choices_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2883,6 +3053,7 @@ CREATE TABLE public.custom_fields (
 --
 
 CREATE SEQUENCE public.custom_fields_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2919,6 +3090,7 @@ CREATE TABLE public.cvi_cadastral_plant_cvi_land_parcels (
 --
 
 CREATE SEQUENCE public.cvi_cadastral_plant_cvi_land_parcels_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2972,6 +3144,7 @@ CREATE TABLE public.cvi_cadastral_plants (
 --
 
 CREATE SEQUENCE public.cvi_cadastral_plants_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3013,6 +3186,7 @@ CREATE TABLE public.cvi_cultivable_zones (
 --
 
 CREATE SEQUENCE public.cvi_cultivable_zones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3064,6 +3238,7 @@ CREATE TABLE public.cvi_land_parcels (
 --
 
 CREATE SEQUENCE public.cvi_land_parcels_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3108,6 +3283,7 @@ CREATE TABLE public.cvi_statements (
 --
 
 CREATE SEQUENCE public.cvi_statements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3144,6 +3320,7 @@ CREATE TABLE public.dashboards (
 --
 
 CREATE SEQUENCE public.dashboards_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3185,6 +3362,7 @@ CREATE TABLE public.debt_transfers (
 --
 
 CREATE SEQUENCE public.debt_transfers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3230,6 +3408,7 @@ CREATE TABLE public.deliveries (
 --
 
 CREATE SEQUENCE public.deliveries_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3265,6 +3444,7 @@ CREATE TABLE public.delivery_tools (
 --
 
 CREATE SEQUENCE public.delivery_tools_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3309,6 +3489,7 @@ CREATE TABLE public.deposits (
 --
 
 CREATE SEQUENCE public.deposits_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3344,6 +3525,7 @@ CREATE TABLE public.districts (
 --
 
 CREATE SEQUENCE public.districts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3387,6 +3569,7 @@ CREATE TABLE public.document_templates (
 --
 
 CREATE SEQUENCE public.document_templates_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3438,6 +3621,7 @@ CREATE TABLE public.documents (
 --
 
 CREATE SEQUENCE public.documents_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3606,7 +3790,8 @@ CREATE TABLE public.journal_entry_items (
     project_budget_id integer,
     equipment_id integer,
     accounting_label character varying,
-    lettered_at timestamp without time zone
+    lettered_at timestamp without time zone,
+    isacompta_letter character varying(4)
 );
 
 
@@ -3884,6 +4069,7 @@ CREATE VIEW public.economic_situations AS
 --
 
 CREATE SEQUENCE public.entities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3934,6 +4120,7 @@ CREATE TABLE public.entity_addresses (
 --
 
 CREATE SEQUENCE public.entity_addresses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3977,6 +4164,7 @@ CREATE TABLE public.entity_links (
 --
 
 CREATE SEQUENCE public.entity_links_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4013,6 +4201,7 @@ CREATE TABLE public.event_participations (
 --
 
 CREATE SEQUENCE public.event_participations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4056,6 +4245,7 @@ CREATE TABLE public.events (
 --
 
 CREATE SEQUENCE public.events_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4089,6 +4279,7 @@ CREATE TABLE public.financial_year_archives (
 --
 
 CREATE SEQUENCE public.financial_year_archives_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4123,7 +4314,10 @@ CREATE TABLE public.financial_year_exchanges (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    format character varying DEFAULT 'ekyagri'::character varying NOT NULL,
+    transmit_isacompta_analytic_codes boolean DEFAULT false,
+    exported_journal_ids character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -4132,6 +4326,7 @@ CREATE TABLE public.financial_year_exchanges (
 --
 
 CREATE SEQUENCE public.financial_year_exchanges_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4179,6 +4374,7 @@ CREATE TABLE public.financial_years (
 --
 
 CREATE SEQUENCE public.financial_years_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4224,6 +4420,7 @@ CREATE TABLE public.fixed_asset_depreciations (
 --
 
 CREATE SEQUENCE public.fixed_asset_depreciations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4299,6 +4496,7 @@ CREATE TABLE public.fixed_assets (
 --
 
 CREATE SEQUENCE public.fixed_assets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4337,6 +4535,7 @@ CREATE TABLE public.gap_items (
 --
 
 CREATE SEQUENCE public.gap_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4381,6 +4580,7 @@ CREATE TABLE public.gaps (
 --
 
 CREATE SEQUENCE public.gaps_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4419,6 +4619,7 @@ CREATE TABLE public.georeadings (
 --
 
 CREATE SEQUENCE public.georeadings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4458,6 +4659,7 @@ CREATE TABLE public.guide_analyses (
 --
 
 CREATE SEQUENCE public.guide_analyses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4495,6 +4697,7 @@ CREATE TABLE public.guide_analysis_points (
 --
 
 CREATE SEQUENCE public.guide_analysis_points_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4538,6 +4741,7 @@ CREATE TABLE public.guides (
 --
 
 CREATE SEQUENCE public.guides_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4572,6 +4776,7 @@ CREATE TABLE public.idea_diagnostic_item_values (
 --
 
 CREATE SEQUENCE public.idea_diagnostic_item_values_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4607,6 +4812,7 @@ CREATE TABLE public.idea_diagnostic_items (
 --
 
 CREATE SEQUENCE public.idea_diagnostic_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4643,6 +4849,7 @@ CREATE TABLE public.idea_diagnostic_results (
 --
 
 CREATE SEQUENCE public.idea_diagnostic_results_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4680,6 +4887,7 @@ CREATE TABLE public.idea_diagnostics (
 --
 
 CREATE SEQUENCE public.idea_diagnostics_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4716,6 +4924,7 @@ CREATE TABLE public.identifiers (
 --
 
 CREATE SEQUENCE public.identifiers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4759,6 +4968,7 @@ CREATE TABLE public.imports (
 --
 
 CREATE SEQUENCE public.imports_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4806,6 +5016,7 @@ CREATE TABLE public.incoming_payment_modes (
 --
 
 CREATE SEQUENCE public.incoming_payment_modes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4825,6 +5036,7 @@ ALTER SEQUENCE public.incoming_payment_modes_id_seq OWNED BY public.incoming_pay
 --
 
 CREATE SEQUENCE public.incoming_payments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4864,6 +5076,7 @@ CREATE TABLE public.inspection_calibrations (
 --
 
 CREATE SEQUENCE public.inspection_calibrations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4903,6 +5116,7 @@ CREATE TABLE public.inspection_points (
 --
 
 CREATE SEQUENCE public.inspection_points_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4948,6 +5162,7 @@ CREATE TABLE public.inspections (
 --
 
 CREATE SEQUENCE public.inspections_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4987,6 +5202,7 @@ CREATE TABLE public.integrations (
 --
 
 CREATE SEQUENCE public.integrations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5024,6 +5240,7 @@ CREATE TABLE public.intervention_costings (
 --
 
 CREATE SEQUENCE public.intervention_costings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5059,6 +5276,7 @@ CREATE TABLE public.intervention_crop_groups (
 --
 
 CREATE SEQUENCE public.intervention_crop_groups_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5094,6 +5312,7 @@ CREATE TABLE public.intervention_labellings (
 --
 
 CREATE SEQUENCE public.intervention_labellings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5142,6 +5361,7 @@ CREATE TABLE public.intervention_parameter_readings (
 --
 
 CREATE SEQUENCE public.intervention_parameter_readings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5161,6 +5381,7 @@ ALTER SEQUENCE public.intervention_parameter_readings_id_seq OWNED BY public.int
 --
 
 CREATE SEQUENCE public.intervention_parameters_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5199,6 +5420,7 @@ CREATE TABLE public.intervention_participations (
 --
 
 CREATE SEQUENCE public.intervention_participations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5218,6 +5440,7 @@ ALTER SEQUENCE public.intervention_participations_id_seq OWNED BY public.interve
 --
 
 CREATE SEQUENCE public.intervention_working_periods_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5237,6 +5460,7 @@ ALTER SEQUENCE public.intervention_working_periods_id_seq OWNED BY public.interv
 --
 
 CREATE SEQUENCE public.interventions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5284,6 +5508,7 @@ CREATE TABLE public.inventories (
 --
 
 CREATE SEQUENCE public.inventories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5324,6 +5549,7 @@ CREATE TABLE public.inventory_items (
 --
 
 CREATE SEQUENCE public.inventory_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5373,6 +5599,7 @@ CREATE TABLE public.issues (
 --
 
 CREATE SEQUENCE public.issues_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5422,7 +5649,9 @@ CREATE TABLE public.journal_entries (
     reference_number character varying,
     continuous_number integer,
     validated_at timestamp without time zone,
-    provider jsonb
+    provider jsonb,
+    compliance jsonb DEFAULT '"{}"'::jsonb,
+    name character varying
 );
 
 
@@ -5431,6 +5660,7 @@ CREATE TABLE public.journal_entries (
 --
 
 CREATE SEQUENCE public.journal_entries_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5450,6 +5680,7 @@ ALTER SEQUENCE public.journal_entries_id_seq OWNED BY public.journal_entries.id;
 --
 
 CREATE SEQUENCE public.journal_entry_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5487,7 +5718,10 @@ CREATE TABLE public.journals (
     used_for_unbilled_payables boolean DEFAULT false NOT NULL,
     used_for_tax_declarations boolean DEFAULT false NOT NULL,
     accountant_id integer,
-    provider jsonb
+    provider jsonb,
+    isacompta_code character varying(2),
+    isacompta_label character varying(30),
+    financial_year_exchange_id integer
 );
 
 
@@ -5496,6 +5730,7 @@ CREATE TABLE public.journals (
 --
 
 CREATE SEQUENCE public.journals_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5531,6 +5766,7 @@ CREATE TABLE public.labels (
 --
 
 CREATE SEQUENCE public.labels_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5567,6 +5803,7 @@ CREATE TABLE public.listing_node_items (
 --
 
 CREATE SEQUENCE public.listing_node_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5619,6 +5856,7 @@ CREATE TABLE public.listing_nodes (
 --
 
 CREATE SEQUENCE public.listing_nodes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5660,6 +5898,7 @@ CREATE TABLE public.listings (
 --
 
 CREATE SEQUENCE public.listings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5705,6 +5944,7 @@ CREATE TABLE public.loan_repayments (
 --
 
 CREATE SEQUENCE public.loan_repayments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5767,6 +6007,7 @@ CREATE TABLE public.loans (
 --
 
 CREATE SEQUENCE public.loans_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5804,6 +6045,7 @@ CREATE TABLE public.locations (
 --
 
 CREATE SEQUENCE public.locations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5857,6 +6099,7 @@ CREATE TABLE public.manure_management_plan_zones (
 --
 
 CREATE SEQUENCE public.manure_management_plan_zones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5898,6 +6141,7 @@ CREATE TABLE public.manure_management_plans (
 --
 
 CREATE SEQUENCE public.manure_management_plans_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5945,6 +6189,7 @@ CREATE TABLE public.map_layers (
 --
 
 CREATE SEQUENCE public.map_layers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -5982,6 +6227,7 @@ CREATE TABLE public.naming_format_fields (
 --
 
 CREATE SEQUENCE public.naming_format_fields_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6017,6 +6263,7 @@ CREATE TABLE public.naming_formats (
 --
 
 CREATE SEQUENCE public.naming_formats_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6051,6 +6298,7 @@ CREATE TABLE public.net_services (
 --
 
 CREATE SEQUENCE public.net_services_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6092,6 +6340,7 @@ CREATE TABLE public.notifications (
 --
 
 CREATE SEQUENCE public.notifications_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6131,6 +6380,7 @@ CREATE TABLE public.observations (
 --
 
 CREATE SEQUENCE public.observations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6168,6 +6418,7 @@ CREATE TABLE public.outgoing_payment_lists (
 --
 
 CREATE SEQUENCE public.outgoing_payment_lists_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6207,6 +6458,7 @@ CREATE TABLE public.outgoing_payment_modes (
 --
 
 CREATE SEQUENCE public.outgoing_payment_modes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6226,6 +6478,7 @@ ALTER SEQUENCE public.outgoing_payment_modes_id_seq OWNED BY public.outgoing_pay
 --
 
 CREATE SEQUENCE public.outgoing_payments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6265,6 +6518,7 @@ CREATE TABLE public.parcel_item_storings (
 --
 
 CREATE SEQUENCE public.parcel_item_storings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6335,6 +6589,7 @@ CREATE TABLE public.parcel_items (
 --
 
 CREATE SEQUENCE public.parcel_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6402,6 +6657,7 @@ CREATE TABLE public.parcels (
 --
 
 CREATE SEQUENCE public.parcels_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6442,6 +6698,7 @@ CREATE TABLE public.payslip_natures (
 --
 
 CREATE SEQUENCE public.payslip_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6489,6 +6746,7 @@ CREATE TABLE public.payslips (
 --
 
 CREATE SEQUENCE public.payslips_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6545,6 +6803,7 @@ CREATE TABLE public.pfi_intervention_parameters (
 --
 
 CREATE SEQUENCE public.pfi_intervention_parameters_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6580,6 +6839,7 @@ CREATE TABLE public.plant_counting_items (
 --
 
 CREATE SEQUENCE public.plant_counting_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6623,6 +6883,7 @@ CREATE TABLE public.plant_countings (
 --
 
 CREATE SEQUENCE public.plant_countings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6661,6 +6922,7 @@ CREATE TABLE public.plant_density_abaci (
 --
 
 CREATE SEQUENCE public.plant_density_abaci_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6697,6 +6959,7 @@ CREATE TABLE public.plant_density_abacus_items (
 --
 
 CREATE SEQUENCE public.plant_density_abacus_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6737,6 +7000,7 @@ CREATE TABLE public.postal_zones (
 --
 
 CREATE SEQUENCE public.postal_zones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6779,6 +7043,7 @@ CREATE TABLE public.preferences (
 --
 
 CREATE SEQUENCE public.preferences_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6817,6 +7082,7 @@ CREATE TABLE public.prescriptions (
 --
 
 CREATE SEQUENCE public.prescriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6858,6 +7124,7 @@ CREATE TABLE public.product_enjoyments (
 --
 
 CREATE SEQUENCE public.product_enjoyments_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6893,6 +7160,7 @@ CREATE TABLE public.product_labellings (
 --
 
 CREATE SEQUENCE public.product_labellings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6935,6 +7203,7 @@ CREATE TABLE public.product_linkages (
 --
 
 CREATE SEQUENCE public.product_linkages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -6976,6 +7245,7 @@ CREATE TABLE public.product_links (
 --
 
 CREATE SEQUENCE public.product_links_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7017,6 +7287,7 @@ CREATE TABLE public.product_localizations (
 --
 
 CREATE SEQUENCE public.product_localizations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7058,6 +7329,7 @@ CREATE TABLE public.product_memberships (
 --
 
 CREATE SEQUENCE public.product_memberships_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7100,6 +7372,7 @@ CREATE TABLE public.product_movements (
 --
 
 CREATE SEQUENCE public.product_movements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7159,6 +7432,7 @@ CREATE TABLE public.product_nature_categories (
 --
 
 CREATE SEQUENCE public.product_nature_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7195,6 +7469,7 @@ CREATE TABLE public.product_nature_category_taxations (
 --
 
 CREATE SEQUENCE public.product_nature_category_taxations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7233,6 +7508,7 @@ CREATE TABLE public.product_nature_variant_components (
 --
 
 CREATE SEQUENCE public.product_nature_variant_components_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7281,6 +7557,7 @@ CREATE TABLE public.product_nature_variant_readings (
 --
 
 CREATE SEQUENCE public.product_nature_variant_readings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7370,6 +7647,7 @@ CREATE TABLE public.product_nature_variants (
 --
 
 CREATE SEQUENCE public.product_nature_variants_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7430,6 +7708,7 @@ CREATE TABLE public.product_natures (
 --
 
 CREATE SEQUENCE public.product_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7471,6 +7750,7 @@ CREATE TABLE public.product_ownerships (
 --
 
 CREATE SEQUENCE public.product_ownerships_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7513,6 +7793,7 @@ CREATE TABLE public.product_phases (
 --
 
 CREATE SEQUENCE public.product_phases_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7581,6 +7862,7 @@ CREATE TABLE public.product_readings (
 --
 
 CREATE SEQUENCE public.product_readings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7600,6 +7882,7 @@ ALTER SEQUENCE public.product_readings_id_seq OWNED BY public.product_readings.i
 --
 
 CREATE SEQUENCE public.products_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7626,7 +7909,8 @@ CREATE TABLE public.project_budgets (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    isacompta_analytic_code character varying(2)
 );
 
 
@@ -7635,6 +7919,7 @@ CREATE TABLE public.project_budgets (
 --
 
 CREATE SEQUENCE public.project_budgets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7654,6 +7939,7 @@ ALTER SEQUENCE public.project_budgets_id_seq OWNED BY public.project_budgets.id;
 --
 
 CREATE SEQUENCE public.purchase_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7692,6 +7978,7 @@ CREATE TABLE public.purchase_natures (
 --
 
 CREATE SEQUENCE public.purchase_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7711,6 +7998,7 @@ ALTER SEQUENCE public.purchase_natures_id_seq OWNED BY public.purchase_natures.i
 --
 
 CREATE SEQUENCE public.purchases_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7747,6 +8035,7 @@ CREATE TABLE public.regularizations (
 --
 
 CREATE SEQUENCE public.regularizations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7793,6 +8082,7 @@ CREATE TABLE public.ride_sets (
 --
 
 CREATE SEQUENCE public.ride_sets_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7843,6 +8133,7 @@ CREATE TABLE public.rides (
 --
 
 CREATE SEQUENCE public.rides_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7879,6 +8170,7 @@ CREATE TABLE public.roles (
 --
 
 CREATE SEQUENCE public.roles_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7898,6 +8190,7 @@ ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 --
 
 CREATE SEQUENCE public.sale_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7947,6 +8240,7 @@ CREATE TABLE public.sale_natures (
 --
 
 CREATE SEQUENCE public.sale_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -7966,6 +8260,7 @@ ALTER SEQUENCE public.sale_natures_id_seq OWNED BY public.sale_natures.id;
 --
 
 CREATE SEQUENCE public.sales_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8023,6 +8318,7 @@ CREATE TABLE public.sensors (
 --
 
 CREATE SEQUENCE public.sensors_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8066,6 +8362,7 @@ CREATE TABLE public.sequences (
 --
 
 CREATE SEQUENCE public.sequences_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8101,6 +8398,7 @@ CREATE TABLE public.subscription_natures (
 --
 
 CREATE SEQUENCE public.subscription_natures_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8147,6 +8445,7 @@ CREATE TABLE public.subscriptions (
 --
 
 CREATE SEQUENCE public.subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8183,6 +8482,7 @@ CREATE TABLE public.supervision_items (
 --
 
 CREATE SEQUENCE public.supervision_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8220,6 +8520,7 @@ CREATE TABLE public.supervisions (
 --
 
 CREATE SEQUENCE public.supervisions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8261,6 +8562,7 @@ CREATE TABLE public.synchronization_operations (
 --
 
 CREATE SEQUENCE public.synchronization_operations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8299,6 +8601,7 @@ CREATE TABLE public.target_distributions (
 --
 
 CREATE SEQUENCE public.target_distributions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8341,6 +8644,7 @@ CREATE TABLE public.tasks (
 --
 
 CREATE SEQUENCE public.tasks_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8382,6 +8686,7 @@ CREATE TABLE public.tax_declaration_item_parts (
 --
 
 CREATE SEQUENCE public.tax_declaration_item_parts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8428,6 +8733,7 @@ CREATE TABLE public.tax_declaration_items (
 --
 
 CREATE SEQUENCE public.tax_declaration_items_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8474,6 +8780,7 @@ CREATE TABLE public.tax_declarations (
 --
 
 CREATE SEQUENCE public.tax_declarations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8521,6 +8828,7 @@ CREATE TABLE public.taxes (
 --
 
 CREATE SEQUENCE public.taxes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8551,7 +8859,8 @@ CREATE TABLE public.teams (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    isacompta_analytic_code character varying(2)
 );
 
 
@@ -8560,6 +8869,7 @@ CREATE TABLE public.teams (
 --
 
 CREATE SEQUENCE public.teams_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8595,6 +8905,7 @@ CREATE TABLE public.tokens (
 --
 
 CREATE SEQUENCE public.tokens_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8636,6 +8947,7 @@ CREATE TABLE public.trackings (
 --
 
 CREATE SEQUENCE public.trackings_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8711,6 +9023,7 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8747,6 +9060,7 @@ CREATE TABLE public.versions (
 --
 
 CREATE SEQUENCE public.versions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8780,6 +9094,7 @@ CREATE TABLE public.wice_grid_serialized_queries (
 --
 
 CREATE SEQUENCE public.wice_grid_serialized_queries_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8817,6 +9132,7 @@ CREATE TABLE public.wine_incoming_harvest_inputs (
 --
 
 CREATE SEQUENCE public.wine_incoming_harvest_inputs_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8854,6 +9170,7 @@ CREATE TABLE public.wine_incoming_harvest_plants (
 --
 
 CREATE SEQUENCE public.wine_incoming_harvest_plants_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8893,6 +9210,7 @@ CREATE TABLE public.wine_incoming_harvest_presses (
 --
 
 CREATE SEQUENCE public.wine_incoming_harvest_presses_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8930,6 +9248,7 @@ CREATE TABLE public.wine_incoming_harvest_storages (
 --
 
 CREATE SEQUENCE public.wine_incoming_harvest_storages_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -8972,6 +9291,7 @@ CREATE TABLE public.wine_incoming_harvests (
 --
 
 CREATE SEQUENCE public.wine_incoming_harvests_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -9103,6 +9423,20 @@ ALTER TABLE ONLY public.analyses ALTER COLUMN id SET DEFAULT nextval('public.ana
 --
 
 ALTER TABLE ONLY public.analysis_items ALTER COLUMN id SET DEFAULT nextval('public.analysis_items_id_seq'::regclass);
+
+
+--
+-- Name: analytic_segments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_segments ALTER COLUMN id SET DEFAULT nextval('public.analytic_segments_id_seq'::regclass);
+
+
+--
+-- Name: analytic_sequences id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_sequences ALTER COLUMN id SET DEFAULT nextval('public.analytic_sequences_id_seq'::regclass);
 
 
 --
@@ -10288,6 +10622,14 @@ ALTER TABLE ONLY lexicon.master_production_outputs
 
 
 --
+-- Name: master_vine_varieties master_vine_varieties_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_vine_varieties
+    ADD CONSTRAINT master_vine_varieties_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: phenological_stages phenological_stages_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -10436,7 +10778,15 @@ ALTER TABLE ONLY lexicon.registered_protected_designation_of_origins
 --
 
 ALTER TABLE ONLY lexicon.registered_seeds
-    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (number);
+    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taxonomy taxonomy_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.taxonomy
+    ADD CONSTRAINT taxonomy_pkey PRIMARY KEY (id);
 
 
 --
@@ -10661,6 +11011,22 @@ ALTER TABLE ONLY public.analyses
 
 ALTER TABLE ONLY public.analysis_items
     ADD CONSTRAINT analysis_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: analytic_segments analytic_segments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_segments
+    ADD CONSTRAINT analytic_segments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: analytic_sequences analytic_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_sequences
+    ADD CONSTRAINT analytic_sequences_pkey PRIMARY KEY (id);
 
 
 --
@@ -12368,10 +12734,24 @@ CREATE INDEX registered_postal_zones_postal_code ON lexicon.registered_postal_zo
 
 
 --
--- Name: registered_seeds_specie; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_seeds_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_seeds_specie ON lexicon.registered_seeds USING btree (specie);
+CREATE INDEX registered_seeds_id ON lexicon.registered_seeds USING btree (id);
+
+
+--
+-- Name: registered_seeds_id_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_seeds_id_specie ON lexicon.registered_seeds USING btree (id_specie);
+
+
+--
+-- Name: taxonomy_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX taxonomy_id ON lexicon.taxonomy USING btree (id);
 
 
 --
@@ -13352,6 +13732,13 @@ CREATE INDEX index_analysis_items_on_updated_at ON public.analysis_items USING b
 --
 
 CREATE INDEX index_analysis_items_on_updater_id ON public.analysis_items USING btree (updater_id);
+
+
+--
+-- Name: index_analytic_segments_on_analytic_sequence_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_analytic_segments_on_analytic_sequence_id ON public.analytic_segments USING btree (analytic_sequence_id);
 
 
 --
@@ -17048,6 +17435,13 @@ CREATE INDEX index_journals_on_created_at ON public.journals USING btree (create
 --
 
 CREATE INDEX index_journals_on_creator_id ON public.journals USING btree (creator_id);
+
+
+--
+-- Name: index_journals_on_financial_year_exchange_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journals_on_financial_year_exchange_id ON public.journals USING btree (financial_year_exchange_id);
 
 
 --
@@ -21482,6 +21876,13 @@ CREATE INDEX intervention_provider_index ON public.interventions USING gin (((pr
 
 
 --
+-- Name: journal_entries_compliance_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX journal_entries_compliance_index ON public.journal_entries USING gin (((compliance -> 'vendor'::text)), ((compliance -> 'name'::text)));
+
+
+--
 -- Name: journal_entry_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21666,339 +22067,59 @@ CREATE RULE delete_product_populations AS
 
 
 --
--- Name: cadastral_land_parcel_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.cadastral_land_parcel_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: datasource_credits deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.datasource_credits FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: eu_market_prices deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.eu_market_prices FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: intervention_model_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.intervention_model_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: intervention_models deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.intervention_models FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: master_production_natures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_production_natures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: master_production_outputs deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_production_outputs FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: master_vine_varieties deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.master_vine_varieties FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: phenological_stages deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.phenological_stages FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_agroedi_codes deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_agroedi_codes FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_building_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_building_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_chart_of_accounts deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_chart_of_accounts FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_crop_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_crop_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_enterprises deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_enterprises FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_hydro_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_hydro_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_legal_positions deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_legal_positions FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_crops deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_crops FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_doses deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_doses FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_segments deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_segments FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_targets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_targets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_pfi_treatment_types deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_pfi_treatment_types FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_cropsets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_cropsets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_products deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_products FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_risks deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_risks FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_symbols deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_symbols FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_target_name_to_pfi_targets deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_target_name_to_pfi_targets FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_phytosanitary_usages deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_phytosanitary_usages FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_postal_zones deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_postal_zones FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_protected_designation_of_origins deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_protected_designation_of_origins FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: registered_seeds deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.registered_seeds FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflow_procedure_items deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_procedure_items FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflow_procedures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_procedures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflow_sequences deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflow_sequences FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: technical_workflows deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.technical_workflows FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: user_roles deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.user_roles FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_categories deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_categories FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_doer_contracts deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_doer_contracts FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_natures deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_natures FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_prices deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_prices FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variant_units deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variant_units FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
--- Name: variants deny_changes; Type: TRIGGER; Schema: lexicon; Owner: -
---
-
-CREATE TRIGGER deny_changes BEFORE INSERT OR DELETE OR UPDATE OR TRUNCATE ON lexicon.variants FOR EACH STATEMENT EXECUTE PROCEDURE lexicon.deny_changes();
-
-
---
 -- Name: journal_entries compute_journal_entries_continuous_number_on_insert; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_journal_entries_continuous_number_on_insert BEFORE INSERT ON public.journal_entries FOR EACH ROW WHEN (((new.state)::text <> 'draft'::text)) EXECUTE PROCEDURE public.compute_journal_entry_continuous_number();
+CREATE TRIGGER compute_journal_entries_continuous_number_on_insert BEFORE INSERT ON public.journal_entries FOR EACH ROW WHEN (((new.state)::text <> 'draft'::text)) EXECUTE FUNCTION public.compute_journal_entry_continuous_number();
 
 
 --
 -- Name: journal_entries compute_journal_entries_continuous_number_on_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_journal_entries_continuous_number_on_update BEFORE UPDATE ON public.journal_entries FOR EACH ROW WHEN ((((old.state)::text <> (new.state)::text) AND ((old.state)::text = 'draft'::text))) EXECUTE PROCEDURE public.compute_journal_entry_continuous_number();
+CREATE TRIGGER compute_journal_entries_continuous_number_on_update BEFORE UPDATE ON public.journal_entries FOR EACH ROW WHEN ((((old.state)::text <> (new.state)::text) AND ((old.state)::text = 'draft'::text))) EXECUTE FUNCTION public.compute_journal_entry_continuous_number();
 
 
 --
 -- Name: journal_entry_items compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON public.journal_entry_items FOR EACH ROW EXECUTE PROCEDURE public.compute_partial_lettering();
+CREATE TRIGGER compute_partial_lettering_status_insert_delete AFTER INSERT OR DELETE ON public.journal_entry_items FOR EACH ROW EXECUTE FUNCTION public.compute_partial_lettering();
 
 
 --
 -- Name: journal_entry_items compute_partial_lettering_status_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON public.journal_entry_items FOR EACH ROW WHEN (((pg_trigger_depth() = 0) AND (((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit)))) EXECUTE PROCEDURE public.compute_partial_lettering();
+CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, debit, account_id, letter ON public.journal_entry_items FOR EACH ROW WHEN (((pg_trigger_depth() = 0) AND (((COALESCE(old.letter, ''::character varying))::text <> (COALESCE(new.letter, ''::character varying))::text) OR (old.account_id <> new.account_id) OR (old.credit <> new.credit) OR (old.debit <> new.debit)))) EXECUTE FUNCTION public.compute_partial_lettering();
 
 
 --
 -- Name: outgoing_payments outgoing_payment_list_cache; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON public.outgoing_payments FOR EACH ROW EXECUTE PROCEDURE public.compute_outgoing_payment_list_cache();
+CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON public.outgoing_payments FOR EACH ROW EXECUTE FUNCTION public.compute_outgoing_payment_list_cache();
+
+
+--
+-- Name: journal_entry_items partial_isacompta_lettering; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER partial_isacompta_lettering AFTER UPDATE OF letter ON public.journal_entry_items FOR EACH ROW EXECUTE FUNCTION public.compute_partial_isacompta_lettering();
 
 
 --
 -- Name: journal_entry_items synchronize_jei_with_entry; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON public.journal_entry_items FOR EACH ROW EXECUTE PROCEDURE public.synchronize_jei_with_entry('jei');
+CREATE TRIGGER synchronize_jei_with_entry AFTER INSERT OR UPDATE ON public.journal_entry_items FOR EACH ROW EXECUTE FUNCTION public.synchronize_jei_with_entry('jei');
 
 
 --
 -- Name: journal_entries synchronize_jeis_of_entry; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON public.journal_entries FOR EACH ROW EXECUTE PROCEDURE public.synchronize_jei_with_entry('entry');
+CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON public.journal_entries FOR EACH ROW EXECUTE FUNCTION public.synchronize_jei_with_entry('entry');
 
 
 --
@@ -22218,6 +22339,14 @@ ALTER TABLE ONLY public.crumbs
 
 
 --
+-- Name: analytic_segments fk_rails_6f90f51e24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analytic_segments
+    ADD CONSTRAINT fk_rails_6f90f51e24 FOREIGN KEY (analytic_sequence_id) REFERENCES public.analytic_sequences(id);
+
+
+--
 -- Name: parcel_items fk_rails_7010820bb4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22239,6 +22368,14 @@ ALTER TABLE ONLY public.cvi_land_parcels
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT fk_rails_76eca6ee87 FOREIGN KEY (purchase_id) REFERENCES public.purchases(id);
+
+
+--
+-- Name: journals fk_rails_790552b64c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.journals
+    ADD CONSTRAINT fk_rails_790552b64c FOREIGN KEY (financial_year_exchange_id) REFERENCES public.financial_year_exchanges(id);
 
 
 --
@@ -22996,6 +23133,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200311100650'),
 ('20200312163243'),
 ('20200312163701'),
+('20200313161422'),
 ('20200316151202'),
 ('20200317155452'),
 ('20200317163950'),
@@ -23004,6 +23142,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200320154251'),
 ('20200323084937'),
 ('20200330133607'),
+('20200403091907'),
 ('20200403123414'),
 ('20200406105101'),
 ('20200407090249'),
@@ -23011,6 +23150,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200409094501'),
 ('20200410183701'),
 ('20200412125000'),
+('20200413131000'),
+('20200414074218'),
 ('20200415162701'),
 ('20200415163115'),
 ('20200417183101'),
@@ -23038,6 +23179,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200820095810'),
 ('20200824133243'),
 ('20200902094919'),
+('20200917092443'),
 ('20200918144501'),
 ('20200922092535'),
 ('20200922144601'),
@@ -23064,24 +23206,38 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201215085433'),
 ('20210119103725'),
 ('20210119151601'),
+('20210205105359'),
 ('20210209154545'),
 ('20210211162023'),
 ('20210215114312'),
 ('20210215133318'),
 ('20210215153434'),
+('20210216111920'),
 ('20210217082925'),
+('20210217112010'),
+('20210219172016'),
 ('20210222103208'),
 ('20210302081408'),
 ('20210304145448'),
 ('20210304154300'),
+('20210310135449'),
+('20210311143508'),
 ('20210312110155'),
 ('20210312110510'),
+('20210317102544'),
+('20210325083800'),
+('20210326163132'),
+('20210329135015'),
+('20210329151703'),
+('20210402133741'),
 ('20210414100801'),
 ('20210416084101'),
+('20210421142541'),
 ('20210421171901'),
+('20210427233001'),
 ('20210510075720'),
 ('20210511132348'),
-('20210511133034'),
-('20210514142217');
+('20210512161201'),
+('20210514062916');
 
 

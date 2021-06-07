@@ -2,6 +2,11 @@
 
 source 'https://rubygems.org'
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 git_source(:gitlab) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://gitlab.com/#{repo_name}.git"
@@ -146,6 +151,7 @@ gem 'charlock_holmes', '~> 0.7.7'
 gem 'combine_pdf', '~> 1.0'
 gem 'ekylibre-ofx-parser', '~> 1.2'
 gem 'gpgme', '~> 2.0'
+gem 'holidays' # Deal with statutory and other holidays
 gem 'luhn', '~> 1.0'
 gem 'mimemagic', '~> 0.3.5'
 gem 'nokogiri', '~> 1.8'
@@ -156,6 +162,7 @@ gem 'rodf', '~> 1.0'
 gem 'roo', '~> 2.8'
 gem 'rubyzip', '~> 1.2.2'
 gem 'sepa_king', '~> 0.12.0'
+gem 'xml_errors_parser', gitlab: 'ekylibre/xsd_errors_parser', branch: 'master'
 
 # Web services
 gem 'mechanize', '~> 2.7'
