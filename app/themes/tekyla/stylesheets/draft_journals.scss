@@ -1,0 +1,24 @@
+td.fec-compliance {
+  i {
+    margin-right: 10px;
+    &.no-error {
+      @include is-icon;
+      @include use-icon(check);
+      color: green;
+    }
+    &.no-fec-data {
+      @include is-icon;
+      @include use-icon(question);
+    }
+    &[data-category='base'] {
+      @include is-icon;
+      @include use-icon(clear);
+      color: red;
+    }
+    &[data-category='date'] {
+      @include is-icon;
+      @include use-icon(calendar);
+      color: red;
+    }
+  }
+}

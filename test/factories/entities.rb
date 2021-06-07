@@ -35,6 +35,10 @@ FactoryBot.define do
       end
     end
 
+    trait :transporter do
+      transporter { true }
+    end
+
     trait :with_booked_journals do
       after(:create) do |entity|
         create_list :journal, 2, :various, accountant_id: entity.id

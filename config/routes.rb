@@ -489,9 +489,12 @@ Rails.application.routes.draw do
     resource :draft_journal, only: [:show] do
       member do
         post :confirm
-        post :confirm_all
         get :list
         get :list_journal_entry_items
+      end
+      collection do
+        get :fec_compliance_errors
+        get :confirmation_modal
       end
     end
 

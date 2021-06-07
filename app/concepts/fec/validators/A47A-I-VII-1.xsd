@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="comptabilite">
+		<xs:complexType><xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" ref="exercice"/>
+		</xs:sequence></xs:complexType>
+	</xs:element>
+
+	<xs:element name="exercice">
+		<xs:complexType><xs:sequence>
+			<xs:element name="DateCloture" minOccurs="1" maxOccurs="1" type="UnionDate"/>
+			<xs:element minOccurs="1" maxOccurs="unbounded" ref="journal"/>
+		</xs:sequence></xs:complexType>
+	</xs:element>
+
+	<xs:element name="journal">
+		<xs:complexType><xs:sequence>
+			<xs:element name="JournalCode" minOccurs="1" maxOccurs="1" type="xs:string"/>
+			<xs:element name="JournalLib" minOccurs="1" maxOccurs="1" type="xs:string"/>
+			<xs:element minOccurs="0" maxOccurs="unbounded" ref="ecriture"/>
+		</xs:sequence></xs:complexType>
+	</xs:element>
+
+	<xs:element name="ecriture">
+		<xs:complexType><xs:sequence>
+			<xs:element name="EcritureNum" minOccurs="1" maxOccurs="1" type="xs:string"/>
+			<xs:element name="EcritureDate" minOccurs="1" maxOccurs="1" type="UnionDate"/>
+			<xs:element name="EcritureLib" minOccurs="1" maxOccurs="1" type="xs:string"/>
+			<xs:element name="PieceRef" minOccurs="1" maxOccurs="1" type="xs:string"/>
+			<xs:element name="PieceDate" minOccurs="1" maxOccurs="1" type="UnionDate"/>
+			<xs:element name="EcritureLet" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			<xs:element name="DateLet" minOccurs="0" maxOccurs="1" type="UnionDate"/>
+			<xs:element name="ValidDate" minOccurs="1" maxOccurs="1" type="UnionDate"/>
+			<xs:element minOccurs="2" maxOccurs="unbounded" ref="ligne"/>
+		</xs:sequence></xs:complexType>
+	</xs:element>
+
+	<xs:element name="ligne">
+		<xs:complexType><xs:sequence>
+			<xs:element name="CompteNum" minOccurs="1" maxOccurs="1" type="NumCompteFormat"/>
+			<xs:element name="CompteLib" minOccurs="1" maxOccurs="1" type="xs:string"/>
+
+			<!-- On laisse le choix pour conserver la comptatibilité -->
+			<xs:choice minOccurs="0" maxOccurs="1">
+				<xs:element name="CompAuxNum" minOccurs="0" maxOccurs="1" type="xs:string"/>
+				<xs:element name="CompteAuxNum" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			</xs:choice>
+			<!-- On laisse le choix pour conserver la comptatibilité -->
+			<xs:choice minOccurs="0" maxOccurs="1">
+				<xs:element name="CompAuxLib" minOccurs="0" maxOccurs="1" type="xs:string"/>
+				<xs:element name="CompteAuxLib" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			</xs:choice>
+
+			<xs:element name="Montantdevise" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			<xs:element name="Idevise" minOccurs="0" maxOccurs="1" type="xs:string"/>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="Debit" minOccurs="1" maxOccurs="1" type="xs:float"/>
+				<xs:element name="Credit" minOccurs="1" maxOccurs="1" type="xs:float"/>
+				<xs:sequence minOccurs="1" maxOccurs="1">
+					<xs:element name="Montant" minOccurs="1" maxOccurs="1" type="xs:float"/>
+					<xs:element name="Sens" minOccurs="1" maxOccurs="1" type="SensFormat"/>
+				</xs:sequence>
+			</xs:choice>
+			<!-- On peut ajouter n'importe quel élement à la suite -->
+			<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence></xs:complexType>
+	</xs:element>
+
+<!-- Une date doit être de type aaaa-mm-jj ou aaaa-mm-jjThh:mm:ss -->
+	<xs:simpleType name="UnionDate">
+		<xs:union>
+			<xs:simpleType><xs:restriction base="xs:date"/></xs:simpleType>
+			<xs:simpleType><xs:restriction base="xs:dateTime"/></xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+
+<!-- Un numéro de compte doit commencer par 3 chiffres -->
+	<xs:simpleType name="NumCompteFormat">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:pattern value="([0-9]{3}([0-9a-zA-Z]*))"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+<!-- Le sens doit être du type d, D, c, C, +1 ou -1 -->
+	<xs:simpleType name="SensFormat">
+		<xs:restriction base="xs:string">
+		    <xs:enumeration value="d"/>
+		    <xs:enumeration value="D"/>
+		    <xs:enumeration value="c"/>
+		    <xs:enumeration value="C"/>
+		    <xs:enumeration value="-1"/>
+		    <xs:enumeration value="+1"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

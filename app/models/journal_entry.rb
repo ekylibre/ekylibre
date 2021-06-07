@@ -67,6 +67,7 @@ class JournalEntry < ApplicationRecord
   class IncompatibleCurrencies < StandardError; end
 
   include Attachable
+  include ComplianceCheckable
   attr_readonly :journal_id
   refers_to :currency
   refers_to :real_currency, class_name: 'Currency'
@@ -116,6 +117,7 @@ class JournalEntry < ApplicationRecord
   validates :real_currency_rate, numericality: { greater_than: 0 }
   validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
   validates :printed_on, financial_year_writeable: true, allow_blank: true
+  validates :name, presence: true
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -215,6 +217,19 @@ class JournalEntry < ApplicationRecord
     items.distinct.pluck(:isacompta_letter).compact.first
   end
 
+  def complete_letter
+    l = items.pluck(:letter).compact.uniq.first
+    if l && l.include?('*')
+      nil
+    elsif l
+      l
+    end
+  end
+
+  def lettered_at
+    items.pluck(:lettered_at).compact.uniq.first
+  end
+
   # return the date of the first payment (incomming or outgoing)
   def first_payment
     if purchase_payments.any?
@@ -294,6 +309,8 @@ class JournalEntry < ApplicationRecord
     end
 
     self.currency = absolute_currency if financial_year.blank?
+
+    self.name = items.first.name if self.name.nil? && items.any?
   end
 
   validate(on: :update) do
@@ -332,6 +349,9 @@ class JournalEntry < ApplicationRecord
       real_currency_rate: real_currency_rate
     )
     regularizations.each(&:save)
+
+    compliance = { vendor: :fec, name: :journal_entries, data: { errors: FEC::Check::JournalEntry.validate(self) } }
+    self.update_column(:compliance, compliance)
   end
 
   before_destroy do
@@ -481,6 +501,57 @@ class JournalEntry < ApplicationRecord
 
   def currently_exchanged?
     financial_year_exchange_id.present?
+  end
+
+  # --- FEC methods start ---
+
+  def fec_base_errors
+    base_fec_errors = FEC::Check::JournalEntry.base_errors_name
+    compliance_errors.select { |err| base_fec_errors.include?(err) }
+  end
+
+  def fec_date_errors
+    date_fec_errors = FEC::Check::JournalEntry.date_errors_name
+    compliance_errors.select { |err| date_fec_errors.include?(err) }
+  end
+
+  def has_fec_base_error
+    fec_base_errors.any?
+  end
+
+  def has_fec_date_error
+    fec_date_errors.any?
+  end
+
+  def has_no_fec_data
+    compliance_data.empty?
+  end
+
+  def duplicated_number_accounts
+    non_uniq_name_account = Account.with_non_uniq_name
+    duplicated_number_accounts = []
+    items.map(&:account).uniq.each do |jei|
+      next if duplicated_number_accounts.include?(jei.number)
+      next if non_uniq_name_account.exclude?(jei.name)
+
+      duplicated_number_accounts << jei.number
+    end
+    duplicated_number_accounts
+  end
+
+  def invalid_accounts_number_count
+    items.joins(:account).where("LENGTH(accounts.number) < 3").count
+  end
+
+  # --- FEC methods end ---
+
+  class << self
+    def fec_compliance_preference
+      pref = Preference.global.find_by(name: :check_fec_compliance)
+      return false if pref.nil?
+
+      pref.boolean_value
+    end
   end
 
   private
