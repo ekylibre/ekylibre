@@ -1454,6 +1454,12 @@ eng:
     active_totals: "Active Totals"
     activities: "Activities"
     activity: "Activity"
+    activity_printers:
+      land_parcel_register:  "Printers::LandParcelRegisterCampaignPrinter"
+      intervention_register: "Printers::InterventionRegisterPrinter"
+      show: 
+        land_parcel_register: "Printers::LandParcelRegisterActivityPrinter"
+        intervention_register: "Printers::InterventionRegisterActivityPrinter"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     accumulated_stock: "Accumulated stock of %{name}"
