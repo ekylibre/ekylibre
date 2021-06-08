@@ -260,6 +260,10 @@ module Printers
       end
 
       # Footer
+      r.add_field(:company_name, dataset.fetch(:company).name) 
+      r.add_field(:company_address, dataset.fetch(:company).mails.where(by_default: true).first.coordinate) 
+      r.add_field(:company_siret, dataset.fetch(:company).siret_number) 
+      r.add_field(:printed_at, Time.zone.now.l(format: '%d/%m/%Y %T')) 
       r.add_section(:section_no_production, dataset.fetch(:empty_register)) do |msg|
         msg
       end
