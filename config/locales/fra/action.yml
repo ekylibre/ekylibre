@@ -2685,6 +2685,7 @@ fra:
     print: "Imprimer"
     print_at: "Le" #?
     print_land_parcel_register: "Imprimer le cahier de traçabilité" #?
+    print_ift_and_regulatory_register: "Réglementaire - IFT"
     # print_lant_parcel_register: "Print the land parcel register"
     print_with_template: "Imprimer %{name}" #?
     printed_on_more_than_60_days_ago: "L’écriture présente une date de valeur supérieure à 60 jours par rapport à date du jour"

@@ -1457,9 +1457,11 @@ eng:
     activity_printers:
       land_parcel_register:  "Printers::LandParcelRegisterCampaignPrinter"
       intervention_register: "Printers::InterventionRegisterPrinter"
+      phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
       show: 
         land_parcel_register: "Printers::LandParcelRegisterActivityPrinter"
         intervention_register: "Printers::InterventionRegisterActivityPrinter"
+        phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     accumulated_stock: "Accumulated stock of %{name}"
@@ -2671,7 +2673,8 @@ eng:
     price: "Price"
     prices: "Prices"
     print: "Print"
-    print_lant_parcel_register: "Print the land parcel register"
+    print_land_parcel_register: "Print the land parcel register"
+    print_ift_and_regulatory_register: "Regulatory - IFT"
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"

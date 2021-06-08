@@ -7,10 +7,14 @@ module Printers
     SPRAYING_PROCEDURE_NAMES = %w[all_in_one_sowing chemical_mechanical_weeding spraying sowing_with_spraying spraying
                                   vine_chemical_weeding vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying].freeze
 <<<<<<< HEAD
+<<<<<<< HEAD
                                   
     PHYTOSANITARY_PRODUCT = %w[Variants::Article::PlantMedicineArticle]
 =======
 >>>>>>> Build phytosanitary printer
+=======
+    PHYTOSANITARY_PRODUCT = %w[Variants::Article::PlantMedicineArticle].freeze
+>>>>>>> Create Phytosanitary_register Template, Correct Rubocop error and write test file
 
     class << self
       # TODO: move this elsewhere when refactoring the Document Management System
@@ -29,9 +33,13 @@ module Printers
         @campaign = campaign
 <<<<<<< HEAD
         @activity = activity
+<<<<<<< HEAD
 =======
 >>>>>>> Build phytosanitary printer
         @activity_production = activity
+=======
+        @activity_production = ActivityProduction.of_activity(@activity).of_campaign(@campaign)
+>>>>>>> Create Phytosanitary_register Template, Correct Rubocop error and write test file
       else
         @campaign = campaign
         @activity_production = ActivityProduction.of_campaign(@campaign)
@@ -53,8 +61,7 @@ module Printers
 <<<<<<< HEAD
     def document_name
       if @activity.present?
-        "#{template.nature.human_name} - #{@campaign.name}\n
-        #{@activity.name}"
+        "#{template.nature.human_name} - #{@activity.name} - #{@campaign.name}"
       else
         "#{template.nature.human_name} - #{@campaign.name}"
       end
@@ -70,14 +77,15 @@ module Printers
 
     def select_variety(production)
       varieties=production.products.select{|product| product.type == "Plant"}
-      varieties.pluck(:specie_variety, :reading_cache).map do |variety|
-        if variety[0]["specie_variety_name"].present? and variety[1]["net_surface_area"].present?
+      varieties=varieties.pluck(:specie_variety, :reading_cache)
+      varieties.map do |variety|
+        if variety[0]["specie_variety_name"].present? && variety[1]["net_surface_area"].present?
           {
             name: variety[0]["specie_variety_name"],
             surface: variety[1]["net_surface_area"].round_l
           }
         end
-      end
+      end.compact
     end
 
     def min_start_date(intervention)
@@ -98,9 +106,9 @@ module Printers
 
     def compare_date(min_date, max_date)
       if min_date == max_date
-        "#{max_date}"
+        "Le #{max_date}"
       else
-        "Du #{min_date}\nau #{max_date}"
+        "Du #{min_date} au #{max_date}"
       end
     end
 
@@ -113,14 +121,14 @@ module Printers
 
     def worked_area(target)
       worked_area = if target.working_area.present?
-        target.working_area
-      else
-        target.product.net_surface_area
-      end
+                      target.working_area
+                    else
+                      target.product.net_surface_area
+                    end
       worked_area.in_hectare.round(3)
     end
 
-    def total_area_production(intervention,production_id)
+    def total_area_production(intervention, production_id)
       target = intervention.targets.select{|target| production_id == target.product.activity_production_id}
       target.inject(0){|sum, tar| sum + worked_area(tar).to_d}.in_hectare.round_l
     end
@@ -135,10 +143,9 @@ module Printers
 
     def production_nature(production)
       if (nature = production.production_nature).present?
-        nature.human_name
-      elsif 
-        (nature = production.activity.production_nature).present?
-        nature.human_name
+        nature.human_name_fra
+      elsif (nature = production.activity.production_nature).present?
+        nature.human_name_fra
       else
         "-"
       end
@@ -165,7 +172,6 @@ module Printers
       end
     end
 
-
     def input_rate(input, intervention)
       if input.input_quantity_per_area.repartition_unit.present? || total_area_intervention(intervention).zero?
         input.input_quantity_per_area.round_l
@@ -176,7 +182,23 @@ module Printers
 
     def input_usage(input)
       if (usage = RegisteredPhytosanitaryUsage.find_by_id(input&.usage_id)).present?
-        usage.target_name
+        usage.target_name_label_fra
+      else
+        "-"
+      end
+    end
+
+    def select_description(intervention)
+      if intervention.description.present?
+        intervention.description
+      else
+        "-"
+      end
+    end
+
+    def select_num_pac(production)
+      if production.cap_land_parcel.present?
+        production.cap_land_parcel.islet_number
       else
 =======
     def select_intervention(activity, filters)
@@ -199,6 +221,7 @@ module Printers
           name: production.name,
           surface: production.net_surface_area.in_hectare.round_l,
           cultivable_zone: production.cultivable_zone.name,
+          pac_islet: select_num_pac(production),
           activity: production.activity.name,
           period: compare_date(production.started_on.to_date.l, production.stopped_on.to_date.l),
           specie: production_nature(production),
@@ -207,35 +230,42 @@ module Printers
           harvest_period: period_intervention(production, HARVESTING_PROCEDURE_NAMES),
           intervention: select_intervention(production, SPRAYING_PROCEDURE_NAMES).map do |intervention|
             if select_input(intervention).any?
-            {
-              name: "#{intervention.procedure_name.l} n°#{intervention.number}",
-              start: "#{intervention.started_at.to_date.l}\n#{intervention.started_at.strftime('%Hh%M')}",
-              stop: "#{intervention.stopped_at.to_date.l}\n#{intervention.stopped_at.strftime('%Hh%M')}",
-              working_zone: total_area_production(intervention,production.id),
-              description: intervention.description,
-              inputs: select_input(intervention).map do |input|
-                {
-                  input_name: ephy_product_name(input),
-                  input_quantity: input_rate(input, intervention),
-                  input_usage: input_usage(input)
-                }
-              end
-            }
+              {
+                name: "#{intervention.procedure_name.l} n°#{intervention.number}",
+                start: "#{intervention.started_at.to_date.l}\n#{intervention.started_at.strftime('%Hh%M')}",
+                stop: "#{intervention.stopped_at.to_date.l}\n#{intervention.stopped_at.strftime('%Hh%M')}",
+                working_zone: total_area_production(intervention, production.id),
+                description: select_description(intervention),
+                inputs: select_input(intervention).map do |input|
+                  {
+                    input_name: ephy_product_name(input),
+                    input_quantity: input_rate(input, intervention),
+                    input_usage: input_usage(input)
+                  }
+                end
+              }
             end
           end.compact
         }
       end
+      {
+        productions: productions,
+        empty_register: productions.empty? ? [{}] : [],
+        company: Entity.of_company
+      }
     end
 
     def generate(r)
       dataset = compute_dataset
-      # Productions
-      r.add_field 'DOCUMENT_NAME', document_name
-      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
 
-      r.add_section('Section-production', dataset) do |s|
+      # Header
+      r.add_field 'DOCUMENT_NAME', document_name
+
+      # Productions
+      r.add_section('Section-production', dataset.fetch(:productions)) do |s|
         s.add_field(:production_name)  { |production| production[:name] }
         s.add_field(:production_surface_area)  { |production| production[:surface] }
+        s.add_field(:pac_islet)  { |production| production[:pac_islet] }
         s.add_field(:cultivable_zone)  { |production| production[:cultivable_zone] }
         s.add_field(:activity)  { |production| production[:activity] }
         s.add_field(:production_period)  { |production| production[:period] }
@@ -334,6 +364,19 @@ module Printers
         t.add_field(:specie) { |production| production[:specie] }
 >>>>>>> Build phytosanitary printer
       end
+<<<<<<< HEAD
+=======
+
+      # Footer
+      r.add_field 'COMPANY_ADDRESS', dataset.fetch(:company).mails.where(by_default: true).first.coordinate
+      r.add_field 'COMPANY_NAME', dataset.fetch(:company).name
+      r.add_field 'COMPANY_SIRET', dataset.fetch(:company).siret_number
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+
+      r.add_section(:Section_no_production, dataset.fetch(:empty_register)) do |msg|
+        msg
+      end
+>>>>>>> Create Phytosanitary_register Template, Correct Rubocop error and write test file
     end
   end
 end
