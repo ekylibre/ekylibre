@@ -7,6 +7,7 @@ module Printers
     SPRAYING_PROCEDURE_NAMES = %w[all_in_one_sowing chemical_mechanical_weeding spraying sowing_with_spraying spraying
                                   vine_chemical_weeding vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying].freeze
     PHYTOSANITARY_PRODUCT = %w[Variants::Article::PlantMedicineArticle].freeze
+    PLANT_FAMILY_ACTIVITIES = %w[plant_farming vine_farming].freeze
 
     class << self
       # TODO: move this elsewhere when refactoring the Document Management System
@@ -24,10 +25,10 @@ module Printers
       if activity.present?
         @campaign = campaign
         @activity = activity
-        @activity_production = ActivityProduction.of_activity(@activity).of_campaign(@campaign)
+        @activity_production = ActivityProduction.of_activity(@activity).of_activity_families(PLANT_FAMILY_ACTIVITIES).of_campaign(@campaign)
       else
         @campaign = campaign
-        @activity_production = ActivityProduction.of_campaign(@campaign)
+        @activity_production = ActivityProduction.of_activity_families(PLANT_FAMILY_ACTIVITIES).of_campaign(@campaign)
       end
     end
 
@@ -48,16 +49,16 @@ module Printers
     end
 
     def select_intervention(production, filters)
-      intervention=production.interventions.select{|intervention| filters.include? intervention.procedure_name}.uniq
+      intervention = production.interventions.select{|intervention| filters.include? intervention.procedure_name}.uniq
     end
 
     def select_input(intervention)
-      input=intervention.inputs.select{|input| input.reference_name=="plant_medicine"}
+      input = intervention.inputs.select{|input| input.reference_name=="plant_medicine"}
     end
 
     def select_variety(production)
-      varieties=production.products.select{|product| product.type == "Plant"}
-      varieties=varieties.pluck(:specie_variety, :reading_cache)
+      varieties = production.products.select{|product| product.type == "Plant"}
+      varieties = varieties.pluck(:specie_variety, :reading_cache)
       varieties.map do |variety|
         if variety[0]["specie_variety_name"].present? && variety[1]["net_surface_area"].present?
           {
@@ -201,8 +202,8 @@ module Printers
             if select_input(intervention).any?
               {
                 name: "#{intervention.procedure_name.l} n°#{intervention.number}",
-                start: "#{intervention.started_at.to_date.l}\n#{intervention.started_at.strftime('%Hh%M')}",
-                stop: "#{intervention.stopped_at.to_date.l}\n#{intervention.stopped_at.strftime('%Hh%M')}",
+                start: "#{intervention.started_at.to_date.l}\n#{intervention.started_at.l(format: '%Hh%M')}",
+                stop: "#{intervention.stopped_at.to_date.l}\n#{intervention.stopped_at.l(format: '%Hh%M')}",
                 working_zone: total_area_production(intervention, production.id),
                 description: select_description(intervention),
                 inputs: select_input(intervention).map do |input|

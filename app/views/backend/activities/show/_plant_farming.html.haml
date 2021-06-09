@@ -6,9 +6,12 @@
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
 
+  - document_nature =  DocumentTemplate.find_by(nature: :phytosanitary_register)
+
   = dropdown_menu_button(:print_ift_and_regulatory_register.tl, main_class: "btn btn-default icn btn-print") do |d|
     - d.item :compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false
-    - d.item :phytosanitary_register, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign, activity: @activity)
+    - if document_nature
+      - d.item :phytosanitary_register, { controller: :activities, action: :show, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign, activity: @activity), template: document_nature.id, format: :pdf}, remote: true
 
   = t.export :land_parcel_register, :intervention_register, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), label: :crop_management
   - main_period_selector(:year)
