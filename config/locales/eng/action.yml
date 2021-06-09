@@ -1458,7 +1458,7 @@ eng:
       land_parcel_register:  "Printers::LandParcelRegisterCampaignPrinter"
       intervention_register: "Printers::InterventionRegisterPrinter"
       phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
-      show: 
+      show:
         land_parcel_register: "Printers::LandParcelRegisterActivityPrinter"
         intervention_register: "Printers::InterventionRegisterActivityPrinter"
         phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
