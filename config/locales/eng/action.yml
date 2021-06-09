@@ -1843,6 +1843,7 @@ eng:
     cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crops: "Crops"
+    crop_management: "Crop management"
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
     cultivable_zones: "arable areas"
