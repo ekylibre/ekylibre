@@ -1348,6 +1348,7 @@ fra:
     associated_sale: "Vente liée"
     assuming_you_want_to_close_a_financial_year_in_the_future: "Si vous souhaitez clôturer un exercice ultérieurement, vous devrez enregistrer un bilan de début d'exercice."
     at: "au"
+    at_date: "le %{date}"
     at_the_address: "À l’adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
@@ -2629,6 +2630,7 @@ fra:
     physical_h2: "Physique H2"
     phyto_data: "Données phytosanitaires"
     phytosanitary_product_does_not_exists:  "Le numéro d’AMM de votre produit est inconnu : corrigez-le pour bénéficier des vérifications réglementaires"
+    phytosanitary_register: "Registre phytosanitaire"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"

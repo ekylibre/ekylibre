@@ -20,6 +20,7 @@ module Backend
   class ActivitiesController < Backend::BaseController
     include InspectionViewable
 
+    PLANT_FAMILY_ACTIVITIES = %w[plant_farming vine_farming].freeze
     manage_restfully except: %i[index show], subclass_inheritance: true
 
     unroll
@@ -121,11 +122,15 @@ module Backend
     end
 
     def compute_pfi_report
-      return unless @activity = find_and_check
-
+      @activity = find_and_check
       campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
-      activity_ids = []
-      activity_ids << @activity.id
+
+      if @activity.present?
+        activity_ids = []
+        activity_ids << @activity.id
+      else
+        activity_ids = Activity.actives.of_campaign(campaign).of_families(PLANT_FAMILY_ACTIVITIES).with_production_nature.pluck(:id)
+      end
       PfiReportJob.perform_later(campaign, activity_ids, current_user)
       notify_success(:document_in_preparation)
     end

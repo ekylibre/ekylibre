@@ -159,6 +159,7 @@ class Activity < ApplicationRecord
     where(family: families.flatten.collect { |f| Onoma::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
   scope :of_family, ->(family) { where(family: Onoma::ActivityFamily.all(family)) }
+  scope :with_production_nature, -> {where.not(production_nature_id: nil)}
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true

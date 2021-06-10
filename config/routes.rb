@@ -242,6 +242,7 @@ Rails.application.routes.draw do
     resources :activities, concerns: %i[list unroll] do
       collection do
         post :duplicate
+        get :compute_pfi_report
       end
       member do
         get :list_distributions

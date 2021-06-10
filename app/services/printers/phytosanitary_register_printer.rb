@@ -49,7 +49,7 @@ module Printers
     end
 
     def select_intervention(production, filters)
-      intervention = production.interventions.select{|intervention| filters.include? intervention.procedure_name}.uniq
+      intervention = production.interventions.of_campaign(@campaign).select{|intervention| filters.include? intervention.procedure_name}.uniq
     end
 
     def select_input(intervention)
@@ -87,9 +87,9 @@ module Printers
 
     def compare_date(min_date, max_date)
       if min_date == max_date
-        "Le #{max_date}"
+        :at_date.tl(date: max_date)
       else
-        "Du #{min_date} au #{max_date}"
+        :from_to_date.tl(from: min_date, to: max_date)
       end
     end
 
@@ -265,7 +265,7 @@ module Printers
       r.add_field(:company_address, dataset.fetch(:company).mails.where(by_default: true).first.coordinate)
       r.add_field(:company_siret, dataset.fetch(:company).siret_number)
       r.add_field(:printed_at, Time.zone.now.l(format: '%d/%m/%Y %T'))
-      r.add_section(:section_no_production, dataset.fetch(:empty_register)) do |msg|
+      r.add_section(:Section_no_production, dataset.fetch(:empty_register)) do |msg|
         msg
       end
     end

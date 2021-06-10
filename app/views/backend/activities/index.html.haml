@@ -11,7 +11,15 @@
     = tool_to :new_activity.tl, { controller: :activities, action: :new, redirect: backend_activities_path }
 
   - if @availables_activities.any?
-    = t.export :land_parcel_register, :intervention_register, key: Printers::LandParcelRegisterCampaignPrinter.build_key(campaign: current_campaign)
-    = t.export :phytosanitary_register, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign) , label: :print_ift_and_regulatory_register
+    - document_nature =  DocumentTemplate.find_by(nature: :phytosanitary_register)
+    - pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
+    
+    = dropdown_menu_button(:print_ift_and_regulatory_register.tl, main_class: "btn btn-default icn btn-print", force_menu: true) do |d|
+      - if current_campaign && pfi_interventions.any?
+        - d.item :compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false
+      - if document_nature
+        - d.item :phytosanitary_register.tl, { controller: :activities, action: :index, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign), template: document_nature.id, format: :pdf}, remote: false, icon: false
+
+    = t.export :land_parcel_register, :intervention_register, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign), label: :crop_management
 
 = render 'backend/activities/activities', activities: @activities, families: @families, campaign: @campaign, currency: @currency
