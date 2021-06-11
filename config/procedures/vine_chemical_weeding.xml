@@ -5,7 +5,7 @@
       <target name="plant" filter="is vitis and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="plant_medicine" filter="is preparation and can care(plant)" display-status="miscibility" cardinality="*">
+      <input name="plant_medicine" filter="is preparation and can care(plant)" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass? and (product_usages_among_dimensions(PRODUCT, :mass) == 1)"
