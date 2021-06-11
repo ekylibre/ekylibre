@@ -16,7 +16,11 @@ module ActionIntegration
 
       @ciphered.map do |name, value|
         @cipher.iv = Parameters.decode(@ivs[name])
-        @values[name] = @cipher.update(Parameters.decode(value)) + @cipher.final
+        begin
+          @values[name] = @cipher.update(Parameters.decode(value)) + @cipher.final
+        rescue
+          @values[name] = I18n.t("labels.unavailable")
+        end
       end
 
       self
