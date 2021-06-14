@@ -122,6 +122,12 @@ class InterventionOutput < InterventionProductParameter
     output.initial_born_at = output.born_at
     output.specie_variety_name = specie_variety_name if procedure.of_category?(:planting) && specie_variety_name.present?
 
+    if implantation?
+      output.name = compute_output_planting_name
+    elsif new_name.present?
+      output.name = new_name
+    end
+
     output.identification_number = identification_number if identification_number.present?
     reading = readings.find_by(indicator_name: :shape)
     output.initial_shape = reading.value if reading
@@ -192,6 +198,10 @@ class InterventionOutput < InterventionProductParameter
   end
 
   private
+
+    def implantation?
+      procedure.of_category?(:planting) || procedure.of_category?(:vine_planting)
+    end
 
     def output_name_without_params(compute_name)
       compute_name << variant.name
