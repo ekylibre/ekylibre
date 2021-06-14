@@ -3349,6 +3349,7 @@ fra:
     view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
+    vine_planting: "Plantation de vignes"
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
     warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."
