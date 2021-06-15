@@ -188,7 +188,10 @@ class InterventionOutput < InterventionProductParameter
 
     return output_name_without_params(compute_name) if specie_variety_name.blank? && batch_number.blank?
 
-    compute_name << specie_variety_name if specie_variety_name.present?
+    if specie_variety_name.present?
+      compute_name << '|' if procedure.of_category?(:vine_planting)
+      compute_name << specie_variety_name
+    end
     compute_name << batch_number if batch_number.present?
 
     output_duplicate_count = output_name_count(compute_name.join(' '))
@@ -204,6 +207,7 @@ class InterventionOutput < InterventionProductParameter
     end
 
     def output_name_without_params(compute_name)
+      compute_name << '|' if procedure.of_category?(:vine_planting)
       compute_name << variant.name
       output_duplicate_count = output_name_count(compute_name.join(' '))
 
