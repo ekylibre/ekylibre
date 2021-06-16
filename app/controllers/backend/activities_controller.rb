@@ -53,6 +53,12 @@ module Backend
                       .left_join_working_duration_of_campaign(current_campaign)
                       .left_join_issues_count_of_campaign(current_campaign)
                       .left_join_production_costs_of_campaign(current_campaign)
+
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
+
       respond_to do |format|
         format.html
         format.xml { render xml: resource_model.all }
@@ -70,6 +76,10 @@ module Backend
     def show
       return unless @activity = find_and_check
 
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
       respond_to do |format|
         format.html do
           t3e @activity

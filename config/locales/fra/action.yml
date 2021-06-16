@@ -1733,6 +1733,7 @@ fra:
     division: "Division"
     divisions: "Divisions"
     document: "Document joint"
+    documents: "Documents"
     document_global_costs: "Fiche Coût Global"
     document_intervention_traceability: "Fiche Tracabilité"
     document_natures: "Types de documents"
@@ -2137,6 +2138,7 @@ fra:
     interventions_costs: "Coûts Interventions" #?
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
+    intervention_register: "Registre des interventions"
     interventions_selections: #?
       done: "Fait" #?
       provisional: "Prévisionnelle" #?
@@ -2210,6 +2212,7 @@ fra:
     land_parcel_abbreviation: "P" #?
     land_parcel_name: "Parcelle" #?
     land_parcels: "Parcelles"
+    land_parcel_register: "Cahier de culture"
     language: "Langue" #?
     last_analyses: "Dernières analyses"
     last_animals: "Dernières naissances" #?
