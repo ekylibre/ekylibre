@@ -242,7 +242,11 @@ module Backend
     def confirm
       return unless @sale = find_and_check
 
-      @sale.confirm
+      if FinancialYearExchange.at(Time.zone.now).any?
+        notify_error :financial_year_exchange_on_this_period
+      else
+        @sale.confirm
+      end
       redirect_to action: :show, id: @sale.id
     end
 
@@ -282,7 +286,9 @@ module Backend
     def invoice
       return unless @sale = find_and_check
 
-      if @sale.client.client_account.present?
+      if FinancialYearExchange.at(Time.zone.now).any?
+        notify_error :financial_year_exchange_on_this_period
+      elsif @sale.client.client_account.present?
         ApplicationRecord.transaction do
           raise ActiveRecord::Rollback unless @sale.invoice
         end
