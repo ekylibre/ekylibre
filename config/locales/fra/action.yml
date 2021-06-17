@@ -3117,6 +3117,8 @@ fra:
     tasks: "Tâches"
     tax_amount: "Montant TVA"
     tax_declarations: "Déclarations de TVA"
+    tax_declaration_frequency: "Fréquence de déclaration de TVA"
+    tax_declaration_mode: "Mode de déclaration de TVA"
     tax_declarations_states: "États des déclarations TVA"
     tax_declaration_sales_order : "Avant de faire votre déclaration de TVA, vous devez d'abord faire passer les ventes suivantes au statut de facture : %{x}"
     tax_label: "Nom Taxe"
