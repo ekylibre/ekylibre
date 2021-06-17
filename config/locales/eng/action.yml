@@ -3424,6 +3424,7 @@ eng:
       # financial_year_closure_in_preparation_initiated_by_you: "Financial year closure in preparation initiated by you"
       financial_year_is_not_past: "The financial year hasn't passed yet."
       financial_year_x_could_not_be_closed: "Financial Year  %{name} could not be closed."
+      financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
       financial_year_x_successfully_closed: "Financial Year %{name} successfully closed !"
       financial_years_missing: "You must create every missing financial years since the first registered"
       financial_years_missing_tax_declarations: "You must create every declarations for the following financial years: %{codes}"
