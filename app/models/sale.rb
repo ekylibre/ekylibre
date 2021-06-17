@@ -132,6 +132,10 @@ class Sale < ApplicationRecord
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
+  scope :order_between, lambda { |started_at, stopped_at|
+    where(confirmed_at: started_at..stopped_at, state: :order)
+  }
+
   scope :with_nature, ->(id) { where(nature_id: id) }
 
   scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
