@@ -307,6 +307,9 @@ class Intervention < ApplicationRecord
                        end
       end
     end
+    if receptions.any?
+      receptions.each { |reception| reception.given_at = working_periods.first.started_at }
+    end
     true
   end
 
@@ -328,10 +331,6 @@ class Intervention < ApplicationRecord
   end
 
   before_save do
-    if receptions.any?
-      receptions.each { |reception| reception.given_at = working_periods.first.started_at }
-    end
-
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
     if event
