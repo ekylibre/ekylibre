@@ -25,9 +25,10 @@ module FEC
 
         # Journal entry : Created at on weekend or holiday
         created_at_day = @journal_entry.created_at.strftime("%A")
-        if created_at_day.in?(%w[Saturday Sunday])
+        printed_on_day = @journal_entry.printed_on.strftime("%A")
+        if created_at_day.in?(%w[Saturday Sunday]) || printed_on_day.in?(%w[Saturday Sunday])
           add_error(:created_on_free_day)
-        elsif Holidays.on(@journal_entry.created_at, :fr).any?
+        elsif Holidays.on(@journal_entry.created_at, :fr).any? || Holidays.on(@journal_entry.printed_on, :fr).any?
           add_error(:created_on_free_day)
         end
 
