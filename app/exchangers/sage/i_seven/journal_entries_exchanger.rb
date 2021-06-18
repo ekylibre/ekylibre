@@ -122,9 +122,13 @@ module Sage
         # @param [String] acc_name
         # @return [Account]
         def find_or_create_account(acc_number, acc_name)
-          Maybe(find_account_by_provider(acc_number))
-            .recover { find_or_create_account_by_number(acc_number, acc_name) }
-            .or_raise
+          begin
+            Maybe(find_account_by_provider(acc_number))
+              .recover { find_or_create_account_by_number(acc_number, acc_name) }
+              .or_raise
+          rescue
+            raise StandardError.new(tl(:errors, :incorrect_account_number_length, name: acc_name, number: acc_number))
+          end
         end
 
         # @param [String] account_number
