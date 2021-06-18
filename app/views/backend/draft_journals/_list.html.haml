@@ -32,8 +32,6 @@
     %th.act
       %i.icon.icon-lock
     %th.act
-      %i.icon.icon-check
-    %th.act
       %i.icon.icon-edit
     %th.act
       %i.icon.icon-destroy
@@ -56,9 +54,6 @@
           %td.act
             - if entry.financial_year_exchange_id && first_item
               %i.icon.icon-lock
-          %td.act
-            - if entry.balanced? && first_item
-              %i.icon.icon-check{ style: "color: #688ED8;" }
           %td.act= link_to("<i class='icon icon-edit'></i>".html_safe, edit_backend_journal_entry_path(entry), class: "edit") if first_item
           %td.act= link_to("<i class='icon icon-destroy'></i>".html_safe, backend_journal_entry_path(entry), method: :delete, class: "destroy") if first_item
           %td.med= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
@@ -91,4 +86,3 @@
       = hidden_field_tag 'journal_id', @journal_id if @journal_id != ""
       = hidden_field_tag 'draft_entries_count', @draft_entries_count
       = submit_tag(:validate_x_entries.tl(count: @draft_entries_count), name: :validate, disabled: @unbalanced_entries_count > 0)
-

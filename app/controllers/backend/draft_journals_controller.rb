@@ -114,7 +114,7 @@ module Backend
         journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
         journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
 
-        journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', params[:from], params[:to]).order(:printed_on)
+        journal_entries.where(state: :draft, financial_year_exchange_id: nil).where('printed_on BETWEEN ? AND ?', params[:from], params[:to]).order(:printed_on)
       end
   end
 end
