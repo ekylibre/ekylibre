@@ -72,6 +72,9 @@ land_parcels:
   telepac_v2020_cap_statements:
     path: 'telepac/2020/statement.xml'
 
+  telepac_v2021_cap_statements:
+    path: 'telepac/2021/statement.xml'
+
   ekylibre_plants:
     path: 'alamano/plants.csv'
 
