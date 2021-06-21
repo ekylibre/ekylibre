@@ -126,6 +126,11 @@ class SaleItem < ApplicationRecord
     joins(:variant).merge(ProductNatureVariant.of_natures(Array(product_nature)))
   }
 
+  # return all sale items for the consider product_nature
+  scope :of_product_nature_category, lambda { |product_nature_category|
+    joins(:variant).merge(ProductNatureVariant.of_category(product_nature_category))
+  }
+
   scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
   scope :invoiced_on_or_after, ->(date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
   scope :fixed, -> { where(fixed: true) }
@@ -200,7 +205,7 @@ class SaleItem < ApplicationRecord
       next unless catalog = Catalog.by_default!(usage)
       next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
 
-      variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
+      variant.catalog_items.create!(catalog: catalog, reference_tax: tax, amount: unit_pretax_amount, currency: currency)
     end
   end
 

@@ -1,5 +1,6 @@
 = kujaku do |k|
   - k.text
+  - k.choice :all, :active, :inactive
   - k.list :working_set, label: :options.tl, list_values: Onoma::WorkingSet.selection
   - categories = ProductNatureCategory.all
   - if categories.any?
