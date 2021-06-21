@@ -97,6 +97,7 @@ fra:
     telepac_v2018_cap_statements: "Déclaration TelePAC 2018 (XML)"
     telepac_v2019_cap_statements: "Déclaration TelePAC 2019 (XML)"
     telepac_v2020_cap_statements: "Déclaration TelePAC 2020 (XML)"
+    telepac_v2021_cap_statements: "Déclaration TelePAC 2021 (XML)"
     telepac_v2014_cap_land_parcels: "Îlots 2014 (SHP/ZIP) ‒ TéléPAC"
     telepac_v2014_land_parcels: "Parcelles 2014 (SHP/ZIP) ‒ TéléPAC"
     telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC"
