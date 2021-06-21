@@ -41,8 +41,12 @@ module ActiveExchanger
         value.to_i
       when :float
         value.tr(',', '.').to_f
+      when :currency
+        value.delete('€').strip.tr(',', '.').to_f
       when :date
-        value.to_date
+        Date.parse(value)
+      when :us_date
+        Date.strptime(value, "%d/%m/%C")
       else
         value
       end

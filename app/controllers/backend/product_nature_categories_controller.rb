@@ -28,6 +28,13 @@ module Backend
 
     def self.categories_conditions
       code = search_conditions(product_nature_categories: %i[name number]) + " ||= []\n"
+      code << "if params[:s] == 'active'\n"
+      code << "  c[0] += ' AND product_nature_categories.active = ?'\n"
+      code << "  c << true\n"
+      code << "elsif params[:s] == 'inactive'\n"
+      code << "  c[0] += ' AND product_nature_categories.active = ?'\n"
+      code << "  c << false\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -35,6 +42,7 @@ module Backend
     list(conditions: categories_conditions) do |t|
       t.action :edit, url: { controller: '/backend/product_nature_categories' }
       t.action :destroy, url: { controller: '/backend/product_nature_categories' }, if: :destroyable?
+      t.column :active
       t.column :name, url: { controller: '/backend/product_nature_categories' }
       t.column :saleable, hidden: true
       t.column :product_account, if: :saleable?, url: { controller: '/backend/accounts' }
@@ -54,6 +62,17 @@ module Backend
       t.column :net_mass
       t.column :net_volume
       t.column :population
+    end
+
+    list(:product_nature_variants, conditions: { category_id: 'params[:id]'.c }, order: { name: :asc }) do |t|
+      t.action :edit, url: { controller: '/backend/product_nature_variants' }
+      t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
+      t.column :active
+      t.column :name, url: { controller: '/backend/product_nature_variants' }
+      t.column :work_number
+      t.column :number
+      t.column :nature, url: { controller: '/backend/product_natures' }
+      t.column :unit_name
     end
 
     list(:taxations, model: :product_nature_category_taxations, conditions: { product_nature_category_id: 'params[:id]'.c }, order: :id) do |t|

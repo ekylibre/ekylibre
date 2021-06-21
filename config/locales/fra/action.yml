@@ -3000,6 +3000,7 @@ fra:
     settings: "Configuration"
     settings_statistics: "Statistiques des paramètres"
     sex: "Sexe"
+    square_revenues_by_category: "Chiffre d'affaire (Square) par catégorie"
     shape: "Forme"
     ship: "Prévue le"
     shipment_items: "Articles expédiés"
