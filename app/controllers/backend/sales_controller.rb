@@ -242,7 +242,7 @@ module Backend
     def confirm
       return unless @sale = find_and_check
 
-      if FinancialYearExchange.at(Time.zone.now).any?
+      if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
         notify_error :financial_year_exchange_on_this_period
       else
         @sale.confirm
@@ -286,7 +286,7 @@ module Backend
     def invoice
       return unless @sale = find_and_check
 
-      if FinancialYearExchange.at(Time.zone.now).any?
+      if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
         notify_error :financial_year_exchange_on_this_period
       elsif @sale.client.client_account.present?
         ApplicationRecord.transaction do
