@@ -1491,6 +1491,7 @@ fra:
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
     clients: "Clients"
+    clients_balance_after_compensation: "Solde des clients après compensation"
     close: "Fermer"
     close_carry_forward: "Génération des report à nouveau"
     close_financial_year: "Clôturer %{code}"
@@ -3101,6 +3102,7 @@ fra:
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
     supplier_reference: "Référence fournisseur"
     suppliers: "Fournisseurs"
+    suppliers_balance_after_compensation: "Fournisseurs d’exploitation ‒ soldes apres compensation"
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
