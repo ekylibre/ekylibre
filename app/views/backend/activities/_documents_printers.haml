@@ -8,4 +8,6 @@
     - d.item :intervention_register.tl, { controller: :activities, action: action, key: Printers::InterventionRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), template: @intervention_document.id, format: :pdf}, remote: false
   - if @phytosanitary_document
     - d.item :phytosanitary_register.tl, { controller: :activities, action: action, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign, activity: @activity), template: @phytosanitary_document.id, format: :pdf}, remote: false
+  - if @activity_cost_document
+    - d.item :activity_cost.tl, { controller: :activities, action: action, key: Printers::ActivityCostPrinter.build_key(campaign: current_campaign, activity: @activity), template: @activity_cost_document.id, format: :pdf}, remote: false
 
