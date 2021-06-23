@@ -264,42 +264,16 @@ activity_productions_008:
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: members_population
-  size_unit_name: ''
+  size_unit_name: unity
   size_value: 0.0
   started_on: 2013-09-01
   state: opened
   stopped_on: 2014-08-31
   support_id: 85
-  support_nature: cultivation
+  support_nature: animal_group
   updated_at: 2014-11-07 14:43:13.634171000 Z
   updater_id: 1
-  usage: fodder
-activity_productions_009:
-  activity_id: 3
-  campaign_id: 1
-  created_at: 2014-11-07 15:53:12.705675000 Z
-  creator_id: 1
-  cultivable_zone_id: 6
-  id: 14
-  irrigated: false
-  lock_version: 0
-  nitrate_fixing: false
-  rank_number: 2
-  size_indicator_name: members_population
-  size_unit_name: ''
-  size_value: 0.0
-  started_on: 2012-09-01
-  state: opened
-  stopped_on: 2013-08-31
-  support_id: 80
-  support_nature: cultivation
-  support_shape: SRID=4326;MultiPolygon (((-0.799287557601929 45.8255247100834, -0.798171758651733
-    45.8259433837065, -0.797173976898193 45.8246574475616, -0.796272754669189 45.8233789583432,
-    -0.796594619750976 45.8217490289288, -0.797646045684814 45.8210088158703, -0.798568725585938
-    45.8212032162122, -0.799566507339478 45.8210985391894, -0.799287557601929 45.8255247100834)))
-  updated_at: 2014-11-07 15:53:12.705675000 Z
-  updater_id: 1
-  usage: fodder
+  usage: meat
 activity_productions_010:
   activity_id: 3
   campaign_id: 4
@@ -311,16 +285,16 @@ activity_productions_010:
   nitrate_fixing: false
   rank_number: 3
   size_indicator_name: members_population
-  size_unit_name: ''
+  size_unit_name: unity
   size_value: 0.0
   started_on: 2013-09-01
   state: opened
   stopped_on: 2014-08-31
   support_id: 86
-  support_nature: cultivation
+  support_nature: animal_group
   updated_at: 2015-03-08 16:49:28.765669000 Z
   updater_id: 1
-  usage: fodder
+  usage: milk
 activity_productions_011:
   activity_id: 6
   campaign_id: nil

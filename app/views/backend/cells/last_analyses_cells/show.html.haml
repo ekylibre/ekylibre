@@ -1,32 +1,32 @@
-- if @product and @nature and @started_at and @stopped_at
+- if @product && @nature && @started_at && @stopped_at && Analysis.where(nature: @nature.name, product: @product).between(@started_at, @stopped_at).any?
   :ruby
     data = {}.with_indifferent_access
-    for analysis in Analysis.where(nature: @nature.name, product: @product).between(@started_at, @stopped_at).order(:sampled_at)
+    Analysis.where(nature: @nature.name, product: @product).between(@started_at, @stopped_at).reorder(:sampled_at).each do |analysis|
       at = analysis.sampled_at.to_usec
-      for item in analysis.items
+      analysis.items.each do |item|
         data[item.indicator.name] ||= []
         data[item.indicator.name] << [at, item.value.to_s.to_f]
       end
     end
     series = []
-    for item in @nature.items
+    @nature.items.each do |item|
       item = Onoma::Indicator[item]
       series << {type: item.curve, name: item.human_name, data: data[item.name]}
     end
 
   = spline_highcharts(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: true)
-- elsif @nature and @started_at and @stopped_at
+- elsif @nature && @started_at && @stopped_at && Analysis.where(nature: @nature.name).between(@started_at, @stopped_at).any?
   :ruby
     data = {}.with_indifferent_access
-    for analysis in Analysis.where(nature: @nature.name).between(@started_at, @stopped_at).order(:sampled_at)
+    Analysis.where(nature: @nature.name).between(@started_at, @stopped_at).reorder(:sampled_at).each do |analysis|
       at = analysis.sampled_at.to_usec
-      for item in analysis.items
+      analysis.items.each do |item|
         data[item.indicator.name] ||= []
         data[item.indicator.name] << [at, item.value.to_s.to_f]
       end
     end
     series = []
-    for item in @nature.items
+    @nature.items.each do |item|
       item = Onoma::Indicator[item]
       series << {type: item.curve, name: item.human_name, data: data[item.name]}
     end

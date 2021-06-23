@@ -48,7 +48,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.x'
 
 # CSS
-gem 'agric', '~> 4.1'
+gem 'agric', github: 'ekylibre/agric', branch: 'master'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'bootstrap-slider-rails', '~> 9.8'
 gem 'font-awesome-sass', '~> 5.15'

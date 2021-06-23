@@ -156,23 +156,17 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
     production1 = create(:corn_activity_production, campaign: campaign, started_on: DateTime.new(2018, 1, 1), stopped_on: Date.new(2018, 10, 15))
     production2 = create(:lemon_activity_production, campaign: campaign, started_on: DateTime.new(2018, 1, 1), stopped_on: Date.new(2018, 10, 15))
     intervention = create(:intervention, started_at: DateTime.new(2018, 3, 2), stopped_at: DateTime.new(2018, 3, 2) + 2.hours)
-    ratio1 = (production1.support_shape_area / (
-        production1.support_shape_area + production2.support_shape_area
-      )).to_f
     target1 = create(
       :intervention_target,
       product: production1.products.first,
       intervention: intervention,
-      imputation_ratio: ratio1
+      working_zone: production1.support_shape.to_rgeo
     )
-    ratio2 = (production2.support_shape_area / (
-        production1.support_shape_area + production2.support_shape_area
-      )).to_f
     target2 = create(
       :intervention_target,
       product: production2.products.first,
       intervention: intervention,
-      imputation_ratio: ratio2
+      working_zone: production2.support_shape.to_rgeo
     )
     doer = create(
       :driver,
@@ -185,21 +179,23 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
       intervention: intervention
     )
     intervention.save
+    target1.reload
+    target2.reload
 
     assert_equal(
-      (intervention.costing.doers_cost * ratio1).to_i,
+      (intervention.costing.doers_cost * target1.imputation_ratio).to_i,
       production1.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
-      (intervention.costing.inputs_cost * ratio1).to_i,
+      (intervention.costing.inputs_cost * target1.imputation_ratio).to_i,
       production1.decorate.global_costs(campaign)[:inputs]
     )
     assert_equal(
-      (intervention.costing.doers_cost * ratio2).to_i,
+      (intervention.costing.doers_cost * target2.imputation_ratio).to_i,
       production2.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
-      (intervention.costing.inputs_cost * ratio2).to_i,
+      (intervention.costing.inputs_cost * target2.imputation_ratio).to_i,
       production2.decorate.global_costs(campaign)[:inputs]
     )
   end
