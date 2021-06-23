@@ -12,6 +12,10 @@ FactoryBot.define do
       stock_account
       stock_movement_account
     end
+
+    factory :saleable_category do
+      saleable { true }
+    end
   end
 
   factory :plants_category, class: ProductNatureCategory do

@@ -53,14 +53,13 @@ module Sage
         valid = true
         if financial_year.nil?
           valid = false
-          w.error "The financial year is needed for #{file_info.period_stopped_on}"
+          raise StandardError.new(tl(:errors, :financial_year_needed, stopped_on: file_info.period_stopped_on))
         end
         valid
       end
 
       def import
         accounts = retrieve_account(file_info.doc)
-
         accounts
           .select { |_k, account| account.auxiliary? }
           .each do |sage_number, entity_account|
@@ -70,11 +69,14 @@ module Sage
         entries = entries_items(file_info.doc, financial_year)
         w.count = entries.count
         entries.each do |_key, entry|
-          JournalEntry.create!(entry)
-          w.check_point
+          begin
+            JournalEntry.create!(entry)
+            w.check_point
+          rescue
+            journal = entry[:journal]
+            raise StandardError.new(tl(:errors, :incorrect_account_number_length, name: journal.name, number: journal.id))
+          end
         end
-      rescue Accountancy::AccountNumberNormalizer::NormalizationError
-        raise StandardError.new(tl(:errors, :incorrect_account_number_length))
       end
 
       private
@@ -120,9 +122,13 @@ module Sage
         # @param [String] acc_name
         # @return [Account]
         def find_or_create_account(acc_number, acc_name)
-          Maybe(find_account_by_provider(acc_number))
-            .recover { find_or_create_account_by_number(acc_number, acc_name) }
-            .or_raise
+          begin
+            Maybe(find_account_by_provider(acc_number))
+              .recover { find_or_create_account_by_number(acc_number, acc_name) }
+              .or_raise
+          rescue
+            raise StandardError.new(tl(:errors, :incorrect_account_number_length, name: acc_name, number: acc_number))
+          end
         end
 
         # @param [String] account_number

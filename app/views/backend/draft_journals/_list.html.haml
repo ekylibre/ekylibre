@@ -32,8 +32,6 @@
     %th.act
       %i.icon.icon-lock
     %th.act
-      %i.icon.icon-check
-    %th.act
       %i.icon.icon-edit
     %th.act
       %i.icon.icon-destroy
@@ -46,17 +44,16 @@
     %th.med= JournalEntry.human_attribute_name(:reference_number)
     %th.right-align.sm= JournalEntryItem.human_attribute_name(:debit)
     %th.right-align.sm= JournalEntryItem.human_attribute_name(:credit)
+    %th.right-align.sm= 'Conformité FEC' if JournalEntry.fec_compliance_preference
+
   %tbody.first-item
     - @draft_entries.each do |entry|
       - entry.items.each do |item|
         - first_item = (entry.items.first === item)
-        %tr{class: [("first-item" if first_item),('error' unless entry.balanced?)] }
+        %tr{class: [("first-item" if first_item),('error' unless entry.balanced?)], data: {entry_id: entry.id}}
           %td.act
             - if entry.financial_year_exchange_id && first_item
               %i.icon.icon-lock
-          %td.act
-            - if entry.balanced? && first_item
-              %i.icon.icon-check{ style: "color: #688ED8;" }
           %td.act= link_to("<i class='icon icon-edit'></i>".html_safe, edit_backend_journal_entry_path(entry), class: "edit") if first_item
           %td.act= link_to("<i class='icon icon-destroy'></i>".html_safe, backend_journal_entry_path(entry), method: :delete, class: "destroy") if first_item
           %td.med= link_to(entry.journal.name, { controller: :journals, action: :show, id: entry.journal.id} ) if first_item
@@ -66,24 +63,26 @@
           %td= truncate(item.name, length: 50)
           %td.med= item.variant&.name
           %td.med= entry.reference_number
+          - currency = Preference[:currency]
           %td.right-align.sm= number_to_accountancy(item.debit, currency, false)
           %td.right-align.sm= number_to_accountancy(item.credit, currency, false)
+          - if JournalEntry.fec_compliance_preference
+            %td.right-align.sm.fec-compliance
+              - if entry.has_no_fec_data
+                %i.no-fec-data
+              - elsif !entry.has_fec_base_error && !entry.has_fec_date_error
+                %i.no-error
+              - else
+                - if entry.has_fec_date_error
+                  %i.fec-icon-error{ data: { category: 'date' }}
+                - if entry.has_fec_base_error
+                  %i.fec-icon-error{ data: { category: 'base' }}
 
-- unless @draft_entries_count < 1
+- if @draft_entries_count > 0
   .footer-btn-container
-    %button{ class: [('btn btn-default no-icn'),('disabled' if !@can_validate)], type: 'button', 'data-toggle': 'modal', 'data-target': '#entries-validation-modal' }= t("labels.validate_x_entries", count: @draft_entries_count)
-
-
-.modal.fade#entries-validation-modal{ tabindex: '-1', role: 'dialog' }
-  .modal-dialog{ role: 'document' }
-    .modal-content
-      .modal-header.modal-header-generic
-        %h4.modal-title= :confirmation.tl
-        %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
-          %span{ 'aria-hidden': 'true' }
-            %i.icon.icon-destroy
-      .modal-body
-        = :journal_entries_deletion_confirmation_message.tl
-      .modal-footer
-        %button.btn.btn-default.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl
-        = link_to t("labels.validate_x_entries", count: @draft_entries_count), { controller: :draft_journals, action: :confirm_all, from: @current_from_date, to: @current_to_date, journal_id: @journal_id, redirection: params[:redirection] }, { class: 'btn btn-primary no-icn', method: :post}
+    = form_tag(confirmation_modal_backend_draft_journal_path, method: :get, remote: true) do
+      = hidden_field_tag 'from', @current_from_date
+      = hidden_field_tag 'to', @current_to_date
+      = hidden_field_tag 'journal_id', @journal_id if @journal_id != ""
+      = hidden_field_tag 'draft_entries_count', @draft_entries_count
+      = submit_tag(:validate_x_entries.tl(count: @draft_entries_count), name: :validate, disabled: @unbalanced_entries_count > 0)

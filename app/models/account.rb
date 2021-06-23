@@ -237,7 +237,7 @@ class Account < ApplicationRecord
         self.auxiliary_number = nil
         self.centralizing_account = nil
         errors.add(:number, :incorrect_length, number_length: Preference[:account_number_digits]) if number.length != Preference[:account_number_digits] && !already_existing
-        errors.add(:number, :cant_start_with_0) if number.match(/\A0/).present? && !already_existing
+        errors.add(:number, :cant_start_with_0, number: number) if number.match(/\A0/).present? && !already_existing
       end
       self.reconcilable = reconcilableable? if reconcilable.nil?
       self.label = tc(:label, number: number.to_s, name: name.to_s)
@@ -563,6 +563,15 @@ class Account < ApplicationRecord
     # Returns a RegExp based on reconcilable_prefixes
     def reconcilable_regexp
       Regexp.new("^(#{reconcilable_prefixes.join('|')})")
+    end
+
+    def with_non_uniq_name
+      Account.where(nature: 'general')
+             .select(:name)
+             .group(:name)
+             .having("count(*) > 1")
+             .count
+             .keys
     end
 
     private

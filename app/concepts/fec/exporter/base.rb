@@ -6,35 +6,24 @@ module FEC
       attr_reader :financial_year, :fiscal_position
 
       def initialize(financial_year, fiscal_position = nil, started_on, stopped_on)
-        @financial_year = financial_year
+        @datasource = FEC::Datasource::Exporter.new(financial_year, fiscal_position, started_on, stopped_on).perform
         @fiscal_position = fiscal_position
-        @started_on = started_on
-        @stopped_on = stopped_on
       end
 
-      def write(path, options = {})
-        File.write(path, generate(options))
+      def write(path)
+        File.write(path, generate)
       end
 
-      # Options are:
-      # journal_ids: IDs of journal to extract only
-      def generate(options = {})
-        build(journals(options[:journal_ids]))
+      def generate
+        build(@datasource)
       end
 
       private
 
-        def journals(ids = nil)
-          list = Journal.order(:name)
-          list = list.where(id: ids) if ids.present?
-          raise 'Needs at least one journal' unless list.any?
-
-          list
-        end
-
         def build(_journals)
           raise NotImplementedError
         end
+
     end
   end
 end

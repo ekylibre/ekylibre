@@ -11,7 +11,8 @@ eng:
       i_seven:
         errors:
           radical_class_number_unauthorized: "Can't create account. Number provided (%{number}) can't be a radical class"
-          incorrect_account_number_length: "The account number length can't be different from your own settings"
+          incorrect_account_number_length: "Journal entry %{name} couldn't be created. Number already existing : %{number}. Please check inside configuration the number of general accounts characters"
+          financial_year_needed: "The financial year is needed for #{stopped_on}"
           unreachable_code: "Unreachable code"
           expected_nature_journal: "Expected journal %{name} to be of nature %{expected_nature}, but found %{nature}"
         journals:

@@ -6,10 +6,8 @@
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
 
-  = t.export :land_parcel_register, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), label: :print_land_parcel_register
-  = tool_to(:compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false)
-
-- main_period_selector(:year)
+  = render partial: 'backend/activities/documents_printers', locals: {action: :show, conditions: @activity} 
+  - main_period_selector(:year)
 
 = main_informations attachment: true do
   .big-infos

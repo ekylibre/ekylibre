@@ -14,11 +14,30 @@ FactoryBot.define do
       centralizing_account_name { 'clients' }
     end
 
+    factory :client_account, parent: :account do
+      name { "Compte client" }
+      number { 411 }
+    end
+
     trait :supplier do
       sequence(:name) { |n| "Compte fournisseur #{n}" }
       sequence(:auxiliary_number) { |n| (20_000 + n).to_s }
       nature { 'auxiliary' }
       centralizing_account_name { 'suppliers' }
+    end
+
+    # @deprecated
+    factory :supplier_account, parent: :account do
+      name { "Compte fournisseur" }
+      number { 401 }
+    end
+
+    factory :auxiliary_account, parent: :account do
+      name { "Compte auxiliaire" }
+      nature { 'auxiliary' }
+      number { 41_112_345 }
+      auxiliary_number { 12_345 }
+      centralizing_account_name { 'clients' }
     end
 
     factory :stock_account do

@@ -147,6 +147,7 @@ module Backend
         else
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
         end
+        check_fec_compliance if JournalEntry.fec_compliance_preference
 
         # TODO: Extract this somewhere else, this isn't SRP
         # Check if the method is called from "account/:id/mark" view
@@ -185,6 +186,7 @@ module Backend
       return unless find_and_check_updateability
 
       if @journal_entry.update_attributes(permitted_params)
+        check_fec_compliance if JournalEntry.fec_compliance_preference
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
       end
@@ -240,6 +242,25 @@ module Backend
           return
         end
         @journal_entry
+      end
+
+      def check_fec_compliance
+        if @journal_entry.compliance_errors == []
+          notify_success(:fec_compliant_entry.tl)
+        else
+          errors = @journal_entry.compliance_errors.map do |err|
+            if err == :entry_item_account_name_not_uniq
+              duplicated_number_accounts = @journal_entry.duplicated_number_accounts
+              err.tl(accounts_number: duplicated_number_accounts.to_sentence, count: duplicated_number_accounts.count)
+            elsif err == :account_number_with_less_than_3_caracters
+              invalid_count = @journal_entry.invalid_accounts_number_count
+              err.tl(invalid_count: invalid_count, count: invalid_count)
+            else
+              err.tl
+            end
+          end
+          notify_warning(:non_fec_compliant_entry.tl(errors: errors.to_sentence, count: errors.count))
+        end
       end
   end
 end

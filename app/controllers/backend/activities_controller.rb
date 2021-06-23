@@ -20,6 +20,7 @@ module Backend
   class ActivitiesController < Backend::BaseController
     include InspectionViewable
 
+    PLANT_FAMILY_ACTIVITIES = %w[plant_farming vine_farming].freeze
     manage_restfully except: %i[index show], subclass_inheritance: true
 
     unroll
@@ -52,6 +53,12 @@ module Backend
                       .left_join_working_duration_of_campaign(current_campaign)
                       .left_join_issues_count_of_campaign(current_campaign)
                       .left_join_production_costs_of_campaign(current_campaign)
+
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
+
       respond_to do |format|
         format.html
         format.xml { render xml: resource_model.all }
@@ -59,7 +66,7 @@ module Backend
         format.pdf {
           return unless (template = find_and_check :document_template, params[:template])
 
-          PrinterJob.perform_later('Printers::LandParcelRegisterCampaignPrinter', template: template, campaign: current_campaign, perform_as: current_user)
+          PrinterJob.perform_later(tl("activity_printers.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to backend_activities_path
         }
@@ -69,6 +76,10 @@ module Backend
     def show
       return unless @activity = find_and_check
 
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
       respond_to do |format|
         format.html do
           t3e @activity
@@ -77,7 +88,7 @@ module Backend
         format.pdf do
           return unless (template = find_and_check :document_template, params[:template])
 
-          PrinterJob.perform_later('Printers::LandParcelRegisterActivityPrinter', template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
+          PrinterJob.perform_later(tl("activity_printers.show.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to backend_activity_path(@activity)
         end
@@ -121,11 +132,15 @@ module Backend
     end
 
     def compute_pfi_report
-      return unless @activity = find_and_check
-
+      @activity = find_and_check
       campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
-      activity_ids = []
-      activity_ids << @activity.id
+
+      if @activity.present?
+        activity_ids = []
+        activity_ids << @activity.id
+      else
+        activity_ids = Activity.actives.of_campaign(campaign).of_families(PLANT_FAMILY_ACTIVITIES).with_production_nature.pluck(:id)
+      end
       PfiReportJob.perform_later(campaign, activity_ids, current_user)
       notify_success(:document_in_preparation)
     end

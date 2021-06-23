@@ -4662,6 +4662,8 @@ journal_entries:
     precision: 19
     scale: 4
     required: true
+  compliance:
+    type: jsonb
   continuous_number:
     type: integer
   created_at:
@@ -4699,6 +4701,8 @@ journal_entries:
   lock_version:
     type: integer
     required: true
+  name:
+    type: string
   number:
     type: string
     required: true

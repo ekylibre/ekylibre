@@ -12,6 +12,12 @@ FactoryBot.define do
     variety { 'worker' }
   end
 
+  factory :sale_variant, parent: :product_nature_variant do
+    association :nature, factory: :services_nature
+    association :category, factory: :saleable_category
+    variety { 'service' }
+  end
+
   factory :plant_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Plant variant - TEST#{n.to_s.rjust(8, '0')}" }
     variety { :triticum }

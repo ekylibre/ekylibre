@@ -252,4 +252,28 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     item = create(:journal_entry_item, account: account, financial_year: financial_year)
     refute item.third_party
   end
+
+  test 'lettered_at behaviour' do
+    account = create(:account)
+    debit_jei = create(:journal_entry_item, account: account, real_debit: 200)
+    credit_jei = create(:journal_entry_item, account: account, real_credit: 100)
+    assert_nil debit_jei.lettered_at
+    assert_nil credit_jei.lettered_at
+    account.mark!([debit_jei.id, credit_jei.id])
+    [debit_jei, credit_jei].each(&:reload)
+    assert_nil debit_jei.lettered_at
+    assert_nil credit_jei.lettered_at
+    assert debit_jei.partially_lettered?
+    assert credit_jei.partially_lettered?
+    other_credit_jei = create(:journal_entry_item, account: account, real_credit: 100)
+    account.mark!([debit_jei.id, credit_jei.id, other_credit_jei.id])
+    [debit_jei, credit_jei, other_credit_jei].each(&:reload)
+    assert_not_nil debit_jei.lettered_at
+    assert_not_nil credit_jei.lettered_at
+    assert_not_nil other_credit_jei.lettered_at
+    assert debit_jei.completely_lettered?
+    assert credit_jei.completely_lettered?
+    assert other_credit_jei.completely_lettered?
+  end
+
 end

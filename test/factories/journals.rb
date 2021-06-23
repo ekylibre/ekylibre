@@ -14,6 +14,7 @@ FactoryBot.define do
     used_for_unbilled_payables { false }
 
     trait :various do
+      nature { 'various' }
     end
 
     trait :bank do
