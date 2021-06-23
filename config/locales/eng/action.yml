@@ -1454,14 +1454,17 @@ eng:
     active_totals: "Active Totals"
     activities: "Activities"
     activity: "Activity"
+    activity_cost: "Activity cost"
     activity_printers:
       land_parcel_register:  "Printers::LandParcelRegisterCampaignPrinter"
       intervention_register: "Printers::InterventionRegisterPrinter"
       phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
+      activity_cost: "Printers::ActivityCostPrinter"
       show:
         land_parcel_register: "Printers::LandParcelRegisterActivityPrinter"
         intervention_register: "Printers::InterventionRegisterActivityPrinter"
         phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
+        activity_cost: "Printers::ActivityCostPrinter"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     accumulated_stock: "Accumulated stock of %{name}"

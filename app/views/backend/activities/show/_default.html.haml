@@ -9,7 +9,7 @@
   - if resource.decorate.animal_family? && resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
     = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many, activity_id: resource.id }, icon: false)
 
-  = t.export :land_parcel_register, :intervention_register, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity)
+  = t.export :land_parcel_register, :intervention_register, :activity_cost, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity)
   = t.export :phytosanitary_register, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign, activity: @activity), label: :print_ift_and_regulatory_register
   = tool_to(:compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false)
 
