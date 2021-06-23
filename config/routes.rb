@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get :list_fixed_assets
       get :list_groups
       get :list_inspections
+      get :list_interventions
       get :list_intervention_product_parameters
       get :list_issues
       get :list_readings

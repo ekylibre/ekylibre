@@ -80,6 +80,14 @@ module Backend
       t.column :father, url: true, hidden: true
     end
 
+    # List interventions for one production support
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT animals_interventions.intervention_id FROM animals_interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = animals_interventions.intervention_id WHERE animals_interventions.animal_id = ? AND campaigns_interventions.campaign_id = ?)", 'record', 'params[:id]'.c, 'current_campaign'.c], order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+      t.column :issue, url: true
+    end
+
     def load_animals
       @read_at = params[:scope] == 'now' ? { at: Time.zone.now } : @read_at = { at: false }
 

@@ -317,6 +317,7 @@ class Product < ApplicationRecord
   scope :plants, -> { where(type: 'Plant') }
   scope :land_parcels, -> { where(type: 'LandParcel') }
   scope :animals, -> { where(type: 'Animal') }
+  scope :of_available_animal_group, -> { where(type: 'AnimalGroup', activity_production_id: nil) }
 
   scope :fathers, -> { animals.indicate(sex: 'male', reproductor: true).order(:name) }
   scope :mothers, -> { animals.indicate(sex: 'female', reproductor: true).order(:name) }
