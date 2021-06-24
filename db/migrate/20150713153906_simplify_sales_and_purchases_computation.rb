@@ -1,4 +1,4 @@
-class SimplifySalesAndPurchasesComputation < ActiveRecord::Migration
+class SimplifySalesAndPurchasesComputation < ActiveRecord::Migration[4.2]
   def change
     revert do
       change_column_null :taxes, :computation_method, false

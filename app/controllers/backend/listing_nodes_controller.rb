@@ -20,13 +20,14 @@ module Backend
   class ListingNodesController < Backend::BaseController
     def new
       return unless @listing_node = find_and_check(id: params[:parent_id])
+
       if params[:nature]
         desc = params[:nature].split('-')
         # raise StandardError.new desc.inspect
         if desc[0] == 'special'
           if desc[1] == 'all_columns'
             model = @listing_node.model
-            for column in model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }
+            model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }.each do |column|
               ln = @listing_node.children.new(nature: 'column', attribute_name: column.name, label: @listing_node.model.human_attribute_name(column.name))
               ln.save!
             end
@@ -45,6 +46,7 @@ module Backend
 
     def create
       return unless @listing_node = find_and_check(id: params[:parent_id])
+
       render text: '[UnfoundListingNode]' unless @listing_node
       desc = params[:nature].split('-')
       # raise StandardError.new desc.inspect
@@ -52,7 +54,7 @@ module Backend
         case desc[1]
         when 'all_columns'
           model = @listing_node.model
-          for column in model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }
+          model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }.each do |column|
             ln = @listing_node.children.new(nature: 'column', attribute_name: column.name, label: @listing_node.model.human_attribute_name(column.name))
             ln.save!
           end
@@ -70,6 +72,7 @@ module Backend
 
     def edit
       return unless @listing_node = find_and_check
+
       if request.xhr?
         if params[:type] == 'hide' || params[:type] == 'show'
           @listing_node.exportable = !@listing_node.exportable
@@ -95,6 +98,7 @@ module Backend
 
     def update
       return unless @listing_node = find_and_check
+
       if request.xhr?
         if params[:type] == 'exportable' # "hide" or params[:type] == "show"
           @listing_node.exportable = !@listing_node.exportable
@@ -118,6 +122,7 @@ module Backend
 
     def destroy
       return unless @listing_node = find_and_check
+
       parent = @listing_node.parent
       @listing_node.reload.destroy
       if request.xhr?

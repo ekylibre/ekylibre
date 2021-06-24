@@ -1,0 +1,10 @@
+= backend_form_for(model, url: backend_controller_helpers_activity_production_creations_path, as: :activity_production_creation) do |f|
+  = f.input :campaign, input_html: { data: { selector: url_for(controller: '/backend/campaigns', action: :unroll) } }
+  = f.input :activity, input_html: { data: { selector: url_for(controller: '/backend/activities', action: :unroll, scope: { availables: true, of_support_variety: 'land_parcel'}) } }
+  = f.input :cultivable_zone, as: 'hidden' 
+
+  - f.add(:submit, :create.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
+  - f.add(:block) do
+    %button.btn{data: { dismiss: 'modal' } }
+      =:cancel.tl
+  = f.actions

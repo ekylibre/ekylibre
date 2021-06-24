@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class StandByTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         [2018, 2019].each { |year| create :financial_year, year: year }
         @fixed_asset = create :fixed_asset, started_on: Date.new(2019, 1, 1)
@@ -96,7 +95,7 @@ class FixedAsset
       private
 
         def new_transition_for(fa, waiting_on, **options)
-          FixedAsset::Transitions::StandBy.new(fa, waiting_on, **options)
+          FixedAsset::Transitions::StandBy.new(fa, waiting_on: waiting_on, **options)
         end
 
         def create_fixed_asset_from_purchase
@@ -104,6 +103,7 @@ class FixedAsset
           equipment = create :equipment_variant
           purchase = create :purchase_invoice, invoiced_at: Date.new(2019, 1, 1)
           purchase_item = create :purchase_item, purchase: purchase, variant: equipment, fixed: true
+          purchase_item.purchase.save
           purchase_item.reload
           purchase_item.fixed_asset
         end

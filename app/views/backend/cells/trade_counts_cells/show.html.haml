@@ -2,10 +2,10 @@
   .big-info.important
     - unpaid_amount = Sale.unpaid.map(&:affair_balance).compact.sum.abs
     %span.title= :x_unpaid_sales.tl(count: Sale.unpaid.count)
-    %span.value= link_to(unpaid_amount.round(2).l(currency: Preference[:currency]), backend_sales_path(state: ["invoice"], nature: 'unpaid'))
+    %span.value= link_to(@unpaid_sales_amount.round_l(currency: Preference[:currency]), backend_sales_path(state: ["invoice"], nature: 'unpaid'))
   .big-info.important
     %span.title= :x_unpaid_purchases.tl(count: PurchaseInvoice.unpaid.count)
-    %span.value= link_to(PurchaseInvoice.unpaid.map(&:affair_balance).compact.sum.round(2).l(currency: Preference[:currency]), backend_purchase_invoices_path(nature: 'unpaid'))
+    %span.value= link_to(@unpaid_purchases_amount.round_l(currency: Preference[:currency]), backend_purchase_invoices_path(nature: 'unpaid'))
   .big-info
     %span.title= :x_incoming_payments_to_deposit.tl(count: IncomingPayment.depositables.count)
     %span.value= link_to(IncomingPayment.depositables.sum(:amount).round(2).l(currency: Preference[:currency]), backend_incoming_payments_path(s: "to_deposit_now"))

@@ -5,7 +5,7 @@ module Ekylibre
       @@truc = {}
 
       def initialize(model, options = {}, fixture_options = nil)
-        if model && model < Ekylibre::Record::Base
+        if model && model < ApplicationRecord
           fixture_options ||= {}
           @model = fixture_options.delete(:model) || model
           @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize
@@ -44,6 +44,7 @@ module Ekylibre
             unless name = @@truc[@table][value]
               raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
             end
+
             name
           elsif value.is_a?(Symbol)
             if ROLES.include?(value.to_s)
@@ -60,6 +61,5 @@ module Ekylibre
           end
         end
     end
-
   end
 end

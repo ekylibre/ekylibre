@@ -26,7 +26,30 @@ module Backend
 
     # respond_to :html, :json, :xml
 
-    list do |t|
+    def self.list_conditions
+      code = search_conditions(documents: %i[name]) + " ||= []\n"
+
+      code << "if params[:created_at].present? && params[:created_at].to_s != 'all'\n"
+      code << " c[0] << ' AND #{Document.table_name}.created_at::DATE BETWEEN ? AND ?'\n"
+      code << " if params[:created_at].to_s == 'interval'\n"
+      code << "   c << params[:created_at_started_on]\n"
+      code << "   c << params[:created_at_stopped_on]\n"
+      code << " else\n"
+      code << "   interval = params[:created_at].to_s.split('_')\n"
+      code << "   c << interval.first\n"
+      code << "   c << interval.second\n"
+      code << " end\n"
+      code << "end\n"
+
+      code << "if params[:nature].present?\n"
+      code << " c[0] << ' AND #{Document.table_name}.nature = ?'\n"
+      code << " c << params[:nature]\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(conditions: list_conditions) do |t|
       t.action :destroy, if: :destroyable?
       t.column :mandatory, class: "center-align"
       t.column :number, url: true
@@ -43,10 +66,14 @@ module Backend
 
     def show
       return unless @document = find_and_check
-      @file_format = if @document.file_content_type == 'application/xml'
+
+      @file_format = case @document.file_content_type
+                     when 'application/xml'
                        :xml
-                     elsif @document.file_content_type == 'text/plain'
+                     when 'text/plain'
                        :text
+                     when 'application/zip'
+                       :zip
                      else
                        :pdf
                      end
@@ -58,6 +85,7 @@ module Backend
         format.text { send_data(File.read(@document.file.path), type: 'text/plain', filename: @document.file_file_name) }
         format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline', filename: @document.file_file_name) }
         format.jpg { send_file(@document.file.path(:thumbnail), disposition: 'inline') }
+        format.zip { send_file(@document.file.path, type: 'application/zip', filename: @document.name) }
       end
     end
   end

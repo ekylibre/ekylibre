@@ -1,4 +1,4 @@
-class AttachProductionToCampaign < ActiveRecord::Migration
+class AttachProductionToCampaign < ActiveRecord::Migration[4.2]
   def change
     add_column :activities, :production_cycle, :string
     add_column :activities, :production_campaign, :string

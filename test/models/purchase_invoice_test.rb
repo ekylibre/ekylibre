@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -62,7 +62,6 @@
 require 'test_helper'
 
 class PurchaseInvoiceTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-
   test 'reconciliation_state is set correctly' do
     purchase_item = create :purchase_item, variant: ProductNatureVariant.find_by_number('00000071')
     reception_item = create :reception_item, purchase_invoice_item_id: purchase_item.id, variant: purchase_item.variant

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -104,7 +106,7 @@ class ReceptionItem < ParcelItem
 
   after_save do
     if Preference[:catalog_price_item_addition_if_blank]
-      for usage in %i[stock purchase]
+      %i[stock purchase].each do |usage|
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
         unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
@@ -145,6 +147,7 @@ class ReceptionItem < ParcelItem
   def check!
     state, msg = check_incoming
     return state, msg unless state
+
     save!
   end
 

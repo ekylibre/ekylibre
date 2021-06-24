@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,16 +44,16 @@
 #  updater_id       :integer
 #
 
-class Deposit < Ekylibre::Record::Base
+class Deposit < ApplicationRecord
   include Customizable
   acts_as_numbered
   belongs_to :cash
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :journal_entry
   belongs_to :mode, class_name: 'IncomingPaymentMode'
-  has_many :payments, class_name: 'IncomingPayment', dependent: :nullify, counter_cache: true, inverse_of: :deposit
+  has_many :payments, class_name: 'IncomingPayment', dependent: :nullify, inverse_of: :deposit
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :locked, inclusion: { in: [true, false] }
@@ -79,6 +81,11 @@ class Deposit < Ekylibre::Record::Base
     end
   end
 
+  def payments_count
+    ActiveSupport::Deprecation.warn "'Deposit::payments_count' is deprecated, directly use payments.count"
+    payments.count
+  end
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
@@ -93,7 +100,7 @@ class Deposit < Ekylibre::Record::Base
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, count: payments_count, mode: mode.name, responsible: responsible.label, description: description)
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, count: payments.count, mode: mode.name, responsible: responsible.label, description: description)
 
       entry.add_debit(label, cash.account_id, amount - commissions_amount, as: :bank)
       commissions.each do |commission_account_id, commission_amount|

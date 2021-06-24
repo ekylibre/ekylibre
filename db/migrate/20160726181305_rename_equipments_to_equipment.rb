@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20160726173309
-class RenameEquipmentsToEquipment < ActiveRecord::Migration
+class RenameEquipmentsToEquipment < ActiveRecord::Migration[4.2]
   def up
     # Change item accounts#equipment_expenses with {:name=>"equipment_maintenance_expenses"}
     execute "UPDATE accounts SET usages = REGEXP_REPLACE(usages, E'\\\\mequipment_expenses\\\\M', 'equipment_maintenance_expenses', 'g')"

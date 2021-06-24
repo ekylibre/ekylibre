@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 class Reception
   module Transitions
     class Give < Transitionable::Transition
-
       event :give
       from :draft
       to :given
 
       attr_reader :given_at
 
-      def initialize(reception, given_at: nil, **_options)
-        super reception
+      def initialize(reception, given_at: nil, **options)
+        super(reception, **options)
 
         @given_at = reception.given_at || given_at
       end
@@ -25,8 +26,6 @@ class Reception
           resource.state = :given
 
           resource.save!
-
-          true
         end
       end
 
@@ -42,7 +41,7 @@ class Reception
           # Create a matter for each storing
           item.storings.each do |storing|
             product_params = {
-              name: item.product_name || default_product_name(item),
+              name: item.product_name.presence || default_product_name(item),
               identification_number: item.product_identification_number,
               work_number: item.product_work_number,
               initial_born_at: given_at
@@ -73,7 +72,6 @@ class Reception
             location == storing.storage && owner == Entity.of_company
           end
         end
-
     end
   end
 end

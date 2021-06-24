@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,14 +37,16 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-class InterventionParticipation < Ekylibre::Record::Base
+class InterventionParticipation < ApplicationRecord
   enumerize :state, in: %i[in_progress done validated]
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   belongs_to :intervention
   belongs_to :product
 
-  has_many :working_periods, class_name: 'InterventionWorkingPeriod',
-                             inverse_of: :intervention_participation, dependent: :destroy
+  has_many :working_periods, -> { order(started_at: :asc) },
+           class_name: 'InterventionWorkingPeriod',
+           inverse_of: :intervention_participation,
+           dependent: :destroy
   has_many :crumbs, dependent: :destroy
 
   accepts_nested_attributes_for :working_periods
@@ -103,12 +107,13 @@ class InterventionParticipation < Ekylibre::Record::Base
 
   def qualified_human_name
     return if human_name.nil? || product.name.nil?
+
     working_periods.empty? ? "#{human_name} (#{product.name})" : "#{:intervention_at.tl(intervention: human_name, at: working_periods.minimum(:started_at).l)} (#{product.name})"
   end
 
   def convert!(options = {})
     intervention = nil
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       options[:procedure_name] ||= procedure_name
       procedure = Procedo.find(options[:procedure_name])
 
@@ -121,6 +126,7 @@ class InterventionParticipation < Ekylibre::Record::Base
         s = wp.started_at.round_off(1.minute)
         f = wp.stopped_at.round_off(1.minute)
         next if s == f
+
         {
           started_at: s,
           stopped_at: f
@@ -173,6 +179,7 @@ class InterventionParticipation < Ekylibre::Record::Base
             targets.each do |target|
               intersection = zone.intersection(target.shape)
               next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
+
               attributes[key] << {
                 reference_name: parameter.name,
                 targets_attributes: [
@@ -196,6 +203,7 @@ class InterventionParticipation < Ekylibre::Record::Base
           targets.each do |target|
             intersection = zone.intersection(target.shape.to_rgeo)
             next unless intersection.area.in_square_meter > DEFAULT_ACCURACY.in_square_meter
+
             attributes[key] << {
               reference_name: parameter.name,
               # working_zone: target.shape,
@@ -218,6 +226,7 @@ class InterventionParticipation < Ekylibre::Record::Base
 
   def unconverted_crumbs
     return [] unless crumbs.any?
+
     start_read_at = crumbs.order(read_at: :asc).first.read_at.utc
     stop_read_at = crumbs.order(read_at: :asc).last.read_at.utc
 

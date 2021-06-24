@@ -15,7 +15,7 @@ arb:
     charge_account_label: "تحصيل رسوم الحساب" #?
     company: "شركة" #?
     container_name: "اسم حاوية"
-    current_result_before_taxes: "نتيجة الحالية قبل الضرائب"
+    current_result_before_taxes: "نتيجة الحالية قبل الضرائب" #?
     depreciations_inputations_expenses: "مصاريف انخفاض قيمة inputations" #?
     doer_cost: "تكلفة الفاعل"
     doer_name: "اسم الفاعل"
@@ -27,20 +27,20 @@ arb:
     enterprise: "مشروع"
     entity_name: "اسم الشركة"
     exceptional_expenses: "نفقات استثنائية" #?
-    exceptional_expenses_total: "مجموع نفقات استثنائية"
+    exceptional_expenses_total: "مجموع نفقات استثنائية" #?
     exceptional_products: "منتجات استثنائية" #?
-    exceptional_products_total: "مجموع منتجات استثنائية"
-    exceptional_result: "نتيجة استثنائية"
-    expenses_total: "مجموع النفقات"
-    exploitation_expenses_total: "مجموع نفقات الاستغلال"
-    exploitation_products_total: "مجموع استغلال المنتجات"
-    exploitation_result: "نتيجة الاستغلال"
+    exceptional_products_total: "مجموع منتجات استثنائية" #?
+    exceptional_result: "نتيجة استثنائية" #?
+    expenses_total: "مجموع النفقات" #?
+    exploitation_expenses_total: "مجموع نفقات الاستغلال" #?
+    exploitation_products_total: "مجموع استغلال المنتجات" #?
+    exploitation_result: "نتيجة الاستغلال" #?
     family: "أسرة"
     financial_expenses: "نفقات مالية" #?
     financial_expenses_total: "مجموع النفقات المالية"
     financial_products: "المنتجات المالية" #?
-    financial_products_total: "مجموع المنتجات المالية"
-    financial_result: "نتيجة المالية"
+    financial_products_total: "مجموع المنتجات المالية" #?
+    financial_result: "نتيجة المالية" #?
     financial_year_name: "اسم السنة المالية"
     financial_years: "السنوات المالية"
     grains_yield: "العائد الحبوب" #?
@@ -49,7 +49,7 @@ arb:
     human_roles: "أدوار الإنسان" #?
     implanted_at: "مزروع في" #?
     intervention_durations: "مدد تدخل" #?
-    loss_balance: "ميزان الخسارة"
+    loss_balance: "ميزان الخسارة" #?
     losses: "خسائر" #?
     meat_saleable_on: "اللحوم على القابلة للبيع"
     meat_withdrawal_period: "فترة الانسحاب اللحوم"
@@ -59,29 +59,29 @@ arb:
     nature: "اكتب"
     net_revenue: "صافي الإيرادات" #?
     net_surface_area: "مساحة صافية"
-    number: "عدد"
+    number: "عدد" #?
     observed_at: "لوحظ في"
     other_expenses: "نفقات أخرى" #?
     other_products: "غيرها من المنتجات" #?
     other_purchases: "مشتريات أخرى" #?
     owner_name: "اسم المالك" #?
     payment_ratio: "نسبة الدفع" #?
-    person_name: "اسم الشخص"
+    person_name: "اسم الشخص" #?
     pictogram: "الرسم التخطيطي لل" #?
     picture_path: "مسار الصورة"
     plan: "خطة"
     prescription: "وصفة طبية"
     pretax_amount: "كمية ما قبل الضريبة" #?
-    printed_on: "المطبوعة على"
+    printed_on: "المطبوعة على" #?
     product_account_label: "تسمية حساب المنتج" #?
     production_support: "دعم الإنتاج"
     productions_sales: "مبيعات المنتجات" #?
     products_purchases: "منتجات مشتريات" #?
     products_sales: "مبيعات المنتجات" #?
-    products_total: "عدد المنتجات"
-    profit_or_loss: "الربح أو الخسارة"
+    products_total: "عدد المنتجات" #?
+    profit_or_loss: "الربح أو الخسارة" #?
     profits: "الأرباح" #?
-    profits_taxes: "ضرائب الأرباح"
+    profits_taxes: "ضرائب الأرباح" #?
     provisional_yield: "العائد المؤقت" #?
     provisions_revenues: "عائدات أحكام" #?
     quantity: "كمية"
@@ -103,4 +103,4 @@ arb:
     vine_yield: "العائد كرمة" #?
     wages: "أجور" #?
     working_area: "منطقة العمل"
-    working_duration_in_hours: "مدة العمل بالساعات"
+    working_duration_in_hours: "مدة العمل بالساعات" #?

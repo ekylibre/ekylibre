@@ -15,7 +15,6 @@
 @import 'bootstrap-sprockets';
 
 // Plugins
-@import "themes/tekyla/plugins";
 @import "vendor/flatpickr";
 @import "bootstrap-slider";
 @import "wice_grid";
@@ -35,15 +34,21 @@
 @import "calendars";
 @import "charts";
 @import "documents";
+@import "draft_journals";
 @import "equipments";
 @import "financial_years";
 @import "forms";
 @import "golumns";
 @import "grid";
+@import "imports";
 @import "integrations";
 @import "interventions";
 @import "intervention_participations";
-@import "leaflet";
+@import "leaflet/dist/leaflet";
+@import "leaflet-draw/dist/leaflet.draw";
+@import "leaflet-legends";
+@import "leaflet-custom";
+@import "leaflet-ghost-label";
 @import "main";
 @import "map_layers";
 @import "modals";
@@ -65,8 +70,17 @@
 @import "warning";
 @import "general_ledgers";
 @import "trial_balances";
+@import "journals";
+@import "crop_groups";
+@import "financial_year_exchanges";
+@import "active_list_icons";
 
 @import "./components/index";
+@import "./components/spinner";
+
 
 // Optimization
 @import "symbolic_icons";
+
+// Ekylibre plugins
+@import "themes/tekyla/plugins";

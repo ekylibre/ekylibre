@@ -41,6 +41,7 @@ module Backend
 
     def reflect
       return unless @incoming_payment_mode = find_and_check
+
       @incoming_payment_mode.reflect
       redirect_to action: :index
     end

@@ -53,6 +53,7 @@ namespace :accountancy do
       double_number = row[0].to_s
       target_number = row[1].to_s
       next if double_number.blank? && target_number.blank?
+
       if double_number.blank? || target_number.blank?
         puts "Cannot find merge #{double_number.inspect} into #{target_number.inspect}"
         next

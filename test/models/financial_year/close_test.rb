@@ -7,7 +7,6 @@ module FinancialYearTest
       FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
     end
 
-
     test 'close' do
       Preference.set!(:currency, :FRF)
       f = FinancialYear.where('stopped_on < ?', Date.today).order(:started_on).reject { |f| f.closed? }.first
@@ -16,9 +15,9 @@ module FinancialYearTest
       ValidateDraftJournalEntriesService.new(journal_entries).validate_all if journal_entries.any?
 
       assert f.closable?, "Financial year #{f.code} should be closable: " + f.closure_obstructions.to_sentence
-      allocations = {}
+
       options = {
-        allocations: allocations,
+        allocations: {},
         forward_journal: Journal.find_by(nature: :forward, currency: f.currency) ||
           Journal.create_one!(:forward, f.currency),
         closure_journal: Journal.find_by(nature: :closure, currency: f.currency) ||
@@ -29,7 +28,7 @@ module FinancialYearTest
 
       closer = FinancialYearClose.for_year(f, user: User.first, close_on: nil, **options)
       close_result = closer.execute
-      assert close_result, "Financial year #{f.code} should be closed (#{f.errors.messages.values.join ', '})"
+      assert close_result, "Financial year #{f.code} should be closed (#{f.errors.messages.values.join ', '}, closer said: #{closer.close_error})"
 
       assert f.prior_to_closure_archive.present?
       assert f.post_closure_archive.present?

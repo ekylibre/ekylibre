@@ -63,6 +63,7 @@ module Ekylibre
       def load_defaults(**options)
         default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
+
           puts "Load default #{dataset}..."
           model = default_dataset_model(dataset)
           model.load_defaults(**options, preferences: @preferences)
@@ -95,6 +96,14 @@ module Ekylibre
           mail.mail_line_6 = @company[:mail_line_6]
           mail.save!
         end
+
+        if @company[:activities].present?
+          @company[:activities].each do |activity|
+            Activity.create_with(production_cycle: :annual)
+                    .find_or_create_by!(family: activity[:family], cultivation_variety: activity[:variety], name: activity[:label_fr])
+          end
+        end
+
         load_users(@company[:users]) if @company[:users]
       end
 
@@ -134,9 +143,9 @@ module Ekylibre
 
       protected
 
-      def warn(message)
-        Rails.logger.warn(message)
-      end
+        def warn(message)
+          Rails.logger.warn(message)
+        end
     end
   end
 end

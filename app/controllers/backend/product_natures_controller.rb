@@ -22,7 +22,7 @@ module Backend
 
     manage_restfully except: %i[edit update], population_counting: :decimal, active: true
 
-    importable_from_lexicon :variant_natures
+    importable_from_nomenclature :product_natures
 
     unroll
 
@@ -42,9 +42,9 @@ module Backend
     list(conditions: product_natures_conditions) do |t|
       t.action :edit, url: { controller: '/backend/product_natures' }
       t.action :destroy, url: { controller: '/backend/product_natures' }, if: :destroyable?
+      t.column :active
       t.column :name, url: { controller: '/backend/product_natures' }
       t.column :number, url: { controller: '/backend/product_natures' }
-      t.column :active
       t.column :variety
       t.column :derivative_of
     end
@@ -71,19 +71,24 @@ module Backend
 
     def update
       return unless @product_nature = find_and_check(:product_nature)
+
       t3e(@product_nature.attributes)
       @product_nature.attributes = permitted_params
-      return if save_and_redirect(@product_nature, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      return if save_and_redirect(@product_nature, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+
       @form_url = backend_product_nature_path(@product_nature)
       @key = 'product_nature'
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def compatible_varieties
       product_nature = ProductNature.find_by(id: params[:id])
-      return if product_nature.nil?
-      varieties = Nomen::Variety.find(product_nature.variety).self_and_children
-      render json: { data: varieties.map { |variety| {name: variety.name, human_name: variety.human_name }} }
+      if product_nature.nil?
+        render json: { message: 'Not found' }, status: :not_found
+      else
+        varieties = Onoma::Variety.find(product_nature.variety).self_and_children
+        render json: { data: varieties.map { |variety| { name: variety.name, human_name: variety.human_name }} }
+      end
     end
   end
 end

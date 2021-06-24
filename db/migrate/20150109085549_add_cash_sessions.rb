@@ -1,4 +1,4 @@
-class AddCashSessions < ActiveRecord::Migration
+class AddCashSessions < ActiveRecord::Migration[4.2]
   def change
     create_table :cash_sessions do |t|
       t.references :cash, null: false, index: true

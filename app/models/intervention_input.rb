@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +27,7 @@
 #
 #  allowed_entry_factor     :interval
 #  allowed_harvest_factor   :interval
+#  applications_frequency   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -36,6 +39,7 @@
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string
+#  imputation_ratio         :decimal(19, 4)   default(1), not null
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -50,12 +54,15 @@
 #  quantity_population      :decimal(19, 4)
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
+#  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  usage_id                 :string
+#  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
@@ -69,6 +76,8 @@ class InterventionInput < InterventionProductParameter
   belongs_to :outcoming_product, class_name: 'Product'
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
   has_one :product_movement, as: :originator, dependent: :destroy
+  has_one :pfi_input, -> { where(nature: 'intervention') }, class_name: 'PfiInterventionParameter', foreign_key: :input_id, dependent: :destroy
+  has_many :pfi_inputs, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :input_id, dependent: :destroy
   validates :quantity_population, :product, presence: true
   # validates :component, presence: true, if: -> { reference.component_of? }
 
@@ -103,15 +112,28 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
-  def input_quantity_per_area
-    if intervention.working_zone_area.to_d > 0.0 && (quantity.dimension == :mass || quantity.dimension == :volume)
-      unit = quantity.unit.to_s + '_per_hectare'
-      q = (quantity.value.to_f / intervention.working_zone_area.to_f).round(2)
-      q_per_hectare = Measure.new(q.to_f, unit.to_sym)
-    elsif quantity.dimension == :volume_area_density || quantity.dimension == :mass_area_density
-      q_per_hectare = quantity
+  # @param [Onoma::Item<Unit>] target_unit
+  # @param [Measure<area>] area
+  def input_quantity_per_area(target_unit: nil, area: nil)
+    if Onoma::Unit.find(quantity.unit).dimension == :none
+      quantity
+    else
+      converter = Interventions::ProductUnitConverter.new
+      quantity_base_unit = Onoma::Unit.find(quantity.unit).base_unit.to_s
+
+      target_unit_into = target_unit || Onoma::Unit.find(quantity_base_unit + '_per_hectare')
+      area_into = Maybe(area) || Maybe(intervention.working_zone_area)
+
+      params = {
+        into: target_unit_into,
+        area: area_into,
+        net_mass: Maybe(product.net_mass),
+        net_volume: Maybe(product.net_volume),
+        spray_volume: None()
+      }
+
+      converter.convert(quantity, **params).or_else(quantity)
     end
-    q_per_hectare
   end
 
   # return pfi dose according to Lexicon pfi dataset and maaid number
@@ -185,12 +207,14 @@ class InterventionInput < InterventionProductParameter
         # for each usages matching variety, get data in reglementary_doses hash
         agent.usages.each_with_index do |usage, index|
           next unless usage.subject_variety && usage.dose
+
           # get variables
           activity_variety = target.product.variety
           activity_variety ||= target.best_activity_production.cultivation_variety if target.best_activity_production
-          uv = Nomen::Variety[usage.subject_variety.to_sym]
+          uv = Onoma::Variety[usage.subject_variety.to_sym]
 
-          next unless activity_variety && (uv >= Nomen::Variety[activity_variety.to_sym])
+          next unless activity_variety && (uv >= Onoma::Variety[activity_variety.to_sym])
+
           reglementary_doses[index] = {}
           reglementary_doses[index][:name] = usage.name.to_s.downcase
           reglementary_doses[index][:variety] = uv.l
@@ -223,6 +247,7 @@ class InterventionInput < InterventionProductParameter
 
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
+
     reception_item = product.incoming_parcel_item
     options = { quantity: quantity_population, unit_name: product.unit_name }
     if reception_item && reception_item.purchase_order_item

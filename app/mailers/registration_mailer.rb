@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RegistrationMailer < ActionMailer::Base
   default from: Devise.mailer_sender,
           template_path: 'devise/mailer'

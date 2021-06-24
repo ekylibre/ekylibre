@@ -56,13 +56,14 @@ module Backend
       code.c
     end
 
-    list(conditions: list_conditions, selectable: true) do |t|
+    list(conditions: list_conditions) do |t|
       t.action :edit, if: :editable?
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :amount, currency: true
       t.column :cash, url: true
       t.status
+      t.column :state_label, hidden: true
       t.column :started_on
       t.column :repayment_duration
       t.column :repayment_period
@@ -90,19 +91,42 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
-      respond_with @loans, methods: [:current_remaining_amount], include: %i[lender loan_account interest_account insurance_account cash journal_entry]
+      if params[:period] == 'interval'
+        @started_on = params[:started_on]
+        @stopped_on = params[:stopped_on]
+      elsif params[:period].present? && params[:period] != 'all'
+        @started_on, @stopped_on = params[:period].split('_')
+      end
+
+      @started_on ||= FinancialYear.reorder(:started_on).first.started_on.to_s
+      @stopped_on ||= FinancialYear.reorder(:started_on).last.stopped_on.to_s
+
+      respond_to do |format|
+        format.html
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::LoanRegistryPrinter', started_on: @started_on, stopped_on: @stopped_on, template: template, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_loans_path
+        }
+      end
     end
 
     def confirm
-      return unless @loan = find_and_check
-      @loan.confirm
-      redirect_to action: :show, id: @loan.id
+      return unless (record = find_and_check)
+
+      record.confirm(ongoing_at: Time.zone.now, current_user: current_user)
+
+      redirect_to action: :show, id: record.id
     end
 
     def repay
-      return unless @loan = find_and_check
-      @loan.repay
-      redirect_to action: :show, id: @loan.id
+      return unless (record = find_and_check)
+
+      record.repay(repaid_at: Time.zone.now, current_user: current_user)
+
+      redirect_to action: :show, id: record.id
     end
 
     def bookkeep
@@ -112,9 +136,8 @@ module Backend
         notify_error(:the_bookkeep_date_format_is_invalid)
         return redirect_to(params[:redirect] || { action: :index })
       end
-      loan_ids = params[:loan_ids].to_s.strip.split(/\s*\,\s*/).map(&:to_i)
 
-      count = Loan.bookkeep_repayments(until: bookkeep_until, id: loan_ids)
+      count = Loan.bookkeep_repayments(until: bookkeep_until)
       notify_success(:x_loan_repayments_have_been_bookkept_successfully, count: count)
 
       redirect_to(params[:redirect] || { action: :index })

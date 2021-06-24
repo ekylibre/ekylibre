@@ -1,0 +1,81 @@
+encoding: 'ISO-8859-15'
+root:
+  - bank_statement_start: 1
+  - entry_details: "*"
+  - bank_statement_end: 1
+
+lines:
+  bank_statement_start:
+    key: "01"
+    occurrence: 1
+    cells:
+      - bank_code: string-5
+      - bank_reserved_area: string-4
+      - bank_agency_code: string-5
+      - currency: string-3
+      - decimals: string-1
+      - decimals_reserved_area: string-1
+      - account_number: string-11
+      - account_reserved_area: string-2
+      - balance_date: string-6
+      - balance_reserved_area: string-50
+      - amount: string-14
+      - amount_reserved_area: string-16
+
+  entry_detail:
+    key: "04"
+    cells:
+      - bank_code: string-5
+      - sg_operation: string-4
+      - bank_agency_code: string-5
+      - currency: string-3
+      - decimals: string-1
+      - sit_index: string-1
+      - account_number: string-11
+      - interbank_transaction: string-2 # transcode with interbank_code_transaction.csv
+      - entry_date: string-6
+      - reject_motive: string-2
+      - value_date: string-6
+      - operation_label: string-31
+      - label_reserved_area: string-2
+      - entry_number: string-7
+      - exoneration: string-1
+      - exoneration_reserved_area: string-1
+      - amount: string-14
+      - operation_reference: string-16
+
+    children:
+      - complements: "*"
+
+  complement:
+    key: "05"
+    cells:
+      - bank_code: string-5
+      - sg_operation: string-4
+      - bank_agency_code: string-5
+      - bank_agency_code_reserved_area: string-5
+      - account_number: string-11
+      - interbank_transaction: string-2
+      - entry_date: string-6
+      - complementary_label: string-41
+      - entry_number: string-7
+      - entry_number_reserved_area: string-2
+      - entry_detail_amount: string-14
+      - amount_reserved_area: string-16
+
+  bank_statement_end:
+    key: "07"
+    occurrence: 1
+    cells:
+      - bank_code: string-5
+      - bank_reserved_area: string-4
+      - bank_agency_code: string-5
+      - currency: string-3
+      - decimals: string-1
+      - decimals_reserved_area: string-1
+      - account_number: string-11
+      - account_reserved_area: string-2
+      - balance_date: string-6
+      - balance_reserved_area: string-50
+      - amount: string-14
+      - amount_reserved_area: string-16

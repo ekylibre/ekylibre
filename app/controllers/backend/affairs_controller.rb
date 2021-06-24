@@ -36,6 +36,7 @@ module Backend
 
     def select
       return unless @affair = find_and_check
+
       @deal_model = params[:deal_type].camelcase.constantize
       @third = Entity.find_by(id: params[:third_id]) if params[:third_id]
       @third ||= @affair.third
@@ -43,6 +44,7 @@ module Backend
 
     def attach
       return unless @affair = find_and_check
+
       if deal = begin
                   params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
                 rescue
@@ -59,6 +61,7 @@ module Backend
 
     def detach
       return unless @affair = find_and_check
+
       if deal = begin
                   params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
                 rescue
@@ -75,30 +78,32 @@ module Backend
 
     def detach_gaps
       return unless @affair = find_and_check
+
       @affair.gaps.each { |g| g.undeal! @affair }
       redirect_to params[:redirect] || redirect_to_best_page
     end
 
     def finish
       return unless @affair = find_and_check
+
       notify_error :cannot_finish_affair unless @affair.finish
       redirect_to_best_page
     end
 
     protected
 
-    def redirect_to_best_page(affair = nil)
-      affair ||= @affair
-      url = params[:redirect]
-      unless url
-        originator = affair.originator
-        url = if originator
-                { controller: originator.class.name.tableize, action: :show, id: originator.id }
-              else
-                { controller: affair.class.name.tableize, action: :show, id: affair.id }
-              end
+      def redirect_to_best_page(affair = nil)
+        affair ||= @affair
+        url = params[:redirect]
+        unless url
+          originator = affair.originator
+          url = if originator
+                  { controller: originator.class.name.tableize, action: :show, id: originator.id }
+                else
+                  { controller: affair.class.name.tableize, action: :show, id: affair.id }
+                end
+        end
+        redirect_to params[:redirect] || url
       end
-      redirect_to params[:redirect] || url
-    end
   end
 end

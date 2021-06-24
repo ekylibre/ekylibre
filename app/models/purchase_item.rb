@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,8 +30,8 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
-#  conditionning          :integer
-#  conditionning_quantity :integer
+#  conditionning          :decimal(19, 4)
+#  conditionning_quantity :decimal(19, 4)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
@@ -58,7 +60,7 @@
 #  variant_id             :integer
 #
 
-class PurchaseItem < Ekylibre::Record::Base
+class PurchaseItem < ApplicationRecord
   include PeriodicCalculable
   refers_to :currency
   belongs_to :account
@@ -85,10 +87,10 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :conditionning, :conditionning_quantity, numericality: { greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, presence: true
   validates :fixed, inclusion: { in: [true, false] }
-  validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
+  validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
@@ -129,6 +131,8 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
+  scope :of_role, ->(role) { where(role: role) }
+
   protect on: :update do
     !self.purchase.updateable?
   end
@@ -156,7 +160,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
 
     if tax && unit_pretax_amount
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
       raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
@@ -201,6 +205,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   validate do
     next unless fixed
+
     # Errors linked to fixed assets
 
     errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
@@ -208,10 +213,6 @@ class PurchaseItem < Ekylibre::Record::Base
 
     depreciation_method = variant.fixed_asset_depreciation_method
     errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
-
-    # if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
-    #   errors.add(:fixed, :fixed_asset_stopped_on_invalid)
-    # end
   end
 
   after_save do
@@ -221,6 +222,7 @@ class PurchaseItem < Ekylibre::Record::Base
         catalog = Catalog.by_default!(usage)
         next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
           unit_pretax_amount.blank? || unit_pretax_amount.zero?
+
         variant.catalog_items.create!(
           catalog: catalog,
           amount: unit_pretax_amount, currency: currency
@@ -286,6 +288,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+
       fixed_asset.reload
       fixed_asset.update_amounts
     else
@@ -327,6 +330,7 @@ class PurchaseItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     return nil unless purchase.respond_to?(:affair)
+
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0
@@ -338,6 +342,7 @@ class PurchaseItem < Ekylibre::Record::Base
     return nil if first_reception.nil?
 
     return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+
     first_reception.number if receptions_count == 1
   end
 
@@ -366,24 +371,22 @@ class PurchaseItem < Ekylibre::Record::Base
   private
 
     def first_reception
-      case purchase.class
-        when PurchaseInvoice
-          parcels_purchase_invoice_items.first&.parcel
-        when PurchaseOrder
-          parcels_purchase_orders_items.first&.parcel
-        else
-          nil
+      if purchase.is_a?(PurchaseInvoice)
+        parcels_purchase_invoice_items.first&.parcel
+      elsif purchase.is_a?(PurchaseOrder)
+        parcels_purchase_orders_items.first&.parcel
+      else
+        nil
       end
     end
 
     def receptions_count
-      case purchase.class
-        when PurchaseInvoice
-          parcels_purchase_invoice_items.count
-        when PurchaseOrder
-          parcels_purchase_orders_items.count
-        else
-          0
+      if purchase.is_a?(PurchaseInvoice)
+        parcels_purchase_invoice_items.count
+      elsif purchase.is_a?(PurchaseOrder)
+        parcels_purchase_orders_items.count
+      else
+        0
       end
     end
 

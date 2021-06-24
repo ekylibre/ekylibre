@@ -1,42 +1,32 @@
+# This file contains configuration specific for this repository that are different from the default Ekylibre style guide
+
+inherit_from: .rubocop_todo.yml
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
   Exclude:
-    - 'lib/generators/*/templates/**/*'
-    - 'vendor/**/*'
-    - 'tmp/**/*'
-    - 'plugins/**/*'
-    - 'plugins-*/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/first_runs/**/*'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'lib/generators/**/*'
     - 'lib/procedo/formula/language.rb'
     - 'lib/working_set/query_language.rb'
-    - 'db/first_runs/**/*'
-    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'plugins/**/*'
+    - 'plugins-disabled/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
 
-Rails:
-  Enabled: true
-
-Rails/HttpPositionalArguments:
+# We disable this for now. 1500 offenses as of 01/02/2021
+Layout/LineLength:
   Enabled: false
 
-Rails/ApplicationRecord:
+# Too many offenses to enable this for now.
+Style/StringLiterals:
   Enabled: false
 
-Rails/ApplicationJob:
-  Enabled: false
-
-Metrics/LineLength:
-  Enabled: false
-
-Lint/AssignmentInCondition:
-  Enabled: false
-
-Lint/UnifiedInteger:
-  Enabled: false
-
-Metrics/MethodLength:
-  Max: 60
-
-Layout/IndentationConsistency:
-  EnforcedStyle: indented_internal_methods
-
-Metrics/AbcSize:
+# Do not encourage the use of modifiers
+Style/WhileUntilModifier:
   Enabled: false

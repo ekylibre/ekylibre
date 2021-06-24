@@ -6,6 +6,8 @@
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2 , intervention_input: 1.2}
 
+  no_submit = => false
+
   E.value = (element) ->
     if element.is(":ui-selector")
       return element.selector("value")
@@ -121,7 +123,8 @@
                 try
                   element.mapeditor "view", "edit"
             else if element.is('select')
-              element.find("option[value='#{value}']")[0].selected = true
+              v = if value == null then '' else value
+              element.find("option[value='#{v}']")[0].selected = true
             else
               valueType = typeof value
               update = true
@@ -134,18 +137,30 @@
               if update
                 console.log "Updates ##{subprefix} with: ", value
                 element.val(value)
+                element.next('input.flatpickr-input').val(moment(value).format('DD-MM-YYYY HH:mm')) if element.hasClass('flatpickr-input')
+                element.trigger('intervention-field:value-updated')
 
     unserializeList: (form, list, prefix = '', updater_id) ->
       for id, attributes of list
         E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
 
     updateAvailabilityInstant: (newTime) ->
-      return unless newTime != ''
+      return if newTime == ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
-        re =  /(scope\[availables\]\[\]\[at\]=)(.*)(&)/
-        scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
+        re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
+        scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
+
+    _setWaiting: (form, computing) ->
+      computing.prop 'state', 'waiting'
+      form.on('submit', no_submit)
+      form.find('.form-actions input[type="submit"]').prop 'disabled', true
+
+    _setReady: (form, computing) ->
+      computing.prop 'state', 'ready'
+      form.off('submit', no_submit)
+      form.find('.form-actions input[type="submit"]').prop 'disabled', false
 
     # Ask for a refresh of values depending on given update
     refresh: (updater, options = {}) ->
@@ -168,9 +183,9 @@
           type: "PATCH"
           data: form.serialize()
           beforeSend: ->
-            computing.prop 'state', 'waiting'
+            E.interventions._setWaiting(form, computing)
           error: (request, status, error) ->
-            computing.prop 'state', 'ready'
+            E.interventions._setReady(form, computing)
             false
           success: (data, status, request) ->
             console.group('Unserialize intervention updated by ' + updaterId)
@@ -180,7 +195,7 @@
             E.interventions.handleDynascope(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.updateProcedureLevelAttributes(form, data.procedure_states)
-            computing.prop 'state', 'ready'
+            E.interventions._setReady(form, computing)
             options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
@@ -244,21 +259,14 @@
             @workingTimesModal.getModal().modal 'show'
 
 
-    addLazyLoading: (taskboard) ->
+    addLazyLoading: (taskboard, params) ->
       loadContent = false
       currentPage = 1
       taskHeight = 60
       halfTaskList = 12
 
-      urlParams = decodeURIComponent(window.location.search.substring(1)).split("&")
-      params = urlParams.reduce((map, obj) ->
-        param = obj.split("=")
-        map[param[0]] = param[1]
-        return map
-      , {})
-
-      $('#content').scroll ->
-        if !loadContent && $('#content').scrollTop() > (currentPage * halfTaskList) * taskHeight
+      $('#core').scroll ->
+        if !loadContent && $('#core').scrollTop() > (currentPage * halfTaskList) * taskHeight
           currentPage++
           params['page'] = currentPage
 
@@ -337,17 +345,22 @@
       E.interventions.refresh $(this)
 
   $(document).ready ->
-    $('*[data-intervention-updater]').each ->
-      E.interventions.refresh $(this)
+    updaters = $('*[data-intervention-updater]')
+    # Previous system was calling refresh method with each updater, we now use first updater because the returned values were all the same (except for a very specific case which we avoid by selecting first updater)
+    updater = updaters[0]
+    E.interventions.refresh $(updater)
+    # Stopped_at is not automaticaly updated to started_at + 1 hour if stopped_at is manually updated
+    E.interventionForm.setupStoppedAtInputBehaviour()
 
-  #  selector:initialized
-  $(document).on 'selector:change', '*[data-intervention-updater]', (event) ->
-    $(this).each ->
-      options = {}
-      options['display_cost'] = true
-      options['targetted_element'] = $(event.target)
+  $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
+      # Don't refresh values if selector is initializing
+      return if options? && options['initializing']
+      $(this).each ->
+        options = {}
+        options['display_cost'] = true
+        options['targetted_element'] = $(event.target)
 
-      E.interventions.refresh $(this), options
+        E.interventions.refresh $(this), options
 
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
@@ -369,17 +382,6 @@
 
       E.interventions.refresh $(this), options
 
-  $(document).on "keyup change dp.change", ".nested-fields.working-period:first-child input.intervention-started-at", (e) ->
-    value = $(this).val()
-    $hiddenInput = $('#intervention_working_periods_attributes_0_stopped_at')
-    $displayedInput = $hiddenInput.next('.flatpickr-input')
-    $hiddenInput.val(moment(new Date(value)).add(1, 'hours').format('Y-MM-DD H:mm'))
-    $displayedInput.val(moment(new Date(value)).add(1, 'hours').format('DD-MM-Y H:mm'))
-    started_at = $('#intervention_working_periods_attributes_0_started_at').val()
-    $(this).each ->
-      E.interventions.updateAvailabilityInstant(started_at)
-
-
   $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
     toolId = $(event.target).closest('.selector').find('.selector-value').val()
 
@@ -397,7 +399,6 @@
 
         hourCounterLinks = hourCounterBlock.find('.links')
         hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
-
 
   $(document).on "selector:change", 'input[data-selector-id="intervention_doer_product_id"], input[data-selector-id="intervention_tool_product_id"]', (event) ->
     element = $(event.target)
@@ -513,7 +514,6 @@
       success: (data) =>
 
   $(document).on 'shown.bs.modal', '#compare-planned-with-realised', (event) ->
-
     $('.details').each ->
       product_id = $(this).data('productId')
       type = $(this).data('type')
@@ -611,6 +611,26 @@
            error = $("<span class='help-inline harvest-in-progress-error'>#{ unrollElement.attr('data-harvest-in-progress-error-message') }</span>")
            $(unrollBlock).append(error)
 
+    setupStoppedAtInputBehaviour: ->
+      startedAtInput = document.querySelector("#intervention_working_periods_attributes_0_started_at")
+      return unless startedAtInput
+
+      fp = startedAtInput._flatpickr
+      hiddenInput = $('#intervention_working_periods_attributes_0_stopped_at')
+      autoUpdateStoppedAt = ''
+      fp.set 'onOpen', (selectedDates) ->
+        oldDate = moment(selectedDates[0])
+        stopDate = moment(hiddenInput.val())
+        autoUpdateStoppedAt = stopDate.diff(oldDate, 'seconds') == 3600
+      fp.set 'onValueUpdate', (selectedDates) ->
+        if autoUpdateStoppedAt
+          newDate = moment(selectedDates[0])
+          displayedInput = hiddenInput.next('.flatpickr-input')
+          hiddenInput.val(moment(newDate).add(1, 'hours').format('Y-MM-DD H:mm'))
+          displayedInput.val(moment(newDate).add(1, 'hours').format('DD-MM-Y H:mm'))
+        started_at = $('#intervention_working_periods_attributes_0_started_at').val()
+        $(this).each ->
+          E.interventions.updateAvailabilityInstant(started_at)
 
   $(document).ready ->
 
@@ -629,12 +649,20 @@
           $(productParameterCostBlock).appendTo(target)
       )
 
-    if $('.taskboard').length > 0
+    if $('.taskboard').length > 0 && $('.kujaku').length > 0
 
       taskboard = new InterventionsTaskboard
       taskboard.initTaskboard()
 
-      E.interventions.addLazyLoading(taskboard)
+      encodedUrlParams = $('.kujaku').find('form').serialize()
+      urlParams = decodeURIComponent(encodedUrlParams).split("&")
+      params = urlParams.reduce((map, obj) ->
+        param = obj.split("=")
+        map[param[0]] = param[1]
+        return map
+      , {})
+
+      E.interventions.addLazyLoading(taskboard, params)
 
 
   class InterventionsTaskboard
@@ -874,6 +902,23 @@
             $(e.currentTarget).find('.modal-footer').append(data)
 
 
+    $(document).on 'click', '.duplicate-intervention', (e) =>
+      e.stopImmediatePropagation();
+      interventions = $(e.currentTarget).data().interventions
+      $.ajax
+        url: '/backend/interventions/duplicate_interventions'
+        data: { interventions: interventions }
+        success: (data) =>
+          if $('#taskboard-modal').length > 0
+            interventionModal = new ekylibre.modal('#taskboard-modal')
+            interventionModal.getModal().modal 'hide'
+          else
+            interventionModal = new ekylibre.modal('#create-intervention-modal')
+            interventionModal.getModal().modal 'hide'
+          $('#wrap').after(data)
+          duplicateModal = new ekylibre.modal('#duplicate-modal')
+          duplicateModal.getModal().modal 'show'
+
     $(document).on 'click', '#duplicate-modal #validate-duplication', (e) =>
       e.stopImmediatePropagation();
       intervention = $(e.currentTarget).data().intervention
@@ -898,10 +943,13 @@
             duplicateModal = new ekylibre.modal('#duplicate-modal')
             duplicateModal.getModal().modal 'show'
 
-    $(document).on 'change', '.nested-fields.working-period input', ->
+    $(document).on 'change intervention-field:value-updated', '.nested-fields.working-period input', ->
       updateHarvestDelayWarnings()
 
     $(document).on 'selector:change', ".nested-targets .intervention_targets_product", ->
+      updateHarvestDelayWarnings()
+
+    $(document).on 'cocoon:after-remove', '.nested-working_periods', ->
       updateHarvestDelayWarnings()
 
   queryDelayWarningsForPeriod = ($periodElement, $parcelSelectors) =>
@@ -910,7 +958,9 @@
     $dateEndInput = $periodElement.find("input[id*='stopped_at']")[0]
     date = moment($dateInput.value).toISOString()
     dateEnd = moment($dateEndInput.value).toISOString()
-    parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value'))
+    parcels = $parcelSelectors.get().map((e) => $(e).find('.selector input:first-child').get(0) ).map((e) => $(e).selector('value')).filter((e) => e != null)
+
+    return Promise.resolve([]) if parcels.length == 0
 
     params = {
       date: date,

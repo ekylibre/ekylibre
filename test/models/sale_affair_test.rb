@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -69,6 +69,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     sale = new_valid_sales_invoice
 
     payment = IncomingPayment.create!(
+      to_bank_at: DateTime.parse('2018-01-01 00:00:00'),
       payer: sale.client,
       amount: sale.amount,
       received: true,
@@ -90,7 +91,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 1, sale.affair.deals.count
     assert sale.affair.finishable?
     assert_equal 1, sale.affair.deals.count
-    sale.affair.finish
+    sale.affair.finish(at: DateTime.parse('2018-01-02T00:00:00'))
     assert_equal 2, sale.affair.deals.count
 
     check_closed_state(sale.affair)
@@ -100,6 +101,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     sale = new_valid_sales_invoice
 
     payment = IncomingPayment.create!(
+      to_bank_at: DateTime.parse('2018-01-01 00:00:00'),
       payer: sale.client,
       amount: sale.amount + 2,
       received: true,
@@ -116,7 +118,7 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 2, sale.affair.deals.count
     assert sale.affair.finishable?
     assert_equal 2, sale.affair.deals.count
-    sale.affair.finish
+    sale.affair.finish(at: DateTime.parse('2018-01-02T00:00:00Z'))
     assert_equal 3, sale.affair.deals.count
 
     check_closed_state(sale.affair)

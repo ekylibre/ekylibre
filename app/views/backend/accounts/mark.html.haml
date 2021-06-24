@@ -17,7 +17,7 @@
 
   = field_set :items do
     - currency = Preference[:currency]
-    - precision = Nomen::Currency[currency].precision
+    - precision = Onoma::Currency[currency].precision
     - [:period, :started_at, :stopped_at].each do |x|
       = hidden_field_tag(x, params[x])
 

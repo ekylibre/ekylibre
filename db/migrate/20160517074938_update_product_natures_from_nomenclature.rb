@@ -1,4 +1,4 @@
-class UpdateProductNaturesFromNomenclature < ActiveRecord::Migration
+class UpdateProductNaturesFromNomenclature < ActiveRecord::Migration[4.2]
   CHANGES = {
     cover_implanter: { frozen_indicators: 'application_width, theoretical_working_speed', variable_indicators: 'geolocation' },
     dumper: { frozen_indicators: 'nominal_storable_net_volume, nominal_storable_net_mass', variable_indicators: 'geolocation' },

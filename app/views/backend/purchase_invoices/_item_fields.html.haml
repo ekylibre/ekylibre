@@ -19,38 +19,32 @@
     %td.quantity-column
       %label{ data: { item_value: "input.invoice-quantity" } }= f.object.variant ? f.object.variant.name : 'ERROR'
       %label{ data: { item_value: "span.item-population-unit-name"}}= f.object.variant ? f.object.variant.unit_name : '#'
-    %td.unit-amount-column.two-rows-column
-      %span
-        %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-        %label= Nomen::Currency.find(f.object.currency).symbol
-      %label{class: "invoice-second-row-label"}= :discount_without_percent.tl
-      %span
-        %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-        %label= "%"
+    %td.unit-amount-column
+      %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+      %label= Onoma::Currency.find(f.object.currency).symbol
+    %td
+      %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+      %label= "%"
     %td.pretax-amount-column
-      %span
-        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-        %label= Nomen::Currency.find(f.object.currency).symbol
-    %td.total-column.two-rows-column
-      %span
-        %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-        %label= Nomen::Currency.find(f.object.currency).symbol
-        %label{ class: "invoice-second-row-label"}= :vat_rate.tl
+      %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+      %label= Onoma::Currency.find(f.object.currency).symbol
+    %td.total-column
       %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+    %td.total-column
+      %label{ class: 'amount-including-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+      %label= Onoma::Currency.find(f.object.currency).symbol
 
-  %tr.nested-item-form{data: {item_id: item.parcels_purchase_invoice_items.first&.id } }
+  %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '', data: { item_id: item.parcels_purchase_invoice_items.first&.id } }
     %td.item-form{colspan: 20}
       = f.input :role, as: :hidden
       = render "#{f.object.role}_fields", f: f, variant: variant, non_compliant_message: non_compliant_message
 
-
       .form-field.decimal-row
-
         .invoice-unit-amount-controls
           = f.input :unit_pretax_amount, wrapper: :append do
             = f.input_field :unit_pretax_amount, class: "invoice-unit-amount", label: :unit_amount.tl, data: {trade_component: "unit_pretax_amount"}
             %span.add-on
-              = Nomen::Currency.find(f.object.currency).symbol
+              = Onoma::Currency.find(f.object.currency).symbol
 
         .invoice-discount-percentage-controls
           = f.input :reduction_percentage, wrapper: :append do
@@ -65,16 +59,13 @@
           = f.input :pretax_amount, wrapper: :append do
             = f.input_field :pretax_amount, class: "pta pre-tax-invoice-total", data: {trade_component: "pretax_amount", required: true}
             %span.add-on
-              = Nomen::Currency.find(f.object.currency).symbol
+              = Onoma::Currency.find(f.object.currency).symbol
 
         .pta-controls.invoice-total-controls
           = f.input :amount, wrapper: :append do
             = f.input_field :amount, class: "pta invoice-total", data: {trade_component: "amount", required: true}
             %span.add-on
-              = Nomen::Currency.find(f.object.currency).symbol
-
-
-
+              = Onoma::Currency.find(f.object.currency).symbol
 
       .item-form-information
         - if display_activity_item_field
@@ -82,16 +73,16 @@
             = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
         .item-form.item-form__project-budget
           = f.referenced_association :project_budget, input_html: {data: { remember: 'project_budget'}}
+        .item-form.item-form__equipment
+          = f.referenced_association :equipment, new: false, source: :tools, input_html: {data: { remember: 'equipment'}}
         - if display_team_item_field
           .item-form.item-form__product_work_number
             = f.referenced_association :team, input_html: {data: { remember: 'team'}}
-        .item-form.item-form__equipment
-          = f.referenced_association :equipment, source: :tools, input_html: {data: { remember: 'equipment'}}
-          - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
-          -#HACK: new_items == new_ + <relation name> -- used by cocoon for interpolation of new_record pseudoid
-          = hidden_field_tag 'purchase_invoice[items_attributes][new_items][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
 
-
+        - #HACK: new_items == new_ + <relation name> -- used by cocoon for interpolation of new_record pseudoid
+        - parcels_purchase_invoice_item_id = f.object.parcels_purchase_invoice_items.empty? ? nil : [f.object.parcels_purchase_invoice_items.first.id].to_s
+        - parcels_purchase_invoice_item_id ||= locals[:reception_item_id] if defined?(locals) && locals[:reception_item_id]
+        = hidden_field_tag 'purchase_invoice[items_attributes][RECORD_ID][parcels_purchase_invoice_items]', parcels_purchase_invoice_item_id, class: "purchase-item-attribute"
 
       .item-form-button.item-form-button--non-merchandise
         .item-form__btn

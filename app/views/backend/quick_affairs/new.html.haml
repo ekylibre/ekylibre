@@ -1,8 +1,13 @@
-- trade_model_name   = @trade.class.model_name
-- payment_model_name = @payment.class.model_name
-- url_interpolate = @trade.is_a?(PurchaseInvoice) ? 'purchases' : 'sales'
-- url_helper = :"backend_quick_#{url_interpolate}_path"
-- payment_scope = { scope: { matching_cash: @bank_statement_items.first.bank_statement.cash_id } } if @bank_statement_items
+:ruby
+  trade_model_name   = @trade.class.model_name
+  payment_model_name = @payment.class.model_name
+  url_interpolate = @trade.is_a?(PurchaseInvoice) ? 'purchases' : 'sales'
+  url_helper = :"backend_quick_#{url_interpolate}_path"
+  payment_scope = if (bsi = @bank_statement_items.first).present?
+                    { scope: { matching_cash: bsi.bank_statement.cash_id } }
+                  else
+                    {}
+                  end
 
 = backend_form_for @affair, as: :affair, url: send(url_helper, redirect: @redirect_to) do |a|
   = field_set do
@@ -22,7 +27,8 @@
     = backend_fields_for :trade, @trade do |t|
       = t.input :invoiced_at
       = t.input :reference_number
-      = t.input :tax_payability, as: :radio_buttons
+      - if @trade.is_a? Purchase
+        = t.input :tax_payability, as: :radio_buttons
       = t.input :description
       = t.input_field :nature_id, as: :hidden
 

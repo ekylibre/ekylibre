@@ -168,6 +168,8 @@
     var element = $(this), frame;
     frame = $('#' + element.data("close-dialog"));
     frame.dialog("close");
+    frame.dialog("destroy");
+    frame.remove();
     return false;
   });
 
@@ -424,13 +426,18 @@
   });
 
 
-  // Auto focus
-  $.autoFocus = function () {
+// Auto focus
+const autoFocus = function () {
     this.focus();
     // this.select();
-  };
-  $.behave("*[data-autofocus]", "load", $.autoFocus);
-  $.behave("input[type='text']:not([class*='flatpickr']):first", "load", $.autoFocus);
+};
+$.behave("*[data-autofocus]", "load", autoFocus);
+// $.behave("input[type='text']:not([class*='flatpickr']):first", "load", $.autoFocus);
+$.behave(root => {
+    const candidates = _.filter(root.querySelectorAll("input[type='text']"), e => !e.classList.contains('flatpickr-input'))
+
+    return _.take(candidates, 1)
+}, "load", autoFocus)
   /*    $.behave("*:input:visible:first", "load", $.autoFocus);
         $.behave("*[data-autofocus]:visible", "load", $.autoFocus);*/
 
@@ -467,6 +474,13 @@
     return false;
   });
 
+  $(document).on('selector:change', '[data-toggle-enable]', function (event) {
+    const $target = $(this).closest($(this).data('parent')).find($(this).data('toggle-enable'));
+    if (!$target.length) {
+      return;
+    }
+    $target.toggleClass('disabled', !!!$(this).selector('value'));
+  });
 
   $(document).on("mouseenter", ".btn, a", function (event) {
     var button = $(this), text;

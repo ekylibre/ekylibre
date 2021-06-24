@@ -3,7 +3,9 @@
   - if f.object.new_record?
     = f.input :root_model, collection: root_models
   = f.input :conditions
+  = f.input :query, disabled: true
   = f.input :description
   = f.custom_fields
-  = render 'nodes_form'
 
+= field_set :database do
+  = render 'nodes_form'

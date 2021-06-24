@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,12 +43,14 @@
 #
 
 # CatalogItem stores all the prices used in sales and purchases.
-class CatalogItem < Ekylibre::Record::Base
+class CatalogItem < ApplicationRecord
   attr_readonly :catalog_id
   refers_to :currency
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
+  has_many :products, through: :variant
+  has_many :interventions, through: :products
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :all_taxes_included, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -88,11 +92,7 @@ class CatalogItem < Ekylibre::Record::Base
   end
 
   after_save do
-    # if self.amount_changed?
-    variant.products.each do |product|
-      product.interventions.tap(&:reload).map(&:save!)
-    end
-    # end
+    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end
 
   # Compute a pre-tax amount

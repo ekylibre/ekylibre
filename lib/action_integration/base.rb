@@ -41,13 +41,14 @@ module ActionIntegration
 
       def run(method_name = nil, every: nil, &block)
         if block_given? && method_name.present?
-          raise ArgumentError, 'Please use either a method or a block at a time.'
+          raise ArgumentError.new('Please use either a method or a block at a time.')
         end
         unless method_name.present? || block_given?
-          raise ArgumentError, 'Please specify either a method or a block.'
+          raise ArgumentError.new('Please specify either a method or a block.')
         end
-        raise ArgumentError, 'Please specify a frequency.' if every.blank?
-        raise ArgumentError, 'Invalid frequency.' unless %i[day hour].include? every
+        raise ArgumentError.new('Please specify a frequency.') if every.blank?
+        raise ArgumentError.new('Invalid frequency.') unless %i[day hour].include? every
+
         proc = lambda do
           begin
             to_execute = block || send(method_name).method(:execute)
@@ -59,8 +60,7 @@ module ActionIntegration
         Ekylibre::Hook.subscribe("every_#{every}", proc)
       end
 
-      # Check ##########
-
+      # Check
       def check_connection(account = nil, &block)
         calls :check
         check(account).execute(&block)
@@ -127,9 +127,9 @@ module ActionIntegration
         @parameters || []
       end
 
-      def parameter(name, &default_value)
+      def parameter(name, options = {}, &default_value)
         @parameters ||= []
-        @parameters << ActionIntegration::Parameter.new(name, &default_value)
+        @parameters << ActionIntegration::Parameter.new(name, options, &default_value)
       end
 
       # TODO: fetch shouldn't raise exceptions, fetch! does
@@ -137,8 +137,9 @@ module ActionIntegration
         integration ||= ::Integration.find_by(nature: (local_name || integration_name).underscore)
 
         raise ServiceNotIntegrated unless integration
+
         parameters.each do |p|
-          raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
+          raise IntegrationParameterEmpty.new(p) if integration.parameters[p.to_s].blank?
         end
 
         integration
@@ -155,8 +156,9 @@ module ActionIntegration
       integration ||= ::Integration.find_by(nature: self.class.integration_name.underscore)
 
       raise ServiceNotIntegrated unless integration
+
       self.class.parameters.each do |p|
-        raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
+        raise IntegrationParameterEmpty.new(p) if integration.parameters[p.to_s].blank?
       end
 
       integration

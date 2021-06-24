@@ -20,6 +20,7 @@ module Backend
   class ActivitiesController < Backend::BaseController
     include InspectionViewable
 
+    PLANT_FAMILY_ACTIVITIES = %w[plant_farming vine_farming].freeze
     manage_restfully except: %i[index show], subclass_inheritance: true
 
     unroll
@@ -35,6 +36,42 @@ module Backend
       t.column :cultivation_variety, hidden: true
       t.column :with_supports
       t.column :support_variety, hidden: true
+      t.column :isacompta_analytic_code, hidden: AnalyticSegment.where(name: 'activities').none?
+    end
+
+    def index
+      missing_code_count = Activity.where('isacompta_analytic_code IS NULL').count
+      segment = AnalyticSegment.find_by(name: 'activities')
+      if segment.presence && missing_code_count > 0
+        notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+      end
+      @currency = Onoma::Currency.find(Preference[:currency])
+      activities_of_campaign = Activity.of_campaign(current_campaign)
+      @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
+      @families = activities_of_campaign.order(:family).collect(&:family).uniq
+      @activities = activities_of_campaign
+                      .left_join_working_duration_of_campaign(current_campaign)
+                      .left_join_issues_count_of_campaign(current_campaign)
+                      .left_join_production_costs_of_campaign(current_campaign)
+
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
+
+      respond_to do |format|
+        format.html
+        format.xml { render xml: resource_model.all }
+        format.json { render json: resource_model.all }
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later(tl("activity_printers.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_activities_path
+        }
+      end
     end
 
     def index
@@ -55,31 +92,24 @@ module Backend
     def show
       return unless @activity = find_and_check
 
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
       respond_to do |format|
         format.html do
-
-          activity_crops = Plant
-                             .joins(:inspections)
-                             .where(activity_production_id: @activity.productions.map(&:id),
-                                    dead_at: nil)
-                             .where.not(inspections: { forecast_harvest_week: nil })
-                             .uniq
-
-          @crops = initialize_grid(activity_crops, decorate: true)
-
           t3e @activity
         end
 
         format.pdf do
           return unless (template = find_and_check :document_template, params[:template])
 
-          PrinterJob.perform_later('Printers::LandParcelRegisterActivityPrinter', template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
+          PrinterJob.perform_later(tl("activity_printers.show.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
           notify_success(:document_in_preparation)
           redirect_to backend_activity_path(@activity)
         end
       end
-      harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
-      @reentry_possible = harvest_advisor.reentry_possible?(@activity, Time.zone.now)
     end
 
     # Duplicate activity basing on campaign
@@ -118,23 +148,18 @@ module Backend
       redirect_to params[:redirect] || { action: :index }
     end
 
-    # Returns wanted varieties proposition for given family_name
-    def family
-      unless family = Nomen::ActivityFamily[params[:name]]
-        head :not_found
-        return
+    def compute_pfi_report
+      @activity = find_and_check
+      campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
+
+      if @activity.present?
+        activity_ids = []
+        activity_ids << @activity.id
+      else
+        activity_ids = Activity.actives.of_campaign(campaign).of_families(PLANT_FAMILY_ACTIVITIES).with_production_nature.pluck(:id)
       end
-      data = {
-        label: family.human_name,
-        name: family.name
-      }
-      if family.cultivation_variety.present?
-        data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
-      end
-      if family.support_variety.present?
-        data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
-      end
-      render json: data
+      PfiReportJob.perform_later(campaign, activity_ids, current_user)
+      notify_success(:document_in_preparation)
     end
 
     # List of productions for one activity
@@ -155,6 +180,5 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
-
   end
 end

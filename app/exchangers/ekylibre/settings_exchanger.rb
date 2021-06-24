@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class SettingsExchanger < ActiveExchanger::Base
+    category :settings
+    vendor :ekylibre
+
     # Create or updates main settings of folder
     def import
       @manifest = YAML.load_file(file) || {}
@@ -26,7 +31,7 @@ module Ekylibre
       if srs = @manifest[:map_measure_srs]
         Preference.set!(:map_measure_srs, srs)
       elsif srid = @manifest[:map_measure_srid]
-        Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
+        Preference.set!(:map_measure_srs, Onoma::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
       end
       demo = !!@manifest[:demo]
       if demo
@@ -102,10 +107,10 @@ module Ekylibre
       if can_load_default?(:users)
         @manifest[:users] = { 'admin@ekylibre.org' => { first_name: 'Admin', last_name: 'EKYLIBRE' } }
       end
-      for email, attributes in @manifest[:users]
+      @manifest[:users].each do |email, attributes|
         attributes[:administrator] = true unless attributes.key?(:administrator)
         attributes[:language] ||= language
-        for ref in %i[role team]
+        %i[role team].each do |ref|
           attributes[ref] ||= :default
           attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
         end
@@ -143,7 +148,7 @@ module Ekylibre
       w.check_point
 
       # Load accounts
-      #TODO check when method is executed
+      # TODO check when method is executed
       if can_load_default?(:accounts)
         # Account number can't start with a '0' and are 8 caracters length
         @manifest[:accounts] = Cash.nature.values.each_with_object({}) do |nature, hash|
@@ -183,8 +188,9 @@ module Ekylibre
       if can_load_default?(:cashes)
         @manifest[:cashes] = %i[bank_account cash_box].each_with_object({}) do |nature, hash|
           unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
-            raise StandardError, 'Need a valid journal nature to register a cash'
+            raise StandardError.new('Need a valid journal nature to register a cash')
           end
+
           journal = Journal.find_by(nature: journal_nature)
           account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t, nature: nature.to_s,
@@ -195,6 +201,9 @@ module Ekylibre
       end
       @manifest[:cashes].each do |_n, v|
         v[:account] = find_record(:accounts, v[:account].to_s) if v[:account]
+        v[:suspense_account] = find_record(:accounts, v[:suspense_account].to_s) if v[:suspense_account]
+        v[:suspend_until_reconciliation] = true if v[:suspense_account]
+        v[:enable_bookkeep_bank_item_details] = true if v[:suspense_account]
       end
       create_records(:cashes)
       w.check_point
@@ -274,50 +283,52 @@ module Ekylibre
 
     protected
 
-    def can_load?(key)
-      !@manifest[key].is_a?(FalseClass)
-    end
+      def can_load?(key)
+        !@manifest[key].is_a?(FalseClass)
+      end
 
-    def can_load_default?(key)
-      can_load?(key) && !@manifest[key].is_a?(Hash)
-    end
+      def can_load_default?(key)
+        can_load?(key) && !@manifest[key].is_a?(Hash)
+      end
 
-    def create_records(records, *args)
-      options = args.extract_options!
-      main_column = args.shift || :name
-      model = records.to_s.classify.constantize
-      if data = @manifest[records]
-        @records ||= {}.with_indifferent_access
-        @records[records] ||= {}.with_indifferent_access
-        unless data.is_a?(Hash)
-          raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
-        end
-        data.each do |identifier, attributes|
-          attributes = attributes.with_indifferent_access
-          attributes[main_column] ||= identifier.to_s
-          model.reflect_on_all_associations.each do |reflection|
-            if attributes[reflection.name] && !attributes[reflection.name].is_a?(ActiveRecord::Base)
-              attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
-            end
+      def create_records(records, *args)
+        options = args.extract_options!
+        main_column = args.shift || :name
+        model = records.to_s.classify.constantize
+        if data = @manifest[records]
+          @records ||= {}.with_indifferent_access
+          @records[records] ||= {}.with_indifferent_access
+          unless data.is_a?(Hash)
+            raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
           end
-          record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
-          record ||= model.new
-          record.attributes = attributes
-          if record.save(attributes)
-            @records[records][identifier.to_s] = record
-          else
-            w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
-            raise ActiveRecord::RecordInvalid, record
+
+          data.each do |identifier, attributes|
+            attributes = attributes.with_indifferent_access
+            attributes[main_column] ||= identifier.to_s
+            model.reflect_on_all_associations.each do |reflection|
+              if attributes[reflection.name] && !attributes[reflection.name].is_a?(ActiveRecord::Base)
+                attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
+              end
+            end
+            record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
+            record ||= model.new
+            record.attributes = attributes
+            if record.save(attributes)
+              @records[records][identifier.to_s] = record
+            else
+              w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
+              raise ActiveRecord::RecordInvalid.new(record)
+            end
           end
         end
       end
-    end
 
-    # Returns the record corresponding to the identifier
-    def find_record(records, identifier)
-      @records ||= {}.with_indifferent_access
-      return @records[records][identifier] if @records[records]
-      nil
-    end
+      # Returns the record corresponding to the identifier
+      def find_record(records, identifier)
+        @records ||= {}.with_indifferent_access
+        return @records[records][identifier] if @records[records]
+
+        nil
+      end
   end
 end

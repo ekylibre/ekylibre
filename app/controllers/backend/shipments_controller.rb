@@ -82,13 +82,11 @@ module Backend
       t.column :given_at
       t.column :recipient, url: true
       t.status
-      t.column :state, label_method: :human_state_name
+      t.column :state, label_method: :human_state_name, hidden: true
       t.column :delivery, url: true
       t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
-      # t.column :sent_at
       t.column :delivery_mode
-      # t.column :net_mass, hidden: true
       t.column :sale, url: true
     end
 
@@ -99,9 +97,6 @@ module Backend
       t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
-      # t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
-      t.status
-      # t.column :net_mass
       t.column :analysis, url: true
     end
 
@@ -113,14 +108,18 @@ module Backend
 
     def show
       return unless (shipment = find_and_check)
+
       respond_to do |format|
         format.pdf do
           next unless (template = find_and_check :document_template, params[:template])
 
           printer = Printers::ShippingNotePrinter.new(template: template, shipment: shipment)
 
-          pdf_data = printer.run_pdf
-          printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+          generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+          pdf_data = generator.generate_pdf(template: template, printer: printer)
+
+          archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+          archiver.archive_document(pdf_content: pdf_data, template: template, key: printer.key, name: printer.document_name)
 
           send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
         end
@@ -139,24 +138,35 @@ module Backend
     def invoice
       parcels = find_parcels
       return unless parcels
+
       parcel = parcels.first
-      if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
-        purchase = Parcel.convert_to_purchase(parcels)
-        redirect_to backend_purchase_path(purchase)
-      elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
-        sale = Parcel.convert_to_sale(parcels)
-        redirect_to backend_sale_path(sale)
-      else
+      begin
+        if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
+          purchase = Parcel.convert_to_purchase(parcels)
+          redirect_to backend_purchase_path(purchase)
+        elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
+          sale = Parcel.convert_to_sale(parcels)
+          redirect_to backend_sale_path(sale)
+        end
+      rescue ActiveRecord::RecordInvalid => error
+        notify_error(error.message)
+        redirect_to backend_shipments_path
+      rescue StandardError => error
+        Rails.logger.error error
+        Rails.logger.error error.backtrace.join("\n")
+        ElasticAPM.report(error)
         notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
         redirect_to(params[:redirect] || { action: :index })
       end
     end
+
     #
     # Pre-fill delivery form with given parcels. Nothing else.
     # Only a shortcut now.
     def ship
       parcels = find_parcels
       return unless parcels
+
       parcel = parcels.detect(&:shippable?)
       options = { parcel_ids: parcels.map(&:id) }
       if !parcel

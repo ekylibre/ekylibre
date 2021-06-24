@@ -22,7 +22,8 @@ module Backend
     def referenced_nomenclature(association, options = {})
       klass = @object.class
       reflection = klass.nomenclature_reflections[association]
-      raise ArgumentError, "Invalid nomenclature reflection: #{association}" unless reflection
+      raise ArgumentError.new("Invalid nomenclature reflection: #{association}") unless reflection
+
       options[:collection] ||= reflection.klass.selection
       options[:label] ||= klass.human_attribute_name(association)
       input(reflection.foreign_key, options)
@@ -35,6 +36,7 @@ module Backend
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
+
       options = referenced_association_input_options(association, options)
       input(options[:reflection].foreign_key, options)
     end
@@ -42,6 +44,7 @@ module Backend
     # Display a selector with "new" button
     def referenced_association_field(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
+
       options = referenced_association_input_options(association, options)
       html_options = options[:input_html].merge(options.slice(:as, :reflection))
       input_field(options[:reflection].foreign_key, html_options)
@@ -52,6 +55,7 @@ module Backend
       options = args.extract_options!
       reflection = find_association_reflection(association)
       raise "Association #{association.inspect} not found" unless reflection
+
       if block_given?
         ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
       end
@@ -81,13 +85,14 @@ module Backend
       @template.content_tag(:div, html, html_options)
     end
 
-    # Adds custom fields
     def custom_fields
       return nil unless @object.customizable?
+
       custom_fields = @object.class.custom_fields
       return nil unless custom_fields.any?
+
       @template.content_tag(:div, class: 'custom-fields') do
-        simple_fields_for(:custom_fields, OpenStruct.new(@object.custom_fields)) do |cff|
+        simple_fields_for(:custom_fields, @object.custom_fields_model) do |cff|
           custom_fields.map do |custom_field|
             options = { as: custom_field.nature.to_sym, required: custom_field.required?, label: custom_field.name }
             if custom_field.choice?
@@ -105,6 +110,12 @@ module Backend
       end
     end
 
+    def get_custom_fields_errors(errors)
+      errors.to_h
+            .select { |error| error.to_s.start_with?('custom_fields__')}
+            .transform_keys { |key| key.to_s.gsub('custom_fields__', '').to_sym }
+    end
+
     def attachments_field_set
       @template.field_set(:attachments) do
         attachments
@@ -116,7 +127,7 @@ module Backend
     end
 
     def reading(options = {})
-      indicator = Nomen::Indicator.find!(@object.indicator_name)
+      indicator = Onoma::Indicator.find!(@object.indicator_name)
       @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden) })
     end
 
@@ -131,6 +142,7 @@ module Backend
       unless reflection = find_association_reflection(association)
         raise "Association #{association.inspect} not found"
       end
+
       indicator_column = options[:indicator_column] || "#{association}_indicator"
       unit_column = options[:unit_column] || "#{association}_unit"
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
@@ -168,7 +180,10 @@ module Backend
       unless options.key?(:disabled)
         if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
           @object.class.readonly_attributes.include?(attribute_name.to_s)
-          options[:disabled] = true unless options[:as] == :hidden
+          if options[:as] != :hidden
+            options[:disabled] = true
+            options[:include_hidden] = false
+          end
         end
       end
       autocomplete = options[:autocomplete]
@@ -197,7 +212,6 @@ module Backend
       end
       super(attribute_name, options, &block)
     end
-
 
     def find_input(attribute_name, options = {}, &block)
       input = super
@@ -230,9 +244,9 @@ module Backend
         selection = []
         if options[:of].to_s =~ /\#/
           array = options[:of].to_s.split('#')
-          selection = Nomen.find(array.first).property_natures[array.second].selection
+          selection = Onoma.find(array.first).property_natures[array.second].selection
         else
-          selection = Nomen.find(options[:of]).selection
+          selection = Onoma.find(options[:of]).selection
         end
       else
         raise 'Need selection'
@@ -259,14 +273,14 @@ module Backend
       input(attribute_name, options) do
         data_lists = {}
         @template.content_tag(:span, class: 'control-group abilities-list') do
-          abilities_for_select = Nomen::Ability.list.sort_by(&:human_name).map do |a|
+          abilities_for_select = Onoma::Ability.list.sort_by(&:human_name).map do |a|
             attrs = { value: a.name }
             if a.parameters
               a.parameters.each do |parameter|
                 if parameter == :variety
-                  data_lists[parameter] ||= Nomen::Variety.selection
+                  data_lists[parameter] ||= Onoma::Variety.selection
                 elsif parameter == :issue_nature
-                  data_lists[parameter] ||= Nomen::IssueNature.selection
+                  data_lists[parameter] ||= Onoma::IssueNature.selection
                 else
                   raise "Unknown parameter type for an ability: #{parameter.inspect}"
                 end
@@ -279,7 +293,7 @@ module Backend
             if list = @object.send(attribute_name)
               list.collect do |a|
                 ar = a.to_s.split(/[\(\,\s\)]+/).compact
-                ability = Nomen::Ability[ar.shift]
+                ability = Onoma::Ability[ar.shift]
                 @template.content_tag(:div, data: { ability: ability.name }, class: :ability) do
                   html = @template.label_tag ability.human_name
                   html << @template.hidden_field_tag(prefix, a, class: 'ability-value')
@@ -341,19 +355,9 @@ module Backend
         end
       end
       show = options.delete(:show)
-      unless show.is_a?(FalseClass)
-        show ||= @object.class.where.not(attribute_name => nil)
-        union = Charta.empty_geometry
-        if show.any?
-          if show.is_a?(Hash) && show.key?(:series)
-            editor[:show] = show
-          else
-            union = show.geom_union(attribute_name)
-            editor[:show] = union.to_json_object unless union.empty?
-          end
-        else
-          editor[:show] = {}
-          editor[:show][:series] = {}
+      if show != false
+        if show.is_a?(Hash) && show.key?(:series)
+          editor[:show] = show
         end
         editor[:useFeatures] = true
       end
@@ -431,7 +435,7 @@ module Backend
       currency_attribute_name = args.shift || options[:currency_attribute] || :currency
       input(attribute_name, options.merge(wrapper: :append)) do
         html = input_field(attribute_name)
-        html << input_field(currency_attribute_name, collection: Nomen::Currency.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
+        html << input_field(currency_attribute_name, collection: Onoma::Currency.items.values.collect { |c| [c.human_name, c.name.to_s] }.sort)
         html
       end
     end
@@ -452,11 +456,13 @@ module Backend
     def date_range(start_attribute_name = :started_on, stop_attribute_name = :stopped_on, *args)
       options = args.extract_options!
       attribute_name = args.shift || options[:name] || :period
+      start_label = args.shift || options[:start_label] || :from
+      stop_label = args.shift || options[:stop_label] || :to
       input(attribute_name, options.merge(wrapper: :append)) do
-        @template.content_tag(:span, :from.tl, class: 'add-on') +
-          input(start_attribute_name, wrapper: :simplest) +
-          @template.content_tag(:span, :to.tl, class: 'add-on') +
-          input(stop_attribute_name, wrapper: :simplest)
+        @template.content_tag(:span, start_label.tl, class: 'add-on') +
+          input(start_attribute_name, options.merge(wrapper: :simplest)) +
+          @template.content_tag(:span, stop_label.tl, class: 'add-on') +
+          input(stop_attribute_name, options.merge(wrapper: :simplest))
       end
     end
 
@@ -502,7 +508,7 @@ module Backend
       model = object.class
       until @template.lookup_context.exists?("backend/#{model.name.tableize}/form", [], true)
         model = model.superclass
-        break if model == ActiveRecord::Base || model == Ekylibre::Record::Base
+        break if model == ActiveRecord::Base || model == ApplicationRecord
       end
       @template.render "backend/#{model.name.tableize}/form", f: self
     end
@@ -510,7 +516,6 @@ module Backend
     # Build a frame for all product _forms
     def product_form_frame(options = {}, &block)
       html = ''.html_safe
-
       variant = @object.variant
       unless variant
         variant_id = @template.params[:variant_id]
@@ -624,7 +629,7 @@ module Backend
             new_url[:controller] ||= @object.class.name.underscore.pluralize.downcase
             new_url[:action] ||= :new
 
-            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym } if @object.class.name.present?
+            choices[:scope] = { of_variety: @object.class.name.underscore.to_sym, active: true } if @object.class.name.present?
 
             input_id = :variant_id
 
@@ -646,17 +651,17 @@ module Backend
 
     def variety(options = {})
       scope = options[:scope]
-      varieties = Nomen::Variety.selection(scope ? scope.variety : nil)
+      varieties = Onoma::Variety.selection(scope ? scope.variety : nil)
       child_scope = options[:child_scope]
       if child_scope
-        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Nomen::Variety.find(c.variety) <= n } }
+        varieties.keep_if { |(_l, n)| child_scope.all? { |c| c.variety? && Onoma::Variety.find(c.variety) <= n } }
       end
       @object.variety ||= scope.variety if scope
       if options[:derivative_of] || (scope && scope.derivative_of)
-        derivatives = Nomen::Variety.selection(scope ? scope.derivative_of : nil)
+        derivatives = Onoma::Variety.selection(scope ? scope.derivative_of : nil)
         @object.derivative_of ||= scope.derivative_of if scope
         if child_scope
-          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
+          derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Onoma::Variety.find(c.derivative_of) <= n } }
         end
       end
       if !derivatives.nil? && derivatives.any?
@@ -680,7 +685,7 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      for resource, rights in Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
+      Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
         resource_reference = reference[resource] || []
         html << @template.content_tag(:div, class: 'control-group booleans') do
           @template.content_tag(:label, class: 'control-label') do
@@ -715,6 +720,7 @@ module Backend
 
     def actions
       return nil unless @actions.any?
+
       @template.form_actions do
         html = ''.html_safe
         @actions.each do |action|
@@ -746,57 +752,60 @@ module Backend
 
     protected
 
-    def clean_targets(targets)
-      if targets.is_a?(String)
-        return targets
-      elsif targets.is_a?(Symbol)
-        return "##{targets}"
-      elsif targets.is_a?(Array)
-        return targets.collect { |t| clean_targets(t) }.join(', ')
-      else
-        return targets.to_json
-      end
-      targets
-    end
+      def clean_targets(targets)
+        if targets.is_a?(String)
+          return targets
+        elsif targets.is_a?(Symbol)
+          return "##{targets}"
+        elsif targets.is_a?(Array)
+          return targets.collect { |t| clean_targets(t) }.join(', ')
+        else
+          return targets.to_json
+        end
 
-    # Compute all needed options for referenced_association
-    def referenced_association_input_options(association, options = {})
-      reflection = find_association_reflection(association)
-      raise "Association #{association.inspect} not found" unless reflection
-      if reflection.macro != :belongs_to
-        raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+        targets
       end
 
-      choices = options.delete(:source) || {}
-      choices = { scope: choices } if choices.is_a?(Symbol)
-      choices[:action] ||= :unroll
-      choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
+      # Compute all needed options for referenced_association
+      def referenced_association_input_options(association, options = {})
+        options = options.dup
+        reflection = find_association_reflection(association)
+        raise "Association #{association.inspect} not found" unless reflection
+        if reflection.macro != :belongs_to
+          raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
+        end
 
-      model = @object.class
+        choices = options.delete(:source) || {}
+        choices = { scope: choices } if choices.is_a?(Symbol)
+        choices[:action] ||= :unroll
+        choices[:controller] ||= options.delete(:controller) || reflection.class_name.underscore.pluralize
 
-      options[:input_html] ||= {}
-      options[:input_html][:data] ||= {}
-      options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
-      options[:input_html][:data][:selector] = @template.url_for(choices)
-      unless options[:new].is_a?(FalseClass)
-        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
-        new_url[:controller] ||= choices[:controller]
-        new_url[:action] ||= :new
-        options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        model = @object.class
+
+        options[:input_html] ||= {}
+        options[:input_html][:data] ||= {}
+        options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
+        options[:input_html][:data][:selector] = @template.url_for(choices)
+        unless options[:new].is_a?(FalseClass)
+          new_url = options[:new].is_a?(Hash) ? options[:new] : {}
+          new_url[:controller] ||= choices[:controller]
+          new_url[:action] ||= :new
+          options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        end
+        # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
+        options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
+        options[:as] = :string
+        options[:reflection] = reflection
+        options
       end
-      # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
-      options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
-      options[:as] = :string
-      options[:reflection] = reflection
-      options
-    end
 
-    def unit_field(unit_name_attribute, units_values, *_args)
-      if units_values.is_a?(Array)
-        return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+      def unit_field(unit_name_attribute, units_values, *_args)
+        if units_values.is_a?(Array)
+          return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+        end
+
+        @template.content_tag(:span, units_values.tl, class: 'add-on')
       end
-      @template.content_tag(:span, units_values.tl, class: 'add-on')
-    end
 
     private
 

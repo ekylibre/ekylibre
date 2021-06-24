@@ -4,6 +4,7 @@ require 'shellwords'
 
 module Ekylibre
   class TenantError < StandardError; end
+
   class ForbiddenImport < StandardError; end
 
   class Tenant
@@ -19,7 +20,6 @@ module Ekylibre
       # and removes it if not exist
       def check!(name, options = {})
         if list.include?(name)
-          switch_to_database_for(name)
           drop(name, options) unless Apartment.connection.schema_exists? name
         end
       end
@@ -27,8 +27,9 @@ module Ekylibre
       # Returns the current tenant
       def current
         unless name = Apartment::Tenant.current
-          raise TenantError, 'No current tenant'
+          raise TenantError.new('No current tenant')
         end
+
         name
       end
 
@@ -46,77 +47,11 @@ module Ekylibre
       def create(name)
         name = name.to_s
         check!(name)
-        raise TenantError, 'Already existing tenant' if exist?(name)
-        create_database_for!(name) if multi_database > 0
+        raise TenantError.new('Already existing tenant') if exist?(name)
+
         add(name)
         Apartment::Tenant.create(name)
         # byebug
-      end
-
-      def multi_database
-        Rails.env.test? ? 0 : ENV['MULTI_DATABASE'].to_i
-      end
-
-      def create_database_for!(name, magnitude = nil)
-        magnitude ||= multi_database
-        if magnitude > 0
-          database = database_for(name, magnitude)
-          ActiveRecord::Base.connection.create_database(database)
-          switch_to_database_for(name, magnitude)
-          Ekylibre::Schema.setup_extensions
-          ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
-          Ekylibre::Schema.model_names.each do |model_name|
-            model_name.to_s.constantize.reset_column_information
-          end
-          Rails.logger.info "Created #{database}"
-        end
-      rescue ActiveRecord::StatementInvalid => e
-        # NOP
-      end
-
-      def switch_to_database_for(name, magnitude = nil)
-        magnitude ||= multi_database
-        if magnitude > 0
-          database = database_for(name, magnitude)
-          switch_to_database(database)
-          database
-        end
-      end
-
-      def switch_to_database(database)
-        configuration = Rails.configuration.database_configuration[Rails.env]
-        Apartment.establish_connection configuration.merge('database' => database)
-      end
-
-      def database_for(name, magnitude = nil)
-        conf = Rails.configuration.database_configuration[Rails.env]
-        magnitude ||= multi_database
-        if magnitude > 0
-          conf['database'] + '_' + Digest::MD5.hexdigest(name)[0..(magnitude - 1)]
-        else
-          conf['database']
-        end
-      end
-
-      def with_pg_env(_name)
-        pghost = ENV['PGHOST']
-        pgport = ENV['PGPORT']
-        pguser = ENV['PGUSER']
-        pgpassword = ENV['PGPASSWORD']
-
-        config = Rails.configuration.database_configuration[Rails.env].with_indifferent_access
-
-        ENV['PGHOST'] = config[:host] if config[:host]
-        ENV['PGPORT'] = config[:port].to_s if config[:port]
-        ENV['PGUSER'] = config[:username].to_s if config[:username]
-        ENV['PGPASSWORD'] = config[:password].to_s if config[:password]
-
-        yield
-      ensure
-        ENV['PGHOST'] = pghost
-        ENV['PGPORT'] = pgport
-        ENV['PGUSER'] = pguser
-        ENV['PGPASSWORD'] = pgpassword
       end
 
       # Adds a tenant in config. No schema are created.
@@ -137,8 +72,8 @@ module Ekylibre
       # Drop tenant
       def drop(name, options = {})
         name = name.to_s
-        raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
-        switch_to_database_for(name)
+        raise TenantError.new("Unexistent tenant: #{name}") unless exist?(name)
+
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
@@ -154,9 +89,11 @@ module Ekylibre
 
       def rename(old, new)
         return if old == new
+
         check!(old)
-        raise TenantError, "Unexistent tenant: #{old}" unless Apartment.connection.schema_exists?(old)
-        raise TenantError, "Tenant already exists: #{new}" if Apartment.connection.schema_exists?(new)
+        raise TenantError.new("Unexistent tenant: #{old}") unless Apartment.connection.schema_exists?(old)
+        raise TenantError.new("Tenant already exists: #{new}") if Apartment.connection.schema_exists?(new)
+
         ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
         if private_directory(old).exist?
           FileUtils.rm_rf(private_directory(new))
@@ -171,6 +108,7 @@ module Ekylibre
       # This archive is database independent
       def dump(name, options = {})
         raise "Tenant doesn't exist: #{name}" unless exist?(name)
+
         verbose = !options[:verbose].is_a?(FalseClass)
         start = Time.current
         dump_v3(name, options)
@@ -216,12 +154,14 @@ module Ekylibre
             raise "Cannot handle this version of archive: #{format_version.inspect}"
           end
         end
+
         FileUtils.rm_rf(archive_path)
       end
 
       # Change current tenant
       def switch(name, &block)
         raise 'Need block to use Ekylibre::Tenant.switch' unless block_given?
+
         Apartment::Tenant.switch(name, &block)
       end
 
@@ -233,7 +173,7 @@ module Ekylibre
 
       def switch_default!
         if list.empty?
-          raise TenantError, 'No default tenant'
+          raise TenantError.new('No default tenant')
         else
           switch!(list.first)
         end
@@ -287,6 +227,7 @@ module Ekylibre
 
       def create_aggregation_views_schema!
         raise 'No tenant to build an aggregation schema' if list.empty?
+
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
@@ -382,209 +323,210 @@ module Ekylibre
 
       private
 
-      def config_file
-        Rails.root.join('config', 'tenants.yml')
-      end
+        def config_file
+          Rails.root.join('config', 'tenants.yml')
+        end
 
-      # Return the env
-      def env
-        Rails.env.to_s
-      end
+        # Return the env
+        def env
+          Rails.env.to_s
+        end
 
-      def write
-        file = config_file
-        # byebug
-        semaphore.synchronize do
-          FileUtils.mkdir_p(file.dirname)
-
+        def write
+          file = config_file
           # byebug
+          semaphore.synchronize do
+            FileUtils.mkdir_p(file.dirname)
 
-          temp = File.open(file, 'w')
-          temp.write @list.to_yaml
-          temp.flush
-          temp.close
+            # byebug
 
-          # byebug
-          # File.write(config_file, @list.to_yaml)
+            temp = File.open(file, 'w')
+            temp.write @list.to_yaml
+            temp.flush
+            temp.close
+
+            # byebug
+            # File.write(config_file, @list.to_yaml)
+          end
         end
-      end
 
-      def semaphore
-        @@semaphore ||= Mutex.new
-      end
-
-      def dump_v2(name, options = {})
-        dump_archive(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
-      end
-
-      def restore_v2(archive_path, name, options = {})
-        restore_dump(archive_path, name, options) do |data_options|
-          data_options = data_options.dup
-          tenant_name = data_options.delete(:tenant_name)
-          Fixturing.restore(tenant_name, **data_options)
+        def semaphore
+          @@semaphore ||= Mutex.new
         end
-      end
 
-      def dump_v3(name, options = {})
-        dump_archive(name, options) { |opt| dump_tables_v3(opt) }
-      end
-
-      def restore_v3(archive_path, name, options = {})
-        restore_dump(archive_path, name, options) do |opt|
-          tenant_name = opt[:tenant_name]
-          restore_tables_v3(opt)
-          Fixturing.migrate(tenant_name, origin: opt[:version])
+        def dump_v2(name, options = {})
+          dump_archive(name, options) { |opt| dump_tables_v2(opt[:tables_path]) }
         end
-      end
 
-      def dump_archive(name, options = {})
-        destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
-        switch(name) do
-          archive_file = destination_path.join("#{name}.zip")
-          archive_path = destination_path.join("#{name}-dump")
+        def restore_v2(archive_path, name, options = {})
+          restore_dump(archive_path, name, options) do |data_options|
+            data_options = data_options.dup
+            tenant_name = data_options.delete(:tenant_name)
+            Fixturing.restore(tenant_name, **data_options)
+          end
+        end
+
+        def dump_v3(name, options = {})
+          dump_archive(name, options) { |opt| dump_tables_v3(opt) }
+        end
+
+        def restore_v3(archive_path, name, options = {})
+          restore_dump(archive_path, name, options) do |opt|
+            tenant_name = opt[:tenant_name]
+            restore_tables_v3(opt)
+            Fixturing.migrate(tenant_name, origin: opt[:version])
+          end
+        end
+
+        def dump_archive(name, options = {})
+          destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
+          switch(name) do
+            archive_file = destination_path.join("#{name}.zip")
+            archive_path = destination_path.join("#{name}-dump")
+            tables_path = archive_path.join('tables')
+            files_path = archive_path.join('files')
+
+            FileUtils.rm_rf(archive_path)
+            FileUtils.mkdir_p(archive_path)
+
+            dump_options = options.merge(archive_path: archive_path,
+                                         tenant_name: name,
+                                         tables_path: tables_path)
+            version = yield(dump_options)
+
+            dump_files(files_path)
+            dump_mimetype(archive_path)
+            dump_manifest(archive_path, version, name, options)
+
+            FileUtils.rm_rf(archive_file)
+            zip_up(archive_path, into: archive_file)
+            FileUtils.rm_rf(archive_path)
+          end
+        end
+
+        def restore_dump(archive_path, name, options = {})
+          start = Time.current
+
           tables_path = archive_path.join('tables')
           files_path = archive_path.join('files')
 
-          FileUtils.rm_rf(archive_path)
-          FileUtils.mkdir_p(archive_path)
+          manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
 
-          dump_options = options.merge(archive_path: archive_path,
-                                       tenant_name: name,
-                                       tables_path: tables_path)
-          version = yield(dump_options)
-
-          dump_files(files_path)
-          dump_mimetype(archive_path)
-          dump_manifest(archive_path, version, name, options)
-
-          FileUtils.rm_rf(archive_file)
-          zip_up(archive_path, into: archive_file)
-          FileUtils.rm_rf(archive_path)
-        end
-      end
-
-      def restore_dump(archive_path, name, options = {})
-        start = Time.current
-
-        tables_path = archive_path.join('tables')
-        files_path = archive_path.join('files')
-
-        manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
-
-        database_version = manifest[:database_version].to_i
-        if database_version > ActiveRecord::Migrator.last_version
-          raise 'Too recent archive'
-        end
-
-        verbose = !options[:verbose].is_a?(FalseClass)
-        puts "Resetting tenant #{name}...".yellow if verbose
-        drop(name) if exist?(name)
-        create(name)
-
-        switch(name) do
-          if files_path.exist?
-            puts 'Restoring files...'.yellow if verbose
-            FileUtils.rm_rf private_directory
-            FileUtils.mv files_path, private_directory
-          else
-            puts 'No files to restore'.yellow if verbose
+          database_version = manifest[:database_version].to_i
+          if database_version > ActiveRecord::Migrator.last_migration.version
+            raise 'Too recent archive'
           end
 
-          puts 'Restoring database and migrating...'.yellow if verbose
-          restore_options = options.merge(
-            tenant_name: name,
-            version: database_version,
-            path: tables_path,
-            verbose: verbose
-          )
-          yield(restore_options)
-          puts 'Restored!'.yellow if verbose
+          verbose = !options[:verbose].is_a?(FalseClass)
+          puts "Resetting tenant #{name}...".yellow if verbose
+          drop(name) if exist?(name)
+          create(name)
+
+          switch(name) do
+            if files_path.exist?
+              puts 'Restoring files...'.yellow if verbose
+              FileUtils.rm_rf private_directory
+              FileUtils.mv files_path, private_directory
+            else
+              puts 'No files to restore'.yellow if verbose
+            end
+
+            puts 'Restoring database and migrating...'.yellow if verbose
+            restore_options = options.merge(
+              tenant_name: name,
+              version: database_version,
+              path: tables_path,
+              verbose: verbose
+            )
+            yield(restore_options)
+            puts 'Restored!'.yellow if verbose
+          end
+
+          duration = Time.current - start
+          puts "Done! (#{duration.round(2)}s)".yellow if verbose
         end
 
-        duration = Time.current - start
-        puts "Done! (#{duration.round(2)}s)".yellow if verbose
-      end
-
-      def dump_mimetype(archive_path)
-        File.open(archive_path.join('mimetype'), 'wb') do |f|
-          f.write 'application/vnd.ekylibre.tenant.archive'
+        def dump_mimetype(archive_path)
+          File.open(archive_path.join('mimetype'), 'wb') do |f|
+            f.write 'application/vnd.ekylibre.tenant.archive'
+          end
         end
-      end
 
-      def dump_manifest(archive_path, version, name, options = {})
-        File.open(archive_path.join('manifest.yml'), 'wb') do |f|
-          options.update(
-            tenant: name,
-            format_version: 3,
-            database_version: version,
-            creation_at: Time.zone.now,
-            created_with: "Ekylibre #{Ekylibre::VERSION}".strip
-          )
-          f.write options.stringify_keys.to_yaml
+        def dump_manifest(archive_path, version, name, options = {})
+          File.open(archive_path.join('manifest.yml'), 'wb') do |f|
+            options.update(
+              tenant: name,
+              format_version: 3,
+              database_version: version,
+              creation_at: Time.zone.now,
+              created_with: "Ekylibre #{Ekylibre::VERSION}".strip
+            )
+            f.write options.stringify_keys.to_yaml
+          end
         end
-      end
 
-      def dump_files(files_path)
-        return unless private_directory.exist?
-        FileUtils.mkdir_p(files_path.dirname)
-        FileUtils.cp_r(private_directory.to_s, files_path.to_s)
-      end
+        def dump_files(files_path)
+          return unless private_directory.exist?
 
-      def dump_tables_v2(options)
-        tables_path = options[:tables_path]
-        FileUtils.mkdir_p(tables_path)
-        Fixturing.extract(path: tables_path)
-      end
-
-      def dump_tables_v3(options)
-        path = options[:archive_path]
-        tenant = options[:tenant_name]
-        Dir.chdir path do
-          sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
-          sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
-          sh("sed -i'' -e '/^SET search_path = /d' #{tenant}.sql")
+          FileUtils.mkdir_p(files_path.dirname)
+          FileUtils.cp_r(private_directory.to_s, files_path.to_s)
         end
-        ActiveRecord::Migrator.current_version
-      end
 
-      def restore_tables_v3(options)
-        path = options[:path]
-        tenant_name = options[:tenant_name]
+        def dump_tables_v2(options)
+          tables_path = options[:tables_path]
+          FileUtils.mkdir_p(tables_path)
+          Fixturing.extract(path: tables_path)
+        end
 
-        # DROP/CREATE
-        sh("echo 'SET client_min_messages TO WARNING; DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; SET client_min_messages TO NOTICE;' | psql --dbname=#{db_url}")
-        sh("echo 'CREATE SCHEMA \"#{tenant_name}\";' | psql --dbname=#{db_url}")
+        def dump_tables_v3(options)
+          path = options[:archive_path]
+          tenant = options[:tenant_name]
+          Dir.chdir path do
+            sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
+            sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
+            sh("sed -i'' -e '/^SET search_path = /d' #{tenant}.sql")
+          end
+          ActiveRecord::Migrator.current_version
+        end
 
-        # Prepend SET search_path to sql
-        sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{Shellwords.escape(options[:dump_file].to_s)} | psql --dbname=#{db_url}")
-      end
+        def restore_tables_v3(options)
+          path = options[:path]
+          tenant_name = options[:tenant_name]
 
-      def sh(command)
-        system(command)
-      end
+          # DROP/CREATE
+          sh("echo 'SET client_min_messages TO WARNING; DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; SET client_min_messages TO NOTICE;' | psql --dbname=#{db_url}")
+          sh("echo 'CREATE SCHEMA \"#{tenant_name}\";' | psql --dbname=#{db_url}")
 
-      def db_url
-        user     = db_config['username']
-        host     = db_config['host']
-        port     = db_config['port'] || '5432'
-        dbname   = db_config['database']
-        password = db_config['password']
-        Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
-      end
+          # Prepend SET search_path to sql
+          sh("echo 'SET search_path = \"#{tenant_name}\", postgis, lexicon, pg_catalog;' | cat - #{Shellwords.escape(options[:dump_file].to_s)} | psql --dbname=#{db_url}")
+        end
 
-      def db_config
-        Rails.application.config.database_configuration[Rails.env]
-      end
+        def sh(command)
+          system(command)
+        end
 
-      def zip_up(archive_path, into:)
-        Zip::File.open(into, Zip::File::CREATE) do |zile|
-          Dir.chdir archive_path do
-            Dir.glob('**/*').each do |path|
-              zile.add(path, archive_path.join(path))
+        def db_url
+          user     = db_config['username']
+          host     = db_config['host']
+          port     = db_config['port'] || '5432'
+          dbname   = db_config['database']
+          password = db_config['password']
+          Shellwords.escape("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
+        end
+
+        def db_config
+          Rails.application.config.database_configuration[Rails.env.to_s]
+        end
+
+        def zip_up(archive_path, into:)
+          Zip::File.open(into, Zip::File::CREATE) do |zile|
+            Dir.chdir archive_path do
+              Dir.glob('**/*').each do |path|
+                zile.add(path, archive_path.join(path))
+              end
             end
           end
         end
-      end
     end
   end
 end

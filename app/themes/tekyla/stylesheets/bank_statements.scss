@@ -179,6 +179,10 @@
   a#delete > i {
     @include use-icon(clear);
   }
+
+  a.locked > i {
+    @include use-icon(lock);
+  }
 }
 
 .amounts {
@@ -220,6 +224,11 @@
     width: 3rem;
   }
 
+  i, .locked {
+    text-align: center;
+    width: 3rem;
+  }
+
   & > div {
     display: flex;
   }
@@ -239,6 +248,14 @@
       input {
         width: calc(100% - 8px);
       }
+    }
+  }
+}
+
+.new_bank_statement, .edit_bank_statement {
+  .nested-fields {
+    .transfered_on {
+      overflow: visible;
     }
   }
 }

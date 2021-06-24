@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -47,7 +49,7 @@
 #  updater_id           :integer
 #
 
-class Issue < Ekylibre::Record::Base
+class Issue < ApplicationRecord
   include Attachable
   include Commentable
   include Versionable
@@ -65,9 +67,9 @@ class Issue < Ekylibre::Record::Base
   validates :gravity, :picture_file_size, :priority, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :nature, presence: true
-  validates :observed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :observed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :picture_content_type, :picture_file_name, :state, :target_type, length: { maximum: 500 }, allow_blank: true
-  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :priority, :gravity, inclusion: { in: 0..5 }
   validates_attachment_content_type :picture, content_type: /image/
@@ -154,6 +156,10 @@ class Issue < Ekylibre::Record::Base
     else
       :go
     end
+  end
+
+  def human_status
+    I18n.t("tooltips.models.issue.#{status}")
   end
 
   def picture_path(style = :original)

@@ -69,7 +69,7 @@ module Backend
       code.c
     end
 
-    list(conditions: receptions_conditions, order: { planned_at: :desc }) do |t|
+    list(conditions: receptions_conditions, selectable: true, order: { planned_at: :desc }) do |t|
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true
@@ -79,7 +79,7 @@ module Backend
       t.column :given_at
       t.column :sender, url: true
       t.status
-      t.column :state
+      t.column :state, hidden: true
       t.column :delivery, url: true
       t.column :responsible, url: true, hidden: true
       t.column :transporter, url: true, hidden: true
@@ -121,19 +121,20 @@ module Backend
 
     def new
       if params[:purchase_order_ids]
-        purchase_orders = PurchaseOrder.find(params[:purchase_order_ids].split(','))
-        supplier_ids = purchase_orders.map(&:supplier_id)
+        purchase_orders = PurchaseOrder.where(id: params[:purchase_order_ids].split(','))
+        supplier_ids = purchase_orders.pluck(:supplier_id).uniq
 
+        farest_date_from_today = purchase_orders.pluck(:ordered_at).compact&.min
         reception_attributes = {
-          sender_id: supplier_ids.uniq.length > 1 ? nil : supplier_ids.first,
-          given_at: Date.today,
+          sender_id: supplier_ids.length > 1 ? nil : supplier_ids.first,
+          given_at: farest_date_from_today || Date.today,
           reconciliation_state: 'reconcile',
-          items: ReceivableItemsFilter.new.filter(purchase_orders)
+          items: ReceivableItemsFilter.new.filter(purchase_orders.includes(items: [parcels_purchase_orders_items: :reception]).references(items: [parcels_purchase_orders_items: :reception]))
         }
 
         @reception = Reception.new(reception_attributes)
       else
-        @reception = Reception.new
+        @reception = Reception.new(given_at: Date.today)
       end
 
       render locals: { with_continue: true }
@@ -147,11 +148,11 @@ module Backend
         notify_error_now :reception_need_at_least_one_item
       else
         return if save_and_redirect(@reception,
-                                    url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
+                                    url: (params[:create_and_continue] ? { action: :new, continue: true } : { action: :show, id: 'id'.c }),
                                     notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
                                     identifier: :number)
       end
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def update
@@ -168,7 +169,7 @@ module Backend
                            notify: :record_x_updated,
                            identifier: :number)
       end
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def give

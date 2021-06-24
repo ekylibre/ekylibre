@@ -31,7 +31,7 @@ module Backend
       end
 
       assert_nothing_raised do
-        get 'search'
+        get 'search', params: {}
       end
 
       assert_nothing_raised do

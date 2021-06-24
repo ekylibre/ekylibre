@@ -1,4 +1,4 @@
-class AddHourCounterToProductCategories < ActiveRecord::Migration
+class AddHourCounterToProductCategories < ActiveRecord::Migration[4.2]
   #TODO: PREVENT THIS FROM RUNNING WHEN V4 IS RELEASED
 
   def up

@@ -4,7 +4,7 @@ module Unrollable
     extend Toolbelt
 
     AVAILABLE_OPTIONS = %i[model max order partial fill_in scope method].freeze
-    DEFAULT_OPTIONS = { max: 80, scope: :unscoped, visible_items_count: 10 , method: :unroll}.freeze
+    DEFAULT_OPTIONS = { max: 80, scope: :unscoped, visible_items_count: 10, method: :unroll }.freeze
 
     def self.options_from(arguments, defaults: true)
       if arguments.last.is_a?(Hash)
@@ -22,8 +22,10 @@ module Unrollable
 
     def self.scopes_from(params)
       return {} unless params[:scope]
+
       scope_is_without_params = params[:scope].is_a?(String) || params[:scope].is_a?(Symbol)
       return { params[:scope] => true } if scope_is_without_params
+
       params[:scope]
     end
 

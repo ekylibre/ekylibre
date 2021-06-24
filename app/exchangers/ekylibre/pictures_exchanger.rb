@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class PicturesExchanger < ActiveExchanger::Base
+    category :settings
+    vendor :ekylibre
+
     # Create or updates pictures
     def import
       # Unzip file

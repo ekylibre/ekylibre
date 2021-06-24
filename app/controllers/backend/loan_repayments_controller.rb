@@ -35,9 +35,9 @@ module Backend
     def create
       @loan_repayment = resource_model.new(permitted_params)
       return if save_and_redirect(@loan_repayment, url: backend_loan_path(permitted_params[:loan_id]), notify: :record_x_created, identifier: :id)
-      render(locals: { cancel_url: {:action=>:index}, with_continue: false })
-    end
 
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
+    end
 
     def show
       if @loan_repayment = LoanRepayment.find_by(id: params[:id])

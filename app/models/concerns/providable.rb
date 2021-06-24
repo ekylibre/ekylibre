@@ -1,22 +1,21 @@
+# frozen_string_literal: true
+
 module Providable
   extend ActiveSupport::Concern
 
   included do
-    scope :of_vendor_provider, -> (vendor) { where("(provider ->> 'vendor') = ?", vendor) }
-    scope :of_provider_name, -> (vendor, name) { of_vendor_provider(vendor).where("(provider ->> 'name') = ?", name)}
-
-    scope :of_provider, -> (vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id.to_s)}
-
+    scope :of_provider_vendor, ->(vendor) { where("(provider ->> 'vendor') = ?", vendor) }
+    scope :of_provider_name, ->(vendor, name) { of_provider_vendor(vendor).where("(provider ->> 'name') = ?", name)}
+    scope :of_provider, ->(vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id.to_s)}
     scope :of_provider_data, ->(key, value) {  where("provider -> 'data' ->> ? = ?", key, value)}
 
     prepend Prepended
   end
 
   module Prepended
-
     # @param [Hash{Symbol => Object}] data
     def provider_data=(data)
-      self.provider = {**provider, data: data}
+      self.provider = { **provider, data: data }
     end
 
     # @return [Hash{Symbol => Object}]
@@ -26,7 +25,9 @@ module Providable
 
     # @param [Hash{Symbol => String, Hash}] value
     def provider=(value)
-      super(value&.slice(:vendor, :name, :id, :data))
+      if value.present?
+        super(value.slice(:vendor, :name, :id, :data))
+      end
     end
 
     def provider

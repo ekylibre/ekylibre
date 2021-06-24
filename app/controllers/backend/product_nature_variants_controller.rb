@@ -23,7 +23,7 @@ module Backend
     manage_restfully except: %i[edit create update show new], active: true
     manage_restfully_picture
 
-    importable_from_lexicon :variants
+    importable_from_nomenclature :product_nature_variants
 
     # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, category: { charge_account: :number }
@@ -35,9 +35,9 @@ module Backend
     #   :nature_id
     #   :category_id
     def self.variants_conditions
-      code = search_conditions(product_nature_variants: %i[name number]) + " ||= []\n"
-      code << "unless params[:working_set].blank?\n"
-      code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
+      code = search_conditions(product_nature_variants: %i[name number work_number]) + " ||= []\n"
+      code << "unless params[:working_set_id].blank?\n"
+      code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
       code << "  c[0] << \" AND product_nature_variants.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
       code << "if params[:nature_id].to_i > 0\n"
@@ -52,6 +52,13 @@ module Backend
       code << "  c[0] << \" AND product_nature_variants.type = ?\"\n"
       code << "  c << 'Variants::ArticleVariant'\n"
       code << "end\n"
+      code << "if params[:s] == 'active'\n"
+      code << "  c[0] += ' AND product_nature_variants.active = ?'\n"
+      code << "  c << true\n"
+      code << "elsif params[:s] == 'inactive'\n"
+      code << "  c[0] += ' AND product_nature_variants.active = ?'\n"
+      code << "  c << false\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -59,8 +66,10 @@ module Backend
     list(conditions: variants_conditions) do |t|
       t.action :edit, url: { controller: '/backend/product_nature_variants' }
       t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
+      t.column :active
       t.column :name, url: { namespace: :backend }
       t.column :number
+      t.column :work_number
       t.column :nature, url: { controller: '/backend/product_natures' }
       t.column :category, url: { controller: '/backend/product_nature_categories' }
       t.column :current_stock_displayed, label: :current_stock
@@ -68,7 +77,6 @@ module Backend
       t.column :unit_name
       t.column :variety
       t.column :derivative_of
-      t.column :active
     end
 
     list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|
@@ -183,6 +191,7 @@ module Backend
 
     def detail
       return unless @product_nature_variant = find_and_check
+
       product_nature = @product_nature_variant.nature
       infos = {
         name: @product_nature_variant.name,
@@ -326,7 +335,9 @@ module Backend
       nature_id = if params.key?(:nature_id)
                     params[:nature_id]
                   else
-                    pnv = params.fetch(:product_nature_variant, {})
+                    pnv = params.permit(product_nature_variant: [:nature_id])
+                                .to_h
+                                .fetch(:product_nature_variant, {})
 
                     pnv.is_a?(Hash) ? pnv.fetch(:nature_id, nil) : nil
                   end
@@ -348,19 +359,22 @@ module Backend
       instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new(permitted_params))
       @key = :product_nature_variant
       handle_maaid(instance_variable_get("@#{controller_name.singularize}"), params[:phyto_product_id])
-      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || ({ action: :show, id: 'id'.c }))), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def update
       return unless @product_nature_variant = find_and_check(:product_nature_variant)
+
       t3e(@product_nature_variant.attributes)
       @product_nature_variant.attributes = permitted_params
       handle_maaid(@product_nature_variant, params[:phyto_product_id])
-      return if save_and_redirect(@product_nature_variant, url: params[:redirect] || ({ action: :show, id: 'id'.c }), notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      return if save_and_redirect(@product_nature_variant, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+
       @form_url = backend_product_nature_variant_path(@product_nature_variant)
       @key = 'product_nature_variant'
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     private

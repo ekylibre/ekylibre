@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,24 +36,29 @@
 #  lock_version                  :integer          default(0), not null
 #  metadata                      :text
 #  nature                        :string           not null
+#  provider                      :jsonb
 #  read_at                       :datetime         not null
+#  ride_id                       :integer
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #  user_id                       :integer
 #
 
-class Crumb < Ekylibre::Record::Base
+class Crumb < ApplicationRecord
+  include Providable
+
   enumerize :nature, in: %i[point start stop pause resume scan hard_start hard_stop], predicates: true
   belongs_to :user
   belongs_to :intervention_participation
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'
+  belongs_to :ride
   has_one :worker, through: :user
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accuracy, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :device_uid, presence: true, length: { maximum: 500 }
   validates :geolocation, :nature, presence: true
   validates :metadata, length: { maximum: 500_000 }, allow_blank: true
-  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   serialize :metadata, Hash
 

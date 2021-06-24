@@ -15,6 +15,7 @@ module Procedo
           unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
             raise "Invalid parameter: #{parameter.inspect}"
           end
+
           @parameter = parameter
           @id = id.to_s
           self.indicator_name = attributes[:indicator_name]
@@ -22,6 +23,7 @@ module Procedo
           unless reference
             raise 'Cannot find reference for: ' + attributes.inspect
           end
+
           if measure?
             if attributes[:measure_value_value] && attributes[:measure_value_unit]
               @value = attributes[:measure_value_value].to_d.in(attributes[:measure_value_unit])
@@ -51,7 +53,7 @@ module Procedo
         end
 
         def indicator_name=(name)
-          @indicator = Nomen::Indicator.find!(name)
+          @indicator = Onoma::Indicator.find!(name)
         end
 
         def value=(val)
@@ -68,9 +70,11 @@ module Procedo
         def impact_dependencies!
           reference.computations.each do |computation|
             next unless usable_computation?(computation)
+
             result = intervention.interpret(computation.expression_tree, env)
             computation.destinations.each do |destination|
               next unless destination == 'population'
+
               if parameter.quantity_population != result
                 parameter.quantity_population = result
               end
@@ -80,6 +84,7 @@ module Procedo
 
         def usable_computation?(computation)
           return true unless computation.condition?
+
           intervention.interpret(computation.condition_tree, env)
         end
 

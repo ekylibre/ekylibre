@@ -2,9 +2,7 @@ require 'test_helper'
 
 module Interventions
   class ComputationServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
     test 'computation of simple intervention' do
-
       input_product = create(:fertilizer_product)
       input_product.variant.read!(:net_volume, '1 liter')
 
@@ -12,10 +10,9 @@ module Interventions
 
       target_product = create(:corn_plant, initial_shape: Charta.new_geometry(ewkt))
 
-
       tool_product = create(:tractor)
 
-      attributes = {
+      attributes = ActionController::Parameters.new({
         procedure_name: "spraying",
         working_periods_attributes: [
           {
@@ -44,7 +41,7 @@ module Interventions
             product_id: tool_product.id
           }
         ]
-      }.with_indifferent_access
+      }.with_indifferent_access)
 
       options = {
         auto_calculate_working_periods: true,
@@ -53,15 +50,14 @@ module Interventions
       }
 
       @attributes = Interventions::Computation::Compute
-                            .new(parameters: attributes)
-                            .perform(options: options)
+                      .new(parameters: attributes)
+                      .perform(options: options)
 
       assert @attributes.present?
       assert @attributes.key? :procedure_name
     end
 
     test 'computation of complex intervention' do
-
       ## seed
       input_product = create(:seed_product)
       input_product.variant.read!(:net_mass, '2000 kilogram')
@@ -77,7 +73,7 @@ module Interventions
       ## plant
       output_variant = create(:corn_plant_variant)
 
-      attributes = {
+      attributes = ActionController::Parameters.new({
         procedure_name: "sowing",
         working_periods_attributes: [
           {
@@ -112,7 +108,7 @@ module Interventions
           }
         ]
 
-      }.with_indifferent_access
+      }.with_indifferent_access)
 
       options = {
         auto_calculate_working_periods: true,

@@ -1,4 +1,4 @@
-class ForceDefaultValueInInterventionDurations < ActiveRecord::Migration
+class ForceDefaultValueInInterventionDurations < ActiveRecord::Migration[4.2]
   def change
     change_column_default :interventions, :working_duration, 0
     change_column_default :interventions, :whole_duration, 0

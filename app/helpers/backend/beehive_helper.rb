@@ -57,22 +57,15 @@ module Backend
       class Cell
         attr_reader :content, :type, :options, :name
 
-        cattr_reader :controller_types
         def self.controller_types
-          unless @controller_types
-            Dir.chdir(Rails.root.join('app/controllers/backend/cells')) do
-              @controller_types = Dir['*_cells_controller.rb'].map do |path|
-                path.gsub(/_cells_controller.rb$/, '').to_sym
-              end.compact
-            end
-          end
-          @controller_types
+          Ekylibre::Application.config.x.beehive.cell_controller_types
         end
 
         def initialize(name, options = {})
           unless name.is_a?(Symbol)
             raise 'Only symbol for cell name. Use :title option to specify title.'
           end
+
           @name = name.to_sym
           @options = options
           @type = @options.delete(:type) || @name
@@ -114,12 +107,13 @@ module Backend
       def cell(name = :details, options = {}, &block)
         if @current_box
           if block_given?
-            raise StandardError, 'No block accepted for cells'
+            raise StandardError.new('No block accepted for cells')
             # options[:content] = @template.capture(&block)
           end
           if @cells.keys.include? name.to_s
-            raise StandardError, "A cell with a given name (#{name}) has already been given."
+            raise StandardError.new("A cell with a given name (#{name}) has already been given.")
           end
+
           c = Cell.new(name, options)
           @cells[name] = c
           @current_box << c
@@ -179,16 +173,17 @@ module Backend
 
       protected
 
-      def box(&block)
-        raise StandardError, 'Cannot define box in other box' if @current_box
-        old_current_box = @current_box
-        if block_given?
-          @current_box = Box.new
-          block[self]
-          @boxes << @current_box unless @current_box.empty?
+        def box(&block)
+          raise StandardError.new('Cannot define box in other box') if @current_box
+
+          old_current_box = @current_box
+          if block_given?
+            @current_box = Box.new
+            block[self]
+            @boxes << @current_box unless @current_box.empty?
+          end
+          @current_box = old_current_box
         end
-        @current_box = old_current_box
-      end
     end
   end
 end

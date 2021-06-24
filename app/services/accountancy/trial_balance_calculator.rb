@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Accountancy
   class TrialBalanceCalculator
     class << self
-
       # @param [] connection
       # @return [TrialBalanceCalculator]
       def build(connection:)
@@ -28,7 +29,17 @@ module Accountancy
     end
 
     def trial_balance(options = {})
+      if options[:states].respond_to?(:keys)
+        ActiveSupport::Deprecation.warn('Giving something else than an array in options[:states] to trial_balance is deprecated.')
+        options = { **options, states: options[:states].keys }
+      end
+
+      levels = options.fetch(:levels, [])
+
       journal_entry_items = 'jei'
+      vat_journal_entry_items = 'vjei'
+      tax_items = 'ti'
+      tax_accounts = 'ta'
       journal_entries = 'je'
       journals = 'j'
       accounts = 'a'
@@ -45,100 +56,111 @@ module Accountancy
       from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id) JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
       from_where += ' WHERE (' + journal_entry_condition_builder.period_condition(options[:period], started_on: options[:started_on], stopped_on: options[:stopped_on], table_name: journal_entries) + ')'
 
-      # Total
+      # Total - position in array -1
       items = []
-      query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey"
-      query << from_where
-      query << journal_entries_states
-      query << journals_natures
-      query << account_range unless account_range.nil?
+      query = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z' * 16}' AS skey".dup
+      query += from_where
+      query += journal_entries_states
+      query += journals_natures
+      query += account_range unless account_range.nil?
       items += connection.select_rows(query)
 
-      # Sub-totals
-      options.select { |k, v| k.to_s.match(/^level_\d+$/) && v.to_i == 1 }.each do |name, _value|
-        level = name.split(/\_/)[-1].to_i
+      # Sub-totals  - position in array -2
+      levels.each do |level|
         query = "SELECT SUBSTR(#{accounts}.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), SUBSTR(#{accounts}.number, 1, #{level})||'#{'Z' * (16 - level)}' AS skey"
-        query << from_where
-        query << journal_entries_states
-        query << journals_natures
-        query << account_range unless account_range.nil?
-        query << " AND LENGTH(#{accounts}.number) >= #{level}"
-        query << ' GROUP BY subtotal'
+        query += from_where
+        query += journal_entries_states
+        query += journals_natures
+        query += account_range unless account_range.nil?
+        query += " AND LENGTH(#{accounts}.number) >= #{level}"
+        query += ' GROUP BY subtotal'
         items += connection.select_rows(query)
       end
 
       # NOT centralized accounts (default)
-      query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
-      query << from_where
-      query << journal_entries_states
-      query << journals_natures
-      query << account_range unless account_range.nil?
-      query << " AND NOT #{centralized}" unless centralize.empty?
-      query << " GROUP BY #{accounts}.id, #{accounts}.number"
-      query << " ORDER BY #{accounts}.number"
+      query = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey".dup
+      query += from_where
+      query += journal_entries_states
+      query += journals_natures
+      query += account_range unless account_range.nil?
+      query += " AND NOT #{centralized}" unless centralize.empty?
+      query += " GROUP BY #{accounts}.id, #{accounts}.number"
+      query += " ORDER BY #{accounts}.number"
       items += connection.select_rows(query)
 
-      # Centralized accounts
-      for prefix in centralize
-        query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey"
-        query << from_where
-        query << journal_entries_states
-        query << journals_natures
-        query << account_range unless account_range.nil?
-        query << " AND #{accounts}.number LIKE #{connection.quote(prefix + '%')}"
-        query << ' GROUP BY centralize'
+      # Centralized accounts  - position in array -3
+      centralize.each do |prefix|
+        query = "SELECT SUBSTR(#{accounts}.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{connection.quote(prefix)} AS skey".dup
+        query += from_where
+        query += journal_entries_states
+        query += journals_natures
+        query += account_range unless account_range.nil?
+        query += " AND #{accounts}.number LIKE #{connection.quote(prefix + '%')}"
+        query += ' GROUP BY centralize'
+        items += connection.select_rows(query)
+      end
+
+      # VAT details on accounts - position in array -4
+      if options[:vat_details]
+        from_where_vat  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id) JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
+        from_where_vat += " JOIN #{JournalEntryItem.table_name} AS #{vat_journal_entry_items} ON (#{journal_entry_items}.resource_id=#{vat_journal_entry_items}.resource_id AND #{journal_entry_items}.entry_id=#{vat_journal_entry_items}.entry_id AND ABS(#{journal_entry_items}.real_balance)=ABS(#{vat_journal_entry_items}.absolute_pretax_amount) AND #{vat_journal_entry_items}.resource_prism = 'item_tax')"
+        from_where_vat += " JOIN #{Tax.table_name} AS #{tax_items} ON (#{vat_journal_entry_items}.tax_id=#{tax_items}.id)"
+        from_where_vat += " JOIN #{Account.table_name} AS #{tax_accounts} ON (#{vat_journal_entry_items}.account_id=#{tax_accounts}.id)"
+        from_where_vat += ' WHERE (' + journal_entry_condition_builder.period_condition(options[:period], started_on: options[:started_on], stopped_on: options[:stopped_on], table_name: journal_entries) + ')'
+        query = "SELECT COALESCE(#{tax_accounts}.id, 0) AS account_id, -4, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey".dup
+        query += from_where_vat
+        query += journal_entries_states
+        query += journals_natures
+        query += account_range unless account_range.nil?
+        query += " AND NOT #{centralized}" unless centralize.empty?
+        query += " GROUP BY #{accounts}.id, #{accounts}.number, #{tax_accounts}.id, #{tax_accounts}.number"
+        query += " ORDER BY #{accounts}.number, #{tax_accounts}.number"
         items += connection.select_rows(query)
       end
 
       items.sort_by { |a| a[5] }
     end
 
-    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:)
-      balance_params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on }
+    def trial_balance_dataset(states:, natures:, balance:, accounts:, centralize:, period:, started_on:, stopped_on:, previous_year:, vat_details: false, levels: [])
+      return {} if started_on.nil? || stopped_on.nil?
 
-      balance_data = if period.present?
-                       trial_balance(balance_params)
-                     else
-                       []
-                     end
+      params = { states: states, natures: natures, accounts: accounts, centralize: centralize, period: period, started_on: started_on, stopped_on: stopped_on, vat_details: vat_details, levels: levels }
 
-      if balance_data.present?
-        credit_balance = balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        debit_balance = balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        balance_data[-1].insert(5, credit_balance, debit_balance)
+      start_date = Date.parse(started_on)
+      stop_date = Date.parse(stopped_on)
 
+      current_data = {}
+      current_data = retrieve_balance_data(params, balance: balance).transform_values { |v| { n: v.flatten, n_1: [] } } if period.present?
+
+      prev_data = {}
+      if previous_year && stop_date.between?(start_date, start_date.next_year)
+        prev_started_on = (start_date - 1.year).to_s
+        prev_stopped_on = (stop_date - 1.year).to_s
+        prev_period = "#{prev_started_on}_#{prev_stopped_on}"
+
+        prev_params = params.merge(started_on: prev_started_on, stopped_on: prev_stopped_on, period: prev_period)
+        prev_data = retrieve_balance_data(prev_params, balance: balance).transform_values { |v| { n: [], n_1: v.flatten } }
+      end
+
+      data = current_data.merge(prev_data) do |_key, this, other|
+        this.merge(other) { |_k, t, o| t.presence || o.presence || [] }
+      end
+
+      data.sort_by { |k, _v| k.last }.to_h
+    end
+
+    private
+
+      def retrieve_balance_data(params, balance:)
+        data = trial_balance(params)
 
         if balance == 'balanced'
-          balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) == 0 }
+          data = data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.between(params[:started_on], params[:stopped_on]).pluck(:real_balance).reduce(:+) == 0 }
         elsif balance == 'unbalanced'
-          balance_data = balance_data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.pluck(:real_balance).reduce(:+) != 0 }
+          data = data.select { |item| item[1].to_i < 0 || Account.find(item[1]).journal_entry_items.between(params[:started_on], params[:stopped_on]).pluck(:real_balance).reduce(:+) != 0 }
         end
-      end
 
-      prev_balance_data = []
-      if previous_year && started_on && Date.parse(stopped_on) - Date.parse(started_on) < 366
-        prev_balance_data = balance_data.map do |item|
-          prev_balance_params = balance_params.dup
-          prev_balance_params[:started_on] = (Date.parse(started_on) - 1.year).to_s
-          prev_balance_params[:stopped_on] = (Date.parse(stopped_on) - 1.year).to_s
-          prev_balance_params[:period] = "#{prev_balance_params[:started_on]}_#{prev_balance_params[:stopped_on]}"
-          if item[1].to_i < 0 && item[0].present?
-            prev_balance_params[:centralize] = item[0]
-          elsif item[1].to_i > 0
-            prev_balance_params[:accounts] = item[0]
-          end
-          prev_balance_data = trial_balance(prev_balance_params)
-          prev_items = prev_balance_data.select { |i| i[0] == item[0] }
-          prev_items.any? ? prev_items.first : []
-        end
-        solde_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f > 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        solde_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[4].to_f < 0 ? item[4].to_f : 0 }.reduce(0, :+).round(2)
-        total_prev_credit_balance = prev_balance_data[0...-1].map { |item| item[2].to_f }.reduce(0, :+).round(2)
-        total_prev_debit_balance = prev_balance_data[0...-1].map { |item| item[3].to_f }.reduce(0, :+).round(2)
-        prev_balance_data[-1].insert(5, solde_prev_credit_balance, solde_prev_debit_balance)
-        prev_balance_data[-1].insert(7, total_prev_credit_balance, total_prev_debit_balance)
+        data.group_by { |a| [a.first, a.second, a.last] }
       end
-      { balance: balance_data, prev_balance: prev_balance_data }
-    end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,12 +39,13 @@
 #  lock_version       :integer          default(0), not null
 #  memo               :string
 #  name               :string           not null
+#  transaction_nature :string
 #  transaction_number :string
 #  transfered_on      :date             not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-class BankStatementItem < Ekylibre::Record::Base
+class BankStatementItem < ApplicationRecord
   refers_to :currency
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
@@ -51,13 +54,13 @@ class BankStatementItem < Ekylibre::Record::Base
   delegate :started_on, :stopped_on, to: :bank_statement, allow_nil: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_statement, :currency, presence: true
-  validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :letter, :memo, :transaction_number, length: { maximum: 500 }, allow_blank: true
+  validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :letter, :memo, :transaction_number, :transaction_nature, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
-  validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   # ]VALIDATORS]
 
   validates :started_on, presence: true, if: :bank_statement

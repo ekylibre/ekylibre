@@ -176,6 +176,7 @@ module Ekylibre
           eqs.each_with_index do |equipment, index|
             procedure.parameters_of_type(:tool).each do |tool|
               next unless equipment.of_expression(tool.filter)
+
               attributes[:tools_attributes] ||= {}
               attributes[:tools_attributes][index.to_s] = {
                 reference_name: tool.name,
@@ -191,6 +192,7 @@ module Ekylibre
           doers.each_with_index do |work, index|
             procedure.parameters_of_type(:doer).each do |doer|
               next unless work.of_expression(doer.filter)
+
               attributes[:doers_attributes] ||= {}
               attributes[:doers_attributes][index.to_s] = {
                 reference_name: doer.name,

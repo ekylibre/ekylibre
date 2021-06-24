@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Interventions
   class BuildInterventionInteractor
-
     attr_reader :intervention, :attributes, :error, :parameters, :options
 
     def initialize(parameters, options)
@@ -31,6 +32,5 @@ module Interventions
     def fail?
       !success
     end
-
   end
 end

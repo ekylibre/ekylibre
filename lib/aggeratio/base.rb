@@ -30,10 +30,11 @@ module Aggeratio
       element ||= @root
       array = []
       array << element if %w[section cell property title].include?(element.name)
-      for child in element.children
+      element.children.each do |child|
         if child.has_attribute?('name') && child.attr('name') !~ /^\w+(\_\w+)*$/
-          raise InvalidDocument, "#{child.name} element has invalid name attribute: #{child.attr('name')}"
+          raise InvalidDocument.new("#{child.name} element has invalid name attribute: #{child.attr('name')}")
         end
+
         array += properties(child)
       end
       array
@@ -41,7 +42,7 @@ module Aggeratio
 
     def parameter_initialization
       code = ''
-      for parameter in parameters
+      parameters.each do |parameter|
         code << "#{parameter.name} = @#{parameter.name}\n"
       end
       code
@@ -51,6 +52,7 @@ module Aggeratio
       minimum_level ||= @minimum_level || :api
       level = (element.has_attribute?('level') ? element.attr('level').strip.to_sym : @minimum_level)
       return '' if LEVELS.index(minimum_level) > LEVELS.index(level)
+
       if element.has_attribute?('if')
         test = element.attr('if').strip.gsub(/[\r\n\t]+/, ' ')
         code = "if (#{test})\n" + code.dig + "end\n"
@@ -92,7 +94,7 @@ module Aggeratio
         of = element.attr('of').to_s
         of_type = element.attr('of-type').to_sym
         if of_type == :record && of.present?
-          code = "if #{of}.class < Ekylibre::Record::Base\n" \
+          code = "if #{of}.class < ApplicationRecord\n" \
                  "  xml.a(:href => \"/backend/\#{#{of}.class.table_name}/\#{#{of}.to_param}\") do\n" + code.dig(2) + "  end\n" \
                                                                                                                      "else\n" + code.dig + "end\n"
         end
@@ -114,35 +116,37 @@ module Aggeratio
     def queries(options = {})
       @root.xpath('//node()[not(node())]').collect do |leaf|
         next if options[:strict].is_a?(FalseClass) && leaf.has_attribute?('if')
+
         xpath(leaf)
       end.compact
     end
 
     private
 
-    def xpath(element)
-      return nil if %w[comment variable].include?(element.name)
-      name = element.name.to_s.upcase
-      if %w[matrix sections].include?(element.name)
-        name = normalize_name(element.attr('for'))
-        if element.has_attribute?('name')
-          name = normalize_name(element.attr('name')) + '/' + name
+      def xpath(element)
+        return nil if %w[comment variable].include?(element.name)
+
+        name = element.name.to_s.upcase
+        if %w[matrix sections].include?(element.name)
+          name = normalize_name(element.attr('for'))
+          if element.has_attribute?('name')
+            name = normalize_name(element.attr('name')) + '/' + name
+          end
+        elsif element.has_attribute?('name')
+          name = normalize_name(element.attr('name'))
         end
-      elsif element.has_attribute?('name')
-        name = normalize_name(element.attr('name'))
-      end
-      prefix = (%w[property title].include?(element.name) ? '/@' : '/')
-      if element == @root
-        return prefix + name
-      elsif element.parent && !element.parent.is_a?(Nokogiri::XML::Document)
-        begin
-          return xpath(element.parent) + prefix + name
-        rescue
-          nil
+        prefix = (%w[property title].include?(element.name) ? '/@' : '/')
+        if element == @root
+          return prefix + name
+        elsif element.parent && !element.parent.is_a?(Nokogiri::XML::Document)
+          begin
+            return xpath(element.parent) + prefix + name
+          rescue
+            nil
+          end
+        else
+          return nil
         end
-      else
-        return nil
       end
-    end
   end
 end

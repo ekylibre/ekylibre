@@ -1,4 +1,4 @@
-class AddLoanAccountsAndStates < ActiveRecord::Migration
+class AddLoanAccountsAndStates < ActiveRecord::Migration[4.2]
   def change
     ## Add states
 

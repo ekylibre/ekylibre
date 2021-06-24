@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,7 +47,7 @@
 #  updater_id       :integer
 #
 
-class Payslip < Ekylibre::Record::Base
+class Payslip < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :account
@@ -54,12 +56,12 @@ class Payslip < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'PayslipNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :number, :state, presence: true, length: { maximum: 500 }
-  validates :emitted_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(payslip) { payslip.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :emitted_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(payslip) { payslip.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :nature, presence: true
   # ]VALIDATORS]
   validates :emitted_on, presence: { if: :invoice? }
@@ -106,8 +108,18 @@ class Payslip < Ekylibre::Record::Base
     number
   end
 
+  def human_status
+    I18n.t("tooltips.models.payslip.#{status}")
+  end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
   def status
     return affair.status if invoice?
+
     :stop
   end
 end

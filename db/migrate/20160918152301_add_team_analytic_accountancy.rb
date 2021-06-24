@@ -1,4 +1,4 @@
-class AddTeamAnalyticAccountancy < ActiveRecord::Migration
+class AddTeamAnalyticAccountancy < ActiveRecord::Migration[4.2]
   def change
     add_reference :purchase_items, :team, index: true
     add_reference :sale_items, :team, index: true

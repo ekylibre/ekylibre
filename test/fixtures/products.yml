@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,10 +75,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -2519,7 +2522,7 @@ matters_025:
   category_id: 19
   created_at: 2014-11-07 16:47:34.638130000 Z
   creator_id: 1
-  derivative_of: vitis_vinifera_sauvignon_blanc
+  derivative_of: vitis
   description: ''
   id: 107
   initial_movement_id: 118
@@ -2593,7 +2596,7 @@ matters_028:
   created_at: 2014-11-07 17:08:50.419969000 Z
   creator_id: 1
   default_storage_id: 106
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 114
   initial_born_at: 2013-09-16 17:00:00.000000000 Z
   initial_container_id: 106
@@ -2616,7 +2619,7 @@ matters_029:
   created_at: 2014-11-07 18:53:57.726666000 Z
   creator_id: 1
   default_storage_id: 106
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 120
   initial_born_at: 2013-10-01 08:45:00.000000000 Z
   initial_container_id: 106
@@ -2639,7 +2642,7 @@ matters_030:
   created_at: 2014-11-07 18:53:57.938037000 Z
   creator_id: 1
   default_storage_id: 106
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 121
   initial_born_at: 2013-10-01 08:45:00.000000000 Z
   initial_container_id: 106
@@ -2662,7 +2665,7 @@ matters_031:
   created_at: 2014-11-07 18:53:57.995416000 Z
   creator_id: 1
   default_storage_id: 106
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 122
   initial_born_at: 2013-10-01 08:45:00.000000000 Z
   initial_container_id: 106
@@ -2685,7 +2688,7 @@ matters_032:
   created_at: 2014-11-07 19:02:56.067968000 Z
   creator_id: 1
   default_storage_id: 106
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 123
   initial_born_at: 2013-10-02 09:00:00.000000000 Z
   initial_container_id: 106
@@ -2732,7 +2735,7 @@ matters_034:
   created_at: 2014-11-07 19:02:56.271910000 Z
   creator_id: 1
   default_storage_id: 106
-  derivative_of: vitis_vinifera
+  derivative_of: vitis
   id: 125
   initial_born_at: 2013-10-02 09:00:00.000000000 Z
   initial_container_id: 106
@@ -3346,7 +3349,7 @@ plants_004:
   updater_id: 1
   uuid: '09251135-3e58-49e6-9d55-70dfa0b3a59b'
   variant_id: 44
-  variety: vitis_vinifera
+  variety: vitis
 plants_005:
   activity_production_id: 49
   born_at: 2016-04-06 17:23:00.000000000 Z

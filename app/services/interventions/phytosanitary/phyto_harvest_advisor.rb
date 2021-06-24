@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     class PhytoHarvestAdvisor
-
       # @param [Plant, LandParcel] target
       # @param [DateTime] date
       # @option [DateTime] date_end
@@ -44,7 +45,7 @@ module Interventions
         interventions
       end
 
-      #because we don't know if the plant is closed or not
+      # because we don't know if the plant is closed or not
       def entry_factor_fix_for_closed_usage(duration)
         if duration == 6.hours
           8.hours

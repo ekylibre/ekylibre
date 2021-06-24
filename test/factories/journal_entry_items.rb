@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :journal_entry_item do
-    association :entry, factory: %i[journal_entry with_items]
+    association :entry, factory: :journal_entry_with_items
     account
     absolute_credit { 0 }
     absolute_debit { 0 }
@@ -22,5 +22,6 @@ FactoryBot.define do
     state { 'confirmed' }
     sequence(:name) { |i| "JEI #{i}" }
     printed_on { Date.parse('2016-12-01') }
+    letter { '' }
   end
 end

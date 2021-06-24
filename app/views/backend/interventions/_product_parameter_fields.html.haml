@@ -1,6 +1,7 @@
 - prefix = namespace + "[#{f.index}]"
 - f.object.reference_name = reference.name
-.nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
+
+.nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name }.merge( reference.target? && @intervention.using_phytosanitary? ? { phytosanitary_target: true } : {}) }
   = link_to_remove_nested_association(:destroy.ta, f)
   = hidden_field_tag :intervention_parameter_id, f.object.id
   = f.input :using_live_data, as: :hidden
@@ -21,9 +22,9 @@
         = label_tag :target.tl, nil, class: 'control-label'
 
         .controls
-          = radio_button_tag 'target', 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          = radio_button_tag "target#{f.index}", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
           = label_tag :plant.tl
-          = radio_button_tag 'target', 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = radio_button_tag "target#{f.index}", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
     - product_data = {}
@@ -31,8 +32,7 @@
       - product_data[:filter_unroll] = "[data-selector-id='intervention_input_usage_id']"
       - product_data[:parent] = '.nested-fields'
       - product_data[:retrieve_unroll] = "[data-selector-id='intervention_target_product_id']"
-
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")], of_variant_active: true), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
 
     - if f.object.reference_name.to_sym == :plant_medicine
       %span.allowed-mentions
@@ -78,16 +78,18 @@
     = modal(id: "working_times", class: "working-times", size: :large) do
       .modal-body
       .modal-footer
+
+  - if f.object.reference_name.to_sym == :plant_medicine  # Usage selector
+    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
+
   - if reference.quantified?
     = render '/backend/interventions/quantifier_field', f: f, reference: reference, prefix: prefix
 
-  - if f.object.reference_name.to_sym == :plant_medicine
-    = f.referenced_association :usage, label: :usage_phyto.tl, input_html: { disabled: true, data: { filters_url: filter_usages_backend_registered_phytosanitary_usages_path, msg_container: ".intervention_inputs_usage .lights-message", lights: '.controls' } }, new: false
-
+  - if f.object.reference_name.to_sym == :plant_medicine # Display usage informations of product
     = render 'intervention_usage_informations'
 
     .authorization-disclaimer.authorization-disclaimer--past{ class: f.object.new_record? ? 'hidden' : '' }
-      - updated_on = f.object.reference_data['updated_on']
+      - updated_on = f.object.reference_data['updated_on'].to_s
       = :based_on_regulation_at_date.tl(date: updated_on.present? ? Date.parse(updated_on).l : f.object.intervention.updated_at&.to_date&.l)
     .authorization-disclaimer.authorization-disclaimer--present{ class: f.object.new_record? ? '' : 'hidden' }
       = :based_on_current_regulation.tl
@@ -95,22 +97,21 @@
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?
       - if reference.procedure.of_category?(:planting)
-        = f.input :variety, as: :hidden, input_html: { data: { intervention_updater: prefix + 'variety' }}
+        = f.input :specie_variety_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'specie_variety_name' }}
         = f.input :batch_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'batch_number' }}
       - else
         = f.input :new_name, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_name' }}
     - else
       - if reference.procedure.of_category?(:planting)
-        = f.input :variety, input_html: { data: { intervention_updater: prefix + 'variety' }}
+        = f.input :specie_variety_name,label: reference.procedure.of_category?(:vine_planting) ? :variety_vine.tl : :variety.tl, input_html: { data: { intervention_updater: prefix + 'specie_variety_name' }}
         = f.input :batch_number, input_html: { data: { intervention_updater: prefix + 'batch_number' }}
       - else
         = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
-
   - if (attr = reference.attribute(:identification_number))
     - if attr.hidden?
       = f.input :identification_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'identification_number' }}
     - else
-      = f.input :identification_number, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? and f.object.product.identification_number) ? true : false }
+      = f.input :identification_number, required: true, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? and f.object.product.identification_number) ? true : false }
   - if (attr = reference.attribute(:new_container))
     = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
 
@@ -121,12 +122,14 @@
     - if attr.hidden?
       = f.input :new_variant_id, as: :hidden, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
     - else
-      = f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+      -#= f.input :new_variant_id, input_html: { data: { intervention_updater: prefix + 'new_variant_id' }}
+      = f.referenced_association :new_variant, source: { scope: reference.attribute(:new_variant).scope_hash.merge(availables: true), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_variant_id' } }, new: false
 
   - if reference.attribute(:working_zone)
     - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
       :ruby
-        optional_data = if %w[spraying all_in_one_sowing sowing_with_spraying].include?(params[:procedure_name])
+        procedures = Intervention::PHYTO_PROCEDURE_NAMES
+        optional_data = if procedures.include?(params[:procedure_name]) || procedures.any? { |p| f.object&.intervention&.send("#{p}?") }
           { optional_data_url: backend_map_editor_shapes_path(layers: RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.map { |n| :"aquatic_nta_#{n}" }), default_optional_data: :aquatic_nta_5 }
         else
           {}

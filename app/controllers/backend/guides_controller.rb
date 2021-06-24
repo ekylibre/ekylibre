@@ -43,6 +43,7 @@ module Backend
 
     def run
       return unless @guide = find_and_check
+
       notify_warning(:implemented_with_dummy_data)
       @guide.run!
       redirect_to action: :show

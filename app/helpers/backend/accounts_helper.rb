@@ -19,11 +19,11 @@
 module Backend
   module AccountsHelper
     def major_accounts_tabs_tag
-      radicals = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.sort_by { |a| a.send(Account.accounting_system) }
+      radicals = Onoma::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.sort_by { |a| a.send(Account.accounting_system) }
       if radicals.count > 0
         html = content_tag(:dt, :accounts.tl)
         html << content_tag(:dd, link_to(:all_accounts.tl, params.merge(controller: :accounts, action: :index, prefix: nil)), (params[:prefix].blank? ? { class: :active } : nil))
-        for account in radicals
+        radicals.each do |account|
           number = account.send(Account.accounting_system)
           html << content_tag(:dd, link_to(account.human_name, params.merge(controller: :accounts, action: :index, prefix: number)), (params[:prefix] == number.to_s ? { class: :active } : nil))
         end
@@ -38,7 +38,9 @@ module Backend
       id = :accounts
       params[id] = Account.clean_range_condition(params[id])
       code = ''
-      code << content_tag(:label, :accounts_starting_with.tl, for: id)
+      code << content_tag(:div, class: "label-container") do
+        content_tag(:label, :accounts_starting_with.tl, for: id)
+      end
       code << ' ' << text_field_tag(id, params[id], size: 30)
       code.html_safe
     end

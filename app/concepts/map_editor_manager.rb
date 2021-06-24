@@ -1,28 +1,32 @@
+# frozen_string_literal: true
+
 class MapEditorManager
   class << self
-    LAYERS = {
-      land_parcels: {
-        label: [:land_parcels],
-        name: :land_parcels,
-        serie: :land_parcels_serie,
-        type: :simple
-      },
-      plants: {
-        label: [:plants],
-        name: :plants,
-        serie: :plants_serie,
-        reference: 'variety',
-        stroke: 2,
-        fillOpacity: 0.7,
-        type: :categories
-      }
-    }
+    LAYERS = begin
+               layers = {
+                 land_parcels: {
+                   label: [:land_parcels].freeze,
+                   name: :land_parcels,
+                   serie: :land_parcels_serie,
+                   type: :simple
+                 }.freeze,
+                 plants: {
+                   label: [:plants].freeze,
+                   name: :plants,
+                   serie: :plants_serie,
+                   reference: 'variety',
+                   stroke: 2,
+                   fillOpacity: 0.7,
+                   type: :categories
+                 }.freeze
+               }
 
-    RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.each do |n|
-      LAYERS[:"aquatic_nta_#{n}"] = { label: [:aquatic_nta, distance: n], name: :"aquatic_nta_#{n}", serie: :"aquatic_nta_#{n}_serie", type: :optional, bounds_buffer: true }
-    end
+               RegisteredPhytosanitaryUsage::UNTREATED_BUFFER_AQUATIC_VALUES.each do |n|
+                 layers[:"aquatic_nta_#{n}"] = { label: [:aquatic_nta, distance: n], name: :"aquatic_nta_#{n}", serie: :"aquatic_nta_#{n}_serie", type: :optional, bounds_buffer: true }
+               end
 
-    LAYERS.freeze
+               layers
+             end.freeze
 
     def shapes(options = {})
       options[:layers] ||= []
@@ -38,7 +42,7 @@ class MapEditorManager
         layer_serie = "#{layer}_serie"
         layer_label = LAYERS[layer][:label]
         mapeditor[:show][:series][layer_serie] = send(layer_serie, options)
-        mapeditor[:show][:layers] << LAYERS[layer].merge(label: layer_label.first.send(:tl, layer_label.second))
+        mapeditor[:show][:layers] << LAYERS[layer].merge(label: layer_label.first.tl(**layer_label.second || {}))
       end
       mapeditor
     end
@@ -61,7 +65,7 @@ class MapEditorManager
       plants = Plant.at(options[:started_at]).collect do |l|
         next unless l.shape
 
-        [l.shape.to_text, { name: l.name, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }]
+        [l.shape.to_text, { name: l.name, variety: Onoma::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }]
       end.compact
 
       shapes = plants.collect(&:first)

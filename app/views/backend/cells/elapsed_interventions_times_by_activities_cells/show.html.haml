@@ -2,25 +2,27 @@
 - interventions = Intervention.real.of_civil_year(@campaign.harvest_year)
 - if @campaign && interventions.any?
   :ruby
-    started_at = interventions.reorder(:started_at).first.started_at.to_date
-    stopped_at = interventions.reorder(:started_at).last.stopped_at.to_date
 
-    unit = Nomen::Unit[:hour]
+    intervention_dataset = interventions.habtm_activities.where(intervention_id: interventions.pluck(:id)).reorder(:intervention_started_at)
+    started_at = intervention_dataset.first.intervention_started_at.to_date
+    stopped_at = intervention_dataset.last.intervention_started_at.to_date
 
-    cost_unit = Nomen::Currency[Preference[:currency]]
+    unit = Onoma::Unit[:hour]
+
+    cost_unit = Onoma::Currency[Preference[:currency]]
 
     categories = {}
 
     date = started_at
     stopped_at = started_at + 1 if started_at >= stopped_at
-    while date < stopped_at
+    while date <= stopped_at.end_of_month
       categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
-      date = date >> 1
+      date = date + 1.month
     end
 
     # data for bar chart times by activities and by month
     Activity.actives.find_each do |activity|
-      act_interventions = Intervention::HABTM_Activities.where(intervention_id: interventions.pluck(:id), activity_id: activity.id).reorder(:intervention_started_at).group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
+      act_interventions = intervention_dataset.where(activity_id: activity.id).reorder(:intervention_started_at).group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
       if act_interventions.any?
         sums = {}
         act_interventions.each do |act_int_by_month|

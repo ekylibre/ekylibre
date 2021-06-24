@@ -13,12 +13,13 @@ module Procedo
           if @attributes[:product_id].present?
             @product = Product.find_by(id: @attributes[:product_id])
           end
-          if attributes[:working_zone].present?
+
+          if attributes[:working_zone]
             @working_zone = Charta.new_geometry(attributes[:working_zone])
             @working_zone = @working_zone.convert_to(:multi_polygon)
           end
           if intervention && intervention.working_periods.present?
-            first_period_key = intervention.working_periods.keys.sort_by(&:to_i).first
+            first_period_key = intervention.working_periods.keys.min_by(&:to_i)
             @read_at = intervention.working_periods[first_period_key].started_at
           end
           @readings = {}.with_indifferent_access
@@ -118,11 +119,13 @@ module Procedo
           hash[:working_zone] = @working_zone.to_json if working_zone?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
+
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
           reference.attributes.each do |attribute|
             next unless attribute.compute_filter?
+
             hash[:attributes] ||= {}
             hash[:attributes][attribute.name] ||= {}
             hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
@@ -139,11 +142,13 @@ module Procedo
           hash[:working_zone] = @working_zone.to_json if working_zone?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
+
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
           reference.attributes.each do |attribute|
             next unless attribute.compute_filter?
+
             hash[:attributes] ||= {}
             hash[:attributes][attribute.name] ||= {}
             hash[:attributes][attribute.name][:dynascope] = attribute.scope_hash
@@ -155,8 +160,9 @@ module Procedo
 
         def impact_with(steps)
           if steps.size != 1
-            raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+            raise ArgumentError.new('Invalid steps: got ' + steps.inspect)
           end
+
           reassign!(steps.first)
         end
 
@@ -173,12 +179,14 @@ module Procedo
         # Impact changes on attributes of parameter based on given field
         def impact_on_attributes(field = nil)
           reference.attributes.each do |attribute|
-            next unless field != attribute.name
-            if attribute.default_value? && attribute.default_value_with_environment_variable?(field, :self)
+            next if field == attribute.name
 
+            if attribute.default_value? && attribute.default_value_with_environment_variable?(field, :self)
               next if attribute.condition? && !usable_attribute?(attribute)
+
               value = compute_attribute(attribute)
               next if value.blank? || value == send(attribute.name)
+
               value = Charta.new_geometry(value) if value && attribute.name == :working_zone
 
               assign(attribute.name, value)
@@ -197,12 +205,14 @@ module Procedo
             next unless ir && ref_reading.default_value?
             next unless ref_reading.default_value_with_environment_variable?(field, :self)
             next if ref_reading.condition? && !usable_reading?(ref_reading)
+
             ir.assign(:value, compute_reading(ref_reading))
           end
         end
 
         def impact_on_components(_field = nil)
           return if reference.components.exclude?(self.name)
+
           self.assign(:assembly, intervention.interpret(parameter.reference.component_of_tree, env))
         end
 
@@ -220,12 +230,14 @@ module Procedo
               parameter.attributes.each do |attribute|
                 next unless attribute.depend_on?(reference_name) &&
                             ip.usable_attribute?(attribute)
+
                 ip.assign(attribute.name, ip.compute_attribute(attribute))
               end
               # Impact readings
               parameter.readings.each do |reading|
                 next unless reading.depend_on?(reference_name) &&
                             ip.usable_reading?(reading)
+
                 ip.reading(reading.name).assign(:value, ip.compute_reading(reading))
               end
               # Impact components
@@ -246,18 +258,21 @@ module Procedo
         def usable_handler?(handler)
           return true unless handler.condition?
           return false if handler.condition_variables.any? { |dependency| intervention.interpret(dependency, env).nil? }
+
           intervention.interpret(handler.condition_tree, env)
         end
 
         # Test if a attribute is usable
         def usable_attribute?(attribute)
           return true unless attribute.condition?
+
           intervention.interpret(attribute.condition_tree, env)
         end
 
         # Test if a reading is usable
         def usable_reading?(reading)
           return true unless reading.condition?
+
           intervention.interpret(reading.condition_tree, env)
         end
 

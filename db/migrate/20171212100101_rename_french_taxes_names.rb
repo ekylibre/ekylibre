@@ -1,4 +1,4 @@
-class RenameFrenchTaxesNames < ActiveRecord::Migration
+class RenameFrenchTaxesNames < ActiveRecord::Migration[4.2]
   CHANGES = {
     french_vat_eu: { name: 'TVA intra-communautaire' },
     french_vat_import_export: { name: 'TVA import/export' },

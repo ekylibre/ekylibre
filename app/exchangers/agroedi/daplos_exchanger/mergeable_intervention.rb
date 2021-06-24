@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class MergeableIntervention < DaplosIntervention
@@ -6,7 +8,7 @@ module Agroedi
       def self.regroup(interventions)
         to_merge = interventions.group_by do |intervention|
           [
-            #TODO: There must be a better key than only started_at
+            # TODO: There must be a better key than only started_at
             intervention.children[:working_periods].map(&:started_at),
             intervention.children[:inputs],
             intervention.procedure.name

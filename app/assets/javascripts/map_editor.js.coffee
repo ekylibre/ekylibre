@@ -77,7 +77,7 @@
             opacity: 1
             fillOpacity: 0.5
             legend: true
-            zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
+            zoomGuidance: I18n.t("front-end.leaflet.zoomGuidance")
           categories:
             color: "#333"
             fillColor: "#333"
@@ -118,24 +118,27 @@
             polyline: false
             rectangle: false
             circle: false
+            circlemarker: false
             polygon:
               allowIntersection: false
+              allowOverlap: true
               showArea: false
             reactiveMeasure: true
         zoom:
           position: "topleft"
           zoomInText: ""
           zoomOutText: ""
-          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
-          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
+          zoomInTitle: I18n.t("front-end.leaflet.zoomInTitle")
+          zoomOutTitle: I18n.t("front-end.leaflet.zoomOutTitle")
         scale:
-          position: "bottomright"
+          position: "bottomleft"
           imperial: false
           maxWidth: 200
         fullscreen:
           position: 'topleft'
-          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
+          title: I18n.t("front-end.leaflet.fullscreenTitle")
         reactiveMeasure:
+          position: "bottomleft"
           metric: true
           feet: false
         importers:
@@ -144,7 +147,7 @@
           kml: true
           title: ''
           content: ''
-          buttonTitle: I18n.t("#{I18n.rootKey}.leaflet.importerButtonTitle")
+          buttonTitle: I18n.t("front-end.leaflet.importerButtonTitle")
           template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">
@@ -170,6 +173,7 @@
       this.map = L.map(this.mapElement[0],
         zoomControl: false
         attributionControl: true
+        drawControlTooltips: false
       )
 
       @controls = {}
@@ -666,7 +670,8 @@
 
       @map.addControl @controls.legend
 
-      L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
+      unless @options.multiLevels?
+        L.DomUtil.addClass(@controls.legend.getContainer(), 'leaflet-hidden-control')
 
     _bindOverlays: ->
       @map.on "overlayadd", (event) =>
@@ -678,6 +683,11 @@
         legend.children(":visible:first").addClass("first")
         legend.removeClass("empty")
 
+        if @options.overlaySelector?
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.bind layer.label, layer unless layer.label is undefined
+          @ghostLabelCluster.refresh()
+
       @map.on "overlayremove", (event) =>
         console.log "Remove legend control..."
         legend = $(@controls.legend.getContainer())
@@ -685,6 +695,11 @@
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.addClass("empty") if legend.children(":visible").length <= 0
+
+        if @options.overlaySelector?
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
+          @ghostLabelCluster.refresh()
 
     _addLayer: (layer) ->
       data = this._getSerieData(layer.serie)
@@ -849,7 +864,7 @@
         if view.zoom?
           this.map.setView(center, view.zoom)
         else
-          this.map.setView(center, 12)
+          this.map.setView(center, 15)
       else if view.bounds?
         this.map.fitBounds(view.bounds)
       else
@@ -949,10 +964,10 @@
         this.map.addControl this.controls.importers_ctrl
         this.map.addControl this.controls.reactiveMeasureControl
 
-      if this.options.multiLevels?
+      if this.options.multiLevels? && @controls.legend?
         legend = @controls.legend.getContainer()
 
-        legend.innerHTML += this.buildMultiLevelLegend(this.edition)
+        legend.innerHTML = this.buildMultiLevelLegend(this.edition)
 
         $(legend).on 'click', '.leaflet-multilevel-legend', (e) =>
           e.preventDefault()
@@ -960,48 +975,40 @@
           if level?
             this.edition.eachLayer (layer) =>
               if parseInt(layer.feature.properties.level) == level
-                shape = $(layer._container)
+                shape = $(layer.getElement())
+                label = $(layer.label.getElement())
                 shape.toggle()
+                label.toggle()
                 $(e.currentTarget).children('i').toggleClass('active')
 
       if @options.overlaySelector?
-
-        @map.on "overlayadd", (event) =>
-
-          @layersScheduler.schedule event.layer
-
-          # for each layer in the layerGroup
-          event.layer.eachLayer (layer) =>
-            @ghostLabelCluster.bind layer.label, layer unless layer.label is undefined
-          @ghostLabelCluster.refresh()
-
-
-        @map.on "overlayremove", (event) =>
-
-          event.layer.eachLayer (layer) =>
-            @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
-          @ghostLabelCluster.refresh()
-
         selector = @layerSelector || new L.Control.Layers()
 
         if @ghost? and @ghost.getLayers().length
+          @_removeFromLayerControl(@ghost)
           selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer)
           @layersScheduler.insert @ghost._leaflet_id, back: true
 
         if @reference? and @reference.getLayers().length > 0
+          @_removeFromLayerControl(@reference)
           selector.addOverlay(@reference, @options.overlaySelector.referenceLayer)
           @layersScheduler.insert @reference._leaflet_id
 
 
         if @seriesReferencesLayers?
           for label, layer of @seriesReferencesLayers
+            @_removeFromLayerControl(layer)
             selector.addOverlay(layer, label)
             @layersScheduler.insert layer._leaflet_id
 
         if @edition? and @edition.getLayers().length > 0
+          @_removeFromLayerControl(@edition)
           selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
           @layersScheduler.insert @edition._leaflet_id
 
+    _removeFromLayerControl: (layer)->
+      if @layerSelector._layers.filter((clItem) -> clItem.overlay).map((clItem) -> clItem.layer).includes(layer)
+        @layerSelector.removeLayer(layer)
 
     _saveUpdates: ->
       if this.edition?
@@ -1025,12 +1032,14 @@
 
   delay = (time, method) -> setTimeout method, time
 
-  $(document).ready ->
+  detectNewComponents = ->
     $("input[data-map-editor]").each ->
       $(this).mapeditor()
 
+  $(document).ready ->
+    detectNewComponents()
+
   $(document).on 'dialog:show', ->
-    $("input[data-map-editor]").each ->
-      $(this).mapeditor()
+    detectNewComponents()
 
 ) mapeditor, jQuery

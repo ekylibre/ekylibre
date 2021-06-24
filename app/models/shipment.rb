@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -114,7 +116,7 @@ class Shipment < Parcel
   end
 
   protect on: :destroy do
-    prepared? || given?
+    given?
   end
 
   bookkeep
@@ -129,6 +131,7 @@ class Shipment < Parcel
 
   def order
     return false unless can_order?
+
     update_column(:ordered_at, Time.zone.now)
     super
   end
@@ -136,6 +139,7 @@ class Shipment < Parcel
   def prepare
     order if can_order?
     return false unless can_prepare?
+
     now = Time.zone.now
     values = { in_preparation_at: now }
     # values[:ordered_at] = now unless ordered_at
@@ -143,11 +147,17 @@ class Shipment < Parcel
     super
   end
 
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
+  end
+
   def check
     state = true
     order if can_order?
     prepare if can_prepare?
     return false unless can_check?
+
     now = Time.zone.now
     values = { prepared_at: now }
     # values[:ordered_at] = now unless ordered_at
@@ -155,6 +165,7 @@ class Shipment < Parcel
     update_columns(values)
     state = items.collect(&:check)
     return false, state.collect(&:second) unless (state == true) || (state.is_a?(Array) && state.all? { |s| s.is_a?(Array) ? s.first : s })
+
     super
     true
   end
@@ -166,6 +177,7 @@ class Shipment < Parcel
     state, msg = check if can_check?
     return false, msg unless state
     return false unless can_give?
+
     update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)
     reload
@@ -173,7 +185,7 @@ class Shipment < Parcel
   end
 
   def allow_items_update?
-    !prepared? && !given?
+    !given?
   end
 
   class << self
@@ -199,7 +211,7 @@ class Shipment < Parcel
             if transporter_ids.size == 1
               options[:transporter_id] = transporter_ids.first
             else
-              raise StandardError, 'Need an obvious transporter to ship parcels'
+              raise StandardError.new('Need an obvious transporter to ship parcels')
             end
           end
         end

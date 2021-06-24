@@ -1,4 +1,4 @@
-class RelaxFixedAssetConstraintsForNoneDeprecationMethod < ActiveRecord::Migration
+class RelaxFixedAssetConstraintsForNoneDeprecationMethod < ActiveRecord::Migration[4.2]
   def change
     reversible do |r|
       r.up do

@@ -1,0 +1,13 @@
+= dropdown_menu_button(:documents.tl, main_class: "btn btn-default icn btn-print", force_menu: true) do |d|
+  - if conditions && @pfi_interventions.any?
+    - d.item :compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false
+    - d.separator
+  - if @land_parcel_document
+    - d.item :land_parcel_register.tl, { controller: :activities, action: action, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), template: @land_parcel_document.id, format: :pdf}, remote: false
+  - if @intervention_document
+    - d.item :intervention_register.tl, { controller: :activities, action: action, key: Printers::InterventionRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), template: @intervention_document.id, format: :pdf}, remote: false
+  - if @phytosanitary_document
+    - d.item :phytosanitary_register.tl, { controller: :activities, action: action, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign, activity: @activity), template: @phytosanitary_document.id, format: :pdf}, remote: false
+  - if @activity_cost_document
+    - d.item :activity_cost.tl, { controller: :activities, action: action, key: Printers::ActivityCostPrinter.build_key(campaign: current_campaign, activity: @activity), template: @activity_cost_document.id, format: :pdf}, remote: false
+

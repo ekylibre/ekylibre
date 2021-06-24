@@ -25,15 +25,15 @@ module Ekylibre
 
       private
 
-      def write_asset_tmp_file(folder, file_path, file_content)
-        base_dir = Rails.root.join('tmp', 'plugins', folder)
-        Rails.application.config.assets.paths << base_dir.to_s
+        def write_asset_tmp_file(folder, file_path, file_content)
+          base_dir = Rails.root.join('tmp', 'plugins', folder)
+          Rails.application.config.assets.paths << base_dir.to_s
 
-        file = base_dir.join(file_path)
+          file = base_dir.join(file_path)
 
-        FileUtils.mkdir_p file.dirname
-        File.write(file, file_content)
-      end
+          FileUtils.mkdir_p file.dirname
+          File.write(file, file_content)
+        end
     end
   end
 end

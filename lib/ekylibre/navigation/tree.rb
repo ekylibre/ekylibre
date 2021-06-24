@@ -36,6 +36,7 @@ module Ekylibre
       def get(*keys)
         key = keys.shift
         return @index[key].get(keys) if keys.any?
+
         @index[key]
       end
 
@@ -43,6 +44,7 @@ module Ekylibre
         unless node.type == levels.first
           raise "Invalid node type: #{node.type.inspect}. Expecting #{levels.first.inspect}"
         end
+
         @children << node
       end
 
@@ -70,6 +72,7 @@ module Ekylibre
 
       def reverse(controller, action)
         return @reversions[controller][action] if @reversions[controller]
+
         nil
       end
 

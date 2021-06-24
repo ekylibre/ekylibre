@@ -1,12 +1,16 @@
 - if parameter.record_list?
   - k.helper do
-    %label= parameter.human_name
-    - parameter.foreign_class.all.sort_by(&:name).each do |item|
-      %label
-        - checked = !params[parameter.name][item.id.to_s].to_i.zero? rescue false
-        = hidden_field_tag("#{parameter.name}[#{item.id}]", "0")
-        = check_box_tag("#{parameter.name}[#{item.id}]", "1", checked)
-        = item.name
+    %div.label-container
+      %label= parameter.human_name
+    %div.value-container
+      - export_foreign_class_scope = parameter.options[:scope] ? parameter.foreign_class.send(parameter.options[:scope]) : parameter.foreign_class.all
+      - export_foreign_class_scope.sort_by(&:name).each do |item|
+        %span.radio
+          %label
+            - checked = !params[parameter.name][item.id.to_s].to_i.zero? rescue false
+            = hidden_field_tag("#{parameter.name}[#{item.id}]", "0")
+            = check_box_tag("#{parameter.name}[#{item.id}]", "1", checked)
+            = item.name
 - elsif parameter.date?
   - k.date(parameter.name, value: params[parameter.name], label: parameter.human_name)
 - else

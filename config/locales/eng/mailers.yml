@@ -2,11 +2,17 @@ eng:
   mailers:
     financial_year_exchange_export:
       notify_accountant: |
-        Hello,
+        Hello %{accountant_full_name},
 
-        New entries are available from %{name}. To download them : %{link}
+        New entries are available from %{name}.
+
+        - financial year : %{financial_year_name}
+        - period from %{started_on} to %{stopped_on}
+        - data format : %{exchange_format}
+
+        You will find them in attachment of this mail.
 
         Regards,
 
         %{current_user_name}
-      notify_accountant_subject: "New entries are available from %{name}"
+      notify_accountant_subject: "{name} | New entries %{exchange_name} availables"

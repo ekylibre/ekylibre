@@ -21,6 +21,7 @@ module Procedo
         def parse_params(params)
           CHILDREN_PARAM_NAMES.each do |param_name|
             next unless params[param_name]
+
             params[param_name].each do |id, attributes|
               # puts "Add #{param_name}: #{id} (#{attributes.inspect})".magenta
               add(param_name, id, attributes)
@@ -53,8 +54,10 @@ module Procedo
           each_member do |parameter|
             param_name = parameter.param_name
             next unless parameter.respond_to? :handlers_states
+
             states = parameter.handlers_states
             next if states.empty?
+
             hash[param_name] ||= {}
             hash[param_name][parameter.id.to_s] = states
           end
@@ -110,21 +113,23 @@ module Procedo
 
         def impact_with(steps)
           unless steps.size > 1
-            raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+            raise ArgumentError.new('Invalid steps: got ' + steps.inspect)
           end
+
           @members[steps[0]][steps[1]].impact_with(steps[2..-1])
         end
 
         protected
 
-        def add_parameter(parameter)
-          unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
-            raise "Invalid parameter: #{parameter.inspect}"
+          def add_parameter(parameter)
+            unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
+              raise "Invalid parameter: #{parameter.inspect}"
+            end
+
+            @members[parameter.reference_reflection_name] ||= {}.with_indifferent_access
+            @members[parameter.reference_reflection_name][parameter.id] = parameter
+            parameter
           end
-          @members[parameter.reference_reflection_name] ||= {}.with_indifferent_access
-          @members[parameter.reference_reflection_name][parameter.id] = parameter
-          parameter
-        end
       end
     end
   end

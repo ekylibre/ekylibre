@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class EquipmentsJsonExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     # def check
     #   valid = true
     #   clusters = JSON.parse(file.read).deep_symbolize_keys

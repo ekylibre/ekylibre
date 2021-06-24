@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -49,6 +51,7 @@
 #  number                              :string           not null
 #  pretax_selling_amount               :decimal(19, 4)
 #  product_id                          :integer
+#  provider                            :jsonb
 #  purchase_amount                     :decimal(19, 4)
 #  purchase_id                         :integer
 #  purchase_item_id                    :integer
@@ -72,10 +75,11 @@
 #  waiting_on                          :date
 #
 
-class FixedAsset < Ekylibre::Record::Base
+class FixedAsset < ApplicationRecord
   include Attachable
   include Customizable
   include Transitionable
+  include Providable
 
   bookkeep # This callback permits to add journal entry corresponding to the fixed asset when entering in use
   acts_as_numbered
@@ -114,17 +118,17 @@ class FixedAsset < Ekylibre::Record::Base
   has_one :tool, class_name: 'Equipment'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
-  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, :waiting_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :ceded_on, :purchased_on, :scrapped_on, :sold_on, :waiting_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   validates :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :pretax_selling_amount, :purchase_amount, :selling_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :depreciation_fiscal_coefficient, numericality: true, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :asset_account, presence: true
@@ -134,14 +138,16 @@ class FixedAsset < Ekylibre::Record::Base
   validates :tax_id, :selling_amount, :pretax_selling_amount, presence: { if: :sold? }
 
   validates :scrapped_on, financial_year_writeable: { if: -> { scrapped_on } }
-  validates :scrapped_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
+  validates :scrapped_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { scrapped_on }
   validates :scrapped_on, :product_id, presence: true, on: :scrap
   validates :sold_on, financial_year_writeable: { if: -> { sold_on } }
   validates :sold_on, :product_id, presence: true, on: :sell
-  validates :sold_on, timeliness: { on_or_after: -> (fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
+  validates :sold_on, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on }, on_or_before: -> { Date.today }, type: :date }, if: -> { sold_on }
   validates :stopped_on, :allocation_account, :expenses_account, presence: { unless: :depreciation_method_none? }
-  validates :waiting_on, timeliness: { on_or_before: -> (fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
+  validates :waiting_on, timeliness: { on_or_before: ->(fixed_asset) { fixed_asset.started_on }, type: :date }, if: -> { waiting_on }, allow_blank: true
   validates :waiting_on, presence: true, financial_year_writeable: true, on: :stand_by
+  validates :depreciable_amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
   scope :draft_or_waiting, -> { where(state: %w[draft waiting]) }
@@ -200,35 +206,52 @@ class FixedAsset < Ekylibre::Record::Base
   end
 
   validate on: :scrap do
-    if product && scrapped_on && product.born_at > scrapped_on
-      errors.add :scrapped_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.scrapped_on'),
-                                              restriction: product.born_at.to_date.l,
-                                              field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                              model: product.name)
+    if product && scrapped_on
+      if product.born_at > scrapped_on
+        errors.add(:scrapped_on, :on_or_after_field, attribute: I18n.translate('attributes.scrapped_on'),
+                   restriction: product.born_at.to_date.l,
+                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                   model: product.name)
+      end
+
+      last_used_at = product.interventions.maximum(:stopped_at)
+      if last_used_at && last_used_at > scrapped_on
+        errors.add(:scrapped_on, :used_in_intervention, attribute: I18n.translate('attributes.scrapped_on'),
+                   restriction: last_used_at.to_date.l,
+                   model: product.name)
+      end
     end
   end
 
   validate on: :sell do
-    if product && sold_on && product.born_at > sold_on
-      errors.add :sold_on, I18n.translate('errors.messages.on_or_after_field', attribute: I18n.translate('attributes.sold_on'),
-                                          restriction: product.born_at.to_date.l,
-                                          field: I18n.translate('activerecord.attributes.equipment.born_at'),
-                                          model: product.name)
+    if product && sold_on
+      if product.born_at > sold_on
+        errors.add(:sold_on, :on_or_after_field, attribute: I18n.translate('attributes.sold_on'),
+                   restriction: product.born_at.to_date.l,
+                   field: I18n.translate('activerecord.attributes.equipment.born_at'),
+                   model: product.name)
+      end
+
+      last_used_at = product.interventions.maximum(:stopped_at)
+      if last_used_at && last_used_at > sold_on
+        errors.add(:sold_on, :used_in_intervention, attribute: I18n.translate('attributes.sold_on'),
+                   restriction: last_used_at.to_date.l,
+                   model: product.name)
+      end
     end
   end
 
   validate do
-    if started_on
-      errors.add(:started_on, :financial_year_exchange_on_this_period) if started_during_financial_year_exchange?
-      if self.stopped_on && stopped_on < started_on
-        errors.add(:stopped_on, :posterior, to: started_on.l)
-      end
+    if started_on && stopped_on && stopped_on < started_on
+      errors.add(:stopped_on, :posterior, to: started_on.l)
     end
-    true
   end
 
   before_update do
     @auto_depreciate = false
+    # if no depreciations present, then generate it
+    @auto_depreciate = true if self.depreciations.count == 0
+    # if important attr change,regenerate depreciation
     old = self.class.find(id)
     %i[depreciable_amount started_on stopped_on depreciation_method
        depreciation_period depreciation_percentage currency].each do |attr|
@@ -291,21 +314,12 @@ class FixedAsset < Ekylibre::Record::Base
     currency.to_currency.round amount
   end
 
-  def started_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_on).any?
-  end
-
   def opened_financial_year?
     FinancialYear.on(started_on)&.opened?
   end
 
   def started_during_financial_year_closure_preparation?
     FinancialYear.on(started_on)&.closure_in_preparation?
-  end
-
-  # Depreciate active fixed assets
-  def self.depreciate(options = {})
-    FixedAssetDepreciator.new.depreciate(FixedAsset.all, up_to: options[:until])
   end
 
   def depreciate!
@@ -320,16 +334,15 @@ class FixedAsset < Ekylibre::Record::Base
 
       periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(depreciation_start, depreciation_percentage)
 
-      starts = periods.map(&:first) << (periods.last.second + 1.day)
       total_duration = periods.sum(&:last)
 
       case depreciation_method
-        when 'linear'
-          depreciate_with_linear_method starts, total_duration
-        when 'regressive'
-          depreciate_with_regressive_method starts, total_duration
-        else
-          raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
+      when 'linear'
+        depreciate_with_linear_method(periods, total_duration)
+      when 'regressive'
+        depreciate_with_regressive_method(periods, total_duration)
+      else
+        raise StandardError.new("Invalid depreciation method: #{depreciation_method}")
       end
     end
 
@@ -338,35 +351,54 @@ class FixedAsset < Ekylibre::Record::Base
 
   # Depreciate using linear method
   # Years have 12 months with 30 days
-  def depreciate_with_linear_method(starts, depreciable_days)
+  def depreciate_with_linear_method(periods, depreciable_days)
     depreciable_amount = self.depreciable_amount
-    reload.depreciations.each do |depreciation|
-      depreciable_days -= depreciation.duration
-      depreciable_amount -= depreciation.amount
+    # case of depreciations (locked or accounted) exists.
+    # recompute depreciable_days and depreciable_amount
+    depreciations.each do |dep|
+      depreciable_days -= dep.duration
+      depreciable_amount -= dep.amount
     end
 
-    # Create it if not exists?
+    # remaining amount to distribute into depreciations
     remaining_amount = depreciable_amount.to_d
     position = 1
-    starts.each_with_index do |start, index|
-      next if starts[index + 1].nil?
-      depreciation = depreciations.find_by(started_on: start)
+    # for each period, check if theres a depreciations (locked or accounted) or create it
+    periods.each_with_index do |period, index|
+      next if remaining_amount <= 0
+
+      start = period[0]
+      # take end of month for clean and bookkeeped depreciations
+      # take last date if > fixed asset stopped_on
+      if period[1] > stopped_on
+        stop = stopped_on
+      elsif period[1].end_of_month > stopped_on
+        stop = period[1]
+      else
+        stop = period[1].end_of_month
+      end
+
+      depreciation = depreciations.on(start).first
       unless depreciation
-        depreciation = depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
+        depreciation = depreciations.new(started_on: start, stopped_on: stop)
         duration = depreciation.duration
-        depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+        # round cents for the last depreciation by getting the previous depreciable_amount
+        if periods[index + 1].nil?
+          depreciation.amount = depreciations.up_to(start).reorder(:started_on).last.depreciable_amount
+        else
+          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+        end
         remaining_amount -= depreciation.amount
       end
-      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
-
       depreciation.position = position
       position += 1
       depreciation.save!
+      # depreciation.financial_year = FinancialYear.at(depreciation.started_on)
     end
   end
 
   # Depreciate using regressive method
-  def depreciate_with_regressive_method(starts, _depreciable_days)
+  def depreciate_with_regressive_method(periods, _depreciable_days)
     depreciable_days = duration
     depreciable_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
@@ -381,12 +413,15 @@ class FixedAsset < Ekylibre::Record::Base
     remaining_amount = depreciable_amount.to_d
     position = 1
 
-    starts.each_with_index do |start, index|
-      next if starts[index + 1].nil? || remaining_amount <= 0
-      depreciation = depreciations.find_by(started_on: start)
+    periods.each_with_index do |period, index|
+      next if periods[index + 1].nil? || remaining_amount <= 0
+
+      start = period[0]
+      stop = period[1]
+
+      depreciation = depreciations.on(start).first
       unless depreciation
-        depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: starts[index + 1] - 1)
-        duration = depreciation.duration
+        depreciation = depreciations.new(started_on: start.beginning_of_month, stopped_on: stop.end_of_month)
 
         current_year = index
         if depreciation_period == :quarterly
@@ -398,7 +433,7 @@ class FixedAsset < Ekylibre::Record::Base
         remaining_linear_depreciation_percentage = (100 * depreciation_percentage / (100 - (current_year * depreciation_percentage))).round(2)
         percentage = [regressive_depreciation_percentage, remaining_linear_depreciation_percentage].max
 
-        depreciation.amount = currency.to_currency.round(remaining_amount * (percentage / 100) * (duration / 360))
+        depreciation.amount = [remaining_amount, currency.to_currency.round(remaining_amount * (percentage / 100) * (depreciation.duration / 360))].min
         remaining_amount -= depreciation.amount
       end
       next if depreciation.amount.to_f == 0.0
@@ -406,7 +441,7 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation.position = position
       position += 1
       depreciation.save!
-      remaining_days -= duration
+      remaining_days -= depreciation.duration
     end
   end
 
@@ -414,35 +449,55 @@ class FixedAsset < Ekylibre::Record::Base
     depreciations.none?
   end
 
+  # @param [Date] on
+  # @return [FixedAssetDepreciation, nil]
   def depreciation_on(on)
     depreciations.where('? BETWEEN started_on AND stopped_on', on).reorder(:position).last
   end
 
-  # return the current_depreciation at current date
+  # return the current_depreciation at current date, nil if after or before the first depreciation
+  #
+  # @param [Date] on
+  # @return [FixedAssetDepreciation, nil]
   def current_depreciation(on = Date.today)
-    # get active depreciation
-    asset_depreciation = depreciation_on(on)
-    # get last active depreciation
-    asset_depreciation ||= depreciations.reorder(:position).last
-    return nil unless asset_depreciation
-    asset_depreciation
+    depreciation_on(on)
   end
 
   # return the net book value at current date
+  #
+  # @param [Date] on
+  # @return [Numeric]
   def net_book_value(on = Date.today)
-    return nil unless current_depreciation(on)
-    current_depreciation(on).depreciable_amount
+    if on < started_on
+      depreciable_amount
+    elsif (depreciation = current_depreciation(on)).present?
+      depreciation.depreciated_amount
+    else
+      0
+    end
   end
 
   # return the global amount already depreciated
+  #
+  # @param [Date] on
+  # @return [Numeric]
   def already_depreciated_value(on = Date.today)
-    return nil unless current_depreciation(on)
-    current_depreciation(on).depreciated_amount
+    if on < started_on
+      0
+    elsif (depreciation = current_depreciation(on)).present?
+      depreciation.depreciated_amount
+    else
+      depreciable_amount
+    end
   end
 
   # Returns the duration in days of all the depreciations
   def duration
     self.class.duration(started_on, self.stopped_on, mode: depreciation_method.to_sym)
+  end
+
+  def human_status
+    I18n.t("tooltips.models.fixed_asset.#{state}")
   end
 
   # Returns the duration in days between to 2 times

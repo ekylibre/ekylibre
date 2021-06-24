@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -91,7 +91,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 1, purchase.affair.deals.count
     assert purchase.affair.finishable?
     assert_equal 1, purchase.affair.deals.count
-    purchase.affair.finish
+    purchase.affair.finish(at: DateTime.parse('2018-01-02T00:00:00'))
     assert_equal 2, purchase.affair.deals.count
 
     check_closed_state(purchase.affair)
@@ -103,7 +103,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     payment = PurchasePayment.create!(
       payee: purchase.supplier,
       amount: purchase.amount + 5,
-      to_bank_at: Time.zone.parse('2018-1-1 00:00:00'),
+      to_bank_at: Time.zone.parse('2018-01-01 00:00:00'),
       responsible: User.first,
       delivered: true,
       mode: OutgoingPaymentMode.where(
@@ -119,7 +119,7 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 2, purchase.affair.deals.count
     assert purchase.affair.finishable?
     assert_equal 2, purchase.affair.deals.count
-    purchase.affair.finish
+    purchase.affair.finish(at: DateTime.parse("2018-01-02T00:00:00Z"))
     assert_equal 3, purchase.affair.deals.count
 
     check_closed_state(purchase.affair)

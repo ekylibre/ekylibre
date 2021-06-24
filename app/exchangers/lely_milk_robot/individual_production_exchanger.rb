@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module LelyMilkRobot
   class IndividualProductionExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :lely_milk_robot
+
     def import
       analyser_attributes = YAML.load_file(File.join(File.dirname(__FILE__), 'entity.yml'))
 

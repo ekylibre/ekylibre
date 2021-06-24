@@ -1,14 +1,14 @@
-.timeline-tools
-  = :add.tl
-  - timeline.sides.each do |side|
-    - if side.new_url?
-      %span.timeline-tool{class: "tl-#{side.name}"}
-        = link_to({ controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-#{side.model_name.to_s.dasherize}", title: "actions.backend/#{side.controller_name}.new".t) do
-          %i
-          -#= "actions.backend/#{side.controller_name}.new".t
-  - if timeline.id
-    - if content_for?("#{timeline.id}_tools".to_sym)
-      = content_for("#{timeline.id}_tools".to_sym)
+- if timeline.sides.any?(&:new_url?)
+  .timeline-tools
+    = :add.tl
+    - timeline.sides.each do |side|
+      - if side.new_url?
+        %span.timeline-tool{ class: "tl-#{side.name}" }
+          = link_to({ controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-#{side.model_name.to_s.dasherize}", title: "actions.backend/#{side.controller_name}.new".t) do
+            %i
+    - if timeline.id
+      - if content_for?("#{timeline.id}_tools".to_sym)
+        = content_for("#{timeline.id}_tools".to_sym)
 .timeline
   - timeline.steps.each do |step|
     - if step.is_a?(Backend::TimelineHelper::Timeline::MarkerStep)
@@ -20,7 +20,7 @@
     - else
       :ruby
         side = step.side
-        defaults = {type: h(side.model.model_name.human), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), at: h(step.at.l), when: content_tag(:span, relative_distance_in_words(step.at), title: step.at.l(format: :long))}
+        defaults = { type: h(side.model.model_name.human), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), deletor: (step.deletor ? link_to(step.deletor.full_name, backend_user_path(step.deletor)) : :unknown.tl), at: h(step.at.l), when: content_tag(:span, relative_distance_in_words(step.at), title: step.at.l(format: :long)) }
 
         begin
           url = url_for({controller: side.controller_name, action: :show, id: step.record.id})
@@ -47,4 +47,4 @@
                 - if Rails.root.join("app", "views", "backend", "shared", "timeline", "content", "_#{side.model_name}.html.haml").exist?
                   = render "backend/shared/timeline/content/#{side.model_name}", avatar_size: avatar_size, side: side, step: step, defaults: defaults, side.model_name => step.record
                 - else
-                  = :timeline_item.th(defaults)
+                  = :timeline_item_added.th(defaults)

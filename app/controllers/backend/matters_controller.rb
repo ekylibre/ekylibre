@@ -19,7 +19,34 @@
 module Backend
   class MattersController < Backend::ProductsController
     before_action :save_search_preference, only: :index
-    list(conditions: list_conditions) do |t|
+
+    def self.matters_conditions
+      code = list_conditions
+      code << "c[0] << \" AND #{ProductNatureVariant.table_name}.type like ?\"\n"
+      code << "c << '%Variants::Article%'\n"
+      code << "c[0] << \" AND #{ProductNatureVariant.table_name}.active = ?\"\n"
+      code << "c << 't'\n"
+
+      # Display matter with population > 0
+      code << "if params[:s] == 'available'\n"
+      code << "  c[0] << \" AND #{Product.table_name}.id IN (SELECT product_populations.product_id FROM product_populations INNER JOIN (SELECT product_id, MAX(started_at) as started_at FROM product_populations GROUP BY product_id) last_population ON product_populations.product_id = last_population.product_id and product_populations.started_at = last_population.started_at WHERE value > 0)\"\n"
+      code << "end\n"
+
+      # Display matter by sub-nature
+      code << "if params[:sub_nature_id].present?\n"
+      code << "  if params[:sub_nature_id] == 'Other'\n"
+      code << "   c[0] << \" AND #{ProductNatureVariant.table_name}.type =? \"\n"
+      code << "     c << 'Variants::ArticleVariant'\n"
+      code << "  else \n"
+      code << "   c[0] << \" AND #{ProductNatureVariant.table_name}.type =? \"\n"
+      code << "     c << 'Variants::Articles::'+ params[:sub_nature_id].to_s + 'Article'\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
+
+    list(conditions: matters_conditions, join: :variant, distinct: true) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true

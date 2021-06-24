@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class WorkingPeriod < DaplosNode
@@ -22,6 +24,7 @@ module Agroedi
 
       def duration
         return @duration if @duration
+
         @duration = daplos_duration || work_time_duration || DEFAULT_DURATION
       end
 
@@ -35,6 +38,7 @@ module Agroedi
           duration = daplos.intervention_duration
           empty_duration = duration&.match(/^0+$/)
           return nil unless duration.present? && !empty_duration
+
           j = duration[0, 2].to_i.days
           h = duration[2, 2].to_i.hours
           s = duration[4, 2].to_i.minutes
@@ -45,13 +49,14 @@ module Agroedi
         def work_time_duration
           flows = InterventionModel.where(procedure_reference: intervention.procedure.name, working_flow_unit: 'ha/h')
           return unless flows.any?
+
           inverse_speed = flows.average(:working_flow)
           working_area = intervention.working_zone_area
           return unless inverse_speed.to_d > 0.0 && working_area.to_f > 0.0
+
           duration = (inverse_speed.to_d * working_area.to_d).hours
           duration
         end
     end
   end
 end
-

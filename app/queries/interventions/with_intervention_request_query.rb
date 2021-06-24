@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   class WithInterventionRequestQuery
     def self.call(relation)

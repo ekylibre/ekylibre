@@ -38,6 +38,7 @@ module Backend
 
     def article(name, options = {})
       return unless file = find_article(name)
+
       content = nil
       File.open(Ekylibre.helps[I18n.locale][file][:file], 'rb:UTF-8') { |f| content = f.read }
       content = content.split(/\n/)[1..-1].join("\n") if options.delete(:without_title)

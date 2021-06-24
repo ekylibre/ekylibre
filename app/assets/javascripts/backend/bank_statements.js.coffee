@@ -168,7 +168,7 @@
     # Select/deselect lines
 
     selectLine: (line) ->
-      return if @_isLineReconciliated(line) or isNaN(@_idForLine(line))
+      return if @_isLineReconciliated(line) or isNaN(@_idForLine(line)) or @_isLineLocked(line)
       line.addClass "selected"
       @_reconciliateSelectedLinesIfValid()
       @uiUpdate()
@@ -240,6 +240,9 @@
     _isLineReconciliated: (line) ->
       !!@_reconciliationLetter(line)
 
+    _isLineLocked: (line) ->
+      $(line).find('.locked i').length == 1
+
     _linesWithReconciliationLetter: (letter) ->
       @_lines().filter (i, e) => @_reconciliationLetter($(e)) is letter
 
@@ -264,7 +267,7 @@
         $(this).find('.details').html("<div class='letter'></div>")
 
     _clearButtonTemplate: (bankStatementId, letter) ->
-      removeLabel = I18n.t("#{I18n.rootKey}.bank_reconciliation.remove")
+      removeLabel = I18n.t("front-end.bank_reconciliation.remove")
       "<div class='letter'>#{letter}</div>
        <a href='/backend/bank-reconciliation/letters/#{bankStatementId}?letter=#{letter}' data-remote='true' rel='nofollow' data-method='delete' id='clear'>
          <i></i>

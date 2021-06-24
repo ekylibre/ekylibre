@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+using Ekylibre::Utils::DateSoftParse
+
 module Interventions
   module Phytosanitary
     module Models
@@ -45,7 +49,6 @@ module Interventions
         def duration
           (@end_date - @start_date).to_i.seconds
         end
-
       end
     end
   end

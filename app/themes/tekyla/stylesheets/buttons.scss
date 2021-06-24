@@ -20,6 +20,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 // @include button($passive-bg, $active-bg);
 // @include button(#D88E68, #D88E68, "&.important");
 
+
 a.btn, button.btn {
   @include button();
   &.primary, &.btn-primary {
@@ -27,6 +28,9 @@ a.btn, button.btn {
   }
   &.btn-success {
     @include button($background-color: $success-color, $input: true);
+  }
+  &.btn-default--parcel {
+    margin: 2px;
   }
   &.important, &.caution, &.btn-warning {
     @include button($background-color: $caution-color);
@@ -37,6 +41,9 @@ a.btn, button.btn {
   &.btn-previous, &.btn-next {
     padding-left: round($fs-normal*0.40);
     padding-right: round($fs-normal*0.40);
+  }
+  &.btn-default--parcel {
+    margin: 3px !important;
   }
   &.icn {
     @include icon-before(cog, $font-size: 14px);
@@ -50,6 +57,7 @@ a.btn, button.btn {
   &.no-icn {
     line-height: 21px !important;
   }
+
   &.dropdown-toggle {
     @include icon-after(caret-down, $font-size: 14px);
     .dropup > & {
@@ -123,7 +131,7 @@ a.btn, button.btn {
     @include icon-after(caret-down, $font-size: 14px);
   }
   &.active {
-    @include text-shadow(1px 1px 0 $neutral-color)
+    @include text-shadow(1px 1px 0 $neutral-color);
     background-color: $primary-color;
     border-color: $active-color;
     color: white !important;

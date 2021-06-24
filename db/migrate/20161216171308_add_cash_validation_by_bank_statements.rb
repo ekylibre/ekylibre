@@ -1,4 +1,4 @@
-class AddCashValidationByBankStatements < ActiveRecord::Migration
+class AddCashValidationByBankStatements < ActiveRecord::Migration[4.2]
   def change
     add_column :cashes, :suspend_until_reconciliation, :boolean, null: false, default: false
     add_reference :cashes, :suspense_account, index: true

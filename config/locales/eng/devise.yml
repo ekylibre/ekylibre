@@ -20,6 +20,7 @@ eng:
       edit:
         header: "Set your password"
         submit_button: "Set my password"
+        sign_in_with_ekylibre: "Sign in with Ekylibre.com"
       invitation_removed: "Your invitation was removed."
       invitation_token_invalid: "The invitation token provided is not valid!"
       new:

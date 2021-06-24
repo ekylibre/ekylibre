@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReceptionItemDecorator < Draper::Decorator
   delegate_all
 

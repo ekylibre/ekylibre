@@ -35,6 +35,7 @@ module ActiveGuide
       unless item.is_a?(ActiveGuide::Item) || item.is_a?(ActiveGuide::Result)
         raise "Invalid item. Got #{item.inspect}:#{item.class.name}"
       end
+
       @items << item
     end
   end

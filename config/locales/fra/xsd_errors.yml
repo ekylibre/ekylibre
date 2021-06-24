@@ -1,0 +1,7 @@
+fra:
+  xsd_errors:
+    '1826': "La valeur '%{value}' pour l'attribut '%{element}' n'est pas une valeur valide avec la définition du type '%{type}'"
+    '1839': "La valeur '%{value}' pour l'attribut '%{element}' ne respecte pas le pattern %{pattern}"
+    '1831': "La valeur pour l'attribut '%{element}' est d'une longueur de %{length} caractères, le minimum autorisé est de %{min_length} caractères"
+    '1824': "La valeur '%{value}' pour l'attribut '%{element}' n'est pas une valeur valide avec la définition du type '%{type}'"
+    '1871': "Il manque l'attribut enfant '%{child}' au niveau de l'élément '%{element}'"

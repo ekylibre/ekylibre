@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,7 +37,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ActivityTactic < Ekylibre::Record::Base
+class ActivityTactic < ApplicationRecord
   enumerize :mode, in: %i[sowed harvested], default: :sowed
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
@@ -44,7 +46,7 @@ class ActivityTactic < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :mode_delta, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
-  validates :planned_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :planned_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   validates :activity, presence: true
   # ]VALIDATORS]
 
@@ -57,6 +59,6 @@ class ActivityTactic < Ekylibre::Record::Base
   end
 
   def mode_unit_name=(value)
-    raise ArgumentError, 'Mode unit must be: day' unless value.to_s == 'day'
+    raise ArgumentError.new('Mode unit must be: day') unless value.to_s == 'day'
   end
 end

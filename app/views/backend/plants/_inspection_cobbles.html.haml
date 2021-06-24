@@ -5,7 +5,7 @@
 - activity = last_inspection.activity
 
 - dimension = activity.unit_preference(current_user)
-- symbol_measure = Nomen::Unit.find(last_inspection.user_quantity_unit(dimension)).symbol
+- symbol_measure = Onoma::Unit.find(last_inspection.user_quantity_unit(dimension)).symbol
 
 - series_disease = resource.disease_deformity_series(dimension)
 - series_disease = series_disease.map { |cat, data| { name: cat.l, data: data.map { |d| [cat.l, d] } } }

@@ -1,3 +1,5 @@
+- main_period_selector(:year)
+
 - main_toolbar do |t|
   = t.edit resource
   = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
@@ -16,12 +18,22 @@
         %san.title= resource.class.human_attribute_name(:members)
         %span.value
           %i.picto{class: "picto-group"}
-          = resource.members_at.count
+          - viewed_at = Time.zone.now.change(year: current_campaign.harvest_year)
+          = resource.members_at(viewed_at)&.count.to_i
       .med-info
         %span.title= resource.class.human_attribute_name(:daily_nitrogen_production)
         %span.value
           %i.picto{class: "picto-trash-o"}
           = resource.daily_nitrogen_production.round(2).l
+
+  - if resource.activity_production&.usage == :milk && Analysis.of_nature(:cow_milk_analysis).any?
+    - started_at = Time.zone.now.change(year: current_campaign.harvest_year) - 1.year
+    - stopped_at = Time.zone.now.change(year: current_campaign.harvest_year)
+    - c.cobble :last_analyses do
+      = cell :last_analyses, params: {nature: :cow_milk_analysis, started_at: started_at, stopped_at: stopped_at}
+
+  - c.cobble(:interventions) do
+    = cobble_list(:interventions)
 
   - c.cobble(:animals) do
     = cobble_list(:animals)

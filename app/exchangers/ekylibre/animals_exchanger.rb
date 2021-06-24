@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class AnimalsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :ekylibre
+
     # Create or updates animals
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
@@ -35,6 +40,7 @@ module Ekylibre
           # create indicators linked to animal
           r.indicators.each do |indicator_name, value|
             next if indicator_name == :population
+
             animal.read!(indicator_name, value, at: r.born_at, force: true)
           end
           animal.initial_population = animal.population

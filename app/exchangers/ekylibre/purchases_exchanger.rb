@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class PurchasesExchanger < ActiveExchanger::Base
+    category :purchases
+    vendor :ekylibre
+
     self.deprecated = true
 
     def initialize(file, supervisor, options = {})
@@ -103,8 +108,9 @@ module Ekylibre
         unless r.variant_code
           raise "Variant identifiant must be given at line #{line_index}"
         end
+
         unless variant = ProductNatureVariant.find_by(work_number: r.variant_code)
-          if Nomen::ProductNatureVariant.find(r.variant_code)
+          if Onoma::ProductNatureVariant.find(r.variant_code)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_code)
           else
             if r.variant[:fixed_asset_account]
@@ -120,6 +126,7 @@ module Ekylibre
               account_number = account_infos.shift
               account_name = account_infos.shift
               next if account_number.blank?
+
               unless account = Account.find_by(number: account_number.strip)
                 account = Account.create!(name: account_name || account_number, number: account_number)
               end
@@ -159,12 +166,14 @@ module Ekylibre
             raise "Cannot find supplier #{r.supplier_full_name} at line #{line_index}"
           end
           raise "Missing invoice date at line #{line_index}" unless r.invoiced_at
+
           purchase = PurchaseInvoice.create!(
             planned_at: r.invoiced_at,
             invoiced_at: r.invoiced_at,
             reference_number: r.reference_number,
             supplier: supplier,
             nature: PurchaseNature.actives.first,
+            reconciliation_state: :accepted,
             description: r.description
           )
           if @attachments_dir.present?
@@ -189,14 +198,15 @@ module Ekylibre
         # find or create a purchase line
         unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
           raise "Missing quantity at line #{line_index}" unless r.quantity
+
           # puts r.variant_code.inspect.red
 
           purchase.items.create!(role: r.role, quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
+          purchase.save!
         end
 
         w.check_point
       end
-
     end
   end
 end

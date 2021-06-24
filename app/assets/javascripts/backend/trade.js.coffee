@@ -85,8 +85,8 @@
               item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
 
           # Compute totals
-          if ['change', 'readystatechange'].includes event.type
-            E.trade.updateUnitPretaxAmount(item)
+          E.trade.updateUnitPretaxAmount(item)
+          E.toggleValidateButton(item, false)
 
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")
@@ -199,7 +199,7 @@
         when 'pretax_amount'
           E.trade.updatePretaxAmount(item)
         when 'amount', 'conditionning', 'conditionning_quantity'
-          # Do nothing. Ability to customize precisely amount
+          E.trade.updateAmount(item) if item.closest('tbody').is('[data-trade-type="quick_affair"]') # Change THIS
         else
           console.error "Unknown component: #{component}"
 

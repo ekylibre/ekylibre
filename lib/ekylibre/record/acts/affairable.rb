@@ -108,7 +108,7 @@ module Ekylibre
             code << "  if invalid_currency?(affair)\n"
             code << "    raise ArgumentError, \"The currency (\#{self.currency}) is different of the affair currency(\#{affair.currency})\"\n"
             code << "  end\n"
-            code << "  Ekylibre::Record::Base.transaction do\n"
+            code << "  ApplicationRecord.transaction do\n"
             code << "    if old_#{reflection_name} = self.#{reflection_name}\n"
             code << "      self.other_deals.each do |deal|\n"
             code << "        deal.deal_with!(affair, dones) unless dones.include?(deal)\n"
@@ -126,7 +126,7 @@ module Ekylibre
             code << "  if from_affair and from_affair.id != self.#{foreign_key}\n"
             code << "    raise ArgumentError, \"Cannot undeal from this unknown affair #\#{reflection_name.id}\"\n"
             code << "  end\n"
-            code << "  Ekylibre::Record::Base.transaction do\n"
+            code << "  ApplicationRecord.transaction do\n"
             code << "    old_#{reflection_name} = self.#{reflection_name}\n"
             code << "    affair = #{class_name}.create!(currency: self.currency, third: self.deal_third)\n"
             code << "    self.update_column(:#{foreign_key}, affair.id)\n"
@@ -163,7 +163,7 @@ module Ekylibre
             elsif options[:debit].is_a?(Symbol)
               code << "  return self.#{options[:debit]}\n"
             else
-              raise ArgumentError, 'Option :debit must be boolean or Symbol'
+              raise ArgumentError.new('Option :debit must be boolean or Symbol')
             end
             code << "end\n"
 
@@ -266,4 +266,3 @@ module Ekylibre
     end
   end
 end
-Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Affairable)

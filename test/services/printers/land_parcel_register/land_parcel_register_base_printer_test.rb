@@ -8,7 +8,7 @@ module Printers
         template.expect :nature, :land_parcel_register
         template.expect :nil?, false
         template.expect :managed?, true
-        @printer = LandParcelRegisterPrinterBase.new template: template
+        @printer = LandParcelRegisterPrinterBase.new(template: template)
       end
 
       test 'target_working_area default to 0 if no working_area in the target' do

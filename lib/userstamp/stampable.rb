@@ -100,33 +100,36 @@ module Userstamp
     module InstanceMethods #:nodoc:
       private
 
-      def has_stamper?
-        !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil?
-      rescue
-        false
-      end
-
-      def set_creator_attribute
-        return unless record_userstamp
-        if respond_to?(creator_attribute.to_sym) && has_stamper?
-          send("#{creator_attribute}=".to_sym, self.class.stamper_class.stamper)
+        def has_stamper?
+          !self.class.stamper_class.nil? && !self.class.stamper_class.stamper.nil?
+        rescue
+          false
         end
-      end
 
-      def set_updater_attribute
-        return unless record_userstamp
-        if respond_to?(updater_attribute.to_sym) && has_stamper?
-          send("#{updater_attribute}=".to_sym, self.class.stamper_class.stamper)
-        end
-      end
+        def set_creator_attribute
+          return unless record_userstamp
 
-      def set_deleter_attribute
-        return unless record_userstamp
-        if respond_to?(deleter_attribute.to_sym) && has_stamper?
-          send("#{deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
-          save
+          if respond_to?(creator_attribute.to_sym) && has_stamper?
+            send("#{creator_attribute}=".to_sym, self.class.stamper_class.stamper)
+          end
         end
-      end
+
+        def set_updater_attribute
+          return unless record_userstamp
+
+          if respond_to?(updater_attribute.to_sym) && has_stamper?
+            send("#{updater_attribute}=".to_sym, self.class.stamper_class.stamper)
+          end
+        end
+
+        def set_deleter_attribute
+          return unless record_userstamp
+
+          if respond_to?(deleter_attribute.to_sym) && has_stamper?
+            send("#{deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
+            save
+          end
+        end
       # end private
     end
   end

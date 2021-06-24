@@ -33,7 +33,7 @@ module Backend
       @sale_credit = Sale.new(attributes)
 
       sale_credit_save_successful = false
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         @sale_credit.save!
         @sale_credit.reload
         @sale_credit.propose!
@@ -52,22 +52,23 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.permit!
-    end
-
-    def find_credited_sale
-      return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
-      unless @credited_sale.cancellable?
-        notify_error :the_sales_invoice_is_not_cancellable
-        redirect_to params[:redirect] || { action: :index }
-        return false
+      def permitted_params
+        params.permit!
       end
-    end
 
-    def render_form
-      @form_url = backend_sale_credits_path(credited_sale_id: @credited_sale.id)
-      # render locals: {cancel_url: backend_sales_path}
-    end
+      def find_credited_sale
+        return false unless @credited_sale = find_and_check(:sale, params[:credited_sale_id])
+
+        unless @credited_sale.cancellable?
+          notify_error :the_sales_invoice_is_not_cancellable
+          redirect_to params[:redirect] || { action: :index }
+          return false
+        end
+      end
+
+      def render_form
+        @form_url = backend_sale_credits_path(credited_sale_id: @credited_sale.id)
+        # render locals: {cancel_url: backend_sales_path}
+      end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +27,8 @@
 #
 #  created_at    :datetime         not null
 #  creator_id    :integer
+#  deleted_at    :datetime
+#  deleter_id    :integer
 #  document_id   :integer          not null
 #  expired_at    :datetime
 #  id            :integer          not null, primary key
@@ -35,12 +39,16 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-class Attachment < Ekylibre::Record::Base
+class Attachment < ApplicationRecord
   belongs_to :document
   belongs_to :resource, polymorphic: true, inverse_of: :attachments
+
+  acts_as_paranoid
+  belongs_to :deleter, class_name: 'User'
+
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :resource_type, presence: true, length: { maximum: 500 }
   validates :document, :resource, presence: true
   # ]VALIDATORS]
@@ -50,6 +58,12 @@ class Attachment < Ekylibre::Record::Base
   before_validation do
     self.resource_type = resource.class.base_class.name if resource
     self.nature = document.nature if document
+  end
+
+  before_destroy do
+    # Trick to get current_user in model where it should not be accessible
+    current_user = User.find(User.stamper)
+    self.update!(deleter: current_user)
   end
 
   accepts_nested_attributes_for :document

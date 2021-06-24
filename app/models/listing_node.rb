@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,7 +52,7 @@
 #  updater_id           :integer
 #
 
-class ListingNode < Ekylibre::Record::Base
+class ListingNode < ApplicationRecord
   acts_as_list scope: :listing
   acts_as_nested_set scope: :listing
   attr_readonly :listing_id, :nature
@@ -123,7 +125,7 @@ class ListingNode < Ekylibre::Record::Base
     elsif parent
       if nature == 'custom'
         self.sql_type = convert_sql_type(parent.model.custom_fields.find_by(column_name: attribute_name).nature.to_s)
-        self.name = parent.name.underscore + ".custom_fields->>'" + attribute_name
+        self.name = parent.name.underscore + ".custom_fields->>'#{attribute_name}'"
       elsif parent.model
         self.sql_type = convert_sql_type(parent.model.columns_definition[attribute_name][:type].to_s)
       end
@@ -134,7 +136,7 @@ class ListingNode < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     if reflection?
-      for node in listing.nodes
+      listing.nodes.each do |node|
         if node = listing.nodes.find_by(name: name)
           self.name = node.name.succ
         end
@@ -181,10 +183,10 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def condition
-    self.class.condition(name, condition_operator, condition_value, sql_type)
+    self.class.condition(name, condition_operator, condition_value, nature, sql_type)
   end
 
-  def self.condition(column, operator, value, datatype = 'string')
+  def self.condition(column, operator, value, nature, datatype = 'string')
     operation = @@corresponding_comparators[operator.to_sym] || @@corresponding_comparators[:equal]
     c = operation.gsub('{{COLUMN}}', column)
     c.gsub!('{{LIST}}', '(' + value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.tr("\t", ',')) }.join(', ') + ')')
@@ -193,7 +195,11 @@ class ListingNode < Ekylibre::Record::Base
       #       if datatype == "date"
       #         "'"+connection.quoted_date(value.to_date)+"'"
       if datatype == 'boolean'
-        (operator.to_s == 'is_true' ? connection.quoted_true : connection.quoted_false)
+        if nature == 'custom'
+          operator.to_s == 'is_true' ? "'1'" : "'0'"
+        else
+          operator.to_s == 'is_true' ? connection.quoted_true : connection.quoted_false
+        end
       elsif datatype == 'numeric'
         n
       else
@@ -234,6 +240,7 @@ class ListingNode < Ekylibre::Record::Base
   def available_nodes
     nodes = []
     return nodes unless reflection? && model = self.model
+
     # Columns
     column_nodes = model.content_columns.collect { |x| [model.human_attribute_name(x.name.to_s).to_s, 'column-' + x.name] }
     if model.customizable?
@@ -295,7 +302,7 @@ class ListingNode < Ekylibre::Record::Base
     attributes[:listing_id] = listing_clone.id
     attributes[:parent_id]  = (parent ? parent.id : nil)
     node = self.class.create!(attributes)
-    for child in children.order(:position)
+    children.order(:position).each do |child|
       child.duplicate(listing_clone, node)
     end
   end

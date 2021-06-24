@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20190520072403
-class AddNewAccount < ActiveRecord::Migration
+class AddNewAccount < ActiveRecord::Migration[4.2]
   def up
     # Change item accounts#animals_making_expenses_expenses with {:name=>"animals_making_expenses", :fr_pcga=>"6054"}
     execute "UPDATE accounts SET centralizing_account_name='animals_making_expenses' WHERE centralizing_account_name='animals_making_expenses_expenses'"

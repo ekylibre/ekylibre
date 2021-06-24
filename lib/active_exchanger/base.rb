@@ -4,6 +4,9 @@ module ActiveExchanger
 
     @@exchangers = {}
 
+    CATEGORIES = %i[accountancy animal_farming human_resources none plant_farming purchases sales settings stocks].freeze
+    VENDORS = %i[agro_systemes agroedi bordeaux_sciences_agro bovins_croissance caj charentes_alliance ebp ekylibre fiea isagri lely_milk_robot lilco milklic none odicom socleo quadra sage square synel synest telepac upra vivescia].freeze
+
     class << self
       def inherited(subclass)
         ActiveExchanger::Base.register_exchanger(subclass)
@@ -12,6 +15,30 @@ module ActiveExchanger
 
       attr_accessor :deprecated do
         false
+      end
+
+      # @param [Symbol] value
+      # @return [Symbol]
+      def category(value = nil)
+        if value.nil?
+          @category || :none
+        else
+          raise ArgumentError.new("Invalid category #{value} for #{exchanger_name} exchanger, please provide one among #{CATEGORIES.join(', ')}") unless CATEGORIES.include?(value)
+
+          @category = value
+        end
+      end
+
+      # @param [Symbol] value
+      # @return [Symbol]
+      def vendor(value = nil)
+        if value.nil?
+          @vendor || :none
+        else
+          raise ArgumentError.new("Invalid vendor #{value} for #{exchanger_name} exchanger, please provide one among #{VENDORS.join(', ')}") unless VENDORS.include?(value)
+
+          @vendor = value
+        end
       end
 
       def deprecated?
@@ -98,6 +125,7 @@ module ActiveExchanger
         unless klass
           raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.keys.to_sentence(locale: :eng)})"
         end
+
         klass
       end
 
@@ -116,11 +144,18 @@ module ActiveExchanger
           import
         end
       end
+
+      # @param [String] exchange_name
+      # @param [String] locale
+      # @return [Maybe<String>] If exchanger template file exists, return Some(file_path), else return None
+      def template_file_for(exchanger_name, locale)
+        Maybe(Dir[Rails.root.join("config/locales/#{locale}/exchangers/#{exchanger_name}.*")].first)
+      end
     end
 
     attr_reader :file, :supervisor, :options
 
-    def initialize(file, supervisor, options = {})
+    def initialize(file, supervisor, **options)
       @file = Pathname.new(file)
       @supervisor = supervisor
       @options = options
@@ -131,7 +166,7 @@ module ActiveExchanger
     def run(check: true)
       result = Result.failed("Somethong is wrong, the import didn't run")
 
-      Ekylibre::Record::Base.transaction do
+      ApplicationRecord.transaction do
         if !check || (result = safe_check).success?
           result = safe_import
         end

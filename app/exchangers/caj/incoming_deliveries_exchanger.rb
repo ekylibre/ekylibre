@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Caj
   # Incoming deliveries extracted from Charentes Alliance extranet
   class IncomingDeliveriesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :caj
+
     def import
       here = Pathname.new(__FILE__).dirname
 

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :land_parcel do
     initial_shape { Charta.new_geometry("SRID=4326;MultiPolygon (((-1.017533540725708 44.23605999218229, -1.0204195976257324 44.236744122959124, -1.0197114944458008 44.238758034804555, -1.0165786743164062 44.238143107200145, -1.017533540725708 44.23605999218229)))") }
-    born_at { nil }
+    born_at { DateTime.new(2017, 6, 1) }
 
     association :category, factory: :land_parcel_category
     association :nature, factory: :land_parcel_nature

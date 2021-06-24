@@ -5,5 +5,6 @@ FactoryBot.define do
     pretax_amount { 148.3 }
     currency { 'EUR' }
     delivery_mode { :us }
+    given_at { DateTime.new(2018, 1, 1) }
   end
 end

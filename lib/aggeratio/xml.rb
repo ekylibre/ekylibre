@@ -21,7 +21,7 @@ module Aggeratio
       if respond_to?(method_name)
         code << conditionate(send(method_name, element), element)
       elsif element.name.to_s != 'comment'
-        #Rails.logger.warn("Markup <#{element.name}> is unknown or not implemented")
+        # Rails.logger.warn("Markup <#{element.name}> is unknown or not implemented")
         code << "# #{element.name}: not implemented\n"
       end
       code
@@ -29,8 +29,9 @@ module Aggeratio
 
     def build_elements(elements)
       code = ''
-      for element in elements
+      elements.each do |element|
         next if %w[property title].include?(element.name.to_s)
+
         code << build_element(element)
       end
       code << "# No elements\n" if code.blank?

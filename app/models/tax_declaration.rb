@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,7 +46,7 @@
 #  updater_id        :integer
 #
 
-class TaxDeclaration < Ekylibre::Record::Base
+class TaxDeclaration < ApplicationRecord
   include Attachable
   attr_readonly :currency
   refers_to :currency
@@ -55,13 +57,13 @@ class TaxDeclaration < Ekylibre::Record::Base
   # belongs_to :tax_office, class_name: 'Entity'
   has_many :items, class_name: 'TaxDeclarationItem', dependent: :destroy, inverse_of: :tax_declaration
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :currency, :financial_year, :mode, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :invoiced_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :invoiced_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   validates :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(tax_declaration) { tax_declaration.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(tax_declaration) { tax_declaration.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   # ]VALIDATORS]
   validates :number, uniqueness: true
   validates_associated :items
@@ -132,9 +134,9 @@ class TaxDeclaration < Ekylibre::Record::Base
   after_create :compute!, if: :draft?
 
   def destroy
-    ActiveRecord::Base.transaction do
-      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_item_parts tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id AND tdi.tax_declaration_id = #{id}")
-      ActiveRecord::Base.connection.execute("DELETE FROM tax_declaration_items WHERE tax_declaration_id = #{id}")
+    ApplicationRecord.transaction do
+      ApplicationRecord.connection.execute("DELETE FROM tax_declaration_item_parts tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id AND tdi.tax_declaration_id = #{id}")
+      ApplicationRecord.connection.execute("DELETE FROM tax_declaration_items WHERE tax_declaration_id = #{id}")
       items.reload
       super
     end
@@ -180,7 +182,12 @@ class TaxDeclaration < Ekylibre::Record::Base
   def status
     return :go if sent?
     return :caution if validated?
+
     :stop
+  end
+
+  def human_status
+    I18n.t("tooltips.models.tax_declaration.#{status}")
   end
 
   # FIXME: Too french
@@ -240,26 +247,26 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   private
 
-  def set_entry_items_tax_modes
-    all = JournalEntryItem
-          .where.not(tax_id: nil)
-          .where('printed_on <= ?', stopped_on)
-          .where(tax_declaration_mode: nil)
-    set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
-    set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
-  end
-
-  def set_non_purchase_entry_items_tax_modes(entry_items)
-    entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode
-  end
-
-  def set_purchase_entry_items_tax_modes(entry_items)
-    { 'at_invoicing' => 'debit', 'at_paying' => 'payment' }.each do |tax_payability, declaration_mode|
-      entry_items
-        .joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')
-        .joins('INNER JOIN purchases p ON p.id = pi.purchase_id')
-        .where('p.tax_payability' => tax_payability)
-        .update_all tax_declaration_mode: declaration_mode
+    def set_entry_items_tax_modes
+      all = JournalEntryItem
+            .where.not(tax_id: nil)
+            .where('printed_on <= ?', stopped_on)
+            .where(tax_declaration_mode: nil)
+      set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
+      set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
     end
-  end
+
+    def set_non_purchase_entry_items_tax_modes(entry_items)
+      entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode
+    end
+
+    def set_purchase_entry_items_tax_modes(entry_items)
+      { 'at_invoicing' => 'debit', 'at_paying' => 'payment' }.each do |tax_payability, declaration_mode|
+        entry_items
+          .joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')
+          .joins('INNER JOIN purchases p ON p.id = pi.purchase_id')
+          .where('p.tax_payability' => tax_payability)
+          .update_all tax_declaration_mode: declaration_mode
+      end
+    end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,7 +58,7 @@
 #  variant_id             :integer          not null
 #
 
-class SaleItem < Ekylibre::Record::Base
+class SaleItem < ApplicationRecord
   include PeriodicCalculable
   attr_readonly :sale_id
   enumerize :compute_from, in: %i[unit_pretax_amount pretax_amount amount],
@@ -121,11 +123,16 @@ class SaleItem < Ekylibre::Record::Base
 
   # return all sale items for the consider product_nature
   scope :of_product_nature, lambda { |product_nature|
-    joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
+    joins(:variant).merge(ProductNatureVariant.of_natures(Array(product_nature)))
+  }
+
+  # return all sale items for the consider product_nature
+  scope :of_product_nature_category, lambda { |product_nature_category|
+    joins(:variant).merge(ProductNatureVariant.of_category(product_nature_category))
   }
 
   scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
-  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
+  scope :invoiced_on_or_after, ->(date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
   scope :fixed, -> { where(fixed: true) }
   scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
   scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }
@@ -140,7 +147,7 @@ class SaleItem < Ekylibre::Record::Base
       self.quantity = -1 * credited_quantity
     end
     if tax
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       if compute_from_unit_pretax_amount?
         if credited_item
           self.unit_pretax_amount ||= credited_item.unit_pretax_amount
@@ -192,11 +199,13 @@ class SaleItem < Ekylibre::Record::Base
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
 
     next unless Preference[:catalog_price_item_addition_if_blank]
+
     %i[stock sale].each do |usage|
       # set stock catalog price if blank
       next unless catalog = Catalog.by_default!(usage)
       next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-      variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
+
+      variant.catalog_items.create!(catalog: catalog, reference_tax: tax, amount: unit_pretax_amount, currency: currency)
     end
   end
 
@@ -205,7 +214,8 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    return false if sale.draft?
+    return false if sale.draft? || sale.order?
+
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
     (changes.keys - authorized_columns).any?
   end

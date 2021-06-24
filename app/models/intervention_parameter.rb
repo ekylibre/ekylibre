@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +27,7 @@
 #
 #  allowed_entry_factor     :interval
 #  allowed_harvest_factor   :interval
+#  applications_frequency   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -36,6 +39,7 @@
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string
+#  imputation_ratio         :decimal(19, 4)   default(1), not null
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -50,31 +54,38 @@
 #  quantity_population      :decimal(19, 4)
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
+#  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  usage_id                 :string
+#  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
-class InterventionParameter < Ekylibre::Record::Base
+class InterventionParameter < ApplicationRecord
   attr_readonly :reference_name
   belongs_to :group, class_name: 'InterventionGroupParameter'
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   belongs_to :intervention, inverse_of: :parameters
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
 
+  serialize :specie_variety, HashSerializer
+  store_accessor :specie_variety, :specie_variety_name
+
   has_interval :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :allowed_entry_factor, :allowed_harvest_factor, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
+  validates :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
-  validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :imputation_ratio, :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :using_live_data, inclusion: { in: [true, false] }, allow_blank: true
   validates :intervention, presence: true
   # ]VALIDATORS]
   validates :position, presence: true
@@ -88,16 +99,18 @@ class InterventionParameter < Ekylibre::Record::Base
   scope :of_generic_role, lambda { |role|
     role = role.to_s
     unless %w[doer input output target tool].include?(role)
-      raise ArgumentError, "Invalid role: #{role}"
+      raise ArgumentError.new("Invalid role: #{role}")
     end
+
     where(type: "Intervention#{role.camelize}")
   }
   scope :of_generic_roles, lambda { |roles|
     roles.collect! do |role|
       role = role.to_s
       unless %w[doer input output target tool].include?(role)
-        raise ArgumentError, "Invalid role: #{role}"
+        raise ArgumentError.new("Invalid role: #{role}")
       end
+
       "Intervention#{role.camelize}"
     end
 
@@ -109,6 +122,10 @@ class InterventionParameter < Ekylibre::Record::Base
   scope :of_variety, lambda { |intervention_id, variety|
     product_nature_variant_ids = ProductNatureVariant.where(variety: variety).map(&:id)
     where('intervention_id = ? AND variant_id IN (?)', intervention_id, product_nature_variant_ids).to_a
+  }
+
+  scope :of_intervention_nature, lambda { |nature|
+    joins(:intervention).where("interventions.nature = ?", nature)
   }
 
   before_validation do

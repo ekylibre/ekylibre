@@ -1,4 +1,4 @@
-class ConvertFinancialDatetimesToDates < ActiveRecord::Migration
+class ConvertFinancialDatetimesToDates < ActiveRecord::Migration[4.2]
   def change
     for table, extras in { financial_years: [], financial_assets: %i[purchased_at ceded_at], financial_asset_depreciations: [] }
       for column_name in %i[started_at stopped_at] + extras

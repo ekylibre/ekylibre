@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,9 +43,9 @@
 #  usage            :string
 #
 
-class Sequence < Ekylibre::Record::Base
+class Sequence < ApplicationRecord
   enumerize :period, in: %i[cweek month number year]
-  enumerize :usage, in: %i[affairs analyses animals campaigns cash_transfers contracts debt_transfers deliveries deposits documents entities fixed_assets gaps incoming_payments inspections interventions inventories opportunities outgoing_payments outgoing_payment_lists parcels payslips plants plant_countings products product_natures product_nature_categories product_nature_variants purchases sales sales_invoices subscriptions tax_declarations]
+  enumerize :usage, in: %i[affairs analyses animals campaigns cash_transfers contracts debt_transfers deliveries deposits documents entities fixed_assets gaps wine_incoming_harvests incoming_payments inspections interventions inventories opportunities outgoing_payments outgoing_payment_lists parcels payslips plants plant_countings products product_natures product_nature_categories product_nature_variants purchases sales sales_invoices subscriptions tax_declarations rides ride_sets]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :last_cweek, :last_month, :last_number, :last_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -66,6 +68,7 @@ class Sequence < Ekylibre::Record::Base
     def of(usage)
       sequence = find_by(usage: usage)
       return sequence if sequence
+
       sequence = new(usage: usage)
       sequence.name = begin
                         sequence.usage.to_s.classify.constantize.model_name.human
@@ -92,7 +95,7 @@ class Sequence < Ekylibre::Record::Base
       keys.delete(:number)
       # Because period size correspond to alphabetical order
       # We use thaht to find the littlest period
-      keys.sort.first
+      keys.min
     end
 
     # Load defaults sequences
@@ -149,28 +152,28 @@ class Sequence < Ekylibre::Record::Base
 
   protected
 
-  # Compute next counters values
-  def next_counters(today = nil)
-    today ||= Time.zone.today
-    counters = { year: today.year, month: today.month, cweek: today.cweek }
-    period = self.period.to_sym
-    counters[:number] = last_number
-    if counters[:number].nil?
-      counters[:number] = number_start
-    else
-      counters[:number] += number_increment
-    end
-    last_period_value = send('last_' + period.to_s)
-    if period != :number && last_period_value.present?
-      if last_period_value != counters[period.to_sym] || last_year != counters[:year]
+    # Compute next counters values
+    def next_counters(today = nil)
+      today ||= Time.zone.today
+      counters = { year: today.year, month: today.month, cweek: today.cweek }
+      period = self.period.to_sym
+      counters[:number] = last_number
+      if counters[:number].nil?
         counters[:number] = number_start
+      else
+        counters[:number] += number_increment
       end
+      last_period_value = send('last_' + period.to_s)
+      if period != :number && last_period_value.present?
+        if last_period_value != counters[period.to_sym] || last_year != counters[:year]
+          counters[:number] = number_start
+        end
+      end
+      counters
     end
-    counters
-  end
 
-  # Compute number with number_format and given counters
-  def compute(counters)
-    self.class.compute(number_format, counters)
-  end
+    # Compute number with number_format and given counters
+    def compute(counters)
+      self.class.compute(number_format, counters)
+    end
 end

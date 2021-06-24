@@ -173,12 +173,7 @@
           name: $(this).find('input.hidden').val()
       data = zones: zones
 
-      unless @vm?
-        @vm = new Vue {
-          el: @line.find('#storing-display')[0]
-          data: data
-        }
-      @vm.$data.zones = zones
+      @line.find('#storing-display').html(storing_display_template(zones))
 
     retrievePreviousItemValue: ->
       line = @line
@@ -191,6 +186,15 @@
         for item in Object.keys(input_values_hash)
           line.find('*[data-remember=' + item + ']').val(input_values_hash[item])
 
+  storing_display_template = (zones) =>
+    zones.map((zone) =>
+      """
+        <p>
+          <strong class="storage-quantity">#{zone.quantity} #{zone.unit}</strong>
+          <span class="storage-zone">#{zone.name}</span>
+        </p>
+      """
+      ).reduce(((a, b) -> a + b), '')
 
   $(document).ready ->
     $('*[data-iceberg]').each ->

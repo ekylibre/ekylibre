@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+using Ekylibre::Utils::DateSoftParse
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class DaplosIntervention < DaplosNode
@@ -27,6 +31,7 @@ module Agroedi
       def initialize(*args)
         super
         return if self.class == DaplosIntervention
+
         DaplosExchanger::WorkingPeriod.new(self, daplos).register
         DaplosExchanger::Target.new(self, daplos).register
         register_parameters(self.inputs_to_register)
@@ -44,7 +49,7 @@ module Agroedi
       end
 
       def unique?
-        %i[sowing_without_plant_output harvesting].any? do |code|
+        %i[sowing_without_plant_output harvesting_with_plant_or_land_parcel].any? do |code|
           agroedi_code == code
         end
       end
@@ -73,6 +78,7 @@ module Agroedi
       def procedure
         procedure = Procedo.find(agroedi_code)
         raise "No procedure for #{agroedi_code}" unless procedure
+
         procedure
       end
 
@@ -87,6 +93,7 @@ module Agroedi
         unless ekylibre_agroedi
           raise "Intervention nature #{code.inspect} has no equivalent in Ekylibre reference"
         end
+
         @memo_agroedi_code = ekylibre_agroedi
       end
 
@@ -100,8 +107,10 @@ module Agroedi
 
       def already_imported?
         return true if self.record
+
         records = guids.map { |g| ::Intervention.find_by(%(providers @> '{ "daplos_intervention_guid": ["#{g}"]}')) }
         return false unless records.all?(&:present?)
+
         self.record ||= records.first
       end
 
@@ -115,13 +124,13 @@ module Agroedi
 
       def to_attributes
         collection_attributes = children.map do |key, values|
-            keyed_values = values.map do |val|
-              [val.uid.to_s, val.to_attributes]
-            end
-            ["#{key}_attributes", keyed_values.to_h]
-          end.to_h.with_indifferent_access
+          keyed_values = values.map do |val|
+            [val.uid.to_s, val.to_attributes]
+          end
+          ["#{key}_attributes", keyed_values.to_h]
+        end.to_h.with_indifferent_access
 
-          procedo_consistent(collection_attributes.merge(general_attributes))
+        procedo_consistent(collection_attributes.merge(general_attributes))
       end
 
       private

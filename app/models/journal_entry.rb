@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,6 +42,7 @@
 #  lock_version               :integer          default(0), not null
 #  number                     :string           not null
 #  printed_on                 :date             not null
+#  provider                   :jsonb
 #  real_balance               :decimal(19, 4)   default(0.0), not null
 #  real_credit                :decimal(19, 4)   default(0.0), not null
 #  real_currency              :string           not null
@@ -60,10 +63,11 @@
 #  - *          in journal currency
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
-class JournalEntry < Ekylibre::Record::Base
-  class IncompatibleCurrencies < StandardError;
-  end
+class JournalEntry < ApplicationRecord
+  class IncompatibleCurrencies < StandardError; end
+
   include Attachable
+  include ComplianceCheckable
   attr_readonly :journal_id
   refers_to :currency
   refers_to :real_currency, class_name: 'Currency'
@@ -71,7 +75,7 @@ class JournalEntry < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
   belongs_to :resource, polymorphic: true
-  belongs_to :financial_year_exchange
+  belongs_to :financial_year_exchange, inverse_of: :journal_entries
   has_many :affairs, dependent: :nullify
   has_many :fixed_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where('balance != ?', 0.0) }, foreign_key: :entry_id, class_name: 'JournalEntryItem'
@@ -101,10 +105,10 @@ class JournalEntry < Ekylibre::Record::Base
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
   validates :continuous_number, uniqueness: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
-  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
   validates :reference_number, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
-  validates :validated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :validated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
   validates :state, length: { allow_nil: true, maximum: 30 }
@@ -113,6 +117,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates :real_currency_rate, numericality: { greater_than: 0 }
   validates :number, uniqueness: { scope: %i[journal_id financial_year_id] }
   validates :printed_on, financial_year_writeable: true, allow_blank: true
+  validates :name, presence: true
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -143,12 +148,42 @@ class JournalEntry < Ekylibre::Record::Base
     # Build an SQL condition based on options which should contains acceptable states
     # @deprecated
     def state_condition(states = {}, table_name = nil)
+      if states.nil?
+        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+
+        states = []
+      end
+
+      if !states.is_a?(Array)
+        if states.respond_to?(:keys)
+          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          states = states.keys
+        else
+          raise StandardError.new("Unable to find any state in the variable provided (#{states})")
+        end
+      end
+
       condition_builder.state_condition(states, table_name: table_name || self.table_name)
     end
 
     # Build an SQL condition based on options which should contains acceptable states
     # @deprecated
     def journal_condition(journals = {}, table_name = nil)
+      if journals.nil?
+        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+
+        journals = []
+      end
+
+      if !journals.is_a?(Array)
+        if journals.respond_to?(:keys)
+          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          journals = journals.select { |_k, v| v == '1' }.keys
+        else
+          raise StandardError.new("Unable to find any state in the variable provided (#{journals})")
+        end
+      end
+
       condition_builder.journal_condition(journals, table_name: table_name || self.table_name)
     end
 
@@ -174,7 +209,25 @@ class JournalEntry < Ekylibre::Record::Base
 
   # return the letter if any on items
   def letter
-    items.pluck(:letter).compact.uniq.first
+    items.distinct.pluck(:letter).compact.first
+  end
+
+  # return the isacompta_letter if any on items
+  def isacompta_letter
+    items.distinct.pluck(:isacompta_letter).compact.first
+  end
+
+  def complete_letter
+    l = items.pluck(:letter).compact.uniq.first
+    if l && l.include?('*')
+      nil
+    elsif l
+      l
+    end
+  end
+
+  def lettered_at
+    items.pluck(:lettered_at).compact.uniq.first
   end
 
   # return the date of the first payment (incomming or outgoing)
@@ -215,7 +268,7 @@ class JournalEntry < Ekylibre::Record::Base
     self.balance = debit - credit
 
     if real_balance.zero? && !balance.zero?
-      magnitude = 10 ** Nomen::Currency.find(currency).precision
+      magnitude = 10 ** Onoma::Currency.find(currency).precision
       error_sum = balance * magnitude
       column = error_sum > 0 ? :credit : :debit
 
@@ -246,7 +299,7 @@ class JournalEntry < Ekylibre::Record::Base
     else
       # FIXME: We need to do something better when currencies don't match
       if currency.present? && (absolute_currency.present? || real_currency.present?)
-        raise IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+        raise IncompatibleCurrencies.new("You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})")
       end
     end
     if number.present?
@@ -256,6 +309,8 @@ class JournalEntry < Ekylibre::Record::Base
     end
 
     self.currency = absolute_currency if financial_year.blank?
+
+    self.name = items.first.name if self.name.nil? && items.any?
   end
 
   validate(on: :update) do
@@ -263,7 +318,6 @@ class JournalEntry < Ekylibre::Record::Base
     errors.add(:number, :entry_has_been_already_validated) if old.closed?
   end
 
-  #
   validate do
     # TODO: Validates number has journal's code as prefix
     if printed_on
@@ -295,6 +349,9 @@ class JournalEntry < Ekylibre::Record::Base
       real_currency_rate: real_currency_rate
     )
     regularizations.each(&:save)
+
+    compliance = { vendor: :fec, name: :journal_entries, data: { errors: FEC::Check::JournalEntry.validate(self) } }
+    self.update_column(:compliance, compliance)
   end
 
   before_destroy do
@@ -315,6 +372,7 @@ class JournalEntry < Ekylibre::Record::Base
 
   def need_currency_change?
     return nil unless journal
+
     year_currency = if financial_year
                       financial_year.currency
                     elsif printed_on? && (year = FinancialYear.on(printed_on))
@@ -327,6 +385,7 @@ class JournalEntry < Ekylibre::Record::Base
 
   def expected_financial_year
     raise 'Missing printed_on' unless printed_on
+
     FinancialYear.on(printed_on)
   end
 
@@ -345,6 +404,17 @@ class JournalEntry < Ekylibre::Record::Base
 
   def bank_statement_number
     bank_statements.first.number if bank_statements.first
+  end
+
+  # return the label of the main client_or_supplier_account of an entry
+  # in order to show which client or supplier is involved in the entry items
+  def main_client_or_supplier_account
+    third_accounts = Account.where(id: items.pluck(:account_id)).thirds.reorder(:number)
+    if third_accounts.any?
+      third_accounts.first.label
+    else
+      nil
+    end
   end
 
   # FIXME: Nothing to do here. What's the meaning?
@@ -384,7 +454,8 @@ class JournalEntry < Ekylibre::Record::Base
   # Create counter-entry_items
   def cancel
     return nil unless useful_items.any?
-    ActiveRecord::Base.transaction do
+
+    ApplicationRecord.transaction do
       reconcilable_accounts = []
       list = []
       useful_items.each do |item|
@@ -419,7 +490,6 @@ class JournalEntry < Ekylibre::Record::Base
     add!(name, account, amount, options)
   end
 
-  #
   def add_credit(name, account, amount, options = {})
     add!(name, account, amount, options.merge(credit: true))
   end
@@ -427,6 +497,61 @@ class JournalEntry < Ekylibre::Record::Base
   # Flag the entry updatable and destroyable, used during financial year exchange import
   def mark_for_exchange_import!
     self.importing_from_exchange = true
+  end
+
+  def currently_exchanged?
+    financial_year_exchange_id.present?
+  end
+
+  # --- FEC methods start ---
+
+  def fec_base_errors
+    base_fec_errors = FEC::Check::JournalEntry.base_errors_name
+    compliance_errors.select { |err| base_fec_errors.include?(err) }
+  end
+
+  def fec_date_errors
+    date_fec_errors = FEC::Check::JournalEntry.date_errors_name
+    compliance_errors.select { |err| date_fec_errors.include?(err) }
+  end
+
+  def has_fec_base_error
+    fec_base_errors.any?
+  end
+
+  def has_fec_date_error
+    fec_date_errors.any?
+  end
+
+  def has_no_fec_data
+    compliance_data.empty?
+  end
+
+  def duplicated_number_accounts
+    non_uniq_name_account = Account.with_non_uniq_name
+    duplicated_number_accounts = []
+    items.map(&:account).uniq.each do |jei|
+      next if duplicated_number_accounts.include?(jei.number)
+      next if non_uniq_name_account.exclude?(jei.name)
+
+      duplicated_number_accounts << jei.number
+    end
+    duplicated_number_accounts
+  end
+
+  def invalid_accounts_number_count
+    items.joins(:account).where("LENGTH(accounts.number) < 3").count
+  end
+
+  # --- FEC methods end ---
+
+  class << self
+    def fec_compliance_preference
+      pref = Preference.global.find_by(name: :check_fec_compliance)
+      return false if pref.nil?
+
+      pref.boolean_value
+    end
   end
 
   private
@@ -438,7 +563,6 @@ class JournalEntry < Ekylibre::Record::Base
     end
 
     def in_opened_financial_year_exchange?
-      return unless financial_year
-      financial_year.exchanges.opened.any? { |e| (e.started_on..e.stopped_on).cover?(printed_on) }
+      financial_year.present? && financial_year.exchanges.opened.at(printed_on).exists?
     end
 end

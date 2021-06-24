@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -72,7 +74,7 @@ class ShipmentItem < ParcelItem
 
   has_one :storage, through: :shipment
   has_one :contract, through: :shipment
-
+  belongs_to :product
   validates :source_product, presence: true
 
   delegate :allow_items_update?, :remain_owner, :planned_at,
@@ -103,7 +105,6 @@ class ShipmentItem < ParcelItem
 
     true
   end
-
 
   ALLOWED = %w[
     product_localization_id
@@ -139,6 +140,7 @@ class ShipmentItem < ParcelItem
     state = true
     check_outgoing(checked_at)
     return state, msg unless state
+
     save!
   end
 
@@ -150,16 +152,16 @@ class ShipmentItem < ParcelItem
 
   protected
 
-  def check_outgoing(_checked_at)
-    update! product: source_product
-  end
-
-  def give_outgoing
-    if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
-      ProductOwnership.create!(product: product, owner: shipment_recipient, started_at: shipment_given_at, originator: self)
-      ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
-      ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
+    def check_outgoing(_checked_at)
+      update! product: source_product
     end
-    ProductMovement.create!(product: product, delta: -1 * population, started_at: shipment_given_at, originator: self)
-  end
+
+    def give_outgoing
+      if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
+        ProductOwnership.create!(product: product, owner: shipment_recipient, started_at: shipment_given_at, originator: self)
+        ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
+        ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
+      end
+      ProductMovement.create!(product: product, delta: -1 * population, started_at: shipment_given_at, originator: self)
+    end
 end

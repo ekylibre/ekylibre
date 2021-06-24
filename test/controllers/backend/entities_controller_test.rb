@@ -20,7 +20,7 @@ require 'test_helper'
 module Backend
   class EntitiesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions autocomplete: { column: :first_name, q: 'sa' },
-                               except: %i[edit toggle picture]
+                               except: %i[edit toggle picture list_supplier_journal_entry_items list_client_journal_entry_items]
     # TODO: Re-activate #edit, #toggle and #picture tests.
   end
 end

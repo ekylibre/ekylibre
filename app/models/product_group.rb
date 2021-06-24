@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -97,6 +102,7 @@ class ProductGroup < Product
   scope :availables, ->(**args) {
     at = args[:at]
     return available if at.blank?
+
     if at.is_a?(String)
       if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
         available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
@@ -127,8 +133,9 @@ class ProductGroup < Product
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(Product)
-      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}")
     end
+
     Intervention.write(:group_inclusion, options) do |i|
       i.cast :group, self, as: 'group_inclusion-target'
       i.cast :member, member, as: 'group_inclusion-includer'
@@ -140,8 +147,9 @@ class ProductGroup < Product
   # Remove a member from the group
   def remove(member, _options = {})
     unless member.is_a?(Product)
-      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}")
     end
+
     Intervention.write(:group_exclusion, at: started_at, production: production) do |i|
       i.cast :group, self, as: 'group_exclusion-target'
       i.cast :member, member, as: 'group_exclusion-includer'

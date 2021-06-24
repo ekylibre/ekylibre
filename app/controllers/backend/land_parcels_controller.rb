@@ -54,7 +54,7 @@ module Backend
     end
 
     # List interventions for one production support linked to land parcel
-    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT intervention_id FROM activity_productions_interventions WHERE activity_production_id IN (SELECT activity_production_id FROM products WHERE products.id = ?))", 'record', 'params[:id]'.c], order: { created_at: :desc }, line_class: :status) do |t|
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT activity_productions_interventions.intervention_id FROM activity_productions_interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = activity_productions_interventions.intervention_id WHERE activity_production_id IN (SELECT activity_production_id FROM products WHERE products.id = ?) AND campaigns_interventions.campaign_id = ?)", 'record', 'params[:id]'.c, 'current_campaign'.c], order: { created_at: :desc }, line_class: :status) do |t|
       t.column :name, url: true
       t.column :started_at
       t.column :human_working_duration
@@ -75,6 +75,12 @@ module Backend
       t.column :dead_at
     end
 
+    def index
+      notify_land_parcel_creation_warning
+
+      super
+    end
+
     def show
       return unless (plant = find_and_check)
 
@@ -83,5 +89,32 @@ module Backend
 
       super
     end
+
+    private
+
+      def notify_land_parcel_creation_warning
+        warnings = []
+        if CultivableZone.count.zero?
+          warnings << helpers.link_to(:a_cultivable_zone.tl, backend_cultivable_zones_path)
+        end
+
+        if Activity.count.zero?
+          warnings << helpers.link_to(:an_activity.tl, backend_activity_productions_path)
+        end
+
+        if warnings.any?
+          notify_warning_now(:before_add_a_land_parcel_add_a_x_html, x: as_list(warnings), html: true)
+        end
+      end
+
+      # @param [Array<String>] elements
+      # @return [String] HTML representation of a list that contains all the elements in `elements`
+      def as_list(elements)
+        helpers.content_tag(:ul) do
+          elements.map do |element|
+            helpers.content_tag(:li, element)
+          end.join.html_safe
+        end
+      end
   end
 end

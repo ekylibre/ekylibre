@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TimeLineable
   extend ActiveSupport::Concern
 
@@ -64,6 +66,7 @@ module TimeLineable
 
   def previous
     return nil unless self.started_at
+
     other_siblings.before(self.started_at).order(started_at: :desc).first
   end
 
@@ -73,6 +76,7 @@ module TimeLineable
 
   def followings
     return nil unless started_at
+
     other_siblings.after(self.started_at)
   end
 
@@ -90,13 +94,13 @@ module TimeLineable
 
   private
 
-  def siblings
-    raise NotImplementedError, 'Private method :siblings must be implemented'
-  end
+    def siblings
+      raise NotImplementedError.new('Private method :siblings must be implemented')
+    end
 
-  def other_siblings
-    safe_id = id
-    safe_id ||= 0
-    siblings.where.not(id: safe_id)
-  end
+    def other_siblings
+      safe_id = id
+      safe_id ||= 0
+      siblings.where.not(id: safe_id)
+    end
 end

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +37,7 @@
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
 #  position                :integer
+#  provider                :jsonb
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #  with_accounting         :boolean          default(FALSE), not null
@@ -73,6 +74,22 @@ incoming_payment_modes_002:
   id: 2
   lock_version: 0
   name: By check
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  with_accounting: true
+  with_commission: false
+  with_deposit: false
+incoming_payment_modes_003:
+  active: true
+  cash_id: 1
+  commission_base_amount: 0.0
+  commission_percentage: 0.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  detail_payments: false
+  id: 3
+  lock_version: 0
+  name: SEPA
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   with_accounting: true

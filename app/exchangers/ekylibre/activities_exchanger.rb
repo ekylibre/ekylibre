@@ -1,9 +1,14 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Permits to import activities from a CSV file with 3 columns:
   #  - Name
   #  - Family (from nomenclature ActivityFamily)
   #  - Cultivation variety (from nomenclature Variety)
   class ActivitiesExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     def check
       valid = true
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
@@ -14,8 +19,8 @@ module Ekylibre
           family: (row[1].blank? ? nil : row[1].to_s),
           variety: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
-        valid = false unless Nomen::ActivityFamily.find(r.family)
-        valid = false unless Nomen::Variety.find(r.variety)
+        valid = false unless Onoma::ActivityFamily.find(r.family)
+        valid = false unless Onoma::Variety.find(r.variety)
         w.check_point
       end
       valid
@@ -33,7 +38,7 @@ module Ekylibre
           variety: (row[2].blank? ? nil : row[2].to_s)
         }.to_struct
 
-        family = Nomen::ActivityFamily.find(r.family)
+        family = Onoma::ActivityFamily.find(r.family)
 
         attributes = {
           name: r.name,
@@ -58,7 +63,17 @@ module Ekylibre
             cultivation_variety: r.variety,
             support_variety: :animal_group,
             with_supports: true,
+            production_cycle: :perennial,
             size_indicator: 'members_population'
+          )
+        elsif family <= :administering
+          attributes.update(
+            family: :administering,
+            with_cultivation: false,
+            with_supports: false,
+            cultivation_variety: nil,
+            support_variety: nil,
+            nature: :auxiliary
           )
         end
         activity = Activity.find_or_initialize_by(attributes.slice(:name, :family, :cultivation_variety))

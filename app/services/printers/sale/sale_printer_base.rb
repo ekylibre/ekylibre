@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Printers
   module Sale
     class SalePrinterBase < PrinterBase
       attr_reader :sale
 
-      def initialize(template:, sale:)
+      def initialize(sale:, template:)
         super(template: template)
 
         @sale = sale
@@ -20,7 +22,6 @@ module Printers
       def key
         sale.number
       end
-
     end
   end
 end

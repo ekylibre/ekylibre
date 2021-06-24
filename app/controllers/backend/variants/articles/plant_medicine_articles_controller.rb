@@ -2,7 +2,6 @@ module Backend
   module Variants
     module Articles
       class PlantMedicineArticlesController < Backend::Variants::ArticleVariantsController
-
         importable_from_lexicon :registered_phytosanitary_products, model_name: "Variants::Articles::#{controller_name.classify}".constantize
 
         list(model: :product_nature_variants, conditions: variants_conditions, collection: true) do |t|
@@ -10,6 +9,7 @@ module Backend
           t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
           t.column :name, url: { namespace: :backend }
           t.status
+          t.column :human_status, label: :state, hidden: true
           t.column :number
           t.column :nature, url: { controller: '/backend/product_natures' }
           t.column :category, url: { controller: '/backend/product_nature_categories' }
@@ -27,6 +27,7 @@ module Backend
           t.column :lib_court, label_method: :decorated_lib_court
           t.column :ephy_usage_phrase, label_method: :decorated_ephy_usage_phrase
           t.status
+          t.column :human_status, label: :state, hidden: true
           t.column :dose_quantity, label_method: :decorated_dose_quantity, class: 'center-align'
           t.column :applications_count, class: 'center-align'
           t.column :pre_harvest_delay, label_method: :decorated_pre_harvest_delay, class: 'center-align'

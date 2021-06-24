@@ -10,11 +10,12 @@ module Clean
       def validable_column?(column)
         return false if %i[created_at creator_id creator updated_at updater_id updater position lock_version].include?(column.name.to_sym)
         return false if column.name.to_s =~ /^\_/
+
         true
       end
 
       def search_missing_validations(model)
-        return '' unless model.superclass == Ekylibre::Record::Base
+        return '' unless model.superclass == ApplicationRecord
 
         record = model.name.underscore
 
@@ -40,7 +41,7 @@ module Clean
               on_or_after = "->(#{record}) { #{record}.started_#{suffix} || Time.new(1, 1, 1).in_time_zone }"
             end
             on_or_after ||= '-> { Time.new(1, 1, 1).in_time_zone }'
-            list << "timeliness: { on_or_after: #{on_or_after}, on_or_before: -> { Time.zone.#{suffix == 'on' ? 'today' : 'now'} + 50.years }#{', type: :date' if type == :date} }" # #{ 'allow_blank: true, ' if column.null }
+            list << "timeliness: { on_or_after: #{on_or_after}, on_or_before: -> { Time.zone.#{suffix == 'on' ? 'today' : 'now'} + 100.years }#{', type: :date' if type == :date} }" # #{ 'allow_blank: true, ' if column.null }
           elsif type == :boolean
             list << 'inclusion: { in: [true, false] }'
           elsif type == :integer
@@ -66,6 +67,7 @@ module Clean
             list << 'allow_blank: true' # unless [:date, :datetime, :timestamp].include? type
           end
           next if list.empty?
+
           validation = list.join(', ')
           validations[validation] ||= []
           validations[validation] << column.name.to_sym
@@ -74,8 +76,9 @@ module Clean
         model.reflect_on_all_associations(:belongs_to).select do |association|
           column = model.columns_hash[association.foreign_key.to_s]
           unless column
-            raise StandardError, "Column #{association.foreign_key} is missing. See #{association.active_record.name} at '#{association.macro} :#{association.name}'"
+            raise StandardError.new("Column #{association.foreign_key} is missing. See #{association.active_record.name} at '#{association.macro} :#{association.name}'")
           end
+
           !column.null && validable_column?(column)
         end.each do |reflection|
           validation = 'presence: true'

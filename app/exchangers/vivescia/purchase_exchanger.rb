@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Vivescia
   # Exchanger to import COFTW.isa files from IsaCompta software
   class PurchaseExchanger < ActiveExchanger::Base
+    category :purchases
+    vendor :vivescia
+
     def check
       SVF::EdiFactInvoic.parse(file)
     rescue SVF::InvalidSyntax
@@ -107,7 +112,7 @@ module Vivescia
                   product_nature_variant = ProductNatureVariant.import_from_nomenclature(pnv.reference_name, true)
                   product_nature_variant.providers = { sender.id => edi_purchase_item.work_number } if edi_purchase_item.work_number.present?
                   product_nature_variant.name = pivot[:name]
-                  product_nature_variant.unit_name = Nomen::Unit[pivot[:unit]].human_name
+                  product_nature_variant.unit_name = Onoma::Unit[pivot[:unit]].human_name
                   product_nature_variant.save!
                 else
                   w.error "No variant availables for EDI work number : #{edi_purchase_item.work_number}".red
@@ -115,9 +120,9 @@ module Vivescia
               end
 
               item = if edi_purchase_item.tax
-                       Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: edi_purchase_item.tax.rate.to_f)
+                       Onoma::Tax.find_by(country: purchase.supplier.country.to_sym, amount: edi_purchase_item.tax.rate.to_f)
                      else
-                       Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, nature: :null_vat, amount: 0.0)
+                       Onoma::Tax.find_by(country: purchase.supplier.country.to_sym, nature: :null_vat, amount: 0.0)
                      end
               tax = Tax.import_from_nomenclature(item.name)
 
@@ -133,13 +138,13 @@ module Vivescia
                         -1.0
                       else
                         1.0
-                            end
+                      end
                     else
                       if edi_purchase.header.purchase_code.include?('AFA') || edi_purchase.header.purchase_code.include?('ACF')
                         -edi_purchase_item.quantity
                       else
                         edi_purchase_item.quantity
-                            end
+                      end
                     end
 
               # set unit_pretax_amount to pretax_amount if 0
@@ -211,7 +216,7 @@ module Vivescia
                   product_nature_variant = ProductNatureVariant.import_from_nomenclature(pnv.reference_name, true)
                   product_nature_variant.providers = { sender.id => edi_sale_item.work_number } if edi_sale_item.work_number.present?
                   product_nature_variant.name = pivot[:name]
-                  product_nature_variant.unit_name = Nomen::Unit[pivot[:unit]].human_name
+                  product_nature_variant.unit_name = Onoma::Unit[pivot[:unit]].human_name
                   product_nature_variant.save!
                 else
                   w.error "No variant availables for EDI work number : #{edi_sale_item.work_number}".red
@@ -219,9 +224,9 @@ module Vivescia
               end
 
               item = if edi_sale_item.tax
-                       Nomen::Tax.find_by(country: sale.client.country.to_sym, amount: edi_sale_item.tax.rate.to_f)
+                       Onoma::Tax.find_by(country: sale.client.country.to_sym, amount: edi_sale_item.tax.rate.to_f)
                      else
-                       Nomen::Tax.find_by(country: sale.client.country.to_sym, nature: :null_vat, amount: 0.0)
+                       Onoma::Tax.find_by(country: sale.client.country.to_sym, nature: :null_vat, amount: 0.0)
                      end
               tax = Tax.import_from_nomenclature(item.name)
 
@@ -235,7 +240,7 @@ module Vivescia
               else
                 upta = edi_sale_item.price_unit
                 pta = edi_sale_item.pretax_amount
-                     end
+              end
 
               if edi_sale_item.quantity > 0.0
                 qty = edi_sale_item.quantity
@@ -256,6 +261,7 @@ module Vivescia
                 pretax_amount: edi_sale_item.pretax_amount,
                 variant_id: product_nature_variant.id
               ).first
+
               sale.items.create!(
                 quantity: qty,
                 tax: tax,

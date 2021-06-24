@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +25,7 @@
 #
 #  allowed_entry_factor     :interval
 #  allowed_harvest_factor   :interval
+#  applications_frequency   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -36,6 +37,7 @@
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string
+#  imputation_ratio         :decimal(19, 4)   default(1), not null
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -50,12 +52,15 @@
 #  quantity_population      :decimal(19, 4)
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
+#  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  usage_id                 :string
+#  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
@@ -899,37 +904,6 @@ intervention_outputs_003:
     45.8259433837065, -0.797173976898193 45.8246574475616, -0.796272754669189 45.8233789583432,
     -0.796594619750976 45.8217490289288, -0.797646045684814 45.8210088158703, -0.798568725585938
     45.8212032162122, -0.799566507339478 45.8210985391894, -0.799287557601929 45.8255247100834)))
-intervention_outputs_004:
-  created_at: 2014-11-07 15:47:47.001216000 Z
-  creator_id: 1
-  dead: false
-  id: 81
-  intervention_id: 18
-  lock_version: 2
-  position: 3
-  product_id: 105
-  quantity_population: 1.0
-  reference_name: grass
-  type: InterventionOutput
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2014-11-07 15:50:04.462680000 Z
-  updater_id: 1
-  variant_id: 43
-intervention_outputs_005:
-  created_at: 2014-11-07 16:16:21.828011000 Z
-  creator_id: 1
-  dead: false
-  id: 84
-  intervention_id: 19
-  lock_version: 0
-  position: 3
-  quantity_population: 10.1637
-  reference_name: grass
-  type: InterventionOutput
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2014-11-07 16:16:21.828011000 Z
-  updater_id: 1
-  variant_id: 43
 intervention_outputs_006:
   created_at: 2014-11-07 16:49:41.956818000 Z
   creator_id: 1
@@ -1248,46 +1222,6 @@ intervention_targets_009:
   updated_at: 2014-11-07 15:45:30.929885000 Z
   updater_id: 1
   variant_id: 28
-  working_zone: SRID=4326;MultiPolygon (((-0.799287557601929 45.8255247100834, -0.798171758651733
-    45.8259433837065, -0.797173976898193 45.8246574475616, -0.796272754669189 45.8233789583432,
-    -0.796594619750976 45.8217490289288, -0.797646045684814 45.8210088158703, -0.798568725585938
-    45.8212032162122, -0.799566507339478 45.8210985391894, -0.799287557601929 45.8255247100834)))
-intervention_targets_010:
-  created_at: 2014-11-07 15:47:47.000211000 Z
-  creator_id: 1
-  dead: false
-  id: 80
-  intervention_id: 18
-  lock_version: 2
-  position: 2
-  product_id: 103
-  quantity_population: 10.1637
-  reference_name: cultivation
-  type: InterventionTarget
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2014-11-07 15:55:52.248115000 Z
-  updater_id: 1
-  variant_id: 40
-  working_zone: SRID=4326;MultiPolygon (((-0.799287557601929 45.8255247100834, -0.798171758651733
-    45.8259433837065, -0.797173976898193 45.8246574475616, -0.796272754669189 45.8233789583432,
-    -0.796594619750976 45.8217490289288, -0.797646045684814 45.8210088158703, -0.798568725585938
-    45.8212032162122, -0.799566507339478 45.8210985391894, -0.799287557601929 45.8255247100834)))
-intervention_targets_011:
-  created_at: 2014-11-07 16:16:21.826306000 Z
-  creator_id: 1
-  dead: false
-  id: 83
-  intervention_id: 19
-  lock_version: 0
-  position: 2
-  product_id: 103
-  quantity_population: 10.1637
-  reference_name: cultivation
-  type: InterventionTarget
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2014-11-07 16:16:21.826306000 Z
-  updater_id: 1
-  variant_id: 40
   working_zone: SRID=4326;MultiPolygon (((-0.799287557601929 45.8255247100834, -0.798171758651733
     45.8259433837065, -0.797173976898193 45.8246574475616, -0.796272754669189 45.8233789583432,
     -0.796594619750976 45.8217490289288, -0.797646045684814 45.8210088158703, -0.798568725585938
@@ -1798,38 +1732,6 @@ intervention_tools_016:
   updated_at: 2014-11-07 15:45:30.928585000 Z
   updater_id: 1
   variant_id: 26
-intervention_tools_017:
-  created_at: 2014-11-07 15:47:46.998727000 Z
-  creator_id: 1
-  dead: false
-  id: 79
-  intervention_id: 18
-  lock_version: 0
-  position: 1
-  product_id: 85
-  quantity_population: 0.0
-  reference_name: herd
-  type: InterventionTool
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2014-11-07 15:47:46.998727000 Z
-  updater_id: 1
-  variant_id: 31
-intervention_tools_018:
-  created_at: 2014-11-07 16:16:21.824119000 Z
-  creator_id: 1
-  dead: false
-  id: 82
-  intervention_id: 19
-  lock_version: 0
-  position: 1
-  product_id: 85
-  quantity_population: 0.0
-  reference_name: herd
-  type: InterventionTool
-  unit_pretax_stock_amount: 0.0
-  updated_at: 2014-11-07 16:16:21.824119000 Z
-  updater_id: 1
-  variant_id: 31
 intervention_tools_019:
   created_at: 2014-11-07 16:20:51.425202000 Z
   creator_id: 1

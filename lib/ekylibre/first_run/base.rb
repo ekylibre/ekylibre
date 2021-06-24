@@ -13,8 +13,9 @@ module Ekylibre
         @mode = @mode.to_sym
         @path = path
         unless @path.exist?
-          raise ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
+          raise ArgumentError.new("Need a valid folder path. #{@path} doesn't exist.")
         end
+
         @term_width = begin
                         `/usr/bin/env tput cols`.to_i
                       rescue
@@ -44,6 +45,7 @@ module Ekylibre
           LOADERS.each do |loader, imports|
             run_loader(loader, imports)
           end
+          load_defaults
           executed_preference.update!(value: true)
         end
       end
@@ -185,7 +187,7 @@ module Ekylibre
         basename = nature.to_s.humanize + ' (' + Pathname.new(file).basename.to_s + ') '
         total = 0
         max = options[:max] || @max
-        Import.launch!(nature, file, options.fetch(:options, {})) do |progress, count|
+        Import.launch_result!(nature, file, options.fetch(:options, {})) do |progress, count|
           if @verbose
             status = [' + ' + basename]
             status << " #{progress.to_i}%"
@@ -207,7 +209,7 @@ module Ekylibre
             total = count
           end
           max <= 0 || count < max
-        end
+        end.raise_if_error!
         if @verbose
           stop = Time.zone.now
           status = [' ✔ ' + nature.to_s.humanize, ' (' + Pathname.new(file).basename.to_s + ') ']
@@ -244,6 +246,20 @@ module Ekylibre
         end
         text
       end
+
+      private
+
+        def load_defaults
+          default_datasets.each do |dataset|
+            puts "Load default #{dataset}..."
+            model = dataset.to_s.classify.constantize
+            model.load_defaults
+          end
+        end
+
+        def default_datasets
+          %i[naming_format_land_parcels]
+        end
     end
   end
 end

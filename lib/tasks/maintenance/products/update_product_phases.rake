@@ -25,7 +25,7 @@ namespace :maintenance do
       Ekylibre::Tenant.switch(tenant) do
         products_to_update = products_with_phases_to_update
 
-        puts "There are #{ products_to_update.count } products to update"
+        puts "There are #{products_to_update.count} products to update"
       end
     end
 

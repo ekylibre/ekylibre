@@ -1,7 +1,6 @@
 module Ekylibre
   module Testing
     module Concerns
-
       module FixturesModule
         extend ActiveSupport::Concern
 
@@ -37,12 +36,11 @@ module Ekylibre
             unless attrs = @@fixtures[model.table_name][label.to_s]
               raise "Unknown fixture #{label}"
             end
+
             attrs['id'].to_i
           end
         end
-
       end
-
     end
   end
 end

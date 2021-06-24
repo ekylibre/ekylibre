@@ -15,7 +15,7 @@ module Backend
       started_at = working_periods.reorder(started_at: :asc).first.started_at.to_date
       stopped_at = started_at + 1.day if started_at >= stopped_at
 
-      unit = Nomen::Unit[options.fetch(:time_unit, :hour)]
+      unit = Onoma::Unit[options.fetch(:time_unit, :hour)]
 
       series = []
       categories = {}
@@ -28,7 +28,8 @@ module Backend
 
       # data for bar chart times by activities and by month
       Activity.find_each do |activity|
-        act_interventions = Intervention::HABTM_Activities
+        act_interventions = Intervention
+                              .habtm_activities
                               .where(intervention_id: working_periods.pluck(:intervention_id), activity_id: activity.id)
                               .reorder(:intervention_started_at)
                               .group_by { |m| m.intervention_started_at.year.to_s + m.intervention_started_at.month.to_s.rjust(3, '0') }
@@ -80,8 +81,9 @@ module Backend
     def product_mini_map(product = nil)
       product ||= resource
       unless product.is_a?(Product)
-        raise ArgumentError, 'Product expected, got ' + product.inspect
+        raise ArgumentError.new('Product expected, got ' + product.inspect)
       end
+
       mini_map(product) do |r|
         { name: r.name, shape: r.shape }
       end

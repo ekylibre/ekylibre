@@ -43,21 +43,22 @@ module Ekylibre
 
       def page(to, options = {}, &_block)
         raise 'No part/group/item given' unless current_node
+
         current_node.add_page(to, options)
       end
 
       private
 
-      def current_node
-        @stack.first
-      end
+        def current_node
+          @stack.first
+        end
 
-      def yield_in_node(node, &_block)
-        @stack ||= []
-        @stack.insert(0, node)
-        yield
-        @stack.shift
-      end
+        def yield_in_node(node, &_block)
+          @stack ||= []
+          @stack.insert(0, node)
+          yield
+          @stack.shift
+        end
     end
   end
 end

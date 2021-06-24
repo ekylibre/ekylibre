@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module CharentesAlliance
   class OutgoingDeliveriesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :charentes_alliance
+
     def import
       # Unzip files
       dir = w.tmp_dir
@@ -54,7 +59,7 @@ module CharentesAlliance
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by(reference_name: r.product_variant)
-          if Nomen::ProductNatureVariant.find(r.product_variant)
+          if Onoma::ProductNatureVariant.find(r.product_variant)
             product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_variant)
           end
         end

@@ -1,12 +1,14 @@
 require 'test_helper'
 
+using Ekylibre::Utils::DateSoftParse
+
 module Interventions
   module Phytosanitary
     class PhytoHarvestAdvisorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       setup do
         @harvest_period = Models::Period.parse("2013-09-16T05:00:25+00:00", "2013-09-16T17:00:25+00:00")
 
-        @target = create(:corn_plant)
+        @target = create(:corn_plant, born_at: Date.new(2020, 2, 1).to_time)
 
         @spraying_intervention = create :intervention, :spraying, :with_target,
                                         on: @target,

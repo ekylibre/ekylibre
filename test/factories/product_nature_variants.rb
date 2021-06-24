@@ -12,6 +12,12 @@ FactoryBot.define do
     variety { 'worker' }
   end
 
+  factory :sale_variant, parent: :product_nature_variant do
+    association :nature, factory: :services_nature
+    association :category, factory: :saleable_category
+    variety { 'service' }
+  end
+
   factory :plant_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Plant variant - TEST#{n.to_s.rjust(8, '0')}" }
     variety { :triticum }
@@ -92,6 +98,15 @@ FactoryBot.define do
     association :category, factory: :tractor_category
   end
 
+  factory :sower_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Sower variant - #{n}" }
+    variety { :trailed_equipment }
+    unit_name { 'Sower' }
+
+    association :nature, factory: :sower_nature
+    association :category, factory: :sower_category
+  end
+
   factory :seed_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Seed variant - #{n}" }
     variety { :seed }
@@ -118,6 +133,14 @@ FactoryBot.define do
     unit_name { :equipment }
     association :category, factory: :equipment_category
     association :nature, factory: :equipment_nature
+  end
+
+  factory :tank_variant, class: ProductNatureVariant do
+    sequence(:name) { |n| "Equipment variant - TEST#{n.to_s.rjust(8, '0')}" }
+    variety { :tank }
+    unit_name { :equipment }
+    association :category, factory: :tank_category
+    association :nature, factory: :tank_nature
   end
 
   factory :land_parcel_variant, class: ProductNatureVariant do

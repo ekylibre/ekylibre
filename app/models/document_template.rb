@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,7 +44,7 @@
 #
 
 # Sources are stored in :private/reporting/:id/content.xml
-class DocumentTemplate < Ekylibre::Record::Base
+class DocumentTemplate < ApplicationRecord
   enumerize :archiving, in: %i[none_of_template first_of_template last_of_template none first last], default: :none, predicates: { prefix: true }
   enumerize :file_extension, in: %i[xml odt], default: :xml, predicates: true
   refers_to :language
@@ -65,10 +67,12 @@ class DocumentTemplate < Ekylibre::Record::Base
     natures.flatten!
     natures.compact!
     return none unless natures.respond_to?(:any?) && natures.any?
-    invalids = natures.select { |nature| Nomen::DocumentNature[nature].nil? }
+
+    invalids = natures.select { |nature| Onoma::DocumentNature[nature].nil? }
     if invalids.any?
-      raise ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
+      raise ArgumentError.new("Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}")
     end
+
     where(nature: natures, active: true).order(:name)
   }
 
@@ -77,8 +81,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
   before_validation do
-
-    #TODO: Change this when signed can be set with a form
+    # TODO: Change this when signed can be set with a form
     self.signed ||= DocumentTemplate.where(nature: nature, managed: true).any? { |e| e.signed }
     # Set file_extension to odt if source content type == odt
 
@@ -158,7 +161,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       path = document.file.path(:original)
       if signed
         user = document.creator
-        signer = SignatureManager.new
+        signer = Ekylibre::DocumentManagement::SignatureManager.new
         signer.sign(document: document, user: user)
       end
     end
@@ -215,13 +218,14 @@ class DocumentTemplate < Ekylibre::Record::Base
       if template = find_by(nature: nature, by_default: true, active: true)
         return template.print(datasource, key, format, options)
       end
+
       nil
     end
 
-    def find_active_template(name)
-      where(active: true)
-        .where(name.is_a?(Integer) ? { id: name.to_i } : { by_default: true, nature: name.to_s })
-        .first
+    def find_active_template(name, extension = nil)
+      attributes = name.is_a?(Integer) ? { id: name } : { by_default: true, nature: name.to_s }
+      attributes.merge!(file_extension: extension) if extension
+      find_by(active: true, **attributes)
     end
 
     # Returns the root directory for the document templates's sources
@@ -231,7 +235,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
     # Compute fallback chain for a given document nature
     def template_fallbacks(nature, locale)
-      ActiveSupport::Deprecation.warn "DocumentTemplate#template_fallbacks is deprecated, use Printers::TemplateFileProvider instead."
+      ActiveSupport::Deprecation.warn "DocumentTemplate#template_fallbacks is deprecated, use Ekylibre::DocumentManagement::TemplateFileProvider instead."
 
       stack = []
       load_path.each do |path|
@@ -256,9 +260,9 @@ class DocumentTemplate < Ekylibre::Record::Base
     def load_defaults(options = {})
       locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
 
-      file_provider = Printers::TemplateFileProvider.new(locale: locale)
+      file_provider = Ekylibre::DocumentManagement::TemplateFileProvider.build(locale: locale)
 
-      Ekylibre::Record::Base.transaction do
+      ApplicationRecord.transaction do
         manageds = where(managed: true).select(&:destroyable?)
         nature.values.each do |nature|
           template_path = file_provider.find_by_nature(nature)
@@ -269,7 +273,7 @@ class DocumentTemplate < Ekylibre::Record::Base
             File.open(template_path, 'rb:UTF-8') do |f|
               template = find_by(nature: nature, managed: true)
               if template.nil?
-                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last', signed: Nomen::DocumentNature.find(nature).signed)
+                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last', signed: Onoma::DocumentNature.find(nature).signed)
               end
 
               manageds.delete(template)

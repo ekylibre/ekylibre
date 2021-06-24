@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
     class Target < DaplosNode
@@ -28,4 +30,3 @@ module Agroedi
     end
   end
 end
-

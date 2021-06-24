@@ -8,7 +8,8 @@
   - products = Product.where(id: p_ids).reorder(:name)
   - if products.any?
     - k.helper do
-      %label= Product.human_attribute_name(:name)
+      %div.label-container
+        %label= Product.human_attribute_name(:name)
       = select_tag(:product_id, options_for_select([[]] + products.map{|u| [u.name, u.id]}, params[:product_id].to_i))
 
 - main_toolbar do |t|

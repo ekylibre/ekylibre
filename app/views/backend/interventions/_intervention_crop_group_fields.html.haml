@@ -1,0 +1,3 @@
+.nested-fields
+  = link_to_remove_nested_association('label', f, { data: { unroll_list_removed_id: f.object.crop_group_id }})
+  = f.association :crop_group, :as => :select

@@ -1,4 +1,4 @@
-class AddWaitingBookkeepOnFixedAssets < ActiveRecord::Migration
+class AddWaitingBookkeepOnFixedAssets < ActiveRecord::Migration[4.2]
   def change
     add_column :fixed_assets, :waiting_on, :date
     add_column :fixed_assets, :waiting_journal_entry_id, :integer

@@ -16,4 +16,4 @@
   .field
     = f.submit t("devise.invitations.edit.submit_button")
 
-  .field= link_to t(".ekylibre_oauth_sign_in", :default => "Sign in with Ekylibre.com"), user_ekylibre_omniauth_authorize_path(invitation_token: resource.invitation_token), class: "btn btn-primary btn-lg btn-block"
+  .field= link_to t("devise.invitations.edit.sign_in_with_ekylibre", :default => "Sign in with Ekylibre.com"), user_ekylibre_omniauth_authorize_path(invitation_token: resource.invitation_token), class: "btn btn-primary btn-lg btn-block"

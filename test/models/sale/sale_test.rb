@@ -113,7 +113,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal 496, sale.amount
 
     assert sale.propose!
-    assert sale.confirm!
+    assert sale.confirm!(DateTime.new(2018, 1, 1))
     assert sale.invoice!
 
     sale.reload
@@ -214,11 +214,11 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'Cannot create a sale during a financial year exchange' do
     FinancialYear.delete_all
-    financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)
-    exchange = FinancialYearExchange.create(financial_year: financial_year, stopped_on: Date.today - 2.day)
-    assert create(:sale, invoiced_at: Date.today - 1.day)
+    financial_year = create(:financial_year, started_on: Date.new(2021, 1, 1).beginning_of_year, stopped_on: Date.new(2021, 1, 1).end_of_year)
+    exchange = FinancialYearExchange.create(financial_year: financial_year, started_on: Date.new(2021, 3, 11) - 4.day, stopped_on: Date.new(2021, 3, 11) - 2.day)
+    assert create(:sale, invoiced_at: Date.new(2021, 3, 11) - 1.day)
     assert_raises ActiveRecord::RecordInvalid do
-      create(:sale, invoiced_at: Date.today - 3.day)
+      create(:sale, invoiced_at: Date.new(2021, 3, 11) - 3.day)
     end
   end
 
@@ -226,9 +226,55 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     sale = create :sale, amount: 5000, items: 1
 
     assert sale.propose
-    assert sale.confirm
+    assert sale.confirm(Time.parse("2018-05-08T09-25-52Z"))
 
     assert sale.order?
     assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+  end
+
+  test 'A sale with state :order can have its items changed' do
+    # case direct sale on market for farmer like AMAP and ci
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
+    assert nature
+
+    client = Entity.normal.first
+    assert client
+
+    sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
+    assert sale
+
+    standard_vat = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
+      country: :fr
+    )
+    item = sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 10, tax: standard_vat)
+
+    assert sale.propose!
+    assert sale.confirm!(Time.parse("2018-05-08T09-25-52Z"))
+    assert sale.order?
+    assert_equal 48, sale.amount
+
+    # sale order must have an draft entry updateable
+    entry = sale.journal_entry
+    assert 48, entry.items.find_by(account_id: client.account(:client).id).debit
+    assert 40, entry.items.find_by(account_id: item.account_id).credit
+
+    item.update(quantity: 8)
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+
+    sale.reload
+
+    assert_equal 96, sale.amount
+    assert sale.invoice!
+
+    sale.reload
+
+    # sale invoice must have an entry up to date
+    assert 96, entry.items.find_by(account_id: client.account(:client).id).debit
+    assert 80, entry.items.find_by(account_id: item.account_id).credit
   end
 end

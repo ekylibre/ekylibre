@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="outgoing_payment_list" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="384"/>
+	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
+	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Open Sans" fontSize="12"/>
+	<style name="Row" mode="Transparent"/>
+	<subDataset name="purchases" uuid="688999be-d375-4347-8d9e-6ac42d667af3">
+		<parameter name="payment-id" class="java.lang.String"/>
+		<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="XML_LOCALE" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="XML_DATE_PATTERN" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="XML_NUMBER_PATTERN" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="XML_TIME_ZONE" class="java.util.TimeZone" isForPrompting="false"/>
+		<queryString language="xPath">
+			<![CDATA[//purchases/purchase[ancestor::payment/id='$P{payment-id}'][position() <= 8]]]>
+		</queryString>
+		<field name="id" class="java.lang.String">
+			<fieldDescription><![CDATA[/outgoing-payment-list/payments/payment/id]]></fieldDescription>
+		</field>
+		<field name="number" class="java.lang.String">
+			<fieldDescription><![CDATA[number]]></fieldDescription>
+		</field>
+		<field name="pretax-amount" class="java.lang.String">
+			<fieldDescription><![CDATA[pretax-amount]]></fieldDescription>
+		</field>
+		<field name="amount" class="java.lang.String">
+			<fieldDescription><![CDATA[amount]]></fieldDescription>
+		</field>
+		<field name="reference-number" class="java.lang.String">
+			<fieldDescription><![CDATA[reference-number]]></fieldDescription>
+		</field>
+		<field name="invoiced-at" class="java.util.Date">
+			<fieldDescription><![CDATA[invoiced-at]]></fieldDescription>
+		</field>
+		<sortField name="invoiced-at"/>
+		<variable name="count_item" class="java.lang.Integer" calculation="Count">
+			<variableExpression><![CDATA[$F{id}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/outgoing-payment-list/payments/payment]]>
+	</queryString>
+	<field name="picture-path" class="java.lang.String">
+		<fieldDescription><![CDATA[//payer/picture-path]]></fieldDescription>
+	</field>
+	<field name="payer-mail-coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[//payer/default-mail-address/mail-coordinate]]></fieldDescription>
+	</field>
+	<field name="payer-email" class="java.lang.String">
+		<fieldDescription><![CDATA[//payer/emails/email/coordinate]]></fieldDescription>
+	</field>
+	<field name="payer-website" class="java.lang.String">
+		<fieldDescription><![CDATA[//payer/websites/website/coordinate]]></fieldDescription>
+	</field>
+	<field name="supplier-mail-coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[payee/default-mail-address/mail-coordinate]]></fieldDescription>
+	</field>
+	<field name="number" class="java.lang.String">
+		<fieldDescription><![CDATA[number]]></fieldDescription>
+	</field>
+	<field name="responsible-first-name" class="java.lang.String">
+		<fieldDescription><![CDATA[responsible/first-name]]></fieldDescription>
+	</field>
+	<field name="responsible-last-name" class="java.lang.String">
+		<fieldDescription><![CDATA[responsible/last-name]]></fieldDescription>
+	</field>
+	<field name="amount-to-letter" class="java.lang.String">
+		<fieldDescription><![CDATA[amount-to-letter]]></fieldDescription>
+	</field>
+	<field name="currency" class="java.lang.String">
+		<fieldDescription><![CDATA[currency]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.String">
+		<fieldDescription><![CDATA[amount]]></fieldDescription>
+	</field>
+	<field name="currency_short" class="java.lang.String">
+		<fieldDescription><![CDATA[currency/@name]]></fieldDescription>
+	</field>
+	<field name="paid-at" class="java.util.Date">
+		<fieldDescription><![CDATA[paid-at]]></fieldDescription>
+	</field>
+	<field name="payer-mail-town" class="java.lang.String">
+		<fieldDescription><![CDATA[//payer/default-mail-address/mail-line-6]]></fieldDescription>
+	</field>
+	<field name="payee-full-name" class="java.lang.String">
+		<fieldDescription><![CDATA[payee/full-name]]></fieldDescription>
+	</field>
+	<field name="affair-reference-numbers" class="java.lang.String">
+		<fieldDescription><![CDATA[affair-reference-numbers]]></fieldDescription>
+	</field>
+	<field name="bank-check-number" class="java.lang.String">
+		<fieldDescription><![CDATA[bank-check-number]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="count_purchases" class="java.lang.String">
+		<fieldDescription><![CDATA[count(affair/purchases/purchase)]]></fieldDescription>
+	</field>
+	<sortField name="number"/>
+	<group name="number" isStartNewPage="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom">
+		<groupExpression><![CDATA[$F{number}]]></groupExpression>
+		<groupHeader>
+			<band height="254">
+				<image onErrorType="Blank">
+					<reportElement isPrintRepeatedValues="false" x="0" y="0" width="160" height="80" isRemoveLineWhenBlank="true" uuid="2d16fc74-a19d-4df0-a5d6-06465493c786">
+						<printWhenExpression><![CDATA[$F{picture-path}.isEmpty() == false]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[$F{picture-path}]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="base" stretchType="RelativeToTallestObject" x="0" y="85" width="181" height="20" isPrintInFirstWholeBand="true" uuid="e3405f7a-d77a-4973-8477-7c5f4db54cc9"/>
+					<textElement>
+						<font fontName="Open Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{payer-mail-coordinate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="address" positionType="FixRelativeToBottom" x="299" y="81" width="200" height="80" uuid="26697e66-338b-4015-ae81-9e889924a3a0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Monospaced"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{supplier-mail-coordinate}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<rectangle radius="10">
+					<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="299" y="81" width="200" height="80" uuid="27a80050-3ed0-427e-9411-b3879ee780d6"/>
+				</rectangle>
+				<frame>
+					<reportElement positionType="Float" x="0" y="200" width="545" height="52" uuid="f4e8fe19-70f2-4a67-95b9-93fd245cf6a2"/>
+					<line>
+						<reportElement style="title" x="0" y="30" width="545" height="1" uuid="020a6801-57fa-44d0-88cd-e30a61f71dcb"/>
+					</line>
+					<textField isBlankWhenNull="true">
+						<reportElement style="title" mode="Transparent" x="0" y="1" width="339" height="30" uuid="503823e2-4d89-4915-8c99-b1530623a5c4"/>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
+							<font isBold="false" isItalic="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Paiement : "+$F{number}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="0" y="32" width="299" height="20" uuid="eaa0ad9a-7628-4ed8-8063-c995b08dbe73"/>
+						<textFieldExpression><![CDATA["Responsable : " + $F{responsible-first-name} + " " + $F{responsible-last-name}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="399" y="10" width="145" height="20" uuid="e224fa11-ddfd-4e74-887a-05b320bfdf12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA["Chèque n° " + $F{bank-check-number}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField>
+					<reportElement positionType="Float" x="0" y="111" width="181" height="20" uuid="24b40ffe-58c8-45bf-a35d-6217feaf4442"/>
+					<textElement>
+						<font fontName="Open Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{payer-email}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="0" y="130" width="181" height="20" uuid="5ebac88a-fa18-4d42-bcb5-1891b8d10d39"/>
+					<textElement>
+						<font fontName="Open Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{payer-website}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy HH:mm">
+					<reportElement style="base" mode="Transparent" x="423" y="-20" width="100" height="20" forecolor="#000000" uuid="ac57167d-ba06-4a6b-9bfc-2201e80909f6"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="base" x="523" y="-20" width="21" height="20" forecolor="#000000" uuid="4359fd49-aa7e-4886-940a-66e955c7a0d9"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="157" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="28" width="544" height="37" uuid="cc049e0b-7d40-4ac2-9701-cd8f11df5dd2"/>
+				<textElement>
+					<paragraph firstLineIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Veuillez trouver ci-dessous le chéque n° " + $F{bank-check-number} + " pour un montant de " + $F{amount} + " " + $F{currency}.toLowerCase() + "s" + " à l'ordre de " + $F{payee-full-name} + "." +
+"Ce paiement correspond aux références suivantes : "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="177" y="9" width="122" height="20" uuid="e95fd0b1-57c8-49ac-ad8d-e6b46390e6fc"/>
+				<text><![CDATA[Madame, Monsieur,]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="0" y="120" width="544" height="37" uuid="78267f20-e108-4202-98f0-d3f664409684"/>
+				<textElement>
+					<paragraph firstLineIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nous vous invitons à nous faire parvenir vos coordonnées bancaires si ce n'est pas déjà fait. " +
+"Veuillez agréer, Madame, Monsieur, nos salutions les meilleures."]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<staticText>
+					<reportElement x="439" y="70" width="101" height="20" uuid="8f807b5b-b09d-45ca-b76a-f4cece79c6fc">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Montant TTC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="139" y="70" width="100" height="20" uuid="2de2e496-415b-450f-a84e-74861b2635b6">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Notre référence]]></text>
+				</staticText>
+				<componentElement>
+					<reportElement x="5" y="90" width="535" height="21" isRemoveLineWhenBlank="true" uuid="ff0e8301-fb1d-4fa4-ae3e-e578e91f3d59">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="purchases" uuid="7618b344-f957-478d-8f8f-dc1261483bfb">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<datasetParameter name="payment-id">
+								<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="REPORT_LOCALE">
+								<datasetParameterExpression><![CDATA[$P{REPORT_LOCALE}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:listContents height="21" width="535">
+							<textField isBlankWhenNull="true">
+								<reportElement x="134" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="ab3fe328-5cbb-4654-b594-fdfede892fdf"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="334" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="64b6e345-8091-43f6-9b39-62a415d7a222"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{pretax-amount}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="434" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="f3ef022c-0764-4749-97b4-af8e1a7217d0"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="134" height="20" isRemoveLineWhenBlank="true" uuid="9694491b-ffdf-4528-9347-1def39fdc38c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{reference-number}]]></textFieldExpression>
+							</textField>
+							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+								<reportElement x="234" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="d310be2a-fdec-4c25-b13c-ce8b5ef22379"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{invoiced-at}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<line>
+					<reportElement x="5" y="89" width="534" height="1" uuid="a46b4f93-6999-47d4-b300-227573e8ced6">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+				</line>
+				<staticText>
+					<reportElement x="339" y="70" width="100" height="20" uuid="54f03bba-e9e2-4caf-8f7c-40f60957cc71">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Montant HT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="70" width="134" height="20" uuid="d72e9936-5e14-445b-adff-7bd22739d255">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Votre référence]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="239" y="70" width="100" height="20" uuid="50087515-9048-452c-addc-4750b6c0c3a8">
+						<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() < 9.0]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Date de facture]]></text>
+				</staticText>
+			</elementGroup>
+			<textField>
+				<reportElement x="5" y="70" width="534" height="41" uuid="3695b9b3-35f3-49d5-8baf-f9cce3d59d01">
+					<printWhenExpression><![CDATA[$F{count_purchases}.toDouble() >= 8.0]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA["Vous avez " + $F{count_purchases} + " pièces concernées par ce réglement : " + $F{affair-reference-numbers}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="188" splitType="Stretch">
+			<textField>
+				<reportElement x="409" y="51" width="100" height="30" uuid="7ee10606-3b17-49e9-9af0-186421bcfd39"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["**" + $F{amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="509" y="51" width="36" height="30" uuid="41d8b0de-c501-42b8-94d5-867a46737051"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{currency_short}+ "**"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="409" y="88" width="135" height="20" uuid="f329530f-9b0f-44b9-8a6c-c0440bfb189c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{paid-at}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="339" y="88" width="70" height="20" uuid="fd2c8174-b661-45b4-bcee-775be465ca4b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{payer-mail-town}.substring(6)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="65" width="288" height="20" uuid="ee9b4aef-a986-4a16-a01a-10a4eb183441"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{payee-full-name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="36" width="298" height="30" uuid="d250390f-e23c-4e1a-b7e3-77b8b9436b1a"/>
+				<textFieldExpression><![CDATA["** " + $F{amount-to-letter} + " **"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

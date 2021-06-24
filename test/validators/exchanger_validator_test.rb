@@ -6,6 +6,7 @@ class ExchangerValidatable
 
   validates :exchanger, exchanger: true
 end
+
 class ExchangerValidatableWithTransformMethod
   include ActiveModel::Validations
   attr_accessor :id
@@ -13,15 +14,14 @@ class ExchangerValidatableWithTransformMethod
 
   def exchanger_name; end
 end
+
 class ExchangerValidatableWithTransformCallable
   include ActiveModel::Validations
   attr_accessor :id
   validates :id, exchanger: { transform: ->(_record, _value) { 'other_exchanger_name' } }
-
 end
 
 class ExchangerValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   setup do
     @exchangers = ActiveExchanger::Base.exchangers
     ActiveExchanger::Base.exchangers = {
@@ -60,5 +60,4 @@ class ExchangerValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
     record = ExchangerValidatableWithTransformCallable.new
     assert record.valid?
   end
-
 end

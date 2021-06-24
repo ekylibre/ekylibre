@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +36,7 @@
 #  currency                          :string           not null
 #  custom_fields                     :jsonb
 #  id                                :integer          not null, primary key
-#  initial_releasing_amount          :boolean          default(FALSE), not null
+#  initial_releasing_amount          :boolean          default(TRUE), not null
 #  insurance_account_id              :integer
 #  insurance_percentage              :decimal(19, 4)   not null
 #  insurance_repayment_method        :string
@@ -46,6 +48,7 @@
 #  lock_version                      :integer          default(0), not null
 #  name                              :string           not null
 #  ongoing_at                        :datetime
+#  provider                          :jsonb
 #  repaid_at                         :datetime
 #  repayment_duration                :integer          not null
 #  repayment_method                  :string           not null
@@ -58,13 +61,18 @@
 #  updater_id                        :integer
 #  use_bank_guarantee                :boolean
 #
-class Loan < Ekylibre::Record::Base
+
+class Loan < ApplicationRecord
   include Attachable
   include Customizable
+  include Transitionable
+  include Providable
+
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
+  enumerize :state, in: %i[draft ongoing repaid], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry
@@ -77,15 +85,15 @@ class Loan < Ekylibre::Record::Base
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accountable_repayments_started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
-  validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accountable_repayments_started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
+  validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :insurance_percentage, :interest_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_guarantee_amount, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :cash, :currency, :lender, :repayment_method, :repayment_period, :third, presence: true
   validates :initial_releasing_amount, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :repayment_duration, :shift_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :state, length: { maximum: 500 }, allow_blank: true
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
@@ -93,31 +101,13 @@ class Loan < Ekylibre::Record::Base
   validates :insurance_account, presence: { if: -> { updateable? && insurance_percentage.present? && insurance_percentage.nonzero? } }
   validates :amount, numericality: { greater_than: 0 }
   validates :currency, match: { with: :cash }
-  validates :ongoing_at, financial_year_writeable: true, allow_blank: true
+  validates :started_on, ongoing_exchanges: true
 
   scope :drafts, -> { where(state: %w[draft]) }
-  scope :start_before, ->(date) { where('loans.ongoing_at <= ?', date.to_time) }
-
-  state_machine :state, initial: :draft do
-    state :draft
-    state :ongoing
-    state :repaid
-
-    event :confirm do
-      transition draft: :ongoing, if: :draft?
-    end
-    event :repay do
-      transition ongoing: :repaid, if: :ongoing?
-    end
-  end
-
-  before_validation(on: :create) do
-    self.state = :draft
-    self.currency ||= cash.currency if cash
-    self.shift_duration ||= 0
-  end
+  scope :ongoing_within, ->(start_time, stop_time) { where('loans.ongoing_at BETWEEN ? and ?', start_time, stop_time) }
 
   before_validation do
+    self.state ||= :draft
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
@@ -125,6 +115,7 @@ class Loan < Ekylibre::Record::Base
 
   after_save do
     generate_repayments
+    # if accountable_repayments_started_on, locked repayments before accountable_repayments_started_on
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
       r.update_all(locked: true)
@@ -133,7 +124,7 @@ class Loan < Ekylibre::Record::Base
 
   # Prevents from deleting if entry exist
   protect on: :destroy do
-    journal_entry && ongoing?
+    (journal_entry && ongoing?) || repayments.any? { |repayment| !repayment.destroyable? } || repaid?
   end
 
   # Prevents from deleting if entry exist
@@ -145,11 +136,9 @@ class Loan < Ekylibre::Record::Base
     # when money arrive (ongoing_at)
     # when first payment started (started_on)
 
-    ongoing_on = ongoing_at.to_date
+    existing_financial_year = FinancialYear.at(ongoing_at)
 
-    existing_financial_year = FinancialYear.on(ongoing_on)
-
-    b.journal_entry(journal, printed_on: ongoing_on, if: ongoing_on <= Time.zone.today && existing_financial_year && ongoing? && initial_releasing_amount) do |entry|
+    b.journal_entry(journal, printed_on: ongoing_at.to_date, if: (initial_releasing_amount && ongoing_at? && ongoing_at <= Time.zone.now && existing_financial_year)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
 
       entry.add_debit(label, cash.account_id, amount, as: :bank)
@@ -171,7 +160,6 @@ class Loan < Ekylibre::Record::Base
     limit_on = Time.zone.today
     limit_on = [options[:until], limit_on].min if options[:until]
     repayments = LoanRepayment.bookkeepable_before(limit_on)
-    repayments = repayments.of_loans(options[:id]) if options[:id]
     count = repayments.count
     repayments.find_each { |repayment| repayment.update(accountable: true) }
     count
@@ -225,9 +213,11 @@ class Loan < Ekylibre::Record::Base
     reload
   end
 
+  # return Decimal
   def current_remaining_amount(on = Date.today)
     r = repayments.where('due_on <= ?', on).reorder(:position).last
-    return nil unless r
+    return 0.0 unless r
+
     r.remaining_amount
   end
 
@@ -237,33 +227,17 @@ class Loan < Ekylibre::Record::Base
     return :stop if repaid?
   end
 
-  # why ? we have state machine ?
-  def draft?
-    state.to_sym == :draft
+  def human_status
+    I18n.t("tooltips.models.loan.#{status}")
   end
 
-  def ongoing?
-    state.to_sym == :ongoing
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
-  def repaid?
-    state.to_sym == :repaid
-  end
-
-  def confirm(ongoing_at = nil)
-    return false unless can_confirm?
-    reload
-    self.ongoing_at ||= ongoing_at || Time.zone.now
-    save!
-    super
-  end
-
-  def repay(repaid_at = nil)
-    return false unless can_repay?
-    reload
-    self.repaid_at ||= repaid_at || Time.zone.now
-    save!
-    super
+  def editable?
+    updateable? && draft?
   end
 
   def editable?

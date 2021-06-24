@@ -5,14 +5,12 @@ module Api
       connect_with_token
 
       test 'index' do
-        add_auth_header
-        get :index
+        get :index, params: {}
         assert_response :ok
       end
 
       test 'show' do
-        add_auth_header
-        get :show, id: 1
+        get :show, params: { id: 1 }
         assert_response :ok
         json = JSON.parse response.body
         assert json['germination_percentage']

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_capsuls_dispersing" categories="vine_protection" optional-actions="insecticide, acaricide, bactericide, game_repellent, virucide" position="20">
+    <parameters>
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="plant_medicine" filter="is preparation and can care(plant)" >
+        <handler name="population"/>
+        <attribute name="usage_id" />
+        <attribute name="allowed_entry_factor" />
+        <attribute name="allowed_harvest_factor" />
+      </input>
+      <doer name="doer" filter="is worker and can move" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

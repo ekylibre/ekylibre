@@ -19,8 +19,9 @@ module Ekylibre
           if s = options[:scope]
             s = [s] if s.is_a?(Symbol)
             unless s.is_a?(Symbol) || s.is_a?(Array)
-              raise ArgumentError, 'Scope must be given as a Symbol or an Array of Symbol'
+              raise ArgumentError.new('Scope must be given as a Symbol or an Array of Symbol')
             end
+
             scope << '.where(' + s.collect do |c|
               scope_columns << c.to_sym
               "#{c}: self.#{c}"
@@ -109,4 +110,3 @@ module Ekylibre
     end
   end
 end
-Ekylibre::Record::Base.send(:include, Ekylibre::Record::SelectsAmongAll)

@@ -1,4 +1,4 @@
-class AddActivityBudgetItems < ActiveRecord::Migration
+class AddActivityBudgetItems < ActiveRecord::Migration[4.2]
   def change
     rename_table :activity_budgets, :activity_budget_items
     # Polymorphic columns

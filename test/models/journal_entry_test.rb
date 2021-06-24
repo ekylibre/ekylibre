@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,6 +40,7 @@
 #  lock_version               :integer          default(0), not null
 #  number                     :string           not null
 #  printed_on                 :date             not null
+#  provider                   :jsonb
 #  real_balance               :decimal(19, 4)   default(0.0), not null
 #  real_credit                :decimal(19, 4)   default(0.0), not null
 #  real_currency              :string           not null
@@ -148,7 +149,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'save with items' do
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: 'EUR'),
-      printed_on: Date.today - 200,
+      printed_on: Date.new(2020, 8, 4),
       items_attributes: {
         '0' => {
           name: 'Insurance care',
@@ -179,7 +180,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'items are updated with entry' do
     journal_entry = JournalEntry.create!(
       journal: Journal.find_by(nature: :various, currency: 'EUR'),
-      printed_on: Date.today - 200,
+      printed_on: Date.new(2020, 8, 4),
       items_attributes: {
         '0' => {
           name: 'Insurance care',
@@ -214,11 +215,11 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal ['HELLO', 'USD', 0.5], item_attributes
 
     journal_entry.update_columns(real_currency: 'EUR', number: 'is it me you\'re looking for?', real_currency_rate: 1.0)
-    item_attributes = journal_entry.items
-                        .pluck(:entry_number, :real_currency, :real_currency_rate)
-                        .map { |att| att[0...2] + [att.last.to_f] }
-                        .uniq
-                        .first
+    item_attributes = journal_entry.reload.items
+                                   .pluck(:entry_number, :real_currency, :real_currency_rate)
+                                   .map { |att| att[0...2] + [att.last.to_f] }
+                                   .uniq
+                                   .first
     assert_equal ['is it me you\'re looking for?', 'EUR', 1.0], item_attributes
   end
 

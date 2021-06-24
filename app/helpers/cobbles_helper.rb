@@ -36,6 +36,7 @@ module CobblesHelper
         raise "Already taken. You already use #{name.inspect}"
       end
       raise "Need a block for #{name} in cobbler #{@name}" unless block_given?
+
       @items << Cobble.new(self, name, options, &block)
     end
 
@@ -74,7 +75,7 @@ module CobblesHelper
 
     if cobbler.any?
       cobbler.sort!
-      render 'cobbles', cobbler: cobbler
+      render 'application/cobbles', cobbler: cobbler
     end
   end
 
@@ -90,11 +91,15 @@ module CobblesHelper
 
   def cobble_list(name, options = {}, &block)
     id = Cobble.current.id
-    list(name, options.deep_merge(content_for: {
+    list = list(name, options.deep_merge(content_for: {
                                     settings:   "cobble_#{id}_meta_toolbar".to_sym,
                                     pagination: "cobble_#{id}_meta_toolbar".to_sym,
                                     actions:    "cobble_#{id}_main_toolbar".to_sym
                                   }), &block)
+    footer_pagination = content_tag :div, class: 'list-footer-pagination' do
+      content_for("cobble_#{id}_meta_toolbar".to_sym)
+    end
+    return list << footer_pagination
   end
 
   def cobble_toolbar_tag(cobble, name)

@@ -64,7 +64,7 @@ module Printers
 
       test 'product_area_ratio defaults ignore records with no target area' do
         targets = [
-          { product: :prod1, working_area: nil }, #ignored, even if asking for ratio of prod1
+          { product: :prod1, working_area: nil }, # ignored, even if asking for ratio of prod1
           { product: :prod2, working_area: 1.in_hectare },
           { product: :prod1, working_area: 1.in_hectare },
         ]

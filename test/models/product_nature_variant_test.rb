@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +23,7 @@
 #
 # == Table: product_nature_variants
 #
-#  active                    :boolean          default(FALSE), not null
+#  active                    :boolean          default(TRUE), not null
 #  category_id               :integer          not null
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -34,13 +34,14 @@
 #  id                        :integer          not null, primary key
 #  imported_from             :string
 #  lock_version              :integer          default(0), not null
-#  name                      :string
+#  name                      :string           not null
 #  nature_id                 :integer          not null
 #  number                    :string           not null
 #  picture_content_type      :string
 #  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
+#  provider                  :jsonb
 #  providers                 :jsonb
 #  reference_name            :string
 #  specie_variety            :string
@@ -66,10 +67,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Parcel.delete_all
     SaleItem.delete_all
     Sale.delete_all
-    ProductNatureCategory.delete_all
     ProductNature.delete_all
     ParcelItemStoring.delete_all
     Product.delete_all
+    ProductNatureCategory.delete_all
     JournalEntryItem.delete_all
     ProductNatureVariant.delete_all
     Payslip.delete_all
@@ -77,8 +78,25 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Account.delete_all
   end
 
+  test "type is computed from category and variant at each validation" do
+    cat = create(:animal_category)
+    nature = create(:animals_nature)
+
+    pnv = ProductNatureVariant.new(
+      type: "Variants::ArticleVariant",
+      category: cat,
+      nature: nature
+    )
+
+    assert_equal "Variants::ArticleVariant", pnv.type
+
+    pnv.valid?
+
+    assert_equal "Variants::AnimalVariant", pnv.type
+  end
+
   test 'working sets' do
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
     end
   end
@@ -102,8 +120,9 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to prepared' do
     variant = create(:product_nature_variant)
     sale = create(:sale, items: 0)
-    sale.update(state: 'order')
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
+    sale.propose!
+    sale.confirm!(DateTime.parse('2018-01-01T00:00:00Z'))
     shipment = create(:shipment, sale: sale)
     shipment.update(state: 'prepared')
     assert_equal 50.0, variant.current_outgoing_stock_ordered_not_delivered
@@ -120,9 +139,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to given' do
     variant = create(:product_nature_variant)
     product = create(:product, variant: variant)
-    sale = create(:sale, items: 0)
-    sale.update(state: 'order')
+    sale = create(:sale, items: 0, invoiced_at: DateTime.parse('2018-01-02T00:00:00Z'))
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
+    sale.propose!
+    sale.confirm!(DateTime.parse('2018-01-01T00:00:00Z'))
     shipment = create(:shipment, sale: sale)
     create(:shipment_item, shipment: shipment, variant: variant, population: 1.to_d, source_product: product, product_identification_number: '12345678', product_name: 'Product name')
     shipment.update(state: 'given')
@@ -194,7 +214,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
                    worker: :worker_variant,
                    zone: :land_parcel_variant }
 
-    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type}
+    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type }
 
     article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
     article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", create(reference).type }

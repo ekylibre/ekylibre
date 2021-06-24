@@ -52,6 +52,7 @@ module Backend
     # Show one cultivable zone with params_id
     def show
       return unless @cultivable_zone = find_and_check
+
       t3e @cultivable_zone
       respond_with(@cultivable_zone, methods: %i[shape_svg cap_number human_shape_area],
                                      include: [

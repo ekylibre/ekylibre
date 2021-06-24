@@ -23,9 +23,6 @@
         = f.object.non_compliant_detail
     %td.storage-column
       #storing-display
-        %p{ "v-for" => "zone in zones"}
-          %strong{ class: "storage-quantity" }= "{{zone.quantity}} {{zone.unit}}"
-          %span{ class: "storage-zone" }= "{{zone.name}}"
     %td.quantity-column
       %label
         %span{ data: { item_value: ".total-quantity" } }= f.object.population ? f.object.population : 'ERROR'
@@ -51,11 +48,11 @@
             = f.referenced_association :activity_budget, new: false, input_html: {data: { remember: 'activity_budget'}}
         .item-form.item-form__project-budget
           = f.referenced_association :project_budget, input_html: {data: { remember: 'project_budget'}}
+        .item-form.item-form__equipment
+          = f.referenced_association :equipment, new: false, source: :tools, input_html: {data: { remember: 'equipment'}}
         - if display_team_item_field
           .item-form.item-form__product_work_number
             = f.referenced_association :team, input_html: {data: { remember: 'team'}}
-        .item-form.item-form__equipment
-          = f.referenced_association :equipment, source: :tools, input_html: {data: { remember: 'equipment'}}
 
       .item-form-button
         .item-form-state

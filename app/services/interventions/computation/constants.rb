@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   module Computation
     class Constants
@@ -9,5 +11,3 @@ module Interventions
     end
   end
 end
-
-

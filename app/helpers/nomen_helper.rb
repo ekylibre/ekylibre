@@ -8,28 +8,30 @@ module NomenHelper
   def item_avatar_path(item)
     nomenclature = AVATARS[item.nomenclature.table_name]
     return nil unless nomenclature
+
     item.rise { |i| nomenclature[i.name] }
   end
 
   def activity_avatar_path(activity)
-    if (variety = Nomen::Variety.find(activity.cultivation_variety))
+    if (variety = Onoma::Variety.find(activity.cultivation_variety))
       path = item_avatar_path(variety)
     end
-    path ||= item_avatar_path Nomen::ActivityFamily.find(activity.family)
+    path ||= item_avatar_path Onoma::ActivityFamily.find(activity.family)
     path
   end
 
   def item_color(item)
     nomenclature = COLORS[item.nomenclature.table_name]
     return nil unless nomenclature
+
     item.rise { |i| nomenclature[i.name] }
   end
 
   def variety_color(activity)
-    if (variety = Nomen::Variety.find(activity.cultivation_variety))
+    if (variety = Onoma::Variety.find(activity.cultivation_variety))
       path = item_color(variety)
     end
-    path ||= item_color Nomen::ActivityFamily.find(activity.family)
+    path ||= item_color Onoma::ActivityFamily.find(activity.family)
     path
   end
 end

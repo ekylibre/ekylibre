@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Synel
   class AnimalsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :synel
+
     # Create or updates animals
     def import
       demo_mode = Preference.value(:demo, false, :boolean)
@@ -34,7 +39,7 @@ module Synel
           group = nil
 
           # find a bos variety from corabo field in file
-          item = Nomen::Variety.find_by(french_race_code: r.corabo)
+          item = Onoma::Variety.find_by(french_race_code: r.corabo)
           variety = (item ? item.name : :bos_taurus)
           variant = ProductNatureVariant.import_from_nomenclature(r.sex == :male ? :male_adult_cow : :female_adult_cow)
 
@@ -55,21 +60,6 @@ module Synel
         # Sex is already known but not if the group has no sex
         # animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
         animal.read!(:healthy, true, at: r.born_at)
-
-        # load demo data weight and state
-        if demo_mode
-          weighted_at = r.born_at
-          if weighted_at && weighted_at < Time.zone.now
-            variation = 0.02
-            while (r.dead_at.nil? || weighted_at < r.dead_at) && weighted_at < Time.zone.now
-              age = (weighted_at - r.born_at).to_f
-              weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
-              weight += rand(weight * variation * 2) - (weight * variation)
-              animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
-              weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
-            end
-          end
-        end
 
         if group
           animal.memberships.create!(group: group.record, started_at: arrived_on, nature: :interior)

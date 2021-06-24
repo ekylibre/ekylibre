@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,7 +67,7 @@
 #  with_delivery                        :boolean          default(FALSE), not null
 #
 
-class Parcel < Ekylibre::Record::Base
+class Parcel < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
@@ -89,11 +91,11 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :late_delivery, :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
   validates :nature, presence: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
-  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
@@ -132,7 +134,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   validate do
-    if given_at && Preference[:permanent_stock_inventory] && given_during_financial_year_exchange?
+    if given_during_financial_year_exchange?
       errors.add(:given_at, :financial_year_exchange_on_this_period)
     end
   end
@@ -233,7 +235,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def given_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', given_at).any?
+    given_at && Preference[:permanent_stock_inventory] && FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', given_at).exists?
   end
 
   def opened_financial_year?
@@ -268,6 +270,7 @@ class Parcel < Ekylibre::Record::Base
           unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
+
           nature = SaleNature.create!(
             active: true,
             currency: Preference[:currency],
@@ -288,6 +291,7 @@ class Parcel < Ekylibre::Record::Base
           parcel.items.order(:id).each do |item|
             # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
             next unless item.variant.saleable? && item.population && item.population > 0
+
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
             # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
             unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
@@ -336,6 +340,7 @@ class Parcel < Ekylibre::Record::Base
           unless journal = Journal.purchases.opened_on(planned_at).first
             raise 'No purchase journal'
           end
+
           nature = PurchaseNature.create!(
             active: true,
             journal: journal,
@@ -354,6 +359,7 @@ class Parcel < Ekylibre::Record::Base
         parcels.each do |parcel|
           parcel.items.order(:id).each do |item|
             next unless item.variant.purchasable? && item.population && item.population > 0
+
             catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             unit_pretax_amount = item.unit_pretax_amount.zero? ? nil : item.unit_pretax_amount
             tax = Tax.current.first
@@ -391,6 +397,7 @@ class Parcel < Ekylibre::Record::Base
     def detect_third(parcels)
       thirds = parcels.map(&:third_id).uniq
       raise "Need unique third (#{thirds.inspect})" if thirds.count != 1
+
       Entity.find(thirds.first)
     end
   end

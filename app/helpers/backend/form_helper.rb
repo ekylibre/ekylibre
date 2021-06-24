@@ -51,20 +51,23 @@ module Backend
         hidden_field_tag(name, '0') + check_box_tag(name, '1', value, html_options)
       elsif datatype == :measure
         unless unit = options[:unit] || (value ? value.unit : nil)
-          raise StandardError, 'Need unit'
+          raise StandardError.new('Need unit')
         end
+
         content_tag(:div, class: 'input-append') do
           text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-            select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : unit)), html_options)
+            select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect { |u| [Onoma::Unit[u].human_name, u] }, (value ? value.unit : unit)), html_options)
         end
       elsif %i[string integer decimal].include? datatype
         text_field_tag(name, value, html_options)
+      elsif datatype == :text
+        text_area_tag(name, value, html_options)
       elsif datatype == :choice
         choices = options[:choices] || []
         select_tag(name, options_for_select(choices, value), html_options)
       elsif datatype == :accounting_system
-        select_tag(name, options_for_select(Nomen::AccountingSystem.selection, value), html_options)
-      elsif nomenclature = Nomen[datatype.to_s.pluralize]
+        select_tag(name, options_for_select(Onoma::AccountingSystem.selection, value), html_options)
+      elsif nomenclature = Onoma[datatype.to_s.pluralize]
         select_tag(name, options_for_select(nomenclature.selection, value), html_options)
       else
         return "[EmptyField #{name.inspect}]"
@@ -82,7 +85,7 @@ module Backend
       elsif datatype == :measure
         content_tag(:div, class: 'input-append') do
           text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
-            select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect { |u| [Nomen::Unit[u].human_name, u] }, (value ? value.unit : indicator.unit)))
+            select_tag("#{name}[unit]", options_for_select(Measure.siblings(indicator.unit).collect { |u| [Onoma::Unit[u].human_name, u] }, (value ? value.unit : indicator.unit)))
         end
       elsif %i[string integer decimal].include? datatype
         text_field_tag(name, value)

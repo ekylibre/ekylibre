@@ -2,6 +2,17 @@
 # Many of these configuration options can be set straight in your model.
 require File.expand_path('lib/omniauth/strategies/ekylibre', Rails.root)
 
+Rails.application.configure do
+  # Configure layouts for devise
+  config.to_prepare do
+    Devise::SessionsController.layout 'authentication'
+    Devise::RegistrationsController.layout proc { |_controller| user_signed_in? ? 'backend' : 'authentication' }
+    Devise::ConfirmationsController.layout 'authentication'
+    Devise::UnlocksController.layout 'authentication'
+    Devise::PasswordsController.layout 'authentication'
+  end
+end
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing

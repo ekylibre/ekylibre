@@ -36,23 +36,30 @@ module Backend
       t.column :importer
     end
 
+    def new
+      registry = ExchangersRegistry.new
+      @exchangers_by_category = registry.list_by_category_and_vendor
+      super
+    end
+
     def create
       @import = resource_model.new(permitted_params)
       if save_and_redirect(
         @import,
-        url: (params[:create_and_continue] ? { :action => :new, :continue => true } : (params[:redirect] || ({ action: :show, id: 'id'.c }))),
+        url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })),
         identifier: :id
       )
         notify(:import_creation_successful_suggest_execute)
         return
       end
 
-      render(locals: { cancel_url: { :action => :index }, with_continue: false })
+      render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
 
     def run
       import = find_and_check
       return unless import
+
       import.run_later
       redirect_to params[:redirect] || { action: :index }
     end
@@ -60,12 +67,14 @@ module Backend
     def progress
       @import = find_and_check
       return unless @import
+
       render partial: 'progress', locals: { import: @import }
     end
 
     def abort
       @import = find_and_check
       return unless @import
+
       @import.abort
       redirect_to params[:redirect] || { action: :index }
     end

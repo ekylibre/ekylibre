@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,6 +38,7 @@
 #  name                      :string           not null
 #  nature                    :string
 #  number                    :string           not null
+#  provider                  :jsonb
 #  reconcilable              :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -77,14 +78,19 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'invalid numbers' do
+    Preference.set! :account_number_digits, 8
+
     account_1 = build(:account, number: '4110000')
     account_2 = build(:account, number: '4010000')
     account_3 = build(:account, number: '012345')
     account_4 = build(:account, number: '1')
-    refute account_1.valid?
-    refute account_2.valid?
-    refute account_3.valid?
-    refute account_4.valid?
+    account_5 = build(:account, number: '1111111111')
+
+    assert account_1.tap(&:valid?).errors.messages.key?(:number)
+    assert account_2.tap(&:valid?).errors.messages.key?(:number)
+    assert account_3.tap(&:valid?).errors.messages.key?(:number)
+    assert account_4.tap(&:valid?).errors.messages.key?(:number)
+    assert account_5.tap(&:valid?).errors.messages.key?(:number)
   end
 
   test 'number is normalized during before creation' do
@@ -92,19 +98,11 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     account_2 = build(:account, number: '240500')
     account_3 = build(:account, number: '28154000')
     account_4 = build(:account, number: 20500)
+
     assert account_1.number, "20500000"
     assert account_2.number, "24050000"
     assert account_3.number, "20500000"
     assert account_4.number, "20500000"
-  end
-
-  test 'normalize works as expected' do
-    Preference.set! :account_number_digits, 8
-
-    assert_equal '20000000', Account.normalize('2')
-    assert_equal '20000000', Account.normalize(2)
-    assert_equal '20000000', Account.normalize(20000000000)
-    assert_equal '20000000', Account.normalize('20000000000')
   end
 
   test 'centralizing_account_prefix_for takes into account the company preference' do
@@ -118,12 +116,15 @@ class AccountTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     end
   end
 
-  test "attempt_panier_local_resources_merge! merges panier_local provided affairs" do
-    sale = create(:sale, provider: { vendor: :panier_local, name: :sales, id: 31 })
+  test "attempt_socleo_resources_merge! merges socleo provided affairs" do
+    at = DateTime.parse("2018-01-01T00:00:00Z")
+
+    sale = create(:sale, provider: { vendor: :socleo, name: :sales, id: 31 }, invoiced_at: at)
     incoming_payment = create(:incoming_payment,
+                              at: at,
                               payer: sale.affair.client,
                               amount: sale.amount,
-                              provider: { vendor: :panier_local, name: :sales, id: 32 })
+                              provider: { vendor: :socleo, name: :sales, id: 32 })
     sale.invoice!
 
     account = sale.affair.client.client_account

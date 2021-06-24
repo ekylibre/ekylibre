@@ -2,6 +2,8 @@ require 'test_helper'
 
 class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
+    @current_tenant = Ekylibre::Tenant.current
+
     Ekylibre::Tenant.setup!('test', keep_files: true)
     @parameters = {
       vat_register: { started_on: '2013-06-01', stopped_on: '2014-12-31' }.with_indifferent_access,
@@ -12,6 +14,10 @@ class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Ekylibre::Tenant.switch!(:test)
     # All document template should be loaded already
     DocumentTemplate.load_defaults
+  end
+
+  teardown do
+    Ekylibre::Tenant.switch! @current_tenant
   end
 
   Aggeratio.each_xml_aggregator do |element|
@@ -30,7 +36,7 @@ class AggeratioTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       xml = aggregator.to_xml
 
       # Test PDF export
-      if defined?(Beardley) && Nomen::DocumentNature[klass.aggregator_name]
+      if defined?(Beardley) && Onoma::DocumentNature[klass.aggregator_name]
         DocumentTemplate.where(nature: klass.aggregator_name).each do |template|
           template.export(xml, rand(999_999).to_s(36), :pdf)
         end

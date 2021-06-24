@@ -46,8 +46,8 @@ module Backend
 
     protected
 
-    def find_resource
-      @user = User.find(current_user.id)
-    end
+      def find_resource
+        @user = User.find(current_user.id)
+      end
   end
 end

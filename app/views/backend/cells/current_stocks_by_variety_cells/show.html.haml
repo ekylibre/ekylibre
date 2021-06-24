@@ -1,8 +1,6 @@
 - if @variety and @indicator
   :ruby
-    #
     series = []
-    categories = {}
     unit = @unit
 
     product_natures = ProductNature.of_variety(@variety.to_s).reorder(:id)
@@ -26,7 +24,7 @@
   - if series.empty? or product_natures_serie.collect{|h| h[:y]}.sum <= 0 or product_nature_variants_serie.collect{|h| h[:y]}.sum <= 0
     = no_data
   - else
-    = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f}#{' ' + unit.symbol.to_s if unit}"}, title: :stock_of_x.tl(x: Nomen::Variety[@variety].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: false}}, legend: true)
+    = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f}#{' ' + unit.symbol.to_s if unit}"}, title: :stock_of_x.tl(x: Onoma::Variety[@variety].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: false}}, legend: true)
 
 - else
   = no_data

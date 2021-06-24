@@ -6,13 +6,14 @@ FactoryBot.define do
     }
 
     association :nature, factory: :sale_nature
+    # association :affair, factory: :sale_affair
     amount { 5000.0 }
     sequence(:number) { |n| "S00#{n}" }
     downpayment_amount { 0.0 }
     currency { 'EUR' }
     payment_delay { '1 week' }
     state { :draft }
-    provider { }
+    provider { Hash.new }
 
     after(:build) do |sale, eval|
       sale.affair = eval.affair || build(:sale_affair, amount: eval.amount)

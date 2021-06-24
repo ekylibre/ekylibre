@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Intervention
   class Recorder
     attr_reader :intervention
@@ -27,7 +29,7 @@ class Intervention
     end
 
     %i[target doer tool input output].each do |name|
-      code = "def #{name}(name, *args)\n"
+      code = "def #{name}(name, *args)\n".dup
       code << "  cast(:#{name}, name, *args)\n"
       code << "end\n"
       class_eval code

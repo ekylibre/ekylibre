@@ -24,5 +24,19 @@ module Backend
                                # reconciliation: :get_and_post, # TODO: Re-activate this test
                                index: :redirected_get,
                                except: %i[letter unletter reconciliation] # TODO: Re-activate those tests
+
+    test 'import_cfonb post works' do
+      create :cash, iban: 'FR8314508000309837485442I87'
+      post(:import_cfonb, params: { upload: uploaded_file("import_cfonb.csv") })
+      assert_redirected_to("/backend/bank-statements/#{assigns(:bank_statement).id}")
+    end
+
+    private
+
+      # @param [String] file_path
+      # @return [Rack::Test::UploadedFile]
+      def uploaded_file(file_path)
+        Rack::Test::UploadedFile.new(Rails.root.join("test/fixture-files/accountancy/cfonb", file_path).open)
+      end
   end
 end

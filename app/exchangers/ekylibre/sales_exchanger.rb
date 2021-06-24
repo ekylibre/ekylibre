@@ -1,10 +1,16 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class SalesExchanger < ActiveExchanger::Base
+    category :sales
+    vendor :ekylibre
+
     def initialize(file, supervisor, options = {})
       super file, supervisor
       @attachments_dir = options['attachments_path']
       @attachments_dir &&= Pathname.new(@attachments_dir)
     end
+
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
@@ -35,7 +41,7 @@ module Ekylibre
         if r.variant_code
           variant = ProductNatureVariant.where(name: r.variant_code).first || ProductNatureVariant.where(work_number: r.variant_code).first
           unless variant
-            if Nomen::ProductNatureVariant.find(r.variant_code.to_sym)
+            if Onoma::ProductNatureVariant.find(r.variant_code.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_code.to_sym)
             end
           end
@@ -101,7 +107,7 @@ module Ekylibre
       # change status of all new added purchases
       added_sales.each do |sale|
         sale.propose if sale.draft?
-        sale.confirm
+        sale.confirm(sale.invoiced_at)
         sale.invoice(sale.invoiced_at)
         w.check_point
       end

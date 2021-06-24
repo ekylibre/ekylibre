@@ -1,4 +1,4 @@
-class RenameSilageUnloaderToEquipmentInHerdFeedingProcedure < ActiveRecord::Migration
+class RenameSilageUnloaderToEquipmentInHerdFeedingProcedure < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

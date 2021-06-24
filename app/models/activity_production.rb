@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,38 +25,43 @@
 #
 # == Table: activity_productions
 #
-#  activity_id         :integer          not null
-#  campaign_id         :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivable_zone_id  :integer
-#  custom_fields       :jsonb
-#  id                  :integer          not null, primary key
-#  irrigated           :boolean          default(FALSE), not null
-#  lock_version        :integer          default(0), not null
-#  nitrate_fixing      :boolean          default(FALSE), not null
-#  rank_number         :integer          not null
-#  season_id           :integer
-#  size_indicator_name :string           not null
-#  size_unit_name      :string
-#  size_value          :decimal(19, 4)   not null
-#  started_on          :date
-#  state               :string
-#  stopped_on          :date
-#  support_id          :integer          not null
-#  support_nature      :string
-#  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id           :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  usage               :string           not null
+#  activity_id          :integer          not null
+#  campaign_id          :integer
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  cultivable_zone_id   :integer
+#  custom_fields        :jsonb
+#  custom_name          :string
+#  id                   :integer          not null, primary key
+#  irrigated            :boolean          default(FALSE), not null
+#  lock_version         :integer          default(0), not null
+#  nitrate_fixing       :boolean          default(FALSE), not null
+#  production_nature_id :integer
+#  provider             :jsonb            default("{}")
+#  rank_number          :integer          not null
+#  season_id            :integer
+#  size_indicator_name  :string           not null
+#  size_unit_name       :string
+#  size_value           :decimal(19, 4)   not null
+#  started_on           :date
+#  starting_year        :integer
+#  state                :string
+#  stopped_on           :date
+#  support_id           :integer          not null
+#  support_nature       :string
+#  support_shape        :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id            :integer
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  usage                :string           not null
 #
 
-class ActivityProduction < Ekylibre::Record::Base
+class ActivityProduction < ApplicationRecord
   include Attachable
   include Customizable
+  include Providable
 
-  enumerize :support_nature, in: %i[cultivation fallow_land buffer border none animal_group], default: :cultivation
+  refers_to :support_nature, class_name: 'ProductionSupportNature'
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -74,35 +81,39 @@ class ActivityProduction < Ekylibre::Record::Base
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
+  belongs_to :production_nature, class_name: 'MasterProductionNature', foreign_key: :production_nature_id
 
-  has_geometry :support_shape, type: :multi_polygon
+  has_geometry :support_shape, :headland_shape, type: :multi_polygon
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :custom_name, :state, length: { maximum: 500 }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :state, length: { maximum: 500 }, allow_blank: true
-  validates :stopped_on, timeliness: { on_or_after: ->(activity_production) { activity_production.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :stopped_on, timeliness: { on_or_after: ->(activity_production) { activity_production.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :rank_number, uniqueness: { scope: :activity_id }
-  validates :started_on, presence: true
+  validates :started_on, :stopped_on, presence: true
   # validates_presence_of :cultivable_zone, :support_nature, if: :plant_farming?
-  validates :support_nature, presence: { if: :plant_farming? }
-  validates :campaign, :stopped_on, presence: { if: :annual? }
-  validates :started_on, presence: true
+  validates :support_nature, presence: { if: -> { plant_farming? || vine_farming? } }
+  validates :campaign, presence: { if: :annual? }
+  validates :starting_year, presence: { if: :perennial? }, allow_blank: true, numericality: { greater_than_or_equal_to: ->(activity_production) { activity_production.started_on.year }, less_than_or_equal_to: ->(activity_production) { activity_production.stopped_on.year } }
+  validates :support, presence: true
+  validates_associated :support
+
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
 
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
-  delegate :animal_farming?, :plant_farming?, :tool_maintaining?,
-           :at_cycle_start?, :at_cycle_end?, :use_seasons?, :use_tactics?,
+  delegate :animal_farming?, :plant_farming?, :tool_maintaining?, :vine_farming?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
-           :color, :annual?, :perennial?, to: :activity, allow_nil: true
+           :color, :annual?, :perennial?, :production_started_on_year,
+           :production_stopped_on_year, :life_duration, :production_started_on, :production_stopped_on, to: :activity, allow_nil: true
 
   scope :of_campaign, lambda { |campaign|
     where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
@@ -160,21 +171,23 @@ class ActivityProduction < Ekylibre::Record::Base
 
   before_validation on: :create do
     if activity
-      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number = activity.productions_next_rank_number
     end
     true
   end
 
   before_validation do
     self.started_on ||= Date.today
-    self.usage = Nomen::ProductionUsage.first unless usage
+    self.usage ||= Onoma::ProductionUsage.first
+    self.support_nature ||= :cultivation
     if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
+      self.stopped_on ||= self.started_on + life_duration.to_i.year if perennial?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
       if valid_period_for_support?
-        if plant_farming?
+        if plant_farming? || vine_farming?
           initialize_land_parcel_support!
         elsif animal_farming?
           initialize_animal_group_support!
@@ -192,7 +205,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:support_shape, :empty) if plant_farming? && support_shape && support_shape.empty?
+    errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape && support_shape.empty?
   end
 
   after_save do
@@ -207,19 +220,19 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-    support.destroy if support.is_a?(LandParcel) && support.activity_productions.empty?
-
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
+    items = activity.budgets.of_campaign(campaign).first&.items
+    items.each(&:save!) if items.present?
   end
 
   protect(on: :destroy) do
-    interventions.any? || products.any?
+    interventions.any? || products.where.not(id: support.id).any?
   end
 
   def self.retrieve_varieties_ancestors(*varieties)
     varieties.map do |variety|
       ancestors = [variety]
-      nomen_variety = Nomen::Variety.find(variety)
+      nomen_variety = Onoma::Variety.find(variety)
       loop do
         nomen_variety = nomen_variety.parent
         ancestors << nomen_variety.name
@@ -229,14 +242,24 @@ class ActivityProduction < Ekylibre::Record::Base
     end.flatten.uniq
   end
 
-  def computed_support_name
-    list = []
-    list << cultivable_zone.name if cultivable_zone
-    list << campaign.name if campaign
-    list << activity.name
-    list << :rank.t(number: rank_number)
-    list.reverse! if 'i18n.dir'.t == 'rtl'
-    list.join(' ')
+  # compile unique work_number for support
+  # a : P_ for Parcel
+  # b : First letter of activity cultivation variety (v for vitis, t for triticum)
+  # c : production rank number
+  # d : cultivable zone number (work number or cap number or id )
+  # e : harvest year
+  def computed_work_number
+    work_number = 'P'.dup
+    work_number << '_' << activity.cultivation_variety[0].upcase
+    work_number << rank_number.to_s
+    work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
+    work_number << '_' + campaign.harvest_year.to_s if campaign
+    work_number
+  end
+
+  def interventions_of_nature(nature)
+    interventions
+      .where(nature: nature)
   end
 
   # compile unique work_number for support
@@ -270,7 +293,7 @@ class ActivityProduction < Ekylibre::Record::Base
       return false if self.started_on < Time.new(1, 1, 1).in_time_zone
     end
     if self.stopped_on
-      return false if self.stopped_on >= Time.zone.now + 50.years
+      return false if self.stopped_on >= Time.zone.now + 100.years
     end
     if self.started_on && self.stopped_on
       return false if self.started_on > self.stopped_on
@@ -295,7 +318,6 @@ class ActivityProduction < Ekylibre::Record::Base
     if self.activity && self.cultivable_zone
       support.work_number = computed_work_number
     end
-
 
     if support.initial_movement
       support.initial_movement.delta = support_shape_area.to_d(size_unit_name)
@@ -407,21 +429,23 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def started_on_for(campaign)
-    return self.started_on if annual?
-    on = begin
-           Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
-         rescue
-           Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day - 1)
-         end
-    on -= 1.year if at_cycle_end?
-    on
+    return started_on if annual?
+
+    begin
+      Date.civil(campaign.harvest_year + production_started_on_year, production_started_on.month, production_started_on.day)
+    rescue
+      Date.civil(campaign.harvest_year, 1, 1)
+    end
   end
 
   def stopped_on_for(campaign)
     return stopped_on if annual?
-    on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day) - 1
-    on += 1.year if at_cycle_start?
-    on
+
+    begin
+      Date.civil(campaign.harvest_year + production_stopped_on_year, production_stopped_on.month, production_stopped_on.day)
+    rescue
+      Date.civil(campaign.harvest_year, 12, 31)
+    end
   end
 
   # Used for find current campaign for given production
@@ -512,6 +536,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if surface_area.to_s.to_f > 0.0
       return cost(:tool) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
+
     0.0
   end
 
@@ -520,6 +545,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if surface_area.to_s.to_f > 0.0
       return cost(:input) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
+
     0.0
   end
 
@@ -528,6 +554,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if surface_area.to_s.to_f > 0.0
       return cost(:doer) / surface_area.to_d(surface_unit_name).to_s.to_f
     end
+
     0.0
   end
 
@@ -551,6 +578,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def implanted_at
     intervention = interventions.real.of_category(:planting).first
     return intervention.started_at if intervention
+
     nil
   end
 
@@ -559,18 +587,21 @@ class ActivityProduction < Ekylibre::Record::Base
   def harvested_at
     intervention = interventions.real.of_category(:harvesting).first
     return intervention.started_at if intervention
+
     nil
   end
 
   # Generic method to get harvest yield
   def harvest_yield(harvest_variety, options = {})
     size_indicator_name = options[:size_indicator_name] || :net_mass
-    ind = Nomen::Indicator.find(size_indicator_name)
+    ind = Onoma::Indicator.find(size_indicator_name)
     raise "Invalid indicator: #{size_indicator_name}" unless ind
+
     size_unit_name = options[:size_unit_name] || ind.unit
-    unless Nomen::Unit.find(size_unit_name)
+    unless Onoma::Unit.find(size_unit_name)
       raise "Invalid indicator unit: #{size_unit_name.inspect}"
     end
+
     surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
     surface = net_surface_area
@@ -580,9 +611,10 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
     # puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
-    unless Nomen::Unit.find(harvest_yield_unit_name)
+    unless Onoma::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
+
     total_quantity = 0.0.in(size_unit_name)
     # puts "total_quantity : #{total_quantity}".inspect.red
 
@@ -609,7 +641,8 @@ class ActivityProduction < Ekylibre::Record::Base
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
-          variety = Nomen::Variety.find(actor.variety)
+
+          variety = Onoma::Variety.find(actor.variety)
           if variety && variety <= harvest_variety
             quantity = cast.quantity_population.in(actor.variant.send(size_indicator_name).unit)
             total_quantity += quantity.convert(size_unit_name) if quantity
@@ -681,6 +714,7 @@ class ActivityProduction < Ekylibre::Record::Base
     # get current campaign
     budget = activity.budget_of(campaign)
     return nil unless budget
+
     budget.estimate_yield(variety, options)
   end
 
@@ -723,19 +757,28 @@ class ActivityProduction < Ekylibre::Record::Base
     "#{support_work_number} - #{net_surface_area.convert(:hectare).round(2)}"
   end
 
+  def human_area(unit = :hectare)
+    if support_shape
+      support_shape_area.convert(unit).round(2).l(precision: 2)
+    end
+  end
+
   # Returns unique i18nized name for given production
+  # FIXME: Not unique if interactor fails
   def name(_options = {})
     interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
                  .call(activity_production: self)
 
-    return interactor.build_name if interactor.success?
-    if interactor.fail?
+    if interactor.success?
+      interactor.build_name
+      # interactor is not loaded before the rake first run task
+    else
       list = []
+      list << cultivable_zone.name if cultivable_zone && (plant_farming? || vine_farming?)
       list << activity.name
-      list << campaign.harvest_year.to_s if activity.annual? && started_on
+      list << campaign.harvest_year.to_s if activity.annual? && started_on && campaign_id
       # list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-      list << cultivable_zone.name if cultivable_zone && plant_farming?
-      # list << :rank.t(number: rank_number)
+      list << :rank.t(number: rank_number)
       list = list.reverse! if 'i18n.dir'.t == 'rtl'
       list.join(' ')
     end
@@ -743,14 +786,15 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def get(*args)
     if support.blank?
-      raise StandardError, "No support defined. Got: #{support.inspect}"
+      raise StandardError.new("No support defined. Got: #{support.inspect}")
     end
+
     support.get(*args)
   end
 
   # # Returns value of an indicator if its name correspond to
   # def method_missing(method_name, *args)
-  #   if Nomen::Indicator.include?(method_name.to_s)
+  #   if Onoma::Indicator.include?(method_name.to_s)
   #     return get(method_name, *args)
   #   end
   #   super

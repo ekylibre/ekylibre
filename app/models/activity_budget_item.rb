@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,7 +45,7 @@
 #  variant_unit       :string
 #
 
-class ActivityBudgetItem < Ekylibre::Record::Base
+class ActivityBudgetItem < ApplicationRecord
   refers_to :currency
   enumerize :direction, in: %i[revenue expense], predicates: true
   enumerize :computation_method, in: %i[per_campaign per_production per_working_unit], default: :per_working_unit, predicates: true
@@ -79,7 +81,7 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   end
 
   validate do
-    #???: Why do we even have both if we check that they're always equals??
+    # ???: Why do we even have both if we check that they're always equals??
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
@@ -97,6 +99,7 @@ class ActivityBudgetItem < Ekylibre::Record::Base
     elsif per_working_unit?
       return activity_budget.productions_size || 0
     end
+
     1
   end
 

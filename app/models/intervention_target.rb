@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +27,7 @@
 #
 #  allowed_entry_factor     :interval
 #  allowed_harvest_factor   :interval
+#  applications_frequency   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -36,6 +39,7 @@
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string
+#  imputation_ratio         :decimal(19, 4)   default(1), not null
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -50,33 +54,40 @@
 #  quantity_population      :decimal(19, 4)
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
+#  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  usage_id                 :string
+#  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
 #  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionTarget < InterventionProductParameter
   belongs_to :intervention, inverse_of: :targets
+  has_many :pfi_targets, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :target_id, dependent: :destroy
   validates :product, presence: true
   scope :of_activity, ->(activity) { where(product_id: Product.where(activity_production_id: activity.productions.select(:id))) }
   scope :of_activities, ->(activities) { where(product_id: Product.where(activity_production_id: activities.map { |a| a.productions.select(:id) }.flatten.uniq)) }
   scope :of_activity_production, ->(activity_production) { where(product_id: Product.where(activity_production: activity_production)) }
   scope :of_interventions, ->(interventions) { where(intervention_id: interventions.map(&:id)) }
 
-  before_validation do
-    # compute quantity_value & quantity_unit_name for imputation_ratio
-    if working_zone
-      a = working_zone.area
-      self.quantity_value = a
-      self.quantity_unit_name = 'square_meter'
-      self.quantity_indicator_name = 'net_surface_area'
-      b = self.intervention.targets.map{|t| t.working_zone.area }.compact.sum
-      self.imputation_ratio = (a/b).to_f if a && b && (b != 0)
+  validate do
+    if product
+      target_type = "the_#{reference_name}".tl
+      # Because in the fixtures, we have some Plant that don't have an activity_production
+      # TODO: Fix the fixtures!
+      filtered_product = (product.is_a?(Plant) && product.dead_at.nil? && product.activity_production&.support.present?) ? product.activity_production.support : product
+      if filtered_product.dead_at && (filtered_product.dead_at < intervention.started_at)
+        errors.add(:product, :target_dont_exist_after, target: target_type, date: filtered_product.dead_at.l)
+      end
+      if filtered_product.born_at && (filtered_product.born_at > intervention.started_at)
+        errors.add(:product, :target_dont_exist_before, target: target_type, date: filtered_product.born_at.l)
+      end
     end
   end
 
@@ -92,6 +103,7 @@ class InterventionTarget < InterventionProductParameter
 
   def best_activity_production
     return nil unless product
+
     product.best_activity_production(at: intervention.started_at)
   end
 

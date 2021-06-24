@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +36,7 @@
 #  updater_id   :integer
 #
 
-class ActivityInspectionPointNature < Ekylibre::Record::Base
+class ActivityInspectionPointNature < ApplicationRecord
   belongs_to :activity
   enumerize :category, in: %i[disease deformity none], default: :none, predicates: true
   has_many :inspection_points, inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception

@@ -1,0 +1,273 @@
+/* ================================================================== */
+/* Legends
+  /* ================================================================== */
+
+  .leaflet-legend-control {
+    max-height: 305px;
+    overflow: auto;
+    $cell-height: $fs-small;
+    @include menu-box;
+    min-width: 220px;
+  
+    &.empty {
+      display: none;
+    }
+  
+    .leaflet-legend-item {
+      padding: $default-gap;
+      border-top: $menu-border;
+      display: block;
+      min-width: 15 * $lh-normal;
+      max-width: 18 * $lh-normal;
+      &.first,
+      &:first-child {
+        border-top: none;
+      }
+      h3 {
+        color: $text-color;
+        font-size: $fs-normal;
+        line-height: $lh-normal;
+        font-weight: bold;
+      }
+      .leaflet-legend-body {
+        .min-value,
+        .max-value {
+          color: $neutral-color;
+          font-size: $fs-small;
+          line-height: $lh-small;
+          font-weight: bold;
+        }
+      }
+  
+      &.minified {
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        transition: 1s ease;
+      }
+    }
+  
+    .leaflet-bubbles-scale {
+      text-align: center;
+      .min-value {
+        @include margin-right($default-gap);
+      }
+      .max-value {
+        @include margin-left($default-gap);
+      }
+      .leaflet-bubbles-grades {
+        .leaflet-bubbles-grade {
+          @include inline-block;
+          @include border-radius(50%);
+          margin: 0 round(0.6 * $default-gap);
+          border-style: solid;
+        }
+      }
+    }
+  
+    .leaflet-categories-scale {
+      .leaflet-categories-items {
+        .leaflet-categories-item {
+          display: flex;
+  
+          margin-top: round($default-gap * 0.3);
+          &:first-child {
+            margin-top: 0;
+          }
+          .leaflet-categories-sample {
+            @include inline-block;
+            height: $cell-height;
+            width: $cell-height;
+            @include border-radius(50%);
+            border: 1px solid #333;
+            align-self: center;
+          }
+          .leaflet-categories-item_label {
+            display: inherit;
+            margin-left: $default-gap;
+            color: $neutral-color;
+            font-size: $fs-small;
+            line-height: $lh-small;
+            font-weight: bold;
+            text-transform: uppercase;
+            &.zoom-guidance {
+              display: none;
+              color: #cd554b;
+            }
+          }
+        }
+      }
+    }
+  
+    .leaflet-choropleth-scale {
+      .min-value {
+        @include float(left);
+      }
+      .max-value {
+        @include float(right);
+      }
+      .leaflet-choropleth-grades {
+        display: block;
+        clear: both;
+        $border: 1px solid #333;
+        // margin: $default-gap 0 0 0;
+        // width: 15 * $lh-normal;
+        height: $cell-height;
+        border: $border;
+        .leaflet-choropleth-grade {
+          @include inline-block;
+          vertical-align: top;
+          height: $cell-height;
+        }
+      }
+    }
+    .leaflet-legend-circle {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #000000;
+      @include inline-block;
+      border-radius: 50%;
+      margin-top: 8px;
+    }
+  
+    &.leaflet-hidden-control {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+    .leaflet-legend-control {
+      max-height: 60px !important;
+    }
+  }
+  
+  i.leaflet-importer-ctrl,
+  button.leaflet-importer-ctrl {
+    @include is-icon;
+    @include use-icon(download);
+    color: $active-link-color;
+    width: $map-button-size;
+    height: $map-button-size;
+    line-height: $map-button-size;
+  }
+  
+  span.leaflet-importer-geojson,
+  span.leaflet-importer-gml {
+    font-size: $default-gap;
+  }
+  
+  .leaflet-multilevel-legend {
+    i {
+      display: inline-block;
+      width: 18px !important;
+      height: 18px !important;
+  
+      &.active {
+        @include is-icon(10px);
+        @include use-icon(check);
+        color: white;
+        text-align: center;
+      }
+    }
+    span {
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+  
+  .leaflet-reference-label {
+    //background-color: #fff;
+  }
+  
+  .leaflet-ghost-label {
+    &:before,
+    &:after {
+      box-shadow: none;
+      border: none;
+      background: transparent;
+    }
+    .leaflet-ghost-label-collapsed {
+      color: $active-color;
+      background: white;
+      font-weight: bold;
+      /* text-shadow: none; */
+      display: block;
+      min-width: $lh-normal;
+      /* height: 20px; */
+      border-radius: 50%;
+      border: $menu-border;
+      /* background-color: white; */
+      text-align: center;
+    }
+  }
+  
+  .leaflet-popup-warning {
+    @include is-icon;
+    @include use-icon(warning);
+    &.hide {
+      display: none;
+    }
+    &.right {
+      @include float(right);
+    }
+  }
+  
+  .choice-padding {
+    @include inline-block;
+    margin-right: 15px;
+  
+    input[type="radio"] {
+      margin-right: 3px;
+    }
+  }
+  
+  .modal-header {
+    .leaflet-importer-ctrl {
+      color: black;
+    }
+    span {
+      margin-left: 10px;
+      font-size: 18px;
+    }
+  }
+  
+  .leaflet-control-measure-toggle {
+    visibility: hidden;
+    &:before {
+      visibility: visible;
+      font-size: 26px;
+      line-height: 44px;
+      text-align: center;
+      vertical-align: middle;
+      width: 44px;
+      display: block;
+      height: 44px;
+    }
+  }
+  
+  .leaflet-dynamic {
+    color: $text-color;
+    @include text-align(center);
+  
+    &.loading {
+      @include is-icon;
+      @include use-icon(circle-o-notch);
+      @include animation(loading-rotate 2s infinite linear);
+      width: $map-button-size;
+      height: $map-button-size;
+      line-height: $map-button-size;
+      background-color: $white;
+      border-radius: 50%;
+    }
+  
+    &.error {
+      @include is-icon;
+      @include use-icon(exclamation-circle);
+      width: $map-button-size;
+      height: $map-button-size;
+      line-height: $map-button-size;
+      background-color: $white;
+      border-radius: 50%;
+    }
+  }
+  

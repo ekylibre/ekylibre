@@ -1,7 +1,8 @@
 = kujaku do |k|
   - k.text
   - k.helper do
-    %label= Plant.human_attribute_name(:variety)
+    %div.label-container
+      %label= Plant.human_attribute_name(:variety)
     = select_tag(:variety, options_for_select([[]] + Plant.unique_varieties.map{ |v| [v.human_name, v.name.to_s] }.sort_by(&:first), params[:variety].to_s))
   - if Plant.where.not(born_at: nil).any?
     - k.helper do
@@ -11,11 +12,17 @@
       = plant_period_crit(label: Plant.human_attribute_name(:dead_at), name: :dead_at)
   - k.helper do
     - max = plants_max_area.in_hectare.to_f.ceil.in_hectare
-    .range-slider
+    %div.label-container
       %label= Plant.human_attribute_name(:net_surface_area)
-      %span.range-minimum= 0.in_hectare.l(precision: 0)
+    .range-slider.range-slider--plant.value-container
+      %span.range-minimum.range-minimum--plant= 0.in_hectare.l(precision: 0)
       %input{ name: :area, data: { slider: { min: 0, max: max.to_f.round, value: area_range_slider_value(max.to_f), step: 0.1, tooltip_split: true }, provide: 'slider' } }
-      %span.range-maximum= max.l(precision: 0)
+      %span.range-maximum.range-maximum--plant= max.l(precision: 0)
+
+- main_toolbar do |t|
+  = dropdown_menu_button(:generate_plant.tl, main_class: "btn btn-default #{'disabled' if LandParcel.count.zero? && Matter.of_variety("seed").count.zero?}") do |d|
+    -  %w[sowing mechanical_planting all_in_one_sowing sowing_with_spraying vine_planting].each do |variety|
+      - d.item variety.tl, { controller: "/backend/interventions", action: :new, procedure_name: variety }
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?

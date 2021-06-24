@@ -10,15 +10,12 @@ FactoryBot.define do
     unit_pretax_amount { 5000 }
     compute_from { 'amount' }
     currency { 'EUR' }
+    association :variant, factory: :sale_variant
 
     trait :fixed do
       fixed             { true }
       preexisting_asset { true }
     end
 
-    after(:build) do |sale_item|
-      sale_item.variant ||= create :product_nature_variant
-      # sale_item.variant = ProductNatureVariant.last unless sale_item.variant
-    end
   end
 end

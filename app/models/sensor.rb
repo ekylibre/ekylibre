@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,7 +48,7 @@
 #  vendor_euid          :string
 #
 
-class Sensor < Ekylibre::Record::Base
+class Sensor < ApplicationRecord
   include Attachable
   include Customizable
   enumerize :retrieval_mode, in: %i[requesting listening integration], default: :requesting, predicates: true
@@ -59,7 +61,7 @@ class Sensor < Ekylibre::Record::Base
   validates :active, :embedded, inclusion: { in: [true, false] }
   validates :battery_level, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :euid, :model_euid, :partner_url, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
-  validates :last_transmission_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :last_transmission_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]
@@ -68,6 +70,10 @@ class Sensor < Ekylibre::Record::Base
   validates :vendor_euid, :model_euid, presence: { unless: :listening? }
 
   # TODO: Check parameters presence
+
+  scope :nearest_of_and_within, lambda { |shape, max_distance_in_meter = 5000|
+    where(id: Analysis.geolocation_nearest_of_and_within(shape, max_distance_in_meter).pluck(:sensor_id))
+  }
 
   before_validation do
     if token.blank?
@@ -85,6 +91,7 @@ class Sensor < Ekylibre::Record::Base
   def alert_status
     return :go if alerts.joins(:phases).all? { |alert| alert.level.zero? }
     return :stop if alerts.joins(:phases).none? { |alert| alert.level.zero? }
+
     :caution
   end
 

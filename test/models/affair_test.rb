@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -119,7 +119,7 @@ class AffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert subject.save
     assert subject.letter
 
-    assert deal_entry_items_in_third_account.all? { |item| item.letter.match '^' + subject.letter + '\*?$' }
+    assert(deal_entry_items_in_third_account.all? { |item| item.letter.match '^' + subject.letter + '\*?$' })
     assert deal_entry_items_out_third_account.none?(&:letter)
   end
 

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -139,19 +139,19 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'simple creation with nested items' do
     items_attributes = [
       {
-        tax: Tax.find_by!(amount: 20),
+        tax: Tax.find_by!(amount: 20.to_d),
         variant: ProductNatureVariant.first,
         unit_pretax_amount: 100,
         quantity: 1
       },
       {
-        tax: Tax.find_by!(amount: 0),
+        tax: Tax.find_by!(amount: 0.to_d),
         variant_id: ProductNatureVariant.first.id,
         unit_pretax_amount: 450,
         quantity: 2
       },
       { # Invalid item (rejected)
-        tax: Tax.find_by!(amount: 19.6),
+        tax: Tax.find_by!(amount: 19.6.to_d),
         unit_pretax_amount: 123,
         quantity: 17
       }
@@ -258,17 +258,17 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
-    attributes = {
-      type: type,
-      nature: nature || @nature,
-      supplier: supplier || @supplier,
-      invoiced_at: invoiced_at || @invoiced_at,
-      currency: currency,
-      state: state,
-      items_attributes: items_attributes || {}
-    }
+    def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
+      attributes = {
+        type: type,
+        nature: nature || @nature,
+        supplier: supplier || @supplier,
+        invoiced_at: invoiced_at || @invoiced_at,
+        currency: currency,
+        state: state,
+        items_attributes: items_attributes || {}
+      }
 
-    Purchase.create!(attributes)
-  end
+      Purchase.create!(attributes)
+    end
 end

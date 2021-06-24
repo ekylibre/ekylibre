@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,20 +47,20 @@
 #  updater_id                 :integer
 #
 
-class Inventory < Ekylibre::Record::Base
+class Inventory < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
   refers_to :currency
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
-  has_many :item_variants, -> { uniq }, through: :items, source: :variant
+  has_many :item_variants, -> { distinct }, through: :items, source: :variant
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :financial_year
   belongs_to :product_nature_category
   belongs_to :journal, inverse_of: :inventories
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :disable_accountancy, inclusion: { in: [true, false] }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :reflected, inclusion: { in: [true, false] }
@@ -96,7 +98,13 @@ class Inventory < Ekylibre::Record::Base
   end
 
   protect do
-    old_record.reflected? && old_record.journal_entry && !old_record.journal_entry.draft?
+    if old_record.reflected? && old_record.journal_entry && !old_record.journal_entry.draft?
+      true
+    elsif product_nature_category_id.nil?
+      Inventory.where("achieved_at > ?", achieved_at).exists?
+    else
+      Inventory.where("achieved_at > ?", achieved_at).where("product_nature_category_id = ? OR product_nature_category_id IS NULL", product_nature_category_id).exists?
+    end
   end
 
   def reflectable?
@@ -105,7 +113,7 @@ class Inventory < Ekylibre::Record::Base
 
   # Apply deltas on products and raises an error if any problem
   def reflect!
-    raise StandardError, 'Cannot reflect inventory on stocks' unless reflect
+    raise StandardError.new('Cannot reflect inventory on stocks') unless reflect
   end
 
   # Apply deltas on products
@@ -118,7 +126,7 @@ class Inventory < Ekylibre::Record::Base
     self.reflected = true
     return false unless valid? && items.all?(&:valid?)
 
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       save!
       items.find_each(&:save!)
     end
@@ -130,6 +138,7 @@ class Inventory < Ekylibre::Record::Base
     self.achieved_at ||= Time.zone.now
     Matter.at(achieved_at).mine_or_undefined(achieved_at).of_category(product_nature_category).includes(:populations).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
+
       population = product.population(at: self.achieved_at)
       # shape = product.shape(at: self.achieved_at)
       items.build(product_id: product.id, actual_population: population, expected_population: population)
@@ -137,7 +146,8 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def refresh!
-    raise StandardError, 'Cannot refresh uneditable inventory' unless editable?
+    raise StandardError.new('Cannot refresh uneditable inventory') unless editable?
+
     items.clear
     build_missing_items
     save!

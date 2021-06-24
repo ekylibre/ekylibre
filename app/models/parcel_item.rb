@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -67,7 +69,7 @@
 #  updater_id                    :integer
 #  variant_id                    :integer
 #
-class ParcelItem < Ekylibre::Record::Base
+class ParcelItem < ApplicationRecord
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
   enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
@@ -115,6 +117,8 @@ class ParcelItem < Ekylibre::Record::Base
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
   delegate :separated_stock?, :currency, to: :parcel, prefix: true, allow_nil: true
   delegate :unit_name, to: :variant
+
+  scope :of_role, ->(role) { where(role: role) }
 
   before_validation do
     if variant
@@ -196,42 +200,43 @@ class ParcelItem < Ekylibre::Record::Base
 
   def purchase_invoice_number
     return nil if purchase_invoice_item.nil?
+
     purchase_invoice_item.purchase.number
   end
 
   protected
 
-  def check_incoming(checked_at)
-    product_params = {}
-    no_fusing = parcel_separated_stock? || product_is_unitary?
+    def check_incoming(checked_at)
+      product_params = {}
+      no_fusing = parcel_separated_stock? || product_is_unitary?
 
-    product_params[:name] = product_name
-    product_params[:name] ||= "#{variant.name} (#{parcel.number})"
-    product_params[:identification_number] = product_identification_number
-    product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
+      product_params[:name] = product_name
+      product_params[:name] ||= "#{variant.name} (#{parcel.number})"
+      product_params[:identification_number] = product_identification_number
+      product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 
-    self.product = existing_product_in_storage unless no_fusing || storage.blank?
+      self.product = existing_product_in_storage unless no_fusing || storage.blank?
 
-    self.product ||= variant.create_product(product_params)
-    # FIXME: bad fix for date collision between incoming parcel creation and intervention creation.
-    self.product.born_at = product_params[:initial_born_at]
+      self.product ||= variant.create_product(product_params)
+      # FIXME: bad fix for date collision between incoming parcel creation and intervention creation.
+      self.product.born_at = product_params[:initial_born_at]
 
-    return false, self.product.errors if self.product.errors.any?
-    true
-  end
+      return false, self.product.errors if self.product.errors.any?
 
-  def check_outgoing(_checked_at)
-    update! product: source_product
-  end
-
-
-  def existing_product_in_storage
-    similar_products = Product.where(variant: variant)
-
-    similar_products.find do |p|
-      location = p.localizations.last.container
-      owner = p.owner
-      location == storage && owner == Entity.of_company
+      true
     end
-  end
+
+    def check_outgoing(_checked_at)
+      update! product: source_product
+    end
+
+    def existing_product_in_storage
+      similar_products = Product.where(variant: variant)
+
+      similar_products.find do |p|
+        location = p.localizations.last.container
+        owner = p.owner
+        location == storage && owner == Entity.of_company
+      end
+    end
 end

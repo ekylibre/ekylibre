@@ -30,50 +30,52 @@ module NavigationHelper
 
   private
 
-  def named(collection, naming_method)
-    {
-      record: collection.first,
-      name:   name_for(collection.first, naming_method)
-    }
-  rescue ActiveRecord::StatementInvalid => e
-    raise e unless (pg_error = e.original_exception).is_a?(PG::UndefinedColumn)
-    raise OrderingCriterionNotFound, pg_error
-  end
+    def named(collection, naming_method)
+      {
+        record: collection.first,
+        name:   name_for(collection.first, naming_method)
+      }
+    rescue ActiveRecord::StatementInvalid => e
+      raise e unless (pg_error = e.cause).is_a?(PG::UndefinedColumn)
 
-  def next_records(resource, order, scope)
-    matching_attrs = resource.attributes.slice(*order.keys.map(&:to_s))
-    other_records  = navigable(resource.class, order, scope, resource.id).order(**order)
-    reversed = (order.first.last =~ /desc/)
-
-    lists = %i[down up].map do |dir|
-      [dir, matching_attrs.reduce(other_records, &get_next_record_method(going: dir, reverse: reversed))]
-    end.to_h
-    lists[:down] = lists[:down].reverse_order
-    lists
-  end
-
-  def name_for(record, method)
-    return nil if method.blank?
-    Maybe(record).send(method.to_sym).or_nil
-  end
-
-  def navigable(items, order, scope, excluded)
-    scoped   = scope
-    scoped &&= items.send(scope)
-    scoped ||= items
-    scoped.where.not(id: excluded).order(**order)
-  rescue NoMethodError => e
-    raise MissingScopeError.new(e.name, e.missing_name, e.backtrace, *e.args)
-  end
-
-  def get_next_record_method(going: :up, reverse: false)
-    operator = case going
-               when /up/   then reverse ? '<=' : '>='
-               when /down/ then reverse ? '>=' : '<='
-               end
-    lambda do |resources, condition|
-      key, value = *condition
-      resources.where("#{key} #{operator} ?", value)
+      raise OrderingCriterionNotFound.new(pg_error)
     end
-  end
+
+    def next_records(resource, order, scope)
+      matching_attrs = resource.attributes.slice(*order.keys.map(&:to_s))
+      other_records  = navigable(resource.class, order, scope, resource.id).order(**order)
+      reversed = (order.first.last =~ /desc/)
+
+      lists = %i[down up].map do |dir|
+        [dir, matching_attrs.reduce(other_records, &get_next_record_method(going: dir, reverse: reversed))]
+      end.to_h
+      lists[:down] = lists[:down].reverse_order
+      lists
+    end
+
+    def name_for(record, method)
+      return nil if method.blank?
+
+      Maybe(record).send(method.to_sym).or_nil
+    end
+
+    def navigable(items, order, scope, excluded)
+      scoped   = scope
+      scoped &&= items.send(scope)
+      scoped ||= items
+      scoped.where.not(id: excluded).order(**order)
+    rescue NoMethodError => e
+      raise MissingScopeError.new(e.name, e.missing_name, e.backtrace, *e.args)
+    end
+
+    def get_next_record_method(going: :up, reverse: false)
+      operator = case going
+                 when /up/   then reverse ? '<=' : '>='
+                 when /down/ then reverse ? '>=' : '<='
+                 end
+      lambda do |resources, condition|
+        key, value = *condition
+        resources.where("#{key} #{operator} ?", value)
+      end
+    end
 end

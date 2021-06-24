@@ -16,6 +16,7 @@ module Procedo
         unless @procedure
           raise "Cannot find procedure: #{@attributes[:procedure_name].inspect}"
         end
+
         @actions = (@attributes[:actions] || []).map(&:to_sym)
         @root_group = Procedo::Engine::Intervention::GroupParameter.new(self, Procedo::Procedure::ROOT_NAME)
         @working_periods = {}.with_indifferent_access
@@ -59,8 +60,10 @@ module Procedo
         @root_group.each_member do |parameter|
           param_name = parameter.param_name
           next unless parameter.respond_to? :handlers_states
+
           states = parameter.handlers_states
           next if states.empty?
+
           hash[param_name] ||= {}
           hash[param_name][parameter.id.to_s] = states
         end
@@ -109,8 +112,9 @@ module Procedo
       def impact_with!(steps)
         steps = steps.to_s.split(/[\[\]]+/) unless steps.is_a?(Array)
         unless steps.size > 1
-          raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+          raise ArgumentError.new('Invalid steps: got ' + steps.inspect)
         end
+
         if steps.first == 'working_periods'
           @working_periods[steps[1]].impact_with(steps[2..-1])
         else
@@ -124,7 +128,7 @@ module Procedo
 
       private
 
-      attr_reader :root_group
+        attr_reader :root_group
     end
   end
 end

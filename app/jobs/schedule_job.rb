@@ -1,5 +1,5 @@
 # Abstract Job which permit to run code on each tenant
-class ScheduleJob < ActiveJob::Base
+class ScheduleJob < ApplicationJob
   def perform
     perform_on_each_tenant
   end

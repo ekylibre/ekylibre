@@ -6,6 +6,7 @@ module Diagram
         graph = Diagram::Graph.new(options.delete(:name), :digraph, rank_dir: 'RL', edge: { color: '#999999' })
         nomenclature.list.each do |item|
           next unless item.depth < 4
+
           graph.node item.name, font_color: '#002255', color: '#002255'
           graph.arrow(item.name, item.parent.name, head: :empty) if item.parent?
         end
@@ -16,6 +17,7 @@ module Diagram
         options[:name] ||= "#{nomenclature.name.to_s.underscore}-inheritance"
         nomenclature.list.each do |item|
           next unless item.children.any?
+
           graph = Diagram::Graph.new("#{nomenclature.name.to_s.underscore}-#{item.name}", :digraph, rank_dir: 'RL', edge: { color: '#999999' })
           graph.node item.name, font_color: '#002266', color: '#002255'
           item.children(recursively: false).each do |i|

@@ -3,6 +3,8 @@ FactoryBot.define do
     sequence(:name) { |n| "Cultivable Zone #{n}" }
     population_counting { 'unitary' }
     variety { 'cultivable_zone' }
+    variable_indicators_list { [:shape] }
+    frozen_indicators_list { [:net_surface_area] }
   end
 
   factory :worker_nature, parent: :product_nature do
@@ -41,6 +43,12 @@ FactoryBot.define do
     variety { :tractor }
   end
 
+  factory :tank_nature, class: ProductNature do
+    sequence(:name) { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
+    population_counting { :unitary }
+    variety { :tank }
+  end
+
   factory :building_division_nature, class: ProductNature do
     sequence(:name) { |n| "Building division nature - #{n}" }
     population_counting { 'unitary' }
@@ -69,6 +77,13 @@ FactoryBot.define do
     variety { :tractor }
     abilities_list { %w[catch(equipment) tow(equipment) move] }
     variable_indicators_list { %i[hour_counter] }
+  end
+
+  factory :sower_nature, class: ProductNature do
+    sequence(:name) { |n| "Sower nature - #{n}" }
+    population_counting { :unitary }
+    variety { :trailed_equipment }
+    abilities_list { %w[sow] }
   end
 
   factory :seed_nature, class: ProductNature do

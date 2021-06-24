@@ -35,8 +35,6 @@ module Fixturing
       path = options[:path] || directory
       version = options[:version] || current_version
       verbose = !options[:verbose].is_a?(FalseClass)
-      Ekylibre::Tenant.create_database_for!(tenant)
-      Ekylibre::Tenant.switch_to_database_for(tenant)
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
@@ -119,7 +117,7 @@ module Fixturing
     end
 
     def migrate(tenant, options = {})
-      target = ActiveRecord::Migrator.last_version
+      target = ActiveRecord::Migrator.last_migration.version
       origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect
@@ -155,6 +153,7 @@ module Fixturing
         ids = records.values.collect { |a| a['id'] }.compact.map(&:to_i)
         records.each do |record, attributes|
           next if attributes['id']
+
           id = record.split('_').last.to_i
           attributes['id'] = ids.include?(id) ? (1..(ids.max + 10)).to_a.detect { |x| !ids.include?(x) } : id
           ids << attributes['id']
@@ -166,6 +165,7 @@ module Fixturing
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |column, definition|
           next unless references = definition[:references]
+
           if references.is_a?(Symbol)
             # Standard reflection case
             foreign_model = references.to_s.camelcase.constantize
@@ -173,6 +173,7 @@ module Fixturing
             data[table.to_s].each do |record, attributes|
               reflection = column.to_s.gsub(/\_id\z/, '')
               next unless fixture_id = attributes[reflection]
+
               if attrs = data[foreign_model.table_name][fixture_id]
                 attributes[column.to_s] = attrs['id']
               else
@@ -185,6 +186,7 @@ module Fixturing
             data[table.to_s].each do |record, attributes|
               reflection = column.to_s.gsub(/\_id\z/, '')
               next unless attributes[reflection]
+
               type_column = reflection + '_type'
               fixture_id, class_name = attributes[reflection].split(/[\(\)\s]+/)[0..1]
               foreign_model = class_name.constantize
@@ -240,12 +242,14 @@ module Fixturing
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |column, definition|
           next unless references = definition[:references]
+
           if references.is_a?(Symbol)
             # Standard reflection case
             foreign_model = references.to_s.camelcase.constantize
             puts references.inspect.red unless data[foreign_model.table_name]
             data[table.to_s].each do |record, attributes|
               next unless fixture_id = attributes[column.to_s]
+
               if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = attrs.first
               else
@@ -258,6 +262,7 @@ module Fixturing
             data[table.to_s].each do |record, attributes|
               type_column = column.to_s.gsub(/\_id\z/, '') + '_type'
               next unless (fixture_id = attributes[column.to_s]) && (fixture_type = attributes[type_column])
+
               foreign_model = fixture_type.constantize
               if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id && (a['type'] || foreign_model.name) == fixture_type }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = "#{attrs.first} (#{fixture_type})"
@@ -356,12 +361,13 @@ module Fixturing
               elsif type == :datetime
                 value.to_time(:utc)
               elsif type == :boolean
-                (%w[1 t T true yes TRUE].include?(value) ? true : false)
+                %w[1 t T true yes TRUE].include?(value)
               elsif type == :json || type == :jsonb
                 JSON.parse(value)
               else
                 puts "Unknown type to parse in fixtures: #{type.inspect}".red unless %i[text string uuid].include?(type)
                 return value unless value =~ /\A\-\-\-(\s+|\z)/
+
                 YAML.safe_load(
                   value,
                   [

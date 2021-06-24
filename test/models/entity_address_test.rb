@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -53,7 +53,7 @@ require 'test_helper'
 class EntityAddressTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'presence of canal scopes' do
-    for canal in EntityAddress.canal.values
+    EntityAddress.canal.values.each do |canal|
       scope_name = canal.to_s.pluralize.to_sym
       assert EntityAddress.respond_to?(scope_name), "EntityAddress must have a scope #{scope_name}"
       scope_name = ('own_' + canal.to_s.pluralize).to_sym

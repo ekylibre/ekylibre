@@ -1,4 +1,4 @@
-class AddContinuousNumberAndValidatedAtToJournalEntries < ActiveRecord::Migration
+class AddContinuousNumberAndValidatedAtToJournalEntries < ActiveRecord::Migration[4.2]
   def change
     add_column :journal_entries, :continuous_number, :integer
     add_index :journal_entries, :continuous_number, unique: true

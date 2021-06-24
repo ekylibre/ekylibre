@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,7 +43,7 @@
 #  updater_id                    :integer
 #
 
-class Guide < Ekylibre::Record::Base
+class Guide < ApplicationRecord
   has_many :analyses, class_name: 'GuideAnalysis', dependent: :destroy
   has_one :last_analysis, -> { where(latest: true) }, class_name: 'GuideAnalysis'
   refers_to :nature, class_name: 'GuideNature'
@@ -56,7 +58,7 @@ class Guide < Ekylibre::Record::Base
   validates :name, presence: true, length: { maximum: 500 }
   validates :reference_source_content_type, :reference_source_file_name, length: { maximum: 500 }, allow_blank: true
   validates :reference_source_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :reference_source_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :reference_source_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
   validates :frequency, inclusion: { in: frequency.values }

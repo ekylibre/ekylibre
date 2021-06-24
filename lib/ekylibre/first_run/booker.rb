@@ -29,6 +29,7 @@ module Ekylibre
           relation = relation.of_variety(options[:variety]) if options[:variety]
           relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
           return relation.all.sample if relation.any?
+
           # Create product with given elements
           attributes = {}
           unless options[:default_storage].is_a?(FalseClass)
@@ -46,8 +47,9 @@ module Ekylibre
           variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
           variants.can(options[:can]) if options[:can]
           unless attributes[:variant] = variants.first
-            raise StandardError, "Cannot find product variant with options #{options.inspect}"
+            raise StandardError.new("Cannot find product variant with options #{options.inspect}")
           end
+
           model.create!(attributes)
         end
 
@@ -75,14 +77,14 @@ module Ekylibre
           # Find procedure
           procedure = Procedo[procedure_name]
           unless procedure
-            raise ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
+            raise ArgumentError.new("Unknown procedure: #{procedure_name.inspect}")
           end
 
           # Find actors
           booker = new(procedure, Time.new(year, month, day), duration)
           yield booker
           actors = booker.product_parameters.collect { |c| c[:actor] }.compact
-          raise ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
+          raise ArgumentError.new("What's the fuck ? No actors ? ") if actors.empty?
 
           # Adds fixed durations to given time
           fixed_duration = procedure.fixed_duration / 3600
@@ -118,11 +120,12 @@ module Ekylibre
 
           # Run interventions
           intervention = nil
-          for period in periods
+          periods.each do |period|
             stopped_at = period[:started_at] + period[:duration]
             next unless stopped_at < Time.zone.now
+
             intervention = Intervention.create!(procedure_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
-            for cast in booker.product_parameters
+            booker.product_parameters.each do |cast|
               intervention.add_cast!(cast)
             end
             intervention.run!(period, options[:parameters])
@@ -138,7 +141,7 @@ module Ekylibre
           # Find procedure
           procedure = Procedo[procedure_name]
           unless procedure
-            raise ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
+            raise ArgumentError.new("Unknown procedure: #{procedure_name.inspect}")
           end
 
           # Adds fixed durations to given time
@@ -149,7 +152,7 @@ module Ekylibre
           booker = new(procedure, started_at, duration)
           yield booker
           actors = booker.product_parameters.collect { |c| c[:actor] }.compact
-          raise ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
+          raise ArgumentError.new("What's the fuck ? No actors ? ") if actors.empty?
 
           # Find a slot for all actors for given day and given duration
           at = nil
@@ -185,6 +188,7 @@ module Ekylibre
         unless procedure.parameter[options[:parameter_name]]
           raise "Invalid parameter: #{options[:parameter_name]} in procedure #{procedure.name}"
         end
+
         @product_parameters << options
       end
 

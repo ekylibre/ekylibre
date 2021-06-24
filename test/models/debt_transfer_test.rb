@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -79,13 +79,14 @@ class DebtTransferTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       purchase_nature = PurchaseNature.first
       purchase = PurchaseInvoice.create!(nature: purchase_nature, supplier: Entity.normal.first, invoiced_at: DateTime.new(2018, 1, 1))
       purchase.items.create!(variant: variants.first, quantity: 1, unit_pretax_amount: purchase_amount, tax: tax)
+      purchase.save
 
       # just to avoid false negative
       assert_equal purchase.items.first.amount, purchase_amount, "can't run debt transfer test without a valid purchase"
 
       count = DebtTransfer.count
 
-      dt, dt2 = DebtTransfer.create_and_reflect!(affair: sale.affair, debt_transfer_affair: purchase.affair)
+      dt, dt2 = DebtTransfer.create_and_reflect!(affair: sale.affair, debt_transfer_affair: purchase.affair, accounted_at: DateTime.new(2018, 1, 2))
 
       assert_equal count + 2, DebtTransfer.count, 'Two debt transfers should be created. Got: ' + (DebtTransfer.count - count).to_s
 

@@ -17,6 +17,7 @@ module ActiveSensor
       unless controller
         return { status: :error, message: "No controller given for #{equipment.unique_name}" }
       end
+
       begin
         report = @controller.retrieve(parameters, options)
       rescue StandardError => e

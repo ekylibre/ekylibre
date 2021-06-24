@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,14 +39,14 @@
 #  updater_id   :integer
 #
 
-class Observation < Ekylibre::Record::Base
+class Observation < ApplicationRecord
   enumerize :importance, in: %i[important normal notice], default: :notice, predicates: true
   belongs_to :subject, polymorphic: true
   belongs_to :author, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :content, presence: true, length: { maximum: 500_000 }
   validates :author, :importance, :subject, presence: true
-  validates :observed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :observed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :subject_type, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :importance, length: { allow_nil: true, maximum: 10 }
@@ -74,6 +76,7 @@ class Observation < Ekylibre::Record::Base
                                    end
       raise "Invalid class name: #{class_name.inspect}"
     end
+
     super(normalized_class_name)
   end
 end

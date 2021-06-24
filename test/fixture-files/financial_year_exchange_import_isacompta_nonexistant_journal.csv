@@ -1,0 +1,3 @@
+id,jour,numero_compte,journal,libelle_journal,type_compte,numero_piece,libelle_ecriture,debit,credit,lettrage,date_echeance,sequence_analytique
+1,02092015,80010001,TOT,,ge,12345,Ecriture1,12.5,0.0,AAA,,
+2,02092015,80010001,TTT,,ge,12345,Ecriture2,0.0,12.5,AAA,,

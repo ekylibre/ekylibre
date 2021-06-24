@@ -11,4 +11,22 @@
         %p
           = :website.tl
           = link_to(url_name, url)
+
+    %p
+      - incoming_data_label = "#{resource.nature}_incoming_data_exchange"
+      - if I18n.exists? "labels.#{incoming_data_label}"
+        %i.icon.icon-cloud-download
+        = incoming_data_label.tl
+
+    %p
+      - outgoing_data_label = "#{resource.nature}_outgoing_data_exchange"
+      - if I18n.exists? "labels.#{outgoing_data_label}"
+        %i.icon.icon-cloud-upload
+        = outgoing_data_label.tl
+
+    - if resource.last_sync_at.present?
+      .integration-synchronisation
+        %p
+          %i.icon.icon-sync
+          =resource.last_sync_at.strftime("%e/%m/%Y - %T")
   = render resource.authentication_mode.to_s, f: f

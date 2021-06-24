@@ -36,7 +36,6 @@
 
       lastValue = selectedDate
     })
-
   }
 
   document.addEventListener('DOMContentLoaded', handleSelectDate)

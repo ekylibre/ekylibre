@@ -1,4 +1,4 @@
-class AddThunderforestApiKeyToMapLayers < ActiveRecord::Migration
+class AddThunderforestApiKeyToMapLayers < ActiveRecord::Migration[4.2]
   def up
     return unless api_key = ENV['THUNDERFOREST_API_KEY']
     execute <<-SQL

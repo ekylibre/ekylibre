@@ -27,29 +27,32 @@ module Backend
           bsi = BankStatementItem.joins(cash: :suspense_account)
             .where(letter: letter)
             .where('accounts.id = ?', account_id)
-
-          jeis = bsi.first.associated_journal_entry_items
+          # find all jeis on bank_statement_letter and account
+          jeis = JournalEntryItem.where(bank_statement_letter: letter, account_id: account_id)
+          # update bank_statement_letter on bsi and pointed jeis and letter on jeis
           bsi.update_all(letter: nil)
           jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil, letter: nil)
+          # update bank_statement_letter and letter on bsi_jeis
+          bsi_jeis = JournalEntryItem.where(resource: bsi)
+          bsi_jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil, letter: nil)
         else
           bsi = BankStatementItem.joins(bank_statement: :cash).where("letter = ? AND bank_statements.cash_id = ?", letter, cash_id)
-          bs_id = bsi.first.bank_statement_id
-          jeis = JournalEntryItem.where(bank_statement_letter: letter, bank_statement_id: bs_id)
+          jeis = JournalEntryItem.where(bank_statement_letter: letter, account_id: account_id)
           bsi.update_all(letter: nil)
           jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil)
         end
 
         respond_to do |format|
-          format.json {  render json: { letter: letter } }
+          format.json { render json: { letter: letter } }
         end
       end
 
       private
 
-      def find_cash
-        @cash = Cash.find_by(id: params[:cash_id])
-        @cash || (head(:bad_request) && nil)
-      end
+        def find_cash
+          @cash = Cash.find_by(id: params[:cash_id])
+          @cash || (head(:bad_request) && nil)
+        end
     end
   end
 end

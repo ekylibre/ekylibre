@@ -1,4 +1,4 @@
-class AddProductGradings < ActiveRecord::Migration
+class AddProductGradings < ActiveRecord::Migration[4.2]
   def change
     create_table :grading_quality_criteria do |t|
       t.string :name, null: false

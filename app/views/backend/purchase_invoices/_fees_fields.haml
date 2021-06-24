@@ -2,54 +2,58 @@
 
 .form-field.role-row.role-row--non-merchandise
   .item-block-role.item-block-role--purchase-invoice
-    :ruby
-      options = {
-        label: f.object.role.tl,
-        source: {scope: :purchaseables_services},
-        input_html: {
-          class: "invoice-variant",
-          data: {
-            variant_of_deal_item: {
-              url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)
-            },
-            product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)},
-            required: true
+    .variant-information--mandatory
+      :ruby
+        options = {
+          label: f.object.role.tl,
+          source: { scope: :purchaseables_services },
+          input_html: {
+            class: "invoice-variant",
+            data: {
+              variant_of_deal_item: {
+                url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)
+              },
+              product_of_delivery_item: {
+                url: backend_product_nature_variant_path("RECORD_ID", format: :json)
+              },
+              required: true
+            }
           }
         }
-      }
-    = f.referenced_association(:variant, **options)
-    .annotation-logo
-      - if f.object.annotation.blank?
-        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
-          %i.annotation-field
+        options[:input_html][:data][:lazy_loading_variant_id] = locals[:lazy_loading_variant_id] if defined?(locals) && locals[:lazy_loading_variant_id]
 
-    - classes = 'supplier-ref-block'
-    - classes << ' hidden' if f.object.new_record?
-    %div{ class: classes }
-      %span.supplier-ref-label= "#{ :reception_number.tl } : "
-      %span.supplier-ref-value= f.object.new_record? ? "" : f.object.decorate.reception_number
+      = f.referenced_association(:variant, **options)
 
-    - display = ""
-    - display = "display: none;" unless item && item.variant && item.variant.depreciable?
-    .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
-      = f.input :fixed
+      .annotation-logo
+        - if f.object.annotation.blank?
+          = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
+            %i.annotation-field
 
-      - display = "display: none;" unless item.fixed
-      .assets{style: display}
-        = f.input :preexisting_asset, label: :asset_exists.tl
+    .variant-information--optional
+      - supplier_ref_value = f.object.decorate.reception_number
+      - classes = 'supplier-ref-block'
+      - classes << ' hidden' if supplier_ref_value.blank?
 
-        - display_existing_asset = "display: none;" unless item.preexisting_asset
-        .existing_asset{style: display_existing_asset}
-          = f.referenced_association :fixed_asset, source: :drafts
+      %div{ class: classes }
+        %span.supplier-ref-label= "#{ :reception_number.tl } : "
+        %span.supplier-ref-value= supplier_ref_value
 
-        - display_new_asset = "display: none;" if item.preexisting_asset
-        .new_asset{style: display_new_asset}
-          = f.referenced_association(:depreciable_product)
+      - display = ""
+      - display = "display: none;" unless item && item.variant && item.variant.depreciable?
+      .fixed-asset-fields{style: display, data: {"when-item": "depreciable", "when-display-value": 'true'}}
+        = f.input :fixed
 
-        - display_stopped_on = "display: none;" if (item.new_record? && item.preexisting_asset) || (!item.new_record? && item.fixed_asset_stopped_on.nil?)
-        .fixed-asset-stopped-on{style: display_stopped_on}
-          = f.input :fixed_asset_stopped_on, required: true
+        - display = "display: none;" unless item.fixed
+        .assets{style: display}
+          = f.input :preexisting_asset, label: :asset_exists.tl
 
+          - display_existing_asset = "display: none;" unless item.preexisting_asset
+          .existing_asset{style: display_existing_asset}
+            = f.referenced_association :fixed_asset, source: :drafts
+
+          - display_new_asset = "display: none;" if item.preexisting_asset
+          .new_asset{style: display_new_asset}
+            = f.referenced_association(:depreciable_product)
 
   .storing-calculation
     .storing-quantifier.storing-quantifier--fee

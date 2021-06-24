@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Synest
   class InventoryExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :synest
+
     # Create or updates Synel Inventories
     def import
       male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
@@ -70,7 +75,7 @@ module Synest
           group = nil
 
           # find a bos variety from corabo field in file
-          item = Nomen::Variety.find_by(french_race_code: r.corabo)
+          item = Onoma::Variety.find_by(french_race_code: r.corabo)
           variety = (item ? item.name : :bos_taurus)
           variant = ProductNatureVariant.import_from_nomenclature(r.sex == :male ? :male_adult_cow : :female_adult_cow)
 
@@ -105,7 +110,7 @@ module Synest
         end
 
         # find a the father variety from field in file
-        father_items = Nomen::Variety.where(french_race_code: r.father_variety_code)
+        father_items = Onoma::Variety.where(french_race_code: r.father_variety_code)
         father_bos_variety = father_items ? father_items.first.name : 'bos'
 
         # Find or create father

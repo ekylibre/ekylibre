@@ -20,6 +20,7 @@ module Unrollable
 
       def deep_compact(object)
         return nil if object.blank?
+
         case object
         when Array          then object.map { |o| deep_compact(o) }.compact
         when Hash           then object.map { |k, v| [k, deep_compact(v)] }.to_h
@@ -31,24 +32,24 @@ module Unrollable
 
     protected
 
-    def first_if_alone(enum)
-      Unrollable::Toolbelt.first_if_alone(enum)
-    end
+      def first_if_alone(enum)
+        Unrollable::Toolbelt.first_if_alone(enum)
+      end
 
-    def if_there(obj)
-      Unrollable::Toolbelt.if_there(obj)
-    end
+      def if_there(obj)
+        Unrollable::Toolbelt.if_there(obj)
+      end
 
-    def true?(object)
-      Unrollable::Toolbelt.true?(object)
-    end
+      def true?(object)
+        Unrollable::Toolbelt.true?(object)
+      end
 
-    def symbolized(array)
-      Unrollable::Toolbelt.symbolized(array)
-    end
+      def symbolized(array)
+        Unrollable::Toolbelt.symbolized(array)
+      end
 
-    def deep_compact(object)
-      Unrollable::Toolbelt.deep_compact(object)
-    end
+      def deep_compact(object)
+        Unrollable::Toolbelt.deep_compact(object)
+      end
   end
 end

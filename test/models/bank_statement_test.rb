@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -174,9 +174,9 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     eligible_journal_entry_item_ids = bank_statement.eligible_journal_entry_items.to_a.map(&:id)
     assert eligible_journal_entry_item_ids.any?
-    assert pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
-    assert unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
-    assert unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) }
+    assert(pointed.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
+    assert(unpointed_in_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
+    assert(unpointed_around_range.all? { |jei| eligible_journal_entry_item_ids.include?(jei.id) })
   end
 
   test 'suspense process' do
@@ -257,6 +257,21 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal journal_entry, item.entry
 
     assert_equal bank_statement.balance_credit, cash.main_account.totals[:balance_debit]
+
+    ## test bank_statement_lettering add letter on each journal entry
+    bsi = BankStatementItem.where(name: 'Check #856124')
+    cash.letter_items(bsi, bank_statement.eligible_journal_entry_items)
+    bsi.reload
+    jei = journal_entry.items.where(account: suspense).first
+    bsi_jei = bank_statement.journal_entry.items.where(account: suspense).first
+    assert bsi_jei.present?
+    # ensure that bank_statement_id and bank_statement_letter is present on jei
+    assert_equal bank_statement.id, jei.bank_statement_id
+    assert_equal bsi.first.letter, jei.bank_statement_letter
+    # ensure that letter is present and equal on jei and bsi_jei
+    assert jei.letter.present?
+    assert bsi_jei.letter.present?
+    assert_equal bsi_jei.letter, jei.letter
   end
 
   test 'ensure sign of amount is different in Incoming and Outgoing payments' do
@@ -372,7 +387,7 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   def assert_lettered_by(operation, with_letters: ['A'])
     assert operation
     assert_equal with_letters,
-                 @payment.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
+                 @payment.reload.journal_entry.items.pluck(:bank_statement_letter).uniq.compact
     assert_equal with_letters,
                  @tanks.each(&:reload).map(&:letter).uniq
   end
@@ -402,19 +417,19 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     @warrig_tank = Cash.create!(journal: journal, main_account: fuel_act, name: 'War-rig\'s Tank')
     @caps_stash = Cash.create!(journal: journal, main_account: caps_act, name: 'Stash o\' Caps')
 
-    setup_items(options[:amount_mismatch] ? 1336 : 1337)
-    setup_payment(options[:cash_mismatch])
+    date = DateTime.parse("2020-02-01T00:00:00Z")
+    setup_items(options[:amount_mismatch] ? 1336 : 1337, at: date)
+    setup_payment(options[:cash_mismatch], at: date)
   end
 
-  def setup_items(amount)
+  def setup_items(amount, at:)
     amount_attr = (@payment_class == IncomingPayment ? :credit : :debit)
 
-    now = Time.zone.now
     fuel_level = BankStatement.create!(
       currency: 'EUR',
       number: 'Fuel level check',
-      started_on: now - 10.days,
-      stopped_on: now,
+      started_on: at - 10.days,
+      stopped_on: at,
       cash: @warrig_tank
     )
 
@@ -422,26 +437,33 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     @tanks << BankStatementItem.create!(
       name: 'Main tank',
       bank_statement: fuel_level,
-      transfered_on: now - 5.days,
+      transfered_on: at - 5.days,
       amount_attr => 42
     )
 
     @tanks << BankStatementItem.create!(
       name: 'Backup tank',
       bank_statement: fuel_level,
-      transfered_on: now - 5.days,
+      transfered_on: at - 5.days,
       amount_attr => amount
     )
   end
 
-  def setup_payment(cash_match)
+  def setup_payment(cash_match, at:)
     cash = cash_match ? @caps_stash : @warrig_tank
 
     Account.create!(name: 'Citadel', number: '106')
 
     diesel = "#{@payment_class == IncomingPayment ? 'Incoming' : 'Outgoing'}PaymentMode".constantize.create!(cash: cash, with_accounting: true, name: 'Diesel')
     max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    @payment = @payment_class.create!(amount: 1379, currency: 'EUR', @payment_class.third_attribute => max, mode: diesel, responsible: User.first, to_bank_at: Time.zone.now - 5.days)
+    @payment = @payment_class.create!(
+      amount: 1379,
+      currency: 'EUR',
+      @payment_class.third_attribute => max,
+      mode: diesel,
+      responsible: User.first,
+      to_bank_at: at - 5.days
+    )
   end
 
   def inspect_errors(object)

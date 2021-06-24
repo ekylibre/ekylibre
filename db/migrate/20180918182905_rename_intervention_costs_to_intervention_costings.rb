@@ -1,4 +1,4 @@
-class RenameInterventionCostsToInterventionCostings < ActiveRecord::Migration
+class RenameInterventionCostsToInterventionCostings < ActiveRecord::Migration[4.2]
   def change
     rename_table :intervention_costs, :intervention_costings
     add_column :intervention_costings, :created_at, :datetime

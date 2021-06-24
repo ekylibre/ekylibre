@@ -72,9 +72,8 @@ L.GhostLabelCluster = L.LayerGroup.extend
   onAdd: (map) ->
     unless @_map
       @_map = map
-      @refresh()
-      map.on 'zoomend', @refresh, this
-    return
+    @refresh()
+    map.on 'zoomend', @refresh, this
 
   onRemove: (map) ->
     map.off 'zoomend', @refresh, this

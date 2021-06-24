@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -1874,12 +1874,12 @@ product_readings_120:
   updater_id: 1
 product_readings_121:
   boolean_value: false
-  choice_value: vitis_cinerea_x_vitis_riparia_SO4
+  string_value: vitis_cinerea_x_vitis_riparia_SO4
   created_at: 2014-11-07 16:47:34.907912000 Z
   creator_id: 1
   id: 196
-  indicator_datatype: choice
-  indicator_name: woodstock_variety
+  indicator_datatype: string
+  indicator_name: rootstock_variety
   lock_version: 0
   product_id: 107
   read_at: 2014-11-07 16:47:34.907912000 Z
@@ -1887,12 +1887,12 @@ product_readings_121:
   updater_id: 1
 product_readings_122:
   boolean_value: false
-  choice_value: vitis_cinerea_x_vitis_riparia_SO4
+  string_value: vitis_cinerea_x_vitis_riparia_SO4
   created_at: 2014-11-07 16:50:07.275975000 Z
   creator_id: 1
   id: 199
-  indicator_datatype: choice
-  indicator_name: woodstock_variety
+  indicator_datatype: string
+  indicator_name: rootstock_variety
   lock_version: 0
   product_id: 109
   read_at: 2008-03-15 15:39:00.000000000 Z

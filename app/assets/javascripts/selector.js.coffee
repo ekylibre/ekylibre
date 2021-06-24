@@ -1,6 +1,4 @@
 # Selectors for unroll action
-#= require jquery.scrollTo
-
 
 ((E, $) ->
   "use strict"
@@ -80,6 +78,7 @@
       else
         @initializing = false
       @element.prop("widgetInitialized", true)
+      @element.trigger("selector:created")
 
     value: (newValue, callback = false) ->
       if newValue is null or newValue is undefined or newValue is ""
@@ -171,7 +170,7 @@
       @valueField.val id
       @id = parseInt id
       if @dropDownMenu.is(":visible")
-        @dropDownMenu.hide()
+        @_closeMenu()
       unless $(document).data('editedMode')
         was_initializing = @initializing
         if @initializing
@@ -180,7 +179,9 @@
           @initializing = false
         if triggerEvents is true
           @valueField.trigger "selector:change", [null, was_initializing]
+          @valueField.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @, wasInitializing: was_initializing}}))
           @element.trigger "selector:change", [selectedElement, was_initializing]
+          @element.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @, wasInitializing: was_initializing}}))
         @valueField.trigger "selector:set"
         @element.trigger "selector:set"
       $(document).data('editedMode', false)
@@ -230,10 +231,14 @@
           if data.length > 0
             menu.show()
             @element.trigger('selector:menu-opened')
+            @element.get(0).dispatchEvent(new CustomEvent('unroll:menu-opened', {bubbles: true, detail: {unroll: @}}))
           else
             menu.hide()
         error: (request, status, error) ->
           alert "Selector failure on #{url} (#{status}): #{error}"
+
+    close: ->
+      @_closeMenu()
 
     _closeMenu: ->
       # console.log "closeMenu"
@@ -253,6 +258,7 @@
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
         @element.trigger('selector:menu-closed')
+        @element.get(0).dispatchEvent(new CustomEvent('unroll:menu-closed', {bubbles: true, detail: {unroll: @}}))
       true
 
     _choose: (selected) ->
@@ -265,18 +271,13 @@
           parameters = {}
           if selected.data("new-item").length > 0
             parameters.name = selected.data("new-item")
-          E.dialog.open @element.data("selector-new-item"),
-            data: parameters
-            defaultReturn: (frame, data, status, request) ->
-              frame.html $.parseHTML(request.responseText).filter((e) => !(e.tagName == 'H1' && e.id == 'title'))
-              frame.dialog("option", "position", {my: "center", at: "center", of: window})
-            returns:
-              success: (frame, data, status, request) =>
-                @_set(request.getResponseHeader("X-Saved-Record-Id"), true)
-                frame.dialog "close"
-              invalid: (frame, data, status, request) ->
-                frame.html request.responseText
-                frame.trigger('dialog:show')
+
+          E.Dialog.open @element.data("selector-new-item"),
+            success: (response) =>
+              @_set(response.headers['x-saved-record-id'], true)
+            error: (response) =>
+              console.error('Selector dialog error', response)
+
         else
           console.log "Don't known how to manage this option"
           console.log selected
@@ -309,13 +310,13 @@
             if search.length > 0
               @_openMenu search
             else
-              @dropDownMenu.hide()
+              @_closeMenu()
           , 500)
         @lastSearch = search
       else if @dropDownMenu.is(":visible")
         selected = @dropDownMenu.find("ul li.selected.item").first()
         if code is 27 # Escape
-          @dropDownMenu.hide()
+          @_closeMenu()
         else if selected[0] is null or selected[0] is undefined
           selected = @dropDownMenu.find("ul li.item").first()
           selected.addClass "selected"
@@ -323,13 +324,16 @@
           if code is 40 # Down
             unless selected.is(":last-child")
               selected.removeClass "selected"
-              # selected.closest("ul").scrollTo
               selected.next().addClass "selected"
           else if code is 38 # Up
             unless selected.is(":first-child")
               selected.removeClass "selected"
-              # selected.closest("ul").scrollTo
               selected.prev().addClass "selected"
+      if code is 46 or code is 8 # backspace or delete
+        if @element.val().length == 0
+          @valueField.val ""
+          @valueField.trigger "selector:cleared"
+          @element.trigger "selector:cleared",
       true
 
     _focusOut: (event) ->
@@ -341,7 +345,7 @@
 
     _buttonClick: (event) ->
       if @dropDownMenu.is(":visible")
-        @dropDownMenu.hide()
+        @_closeMenu()
       else if !@element.is(":disabled")
         this._openMenu()
       false
@@ -403,6 +407,11 @@
   $(document).on 'selector:change', '[data-filter-unroll]', (e) ->
     filterableUnroll.filter $(this)
 
+  $(document).on 'selector:menu-opened', '.selector', (e) ->
+    $currentDropDown = $(this)
+    $('.selector').not($currentDropDown).each ->
+      $($(this).find('input[data-selector]').get(0)).selector('close')
+
   filterableUnroll =
     filter: ($filteringUnroll) ->
       filterId = $filteringUnroll.selector('value')
@@ -421,7 +430,7 @@
           @._handleClear($filteredUnroll, data.clear)
           @._handleDisable($filteredUnroll, $filteringUnroll, data.disable) if data.disable
         .fail (e) =>
-          @._handleDisable($filteredUnroll, $filteringUnroll, "Server error")
+          @._handleDisable($filteredUnroll, $filteringUnroll, I18n.translate('front-end.unroll.server_error'))
           console.error('Error while trying to filter an unroll', e)
 
     _handleScope: ($filteredUnroll, scope_url) ->
@@ -450,6 +459,5 @@
           retrievedIds.push $(this).selector('value')
 
       { retrieved_ids: retrievedIds, selected_value: selectedValue }
-
   return
 ) ekylibre, jQuery

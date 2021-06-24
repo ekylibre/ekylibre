@@ -24,7 +24,7 @@ module Backend
 
     list do |t|
       t.action :destroy, if: :destroyable?
-      t.action :export_to_sepa, method: :get, if: :sepa?
+      t.action :export_to_sepa, method: :get, if: :sepa_exportable?
       t.column :number, url: true
       t.column :created_at
       t.column :mode
@@ -46,20 +46,67 @@ module Backend
     end
 
     def show
-      return unless @outgoing_payment_list = find_and_check
-      t3e @outgoing_payment_list
+      return unless (@outgoing_payment_list = find_and_check)
 
-      @entity_of_company_full_name = Entity.of_company.full_name
+      t3e @outgoing_payment_list
 
       respond_to do |format|
         format.html
         format.pdf do
-          printer = OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list, nature: params[:nature])
+          template = DocumentTemplate.find(params[:template])
 
-          raise 'Cannot find template' if printer.template_path.nil?
+          if template.file_extension == 'odt'
+            printer = Printers::OutgoingPaymentListPrinter.new(outgoing_payment_list: @outgoing_payment_list, nature: params[:nature], template: template)
 
-          file_name = "#{t('nomenclatures.document_natures.items.outgoing_payment_list')} (#{@outgoing_payment_list.number})"
-          send_file printer.run_pdf, type: 'application/pdf', disposition: 'attachment', filename: "#{file_name}.pdf"
+            generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+            pdf_data = generator.generate_pdf(template: template, printer: printer)
+
+            archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+            archiver.archive_document(
+              pdf_content: pdf_data,
+              template: template,
+              key: printer.key,
+              name: printer.document_name
+            )
+
+            send_data pdf_data, type: 'application/pdf', disposition: 'attachment', filename: "#{printer.document_name}.pdf"
+          else
+            respond_with(
+              @outgoing_payment_list,
+              methods: %i[currency payments_sum entity],
+              include: {
+                payer: {
+                  methods: [:picture_path],
+                  include: {
+                    default_mail_address: {
+                      methods: [:mail_coordinate]
+                    },
+                    websites: {},
+                    emails: {},
+                    mobiles: {}
+                  }
+                },
+                payments: {
+                  methods: %i[amount_to_letter label affair_reference_numbers],
+                  include: {
+                    responsible: {},
+                    affair: { include: { purchase_invoices: {} } },
+                    mode: {},
+                    payee: {
+                      include: {
+                        default_mail_address: {
+                          methods: [:mail_coordinate]
+                        },
+                        websites: {},
+                        emails: {},
+                        mobiles: {}
+                      }
+                    }
+                  }
+                }
+              }
+            )
+          end
         end
       end
     end
@@ -92,6 +139,7 @@ module Backend
                        .where(closed: false, currency: mode.cash.currency)
                        .where("purchases.#{params[:period_reference]} IS NOT NULL AND purchases.#{params[:period_reference]} BETWEEN ? AND ?", params[:started_at], params[:stopped_at])
                        .where.not(purchases: { id: nil })
+                       .where(entities: { supplier_payment_mode_id: mode.id })
                        .order('entities.full_name ASC')
                        .order("purchases.#{params[:period_reference]} ASC", :number)
 
@@ -114,12 +162,15 @@ module Backend
 
         redirect_to action: :show, id: outgoing_payment_list.id
       else
-        redirect_to new_backend_outgoing_payment_list_path(params.slice(:period_reference, :started_at, :stopped_at, :outgoing_payment_list, :bank_check_number))
+        permitted = params.permit(:period_reference, :started_at, :stopped_at, :bank_check_number, outgoing_payment_list: %i[mode_id])
+
+        redirect_to new_backend_outgoing_payment_list_path(permitted.to_h)
       end
     end
 
     def destroy
       return unless @outgoing_payment_list = find_and_check
+
       @outgoing_payment_list.remove if @outgoing_payment_list
       redirect_to action: :index
     end

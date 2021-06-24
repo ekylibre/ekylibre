@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,7 +48,7 @@
 #  variant_id                   :integer          not null
 #
 
-class ProductNatureVariantReading < Ekylibre::Record::Base
+class ProductNatureVariantReading < ApplicationRecord
   include ReadingStorable
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :readings
 
@@ -58,7 +60,7 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates :indicator, inclusion: { in: -> (pnvr) { pnvr.variant.frozen_indicators }, if: :variant }
+  validates :indicator, inclusion: { in: ->(pnvr) { pnvr.variant.frozen_indicators }, if: :variant }
 
   def usable?
     variant.frozen_indicators.include?(indicator)

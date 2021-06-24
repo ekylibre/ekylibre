@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +39,7 @@
 #  lock_version            :integer          default(0), not null
 #  name                    :string           not null
 #  position                :integer
+#  provider                :jsonb
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #  with_accounting         :boolean          default(FALSE), not null
@@ -44,7 +47,9 @@
 #  with_deposit            :boolean          default(FALSE), not null
 #
 
-class IncomingPaymentMode < Ekylibre::Record::Base
+class IncomingPaymentMode < ApplicationRecord
+  include Providable
+
   attr_readonly :cash_id, :cash
   acts_as_list
   belongs_to :cash
@@ -109,6 +114,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       cash_nature = nature == 'cash' ? :cash_box : :bank_account
       cash = Cash.find_by(nature: cash_nature)
       next unless cash
+
       attributes = {
         name: IncomingPaymentMode.tc("default.#{nature}.name"),
         with_accounting: true,

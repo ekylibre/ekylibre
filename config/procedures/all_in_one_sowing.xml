@@ -6,7 +6,7 @@
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <output name="plant" filter="is plant" cardinality="1">
+        <output name="plant" filter="is plant and has indicator shape" cardinality="1">
           <attribute name="new_name"/>
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>
@@ -23,18 +23,22 @@
                  if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="items_count" unit="unity"
+                 if="grain_indicators_present(PRODUCT) == 1"
+                 backward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((POPULATION * PRODUCT..net_mass(gram) * 1000) / PRODUCT..thousand_grains_mass(gram)) : (POPULATION * PRODUCT..grains_count(unity))"
+                 forward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? (((VALUE * PRODUCT..thousand_grains_mass(gram)) / 1000) / PRODUCT..net_mass(gram)) : (VALUE / PRODUCT..grains_count(unity))"/>
         <handler indicator="grains_area_density" unit="unity_per_square_meter"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0 and PRODUCT..thousand_grains_mass?"
-                 backward="(((POPULATION * PRODUCT..net_mass(gram)) / sum_working_zone_areas(land_parcel, :square_meter)) * 1000) / PRODUCT..thousand_grains_mass(gram)"
-                 forward="(((VALUE * PRODUCT..thousand_grains_mass(gram)) / 1000) * sum_working_zone_areas(land_parcel, :square_meter)) / PRODUCT..net_mass(gram)"/>
+                 if="sum_working_zone_areas(land_parcel) != 0 and grain_indicators_present(PRODUCT) == 1"
+                 backward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((((POPULATION * PRODUCT..net_mass(gram)) / sum_working_zone_areas(land_parcel, :square_meter)) * 1000) / PRODUCT..thousand_grains_mass(gram)) : ((POPULATION * PRODUCT..grains_count(unity)) / sum_working_zone_areas(land_parcel, :square_meter))"
+                 forward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((((VALUE * PRODUCT..thousand_grains_mass(gram)) / 1000) * sum_working_zone_areas(land_parcel, :square_meter)) / PRODUCT..net_mass(gram)) : ((VALUE / PRODUCT..grains_count(unity)) * sum_working_zone_areas(land_parcel, :square_meter))"/>
         <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0 and PRODUCT..thousand_grains_mass?"
-                 backward="(POPULATION * PRODUCT..net_mass(gram)) / (sum_working_zone_areas(land_parcel, :hectare) * PRODUCT..thousand_grains_mass(gram))"
-                 forward="(VALUE * PRODUCT..thousand_grains_mass(gram) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(gram)"/>
+                 if="sum_working_zone_areas(land_parcel) != 0 and grain_indicators_present(PRODUCT) == 1"
+                 backward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((POPULATION * PRODUCT..net_mass(gram)) / (sum_working_zone_areas(land_parcel, :hectare) * PRODUCT..thousand_grains_mass(gram))) : ((POPULATION * PRODUCT..grains_count(thousand)) / sum_working_zone_areas(land_parcel, :hectare))"
+                 forward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((VALUE * PRODUCT..thousand_grains_mass(gram) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(gram)) : ((VALUE / PRODUCT..grains_count(thousand)) * sum_working_zone_areas(land_parcel, :hectare))"/>
         <handler indicator="grains_count" unit="thousand"
-                 if="PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?"
-                 backward="(POPULATION * PRODUCT..net_mass(gram)) / PRODUCT..thousand_grains_mass(gram)"
-                 forward="(VALUE * PRODUCT..thousand_grains_mass(gram)) / PRODUCT..net_mass(gram)"/>
+                 if="grain_indicators_present(PRODUCT) == 1"
+                 backward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((POPULATION * PRODUCT..net_mass(gram)) / PRODUCT..thousand_grains_mass(gram)) : (POPULATION * PRODUCT..grains_count(thousand))"
+                 forward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((VALUE * PRODUCT..thousand_grains_mass(gram)) / PRODUCT..net_mass(gram)) : (VALUE / PRODUCT..grains_count(thousand))"/>
       </input>
       <input name="plant_medicine" filter="is preparation and can care(plant)" cardinality="*">
         <handler name="population"/>

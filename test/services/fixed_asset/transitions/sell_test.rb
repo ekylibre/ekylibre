@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class SellTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         [2018, 2019].each { |year| create :financial_year, year: year }
         @product = create :asset_fixable_product, born_at: DateTime.new(2018, 1, 1)
@@ -132,7 +131,7 @@ class FixedAsset
       end
 
       def new_transition_for(fa, sold_on, **options)
-        FixedAsset::Transitions::Sell.new(fa, sold_on, **options)
+        FixedAsset::Transitions::Sell.new(fa, sold_on: sold_on, **options)
       end
 
       def t_err(t)

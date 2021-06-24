@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Zones exchanger accepts CSV files with given columns:
   #  - Name
@@ -8,6 +10,9 @@ module Ekylibre
   #  - Description
   # Zones can be: building, settlement,
   class ZonesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :ekylibre
+
     # Create or updates zones
     def import
       born_at = Time.new(1995, 1, 1, 10, 0, 0, '+00:00')
@@ -28,10 +33,12 @@ module Ekylibre
         zone = Product.find_by(work_number: r.code)
         unless zone
           zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
+          zone_variant ||= ProductNatureVariant.import_from_lexicon(r.nature)
           unless zone_variant
-            raise InvalidDataError, "Invalid nature of zone: #{r.nature}"
+            raise InvalidDataError.new("Invalid nature of zone: #{r.nature}")
           end
-          zone = zone_variant.matching_model.new(variant: zone_variant, work_number: r.code)
+
+          zone = r.nature.to_s.camelcase.constantize.new(variant: zone_variant, work_number: r.code)
         end
 
         zone.name = r.name

@@ -5,16 +5,16 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'receiving an empty payload doesn\'t blow up' do
-          add_auth_header
-
-          assert_nothing_raised { post :create }
+          assert_nothing_raised { post :create, params: {} }
         end
 
         test 'receiving an appropriate payload creates an appropriate InterventionParticipation and returns its id' do
-          add_auth_header
           payload = correct_payload
 
-          part_id = JSON(post(:create, payload).body)['id']
+          post :create, params: payload
+          assert_response :created
+
+          part_id = JSON(response.body)['id']
           assert_not_nil part_id
           assert_not_nil part = InterventionParticipation.find_by(id: part_id)
 
@@ -24,11 +24,15 @@ module Api
         end
 
         test 'receiving a payload doesn\'t generate an InterventionParticipation if not needed' do
-          add_auth_header
           payload = correct_payload
 
-          part_id_una = JSON(post(:create, payload).body)['id']
-          part_id_bis = JSON(post(:create, payload).body)['id']
+          r1 = post(:create, params: payload)
+          assert_response :created, response.body
+          r2 = post(:create, params: payload)
+          assert_response :created
+
+          part_id_una = JSON(r1.body)['id']
+          part_id_bis = JSON(r2.body)['id']
 
           assert_not_nil part_id_una
           assert_not_nil part_id_bis
@@ -36,10 +40,55 @@ module Api
         end
 
         test 'handles completely wrong payload graciously' do
-          add_auth_header
-
           assert_nothing_raised { post :create, params: { yolo: :swag, test: [:bidouille, 'le malin', 1_543_545], 54 => 1_014_441 } }
         end
+
+        test 'can finish an intervention even if there is no working periods' do
+          payload = payload_without_working_periods
+          request_intervention_id = payload[:intervention_id]
+          request_intervention = Intervention.find(request_intervention_id)
+          post :create, params: payload
+
+          done_intervention = request_intervention.record_interventions.first
+          assert_not_nil done_intervention
+          assert_equal 'done', done_intervention.state
+        end
+
+        test 'can pause then finish an intervention even if there is no working periods' do
+          in_progress_payload = payload_without_working_periods(state: :in_progress)
+          request_intervention_id = in_progress_payload[:intervention_id]
+          request_intervention = Intervention.find(request_intervention_id)
+          post :create, params: in_progress_payload
+
+          in_progress_intervention = request_intervention.record_interventions.first
+          assert_not_nil in_progress_intervention
+          assert_equal 'in_progress', in_progress_intervention.state
+
+          done_payload = in_progress_payload.merge(state: :done)
+          post :create, params: done_payload
+
+          done_intervention = request_intervention.record_interventions.first
+          assert_equal in_progress_intervention, done_intervention
+          assert_equal 'done', done_intervention.state
+        end
+
+        test 'participation with no working periods do not recalculate intervention working periods' do
+          payload = payload_without_working_periods
+          request_intervention_id = payload[:intervention_id]
+          request_intervention = Intervention.find(request_intervention_id)
+          post :create, params: payload
+
+          done_intervention = request_intervention.record_interventions.first
+          assert_not_nil done_intervention
+          assert_equal request_intervention.started_at, done_intervention.started_at
+          assert_equal request_intervention.stopped_at, done_intervention.stopped_at
+        end
+
+        private
+
+          def payload_without_working_periods(state: :done)
+            correct_payload(state: state).except(:working_periods)
+          end
       end
     end
 
@@ -47,23 +96,21 @@ module Api
       extend ActiveSupport::Concern
       included do
         test 'instantiate an intervention if it doesn\'t exist' do
-          add_auth_header
-
           original_count = Intervention.where(nature: :record).count
           payload = correct_payload
-          post :create, payload
+          post :create, params: payload
+          assert_response :created
 
           assert_equal original_count + 1, Intervention.where(nature: :record).count
         end
 
         test 'doesn\'t instantiate an intervention if a fitting one exists' do
-          add_auth_header
           payload = correct_payload
 
-          post :create, payload
+          post :create, params: payload
           original_count = Intervention.count
 
-          post :create, payload
+          post :create, params: payload
           new_count = Intervention.count
 
           assert_equal original_count, new_count
@@ -74,8 +121,13 @@ module Api
     module WorkingPeriodsTest
       extend ActiveSupport::Concern
       included do
+        test 'no error should be raised if no working_periods are provided' do
+          payload = correct_payload.except(:working_periods)
+
+          assert_nothing_raised { post :create, params: payload }
+        end
+
         test 'ignores working periods that already exist' do
-          add_auth_header
           request_intervention = create(:intervention,
                                         :with_working_period,
                                         procedure_name: :plant_watering,
@@ -90,103 +142,238 @@ module Api
             procedure_name: 'plant_watering',
             device_uid: 'android:dd60319e524d3d24',
             working_periods:
-            [
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:49.320+0200',
-                stopped_at: '2016-09-30T11:59:50.770+0200',
-                nature:     'preparation'
-              },
-              {
-                started_at: '2016-09-30T11:59:52.620+0200',
-                stopped_at: '2016-09-30T11:59:55.903+0200',
-                nature:     'travel'
-              }
-            ]
+              [
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 49),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 50),
+                  nature: 'preparation'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 49),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 50),
+                  nature: 'preparation'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 49),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 50),
+                  nature: 'preparation'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 52),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 55),
+                  nature: 'travel'
+                }
+              ]
           }
-          response = JSON(post(:create, payload).body)
+
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          response = JSON(resp.body)
           part_id = response['id']
           original_count = InterventionParticipation.find(part_id).working_periods.count
 
-          part_id = JSON(post(:create, payload).body)['id']
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          part_id = JSON(resp.body)['id']
           new_count = InterventionParticipation.find(part_id).working_periods.count
 
           assert_equal original_count, new_count
         end
 
         test 'ignores overlapping working periods' do
-          add_auth_header
           payload = overlapping_payload
 
-          part_id = JSON(post(:create, payload).body)['id']
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          part_id = JSON(resp.body)['id']
           original_count = InterventionParticipation.find(part_id).working_periods.count
 
           assert_equal 1, original_count
 
           payload = overlapping_payload(only_overlap: true)
-          part_id = JSON(post(:create, payload).body)['id']
+          part_id = JSON(post(:create, params: payload).body)['id']
           new_count = InterventionParticipation.find(part_id).working_periods.count
 
           assert_equal original_count, new_count
         end
 
         test 'created working_periods have the correct nature' do
-          add_auth_header
-
           payload = correct_payload
-          part_id = JSON(post(:create, payload).body)['id']
+          resp = post(:create, params: payload)
+          assert_response :created
+
+          part_id = JSON(resp.body)['id']
           natures = InterventionParticipation.find(part_id).working_periods.order(:started_at).pluck(:nature).map(&:to_sym)
 
           assert_equal %i[preparation travel intervention travel preparation travel intervention travel preparation], natures
         end
 
-        private
-
-        def overlapping_payload(only_overlap: false)
-          request_intervention = create(:intervention,
-                                        :with_working_period,
-                                        procedure_name: :plant_watering,
-                                        actions: [:irrigation],
-                                        nature: :request
-                                       )
-          overlapping = {
-            started_at: '2016-09-30T10:30:00.836+0200',
-            stopped_at: '2016-09-30T11:30:00.620+0200',
-            nature:     'intervention'
-          }
-
+        test 'working periods without pause of participation override intervention working periods' do
           working_periods = [
             {
-              started_at: '2016-09-30T11:00:00.320+0200',
-              stopped_at: '2016-09-30T12:00:00.770+0200',
-              nature:     'preparation'
+              started_at: Time.new(2020, 2, 1, 11, 15),
+              stopped_at: Time.new(2020, 2, 1, 12, 15),
+              nature: "preparation"
             },
             {
-              started_at: '2016-09-30T11:30:00.770+0200',
-              stopped_at: '2016-09-30T12:30:00.836+0200',
-              nature:     'travel'
+              started_at: Time.new(2020, 2, 1, 12, 15),
+              stopped_at: Time.new(2020, 2, 1, 13, 26),
+              nature: "travel"
+            },
+            {
+              started_at: Time.new(2020, 2, 1, 14, 58),
+              stopped_at: Time.new(2020, 2, 1, 16, 27),
+              nature: "intervention"
             }
           ]
+          payload = default_payload.merge(working_periods: working_periods)
+          request_intervention = Intervention.find(payload[:intervention_id])
+          started_at_before_action = request_intervention.started_at
+          stopped_at_before_action = request_intervention.stopped_at
+          post :create, params: payload
 
-          {
-            intervention_id: request_intervention.id,
-            request_compliant: 1,
-            uuid: '1d5fd107-7321-49d3-915f-88ab27599d9f',
-            state: 'done',
-            procedure_name: 'plant_watering',
-            device_uid: 'android:dd60319e524d3d24',
-            working_periods: only_overlap ? [overlapping] : working_periods
-          }
+          record_intervention = request_intervention.record_interventions.first
+          assert_not_equal record_intervention.started_at, started_at_before_action
+          assert_not_equal record_intervention.stopped_at, stopped_at_before_action
+          assert_equal record_intervention.started_at.to_datetime, Time.new(2020, 2, 1, 11, 15).to_datetime
+          assert_equal record_intervention.stopped_at.to_datetime, Time.new(2020, 2, 1, 16, 27).to_datetime
+          assert_equal 2, record_intervention.working_periods.count
         end
+
+        test 'working periods with pause of participation override intervention working periods' do
+          in_progress_working_periods = [
+            {
+              started_at: Time.new(2020, 2, 1, 11, 15),
+              stopped_at: Time.new(2020, 2, 1, 12, 15),
+              nature: "preparation"
+            },
+            {
+              started_at: Time.new(2020, 2, 1, 12, 15),
+              stopped_at: Time.new(2020, 2, 1, 13, 26),
+              nature: "travel"
+            },
+          ]
+          in_progress_payload = default_payload.merge(state: :in_progress, working_periods: in_progress_working_periods)
+          post :create, params: in_progress_payload
+
+          request_intervention = Intervention.find(in_progress_payload[:intervention_id])
+          in_progress_intervention = request_intervention.record_interventions.first
+          assert_equal Time.new(2020, 2, 1, 11, 15).to_datetime, in_progress_intervention.started_at.to_datetime
+          assert_equal Time.new(2020, 2, 1, 13, 26).to_datetime, in_progress_intervention.stopped_at.to_datetime
+          assert_equal 1, in_progress_intervention.working_periods.count
+
+          done_working_periods = [
+            {
+              started_at: Time.new(2020, 2, 1, 14, 58),
+              stopped_at: Time.new(2020, 2, 1, 16, 27),
+              nature: "intervention"
+            }
+          ]
+          done_payload = in_progress_payload.merge(state: :done, working_periods: done_working_periods)
+          post :create, params: done_payload
+
+          done_intervention = request_intervention.record_interventions.first
+          assert_equal in_progress_intervention, done_intervention
+          assert_equal Time.new(2020, 2, 1, 11, 15).to_datetime, done_intervention.started_at.to_datetime
+          assert_equal Time.new(2020, 2, 1, 16, 27).to_datetime, done_intervention.stopped_at.to_datetime
+          assert_equal 2, done_intervention.working_periods.count
+        end
+
+        test 'many participations on a single intervention override intervention working periods' do
+          working_period_1 = [
+            {
+              started_at: Time.new(2020, 2, 1, 10),
+              stopped_at: Time.new(2020, 2, 1, 12),
+              nature: "preparation"
+            }
+          ]
+          payload = default_payload.merge(state: :in_progress, working_periods: working_period_1)
+          post :create, params: payload
+          user = create(:user)
+          switch_user(user) do
+            working_period_2 = [
+            {
+              started_at: Time.new(2020, 2, 1, 11),
+              stopped_at: Time.new(2020, 2, 1, 13),
+              nature: "preparation"
+            }
+          ]
+            payload.merge!(working_periods: working_period_2)
+            post :create, params: payload
+          end
+          working_period_3 = [
+            {
+              started_at: Time.new(2020, 2, 1, 14),
+              stopped_at: Time.new(2020, 2, 1, 15),
+              nature: "preparation"
+            }
+          ]
+          payload.merge!(working_periods: working_period_3)
+          post :create, params: payload
+          switch_user(user) do
+            working_period_4 = [
+            {
+              started_at: Time.new(2020, 2, 1, 16),
+              stopped_at: Time.new(2020, 2, 1, 17),
+              nature: "preparation"
+            }
+          ]
+            payload.merge!(working_periods: working_period_4)
+            post :create, params: payload
+          end
+          request_intervention = Intervention.find(payload[:intervention_id])
+          intervention = request_intervention.record_interventions.first
+          assert_equal Time.new(2020, 2, 1, 10).to_datetime, intervention.started_at.to_datetime
+          assert_equal Time.new(2020, 2, 1, 17).to_datetime, intervention.stopped_at.to_datetime
+          assert_equal 3, intervention.working_periods.count
+          assert_equal 2, intervention.participations.count
+        end
+
+        private
+
+          def overlapping_payload(only_overlap: false)
+            payload = default_payload
+
+            overlapping = {
+              started_at: Time.new(2016, 9, 30, 10, 30),
+              stopped_at: Time.new(2016, 9, 30, 11, 30),
+              nature: 'intervention'
+            }
+
+            working_periods = [
+              {
+                started_at: Time.new(2016, 9, 30, 11),
+                stopped_at: Time.new(2016, 9, 30, 12),
+                nature: 'preparation'
+              },
+              {
+                started_at: Time.new(2016, 9, 30, 11, 30),
+                stopped_at: Time.new(2016, 9, 30, 12, 30),
+                nature: 'travel'
+              }
+            ]
+            payload.merge(working_periods: (only_overlap ? [overlapping] : working_periods))
+          end
+
+          def default_payload
+            request_intervention = create(:intervention,
+                                          :with_working_period,
+                                          procedure_name: :plant_watering,
+                                          actions: [:irrigation],
+                                          nature: :request
+                                         )
+            {
+              intervention_id: request_intervention.id,
+              request_compliant: 1,
+              uuid: '1d5fd107-7321-49d3-915f-88ab27599d9f',
+              state: 'done',
+              procedure_name: 'plant_watering',
+              device_uid: 'android:dd60319e524d3d24',
+            }
+          end
       end
     end
 
@@ -198,18 +385,18 @@ module Api
           payload = {
             working_periods: [
               {
-                started_at: "2019-08-01T12:15:28.108+0200",
-                stopped_at: "2019-08-01T12:15:31.672+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 28),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 31),
                 nature: "preparation"
               },
               {
-                started_at: "2019-08-01T12:15:31.672+0200",
-                stopped_at: "2019-08-01T12:15:35.728+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 31),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 35),
                 nature: "travel"
               },
               {
-                started_at: "2019-08-01T12:15:35.728+0200",
-                stopped_at: "2019-08-01T12:15:41.456+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 35),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 41),
                 nature: "intervention"
               }
             ],
@@ -227,7 +414,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :created
           participation_id = JSON.parse(response.body)['id']
           intervention = InterventionParticipation.find(participation_id).intervention
@@ -246,18 +433,18 @@ module Api
             # First step : create an 'in_progress' intervention which correspond to a paused intervention in the mobile app
             working_periods: [
               {
-                started_at: "2019-08-01T12:15:28.108+0200",
-                stopped_at: "2019-08-01T12:15:31.672+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 28),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 31),
                 nature: "preparation"
               },
               {
-                started_at: "2019-08-01T12:15:31.672+0200",
-                stopped_at: "2019-08-01T12:15:35.728+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 31),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 35),
                 nature: "travel"
               },
               {
-                started_at: "2019-08-01T12:15:35.728+0200",
-                stopped_at: "2019-08-01T12:15:41.456+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 35),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 41),
                 nature: "intervention"
               }
             ],
@@ -265,7 +452,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :created
           participation_id = JSON.parse(response.body)['id']
           intervention = InterventionParticipation.find(participation_id).intervention
@@ -274,18 +461,18 @@ module Api
           payload = {
             working_periods: [
               {
-                started_at: "2019-08-01T12:15:28.108+0200",
-                stopped_at: "2019-08-01T12:15:31.672+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 28),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 31),
                 nature: "preparation"
               },
               {
-                started_at: "2019-08-01T12:15:31.672+0200",
-                stopped_at: "2019-08-01T12:15:35.728+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 31),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 35),
                 nature: "travel"
               },
               {
-                started_at: "2019-08-01T12:15:35.728+0200",
-                stopped_at: "2019-08-01T12:15:41.456+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 35),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 41),
                 nature: "intervention"
               }
             ],
@@ -303,7 +490,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :created
           participation_id = JSON.parse(response.body)['id']
           intervention = InterventionParticipation.find(participation_id).intervention
@@ -321,18 +508,18 @@ module Api
           payload = {
             working_periods: [
               {
-                started_at: "2019-08-01T12:15:28.108+0200",
-                stopped_at: "2019-08-01T12:15:31.672+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 28),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 31),
                 nature: "preparation"
               },
               {
-                started_at: "2019-08-01T12:15:31.672+0200",
-                stopped_at: "2019-08-01T12:15:35.728+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 31),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 35),
                 nature: "travel"
               },
               {
-                started_at: "2019-08-01T12:15:35.728+0200",
-                stopped_at: "2019-08-01T12:15:41.456+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 35),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 41),
                 nature: "intervention"
               }
             ],
@@ -350,7 +537,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :bad_request
         end
 
@@ -359,18 +546,18 @@ module Api
           payload = {
             working_periods: [
               {
-                started_at: "2019-08-01T12:15:28.108+0200",
-                stopped_at: "2019-08-01T12:15:31.672+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 28),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 31),
                 nature: "preparation"
               },
               {
-                started_at: "2019-08-01T12:15:31.672+0200",
-                stopped_at: "2019-08-01T12:15:35.728+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 31),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 35),
                 nature: "travel"
               },
               {
-                started_at: "2019-08-01T12:15:35.728+0200",
-                stopped_at: "2019-08-01T12:15:41.456+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 35),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 41),
                 nature: "intervention"
               }
             ],
@@ -388,7 +575,7 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :bad_request
         end
 
@@ -397,18 +584,18 @@ module Api
           payload = {
             working_periods: [
               {
-                started_at: "2019-08-01T12:15:28.108+0200",
-                stopped_at: "2019-08-01T12:15:31.672+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 28),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 31),
                 nature: "preparation"
               },
               {
-                started_at: "2019-08-01T12:15:31.672+0200",
-                stopped_at: "2019-08-01T12:15:35.728+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 31),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 35),
                 nature: "travel"
               },
               {
-                started_at: "2019-08-01T12:15:35.728+0200",
-                stopped_at: "2019-08-01T12:15:41.456+0200",
+                started_at: Time.new(2019, 8, 1, 12, 15, 35),
+                stopped_at: Time.new(2019, 8, 1, 12, 15, 41),
                 nature: "intervention"
               }
             ],
@@ -427,21 +614,21 @@ module Api
             device_uid: "android:46b9fb83a04c19ff",
             intervention_id: @request_intervention.id
           }
-          post :create, payload
+          post :create, params: payload
           assert_response :bad_request
         end
 
         private
 
-        def default_setup
-          add_auth_header
-          @request_intervention = create(:intervention,
-                                        :with_tractor_tool,
-                                        nature: :request
-                                       )
-          @tractor_ids = @request_intervention.tools.map(&:product_id)
-          assert_equal 2, @tractor_ids.count
-        end
+          def default_setup
+            @request_intervention = create(
+              :intervention,
+              :with_tractor_tool,
+              nature: :request
+            )
+            @tractor_ids = @request_intervention.tools.map(&:product_id)
+            assert_equal 2, @tractor_ids.count
+          end
       end
     end
 
@@ -455,105 +642,74 @@ module Api
 
       private
 
-      def correct_payload(state: :done, procedure: :plant_watering)
-        request_intervention = create(:intervention,
-                                      :with_working_period,
-                                      procedure_name: :plant_watering,
-                                      actions: [:irrigation],
-                                      nature: :request
-                                     )
-        {
-          intervention_id: request_intervention.id,
-          request_compliant: 1,
-          uuid: '1d5fd107-7321-49d3-915f-88ab27599d9f',
-          state: state.to_s,
-          procedure_name: procedure.to_s,
-          device_uid: 'android:dd60319e524d3d24',
-          working_periods:
-          [
-            {
-              started_at: '2016-09-30T11:59:49.320+0200',
-              stopped_at: '2016-09-30T11:59:50.770+0200',
-              nature:     'preparation'
-            },
-            {
-              started_at: '2016-09-30T11:59:50.770+0200',
-              stopped_at: '2016-09-30T11:59:51.836+0200',
-              nature:     'travel'
-            },
-            {
-              started_at: '2016-09-30T11:59:51.836+0200',
-              stopped_at: '2016-09-30T11:59:52.620+0200',
-              nature:     'intervention'
-            },
-            {
-              started_at: '2016-09-30T11:59:52.620+0200',
-              stopped_at: '2016-09-30T11:59:55.903+0200',
-              nature:     'travel'
-            },
-            {
-              started_at: '2016-09-30T11:59:55.903+0200',
-              stopped_at: '2016-09-30T11:59:56.320+0200',
-              nature:     'preparation'
-            },
-            {
-              started_at: '2016-09-30T11:59:56.320+0200',
-              stopped_at: '2016-09-30T11:59:56.669+0200',
-              nature:     'travel'
-            },
-            {
-              started_at: '2016-09-30T11:59:56.669+0200',
-              stopped_at: '2016-09-30T11:59:56.969+0200',
-              nature:     'intervention'
-            },
-            {
-              started_at: '2016-09-30T11:59:56.969+0200',
-              stopped_at: '2016-09-30T11:59:57.353+0200',
-              nature:     'travel'
-            },
-            {
-              started_at: '2016-09-30T11:59:57.353+0200',
-              stopped_at: '2016-09-30T11:59:58.603+0200',
-              nature:     'preparation'
-            }
-          ]
-        }
-      end
-
-
-      # def repeating_payload(state: :done, procedure: :plant_watering, action: :irrigation)
-        # {
-          # intervention_id: @intervention_request.id,
-          # request_compliant: 1,
-          # uuid: '1d5fd107-7321-49d3-915f-88ab27599d9f',
-          # state: state.to_s,
-          # procedure_name: procedure.to_s,
-          # device_uid: 'android:dd60319e524d3d24',
-          # working_periods:
-          # [
-            # {
-              # started_at: '2016-09-30T11:59:49.320+0200',
-              # stopped_at: '2016-09-30T11:59:50.770+0200',
-              # nature:     'preparation'
-            # },
-            # {
-              # started_at: '2016-09-30T11:59:49.320+0200',
-              # stopped_at: '2016-09-30T11:59:50.770+0200',
-              # nature:     'preparation'
-            # },
-            # {
-              # started_at: '2016-09-30T11:59:49.320+0200',
-              # stopped_at: '2016-09-30T11:59:50.770+0200',
-              # nature:     'preparation'
-            # },
-            # {
-              # started_at: '2016-09-30T11:59:52.620+0200',
-              # stopped_at: '2016-09-30T11:59:55.903+0200',
-              # nature:     'travel'
-            # }
-          # ]
-        # }
-      # end
+        def correct_payload(state: :done, procedure: :plant_watering)
+          intervention_started_at = DateTime.parse('2016-09-30T11:30:49.320+0200')
+          intervention_stopped_at = intervention_started_at + 1.hour
+          request_intervention = create(:intervention,
+                                        :with_working_period,
+                                        procedure_name: :plant_watering,
+                                        actions: [:irrigation],
+                                        nature: :request,
+                                        started_at: intervention_started_at,
+                                        stopped_at: intervention_stopped_at
+                                       )
+          {
+            intervention_id: request_intervention.id,
+            request_compliant: 1,
+            uuid: '1d5fd107-7321-49d3-915f-88ab27599d9f',
+            state: state.to_s,
+            procedure_name: procedure.to_s,
+            device_uid: 'android:dd60319e524d3d24',
+            working_periods:
+              [
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 49),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 50),
+                  nature: 'preparation'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 50),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 51),
+                  nature: 'travel'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 51),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 52),
+                  nature: 'intervention'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 52),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 53),
+                  nature: 'travel'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 53),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 54),
+                  nature: 'preparation'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 54),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 55),
+                  nature: 'travel'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 55),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 56),
+                  nature: 'intervention'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 56),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 57),
+                  nature: 'travel'
+                },
+                {
+                  started_at: Time.new(2016, 9, 30, 11, 59, 57),
+                  stopped_at: Time.new(2016, 9, 30, 11, 59, 58),
+                  nature: 'preparation'
+                }
+              ]
+          }
+        end
     end
   end
 end

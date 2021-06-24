@@ -1,4 +1,4 @@
-class RenameUsagesOfAccountsRemovedInNomenclature < ActiveRecord::Migration
+class RenameUsagesOfAccountsRemovedInNomenclature < ActiveRecord::Migration[4.2]
   USAGES_TO_RENAME = {
     others_taxes: 'government_tax_expenses',
     interests_expenses: 'loans_interests',

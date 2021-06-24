@@ -20,7 +20,7 @@
 
       .items
         %table#items-table
-          - precision = Nomen::Currency[f.object.journal.currency].precision
+          - precision = Onoma::Currency[f.object.journal.currency].precision
           - financial_year = f.object.expected_financial_year
           - budget_size = budget_columns_count
           - team_size = team_columns_count
@@ -58,7 +58,7 @@
               %input#real-credit-balance{ type: :hidden, data: { balance: "#entry\-real\-credit - #entry\-real\-debit" } }
               %input#account-id{ type: :hidden, value: f.object.journal.cashes.any? ? f.object.journal.cashes.first.main_account.id : nil }
             %tr#subtotal.subtotal.currency-change{ data: { valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false } }
-              - financial_year_precision = financial_year ? Nomen::Currency[financial_year.currency].precision : 3
+              - financial_year_precision = financial_year ? Onoma::Currency[financial_year.currency].precision : 3
               %th{ colspan: 3 + budget_size + team_size }= :total.tl
               %td#entry-debit.decimal{ data: { use: "td.debit",  calculate_round: financial_year_precision } }= f.object.debit
               %td.financial-year-currency.txt= financial_year ? financial_year.currency : '¤'

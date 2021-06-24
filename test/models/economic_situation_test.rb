@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,7 +50,6 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     @journal = create :journal, nature: :purchases, currency: :EUR
     @nature = create :purchase_nature, journal_currency: :EUR
 
-
     Purchase.create!(
       invoiced_at: DateTime.new(2018, 1, 1),
       currency: 'EUR',
@@ -65,7 +64,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
             country: :fr,
             nature: :null_vat,
             name: 'Test',
-            collect_account:  trash_account,
+            collect_account: trash_account,
             deduction_account: trash_account
           ),
           variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
@@ -90,7 +89,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
         last_name: 'Test',
         role: Role.create!(name: 'Test')
       ),
-      to_bank_at: Time.now,
+      to_bank_at: DateTime.new(2018, 1, 2),
       amount: 9,
       mode: OutgoingPaymentMode.create!(
         name: 'TestMode',
@@ -121,6 +120,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       amount: 11,
       currency: 'EUR',
       payer: @entity,
+      to_bank_at: DateTime.new(2018, 1, 2),
       mode: IncomingPaymentMode.create!(
         name: 'IModeTest',
         cash: cash

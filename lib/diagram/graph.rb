@@ -201,11 +201,11 @@ module Diagram
 
     protected
 
-    def options_for_dot(hash)
-      '[' + hash.map do |key, value|
-        value = value.to_s if value.is_a?(Symbol)
-        "#{OPTIONS[key] || key}=#{value.inspect}"
-      end.join('; ') + ']'
-    end
+      def options_for_dot(hash)
+        '[' + hash.map do |key, value|
+          value = value.to_s if value.is_a?(Symbol)
+          "#{OPTIONS[key] || key}=#{value.inspect}"
+        end.join('; ') + ']'
+      end
   end
 end

@@ -22,14 +22,6 @@ module Backend
 
     unroll
 
-    # Displays the main page with the list of bank statements
-    before_action only: [:index] do
-      cashes = Cash.bank_accounts.with_pointing_work
-      if cashes.any?
-        notify_now(:x_unpointed_journal_entry_items, count: JournalEntryItem.where(account_id: cashes.select(:account_id)).unpointed.count)
-      end
-    end
-
     list(order: :name) do |t|
       t.action :edit
       t.action :destroy
@@ -48,7 +40,6 @@ module Backend
       t.action :reconciliation, url: { controller: '/backend/bank_reconciliation/items', action: :index, bank_statement_id: 'r.id'.c }
       t.action :destroy
       t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
-      t.action :import, on: :none, url: { cash_id: 'params[:id]'.c }
       t.action :edit_interval, on: :none, url: { cash_id: 'params[:id]'.c }
       t.column :number, url: true
       t.column :started_on

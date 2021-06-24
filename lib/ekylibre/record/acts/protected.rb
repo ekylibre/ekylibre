@@ -1,30 +1,21 @@
 module Ekylibre
   module Record
-    class RecordNotUpdateable < ActiveRecord::RecordNotSaved
-    end
-
-    class RecordNotDestroyable < ActiveRecord::RecordNotSaved
-    end
-
-    class RecordNotCreateable < ActiveRecord::RecordNotSaved
-    end
-
-    module Acts #:nodoc:
-      module Protected #:nodoc:
+    module Acts
+      module Protected
         def self.included(base)
           base.extend(ClassMethods)
+        end
 
-          def createable?
-            true
-          end
+        def createable?
+          true
+        end
 
-          def updateable?
-            true
-          end
+        def updateable?
+          true
+        end
 
-          def destroyable?
-            true
-          end
+        def destroyable?
+          true
         end
 
         module ClassMethods
@@ -32,7 +23,7 @@ module Ekylibre
           def protect(options = {}, &block)
             options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
-            for callback in [options[:on]].flatten
+            [options[:on]].flatten.each do |callback|
               method_name = "protected_on_#{callback}?".to_sym
 
               code << "before_#{callback} :raise_exception_unless_#{callback}able?\n"
@@ -61,7 +52,7 @@ module Ekylibre
           def secure(options = {}, &block)
             options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
-            for callback in [options[:on]].flatten
+            [options[:on]].flatten.each do |callback|
               method_name = "secured_on_#{callback}?".to_sym
 
               code << "before_#{callback} :secure_#{callback}ability!\n"
@@ -85,4 +76,3 @@ module Ekylibre
     end
   end
 end
-Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Protected)

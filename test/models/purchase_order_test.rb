@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -62,7 +62,6 @@
 require 'test_helper'
 
 class PurchaseOrderTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-
   test 'reconciliation_state is set correctly' do
     purchase_item = create :purchase_item, :of_purchase_order, quantity: 10
     reception_one = create(:reception)

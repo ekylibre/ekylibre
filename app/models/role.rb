@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +36,7 @@
 #  updater_id     :integer
 #
 
-class Role < Ekylibre::Record::Base
+class Role < ApplicationRecord
   include Rightable
   has_many :users, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -83,8 +85,8 @@ class Role < Ekylibre::Record::Base
 
   # Load a role from nomenclature
   def self.import_from_nomenclature(reference_name, _force = false)
-    unless item = Nomen::Role[reference_name]
-      raise ArgumentError, "The role #{reference_name.inspect} is not known"
+    unless item = Onoma::Role[reference_name]
+      raise ArgumentError.new("The role #{reference_name.inspect} is not known")
     end
 
     # parse rights
@@ -115,7 +117,7 @@ class Role < Ekylibre::Record::Base
 
   def self.import_from_lexicon(reference_name, _force = false)
     unless item = UserRole.find_by_reference_name(reference_name)
-      raise ArgumentError, "The role #{reference_name.inspect} is not known"
+      raise ArgumentError.new("The role #{reference_name.inspect} is not known")
     end
 
     rights = item.accesses.each_with_object({}) do |right, hash|

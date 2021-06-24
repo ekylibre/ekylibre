@@ -1,45 +1,81 @@
 = main_informations attachment: true do
   = render 'picture'
-  = infos do
-    = product_info(:work_number, important: true)
-    = product_info(:net_surface_area, important: true) do |population|
-      = resource.net_surface_area.round(3).l
-
-    .med-info.important
-      %span.title= :working_area.tl
-      %span.value
-        = resource.decorate.human_working_zone_area
-
-    = product_info(:variety, important: true, nomenclature: true)
-    = product_info(:born_at, important: true)
-    - if resource.dead_at
-      = product_info(:dead_at, important: true)
-    - if resource.born_at && resource.age >= 1.day
-      = product_info(:age) do |age|
-        %i.picto{class: "picto-clock-o"}
-        = human_age(resource.born_at, display: 2)
-    -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground
-    -# if resource.inspections.any? && stock
-      .med-info
-        %span.title= Product.human_attribute_name(:product_stock_in_ground)
+  - if resource.variety == 'vitis'
+    = infos do
+      .med-info.important
+        %span.title= :vine_area.tl
         %span.value
-          %i.picto{class: "picto-grain"}
-          = stock.round(3).l
-      - if resource.population && resource.population.to_d != 0.0
+          = resource.net_surface_area.round(3).l precision: 3
+      - if !resource.specie_variety.blank? && resource.specie_variety_name
         .med-info
-          %span.title= Product.human_attribute_name(:provisionnal_yield)
+          %span.title= :vine_variety_name.tl
+          %span.value
+            = resource.specie_variety_name
+      .med-info.important
+        %span.title= :vine_rows_interval.tl
+        %span.value
+          %i.picto{class: "picto-arrows-h"}
+          = resource.rows_interval.convert(:centimeter).round(2).l precision: 0
+      .med-info.important
+        %span.title= :vine_plants_interval.tl
+        %span.value
+          %i.picto{class: "picto-arrows-v"}
+          = resource.plants_interval.convert(:centimeter).round(2).l precision: 0
+      .med-info.important
+        %span.title= :planting_campaign.tl
+        %span.value
+          = resource.born_at.year
+      .med-info.important
+        %span.title= :vine_certification.tl
+        %span.value
+          = resource.certification_label
+      = product_info :description
+      = product_info :container do |container|
+        %i.picto{class: "zone"}
+        = link_to(container.work_name, {controller: container.type.tableize, action: :show, id: container.id})
+      - if resource.customized?
+        = attributes_list(stamps: false)
+  - else
+    = infos do
+      = product_info(:work_number, important: true)
+      = product_info(:net_surface_area, important: true) do |population|
+        = resource.net_surface_area.round(3).l
+
+      .med-info.important
+        %span.title= :working_area.tl
+        %span.value
+          = resource.decorate.human_working_zone_area
+
+      = product_info(:variety, important: true, nomenclature: true)
+      = product_info(:born_at, important: true)
+      - if resource.dead_at
+        = product_info(:dead_at, important: true)
+      - if resource.born_at && resource.age >= 1.day
+        = product_info(:age) do |age|
+          %i.picto{class: "picto-clock-o"}
+          = human_age(resource.born_at, display: 2)
+      -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground
+      -# if resource.inspections.any? && stock
+        .med-info
+          %span.title= Product.human_attribute_name(:product_stock_in_ground)
           %span.value
             %i.picto{class: "picto-grain"}
-            - unit = stock.unit + "_per_" + resource.net_surface_area.unit
-            = (stock.to_d / resource.population).in(unit).round(3).l
-    = product_info(:status, important: true) do |status|
-      = lights(status)
-    = product_info :description
-    = product_info :container do |container|
-      %i.picto{class: "zone"}
-      = link_to(container.work_name, {controller: container.type.tableize, action: :show, id: container.id})
-    - if resource.customized?
-      = attributes_list(stamps: false)
+            = stock.round(3).l
+        - if resource.population && resource.population.to_d != 0.0
+          .med-info
+            %span.title= Product.human_attribute_name(:provisionnal_yield)
+            %span.value
+              %i.picto{class: "picto-grain"}
+              - unit = stock.unit + "_per_" + resource.net_surface_area.unit
+              = (stock.to_d / resource.population).in(unit).round(3).l
+      = product_info(:status, important: true) do |status|
+        = lights(status, title: resource.human_status)
+      = product_info :description
+      = product_info :container do |container|
+        %i.picto{class: "zone"}
+        = link_to(container.work_name, {controller: container.type.tableize, action: :show, id: container.id})
+      - if resource.customized?
+        = attributes_list(stamps: false)
   = labels_info(resource.labels)
   .med-harvest
     .med-info.ready-to-harvest
@@ -96,3 +132,4 @@
     = cobble_list(:inspections)
 
   =# render partial: 'backend/shared/distributions', locals: {c: c}
+  

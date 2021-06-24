@@ -1,4 +1,6 @@
-class InterventionParameter < Ekylibre::Record::Base
+# frozen_string_literal: true
+
+class InterventionParameter < ApplicationRecord
   # Amount computation represents how a amount is computed for a cost or an earn
   # in an intervention
   class AmountComputation
@@ -21,13 +23,15 @@ class InterventionParameter < Ekylibre::Record::Base
 
     def initialize(nature, origin = nil, options = {})
       unless NATURES.include?(nature)
-        raise ArgumentError, "Invalid nature. Got: #{nature.inspect}"
+        raise ArgumentError.new("Invalid nature. Got: #{nature.inspect}")
       end
+
       @nature = nature
       if quantity?
         unless ORIGINS.include?(origin)
-          raise ArgumentError, "Invalid origin. Got: #{origin.inspect}"
+          raise ArgumentError.new("Invalid origin. Got: #{origin.inspect}")
         end
+
         @origin = origin
       end
       @options = options
@@ -58,7 +62,7 @@ class InterventionParameter < Ekylibre::Record::Base
 
     # FIXME: Not suitable more multi-money support
     def currency
-      Nomen::Currency.find(Preference[:currency])
+      Onoma::Currency.find(Preference[:currency])
     end
 
     def human_unit_amount(_options = {})
@@ -97,12 +101,12 @@ class InterventionParameter < Ekylibre::Record::Base
 
     protected
 
-    def check_option_presence!(*options)
-      options.each do |option|
-        unless @options[option]
-          raise ArgumentError, "An option #{option.inspect} must be given. #{@options.inspect}"
+      def check_option_presence!(*options)
+        options.each do |option|
+          unless @options[option]
+            raise ArgumentError.new("An option #{option.inspect} must be given. #{@options.inspect}")
+          end
         end
       end
-    end
   end
 end

@@ -40,18 +40,19 @@ module ApplicationHelper
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflect_on_association(association)
-      raise ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
+      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}")
     end
     if reflection.macro != :belongs_to
-      raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+      raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to")
     end
+
     text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
 
   # LEGALS_ITEMS = [h("Ekylibre " + Ekylibre.version),  h("Ruby on Rails " + Rails.version),  h("Ruby "+ RUBY_VERSION.to_s)].join(" &ndash; ".html_safe).freeze
 
   def legals_sentence
-    # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ActiveRecord::Base.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
+    # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ApplicationRecord.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
     nbsp = '&nbsp;'.html_safe # ,  h("Ruby on Rails") + nbsp + Rails.version, ("HTML" + nbsp + "5").html_sa, h("CSS 3")
     [h('Ekylibre') + nbsp + Ekylibre.version].join(' &ndash; ').html_safe # ,  h("Ruby") + nbsp + RUBY_VERSION.to_s
     # return content_tag(:span, content_tag(:i, '') + nbsp + h("Ekylibre"), class: "brand") + nbsp + h(Ekylibre.version)
@@ -88,6 +89,7 @@ module ApplicationHelper
   def human_age(born_at, options = {})
     options[:default] ||= '&ndash;'.html_safe
     return options[:default] if born_at.nil? || !born_at.is_a?(Time)
+
     at = options[:at] || Time.zone.now
     sign = ''
     if born_at > at
@@ -111,6 +113,7 @@ module ApplicationHelper
 
   def human_interval(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
+
     vals = []
     if (seconds.to_f / 1.year).floor > 0.0 && (!options[:display] || vals.size < options[:display])
       vals << :x_years.tl(count: (seconds / 1.year).floor)
@@ -133,6 +136,7 @@ module ApplicationHelper
 
   def human_duration(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
+
     vals = []
     vals << (seconds / 1.hour).floor
     seconds -= 1.hour * (seconds / 1.hour).floor
@@ -182,6 +186,13 @@ module ApplicationHelper
     link_to_remove_association(content_tag(:i) + h("labels.remove_#{name}".t(default: :destroy.ta)), f, options.deep_merge(data: { no_turbolink: true }, class: 'nested-remove'))
   end
 
+  private def warn_link_to_params
+    if !defined?(@@__warned_link_to)
+      @@__warned_link_to = true
+      ActiveSupport::Deprecation.warn "Don't give params to `link_to`. Just don't."
+    end
+  end
+
   # Re-writing of link_to helper
   def link_to(*args, &block)
     if block_given?
@@ -210,35 +221,30 @@ module ApplicationHelper
 
       html_options = convert_options_to_data_attributes(options, html_options)
       begin
+        # TODO: Rails 5 upgrade, secure and remove this ASAP
+        if options.is_a?(Hash) && options[:params].respond_to?(:permit!)
+          warn_link_to_params
+          options[:params].permit!
+        end
+        if options.respond_to? :permit!
+          warn_link_to_params
+          options.permit!
+        end
+
         url = url_for(options)
       rescue ActionController::UrlGenerationError => uge
         # Trying to fail gracefully in production
         raise uge unless Rails.env.production?
+
         ExceptionNotifier::Notifier.exception_notification(request.env, uge).deliver
         request.env['exception_notifier.delivered'] = true
         return content_tag(:a, name, class: html_options[:class].to_s + ' invalid invalid-route', disabled: true)
       end
 
-      if html_options
-        html_options = html_options.stringify_keys
-        href = html_options['href']
-        tag_options = tag_options(html_options)
-      else
-        tag_options = nil
-      end
+      html_options ||= {}
+      html_options = html_options.symbolize_keys
 
-      href_attr = 'href="' + url + '"' unless href
-      "<a #{href_attr}#{tag_options}>".html_safe + (name || url) + '</a>'.html_safe
-    end
-  end
-
-  def li_link_to(*args)
-    options = args[1] || {}
-    # if authorized?({:controller => controller_name, :action => action_name}.merge(options))
-    if authorized?({ controller: controller_path, action: :index }.merge(options))
-      content_tag(:li, link_to(*args).html_safe)
-    else
-      ''
+      content_tag(:a, (name || url), { href: url, **html_options })
     end
   end
 
@@ -255,15 +261,15 @@ module ApplicationHelper
   end
 
   def available_languages(native_language = true)
-    I18n.available_locales.map do |l|
-      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
+    %i[fra eng].map do |l|
+      [native_language ? I18n.t('i18n.name', locale: l) : Onoma::Language.find(l).human_name, l]
     end.sort_by(&:second)
   end
 
   # Returns a selection from names list
   def nomenclature_as_options(nomenclature_name, *args)
     options = args.extract_options!
-    nomenclature = Nomen[nomenclature_name]
+    nomenclature = Onoma[nomenclature_name]
     items = args.shift || nomenclature.all
     items.collect do |name|
       item = nomenclature.find(name)
@@ -315,7 +321,7 @@ module ApplicationHelper
           # raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
-      elsif value.is_a? Nomen::Item
+      elsif value.is_a? Onoma::Item
         value = value.human_name
       else
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
@@ -326,19 +332,24 @@ module ApplicationHelper
       end
       value_class << ' code' if attribute.to_s == 'code'
     end
+    title = None()
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, '', class: "checkbox-#{value}")
     elsif value.respond_to?(:text)
       value = value.send(:text)
+      title = Some(value)
     elsif attribute.to_s =~ /(^|_)currency$/
-      value = Nomen::Currency[value].human_name
+      value = Onoma::Currency[value].human_name
+      title = Some(value)
     elsif attribute.to_s =~ /^state$/ && !options[:force_string]
       value = I18n.translate("models.#{model_name}.states.#{value}")
+      title = Some(value)
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.respond_to?(:strftime) || value.respond_to?(:l) || value.is_a?(Numeric)
       value = value.l
+      title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
       duration = value
@@ -348,26 +359,30 @@ module ApplicationHelper
       minutes = (duration / 60 - 60 * hours).floor.to_i
       seconds = (duration - 60 * minutes - 3600 * hours).round.to_i
       value = :duration_in_hours_and_minutes.tl(hours: hours, minutes: minutes, seconds: seconds)
+      title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.is_a? String
       classes = []
       classes << 'code' if attribute.to_s == 'code'
       classes << value.class.name.underscore
+      title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
       value = content_tag(:div, value.html_safe, class: classes.join(' '))
     end
-    [label, value]
+    [label, value, title]
   end
 
-  def attributes_list(*args, &block)
-    options = args.extract_options!
+  # @param [Boolean] text_ellipsis
+  #   Default to false. If true, the text value of the attributes does not expand the container size and has an ellipsis if it overflows
+  def attributes_list(*args, columns: [], text_ellipsis: false, **options, &block)
     record = args.shift || resource
-    options[:columns] ||= []
     attribute_list = AttributesList.new(record)
+
     if block_given?
       unless block.arity == 1
-        raise ArgumentError, 'One parameter needed for attribute_list block'
+        raise ArgumentError.new('One parameter needed for attribute_list block')
       end
+
       yield attribute_list
     end
     if resource.customizable? && !options[:custom_fields].is_a?(FalseClass) &&
@@ -381,9 +396,10 @@ module ApplicationHelper
       attribute_list.attribute :updated_at
       # attribute_list.attribute :lock_version
     end
-    unless options[:columns].empty?
-      options[:columns].each do |c|
+    unless columns.empty?
+      columns.each do |c|
         next unless record.respond_to? c
+
         attribute_list.attribute c
       end
     end
@@ -391,13 +407,13 @@ module ApplicationHelper
     items = attribute_list.items # .delete_if { |x| x[0] == :custom_fields }
     if items.any?
       items.each do |item|
-        label, value = if item[0] == :custom
-                         attribute_item(*item[1])
-                       elsif item[0] == :attribute
-                         attribute_item(record, *item[1])
-                       end
+        label, value, title = if item[0] == :custom
+                                [*attribute_item(*item[1])[0..1], None()]
+                              elsif item[0] == :attribute
+                                attribute_item(record, *item[1])
+                              end
         if value.present? || (item[2].is_a?(Hash) && item[2][:show] == :always)
-          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
+          code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value, title: title.or_nil, class: text_ellipsis ? 'text-ellipsis' : ''))
         end
       end
       code = content_tag(:div, code.html_safe, class: 'attributes-list')
@@ -423,6 +439,7 @@ module ApplicationHelper
 
     def custom_fields
       raise 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
+
       @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
         if value && custom_field.nature == :boolean
@@ -445,7 +462,7 @@ module ApplicationHelper
   end
 
   def dropdown_toggle_button(name = nil, options = {})
-    class_attribute = options[:main_class] ? options[:main_class] : 'btn btn-default'
+    class_attribute = options[:main_class] || 'btn btn-default'
     class_attribute << ' dropdown-toggle'
     class_attribute << ' ' + options[:class].to_s if options[:class].present?
     class_attribute << ' sr-only' if name.blank?
@@ -477,12 +494,14 @@ module ApplicationHelper
   def dropdown_menu_button(name, options = {})
     menu = Ekylibre::Support::Lister.new(:item, :separator)
     yield menu
-    return nil unless menu.any?
+    return nil if menu.empty?
+
     menu_size = menu.size
     default_item = menu.detect_and_extract! do |item|
       item.args[2].is_a?(Hash) && item.args[2][:by_default]
     end
     raise 'Need a name or a default item' unless name || default_item
+
     if name.is_a?(Symbol)
       options[:icon] ||= name unless options[:icon].is_a?(FalseClass)
       name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
@@ -500,6 +519,7 @@ module ApplicationHelper
     html_options = { class: 'btn-group' + (options[:dropup] ? ' dropup' : '') }
     html_options[:class] << ' ' + options[:class].to_s if options[:class]
     html_options[:id] = options[:id] if options[:id]
+    html_options[:title] = options[:title].to_s if options[:title]
     content_tag(:div, html_options) do
       if default_item
         html = tool_to(default_item.args.first, default_item.args.second,
@@ -527,6 +547,7 @@ module ApplicationHelper
     minimum = 0
     if args[0].nil?
       return nil unless l.any?
+
       minimum = 1
       args = l.first.args
     end
@@ -610,7 +631,7 @@ module ApplicationHelper
             pagination << link_to(content_tag(:i) + tl(:beginning), { q: params[:q], page: 1 }, class: :beginning)
             pagination << content_tag(:span, '&hellip;'.html_safe) if page_min >= gap
           end
-          for p in page_min..page_max
+          (page_min..page_max).each do |p|
             attrs = {}
             attrs[:class] = 'active' if p == params[:page]
             pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
@@ -638,12 +659,12 @@ module ApplicationHelper
     # Apple touch icon
     icon_sizes = { iphone: '57x57', ipad: '72x72', 'iphone-retina' => '114x114', 'ipad-retina' => '144x144' }
     unless options[:app].is_a?(FalseClass)
-      for name, sizes in icon_sizes
+      icon_sizes.each do |name, sizes|
         html << "\n".html_safe + tag(:link, rel: 'apple-touch-icon', sizes: sizes, href: image_path("icon/#{name}.png"), 'data-turbolinks-track' => true)
       end
     end
     if options[:precomposed]
-      for name, sizes in icon_sizes
+      icon_sizes.each do |name, sizes|
         html << "\n".html_safe + tag(:link, rel: 'apple-touch-icon-precomposed', sizes: sizes, href: image_path("icon/precomposed-#{name}.png"), 'data-turbolinks-track' => true)
       end
     end
@@ -656,6 +677,7 @@ module ApplicationHelper
   def theme_link_tag(theme = nil)
     theme ||= current_theme
     return nil unless theme
+
     html = ''
     html << stylesheet_link_tag(theme_path('all.css', theme), media: :all, 'data-turbolinks-track' => true)
     html.html_safe
@@ -724,7 +746,7 @@ module ApplicationHelper
   end
 
   def subheading(i18n_key, options = {})
-    raise StandardError, 'A subheading has already been given.' if content_for?(:subheading)
+    raise StandardError.new('A subheading has already been given.') if content_for?(:subheading)
     if options[:here]
       return subheading_tag(tl(i18n_key, options))
     else
@@ -736,6 +758,7 @@ module ApplicationHelper
     if content_for?(:subheading) || title
       return content_tag(:h2, title || content_for(:subheading), id: :subtitle)
     end
+
     nil
   end
 
@@ -744,10 +767,11 @@ module ApplicationHelper
     html = ''
     item = ''
     size = 0
-    for item in array
+    array.each do |item|
       item << content_tag(:td, capture(item, &block))
       size += 1
       next unless size >= coln
+
       html << content_tag(:tr, item).html_safe
       item = ''
       size = 0
@@ -759,7 +783,8 @@ module ApplicationHelper
   # TOOLBAR
 
   def menu_to(name, url, options = {})
-    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+
     icon = (options.key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || 'icons-16'
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
@@ -784,11 +809,14 @@ module ApplicationHelper
   # end
 
   def tool_to(name, url, options = {})
-    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+
     icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
+    tooltip_options = options.delete(:tooltip_options)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
+
     if url.is_a?(Hash)
       if url.key?(:redirect)
         url.delete(:redirect) if url[:redirect].nil?
@@ -796,7 +824,14 @@ module ApplicationHelper
         url[:redirect] = request.fullpath
       end
     end
-    link_to(name, url, options)
+
+    if tooltip_options
+      content_tag :span, tooltip_options do
+        link_to(name, url, options)
+      end
+    else
+      link_to(name, url, options)
+    end
   end
 
   def toolbar_tag(name, wrap: true)
@@ -810,6 +845,7 @@ module ApplicationHelper
       noko = Nokogiri::HTML.fragment(html)
       wrapper = noko.children.select { |e| e.matches?(".toolbar-wrapper") }.first
       return toolbar_tag(name, wrap: true) if wrapper.nil? # If no wrapper element and wrap is false, thats an error, just wrap everything
+
       other_content = noko.children.select { |e| e.matches?(":not(.toolbar-wrapper)") }
       other_content.each { |node| wrapper.add_child node } if wrapper
       noko.to_html.html_safe
@@ -838,13 +874,14 @@ module ApplicationHelper
 
   # Create the main toolbar with the same API as toolbar
   def main_toolbar(**options, &block)
-    content_for(:main_toolbar, toolbar({class: 'main-toolbar', **options}, &block))
+    content_for(:main_toolbar, toolbar({ class: 'main-toolbar', **options }, &block))
     nil
   end
 
   def error_messages(object)
     object = instance_variable_get("@#{object}") unless object.respond_to?(:errors)
     return unless object.respond_to?(:errors)
+
     if (count = object.errors.size).zero?
       ''
     else
@@ -929,7 +966,7 @@ module ApplicationHelper
   def field_set(*args, &block)
     options = args.extract_options!
     options[:fields_class] ||= 'fieldset-fields'
-    name = args.shift || 'general-informations'.to_sym
+    name = args.shift || :"general-informations"
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
     classes = ['fieldset', name.to_s, options.fetch(:class, [])].flatten
@@ -1013,15 +1050,17 @@ module ApplicationHelper
 
   def modal_header(title, options = {})
     title_id = options[:title_id] || title.parameterize.underscore.camelcase(:lower)
-    content_tag(:div, class: 'modal-header') do
+    content_tag(:div, class: 'modal-header modal-header-generic') do
       if options[:close_button].is_a? FalseClass
-        content_tag(:h4, title, class: 'modal-title', id: title_id)
+        content_tag(:b, title, class: 'modal-title', id: title_id)
       else
 
-        title = content_tag(:h4, title, class: 'modal-title', id: title_id)
+        title = content_tag(:b, title, class: 'modal-title', id: title_id)
 
         close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
-          content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
+          content_tag(:span, aria: { hidden: 'true' }) do
+            content_tag(:i, '', class: 'icon icon-destroy')
+          end
         end
 
         if options[:flex]

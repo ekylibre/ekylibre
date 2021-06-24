@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -176,32 +176,32 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
-    attributes = {
-      delivery_mode: delivery_mode,
-      address: address || @address,
-      sender: sender || @sender,
-      separated_stock: separated,
-      given_at: DateTime.new(2018, 1, 1)
-    }
+    def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
+      attributes = {
+        delivery_mode: delivery_mode,
+        address: address || @address,
+        sender: sender || @sender,
+        separated_stock: separated,
+        given_at: DateTime.new(2018, 1, 1)
+      }
 
-    items_attributes ||= [{
-      # population: 20,
-      unit_pretax_stock_amount: 15,
-      variant: @variant,
-      storings_attributes: [
-        {
-          quantity: 20,
-          storage: storage || @storage
-        }
-      ]
-    }]
+      items_attributes ||= [{
+        # population: 20,
+        unit_pretax_stock_amount: 15,
+        variant: @variant,
+        storings_attributes: [
+          {
+            quantity: 20,
+            storage: storage || @storage
+          }
+        ]
+      }]
 
-    reception = Reception.create!(attributes)
-    items_attributes.each do
-      reception.items.create!(items_attributes)
+      reception = Reception.create!(attributes)
+      items_attributes.each do
+        reception.items.create!(items_attributes)
+      end
+
+      reception
     end
-
-    reception
-  end
 end

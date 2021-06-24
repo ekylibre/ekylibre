@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,10 +75,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -93,7 +96,7 @@ class ProductTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'working sets' do
     assert Product.of_expression('is product').any?
     assert Product.of_expression('can move()').any?
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert Product.of_working_set(item.name).count >= 0
     end
   end
@@ -124,22 +127,22 @@ class ProductTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'product can get a value from its readings: choice' do
-    nature_with_indicator = create(:product_nature, variable_indicators_list: [:certification])
+    nature_with_indicator = create(:product_nature, variable_indicators_list: [:animal_life_state])
     variant_with_indicator = create(:product_nature_variant, nature: nature_with_indicator)
     product = create :product, variant: variant_with_indicator
     create :product_reading, :choice,
            product: product,
-           indicator_name: 'certification',
-           value: 'cognac'
+           indicator_name: 'animal_life_state',
+           value: 'aging'
 
-    assert_equal 'cognac', product.get(:certification)
+    assert_equal 'aging', product.get(:animal_life_state)
 
     create :product_reading, :choice,
            product: product,
-           indicator_name: 'certification',
-           value: 'bordeaux blanc'
+           indicator_name: 'animal_life_state',
+           value: 'first_growth'
 
-    assert_equal 'bordeaux blanc', product.get(:certification)
+    assert_equal 'first_growth', product.get(:animal_life_state)
   end
 
   test 'product can get a value from its readings: decimal' do

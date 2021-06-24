@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.export :deposit_list
+  = t.export(:deposit_list, target: "_blank")
   = t.edit resource
 
 = cobbles do |c|
@@ -18,7 +18,7 @@
     %table.list
       %tr.total
         %th= :payments_count.tl(mode: resource.mode.name)
-        %td= resource.payments_count
+        %td= resource.payments.count
       %tr.total.important
         %th= :total.tl
         %td= resource.amount.l(currency: resource.currency)

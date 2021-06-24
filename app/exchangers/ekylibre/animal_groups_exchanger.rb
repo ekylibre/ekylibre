@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class AnimalGroupsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :ekylibre
+
     def check
       valid = true
 
@@ -15,6 +20,7 @@ module Ekylibre
         line_number = index + 2
         prompt = "L#{line_number.to_s.yellow}"
         next if row[0].blank?
+
         r = OpenStruct.new(
           name: row[0],
           nature: row[1].to_s,
@@ -57,7 +63,8 @@ module Ekylibre
 
         next unless r.variant_reference_name
         next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
-        unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+
+        unless nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
         end
@@ -86,7 +93,10 @@ module Ekylibre
           end,
           activity_family_name: row[10].to_s,
           activity_name: row[11].to_s,
-          campaign_year: row[12].to_i
+          campaign_year: row[12].to_i,
+          started_on: Date.parse(row[13].to_s),
+          stopped_on: Date.parse(row[14].to_s),
+          population_in_production: row[15].to_i
         )
 
         unless variant = ProductNatureVariant.find_by(work_number: r.nature)
@@ -117,6 +127,7 @@ module Ekylibre
             initial_born_at: r.indicators_at,
             initial_population: 1.0,
             variant: variant,
+            member_variant: animal_variant,
             initial_container: animal_container,
             default_storage: animal_container
           )
@@ -132,6 +143,33 @@ module Ekylibre
           animal_group.save!
         end
 
+        # check activity
+        family = Onoma::ActivityFamily.find(:animal_farming)
+        unless family
+          w.error 'Cannot determine activity'
+          raise ActiveExchanger::Error.new("Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}")
+        end
+        r.activity_name = family.human_name if r.activity_name.blank?
+        unless activity = Activity.find_by(name: r.activity_name, family: 'animal_farming')
+          # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
+          activity = Activity.create!(
+            name: r.activity_name,
+            family: family.name,
+            nature: family.nature,
+            production_cycle: :perennial,
+            production_started_on_year: -1,
+            production_stopped_on_year: 0,
+            life_duration: 20,
+            production_started_on: Date.new(2000, r.started_on.month, r.started_on.day),
+            production_stopped_on: Date.new(2000, r.stopped_on.month, r.stopped_on.day)
+          )
+        end
+
+        # create budget for each existing campaign
+        Campaign.current.each do |c|
+          activity.budgets.find_or_create_by!(campaign: c)
+        end
+
         # Check if animals exist with given sex and age
         if r.minimum_age && r.maximum_age && r.sex
           max_born_at = Time.zone.now - r.minimum_age.days if r.minimum_age
@@ -139,41 +177,27 @@ module Ekylibre
           animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
 
           # find support for intervention changing or create it
-          unless ap = ActivityProduction.where(support_id: animal_group.id).first
-            # campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
-            family = Nomen::ActivityFamily.find(:animal_farming)
-            r.activity_name = family.human_name if r.activity_name.blank?
-            unless activity = Activity.find_by(name: r.activity_name)
-              # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
-              unless family
-                w.error 'Cannot determine activity'
-                raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
-              end
-              activity = Activity.create!(
-                name: r.activity_name,
-                family: family.name,
-                nature: family.nature,
-                production_cycle: :perennial
-              )
-            end
-            # get first harvest_year of first campaign
-            first_year_of_campaign = Campaign.first_of_all.harvest_year if Campaign.first_of_all
-            if animals.any?
-              ap = ActivityProduction.create!(
-                activity: activity,
-                support_id: animal_group.id,
-                size_value: animals.count,
-                support_nature: :animal_group,
-                started_on: first_year_of_campaign ? Date.civil(first_year_of_campaign, 1, 1) : Date.civil(1970, 1, 1),
-                usage: :milk
-              )
-            end
+          unless ap = ActivityProduction.find_by(support_id: animal_group.id, activity_id: activity.id)
+            ap = ActivityProduction.create!(
+              activity: activity,
+              support_id: animal_group.id,
+              size_value: (animals.count > 0 ? animals.count : r.population_in_production),
+              support_nature: :animal_group,
+              started_on: r.started_on,
+              stopped_on: r.stopped_on,
+              starting_year: r.campaign_year
+            )
           end
+
+          # update animal_group with current ap
+          # animal_group = AnimalGroup.find_by(work_number: r.code)
+          animal_group.reload
+          animal_group.activity_production = ap
+          animal_group.save!
 
           # if animals and production_support, add animals to the target distribution
           if animals.any? && ap.present?
             animals.each do |animal|
-              animal.update(activity_production: ap)
               animal.memberships.where(group: animal_group, started_at: animal.born_at + r.minimum_age, nature: :interior).first_or_create!
               animal.localizations.where(started_at: animal.born_at + r.minimum_age, nature: :interior, container: animal_container).first_or_create!
             end

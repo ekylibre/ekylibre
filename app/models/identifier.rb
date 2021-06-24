@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -33,18 +35,18 @@
 #  updater_id     :integer
 #  value          :string           not null
 #
-class Identifier < Ekylibre::Record::Base
+class Identifier < ApplicationRecord
   refers_to :nature, class_name: 'IdentifierNature'
   belongs_to :net_service
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, presence: true
   validates :value, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates :nature, inclusion: { in: -> (i) { i.net_service_reference.identifiers.map(&:to_s) }, if: -> (i) { i.net_service&.reference } }
+  validates :nature, inclusion: { in: ->(i) { i.net_service_reference.identifiers.map(&:to_s) }, if: ->(i) { i.net_service&.reference } }
 
   delegate :reference, to: :net_service, prefix: true
 
   def name
-    (nature ? Nomen::IdentifierNature[nature].human_name : :unknown.tl)
+    (nature ? Onoma::IdentifierNature[nature].human_name : :unknown.tl)
   end
 end

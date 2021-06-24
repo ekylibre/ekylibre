@@ -5,7 +5,7 @@ module Backend
     test_restfully_all_actions except: %i[index create update destroy show]
 
     test 'action index' do
-      get :index
+      get :index, params: {}
       assert_response :success
     end
   end

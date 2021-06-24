@@ -28,7 +28,7 @@ module Backend
 
     # management -> sales_conditions
     def self.sales_conditions
-      code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
+      code = search_conditions(sales: %i[pretax_amount amount reference_number number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND ((#{Sale.table_name}.invoiced_at IS NULL AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?)'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -108,7 +108,7 @@ module Backend
       t.column :delivery
       t.column :address, label_method: :coordinate, children: false
       t.status
-      t.column :state, label_method: :human_state_name
+      t.column :state, label_method: :human_state_name, hidden: true
       t.column :transporter, children: false, url: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
@@ -221,6 +221,7 @@ module Backend
 
     def duplicate
       return unless @sale = find_and_check
+
       unless @sale.duplicatable?
         notify_error :sale_is_not_duplicatable
         redirect_to params[:redirect] || { action: :index }
@@ -232,6 +233,7 @@ module Backend
 
     def cancel
       return unless @sale = find_and_check
+
       url = { controller: :sale_credits, action: :new, credited_sale_id: @sale.id }
       url[:redirect] = params[:redirect] if params[:redirect]
       redirect_to url
@@ -239,7 +241,12 @@ module Backend
 
     def confirm
       return unless @sale = find_and_check
-      @sale.confirm
+
+      if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
+        notify_error :financial_year_exchange_on_this_period
+      else
+        @sale.confirm
+      end
       redirect_to action: :show, id: @sale.id
     end
 
@@ -264,20 +271,25 @@ module Backend
 
     def abort
       return unless @sale = find_and_check
+
       @sale.abort
       redirect_to action: :show, id: @sale.id
     end
 
     def correct
       return unless @sale = find_and_check
+
       @sale.correct
       redirect_to action: :show, id: @sale.id
     end
 
     def invoice
       return unless @sale = find_and_check
-      if @sale.client.client_account.present?
-        ActiveRecord::Base.transaction do
+
+      if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
+        notify_error :financial_year_exchange_on_this_period
+      elsif @sale.client.client_account.present?
+        ApplicationRecord.transaction do
           raise ActiveRecord::Rollback unless @sale.invoice
         end
       else
@@ -288,13 +300,15 @@ module Backend
 
     def propose
       return unless @sale = find_and_check
+
       @sale.propose
       redirect_to action: :show, id: @sale.id
     end
 
     def propose_and_invoice
       return unless @sale = find_and_check
-      ActiveRecord::Base.transaction do
+
+      ApplicationRecord.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
         raise ActiveRecord::Rollback unless @sale.confirm
         # raise ActiveRecord::Rollback unless @sale.deliver
@@ -305,6 +319,7 @@ module Backend
 
     def refuse
       return unless @sale = find_and_check
+
       @sale.refuse
       redirect_to action: :show, id: @sale.id
     end
@@ -319,9 +334,17 @@ module Backend
           return false
         end
 
+        g = Ekylibre::DocumentManagement::DocumentGenerator.build
         printer = klass.new(template: template, sale: sale)
-        pdf_data = printer.run_pdf
-        printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+        pdf_data = g.generate_pdf(template: template, printer: printer)
+
+        archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+        archiver.archive_document(
+          pdf_content: pdf_data,
+          template: template,
+          key: printer.key,
+          name: printer.document_name
+        )
 
         send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
 

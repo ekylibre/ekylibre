@@ -1,4 +1,4 @@
-class AddTaxesInJournals < ActiveRecord::Migration
+class AddTaxesInJournals < ActiveRecord::Migration[4.2]
   def change
     add_reference :journal_entry_items, :tax, index: true
     add_column :journal_entry_items, :pretax_amount, :decimal,

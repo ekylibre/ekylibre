@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,10 +39,13 @@
 #  updater_id         :integer
 #
 
-class InspectionPoint < Ekylibre::Record::Base
-  include Inspectable
+class InspectionPoint < ApplicationRecord
   belongs_to :nature, class_name: 'ActivityInspectionPointNature'
   belongs_to :inspection, inverse_of: :points
+
+  # Need to import AFTER nature and inspection because some Inspectable is delegating some calls to them
+  include Inspectable
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :items_count_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -60,6 +65,7 @@ class InspectionPoint < Ekylibre::Record::Base
 
   def percentage(dimension)
     return 0 if inspection.quantity(dimension).zero?
+
     ratio = quantity_in_unit(dimension) / inspection.quantity(dimension)
     100 * (ratio.nan? ? 0 : ratio)
   end

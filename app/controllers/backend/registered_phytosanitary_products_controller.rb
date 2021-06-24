@@ -15,13 +15,14 @@ module Backend
             validator = ::Interventions::Phytosanitary::ValidatorCollectionValidator.build(
               infos.targets_and_shape,
               intervention_to_ignore: infos.intervention,
+              intervention_started_at: infos.intervention_started_at,
               intervention_stopped_at: infos.intervention_stopped_at
             )
             result = validator.validate(prods_usages)
 
             products_infos = prods_usages.map do |pu|
-              messages = result.product_messages(pu.product)
-              check_conditions = messages.empty? && pu.usage&.usage_conditions
+              messages = result.product_grouped_messages(pu.product)
+              check_conditions = result.product_messages(pu.product).empty? && pu.usage&.usage_conditions
 
               [pu.product.id, {
                 state: result.product_vote(pu.product),

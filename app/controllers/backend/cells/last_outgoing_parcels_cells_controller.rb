@@ -6,6 +6,7 @@ module Backend
         t.column :recipient, label: :full_name, url: { controller: '/backend/entities' }
         t.column :given_at
         t.status
+        t.column :state_label, hidden: true
         t.column :delivery, url: { controller: '/backend/deliveries' }
         t.column :delivery_mode, hidden: true
         t.column :sale, url: { controller: '/backend/sales' }, hidden: true

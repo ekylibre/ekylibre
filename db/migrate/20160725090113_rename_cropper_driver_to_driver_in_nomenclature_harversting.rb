@@ -1,4 +1,4 @@
-class RenameCropperDriverToDriverInNomenclatureHarversting < ActiveRecord::Migration
+class RenameCropperDriverToDriverInNomenclatureHarversting < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
       dir.up do

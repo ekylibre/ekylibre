@@ -30,6 +30,7 @@ arb:
         # invalid_child: "At least one value of %{attribute} is invalid."
         # invalid_date: "%{attribute} is not a valid date"
         # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
         # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
         # is: "%{attribute} must be a %{thing}"
@@ -58,6 +59,7 @@ arb:
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
+        # record_is_not_valid: "The record is invalid"
         # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
         # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
         # taken: "%{attribute} has already been taken"
@@ -493,12 +495,13 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      product_nature_category: #?
+      product_nature_category:
         catalog_description: "الوصف" #?
         children: "دلائل فرعية" #?
         creator_id: "المننتج" #?
         published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
+        # type: "Nature"
       product_nature_component: #?
         building: "مكان التخزين" #?
         building_id: "مكان التخزين" #?
@@ -514,6 +517,10 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
+      product_nature_variant:
+        # specie_variety: "Variety"
+        # status: "Allowed"
+        # variety: "Variety"
       product_price_listing: #?
         description: "مواصفات" #?
       product_price_template: #?
@@ -567,6 +574,8 @@ arb:
         number: "رقم" #?
         planned_at: "مقرر الاستقبال يوم" #?
         received: "المستلم" #?
+      purchase_invoice:
+        # delivery_address: "Billing address"
       purchase_item:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
@@ -582,6 +591,8 @@ arb:
         tracking: "رقم الحصة" #?
         tracking_id: "رقم الحصة" #?
         unit_id: "الوحدة" #?
+      purchase_order:
+        # delivery_address: "Billing address"
       purchase_payment: #?
         amount: "القيمة" #?
         created_at: "انشأ في" #?
@@ -592,6 +603,29 @@ arb:
         updated_at: "تحديثه في" #?
         updater: "التعديل" #?
         updater_id: "تعديل" #?
+      registered_phytosanitary_product:
+        # active_compounds: "Active compound(s)"
+        # france_maaid: "AMM number"
+        # licence_number: "Licence number"
+        # operator_protection_mentions: "Operator protection"
+        # other_names: "Other commercial names"
+        # product_type: "Type"
+        # started_on: "Authorization date"
+        # state: "Product state"
+        # stopped_on: "Removal date"
+      registered_phytosanitary_risk:
+        # mentions: "Risk mentions"
+        # symbol_name: "Pictogram"
+      registered_phytosanitary_usage:
+        # applications_count: "Max amount"
+        # applications_frequency: "Interval"
+        # decision_date: "Authorization date"
+        # development_stage_min: "BBCH stage min-max"
+        # dose_quantity: "Max dose"
+        # ephy_usage_phrase: "Usage"
+        # lib_court: "Number"
+        # status: "Allowed"
+        # usage_conditions: "Usage conditions"
       role: #?
         created_at: "انشأ في" #?
       sale:
@@ -776,6 +810,7 @@ arb:
         # invalid_child: "At least one value of %{attribute} is invalid."
         # invalid_date: "%{attribute} is not a valid date"
         # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
         # invalid_time: "%{attribute} is not a valid time"
         invalid_token: "%{attribute} غير متوفر.%{error} النموذج غير معروف.%{accepted} النماذج المقبولة هي"
         # is: "%{attribute} must be a %{thing}"
@@ -805,6 +840,7 @@ arb:
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"
+        # record_is_not_valid: "The record is invalid"
         # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
         # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
         taken: "%{attribute} قد تم اتخاذه مسبقا"
@@ -812,18 +848,21 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
-      models: #?
-        activity: #?
-          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط" #?
-          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش" #?
-        bank_statement: #?
-          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية" #?
-          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة" #?
-          ofx_file_invalid: "ملف OFX غير صالح" #?
-        bank_statement_item: #?
-          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا" #?
-        cash: #?
-          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح" #?
+      models:
+        activity:
+          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
+          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
+          # productions_present: "Productions are present on this activity"
+        bank_statement:
+          no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
+          ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة"
+          ofx_file_invalid: "ملف OFX غير صالح"
+        bank_statement_item:
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
+        cash:
+          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
+          unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
         custom_field_datum: #?
           greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
           less_than: "%{field} اقل من (%{minimum} كحد ادنى)" #?
@@ -1169,6 +1208,7 @@ arb:
       worker: "عامل"
       zone: "منطقة"
   attributes:
+    # abilities: "Abilities"
     abilities_list: "قائمة قدراتهم"
     absolute_credit: "الائتمان المطلق"
     absolute_currency: "العملة المطلقة"
@@ -1232,6 +1272,9 @@ arb:
     all_addresses: "جميع العناوين"
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
+    # allowed_entry_factor: "Allowed entry factor"
+    # allowed_harvest_factor: "Allowed harvest factor"
+    # allowed_mentions: "Allowed mentions"
     # already_existing: "Already existing"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
@@ -1702,6 +1745,7 @@ arb:
     file: "ملف"
     file_content_text: "ملف نص المحتوى"
     file_content_type: "نوع محتوى الملف"
+    # file_extension: "File extension"
     file_file_name: "اسم الملف ملف"
     file_file_size: "حجم الملف"
     file_fingerprint: "بصمة ملف"
@@ -1811,7 +1855,9 @@ arb:
     implanter_working_width: "عرض العمل Implanter"
     importance: "ذو شأن"
     imported_at: "المستوردة في"
+    # imported_from: "Imported from"
     importer: "المستورد"
+    # imputation_ratio: "Imputation ratio"
     # in_field_reentry_delay: "In field reentry delay"
     in_name: "الاختصارات تشمل اسم الملف" #?
     in_preparation_at: "في إطار التحضير في"
@@ -1929,6 +1975,7 @@ arb:
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
+    # label_fra: "Label fra"
     labellings: "وضع العلامات"
     labels: "تسميات"
     land_parcel_number: "عدد قطعة أرض"
@@ -1952,6 +1999,7 @@ arb:
     latest: "آخر"
     latitude: "خطوط العرض" #?
     leaves_parameters: "يترك المعلمات"
+    # legal_position_code: "Legal status"
     lender: "المقرض"
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
@@ -1965,7 +2013,7 @@ arb:
     line_6: "الرمز البريدي والمدينة" #?
     line_6_city: "المدينة" #?
     line_6_code: "الرمز البريدي" #?
-    lines: "طرق تسديد الفاتورة" #?
+    lines: "طرق تسديد الفاتورة"
     linkage_points_list: "قائمة نقطة الربط"
     linkages: "الروابط"
     linked: "الملف الثاني"
@@ -2059,6 +2107,7 @@ arb:
     minimal_size: "حجم الحد الأدنى"
     minimal_size_value: "قيمة حجم الحد الأدنى"
     minimal_value: "قيمة الحد الأدنى"
+    # mix_category_codes: "Mix category codes"
     mobile: "الهاتف النقال" #?
     mobiles: "هواتف محمولة"
     mode: "نمط الدفعة"
@@ -2240,6 +2289,7 @@ arb:
     postal_zone_id: "العنوان البريدي" #?
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
+    # pre_harvest_delay: "Pre harvest delay"
     pre_harvest_interval: "فترة ما قبل الحصاد"
     # preexisting_asset: "Preexisting asset"
     preferences: "الاعدادات"
@@ -2295,7 +2345,6 @@ arb:
     # product_work_number: "Product work number"
     productable_products: "المنتجات الممكن انتاجها" #?
     production: "الإنتاج"
-    production_campaign: "حملة إنتاج"
     production_cycle: "دورة الإنتاج"
     # production_nature: "Production nature"
     production_support: "دعم الإنتاج"
@@ -2316,6 +2365,7 @@ arb:
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
     prospect: "الراعي"
+    # provider: "Provider"
     # providers: "Providers"
     provisional: "مؤقت"
     provisional_intervention: "تدخل المؤقت"
@@ -2381,6 +2431,7 @@ arb:
     recommender: "المزكي"
     reconcilable: "مصالحتها"
     # reconciliation_state: "Reconciliation state"
+    # record_checksum: "Record checksum"
     record_interventions: "التدخلات سجل"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
@@ -2394,6 +2445,7 @@ arb:
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
     reductions: "طرق الخصومات" #?
+    # reference_data: "Reference data"
     # reference_label_fra: "Reference label fra"
     reference_name: "اسم الإشارة"
     reference_number: "الرقم المرجعي"
@@ -2447,6 +2499,7 @@ arb:
     revenues: "إيرادات"
     rgt: "حق"
     rights: "الحقوق"
+    # risks: "Risks"
     role: "الدور الاساسي"
     role_id: "الدور الاساسي" #?
     roles: "وظائف"
@@ -2548,6 +2601,7 @@ arb:
     spaced_iban: "متباعدة IBAN"
     # special_imputation_asset_account: "Special imputation asset account"
     # specie: "Specie"
+    # specie_variety: "Specie variety"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
     start: "البداية"
@@ -2618,6 +2672,7 @@ arb:
     surface_units: "وحدات المظهر الخارجي" #?
     suspend_until_reconciliation: "تعليق حتى المصالحة"
     suspended: "معطل"
+    # suspended_balance: "Temporary account balance"
     suspended_journal_entry_items: "البنود إدخال دفتر اليومية مع وقف التنفيذ"
     suspense_account: "حساب معلق"
     symbol: "نموذج" #?
@@ -2747,6 +2802,7 @@ arb:
     user_id: "المستخدم" #?
     users: "المستخدمين"
     uses: "المعدات المستخدمة" #?
+    # using_live_data: "Using live data"
     # uuid: "UUID"
     # validated_at: "Validated at"
     value: "القيمة"
@@ -2754,6 +2810,7 @@ arb:
     variable_indicators_list: "قائمة مؤشرات متغيرة"
     variant: "مختلف"
     variant_indicator: "مؤشر البديل"
+    # variant_nature: "Variant nature"
     variant_unit: "وحدة متغير"
     variants: "المتغيرات"
     variety: "تشكيلة"
@@ -2824,6 +2881,7 @@ arb:
       # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
       # invalid_time: "%{attribute} is not a valid time"
       # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
       # is: "%{attribute} must be a %{thing}"
@@ -2852,6 +2910,7 @@ arb:
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # record_is_not_valid: "The record is invalid"
       # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
@@ -3160,6 +3219,14 @@ arb:
     intervention:
       # bookkeep: "[%{resource}] %{name}"
       # name: "%{intervention} #%{number}"
+    intervention_working_period:
+      attributes:
+        started_at:
+          # inferior: "The intervention must start before the end of the selected crops (%{to})"
+          # posterior: "The intervention must start after the beginning of the selected crops (%{to})"
+        stopped_at:
+          # inferior: "The intervention must end before the end of the selected crops (%{to})"
+          # posterior: "The intervention must end after the beginning of the selected crops (%{to})"
     inventory:
       # bookkeep: "[%{resource}] %{number}"
       # bookkeep_exchange: "[%{resource} exchange] %{number}"
@@ -3168,14 +3235,18 @@ arb:
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
-    journal: #?
-      natures: #?
-        bank: "البنك" #?
-        cash: "الصندوق النقدي" #?
-        forward: "تقرير عن اي جديد" #?
-        purchases: "المشتريات" #?
-        sales: "المبيعات" #?
-        various: "عمليات متنوعة" #?
+    journal:
+      natures:
+        bank: "البنك"
+        cash: "الصندوق النقدي"
+        # closure: "Closure"
+        # fixed_assets: "Fixed assets"
+        forward: "تقرير عن اي جديد"
+        purchases: "المشتريات"
+        # result: "Result"
+        sales: "المبيعات"
+        # stocks: "Stocks"
+        various: "عمليات متنوعة"
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       record_cancel: "الانعكاس السلبي للقطعة %{number} : %{name}" #?

@@ -76,32 +76,15 @@
   ##############################
   # Open modal on button click
   $(document).on 'click', '#showReconciliationModal', (event) =>
-    open_reconciliation_modal event
-
-  # Handle automated selection of multiple checkbox
-  $(document).on 'change', '#purchase_process_reconciliation .model-checkbox', (event) =>
-    checked = $(event.target).is(':checked')
-    $(event.target).closest('.model').find('.item-checkbox').prop('checked', checked)
-    E.reconciliation.displayClosePurchaseOrderBlock(event)
-
-  # Checkbox selection
-  $(document).on 'change', '#purchase_process_reconciliation .item-checkbox', (event) =>
-    E.reconciliation.displayClosePurchaseOrderBlock(event)
+    $form = $(event.target).closest('form')
+    open_reconciliation_modal($form)
 
   # Validate modal
   handle_modal_validation = (modal) =>
     modal.getContent().find('.valid-modal').on 'click', (event) ->
       displayedItemIds = $('.nested-fields .nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
-      if $(this).attr('data-item-reconciliation') != undefined
-        # Reconciliation on line
-        E.reconciliation.reconciliateItems(modal.getContent())
-        itemCheckbox = modal.getContent().find('.item-checkbox:checked')
-        isPurchaseOrderModal = $('#purchase-orders').val()
-        E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
-      else
-        # Reconciliation on form
-        E.reconciliation.createLinesWithSelectedItems(modal.getContent(), displayedItemIds, event)
-        E.reconciliation.removeLineWithUnselectedItems(modal.getContent(), displayedItemIds, event)
+      E.reconciliation.createLinesWithSelectedItems(modal.getContent(), displayedItemIds, event)
+      E.reconciliation.removeLineWithUnselectedItems(modal.getContent(), displayedItemIds, event)
 
       refresh_state()
       modal.close()
@@ -124,50 +107,119 @@
       data['reception'] = action.substr(action.lastIndexOf('/') + 1)
     {url: url, data: data}
 
-  # Returns a promise that resolves to the content for the modal to be opened
-  content_for_reconciliation_modal = (event) =>
-    isPurchaseInvoiceForm = $(event.target).closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
-    isReceptionForm = $(event.target).closest('.simple_form').is('.new_reception, .edit_reception')
+  isPurchaseInvoiceForm = ($form) =>
+    $form.closest('.simple_form').is('.new_purchase_invoice, .edit_purchase_invoice')
 
+  isReceptionForm = ($form) =>
+    $form.closest('.simple_form').is('.new_reception, .edit_reception')
+
+  # Returns a promise that resolves to the content for the modal to be opened
+  content_for_reconciliation_modal = ($form) =>
     options = {}
-    if isPurchaseInvoiceForm
+    if isPurchaseInvoiceForm($form)
       options = purchase_invoice_modal_options()
-    else if isReceptionForm
+    else if isReceptionForm($form)
       options = reception_modal_options()
     else return Promise.reject("Modal type cannot be guessed!")
     E.ajax.html options
 
   # Opens the reconciliation modal
-  open_reconciliation_modal = (event) =>
-    prom = E.modal
-      .open('#purchase_process_reconciliation', content_for_reconciliation_modal(event))
+  open_reconciliation_modal = ($form) =>
+    prom = E.modal.open('#purchase_process_reconciliation', content_for_reconciliation_modal($form))
     prom.then (modal) =>
-      displayedItemIds = $('.nested-fields .nested-item-form[data-item-id]').map(-> $(this).attr('data-item-id')).toArray()
-      for id in displayedItemIds
-        $checkbox = modal.getModalContent().find("input[type='checkbox'][data-id=#{id}]")
-        $checkbox.prop('checked', true) if $checkbox.length
+      content = modal.getContent().get(0)
+      root = content.querySelector('.purchase-orders')
+      # Attacher un ecouteur evenement sur les checkbox des items
+      E.delegateListener root, 'click', ".item-checkbox", (e) =>
+        commandContainer = e.target.closest('.model')
+        syncState(commandContainer, $form)
+        return
+
+      # Handle automated selection of multiple checkbox
+      E.delegateListener root, 'click', '.model-checkbox', (e) =>
+        checked = e.target.checked
+        commandContainer = e.target.closest('.model')
+        setAllChildrenTo(commandContainer, checked, $form)
+        return
+
+      displayedItemIds = Array.from(document.querySelectorAll('.nested-fields .nested-item-form[data-item-id]'))
+      displayedItemIds = displayedItemIds.map((item) => item.dataset.itemId)
+
+      displayedItemIds.forEach (id) =>
+        checkbox = content.querySelector(".item input[type='checkbox'][data-id='#{id}']")
+        commandContainer = checkbox.closest('.model')
+        if checkbox
+          checkbox.checked = true
+          syncState(commandContainer, $form)
+      return
+
     prom.then (modal) =>
       handle_modal_validation modal
 
+  ##### TOOLS
+  # Only used for purchase invoice reconciliation with receptions
+  # Manually set variant on unroll selector in order to bypass 'selector:change' trigger
+  # Manually trigger 'cocoon:after-insert' in order to have correct event binding on item buttons
+  $(document).behave 'load', '*[data-lazy-loading-variant-id]', ->
+    $(this).selector('value', this.data('lazyLoadingVariantId'))
+    inserted = $(this).closest('.purchase-invoice-items')
+    reconciliationIdInput = inserted.find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
+    if reconciliationIdInput.length > 0
+      $(this).closest('table.list').trigger('cocoon:after-insert', [inserted])
+    inserted.find('.invoice-variant').on 'selector:set', ->
+      # Automatically calculate invoice total field value
+      inserted.find('.pre-tax-invoice-total').trigger('change')
+      inserted.find('.invoice-total').trigger('change')
+
+  # Checks the parent checkbox if all children are checked. Uncheck it if not.
+  # If all checked, set 'close command to true, else to false'
+  # Also hide/display the close command radio
+  syncState = (commandContainer, $form) =>
+    itemCheckboxes = Array.from(commandContainer.querySelectorAll('.item-checkbox'))
+    allItemsCheckboxesChecked = itemCheckboxes.map((cb) => cb.checked).reduce(((acc, e) => acc && e), true)
+    commandContainer.querySelector('.model-checkbox').checked = allItemsCheckboxesChecked
+    computeTotals()
+
+    if isReceptionForm($form)
+      setCloseCommand(commandContainer, allItemsCheckboxesChecked)
+
+      closePurchaseOrderBlock = commandContainer.querySelector('.close-purchase-order')
+      if itemCheckboxes.map((cb) => cb.checked).includes(true)
+        closePurchaseOrderBlock.classList.remove('hidden')
+      else
+        closePurchaseOrderBlock.classList.add('hidden')
+
+  # Sets the value of the radiobutton to `value`
+  setCloseCommand = (commandContainer, value) =>
+    closePurchaseOrderBlock = commandContainer.querySelector('.close-purchase-order')
+    closePurchaseOrderBlock.querySelector("input[type='radio'][value=#{value}").checked = true
+
+  # Sets all children checkboxes to 'value' and sync state
+  setAllChildrenTo = (commandContainer, value, $form) =>
+    commandContainer.querySelectorAll('.item-checkbox').forEach((item) => item.checked = value)
+    syncState(commandContainer, $form)
+
+  computeTotals = () =>
+    $itemsChecked = $('.item-checkbox:checked')
+    totalQuantity = ''
+    totalAmount = ''
+
+    if !!$itemsChecked.length
+      variantIds = $itemsChecked.map -> $(this).siblings('.variant').data('id')
+      uniqVariant = _.uniq(variantIds).length == 1
+
+      totalQuantity = _.sum($itemsChecked.map -> parseFloat($(this).siblings('.quantity-to-fill').text()) || 0).toFixed(2) if uniqVariant
+      totalAmount = _.sum($itemsChecked.map -> parseFloat($(this).siblings('.total-except-taxes').text()) || 0).toFixed(2)
+
+    $('.modal-footer .total-quantity').html(totalQuantity)
+    $('.modal-footer .total-amount').html(totalAmount)
 
   E.reconciliation =
-    displayClosePurchaseOrderBlock: (event) ->
-      targettedElement = $(event.target)
-      modelBlock = $(targettedElement).closest('.model')
-      closePurchaseOrderBlock = $(modelBlock).find('.close-purchase-order')
-      #isCheckboxChecked = $(targettedElement).is(':checked')
-      anyCheckboxChecked = $(modelBlock).find('input[type="checkbox"]').is(':checked')
-
-      if anyCheckboxChecked && closePurchaseOrderBlock.is(':hidden')
-        $(closePurchaseOrderBlock).removeClass('hidden')
-      else if !anyCheckboxChecked && closePurchaseOrderBlock.is(':visible')
-        $(closePurchaseOrderBlock).addClass('hidden')
-
     reconciliateItems: (modalContent) ->
       checkedItemId = modalContent.find('.item-checkbox:checked').attr('data-id')
       itemFieldId = $('.item-checkbox:checked').attr('data-item-field-id')
 
-      if $('#purchase-orders').val() == "false"
+      if $('#is-purchase-orders').val() == "false"
         $("##{itemFieldId}").val(JSON.stringify([checkedItemId]))
       else
         $("##{itemFieldId}").val(checkedItemId)
@@ -176,16 +228,22 @@
       itemsCheckboxes = $(modal).find('.item-checkbox:checked')
 
       itemsCheckboxes.each (index, itemCheckbox) ->
-        return if displayedItemIds.includes $(itemCheckbox).attr('data-id')
+        isPurchaseOrderModal = $(itemCheckbox).closest('.modal-content').find('#is-purchase-orders').val()
 
-        isPurchaseOrderModal = $(itemCheckbox).closest('.modal-content').find('#purchase-orders').val()
-        E.reconciliation._createNewItemLine(itemCheckbox)
+        if !displayedItemIds.includes($(itemCheckbox).attr('data-id'))
+          E.reconciliation._createNewItemLine(itemCheckbox)
 
-        if index == 0 && isPurchaseOrderModal == "false"
-          responsibleId = $(itemCheckbox).closest('.item').attr('data-responsible-id')
-          $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
+          if index == 0 && isPurchaseOrderModal == "false"
+            responsibleId = $(itemCheckbox).closest('.item').attr('data-responsible-id')
+            $('#purchase_invoice_responsible_id').first().selector('value', responsibleId)
 
-        E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
+          E.reconciliation._fillNewLineForm(itemCheckbox, isPurchaseOrderModal)
+
+        if isPurchaseOrderModal == "true"
+          $itemCb = $(itemCheckbox)
+          purchaseOrderItemId = $itemCb.data('id')
+          $formContainer = $("table.list .nested-fields .nested-item-form[data-item-id='#{purchaseOrderItemId}']")
+          purchaseOrderToCloseUpdate($itemCb, $formContainer)
 
     removeLineWithUnselectedItems: (modal, displayedItemIds, event) ->
       for id in displayedItemIds
@@ -239,7 +297,6 @@
       $line.data('_iceberg').bindSelectorsInitialization ->
         $line.data('_iceberg').setCocoonFormSubmitable()
 
-
     # Creates a line BASED on a ReceptionItem
     _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemAnnotation) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
@@ -272,8 +329,8 @@
       $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
       $(lastLineForm).find('.annotation-section .annotation').val(itemAnnotation)
 
-      $(lastLineForm).find('.form-field.merchandise .supplier-ref-value').text(itemSupplierReference)
-      $(lastLineForm).find('.form-field.merchandise .supplier-ref-block').removeClass('hidden')
+      $(lastLineForm).find('.form-field .supplier-ref-value').text(itemSupplierReference)
+      $(lastLineForm).find('.form-field .supplier-ref-block').removeClass('hidden')
 
       invoiceVatField = $(lastLineForm).find('.form-field .vat-total')
 
@@ -292,7 +349,6 @@
       variantType = $(checkboxLine).attr('data-variant-type')
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
-
       $selectorInput = $(lastLineForm).find('.item-block-role .parcel-item-variant').first()
 
       $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
@@ -308,10 +364,27 @@
         $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
         $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
 
-      purchaseOrderLine = $(checkboxLine).closest('.model')
-      modelId = $(purchaseOrderLine).find('.model-checkbox').attr('data-id')
-      closePurchaseOrderBlock = $(purchaseOrderLine).find('.close-purchase-order')
-      if $(closePurchaseOrderBlock).find('input[type="radio"][value="true"]').is(':checked')
-        $(lastLineForm).find('.purchase-order-to-close-id').val(modelId)
+  # Given checkbox and formContainer, this method sets the purchase-order-to-close-id property to the purchase order id on the given reception item's form fields
+  #    if the purchase order of the selected element is marked for closure when saving the reception
+  #
+  # @param [jQuery<HTMLElement>] checkbox %li containing a checkbox for an item to maybereconcile
+  # @param [jQuery<HTMLElement>] formContainer form line containing information about a reception item
+  purchaseOrderToCloseUpdate = ($checkbox, $formContainer) ->
+    $purchaseOrderLine = $checkbox.closest('.model')
+    modelId = $purchaseOrderLine.find('.model-checkbox').attr('data-id')
+    $closePurchaseOrderBlock = $purchaseOrderLine.find('.close-purchase-order')
+    if $closePurchaseOrderBlock.find('input[type="radio"][value="true"]').is(':checked')
+      $formContainer.find('.purchase-order-to-close-id').val(modelId)
+
+  E.onElementDetected 'new_reception', (form) =>
+    urlParams = new URLSearchParams(window.location.search)
+    if urlParams.has('purchase_order_ids')
+      open_reconciliation_modal $(form)
+
+  E.onElementDetected 'new_purchase_invoice', (form) =>
+    urlParams = new URLSearchParams(window.location.search)
+    if urlParams.has('reception_ids')
+      open_reconciliation_modal $(form)
+
 
 ) ekylibre, jQuery

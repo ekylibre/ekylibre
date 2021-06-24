@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,7 +37,7 @@
 #  value           :string
 #
 
-class CustomFieldChoice < Ekylibre::Record::Base
+class CustomFieldChoice < ApplicationRecord
   belongs_to :custom_field, inverse_of: :choices
   acts_as_list scope: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

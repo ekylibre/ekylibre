@@ -28,6 +28,7 @@ class PseudoEnvironment < SimpleDelegator
   def unset
     set_to(nil)
     return if current_env.blank?
+
     class << self
       env_test = :"#{Rails.env.to_s}?"
       undef_method env_test if defined?(env_test)
@@ -38,6 +39,7 @@ class PseudoEnvironment < SimpleDelegator
 
   def inspect
     return to_s unless explicit_label
+
     "#{self} (actual: #{real_env})"
   end
 
@@ -50,12 +52,14 @@ class PseudoEnvironment < SimpleDelegator
 
   private
 
-  def define_env_response(env, response)
-    return if env.blank?
-    define_singleton_method(:"#{env}?") do
-      in_caller = binding.callers.find { |binding| binding.eval('self') == scope }
-      return response if in_caller
-      real_env.send("#{env}?")
+    def define_env_response(env, response)
+      return if env.blank?
+
+      define_singleton_method(:"#{env}?") do
+        in_caller = binding.callers.find { |binding| binding.eval('self') == scope }
+        return response if in_caller
+
+        real_env.send("#{env}?")
+      end
     end
-  end
 end

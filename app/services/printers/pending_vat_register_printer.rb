@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # This object allow printing the general ledger
 module Printers
   class PendingVatRegisterPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(tax_declaration:)
@@ -9,8 +10,9 @@ module Printers
       end
     end
 
-    def initialize(*_args, tax_declaration:,template:, **_options)
+    def initialize(*_args, tax_declaration:, template:, **_options)
       super(template: template)
+
       @tax_declaration = tax_declaration
     end
 
@@ -23,10 +25,15 @@ module Printers
     end
 
     def humanized_period
-      from, to = [@tax_declaration.started_on, @tax_declaration.stopped_on]
+      from = @tax_declaration.started_on
+      to = @tax_declaration.stopped_on
       financial_year = FinancialYear.find_by(started_on: from, stopped_on: to)
-      return financial_year.code if financial_year
-      I18n.translate('labels.from_to_date', from: from.l, to: to.l)
+
+      if financial_year.present?
+        financial_year.code
+      else
+        I18n.translate('labels.from_to_date', from: from.l, to: to.l)
+      end
     end
 
     def compute_dataset
@@ -48,7 +55,6 @@ module Printers
           tax_total_pretax = 0.0
 
           @tax_declaration.items.where(tax_id: t.id).includes(parts: { journal_entry_item: :entry }).each do |i|
-
             i.parts.where(direction: c).each do |p|
               jei = p.journal_entry_item
               e = jei.entry
@@ -93,7 +99,6 @@ module Printers
       vat_dataset << vat_label
       vat_dataset << vat_balance
 
-
       intra_taxes = Tax.where(id: @tax_declaration.items.pluck(:tax_id), intracommunity: true, nature: :eu_vat).reorder(amount: :desc)
       # intra_columns = [:collected, :intracommunity_payable, :deductible, :fixed_asset_deductible]
       intra_columns = [:collected, :deductible]
@@ -114,6 +119,7 @@ module Printers
           @tax_declaration.items.where(tax_id: t.id).includes(parts: { journal_entry_item: :entry }).each do |i|
             i.parts.where(direction: c).each do |p|
               next if c == :collected && p.tax_amount > 0
+
               jei = p.journal_entry_item
               e = jei.entry
               intra_item = HashWithIndifferentAccess.new
@@ -146,69 +152,67 @@ module Printers
       vat_dataset.compact
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
 
-      generate_report(@template_path) do |r|
-        # build header
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+      # build header
+      e = Entity.of_company
+      company_name = e.full_name
+      company_address = e.default_mail_address&.coordinate
 
-        # build started and stopped
-        started_on = @tax_declaration.started_on
-        stopped_on = @tax_declaration.stopped_on
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'PERIOD', humanized_period
-        r.add_field 'DATE', Date.today.l
-        r.add_field 'STARTED_ON', started_on.to_date.l
-        r.add_field 'STOPPED_ON', stopped_on.to_date.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'VAT_BALANCE', dataset[3]
-        r.add_field 'VAT_BALANCE_AMOUNT', dataset[4]
+      # build started and stopped
+      started_on = @tax_declaration.started_on
+      stopped_on = @tax_declaration.stopped_on
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'PERIOD', humanized_period
+      r.add_field 'DATE', Date.today.l
+      r.add_field 'STARTED_ON', started_on.to_date.l
+      r.add_field 'STOPPED_ON', stopped_on.to_date.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'VAT_BALANCE', dataset[3]
+      r.add_field 'VAT_BALANCE_AMOUNT', dataset[4]
 
-        r.add_section('Section1', dataset[0...3]) do |first_section|
-          first_section.add_field(:vat_header) { |item| item[:name] }
-          first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
-          first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
-          first_section.add_field(:general_amount) { |item| item[:amount] }
+      r.add_section('Section1', dataset[0...3]) do |first_section|
+        first_section.add_field(:vat_header) { |item| item[:name] }
+        first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
+        first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
+        first_section.add_field(:general_amount) { |item| item[:amount] }
 
-          first_section.add_section('Section2', :items) do |second_section|
-            second_section.add_field(:vat_rate) { |item| item[:name] }
-            second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
-            second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
-            second_section.add_field(:total_amount) { |item| item[:amount] }
+        first_section.add_section('Section2', :items) do |second_section|
+          second_section.add_field(:vat_rate) { |item| item[:name] }
+          second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
+          second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
+          second_section.add_field(:total_amount) { |item| item[:amount] }
 
-            second_section.add_table('Table6', :parts, header: false) do |first_table|
-              first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
-              first_table.add_column(:label) { |part| part[:entry_item_name] }
-              first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
-              first_table.add_column(:tax_amount) { |part| part[:tax_amount] }
-              first_table.add_column(:amount) { |part| part[:amount] }
-            end
+          second_section.add_table('Table6', :parts, header: false) do |first_table|
+            first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
+            first_table.add_column(:label) { |part| part[:entry_item_name] }
+            first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
+            first_table.add_column(:tax_amount) { |part| part[:tax_amount] }
+            first_table.add_column(:amount) { |part| part[:amount] }
           end
         end
+      end
 
-        r.add_section('Section3', dataset[-2..-1]) do |first_section|
-          first_section.add_field(:vat_header) { |item| item[:name] }
-          first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
-          first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
-          first_section.add_field(:general_amount) { |item| item[:amount] }
+      r.add_section('Section3', dataset[-2..-1]) do |first_section|
+        first_section.add_field(:vat_header) { |item| item[:name] }
+        first_section.add_field(:general_pretax_amount) { |item| item[:pretax_amount] }
+        first_section.add_field(:general_tax_amount) { |item| item[:tax_amount] }
+        first_section.add_field(:general_amount) { |item| item[:amount] }
 
-          first_section.add_section('Section4', :items) do |second_section|
-            second_section.add_field(:vat_rate) { |item| item[:name] }
-            second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
-            second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
-            second_section.add_field(:total_amount) { |item| item[:amount] }
+        first_section.add_section('Section4', :items) do |second_section|
+          second_section.add_field(:vat_rate) { |item| item[:name] }
+          second_section.add_field(:total_pretax_amount) { |item| item[:pretax_amount] }
+          second_section.add_field(:total_tax_amount) { |item| item[:tax_amount] }
+          second_section.add_field(:total_amount) { |item| item[:amount] }
 
-            second_section.add_table('Table12', :parts, header: false) do |first_table|
-              first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
-              first_table.add_column(:label) { |part| part[:entry_item_name] }
-              first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
-              first_table.add_column(:tax_amount) { |part| part[:tax_amount] }
-            end
+          second_section.add_table('Table12', :parts, header: false) do |first_table|
+            first_table.add_column(:printed_on) { |part| part[:entry_printed_on] }
+            first_table.add_column(:label) { |part| part[:entry_item_name] }
+            first_table.add_column(:pretax_amount) { |part| part[:pretax_amount] }
+            first_table.add_column(:tax_amount) { |part| part[:tax_amount] }
           end
         end
       end
@@ -231,7 +235,6 @@ module Printers
         ]
 
         tax_nature[:items].each do |tax|
-
           tax[:parts].each do |part|
             csv << [
               "#{part[:entry_printed_on]} #{part[:entry_item_name]}",
@@ -268,7 +271,6 @@ module Printers
         ]
 
         tax_nature[:items].each do |tax|
-
           tax[:parts].each do |part|
             csv << [
               "#{part[:entry_printed_on]} #{part[:entry_item_name]}",

@@ -15,7 +15,7 @@ class FixturesTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
           unless record.valid?
             invalids << "#{model.name}##{record.id}: #{record.errors.full_messages.to_sentence}"
           end
-        rescue ActiveRecord::RecordInvalid => e
+        rescue StandardError => e
           invalids << "#{model.name}##{record.id}: #{e.class.name} raised: #{e.message}"
         end
         reflections.each do |reflection|

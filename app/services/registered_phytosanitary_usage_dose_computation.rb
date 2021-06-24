@@ -1,104 +1,88 @@
+# frozen_string_literal: true
+
 class RegisteredPhytosanitaryUsageDoseComputation
-
-  def validate_dose(usage, product, quantity, dimension, targets_data)
-    return { none: :max_dose_unit_not_handled.tl } unless usage.among_dimensions?(:volume_area_density, :mass_area_density, :mass, :volume)
-
-    reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
-    return { none: :provide_metrics_for_this_article.tl } if dimension == 'population' && !check_indicators(product, usage)
-
-    user_measure = compute_user_measure(quantity, usage, product, targets_data, dimension)
-    return { none: :provide_metrics_for_this_article.tl } unless user_measure
-
-    compute_dose_message(user_measure, reference_measure)
-  rescue FloatDomainError
-    {none: ""}
+  class << self
+    def build
+      new(converter: Interventions::ProductUnitConverter.new)
+    end
   end
 
+  attr_reader :converter
+
+  def initialize(converter:)
+    @converter = converter
+  end
+
+  # MINCH pour les tests: changer les appels a cette methode pour lui passer une measure
+  # @param [RegisteredPhytosanitaryUsage] usage
+  # @param [RegisteredPhytosanitaryProduct] product
+  # @param [Measure] measure
+  # @param [Hash<Charta::GeometryCollection>] targets_data
+  # @param [BigDecimal, nil] spray_volume
+  def validate_dose(usage, product, measure, targets_data, spray_volume = nil)
+    if measure.dimension == 'none' && !check_indicators(product, usage)
+      { none: :provide_metrics_for_this_article.tl }
+    elsif usage.dose_quantity.nil? || usage.dose_unit.nil? || usage.dose_unit_factor.nil?
+      { none: '' }
+    else
+      reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
+      user_measure = compute_user_measure(measure, usage, product, targets_data, spray_volume)
+
+      if user_measure.present? && reference_measure.dimension == user_measure.dimension
+        compute_dose_message(user_measure, reference_measure)
+      else
+        { none: :max_dose_unit_not_handled.tl }
+      end
+    end
+  rescue FloatDomainError
+    { none: "" }
+  end
+
+  # @param [InterventionInput] input
   def validate_intervention_input(input)
-    #targets_data wants a hash of "k" => {shape: }
+    # targets_data wants a hash of "k" => {shape: }
     targets_data = input.intervention.targets.map.with_index { |v, i| [i.to_s, { shape: v.working_zone }] }.to_h
 
-    validate_dose(input.relevant_usage, input.product, input.quantity_value, input.quantity_indicator_name, targets_data)
+    pu = ProductWithUsage.from_intervention_input(input)
+
+    validate_dose(pu.relevant_usage, pu.product, pu.measure, targets_data)
   end
 
   private
-
+    # @return [Boolean]
+    #   True if the amount can be computed from population (the product has a net_mass or net_volume)
     def check_indicators(product, usage)
-      %i[mass volume].each do |el|
-        return false if usage.among_dimensions?(el, "#{el}_area_density".to_sym) && (!product.has_indicator?("net_#{el}".to_sym) || product.send("net_#{el}".to_sym).to_f == 0)
-      end
-
-      true
-    end
-
-    def handle_volume_area_density(quantity, usage, product, targets)
-      return Measure.new(quantity, :liter_per_hectare) if usage.of_dimension?(:volume_area_density)
-      return nil if usage.among_dimensions?(:mass, :mass_area_density) && (!product.has_indicator?(:net_mass) || product.net_mass.to_f == 0)
-
-      coeff = product.net_mass.to_f / product.net_volume.to_f
-      if usage.of_dimension?(:mass)
-        convert_from_area_density(Measure.new(quantity * coeff, :kilogram_per_hectare), targets)
-      elsif usage.of_dimension?(:volume)
-        convert_from_area_density(Measure.new(quantity, :liter_per_hectare), targets)
-      elsif usage.of_dimension?(:mass_area_density)
-        Measure.new(quantity * coeff, :kilogram_per_hectare)
+      %i[mass volume].none? do |el|
+        usage.among_dimensions?(el, "#{el}_area_density".to_sym) && (!product.has_indicator?("net_#{el}".to_sym) || product.send("net_#{el}".to_sym).to_f == 0)
       end
     end
 
-    def handle_mass_area_density(quantity, usage, product, targets)
-      return Measure.new(quantity, :kilogram_per_hectare) if usage.of_dimension?(:mass_area_density)
-      return nil if usage.among_dimensions?(:volume, :volume_area_density) && (!product.has_indicator?(:net_volume) || product.net_volume.to_f == 0)
+    # Tries to convert the user input to a Measure of the same dimension of the usage max dose
+    #
+    # param [Measure] quantity
+    # param [RegisteredPhytosanitaryUsage, InterventionParameter::LoggedPhytosanitaryUsage] usage
+    # param [Product] product
+    # param [Hash] targets_data
+    # @param [BigDecimal] spray_volume
+    # @return [Measure, nil]
+    #   Returns nil either when the dimension is not handled or the computation fails
+    def compute_user_measure(measure, usage, product, targets_data, spray_volume)
+      usage_unit = Onoma::Unit.find(usage.dose_unit)
 
-      coeff = product.net_volume.to_f / product.net_mass.to_f
-      if usage.of_dimension?(:volume)
-        convert_from_area_density(Measure.new(quantity * coeff, :liter_per_hectare), targets)
-      elsif usage.of_dimension?(:mass)
-        convert_from_area_density(Measure.new(quantity, :kilogram_per_hectare), targets)
-      elsif usage.of_dimension?(:volume_area_density)
-        Measure.new(quantity * coeff, :liter_per_hectare)
-      end
-    end
+      if usage_unit.nil?
+        nil
+      else
+        zero_as_nil = ->(value) { value.zero? ? None() : value }
 
-    def handle_volume(quantity, usage, product, targets)
-      return Measure.new(quantity, :liter) if usage.of_dimension?(:volume)
-      return nil if usage.among_dimensions?(:mass, :mass_area_density) && (!product.has_indicator?(:net_mass) || product.net_mass.to_f == 0)
+        params = {
+          into: usage_unit,
+          area: Maybe(compute_area(targets_data)).fmap(&zero_as_nil),
+          net_mass: Maybe(product.net_mass).fmap(&zero_as_nil),
+          net_volume: Maybe(product.net_volume).fmap(&zero_as_nil),
+          spray_volume: Maybe(spray_volume).fmap(&zero_as_nil).in(:liter_per_hectare)
+        }
 
-      coeff = product.net_mass.to_f / product.net_volume.to_f
-      if usage.of_dimension?(:mass)
-        Measure.new(quantity * coeff, :kilogram)
-      elsif usage.of_dimension?(:volume_area_density)
-        convert_into_area_density(Measure.new(quantity, :liter), targets)
-      elsif usage.of_dimension?(:mass_area_density)
-        convert_into_area_density(Measure.new(quantity * coeff, :kilogram), targets)
-      end
-    end
-
-    def handle_mass(quantity, usage, product, targets)
-      return Measure.new(quantity, :kilogram) if usage.of_dimension?(:mass)
-      return nil if usage.among_dimensions?(:volume, :volume_area_density) && (!product.has_indicator?(:net_volume) || product.net_volume.to_f == 0)
-
-      coeff = product.net_volume.to_f / product.net_mass.to_f
-      if usage.of_dimension?(:volume)
-        Measure.new(quantity * coeff, :liter)
-      elsif usage.of_dimension?(:mass_area_density)
-        convert_into_area_density(Measure.new(quantity, :kilogram), targets)
-      elsif usage.of_dimension?(:volume_area_density)
-        convert_into_area_density(Measure.new(quantity * coeff, :liter), targets)
-      end
-    end
-
-    def compute_user_measure(quantity, usage, product, targets_data, dimension)
-      case dimension
-        when 'population'
-          handle_population(quantity, usage, product, targets_data)
-        when 'net_mass'
-          handle_mass(quantity, usage, product, targets_data)
-        when 'net_volume'
-          handle_volume(quantity, usage, product, targets_data)
-        when 'mass_area_density'
-          handle_mass_area_density(quantity, usage, product, targets_data)
-        when 'volume_area_density'
-          handle_volume_area_density(quantity, usage, product, targets_data)
+        converter.convert(measure, **params).or_nil
       end
     end
 
@@ -112,39 +96,10 @@ class RegisteredPhytosanitaryUsageDoseComputation
       end
     end
 
-    def convert_into_area_density(measure, targets)
-      targets_area = targets.values.sum do |target_info|
+    # @return [Measure<area>] the area of given targets
+    def compute_area(targets)
+      targets.values.sum do |target_info|
         Charta.new_geometry(target_info[:shape]).area
-      end
-      coeff = Measure.new(targets_area, :square_meter).in(:hectare).to_f
-
-      Measure.new(measure.to_f / coeff, "#{measure.unit}_per_hectare")
-    end
-
-    def convert_from_area_density(measure, targets)
-      targets_area = targets.values.sum do |target_info|
-        Charta.new_geometry(target_info[:shape]).area
-      end
-      coeff = Measure.new(targets_area, :square_meter).in(:hectare).to_f
-
-      Measure.new(measure.to_f * coeff, measure.unit.match(/([a-zA-Z]+)_per_hectare/)[1])
-    end
-
-    def handle_population(quantity, usage, product, targets)
-      converted_population = convert_population_into_mass_or_volume(quantity, usage, product)
-
-      if usage.among_dimensions?(:mass, :volume)
-        converted_population
-      else
-        convert_into_area_density(converted_population, targets)
-      end
-    end
-
-    def convert_population_into_mass_or_volume(quantity, usage, product)
-      if usage.among_dimensions?(:mass, :mass_area_density)
-        product.net_mass.in(:kilogram) * quantity
-      elsif usage.among_dimensions?(:volume, :volume_area_density)
-        product.net_volume.in(:liter) * quantity
-      end
+      end.in(:square_meter)
     end
 end

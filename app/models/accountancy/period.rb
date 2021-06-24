@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Accountancy
   class Period
     attr_reader :start, :stop, :days

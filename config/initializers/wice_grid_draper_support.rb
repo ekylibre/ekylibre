@@ -6,6 +6,11 @@ if defined?(Wice::WiceGrid) && defined?(Draper::CollectionDecorator) && defined?
       super
     end
 
+    # Redefine apply_sort_by to prevent bug in wice_grid when used with Draper
+    def apply_sort_by(relation)
+      relation
+    end
+
     def read
       super
       @resultset = @resultset.decorate(klass: @klass) if @decorate == true

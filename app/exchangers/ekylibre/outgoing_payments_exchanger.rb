@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class OutgoingPaymentsExchanger < ActiveExchanger::Base
+    category :purchases
+    vendor :ekylibre
+
     def check
       rows = CSV.read(file, headers: true).delete_if { |r| r[2].blank? }
       valid = true
@@ -59,6 +64,7 @@ module Ekylibre
 
         # Check affair presence
         next unless r.reference_number && entity
+
         if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
           w.info "Purchase found with ID : #{purchase.id}"
         else
@@ -101,7 +107,7 @@ module Ekylibre
 
         # find an outgoing payment mode
         unless payment_mode = OutgoingPaymentMode.where(name: r.outgoing_payment_mode_name).first
-          raise ActiveExchanger::InvalidDataError, "Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_number}"
+          raise ActiveExchanger::InvalidDataError.new("Cannot find outgoing payment mode #{r.outgoing_payment_mode_name} at line #{line_number}")
         end
 
         # find an entity

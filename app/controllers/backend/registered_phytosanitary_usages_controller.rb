@@ -1,3 +1,5 @@
+using Ekylibre::Utils::DateSoftParse
+
 module Backend
   class RegisteredPhytosanitaryUsagesController < Backend::BaseController
     DIMENSIONS_UNIT = { net_volume: :liter, net_mass: :kilogram, mass_area_density: :kilogram_per_hectare, volume_area_density: :liter_per_hectare }.freeze
@@ -27,22 +29,39 @@ module Backend
     end
 
     def get_usage_infos
-      targets_data = params.fetch(:targets_data, {})
-      intervention = Intervention.find_by_id params[:intervention_id]
-      input = InterventionInput.find_by_id params[:input_id]
+      targets_data = params.fetch(:targets_data, {}).values
+      intervention = Intervention.find_by_id(params[:intervention_id])
+      input = InterventionInput.find_by_id(params[:input_id])
       inspector = ::Interventions::Phytosanitary::ParametersInspector.new
 
-      modified = inspector.relevant_parameters_modified?(live_data: params[:live_data].to_boolean,
-                                                         intervention: intervention,
-                                                         targets_ids: targets_data.map { |_k, v| v[:id].to_i },
-                                                         inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }])
+      modified = inspector.relevant_parameters_modified?(
+        live_data: params[:live_data].to_boolean,
+        intervention: intervention,
+        targets_ids: targets_data.map { |v| v[:id].to_i },
+        inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }]
+      )
 
       usage = fetch_usage(modified, input)
       usage_dataset = compute_dataset(usage)
-      usage_application = compute_usage_application(usage, targets_data, params[:intervention_id])
-      authorizations = compute_authorization(usage_application, :usage_application)
+      product = Product.find_by(id: params[:product_id])
 
-      render json: { usage_infos: usage_dataset, usage_application: usage_application, authorizations: authorizations, modified: modified }
+      stopped_at = DateTime.soft_parse(params.fetch(:intervention_stopped_at, ''))
+      targets_and_shape = ::Interventions::Phytosanitary::Models::TargetAndShape.from_targets_data(targets_data)
+
+      application_validator = ::Interventions::Phytosanitary::MaxApplicationValidator.new(
+        targets_and_shape: targets_and_shape,
+        intervention_to_ignore: intervention,
+        intervention_stopped_at: stopped_at
+      )
+
+      # TODO: Refactor this to have it only in the Validators
+      usage_applications = if stopped_at.nil? || product.nil? || usage.nil? || usage.applications_count == 1 && usage.applications_frequency.present?
+                             { none: '' }
+                           else
+                             compare_applications_count(usage, application_validator.compute_usage_application(product))
+                           end
+
+      render json: { usage_infos: usage_dataset, usage_application: usage_applications, modified: modified }
     end
 
     def dose_validations
@@ -51,15 +70,19 @@ module Backend
       input = InterventionInput.find_by_id params[:input_id]
       inspector = ::Interventions::Phytosanitary::ParametersInspector.new
 
-      modified = inspector.relevant_parameters_modified?(live_data: params[:live_data].to_boolean,
-                                                         intervention: intervention,
-                                                         targets_ids: targets_data.map { |_k, v| v[:id].to_i },
-                                                         inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }])
+      modified = inspector.relevant_parameters_modified?(
+        live_data: params[:live_data].to_boolean,
+        intervention: intervention,
+        targets_ids: targets_data.to_unsafe_h.map { |_k, v| v[:id].to_i },
+        inputs_data: [{ input: input, product_id: params[:product_id].to_i, usage_id: params[:id] }]
+      )
 
       usage = fetch_usage(modified, input)
       product = Product.find(params[:product_id])
-      service = RegisteredPhytosanitaryUsageDoseComputation.new
-      dose_validation = service.validate_dose(usage, product, params[:quantity].to_f, params[:dimension], targets_data)
+      service = RegisteredPhytosanitaryUsageDoseComputation.build
+      measure = Measure.new(params[:quantity].to_f, params[:unit_name])
+
+      dose_validation = service.validate_dose(usage, product, measure, targets_data, nil)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
       render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }
@@ -76,7 +99,7 @@ module Backend
       end
 
       def compute_dataset(usage)
-        state_label = t("enumerize.registered_phytosanitary_product.state.#{usage.state}")
+        state_label = t("enumerize.registered_phytosanitary_usage.state.#{usage.state}")
         {
           state: usage.decision_date ? "#{state_label} (#{usage.decision_date.l})" : state_label,
           maximum_dose: usage.dose_quantity ? "#{usage.dose_quantity} #{usage.dose_unit_name}" : nil,
@@ -87,30 +110,17 @@ module Backend
           pre_harvest_delay: usage.pre_harvest_delay ? "#{usage.pre_harvest_delay.in_full(:day)} j" : nil,
           development_stage: usage.decorated_development_stage_min,
           untreated_buffer_plants: usage.untreated_buffer_plants ? "#{usage.untreated_buffer_plants} m" : nil,
-          usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil
+          usage_conditions: usage.usage_conditions ? usage.usage_conditions.gsub('//', '<br/>').html_safe : nil,
+          applications_frequency: usage.applications_frequency ? "#{usage.applications_frequency.in_full(:day)} j" : nil
         }
       end
 
-      def compute_usage_application(usage, targets_data, intervention_id)
-        return { none: '' } if targets_data.blank?
-
-        maaid = usage.france_maaid
-
-        applications_on_targets = targets_data.values.map do |target_info|
-          interventions = Product.find(target_info[:id]).activity_production.interventions.of_nature_using_phytosanitary.with_input_of_maaids(maaid)
-          interventions = interventions.where.not(id: intervention_id) if intervention_id.present?
-          interventions.map do |intervention|
-            intervention.targets.map(&:working_zone).select { |zone| Charta.new_geometry(target_info[:shape]).intersects?(zone) }.count
-          end
-        end.flatten.sum
-
-        compare_applications_count(usage, applications_on_targets)
-      end
-
+      # @param [RegisteredPhytosanitaryUsage] usage
+      # @param [Maybe<Integer>] usage_applications
       def compare_applications_count(usage, usage_applications)
-        return { none: ''} if usage.applications_count.nil? || usage_applications.nil?
+        return { none: '' } if usage.applications_count.nil? || usage_applications.is_none?
 
-        applications = usage_applications + 1
+        applications = usage_applications.get + 1
         if applications < usage.applications_count
           { go: :applications_count_less_than_max.tl }
         elsif applications == usage.applications_count
@@ -121,7 +131,7 @@ module Backend
       end
 
       def compute_authorization(lights_hash, authorization_name)
-        if %i[go caution].include?(lights_hash.keys.first)
+        if %i[go].include?(lights_hash.keys.first)
           { authorization_name => 'allowed' }
         elsif %i[none].include?(lights_hash.keys.first)
           { authorization_name => 'unknown' }

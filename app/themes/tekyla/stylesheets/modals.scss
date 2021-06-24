@@ -5,6 +5,7 @@
     text-align: left;
     vertical-align: middle;
     .modal-content {
+      overflow: visible;
       .modal-header {
         .close[data-dismiss='modal'] {
           @include float(right);
@@ -15,7 +16,7 @@
             i {
               font-size: 22px;
               color: black;
-              opacity: 0.5;
+              opacity: 0.7;
             }
           }
         }
@@ -31,7 +32,22 @@
           }
         }
       }
+      .modal-header-generic {
+        background: $primary-color;
+        .modal-title {
+          margin: 4px;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 29px;
+          height: 29px;
+          color: white;
+          text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+      }
       .modal-body {
+        select#activity_id {
+          max-width: 60%;
+        }
         .modal-introduction {
           padding: $default-gap * 2;
         }
@@ -55,5 +71,16 @@
         }
       }
     }
+  }
+}
+
+.modal.vertical-center {
+  .modal-dialog {
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

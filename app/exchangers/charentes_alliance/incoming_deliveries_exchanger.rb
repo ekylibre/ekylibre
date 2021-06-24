@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module CharentesAlliance
   # Incoming deliveries extracted from Charentes Alliance extranet
   class IncomingDeliveriesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :charentes_alliance
+
     def import
       here = Pathname.new(__FILE__).dirname
 
@@ -88,11 +93,12 @@ module CharentesAlliance
                       storage: building_division
                     )
         next unless reception.draft?
+
         previous_reception_number = r.reception_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_name)
-          product_nature_variant ||= if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
+          product_nature_variant ||= if Onoma::ProductNatureVariant.find(r.coop_variant_reference_name)
                                        ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
                                      else
                                        # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name

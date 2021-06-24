@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -33,12 +35,15 @@
 #  nature                 :string           not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#
+#  last_sync_at           :datetime
+#  state                  :string
 
 # Integration model is here to save connection parameters in (encrypted) store
 # to keep them reusable when necessary.
-class Integration < Ekylibre::Record::Base
+class Integration < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  enumerize :state, in: %i[undone in_progress finished], default: :undone
+
   validates :nature, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
   delegate :authentication_mode, :check_connection, :integration_name, to: :integration_type
@@ -51,6 +56,7 @@ class Integration < Ekylibre::Record::Base
     next unless ciphered_parameters_changed?
     next unless integration_type
     next unless authentication_mode == :check
+
     check_connection attributes do |c|
       c.redirect do
         errors.add(:parameters, :check_redirected)

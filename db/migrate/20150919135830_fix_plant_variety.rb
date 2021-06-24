@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20150919123840
-class FixPlantVariety < ActiveRecord::Migration
+class FixPlantVariety < ActiveRecord::Migration[4.2]
   def up
     # Change item varieties#avena_evora with {:name=>"avena_sativa_evora", :parent=>"avena_sativa"}
     execute "UPDATE activities SET cultivation_variety='avena_sativa_evora' WHERE cultivation_variety='avena_evora'"

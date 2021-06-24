@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # = Informations
 #
@@ -7,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +35,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ActivityBudget < Ekylibre::Record::Base
+class ActivityBudget < ApplicationRecord
   belongs_to :activity
   belongs_to :campaign
   with_options class_name: 'ActivityBudgetItem', inverse_of: :activity_budget do
@@ -79,11 +80,12 @@ class ActivityBudget < Ekylibre::Record::Base
   end
 
   def currency_precision
-    Nomen::Currency.find(currency).precision
+    Onoma::Currency.find(currency).precision
   end
 
   def productions
     return ActivityProduction.none if activity.nil?
+
     activity.productions.of_campaign(campaign)
   end
 
@@ -123,16 +125,17 @@ class ActivityBudget < Ekylibre::Record::Base
   # return estimate yield from revenues item for given variety
   def estimate_yield(variety, options = {})
     # set default parameter if theres no one given
-    yield_unit = Nomen::Unit.find(options[:unit] || :quintal_per_hectare)
+    yield_unit = Onoma::Unit.find(options[:unit] || :quintal_per_hectare)
     unless yield_unit
-      raise ArgumentError, "Cannot find unit for yield estimate: #{options[:unit].inspect}"
+      raise ArgumentError.new("Cannot find unit for yield estimate: #{options[:unit].inspect}")
     end
 
-    Nomen::Variety.find!(variety)
+    Onoma::Variety.find!(variety)
 
     r = []
     revenues.where(variant: ProductNatureVariant.of_variety(variety)).find_each do |item|
       next if item.variant_indicator == 'working_period'
+
       quantity_unit = item.variant_unit
       quantity = if item.variant_indicator == 'population' && item.variant.frozen_indicators.detect { |i| i <= :net_mass }
                    quantity_unit = :quintal
@@ -141,21 +144,25 @@ class ActivityBudget < Ekylibre::Record::Base
                    item.quantity
                  end
       # TODO: do dimensional analysis to find exiting unit in matching dimension if necessary
-      item_unit = Nomen::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
+      item_unit = Onoma::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
       next unless item_unit
       next unless item_unit.dimension == yield_unit.dimension
+
       harvest_yield = if item.per_working_unit?
                         quantity
                       elsif item.per_production?
                         next if productions_size.zero?
+
                         quantity * productions_count / productions_size
                       else # per campaign
                         next if productions_size.zero?
+
                         quantity / productions_size
                       end
       r << harvest_yield.in(item_unit).convert(yield_unit)
     end
     return nil if r.empty?
+
     r.sum
   end
 end

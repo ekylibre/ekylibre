@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,7 +37,7 @@
 #  updater_id       :integer
 #
 
-class CapIslet < Ekylibre::Record::Base
+class CapIslet < ApplicationRecord
   belongs_to :cap_statement
   has_many :land_parcels, class_name: 'CapLandParcel', dependent: :destroy
   has_many :cap_land_parcels, dependent: :destroy
@@ -60,13 +62,13 @@ class CapIslet < Ekylibre::Record::Base
   # TODO: Write this with a scope
   def self.bounding_box(islets = [])
     if islets.present?
-      box = ActiveRecord::Base.connection.execute("SELECT ST_Extent(shape) FROM cap_islets WHERE id IN (#{islets.map(&:id).join(', ')})").to_a.first['st_extent']
+      box = ApplicationRecord.connection.execute("SELECT ST_Extent(shape) FROM cap_islets WHERE id IN (#{islets.map(&:id).join(', ')})").to_a.first['st_extent']
     else
-      box = ActiveRecord::Base.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
+      box = ApplicationRecord.connection.execute('SELECT ST_Extent(shape) FROM cap_islets').to_a.first['st_extent']
     end
 
     if box.present?
-      points = ActiveRecord::Base.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
+      points = ApplicationRecord.connection.execute("SELECT ST_XMin(CAST('#{box}' As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)), ST_YMax(CAST('#{box}' As box2d))")
       points.first.values
     else
       []

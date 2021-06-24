@@ -39,19 +39,19 @@ module Abaci
     def where(properties)
       @rows.select do |row|
         valid = true
-        for name, value in properties
+        properties.each do |name, value|
           property_value = row[name]
           if value.is_a?(Array)
             one_found = false
-            for val in value
-              if val.is_a?(Nomen::Item)
+            value.each do |val|
+              if val.is_a?(Onoma::Item)
                 one_found = true if property_value == val.name.to_sym
               else
                 one_found = true if property_value == val
               end
             end
             valid = false unless one_found
-          elsif value.is_a?(Nomen::Item)
+          elsif value.is_a?(Onoma::Item)
             valid = false unless property_value == value.name.to_sym
           else
             valid = false unless property_value == value

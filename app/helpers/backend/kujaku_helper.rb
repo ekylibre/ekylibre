@@ -31,6 +31,7 @@ module Backend
         k.text
       end
       return '' unless k.feathers.any?
+
       collapsed = current_user.preference("interface.kujakus.#{k.uid}.collapsed", (options.key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value
       render('backend/shared/kujaku', kujaku: k, url: url, collapsed: collapsed, with_form: !options[:form].is_a?(FalseClass), with_actions: !options[:actions].is_a?(FalseClass))
     end
@@ -42,6 +43,7 @@ module Backend
           def inherited(subclass)
             class_name = subclass.name
             raise 'Invalid feather name' unless class_name =~ /Feather$/
+
             feather_name = class_name.gsub(/Feather$/, '').underscore.split('/').last.to_sym
             Kujaku.send(:define_method, feather_name) do |*args, &block|
               add_feather(subclass.new(self, "#{@uid}:#{@feathers.size}", *args, &block))
@@ -69,7 +71,7 @@ module Backend
         end
 
         def to_html
-          raise NotImplementedError
+          @template.render("kujaku/feather/#{self.class.name.demodulize.underscore}", **vars)
         end
 
         def inspect
@@ -83,14 +85,18 @@ module Backend
           @name = @options.delete(:name) || :q
         end
 
-        def to_html
+        def vars
           p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
           @template.params[@name] ||= p.value
           p.set!(@template.params[@name])
-          html = @template.content_tag(:label, @options[:label] || :search.tl)
-          html << ' '.html_safe
-          html << @template.text_field_tag(@name, @template.params[@name])
-          html
+
+          {
+            label: @options[:label] || :search.tl,
+            name: @name,
+            name_value: @template.params[@name],
+            # This variable is not used in the associated partial
+            preference: @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
+          }
         end
       end
 
@@ -99,17 +105,22 @@ module Backend
           @name = @options.delete(:name) || :n
         end
 
+        def vars
+          {
+            label: @options[:label] || :amount.tl,
+            min_value: @template.params[:minimum_amount],
+            max_value: @template.params[:maximum_amount]
+          }
+        end
+      end
+
+      class HiddenFeather < Feather
+        def configure(*args)
+          @name = @options.delete(:name) || args.shift || :n
+        end
+
         def to_html
-          p = @template.current_user.pref("kujaku.feathers.#{@uid}.default", @template.params[@name])
-          @template.params[@name] ||= p.value
-          p.set!(@template.params[@name])
-          html = @template.content_tag(:label, @options[:label] || :minimum_amount.tl)
-          html << ' '.html_safe
-          html << @template.number_field_tag('minimum_amount', @template.params[:minimum_amount], min: 0, step: :any)
-          html << ' '.html_safe
-          html << @template.content_tag(:label, @options[:label] || :maximum_amount.tl)
-          html << ' '.html_safe
-          html << @template.number_field_tag('maximum_amount', @template.params[:maximum_amount], min: 0, step: :any)
+          @template.hidden_field_tag @name, @template.params[@name]
         end
       end
 
@@ -130,72 +141,82 @@ module Backend
           @choices = args
         end
 
-        def to_html
-          first = @choices.first
-          @template.params[@name] ||= (first.is_a?(Array) ? first.first : first).to_s
+        def vars
           scope = @options[:scope] || [:labels]
-          html = @template.content_tag(:label, @options[:label] || :state.tl)
-          default_value = @template.params[@name]
-          @choices.each do |choice|
+          # @type [Arrray<Array{String, String}>] choices
+          choices = @choices.map do |choice|
             if choice.is_a?(Array)
-              label = choice[0]
-              value = choice[1]
+              choice
             else
-              label = ::I18n.translate(choice, scope: scope)
-              value = choice
-            end
-            default_value ||= value.to_s
-            html << @template.content_tag(:span, class: 'radio') do
-              @template.content_tag(:label, for: "#{@name}_#{value}") do
-                @template.radio_button_tag(@name, value, default_value.to_s == value.to_s) <<
-                  ' '.html_safe <<
-                  label
-              end
+              [::I18n.translate(choice, scope: scope), choice]
             end
           end
-          html
+          {
+            label: @options[:label] || :state.tl,
+            name: @name,
+            default_value: @template.params[@name],
+            choices: choices
+          }
         end
       end
 
       # Multi choice feather permits to select multiple choice in a list
       class MultiChoiceFeather < Feather
         def configure(*args)
-          @choices = args.last.is_a?(Array) ? args.delete_at(-1) : []
+          if args.last.is_a?(Array)
+            ActiveSupport::Deprecation.warn("Please use an array of hash named 'data' instead of an anonymous array of array : Refer to intervention index view for an example")
+            choices = args.delete_at(-1)
+            @choices = choices.map do |choice|
+              {
+                label: choice[0],
+                name: choice[1]
+              }
+            end
+          elsif @options[:data]
+            @choices = @options[:data]
+          else
+            raise 'You need to pass a data argument'
+          end
+
           @name = args.shift || @options.delete(:name) || :c
+
+          preferences_and_default_values
         end
 
-        def to_html
-          @template.params[@name] ||= []
-          html = @template.content_tag(:label, @options[:label] || :state.tl)
-          for human_name, choice in @choices
-            html << @template.content_tag(:span, class: 'radio') do
-              @template.content_tag(:label, for: "#{@name}_#{choice}") do
-                @template.check_box_tag("#{@name}[]", choice, @template.params[@name].include?(choice.to_s), id: "#{@name}_#{choice}") <<
-                  ' '.html_safe << human_name
+        def vars
+          {
+            name: @name,
+            choices: @choices,
+            label: @options[:label] || :state.tl
+          }
+        end
+
+        private
+
+          def preferences_and_default_values
+            current_user = @template.current_user
+            controller = @template.params[:controller]
+            action = @template.params[:action]
+
+            if @template.params[@name].nil?
+              preference_value = []
+              @choices.each do |choice|
+                preference_name = "#{controller}##{action}.#{@name}_#{choice[:name]}"
+                @template.params[@name] ||= []
+                preference = current_user.preference(preference_name, nil, :boolean)
+                choice[:checked] = preference.boolean_value
+                preference_value << choice[:name].to_s if preference.boolean_value
+              end
+              @template.params[@name] = preference_value
+            else
+              @choices.each do |choice|
+                preference_name = "#{controller}##{action}.#{@name}_#{choice[:name]}"
+                is_checked = @template.params[@name].include?(choice[:name].to_s)
+                choice[:checked] = is_checked
+                current_user.prefer!(preference_name, is_checked, 'boolean')
               end
             end
           end
-          html
-        end
-      end
-
-      # Multi choice feather permits to select one choice in a long list
-      # Like a "search a needle in hay"
-      class NeedleChoiceFeather < ChoiceFeather
-        def configure(*args)
-          @selection = args.last.is_a?(Array) ? args.delete_at(-1) : []
-          @name = args.shift || @options.delete(:name) || :o
-        end
-
-        def to_html
-          @template.params[@name] ||= @selection.first.second if @selection && @selection.first
-          html = @template.content_tag(:label, @options[:label] || :options.tl)
-          html << ' '.html_safe
-          html << @template.content_tag(:span, class: :slc) do
-            @template.select_tag(@name, @template.options_for_select(@selection, @options[:selected] || @template.params[@name]))
-          end
-          html
-        end
       end
 
       # Date search field
@@ -204,12 +225,59 @@ module Backend
           @name = args.shift || @options.delete(:name) || :d
         end
 
-        def to_html
-          html = @template.content_tag(:label, @options[:label] || :select_date.tl)
-          html << ' '.html_safe
-          html << @template.date_field_tag(@name, @template.params[@name])
-          html
+        def vars
+          {
+            name: @name,
+            label: @options[:label] || :select_date.tl,
+            value: value = @template.params[@name]
+          }
         end
+      end
+
+      # Maybe a duplicate of needle_choice, inspect this later
+      class ListFeather < Feather
+        def configure(*args)
+          @name = (args.shift || @options.delete(:name) || :l).to_s
+          @label = @options.delete(:label) || @name.tl
+          @value_label = @options.delete(:value_label) || :name
+          @list_values = @options.delete(:list_values)
+
+          preferences_and_default_values
+        end
+
+        def vars
+          list_values = [[]]
+          if @list_values
+            list_values += @list_values
+          else
+            list_values += @name.camelize.constantize.pluck(@value_label, :id).sort
+          end
+
+          {
+            label: @label,
+            select_tag_name: @name + '_id',
+            list_values: list_values,
+            default_value: @default_value
+          }
+        end
+
+        private
+
+          def preferences_and_default_values
+            current_user = @template.current_user
+            controller = @template.params[:controller]
+            action = @template.params[:action]
+
+            suffix_preference_name = @name + '_id'
+            preference_name = "#{controller}##{action}.#{suffix_preference_name}"
+            if @template.params[suffix_preference_name].nil?
+              @template.params[suffix_preference_name] = current_user.preference(preference_name).value
+            else
+              current_user.prefer!(preference_name, @template.params[suffix_preference_name], 'string')
+            end
+
+            @default_value = @template.params[suffix_preference_name]
+          end
       end
 
       # Custom search field based on rendering helper method
@@ -220,7 +288,7 @@ module Backend
           elsif @name = args.shift
             @args = args
           else
-            raise ArgumentError, 'block or name is missing for helper feather'
+            raise ArgumentError.new('block or name is missing for helper feather')
           end
         end
 
@@ -234,7 +302,9 @@ module Backend
       end
 
       class NavigationFeather < HelperFeather; end
+
       class PreviousNavigationFeather < NavigationFeather; end
+
       class NextNavigationFeather < NavigationFeather; end
 
       attr_reader :feathers, :template, :uid
@@ -255,9 +325,9 @@ module Backend
 
       private
 
-      def add_feather(feather)
-        @feathers << feather
-      end
+        def add_feather(feather)
+          @feathers << feather
+        end
     end
   end
 end

@@ -8,6 +8,7 @@ module Backend
         .find_each
         .map do |production|
           next unless production.support_shape
+
           {
             name:         production.name,
             shape:        production.support_shape,
@@ -29,7 +30,7 @@ module Backend
 
         popup_content = []
         popup_content << { label: Plant.human_attribute_name(:net_surface_area), value: plant.net_surface_area.round(3).l }
-        popup_content << render('popup', plant: plant, calibrations: popup_calibrations(dimension, plant), inspection_qualities_evolutions: quality_evolutions)
+        popup_content << render_to_string(partial: 'backend/activities/popup', locals: { plant: plant, calibrations: popup_calibrations(dimension, plant), inspection_qualities_evolutions: quality_evolutions })
 
         {
           name:       plant.name,
@@ -154,60 +155,62 @@ module Backend
 
     private
 
-    def inspection_quality(dimension, plant)
-      inspections   = plant.inspections.reorder(sampled_at: :desc).limit(2)
-      last_i        = inspections.first
-      before_last_i = inspections.second
-      unit          = last_i.quantity_unit(dimension)
-      ActivityInspectionPointNature
-        .unmarketable_categories
-        .map do |category|
-          data = category_percentage_and_evolution(dimension, category, last_i, before_last_i)
-          next unless data
-          next [category, data] unless data[:evolution]
-          data[:evolution] = {
-            label: "#{category}_percentage_evolution".tl,
-            value: data[:evolution].round(0)
-                                   .in(unit)
-                                   .l
-          }
-          [category, data]
-        end
-        .compact
-        .to_h
-    end
+      def inspection_quality(dimension, plant)
+        inspections   = plant.inspections.reorder(sampled_at: :desc).limit(2)
+        last_i        = inspections.first
+        before_last_i = inspections.second
+        unit          = last_i.quantity_unit(dimension)
+        ActivityInspectionPointNature
+          .unmarketable_categories
+          .map do |category|
+            data = category_percentage_and_evolution(dimension, category, last_i, before_last_i)
+            next unless data
+            next [category, data] unless data[:evolution]
 
-    def category_percentage_and_evolution(dimension, category, old_i, new_i)
-      return unless new_i && old_i
-      new_percentage = new_i.points_percentage(dimension, category)
-      old_percentage = old_i.points_percentage(dimension, category)
-      evolution = (new_percentage - old_percentage) if old_percentage.to_d.nonzero?
-      {
-        percentage: new_percentage,
-        evolution: evolution
-      }
-    end
-
-    def popup_calibrations(dimension, plant, round = 2)
-      last_i  = plant.inspections.reorder(:sampled_at).last
-      unit    = last_i.quantity_unit(dimension)
-
-      last_i
-        .scales
-        .map do |scale|
-          dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
-          dataset.map do |calibration|
-            {
-              label: calibration.name,
-              value: Maybe(calibration.marketable_quantity(dimension))
-                .or_else(0)
-                .convert(unit)
-                .round(round)
-                .l(precision: 0)
+            data[:evolution] = {
+              label: "#{category}_percentage_evolution".tl,
+              value: data[:evolution].round(0)
+                                     .in(unit)
+                                     .l
             }
+            [category, data]
           end
-        end
-        .flatten
-    end
+          .compact
+          .to_h
+      end
+
+      def category_percentage_and_evolution(dimension, category, old_i, new_i)
+        return unless new_i && old_i
+
+        new_percentage = new_i.points_percentage(dimension, category)
+        old_percentage = old_i.points_percentage(dimension, category)
+        evolution = (new_percentage - old_percentage) if old_percentage.to_d.nonzero?
+        {
+          percentage: new_percentage,
+          evolution: evolution
+        }
+      end
+
+      def popup_calibrations(dimension, plant, round = 2)
+        last_i  = plant.inspections.reorder(:sampled_at).last
+        unit    = last_i.quantity_unit(dimension)
+
+        last_i
+          .scales
+          .map do |scale|
+            dataset = last_i.calibrations.includes(nature: :scale).of_scale(scale).reorder(:id)
+            dataset.map do |calibration|
+              {
+                label: calibration.name,
+                value: Maybe(calibration.marketable_quantity(dimension))
+                  .or_else(0)
+                  .convert(unit)
+                  .round(round)
+                  .l(precision: 0)
+              }
+            end
+          end
+          .flatten
+      end
   end
 end

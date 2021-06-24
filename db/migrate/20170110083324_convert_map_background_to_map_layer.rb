@@ -1,4 +1,4 @@
-class ConvertMapBackgroundToMapLayer < ActiveRecord::Migration
+class ConvertMapBackgroundToMapLayer < ActiveRecord::Migration[4.2]
   MAP_OVERLAYS = [
     { name: 'OpenWeatherMap Clouds',
       reference_name: 'open_weather_map.clouds',

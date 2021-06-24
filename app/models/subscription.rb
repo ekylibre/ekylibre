@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,7 +46,7 @@
 #  updater_id     :integer
 #
 
-class Subscription < Ekylibre::Record::Base
+class Subscription < ApplicationRecord
   include Customizable
   acts_as_numbered
   belongs_to :address, class_name: 'EntityAddress'
@@ -61,8 +63,8 @@ class Subscription < Ekylibre::Record::Base
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(subscription) { subscription.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(subscription) { subscription.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :suspended, inclusion: { in: [true, false] }
   validates :swim_lane_uuid, presence: true
   # ]VALIDATORS]

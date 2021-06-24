@@ -32,27 +32,28 @@ module Authentication
 
     private
 
-    def user_by_omniauth(auth)
-      User.find_by(email: auth.info.email)
-    end
-
-    def invitation_token
-      @invitation_token ||= params[:invitation_token]
-    end
-
-    def accept_invitation?
-      return true if @user.accepted_or_not_invited?
-      @user.password = Devise.friendly_token(20)
-
-      @user == User.find_by_invitation_token(invitation_token, true) && @user.accept_invitation!
-    end
-
-    def failure_redirect_path
-      if @user.try(:valid_invitation?)
-        accept_user_invitation_path(invitation_token: invitation_token)
-      else
-        new_user_session_path
+      def user_by_omniauth(auth)
+        User.find_by(email: auth.info.email)
       end
-    end
+
+      def invitation_token
+        @invitation_token ||= params[:invitation_token]
+      end
+
+      def accept_invitation?
+        return true if @user.accepted_or_not_invited?
+
+        @user.password = Devise.friendly_token(20)
+
+        @user == User.find_by_invitation_token(invitation_token, true) && @user.accept_invitation!
+      end
+
+      def failure_redirect_path
+        if @user.try(:valid_invitation?)
+          accept_user_invitation_path(invitation_token: invitation_token)
+        else
+          new_user_session_path
+        end
+      end
   end
 end

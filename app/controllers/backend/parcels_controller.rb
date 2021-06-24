@@ -24,15 +24,15 @@ module Backend
 
     protected
 
-    def find_parcels
-      parcel_ids = params[:id].split(',')
-      parcels = parcel_ids.map { |id| Parcel.find_by(id: id) }.compact
-      unless parcels.any?
-        notify_error :no_parcels_given
-        redirect_to(params[:redirect] || { action: :index })
-        return nil
+      def find_parcels
+        parcel_ids = params[:id].split(',')
+        parcels = parcel_ids.map { |id| Parcel.find_by(id: id) }.compact
+        unless parcels.any?
+          notify_error :no_parcels_given
+          redirect_to(params[:redirect] || { action: :index })
+          return nil
+        end
+        parcels
       end
-      parcels
-    end
   end
 end

@@ -3,7 +3,12 @@
 - classes << "integration-disabled" if local_assigns[:disabled] && disabled
 .integration{ class: classes.join(' ') }
   .integration-card
-    - if exists
+    .card-synchronisation
+      - if exists
+        - if exists.last_sync_at.present?
+          %p
+            %i.icon.icon-sync
+            =exists.last_sync_at.strftime("%e/%m/%Y - %T")
       = link_to({ action: :destroy, controller: :integrations, nature: type.integration_name.underscore }, method: :delete, class: "integration-destroy") do
         %i.icon.icon-sign-out
     = link_to({ action: :new, controller: :integrations, nature: type.integration_name.underscore }, class: 'integration-body') do

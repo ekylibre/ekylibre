@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +40,7 @@
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
 #
-class ManureManagementPlan < Ekylibre::Record::Base
+class ManureManagementPlan < ApplicationRecord
   include Attachable
   belongs_to :campaign
   belongs_to :recommender, class_name: 'Entity'
@@ -47,7 +49,7 @@ class ManureManagementPlan < Ekylibre::Record::Base
   validates :annotation, length: { maximum: 500_000 }, allow_blank: true
   validates :default_computation_method, :name, presence: true, length: { maximum: 500 }
   validates :locked, :selected, inclusion: { in: [true, false] }
-  validates :opened_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :opened_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :campaign, :recommender, presence: true
   # ]VALIDATORS]
 
@@ -70,10 +72,12 @@ class ManureManagementPlan < Ekylibre::Record::Base
     active = false
     active = true if zones.empty?
     return false unless campaign
+
     campaign.activity_productions.includes(:support).order(:activity_id, 'products.name').each do |activity_production|
       # activity_production.active? return all activies except fallow_land
       next unless activity_production.support.is_a?(LandParcel) && activity_production.active?
       next if zones.find_by(activity_production: activity_production)
+
       zone = zones.build(
         activity_production: activity_production,
         computation_method: default_computation_method,

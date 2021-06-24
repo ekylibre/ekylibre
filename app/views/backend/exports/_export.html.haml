@@ -1,5 +1,9 @@
 - disabled = false unless local_assigns[:disabled]
+- options = {}
+- aggregator.parameters.each do |parameter|
+  - next unless scope = parameter.options[:scope]
+  - options[parameter.name.to_sym] = parameter.foreign_class.send(scope).pluck(:id)
 
-= link_to({action: :show, id: aggregator.id}, class: "btn btn-big btn-file btn-#{aggregator.id} aggregator", title: aggregator.human_name, disabled: disabled, style: "min-width: 30ex") do
+= link_to({ action: :show, id: aggregator.id, **options }, class: "btn btn-big btn-file btn-#{aggregator.id} aggregator", title: aggregator.human_name, disabled: disabled, style: "min-width: 30ex") do
   %i
   = aggregator.human_name

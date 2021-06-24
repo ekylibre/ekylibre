@@ -1,4 +1,4 @@
-class CreateSynchronizationOperation < ActiveRecord::Migration
+class CreateSynchronizationOperation < ActiveRecord::Migration[4.2]
   def change
     create_table :synchronization_operations do |t|
       t.string :operation_name, null: false, index: true

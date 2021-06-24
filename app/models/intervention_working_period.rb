@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,7 +39,7 @@
 #  updater_id                    :integer
 #
 
-class InterventionWorkingPeriod < Ekylibre::Record::Base
+class InterventionWorkingPeriod < ApplicationRecord
   include PeriodicCalculable
   belongs_to :intervention
   belongs_to :intervention_participation
@@ -45,14 +47,14 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   enumerize :nature, in: %i[preparation travel intervention pause]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validate :validate_started_stopped_at
 
   calculable period: :month, column: :duration, at: :started_at, name: :sum
 
-  scope :without_activity, -> { where.not(intervention_id: Intervention::HABTM_Activities.joins(:activity).select(:intervention_id)) }
+  scope :without_activity, -> { where.not(intervention_id: Intervention.habtm_activities.joins(:activity).select(:intervention_id)) }
   scope :of_activity, ->(activity) { where(intervention_id: Intervention.of_activity(activity)) }
   scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|
@@ -65,6 +67,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
 
   scope :with_intervention_parameter, lambda { |role, object|
     where(intervention_id: InterventionParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
+  }
+
+  scope :with_record_intervention_parameter, lambda { |role, object|
+    where(intervention_id: InterventionParameter.of_intervention_nature(:record).of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
   scope :of_intervention_participations, lambda { |intervention_participations|
@@ -111,17 +117,17 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     end
   end
 
-  after_commit :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
+  after_save :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
   after_destroy :update_temporality, unless: -> { intervention.blank? || Intervention.find_by(id: intervention_id).nil? }
 
   def last_activity_production_started_on
     targets = intervention&.targets || []
-    targets.map { |t| t.activity_production&.started_on }.compact.max
+    targets.map { |t| t.best_activity_production&.started_on }.compact.max
   end
 
   def first_activity_production_stopped_on
     targets = intervention&.targets || []
-    targets.map { |t| t.activity_production&.stopped_on }.compact.min
+    targets.map { |t| t.best_activity_production&.stopped_on }.compact.min
   end
 
   def validate_started_stopped_at
@@ -153,18 +159,20 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     return if first?
 
     previous_index = index - 1
-    intervention_participation.working_periods.fetch(previous_index)
+
+    intervention_participation.working_periods[previous_index]
   end
 
   def next_period
     return if last?
 
     next_index = index + 1
-    intervention_participation.working_periods.fetch(next_index)
+    intervention_participation.working_periods[next_index]
   end
 
   def pause_next?
     return false if last?
+
     gap_with_period?(next_period)
   end
 
@@ -177,24 +185,24 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   end
 
   def during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', started_at).any?
+    FinancialYearExchange.opened.at(started_at).exists?
   end
 
   private
 
-  def gap
-    Time.diff(stopped_at, started_at)
-  end
+    def gap
+      Time.diff(stopped_at, started_at)
+    end
 
-  def first?
-    intervention_participation.working_periods.first == self
-  end
+    def first?
+      intervention_participation.working_periods.first == self
+    end
 
-  def last?
-    intervention_participation.working_periods.last == self
-  end
+    def last?
+      intervention_participation.working_periods.last == self
+    end
 
-  def index
-    intervention_participation.working_periods.find_index(self)
-  end
+    def index
+      intervention_participation.working_periods.find_index(self)
+    end
 end

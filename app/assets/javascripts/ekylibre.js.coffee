@@ -68,7 +68,7 @@
       if event.preventDefault
         event.preventDefault()
 
-  E.toggleValidateButton = (container) ->
+  E.toggleValidateButton = (container, bindFields = true) ->
     requiredFields = container.find('[data-required]')
     validateItemButton = container.find('button[data-validate]')
 
@@ -80,10 +80,12 @@
       validateItemButton.attr("disabled", !!toDisable)
 
     toggleState()
-    requiredFields.each ->
-      $(this).on "selector:change change", toggleState
 
-    container.bind 'visibility:change', toggleState
+    if bindFields
+      requiredFields.each ->
+        $(this).on "selector:change change", toggleState
+
+      container.bind 'visibility:change', toggleState
 
   E.setStorageUnitName = (container) ->
     container.find('.storing-fields:visible').last().find('.storage-unit-name').html(container.find('.storing-fields').first().find('.storage-unit-name').first().text())

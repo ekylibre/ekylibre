@@ -28,13 +28,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'criterion', 'criteria'
 end
 
-# Set pluralization active with the algorithms defined in [locale]/i18n.rb
-I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)
-
-def I18n.escape_key(key)
-  key.to_s.gsub('.', '-').to_sym
-end
-
 # set config for humanize
 Humanize.configure do |config|
   config.default_locale = :en  # [:en, :fr], default: :en

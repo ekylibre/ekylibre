@@ -11,23 +11,27 @@ module Backend
     def compare_with_planned(params)
       result = params.compare_with_planned
       image_path = if result
-        'interventions/calendar-v.svg'
-      else
-        'interventions/calendar-!.svg'
-      end
+                     'interventions/calendar-v.svg'
+                   else
+                     'interventions/calendar-!.svg'
+                   end
       image_tag(image_path, class: 'calendar-img')
     end
 
     def next_state
       intervention = @interventions.present? ? @interventions.first : @intervention
       next_state = if intervention.nature == :request
-        'in_progress'
-      else
-        case intervention.state
-          when 'in_progress' then 'done'
-          when 'done' then 'validated'
-        end
-      end
+                     'in_progress'
+                   else
+                     case intervention.state
+                     when 'in_progress'
+                       'done'
+                     when 'done'
+                       'validated'
+                     else
+                       nil
+                     end
+                   end
       Intervention.state.options.find { |_, v| v == next_state } if next_state
     end
 
@@ -60,7 +64,7 @@ module Backend
                    'cow'
                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
                    'tractor'
-                end
+                 end
 
           task_datas << { icon: icon, text: displayed_name, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)}", category: 'parameters' }
         end
@@ -87,8 +91,7 @@ module Backend
         end
       end
 
-      task_datas << { icon: 'mobile', class: 'provided-by-zero', category: 'indicators', position_number: 0 } if intervention.is_provided_by?(vendor: 'Ekylibre', name: 'zero')
-
+      task_datas << { icon: 'mobile', class: 'provided-by-zero', category: 'indicators', position_number: 0 } if intervention.is_provided_by?(vendor: 'ekylibre', name: 'zero')
       intervention_datas = { id: intervention.id, name: intervention.name }
 
       request_intervention_id = ''
@@ -176,6 +179,20 @@ module Backend
 
     def add_total_working_period(product_parameter, natures: {})
       render partial: 'intervention_total_costs', locals: { product_parameter: product_parameter, natures: natures }
+    end
+
+    def quantity_info(quantified_parameter)
+      return '' if quantified_parameter.quantity_value.nil?
+
+      if quantified_parameter.quantity_handler == 'population'
+        quantity_value = quantified_parameter.quantity_value.round(2).l(precision: 0)
+        variant = quantified_parameter.variant || quantified_parameter.product.variant
+        "#{quantity_value} #{:unit.tl.lower} (#{variant.unit_name})"
+      elsif quantified_parameter.quantity_indicator_name == 'net_surface_area'
+        quantified_parameter.quantity.in(:hectare).round_l
+      else
+        quantified_parameter.quantity.round_l
+      end
     end
   end
 end

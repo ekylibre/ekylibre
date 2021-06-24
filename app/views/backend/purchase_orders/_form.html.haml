@@ -2,41 +2,53 @@
   display_activity_item_field = !!Preference[:distribute_sales_and_purchases_on_activities]
   display_team_item_field = !!Preference[:distribute_sales_and_purchases_on_teams]
 
-= field_set do
-  = f.referenced_association :nature, as: :hidden
-  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
-  = f.input :reference_number
-  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
-  = f.referenced_association :delivery_address, source: :own_mails, new: false
-  = f.input :ordered_at, as: :date
-  = f.input :command_mode
-  = f.input :estimate_reception_date, as: :date
+.purchase-form
+  = field_set do
+    = f.referenced_association :nature, as: :hidden
+    = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
+    = f.input :reference_number
+    = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+    = f.referenced_association :delivery_address, source: :own_mails, new: false
+    = f.input :ordered_at, as: :date, required: true
+    = f.input :command_mode
+    = f.input :estimate_reception_date, as: :date
 
-  .purchase-totals
-    .purchase-total-row.total-except-tax
-      %span.total-label= :total_amount_without_taxes.tl
-      %span.total-value= f.object.decorate.total_amount_excluding_taxes.round_l
-      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
-    .purchase-total-row.vat-total
-      %span.total-label= :vat.tl
-      %span.total-value= f.object.decorate.total_vat_amount.round_l
-      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
-    .purchase-total-row.purchase-total
-      %span.total-label= :total_amount_with_taxes.tl
-      %span.total-value= f.object.decorate.total_amount_including_taxes.round_l
-      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
+    .purchase-totals
+      .purchase-total-row.total-except-tax
+        %span.total-label= :total_amount_without_taxes.tl
+        %span.total-value= f.object.decorate.total_amount_excluding_taxes.round_l
+        %span.total-currency= Onoma::Currency[f.object.currency]&.symbol
+      .purchase-total-row.vat-total
+        %span.total-label= :vat.tl
+        %span.total-value= f.object.decorate.total_vat_amount.round_l
+        %span.total-currency= Onoma::Currency[f.object.currency]&.symbol
+      .purchase-total-row.purchase-total
+        %span.total-label= :total_amount_with_taxes.tl
+        %span.total-value= f.object.decorate.total_amount_including_taxes.round_l
+        %span.total-currency= Onoma::Currency[f.object.currency]&.symbol
 
-  = f.input :description
-  = f.custom_fields
-  = f.attachments
+    = f.input :description
+    = f.custom_fields
+    = f.attachments
 
-= field_set Purchase.human_attribute_name(:items) do
-  .items
-    %table.list#purchase-items-table
-      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
-        = render 'item_fields', f: item, display_items_form: @display_items_form, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
+  = field_set Purchase.human_attribute_name(:items) do
+    .items
+      %table.list#purchase-items-table
+        %thead.table-head
+          %tr.table-headers
+            %th.act
+            %th.act
+            %th.product-column= :merchandises_services_costs.tl
+            %th.quantity-column= PurchaseItem.human_attribute_name(:quantity)
+            %th.unit-amount-column= :unit_amount.tl
+            %th= :discount_without_percent.tl
+            %th.total-column= :total_amount_without_taxes.tl
+            %th.total-column= :vat_rate.tl
 
-      %tfoot#items__footer
-    .row-footer
-      - PurchaseItem.role.values.each do |role|
-        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_items_form: @display_items_form, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+        = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+          = render 'item_fields', f: item, display_items_form: @display_items_form, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
+
+        %tfoot#items__footer
+      .row-footer
+        - PurchaseItem.role.values.each do |role|
+          %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_items_form: @display_items_form, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

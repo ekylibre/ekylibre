@@ -54,12 +54,12 @@
   E.Purchases =
     compute_amount: ->
       $pretaxAmounts = $('.nested-fields .pre-tax-invoice-total-controls input')
-      pretaxAmount = $pretaxAmounts.toArray().reduce(((acc, e) => acc + parseFloat(e.value)), 0)
+      pretaxAmount = $pretaxAmounts.toArray().reduce(((acc, e) => acc + parseFloat(e.value)), 0).toFixed(2)
       $preTaxTotal = $('.total-except-tax .total-value')
       $preTaxTotal.text(pretaxAmount)
 
       $taxAmounts = $('.nested-fields .invoice-total-controls input')
-      taxAmount = $taxAmounts.toArray().reduce(((acc, e) => acc + parseFloat(e.value)), 0)
+      taxAmount = $taxAmounts.toArray().reduce(((acc, e) => acc + parseFloat(e.value)), 0).toFixed(2)
       $taxTotal = $('.purchase-total .total-value')
       $taxTotal.text(taxAmount)
 

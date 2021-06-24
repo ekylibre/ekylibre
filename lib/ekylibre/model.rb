@@ -11,6 +11,5 @@ module Ekylibre
         end
       end
     end
-
   end
 end

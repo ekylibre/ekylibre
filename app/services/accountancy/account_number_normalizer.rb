@@ -1,15 +1,35 @@
+# frozen_string_literal: true
+
 module Accountancy
   class AccountNumberNormalizer
     class NormalizationError < StandardError
+      attr_reader :standard_length, :removed, :number
+
+      def initialize(standard_length, number, removed)
+        @standard_length = standard_length
+        @removed = removed
+        @number = number
+
+        super("Normalizing #{number} to #{standard_length} characters would remove #{removed}.")
+      end
     end
 
-    DEFAULT_CENTRALIZED_PREFIXES = %w(401 411).freeze
+    DEFAULT_CENTRALIZED_PREFIXES = %w(301 302 303 31 37 401 411 6031 6032 6033 6037 713).freeze
 
     class << self
-      def build
+      def build(standard_length: Preference[:account_number_digits])
         new(
-          Preference[:account_number_digits],
+          standard_length,
           centralized_accounts_prefixes: DEFAULT_CENTRALIZED_PREFIXES
+        )
+      end
+
+      #  @todo Remove with https://gitlab.com/ekylibre/eky/-/issues/719
+      # @deprecated
+      def build_deprecated_for_account_creation(standard_length: Preference[:account_number_digits])
+        new(
+          standard_length,
+          centralized_accounts_prefixes: %w[401 411]
         )
       end
     end
@@ -51,7 +71,7 @@ module Accountancy
       if all_zero?(removed)
         number[0...standard_length]
       else
-        raise NormalizationError
+        raise NormalizationError.new(standard_length, number, removed)
       end
     end
 

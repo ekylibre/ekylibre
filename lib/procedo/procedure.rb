@@ -6,7 +6,7 @@ module Procedo
   class Procedure
     ROOT_NAME = 'root_'.freeze
 
-    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties, :hidden
+    attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions, :varieties, :hidden, :position
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
              :product_parameters, :group_parameters,
@@ -68,6 +68,7 @@ module Procedo
     def initialize(name, options = {})
       @name = name.to_sym
       @categories = []
+      @position = options[:position]
       @mandatory_actions = []
       @optional_actions = []
       @varieties = []
@@ -96,8 +97,9 @@ module Procedo
 
     # Adds category to procedure
     def add_category(name)
-      category = Nomen::ProcedureCategory.find(name)
+      category = Onoma::ProcedureCategory.find(name)
       raise "Invalid category: #{name.inspect}".red unless category
+
       @categories << category unless @categories.include?(category)
     end
 
@@ -113,8 +115,9 @@ module Procedo
 
     # Adds action to procedure
     def add_action(name, optional = false)
-      action = Nomen::ProcedureAction.find(name)
+      action = Onoma::ProcedureAction.find(name)
       raise "Invalid action: #{name.inspect}".red unless action
+
       actions = optional ? @optional_actions : @mandatory_actions
       actions << action unless actions.include?(action)
     end
@@ -158,6 +161,7 @@ module Procedo
         p.handlers.each do |handler|
           %w[condition forward backward].each do |tree|
             next unless handler.send("#{tree}?")
+
             parameters = handler.send("#{tree}_parameters")
             parameters.each do |parameter|
               unless find(parameter)
@@ -172,8 +176,9 @@ module Procedo
 
     # Adds variety scope of procedure
     def add_variety(name)
-      variety = Nomen::Variety.find(name)
+      variety = Onoma::Variety.find(name)
       raise "Invalid variety: #{name.inspect}".red unless variety
+
       @varieties << variety unless @varieties.include?(variety)
     end
 
@@ -181,7 +186,7 @@ module Procedo
     def has_varieties?(*varieties)
       @varieties.any? do |obj|
         varieties.all? do |v|
-          variety = Nomen::Variety.find(v)
+          variety = Onoma::Variety.find(v)
           variety && obj >= variety
         end
       end
@@ -216,7 +221,7 @@ module Procedo
       @activity_families ||= categories.map do |c|
         families = c.activity_family || []
         families.map do |f|
-          Nomen::ActivityFamily.all(f)
+          Onoma::ActivityFamily.all(f)
         end
       end.flatten.uniq.map(&:to_sym)
     end
@@ -246,14 +251,19 @@ module Procedo
       parameters.select(&:handled?)
     end
 
+    def required_product_parameters
+      parameters.select(&:required?)
+                .select {|p| p.is_a?(Procedo::Procedure::ProductParameter)}
+    end
+
     private
 
-    attr_reader :root_group
+      attr_reader :root_group
 
-    def action_selection(list)
-      list.map do |action|
-        [action.human_name, action.name]
+      def action_selection(list)
+        list.map do |action|
+          [action.human_name, action.name]
+        end
       end
-    end
   end
 end

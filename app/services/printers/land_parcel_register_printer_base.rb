@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
 module Printers
   class LandParcelRegisterPrinterBase < PrinterBase
-
-    IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
     HARVESTING = %w[harvesting].freeze
+    IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
+    UNITS_AUTOSIZE = {
+      hectoliter: %i[cubic_meter liter].freeze,
+      quintal: %i[ton kilogram].freeze,
+    }.freeze
 
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
@@ -16,7 +21,7 @@ module Printers
     end
 
     def compute_dataset
-      productions = get_productions_for_dataset.select { |production| production.plant_farming? }
+      productions = get_productions_for_dataset.select { |production| production.plant_farming? || production.vine_farming? }
 
       compute_productions_dataset(productions)
     end
@@ -27,11 +32,14 @@ module Printers
       aps_dataset = activity_productions.map { |ap| compute_ap_dataset ap, grouped_interventions }
 
       {
-        index: [], #TODO re-enable this when the index rendering problem is fixed: build_index_dataset(aps_dataset),
+        index: [], # TODO re-enable this when the index rendering problem is fixed: build_index_dataset(aps_dataset),
+        display_no_data_message: grouped_interventions.empty? ? [{}] : [],
         dataset: normalize_dataset_interventions_for_sections(aps_dataset)
       }
     end
 
+    # @param [Array<ActivityProduction>] activity_productions
+    # @retun [Hash{Plant, LandParcel => Array<Intervention>}]
     def compute_grouped_interventions(activity_productions)
       activity_productions
         .flat_map(&:interventions).uniq
@@ -107,6 +115,9 @@ module Printers
     end
 
     # Computes the dataset for all given intervention relative to the given target
+    # @param [Plant, LandParcel] target
+    # @param [Array<Intervention>] interventions
+    # @return [Array<Hash>]
     def compute_interventions_dataset(target, interventions)
       interventions.sort_by { |intervention| intervention.started_at }.map do |intervention|
         maybe_intervention = Maybe(intervention)
@@ -196,10 +207,6 @@ module Printers
       end.sort_by { |v| v[:product] }
     end
 
-    UNITS_AUTOSIZE = {
-      quintal: %i[ton kilogram],
-      hectoliter: %i[cubic_meter liter]
-    }
     # Autimatically converts quintal/hectoliters up to tonnes or down to kilograms if the values is above or below a certain threshold
     def auto_size_quantity_unit(quantity)
       base_unit = quantity.base_unit.to_sym
@@ -240,12 +247,13 @@ module Printers
       return to_concatenated_yield_dataset(product, values) if dimensions.count > 1
 
       case dimensions.first
-        when "mass"
-          to_standard_yield_dataset product, values, base_unit: :quintal
-        when "volume"
-          to_standard_yield_dataset product, values, base_unit: :hectoliter
-        else #unitary/none
-          to_special_yield_dataset product, values
+      when "mass"
+        to_standard_yield_dataset product, values, base_unit: :quintal
+      when "volume"
+        to_standard_yield_dataset product, values, base_unit: :hectoliter
+      else
+        # unitary/none
+        to_special_yield_dataset product, values
       end
     end
 
@@ -350,7 +358,7 @@ module Printers
 
     def normalize_dataset_interventions_for_sections(aps_dataset)
       # Disable filtering as LibreOffice has a bug when rendering produxtion index
-      # TODO reactiva when the problem is fixed
+      # TODO reactivate when the problem is fixed
       # aps_dataset = aps_dataset.select do |ap_dataset| # remove productions that don't have interventions
       #   ap_dataset.fetch(:support_interventions).any? || ap_dataset.fetch(:plants).flat_map { |plant| plant.fetch(:interventions) }.any?
       # end
@@ -378,65 +386,95 @@ module Printers
 
     def pluralize_intervention_count(intervention_count)
       case intervention_count
-        when 0 then
-          "Aucune intervention"
-        when 1 then
-          "1 intervention"
-        else
-          "#{intervention_count} interventions"
+      when 0 then
+        "Aucune intervention"
+      when 1 then
+        "1 intervention"
+      else
+        "#{intervention_count} interventions"
       end
     end
 
-    def run_pdf
+    def generate(r)
       company = Entity.of_company
-
       dataset = compute_dataset
 
-      generate_report(template_path, multipage: true) do |r|
-        # Date
-        r.add_field(:document_export_date, Time.zone.now.l(format: '%d %B %Y'))
+      # Date
+      r.add_field(:document_export_date, Time.zone.now.l(format: '%d %B %Y'))
 
-        r.add_section(:section_title, [{ index: dataset.fetch(:index, []) }]) do |ts|
-          ts.add_section(:section_index, :index) do |is|
-            is.add_table(:index_production_list, :productions) do |ipt|
-              ipt.add_field(:production_name, &fetch(:production_name))
-              ipt.add_field(:production_surface_area, &fetch(:production_surface_area))
-              ipt.add_field(:production_intervention_count, &fetch(:production_intervention_count))
+      r.add_section(:section_title, [{ index: dataset.fetch(:index, []) }]) do |ts|
+        ts.add_section(:section_index, :index) do |is|
+          is.add_table(:index_production_list, :productions) do |ipt|
+            ipt.add_field(:production_name, &fetch(:production_name))
+            ipt.add_field(:production_surface_area, &fetch(:production_surface_area))
+            ipt.add_field(:production_intervention_count, &fetch(:production_intervention_count))
 
-              ipt.add_section(:section_index_plant_list, :plants) do |siplt|
-                siplt.add_table(:index_plant_list, :plants) do |iplt|
-                  iplt.add_field(:plant_name, &fetch(:plant_name))
-                  iplt.add_field(:plant_surface_area, &fetch(:plant_surface_area))
-                  iplt.add_field(:plant_intervention_count, &fetch(:plant_intervention_count))
-                end
+            ipt.add_section(:section_index_plant_list, :plants) do |siplt|
+              siplt.add_table(:index_plant_list, :plants) do |iplt|
+                iplt.add_field(:plant_name, &fetch(:plant_name))
+                iplt.add_field(:plant_surface_area, &fetch(:plant_surface_area))
+                iplt.add_field(:plant_intervention_count, &fetch(:plant_intervention_count))
               end
             end
           end
         end
+      end
 
-        # Productions
-        r.add_section(:section_production, dataset.fetch(:dataset)) do |s|
-          s.add_field(:production_name, &fetch(:name))
-          s.add_field(:production_surface_area, &fetch(:production_surface_area))
-          s.add_field(:pac_islet, &fetch(:pac_islet))
-          s.add_field(:started_on, &fetch(:started_on))
-          s.add_field(:stopped_on, &fetch(:stopped_on))
-          s.add_field(:cultivable_zone, &fetch(:cultivable_zone))
-          s.add_field(:specie, &fetch(:specie))
-          s.add_field(:land_parcel_ift, &fetch(:land_parcel_ift))
+      r.add_section(:section_no_interventions, dataset.fetch(:display_no_data_message)) do |msg|
+        msg
+      end
 
-          s.add_section(:section_yields, :yields) do |sy|
-            sy.add_table(:table_yields, :yields) do |ty|
-              ty.add_field(:name, &fetch(:name))
-              ty.add_field(:yield, &fetch(:yield))
-              ty.add_field(:quantity, &fetch(:quantity))
-              ty.add_field(:intervention_count, &fetch(:intervention_count))
+      # Productions
+      r.add_section(:section_production, dataset.fetch(:dataset)) do |s|
+        s.add_field(:production_name, &fetch(:name))
+        s.add_field(:production_surface_area, &fetch(:production_surface_area))
+        s.add_field(:pac_islet, &fetch(:pac_islet))
+        s.add_field(:started_on, &fetch(:started_on))
+        s.add_field(:stopped_on, &fetch(:stopped_on))
+        s.add_field(:cultivable_zone, &fetch(:cultivable_zone))
+        s.add_field(:specie, &fetch(:specie))
+        s.add_field(:land_parcel_ift, &fetch(:land_parcel_ift))
+
+        s.add_section(:section_yields, :yields) do |sy|
+          sy.add_table(:table_yields, :yields) do |ty|
+            ty.add_field(:name, &fetch(:name))
+            ty.add_field(:yield, &fetch(:yield))
+            ty.add_field(:quantity, &fetch(:quantity))
+            ty.add_field(:intervention_count, &fetch(:intervention_count))
+          end
+        end
+
+        # Interventions-table
+        s.add_section(:section_production_interventions, :support_interventions) do |ss|
+          ss.add_table(:production_interventions, :interventions) do |t|
+            t.add_field(:number, &fetch(:number))
+            t.add_field(:nature, &fetch(:nature))
+            t.add_field(:date, &fetch(:date))
+            t.add_field(:tool, &fetch(:tool))
+            t.add_field(:doer, &fetch(:doer))
+            t.add_field(:working_area, &fetch(:working_area))
+
+            t.add_table(:production_intervention_parameter, :inputs) do |i|
+              i.add_field(:type, &fetch(:type))
+              i.add_field(:quantity, &fetch(:quantity))
+              i.add_field(:ift, &fetch(:ift))
+              i.add_field(:name, &fetch(:name))
             end
           end
+        end
+
+        s.add_section(:section_plant, :plants) do |ps|
+          ps.add_field(:plant_name, &fetch(:name))
+          ps.add_field(:plant_surface_area, &fetch(:plant_surface_area))
+          ps.add_field(:implanted_on, &fetch(:implanted_on))
+          ps.add_field(:plant_stopped_on, &fetch(:stopped_on))
+          ps.add_field(:harvested_on, &fetch(:harvested_on))
+          ps.add_field(:specie, &fetch(:specie))
+          ps.add_field(:variety, &fetch(:variety))
 
           # Interventions-table
-          s.add_section(:section_production_interventions, :support_interventions) do |ss|
-            ss.add_table(:production_interventions, :interventions) do |t|
+          ps.add_section(:section_plant_interventions, :interventions) do |ss|
+            ss.add_table(:plant_interventions, :interventions) do |t|
               t.add_field(:number, &fetch(:number))
               t.add_field(:nature, &fetch(:nature))
               t.add_field(:date, &fetch(:date))
@@ -444,7 +482,8 @@ module Printers
               t.add_field(:doer, &fetch(:doer))
               t.add_field(:working_area, &fetch(:working_area))
 
-              t.add_table(:production_intervention_parameter, :inputs) do |i|
+              # Intervention-inputs/outputs
+              t.add_table(:plant_intervention_parameter, :inputs) do |i|
                 i.add_field(:type, &fetch(:type))
                 i.add_field(:quantity, &fetch(:quantity))
                 i.add_field(:ift, &fetch(:ift))
@@ -452,45 +491,15 @@ module Printers
               end
             end
           end
-
-          s.add_section(:section_plant, :plants) do |ps|
-            ps.add_field(:plant_name, &fetch(:name))
-            ps.add_field(:plant_surface_area, &fetch(:plant_surface_area))
-            ps.add_field(:implanted_on, &fetch(:implanted_on))
-            ps.add_field(:plant_stopped_on, &fetch(:stopped_on))
-            ps.add_field(:harvested_on, &fetch(:harvested_on))
-            ps.add_field(:specie, &fetch(:specie))
-            ps.add_field(:variety, &fetch(:variety))
-
-            # Interventions-table
-            ps.add_section(:section_plant_interventions, :interventions) do |ss|
-              ss.add_table(:plant_interventions, :interventions) do |t|
-                t.add_field(:number, &fetch(:number))
-                t.add_field(:nature, &fetch(:nature))
-                t.add_field(:date, &fetch(:date))
-                t.add_field(:tool, &fetch(:tool))
-                t.add_field(:doer, &fetch(:doer))
-                t.add_field(:working_area, &fetch(:working_area))
-
-                # Intervention-inputs/outputs
-                t.add_table(:plant_intervention_parameter, :inputs) do |i|
-                  i.add_field(:type, &fetch(:type))
-                  i.add_field(:quantity, &fetch(:quantity))
-                  i.add_field(:ift, &fetch(:ift))
-                  i.add_field(:name, &fetch(:name))
-                end
-              end
-            end
-          end
         end
-
-        # Footer
-        r.add_field :company_name, company.name
-        r.add_field :company_siret, company.siret_number
-        r.add_field :company_address, company.mails.where(by_default: true).first.coordinate
-        r.add_field :filename, document_name
-        r.add_field :printed_at, Time.zone.now.l
       end
+
+      # Footer
+      r.add_field :company_name, company.name
+      r.add_field :company_siret, company.siret_number
+      r.add_field :company_address, company.mails.where(by_default: true).first.coordinate
+      r.add_field :filename, document_name
+      r.add_field :printed_at, Time.zone.now.l
     end
 
     private
@@ -499,11 +508,11 @@ module Printers
         ->(value) { value.fetch(key).or_else default }
       end
 
-    def campaign_year
-      campaign.harvest_year
-    rescue StandardError => e
-      Rails.logger.warn e
-      nil
-    end
+      def campaign_year
+        campaign.harvest_year
+      rescue StandardError => e
+        Rails.logger.warn e
+        nil
+      end
   end
 end

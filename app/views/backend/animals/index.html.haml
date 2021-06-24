@@ -1,15 +1,15 @@
 - main_toolbar name: :main do |t|
-  = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
+  = t.export(:animal_list, key: Time.zone.now.to_s, resource: @animals, target: "_blank")
   = t.menu :new.tl do |menu|
     - menu.item :add_entrance.tl, { controller: :receptions, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.item :add_exit.tl, { controller: :shipments, action: :new }, data: { toggle: 'dialog', refresh: true }
     - menu.separator
     - menu.item :add_animals.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
 
-  #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path}}
+  #animals-interventions-menu.btn-group{data: {matching_interventions_path: matching_interventions_backend_animals_path, hide_on_list: true}}
     = render partial: 'interventions_menu', locals: {t: t}
 
-  .btn-group
+  .btn-group{data: {hide_on_list: true}}
     = t.new icon: false, label: :all.tl, data: { toggle: 'item-scope', scoped_items: 'all' }, href: ''
     = t.new icon: false, label: :available.tl, data: { toggle: 'item-scope', scoped_items: 'now' }, href: '', class: 'active'
 
@@ -21,7 +21,8 @@
       -# k.choice :all, :healthy, :illness
       - k.helper :journal_period_crit
       - k.helper do
-        %label= Animal.human_attribute_name(:variant)
+        %div.label-container
+          %label= Animal.human_attribute_name(:variant)
         = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:animal).order(:name).collect{|u| [u.name, u.id]}, params[:variant_id]))
     = main_list
 
