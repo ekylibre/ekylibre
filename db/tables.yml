@@ -284,7 +284,7 @@ activity_budget_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
   variant_indicator:
     type: string
   variant_unit:
@@ -1596,7 +1596,7 @@ catalog_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 catalogs:
   all_taxes_included:
@@ -1681,7 +1681,7 @@ contract_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 contracts:
   created_at:
@@ -4924,7 +4924,7 @@ journal_entry_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 journals:
   accountant_id:
     type: integer
@@ -5679,124 +5679,6 @@ net_services:
   created_at:
     type: datetime
     required: true
-  id:
-    type: integer
-    required: true
-  life_duration:
-    type: decimal
-    precision: 5
-    scale: 2
-  pfi_crop_code:
-    type: string
-  season:
-    type: string
-  specie:
-    type: string
-    required: true
-  start_state_of_production:
-    type: jsonb
-  started_on:
-    type: date
-    required: true
-  stopped_on:
-    type: date
-    required: true
-master_production_outputs:
-  analysis_items:
-    type: string
-  average_yield:
-    type: decimal
-    precision: 19
-    scale: 4
-  main:
-    type: boolean
-    required: true
-    default: false
-  name:
-    type: string
-    required: true
-  production_nature_id:
-    type: integer
-    references: master_production_nature
-    required: true
-  production_system_name:
-    type: string
-    required: true
-master_vine_varieties:
-  category_name:
-    type: string
-    required: true
-  color:
-    type: string
-  customs_code:
-    type: string
-  fr_validated:
-    type: string
-  id:
-    type: string
-    required: true
-  specie_long_name:
-    type: string
-  specie_name:
-    type: string
-    required: true
-  utility:
-    type: string
-naming_format_fields:
-  created_at:
-    type: datetime
-  creator_id:
-    type: integer
-    references: user
-  field_name:
-    type: string
-    required: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  naming_format_id:
-    type: integer
-    references: naming_format
-  position:
-    type: integer
-  type:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-  updater_id:
-    type: integer
-    references: user
-naming_formats:
-  created_at:
-    type: datetime
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  type:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-  updater_id:
-    type: integer
-    references: user
-net_services:
-  created_at:
-    type: datetime
-    required: true
   creator_id:
     type: integer
     references: user
@@ -6205,7 +6087,7 @@ parcel_items:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
 parcels:
   accounted_at:
     type: datetime
@@ -7205,7 +7087,7 @@ product_nature_variant_readings:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 product_nature_variants:
   active:
@@ -7461,7 +7343,7 @@ product_phases:
     references: user
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
 product_readings:
   absolute_measure_value_unit:
@@ -7704,7 +7586,7 @@ products:
     type: uuid
   variant_id:
     type: integer
-    references: variant
+    references: product_nature_variant
     required: true
   variety:
     type: string

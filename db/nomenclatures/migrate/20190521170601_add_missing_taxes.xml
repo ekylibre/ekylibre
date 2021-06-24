@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<migration name="Add missing taxes">
-    <item-creation item="product_natures#animal_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
-    <item-creation item="product_natures#animal_product_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
-    <item-creation item="product_natures#processed_product_taxe" category="agricultural_taxe" variety="service" population_counting="decimal" variable_indicators=""/>
-    <item-creation item="product_nature_variants#milk_taxe" nature="animal_product_taxe" unit_name="unit"/>
-</migration>
