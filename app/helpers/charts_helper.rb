@@ -247,8 +247,4 @@ module ChartsHelper
   def formate_and_translate(categories)
     categories.map { |category| category.l(format: "%b %Y") }
   end
-
-  def formate_and_translate(categories)
-    categories.map { |category| category.l(format: "%b %Y") }
-  end
 end

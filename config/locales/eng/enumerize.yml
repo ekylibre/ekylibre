@@ -185,12 +185,12 @@ eng:
         refused: "Refused"
         waiting: "Waiting"
     financial_year:
-      state: #?
+      state:
         closed: "Closed"
         closing: "Closing"
         closure_in_preparation: "Closure in preparation"
-        locked: "Locked" #?
-        opened: "Opened" #?
+        locked: "Locked"
+        opened: "Opened"
       tax_declaration_frequency:
         monthly: "Monthly"
         none: "None"

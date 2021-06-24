@@ -17,6 +17,7 @@ spa:
     ekylibre_bank_statements: "Estados de cuenta bancarios Ekylibre"
     ekylibre_budgets: "Presupuestos Ekylibre"
     ekylibre_buildings_json: "Edificios Ekylibre JSON"
+    # ekylibre_cash_transfers: "Ekylibre cash transfers"
     ekylibre_cultivable_zones: "Ekylibre zonas cultivables"
     ekylibre_cultivable_zones_json: "Ekylibre zonas cultivables JSON"
     ekylibre_entities: "Entidades Ekylibre"

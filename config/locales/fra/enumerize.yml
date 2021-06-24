@@ -181,12 +181,12 @@ fra:
         refused: "Refusé"
         waiting: "En attente de réponse"
     financial_year:
-      state: #?
-        closed: "Clôturé" #?
-        closing: "Clôture en cours" #?
-        closure_in_preparation: "Clôture en préparation" #?
-        locked: "Verrouillé" #?
-        opened: "Ouvert" #?
+      state:
+        closed: "Clôturé"
+        closing: "Clôture en cours"
+        closure_in_preparation: "Clôture en préparation"
+        locked: "Verrouillé"
+        opened: "Ouvert"
       tax_declaration_frequency:
         monthly: "Mensuelle"
         none: "Aucune"

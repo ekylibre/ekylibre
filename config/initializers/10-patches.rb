@@ -37,22 +37,6 @@ class ::Symbol
   end
 end
 
-class ::DateTime
-  def self.soft_parse(*args, &block)
-    DateTime.parse(*args, &block)
-  rescue ArgumentError
-    nil
-  end
-end
-
-class ::Date
-  def self.soft_parse(*args, &block)
-    Date.parse(*args, &block)
-  rescue ArgumentError
-    nil
-  end
-end
-
 class ::Time
   def to_usec
     (utc.to_f * 1000).to_i
@@ -64,18 +48,6 @@ class ::Time
 end
 
 class ::Numeric
-  # FROM ActiveSupport 6.0
-  def minutes
-    ActiveSupport::Duration.minutes(self)
-  end
-  alias minute minutes
-
-  # FROM ActiveSupport 6.0
-  def hours
-    ActiveSupport::Duration.hours(self)
-  end
-  alias hour hours
-
   # FROM ActiveSupport 6.0
   def minutes
     ActiveSupport::Duration.minutes(self)
@@ -142,16 +114,6 @@ class ::Hash
   # Build a struct from the hash
   def to_struct
     OpenStruct.new(self)
-  end
-
-  def reverse
-    self.flat_map { |key, values| values.map { |v| [v, key] } }
-        .group_by(&:first)
-        .map do |key, values|
-          raise StandardError.new "Duplicate value for key #{key}: #{values.join(', ')}" if values.size > 1
-          [key, values.first.second]
-        end
-        .to_h
   end
 end
 

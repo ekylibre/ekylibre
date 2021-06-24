@@ -124,16 +124,6 @@ module Backend
         end
       end
 
-      class HiddenFeather < Feather
-        def configure(*args)
-          @name = @options.delete(:name) || args.shift || :n
-        end
-
-        def to_html
-          @template.hidden_field_tag @name, @template.params[@name]
-        end
-      end
-
       # Choice feather permit to select one among many choice to filter
       class ChoiceFeather < Feather
         def configure(*args)

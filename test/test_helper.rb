@@ -92,14 +92,6 @@ module ActionController
       reset_locale
     end
 
-    setup do
-      Ekylibre::Tenant.filter_list!
-      Ekylibre::Tenant.switch_each do
-        Preference.set!("first_run.executed", true)
-      end
-      I18n.locale = :eng
-    end
-
     def fixture_files
       #     Rails.root.join('test', 'fixture-files')
       Pathname.new('../fixture-files')
@@ -135,23 +127,6 @@ module ActionController
             authorization_token = "simple-token #{user.email} " + user.authentication_token
             @request.headers['Authorization'] = authorization_token
           end
-        end
-      end
-
-      def setup_sign_in
-        setup do
-          @request.env['HTTP_REFERER'] = 'http://test.ekylibre.farm/backend'
-          @user = if with_fixtures?
-                    users(:users_001)
-                  else
-                    create(:user)
-                  end
-          @user.update_column(:language, I18n.locale)
-          sign_in(@user)
-        end
-
-        teardown do
-          sign_out(@user)
         end
       end
 
@@ -274,11 +249,11 @@ module ActionController
 
           sanitized_params = proc do |p = {}|
             p.deep_symbolize_keys
-              .merge(locale: '@locale'.c)
-              .deep_merge(params)
-              .inspect
-              .gsub('OTHER_RECORD', other_record)
-              .gsub('RECORD', record)
+             .merge(locale: '@locale'.c)
+             .deep_merge(params)
+             .inspect
+             .gsub('OTHER_RECORD', other_record)
+             .gsub('RECORD', record)
           end
           if mode == :index
             test_code << "get :#{action}, params: crush_hash(#{sanitized_params[]})\n"

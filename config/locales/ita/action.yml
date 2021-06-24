@@ -577,8 +577,6 @@ ita:
       index: "sequenze"
       load: "sequenze manca di carico"
       new: "nuova sequenza"
-    backend/services:
-      # index: "Services"
     backend/settings:
       about: "A proposito di Ekylibre"
     backend/settlements:

@@ -17,6 +17,7 @@ jpn:
     ekylibre_bank_statements: "Ekylibreバンクステートメント"
     ekylibre_budgets: "Ekylibre予算"
     ekylibre_buildings_json: "Ekylibre建物JSON"
+    # ekylibre_cash_transfers: "Ekylibre cash transfers"
     ekylibre_cultivable_zones: "Ekylibre耕作ゾーン"
     ekylibre_cultivable_zones_json: "Ekylibre耕作地帯JSON"
     ekylibre_entities: "Ekylibreエンティティ"

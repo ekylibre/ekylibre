@@ -245,6 +245,7 @@ class FixedAsset < ApplicationRecord
     if started_on && stopped_on && stopped_on < started_on
       errors.add(:stopped_on, :posterior, to: started_on.l)
     end
+    true
   end
 
   before_update do

@@ -262,26 +262,6 @@ class ActivityProduction < ApplicationRecord
       .where(nature: nature)
   end
 
-  # compile unique work_number for support
-  # a : P_ for Parcel
-  # b : First letter of activity cultivation variety (v for vitis_vinifera, t for triticum)
-  # c : production rank number
-  # d : cultivable zone number (work number or cap number or id )
-  # e : harvest year
-  def computed_work_number
-    work_number = 'P'
-    work_number << '_' << activity.cultivation_variety[0].upcase
-    work_number << rank_number.to_s
-    work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
-    work_number << '_' + campaign.harvest_year.to_s if campaign
-    work_number
-  end
-
-  def interventions_of_nature(nature)
-    interventions
-      .where(nature: nature)
-  end
-
   def update_names
     if support
       support.update_column(:name, name) if support.name != name

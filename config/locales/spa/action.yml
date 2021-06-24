@@ -615,8 +615,6 @@ spa:
       index: "Sequencias"
       load: "Secuencias de carga faltante"
       new: "Creación de une nueva sequencia"
-    backend/services:
-      # index: "Services"
     backend/settings:
       about: "A propocito de Ekylibre"
     backend/settlements:

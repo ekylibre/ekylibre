@@ -1,5 +1,3 @@
-Rake::Task['test:run'].clear
-
 namespace :test do
   parts = [
     :concepts,
@@ -46,5 +44,3 @@ namespace :test do
     end
   end
 end
-
-task :test => 'test:prepare'

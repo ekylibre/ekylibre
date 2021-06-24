@@ -17,6 +17,7 @@ cmn:
     ekylibre_bank_statements: "Ekylibre银行对账单"
     ekylibre_budgets: "Ekylibre预算"
     ekylibre_buildings_json: "Ekylibre建筑JSON"
+    # ekylibre_cash_transfers: "Ekylibre cash transfers"
     ekylibre_cultivable_zones: "Ekylibre区可培养"
     ekylibre_cultivable_zones_json: "Ekylibre可种植区JSON"
     ekylibre_entities: "Ekylibre实体"

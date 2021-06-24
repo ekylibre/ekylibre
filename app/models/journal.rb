@@ -169,12 +169,6 @@ class Journal < ApplicationRecord
     self.class.nature_label(self.nature)
   end
 
-
-  # Prints human name of current state
-  def nature_label
-    self.class.nature_label(self.nature)
-  end
-
   class << self
     def nature_label(nature)
       tc('natures.' + nature.to_s)

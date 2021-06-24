@@ -28,5 +28,4 @@ module Backend
       hash.compact.transform_values { |v| v.is_a?(Hash) ? crush_hash(v) : v }
     end
   end
-
 end

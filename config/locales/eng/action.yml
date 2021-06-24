@@ -23,7 +23,7 @@ eng:
       edit: "Edit account: %{label}"
       # filter_select_collection: "Filter select collection account: %{name}"
       index: "Accounting plans"
-      load: "Load an accounting plan" #?
+      load: "Load an accounting plan"
       mark: "Reconciliate account: %{label}"
       # mask_lettered_items: "Mask lettered items account: %{name}"
       new: "New account"
@@ -240,7 +240,7 @@ eng:
       show: "%{name} dashboard"
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
-      trade: "Trade dashboard" #?
+      trade: "Trade dashboard"
     backend/deliveries:
       # cancel: "Cancel delivery: %{name}"
       # check: "Check delivery: %{name}"
@@ -876,8 +876,6 @@ eng:
       load: "Load missing sequences"
       new: "New sequence"
       # show: "Sequence: %{name}"
-    backend/services:
-      index: "Services"
     backend/settings:
       about: "About Ekylibre"
     backend/settlements:
@@ -1305,7 +1303,6 @@ eng:
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
       unitary_in_parcel: "Unitary items can only be sent one by one"
       wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
     template:
       body: "There were problems with the following fields:"
       header:
@@ -1568,9 +1565,6 @@ eng:
     alive_corporeal_assets_service_animals: "Alive corporeal assets service animals"
     alive_corporeal_assets_young_animals: "Alive corporeal assets young animals"
     all: "All"
-    allocation_balance: "Budget allocation - %{name} allocation"
-    allowed: "Allowed"
-    allowed_harvest_on: "Allowed harvest on"
     all_accounts: "All accounts"
     all_columns: "All columns"
     all_conditions: "All conditions"
@@ -1720,7 +1714,7 @@ eng:
     category: "Category"
     category_of_product: "Accounting category"
     # cell: "Cell"
-    centralize: "Centralize account" #?
+    centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
     centralizing_account: "Centralizing account"
     centralizing_accounts: "Centralizing accounts"
@@ -2175,7 +2169,6 @@ eng:
     work_start_on_support_vegetal: "Started_on (start of work before planting)"
     full_name: "Full name"
     fullscreen: "Fullscreen"
-    full_name: "Full name"
     function: "Function"
     fungi: "Fungi"
     future_events: "Future events"
@@ -2608,7 +2601,7 @@ eng:
     parameter_error_miscibility: "Missing MAAID number"
     parameters: "Parameters"
     parcel_items: "Parcel items"
-    parcels: "Parcels" #?
+    parcels: "Parcels"
     partially_lettered: "Partially lettered"
     partially_lettered_unlettered: "Partially lettered / unlettered"
     participants: "Participants"
@@ -2959,7 +2952,6 @@ eng:
     # supervision: "Supervision"
     supplier: "Purchase prices of the supplier"
     supplier_informations: "Supplier informations"
-    merged_entity: "Merged entity (ID=%{other}):\n"
     supplier_payment_mode: "Supplier payment mode"
     supplier_receivables: "Supplier receivables"
     supplier_reference: "Supplier reference"
@@ -3000,7 +2992,7 @@ eng:
     # time_cost_per_hectare: "Time cost per hectare"
     time_spent_by_activity: "Time spent by activity"
     time_zone: "Time zone"
-    timeline: "Timeline" #?
+    timeline: "Timeline"
     timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "Timeline entity link"
     timeline_event: "%{name} with %{participants} %{when}"
@@ -3470,7 +3462,7 @@ eng:
       merge_is_done: "Merge is done"
       # missing_activity_production_on_plants: "Missing activity production on plants"
       need_a_valid_payment_mode: "Need a valid payment mode"
-      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase" #?
+      need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"

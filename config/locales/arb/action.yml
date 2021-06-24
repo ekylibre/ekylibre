@@ -724,8 +724,6 @@ arb:
       index: "التسلسلات"
       load: "تحميل المفقودين متواليات"
       new: "انشاء تسلسل جديد"
-    backend/services:
-      # index: "Services"
     backend/sessions: #?
       destroy: "الخروج" #?
       new: "الدخول" #?

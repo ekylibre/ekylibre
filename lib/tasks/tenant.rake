@@ -107,46 +107,12 @@ namespace :tenant do
     STDOUT.flush
     input = STDIN.gets.chomp
     case input.upcase
-      when 'Y'
-        return true
-      when 'N'
-        return false
-      else
-        return default
-    end
-  end
-
-  task enable_support: :environment do
-    tenant = ENV['TENANT']
-    unless tenant.present?
-      puts "TENANT varibale need to be set".yellow
-      exit(1)
-    end
-
-    unless Ekylibre::Tenant.exist?(tenant)
-      puts "TENANT #{tenant} does not exist.".yellow
-      exit(1)
-    end
-
-    password = ENV['PASSWORD']
-    password ||= SecureRandom.urlsafe_base64(12)
-
-    Ekylibre::Tenant.switch tenant do
-      user = User.find_by(email: "support@ekylibre.com")
-      if user.present?
-        user.update! password: password
-      else
-        first_name = "Support"
-        last_name = "Ekylibre"
-
-        Ekylibre::Record::Base.transaction do
-          person = Entity.find_by(first_name: first_name, last_name: last_name)
-          person ||= Entity.create!(first_name: first_name, last_name: last_name, nature: :contact)
-
-          User.create!(email: "support@ekylibre.com", language: :fra, administrator: true, first_name: first_name, last_name: last_name, password: password, person: person)
-        end
-      end
-      puts "Support enabled. Password: ".green + password.red
+    when 'Y'
+      return true
+    when 'N'
+      return false
+    else
+      return default
     end
   end
 

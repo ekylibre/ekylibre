@@ -208,7 +208,6 @@ class Sale < ApplicationRecord
 
   validate do
     if invoiced_at
-      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
 
       linked_fixed_asset_ids = items.map(&:fixed_asset_id).compact

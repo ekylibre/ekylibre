@@ -964,7 +964,6 @@ fra:
       # too_short: "%{attribute} is too short (minimum is %{count} characters)"
       # unitary_in_parcel: "Unitary items can only be sent one by one"
       # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
-      invalid_population_for_unitary_product: "L'équipement %{name} ne peut avoir une population de %{population} car il est unique."
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -1265,9 +1264,6 @@ fra:
     alive_corporeal_assets_total: "Immobilisations corporelles (biens vivants)" #?
     alive_corporeal_assets_young_animals: "Animaux reproducteurs (jeunes)"
     all: "Tous"
-    allocation_balance: "Affectation du budget - Allocation %{name}"
-    allowed: "Autorisé"
-    allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
     all_cash_balances: "Soldes des comptes" #?
@@ -1302,7 +1298,6 @@ fra:
     and: "Et" #?
     anew_reports: "Report à nouveau"
     animal: "Animal" #?
-    animal_natures: "Animaux"
     animal_bar: "Animaux par lot" #?
     animal_details: "Détails d’un animal"
     animal_farming: "Production animale"
@@ -3086,7 +3081,7 @@ fra:
     storage: "Zone de stockage"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
-    subledger_of_accounts_x: "Grand livre auxiliaire des comptes %{account}"
+    subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
     submit: "Envoyer"
     subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
@@ -3103,7 +3098,6 @@ fra:
     subtotals_at_level: "Sous-totaux aux niveaux"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
-    merged_entity: "Entitées fusionnées (ID=%{other}):\n"
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"

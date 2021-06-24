@@ -104,12 +104,6 @@ class CultivableZone < ApplicationRecord
     nil
   end
 
-  def city_name
-    islets = CapIslet.shape_intersecting(shape).order(id: :desc)
-    return islets.first.city_name if islets.any?
-    nil
-  end
-
   after_commit do
     activity_productions.each(&:update_names)
     Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)

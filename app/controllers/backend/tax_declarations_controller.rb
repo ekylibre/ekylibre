@@ -94,39 +94,6 @@ module Backend
       end
     end
 
-    def index
-      set_period_params
-
-      notify_warning_now :tax_declaration_warning
-
-      dataset_params = { period: params[:period], started_on: params[:started_on], stopped_on: params[:stopped_on], state: params[:state] }
-
-      respond_to do |format|
-        format.html do
-          no_financial_year_opened = FinancialYear.opened.empty?
-          financial_years_without_tax_declaration = FinancialYear.with_tax_declaration.empty?
-          all_vat_declarations_fulfilled = FinancialYear.with_tax_declaration.all? &:fulfilled_tax_declaration?
-          @display_alert = no_financial_year_opened || financial_years_without_tax_declaration || all_vat_declarations_fulfilled
-        end
-
-        format.pdf do
-          return unless template = find_and_check(:document_template, params[:template])
-          PrinterJob.perform_later('Printers::VatRegisterPrinter', template: template, perform_as: current_user, **dataset_params)
-          notify_success(:document_in_preparation)
-          redirect_to :back
-        end
-
-        format.csv do
-          return unless template = DocumentTemplate.find_by_nature(:vat_register)
-          printer = Printers::VatRegisterPrinter.new(template: template, **dataset_params)
-          csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
-          send_data csv_string, filename: "#{printer.document_name}.csv"
-        end
-      end
-    end
-
     # Displays details of one tax declaration selected with +params[:id]+
     def show
       return unless @tax_declaration = find_and_check

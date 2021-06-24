@@ -79,7 +79,6 @@ class FinancialYear < ApplicationRecord
   validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }
   validates :tax_declaration_frequency, presence: { unless: :tax_declaration_mode_none? }
 
-
   # This order must be the natural order
   # It permit to find the first and the last financial year
   scope :with_state, ->(*states) { where(state: states).reorder(:started_on) }

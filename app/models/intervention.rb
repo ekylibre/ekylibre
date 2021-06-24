@@ -330,17 +330,7 @@ class Intervention < ApplicationRecord
     errors.add(:base, :financial_year_exchange_on_this_period) if during_financial_year_exchange? && (inputs.any? || outputs.any?) && Preference[:permanent_stock_inventory]
   end
 
-  validate do
-    if printed_on
-      errors.add(:printed_on, :not_opened_financial_year) if Preference[:permanent_stock_inventory] && !during_financial_year?
-    end
-  end
-
   before_save do
-    if receptions.any?
-      receptions.each { |reception| reception.given_at = working_periods.first.started_at }
-    end
-
     columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
     if event

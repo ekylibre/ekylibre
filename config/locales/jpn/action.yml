@@ -577,8 +577,6 @@ jpn:
       index: "シーケンス"
       load: "負荷不足しているシーケンス"
       new: "新しいシーケンス"
-    backend/services:
-      # index: "Services"
     backend/settings:
       about: "Ekylibreについて"
     backend/settlements:

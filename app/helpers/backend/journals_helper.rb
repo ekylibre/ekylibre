@@ -281,8 +281,8 @@ module Backend
       code.html_safe
     end
 
-    # Create a widget to select some journal natures
-    def journals_natures_crit(*)
+    # Create a widget to select some journals
+    def journals_crit(*_args)
       code = ''
       field = :journals
       code << content_tag(:div, class: "label-container") do
@@ -310,7 +310,6 @@ module Backend
           end
         end.join.html_safe
       end
-
       code.html_safe
     end
 

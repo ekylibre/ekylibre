@@ -192,7 +192,6 @@ class ProductNatureVariant < ApplicationRecord
         self.stock_account ||= create_unique_account(:stock)
         self.stock_movement_account ||= create_unique_account(:stock_movement)
       end
-      self.type ||= category.article_type || nature.variant_type
     end
 
     if nature.present? && category.present?
@@ -241,8 +240,6 @@ class ProductNatureVariant < ApplicationRecord
       # We want to notice => raise.
       raise "Account '#{account_key}' is not configured on category of #{self.name.inspect} variant. You have to check category first"
     end
-    category_account
-  end
 
     category_account
   end

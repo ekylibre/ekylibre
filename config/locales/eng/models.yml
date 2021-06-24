@@ -1182,7 +1182,7 @@ eng:
     in_preparation_at: "In preparation at"
     included: "Included"
     incoming_parcel_item: "Incoming delivery item"
-    incoming_parcels: "Incoming deliveries" #?
+    incoming_parcels: "Incoming deliveries"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
@@ -1637,7 +1637,7 @@ eng:
     purchase_amount: "Purchase amount"
     purchase_invoice_item: "Purchase invoice item"
     purchase_invoices: "Purchase invoices"
-    purchase_item: "Purchase item" #?
+    purchase_item: "Purchase item"
     purchase_items: "Purchase items"
     purchase_natures: "Purchase types"
     # purchase_order: "Purchase order"

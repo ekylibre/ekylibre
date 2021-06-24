@@ -582,8 +582,6 @@ por:
       index: "Sequências"
       load: "Sequências de falta de carga"
       new: "Nova sequência"
-    backend/services:
-      # index: "Services"
     backend/settings:
       about: "Sobre Ekylibre"
     backend/settlements:

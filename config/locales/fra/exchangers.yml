@@ -38,7 +38,7 @@ fra:
     ekylibre_buildings_json: "Bâtiments (JSON) ‒ Ekylibre"
     ekylibre_cap_land_parcel_clusters_json: "Îlot PAC (JSON) ‒ Ekylibre" #?
     ekylibre_cap_land_parcels_json: "Parcelles PAC (JSON) ‒ Ekylibre" #?
-    ekylibre_cash_transfers: "Virements (CSV) ‒ Ekylibre" #?
+    ekylibre_cash_transfers: "Virements (CSV) ‒ Ekylibre"
     ekylibre_crumbs: "Miettes ‒ Ekylibre" #?
     ekylibre_cultivable_zones: "Zones cultivables (SHP/ZIP) ‒ Ekylibre"
     ekylibre_cultivable_zones_json: "Zones cultivables (JSON) ‒ Ekylibre"

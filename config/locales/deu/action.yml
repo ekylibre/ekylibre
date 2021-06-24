@@ -577,8 +577,6 @@ deu:
       index: "Sequenzen"
       load: "Last fehlende Sequenzen"
       new: "neue Folge"
-    backend/services:
-      # index: "Services"
     backend/settings:
       about: "Über Ekylibre"
     backend/settlements:

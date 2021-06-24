@@ -199,25 +199,6 @@ module Backend
 
         return render
       end
-      if request.post? && @financial_year.closable?
-        total_amount_to_allocate = @result + @carry_forward_balance
-        total_amount_allocated = allocations.values.reduce(0) { |sum, val| sum + val.to_f }
-        if total_amount_to_allocate.abs.to_f != total_amount_allocated.to_f
-          notify_error_now :record_is_not_valid
-        else
-          closed_on = params[:financial_year][:stopped_on].to_date
-          if params[:result_journal_id] == '0'
-            params[:result_journal_id] = Journal.create_one!(:result, @financial_year.currency).id
-          end
-          if params[:forward_journal_id] == '0'
-            params[:forward_journal_id] = Journal.create_one!(:forward, @financial_year.currency).id
-          end
-          if params[:closure_journal_id] == '0'
-            params[:closure_journal_id] = Journal.create_one!(:closure, @financial_year.currency).id
-          end
-          @financial_year.update!(state: 'closing')
-          FinancialYearCloseJob.perform_later(@financial_year, current_user, closed_on.to_s, allocations, **params.symbolize_keys.slice(:result_journal_id, :forward_journal_id, :closure_journal_id))
-          notify_success(:closure_process_started)
 
       if request.post? && @financial_year.closable?
         total_amount_to_allocate = @result + @carry_forward_balance

@@ -577,8 +577,6 @@ cmn:
       index: "序列"
       load: "加载缺失的序列"
       new: "新序列"
-    backend/services:
-      # index: "Services"
     backend/settings:
       about: "关于Ekylibre"
     backend/settlements:

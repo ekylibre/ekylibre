@@ -239,8 +239,4 @@ class Loan < ApplicationRecord
   def editable?
     updateable? && draft?
   end
-
-  def editable?
-    updateable? && draft?
-  end
 end

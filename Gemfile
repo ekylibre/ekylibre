@@ -175,15 +175,6 @@ group :production do
   gem 'unicorn', '~> 5.8'
 end
 
-gem 'gpgme'
-
-group :production do
-  # Use unicorn as the app server
-  gem 'unicorn'
-
-  gem 'loofah'
-end
-
 group :development do
   gem 'bullet', '< 5.6.0'
 
@@ -191,8 +182,6 @@ group :development do
   gem 'ruby-prof', '~> 1.4'
 
   gem 'better_errors', '~> 2.9'
-
-  gem 'better_errors'
 
   # Code metrics
   gem 'rails_best_practices', '~> 1.20', require: false

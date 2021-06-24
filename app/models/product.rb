@@ -580,7 +580,6 @@ class Product < ApplicationRecord
     save
   end
 
-
   def shape=(new_shape)
     reading_cache[:shape] = new_shape
     reading_cache[:net_surface_area] = calculate_net_surface_area

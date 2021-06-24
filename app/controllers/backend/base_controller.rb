@@ -181,23 +181,6 @@ module Backend
         end
       end
 
-    def save_search_preference
-      controller = params[:controller]
-      action = params[:action]
-      params[:started_on] ||= current_user.preferences.find_by(name: "#{controller}##{action}.started_on").try(:value)
-      params[:stopped_on] ||= current_user.preferences.find_by(name: "#{controller}##{action}.stopped_on").try(:value)
-      params[:period]     ||= current_user.preferences.find_by(name: "#{controller}##{action}.period").try(:value) || 'interval'
-
-      # Set the preference in function of the search
-      if params[:period].present? && params[:period] != 'all' && params[:period] == 'interval'
-        set_interval_preference(:started_on, controller, action)
-        set_interval_preference(:stopped_on, controller, action)
-        current_user.preferences.find_by(name: "#{controller}##{action}.period").try(:destroy)
-      elsif params[:period] != 'interval'
-        set_interval_preference(:period, controller, action)
-      end
-    end
-
     private
 
       def set_interval_preference(attribute, controller, action)

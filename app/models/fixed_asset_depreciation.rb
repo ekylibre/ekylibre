@@ -73,11 +73,6 @@ class FixedAssetDepreciation < ApplicationRecord
       .where('fixed_asset_depreciations.accountable = false AND fixed_asset_depreciations.locked = false AND fixed_asset_depreciations.stopped_on <= ? AND fixed_assets.state = ?', date, :in_use)
   }
 
-  scope :with_active_asset_up_to, lambda { |date|
-    joins(:fixed_asset)
-      .where('fixed_asset_depreciations.accountable = false AND fixed_asset_depreciations.locked = false AND fixed_asset_depreciations.stopped_on <= ? AND fixed_assets.state = ?', date, :in_use)
-  }
-
   sums :fixed_asset, :depreciations, amount: :depreciated_amount
 
   bookkeep
