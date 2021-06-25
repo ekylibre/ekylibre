@@ -15,6 +15,7 @@ end
 ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
+gem 'rack-cors' # CORS policy
 gem 'rails', '5.0.7.2'
 gem 'turnout', '~> 2.5' # Maintenance mode
 
