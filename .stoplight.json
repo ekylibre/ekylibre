@@ -1,0 +1,7 @@
+{
+    "formats": {
+        "openapi": {
+            "rootDir": "doc/api"
+        }
+    }
+}
