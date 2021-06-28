@@ -11,26 +11,23 @@ More details can be found on the official website https://ekylibre.com
 
 [![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
 
-## Global requirement
+## Setup
+
+This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...), validated on Ubuntu 20.04 LTS
 
 Global requirement before installing Ekylibre
 
-* [Ubuntu 18.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/57016415/Ubuntu+18.04)
-* [Ubuntu 20.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11829377/Ubuntu+20.04+LTS)
-* [MacOS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11763849/MAC+OS)
+* [Ubuntu 20.04 LTS](https://github.com/ekylibre/ekylibre/wiki/Base-ubuntu-20-04)
 
-## Ekylibre Installation
+Ekylibre installation
 
-This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
-
-* [Lexicon-cli](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/9338928/Lexicon-cli+Installation)
-* [Installation Ekylibre](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/7405675/Eky+Installation)
+* [Installation Ekylibre](https://github.com/ekylibre/ekylibre/wiki/Ekylibre-installation)
 
 ## Contributing
 
 We encourage you to contribute to Ekylibre.
 
-* See our conventions ([Français](https://github.com/ekylibre/ekylibre/wiki/Conventions-de-d%C3%A9veloppement))
+* See our conventions ([EN](https://github.com/ekylibre/ekylibre/wiki/Coding-conventions))
 * Check out the latest master to make sure the feature hasn't been implemented
   or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it
