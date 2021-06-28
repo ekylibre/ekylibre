@@ -28,7 +28,7 @@ services:
         target: /eky/config/database.yml
       - .:/eky
       - bundle-volume:/usr/local/bundle
-      - ~/lexicon-cli:/lexicon-cli
+      - ../lexicon-cli:/lexicon-cli
       - ~/.ssh:/home/ekylibre/.ssh
     command: bash /eky/docker/dev/command.sh
     depends_on:
