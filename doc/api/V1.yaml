@@ -1,0 +1,2892 @@
+openapi: 3.0.0
+info:
+  description: 'The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded and json request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.'
+  title: Ekylibre
+  contact:
+    name: Ekylibre developers
+    email: dev@ekylibre.com
+    url: ekylibre.com
+  version: '1.0'
+servers:
+  - url: 'https://demo.ekylibre.farm/api/v1'
+    variables: {}
+    description: Production
+  - url: 'https://demo.ekylibre-alpha.farm/api/v1'
+    description: Test
+paths:
+  /tokens:
+    post:
+      tags:
+        - Auth
+      summary: Create token
+      operationId: Gettoken
+      parameters:
+        - name: email
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: demo@ekylibre.org
+        - name: password
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: a#K36Tbpb$BNGX3B
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  token:
+                    type: string
+                    minLength: 1
+                required:
+                  - token
+                x-examples:
+                  example-1:
+                    token: y_geHxfwwDtLwi3bTomE
+              examples:
+                example-1:
+                  value:
+                    token: y_geHxfwwDtLwi3bTomE
+      deprecated: false
+      description: Creates a new token.
+  '/tokens/{id}':
+    delete:
+      tags:
+        - Auth
+      summary: Destroy token
+      operationId: Destroytoken
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  token:
+                    type: string
+                    minLength: 1
+                required:
+                  - token
+                x-examples:
+                  example-1:
+                    token: y_geHxfwwDtLwi3bTomE
+              examples:
+                example-1:
+                  value:
+                    token: y_geHxfwwDtLwi3bTomE
+      deprecated: false
+      description: Destroy a token.
+    parameters:
+      - schema:
+          type: string
+          example: y_geHxfwwDtLwi3bTomE
+        name: id
+        in: path
+        required: true
+        description: token
+  /interventions:
+    post:
+      tags:
+        - Interventions
+      summary: Create an intervention
+      operationId: Postintervention
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InterventionCreate'
+            example:
+              provider:
+                data:
+                  zero_id: 0
+                id: 0
+                name: zero
+                vendor: ekylibre
+              procedure_name: all_in_one_sowing
+              working_periods_attributes:
+                - started_at: '2015-05-07T09:48+0000'
+                  stopped_at: '2015-05-07T10:48+0000'
+              inputs_attributes:
+                - product_id: 305
+                  reference_name: seeds
+                  quantity_value: 120
+                  quantity_handler: items_count
+              tools_attributes:
+                - product_id: 261
+                  reference_name: sower
+                  readings_attributes:
+                    - measure_value_value: 0
+                      indicator_name: hour_counter
+                      measure_value_unit: hour
+              group_parameters_attributes:
+                - reference_name: zone
+                  targets_attributes:
+                    - product_id: 1219
+                      reference_name: land_parcel
+                  outputs_attributes:
+                    - variant_id: 162
+                      reference_name: plant
+                      variety: zea_mais
+                      quantity_population: 1
+        required: true
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      deprecated: false
+      security: []
+      description: Creates a new intervention object.
+    get:
+      tags:
+        - Interventions
+      summary: List interventions
+      operationId: Getinterventions
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - schema:
+            type: string
+            default: ' record'
+          in: query
+          name: nature
+          description: Filter interventions by nature
+        - schema:
+            type: string
+          in: query
+          name: contact_email
+          description: Filter interventions by entity email
+        - schema:
+            type: string
+          in: query
+          name: user_email
+          description: Filter interventions by doer email
+        - schema:
+            type: boolean
+          in: query
+          name: with_interventions
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intervention'
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      nature: record
+                      procedure_name: sowing_without_plant_output
+                      number: '1'
+                      name: Semis simple (sans gestion des cultures) n°1
+                      started_at: '2014-10-29T09:00:00.000+01:00'
+                      stopped_at: '2014-10-29T12:00:00.000+01:00'
+                      description: ' - Import Ekylibre interventions on 24/11/2020 14:41 - N° : 4'
+                      parameters:
+                        - id: 3
+                          role: target
+                          name: land_parcel
+                          label: Parcelle
+                          product:
+                            id: 6
+                            name: Blé tendre d’hiver 2015 Enclouse des chatâigniers
+                        - id: 2
+                          role: input
+                          name: seeds
+                          label: Semences
+                          product:
+                            id: 311
+                            name: Semence de blé Rubisko
+                        - id: 1
+                          role: doer
+                          name: driver
+                          label: Conducteur
+                          product:
+                            id: 295
+                            name: David JOULIN
+                        - id: 4
+                          role: tool
+                          name: tractor
+                          label: Tracteur
+                          product:
+                            id: 252
+                            name: Tracteur CASE-IH 533
+                        - id: 5
+                          role: tool
+                          name: sower
+                          label: Semoir
+                          product:
+                            id: 259
+                            name: Semoir grains
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      deprecated: false
+      security: []
+      description: 'Returns a list of interventions you’ve previously created. '
+  /intervention_participations:
+    post:
+      tags:
+        - Intervention participations
+      summary: Create an intervention participation
+      operationId: Postinterventionparticipation
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InterventionParticipationCreate'
+            example:
+              provider:
+                data:
+                  zero_id: 0
+                id: 0
+                name: zero
+                vendor: ekylibre
+              description: Description
+              device_uid: ebc1ac13-325a-4dce-b54c-46e808f7b8f8
+              intervention_id: 1
+              procedure_name: sowing_without_plant_output
+              request_compliant: 15
+              state: done
+              crumbs:
+                - read_at: '2021-05-07T09:48+0000'
+                  accuracy: 0.5
+                  geolocation:
+                    type: Feature
+                    geometry:
+                      type: Point
+                      coordinates:
+                        - 125.6
+                        - 10.1
+                  nature: point
+              equipments:
+                - product_id: 1258
+                  hour_counter: 3600
+        required: true
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+      deprecated: false
+      security: []
+      description: Creates a new intervention participation object.
+  '/intervention_targets/{id}':
+    get:
+      tags:
+        - Intervention targets
+      summary: Intervention target details
+      operationId: interventiontarget
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterventionTarget'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                  - message
+                x-examples:
+                  example-1:
+                    message: Not found
+              examples:
+                example-1:
+                  value:
+                    message: Not found
+      deprecated: false
+      security: []
+      description: Retrieves the details of an existing intervention target.
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+  /contacts:
+    get:
+      tags:
+        - Contacts
+      summary: List contacts
+      operationId: Getcontacts
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - schema:
+            type: string
+            example: 01/02/2020
+          in: query
+          name: last_synchro
+          description: Last synchronization date
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                x-examples:
+                  example-1:
+                    - type: create
+                      id: 34
+                      entity:
+                        last_name: EARL JOULIN
+                    - type: create
+                      id: 3
+                      entity:
+                        last_name: BRASLONG
+                        first_name: Jean-Yves
+                        email:
+                          - veto@ekylibre.org
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      minLength: 1
+                    id:
+                      type: number
+                    entity:
+                      $ref: '#/components/schemas/Entity'
+                  required:
+                    - type
+                    - id
+                    - entity
+              examples:
+                example-1:
+                  value:
+                    - type: create
+                      id: 34
+                      entity:
+                        last_name: EARL JOULIN
+                    - type: create
+                      id: 3
+                      entity:
+                        last_name: BRASLONG
+                        first_name: Jean-Yves
+                        email:
+                          - admin@ekylibre.org
+                          - christian.joulin@laposte.net
+                    - type: create
+                      id: 4
+                      entity:
+                        last_name: DURAND
+                        first_name: Michel
+                    - type: create
+                      id: 36
+                      entity:
+                        last_name: COOP DE BEURLAY
+                    - type: create
+                      id: 37
+                      entity:
+                        last_name: ETA
+                    - type: create
+                      id: 2
+                      entity:
+                        last_name: JOULIN
+                        first_name: Christian
+                        email:
+                          - admin@ekylibre.org
+                          - christian.joulin@laposte.net
+                        phone:
+                          - 05 46 95 53 90
+                        mails:
+                          - mail_lines: 'Christian JOULIN, 10 rue des Vergers'
+                            postal_code: '17250'
+                            city: SAINT-PORCHAIRE
+                            country: fr
+      deprecated: false
+      security: []
+      description: 'Returns a list of entities you’ve previously created. '
+    parameters: []
+  '/contacts/{contact_id}/picture':
+    get:
+      tags:
+        - Contacts
+      summary: Retrieve a contact picture
+      operationId: Getcontactspicture
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    picture: url
+                properties:
+                  picture:
+                    type: string
+                    minLength: 1
+                required:
+                  - picture
+              examples:
+                example-1:
+                  value:
+                    picture: _9j_4AAQSkZJRgABAQEASABIAAD_4gxYSUNDX1BST0ZJTEUAAQEAAAxITGlubwIQAABtbnRyUkdCIFhZWiAHzgACAAkABgAxAABhY3NwTVNGVAAAAABJRUMgc1JHQgAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLUhQICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFjcHJ0AAABUAAAADNkZXNjAAABhAAAAGx3dHB0AAAB8AAAABRia3B0AAACBAAAABRyWFlaAAACGAAAABRnWFlaAAACLAAAABRiWFlaAAACQAAAABRkbW5kAAACVAAAAHBkbWRkAAACxAAAAIh2dWVkAAADTAAAAIZ2aWV3AAAD1AAAACRsdW1pAAAD-AAAABRtZWFzAAAEDAAAACR0ZWNoAAAEMAAAAAxyVFJDAAAEPAAACAxnVFJDAAAEPAAACAxiVFJDAAAEPAAACAx0ZXh0AAAAAENvcHlyaWdodCAoYykgMTk5OCBIZXdsZXR0LVBhY2thcmQgQ29tcGFueQAAZGVzYwAAAAAAAAASc1JHQiBJRUM2MTk2Ni0yLjEAAAAAAAAAAAAAABJzUkdCIElFQzYxOTY2LTIuMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWFlaIAAAAAAAAPNRAAEAAAABFsxYWVogAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA-EAAC2z2Rlc2MAAAAAAAAAFklFQyBodHRwOi8vd3d3LmllYy5jaAAAAAAAAAAAAAAAFklFQyBodHRwOi8vd3d3LmllYy5jaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABkZXNjAAAAAAAAAC5JRUMgNjE5NjYtMi4xIERlZmF1bHQgUkdCIGNvbG91ciBzcGFjZSAtIHNSR0IAAAAAAAAAAAAAAC5JRUMgNjE5NjYtMi4xIERlZmF1bHQgUkdCIGNvbG91ciBzcGFjZSAtIHNSR0IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZGVzYwAAAAAAAAAsUmVmZXJlbmNlIFZpZXdpbmcgQ29uZGl0aW9uIGluIElFQzYxOTY2LTIuMQAAAAAAAAAAAAAALFJlZmVyZW5jZSBWaWV3aW5nIENvbmRpdGlvbiBpbiBJRUM2MTk2Ni0yLjEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHZpZXcAAAAAABOk_gAUXy4AEM8UAAPtzAAEEwsAA1yeAAAAAVhZWiAAAAAAAEwJVgBQAAAAVx_nbWVhcwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAo8AAAACc2lnIAAAAABDUlQgY3VydgAAAAAAAAQAAAAABQAKAA8AFAAZAB4AIwAoAC0AMgA3ADsAQABFAEoATwBUAFkAXgBjAGgAbQByAHcAfACBAIYAiwCQAJUAmgCfAKQAqQCuALIAtwC8AMEAxgDLANAA1QDbAOAA5QDrAPAA9gD7AQEBBwENARMBGQEfASUBKwEyATgBPgFFAUwBUgFZAWABZwFuAXUBfAGDAYsBkgGaAaEBqQGxAbkBwQHJAdEB2QHhAekB8gH6AgMCDAIUAh0CJgIvAjgCQQJLAlQCXQJnAnECegKEAo4CmAKiAqwCtgLBAssC1QLgAusC9QMAAwsDFgMhAy0DOANDA08DWgNmA3IDfgOKA5YDogOuA7oDxwPTA-AD7AP5BAYEEwQgBC0EOwRIBFUEYwRxBH4EjASaBKgEtgTEBNME4QTwBP4FDQUcBSsFOgVJBVgFZwV3BYYFlgWmBbUFxQXVBeUF9gYGBhYGJwY3BkgGWQZqBnsGjAadBq8GwAbRBuMG9QcHBxkHKwc9B08HYQd0B4YHmQesB78H0gflB_gICwgfCDIIRghaCG4IggiWCKoIvgjSCOcI-wkQCSUJOglPCWQJeQmPCaQJugnPCeUJ-woRCicKPQpUCmoKgQqYCq4KxQrcCvMLCwsiCzkLUQtpC4ALmAuwC8gL4Qv5DBIMKgxDDFwMdQyODKcMwAzZDPMNDQ0mDUANWg10DY4NqQ3DDd4N-A4TDi4OSQ5kDn8Omw62DtIO7g8JDyUPQQ9eD3oPlg-zD88P7BAJECYQQxBhEH4QmxC5ENcQ9RETETERTxFtEYwRqhHJEegSBxImEkUSZBKEEqMSwxLjEwMTIxNDE2MTgxOkE8UT5RQGFCcUSRRqFIsUrRTOFPAVEhU0FVYVeBWbFb0V4BYDFiYWSRZsFo8WshbWFvoXHRdBF2UXiReuF9IX9xgbGEAYZRiKGK8Y1Rj6GSAZRRlrGZEZtxndGgQaKhpRGncanhrFGuwbFBs7G2MbihuyG9ocAhwqHFIcexyjHMwc9R0eHUcdcB2ZHcMd7B4WHkAeah6UHr4e6R8THz4faR-UH78f6iAVIEEgbCCYIMQg8CEcIUghdSGhIc4h-yInIlUigiKvIt0jCiM4I2YjlCPCI_AkHyRNJHwkqyTaJQklOCVoJZclxyX3JicmVyaHJrcm6CcYJ0kneierJ9woDSg_KHEooijUKQYpOClrKZ0p0CoCKjUqaCqbKs8rAis2K2krnSvRLAUsOSxuLKIs1y0MLUEtdi2rLeEuFi5MLoIuty7uLyQvWi-RL8cv_jA1MGwwpDDbMRIxSjGCMbox8jIqMmMymzLUMw0zRjN_M7gz8TQrNGU0njTYNRM1TTWHNcI1_TY3NnI2rjbpNyQ3YDecN9c4FDhQOIw4yDkFOUI5fzm8Ofk6Njp0OrI67zstO2s7qjvoPCc8ZTykPOM9Ij1hPaE94D4gPmA-oD7gPyE_YT-iP-JAI0BkQKZA50EpQWpBrEHuQjBCckK1QvdDOkN9Q8BEA0RHRIpEzkUSRVVFmkXeRiJGZ0arRvBHNUd7R8BIBUhLSJFI10kdSWNJqUnwSjdKfUrESwxLU0uaS-JMKkxyTLpNAk1KTZNN3E4lTm5Ot08AT0lPk0_dUCdQcVC7UQZRUFGbUeZSMVJ8UsdTE1NfU6pT9lRCVI9U21UoVXVVwlYPVlxWqVb3V0RXklfgWC9YfVjLWRpZaVm4WgdaVlqmWvVbRVuVW-VcNVyGXNZdJ114XcleGl5sXr1fD19hX7NgBWBXYKpg_GFPYaJh9WJJYpxi8GNDY5dj62RAZJRk6WU9ZZJl52Y9ZpJm6Gc9Z5Nn6Wg_aJZo7GlDaZpp8WpIap9q92tPa6dr_2xXbK9tCG1gbbluEm5rbsRvHm94b9FwK3CGcOBxOnGVcfByS3KmcwFzXXO4dBR0cHTMdSh1hXXhdj52m3b4d1Z3s3gReG54zHkqeYl553pGeqV7BHtje8J8IXyBfOF9QX2hfgF-Yn7CfyN_hH_lgEeAqIEKgWuBzYIwgpKC9INXg7qEHYSAhOOFR4Wrhg6GcobXhzuHn4gEiGmIzokziZmJ_opkisqLMIuWi_yMY4zKjTGNmI3_jmaOzo82j56QBpBukNaRP5GokhGSepLjk02TtpQglIqU9JVflcmWNJaflwqXdZfgmEyYuJkkmZCZ_JpomtWbQpuvnByciZz3nWSd0p5Anq6fHZ-Ln_qgaaDYoUehtqImopajBqN2o-akVqTHpTilqaYapoum_adup-CoUqjEqTepqaocqo-rAqt1q-msXKzQrUStuK4trqGvFq-LsACwdbDqsWCx1rJLssKzOLOutCW0nLUTtYq2AbZ5tvC3aLfguFm40blKucK6O7q1uy67p7whvJu9Fb2Pvgq-hL7_v3q_9cBwwOzBZ8Hjwl_C28NYw9TEUcTOxUvFyMZGxsPHQce_yD3IvMk6ybnKOMq3yzbLtsw1zLXNNc21zjbOts83z7jQOdC60TzRvtI_0sHTRNPG1EnUy9VO1dHWVdbY11zX4Nhk2OjZbNnx2nba-9uA3AXcit0Q3ZbeHN6i3ynfr-A24L3hROHM4lPi2-Nj4-vkc-T85YTmDeaW5x_nqegy6LzpRunQ6lvq5etw6_vshu0R7ZzuKO6070DvzPBY8OXxcvH_8ozzGfOn9DT0wvVQ9d72bfb794r4Gfio-Tj5x_pX-uf7d_wH_Jj9Kf26_kv-3P9t____2wBDAAwJCQsJCAwLCgsODQwPEx8UExEREyYbHRcfLSgwLywoLCsyOEg9MjVENissPlU_REpMUFFQMDxYXldOXkhPUE3_2wBDAQ0ODhMQEyUUFCVNMywzTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU3_wAARCALQAtADASIAAhEBAxEB_8QAGwAAAgMBAQEAAAAAAAAAAAAAAQIAAwQFBgf_xAA6EAACAgEEAQQBAwMDAwMCBwAAAQIRAwQSITFBBRMiUWEGMnEUI4FCUpEVM6ElYrEHQyRTY3LB4fD_xAAZAQEBAQEBAQAAAAAAAAAAAAAAAQIDBAX_xAAjEQEBAAICAgMBAQEBAQAAAAAAAQIRAzESIQQTQVEiMmEU_9oADAMBAAIRAxEAPwD6E5Ct8gZI8s2yLdIRTbYcrUSuD-RRdH7LoqyqPZeuiAgZANkVAWCyNlQOwdBBYAlyTolkdAFBAEAMgWACWSxWFMBr5GEsjYDEkxbA3YEasSasLlQFKwK3Br8COLNElYOKKKPbbLY4mPCmXJEFSxB9suXYGBWsaCsYyIFDaibUEDAVwvoigTI-PjwzFj1qWRwnw7A2uNiSi2qGUo1d8MrlmW6o9BCzioQblLo4eq1eVycMMJd1bOrqddpsacZSSlXk5-LUQkpZXKMkukS1qRytTk1OixPNqJycr-MIrlnC9R_U2rxqpz22q2-Tp-tanLgj72Wd5PCPIarE8-VZMqcpPk4ZV3xx9Mes12pzTW7JJyl4voTFpfbuWTvzfg3_ANLjxR9yXym-kZtRFtrG33zMxtrQZNU4NQwrmXRVkhkj_wByVNmvT6V41LVZFz1BfgxTnLPmfP8A_QUkszScIcJ-SY4O7l_lvwaZYVgxxyZKlJ_tiU5k4cZO2r2_SCFnlr9i3L78CvUZXx0vopyahKNR6KJZ238TUxZuTW8k3-7LtRZDK4S3R1Eov8HN3Sk-XRLXmRfFnzd7Fr9XGDlDWSb_ANr8m_Teu6uKX9za1_ud2eVU6_1MeOqnHypL8jVWZR9K9L_VWKTS1l431vXKPYaXVY9RjU8U4zi_MWfD8fqC3RUo1X10ei9J9blooKeKbUL5V8GpnZ2lxl6fVmm_JFZwvRv1FDX4ry9HoYOMla6O0u3GyxVzZYnwRxbYUkioHgIsiJugBJ26A-gpN8ka8gI-hfAZMUA1TA1bFcm-gfKgHSS8jIpqTY1NIC20kK5JeSuV7RKcgLHksDlSK2qA2A6nbFcvkC6YGvkBZF35I5fkR2ug-23yBKV2-Q7vjwNtpUTZwAI39B5j2FPbQmZvwBRlyNytDRTYEvtF8Hx0AYpr8jTcmqoSUmkUznNrhgSUoxlUuWUzmoz4QVhlu3S5I8O-dgd2S2q2VKddFuoa2mFzZBZkk5MOJclcW2-TRjRRdjjyX-CqJYRSsWxm6EbAl2QAGEC7ZLq_yFLklcgCMRueiSdIWL8gMkM-hfPILtgM6rkFkbQHJMAOXJNxOBWwDZLYtkcmUG2I235BbvsD7AK47Y6ZVQ6AZyQrnfCIojqKAOJGhFUOy5IlVBWOJJ0iBU0ShEufwPZQXJJFGbUwwfvlVvoOTJjh3kVmPW-znxSqVz8Ajl-pevvT5f7SToxYfWZa6bUoqLf0cf1WDeW1d-UzLoM8sadP9z8-H9HK5e3aY-n0TR5E8CTV1wPkltjLb2keRj6vlx445XacHU4rr-Tp4vU3mwSnFqW5cUa2xcXK9VySze65S5gcvEtRp3FvI9i-TX2bcrg9S1kfMlb_AJKZprT5HNdcGK6xXm3eqt5stxglSQi0UY4015NOLJD-jntdcqMR8j_tyaS6pUY1tvpyXpFlnLJJ7YQ6_kyen6Fa7VyyT_7MZf8AJ2vVYrSekQj_APcm6_5EUcfpfpU8iX7YVG_MmTS7cT1bN7uq_p9P-1fFtD-n6KPt5JySWOPMpPz-BNHo5zcFHnNlfD_k6PqWzSQw6GErUVc3-SEcXUtTzOcUtsebZyNTn3Se7tm7V5msclfDf_Jzfac3ul0jWMc8qppy_gnERnLtR6KrOjkZsgpOSoYP8i0yWQWqSg1KLv7tFyyR3R9lvG33zwZlJdF-F4XkSzNqL4uPgNSuz6b6lqPSdXHI38X2-4yPovov6kwaxpQaX3BvhHyr3P6ZbITWTH3Uumgw1PsZYZdJOUX24_RmXXS32-9480cy-LTH4PAfpn9TvWfDJUc8eKv9x7fDqIZ8e5PnyjtLtzs0vbVBVFPuJcDKSfkrJnIre5kcXd3wOuiivaFwGrkLAqUEkCr8FrVRFimgE68AVfRa4pgqmBXKHAtcGiStCqPAGf27ZHFJ0aKoDivoCn20RY1ZdXHQK4ArWNWNQ3JNrYC0RjKLI4gVMSSbLWnfRKfPAGVraD-o23Qcik2zNKEgKsusnvpI06fK5U5Lgpjg53M0bJOtqAs1mWOPEpRfP0VYpyyU0uy7-m91LciyGFY3SA15pbl2Zi-UWVuLAC4L8adlUYmnGgLorgZ9EiRkUrFHZW2ACBIEDsjYQADsluwigSXIVGvJCICV9hpfQQN8AB1QsmkFCTXJQbQspchoWS5sAWFR5CkN0gBRFXkKYG0Ady8chTFSQUgLYO2Xozw46L49GVFlcnw-SnW67FosbnN264R5DX-u6vUqSx_CL8IzcpGpja9Pqdfg0mNyy5Lrwjzut_VeWcnDTYJpf7qOPD-pm7uV_T5Nemwe9kccknjl-UZ8renSYSdkh6hq80_lllCX5RrxanVSm1OSyQ-49o0YMSjJxmoyZTnnj085Lbtmua-ywqjWY8WqqpJZV4_IkNHp8UlmyrbGfa-pDZNRp8-JSbhGbfxa-wYtXHV6aWHLj25ET0s2y-qfDFky4lbiqlH7X2ef0nq8tNXtz4cur6Ro1muninPHu-UXTvyjzWaShq7XMJP_AIMW7a6ew9U1WDJrMKjxKUU7vtk1mtX_AEya_a5SXyPO6_JKS9xyqWNxa_hh1urf_S4JO90uwbdnTalf0e9u6m6Omk1h08JtOWR7nX0eW0mWWTDpdMn8smS2d31PVx0uujji-MWJr_wRrZcurx63W54Te7Hhkml_Anq2oWfHpdMmqh_cn-UcnQyUtTkndKasqzatPV5Mjl0lFL8EPx6L0_Pj0unnrslJpNQi_B5vUa-ef3cs_wDW_wDgb1DXNaGMW6cnx_ByVKeSEYR5lNlkTLJbFS1Tcm1HFj6b6MmbJudR4j_8l-p1D2x02JfGPEq_1Ms0_pzlOEcnEpftga6c--nPjGU3UVx_8De1T55_KOrqdN7dwioqEe5fkwvl_FOdea4HknjpQor6C4r6LPanLltIWUIx_dOy7TRdke7sFJf6bA5wXSYvuL6L7T0dqL_0tC7F4f8AgKyryNuxy_DAX5Rq1wiyOVqXxa_yDZ8buxAOhpskoZo5dNN48q83we-_Tv6qjqZw02eO3KuG77PmsJNWrqzZp8svdglL28keVNeSbsa7j7njqSTvvosijx_6S_Ucddiej1k1HPD9r-z2UXaX_wDrO0u3KzQ1x2FKkChrKiEbBJkQCyfAI2-wyIugBbsnkjaoia8gMuFyCwSmqAmmAzBYsp80gpgNYjlyDJOhEt3N8AWbgqxVX2Mu-wCrQ1VyTb5sZK0BU-HyK3fRMnEqsSU1GIFeRLf3wUWt1IkpbmCLuXQF0a8l0Gn0ihyS4osxqlYF3uJcCZJ8WhWlF2CbT_aBt7I48DbaBJ8cAJSRbBFCf5NONqgLkgSsZCyZFKxdtBBdhAaJQX0KrAICWDkCeCLklBQA67Jy2GuArrgCEJYt8gR8CNhbsBQLsjbYLJYDJcEtMRyfgaKYDIWueRrQtty6AYST-hmit98AaMPfIuv1cNHppZJOqXBITWOO6R4v9T-twjm9lyc5LqK6RjK6jeE3WT1PNqNdJ5dRq1hg3xX0c7BpcMMnuY9ZmzteEcuU8evy_wB_JnyO_wBsFSOz6b6d7Ut2J5scfyjj29HTo6b1DCmo5XLFLpe5Gjo5c6jBLPjdP9uSJy9dKDxbNTJZK6k1TRTp_VcmgjFOS1elf-lcuJdppty5Pd3LDJxyJWmmcvP62pP-n18La43x4Y3qk9J6lijm0GoeHNH64p_TR5fUa6bbxa-F5Ollj5M2tRs1SlByUM7lgk-Wu4v7KNL6zqMGreHVTu1UZ_aOetS4-eF4-0VZ6zQpdrlP6ErN_sdb1HNHUN5F_wByHb-zi55OVSRbpc39ysnNqv8AJTlxuM5cOgl9teqySlijb4ljjf8AgzSySekjjfSlwPk-emx0uUqKIK4ebT6NbR1fSZper6dt1HFy2Xet5r9U1Uk7hKNxZh00ZR9xp05ImpyPNjTkvnBU_wAmWvwmHLJRx7Hy6KMuVuck-5MOCTTg14fRRJ789vjmyyM2n1mVyUIN3tRZGUsOOO1Xkkqj-DNkyXP4pL8l7yNxgsXM2qb-is79rcCjgaUUsmofK-kd7QaaeLTZNXNPJqMj2401xH7Of6Vod8201KK_fLydb1H1SGCEdPiax4YLaku_5M10xmvdc_Pp4xe7UP3Z_wD5ceEv5MWo1OOC2xio_iPRXqvVHkdYlS6t-TLi02p1mT-3ilO_pcCYpcv4qy6hyuuChu_ydx_pvPix79Tmw4E_DdlE9HpcSqWsg6_2xZ09OerXKSb-w7X4NrlpIft9zL_8AeqUV_awxh-RtNRnWmytXsaX2wOMcfDtyGnqck38pNie4Paei7pDqaa5CtrI8d9ARMtjJNJN8_ZTskuv-Cddjtem_Bq8mmyxy43WWDtNeT65-mvXcXqugxtzTzLiUT4xCVKm7-jufp71CXp3qEcm5xhLhiXVWzb7TvRFK-jF6frMeowwf-7pnQTSfB17cr6K02FWkNv_AABzf0UV1JsLhKuxtzFbYCrE35I8fixZOSYPl2BZ7a8sm2K8iST-ymW5dAXbY32H4x8lO2TjYvPkA6hqaqL5FSajSkV5JKIuOW7lAaI45fZcsUquymOZRGepdAalFqPLBuUV2Yp6qSRXCcsj5fAF88ibuzNkyufC7LHsXkOKMW2wM8VJdokZS3dF2TIt1IfGk1dAJBTcuVwWycqpIsTddBjb7QFNTkgwxzTNcYpIL45AZtyZXN7eLGlNQM85OTsBou2a8Xgx4zXhRBqXAkxkBoiqwpBongqFYBuBWBAAbIuWASIjBwgI3ySyWmyNpAB3ZGGclXAsXfgCURRrsZ0hZNUUI-yB4roHAAQ6YtpDR6ANeSJc2S2yKwFlYsYc7n4LatlWZ_BxIOX6z6jLBpcsoLhcL-Tw2OKeRzyYpZ8sncm-jtfq71P-mhi02NK-2zyH_UtVLIoYsm1eWzz8l3Xqwkkeu0M9Pjq9Lsf4R03r9G4uCybJf-7o8Zp9dqXL5auq_wBqsfU6nM4txxzy39wfJnysdNR1_VcGLNjl7eaEk_8A3HkcmDVaLM5YM1L8dFiWsnkbjpniXd9FGXPli37mN34dmLa1qKsmsnuU5Y_ayeZx6f8AJZT1-OXMXkX-n7KJTnNqK3K_B0vT_Q9RquVasbPFxngkm4yi0wY9Pkctqi78M9tD9N5ZJe4_c_LRtwfpvHB_KH_Jd1PCPBPSZVUnDlM7OP02OrxxliW2Vcpnsofp_G4fLHFr-BYekQwy2xvj7Gqaxjxn_TcavF5f7XXkyZPS8uCdZFwubPoWf0uM8SjtSrlS-jNl9Pc8OzLFSklw_sezUrwz0so45TX7ZrgqlhaTTi7aPT5PSmpwx_8AyWaj0vdpYrYlNOm0Ta-LxPtuE2qqjPLG4yba8Hp9Z6TtlPaukYMvp8nH9tX5LM9MXjefafBp0sN7qUvbgv3Tfg2z9O2ye5cIx5cc3SXEfFHTylc7hY2y9RWmx7dIqxri33I5U8uTPO5ycpfQcmKSe3mgxxZFGk4xX23yammLatx4sONqWefP-1Gyev1UsVYrw4V1sXLOZLEo_uyL_AY5Pbfxk2NG2mWrxyxtT93JP7kyrHLTV8scmymeZt8xQjlZdJcl7gmm8Ukvw-yiSlfyuwW_AynuVT7-wlIS6DYLKyeM4p_OFlrlgkvhKUH-TOELtdcUuZqX8BWyZnaoKdE0bX7Kf2W4pOElb78_RRDK-vBanF-OGStR7_8ARnqmV5_6bJNOK6s-jQi2lJLhnw_0bUPR-o4Mt_FSV_wfa9JnUsEZL9soqjeF2znF-1LyDavsoy5W-kSDlVs6MNG1A2xQqtojTALjEWlQGvyDb-QC4pc2JKgyhXFiyhS7AjmlEp3Jt_Q0obkJJKEPyBTkUW3bBjcI-SjIpSfDZTPdCN2QbJ5cafY0Nk1dnK3SkzfpscmkUavbjLhB9tR4Rdjwuh_YAy-yu2NGNcJGv2ie3XgIxvTW7ZdjxpcNGjbaBNOPSArcUuhooHNdB3bY_kB3wVzlSKZ55bivJlm3SQVpnLeV1ykPQygAYxSRpwlWPG7NEI0QWgrkKYrkRQYrqgSkVttlQzYjZHKkVtuyhr5GTrkrTQvLYDuVvgZkhH7JdyoApUFpUBobwAElXIypdAfCFsATdMFqiSVioBmKM-EK-gIoWWVQkeh1yA6jwGgLogAoqyJKLk31yXN8UZdTF-xlt1cWRZ2-XevzyeqesZY4n8Yur8A0foenVPUZpNv_AExR0fb0-knleRqU5SbYcPrKTfsYYQj_ALq7PJb7ezHH06vp-i02nSWLSeO5os1eqkk8WFY049tRRyp-o6jLFyzTaj_PZzE82t1Cw48zhB9uH1-WZtbmLdLTyyrJPPmTbfhnIeDHqc_tabBkzSTpyfR1Xk0emwvBhg5z6SX7pM9N6J6RPHijl1MUm1xBeCTHbVunG9L_AExVT1MFb_0_R6bT-nYsSShGjpQwcVSLVirhdnWYac7myxwqPi_8De3_AO1GnaSqN6Y8lCxcccCZcCnXHJp5Ay6TbFkwUml0Y1icYtSV_TOnkKZR8PoxW45WbSqtyXKYmbCpY3S5Z03jv4vyUSw1wjnXWOLm0qlDr5NUzDl0DnjUJKq-j0bxbX1yCeFNdHOxuV5Kfpu5O1Zjy-jxriJ7R6dfRTPSKXjgzqxr1XhtV6WlbUTmT9LbTaXP5PfajQ1J0uDlajQyTbiqQmdhePGvFT0cot8Nf4Kp6d7U7o9JqNLKKbqzFrNL7bi67R1x5XDLgjgzxOLoSqOtPBux9fKJilh5O0z28-XHpmsBbKDRXTRty0BCECIQhAIvyRk8B4a_IETLIzKyWFbMOaWOSa5Sdn1f9G-tw9S0KxZJL3YeD4_HI0dH031HN6bqI6jTSakn8o_ZJ6q72-7tL8URcvjo4XoH6gw-saWMoyXuJfOH0ducutp1c7Fm7gEpFaboVybdUUPud9hUhFGVhSdgO5JlebKkqQ3P0LLFa5QCLItpRkypyqmXqHigexbugM8pR2VRkzxTXZ0Z40l0YcmPdIgGDDGkdLBBRSMuKG1Lg1wtAao1QzpIWDqIs26KDvRLsqjyyyuAGUhZTsiQHGgFeRictjWrEc0nQD-2qugbU30BZfBJ5FGNgXKHJdGFDKA1UQRKhiAAIsiWK7YBkrRXKooaViSjuKEbTJ4Gjj5LNqAoUGPtSRdSoqmAu4KdCfwOkAd3AUyUGgFbFk-SxRtiuNsBCWkM4sOwCu7DVlixjKFEFSiy1RoZRQXQC0NRIqxmqARqmZdfKtDmrvazQ3zRl9QT_oc23vayVZ2-a6xe7WOCt29xgnrdPpsmzd7kl1CP2N6jOeGM4ubjOba4MvpuixxXuunNvt8nk09u_wAb8Gnza1e5nk8cHzsvwaMmox6Ze3pkknxwJnvHhWSb3Qf5o6_6Z9AlrMq1eri1hi7jH_cZ1ut71HR_TXoXtx_rdXC80v2prpHrIwDGCSSXFFqiejHHThlkCjS4DQ1UgM257KyqT5LJd8lE3TJWoLlToPgolJt8F0FxyZlasVyX2J2WS-2VSlxwZrcVzfJX9knISzla6yC42ibBd3AylwItLLHZVKCqkXuXgpyNR57JVjNkin4MWoxRkjdKXgxZ8iXg51uONqMCd0crW4t2Rr6R28vbl4Xg5OaLlKzHTo5LxtcmTNhqT-jrZcTozTx3GmjeOTllhtyJ4yjJj8nTyYqMuTHSO-Oby54MEoiNGmcKKpI7SvPcdKwpkYDTJrslChTIokonYaa_gAUPCVMVch6f2QdH071HN6Zqo6nTyaa7V9n179N-t4vWdEmpJZY9o-KJOt0eftHa_TXquT031LHLFLiTposul0-2cJcgq-kZ8Of-pxwml-5GhzUVVHVzNFUuQ0qKlm55GnmikA0U5MLTspjqOegZMrapMgv2pc2JKaV0Uxm0uXZXJysok25OrKJRp9gnmcWyh5pSZBrgnZpgrZgxzm6N-GLVeSjSuIga3Er8gcq4AMIJMZr6CugNgKyqVvyWSsqtAClFcicN3Qz5Fm6VACdcMrzzi4V5DW5U2WRxxfAHTA5V2LYs_kQW71QLES4QwBsj6J2T8ASrDt4IggBRJXAWAAbRHCx2wIBFAZRoZBfQC0GiJBAFUDaMRoAJBfYa4IBKIBkQBboRSsXI22LaSAsUuR3LgzxkPu4Ar3_IGde5glFrhlm1Pkz6zMsGnnJuuOxelnb5h6volk9Vn7l7U6jGPbOtoPQ608t8EpNWorwatLpoZtZLO4uUm-2d_Fp9yWOC5fZ5tPXt5vQ_p7J6lrIxztx02J219nu8OGOLHHHCKUIqkl4Jg08cGJQiv5Loo3jjpm5bGK4GoiDZtzqMVoN_gV_yVCTdJ2USW5Fs3ZWk1bM10ilR2sui_iLt6CZjVLMzTdSdGqSM048mcm8WWbYLbsZw3vlklDb5OWnYi6GTtgSVNBquAhbtlOVjS4b4KMknfRm1ZFOSfHBiyXKTtmjK3TMmTiS7tnO10kZcvxvmznZZfKmjq5Makk1zRly6ZbrXkw2501ZRLH2bsmKmzNKNWNmmDNEzTx26ZvnDddlLxI6SueU2588V8UZsmGjqTxUuDPkh9o645uGWDlTxtFZvy4-ODHONM743byZ46VkIQ2wgylXfQpAHryuhlyitD9_yRTQk8btcryjXpo4558Tvb8kZE-eQp7PlHozVlfefS1COgw7ZqS2rlOzbSm7vg-N-i_qTW-muLxZXPF5gz6J6P-qNF6mlHd7WbzF_Z0mUZuLvuELBLFGhGt3KfH0I5tpqzbIqHzBNc0BZGkB5LAeMeLkxMk1fHQ8eY9mecLt2BVOUG2VpwYHjX2LaXBBohOCpG_HNbLRy4pcM2RyVCkUao5LTfkaK3fIqwRuNs0xpICJgbSF3csWXKAXLkvop5kWe3-R3jUIW-WBVGD6sk4NuiQ3SlY84tcsClxjDuQfcSXBVPHvt2NjhS5COq1QGMwPoighn-AJEfABXC5C3b4FfKInSAdBoi5QekAtAbCABQoFBQBQwqDYBAEVgSyNgbK222A9hsRIIDXZOhbJYElbEYzkCgFSoe0TpC-Sg7kuzkep6hTl7aVpHSyzWPG5OuDymbJn1mrko_GF0Yzrrxz9dLHLHFLalx9HX9Px_B5H2zkaPTKEljlzJnoscVCEYx6MR0pqGSIhis1KAwsVlZT_IGQDC6LP6Eqh5Mzzk1wZtdJBu5Dqq5KU2gp_ZmVdC35KMnllknZW-XRK3jFKjxYXCyyn1QdpjTW1PtoEl-C9x4EfRlqMuSJTKPHKNclZTJGK6Rz8qa6RknBue5q0dLJC_JmyQd8Lg51uMzikpKjJLG5Pjwb5tcqhHGKpmWnHyYHbbsyZMXHCZ2s0YvqSOfmjJyr6-iLty5uO7bfP0VTjRpzYsazb0nuKZqyppRKJVOCa65L755FnG-TcrFjnZcdKzBmidrLG49HKzwSZ3wrycuLC-wDzXIp6XkAgSAQKJwDogdc99hTd0-GLGX2Wbdy_KIqJyxytdG3S6uePLGeNtTXkxJtqmT5Rpp8oml2-o-hfqdZ8ccGodZFxZ6RT8rp-T4x6fqZ49TCTk0r5Z9f8ATqzaDFKEnJNdnTCplGh5aB7hHjdg9tppm2DuclHopll4aTLs-R-0lFGCMZOVsCPK7oitu6H9luadGhYb4ogzxt1SNeJN0NHBSpIvx4XFIo04lUB6Bji6GkqASS-iKPBFyx5KogKoJsGdccEi7fZJ8oCuKBldosgqRXIBNq29BUU-i-ONPGU3FKrA3gbD5BLlkABJ2yUC1fADt8cCJNsdRdEUXYFqVJAfZPAKIIDwMKUL55C3ZF2NIBUS-aBdC-bAbeBvgFEoonZFEMRkrYC0RrgMqQtgCrC-idAvkARXIzVMF0-AybYCy6KZZFG230Wt0-Ti63VpSlCPP2S3TUmy-oax5Pjjqn5bM0JY4pLfFvvgwNLNNylKorxZswY4pNwgkn5Zyt27Sadf0qG_JLJbpHYRk9PxLFpVxy-TWgp0EVBNMVGAIAABoYjCqZ2VS-y-fBRMxXTFXfIbILRlpJdi1bC1yPFfQ0uyJDpcDNIDkkhpNkkqRTKSsmTLbpMz5J7U3fByydcYM5mfJk-xZZU75MuXPFXycsnaQZZkr5M8sjbZRPNfQqzUvyc7W2hPsSbW0q96_BXkbceeCCjNKzLljtTkrLslmbI3zRGmOc7bspkxsv7yq_s0yNWRLwLvSf8AI7pGmarlHho5mrxVydaTTMOrqmmdML7cOSbjiTXJWy_Iihnrjw1CEIaZQKAQA1tdlsZVTRWhl8eiVYecbakhotT-PkMUmhXHbK_sy0fbLGuuj6v-itW9T6ZGL7ifM8FSg01fB7j9Azm45IqDiky49penuniTJLEmui6PQa4Ozmx-xfDQP6VN9G3bwRAZ46eMfBZ7aXgfyHwAqh-BmkhbC3dAOpIVyUn2K--AqFcgWRivsmSUdjtlaXfJRlxynxuAshOPhl3xrtGCOL2_IuSco-QN6avtFc6T7Ry3lzOVRbKcuTOnTb5A7kcqljcYtWc2OOcMsnkfBkwZcuKd2xNTqM0m-APTRbY4L4JZAeREvkWeBYvkCyrClS5AnwFOwIRhAwoAC3QLCIuwZZbUSc6K23MBE3LktSJCKHVWBXJ0wWPkSSsrjyA8RmwJBaAVqxaZYkBgJtYehrFb5KIwW2g9gb2oDNqp7Y_R5PV5XLJNRlVvs9F6rkcNO5Ls8Vq8--TblUfLOXJdO_HHRwSw41Unvkb9NkjqJxin58HmMeoWVxxwvb5rtnqvRcMfdxpeDnK62PUQioQjFcJIZAbv_BEbYOEiGNMUpAtoG5ACxXILkrKpsiwJsqlY0n0I2ZrpCp0-QdW2GrYuV1BmWv1U8lzo0wfBzcTcs_Z0FxEY3a5TQTlyVZMjaaQMkuSmU-GZyrWOKqUnuZRqG1G0xnK5CZ42kr7OfbrLpjlJ1x5MWdSlJV4Oi8Kg6q_yUSxxU6bpNmLi15Miw8WvIYYeHbNTnCFpK6Kf6mC4imvvgnivkWcNsFX_ACVyinw7NClHJFpPgqlB9KaslxWZMmRccGbJjdM2ZVPuroyZZKKrtmfFrbl6iLvjwZ_BszSUnRkmioVxTasbdzQnRLtWVBvkz6n9vKNK6sz6htLrg1j25ZdONmq2Z2as7TfBlZ68engz7AhCG2AIQgBssi15Kgpko0w7LXFJrdzZljJquTYn7uOlxOP_AJM1ue1_pulln12LBBtqUvB9j9H9Kx-n6eMYKm-2eE_QGiw6rXzzZGt2NcRf2fTpOuPBvGfrOV_DtccC-AOfAL4OjB1YOdwV0PFAI0_IUrGqxXwBGkRR4FVhtoAUTmguRFIBEnZGPaA2gKJvjooUXk4a4NXxYOIsCpwjjjZlcJZJ20bJ1LsXhPhgZpYEo2-GLOMHHlWXSjbdvgolFdAd6iUM-GBtIglcCrgl30NFc2AVFvlj9AvggURWg2BsANAJKXALCJSbJx4CToCIi7J0TgCZeYlcKSHatCxjTAZsKfArREgGvgDZOyUALAw-SMoDEkmyxL7Fu2wON645LRycXR861uZyn7e6l5Po_rLT9PyWfL9Qt-oS8tnn5e3p4unQ9NdZJSa-C4X5Z7f9PxcsjlPtLhHjdA1ahFWovg9t-nLms02Yx7dL079_kZIWrEnlhBcvk6ua5zUEVT1VddmXLqFtblJQX5Mcs2OVv3OPtGbk1MG6erp8ySKv61XW44up1-ix_wDczW0_DKM_rehjFKGbGk157MebcweiWpp02q-7BLW4_MlR5Cfr2kjDbDJvyX98GLN6vslCWTI4U_vgzeStzjj3i1UJ9SQ3uJ82eAl648UorBP3E_K8HX0_rE544ufn6J9v9a-v-PUxdsTN-xsz6PUrLBUzXlhux0jpvcc7NVi0sHLVdcI6E1UQaTFsi2-waiVIs9RLd5MeSS5MzbalQmqzxxuXPXk5GT1lQbjGS4ONyjtMbp1JOUYX9MWefCor3Jq_FHm9f61eLdlntj4UezkP17Ljj_Yx7V_umyxm-nua_sSlac30pPg505LmWScbX-13R4bUfqbWzbi9Q3_Bkl6vJ87puX3ZrVc_PGPX5dXki28ORzl9dCLWZ4VKeaEOOdzs8VP1LUZFTySr_wAlLz5Jrlyf-R4U-2fj23_WGoO5wy88uPFDf9RxPHzkq-mjxePUZMUk4SZetW7coLa32vBLhVnK9j_1WGOPKt-V4Zly-oYc1uH9uX-1nlv62afLdFkMkcslbaZnwrc5ZXcyTU3uTSsqSV8syxzOK2OmkFZuaa_g5606b2vmqFfQympKnyxHwFNF_EXJFSjQYdDSE9J24uqwOLtGCXZ6LLjU48nE1WPZNnp48tvHy4a9s4AgOzzoQhAIEAQCXYsrjK_K8lFjRdMmll07vo_quX0r1GGoxNqDa3peT7LptVHWaTFnhzGcb48HwbHNuLXjyfYP0lk3ehYEnfFDC_hl_Xd3JhTJBxS6I2rtHVgzl9DKbQqXkMnSAMs1GXNrdnXJY471yVy00WAmDXb5UzXHIpGaGmjF2XRikBY2rBaK5SbfYNyXbAsUuQN88lafNhlLygGtWKrlIidiW91ANKKTqxJ40vIad2ynNK32AWop92VOSt0ib0JL7sD0NWI4u-SwST5ICqXQyYkaGXYBTDYSAADCSgFoNBoj7oAUDyMwALJpMngNEYEVAf4G8CsCEZEgtgBcET5J2wSYEl2HihQlEF29jMAHN9S06yaWafVM-VatPD6gk_DZ9gzx3wkvwfLvWdLLH6pKL6bOPJP134r-NHpTeO3ttytnuP01H_073L5nJng3kWn00VGVSff8Hvv02or0TC4u93Jzx7dr06mTJti6dM5uqzKCcpu2ujTmTl2-Dn58ak1TLlTGORqtfLLN-G_DOflnr1gcMcoyb-n4O69K7ctqkI9OuXt2_wAHG7d5p41-mZ8snLNK3fVlOT9PynzHI0z1mpx4Y3LJKMWvycTPr8GFupSl_COVtjtMZXMh-n5Q5eW3-GNL0Sc3am268sGX9Qwg2o45GdfqOLlzF0P91dYT02L0TPiVwSafhGzS4dThSjOPFmfS-tQyNVM6-HXQyfudoxbf1vU_Ha9Jc1xR6PH8oo4Xpc4Tpw8eD0OJfE9fF7jxc3aNqMHRz9XkqNs3ah_FKji-oT-DReS6icU3XB9Y1Ptwkr7PG63V5IN7Ovs7nqjk5O2eW1jcps82HuvRyf5xZMurz5X-_j6KJe5kXyk3-AykosTceyenz7f6ntDQwquWI5NkSlLzQ9o2Y8GLyzUsOGqTRzoY2-Loux4FK37tV-TFn_rtjZ_Gx6HFJXuM09Ftdp8EWN7fjlAs-fC_l8ok9_1b4_sUZMMosrpxd8m1aiGZ0_iwPFHmuTXl_WLhO4phlb_c2ma8OpS4lyilYl9BcYLxTM3VaxtjoKUXThwM25ebox4Mrxum1KLNMau4-TlZp3l2thyuhm-BINpMZcmWgfRztbh3cnSZn1EW4msbqsZzccCSpil-ohtkUHsl3Hz7NUSACVEITwQCERAAX4nT_Hk-kf8A0-9WTw5NBlfzXMT5rhlU1Z3f0vrf6P1zDO6UpUzM9Vr8faFJc8A2rtj4qlBSXlAb5o7OYvpUCbVKw0xZx4ANrbwKv5Aosa0gFp3ywStukMm3YKSAWqdeRZRqXJaooE_ACt3FBaSXIrTK53KlEBnNRlQNzu6B7NNOQuabSqKAWWWbfAsot8voS5NdDTm1CmBXKcY9FGSTmuAxS3OwzyQSog9OpcFE5PcWLhCtWUCLstRWlQ6ILLILYbAJCWBsAkQtk3AM2AXdyRsBgNgbFKHROxEyXSAL4ILbJdAOLduwbuBYsB-wgiFsAi0MAgrlGzw_6m0jXqEciXB7vbbOD-pIKOnc1FOSM5zcb47qvA6975wwx4lJpfwfS_SsH9P6Tp8S8RXJ84x6eWr1eNvmcpePB9S08Vi02LFLuMUjji9NU5ntjVmZRt9mjUVuEjFVuZm9umPSiaWKEpSaS_JzU9V6jLZo0lDzkkWZd3qWteCMq00P-5L_APgy-t-v4_T8UNJ6eksvW1HOXbrqz1Fk9D6Zooylrszy5a6vg4eo9T0FSitPBLwzleqYfUMmDDlyyknll4RwdbpZ4ZSUlJtfZrwuUYvJMLre3Yzf0uqySqMY_X5OXn0cI24c89GHROWoye2k78NG5abItf7M5OmuGjPhcWpzTPuKcWGeKSkl12j0ehzRlGLqjk-5PSZFHOlOP-7ydvR6HHrY-5ocq9xdwbOeW6746nT0Po2Z49XjS4jLg9rBeDyPpenmp4FONTi-aPYQVL_B34o8vPfanUSSiec9TzVGSSO5rJfF8nm_UJScJO6M81b4I8b6tqW5vwea1ORts7vqX73zZ5_OuWY4Y18jpmu3yNRIwtllbF1Z6dvBJv2VR--BXNRa28glul4YY42nwrKVJrLt3tNIksU4x3Xw1Zoy5JZcKxrG015Fi8koOEl4obiWZMynOK7ZatVLhS5FWCaV1wJLFJPlcF9JvKLvjP5J8jQzyx_GXRmprqxlO_jImttTKx0E4ySoO1fZjxzljfPKNadq1ycrNO-N2bZF9MtxScH9orjTHXDMVuTTRDIm-S2H5MsFcjRu8GK6RakJkjuVFkekRoK4mtxNHPO5rMdwfBxJLbJo9XHfTw8s1SkCA6OKBJRKAlACnfBGAYumjRinLHnxyjw9yaM6NW178LS5tGa1H3X0vK5em4JT4m4p0a4tdnO9Jc8ug08siqSgrN05KK-J2jFGeTmkBttclUU27-gTlOTpBFjk0qQm7dKvI8IyS57FhDbbfYDNqERINyLHBT7GiopUgEinfPQJu5Ki20lbKIy3TdAGc1HhgwtNtiywueRSb4LltgtqQApzl3wV5IRh-S-MNqbbKszTg2Bnk006M1ym2aI0o8iqMVb6Ay7XudCrFubbL5TinxyL7lp0iD0VBoZDJAV0MkPRKASiD0LXIAI-RtpFECuiUW7Ra5AR9kG2k2gIuWCuS2gbShCDUK0BBJPkdIEocgJ2RJlm3gm3gBY9lu0SMaZb4IFJtGoIFdHD_Ukb0U5_4O8cb9Rr_wBKyflky6ax7eR9C02_1PFFPi7Z9ClXSXR4_wDR-JZNRlzNW48HsZJtcPk4zp6b25-okt6TRRr8_s6ZxwpyyTVJfRvnhi-ckoox6rJGXwwJSyPhOujln074dvM6jNrtLp_6LR41LLk5lP6Mel_SfqS1ePU6jNGUm-Uz2uHRYsEN0o7sj7kyx7drSsmGGp7ayz9-nD13p3vYceHLLbskpKSOV6j-nv6_O8mPPGMK6o9ZmUZJK1X5OXrMnswcscoRr78m8uTUc8eKZV5XT_pnFonKcNRF5H-OjFH0nZrJZ3qN0-mdDUSUpvJ7s5W-oj4tPu-U4SUW-kuTzfZa9c4ccWOX6b1WulJxnGvB1vQv0fn0OdZ8uZ39ROzpsMoYIyran0dvTRW1KN_k7YTfbhnddJpNLHHK6trybZTqIIRpULl4R2k1HC3yrFq8ip2ed9Vy_wBqST8He1O5x4_8nl_VZO5J1_g8vJXs4o8frn_cZyM0LOvqluk6Xkw5MYwumeWbYI_F9D741yi2cFdFU8Tg7rg7728txsNvj4iKuH9CrnoapLpgaMaSV7ix43fSMalkj0rG_qJqrszZXSZT9XSg3HlUkylx5lf-Ce9fDYu6Pllm0uqrlApcLdI02n5sZOv9JqZacvCVRFOK-StF0ILvHOvwyz29y47D7F9qn-CXJuYaGMMjfa_wWRhXfZXHA4vibQ23Iv8AUmjF9ukmlsJbZ2XQ-UuTPByT5RfCT8oxWo0R4VDx5fJXF2OuzLavJDcmcDVY9mRnpa5p9M4_qWGslro7cd08vNHKINKNCnoeQA2wEKCAJAHhw-ejpemxjl9Q00Z_tlNHPxJN19nR9Jxyzeo4McOZb0ZrUfb9PGEdNGMPosWNPkXT4duGN_RY1SO0YoNJMijzwgRi27Y8m112ESvAu3uwwjK7Y0lXIFavlUBRpuxl-AVzywEcW3S6Ghj28JDqL7QJSaXHYCZrjSDCPllM_clPktgpeQDOVpquCtpRwvcWyi9vBX7LnADGssXaQkvkqSZolp1jdtCqaXCiAmHTKXLGljxodXT8IzzSU3TYHouhkLduh0QEDCKyKjYEiEAawiBsBm-BH2EjAFkCSihWSw0CgA-WShkgdsCJEaQ1EoBeCILRKAiQyQEMgDQKCL5IA6Rxf1Et-gl4VnYkjh_qNX6bPsXpce2b9IadY9Hlmv8AVJndmpydR4Od-msez0fGvHLOw3-Dl-PR-sUtFGTuc5N_Q8MChTjHldGlRvlhd9JE8Y151lyyeKDlNbvwZZ6rBLlyUP5Og8MW7nbbEy6XDk_fiizNxv41MsZ24Gq1ek37Yyc2_o42payTccenyy_k9j_0zSt7vZimXR02OPSj_wAHK8VvbvObHHp4zTelajNFOWNQj9HS0npuTC26t9Hovbil0FRS5SLOGRLz2sGLRSUlLJL4r_SdDHBRVJBUR-KOuOOnHLPYL4q2U5ZWuDRt4oxap7JcGsvUTD3WTUP4vy_o8t6lKDyUu_J3dS23J82ec10JRcpSPHn7e_jmnn9VCnLac6Vq7N-ebuRz8j5GLOatxt2Wxx7lTXAIU-DZgxXKi3LTGOO3OlpGncUww08m-qPQ4dGmaV6fF9In2NfVHnI6aXlcFkNJGS5jZ3v-nuK6sR-n5E04xJ51fCOI_TsbdVRW9BBS27Gei_o58NxK3pJXu2jzp9ccB-nxXSD7G3hxO-tP9xKsmnTv4k86fXHG9uPaVMPt2ujdLSJWUyxOK6HkeLM4JLlWhPbS6dGiTaVNCJ2uiys2KktrLIg_kfbxZWdDuLIOymqaLIPkqrV2YvUYxlFV2dGMeDBroWrRvHtx5J6cOcGrK2jbkxtR6KHGnVHoleOxnYDRLHS6JDTSl2XyiTC3pQGjoY9G26o3Q0mlxxjHL-6Rm8kdpwVxsLqXVnX_AE069f0z8b-TBrNOtLq3CLuLVo9b-hPTI6nNLPON7XwzU9uWtX2-mvI_bSSAm2NDG12yyKSs7ORI7uh2mFUkRySACsEothTtj_kCuMa7JJIk8lPoDdqwDu44K98t3QyXHAVDyBXUnPosUX5J07FlN2A0nSCpcFdt9jpKgM2ZtvliY0i7Lj3PgpjjknSQByxk41FGdYnfJ0oQqPJROcIPlcgdOHZaihT5L49EBAFsBFBgCAohABCJZEwIlBTEAQgIowCiBqgEbIDZEwWRAF9gYH2GwCmGxLCUM39E6FQJMCSZyPXU36fNbbOq0ynPhWbHKEuUwSs3oq_9MwcVwdKijTYo4cMYR6Rejlp6N7SrDVIIQhOhfwPtth2hdqtoNpbSDRdHkqURlFIk5xirM_vvJKool1FktXhqyRjXYyassZptvBytW-XxydLNk2x4OTqZpQcpMxyX06cMu3O1MlBNyZ5T1TVbrV2dD1rXpScYSPK5c7nP5OzxW7r6cmoqy8c_ZkyW30bG9ypkjhUjcunGzbBGe18o6OkzRclZVk0qVsy28M1yL_onp7PRwhkijfHCm6RwfR9dFtRkz0mOUZcozI1aeGmtK0X_ANJGSVxRdhXCTL0vlRvxYuTDPSQ6SM8tHGmqOu4JGedX0ZsWVyJ6WK4SMuTT1dHWyJW6MWeMop3wYsblcjLi2_gyZoxaa8o6eWS2W2czPy3JdmWmOcVXRnaqzQ5WiqTRqMVSxot1TAwxNxzpmumCF7r8D7biLC06KjZi5pFGpxXfl_RpwpcCaiuV0zUYym3Hype3yuUZ8WN5JcqzdqIfBL7Zbg06jGzfl6cZhus2PRbvlPpF2PTe5PhUjTNXGosyzzuK9vE_5Zje3fHGYtGRQ08Ft-T-zm5JuWZW7dmzUKtFGa--TnQbc0_yXGelttug17k9SvPFH079EaX-k9KhJrmXJ88w6Set9Uw44q1as-uaLBDT6WGOPFRo9XHHg5fVsb_cu3YFmVMzSnxSKXkpVZ2cXTU049huP2cl5ZV2I807_cyDsprd2WbopdnF93Il2RZ8l9gdWclYqkpOjlSzzvsVajInaYHcjFLtj7VXZx4aqbXLNEdW0kgNrjFApGDJq9vkWGusDpOKoiX0ZFrVQYayPkDVsFlKuEil66FdlMtagNcZuuSmSU-0VR1Cn0yLMlKgOjB0-TTCRjk6NGJ2kQWyZL4BJWyIKIGEVoAkIQIJAk4oKFEJYSAECAAeSMLAyiADYrdMINEom7gMXYUKIHhEtAAHY7ponACtAa4HYGAkeCxC0Mc727TowUL4GQBoEnSI2JKdFRJSUVZnyZ1FN2Jnz1Zy9Xq9sWceTkmMenj4vKny6pzyKCfMnSOtp8SwwV9tcnl_TsrzepY2-kz0Gs1kdOnudHLiz3Llk7c2FlmGLVLJyV-5yeY1H6z9O0-VwyZJfzRo036l9N1cbw6uF_UuDtM5fcccuK4-q7efJUbPO-qazZBq-zqvNHPg3QnGcfuLPOerwbTOfJdx24ZJXmNbN5JttnOcfkb80Hv5VmPNPDhTeTIl-EcMY9Odk7DpDwnJdmF-r4ISpQckbtHr9HrJqPMJ-Ezdwy05Y8mFutrXJSXJztbtq14OtqNM8Scq4OJrJ8MmHbXJdRfoc0ouLR7b0zUrJiSfZ8_0bdo9T6ZkakldDL1Uw94vZYZ7kvwar8nL08-FyblNV2a2xYeUndMz5ZKKsOTJ9GXJlXkzashc2WMV-WYdRnVU2Lnyyn8UzmarJtey7ZytdZDZJxaaTOblnbdPgM8lRZmc7EhaDai3yLaYsmDcqNyOdoSQ0EJ2W4lyVmrUuCqqmadnwKZw-aNMtmn5SY2eFtOuAabhDZ3boqVjyYU5K1wLnyKPwiXTkox5fSOZqM6gpZGNbTqDqs8ow2Q7fZThjXLK8WeOXmXbNCQvqLj79tGT5en5F_tOZh5kn-Tp447sGaP4MGmhunGP2XG-m7Pe3sP0h6a8mqyamatVSPd-2kYf0_of6X0zGtqTfPR1Jw6PbhNR8vku8qxyV-CiUOejfPFSM7gzbDNkhaVB2KMbZoWJ-SPFckgKKtcC7WbPargSWOmBkeNsOykaXBUVuLogqr4kvahpQaRXO3QAl8kIlzwPJ_6SRtKqAPQkpN_gs9uUvAVhcn0AkVX5DOPx4RfDTtstWBp9BFGnxui14_lZfjxO-h5YfIGucbQ-FNEGi-CKv8CgVhCpYQEsgJEAKALB4IRdABIYC4RLtASyWAjAPYJchFqihZcIX9xMlsONfYQY8DIZRIFBxvySqGIQLRKDRCgMVsegUgFXIwKoN8HOu06FMNipkbpBdI5cmfLNjzlwYs-WuLoxllp0wx2zajLy3fBwtZqE5NJmvVal7ZpM5un089Tm56PDnfK6j6PHJjN10PRMbnmU6qjf61gyZISVPnybPTdIsGNUuTpTxRyKskU0ejHh3hp5svka5Nvj-u9JyPJLi7-zlZPQtQlcE_8AB9X9T9IjzLCrMWn9MlOLjljRjDDPG6j0582HJjuvKfozXa3QauWiz45Twz4t_wCk9X6phuL-vH5Gh6ctHPdGKa88GvVLBm0yadSS6Z1yl17eaWS_5eB9Sft4ZtLmjxeVSlNuTd2e09c1ODHvhuuR47JbyN-DPEfJ_CRxLyzVp4RjNO-mZ7ZFGV8M63282OpenpM_qMJaWMW-VwcPLk97JtjyVRxym6bZtwYFDxyc9TF6fK5-l2mxKCTOxpp1TTo5seqNWFtHHK7d8fU09TotRuik2dOGXiuzzOkz7WdfHmbiuSSmUbpzpNtnO1Od3wWSlKUXcjHm-K7JaYxmzZHHmzkajK3kbuzoah8cnKyv5MjdJLJfYjkLJ8i9GtOVot2hbRG1Qj5ZrTFq2Lsuh2ZYOjRjYRth1yVunN0PF8Im1bnRRdDhIqyv-4nYZT2RM7k3LcVC55XJR-zkeoJvI4LhI6G_flM_qGNLP_KLjdVnLHcc7T2pI6sX8DmwW2Zrjk4oufs4_U02YJfNx-4mf09f-oYo_wD6lFuD_up_g0-gaR6r1zFFLhZLJh_Ha9bfYMKUdPiilVRQ8uSJUkvpUFs906fIvZJRbK5QSLW2xZRtqyor9tsaOLmy1KuCRVMCt47F9mzVRFEDJ7HBHgVdGkKQGR6ZPsSWki2bX2LJ0BjWhjd0OtLBeDTYN6ArWCKXQFgSZddksBY44pklGMeyOXIk3uCGgl2TJVCJNIWUXLyBs8jxQqRbFEVAhZAqAISiCEZAgAJCAQiCQAeQeQkrkCIn2TogCkQa5JwAyYvbI3wCIDEYENQAINQKADYEEHkoEuyEkA513x6FcCNhb4KckqRm1uTavPk2x4ZzM8nKzTmnfAkdO8ng4ZbyejHWLlT08szSSOtofT1iim0bMOkjjim-y9Pml0aw4pPdZz5rfSzHBRVIfmxY32xmz0PKryR3rko_p43ZbJ2RJ0F2qyaeMjm6vQxm2muPJ0NRlWNd8nMjrlOck-l5OeVjthK896j-ndHli3CG2b8nh_UPSJ4M04xuSXk-szxxz4rSdnlNfpJ4nmUkqkcsr4usnn6r57KDi-RopHS1ejpNruzC4OPFcmpltzuHjdGg1fZqi1t-jCrTLlkfCZmzbeOemuD20bMfL4Objyq67ZfizNyf4OVxdZnHWxzcHwdDT6jcuzj4NTbSkuS-3F7ov_Bzs06yyu37za7M-edpmbHqU0r7LJtVd9k2sZMs7fJhyVbL88m7oySf5LEtVTasrfXY8iuT4OkcrUYG0kRsQ0wKb8GvF0ZUaMXaQG_H-0LXKBi-hpICvK1yjNlybcZdlkqMWaW6cYIBtPDc_wCSrWNS1CX0i2eZaeKilcmZ63XJvlkn9b1GSUNrY8ZJBylUWdPxi9uhpnfy-ke0_wDp_wCnqUs-tn5dI8XiXt6acvxwfTP0fgeD0TCmq38l4p_pnny1g9FFpvgm22-SKKxq35BGVs9j5qNPoFDrgVptgMhkqYEgoBr4JfAIoF2wByDcxnwiu-QC3SsXduDJ8AaqIC7rET-Qy_JOLAZvaittyfA7akBSSdAJVdkcrSoElcuy2MYqACXaojTS4C2osDdvh8Aat3JfB2jOuy-PRKLKAGxbAJAMKIIQhAqEIQAgYSUAqCuw0SgA2R9E8kYC8h28BRABtClREFgBDC2GwC2AHkKAXsF8iviTClbKDIV9DTFZzydsOiNlOV8FrKNTKoujnl07Y9s8Ie5k6NkYxxxuQmmx7ce59syeo6tYYNJ8vozPU21f9XS96uM8jiuUi_FPccr07BNweTK_3HTT2xpHTFzy11GrclwRsrxY2-ZMfLJY8ds1vTEnvQUmwSmvDOVqvUtie1mGHqb5luvk5Xlm9PVj8a2bdfUY1kMmH02EW5Sb58ISHqkFNRl5Dl9Yw6eMpNqkTyx7a-vKeo6MYQx46pdHA9a08WnJtJmPUfqzFOUlj8HnfUP1Bl1OVbXwjnnnL6jtxfHyx902r0UXDeuTjZtIrbo2L1XJW2SFephLvyc5tvLCVyp6auUZtk4t2mdeTjJ-KKskItHSZPPlxxzN0k-qZPceN8SdmnJi5_aZ541uN7lcLLG3BqVGnVs2YM_uZW5Ol9HJSe5KJpxOW5-PsxY6Y511I5Iyk9hohmdU-vs5kLTTi--zdFXGmcMpp6MbtXqLi_5MMnyzZOTfZiy8SYxXJW2L45I2KzrHGi3wKTwC-SodF-J_ZnT8F2NAdTD-1MkvJMP_AGwZXUQM2RqmYIzvK5M0arJ7WNu-zmxk91l0m_azVPJPLcU9v2WYcM5rllmJqSpmvBFKRm38bk_XMzYHHJVlmLTq-R9VkTzydFDzSdqPZonbTjvPqMenhypTS4Psmg08dLo8GJf6Yo-Y_o_016z1fHKSuGP5N_k-r0r46PRw469vJ8nL3pJLc_wPGKSDXAKO7yC2vBAVQfAEclQItsWqfIJ5P9oD3SoFUV_KQZtqABdtgfAikyrfJyYFu62GcqiVLsmV1ABVKZY21D8lcJ2ugyyJXYFcMrcmHf8AIXdG-ENk2rkC2NPsm7grg00PjSnKgJJWhoR47LJQSEdR8ga8UbfJdNqMShXEMnaIHjksdUzPFV0WplDksTcG7IG7CInQUwGIgWRMKYgtksBiAsKYBSA1yGwPjkCAFsKsBkCSIgsgFEfBHdkYEbJYr56IAXEiVBshQsuhGx5PwIznk7cfRTPmjbX5L2JJXJHKu0GbUMTX0jzmphPXa-GO_gnbO_qm_bdHmZajLh1UljVvkzndWOmE3t3MufHp4xhH9qXCLNNl9-meU1HqGR5I70-O6NGD9RYNFxkTjf2ifbNr9N09m8ihDtHM1er3xcU7RycXrWP1LJt02TfL6R09P6Tkyx3Z5bfwa8rn0swx4_eTj6lK23JL8M58MmGGRKeWKlfVnq8_oWklTkpSa_Jmy-h6DJOM56f5LyY-rJ3x-RjY4OXLDFNtSi-eOTmepyjkxNxfL75PY5PQ9Dlg4vC0n5swr9Gen5XK3l2__uH12tTmwnuvnmDZDUuM3UWvsCWPfLdNUe5yfoHQb90ZTUfCbKM_6F0UVw5r_JfrsW_Ixy6eIeTEpP5JmfNniq2SR7WX6P0OONOXL_Jwtd6BpcTnHHLmJNSdsXyvTgPVO_3cjR1bX5Fz6OOOTS5MssEl02bklebK54tz1il2JPNCXk57U0wJZG-EXwjjeSujHIn5LsM3dN3yYMWnyvs34cFNdmctRvGWuhhxVO-kdFwXtJoxafcuO7Orlg1gi1wq5PPk9WPpys_CX4Mk3fL7L88qlRkyTXLGMXKlYkhk7_yCR0cip-PAAtcEfBUMn0W4f3FK5LsfEuCK6uHjGV5-emWYFcEvsrzpxf4LErkaqW_LsXjsr9u-Rtr9-bfZYuP4FrUxSC20bIPZzIyLsvyu8K-zDbPmx75uS68iYsLlKkm3fCLsLuSXaZ7P9K_px5sy1mphWOPMU_J0xly6YzymE3Xe_SHo3_TvTfcyR_u5uf4R6BqKdlc3JR241SXRX7kox57PbJqafMzy8rtobAZ4TlfyLlLkrKzakrYrlxwSXyBXgBWmwOPH5LAKNvkBUmoleRu6Rc1zTI4q0BTBd2CNW-C11fBKS5AqsWSTHkubIopgKqjHhFcoqT5LWvArxpsCtY42CePe6LdiToigr75ACxbYlunxU7YH9DxlSAOfiNo5635W-eDTnm3GhdLidXJAdHaCUS2iONkFCXI6DKNESABPIa5CkBEGgpDUBWQdxBtAS-SWPsFa5AFh3BoTyA6kSUtypCDKPBQFwx93BW0TkgfeNuRVREBbaJaKnZOUgLE0HgqDuYFj5ElKhdzK5S-yhlO5DFUGrLbOWfbvx9AJXI4DDrtRqV_bZ5vUQ26hyS56PTZr2s4mfBKea0cOR34r6VaT07HknumrZ1IejaLJzlwxl_KH0eGoq-zpRhSOmGE1uueed36Y9L6Vo9HNz0-nhCT7aVGyW5Kw9Bk-DtNRxuVt9qHmkn1ZRPLOTqkizK2-DNlk7qKJa7YyJPLJyStUiQz7YJLzIxSyNNp9iTlNJNvg5-Tr4xsy6uW5_g5nqHqOXYlDi_JMmo-Lrs5Wt1U3Cl0YyzrphjNubrNbqZ5ZRg268nF1K1WWMp7ZX0dLJqpRyP6MctQ5Ravj6OW3ouWnIngyJK3y2R6T_U3ybpu2uF_JVOVfk1Mnny1WJ6dAUIp9FspWKoW0XdcvGDG74Rsw47XImPGaE0oo53J1mLRgjHejoame3Ft_By9O7zxN2ulUP8GG3Gzu5N1yZ5rdFpluRrkqTOkcsiRiopBqyVySqZpkr7I3wM1-RdpRIvgvwooiaMN2QdPBbSK9VafLNGli9nKKNXLdmSj0vBWWLLp0sXvbqS7KYptJ1wP61P2tFDGnzJ9Cei6X1HVOMcWCU8V1bXRv69xn7pjdUdv4HVzSj2_pHtNN-i1mgpZpuDa6R2tB-k_T9FUpR92S_wBxZw2rfkYTp5r9MfpbJq80M-ojtxLlJ-T6RjxQx4lDHFRjHiiqCjCKjGNJdIeeR7ez0Y4TF4uTkudGdRMeTJGD-x8spSXBT7UnyzbkEJvI-qRrxx45EhjUYosXAU1ciydB6EYAUuRpZHfAqpeBZSd8ICOb7I58E2ylyNs8UBXjn3aFeZ_Rbt2ibbsALLceiRlasdRSTsVJcpALkfKoZUoWRxjHsVpffACzlzZItLlgnXRHXQDRdvgtvgqhFRQbtgGrLlxHgoimmWbuAOhZG6JRGkQK-QN0HglJgRDcC8BrkA-Q2Cg0RTEbQOAOgDuRW-xuCcFAfANtjVYYoBVHkegkIK2ibQurCVCuPAqQ4EFCiVY1EoBdvBKGfdESCEoqyRvo0UBxtFGSMNrLU-B3Dgr6dHPN34v4YnAtjVwc3RXkXBl9hOVmuStCpfIlm2pdLMWNRiqRfQseEMzpHK0rQsmOJJAU5GZdRai67ZqmrM2VOuDNdY5bxt5E5N1fINU1iT5VGrNUY_FfI5erxZMilGUblLkxa6Se2XLnSnJbuKOTq9R_al9-C-cJqVd1xRjz6eeSLk1zZxyd8Zpy8mVvi-SmTdcm6Wnq7VJ-SnJhTVmGqxO_DK2mnyanjpFU4cl2xYpUCyMUmiUOlVWKQ64DF2wMEeeTDTTh-ORSLdXl3RozxnRXlnZNLtRkTYqjxZZdiyOkc7CNCpccj-QOqKhJIS-B30KlZUqQXPJrxQuqM0FZsxeKKjradbcaldJI5zl7maUmvPBpzScNNHa7T7KMMbywj9tF_wDEep9J_R-n9QWHWay5RriJ63B6fp9FjUMGKMEvpDaHbg0GGH1BDrLGTpvo9mM1Hz88t1bwqdck4oT3I_fQjzJ8GmDoevszqastbbRQzpdEq0L_ACO3USKipBbVWIla5FlJbWghlJNWBNSdFSbk6JdSpAWRa3UWUn0VRxU9zLbUUFNGkCTURJyrkplPd5AtnJMr3x5RXky7Y0uxccaTlLyBbH5P8BTSlSKvdpUiRe3l9sB8nMuwNX0VZJuxd0q4At23ySMdxneSe3gbFLIlyBfJOqDFUuTPKWRuyzc65Ae3fAdzorg27oPXYHWa5JVkbdAV0QK07DtdB6JfAAphUWRN0FMApB2gsgUSeAAfABJ4IkFkAXQbF8BigCRkZCit3YVYzQEwDTGSB4DfBAH2SxX2FAS-RkCuQgK2RMLREUSiia2yNBXmVmcm8LqqvJLIiHJ6EZEqAMiosi3QwsehjTFASQ4kgKZuuijLe00S_gonb47MV0xYpw5t8syamMopzV2zouLt0ijLj-K3M52O0rz-TGovhXJlUsfxe5HTyaesrlfFmbOknKrZyrttxtRh-L8Ixzgmjp5scmuFZjyYZKntpsy1tzp1bSM0-ODdnx7X-foyZMfyYSqWRD7a4K2wyYMeBL_AbAMpCOToE2_AjbqiyJaeLI3yVrjyOi6NhJiMaQrEQKbAuBuSJccmmaMXw2zoaSG5Wo2_BhxxrpWjqaL4bsnFRV0VnZdXNpRxuk13Q_p-N5tfggvM0Y8uT3ckp_Z1v0_j3-q4PxyWdpf-a-guLjFQvpFUrjLsveOTbkT21ds9z51VR3OX8jrG0W44F-y0vAFSh5LYxk1wWwgqL4RpE2aZo4X2wT4Rpl5MmodwpdgUZdQ4RpFCzOS5YcsVHC9z5OesjdlHSx5k0N7qXLZzscntuxZZJMDqx1KboeeaNcHJg5IsUpUBvz5EsN2Y45r4sozTlKKTZROThygOm5xgk2xMmsjVI5s87kqsq9ynQHWjmVFsZpxtnLx5a4ZY80mqXQVv3xabF99baRh99xi0CGRog3xnFqi1SRz4ZPkWPK3NJeQNm6NkbTZSlXcgxlG2rA0QqKFSuQqkmWRkgOo2Cwg4bII2DpBbt0RgCwpkXREAbInyQK7AhGMBhQQWQhBEqREyESAl2yBolABij0ACVYeEgEAhABAgQE5AjCkQIAA42hgJ0BlfEqIPlXytCHOzT043cEYSxk7ItWRGFQTTFQVjEfQRXJFLh9GivIJVQ01KzbXfRlzY90X1wb5LyUyhuRix0xycmeCUk19iy0nwprk6soqPXgzZH8uF2c7HWZVy8mlg10c_UaRyfx4O9KFxtmXI4rl8Uc7G5XldVo3Ce9uzmZI_Ozv-qZ4KbjFdnCyS3dHJ0_GbJxZnS-Ns05OOCjI64NRmlUguXDK3wgWXTOzX9le6pML5FfRpNpdcsNsFdBboInkhH0Fc9gRKw1cvwMo0NBclQ2GFtc8GzNL-nwe2v3TKcEU7ck6XKKdRmeXL8iol1H_B6X9H49_q0b8RPMp2qPXfomF-ozkvETWHvJOT1i99KKUSnYaOK5Kr3NpHsfOIpbSyLcuStQp8miKVAFcIb3aRKVCNIKpyZ6sy-84qUp9F-VJeDDqoynHoqOfrNXPJe10jNppSySounpZzi0uDRoPT5QdsLs0YS2bS5YHJI2x01eC5Y68BGFYdofakzasVW6A4fgbGH-kbtsy5MLcmjsOHxZljppb230NjlvSuwS0rck_o6zwtzqgSw1wgOZ7Dbsf2pVwjoR09csaeLauAOU8UkuhJRlXCOr7fHKFjg45QHKTmhnkn7io6M8Eforhgi58oDHlllbXIISyKXNm7NhXjopyNQjSIqqWolAfFrqdsy5XKaExY64YHtALgKRK5IAgcj0iUAqChkiVyAFyx1EiQaCgANckZAoUC76D4KIToCZLsIayWKRAHcAlcjUFANhFIJ5CQABJyAIBQQEADJ4ICUqXACOO5Mp6dM0LhWVZY-UTKN4ZaV8DR7EsaL5ObutTCmJuJdFZWCqVuqBu-xZzV8FZM5O-EVS3PhtAedw5l19FUnJJ5H5fCJa3IslwuytStumUPMsmWk_5JurvyzG3TSZZJdt2-qKcs4RW6Trb_AORNTlWPIsifEfD8nJ12ujiwOc3y-kYtdMZtq1OtjHHUXbORn1vCbfxZzNT6lJYt0e2crL6pPNjUFwk6ON3Xb1G_VZ45NRx-2jBkdc2UajVJJfZTPPugTxS5xbkyKrszuW7kjncbEUlLrg1IxchlLgXcr4A-WDbTNaY8j3XBJJpcCxbvlFkfmwsoRTq2NVhcX1Q6jwiNESriiKPNFyj0Okl2rKlVrGyzFFJ2-0WQVckU14XRWRnm2YVFV-Tnydysuzz4r7M8fyFi_Guj236DX_4nUSfhUeLjwke3_Qqr-oka4_8Apjl_5e03JOrJJxhjchJpJXYmRSywpdHsfPCOS4lsZNlOPG4xplqVBVkpcDQi5LkRK-SxTpcALKCT5K54lLwgqE5zt9FvC7CMktPGh4KEFRXLLeZxi-ApbW7ZRZ7n0FSsrXFkjcl0BZuFeVCzjtgULc0-GBc818IeL45KIRalyWudOgGtfQvbI2BySAfhoDSfZU8nHAjlIirklyL-AK12NJpRsBHHkSUf9qG3pokskYUEV5ofBJdmdabcrka1U3YuSkFYcmFJ0hFpqnb8mz21KVkyLngDuUShgN8kBSJREHkihRKIEApEfBEyPkAckq0EAE4A-QgAWhkiBKJXAUqBZLICRgsNgQFBsgEoFBsAECAIEIwiyYEFkG2B3YQA7eOQ8EbtFGXJDZK10CLtmnbuVSM04bJOjnZp3xy3Dpk3O-Su7SoL7RGjbk222VSny-Rm0l9lEnu6GzRvd3OlyjNqc0mtqfTI57Ltf5KJNTTdmMnXGBGdTb-inNrvbahdu_JmjmSc05HL1GTfmtSe6zna6yLPU_VMmTUR0-NL8v6OV6pqKTw7tzbVsmszKEnki_ldV9nLz503Jz_c3_wY7a3pk1eWWOW2EuEYVl5X_I-eO-bk2U7UpU_o3JHDLK7WSyb23LoaKUld8CRSUKfPIacVwqTGk2a6jSDFcAiuLsN8hqVXJSTCnbH5dqSAopcpBDwT5RbGCQMcd7VcM0QxOLvwRuKYwbfBdGFKi5RiBpIjSKHCsjcYgc-KKZStFS1Z7kYyK8k4rmPkpcm52I3xyGUyPd5BHsDfAYEai6PLX4PoP6HxpaHPL8nz7H-5H0j9Ewr0qb_3SOvF_wBOXN_y9G0p8DbaiRNRYJydHqeEFygpqqEjZbCKXIEgrXIUlFjVQriFGWSo8GPJ7uR0uDYoDKCXgDHi0zi7l2Wywc22XtpMo1GoUIu2EZ8-T2_JbgyxlFeTiZ9TLUZXCL4OposahjW7so0Z8ijEGOcXHhCZ8byKoiYNPkhxJ8AaeHyLKMWyOL6Qri_IDzSpUK4LbyCToqy51FKwHjjSi2ytq3x4K3qk-EL76h2A8t7fAZRlsoWGfzQP6q50AkN0U0y_Hi91cmeeoe-ki3Hn2rnggfUbcEOzFLK5q0ZvUNTPLLbF8FukdQSkgrVB1Hkj55Hu10LPIlGkuQO6DyQhkENgIFSyBIBCNhAwIQjAASEAwISyEAlkJQaAhCUQCBAQAvgCA-SWVBIK2QBicARAI2BtsLAQRInTDYGUSTplfb5LHyrK0YydeOKpx2ytdFbf8GiVMzZIbeUZdNElkrh8WVylsX0hcjb5a6Kck1yqYqwmpkpwpMxLUNOWOuv_ACNmb9uUU_Bz3kljai3cvsxY3Kz6zJKOSkmr8lbhug3_AKkuzXPbk5n2zO8MoZVzcWYuLpMo4upxub-XDXLOVqHap9t8s9BrMMrnxycaWFzdNWl5Jotc7JjftvspUX20dl6aUoXJfwjGtJNuVLg051nhjahyuyLHe5fXJqeGdJ-Ogez_AG7j2gjLCDk6SY_t_JKui-MZQSfgMISlbfZGor22-fA2PGk7a-Jc8S3Kh4pR4kiNaSONXaLGkv4FuiueTgjUNKfPAkp_ZXuvkVtsJsZSsr3eLC5UVya3BBk3xQkmFsV8gMuh4iJ0gxZGouhzI-ofpLFs9EhXbdnzHEuWfWv03i9v0XT_AJR24e3Hn_5dJQ8sWXdIeU-eANqrPS8aKHRZGJXdoaLa8gOwpC7l5Yss0UqshtZwiueeMVyzJPWRTas5-r1q5pl0m23V62OLHdnCz-pSzul0VavNLOqT4DotHu7KL9Jje7dXJ2cN7SiGJY48I0442gLYSHeTauSpRpglFyAteVRjbKpZ15AopqmJOKtLwAXlTEm4SfKJOHRXKk0AXDGmnQJxjJ9DbIumSaqNJcgVSXNIb-nUafkMIyXLJOcgAoU7oy5t7m64Ro3ujJPO5ZtqRA0cF032asWGuQY1dGmKtAVJ3JqiuUo48jssnkWOX5Meoy3fAV6OxkKEgYPLASwGCLdhTAIGCUqFbsKZEFsLYRGwisiYDAV2CwxYBYULYb4AhObIiXQB8AsF2yARsnglEAgasiGQEqgOiSbAkFFidsZkivsgKjwDh8Bk6QkFTtlBmqRUWTZWYyduPoGLJDMBh0ZMuLcuODBnxTi3f_g600UTSd2rGzTh5IurbMeXHJPdJbmzv5NJCUKox5dPKPHhDZpxMkpxqrpeBvclsc9nSpHSlibtUuSjLhTjtrhMixzMn9yL44lwZpaeGNOPCX2dR4I0rXXJmyYtzUVG0zLTnqKkkoxtrtmeWPZOvDR1tmxvbGtzoyTwuWRquiLplcY4uNu6zPPC2uY0je8Tjw1RVk3NtPleCGmKlsSaVJjOKfEVQ8opWvKK5STXdEa0qjF76fSI5V-SSmvBS8ltpeCBnMqlK2SUxLAjbvjoDbDYthC7qX2xXb5HdUVtuiokgcEXJHTCinwNF80IuB1wRqNeNpql2fXPSrh6Rpl_7T5BgT3R_lH17ST2enadf-xHbhnt5_kX00Lc5DxfDsrhNLvyGPM39HpeQynSBJyq0NSk6QZLikBlyZppNLsyTy5Y9p8nR9rdKyvPjUpJJBHJyb7tlGTFKXg7GTAm1wCen6qJRx4aZ3TOppsKxxLY4EndF0FHdQFT3X0WwtcUO5RTFyajHjVtkU_ROKM39YsjqI6naAuSQGk2V7qQNwDyS4RXkirDOSVCK5vgBtqURJNWNtl0xZRXXkCuefmkCMrfJJwUeWDH_cfQDOmuEU4sC9xyZt9vZG2VOSgwLceNDOoJ0JiyJ9EknJkVnWNzyNyFywVcIueOSfZTlTjwB6DYFRLKIkZUtE2jMiAWiUMACtxBRYxWyhaI1QSMIrbJZGCrAYKYHHgKXAEslh2h2gRBBQKAJAApgOuiMCTC0wIPdIrS5D2AG7YwEqBKVABt2G6Qm7kkmwDy2HpAQ7fFAVN8kA-ws55O-HRWAK4A0ZdAaK5RLOwNcAUNciOF8tF0ogStEVhyQXdGbJiTR1JQRRLEuQRyni_BS8PLTR0Z4krM8oyj4I1tglhV1FGeeOrvg6bi234MmSEkmpK0ZrUcrPJe64tcox5nsjL7bOlqcLclf7Tm5Vti7RmtMmVUk75M0mrbk6Lc8q5XRgnNKfdoJaslTTpla4dE3qTtFTm3IjNWSYLAQKNsj_aK5c0RugAnSFcg3di2APyQhG6KI3QYcla5ZbGrCxu0a3Z8cfuSPr2DGlpsMX4ij5N6St2vwL_3o-vJXCP4ijtwvN8gHtb48BjTfAij2PCFHoeU0OGyWOsdtDRxchSxdR6Kop-420amqXBS4unwQU5ZqPIvvNx4Ra0n2gOMUijNLLXaBGbfJa8cZElCKW0IqdyEWn9x_J9C7Mqnx0a4Y2o3fIFMcKi-FRbwvBHGVkUG3yFGXLVIDXJds2wKZqUo8AKo3bqxoydcKkFS2xryDf4oCmc2pdlck0tzZoUU5W0NLB7iAw5FPJJV0bNOlCP5KHOMJ7F2asUa5-wE1DnKPxOc1mk6Z18lJFUcau6IKtJp5p3I17UmSMkkLPKohSTjulwZszinyNm1NLhcnJ1GTLOTpcAe2IQhlQoNEA2AQCOXIHJgGckirfYJ3IVRZU2s3E3AUBttAIPFE2jJUAGrGSogQoUGiEIJQKDZGwBQaQAgQPZCMBeiEGoAUBwscqy5Nq4ADSTG2qiiLcnyX-OSon4K3dlWq12DR43LJJJ_ycrD6nqtflftQ24k-2S5abmFydlrkFiQvardsY527dpNTRVH5XY7AmELSsRodgIpOxemOkK15AV8iSiFyJdoDPPGZ8sGbX0UZeiLHPmm30Zprlrs2zdvoxZcclNtMzW4xZ1w-LZyMlTUr4o7GVbu-zk6uuVHiRzrpHG1anT5VGOltrybtQo7XufJinX-lWxGLCRdcNBpVaQsbUuRm3a44KgLlWBz5oil4BKN8hR4TI0Tx2SyBRQt8itlEboDZErAARoiJjRYHa9Aju9W0y_9x9cXKo-Ufpdp-t6fdwk_J9acobbi0zvw9PNz9qZfGVFySSKJfKSZcla5Ozzniye5ToW6VCXTAeefaUT1SsaVS8FcscfKKg-8pIM3xwxPaVcDbWvICxvkrk22zRGI6xxXYGHG8k5VVG6EHtphiox5SC5EUuRcUkSMeBqtWC2k2FNLbtKVOLdDQhKcJHPWPJDM1J8NgbZbFK2wtwb4MuXG2lzyLG4qmyo3RUWM8kMcWm0jEsso9GTPHJllduiBYyjl1zp8WddUonPwaeONqS7NkpbYgGfLsolmadJWNvuJXGvJQzySdUiTuVWOpKMHwZsmZ0RTZNqXJzdRmV8Ity5XLhGCSd8ij3oboBOzKoAZAfYCUSgsABpA2oIADSJQOwgEALJYECAgBsgCAQIGToA-CECACMJAAFOhSMCTyUqKGpT4RdtsaMKKiulixtyq13Z5H1L9Vzy6x6L06PuZbptdI9J61OUfTM-zva-Tyv6X9MhhwPO43lyNtyZy5Mteno4MJfdbdJ6VkytZdfkc5v8A0vpHaxYo4oKMIpJBjFIZnP3-vRdfh0EEVwQ05jYUxH-CKwGkxSMSwaMiPkikS6KhGooTgZvhuiu21dUSrAZXKh2Lw-Cba0z5IX0Y82OjotGbMlTtkqxw9R8G2jkZ523xydvUQ7ZxNTjksjqqOddY5WoVbt1SOe6cr5RuzQkpvnhmWd8kjNih8vugth4faF_g0yjqgU_sZQA7AWvIOgKVWpEbb6CFbtkquSJEAlgb44J2AonI8RUMuyEb9DkePPGUXUl0zor9U6vQTanOUonJwOmHURhqIuMu_DNY5eLOeHlHosf6-yRXyiXP_wCoktjqHJ881GDJp5U7aKtz-zvLvp5bNdvp_p367lqcqjkhwey0Wtxa7Gp43z5R8CwaiWDIpJnsf0_-o54MsYp8eSypY-rbE-gOHBl0Wvhq9MskXy10M9S0joxWiMeBNr3MWOb4WwZNRGMOAizmwu2yiOdNWWRzR7Bta_2g7RX76a4Fea-hpWiU9mOinFNyvcD3I1yxYZY2xoaYZmuEjJr5Sg4ziWRyxtmbW5fcqMRoVY9Tul8uxpZVdoy-zU7suUeV9BF-664JOaXC7F3W6RXsbyp3wA7y7V-Q7pSjbGnjVospKPHQGduXgluLTvkeab6K3ilutsKXNmcVwUe5ug2w5pdp9GWWZbGl5IpXnpNmWWaUpNh46Dca5Ir6CQVDUQEVjCsAEIRgQDIRgQjAF9BAIQhRCWAiAYhPBAA2Rk8kYBA2RgANsNgoZRAEpUgpWLkXQ6CGojYLJZFZPUMfu6TLCu4nH9Hjt0yj_t4O_kW6LT8nntLL-m1uXC-rtHLl_K9Xx76sdXonkkXYX2YdaddAYV0BmmAIyWK2RQcqBdgYrlQU10HdYm4jf0NmjSklFlWPIpp8ND2CvriwhZIrfBa-StoNQllGWLu64LinNLgysc3UR74s5Gpgm3xR19VKNnL1DStMxXXFwdSqb4MLXfB1NTGzBOJIZMrxW_oDhRbLgqm2ysEbaFbsZi2VmkcL8kG8C2_8AI3ySuCVYQFJSIEBRkxaGRUX43Vg3c9ip0itvki7WzrJFxkczPpnFtx6N-4qyO0XG2MZ4yuY-OzZ6blcNXBXwynLBeCzQQctZCvB3l28tmn079O6x48yxSfEj1OXG4yVcpngNFlcXGSdNHpNP61OCjLJzFdneOLsvFN_wLLC0uS7Ra_T66N4mr-jY8KG105kcUkmBRmjpe2qfAkcKcuhs0yJShBtopjKVu-jo5sbk0kuBXp4qP5GzTBulZITds1PT8gjp6sDP7j8E4fZesHD4I8PxAyz6VEakoF6xC5Iu6XQFGOU2uS7G2yRh4HjKMUwJub7HzTUcX5KXkuXC4FzZHJpVwQW70sSb7B7qUW-6Ms5uXC6E3yjjlF9hWbU6ndN0uDN7irkseJ0212UyxtIlUN3L4K3LcW0qK1Vsyr6PQUAKAjEY7KwCgMIPIEIEAEIQgQAMIGUAZCjJAEAQgCiURkQE7CkFIWToIKHEjyMwqvLwkG-iSVxaK4u4lZW2QUKAj5R531jG9PrcWohxF8S_J6IxepaVanSzjXyXKMZ4-WLtw5-OSjBkU4p2X9s5PpmVtPHL90eGjrR6PNi9uZ-gNhYrOjkVitjMR9mWkbEdPwFgZGi3RFPmhXdgdPyNrpY39AtipL7CpNP8FSw9oSQzQrKypnwZ8r4fJomkzNlVGW45uofdHF1GKctR7m9qFdHa1Hno5uf-DFdI5OoX5MMo93Z08y_BjyrjtIFYZpeOytmjJB7vtFEvoM1XIrb5Glf8FfnsrFFU_IrQV30RoKCRKCABWANgCAMhQorKzwVN8jlcyFSxJsDYjfBrTNqubOj6Vp9v92S58GDHjebLGC8s9HgxLFCMfFHfjjy8mS_HkcGjp4dT8KORNc8Msx5XGPZ3eaVvx67J6dqVmwNqN8o9p6V6_i12KO5qMn9nz3Jm3xqXVE07y48e_HNpp8E03Mn1ndudp8E3JdHkfQ_1Gp7dPqntl4f2eqjKL_a7T8k01vazd8RE7uwSfgrcqGlX8IWTSRXF8Ww_uYRYo_B8CSXwqgyk1HgEZpxd9gLsUUVuFssXy5Ga-FsDOo7U2ZalLI14N9bkFQV9AY4wa4SGePj8mtpLpciQgpStgZseFU7EyYkua7Nzx2VZse6q6CubkgkmYMseGdyeGO0yy0qa5QHFqTdDwwPyjqx0sU-iewnLoivXBAEypZCDyEAICBoAIlkAEFEsiA0UAgwAJQUgoN2AKDRCABgQWRIIYqnLktfRQ_3CFWwHZWmWLoEKymts39MvYk43G_oQsKuBhIu0MVBFkrGAwOFqNP_AEvqKyxXwn2dGHVl2pwrNjaffgz4m9ri-0ccsdV68OTymqsvgRsIkmYdIDYLA2K2ZaMKwWBuyKDqxH-AtgDQpsdfgpfAYzX2VNLXb5K5OSG30CTsqKnK_BnztF80zPlXHJFjBmS5Zzc3MuKOjnvm-jmZrd1wYrcZM6V00YsqhVs1ZG75M2ROXCQ2rHmpvi0ZJS54VmzLGSdNmVpvzQZqiV-RGki2VeCp9lZoJfkLF5DyAexWg3-AvlAVgGYjKzQGQljJhkxXMayqTELSyZXKVIMpDabA9RmSX7V5OkjllW_0vTUnkmufB1G34EhBQgorwS2uz04zUeLO7pm77ApJIrbYtmmD5J0v5NeCWzCk_Jh4nKK_JtT6XgLD5cdxuPEl0_o6Hpf6mz6CSxapucPswyfwMk1u7QXen0rSer6bWRThkVnQhtcd12fIoT1Gll7mnm6Xiz0PpP6qlGoZ20_yRqZPdY05t30XRionN0nq2DPBbZK2bYuU-U-A0sfKYm3wP44Fk2l0QTZ4QJJtUHekiWlG77APEUV-58x1yVf_AHALNyTdlMMrlOkGVNsSDUE2nyBfKVKl2LHmPJXCd25CrI26Cmf_AIM8m5t7fBZnyKKr7MuKXtzbk-GBak2-S5Y1VmdZd02l0aFkSpNkV6FEIiGVKwBYAIQhCoBBZZIrtkU766Gk2ZugKRGrGSSAWpS8hpINivoojdjISPLHZAQWCwWAwyFQyCpIof7i9lTQSimWRKU-S2LBBYPwMK-GFVP4y_DCmNNbosri7KyeyACADPnhtnuiaRJK1ySza45eNZU7QkmNkg8crXQjkmccpp7ccplNlkytsaTK2zlXWDZExGyKSRAWxWEDTClbFc-eiStiOSqgH3cdkcvzRVub6RVDO5pprlMuzS-Uq_1FMpWuQuX4KMk3TBFOpkujmZWm2qN2Vtq6OfOT3OzNbjLlTT6soyS2rrs0ZFb5dGTKZVkypPmmZMnHg15DLkS-yxms0-X0LtLJL6FKwSiMZlbbKiXz0RsWxWyptG0K2SwBmgFMD6BZUGTKZMeUimTbdLs1IzlkCTnLbHmzu6PCtNiTa5Zn0GiWOHvZf3eEbJO0jvhi8nJn_DOXDaEc77BdPgF2-jq4Hv6Fb4JaXXYrtugHwJue59GqDtlUKhCvssg6QVdKVKihuh5uyt9BQT4EnijNX1Lwx1VB4oIXBrdToZXubieq9G_VcXUMsu_s8t3w-UUz0yfyxPbJEXen1zT63FqIboSTLJSc1SPlGj9Z1np2RKbbiez9L_U-HUY1GckpMNSvRySpWyrLJ8KPQMeSGeCcZXZc8XQaJHcooS5b7ZpcajRXJRUbZBUubsqjFO7ZbKargzPcpP6KL-Euyh5GpNlOTM72xK3OTmkBJznOW6XQ0nvcUgZnaSLcGNbOewBOsbVdsRuTlyzRLB7jTvoGTFzRFepJ4AiWYaKQICoDbrgR43Lt8FhAitYoLntlgOCFQQEIFShZdBsV8gNHoIFwiEEZCeCRKGQyAgkVGIx2JIJVb7LIsrYYsqLkwATCRQ8lclslZYRrcqYQl2gla448jJlQWKMKygNKSpoxZ8UsTco8o22FpPtGbjtrHO41yHkTEbNeq0f-vHd_RzZTcJbZppnmywse7DOZRbdhRUp2FSZh1XIjViqRLKhJumUSdWXZOOTNKX4JVg3KuGJKvHD-wbgb1zaCo5pKrKZy4YZZYVSXJQ58NtghMmR9IwZHb8F-aaf2ZZV4uzNbiqbaKJ019FuR35ZVLogyZVT7MuRJ-TXlMs1ZUqiXZW-OiyX8FbKwrkytjTZU3RqMVG-QAshWRsAfArADFbI5AhiyZ3txq_yak255XSu3OW2Kt_R09HoVh_u5v3PpFun0mPSJOXyyfnwNOblK7O-GH9eXPk30aeS2JfIgyOrhs98ET4AgvgIj4Q-KNvcxVFyaRY-FtQUydstXBVBUWN8BUb4EC2KBOK4DfAPxRPwRRsZNCIgFrSmqatGaekcJbsEtrNEWl_JN3IF-l9b9Q0Djdygj1vpX6x02pjGGoftz_J4-LuNNWVT00JPra_tAlsfVoarHnx7sc1JPyhXHdE-W6fXa_QT_ALOZygvDPUelfrDFJLFrE4T-_Ab8nqPbdWkUamMo8osx-oYMuDdiyRl_DMWTUyzZKS4CooVG32y7FhVbn2JC3JJoube9RS4ARYN83ZoWFRjREnGf8jc2Aa2rorywlJ2uh5N7kgz3bGkB3EyWAhhpAgIEQASAAAwCgEshAiC1yOACEAQA2FMUKAYZdCoJFEVhIwKpIVDzQqRUMh7K_IyYU4CEIEnG1a7Qidlok41yiongDJdkKgEZCBATfkz6jSQzx6Sl9mgF8izazLV9OBm0uXTvm2vsWD_J6CUIzVSVowZ_TV-7E_8ABwy4v49fHz79ZMiGsrlCeJ7ZJom6vJxs09UsvSZGZ5suckyiaT8kFU5FEsjT6LMiryZMkpLiw0aWaqpFM8qXa5YjyNRryUSnzciLAnkbukUtyvh8BlNc-Cpy-mRTS_5K5q0RdumySTaVMDLkoy5EzdOKM2SKr8hKySX2Z5s1zgZJxplYqibKmXTopdG45UOgiOVAVydJOUn4RdbTeljkuhG3J0lb-jZg9Mz5UnOscH9nQhh0-ljUI7pLyzpjx2uOfNI5uD06WT5ZvjD68m1PHp4bMUf8kyZZTvwjO27O-OEjyZ8lyNLI222-xFyyeSfwaczDRQq8DqqAbgH7nQIxbbLYpRVeQD-yNLsMPt9kjBt8jvjgKljXwVhvgKNkQsexmACU-0RIYilpslckUnZLthBHjGxC2CKHhGh219Cqw0Ako-UgNQyR25Ir-SzoVoCYFqNK92kzOv8Aa2d7039RQb9rWw9uXSk_JwocO-i94sWeO3JHnwwsr3uDLhlhU4NST8jb05J0eDwZtb6W08M3lxf7Weq9N9d0vqEVHjHlXaZG5XX2ubUkWQxNysrjk4VNclinKMq-wpvauVknH40SWR-EUNycuWQd0gQGVQhCAQBGACMlgZCojCgEugCxbYbsDAlgsDZEwGHSFQ4ADYAkUSMiCwEfIOggZUAiZPAEBYiCphCiAlk8BFc41yhbLRXG-gmi82EV8dgvmioYVoKYGygchTYGxW6GkSePHmW2aMOb01q3jdr6Ne-hvcX3yZuErphy3Fw8kMmJ_KLRTPlfR6KThNVNJmTP6biy24PazjeK_j1Y_Il7efnXkwZtrbe6kdrUemanHe2O9fycTWR9tuM4OMjlcbHoxzxvVZXNJv5WUyyeLEm1G65KJTaMadF7d-RE0uinem-S7Fx4LoGPy_gdJJcIRW31wXRi5cPggpnG--iiWNU-LOj7MWuWVZMFri3-Ei6LY4-Sk-TFlatrs7cvS9ZqHWDSza-3wacH6L1uV7tVlhhh5V8m8cLXDPkxx_XkMj2-SYdJqNVNRwYZzb81we8h-nvRPTluzZHnyLnkrz-t4sUNuiwwxxXC4O-PD_Xkz-RPxwdN-k88lv1k1iX15L5YNH6etuCG-flvkTUep59Rkuc2Ypze5vc3Z2mEjy5c1q3LqHOzPOTa5YrkI5cmnLexbsWyfkNEUBokoKQUKY8IOb4Hhivt0h3JR-MFyBKUFx2GKcndDQx-X2WdLgKV8diN_Q0uhPHBFFEFGQUUMkKh0gBVMgzqxZVYC2rGSTFXfRZGKsAxSodIMYIbhBESpj0mJfI1oKNRQJNA76FkAHkS6Q0csrtC1-BrpcIDZizOuQ5NLCbWTE9mTw0ZISdmnFkf3wFbdB61n0mWOLXJuC6ker0-txauUZY8iao8c1HLBqSsrxxy6aanpsri14I1K-g7lXHLK6T7OP6T6_jzNYtV8Mq4t-TufGXKaa_AadcAQGFQFhAwA2EAb4KgMBGK3QEbFcwNiLsrK6LGK0xo8gLNUSLHkrEqnwFWJjXwIhkRRsPggSKMQy6IiMKQhCFQAUMAInkl8kBQBIQABIANgK42VuO0tb4Ev7KivigDuN9CdPlFZQEuw15A6KK5IWT6Gb5peEI-ishOXCpg9yUUK6r8lc5bV3z9FTa-GeVbn0Jmx6TVR_vY4yXkxzTk38nRQ8j9txt34HjKTO49Dm9C9LzW9zh_Bkl-lvT5r4amVv7K5vI_9TFWWeOauTpE-rFufIzn6kv0fjuoatf5Av0fNLnWIOTXZYx3Rm76M0vVNQquZPpxa_8ArzdDF-lsMVWTVli_T-gx1KeqbONL1LUX-98mfJrc0ri5OvA-nFm_Kzem9j0fAnu-VFL9a9L0zaxYY_y0eVyZ5v4t_wAmXJP5cPijc48Y55c-d_Xqs_6qioP2lGP8I4Gs9c1OplanJI5s5Nr7EbdKzWtOVztNl1M5ybcrZnc2-WxpSXP2UyfAZ2DfNiN8BYEmRYANtsZIMIt3wZaDbVIOxtccDqFv_c_pF8cLdOfAaZo43J8Ln7L1jjBXLsdySWyCFWOT_cFK259Ithipc9lihSVItjC-wKlEElRocVGJlnbCkkyu-RmgbTKiuR0SMeBqCpQQ0B9gCSAosYbgBEmyyMWLHsuiuCxCq0JKTGySoolMB9zLYvjkphbLUA1vwBsF0HdZFFTVch3JlboaIQ6kkx4y5K65LUqQF8MngdzMu6mWKVoNRo-GRLcvkumvBdj9R1-gacJ-7jMUJtMuhmoD6sAhDDqjFCxdwRGwXwBslhEsDYGTwUI2xYsZsCaoqCmyyDsqbuNjY3wBcK0MieCKRjRdiNhiwLUwoVDIinQGQDIoAIwWVBsgLBYDPggrfBLAYgtkcgCSgbgWAWI_oNitlQtUwOXSGb5Ekr_BWRkq6aK21duyTu214RFkTSU1zRUpH3wB8q_AXGLXwlTBOM0kmujTNVtKXTKpLaueS2o0r4fbK3ujCUnzb4RWWeaq7XBVNQUeezVkb5TdKPLKJqKS3fu7oowZqjG1y19GHJc5PtM35pfJ7WrZklUJfJlYrHk3KNsyzbfNm7Ktycv-DNkw0k0m7KzYoUm1TK5tvqnQ8n8qoz5PimVEny3wkzO3UeVyFqW1ytUVNxfTT7CFbpcqhJpccgnOlz9iTdRt9kpIWbp8CfuTf0PGO5yUuBKipPzwRorfCH2tRtqh4YsmRLZCvyXPTUk8k7_BFZow3Nef4L4YG_3PaixzhFJYo14DHHkyu0FKnCFLHG39jwx5Mq5VGjFpNva5N-LBfFEaYsOiSV1b_I_9JLJHheTs4NI2uV0aoaZKNUF04i0DpWhpaXaqSO3PFGKRkypX-QacTPi2wOfPcmdfVrg50scpMlGbtjJfaLlgY7xUjOmlMOWO0kFfEDkuwBLngVXQspgTfgAsHnsR5Gpcjwbk_wBoFuOLbL38Ygj8YWV5J2iopyTtlcZcgm-RoJEVdCy1dCw6HfRpFT7AGQtEUW-AxbYjT8DY075INEUWLoWKoa-DSEdkjJrsaS4K31VkqxY5hU2UXTG3MivsfgiYthRh12LK32OypumCoN4AiPoqFZHwLa8kb4KgPsjpCvkEmVNi3ujQMb28CN1G7BB2wm21MYrh0WIy3CtEQZCoCxMKZX_kKIq1BYibY_ZFKxB5Ir8liVAsAAgvoW-AsUoO4FgYGE2a1QNwjYLKbPuI5iJol8g2dvgqbdse7QCoS2B0x2LKkisqXCSaUVwg5Ms8UE_yPuqirNOL_d0VKKzRyXvj_kEoQk7jMzqpKST7Knjmt8VK21wi6TbVPFkq1UjJqfcae7G-VVkhPNBY47na7f0Z8nqmohKS22k6VrsrJI4sfvY3TSivJnz6bHklGKlSU9zZ01r4Svdij8VbM0fU9FlUXLFSk64CMufBit1Kk3Zm1KgvcUZUpVt_B0J6n0_2pynFpR47KXP0qT_c22r7KmnIlpoe5Fua4XJRmwQjDbuvk7DyekyipW6QmTL6XVqN1-S7TTzk8UIwm3J21SRnhjUL-LfDSpHo8mt9Ogo7dPF_lmV-qRWOWzBCLT44G2dOJ_TZpRShgk3d8lkvT9XkXyiofydGfqeWWRxiqpeDNOepypNt1fINKY6CGPnNkv8ACE34MbaxwuvsshpcuW4tsvxenbVbi7IumN5ZzdQVIENPPI05nWx-n21a4NcNGtz-PAakcnHornVcG7HpFfVHSw6Lno1R0iUrojWnPx6SqN2DSGlYVfRpjFLpBVCxUkqJKCRbKVNmfJNqVVZAM6jtOZlkrddmzPlVUZU1Te0DJPTuXya4Kp4IxSaRvnJ-112UNWueAMLxrlpdFE07Rp1GSMFUXyZZOTxttEGfI1uM8pMtnzddlNPoypbbZLaY212MoOwpEr5ZoxtIqaSHgrZYlWt2jPkZraUYdGHK3YqRW-WWwXBTFXI0RXBItX442y9rgrw9l01tibRlkKkM-bDFcEUji0wrgdLnkLiQPCXBbGrM10asMdz-jUSpOLa4KZraje41FnPzy5aJSEQyVlXQ0U30ZafYbGiUbyzGyV02ua4KJ9lzKMq4skWmiRlMZchcuaTLpnYzVMauDNKTT7LItuJdGz0VyVtjOxa5dhC__bZILhAk5baFi5Wkyo2Y-i-Jmx3fZpiYrcRoWkM-hKIoWkFSRW1x2RFRdGRYuSqKLo9EahZIqZdIpYhUsiIgNlQzEbC_AHSQQAARCoVqxFW3kf8AAr44KJwqoFuydETtMIddA8ET4B2gC-BZK0GXgrlNppAOoIqy4VIsUqbvsWbpclSqXgSj8eyqWKUK-zXzTElxXku00yU0267M2WCck0joyUfoqniStl2jBngniquGYYaKGxVwlyjr5MSklYFp4pJLou0042TQRyQcbdSfJF6Vixq65ao7S00ZScn0vBTOLlKkuBs04_8A0nFX4Xgoegh7jqPfB2nBrHKlyynFgkottcjZpxX6fHdt28RGWjUpJ1wdz2F-5rkC07XUa-xtPGOQtEk7UOWy5aFt9cHXjp3FWMsT2vigunKho1CXCL_6XhRo3-zVMsWPzQ2ac_2NrSosjp25XXBuWNXdDxgqGzTNDD-CxQ7VFyVMdpJdgZa2lbmt1IsyOKV3yZnNPck-gEy5tr4VmfLnai35EnPdJ8_FFLndJvlgTdKfxfD7LJTgsab5dlSklK-wXKV0uAI5uUJfXgy5JNpJcUa_buG5x4M8oNzafESDBkcIu6szZp2jVngoqrMOZpcLkgptp2Pjw27fksx4nkj0aliljhxy2hoZcsUqpFMp7WWTct9NcoTat1sCn-TTp48uxPbUjbpsStDRVOV0jBkds6-rwqKs5GT9zFIWHZpgjNE1YlyiRa0Yk-B8r5pjRjSJkTlFmmWV90i2Mb4K4q5c9muEElYFMlTA-EWyjzwUS7dkNqruVHS0kbowQTlM7GkjUUWCZVSZyM_7ztZ-EcbOryMUilu2XYl-CpR5NOOkjMafU-EPjlbKGPifJG5WxFeZfFjp8CZv2Mz-t3piUvlQd1WzPLJtm7A8qSZ0057RzufLNcZJI5Es6WVKjfDJF07FSVrT3MO3yLjcauyxvgy0pkkkJFrcWySoqjW7sqNGOSs0wZlhRogZrcWCh4AzKq3RIhb5JFFRbFDroVLgYzW4SZU2PNlb_JqM1Ew3bFSCEFiyYQMBW6XBGyNoXyVBAQEvBQJdCR4LJdCx66CGXRE68Ev6QV3yFLK-6Kp_bNLKcy4CUkZW78ElywRpKg19FQbK5fv4H5Flw7AEkq5I4p-Q8SjyRJP-CorWKL7YJ441V0O0txMkVtX5AVQjFdldwSdFiXD_AAVbVG-OwhU4yXCBtiosZKo9cCrG3_komyN8BqLXQ0YU2N7b5AWaqC6QuLHu7fA7x7klZZHGlSTAXZbr6GarwguDTuwS4pECyVoRR4LZdFcXd8lEUaX5Kpt9Nlk50k_ozSnalICnJFXy2U5GrSiuC2UnKNpIoSUmr7Kjn6jJsySxpdiQtySfJryY1LO0lZdiwPzGgjHHC7aVl8MUmjUsfyfBNu1U-grNlTjiUUc7NklbS8HQ1GZXt6o5ryRSm5Lsgw6ht19sTHp975XBf7byZbrhdGqGD5Rj4IEx4VBdcEnFuNrhGtKk4lGZNQr6KOXkgt1vyVzhz-EaMsZd1witRc21QDY8K22acMKabaGxY5JJPslbXVeQg67HeKzz-VVJnptRGU9Mea1D_uNEpExx_wCTdix3TMunV1Z1cONNKhCjCFx_JVlbjKjf7ajHhcmPNC8nBpGeEflbRr2txQIY-aovUHSYgpeOuzDmtSa8HXePdBvyYMuL5chA0-NNo7GnhUTDpsaSOthhWNBWXUx-jkZcdZGd7NC-WcrUQqTb6FGGkrbE91J0hc2Sm0jLut9mK2__2Q==
+        '404':
+          description: Not Found
+      deprecated: false
+      security: []
+      description: 'Retrieves the picture url of an entity. '
+    parameters:
+      - schema:
+          type: string
+          example: '72'
+        name: contact_id
+        in: path
+        required: true
+        description: contact id
+  /crumbs:
+    get:
+      tags:
+        - Crumbs
+      summary: List crumbs
+      operationId: Getcrumbs
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Crumb'
+      deprecated: false
+      security: []
+      description: 'Returns a list of current user crumbs. '
+    post:
+      tags:
+        - Crumbs
+      summary: Create a crumb
+      operationId: Postcrumb
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      security: []
+      description: Creates a new crumb object.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrumbCreate'
+            examples: {}
+        description: |
+          example-1
+  /plant_density_abaci:
+    get:
+      tags:
+        - Plant density abaci
+      summary: List plant density abaci
+      operationId: Getplantdensityabaci
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlantDensityAbacus'
+              examples:
+                example-1:
+                  value:
+                    - id: 0
+                      name: string
+                      germination_percentage: string
+                      sampling_length_unit: string
+                      seeding_density_unit: string
+                      variety_name: string
+                      activity_id: 0
+                      items:
+                        - id: 0
+                          seeding_density_value: string
+                          plants_count: 0
+      deprecated: false
+      security: []
+      description: 'Returns a list of plant density abaci you’ve previously created. '
+  '/plant_density_abaci/{id}':
+    get:
+      tags:
+        - Plant density abaci
+      summary: Plant density abacus details
+      operationId: Getplantdensityabacus
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlantDensityAbacus'
+      deprecated: false
+      security: []
+      description: Retrieves the details of an existing plant density abacus.
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+  /plants:
+    get:
+      tags:
+        - Plants
+      summary: List plants
+      operationId: Getplants
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plant'
+      deprecated: false
+      security: []
+      description: 'Returns a list of plants you’ve previously created. '
+  /variants:
+    get:
+      tags:
+        - Product nature variants
+      summary: List variants
+      operationId: Getvariants
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                x-examples:
+                  example-1:
+                    - id: 1
+                      name: Vache
+                      number: '000001'
+                      variety: bos
+                      derivative_of: null
+                      nature_abilities:
+                        - consume(mix)
+                        - consume(poaceae)
+                        - consume(silage)
+                        - consume(water)
+                        - move
+                        - produce(animal)
+                        - produce(excrement)
+                        - produce(milk)
+                    - id: 2
+                      name: Taurillon
+                      number: '000002'
+                      variety: bos
+                      derivative_of: null
+                      nature_abilities:
+                        - consume(mix)
+                        - consume(poaceae)
+                        - consume(silage)
+                        - consume(water)
+                        - move
+                        - produce(excrement)
+                items:
+                  $ref: '#/components/schemas/Variants'
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      name: Vache
+                      number: '000001'
+                      variety: bos
+                      derivative_of: null
+                      nature_abilities:
+                        - consume(mix)
+                        - consume(poaceae)
+                        - consume(silage)
+                        - consume(water)
+                        - move
+                        - produce(animal)
+                        - produce(excrement)
+                        - produce(milk)
+                    - id: 2
+                      name: Taurillon
+                      number: '000002'
+                      variety: bos
+                      derivative_of: null
+                      nature_abilities:
+                        - consume(mix)
+                        - consume(poaceae)
+                        - consume(silage)
+                        - consume(water)
+                        - move
+                        - produce(excrement)
+      deprecated: false
+      security: []
+      description: 'Returns a list of variants you’ve previously created. '
+  /products:
+    get:
+      tags:
+        - Products
+      summary: List products
+      operationId: Getproducts
+      parameters:
+        - name: product_type
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Worker
+            enum:
+              - Matter
+              - ProductGroup
+              - Zone
+              - Worker
+              - Bioproduct
+              - Equipment
+              - AnimalGroup
+              - Building
+              - EquipmentFleet
+              - SubZone
+              - Easement
+              - Plant
+              - Animal
+              - Fungus
+              - BuildingDivision
+              - LandParcel
+              - Settlement
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+      deprecated: false
+      security: []
+      description: 'Returns a list of products you’ve previously created. '
+  /lexicon/registered_phytosanitary_cropsets:
+    get:
+      tags:
+        - Registered phytosanitary cropsets
+      summary: List registered phytosanitary cropsets
+      operationId: Getregisteredphytosanitarycropsets
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/paginate'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryCropset'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+              examples:
+                example-1:
+                  value:
+                    id: '1'
+                    name: ephy_citrus
+                    label:
+                      fra: Agrumes
+                    crop_names:
+                      - citrus
+                      - poncirus
+                    crop_labels:
+                      fra: 'Oranger, citronnier, pamplemoussier, mandarinier, clémentinier, limettes et autres agrumes'
+                    record_checksum: -2113121812
+      deprecated: false
+      security: []
+      description: 'Returns a list of registered phytosanitary cropsets. '
+  /lexicon/registered_phytosanitary_usages:
+    get:
+      tags:
+        - Registered phytosanitary usages
+      summary: list registered phytosanitary usages
+      operationId: Getregisteredphytosanitaryusages
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/paginate'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryUsage'
+      deprecated: false
+      security: []
+      description: 'Returns a list of registered phytosanitary usages. '
+  /lexicon/registered_phytosanitary_risks:
+    get:
+      tags:
+        - Registered phytosanitary risks
+      summary: List registered phytosanitary risks
+      operationId: Getregisteredphytosanitaryrisks
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/paginate'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    $ref: '#/components/schemas/RegisteredPhytosanitaryRisk'
+      deprecated: false
+      security: []
+      description: 'Returns a list of registered phytosanitary risks. '
+  /lexicon/registered_phytosanitary_products:
+    get:
+      tags:
+        - Registered phytosanitary products
+      summary: List registered phytosanitary products
+      operationId: Getregisteredphytosanitaryproducts
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/paginate'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryProducts'
+      deprecated: false
+      security: []
+      description: 'Returns a list of registered phytosanitary products. '
+  /profile:
+    get:
+      tags:
+        - Users
+      summary: User details
+      operationId: Getuser
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  worker_id:
+                    type: number
+                required:
+                  - worker_id
+                x-examples:
+                  example-1:
+                    worker_id: 1326
+              examples:
+                example-1:
+                  value:
+                    worker_id: 1326
+      deprecated: false
+      security: []
+      description: Return the worker_id of the current user.
+  /issues:
+    get:
+      summary: List issues
+      tags:
+        - Issues
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Issue'
+      operationId: get-issues
+      description: 'Returns a list of issues you’ve previously created. '
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+    post:
+      summary: Create an issue
+      operationId: post-issues
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueCreate'
+      description: Create a new issue.
+      tags:
+        - Issues
+  /plant_countings:
+    post:
+      summary: Create a plant counting
+      operationId: post-plant_countings
+      responses:
+        '201':
+          $ref: '#/components/responses/Created'
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlantCountingCreate'
+      tags:
+        - Plant countings
+components:
+  schemas:
+    InterventionCreate:
+      title: Intervention object for creation
+      type: object
+      example:
+        provider:
+          data:
+            zero_id: 0
+          id: 0
+          name: zero
+          vendor: ekylibre
+        procedure_name: all_in_one_sowing
+        working_periods_attributes:
+          - started_at: '2015-05-07T09:48+0000'
+            stopped_at: '2015-05-07T10:48+0000'
+        inputs_attributes:
+          - product_id: 305
+            reference_name: seeds
+            quantity_value: 120
+            quantity_handler: items_count
+        tools_attributes:
+          - product_id: 261
+            reference_name: sower
+            readings_attributes:
+              - measure_value_value: 0
+                indicator_name: hour_counter
+                measure_value_unit: hour
+        group_parameters_attributes:
+          - reference_name: zone
+            targets_attributes:
+              - product_id: 1219
+                reference_name: land_parcel
+            outputs_attributes:
+              - variant_id: 162
+                reference_name: plant
+                variety: zea_mais
+                quantity_population: 1
+      x-examples:
+        example-1:
+          value:
+            provider:
+              data:
+                zero_id: 0
+              id: 0
+              name: zero
+              vendor: ekylibre
+            procedure_name: all_in_one_sowing
+            working_periods_attributes:
+              - started_at: '2021-05-07T09:48+0000'
+                stopped_at: '2021-05-07T10:48+0000'
+            inputs_attributes:
+              - product_id: 305
+                reference_name: seeds
+                quantity_value: 120
+                quantity_handler: items_count
+            tools_attributes:
+              - product_id: 261
+                reference_name: sower
+                readings_attributes:
+                  - measure_value_value: 0
+                    indicator_name: hour_counter
+                    measure_value_unit: hour
+            group_parameters_attributes:
+              - reference_name: zone
+                targets_attributes:
+                  - product_id: 1219
+                    reference_name: land_parcel
+                outputs_attributes:
+                  - variant_id: 162
+                    reference_name: plant
+                    variety: zea_mais
+                    quantity_population: 1
+      properties:
+        provider:
+          $ref: '#/components/schemas/Provider'
+        procedure_name:
+          type: string
+        working_periods_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/WorkingPeriodsAttribute'
+        inputs_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/InputsAttribute'
+        tools_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/ToolsAttribute'
+        group_parameters_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/GroupParametersAttribute'
+      required:
+        - provider
+        - procedure_name
+        - working_periods_attributes
+      x-tags:
+        - Interventions
+    Provider:
+      title: Provider object
+      type: object
+      example:
+        data:
+          zero_id: 0
+        id: 0
+        name: zero
+        vendor: ekylibre
+      properties:
+        data:
+          $ref: '#/components/schemas/Data'
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        vendor:
+          type: string
+      required:
+        - id
+        - name
+        - vendor
+    Data:
+      title: Data object
+      type: object
+      example:
+        zero_id: 0
+      properties:
+        zero_id:
+          type: integer
+          format: int32
+    WorkingPeriodsAttribute:
+      title: WorkingPeriodsAttribute
+      required:
+        - started_at
+        - stopped_at
+      type: object
+      properties:
+        started_at:
+          type: string
+        stopped_at:
+          type: string
+      example:
+        started_at: '2015-05-07T09:48+0000'
+        stopped_at: '2015-05-07T10:48+0000'
+    InputsAttribute:
+      title: InputsAttribute
+      required:
+        - product_id
+        - reference_name
+        - quantity_value
+        - quantity_handler
+      type: object
+      properties:
+        product_id:
+          type: integer
+          format: int32
+        reference_name:
+          type: string
+        quantity_value:
+          type: number
+        quantity_handler:
+          type: string
+      example:
+        product_id: 305
+        reference_name: seeds
+        quantity_value: 120
+        quantity_handler: items_count
+    ToolsAttribute:
+      title: ToolsAttribute
+      type: object
+      example:
+        product_id: 261
+        reference_name: sower
+        readings_attributes:
+          - measure_value_value: 0
+            indicator_name: hour_counter
+            measure_value_unit: hour
+      properties:
+        product_id:
+          type: integer
+          format: int32
+        reference_name:
+          type: string
+        readings_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/ReadingsAttribute'
+      required:
+        - product_id
+        - reference_name
+    ReadingsAttribute:
+      title: ReadingsAttribute
+      required:
+        - measure_value_value
+        - indicator_name
+        - measure_value_unit
+      type: object
+      properties:
+        measure_value_value:
+          type: number
+        indicator_name:
+          type: string
+        measure_value_unit:
+          type: string
+      example:
+        measure_value_value: 0
+        indicator_name: hour_counter
+        measure_value_unit: hour
+    GroupParametersAttribute:
+      title: GroupParametersAttribute
+      required:
+        - reference_name
+        - targets_attributes
+        - outputs_attributes
+      type: object
+      properties:
+        reference_name:
+          type: string
+        targets_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetsAttribute'
+          description: ''
+        outputs_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputsAttribute'
+          description: ''
+      example:
+        reference_name: zone
+        targets_attributes:
+          - product_id: 1219
+            reference_name: land_parcel
+        outputs_attributes:
+          - variant_id: 162
+            reference_name: plant
+            variety: zea_mais
+            quantity_population: 1
+    TargetsAttribute:
+      title: TargetsAttribute
+      required:
+        - product_id
+        - reference_name
+      type: object
+      properties:
+        product_id:
+          type: integer
+          format: int32
+        reference_name:
+          type: string
+      example:
+        product_id: 1219
+        reference_name: land_parcel
+    OutputsAttribute:
+      title: OutputsAttribute object
+      required:
+        - variant_id
+        - reference_name
+        - variety
+        - quantity_population
+      type: object
+      properties:
+        variant_id:
+          type: integer
+          format: int32
+        reference_name:
+          type: string
+        variety:
+          type: string
+        quantity_population:
+          type: integer
+          format: int32
+      example:
+        variant_id: 162
+        reference_name: plant
+        variety: zea_mais
+        quantity_population: 1
+    InterventionParticipationCreate:
+      title: Intervention participation object for creation
+      required:
+        - provider
+        - description
+        - device_uid
+        - intervention_id
+        - procedure_name
+        - request_compliant
+        - state
+        - crumbs
+        - equipments
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/Provider'
+        description:
+          type: string
+        device_uid:
+          type: string
+        intervention_id:
+          type: integer
+          format: int32
+        procedure_name:
+          type: string
+        request_compliant:
+          type: integer
+          format: int32
+        state:
+          type: string
+        crumbs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Crumb'
+          description: ''
+        equipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Equipment'
+          description: ''
+      example:
+        provider:
+          data:
+            zero_id: 0
+          id: 0
+          name: zero
+          vendor: ekylibre
+        description: Description
+        device_uid: ebc1ac13-325a-4dce-b54c-46e808f7b8f8
+        intervention_id: 1
+        procedure_name: sowing_without_plant_output
+        request_compliant: 15
+        state: done
+        crumbs:
+          - read_at: '2021-05-07T09:48+0000'
+            accuracy: 0.5
+            geolocation:
+              type: Feature
+              geometry:
+                type: Point
+                coordinates:
+                  - 125.6
+                  - 10.1
+            nature: point
+        equipments:
+          - product_id: 1258
+            hour_counter: 3600
+      x-examples:
+        example-1:
+          value:
+            provider:
+              data:
+                zero_id: 0
+              id: 0
+              name: zero
+              vendor: ekylibre
+            description: Description
+            device_uid: ebc1ac13-325a-4dce-b54c-46e808f7b8f8
+            intervention_id: 1
+            procedure_name: sowing_without_plant_output
+            request_compliant: 15
+            state: done
+            crumbs:
+              - read_at: '2021-05-07T09:48+0000'
+                accuracy: 0.5
+                geolocation:
+                  type: Feature
+                  geometry:
+                    type: Point
+                    coordinates:
+                      - 125.6
+                      - 10.1
+                nature: point
+            equipments:
+              - product_id: 1258
+                hour_counter: 3600
+      x-tags:
+        - Intervention participations
+    Crumb:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 3
+          user_id: 22
+          read_at: '2020-05-23T09:48:13.000+02:00'
+          accuracy: '4.0'
+          nature: hard_start
+          metadata:
+            procedure_nature: animal_moving
+            name: animal_moving
+            scanned_code: 1015421
+            quantity: 1
+            unit: unity
+          created_at: '2021-06-23T15:25:07.922+02:00'
+          updated_at: '2021-06-23T15:25:07.922+02:00'
+          creator_id: null
+          updater_id: null
+          lock_version: 0
+          geolocation: POINT (3.0789716 50.6280482)
+          intervention_parameter_id: null
+          device_uid: zero
+          intervention_participation_id: null
+          provider: {}
+          ride_id: null
+        example-2:
+          value:
+            nature: hard_start
+            geolocation: POINT (3.0789716 50.6280482)
+            read_at: '2020-05-23 09:48:13'
+            accuracy: 4
+            device_uid: zero
+            metadata:
+              procedure_nature: animal_moving
+              name: animal_moving
+              scanned_code: 1015421
+              quantity: 1
+              unit: unity
+      x-tags:
+        - Crumbs
+      properties:
+        id:
+          type: number
+        user_id:
+          type: number
+        read_at:
+          type: string
+          minLength: 1
+        accuracy:
+          type: number
+        nature:
+          type: string
+          minLength: 1
+        created_at:
+          type: string
+          minLength: 1
+        updated_at:
+          type: string
+          minLength: 1
+        creator_id: {}
+        updater_id: {}
+        lock_version:
+          type: number
+        geolocation:
+          type: string
+          minLength: 1
+        intervention_parameter_id: {}
+        device_uid:
+          type: string
+          minLength: 1
+        intervention_participation_id: {}
+        provider:
+          $ref: '#/components/schemas/Provider'
+        ride_id: {}
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - id
+        - read_at
+        - accuracy
+        - nature
+        - device_uid
+      title: Crumb object
+    Equipment:
+      title: Equipment object
+      type: object
+      example:
+        product_id: 1258
+        hour_counter: 3600
+      x-examples:
+        example-1:
+          value:
+            product_id: 1258
+            hour_counter: 3600
+      properties:
+        product_id:
+          type: integer
+          format: int32
+        hour_counter:
+          type: integer
+          format: int32
+    Metadata:
+      title: Metadata object
+      type: object
+      example:
+        procedure_nature: animal_moving
+        name: animal_moving
+        scanned_code: 1015421
+        quantity: 1
+        unit: unity
+      properties:
+        procedure_nature:
+          type: string
+        name:
+          type: string
+        scanned_code:
+          type: integer
+          format: int32
+        quantity:
+          type: integer
+          format: int32
+        unit:
+          type: string
+    Entity:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          last_name: JOULIN
+          first_name: Christian
+          email:
+            - admin@ekylibre.org
+            - christian.joulin@laposte.net
+          phone:
+            - 05 46 95 53 90
+          mails:
+            - mail_lines: 'Christian JOULIN, 10 rue des Vergers'
+              postal_code: '17250'
+              city: SAINT-PORCHAIRE
+              country: fr
+          value:
+            last_name: BRASLONG
+            first_name: Jean-Yves
+            email:
+              - veto@ekylibre.org
+      title: Entity object
+      x-tags:
+        - Contacts
+      properties:
+        last_name:
+          type: string
+          minLength: 1
+        first_name:
+          type: string
+          minLength: 1
+        email:
+          type: array
+          items:
+            type: string
+        phone:
+          type: array
+          items:
+            type: string
+        mails:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              mail_lines:
+                type: string
+                minLength: 1
+              postal_code:
+                type: string
+                minLength: 1
+              city:
+                type: string
+                minLength: 1
+              country:
+                type: string
+                minLength: 1
+      required:
+        - first_name
+    Intervention:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 1
+          nature: record
+          procedure_name: sowing_without_plant_output
+          number: '1'
+          name: Semis simple (sans gestion des cultures) n°1
+          started_at: '2014-10-29T09:00:00.000+01:00'
+          stopped_at: '2014-10-29T12:00:00.000+01:00'
+          description: ' - Import Ekylibre interventions on 24/11/2020 14:41 - N° : 4'
+          parameters:
+            - id: 3
+              role: target
+              name: land_parcel
+              label: Parcelle
+              product:
+                id: 6
+                name: Blé tendre d’hiver 2015 Enclouse des chatâigniers
+            - id: 2
+              role: input
+              name: seeds
+              label: Semences
+              product:
+                id: 311
+                name: Semence de blé Rubisko
+            - id: 1
+              role: doer
+              name: driver
+              label: Conducteur
+              product:
+                id: 295
+                name: David JOULIN
+            - id: 4
+              role: tool
+              name: tractor
+              label: Tracteur
+              product:
+                id: 252
+                name: Tracteur CASE-IH 533
+            - id: 5
+              role: tool
+              name: sower
+              label: Semoir
+              product:
+                id: 259
+                name: Semoir grains
+      properties:
+        id:
+          type: number
+        nature:
+          type: string
+          minLength: 1
+          enum:
+            - request
+            - record
+        procedure_name:
+          type: string
+          minLength: 1
+        number:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        started_at:
+          type: string
+          minLength: 1
+        stopped_at:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        parameters:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/InterventionParameter'
+      required:
+        - id
+        - nature
+        - procedure_name
+        - number
+        - name
+        - started_at
+        - stopped_at
+        - description
+        - parameters
+      x-tags:
+        - Interventions
+      title: Intervention object
+    InterventionParameter:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        role:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        label:
+          type: string
+          minLength: 1
+        product:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+          required:
+            - id
+            - name
+      required:
+        - id
+        - role
+        - name
+        - label
+        - product
+      x-examples:
+        example-1:
+          id: 3
+          role: target
+          name: land_parcel
+          label: Parcelle
+          product:
+            id: 6
+            name: Blé tendre d’hiver 2015 Enclouse des chatâigniers
+      title: Intervention parameter object
+    InterventionTarget:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        intervention_id:
+          type: number
+        product_id:
+          type: number
+        variant_id:
+          type: number
+        quantity_population: {}
+        reference_name:
+          type: string
+          minLength: 1
+        position:
+          type: number
+        created_at:
+          type: string
+          minLength: 1
+        updated_at:
+          type: string
+          minLength: 1
+        creator_id: {}
+        updater_id: {}
+        lock_version:
+          type: number
+        working_zone:
+          type: string
+          minLength: 1
+        event_participation_id: {}
+        outcoming_product_id: {}
+        new_container_id: {}
+        new_group_id: {}
+        new_variant_id: {}
+        quantity_handler: {}
+        quantity_value:
+          type: string
+          minLength: 1
+        quantity_unit_name:
+          type: string
+          minLength: 1
+        quantity_indicator_name:
+          type: string
+          minLength: 1
+        group_id: {}
+        new_name: {}
+        component_id: {}
+        assembly_id: {}
+        currency:
+          type: string
+          minLength: 1
+        unit_pretax_stock_amount:
+          type: string
+          minLength: 1
+        dead:
+          type: boolean
+        identification_number: {}
+        batch_number: {}
+        usage_id: {}
+        allowed_entry_factor: {}
+        allowed_harvest_factor: {}
+        imputation_ratio:
+          type: string
+          minLength: 1
+        reference_data:
+          type: object
+          properties: {}
+          required: []
+        using_live_data:
+          type: boolean
+        applications_frequency: {}
+        specie_variety:
+          type: object
+          properties: {}
+          required: []
+      required:
+        - id
+        - intervention_id
+        - product_id
+        - variant_id
+        - reference_name
+        - position
+        - created_at
+        - updated_at
+        - lock_version
+        - working_zone
+        - quantity_value
+        - quantity_unit_name
+        - quantity_indicator_name
+        - currency
+        - unit_pretax_stock_amount
+        - dead
+        - imputation_ratio
+        - reference_data
+        - using_live_data
+        - specie_variety
+      x-examples:
+        example-1:
+          id: 3
+          intervention_id: 1
+          product_id: 6
+          variant_id: 81
+          quantity_population: null
+          reference_name: land_parcel
+          position: 1
+          created_at: '2020-11-24T15:41:00.712+01:00'
+          updated_at: '2020-11-24T15:41:00.712+01:00'
+          creator_id: null
+          updater_id: null
+          lock_version: 0
+          working_zone: '{"type":"MultiPolygon","coordinates":[[[[-0.795813610326211,45.8205957862591],[-0.79513097566005,45.8206244957228],[-0.79445801755721,45.8206476008046],[-0.794281490309339,45.8206578988386],[-0.794085637474177,45.8206775704671],[-0.793883069844914,45.8207180611793],[-0.793699717113797,45.8207647283451],[-0.793476079904901,45.8208216421079],[-0.793376218682723,45.820840961487],[-0.79322992423779,45.8208686373126],[-0.792689532008635,45.8210891058195],[-0.792821551014375,45.8213111278754],[-0.793046319560421,45.8217412277263],[-0.793235013002678,45.8221230169453],[-0.793433331998412,45.8225432815801],[-0.79363030833737,45.8228811262426],[-0.793812112941897,45.8231619747002],[-0.794289578075544,45.8239404144451],[-0.794564940198568,45.8244828611297],[-0.794610526286388,45.824509219059],[-0.795361631767107,45.8243684312051],[-0.796427773642651,45.8241703243376],[-0.796735284499057,45.8241139731345],[-0.796587882761538,45.8239402184613],[-0.796376938482635,45.8236807675673],[-0.796288807752084,45.8235665176527],[-0.796226457546871,45.8234634710852],[-0.796204108153026,45.8233703201435],[-0.796198306348361,45.8232694471842],[-0.796205503794167,45.8231812812963],[-0.796281806622721,45.8227833798389],[-0.796354098133949,45.822359807768],[-0.796379982292342,45.8221798015553],[-0.796420800461729,45.8220194124411],[-0.796448637836325,45.8219468807304],[-0.796506706238386,45.8218366206637],[-0.796609677762292,45.8216742811101],[-0.796667559442298,45.8216078931083],[-0.796741619325665,45.8215388818335],[-0.796884608739418,45.8214342928924],[-0.796981023449488,45.8213710618059],[-0.79717729692529,45.8212538260653],[-0.797339125554787,45.8211509582915],[-0.797421195292797,45.8210811252535],[-0.797508183685882,45.8209847089986],[-0.79751032635519,45.8209575250831],[-0.797203376418586,45.820831360075],[-0.796972388676841,45.8207400331013],[-0.796780795286281,45.8206784542921],[-0.796639180256121,45.8206431168879],[-0.796451232204463,45.8205975874953],[-0.796285406116673,45.8205829853426],[-0.796039968963344,45.8205828323007],[-0.795813610326211,45.8205957862591]]]]}'
+          event_participation_id: null
+          outcoming_product_id: null
+          new_container_id: null
+          new_group_id: null
+          new_variant_id: null
+          quantity_handler: null
+          quantity_value: '97290.5444'
+          quantity_unit_name: square_meter
+          quantity_indicator_name: net_surface_area
+          group_id: null
+          new_name: null
+          component_id: null
+          assembly_id: null
+          currency: EUR
+          unit_pretax_stock_amount: '0.0'
+          dead: false
+          identification_number: null
+          batch_number: null
+          usage_id: null
+          allowed_entry_factor: null
+          allowed_harvest_factor: null
+          imputation_ratio: '1.0'
+          reference_data: {}
+          using_live_data: true
+          applications_frequency: null
+          specie_variety: {}
+      title: InterventionTarget object
+    RegisteredPhytosanitaryCropset:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        label:
+          type: object
+          properties:
+            fra:
+              type: string
+              minLength: 1
+          required:
+            - fra
+        crop_names:
+          type: array
+          items:
+            required: []
+            properties: {}
+        crop_labels:
+          type: object
+          properties:
+            fra:
+              type: string
+              minLength: 1
+          required:
+            - fra
+        record_checksum:
+          type: number
+      required:
+        - id
+        - name
+        - label
+        - crop_names
+        - crop_labels
+        - record_checksum
+      x-examples:
+        example-1:
+          id: '30'
+          name: ephy_raspberry_brush
+          label:
+            fra: Framboisier
+          crop_names:
+            - rubus
+          crop_labels:
+            fra: 'Framboisier, mûres (Rubus sp.), mûres des haies'
+          record_checksum: 439258896
+          value:
+            id: '1'
+            name: ephy_citrus
+            label:
+              fra: Agrumes
+            crop_names:
+              - citrus
+              - poncirus
+            crop_labels:
+              fra: 'Oranger, citronnier, pamplemoussier, mandarinier, clémentinier, limettes et autres agrumes'
+            record_checksum: -2113121812
+      title: RegisteredPhytosanitaryCropset object
+      x-tags:
+        - Registered phytosanitary cropsets
+    RegisteredPhytosanitaryUsage:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        product_id:
+          type: number
+        ephy_usage_phrase:
+          type: string
+          minLength: 1
+        crop:
+          type: object
+          properties:
+            fra:
+              type: string
+              minLength: 1
+          required:
+            - fra
+        species:
+          type: array
+          items:
+            required: []
+            properties: {}
+        target_name:
+          type: object
+          properties:
+            fra:
+              type: string
+              minLength: 1
+          required:
+            - fra
+        description: {}
+        treatment:
+          type: object
+          properties:
+            fra:
+              type: string
+              minLength: 1
+          required:
+            - fra
+        dose_quantity:
+          type: string
+          minLength: 1
+        dose_unit:
+          type: string
+          minLength: 1
+        dose_unit_name:
+          type: string
+          minLength: 1
+        dose_unit_factor:
+          type: number
+        pre_harvest_delay:
+          type: number
+        pre_harvest_delay_bbch: {}
+        applications_count:
+          type: number
+        applications_frequency:
+          type: number
+        development_stage_min:
+          type: number
+        development_stage_max:
+          type: number
+        usage_conditions: {}
+        untreated_buffer_aquatic:
+          type: number
+        untreated_buffer_arthropod: {}
+        untreated_buffer_plants: {}
+        decision_date:
+          type: string
+          minLength: 1
+        state:
+          type: string
+          minLength: 1
+        record_checksum:
+          type: number
+      required:
+        - id
+        - product_id
+        - ephy_usage_phrase
+        - crop
+        - species
+        - target_name
+        - treatment
+        - dose_quantity
+        - dose_unit
+        - dose_unit_name
+        - dose_unit_factor
+        - pre_harvest_delay
+        - applications_count
+        - applications_frequency
+        - development_stage_min
+        - development_stage_max
+        - untreated_buffer_aquatic
+        - decision_date
+        - state
+        - record_checksum
+      x-examples:
+        example-1:
+          id: '20141124083922341465'
+          product_id: 2180899
+          ephy_usage_phrase: Vigne*Trt Part.Aer.*Mildiou(s)
+          crop:
+            fra: Vigne
+          species:
+            - vitis
+          target_name:
+            fra: Mildious
+          description: null
+          treatment:
+            fra: Trt Part.Aer.
+          dose_quantity: '5.0'
+          dose_unit: kilogram_per_square_meter
+          dose_unit_name: kg/ha
+          dose_unit_factor: 0.0001
+          pre_harvest_delay: 1728000
+          pre_harvest_delay_bbch: null
+          applications_count: 2
+          applications_frequency: 691200
+          development_stage_min: 66
+          development_stage_max: 85
+          usage_conditions: null
+          untreated_buffer_aquatic: 50
+          untreated_buffer_arthropod: null
+          untreated_buffer_plants: null
+          decision_date: '2018-12-28'
+          state: authorized
+          record_checksum: -1655317004
+          value:
+            id: '20141124083922341465'
+            product_id: 2180899
+            ephy_usage_phrase: Vigne*Trt Part.Aer.*Mildiou(s)
+            crop:
+              fra: Vigne
+            species:
+              - vitis
+            target_name:
+              fra: Mildious
+            description: null
+            treatment:
+              fra: Trt Part.Aer.
+            dose_quantity: '5.0'
+            dose_unit: kilogram_per_square_meter
+            dose_unit_name: kg/ha
+            dose_unit_factor: 0.0001
+            pre_harvest_delay: 1728000
+            pre_harvest_delay_bbch: null
+            applications_count: 2
+            applications_frequency: 691200
+            development_stage_min: 66
+            development_stage_max: 85
+            usage_conditions: null
+            untreated_buffer_aquatic: 50
+            untreated_buffer_arthropod: null
+            untreated_buffer_plants: null
+            decision_date: '2018-12-28'
+            state: authorized
+            record_checksum: -1655317004
+      title: RegisteredPhytosanitaryUsage object
+      x-tags:
+        - Registered phytosanitary usages
+    Pagination:
+      description: ''
+      type: object
+      properties:
+        elements:
+          type: number
+        page:
+          type: number
+        total_elements:
+          type: number
+        page_count:
+          type: number
+      required:
+        - elements
+        - page
+        - total_elements
+        - page_count
+      x-examples:
+        example-1:
+          elements: 100
+          page: 1
+          total_elements: 75317
+          page_count: 754
+      title: Pagination object
+    RegisteredPhytosanitaryRisk:
+      description: ''
+      type: object
+      properties:
+        product_id:
+          type: number
+        risk_code:
+          type: string
+          minLength: 1
+        risk_phrase:
+          type: string
+          minLength: 1
+        record_checksum:
+          type: number
+      required:
+        - product_id
+        - risk_code
+        - risk_phrase
+        - record_checksum
+      x-examples:
+        example-1:
+          product_id: 9300111
+          risk_code: R10
+          risk_phrase: Inflammable
+          record_checksum: -1382108480
+          value:
+            product_id: 9300111
+            risk_code: R10
+            risk_phrase: Inflammable
+            record_checksum: -1382108480
+      title: RegisteredPhytosanitaryRisk object
+      x-tags:
+        - Registered phytosanitary risks
+    RegisteredPhytosanitaryProducts:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        reference_name:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        other_names: {}
+        natures:
+          type: array
+          items:
+            required: []
+            properties: {}
+        active_compounds:
+          type: array
+          items:
+            required: []
+            properties: {}
+        france_maaid:
+          type: string
+          minLength: 1
+        mix_category_codes:
+          type: array
+          items:
+            required: []
+            properties: {}
+        in_field_reentry_delay:
+          type: number
+        state:
+          type: string
+          minLength: 1
+        started_on:
+          type: string
+          minLength: 1
+        stopped_on: {}
+        allowed_mentions: {}
+        restricted_mentions: {}
+        operator_protection_mentions: {}
+        firm_name:
+          type: string
+          minLength: 1
+        product_type:
+          type: string
+          minLength: 1
+        record_checksum:
+          type: number
+      required:
+        - id
+        - reference_name
+        - name
+        - natures
+        - active_compounds
+        - france_maaid
+        - mix_category_codes
+        - in_field_reentry_delay
+        - state
+        - started_on
+        - firm_name
+        - product_type
+        - record_checksum
+      x-examples:
+        example-1:
+          id: 2000001
+          reference_name: 2000001_desherbant_allees_pjt_basf_hj
+          name: DESHERBANT ALLEES PJT BASF HJ
+          other_names: null
+          natures:
+            - Herbicide
+          active_compounds:
+            - Glyphosate 360.0 g/L
+          france_maaid: '2000001'
+          mix_category_codes:
+            - 1
+          in_field_reentry_delay: 86400
+          state: withdrawn
+          started_on: '2000-02-04'
+          stopped_on: null
+          allowed_mentions: null
+          restricted_mentions: null
+          operator_protection_mentions: null
+          firm_name: COMPO FRANCE SAS
+          product_type: PPP
+          record_checksum: 1371607753
+          value:
+            id: 2000001
+            reference_name: 2000001_desherbant_allees_pjt_basf_hj
+            name: DESHERBANT ALLEES PJT BASF HJ
+            other_names: null
+            natures:
+              - Herbicide
+            active_compounds:
+              - Glyphosate 360.0 g/L
+            france_maaid: '2000001'
+            mix_category_codes:
+              - 1
+            in_field_reentry_delay: 86400
+            state: withdrawn
+            started_on: '2000-02-04'
+            stopped_on: null
+            allowed_mentions: null
+            restricted_mentions: null
+            operator_protection_mentions: null
+            firm_name: COMPO FRANCE SAS
+            product_type: PPP
+            record_checksum: 1371607753
+      title: RegisteredPhytosanitaryProducts object
+      x-tags:
+        - Registered phytosanitary products
+    PlantDensityAbacus:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          value:
+            id: 1
+            name: ' Carotte 3 rangs'
+            germination_percentage: '80.0'
+            sampling_length_unit: meter
+            seeding_density_unit: thousand_per_hectare
+            variety_name: daucus
+            activity_id: 22
+            items:
+              - id: 1
+                seeding_density_value: '1.5'
+                plants_count: 75
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+        germination_percentage:
+          type: string
+          minLength: 1
+        sampling_length_unit:
+          type: string
+          minLength: 1
+        seeding_density_unit:
+          type: string
+          minLength: 1
+        variety_name:
+          type: string
+          minLength: 1
+        activity_id:
+          type: number
+        items:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/PlantDensityAbacusItem'
+      required:
+        - id
+        - name
+        - germination_percentage
+        - sampling_length_unit
+        - seeding_density_unit
+        - variety_name
+        - activity_id
+        - items
+      title: PlantDensityAbacus object
+      x-tags:
+        - Plant density abaci
+    PlantDensityAbacusItem:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        seeding_density_value:
+          type: string
+          minLength: 1
+        plants_count:
+          type: number
+      required:
+        - id
+        - seeding_density_value
+        - plants_count
+      x-examples:
+        example-1:
+          id: 1
+          seeding_density_value: '1.5'
+          plants_count: 75
+          value:
+            id: 1
+            seeding_density_value: '1.5'
+            plants_count: 75
+      title: PlantDensityAbacusItem object
+      x-tags:
+        - Plant density abaci
+    Plant:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+        net_surface_area:
+          type: object
+          properties:
+            value:
+              type: string
+              minLength: 1
+            unit:
+              type: string
+              minLength: 1
+          required:
+            - value
+            - unit
+        variety:
+          type: string
+          minLength: 1
+        activity_id:
+          type: number
+        activity_name:
+          type: string
+          minLength: 1
+        production_started_on:
+          type: string
+          minLength: 1
+        production_stopped_on:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - name
+        - net_surface_area
+        - variety
+        - activity_id
+        - activity_name
+        - production_started_on
+        - production_stopped_on
+      x-examples:
+        example-1:
+          id: 1270
+          name: Asperge A côté de la vigne Culture de blé n° 2
+          net_surface_area:
+            value: 7/20
+            unit: hectare
+          variety: triticum_aestivum
+          activity_id: 2
+          activity_name: Asperge2
+          production_started_on: '2021-03-17'
+          production_stopped_on: '2071-03-17'
+          value:
+            id: 1270
+            name: Asperge A côté de la vigne Culture de blé n° 2
+            net_surface_area:
+              value: 7/20
+              unit: hectare
+            variety: triticum_aestivum
+            activity_id: 2
+            activity_name: Asperge2
+            production_started_on: '2021-03-17'
+            production_stopped_on: '2071-03-17'
+      title: Plant object
+      x-tags:
+        - Plants
+    Product:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+        number:
+          type: string
+          minLength: 1
+        population:
+          type: string
+          minLength: 1
+        variety:
+          type: string
+          minLength: 1
+        abilities:
+          type: array
+          items:
+            required: []
+            properties: {}
+        born_at:
+          type: string
+          minLength: 1
+        derivative_of:
+          type: string
+          minLength: 1
+        variant_unit_name:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - name
+        - number
+        - population
+        - variety
+        - abilities
+        - born_at
+        - derivative_of
+        - variant_unit_name
+      x-examples:
+        example-1:
+          id: 1235
+          name: Blé dur 2015 (1)
+          number: P00000001234
+          population: '-1.0'
+          variety: grain
+          abilities:
+            - feed(animal)
+          born_at: '2021-01-22T09:13:00.000+01:00'
+          derivative_of: triticum_durum
+          variant_unit_name: Tonne
+          value:
+            id: 1235
+            name: Blé dur 2015 (1)
+            number: P00000001234
+            population: '-1.0'
+            variety: grain
+            abilities:
+              - feed(animal)
+            born_at: '2021-01-22T09:13:00.000+01:00'
+            derivative_of: triticum_durum
+            variant_unit_name: Tonne
+      title: Product object
+      x-tags:
+        - Products
+    CrumbCreate:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          nature: hard_start
+          geolocation: POINT (3.0789716 50.6280482)
+          read_at: '2020-05-23 09:48:13'
+          accuracy: 4
+          device_uid: zero
+          metadata:
+            procedure_nature: animal_moving
+            name: animal_moving
+            scanned_code: 1015421
+            quantity: 1
+            unit: unity
+          value:
+            nature: hard_start
+            geolocation: POINT (3.0789716 50.6280482)
+            read_at: '2020-05-23 09:48:13'
+            accuracy: 4
+            device_uid: zero
+            metadata:
+              procedure_nature: animal_moving
+              name: animal_moving
+              scanned_code: 1015421
+              quantity: 1
+              unit: unity
+      x-tags:
+        - Crumbs
+      properties:
+        nature:
+          type: string
+          minLength: 1
+        geolocation:
+          type: string
+          minLength: 1
+        read_at:
+          type: string
+          minLength: 1
+        accuracy:
+          type: number
+        device_uid:
+          type: string
+          minLength: 1
+        metadata:
+          type: object
+          properties:
+            procedure_nature:
+              type: string
+              minLength: 1
+            name:
+              type: string
+              minLength: 1
+            scanned_code:
+              type: number
+            quantity:
+              type: number
+            unit:
+              type: string
+              minLength: 1
+      required:
+        - nature
+        - read_at
+        - accuracy
+        - device_uid
+      title: Crumb object for creation
+    Variant:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+        number:
+          type: string
+          minLength: 1
+        variety:
+          type: string
+          minLength: 1
+        derivative_of: {}
+        nature_abilities:
+          type: array
+          items:
+            required: []
+            properties: {}
+      required:
+        - id
+        - name
+        - number
+        - variety
+        - nature_abilities
+      x-examples:
+        example-1:
+          id: 1
+          name: Vache
+          number: '000001'
+          variety: bos
+          derivative_of: null
+          nature_abilities:
+            - consume(mix)
+            - consume(poaceae)
+            - consume(silage)
+            - consume(water)
+            - move
+            - produce(animal)
+            - produce(excrement)
+            - produce(milk)
+          value:
+            id: 1
+            name: Vache
+            number: '000001'
+            variety: bos
+            derivative_of: null
+            nature_abilities:
+              - consume(mix)
+              - consume(poaceae)
+              - consume(silage)
+              - consume(water)
+              - move
+              - produce(animal)
+              - produce(excrement)
+              - produce(milk)
+      x-tags:
+        - Product nature variants
+      title: Variant object
+    Issue:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        target_id:
+          type: number
+        target_type:
+          type: string
+          minLength: 1
+        nature:
+          type: string
+          minLength: 1
+        observed_at:
+          type: string
+          minLength: 1
+        priority:
+          type: number
+        gravity:
+          type: number
+        state:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        picture_file_name: {}
+        picture_content_type: {}
+        picture_file_size: {}
+        picture_updated_at: {}
+        created_at:
+          type: string
+          minLength: 1
+        updated_at:
+          type: string
+          minLength: 1
+        creator_id:
+          type: number
+        updater_id:
+          type: number
+        lock_version:
+          type: number
+        geolocation:
+          type: object
+          properties:
+            feature:
+              type: string
+              minLength: 1
+            properties:
+              type: object
+              properties: {}
+              required: []
+          required:
+            - feature
+            - properties
+        custom_fields: {}
+        dead:
+          type: boolean
+      required:
+        - id
+        - target_id
+        - target_type
+        - nature
+        - observed_at
+        - priority
+        - gravity
+        - state
+        - name
+        - description
+        - created_at
+        - updated_at
+        - creator_id
+        - updater_id
+        - lock_version
+        - geolocation
+        - dead
+      x-examples:
+        example-1:
+          id: 4
+          target_id: 511
+          target_type: Product
+          nature: mammite
+          observed_at: '2021-05-29T06:55:00.000+02:00'
+          priority: 4
+          gravity: 4
+          state: opened
+          name: Mammite sur Albanie
+          description: ''
+          picture_file_name: null
+          picture_content_type: null
+          picture_file_size: null
+          picture_updated_at: null
+          created_at: '2021-05-29T06:56:20.249+02:00'
+          updated_at: '2021-05-29T06:56:20.249+02:00'
+          creator_id: 1
+          updater_id: 1
+          lock_version: 0
+          geolocation:
+            feature: SRID=4326;POINT (-0.770491 45.802018)
+            properties: {}
+          custom_fields: null
+          dead: false
+          value:
+            id: 4
+            target_id: 511
+            target_type: Product
+            nature: mammite
+            observed_at: '2021-05-29T06:55:00.000+02:00'
+            priority: 4
+            gravity: 4
+            state: opened
+            name: Mammite sur Albanie
+            description: ''
+            picture_file_name: null
+            picture_content_type: null
+            picture_file_size: null
+            picture_updated_at: null
+            created_at: '2021-05-29T06:56:20.249+02:00'
+            updated_at: '2021-05-29T06:56:20.249+02:00'
+            creator_id: 1
+            updater_id: 1
+            lock_version: 0
+            geolocation:
+              feature: SRID=4326;POINT (-0.770491 45.802018)
+              properties: {}
+            custom_fields: null
+            dead: false
+      title: Issue object
+      x-tags:
+        - Issues
+    IssueCreate:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          target_id: 511
+          target_type: Product
+          nature: mammite
+          observed_at: '2021-05-29T06:55:00.000+02:00'
+          priority: 4
+          gravity: 4
+          state: opened
+          name: Mammite sur Albanie
+          description: ''
+          value:
+            target_id: 511
+            target_type: Product
+            nature: mammite
+            observed_at: '2021-05-29T06:55:00.000+02:00'
+            priority: 4
+            gravity: 4
+            state: opened
+            name: Mammite sur Albanie
+            description: ''
+            geolocation: POINT (3.0789716 50.6280482)
+      properties:
+        target_id:
+          type: number
+        target_type:
+          type: string
+          minLength: 1
+        nature:
+          type: string
+          minLength: 1
+        observed_at:
+          type: string
+          minLength: 1
+        priority:
+          type: number
+        gravity:
+          type: number
+        state:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        geolocation:
+          type: string
+      required:
+        - target_id
+        - target_type
+        - nature
+        - observed_at
+        - priority
+        - gravity
+        - state
+        - name
+        - description
+      title: Issue object for creation
+      x-tags:
+        - Issues
+    PlantCountingCreate:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          comment: Yeah yeah yeah!!!
+          plant_id: 1
+          plant_density_abacus_item_id: 1
+          average_value: 17
+          items_attributes:
+            - value: 15
+            - value: 20
+            - value: 16
+          value:
+            comment: Yeah yeah yeah!!!
+            plant_id: 1
+            nature: sowing
+            plant_density_abacus_item_id: 1
+            average_value: 17
+            items_attributes:
+              - value: 15
+              - value: 20
+              - value: 16
+      properties:
+        comment:
+          type: string
+          minLength: 1
+        plant_id:
+          type: number
+        plant_density_abacus_item_id:
+          type: number
+        average_value:
+          type: number
+        items_attributes:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+            required:
+              - value
+        nature:
+          type: string
+      required:
+        - comment
+        - plant_id
+        - plant_density_abacus_item_id
+        - average_value
+        - items_attributes
+      title: PlantCounting object for creation
+      x-tags:
+        - Plant countings
+  securitySchemes: {}
+  parameters:
+    paginate:
+      name: paginate
+      in: query
+      schema:
+        type: string
+    per_page:
+      name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+    Authorization:
+      name: Authorization
+      in: header
+      schema:
+        type: string
+        example: simple-token demo@ekylibre.org y_geHxfwwDtLwi3bTomE
+      description: authorization
+      required: true
+    Content-Type:
+      name: Content-Type
+      in: header
+      required: true
+      schema:
+        type: string
+        default: application/json
+      description: content type
+  responses:
+    Created:
+      description: Resource successfully created
+      content:
+        application/json:
+          schema:
+            properties:
+              id:
+                type: string
+      headers: {}
+    Not-found:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            nullable: true
+    Bad-authorization:
+      description: ''
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              message:
+                type: string
+                minLength: 1
+            required:
+              - message
+            x-examples:
+              example-1:
+                message: Bad authorization.
+          examples:
+            example-1:
+              value:
+                message: Bad authorization.
+tags:
+  - name: Auth
+  - name: Interventions
+  - name: Intervention participations
+  - name: Intervention targets
+  - name: Contacts
+  - name: Crumbs
+  - name: Plant density abaci
+  - name: Plants
+  - name: Product nature variants
+  - name: Products
+  - name: Registered phytosanitary cropsets
+  - name: Registered phytosanitary usages
+  - name: Registered phytosanitary risks
+  - name: Registered phytosanitary products
+  - name: Users

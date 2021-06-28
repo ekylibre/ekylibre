@@ -15,6 +15,7 @@ end
 ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
+gem 'rack-cors' # CORS policy
 gem 'rails', '5.0.7.2'
 gem 'turnout', '~> 2.5' # Maintenance mode
 
@@ -178,10 +179,10 @@ end
 group :development do
   gem 'bullet', '< 5.6.0'
 
+  gem 'better_errors', '~> 2.9'
+  gem 'rack-mini-profiler'
   # Get the time of a process
   gem 'ruby-prof', '~> 1.4'
-
-  gem 'better_errors', '~> 2.9'
 
   # Code metrics
   gem 'rails_best_practices', '~> 1.20', require: false

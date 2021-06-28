@@ -61,12 +61,14 @@ module Ekylibre
     # APM
     config.elastic_apm.service_name = ENV.fetch('APM_SERVICE_NAME', 'Ekylibre')
 
-    # config.middleware.use Rack::Cors do
-    #   allow do
-    #     origins '*'
-    #     resource '*', :headers => :any, :methods => [:get, :post]
-    #   end
-    # end
+    config.middleware.use Rack::Cors do
+      allow do
+        origins /https:\/\/ekylibre.stoplight.io\.*/
+        resource '*', 
+          headers: :any,
+          methods: %i[get post put patch delete]
+      end
+    end
 
     # TODO: Rails 5 upgrade: check if removing this is OK
     # config.middleware.insert_after ActionDispatch::ParamsParser, ActiveSupport::XMLConverter
