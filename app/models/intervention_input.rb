@@ -121,7 +121,7 @@ class InterventionInput < InterventionProductParameter
       quantity_base_unit = Onoma::Unit.find(quantity.unit).base_unit.to_s
 
       target_unit_into = target_unit || Onoma::Unit.find(quantity_base_unit + '_per_hectare')
-      area_into = Maybe(area) || Maybe(intervention.working_zone_area)
+      area_into = Maybe(area).or_else(Maybe(intervention.working_zone_area))
 
       params = {
         into: target_unit_into,
