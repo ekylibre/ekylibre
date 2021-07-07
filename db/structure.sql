@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.6 (Ubuntu 12.6-0ubuntu0.20.04.1)
+-- Dumped from database version 12.7 (Ubuntu 12.7-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.7 (Ubuntu 12.7-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -98,27 +98,25 @@ CREATE FUNCTION public.compute_partial_isacompta_lettering() RETURNS trigger
   DECLARE
     journal_entry_item_ids integer DEFAULT NULL;
     new_letter varchar DEFAULT NULL;
+    old_letter varchar DEFAULT NULL;
   BEGIN
-    IF NEW.letter <> OLD.letter THEN
-      journal_entry_item_ids := NEW.id;
-      new_letter := NEW.letter;
-    END IF;
-    
+    journal_entry_item_ids := NEW.id;
+    new_letter := NEW.letter;
+    old_letter := OLD.letter;
+
     UPDATE journal_entry_items
-    SET isacompta_letter = (CASE
-      WHEN RIGHT(new_letter, 1) = '*'
-        THEN CASE
-          WHEN LEFT(journal_entry_items.isacompta_letter, 1) = '#'
-          THEN journal_entry_items.isacompta_letter
-          ELSE '#' || journal_entry_items.isacompta_letter
-        END
-        ELSE CASE
-          WHEN LEFT(journal_entry_items.isacompta_letter, 1) != '#'
-          THEN journal_entry_items.isacompta_letter
-          ELSE '#' || journal_entry_items.isacompta_letter
-        END
-      END)
-    WHERE id = journal_entry_item_ids;
+      SET isacompta_letter = (CASE WHEN RIGHT(new_letter, 1) = '*'
+        THEN (CASE WHEN LEFT(journal_entry_items.isacompta_letter, 1) = '#'
+                THEN journal_entry_items.isacompta_letter
+                ELSE '#' || journal_entry_items.isacompta_letter
+                END)
+        ELSE (CASE
+               WHEN LEFT(journal_entry_items.isacompta_letter, 1) = '#'
+               THEN LTRIM(journal_entry_items.isacompta_letter, '#')
+               ELSE journal_entry_items.isacompta_letter
+               END)
+        END)
+    WHERE id = journal_entry_item_ids AND new_letter <> old_letter;
 
     RETURN NEW;
   END;
@@ -435,18 +433,6 @@ CREATE TABLE lexicon.registered_chart_of_accounts (
 
 
 --
--- Name: registered_crop_zones; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_crop_zones (
-    id character varying NOT NULL,
-    city_name character varying,
-    shape postgis.geometry(Polygon,4326) NOT NULL,
-    centroid postgis.geometry(Point,4326)
-);
-
-
---
 -- Name: registered_enterprises; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -487,64 +473,6 @@ CREATE TABLE lexicon.registered_legal_positions (
     code character varying NOT NULL,
     insee_code character varying NOT NULL,
     fiscal_positions text[]
-);
-
-
---
--- Name: registered_pfi_crops; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_pfi_crops (
-    id integer NOT NULL,
-    reference_label_fra character varying
-);
-
-
---
--- Name: registered_pfi_doses; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_pfi_doses (
-    france_maaid integer NOT NULL,
-    pesticide_name character varying,
-    harvest_year integer NOT NULL,
-    active integer NOT NULL,
-    crop_id integer NOT NULL,
-    target_id integer,
-    functions character varying,
-    dose_unity character varying,
-    dose_quantity numeric(19,4)
-);
-
-
---
--- Name: registered_pfi_segments; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_pfi_segments (
-    id character varying NOT NULL,
-    label_fra character varying,
-    description character varying
-);
-
-
---
--- Name: registered_pfi_targets; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_pfi_targets (
-    id integer NOT NULL,
-    reference_label_fra character varying
-);
-
-
---
--- Name: registered_pfi_treatment_types; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_pfi_treatment_types (
-    id character varying NOT NULL,
-    label_fra character varying
 );
 
 
@@ -1007,7 +935,8 @@ CREATE TABLE public.accounts (
     nature character varying,
     centralizing_account_name character varying,
     already_existing boolean DEFAULT false NOT NULL,
-    provider jsonb
+    provider jsonb,
+    last_isacompta_letter jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -1068,11 +997,11 @@ CREATE TABLE public.activities (
     use_tactics boolean DEFAULT false,
     codes jsonb,
     production_nature_id integer,
-    isacompta_analytic_code character varying(2),
     production_started_on date,
     production_stopped_on date,
-    start_state_of_production_year integer,
     life_duration numeric(5,2),
+    start_state_of_production_year integer,
+    isacompta_analytic_code character varying(2),
     production_started_on_year integer,
     production_stopped_on_year integer
 );
@@ -1125,9 +1054,9 @@ CREATE TABLE public.activity_productions (
     custom_fields jsonb,
     season_id integer,
     tactic_id integer,
-    custom_name character varying,
-    headland_shape postgis.geometry(Geometry,4326),
     provider jsonb DEFAULT '{}'::jsonb,
+    headland_shape postgis.geometry(Geometry,4326),
+    custom_name character varying,
     production_nature_id integer,
     starting_year integer
 );
@@ -1382,12 +1311,12 @@ CREATE VIEW public.activities_interventions AS
     activities.id AS activity_id,
     intervention_working_periods.started_at AS intervention_started_at,
     intervention_working_periods.duration AS intervention_working_duration,
-    round(sum(intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
-    ((intervention_working_periods.duration)::numeric * round(sum(intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
+    round(sum(DISTINCT intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
+    ((intervention_working_periods.duration)::numeric * round(sum(DISTINCT intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
    FROM (((((public.activities
      JOIN public.activity_productions ON ((activity_productions.activity_id = activities.id)))
      JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
+     JOIN public.intervention_parameters ON (((products.id = intervention_parameters.product_id) AND ((intervention_parameters.type)::text = 'InterventionTarget'::text))))
      JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
      JOIN public.intervention_working_periods ON ((interventions.id = intervention_working_periods.intervention_id)))
   GROUP BY interventions.id, activities.id, intervention_working_periods.started_at, intervention_working_periods.duration
@@ -1659,11 +1588,11 @@ CREATE VIEW public.activity_productions_interventions AS
     products.activity_production_id,
     intervention_working_periods.started_at AS intervention_started_at,
     intervention_working_periods.duration AS intervention_working_duration,
-    round(sum(intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
-    ((intervention_working_periods.duration)::numeric * round(sum(intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
+    round(sum(DISTINCT intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
+    ((intervention_working_periods.duration)::numeric * round(sum(DISTINCT intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
    FROM ((((public.activity_productions
      JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
-     JOIN public.intervention_parameters ON ((products.id = intervention_parameters.product_id)))
+     JOIN public.intervention_parameters ON (((products.id = intervention_parameters.product_id) AND ((intervention_parameters.type)::text = 'InterventionTarget'::text))))
      JOIN public.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
      JOIN public.intervention_working_periods ON ((interventions.id = intervention_working_periods.intervention_id)))
   GROUP BY interventions.id, products.activity_production_id, intervention_working_periods.started_at, intervention_working_periods.duration
@@ -2041,6 +1970,56 @@ ALTER SEQUENCE public.analytic_sequences_id_seq OWNED BY public.analytic_sequenc
 
 
 --
+-- Name: product_memberships; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_memberships (
+    id integer NOT NULL,
+    originator_type character varying,
+    originator_id integer,
+    member_id integer NOT NULL,
+    nature character varying NOT NULL,
+    group_id integer NOT NULL,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    intervention_id integer
+);
+
+
+--
+-- Name: animals_interventions; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.animals_interventions AS
+ SELECT 'animal_group'::text AS initial_target,
+    intervention.id AS intervention_id,
+    animal_group.id AS animal_group_id,
+    animal.id AS animal_id
+   FROM ((((public.interventions intervention
+     JOIN public.intervention_parameters target ON (((target.intervention_id = intervention.id) AND ((target.type)::text = 'InterventionTarget'::text))))
+     JOIN public.products animal_group ON (((animal_group.id = target.product_id) AND ((animal_group.type)::text = 'AnimalGroup'::text))))
+     LEFT JOIN public.product_memberships pm ON (((pm.group_id = animal_group.id) AND (((intervention.started_at >= pm.started_at) AND (intervention.started_at <= pm.stopped_at)) OR ((intervention.started_at > pm.started_at) AND (pm.stopped_at IS NULL)) OR ((intervention.stopped_at >= pm.started_at) AND (intervention.stopped_at <= pm.stopped_at)) OR ((intervention.stopped_at > pm.started_at) AND (pm.stopped_at IS NULL))))))
+     LEFT JOIN public.products animal ON (((pm.member_id = animal.id) AND ((animal.type)::text = 'Animal'::text))))
+  GROUP BY intervention.id, animal.id, animal_group.id, pm.group_id
+UNION ALL
+ SELECT 'animal'::text AS initial_target,
+    intervention.id AS intervention_id,
+    animal_group.id AS animal_group_id,
+    animal.id AS animal_id
+   FROM ((((public.interventions intervention
+     JOIN public.intervention_parameters target ON (((target.intervention_id = intervention.id) AND ((target.type)::text = 'InterventionTarget'::text))))
+     JOIN public.products animal ON (((animal.id = target.product_id) AND ((animal.type)::text = 'Animal'::text))))
+     LEFT JOIN public.product_memberships pm ON (((pm.member_id = animal.id) AND (((intervention.started_at >= pm.started_at) AND (intervention.started_at <= pm.stopped_at)) OR ((intervention.started_at > pm.started_at) AND (pm.stopped_at IS NULL)) OR ((intervention.stopped_at >= pm.started_at) AND (intervention.stopped_at <= pm.stopped_at)) OR ((intervention.stopped_at > pm.started_at) AND (pm.stopped_at IS NULL))))))
+     LEFT JOIN public.products animal_group ON (((pm.group_id = animal_group.id) AND ((animal_group.type)::text = 'AnimalGroup'::text))))
+  GROUP BY intervention.id, animal.id, animal_group.id, pm.group_id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2301,11 +2280,21 @@ CREATE VIEW public.campaigns_interventions AS
     i.id AS intervention_id
    FROM (((((public.interventions i
      JOIN public.intervention_parameters ip ON ((ip.intervention_id = i.id)))
-     JOIN public.products p ON ((p.id = ip.product_id)))
+     JOIN public.products p ON (((p.id = ip.product_id) AND ((p.type)::text <> 'Animal'::text))))
      JOIN public.activity_productions ap ON ((ap.id = p.activity_production_id)))
      JOIN public.activities a ON ((a.id = ap.activity_id)))
-     JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (date_part('year'::text, i.started_at) = (c.harvest_year)::double precision)))))
-  ORDER BY c.id;
+     JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (i.started_at > COALESCE(make_date(((c.harvest_year + a.production_stopped_on_year) - 1), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date((c.harvest_year - 1), 12, 31))) AND (i.started_at <= COALESCE(make_date((c.harvest_year + a.production_stopped_on_year), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date(c.harvest_year, 12, 31))) AND (i.started_at <= ap.stopped_on)))))
+UNION ALL
+ SELECT DISTINCT c.id AS campaign_id,
+    i.id AS intervention_id
+   FROM (((((((public.interventions i
+     JOIN public.intervention_parameters ip ON ((ip.intervention_id = i.id)))
+     JOIN public.products p ON (((p.id = ip.product_id) AND ((p.type)::text = 'Animal'::text))))
+     JOIN public.product_memberships pm ON (((pm.member_id = p.id) AND (((i.started_at >= pm.started_at) AND (i.started_at <= pm.stopped_at)) OR ((i.started_at > pm.started_at) AND (pm.stopped_at IS NULL)) OR ((i.stopped_at >= pm.started_at) AND (i.stopped_at <= pm.stopped_at)) OR ((i.stopped_at > pm.started_at) AND (pm.stopped_at IS NULL))))))
+     JOIN public.products animal_group ON (((pm.group_id = animal_group.id) AND ((animal_group.type)::text = 'AnimalGroup'::text))))
+     JOIN public.activity_productions ap ON ((ap.id = animal_group.activity_production_id)))
+     JOIN public.activities a ON ((a.id = ap.activity_id)))
+     JOIN public.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (i.started_at > COALESCE(make_date(((c.harvest_year + a.production_stopped_on_year) - 1), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date((c.harvest_year - 1), 12, 31))) AND (i.started_at <= COALESCE(make_date((c.harvest_year + a.production_stopped_on_year), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date(c.harvest_year, 12, 31))) AND (i.started_at <= ap.stopped_on)))));
 
 
 --
@@ -2796,9 +2785,9 @@ CREATE TABLE public.crop_group_items (
     crop_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    lock_version integer DEFAULT 0 NOT NULL,
     creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    updater_id integer
 );
 
 
@@ -2832,9 +2821,9 @@ CREATE TABLE public.crop_group_labellings (
     label_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    lock_version integer DEFAULT 0 NOT NULL,
     creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    updater_id integer
 );
 
 
@@ -2868,9 +2857,9 @@ CREATE TABLE public.crop_groups (
     target character varying DEFAULT 'plant'::character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    lock_version integer DEFAULT 0 NOT NULL,
     creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    updater_id integer
 );
 
 
@@ -5649,9 +5638,9 @@ CREATE TABLE public.journal_entries (
     reference_number character varying,
     continuous_number integer,
     validated_at timestamp without time zone,
-    provider jsonb,
-    compliance jsonb DEFAULT '"{}"'::jsonb,
-    name character varying
+    compliance jsonb DEFAULT '{}'::jsonb,
+    name character varying,
+    provider jsonb
 );
 
 
@@ -7300,28 +7289,6 @@ CREATE SEQUENCE public.product_localizations_id_seq
 --
 
 ALTER SEQUENCE public.product_localizations_id_seq OWNED BY public.product_localizations.id;
-
-
---
--- Name: product_memberships; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.product_memberships (
-    id integer NOT NULL,
-    originator_type character varying,
-    originator_id integer,
-    member_id integer NOT NULL,
-    nature character varying NOT NULL,
-    group_id integer NOT NULL,
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    intervention_id integer
-);
 
 
 --
@@ -10678,38 +10645,6 @@ ALTER TABLE ONLY lexicon.registered_legal_positions
 
 
 --
--- Name: registered_pfi_crops registered_pfi_crops_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.registered_pfi_crops
-    ADD CONSTRAINT registered_pfi_crops_pkey PRIMARY KEY (id);
-
-
---
--- Name: registered_pfi_segments registered_pfi_segments_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.registered_pfi_segments
-    ADD CONSTRAINT registered_pfi_segments_pkey PRIMARY KEY (id);
-
-
---
--- Name: registered_pfi_targets registered_pfi_targets_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.registered_pfi_targets
-    ADD CONSTRAINT registered_pfi_targets_pkey PRIMARY KEY (id);
-
-
---
--- Name: registered_pfi_treatment_types registered_pfi_treatment_types_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.registered_pfi_treatment_types
-    ADD CONSTRAINT registered_pfi_treatment_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: registered_phytosanitary_cropsets registered_phytosanitary_cropsets_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -12538,27 +12473,6 @@ CREATE INDEX registered_chart_of_accounts_account_number ON lexicon.registered_c
 
 
 --
--- Name: registered_crop_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_crop_zones_centroid ON lexicon.registered_crop_zones USING gist (centroid);
-
-
---
--- Name: registered_crop_zones_id_idx; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_crop_zones_id_idx ON lexicon.registered_crop_zones USING btree (id);
-
-
---
--- Name: registered_crop_zones_shape; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_crop_zones_shape ON lexicon.registered_crop_zones USING gist (shape);
-
-
---
 -- Name: registered_enterprises_french_main_activity_code; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -12598,27 +12512,6 @@ CREATE INDEX registered_hydro_items_point ON lexicon.registered_hydro_items USIN
 --
 
 CREATE INDEX registered_hydro_items_shape ON lexicon.registered_hydro_items USING gist (shape);
-
-
---
--- Name: registered_pfi_doses_crop_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_pfi_doses_crop_id ON lexicon.registered_pfi_doses USING btree (crop_id);
-
-
---
--- Name: registered_pfi_doses_france_maaid; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_pfi_doses_france_maaid ON lexicon.registered_pfi_doses USING btree (france_maaid);
-
-
---
--- Name: registered_pfi_doses_harvest_year; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_pfi_doses_harvest_year ON lexicon.registered_pfi_doses USING btree (harvest_year);
 
 
 --
@@ -14491,13 +14384,6 @@ CREATE INDEX index_contracts_on_updater_id ON public.contracts USING btree (upda
 
 
 --
--- Name: index_crop_group_items_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crop_group_items_on_created_at ON public.crop_group_items USING btree (created_at);
-
-
---
 -- Name: index_crop_group_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14519,24 +14405,10 @@ CREATE INDEX index_crop_group_items_on_crop_type_and_crop_id ON public.crop_grou
 
 
 --
--- Name: index_crop_group_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crop_group_items_on_updated_at ON public.crop_group_items USING btree (updated_at);
-
-
---
 -- Name: index_crop_group_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_crop_group_items_on_updater_id ON public.crop_group_items USING btree (updater_id);
-
-
---
--- Name: index_crop_group_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crop_group_labellings_on_created_at ON public.crop_group_labellings USING btree (created_at);
 
 
 --
@@ -14561,13 +14433,6 @@ CREATE INDEX index_crop_group_labellings_on_label_id ON public.crop_group_labell
 
 
 --
--- Name: index_crop_group_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crop_group_labellings_on_updated_at ON public.crop_group_labellings USING btree (updated_at);
-
-
---
 -- Name: index_crop_group_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14575,24 +14440,10 @@ CREATE INDEX index_crop_group_labellings_on_updater_id ON public.crop_group_labe
 
 
 --
--- Name: index_crop_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crop_groups_on_created_at ON public.crop_groups USING btree (created_at);
-
-
---
 -- Name: index_crop_groups_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_crop_groups_on_creator_id ON public.crop_groups USING btree (creator_id);
-
-
---
--- Name: index_crop_groups_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crop_groups_on_updated_at ON public.crop_groups USING btree (updated_at);
 
 
 --
@@ -22081,6 +21932,13 @@ CREATE TRIGGER compute_journal_entries_continuous_number_on_update BEFORE UPDATE
 
 
 --
+-- Name: journal_entry_items compute_partial_isacompta_lettering; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER compute_partial_isacompta_lettering AFTER UPDATE OF letter ON public.journal_entry_items FOR EACH ROW EXECUTE FUNCTION public.compute_partial_isacompta_lettering();
+
+
+--
 -- Name: journal_entry_items compute_partial_lettering_status_insert_delete; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -22099,13 +21957,6 @@ CREATE TRIGGER compute_partial_lettering_status_update AFTER UPDATE OF credit, d
 --
 
 CREATE TRIGGER outgoing_payment_list_cache AFTER INSERT OR DELETE OR UPDATE OF list_id, amount ON public.outgoing_payments FOR EACH ROW EXECUTE FUNCTION public.compute_outgoing_payment_list_cache();
-
-
---
--- Name: journal_entry_items partial_isacompta_lettering; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER partial_isacompta_lettering AFTER UPDATE OF letter ON public.journal_entry_items FOR EACH ROW EXECUTE FUNCTION public.compute_partial_isacompta_lettering();
 
 
 --
@@ -23120,6 +22971,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191205085059'),
 ('20191205123841'),
 ('20191206080450'),
+('20191206102525'),
 ('20191223092535'),
 ('20200107092243'),
 ('20200108090053'),
@@ -23141,16 +22993,19 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200320143401'),
 ('20200320154251'),
 ('20200323084937'),
+('20200324010101'),
 ('20200330133607'),
 ('20200403091907'),
 ('20200403123414'),
 ('20200406105101'),
+('20200407075511'),
 ('20200407090249'),
 ('20200407172801'),
 ('20200409094501'),
 ('20200410183701'),
 ('20200412125000'),
 ('20200413131000'),
+('20200413131001'),
 ('20200414074218'),
 ('20200415162701'),
 ('20200415163115'),
@@ -23184,7 +23039,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200922092535'),
 ('20200922144601'),
 ('20200923130701'),
+('20200925150810'),
 ('20200925170636'),
+('20200926150810'),
 ('20200928073618'),
 ('20201001095904'),
 ('20201001133625'),
@@ -23217,7 +23074,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210217112010'),
 ('20210219172016'),
 ('20210222103208'),
+('20210301101012'),
+('20210301131307'),
 ('20210302081408'),
+('20210302110649'),
+('20210302134031'),
 ('20210304145448'),
 ('20210304154300'),
 ('20210310135449'),
@@ -23238,6 +23099,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210510075720'),
 ('20210511132348'),
 ('20210512161201'),
-('20210514062916');
+('20210514062916'),
+('20210514142217'),
+('20210520085721'),
+('20210521130856'),
+('20210526142601'),
+('20210526233101'),
+('20210527160150'),
+('20210531184001'),
+('20210614114001'),
+('20210614123501'),
+('20210622125501');
 
 

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get :list_fixed_assets
       get :list_groups
       get :list_inspections
+      get :list_interventions
       get :list_intervention_product_parameters
       get :list_issues
       get :list_readings
@@ -209,6 +210,7 @@ Rails.application.routes.draw do
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
       resource :settings_statistics_cell, only: :show
+      resource :square_revenues_by_category_cell, only: :show
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
       resource :trade_counts_cell, only: :show
@@ -1053,6 +1055,7 @@ Rails.application.routes.draw do
       member do
         get :list_products
         get :list_product_natures
+        get :list_product_nature_variants
         get :list_taxations
       end
     end

@@ -101,13 +101,10 @@ eng:
     #~ working_zone: "Working zone"
     #~ working_zone_area: "Working zone area"
   aggregators:
-    #~ activity_cost: "Activity cost"
     #~ animal_husbandry_register: "Animal husbandry register"
     #~ exchange_accountancy_file_fr: "Exchange accountancy file fr"
     #~ fr_pcg82_balance_sheet: "French classical balance sheet"
     #~ fr_pcg82_profit_and_loss_statement: "French classical profit and loss statement"
     #~ fr_pcga_balance_sheet: "French agricultural balance sheet"
     #~ fr_pcga_profit_and_loss_statement: "French agricultural profit and loss statement"
-    #~ intervention_register: "Intervention register"
-    #~ phytosanitary_register: "Phytosanitary register"
     #~ veterinary_booklet: "Veterinary booklet"

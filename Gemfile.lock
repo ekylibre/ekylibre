@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/ekylibre/agric.git
+  revision: a8a729a76b1b5b27b2dbc0373c73077953a636dd
+  branch: master
+  specs:
+    agric (4.1.0)
+      railties (>= 3.2, < 6)
+      sassc-rails (~> 2)
+
+GIT
   remote: https://gitlab.com/ekylibre/active_list.git
   revision: 154e190c6bca181fd8162ba33417681b89b6a56b
   branch: master
@@ -93,9 +102,6 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
-    agric (4.1.0)
-      railties (>= 3.2, < 6)
-      sassc-rails (~> 2)
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -228,7 +234,7 @@ GEM
     faraday-net_http (1.0.1)
     fastimage (2.2.3)
     ffaker (2.18.0)
-    ffi (1.14.2)
+    ffi (1.15.3)
     fiddle (1.0.7)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -417,6 +423,8 @@ GEM
     rack (2.2.3)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-protection (2.1.0)
       rack
     rack-proxy (0.6.5)
@@ -652,7 +660,7 @@ DEPENDENCIES
   activemodel-serializers-xml (~> 1.0)
   activerecord-postgis-adapter (~> 4.1)
   acts_as_list (~> 1.0)
-  agric (~> 4.1)
+  agric!
   apartment (~> 2.2.1)
   apartment-sidekiq (~> 1.2)
   awesome_nested_set (~> 3.1.1)
@@ -730,6 +738,7 @@ DEPENDENCIES
   pry-byebug (~> 3.8)
   pry-rails (~> 0.3.9)
   quandl (~> 1.1)
+  rack-cors
   rails (= 5.0.7.2)
   rails-controller-testing (~> 1.0)
   rails_best_practices (~> 1.20)

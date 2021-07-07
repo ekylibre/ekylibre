@@ -361,8 +361,10 @@ class Intervention < ApplicationRecord
       end
 
       if target.identification_number && target.product.identification_number.nil?
-        target.update_column! :identification_number, target.identification_number
+        target.update_column :identification_number, target.identification_number
       end
+      # compute imputation_ratio
+      update_target_imputation_ratio(target)
     end
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
@@ -435,6 +437,22 @@ class Intervention < ApplicationRecord
       inputs.each { |input| write_parameter_entry_items.call(input, true) }
       outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
+  end
+
+  def update_target_imputation_ratio(target)
+    # compute quantity_value & quantity_unit_name for imputation_ratio
+    if target.working_zone.presence
+      a = target.working_zone.area
+      target.update_column :quantity_value, a
+      target.update_column :quantity_unit_name, 'square_meter'
+      target.update_column :quantity_indicator_name, 'net_surface_area'
+      b = targets.where.not(working_zone: nil).map{|t| t.working_zone.area }.compact.sum
+      ratio = (a.to_f / b.to_f ) if a && b && (b != 0.0)
+    else
+      b = targets.where(working_zone: nil).count
+      ratio = (1.0 / b.to_f) if b != 0
+    end
+    target.update_column :imputation_ratio, ratio
   end
 
   def update_costing

@@ -62,6 +62,7 @@
           .med-info
             %span.title= :vine_yield.tl
             %span.value= resource.vine_yield.round(2).l
+
     = attributes_list stamps: false do |l|
       - l.attribute :activity, url: true
       - l.attribute :support_nature
@@ -70,7 +71,32 @@
       - l.attribute :nitrate_fixing
       - l.attribute :cap_land_parcel, url: true, label: :land_parcel_number
 
-  - if resource.animal_farming? && resource.support.is_a?(AnimalGroup)
+  - elsif resource.animal_farming? && resource.support.is_a?(AnimalGroup)
+    :ruby
+      container = resource&.support&.container
+      map = visualization do |v|
+        if container&.shape
+          v.serie container.id, [{name: container.name, shape: container.shape}]
+          v.simple container.name , container.id, fill_color: cycle(theme_colors)
+        end
+        v.control :zoom
+        v.control :scale
+        v.control :fullscreen
+        v.control :layer_selector
+      end
+    - if container.presence
+      = map
+    = infos do
+      .med-info.important
+        %span.title= :number_of_animals.tl
+        - viewed_at = Time.zone.now.change(year: current_campaign.harvest_year)
+        %span.value= resource.support.members_at(viewed_at)&.count.to_i
+
+    = attributes_list stamps: false do |l|
+      - l.attribute :activity, url: true
+      - l.attribute :support_nature
+      - l.attribute :support, url: true
+  - else
     = attributes_list stamps: false do |l|
       - l.attribute :activity, url: true
       - l.attribute :support_nature
@@ -85,17 +111,28 @@
       - if resource.interventions.any?
         - c.cobble(:production_costs, title: :production_costs.tl) do
           = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs(current_campaign) }
+
+      - c.cobble(:interventions) do
+        = cobble_toolbar do |t|
+          = t.new(params: { controller: :interventions, intervention: { product_id: resource&.support&.id }, targets_attributes: [{ product_id: resource&.support&.id, reference_name: "cultivation", working_zone: resource&.support&.shape&.to_geojson }], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource&.support&.id, reference_name: "land_parcel", working_zone: resource&.support&.shape&.to_geojson } ] } ] })
+        - if resource.interventions.any?
+          = cobble_list(:interventions)
+
+      - if resource.decorate.plants?
+        - c.cobble(:plants, title: :crops.tl) do
+          = cobble_list(:plants)
+
+    - elsif resource.animal_farming? && resource.support.is_a?(AnimalGroup)
+      - c.cobble(:interventions) do
+        - if resource.interventions.any?
+          = cobble_list(:interventions)
+
+        - if resource.usage == :milk && Analysis.of_nature(:cow_milk_analysis).any?
+          - started_at = Time.zone.now.change(year: current_campaign.harvest_year) - 1.year
+          - stopped_at = Time.zone.now.change(year: current_campaign.harvest_year)
+          - c.cobble :last_analyses do
+            = cell :last_analyses, params: {nature: :cow_milk_analysis, started_at: started_at, stopped_at: stopped_at}
     - else
       = no_data
-
-    - c.cobble(:interventions) do
-      = cobble_toolbar do |t|
-        = t.new(params: { controller: :interventions, intervention: { product_id: resource&.support&.id }, targets_attributes: [{ product_id: resource&.support&.id, reference_name: "cultivation", working_zone: resource&.support&.shape&.to_geojson }], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource&.support&.id, reference_name: "land_parcel", working_zone: resource&.support&.shape&.to_geojson } ] } ] })
-      - if resource.interventions.any?
-        = cobble_list(:interventions)
-
-    - if resource.decorate.plants?
-      - c.cobble(:plants, title: :crops.tl) do
-        = cobble_list(:plants)
 
   = #render partial: 'backend/shared/distributions', locals: {c: c}

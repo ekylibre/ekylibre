@@ -101,6 +101,8 @@ module Telepac
         # check in Lexicon
         cap_year = [2017, cap_year].max
         year_col = "cap_#{cap_year}_crop_code"
+        # TODO: remove when building Lexicon 5 feature
+        year_col = "cap_2020_crop_code" if cap_year == 2021
         lexicon_production_nature = MasterProductionNature.where("#{year_col} = ?", crop_code).first
         raise StandardError.new("The code #{cap_land_parcel.main_crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
 

@@ -42,9 +42,9 @@ module Backend
     list(conditions: product_natures_conditions) do |t|
       t.action :edit, url: { controller: '/backend/product_natures' }
       t.action :destroy, url: { controller: '/backend/product_natures' }, if: :destroyable?
+      t.column :active
       t.column :name, url: { controller: '/backend/product_natures' }
       t.column :number, url: { controller: '/backend/product_natures' }
-      t.column :active
       t.column :variety
       t.column :derivative_of
     end

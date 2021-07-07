@@ -1,3 +1,5 @@
+- main_period_selector(:year)
+
 - main_toolbar do |t|
   = t.export(:animal_sheet, key: :identification_number, target: "_blank")
   = t.edit resource
@@ -67,72 +69,14 @@
               = link_to(resource.father.name, {action: :show, id: resource.father.id})
 
   - if resource.analyses.any?
-    - started_at = resource.born_at
-    - stopped_at = resource.dead_at || Time.now
+    - started_at = Time.zone.now.change(year: current_campaign.harvest_year) - 1.year
+    - stopped_at = Time.zone.now.change(year: current_campaign.harvest_year)
     - c.cobble :last_analyses do
       = cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id, started_at: started_at, stopped_at: stopped_at}
-
-  - indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
-  - if indicators.any? and ProductReading.where(indicator_name: indicators.map(&:name), product: resource).any?
-    - c.cobble(:variable_indicators) do
-      = variable_readings(resource)
 
   - if resource.customized?
     - c.cobble :custom_fields do
       = attributes_list(stamps: false)
-
-
-  -# c.cobble :indicators_evolutions do
-    - if resource.born_at
-      :ruby
-        #
-        #
-        started_at = resource.born_at.to_date
-        stopped_at = resource.dead_at.to_date if resource.dead_at
-        stopped_at ||= Time.zone.today
-
-        series = []
-        categories = {}
-        date = started_at
-        while date < stopped_at
-          categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
-          date = date >> 1
-        end
-
-        #
-        #  data for bar chart indicator and by month
-        #
-        bar_indicators = [:net_mass].collect{|i| Onoma::Indicator[i] }
-        for indicator in bar_indicators
-          items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
-          if items.count > 0
-            item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
-              hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
-              hash
-            end
-            series << {type: 'column', name: indicator.human_name, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
-          end
-        end
-
-        #
-        #  data for bar chart indicator and by month
-        #
-        spline_indicators = [:healthy].collect{|i| Onoma::Indicator[i] }
-        for indicator in spline_indicators
-          items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
-          if items.count > 0
-            item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
-              hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
-              hash
-            end
-            series << {type: 'spline', y_axis: 1, name: indicator.human_name, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
-          end
-        end
-      = column_highcharts(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: true)
-
-    - else
-      = no_data
-
 
   - c.cobble(:children) do
     = cobble_list(:children)
@@ -161,8 +105,5 @@
       = t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
     = cobble_list(:issues)
 
-  - c.cobble(:intervention_product_parameters, title: :x_intervention_product_parameters.tl(count: resource.intervention_product_parameters.count)) do
-    = cobble_list(:intervention_product_parameters)
-
-  -# c.cobble(:readings, tl(:x_readings, count: resource.readings.count)) do
-    = cobble_list(:readings)
+  - c.cobble(:interventions) do
+    = cobble_list(:interventions)

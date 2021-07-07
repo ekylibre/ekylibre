@@ -35,7 +35,7 @@ module Backend
     #   :nature_id
     #   :category_id
     def self.variants_conditions
-      code = search_conditions(product_nature_variants: %i[name number]) + " ||= []\n"
+      code = search_conditions(product_nature_variants: %i[name number work_number]) + " ||= []\n"
       code << "unless params[:working_set_id].blank?\n"
       code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
       code << "  c[0] << \" AND product_nature_variants.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
@@ -52,6 +52,13 @@ module Backend
       code << "  c[0] << \" AND product_nature_variants.type = ?\"\n"
       code << "  c << 'Variants::ArticleVariant'\n"
       code << "end\n"
+      code << "if params[:s] == 'active'\n"
+      code << "  c[0] += ' AND product_nature_variants.active = ?'\n"
+      code << "  c << true\n"
+      code << "elsif params[:s] == 'inactive'\n"
+      code << "  c[0] += ' AND product_nature_variants.active = ?'\n"
+      code << "  c << false\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -59,8 +66,10 @@ module Backend
     list(conditions: variants_conditions) do |t|
       t.action :edit, url: { controller: '/backend/product_nature_variants' }
       t.action :destroy, if: :destroyable?, url: { controller: '/backend/product_nature_variants' }
+      t.column :active
       t.column :name, url: { namespace: :backend }
       t.column :number
+      t.column :work_number
       t.column :nature, url: { controller: '/backend/product_natures' }
       t.column :category, url: { controller: '/backend/product_nature_categories' }
       t.column :current_stock_displayed, label: :current_stock
@@ -68,7 +77,6 @@ module Backend
       t.column :unit_name
       t.column :variety
       t.column :derivative_of
-      t.column :active
     end
 
     list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|

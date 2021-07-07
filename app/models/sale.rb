@@ -261,8 +261,17 @@ class Sale < ApplicationRecord
   bookkeep do |b|
     # take reference_number (external ref) if exist else take number (internal ref)
     r_number = (reference_number.blank? ? number : reference_number)
+    # build description on entry
+    if reference_number.presence
+      products_info = reference_number
+    elsif description.presence
+      products_info = description.gsub(/\r?\n/, ' / ')
+    else
+      products_info = items.pluck(:label).to_sentence
+    end
+
     b.journal_entry(self.nature.journal, reference_number: r_number, printed_on: invoiced_on, if: ((invoice? || order?) && items.any?)) do |entry|
-      label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description.gsub(/\r?\n/, ' / ')), sale: initial_number)
+      label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: products_info, sale: initial_number)
       # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
       # if items.all? { |item| item.fixed_asset_id }
       #   affair_balanced = affair.incoming_payments.sum(:amount) == amount
