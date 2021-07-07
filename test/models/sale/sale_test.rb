@@ -162,6 +162,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    IdeaDiagnostic.delete_all
     Payslip.delete_all
     Catalog.delete_all
     SaleNature.delete_all

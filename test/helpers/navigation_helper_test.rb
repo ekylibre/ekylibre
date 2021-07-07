@@ -2,6 +2,7 @@ require 'test_helper'
 
 class NavigationHelperTest < ActionView::TestCase
   setup do
+    IdeaDiagnostic.delete_all
     OutgoingPayment.delete_all
     Payslip.delete_all
     Entity.delete_all # Making sure nobody ruins the order.

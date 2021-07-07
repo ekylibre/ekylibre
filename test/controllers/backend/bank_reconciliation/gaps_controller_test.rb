@@ -50,7 +50,8 @@ module Backend
         end
 
         def wipe_db
-          [Payslip,
+          [IdeaDiagnostic,
+           Payslip,
            IncomingPayment,
            OutgoingPayment,
            Regularization,
