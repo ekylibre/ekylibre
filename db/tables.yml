@@ -3590,6 +3590,9 @@ idea_diagnostic_results:
     type: integer
     references: user
 idea_diagnostics:
+  auditor_id:
+    type: integer
+    references: entity
   campaign_id:
     type: integer
     references: campaign
@@ -3614,6 +3617,8 @@ idea_diagnostics:
     required: true
   state:
     type: string
+  stopped_at:
+    type: datetime
   updated_at:
     type: datetime
     required: true

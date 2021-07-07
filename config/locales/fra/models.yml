@@ -553,6 +553,7 @@ fra:
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+        unicity_by_campaign: "Un diagnostic IDEA a déjà été créé sur cette campagne"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
       models: #?
