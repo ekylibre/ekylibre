@@ -10,7 +10,7 @@
           <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
         </handler>
       </target>
-      <output name="matters" derivative-of="variety: plant" filter="is matter and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <output name="matters" derivative-of="variety: plant" filter="is preparation and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <attribute name="new_name"/>
         <handler name="population"/>
         <handler indicator="net_mass" unit="quintal"
@@ -32,9 +32,9 @@
       </output>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
-      <tool name="cropper" filter="can harvest(plant)" cardinality="*"/>
-      <tool name="implement" filter="is portable_equipment or (is equipment and (can store(raw_matter) or can store_liquid))" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can harvest(plant))" cardinality="*"/>
+      <tool name="cropper" filter="is equipment and can harvest(plant)" cardinality="*"/>
+      <tool name="implement" filter="is trailed_equipment and can store(matter)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

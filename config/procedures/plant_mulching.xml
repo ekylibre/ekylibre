@@ -5,7 +5,7 @@
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="mulching_material" filter="is matter and can cover(plant)" cardinality="*">
+      <input name="mulching_material" filter="is preparation and can cover(plant)" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_length" unit="meter"
                  if="PRODUCT.net_length? and PRODUCT.net_length != 0"
@@ -18,7 +18,7 @@
       </input>
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tool" filter="is portable_equipment" cardinality="*"/>
-      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

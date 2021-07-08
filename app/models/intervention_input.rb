@@ -135,22 +135,6 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
-  # return pfi dose according to Lexicon pfi dataset and maaid number
-  def pfi_reference_dose
-    dose = nil
-    if variant.france_maaid
-      act = intervention.activities
-      first_production = intervention.activity_productions.first
-      harvest_year = first_production.campaign.harvest_year if first_production && first_production.campaign
-      crop_code = act.first.production_nature.pfi_crop_code if act.first.production_nature
-      maaid = variant.france_maaid
-      if crop_code && maaid && harvest_year
-        dose = RegisteredPfiDose.where(france_maaid: maaid, crop_id: crop_code, harvest_year: harvest_year, target_id: nil).first
-      end
-    end
-    dose
-  end
-
   # return legal dose according to Lexicon phyto dataset and maaid number
   def legal_pesticide_informations
     pesticide = RegisteredPhytosanitaryProduct.where(france_maaid: variant.france_maaid).first
@@ -173,19 +157,6 @@ class InterventionInput < InterventionProductParameter
       ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
     elsif legal_pesticide_informations[:dose].dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
       ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
-    end
-    ratio.to_d
-  end
-
-  # only case in mass_area_density && volume_area_density in pfi reference
-  def pfi_treatment_ratio
-    ratio = 1.0
-    if pfi_reference_dose && pfi_reference_dose.dose.to_d > 0.0
-      if pfi_reference_dose.dose.dimension == :mass_area_density && input_quantity_per_area.dimension == :mass_area_density
-        ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
-      elsif pfi_reference_dose.dose.dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
-        ratio = input_quantity_per_area.convert(pfi_reference_dose.dose.unit) / pfi_reference_dose.dose.to_d
-      end
     end
     ratio.to_d
   end

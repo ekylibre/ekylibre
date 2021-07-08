@@ -1,6 +1,6 @@
 (function (E, $) {
     const varietyService = new E.VarietyService();
-    const masterProductionService = new E.MasterProductionNatureService();
+    const masterCropProductionService = new E.MasterCropProductionService();
     const defaultStateStateOfProduction = [
         { label: '', year: null, default: true },
         { label: 'N+1', year: 1, default: false },
@@ -15,7 +15,7 @@
             this.$formElement = $formElement;
 
             this.$productionNatureControl = this.$formElement.find('.control-group.activity_production_nature:first').first();
-            this.$productionNatureInput = this.$formElement.find('#activity_production_nature_id').first();
+            this.$productionNatureInput = this.$formElement.find('#activity_reference_name').first();
             this.$productionCycleInput = this.$formElement.find("input[type=radio][name='activity[production_cycle]']");
 
             this.fpStartedOn = this.$formElement.find('input#activity_production_started_on').get(0)._flatpickr;
@@ -42,13 +42,13 @@
         }
 
         onProductionNatureChange() {
-            const productionNaturesId = this.$productionNatureInput.selector('value');
+            const productionNaturesId =  this.$productionNatureInput.next().val();
             if (productionNaturesId == null) {
                 this.resetVarieties();
                 this.showHint();
             } else {
                 this.reset();
-                masterProductionService.get(productionNaturesId).then((productionNature) => {
+                masterCropProductionService.get(productionNaturesId).then((productionNature) => {
                     if (
                         productionNature.started_on_year != null &&
                         productionNature.stopped_on_year != null &&
@@ -74,8 +74,8 @@
                     }
 
                     let startStateOfProduction
-                    if (productionNature.start_state_of_production && productionNature.start_state_of_production.length > 0) {
-                        startStateOfProduction = productionNature.start_state_of_production;
+                    if (productionNature.start_states && productionNature.start_states.length > 0) {
+                        startStateOfProduction = productionNature.start_states;
                     } else {
                         startStateOfProduction = defaultStateStateOfProduction;
                     }

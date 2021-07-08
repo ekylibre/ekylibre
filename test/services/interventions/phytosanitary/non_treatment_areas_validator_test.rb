@@ -18,7 +18,7 @@ module Interventions
 
         assert_equal :forbidden, result.product_vote(product)
         assert_equal [:working_zone_overlaps_nta.tl], result.product_messages(product)
-        assert_empty RegisteredHydroItem.buffer_intersecting(1, shape)
+        assert_empty RegisteredHydrographicItem.buffer_intersecting(1, shape)
       end
     end
   end

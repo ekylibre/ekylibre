@@ -6,14 +6,14 @@
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <output name="plant" filter="is plant" cardinality="1">
+        <output name="plant" filter="is plant and has indicator shape" cardinality="1">
           <attribute name="new_name"/>
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>
           </reading>
         </output>
       </group>
-      <input name="plants" filter="is seedling and derives from plant and can grow">
+      <input name="plants" filter="is seedling">
         <handler name="population"/>
         <handler indicator="net_mass" unit="ton"
                  if="PRODUCT..net_mass?"
@@ -36,10 +36,10 @@
                  backward="POPULATION * PRODUCT..items_count / 1000"
                  forward="VALUE * 1000 / PRODUCT..items_count"/>
       </input>
-      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="implanter_tool" filter="can implant" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can implant)" cardinality="*"/>
+      <tool name="implanter_tool" filter="is equipment and can implant" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

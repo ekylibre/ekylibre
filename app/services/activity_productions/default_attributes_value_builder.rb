@@ -19,7 +19,7 @@ module ActivityProductions
         started_on: started_on,
         stopped_on: stopped_on,
         starting_year: starting_year,
-        production_nature_id: activity.production_nature_id
+        reference_name: activity.reference_name
       }
     end
 
@@ -28,7 +28,7 @@ module ActivityProductions
       attr_reader :activity, :campaign
 
       def usage
-        activity.main_output_name
+        activity.usage
       end
 
       def started_on

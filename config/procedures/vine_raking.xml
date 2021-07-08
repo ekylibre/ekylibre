@@ -5,9 +5,9 @@
       <target name="cultivation" filter="(is vitis or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?" />
       </target>
-      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*" />
-      <tool name="tractor" filter="is equipment and can catch(equipment) and can move" cardinality="*" />
-      <tool name="trailed_equipment" filter="is equipment and (can plow_superficially or can plow)" cardinality="*" />
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+      <tool name="harrow" filter="is equipment and can plow_superficially" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

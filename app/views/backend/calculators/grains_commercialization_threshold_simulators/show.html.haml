@@ -1,6 +1,6 @@
 - main_period_selector(:year)
 
-- productions = Activity.of_families(:field_crops).of_campaign(Campaign.first).where(production_nature_id: [5, 11, 20]).reorder(:name)
+- productions = Activity.of_families(:field_crops).of_campaign(Campaign.first).where(reference_name: %w[winter_common_wheat winter_barley winter_rape]).reorder(:name)
 = cobbles do |c|
   - productions.each do |production|
     - c.cobble "production_#{production.id}".to_sym, title: production.name do

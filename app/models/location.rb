@@ -38,7 +38,7 @@
 #
 class Location < ApplicationRecord
   belongs_to :localizable, polymorphic: true
-  belongs_to :registered_postal_zone, foreign_key: :registered_postal_zone_id
+  belongs_to :registered_postal_zone, class_name: 'RegisteredPostalCode', foreign_key: :registered_postal_zone_id
 
   delegate :city_name, to: :registered_postal_zone
 end

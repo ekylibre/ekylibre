@@ -117,10 +117,10 @@ class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     references = { animal: :bird_band,
                    article: :acidifier,
                    crop: :crop,
-                   equipment: :air_compressor,
+                   equipment: :blower,
                    service: :agricultural_service,
                    worker: :worker,
-                   zone: :zone }
+                   zone: :building_division }
 
     references.each { |type, reference| assert ProductNature.import_from_lexicon(reference).is_a?("VariantTypes::#{type.capitalize}Type".constantize) }
   end

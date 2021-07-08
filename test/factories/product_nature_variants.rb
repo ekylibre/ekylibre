@@ -129,7 +129,7 @@ FactoryBot.define do
 
   factory :equipment_variant, class: ProductNatureVariant do
     sequence(:name) { |n| "Equipment variant - TEST#{n.to_s.rjust(8, '0')}" }
-    variety { :tractor }
+    variety { :equipment }
     unit_name { :equipment }
     association :category, factory: :equipment_category
     association :nature, factory: :equipment_nature

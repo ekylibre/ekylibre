@@ -62,10 +62,10 @@ class CviCadastralPlant < ApplicationRecord
 
   belongs_to :cvi_cultivable_zone
   belongs_to :cvi_statement
-  belongs_to :land_parcel, class_name: 'CadastralLandParcelZone', foreign_key: :land_parcel_id, inverse_of: :cvi_cadastral_plants
-  belongs_to :designation_of_origin, class_name: 'RegisteredProtectedDesignationOfOrigin', foreign_key: :designation_of_origin_id, inverse_of: :cvi_cadastral_plants
-  belongs_to :vine_variety, class_name: 'MasterVineVariety', foreign_key: :vine_variety_id
-  belongs_to :rootstock, class_name: 'MasterVineVariety', foreign_key: :rootstock_id
+  belongs_to :land_parcel, class_name: 'RegisteredCadastralParcel', foreign_key: :land_parcel_id, inverse_of: :cvi_cadastral_plants
+  belongs_to :designation_of_origin, class_name: 'RegisteredQualityAndOriginSign', foreign_key: :designation_of_origin_id, inverse_of: :cvi_cadastral_plants
+  belongs_to :vine_variety, class_name: 'RegisteredVineVariety', foreign_key: :vine_variety_id
+  belongs_to :rootstock, class_name: 'RegisteredVineVariety', foreign_key: :rootstock_id
   has_one :location, as: :localizable, dependent: :destroy
   has_one :registered_postal_zone, through: :location
   has_many :cvi_cadastral_plant_cvi_land_parcels, dependent: :destroy

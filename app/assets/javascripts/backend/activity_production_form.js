@@ -94,7 +94,7 @@
         constructor(formElement) {
             this.formElement = formElement;
             this.cultivableZoneSelector = formElement.querySelector('#activity_production_cultivable_zone_id');
-            this.productionNatureSelector = formElement.querySelector('#activity_production_production_nature_id');
+            this.productionNatureSelector = formElement.querySelector('#activity_production_reference_name');
             this.$map = $(formElement.querySelector('#activity_production_support_shape'));
             this.usageSelect = formElement.querySelector('#activity_production_usage');
             this.campaignSelector = formElement.querySelector('#activity_production_campaign_id');
@@ -112,8 +112,8 @@
 
             this.productionNatureSelector.addEventListener('unroll:selector:change', (event) => {
                 if (!event.detail.wasInitializing) {
-                    const productionId = $(this.productionNatureSelector).selector('value');
-                    this.setUsageFromProduction(productionId);
+                    const productionReferenceName = $(this.productionNatureSelector).next().val();
+                    this.setUsageFromProduction(productionReferenceName);
                 }
             });
             if (this.campaignSelector !== null) {
@@ -126,12 +126,12 @@
             }
         }
 
-        setUsageFromProduction(productionId) {
-            new E.MasterProductionOutputService()
-                .getAll({ production_nature_id: productionId, main: true })
-                .then((mainProductionOutputs) => {
-                    if (mainProductionOutputs[0] != undefined) {
-                        this.usageSelect.value = mainProductionOutputs[0].name;
+        setUsageFromProduction(productionReferenceName) {
+            new E.MasterCropProductionService()
+                .get(productionReferenceName)
+                .then((masterCropProduction) => {
+                    if (masterCropProduction.usage != undefined) {
+                        this.usageSelect.value = masterCropProduction.usage ;
                     }
                 });
         }

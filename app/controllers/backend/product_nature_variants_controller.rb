@@ -23,8 +23,6 @@ module Backend
     manage_restfully except: %i[edit create update show new], active: true
     manage_restfully_picture
 
-    importable_from_nomenclature :product_nature_variants
-
     # To edit it, change here the column and edit action.yml unrolls section
     unroll :name, :unit_name, category: { charge_account: :number }
     unroll :name, :unit_name, method: :unroll_saleables, category: { product_account: :number }
@@ -51,6 +49,9 @@ module Backend
       code << "if controller_name == 'article_variants'\n"
       code << "  c[0] << \" AND product_nature_variants.type = ?\"\n"
       code << "  c << 'Variants::ArticleVariant'\n"
+      code << "elsif controller_name == 'equipment_variants'\n"
+      code << "  c[0] << \" AND product_nature_variants.type = ?\"\n"
+      code << "  c << 'Variants::EquipmentVariant'\n"
       code << "end\n"
       code << "if params[:s] == 'active'\n"
       code << "  c[0] += ' AND product_nature_variants.active = ?'\n"
@@ -343,7 +344,8 @@ module Backend
                   end
 
       if nature_id.present? && (nature = ProductNature.find_by(id: nature_id)).present?
-        model_klass = nature.variant_type.constantize
+        type_allocator = Variant::TypeAllocatorService.new(nature: nature)
+        model_klass = type_allocator.find_type.constantize
         attributes[:nature] = nature
       else
         @submit_label = :next.tl

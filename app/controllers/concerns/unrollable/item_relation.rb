@@ -12,12 +12,12 @@ module Unrollable
       @items = items
     end
 
-    def filter_through(model, includes, order, scopes, excludes)
+    def filter_through(model, includes, order, scopes, excludes, primary_key = :id)
       self
         .includes(includes)
         .reorder(order)
         .scoped(scopes, model)
-        .excluding(excludes)
+        .excluding(excludes, primary_key)
     end
 
     def includes(columns)
@@ -42,16 +42,16 @@ module Unrollable
       self.class.new(items)
     end
 
-    def excluding(record_ids)
+    def excluding(record_ids, primary_key = :id)
       return self unless record_ids
 
-      self.class.new(@items.where.not(id: record_ids))
+      self.class.new(@items.where.not(primary_key => record_ids))
     end
 
-    def keeping(id)
+    def keeping(id, primary_key)
       return nil unless id
 
-      self.class.new(@items.where(id: id))
+      self.class.new(@items.where(primary_key => id))
     end
 
     def ordered_matches(keys, searchables, query = nil)

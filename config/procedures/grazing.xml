@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="grazing" categories="animal_feeding" actions="animal_feeding" varieties="bovidae,cervidae,equidae,suidae">
     <parameters>
-      <target name="herd" filter="is animal_group and derives from animal"/>
+      <target name="herd" filter="is animal_group"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>

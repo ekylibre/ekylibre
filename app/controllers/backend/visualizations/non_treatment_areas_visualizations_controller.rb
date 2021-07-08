@@ -18,7 +18,7 @@ module Backend
       private
 
         def compute_dataset(bounds, distance)
-          RegisteredHydroItem.in_bounding_box(bounds).map do |hydro_item|
+          RegisteredHydrographicItem.in_bounding_box(bounds).map do |hydro_item|
             content = []
             content << { label: :name.tl, value: hydro_item.name } if hydro_item.name
             content << { label: :nature.tl, value: hydro_item.nature }

@@ -65,6 +65,7 @@ class ProductNature < ApplicationRecord
   include Customizable
   include Importable
   include Providable
+  include Categorizable
 
   VARIETIES_NATURES = {
     animal: %w[animal animal_group],
@@ -183,14 +184,6 @@ class ProductNature < ApplicationRecord
 
   def find_nature
     VARIETIES_NATURES.detect { |_k, v| v.include? Onoma::Variety.parent_variety(variety) }&.first
-  end
-
-  def variant_type
-    if type.match(/Article/) && sub_nature = VARIETIES_SUB_NATURES.detect { |_k, v| v.include? variety }
-      "#{type.split('::').first.gsub(/Types/, 's')}::Articles::#{sub_nature.first.to_s.classify}Article"
-    else
-      [type.split('::')].map { |mod, cla| [mod.gsub(/Types/, 's'), cla.gsub(/Type/, 'Variant')] }.flatten.join('::')
-    end
   end
 
   def identifiable?
@@ -394,7 +387,7 @@ class ProductNature < ApplicationRecord
     end
 
     def import_from_lexicon(reference_name, force = false)
-      unless item = VariantNature.find_by(reference_name: reference_name)
+      unless item = MasterVariantNature.find_by(reference_name: reference_name)
         raise ArgumentError.new("The product nature #{reference_name.inspect} is unknown")
       end
       if !force && (nature = ProductNature.find_by(reference_name: reference_name))
@@ -403,26 +396,27 @@ class ProductNature < ApplicationRecord
 
       attributes = {
         variety: item.variety,
-        derivative_of: (item.derivative_of.present? ? item.derivative_of : nil),
-        name: item.name[I18n.locale.to_s] || item.reference_name.humanize,
+        derivative_of: item.derivative_of,
+        name: item.translation.send(Preference[:language]),
         population_counting: item.population_counting,
         reference_name: item.reference_name,
         abilities_list: item.abilities,
-        frozen_indicators_list: item.indicators.map(&:to_sym),
+        frozen_indicators_list: item.frozen_indicators.presence,
+        variable_indicators_list: item.variable_indicators.presence,
         active: true,
-        type: item.nature == 'fee_and_service' ? 'VariantTypes::ServiceType' : "VariantTypes::#{item.nature.capitalize}Type",
+        type: "VariantTypes::#{item.family.classify}Type",
         imported_from: 'Lexicon'
       }
       create!(attributes)
     end
 
-    def import_all_from_lexicon
-      VariantNature.find_each do |nature|
+    def load_defaults(**_options)
+      MasterVariantNature.find_each do |nature|
         import_from_lexicon(nature.reference_name)
       end
     end
 
-    def load_defaults(**_options)
+    def import_all_from_nomenclature
       Onoma::ProductNature.find_each do |product_nature|
         import_from_nomenclature(product_nature.name)
       end

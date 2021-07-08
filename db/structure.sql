@@ -38,6 +38,13 @@ CREATE SCHEMA public;
 
 
 --
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -996,14 +1003,14 @@ CREATE TABLE public.activities (
     use_seasons boolean DEFAULT false,
     use_tactics boolean DEFAULT false,
     codes jsonb,
-    production_nature_id integer,
     production_started_on date,
     production_stopped_on date,
     life_duration numeric(5,2),
     start_state_of_production_year integer,
     isacompta_analytic_code character varying(2),
     production_started_on_year integer,
-    production_stopped_on_year integer
+    production_stopped_on_year integer,
+    reference_name character varying
 );
 
 
@@ -1057,8 +1064,8 @@ CREATE TABLE public.activity_productions (
     provider jsonb DEFAULT '{}'::jsonb,
     headland_shape postgis.geometry(Geometry,4326),
     custom_name character varying,
-    production_nature_id integer,
-    starting_year integer
+    starting_year integer,
+    reference_name character varying
 );
 
 
@@ -21818,29 +21825,6 @@ CREATE INDEX tax_provider_index ON public.taxes USING gin (((provider -> 'vendor
 
 
 --
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
-
-
---
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -21867,6 +21851,29 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
+
+
+--
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
 
 
 --
@@ -23063,7 +23070,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201215085433'),
 ('20210119103725'),
 ('20210119151601'),
+('20210202093448'),
+('20210204145215'),
 ('20210205105359'),
+('20210209135343'),
 ('20210209154545'),
 ('20210211162023'),
 ('20210215114312'),
@@ -23109,6 +23119,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210531184001'),
 ('20210614114001'),
 ('20210614123501'),
+('20210615191101'),
+('20210616133301'),
 ('20210622125501');
 
 

@@ -2,9 +2,9 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="complete_wine_transfer" categories="viticulture_transformation" actions="complete_wine_transfer">
     <parameters>
-      <parameter name="tank" type="tool" filter="is equipment and can store(wine) and can store_liquid" default-actor="storage"/>
+      <parameter name="tank" type="tool" filter="is tank and can store(wine)" default-actor="storage"/>
       <parameter name="wine" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
-      <parameter name="destination_tank" type="tool" filter="is equipment and can store(wine) and can store_liquid"/>
+      <parameter name="destination_tank" type="tool" filter="is tank and can store(wine)"/>
       <parameter name="wine_man" type="doer" filter="is worker and can move"/>
     </parameters>
   </procedure>

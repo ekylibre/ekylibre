@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="packaging" categories="packaging" actions="packaging">
     <parameters>
-      <input name="product_to_prepare" filter="derives from bioproduct">
+      <input name="product_to_prepare" filter="is preparation and derives from bioproduct">
         <handler name="population"/>
         <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
@@ -17,7 +17,7 @@
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <input name="packaging_material" filter="is matter" cardinality="*">
+      <input name="packaging_material" filter="is packaging" cardinality="*">
         <handler name="population"/>
         <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
@@ -27,7 +27,6 @@
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length?"
                  backward="POPULATION * PRODUCT..length(meter)"
                  forward="VALUE / PRODUCT..length(meter)"/>
-
       </input>
       <output name="prepared_product" filter="derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <attribute name="new_name"/>
@@ -46,7 +45,7 @@
                  forward="VALUE / VARIANT.net_volume(liter)"/>
       </output>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
-      <doer name="doer" filter="is worker and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

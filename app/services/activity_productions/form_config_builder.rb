@@ -35,11 +35,11 @@ module ActivityProductions
           species = specie.children(recursively: true).map(&:name).push(specie.name)
         end
 
-        production_natures = MasterProductionNature.of_species(species)
+        production_natures = MasterCropProduction.of_species(species)
         while production_natures.count == 0
           specie = specie.parent
           species = specie.children(recursively: true).map(&:name).push(specie.name)
-          production_natures = MasterProductionNature.of_species(species)
+          production_natures = MasterCropProduction.of_species(species)
         end
 
         species

@@ -40,7 +40,7 @@ FactoryBot.define do
   factory :equipment_nature, class: ProductNature do
     sequence(:name) { |n| "Equipment nature - TEST#{n.to_s.rjust(8, '0')}" }
     population_counting { :unitary }
-    variety { :tractor }
+    variety { :equipment }
   end
 
   factory :tank_nature, class: ProductNature do

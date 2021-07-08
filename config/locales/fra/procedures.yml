@@ -228,6 +228,7 @@ fra:
     replacement_part: "Pièce de remplacement"
     residue: "Residue"
     responsible: "Responsable"
+    roll: "Rouleau"
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
     second_child: "Second nouveau né" #?
@@ -281,7 +282,7 @@ fra:
     third_seed_input_to_use: "Troisième semence utilisée" #?
     tool: "Outil"
     topper: "Effaneuse"
-    tractor: "Tracteur"
+    tractor: "Tracteur / Automoteur"
     trailed_equipment: "Outil tracté"
     trailer: "Remorque"
     trunck_cleaner: "Épampreuse"
@@ -432,6 +433,7 @@ fra:
     product_evolution: "Évolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
+    rolling: "Roulage"
     seedbed_preparing: "Préparation du lit de semences"
     seedling_sorting: "Triage de plants"
     sifting: "Tamisage"

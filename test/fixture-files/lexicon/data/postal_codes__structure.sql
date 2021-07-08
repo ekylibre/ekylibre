@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS registered_postal_zones;
+DROP TABLE IF EXISTS registered_postal_codes;
 
-        CREATE TABLE registered_postal_zones (
+        CREATE TABLE registered_postal_codes (
           id character varying PRIMARY KEY NOT NULL,
           country character varying NOT NULL,
           code character varying NOT NULL,
@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS registered_postal_zones;
           city_centroid postgis.geometry(Point,4326)
       );
 
-        CREATE INDEX registered_postal_zones_country ON registered_postal_zones(country);
-        CREATE INDEX registered_postal_zones_city_name ON registered_postal_zones(city_name);
-        CREATE INDEX registered_postal_zones_postal_code ON registered_postal_zones(postal_code);
-        CREATE INDEX registered_postal_zones_centroid ON registered_postal_zones USING GIST (city_centroid);
+        CREATE INDEX registered_postal_codes_country ON registered_postal_codes(country);
+        CREATE INDEX registered_postal_codes_city_name ON registered_postal_codes(city_name);
+        CREATE INDEX registered_postal_codes_postal_code ON registered_postal_codes(postal_code);
+        CREATE INDEX registered_postal_codes_centroid ON registered_postal_codes USING GIST (city_centroid);

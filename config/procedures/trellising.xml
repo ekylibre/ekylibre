@@ -17,7 +17,7 @@
                  backward="(POPULATION * PRODUCT..length(meter))"
                  forward="(VALUE / PRODUCT..length(meter))"/>
       </input>
-      <doer name="doer"  filter="is worker and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>

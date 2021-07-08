@@ -28,10 +28,10 @@
         <attribute name="allowed_entry_factor"/>
         <attribute name="allowed_harvest_factor"/>
       </input>
-      <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
       <tool name="hoe" filter="is equipment and can hoe" cardinality="*"/>
-      <tool name="weeding_kit" filter="is equipment and can spray and can kill(plant)" cardinality="*"/>
+      <tool name="weeding_kit" filter="is equipment and can spray" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

@@ -5,7 +5,7 @@
         <target name="plant" filter="is vitis and has indicator shape">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <input name="seeds" filter="is seed and derives from plant and can grow" cardinality="*">
+        <input name="seeds" filter="is seed" cardinality="*">
           <handler name="population"/>
           <handler indicator="net_mass" unit="kilogram"
                    if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
@@ -16,9 +16,9 @@
                    backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(plant, :hectare)"
                    forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / PRODUCT..net_mass(kilogram)"/>
         </input>
-      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="sower"   filter="can sow" cardinality="*"/>
+      <doer name="driver"  filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+      <tool name="sower"   filter="is equipment and can sow" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

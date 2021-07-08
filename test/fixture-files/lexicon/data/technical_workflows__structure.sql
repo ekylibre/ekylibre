@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS technical_workflow_procedure_items;
 DROP TABLE IF EXISTS technical_workflow_procedures;
 DROP TABLE IF EXISTS technical_workflows;
 
-        CREATE UNLOGGED TABLE technical_workflows (
+        CREATE TABLE technical_workflows (
           id character varying PRIMARY KEY NOT NULL,
           name jsonb NOT NULL,
           family character varying,
@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS technical_workflows;
           life_cycle character varying
         );
 
-        CREATE UNLOGGED TABLE technical_workflow_procedures (
+        CREATE TABLE technical_workflow_procedures (
           id character varying PRIMARY KEY NOT NULL,
           position integer NOT NULL,
           name jsonb NOT NULL,
@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS technical_workflows;
         CREATE INDEX technical_workflows_procedures_technical_workflow_id ON technical_workflow_procedures(technical_workflow_id);
         CREATE INDEX technical_workflows_procedures_procedure_reference ON technical_workflow_procedures(procedure_reference);
 
-        CREATE UNLOGGED TABLE technical_workflow_procedure_items (
+        CREATE TABLE technical_workflow_procedure_items (
           id character varying PRIMARY KEY NOT NULL,
           actor_reference character varying,
           procedure_item_reference character varying,

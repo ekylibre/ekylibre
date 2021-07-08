@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS registered_agroedi_codes;
 
-        CREATE UNLOGGED TABLE registered_agroedi_codes (
+        CREATE TABLE registered_agroedi_codes (
           id integer PRIMARY KEY NOT NULL,
           repository_id integer NOT NULL,
           reference_id integer NOT NULL,

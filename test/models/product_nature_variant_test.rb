@@ -182,26 +182,26 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     references = { animal: :bee_band,
                    article: :acetal,
                    crop: :annual_fallow_crop,
-                   equipment: :air_compressor,
+                   equipment: :animal_medicine_tank,
                    service: :accommodation_taxe,
                    worker: :employee,
                    zone: :animal_building }
 
-    references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
+    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", ProductNatureVariant.import_from_nomenclature(reference).type }
 
     article_references = { plant_medicine: :additive, fertilizer: :bulk_ammo_phosphorus_sulfur_20_23_0, seed_and_plant: :ascott_wheat_seed_25 }
-    article_references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
+    article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", ProductNatureVariant.import_from_nomenclature(reference).type }
   end
 
   test 'type is correctly set upon import from lexicon' do
     references = { article: :stake,
-                   equipment: :hose_reel,
+                   equipment: :geolocation_box,
                    service: :additional_activity,
-                   worker: :permanent }
+                   worker: :permanent_worker }
 
     references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
 
-    article_references = { plant_medicine: :soft_wheat_herbicide, fertilizer: :horse_manure, seed_and_plant: :soft_wheat_seed }
+    article_references = { plant_medicine: '2000085_zebra', fertilizer: :horse_manure, seed_and_plant: :common_wheat_seed }
     article_references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
   end
 

@@ -3,7 +3,7 @@
   <procedure name="animal_veterinary_treatment" categories="animal_treating" actions="disease_treatment" varieties="actinopterygii,aves,bivalvia,gastropoda,apidae,mammalia">
     <parameters>
       <target name="animal" filter="is animal"/>
-      <input name="animal_medicine" filter="is matter and can care(animal)">
+      <input name="animal_medicine" filter="is preparation and can care(animal)">
         <handler name="population"/>
         <handler indicator="net_mass" unit="gram"
                  if="PRODUCT.net_mass(gram) > 0"
@@ -17,7 +17,7 @@
                   backward="(POPULATION * PRODUCT..net_volume(milliliter)) / population_count(animal)"
                   forward="(VALUE * population_count(animal)) / PRODUCT..net_volume(liter)"/>
       </input>
-      <doer name="caregiver" filter="can administer_care(animal)" cardinality="*"/>
+      <doer name="caregiver" filter="is worker and can administer_care(animal)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

@@ -22,7 +22,7 @@ module Backend
 
     manage_restfully
 
-    importable_from_lexicon :user_roles
+    importable_from_lexicon :master_user_roles, primary_key: :reference_name
 
     unroll
 

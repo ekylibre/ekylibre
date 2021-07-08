@@ -133,11 +133,11 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
-    assert_equal jei_s.variant, @variant
+    assert_equal jei_s.variant, ProductNatureVariant.find(@variant.id)
 
     # jei_sm variant must be defined
     assert_not jei_sm.variant.nil?
-    assert_equal jei_sm.variant, @variant
+    assert_equal jei_sm.variant, ProductNatureVariant.find(@variant.id)
   end
 
   test 'unitary items in receptions' do

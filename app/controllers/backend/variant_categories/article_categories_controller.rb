@@ -1,8 +1,9 @@
 module Backend
   module VariantCategories
     class ArticleCategoriesController < Backend::ProductNatureCategoriesController
-      importable_from_nomenclature :product_nature_categories, model_name: "VariantCategories::#{controller_name.classify}".constantize,
-                                                               filters: { type: :article }
+      importable_from_lexicon :master_variant_categories, model_name: "VariantCategories::#{controller_name.classify}".constantize,
+                                                          primary_key: :reference_name,
+                                                          filters: { of_families: :article }
     end
   end
 end

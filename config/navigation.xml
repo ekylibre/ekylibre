@@ -1476,9 +1476,14 @@
         <page to="backend/variants/service_variants#index"/>
         <page to="backend/variants/worker_variants#index"/>
         <page to="backend/variants/zone_variants#index"/>
+        <page to="backend/variants/articles/farm_product_articles#index"/>
         <page to="backend/variants/articles/fertilizer_articles#index"/>
         <page to="backend/variants/articles/plant_medicine_articles#index"/>
         <page to="backend/variants/articles/seed_and_plant_articles#index"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#index"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#index"/>
+        <page to="backend/variants/equipments/tool_equipments#index"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#index"/>
         <page to="backend/variants/animal_variants#new"/>
         <page to="backend/variants/article_variants#new"/>
         <page to="backend/variants/crop_variants#new"/>
@@ -1486,9 +1491,14 @@
         <page to="backend/variants/service_variants#new"/>
         <page to="backend/variants/worker_variants#new"/>
         <page to="backend/variants/zone_variants#new"/>
+        <page to="backend/variants/articles/farm_product_articles#new"/>
         <page to="backend/variants/articles/fertilizer_articles#new"/>
         <page to="backend/variants/articles/plant_medicine_articles#new"/>
         <page to="backend/variants/articles/seed_and_plant_articles#new"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#new"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#new"/>
+        <page to="backend/variants/equipments/tool_equipments#new"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#new"/>
         <page to="backend/variants/animal_variants#create"/>
         <page to="backend/variants/article_variants#create"/>
         <page to="backend/variants/crop_variants#create"/>
@@ -1496,9 +1506,14 @@
         <page to="backend/variants/service_variants#create"/>
         <page to="backend/variants/worker_variants#create"/>
         <page to="backend/variants/zone_variants#create"/>
+        <page to="backend/variants/articles/farm_product_articles#create"/>
         <page to="backend/variants/articles/fertilizer_articles#create"/>
         <page to="backend/variants/articles/plant_medicine_articles#create"/>
         <page to="backend/variants/articles/seed_and_plant_articles#create"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#create"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#create"/>
+        <page to="backend/variants/equipments/tool_equipments#create"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#create"/>
         <page to="backend/variants/animal_variants#pick"/>
         <page to="backend/variants/article_variants#pick"/>
         <page to="backend/variants/crop_variants#pick"/>
@@ -1506,9 +1521,14 @@
         <page to="backend/variants/service_variants#pick"/>
         <page to="backend/variants/worker_variants#pick"/>
         <page to="backend/variants/zone_variants#pick"/>
+        <page to="backend/variants/articles/farm_product_articles#pick"/>
         <page to="backend/variants/articles/fertilizer_articles#pick"/>
         <page to="backend/variants/articles/plant_medicine_articles#pick"/>
         <page to="backend/variants/articles/seed_and_plant_articles#pick"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#pick"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#pick"/>
+        <page to="backend/variants/equipments/tool_equipments#pick"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#pick"/>
         <page to="backend/variants/animal_variants#incorporate"/>
         <page to="backend/variants/article_variants#incorporate"/>
         <page to="backend/variants/crop_variants#incorporate"/>
@@ -1516,9 +1536,14 @@
         <page to="backend/variants/service_variants#incorporate"/>
         <page to="backend/variants/worker_variants#incorporate"/>
         <page to="backend/variants/zone_variants#incorporate"/>
+        <page to="backend/variants/articles/farm_product_articles#incorporate"/>
         <page to="backend/variants/articles/fertilizer_articles#incorporate"/>
         <page to="backend/variants/articles/plant_medicine_articles#incorporate"/>
         <page to="backend/variants/articles/seed_and_plant_articles#incorporate"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#incorporate"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#incorporate"/>
+        <page to="backend/variants/equipments/tool_equipments#incorporate"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#incorporate"/>
         <page to="backend/product_nature_variants#create"/>
         <page to="backend/product_nature_variants#destroy"/>
         <page to="backend/product_nature_variants#detail"/>
@@ -1537,9 +1562,14 @@
         <page to="backend/variants/service_variants#show"/>
         <page to="backend/variants/worker_variants#show"/>
         <page to="backend/variants/zone_variants#show"/>
+        <page to="backend/variants/articles/farm_product_articles#show"/>
         <page to="backend/variants/articles/fertilizer_articles#show"/>
         <page to="backend/variants/articles/plant_medicine_articles#show"/>
         <page to="backend/variants/articles/seed_and_plant_articles#show"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#show"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#show"/>
+        <page to="backend/variants/equipments/tool_equipments#show"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#show"/>
         <page to="backend/product_nature_variants#update"/>
         <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>
@@ -2303,8 +2333,8 @@
       <item name="traceability_check_cells">
         <page to="backend/cells/traceability_check_cells#show"/>
       </item>
-      <item name="master_production_natures">
-        <page to="backend/master_production_natures#unroll"/>
+      <item name="master_crop_productions">
+        <page to="backend/master_crop_productions#unroll"/>
       </item>
     </group>
   </inaccessible-actions>
@@ -2492,11 +2522,11 @@
       <item name="shipments">
         <page to="backend/shipments#invoice"/>
       </item>
-      <item name="user_roles">
-        <page to="backend/user_roles#unroll"/>
+      <item name="master_user_roles">
+        <page to="backend/master_user_roles#unroll"/>
       </item>
-      <item name="variant_categories">
-        <page to="backend/variant_categories#unroll"/>
+      <item name="master_variant_categories">
+        <page to="backend/master_variant_categories#unroll"/>
       </item>
       <item name="animal_categories">
         <page to="backend/variant_categories/animal_categories#create"/>
@@ -2582,8 +2612,8 @@
         <page to="backend/variant_categories/zone_categories#unroll"/>
         <page to="backend/variant_categories/zone_categories#update"/>
       </item>
-      <item name="variant_natures">
-        <page to="backend/variant_natures#unroll"/>
+      <item name="master_variant_natures">
+        <page to="backend/master_variant_natures#unroll"/>
       </item>
       <item name="animal_types">
         <page to="backend/variant_types/animal_types#compatible_varieties"/>
@@ -2669,8 +2699,8 @@
         <page to="backend/variant_types/zone_types#unroll"/>
         <page to="backend/variant_types/zone_types#update"/>
       </item>
-      <item name="variants">
-        <page to="backend/variants#unroll"/>
+      <item name="master_variants">
+        <page to="backend/master_variants#unroll"/>
       </item>
       <item name="animal_variants">
         <page to="backend/variants/animal_variants#destroy"/>
@@ -2713,6 +2743,27 @@
         <page to="backend/variants/article_variants#unroll"/>
         <page to="backend/variants/article_variants#unroll_saleables"/>
         <page to="backend/variants/article_variants#update"/>
+      </item>
+      <item name="farm_product_articles">
+        <page to="backend/variants/articles/farm_product_articles#destroy"/>
+        <page to="backend/variants/articles/farm_product_articles#detail"/>
+        <page to="backend/variants/articles/farm_product_articles#edit"/>
+        <page to="backend/variants/articles/farm_product_articles#list"/>
+        <page to="backend/variants/articles/farm_product_articles#list_catalog_items"/>
+        <page to="backend/variants/articles/farm_product_articles#list_components"/>
+        <page to="backend/variants/articles/farm_product_articles#list_products"/>
+        <page to="backend/variants/articles/farm_product_articles#list_purchase_invoice_items"/>
+        <page to="backend/variants/articles/farm_product_articles#list_purchase_order_items"/>
+        <page to="backend/variants/articles/farm_product_articles#list_receptions"/>
+        <page to="backend/variants/articles/farm_product_articles#list_sale_items"/>
+        <page to="backend/variants/articles/farm_product_articles#list_shipments"/>
+        <page to="backend/variants/articles/farm_product_articles#list_suppliers"/>
+        <page to="backend/variants/articles/farm_product_articles#picture"/>
+        <page to="backend/variants/articles/farm_product_articles#quantifiers"/>
+        <page to="backend/variants/articles/farm_product_articles#storage_detail"/>
+        <page to="backend/variants/articles/farm_product_articles#unroll"/>
+        <page to="backend/variants/articles/farm_product_articles#unroll_saleables"/>
+        <page to="backend/variants/articles/farm_product_articles#update"/>
       </item>
       <item name="fertilizer_articles">
         <page to="backend/variants/articles/fertilizer_articles#destroy"/>
@@ -2820,6 +2871,90 @@
         <page to="backend/variants/equipment_variants#unroll"/>
         <page to="backend/variants/equipment_variants#unroll_saleables"/>
         <page to="backend/variants/equipment_variants#update"/>
+      </item>
+      <item name="fixed_equipment_equipments">
+        <page to="backend/variants/equipments/fixed_equipment_equipments#destroy"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#detail"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#edit"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_catalog_items"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_components"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_products"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_purchase_invoice_items"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_purchase_order_items"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_receptions"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_sale_items"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_shipments"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#list_suppliers"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#picture"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#quantifiers"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#storage_detail"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#unroll"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#unroll_saleables"/>
+        <page to="backend/variants/equipments/fixed_equipment_equipments#update"/>
+      </item>
+      <item name="motorized_equipment_equipments">
+        <page to="backend/variants/equipments/motorized_equipment_equipments#destroy"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#detail"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#edit"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_catalog_items"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_components"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_products"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_purchase_invoice_items"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_purchase_order_items"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_receptions"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_sale_items"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_shipments"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#list_suppliers"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#picture"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#quantifiers"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#storage_detail"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#unroll"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#unroll_saleables"/>
+        <page to="backend/variants/equipments/motorized_equipment_equipments#update"/>
+      </item>
+      <item name="tool_equipments">
+        <page to="backend/variants/equipments/tool_equipments#destroy"/>
+        <page to="backend/variants/equipments/tool_equipments#detail"/>
+        <page to="backend/variants/equipments/tool_equipments#edit"/>
+        <page to="backend/variants/equipments/tool_equipments#list"/>
+        <page to="backend/variants/equipments/tool_equipments#list_catalog_items"/>
+        <page to="backend/variants/equipments/tool_equipments#list_components"/>
+        <page to="backend/variants/equipments/tool_equipments#list_products"/>
+        <page to="backend/variants/equipments/tool_equipments#list_purchase_invoice_items"/>
+        <page to="backend/variants/equipments/tool_equipments#list_purchase_order_items"/>
+        <page to="backend/variants/equipments/tool_equipments#list_receptions"/>
+        <page to="backend/variants/equipments/tool_equipments#list_sale_items"/>
+        <page to="backend/variants/equipments/tool_equipments#list_shipments"/>
+        <page to="backend/variants/equipments/tool_equipments#list_suppliers"/>
+        <page to="backend/variants/equipments/tool_equipments#picture"/>
+        <page to="backend/variants/equipments/tool_equipments#quantifiers"/>
+        <page to="backend/variants/equipments/tool_equipments#storage_detail"/>
+        <page to="backend/variants/equipments/tool_equipments#unroll"/>
+        <page to="backend/variants/equipments/tool_equipments#unroll_saleables"/>
+        <page to="backend/variants/equipments/tool_equipments#update"/>
+      </item>
+      <item name="trailed_equipment_equipments">
+        <page to="backend/variants/equipments/trailed_equipment_equipments#destroy"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#detail"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#edit"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_catalog_items"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_components"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_products"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_purchase_invoice_items"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_purchase_order_items"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_receptions"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_sale_items"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_shipments"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#list_suppliers"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#picture"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#quantifiers"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#storage_detail"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#unroll"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#unroll_saleables"/>
+        <page to="backend/variants/equipments/trailed_equipment_equipments#update"/>
       </item>
       <item name="service_variants">
         <page to="backend/variants/service_variants#destroy"/>

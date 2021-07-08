@@ -10,7 +10,7 @@ module Unrollable
       default_scope = options[:scope]
       model_name = options[:model].classify unless options[:model].nil?
       model_name ||= controller_name.classify
-      model      = model_name.constantize
+      model = model_name.constantize
 
       columns = Unrollable::ColumnList.new(args, model)
 
@@ -24,19 +24,20 @@ module Unrollable
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
         keys = search_term.mb_chars.downcase.normalize.split(/[\s\\,]+/)
+        primary_key = params[:primary_key] || options[:primary_key]
 
         items = Unrollable::ItemRelation.new(model.send(default_scope))
 
-        kept = items.keeping(params[:id])
+        kept = items.keeping(params[:id], primary_key)
 
         begin
-          filtered_items = items.filter_through(model, columns, order, scopes, excluded_records)
+          filtered_items = items.filter_through(model, columns, order, scopes, excluded_records, primary_key)
         rescue InvalidScopeException => e
           logger.error e.message
           head :bad_request
           return false
         end
-        kept ||= filtered_items.keeping(params[:id]) unless Unrollable::Toolbelt.true?(params[:keep])
+        kept ||= filtered_items.keeping(params[:id], primary_key) unless Unrollable::Toolbelt.true?(params[:keep])
 
         items = kept || filtered_items.ordered_matches(keys, searchable_filters, search_term.mb_chars.downcase.normalize)
 
