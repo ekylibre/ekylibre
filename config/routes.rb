@@ -112,6 +112,15 @@ Rails.application.routes.draw do
         resources :registered_phytosanitary_products, only: %i[index create]
       end
     end
+
+    namespace :v2, defaults: { format: 'json' } do
+      resources :tokens, only: %i[create destroy]
+      resources :interventions, only: %i[index create]
+      get 'products(/:product_type)', to: 'products#index', as: :products
+      resources :variants, only: %i[index]
+      resources :plants, only: %i[index]
+      get 'profile', to: 'users#show'
+    end
   end
 
   namespace :iot, path: 'iot/v1' do
