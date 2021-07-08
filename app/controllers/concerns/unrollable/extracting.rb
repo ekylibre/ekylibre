@@ -3,8 +3,8 @@ module Unrollable
   module Extracting
     extend Toolbelt
 
-    AVAILABLE_OPTIONS = %i[model max order partial fill_in scope method].freeze
-    DEFAULT_OPTIONS = { max: 80, scope: :unscoped, visible_items_count: 10, method: :unroll }.freeze
+    AVAILABLE_OPTIONS = %i[model max order partial fill_in scope method primary_key].freeze
+    DEFAULT_OPTIONS = { max: 80, scope: :unscoped, visible_items_count: 10, method: :unroll, primary_key: :id }.freeze
 
     def self.options_from(arguments, defaults: true)
       if arguments.last.is_a?(Hash)

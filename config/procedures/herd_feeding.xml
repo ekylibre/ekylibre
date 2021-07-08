@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="herd_feeding" categories="animal_feeding" actions="animal_feeding" varieties="animal">
     <parameters>
-      <target name="herd" filter="is animal_group and derives from animal"/>
+      <target name="herd" filter="is animal_group"/>
       <input name="animal_food" filter="is preparation and can feed(animal)">
         <handler name="population"/>
         <handler name="net_mass" indicator="net_mass" unit="kilogram"
@@ -26,10 +26,10 @@
                  backward="POPULATION * (PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"
                  forward="VALUE / ( PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"/>
       </input>
-      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="equipment" filter="can deliver(preparation)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can deliver(preparation))" cardinality="*"/>
+      <tool name="equipment" filter="is equipment and can deliver(preparation)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

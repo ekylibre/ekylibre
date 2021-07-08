@@ -2,9 +2,9 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="enzyme_addition" categories="viticulture_transformation" actions="enzyme_addition">
     <parameters>
-      <parameter name="tank" type="tool" filter="is tank and can store_liquid" default-actor="storage"/>
+      <parameter name="tank" type="tool" filter="is tank and can store(wine)" default-actor="storage"/>
       <parameter name="wine_to_treat" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
-      <parameter name="oenological_intrant" type="input" filter="is matter and can catalyze(wine)"/>
+      <parameter name="oenological_intrant" type="input" filter="is preparation and can catalyze(wine)"/>
       <parameter name="wine_man" type="doer" filter="is worker and can move"/>
     </parameters>
   </procedure>

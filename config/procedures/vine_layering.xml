@@ -6,14 +6,14 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <reading name="layered_vine_stock"/>
       </target>
-      <input name="stakes" filter="is matter" cardinality="*">
+      <input name="stakes" filter="is stake">
         <handler name="population"/>
         <handler indicator="seedling_area_density" unit="unity_per_hectare"
                  if="sum_working_zone_areas(plant) != 0"
                  backward="((POPULATION / sum_working_zone_areas(plant, :hectare)))"
                  forward="((VALUE) * sum_working_zone_areas(plant, :hectare))"/>
       </input>
-      <doer name="doer" filter="is worker and can move" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

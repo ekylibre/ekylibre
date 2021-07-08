@@ -46,11 +46,11 @@
   :ruby
     b = CapIslet.bounding_box(resource.cap_islets)
     if b.present?
-      h = RegisteredHydroItem.in_bounding_box(b.join(', '))
-      z = RegisteredBuildingZone.in_bounding_box(b)
+      h = RegisteredHydrographicItem.in_bounding_box(b.join(', '))
+      z = RegisteredCadastralBuilding.in_bounding_box(b)
     else
-      h = RegisteredHydroItem.none
-      z = RegisteredBuildingZone.none
+      h = RegisteredHydrographicItem.none
+      z = RegisteredCadastralBuilding.none
     end
 
   - if resource.cap_land_parcels.any?

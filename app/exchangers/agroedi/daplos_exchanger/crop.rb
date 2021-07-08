@@ -52,7 +52,7 @@ module Agroedi
         return @production_nature if @production_nature
 
         specie_code = daplos.crop_specie_edicode
-        potential_natures = MasterProductionNature.where(agroedi_crop_code: specie_code)
+        potential_natures = MasterCropProduction.where(agroedi_crop_code: specie_code)
         if potential_natures.count > 1
           @production_nature = potential_natures
             .find_by(specie: ActivityProduction.where(support_id: cap_support_ids)

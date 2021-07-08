@@ -50,7 +50,7 @@ module Ekylibre
         next unless r.variant_reference_name
         next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name.downcase.to_sym)
 
-        if Variant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
+        if MasterVariant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
           valid = true
         elsif nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           valid = true

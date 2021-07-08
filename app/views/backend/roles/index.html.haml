@@ -1,4 +1,4 @@
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
-  = t.pick
+  = t.pick params: { redirect_show_path: backend_roles_path, selector_label: :role.tl }
 = main_list

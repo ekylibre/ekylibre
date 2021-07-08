@@ -4,17 +4,17 @@ DROP TABLE IF EXISTS registered_pfi_doses;
 DROP TABLE IF EXISTS registered_pfi_targets;
 DROP TABLE IF EXISTS registered_pfi_crops;
 
-        CREATE UNLOGGED TABLE registered_pfi_crops (
+        CREATE TABLE registered_pfi_crops (
           id integer PRIMARY KEY NOT NULL,
           reference_label_fra character varying
         );
 
-        CREATE UNLOGGED TABLE registered_pfi_targets (
+        CREATE TABLE registered_pfi_targets (
           id integer PRIMARY KEY NOT NULL,
           reference_label_fra character varying
         );
 
-        CREATE UNLOGGED TABLE registered_pfi_doses (
+        CREATE TABLE registered_pfi_doses (
           france_maaid integer NOT NULL,
           pesticide_name character varying,
           harvest_year integer NOT NULL,
@@ -30,12 +30,12 @@ DROP TABLE IF EXISTS registered_pfi_crops;
         CREATE INDEX registered_pfi_doses_harvest_year ON registered_pfi_doses(harvest_year);
         CREATE INDEX registered_pfi_doses_crop_id ON registered_pfi_doses(crop_id);
 
-        CREATE UNLOGGED TABLE registered_pfi_treatment_types (
+        CREATE TABLE registered_pfi_treatment_types (
           id character varying PRIMARY KEY NOT NULL,
           label_fra character varying
         );
 
-        CREATE UNLOGGED TABLE registered_pfi_segments (
+        CREATE TABLE registered_pfi_segments (
           id character varying PRIMARY KEY NOT NULL,
           label_fra character varying,
           description character varying

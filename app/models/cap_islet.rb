@@ -77,7 +77,7 @@ class CapIslet < ApplicationRecord
 
   # @return [String, nil]
   def city_name
-    name = RegisteredPostalZone.find_by(code: town_number)
+    name = RegisteredPostalCode.find_by(code: town_number)
 
     if name.present?
       name.city_name

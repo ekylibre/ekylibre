@@ -186,7 +186,7 @@
 - purchase_payment
 - reception
 - reception_item
-- registered_legal_position
+- master_legal_position
 - regularization
 - ride
 - ride_set

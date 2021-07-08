@@ -5,7 +5,7 @@
       <target name="animal_housing" filter="is building_division and can store(animal) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="litter" filter="can cover(building_division) and derives from plant" cardinality="*">
+      <input name="litter" filter="is preparation and can cover(building_division)" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="PRODUCT..net_mass?"
@@ -19,10 +19,10 @@
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="cleaner" filter="is equipment and can clean(building_division)" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="cleaner" filter="is equipment and can blow" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

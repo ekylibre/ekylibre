@@ -13,7 +13,7 @@
           </reading>
         </output>
       </group>
-      <input name="seeds" filter="is seed and derives from plant and can grow">
+      <input name="seeds" filter="is seed">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
@@ -74,10 +74,10 @@
                  backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
-      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="sower"   filter="can sow" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can sow)" cardinality="*"/>
+      <tool name="sower" filter="is equipment and can sow" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

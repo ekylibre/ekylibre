@@ -5,13 +5,13 @@
       <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="tunnel" filter="can care(plant) and can cover(plant)" cardinality="*">
+      <input name="tunnel" filter="is canvas_cover" cardinality="*">
         <handler name="population"/>
       </input>
-      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="worker" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="tunnel_implanter" filter="can cover(plant)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+      <tool name="tunnel_implanter" filter="is equipment and can cover(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

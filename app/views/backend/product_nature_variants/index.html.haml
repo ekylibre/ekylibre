@@ -17,11 +17,16 @@
 
 - main_toolbar do |t|
   = dropdown_menu_button(:articles.tl, main_class: 'btn-pill') do |d|
-    - %w[fertilizer plant_medicine seed_and_plant].each do |sub_nature|
+    - %w[farm_product fertilizer plant_medicine seed_and_plant].each do |sub_nature|
       - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/articles/#{sub_nature}_articles", action: :index }
     - d.item :others.tl, { controller: '/backend/variants/article_variants', action: :index }
 
-  - %w[animal crop equipment service worker zone].each do |nature|
+  = dropdown_menu_button(:equipments.tl, main_class: 'btn-pill') do |d|
+    - %w[fixed_equipment motorized_equipment tool trailed_equipment].each do |sub_nature|
+      - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/equipments/#{sub_nature}_equipments", action: :index }
+    - d.item :others.tl, { controller: '/backend/variants/equipment_variants', action: :index }
+
+  - %w[animal crop service worker zone].each do |nature|
     = link_to nature.pluralize.tl, send("backend_variants_#{nature}_variants_path"), class: 'btn-pill'
 
 = main_list

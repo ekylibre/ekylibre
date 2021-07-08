@@ -2,8 +2,8 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="manual_feeding" categories="animal_feeding" actions="animal_feeding" deprecated="true">
     <parameters>
-      <target name="herd"   filter="is animal_group and derives from bos" default-actor="storage"/>
-      <input  name="silage" filter="is preparation and can feed(bos)">
+      <target name="herd" filter="is animal_group" default-actor="storage"/>
+      <input name="silage" filter="is preparation and can feed(bos)">
         <handler indicator="net_mass" unit="ton"
                  if="PRODUCT..net_mass? and PRODUCT..net_mass != 0"
                  backward="POPULATION * PRODUCT..net_mass(ton)"
@@ -21,7 +21,7 @@
                  backward="POPULATION * (PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"
                  forward="VALUE / (PRODUCT..net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"/>
       </input>
-      <doer name="caregiver" filter="can administer_care(animal) and can move"/>
+      <doer name="caregiver" filter="is worker and can administer_care(animal)"/>
     </parameters>
   </procedure>
 </procedures>

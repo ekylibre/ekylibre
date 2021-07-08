@@ -116,7 +116,7 @@ class Role < ApplicationRecord
   end
 
   def self.import_from_lexicon(reference_name, _force = false)
-    unless item = UserRole.find_by_reference_name(reference_name)
+    unless item = MasterUserRole.find_by_reference_name(reference_name)
       raise ArgumentError.new("The role #{reference_name.inspect} is not known")
     end
 
@@ -132,6 +132,6 @@ class Role < ApplicationRecord
       hash
     end
 
-    create!(name: item.name[I18n.locale.to_s] || item.reference_name.humanize, reference_name: item.reference_name, rights: rights)
+    create!(name: item.translation.send(Preference[:language]), reference_name: item.reference_name, rights: rights)
   end
 end

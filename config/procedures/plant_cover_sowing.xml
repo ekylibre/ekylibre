@@ -5,7 +5,7 @@
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="seeds" filter="is seed and derives from plant and can grow">
+      <input name="seeds" filter="is seed">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
@@ -32,10 +32,10 @@
                  backward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((POPULATION * PRODUCT..net_mass(gram)) / PRODUCT..thousand_grains_mass(gram)) : (POPULATION * PRODUCT..grains_count(thousand))"
                  forward="(PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?) ? ((VALUE * PRODUCT..thousand_grains_mass(gram)) / PRODUCT..net_mass(gram)) : (VALUE / PRODUCT..grains_count(thousand))"/>
       </input>
-      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="tool"   filter="is trailed_equipment" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can sow)" cardinality="*"/>
+      <tool name="tool" filter="is equipment and can sow" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

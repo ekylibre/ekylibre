@@ -61,19 +61,15 @@ module Ekylibre
           #     {
           #       except: [
           #         'spatial_ref_sys',
-          #         "registered_legal_positions",
+          #         "master_legal_positions",
           #         "registered_phytosanitary_cropsets",
           #         "registered_phytosanitary_products",
           #         "registered_phytosanitary_risks",
           #         "registered_phytosanitary_usages",
-          #         "variant_natures",
-          #         "variant_categories",
-          #         "variants",
-          #         "registered_hydro_items",
-          #         'master_vine_varieties',
-          #         'registered_protected_designation_of_origins',
-          #         'cadastral_land_parcel_zones',
-          #         'registered_postal_zones',
+          #         "master_variant_natures",
+          #         "master_variant_categories",
+          #         "master_variants",
+          #         "registered_hydrographic_items"
           #       ]
           #     }
           #   )

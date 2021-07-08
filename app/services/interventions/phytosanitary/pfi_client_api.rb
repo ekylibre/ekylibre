@@ -197,8 +197,8 @@ module Interventions
         end
 
         def grab_pfi_crop_code(activity)
-          if activity.production_nature
-            activity.production_nature.pfi_crop_code
+          if activity.production_nature&.pfi_crop
+            activity.production_nature&.pfi_crop&.tfi_code
           else
             nil
           end

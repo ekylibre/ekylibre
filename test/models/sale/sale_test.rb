@@ -210,7 +210,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
-    assert_equal jei_s.variant, @variant
+    assert_equal jei_s.variant, ProductNatureVariant.find(@variant.id)
   end
 
   test 'Cannot create a sale during a financial year exchange' do

@@ -150,8 +150,7 @@ module Ekylibre
             nature = ProductNature.find_or_create_by!(n_attrs)
 
             unless variant = nature.variants.first
-              type = category.article_type || nature.variant_type
-              variant = nature.variants.create!(name: attrs[:name], variety: attrs[:variety], unit_name: 'Unit', category: category, type: type)
+              variant = nature.variants.create!(name: attrs[:name], variety: attrs[:variety], unit_name: 'Unit', category: category)
             end
           end
         end
