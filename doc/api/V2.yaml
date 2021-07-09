@@ -418,14 +418,32 @@ paths:
                   - worker_id
                 x-examples:
                   example-1:
+                    first_name: "Démo"
+                    last_name: "Dupond"
+                    email: "demo@ekylibre.com"
+                    language: "fra"
+                    administrator: false
+                    role:
+                      id: 1
+                      name: "Ouvrier de l’exploitation"
+                      rights: {"interventions"=>["read", "write"]}
                     worker_id: 1326
               examples:
                 example-1:
                   value:
+                    first_name: "Démo"
+                    last_name: "Dupond"
+                    email: "demo@ekylibre.com"
+                    language: "fra"
+                    administrator: false
+                    role:
+                      id: 1
+                      name: "Ouvrier de l’exploitation"
+                      rights: {"interventions"=>["read", "write"]}
                     worker_id: 1326
       deprecated: false
       security: []
-      description: Return the worker_id of the current user.
+      description: Return the information of the current user.
 components:
   schemas:
     InterventionCreate:
