@@ -1,6 +1,6 @@
 .activity-indicators
   .activity-indicator.size
-    = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
+    = activity.size_during(campaign).round(2).l(precision: 2) rescue nil
   .activity-indicator.cumulated-time
     = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
   .activity-indicator.opened-issues
