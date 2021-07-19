@@ -83,10 +83,10 @@ module Printers
     #  @param [InterventionTarget] target
     #  @return [String] input quantity on this target
     def input_quantity(input)
-      if input.input_quantity_per_area.repartition_unit.present?
+      if input.quantity.repartition_unit.present?
         "#{(input.quantity_value * total_area.to_d).round(2)} #{input_unit(input, base=true)}"
       else
-        "#{input.input_quantity_per_area.to_d.round(2)} #{input_unit(input)}"
+        "#{input.quantity.to_d.round(2)} #{input_unit(input)}"
       end
     end
 
