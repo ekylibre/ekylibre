@@ -5,8 +5,8 @@
       <target name="plant" filter="is vitis and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <doer name="driver" filter="is worker and can drive(equipment) and can move" cardinality="*"/>
-      <doer name="doer" filter="is worker and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
       <tool name="wire_lifter" filter="is equipment and can lift(plant)" cardinality="*"/>
     </parameters>
   </procedure>

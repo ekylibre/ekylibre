@@ -553,6 +553,7 @@ fra:
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+        unicity_by_campaign: "Un diagnostic IDEA a déjà été créé sur cette campagne"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
       models: #?
@@ -878,8 +879,7 @@ fra:
       master_equipment_cost: "Coûts d'usage des équipements" #?
       master_equipment_flow: "Débits de chantier des équipements" #?
       master_equipment_nature: "Référence des tyoes d'équipements" #?
-      master_production_nature: "Codes de référence des productions" #?
-      master_production_output: "Référence des rendements de production" #?
+      master_crop_production: "Codes de référence des productions" #?
       matter: "Matière"
       naming_format: "Format de nommage" #?
       naming_format_field: "Champ du format de nommage" #?
@@ -940,6 +940,7 @@ fra:
       registered_agroedi_code: "Code agroedi référencé"
       registered_building_zone: "Zone de bâtiment référencée" #?
       registered_legal_position: "Forme juridique"
+      registered_cadastral_building: "Zone de bâtiment référencée" #?
       registered_pfi_crop: "Récolte pfi référencée"
       registered_pfi_dose: "Dose pfi référencée"
       registered_pfi_target: "Cible pfi référencée"
@@ -947,8 +948,8 @@ fra:
       registered_phytosanitary_product: "Produit phytosanitaire référencé"
       registered_phytosanitary_risk: "Risque phytosanitaire référencé"
       registered_phytosanitary_usage: "Usage phytosanitaire référencé"
-      registered_postal_zone: "Code postal référencé"
-      registered_seed: "Graine référencée"
+      registered_postal_code: "Code postal référencé"
+      registered_seed_varietie: "Graine référencée"
       registered_water_lake: "Eau de lac référencée" #?
       registered_water_river: "Eau de rivière référencée" #?
       regularization: "Régularisation"

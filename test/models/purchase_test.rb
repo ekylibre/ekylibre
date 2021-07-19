@@ -163,6 +163,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    IdeaDiagnostic.delete_all
     Payslip.delete_all
     Purchase.delete_all
     PurchaseNature.delete_all

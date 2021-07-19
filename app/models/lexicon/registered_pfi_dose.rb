@@ -38,7 +38,7 @@
 class RegisteredPfiDose < LexiconRecord
   include Lexiconable
   belongs_to :target, class_name: 'RegisteredPfiTarget'
-  belongs_to :crop, class_name: 'RegisteredPfiCrop'
+  belongs_to :crop, class_name: 'MasterCropProductionTfiCode'
 
   composed_of :dose, class_name: 'Measure', mapping: [%w[dose_quantity to_d], %w[dose_unity unit]]
 end

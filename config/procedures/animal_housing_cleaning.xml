@@ -6,7 +6,7 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <output name="raised_manure" filter="is excrement and derives from animal" cardinality="*">
-        <attribute name="new_name" value="output_computed_name(VARIANT, working_periods)" />
+        <attribute name="new_name" value="output_computed_name(VARIANT, working_periods)"/>
         <attribute name="new_container" filter="is building_division and can store(excrement)"/>
         <handler name="population"/>
         <handler indicator="net_mass" unit="ton"
@@ -25,10 +25,10 @@
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="cleaner" filter="is equipment and can clean(building_division)" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can clean(building_division))" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

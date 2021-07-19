@@ -401,7 +401,7 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   def wipe_db
-    [Payslip, PayslipNature, InventoryItem, Inventory, Journal, Account, Cash, BankStatement, BankStatementItem,
+    [IdeaDiagnostic, Payslip, PayslipNature, InventoryItem, Inventory, Journal, Account, Cash, BankStatement, BankStatementItem,
      OutgoingPayment, Entity, IncomingPayment, IncomingPaymentMode, OutgoingPaymentMode]
       .each &:delete_all
   end

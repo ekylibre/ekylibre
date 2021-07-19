@@ -22,8 +22,6 @@ module Backend
 
     manage_restfully except: %i[edit update], population_counting: :decimal, active: true
 
-    importable_from_nomenclature :product_natures
-
     unroll
 
     def self.product_natures_conditions(_options = {})

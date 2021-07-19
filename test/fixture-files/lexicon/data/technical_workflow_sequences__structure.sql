@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS technical_workflow_sequences;
 
-        CREATE UNLOGGED TABLE technical_workflow_sequences (
+        CREATE TABLE technical_workflow_sequences (
           id character varying PRIMARY KEY NOT NULL,
           technical_workflow_sequence_id character varying NOT NULL,
           name jsonb NOT NULL,

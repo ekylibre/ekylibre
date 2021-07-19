@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS registered_chart_of_accounts;
+DROP TABLE IF EXISTS master_chart_of_accounts;
 
-        CREATE UNLOGGED TABLE registered_chart_of_accounts (
-          id character varying PRIMARY KEY NOT NULL,
-          account_number character varying NOT NULL,
-          chart_id character varying NOT NULL,
+        CREATE TABLE master_chart_of_accounts (
+          id integer PRIMARY KEY NOT NULL,
           reference_name character varying,
           previous_reference_name character varying,
+          fr_pcga character varying,
+          fr_pcg82 character varying,
           name jsonb
         );
 
-        CREATE INDEX registered_chart_of_accounts_account_number ON registered_chart_of_accounts(account_number);
+        CREATE INDEX master_chart_of_accounts_reference_name ON master_chart_of_accounts(reference_name);

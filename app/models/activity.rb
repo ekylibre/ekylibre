@@ -98,7 +98,7 @@ class Activity < ApplicationRecord
   end
   has_many :supports, through: :productions
 
-  belongs_to :production_nature, class_name: 'MasterProductionNature'
+  belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
@@ -131,7 +131,7 @@ class Activity < ApplicationRecord
 
   validates :life_duration, presence: true, if: -> { animal_farming? }
   validates :start_state_of_production_year, :life_duration, absence: true, if: -> { annual? && !plant_farming? && !vine_farming? }
-  validates :production_nature_id, absence: true, if: -> { !vine_farming? && !plant_farming? }
+  validates :production_nature, absence: true, if: -> { !vine_farming? && !plant_farming? }
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
@@ -159,7 +159,7 @@ class Activity < ApplicationRecord
     where(family: families.flatten.collect { |f| Onoma::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
   scope :of_family, ->(family) { where(family: Onoma::ActivityFamily.all(family)) }
-  scope :with_production_nature, -> {where.not(production_nature_id: nil)}
+  scope :with_production_nature, -> {where.not(reference_name: nil)}
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
@@ -178,19 +178,19 @@ class Activity < ApplicationRecord
     productions.any?
   end
 
-  delegate :main_output_name, to: :production_nature, allow_nil: true
+  delegate :usage, to: :production_nature, allow_nil: true
 
   after_initialize :set_default
 
   def set_default
     case family
     when 'vine_farming'
-      vine_default_production = MasterProductionNature.find_by(specie: 'vitis')
+      vine_default_production = MasterCropProduction.find_by(specie: 'vitis')
 
-      self.production_nature_id ||= vine_default_production.id
+      self.reference_name ||= vine_default_production.reference_name
       self.cultivation_variety ||= 'vitis'
       self.start_state_of_production_year ||= 3
-      self.life_duration ||= vine_default_production.life_duration
+      self.life_duration ||= vine_default_production.life_duration.parts[:years]
       self.production_started_on ||= vine_default_production.started_on
       self.production_stopped_on ||= vine_default_production.stopped_on
       self.production_started_on_year ||= -1
@@ -306,19 +306,6 @@ class Activity < ApplicationRecord
     else
       distributions.clear
     end
-  end
-
-  def pfi_activity_ratio(campaign)
-    pfi_activity = 0
-    global_area = []
-    production_pfi_per_area = []
-    productions.of_campaign(campaign).each do |production|
-      area_in_hectare = production.net_surface_area.to_d(:hectare)
-      production_pfi_per_area << (production.pfi_parcel_ratio * area_in_hectare).round(2)
-      global_area << area_in_hectare
-    end
-    pfi_activity = (production_pfi_per_area.compact.sum / global_area.compact.sum).round(2) unless global_area.compact.empty? || global_area.compact.sum.zero?
-    pfi_activity
   end
 
   def interventions

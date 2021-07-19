@@ -9,7 +9,7 @@
         <attribute name="new_name"/>
         <handler name="population"/>
       </output>
-      <doer name="doer"      filter="is worker and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>

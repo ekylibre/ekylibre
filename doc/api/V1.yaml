@@ -175,7 +175,6 @@ paths:
         - $ref: '#/components/parameters/Authorization'
         - schema:
             type: string
-            default: ' record'
           in: query
           name: nature
           description: Filter interventions by nature
@@ -621,7 +620,7 @@ paths:
                   $ref: '#/components/schemas/Plant'
       deprecated: false
       security: []
-      description: 'Returns a list of plants you’ve previously created. '
+      description: 'Returns a list of plants with productions you’ve previously created. '
   /variants:
     get:
       tags:
@@ -719,23 +718,12 @@ paths:
             type: string
             example: Worker
             enum:
-              - Matter
-              - ProductGroup
-              - Zone
               - Worker
-              - Bioproduct
               - Equipment
-              - AnimalGroup
-              - Building
-              - EquipmentFleet
-              - SubZone
-              - Easement
-              - Plant
-              - Animal
-              - Fungus
-              - BuildingDivision
               - LandParcel
-              - Settlement
+              - BuildingDivision
+              - Plant
+              - Matter
         - $ref: '#/components/parameters/Authorization'
       responses:
         '200':

@@ -852,6 +852,9 @@ fra:
     backend/variants/article_variants:
       index: "Autres articles"
       pick: "Importer un article"
+    backend/variants/articles/farm_product_articles:
+      index: "Produits de la ferme"
+      pick: "Importer un produit de la ferme"
     backend/variants/articles/fertilizer_articles:
       index: "Engrais"
       pick: "Importer un engrais"
@@ -867,6 +870,18 @@ fra:
     backend/variants/equipment_variants:
       index: "Équipements"
       pick: "Importer un équipement"
+    backend/variants/equipments/fixed_equipment_equipments:
+      index: "Équipements fixes"
+      pick: "Importer un équipement fixe"
+    backend/variants/equipments/motorized_equipment_equipments:
+      index: "Équipements motorisés"
+      pick: "Importer un équipement motorisé"
+    backend/variants/equipments/tool_equipments:
+      index: "Outils"
+      pick: "Importer un outil"
+    backend/variants/equipments/trailed_equipment_equipments:
+      index: "Équipements tractés"
+      pick: "Importer un équipement tracté"
     backend/variants/service_variants:
       index: "Services"
       pick: "Importer un service"
@@ -1928,6 +1943,7 @@ fra:
     extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
     extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
     extraordinary_income: "Produits exceptionnels"
+    farm_products: "Produits de la ferme"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fec_compliance: "Conformité FEC"
@@ -1998,6 +2014,7 @@ fra:
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des amortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
     fixed_asset_successfully_associated_to_sale: "L'immobilisation a été rattachée à la vente avec succès. Cliquez à nouveau sur 'Vendue' pour continuer la procédure."
     fixed_assets: "Immobilisations"
+    fixed_equipments: "Équipements fixes"
     flammable_agents: "Matières inflammables"
     forbidden: "Non autorisé"
     forecast_harvest_week: "Semaine de récolte"
@@ -2374,6 +2391,7 @@ fra:
     months: "Mois"
     more_detail: "Plus de détail" #?
     more_details: "Plus de détails" #?
+    motorized_equipments: "Équipements motorisés"
     move_animal: "Déplacement des animaux"
     moved_at: "Fait le" #?
     movements: "Mouvements"
@@ -3240,6 +3258,7 @@ fra:
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
+    trailed_equipments: "Équipements tractés"
     transactions_by_month: "Transactions par mois"
     transfer: "Effectuer les transferts"
     transformations: "Transformations" #?

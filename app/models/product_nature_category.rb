@@ -63,6 +63,7 @@ class ProductNatureCategory < ApplicationRecord
   include Customizable
   include Importable
   include Providable
+  include Categorizable
 
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, in: Onoma::ProductNatureCategory.pictogram.choices
@@ -144,28 +145,6 @@ class ProductNatureCategory < ApplicationRecord
     name # tc('label', :product_nature_category => self["name"])
   end
 
-  def article_type
-    return unless type.match /Article/
-
-    case reference_name
-    when 'fertilizer'
-      return 'Variants::Articles::FertilizerArticle'
-    when 'seed' || 'plant'
-      return 'Variants::Articles::SeedAndPlantArticle'
-    when 'plant_medicine'
-      return 'Variants::Articles::PlantMedicineArticle'
-    end
-
-    case charge_account&.usages
-    when 'fertilizer_expenses'
-      'Variants::Articles::FertilizerArticle'
-    when 'seed_expenses'
-      'Variants::Articles::SeedAndPlantArticle'
-    when 'plant_medicine_matter_expenses'
-      'Variants::Articles::PlantMedicineArticle'
-    end
-  end
-
   delegate :count, to: :variants, prefix: true
 
   class << self
@@ -231,7 +210,7 @@ class ProductNatureCategory < ApplicationRecord
     end
 
     def import_from_lexicon(reference_name, force = false)
-      unless (item = VariantCategory.find_by(reference_name: reference_name))
+      unless item = MasterVariantCategory.find_by(reference_name: reference_name)
         raise ArgumentError.new("The product nature category #{reference_name.inspect} is unknown")
       end
       if !force && (category = ProductNatureCategory.find_by(reference_name: reference_name))
@@ -240,17 +219,17 @@ class ProductNatureCategory < ApplicationRecord
 
       attributes = {
         active: true,
-        name: item.name[I18n.locale.to_s] || item.reference_name.humanize,
+        name: item.translation.send(Preference[:language]),
         reference_name: item.reference_name,
-        depreciable: item.depreciable,
-        purchasable: item.purchasable,
-        saleable: item.saleable,
-        storable: item.storable,
-        fixed_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
+        depreciable: item.fixed_asset_account.present?,
+        purchasable: item.purchase_account.present?,
+        saleable: item.sale_account.present?,
+        storable: item.stock_account.present?,
+        fixed_asset_depreciation_percentage: item.depreciation_percentage.presence || 20,
         fixed_asset_depreciation_method: :linear,
         product_account: (item.sale_account.present? ? Account.find_or_import_from_nomenclature(item.sale_account) : nil),
         charge_account: (item.purchase_account.present? ? Account.find_or_import_from_nomenclature(item.purchase_account) : nil),
-        type: item.nature == 'fee_and_service' ? 'VariantCategories::ServiceCategory' : "VariantCategories::#{item.nature.capitalize}Category",
+        type: "VariantCategories::#{item.family.classify}Category",
         imported_from: 'Lexicon'
       }
       %i[fixed_asset fixed_asset_allocation fixed_asset_expenses stock stock_movement].each do |account|
@@ -260,13 +239,13 @@ class ProductNatureCategory < ApplicationRecord
       create!(attributes)
     end
 
-    def import_all_from_lexicon
-      VariantCategory.find_each do |category|
+    def load_defaults(**_options)
+      MasterVariantCategory.find_each do |category|
         import_from_lexicon(category.reference_name)
       end
     end
 
-    def load_defaults(**_options)
+    def import_all_from_nomenclature
       Onoma::ProductNatureCategory.find_each do |product_nature_category|
         import_from_nomenclature(product_nature_category.name)
       end

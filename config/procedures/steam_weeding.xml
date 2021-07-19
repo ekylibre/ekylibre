@@ -13,10 +13,10 @@
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="worker" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
-      <tool name="steam_engine" filter="can store_liquid and can kill(plant)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+      <tool name="steam_engine" filter="is equipment and can store_liquid and can kill(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

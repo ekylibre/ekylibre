@@ -78,7 +78,7 @@ class MapEditorManager
     def aquatic_nta_serie(distance, options)
       return Charta::GeometryCollection.empty.to_json_feature_collection if options[:bounding_box].blank?
 
-      hydro_items = RegisteredHydroItem.in_bounding_box(options[:bounding_box]).map do |item|
+      hydro_items = RegisteredHydrographicItem.in_bounding_box(options[:bounding_box]).map do |item|
         [item.geometry.buffer(distance).to_text, { name: item.name, nature: item.nature }]
       end
 

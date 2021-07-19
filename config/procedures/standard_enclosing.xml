@@ -5,21 +5,21 @@
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="stakes" filter="is stake and can enclose" cardinality="*">
+      <input name="stakes" filter="is stake" cardinality="*">
         <handler name="population"/>
         <handler name="stakes_by_hectare" unit="unity_per_hectare" datatype="measure"
                  if="sum(land_parcel, :net_surface_area, :hectare) != 0"
                  backward="(POPULATION / sum(land_parcel, :net_surface_area, :hectare))"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
       </input>
-      <input name="wire_fence" filter="is wire and can enclose" cardinality="*">
+      <input name="wire_fence" filter="is wire" cardinality="*">
         <handler name="population"/>
         <handler indicator="length" unit="meter"
                  if="PRODUCT..length?"
                  backward="(POPULATION * PRODUCT..length(meter))"
                  forward="(VALUE / PRODUCT..length(meter))"/>
       </input>
-      <doer name="doer"  filter="is worker and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>

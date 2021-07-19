@@ -6,7 +6,7 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <attribute name="killable"/>
       </target>
-      <output name="straw" filter="is grass and derives from plant" cardinality="*">
+      <output name="straw" filter="is grass" cardinality="*">
         <attribute name="new_name"/><!--  value="'{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})'" -->
         <handler name="population"/>
         <handler indicator="net_mass" unit="ton"
@@ -19,9 +19,9 @@
                  backward="(POPULATION * VARIANT.net_mass(ton)) / sum(plant, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(plant, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
-      <doer name="driver" filter="can drive(equipment)" cardinality="*"/>
-      <tool name="tractor" filter="is equipment and (can tow(equipment) or can mow)" cardinality="*"/>
-      <tool name="mower" filter="can mow" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can mow)" cardinality="*"/>
+      <tool name="mower" filter="is equipment and can mow" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

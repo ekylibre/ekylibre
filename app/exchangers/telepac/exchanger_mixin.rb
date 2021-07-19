@@ -88,31 +88,23 @@ module Telepac
     private
 
       def create_activity_production(cap_land_parcel, cap_year:)
-        # TEST in rails c
-        # Ekylibre::Tenant.switch! 'demo'
-        # cap_land_parcel = CapLandParcel.first
-        # Ekylibre::Plugin::CAP::TelepacFile.create_activity_production(cap_land_parcel)
-        #
-        # CapLandParcel.find_each { |c| Ekylibre::Plugin::CAP::TelepacFile.create_activity_production(c,Date.civil(YYYY,MM,JJ)) }
+
         crop_code = cap_land_parcel.main_crop_code
 
         return nil if IGNORED.include?(crop_code.to_s)
 
         # check in Lexicon
         cap_year = [2017, cap_year].max
-        year_col = "cap_#{cap_year}_crop_code"
-        # TODO: remove when building Lexicon 5 feature
-        year_col = "cap_2020_crop_code" if cap_year == 2021
-        lexicon_production_nature = MasterProductionNature.where("#{year_col} = ?", crop_code).first
-        raise StandardError.new("The code #{cap_land_parcel.main_crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
+        lexicon_production_nature = MasterCropProduction.joins(:cap_codes)
+                                                        .where('master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?', crop_code, cap_year).first
+        raise StandardError.new("The code #{crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
 
-        production_usage = guess_production_usage(lexicon_production_nature)
         support_nature = FALLOW_LAND.include?(crop_code.to_s) ? :fallow_land : :cultivation
 
         attributes = {
           cultivation_variety: lexicon_production_nature.specie,
-          name: lexicon_production_nature.human_name[Preference[:language].to_s],
-          production_nature_id: lexicon_production_nature.id,
+          name: lexicon_production_nature.translation.send(Preference[:language]),
+          reference_name: lexicon_production_nature.reference_name,
           support_variety: :land_parcel,
         }
 
@@ -129,6 +121,10 @@ module Telepac
             size_unit: 'hectare',
             with_cultivation: true,
             with_supports: true,
+            production_started_on: lexicon_production_nature.start_on(cap_year).change(year: 2000),
+            production_stopped_on: lexicon_production_nature.stop_on(cap_year).change(year: 2000),
+            production_started_on_year: lexicon_production_nature.started_on_year,
+            production_stopped_on_year: lexicon_production_nature.stopped_on_year
           )
 
           activity = Activity.create!(attributes)
@@ -141,7 +137,7 @@ module Telepac
         cap_land_parcel_inside_cultivable_zone = CultivableZone.shape_covering(cap_land_parcel_shape, 0.05)
         unless cap_land_parcel_inside_cultivable_zone.any?
           # info << "Overlaps!\n"
-          cap_land_parcel_inside_cultivable_zone = CultivableZone.shape_matching(cap_land_parcel_shape, 0.05)
+          cap_land_parcel_inside_cultivable_zone = CultivableZone.shape_matching(cap_land_parcel_shape, 0.10)
           cap_land_parcel_inside_cultivable_zone ||= CultivableZone.shape_intersecting(cap_land_parcel_shape, 0.02)
         end
 
@@ -162,24 +158,21 @@ module Telepac
         # FIXME find_by_shape doesn't work...
         campaign = Campaign.find_or_create_by!(harvest_year: cap_year)
         productions = activity.productions.of_campaign(campaign).support_shape_matching(cap_land_parcel_shape, 0.02)
-        activity_production = if productions.any?
-                                productions.first
-                              else
-                                activity.productions.new(campaign: campaign)
-                              end
-        activity_production.support_shape = cap_land_parcel_shape
-        activity_production.support_nature = support_nature
-        activity_production.cultivable_zone = cultivable_zone
-        activity_production.usage = production_usage
 
-        # build started_on and stopped_on according to Lexicon production nature
-        year_gap = lexicon_production_nature.stopped_on.year - lexicon_production_nature.started_on.year
-        started_on = DateTime.new(cap_year - year_gap, lexicon_production_nature.started_on.month, lexicon_production_nature.started_on.day).to_date
-        stopped_on = DateTime.new(cap_year, lexicon_production_nature.stopped_on.month, lexicon_production_nature.stopped_on.day).to_date
+        if productions.any?
+          activity_production = productions.first
+        else
+          activity_production = activity.productions.new(campaign: campaign)
 
-        activity_production.started_on = started_on
-        activity_production.stopped_on = stopped_on
-        activity_production.save!
+          activity_production.support_shape = cap_land_parcel_shape
+          activity_production.support_nature = support_nature
+          activity_production.cultivable_zone = cultivable_zone
+          activity_production.usage = lexicon_production_nature.usage
+
+          activity_production.started_on = lexicon_production_nature.start_on(cap_year)
+          activity_production.stopped_on = lexicon_production_nature.stop_on(cap_year)
+          activity_production.save!
+        end
 
         # link cap_land_parcel and activity_production
         cap_land_parcel.activity_production = activity_production
@@ -195,18 +188,6 @@ module Telepac
           2980
         else
           2154
-        end
-      end
-
-      # @param [MasterProductionNature] production_nature
-      # @return [String]
-      def guess_production_usage(production_nature)
-        main_output_usages = production_nature.outputs.where(main: true).map(&:name).uniq
-
-        if main_output_usages.count == 1
-          main_output_usages.first
-        else
-          raise StandardError.new("Unable to guess the usage for #{production_nature.human_name_fra}")
         end
       end
 

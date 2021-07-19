@@ -5,8 +5,8 @@
       <target name="plant" filter="is vitis and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <doer name="doer" filter="is worker and can move" cardinality="*"/>
-      <tool name="hand_tying" filter="is equipment and can tie(plant)" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
+      <tool name="hand_tying" filter="is portable_equipment and can tie(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

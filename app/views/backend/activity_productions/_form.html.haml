@@ -31,11 +31,11 @@
   - if activity.vine_farming? || activity.plant_farming?
     = f.referenced_association :production_nature,
       new: false, source: { scope: { of_species: config.fetch(:production_nature_specie_scope) } },
-      value: activity.production_nature_id
+      value: activity.reference_name
 
   - if activity.vine_farming? || activity.plant_farming?
     -# Vegetal cropsra
-    = f.input :usage, collection: config.fetch(:usage_collection), selected: activity.main_output_name
+    = f.input :usage, collection: config.fetch(:usage_collection), selected: activity.usage
     = f.referenced_nomenclature :support_nature, as: :radio_buttons, collection: config.fetch(:support_nature_collection), checked: :cultivation
     - if activity.production_system.present?
       - source = { scope: { of_production_system: activity.production_system.name } }

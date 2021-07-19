@@ -163,5 +163,9 @@ class ShipmentItem < ParcelItem
         ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
       end
       ProductMovement.create!(product: product, delta: -1 * population, started_at: shipment_given_at, originator: self)
+      # product deat_at update when give a unitary product in shipment
+      if product_is_unitary?
+        self.product.update_attribute(:dead_at, shipment_given_at)
+      end
     end
 end

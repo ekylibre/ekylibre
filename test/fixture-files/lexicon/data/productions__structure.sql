@@ -1,44 +1,40 @@
-DROP TABLE IF EXISTS master_production_outputs;
-DROP TABLE IF EXISTS master_production_natures;
+DROP TABLE IF EXISTS master_crop_production_tfi_codes;
+DROP TABLE IF EXISTS master_crop_production_cap_codes;
+DROP TABLE IF EXISTS master_crop_production_start_states;
+DROP TABLE IF EXISTS master_crop_productions;
 
-        CREATE UNLOGGED TABLE master_production_natures (
-          id integer PRIMARY KEY NOT NULL,
+        CREATE TABLE master_crop_productions (
+          reference_name character varying PRIMARY KEY NOT NULL,
           specie character varying NOT NULL,
-          human_name JSONB,
-          human_name_fra character varying NOT NULL,
+          usage character varying,
           started_on DATE NOT NULL,
           stopped_on DATE NOT NULL,
           agroedi_crop_code character varying,
           season character varying,
-          pfi_crop_code character varying,
-          cap_2017_crop_code character varying,
-          cap_2018_crop_code character varying,
-          cap_2019_crop_code character varying,
-          cap_2020_crop_code character varying,
-          start_state_of_production JSONB,
-          life_duration numeric(5,2)
+          life_duration interval,
+          translation_id character varying NOT NULL
         );
 
-        CREATE INDEX master_production_natures_specie ON master_production_natures(specie);
-        CREATE INDEX master_production_natures_human_name ON master_production_natures(human_name);
-        CREATE INDEX master_production_natures_human_name_fra ON master_production_natures(human_name_fra);
-        CREATE INDEX master_production_natures_agroedi_crop_code ON master_production_natures(agroedi_crop_code);
-        CREATE INDEX master_production_natures_pfi_crop_code ON master_production_natures(pfi_crop_code);
-        CREATE INDEX master_production_natures_cap_2017_crop_code ON master_production_natures(cap_2017_crop_code);
-        CREATE INDEX master_production_natures_cap_2018_crop_code ON master_production_natures(cap_2018_crop_code);
-        CREATE INDEX master_production_natures_cap_2019_crop_code ON master_production_natures(cap_2019_crop_code);
-        CREATE INDEX master_production_natures_cap_2020_crop_code ON master_production_natures(cap_2020_crop_code);
+        CREATE INDEX master_crop_productions_specie ON master_crop_productions(specie);
+        CREATE INDEX master_crop_productions_agroedi_crop_code ON master_crop_productions(agroedi_crop_code);
 
-        CREATE UNLOGGED TABLE master_production_outputs (
-          production_nature_id INTEGER NOT NULL,
-          production_system_name VARCHAR NOT NULL,
-          name VARCHAR NOT NULL,
-          average_yield NUMERIC(19,4),
-          main BOOLEAN NOT NULL DEFAULT FALSE,
-          analysis_items VARCHAR[],
-          PRIMARY KEY (production_nature_id, production_system_name, name)
-        );
+      CREATE TABLE master_crop_production_start_states (
+        production character varying NOT NULL,
+        year integer NOT NULL,
+        key character varying NOT NULL
+      );
 
-        CREATE INDEX master_production_outputs_nature_id ON master_production_outputs(production_nature_id);
-        CREATE INDEX master_production_outputs_system_name ON master_production_outputs(production_system_name);
-        CREATE INDEX master_production_outputs_name ON master_production_outputs(name);
+      CREATE TABLE master_crop_production_cap_codes (
+        cap_code character varying NOT NULL,
+        cap_label character varying NOT NULL,
+        production character varying NOT NULL,
+        year integer NOT NULL,
+        PRIMARY KEY(cap_code, production, year)
+      );
+
+      CREATE TABLE master_crop_production_tfi_codes (
+        tfi_code character varying NOT NULL,
+        tfi_label character varying NOT NULL,
+        production character varying,
+        campaign integer NOT NULL
+      );

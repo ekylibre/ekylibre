@@ -3,8 +3,8 @@
   <procedure name="parturition" categories="animal_breeding" actions="parturition" optional-actions="animal_identification" varieties="mammalia">
     <parameters>
       <group name="parturition">
-        <target name="mother" filter="is animal and can produce(animal)" cardinality="1"/>
-        <output name="child" filter="is animal">
+        <target name="mother" filter="is mammalia" cardinality="1"/>
+        <output name="child" filter="specie de la mother">
           <attribute name="new_name"/>
           <attribute name="identification_number"/>
           <!-- <attribute name="new_group"/>

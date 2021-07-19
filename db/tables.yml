@@ -180,9 +180,6 @@ activities:
   production_cycle:
     type: string
     required: true
-  production_nature_id:
-    type: integer
-    references: master_production_nature
   production_started_on:
     type: date
   production_started_on_year:
@@ -193,6 +190,9 @@ activities:
     type: integer
   production_system_name:
     type: string
+  reference_name:
+    type: string
+    references: master_crop_production
   size_indicator_name:
     type: string
   size_unit_name:
@@ -481,9 +481,6 @@ activity_productions:
     type: boolean
     required: true
     default: false
-  production_nature_id:
-    type: integer
-    references: master_production_nature
   provider:
     type: jsonb
   rank_number:
@@ -1068,7 +1065,7 @@ bank_statements:
   updater_id:
     type: integer
     references: user
-cadastral_land_parcel_zones:
+registered_cadastral_parcels:
   centroid:
     type: geometry
     limit:
@@ -2015,7 +2012,7 @@ cvi_cadastral_plants:
     references: cvi_statement
   designation_of_origin_id:
     type: integer
-    references: registered_protected_designation_of_origin
+    references: registered_quality_and_origin_sign
   id:
     type: integer
     required: true
@@ -2135,7 +2132,7 @@ cvi_land_parcels:
     scale: 5
   designation_of_origin_id:
     type: integer
-    references: registered_protected_designation_of_origin
+    references: registered_quality_and_origin_sign
   id:
     type: integer
     required: true
@@ -2841,7 +2838,7 @@ entity_links:
   updater_id:
     type: integer
     references: user
-eu_market_prices:
+registered_eu_market_prices:
   category:
     type: string
   country:
@@ -3590,6 +3587,9 @@ idea_diagnostic_results:
     type: integer
     references: user
 idea_diagnostics:
+  auditor_id:
+    type: integer
+    references: entity
   campaign_id:
     type: integer
     references: campaign
@@ -3614,6 +3614,8 @@ idea_diagnostics:
     required: true
   state:
     type: string
+  stopped_at:
+    type: datetime
   updated_at:
     type: datetime
     required: true
@@ -5545,7 +5547,7 @@ map_layers:
   url:
     type: string
     required: true
-master_production_natures:
+master_crop_productions:
   agroedi_crop_code:
     type: string
   cap_2017_crop_code:
@@ -5583,28 +5585,7 @@ master_production_natures:
   stopped_on:
     type: date
     required: true
-master_production_outputs:
-  analysis_items:
-    type: string
-  average_yield:
-    type: decimal
-    precision: 19
-    scale: 4
-  main:
-    type: boolean
-    required: true
-    default: false
-  name:
-    type: string
-    required: true
-  production_nature_id:
-    type: integer
-    references: master_production_nature
-    required: true
-  production_system_name:
-    type: string
-    required: true
-master_vine_varieties:
+registered_vine_varieties:
   category_name:
     type: string
     required: true
@@ -6304,7 +6285,7 @@ payslips:
   updater_id:
     type: integer
     references: user
-phenological_stages:
+master_phenological_stages:
   bbch:
     type: string
   biaggiolini:
@@ -7876,7 +7857,7 @@ registered_agroedi_codes:
   repository_id:
     type: integer
     required: true
-registered_building_zones:
+registered_cadastral_buildings:
   centroid:
     type: geometry
     limit:
@@ -7890,7 +7871,7 @@ registered_building_zones:
       srid: 4326
       type: multi_polygon
     required: true
-registered_chart_of_accounts:
+master_chart_of_accounts:
   account_number:
     type: string
     required: true
@@ -7906,7 +7887,7 @@ registered_chart_of_accounts:
     type: string
   reference_name:
     type: string
-registered_crop_zones:
+registered_graphic_parcels:
   centroid:
     type: geometry
     limit:
@@ -7940,7 +7921,7 @@ registered_enterprises:
     type: string
   postal_code:
     type: string
-registered_hydro_items:
+registered_hydrographic_items:
   id:
     type: string
     required: true
@@ -7967,7 +7948,7 @@ registered_hydro_items:
       type: multi_polygon
       has_z: true
       has_m: true
-registered_legal_positions:
+master_legal_positions:
   code:
     type: string
     required: true
@@ -7987,7 +7968,7 @@ registered_legal_positions:
   nature:
     type: string
     required: true
-registered_pfi_crops:
+master_crop_production_tfi_codes:
   id:
     type: integer
     required: true
@@ -7999,7 +7980,7 @@ registered_pfi_doses:
     required: true
   crop_id:
     type: integer
-    references: registered_pfi_crop
+    references: master_crop_production_tfi_code
     required: true
   dose_quantity:
     type: decimal
@@ -8190,7 +8171,7 @@ registered_phytosanitary_usages:
     type: integer
   usage_conditions:
     type: string
-registered_postal_zones:
+registered_postal_codes:
   city_centroid:
     type: geometry
     limit:
@@ -8215,7 +8196,7 @@ registered_postal_zones:
   postal_code:
     type: string
     required: true
-registered_protected_designation_of_origins:
+registered_quality_and_origin_signs:
   eu_sign:
     type: string
   fr_sign:
@@ -8234,13 +8215,9 @@ registered_protected_designation_of_origins:
     type: string
   reference_number:
     type: string
-registered_seeds:
-  complete_name:
-    type: jsonb
-  name:
-    type: jsonb
-  number:
-    type: integer
+registered_seed_varieties:
+  id:
+    type: string
     required: true
   specie:
     type: string
@@ -9506,7 +9483,7 @@ trackings:
     type: string
   usage_limit_on:
     type: date
-user_roles:
+master_user_roles:
   accesses:
     type: text
   id:
@@ -9642,7 +9619,7 @@ users:
   updater_id:
     type: integer
     references: user
-variant_categories:
+master_variant_categories:
   default_vat_rate:
     type: decimal
     precision: 5
@@ -9716,7 +9693,7 @@ variant_doer_contracts:
     type: string
   weekly_working_time:
     type: string
-variant_natures:
+master_variant_natures:
   abilities:
     type: text
   derivative_of:
@@ -9834,7 +9811,7 @@ variant_units:
     type: string
   unit_id:
     type: string
-variants:
+master_variants:
   category:
     type: string
   class_name:
@@ -9866,10 +9843,10 @@ variants:
     type: string
   variant_category_id:
     type: integer
-    references: variant_category
+    references: master_variant_category
   variant_nature_id:
     type: integer
-    references: variant_nature
+    references: master_variant_nature
 version:
   version:
     type: string

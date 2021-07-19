@@ -7,7 +7,7 @@
         <attribute name="killable"/>
       </target>
       <doer name="worker" filter="is worker" cardinality="*"/>
-      <tool name="tool" filter="is equipment and can kill(plant)" cardinality="*"/>
+      <tool name="tool" filter="is portable_equipment and can kill(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

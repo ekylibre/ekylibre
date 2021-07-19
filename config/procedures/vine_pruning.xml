@@ -8,8 +8,8 @@
         <reading name="vine_pruning_system"/>
         <reading name="vine_stock_bud_charge"/>
       </target>
-      <doer name="doer" filter="is worker and can drive(equipment) and can move" cardinality="*"/>
-      <tool name="electric_pruning_shears" filter="is equipment and can cut" cardinality="*"/>
+      <doer name="worker" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="electric_pruning_shears" filter="is portable_equipment and can cut" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

@@ -259,7 +259,7 @@ Lint/ShadowingOuterLocalVariable:
     - 'app/models/activity.rb'
     - 'app/models/intervention.rb'
     - 'app/models/intervention_parameter.rb'
-    - 'app/models/registered_hydro_item.rb'
+    - 'app/models/registered_hydrographic_item.rb'
     - 'db/migrate/20150624224705_normalize_various_mistakes.rb'
     - 'db/migrate/20160207171458_fix_custom_field_data.rb'
     - 'lib/clean/annotations.rb'

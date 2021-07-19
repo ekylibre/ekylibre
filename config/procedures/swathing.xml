@@ -6,9 +6,9 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <attribute name="killable"/>
       </target>
-      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="hay_rake"  filter="can rake(straw) and can rake(hay)" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or (can rake(hay) and can rake(straw)))" cardinality="*"/>
+      <tool name="hay_rake" filter="is equipment and can rake(straw) and can rake(hay)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

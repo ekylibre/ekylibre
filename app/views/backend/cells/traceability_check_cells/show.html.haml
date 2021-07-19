@@ -8,7 +8,7 @@
     ratio_area = campaign_area.to_f - c.net_surface_area.to_f
 
     b = CapIslet.bounding_box
-    buildings = RegisteredBuildingZone.in_bounding_box(b)
+    buildings = RegisteredCadastralBuilding.in_bounding_box(b)
     islet_intersecting = 0
     buildings.each do |building|
       i = islets.shape_intersecting(building.shape.buffer(50)).count

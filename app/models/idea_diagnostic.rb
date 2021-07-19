@@ -25,6 +25,7 @@
 #
 # == Table: idea_diagnostics
 #
+#  auditor_id   :integer          not null
 #  campaign_id  :integer
 #  code         :string
 #  created_at   :datetime         not null
@@ -40,11 +41,15 @@ class IdeaDiagnostic < ApplicationRecord
   enumerize :state, in: %i[idea_doing done], default: :idea_doing, predicates: true
   has_many :idea_diagnostic_items, dependent: :destroy
   has_one :idea_diagnostic_result, dependent: :destroy
+  belongs_to :auditor, class_name: 'Entity'
   belongs_to :campaign
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :name, presence: true, length: { maximum: 500 }
+  validates :auditor, presence: true
   validates :campaign, presence: true
+  validates :campaign_id, uniqueness: { message: :unicity_by_campaign }
+
   # ]VALIDATORS]
   before_validation :set_default_values
 

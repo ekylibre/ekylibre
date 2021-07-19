@@ -7,9 +7,9 @@ FactoryBot.define do
     inter_vine_plant_distance_unit { :centimeter }
     inter_row_distance_value { BigDecimal(rand.round(2), 4) }
     inter_row_distance_unit { :centimeter }
-    designation_of_origin_id { RegisteredProtectedDesignationOfOrigin.order('RANDOM()').first.id }
-    vine_variety_id { MasterVineVariety.where(category_name: 'Cépage').order('RANDOM()').first.id }
-    rootstock_id { MasterVineVariety.where(category_name: 'Porte-greffe').order('RANDOM()').first.id }
+    designation_of_origin_id { RegisteredQualityAndOriginSign.order('RANDOM()').first.id }
+    vine_variety_id { RegisteredVineVariety.where(category: 'variety').order('RANDOM()').first.id }
+    rootstock_id { RegisteredVineVariety.where(category: 'rootstock').order('RANDOM()').first.id }
     state { %i[planted removed_with_authorization].sample }
     shape { FFaker::Shape.polygon.simplify(0.05) }
     planting_campaign { FFaker::Time.between(10.years.ago, 5.years.ago).year.to_s }
@@ -53,8 +53,8 @@ FactoryBot.define do
     trait :groupable do
       inter_vine_plant_distance_value { 1 }
       inter_row_distance_value { 2 }
-      designation_of_origin_id { RegisteredProtectedDesignationOfOrigin.first.id }
-      vine_variety_id { MasterVineVariety.where(category_name: 'Cépage').first.id }
+      designation_of_origin_id { RegisteredQualityAndOriginSign.first.id }
+      vine_variety_id { RegisteredVineVariety.where(category: 'variety').first.id }
       state { :planted }
       activity { Activity.first || create(:activity) }
     end
@@ -62,8 +62,8 @@ FactoryBot.define do
     trait :not_groupable do
       sequence(:inter_vine_plant_distance_value) { |n| n + 1 }
       sequence(:inter_row_distance_value) { |n| n + 1 }
-      sequence(:designation_of_origin_id) { |n| RegisteredProtectedDesignationOfOrigin.all[n].id }
-      sequence(:vine_variety_id) { |n| MasterVineVariety.where(category_name: 'Cépage').all[n].id }
+      sequence(:designation_of_origin_id) { |n| RegisteredQualityAndOriginSign.all[n].id }
+      sequence(:vine_variety_id) { |n| RegisteredVineVariety.where(category: 'variety').all[n].id }
       sequence(:state) { |n| n.even? ? :planted : :removed_with_authorization }
       activity
     end

@@ -36,7 +36,7 @@ module Interventions
           return false unless buffer = usage.untreated_buffer_aquatic
 
           shapes = targets_and_shape.map(&:shape)
-          RegisteredHydroItem.buffer_intersecting(buffer, *shapes).any?
+          RegisteredHydrographicItem.buffer_intersecting(buffer, *shapes).any?
         end
     end
   end

@@ -58,8 +58,7 @@ module Ekylibre
             if (nature_item = Onoma::ProductNature.find(reference_name))
               nature = ProductNature.import_from_nomenclature(reference_name)
               category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
-              type = category.article_type || nature.variant_type
-              variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
+              variant = nature.variants.new(name: r.name, active: true, category: category)
             else
               raise 'Reference name not found in Product Nature Nomenclature: ' + r.reference_name.inspect
             end
@@ -70,8 +69,7 @@ module Ekylibre
           elsif (nature_item = Onoma::ProductNature.find(r.reference_name))
             nature = ProductNature.import_from_nomenclature(r.reference_name)
             category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
-            type = category.article_type || nature.variant_type
-            variant = nature.variants.new(name: r.name, active: true, category: category, type: type)
+            variant = nature.variants.new(name: r.name, active: true, category: category)
           else
             raise 'Invalid reference name: ' + r.reference_name.inspect
           end

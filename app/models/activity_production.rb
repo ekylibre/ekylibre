@@ -81,7 +81,7 @@ class ActivityProduction < ApplicationRecord
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
-  belongs_to :production_nature, class_name: 'MasterProductionNature', foreign_key: :production_nature_id
+  belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
 
   has_geometry :support_shape, :headland_shape, type: :multi_polygon
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
@@ -438,17 +438,6 @@ class ActivityProduction < ApplicationRecord
       intervention.cost(role)
     end
     costs.compact.sum
-  end
-
-  def pfi_parcel_ratio
-    # compute pfi parcel ratio from pfi treatment ratios
-    pfi_parcel_ratio = 0.0
-    if interventions.any?
-      i_ids = interventions.real.of_nature_using_phytosanitary.pluck(:id)
-      inputs = InterventionInput.where(intervention_id: i_ids, reference_name: 'plant_medicine')
-      pfi_parcel_ratio = inputs.map(&:pfi_treatment_ratio).compact.sum
-    end
-    pfi_parcel_ratio
   end
 
   # Returns the spreaded quantity of one chemicals components (N, P, K) per area unit

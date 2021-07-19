@@ -1,11 +1,10 @@
-DROP TABLE IF EXISTS phenological_stages;
+DROP TABLE IF EXISTS master_phenological_stages;
 
-        CREATE TABLE phenological_stages (
-          id integer PRIMARY KEY NOT NULL,
-          bbch character varying,
+        CREATE TABLE master_phenological_stages (
+          bbch_code integer PRIMARY KEY NOT NULL,
           biaggiolini character varying,
           eichhorn_lorenz character varying,
-          chasselas_date date,
+          chasselas_date character varying,
           label jsonb,
           description jsonb
         );

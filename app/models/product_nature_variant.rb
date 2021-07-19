@@ -63,11 +63,23 @@ class ProductNatureVariant < ApplicationRecord
   include Customizable
   include Importable
   include Providable
+  include Categorizable
+
+  STOCK_INDICATOR_PER_DIMENSION = {
+    volume: :net_volume,
+    mass: :net_mass,
+    surface_area: :net_surface_area,
+    distance: :net_length,
+    time: :usage_duration,
+    energy: :energy
+  }.freeze
 
   attr_readonly :number
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
-  enumerize :type, in: %w[Animal Article Crop Equipment Service Worker Zone].map { |t| "Variants::#{t}Variant" } + %w[Fertilizer PlantMedicine SeedAndPlant].map { |t| "Variants::Articles::#{t}Article" }
+  enumerize :type, in: %w[Animal Article Crop Equipment Service Worker Zone].map { |t| "Variants::#{t}Variant" } +
+                       %w[FarmProduct Fertilizer PlantMedicine SeedAndPlant].map { |t| "Variants::Articles::#{t}Article" } +
+                       %w[FixedEquipment MotorizedEquipment Tool TrailedEquipment].map { |t| "Variants::Equipments::#{t}Equipment" }
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
@@ -175,12 +187,23 @@ class ProductNatureVariant < ApplicationRecord
     else
       self.number = '000001'
     end
+
+    unless from_lexicon?
+      type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
+      self.type = type_allocator.find_type
+    end
   end
 
-  before_validation do # on: :create
+  before_validation on: :update do
+    if changes.key?('category_id') || changes.key?('nature_id')
+      type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
+      self.type = type_allocator.find_type
+    end
+  end
+
+  before_validation do
     if nature.present?
       self.nature_name ||= nature.name
-      # self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
       self.variety ||= nature.variety
 
@@ -192,10 +215,6 @@ class ProductNatureVariant < ApplicationRecord
         self.stock_account ||= create_unique_account(:stock)
         self.stock_movement_account ||= create_unique_account(:stock_movement)
       end
-    end
-
-    if nature.present? && category.present?
-      self.type = category.article_type || nature.variant_type
     end
   end
 
@@ -613,7 +632,6 @@ class ProductNatureVariant < ApplicationRecord
           unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
           variety: item.variety || nil,
           derivative_of: item.derivative_of || nil,
-          type: category.article_type || nature.variant_type,
           imported_from: 'Nomenclature'
         )
         unless variant.save
@@ -639,52 +657,48 @@ class ProductNatureVariant < ApplicationRecord
         return import_phyto_from_lexicon(reference_name)
       end
 
-      unless item = Variant.find_by_reference_name(reference_name)
+      unless item = MasterVariant.find_by_reference_name(reference_name)
         raise ArgumentError.new("The product_nature_variant #{reference_name.inspect} is not known")
       end
-      unless nature_item = VariantNature.find_by_reference_name(item.nature)
+
+      unless nature_item = MasterVariantNature.find_by_reference_name(item.nature)
         raise ArgumentError.new("The nature of the product_nature_variant #{item.nature.inspect} is not known")
       end
-      unless category_item = VariantCategory.find_by_reference_name(item.category)
+
+      unless category_item = MasterVariantCategory.find_by_reference_name(item.category)
         raise ArgumentError.new("The category of the product_nature_variant #{item.category.inspect} is not known")
       end
 
       unless !force && variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(item.category)
         nature = ProductNature.import_from_lexicon(item.nature)
-        type = item.sub_nature.present? ? "Variants::Articles::#{item.sub_nature.classify}Article" : nature.variant_type
         variant = new(
-          name: item.name[I18n.locale.to_s] || item.reference_name.humanize,
+          name: item.translation.send(Preference[:language]),
           active: true,
           nature: nature,
           category: category,
           reference_name: item.reference_name,
+          variety: item.specie,
+          derivative_of: item.target_specie,
           unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.default_unit}"),
-          type: type,
+          type: find_type(item),
           imported_from: 'Lexicon'
         )
-        unless variant.save
-          raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
-        end
+        raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}" unless variant.save
       end
 
-      if item.indicators.present?
-        item.indicators.each do |indicator, value|
-          next unless variant.has_indicator? indicator.to_sym
+      set_indicators(item, variant)
 
-          variant.read!(indicator.to_sym, value)
-        end
-      end
       variant
     end
 
-    def import_all_from_lexicon
-      Variant.find_each do |variant|
+    def load_defaults(**_options)
+      MasterVariant.of_families(:service, :worker, :zone).find_each do |variant|
         import_from_lexicon(variant.reference_name)
       end
     end
 
-    def load_defaults(options = {})
+    def import_all_from_nomenclature(options = {})
       pcg82_variants = %i[accommodation_taxe accommodation_travel associate_social_contribution bank_service battery building building_division building_insurance cap_subsidies car car_moving_travel computer_display computer_item daily_project_management daily_software_engineering daily_training_course discount_and_reduction electricity fiscal_fine forwarding_agent_fees_expense freelance_sofware_development gas gasoline hourly_project_management hourly_software_engineering hourly_training_course hourly_user_support infirmity_and_death_insurance ink_cartridge insurance internet_line_subscription ip_address_subscription legal_registration loan_interest maintenance manager meal_travel monthly_enterprise_support natural_water office_building office_building_division phone_line_subscription portable_computer portable_hard_disk postal_charges postal_stamp printer product_warranty project_study rent representation_suit responsibility_insurance salary_social_contribution screed_building settlement subscription_professional_society taxe truck various_loan_interest]
       variants_to_load = Onoma::ProductNatureVariant.all
       variants_to_load = pcg82_variants if options.fetch(:preferences, {}).fetch(:accounting_system, '') == 'fr_pcg82'
@@ -716,7 +730,7 @@ class ProductNatureVariant < ApplicationRecord
           raise "Cannot import variant #{item.name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
 
-        set_indicators(item, variant)
+        set_phyto_indicators(item, variant)
       end
       variant
     end
@@ -740,11 +754,29 @@ class ProductNatureVariant < ApplicationRecord
         end
       end
 
-      def set_indicators(item, variant)
+      def set_phyto_indicators(item, variant)
         units = item.usages.pluck(:dose_unit).uniq.compact.map { |u| u.match(/_per_/) ? u.split('_per_').first : u }.uniq
         dimensions = units.map { |u| Onoma::Unit.find(u).dimension }.uniq
         variant.read!(:net_mass, Measure.new(1, :kilogram)) if dimensions.include?(:mass)
         variant.read!(:net_volume, Measure.new(1, :liter)) if dimensions.include?(:volume)
+      end
+
+      def set_indicators(item, variant)
+        dimension = Onoma::Unit.find(item.default_unit).dimension
+
+        if indicator = STOCK_INDICATOR_PER_DIMENSION[dimension]
+          variant.read!(indicator, Measure.new(1, item.default_unit))
+        end
+
+        item.indicators.each { |indicator, value| variant.read!(indicator, value) if variant.frozen_indicators.include?(indicator) }
+      end
+
+      def find_type(item)
+        if item.sub_family.present?
+          "Variants::#{item.family.classify.pluralize}::#{item.sub_family.classify + item.family.classify}"
+        else
+          "Variants::#{item.family.classify}Variant"
+        end
       end
   end
 end

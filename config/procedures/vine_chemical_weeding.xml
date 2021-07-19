@@ -27,9 +27,11 @@
         <attribute name="allowed_entry_factor" />
         <attribute name="allowed_harvest_factor" />
       </input>
-      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="sprayer" filter="can spray" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+      <tool name="gaz_engine" filter="is equipment and can store_gaz and can kill(plant)" cardinality="*"/>
+      <tool name="sprayer" filter="is equipment and can spray" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

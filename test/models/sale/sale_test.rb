@@ -162,6 +162,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    IdeaDiagnostic.delete_all
     Payslip.delete_all
     Catalog.delete_all
     SaleNature.delete_all
@@ -209,7 +210,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
-    assert_equal jei_s.variant, @variant
+    assert_equal jei_s.variant, ProductNatureVariant.find(@variant.id)
   end
 
   test 'Cannot create a sale during a financial year exchange' do

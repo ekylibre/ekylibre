@@ -22,8 +22,6 @@ module Backend
 
     manage_restfully except: %i[edit update], active: true, pictogram: :undefined
 
-    importable_from_nomenclature :product_nature_categories
-
     unroll
 
     def self.categories_conditions

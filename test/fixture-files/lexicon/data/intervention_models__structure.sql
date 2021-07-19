@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS intervention_model_items;
 DROP TABLE IF EXISTS intervention_models;
 
-        CREATE UNLOGGED TABLE intervention_models (
+        CREATE TABLE intervention_models (
           id character varying PRIMARY KEY NOT NULL,
           name jsonb,
           category_name jsonb,
@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS intervention_models;
         CREATE INDEX intervention_models_name ON intervention_models(name);
         CREATE INDEX intervention_models_procedure_reference ON intervention_models(procedure_reference);
 
-        CREATE UNLOGGED TABLE intervention_model_items (
+        CREATE TABLE intervention_model_items (
           id character varying PRIMARY KEY NOT NULL,
           procedure_item_reference character varying NOT NULL,
           article_reference character varying,

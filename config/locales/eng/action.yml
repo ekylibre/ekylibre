@@ -1094,6 +1094,9 @@ eng:
       # quantifiers: "Quantifiers article variant: %{name}"
       # show: "Article variant: %{name}"
       # storage_detail: "Storage detail article variant: %{name}"
+    backend/variants/articles/farm_product_articles:
+      index: "Farm products"
+      pick: "Import a farm product"
     backend/variants/articles/fertilizer_articles:
       # detail: "Detail fertilizer article: %{name}"
       # edit: "Edit fertilizer article: %{name}"
@@ -1144,6 +1147,18 @@ eng:
       # quantifiers: "Quantifiers equipment variant: %{name}"
       # show: "Equipment variant: %{name}"
       # storage_detail: "Storage detail equipment variant: %{name}"
+    backend/variants/equipments/fixed_equipment_equipments:
+      index: "Fixed equipments"
+      pick: "Import a fixed equipment"
+    backend/variants/equipments/motorized_equipment_equipments:
+      index: "Motorized equipments"
+      pick: "Import a motorized equipment"
+    backend/variants/equipments/tool_equipments:
+      index: "Tools"
+      pick: "Import a tool"
+    backend/variants/equipments/trailed_equipment_equipments:
+      index: "Trailed equipments"
+      pick: "Import a trailed equipment"
     backend/variants/service_variants:
       # detail: "Detail service variant: %{name}"
       # edit: "Edit service variant: %{name}"
@@ -2106,6 +2121,7 @@ eng:
     export_fec_ba_bnc_ir_commercial_accountancy: "Export FEC for agriculture and professional operations income taxation commercial accountancy"
     export_fec_ba_ir_cash_accountancy: "Export FEC agriculture income taxation cash accountancy"
     export_fec_bnc_ir_cash_accountancy: "Export FEC professional operations income taxation cash accountancy"
+    farm_products: "Farm products"
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview"
@@ -2156,6 +2172,7 @@ eng:
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Fixed asset depreciations not accounted on current financial year"
     fixed_asset_successfully_associated_to_sale: "The fixed asset has been successfully associated to the sale. Click the 'Sold' button to proceed."
     fixed_assets: "Fixed assets"
+    fixed_equipments: "Fixed equipments"
     flammable_agents: "Flammable agents"
     forbidden: "Unauthorized"
     forecast_harvest_week: "Forecast harvest week"
@@ -2447,6 +2464,7 @@ eng:
     monthly: "Monthly"
     months: "Months"
     # more_details: "More details"
+    motorized_equipments: "Motorized equipments"
     move_animal: "Move animals"
     movements: "Movements"
     n: "No"
@@ -3070,6 +3088,7 @@ eng:
     tracking: "Tracking"
     trade: "Trade"
     trade_counts: "Trade counts"
+    trailed_equipments: "Trailed equipments"
     transactions_by_month: "Transactions by month"
     transfer: "Transfer"
     transport: "Transport"

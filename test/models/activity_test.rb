@@ -326,11 +326,11 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         with_cultivation: true,
         size_indicator_name: 'net_surface_area',
         size_unit_name: 'hectare',
-        production_nature_id: 154,
+        reference_name: 'vine',
         cultivation_variety: 'vitis',
         production_cycle: 'perennial',
         start_state_of_production_year: 3,
-        life_duration: 30.00,
+        life_duration: 70.00,
       }
       assert_attributes_equals(attributes, @activity)
     end

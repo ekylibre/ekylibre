@@ -74,13 +74,13 @@ class ProductNatureCategoryTest < Ekylibre::Testing::ApplicationTestCase::WithFi
   end
 
   test 'type is correctly set upon import from lexicon' do
-    references = { animal: :adult_large_specie_animal,
-                   article: :amortized_office_equipment,
-                   crop: :amortized_plant,
+    references = { animal: :adult_breeding_animal,
+                   article: :material,
+                   crop: :perennial_crop,
                    equipment: :depreciable_tool,
                    service: :additional_activity,
                    worker: :associate,
-                   zone: :amortized_installation }
+                   zone: :installation }
 
     references.each { |type, reference| assert ProductNatureCategory.import_from_lexicon(reference).is_a?("VariantCategories::#{type.capitalize}Category".constantize) }
   end
