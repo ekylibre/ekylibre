@@ -55,16 +55,29 @@ class Ride < ApplicationRecord
   include HasInterval
   belongs_to :equipment, class_name: 'Equipment', foreign_key: :product_id
   belongs_to :ride_set
+  belongs_to :intervention
   has_many :crumbs, dependent: :destroy
 
   has_interval :duration, :sleep_duration
 
+  # Shape represents a linestring of all crumbs related to the ride
+  has_geometry :shape, type: :line_string
+
   acts_as_numbered :number
   enumerize :nature, in: %i[road work]
+  enumerize :state, in: %i[affected unaffected], default: :unaffected
 
   state_machine :state do
     state :unaffected
     state :affected
+
+    event :link_intervention do
+      transition unaffected: :affected
+    end
+  end
+
+  after_update do
+    self.link_intervention if self.intervention_id.present?
   end
 
   %i[duration sleep_duration].each do |col|

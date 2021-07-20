@@ -385,6 +385,7 @@ fra:
         usage_conditions: "Conditions d'usage"
       ride:
         sleep_duration: "Temps de pause"
+        provider_vendor: "Fournisseur"
       ride_set:
         provider_vendor: "Fournisseur"
         road: "Distance totale (km)"

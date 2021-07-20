@@ -52,6 +52,9 @@ class RideSet < ApplicationRecord
   has_many :rides, dependent: :destroy
   has_many :crumbs, through: :rides
 
+  # Shape represents a polygon with all the rides linked with a buffer
+  has_geometry :shape
+
   has_interval :duration, :sleep_duration
 
   acts_as_numbered :number
