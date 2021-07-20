@@ -81,6 +81,10 @@ module Visualization
       layer(name, serie, options.merge(type: :point_group))
     end
 
+    def polyline(name, serie, options = {})
+      layer(name, serie, options.merge(type: :polyline))
+    end
+
     def sensor_group(name, serie, options = {})
       layer(name, serie, options.merge(type: :sensor_group))
     end

@@ -89,6 +89,7 @@ class Intervention < ApplicationRecord
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
   has_many :intervention_crop_groups, dependent: :destroy
   has_many :crop_groups, through: :intervention_crop_groups
+  has_many :rides
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -146,7 +147,7 @@ class Intervention < ApplicationRecord
     HABTM_Activities
   end
 
-  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, :rides, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -366,6 +367,7 @@ class Intervention < ApplicationRecord
       # compute imputation_ratio
       update_target_imputation_ratio(target)
     end
+
     participations.update_all(state: state) unless state == :in_progress
     participations.update_all(request_compliant: request_compliant) if request_compliant
 

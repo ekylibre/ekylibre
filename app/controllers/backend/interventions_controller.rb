@@ -256,6 +256,16 @@ module Backend
         end
       end
 
+      if params[:procedure_name].present? && params[:ride_ids].present?
+        rides_params_computation = ::Interventions::RidesComputation.new(params[:ride_ids])
+        rides = rides_params_computation.existing_rides
+        if rides.any?
+          options[:targets_attributes] = rides_params_computation.options
+        else
+          notify_warning_now(:no_target_exist_on_procedure)
+        end
+      end
+
       # , :doers, :inputs, :outputs, :tools
       %i[group_parameters targets].each do |param|
         next unless unsafe_params.include?(:intervention) || unsafe_params.include?("#{param}_attributes")
@@ -321,7 +331,6 @@ module Backend
       end
 
       @intervention = Intervention.new(options)
-
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
@@ -339,7 +348,6 @@ module Backend
         permitted_params[:participations_attributes] = participations
       end
 
-      # binding.pry
       @intervention = Intervention.new(permitted_params)
       url = if params[:create_and_continue]
               { action: :new, continue: true }
