@@ -140,15 +140,21 @@ class TaxDeclarationItem < ApplicationRecord
       AND jei.tax_id = ?
       AND jei.account_id = ?
       AND jei.resource_type != ?
-      AND jei.financial_year_id = ?
+      AND ( jei.financial_year_id = ? OR jei.financial_year_id = ? )
       SQL
+
+      # compute financial year for request
+      # Avoid bug when payment on fy+1 and invoice on fy
+      financial_year_id = tax_declaration.financial_year_id
+      previous_financial_year_id = ( tax_declaration.financial_year.previous.present? ? tax_declaration.financial_year.previous.id : tax_declaration.financial_year_id )
 
       conditions_sql_values = [
         'payment',
         tax.id,
         account_id,
         'TaxDeclarationItem',
-        tax_declaration.financial_year_id
+        financial_year_id,
+        previous_financial_year_id
       ]
 
       conditions = [conditions_sql] + conditions_sql_values
@@ -162,6 +168,11 @@ class TaxDeclarationItem < ApplicationRecord
         total_balance = 'tjei.credit - tjei.debit'
         paid_balance = 'pjei.debit - pjei.credit'
       end
+
+      # select jei (purchase_item / sale_item or other correponding to vat line)
+      # inner join iljei for letter presence on 401/411 lines
+      # inner join tjei for 401/411 lines presence on other lines in payments | total
+      # inner join pjei
 
       sql = <<-SQL
       SELECT     jei.id AS journal_entry_item_id,

@@ -30,6 +30,8 @@ module Backend
       t.column :started_on, url: true
       t.column :stopped_on, url: true
       t.column :currency
+      t.column :tax_declaration_mode
+      t.column :tax_declaration_frequency
       t.column :accountant, url: true
       # t.column :currency_precision
     end

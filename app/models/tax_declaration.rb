@@ -248,11 +248,14 @@ class TaxDeclaration < ApplicationRecord
   private
 
     def set_entry_items_tax_modes
+      # get all jei with tax_id, printed_on < tax.stop and without tax declaration
       all = JournalEntryItem
             .where.not(tax_id: nil)
             .where('printed_on <= ?', stopped_on)
             .where(tax_declaration_mode: nil)
+      # update non purchase items with the current fy declaration tax mode
       set_non_purchase_entry_items_tax_modes all.where.not(resource_type: 'PurchaseItem')
+      # update purchase items with their own declaration tax mode
       set_purchase_entry_items_tax_modes all.where(resource_type: 'PurchaseItem')
     end
 
