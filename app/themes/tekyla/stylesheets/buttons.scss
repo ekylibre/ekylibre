@@ -45,6 +45,9 @@ a.btn, button.btn {
   &.btn-default--parcel {
     margin: 3px !important;
   }
+  &.btn-cell--pfi {
+    margin: 0 0 7px 7px !important;
+  }
   &.icn {
     @include icon-before(cog, $font-size: 14px);
     &.icn-only {

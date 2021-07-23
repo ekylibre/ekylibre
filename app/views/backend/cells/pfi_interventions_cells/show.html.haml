@@ -32,8 +32,8 @@
 
   - if series.any?
     = column_highcharts(series, y_axis: {title: {text: :pfi_treatment_ratio.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
-    = link_to(:compute_pfi_report.tl, compute_pfi_report_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-default")
-    = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-default")
+    = link_to(:compute_pfi_report.tl, compute_pfi_report_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-cell--pfi")
+    = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-cell--pfi")
   - else
     = no_data
 
