@@ -1172,7 +1172,7 @@ fra:
     active_totals: "Total général"
     activities: "Activités"
     activity: "Activité"
-    activity_cost: "Cout de production détaillé"
+    activity_cost: "Coûts de production détaillés"
     activity_production: "Production"
     activity_productions: "Productions"
     accumulated_stock: "Cumul des stocks de %{name}"
@@ -1962,7 +1962,7 @@ fra:
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"
     file_trimming: "Découpage du fichier :"
-    fill_analytic_codes_of_your_activities: "Renseigner vos codes analytiques ISACOMPTA | %{missing_code_count} manquants sur le segment %{segment}"
+    fill_analytic_codes_of_your_activities: "Renseigner vos codes analytiques Isacompta | %{missing_code_count} manquants sur le segment %{segment}"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
@@ -2186,7 +2186,7 @@ fra:
     irreversible_operation: "Cette opération est irréversible"
     irritating_by_skin_contact_and_inhalation_severe_eyes_irritation: "Irritant par contact cutané et inhalation, irritation sévère des yeux"
     is: "Est"
-    isacompta_analytic_code: "Code analytique ISACOMPTA"
+    isacompta_analytic_code: "Code analytique Isacompta"
     # is_equipment_set_as_inactive_by_intervention: "This intervention set the equipment as inactive ?"
     issue: "Incident"
     issues: "Incidents"
@@ -2453,6 +2453,7 @@ fra:
     new_out_line: "Ajouter un produit sortant" #?
     new_outgoing_parcel: "Nouveau colis sortant"
     new_outgoing_payment: "Nouveau décaissement"
+    new_password: "Nouveau mot de passe"
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"

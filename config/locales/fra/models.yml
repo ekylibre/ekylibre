@@ -100,13 +100,13 @@ fra:
         parent: "Activité parente" #?
         work_unit: "Unité d’œuvre" #?
         start_state_of_production_year: "1ère année de production"
-        isacompta_analytic_code: "Code analytique ISACOMPTA"
+        isacompta_analytic_code: "Code analytique Isacompta"
         life_duration: "Durée de vie"
         production_cycle_period: "Campagne annuelle de production"
       activity_budget:
         expenses_amount: "Montant des dépenses"
         revenues_amount: "Montant des recettes"
-        isacompta_analytic_code: "Code analytique ISACOMPTA"
+        isacompta_analytic_code: "Code analytique Isacompta"
       activity_production: #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
@@ -172,7 +172,7 @@ fra:
         dead_at: "Mis au rebut le"
         initial_born_at: "Construit à"
         initial_dead_at: "Demantelé au"
-        isacompta_analytic_code: "Code analytique ISACOMPTA"
+        isacompta_analytic_code: "Code analytique Isacompta"
         parent_place: "Lieu de parking" #?
         variety: "Type" #?
       event: #?
@@ -316,7 +316,7 @@ fra:
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
       project_budget:
-        isacompta_analytic_code: "Code analytique ISACOMPTA"
+        isacompta_analytic_code: "Code analytique Isacompta"
       purchase:
         affair_balance: "Solde"
         amount: "Montant TTC" #?
@@ -424,7 +424,7 @@ fra:
         fixed_asset_deductible: "Déductible sur immobilisation"
         intracommunity_payable: "Intra-communautaire"
       team:
-        isacompta_analytic_code: "Code analytique ISACOMPTA"
+        isacompta_analytic_code: "Code analytique Isacompta"
       user: #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
@@ -1006,8 +1006,8 @@ fra:
     rootstock_name: "Porte-greffe"
     rootstock_names: "Porte-greffe(s)"
     vine_variety_name: "Cépage" #?
-    isacompta_code: "Code isacompta"
-    isacompta_label: "Libellé isacompta"
+    isacompta_code: "Code Isacompta"
+    isacompta_label: "Libellé Isacompta"
     abilities: "Compétences"
     abilities_list: "Liste des compétences"
     absolute_credit: "Crédit (absolu)"
@@ -1938,7 +1938,7 @@ fra:
     participants: "Participants"
     participations: "Participations"
     partner_url: "Url partenaire"
-    password: "Nouveau mot de passe"
+    password: "Mot de passe"
     password_confirmation: "Confirmation du mot de passe"
     payee: "Bénéficiaire"
     payer: "Payeur"
