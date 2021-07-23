@@ -1394,7 +1394,7 @@
         <page to="backend/settings#about"/>
       </item>
     </group>
-    <group name="product" icon="wheat">
+    <group name="products" icon="wheat">
       <item name="product_nature_categories">
         <page to="backend/product_nature_categories#index"/>
         <page to="backend/variant_categories/animal_categories#index"/>
