@@ -120,6 +120,7 @@ Rails.application.routes.draw do
       resources :variants, only: %i[index]
       resources :plants, only: %i[index]
       get 'profile', to: 'users#show'
+      put 'profile', to: 'users#update'
     end
   end
 
