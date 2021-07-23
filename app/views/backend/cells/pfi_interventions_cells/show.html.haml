@@ -38,6 +38,6 @@
     = no_data
 
 - elsif @campaign && phyto_interventions.any?
-  = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-default")
+  = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-cell--pfi")
 - else
   = no_data
