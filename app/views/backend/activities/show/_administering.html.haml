@@ -4,7 +4,7 @@
   - if budget && budget.items.any?
     = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
-    = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
+    = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :activities, action: :index)}, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
 
 - main_period_selector(:year)
 

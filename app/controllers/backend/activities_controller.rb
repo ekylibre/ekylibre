@@ -46,10 +46,10 @@ module Backend
         notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
       end
       @currency = Onoma::Currency.find(Preference[:currency])
-      activities_of_campaign = Activity.of_campaign(current_campaign)
-      @availables_activities = Activity.availables.where.not(id: activities_of_campaign)
-      @families = activities_of_campaign.order(:family).collect(&:family).uniq
-      @activities = activities_of_campaign
+      @activities_of_campaign = Activity.of_campaign(current_campaign)
+      @availables_activities = Activity.availables.where.not(id: @activities_of_campaign)
+      @families = @activities_of_campaign.order(:family).collect(&:family).uniq
+      @activities = @activities_of_campaign
                       .left_join_working_duration_of_campaign(current_campaign)
                       .left_join_issues_count_of_campaign(current_campaign)
                       .left_join_production_costs_of_campaign(current_campaign)
