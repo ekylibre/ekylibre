@@ -409,23 +409,55 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
-                type: object
-                properties:
-                  worker_id:
-                    type: number
-                required:
-                  - worker_id
-                x-examples:
-                  example-1:
-                    worker_id: 1326
+                $ref: '#/components/schemas/Profile'
               examples:
                 example-1:
                   value:
-                    worker_id: 1326
+                    first_name: Démo
+                    last_name: Ekylibre
+                    email: demo@ekylibre.com
+                    language: fra
+                    administrator: false
+                    role:
+                      id: 1
+                      name: Ouvrier de l’exploitation
+                      rights: '{"interventions"=>["read", "write"]}'
+                    worker_id: 587
       deprecated: false
       security: []
-      description: Return the worker_id of the current user.
+      description: Return the user information of the current user.
+    put:
+      summary: ''
+      operationId: put-profile
+      responses:
+        '200':
+          $ref: '#/components/responses/Updated'
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      description: Update user profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUpdated'
+            examples:
+              example-1:
+                value:
+                  first_name: Démo
+                  last_name: Ekylibre
+                  email: demo@ekylibre.com
+                  language: fra
+              example-2:
+                value:
+                  last_name: Ekylibre
+                  email: demo@ekylibre.com
+              example-3:
+                value:
+                  first_name: Démo
+        description: ''
+      tags:
+        - Users
 components:
   schemas:
     InterventionCreate:
@@ -1166,6 +1198,77 @@ components:
               - produce(milk)
       x-tags:
         - ' Product nature variants'
+    Profile:
+      title: Profile
+      type: object
+      x-examples:
+        example-1:
+          value:
+            first_name: Démo
+            last_name: Ekylibre
+            email: demo@ekylibre.com
+            language: fra
+            administrator: false
+            role:
+              id: 1
+              name: Ouvrier de l’exploitation
+              rights: '{"interventions"=>["read", "write"]}'
+            worker_id: 587
+      x-tags:
+        - Users
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        language:
+          type: string
+        administrator:
+          type: boolean
+        role:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            rights:
+              type: string
+          required:
+            - id
+            - name
+        worker_id:
+          type: integer
+      required:
+        - first_name
+        - last_name
+        - email
+        - language
+        - administrator
+        - worker_id
+    ProfileUpdated:
+      title: ProfileUpdated
+      type: object
+      x-examples:
+        example-1:
+          value:
+            first_name: Démo
+            last_name: Ekylibre
+            email: demo@ekylibre.com
+            language: fra
+      x-tags:
+        - Users
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        language:
+          type: string
   responses:
     Created:
       description: Resource successfully created
@@ -1175,6 +1278,10 @@ components:
             properties:
               id:
                 type: string
+          examples:
+            example-1:
+              value:
+                id: string
       headers: {}
     Not-found:
       description: Resource not found.
@@ -1202,6 +1309,19 @@ components:
             example-1:
               value:
                 message: Bad authorization.
+    Updated:
+      description: Resource successfully updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+          examples:
+            example-1:
+              value:
+                id: string
   parameters:
     Authorization:
       name: Authorization
