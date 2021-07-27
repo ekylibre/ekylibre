@@ -122,6 +122,7 @@ class Entity < ApplicationRecord
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
+  has_many :idea_diagnostics, foreign_key: :auditor_id, dependent: :nullify
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
