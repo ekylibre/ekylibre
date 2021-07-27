@@ -30,5 +30,29 @@
 #
 class IdeaDiagnosticItemValue < ApplicationRecord
   belongs_to :idea_diagnostic_item
+  validates :nature, presence: true
+  validates :boolean_value, inclusion: { in: [true, false] }, allow_blank: true
+  validates :float_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :string_value, length: { maximum: 500_000 }, allow_blank: true
+  validates :nature, inclusion: { in: %w[boolean integer float string] }
+
+  # Find and set preference with given value
+  def set!(value, nature)
+    self.update!(nature: nature)
+    self.update!(value_attribute => value)
+  end
+
+  # Returns item value
+  def value
+    send(value_attribute)
+  end
+
+  private
+
+    # Returns the name of the column used to store ItemValue data
+    def value_attribute
+      "#{nature}_value"
+    end
 
 end

@@ -194,6 +194,8 @@ fra:
         accounted: "Comptabilisé"
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
+      idea_diagnostic:
+        auditor: "Auditeur"
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
