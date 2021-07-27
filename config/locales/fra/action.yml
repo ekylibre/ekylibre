@@ -3833,6 +3833,10 @@ fra:
       no_template_journal_by_id: "Pas de modèle journal" #?
       no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
       no_unvalidated_operations: "Aucun travail à réaliser" #?
+      no_worker_associated_with_user_account: "Aucun travailleur n'est associé à ce compte utilisateur"
+      no_worker_associated_with_entity_account: "Aucun travailleur n'est associé à ce tiers"
+      no_user_with_email: "Aucun utilisateur avec l'email '%{email}'"
+      no_entity_with_email: "Aucun tiers avec l'email '%{email}'"
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
       pfi_have_been_computed: "IFT calculées"
       pfi_have_not_been_computed: "Erreur : IFT non calculées"

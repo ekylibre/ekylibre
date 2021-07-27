@@ -19,7 +19,7 @@ module Interventions
 
         def add_working_zone_attribute_to_group_parameters(group_attributes)
           group_attributes.each do |gp_attrs|
-            add_working_zone_attribute_to_parameters(gp_attrs[:targets_attributes])
+            add_working_zone_attribute_to_parameters(gp_attrs.fetch(:target_attributes, []))
           end
         end
 

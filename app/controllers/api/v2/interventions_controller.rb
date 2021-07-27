@@ -7,28 +7,25 @@ module Api
       def index
         nature = params[:nature] || 'record'
         @interventions = Intervention
-        unless %w[record request].include? nature
-          head :unprocessable_entity
-          return
-        end
 
         if params[:contact_email]
-          entity = Entity.with_email(params[:contact_email])
-          unless entity
-            head :unprocessable_entity
-            return
-          end
+          entity = Entity.with_email(params[:contact_email]).take
+
+          return render json: { errors: [:no_entity_with_email.tn(email: params[:contact_email])] }, status: :unprocessable_entity if entity.nil?
+
+          return render json: { errors: [:no_worker_associated_with_entity_account.tn] }, status: :precondition_required if entity.worker.nil?
+
           @interventions = @interventions.with_doers(entity.worker)
-        elsif params[:user_email]
-          user = User.find_by(email: params[:user_email])
-          unless user
-            head :unprocessable_entity
-            return
-          end
-          @interventions = @interventions.with_doers(user.worker)
         end
 
-        return render json: { message: :no_worker_associated_with_user_account.tn }, status: :precondition_required if user && user.worker.nil?
+        if params[:user_email]
+          user = User.find_by(email: params[:user_email])
+          return render json: { errors: [:no_user_with_email.tn(email: params[:user_email])] }, status: :unprocessable_entity if user.nil?
+
+          return render json: { errors: [:no_worker_associated_with_user_account.tn] }, status: :precondition_required if user && user.worker.nil?
+
+          @interventions = @interventions.with_doers(user.worker)
+        end
 
         if nature == 'request'
           @interventions = @interventions.joins(<<-SQL).where(<<-CONDITIONS, user.worker.id).group('interventions.id')
@@ -58,20 +55,22 @@ module Api
       end
 
       def create
-        filtered_params = permitted_params
-        return error_message('Provider params not provided') unless validate_provider(filtered_params)
-
-        options = {
-          auto_calculate_working_periods: true,
-          nature: :record,
-          state: :done
-        }
-
-        interactor = Interventions::BuildInterventionInteractor.new(filtered_params, options)
+        interactor = Interventions::BuildInterventionInteractor.new(create_params, intervention_options)
 
         if interactor.run
           intervention = interactor.intervention
           render json: { id: intervention.id }, status: :created
+        else
+          render json: { errors: [interactor.error.try(:message)] }, status: :bad_request
+        end
+      end
+
+      def update
+        interactor = Interventions::BuildInterventionInteractor.new(update_params, intervention_options)
+
+        if interactor.run
+          intervention = interactor.intervention
+          render json: { id: intervention.id }, status: :ok
         else
           render json: { errors: interactor.error.try(:message) }, status: :bad_request
         end
@@ -79,27 +78,45 @@ module Api
 
       protected
 
-        def permitted_params
-          permitted = super.permit(
+        def create_params
+          super.permit(common_params_to_permit)
+        end
+
+        def update_params
+          permitted_params.permit(common_params_to_permit)
+        end
+
+        def intervention_options
+          {
+            auto_calculate_working_periods: true,
+            nature: :record,
+            state: :done
+          }
+        end
+
+        def common_params_to_permit
+          [
+            :id,
             :procedure_name,
             :description,
             actions: [],
-            working_periods_attributes: %i[started_at stopped_at],
-            inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population usage_id],
-            outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
-            tools_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-            targets_attributes: %i[product_id reference_name],
-            doers_attributes: %i[product_id reference_name],
+            working_periods_attributes: %i[id started_at stopped_at _destroy],
+            inputs_attributes: %i[id product_id quantity_value quantity_handler reference_name quantity_population usage_id _destroy],
+            outputs_attributes: %i[id variant_id quantity_value quantity_handler reference_name quantity_population _destroy],
+            tools_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+            targets_attributes: %i[id product_id reference_name _destroy],
+            doers_attributes: %i[id product_id reference_name _destroy],
             group_parameters_attributes: [
+              :id,
               :reference_name,
-              inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number specie_variety_name variety],
-              targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-              tools_attributes: %i[product_id reference_name],
-              doers_attributes: %i[product_id reference_name]
+              :_destroy,
+              inputs_attributes: %i[id product_id quantity_value quantity_handler reference_name quantity_population _destroy],
+              outputs_attributes: %i[id variant_id quantity_value quantity_handler reference_name quantity_population batch_number specie_variety_name _destroy],
+              targets_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+              tools_attributes: %i[id product_id reference_name _destroy],
+              doers_attributes: %i[id product_id reference_name _destroy]
             ]
-          )
-          add_provider_params(permitted)
+          ]
         end
     end
   end
