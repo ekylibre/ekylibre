@@ -12,14 +12,19 @@ module Interventions
     def run
       raise StandardError.new('Parameters are missings') if parameters.empty?
 
+      @intervention = ::Intervention.find_or_initialize_by(id: parameters[:id])
+      parameters[:procedure_name] ||= @intervention.procedure_name
+
       @attributes = Interventions::Computation::Compute
                             .new(parameters: parameters)
                             .perform(options: options)
 
-      @intervention = ::Intervention.new(@attributes)
+      @intervention.attributes = attributes
       @intervention.save!
       @intervention
 
+    rescue ActiveRecord::RecordInvalid => exception
+      raise
     rescue StandardError => exception
       @error = exception
       nil

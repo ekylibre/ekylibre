@@ -28,6 +28,22 @@ module Api
       before_action :force_json!
       after_action :add_generic_headers!
 
+      rescue_from ActionController::ParameterMissing, with: :rescue_param_missing
+      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from ActiveRecord::RecordInvalid, with: :rescue_bad_params
+
+      def record_not_found(exception)
+        render json: { errors: [exception.message] }, status: :not_found
+      end
+
+      def rescue_param_missing(exception)
+        render json: { errors: [exception.message] }, status: :forbidden
+      end
+
+      def rescue_bad_params(exception)
+        render json: { errors: exception.record.errors.full_messages }, status: :forbidden
+      end
+
       protected
 
         def add_generic_headers!
@@ -93,33 +109,22 @@ module Api
           render json: { message: message }, status: status
         end
 
-        def validate_provider(filtered_params)
-          provider = filtered_params.fetch(:provider, {})
-
-          %i[vendor name id].all? { |key| provider.key? key }
-        end
-
         def permitted_params
           params.except(:format)
         end
 
-        # This is a hack to be able to permit arbitrary keys for the provider `data` field
-        def add_provider_params(permitted_params)
-          provider_data = {}
-          if params.key?(:provider)
+        def create_params
+          begin
             provider_params = params.require(:provider)
-            provider_data = provider_params.permit(:vendor, :name, :id)
+            provider_params.require(%i[vendor name])
+            provider_data = provider_params.permit(:id, :vendor, :name)
             if provider_params.key?(:data)
               provider_data[:data] = provider_params.require(:data).permit!
             end
+            permitted_params.merge(provider: provider_data)
+          rescue ActionController::ParameterMissing => e
+            raise e.class.new("Provider param is invalid")
           end
-
-          if params.key?(:providers) && params[:providers].key?(:zero_id)
-            ActiveSupport::Deprecation.warn('zero_id is deprecated')
-            provider_data = { **provider_data, vendor: 'ekylibre', name: 'zero', id: 0, data: { zero_id: params[:providers][:zero_id] } }
-          end
-
-          permitted_params.merge(provider: provider_data)
         end
 
       private

@@ -6,59 +6,14 @@ module Api
     class InterventionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       connect_with_token
 
-      test 'index' do
-        get :index, params: {}
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { page: 2 }
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { doer_email: 'admin@ekylibre.org' }
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { user_email: 'admin@ekylibre.org' }
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'true' }
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'false' }
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'falsesd' }
-        assert_response :unprocessable_entity
+      setup do
+        @provider = { vendor: 'ekylibre',
+          name: 'zero',
+          id: 0,
+          data: { zero_id: 5 } }
       end
 
-      test 'Test user worker' do
-        worker = create(:entity, :client, :transporter)
-        user_with_worker = create(:user, :employed, person: worker)
-        create(:worker, person: worker)
-
-        user_without_worker = create(:user)
-
-        get :index, params: { user_email: user_with_worker.email }
-        json = JSON.parse response.body
-        assert_response :ok
-        assert json.size <= 30
-
-        get :index, params: { user_email: user_without_worker.email }
-        json = JSON.parse response.body
-        assert_response :precondition_required
-        assert json['message']
-        assert json['message'].eql? :no_worker_associated_with_user_account.tn
-      end
+      attr_reader :provider
 
       test 'create hoeing intervention (with targets/equipments/workers)' do
         land_parcel = create(:land_parcel, born_at: "2019-01-01T00:00:00Z")
@@ -68,7 +23,7 @@ module Api
         tractor = create(:equipment)
         hoe = create(:equipment)
         params = { procedure_name: 'hoeing',
-                   providers: { zero_id: 5 },
+                   provider: provider,
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime }
@@ -87,7 +42,7 @@ module Api
                    ] }
         post :create, params: params
         assert_response :created
-        id = JSON.parse(response.body)['id']
+        id = json_response['id']
         intervention = Intervention.find(id)
         assert_equal 1, intervention.targets.count
         assert_equal 3, intervention.doers.count
@@ -100,11 +55,11 @@ module Api
         input_product = create(:fertilizer_product)
         input_product.variant.read!(:net_mass, '4 kilogram')
         params = { procedure_name: 'fertilizing',
-                   providers: { zero_id: 5 },
+                   provider: provider,
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime }
-],
+                   ],
                    inputs_attributes: [
                      {
                        product_id: input_product.id,
@@ -113,11 +68,11 @@ module Api
                        quantity_handler: 'net_mass',
                        reference_name: 'fertilizer'
                      }
-] }
+                   ] }
 
         post :create, params: params
         assert_response :created
-        id = JSON.parse(response.body)['id']
+        id = json_response['id']
         intervention = Intervention.find(id)
         assert_equal 1, intervention.inputs.count
       end
@@ -127,11 +82,11 @@ module Api
         variant.read!(:net_mass, '2 kilogram')
         plant = create(:corn_plant, born_at: "2019-01-01T00:00:00Z")
         params = { procedure_name: 'harvesting',
-                   providers: { zero_id: 5 },
+                   provider: provider,
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime }
-],
+                   ],
                    targets_attributes: [{
                                           product_id: plant.id,
                                           reference_name: 'plant'
@@ -144,11 +99,11 @@ module Api
                        quantity_handler: 'net_mass',
                        reference_name: 'matters'
                      }
-] }
+                   ] }
 
         post :create, params: params
         assert_response :created
-        id = JSON.parse(response.body)['id']
+        id = json_response['id']
         intervention = Intervention.find(id)
         assert_equal 1, intervention.outputs.count
       end
@@ -159,10 +114,9 @@ module Api
         variant = create(:product_nature_variant)
         product = create(:seed_product)
         product.variant.read!(:net_mass, '2000 kilogram')
-        ActiveSupport::Deprecation.warn('variety param is deprecated, should be replaced by specie_variety_name')
         params = {
           procedure_name: 'sowing',
-          providers: { zero_id: 5 },
+          provider: provider,
           working_periods_attributes: [
             {
               started_at: "2017-11-06 10:04:39",
@@ -182,7 +136,7 @@ module Api
                 {
                   variant_id: variant.id,
                   reference_name: 'plant',
-                  variety: 'test',
+                  specie_variety_name: 'test',
                   batch_number: 'test2'
                 }
               ]
@@ -199,7 +153,7 @@ module Api
                 {
                   variant_id: variant.id,
                   reference_name: 'plant',
-                  variety: 'test',
+                  specie_variety_name: 'test',
                   batch_number: 'test2'
                 }
               ]
@@ -216,7 +170,7 @@ module Api
         }
         post :create, params: params
         assert_response :created
-        id = JSON.parse(response.body)['id']
+        id = json_response['id']
         intervention = Intervention.find(id)
         assert_equal 2, intervention.group_parameters.count
         assert_equal 2, intervention.outputs.count
@@ -232,7 +186,7 @@ module Api
         tractor3 = create(:tractor)
         params = {
           procedure_name: 'fertilizing',
-          providers: { zero_id: 5 },
+          provider: provider,
           working_periods_attributes: [
             { started_at: '01/01/2019 12:00'.to_datetime,
               stopped_at: '01/01/2019 13:30'.to_datetime }
@@ -278,7 +232,7 @@ module Api
         post :create, params: params
         assert_response :created
 
-        id = JSON.parse(response.body)['id']
+        id = json_response['id']
         intervention = Intervention.find(id)
         assert_equal 3, intervention.tools.count
         assert_equal [], intervention.procedure.parameters.flat_map(&:readings)
@@ -295,9 +249,7 @@ module Api
         tractor3 = create(:tractor)
         equipment = create(:equipment)
         params = {
-          providers: {
-            zero_id: 5
-          },
+          provider: provider,
           procedure_name: 'equipment_maintenance',
           actions: [
             "curative_maintenance"
@@ -362,7 +314,7 @@ module Api
         }
         post :create, params: params
         assert_response :created
-        id = JSON.parse(response.body)['id']
+        id = json_response['id']
         intervention = Intervention.find(id)
         assert_equal [], intervention.procedure.product_parameters.flat_map(&:readings)
         target_reading1 = intervention.targets.find_by(product_id: tractor1.id).readings.first
