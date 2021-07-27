@@ -54,5 +54,11 @@ FactoryBot.define do
     trait :transporter do
       transporter { true }
     end
+
+    trait :worker do
+      after(:create) do |entity|
+        create :worker, person: entity
+      end
+    end
   end
 end

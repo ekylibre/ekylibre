@@ -115,7 +115,7 @@ Rails.application.routes.draw do
 
     namespace :v2, defaults: { format: 'json' } do
       resources :tokens, only: %i[create destroy]
-      resources :interventions, only: %i[index create]
+      resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
       resources :variants, only: %i[index]
       resources :plants, only: %i[index]

@@ -13,6 +13,8 @@ servers:
     description: Production
   - url: 'https://demo.ekylibre-alpha.farm/api/v2'
     description: Test
+  - url: 'http://demo.ekylibre.lan:3000/api/v2'
+    description: Local
 paths:
   /tokens:
     post:
@@ -102,6 +104,46 @@ paths:
         in: path
         required: true
         description: token
+  '/interventions/{id}':
+    put:
+      summary: ''
+      operationId: put-interventionss
+      responses:
+        '200':
+          description: OK
+        '':
+          $ref: '#/components/responses/Updated'
+      tags:
+        - Interventions
+      description: 'Update an intervention. Nested objects can be destroyed with the key/value "_destroy":"1"'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InterventionCreate'
+            examples:
+              example-1:
+                value:
+                  procedure_name: all_in_one_sowing
+                  working_periods_attributes:
+                    - started_at: '2015-05-07T09:48+0000'
+                      stopped_at: '2015-05-07T10:48+0000'
+                  inputs_attributes:
+                    - product_id: 305
+                      reference_name: seeds
+                      quantity_value: 120
+                      quantity_handler: items_count
+        description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Intervention id
   /interventions:
     post:
       tags:
@@ -154,15 +196,6 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/Created'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
       deprecated: false
       security: []
       description: Creates a new intervention object.
@@ -175,16 +208,21 @@ paths:
         - $ref: '#/components/parameters/Authorization'
         - schema:
             type: string
+            enum:
+              - request
+              - record
           in: query
           name: nature
           description: Filter interventions by nature
         - schema:
             type: string
+            format: email
           in: query
           name: contact_email
           description: Filter interventions by entity email
         - schema:
             type: string
+            format: email
           in: query
           name: user_email
           description: Filter interventions by doer email
@@ -192,6 +230,7 @@ paths:
             type: boolean
           in: query
           name: with_interventions
+          description: Filter interventions by relation to planned intervention
       responses:
         '200':
           description: ''
@@ -254,6 +293,7 @@ paths:
       deprecated: false
       security: []
       description: 'Returns a list of interventions you’ve previously created. '
+    parameters: []
   /plants:
     get:
       tags:
@@ -476,39 +516,7 @@ components:
   schemas:
     InterventionCreate:
       title: InterventionCreate
-      required:
-        - provider
-        - procedure_name
-        - working_periods_attributes
-        - inputs_attributes
-        - tools_attributes
-        - group_parameters_attributes
       type: object
-      properties:
-        provider:
-          $ref: '#/components/schemas/Provider'
-        procedure_name:
-          type: string
-        working_periods_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkingPeriodsAttribute'
-          description: ''
-        inputs_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputsAttribute'
-          description: ''
-        tools_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ToolsAttribute'
-          description: ''
-        group_parameters_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupParametersAttribute'
-          description: ''
       example:
         provider:
           data:
@@ -542,14 +550,93 @@ components:
                 reference_name: plant
                 variety: zea_mais
                 quantity_population: 1
+      x-examples:
+        example-1:
+          value:
+            provider:
+              data:
+                zero_id: 0
+              id: 0
+              name: zero
+              vendor: ekylibre
+            procedure_name: all_in_one_sowing
+            working_periods_attributes:
+              - started_at: '2015-05-07T09:48+0000'
+                stopped_at: '2015-05-07T10:48+0000'
+            inputs_attributes:
+              - product_id: 305
+                reference_name: seeds
+                quantity_value: 120
+                quantity_handler: items_count
+            tools_attributes:
+              - product_id: 261
+                reference_name: sower
+                readings_attributes:
+                  - measure_value_value: 0
+                    indicator_name: hour_counter
+                    measure_value_unit: hour
+            group_parameters_attributes:
+              - reference_name: zone
+                targets_attributes:
+                  - product_id: 1219
+                    reference_name: land_parcel
+                outputs_attributes:
+                  - variant_id: 162
+                    reference_name: plant
+                    variety: zea_mais
+                    quantity_population: 1
+      properties:
+        provider:
+          $ref: '#/components/schemas/Provider'
+        procedure_name - copy:
+          type: string
+        description:
+          type: string
+        actions:
+          type: array
+          items:
+            type: string
+        working_periods_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/WorkingPeriodsAttribute'
+        inputs_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/InputsAttribute'
+        outputs_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputsAttribute'
+        targets_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TargetsAttribute'
+        tools_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/ToolsAttribute'
+        doers_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoersAttribute'
+        group_parameters_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/GroupParametersAttribute'
     Provider:
       title: Provider
-      required:
-        - data
-        - id
-        - name
-        - vendor
       type: object
+      example:
+        data:
+          zero_id: 0
+        id: 0
+        name: zero
+        vendor: ekylibre
       properties:
         data:
           $ref: '#/components/schemas/Data'
@@ -560,12 +647,9 @@ components:
           type: string
         vendor:
           type: string
-      example:
-        data:
-          zero_id: 0
-        id: 0
-        name: zero
-        vendor: ekylibre
+      required:
+        - name
+        - vendor
     Data:
       title: Data
       required:
@@ -579,27 +663,31 @@ components:
         zero_id: 0
     WorkingPeriodsAttribute:
       title: WorkingPeriodsAttribute
-      required:
-        - started_at
-        - stopped_at
       type: object
+      example:
+        started_at: '2015-05-07T09:48+0000'
+        stopped_at: '2015-05-07T10:48+0000'
       properties:
+        id:
+          type: integer
         started_at:
           type: string
         stopped_at:
           type: string
-      example:
-        started_at: '2015-05-07T09:48+0000'
-        stopped_at: '2015-05-07T10:48+0000'
+        _destroy:
+          type: string
     InputsAttribute:
       title: InputsAttribute
-      required:
-        - product_id
-        - reference_name
-        - quantity_value
-        - quantity_handler
       type: object
+      example:
+        product_id: 305
+        reference_name: seeds
+        quantity_value: 120
+        quantity_handler: items_count
       properties:
+        id:
+          type: integer
+          format: int32
         product_id:
           type: integer
           format: int32
@@ -609,29 +697,11 @@ components:
           type: number
         quantity_handler:
           type: string
-      example:
-        product_id: 305
-        reference_name: seeds
-        quantity_value: 120
-        quantity_handler: items_count
+        _destroy:
+          type: string
     ToolsAttribute:
       title: ToolsAttribute
-      required:
-        - product_id
-        - reference_name
-        - readings_attributes
       type: object
-      properties:
-        product_id:
-          type: integer
-          format: int32
-        reference_name:
-          type: string
-        readings_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReadingsAttribute'
-          description: ''
       example:
         product_id: 261
         reference_name: sower
@@ -639,13 +709,29 @@ components:
           - measure_value_value: 0
             indicator_name: hour_counter
             measure_value_unit: hour
+      properties:
+        id:
+          type: integer
+          format: int32
+        product_id:
+          type: integer
+          format: int32
+        reference_name:
+          type: string
+        readings_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/ReadingsAttribute'
+        _destroy:
+          type: string
     ReadingsAttribute:
       title: ReadingsAttribute
-      required:
-        - measure_value_value
-        - indicator_name
-        - measure_value_unit
       type: object
+      example:
+        measure_value_value: 0
+        indicator_name: hour_counter
+        measure_value_unit: hour
       properties:
         measure_value_value:
           type: number
@@ -653,30 +739,9 @@ components:
           type: string
         measure_value_unit:
           type: string
-      example:
-        measure_value_value: 0
-        indicator_name: hour_counter
-        measure_value_unit: hour
     GroupParametersAttribute:
       title: GroupParametersAttribute
-      required:
-        - reference_name
-        - targets_attributes
-        - outputs_attributes
       type: object
-      properties:
-        reference_name:
-          type: string
-        targets_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/TargetsAttribute'
-          description: ''
-        outputs_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OutputsAttribute'
-          description: ''
       example:
         reference_name: zone
         targets_attributes:
@@ -687,45 +752,75 @@ components:
             reference_name: plant
             variety: zea_mais
             quantity_population: 1
+      properties:
+        id:
+          type: integer
+        reference_name:
+          type: string
+        targets_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/TargetsAttribute'
+        outputs_attributes:
+          type: array
+          description: ''
+          items:
+            $ref: '#/components/schemas/OutputsAttribute'
+        doers_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoersAttribute'
+        inputs_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputsAttribute'
+        tools_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolsAttribute'
+        _destroy:
+          type: string
     TargetsAttribute:
       title: TargetsAttribute
-      required:
-        - product_id
-        - reference_name
       type: object
+      example:
+        product_id: 1219
+        reference_name: land_parcel
       properties:
+        id:
+          type: integer
+          format: int32
         product_id:
           type: integer
           format: int32
         reference_name:
           type: string
-      example:
-        product_id: 1219
-        reference_name: land_parcel
+        _destroy:
+          type: string
     OutputsAttribute:
       title: OutputsAttribute
-      required:
-        - variant_id
-        - reference_name
-        - variety
-        - quantity_population
       type: object
+      example:
+        variant_id: 162
+        reference_name: plant
+        variety: zea_mais
+        quantity_population: 1
       properties:
         variant_id:
           type: integer
           format: int32
         reference_name:
           type: string
-        variety:
+        specie_variety_name:
           type: string
         quantity_population:
           type: integer
           format: int32
-      example:
-        variant_id: 162
-        reference_name: plant
-        variety: zea_mais
-        quantity_population: 1
+        id:
+          type: number
+        _destroy:
+          type: string
     Metadata:
       title: Metadata
       type: object
@@ -802,85 +897,62 @@ components:
           type: number
         nature:
           type: string
-          minLength: 1
           enum:
             - request
             - record
         procedure_name:
           type: string
-          minLength: 1
         number:
           type: string
-          minLength: 1
         name:
           type: string
-          minLength: 1
         started_at:
           type: string
-          minLength: 1
+          format: date-time
         stopped_at:
           type: string
-          minLength: 1
+          format: date-time
         description:
           type: string
-          minLength: 1
         parameters:
           type: array
           uniqueItems: true
           minItems: 1
           items:
             $ref: '#/components/schemas/InterventionParameter'
-      required:
-        - id
-        - nature
-        - procedure_name
-        - number
-        - name
-        - started_at
-        - stopped_at
-        - description
-        - parameters
+        state:
+          type: string
+          enum:
+            - in_progress
+            - done
+            - validated
+            - rejected
+        working_duration:
+          type: number
+        costs:
+          $ref: '#/components/schemas/InterventionCosting'
     InterventionParameter:
       description: ''
       type: object
+      x-examples:
+        example-1:
+          value:
+            id: 3
+            role: target
+            name: land_parcel
+            label: Parcelle
+            product_id: 6
       properties:
         id:
           type: number
         role:
           type: string
-          minLength: 1
         name:
           type: string
-          minLength: 1
         label:
           type: string
-          minLength: 1
-        product:
-          type: object
-          properties:
-            id:
-              type: number
-            name:
-              type: string
-              minLength: 1
-          required:
-            - id
-            - name
-      required:
-        - id
-        - role
-        - name
-        - label
-        - product
-      x-examples:
-        example-1:
-          id: 3
-          role: target
-          name: land_parcel
-          label: Parcelle
-          product:
-            id: 6
-            name: Blé tendre d’hiver 2015 Enclouse des chatâigniers
+        product_id:
+          type: number
     InterventionTarget:
       description: ''
       type: object
@@ -1285,6 +1357,63 @@ components:
           type: string
         language:
           type: string
+    InterventionCosting:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          total: 24177.63
+          inputs: 24079.41
+          doers: 35.22
+          tools: 63
+          receptions: 0
+          value:
+            total: 24177.63
+            inputs: 24079.41
+            doers: 35.22
+            tools: 63
+            receptions: 0
+      properties:
+        total:
+          type: number
+          readOnly: true
+        inputs:
+          type: number
+          readOnly: true
+        doers:
+          type: number
+          readOnly: true
+        tools:
+          type: number
+          readOnly: true
+        receptions:
+          type: number
+          readOnly: true
+    DoersAttribute:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: number
+        product_id:
+          type: number
+        reference_name:
+          type: string
+          minLength: 1
+        _destroy:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - product_id
+        - reference_name
+        - _destroy
+      x-examples:
+        example-1:
+          id: 1
+          product_id: 1
+          reference_name: doer
+          _destroy: '1'
   responses:
     Created:
       description: Resource successfully created
@@ -1304,7 +1433,12 @@ components:
       content:
         application/json:
           schema:
-            nullable: true
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
     Bad-authorization:
       description: ''
       content:
@@ -1338,6 +1472,18 @@ components:
             example-1:
               value:
                 id: string
+    Forbidden:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+      headers: {}
   parameters:
     Authorization:
       name: Authorization
@@ -1345,6 +1491,7 @@ components:
       schema:
         type: string
         example: simple-token demo@ekylibre.org y_geHxfwwDtLwi3bTomE
+        default: simple-token admin@ekylibre.org dKV1CHsWsxx9GoxN619S
       description: authorization
       required: true
     Content-Type:
