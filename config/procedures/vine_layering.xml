@@ -6,7 +6,7 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <reading name="layered_vine_stock"/>
       </target>
-      <input name="stakes" filter="is stake">
+      <input name="stakes" filter="is stake" cardinality="*">
         <handler name="population"/>
         <handler indicator="seedling_area_density" unit="unity_per_hectare"
                  if="sum_working_zone_areas(plant) != 0"

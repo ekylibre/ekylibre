@@ -461,6 +461,12 @@ fra:
         press: "Pressoir"
         pressing_schedule: "Programme de pressurage"
         pressing_started_at: "Heure de démarrage"
+      variant_categories/animal_category:
+        asset_fixable: "Immobilisable"
+      variant_categories/article_category:
+        asset_fixable: "Immobilisable"
+      variant_categories/equipment_category:
+        asset_fixable: "Immobilisable"
       variant_categories/zone_category: #?
         asset_fixable: "Immobilisable"
       variant_categories/service_category: #?

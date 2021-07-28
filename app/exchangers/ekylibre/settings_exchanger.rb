@@ -28,6 +28,11 @@ module Ekylibre
       Preference.set!(:currency, currency)
       Preference.set!(:country, country)
       Preference.set!(:sales_conditions, sales_conditions)
+      # Load stripe credentials of the instance
+      if @manifest[:customer_id] && @manifest[:subscription_id]
+        Preference.set!(:saassy_stripe_customer_id, @manifest[:customer_id], :string)
+        Preference.set!(:saassy_stripe_subscription_id, @manifest[:subscription_id], :string)
+      end
       if srs = @manifest[:map_measure_srs]
         Preference.set!(:map_measure_srs, srs)
       elsif srid = @manifest[:map_measure_srid]

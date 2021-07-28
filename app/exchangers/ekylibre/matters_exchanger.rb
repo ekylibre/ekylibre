@@ -55,7 +55,7 @@ module Ekylibre
         elsif nomen = Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           valid = true
         else
-          w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+          w.error "No variant exist in LEXICON or NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
         end
       end
@@ -99,10 +99,12 @@ module Ekylibre
             if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
               item = RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
               variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
+            elsif MasterVariant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
+              variant = ProductNatureVariant.import_from_lexicon(r.variant_reference_name.downcase.to_sym)
             elsif Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else
-              raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+              raise "No variant exist in LEXICON or NOMENCLATURE for #{r.variant_reference_name.inspect}"
             end
           end
 
