@@ -86,6 +86,7 @@ fra:
     sage_i_seven_fec_txt: "FEC import (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
     square_incoming_payments: "Encaissements | transactions (CSV) ‒ Square"
+    sage_coala_fec_txt: "FEC import (TXT) ‒ Sage Coala"
     square_sales: "Ventes | détails des articles (CSV) ‒ Square"
     socleo_incoming_payments: "Encaissements (CSV) ‒ Socleo"
     socleo_sales: "Ventes (CSV) ‒ Socleo"

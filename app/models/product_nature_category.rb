@@ -213,24 +213,31 @@ class ProductNatureCategory < ApplicationRecord
       unless item = MasterVariantCategory.find_by(reference_name: reference_name)
         raise ArgumentError.new("The product nature category #{reference_name.inspect} is unknown")
       end
-      if !force && (category = ProductNatureCategory.find_by(reference_name: reference_name))
-        return category
-      end
+
+      categories = ProductNatureCategory.where(reference_name: reference_name)
+
+      return categories.first if !force && categories.count > 0
+
+      category_name = if force && categories.count > 0
+                        item.translation.send(Preference[:language]) + "(#{categories.count.to_s})"
+                      else
+                        item.translation.send(Preference[:language])
+                      end
 
       attributes = {
-        active: true,
-        name: item.translation.send(Preference[:language]),
-        reference_name: item.reference_name,
-        depreciable: item.fixed_asset_account.present?,
-        purchasable: item.purchase_account.present?,
-        saleable: item.sale_account.present?,
-        storable: item.stock_account.present?,
-        fixed_asset_depreciation_percentage: item.depreciation_percentage.presence || 20,
-        fixed_asset_depreciation_method: :linear,
-        product_account: (item.sale_account.present? ? Account.find_or_import_from_nomenclature(item.sale_account) : nil),
-        charge_account: (item.purchase_account.present? ? Account.find_or_import_from_nomenclature(item.purchase_account) : nil),
-        type: "VariantCategories::#{item.family.classify}Category",
-        imported_from: 'Lexicon'
+          active: true,
+          name: item.translation.send(Preference[:language]) + "(#{categories.count.to_s})",
+          reference_name: item.reference_name,
+          depreciable: item.fixed_asset_account.present?,
+          purchasable: item.purchase_account.present?,
+          saleable: item.sale_account.present?,
+          storable: item.stock_account.present?,
+          fixed_asset_depreciation_percentage: item.depreciation_percentage.presence || 20,
+          fixed_asset_depreciation_method: :linear,
+          product_account: (item.sale_account.present? ? Account.find_or_import_from_nomenclature(item.sale_account) : nil),
+          charge_account: (item.purchase_account.present? ? Account.find_or_import_from_nomenclature(item.purchase_account) : nil),
+          type: "VariantCategories::#{item.family.classify}Category",
+          imported_from: 'Lexicon'
       }
       %i[fixed_asset fixed_asset_allocation fixed_asset_expenses stock stock_movement].each do |account|
         account_name = item.send("#{account}_account")

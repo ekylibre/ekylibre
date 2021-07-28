@@ -64,6 +64,8 @@ module Ekylibre
             end
           elsif r.france_maaid && (item = RegisteredPhytosanitaryProduct.find_by_id(r.france_maaid))
             variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
+          elsif MasterVariant.find_by_reference_name(r.reference_name)
+            variant = ProductNatureVariant.import_from_lexicon(r.reference_name, true)
           elsif Onoma::ProductNatureVariant.find(r.reference_name)
             variant = ProductNatureVariant.import_from_nomenclature(r.reference_name, true)
           elsif (nature_item = Onoma::ProductNature.find(r.reference_name))

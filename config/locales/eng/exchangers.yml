@@ -86,6 +86,7 @@ eng:
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_i_seven_fec_txt: "Accountancy FEC (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Accountancy (ECX) ‒ Sagei7"
+    sage_coala_fec_txt: "Accountancy FEC (TXT) ‒ Sage Coala"
     square_incoming_payments: "Square incoming payments"
     square_sales: "Square sales"
     socleo_incoming_payments: "Socleo incoming payments"

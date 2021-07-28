@@ -194,6 +194,8 @@ fra:
         accounted: "Comptabilisé"
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
+      idea_diagnostic:
+        auditor: "Auditeur"
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
@@ -459,6 +461,12 @@ fra:
         press: "Pressoir"
         pressing_schedule: "Programme de pressurage"
         pressing_started_at: "Heure de démarrage"
+      variant_categories/animal_category:
+        asset_fixable: "Immobilisable"
+      variant_categories/article_category:
+        asset_fixable: "Immobilisable"
+      variant_categories/equipment_category:
+        asset_fixable: "Immobilisable"
       variant_categories/zone_category: #?
         asset_fixable: "Immobilisable"
       variant_categories/service_category: #?

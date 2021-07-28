@@ -482,7 +482,7 @@ fra:
       type:
         Variants::AnimalVariant: "Animaux"
         Variants::ArticleVariant: "Articles"
-        Variants::Articles::FarmProductArticle: "Produits de la ferme"
+        Variants::Articles::FarmProductArticle: "Produits de l'exploitation"
         Variants::Articles::FertilizerArticle: "Engrais"
         Variants::Articles::PlantMedicineArticle: "Produits phytosanitaires"
         Variants::Articles::SeedAndPlantArticle: "Semences et plants"

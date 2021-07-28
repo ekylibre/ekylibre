@@ -29,6 +29,13 @@ namespace :tenant do
   task create: :environment do
     name = ENV['TENANT'] || ENV['name']
     Ekylibre::Tenant.create(name) unless Ekylibre::Tenant.exist?(name)
+    # Set Stripe preferences if exists
+    if ENV['CUS_ID'] && ENV['SUB_ID']
+      Ekylibre::Tenant.switch(name) do
+        Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string)
+        Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string)
+      end
+    end
   end
 
   desc 'Create a tenant with alone admin user (with TENANT, EMAIL, PASSWORD variable)'
@@ -38,6 +45,9 @@ namespace :tenant do
 
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
+      # Set Stripe preferences if exists
+      Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string) if ENV['CUS_ID']
+      Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string) if ENV['SUB_ID']
       # Set basic preferences
       language = Onoma::Language.find(ENV['LANGUAGE'])
       Preference.set! :language, language ? language.name : 'fra'

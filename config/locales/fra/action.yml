@@ -853,8 +853,8 @@ fra:
       index: "Autres articles"
       pick: "Importer un article"
     backend/variants/articles/farm_product_articles:
-      index: "Produits de la ferme"
-      pick: "Importer un produit de la ferme"
+      index: "Produits de l'exploitation"
+      pick: "Importer un produit de l'exploitation"
     backend/variants/articles/fertilizer_articles:
       index: "Engrais"
       pick: "Importer un engrais"
@@ -1943,7 +1943,7 @@ fra:
     extract_non_letter_pdf: "Extrait de compte - Non lettrés en PDF" #?
     extract_unlettered_account_x: "Extrait de compte non lettrés %{account_number}"
     extraordinary_income: "Produits exceptionnels"
-    farm_products: "Produits de la ferme"
+    farm_products: "Produits de l'exploitation"
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
     fec_compliance: "Conformité FEC"

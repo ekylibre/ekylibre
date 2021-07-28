@@ -4,7 +4,7 @@
     <parameters>
       <group name="parturition">
         <target name="mother" filter="is mammalia" cardinality="1"/>
-        <output name="child" filter="specie de la mother">
+        <output name="child" filter="is mammalia">
           <attribute name="new_name"/>
           <attribute name="identification_number"/>
           <!-- <attribute name="new_group"/>
