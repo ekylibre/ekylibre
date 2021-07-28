@@ -46,7 +46,7 @@ module Accountancy
     # @param [String|Symbol|Number] number
     # @return [String]
     def normalize!(number)
-      number = number.to_s
+      number = number.to_s.upcase.gsub(/[!@%&"]/, '')
 
       if centralized?(number) || number.size == standard_length
         number
