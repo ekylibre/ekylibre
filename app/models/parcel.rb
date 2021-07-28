@@ -293,19 +293,20 @@ class Parcel < ApplicationRecord
             next unless item.variant.saleable? && item.population && item.population > 0
 
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
-            # check all taxes included to build unit_pretax_amount and tax from catalog with all taxes included
+            # 0 - Get unit_pretax_amount from parcel_item if exist
             unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
             tax = Tax.current.first
-            if catalog_item && catalog_item.all_taxes_included
-              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
-              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
-            # from catalog without taxes
-            elsif catalog_item
-              unit_pretax_amount ||= catalog_item.amount
-            # from last sale item
-            elsif (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
+            # 1 - from last sale item
+            if (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
               unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
               tax = last_sale_items.order(id: :desc).first.tax
+            # 2 - from catalog with taxes
+            elsif catalog_item && catalog_item.all_taxes_included
+              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
+            # 3 - from catalog without taxes
+            elsif catalog_item
+              unit_pretax_amount ||= catalog_item.amount
             end
             item.sale_item = sale.items.create!(
               variant: item.variant,
