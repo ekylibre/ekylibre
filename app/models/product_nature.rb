@@ -364,14 +364,21 @@ class ProductNature < ApplicationRecord
       unless item = Onoma::ProductNature.find(reference_name)
         raise ArgumentError.new("The product nature #{reference_name.inspect} is unknown")
       end
-      if !force && (nature = ProductNature.find_by(reference_name: reference_name))
-        return nature
-      end
 
-      attributes = {
+      natures = ProductNature.where(reference_name: reference_name)
+
+      return natures.first if !force && natures.count > 0
+
+      nature_name = if force && natures.count > 0
+                      item.human_name + "(#{natures.count.to_s})"
+                    else
+                      item.human_name
+                    end
+
+      nature = new(
         variety: item.variety,
         derivative_of: item.derivative_of.to_s,
-        name: item.human_name,
+        name: nature_name,
         population_counting: item.population_counting,
         reference_name: item.name,
         abilities_list: WorkingSet::AbilityArray.load(item.abilities),
@@ -381,23 +388,34 @@ class ProductNature < ApplicationRecord
         active: true,
         type: item.nature == :fee_and_service ? 'VariantTypes::ServiceType' : "VariantTypes::#{item.nature.capitalize}Type",
         imported_from: 'Nomenclature'
-      }
-      attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
-      create!(attributes)
+      )
+      nature.linkage_points_list = item.linkage_points if item.linkage_points
+      unless nature.save
+        raise "Cannot import nature #{reference_name.inspect}: #{nature.errors.full_messages.join(', ')}"
+      end
+
+      nature
     end
 
     def import_from_lexicon(reference_name, force = false)
       unless item = MasterVariantNature.find_by(reference_name: reference_name)
         raise ArgumentError.new("The product nature #{reference_name.inspect} is unknown")
       end
-      if !force && (nature = ProductNature.find_by(reference_name: reference_name))
-        return nature
-      end
 
-      attributes = {
+      natures = ProductNature.where(reference_name: reference_name)
+
+      return natures.first if !force && natures.count > 0
+
+      nature_name = if force && natures.count > 0
+                      item.translation.send(Preference[:language]) + "(#{natures.count.to_s})"
+                    else
+                      item.translation.send(Preference[:language])
+                    end
+
+      nature = new(
         variety: item.variety,
         derivative_of: item.derivative_of,
-        name: item.translation.send(Preference[:language]),
+        name: nature_name,
         population_counting: item.population_counting,
         reference_name: item.reference_name,
         abilities_list: item.abilities,
@@ -406,8 +424,12 @@ class ProductNature < ApplicationRecord
         active: true,
         type: "VariantTypes::#{item.family.classify}Type",
         imported_from: 'Lexicon'
-      }
-      create!(attributes)
+      )
+      unless nature.save
+        raise "Cannot import nature #{reference_name.inspect}: #{nature.errors.full_messages.join(', ')}"
+      end
+
+      nature
     end
 
     def load_defaults(**_options)

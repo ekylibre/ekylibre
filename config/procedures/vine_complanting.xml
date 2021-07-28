@@ -13,7 +13,7 @@
                  backward="((POPULATION / sum_working_zone_areas(plant, :hectare)))"
                  forward="((VALUE) * sum_working_zone_areas(plant, :hectare))"/>
       </input>
-      <input name="stakes" filter="is stake">
+      <input name="stakes" filter="is stake" cardinality="*">
         <handler name="population"/>
         <handler indicator="seedling_area_density" unit="unity_per_hectare"
                  if="sum_working_zone_areas(plant) != 0"

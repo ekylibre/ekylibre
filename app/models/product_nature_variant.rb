@@ -669,26 +669,35 @@ class ProductNatureVariant < ApplicationRecord
         raise ArgumentError.new("The category of the product_nature_variant #{item.category.inspect} is not known")
       end
 
-      unless !force && variant = ProductNatureVariant.find_by_reference_name(reference_name)
-        category = ProductNatureCategory.import_from_lexicon(item.category)
-        nature = ProductNature.import_from_lexicon(item.nature)
-        variant = new(
-          name: item.translation.send(Preference[:language]),
-          active: true,
-          nature: nature,
-          category: category,
-          reference_name: item.reference_name,
-          variety: item.specie,
-          derivative_of: item.target_specie,
-          unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.default_unit}"),
-          type: find_type(item),
-          imported_from: 'Lexicon'
-        )
-        raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}" unless variant.save
+      variants = ProductNatureVariant.where(reference_name: reference_name)
+
+      return variants.first if !force && variants.count > 0
+
+      variant_name = if force && variants.count > 0
+                       item.translation.send(Preference[:language]) + "(#{variants.count.to_s})"
+                     else
+                       item.translation.send(Preference[:language])
+                     end
+
+      category = ProductNatureCategory.import_from_lexicon(item.category)
+      nature = ProductNature.import_from_lexicon(item.nature)
+      variant = new(
+        name: variant_name,
+        active: true,
+        nature: nature,
+        category: category,
+        reference_name: item.reference_name,
+        variety: item.specie,
+        derivative_of: item.target_specie,
+        unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.default_unit}"),
+        type: find_type(item),
+        imported_from: 'Lexicon'
+      )
+      unless variant.save
+        raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
       end
 
       set_indicators(item, variant)
-
       variant
     end
 

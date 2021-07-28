@@ -66,6 +66,8 @@ module Variant
           'Variants::Equipments::TrailedEquipmentEquipment'
         elsif nature.equipment? && nature.of_variety?(:portable_equipment)
           'Variants::Equipments::ToolEquipment'
+        elsif nature.equipment? && nature.of_variety?(:fixed_equipment)
+          'Variants::Equipments::FixedEquipmentEquipment'
         elsif nature.equipment? && Onoma::Variety.find(nature.variety) <= Onoma::Variety.find(:motorized_vehicle)
           'Variants::Equipments::MotorizedEquipmentEquipment'
         else

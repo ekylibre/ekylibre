@@ -32,6 +32,8 @@ module Ekylibre
         ActiveRecord::Base.transaction do
           puts 'Set locale...'
           ::I18n.locale = @preferences[:language] || :eng
+          puts 'Load Stripe credentials...'
+          load_stripe_credentials
           puts 'Load preferences...'
           load_preferences
           puts 'Load defaults...'
@@ -44,6 +46,16 @@ module Ekylibre
           ::Preference.set!('first_run.executed', true, :boolean)
         end
         @progress.clear!
+      end
+
+      # Load stripe credentials of the instance
+      def load_stripe_credentials
+        if @preferences[:customer_id]
+          Preference.set!(:saassy_stripe_customer_id, @preferences[:customer_id], :string)
+        end
+        if @preferences[:subscription_id]
+          Preference.set!(:saassy_stripe_subscription_id, @preferences[:subscription_id], :string)
+        end
       end
 
       # Load global preferences of the instance

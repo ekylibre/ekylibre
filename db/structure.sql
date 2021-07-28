@@ -253,20 +253,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: cadastral_land_parcel_zones; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.cadastral_land_parcel_zones (
-    id character varying NOT NULL,
-    section character varying,
-    work_number character varying,
-    net_surface_area integer,
-    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
-    centroid postgis.geometry(Point,4326)
-);
-
-
---
 -- Name: datasource_credits; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -278,25 +264,6 @@ CREATE TABLE lexicon.datasource_credits (
     licence character varying,
     licence_url character varying,
     updated_at timestamp with time zone
-);
-
-
---
--- Name: eu_market_prices; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.eu_market_prices (
-    id character varying NOT NULL,
-    category character varying,
-    sector_code character varying,
-    product_code character varying,
-    product_label character varying,
-    product_description character varying,
-    unit_value integer,
-    unit_name character varying,
-    country character varying,
-    price numeric(8,2),
-    start_date date
 );
 
 
@@ -331,71 +298,268 @@ CREATE TABLE lexicon.intervention_models (
 
 
 --
--- Name: master_production_natures; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: master_chart_of_accounts; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_production_natures (
+CREATE TABLE lexicon.master_chart_of_accounts (
     id integer NOT NULL,
+    reference_name character varying,
+    previous_reference_name character varying,
+    fr_pcga character varying,
+    fr_pcg82 character varying,
+    name jsonb
+);
+
+
+--
+-- Name: master_crop_production_cap_codes; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_production_cap_codes (
+    cap_code character varying NOT NULL,
+    cap_label character varying NOT NULL,
+    production character varying NOT NULL,
+    year integer NOT NULL
+);
+
+
+--
+-- Name: master_crop_production_start_states; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_production_start_states (
+    production character varying NOT NULL,
+    year integer NOT NULL,
+    key character varying NOT NULL
+);
+
+
+--
+-- Name: master_crop_production_tfi_codes; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_production_tfi_codes (
+    tfi_code character varying NOT NULL,
+    tfi_label character varying NOT NULL,
+    production character varying,
+    campaign integer NOT NULL
+);
+
+
+--
+-- Name: master_crop_productions; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_productions (
+    reference_name character varying NOT NULL,
     specie character varying NOT NULL,
-    human_name jsonb,
-    human_name_fra character varying NOT NULL,
+    usage character varying,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
-    main_input character varying,
     agroedi_crop_code character varying,
     season character varying,
-    pfi_crop_code character varying,
-    cap_2017_crop_code character varying,
-    cap_2018_crop_code character varying,
-    cap_2019_crop_code character varying,
-    cap_2020_crop_code character varying,
-    start_state_of_production jsonb,
-    life_duration numeric(5,2)
+    life_duration interval,
+    translation_id character varying NOT NULL
 );
 
 
 --
--- Name: master_production_outputs; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: master_dimensions; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_production_outputs (
-    production_nature_id integer NOT NULL,
-    production_system_name character varying NOT NULL,
-    name character varying NOT NULL,
-    average_yield numeric(19,4),
-    main boolean DEFAULT false NOT NULL,
-    analysis_items character varying[]
+CREATE TABLE lexicon.master_dimensions (
+    reference_name character varying NOT NULL,
+    symbol character varying NOT NULL,
+    translation_id character varying NOT NULL
 );
 
 
 --
--- Name: master_vine_varieties; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: master_doer_contracts; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_vine_varieties (
+CREATE TABLE lexicon.master_doer_contracts (
     id character varying NOT NULL,
-    specie_name character varying NOT NULL,
-    specie_long_name character varying,
-    category_name character varying NOT NULL,
-    fr_validated character varying,
-    utility character varying,
-    color character varying,
-    customs_code character varying
+    reference_name character varying NOT NULL,
+    name jsonb,
+    duration character varying,
+    weekly_working_time character varying,
+    gross_hourly_wage numeric(19,4),
+    net_hourly_wage numeric(19,4),
+    coefficient_total_cost numeric(19,4),
+    variant_id character varying
 );
 
 
 --
--- Name: phenological_stages; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: master_legal_positions; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.phenological_stages (
-    id integer NOT NULL,
-    bbch character varying,
+CREATE TABLE lexicon.master_legal_positions (
+    code character varying NOT NULL,
+    name jsonb,
+    nature character varying NOT NULL,
+    country character varying NOT NULL,
+    insee_code character varying NOT NULL,
+    fiscal_positions text[]
+);
+
+
+--
+-- Name: master_packaging; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_packaging (
+    reference_name character varying NOT NULL,
+    capacity numeric(25,10) NOT NULL,
+    capacity_unit character varying NOT NULL,
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_phenological_stages; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_phenological_stages (
+    bbch_code integer NOT NULL,
     biaggiolini character varying,
     eichhorn_lorenz character varying,
-    chasselas_date date,
+    chasselas_date character varying,
     label jsonb,
     description jsonb
+);
+
+
+--
+-- Name: master_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_prices (
+    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
+    reference_article_name character varying NOT NULL,
+    unit_pretax_amount numeric(19,4) NOT NULL,
+    currency character varying NOT NULL,
+    reference_packaging_name character varying NOT NULL,
+    started_on date NOT NULL,
+    variant_id character varying,
+    packaging_id character varying,
+    usage character varying NOT NULL,
+    main_indicator character varying,
+    main_indicator_unit character varying,
+    main_indicator_minimal_value numeric(19,4),
+    main_indicator_maximal_value numeric(19,4),
+    working_flow_value numeric(19,4),
+    working_flow_unit character varying,
+    threshold_min_value numeric(19,4),
+    threshold_max_value numeric(19,4)
+);
+
+
+--
+-- Name: master_taxonomy; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_taxonomy (
+    reference_name character varying NOT NULL,
+    parent character varying,
+    taxonomic_rank character varying,
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_translations; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_translations (
+    id character varying NOT NULL,
+    fra character varying NOT NULL,
+    eng character varying NOT NULL
+);
+
+
+--
+-- Name: master_units; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_units (
+    reference_name character varying NOT NULL,
+    dimension character varying NOT NULL,
+    symbol character varying NOT NULL,
+    a numeric(25,10),
+    d numeric(25,10),
+    b numeric(25,10),
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_user_roles; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_user_roles (
+    reference_name character varying NOT NULL,
+    accesses text[],
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_variant_categories; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_variant_categories (
+    reference_name character varying NOT NULL,
+    family character varying NOT NULL,
+    fixed_asset_account character varying,
+    fixed_asset_allocation_account character varying,
+    fixed_asset_expenses_account character varying,
+    depreciation_percentage numeric(5,2),
+    purchase_account character varying,
+    sale_account character varying,
+    stock_account character varying,
+    stock_movement_account character varying,
+    default_vat_rate numeric(5,2),
+    payment_frequency_value integer,
+    payment_frequency_unit character varying,
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_variant_natures; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_variant_natures (
+    reference_name character varying NOT NULL,
+    family character varying NOT NULL,
+    population_counting character varying NOT NULL,
+    frozen_indicators text[],
+    variable_indicators text[],
+    abilities text[],
+    variety character varying NOT NULL,
+    derivative_of character varying,
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_variants; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_variants (
+    reference_name character varying NOT NULL,
+    family character varying NOT NULL,
+    category character varying NOT NULL,
+    nature character varying NOT NULL,
+    sub_family character varying,
+    default_unit character varying NOT NULL,
+    target_specie character varying,
+    specie character varying,
+    indicators jsonb,
+    translation_id character varying NOT NULL
 );
 
 
@@ -415,10 +579,10 @@ CREATE TABLE lexicon.registered_agroedi_codes (
 
 
 --
--- Name: registered_building_zones; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_cadastral_buildings; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_building_zones (
+CREATE TABLE lexicon.registered_cadastral_buildings (
     nature character varying,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     centroid postgis.geometry(Point,4326)
@@ -426,16 +590,16 @@ CREATE TABLE lexicon.registered_building_zones (
 
 
 --
--- Name: registered_chart_of_accounts; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_cadastral_parcels; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_chart_of_accounts (
+CREATE TABLE lexicon.registered_cadastral_parcels (
     id character varying NOT NULL,
-    account_number character varying NOT NULL,
-    chart_id character varying NOT NULL,
-    reference_name character varying,
-    previous_reference_name character varying,
-    name jsonb
+    section character varying,
+    work_number character varying,
+    net_surface_area integer,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -455,31 +619,47 @@ CREATE TABLE lexicon.registered_enterprises (
 
 
 --
--- Name: registered_hydro_items; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_eu_market_prices; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_hydro_items (
+CREATE TABLE lexicon.registered_eu_market_prices (
+    id character varying NOT NULL,
+    category character varying,
+    sector_code character varying,
+    product_code character varying,
+    product_label character varying,
+    product_description character varying,
+    unit_value integer,
+    unit_name character varying,
+    country character varying,
+    price numeric(8,2),
+    start_date date
+);
+
+
+--
+-- Name: registered_graphic_parcels; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_graphic_parcels (
+    id character varying NOT NULL,
+    city_name character varying,
+    shape postgis.geometry(Polygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
+);
+
+
+--
+-- Name: registered_hydrographic_items; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_hydrographic_items (
     id character varying NOT NULL,
     name jsonb,
     nature character varying,
     point postgis.geometry(Point,4326),
     shape postgis.geometry(MultiPolygon,4326),
     lines postgis.geometry(MultiLineString,4326)
-);
-
-
---
--- Name: registered_legal_positions; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.registered_legal_positions (
-    id integer NOT NULL,
-    name jsonb,
-    nature character varying NOT NULL,
-    country character varying NOT NULL,
-    code character varying NOT NULL,
-    insee_code character varying NOT NULL,
-    fiscal_positions text[]
 );
 
 
@@ -594,10 +774,10 @@ CREATE TABLE lexicon.registered_phytosanitary_usages (
 
 
 --
--- Name: registered_postal_zones; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_postal_codes; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_postal_zones (
+CREATE TABLE lexicon.registered_postal_codes (
     id character varying NOT NULL,
     country character varying NOT NULL,
     code character varying NOT NULL,
@@ -610,10 +790,10 @@ CREATE TABLE lexicon.registered_postal_zones (
 
 
 --
--- Name: registered_protected_designation_of_origins; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_quality_and_origin_signs; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_protected_designation_of_origins (
+CREATE TABLE lexicon.registered_quality_and_origin_signs (
     id integer NOT NULL,
     ida integer NOT NULL,
     geographic_area character varying,
@@ -626,10 +806,10 @@ CREATE TABLE lexicon.registered_protected_designation_of_origins (
 
 
 --
--- Name: registered_seeds; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_seed_varieties; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.registered_seeds (
+CREATE TABLE lexicon.registered_seed_varieties (
     id character varying NOT NULL,
     id_specie character varying NOT NULL,
     specie_name jsonb,
@@ -640,14 +820,18 @@ CREATE TABLE lexicon.registered_seeds (
 
 
 --
--- Name: taxonomy; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: registered_vine_varieties; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.taxonomy (
+CREATE TABLE lexicon.registered_vine_varieties (
     id character varying NOT NULL,
-    parent character varying NOT NULL,
-    taxonomic_rank character varying NOT NULL,
-    name jsonb
+    short_name character varying NOT NULL,
+    long_name character varying,
+    category character varying NOT NULL,
+    fr_validated boolean,
+    utilities text[],
+    color character varying,
+    custom_code character varying
 );
 
 
@@ -716,151 +900,6 @@ CREATE TABLE lexicon.technical_workflows (
     unit character varying,
     life_state character varying,
     life_cycle character varying
-);
-
-
---
--- Name: user_roles; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.user_roles (
-    id integer NOT NULL,
-    reference_name character varying,
-    name jsonb,
-    label_fra character varying,
-    accesses text[]
-);
-
-
---
--- Name: variant_categories; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.variant_categories (
-    id integer NOT NULL,
-    reference_name character varying NOT NULL,
-    name jsonb,
-    label_fra character varying NOT NULL,
-    nature character varying NOT NULL,
-    fixed_asset_account character varying,
-    fixed_asset_allocation_account character varying,
-    fixed_asset_expenses_account character varying,
-    depreciation_percentage integer,
-    purchase_account character varying,
-    sale_account character varying,
-    stock_account character varying,
-    stock_movement_account character varying,
-    purchasable boolean,
-    saleable boolean,
-    depreciable boolean,
-    storable boolean,
-    default_vat_rate numeric(5,2),
-    payment_frequency_value integer,
-    payment_frequency_unit character varying
-);
-
-
---
--- Name: variant_doer_contracts; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.variant_doer_contracts (
-    id character varying NOT NULL,
-    reference_name character varying NOT NULL,
-    name jsonb,
-    duration character varying,
-    weekly_working_time character varying,
-    gross_hourly_wage numeric(19,4),
-    net_hourly_wage numeric(19,4),
-    coefficient_total_cost numeric(19,4),
-    variant_id character varying
-);
-
-
---
--- Name: variant_natures; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.variant_natures (
-    id integer NOT NULL,
-    reference_name character varying NOT NULL,
-    name jsonb,
-    label_fra character varying NOT NULL,
-    nature character varying,
-    population_counting character varying NOT NULL,
-    indicators text[],
-    abilities text[],
-    variety character varying,
-    derivative_of character varying
-);
-
-
---
--- Name: variant_prices; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.variant_prices (
-    id character varying NOT NULL,
-    reference_name character varying NOT NULL,
-    reference_article_name character varying NOT NULL,
-    unit_pretax_amount numeric(19,4) NOT NULL,
-    currency character varying NOT NULL,
-    reference_packaging_name character varying NOT NULL,
-    started_on date NOT NULL,
-    variant_id character varying,
-    packaging_id character varying,
-    usage character varying NOT NULL,
-    main_indicator character varying,
-    main_indicator_unit character varying,
-    main_indicator_minimal_value numeric(19,4),
-    main_indicator_maximal_value numeric(19,4),
-    working_flow_value numeric(19,4),
-    working_flow_unit character varying,
-    threshold_min_value numeric(19,4),
-    threshold_max_value numeric(19,4)
-);
-
-
---
--- Name: variant_units; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.variant_units (
-    id character varying NOT NULL,
-    class_name character varying NOT NULL,
-    reference_name character varying NOT NULL,
-    name jsonb,
-    capacity numeric(25,10),
-    capacity_unit character varying,
-    dimension character varying,
-    symbol character varying,
-    a numeric(25,10),
-    d numeric(25,10),
-    b numeric(25,10),
-    unit_id character varying
-);
-
-
---
--- Name: variants; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.variants (
-    id character varying NOT NULL,
-    class_name character varying,
-    reference_name character varying NOT NULL,
-    name jsonb,
-    label_fra character varying NOT NULL,
-    category character varying,
-    nature character varying,
-    sub_nature character varying,
-    default_unit character varying,
-    target_specie character varying,
-    specie character varying,
-    eu_product_code character varying,
-    indicators jsonb,
-    variant_category_id integer,
-    variant_nature_id integer
 );
 
 
@@ -1007,10 +1046,10 @@ CREATE TABLE public.activities (
     production_stopped_on date,
     life_duration numeric(5,2),
     start_state_of_production_year integer,
+    reference_name character varying,
     isacompta_analytic_code character varying(2),
     production_started_on_year integer,
-    production_stopped_on_year integer,
-    reference_name character varying
+    production_stopped_on_year integer
 );
 
 
@@ -4763,7 +4802,11 @@ CREATE TABLE public.idea_diagnostic_item_values (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    value integer,
+    answer character varying,
+    name character varying,
+    treshold integer
 );
 
 
@@ -4799,7 +4842,11 @@ CREATE TABLE public.idea_diagnostic_items (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    "group" character varying,
+    idea_id character varying,
+    value integer,
+    treshold integer
 );
 
 
@@ -4874,7 +4921,9 @@ CREATE TABLE public.idea_diagnostics (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    auditor_id integer,
+    stopped_at timestamp without time zone
 );
 
 
@@ -8047,7 +8096,8 @@ CREATE TABLE public.ride_sets (
     gasoline double precision,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    shape postgis.geometry(Geometry,4326)
 );
 
 
@@ -8098,7 +8148,9 @@ CREATE TABLE public.rides (
     ride_set_id integer,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    intervention_id integer,
+    shape postgis.geometry(Geometry,4326)
 );
 
 
@@ -10548,22 +10600,6 @@ ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- Name: cadastral_land_parcel_zones cadastral_land_parcel_zones_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.cadastral_land_parcel_zones
-    ADD CONSTRAINT cadastral_land_parcel_zones_pkey PRIMARY KEY (id);
-
-
---
--- Name: eu_market_prices eu_market_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.eu_market_prices
-    ADD CONSTRAINT eu_market_prices_pkey PRIMARY KEY (id);
-
-
---
 -- Name: intervention_model_items intervention_model_items_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -10580,35 +10616,131 @@ ALTER TABLE ONLY lexicon.intervention_models
 
 
 --
--- Name: master_production_natures master_production_natures_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: master_chart_of_accounts master_chart_of_accounts_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.master_production_natures
-    ADD CONSTRAINT master_production_natures_pkey PRIMARY KEY (id);
-
-
---
--- Name: master_production_outputs master_production_outputs_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.master_production_outputs
-    ADD CONSTRAINT master_production_outputs_pkey PRIMARY KEY (production_nature_id, production_system_name, name);
+ALTER TABLE ONLY lexicon.master_chart_of_accounts
+    ADD CONSTRAINT master_chart_of_accounts_pkey PRIMARY KEY (id);
 
 
 --
--- Name: master_vine_varieties master_vine_varieties_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: master_crop_production_cap_codes master_crop_production_cap_codes_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.master_vine_varieties
-    ADD CONSTRAINT master_vine_varieties_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.master_crop_production_cap_codes
+    ADD CONSTRAINT master_crop_production_cap_codes_pkey PRIMARY KEY (cap_code, production, year);
 
 
 --
--- Name: phenological_stages phenological_stages_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: master_crop_productions master_crop_productions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.phenological_stages
-    ADD CONSTRAINT phenological_stages_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.master_crop_productions
+    ADD CONSTRAINT master_crop_productions_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_dimensions master_dimensions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_dimensions
+    ADD CONSTRAINT master_dimensions_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_doer_contracts master_doer_contracts_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_doer_contracts
+    ADD CONSTRAINT master_doer_contracts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: master_legal_positions master_legal_positions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_legal_positions
+    ADD CONSTRAINT master_legal_positions_pkey PRIMARY KEY (code);
+
+
+--
+-- Name: master_packaging master_packaging_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_packaging
+    ADD CONSTRAINT master_packaging_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_phenological_stages master_phenological_stages_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_phenological_stages
+    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (bbch_code);
+
+
+--
+-- Name: master_prices master_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_prices
+    ADD CONSTRAINT master_prices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: master_taxonomy master_taxonomy_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_taxonomy
+    ADD CONSTRAINT master_taxonomy_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_translations master_translations_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_translations
+    ADD CONSTRAINT master_translations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: master_units master_units_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_units
+    ADD CONSTRAINT master_units_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_user_roles master_user_roles_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_user_roles
+    ADD CONSTRAINT master_user_roles_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_variant_categories master_variant_categories_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_variant_categories
+    ADD CONSTRAINT master_variant_categories_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_variant_natures master_variant_natures_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_variant_natures
+    ADD CONSTRAINT master_variant_natures_pkey PRIMARY KEY (reference_name);
+
+
+--
+-- Name: master_variants master_variants_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_variants
+    ADD CONSTRAINT master_variants_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -10620,11 +10752,11 @@ ALTER TABLE ONLY lexicon.registered_agroedi_codes
 
 
 --
--- Name: registered_chart_of_accounts registered_chart_of_accounts_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: registered_cadastral_parcels registered_cadastral_parcels_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.registered_chart_of_accounts
-    ADD CONSTRAINT registered_chart_of_accounts_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.registered_cadastral_parcels
+    ADD CONSTRAINT registered_cadastral_parcels_pkey PRIMARY KEY (id);
 
 
 --
@@ -10636,19 +10768,19 @@ ALTER TABLE ONLY lexicon.registered_enterprises
 
 
 --
--- Name: registered_hydro_items registered_hydro_items_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: registered_eu_market_prices registered_eu_market_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.registered_hydro_items
-    ADD CONSTRAINT registered_hydro_items_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.registered_eu_market_prices
+    ADD CONSTRAINT registered_eu_market_prices_pkey PRIMARY KEY (id);
 
 
 --
--- Name: registered_legal_positions registered_legal_positions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: registered_hydrographic_items registered_hydrographic_items_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.registered_legal_positions
-    ADD CONSTRAINT registered_legal_positions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.registered_hydrographic_items
+    ADD CONSTRAINT registered_hydrographic_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -10700,35 +10832,35 @@ ALTER TABLE ONLY lexicon.registered_phytosanitary_usages
 
 
 --
--- Name: registered_postal_zones registered_postal_zones_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: registered_postal_codes registered_postal_codes_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.registered_postal_zones
-    ADD CONSTRAINT registered_postal_zones_pkey PRIMARY KEY (id);
-
-
---
--- Name: registered_protected_designation_of_origins registered_protected_designation_of_origins_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.registered_protected_designation_of_origins
-    ADD CONSTRAINT registered_protected_designation_of_origins_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.registered_postal_codes
+    ADD CONSTRAINT registered_postal_codes_pkey PRIMARY KEY (id);
 
 
 --
--- Name: registered_seeds registered_seeds_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: registered_quality_and_origin_signs registered_quality_and_origin_signs_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.registered_seeds
-    ADD CONSTRAINT registered_seeds_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.registered_quality_and_origin_signs
+    ADD CONSTRAINT registered_quality_and_origin_signs_pkey PRIMARY KEY (id);
 
 
 --
--- Name: taxonomy taxonomy_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: registered_seed_varieties registered_seed_varieties_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.taxonomy
-    ADD CONSTRAINT taxonomy_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY lexicon.registered_seed_varieties
+    ADD CONSTRAINT registered_seed_varieties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_vine_varieties registered_vine_varieties_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_vine_varieties
+    ADD CONSTRAINT registered_vine_varieties_pkey PRIMARY KEY (id);
 
 
 --
@@ -10761,62 +10893,6 @@ ALTER TABLE ONLY lexicon.technical_workflow_sequences
 
 ALTER TABLE ONLY lexicon.technical_workflows
     ADD CONSTRAINT technical_workflows_pkey PRIMARY KEY (id);
-
-
---
--- Name: user_roles user_roles_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.user_roles
-    ADD CONSTRAINT user_roles_pkey PRIMARY KEY (id);
-
-
---
--- Name: variant_categories variant_categories_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.variant_categories
-    ADD CONSTRAINT variant_categories_pkey PRIMARY KEY (id);
-
-
---
--- Name: variant_doer_contracts variant_doer_contracts_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.variant_doer_contracts
-    ADD CONSTRAINT variant_doer_contracts_pkey PRIMARY KEY (id);
-
-
---
--- Name: variant_natures variant_natures_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.variant_natures
-    ADD CONSTRAINT variant_natures_pkey PRIMARY KEY (id);
-
-
---
--- Name: variant_prices variant_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.variant_prices
-    ADD CONSTRAINT variant_prices_pkey PRIMARY KEY (id);
-
-
---
--- Name: variant_units variant_units_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.variant_units
-    ADD CONSTRAINT variant_units_pkey PRIMARY KEY (id);
-
-
---
--- Name: variants variants_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.variants
-    ADD CONSTRAINT variants_pkey PRIMARY KEY (id);
 
 
 --
@@ -12284,48 +12360,6 @@ ALTER TABLE ONLY public.wine_incoming_harvests
 
 
 --
--- Name: cadastral_land_parcel_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX cadastral_land_parcel_zones_centroid ON lexicon.cadastral_land_parcel_zones USING gist (centroid);
-
-
---
--- Name: cadastral_land_parcel_zones_shape; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX cadastral_land_parcel_zones_shape ON lexicon.cadastral_land_parcel_zones USING gist (shape);
-
-
---
--- Name: eu_market_prices_category; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX eu_market_prices_category ON lexicon.eu_market_prices USING btree (category);
-
-
---
--- Name: eu_market_prices_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX eu_market_prices_id ON lexicon.eu_market_prices USING btree (id);
-
-
---
--- Name: eu_market_prices_product_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX eu_market_prices_product_code ON lexicon.eu_market_prices USING btree (product_code);
-
-
---
--- Name: eu_market_prices_sector_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX eu_market_prices_sector_code ON lexicon.eu_market_prices USING btree (sector_code);
-
-
---
 -- Name: intervention_model_items_article_reference; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -12361,94 +12395,108 @@ CREATE INDEX intervention_models_procedure_reference ON lexicon.intervention_mod
 
 
 --
--- Name: master_production_natures_agroedi_crop_code; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_chart_of_accounts_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_production_natures_agroedi_crop_code ON lexicon.master_production_natures USING btree (agroedi_crop_code);
-
-
---
--- Name: master_production_natures_cap_2017_crop_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_production_natures_cap_2017_crop_code ON lexicon.master_production_natures USING btree (cap_2017_crop_code);
+CREATE INDEX master_chart_of_accounts_reference_name ON lexicon.master_chart_of_accounts USING btree (reference_name);
 
 
 --
--- Name: master_production_natures_cap_2018_crop_code; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_crop_productions_agroedi_crop_code; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_production_natures_cap_2018_crop_code ON lexicon.master_production_natures USING btree (cap_2018_crop_code);
-
-
---
--- Name: master_production_natures_cap_2019_crop_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_production_natures_cap_2019_crop_code ON lexicon.master_production_natures USING btree (cap_2019_crop_code);
+CREATE INDEX master_crop_productions_agroedi_crop_code ON lexicon.master_crop_productions USING btree (agroedi_crop_code);
 
 
 --
--- Name: master_production_natures_cap_2020_crop_code; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_crop_productions_specie; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_production_natures_cap_2020_crop_code ON lexicon.master_production_natures USING btree (cap_2020_crop_code);
-
-
---
--- Name: master_production_natures_human_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_production_natures_human_name ON lexicon.master_production_natures USING btree (human_name);
+CREATE INDEX master_crop_productions_specie ON lexicon.master_crop_productions USING btree (specie);
 
 
 --
--- Name: master_production_natures_human_name_fra; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_dimensions_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_production_natures_human_name_fra ON lexicon.master_production_natures USING btree (human_name_fra);
-
-
---
--- Name: master_production_natures_pfi_crop_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_production_natures_pfi_crop_code ON lexicon.master_production_natures USING btree (pfi_crop_code);
+CREATE INDEX master_dimensions_reference_name ON lexicon.master_dimensions USING btree (reference_name);
 
 
 --
--- Name: master_production_natures_specie; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_packaging_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_production_natures_specie ON lexicon.master_production_natures USING btree (specie);
-
-
---
--- Name: master_production_outputs_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_production_outputs_name ON lexicon.master_production_outputs USING btree (name);
+CREATE INDEX master_packaging_reference_name ON lexicon.master_packaging USING btree (reference_name);
 
 
 --
--- Name: master_production_outputs_nature_id; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_prices_reference_article_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_production_outputs_nature_id ON lexicon.master_production_outputs USING btree (production_nature_id);
-
-
---
--- Name: master_production_outputs_system_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_production_outputs_system_name ON lexicon.master_production_outputs USING btree (production_system_name);
+CREATE INDEX master_prices_reference_article_name ON lexicon.master_prices USING btree (reference_article_name);
 
 
 --
--- Name: master_vine_varieties_id; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_prices_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_vine_varieties_id ON lexicon.master_vine_varieties USING btree (id);
+CREATE INDEX master_prices_reference_name ON lexicon.master_prices USING btree (reference_name);
+
+
+--
+-- Name: master_prices_reference_packaging_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_prices_reference_packaging_name ON lexicon.master_prices USING btree (reference_packaging_name);
+
+
+--
+-- Name: master_taxonomy_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_taxonomy_reference_name ON lexicon.master_taxonomy USING btree (reference_name);
+
+
+--
+-- Name: master_units_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_units_reference_name ON lexicon.master_units USING btree (reference_name);
+
+
+--
+-- Name: master_variant_categories_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_variant_categories_reference_name ON lexicon.master_variant_categories USING btree (reference_name);
+
+
+--
+-- Name: master_variant_natures_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_variant_natures_reference_name ON lexicon.master_variant_natures USING btree (reference_name);
+
+
+--
+-- Name: master_variants_category; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_variants_category ON lexicon.master_variants USING btree (category);
+
+
+--
+-- Name: master_variants_nature; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_variants_nature ON lexicon.master_variants USING btree (nature);
+
+
+--
+-- Name: master_variants_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_variants_reference_name ON lexicon.master_variants USING btree (reference_name);
 
 
 --
@@ -12459,24 +12507,31 @@ CREATE INDEX registered_agroedi_codes_reference_code ON lexicon.registered_agroe
 
 
 --
--- Name: registered_building_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_cadastral_buildings_centroid; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_building_zones_centroid ON lexicon.registered_building_zones USING gist (centroid);
-
-
---
--- Name: registered_building_zones_shape; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_building_zones_shape ON lexicon.registered_building_zones USING gist (shape);
+CREATE INDEX registered_cadastral_buildings_centroid ON lexicon.registered_cadastral_buildings USING gist (centroid);
 
 
 --
--- Name: registered_chart_of_accounts_account_number; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_cadastral_buildings_shape; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_chart_of_accounts_account_number ON lexicon.registered_chart_of_accounts USING btree (account_number);
+CREATE INDEX registered_cadastral_buildings_shape ON lexicon.registered_cadastral_buildings USING gist (shape);
+
+
+--
+-- Name: registered_cadastral_parcels_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_centroid ON lexicon.registered_cadastral_parcels USING gist (centroid);
+
+
+--
+-- Name: registered_cadastral_parcels_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_shape ON lexicon.registered_cadastral_parcels USING gist (shape);
 
 
 --
@@ -12494,31 +12549,80 @@ CREATE INDEX registered_enterprises_name ON lexicon.registered_enterprises USING
 
 
 --
--- Name: registered_hydro_items_lines; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_eu_market_prices_category; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_hydro_items_lines ON lexicon.registered_hydro_items USING gist (lines);
-
-
---
--- Name: registered_hydro_items_nature; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_hydro_items_nature ON lexicon.registered_hydro_items USING btree (nature);
+CREATE INDEX registered_eu_market_prices_category ON lexicon.registered_eu_market_prices USING btree (category);
 
 
 --
--- Name: registered_hydro_items_point; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_eu_market_prices_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_hydro_items_point ON lexicon.registered_hydro_items USING gist (point);
+CREATE INDEX registered_eu_market_prices_id ON lexicon.registered_eu_market_prices USING btree (id);
 
 
 --
--- Name: registered_hydro_items_shape; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_eu_market_prices_product_code; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_hydro_items_shape ON lexicon.registered_hydro_items USING gist (shape);
+CREATE INDEX registered_eu_market_prices_product_code ON lexicon.registered_eu_market_prices USING btree (product_code);
+
+
+--
+-- Name: registered_eu_market_prices_sector_code; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_eu_market_prices_sector_code ON lexicon.registered_eu_market_prices USING btree (sector_code);
+
+
+--
+-- Name: registered_graphic_parcels_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_graphic_parcels_centroid ON lexicon.registered_graphic_parcels USING gist (centroid);
+
+
+--
+-- Name: registered_graphic_parcels_id_idx; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_graphic_parcels_id_idx ON lexicon.registered_graphic_parcels USING btree (id);
+
+
+--
+-- Name: registered_graphic_parcels_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_graphic_parcels_shape ON lexicon.registered_graphic_parcels USING gist (shape);
+
+
+--
+-- Name: registered_hydrographic_items_lines; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_lines ON lexicon.registered_hydrographic_items USING gist (lines);
+
+
+--
+-- Name: registered_hydrographic_items_nature; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_nature ON lexicon.registered_hydrographic_items USING btree (nature);
+
+
+--
+-- Name: registered_hydrographic_items_point; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_point ON lexicon.registered_hydrographic_items USING gist (point);
+
+
+--
+-- Name: registered_hydrographic_items_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_shape ON lexicon.registered_hydrographic_items USING gist (shape);
 
 
 --
@@ -12606,52 +12710,52 @@ CREATE INDEX registered_phytosanitary_usages_species ON lexicon.registered_phyto
 
 
 --
--- Name: registered_postal_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_postal_codes_centroid; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_postal_zones_centroid ON lexicon.registered_postal_zones USING gist (city_centroid);
-
-
---
--- Name: registered_postal_zones_city_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_postal_zones_city_name ON lexicon.registered_postal_zones USING btree (city_name);
+CREATE INDEX registered_postal_codes_centroid ON lexicon.registered_postal_codes USING gist (city_centroid);
 
 
 --
--- Name: registered_postal_zones_country; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_postal_codes_city_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_postal_zones_country ON lexicon.registered_postal_zones USING btree (country);
-
-
---
--- Name: registered_postal_zones_postal_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_postal_zones_postal_code ON lexicon.registered_postal_zones USING btree (postal_code);
+CREATE INDEX registered_postal_codes_city_name ON lexicon.registered_postal_codes USING btree (city_name);
 
 
 --
--- Name: registered_seeds_id; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_postal_codes_country; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX registered_seeds_id ON lexicon.registered_seeds USING btree (id);
-
-
---
--- Name: registered_seeds_id_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX registered_seeds_id_specie ON lexicon.registered_seeds USING btree (id_specie);
+CREATE INDEX registered_postal_codes_country ON lexicon.registered_postal_codes USING btree (country);
 
 
 --
--- Name: taxonomy_id; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: registered_postal_codes_postal_code; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX taxonomy_id ON lexicon.taxonomy USING btree (id);
+CREATE INDEX registered_postal_codes_postal_code ON lexicon.registered_postal_codes USING btree (postal_code);
+
+
+--
+-- Name: registered_seed_varieties_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_seed_varieties_id ON lexicon.registered_seed_varieties USING btree (id);
+
+
+--
+-- Name: registered_seed_varieties_id_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_seed_varieties_id_specie ON lexicon.registered_seed_varieties USING btree (id_specie);
+
+
+--
+-- Name: registered_vine_varieties_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_vine_varieties_id ON lexicon.registered_vine_varieties USING btree (id);
 
 
 --
@@ -12708,97 +12812,6 @@ CREATE INDEX technical_workflows_procedures_procedure_reference ON lexicon.techn
 --
 
 CREATE INDEX technical_workflows_procedures_technical_workflow_id ON lexicon.technical_workflow_procedures USING btree (technical_workflow_id);
-
-
---
--- Name: variant_categories_reference_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_categories_reference_name ON lexicon.variant_categories USING btree (reference_name);
-
-
---
--- Name: variant_natures_reference_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_natures_reference_name ON lexicon.variant_natures USING btree (reference_name);
-
-
---
--- Name: variant_natures_variety; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_natures_variety ON lexicon.variant_natures USING btree (variety);
-
-
---
--- Name: variant_prices_reference_article_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_prices_reference_article_name ON lexicon.variant_prices USING btree (reference_article_name);
-
-
---
--- Name: variant_prices_reference_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_prices_reference_name ON lexicon.variant_prices USING btree (reference_name);
-
-
---
--- Name: variant_prices_reference_packaging_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_prices_reference_packaging_name ON lexicon.variant_prices USING btree (reference_packaging_name);
-
-
---
--- Name: variant_units_reference_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_units_reference_name ON lexicon.variant_units USING btree (reference_name);
-
-
---
--- Name: variant_units_unit_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variant_units_unit_id ON lexicon.variant_units USING btree (unit_id);
-
-
---
--- Name: variants_category; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variants_category ON lexicon.variants USING btree (category);
-
-
---
--- Name: variants_nature; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variants_nature ON lexicon.variants USING btree (nature);
-
-
---
--- Name: variants_reference_name; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variants_reference_name ON lexicon.variants USING btree (reference_name);
-
-
---
--- Name: variants_variant_category_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variants_variant_category_id ON lexicon.variants USING btree (variant_category_id);
-
-
---
--- Name: variants_variant_nature_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX variants_variant_nature_id ON lexicon.variants USING btree (variant_nature_id);
 
 
 --
@@ -16026,6 +16039,13 @@ CREATE INDEX index_idea_diagnostic_results_on_updated_at ON public.idea_diagnost
 --
 
 CREATE INDEX index_idea_diagnostic_results_on_updater_id ON public.idea_diagnostic_results USING btree (updater_id);
+
+
+--
+-- Name: index_idea_diagnostics_on_auditor_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_idea_diagnostics_on_auditor_id ON public.idea_diagnostics USING btree (auditor_id);
 
 
 --
@@ -20320,6 +20340,13 @@ CREATE INDEX index_rides_on_creator_id ON public.rides USING btree (creator_id);
 
 
 --
+-- Name: index_rides_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_intervention_id ON public.rides USING btree (intervention_id);
+
+
+--
 -- Name: index_rides_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21825,6 +21852,29 @@ CREATE INDEX tax_provider_index ON public.taxes USING gin (((provider -> 'vendor
 
 
 --
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -21851,29 +21901,6 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
-
-
---
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
 
 
 --
@@ -22365,6 +22392,14 @@ ALTER TABLE ONLY public.intervention_crop_groups
 
 
 --
+-- Name: rides fk_rails_a61c5540a1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides
+    ADD CONSTRAINT fk_rails_a61c5540a1 FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
 -- Name: parcel_items fk_rails_a6cf16ef60; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22426,6 +22461,14 @@ ALTER TABLE ONLY public.financial_years
 
 ALTER TABLE ONLY public.parcel_items
     ADD CONSTRAINT fk_rails_b3a1a4f578 FOREIGN KEY (purchase_invoice_item_id) REFERENCES public.purchase_items(id);
+
+
+--
+-- Name: idea_diagnostics fk_rails_bccf84a1b0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.idea_diagnostics
+    ADD CONSTRAINT fk_rails_bccf84a1b0 FOREIGN KEY (auditor_id) REFERENCES public.entities(id);
 
 
 --
@@ -23113,6 +23156,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210514142217'),
 ('20210520085721'),
 ('20210521130856'),
+('20210525135938'),
 ('20210526142601'),
 ('20210526233101'),
 ('20210527160150'),
@@ -23121,6 +23165,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210614123501'),
 ('20210615191101'),
 ('20210616133301'),
-('20210622125501');
+('20210622125501'),
+('20210628091421'),
+('20210629141835'),
+('20210629145426'),
+('20210630123148'),
+('20210630145843'),
+('20210715121401'),
+('20210715123101'),
+('20210715125301'),
+('20210715142101'),
+('20210723151251');
 
 
