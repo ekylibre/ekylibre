@@ -1,4 +1,4 @@
-- if @campaigns
+- if @campaigns && BuildingDivision&.first&.shape.present?
   = visualization({ async_url: backend_visualizations_stock_container_map_cells_visualizations_path(@url_params) }, {}) do |v|
     - v.control :zoom
     - v.control :scale
@@ -6,4 +6,4 @@
     - v.control :layer_selector
     - v.center BuildingDivision.first.shape.centroid
 - else
-  .placeholding-message= :no_product_exist_for_current_campaign.tn
+  .placeholding-message= :no_building.tn
