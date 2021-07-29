@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "type": "divider",
+      "title": "Ekylibre"
+    },
+    {
+      "type": "item",
+      "title": "V1",
+      "uri": "doc/api/V1.yaml"
+    },
+    {
+      "type": "item",
+      "title": "V2",
+      "uri": "doc/api/V2.yaml"
+    }
+  ]
+}
