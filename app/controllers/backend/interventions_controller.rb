@@ -814,6 +814,7 @@ module Backend
           attributes["#{product_parameter}_attributes"].each_value do |values|
             next unless parameter.id.to_s == values["id"]
 
+            values[:working_zone] = Product.find(values['product_id']).shape if product_parameter == :targets
             values.delete('id')
             duplicate_parameter.assign_attributes(values)
           end
