@@ -63,6 +63,7 @@ class Campaign < ApplicationRecord
     where(harvest_year: searched_at.year)
   }
   scope :with_interventions, -> { where(id: HABTM_Interventions.select(:campaign_id)) }
+  scope :with_activity, -> { where('id IN (SELECT DISTINCT campaign_id from activities_campaigns)') }
 
   scope :with_plant_farming_interventions, -> { where(id: HABTM_Interventions.where(intervention_id: Intervention.of_activity_family(:plant_farming)).select(:campaign_id)) }
 
