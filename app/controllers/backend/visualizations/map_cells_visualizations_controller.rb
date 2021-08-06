@@ -54,28 +54,33 @@ module Backend
             sensor_data += (items || []).compact
           end
 
-          # SNA dataset
-          cap_neutral_areas_data = []
-          arr_campaigns = Campaign.where(id: campaigns)
-          cna_items = CapNeutralArea.of_campaign(arr_campaigns).map do |p|
-            next if p.shape.nil?
-
-            popup_content = []
-            if p.shape_area > 0.0.in_square_meter
-              popup_content << { label: CapLandParcel.human_attribute_name(:net_surface_area), value: p.human_shape_area }
+          campaign = Campaign.find(campaigns)
+          if CapNeutralArea.of_campaign([*campaign.previous].push(campaign)).any?
+            cap_neutral_areas = []
+            until cap_neutral_areas.any?
+              cap_neutral_areas = CapNeutralArea.of_campaign(campaign)
+              campaign = campaign.preceding
             end
-            popup_content << { label: CapNeutralArea.human_attribute_name(:neutral_area_category), value: p.category }
-            popup_content << { label: CapNeutralArea.human_attribute_name(:neutral_area_nature), value: p.nature }
 
-            {
-              name: p.number,
-              neutral_area_category: p.category,
-              shape: p.shape,
-              popup: { content: popup_content }
-            }
+            cap_neutral_areas_data = cap_neutral_areas.map do |cap_neutral_area|
+              next unless cap_neutral_area.shape
+
+              popup_content = []
+              if cap_neutral_area.shape_area > 0.0.in_square_meter
+                popup_content << { label: CapLandParcel.human_attribute_name(:net_surface_area), value: cap_neutral_area.human_shape_area }
+              end
+              popup_content << { label: CapNeutralArea.human_attribute_name(:category), value: cap_neutral_area.category }
+              popup_content << { label: CapNeutralArea.human_attribute_name(:nature), value: cap_neutral_area.nature }
+              popup_content << render_to_string(partial: 'cna_popup')
+
+              {
+                name: cap_neutral_area.number,
+                neutral_area_category: cap_neutral_area.category,
+                shape: cap_neutral_area.shape,
+                popup: { header: true, content: popup_content }
+              }
+            end
           end
-
-          cap_neutral_areas_data += (cna_items || []).compact
 
           activity_productions.of_campaign(campaigns).includes(:activity, :campaign, :cultivable_zone, interventions: [:outputs, :participations, tools: :product, inputs: :product]).find_each do |support|
             next unless support.support_shape
