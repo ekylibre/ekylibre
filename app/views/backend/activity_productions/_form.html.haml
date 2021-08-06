@@ -30,7 +30,7 @@
 
   - if activity.vine_farming? || activity.plant_farming?
     = f.referenced_association :production_nature,
-      new: false, source: { scope: { of_species: config.fetch(:production_nature_specie_scope) } },
+      new: false, source: { scope: config.fetch(:production_nature_specie_scope) },
       value: activity.reference_name
 
   - if activity.vine_farming? || activity.plant_farming?

@@ -2,6 +2,8 @@
 
 module ActivityProductions
   class FormConfigBuilder
+    SPECIES_WITHOUT_CHILDREN = %w[malus_domestica].freeze
+
     def initialize(activity_production)
       @activity_production = activity_production
       @activity = activity_production.activity
@@ -35,6 +37,10 @@ module ActivityProductions
           species = specie.children(recursively: true).map(&:name).push(specie.name)
         end
 
+        return :all if specie == "plant"
+
+        return { of_species: [specie] } if SPECIES_WITHOUT_CHILDREN.include?(specie)
+
         production_natures = MasterCropProduction.of_species(species)
         while production_natures.count == 0
           specie = specie.parent
@@ -42,7 +48,7 @@ module ActivityProductions
           production_natures = MasterCropProduction.of_species(species)
         end
 
-        species
+        { of_species: species }
       end
 
       def starting_year_collection
