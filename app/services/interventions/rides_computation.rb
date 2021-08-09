@@ -11,7 +11,15 @@ module Interventions
     end
 
     def existing_rides
-      @rides = Ride.where(id: @ride_ids, state: :unaffected, nature: :work).reorder(:started_at)
+      Ride.where(id: @ride_ids, state: :unaffected, nature: :work).reorder(:started_at)
+    end
+
+    def started_date
+      existing_rides.first.started_at
+    end
+
+    def stopped_date
+      existing_rides.last.stopped_at
     end
 
     def options
@@ -26,8 +34,10 @@ module Interventions
       @samsys_tool_width = existing_rides.first.provider[:data]["machine_equipment_tool_width"] || DEFAULT_TOOL_WIDTH
 
       if matching_targets.any?
-        line_buffer_working_zone = rides_crumbs_line_with_buffer(all_rides_crumbs, samsys_tool_width)
+        line_buffer_working_zone = rides_crumbs_line_with_buffer(@all_rides_crumbs, @samsys_tool_width)
         target_options = matching_targets.map {|target| { reference_name: target_parameter.name, product_id: target.id, working_zone: compute_geometry_collection(target, line_buffer_working_zone) }}
+        options[:started_at] = started_date
+        options[:stopped_at] = stopped_date
 
         if  target_parameter_group_name.present?
           options[:group_parameters_attributes] = target_options.map{ |target| { reference_name:  target_parameter_group_name, targets_attributes: [target] }}

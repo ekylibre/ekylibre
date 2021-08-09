@@ -33,8 +33,8 @@
 
       #working-periods
         - unless f.object.working_periods.any?
-          - stopped_at ||= Time.zone.now
-          - started_at ||= stopped_at - 1.hour
+          - stopped_at ||= f.object.stopped_at.present? ? f.object.stopped_at : Time.zone.now
+          - started_at ||= f.object.started_at.present? ? f.object.started_at : stopped_at - 1.hour
           - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
         = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
       - if f.object.record?
