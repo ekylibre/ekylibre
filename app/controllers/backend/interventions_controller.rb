@@ -257,13 +257,8 @@ module Backend
       end
 
       if params[:procedure_name].present? && params[:ride_ids].present?
-        rides_params_computation = ::Interventions::RidesComputation.new(params[:ride_ids])
-        rides = rides_params_computation.existing_rides
-        if rides.any?
-          options[:targets_attributes] = rides_params_computation.options
-        else
-          notify_warning_now(:no_target_exist_on_procedure)
-        end
+        rides_params_computation = ::Interventions::RidesComputation.new(params[:ride_ids], params[:procedure_name])
+        options.merge!(rides_params_computation.options)
       end
 
       # , :doers, :inputs, :outputs, :tools
