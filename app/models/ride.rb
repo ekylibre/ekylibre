@@ -63,6 +63,8 @@ class Ride < ApplicationRecord
   # Shape represents a linestring of all crumbs related to the ride
   has_geometry :shape, type: :line_string
 
+  scope :of_nature, ->(nature_name) { where(nature: nature_name) }
+
   acts_as_numbered :number
   enumerize :nature, in: %i[road work]
   enumerize :state, in: %i[affected unaffected], default: :unaffected

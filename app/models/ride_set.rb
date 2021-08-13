@@ -60,7 +60,7 @@ class RideSet < ApplicationRecord
   acts_as_numbered :number
   enumerize :nature, in: %i[road work]
 
-  %i[duration sleep_duration].each do |col|
+  %i[duration sleep_duration state].each do |col|
     define_method "decorated_#{col}" do
       decorate.send(col)
     end
@@ -68,5 +68,34 @@ class RideSet < ApplicationRecord
 
   def equipment
     self.rides.first.equipment_name
+  end
+
+  def state
+    return :converted if rides_affected?
+    return :converted if rides_of_nature_work_affected?
+    return :partially_converted if rides_of_nature_work_partially_affected?
+    return :partially_converted if rides_of_nature_road_partially_affected?
+
+    :to_convert
+  end
+
+  def rides_affected?
+    rides = self.rides.map(&:state)
+    rides.uniq.size <= 1 && rides.include?("affected")
+  end
+
+  def rides_of_nature_work_affected?
+    rides = self.rides.of_nature("work").map(&:state)
+    rides.uniq.size <= 1 && rides.include?("affected")
+  end
+
+  def rides_of_nature_work_partially_affected?
+    rides = self.rides.of_nature("work").map(&:state)
+    rides.uniq.size >= 2 && rides.include?("affected")
+  end
+
+  def rides_of_nature_road_partially_affected?
+    rides = self.rides.of_nature("road").map(&:state)
+    rides.uniq.size >= 2
   end
 end
