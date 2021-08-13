@@ -11,6 +11,10 @@ class RideSetDecorator < Draper::Decorator
     duration_to_strftime(object.sleep_duration)
   end
 
+  def state
+    object.state.tl
+  end
+
   private
 
     def duration_to_strftime(duration)
