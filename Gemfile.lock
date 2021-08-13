@@ -39,6 +39,16 @@ GIT
       rubyzip (~> 1.2.0)
 
 GIT
+  remote: https://gitlab.com/ekylibre/onoma.git
+  revision: 7a06591f07872df5b679f1f1b9d0d7a8ffb0f5c6
+  branch: master
+  specs:
+    onoma (0.6.0)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (~> 2.4.0)
+
+GIT
   remote: https://gitlab.com/ekylibre/xsd_errors_parser.git
   revision: 28b3c703463642ca52194038294bddabefc1fee3
   branch: master
@@ -363,7 +373,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.7)
-    nokogiri (1.12.1)
+    nokogiri (1.12.3)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     nori (2.6.0)
@@ -380,10 +390,6 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    onoma (0.6.0)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
@@ -735,7 +741,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.6.0)
+  onoma!
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
