@@ -22,6 +22,12 @@
       %span.subscription-filter-active_finishing_within.subscription-filter-active_finishing_after.input-append
         = number_field_tag(:delay, params[:delay] || 0, size: 3, style: 'width: 5ex')
         .add-on= :days.tl
+  - providers = Entity.providers_vendors
+  - if providers.any?
+    - k.helper do
+      %div.label-container
+        %label= Entity.human_attribute_name(:providers)
+      = select_tag(:provider, options_for_select([[]] + providers.map(&:capitalize), params[:provider].to_s))
 
 - main_toolbar do |t|
   = t.new params: { nature: :contact, redirect: nil }, label: :new_contact.tl

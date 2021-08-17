@@ -12,6 +12,13 @@ module Providable
     prepend Prepended
   end
 
+  module ClassMethods
+    # @return [Array]
+    def providers_vendors
+      pluck("provider->'vendor'").compact.uniq
+    end
+  end
+
   module Prepended
     # @param [Hash{Symbol => Object}] data
     def provider_data=(data)

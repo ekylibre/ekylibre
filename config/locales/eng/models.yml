@@ -1626,6 +1626,7 @@ eng:
     prospect: "Prospect"
     provider: "Provider"
     providers: "Providers"
+    provider_vendor: "Provider vendor"
     provisional: "Provisional"
     provisional_intervention: "Provisional intervention"
     # public_token: "Public token"
