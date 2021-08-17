@@ -936,6 +936,8 @@ fra:
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       project_budget: "Budget interne" #?
+      providers: "Solution tierce"
+      provider_vendor: "Solution tierce"
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
@@ -2078,6 +2080,8 @@ fra:
     proposer: "Parrain"
     prospect: "Prospect"
     # provider: "Provider"
+    providers: "Solution tierce"
+    provider_vendor: "Solution tierce"
     provider_name: "Fournisseur"
     provisional: "Prévisionnel"
     provisional_intervention: "Intervention prévisionnelle"
@@ -2471,6 +2475,7 @@ fra:
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
     vendor_euid: "Constructeur"
+    vendors: "Logiciel"
     verb: "Verbe"
     versions: "Versions"
     view_parameters: "Voir paramètres"

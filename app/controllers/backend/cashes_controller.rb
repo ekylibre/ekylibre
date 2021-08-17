@@ -33,6 +33,7 @@ module Backend
       t.column :suspense_account, url: true
       t.column :journal, url: true
       t.column :last_bank_statement_stopped_on, datatype: :date, label: :last_bank_statement_stopped_on
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
     end
 
     list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|

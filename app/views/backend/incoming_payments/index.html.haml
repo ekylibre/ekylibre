@@ -3,6 +3,12 @@
 = kujaku do |k|
   - k.text
   - k.choice :all, :not_received, :to_deposit_later, :to_deposit_now
+  - providers = IncomingPayment.providers_vendors
+  - if providers.any?
+    - k.helper do
+      %div.label-container
+        %label= IncomingPayment.human_attribute_name(:providers)
+      = select_tag(:provider, options_for_select([[]] + providers.map(&:capitalize), params[:provider].to_s))
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
 = main_list

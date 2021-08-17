@@ -62,6 +62,10 @@ module Backend
       code << "  c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{Sale.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -78,11 +82,13 @@ module Backend
       t.column :client, url: true
       t.column :responsible, hidden: true
       t.column :description, hidden: true
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', sort: :provider_vendor, hidden: true
       t.status
       t.column :state_label
       t.column :pretax_amount, currency: true, on_select: :sum
       t.column :amount, currency: true, on_select: :sum
       t.column :affair_balance, currency: true, on_select: :sum, hidden: true
+
     end
 
     # Displays the main page with the list of sales

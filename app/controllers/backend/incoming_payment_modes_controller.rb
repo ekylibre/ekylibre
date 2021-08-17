@@ -37,6 +37,7 @@ module Backend
       t.column :depositables_account, url: true, hidden: true
       t.column :depositables_journal, url: true, hidden: true
       t.column :with_commission
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
     end
 
     def reflect

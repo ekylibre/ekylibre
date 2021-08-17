@@ -94,6 +94,11 @@ module Backend
       code << "    c << params[:delay].to_i.to_s + ' days'\n"
       code << "  end\n"
       code << "end\n"
+
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{Entity.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -111,6 +116,7 @@ module Backend
       t.column :mail_line_3, through: :default_mail_address, hidden: true
       t.column :mail_line_4, through: :default_mail_address, hidden: true
       t.column :mail_line_5, through: :default_mail_address, hidden: true
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
       t.column :mail_line_6, through: :default_mail_address
       t.column :mail_country, label_method: :human_mail_country_name, through: :default_mail_address, hidden: true
       t.column :email, label_method: :coordinate, through: :default_email_address, hidden: true
