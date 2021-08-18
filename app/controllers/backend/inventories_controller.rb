@@ -59,7 +59,17 @@ module Backend
       return unless @inventory = find_and_check
 
       t3e @inventory
-      respond_with(@inventory, include: [:responsible, { items: { methods: :unit_name, include: %i[product container] } }])
+      respond_to do |format|
+        format.html
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later('Printers::InventorySheetPrinter', id: params[:id], template: template, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_inventory_path
+        }
+      end
+
     end
 
     list(:items, model: :inventory_items, conditions: { inventory_id: 'params[:id]'.c }, order: :id) do |t|
@@ -69,6 +79,7 @@ module Backend
       t.column :expected_population, precision: 3, class: 'left-align'
       t.column :actual_population, precision: 3, class: 'left-align'
       t.column :unit_name, through: :product, class: 'left-align'
+      t.column :container, url: true, hidden: true
     end
 
     def refresh
