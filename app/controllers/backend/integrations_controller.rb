@@ -41,12 +41,12 @@ module Backend
     def create
       @integration = resource_model.new(permitted_params)
       t3e(@integration.attributes.merge(name: @integration.name))
-      return if save_and_redirect(@integration, url: :backend_integrations)
+      return if save_and_redirect(@integration, url: backend_integrations_path)
 
       @integration.errors.full_messages.each do |message|
         notify_error message
       end
-      render(locals: { cancel_url: :backend_integrations })
+      render(locals: { cancel_url: backend_integrations_path })
     end
 
     def update
@@ -54,7 +54,7 @@ module Backend
 
       t3e(@integration.attributes.merge(name: @integration.name))
       @integration.attributes = permitted_params
-      redirect_url = params[:redirect] ||= :backend_integrations
+      redirect_url = params[:redirect] ||= backend_integrations_path
       return if save_and_redirect(@integration, url: redirect_url)
 
       @integration.errors.full_messages.each do |message|
