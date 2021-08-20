@@ -28,6 +28,10 @@ module Backend
     def edit
       return unless @integration = find_and_check(:integration)
 
+      if FinancialYearExchange.opened.present? && @integration.nature == "baqio"
+        notify_warning(:financial_year_exchange_open_baqio_integration.tl)
+      end
+
       t3e(@integration.attributes.merge(name: @integration.name))
       render(locals: { cancel_url: :back })
     end

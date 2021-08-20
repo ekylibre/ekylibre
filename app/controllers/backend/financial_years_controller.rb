@@ -137,6 +137,10 @@ module Backend
 
         format.json
       end
+
+      if FinancialYearExchange.opened.present? && Integration.find_by(nature: "baqio").present?
+        notify_warning(:financial_year_exchange_open_baqio.tl)
+      end
     end
 
     def new
