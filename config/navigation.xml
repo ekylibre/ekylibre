@@ -1200,7 +1200,7 @@
   </part>
   <part name="tools" icon="magic">
     <page to="backend/dashboards#tools"/>
-    <group name="exchange">
+    <group name="exchanges">
       <item name="imports">
         <page to="backend/imports#index"/>
         <page to="backend/imports#run"/>

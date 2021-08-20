@@ -343,7 +343,7 @@ fra:
     cutting: "Taille/Effeuillage"
     detach: "Détellage" #?
     detasseling: "Écimage"
-    direct_silage: "Ensilage direct"
+    direct_silage: "Ensilage"
     double_chemical_mixing: "Mélange d'intrants de protection des végétaux avec deux produits" #?
     double_food_mixing: "Mélange alimentaire avec deux ingrédients" #?
     double_seed_mixing: "Mélange de semences avec deux semences" #?
