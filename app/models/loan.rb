@@ -114,7 +114,7 @@ class Loan < ApplicationRecord
   end
 
   after_save do
-    generate_repayments
+    generate_repayments if draft?
     # if accountable_repayments_started_on, locked repayments before accountable_repayments_started_on
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
