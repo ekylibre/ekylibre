@@ -8,6 +8,6 @@
   .med-info
     %span.title= 'Source de données phytosanitaires'
     %p= 'Données E-Phy - ANSES'
-    %p= :updated_at.tl(date: @date)
+    %p= :updated_at.tl(date: @date&.to_date&.l(format: '%d/%m/%Y'))
   .med-info
     %span.title= "Je consulte les #{link_to('CGU', 'https://ekylibre.com/terms-of-use', target: '_blank', style: 'color:rgb(100, 148, 193)')} / #{link_to 'CGV', 'https://ekylibre.com/fra/conditions-of-sale', target: '_blank', style: 'color:rgb(100, 148, 193);'} de l'entreprise éditrice Ekylibre SAS".html_safe
