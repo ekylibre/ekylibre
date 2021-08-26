@@ -1095,7 +1095,7 @@ fra:
     csv_format: "Format CSV"
     fec_txt_format: "Format FEC TXT"
     fec_xml_format: "Format FEC XML"
-    cancel_with_voucher: "Annuler avec avoir"
+    cancel_with_voucher: "Faire un avoir"
     choose_entries_format_for_accountant: "Choisissez le format des écritures à envoyer au comptable"
     notify_accountant: "Notifier le comptable"
     journal_entries_export_file_generated: "Le fichier d'export des écritures comptables a été généré avec succès"
@@ -2641,12 +2641,13 @@ fra:
     pfi_activity: "IFT activité"
     pfi_activity_production: "IFT production (parcelle/culture)"
     pfi_dose: "Dose de référence (IFT)"
-    pfi_have_been_computed: "OK : les IFT ont été calculées"
-    pfi_have_not_been_computed: "Erreur : les IFT n'ont pas été calculées"
+    pfi_have_been_computed: "OK : les IFT ont été calculés"
+    pfi_have_not_been_computed: "Erreur : les IFT n'ont pas été calculés"
     pfi_interventions: "IFT"
     pfi_land_parcel: "IFT parcelle"
     pfi_parcel_ratio: "IFT parcelle"
     pfi_plant: "IFT culture"
+    pfi_report: "Bilan IFT"
     pfi_treatment_ratio: "IFT traitement"
     phone: "Tél." #?
     phosphorus_concentration: "Teneur en phosphore (P)"
@@ -3838,8 +3839,8 @@ fra:
       no_user_with_email: "Aucun utilisateur avec l'email '%{email}'"
       no_entity_with_email: "Aucun tiers avec l'email '%{email}'"
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
-      pfi_have_been_computed: "IFT calculées"
-      pfi_have_not_been_computed: "Erreur : IFT non calculées"
+      pfi_have_been_computed: "IFT calculés"
+      pfi_have_not_been_computed: "Erreur : IFT non calculés"
       please_contact_support_for_further_information: "%{message} Veuillez contacter le support pour plus d'informations."
       please_select_a_period_containing_journal_entries: "Veuillez sélectionner une période comportant des écritures comptables puis cliquer sur le bouton de recherche afin de pouvoir afficher ou exporter la balance."
       previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
@@ -3949,7 +3950,7 @@ fra:
       balance: "Balance" #?
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
-      cancel_with_voucher: "Annuler avec avoir"
+      cancel_with_voucher: "Faire un avoir"
       category: "Catégorie comptable" #?
       check: "Vérifier"
       children: "Enfant" #?
