@@ -46,7 +46,7 @@ module ActiveExchanger
       when :date
         Date.parse(value)
       when :us_date
-        Date.strptime(value, "%d/%m/%C")
+        Date.strptime(value, "%m/%d/%C")
       else
         value
       end
