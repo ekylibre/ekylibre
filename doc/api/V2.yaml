@@ -294,28 +294,6 @@ paths:
       security: []
       description: 'Returns a list of interventions you’ve previously created. '
     parameters: []
-  /plants:
-    get:
-      tags:
-        - Plants
-      summary: Plants
-      operationId: Getplants
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-        - $ref: '#/components/parameters/modified_since'
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Plant'
-      deprecated: false
-      security: []
-      description: 'Returns a list of plants with productions you’ve previously created. '
   /variants:
     get:
       tags:
@@ -512,6 +490,328 @@ paths:
         description: ''
       tags:
         - Users
+  /lexicon/registered_phytosanitary_cropsets:
+    get:
+      summary: List registered phytosanitary cropsets
+      tags:
+        - Registered phytosanitary cropset
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  updated_at:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryCropset'
+              examples:
+                Default response:
+                  value:
+                    updated_at: 22/06/2021
+                    data:
+                      - id: '30'
+                        name: ephy_raspberry_brush
+                        label:
+                          fra: Framboisier
+                        crop_names:
+                          - rubus
+                        crop_labels:
+                          fra: 'Framboisier, mûres (Rubus sp.), mûres des haies'
+                        record_checksum: 439258896
+                When modified_since bigger than updated_at:
+                  value:
+                    updated_at: 22/06/2021
+                    data: []
+                Default response with pagination:
+                  value:
+                    pagination:
+                      elements: 100
+                      page: 1
+                      total_elements: 78376
+                      page_count: 784
+                    updated_at: 22/06/2021
+                    data:
+                      - id: '30'
+                        name: ephy_raspberry_brush
+                        label:
+                          fra: Framboisier
+                        crop_names:
+                          - rubus
+                        crop_labels:
+                          fra: 'Framboisier, mûres (Rubus sp.), mûres des haies'
+                        record_checksum: 439258896
+      operationId: get-lexicon-registered_phytosanitary_cropsets
+      description: Returns a list of registered phytosanitary cropsets.
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/pagination'
+        - schema:
+            type: integer
+            default: 100
+          in: query
+          name: per_page
+          description: Determine the number of elements per page
+        - schema:
+            type: integer
+            default: 1
+          in: query
+          name: page
+          description: Select page
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/modified_since'
+  /lexicon/registered_phytosanitary_usages:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Registered phytosanitary usages
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  updated_at:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryUsage'
+              examples:
+                Default response with pagination:
+                  value:
+                    pagination:
+                      elements: 100
+                      page: 1
+                      total_elements: 783567
+                      page_count: 784
+                    updated_at: 22/06/2021
+                    data:
+                      - id: '20141124083922341465'
+                        product_id: 2180899
+                        ephy_usage_phrase: Vigne*Trt Part.Aer.*Mildiou(s)
+                        crop:
+                          fra: Vigne
+                        species:
+                          - vitis
+                        target_name:
+                          fra: Mildious
+                        description: null
+                        treatment:
+                          fra: Trt Part.Aer
+                        dose_quantity: '5.0'
+                        dose_unit: kilogram_per_square_meter
+                        dose_unit_name: kg/ha
+                        dose_unit_factor: 0.0001
+                        pre_harvest_delay: 1728000
+                        pre_harvest_delay_bbch: null
+                        applications_count: 2
+                        application_frequency: 691200
+                        development_stage_min: 66
+                        development_stage_max: 85
+                        usage_conditions: null
+                        untreated_buffer_aquatic: 50
+                        untreated_buffer_arthropod: null
+                        untreated_buffer_plants: null
+                        decision_date: '2018-12-28'
+                        state: authorized
+                        record_checksum: -1655317004
+                When modified_since bigger than updated_at:
+                  value:
+                    updated_at: 22/06/2021
+                    data: []
+      operationId: get-lexicon-registered_phytosanitary_usages
+      description: Returns a list of registered phytosanitary usages.
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+        - schema:
+            type: string
+            default: 'true'
+          in: query
+          name: paginate
+          description: Activate pagination ("true"/"false")
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: per_page
+          description: Determine the number of elements per page
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: Select page
+        - $ref: '#/components/parameters/modified_since'
+  /lexicon/registered_phytosanitary_risks:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Registered phytosanitary risks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  updated_at:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryRisk'
+              examples:
+                Default response with pagination:
+                  value:
+                    pagination:
+                      elements: 100
+                      page: 1
+                      total_elements: 783567
+                      page_count: 784
+                    updated_at: 22/06/2021
+                    data:
+                      - product_id: 2030302
+                        risk_code: R10
+                        risk_phrase: Inflammable
+                        record_checksum: 620049256
+                Default response:
+                  value:
+                    updated_at: 22/06/2021
+                    data:
+                      - product_id: 2030302
+                        risk_code: R10
+                        risk_phrase: Inflammable
+                        record_checksum: 620049256
+                When modified_since bigger than updated_at:
+                  value:
+                    updated_at: string
+                    data: []
+      operationId: get-lexicon-registered_phytosanitary_risks
+      description: 'Returns a list of registered phytosanitary risks. '
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/pagination'
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/modified_since'
+        - schema:
+            type: integer
+          in: query
+          name: per_page
+          description: Determine the number of elements per page
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: Select page
+  /lexicon/registered_phytosanitary_products:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  updated_at:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegisteredPhytosanitaryProducts'
+              examples:
+                Default response with pagination:
+                  value:
+                    pagination:
+                      elements: 100
+                      page: 1
+                      total_elements: 783567
+                      page_count: 784
+                    updated_at: 22/06/2021
+                    data:
+                      - id: 8800032
+                        reference_name: 8800032_heptafer_1
+                        name: HEPTAFER 1
+                        other_name: null
+                        natures: []
+                        active_compounds:
+                          - Iron sulphate 99.0 %
+                        france_maaid: '8800032'
+                        mix_category_codes:
+                          - 1
+                        in_field_reentry_delay: 21600
+                        state: withdrawn
+                        started_on: '1988-02-01'
+                        stopped_on: null
+                        allowed_mentions: null
+                        restricted_mentions: null
+                        operator_protection_mentions: null
+                        firm_name: SARVAL
+                        product_type: PPP
+                        record_checksum: -916011564
+                Default response:
+                  value:
+                    updated_at: 22/06/2021
+                    data:
+                      - id: 8800032
+                        reference_name: 8800032_heptafer_1
+                        name: HEPTAFER 1
+                        other_name: null
+                        natures: []
+                        active_compounds:
+                          - Iron sulphate 99.0 %
+                        france_maaid: '8800032'
+                        mix_category_codes:
+                          - 1
+                        in_field_reentry_delay: 21600
+                        state: withdrawn
+                        started_on: '1988-02-01'
+                        stopped_on: null
+                        allowed_mentions: null
+                        restricted_mentions: null
+                        operator_protection_mentions: null
+                        firm_name: SARVAL
+                        product_type: PPP
+                        record_checksum: -916011564
+                When modified_since bigger than updated_at:
+                  value:
+                    updated_at: string
+                    data: []
+      operationId: get-lexicon-registered_phytosanitary_products
+      description: 'Returns a list of registered phytosanitary products. '
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/pagination'
+        - schema:
+            type: string
+          in: query
+          name: per_page
+          description: Determine the number of elements per page
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: Select page
+        - $ref: '#/components/parameters/modified_since'
 components:
   schemas:
     InterventionCreate:
@@ -1092,73 +1392,6 @@ components:
           using_live_data: true
           applications_frequency: null
           specie_variety: {}
-    Plant:
-      description: ''
-      type: object
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-          minLength: 1
-        net_surface_area:
-          type: object
-          properties:
-            value:
-              type: string
-              minLength: 1
-            unit:
-              type: string
-              minLength: 1
-          required:
-            - value
-            - unit
-        variety:
-          type: string
-          minLength: 1
-        activity_id:
-          type: number
-        activity_name:
-          type: string
-          minLength: 1
-        production_started_on:
-          type: string
-          minLength: 1
-        production_stopped_on:
-          type: string
-          minLength: 1
-      required:
-        - id
-        - name
-        - net_surface_area
-        - variety
-        - activity_id
-        - activity_name
-        - production_started_on
-        - production_stopped_on
-      x-examples:
-        example-1:
-          id: 1270
-          name: Asperge A côté de la vigne Culture de blé n° 2
-          net_surface_area:
-            value: 7/20
-            unit: hectare
-          variety: triticum_aestivum
-          activity_id: 2
-          activity_name: Asperge2
-          production_started_on: '2021-03-17'
-          production_stopped_on: '2071-03-17'
-          value:
-            id: 1270
-            name: Asperge A côté de la vigne Culture de blé n° 2
-            net_surface_area:
-              value: 7/20
-              unit: hectare
-            variety: triticum_aestivum
-            activity_id: 2
-            activity_name: Asperge2
-            production_started_on: '2021-03-17'
-            production_stopped_on: '2071-03-17'
     Product:
       description: ''
       type: object
@@ -1414,6 +1647,264 @@ components:
           product_id: 1
           reference_name: doer
           _destroy: '1'
+    RegisteredPhytosanitaryCropset:
+      title: RegisteredPhytosanitaryCropset
+      type: object
+      x-examples:
+        example-1:
+          value:
+            id: '30'
+            name: ephy_raspberry_brush
+            label:
+              fra: Framboisier
+            crop_names:
+              - rubus
+            crop_labels:
+              fra: 'Framboisier, mûres (Rubus sp.), mûres des haies'
+            record_checksum: 439258896
+      description: ''
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        label:
+          type: object
+          properties:
+            fra:
+              type: string
+        crop_names:
+          type: array
+          items:
+            type: string
+        crop_labels:
+          type: object
+          properties:
+            fra:
+              type: string
+        record_checksum:
+          type: number
+    RegisteredPhytosanitaryRisk:
+      title: RegisteredPhytosanitaryRisk
+      type: object
+      x-examples:
+        example-1:
+          value:
+            product_id: 2030302
+            risk_code: R10
+            risk_phrase: Inflammable
+            record_checksum: 620049256
+      description: ''
+      x-tags:
+        - Registered phytosanitary risk
+      properties:
+        product_id:
+          type: number
+        risk_code:
+          type: string
+        risk_phrase:
+          type: string
+        record_checksum:
+          type: number
+    RegisteredPhytosanitaryUsage:
+      title: RegisteredPhytosanitaryUsage
+      type: object
+      x-examples:
+        example-1:
+          value:
+            id: '20141124083922341465'
+            product_id: 2180899
+            ephy_usage_phrase: Vigne*Trt Part.Aer.*Mildiou(s)
+            crop:
+              fra: Vigne
+            species:
+              - vitis
+            target_name:
+              fra: Mildious
+            description: null
+            treatment:
+              fra: Trt Part.Aer.
+            dose_quantity: '5.0'
+            dose_unit: kilogram_per_square_meter
+            dose_unit_name: kg/ha
+            dose_unit_factor: 0.0001
+            pre_harvest_delay: 1728000
+            pre_harvest_delay_bbch: null
+            applications_count: 2
+            application_frequency: 691200
+            development_stage_min: 66
+            development_stage_max: 85
+            usage_conditions: null
+            untreated_buffer_aquatic: 50
+            untreated_buffer_arthropod: null
+            untreated_buffer_plants: null
+            decision_date: '2018-12-28'
+            state: authorized
+            record_checksum: -1655317004
+      description: ''
+      x-tags:
+        - Registered phytosanitary usage
+      properties:
+        id:
+          type: string
+        product_id:
+          type: number
+        ephy_usage_phrase:
+          type: string
+        crop:
+          type: object
+          properties:
+            fra:
+              type: string
+        species:
+          type: array
+          items:
+            type: string
+        target_name:
+          type: object
+          properties:
+            fra:
+              type: string
+        description: {}
+        treatment:
+          type: object
+          properties:
+            fra:
+              type: string
+        dose_quantity:
+          type: string
+        dose_unit:
+          type: string
+        dose_unit_name:
+          type: string
+        dose_unit_factor:
+          type: number
+        pre_harvest_delay:
+          type: number
+          description: seconds
+        pre_harvest_delay_bbch:
+          type: number
+          description: seconds
+        applications_count:
+          type: number
+        application_frequency:
+          type: number
+        development_stage_min:
+          type: number
+        development_stage_max:
+          type: number
+        usage_conditions: {}
+        untreated_buffer_aquatic:
+          type: number
+        untreated_buffer_arthropod: {}
+        untreated_buffer_plants: {}
+        decision_date:
+          type: string
+        state:
+          type: string
+        record_checksum:
+          type: number
+    RegisteredPhytosanitaryProducts:
+      title: RegisteredPhytosanitaryProducts object
+      type: object
+      x-examples:
+        example-1:
+          value:
+            id: '20141124083922341465'
+            product_id: 2180899
+            ephy_usage_phrase: Vigne*Trt Part.Aer.*Mildiou(s)
+            crop:
+              fra: Vigne
+            species:
+              - vitis
+            target_name:
+              fra: Mildious
+            description: null
+            treatment:
+              fra: Trt Part.Aer.
+            dose_quantity: '5.0'
+            dose_unit: kilogram_per_square_meter
+            dose_unit_name: kg/ha
+            dose_unit_factor: 0.0001
+            pre_harvest_delay: 1728000
+            pre_harvest_delay_bbch: null
+            applications_count: 2
+            application_frequency: 691200
+            development_stage_min: 66
+            development_stage_max: 85
+            usage_conditions: null
+            untreated_buffer_aquatic: 50
+            untreated_buffer_arthropod: null
+            untreated_buffer_plants: null
+            decision_date: '2018-12-28'
+            state: authorized
+            record_checksum: -1655317004
+      description: ''
+      x-tags:
+        - Registered phytosanitary products
+      properties:
+        id:
+          type: number
+        reference_name:
+          type: string
+        name:
+          type: string
+        other_name:
+          type: string
+        natures:
+          type: array
+          items:
+            type: string
+        active_compounds:
+          type: array
+          items:
+            type: string
+        france_maaid:
+          type: string
+        mix_category_codes:
+          type: array
+          items:
+            type: number
+        in_field_reentry_delay:
+          type: number
+          description: seconds
+        state:
+          type: string
+        started_on:
+          type: string
+        stopped_on:
+          type: string
+        allowed_mentions: {}
+        restricted_mentions: {}
+        operator_protection_mentions: {}
+        firm_name:
+          type: string
+        product_type:
+          type: string
+        record_checksum:
+          type: number
+    Pagination:
+      title: Pagination object
+      type: object
+      x-examples:
+        example-1:
+          value:
+            elements: 100
+            page: 1
+            total_elements: 78340
+            page_count: 784
+      description: ''
+      x-tags:
+        - Registered phytosanitary products
+      properties:
+        elements:
+          type: number
+        page:
+          type: number
+        total_elements:
+          type: number
+        page_count:
+          type: number
   responses:
     Created:
       description: Resource successfully created
@@ -1511,6 +2002,13 @@ components:
         format: date
         example: 27/02/2021
       description: modified since
+    pagination:
+      name: paginate
+      in: query
+      schema:
+        type: string
+        default: 'true'
+      description: Activate pagination ("true"/"false")
 tags:
   - name: Auth
   - name: Interventions

@@ -210,6 +210,7 @@
     "datasource_credits":{
       "name":"datasource_credits",
       "structure":"datasource_credits__structure.sql",
+      "data":"datasource_credits.sql",
       "tables":[
         "datasource_credits"
       ]
