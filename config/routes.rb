@@ -118,9 +118,14 @@ Rails.application.routes.draw do
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
       resources :variants, only: %i[index]
-      resources :plants, only: %i[index]
       get 'profile', to: 'users#show'
       put 'profile', to: 'users#update'
+      namespace :lexicon do
+        resources :registered_phytosanitary_cropsets, only: %i[index create]
+        resources :registered_phytosanitary_risks, only: %i[index create]
+        resources :registered_phytosanitary_usages, only: %i[index create]
+        resources :registered_phytosanitary_products, only: %i[index create]
+      end
     end
   end
 
