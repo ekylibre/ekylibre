@@ -28,6 +28,27 @@ module Printers
       self.class.build_key(id: @id, updated_at: @inventory.updated_at.to_s)
     end
 
+    def is_depreciable?(product, choice)
+      if choice == "unit_value"
+        product.category.depreciable? ? "-" : product.unit_pretax_stock_amount
+      elsif choice == "total_value"
+        product.category.depreciable? ? "-" : product.actual_pretax_stock_amount
+      end
+    end
+
+    def total_amount(products)
+      if products.present?
+        products.map do |product|
+          if product[:total_value].is_a? String
+            product[:total_value]= 0.0
+          end
+        end
+        products.map{|product| product[:total_value]}.sum.round_l
+      else
+        0.00.round_l
+      end
+    end
+
     def compute_dataset
 
       #  Create Zones
@@ -43,18 +64,21 @@ module Printers
                 actual: item.actual_population,
                 expected: item.expected_population,
                 unity: product.variant.unit_name,
-                unit_value: item.unit_pretax_stock_amount,
-                total_value: item.actual_pretax_stock_amount
+                unit_value: is_depreciable?(item, "unit_value"),
+                total_value: is_depreciable?(item, "total_value")
               }
             end
           end
         end
         products_sorted = products_items.compact.sort_by{|product| product[:type] }
+
+        next if !products_sorted.present?
+
         {
           name: zone.name,
           products: products_sorted
         }
-      end
+      end.compact
 
       if @item_undefined_container.any?
         products_items = @item_undefined_container.map do |item|
@@ -64,8 +88,8 @@ module Printers
             actual: item.actual_population,
             expected: item.expected_population,
             unity: item.product.variant.unit_name,
-            unit_value: item.unit_pretax_stock_amount,
-            total_value: item.actual_pretax_stock_amount
+            unit_value: is_depreciable?(item, "unit_value"),
+            total_value: is_depreciable?(item, "total_value")
           }
         end
         products_sorted = products_items.compact.sort_by{|product| product[:type] }
@@ -97,14 +121,14 @@ module Printers
       r.add_section('Section-zone', dataset.fetch(:zones)) do |sz|
         sz.add_field(:building_zone_name) { |zone| zone[:name] }
         sz.add_field(:item_count) {|zone| zone[:products].size}
-        sz.add_field(:amount) {|zone| zone[:products].map{|product| product[:total_value]}.sum.round_l << currency}
+        sz.add_field(:amount) {|zone| total_amount(zone[:products]) << currency}
         sz.add_table('Table_inventory_items', :products, header: true) do |t|
           t.add_field(:item_name) { |product| product[:name] }
           t.add_field(:item_type) { |product| product[:type] }
           t.add_field(:item_quantity_before) { |product| "#{product[:expected]} #{product[:unity]}" }
           t.add_field(:item_quantity_after) { |product| "#{product[:actual]} #{product[:unity]}"}
-          t.add_field(:item_unit_cost) { |product| product[:unit_value].round_l << currency }
-          t.add_field(:item_total_cost) { |product| product[:total_value].round_l << currency }
+          t.add_field(:item_unit_cost) { |product| product[:unit_value].instance_of?(String) ? product[:unit_value] : product[:unit_value].round_l << currency }
+          t.add_field(:item_total_cost) { |product| product[:total_value].instance_of?(String) ? product[:total_value] : product[:total_value].round_l << currency }
         end
       end
 
