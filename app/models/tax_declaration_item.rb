@@ -130,6 +130,8 @@ class TaxDeclarationItem < ApplicationRecord
 
     def generate_payment_parts
       tax_account_ids_by_direction.each do |direction, account_id|
+        next if account_id.nil?
+
         generate_payments_parts_for_direction_and_account_id(direction, account_id)
       end
     end
@@ -170,9 +172,10 @@ class TaxDeclarationItem < ApplicationRecord
       end
 
       # select jei (purchase_item / sale_item or other correponding to vat line)
-      # inner join iljei for letter presence on 401/411 lines
-      # inner join tjei for 401/411 lines presence on other lines in payments | total
-      # inner join pjei
+      # inner join iljei for letter presence on 401/411 lines and not tax line evenif a letter is present
+      # inner join tjei from iljei(401/411) to known total balance of tax in entry
+      # inner join pjei from iljei(401/411) to know how much is paid in entry
+      # join declared from jei for tax already in vat declaration
 
       sql = <<-SQL
       SELECT     jei.id AS journal_entry_item_id,
@@ -185,6 +188,7 @@ class TaxDeclarationItem < ApplicationRecord
 
       INNER JOIN journal_entry_items iljei ON
                    iljei.entry_id = jei.entry_id
+                   AND iljei.tax_id IS NULL
                    AND LENGTH(TRIM(iljei.letter)) > 0
 
       INNER JOIN (
@@ -224,7 +228,9 @@ class TaxDeclarationItem < ApplicationRecord
 
       WHERE #{TaxDeclarationItem.send(:sanitize_sql_for_conditions, conditions)}
       GROUP BY jei.id, total.balance, declared.tax_amount, declared.pretax_amount
-      HAVING (total.balance != 0.0 AND ROUND(((#{balance}) * SUM(#{paid_balance}) / total.balance), 2) - COALESCE(declared.tax_amount, 0) != 0.0)
+      HAVING (total.balance != 0.0
+        AND ROUND(((#{balance}) * SUM(#{paid_balance}) / total.balance), 2) - COALESCE(declared.tax_amount, 0) != 0.0
+      )
       SQL
 
       part_rows = ApplicationRecord.connection.execute(sql)
