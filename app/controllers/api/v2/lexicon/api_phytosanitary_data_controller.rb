@@ -11,7 +11,7 @@ module Api
           end
 
           def phytosanitary_updated_since?(date)
-            date && phytosanitary_updated_at && (phytosanitary_updated_at.to_date <= date.to_date)
+            date.present? && phytosanitary_updated_at.present? && (phytosanitary_updated_at.to_date <= date.to_date)
           end
 
           def quote(str)

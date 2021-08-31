@@ -568,7 +568,7 @@ paths:
         - $ref: '#/components/parameters/modified_since'
   /lexicon/registered_phytosanitary_usages:
     get:
-      summary: Your GET endpoint
+      summary: List registered phytosanitary usages
       tags:
         - Registered phytosanitary usages
       responses:
@@ -655,7 +655,7 @@ paths:
         - $ref: '#/components/parameters/modified_since'
   /lexicon/registered_phytosanitary_risks:
     get:
-      summary: Your GET endpoint
+      summary: List registered phytosanitary risks
       tags:
         - Registered phytosanitary risks
       responses:
@@ -719,8 +719,9 @@ paths:
           description: Select page
   /lexicon/registered_phytosanitary_products:
     get:
-      summary: Your GET endpoint
-      tags: []
+      summary: List registered phytosanitary products
+      tags:
+        - Registered phytosanitary products
       responses:
         '200':
           description: OK
@@ -1684,6 +1685,8 @@ components:
               type: string
         record_checksum:
           type: number
+      x-tags:
+        - Registered phytosanitary cropsets
     RegisteredPhytosanitaryRisk:
       title: RegisteredPhytosanitaryRisk
       type: object
@@ -1696,7 +1699,7 @@ components:
             record_checksum: 620049256
       description: ''
       x-tags:
-        - Registered phytosanitary risk
+        - Registered phytosanitary risks
       properties:
         product_id:
           type: number
@@ -1742,8 +1745,6 @@ components:
             state: authorized
             record_checksum: -1655317004
       description: ''
-      x-tags:
-        - Registered phytosanitary usage
       properties:
         id:
           type: string
@@ -1804,6 +1805,8 @@ components:
           type: string
         record_checksum:
           type: number
+      x-tags:
+        - Registered phytosanitary usages
     RegisteredPhytosanitaryProducts:
       title: RegisteredPhytosanitaryProducts object
       type: object
@@ -1894,8 +1897,6 @@ components:
             total_elements: 78340
             page_count: 784
       description: ''
-      x-tags:
-        - Registered phytosanitary products
       properties:
         elements:
           type: number
