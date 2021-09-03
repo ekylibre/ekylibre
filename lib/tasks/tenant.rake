@@ -32,6 +32,9 @@ namespace :tenant do
     # Set Stripe preferences if exists
     if ENV['CUS_ID'] && ENV['SUB_ID']
       Ekylibre::Tenant.switch(name) do
+        # Add default map layers
+        MapLayer.load_defaults
+
         Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string)
         Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string)
       end
@@ -56,6 +59,8 @@ namespace :tenant do
       currency = Onoma::Currency.find(ENV['CURRENCY'])
       Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
+      # Add default map layers
+      MapLayer.load_defaults
       # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
       user = User.find_by(email: email)
