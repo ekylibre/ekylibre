@@ -44,6 +44,7 @@
             "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels" },
             "land_parcel": { "create_modal": { "title": "Choose an activity" } },
             "leaflet": {
+                "cut": { "panel": { "coordinatesProperty": "Coordinates", "surfacesProperty": "Surfaces", "title": "Plot splitting" } },
                 "draw": {
                     "handlers": {
                         "circle": { "tooltip": { "start": "Click and drag to draw circle." } },
@@ -67,6 +68,7 @@
                         "rectangle": { "tooltip": { "start": "Click and drag to draw rectangle." } },
                         "simpleshape": { "tooltip": { "end": "Release mouse to finish drawing." } }
                     },
+                    "panel": { "coordinatesProperty": "Coordinates", "title": "Creation" },
                     "toolbar": {
                         "actions": { "text": "Cancel", "title": "Cancel drawing" },
                         "buttons": {
@@ -86,6 +88,7 @@
                         },
                         "remove": { "tooltip": { "text": "Click on a feature to remove" } }
                     },
+                    "panel": { "title": "Editing" },
                     "toolbar": {
                         "actions": {
                             "cancel": { "text": "Cancel", "title": "Cancel editing, discards all changes" },
@@ -100,35 +103,51 @@
                         }
                     }
                 },
+                "fullscreenControl": { "title": "Fullscreen", "titleCancel": "Exit fullscreen mode" },
                 "fullscreenTitle": "Full Screen",
+                "importer": { "buttonTitle": "Import", "cancelText": "Cancel", "title": "Importer" },
                 "importerButtonTitle": "Import",
                 "interactive_maps": "A JS library for interactive maps",
-                "zoomGuidance": "Insufficient zoom level",
+                "locking": {
+                    "from_date_html": "from {{from}}\u003cbr\u003e({{production}})",
+                    "from_to_date_html": "from {{from}} to {{to}}\u003cbr\u003e({{production}})",
+                    "label_html": "\u003cp class='title'\u003eUnavailable\u003c/p\u003e\u003cp\u003e{{content}}\u003c/p\u003e",
+                    "to_date_html": "until {{to}}\u003cbr\u003e({{production}})"
+                },
+                "merge": { "panel": { "title": "Plot merging" } },
+                "snap": { "panel": { "surfaceProperty": "Surface" } },
+                "split": {
+                    "handlers": {
+                        "cut": {
+                            "tooltip": { "subtext": "Click cancel to undo changes", "text": "Drag handles, or marker to edit feature" }
+                        },
+                        "remove": { "tooltip": { "text": "Click on a feature to remove" } }
+                    },
+                    "toolbar": {
+                        "actions": {
+                            "cancel": { "text": "Cancel", "title": "Cancel splitting, discards all changes" },
+                            "save": { "text": "Save", "title": "Save changes" }
+                        },
+                        "buttons": { "cutPolyline": "Split a plot" }
+                    }
+                },
+                "zoom": { "zoomInTitle": "Zoom in", "zoomOutTitle": "Zoom out" }
+            },
+            "levels": { "error": "Error!" },
+            "messages": {
+                "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below.",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
-            },
-            "notifications": {
-                "levels": { "error": "Error!" },
-                "messages": {
-                    "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below."
-                }
             },
             "production": {
                 "start_state_of_production": {
                     "n_2_3_leaf": "N+2 (3rd leaf)",
                     "n_3_4_leaf": "N+3 (2nd leaf)",
                     "n_4_5_leaf": "N+4 (5th leaf)"
-                }
-            },
-            "templates": {
-                "actions": { "edit": "Edit", "regroup": "Group", "split": "Split" },
-                "form": {
-                    "calculated_area": "Calculated area",
-                    "land_parcel": "Land parcel",
-                    "name": "Name",
-                    "required": "required",
-                    "vine_variety_name": "Variety of vine"
-                }
+                },
+                "zoomGuidance": "Insufficient zoom level",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
             },
             "unroll": { "server_error": "Server error" }
         },
@@ -179,18 +198,26 @@
             "order": ["day", "month", "year"]
         },
         "front-end": {
-            "active_list": { "labels": { "edit": "Modifier", "manage_land_parcels": "Gérer le parcellaire", "not_defined": "A définir" } },
+            "active_list": {
+                "labels": { "edit": "Modifier", "manage_land_parcels": "Gérer le parcellaire", "not_defined": "A définir" },
+                "zoomGuidance": "Niveau de zoom insuffisant",
+                "zoomInTitle": "Zoomer",
+                "zoomOutTitle": "Dézoomer"
+            },
             "bank_reconciliation": { "remove": "Effacer" },
             "intervention": {
                 "nature": {
                     "add_two_hours": "Ajouter 2h dans le cas d'une application en milieu fermé",
                     "harvest": "Récolte :",
-                    "reentry": "Ré-entrée :"
+                    "reentry": "Réentrée :"
                 }
             },
             "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales" },
             "land_parcel": { "create_modal": { "title": "Choisir une activité" } },
             "leaflet": {
+                "cut": {
+                    "panel": { "coordinatesProperty": "Coordonnées", "surfacesProperty": "Surfaces", "title": "Découpe de parcelles" }
+                },
                 "draw": {
                     "handlers": {
                         "circle": { "tooltip": { "start": "Cliquez et déplacez pour dessiner un cercle." } },
@@ -214,6 +241,7 @@
                         "rectangle": { "tooltip": { "start": "Cliquez et déplacez pour dessiner un rectangle." } },
                         "simpleshape": { "tooltip": { "end": "Relachez la souris pour finir de dessiner." } }
                     },
+                    "panel": { "coordinatesProperty": "Coordonnées", "title": "Création" },
                     "toolbar": {
                         "actions": { "text": "Annuler", "title": "Annulez le dessin" },
                         "buttons": {
@@ -237,10 +265,11 @@
                         },
                         "remove": { "tooltip": { "text": "Cliquez sur l’objet à enlever" } }
                     },
+                    "panel": { "title": "Edition" },
                     "toolbar": {
                         "actions": {
                             "cancel": { "text": "Annuler", "title": "Annulez l’édition, ignorer tous les changements" },
-                            "clearAll": { "text": "Supprimer", "title": "Supprimer toutes les couches" },
+                            "clearAll": { "text": "Tout effacer", "title": "Effacez toutes les couches" },
                             "save": { "text": "Sauver", "title": "Sauvegardez les changements" }
                         },
                         "buttons": {
@@ -251,36 +280,58 @@
                         }
                     }
                 },
+                "fullscreenControl": { "title": "Plein écran", "titleCancel": "Quitter le mode plein écran" },
                 "fullscreenTitle": "Plein écran",
                 "home": { "toolbar": { "buttons": { "home": "Centrer" } } },
+                "importer": { "buttonTitle": "Importer", "cancelText": "Annuler", "title": "Importer" },
                 "importerButtonTitle": "Importer",
                 "interactive_maps": "Une librairie JavaScript pour des cartes interactives",
-                "zoomGuidance": "Niveau de zoom insuffisant",
-                "zoomInTitle": "Zoomer",
-                "zoomOutTitle": "Dézoomer"
+                "locking": {
+                    "from_date_html": "à partir du {{from}}\u003cbr\u003e({{production}})",
+                    "from_to_date_html": "du {{from}} au {{to}}\u003cbr\u003e({{production}})",
+                    "label_html": "\u003cp class='title'\u003eIndisponible\u003c/p\u003e\u003cp\u003e{{content}}\u003c/p\u003e",
+                    "to_date_html": "jusqu'au {{to}}\u003cbr\u003e({{production}})"
+                },
+                "merge": { "panel": { "title": "Fusion de parcelles" } },
+                "snap": { "panel": { "surfaceProperty": "Surface" } },
+                "split": {
+                    "handlers": {
+                        "cut": { "tooltip": { "subtext": "Annuler les changements", "text": "Drag handles, or marker to edit feature" } },
+                        "remove": { "tooltip": { "text": "Click on a feature to remove" } }
+                    },
+                    "toolbar": {
+                        "actions": {
+                            "cancel": { "text": "Annuler", "title": "Annuler les changements" },
+                            "save": { "text": "Sauver", "title": "Sauver les changements" }
+                        },
+                        "buttons": { "cutPolyline": "Découper une parcelle" }
+                    }
+                },
+                "zoom": { "zoomInTitle": "Zoomer", "zoomOutTitle": "Dézoomer" }
+            },
+            "levels": { "error": "Error!" },
+            "messages": {
+                "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below.",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
             },
             "notifications": {
                 "levels": { "error": "Erreur !" },
                 "messages": {
                     "unvalid_cvi_cadastral_plant": "Au moins une référence de parcelle cadastrale n'a pas été reconnue. Veuillez corriger ou supprimer la/les référence(s) identifiée(s) en rouge."
-                }
+                },
+                "zoomInTitle": "Zoomer",
+                "zoomOutTitle": "Dézoomer"
             },
             "production": {
                 "start_state_of_production": {
                     "n_2_3_leaf": "N+2 (3ème feuille)",
                     "n_3_4_leaf": "N+3 (4ème feuille)",
                     "n_4_5_leaf": "N+4 (5ème feuille"
-                }
-            },
-            "templates": {
-                "actions": { "edit": "Modifier", "regroup": "Regrouper", "split": "Dissocier" },
-                "form": {
-                    "calculated_area": "Superficie calculée",
-                    "land_parcel": "Parcelle",
-                    "name": "Nom",
-                    "required": "Obligatoire",
-                    "vine_variety_name": "Cépage"
-                }
+                },
+                "zoomGuidance": "Insufficient zoom level",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
             },
             "unroll": { "server_error": "Erreur serveur" }
         },

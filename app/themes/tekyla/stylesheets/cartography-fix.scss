@@ -1,0 +1,41 @@
+.leaflet-touch {
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+        font-size: 0px;
+    }
+}
+
+.leaflet-control-zoom-in:before,
+.leaflet-control-zoom-out:before {
+    font-size: 24px;
+}
+
+.leaflet-control-container .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.leaflet-control-container .sr-only-focusable:active,
+.leaflet-control-container .sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+    width: 30px;
+    height: 30px;
+}
+
+[data-cvi-cartography] .reactive-measure-control {
+    display: none;
+}

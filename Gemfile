@@ -171,6 +171,10 @@ gem 'rest-client', '~> 2.0', require: false
 gem 'rubyntlm', '>= 0.3.2'
 gem 'savon', '~> 2.12'
 
+# Using git until we have a proper release system for cartography
+gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
+# gem 'cartography', path: '../cartography'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn', '~> 5.8'

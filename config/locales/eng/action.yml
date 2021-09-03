@@ -1336,6 +1336,14 @@ eng:
           title: "Choose an activity"
     leaflet:
       interactive_maps: "A JS library for interactive maps"
+      fullscreenControl: 
+        title: 'Fullscreen'
+        titleCancel: 'Exit fullscreen mode'
+      cut:
+        panel:
+          coordinatesProperty: "Coordinates"
+          surfacesProperty: "Surfaces"
+          title: "Plot splitting"
       draw:
         handlers:
           circle:
@@ -1364,6 +1372,9 @@ eng:
           simpleshape:
             tooltip:
               end: "Release mouse to finish drawing."
+        panel:
+          coordinatesProperty: "Coordinates"
+          title: "Creation"
         toolbar:
           actions:
             text: "Cancel"
@@ -1386,6 +1397,8 @@ eng:
           remove:
             tooltip:
               text: "Click on a feature to remove"
+        panel:
+          title: "Editing"
         toolbar:
           actions:
             cancel:
@@ -1404,6 +1417,66 @@ eng:
             removeDisabled: "No layers to delete"
       fullscreenTitle: "Full Screen"
       importerButtonTitle: "Import"
+      locking:
+        from_date_html: "from {{from}}<br>({{production}})"
+        from_to_date_html: "from {{from}} to {{to}}<br>({{production}})"
+        label_html: "<p class='title'>Unavailable</p><p>{{content}}</p>"
+        to_date_html: "until {{to}}<br>({{production}})"
+      merge:
+        panel:
+          title: "Plot merging"
+      snap:
+        panel:
+          surfaceProperty: "Surface"
+      split:
+        handlers:
+          cut:
+            tooltip:
+              subtext: "Click cancel to undo changes"
+              text: "Drag handles, or marker to edit feature"
+          remove:
+            tooltip:
+              text: "Click on a feature to remove"
+        toolbar:
+          actions:
+            cancel:
+              text: "Cancel"
+              title: "Cancel splitting, discards all changes"
+            save:
+              text: "Save"
+              title: "Save changes"
+          buttons:
+            cutPolyline: "Split a plot"
+      zoom:
+        zoomInTitle: "Zoom in"
+        zoomOutTitle: "Zoom out"
+      importer:
+        title: "Importer"
+        buttonTitle: "Import"
+        cancelText: 'Cancel'
+    labels:
+      cadastral_land_parcel_zones: 'Cadastral land parcels'
+    levels:
+      error: "Error!"
+    messages:
+      unvalid_cvi_cadastral_plant: "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below."
+      zoomInTitle: "Zoom in"
+      zoomOutTitle: "Zoom out"
+    active_list:
+      labels:
+        manage_land_parcels: "Manage land parcels"
+        edit: "Edit"
+        not_defined: "To define"
+    intervention:
+      nature:
+        harvest: "Harvest:"
+        reentry: "Reentry:"
+        add_two_hours: "Add two hours if application happened in a close area"
+    production:
+      start_state_of_production:
+        n_3_4_leaf: "N+3 (2nd leaf)"
+        n_2_3_leaf: "N+2 (3rd leaf)"
+        n_4_5_leaf: "N+4 (5th leaf)"
       zoomGuidance: "Insufficient zoom level"
       zoomInTitle: "Zoom in"
       zoomOutTitle: "Zoom out"

@@ -997,6 +997,14 @@ fra:
         title: "Choisir une activité"
     leaflet:
       interactive_maps: "Une librairie JavaScript pour des cartes interactives"
+      fullscreenControl: 
+        title: 'Plein écran'
+        titleCancel: 'Quitter le mode plein écran'
+      cut:
+        panel:
+          coordinatesProperty: "Coordonnées"
+          surfacesProperty: "Surfaces"
+          title: "Découpe de parcelles"
       draw:
         handlers:
           circle:
@@ -1025,6 +1033,10 @@ fra:
           simpleshape:
             tooltip:
               end: "Relachez la souris pour finir de dessiner."
+
+        panel:
+          coordinatesProperty: "Coordonnées"
+          title: "Création"
         toolbar:
           actions:
             text: "Annuler"
@@ -1050,6 +1062,8 @@ fra:
           remove:
             tooltip:
               text: "Cliquez sur l’objet à enlever"
+        panel:
+          title: "Edition"
         toolbar:
           actions:
             cancel:
@@ -1061,6 +1075,8 @@ fra:
             clearAll:
               text: "Supprimer"
               title: "Supprimer toutes les couches"
+              text: "Tout effacer"
+              title: "Effacez toutes les couches"
           buttons:
             edit: "Editer les couches"
             editDisabled: "Pas de couches à éditer"
@@ -1068,6 +1084,74 @@ fra:
             removeDisabled: "Pas de couches à supprimer"
       fullscreenTitle: "Plein écran"
       importerButtonTitle: "Importer"
+      home:
+        toolbar:
+          buttons:
+            home: "Centrer"
+      importer:
+        title: "Importer"
+        buttonTitle: "Importer"
+        cancelText: 'Annuler'
+      locking:
+        from_date_html: "à partir du {{from}}<br>({{production}})"
+        from_to_date_html: "du {{from}} au {{to}}<br>({{production}})"
+        label_html: "<p class='title'>Indisponible</p><p>{{content}}</p>"
+        to_date_html: "jusqu'au {{to}}<br>({{production}})"
+      merge:
+        panel:
+          title: "Fusion de parcelles"
+      snap:
+        panel:
+          surfaceProperty: "Surface"
+      split:
+        handlers:
+          cut:
+            tooltip:
+              subtext: "Annuler les changements"
+              text: "Drag handles, or marker to edit feature"
+          remove:
+            tooltip:
+              text: "Click on a feature to remove"
+        toolbar:
+          actions:
+            cancel:
+              text: "Annuler"
+              title: "Annuler les changements"
+            save:
+              text: "Sauver"
+              title: "Sauver les changements"
+          buttons:
+            cutPolyline: "Découper une parcelle"
+      zoom:
+        zoomInTitle: "Zoomer"
+        zoomOutTitle: "Dézoomer"
+    labels:
+      cadastral_land_parcel_zones: 'Parcelles cadastrales'
+    levels:
+      # error: "Error!"
+    messages:
+    notifications: #?
+      levels: #?
+        error: "Erreur\_!" #?
+      messages: #?
+        unvalid_cvi_cadastral_plant: "Au moins une référence de parcelle cadastrale n'a pas été reconnue. Veuillez corriger ou supprimer la/les référence(s) identifiée(s) en rouge." #?
+      zoomInTitle: "Zoomer"
+      zoomOutTitle: "Dézoomer"
+    intervention:
+      nature:
+        harvest: "Récolte :"
+        reentry: "Réentrée :"
+        add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
+    production:
+      start_state_of_production:
+        n_3_4_leaf: "N+3 (4ème feuille)"
+        n_2_3_leaf: "N+2 (3ème feuille)"
+        n_4_5_leaf: "N+4 (5ème feuille"
+    active_list:
+      labels:
+        manage_land_parcels: "Gérer le parcellaire"
+        edit: "Modifier"
+        not_defined: "A définir"
       zoomGuidance: "Niveau de zoom insuffisant"
       zoomInTitle: "Zoomer"
       zoomOutTitle: "Dézoomer"
