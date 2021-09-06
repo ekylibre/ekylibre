@@ -89,7 +89,7 @@ class Intervention < ApplicationRecord
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
   has_many :intervention_crop_groups, dependent: :destroy
   has_many :crop_groups, through: :intervention_crop_groups
-  has_many :rides
+  has_many :rides, dependent: :nullify
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -133,6 +133,8 @@ class Intervention < ApplicationRecord
   acts_as_numbered unless: :run_sequence
 
   before_validation :set_number, on: :create
+
+  before_destroy :unset_rides, prepend: true
 
   def set_number
     self.number = request_intervention.number if request_intervention.present?
@@ -1076,6 +1078,12 @@ class Intervention < ApplicationRecord
 
   private def during_financial_year_exchange?
     FinancialYearExchange.opened.at(printed_at).exists?
+  end
+
+  private def unset_rides
+    rides.each do |ride|
+      ride.update(state: "unaffected")
+    end
   end
 
   class << self
