@@ -69,6 +69,10 @@ class RegisteredPhytosanitaryProduct < LexiconRecord
     true
   end
 
+  def adjuvant?
+    product_type == "ADJUVANT"
+  end
+
   def source_nature
     :chemical
   end
