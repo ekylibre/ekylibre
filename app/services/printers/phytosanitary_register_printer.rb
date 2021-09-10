@@ -125,9 +125,9 @@ module Printers
 
     def production_nature(production)
       if (nature = production.production_nature).present?
-        nature.human_name_fra
+        nature.translation.fra
       elsif (nature = production.activity.production_nature).present?
-        nature.human_name_fra
+        nature.translation.fra
       else
         "-"
       end

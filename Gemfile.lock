@@ -22,6 +22,13 @@ GIT
       rubyzip (>= 1.0)
 
 GIT
+  remote: https://gitlab.com/ekylibre/cartography.git
+  revision: 0a0cf526fd96c64f31236449743755435476d8a4
+  branch: eky
+  specs:
+    cartography (0.0.1)
+
+GIT
   remote: https://gitlab.com/ekylibre/eky-possibly.git
   revision: 483d102852e2ab8fcbf695b9e25a40902302a593
   tag: v3.1.1
@@ -45,6 +52,12 @@ GIT
   specs:
     xml_errors_parser (0.0.3)
       i18n
+
+PATH
+  remote: ../ekylibre-hajimari
+  specs:
+    hajimari (2.0.0)
+      mechanize (~> 2.7)
 
 GEM
   remote: https://rubygems.org/
@@ -679,6 +692,7 @@ DEPENDENCIES
   bootstrap-slider-rails (~> 9.8)
   browser (~> 5.2)
   bullet (< 5.6.0)
+  cartography!
   charlock_holmes (~> 0.7.7)
   charta (~> 0.3.0)
   cocoon (~> 1.2)
@@ -705,6 +719,7 @@ DEPENDENCIES
   geocoder (~> 1.6)
   git (~> 1.8)
   gpgme (~> 2.0)
+  hajimari!
   haml (~> 5.2)
   holidays
   http_accept_language (~> 2.1)

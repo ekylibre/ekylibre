@@ -46,6 +46,8 @@
 @import "intervention_participations";
 @import "leaflet/dist/leaflet";
 @import "leaflet-draw/dist/leaflet.draw";
+@import "cartography";
+@import "cartography-fix";
 @import "leaflet-legends";
 @import "leaflet-custom";
 @import "leaflet-ghost-label";
@@ -77,7 +79,6 @@
 
 @import "./components/index";
 @import "./components/spinner";
-
 
 // Optimization
 @import "symbolic_icons";

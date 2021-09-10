@@ -54,8 +54,10 @@
 //= require leaflet/measure
 //= require leaflet/easy-button
 //= require leaflet/modal
-//= require plugins
 //= require map_draw_i18n
+//= require eky-cartography.js
+//= require cartography/map
+//= require plugins
 //= require_tree .
 //= require tour
 //= require bootstrap-slider

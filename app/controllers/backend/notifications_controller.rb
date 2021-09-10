@@ -38,7 +38,7 @@ module Backend
         }
         render json: response.to_json
       else
-        @notifications = Notification.order(created_at: :desc)
+        @notifications = current_user.notifications.order(created_at: :desc)
       end
     end
 
