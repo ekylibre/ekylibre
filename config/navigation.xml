@@ -625,6 +625,15 @@
         <page to="backend/inventories#unroll"/>
         <page to="backend/inventories#update"/>
       </item>
+      <item name="conditionings">
+        <page to="backend/conditionings#index"/>
+        <page to="backend/conditionings#new"/>
+        <page to="backend/conditionings#create"/>
+        <page to="backend/conditionings#edit"/>
+        <page to="backend/conditionings#update"/>
+        <page to="backend/conditionings#destroy"/>
+        <page to="backend/conditionings#show"/>
+      </item>
       <item name="building_divisions">
         <page to="backend/building_divisions#index"/>
         <page to="backend/building_divisions#create"/>
@@ -1599,6 +1608,15 @@
         <page to="backend/catalog_items#show"/>
         <page to="backend/catalog_items#unroll"/>
         <page to="backend/catalog_items#update"/>
+      </item>
+      <item name="reference_units">
+        <page to="backend/reference_units#index"/>
+        <page to="backend/reference_units#new"/>
+        <page to="backend/reference_units#create"/>
+        <page to="backend/reference_units#edit"/>
+        <page to="backend/reference_units#update"/>
+        <page to="backend/reference_units#destroy"/>
+        <page to="backend/reference_units#show"/>
       </item>
     </group>
     <group name="access" icon="shield">

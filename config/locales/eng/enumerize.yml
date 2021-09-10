@@ -5,6 +5,9 @@ eng:
         # auxiliary: "Auxiliary"
         # general: "General"
     activity:
+      distribution_key:
+        gross_margin: "Gross margin"
+        percentage: "Percentage"
       nature:
         auxiliary: "Auxiliary"
         main: "Main"
@@ -498,6 +501,14 @@ eng:
         purchase: "Purchase"
         sale: "Sale"
     product_nature_variant:
+      default_unit_name:
+        joule: "Joule"
+        kilogram: "Kilogram"
+        liter: "Liter"
+        meter: "Meter"
+        second: "Second"
+        square_meter: "Square meter"
+        unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
@@ -767,6 +778,15 @@ eng:
         best_before: "Best before date"
         no_limit: "No limit"
         used_by: "Used by date"
+    unit:
+      dimension:
+        none: "None"
+        volume: "Volume"
+        mass: "Mass"
+        surface_area: "Surface area"
+        distance: "Distance"
+        time: "Time"
+        energy: "Energy"
     variant_categories/animal_category:
       imported_from:
         # Lexicon: "Lexicon"

@@ -291,4 +291,14 @@ class ProductTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     area = product.net_surface_area.in(:hectare)
     assert_in_delta shape_bis.area.in(:square_meter).in(:hectare).round(3).to_f, area.to_f, 0.001
   end
+
+  test 'population returns the right value given a specific unit' do
+    population = 50
+    product = create :seed_product, initial_population: population
+
+    assert_equal population, product.population
+    assert_equal population.fdiv(100), product.population(into: :quintal)
+    assert_equal population.fdiv(1000), product.population(into: :ton)
+    assert_equal population * 1000, product.population(into: :gram)
+  end
 end

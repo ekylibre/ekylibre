@@ -1,3 +1,7 @@
+- variant = f.object.variant
+- conditioning_coefficient = f.object.conditioning_unit && variant ? UnitComputation.convert_into_variant_unit(variant, 1, f.object.conditioning_unit) : nil
+- conditioning_unit = f.object.conditioning_unit ? f.object.conditioning_unit.name : nil
+
 .item-block.role-row.role-row--non-merchandise
   .item-block-role
     :ruby
@@ -6,12 +10,15 @@
         source: {scope: {purchaseables_services: true, active: true}},
         input_html: {
           class: "parcel-item-variant",
+          disabled: params[:mode] == 'prefilled',
           data: {
             product_of_delivery_item: {
               url: backend_product_nature_variant_path("RECORD_ID", format: :json),
               scope: 'target'
             },
             required: true,
+            parent: '.item-form',
+            filter_unroll: "[data-selector-id='reception_item_conditioning_unit_id']"
           }
         }
       }
@@ -21,18 +28,13 @@
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
           %i.annotation-field
 
-  - if f.object.fees?
-    .item-block__quantifier
-      .item-quantifier-population
-        = f.input :population, wrapper: :append do
-          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", 'when-scope': 'target', required: true }
-  - else
-    .item-block__quantifier
-      .item-quantifier-population
-        = f.input :population, wrapper: :append do
-          = f.input_field :population, class: "total-quantity", placeholder: '0', data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled", 'when-scope': 'target', required: true }
-          %span.add-on.item-population-unit-name
-            = variant.unit_name.or_else('unité')
+  .storing-calculation
+    .storing-conditionning
+      = f.referenced_association :conditioning_unit, input_html: { class: 'reception-conditionning', disabled: params[:mode] == 'prefilled', data: { filters_url: unroll_filters_by_catalog_items_backend_units_path, conditioning_data_url: conditioning_data_backend_units_path, variant_selector: 'input.parcel-item-variant', coefficient: conditioning_coefficient, interpolate_data_attribute: conditioning_unit,required: true } }, new: { controller: :conditionings, action: :new_on_the_go }
+
+    .storing-quantifier
+      = f.input :conditioning_quantity, wrapper: :append do
+        = f.input_field :conditioning_quantity, class: "reception-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
 
 .annotation-section
   .annotation-field

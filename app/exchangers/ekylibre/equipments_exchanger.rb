@@ -47,19 +47,25 @@ module Ekylibre
 
         # create a price
         catalog = Catalog.find_by(usage: :cost)
-        if r.unit_pretax_amount && catalog
-          variant.catalog_items.find_or_create_by(
-            catalog: catalog,
-            all_taxes_included: false,
-            amount: r.unit_pretax_amount,
-            currency: 'EUR'
-          )
+        if r.unit_pretax_amount && catalog && (r.price_indicator == :usage_duration)
+          unit = Unit.import_from_lexicon('hour_equipment')
+          price = variant.catalog_items.find_by(catalog: catalog,
+                                                all_taxes_included: false, currency: 'EUR',
+                                                unit: unit, started_at: r.born_at)
+          unless price
+            variant.catalog_items.create!(catalog: catalog,
+                                          all_taxes_included: false,
+                                          amount: r.unit_pretax_amount,
+                                          currency: 'EUR',
+                                          unit: unit,
+                                          started_at: r.born_at)
+          end
         end
 
         # create the owner if not exist
         if r.external == true
           owner = Entity.where(last_name: r.owner_name.to_s).first
-          owner ||= Entity.create!(born_at: Time.zone.today, last_name: r.owner_name.to_s, currency: Preference[:currency], language: Preference[:language], nature: :organization)
+          owner ||= Entity.create!(born_at: r.born_at, last_name: r.owner_name.to_s, currency: Preference[:currency], language: Preference[:language], nature: :organization)
         else
           owner = Entity.of_company
         end

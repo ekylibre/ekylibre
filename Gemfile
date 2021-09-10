@@ -230,6 +230,8 @@ group :test do
   gem 'pdf-reader', '~> 2.4'
 
   gem 'rails-controller-testing', '~> 1.0'
+  # for loading lexicon 5 in test mode
+  gem 'lexicon-common', '~> 0.2.0'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

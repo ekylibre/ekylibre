@@ -70,6 +70,8 @@ product_nature_variants_001:
   updater_id: 1
   variety: product
   work_number: PNV001
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ArticleVariant
 product_nature_variants_002:
   active: true
@@ -86,6 +88,8 @@ product_nature_variants_002:
   updater_id: 1
   variety: bos
   work_number: PNV002
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_003:
   active: true
@@ -102,6 +106,8 @@ product_nature_variants_003:
   updater_id: 1
   variety: building
   work_number: PNV004
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_004:
   active: true
@@ -118,6 +124,8 @@ product_nature_variants_004:
   updater_id: 1
   variety: raw_matter
   work_number: PNV005
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_005:
   active: true
@@ -134,6 +142,8 @@ product_nature_variants_005:
   updater_id: 1
   variety: bos
   work_number: PNV007
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_006:
   active: true
@@ -150,6 +160,8 @@ product_nature_variants_006:
   updater_id: 1
   variety: animal_group
   work_number: PNV029
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_007:
   active: true
@@ -169,6 +181,8 @@ product_nature_variants_007:
   updater_id: 1
   variety: preparation
   work_number: PNV030
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_008:
   active: true
@@ -189,6 +203,8 @@ product_nature_variants_008:
   updater_id: 1
   variety: straw
   work_number: PNV031
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ArticleVariant
 product_nature_variants_009:
   active: true
@@ -209,6 +225,8 @@ product_nature_variants_009:
   updater_id: 1
   variety: seed
   work_number: PNV032
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_010:
   active: true
@@ -229,6 +247,8 @@ product_nature_variants_010:
   updater_id: 1
   variety: seed
   work_number: PNV033
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_011:
   active: true
@@ -246,6 +266,8 @@ product_nature_variants_011:
   updater_id: 1
   variety: building
   work_number: PNV034
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_012:
   active: true
@@ -263,6 +285,8 @@ product_nature_variants_012:
   updater_id: 1
   variety: building_division
   work_number: PNV035
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_013:
   active: true
@@ -280,6 +304,8 @@ product_nature_variants_013:
   updater_id: 1
   variety: building_division
   work_number: PNV036
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_014:
   active: true
@@ -297,6 +323,8 @@ product_nature_variants_014:
   updater_id: 1
   variety: building_division
   work_number: PNV037
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_015:
   active: true
@@ -316,6 +344,9 @@ product_nature_variants_015:
   updater_id: 1
   variety: triticum_aestivum
   work_number: VPNV000000000001
+  default_unit_name: square_meter
+  default_unit_id: 4
+  default_quantity: 10000
   type: Variants::CropVariant
 product_nature_variants_016:
   active: true
@@ -335,6 +366,8 @@ product_nature_variants_016:
   updater_id: 1
   variety: bos
   work_number: YVPNV000000000002
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_017:
   active: true
@@ -355,6 +388,8 @@ product_nature_variants_017:
   updater_id: 1
   variety: milk
   work_number: RYVPNV000000000003
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::ArticleVariant
 product_nature_variants_018:
   active: true
@@ -375,6 +410,9 @@ product_nature_variants_018:
   updater_id: 1
   variety: grain
   work_number: KRYVPNV000000000004
+  default_unit_name: kilogram
+  default_unit_id: 1
+  default_quantity: 1000
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_019:
   active: true
@@ -394,6 +432,8 @@ product_nature_variants_019:
   updater_id: 1
   variety: preparation
   work_number: VKRYVPNV000000000005
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_020:
   active: true
@@ -413,6 +453,8 @@ product_nature_variants_020:
   updater_id: 1
   variety: preparation
   work_number: NVKRYVPNV000000000006
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_021:
   active: true
@@ -432,6 +474,8 @@ product_nature_variants_021:
   updater_id: 1
   variety: preparation
   work_number: WNVKRYVPNV000000000007
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_022:
   active: true
@@ -449,6 +493,8 @@ product_nature_variants_022:
   updater_id: 1
   variety: worker
   work_number: GWNVKRYVPNV000000000008
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::WorkerVariant
 product_nature_variants_023:
   active: true
@@ -466,6 +512,8 @@ product_nature_variants_023:
   updater_id: 1
   variety: tractor
   work_number: GWNVKRYVPNV000000000009
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_024:
   active: true
@@ -483,6 +531,8 @@ product_nature_variants_024:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000010
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_025:
   active: true
@@ -500,6 +550,8 @@ product_nature_variants_025:
   updater_id: 1
   variety: tractor
   work_number: GWNVKRYVPNV000000000011
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_026:
   active: true
@@ -517,6 +569,8 @@ product_nature_variants_026:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000012
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_027:
   active: true
@@ -534,6 +588,9 @@ product_nature_variants_027:
   updater_id: 1
   variety: land_parcel
   work_number: GWNVKRYVPNV000000000013
+  default_unit_name: square_meter
+  default_unit_id: 4
+  default_quantity: 10000
   type: Variants::ZoneVariant
 product_nature_variants_028:
   active: true
@@ -551,6 +608,8 @@ product_nature_variants_028:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVK00014
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_029:
   active: true
@@ -570,6 +629,8 @@ product_nature_variants_029:
   updater_id: 1
   variety: animal_group
   work_number: GWNVKRYVPNV000000000015
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_030:
   active: true
@@ -589,6 +650,8 @@ product_nature_variants_030:
   updater_id: 1
   variety: animal_group
   work_number: GWNVKRYVPNV000000000016
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_031:
   active: true
@@ -608,6 +671,9 @@ product_nature_variants_031:
   updater_id: 1
   variety: zea_mays
   work_number: GWNVKRYVPNV000000000017
+  default_unit_name: square_meter
+  default_unit_id: 4
+  default_quantity: 10000
   type: Variants::CropVariant
 product_nature_variants_032:
   active: true
@@ -625,6 +691,8 @@ product_nature_variants_032:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000018
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_033:
   active: true
@@ -642,6 +710,8 @@ product_nature_variants_033:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000019
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_034:
   active: true
@@ -659,6 +729,8 @@ product_nature_variants_034:
   updater_id: 1
   variety: building_division
   work_number: GWNVKRYVPNV000000000020
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_035:
   active: true
@@ -676,6 +748,8 @@ product_nature_variants_035:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000021
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_036:
   active: true
@@ -693,6 +767,8 @@ product_nature_variants_036:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000022
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_037:
   active: true
@@ -710,6 +786,8 @@ product_nature_variants_037:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000023
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_038:
   active: true
@@ -729,6 +807,8 @@ product_nature_variants_038:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000024
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_039:
   active: true
@@ -748,6 +828,9 @@ product_nature_variants_039:
   updater_id: 1
   variety: poa
   work_number: GWNVKRYVPNV000000000025
+  default_unit_name: square_meter
+  default_unit_id: 4
+  default_quantity: 10000
   type: Variants::CropVariant
 product_nature_variants_040:
   active: true
@@ -768,6 +851,8 @@ product_nature_variants_040:
   updater_id: 1
   variety: seed
   work_number: GWNVKRYVPNV000000000026
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_041:
   active: true
@@ -788,6 +873,8 @@ product_nature_variants_041:
   updater_id: 1
   variety: seed
   work_number: GWNVKRYVPNV000000000027
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_042:
   active: true
@@ -808,6 +895,8 @@ product_nature_variants_042:
   updater_id: 1
   variety: grass
   work_number: GWNVKRYVPNV000000000028
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_043:
   active: true
@@ -827,6 +916,9 @@ product_nature_variants_043:
   updater_id: 1
   variety: vitis
   work_number: GWNVKRYVPNV000000000029
+  default_unit_name: square_meter
+  default_unit_id: 4
+  default_quantity: 10000
   type: Variants::CropVariant
 product_nature_variants_044:
   active: true
@@ -847,6 +939,8 @@ product_nature_variants_044:
   updater_id: 1
   variety: seedling
   work_number: GWNVKRYVPNV000000000030
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::Articles::SeedAndPlantArticle
 product_nature_variants_045:
   active: true
@@ -864,6 +958,8 @@ product_nature_variants_045:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000031
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_046:
   active: true
@@ -881,6 +977,8 @@ product_nature_variants_046:
   updater_id: 1
   variety: trailed_equipment
   work_number: GWNVKRYVPNV000000000032
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_047:
   active: true
@@ -901,6 +999,8 @@ product_nature_variants_047:
   updater_id: 1
   variety: grape
   work_number: GWNVKRYVPNV000000000033
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_048:
   active: true
@@ -921,6 +1021,8 @@ product_nature_variants_048:
   updater_id: 1
   variety: wine
   work_number: GWNVKRYVPNV000000000034
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::ArticleVariant
 product_nature_variants_049:
   active: true
@@ -938,6 +1040,8 @@ product_nature_variants_049:
   updater_id: 1
   variety: tank
   work_number: GWNVKRYVPNV000000000035
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_050:
   active: true
@@ -955,6 +1059,8 @@ product_nature_variants_050:
   updater_id: 1
   variety: building
   work_number: GWNVKRYVPNV000000000036
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ZoneVariant
 product_nature_variants_051:
   active: true
@@ -972,6 +1078,8 @@ product_nature_variants_051:
   updater_id: 1
   variety: equipment
   work_number: GWNVKRYVPNV000000000037
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_052:
   active: true
@@ -992,6 +1100,8 @@ product_nature_variants_052:
   updater_id: 1
   variety: fermented_juice
   work_number: GWNVKRYVPNV000000000038
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::ArticleVariant
 product_nature_variants_053:
   active: true
@@ -1012,6 +1122,8 @@ product_nature_variants_053:
   updater_id: 1
   variety: straw
   work_number: GWNVKRYVPNV000000000039
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_054:
   active: true
@@ -1032,6 +1144,8 @@ product_nature_variants_054:
   updater_id: 1
   variety: pomace
   work_number: GWNVKRYVPNV000000000040
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_055:
   active: true
@@ -1052,6 +1166,8 @@ product_nature_variants_055:
   updater_id: 1
   variety: juice
   work_number: GWNVKRYVPNV000000000042
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::ArticleVariant
 product_nature_variants_056:
   active: true
@@ -1071,6 +1187,8 @@ product_nature_variants_056:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000043
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_057:
   active: true
@@ -1090,6 +1208,8 @@ product_nature_variants_057:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000044
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_058:
   active: true
@@ -1110,6 +1230,8 @@ product_nature_variants_058:
   updater_id: 1
   variety: yeast
   work_number: GWNVKRYVPNV000000000045
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_059:
   active: true
@@ -1129,6 +1251,8 @@ product_nature_variants_059:
   updater_id: 1
   variety: saccharose
   work_number: GWNVKRYVPNV000000000046
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_060:
   active: true
@@ -1148,6 +1272,8 @@ product_nature_variants_060:
   updater_id: 1
   variety: potassium_ferrocyanide
   work_number: GWNVKRYVPNV000000000047
+  default_unit_name: kilogram
+  default_unit_id: 1
   type: Variants::ArticleVariant
 product_nature_variants_061:
   active: true
@@ -1167,6 +1293,8 @@ product_nature_variants_061:
   updater_id: 1
   variety: preparation
   work_number: GWNVKRYVPNV000000000048
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::Articles::PlantMedicineArticle
 product_nature_variants_062:
   active: true
@@ -1186,6 +1314,8 @@ product_nature_variants_062:
   updater_id: 1
   variety: cork_bottle
   work_number: GWNVKRYVPNV000000000049
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::ArticleVariant
 product_nature_variants_063:
   active: true
@@ -1205,6 +1335,8 @@ product_nature_variants_063:
   updater_id: 1
   variety: cork
   work_number: GWNVKRYVPNV000000000050
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ArticleVariant
 product_nature_variants_064:
   active: true
@@ -1225,6 +1357,8 @@ product_nature_variants_064:
   updater_id: 1
   variety: wine
   work_number: GWNVKRYVPNV000000000051
+  default_unit_name: liter
+  default_unit_id: 2
   type: Variants::ArticleVariant
 product_nature_variants_065:
   active: true
@@ -1242,6 +1376,8 @@ product_nature_variants_065:
   updater_id: 1
   variety: equipment
   work_number: GWNVKRYVPNV000000000052
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_066:
   active: true
@@ -1259,6 +1395,8 @@ product_nature_variants_066:
   updater_id: 1
   variety: equipment
   work_number: GWNVKRYVPNV000000000053
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::EquipmentVariant
 product_nature_variants_067:
   active: true
@@ -1277,6 +1415,8 @@ product_nature_variants_067:
   updater_id: 1
   variety: bos_taurus_blonde_aquitaine
   work_number: GWNVKRYVPNV000000000054
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::AnimalVariant
 product_nature_variants_068:
   active: true
@@ -1291,6 +1431,9 @@ product_nature_variants_068:
   unit_name: Hectare
   updated_at: 2016-01-21 14:05:46.964632000 Z
   variety: land_parcel
+  default_unit_name: square_meter
+  default_unit_id: 4
+  default_quantity: 10000
   type: Variants::ZoneVariant
 product_nature_variants_069:
   active: true
@@ -1307,6 +1450,8 @@ product_nature_variants_069:
   updater_id: 1
   variety: immatter
   work_number: A1
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ServiceVariant
 product_nature_variants_070:
   active: true
@@ -1324,6 +1469,8 @@ product_nature_variants_070:
   updater_id: 1
   variety: equipment_part
   work_number: PDM001
+  default_unit_name: unity
+  default_unit_id: 3
   type: Variants::ArticleVariant
 product_nature_variants_071:
   active: true
@@ -1340,6 +1487,8 @@ product_nature_variants_071:
   reference_name: 2000087_copless
   type: Variants::Articles::PlantMedicineArticle
   unit_name: Kilogramme
+  default_unit_name: kilogram
+  default_unit_id: 1
   updated_at: 2016-08-10 14:24:46.796093000 Z
   updater_id: 1
   variety: :preparation
@@ -1358,6 +1507,8 @@ product_nature_variants_072:
   reference_name: 2190613_award
   type: Variants::Articles::PlantMedicineArticle
   unit_name: Kilogramme
+  default_unit_name: kilogram
+  default_unit_id: 1
   updated_at: 2016-08-10 14:24:46.796093000 Z
   updater_id: 1
   variety: :preparation
@@ -1376,6 +1527,8 @@ product_nature_variants_073:
   reference_name: 2000003_sultan
   type: Variants::Articles::PlantMedicineArticle
   unit_name: Kilogramme
+  default_unit_name: kilogram
+  default_unit_id: 1
   updated_at: 2016-08-10 14:24:46.796093000 Z
   updater_id: 1
   variety: :preparation
@@ -1394,6 +1547,8 @@ product_nature_variants_074:
   reference_name: 2000085_zebra
   type: Variants::Articles::PlantMedicineArticle
   unit_name: Kilogramme
+  default_unit_name: kilogram
+  default_unit_id: 1
   updated_at: 2016-08-10 14:24:46.796093000 Z
   updater_id: 1
   variety: :preparation

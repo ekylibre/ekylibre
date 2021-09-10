@@ -20,8 +20,6 @@ module Ekylibre
       private
 
         def setup_timestamp_format
-          db_config = Rails.application.config.database_configuration[Rails.env.to_s]
-
           ApplicationRecord.connection.execute <<~SQL
             ALTER DATABASE "#{db_config['database']}" SET intervalstyle='iso_8601';
           SQL
@@ -79,24 +77,34 @@ module Ekylibre
         end
 
         def reload_lexicon
+          # use gem lexicon-common
           puts "Loading Lexicon ...".cyan
 
-          factory = Lexicon::Database::Factory.from_rails_config
-          database = factory.new_instance
+          factory = ::Lexicon::Common::Database::Factory.new
+          database = factory.new_instance(url: lexicon_db_url)
           database.query("DROP SCHEMA IF EXISTS lexicon CASCADE")
+          puts "--Drop old Lexicon if exist...".cyan
 
-          loader = Lexicon::Package::DirectoryPackageLoader.new(Rails.root.join('test', 'fixture-files'), schema_validator: Lexicon::FakeValidator.new)
+          lexicon_path = Rails.root.join('test', 'fixture-files')
+          lexicon_schema_path = Pathname.new(Gem::Specification.find_by_name('lexicon-common').gem_dir).join(::Lexicon::Common::LEXICON_SCHEMA_RELATIVE_PATH)
+
+          loader = ::Lexicon::Common::Package::DirectoryPackageLoader.new(lexicon_path, schema_validator: Lexicon::Common::Schema::ValidatorFactory.new(lexicon_schema_path).build)
+          puts "--Load and validate package...".cyan
           package = loader.load_package('lexicon')
 
           if package.nil?
             puts 'Error while reading the lexicon package'
           else
-            executor = Lexicon::ShellExecutor.new
-            # executor.logger = Rails.logger
+            executor = ::Lexicon::Common::ShellExecutor.new
+            file_loader = ::Lexicon::Common::Production::FileLoader.new(shell: executor, database_url: lexicon_db_url)
+            table_locker = ::Lexicon::Common::Production::TableLocker.new(database_factory: factory, database_url: lexicon_db_url)
+            psql = ::Lexicon::Common::Psql.new(url: lexicon_db_url, executor: executor)
 
-            ds_loader = Lexicon::Production::DatasourceLoader.new(shell: executor, database_factory: factory)
+            ds_loader = ::Lexicon::Common::Production::DatasourceLoader.new(shell: executor, database_factory: factory, file_loader: file_loader, database_url: lexicon_db_url, table_locker: table_locker, psql: psql)
+            puts "--Load Package in DB...".cyan
             ds_loader.load_package(package)
 
+            puts "--Enable Package as lexicon in DB...".cyan
             database.query <<~SQL
               BEGIN;
                 ALTER SCHEMA "lexicon__#{package.version.to_s.gsub('.', '_')}" RENAME TO "lexicon";
@@ -106,7 +114,21 @@ module Ekylibre
             SQL
           end
 
-          puts '[  OK ] Lexicon loaded successfully'.green
+          puts 'Lexicon loaded successfully'.green
+        end
+
+        ## for lexicon
+        def lexicon_db_url
+          user = db_config['username']
+          host = db_config['host']
+          port = db_config['port'] || '5432'
+          dbname = db_config['database']
+          password = db_config['password']
+          URI.encode("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
+        end
+
+        def db_config
+          Rails.application.config.database_configuration[Rails.env.to_s]
         end
 
         def setup_factories

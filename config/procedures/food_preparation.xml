@@ -5,13 +5,13 @@
       <input name="food" filter="is preparation and can feed(animal)">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+                 if="PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram)"
+                 forward="VALUE / PRODUCT.net_mass(kilogram)"/>
         <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
-                 if="PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(ton)"
-                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+                 if="PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(ton)"
+                 forward="VALUE / PRODUCT.net_mass(ton)"/>
         <handler indicator="net_volume" unit="liter"
                  if="VARIANT? and VARIANT.net_volume?"
                  backward="POPULATION * VARIANT.net_volume(liter)"

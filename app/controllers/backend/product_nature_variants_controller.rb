@@ -75,7 +75,7 @@ module Backend
       t.column :category, url: { controller: '/backend/product_nature_categories' }
       t.column :current_stock_displayed, label: :current_stock
       t.column :current_outgoing_stock_ordered_not_delivered_displayed
-      t.column :unit_name
+      t.column :default_unit_name
       t.column :variety
       t.column :derivative_of
     end
@@ -84,9 +84,12 @@ module Backend
       t.action :edit, url: { controller: '/backend/catalog_items' }
       t.action :destroy, url: { controller: '/backend/catalog_items' }
       t.column :name, url: { controller: '/backend/catalog_items' }
+      t.column :unit
       t.column :amount, url: { controller: '/backend/catalog_items' }, currency: true
       t.column :all_taxes_included
       t.column :catalog, url: { controller: '/backend/catalogs' }
+      t.column :started_at
+      t.column :stopped_at
     end
 
     list(:products, conditions: { variant_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
@@ -95,24 +98,27 @@ module Backend
       t.column :identification_number
       t.column :born_at, datatype: :datetime
       t.column :population
-      t.column :unit_name
-      t.column :net_mass
-      t.column :net_volume
+      t.column :conditioning_unit
     end
 
     list(:sale_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, through: :sale, url: { controller: '/backend/sales' }
       t.column :invoiced_at, through: :sale, datatype: :datetime
-      t.column :quantity
-      t.column :reduction_percentage
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount
+      t.column :reduction_percentage
+      t.column :tax, hidden: true
+      t.column :pretax_amount
+      t.column :amount
     end
 
     list(:purchase_invoice_items, model: :purchase_item, joins: :purchase, conditions: [
       "variant_id = ? AND purchases.type = 'PurchaseInvoice'", 'params[:id]'.c]) do |t|
       t.column :number, through: :purchase, url: { controller: '/backend/purchases' }
       t.column :invoiced_at, through: :purchase, datatype: :datetime
-      t.column :quantity
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount
       t.column :unit_amount, hidden: true
       t.column :reduction_percentage
@@ -126,7 +132,8 @@ module Backend
       "variant_id = ? AND purchases.type = 'PurchaseOrder'", 'params[:id]'.c]) do |t|
       t.column :number, through: :purchase, url: { controller: '/backend/purchases' }
       t.column :ordered_at, through: :purchase, datatype: :datetime
-      t.column :quantity
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount
       t.column :unit_amount, hidden: true
       t.column :reduction_percentage
@@ -142,8 +149,8 @@ module Backend
       t.column :reception_given_at, through: :parcel_item, datatype: :datetime
       t.column :product, url: { controller: '/backend/products' }
       t.column :storage, url: { controller: '/backend/products' }
-      t.column :quantity, label: :total_quantity
-      t.column :unit_name, through: :parcel_item
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount, through: :parcel_item, hidden: true
       t.column :sender, label_method: 'sender.full_name', through: :parcel_item, label: :supplier, url: { controller: '/backend/entities', action: :show, id: 'RECORD.parcel_item.sender.id'.c }
     end
@@ -151,7 +158,8 @@ module Backend
     list(:shipments, model: :shipment_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, through: :shipment, url: { controller: '/backend/shipments' }
       t.column :planned_at, through: :shipment, datatype: :datetime
-      t.column :population
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
     end
 
     list(:suppliers,
@@ -194,6 +202,10 @@ module Backend
       return unless @product_nature_variant = find_and_check
 
       product_nature = @product_nature_variant.nature
+      stock = @product_nature_variant.current_stock(into_default_unit: true)
+      conditioning = Unit.find_by_id(params[:conditioning_id])
+      reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : nil
+
       infos = {
         name: @product_nature_variant.name,
         number: @product_nature_variant.number,
@@ -201,7 +213,11 @@ module Backend
         unit: {
           name: @product_nature_variant.unit_name
         },
-        stock: @product_nature_variant.current_stock
+        stock: @product_nature_variant.current_stock,
+        default_unit_name: @product_nature_variant.default_unit_name.l.pluralize(stock == 0 ? 1 : stock),
+        default_unit_stock: stock,
+        default_unit_id: @product_nature_variant.default_unit_id,
+        is_equipment: @product_nature_variant.is_a?(::Variants::EquipmentVariant)
       }
 
       if product_nature.subscribing?
@@ -229,21 +245,27 @@ module Backend
         }
         infos[:subscription][:address_id] = address.id if address
       end
+
       if @product_nature_variant.picture.file?
         infos[:picture] = @product_nature_variant.picture.url(:thumb)
       end
+
       if pictogram = @product_nature_variant.category.pictogram
         infos[:pictogram] = pictogram
       end
+
       catalog = nil
       if params[:catalog_id]
         catalog = Catalog.find(params[:catalog_id])
       elsif params[:sale_nature_id]
         catalog = SaleNature.find(params[:sale_nature_id]).catalog
       end
-      if catalog && item = catalog.items.find_by(variant_id: @product_nature_variant.id)
-        infos[:all_taxes_included] = item.all_taxes_included
-        unless infos[:tax_id] = (item.reference_tax ? item.reference_tax.id : nil)
+
+      catalog_item = catalog ? catalog.items.of_variant(@product_nature_variant).of_unit(conditioning).active_at(reference_date).first : nil
+
+      if catalog_item
+        infos[:all_taxes_included] = catalog_item.all_taxes_included
+        unless infos[:tax_id] = (catalog_item.reference_tax ? catalog_item.reference_tax.id : nil)
           infos[:tax_id] = if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
                              items.order(id: :desc).first.tax_id
                            elsif @product_nature_variant.category.sale_taxes.any?
@@ -253,23 +275,23 @@ module Backend
                            end
         end
         if tax = Tax.find_by(id: infos[:tax_id])
-          if item.all_taxes_included
-            infos[:unit][:pretax_amount] = tax.pretax_amount_of(item.amount)
-            infos[:unit][:amount] = item.amount
+          if catalog_item.all_taxes_included
+            infos[:unit][:pretax_amount] = tax.pretax_amount_of(catalog_item.amount)
+            infos[:unit][:amount] = catalog_item.amount
           else
-            infos[:unit][:pretax_amount] = item.amount
-            infos[:unit][:amount] = tax.amount_of(item.amount)
+            infos[:unit][:pretax_amount] = catalog_item.amount
+            infos[:unit][:amount] = tax.amount_of(catalog_item.amount)
           end
         end
       elsif params[:mode] == 'last_purchase_item'
         # get last item with tax, pretax amount and amount
-        if (items = PurchaseItem.where(variant_id: @product_nature_variant.id)) && items.any?
+        if (items = PurchaseItem.where(variant: @product_nature_variant, conditioning_unit: conditioning)) && items.any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
           infos[:unit][:pretax_amount] = item.unit_pretax_amount
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
-        elsif (items = @product_nature_variant.catalog_items.of_usage(:purchase)) && items.any?
+        elsif (items = @product_nature_variant.catalog_items.of_usage(:purchase).of_unit(conditioning).active_at(reference_date)) && items.any?
           item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
@@ -284,13 +306,13 @@ module Backend
         end
       elsif params[:mode] == 'last_sale_item'
         # get last item with tax, pretax amount and amount
-        if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
+        if (items = SaleItem.where(variant: @product_nature_variant, conditioning_unit: conditioning)) && items.any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
           infos[:unit][:pretax_amount] = item.unit_pretax_amount
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
-        elsif (items = @product_nature_variant.catalog_items.of_usage(:sale)) && items.any?
+        elsif (items = @product_nature_variant.catalog_items.of_usage(:sale).of_unit(conditioning).active_at(reference_date)) && items.any?
           item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
@@ -304,6 +326,7 @@ module Backend
           infos[:tax_id] = @product_nature_variant.category.purchase_taxes.first.id
         end
       end
+
       render json: infos
     end
 
@@ -314,7 +337,11 @@ module Backend
                                   .joins(parcel_item: :parcel)
                                   .where(parcels: { state: 'given' })
                                   .sum(:quantity)
-      render json: { quantity: quantity, unit: ProductNatureVariant.find(params[:id])&.unit_name }
+      variant = ProductNatureVariant.find(params[:id])
+      storage = Product.find(params[:storage_id])
+      stock = quantity * variant.default_quantity
+      unit = variant.default_unit_name.l.pluralize(stock == 0 ? 1 : stock)
+      render json: { quantity: stock, unit: unit, name: storage.name }
     end
 
     def show

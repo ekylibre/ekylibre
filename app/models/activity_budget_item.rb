@@ -57,6 +57,7 @@ class ActivityBudgetItem < ApplicationRecord
   has_one :campaign, through: :activity_budget
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :productions, through: :activity
+  belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -115,5 +116,137 @@ class ActivityBudgetItem < ApplicationRecord
       h
     end.merge(updates)
     self.class.create!(new_attributes)
+  end
+
+  def unit
+    Onoma::Unit.find(variant_unit)
+  end
+
+  def total_quantity
+    quantity * coefficient
+  end
+
+  def direct_expenses_amount
+    activity_budget.expenses_amount * expenses_distribution_key
+  end
+
+  def loan_repayments_amount
+    activity_budget.loan_repayments_amount * expenses_distribution_key
+  end
+
+  def indirect_expenses_amount
+    activity_budget.indirect_expenses_amount * expenses_distribution_key
+  end
+
+  # Direct and indirect expenses amount
+  def total_expenses_amount
+    a = activity_budget.expenses_amount + activity_budget.loan_repayments_amount
+    a += activity_budget.indirect_expenses_amount if activity.main?
+    a * expenses_distribution_key
+  end
+
+  def expenses_distribution_key
+    @expenses_distribution_key ||= amount / activity_budget.revenues.sum(:amount)
+  end
+
+  # Computes with direct expenses and indirect expenses for main activities
+  # No commercialization_threshold for auxiliary activities
+  def commercialization_threshold
+    total_expenses_amount
+  end
+
+  def raw_margin
+    amount - direct_expenses_amount - loan_repayments_amount
+  end
+
+  # Cmpute net margin
+  def net_margin
+    return nil if activity.auxiliary?
+
+    amount - total_expenses_amount
+  end
+
+  # Computes real quantity based on intervention outputs
+  # Same grandeur as quantity
+  def real_quantity
+    unless @real_quantity
+      # Get quantities from intervention outputs
+      population = InterventionOutput.where(
+        variant: self.variant,
+        group_id: InterventionTarget.where(
+          product_id: activity.productions.of_campaign(campaign).select(:support_id)
+        ).select(:group_id)
+      ).sum(:quantity_population)
+      # Convert to unit of item
+      if self.variant_indicator && population
+        @real_quantity = (self.variant.get(self.variant_indicator) * population).in(variant_unit).to_d
+      else
+        @real_quantity = 0
+      end
+      if per_working_unit? && activity_budget.productions_size != 0
+        @real_quantity /= activity_budget.productions_size
+      elsif per_production? && activity_budget.productions_count != 0
+        @real_quantity /= activity_budget.productions_count
+      end
+    end
+    @real_quantity
+  end
+
+  def real_total_expenses_amount
+    real_direct_expenses_amount + real_loan_repayments_amount + real_indirect_expenses_amount
+  end
+
+  def real_direct_expenses_amount
+    # TODO: Add computation
+    rdea = 5555
+    # Without harvest, only zero.....
+    rdea * real_expenses_distribution_key
+  end
+
+  def real_loan_repayments_amount
+    activity_budget.loan_repayments_amount(on: Date.today) * real_expenses_distribution_key
+  end
+
+  def real_indirect_expenses_amount
+    activity_budget.real_indirect_expenses_amount * real_expenses_distribution_key
+  end
+
+  def real_expenses_distribution_key
+    unless @real_expenses_distribution_key
+      total = activity_budget.revenues.map(&:real_amount).sum
+      if total.zero?
+        @real_expenses_distribution_key = 0
+      else
+        @real_expenses_distribution_key = real_amount / activity_budget.revenues.map(&:real_amount).sum
+      end
+    end
+    @real_expenses_distribution_key
+  end
+
+  def real_total_quantity
+    real_quantity * coefficient
+  end
+
+  def real_unit_amount
+    # What to take? CUMP, budget, last sale, total_weighted_average
+    unit_amount
+  end
+
+  def real_amount
+    real_unit_amount * real_quantity * coefficient
+  end
+
+  def real_raw_margin
+    real_amount - real_direct_expenses_amount - real_loan_repayments_amount
+  end
+
+  def real_commercialization_threshold
+    real_total_expenses_amount
+  end
+
+  def real_net_margin
+    return nil if activity.auxiliary?
+
+    real_amount - real_total_expenses_amount
   end
 end

@@ -42,18 +42,22 @@ class ParcelItemStoring < ApplicationRecord
   belongs_to :parcel_item, inverse_of: :storings
   belongs_to :storage, class_name: 'Product'
   belongs_to :product, class_name: 'Product', foreign_key: :product_id
+  belongs_to :conditioning_unit, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :conditionning, :conditionning_quantity, numericality: { greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :quantity, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :parcel_item, :storage, presence: true
+  validates :parcel_item, :storage, :conditioning_unit, :conditioning_quantity, presence: true
   # ]VALIDATORS]
   validates :quantity, presence: true
+  validates :conditioning_unit, conditioning: true
+
+  delegate :variant, to: :parcel_item
+  delegate :dimension, :of_dimension?, to: :unit
+
+  alias_attribute :unit, :conditioning_unit
 
   before_validation do
-    if quantity.nil?
-      self.quantity ||= 1
-    end
+    self.quantity ||= UnitComputation.convert_into_variant_population(parcel_item.variant, conditioning_quantity, conditioning_unit)
   end
 
   after_create do

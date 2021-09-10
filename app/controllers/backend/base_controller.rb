@@ -144,6 +144,7 @@ module Backend
             raise ActiveRecord::Rollback
           end
         end
+
         notify_error_now :record_cannot_be_saved.tl
         response.headers['X-Return-Code'] = 'invalid'
         false

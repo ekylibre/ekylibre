@@ -69,6 +69,7 @@ sale_items_001:
   position: 1
   pretax_amount: 70.0
   quantity: 1.0
+  conditioning_quantity: 1.0
   reduction_percentage: 0.0
   sale_id: 7
   tax_id: 3
@@ -77,6 +78,7 @@ sale_items_001:
   updated_at: 2014-11-05 09:52:05.569662000 Z
   updater_id: 1
   variant_id: 9
+  conditioning_unit_id: 3
 sale_items_002:
   account_id: 5
   amount: 1080.0
@@ -90,6 +92,7 @@ sale_items_002:
   position: 2
   pretax_amount: 900.0
   quantity: 5.0
+  conditioning_quantity: 5.0
   reduction_percentage: 0.0
   sale_id: 7
   tax_id: 3
@@ -98,6 +101,7 @@ sale_items_002:
   updated_at: 2014-11-05 09:52:05.575226000 Z
   updater_id: 1
   variant_id: 19
+  conditioning_unit_id: 1
 sale_items_003:
   account_id: 5
   amount: 792.0
@@ -111,6 +115,7 @@ sale_items_003:
   position: 1
   pretax_amount: 660.0
   quantity: 12.0
+  conditioning_quantity: 12.0
   reduction_percentage: 0.0
   sale_id: 8
   tax_id: 3
@@ -119,6 +124,7 @@ sale_items_003:
   updated_at: 2014-11-05 10:01:39.877000000 Z
   updater_id: 1
   variant_id: 9
+  conditioning_unit_id: 3
 sale_items_004:
   account_id: 15
   amount: 11.23
@@ -132,6 +138,7 @@ sale_items_004:
   position: 1
   pretax_amount: 9.36
   quantity: 6.0
+  conditioning_quantity: 6.0
   reduction_percentage: 0.0
   sale_id: 9
   tax_id: 3
@@ -140,6 +147,7 @@ sale_items_004:
   updated_at: 2014-11-05 10:03:05.895615000 Z
   updater_id: 1
   variant_id: 18
+  conditioning_unit_id: 2
 sale_items_005:
   account_id: 15
   amount: 19.2
@@ -153,6 +161,7 @@ sale_items_005:
   position: 1
   pretax_amount: 16.0
   quantity: 10.0
+  conditioning_quantity: 10.0
   reduction_percentage: 0.0
   sale_id: 10
   tax_id: 3
@@ -161,6 +170,7 @@ sale_items_005:
   updated_at: 2014-11-05 13:36:08.975616000 Z
   updater_id: 1
   variant_id: 18
+  conditioning_unit_id: 2
 sale_items_006:
   account_id: 535
   amount: 24.0
@@ -175,6 +185,7 @@ sale_items_006:
   position: 1
   pretax_amount: 20.0
   quantity: 2.0
+  conditioning_quantity: 2.0
   reduction_percentage: 0.0
   sale_id: 11
   tax_id: 3
@@ -183,6 +194,7 @@ sale_items_006:
   updated_at: 2015-04-21 08:22:33.186082000 Z
   updater_id: 1
   variant_id: 57
+  conditioning_unit_id: 1
 sale_items_007:
   account_id: 535
   amount: 187.2
@@ -197,6 +209,7 @@ sale_items_007:
   position: 1
   pretax_amount: 156.0
   quantity: 3.0
+  conditioning_quantity: 3.0
   reduction_percentage: 0.0
   sale_id: 12
   tax_id: 3
@@ -205,6 +218,7 @@ sale_items_007:
   updated_at: 2015-04-21 08:29:05.182489000 Z
   updater_id: 1
   variant_id: 8
+  conditioning_unit_id: 2
 sale_items_008:
   account_id: 535
   amount: 119.6
@@ -219,6 +233,7 @@ sale_items_008:
   position: 1
   pretax_amount: 100.0
   quantity: 100.0
+  conditioning_quantity: 100.0
   reduction_percentage: 0.0
   sale_id: 13
   tax_id: 1
@@ -227,6 +242,7 @@ sale_items_008:
   updated_at: 2015-04-21 23:49:19.339881000 Z
   updater_id: 1
   variant_id: 8
+  conditioning_unit_id: 2
 sale_items_009:
   account_id: 535
   amount: 200.0
@@ -241,6 +257,7 @@ sale_items_009:
   position: 2
   pretax_amount: 166.67
   quantity: 1.0
+  conditioning_quantity: 1.0
   reduction_percentage: 0.0
   sale_id: 13
   tax_id: 3
@@ -249,6 +266,7 @@ sale_items_009:
   updated_at: 2015-04-21 23:49:19.346386000 Z
   updater_id: 1
   variant_id: 58
+  conditioning_unit_id: 1
 sale_items_010:
   account_id: 535
   amount: 500.0
@@ -263,6 +281,7 @@ sale_items_010:
   position: 1
   pretax_amount: 417.5
   quantity: 250.0
+  conditioning_quantity: 250.0
   reduction_percentage: 0.0
   sale_id: 14
   tax_id: 3
@@ -271,6 +290,7 @@ sale_items_010:
   updated_at: 2015-05-30 20:00:27.935928000 Z
   updater_id: 1
   variant_id: 63
+  conditioning_unit_id: 2
 sale_items_011:
   account_id: 535
   amount: -500.0
@@ -286,6 +306,7 @@ sale_items_011:
   position: 1
   pretax_amount: -417.5
   quantity: -250.0
+  conditioning_quantity: -250.0
   reduction_percentage: 0.0
   sale_id: 15
   tax_id: 3
@@ -294,6 +315,7 @@ sale_items_011:
   updated_at: 2015-05-30 20:00:46.769726000 Z
   updater_id: 1
   variant_id: 63
+  conditioning_unit_id: 2
 sale_items_012:
   account_id: 5
   amount: 54000.0
@@ -308,6 +330,7 @@ sale_items_012:
   position: 1
   pretax_amount: 45000.0
   quantity: 250.0
+  conditioning_quantity: 250.0
   reduction_percentage: 0.0
   sale_id: 16
   tax_id: 3
@@ -316,6 +339,7 @@ sale_items_012:
   updated_at: 2015-09-17 13:25:40.431432000 Z
   updater_id: 1
   variant_id: 19
+  conditioning_unit_id: 1
 sale_items_013:
   account_id: 528
   amount: 142.94
@@ -330,6 +354,7 @@ sale_items_013:
   position: 1
   pretax_amount: 140.0
   quantity: 2.0
+  conditioning_quantity: 2.0
   reduction_percentage: 0.0
   sale_id: 17
   tax_id: 9
@@ -338,6 +363,7 @@ sale_items_013:
   updated_at: 2016-05-26 21:26:07.822854000 Z
   updater_id: 1
   variant_id: 70
+  conditioning_unit_id: 3
 sale_items_014:
   account_id: 528
   amount: 71.47
@@ -352,6 +378,7 @@ sale_items_014:
   position: 1
   pretax_amount: 70.0
   quantity: 1.0
+  conditioning_quantity: 1.0
   reduction_percentage: 0.0
   sale_id: 18
   tax_id: 9
@@ -360,6 +387,7 @@ sale_items_014:
   updated_at: 2016-05-26 21:27:06.143915000 Z
   updater_id: 1
   variant_id: 70
+  conditioning_unit_id: 3
 sale_items_015:
   account_id: 535
   amount: 148.8
@@ -374,6 +402,7 @@ sale_items_015:
   position: 1
   pretax_amount: 124.0
   quantity: 31.0
+  conditioning_quantity: 31.0
   reduction_percentage: 0.0
   sale_id: 19
   tax_id: 3
@@ -382,6 +411,7 @@ sale_items_015:
   updated_at: 2016-07-01 20:12:41.329080000 Z
   updater_id: 1
   variant_id: 8
+  conditioning_unit_id: 2
 sale_items_016:
   account_id: 15
   amount: 393.12
@@ -396,6 +426,7 @@ sale_items_016:
   position: 1
   pretax_amount: 327.6
   quantity: 210.0
+  conditioning_quantity: 210.0
   reduction_percentage: 0.0
   sale_id: 20
   tax_id: 3
@@ -404,6 +435,7 @@ sale_items_016:
   updated_at: 2016-11-20 22:08:58.264590000 Z
   updater_id: 1
   variant_id: 18
+  conditioning_unit_id: 2
 sale_items_017:
   account_id: 15
   amount: 54.0
@@ -418,6 +450,7 @@ sale_items_017:
   position: 2
   pretax_amount: 45.0
   quantity: 20.0
+  conditioning_quantity: 20.0
   reduction_percentage: 0.0
   sale_id: 20
   tax_id: 3
@@ -426,6 +459,7 @@ sale_items_017:
   updated_at: 2016-11-20 22:08:58.290373000 Z
   updater_id: 1
   variant_id: 18
+  conditioning_unit_id: 2
 sale_items_018:
   account_id: 15
   amount: 37.44
@@ -440,6 +474,7 @@ sale_items_018:
   position: 1
   pretax_amount: 31.2
   quantity: 20.0
+  conditioning_quantity: 20.0
   reduction_percentage: 0.0
   sale_id: 21
   tax_id: 3
@@ -448,6 +483,7 @@ sale_items_018:
   updated_at: 2016-11-20 22:10:17.198436000 Z
   updater_id: 1
   variant_id: 18
+  conditioning_unit_id: 2
 sale_items_019:
   account_id: 15
   amount: 3.74
@@ -462,6 +498,7 @@ sale_items_019:
   position: 1
   pretax_amount: 3.12
   quantity: 2.0
+  conditioning_quantity: 2.0
   reduction_percentage: 0.0
   sale_id: 22
   tax_id: 3
@@ -470,6 +507,7 @@ sale_items_019:
   updated_at: 2016-11-20 22:11:25.101031000 Z
   updater_id: 1
   variant_id: 18
+  conditioning_unit_id: 2
 sale_items_020:
   account_id: 535
   amount: 2676.0
@@ -484,6 +522,7 @@ sale_items_020:
   position: 1
   pretax_amount: 2230.0
   quantity: 2.0
+  conditioning_quantity: 2.0
   reduction_percentage: 0.0
   sale_id: 23
   tax_id: 3
@@ -492,6 +531,7 @@ sale_items_020:
   updated_at: 2016-11-20 22:12:15.435114000 Z
   updater_id: 1
   variant_id: 39
+  conditioning_unit_id: 1
 sale_items_021:
   account_id: 535
   amount: -2676.0
@@ -507,6 +547,7 @@ sale_items_021:
   position: 1
   pretax_amount: -2230.0
   quantity: -2.0
+  conditioning_quantity: -2.0
   reduction_percentage: 0.0
   sale_id: 24
   tax_id: 3
@@ -515,6 +556,7 @@ sale_items_021:
   updated_at: 2016-11-20 22:12:25.310161000 Z
   updater_id: 1
   variant_id: 39
+  conditioning_unit_id: 1
 sale_items_022:
   account_id: 535
   amount: 400.0
@@ -529,6 +571,7 @@ sale_items_022:
   position: 1
   pretax_amount: 363.64
   quantity: 3.0
+  conditioning_quantity: 3.0
   reduction_percentage: 0.0
   sale_id: 25
   tax_id: 8
@@ -537,3 +580,4 @@ sale_items_022:
   updated_at: 2016-12-20 08:53:53.330230000 Z
   updater_id: 1
   variant_id: 10
+  conditioning_unit_id: 1

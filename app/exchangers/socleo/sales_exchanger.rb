@@ -144,12 +144,15 @@ module Socleo
           variant = Maybe(find_variant_by_provider(product_line.account_number))
                       .recover { create_variant_with_account(product_line.account_number) }
                       .or_raise
+          conditioning_data = variant.guess_conditioning
+          quantity = product_line.quantity || 1
 
           sale.items.build(
             amount: nil,
             pretax_amount: create_pretax_amount(product_line),
             unit_pretax_amount: nil,
-            quantity: product_line.quantity || 1,
+            conditioning_unit: conditioning_data[:unit],
+            conditioning_quantity: quantity * conditioning_data[:quantity],
             tax: tax,
             variant: variant,
             compute_from: :pretax_amount
@@ -273,7 +276,8 @@ module Socleo
         name: computed_name,
         category: pnc,
         provider: provider_value(account_number: account_number),
-        unit_name: 'unity'
+        unit_name: 'unity',
+        default_unit_name: 'unity'
       )
     end
 

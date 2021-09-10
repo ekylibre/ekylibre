@@ -83,7 +83,7 @@ module Backend
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety
       t.column :population
-      t.column :unit_name
+      t.column :conditioning_unit
       t.column :container, url: true
       t.column :description
       t.column :derivative_of
@@ -184,7 +184,8 @@ module Backend
       t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
       t.column :nature, label_method: :reception_nature
       t.column :given_at, label_method: :reception_given_at, datatype: :datetime
-      t.column :population, label_method: :quantity
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :product_identification_number, through: :parcel_item
     end
 
@@ -193,7 +194,8 @@ module Backend
       t.column :shipment, url: { controller: :shipments }
       t.column :nature, through: :shipment
       t.column :given_at, through: :shipment, datatype: :datetime
-      t.column :population
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :product_identification_number
     end
 

@@ -138,6 +138,8 @@ activities:
     type: jsonb
   description:
     type: text
+  distribution_key:
+    type: string
   family:
     type: string
     required: true
@@ -258,9 +260,14 @@ activity_budget_items:
   id:
     type: integer
     required: true
+  product_parameter_id:
+    type: integer
+    references: intervention_template/product_parameter
   lock_version:
     type: integer
     required: true
+  paid_on:
+    type: date
   quantity:
     type: decimal
     precision: 19
@@ -282,6 +289,8 @@ activity_budget_items:
   updater_id:
     type: integer
     references: user
+  used_on:
+    type: date
   variant_id:
     type: integer
     references: product_nature_variant
@@ -313,12 +322,50 @@ activity_budgets:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+activity_cost_outputs:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+  variant_unit_id:
+    type: integer
+    references: unit
+    required: true
 activity_distributions:
   activity_id:
     type: integer
@@ -451,6 +498,8 @@ activity_productions:
     type: integer
     references: activity
     required: true
+  batch_planting:
+    type: boolean
   campaign_id:
     type: integer
     references: campaign
@@ -483,6 +532,10 @@ activity_productions:
     default: false
   provider:
     type: jsonb
+  number_of_batch:
+    type: integer
+  predicated_sowing_date:
+    type: date
   rank_number:
     type: integer
     required: true
@@ -499,6 +552,8 @@ activity_productions:
     precision: 19
     scale: 4
     required: true
+  sowing_interval:
+    type: integer
   started_on:
     type: date
   starting_year:
@@ -521,6 +576,9 @@ activity_productions:
   tactic_id:
     type: integer
     references: activity_tactic
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
   updated_at:
     type: datetime
     required: true
@@ -529,6 +587,46 @@ activity_productions:
     references: user
   usage:
     type: string
+    required: true
+activity_production_batches:
+  activity_production_id:
+    type: integer
+    references: activity_production
+  created_at:
+    type: datetime
+    required: true
+  day_interval:
+    type: integer
+  id:
+    type: integer
+    required: true
+  irregular_batch:
+    type: boolean
+    default: false
+  number:
+    type: integer
+  planning_scenario_activity_plot_id:
+    type: integer
+    references: scenario_activity/plot
+  updated_at:
+    type: datetime
+    required: true
+activity_production_irregular_batches:
+  activity_production_batch_id:
+    type: integer
+    references: activity_production_batch
+  area:
+    type: decimal
+  created_at:
+    type: datetime
+    required: true
+  estimated_sowing_date:
+    type: date
+  id:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
     required: true
 activity_seasons:
   activity_id:
@@ -582,6 +680,12 @@ activity_tactics:
     required: true
   planned_on:
     type: date
+  technical_workflow_id:
+    type: integer
+    references: technical_workflow
+  technical_workflow_sequence_id:
+    type: integer
+    references: technical_workflow_sequence
   updated_at:
     type: datetime
     required: true
@@ -1591,6 +1695,10 @@ catalog_items:
   updater_id:
     type: integer
     references: user
+  unit_id:
+    type: integer
+    references: unit
+    required: true
   variant_id:
     type: integer
     references: product_nature_variant
@@ -1961,6 +2069,35 @@ custom_fields:
   updater_id:
     type: integer
     references: user
+daily_charges:
+  activity_id:
+    type: integer
+    references: activity
+  activity_production_id:
+    type: integer
+    references: activity_production
+  area:
+    type: decimal
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_template_product_parameter_id:
+    type: integer
+    references: intervention_template/product_parameter
+  product_general_type:
+    type: string
+  product_type:
+    type: string
+  quantity:
+    type: decimal
+  reference_date:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
 cvi_cadastral_plant_cvi_land_parcels:
   created_at:
     type: datetime
@@ -4352,6 +4489,63 @@ intervention_participations:
   updater_id:
     type: integer
     references: user
+intervention_proposal_parameters:
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_proposal_id:
+    type: integer
+    references: intervention_proposal
+  intervention_template_product_parameter_id:
+    type: integer
+    references: intervention_template/product_parameter
+  product_id:
+    type: integer
+    references: "~product_type"
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  product_type:
+    type: string
+  quantity:
+    type: decimal
+  unit:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+intervention_proposals:
+  activity_production_id:
+    type: integer
+    references: activity_production
+  activity_production_irregular_batch_id:
+    type: integer
+    references: activity_production_irregular_batch
+  area:
+    type: decimal
+  batch_number:
+    type: integer
+  created_at:
+    type: datetime
+    required: true
+  estimated_date:
+    type: date
+  id:
+    type: integer
+    required: true
+  number:
+    type: integer
+  target:
+    type: string
+  technical_itinerary_intervention_template_id:
+    type: integer
+    references: technical_itinerary_intervention_template
+  updated_at:
+    type: datetime
+    required: true
 intervention_working_periods:
   created_at:
     type: datetime
@@ -4388,6 +4582,89 @@ intervention_working_periods:
   updater_id:
     type: integer
     references: user
+intervention_template_activities:
+  activity_id:
+    type: integer
+    references: activity
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  updated_at:
+    type: datetime
+    required: true
+intervention_template_product_parameters:
+  activity_id:
+    type: integer
+    references: activity
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  procedure:
+    type: jsonb
+  product_nature_id:
+    type: integer
+    references: product_nature
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  quantity:
+    type: decimal
+  type:
+    type: string
+  unit:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+intervention_templates:
+  active:
+    type: boolean
+    default: true
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  originator_id:
+    type: integer
+    references: intervention_template
+  preparation_time_hours:
+    type: integer
+  preparation_time_minutes:
+    type: integer
+  procedure_name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  workflow:
+    type: decimal
 interventions:
   accounted_at:
     type: datetime
@@ -4417,6 +4694,9 @@ interventions:
   id:
     type: integer
     required: true
+  intervention_proposal_id:
+    type: integer
+    references: intervention_proposal
   issue_id:
     type: integer
     references: issue
@@ -6301,6 +6581,86 @@ master_phenological_stages:
     required: true
   label:
     type: jsonb
+planning_scenario_activities:
+  activity_id:
+    type: integer
+    references: activity
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  planning_scenario_id:
+    type: integer
+    references: scenario
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+planning_scenario_activity_plots:
+  area:
+    type: decimal
+  batch_planting:
+    type: boolean
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  number_of_batch:
+    type: integer
+  planned_at:
+    type: date
+  planning_scenario_activity_id:
+    type: integer
+    references: scenario_activity
+  sowing_interval:
+    type: integer
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+planning_scenarios:
+  area:
+    type: decimal
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 plant_counting_items:
   created_at:
     type: datetime
@@ -7616,10 +7976,6 @@ purchase_items:
     required: true
   annotation:
     type: text
-  conditionning:
-    type: integer
-  conditionning_quantity:
-    type: integer
   created_at:
     type: datetime
     required: true
@@ -9326,6 +9682,64 @@ teams:
   updater_id:
     type: integer
     references: user
+technical_itinerary_intervention_templates:
+  created_at:
+    type: datetime
+    required: true
+  day_between_intervention:
+    type: integer
+  dont_divide_duration:
+    type: boolean
+    default: false
+  duration:
+    type: integer
+  id:
+    type: integer
+    required: true
+  intervention_template_id:
+    type: integer
+    references: intervention_template
+  parent_hash:
+    type: string
+  position:
+    type: integer
+  reference_hash:
+    type: string
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
+  updated_at:
+    type: datetime
+    required: true
+technical_itineraries:
+  activity_id:
+    type: integer
+    references: activity
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: string
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+  originator_id:
+    type: integer
+    references: technical_itinerary
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 technical_workflow_procedure_items:
   actor_reference:
     type: string
@@ -9483,6 +9897,41 @@ trackings:
     type: string
   usage_limit_on:
     type: date
+units:
+  base_unit_id:
+    type: integer
+  coefficient:
+    default: 1.0
+    type: decimal
+    precision: 20
+    required: true
+    scale: 10
+  created_at:
+    type: datetime
+    required: true
+  description:
+    type: string
+  dimension:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  reference_name:
+    type: string
+  symbol:
+    type: string
+  type:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  work_code:
+    type: string
 master_user_roles:
   accesses:
     type: text
@@ -9718,7 +10167,7 @@ master_variant_natures:
     required: true
   variety:
     type: string
-variant_prices:
+master_prices:
   currency:
     type: string
     required: true
@@ -9775,7 +10224,17 @@ variant_prices:
     type: decimal
     precision: 19
     scale: 4
-variant_units:
+master_packagings:
+  capacity:
+    type: decimal
+    precision: 25
+    scale: 10
+  capacity_unit:
+    type: string
+  reference_name:
+    type: string
+    required: true
+master_units:
   a:
     type: decimal
     precision: 25
@@ -9784,32 +10243,16 @@ variant_units:
     type: decimal
     precision: 25
     scale: 10
-  capacity:
-    type: decimal
-    precision: 25
-    scale: 10
-  capacity_unit:
-    type: string
-  class_name:
-    type: string
-    required: true
   d:
     type: decimal
     precision: 25
     scale: 10
   dimension:
     type: string
-  id:
-    type: string
-    required: true
-  name:
-    type: jsonb
   reference_name:
     type: string
     required: true
   symbol:
-    type: string
-  unit_id:
     type: string
 master_variants:
   category:

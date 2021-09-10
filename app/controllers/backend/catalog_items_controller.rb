@@ -23,7 +23,7 @@ module Backend
     unroll
 
     def new
-      @catalog_item = CatalogItem.new(catalog_id: params[:catalog_id], variant_id: params[:variant_id])
+      @catalog_item = CatalogItem.new(catalog_id: params[:catalog_id], variant_id: params[:variant_id], unit_id: params[:unit_id], started_at: params[:started_at] || Time.now)
       render locals: { with_continue: true, cancel_url: :backend_catalogs }
     end
 

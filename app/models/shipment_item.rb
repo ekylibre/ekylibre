@@ -77,6 +77,7 @@ class ShipmentItem < ParcelItem
   belongs_to :product
   validates :source_product, presence: true
 
+  delegate :unit_pretax_amount, :pretax_amount, to: :sale_item, allow_nil: true
   delegate :allow_items_update?, :remain_owner, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
            :prepared_at, :given_at,
@@ -157,12 +158,12 @@ class ShipmentItem < ParcelItem
     end
 
     def give_outgoing
-      if population == source_product.population(at: shipment_given_at) && !shipment_remain_owner
+      if conditioning_quantity == source_product.population(at: shipment_given_at) && !shipment_remain_owner
         ProductOwnership.create!(product: product, owner: shipment_recipient, started_at: shipment_given_at, originator: self)
         ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
         ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
       end
-      ProductMovement.create!(product: product, delta: -1 * population, started_at: shipment_given_at, originator: self)
+      ProductMovement.create!(product: product, delta: -1 * conditioning_quantity, started_at: shipment_given_at, originator: self)
       # product deat_at update when give a unitary product in shipment
       if product_is_unitary?
         self.product.update_attribute(:dead_at, shipment_given_at)

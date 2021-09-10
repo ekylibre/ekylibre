@@ -20,23 +20,6 @@ require 'test_helper'
 
 module Backend
   class DashboardsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions
-
-    test 'search' do
-      get 'search', params: { q: 'toto&theme=margarita' }
-      assert_not_equal 'margarita', @user.preference(:theme, 'tekyla').value
-
-      assert_nothing_raised do
-        get 'search', params: { q: '' }
-      end
-
-      assert_nothing_raised do
-        get 'search', params: {}
-      end
-
-      assert_nothing_raised do
-        get 'search', params: { q: 'to', page: 8450 }
-      end
-    end
+    test_restfully_all_actions except: :search
   end
 end

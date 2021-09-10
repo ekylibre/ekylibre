@@ -64,9 +64,10 @@ module Backend
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
-      t.column :annotation
+      t.column :annotation, hidden: true
       t.column :first_reception_number, label: :reception, url: { controller: '/backend/receptions', id: 'RECORD.first_reception_id'.c }
-      t.column :quantity
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :human_received_quantity, label: :received_quantity, datatype: :decimal
       t.column :human_quantity_to_receive, label: :quantity_to_receive, datatype: :decimal
       t.column :unit_pretax_amount, currency: true

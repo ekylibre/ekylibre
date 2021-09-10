@@ -153,6 +153,12 @@ fra:
       show: "Assistant: %{name}" #?
     backend/companies:
       edit: "Société"
+    backend/conditionings:
+      edit: "Modifier le conditionnement\_: %{name}"
+      index: "Conditionnements"
+      new: "Nouveau conditionnement"
+      new_on_the_go: "Associer un conditionnement"
+      show: "Conditionnement\_: %{name}"
     backend/contracts:
       edit: "Modifier le contrat %{number}"
       index: "Contrats"
@@ -665,6 +671,11 @@ fra:
       prepare: "Prepare reception: %{number}" #?
       ship: "Expédier la réception" #?
       show: "Réception: %{number}"
+    backend/reference_units:
+      edit: "Modifier l'unité'\_: %{name}"
+      index: "Unités"
+      new: "Nouvelle unité"
+      show: "Unité\_: %{name}"
     backend/registrations:
       edit: "Modifier inscription"
       index: "Inscriptions"
@@ -1300,6 +1311,7 @@ fra:
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Planifier une intervention"
     add_item: "Ajouter un élément"
+    add_itk_on_activities: "Planifier & Budgeter automatiquement les activités"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
@@ -1576,6 +1588,7 @@ fra:
     choices: "Choix"
     choose_an_activity: "Choisir une activité"
     choose_a_type_of_product: "Choisissez un type de produit"
+    choose_an_existing_conditioning: "Choisir un conditionnement existant"
     choose_creation_mode: "Choisissez un mode de création"
     choose_delete_interventions_options: "Vous souhaitez :"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
@@ -1628,6 +1641,7 @@ fra:
     compute_pfi_interventions: "Calculer les IFT"
     compute_pfi_report: "Éditer un bilan IFT"
     concentrations_map: "Carte des concentrations" #?
+    conditioning: "Conditionnement"
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
@@ -1675,6 +1689,7 @@ fra:
     corporeal_assets_others: "Autres"
     corporeal_assets_settlements: "Aménagements fonciers"
     corporeal_assets_total: "Immobilisations corporelles" #?
+    correspondence: "Correspondance"
     corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosif peau et muqueuses, risque de graves brûlures"
     corrosive_substances: "Matières corrosives"
     cost: "Coût"
@@ -1690,6 +1705,7 @@ fra:
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
+    create_a_new_conditioning: "Créer un nouveau conditionnement"
     create_a_sale: "Créer une vente"
     create_and_continue: "Créer et saisir suivant"
     create_journal: "— Créer le journal —"
@@ -2371,6 +2387,7 @@ fra:
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
+    link_conditioning_to_variant_guidance: "Afin d'être en mesure d'utiliser un conditionnement avec la variante choisie, veuillez le séléctionner parmi ceux existant ou en créer un nouveau."
     link_to_a_sale: "Rattacher à une vente"
     lipolysis: "Lipolyse" #?
     liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d’affaire HT) %{financial_year}"
@@ -3982,6 +3999,15 @@ fra:
       validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
       vat_declaration_generated: "La déclaration de TVA a été générée avec succès."
       vat_declaration_in_preparation: "La déclaration de TVA pour la période demandée est en cours de préparation, une notification vous sera envoyée dès qu'elle sera prête."
+      x_activity_have_been_autoplanned_successfully:
+        one: "%{count} activité a été planifié automatiquement"
+        other: "%{count} activités ont été planifié automatiquement"
+      x_activity_have_already_been_planned:
+        one: "%{count} activité a déjà été planifié"
+        other: "%{count} activités ont déjà été planifié"
+      x_activity_have_not_been_autoplanned:
+        one: "%{count} activité n'a pas été planifié automatiquement"
+        other: "%{count} activités n'ont pas été planifié automatiquement"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
         other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"

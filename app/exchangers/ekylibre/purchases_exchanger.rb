@@ -199,9 +199,14 @@ module Ekylibre
           raise "Missing quantity at line #{line_index}" unless r.quantity
 
           # puts r.variant_code.inspect.red
-
-          purchase.items.create!(role: r.role, quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
-          purchase.save!
+          conditioning_data = variant.guess_conditioning
+          purchase.items.create!(role: r.role,
+                                 conditioning_quantity: r.quantity * conditioning_data[:quantity],
+                                 conditioning_unit: conditioning_data[:unit],
+                                 tax: tax,
+                                 unit_pretax_amount: r.unit_pretax_amount,
+                                 variant: variant,
+                                 fixed: r.depreciate)
         end
 
         w.check_point

@@ -37,10 +37,13 @@
 #  variety             :string
 #
 class MasterVariantNature < LexiconRecord
+  extend Enumerize
   include Lexiconable
   include ScopeIntrospection
 
   belongs_to :translation, class_name: 'MasterTranslation'
+  enumerize :population_counting, in: %i[unitary integer decimal], predicates: { prefix: true }
 
   scope :of_families, ->(*families) { where(family: families) }
+  scope :of_class_name, ->(*class_names) { where(nature: class_names) }
 end

@@ -71,6 +71,9 @@
   .item-form__btn {
     display: flex;
     align-items: flex-end;
+    & > .btn {
+      margin: 0 4px;
+    }
   }
 
   .item-form-compliant-state {
@@ -228,17 +231,13 @@
       margin-left: 10px;
     }
 
-
-    .current-stock {
-      align-self: flex-end;
-    }
     .nested-remove {
       align-self: flex-start;
     }
   }
 
   .storing-area {
-    width: 25%;
+    flex: 0 0 30%;
     .selector {
       width: 100%;
       .controls {
@@ -249,17 +248,16 @@
   .storing-calculation {
     display: flex;
     align-items: flex-end;
+    flex: 0 0 30%;
   }
 
   .storing-quantifier {
+    flex: 0 0 20%;
     margin-right: 40px;
   }
 
-  .storing-conditionning .input-append {
-    text-align: center;
-    .conditionning {
-      width: 3em !important;
-    }
+  .storing-conditionning {
+    flex: 0 0 80%;
   }
 
 
@@ -287,12 +285,12 @@
       font-weight: bold;
     }
     .link-add-storing {
-      width: 27%;
+      width: 21%;
     }
   }
 
   .current-stock {
-    flex-basis: 250px;
+    flex: 0 0 25%;
     span {
       color: #999;
     }

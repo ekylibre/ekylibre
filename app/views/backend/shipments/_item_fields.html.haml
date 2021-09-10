@@ -9,7 +9,7 @@
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td.annotable.annotable--shipments
       = f.input :sale_item_id, as: :hidden
-      - scopes = { deliverables: true, alive: true, of_variant_active: true }
+      - scopes = { deliverables: true, alive: [at: Time.now], of_variant_active: true }
       - if item.source_product.blank?
         - variant_id = variant.id.or_else(nil)
         - scopes[:of_variant] = variant_id if variant_id
@@ -23,10 +23,10 @@
           :ruby
             hint = :x_unit.tl(quantity: "[QTY]", unit: "[UNT]")
               .gsub("[QTY]", content_tag(:span, source_product.population.or_else('&ndash;'.html_safe), class: "item-population-total"))
-              .gsub("[UNT]", content_tag(:span, h(variant.unit_name.or_else('#')), class: "item-population-unit-name").html_safe)
-          = f.input :population, wrapper: :nested_append, hint: hint.html_safe do
-            = f.input_field :population, class: "item-population", placeholder: source_product.population.or_else(nil).to_s
-            %span.add-on.item-population-unit-name= variant.unit_name.or_else('#')
+              .gsub("[UNT]", content_tag(:span, h(source_product.conditioning_unit.name.or_else('#')), class: "item-population-unit-name").html_safe)
+          = f.input :conditioning_quantity, wrapper: :nested_append, hint: hint.html_safe do
+            = f.input_field :conditioning_quantity, class: "item-population", placeholder: source_product.population.or_else(nil).to_s
+            %span.add-on.item-population-unit-name= source_product.conditioning_unit.name.or_else('#')
       -# .errors= item.errors.inspect
     %td= f.referenced_association(:analysis, wrapper: :nested)
 

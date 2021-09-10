@@ -149,8 +149,8 @@ module Backend
       # t.column :position
       t.column :label
       t.column :annotation, hidden: true
-      t.column :quantity
-      t.column :unit_name
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount, currency: true
       t.column :unit_amount, currency: true, hidden: true
       t.column :reduction_percentage

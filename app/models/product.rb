@@ -117,8 +117,10 @@ class Product < ApplicationRecord
   belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :tracking
   belongs_to :variant, class_name: 'ProductNatureVariant'
-  # belongs_to :production, class_name: 'ActivityProduction'
   belongs_to :activity_production
+  belongs_to :member_variant, class_name: 'ProductNatureVariant'
+  belongs_to :conditioning_unit, class_name: 'Unit'
+
   has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
@@ -171,9 +173,8 @@ class Product < ApplicationRecord
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item_storing, class_name: 'ParcelItemStoring', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
-
-  belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
@@ -306,10 +307,18 @@ class Product < ApplicationRecord
       available.at(at)
     end
   }
+  scope :actives, ->(**args) {
+    date = args[:at]
+    type = args[:type]
+    # TODO: Reversion
+    # product_ids = Larrere::ProductAvailability.at(date).where(available: true).select(:product_id)
+    # Product.availables(at: date).where(id: product_ids, type: type)
+    Product.availables(at: date).where(type: type)
+  }
   scope :excluding, ->(*ids) {
     where.not(id: ids)
   }
-  scope :alive, -> { where(dead_at: nil) }
+  scope :alive, ->(at: Time.now) { where('products.dead_at IS NULL OR products.dead_at >= ?', at) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
@@ -349,11 +358,16 @@ class Product < ApplicationRecord
   validates :category, :nature, :variant, :variety, presence: true
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
-  validates :uuid, presence: true
+  validates :uuid, :conditioning_unit, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
+  validates :conditioning_unit, conditioning: true
+
+  delegate :dimension, :of_dimension?, to: :unit
+
+  alias_attribute :unit, :conditioning_unit
 
   store :reading_cache, accessors: Onoma::Indicator.all, coder: ReadingsCoder
 
@@ -393,7 +407,7 @@ class Product < ApplicationRecord
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
            to: :variant, prefix: true
-  delegate :unit_name, :france_maaid, :phytosanitary_product, to: :variant
+  delegate :unit_name, :france_maaid, :phytosanitary_product, :default_unit, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
@@ -413,6 +427,7 @@ class Product < ApplicationRecord
     self.initial_born_at = self.born_at
     self.initial_dead_at = dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
+    self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
     # self.net_surface_area = initial_shape.area.in(:hectare).round(3)
   end
 
@@ -487,6 +502,24 @@ class Product < ApplicationRecord
     activity_production
   end
 
+  # planning
+  def time_use_in_date(date)
+    intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
+    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
+    intervention_proposal_parameters = InterventionProposal::Parameter
+                                       .joins(:intervention_proposal)
+                                       .where(product_id: self, intervention_proposals: { estimated_date: date })
+                                       .where.not(intervention_proposals: { number: intervention_numbers })
+    duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
+    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
+    (duration / 3600.0).round(1) if duration.present?
+  end
+
+  def working_duration_info(date)
+    "#{self.time_use_in_date(date).to_s.gsub!(/\./, ',')} h"
+  end
+  # planning
+
   # TODO: Removes this ASAP
   def deliverable?
     false
@@ -539,11 +572,16 @@ class Product < ApplicationRecord
       phase = phases.first_of_all || phases.build
       phase.variant = variant
       phase.save!
+
+      qty_in_variant_population = UnitComputation.convert_into_variant_population(variant, 1, conditioning_unit)
+
       # set indicators from variant in products readings
       variant.readings.each do |variant_reading|
-        reading = readings.first_of_all(variant_reading.indicator_name) ||
-        readings.new(indicator_name: variant_reading.indicator_name)
-        reading.value = variant_reading.value
+        is_stock_related = Unit::STOCK_INDICATOR_PER_DIMENSION.values.push('grains_count').include?(variant_reading.indicator_name)
+        val = is_stock_related ? variant_reading.value * qty_in_variant_population : variant_reading.value
+
+        reading = readings.first_of_all(variant_reading.indicator_name) || readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = val
         reading.read_at = born_at
         reading.save!
       end
@@ -661,11 +699,11 @@ class Product < ApplicationRecord
     ((dead_at || at) - born_at)
   end
 
-  # Returns item from default catalog for given usage
-  def default_catalog_item(usage)
+  # Returns item from default catalog for given usage and datetime
+  def default_catalog_item(usage, at = Time.now, into = default_unit, mode = :base_unit)
     return nil unless variant
 
-    variant.default_catalog_item(usage)
+    variant.default_catalog_item(usage, at, into, mode)
   end
 
   # Returns an evaluated price (without taxes) for the product in an intervention context
@@ -730,11 +768,14 @@ class Product < ApplicationRecord
     end
   end
 
-  def population(options = {})
-    pops = populations.last_before(options[:at] || Time.zone.now)
-    return 0.0 if pops.none?
+  def population(at: Time.zone.now, into: unit)
+    pops = populations.last_before(at)
+    return 0 if pops.none?
 
-    pops.first.value
+    destination_unit = into.is_a?(Unit) ? into : Unit.import_from_lexicon(into)
+    raise ArgumentError.new("Unknown unit #{into}") unless destination_unit.present?
+
+    UnitComputation.convert_stock(pops.first.value, unit, destination_unit)
   end
 
   # Moves population with given quantity
@@ -921,8 +962,7 @@ class Product < ApplicationRecord
   end
 
   def stock_info
-    info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
-    info
+    "#{population.round(2)} #{conditioning_unit.name}"
   end
 
   def used_in_interventions_before(date)

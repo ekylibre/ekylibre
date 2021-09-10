@@ -59,13 +59,41 @@ namespace :tenant do
       currency = Onoma::Currency.find(ENV['CURRENCY'])
       Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
-      # Add default map layers
+      puts "#{tenant.inspect.green} - Preference set (default is language: fra, country: fr, currency: EUR, SRS: WGS84)."
+      # Load default data
+      ::I18n.locale = Preference[:language]
+      Account.accounting_system = 'fr_pcga'
+      Account.load_defaults
+      Tax.load_defaults
+      Unit.load_defaults
+      Sequence.load_defaults
+      DocumentTemplate.load_defaults
       MapLayer.load_defaults
+      NamingFormatLandParcel.load_defaults
+      fy = FinancialYear.create!(started_on: Date.new(Time.zone.now.year, 1, 1), stopped_on: Date.new(Time.zone.now.year, 12, 31))
+      Journal.load_defaults
+      SaleNature.load_defaults
+      PurchaseNature.load_defaults
+      puts "#{tenant.inspect.green} - Default configuration loaded (default is accounting: fr_pcga, fy: #{fy.name})."
+
+      attributes = {
+        language: 'fra',
+        currency: 'EUR',
+        nature: :organization,
+        siret_number: '32627372900011',
+        of_company: true,
+        last_name: 'GAEC JOULIN',
+        born_at: Date.new(Time.zone.now.year, 1, 1).to_time
+      }
+      company = Entity.create!(attributes)
+      company.addresses.create!(canal: :mail, mail_line_4: '8 rue du bouil bleu')
+      company.addresses.create!(canal: :mail, mail_line_6: '17250 SAINT-PORCHAIRE')
+      puts "#{tenant.inspect.green} - Default company created."
       # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
       user = User.find_by(email: email)
       if user
-        puts 'No user created. Already initialized.'
+        puts "#{tenant.inspect.yellow} - No user created. Already initialized."
       else
         attributes = {
           email: email,
@@ -76,8 +104,8 @@ namespace :tenant do
         }
         attributes[:password_confirmation] = attributes[:password]
         User.create!(attributes)
-        puts "Initialized with account #{email}."
-        puts "Password is: #{attributes[:password]}" unless ENV['PASSWORD']
+        puts "#{tenant.inspect.green} - User created with email #{email.inspect.yellow}"
+        puts "#{tenant.inspect.green} - User created with password #{attributes[:password].inspect.yellow}" unless ENV['PASSWORD']
       end
     end
   end

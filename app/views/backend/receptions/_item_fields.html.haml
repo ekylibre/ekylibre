@@ -25,10 +25,12 @@
       #storing-display
     %td.quantity-column
       %label
-        %span{ data: { item_value: ".total-quantity" } }= f.object.population ? f.object.population : 'ERROR'
-        %span{ data: { item_value: "span.storage-unit-name" } }= f.object.variant ? f.object.variant.unit_name : '#'
+        - population_data = f.object.merchandise? ? { item_value: '.merchandise-total-stock-after-reception .stock-value' } : {}
+        %span{ data: population_data }
+        - unit_data = f.object.merchandise? ? { item_value: '.merchandise-total-stock-after-reception .stock-unit' } : {}
+        %span{ data: unit_data }
     %td.delivery-mode-column
-      %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode if f.object.delivery_mode != "ERROR"
+      %label{ data: { item_value: "input.item-delivery-mode:checked" } }= f.object.delivery_mode unless f.object.delivery_mode == 'none'
 
   %tr.nested-item-form{ class: mode == 'prefilled' ? 'prefilled' : '', data: { item_id: f.object.purchase_order_item&.id } }
     %td.item-form{colspan: 20}

@@ -43,5 +43,20 @@ require 'test_helper'
 
 class CatalogItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test 'temporality is automatically set upon validations for items sharing the same catalog, variant and unit' do
+    item_one = create :catalog_item, started_at: Date.new(2019, 1, 1)
+
+    assert_nil item_one.stopped_at
+
+    item_two = create :catalog_item, started_at: Date.new(2018, 1, 1), catalog: item_one.catalog, variant: item_one.variant
+
+    assert_nil item_one.stopped_at
+    assert_equal item_one.started_at - 1.minute, item_two.stopped_at
+
+    item_three = create :catalog_item, started_at: Date.new(2020, 1, 1), catalog: item_one.catalog, variant: item_one.variant
+
+    assert_nil item_three.stopped_at
+    assert_equal item_three.started_at - 1.minute, item_one.reload.stopped_at
+  end
 end

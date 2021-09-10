@@ -7,5 +7,5 @@
 - else
   - if %w[administering tool_maintaining animal_farming plant_farming vine_farming].include?(f.object.family)
     = render "backend/activities/form/#{f.object.family}", f: f
-  - else 
+  - else
     = render "backend/activities/form/default", f: f

@@ -570,9 +570,15 @@ td.with-details {
   }
 }
 
-select.disabled{
-  background: #EEE;
-  color: #777;
-  cursor: not-allowed;
-  pointer-events: none;
+.radio-btn-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px;
+  & input {
+    margin-right: 5px;
+  }
+  & span:not(:last-child) {
+    margin-right: 20px;
+  }
 }

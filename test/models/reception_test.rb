@@ -153,8 +153,10 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       variant: unitary_variant,
       product_name: 'Moo',
       product_identification_number: 'Cow-wow',
+      role: :merchandise,
       storings_attributes: [
-        { quantity: 1,
+        { conditioning_quantity: 1,
+          conditioning_unit: unitary_variant.guess_conditioning[:unit],
           storage: @storage } # Building.first
       ]
     }]
@@ -189,10 +191,12 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         # population: 20,
         unit_pretax_stock_amount: 15,
         variant: @variant,
+        role: :merchandise,
         storings_attributes: [
           {
-            quantity: 20,
-            storage: storage || @storage
+            conditioning_quantity: 20,
+            storage: storage || @storage,
+            conditioning_unit: @variant.guess_conditioning[:unit]
           }
         ]
       }]

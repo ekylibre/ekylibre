@@ -218,14 +218,20 @@ class InterventionInput < InterventionProductParameter
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
 
-    reception_item = product.incoming_parcel_item
-    options = { quantity: quantity_population, unit_name: product.unit_name }
-    if reception_item && reception_item.purchase_order_item
-      options[:purchase_order_item] = reception_item.purchase_order_item
+    reception_item = product.incoming_parcel_item_storing
+    options = { quantity: quantity_population, unit_name: product.conditioning_unit.name, unit: product.conditioning_unit }
+    # if reception item link to purchase item, grab amount from purchase item
+    if reception_item && reception_item.parcel_item && reception_item.parcel_item.purchase_invoice_item
+      options[:purchase_item] = reception_item.parcel_item.purchase_invoice_item
       return InterventionParameter::AmountComputation.quantity(:purchase, options)
+    # elsif reception item link to order item, grab amount from order item
+    elsif reception_item && reception_item.parcel_item && reception_item.parcel_item.purchase_order_item
+      options[:purchase_item] = reception_item.parcel_item.purchase_order_item
+      return InterventionParameter::AmountComputation.quantity(:purchase, options)
+    # grab amount from default purchase catalog item at intervention started_at
     else
       options[:catalog_usage] = :purchase
-      options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
+      options[:catalog_item] = product.default_catalog_item(options[:catalog_usage], started_at, options[:unit])
       return InterventionParameter::AmountComputation.quantity(:catalog, options)
     end
   end

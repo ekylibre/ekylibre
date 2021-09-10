@@ -3,6 +3,11 @@ require 'test_helper'
 class SaleInvoicingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
     @sale = Sale.new(client: entities(:entities_003), nature: sale_natures(:sale_natures_001), invoiced_at: DateTime.parse('2019-02-02T00:00:00Z'))
+    @sale.items.new(variant: ProductNatureVariant.first,
+                    conditioning_quantity: 4,
+                    unit_pretax_amount: 0,
+                    conditioning_unit: Unit.import_from_lexicon(:unity),
+                    tax: Tax.first)
     assert @sale.save, @sale.errors.inspect
     assert_equal Time.zone.now.to_date, @sale.created_at.to_date
     assert !@sale.affair.nil?, 'A sale must be linked to an affair'
@@ -34,4 +39,5 @@ class SaleInvoicingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert @sale.update description: "A description with \nunix newline"
     assert @sale.invoice
   end
+
 end

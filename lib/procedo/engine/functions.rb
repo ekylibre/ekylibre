@@ -218,8 +218,7 @@ module Procedo
         end
 
         def grain_indicators_present(product)
-          variant = product.variant
-          check = (variant.net_mass.positive? && variant.thousand_grains_mass.positive?) || variant.grains_count.positive?
+          check = (product.net_mass.positive? && product.thousand_grains_mass.positive?) || product.grains_count.positive?
           check ? 1 : 0
         end
       end

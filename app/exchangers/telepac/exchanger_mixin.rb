@@ -87,7 +87,7 @@ module Telepac
 
     private
 
-      def create_activity_production(cap_land_parcel, cap_year:)
+      def create_activity_production(cap_land_parcel, cap_year:, is_organic:)
 
         crop_code = cap_land_parcel.main_crop_code
 
@@ -99,12 +99,22 @@ module Telepac
                                                         .where('master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?', crop_code, cap_year).first
         raise StandardError.new("The code #{crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
 
+        # find annual or perennial activity
+        if lexicon_production_nature.life_duration.present? && lexicon_production_nature.life_duration.parts[:years].to_d > 1.0
+          production_cycle = :perennial
+        else
+          production_cycle = :annual
+        end
+
+        family_found = Activity.find_best_family(lexicon_production_nature.specie)
+
         support_nature = FALLOW_LAND.include?(crop_code.to_s) ? :fallow_land : :cultivation
 
         attributes = {
           cultivation_variety: lexicon_production_nature.specie,
           name: lexicon_production_nature.translation.send(Preference[:language]),
           reference_name: lexicon_production_nature.reference_name,
+          production_system_name: (is_organic == 'true' ? "organic_farming" : "intensive_farming"),
           support_variety: :land_parcel,
         }
 
@@ -113,19 +123,38 @@ module Telepac
         activity ||= Activity.find_by(name: attributes[:name])
 
         if activity.nil?
-          attributes.update(
-            family: :plant_farming,
-            nature: :main,
-            production_cycle: :annual,
-            size_indicator: 'net_surface_area',
-            size_unit: 'hectare',
-            with_cultivation: true,
-            with_supports: true,
-            production_started_on: lexicon_production_nature.start_on(cap_year).change(year: 2000),
-            production_stopped_on: lexicon_production_nature.stop_on(cap_year).change(year: 2000),
-            production_started_on_year: lexicon_production_nature.started_on_year,
-            production_stopped_on_year: lexicon_production_nature.stopped_on_year
-          )
+          if production_cycle == :annual
+            attributes.update(
+              family: family_found.name,
+              nature: :main,
+              production_cycle: production_cycle,
+              size_indicator: 'net_surface_area',
+              size_unit: 'hectare',
+              with_cultivation: true,
+              with_supports: true,
+              life_duration: 1,
+              production_started_on: lexicon_production_nature.start_on(cap_year).change(year: 2000),
+              production_stopped_on: lexicon_production_nature.stop_on(cap_year).change(year: 2000),
+              production_started_on_year: lexicon_production_nature.started_on_year,
+              production_stopped_on_year: lexicon_production_nature.stopped_on_year
+            )
+          elsif production_cycle == :perennial
+            attributes.update(
+              family: family_found.name,
+              nature: :main,
+              production_cycle: production_cycle,
+              size_indicator: 'net_surface_area',
+              size_unit: 'hectare',
+              with_cultivation: true,
+              with_supports: true,
+              life_duration: lexicon_production_nature.life_duration.parts[:years].to_d,
+              start_state_of_production_year: 2,
+              production_started_on: lexicon_production_nature.start_on(cap_year).change(year: 2000),
+              production_stopped_on: lexicon_production_nature.stop_on(cap_year).change(year: 2000),
+              production_started_on_year: lexicon_production_nature.started_on_year,
+              production_stopped_on_year: lexicon_production_nature.stopped_on_year
+            )
+          end
 
           activity = Activity.create!(attributes)
         end
@@ -168,9 +197,10 @@ module Telepac
           activity_production.support_nature = support_nature
           activity_production.cultivable_zone = cultivable_zone
           activity_production.usage = lexicon_production_nature.usage
+          activity_production.reference_name = lexicon_production_nature.reference_name
 
           activity_production.started_on = lexicon_production_nature.start_on(cap_year)
-          activity_production.stopped_on = lexicon_production_nature.stop_on(cap_year)
+          activity_production.stopped_on = lexicon_production_nature.stop_on(cap_year) if production_cycle == :annual
           activity_production.save!
         end
 
@@ -243,11 +273,17 @@ module Telepac
           main_crop_seed_production = land_parcel.css('culture-principale').attribute('production-semences').value
 
           commercialisation = land_parcel.css('culture-principale').attribute('commercialisation')
+          organic = land_parcel.css('agri-bio').attribute('conduite-bio')
           main_crop_commercialisation = if commercialisation.present?
                                           commercialisation.value
                                         else
                                           false
                                         end
+          is_organic = if organic.present?
+                         organic.value
+                       else
+                         false
+                       end
 
           main_crop_code = land_parcel.css('culture-principale > code-culture').text
           main_crop_precision = land_parcel.css('precision').text
@@ -278,7 +314,7 @@ module Telepac
           label = 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s
           ensure_georeading(label, cap_land_parcel.shape)
 
-          create_activity_production(cap_land_parcel, cap_year: self.class.campaign)
+          create_activity_production(cap_land_parcel, cap_year: self.class.campaign, is_organic: is_organic)
 
           w.check_point
         end

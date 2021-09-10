@@ -1,37 +1,41 @@
 - if resource.storable?
+  - series = []
   - c.cobble(:stocks) do
     :ruby
       dataset = resource.products
       variant_data = {}
+      if dataset.any?
+        dataset.map do |product|
+          items = ProductMovement.where(product: product).reorder(:started_at)
+          item_h = items.sort.inject({}) do |hash, pair|
+            hash[pair.started_at.to_usec] = UnitComputation.convert_into_variant_unit(product.variant, pair.population.to_d, product.conditioning_unit)
+            hash
+          end
+          data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
 
-      series = dataset.map do |product|
-        items = ProductMovement.where(product: product).reorder(:started_at)
-        item_h = items.sort.inject({}) do |hash, pair|
-          hash[pair.started_at.to_usec] = pair.population.to_d
-          hash
+          series << { name: product.name, data: data, visible: false }
         end
-        data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
 
-        { name: product.name, data: data, visible: false }
-      end
-
-      datas = series.map { |s| s[:data] }
-      sorted_datas = datas.map do |data|
-        changes = (data + [[0, 0]]).sort_by(&:first).reverse.each_cons(2).map do |one, two|
-          [one.first, one.last - two.last]
+        datas = series.map { |s| s[:data] }
+        sorted_datas = datas.map do |data|
+          changes = (data + [[0, 0]]).sort_by(&:first).reverse.each_cons(2).map do |one, two|
+            [one.first, one.last - two.last]
+          end
+          changes.reverse
         end
-        changes.reverse
+        variant_datas = sorted_datas.flatten(1).sort_by(&:first).reduce([]) do |vd, data_point|
+          key = data_point.first
+          value = Maybe(vd.last).last.or_else(0)
+          vd << [key, value+data_point.last]
+        end
+
+        series << { name: tl(:accumulated_stock, name: resource.name), data: variant_datas.to_a, visible: true }
       end
-      variant_datas = sorted_datas.flatten(1).sort_by(&:first).reduce([]) do |vd, data_point|
-        key = data_point.first
-        value = Maybe(vd.last).last.or_else(0)
-        vd << [key, value+data_point.last]
-      end
 
-      series << { name: tl(:accumulated_stock, name: resource.name), data: variant_datas.to_a, visible: true }
-
-    = line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :population.tl}, min: 0 }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }}, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' })
-
+    - if series.any?
+      = line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :population.tl }, min: 0 }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }}, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' })
+    - else
+      = no_data
 - c.cobble(:products) do
   = cobble_toolbar do |t|
 

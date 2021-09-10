@@ -7,7 +7,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
 
     @fy = create :financial_year, year: 2018
     @catalog = create :catalog, usage: :stock
-    @catalog.items.create! variant: @variant, amount: 10.0
+    @catalog.items.create! variant: @variant, amount: 10.0, started_at: Date.new(2018, 1, 1)
 
     @product = create :matter, name: 'matter', variant: @variant
     create :journal, used_for_permanent_stock_inventory: true

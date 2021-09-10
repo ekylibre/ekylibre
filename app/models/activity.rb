@@ -84,6 +84,7 @@ class Activity < ApplicationRecord
   refers_to :production_system
   enumerize :nature, in: %i[main auxiliary standalone], default: :main, predicates: true
   enumerize :production_cycle, in: %i[annual perennial], default: :annual, predicates: true
+  enumerize :distribution_key, in: %i[gross_margin percentage], default: :gross_margin, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
@@ -97,6 +98,11 @@ class Activity < ApplicationRecord
     has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
   end
   has_many :supports, through: :productions
+  # planning
+  has_one :tactic, -> { default }, class_name: 'ActivityTactic', inverse_of: :activity
+  has_many :tactics, class_name: 'ActivityTactic', inverse_of: :activity
+  has_many :associations_intervention_templates, class_name: 'InterventionTemplateActivity', foreign_key: :activity_id
+  has_many :intervention_templates, through: :associations_intervention_templates
 
   belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
 
@@ -141,7 +147,7 @@ class Activity < ApplicationRecord
 
   scope :of_campaign, ->(campaign) {
     if campaign
-      c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
+      c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) || campaign.is_a?(String) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
       where(id: HABTM_Campaigns.select(:activity_id).where(campaign: c))
     else
       none
@@ -459,13 +465,15 @@ class Activity < ApplicationRecord
 
     # Find nearest family on cultivation variety and support variety
     def find_best_family(cultivation_variety, _support_variety = nil)
-      if cultivation_variety.present?
-        family = :plant_farming if cultivation_variety <= :plant
-        family = :animal_farming if cultivation_variety <= :animal
-        family = :tool_maintaining if cultivation_variety <= :equipment ||
-          cultivation_variety <= :building ||
-          cultivation_variety <= :building_division
-        family = :wine_making if cultivation_variety <= :wine
+      cv = Onoma::Variety.find(cultivation_variety)
+      if cv.present?
+        family = :plant_farming if cv <= :plant
+        family = :vine_farming if cv <= :vitis
+        family = :animal_farming if cv <= :animal
+        family = :tool_maintaining if cv <= :equipment ||
+          cv <= :building ||
+          cv <= :building_division
+        family = :wine_making if cv <= :wine
       end
       family ||= :administering
       Onoma::ActivityFamily.find(family)

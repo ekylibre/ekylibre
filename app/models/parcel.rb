@@ -122,7 +122,7 @@ class Parcel < ApplicationRecord
   delegate :draft?, :ordered?, :in_preparation?, :prepared?, :started?, :finished?, to: :delivery, prefix: true
 
   before_validation do
-    self.pretax_amount = items.sum(:pretax_amount)
+    self.pretax_amount = items.map(&:pretax_amount).compact.sum
   end
 
   before_update do
@@ -279,7 +279,7 @@ class Parcel < ApplicationRecord
             name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
           )
         end
-        sale = Sale.create!(
+        sale = Sale.new(
           client: third,
           nature: nature,
           # created_at: planned_at,
@@ -308,23 +308,23 @@ class Parcel < ApplicationRecord
             elsif catalog_item
               unit_pretax_amount ||= catalog_item.amount
             end
-            item.sale_item = sale.items.create!(
+            item.sale_item = sale.items.new(
               variant: item.variant,
               unit_pretax_amount: unit_pretax_amount || 0.0,
               tax: tax,
               quantity: item.population
             )
-            item.save!
           end
-          parcel.reload
-          parcel.sale_id = sale.id
-          parcel.save!
         end
 
-        # Refreshes affair
-        sale.save!
+        if sale.items.any?
+          # Refreshes affair
+          sale.save!
+          parcels.each(&:reload)
+          parcels.each { |p| p.update!(sale_id: sale.id) }
+        end
       end
-      sale
+      sale.persisted? ? sale : nil
     end
 
     # Convert parcels to one purchase. Assume that all parcels are checked before.

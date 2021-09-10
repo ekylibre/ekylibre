@@ -39,9 +39,12 @@ module Backend
       t.action :destroy
       t.column :name, url: true
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
+      t.column :unit
       t.column :amount, currency: true
       t.column :all_taxes_included
       t.column :reference_tax, url: true
+      t.column :started_at
+      t.column :stopped_at
     end
   end
 end

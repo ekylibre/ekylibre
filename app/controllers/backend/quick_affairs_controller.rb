@@ -93,7 +93,8 @@ module Backend
                       :description,
                       items_attributes: %i[
                         variant_id
-                        quantity
+                        conditioning_unit_id
+                        conditioning_quantity
                         amount
                         tax_id
                         reduction_percentage

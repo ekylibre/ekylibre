@@ -49,11 +49,6 @@
     set_reconciliation_state !!$('.nested-fields .nested-item-form[data-item-id]').length
     set_incident_state !!$(".reception-form--late, .reception-form__nested-fields--invalid").length
 
-  # Disable selector (unroll) component
-  disable_selector_input = ($selector_input) =>
-    $selector_input.prop('disabled', true)
-    $selector_input.siblings(':last').addClass('disabled')
-
   # Disable selector (unroll) component for variant in a nested-item-form for reconciliated items
   prevent_unroll_edition_for_reconciliated_items = (e, data) =>
     target = data if data
@@ -61,7 +56,7 @@
     target = $(target).closest('tbody') unless $(target).is('tbody')
 
     if $(target).find('.nested-item-form[data-item-id]').length
-      disable_selector_input $(target).find('input[id*="variant"]')
+      E.reconciliation.disableSelectorInput $(target).find('input[id*="variant"]')
 
   $(document).on 'cocoon:after-insert', PURCHASE_PROCESS_FORM, prevent_unroll_edition_for_reconciliated_items
   $(document).on 'cocoon:after-remove', PURCHASE_PROCESS_FORM, refresh_state
@@ -215,6 +210,10 @@
     $('.modal-footer .total-amount').html(totalAmount)
 
   E.reconciliation =
+    disableSelectorInput: ($selectorInput) ->
+      $selectorInput.prop('disabled', true)
+      $selectorInput.siblings(':last').addClass('disabled')
+
     reconciliateItems: (modalContent) ->
       checkedItemId = modalContent.find('.item-checkbox:checked').attr('data-id')
       itemFieldId = $('.item-checkbox:checked').attr('data-item-field-id')
@@ -274,8 +273,7 @@
       teamId = $(checkboxLine).attr('data-team-id')
       projectBudgetId = $(checkboxLine).attr('data-project-budget-id')
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
-      itemConditionning = $(checkboxLine).attr('data-conditionning')
-      itemConditionningQuantity = $(checkboxLine).attr('data-conditionning-quantity')
+      itemConditioningId = $(checkboxLine).attr('data-conditioning-unit-id')
       itemAnnotation = $(checkboxLine).attr('data-annotation')
       itemCompliantState = $(checkboxLine).attr('data-non-compliant')
 
@@ -283,9 +281,9 @@
       $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
       if isPurchaseOrderModal == "true"
-        E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity, itemAnnotation)
+        E.reconciliation._fillPurchaseOrderItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditioningId, itemAnnotation)
       else
-        E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemAnnotation)
+        E.reconciliation._fillReceptionItem(lastLineForm, checkboxLine, itemId, itemQuantity, itemConditioningId, itemAnnotation)
 
       $(lastLineForm).find('input[data-remember="equipment"]').first().selector('value', equipmentId)
       $(lastLineForm).find('input[data-remember="team"]').first().selector('value', teamId)
@@ -298,7 +296,7 @@
         $line.data('_iceberg').setCocoonFormSubmitable()
 
     # Creates a line BASED on a ReceptionItem
-    _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemAnnotation) ->
+    _fillReceptionItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditioningId, itemAnnotation) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       teamId = $(checkboxLine).attr('data-team-id')
       activityBudgetId = $(checkboxLine).attr('data-activity-budget-id')
@@ -306,8 +304,6 @@
       itemTotalAmount = $(checkboxLine).find('.item-value.total-except-taxes').text()
       itemReductionPercentage = $(checkboxLine).attr('data-reduction-percentage')
       itemTaxId = $(checkboxLine).attr('data-tax-id')
-      itemConditionning = checkboxLine.attr('data-conditionning')
-      itemConditionningQuantity = checkboxLine.attr('data-conditionning-quantity')
       itemSupplierReference = $(checkboxLine).attr('data-supplier-ref')
 
       if itemReductionPercentage == "" || itemReductionPercentage == undefined
@@ -317,13 +313,17 @@
       $(lastLineForm).attr('data-item-id', itemId)
       $(lastLineForm).attr('data-non-compliant', itemCompliantState)
 
-      $(lastLineForm).find('.purchase-item-attribute').val(JSON.stringify([itemId]))
+      receptionItemAlreadyPresent = ($('.purchase-item-attribute').filter -> ($(this).val() == JSON.stringify([itemId]))).length
+
+      $(lastLineForm).find('.purchase-item-attribute').val(JSON.stringify([itemId])) unless receptionItemAlreadyPresent
       $(lastLineForm).find('.form-field .invoice-quantity').val(itemQuantity)
       $(lastLineForm).find('.form-field .invoice-unit-amount').val(itemUnitCost)
       $(lastLineForm).find('.form-field .invoice-discount-percentage').val(itemReductionPercentage)
       $(lastLineForm).find('.form-field .pre-tax-invoice-total').val(itemTotalAmount)
-      $selectorInput = $(lastLineForm).find('.form-field .invoice-variant').first()
-      $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
+      $variantSelector = $(lastLineForm).find('.form-field .invoice-variant').first()
+      $variantSelector.selector('value', variantId, (-> E.reconciliation.disableSelectorInput($variantSelector);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
+      $conditioningSelector = $(lastLineForm).find('.invoice-conditioning').first()
+      $conditioningSelector.selector('value', itemConditioningId, (-> E.reconciliation.disableSelectorInput($conditioningSelector);$conditioningSelector.trigger('selector:change')))
       $(lastLineForm).find('.form-field .purchase_invoice_items_activity_budget .selector-search').first().selector('value', activityBudgetId)
       $(lastLineForm).find('.form-field .purchase_invoice_items_team .selector-search').first().selector('value', teamId)
       $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
@@ -344,25 +344,26 @@
         $('.form-field .invoice-total').trigger('change')), 1000
 
     # Creates a line BASED on a PurchaseOrder
-    _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditionning, itemConditionningQuantity, itemAnnotation) ->
+    _fillPurchaseOrderItem: (lastLineForm, checkboxLine, itemId, itemQuantity, itemConditioningId, itemAnnotation) ->
       variantId = $(checkboxLine).find('.variant').attr('data-id')
       variantType = $(checkboxLine).attr('data-variant-type')
 
       $(lastLineForm).find('.purchase-item-attribute').val(itemId)
-      $selectorInput = $(lastLineForm).find('.item-block-role .parcel-item-variant').first()
 
-      $selectorInput.selector('value', variantId, (-> disable_selector_input($selectorInput);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change')))
+      $conditioningSelector = $(lastLineForm).find('.reception-conditionning').first()
+      $variantSelector = $(lastLineForm).find('.item-block-role .parcel-item-variant').first()
+
+      $conditioningSelector.selector('value', itemConditioningId, (-> E.reconciliation.disableSelectorInput($conditioningSelector);$conditioningSelector.trigger('selector:change')))
+      $variantSelector.selector('value', variantId, (-> E.reconciliation.disableSelectorInput($variantSelector);$(lastLineForm).find('.form-field .invoice-quantity').trigger('change');$variantSelector.trigger('selector:change', [null, null, { stayDisabled: true }])))
       $(lastLineForm).find('.hidden.purchase-item-attribute').val(itemId)
       $(lastLineForm).find('.annotation-logo .annotation-field').trigger('click')
       $(lastLineForm).find('.annotation-section .annotation').val(itemAnnotation)
 
       if variantType == "service" || variantType == "cost"
-        $(lastLineForm).find('.item-quantifier-population .total-quantity').val(itemQuantity)
+        $(lastLineForm).find('.reception-quantity').val(itemQuantity)
         $(lastLineForm).find('.buttons button[data-validate="item-form"]').removeAttr('disabled')
       else
         $(lastLineForm).find('.nested-fields.storing-fields:first .storing-quantifier .storing-quantity').val(itemQuantity)
-        $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning-quantity').val(itemConditionningQuantity)
-        $(lastLineForm).find('.nested-fields.storing-fields:first .conditionning').val(itemConditionning)
 
   # Given checkbox and formContainer, this method sets the purchase-order-to-close-id property to the purchase order id on the given reception item's form fields
   #    if the purchase order of the selected element is marked for closure when saving the reception

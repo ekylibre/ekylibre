@@ -84,6 +84,16 @@ module Backend
       @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
       respond_to do |format|
         format.html do
+
+          activity_crops = Plant
+                             .joins(:inspections)
+                             .where(activity_production_id: @activity.productions.map(&:id),
+                                    dead_at: nil)
+                             .where.not(inspections: { forecast_harvest_week: nil })
+                             .uniq
+
+          @crops = initialize_grid(activity_crops, decorate: true)
+
           t3e @activity
         end
 
@@ -95,6 +105,7 @@ module Backend
           redirect_to backend_activity_path(@activity)
         end
       end
+      @technical_itinerary_id = @activity&.tactic&.technical_itinerary&.id
     end
 
     # Duplicate activity basing on campaign
@@ -131,6 +142,22 @@ module Backend
         budget.duplicate!(budget.activity, new_campaign)
       end
       redirect_to params[:redirect] || { action: :index }
+    end
+
+    # add itk on all current campaign activities
+    def add_itk_on_activities
+      begin
+        activities = Activity.of_campaign(current_campaign)
+      rescue
+        notify_error(:no_activities_present)
+        return redirect_to(params[:redirect] || { action: :index })
+      end
+      if activities.any?
+        ItkImportJob.perform_later(activities.pluck(:id), current_campaign, current_user)
+      else
+        notify_error(:no_activities_present)
+        redirect_to(params[:redirect] || { action: :index })
+      end
     end
 
     def compute_pfi_report

@@ -175,6 +175,10 @@ module Ekylibre
       Tax.load_defaults if can_load?(:taxes)
       w.check_point
 
+      # Load units from Lexicon
+      Unit.load_defaults
+      w.check_point
+
       # Load all the document templates
       DocumentTemplate.load_defaults if can_load?(:document_templates)
       w.check_point
@@ -280,7 +284,12 @@ module Ekylibre
       end
       w.check_point
 
+      # Load Map layer
       MapLayer.load_defaults
+      w.check_point
+
+      # Load naming format for land parcel
+      NamingFormatLandParcel.load_defaults
       w.check_point
 
       true

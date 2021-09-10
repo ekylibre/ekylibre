@@ -5,8 +5,8 @@ DROP TABLE IF EXISTS registered_hydrographic_items;
           name jsonb,
           nature character varying,
           point postgis.geometry(Point,4326),
-          shape postgis.geometry(MultiPolygonZM,4326),
-          lines postgis.geometry(MultiLineStringZM,4326)
+          shape postgis.geometry(MultiPolygon,4326),
+          lines postgis.geometry(MultiLineString,4326)
         );
 
         CREATE INDEX registered_hydrographic_items_nature ON registered_hydrographic_items(nature);

@@ -15,7 +15,7 @@ module Api
         end
 
         test 'index with modified_since params' do
-          get :index, params: { modified_since: "29/03/2021" }
+          get :index, params: { modified_since: "29/03/2050" }
           json = JSON.parse response.body
 
           assert_equal 0, json["data"].count

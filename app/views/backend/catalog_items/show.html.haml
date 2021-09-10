@@ -5,10 +5,14 @@
   - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :catalog, url: true
+      - l.attribute :name
       - l.attribute :amount, currency: true
+      - l.attribute :unit
+      - l.attribute :commercial_name
+      - l.attribute :commercial_description
+      - l.attribute :started_at
+      - if resource.stopped_at
+        - l.attribute :stopped_at
       - l.attribute :all_taxes_included
       - if resource.all_taxes_included
         - l.attribute :reference_tax, url: true
-      - l.attribute :name
-      - l.attribute :commercial_name
-      - l.attribute :commercial_description

@@ -24,15 +24,19 @@
       else
         $(event.target).val('to_reconciliate')
 
-  updateTotalStockAfterReception = ($form, newstock) =>
-    $form.find(".merchandise-total-stock-after-reception .stock-value").text(newstock.toFixed(2))
+  updateTotalStockAfterReception = ($form, newStock, currentStock) =>
+    $totalQuantityAfterReception = $form.find(".merchandise-total-stock-after-reception .stock-value")
+    stockReceived = (newStock - currentStock).toFixed(2)
+    $totalQuantityAfterReception.data('interpolate-data-attribute', stockReceived)
+    $totalQuantityAfterReception.attr('data-interpolate-data-attribute', stockReceived)
+    $totalQuantityAfterReception.text(newStock.toFixed(2))
 
   computeTotalQuantity = ($form) =>
     reducer = (acc, val) ->
       acc + parseFloat(val)
 
-    $form.find('.storing-quantity')
-      .map(-> $(this).val() || 0)
+    $form.find('.storing-fields')
+      .map(-> ($(this).find('.storing-quantity').val() || 0) * ($(this).find('[data-coefficient]').data('coefficient') || 0))
       .toArray()
       .reduce(reducer, .0)
 
@@ -40,21 +44,22 @@
     $form = $input.closest('.nested-item-form')
     $storageForm = $input.closest('.nested-fields')
     $storage = $($storageForm.find(".parcel-item-storage.selector-search").get(0))
-    recomputeTotalQuantity($form)
-    updateAfterReceptionQuantity($storage.closest('.nested-fields'))
+    coefficient = $form.find('[data-coefficient]').data('coefficient')
+    if coefficient && $storage.selector('value')
+      updateAfterReceptionQuantity($storage.closest('.nested-fields'))
+      recomputeTotalQuantity($form)
 
   recomputeTotalQuantity = ($form) =>
     totalQuantity = computeTotalQuantity($form)
     onTotalQuantityChanged $form, totalQuantity
 
   onTotalQuantityChanged = ($form, totalQuantity) =>
-    newQuantity = totalQuantity
-    currentstock = getCurrentStock($form)
-    if newQuantity.length == 0
-      newStock = currentstock
+    currentStock = getCurrentStock($form)
+    if totalQuantity.length == 0
+      newStock = currentStock
     else
-      newStock = currentstock + parseFloat(newQuantity)
-    updateTotalStockAfterReception($form, newStock)
+      newStock = currentStock + parseFloat(totalQuantity)
+    updateTotalStockAfterReception($form, newStock, currentStock)
 
   getCurrentStock = ($form) =>
     parseFloat($form.find('.merchandise-total-current-stock .stock-value').text())
@@ -63,8 +68,10 @@
     $.getJSON("/backend/product_nature_variants/#{variantId}/detail")
       .then (data) =>
         {
-          stock: data.stock,
-          unit: data.unit.name
+          stock: data.default_unit_stock,
+          unit: data.default_unit_name,
+          unitId: data.default_unit_id,
+          isEquipment: data.is_equipment
         }
 
   getStorageStock = (variantId, storageId) =>
@@ -72,14 +79,16 @@
       .then (data) =>
         {
           stock: data.quantity,
-          unit: data.unit
+          unit: data.unit,
+          name: data.name
         }
 
   updateAfterReceptionQuantity = ($storage) =>
     storingQuantity = $storage.find('.storing-quantity').val() || 0
     currentStock = $storage.find('.merchandise-current-stock .stock-value').text()
-    stockAfterReception = parseFloat(storingQuantity) + parseFloat(currentStock)
-    $storage.find('.merchandise-stock-after-reception .stock-value').text(stockAfterReception)
+    coefficient = $storage.find('[data-coefficient]').data('coefficient')
+    stockAfterReception = parseFloat(storingQuantity * coefficient) + parseFloat(currentStock)
+    $storage.find('.merchandise-stock-after-reception .stock-value').text(stockAfterReception.toFixed(2))
 
   onStorageChanged = ($storageSelector) =>
     $form = $storageSelector.closest('.nested-item-form')
@@ -88,21 +97,30 @@
     storageId = $storageSelector.selector('value')
     variantId = $($form.find(".parcel-item-variant.selector-search").get(0)).selector('value')
 
-    getStorageStock(variantId, storageId).then (data) =>
-      $storage.find(".merchandise-current-stock .stock-value").text(data.stock)
-      $storage.find(".stock-unit").text(data.unit)
-      updateAfterReceptionQuantity $storage
+    if variantId && storageId
+      getStorageStock(variantId, storageId).then (data) =>
+        $storage.find(".merchandise-current-stock .stock-value").text(parseFloat(data.stock).toFixed(2))
+        $storage.find(".stock-unit").text(data.unit)
+        $storageSelector.data('storage-name', data.name)
+        $storageSelector.attr('data-storage-name', data.name)
+        updateAfterReceptionQuantity $storage
+        recomputeTotalQuantity $form
 
   onvariantChanged = ($variantSelector) =>
     $form = $variantSelector.closest('.nested-item-form')
-
+    $conditioningSelector = $form.find('.reception-conditionning').first()
     variantId = $variantSelector.selector('value')
     getVariantStock(variantId).then (data) =>
-      $form.find(".merchandise-total-current-stock .stock-value").text(data.stock)
-      $form.find(".stock-unit").text(data.unit)
+      if data.isEquipment
+        $conditioningSelector.selector('value', data.unitId, (-> E.reconciliation.disableSelectorInput($conditioningSelector);$conditioningSelector.trigger('selector:change')))
       updateQuantities($form)
+      $form.find(".stock-unit").text(data.unit)
+      $form.find(".merchandise-total-current-stock .stock-value").text(parseFloat(data.stock).toFixed(2))
+      $form.find('.storing-quantity').trigger('change')
+      $form.find('input.parcel-item-storage').trigger('selector:change')
 
   onStorageAdded = ($storageLine) =>
+    $storageLine.closest('.nested-item-form').find('[data-filter-unroll]').trigger('selector:change')
     $input = $storageLine.find('.storing-quantity')
     updateQuantity $input
 

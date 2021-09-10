@@ -112,6 +112,8 @@
               value = ""
           else
             value = target.val()
+        else if target.is('[data-interpolate-data-attribute]')
+          value = target.data('interpolate-data-attribute')
         else
           value = target.html()
         element.html(value)
@@ -166,11 +168,18 @@
     interpolateStoring: ->
       zones = []
       form = if @newForm().length > 0 then @newForm() else @oldForm()
+
       form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
-          unit: $(this).find('.storage-unit-name').val()
-          name: $(this).find('input.hidden').val()
+          unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
+          name: $(this).find('input.parcel-item-storage').data('storage-name')
+
+      form.find('.role-row--non-merchandise').each ->
+        zones.push
+          quantity: $(this).find('input.reception-quantity').val()
+          unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
+
       data = zones: zones
 
       @line.find('#storing-display').html(storing_display_template(zones))

@@ -474,13 +474,24 @@ $.behave(root => {
     return false;
   });
 
-  $(document).on('selector:change', '[data-toggle-enable]', function (event) {
-    const $target = $(this).closest($(this).data('parent')).find($(this).data('toggle-enable'));
-    if (!$target.length) {
-      return;
-    }
-    $target.toggleClass('disabled', !!!$(this).selector('value'));
+  $(document).on('change', 'input:radio[data-slide-toggle]', function (event) {
+    const selector = $(this).data('slide-toggle');
+    const closestSelector = $(this).data('slide-toggle-closest');
+    const parentSelector = $(this).data('parent');
+    const name = $(this).attr('name');
+    const $target = closestSelector ? $(this).closest(parentSelector).find(selector).closest(closestSelector) : $(this).closest(parentSelector).find(selector);
+    $target.slideToggle($(this).checked);
+    $(this).closest(parentSelector).find("input:radio[name='" + name + "'][data-slide-toggle]").not($(this)).trigger('uncheck');
   });
+
+  $(document).on('uncheck', 'input:radio[data-slide-toggle]', function (event) {
+    const selector = $(this).data('slide-toggle');
+    const closestSelector = $(this).data('slide-toggle-closest');
+    const parentSelector = $(this).data('parent');
+    const $target = closestSelector ? $(this).closest(parentSelector).find(selector).closest(closestSelector) : $(this).closest(parentSelector).find(selector);
+    $target.hide();
+  });
+
 
   $(document).on("mouseenter", ".btn, a", function (event) {
     var button = $(this), text;

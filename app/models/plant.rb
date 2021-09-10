@@ -188,6 +188,7 @@ class Plant < Bioproduct
   # Returns unique varieties
   def self.unique_varieties
     pluck(:variety)
+      .compact
       .uniq
       .map { |variety| Onoma::Variety.find(variety) }
   end

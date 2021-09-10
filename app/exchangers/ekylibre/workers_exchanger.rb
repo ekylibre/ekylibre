@@ -83,8 +83,19 @@ module Ekylibre
 
         # create a price
         catalog = Catalog.find_by(usage: :cost)
-        if r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: 'EUR') # , indicator_name: r.price_indicator.to_s
+        if r.unit_pretax_amount && catalog && (r.price_indicator == :usage_duration)
+          unit = Unit.import_from_lexicon('hour')
+          price = variant.catalog_items.find_by(catalog: catalog,
+                                                all_taxes_included: false, currency: 'EUR',
+                                                unit: unit, started_at: r.born_at)
+          unless price
+            variant.catalog_items.create!(catalog: catalog,
+                                          all_taxes_included: false,
+                                          amount: r.unit_pretax_amount,
+                                          currency: 'EUR',
+                                          unit: unit,
+                                          started_at: r.born_at)
+          end
         end
 
         # create the owner if not exist

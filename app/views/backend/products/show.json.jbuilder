@@ -2,6 +2,7 @@ json.extract! resource, :id, :name, :number, :work_number, :identification_numbe
 variant = resource.variant
 nature = variant.nature
 json.unit_name variant.unit_name
+json.conditioning_unit_name resource.conditioning_unit.name
 json.variant do
   json.id resource.variant_id
   json.name resource.variant_name

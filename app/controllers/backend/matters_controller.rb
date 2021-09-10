@@ -55,7 +55,7 @@ module Backend
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety
       t.column :population
-      t.column :unit_name
+      t.column :conditioning_unit
       t.column :container, url: true
       t.column :description
       t.column :derivative_of
