@@ -710,8 +710,8 @@ module Backend
       html
     end
 
-    def fields(partial = 'form')
-      @template.content_tag(:div, base_form_error_tags + @template.render(partial, f: self), class: 'form-fields')
+    def fields(partial = 'form', options = {})
+      @template.content_tag(:div, base_form_error_tags + @template.render(partial, f: self), class: "form-fields #{options[:class]}")
     end
 
     def yes_no_radio(attribute_name, options = {})

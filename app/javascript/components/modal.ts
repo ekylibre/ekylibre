@@ -100,11 +100,9 @@ export class Modal {
 
         this.on(('unroll:menu-opened' as any) as keyof HTMLElementEventMap, 'input', (e) => {
             const element = (e as any).detail.unroll.dropDownMenu.get(0);
-            if (this.getBodyElement().clientHeight < element.clientHeight) {
-                const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement;
-                if (actions) {
-                    actions.style.marginTop = `${element.clientHeight}px`;
-                }
+            const actions: HTMLDivElement = this.getBodyElement().querySelector('.form-actions') as HTMLDivElement;
+            if (actions) {
+                actions.style.marginTop = `${element.clientHeight}px`;
             }
         });
         this.on(('unroll:menu-closed' as any) as keyof HTMLElementEventMap, 'input', (e) => {

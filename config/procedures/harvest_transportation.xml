@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="harvest_transportation" categories="harvesting" actions="transportation">
+    <parameters>
+      <target name="zone" filter="(is plant or is land_parcel or is building_division) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>
+      <tool name="trailer" filter="is equipment and can move and (can store(preparation) or can store(silage) or can store(raw_matter) or can store(grass) or can store(grain) or can store_fluid)" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

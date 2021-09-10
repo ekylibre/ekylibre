@@ -120,7 +120,7 @@ module Backend
       def compare_applications_count(usage, usage_applications)
         return { none: '' } if usage.applications_count.nil? || usage_applications.is_none?
 
-        applications = usage_applications.get + 1
+        applications = usage_applications.get
         if applications < usage.applications_count
           { go: :applications_count_less_than_max.tl }
         elsif applications == usage.applications_count

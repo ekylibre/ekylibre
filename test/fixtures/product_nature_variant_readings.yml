@@ -1159,3 +1159,16 @@ product_nature_variant_readings_077:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variant_id: 75
+product_nature_variant_readings_078:
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 102
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 4

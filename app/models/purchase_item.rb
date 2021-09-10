@@ -73,6 +73,8 @@ class PurchaseItem < ApplicationRecord
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
+  belongs_to :conditioning_unit, class_name: 'Unit'
+  belongs_to :catalog_item
 
   has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id', dependent: :nullify, class_name: 'ReceptionItem'
   has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', dependent: :nullify, class_name: 'ReceptionItem'
@@ -87,8 +89,7 @@ class PurchaseItem < ApplicationRecord
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :conditionning, :conditionning_quantity, numericality: { greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :account, :currency, :purchase, :tax, presence: true
+  validates :account, :currency, :purchase, :tax, :conditioning_unit, :conditioning_quantity, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
@@ -98,6 +99,7 @@ class PurchaseItem < ApplicationRecord
   validates :account, :tax, :reduction_percentage, presence: true
   validates :variant, presence: true, unless: proc { |item| item.variant&.variety.eql?('trailed_equipment') || item.variant&.variety.eql?('equipment') }
   validates :quantity, exclusion: { in: [0], message: :invalid }
+  validates :conditioning_unit, conditioning: true
 
   validates_associated :fixed_asset
 
@@ -106,11 +108,13 @@ class PurchaseItem < ApplicationRecord
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
   delegate :name, :amount, :short_label, to: :tax, prefix: true
+  delegate :dimension, :of_dimension?, to: :unit
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
   # accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
+  alias_attribute :unit, :conditioning_unit
 
   acts_as_list scope: :purchase
   sums :purchase, :items, :pretax_amount, :amount
@@ -143,8 +147,6 @@ class PurchaseItem < ApplicationRecord
 
   before_validation do
     self.currency = purchase_currency if purchase
-
-    self.quantity ||= 0
     self.reduction_percentage ||= 0
 
     if fixed
@@ -163,7 +165,7 @@ class PurchaseItem < ApplicationRecord
       self.unit_amount = tax.amount_of(unit_pretax_amount)
       raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
-        raw_pretax_amount = unit_pretax_amount * self.quantity * reduction_coefficient
+        raw_pretax_amount = unit_pretax_amount * conditioning_quantity * reduction_coefficient
         self.pretax_amount = raw_pretax_amount.round(precision)
       end
       if amount.nil? || amount.zero?
@@ -172,6 +174,7 @@ class PurchaseItem < ApplicationRecord
     end
 
     if variant
+      self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit)
       self.label = variant.commercial_name
       self.account = if fixed && purchase.purchased?
                        # select outstanding_assets during purchase
@@ -210,20 +213,23 @@ class PurchaseItem < ApplicationRecord
     errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
   end
 
-  after_save do
-    if Preference[:catalog_price_item_addition_if_blank]
-      %i[stock purchase].each do |usage|
-        # set stock catalog price if blank
-        catalog = Catalog.by_default!(usage)
-        next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
-          unit_pretax_amount.blank? || unit_pretax_amount.zero?
+  after_save if: proc { |item| item.purchase.is_a?(PurchaseInvoice) } do
+    %i[stock purchase].each do |usage|
+      catalog = Catalog.by_default!(usage)
+      item = CatalogItem.find_by(catalog: catalog, variant: variant, unit: conditioning_unit, started_at: purchase.invoiced_at)
+      next if catalog.nil?  || item || unit_pretax_amount.blank? || unit_pretax_amount.zero?
 
-        variant.catalog_items.create!(
-          catalog: catalog,
-          amount: unit_pretax_amount, currency: currency
-        )
-      end
+      catalog_item = variant.catalog_items.create!(
+        catalog: catalog,
+        amount: unit_pretax_amount,
+        currency: currency,
+        purchase_item: self,
+        started_at: purchase.invoiced_at,
+        unit: conditioning_unit
+      )
+      self.update_columns(catalog_item_id: catalog_item.id) if usage == :purchase
     end
+    purchase.save!
   end
 
   def new_fixed_asset
@@ -351,10 +357,11 @@ class PurchaseItem < ApplicationRecord
     received_quantity.l(precision: 3)
   end
 
-  def quantity_to_receive
+  def quantity_to_receive(into_default_unit: false)
     return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
-    (quantity - received_quantity)
+    quantity = conditioning_quantity - received_quantity
+    into_default_unit ? UnitComputation.convert_into_variant_unit(variant, quantity, conditioning_unit) : quantity
   end
 
   def human_quantity_to_receive
@@ -384,9 +391,13 @@ class PurchaseItem < ApplicationRecord
     end
 
     def received_quantity
-      parcels_purchase_orders_items
-        .select { |reception_item| reception_item.reception.state.to_sym == :given }
-        .map(&:population)
-        .sum
+      if merchandise?
+        parcels_purchase_orders_items
+          .select { |reception_item| reception_item.reception.state.to_sym == :given }
+          .map { |reception_item| reception_item.storings.where(conditioning_unit: conditioning_unit).pluck(:conditioning_quantity).sum }
+          .sum
+      else
+        parcels_purchase_orders_items.where(conditioning_unit: conditioning_unit).sum(:conditioning_quantity)
+      end
     end
 end

@@ -48,16 +48,15 @@ module Backend
                                 .where(parcel_items: { purchase_invoice_item_id: nil }, sender_id: params[:supplier])
                                 .distinct
                      end
-
         items_to_reconcile(:receptions, receptions.order(:given_at))
       end
 
       private
 
-        def items_to_reconcile(model_name, items)
-          render partial: "backend/purchase_process/reconciliation/#{model_name}_to_reconcile",
+        def items_to_reconcile(model, models)
+          render partial: "backend/purchase_process/reconciliation/#{model}_to_reconcile",
                  locals: {
-                   items: items,
+                   models: models,
                    item_field_id: params[:item_field_id]
                  }
         end

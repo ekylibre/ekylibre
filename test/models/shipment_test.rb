@@ -79,8 +79,9 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'shipments' do
     to_send = [{
-      population: @product.population,
-      source_product: @product
+      conditioning_quantity: @product.population,
+      source_product: @product,
+      conditioning_unit: @product.variant.guess_conditioning[:unit]
     }]
 
     shipment = new_shipment(items_attributes: to_send)
@@ -92,9 +93,10 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # bookkeep on shipments
   test 'bookeep shipments' do
     to_send = [{
-      population: @product.population,
+      conditioning_quantity: @product.population,
       source_product: @product,
-      unit_pretax_stock_amount: 15
+      unit_pretax_stock_amount: 15,
+      conditioning_unit: @product.variant.guess_conditioning[:unit]
     }]
 
     shipment = new_shipment(items_attributes: to_send)
@@ -126,12 +128,12 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'ship giving a transporter' do
     new_shipment
-    assert_nothing_raised { Shipment.ship(Shipment.all, transporter_id: @entity.id) }
+    assert_nothing_raised { Shipment.ship(Shipment.where.not(state: :given), transporter_id: @entity.id) }
   end
 
   test 'ship without transporter' do
     new_shipment
-    assert_raise { Shipment.ship(Shipment.all) }
+    assert_raise { Shipment.ship(Shipment.where.not(state: :given)) }
   end
 
   # ???? TODO: Figure what that test was supposed to be
@@ -153,10 +155,11 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       }
 
       items_attributes ||= [{
-        population: 20,
+        conditioning_quantity: 20,
         source_product: @product,
         unit_pretax_stock_amount: 15,
-        variant: @variant
+        variant: @variant,
+        conditioning_unit: @variant.guess_conditioning[:unit]
       }]
 
       shipment = Shipment.create!(attributes)

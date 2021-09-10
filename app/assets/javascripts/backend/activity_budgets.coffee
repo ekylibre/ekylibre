@@ -54,6 +54,9 @@
               .attr("data-unit", item.unit)
               .attr("data-unit-symbol", item.unit_symbol)
               .appendTo(select)
+          ##
+          select.find("option[data-unit='#{select.siblings(".quantifier-unit").val()}']").prop("selected", true)
+          ##
           select.trigger("change")
         error: () ->
           console.error "Cannot retrieve quantifiers of variant ID=#{selector.val()}"

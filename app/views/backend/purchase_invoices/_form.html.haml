@@ -14,7 +14,7 @@
     = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
     = f.referenced_association :delivery_address, source: :own_mails, new: false
     = f.association :nature, as: :hidden
-    = f.input :invoiced_at, as: :date
+    = f.input :invoiced_at, input_html: { data: { deal_reference_date: true } }
     = f.input :payment_delay
     = f.input :tax_payability, as: :radio_buttons
     = f.input :description
@@ -82,4 +82,3 @@
                 }
               }
             %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: render_options, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
-

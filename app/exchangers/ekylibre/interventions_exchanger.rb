@@ -167,16 +167,16 @@ module Ekylibre
             if support.is_a?(CultivableZone) && r.campaign
               ap = ActivityProduction.of_campaign(r.campaign)
               # find by variety, campaign and cultivable zone id or try to find by geolocation intersection
-              if r.target_variety
+              if r.target_variety && support.shape
                 aps = ap.of_cultivation_variety(r.target_variety).where(cultivable_zone: support)
                 aps ||= ap.support_shape_intersecting(support.shape).of_cultivation_variety(r.target_variety)
               end
               # or try to find without variety if theres only one production for the current campaign and cultivable zone
-              if aps.blank? && ap.where(cultivable_zone: support).any? && ap.where(cultivable_zone: support).count == 1
+              if aps.blank? && ap.where(cultivable_zone: support).any?
                 aps = ap.where(cultivable_zone: support)
               end
               # or try to find with shape if theres only one production for the current campaign
-              if aps.blank? && ap.support_shape_intersecting(support.shape).any? && ap.support_shape_intersecting(support.shape).count == 1
+              if aps.blank? && ap.support_shape_intersecting(support.shape).any?
                 aps = ap.support_shape_intersecting(support.shape)
               end
               ps = aps.map(&:support)
@@ -188,7 +188,7 @@ module Ekylibre
             end
             p_ids += ps.map(&:id)
           end
-          w.debug p_ids.inspect.blue
+          w.debug "Intervention #{r.intervention_number}".inspect.blue
           supports = Product.find(p_ids)
         # r.production_supports = ActivityProduction.of_campaign(r.campaign).find(ps_ids)
         # Case B
@@ -383,8 +383,9 @@ module Ekylibre
       # 20 "code intrant CF WORK_NUMBER"
       # 21 "quantité intrant"
       # 22 "unité intrant CF NOMENCLATURE"
-      # 23 "diviseur de l'intrant si dose CF NOMENCLATURE"
-      # --
+      # X 23 "diviseur de l'intrant si dose CF NOMENCLATURE"
+      # Y 24 - Indicateurs
+      # Z 25 first_input_usage_id au format U_XXXXXX
       #
       # @FIXME: Translations in english please
       def parse_row(row)
@@ -410,9 +411,9 @@ module Ekylibre
             h[i.first.strip.downcase.to_sym] = i.third
             h
           end,
-          first_input_usage_id: row[25]&.to_s,
-          second_input_usage_id: row[26]&.to_s,
-          third_input_usage_id: row[27]&.to_s
+          first_input_usage_id: (row[25].blank? ? nil : row[25].to_s.split('_').last),
+          second_input_usage_id: (row[26].blank? ? nil : row[26].to_s.split('_').last),
+          third_input_usage_id: (row[27].blank? ? nil : row[27].to_s.split('_').last)
         )
         # Get campaign
         unless r.campaign = Campaign.find_by(name: r.campaign_code)
@@ -623,7 +624,9 @@ module Ekylibre
             next unless actor[0].product.of_expression(input.filter)
 
             # check usage_id presence in Lexicon
-            usage_id = RegisteredPhytosanitaryUsage.find_by(id: actor[1])
+            if actor[1].present? && RegisteredPhytosanitaryUsage.find_by(id: actor[1])
+              usage_id = actor[1]
+            end
 
             attributes[:inputs_attributes] ||= {}
             attributes[:inputs_attributes][index.to_s] = {

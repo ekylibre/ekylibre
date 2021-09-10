@@ -1,5 +1,34 @@
 module Backend
   module ActivitiesHelper
+
+    def number_to_cool(value, unit: '€', precision: nil)
+      return '—' if value.zero? || value.nil?
+
+      precision ||= if value.to_d.abs < 10
+                      2
+                    else
+                      value.to_d.abs < 100 ? 1 : 0
+                    end
+      html = value.to_d.round(precision).l(precision: precision).html_safe
+      html += raw('&nbsp;') + h(unit) unless unit.blank?
+      html
+    end
+
+    def ratio_to_cool(value, coeff, ratio, unit: '€', precision: nil)
+      return '—' if value.zero? || value.nil? || coeff.zero?
+
+      cool = (value.to_d / coeff.to_d)
+      precision ||= if cool.abs < 10
+                      2
+                    else
+                      cool.abs < 100 ? 1 : 0
+                    end
+      html = cool.round(precision).l(precision: precision).html_safe
+      html += raw('&nbsp;') + h(unit) unless unit.blank?
+      html += '/' + h(ratio) unless ratio.blank?
+      html
+    end
+
     def support_series(activity)
       activity
         .productions

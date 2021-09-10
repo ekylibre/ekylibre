@@ -6,7 +6,7 @@ class PurchaseDecorator < Draper::Decorator
   def total_amount_excluding_taxes
     return 0 unless object.items.any?
 
-    decorate_items.map(&:pretax_amount).sum
+    decorate_items.map(&:pretax_amount).compact.sum
   end
 
   def total_amount_including_taxes

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS master_packaging;
+DROP TABLE IF EXISTS master_packagings;
 DROP TABLE IF EXISTS master_units;
 DROP TABLE IF EXISTS master_dimensions;
 
@@ -22,11 +22,11 @@ CREATE TABLE master_units (
 
 CREATE INDEX master_units_reference_name ON master_units(reference_name);
 
-CREATE TABLE master_packaging (
+CREATE TABLE master_packagings (
   reference_name character varying PRIMARY KEY NOT NULL,
   capacity numeric(25,10) NOT NULL,
   capacity_unit character varying NOT NULL,
   translation_id character varying NOT NULL
 );
 
-CREATE INDEX master_packaging_reference_name ON master_packaging(reference_name);
+CREATE INDEX master_packagings_reference_name ON master_packagings(reference_name);

@@ -1,0 +1,14 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy resource
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :name
+    - l.attribute :description
+    - l.attribute :symbol
+    - l.custom :correspondence.tl, pluralize(resource.format_coefficient, resource.base_unit.name)
+
+= cobbles do |c|
+  - c.cobble(:products) do
+    = cobble_list(:products)

@@ -1,0 +1,16 @@
+= ekylibre_form_for(@conditioning, { url: { action: :create_on_the_go }, data: { dialog: params[:dialog] } }) do |f|
+  .fieldset.radio-btn-form
+    = radio_button_tag :association_mode, :existing, @association_mode == 'existing', data: { slide_toggle: '#choose_an_existing_conditioning', slide_toggle_closest: '.form-fields', parent: 'form' }
+    %span= :choose_an_existing_conditioning.tl
+    = radio_button_tag :association_mode, :new, @association_mode == 'new', data: { slide_toggle: '#create_a_new_conditioning', slide_toggle_closest: '.form-fields', parent: 'form' }
+    %span= :create_a_new_conditioning.tl
+
+  .form-fields{ class: @association_mode == 'existing' ? '' : 'hidden' }
+    = field_set :choose_an_existing_conditioning do
+      = field :conditioning.tl, selector_tag(:unit_id, { controller: '/backend/units', action: :unroll, scope: @scope })
+
+  = f.fields 'form', class: @association_mode == 'new' ? '' : 'hidden'
+
+  - f.add(:submit, :validate.tl, data: { disable_with: :please_wait.tl }, class: 'primary')
+  - f.add(:link, :cancel.tl, { action: :index }, { class: 'btn', data: { close_dialog: params[:dialog] } })
+  = f.actions

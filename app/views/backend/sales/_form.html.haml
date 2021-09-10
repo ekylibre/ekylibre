@@ -10,7 +10,7 @@
     = f.input :reference_number
     = f.subset :addresses, depend_on: :client
   -# = f.input :expired_at
-  = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }
+  = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }, input_html: { data: { deal_reference_date: true } }
   %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
     = :warning_date_not_in_period.tl
   = f.association :nature, as: :hidden
@@ -33,6 +33,7 @@
 
 - if f.object.draft? || f.object.order?
   = field_set Sale.human_attribute_name(:items) do
+    = f.error :items if f.object.items.blank?
     .items
       %table#items-table
         %thead
@@ -40,6 +41,7 @@
             %th= SaleItem.human_attribute_name(:variant)
             %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
             %th= SaleItem.human_attribute_name(:accounting_label)
+            %th= SaleItem.human_attribute_name(:conditioning_unit)
             %th= SaleItem.human_attribute_name(:quantity)
             %th= SaleItem.human_attribute_name(:unit_pretax_amount)
             %th= SaleItem.human_attribute_name(:tax)
@@ -54,7 +56,7 @@
             %th
               - unless f.object.credited_sale
                 = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-            - colspan = f.object.parcels.any? ? 6 : 5
+            - colspan = f.object.parcels.any? ? 8 : 7
             %th{colspan: colspan}= :total.tl
             %td#pta.decimal{ data: { use: ".pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
             %td#wta.decimal{ data: { use: ".wta", calculate: "sum", calculate_round: precision } }= f.object.amount

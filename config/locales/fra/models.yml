@@ -1,4 +1,66 @@
 fra:
+  errors:
+    messages: &error_messages
+      accepted: "%{attribute} doit être accepté"
+      after: "%{attribute} doit être après le %{restriction}"
+      before: "%{attribute} doit être avant le %{restriction}"
+      blank: "%{attribute} ne peut pas être vide"
+      confirmation: "%{attribute} est différent du champ de confirmation"
+      contains_blank_line: "%{attribute} contient une ligne vide" #?
+      contains_blank_page: "%{attribute} contient une page vide" #?
+      currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+      empty: "%{attribute} ne peut pas être vide"
+      entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
+      equal_to: "%{attribute} doit être égal à %{count}"
+      even: "%{attribute} doit être impair"
+      exclusion: "%{attribute} est reservé"
+      greater_than: "%{attribute} doit être plus grand que %{count}"
+      greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
+      included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
+      inclusion: "%{attribute} n’est pas inclus dans la liste"
+      invalid: "%{attribute} est invalide"
+      invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
+      invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
+      invalid_conditioning_dimension: "La dimension de la variante sélectionnée (%{variant_dimension}) n'étant pas la même que celle du conditionnement choisi (%{conditioning_dimension}), il est ainsi nécessaire de renseigner au préalable l'indicateur %{indicator_name} de la variante"
+      invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
+      invalid_datetime: "%{attribute} est invalide"
+      invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
+      invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
+      invalid_time: "%{attribute} est invalide"
+      invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+      is: "%{attribute} doit être un(e) %{thing}"
+      is_at: "%{attribute} doit être le %{restriction}"
+      less_than: "%{attribute} doit être inférieur à %{count}"
+      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+      models: #?
+        sepa/credit_transfer_transaction: #?
+          attributes: #?
+            amount: #?
+              greater_than: "Le montant à payer doit être supérieur à zéro" #?
+      missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
+      must_be_a_mail_address: "%{attribute} doit être une adresse e-mail" #?
+      no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
+      not_a_number: "%{attribute} n’est pas un nombre" #?
+      not_an_end_of_month: "%{attribute} doit être une fin de mois" #?
+      not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
+      not_an_integer: "%{attribute} doit être un nombre entier" #?
+      nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser." #?
+      odd: "%{attribute} doit être pair" #?
+      on_or_after: "%{attribute} doit être le ou après le %{restriction}" #?
+      on_or_after_field: "%{attribute} doit être le ou après le %{restriction} (%{model} %{field})" #?
+      on_or_before: "%{attribute} doit être le ou avant le %{restriction}" #?
+      overlap: "%{attribute} se trouve sur un enregistrement existant" #?
+      overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement" #?
+      period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
+      posterior: "%{attribute} doit être postérieure à %{to}" #?
+      record_invalid: "Validations échouées\_: %{errors}" #?
+      should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
+      should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois." #?
+      taken: "%{attribute} a déjà été pris" #?
+      too_long: "%{attribute} est trop long (%{count} caractères maximum)" #?
+      too_short: "%{attribute} est trop court (%{count} caractères minimum)" #?
+      unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un" #?
+      wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)" #?
   activemodel:
 
     errors:
@@ -132,27 +194,13 @@ fra:
         enable_bookkeep_bank_item_details: "Comptabiliser le détail du relevé de compte" #?
       cashes:
         main_account: "Compte principal"
-      cvi_cadastral_plant:
-        area: "Superficie déclarée"
-        cadastral_reference: "Réf. cadastrale"
-        work_number: "Numéro de la parcelle cadastrale"
-        inter_row_distance: "Inter-rang"
-        inter_vine_plant_distance: "Inter-pied"
-        land_parcel_id: "Réf. cadastrale id"
-        rootstock_number: "Porte-greffe"
-        state: "État"
-      cvi_statement:
-        cadastral_plant_count: "Nombre de cultures cadastrales"
-        cadastral_sub_plant_count: "Nombre de sous-cultures cadastrales"
-        created_at: "Date d'import"
-        cvi_number: "N° de CVI"
-        extraction_date: "Date d'extraction"
-        farm_name: "Nom du domaine"
-        state: "Statut"
-        total_area: "Superficie encépagée déclarée"
-      cvi_land_parcel:
-        activity_id: Activité
-        land_modification_date: "Date d’arrachage"
+      catalog_item:
+        unit: "Conditionnement"
+        started_at: "En vigueur à partir du"
+        stopped_at: "En vigueur jusqu'au"
+      conditioning:
+        base_unit: "Unité"
+        coefficient: "Quantité"
       document:
         filename: "Fichier"
       document_archive: #?
@@ -260,8 +308,8 @@ fra:
         population: "Quantité"
         product_name: "Nom du produit"
       parcel_item_storing:
-        conditionning: "Conditionnement"
-        conditionning_quantity: "Quantité"
+        conditioning_unit: "Conditionnement"
+        conditioning_quantity: "Quantité"
         quantity: "Quantité totale"
         reception_given_at: "Donné le"
         reception_planned_at: "Prévu le"
@@ -336,8 +384,8 @@ fra:
       purchase_item:
         amount: "Montant TTC" #?
         average_unit_pretax_amount: "PU moyen HT"
-        conditionning: "Conditionnement" #?
-        conditionning_quantity: "Quantité" #?
+        conditioning_unit: "Conditionnement"
+        conditioning_quantity: "Quantité"
         fixed_asset_stopped_on: "Immobilisation arrêtée le"
         last_unit_pretax_amount: "Dernier prix HT"
         ordered_quantity: "Quantité commandée"
@@ -510,6 +558,7 @@ fra:
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
         invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
+        invalid_conditioning_dimension: "La dimension de la variante sélectionnée (%{variant_dimension}) n'étant pas la même que celle du conditionnement choisi (%{conditioning_dimension}), il est ainsi nécessaire de renseigner au préalable l'indicateur %{indicator_name} de la variante"
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
         # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
@@ -524,6 +573,7 @@ fra:
         is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+        mandatory_reading: "Veuillez saisir une valeur pour l'indicateur %{name}"
         missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         models: #?
           sepa/credit_transfer_transaction: #?
@@ -608,6 +658,10 @@ fra:
           attributes:
             land_parcel:
               cannot_find_land_parcel: "Erreur : Aucune parcelle cadastrale n'a été trouvée"
+        catalog_item:
+          attributes:
+            started_at:
+              there_is_already_a_catalog_item_starting_at_the_exact_same_time: "Cette date de mise en vigueur est déjà utilisée dans ce catalogue pour cette variante avec ce conditionnement"
         deposit: #?
           must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse" #?
         entity: #?
@@ -719,6 +773,8 @@ fra:
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+        intervention_template:
+          label: "%{name} - Campagne %{campaign}"
         product_nature_variant: #?
           cannot_change_maaid_number_if_it_has_already_been_set: "Le numéro d'AMM pointe déjà vers un produit phytosanitaire et ne peut être modifié" #?
         purchase: #?
@@ -738,6 +794,7 @@ fra:
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}." #?
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur" #?
         sale: #?
+          a_sale_must_have_at_least_one_sale_item: "Une vente doit comporter au moins une ligne de vente"
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
@@ -796,6 +853,7 @@ fra:
       cash_transfer: "Virement interne"
       catalog: "Liste de prix"
       catalog_item: "Prix"
+      conditioning: "Conditionnement"
       contract: "Contrat"
       contract_item: "Élément du contrat"
       crop_group_item : "Groupement parcellaire - Élément"
@@ -948,6 +1006,7 @@ fra:
       purchase_payment: "Décaissement d’achat"
       reception: "Réception"
       reception_item: "Élément de réception"
+      reference_unit: "Unité"
       registered_agroedi_code: "Code agroedi référencé"
       registered_building_zone: "Zone de bâtiment référencée" #?
       registered_legal_position: "Forme juridique"
@@ -994,6 +1053,7 @@ fra:
       team: "Service"
       token: "Jeton"
       tracking: "Lot traçable"
+      unit: "Conditionnement"
       user: "Utilisateur"
       vegetal_activity: "Activité végétale" #?
       version: "Version"
@@ -1146,6 +1206,7 @@ fra:
     bank_statement_number: "N° du relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    base_unit: "Unité de référence"
     # batch: "Batch"
     batch_number: "N° de lot"
     # batch_planting: "Batch planting"
@@ -1255,8 +1316,8 @@ fra:
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
-    # conditionning: "Conditionning"
-    # conditionning_quantity: "Conditionning quantity"
+    conditioning_unit: "Conditionnement"
+    conditioning_quantity: "Quantité"
     conditions: "Conditions (SQL)"
     confirmation_sent_at: "Confirmation envoyée le"
     confirmation_token: "Jeton de confirmation"
@@ -1351,6 +1412,8 @@ fra:
     default_computation_method: "Méthode de calcul par défaut"
     default_mail_address: "Adresse email par défaut"
     default_storage: "Emplacement par défaut"
+    default_unit: "Unité par défaut"
+    default_unit_name: "Unité par défaut"
     default_variant: "Variante par défaut"
     deferred_payment: "Crédit à reporter" #?
     deleted_at: "Supprimé le"
@@ -2350,6 +2413,7 @@ fra:
     suspended_balance: "Solde du compte d'attente"
     suspended_journal_entry_items: "Lignes d'écriture suspendues"
     suspense_account: "Compte d'attente bancaire"
+    symbol: "Symbole"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
@@ -2493,6 +2557,7 @@ fra:
     with_deposit: "Utiliser les remises en banque"
     with_supports: "Avec des supports"
     with_transport: "Avec transport"
+    work_code: "Code de travail"
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
     worker: "Équipier"
@@ -2507,6 +2572,19 @@ fra:
     working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
+    list_of_activities: Nom des activités
+    preparation_time: Temps de préparation
+    average_yield: Rendement moyen
+    technical_itinerary: Itinéraire cultural
+    technical_itineraries: Itinéraires culturaux
+    intervention_templates_list: Liste des interventions
+    technical_itinerary_parameters: Paramètres de l'itinéraire cultural
+    predicated_sowing_date: Date prévisionnelle de semis/plantation
+    batch_planting: Implantation des cultures par lot
+    day_interval: "Semés/plantés tous les :"
+    estimated_sowing_date: "Date prévisionnelle de semis/plantation"
+    area: Surface
+    activity_productions_list: Productions
   errors:
     messages:
       accepted: "%{attribute} doit être accepté"

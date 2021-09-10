@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.7 (Ubuntu 12.7-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.7 (Ubuntu 12.7-0ubuntu0.20.04.1)
+-- Dumped from database version 12.8 (Ubuntu 12.8-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.8 (Ubuntu 12.8-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -35,13 +35,6 @@ CREATE SCHEMA postgis;
 --
 
 CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -298,6 +291,26 @@ CREATE TABLE lexicon.intervention_models (
 
 
 --
+-- Name: master_budgets; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_budgets (
+    budget_category character varying NOT NULL,
+    variant character varying NOT NULL,
+    mode character varying,
+    proportionnal character varying,
+    repetition integer NOT NULL,
+    frequency character varying NOT NULL,
+    start_month integer NOT NULL,
+    quantity numeric(8,2) NOT NULL,
+    price numeric(8,2) NOT NULL,
+    tax_rate numeric(8,2) NOT NULL,
+    unit character varying NOT NULL,
+    direction character varying NOT NULL
+);
+
+
+--
 -- Name: master_chart_of_accounts; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -320,6 +333,35 @@ CREATE TABLE lexicon.master_crop_production_cap_codes (
     cap_label character varying NOT NULL,
     production character varying NOT NULL,
     year integer NOT NULL
+);
+
+
+--
+-- Name: master_crop_production_cap_sna_codes; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_production_cap_sna_codes (
+    reference_name character varying NOT NULL,
+    nature character varying NOT NULL,
+    parent character varying,
+    translation_id character varying NOT NULL
+);
+
+
+--
+-- Name: master_crop_production_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_production_prices (
+    department_zone character varying NOT NULL,
+    started_on date NOT NULL,
+    price_duration interval NOT NULL,
+    specie character varying NOT NULL,
+    waiting_price numeric(8,2) NOT NULL,
+    final_price numeric(8,2) NOT NULL,
+    currency character varying NOT NULL,
+    price_unit character varying NOT NULL,
+    campaign integer NOT NULL
 );
 
 
@@ -347,6 +389,20 @@ CREATE TABLE lexicon.master_crop_production_tfi_codes (
 
 
 --
+-- Name: master_crop_production_yields; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_crop_production_yields (
+    department_zone character varying NOT NULL,
+    specie character varying NOT NULL,
+    production character varying NOT NULL,
+    yield_value numeric(8,2) NOT NULL,
+    yield_unit character varying NOT NULL,
+    campaign integer NOT NULL
+);
+
+
+--
 -- Name: master_crop_productions; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -359,6 +415,9 @@ CREATE TABLE lexicon.master_crop_productions (
     agroedi_crop_code character varying,
     season character varying,
     life_duration interval,
+    idea_botanic_family character varying,
+    idea_specie_family character varying,
+    idea_output_family character varying,
     translation_id character varying NOT NULL
 );
 
@@ -386,8 +445,7 @@ CREATE TABLE lexicon.master_doer_contracts (
     weekly_working_time character varying,
     gross_hourly_wage numeric(19,4),
     net_hourly_wage numeric(19,4),
-    coefficient_total_cost numeric(19,4),
-    variant_id character varying
+    coefficient_total_cost numeric(19,4)
 );
 
 
@@ -406,10 +464,10 @@ CREATE TABLE lexicon.master_legal_positions (
 
 
 --
--- Name: master_packaging; Type: TABLE; Schema: lexicon; Owner: -
+-- Name: master_packagings; Type: TABLE; Schema: lexicon; Owner: -
 --
 
-CREATE TABLE lexicon.master_packaging (
+CREATE TABLE lexicon.master_packagings (
     reference_name character varying NOT NULL,
     capacity numeric(25,10) NOT NULL,
     capacity_unit character varying NOT NULL,
@@ -428,6 +486,22 @@ CREATE TABLE lexicon.master_phenological_stages (
     chasselas_date character varying,
     label jsonb,
     description jsonb
+);
+
+
+--
+-- Name: master_phytosanitary_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_phytosanitary_prices (
+    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
+    reference_article_name integer NOT NULL,
+    unit_pretax_amount numeric(19,4) NOT NULL,
+    currency character varying NOT NULL,
+    reference_packaging_name character varying NOT NULL,
+    started_on date NOT NULL,
+    usage character varying NOT NULL
 );
 
 
@@ -1049,7 +1123,8 @@ CREATE TABLE public.activities (
     reference_name character varying,
     isacompta_analytic_code character varying(2),
     production_started_on_year integer,
-    production_stopped_on_year integer
+    production_stopped_on_year integer,
+    distribution_key character varying
 );
 
 
@@ -1066,7 +1141,9 @@ CREATE TABLE public.activity_budgets (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    nature character varying,
+    technical_itinerary_id integer
 );
 
 
@@ -1104,7 +1181,12 @@ CREATE TABLE public.activity_productions (
     headland_shape postgis.geometry(Geometry,4326),
     custom_name character varying,
     starting_year integer,
-    reference_name character varying
+    reference_name character varying,
+    technical_itinerary_id integer,
+    predicated_sowing_date date,
+    batch_planting boolean,
+    number_of_batch integer,
+    sowing_interval integer
 );
 
 
@@ -1270,7 +1352,8 @@ CREATE TABLE public.interventions (
     costing_id integer,
     validator_id integer,
     providers jsonb,
-    provider jsonb
+    provider jsonb,
+    intervention_proposal_id integer
 );
 
 
@@ -1344,7 +1427,8 @@ CREATE TABLE public.products (
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
-    isacompta_analytic_code character varying(2)
+    isacompta_analytic_code character varying(2),
+    conditioning_unit_id integer NOT NULL
 );
 
 
@@ -1391,7 +1475,10 @@ CREATE TABLE public.activity_budget_items (
     lock_version integer DEFAULT 0 NOT NULL,
     unit_population numeric(19,4),
     unit_currency character varying NOT NULL,
-    activity_budget_id integer NOT NULL
+    activity_budget_id integer NOT NULL,
+    used_on date,
+    paid_on date,
+    product_parameter_id integer
 );
 
 
@@ -1433,6 +1520,44 @@ CREATE SEQUENCE public.activity_budgets_id_seq
 --
 
 ALTER SEQUENCE public.activity_budgets_id_seq OWNED BY public.activity_budgets.id;
+
+
+--
+-- Name: activity_cost_outputs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_cost_outputs (
+    id integer NOT NULL,
+    activity_id integer NOT NULL,
+    variant_id integer NOT NULL,
+    variant_unit_id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: activity_cost_outputs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_cost_outputs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_cost_outputs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_cost_outputs_id_seq OWNED BY public.activity_cost_outputs.id;
 
 
 --
@@ -1585,6 +1710,76 @@ ALTER SEQUENCE public.activity_inspection_point_natures_id_seq OWNED BY public.a
 
 
 --
+-- Name: activity_production_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_production_batches (
+    id integer NOT NULL,
+    number integer,
+    day_interval integer,
+    irregular_batch boolean DEFAULT false,
+    activity_production_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    planning_scenario_activity_plot_id integer
+);
+
+
+--
+-- Name: activity_production_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_production_batches_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_production_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_production_batches_id_seq OWNED BY public.activity_production_batches.id;
+
+
+--
+-- Name: activity_production_irregular_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_production_irregular_batches (
+    id integer NOT NULL,
+    activity_production_batch_id integer,
+    estimated_sowing_date date,
+    area numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: activity_production_irregular_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_production_irregular_batches_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_production_irregular_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_production_irregular_batches_id_seq OWNED BY public.activity_production_irregular_batches.id;
+
+
+--
 -- Name: activity_productions_campaigns; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -1696,7 +1891,11 @@ CREATE TABLE public.activity_tactics (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    "default" boolean DEFAULT false,
+    technical_workflow_id character varying,
+    technical_workflow_sequence_id character varying,
+    campaign_id integer
 );
 
 
@@ -2670,7 +2869,13 @@ CREATE TABLE public.catalog_items (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     commercial_description text,
-    commercial_name character varying
+    commercial_name character varying,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone,
+    reference_name character varying,
+    unit_id integer NOT NULL,
+    sale_item_id integer,
+    purchase_item_id integer
 );
 
 
@@ -3334,6 +3539,45 @@ ALTER SEQUENCE public.cvi_statements_id_seq OWNED BY public.cvi_statements.id;
 
 
 --
+-- Name: daily_charges; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_charges (
+    id integer NOT NULL,
+    reference_date date,
+    product_type character varying,
+    product_general_type character varying,
+    quantity numeric,
+    area numeric,
+    intervention_template_product_parameter_id integer,
+    activity_production_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    activity_id integer
+);
+
+
+--
+-- Name: daily_charges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.daily_charges_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: daily_charges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.daily_charges_id_seq OWNED BY public.daily_charges.id;
+
+
+--
 -- Name: dashboards; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3897,11 +4141,12 @@ CREATE TABLE public.purchase_items (
     preexisting_asset boolean,
     equipment_id integer,
     role character varying,
-    conditionning_quantity numeric,
-    conditionning numeric,
     project_budget_id integer,
     fixed_asset_stopped_on date,
-    accounting_label character varying
+    accounting_label character varying,
+    conditioning_unit_id integer NOT NULL,
+    conditioning_quantity numeric(20,10) NOT NULL,
+    catalog_item_id integer
 );
 
 
@@ -3956,7 +4201,7 @@ CREATE TABLE public.sale_items (
     id integer NOT NULL,
     sale_id integer NOT NULL,
     variant_id integer NOT NULL,
-    quantity numeric(19,4) DEFAULT 1.0 NOT NULL,
+    quantity numeric(19,4) NOT NULL,
     pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     tax_id integer,
@@ -3983,7 +4228,10 @@ CREATE TABLE public.sale_items (
     fixed boolean DEFAULT false NOT NULL,
     preexisting_asset boolean,
     depreciable_product_id integer,
-    fixed_asset_id integer
+    fixed_asset_id integer,
+    conditioning_unit_id integer NOT NULL,
+    conditioning_quantity numeric(20,10) NOT NULL,
+    catalog_item_id integer
 );
 
 
@@ -4522,7 +4770,8 @@ CREATE TABLE public.fixed_assets (
     waiting_journal_entry_id integer,
     waiting_asset_account_id integer,
     special_imputation_asset_account_id integer,
-    provider jsonb
+    provider jsonb,
+    activity_id integer
 );
 
 
@@ -4803,10 +5052,12 @@ CREATE TABLE public.idea_diagnostic_item_values (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    value integer,
-    answer character varying,
-    name character varying,
-    treshold integer
+    boolean_value boolean,
+    float_value double precision,
+    integer_value integer,
+    string_value character varying,
+    nature character varying DEFAULT 'string'::character varying,
+    name character varying
 );
 
 
@@ -5481,6 +5732,201 @@ ALTER SEQUENCE public.intervention_participations_id_seq OWNED BY public.interve
 
 
 --
+-- Name: intervention_proposal_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_proposal_parameters (
+    id integer NOT NULL,
+    intervention_proposal_id integer,
+    product_id integer,
+    product_nature_variant_id integer,
+    product_type character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    intervention_template_product_parameter_id integer,
+    quantity numeric,
+    unit character varying
+);
+
+
+--
+-- Name: intervention_proposal_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_proposal_parameters_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_proposal_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_proposal_parameters_id_seq OWNED BY public.intervention_proposal_parameters.id;
+
+
+--
+-- Name: intervention_proposals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_proposals (
+    id integer NOT NULL,
+    technical_itinerary_intervention_template_id integer,
+    estimated_date date,
+    area numeric,
+    activity_production_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    number integer,
+    target character varying,
+    batch_number integer,
+    activity_production_irregular_batch_id integer
+);
+
+
+--
+-- Name: intervention_proposals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_proposals_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_proposals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_proposals_id_seq OWNED BY public.intervention_proposals.id;
+
+
+--
+-- Name: intervention_template_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_template_activities (
+    id integer NOT NULL,
+    intervention_template_id integer,
+    activity_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: intervention_template_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_template_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_template_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_template_activities_id_seq OWNED BY public.intervention_template_activities.id;
+
+
+--
+-- Name: intervention_template_product_parameters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_template_product_parameters (
+    id integer NOT NULL,
+    intervention_template_id integer,
+    product_nature_id integer,
+    product_nature_variant_id integer,
+    activity_id integer,
+    quantity numeric,
+    unit character varying,
+    type character varying,
+    procedure jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    intervention_model_item_id character varying,
+    technical_workflow_procedure_item_id character varying
+);
+
+
+--
+-- Name: intervention_template_product_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_template_product_parameters_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_template_product_parameters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_template_product_parameters_id_seq OWNED BY public.intervention_template_product_parameters.id;
+
+
+--
+-- Name: intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_templates (
+    id integer NOT NULL,
+    name character varying,
+    active boolean DEFAULT true,
+    description character varying,
+    procedure_name character varying,
+    campaign_id integer,
+    preparation_time_hours integer,
+    preparation_time_minutes integer,
+    workflow numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    originator_id integer,
+    technical_workflow_procedure_id character varying,
+    intervention_model_id character varying
+);
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_templates_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_templates_id_seq OWNED BY public.intervention_templates.id;
+
+
+--
 -- Name: intervention_working_periods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -6043,7 +6489,8 @@ CREATE TABLE public.loans (
     bank_guarantee_amount integer,
     accountable_repayments_started_on date,
     initial_releasing_amount boolean DEFAULT true NOT NULL,
-    provider jsonb
+    provider jsonb,
+    activity_id integer
 );
 
 
@@ -6552,9 +6999,9 @@ CREATE TABLE public.parcel_item_storings (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    conditionning_quantity numeric,
-    conditionning numeric,
-    product_id integer
+    product_id integer,
+    conditioning_unit_id integer NOT NULL,
+    conditioning_quantity numeric(20,10) NOT NULL
 );
 
 
@@ -6608,8 +7055,6 @@ CREATE TABLE public.parcel_items (
     product_name character varying,
     currency character varying,
     unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    unit_pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     non_compliant boolean,
     delivery_mode character varying,
     delivery_id integer,
@@ -6625,7 +7070,9 @@ CREATE TABLE public.parcel_items (
     purchase_order_to_close_id integer,
     activity_budget_id integer,
     team_id integer,
-    annotation text
+    annotation text,
+    conditioning_unit_id integer,
+    conditioning_quantity numeric(20,10)
 );
 
 
@@ -6861,6 +7308,118 @@ CREATE SEQUENCE public.pfi_intervention_parameters_id_seq
 --
 
 ALTER SEQUENCE public.pfi_intervention_parameters_id_seq OWNED BY public.pfi_intervention_parameters.id;
+
+
+--
+-- Name: planning_scenario_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.planning_scenario_activities (
+    id integer NOT NULL,
+    activity_id integer,
+    planning_scenario_id integer,
+    creator_id integer,
+    updater_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: planning_scenario_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.planning_scenario_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: planning_scenario_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.planning_scenario_activities_id_seq OWNED BY public.planning_scenario_activities.id;
+
+
+--
+-- Name: planning_scenario_activity_plots; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.planning_scenario_activity_plots (
+    id integer NOT NULL,
+    planning_scenario_activity_id integer,
+    technical_itinerary_id integer,
+    area numeric,
+    planned_at date,
+    creator_id integer,
+    updater_id integer,
+    batch_planting boolean DEFAULT false,
+    number_of_batch integer,
+    sowing_interval integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: planning_scenario_activity_plots_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.planning_scenario_activity_plots_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: planning_scenario_activity_plots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.planning_scenario_activity_plots_id_seq OWNED BY public.planning_scenario_activity_plots.id;
+
+
+--
+-- Name: planning_scenarios; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.planning_scenarios (
+    id integer NOT NULL,
+    name character varying,
+    description character varying,
+    campaign_id integer,
+    area numeric,
+    creator_id integer,
+    updater_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: planning_scenarios_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.planning_scenarios_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: planning_scenarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.planning_scenarios_id_seq OWNED BY public.planning_scenarios.id;
 
 
 --
@@ -7640,7 +8199,7 @@ CREATE TABLE public.product_nature_variants (
     variety character varying NOT NULL,
     derivative_of character varying,
     reference_name character varying,
-    unit_name character varying NOT NULL,
+    unit_name character varying,
     active boolean DEFAULT true NOT NULL,
     picture_file_name character varying,
     picture_content_type character varying,
@@ -7661,7 +8220,10 @@ CREATE TABLE public.product_nature_variants (
     specie_variety character varying,
     type character varying NOT NULL,
     imported_from character varying,
-    provider jsonb
+    provider jsonb,
+    default_quantity numeric(19,4) DEFAULT 1 NOT NULL,
+    default_unit_name character varying NOT NULL,
+    default_unit_id integer NOT NULL
 );
 
 
@@ -8911,6 +9473,85 @@ ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
 
 
 --
+-- Name: technical_itineraries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.technical_itineraries (
+    id integer NOT NULL,
+    name character varying,
+    campaign_id integer,
+    activity_id integer,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    originator_id integer,
+    activity_tactic_id integer
+);
+
+
+--
+-- Name: technical_itineraries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.technical_itineraries_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: technical_itineraries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.technical_itineraries_id_seq OWNED BY public.technical_itineraries.id;
+
+
+--
+-- Name: technical_itinerary_intervention_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.technical_itinerary_intervention_templates (
+    id integer NOT NULL,
+    technical_itinerary_id integer,
+    intervention_template_id integer,
+    "position" integer,
+    day_between_intervention integer,
+    duration integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    dont_divide_duration boolean DEFAULT false,
+    reference_hash character varying,
+    parent_hash character varying,
+    day_since_start numeric(19,4)
+);
+
+
+--
+-- Name: technical_itinerary_intervention_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.technical_itinerary_intervention_templates_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: technical_itinerary_intervention_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.technical_itinerary_intervention_templates_id_seq OWNED BY public.technical_itinerary_intervention_templates.id;
+
+
+--
 -- Name: tokens; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -8986,6 +9627,46 @@ CREATE SEQUENCE public.trackings_id_seq
 --
 
 ALTER SEQUENCE public.trackings_id_seq OWNED BY public.trackings.id;
+
+
+--
+-- Name: units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.units (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    reference_name character varying,
+    base_unit_id integer,
+    symbol character varying,
+    work_code character varying,
+    coefficient numeric(20,10) DEFAULT 1.0 NOT NULL,
+    description text,
+    dimension character varying NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.units_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.units_id_seq OWNED BY public.units.id;
 
 
 --
@@ -9368,6 +10049,13 @@ ALTER TABLE ONLY public.activity_budgets ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: activity_cost_outputs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_cost_outputs ALTER COLUMN id SET DEFAULT nextval('public.activity_cost_outputs_id_seq'::regclass);
+
+
+--
 -- Name: activity_distributions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -9393,6 +10081,20 @@ ALTER TABLE ONLY public.activity_inspection_calibration_scales ALTER COLUMN id S
 --
 
 ALTER TABLE ONLY public.activity_inspection_point_natures ALTER COLUMN id SET DEFAULT nextval('public.activity_inspection_point_natures_id_seq'::regclass);
+
+
+--
+-- Name: activity_production_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_batches ALTER COLUMN id SET DEFAULT nextval('public.activity_production_batches_id_seq'::regclass);
+
+
+--
+-- Name: activity_production_irregular_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_irregular_batches ALTER COLUMN id SET DEFAULT nextval('public.activity_production_irregular_batches_id_seq'::regclass);
 
 
 --
@@ -9666,6 +10368,13 @@ ALTER TABLE ONLY public.cvi_land_parcels ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.cvi_statements ALTER COLUMN id SET DEFAULT nextval('public.cvi_statements_id_seq'::regclass);
+
+
+--
+-- Name: daily_charges id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_charges ALTER COLUMN id SET DEFAULT nextval('public.daily_charges_id_seq'::regclass);
 
 
 --
@@ -9963,6 +10672,41 @@ ALTER TABLE ONLY public.intervention_participations ALTER COLUMN id SET DEFAULT 
 
 
 --
+-- Name: intervention_proposal_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposal_parameters ALTER COLUMN id SET DEFAULT nextval('public.intervention_proposal_parameters_id_seq'::regclass);
+
+
+--
+-- Name: intervention_proposals id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposals ALTER COLUMN id SET DEFAULT nextval('public.intervention_proposals_id_seq'::regclass);
+
+
+--
+-- Name: intervention_template_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_activities ALTER COLUMN id SET DEFAULT nextval('public.intervention_template_activities_id_seq'::regclass);
+
+
+--
+-- Name: intervention_template_product_parameters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_product_parameters ALTER COLUMN id SET DEFAULT nextval('public.intervention_template_product_parameters_id_seq'::regclass);
+
+
+--
+-- Name: intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_templates ALTER COLUMN id SET DEFAULT nextval('public.intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: intervention_working_periods id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -10184,6 +10928,27 @@ ALTER TABLE ONLY public.payslips ALTER COLUMN id SET DEFAULT nextval('public.pay
 --
 
 ALTER TABLE ONLY public.pfi_intervention_parameters ALTER COLUMN id SET DEFAULT nextval('public.pfi_intervention_parameters_id_seq'::regclass);
+
+
+--
+-- Name: planning_scenario_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activities ALTER COLUMN id SET DEFAULT nextval('public.planning_scenario_activities_id_seq'::regclass);
+
+
+--
+-- Name: planning_scenario_activity_plots id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_plots ALTER COLUMN id SET DEFAULT nextval('public.planning_scenario_activity_plots_id_seq'::regclass);
+
+
+--
+-- Name: planning_scenarios id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenarios ALTER COLUMN id SET DEFAULT nextval('public.planning_scenarios_id_seq'::regclass);
 
 
 --
@@ -10530,6 +11295,20 @@ ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_
 
 
 --
+-- Name: technical_itineraries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itineraries ALTER COLUMN id SET DEFAULT nextval('public.technical_itineraries_id_seq'::regclass);
+
+
+--
+-- Name: technical_itinerary_intervention_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itinerary_intervention_templates ALTER COLUMN id SET DEFAULT nextval('public.technical_itinerary_intervention_templates_id_seq'::regclass);
+
+
+--
 -- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -10541,6 +11320,13 @@ ALTER TABLE ONLY public.tokens ALTER COLUMN id SET DEFAULT nextval('public.token
 --
 
 ALTER TABLE ONLY public.trackings ALTER COLUMN id SET DEFAULT nextval('public.trackings_id_seq'::regclass);
+
+
+--
+-- Name: units id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.units ALTER COLUMN id SET DEFAULT nextval('public.units_id_seq'::regclass);
 
 
 --
@@ -10632,6 +11418,14 @@ ALTER TABLE ONLY lexicon.master_crop_production_cap_codes
 
 
 --
+-- Name: master_crop_production_cap_sna_codes master_crop_production_cap_sna_codes_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_crop_production_cap_sna_codes
+    ADD CONSTRAINT master_crop_production_cap_sna_codes_pkey PRIMARY KEY (reference_name);
+
+
+--
 -- Name: master_crop_productions master_crop_productions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -10664,11 +11458,11 @@ ALTER TABLE ONLY lexicon.master_legal_positions
 
 
 --
--- Name: master_packaging master_packaging_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+-- Name: master_packagings master_packagings_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
-ALTER TABLE ONLY lexicon.master_packaging
-    ADD CONSTRAINT master_packaging_pkey PRIMARY KEY (reference_name);
+ALTER TABLE ONLY lexicon.master_packagings
+    ADD CONSTRAINT master_packagings_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -10677,6 +11471,14 @@ ALTER TABLE ONLY lexicon.master_packaging
 
 ALTER TABLE ONLY lexicon.master_phenological_stages
     ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (bbch_code);
+
+
+--
+-- Name: master_phytosanitary_prices master_phytosanitary_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_phytosanitary_prices
+    ADD CONSTRAINT master_phytosanitary_prices_pkey PRIMARY KEY (id);
 
 
 --
@@ -10936,6 +11738,14 @@ ALTER TABLE ONLY public.activity_budgets
 
 
 --
+-- Name: activity_cost_outputs activity_cost_outputs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_cost_outputs
+    ADD CONSTRAINT activity_cost_outputs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: activity_distributions activity_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10965,6 +11775,22 @@ ALTER TABLE ONLY public.activity_inspection_calibration_scales
 
 ALTER TABLE ONLY public.activity_inspection_point_natures
     ADD CONSTRAINT activity_inspection_point_natures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_production_batches activity_production_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_batches
+    ADD CONSTRAINT activity_production_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_production_irregular_batches activity_production_irregular_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_irregular_batches
+    ADD CONSTRAINT activity_production_irregular_batches_pkey PRIMARY KEY (id);
 
 
 --
@@ -11285,6 +12111,14 @@ ALTER TABLE ONLY public.cvi_land_parcels
 
 ALTER TABLE ONLY public.cvi_statements
     ADD CONSTRAINT cvi_statements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: daily_charges daily_charges_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_charges
+    ADD CONSTRAINT daily_charges_pkey PRIMARY KEY (id);
 
 
 --
@@ -11624,6 +12458,46 @@ ALTER TABLE ONLY public.intervention_participations
 
 
 --
+-- Name: intervention_proposal_parameters intervention_proposal_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposal_parameters
+    ADD CONSTRAINT intervention_proposal_parameters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_proposals intervention_proposals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposals
+    ADD CONSTRAINT intervention_proposals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_template_activities intervention_template_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_activities
+    ADD CONSTRAINT intervention_template_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_template_product_parameters intervention_template_product_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_product_parameters
+    ADD CONSTRAINT intervention_template_product_parameters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_templates intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_templates
+    ADD CONSTRAINT intervention_templates_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_working_periods intervention_working_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11877,6 +12751,30 @@ ALTER TABLE ONLY public.payslips
 
 ALTER TABLE ONLY public.pfi_intervention_parameters
     ADD CONSTRAINT pfi_intervention_parameters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: planning_scenario_activities planning_scenario_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activities
+    ADD CONSTRAINT planning_scenario_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: planning_scenario_activity_plots planning_scenario_activity_plots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_plots
+    ADD CONSTRAINT planning_scenario_activity_plots_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: planning_scenarios planning_scenarios_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenarios
+    ADD CONSTRAINT planning_scenarios_pkey PRIMARY KEY (id);
 
 
 --
@@ -12280,6 +13178,22 @@ ALTER TABLE ONLY public.teams
 
 
 --
+-- Name: technical_itineraries technical_itineraries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itineraries
+    ADD CONSTRAINT technical_itineraries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: technical_itinerary_intervention_templates technical_itinerary_intervention_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itinerary_intervention_templates
+    ADD CONSTRAINT technical_itinerary_intervention_templates_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -12293,6 +13207,14 @@ ALTER TABLE ONLY public.tokens
 
 ALTER TABLE ONLY public.trackings
     ADD CONSTRAINT trackings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: units units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.units
+    ADD CONSTRAINT units_pkey PRIMARY KEY (id);
 
 
 --
@@ -12395,10 +13317,52 @@ CREATE INDEX intervention_models_procedure_reference ON lexicon.intervention_mod
 
 
 --
+-- Name: master_budgets_variant; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_budgets_variant ON lexicon.master_budgets USING btree (variant);
+
+
+--
 -- Name: master_chart_of_accounts_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX master_chart_of_accounts_reference_name ON lexicon.master_chart_of_accounts USING btree (reference_name);
+
+
+--
+-- Name: master_crop_production_prices_campaign; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_prices_campaign ON lexicon.master_crop_production_prices USING btree (campaign);
+
+
+--
+-- Name: master_crop_production_prices_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_prices_specie ON lexicon.master_crop_production_prices USING btree (specie);
+
+
+--
+-- Name: master_crop_production_yields_campaign; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_yields_campaign ON lexicon.master_crop_production_yields USING btree (campaign);
+
+
+--
+-- Name: master_crop_production_yields_production; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_yields_production ON lexicon.master_crop_production_yields USING btree (production);
+
+
+--
+-- Name: master_crop_production_yields_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_yields_specie ON lexicon.master_crop_production_yields USING btree (specie);
 
 
 --
@@ -12423,10 +13387,10 @@ CREATE INDEX master_dimensions_reference_name ON lexicon.master_dimensions USING
 
 
 --
--- Name: master_packaging_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_packagings_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_packaging_reference_name ON lexicon.master_packaging USING btree (reference_name);
+CREATE INDEX master_packagings_reference_name ON lexicon.master_packagings USING btree (reference_name);
 
 
 --
@@ -12822,6 +13786,20 @@ CREATE INDEX account_provider_index ON public.accounts USING gin (((provider -> 
 
 
 --
+-- Name: activity_production_batch_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_production_batch_id ON public.activity_production_batches USING btree (activity_production_id);
+
+
+--
+-- Name: activity_production_irregular_batch_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX activity_production_irregular_batch_id ON public.activity_production_irregular_batches USING btree (activity_production_batch_id);
+
+
+--
 -- Name: cash_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13088,6 +14066,55 @@ CREATE INDEX index_activity_budgets_on_updater_id ON public.activity_budgets USI
 
 
 --
+-- Name: index_activity_cost_outputs_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_activity_id ON public.activity_cost_outputs USING btree (activity_id);
+
+
+--
+-- Name: index_activity_cost_outputs_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_created_at ON public.activity_cost_outputs USING btree (created_at);
+
+
+--
+-- Name: index_activity_cost_outputs_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_creator_id ON public.activity_cost_outputs USING btree (creator_id);
+
+
+--
+-- Name: index_activity_cost_outputs_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_updated_at ON public.activity_cost_outputs USING btree (updated_at);
+
+
+--
+-- Name: index_activity_cost_outputs_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_updater_id ON public.activity_cost_outputs USING btree (updater_id);
+
+
+--
+-- Name: index_activity_cost_outputs_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_variant_id ON public.activity_cost_outputs USING btree (variant_id);
+
+
+--
+-- Name: index_activity_cost_outputs_on_variant_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_cost_outputs_on_variant_unit_id ON public.activity_cost_outputs USING btree (variant_unit_id);
+
+
+--
 -- Name: index_activity_distributions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13235,6 +14262,20 @@ CREATE INDEX index_activity_inspection_point_natures_on_updater_id ON public.act
 
 
 --
+-- Name: index_activity_plots_on_scenario_activities_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_plots_on_scenario_activities_id ON public.planning_scenario_activity_plots USING btree (planning_scenario_activity_id);
+
+
+--
+-- Name: index_activity_plots_on_technical_itineraries_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_plots_on_technical_itineraries_id ON public.planning_scenario_activity_plots USING btree (technical_itinerary_id);
+
+
+--
 -- Name: index_activity_productions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13288,6 +14329,13 @@ CREATE INDEX index_activity_productions_on_support_id ON public.activity_product
 --
 
 CREATE INDEX index_activity_productions_on_tactic_id ON public.activity_productions USING btree (tactic_id);
+
+
+--
+-- Name: index_activity_productions_on_technical_itinerary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_productions_on_technical_itinerary_id ON public.activity_productions USING btree (technical_itinerary_id);
 
 
 --
@@ -14236,13 +15284,6 @@ CREATE INDEX index_catalog_items_on_catalog_id ON public.catalog_items USING btr
 
 
 --
--- Name: index_catalog_items_on_catalog_id_and_variant_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_catalog_items_on_catalog_id_and_variant_id ON public.catalog_items USING btree (catalog_id, variant_id);
-
-
---
 -- Name: index_catalog_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14264,10 +15305,31 @@ CREATE INDEX index_catalog_items_on_name ON public.catalog_items USING btree (na
 
 
 --
+-- Name: index_catalog_items_on_purchase_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_catalog_items_on_purchase_item_id ON public.catalog_items USING btree (purchase_item_id);
+
+
+--
 -- Name: index_catalog_items_on_reference_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_catalog_items_on_reference_tax_id ON public.catalog_items USING btree (reference_tax_id);
+
+
+--
+-- Name: index_catalog_items_on_sale_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_catalog_items_on_sale_item_id ON public.catalog_items USING btree (sale_item_id);
+
+
+--
+-- Name: index_catalog_items_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_catalog_items_on_unit_id ON public.catalog_items USING btree (unit_id);
 
 
 --
@@ -14758,6 +15820,20 @@ CREATE INDEX index_cvi_statements_on_creator_id ON public.cvi_statements USING b
 --
 
 CREATE INDEX index_cvi_statements_on_updater_id ON public.cvi_statements USING btree (updater_id);
+
+
+--
+-- Name: index_daily_charges_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daily_charges_on_activity_id ON public.daily_charges USING btree (activity_id);
+
+
+--
+-- Name: index_daily_charges_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daily_charges_on_activity_production_id ON public.daily_charges USING btree (activity_production_id);
 
 
 --
@@ -16777,6 +17853,41 @@ CREATE INDEX index_intervention_participations_on_updater_id ON public.intervent
 
 
 --
+-- Name: index_intervention_proposal_parameters_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_proposal_parameters_on_product_id ON public.intervention_proposal_parameters USING btree (product_id);
+
+
+--
+-- Name: index_intervention_proposals_on_activity_production_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_proposals_on_activity_production_id ON public.intervention_proposals USING btree (activity_production_id);
+
+
+--
+-- Name: index_intervention_template_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_activities_on_activity_id ON public.intervention_template_activities USING btree (activity_id);
+
+
+--
+-- Name: index_intervention_template_product_parameters_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_template_product_parameters_on_activity_id ON public.intervention_template_product_parameters USING btree (activity_id);
+
+
+--
+-- Name: index_intervention_templates_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_templates_on_campaign_id ON public.intervention_templates USING btree (campaign_id);
+
+
+--
 -- Name: index_intervention_working_periods_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16830,6 +17941,13 @@ CREATE INDEX index_interventions_on_creator_id ON public.interventions USING btr
 --
 
 CREATE INDEX index_interventions_on_event_id ON public.interventions USING btree (event_id);
+
+
+--
+-- Name: index_interventions_on_intervention_proposal_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_interventions_on_intervention_proposal_id ON public.interventions USING btree (intervention_proposal_id);
 
 
 --
@@ -18520,6 +19638,27 @@ CREATE INDEX index_payslips_on_updater_id ON public.payslips USING btree (update
 
 
 --
+-- Name: index_planning_scenario_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_planning_scenario_activities_on_activity_id ON public.planning_scenario_activities USING btree (activity_id);
+
+
+--
+-- Name: index_planning_scenario_activities_on_planning_scenario_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_planning_scenario_activities_on_planning_scenario_id ON public.planning_scenario_activities USING btree (planning_scenario_id);
+
+
+--
+-- Name: index_planning_scenarios_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_planning_scenarios_on_campaign_id ON public.planning_scenarios USING btree (campaign_id);
+
+
+--
 -- Name: index_plant_counting_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -20060,6 +21199,13 @@ CREATE INDEX index_purchase_items_on_activity_budget_id ON public.purchase_items
 
 
 --
+-- Name: index_purchase_items_on_catalog_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_catalog_item_id ON public.purchase_items USING btree (catalog_item_id);
+
+
+--
 -- Name: index_purchase_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -20407,6 +21553,13 @@ CREATE INDEX index_sale_items_on_account_id ON public.sale_items USING btree (ac
 --
 
 CREATE INDEX index_sale_items_on_activity_budget_id ON public.sale_items USING btree (activity_budget_id);
+
+
+--
+-- Name: index_sale_items_on_catalog_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_catalog_item_id ON public.sale_items USING btree (catalog_item_id);
 
 
 --
@@ -21320,6 +22473,27 @@ CREATE INDEX index_teams_on_updater_id ON public.teams USING btree (updater_id);
 
 
 --
+-- Name: index_technical_itineraries_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_technical_itineraries_on_activity_id ON public.technical_itineraries USING btree (activity_id);
+
+
+--
+-- Name: index_technical_itineraries_on_activity_tactic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_technical_itineraries_on_activity_tactic_id ON public.technical_itineraries USING btree (activity_tactic_id);
+
+
+--
+-- Name: index_technical_itineraries_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_technical_itineraries_on_campaign_id ON public.technical_itineraries USING btree (campaign_id);
+
+
+--
 -- Name: index_tokens_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21394,6 +22568,13 @@ CREATE INDEX index_trackings_on_updated_at ON public.trackings USING btree (upda
 --
 
 CREATE INDEX index_trackings_on_updater_id ON public.trackings USING btree (updater_id);
+
+
+--
+-- Name: index_units_on_base_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_base_unit_id ON public.units USING btree (base_unit_id);
 
 
 --
@@ -21754,10 +22935,59 @@ CREATE INDEX index_wine_incoming_harvests_on_updater_id ON public.wine_incoming_
 
 
 --
+-- Name: intervention_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_product_nature_variant_id ON public.intervention_proposal_parameters USING btree (product_nature_variant_id);
+
+
+--
+-- Name: intervention_proposal_activity_production_irregular_batch_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_proposal_activity_production_irregular_batch_id ON public.intervention_proposals USING btree (activity_production_irregular_batch_id);
+
+
+--
+-- Name: intervention_proposal_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_proposal_parameter_id ON public.intervention_proposal_parameters USING btree (intervention_proposal_id);
+
+
+--
 -- Name: intervention_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX intervention_provider_index ON public.interventions USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: intervention_template_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_activity_id ON public.intervention_template_activities USING btree (intervention_template_id);
+
+
+--
+-- Name: intervention_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_id ON public.intervention_template_product_parameters USING btree (intervention_template_id);
+
+
+--
+-- Name: intervention_template_product_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX intervention_template_product_parameter_id ON public.daily_charges USING btree (intervention_template_product_parameter_id);
+
+
+--
+-- Name: itinerary_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX itinerary_template_id ON public.technical_itinerary_intervention_templates USING btree (intervention_template_id);
 
 
 --
@@ -21817,10 +23047,24 @@ CREATE INDEX product_nature_category_provider_index ON public.product_nature_cat
 
 
 --
+-- Name: product_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_id ON public.intervention_template_product_parameters USING btree (product_nature_id);
+
+
+--
 -- Name: product_nature_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX product_nature_provider_index ON public.product_natures USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX product_nature_variant_id ON public.intervention_template_product_parameters USING btree (product_nature_variant_id);
 
 
 --
@@ -21849,6 +23093,20 @@ CREATE INDEX sale_provider_index ON public.sales USING gin (((provider -> 'vendo
 --
 
 CREATE INDEX tax_provider_index ON public.taxes USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: technical_itinerary_intervention_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX technical_itinerary_intervention_template_id ON public.intervention_proposals USING btree (technical_itinerary_intervention_template_id);
+
+
+--
+-- Name: template_itinerary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_templates USING btree (technical_itinerary_id);
 
 
 --
@@ -22008,6 +23266,14 @@ CREATE TRIGGER synchronize_jeis_of_entry AFTER INSERT OR UPDATE ON public.journa
 
 
 --
+-- Name: activity_production_batches fk_rails_00e34d02e0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_batches
+    ADD CONSTRAINT fk_rails_00e34d02e0 FOREIGN KEY (activity_production_id) REFERENCES public.activity_productions(id);
+
+
+--
 -- Name: payslips fk_rails_02f6ec2213; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22016,11 +23282,27 @@ ALTER TABLE ONLY public.payslips
 
 
 --
+-- Name: products fk_rails_0627b13271; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_0627b13271 FOREIGN KEY (conditioning_unit_id) REFERENCES public.units(id);
+
+
+--
 -- Name: crop_group_labellings fk_rails_07865fc029; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.crop_group_labellings
     ADD CONSTRAINT fk_rails_07865fc029 FOREIGN KEY (label_id) REFERENCES public.labels(id);
+
+
+--
+-- Name: activity_cost_outputs fk_rails_09fc9cbf21; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_cost_outputs
+    ADD CONSTRAINT fk_rails_09fc9cbf21 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -22048,6 +23330,14 @@ ALTER TABLE ONLY public.parcel_items
 
 
 --
+-- Name: technical_itinerary_intervention_templates fk_rails_12463de838; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itinerary_intervention_templates
+    ADD CONSTRAINT fk_rails_12463de838 FOREIGN KEY (intervention_template_id) REFERENCES public.intervention_templates(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_15244a5c09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22061,6 +23351,30 @@ ALTER TABLE ONLY public.outgoing_payments
 
 ALTER TABLE ONLY public.parcel_item_storings
     ADD CONSTRAINT fk_rails_182d7ce6a7 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_18932007aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_18932007aa FOREIGN KEY (product_nature_id) REFERENCES public.product_natures(id);
+
+
+--
+-- Name: planning_scenario_activity_plots fk_rails_195f383786; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_plots
+    ADD CONSTRAINT fk_rails_195f383786 FOREIGN KEY (technical_itinerary_id) REFERENCES public.technical_itineraries(id);
+
+
+--
+-- Name: interventions fk_rails_1f3a6ab6a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.interventions
+    ADD CONSTRAINT fk_rails_1f3a6ab6a0 FOREIGN KEY (intervention_proposal_id) REFERENCES public.intervention_proposals(id);
 
 
 --
@@ -22080,6 +23394,22 @@ ALTER TABLE ONLY public.outgoing_payments
 
 
 --
+-- Name: activity_cost_outputs fk_rails_2400dac552; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_cost_outputs
+    ADD CONSTRAINT fk_rails_2400dac552 FOREIGN KEY (variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: activity_budget_items fk_rails_25adc2f766; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budget_items
+    ADD CONSTRAINT fk_rails_25adc2f766 FOREIGN KEY (product_parameter_id) REFERENCES public.intervention_template_product_parameters(id);
+
+
+--
 -- Name: cvi_statements fk_rails_2b0908cb44; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22088,11 +23418,35 @@ ALTER TABLE ONLY public.cvi_statements
 
 
 --
+-- Name: activity_tactics fk_rails_2b4070027b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_tactics
+    ADD CONSTRAINT fk_rails_2b4070027b FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
+-- Name: technical_itineraries fk_rails_2dfb0af7d3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itineraries
+    ADD CONSTRAINT fk_rails_2dfb0af7d3 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
 -- Name: journal_entry_items fk_rails_3143e6e260; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.journal_entry_items
     ADD CONSTRAINT fk_rails_3143e6e260 FOREIGN KEY (variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: activity_production_irregular_batches fk_rails_31b5c93b13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_irregular_batches
+    ADD CONSTRAINT fk_rails_31b5c93b13 FOREIGN KEY (activity_production_batch_id) REFERENCES public.activity_production_batches(id);
 
 
 --
@@ -22112,6 +23466,14 @@ ALTER TABLE ONLY public.intervention_crop_groups
 
 
 --
+-- Name: intervention_template_activities fk_rails_39759d6fe4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_activities
+    ADD CONSTRAINT fk_rails_39759d6fe4 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
 -- Name: sale_items fk_rails_3ed1a3f84a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22128,11 +23490,27 @@ ALTER TABLE ONLY public.parcel_items
 
 
 --
+-- Name: activity_productions fk_rails_42b3d2f5a8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_productions
+    ADD CONSTRAINT fk_rails_42b3d2f5a8 FOREIGN KEY (technical_itinerary_id) REFERENCES public.technical_itineraries(id);
+
+
+--
 -- Name: crumbs fk_rails_434e943648; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.crumbs
     ADD CONSTRAINT fk_rails_434e943648 FOREIGN KEY (intervention_participation_id) REFERENCES public.intervention_participations(id);
+
+
+--
+-- Name: intervention_proposals fk_rails_4491a90f0b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposals
+    ADD CONSTRAINT fk_rails_4491a90f0b FOREIGN KEY (activity_production_irregular_batch_id) REFERENCES public.activity_production_irregular_batches(id);
 
 
 --
@@ -22149,6 +23527,14 @@ ALTER TABLE ONLY public.wine_incoming_harvest_presses
 
 ALTER TABLE ONLY public.wine_incoming_harvest_inputs
     ADD CONSTRAINT fk_rails_4ba0624d55 FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
+
+
+--
+-- Name: purchase_items fk_rails_4cc3eb3f99; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.purchase_items
+    ADD CONSTRAINT fk_rails_4cc3eb3f99 FOREIGN KEY (conditioning_unit_id) REFERENCES public.units(id);
 
 
 --
@@ -22184,6 +23570,14 @@ ALTER TABLE ONLY public.products
 
 
 --
+-- Name: technical_itinerary_intervention_templates fk_rails_5f0371c42a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itinerary_intervention_templates
+    ADD CONSTRAINT fk_rails_5f0371c42a FOREIGN KEY (technical_itinerary_id) REFERENCES public.technical_itineraries(id);
+
+
+--
 -- Name: pfi_intervention_parameters fk_rails_5f6f882536; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22192,11 +23586,35 @@ ALTER TABLE ONLY public.pfi_intervention_parameters
 
 
 --
+-- Name: activity_budgets fk_rails_60e5867b44; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budgets
+    ADD CONSTRAINT fk_rails_60e5867b44 FOREIGN KEY (technical_itinerary_id) REFERENCES public.technical_itineraries(id);
+
+
+--
 -- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.purchase_items
     ADD CONSTRAINT fk_rails_62e7d4b959 FOREIGN KEY (project_budget_id) REFERENCES public.project_budgets(id);
+
+
+--
+-- Name: intervention_proposals fk_rails_655e10510a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposals
+    ADD CONSTRAINT fk_rails_655e10510a FOREIGN KEY (technical_itinerary_intervention_template_id) REFERENCES public.technical_itinerary_intervention_templates(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_65829c9376; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_65829c9376 FOREIGN KEY (product_nature_variant_id) REFERENCES public.product_nature_variants(id);
 
 
 --
@@ -22213,6 +23631,14 @@ ALTER TABLE ONLY public.cvi_cadastral_plants
 
 ALTER TABLE ONLY public.payslip_natures
     ADD CONSTRAINT fk_rails_6835dfa420 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: parcel_item_storings fk_rails_69ea98eb15; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.parcel_item_storings
+    ADD CONSTRAINT fk_rails_69ea98eb15 FOREIGN KEY (conditioning_unit_id) REFERENCES public.units(id);
 
 
 --
@@ -22248,6 +23674,30 @@ ALTER TABLE ONLY public.cvi_land_parcels
 
 
 --
+-- Name: intervention_proposal_parameters fk_rails_73168818a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_73168818a2 FOREIGN KEY (product_nature_variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_75bd15f71d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_75bd15f71d FOREIGN KEY (intervention_template_id) REFERENCES public.intervention_templates(id);
+
+
+--
+-- Name: intervention_template_activities fk_rails_7699df6bd9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_activities
+    ADD CONSTRAINT fk_rails_7699df6bd9 FOREIGN KEY (intervention_template_id) REFERENCES public.intervention_templates(id);
+
+
+--
 -- Name: interventions fk_rails_76eca6ee87; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22280,11 +23730,27 @@ ALTER TABLE ONLY public.cvi_cultivable_zones
 
 
 --
+-- Name: planning_scenario_activity_plots fk_rails_7c7488bbdc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_plots
+    ADD CONSTRAINT fk_rails_7c7488bbdc FOREIGN KEY (planning_scenario_activity_id) REFERENCES public.planning_scenario_activities(id);
+
+
+--
 -- Name: regularizations fk_rails_8043b7d279; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.regularizations
     ADD CONSTRAINT fk_rails_8043b7d279 FOREIGN KEY (affair_id) REFERENCES public.affairs(id);
+
+
+--
+-- Name: intervention_template_product_parameters fk_rails_810325206c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_template_product_parameters
+    ADD CONSTRAINT fk_rails_810325206c FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -22317,6 +23783,14 @@ ALTER TABLE ONLY public.payslip_natures
 
 ALTER TABLE ONLY public.inventories
     ADD CONSTRAINT fk_rails_86687e98ce FOREIGN KEY (journal_id) REFERENCES public.journals(id);
+
+
+--
+-- Name: planning_scenarios fk_rails_88d915988d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenarios
+    ADD CONSTRAINT fk_rails_88d915988d FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
 
 
 --
@@ -22357,6 +23831,14 @@ ALTER TABLE ONLY public.intervention_participations
 
 ALTER TABLE ONLY public.parcel_items
     ADD CONSTRAINT fk_rails_995fb20943 FOREIGN KEY (activity_budget_id) REFERENCES public.activity_budgets(id);
+
+
+--
+-- Name: loans fk_rails_99bed64435; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.loans
+    ADD CONSTRAINT fk_rails_99bed64435 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -22408,6 +23890,14 @@ ALTER TABLE ONLY public.parcel_items
 
 
 --
+-- Name: activity_cost_outputs fk_rails_a90ed4c55b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_cost_outputs
+    ADD CONSTRAINT fk_rails_a90ed4c55b FOREIGN KEY (variant_unit_id) REFERENCES public.units(id);
+
+
+--
 -- Name: intervention_working_periods fk_rails_a9b45798a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22421,6 +23911,14 @@ ALTER TABLE ONLY public.intervention_working_periods
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT fk_rails_abdfefd04a FOREIGN KEY (product_id) REFERENCES public.products(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: planning_scenario_activities fk_rails_ac0835e4dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activities
+    ADD CONSTRAINT fk_rails_ac0835e4dc FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -22440,6 +23938,22 @@ ALTER TABLE ONLY public.pfi_intervention_parameters
 
 
 --
+-- Name: product_nature_variants fk_rails_accfad6712; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_nature_variants
+    ADD CONSTRAINT fk_rails_accfad6712 FOREIGN KEY (default_unit_id) REFERENCES public.units(id);
+
+
+--
+-- Name: daily_charges fk_rails_ad496091e3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_charges
+    ADD CONSTRAINT fk_rails_ad496091e3 FOREIGN KEY (intervention_template_product_parameter_id) REFERENCES public.intervention_template_product_parameters(id);
+
+
+--
 -- Name: tax_declaration_item_parts fk_rails_adb1cc875c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -22456,11 +23970,35 @@ ALTER TABLE ONLY public.financial_years
 
 
 --
+-- Name: fixed_assets fk_rails_b2e478cdb7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.fixed_assets
+    ADD CONSTRAINT fk_rails_b2e478cdb7 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
 -- Name: parcel_items fk_rails_b3a1a4f578; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.parcel_items
     ADD CONSTRAINT fk_rails_b3a1a4f578 FOREIGN KEY (purchase_invoice_item_id) REFERENCES public.purchase_items(id);
+
+
+--
+-- Name: intervention_templates fk_rails_b5c0e91173; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_templates
+    ADD CONSTRAINT fk_rails_b5c0e91173 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
+-- Name: activity_production_batches fk_rails_b82e55b5c6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_production_batches
+    ADD CONSTRAINT fk_rails_b82e55b5c6 FOREIGN KEY (planning_scenario_activity_plot_id) REFERENCES public.planning_scenario_activity_plots(id);
 
 
 --
@@ -22520,11 +24058,43 @@ ALTER TABLE ONLY public.regularizations
 
 
 --
+-- Name: technical_itineraries fk_rails_d02ebd3a2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.technical_itineraries
+    ADD CONSTRAINT fk_rails_d02ebd3a2f FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: intervention_proposal_parameters fk_rails_d0715348b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_d0715348b7 FOREIGN KEY (intervention_proposal_id) REFERENCES public.intervention_proposals(id);
+
+
+--
+-- Name: parcel_items fk_rails_d32d74cbd9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.parcel_items
+    ADD CONSTRAINT fk_rails_d32d74cbd9 FOREIGN KEY (conditioning_unit_id) REFERENCES public.units(id);
+
+
+--
 -- Name: pfi_intervention_parameters fk_rails_d40f37781b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pfi_intervention_parameters
     ADD CONSTRAINT fk_rails_d40f37781b FOREIGN KEY (input_id) REFERENCES public.intervention_parameters(id);
+
+
+--
+-- Name: daily_charges fk_rails_d667b81248; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_charges
+    ADD CONSTRAINT fk_rails_d667b81248 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -22549,6 +24119,30 @@ ALTER TABLE ONLY public.wine_incoming_harvest_plants
 
 ALTER TABLE ONLY public.payslips
     ADD CONSTRAINT fk_rails_e319c31e6b FOREIGN KEY (journal_entry_id) REFERENCES public.journal_entries(id);
+
+
+--
+-- Name: intervention_proposals fk_rails_e3758de3f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposals
+    ADD CONSTRAINT fk_rails_e3758de3f6 FOREIGN KEY (activity_production_id) REFERENCES public.activity_productions(id);
+
+
+--
+-- Name: intervention_proposal_parameters fk_rails_e4aa584bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_proposal_parameters
+    ADD CONSTRAINT fk_rails_e4aa584bc6 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: sale_items fk_rails_e68fe22f2a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_items
+    ADD CONSTRAINT fk_rails_e68fe22f2a FOREIGN KEY (conditioning_unit_id) REFERENCES public.units(id);
 
 
 --
@@ -22589,6 +24183,22 @@ ALTER TABLE ONLY public.financial_year_exchanges
 
 ALTER TABLE ONLY public.journal_entry_items
     ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES public.project_budgets(id);
+
+
+--
+-- Name: planning_scenario_activities fk_rails_f51c3ee30d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activities
+    ADD CONSTRAINT fk_rails_f51c3ee30d FOREIGN KEY (planning_scenario_id) REFERENCES public.planning_scenarios(id);
+
+
+--
+-- Name: daily_charges fk_rails_f713d67210; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_charges
+    ADD CONSTRAINT fk_rails_f713d67210 FOREIGN KEY (activity_production_id) REFERENCES public.activity_productions(id);
 
 
 --
@@ -22888,10 +24498,34 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171210080901'),
 ('20171211091817'),
 ('20171212100101'),
+('20180112135843'),
+('20180112144429'),
+('20180112151052'),
+('20180115135241'),
+('20180116133217'),
+('20180124113015'),
+('20180124130951'),
+('20180126094309'),
+('20180130090052'),
+('20180212101416'),
+('20180214161453'),
+('20180222160026'),
+('20180226104505'),
+('20180227140040'),
+('20180306085858'),
+('20180328094106'),
+('20180404145130'),
+('20180405123945'),
 ('20180417083701'),
 ('20180419140723'),
+('20180419152744'),
+('20180423074302'),
 ('20180502102741'),
 ('20180503081248'),
+('20180516080155'),
+('20180518124733'),
+('20180523153734'),
+('20180531092556'),
 ('20180626121433'),
 ('20180629093901'),
 ('20180702115000'),
@@ -22951,15 +24585,22 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180702124900'),
 ('20180702131326'),
 ('20180704145001'),
+('20180709083205'),
 ('20180711133214'),
+('20180711145501'),
 ('20180712091619'),
+('20180712133721'),
 ('20180730150532'),
+('20180801143320'),
+('20180821145715'),
 ('20180830120145'),
 ('20180918182905'),
 ('20180920121004'),
 ('20180920134223'),
 ('20180921092835'),
+('20181002130036'),
 ('20181003092024'),
+('20181003153602'),
 ('20181012145914'),
 ('20181019164555'),
 ('20181022152412'),
@@ -22991,9 +24632,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190705143350'),
 ('20190710002904'),
 ('20190712124724'),
+('20190715104422'),
+('20190715114422'),
 ('20190715114423'),
 ('20190716125202'),
 ('20190716162315'),
+('20190717151612'),
 ('20190718133342'),
 ('20190719140916'),
 ('20190726092304'),
@@ -23001,13 +24645,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190808123912'),
 ('20190808152235'),
 ('20190911153350'),
+('20190912085925'),
 ('20190912144103'),
 ('20190916124521'),
 ('20190917120742'),
 ('20190917120743'),
+('20190927133802'),
 ('20190929224101'),
 ('20191002104944'),
 ('20191007122201'),
+('20191010143350'),
 ('20191010151901'),
 ('20191011155512'),
 ('20191023172248'),
@@ -23015,6 +24662,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191025074824'),
 ('20191029083202'),
 ('20191101162901'),
+('20191115191501'),
 ('20191126103235'),
 ('20191127162609'),
 ('20191204160657'),
@@ -23066,10 +24714,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200428162128'),
 ('20200428162212'),
 ('20200428162256'),
+('20200504102804'),
 ('20200505114024'),
 ('20200507094001'),
 ('20200512091803'),
 ('20200515092158'),
+('20200518095801'),
 ('20200611090747'),
 ('20200622101923'),
 ('20200730114601'),
@@ -23116,17 +24766,22 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210202093448'),
 ('20210204145215'),
 ('20210205105359'),
+('20210208182000'),
 ('20210209135343'),
 ('20210209154545'),
 ('20210211162023'),
+('20210211193300'),
 ('20210215114312'),
 ('20210215133318'),
+('20210215144700'),
 ('20210215153434'),
 ('20210216111920'),
 ('20210217082925'),
 ('20210217112010'),
+('20210219092100'),
 ('20210219172016'),
 ('20210222103208'),
+('20210222181700'),
 ('20210301101012'),
 ('20210301131307'),
 ('20210302081408'),
@@ -23167,14 +24822,17 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210616133301'),
 ('20210622125501'),
 ('20210628091421'),
-('20210629141835'),
 ('20210629145426'),
 ('20210630123148'),
 ('20210630145843'),
+('20210712151057'),
 ('20210715121401'),
 ('20210715123101'),
 ('20210715125301'),
 ('20210715142101'),
-('20210723151251');
+('20210723151251'),
+('20210825155901'),
+('20210902151057'),
+('20210907154701');
 
 

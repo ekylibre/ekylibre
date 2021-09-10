@@ -161,12 +161,12 @@ class PurchaseAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     nature.name ||= 'Purchases baby!'
     nature.save!
     items = (0..4).to_a.map do |index|
+      variant = ProductNatureVariant.where(category: ProductNatureCategory.where(purchasable: true)).offset(index).first
       PurchaseItem.new(
-        quantity: 1 + rand(20),
+        conditioning_quantity: 1 + rand(20),
         unit_pretax_amount: 10 + (100 * rand).round(2),
-        variant: ProductNatureVariant.where(
-          category: ProductNatureCategory.where(purchasable: true)
-        ).offset(index).first,
+        variant: variant,
+        conditioning_unit: variant.guess_conditioning[:unit],
         tax: Tax.all.sample
       )
     end

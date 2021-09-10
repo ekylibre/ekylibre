@@ -8,16 +8,16 @@
       <input name="litter" filter="is preparation and can cover(building_division)" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="PRODUCT..net_mass?"
-                 backward="VALUE * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+                 if="PRODUCT.net_mass?"
+                 backward="VALUE * PRODUCT.net_mass(kilogram)"
+                 forward="VALUE / PRODUCT.net_mass(kilogram)"/>
       </input>
       <input name="cleaner_product" filter="is preparation and can clean(building_division)" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_volume" unit="liter"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(liter)"
-                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT.net_volume(liter)"
+                 forward="VALUE / PRODUCT.net_volume(liter)"/>
       </input>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>

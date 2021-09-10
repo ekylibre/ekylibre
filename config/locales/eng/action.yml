@@ -194,6 +194,12 @@ eng:
       # show: "Stock in ground cobble: %{name}"
     backend/companies:
       edit: "Company settings"
+    backend/conditionings:
+      edit: "Edit conditioning: %{name}"
+      index: "Conditionings"
+      new: "New conditioning"
+      new_on_the_go: "Associate a conditioning"
+      show: "Conditioning: %{name}"
     backend/contracts:
       edit: "Edit contract %{number}"
       index: "Contracts"
@@ -786,6 +792,11 @@ eng:
       index: "Receptions"
       new: "New reception"
       show: "Reception: %{number}"
+    backend/reference_units:
+      edit: "Edit unit: %{name}"
+      index: "Units"
+      new: "New unit"
+      show: "Unit: %{name}"
     backend/registered_phytosanitary_products:
       # get_products_infos: "Get products infos registered phytosanitary product: %{name}"
     backend/registered_phytosanitary_usages:
@@ -1827,6 +1838,7 @@ eng:
     choices: "Choices"
     choose_an_activity: "Choose an activity"
     choose_a_type_of_product: "Choose a type of product"
+    choose_an_existing_conditioning: "Choose an existing conditioning"
     choose_creation_mode: "Choose creation mode"
     choose_delete_interventions_options: "Would you :"
     choose_mail_column: "Choose email column"
@@ -1862,8 +1874,7 @@ eng:
     completed: "Completed"
     # components: "Components"
     compute_balances: "Computing balances"
-    compute_pfi_interventions: "Computing PFI on interventions"
-    compute_pfi_report: "Edit IFT report"
+    conditioning: "Conditioning"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1905,6 +1916,7 @@ eng:
     corporeal_assets_land_parcels: "Land parcels"
     corporeal_assets_others: "Others"
     corporeal_assets_settlements: "Settlements"
+    correspondence: "Correspondence"
     corrosive_skin_and_mucosa_risks_of_severe_burns: "Corrosive skin and mucosa, risks of severe burns"
     corrosive_substances: "Corrosive substances"
     cost: "Cost"
@@ -1916,6 +1928,7 @@ eng:
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
+    create_a_new_conditioning: "Create a new conditioning"
     create_a_sale: "Create a sale"
     create_and_continue: "Create and continue"
     create_journal: "— Create journal —"
@@ -2463,6 +2476,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
+    link_conditioning_to_variant_guidance: "In order to be able to use a conditioning with the selected variant, please select it among the existing ones or create a new one."
     link_to_a_sale: "Link to a sale"
     liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
     list: "List"

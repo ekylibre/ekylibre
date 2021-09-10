@@ -41,7 +41,11 @@ class ActivityTactic < ApplicationRecord
   enumerize :mode, in: %i[sowed harvested], default: :sowed
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
+  belongs_to :campaign, class_name: 'Campaign', inverse_of: :tactics
+  belongs_to :technical_workflow, class_name: 'TechnicalWorkflow', inverse_of: :tactics
+  belongs_to :technical_workflow_sequence, class_name: 'TechnicalWorkflowSequence', inverse_of: :tactics
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic, foreign_key: :tactic_id
+  has_one :technical_itinerary, class_name: 'TechnicalItinerary', inverse_of: :tactic
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :mode_delta, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -49,6 +53,8 @@ class ActivityTactic < ApplicationRecord
   validates :planned_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   validates :activity, presence: true
   # ]VALIDATORS]
+
+  scope :default, -> { where(default: true) }
 
   def of_family
     Activity.where(id: activity_id).map(&:family).join.to_sym

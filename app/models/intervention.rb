@@ -83,6 +83,7 @@ class Intervention < ApplicationRecord
   belongs_to :purchase
   belongs_to :costing, class_name: 'InterventionCosting', dependent: :destroy
   belongs_to :validator, class_name: 'User', foreign_key: :validator_id
+  belongs_to :intervention_proposal, class_name: InterventionProposal
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -137,11 +138,17 @@ class Intervention < ApplicationRecord
   before_destroy :unset_rides, prepend: true
 
   def set_number
-    self.number = request_intervention.number if request_intervention.present?
+    # planning
+    if intervention_proposal.present? && !parent_id.present?
+      self.number = intervention_proposal.number
+    elsif request_intervention.present?
+      self.number = request_intervention.number
+    end
   end
 
   def run_sequence
-    request_intervention.present?
+    # planning
+    (intervention_proposal.present? && !parent_id.present?) || request_intervention.present?
   end
 
   # Big hack to access private constant as it seems that HABTM classes are now private in Rails 5.0
@@ -349,6 +356,24 @@ class Intervention < ApplicationRecord
   end
 
   after_save do
+    # planning
+    if %w[done validated].include?(state) && intervention_proposal.present? && nature != 'request'
+      itinerary_template = intervention_proposal.technical_itinerary_intervention_template
+      intervention_proposals = intervention_proposal
+                                .activity_production
+                                .intervention_proposals
+                                .joins(:technical_itinerary_intervention_template)
+                                .where("technical_itinerary_intervention_templates.position > ?", itinerary_template.position)
+                                .of_batch_number(intervention_proposal.batch_number)
+                                .of_irregulat_batch(intervention_proposal.irregular_batch)
+                                .order('technical_itinerary_intervention_templates.position')
+
+      date = started_at
+      intervention_proposals.each do |ip|
+        date += ip.technical_itinerary_intervention_template.day_between_intervention.day
+        ip.update(estimated_date: date)
+      end
+    end
     # puts self.inspect.green
     targets.find_each do |target|
       if target.new_container_id
@@ -835,6 +860,13 @@ class Intervention < ApplicationRecord
     unit = args.shift || options[:unit] || :hectare
     precision = args.shift || options[:precision] || 2
     working_zone_area(unit: unit).round(precision).l(precision: precision)
+  end
+
+  def human_activity_production_zone_area(*args)
+    options = args.extract_options!
+    unit = args.shift || options[:unit] || :hectare
+    precision = args.shift || options[:precision] || 2
+    activity_production_zone_area(unit: unit).round(precision).l(precision: precision)
   end
 
   def working_area(unit = :hectare)

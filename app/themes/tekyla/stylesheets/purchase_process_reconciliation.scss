@@ -90,13 +90,10 @@
   }
 
   .list-headers {
-    display: flex;
-    position: fixed;
-    width: 92%;
-    top: 20px;
+    @include flex-row(flex-start);
     padding-left: $default-gap * 10;
     border-bottom: solid 1px #ddd;
-    font-weight: bold;
+    font-weight: lighter;
 
     .list-header.form-name {
       flex: 0 0 40%;
@@ -117,7 +114,7 @@
       }
       .reception-date {
         font-size: 12px;
-        font-weight: 300;
+        font-weight: lighter;
         font-style: italic;
       }
     }

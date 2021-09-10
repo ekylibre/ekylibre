@@ -168,10 +168,6 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :calculators do
-      resource :grains_commercialization_threshold_simulator, only: :show
-    end
-
     # resources :calculators, only: :index
 
     namespace :cobbles do
@@ -221,7 +217,6 @@ Rails.application.routes.draw do
       resource :last_socleo_import_cell, only: :show
       resource :parts_cell, only: :show
       resource :profit_and_loss_cell, only: :show
-      resource :quandl_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
       resource :settings_statistics_cell, only: :show
@@ -230,7 +225,6 @@ Rails.application.routes.draw do
       resource :stock_container_map_cell, only: :show
       resource :trade_counts_cell, only: :show
       resource :traceability_check_cell, only: :show
-      resource :threshold_commercialization_by_production_cell, only: :show
       resource :unbalanced_clients_cell, only: :show, concerns: :list
       resource :unbalanced_suppliers_cell, only: :show, concerns: :list
       resource :weather_cell, only: :show
@@ -260,6 +254,7 @@ Rails.application.routes.draw do
       collection do
         post :duplicate
         get :compute_pfi_report
+        post :add_itk_on_activities, action: :add_itk_on_activities
       end
       member do
         get :list_distributions
@@ -268,9 +263,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activity_budgets, concerns: [:unroll] do
+    resources :activity_budgets, concerns: [:unroll, :list] do
       member do
         post :duplicate
+        get :list_intervention_templates
       end
     end
 
@@ -417,6 +413,16 @@ Rails.application.routes.draw do
     resources :cobblers, only: [:update]
 
     resource :company, only: %i[edit update]
+
+    resources :conditionings, concerns: :list do
+      collection do
+        get :new_on_the_go
+        post :create_on_the_go
+      end
+      member do
+        get :list_products
+      end
+    end
 
     resources :contracts, concerns: [:list] do
       member do
@@ -1165,6 +1171,12 @@ Rails.application.routes.draw do
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 
+    resources :reference_units, concerns: %i[list unroll] do
+      member do
+        get :list_products
+      end
+    end
+
     resources :registered_phytosanitary_products, only: [], concerns: :unroll do
       collection do
         post :get_products_infos
@@ -1342,6 +1354,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :units, only: [], concerns: :unroll do
+      collection do
+        get :unroll_filters_by_catalog_items
+        get :conditioning_data
+        get :unroll_filters_by_dimensions
+      end
+    end
+
     resources :unreceived_purchase_orders, except: [:new], concerns: [:list]
 
     %i[master_variants master_variant_natures master_variant_categories registered_phytosanitary_products master_user_roles].each do |controller|
@@ -1365,8 +1385,6 @@ Rails.application.routes.draw do
     resources :wine_tanks, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
-
-    get :search, controller: :dashboards, as: :search
 
     root to: 'dashboards#home'
 

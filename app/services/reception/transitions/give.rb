@@ -44,7 +44,8 @@ class Reception
               name: item.product_name.presence || default_product_name(item),
               identification_number: item.product_identification_number,
               work_number: item.product_work_number,
-              initial_born_at: given_at
+              initial_born_at: given_at,
+              conditioning_unit_id: storing.conditioning_unit_id
             }
 
             product = existing_reception_product_in_storage(storing, item.variant) if fusing
@@ -52,7 +53,7 @@ class Reception
 
             storing.update!(product: product)
 
-            ProductMovement.create!(product: product, delta: storing.quantity, started_at: given_at, originator: item) unless item.product_is_unitary?
+            ProductMovement.create!(product: product, delta: storing.conditioning_quantity, started_at: given_at, originator: item) unless item.product_is_unitary?
             ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: given_at, originator: item)
             ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: given_at, originator: item)
             ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: given_at, originator: item)
@@ -64,7 +65,7 @@ class Reception
         end
 
         def existing_reception_product_in_storage(storing, variant)
-          similar_products = Product.where(variant: variant)
+          similar_products = Product.where(variant: variant, conditioning_unit: storing.conditioning_unit)
 
           similar_products.find do |p|
             location = p.localizations.last.container

@@ -42,7 +42,6 @@
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
-#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
 #  product_enjoyment_id          :integer
 #  product_id                    :integer
 #  product_identification_number :string
@@ -63,7 +62,6 @@
 #  team_id                       :integer
 #  transporter_id                :integer
 #  type                          :string
-#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
@@ -87,6 +85,7 @@ class ParcelItem < ApplicationRecord
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :equipment, class_name: 'Product'
+  belongs_to :conditioning_unit, class_name: 'Unit'
   has_one :nature, through: :variant
   has_one :product_enjoyment, as: :originator, dependent: :destroy
   has_one :product_localization, as: :originator, dependent: :destroy
@@ -101,7 +100,7 @@ class ParcelItem < ApplicationRecord
   validates :merge_stock, :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :pretax_amount, :unit_pretax_amount, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
 
   validates :variant, presence: true
@@ -109,6 +108,7 @@ class ParcelItem < ApplicationRecord
   validates :population, presence: true
 
   alias_attribute :quantity, :population
+  alias_attribute :unit, :conditioning_unit
 
   accepts_nested_attributes_for :products
   accepts_nested_attributes_for :storings, allow_destroy: true
@@ -117,6 +117,7 @@ class ParcelItem < ApplicationRecord
   delegate :draft?, :in_preparation?, :prepared?, :given?, to: :shipment, prefix: true
   delegate :separated_stock?, :currency, to: :parcel, prefix: true, allow_nil: true
   delegate :unit_name, to: :variant
+  delegate :dimension, :of_dimension?, to: :unit
 
   scope :of_role, ->(role) { where(role: role) }
 
@@ -128,16 +129,16 @@ class ParcelItem < ApplicationRecord
       end
     end
 
-    self.population ||= 0
-
-    # Use the unit_amount of purchase_order_item if amount equal to zero
-    if purchase_order_item.present? && unit_pretax_amount.zero?
-      self.unit_pretax_amount = purchase_order_item.unit_pretax_amount
-    else
-      self.unit_pretax_amount ||= 0.0
+    if source_product
+      self.conditioning_unit ||= source_product.conditioning_unit
     end
 
-    self.pretax_amount = population * self.unit_pretax_amount
+    if conditioning_unit
+      self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit) if variant
+      self.quantity ||= UnitComputation.convert_into_variant_population(source_product.variant, conditioning_quantity, conditioning_unit) if source_product
+    end
+
+    self.quantity ||= 0
 
     true
   end
@@ -155,8 +156,6 @@ class ParcelItem < ApplicationRecord
     product_enjoyment_id
     product_ownership_id
     unit_pretax_stock_amount
-    unit_pretax_amount
-    pretax_amount
     purchase_order_item_id
     purchase_invoice_item_id
     sale_item_id
@@ -228,6 +227,16 @@ class ParcelItem < ApplicationRecord
 
     def check_outgoing(_checked_at)
       update! product: source_product
+    end
+
+    def existing_reception_product_in_storage(storing)
+      similar_products = Product.where(variant: variant, conditioning_unit: storing.conditioning_unit)
+
+      similar_products.find do |p|
+        location = p.localizations.last.container
+        owner = p.owner
+        location == storing.storage && owner == Entity.of_company
+      end
     end
 
     def existing_product_in_storage

@@ -24,7 +24,7 @@
 # == Table: parcel_item_storings
 #
 #  conditionning          :integer
-#  conditionning_quantity :integer
+#  conditioning_quantity :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  id                     :integer          not null, primary key
@@ -44,8 +44,10 @@ parcel_item_storings_001:
   parcel_item_id: 8
   product_id: 55
   quantity: 20.0
+  conditioning_quantity: 20.0
   storage_id: 115
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_002:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 2
@@ -53,8 +55,10 @@ parcel_item_storings_002:
   parcel_item_id: 28
   product_id: 177
   quantity: 25.0
+  conditioning_quantity: 25.0
   storage_id: 11
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 2
 parcel_item_storings_003:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 3
@@ -62,8 +66,10 @@ parcel_item_storings_003:
   parcel_item_id: 20
   product_id: 127
   quantity: 4.0
+  conditioning_quantity: 4.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_004:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 4
@@ -71,8 +77,10 @@ parcel_item_storings_004:
   parcel_item_id: 17
   product_id: 101
   quantity: 200.0
+  conditioning_quantity: 200.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_005:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 5
@@ -80,8 +88,10 @@ parcel_item_storings_005:
   parcel_item_id: 7
   product_id: 54
   quantity: 20.0
+  conditioning_quantity: 20.0
   storage_id: 115
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_006:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 6
@@ -89,8 +99,10 @@ parcel_item_storings_006:
   parcel_item_id: 4
   product_id: 56
   quantity: 0.0
+  conditioning_quantity: 0.0
   storage_id: 115
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_007:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 7
@@ -98,8 +110,10 @@ parcel_item_storings_007:
   parcel_item_id: 21
   product_id: 128
   quantity: 30.0
+  conditioning_quantity: 30.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_008:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 8
@@ -107,8 +121,10 @@ parcel_item_storings_008:
   parcel_item_id: 31
   product_id: 179
   quantity: 11.0
+  conditioning_quantity: 11.0
   storage_id: 12
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_009:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 9
@@ -116,8 +132,10 @@ parcel_item_storings_009:
   parcel_item_id: 15
   product_id: 98
   quantity: 10.0
+  conditioning_quantity: 10.0
   storage_id: 20
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_010:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 10
@@ -125,8 +143,10 @@ parcel_item_storings_010:
   parcel_item_id: 23
   product_id: 133
   quantity: 10.0
+  conditioning_quantity: 10.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 2
 parcel_item_storings_011:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 11
@@ -134,8 +154,10 @@ parcel_item_storings_011:
   parcel_item_id: 32
   product_id: 180
   quantity: 250.0
+  conditioning_quantity: 250.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_012:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 12
@@ -143,8 +165,10 @@ parcel_item_storings_012:
   parcel_item_id: 14
   product_id: 59
   quantity: 10.0
+  conditioning_quantity: 10.0
   storage_id: 20
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 2
 parcel_item_storings_013:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 13
@@ -152,8 +176,10 @@ parcel_item_storings_013:
   parcel_item_id: 19
   product_id: 126
   quantity: 2.0
+  conditioning_quantity: 2.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_014:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 14
@@ -161,8 +187,10 @@ parcel_item_storings_014:
   parcel_item_id: 16
   product_id: 100
   quantity: 20.0
+  conditioning_quantity: 20.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_015:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 15
@@ -170,8 +198,10 @@ parcel_item_storings_015:
   parcel_item_id: 12
   product_id: 57
   quantity: 10.0
+  conditioning_quantity: 10.0
   storage_id: 20
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1
 parcel_item_storings_016:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 16
@@ -179,8 +209,10 @@ parcel_item_storings_016:
   parcel_item_id: 29
   product_id: 178
   quantity: 35.0
+  conditioning_quantity: 35.0
   storage_id: 11
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 2
 parcel_item_storings_017:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 17
@@ -188,8 +220,10 @@ parcel_item_storings_017:
   parcel_item_id: 13
   product_id: 58
   quantity: 10.0
+  conditioning_quantity: 10.0
   storage_id: 20
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 2
 parcel_item_storings_018:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 18
@@ -197,8 +231,10 @@ parcel_item_storings_018:
   parcel_item_id: 24
   product_id: 135
   quantity: 10000.0
+  conditioning_quantity: 10000.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 2
 parcel_item_storings_019:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 19
@@ -206,8 +242,10 @@ parcel_item_storings_019:
   parcel_item_id: 25
   product_id: 136
   quantity: 10000.0
+  conditioning_quantity: 10000.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_020:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 20
@@ -215,8 +253,10 @@ parcel_item_storings_020:
   parcel_item_id: 18
   product_id: 107
   quantity: 0.0
+  conditioning_quantity: 0.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_021:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 21
@@ -224,8 +264,10 @@ parcel_item_storings_021:
   parcel_item_id: 11
   product_id: 6
   quantity: 1.0
+  conditioning_quantity: 1.0
   storage_id: 115
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_022:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 22
@@ -233,8 +275,10 @@ parcel_item_storings_022:
   parcel_item_id: 10
   product_id: 5
   quantity: 1.0
+  conditioning_quantity: 1.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_023:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 23
@@ -242,8 +286,10 @@ parcel_item_storings_023:
   parcel_item_id: 5
   product_id: 76
   quantity: 0.0
+  conditioning_quantity: 0.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 3
 parcel_item_storings_024:
   created_at: 2018-09-19 15:59:56.699515000 Z
   id: 24
@@ -251,5 +297,7 @@ parcel_item_storings_024:
   parcel_item_id: 22
   product_id: 131
   quantity: 10.0
+  conditioning_quantity: 10.0
   storage_id: 21
   updated_at: 2018-09-19 15:59:56.699515000 Z
+  conditioning_unit_id: 1

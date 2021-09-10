@@ -14,6 +14,8 @@
               scope: 'unit'
             },
             required: true,
+            parent: '.item-form',
+            filter_unroll: "[data-selector-id='purchase_item_conditioning_unit_id']"
           }
         },
         required: true,
@@ -25,9 +27,12 @@
           %i.annotation-field
 
   .storing-calculation
+    .storing-conditionning
+      = f.referenced_association :conditioning_unit, class: "order-conditionning", input_html: { data: { filters_url: unroll_filters_by_catalog_items_backend_units_path, conditioning_data_url: conditioning_data_backend_units_path, variant_selector: 'input.order-variant', required: true } }, new: { controller: :conditionings, action: :new_on_the_go }
+
     .storing-quantifier
-      = f.input :quantity, wrapper: :append do
-        = f.input_field :quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
+      = f.input :conditioning_quantity, wrapper: :append do
+        = f.input_field :conditioning_quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
 
 .annotation-section
   .annotation-field

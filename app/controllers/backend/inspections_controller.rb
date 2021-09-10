@@ -97,7 +97,7 @@ module Backend
                   inspection.calibrations.each do |calib|
                     row do
                       cell plant.name
-                      cell plant.variety.capitalize
+                      cell plant.variety&.capitalize
                       cell inspection.number
                       cell calib.nature_name
                       dimensions.each do |dimension|

@@ -49,27 +49,52 @@ class CatalogItem < ApplicationRecord
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
+  belongs_to :unit
+  belongs_to :sale_item
+  belongs_to :purchase_item
+  has_one :variant_unit, through: :variant, class_name: 'Unit', foreign_key: :default_unit_id
   has_many :products, through: :variant
   has_many :interventions, through: :products
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :all_taxes_included, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :commercial_description, length: { maximum: 500_000 }, allow_blank: true
   validates :commercial_name, length: { maximum: 500 }, allow_blank: true
-  validates :catalog, :currency, :variant, presence: true
+  validates :catalog, :currency, :variant, :unit, :started_at, presence: true
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :variant_id, uniqueness: { scope: :catalog_id }
+  validates :started_at, uniqueness: { scope: %i[catalog_id variant_id unit_id], message: :there_is_already_a_catalog_item_starting_at_the_exact_same_time }
   validates :reference_tax, presence: { if: :all_taxes_included }
+  validates :stopped_at, timeliness: { on_or_after: ->(catalog_item) { catalog_item.started_at }, type: :date, if: -> { stopped_at } }
+  validates :unit, conditioning: true
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :usage, :all_taxes_included?, to: :catalog
+  delegate :dimension, :of_dimension?, to: :unit
+
+  scope :started_after, ->(date) { where('? < started_at', date).order(:started_at) }
+  scope :started_before, ->(date) { where('? > started_at', date).order(:started_at) }
+
+  scope :active_at, ->(date) { where('started_at <= ? AND stopped_at IS NULL OR stopped_at >= ?', date, date).order(:started_at) }
 
   scope :of_variant, lambda { |variant|
-    where(variant_id: variant.id)
+    where(variant: variant)
+  }
+
+  scope :of_unit, lambda { |unit|
+    where(unit: unit)
+  }
+
+  scope :of_base_unit, lambda { |base_unit|
+    where(unit_id: Unit.where(base_unit: base_unit).pluck(:id))
+  }
+
+  scope :of_dimension_unit, lambda { |dimension_unit|
+    where(unit_id: Unit.where(dimension: dimension_unit).pluck(:id))
   }
 
   scope :of_usage, lambda { |usage|
@@ -89,19 +114,122 @@ class CatalogItem < ApplicationRecord
     self.amount = amount.round(4) if amount
     self.name = commercial_name
     self.name = variant_name if commercial_name.blank? && variant
+    self.unit ||= variant.guess_conditioning[:unit] if variant
+    set_stopped_at if catalog && following_items.any?
   end
 
   after_save do
-    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
+    variant.products.each do |product|
+      product.interventions.tap(&:reload).map(&:save!)
+    end
+    set_previous_stopped_at if previous_items.any?
+    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id)) if interventions.any?
+  end
+
+  # Find unit_amout in default unit of variant
+  def unit_amount_in_target_unit(target_unit)
+    unit_amount_with_indicator = { unit_amount: 0.0, indicator: nil, unit: nil }
+    o_target_unit = Unit.find_by(reference_name: target_unit.to_s)
+
+    if unit && o_target_unit.dimension == unit.dimension
+      converted_amount = UnitComputation.convert_amount(pretax_amount, unit, o_target_unit)
+      unit_amount_with_indicator[:unit_amount] = converted_amount.to_d.round(2)
+      unit_amount_with_indicator[:indicator] = Unit::STOCK_INDICATOR_PER_DIMENSION[unit.dimension.to_sym]
+      unit_amount_with_indicator[:unit] = target_unit
+    elsif variant.nature.population_counting == 'decimal'
+      o_variant_unit = Onoma::Unit[variant.default_unit.reference_name.to_sym]
+      if variant.default_quantity.to_f > 0.0 && o_variant_unit.dimension == o_target_unit.dimension
+        coefficient = Measure.new(variant.default_quantity, variant.default_unit.reference_name.to_sym).convert(target_unit.to_sym).to_f
+        unit_amount_with_indicator[:unit_amount] = (pretax_amount / coefficient).round(2)
+        unit_amount_with_indicator[:indicator] = Unit::STOCK_INDICATOR_PER_DIMENSION[o_variant_unit.dimension.to_sym]
+        unit_amount_with_indicator[:unit] = target_unit
+      end
+      # TODO: manage other case where o_target_unit.dimension != unit.dimension
+    end
+    unit_amount_with_indicator
   end
 
   # Compute a pre-tax amount
-  def pretax_amount
-    if all_taxes_included && reference_tax
-      reference_tax.pretax_amount_of(amount)
-    else
-      amount
+  def pretax_amount(into: unit)
+    destination_unit = into.is_a?(Unit) ? into : Unit.import_from_lexicon(into)
+    raise ArgumentError.new("Unknown unit #{into}") unless destination_unit.present?
+
+    amnt = all_taxes_included && reference_tax ? reference_tax.pretax_amount_of(amount) : amount
+    UnitComputation.convert_amount(amnt, unit, destination_unit).round(2)
+  end
+
+  alias unit_pretax_amount pretax_amount
+
+  def sibling_items
+    self.class.of_variant(variant).of_usage(catalog.usage).of_unit(unit)
+  end
+
+  def following_items
+    sibling_items.started_after(started_at)
+  end
+
+  def previous_items
+    sibling_items.started_before(started_at)
+  end
+
+  class << self
+    def import_from_lexicon(reference_name)
+      unless item = MasterPrice.find_by(reference_name: reference_name)
+        raise ArgumentError.new("The variant price #{reference_name.inspect} is unknown")
+      end
+      if catalog_item = CatalogItem.find_by(reference_name: reference_name)
+        return catalog_item
+      end
+
+      unless variant = ProductNatureVariant.find_by_reference_name(item.reference_article_name)
+        variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name)
+      end
+
+      unit = Unit.import_from_lexicon(item.reference_packaging_name)
+      price = new(
+        name: variant.name,
+        variant: variant,
+        catalog: Catalog.by_default!(item.usage),
+        amount: item.unit_pretax_amount,
+        currency: Onoma::Currency.find(item.currency) ? item.currency : 'EUR',
+        started_at: item.started_on.to_datetime,
+        reference_name: item.reference_name,
+        unit: unit
+      )
+
+      existing_price = CatalogItem.find_by(variant: variant, catalog: Catalog.by_default!(item.usage), started_at: item.started_on.to_datetime, unit: unit)
+      # return price with the same attributes (variant, catalog, started_at, unit) if exist
+      if existing_price
+        price = existing_price
+      # save new price
+      else
+        unless price.save
+          raise "Cannot import MasterPrice into CatalogItem #{reference_name.inspect}: #{price.errors.full_messages.join(', ')}"
+        end
+
+        price
+      end
+    end
+
+    def load_defaults(**_options)
+      MasterPrice.find_each do |price|
+        # TODO : remove this once lexicon data is correct
+        next if %w[wire grape potato_plant electricity equipment_rent wheat_harvesting_service running_water vegetal_service].include? price.reference_article_name
+
+        import_from_lexicon(price.reference_name)
+      end
     end
   end
-  alias unit_pretax_amount pretax_amount
+
+  private
+
+    def set_stopped_at
+      following_item = following_items.first
+      self.stopped_at = following_item.started_at - 1.minute
+    end
+
+    def set_previous_stopped_at
+      previous_item = previous_items.last
+      previous_item.update!(stopped_at: started_at - 1.minute)
+    end
 end

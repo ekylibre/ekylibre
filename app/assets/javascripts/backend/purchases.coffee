@@ -6,12 +6,13 @@
 
   onTotalQuantityChanged = ($input) =>
     $form = $input.closest('.nested-item-form')
+    coefficient = $form.find('[data-coefficient]').data('coefficient')
     newQuantity = $input.val()
     currentstock = getCurrentStock($form)
-    if newQuantity.length == 0
+    if !coefficient || newQuantity.length == 0
       newStock = currentstock
     else
-      newStock = currentstock + parseFloat(newQuantity)
+      newStock = currentstock + parseFloat(newQuantity) * coefficient
     updateStockAfterPurchase($form, newStock)
 
   getCurrentStock = ($form) =>
@@ -21,8 +22,8 @@
     p = $.getJSON("/backend/product_nature_variants/#{variantId}/detail")
     p2 = p.then (data) =>
       {
-        stock: data.stock,
-        unit: data.unit.name
+        stock: data.default_unit_stock,
+        unit: data.default_unit_name
       }
 
   onvariantChanged = ($variantSelector) =>
@@ -42,7 +43,7 @@
       $quantity.trigger('change')
 
 
-  $(document).on 'keyup change', '.nested-fields .form-field .purchase_order_items_quantity .order-quantity', (event) ->
+  $(document).on 'keyup change', '.nested-fields .form-field .purchase_order_items_conditioning_quantity .order-quantity', (event) ->
     onTotalQuantityChanged $(this)
 
   $(document).on 'selector:change', '.order-variant.selector-search', (event) ->

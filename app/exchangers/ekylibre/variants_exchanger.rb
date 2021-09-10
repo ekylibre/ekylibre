@@ -40,7 +40,7 @@ module Ekylibre
             purchase_unit_pretax_amount: s.cell('F', row).blank? ? nil : s.cell('F', row).to_d,
             stock_unit_pretax_amount: s.cell('G', row).blank? ? nil : s.cell('G', row).to_d,
             sale_unit_pretax_amount: s.cell('H', row).blank? ? nil : s.cell('H', row).to_d,
-            price_unity: s.cell('I', row).blank? ? nil : s.cell('I', row).to_s.strip.split(/[\,\.\/\\\(\)]/),
+            price_unity: s.cell('I', row).blank? ? nil : s.cell('I', row).to_s,
             indicators: s.cell('J', row).blank? ? {} : s.cell('J', row).to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
               h[i.first.strip.downcase.to_sym] = i.second
               h
@@ -89,55 +89,17 @@ module Ekylibre
           end
 
           if r.price_unity
-            default_indicators = {
-              mass: :net_mass,
-              volume: :net_volume
-            }.with_indifferent_access
-
-            unit = r.price_unity.first
-
-            if unit.present? && !Onoma::Unit[unit]
-              if u = Onoma::Unit.find_by(symbol: unit)
-                unit = u.name.to_s
-                measure_unit_price = 1.00.in(unit.to_sym) if unit
-              else
-                raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{unit.inspect} for variant #{variant.name.inspect}.")
-              end
+            unit = Unit.import_from_lexicon(r.price_unity.to_s)
+            unless unit.present?
+              raise ActiveExchanger::NotWellFormedFileError.new("Unknown unit #{unit.inspect} for variant #{variant.name.inspect}.")
             end
 
-            unless indicator = (unit.blank? ? :population : r.price_unity.second)
-              dimension = Measure.dimension(unit)
-              indics = variant.indicators.select do |indicator|
-                next unless indicator.datatype == :measure
-
-                Measure.dimension(indicator.unit) == dimension
-              end.map(&:name)
-              if indics.count > 1
-                if indics.include?(default_indicators[dimension].to_s)
-                  indicator = default_indicators[dimension]
-                else
-                  raise ActiveExchanger::NotWellFormedFileError.new("Ambiguity on unit #{unit.inspect} for variant #{variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'.")
-                end
-              elsif indics.empty?
-                if unit == 'hour'
-                  indicator = 'working_duration'
-                else
-                  raise ActiveExchanger::NotWellFormedFileError.new("Unit #{unit.inspect} is invalid for variant #{variant.name.inspect}. No indicator can be used with this unit.")
-                end
-              else
-                indicator = indics.first
-              end
-            end
-            # Find ratio to store the good price link to existing variant indicator
-            variant_default_population = variant.send(indicator.to_sym)
-            ratio = (variant_default_population.to_d(unit.to_sym) / measure_unit_price.to_d(unit.to_sym)).to_d
-            ratio ||= 1.0
-
+            conditioning_data = variant.guess_conditioning
             # create prices if exist
             [[r.purchase_unit_pretax_amount, :purchase], [r.stock_unit_pretax_amount, :stock], [r.sale_unit_pretax_amount, :sale]].each do |(price, nature)|
               if price
                 catalog = Catalog.by_default!(nature)
-                attributes = { catalog: catalog, all_taxes_included: false, amount: ratio * price, currency: currency }
+                attributes = { catalog: catalog, all_taxes_included: false, amount: price, unit: unit, started_at: Time.now, currency: currency }
                 variant.catalog_items.create!(attributes)
               end
             end

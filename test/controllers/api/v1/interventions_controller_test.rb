@@ -98,8 +98,9 @@ module Api
       test 'create fertilizing intervention (with inputs)' do
         authorize_user(@admin_user)
 
-        input_product = create(:fertilizer_product)
-        input_product.variant.read!(:net_mass, '4 kilogram')
+        input_product = create(:fertilizer_product, born_at: "2019-01-01T00:00:00Z")
+        input_product.read!(:net_mass, '1 kilogram', at: "2019-01-01T00:00:00Z")
+
         params = { procedure_name: 'fertilizing',
                    providers: { zero_id: 5 },
                    working_periods_attributes: [
@@ -110,7 +111,7 @@ module Api
                      {
                        product_id: input_product.id,
                        quantity_value: 5000,
-                       quantity_population: 5,
+                       quantity_population: 5000,
                        quantity_handler: 'net_mass',
                        reference_name: 'fertilizer'
                      }]
@@ -157,9 +158,10 @@ module Api
       test 'create sowing intervention (with group parameters)' do
         land_parcel1 = create(:land_parcel)
         land_parcel2 = create(:land_parcel)
-        variant = create(:product_nature_variant)
-        product = create(:seed_product)
-        product.variant.read!(:net_mass, '2000 kilogram')
+        variant = create(:plant_variant)
+        product = create(:seed_product, born_at: "2017-11-01T00:00:00Z")
+        product.variant.read!(:net_mass, '1 kilogram')
+        product.read!(:net_mass, '1000 kilogram', at: "2017-11-01T00:00:00Z")
         ActiveSupport::Deprecation.warn('variety param is deprecated, should be replaced by specie_variety_name')
         params = {
           procedure_name: 'sowing',
@@ -209,7 +211,10 @@ module Api
           inputs_attributes: [
             {
               product_id: product.id,
-              quantity_value: 3,
+              quantity_value: 2000,
+              quantity_unit_name: 'kilogram',
+              quantity_indicator_name: 'net_mass',
+              quantity_population: 2,
               quantity_handler: 'net_mass',
               reference_name: 'seeds'
             }
@@ -226,55 +231,47 @@ module Api
       end
 
       test 'create fertilizing intervention (with readings on tools)' do
-        input_product = create(:fertilizer_product, initial_born_at: "2019-01-01T00:00:00Z")
-        input_product.variant.read!(:net_mass, '4 kilogram')
+
+        input_product = create(:fertilizer_product, born_at: "2019-01-01T00:00:00Z")
+        input_product.read!(:net_mass, '1 kilogram', at: "2019-01-01T00:00:00Z")
         tractor1 = create(:tractor)
         tractor2 = create(:tractor)
         tractor3 = create(:tractor)
-        params = {
-          procedure_name: 'fertilizing',
-          providers: { zero_id: 5 },
-          working_periods_attributes: [
-            { started_at: '01/01/2019 12:00'.to_datetime,
-              stopped_at: '01/01/2019 13:30'.to_datetime
-            }
-          ],
-          inputs_attributes: [
-            {
-              product_id: input_product.id,
-              quantity_value: 5000,
-              quantity_handler: 'net_mass',
-              reference_name: 'fertilizer'
-            }
-          ],
-          tools_attributes: [
-            {
-              product_id: tractor1.id,
-              reference_name: "tractor",
-              readings_attributes: [
-                {
-                  indicator_name: "hour_counter",
-                  measure_value_value: "8",
-                  measure_value_unit: "hour"
-                }
-              ]
-            },
-            {
-              product_id: tractor2.id,
-              reference_name: "tractor"
-            },
-            {
-              product_id: tractor3.id,
-              reference_name: "tractor",
-              readings_attributes: [
-                {
-                  indicator_name: "hour_counter",
-                  measure_value_value: "5",
-                  measure_value_unit: "hour"
-                }
-              ]
-            }
-          ]
+        params = { procedure_name: 'fertilizing',
+                   providers: { zero_id: 5 },
+                   working_periods_attributes: [
+                     { started_at: '01/01/2019 12:00'.to_datetime,
+                       stopped_at: '01/01/2019 13:30'.to_datetime
+                   }],
+                   inputs_attributes: [
+                     {
+                       product_id: input_product.id,
+                       quantity_value: 5000,
+                       quantity_handler: 'net_mass',
+                       reference_name: 'fertilizer'
+                     }],
+                     tools_attributes: [{
+                       product_id: tractor1.id,
+                       reference_name: "tractor",
+                       readings_attributes: [{
+                         indicator_name: "hour_counter",
+                         measure_value_value: "8",
+                         measure_value_unit: "hour"
+                       }]
+                     },
+                                        {
+                                          product_id: tractor2.id,
+                                          reference_name: "tractor"
+                                        },
+                                        {
+                                          product_id: tractor3.id,
+                                          reference_name: "tractor",
+                                          readings_attributes: [{
+                                            indicator_name: "hour_counter",
+                                            measure_value_value: "5",
+                                            measure_value_unit: "hour"
+                                          }]
+                                        }]
         }
 
         post :create, params: params

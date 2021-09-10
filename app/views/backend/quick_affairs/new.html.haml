@@ -25,7 +25,7 @@
 
   = field_set trade_model_name.human, class: 'new-trade hidden' do
     = backend_fields_for :trade, @trade do |t|
-      = t.input :invoiced_at
+      = t.input :invoiced_at, input_html: { data: { deal_reference_date: true } }
       = t.input :reference_number
       - if @trade.is_a? Purchase
         = t.input :tax_payability, as: :radio_buttons
@@ -37,7 +37,8 @@
           %thead
             %tr
               %th= PurchaseItem.human_attribute_name(:variant)
-              %th= PurchaseItem.human_attribute_name(:quantity)
+              %th= PurchaseItem.human_attribute_name(:conditioning_unit)
+              %th= PurchaseItem.human_attribute_name(:conditioning_quantity)
               %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
               %th= PurchaseItem.human_attribute_name(:tax)
               %th= PurchaseItem.human_attribute_name(:reduction_percentage)

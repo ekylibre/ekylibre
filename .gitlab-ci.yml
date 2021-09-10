@@ -178,6 +178,7 @@ test:
     TZ: Europe/Paris
     GIT_STRATEGY: none
   services:
+    # TODO switch to postgis/postgis:13-3.1-alpine when ready
     - name: mdillon/postgis:9.6-alpine
       alias: postgres
     - name: redis:5.0-alpine

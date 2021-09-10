@@ -245,6 +245,8 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         derivative_of: nil,
         reference_name: 'sower',
         unit_name: 'Équipement',
+        default_unit_name: 'unity',
+        default_unit: Unit.import_from_lexicon(:unity),
         type: 'Variants::EquipmentVariant'
       )
 

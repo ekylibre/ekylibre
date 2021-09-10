@@ -34,6 +34,14 @@ $activity_border_size: 5px;
   }
 }
 
+.activity-economic-containers {
+  @include make-row;
+  margin-left: 0;
+  margin-right: 0;
+  .activity-container {
+    padding: 0;
+  }
+}
 
 .procedure-dropdown {
   margin: $default-gap;

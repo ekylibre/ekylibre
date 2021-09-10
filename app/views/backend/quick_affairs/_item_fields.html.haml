@@ -5,12 +5,31 @@
 - reflection = trade_type.to_sym
 - mode       = :"last_#{trade_type}_item"
 
+:ruby
+  options = {
+    wrapper: :nested,
+    source: {
+      scope: scope
+    },
+    input_html: {
+      class: "#{trade_type}-variant",
+      data: {
+        variant_of_deal_item: {
+          url: detail_backend_product_nature_variant_path("RECORD_ID", nature => f.object.send(reflection).nature_id, mode: mode)
+        },
+        parent: '.nested-fields',
+        filter_unroll: "[data-selector-id='#{trade_type}_item_conditioning_unit_id']"
+      }
+    }
+  }
+
 %tbody.nested-fields{ data: { trade_item: trade_type, trade_type: :quick_affair } }
   %tr
-    %td= f.referenced_association :variant, wrapper: :nested, source: {scope: scope}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", nature => f.object.send(reflection).nature_id, mode: mode)}}}
+    %td= f.referenced_association(:variant, **options)
     - if item.respond_to? :compute_from
       = f.input_field :compute_from, as: :hidden, data: { compute_from_updater: true }
-    %td.decimal= f.input :quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}}
+    %td= f.referenced_association :conditioning_unit, wrapper: :nested, input_html: { data: { filters_url: unroll_filters_by_catalog_items_backend_units_path, variant_selector: "input.#{trade_type}-variant" } }, new: { controller: :conditionings, action: :new_on_the_go }
+    %td.decimal= f.input :conditioning_quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}}
     %td.decimal= f.input :unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}}
     %td= f.select :tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"}
     %td.decimal= f.input :reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}}

@@ -83,7 +83,16 @@ class ActivityProduction < ApplicationRecord
   has_and_belongs_to_many :campaigns
   belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
 
+  # planning
+  belongs_to :technical_itinerary, class_name: TechnicalItinerary
+  has_one :batch, class_name: ActivityProductionBatch, dependent: :destroy, inverse_of: :activity_production
+  has_many :daily_charges, class_name: DailyCharge, dependent: :destroy, foreign_key: :activity_production_id
+  has_many :intervention_proposals, class_name: InterventionProposal, foreign_key: :activity_production_id
+
+  accepts_nested_attributes_for :batch, allow_destroy: true
+
   has_geometry :support_shape, :headland_shape, type: :multi_polygon
+
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -103,6 +112,10 @@ class ActivityProduction < ApplicationRecord
   validates :starting_year, presence: { if: :perennial? }, allow_blank: true, numericality: { greater_than_or_equal_to: ->(activity_production) { activity_production.started_on.year }, less_than_or_equal_to: ->(activity_production) { activity_production.stopped_on.year } }
   validates :support, presence: true
   validates_associated :support
+  validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
+  validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
+  validate :sowing_date_between_period_of_activity_production
 
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
@@ -150,6 +163,8 @@ class ActivityProduction < ApplicationRecord
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
+  scope :with_technical_itinerary, -> { where.not(technical_itinerary: nil)}
+
   state_machine :state, initial: :opened do
     state :opened
     state :aborted
@@ -196,11 +211,14 @@ class ActivityProduction < ApplicationRecord
         end
       end
     end
+    # planning
+    destroy_batch
     true
   end
 
   before_validation(on: :create) do
     self.state ||= :opened
+    self.batch_planting ||= false
     true
   end
 
@@ -217,6 +235,9 @@ class ActivityProduction < ApplicationRecord
       update_column(:rank_number, activity.productions.maximum(:rank_number) + 1)
     end
     Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
+    # planning
+    TechnicalItineraries::DailyChargesCreationInteractor
+      .call({ activity_production: self })
   end
 
   after_destroy do
@@ -432,6 +453,57 @@ class ActivityProduction < ApplicationRecord
   def current_campaign
     Campaign.at(Time.zone.now).first
   end
+
+  # planning
+  def interventions_and_proposals_by_weeks
+    interventions_by_week = {}
+    interventions.each do |intervention|
+      week_number = intervention.started_at.to_date.cweek
+      interventions_by_week[week_number] ||= []
+      interventions_by_week[week_number] << intervention
+    end
+    last_date = interventions.where.not(nature: :request).pluck(:started_at).max
+    intervention_proposals
+    .after_date(last_date&.to_date)
+    .without_numbers(interventions.pluck(:number))
+    .each do |intervention_proposal|
+      week_number = intervention_proposal.estimated_date.cweek
+      interventions_by_week[week_number] ||= []
+      interventions_by_week[week_number] << intervention_proposal
+    end
+
+    interventions_by_week
+  end
+
+  def planning_working_zone_area
+    self.decorate.human_working_zone_area
+  end
+
+  def destroy_batch
+    return if batch_planting || batch.nil?
+
+    if batch.irregular_batches.any?
+      intervention_proposals = InterventionProposal
+                                 .where(irregular_batch: batch.irregular_batches)
+
+      intervention_proposals.each do |intervention_proposal|
+        intervention_proposal.update_column(:activity_production_irregular_batch_id, nil)
+      end
+    end
+
+    batch.destroy
+  end
+
+  def sowing_date_between_period_of_activity_production
+    if predicated_sowing_date.present? && predicated_sowing_date < started_on
+      errors.add(:predicated_sowing_date, :date_should_be_after_start_date_of_production)
+    end
+
+    if predicated_sowing_date.present? && predicated_sowing_date > stopped_on
+      errors.add(:predicated_sowing_date, :date_should_be_before_end_of_production)
+    end
+  end
+  # planning
 
   def cost(role = :input)
     costs = interventions.collect do |intervention|

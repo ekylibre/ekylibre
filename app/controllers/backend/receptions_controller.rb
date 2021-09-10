@@ -89,19 +89,15 @@ module Backend
       # t.column :purchase, url: true
     end
 
-    list(:items, model: :parcel_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
+    list(:items, model: :reception_items, order: { id: :asc }, conditions: { parcel_id: 'params[:id]'.c, role: 'service' }) do |t|
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :purchase_order_number, label: :order, through: :parcel_item, url: { controller: '/backend/purchase_orders', id: 'RECORD.purchase_order_item.purchase.id'.c }
       t.column :purchase_invoice_number, label: :invoice, url: { controller: 'backend/purchase_invoices', id: 'RECORD.purchase_invoice_item.purchase.id'.c }
-      # t.column :source_product, url: true
       t.column :product_name
       t.column :product_work_number
-      t.column :population
-      t.column :unit_name, through: :variant
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount, currency: true
-      t.status
-      # t.column :net_mass
-      # t.column :product, url: true
       t.column :analysis, url: true
     end
 
@@ -113,8 +109,8 @@ module Backend
       t.column :product_work_number, through: :parcel_item
       t.column :storage, url: true
       t.column :product, url: true
-      t.column :quantity
-      t.column :unit_name, through: :parcel_item
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :unit_pretax_amount, currency: true, through: :parcel_item
       t.column :analysis, url: true, through: :parcel_item
     end

@@ -36,13 +36,13 @@ class InterventionParameter < ApplicationRecord
       end
       @options = options
       @options[:quantity] ||= 0
-      check_option_presence!(:quantity, :unit_name) if quantity?
+      check_option_presence!(:quantity, :unit_name, :unit) if quantity?
       check_option_presence!(:catalog_usage) if catalog?
       check_option_presence!(:purchase_item) if purchase?
       check_option_presence!(:sale_item) if sale?
     end
 
-    %i[quantity unit_name catalog_usage catalog_item purchase_item sale_item].each do |nature|
+    %i[quantity unit_name unit catalog_usage catalog_item purchase_item sale_item].each do |nature|
       define_method nature do
         @options[nature]
       end
@@ -78,7 +78,11 @@ class InterventionParameter < ApplicationRecord
     end
 
     def unit_amount
-      item ? item.unit_pretax_amount : 0.0
+      if catalog?
+        item ? item.pretax_amount(into: @options[:unit]) : 0.0
+      else
+        item ? item.unit_pretax_amount : 0.0
+      end
     end
 
     def amount?

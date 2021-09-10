@@ -36,7 +36,8 @@ module Ekylibre
           end,
           owner_name: row[7].blank? ? nil : row[7].to_s.strip,
           notes: row[9].blank? ? nil : row[9].to_s.strip,
-          unit_pretax_amount: row[10].blank? ? nil : row[10].to_d
+          unit_pretax_amount: row[10].blank? ? nil : row[10].to_d,
+          unit_pretax_amount_unit: row[11].blank? ? nil : row[11].to_s
         }.to_struct
 
         # FILE GIVE VARIANT OR VARIETY CODES BUT NOT EXIST IN DB OR IN NOMENCLATURE
@@ -87,7 +88,8 @@ module Ekylibre
           end,
           owner_name: row[7].blank? ? nil : row[7].to_s.strip,
           notes: row[9].blank? ? nil : row[9].to_s.strip,
-          unit_pretax_amount: row[10].blank? ? nil : row[10].to_d
+          unit_pretax_amount: row[10].blank? ? nil : row[10].to_d,
+          unit_pretax_amount_unit: row[11].blank? ? nil : row[11].to_s
         }.to_struct
 
         if r.variant_reference_name
@@ -108,10 +110,11 @@ module Ekylibre
             end
           end
 
+          conditioning_data = variant.guess_conditioning
           # create a price
           catalog = Catalog.find_by(usage: :cost)
           if variant && r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
-            attributes = { catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: currency }
+            attributes = { catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount.fdiv(conditioning_data[:quantity]), unit: conditioning_data[:unit], started_at: r.born_at, currency: currency }
             variant.catalog_items.create!(attributes)
           end
 
@@ -142,7 +145,7 @@ module Ekylibre
               work_number: r.work_number,
               name: r.name,
               initial_born_at: r.born_at,
-              initial_population: r.indicators[:population].to_f,
+              initial_population: r.indicators[:population].to_f * conditioning_data[:quantity],
               initial_owner: owner,
               variety: r.variety,
               derivative_of: r.derivative_of,

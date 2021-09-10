@@ -112,13 +112,15 @@ class Sale < ApplicationRecord
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
   validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, ongoing_exchanges: true, allow_blank: true
+  validates_associated :items
+  validate :items_presence
   validates_delay_format_of :payment_delay, :expiration_delay
 
   alias_attribute :third_id, :client_id
 
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
-  accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :items, allow_destroy: true
 
   delegate :with_accounting, to: :nature
 
@@ -330,6 +332,10 @@ class Sale < ApplicationRecord
     end
   end
 
+  def items_presence
+    errors.add :items, :a_sale_must_have_at_least_one_sale_item if items.blank?
+  end
+
   def invoiced_on
     dealt_at.to_date
   end
@@ -488,8 +494,8 @@ class Sale < ApplicationRecord
     items_attributes = {}
     items.order(:position).each_with_index do |item, index|
       attrs = %i[
-        variant_id quantity amount label pretax_amount annotation
-        reduction_percentage tax_id unit_amount unit_pretax_amount
+        variant_id quantity amount label pretax_amount annotation conditioning_quantity
+        reduction_percentage tax_id unit_amount unit_pretax_amount conditioning_unit
       ].each_with_object({}) do |field, h|
         h[field] = item.send(field)
       end
@@ -618,7 +624,7 @@ class Sale < ApplicationRecord
     x = []
     items.each do |item|
       attrs = %i[account currency variant reduction_percentage tax
-                 compute_from unit_pretax_amount unit_amount].each_with_object({}) do |attribute, hash|
+                 compute_from unit_pretax_amount unit_amount conditioning_unit].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
@@ -626,7 +632,7 @@ class Sale < ApplicationRecord
         attrs[v] = -1 * item.send(v)
       end
       attrs[:credited_quantity] = item.creditable_quantity
-      attrs[:quantity] = -1 * item.creditable_quantity
+      attrs[:conditioning_quantity] = -1 * item.creditable_quantity
       attrs[:credited_item] = item
       if attrs[:credited_quantity] > 0
         sale_credit_item = sale_credit.items.build(attrs)

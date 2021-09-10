@@ -501,7 +501,7 @@ shipments_002:
   pretax_amount: 0.0
   recipient_id: 11
   remain_owner: false
-  state: given
+  state: draft
   transporter_id: 4
   type: Shipment
   updated_at: 2014-11-05 15:14:00.962449000 Z

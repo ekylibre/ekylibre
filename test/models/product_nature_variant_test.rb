@@ -119,7 +119,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to prepared' do
     variant = create(:product_nature_variant)
-    sale = create(:sale, items: 0)
+    sale = create(:sale)
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     sale.propose!
     sale.confirm!(DateTime.parse('2018-01-01T00:00:00Z'))
@@ -130,7 +130,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to draft and shipment state to draft' do
     variant = create(:product_nature_variant)
-    sale = create(:sale, items: 0)
+    sale = create(:sale)
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     shipment = create(:shipment, sale: sale)
     assert_equal 0, variant.current_outgoing_stock_ordered_not_delivered
@@ -139,7 +139,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to given' do
     variant = create(:product_nature_variant)
     product = create(:product, variant: variant)
-    sale = create(:sale, items: 0, invoiced_at: DateTime.parse('2018-01-02T00:00:00Z'))
+    sale = create(:sale, invoiced_at: DateTime.parse('2018-01-02T00:00:00Z'))
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     sale.propose!
     sale.confirm!(DateTime.parse('2018-01-01T00:00:00Z'))
@@ -218,5 +218,26 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
     article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
     article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", create(reference).type }
+  end
+
+  test 'guess_conditioning' do
+    Unit.load_defaults
+    variant = create :seed_variant
+    conditioning_data = variant.guess_conditioning
+
+    assert_includes Unit.where(reference_name: %i[kilogram]), conditioning_data[:unit]
+    assert_equal 1, conditioning_data[:quantity]
+
+    variant.update!(default_quantity: 14)
+    conditioning_data = variant.guess_conditioning
+
+    assert_includes Unit.where(reference_name: %i[kilogram]), conditioning_data[:unit]
+    assert_equal 14, conditioning_data[:quantity]
+
+    variant.update!(default_quantity: 100)
+    conditioning_data = variant.guess_conditioning
+
+    assert_equal Unit.find_by_reference_name('quintal'), conditioning_data[:unit]
+    assert_equal 1, conditioning_data[:quantity]
   end
 end

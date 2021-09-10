@@ -330,7 +330,7 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         cultivation_variety: 'vitis',
         production_cycle: 'perennial',
         start_state_of_production_year: 3,
-        life_duration: 70.00,
+        life_duration: 50.00,
       }
       assert_attributes_equals(attributes, @activity)
     end

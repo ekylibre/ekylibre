@@ -47,7 +47,7 @@ CREATE INDEX master_variant_natures_reference_name ON master_variant_natures(ref
           indicators jsonb,
           translation_id character varying NOT NULL
         );
-  
+
         CREATE INDEX master_variants_reference_name ON master_variants(reference_name);
         CREATE INDEX master_variants_category ON master_variants(category);
         CREATE INDEX master_variants_nature ON master_variants(nature);

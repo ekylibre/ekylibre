@@ -1,9 +1,10 @@
 = kujaku do |k|
   - k.text
-  - k.helper do
-    %div.label-container
-      %label= Plant.human_attribute_name(:variety)
-    = select_tag(:variety, options_for_select([[]] + Plant.unique_varieties.map{ |v| [v.human_name, v.name.to_s] }.sort_by(&:first), params[:variety].to_s))
+  - if Plant.unique_varieties.any?
+    - k.helper do
+      %div.label-container
+        %label= Plant.human_attribute_name(:variety)
+      = select_tag(:variety, options_for_select([[]] + Plant.unique_varieties.map{ |v| [v.human_name, v.name.to_s] }.sort_by(&:first), params[:variety].to_s))
   - if Plant.where.not(born_at: nil).any?
     - k.helper do
       = plant_period_crit(label: Plant.human_attribute_name(:born_at), name: :born_at)

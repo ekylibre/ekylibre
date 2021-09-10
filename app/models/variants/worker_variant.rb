@@ -61,5 +61,9 @@ module Variants
     def variant_type
       :worker
     end
+
+    def compatible_dimensions
+      super.push('time')
+    end
   end
 end

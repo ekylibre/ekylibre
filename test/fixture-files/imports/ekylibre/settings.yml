@@ -5,14 +5,17 @@ country: fr                                      # Code pays
 language: fra                                    # Code langue
 map_measure_srid: 2154                           # Code référentiel spatial
 host: demo.ekylibre.farm
-sales_conditions: "Une indemnité forfaitaire de 40 € sera réclamée pour frais de recouvrement, en cas de retard de paiement" 		#conditions de vente par défault
+sales_conditions: "Une indemnité forfaitaire de 40 € sera réclamée pour frais de recouvrement, en cas de retard de paiement" 		# Conditions de vente par défaut
 demo: true                                       # Mode démo (oui/non)
-create_activities_from_telepac: false            # Création des activités uniquement à partir des fichiers TELEPAC
+create_activities_from_telepac: true             # Création des activités uniquement à partir des fichiers TELEPAC
+permanent_stock_inventory: false
+subscription_id: sub_JoVT24Sch1Zr3t             # use for SAASY link to Stripe Offer Ekyagri gestion
+customer_id: cus_JoVSup72ICfT9k                 # use for SAASY link to Stripe customer
 company:
-  last_name: GAEC DUPONT                         # Nom
+  last_name: GAEC JOULIN                         # Nom
   activity_code: 0111Z
-  siren: 123465798
-  vat_number: FR17123465798				 # Nom
+  siret: 32627372900011
+  vat_number: FR17326273729				 # Nom
   addresses:
     email: gaec.dupont@truc.com                  # Adresse e-mail de votre société
     website: www.ekylibre.com
@@ -23,7 +26,7 @@ company:
 users:
   admin@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
     first_name: Christian                        # Prénom
-    last_name: DUPONT                            # Nom de famille
+    last_name: JOULIN                            # Nom de famille
     password: 12345678                           # Mot de passe
     employed: true
   veto@ekylibre.org:                             # Adresse e-mail de l'utilisateur 2 qui sert d'identifiant
@@ -34,7 +37,7 @@ users:
     first_name: Michel                           # Prénom
     last_name: DURAND                            # Nom de famille
     password: 12345678                           # Mot de passe
-accounting_system: fr_pcga                        # Code plan comptable
+chart_of_account: fr_pcga                        # Code plan comptable
 financial_years:
   EX1998-99:                                        # Code d'un exercice comptable
     started_on: 1998-09-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
@@ -67,7 +70,11 @@ journals:
     nature: sales
     currency: USD
   CCCA:
-    name: Compte courant coop Charentes Alliance
+    name: Compte courant coop Ocealio
+    nature: bank
+    currency: EUR
+  CCTL:
+    name: Compte courant coop Terra Lacta
     nature: bank
     currency: EUR
 catalogs:
@@ -86,13 +93,19 @@ catalogs:
 accounts:                                        # Description de compte comptables
   banque:                                        # Code d'un compte comptable de banque
     name: Banque CRCA                            # Nom d'un compte de banque
-    number: 51210000                             # Numéro d'un compte de banque
+    number: 51201000                             # Numéro d'un compte de banque
+  suspense_banque:                                        # Code d'un compte comptable de banque
+    name: Banque CRCA attente                           # Nom d'un compte de banque
+    number: 51101000                             # Numéro d'un compte de banque
   caisse:                                        # Code d'un compte comptable de caisse
     name: Caisse                                 # Nom d'un compte comptable de caisse
-    number: 531101                               # Numéro d'un compte de caisse
+    number: 53110100                               # Numéro d'un compte de caisse
   cc_coopca:                                        # Code d'un compte comptable de caisse
     name: Compte coop ca                         # Nom d'un compte comptable de caisse
-    number: 47201                                # Numéro d'un compte de caisse
+    number: 47201000                                # Numéro d'un compte de caisse
+  cc_cooptl:                                        # Code d'un compte comptable de caisse
+    name: Compte coop tl                         # Nom d'un compte comptable de caisse
+    number: 47202000
 cashes:
   caisse:                                        # Code d'une trésorerie
     name: Caisse                                 # Nom d'une trésorerie
@@ -101,15 +114,29 @@ cashes:
     account: caisse                              # Code comptable d'une trésorerie (décrit au dessus)
   banque:
     name: Compte CRCA
+    nature: bank_account
     journal: '21'
     account: banque
+    suspense_account: suspense_banque
+    bank_name: "CA17"
+    bank_account_holder_name: Gaec Joulin
     mode: iban                                   # Mode de saisie IBAN ou BBAN (RIB)
     country: fr                                  # Code pays de la banque
-    iban: "FR7611111222223333333333391"          # Numéro IBAN du compte
+    iban: "FR7611706410292993961500245"          # Numéro IBAN du compte
   cc_coopca:
-    name: Compte courant activité Coop
+    name: Compte courant activité Coop Ocealio
     journal: CCCA
     account: cc_coopca
+    bank_name: "OCEALIO"
+    nature: "associate_account"
+    mode: "" 							#mode
+    country: fr 						#code pays
+    iban: "" 			#numéro IBAN du compte
+  cc_cooptl:
+    name: Compte courant activité Coop Terri Lacti
+    journal: CCTL
+    account: cc_cooptl
+    bank_name: "TERRILACTI"
     nature: "associate_account"
     mode: "" 							#mode
     country: fr 						#code pays
@@ -118,13 +145,26 @@ outgoing_payment_modes:
   cc_coopca:
     with_accounting: true
     cash: cc_coopca
+  cc_cooptl:
+    with_accounting: true
+    cash: cc_cooptl
   cb:
     with_accounting: true
     cash: banque
   cheque:
     with_accounting: true
     cash: banque
+  virement:
+    with_accounting: true
+    cash: banque
+    sepa: true
 incoming_payment_modes:
+  cc_coopca:
+    with_accounting: true
+    cash: cc_coopca
+  cc_cooptl:
+    with_accounting: true
+    cash: cc_cooptl
   virement:
     with_accounting: true
     cash: banque
@@ -151,6 +191,7 @@ net_services:                                    # Services en ligne
     cartodb_login: demo-ekylibre
     password: 000000
 identifiers:                                     # Identifiants
+  openweathermap_api_key: 25ec253e68abca2e4115718432525549
   pacage_number: 12346578                        # Nom et valeur d'un identifiant
   husbandry_owner_number: FR01700006989
   cattling_root_number: 173513

@@ -51,6 +51,13 @@ class InterventionWorkingPeriod < ApplicationRecord
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validate :validate_started_stopped_at
+  # planning
+  validate do
+    if intervention && intervention.intervention_proposal.present? && !intervention.targets.present?
+      activity_production = intervention.intervention_proposal.activity_production
+      check_date_with_activity_production(activity_production)
+    end
+  end
 
   calculable period: :month, column: :duration, at: :started_at, name: :sum
 
@@ -186,6 +193,13 @@ class InterventionWorkingPeriod < ApplicationRecord
 
   def during_financial_year_exchange?
     FinancialYearExchange.opened.at(started_at).exists?
+  end
+
+  def check_date_with_activity_production(activity_production)
+    errors.add(:started_at, :posterior, to: activity_production.started_on) if intervention.started_at < activity_production.started_on
+    errors.add(:started_at, :inferior, to: activity_production.stopped_on) if intervention.started_at > activity_production.stopped_on
+    errors.add(:stopped_at, :posterior, to: activity_production.started_on) if intervention.stopped_at < activity_production.started_on
+    errors.add(:stopped_at, :inferior, to: activity_production.stopped_on) if intervention.stopped_at > activity_production.stopped_on
   end
 
   private

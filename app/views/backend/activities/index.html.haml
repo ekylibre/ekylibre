@@ -11,6 +11,7 @@
     = tool_to :new_activity.tl, { controller: :activities, action: :new, redirect: backend_activities_path }
 
   - if @activities_of_campaign.any?
-   
+
     = render partial: 'backend/activities/documents_printers', locals: {action: :index, conditions: current_campaign}
+    = link_to :add_itk_on_activities.tl, { controller: :activities, action: :add_itk_on_activities, redirect: request.fullpath }, { class: ['btn btn-default'], data: { confirm: :are_you_sure.tl, update_link_with: '#add_itk_on_activities' }, method: :post }
 = render 'backend/activities/activities', activities: @activities, families: @families, campaign: @campaign, currency: @currency

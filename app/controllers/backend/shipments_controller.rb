@@ -95,8 +95,8 @@ module Backend
       t.column :product, url: true, hidden: true
       t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
       t.column :product_identification_number, hidden: true
-      t.column :population
-      t.column :unit_name, through: :variant
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :analysis, url: true
     end
 
@@ -184,7 +184,7 @@ module Backend
     private
 
       def shipment_params
-        params.require(:shipment).permit(:planned_at, :sale_id, :recipient_id, items_attributes: %i[source_product_id population])
+        params.require(:shipment).permit(:planned_at, :sale_id, :recipient_id, items_attributes: %i[source_product_id conditioning_quantity])
       end
   end
 end

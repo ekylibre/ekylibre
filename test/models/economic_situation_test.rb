@@ -46,7 +46,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     trash_account = Account.create!(name: 'Just needed', number: '666')
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)
-
+    variant = ProductNatureVariant.find_or_import!(:daucus_carotta).first
     @journal = create :journal, nature: :purchases, currency: :EUR
     @nature = create :purchase_nature, journal_currency: :EUR
 
@@ -59,7 +59,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       items_attributes: [
         {
           unit_pretax_amount: 12,
-          quantity: 1,
+          conditioning_quantity: 1,
           tax: Tax.create!(
             country: :fr,
             nature: :null_vat,
@@ -67,8 +67,9 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
             collect_account: trash_account,
             deduction_account: trash_account
           ),
-          variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
-          account: trash_account
+          variant: variant,
+          account: trash_account,
+          conditioning_unit: variant.guess_conditioning[:unit]
         }
       ]
     )
@@ -97,13 +98,12 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       )
     )
 
-    sale = Sale.create!(
+    sale = Sale.new(
       client: @entity
     )
 
-    SaleItem.create!(
-      sale: sale,
-      variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
+    sale.items.new(
+      variant: variant,
       unit_pretax_amount: 8,
       tax: Tax.create!(
         country: 'fr',
@@ -112,9 +112,11 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
         collect_account: trash_account,
         deduction_account: trash_account
       ),
-      quantity: 1,
+      conditioning_quantity: 1,
+      conditioning_unit: variant.guess_conditioning[:unit],
       amount: 8
     )
+    sale.save!
 
     IncomingPayment.create!(
       amount: 11,

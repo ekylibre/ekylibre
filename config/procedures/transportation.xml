@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="harvest_transportation" categories="harvesting" actions="transportation">
+  <procedure name="transportation" categories="harvesting" actions="transportation">
     <parameters>
       <target name="zone" filter="(is plant or is land_parcel or is building_division) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>

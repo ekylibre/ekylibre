@@ -48,7 +48,10 @@
       _.uniq(_.compact(selectedItemsThirdIds)).length == 1
 
     _setBtnUrl: (selectedItemsIds, $btn, model, linksUrls) ->
-      urlSeparator = if $btn.hasClass('dropdown-toggle') then '&' else '?'
+      urlSeparator = if model == 'purchase_order'
+        '?'
+      else if model == 'reception'
+        '&'
 
       for linkUrl in linksUrls
         if selectedItemsIds.length > 0

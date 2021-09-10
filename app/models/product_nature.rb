@@ -326,6 +326,10 @@ class ProductNature < ApplicationRecord
     stopped_on
   end
 
+  def compatible_dimensions
+    Unit::STOCK_INDICATOR_PER_DIMENSION.select { |_k, v| frozen_indicators_list.include?(v.to_sym) }.keys.push(:none)
+  end
+
   class << self
     # Returns some nomenclature items are available to be imported, e.g. not
     # already imported
@@ -443,5 +447,17 @@ class ProductNature < ApplicationRecord
         import_from_nomenclature(product_nature.name)
       end
     end
+
+    private
+
+      def retrieve_indicators(variant_nature)
+        if variant_nature.population_counting_decimal?
+          frozen_indicators = %i[net_mass net_volume].select { |i| variant_nature.indicators.map(&:to_sym).include?(i) }
+          variable_indicators = variant_nature.indicators.map(&:to_sym) - %i[net_mass net_volume]
+          { frozen: frozen_indicators, variable: variable_indicators }
+        else
+          { frozen: [], variable: variant_nature.indicators.map(&:to_sym) }
+        end
+      end
   end
 end

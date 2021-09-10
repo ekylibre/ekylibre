@@ -5,6 +5,9 @@ fra:
         auxiliary: "Auxiliaire" #?
         general: "General" #?
     activity:
+      distribution_key:
+        gross_margin: "Marge brute"
+        percentage: "Pourcentage"
       nature:
         auxiliary: "Auxiliaire"
         main: "Principale"
@@ -479,6 +482,14 @@ fra:
         purchase: "Achat"
         sale: "Vente"
     product_nature_variant:
+      default_unit_name:
+        joule: "Joule"
+        kilogram: "Kilogramme"
+        liter: "Litre"
+        meter: "Mètre"
+        second: "Seconde"
+        square_meter: "Mètre carré"
+        unity: "Unité"
       type:
         Variants::AnimalVariant: "Animaux"
         Variants::ArticleVariant: "Articles"
@@ -665,6 +676,15 @@ fra:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"
         no_limit: "Aucune limite"
         used_by: "Date Limite de Consommation (DLC)"
+    unit:
+      dimension:
+        none: "Aucune"
+        volume: "Volume"
+        mass: "Masse"
+        surface_area: "Surface"
+        distance: "Distance"
+        time: "Temps"
+        energy: "Energie"
     version:
       event:
         create: "Créer"

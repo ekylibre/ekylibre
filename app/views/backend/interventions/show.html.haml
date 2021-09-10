@@ -68,6 +68,10 @@
           %span.value= resource.human_working_zone_area(precision: 2)
 
         .big-info
+          %span.title= :net_surface_area.tl
+          %span.value= resource.human_activity_production_zone_area(precision: 2)
+
+        .big-info
           - unit = Onoma::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
           - total_cost_per_area = resource.total_cost_per_area(unit)
@@ -75,6 +79,11 @@
             - localized_cost = total_cost_per_area.round(currency.precision).l(currency: currency.name)
             - displayed_cost_per_area = "#{localized_cost}/#{unit.symbol}"
           %span.value= displayed_cost_per_area || ""
+
+        .big-info.cost.important
+          %span.title= :working_hectare_costs.tl
+          - displayed_cost_per_working_area = (resource.total_cost / resource.working_zone_area.to_f).to_f.round(2).round(currency.precision).l(currency: currency.name)
+          %span.value= "#{displayed_cost_per_working_area}/#{unit.symbol}"
 
       .big-info.cost.important
         %span.title= :total_cost.tl

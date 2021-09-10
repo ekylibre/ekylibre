@@ -14,6 +14,36 @@
   computation_methods = f.object.computation_methods.map do |m|
     [ActivityBudgetItem.computation_method.human_value_name(m), m]
   end
+  ti = resource.technical_itinerary
+
+- if ti
+  = field_set(:technical_itinerary) do
+    .big-infos
+      .med-info.important
+        %span.title= :name.tl
+        %span.value
+          = ti.name
+
+      .med-info.important
+        %span.title= :duration.tl
+        %span.value
+          = ti.human_duration
+
+      .med-info.important
+        %span.title= :average_yield.tl
+        %span.value
+          = ti.average_yield
+
+      .med-info.important
+        %span.title= :time_per_hectare.tl
+        %strong.value
+          = ti.human_global_workload
+
+      - %i(tools doers).each do |actor|
+        .med-info.important
+          %span.title= "#{actor}_workload".tl
+          %span.value
+            = ti.human_parameter_workload(actor)
 
 = field_set(ActivityBudget.human_attribute_name(:items)) do
   .items

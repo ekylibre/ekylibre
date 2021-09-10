@@ -51,9 +51,9 @@ module Api
 
       test 'create fertilizing intervention (with inputs)' do
         authorize_user(@admin_user)
-
-        input_product = create(:fertilizer_product)
-        input_product.variant.read!(:net_mass, '4 kilogram')
+        # create a fertilizer with conditionning of 1 kilogram unit
+        input_product = create(:fertilizer_product, born_at: "2019-01-01T00:00:00Z")
+        input_product.read!(:net_mass, '1 kilogram', at: "2019-01-01T00:00:00Z")
         params = { procedure_name: 'fertilizing',
                    provider: provider,
                    working_periods_attributes: [
@@ -64,7 +64,8 @@ module Api
                      {
                        product_id: input_product.id,
                        quantity_value: 5000,
-                       quantity_population: 5,
+                       quantity_unit_name: 'kilogram',
+                       quantity_population: 5000,
                        quantity_handler: 'net_mass',
                        reference_name: 'fertilizer'
                      }
@@ -111,9 +112,11 @@ module Api
       test 'create sowing intervention (with group parameters)' do
         land_parcel1 = create(:land_parcel)
         land_parcel2 = create(:land_parcel)
-        variant = create(:product_nature_variant)
-        product = create(:seed_product)
-        product.variant.read!(:net_mass, '2000 kilogram')
+        variant = create(:plant_variant)
+        # create a seed with conditionning of 1 ton unit
+        product = create(:seed_product, born_at: "2017-11-01T00:00:00Z")
+        product.variant.read!(:net_mass, '1 kilogram')
+        product.read!(:net_mass, '1000 kilogram', at: "2017-11-01T00:00:00Z")
         params = {
           procedure_name: 'sowing',
           provider: provider,
@@ -162,7 +165,10 @@ module Api
           inputs_attributes: [
             {
               product_id: product.id,
-              quantity_value: 3,
+              quantity_value: 2000,
+              quantity_unit_name: 'kilogram',
+              quantity_indicator_name: 'net_mass',
+              quantity_population: 2,
               quantity_handler: 'net_mass',
               reference_name: 'seeds'
             }

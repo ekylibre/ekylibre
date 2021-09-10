@@ -3,8 +3,8 @@ require 'test_helper'
 module Interventions
   class ComputationServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     test 'computation of simple intervention' do
-      input_product = create(:fertilizer_product)
-      input_product.variant.read!(:net_volume, '1 liter')
+      input_product = create(:phytosanitary_product, born_at: "2019-01-01T00:00:00Z")
+      input_product.read!(:net_volume, '1 liter', at: "2019-01-01T00:00:00Z")
 
       ewkt = "SRID=4326;MultiPolygon (((-1.017533540725708 44.23605999218229, -1.0204195976257324 44.236744122959124, -1.0197114944458008 44.238758034804555, -1.0165786743164062 44.238143107200145, -1.017533540725708 44.23605999218229)))"
 

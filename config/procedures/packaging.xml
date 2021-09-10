@@ -5,24 +5,24 @@
       <input name="product_to_prepare" filter="is preparation and derives from bioproduct">
         <handler name="population"/>
         <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram)"
+                 forward="VALUE / PRODUCT.net_mass(kilogram)"/>
         <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(ton)"
-                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(ton)"
+                 forward="VALUE / PRODUCT.net_mass(ton)"/>
        <handler indicator="net_volume" unit="liter"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_volume(liter)"
-                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_volume(liter)"
+                 forward="VALUE / PRODUCT.net_volume(liter)"/>
       </input>
       <input name="packaging_material" filter="is packaging" cardinality="*">
         <handler name="population"/>
         <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram)"
+                 forward="VALUE / PRODUCT.net_mass(kilogram)"/>
        <handler  indicator="length" unit="meter"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length?"
                  backward="POPULATION * PRODUCT..length(meter)"

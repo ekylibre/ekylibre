@@ -172,13 +172,13 @@ class SaleAffairTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     nature.name ||= 'Sales baby!'
     nature.save!
     items = (0..4).to_a.map do |index|
+      variant = ProductNatureVariant.where(category: ProductNatureCategory.where(saleable: true)).offset(index).first
       SaleItem.new(
-        quantity: 1 + rand(20),
+        conditioning_quantity: 1 + rand(20),
         unit_pretax_amount: 10 + (100 * rand).round(2),
-        variant: ProductNatureVariant.where(
-          category: ProductNatureCategory.where(saleable: true)
-        ).offset(index).first,
-        tax: Tax.all.sample
+        variant: variant,
+        tax: Tax.all.sample,
+        conditioning_unit: variant.guess_conditioning[:unit]
       )
     end
     sale = Sale.create!(client: client, nature: nature, items: items, invoiced_at: DateTime.new(2018, 1, 1))

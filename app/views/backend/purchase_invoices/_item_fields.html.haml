@@ -17,14 +17,16 @@
     %td.product-column
       %label{ data: { item_value: "input.invoice-variant" } }= f.object.variant ? f.object.variant.name : 'ERROR'
     %td.quantity-column
-      %label{ data: { item_value: "input.invoice-quantity" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-      %label{ data: { item_value: "span.item-population-unit-name"}}= f.object.variant ? f.object.variant.unit_name : '#'
-    %td.unit-amount-column
-      %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-      %label= Onoma::Currency.find(f.object.currency).symbol
-    %td
-      %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-      %label= "%"
+      %label{ data: { item_value: "input.invoice-quantity" } }= f.object.conditioning_quantity ? f.object.conditioning_quantity : 'ERROR'
+      %label{ data: { item_value: '[data-coefficient]' } }= f.object.conditioning_unit ? f.object.conditioning_unit.name : '#'
+    %td.unit-amount-column.two-rows-column
+      %span
+        %label{ data: { item_value: "input.invoice-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+        %label= Onoma::Currency.find(f.object.currency).symbol
+      %label{class: "invoice-second-row-label"}= :discount_without_percent.tl
+      %span
+        %label{ data: { item_value: "input.invoice-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+        %label= "%"
     %td.pretax-amount-column
       %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
       %label= Onoma::Currency.find(f.object.currency).symbol

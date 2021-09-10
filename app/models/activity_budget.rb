@@ -38,6 +38,7 @@
 class ActivityBudget < ApplicationRecord
   belongs_to :activity
   belongs_to :campaign
+  belongs_to :technical_itinerary
   with_options class_name: 'ActivityBudgetItem', inverse_of: :activity_budget do
     has_many :items, dependent: :destroy
     has_many :expenses, -> { expenses }
@@ -46,6 +47,8 @@ class ActivityBudget < ApplicationRecord
   has_many :journal_entry_items, dependent: :nullify
   has_many :purchase_items, dependent: :nullify
   has_many :sale_items, dependent: :nullify
+
+  enumerize :nature, in: %i[manual compute_from_itk], default: :manual, predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, presence: true, length: { maximum: 500 }
@@ -62,6 +65,7 @@ class ActivityBudget < ApplicationRecord
   delegate :name, to: :activity, prefix: true
   delegate :name, to: :campaign, prefix: true
   delegate :size_indicator, :size_unit, to: :activity
+  delegate :count, to: :productions, prefix: true
 
   before_validation on: :create do
     self.currency ||= Preference[:currency]
@@ -73,6 +77,94 @@ class ActivityBudget < ApplicationRecord
 
   def revenues_amount
     revenues.sum(:amount)
+  end
+
+  def all_main_activities_gross_margin
+    main_activities_budgets_on_campaign = ActivityBudget.joins(:activity).where(campaign: campaign, activities: { nature: :main })
+    global_revenus_on_main_activity = main_activities_budgets_on_campaign.map(&:revenues_amount).compact.sum
+    global_expenses_on_main_activity = main_activities_budgets_on_campaign.map(&:expenses_amount).compact.sum
+    all_main_activities_gross_margin = global_revenus_on_main_activity - global_expenses_on_main_activity
+  end
+
+  # compute gross margin repartition for indirect expense
+  def gross_margin_ratio
+    activity_gross_margin = revenues_amount - expenses_amount
+    ratio = activity_gross_margin / all_main_activities_gross_margin
+  end
+
+  # Compute indirect expenses coming from auxiliary activities (including all
+  # loan repayments).
+  def indirect_expenses
+    main_activities_budgets_on_campaign = ActivityBudget.joins(:activity).where(campaign: campaign, activities: { nature: :main })
+    main_budgets_count = main_activities_budgets_on_campaign.count
+    @indirect_expenses ||= ActivityBudget.joins(:activity).where(campaign: campaign, activities: { nature: :auxiliary }).each_with_object({}) do |b, h|
+      ratio = 0.0
+      if b.activity.distribution_key == :gross_margin
+        ratio = gross_margin_ratio
+        # puts gross_margin_ratio.to_f.inspect.yellow
+
+      elsif b.activity.distribution_key == :percentage
+        # compute ratio with opened activities
+        # FIXME: All distributions can refer to non-opened activies for current campaign
+        part = b.distributions.where(main_activity_id: activity_id).sum(:affectation_percentage) || 0.0
+        total = b.distributions.sum(:affectation_percentage) || 0.0
+        ratio = total.zero? ? 0.0 : (part / total)
+      elsif b.activity.distribution_key == :activity
+        ratio = 1.0 / main_budgets_count
+      end
+      h[b] = ratio
+      # puts h.inspect.red
+    end
+  end
+
+  def indirect_expenses_amount
+    @indirect_expenses_amount ||= indirect_expenses.sum do |b, ratio|
+      (b.expenses_amount + b.loan_repayments_amount - b.revenues_amount) * ratio
+    end
+  end
+
+  def real_indirect_expenses_amount
+    @real_indirect_expenses_amount ||= indirect_expenses.sum do |b, ratio|
+      (b.real_expenses_amount + b.real_loan_repayments_amount - b.real_revenues_amount) * ratio
+    end
+  end
+
+  # Compute real expenses amount on purchase invoices only
+  def real_expenses_amount
+    # compute from intervention
+    if activity.interventions.any?
+      activity.decorate.production_costs(campaign)[:global_costs][:total]
+    # compute from purchases
+    else
+      @real_expenses_amount ||= PurchaseItem.joins(:purchase).where(
+        activity_budget: self,
+        purchases: { type: 'PurchaseInvoice' }
+      ).sum(:amount)
+    end
+  end
+
+  def real_loan_repayments_amount
+    loan_repayments_amount(on: Date.today)
+  end
+
+  def real_revenues_amount
+    SaleItem.joins(:sale).where(
+      activity_budget: self
+    ).sum(:amount)
+  end
+
+  def loan_repayments(options = {})
+    repayments = LoanRepayment.includes(:loan).where(loans: { activity_id: self.activity_id }, due_on: Date.civil(campaign.harvest_year, 1, 1)..Date.civil(campaign.harvest_year, 12, 31))
+    repayments = repayments.where('due_on <= ?', options[:on]) if options.key?(:on)
+    repayments
+  end
+
+  def loan_repayments_amount(options = {})
+    loan_repayments(options).sum(:amount)
+  end
+
+  def loan_repayments_charges_amount(options = {})
+    loan_repayments(options).sum(:interest_amount) + loan_repayments(options).sum(:insurance_amount)
   end
 
   def name
@@ -93,13 +185,61 @@ class ActivityBudget < ApplicationRecord
     productions.any?
   end
 
+  # check production size if 'manual' or area in scenario if 'compute_from_itk'
   def productions_size
-    productions.map(&:size_value).sum
+    if manual?
+      productions.map(&:size_value).sum
+    elsif compute_from_itk? && technical_itinerary
+      # TODO: grab area from sap / sa / s with ti, campaign and activity
+      s_ids = Scenario.where(campaign_id: campaign.id).pluck(:id)
+      sa_ids = ScenarioActivity.where(activity_id: activity.id, planning_scenario_id: s_ids).pluck(:id)
+      sap = ScenarioActivity::Plot.where(technical_itinerary_id: technical_itinerary.id, planning_scenario_activity_id: sa_ids)
+      sap.sum(:area).round(2)
+    end
   end
 
-  delegate :count, to: :productions, prefix: true
+  def productions_count
+    if manual?
+      productions.map(&:size_value).sum
+    elsif compute_from_itk?
+      # TODO: grab plot count from sap / sa / s with ti, campaign and activity
+      s_ids = Scenario.where(campaign_id: campaign.id).pluck(:id)
+      sa_ids = ScenarioActivity.where(activity_id: activity.id, planning_scenario_id: s_ids).pluck(:id)
+      sap = ScenarioActivity::Plot.where(technical_itinerary_id: technical_itinerary.id, planning_scenario_activity_id: sa_ids)
+      sap.count
+    end
+  end
 
-  delegate :count, to: :productions, prefix: true
+  def estimated_duration
+    result = []
+    workers_v_ids = ProductNatureVariant.where(variety: "worker").pluck(:id)
+    time_actors = items.where(direction: :expense, variant_indicator: "working_duration", variant_id: workers_v_ids)
+    time_actors.each do |a|
+      if a.per_working_unit?
+        next if productions_size.zero?
+
+        result << a.quantity * productions_size
+      elsif a.per_production?
+        next if productions_count.zero?
+
+        result << a.quantity * productions_count
+      else
+        result << a.quantity
+      end
+    end
+    return result.compact.sum
+  end
+
+  def current_market_price
+    start = Date.parse("#{campaign.harvest_year}-01-01")
+    stop = Date.parse("#{campaign.harvest_year}-12-31")
+    eu_dataset = RegisteredEuMarketPrice.of_variety(activity.cultivation_variety).of_country('FR').between(start, stop).reorder(:start_date)
+    if eu_dataset.any?
+      eu_dataset.last.price
+    else
+      nil
+    end
+  end
 
   def computation_methods
     list = []

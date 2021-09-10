@@ -17,7 +17,7 @@
         - if computation.catalog_item
           = link_to(computation.human_unit_amount, {controller: :catalog_items, action: :edit, id: computation.catalog_item.id, redirect: request.fullpath})
         - else
-          = link_to(:add_catalog_price.tl, {controller: :catalog_items, action: :new, variant_id: product_parameter.product.variant.id, catalog_id: Catalog.by_default!(computation.catalog_usage).id, redirect: request.fullpath})
+          = link_to(:add_catalog_price.tl, {controller: :catalog_items, action: :new, variant_id: product_parameter.product.variant.id, unit_id: computation.unit , catalog_id: Catalog.by_default!(computation.catalog_usage).id, started_at: (product_parameter.intervention.started_at - 1.hours), redirect: request.fullpath})
       %span =
       - if computation.amount?
         %span.amount= computation.human_amount

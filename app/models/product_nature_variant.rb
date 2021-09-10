@@ -82,7 +82,9 @@ class ProductNatureVariant < ApplicationRecord
                        %w[FixedEquipment MotorizedEquipment Tool TrailedEquipment].map { |t| "Variants::Equipments::#{t}Equipment" }
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
+  belongs_to :default_unit, class_name: 'Unit'
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
+  has_many :conditionings, through: :catalog_items, source: :unit
 
   has_many :root_components, -> { where(parent: nil) }, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
   has_many :components, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
@@ -111,24 +113,28 @@ class ProductNatureVariant < ApplicationRecord
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
-  validates :category, :nature, :variety, presence: true
+  validates :category, :nature, :variety, :default_unit_name, :default_unit_id, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :gtin, length: { allow_nil: true, maximum: 14 }
+  validate :readings_presence
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name
 
-  delegate :able_to?, :identifiable?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :of_expression, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
+  delegate :able_to?, :identifiable?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :of_expression, :population_counting_unitary?, :population_counting_decimal?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, :name, to: :nature, prefix: true
   delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :storable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, to: :category
+  delegate :dimension, :of_dimension?, to: :default_unit
 
   accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :components, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :readings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
   validates_associated :components
+
+  enumerize :default_unit_name, in: Unit::BASE_UNIT_PER_DIMENSION.values
 
   scope :active, -> { where(active: true) }
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
@@ -216,6 +222,8 @@ class ProductNatureVariant < ApplicationRecord
         self.stock_movement_account ||= create_unique_account(:stock_movement)
       end
     end
+    self.default_unit ||= Unit.import_from_lexicon(default_unit_name) if default_unit_name
+    self.default_unit_name ||= default_unit.reference_name if default_unit
   end
 
   validate do
@@ -248,6 +256,10 @@ class ProductNatureVariant < ApplicationRecord
         errors.add(:derivative_of, :invalid)
       end
     end
+  end
+
+  def unit_name
+    self.attributes['unit_name'] || I18n.translate("enumerize.product_nature_variant.default_unit_name.#{default_unit_name}")
   end
 
   # create unique account for stock management in accountancy
@@ -293,6 +305,19 @@ class ProductNatureVariant < ApplicationRecord
     reading
   end
 
+  # Builds the reading instead of saving it
+  def read(indicator, value)
+    unless indicator.is_a?(Onoma::Item)
+      indicator = Onoma::Indicator.find(indicator)
+      unless indicator
+        raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
+      end
+    end
+    reading = readings.find_or_initialize_by(indicator_name: indicator.name)
+    reading.value = value
+    reading
+  end
+
   # Return the reading
   def reading(indicator)
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
@@ -303,7 +328,7 @@ class ProductNatureVariant < ApplicationRecord
   end
 
   # Returns the direct value of an indicator of variant
-  def get(indicator, _options = {})
+  def get(indicator, *args)
     unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
       raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
@@ -327,10 +352,20 @@ class ProductNatureVariant < ApplicationRecord
     end
   end
 
-  # Returns item from default catalog for given usage
-  def default_catalog_item(usage)
+  # Returns last item from default catalog for given usage with similar dimension unit and before at.
+  # mode [:unit, :dimension]
+  def default_catalog_item(usage, at = Time.now, into = default_unit, mode = :base_unit)
+    destination_unit = into.is_a?(Unit) ? into : Unit.import_from_lexicon(into)
+    raise ArgumentError.new("Unknown unit #{into}") unless destination_unit.present?
+
     catalog = Catalog.by_default!(usage)
-    catalog.items.find_by(variant: self)
+    if mode == :dimension
+      catalog.items.of_variant(self).of_dimension_unit(destination_unit.dimension).started_before(at).reorder('started_at DESC').first
+    elsif mode == :base_unit
+      catalog.items.of_variant(self).of_base_unit(destination_unit.base_unit).started_before(at).reorder('started_at DESC').first
+    else
+      raise ArgumentError.new("Unknown mode #{mode}")
+    end
   end
 
   # Returns a list of couple indicator/unit usable for the given variant
@@ -476,25 +511,22 @@ class ProductNatureVariant < ApplicationRecord
   end
 
   # Return current stock of all products link to the variant
-  def current_stock
+  def current_stock(into_default_unit: false)
     if variety == 'service'
       quantity_purchased - quantity_received
+    elsif into_default_unit
+      products.alive.map { |product| UnitComputation.convert_into_variant_unit(product.variant, product.population, product.conditioning_unit) }.sum
     else
-      products
-        .select { |product| product.dead_at.nil? || product.dead_at >= Time.now }
-        .map(&:population)
-        .compact
-        .sum
-        .to_f
+      products.alive.map { |product| UnitComputation.convert_into_variant_population(product.variant, product.population, product.conditioning_unit) }.sum
     end
   end
 
   def current_stock_displayed
-    variety == 'service' ? '' : current_stock
+    variety == 'service' ? '' : current_stock(into_default_unit: true)
   end
 
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
-  def current_outgoing_stock_ordered_not_delivered
+  def current_outgoing_stock_ordered_not_delivered(into_default_unit: false)
     undelivereds = sale_items.includes(:sale).map do |si|
       undelivered = 0
       variants_in_parcel_in_sale = ShipmentItem.where(parcel_id: si.sale.parcels.select(:id), variant: self)
@@ -511,11 +543,11 @@ class ProductNatureVariant < ApplicationRecord
 
     undelivereds += shipment_items.joins(:shipment).where.not(parcels: { state: %i[given draft] }).where(parcels: { sale_id: nil, nature: :outgoing }).pluck(:population)
 
-    undelivereds.compact.sum
+    into_default_unit ? undelivereds.compact.sum * default_quantity : undelivereds.compact.sum
   end
 
   def current_outgoing_stock_ordered_not_delivered_displayed
-    variety == 'service' ? '' : current_outgoing_stock_ordered_not_delivered
+    variety == 'service' ? '' : current_outgoing_stock_ordered_not_delivered(into_default_unit: true)
   end
 
   def picture_path(style = :original)
@@ -527,6 +559,15 @@ class ProductNatureVariant < ApplicationRecord
                      .joins(:parcel_item)
                      .where(parcel_items: { variant_id: self.id })
                      .sum(:quantity)
+  end
+
+  def default_unit_updateable?
+    products.none? && catalog_items.none? && purchase_items.none? && sale_items.none? && shipment_items.none? && reception_items.none?
+  end
+
+  def guess_conditioning
+    unit = Unit.find_by(base_unit: default_unit, coefficient: default_quantity)
+    unit ? { unit: unit, quantity: 1 } : { unit: default_unit, quantity: default_quantity }
   end
 
   def phytosanitary_product
@@ -552,6 +593,26 @@ class ProductNatureVariant < ApplicationRecord
     return unless status
 
     I18n.t("tooltips.models.product_nature_variant.#{status}")
+  end
+
+  def compatible_dimensions
+    readings.stock_related.map { |r| Unit.import_from_lexicon(r.measure_value_unit).dimension }.push(dimension, 'none').uniq
+  end
+
+  # LUCAS TODO: Add tests for this
+  def readings_presence
+    return if !default_unit || of_dimension?(:none)
+
+    mandatory_reading_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dimension.to_sym]
+    mandatory_reading = readings.detect { |r| r.indicator_name == mandatory_reading_name }
+    if !mandatory_reading || !mandatory_reading.valid?
+      errors.add(:base, :mandatory_reading, name: Onoma::Indicator.find(mandatory_reading_name).human_name)
+    end
+  end
+
+  def relevant_stock_indicator(dim)
+    indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dim.to_sym]
+    indicator_name ? send(indicator_name) : Measure.new(1, :unity)
   end
 
   class << self
@@ -621,8 +682,13 @@ class ProductNatureVariant < ApplicationRecord
       end
 
       unless !force && (variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s))
+        computation = compute_default_unit_from_nomenclature(item)
+        default_unit_name = computation[:unit]
+        default_quantity = computation[:quantity]
         category = ProductNatureCategory.import_from_nomenclature(nature_item.category)
         nature = ProductNature.import_from_nomenclature(item.nature)
+        default_unit = Unit.import_from_lexicon(default_unit_name)
+
         variant = new(
           name: item.human_name,
           active: true,
@@ -630,30 +696,23 @@ class ProductNatureVariant < ApplicationRecord
           category: category,
           reference_name: item.name,
           unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
+          default_unit_name: default_unit_name,
+          default_unit: default_unit,
+          default_quantity: default_quantity,
           variety: item.variety || nil,
           derivative_of: item.derivative_of || nil,
           imported_from: 'Nomenclature'
         )
+        build_indicators_from_nomenclature(item, variant) if item.frozen_indicators_values.to_s.present?
         unless variant.save
           raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
-        end
-      end
-
-      if item.frozen_indicators_values.to_s.present?
-        # create frozen indicator for each pair indicator, value ":population => 1unity"
-        item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
-            .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
-          indicator_name = i.first.strip.downcase.to_sym
-          next unless variant.has_indicator? indicator_name
-
-          variant.read!(indicator_name, i.second)
         end
       end
       variant
     end
 
     def import_from_lexicon(reference_name, force = false)
-      if RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
+      if RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name) || RegisteredPhytosanitaryProduct.find_by_id(reference_name)
         return import_phyto_from_lexicon(reference_name)
       end
 
@@ -681,6 +740,11 @@ class ProductNatureVariant < ApplicationRecord
 
       category = ProductNatureCategory.import_from_lexicon(item.category)
       nature = ProductNature.import_from_lexicon(item.nature)
+      default_unit_name = item.default_unit
+      default_unit = Unit.import_from_lexicon(default_unit_name)
+      base_unit = default_unit.base_unit
+      base_unit_quantity = default_unit.coefficient
+
       variant = new(
         name: variant_name,
         active: true,
@@ -689,15 +753,23 @@ class ProductNatureVariant < ApplicationRecord
         reference_name: item.reference_name,
         variety: item.specie,
         derivative_of: item.target_specie,
-        unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.default_unit}"),
+        default_unit: base_unit,
+        default_quantity: base_unit_quantity,
+        default_unit_name: base_unit.reference_name,
         type: find_type(item),
         imported_from: 'Lexicon'
       )
+      build_indicators_from_lexicon(item, variant)
+
       unless variant.save
         raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
       end
 
-      set_indicators(item, variant)
+      # import price from lexicon
+      MasterPrice.where(reference_article_name: reference_name).each do |v_price|
+        CatalogItem.import_from_lexicon(v_price.reference_name)
+      end
+
       variant
     end
 
@@ -717,11 +789,14 @@ class ProductNatureVariant < ApplicationRecord
     end
 
     def import_phyto_from_lexicon(reference_name)
-      item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name)
+      item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name) || RegisteredPhytosanitaryProduct.find_by_id(reference_name)
       unless variant = ProductNatureVariant.find_by_reference_name(reference_name)
         category = ProductNatureCategory.import_from_lexicon(:plant_medicine)
         nature = ProductNature.import_from_lexicon(:plant_medicine)
         default_unit_name = item.usages.any? ? get_phyto_unit(item) : :liter
+        default_unit = Unit.import_from_lexicon(default_unit_name)
+        base_unit = default_unit.base_unit
+        base_unit_quantity = default_unit.coefficient
 
         variant = new(
           name: item.name.capitalize,
@@ -730,16 +805,16 @@ class ProductNatureVariant < ApplicationRecord
           nature: nature,
           france_maaid: item.france_maaid,
           category: category,
-          unit_name: I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{default_unit_name}"),
+          default_unit: base_unit,
+          default_quantity: base_unit_quantity,
+          default_unit_name: base_unit.reference_name,
           type: "Variants::Articles::PlantMedicineArticle",
           imported_from: 'Lexicon'
         )
-
+        build_phyto_indicators(item, variant)
         unless variant.save
           raise "Cannot import variant #{item.name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
-
-        set_phyto_indicators(item, variant)
       end
       variant
     end
@@ -752,6 +827,36 @@ class ProductNatureVariant < ApplicationRecord
 
     protected
 
+      def compute_default_unit_from_nomenclature(variant)
+        unit = variant.unit_name.to_s
+        indicators_string = variant.frozen_indicators_values.to_s
+        indicators = indicators_string.strip.split(/[[:space:]]*\,[[:space:]]*/)
+
+        if unit.match(/gram|ton|[0-9]\s*(kg|g|mg|t)/) && indicators_string.match(/net_mass/)
+          relevant_indicator_values(indicators, 'net_mass')
+        elsif unit.match(/liter|cubic|[0-9]\s*(l|cl|ml|m³)/) && indicators_string.match(/net_volume/)
+          relevant_indicator_values(indicators, 'net_volume')
+        elsif unit.match(/acre|are|square|[0-9]\s*(a|acre|ha|cm²|m²)/) && indicators_string.match(/net_surface_area/)
+          relevant_indicator_values(indicators, 'net_surface_area')
+        elsif unit.match(/meter|[0-9]\s*(mm|cm|m|km)/) && indicators_string.match(/net_length/)
+          relevant_indicator_values(indicators, 'net_length')
+        elsif unit.match(/day|hour|minute|second|[0-9]\s*(d|h|min|s|ms)/) && indicators_string.match(/usage_duration/)
+          relevant_indicator_values(indicators, 'usage_duration')
+        elsif unit.match(/joule|watt|[0-9]\s*(J|kWh)/) && indicators_string.match(/energy/)
+          relevant_indicator_values(indicators, 'energy')
+        else
+          { unit: 'unity', quantity: 1 }
+        end
+      end
+
+      def relevant_indicator_values(indicators, key)
+        indicator = indicators.detect { |i| i.match(/#{Regexp.quote(key)}/) }
+        quantity = indicator.match(/#{Regexp.quote(key)}:\s*(\d+\.?\d*)([a-z]+_?[a-z]*)/)[1].to_f
+        unit = indicator.match(/#{Regexp.quote(key)}:\s*(\d+\.?\d*)([a-z]+_?[a-z]*)/)[2]
+        indicator_unit = Unit.import_from_lexicon(unit)
+        { unit: indicator_unit.base_unit.reference_name, quantity: quantity * indicator_unit.coefficient }
+      end
+
       def get_phyto_unit(item)
         dose_unit = item.usages.group(:dose_unit).order('count_id DESC').limit(1).count(:id).keys.first
         return :liter unless dose_unit
@@ -763,11 +868,39 @@ class ProductNatureVariant < ApplicationRecord
         end
       end
 
-      def set_phyto_indicators(item, variant)
+      def build_indicators_from_lexicon(item, variant)
+        if variant.population_counting_decimal?
+          Unit::STOCK_INDICATOR_PER_DIMENSION.each do |dimension, indicator|
+            if variant.of_dimension?(dimension) && variant.frozen_indicators_list.include?(indicator.to_sym)
+              variant.read(indicator, Measure.new(variant.default_quantity, variant.default_unit_name))
+            end
+          end
+        end
+
+        return unless item.indicators
+
+        item.indicators.each do |indicator, value|
+          next unless variant.has_indicator? indicator.to_sym
+
+          variant.read(indicator.to_sym, value)
+        end
+      end
+
+      def build_indicators_from_nomenclature(item, variant)
+        item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
+            .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
+          indicator_name = i.first.strip.downcase.to_sym
+          next unless variant.has_indicator? indicator_name
+
+          variant.read(indicator_name, i.second)
+        end
+      end
+
+      def build_phyto_indicators(item, variant)
         units = item.usages.pluck(:dose_unit).uniq.compact.map { |u| u.match(/_per_/) ? u.split('_per_').first : u }.uniq
         dimensions = units.map { |u| Onoma::Unit.find(u).dimension }.uniq
-        variant.read!(:net_mass, Measure.new(1, :kilogram)) if dimensions.include?(:mass)
-        variant.read!(:net_volume, Measure.new(1, :liter)) if dimensions.include?(:volume)
+        variant.read(:net_mass, Measure.new(1, :kilogram)) if dimensions.include?(:mass)
+        variant.read(:net_volume, Measure.new(1, :liter)) if dimensions.include?(:volume) || variant.of_dimension?(:volume)
       end
 
       def set_indicators(item, variant)
