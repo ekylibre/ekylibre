@@ -15,7 +15,6 @@ module Printers
       report[:purchase_ordered_at] = @purchase_order.ordered_at.l(format: '%d/%m/%Y') if @purchase_order.ordered_at.present?
       report[:purchase_estimate_reception_date] = @purchase_order.estimate_reception_date.l(format: '%d/%m/%Y') if @purchase_order.estimate_reception_date.present?
       report[:purchase_responsible] = @purchase_order.responsible&.full_name || ""
-      report[:purchase_responsible_email] = @purchase_order.responsible&.email || ""
       report[:supplier_name] = @purchase_order.supplier.full_name
       report[:supplier_phone] = @purchase_order.supplier.phones.first.coordinate if @purchase_order.supplier.phones.any?
       report[:supplier_mobile_phone] = @purchase_order.supplier.mobiles.first.coordinate if @purchase_order.supplier.mobiles.any?
@@ -49,7 +48,7 @@ module Printers
       company_name = e.full_name
       company_address = e.default_mail_address.present? ? e.default_mail_address.coordinate : '-'
       company_phone = e.phones.present? ? e.phones.first.coordinate : '-'
-      company_email = dataset[:purchase_responsible_email]
+      company_email = e.addresses.find_by(canal: "email").coordinate
 
       r.add_field 'COMPANY_ADDRESS', company_address
       r.add_field 'COMPANY_NAME', company_name
