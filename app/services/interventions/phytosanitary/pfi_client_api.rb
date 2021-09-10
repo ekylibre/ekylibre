@@ -151,7 +151,7 @@ module Interventions
               ap.interventions.of_nature_using_phytosanitary.each do |int|
                 int.inputs.each do |intervention_input|
                   treatment = compute_crop_interventions_for_pfi_report(ap, intervention_input)
-                  crop["traitements"] << treatment if treatment
+                  crop["traitements"] << treatment if treatment && !intervention_input.product&.variant&.phytosanitary_product&.adjuvant?
                 end
               end
               crops["parcellesCultivees"] << crop
