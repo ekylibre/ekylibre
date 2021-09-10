@@ -69,13 +69,13 @@ module Backend
               if cap_neutral_area.shape_area > 0.0.in_square_meter
                 popup_content << { label: CapLandParcel.human_attribute_name(:net_surface_area), value: cap_neutral_area.human_shape_area }
               end
-              popup_content << { label: CapNeutralArea.human_attribute_name(:category), value: MasterCropProductionCapSnaCode.find_by(reference_name: cap_neutral_area.category).translation.send(I18n.locale) }
-              popup_content << { label: CapNeutralArea.human_attribute_name(:nature), value: MasterCropProductionCapSnaCode.find_by(reference_name: cap_neutral_area.nature).translation.send(I18n.locale) }
+              popup_content << { label: CapNeutralArea.human_attribute_name(:category), value: cap_neutral_area.category }
+              popup_content << { label: CapNeutralArea.human_attribute_name(:nature), value: cap_neutral_area.nature }
               popup_content << render_to_string(partial: 'cna_popup')
 
               {
                 name: cap_neutral_area.number,
-                neutral_area_category: MasterCropProductionCapSnaCode.find_by(reference_name: cap_neutral_area.nature).translation.send(I18n.locale),
+                neutral_area_category: cap_neutral_area.category,
                 shape: cap_neutral_area.shape,
                 popup: { header: true, content: popup_content }
               }
