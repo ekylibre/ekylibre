@@ -111,6 +111,9 @@ module Square
     # @param [String] reference_number
     # @return [Maybe<Sale>]
     def create_sale(sale_info, sale_nature, reference_number:)
+
+      sales = {}
+
       # entity is link_to pos_name
       entity = find_or_create_entity(sale_info.first.pos_name)
       # responsible is link_to pos_equipment_name
@@ -124,15 +127,20 @@ module Square
       description += "\n #{sale_info.first.notes}" if sale_info.first.notes.present?
       invoiced_at = to_invoiced_at(sale_info.first.invoiced_on, sale_info.first.invoiced_hour)
 
-      sale = Sale.create!(
-        client: entity,
-        description:  description,
-        invoiced_at: invoiced_at,
-        reference_number: reference_number,
-        nature: sale_nature,
-        provider: provider_value(sale_reference_number: reference_number),
-        responsible: responsible
-      )
+      if entity && invoiced_at && reference_number
+        unless sales[reference_number]
+          sales[reference_number] = {
+            invoiced_at: invoiced_at,
+            reference_number: reference_number,
+            client: entity,
+            nature: sale_nature,
+            description: description,
+            responsible: responsible,
+            provider: provider_value(sale_reference_number: reference_number),
+            items_attributes: {}
+          }
+        end
+      end
 
       sale_info.each do |sale_line|
         variant = Maybe(find_variant_by_provider(sale_line.article_name))
@@ -152,21 +160,31 @@ module Square
           reduction_percentage = (red / (pretax + red)).round(2)
         end
 
-        item = sale.items.new(
-          amount: sale_line.sale_item_pretax_amount.to_d + sale_line.sale_item_tax_amount.to_d,
-          unit_pretax_amount: nil,
-          pretax_amount: nil,
-          reduction_percentage: reduction_percentage.abs * 100,
-          quantity: sale_line.quantity&.to_d || 1,
-          annotation: notes,
-          tax: tax,
-          variant: variant,
-          compute_from: :amount
-        )
-        item.save!
+        if variant && tax
+          conditioning_data = variant.guess_conditioning
+          id = (sales[reference_number][:items_attributes].keys.max || 0) + 1
+          sales[reference_number][:items_attributes][id] = {
+            amount: sale_line.sale_item_pretax_amount.to_d + sale_line.sale_item_tax_amount.to_d,
+            unit_pretax_amount: nil,
+            pretax_amount: nil,
+            reduction_percentage: reduction_percentage.abs * 100,
+            conditioning_quantity: (sale_line.quantity&.to_d || 1) * conditioning_data[:quantity],
+            conditioning_unit: conditioning_data[:unit],
+            annotation: notes,
+            tax: tax,
+            variant: variant,
+            compute_from: :amount
+          }
+        end
       end
-      sale.invoice(invoiced_at)
-      Some(sale)
+
+      sale_ids = []
+      # Restart counting
+      sales.values.each do |sale|
+        s = Sale.create!(sale)
+        s.invoice(invoiced_at)
+        sale_ids << s.id
+      end
     end
 
     # @param [String] reference_number
@@ -180,7 +198,8 @@ module Square
     def find_tax_by_amounts(pretax_amount, tax_amount)
       tax_rate = (tax_amount.to_d / pretax_amount.to_d) * 100
       # hotfix because some product on Square are badly imputing taxe on 20 et 10 together
-      tax_rate = 10.0 if tax_rate.between?(14, 16)
+      tax_rate = 10.0 if tax_rate.between?(13, 16)
+      tax_rate = 5.5 if tax_rate.between?(4, 6)
       unwrap_one('tax') do
         Tax.where(active: true, amount: ((tax_rate * 0.75)..(tax_rate * 1.25)))
       end
