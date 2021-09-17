@@ -4,10 +4,10 @@ class FinancialYearExchangeExportJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   # format csv / fec_txt / fec_xml
-  def perform(exchange, format, user, notify_accountant: false)
+  def perform(exchange, format, transmit_isacompta_analytic_codes, user, notify_accountant: false)
     # send email attached document to accountant or create document in Ekylibre
     begin
-      build_zip(exchange, format) do |tempzip|
+      build_zip(exchange, format, transmit_isacompta_analytic_codes) do |tempzip|
         # build zipname
         if format == 'csv'
           zipname = "#{Time.now.to_i}CSV#{exchange.stopped_on.l(format: '%Y%m%d')}.zip"
@@ -43,11 +43,11 @@ class FinancialYearExchangeExportJob < ApplicationJob
     end
   end
 
-  private def build_zip(exchange, format)
+  private def build_zip(exchange, format, transmit_isacompta_analytic_codes)
     Tempfile.create do |tempzip|
       Zip::File.open(tempzip, Zip::File::CREATE) do |zipfile|
         get_export(format) do |export|
-          export.generate_file(exchange) do |file_path|
+          export.generate_file(exchange, transmit_isacompta_analytic_codes) do |file_path|
             zipfile.add(export.filename(exchange), file_path)
           end
         end
