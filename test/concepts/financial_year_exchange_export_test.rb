@@ -6,7 +6,7 @@ class FinancialYearExchangeExportTest < Ekylibre::Testing::ApplicationTestCase::
     exchange = create(:financial_year_exchange, financial_year: financial_year)
 
     # TEST NORMAL HEADER
-    FinancialYearExchanges::CsvExport.new.generate_file(exchange) do |file_path|
+    FinancialYearExchanges::CsvExport.new.generate_file(exchange, false) do |file_path|
       file_path.open
       assert_equal [FinancialYearExchanges::CsvExport::HEADERS.join(",") + "\n"], file_path.readlines
       file_path.close
@@ -14,7 +14,7 @@ class FinancialYearExchangeExportTest < Ekylibre::Testing::ApplicationTestCase::
 
     # TEST ISACOMPTA HEADER
     exchange.update(format: 'isacompta')
-    FinancialYearExchanges::CsvExport.new.generate_file(exchange) do |file_path|
+    FinancialYearExchanges::CsvExport.new.generate_file(exchange, false) do |file_path|
       file_path.open
       assert_equal [FinancialYearExchanges::CsvExport::ISACOMPTA_HEADERS.join(",") + "\n"], file_path.readlines
       file_path.close

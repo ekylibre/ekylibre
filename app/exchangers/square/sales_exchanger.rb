@@ -180,7 +180,8 @@ module Square
     def find_tax_by_amounts(pretax_amount, tax_amount)
       tax_rate = (tax_amount.to_d / pretax_amount.to_d) * 100
       # hotfix because some product on Square are badly imputing taxe on 20 et 10 together
-      tax_rate = 10.0 if tax_rate.between?(14, 16)
+      tax_rate = 10.0 if tax_rate.between?(13, 16)
+      tax_rate = 5.5 if tax_rate.between?(4, 6)
       unwrap_one('tax') do
         Tax.where(active: true, amount: ((tax_rate * 0.75)..(tax_rate * 1.25)))
       end
