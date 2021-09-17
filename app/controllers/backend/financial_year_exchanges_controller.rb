@@ -83,7 +83,7 @@ module Backend
         return
       end
       # generate export
-      FinancialYearExchangeExportJob.perform_later(exchange, params[:format], current_user)
+      FinancialYearExchangeExportJob.perform_later(exchange, params[:format], exchange.transmit_isacompta_analytic_codes, current_user)
       notify_success(:document_in_preparation)
       redirect_to_back
     end
@@ -108,7 +108,7 @@ module Backend
 
       if exchange.accountant_email?
         exchange.generate_public_token!
-        FinancialYearExchangeExportJob.perform_later(exchange, params[:format], current_user, notify_accountant: true)
+        FinancialYearExchangeExportJob.perform_later(exchange, params[:format], exchange.transmit_isacompta_analytic_codes, current_user, notify_accountant: true)
         notify_success :document_in_preparation
       else
         notify_error :accountant_without_email

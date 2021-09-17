@@ -2,7 +2,7 @@
 
 module FinancialYearExchanges
   class FecXmlExport
-    def generate_file(exchange)
+    def generate_file(exchange, transmit_isacompta_analytic_codes)
       financial_year = exchange.financial_year
       fiscal_position = financial_year.fec_format
       started_on = exchange.started_on
