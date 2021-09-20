@@ -2058,6 +2058,7 @@ fra:
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
+    file_size: "Taille du fichier"
     file_to_download: "Fichier à importer" #?
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"

@@ -28,7 +28,7 @@ module Backend
       t.column :id
       t.column :nature, url: true
       t.column :archive_file_name
-      t.column :archive_file_size
+      t.column :file_size, class: 'center-align'
       t.column :state
       t.column :created_at
       t.column :creator

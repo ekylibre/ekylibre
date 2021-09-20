@@ -2211,6 +2211,7 @@ eng:
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview"
+    file_size: "file size"
     file_to_upload: "File to upload"
     file_trimming: "File trimming :"
     fill_analytic_codes_of_your_segments: "Fill your analytics codes of your %{segment}"
