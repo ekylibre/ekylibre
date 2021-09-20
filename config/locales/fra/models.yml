@@ -1566,6 +1566,7 @@ fra:
     file_file_size: "Taille du fichier"
     file_fingerprint: "Empreinte du fichier"
     file_pages_count: "Nombre de pages"
+    file_size: "Taille du fichier"
     file_updated_at: "Mis à jour à"
     filiation_status: "Statut de la filiation"
     filtered_columns: "Colonnes filtrées"

@@ -1068,6 +1068,7 @@ eng:
     file_file_size: "File size"
     file_fingerprint: "File fingerprint"
     file_pages_count: "Pages count"
+    file_size: "file size"
     file_updated_at: "Updated at"
     filiation_status: "Filiation status"
     filtered_columns: "Filtered columns"

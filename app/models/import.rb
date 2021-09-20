@@ -96,6 +96,25 @@ class Import < ApplicationRecord
     run_result(&block).to_bool
   end
 
+  def file_size
+    size_ko = 1000.to_f
+    size_mo = (size_ko * size_ko).to_f
+    size_go = (size_mo * size_ko).to_f
+    size_terra = (size_go * size_ko).to_f
+
+    if !self.archive_file_size.nil? && self.archive_file_size.to_d > 0
+      if self.archive_file_size < size_mo
+        "#{(self.archive_file_size/size_ko).round(2)} Ko"
+      elsif self.archive_file_size < size_go
+        "#{(self.archive_file_size/size_mo).round(2)} Mo"
+      elsif self.archive_file_size < size_terra
+        "#{(self.archive_file_size/size_go).round(2)} Go"
+      end
+    else
+      "-"
+    end
+  end
+
   # Run an import.
   # The optional code block allows have access to progression on each check point
   def run_result(&block)

@@ -102,4 +102,23 @@ class Document < ApplicationRecord
   def processable_attachment?
     processable_attachment
   end
+
+  def file_size
+    size_ko = 1000.to_f
+    size_mo = (size_ko * size_ko).to_f
+    size_go = (size_mo * size_ko).to_f
+    size_terra = (size_go * size_ko).to_f
+
+    if !self.file_file_size.nil? && self.file_file_size.to_d > 0
+      if self.file_file_size < size_mo
+        "#{(self.file_file_size/size_ko).round(2)} Ko"
+      elsif self.file_file_size < size_go
+        "#{(self.file_file_size/size_mo).round(2)} Mo"
+      elsif self.file_file_size < size_terra
+        "#{(self.file_file_size/size_go).round(2)} Go"
+      end
+    else
+      "-"
+    end
+  end
 end
