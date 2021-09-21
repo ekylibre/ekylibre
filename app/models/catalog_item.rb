@@ -110,7 +110,6 @@ class CatalogItem < ApplicationRecord
   end
 
   before_validation do
-    self.all_taxes_included = catalog.all_taxes_included if catalog
     self.amount = amount.round(4) if amount
     self.name = commercial_name
     self.name = variant_name if commercial_name.blank? && variant

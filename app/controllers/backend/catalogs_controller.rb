@@ -29,7 +29,6 @@ module Backend
       t.column :name, url: true
       t.column :usage
       t.column :currency, url: true
-      t.column :all_taxes_included, url: true
       t.column :description, hidden: true
       t.column :by_default
     end
