@@ -93,9 +93,9 @@
               else if input.val() is ""
                 input.val(0)
 
-          # Compute totals
-          E.trade.updateUnitPretaxAmount(item)
-          E.toggleValidateButton(item, false)
+              # Compute totals
+              E.trade.updateUnitPretaxAmount(item)
+              E.toggleValidateButton(item, false)
 
 
               if data.tax_id?

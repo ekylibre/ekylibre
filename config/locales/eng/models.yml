@@ -40,6 +40,7 @@ eng:
       invalid_uploaded_file: "Invalid uploaded file"
       is: "%{attribute} must be a %{thing}"
       is_at: "%{attribute} must be at %{restriction}"
+      items_present_in_catalog: "Items are present in the catalogue, this option cannot be changed."
       less_than: "%{attribute} must be less than %{count}"
       less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
       mandatory_reading: "Please provide a value for the %{name} indicator"

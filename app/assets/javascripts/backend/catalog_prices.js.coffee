@@ -3,6 +3,14 @@
 (($) ->
   'use strict'
 
+  $(document).on 'change', '#catalog_item_all_taxes_included', ->
+    $amount = $("#catalog_item_amount")
+    $container = $(this).closest('.catalog-items-form')
+    if $(this).is(':checked')
+      $container.addClass('catalog-items-form--all-taxes')
+    else
+      $container.removeClass('catalog-items-form--all-taxes')
+
   # Manage fields filling in sales
   $(document).on "selector:change", "*[data-priced-item]", ->
     # Get json info on priced item
