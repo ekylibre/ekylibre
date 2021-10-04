@@ -653,6 +653,14 @@ paths:
           name: page
           description: Select page
         - $ref: '#/components/parameters/modified_since'
+        - schema:
+            type: string
+            default: 'false'
+          in: query
+          name: user_product
+          description: Filters phytosanitary usages according to the user's product
+          required: true
+          style: form
   /lexicon/registered_phytosanitary_risks:
     get:
       summary: List registered phytosanitary risks
@@ -813,6 +821,14 @@ paths:
           name: page
           description: Select page
         - $ref: '#/components/parameters/modified_since'
+        - schema:
+            type: string
+            default: 'false'
+          in: query
+          name: user_product
+          description: Filters phytosanitary products according to the user's product
+          required: true
+          style: form
 components:
   schemas:
     InterventionCreate:
