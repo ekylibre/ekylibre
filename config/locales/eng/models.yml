@@ -215,8 +215,11 @@ eng:
         average_unit_pretax_amount: "Average unit pretax amount"
         fixed_asset_stopped_on: "Fixed asset stopped on"
         last_unit_pretax_amount: "Last unit pretax amount"
+        discount_with_percent: "Discount %"
         ordered_quantity: "Ordered quantity"
         supplier_name: "Supplier"
+        total_amount_without_taxes: "Amount HT"
+        variant_name_with_unit: "Variant"
       purchase_order:
         delivery_address: "Billing address"
       registered_phytosanitary_product:

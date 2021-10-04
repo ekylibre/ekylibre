@@ -59,11 +59,11 @@
             %th.act
             %th.product-column= :merchandises_services_costs.tl
             %th.quantity-column= PurchaseItem.human_attribute_name(:quantity)
-            %th.unit-amount-column= :unit_amount.tl
-            %th= :discount_without_percent.tl
-            %th.pretax-amount-column= :total_amount_without_taxes.tl
-            %th.total-column= :vat_rate.tl
-            %th.total-column= :total_amount_with_taxes.tl
+            %th.conditioning-column= PurchaseItem.human_attribute_name(:conditioning)
+            %th.unit-amount-column= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+            %th.discount-column= PurchaseItem.human_attribute_name(:discount_with_percent)
+            %th.total-column= PurchaseItem.human_attribute_name(:total_amount_without_taxes)
+            %th.vat-rate-column= :vat_rate.tl
 
         = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
           = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field, form_updatable: form_updatable

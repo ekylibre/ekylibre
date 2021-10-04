@@ -571,6 +571,10 @@ class Sale < ApplicationRecord
     amount - pretax_amount
   end
 
+  def ratio_conditioning?
+    items.any?{|item| (coeff = item.conditioning_unit&.coefficient).present? && coeff != 1}
+  end
+
   def sales_mentions
     # get preference for sales conditions
     preference_sales_conditions = Preference.global.find_by(name: :sales_conditions)

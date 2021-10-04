@@ -83,7 +83,7 @@ class PurchaseItem < ApplicationRecord
   has_many :products, through: :parcels_purchase_invoice_items, source: :product
   has_one :product_nature_category, through: :variant, source: :category
 
-  enumerize :role, in: %i[merchandise fees service], predicates: true
+  enumerize :role, in: %i[merchandise service fees], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
@@ -366,6 +366,15 @@ class PurchaseItem < ApplicationRecord
 
   def human_quantity_to_receive
     quantity_to_receive.l(precision: 3)
+  end
+
+  def base_unit_amount
+    coeff = conditioning_unit&.coefficient
+    (unit_pretax_amount / coeff).round(2) if coeff && coeff != 1
+  end
+
+  def variant_name_with_unit
+    "#{variant_name} (#{variant.unit_name})"
   end
 
   private

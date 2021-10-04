@@ -15,23 +15,24 @@
     %td.product-column
       %label{ data: { item_value: "input.order-variant" } }= f.object.variant ? f.object.variant.name : 'ERROR'
     %td.quantity-column
-      %label{ data: { item_value: "input.order-quantity" } }= f.object.conditioning_quantity ? f.object.conditioning_quantity : 'ERROR'
+      %label{ data: { item_value: "input.order-quantity" } }= f.object.conditioning_quantity
+      %label.hidden{ data: { item_value: '[data-coefficient]' } }= f.object.conditioning_unit ? f.object.conditioning_unit.name : '#'
+    %td.conditioning-column
       %label{ data: { item_value: '[data-coefficient]' } }= f.object.conditioning_unit ? f.object.conditioning_unit.name : '#'
     %td.unit-amount-column.two-rows-column
       %span
         %label{ data: { item_value: "input.order-unit-amount" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= Onoma::Currency.find(f.object.currency).symbol
-        %label{class: "order-second-row-label"}= :discount_without_percent.tl
+    %td.discount-column
       %span
-        %label{ data: { item_value: "input.order-discount-percentage" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-        %label= "%"
+        %label{ data: { item_value: "input.order-discount-percentage" } }
     %td.total-column.two-rows-column
       %span
         %label{ class: 'amount-excluding-taxes', data: { item_value: "input.order-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= Onoma::Currency.find(f.object.currency).symbol
-        %label{ class: "order-second-row-label"}= :vat_rate.tl
-      %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected" } }= f.object.variant ? f.object.variant.name : 'ERROR'
-
+    %td.vat-rate-column
+      %span
+        %label{ class: 'vat-rate', data: { item_value: "select.vat-total option:selected" } }
   %tr.nested-item-form{ tabindex: 0 }
     %td.item-form{colspan: 20}
       = f.input :role, as: :hidden
@@ -44,6 +45,12 @@
             %span.add-on
               = Onoma::Currency.find(f.object.currency).symbol
 
+        .invoice-base-unit-amount.unitary-quantity.hidden
+          = f.input :base_unit_amount, disabled: true, wrapper: :append do
+            = f.input_field :base_unit_amount, disabled: true, class: "order-unit-amount middle-input", label: :unit_amount.tl, data: { trade_component: "unit_pretax_amount" }
+            %span.add-on
+              = Onoma::Currency.find(f.object.currency).symbol
+
         .invoice-discount-percentage
           = f.input :reduction_percentage, wrapper: :append do
             = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "order-discount-percentage", data: { trade_component: "reduction_percentage", required: true }
@@ -53,13 +60,14 @@
         .vat-total
           = f.input(:tax_id, label: :vat_rate.tl, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, selected: f.object.tax_id, input_html: { class: "vat-total", data: {value: 'rate', trade_component: "tax"}})
 
-        .pta.pre-tax-invoice-total-controls
+        .pta.pre-tax-invoice-total-controls.fixed-hdpx-width
           = f.input :pretax_amount, wrapper: :append do
             = f.input_field :pretax_amount, class: "pta order-total middle-input", data: {trade_component: "pretax_amount", required: true}
             %span.add-on
               = Onoma::Currency.find(f.object.currency).symbol
 
-        .pta.invoice-total-controls
+
+        .pta.invoice-total-controls.fixed-hdpx-width
           = f.input :amount, wrapper: :append do
             = f.input_field :amount, class: "pta order-total middle-input", data: {trade_component: "amount", required: true}
             %span.add-on

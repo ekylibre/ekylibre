@@ -39,7 +39,7 @@
   - c.cobble :items, title: PurchaseInvoice.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{ colspan: 5 }= :total.tl
+        %th{ colspan: 6 }= :total.tl
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
 

@@ -1799,6 +1799,36 @@ a[data-remove-closest], a[data-remove] {
   }
 }
 
+.sale-items-table{
+  table-layout:fixed;
+  width: 97%;
+  thead > tr > td {
+    max-width: calc((100% - 120px));
+    overflow: hidden;
+  }
+  .baby{
+    width: 1%;
+  }
+  .small-sale-item{
+    width: 5%;
+  }
+  .medium{
+    width: 7%;
+  }
+  .variant{
+    width: 150px;
+  }
+  .taxes{
+    width: 220px;
+  }
+  .conditioning{
+    width: 10%;
+  }
+}
+
+.fixed-hdpx-width{
+  width: 100px;
+}
 
 .remove-item {
   font-size: 0;

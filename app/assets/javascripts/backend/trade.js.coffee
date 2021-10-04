@@ -84,6 +84,7 @@
               input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
               if unit.pretax_amount?
                 input.val(unit.pretax_amount)
+                input.trigger('unit-value:change')
               else if input.val() is ""
                 input.val(0)
 

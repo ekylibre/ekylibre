@@ -150,15 +150,16 @@ module Backend
       t.column :label
       t.column :annotation, hidden: true
       t.column :conditioning_unit
-      t.column :conditioning_quantity
-      t.column :unit_pretax_amount, currency: true
-      t.column :unit_amount, currency: true, hidden: true
-      t.column :reduction_percentage
-      t.column :tax, url: true, hidden: true
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
-      t.column :activity_budget, hidden: true
-      t.column :team, hidden: true
+      t.column :conditioning_quantity, class: 'right-align'
+      t.column :unit_pretax_amount, currency: true, class: 'right-align'
+      t.column :unit_amount, currency: true, hidden: true, class: 'right-align'
+      t.column :base_unit_amount, currency: true, hidden: true, class: "right-align default-unit-amount hidden"
+      t.column :reduction_percentage, class: 'right-align'
+      t.column :tax, url: true, hidden: true, class: 'right-align'
+      t.column :pretax_amount, currency: true, class: 'right-align'
+      t.column :amount, currency: true, class: 'right-align'
+      t.column :activity_budget, hidden: true, class: 'right-align'
+      t.column :team, hidden: true, class: 'right-align'
     end
 
     # Displays details of one sale selected with +params[:id]+
@@ -328,6 +329,25 @@ module Backend
 
       @sale.refuse
       redirect_to action: :show, id: @sale.id
+    end
+
+    def default_conditioning_unit
+      product = ProductNatureVariant.find_by_id(params[:id].to_i)
+      unit_id = product&.default_unit_id
+      render json: {
+        unit_id: unit_id.to_s,
+        unit_name: Unit.find_by_id(unit_id)&.name&.to_s
+      }
+    end
+
+    def conditioning_ratio
+      conditioning = Conditioning.find_by_id(params[:id].to_i)
+      coefficient = conditioning&.coefficient
+      render json: { coeff: coefficient }
+    end
+
+    def conditioning_ratios?
+      render json: Sale.find_by_id(params[:id])&.ratio_conditioning?
     end
 
     private

@@ -388,11 +388,15 @@ fra:
         average_unit_pretax_amount: "PU moyen HT"
         conditioning_unit: "Conditionnement"
         conditioning_quantity: "Quantité"
+        discount_with_percent: "Réduction (%)"
         fixed_asset_stopped_on: "Immobilisation arrêtée le"
         last_unit_pretax_amount: "Dernier prix HT"
         ordered_quantity: "Quantité commandée"
-        quantity: "Quantité totale" #?
+        quantity: "Quantité" #?
+        conditioning: "Conditionnement"
         supplier_name: "Fournisseur"
+        total_amount_without_taxes: "Montant HT"
+        variant_name_with_unit: "Variant"
       purchase_order:
         command_mode: "Mode de commande" #?
         delivery_address: "Adresse de facturation"
@@ -2495,6 +2499,7 @@ fra:
     unit_name: "Unité"
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
+    base_unit_amount: "PU HT (Unité)"
     unit_pretax_stock_amount: "Unité stocks avant impôts montant"
     unit_price: "Prix unitaire" #?
     unlock_token: "Jeton de déverrouillage"

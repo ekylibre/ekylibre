@@ -71,8 +71,8 @@ module Printers
         # Items_table
         r.add_table('items', sale.items) do |t|
           t.add_field(:code) { |item| item.variant.number }
-          t.add_field(:variant) { |item| item.variant.name }
-          t.add_field(:quantity) { |item| item.quantity.round_l }
+          t.add_field(:variant) { |item| "#{item.variant.name} (#{item.conditioning_unit.name})" }
+          t.add_field(:quantity) { |item| item.conditioning_quantity.round_l }
           t.add_field(:unit_pretax_amount) { |item| item.unit_pretax_amount.round_l_auto }
           t.add_field(:discount) { |item| item.reduction_percentage.round_l || '0.00' }
           t.add_field(:pretax_amount) { |item| item.pretax_amount.round_l }

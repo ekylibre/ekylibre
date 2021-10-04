@@ -283,6 +283,11 @@ class SaleItem < ApplicationRecord
     amount - pretax_amount
   end
 
+  def base_unit_amount
+    coeff = conditioning_unit&.coefficient
+    (unit_pretax_amount / coeff).round(2) if coeff && coeff != 1
+  end
+
   def already_credited_quantity
     credits.sum(:conditioning_quantity)
   end
