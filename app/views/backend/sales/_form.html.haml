@@ -35,29 +35,30 @@
   = field_set Sale.human_attribute_name(:items) do
     = f.error :items if f.object.items.blank?
     .items
-      %table#items-table
+      %table#items-table.sale-items-table
         %thead
           %tr
-            %th= SaleItem.human_attribute_name(:variant)
-            %th= Parcel.human_attribute_name(:number) if f.object.parcels.any?
-            %th= SaleItem.human_attribute_name(:accounting_label)
-            %th= SaleItem.human_attribute_name(:conditioning_unit)
-            %th= SaleItem.human_attribute_name(:quantity)
-            %th= SaleItem.human_attribute_name(:unit_pretax_amount)
-            %th= SaleItem.human_attribute_name(:tax)
-            %th= SaleItem.human_attribute_name(:reduction_percentage)
-            %th= SaleItem.human_attribute_name(:pretax_amount)
-            %th= SaleItem.human_attribute_name(:amount)
-            %th= SaleItem.human_attribute_name(:currency)
-            %th
+            %td.variant.optional= SaleItem.human_attribute_name(:variant)
+            %td.baby.optional= Parcel.human_attribute_name(:number) if f.object.parcels.any?
+            %td.medium.optional= SaleItem.human_attribute_name(:accounting_label)
+            %td.conditioning.optional= SaleItem.human_attribute_name(:conditioning_unit)
+            %td.medium.optional= SaleItem.human_attribute_name(:quantity)
+            %td.medium.optional= SaleItem.human_attribute_name(:unit_pretax_amount)
+            %td.unitary-quantity.hidden.medium.optional= SaleItem.human_attribute_name(:base_unit_amount)
+            %td.taxes.optional= SaleItem.human_attribute_name(:tax)
+            %td.medium.optional= SaleItem.human_attribute_name(:reduction_percentage)
+            %td.medium.optional= SaleItem.human_attribute_name(:pretax_amount)
+            %td.medium.optional= SaleItem.human_attribute_name(:amount)
+            %td.medium.right-align= SaleItem.human_attribute_name(:currency)
+            %td
         - precision = Onoma::Currency[f.object.currency].precision
         %tfoot
           %tr.total
             %th
               - unless f.object.credited_sale
-                = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+                = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary" 
             - colspan = f.object.parcels.any? ? 8 : 7
-            %th{colspan: colspan}= :total.tl
+            %th.total-label{colspan: colspan, "data-colspan" => "basic"}= :total.tl
             %td#pta.decimal{ data: { use: ".pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
             %td#wta.decimal{ data: { use: ".wta", calculate: "sum", calculate_round: precision } }= f.object.amount
             %td= f.object.currency

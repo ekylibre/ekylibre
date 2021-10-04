@@ -26,8 +26,9 @@ module Printers
 
       @purchase_order.items.each do |item|
         i = HashWithIndifferentAccess.new
-        i[:variant] = item.variant.name
-        i[:quantity] = item.quantity
+        i[:variant] = item.variant_name_with_unit
+        i[:conditioning] = item.conditioning_unit.name
+        i[:quantity] = item.conditioning_quantity
         i[:unity] = item.variant.unit_name
         i[:unit_pretax_amount] = format('%.2f', item.unit_pretax_amount)
         i[:pretax_amount] = format('%.2f', item.pretax_amount)
@@ -59,7 +60,7 @@ module Printers
 
       r.add_field 'PURCHASE_NUMBER', dataset[:purchase_number]
       r.add_field 'PURCHASE_ORDERED_AT', dataset[:purchase_ordered_at]
-      r.add_field 'PURCHASE_ESTIMATE_RECEPTION_DATE', dataset[:purchase_estimate_reception_date]
+      r.add_field 'PURCHASE_RECEPTION_DATE', dataset[:purchase_estimate_reception_date]
       r.add_field 'PURCHASE_RESPONSIBLE', dataset[:purchase_responsible]
       r.add_field 'SUPPLIER_NAME', dataset[:supplier_name]
       r.add_field 'SUPPLIER_PHONE', dataset[:supplier_phone]
@@ -70,6 +71,7 @@ module Printers
 
       r.add_table('P_ITEMS', dataset[:items], header: true) do |t|
         t.add_column(:variant)
+        t.add_column(:conditioning)
         t.add_column(:quantity)
         t.add_column(:unity)
         t.add_column(:unit_pretax_amount)
@@ -77,9 +79,8 @@ module Printers
         t.add_column(:amount)
       end
 
-      r.add_field 'PURCHASE_PRETAX_AMOUNT', dataset[:purchase_pretax_amount]
-      r.add_field 'PURCHASE_AMOUNT', dataset[:purchase_amount]
-      r.add_field 'PURCHASE_CURRENCY', dataset[:purchase_currency]
+      r.add_field 'HT_TOTAL', "#{dataset[:purchase_pretax_amount]} #{dataset[:purchase_currency]}"
+      r.add_field 'TTC_TOTAL', "#{dataset[:purchase_amount]} #{dataset[:purchase_currency]}"
     end
 
     def key
