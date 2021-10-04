@@ -635,7 +635,7 @@ class Account < ApplicationRecord
     elsif last_i_letter == 'ZZZ'
       isacompta_letter = 'AA1'
     elsif last_i_letter == 'ZZ9'
-      raise StandardError.new("Isacompta letter is full.")
+      isacompta_letter = 'AAA'
     else
       isacompta_letter = last_i_letter.succ
     end
