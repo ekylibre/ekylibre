@@ -3,11 +3,12 @@ module Api
     module Lexicon
       class RegisteredPhytosanitaryUsagesController < Api::V2::Lexicon::ApiPhytosanitaryDataController
         # @param [:modified_since] [Date]
+        # @param [:user_product] [String]
         # @return [Date] or [Array, Object] if modified_since < phytosanitary_updated_at
         def index
           return @updated_at if phytosanitary_updated_since?(params[:modified_since])
 
-          paginated_result(RegisteredPhytosanitaryUsage, order: :id)
+          params[:user_product].present? && params[:user_product]=="true" ? user_phytosanitary_product_usage : paginated_result(RegisteredPhytosanitaryUsage, order: :id)
         end
 
         def create

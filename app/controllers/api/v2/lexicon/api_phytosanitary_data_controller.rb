@@ -71,6 +71,18 @@ module Api
             model.where("(id, record_checksum) NOT IN (#{bind_params.join(', ')})", *values)
           end
 
+          def user_phytosanitary_product
+            @data=RegisteredPhytosanitaryProduct.where(reference_name: ProductNatureVariant.where.not(france_maaid: "").pluck(:reference_name)).distinct
+          end
+
+          def phytosanitary_product_usage(products)
+            @data=RegisteredPhytosanitaryUsage.where(product_id: products)
+          end
+
+          def user_phytosanitary_product_usage
+            @data=RegisteredPhytosanitaryUsage.where(product_id: user_phytosanitary_product.pluck(:france_maaid).map(&:to_i))
+          end
+
           def table_name
             controller_name.to_s
           end
