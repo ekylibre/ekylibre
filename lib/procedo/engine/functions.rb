@@ -218,8 +218,31 @@ module Procedo
         end
 
         def grain_indicators_present(product)
-          check = (product.net_mass.positive? && product.thousand_grains_mass.positive?) || product.grains_count.positive?
+          check = product.thousand_grains_mass.positive?
           check ? 1 : 0
+        end
+
+        # for seed, convert quantity in mass or unit with thousand_grains_mass indicator from product
+        # @param [Decimal] quantity
+        # @param [Unit, Product or String] from
+        # @param [Unit, Product or String] to
+        # @param [Product] product
+        def seed_population(quantity, from, to, product)
+          if from.is_a?(Unit)
+            from_unit = from
+          elsif from.is_a?(Product)
+            from_unit = product.conditioning_unit
+          else
+            from_unit = Unit.find_by_reference_name(from.to_s)
+          end
+          if to.is_a?(Unit)
+            to_unit = to
+          elsif to.is_a?(Product)
+            to_unit = product.conditioning_unit
+          else
+            to_unit = Unit.find_by_reference_name(to.to_s)
+          end
+          UnitComputation.convert_seed_stock(quantity, from_unit, to_unit, product.variant)
         end
       end
     end

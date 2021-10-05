@@ -621,6 +621,26 @@ class Intervention < ApplicationRecord
     end
   end
 
+  # planning
+  def missing_parameters
+    required_parameters = procedure.required_product_parameters
+    required_parameters_infos = required_parameters.map do |param|
+      reference_name = param.name.to_s
+      type = param.type.to_s.pluralize
+      has_group_parameter = param.group.name != :root_
+      { reference_name: reference_name, type: type, has_group_parameter: has_group_parameter }
+    end
+
+    intervention_parameters_infos = decorate.parameters_infos
+    missing_parameters = []
+    required_parameters_infos.each do |req_param|
+      next if intervention_parameters_infos.include?(req_param.except(:has_group_parameter))
+
+      missing_parameters << req_param
+    end
+    missing_parameters
+  end
+
   # Returns human activity names
   def human_activities_names
     activities.map(&:name).to_sentence

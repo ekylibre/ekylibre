@@ -5,8 +5,11 @@
 class UpdateInterventionCostingsJob < ApplicationJob
   queue_as :default
 
-  def perform(interventions_ids)
+  def perform(interventions_ids, to_reload: false)
     interventions = Intervention.where(id: interventions_ids)
+    if to_reload
+      interventions.tap(&:reload).map(&:save!)
+    end
     interventions.each(&:update_costing)
   end
 end

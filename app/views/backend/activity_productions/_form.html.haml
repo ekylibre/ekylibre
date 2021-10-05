@@ -28,6 +28,9 @@
   - if f.object.use_seasons?
     = f.association :season, as: :radio_buttons, collection: activity.seasons
 
+  - if defined?(Planning)
+    = render partial: 'planning/backend/activity_productions/technical_itinerary', locals: { f: f }
+
   - if activity.vine_farming? || activity.plant_farming?
     = f.referenced_association :production_nature,
       new: false, source: { scope: config.fetch(:production_nature_specie_scope) },

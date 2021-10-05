@@ -84,6 +84,7 @@ class InterventionAgent < InterventionProductParameter
 
   def cost_amount_computation(nature: nil, natures: {})
     # compute a unit price for a doer(worker) or an equipment only in time dimension (base unit : second)
+    # TODO Add computation from worker contract
     return InterventionParameter::AmountComputation.failed unless product
 
     quantity = if natures.empty?
@@ -95,18 +96,16 @@ class InterventionAgent < InterventionProductParameter
     unit_name = Onoma::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
     # use hour_equipment unit for equipment and hour unit for other (doer, service...)
-    unit = self.is_a?(InterventionTool) ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour)
+    unit = self.is_a?(InterventionTool) ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour_worker)
 
     catalog_item =
-      begin
         if nature.present? && nature != :intervention
-          product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
+          product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': "#{nature}_cost")&.first&.catalog&.usage
+        elsif nature.present? && nature == :intervention
+          product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': 'cost')&.first&.catalog&.usage
         else
-          product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
+          'cost'
         end
-      rescue
-        catalog_usage
-      end
 
     options = {
       catalog_usage: catalog_item,
@@ -116,12 +115,7 @@ class InterventionAgent < InterventionProductParameter
     }
 
     options[:catalog_item] = product.default_catalog_item(options[:catalog_usage], intervention.started_at, options[:unit], :dimension)
-
-    if options[:catalog_item] && options[:unit]
-      InterventionParameter::AmountComputation.quantity(:catalog, options)
-    else
-      InterventionParameter::AmountComputation.failed
-    end
+    InterventionParameter::AmountComputation.quantity(:catalog, options)
   end
 
   def working_duration_params

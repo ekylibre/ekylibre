@@ -116,6 +116,7 @@ class InterventionTemplate < ApplicationRecord
         procedure['type'] == 'plant'
       end
 
+      # unit correspond to handler name in this model
       def procedure_handler
         return if is_doer_or_tool
 
@@ -123,7 +124,7 @@ class InterventionTemplate < ApplicationRecord
                               .parameters
                               .find { |p| p.name == procedure['type'].to_sym }
                               .handlers
-                              .find { |h| h.unit == unit.to_sym }
+                              .find { |h| h.name == unit.to_sym }
       end
 
       def procedure_unit

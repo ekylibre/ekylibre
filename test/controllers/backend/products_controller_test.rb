@@ -2,7 +2,7 @@ require 'test_helper'
 module Backend
   class ProductsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     # TODO: Re-activate #show and #edit tests
-    test_restfully_all_actions except: %i[show edit update_many]
+    test_restfully_all_actions except: %i[show edit update_many sort_by_time_use]
 
     test 'update_many' do
       activity = create(:activity)

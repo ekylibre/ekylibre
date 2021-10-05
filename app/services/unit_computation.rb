@@ -8,6 +8,28 @@ class UnitComputation
       quantity * coefficient(from, to)
     end
 
+    def convert_seed_stock(quantity, from, to, variant)
+      pmg = variant.thousand_grains_mass
+      pmg_unit = Unit.import_from_lexicon(pmg.unit)
+      unity_unit = Unit.import_from_lexicon('unity')
+      if pmg.present? && pmg_unit.present? && pmg.positive?
+        # convert from mass (ex 25 kg) to none (ex 50 milliers)
+        if pmg_unit.dimension == from.dimension && to.dimension == 'none'
+          unity_net_mass = convert_stock(pmg.value, pmg_unit, from) / 1000
+          convert_stock((quantity / unity_net_mass).round(2), unity_unit, to)
+        elsif from.dimension == 'none' && pmg_unit.dimension == to.dimension
+          unity_net_mass = convert_stock(pmg.value, pmg_unit, to) / 1000
+          convert_stock((quantity * unity_net_mass), from, unity_unit)
+        elsif from.dimension == to.dimension && (to.dimension == 'mass' || to.dimension == 'none')
+          convert_stock(quantity, from, to)
+        else
+          raise "The units provided #{from.name} and #{to.name} are not compatible to convert seed stock"
+        end
+      else
+        raise 'thousand_grains_mass indicator is missing on variant'
+      end
+    end
+
     def convert_amount(amount, from, to)
       amount * coefficient(to, from)
     end

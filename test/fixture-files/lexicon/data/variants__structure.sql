@@ -16,6 +16,7 @@ CREATE TABLE master_variant_categories (
   default_vat_rate numeric(5,2),
   payment_frequency_value integer,
   payment_frequency_unit character varying,
+  pictogram character varying,
   translation_id character varying NOT NULL
 );
 
@@ -30,6 +31,7 @@ CREATE TABLE master_variant_natures (
   abilities text[],
   variety character varying NOT NULL,
   derivative_of character varying,
+  pictogram character varying,
   translation_id character varying NOT NULL
 );
 
@@ -45,6 +47,7 @@ CREATE INDEX master_variant_natures_reference_name ON master_variant_natures(ref
           target_specie character varying,
           specie character varying,
           indicators jsonb,
+          pictogram character varying,
           translation_id character varying NOT NULL
         );
 
