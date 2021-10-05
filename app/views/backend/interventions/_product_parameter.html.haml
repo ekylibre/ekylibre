@@ -23,7 +23,8 @@
         %p
           - if product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
             %p
-              %span.value= product_parameter.legal_pesticide_informations&.fetch(:name, nil)
+              - pesticide = RegisteredPhytosanitaryProduct.where(france_maaid: product_parameter.product.france_maaid).first
+              %span.value= (pesticide.present? ? pesticide.proper_name : '')
             %p
               %span.title= :quantity.tl
               %span.value= product_parameter.input_quantity_per_area.round_l

@@ -73,7 +73,13 @@ DROP TABLE IF EXISTS master_crop_productions;
           final_price numeric(8,2) NOT NULL,
           currency character varying NOT NULL,
           price_unit character varying NOT NULL,
-          campaign integer NOT NULL
+          product_output_specie character varying NOT NULL,
+          production_reference_name character varying,
+          campaign integer,
+          organic boolean,
+          label character varying
         );
         CREATE INDEX master_crop_production_prices_specie ON master_crop_production_prices(specie);
-        CREATE INDEX master_crop_production_prices_campaign ON master_crop_production_prices(campaign);
+        CREATE INDEX master_crop_production_prices_department_zone ON master_crop_production_prices(department_zone);
+        CREATE INDEX master_crop_production_prices_started_on ON master_crop_production_prices(started_on);
+        CREATE INDEX master_crop_production_prices_product_output_specie ON master_crop_production_prices(product_output_specie);

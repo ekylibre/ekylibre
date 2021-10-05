@@ -29,6 +29,7 @@
       = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
       = f.input :nature, as: :hidden
       = f.input :state, as: :hidden
+      = f.input :intervention_proposal_id, as: :hidden
       = hidden_field_tag('is_harvesting', f.object.decorate.harvesting?)
 
       #working-periods

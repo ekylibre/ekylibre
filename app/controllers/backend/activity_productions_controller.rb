@@ -22,6 +22,8 @@ module Backend
 
     unroll :rank_number, activity: :name, support: :name
 
+    layout 'assets_injection_layout' if defined?(Planning)
+
     def index
       redirect_to backend_activities_path
     end

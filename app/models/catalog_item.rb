@@ -118,11 +118,14 @@ class CatalogItem < ApplicationRecord
   end
 
   after_save do
-    variant.products.each do |product|
-      product.interventions.tap(&:reload).map(&:save!)
-    end
     set_previous_stopped_at if previous_items.any?
-    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id)) if interventions.any?
+    # update interventions with update price
+    intervention_ids_to_update = []
+    variant.products.each do |product|
+      intervention_ids_to_update << product.interventions.where('started_at >= ?', started_at)&.pluck(:id)
+    end
+    int_ids = intervention_ids_to_update.compact.uniq
+    UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
   end
 
   # Find unit_amout in default unit of variant

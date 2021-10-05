@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS technical_workflow_sequences;
           technical_workflow_sequence_id character varying NOT NULL,
           name jsonb NOT NULL,
           family character varying,
-          specie character varying,
+          specie character varying NOT NULL,
           production_system character varying,
           year_start integer,
           year_stop integer,

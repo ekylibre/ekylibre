@@ -135,32 +135,6 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
-  # return legal dose according to Lexicon phyto dataset and maaid number
-  def legal_pesticide_informations
-    pesticide = RegisteredPhytosanitaryProduct.where(france_maaid: variant.france_maaid).first
-    if pesticide
-      specie = intervention.activity_productions.first.cultivation_variety
-      usages = pesticide.usages.of_variety(specie)
-
-      info = {}
-      info[:name] = pesticide.proper_name
-      info[:usage] = usages.first.target_name['fra'] if usages.first
-      info[:dose] = Measure.new(usages.first.dose_quantity, usages.first.dose_unit) if usages.first
-      info
-    end
-  end
-
-  # only case in mass_area_density && volume_area_density in legals
-  def legal_treatment_ratio
-    ratio = 1.0
-    if legal_pesticide_informations[:dose].dimension == :mass_area_density && input_quantity_per_area.dimension == :mass_area_density
-      ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
-    elsif legal_pesticide_informations[:dose].dimension == :volume_area_density && input_quantity_per_area.dimension == :volume_area_density
-      ratio = input_quantity_per_area.convert(legal_pesticide_informations[:dose].unit) / legal_pesticide_informations[:dose].to_d
-    end
-    ratio.to_d
-  end
-
   # from EPHY
   def reglementary_status(target)
     dose = quantity.convert(:liter_per_hectare)

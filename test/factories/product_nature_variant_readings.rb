@@ -17,5 +17,14 @@ FactoryBot.define do
 
       association :variant, factory: :plant_medicine_variant
     end
+
+    trait :thousand_grains_mass do
+      indicator_name { :thousand_grains_mass }
+      measure_value_value { 300 }
+      measure_value_unit { :gram }
+      indicator_datatype { :measure }
+
+      association :variant, factory: :seed_variant
+    end
   end
 end

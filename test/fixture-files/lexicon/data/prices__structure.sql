@@ -28,14 +28,16 @@ DROP TABLE IF EXISTS master_prices;
         CREATE INDEX master_prices_reference_packaging_name ON master_prices(reference_packaging_name);
 
         CREATE TABLE master_doer_contracts (
-          id character varying PRIMARY KEY NOT NULL,
-          reference_name character varying NOT NULL,
-          name jsonb,
-          duration character varying,
-          weekly_working_time character varying,
-          gross_hourly_wage numeric(19,4),
-          net_hourly_wage numeric(19,4),
-          coefficient_total_cost numeric(19,4)
+          reference_name character varying PRIMARY KEY NOT NULL,
+          worker_variant character varying NOT NULL,
+          salaried boolean,
+          contract_end character varying,
+          legal_monthly_working_time numeric(8,2) NOT NULL,
+          legal_monthly_offline_time numeric(8,2) NOT NULL,
+          min_raw_wage_per_hour numeric(8,2) NOT NULL,
+          salary_charges_ratio numeric(8,2) NOT NULL,
+          farm_charges_ratio numeric(8,2) NOT NULL,
+          translation_id character varying NOT NULL
         );
 
         CREATE TABLE master_phytosanitary_prices (

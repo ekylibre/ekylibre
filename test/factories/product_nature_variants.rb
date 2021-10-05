@@ -140,6 +140,7 @@ FactoryBot.define do
 
     after(:build) do |variant|
       variant.readings << build(:product_nature_variant_reading, :net_mass, variant: variant)
+      variant.readings << build(:product_nature_variant_reading, :thousand_grains_mass, variant: variant)
     end
   end
 
