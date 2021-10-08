@@ -1257,7 +1257,7 @@ fra:
     casts: "Acteurs" #?
     catalog: "Catalogue de prix"
     catalog_items: "Entrées de catalogue"
-    category: "Catégorie comptable"
+    category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
     centralizing_account: "Compte centralisateur"
