@@ -354,7 +354,7 @@ module Telepac
             geom = ::Charta.from_gml(geometry.first.to_xml.to_s.squish, global_srid).transform(:WGS84).convert_to(:point)
           end
 
-          next if geometry.empty?
+          next if geom.empty?
 
           cap_neutral_area_attributes = {
             cap_statement_id: cap_statement.id,
