@@ -37,7 +37,7 @@ module Ekylibre
           puts 'Load preferences...'
           load_preferences
           puts 'Load defaults...'
-          load_defaults
+          # load_defaults
           puts 'Load company...'
           load_company
           puts 'Load imports...'
@@ -113,6 +113,26 @@ module Ekylibre
           @company[:activities].each do |activity|
             Activity.create_with(production_cycle: :annual)
                     .find_or_create_by!(family: activity[:family], cultivation_variety: activity[:variety], name: activity[:label_fr])
+          end
+        end
+
+        if @company[:vegetal_activities].present?
+          @company[:vegetal_activities].each do |activity|
+            Activity.create!(
+              family: activity[:family],
+              cultivation_variety: activity[:variety],
+              name: activity[:label_fr],
+              reference_name: activity[:production_reference_name],
+              production_system_name: activity[:production_system_name],
+              production_started_on: activity[:production_started_on],
+              production_stopped_on: activity[:production_stopped_on],
+              production_cycle: activity[:production_cycle],
+              production_started_on_year: activity[:production_started_on_year],
+              production_stopped_on_year: activity[:production_stopped_on_year],
+              life_duration: activity[:life_duration],
+              start_state_of_production_year: activity[:start_state_of_production_year],
+              codes: { hajimari_id: activity[:id] }
+            )
           end
         end
 
