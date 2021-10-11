@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,7 +42,6 @@
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
-#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
 #  product_enjoyment_id          :integer
 #  product_id                    :integer
 #  product_identification_number :string
@@ -61,7 +62,6 @@
 #  team_id                       :integer
 #  transporter_id                :integer
 #  type                          :string
-#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
@@ -80,6 +80,8 @@ class ReceptionItem < ParcelItem
   enumerize :role, in: %i[merchandise fees service], predicates: true
 
   validates :product_name, :product_identification_number, presence: { if: -> { product_is_identifiable? } }
+  validates :conditioning_unit, :conditioning_quantity, presence: { unless: :merchandise? }
+  validates :conditioning_unit, conditioning: { unless: :merchandise? }
 
   delegate :allow_items_update?, :planned_at,
            :ordered_at, :recipient, :in_preparation_at,
@@ -87,34 +89,16 @@ class ReceptionItem < ParcelItem
            :separated_stock?, :currency, :number, to: :reception, prefix: true
 
   delegate :sender, to: :reception
+  delegate :unit_pretax_amount, :pretax_amount, to: :purchase_order_item, allow_nil: true
 
   scope :with_nature, ->(nature) { joins(:reception).merge(Reception.with_nature(nature)) }
 
   before_validation do
     self.currency = reception_currency if reception
     read_at = reception ? reception_prepared_at : Time.zone.now
-
-    # purchase contrat case
-    if variant && contract && contract.items.where(variant: variant).any?
-      item = contract.items.where(variant_id: variant.id).first
-      self.unit_pretax_amount ||= item.unit_pretax_amount if item && item.unit_pretax_amount
-    end
-    self.pretax_amount = unit_pretax_amount * quantity
   end
 
   after_save do
-    if Preference[:catalog_price_item_addition_if_blank]
-      for usage in %i[stock purchase]
-        # set stock catalog price if blank
-        catalog = Catalog.by_default!(usage)
-        unless variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
-        end
-      end
-    end
-
-    reception.reload.save if pretax_amount_changed?
-
     if purchase_order_to_close.present? && !purchase_order_to_close.closed?
       purchase_order_to_close.close
     end
@@ -145,6 +129,7 @@ class ReceptionItem < ParcelItem
   def check!
     state, msg = check_incoming
     return state, msg unless state
+
     save!
   end
 
@@ -152,6 +137,12 @@ class ReceptionItem < ParcelItem
   # this moment.
   def give
     check_incoming
+  end
+
+  # Method used for merchandise parcel_items registered before purchase_process (without parcel_item_storings)
+  def guess_conditioning
+    matching_unit = Unit.find_by(base_unit: variant.default_unit, coefficient: variant.default_quantity)
+    matching_unit ? { unit: matching_unit, quantity: quantity } : { unit: variant.default_unit, quantity: variant.default_quantity * quantity }
   end
 
   protected
@@ -165,7 +156,8 @@ class ReceptionItem < ParcelItem
           name: product_name || "#{variant.name} (#{reception.number})",
           identification_number: product_identification_number,
           work_number: product_work_number,
-          initial_born_at: [reception_prepared_at, reception_given_at].compact.min
+          initial_born_at: [reception_prepared_at, reception_given_at].compact.min,
+          conditioning_unit_id: storing.conditioning_unit_id
         }
 
         product = existing_reception_product_in_storage(storing) if fusing
@@ -174,7 +166,7 @@ class ReceptionItem < ParcelItem
         storing.update(product: product)
         return false, product.errors if product.errors.any?
 
-        ProductMovement.create!(product: product, delta: storing.quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
+        ProductMovement.create!(product: product, delta: storing.conditioning_quantity, started_at: reception_given_at, originator: self) unless product_is_unitary?
         ProductLocalization.create!(product: product, nature: :interior, container: storing.storage, started_at: reception_given_at, originator: self)
         ProductEnjoyment.create!(product: product, enjoyer: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self)
         ProductOwnership.create!(product: product, owner: Entity.of_company, nature: :own, started_at: reception_given_at, originator: self) unless reception_remain_owner

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     class NonTreatmentAreasValidator < ProductApplicationValidator
-
       attr_reader :targets_and_shape
 
       # @param [Array<Models::TargetAndShape>] targets_and_shape
@@ -35,7 +36,7 @@ module Interventions
           return false unless buffer = usage.untreated_buffer_aquatic
 
           shapes = targets_and_shape.map(&:shape)
-          RegisteredHydroItem.buffer_intersecting(buffer, *shapes).any?
+          RegisteredHydrographicItem.buffer_intersecting(buffer, *shapes).any?
         end
     end
   end

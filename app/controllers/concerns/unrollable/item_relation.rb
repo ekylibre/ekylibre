@@ -12,12 +12,12 @@ module Unrollable
       @items = items
     end
 
-    def filter_through(model, includes, order, scopes, excludes)
+    def filter_through(model, includes, order, scopes, excludes, primary_key = :id)
       self
         .includes(includes)
         .reorder(order)
         .scoped(scopes, model)
-        .excluding(excludes)
+        .excluding(excludes, primary_key)
     end
 
     def includes(columns)
@@ -30,6 +30,7 @@ module Unrollable
       scopes.symbolize_keys.each do |scope, parameter|
         unless with_parameters?(scope, model)
           return bad_scope(scope, model) unless true?(parameter)
+
           next items = items.send(scope)
         end
 
@@ -41,14 +42,16 @@ module Unrollable
       self.class.new(items)
     end
 
-    def excluding(record_ids)
+    def excluding(record_ids, primary_key = :id)
       return self unless record_ids
-      self.class.new(@items.where.not(id: record_ids))
+
+      self.class.new(@items.where.not(primary_key => record_ids))
     end
 
-    def keeping(id)
+    def keeping(id, primary_key)
       return nil unless id
-      self.class.new(@items.where(id: id))
+
+      self.class.new(@items.where(primary_key => id))
     end
 
     def ordered_matches(keys, searchables, query = nil)
@@ -65,6 +68,7 @@ module Unrollable
     # Forwarding the unknown to the AR::Relation
     def method_missing(method, *args, &block)
       return super unless @items.respond_to?(method)
+
       result = @items.send(method, *args, &block)
       result.respond_to?(:to_sql) ? self.class.new(result) : result
     end
@@ -75,37 +79,36 @@ module Unrollable
 
     protected
 
-    def conditions_for(keys, searchables)
-      keys.map { |key| searchables.map { |filter| unaccented_match(filter.search, key) }.join(' OR ') }
-          .map { |condition| "(#{condition})" }
-    end
+      def conditions_for(keys, searchables)
+        keys.map { |key| searchables.map { |filter| unaccented_match(filter.search, key) }.join(' OR ') }
+            .map { |condition| "(#{condition})" }
+      end
 
-    def exact_conditions_for(keys, searchables)
-      searchables.map { |filter| exact_unaccented_match(filter.search, keys) }
-                 .map { |condition| "(#{condition})" }.join(',')
-    end
+      def exact_conditions_for(keys, searchables)
+        searchables.map { |filter| exact_unaccented_match(filter.search, keys) }
+                   .map { |condition| "(#{condition})" }.join(',')
+      end
 
-    def unaccented_match(term, pattern)
-      "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ActiveRecord::Base.sanitize("[!BEGIN!]#{pattern}%")})"
-    end
+      def unaccented_match(term, pattern)
+        "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ApplicationRecord.sanitize("[!BEGIN!]#{pattern}%")})"
+      end
 
-    def exact_unaccented_match(term, pattern)
-      "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ActiveRecord::Base.sanitize(pattern.to_s)})"
-    end
+      def exact_unaccented_match(term, pattern)
+        "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ApplicationRecord.sanitize(pattern.to_s)})"
+      end
 
-    def bad_scope(scope, model)
-      raise InvalidScopeException, <<-BAD_SCOPE
+      def bad_scope(scope, model)
+        raise InvalidScopeException.new(<<-BAD_SCOPE)
         Scope #{scope.inspect} is unknown for #{model.name}. #{model.scopes.map(&:name).inspect} are expected."
-      BAD_SCOPE
-    end
+        BAD_SCOPE
+      end
 
-    def multiple_params_in?(parameter)
-      parameter.is_a?(String) || parameter.is_a?(Array)
-    end
+      def multiple_params_in?(parameter)
+        parameter.is_a?(String) || parameter.is_a?(Array)
+      end
 
-    def with_parameters?(scope, model)
-      false if model.simple_scopes.map(&:name).include?(scope)
-      true if model.complex_scopes.map(&:name).include?(scope)
-    end
+      def with_parameters?(scope, model)
+        model.complex_scopes.map(&:name).include?(scope)
+      end
   end
 end

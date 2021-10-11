@@ -1,35 +1,30 @@
 # Ekylibre
 
-Ekylibre is a simple enterprise management web application for farmers and small
-enterprises. Ekylibre is written with Ruby on Rails framework and use
-PostgreSQL/PostGIS stack. More details can be found on the official website
-http://ekylibre.org.
+Ekylibre is a farm management information system (aka FMIS) web application.
 
-## Code status
+Ekylibre is written with [Ruby on Rails framework](https://rubyonrails.org/) and use
+[PostgreSQL](https://www.postgresql.org/) and [PostGIS](https://postgis.net/) stack.
 
-[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=master)](https://travis-ci.org/ekylibre/ekylibre)
-[![Coverage Status](https://codecov.io/gh/ekylibre/ekylibre/branch/master/graph/badge.svg)](https://codecov.io/gh/ekylibre/ekylibre)
-[![Codacy Grade Status](https://api.codacy.com/project/badge/Grade/5c572d5e073643458230a53d2e7e5f3e)](https://www.codacy.com/app/ekylibre/ekylibre)
-
-## Guides
-
-You can learn how to contribute in Ekylibre by following our official guide:
-
-* [Guide (Français)](https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre)
+More details can be found on the official website https://ekylibre.com
 
 ## Screenshot
 
 [![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
 
-## Installation
+## Global requirement
 
-This installation method works with Debian-like OS (Debian, Ubuntu, Linux
-Mint...):
+Global requirement before installing Ekylibre
 
-* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.md) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.md))
-* [Français](https://wiki.ekylibre.org/fr/guides/installation)
+* [Ubuntu 18.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/57016415/Ubuntu+18.04)
+* [Ubuntu 20.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11829377/Ubuntu+20.04+LTS)
+* [MacOS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11763849/MAC+OS)
 
-Ekylibre depends on PostgreSQL (≥ 9.5) and PostGIS (≥ 2.2).
+## Ekylibre Installation
+
+This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
+
+* [Lexicon-cli](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/9338928/Lexicon-cli+Installation)
+* [Installation Ekylibre](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/7405675/Eky+Installation)
 
 ## Contributing
 
@@ -52,14 +47,14 @@ We encourage you to contribute to Ekylibre.
 ## See also
 
 * [Forum](http://forum.ekylibre.org)
-* [Documentation](http://wiki.ekylibre.org)
-* [Demo](http://demo.ekylibre.org)
+* [User Documentation - FR](https://doc.ekylibre.com/v2/fr/demarrage/)
+* [Official Demo](http://demo.ekylibre.farm)
+* [Official Demo dataset - FR](https://github.com/ekylibre/first_run-demo)
 
 ## Follow us
 
 * [Twitter](https://twitter.com/Ekylibre)
 * [Facebook](https://www.facebook.com/ekylibre)
-* [Google+](https://plus.google.com/106303796269953490281/about)
 * [YouTube](http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g)
 
 ## License

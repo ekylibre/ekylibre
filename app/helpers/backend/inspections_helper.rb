@@ -9,6 +9,7 @@ module Backend
 
           result = result.to_d(unit).to_s.to_f.round(2)
           next if result.zero?
+
           if block_given?
             yield(calibration.name, result)
           else
@@ -32,6 +33,7 @@ module Backend
         quantity = {}
         %i[items_count net_mass].each do |dimension|
           next unless inspection.measure_grading(dimension)
+
           quantity[dimension] = InspectionCalibration.human_attribute_name(dimension)
           columns[quantity[dimension]] = { body: [], total: [], colspan: 1 }
         end
@@ -48,6 +50,7 @@ module Backend
         %i[items_count net_mass].each do |dimension|
           statable[dimension] = {}
           next unless inspection.quantity_statable?(dimension)
+
           statable[dimension][:total] = Inspection.human_attribute_name("gross_#{dimension}")
           statable[dimension][:yield] = { title: Inspection.human_attribute_name("gross_#{dimension}_yield"), unicity: dimension }
           statable[dimension][:market] = { title: InspectionCalibration.human_attribute_name("marketable_#{dimension}"), unicity: dimension }
@@ -100,6 +103,7 @@ module Backend
         quantity = {}
         %i[items_count net_mass].each do |dimension|
           next unless inspection.measure_grading(dimension)
+
           quantity[dimension] = InspectionPoint.human_attribute_name(dimension)
           columns[quantity[dimension]] = { body: [], subtotal: [], total: [], colspan: 1 }
         end
@@ -116,6 +120,7 @@ module Backend
         %i[items_count net_mass].each do |dimension|
           statable[dimension] = {}
           next unless inspection.quantity_statable?(dimension)
+
           statable[dimension][:total]   = Inspection.human_attribute_name("gross_#{dimension}")
           statable[dimension][:yield]   = { title: Inspection.human_attribute_name("gross_#{dimension}_yield"), unicity: dimension }
           statable[dimension][:market]  = { title: InspectionPoint.human_attribute_name("gross_#{dimension}_percentage"), unicity: dimension }
@@ -208,12 +213,12 @@ module Backend
 
     private
 
-    def decimal_cell(value)
-      { tag: :td, class: :decimal, content: value }
-    end
+      def decimal_cell(value)
+        { tag: :td, class: :decimal, content: value }
+      end
 
-    def total_decimal_cell(value)
-      { tag: :th, class: :decimal, content: value }
-    end
+      def total_decimal_cell(value)
+        { tag: :th, class: :decimal, content: value }
+      end
   end
 end

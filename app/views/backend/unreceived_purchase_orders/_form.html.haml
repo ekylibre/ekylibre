@@ -3,7 +3,7 @@
   = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :reference_number
-  = f.input :ordered_at
+  = f.input :ordered_at, input_html: { data: { deal_reference_date: true } }
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description
 
@@ -20,7 +20,7 @@
           %th= PurchaseItem.human_attribute_name(:pretax_amount)
           %th= PurchaseItem.human_attribute_name(:currency)
           %th
-      - precision = Nomen::Currency[f.object.currency].precision
+      - precision = Onoma::Currency[f.object.currency].precision
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SequenceManager
   def initialize(klass, options)
     options = { force: true }.merge(options)
@@ -43,6 +45,7 @@ class SequenceManager
 
   def load_predictable_into(record)
     return true unless @force || number_of(record).nil?
+
     set_number(record, unique_predictable)
     true
   end
@@ -50,6 +53,7 @@ class SequenceManager
   def load_reliable_into(record)
     return true unless @force || number_of(record).nil?
     return load_predictable_into(record) unless sequence
+
     set_number(record, unique_reliable)
     true
   end

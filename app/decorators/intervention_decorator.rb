@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InterventionDecorator < Draper::Decorator
   delegate_all
 
@@ -36,10 +38,10 @@ class InterventionDecorator < Draper::Decorator
 
   def planned_by
     name = if object.request?
-      object.creator&.full_name
-    elsif object.request_intervention.present?
-      object.request_intervention.creator&.full_name
-    end
+             object.creator&.full_name
+           elsif object.request_intervention.present?
+             object.request_intervention.creator&.full_name
+           end
     if name.present?
       add_actionner_name(:planned_by, name)
     end
@@ -180,18 +182,37 @@ class InterventionDecorator < Draper::Decorator
       .round(2)
   end
 
+  # This method enables to get some infos of parameters of an intervention before it is saved : we have to iterate over each association name instead of 'parameters' association
+  def parameters_infos
+    parameters_infos = []
+    %w[targets inputs outputs tools doers].each do |param_name|
+      next if object.send(param_name).empty?
+
+      param_references = object.send(param_name).map { |param| { reference_name: param.reference_name, type: param_name } }
+      parameters_infos << param_references
+    end
+    parameters_infos.flatten
+  end
+
+  def build_invalid_parameter(parameter)
+    if parameter[:has_group_parameter]
+      group_parameters.first.send(parameter[:type]).build(reference_name: parameter[:reference_name])
+    else
+      send(parameter[:type]).build(reference_name: parameter[:reference_name])
+    end
+  end
   private
 
-  def parameter_cost(parameters)
-    parameters
-      .map(&:cost)
-      .compact
-      .sum
-  end
+    def parameter_cost(parameters)
+      parameters
+        .map(&:cost)
+        .compact
+        .sum
+    end
 
-  def human_parameter_cost(cost)
-    cost
-      .to_f
-      .round(2)
-  end
+    def human_parameter_cost(cost)
+      cost
+        .to_f
+        .round(2)
+    end
 end

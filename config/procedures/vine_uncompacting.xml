@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_uncompacting" categories="vine_soil_working_and_maintenance" actions="loosening" position="30">
+    <parameters>
+      <target name="cultivation" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+      <tool name="soil_loosener" filter="is equipment and can uncompact" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

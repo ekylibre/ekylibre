@@ -18,10 +18,10 @@
 
 module Backend
   module ProductNatureVariantsHelper
-    def quantity_to_receive(product_nature_variant)
-      quantity = product_nature_variant.purchase_items.joins(:purchase).where("purchases.state = 'opened' AND purchases.type = 'PurchaseOrder'").map(&:quantity_to_receive).map(&:to_f).sum
-      unit_name = product_nature_variant.unit_name
-      "#{quantity} #{unit_name}"
+    def quantity_to_receive(variant)
+      quantity = variant.purchase_items.joins(:purchase).where("purchases.state = 'opened' AND purchases.type = 'PurchaseOrder'").map { |pi| pi.quantity_to_receive(into_default_unit: true) }.map(&:to_f).sum
+      unit_name = variant.default_unit.name
+      pluralize quantity, unit_name
     end
   end
 end

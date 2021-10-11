@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -62,7 +64,9 @@
 class PurchaseOrder < Purchase
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
 
-  has_many :receptions, class_name: Reception, foreign_key: :purchase_id
+  has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id
+
+  validates :ordered_at, presence: true
 
   state_machine :state, initial: :opened do
     state :opened
@@ -82,6 +86,7 @@ class PurchaseOrder < Purchase
 
   scope :with_state, ->(state) { where(state: state) }
   scope :of_supplier, ->(supplier) { where(supplier: supplier) }
+  scope :of_supplier_with_only_services, ->(supplier) { of_supplier(supplier).joins(:items).where('purchase_items.role = ?', 'service') }
 
   def self.third_attribute
     :supplier
@@ -98,9 +103,10 @@ class PurchaseOrder < Purchase
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
+
     taxes = {}
     coeff = 1.to_d # (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in items
+    items.each do |item|
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
@@ -109,8 +115,9 @@ class PurchaseOrder < Purchase
 
   def has_content_not_deliverable?
     return false unless has_content?
+
     deliverable = false
-    for item in items
+    items.each do |item|
       deliverable = true if item.variant.deliverable?
     end
     !deliverable
@@ -123,11 +130,7 @@ class PurchaseOrder < Purchase
   end
 
   def can_generate_parcel?
-    items.any? && delivery_address && opened?
-  end
-
-  def taxes_amount
-    amount - pretax_amount
+    items.any? && opened?
   end
 
   def has_content?
@@ -136,42 +139,6 @@ class PurchaseOrder < Purchase
 
   def fully_reconciled?
     items.all? { |i| i.parcels_purchase_orders_items.reduce(0) { |acc, item| acc + item.population } >= i.quantity }
-  end
-
-  # this method generate a dataset for one purchase order
-  def order_reporting(_options = {})
-    report = HashWithIndifferentAccess.new
-    supplier_email = supplier.addresses.where(canal: 'email')
-
-    report[:purchase_number] = reference_number
-    report[:purchase_ordered_at] = ordered_at.l(format: '%d/%m/%Y') if ordered_at.present?
-    report[:purchase_estimate_reception_date] = estimate_reception_date.l(format: '%d/%m/%Y') if estimate_reception_date.present?
-    report[:purchase_responsible] = responsible&.full_name || ""
-    report[:purchase_responsible_email] = responsible&.email || ""
-    report[:supplier_name] = supplier.full_name
-    report[:supplier_phone] = supplier.phones.first.coordinate if supplier.phones.any?
-    report[:supplier_mobile_phone] = supplier.mobiles.first.coordinate if supplier.mobiles.any?
-    report[:supplier_address] = supplier_address if supplier_address.present?
-    report[:supplier_email] = supplier_email.first.coordinate if supplier_email.any?
-    report[:entity_picture] = Entity.of_company.picture.path
-
-    report[:items] = []
-
-    items.each do |item|
-      i = HashWithIndifferentAccess.new
-      i[:variant] = item.variant.name
-      i[:quantity] = item.quantity
-      i[:unity] = item.variant.unit_name
-      i[:unit_pretax_amount] = '%.2f' % item.unit_pretax_amount
-      i[:pretax_amount] = '%.2f' % item.pretax_amount
-      i[:amount] = '%.2f' % item.amount
-      report[:items] << i
-    end
-
-    report[:purchase_pretax_amount] = '%.2f' % pretax_amount
-    report[:purchase_amount] = '%.2f' % amount
-    report[:purchase_currency] = Nomen::Currency.find(currency).symbol
-    report
   end
 
   def update_reconciliation_status!

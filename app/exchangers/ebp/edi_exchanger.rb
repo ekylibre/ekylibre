@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module EBP
   class EDIExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :ebp
+
     def import
       w.count = `wc -l #{file}`.split.first.to_i - 6
 
@@ -10,8 +15,9 @@ module EBP
                    nil
                  end
         unless header == 'EBP.EDI'
-          raise ActiveExchanger::NotWellFormedFileError, "Start is not valid. Got #{header.inspect}."
+          raise ActiveExchanger::NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
         end
+
         encoding = f.readline
         f.readline
         f.readline # => owner
@@ -19,7 +25,7 @@ module EBP
         started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i).to_datetime.beginning_of_day
         stopped_on = f.readline
         stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i).to_datetime.end_of_day
-        ActiveRecord::Base.transaction do
+        ApplicationRecord.transaction do
           entries = {}
           loop do
             begin

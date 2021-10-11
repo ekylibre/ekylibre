@@ -1,20 +1,18 @@
 - if @feed
   .rss-feed
     .rss-entries
-      - @feed.entries.sort{|a,b| b.published <=> a.published }.each do |entry|
+      - @feed.channel.items.sort{|a,b| b.category.content <=> a.category.content }.each do |entry|
         .rss-entry
           %h4.rss-entry-title<
-            = link_to(entry.url, target: "_blank") do
+            = link_to(entry.link, target: "_blank") do
               = entry.title
               %i
-          - if entry.summary.present? || entry.content.present?
+          - if entry.description.present?
             .rss-entry-summary
-              - if entry.summary.present?
-                = entry.summary.html_safe
-              - elsif entry.content.present?
-                = entry.content.html_safe
+              - if entry.description.present?
+                = entry.description.html_safe
 
-          %p.rss-entry-published= entry.published.l
+          %p.rss-entry-published= entry.pubDate.l
 
 - elsif @error
   %p= @error

@@ -28,6 +28,7 @@ module Tele
                 if child.name == 'text'
                   unless child.next_sibling || child.previous_sibling
                     return result unless attributes
+
                     result_hash[child.name.to_sym] = result
                   end
                 elsif result_hash[child.name.to_sym]

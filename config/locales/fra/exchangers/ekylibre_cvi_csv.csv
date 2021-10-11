@@ -1,0 +1,6 @@
+CVI_ID,Date_Extraction,N_SIRET,Nom_Exploitation,Nom_Gestionnaire,Commune,Lieu-dit,Code_INSEE,Feuille,Reference_Parcelle,Sous_Parcelle,Produit_Vin,Cepage,Superficie_ha,Superficie_ar,Superficie_ca,Campagne_Plantation,Porte-greffe_Code_Douane,Ecart_Pied,Ecart_Rang,Etat,Mode_Faire_Valoir,Date_Modification_Fonciere
+3308700035,01/10/19,53484577100029,SCEA nom de mon domaine,Georges DUPRE,Camiran,Grand Champ,330087,A,122,,Bordeaux rouge ou claret,Merlot N,1,23,12,1990,9902,100,200,Plantées,Fermage,
+3308700035,01/10/19,53484577100029,SCEA nom de mon domaine,Georges DUPRE,Camiran,Grand Champ,330087,L,30,,Bordeaux supérieur rouge,Merlot N,0,50,47,1981,9902,100,300,Arrachées avec autorisation,Propriétaire,12/01/18
+3308700035,01/10/19,53484577100029,SCEA nom de mon domaine,Georges DUPRE,Camiran,Grand Champ,330087,ZD,6,1,Bordeaux supérieur rouge,Cabernet Sauvignon N,0,22,15,2000,9902,100,200,Plantées,Fermage,
+3308700035,01/10/19,53484577100029,SCEA nom de mon domaine,Georges DUPRE,Camiran,Grand Champ,330087,ZD,6,2,Bordeaux supérieur rouge,Cabernet Sauvignon N,0,30,25,2010,9902,100,200,Plantées,Fermage,
+3308700035,01/10/19,53484577100029,SCEA nom de mon domaine,Georges DUPRE,Camiran,Grand Champ,330087,ZD,6,3,Atlantique blanc,Sauvignon B,0,72,52,2003,9903,100,250,Plantées,Propriétaire,

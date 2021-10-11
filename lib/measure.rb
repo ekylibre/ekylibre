@@ -14,16 +14,17 @@ class Measure
   cattr_reader :dimensions
   delegate :symbol, :base_unit, :base_dimension, :repartition_unit, :repartition_dimension, to: :nomenclature_unit
 
-  @@dimensions = Nomen.find_or_initialize(:dimensions)
-  @@units = Nomen.find_or_initialize(:units)
+  @@dimensions = Onoma.find_or_initialize(:dimensions)
+  @@units = Onoma.find_or_initialize(:units)
 
   class << self
     # Lists all units. Can be filtered on a given dimension
     def units(dimension = nil)
       return @@units.all unless dimension
       unless @@dimensions.all.include?(dimension.to_s)
-        raise ArgumentError, "Unknown dimension #{dimension.inspect}"
+        raise ArgumentError.new("Unknown dimension #{dimension.inspect}")
       end
+
       @@units.items.select do |_n, i|
         i.dimension.to_s == dimension.to_s
       end.keys.map(&:to_sym)
@@ -56,27 +57,29 @@ class Measure
     if args.size == 1
       expr = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
       unless expr =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/
-        raise InvalidExpression, "#{expr} cannot be parsed."
+        raise InvalidExpression.new("#{expr} cannot be parsed.")
       end
+
       unit = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
       value = expr[0...-unit.size].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
     elsif args.size == 2
       value = args.shift
       unit = args.shift
     else
-      raise ArgumentError, "wrong number of arguments (#{args.size} for 1 or 2)"
+      raise ArgumentError.new("wrong number of arguments (#{args.size} for 1 or 2)")
     end
     value = 0 if value.blank?
     unless value.is_a? Numeric
-      raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
+      raise ArgumentError.new("Value can't be converted to float: #{value.inspect}")
     end
+
     @value = value.to_r
-    unit = unit.name.to_s if unit.is_a?(Nomen::Item)
+    unit = unit.name.to_s if unit.is_a?(Onoma::Item)
     @unit = unit.to_s
     unless @@units.items[@unit]
       units = @@units.where(symbol: @unit)
       if units.size > 1
-        raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
+        raise AmbiguousUnit.new("The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}.")
       elsif units.size.zero?
         # fail ArgumentError, "Unknown unit: #{unit.inspect}"
         @unit = 'unity'
@@ -132,52 +135,59 @@ class Measure
   # Test if the other measure is equal to self
   def !=(other)
     return true unless other.is_a?(Measure)
+
     to_r != other.to_r(unit)
   end
 
   # Test if the other measure is equal to self
   def ==(other)
     return false unless other.is_a?(Measure)
+
     to_r == other.to_r(unit)
   end
 
   # Returns if self is less than other
   def <(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be compared to another measure'
+      raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r < other.to_r(unit)
   end
 
   # Returns if self is greater than other
   def >(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be compared to another measure'
+      raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r > other.to_r(unit)
   end
 
   # Returns if self is less than or equal to other
   def <=(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be compared to another measure'
+      raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r <= other.to_r(unit)
   end
 
   # Returns if self is greater than or equal to other
   def >=(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be compared to another measure'
+      raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r >= other.to_r(unit)
   end
 
   # Returns if self is greater than other
   def <=>(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be compared to another measure'
+      raise ArgumentError.new('Only measure can be compared to another measure')
     end
+
     to_r <=> other.to_r(unit)
   end
 
@@ -190,18 +200,24 @@ class Measure
     zero? ? nil : self
   end
 
+  def positive?
+    @value.positive?
+  end
+
   # Returns the dimension of a other
   def +(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be added to another measure'
+      raise ArgumentError.new('Only measure can be added to another measure')
     end
+
     self.class.new(@value + other.to_r(unit), unit)
   end
 
   def -(other)
     unless other.is_a?(Measure)
-      raise ArgumentError, 'Only measure can be substracted to another measure'
+      raise ArgumentError.new('Only measure can be substracted to another measure')
     end
+
     self.class.new(@value - other.to_r(unit), unit)
   end
 
@@ -223,7 +239,7 @@ class Measure
       # Convert
       raise NotImplementedError
     else
-      raise ArgumentError, 'Only numerics and measures can be multiplicated to a measure'
+      raise ArgumentError.new('Only numerics and measures can be multiplicated to a measure')
     end
   end
 
@@ -239,7 +255,7 @@ class Measure
         raise NotImplementedError
       end
     else
-      raise ArgumentError, 'Only numerics and measures can divide to a measure'
+      raise ArgumentError.new('Only numerics and measures can divide to a measure')
     end
   end
 
@@ -247,14 +263,15 @@ class Measure
     if other_unit.nil?
       value
     else
-      other_unit = other_unit.name if other_unit.is_a?(Nomen::Item)
+      other_unit = other_unit.name if other_unit.is_a?(Onoma::Item)
       unless @@units[other_unit]
-        raise ArgumentError, "Unknown unit: #{other_unit.inspect}"
+        raise ArgumentError.new("Unknown unit: #{other_unit.inspect}")
       end
       if @@units[unit.to_s].dimension != @@units[other_unit.to_s].dimension
-        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[other_unit].dimension})"
+        raise IncompatibleDimensions.new("Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[other_unit].dimension})")
       end
       return value if unit.to_s == other_unit.to_s
+
       # Reduce to base
       ref = @@units[unit]
       reduced = ((ref.a * value.to_d(precision)) / ref.d) + ref.b
@@ -289,6 +306,7 @@ class Measure
   alias_method :round_l, :rounded_localize
 
   # Returns the unit from the nomenclature
+  # @return [Onoma::Item<Unit>]
   def nomenclature_unit
     @@units[unit]
   end
@@ -296,5 +314,4 @@ class Measure
   def has_repartition_dimension?(dimension)
     repartition_dimension == dimension
   end
-
 end

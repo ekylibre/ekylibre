@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,6 +43,7 @@
 #  number                              :string           not null
 #  pictogram                           :string
 #  product_account_id                  :integer
+#  provider                            :jsonb
 #  purchasable                         :boolean          default(FALSE), not null
 #  reductible                          :boolean          default(FALSE), not null
 #  reference_name                      :string
@@ -73,13 +74,13 @@ class ProductNatureCategoryTest < Ekylibre::Testing::ApplicationTestCase::WithFi
   end
 
   test 'type is correctly set upon import from lexicon' do
-    references = { animal: :adult_large_specie_animal,
-                   article: :amortized_office_equipment,
-                   crop: :amortized_plant,
+    references = { animal: :adult_breeding_animal,
+                   article: :material,
+                   crop: :perennial_crop,
                    equipment: :depreciable_tool,
                    service: :additional_activity,
                    worker: :associate,
-                   zone: :amortized_installation }
+                   zone: :installation }
 
     references.each { |type, reference| assert ProductNatureCategory.import_from_lexicon(reference).is_a?("VariantCategories::#{type.capitalize}Category".constantize) }
   end

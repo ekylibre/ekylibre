@@ -28,6 +28,27 @@ module Backend
       render json: { example: build_example_interactor.error } if build_example_interactor.fail?
     end
 
+    def build
+      naming_format = NamingFormatLandParcel.last
+      activity = Activity.includes(:productions).find(params[:activity_id])
+      activity_production = ActivityProduction.new(
+        cultivable_zone: params[:cultivable_zone_id].blank? ? nil : CultivableZone.find(params[:cultivable_zone_id]),
+        activity: activity,
+        campaign: Campaign.find(params[:campaign_id]),
+        season: params[:season_id].blank? ? nil : ActivitySeason.find(params[season_id]),
+        custom_name: params[:free_field],
+        rank_number: activity.productions_next_rank_number,
+      )
+
+      build_interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor.call(activity_production: activity_production)
+
+      if build_interactor.success?
+        render json: { name: build_interactor.build_name, has_free_field: naming_format.has_free_field? }
+      else
+        render json: { name: build_interactor.error }
+      end
+    end
+
     def update
       @naming_format.update(valid_permitted_params)
 
@@ -41,22 +62,22 @@ module Backend
 
     private
 
-    def permitted_params
-      params
-        .require(:naming_format_land_parcel)
-        .permit(fields_attributes: %i[
-                  id
-                  field_name
-                  _destroy
-                ])
-    end
-
-    def valid_permitted_params
-      permitted_params.tap do |param|
-        (param[:fields_attributes] || {}).values
-                                         .select { |value| value[:id].nil? }
-                                         .each { |value| value[:type] = NamingFormatFieldLandParcel.to_s }
+      def permitted_params
+        params
+          .require(:naming_format_land_parcel)
+          .permit(fields_attributes: %i[
+                    id
+                    field_name
+                    _destroy
+                  ])
       end
-    end
+
+      def valid_permitted_params
+        permitted_params.tap do |param|
+          (param[:fields_attributes] || {}).values
+                                           .select { |value| value[:id].nil? }
+                                           .each { |value| value[:type] = NamingFormatFieldLandParcel.to_s }
+        end
+      end
   end
 end

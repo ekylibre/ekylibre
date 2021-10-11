@@ -9,5 +9,4 @@ class ConfigTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal Ekylibre::Tenant.private_directory.join('attachments').to_s,
                  Paperclip::Interpolations.interpolate(':tenant', nil, nil)
   end
-
 end

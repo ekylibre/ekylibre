@@ -24,7 +24,6 @@
 require 'test_helper'
 
 class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   class ValidatableWithFinancialYear
     include ActiveModel::Validations
 
@@ -34,7 +33,7 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
 
     validates :printed_on, financial_year_writeable: true
 
-    attr_accessor :financial_year, :creator_id, :printed_on
+    attr_accessor :financial_year, :updater_id, :printed_on
   end
 
   def setup
@@ -91,7 +90,7 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
       true
     end
 
-    @record.creator_id = 10
+    @record.updater_id = 10
 
     refute_empty @record.tap(&:valid?).errors
   end
@@ -109,13 +108,13 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
       true
     end
 
-    @record.creator_id = 42
+    @record.updater_id = 42
 
     assert_empty @record.tap(&:valid?).errors
   end
 
   test 'query database if record does not responds to financial year' do
-    validator = FinancialYearWriteableValidator.new({:attributes => {:printed_on => true}})
+    validator = FinancialYearWriteableValidator.new({ attributes: { printed_on: true } })
 
     assert_equal 'EX1992-93', validator.financial_year(Class.new, Date.new(1993, 04, 30)).code
   end
@@ -125,5 +124,4 @@ class FinancialYearWriteableValidatorTest < Ekylibre::Testing::ApplicationTestCa
 
     refute_empty @record.tap(&:valid?).errors
   end
-
 end

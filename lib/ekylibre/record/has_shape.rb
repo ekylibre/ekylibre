@@ -15,12 +15,21 @@ module Ekylibre
                   else
                     Charta.new_geometry(value)
                   end
+
+          fixed_value = correct_shape(value)
+          value = fixed_value.get if fixed_value.is_some?
+
           if options[:type] && options[:type] == :multi_polygon
             value = value.convert_to(:multi_polygon)
           elsif options[:type] && options[:type] == :point
             value = value.convert_to(:point)
           end
           value.to_rgeo
+        end
+
+        def correct_shape(shape)
+          corrector = ShapeCorrector.build
+          corrector.try_fix(shape)
         end
       end
 
@@ -30,6 +39,7 @@ module Ekylibre
           rgf93: 2154
         }.freeze
 
+        # BUG: does not handle polygons with holes in them. If you need the centroid, use `geom_union_centroid` that let Postgis do everything
         def geom_union(column_name)
           plucked_ids = pluck(:id).join(',')
 
@@ -37,7 +47,19 @@ module Ekylibre
             Charta.empty_geometry
           else
             conn = connection
-            Charta.new_geometry(conn.select_value('SELECT ST_AsEWKT(ST_Union(' + conn.quote_column_name(column_name) + ')) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + plucked_ids + ')'))
+            Charta.new_geometry(conn.select_value('SELECT ST_MakeValid(ST_AsEWKT(ST_Union(' + conn.quote_column_name(column_name) + '))) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + plucked_ids + ')'))
+          end
+        end
+
+        # More robust implementation of geom_union(:column_name).centroid that does everything in Postgis and handles weird geometries that RGeo does not.
+        def geom_union_centroid(column_name)
+          plucked_ids = pluck(:id).join(',')
+
+          if plucked_ids.blank?
+            Charta.empty_geometry
+          else
+            conn = connection
+            Charta.new_geometry(conn.select_value('SELECT ST_AsEWKT(ST_Centroid(ST_Union(' + conn.quote_column_name(column_name) + '))) FROM ' + conn.quote_table_name(table_name) + ' WHERE id in (' + plucked_ids + ')')).feature
           end
         end
 
@@ -57,6 +79,7 @@ module Ekylibre
             unless %i[point multi_point line_string multi_line_string].include?(options[:type])
               define_method "#{col}_area" do |unit = nil|
                 return 0.in(unit || :square_meter) if send(col).nil?
+
                 if unit
                   send(col).area.in(:square_meter).in(unit)
                 else
@@ -69,13 +92,7 @@ module Ekylibre
                 if mode == :imperial
                   area.in(:acre).round(3).l
                 else # metric
-                  if area > 1.in_hectare
-                    area.in_hectare.round(3).l
-                  elsif area > 1.in_are
-                    area.in_are.round(3).l
-                  else
-                    area.in_square_meter.round(3).l
-                  end
+                  area.in_hectare.round(3).l
                 end
               end
             end
@@ -119,6 +136,21 @@ module Ekylibre
               common = 1 - margin
               where('ST_Equals(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) OR (ST_Overlaps(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?))) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(' + col + ') >= ? AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))) / ST_Area(ST_GeomFromEWKT(ST_MakeValid(?))) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common)
             }
+
+            scope col + '_near', lambda { |shape, max_distance_in_meter = 5000|
+              c = ::Charta.new_geometry(shape).buffer(max_distance_in_meter)
+              ewkt = ::Charta.new_geometry(c).to_ewkt
+              where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ewkt)
+            }
+
+            scope col + '_nearest_of_and_within', lambda { |shape, max_distance_in_meter = 5000|
+              c = ::Charta.new_geometry(shape).buffer(max_distance_in_meter)
+              ewkt = ::Charta.new_geometry(c).to_ewkt
+              where( col + ' IN (?)', select(col)
+                                      .where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ewkt)
+                                      .order('ST_Distance(' + col + ', ST_Centroid(\'' + ewkt + '\')) ASC')
+                                      .limit(1))
+            }
           end
         end
 
@@ -126,8 +158,9 @@ module Ekylibre
         def srid(srname)
           return srname if srname.is_a?(Integer)
           unless id = SRID[srname]
-            raise ArgumentError, "Unreferenced SRID: #{srname.inspect}"
+            raise ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
           end
+
           id
         end
 
@@ -228,4 +261,3 @@ module Ekylibre
     end
   end
 end
-Ekylibre::Record::Base.send(:include, Ekylibre::Record::HasShape)

@@ -1,0 +1,6 @@
+= field_set do
+  = f.input :name
+  = f.input :coefficient, disabled: f.object.protected_on_update?
+  = f.referenced_association :base_unit, source: { scope: :imported }, new: false, required: true, disabled: f.object.protected_on_update?
+  = f.input :symbol
+  = f.input :description

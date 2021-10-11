@@ -1,4 +1,4 @@
-class AddMissingIndexes < ActiveRecord::Migration
+class AddMissingIndexes < ActiveRecord::Migration[4.2]
   def change
     add_index :analysis_items, :product_reading_id
     add_index :intervention_casts, :event_participation_id

@@ -20,37 +20,44 @@
 
 module Backend
   class TrialBalancesController < Backend::BaseController
+    before_action :save_search_preference, only: :show
 
     def show
       set_period_params
 
+      unsafe_params = params.to_unsafe_h
+
       dataset_params = {
-        states: params[:states],
-        natures: params[:natures],
-        balance: params[:balance],
-        accounts: params[:accounts],
-        centralize: params[:centralize],
-        period: params[:period],
-        started_on: params[:started_on],
-        stopped_on: params[:stopped_on],
-        previous_year: params[:previous_year]
+        states: unsafe_params[:states],
+        natures: unsafe_params[:natures],
+        balance: unsafe_params[:balance],
+        accounts: unsafe_params[:accounts],
+        centralize: unsafe_params[:centralize],
+        period: unsafe_params[:period],
+        started_on: unsafe_params[:started_on],
+        stopped_on: unsafe_params[:stopped_on],
+        vat_details: unsafe_params[:vat_details],
+        previous_year: unsafe_params[:previous_year],
+        levels: unsafe_params.select{|k, v| k =~ /\Alevel_/ && v.to_s == "1"}.map{|k, _v| k.sub('level_', '').to_i}
       }
 
       respond_to do |format|
         format.html do
-          dataset = Journal.trial_balance_dataset(dataset_params)
-          @balance = dataset[:balance]
-          @prev_balance = dataset[:prev_balance]
+          @balance = Journal.trial_balance_dataset(dataset_params)
+          @empty_balances = @balance.length <= 1
+          notify_now(:please_select_a_period_containing_journal_entries) if @empty_balances
         end
 
         format.ods do
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
+
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
 
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
+
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
             printer.run_csv(csv)
@@ -60,6 +67,7 @@ module Backend
 
         format.xcsv do
           return unless template = DocumentTemplate.find_by_nature(:trial_balance)
+
           printer = Printers::TrialBalancePrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
             printer.run_csv(csv)
@@ -69,9 +77,10 @@ module Backend
 
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::TrialBalancePrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
       end
     end

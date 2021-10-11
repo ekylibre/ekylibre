@@ -120,30 +120,32 @@ module ActiveGuide
 
     protected
 
-    def call_callbacks(item, env, &_block)
-      if item.accept_block
-        return false unless env.instance_eval(&item.accept_block)
+      def call_callbacks(item, env, &_block)
+        if item.accept_block
+          return false unless env.instance_eval(&item.accept_block)
+        end
+        env.instance_eval(&item.before_block) if item.before_block
+        env.answer = yield
+        env.instance_eval(&item.after_block) if item.after_block
       end
-      env.instance_eval(&item.before_block) if item.before_block
-      env.answer = yield
-      env.instance_eval(&item.after_block) if item.after_block
-    end
 
-    def log_result(env, message, passed, depth = 0)
-      return unless env.verbose
-      if depth >= 0
-        prefix = '  ' * depth
-        puts "#{(prefix + ' - ' + message.to_s.humanize).ljust(70).white} [#{passed ? '  OK  '.green : 'FAILED'.red}]"
-      end
-      passed
-    end
+      def log_result(env, message, passed, depth = 0)
+        return unless env.verbose
 
-    def log_group(env, message, depth = 0)
-      return unless env.verbose
-      if depth >= 0
-        prefix = '  ' * depth
-        puts (prefix + message.to_s.humanize).yellow.to_s
+        if depth >= 0
+          prefix = '  ' * depth
+          puts "#{(prefix + ' - ' + message.to_s.humanize).ljust(70).white} [#{passed ? '  OK  '.green : 'FAILED'.red}]"
+        end
+        passed
       end
-    end
+
+      def log_group(env, message, depth = 0)
+        return unless env.verbose
+
+        if depth >= 0
+          prefix = '  ' * depth
+          puts (prefix + message.to_s.humanize).yellow.to_s
+        end
+      end
   end
 end

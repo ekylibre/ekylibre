@@ -28,7 +28,7 @@ module ActiveExchanger
         value = value.blank? ? nil : transform(value, type)
         valid = constraint ? validate(value, constraint) : true
 
-        invalid_fields << key if valid === false
+        invalid_fields << key if valid == false
         h[key] = value
       end
 
@@ -41,8 +41,12 @@ module ActiveExchanger
         value.to_i
       when :float
         value.tr(',', '.').to_f
+      when :currency
+        value.delete('€').strip.tr(',', '.').to_f
       when :date
-        value.to_date
+        Date.parse(value)
+      when :us_date
+        Date.strptime(value, "%m/%d/%y")
       else
         value
       end

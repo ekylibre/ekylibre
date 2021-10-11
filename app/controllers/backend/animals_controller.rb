@@ -37,7 +37,7 @@ module Backend
       code << "      started_on = interval.first\n"
       code << "      stopped_on = interval.last\n"
       code << "    end \n"
-      code << "    c[0] << \" AND #{Animal.table_name}.born_at::DATE BETWEEN ? AND ?\"\n"
+      code << "    c[0] << \" AND #{Animal.table_name}.born_at::DATE >= ? AND (#{Animal.table_name}.dead_at::DATE IS NULL OR #{Animal.table_name}.dead_at::DATE >= ?)\"\n"
       code << "    c << started_on\n"
       code << "    c << stopped_on\n"
       code << "  end\n "
@@ -53,7 +53,7 @@ module Backend
       # code << "  end\n "
       # code << "end\n "
       code << "  if params[:variant_id].to_i > 0\n"
-      code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
+      code << "    c[0] << \" AND #{Animal.table_name}.variant_id = ?\"\n"
       code << "    c << params[:variant_id].to_i\n"
       code << "  end\n"
       code << "c\n"
@@ -78,6 +78,14 @@ module Backend
       # t.column :groups, url: true
       t.column :mother, url: true, hidden: true
       t.column :father, url: true, hidden: true
+    end
+
+    # List interventions for one production support
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT animals_interventions.intervention_id FROM animals_interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = animals_interventions.intervention_id WHERE animals_interventions.animal_id = ? AND campaigns_interventions.campaign_id = ?)", 'record', 'params[:id]'.c, 'current_campaign'.c], order: { created_at: :desc }, line_class: :status) do |t|
+      t.column :name, url: true
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+      t.column :issue, url: true
     end
 
     def load_animals
@@ -173,6 +181,7 @@ module Backend
     # Show one animal with params_id
     def show
       return unless @animal = find_and_check
+
       # TODO: remove it. On animal show dialog (Golumn), add issue. Break redirect on submit.
       params.delete('dialog')
 
@@ -196,6 +205,7 @@ module Backend
 
     def matching_interventions
       return head :unprocessable_entity unless params[:id].nil? || (params[:id] && find_all)
+
       varieties = Animal.where(id: @ids).pluck(:variety).uniq if @ids
 
       respond_to do |format|
@@ -203,22 +213,23 @@ module Backend
       end
     end
 
+    # add animals to a group in intervention/new
     def add_to_group
       return unless find_all
+
       targets = @ids.collect do |id|
         { product_id: id, reference_name: :animal }
       end
       parameters = {
         procedure_name: :animal_group_changing,
-        intervention: {
-          targets_attributes: targets
-        }
+        targets_attributes: targets
       }
       redirect_to new_backend_intervention_path(parameters)
     end
 
     def add_to_variant
       return unless find_all
+
       if request.post?
         variant = ProductNatureVariant.find(params[:variant_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
@@ -232,6 +243,7 @@ module Backend
 
     def add_to_container
       return unless find_all
+
       if request.post?
         container = Product.find(params[:container_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
@@ -245,12 +257,13 @@ module Backend
 
     protected
 
-    def find_all
-      @ids = []
-      params[:id].split(',').each do |id|
-        return false unless find_and_check(id: id)
-        @ids << id
+      def find_all
+        @ids = []
+        params[:id].split(',').each do |id|
+          return false unless find_and_check(id: id)
+
+          @ids << id
+        end
       end
-    end
   end
 end

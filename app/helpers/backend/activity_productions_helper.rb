@@ -3,6 +3,7 @@ module Backend
     def production_chronologies(productions, campaign = nil)
       campaign ||= current_campaign
       return nil if productions.empty?
+
       productions = productions.includes(:activity)
       dates = (productions.map { |p| p.started_on_for(campaign) } +
                productions.map { |p| p.stopped_on_for(campaign) }).sort
@@ -67,9 +68,9 @@ module Backend
     def production_cost_charts(activity_production)
       unit = activity_production.activity.size_unit_name.to_sym
       unit ||= :hectare
-      unit_item = Nomen::Unit[unit]
+      unit_item = Onoma::Unit[unit]
       currency = Preference[:currency]
-      currency_item = Nomen::Currency[currency]
+      currency_item = Onoma::Currency[currency]
       global_cost_per_hectare = 0.0
       ordered_interventions = activity_production.interventions.includes(:targets, tools: %i[product intervention], inputs: :product, doers: %i[product intervention]).reorder(:started_at)
 
@@ -110,12 +111,12 @@ module Backend
 
     private
 
-    def round(number)
-      number.round(2).to_s.to_f
-    end
+      def round(number)
+        number.round(2).to_s.to_f
+      end
 
-    def pie_style
-      { type: 'pie', center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false } }
-    end
+      def pie_style
+        { type: 'pie', center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false } }
+      end
   end
 end

@@ -1,4 +1,4 @@
-class EnhanceInventories < ActiveRecord::Migration
+class EnhanceInventories < ActiveRecord::Migration[4.2]
   def change
     add_column :inventories, :name, :string
     execute "UPDATE inventories SET name = 'Inventory #' || id"

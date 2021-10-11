@@ -8,15 +8,15 @@
             but the variable definition (Procedo::Procedure::Parameter).
         -->
         <target name="equipment" filter="is equipment" cardinality="1" component-of="first_product_of(siblings(SELF, equipment))"/>
-        <input name="replacement_part" component-of="first_product_of(siblings(SELF, equipment))" filter="is matter and derives from equipment" cardinality="*">
-          <handler name="population" />
+        <input name="replacement_part" component-of="first_product_of(siblings(SELF, equipment))" filter="is equipment_part" cardinality="*">
+          <handler name="population"/>
         </input>
-        <input name="consumable_part" filter="is matter" cardinality="*">
-          <handler name="population" />
+        <input name="consumable_part" filter="is preparation" cardinality="*">
+          <handler name="population"/>
         </input>
       </group>
-      <doer name="mechanic" filter="is worker" cardinality="*"/>
-      <tool name="tool" filter="is matter" cardinality="*"/>
+      <doer name="mechanic" filter="is worker and can repair(equipment)" cardinality="*"/>
+      <tool name="tool" filter="is portable_equipment and can repair(equipment)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

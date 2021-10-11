@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,14 +43,14 @@
 
 # Column message expect a string which is more an ID. It permits to be i18nized.
 # Notifications are used to inform users asynchronously.
-class Notification < Ekylibre::Record::Base
+class Notification < ApplicationRecord
   enumerize :level, in: %i[information success warning error], default: :information
   belongs_to :recipient, class_name: 'User'
   belongs_to :target, polymorphic: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :level, :recipient, presence: true
   validates :message, presence: true, length: { maximum: 500 }
-  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :target_type, :target_url, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 

@@ -11,18 +11,13 @@ module Backend
 
           # for all plant
           popup_content << { label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l }
-          popup_content << { label: Nomen::Variety.find(p.nature.variety).human_name, value: Nomen::Variety.find(p.variety).human_name }
-
-          # for vine plant
-          # if p.woodstock_variety
-          # popup_content << {label: Nomen::Indicator.find(:woodstock_variety).human_name, value: Nomen::Variety.find(p.woodstock_variety).human_name}
-          # end
+          popup_content << { label: Onoma::Variety.find(p.nature.variety).human_name, value: Onoma::Variety.find(p.variety).human_name }
 
           # for indicators in list
           indicators = %i[tiller_count plants_count rows_interval plants_interval rows_orientation]
           indicators.each do |indicator|
             if p.send(indicator).present? && (p.send(indicator).to_d > 0.0)
-              popup_content << { label: Nomen::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }
+              popup_content << { label: Onoma::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }
             end
           end
 
@@ -73,16 +68,16 @@ module Backend
             interventions_count: interventions.count,
             issues_count: issues.count,
             watering_concentration: water_concentration.compact.sum.in(:liters).to_s.to_f,
-            variety: Nomen::Variety[p.variety].human_name,
+            variety: Onoma::Variety[p.variety].human_name,
             popup: {
               header: true,
               content: popup_content
             }
           }
         end
-        crops = Nomen::Unit[:unity].human_name
-        water = Nomen::Unit[:liter].human_name
-        area = Nomen::Unit[:square_meter].human_name
+        crops = Onoma::Unit[:unity].human_name
+        water = Onoma::Unit[:liter].human_name
+        area = Onoma::Unit[:square_meter].human_name
         plantation_density_unit = "#{crops}/#{area}".downcase
         water_concentration_unit = "#{water}/#{area}".downcase
 

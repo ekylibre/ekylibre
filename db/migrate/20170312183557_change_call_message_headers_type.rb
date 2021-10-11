@@ -1,4 +1,4 @@
-class ChangeCallMessageHeadersType < ActiveRecord::Migration
+class ChangeCallMessageHeadersType < ActiveRecord::Migration[4.2]
   def up
     change_column :call_messages, :headers, :text
   end

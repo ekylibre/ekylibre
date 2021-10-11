@@ -39,8 +39,8 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.permit(:deal_affair_id, :id)
-    end
+      def permitted_params
+        params.permit(:deal_affair_id, :id)
+      end
   end
 end

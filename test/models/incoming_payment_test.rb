@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,7 +45,7 @@
 #  number                :string
 #  paid_at               :datetime
 #  payer_id              :integer
-#  providers             :jsonb
+#  provider              :jsonb
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer
@@ -140,5 +140,16 @@ class IncomingPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       ).count
       assert_equal 1, candidates_count, "Could not find reversed item in cancel entry for #{item.account.number}"
     end
+  end
+
+  test "can't create or edit if bank at is during an opened financial year exchange" do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    create(:financial_year_exchange, :opened, financial_year: fy, started_on: '2021-01-01', stopped_on: '2021-02-01')
+    ip = build(:incoming_payment, at: '2021-01-15')
+    assert_not ip.valid?
+
+    ip.to_bank_at = '2021-02-15'.to_date
+    assert ip.valid?
   end
 end

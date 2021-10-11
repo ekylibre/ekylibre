@@ -20,8 +20,6 @@
 
 module Backend
   class GeneralLedgersController < Backend::BaseController
-    include PdfPrinter
-
     before_action :save_search_preference, only: :show
 
     def self.list_conditions
@@ -107,7 +105,7 @@ module Backend
       t.column :cumulated_absolute_credit_balance, currency: :account_currency, class: "smallcolumns monetary_column creditcolor", default: ''
     end
 
-    list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id") do |t|
+    list(:subledger_journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account journal], order: "#{JournalEntryItem.table_name}.printed_on, #{JournalEntryItem.table_name}.id", export_class: ListExportJob) do |t|
       t.column :printed_on, class: "smallcolumns printed_on_column"
       t.column :journal_name, url: { controller: :journals, id: 'RECORD.journal_id'.c }, label: :journal, class: :mediumcolumns
       t.column :account, url: true, hidden: true, class: :largecolumns
@@ -118,7 +116,8 @@ module Backend
       t.column :code, through: :journal, label: :journal, hidden: true, class: :smallcolumns
       t.column :entry_resource_label, url: { controller: 'RECORD&.entry&.resource&.class&.model_name&.plural'.c, id: 'RECORD&.entry&.resource&.id'.c }, label: :entry_resource_label, class: :largecolumns
       t.column :name, class: :entryname
-      t.column :reference_number, through: :entry, hidden: true, class: :smallcolumns
+      t.column :reference_number, through: :entry, hidden: true, class: :mediumcolumns
+      t.column :main_client_or_supplier_account, through: :entry, class: :largecolumns
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }, hidden: true, class: :smallcolumns
       t.column :letter, class: "smallcolumns letterscolumn"
       t.column :real_debit,  currency: :real_currency, hidden: true, class: "smallcolumns monetary_column"
@@ -141,53 +140,57 @@ module Backend
       accounts = Account.get_auxiliary_accounts(params[:ledger])
       if accounts.present?
         ledger_label = :subledger_of_accounts_x.tl(account: accounts.first.centralizing_account_name.tl)
-        params[:accounts] = accounts.pluck(:number)
       end
       t3e(ledger: ledger_label)
 
-      dataset_params = { accounts: params[:accounts],
+      dataset_params = { accounts: accounts.pluck(:number),
                          lettering_state: params[:lettering_state],
                          states: params[:states],
                          ledger: params[:ledger],
-                         financial_year: financial_year }
+                         started_on: financial_year.started_on.to_s,
+                         stopped_on: financial_year.stopped_on.to_s }
 
       respond_to do |format|
         format.html
         format.ods do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
 
         format.csv do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
 
         format.xcsv do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
 
         format.pdf do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: root_path)
         end
       end
     end
 
     def show
-      return redirect_to(backend_general_ledgers_path) unless params[:account_number] && account = Account.find_by(number: params[:account_number])
+      return redirect_to(backend_general_ledgers_path) unless params[:account_number] && (account = Account.find_by(number: params[:account_number]))
 
       t3e(account: account.label)
 
@@ -199,45 +202,50 @@ module Backend
 
       @calculations = JournalEntryItem.joins(%i[entry account journal]).where(obj).pluck("COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_debit), 0) AS cumulated_absolute_debit, COALESCE(SUM(#{JournalEntryItem.table_name}.absolute_credit), 0) AS cumulated_absolute_credit").first
       @calculations << @calculations[0] - @calculations[1]
-
+      params.permit!
       dataset_params = { accounts: params[:accounts],
                          lettering_state: params[:lettering_state],
-                         states: params[:states],
+                         states: params[:states].to_h,
                          ledger: params[:ledger],
                          account_number: params[:account_number],
-                         financial_year: financial_year }
+                         started_on: financial_year.started_on.to_s,
+                         stopped_on: financial_year.stopped_on.to_s }
 
       respond_to do |format|
         format.html
         format.ods do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           send_data printer.run_ods.bytes, filename: "#{printer.document_name}.ods"
         end
 
         format.csv do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
 
         format.xcsv do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
 
         format.pdf do
-          return unless template = DocumentTemplate.find_by_nature(:general_ledger)
+          return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
+
           PrinterJob.perform_later('Printers::GeneralLedgerPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
       end
     end

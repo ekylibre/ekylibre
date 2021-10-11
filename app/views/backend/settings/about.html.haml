@@ -1,7 +1,13 @@
 #about-us
-  = link_to("http://www.ekylibre.org", class: :logo) do
-    = image_tag("logo.svg")
+  = link_to('https://ekylibre.com/about/', target: '_blank', class: :logo) do
+    = image_tag('logo.svg')
   - for p in @properties
     .med-info
       %span.title= p[0]
       %span.value= p[1]
+  .med-info
+    %span.title= 'Source de données phytosanitaires'
+    %p= 'Données E-Phy - ANSES'
+    %p= :updated_at.tl(date: @date&.to_date&.l(format: '%d/%m/%Y'))
+  .med-info
+    %span.title= "Je consulte les #{link_to('CGU', 'https://ekylibre.com/terms-of-use', target: '_blank', style: 'color:rgb(100, 148, 193)')} / #{link_to 'CGV', 'https://ekylibre.com/fra/conditions-of-sale', target: '_blank', style: 'color:rgb(100, 148, 193);'} de l'entreprise éditrice Ekylibre SAS".html_safe

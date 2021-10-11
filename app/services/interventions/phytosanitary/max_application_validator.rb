@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     class MaxApplicationValidator < ProductApplicationValidator
       attr_reader :targets_and_shape, :intervention_to_ignore, :intervention_stopped_at
 
-      # @params [Array<Models::TargetAndShape>] targets_and_shape
+      # @param [Array<Models::TargetAndShape>] targets_and_shape
       # @option [Intervention, nil] intervention_to_ignore
       # @option [DateTime, nil] intervention_stopped_at
       def initialize(targets_and_shape:, intervention_to_ignore: nil, intervention_stopped_at: nil)
@@ -18,24 +20,19 @@ module Interventions
       end
 
       # @param [Product] product
-      # @return [Integer]
+      # @return [Maybe<Integer>]
       def compute_usage_application(product)
-        interventions_with_same_phyto = get_interventions_with_same_phyto(product, Campaign.on(intervention_stopped_at))
+        campaign = Campaign.find_by(harvest_year: intervention_stopped_at.year)
 
-        candidates = select_with_shape_intersecting(interventions_with_same_phyto, get_targeted_zones)
-        candidates = candidates.reject { |int| int == intervention_to_ignore } if intervention_to_ignore.present?
+        if campaign.present?
+          interventions_with_same_phyto = get_interventions_with_same_phyto(product, campaign)
 
-        candidates.size
-      end
+          candidates = select_with_shape_intersecting(interventions_with_same_phyto, get_targeted_zones)
+          candidates = candidates.reject { |int| int == intervention_to_ignore } if intervention_to_ignore.present?
 
-      # @param [Integer] applications
-      # @param [Integer] max_applications
-      # @return [Boolean]
-      def application_forbidden?(applications, max_applications:)
-        if intervention_to_ignore.nil?
-          applications >= max_applications
+          Some(candidates.size)
         else
-          applications > max_applications
+          None()
         end
       end
 
@@ -53,14 +50,16 @@ module Interventions
             product = product_usage.product
             usage = product_usage.usage
 
-            if usage.nil?
+            if usage.nil? || (usage.applications_count == 1 && usage.applications_frequency.present?)
               result.vote_unknown(product)
             elsif usage.applications_count.present?
               max_applications = usage.applications_count
-              applications = compute_usage_application(product)
+              maybe_applications = compute_usage_application(product)
 
-              if application_forbidden?(applications, max_applications: max_applications)
-                result.vote_forbidden(product, nil)
+              if maybe_applications.is_none?
+                result.vote_unknown(product)
+              elsif maybe_applications.get >= max_applications
+                result.vote_forbidden(product, :applications_count_bigger_than_max.tl, on: :usage)
               end
             end
           end

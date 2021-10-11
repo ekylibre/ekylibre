@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,9 +44,10 @@
 #  work_number            :string           not null
 #
 
-class CultivableZone < Ekylibre::Record::Base
+class CultivableZone < ApplicationRecord
   include Attachable
   include Customizable
+  include Providable
   refers_to :production_system
   refers_to :soil_nature
   belongs_to :farmer, class_name: 'Entity'
@@ -58,7 +61,7 @@ class CultivableZone < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :work_number, presence: true, length: { maximum: 500 }
-  validates :shape, presence: true
+  validates :shape, presence: true, shape: true
   # ]VALIDATORS]
   validates :uuid, presence: true
 
@@ -90,12 +93,14 @@ class CultivableZone < Ekylibre::Record::Base
   def cap_number
     islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.islet_number if islets.any?
+
     nil
   end
 
   def city_name
     islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.city_name if islets.any?
+
     nil
   end
 

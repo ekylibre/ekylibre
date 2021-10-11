@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -86,7 +88,7 @@ class CrumbSet
   #   related to
   def convert!(options = {})
     intervention = nil
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       options[:procedure_name] ||= @procedure.name
       procedure = Procedo.find(options[:procedure_name])
 
@@ -113,6 +115,7 @@ class CrumbSet
 
   def worker
     return nil unless user
+
     @worker ||= user.worker
   end
 
@@ -134,60 +137,62 @@ class CrumbSet
 
   protected
 
-  def assign_parameters(group, attributes = {}, options = {})
-    zone = working_zone(options[:working_width])
-    group.each_parameter do |parameter|
-      key = "#{parameter.reflection_name}_attributes".to_sym
-      attributes[key] ||= []
-      if parameter.is_a?(Procedo::Procedure::GroupParameter)
-        target_parameters = parameter.parameters_of_type(:target)
-        # If group contains targets directly inside, we multiply group
-        if target_parameters.any?
-          target_parameters.each do |target_parameter|
+    def assign_parameters(group, attributes = {}, options = {})
+      zone = working_zone(options[:working_width])
+      group.each_parameter do |parameter|
+        key = "#{parameter.reflection_name}_attributes".to_sym
+        attributes[key] ||= []
+        if parameter.is_a?(Procedo::Procedure::GroupParameter)
+          target_parameters = parameter.parameters_of_type(:target)
+          # If group contains targets directly inside, we multiply group
+          if target_parameters.any?
+            target_parameters.each do |target_parameter|
+              targets = Product.shape_overlapping(zone)
+              targets = targets.of_expression(target_parameter.filter) if target_parameter.filter.present?
+              targets.each do |target|
+                intersection = zone.intersection(target.shape)
+                next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
+
+                attributes[key] << {
+                  reference_name: parameter.name,
+                  targets_attributes: [
+                    { reference_name: target_parameter.name,
+                      # working_zone: target.shape,
+                      working_zone: intersection,
+                      product_id: target.id }
+                  ]
+                }
+              end
+            end
+          else
+            # Not beautiful, but will work until procedure are 2-level deep only.
+            attributes[key] << assign_parameters(parameter, { reference_name: parameter.name }, options)
+          end
+        else
+          if parameter.target?
             targets = Product.shape_overlapping(zone)
-            targets = targets.of_expression(target_parameter.filter) if target_parameter.filter.present?
+            targets = targets.of_expression(parameter.filter) if parameter.filter.present?
             targets.each do |target|
               intersection = zone.intersection(target.shape)
               next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
+
               attributes[key] << {
                 reference_name: parameter.name,
-                targets_attributes: [
-                  { reference_name: target_parameter.name,
-                    # working_zone: target.shape,
-                    working_zone: intersection,
-                    product_id: target.id }
-                ]
+                # working_zone: target.shape,
+                working_zone: intersection,
+                product_id: target.id
+              }
+            end
+          elsif worker && parameter.doer?
+            if parameter.filter.blank? || (parameter.filter && worker.of_expression(parameter.filter))
+              attributes[key] << {
+                reference_name: parameter.name,
+                product_id: worker.id
               }
             end
           end
-        else
-          # Not beautiful, but will work until procedure are 2-level deep only.
-          attributes[key] << assign_parameters(parameter, { reference_name: parameter.name }, options)
-        end
-      else
-        if parameter.target?
-          targets = Product.shape_overlapping(zone)
-          targets = targets.of_expression(parameter.filter) if parameter.filter.present?
-          targets.each do |target|
-            intersection = zone.intersection(target.shape)
-            next unless intersection.area > DEFAULT_ACCURACY.in_square_meter
-            attributes[key] << {
-              reference_name: parameter.name,
-              # working_zone: target.shape,
-              working_zone: intersection,
-              product_id: target.id
-            }
-          end
-        elsif worker && parameter.doer?
-          if parameter.filter.blank? || (parameter.filter && worker.of_expression(parameter.filter))
-            attributes[key] << {
-              reference_name: parameter.name,
-              product_id: worker.id
-            }
-          end
         end
       end
+      attributes
     end
-    attributes
-  end
 end

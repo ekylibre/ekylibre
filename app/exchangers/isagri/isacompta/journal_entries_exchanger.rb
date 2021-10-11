@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Isagri
   module Isacompta
     class JournalEntriesExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :isagri
+
       # Imports journal entries into journal to make payment in CSV format
       # Columns are:
       #  0 - A: account number
@@ -20,7 +25,6 @@ module Isagri
       #  14 - O: number ?
       #  15 - P: quantity
       #  16 - Q: quantity_unity
-
       def import
         source = File.read(file)
         detection = CharlockHolmes::EncodingDetector.detect(source)

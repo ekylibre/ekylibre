@@ -1,5 +1,4 @@
 .bundle/
-.circleci/
 .git
 .gitconfig
 .idea/

@@ -17,6 +17,7 @@
 #
 
 class ApplicationController < ActionController::Base
+  abstract!
   include NotificationModule
 
   # Prevent CSRF attacks by raising an exception.
@@ -33,21 +34,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from PG::UndefinedTable, Apartment::TenantNotFound, with: :configure_application
 
-  hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
-
   attr_accessor :current_theme
-
-  # Permits to redirect
-  hide_action :after_sign_in_path_for
-  def after_sign_in_path_for(resource)
-    Ekylibre::Hook.publish(:after_sign_in, resource)
-    @new_after_sign_in_path || super
-  end
-
-  hide_action :session_controller?
-  def session_controller?
-    controller_name == 'sessions' && action_name == 'create'
-  end
 
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)
@@ -71,12 +58,14 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :human_action_name
+
   def human_action_name
     self.class.human_action_name(action_name.to_s, @title)
   end
 
   def authorized?(url_options = {})
     return true if url_options == '#' || current_user.administrator?
+
     if url_options.is_a?(Hash)
       url_options[:controller] ||= controller_path
       url_options[:action] ||= action_name
@@ -84,7 +73,7 @@ class ApplicationController < ActionController::Base
       action = url_options.split('#')
       url_options = { controller: action[0].to_sym, action: action[1].to_sym }
     else
-      raise ArgumentError, 'Invalid URL: ' + url_options.inspect
+      raise ArgumentError.new('Invalid URL: ' + url_options.inspect)
     end
     unless url_options[:controller] =~ /\/\w+/
       namespace = controller_path.gsub(/\/\w+$/, '')
@@ -94,10 +83,10 @@ class ApplicationController < ActionController::Base
     end
     if current_user
       return current_user.can_access?(url_options)
-    # if url_options[:controller].blank? or url_options[:action].blank?
-    #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
-    # end
-    # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
+      # if url_options[:controller].blank? or url_options[:action].blank?
+      #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
+      # end
+      # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
     else
       true
     end
@@ -105,55 +94,54 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_theme
-    @current_theme = 'tekyla'
-  end
-
-  # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
-  def set_locale
-    if current_user && current_user.language.present? && I18n.available_locales.include?(current_user.language.to_sym)
-      I18n.locale = current_user.language
-    else
-      session[:locale] = params[:locale] if params[:locale]
-      if session[:locale].blank?
-        if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
-          session[:locale] = Ekylibre.http_languages[locale]
-        end
-      else
-        session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
-      end
-      if ::I18n.available_locales.include?(Preference[:language])
-        session[:locale] ||= Preference[:language]
-      end
-      session[:locale] ||= I18n.default_locale
-      I18n.locale = session[:locale]
+    def session_controller?
+      controller_name == 'sessions' && action_name == 'create'
     end
-  end
 
-  # Change the time zone from the given params or reuse session variable
-  def set_time_zone
-    session[:time_zone] = params[:time_zone] if params[:time_zone]
-    session[:time_zone] ||= 'UTC'
-    Time.zone = session[:time_zone]
-  end
+    def set_theme
+      @current_theme = 'tekyla'
+    end
 
-  # Sets mailer host on each request to ensure to get the valid domain
-  def set_mailer_host
-    ActionMailer::Base.default_url_options = { host: request.host_with_port }
-  end
+    # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+    def set_locale
+      if current_user && current_user.language.present? && I18n.available_locales.include?(current_user.language.to_sym)
+        I18n.locale = current_user.language
+      else
+        session[:locale] = params[:locale] if params[:locale]
+        if session[:locale].blank?
+          if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
+            session[:locale] = Ekylibre.http_languages[locale]
+          end
+        else
+          session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
+        end
+        if ::I18n.available_locales.include?(Preference[:language])
+          session[:locale] ||= Preference[:language]
+        end
+        session[:locale] ||= I18n.default_locale
+        I18n.locale = session[:locale]
+      end
+    end
 
-  def check_browser
-    browser = Browser.new(ua: request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
-    notify_warning_now :incompatible_browser if browser.ie?
-  end
+    # Change the time zone from the given params or reuse session variable
+    def set_time_zone
+      session[:time_zone] = params[:time_zone] if params[:time_zone]
+      session[:time_zone] ||= 'UTC'
+      Time.zone = session[:time_zone]
+    end
 
-  def configure_application(exception)
-    title = exception.class.name.underscore.t(scope: 'exceptions')
-    render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
-  end
+    # Sets mailer host on each request to ensure to get the valid domain
+    def set_mailer_host
+      ActionMailer::Base.default_url_options = { host: request.host_with_port }
+    end
 
-  # TODO: remove for Rails 5
-  def helpers
-    view_context
-  end
+    def check_browser
+      browser = Browser.new(request.headers['HTTP_USER_AGENT'], accept_language: request.headers['HTTP_ACCEPT_LANGUAGE'])
+      notify_warning_now :incompatible_browser if browser.ie?
+    end
+
+    def configure_application(exception)
+      title = exception.class.name.underscore.t(scope: 'exceptions')
+      render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+    end
 end

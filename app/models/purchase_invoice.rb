@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -60,12 +62,16 @@
 #  updater_id                               :integer
 #
 class PurchaseInvoice < Purchase
+  include Versionable
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   has_many :journal_entries, as: :resource
   has_many :reception_items, through: :items, source: :parcels_purchase_invoice_items
   has_many :receptions, through: :reception_items
+  has_many :storings, through: :reception_items
+  has_many :products, through: :storings
+  has_many :interventions, through: :products
   acts_as_affairable :supplier, class_name: 'PurchaseAffair'
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
@@ -79,12 +85,8 @@ class PurchaseInvoice < Purchase
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
   scope :with_nature, ->(id) { where(nature_id: id) }
 
-  protect on: :update, allow_update_on: %w[reference_number responsible_id invoiced_at payment_delay tax_payability description payment_at updated_at] do
-    items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
-  end
-
-  protect on: :destroy do
-    items.any? && !PurchaseInvoice.unpaid_and_not_empty.include?(self)
+  protect allow_update_on: %w[reference_number responsible_id invoiced_at payment_delay tax_payability description payment_at updated_at] do
+    items.exists? && PurchaseInvoice.unpaid_and_not_empty.where(id: self.id).empty?
   end
 
   before_validation(on: :create) do
@@ -93,10 +95,12 @@ class PurchaseInvoice < Purchase
   end
 
   before_validation do
-    if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.parcels_purchase_invoice_items.present? }
-      self.reconciliation_state = 'reconcile'
-    else
-      self.reconciliation_state = 'to_reconcile'
+    if reconciliation_state.to_s != 'accepted'
+      if self.items.reject(&:marked_for_destruction?).any? { |i| i.parcels_purchase_invoice_items.present? }
+        self.reconciliation_state = 'reconcile'
+      else
+        self.reconciliation_state = 'to_reconcile'
+      end
     end
   end
 
@@ -112,23 +116,21 @@ class PurchaseInvoice < Purchase
     end
   end
 
-  after_update do
-    affair.reload_gaps if affair
-    true
-  end
-
   after_save do
     items.each do |item|
       item.create_fixed_asset if item.fixed_asset.nil?
 
       item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
     end
+    UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: invoiced_on, if: items.any?) do |entry|
+    # take reference_number (external ref) if exist else take number (internal ref)
+    r_number = (reference_number.blank? ? number : reference_number)
+    b.journal_entry(nature.journal, reference_number: r_number, printed_on: invoiced_on, if: items.any?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description.gsub(/\r?\n/, ' / ')))
       items.each do |item|
         entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team, equipment: item.equipment, project_budget: item.project_budget, as: :item_product, resource: item, variant: item.variant)
@@ -150,12 +152,14 @@ class PurchaseInvoice < Purchase
     # exchange undelivered invoice from parcel
     journal = Journal.used_for_unbilled_payables!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :undelivered_invoice) do |entry|
-      parcels.each do |parcel|
+      parcels.includes(undelivered_invoice_journal_entry: :items).references(undelivered_invoice_journal_entry: :items).each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
+
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.l)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
+
           entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :undelivered_item, variant: undelivered_item.variant)
         end
       end
@@ -166,13 +170,13 @@ class PurchaseInvoice < Purchase
     journal = Journal.used_for_permanent_stock_inventory!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: items.any?) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
-      items.each do |item|
+      items.includes(:parcels_purchase_orders_items).references(:parcels_purchase_orders_items).each do |item|
         next unless item.variant.storable?
 
         parcel_items_quantity = if !item.parcels_purchase_orders_items.empty?
-                                  item.parcels_purchase_orders_items.map(&:population).compact.sum
+                                  item.parcels_purchase_orders_items.sum(:population)
                                 else
-                                  item.parcels_purchase_invoice_items.map(&:population).compact.sum
+                                  item.parcels_purchase_invoice_items.sum(:population)
                                 end
 
         gap = item.quantity - parcel_items_quantity
@@ -188,6 +192,7 @@ class PurchaseInvoice < Purchase
 
         gap_value = gap * quantity
         next if gap_value.zero?
+
         entry.add_debit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant)
         entry.add_credit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant)
       end
@@ -220,7 +225,11 @@ class PurchaseInvoice < Purchase
   end
 
   def linked_to_tax_declaration?
-    journal_entry.items.flat_map(&:tax_declaration_item_parts).any?
+    if journal_entry
+      journal_entry.items.flat_map(&:tax_declaration_item_parts).any?
+    else
+      false
+    end
   end
 
   def reconciled?
@@ -231,7 +240,15 @@ class PurchaseInvoice < Purchase
     affair.status
   end
 
+  def human_status
+    affair.human_status
+  end
+
   def unpaid?
     PurchaseInvoice.unpaid.include?(self)
+  end
+
+  def has_attachments
+    self.attachments.present?
   end
 end

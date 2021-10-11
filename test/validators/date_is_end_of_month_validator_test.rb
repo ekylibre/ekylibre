@@ -24,7 +24,6 @@
 require 'test_helper'
 
 class DateIsEndOfMonthValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   class ValidatableWithDateIsEndOfMonth
     include ActiveModel::Validations
 
@@ -52,5 +51,4 @@ class DateIsEndOfMonthValidatorTest < Ekylibre::Testing::ApplicationTestCase::Wi
 
     assert_empty @date.tap(&:valid?).errors
   end
-
 end

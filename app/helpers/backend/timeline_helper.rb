@@ -23,7 +23,7 @@ module Backend
       attr_reader :object, :sides, :id, :others
 
       class Side
-        attr_reader :name, :model, :label_method, :at_method
+        attr_reader :name, :model, :label_method, :at_method, :params, :except, :with_deleted
 
         def initialize(timeline, name, model, options = {})
           @timeline = timeline
@@ -35,6 +35,8 @@ module Backend
           @new = !options[:new].is_a?(FalseClass)
           @params = options[:params] || {}
           @params.update(options[:new]) if options[:new].is_a?(Hash)
+          @except = options[:except] || []
+          @with_deleted = options[:with_deleted].is_a?(TrueClass)
           @authorization_proc = options[:if]
         end
 
@@ -78,6 +80,12 @@ module Backend
                 end
               end
             end
+            if @with_deleted
+              records.only_deleted.collect do |record|
+                @steps << SideStep.new(self, record.send(:created_at), record)
+                @steps << SideStep.new(self, record.send(:updated_at), record)
+              end
+            end
           end
           @steps
         end
@@ -85,8 +93,6 @@ module Backend
         def records
           @records ||= @timeline.object.send(@name)
         end
-
-        attr_reader :params
       end
 
       class Step
@@ -125,6 +131,10 @@ module Backend
           @record.creator
         end
 
+        def deletor
+          @record.deleter if @record.respond_to?(:deleter)
+        end
+
         def inspect
           "<Step #{@side.name} #{@at ? @at.l : @at.inspect} #{@record.id}>"
         end
@@ -160,8 +170,9 @@ module Backend
 
       def side(name, options = {})
         unless reflection = @model.reflect_on_association(name)
-          raise ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
+          raise ArgumentError.new("Invalid reflection #{name.inspect} for #{@model.name}")
         end
+
         klass = reflection.class_name.constantize
         available_methods = klass.columns_hash.keys.map(&:to_sym)
         options[:label_method] ||= %i[label name number coordinates id].detect { |m| available_methods.include?(m) } || :id

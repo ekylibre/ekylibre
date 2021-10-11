@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,14 +37,14 @@
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
 #
-class ProductNatureVariantComponent < Ekylibre::Record::Base
+class ProductNatureVariantComponent < ApplicationRecord
   belongs_to :product_nature_variant, class_name: 'ProductNatureVariant', inverse_of: :components
   belongs_to :part_product_nature_variant, class_name: 'ProductNatureVariant'
   belongs_to :parent, class_name: 'ProductNatureVariantComponent', inverse_of: :children
   has_many :children, class_name: 'ProductNatureVariantComponent', foreign_key: :parent_id, inverse_of: :parent
   has_many :part_replacements, class_name: 'InterventionInput', inverse_of: :component, foreign_key: :component_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :product_nature_variant, presence: true
   # ]VALIDATORS]

@@ -1,4 +1,4 @@
-class AddImports < ActiveRecord::Migration
+class AddImports < ActiveRecord::Migration[4.2]
   def change
     create_table :imports do |t|
       t.string :state,       null: false

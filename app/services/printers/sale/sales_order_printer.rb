@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Printers
   module Sale
     class SalesOrderPrinter < SalesEstimateAndOrderPrinter
@@ -15,6 +17,10 @@ module Printers
 
       def general_conditions
         WITHOUT_CONDITIONS
+      end
+
+      def should_display_affair
+        true
       end
     end
   end

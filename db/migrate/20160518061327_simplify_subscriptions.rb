@@ -1,4 +1,4 @@
-class SimplifySubscriptions < ActiveRecord::Migration
+class SimplifySubscriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :product_natures, :subscribing, :boolean, null: false, default: false
     add_reference :product_natures, :subscription_nature, index: true

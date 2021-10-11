@@ -1,33 +1,11 @@
-- campaign ||= current_campaign
-- currency = Nomen::Currency.find(Preference[:currency])
-- issues = Issue.of_campaign(campaign).of_activity(activity)
-- active = true # activity.used_during?(campaign)
-.activity{style: "border-right-color: #{activity.color}", class: (active ? 'active' : 'inactive')}
+.activity.active{style: "border-right-color: #{activity.color}"}
   - attrs = {}
   - if (avatar_path = activity_avatar_path(activity))
     - attrs = { style: "background-image: url(#{image_path(avatar_path)})" }
   = link_to('', {controller: :activities, action: :show, id: activity.id }, attrs.merge(class: 'activity-avatar', title: activity.name))
   .activity-content
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)
-    - if active
-      .activity-indicators
-        .activity-indicator.size
-          = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
-        .activity-indicator.cumulated-time
-          - interventions = Intervention.real.of_campaign(campaign).of_activity(activity)
-          - if interventions.any?
-            = interventions.sum(:working_duration).to_d.in(:second).convert(:hour).round.l(precision: 0)
-          - else
-            - targets = Product.where(id: activity.productions.select(:support_id))
-            - if targets.any?
-              = Intervention.real.with_targets(targets).of_civil_year(campaign.harvest_year).sum(:working_duration).to_d.in(:second).convert(:hour).round.l(precision: 0)
-        .activity-indicator.opened-issues
-          = issues.opened.count.to_s + '/' + issues.count.to_s
-        .activity-indicator.cash
-          = activity.decorate.production_costs(current_campaign)[:global_costs][:total].l(currency: currency.name)
-        -#  TODO Enable this when pfi are finalized
-        -#- if activity.production_nature && activity.productions.of_campaign(campaign).any?
-        -#  .activity-indicator.pfi
-        -#    = activity.pfi_activity_ratio(campaign)
-    - else
-      = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: campaign.id}, class: 'btn btn-default')
+    - if %w[administering animal_farming plant_farming tool_maintaining vine_farming].include?(activity.family)
+      = render "backend/activities/card_content/#{activity.family}", activity: activity, campaign: campaign, currency: currency
+    - else 
+      = render "backend/activities/card_content/default", activity: activity, campaign: campaign, currency: currency

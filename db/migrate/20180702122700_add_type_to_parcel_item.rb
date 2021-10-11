@@ -1,4 +1,4 @@
-class AddTypeToParcelItem < ActiveRecord::Migration
+class AddTypeToParcelItem < ActiveRecord::Migration[4.2]
   def change
     add_column :parcel_items, :type, :string
     reversible do |dir|

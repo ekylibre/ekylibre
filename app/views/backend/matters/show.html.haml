@@ -21,23 +21,21 @@
     - if resource.variant.france_maaid
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}
-        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
+        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}", target: "_blank")
     - unless resource.population_counting_unitary?
       = product_info :population, important: true do |population|
-        = population.l + " " + resource.unit_name
+        = population.round(2).l(precision: 2) + " " + resource.conditioning_unit.name
     = product_info(:tracking, important: true) do |tracking|
       = link_to(resource.tracking.serial, controller: :trackings, action: :show, id: resource.tracking.id)
-    - if resource.has_indicator?(:net_mass) && resource.net_mass.to_d > 0
-      = product_info(:net_mass, important: true)
     - if resource.current_ownership && resource.current_ownership.other?
       = product_info(:owner, important: true) do |owner|
         = owner.name
-    - if resource.incoming_parcel_item
+    - if resource.incoming_parcel_item_storing && resource.incoming_parcel_item_storing.parcel_item
       .med-info.important
         %span.title= resource_model.human_attribute_name(:incoming_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
-          = link_to(resource.incoming_parcel_item.reception.number, controller: :receptions, action: :show, id: resource.incoming_parcel_item.reception.id)
+          = link_to(resource.incoming_parcel_item_storing.parcel_item.reception.number, controller: :receptions, action: :show, id: resource.incoming_parcel_item_storing.parcel_item.reception.id)
     - if resource.outgoing_parcel_item
       .med-info.important
         %span.title= resource_model.human_attribute_name(:outgoing_parcel_item)

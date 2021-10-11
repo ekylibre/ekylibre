@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Agroedi
   class DaplosExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :agroedi
+
     attr_reader :children
 
     def check
@@ -8,6 +13,7 @@ module Agroedi
 
     def import
       raise ActiveExchanger::NotWellFormedFileError unless daplos?
+
       crops = daplos&.interchange&.crops
       raise ActiveExchanger::NotWellFormedFileError unless crops
 
@@ -38,7 +44,7 @@ module Agroedi
       end
       alias_method :daplos?, :daplos
 
-      #TODO: Do this as pre-import work instead of destroying interventions
+      # TODO: Do this as pre-import work instead of destroying interventions
       def regroup_interventions!
         saved_interventions = interventions.map(&:record).uniq
 

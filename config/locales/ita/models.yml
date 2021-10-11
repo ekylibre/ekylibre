@@ -30,6 +30,7 @@ ita:
         # invalid_child: "At least one value of %{attribute} is invalid."
         # invalid_date: "%{attribute} is not a valid date"
         # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
         # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
         # is: "%{attribute} must be a %{thing}"
@@ -58,6 +59,7 @@ ita:
         # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
+        # record_is_not_valid: "The record is invalid"
         # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
         # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
         # taken: "%{attribute} has already been taken"
@@ -155,17 +157,50 @@ ita:
       plant_density_abacus_item:
         plants_count: "Contano le piante attesi"
         seeding_density_value: "Previsto densità di semina"
+      product_nature_category:
+        # type: "Nature"
+      product_nature_variant:
+        # specie_variety: "Variety"
+        # status: "Allowed"
+        # variety: "Variety"
       purchase:
         affair_balance: "Equilibrio"
+      purchase_invoice:
+        # delivery_address: "Billing address"
       purchase_item:
         # average_unit_pretax_amount: "Average unit pretax amount"
         # fixed_asset_stopped_on: "Fixed asset stopped on"
         # last_unit_pretax_amount: "Last unit pretax amount"
         # ordered_quantity: "Ordered quantity"
         # supplier_name: "Supplier"
+      purchase_order:
+        # delivery_address: "Billing address"
       purchase_payment: #?
         delivered: "Dato al destinatario" #?
         list: "Lista pagamento in uscita" #?
+      registered_phytosanitary_product:
+        # active_compounds: "Active compound(s)"
+        # france_maaid: "AMM number"
+        # licence_number: "Licence number"
+        # operator_protection_mentions: "Operator protection"
+        # other_names: "Other commercial names"
+        # product_type: "Type"
+        # started_on: "Authorization date"
+        # state: "Product state"
+        # stopped_on: "Removal date"
+      registered_phytosanitary_risk:
+        # mentions: "Risk mentions"
+        # symbol_name: "Pictogram"
+      registered_phytosanitary_usage:
+        # applications_count: "Max amount"
+        # applications_frequency: "Interval"
+        # decision_date: "Authorization date"
+        # development_stage_min: "BBCH stage min-max"
+        # dose_quantity: "Max dose"
+        # ephy_usage_phrase: "Usage"
+        # lib_court: "Number"
+        # status: "Allowed"
+        # usage_conditions: "Usage conditions"
       sale:
         affair_balance: "Equilibrio"
         contact: "Indirizzo per la stima"
@@ -220,6 +255,7 @@ ita:
         # invalid_child: "At least one value of %{attribute} is invalid."
         # invalid_date: "%{attribute} is not a valid date"
         # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
         # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
         # is: "%{attribute} must be a %{thing}"
@@ -250,6 +286,7 @@ ita:
         # posterior: "%{attribute} must be posterior to %{to}"
         present: "deve essere lasciato in bianco" #?
         # record_invalid: "Validations failed: %{errors}"
+        # record_is_not_valid: "The record is invalid"
         # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
         # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
         taken: "è già presente"
@@ -263,51 +300,92 @@ ita:
         wrong_length: #? String expected ("%{attribute} is the wrong length (should be %{count} characters)")
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
-      models: #?
-        activity: #?
-          checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività" #?
-          checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati" #?
-        bank_statement: #?
-          no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file" #?
-          ofx_file_has_multiple_bank_accounts: "il file OFX con più conti bancari non è supportata" #?
-          ofx_file_invalid: "il file OFX è valido" #?
-        bank_statement_item: #?
-          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo." #?
-        cash: #?
-          unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti." #?
-        financial_year: #?
-          attributes: #?
-            started_on: #?
-              consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente." #?
-              frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio." #?
-        financial_year_exchange: #?
-          csv_file_entry_dates_invalid: "Alcune voci del CSV sono fuori dell’esercizio di date scambio" #?
-          csv_file_headers_invalid: "Intestazioni CSV non sono validi" #?
-          csv_file_invalid: "File CSV non è valido" #?
-        integration: #?
-          attributes: #?
-            parameters: #?
-              check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi." #?
-        journal: #?
-          attributes: #?
-            accountant: #?
-              present: "Commercialista può essere impostato solo per varie riviste operazioni" #?
-        journal_entry: #?
-          frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio." #?
-          out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente." #?
-          unbalanced: "La voce di diario è sbilanciato" #?
-        journal_entry_item: #?
-          closed_entry: "La voce di diario è bloccato. Non è possibile aggiornarlo." #?
-          empty_amounts: "La voce di diario deve essere compilato o di debito o di credito" #?
-          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo." #?
-        sale_item: #?
-          currency_is_not_sale_currency: "Valuta non è identica alla valuta vendita" #?
-          error_no_found_price: "Nessun prezzo trovato" #?
-        subscription: #?
-          entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto" #?
-      template: #?
-        body: "Ricontrolla i seguenti campi:" #?
-        header: #?
+      models:
+        activity:
+          checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
+          checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
+          # productions_present: "Productions are present on this activity"
+        bank_statement:
+          no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file"
+          ofx_file_has_multiple_bank_accounts: "il file OFX con più conti bancari non è supportata"
+          ofx_file_invalid: "il file OFX è valido"
+        bank_statement_item:
+          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
+        cash:
+          # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
+          # different_of_main_account: "%{attribute} must be different of main account (%{account})"
+          unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti."
+        deposit:
+          # must_be_a_bank_account: "%{attribute} must be a bank account and not a cash"
+        entity:
+          # missing_title: "%{attribute} must contains the title “%{title}”"
+          # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
+        financial_year:
+          attributes:
+            accountant:
+              # frozen: "%{attribute} cannot be changed while an exchange is opened"
+            started_on:
+              consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente."
+              frozen: "La data di esercizio non può essere modificato quando è stato creato uno scambio."
+              # on_or_after: "The date selected must be posterior to society's creation date (%{restriction})"
+            stopped_on:
+              # end_of_month: "%{attribute} must be an end of month"
+          # overlap: "%{attribute} overlaps an existing financial year"
+        financial_year_exchange:
+          csv_file_entry_dates_invalid: "Alcune voci del CSV sono fuori dell’esercizio di date scambio"
+          # csv_file_entry_invalid: "Some entries in the CSV are invalid ('%{entry_number}')"
+          csv_file_headers_invalid: "Intestazioni CSV non sono validi"
+          csv_file_invalid: "File CSV non è valido"
+          # csv_file_journals_invalid: "Some journals are present in the CSV but not in Ekylibre : %{codes}"
+        fixed_asset_depreciation:
+          attributes:
+            started_on:
+              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+        incoming_parcel_item:
+          # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
+        integration:
+          attributes:
+            parameters:
+              check_errored: "Verifica di connessione errata. Assicurati la validità del tuo contributo o riprova più tardi."
+        journal:
+          attributes:
+            accountant:
+              # entity_frozen: "Booked journals of this %{attribute} cannot change while an exchange is opened for its financial years"
+              present: "Commercialista può essere impostato solo per varie riviste operazioni"
+              # previous_entity_frozen: "Booked journals of the previous %{attribute} cannot change while an exchange is opened for its financial years"
+            closed_on:
+              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
+        journal_entry:
+          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          frozen_by_financial_year_exchange: "La voce del diario non può essere registrato in un periodo corrispondente ad uno scambio esercizio."
+          out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente."
+          unbalanced: "La voce di diario è sbilanciato"
+        journal_entry_item:
+          closed_entry: "La voce di diario è bloccato. Non è possibile aggiornarlo."
+          empty_amounts: "La voce di diario deve essere compilato o di debito o di credito"
+          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
+        outgoing_parcel_item:
+          # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
+        purchase_item:
+          attributes:
+            fixed:
+              # asset_account: "Invalid asset account"
+              # asset_depreciation_method: "Invalid asset depreciation method"
+              # asset_expenses_account: "Invalid asset expenses account"
+              # asset_wrong_depreciation_method: "Depreciation method must be simplified linear"
+              # fixed_asset_stopped_on_invalid: "Invalid fixed asset stopped on"
+          # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
+          # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
+        sale_item:
+          # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
+          # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
+          currency_is_not_sale_currency: "Valuta non è identica alla valuta vendita"
+          error_no_found_price: "Nessun prezzo trovato"
+        subscription:
+          entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto"
+      template:
+        body: "Ricontrolla i seguenti campi:"
+        header:
           nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che." #?
           one: "Non posso salvare questo %{model}: 1 errore" #?
           other: "Non posso salvare questo %{model}: %{count} errori." #?
@@ -507,8 +585,8 @@ ita:
       # registered_phytosanitary_product: "Registered phytosanitary product"
       # registered_phytosanitary_risk: "Registered phytosanitary risk"
       # registered_phytosanitary_usage: "Registered phytosanitary usage"
-      # registered_postal_zone: "Registered postal zone"
-      # registered_seed: "Registered seed"
+      # registered_postal_code: "Registered postal zone"
+      # registered_seed_varietie: "Registered seed"
       regularization: "Regolarizzazione"
       role: "Ruolo"
       sale: "Vendita"
@@ -543,6 +621,7 @@ ita:
       worker: "Lavoratore"
       zone: "Zona"
   attributes:
+    # abilities: "Abilities"
     abilities_list: "lista abilità"
     absolute_credit: "credito assoluto"
     absolute_currency: "assoluta valuta"
@@ -601,6 +680,9 @@ ita:
     all_addresses: "Tutti gli indirizzi"
     all_taxes_included: "Tutte le tasse incluse"
     allocation_account: "conto Allocation"
+    # allowed_entry_factor: "Allowed entry factor"
+    # allowed_harvest_factor: "Allowed harvest factor"
+    # allowed_mentions: "Allowed mentions"
     # already_existing: "Already existing"
     amount: "Quantità"
     analysed_at: "Analizzati a"
@@ -949,6 +1031,7 @@ ita:
     # file: "File"
     file_content_text: "File di testo contenuti"
     file_content_type: "File tipo di contenuto"
+    # file_extension: "File extension"
     file_file_name: "File il nome del file"
     file_file_size: "Dimensione del file"
     file_fingerprint: "Impronte digitali di file"
@@ -1043,7 +1126,9 @@ ita:
     implanter_working_width: "larghezza di lavoro implanter"
     importance: "Importanza"
     imported_at: "importato in"
+    # imported_from: "Imported from"
     importer: "Importatore"
+    # imputation_ratio: "Imputation ratio"
     # in_field_reentry_delay: "In field reentry delay"
     in_preparation_at: "In preparazione a"
     included: "Incluso"
@@ -1149,6 +1234,7 @@ ita:
     # journal_name: "Journal name"
     key: "Chiave"
     label: "Etichetta"
+    # label_fra: "Label fra"
     labellings: "Etichettature"
     labels: "Etichette"
     land_parcel_number: "il numero delle parcelle agricole"
@@ -1171,11 +1257,13 @@ ita:
     # late_delivery: "Late delivery"
     latest: "Più recente"
     leaves_parameters: "Lascia parametri"
+    # legal_position_code: "Legal status"
     # lender: "Lender"
     letter: "Lettera"
     letter_format: "formato Letter"
     level: "Livello"
     lft: "Sinistra"
+    # lines: "Lines"
     linkage_points_list: "Lista punti Linkage"
     linkages: "Collegamenti"
     linked: "connesso"
@@ -1257,6 +1345,7 @@ ita:
     minimal_size: "dimensione minima"
     minimal_size_value: "valore della dimensione minima"
     minimal_value: "valore minimo"
+    # mix_category_codes: "Mix category codes"
     mobiles: "Cellulari"
     mode: "modo"
     mode_delta: "Delta Modalità"
@@ -1386,6 +1475,7 @@ ita:
     post: "Inviare"
     postal_code: "Codice postale"
     postal_zones: "zone postali"
+    # pre_harvest_delay: "Pre harvest delay"
     pre_harvest_interval: "Intervallo di pre-raccolta"
     # preexisting_asset: "Preexisting asset"
     preferences: "Preferenze"
@@ -1431,7 +1521,6 @@ ita:
     # product_type: "Product type"
     # product_work_number: "Product work number"
     production: "Produzione"
-    production_campaign: "campagna di produzione"
     production_cycle: "ciclo produttivo"
     # production_nature: "Production nature"
     production_support: "supporto alla produzione"
@@ -1446,6 +1535,7 @@ ita:
     # project_budget: "Project budget"
     proposer: "proponente"
     prospect: "Prospettiva"
+    # provider: "Provider"
     # providers: "Providers"
     provisional: "Provvisorio"
     provisional_intervention: "intervento provvisorio"
@@ -1503,11 +1593,13 @@ ita:
     # recommender: "Recommender"
     reconcilable: "riconciliabile"
     # reconciliation_state: "Reconciliation state"
+    # record_checksum: "Record checksum"
     record_interventions: "Interventi Record"
     record_value: "il valore record"
     record_value_type: "Record tipo di valore"
     # reductible: "Reductible"
     reduction_percentage: "percentuale di riduzione"
+    # reference_data: "Reference data"
     # reference_label_fra: "Reference label fra"
     reference_name: "Nome di riferimento"
     reference_number: "Numero di riferimento"
@@ -1556,6 +1648,7 @@ ita:
     revenues: "ricavi"
     rgt: "Destra"
     rights: "Diritti"
+    # risks: "Risks"
     role: "Ruolo"
     roles: "ruoli"
     root_components: "Componenti Root"
@@ -1633,6 +1726,7 @@ ita:
     spaced_iban: "IBAN distanziati"
     # special_imputation_asset_account: "Special imputation asset account"
     # specie: "Specie"
+    # specie_variety: "Specie variety"
     sql_type: "tipo SQL"
     ssl: "Ssl"
     start: "Inizio"
@@ -1684,6 +1778,7 @@ ita:
     supports: "supporti"
     suspend_until_reconciliation: "Sospendere fino riconciliazione"
     suspended: "Sospeso"
+    # suspended_balance: "Temporary account balance"
     suspended_journal_entry_items: "Elementi voce di diario sospesi"
     suspense_account: "Conto in sospeso"
     tactic: "Tecnica gestione delle colture"
@@ -1786,12 +1881,14 @@ ita:
     useful_items: "oggetti utili"
     user: "Utente"
     users: "utenti"
+    # using_live_data: "Using live data"
     # uuid: "UUID"
     # validated_at: "Validated at"
     value: "Valore"
     variable_indicators_list: "Lista indicatori variabili"
     variant: "Variante"
     variant_indicator: "indicatore variante"
+    # variant_nature: "Variant nature"
     variant_unit: "unità Variant"
     variants: "varianti"
     variety: "Varietà"
@@ -1856,6 +1953,7 @@ ita:
       # invalid_child: "At least one value of %{attribute} is invalid."
       # invalid_date: "%{attribute} is not a valid date"
       # invalid_datetime: "%{attribute} is not a valid datetime"
+      # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
       # invalid_time: "%{attribute} is not a valid time"
       # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
       # is: "%{attribute} must be a %{thing}"
@@ -1884,6 +1982,7 @@ ita:
       # overlap_sibling: "%{attribute} overlaps sibling"
       # posterior: "%{attribute} must be posterior to %{to}"
       # record_invalid: "Validations failed: %{errors}"
+      # record_is_not_valid: "The record is invalid"
       # should_be_consecutive: "Financial years must be consecutive, therefore %{attribute} should be %{expected}."
       # should_be_the_last_day_of_month: "%{attribute} should be the last day of the month."
       # taken: "%{attribute} has already been taken"
@@ -2011,12 +2110,32 @@ ita:
     intervention:
       # bookkeep: "[%{resource}] %{name}"
       # name: "%{intervention} #%{number}"
+    intervention_working_period:
+      attributes:
+        started_at:
+          # inferior: "The intervention must start before the end of the selected crops (%{to})"
+          # posterior: "The intervention must start after the beginning of the selected crops (%{to})"
+        stopped_at:
+          # inferior: "The intervention must end before the end of the selected crops (%{to})"
+          # posterior: "The intervention must end after the beginning of the selected crops (%{to})"
     inventory:
       # bookkeep: "[%{resource}] %{number}"
       # bookkeep_exchange: "[%{resource} exchange] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
+    journal:
+      natures:
+        # bank: "Bank"
+        # cash: "Cash"
+        # closure: "Closure"
+        # fixed_assets: "Fixed assets"
+        # forward: "Forward"
+        # purchases: "Purchases"
+        # result: "Result"
+        # sales: "Sales"
+        # stocks: "Stocks"
+        # various: "Various"
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       states:

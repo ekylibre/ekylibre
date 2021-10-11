@@ -6,7 +6,7 @@
   = f.referenced_association :delivery_address, source: :own_mails, new: { entity_id: Entity.of_company.id }
   = f.association :nature, as: :hidden
   = f.input :reference_number
-  = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }
+  = f.input :invoiced_at, wrapper_html: { class: 'apply-fy-date' }, input_html: { data: { deal_reference_date: true } }
   %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
     = :warning_date_not_in_period.tl
   = f.input :payment_delay, placeholder: :payment_delay_placeholder.tl
@@ -32,7 +32,7 @@
           %th= PurchaseItem.human_attribute_name(:amount)
           %th= PurchaseItem.human_attribute_name(:currency)
           %th
-      - precision = Nomen::Currency[f.object.currency].precision
+      - precision = Onoma::Currency[f.object.currency].precision
       %tfoot
         %tr.total
           %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"

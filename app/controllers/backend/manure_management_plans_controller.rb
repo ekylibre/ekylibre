@@ -57,6 +57,7 @@ module Backend
     # Show one animal with params_id
     def show
       return unless @manure_management_plan = find_and_check
+
       t3e @manure_management_plan
       respond_with(@manure_management_plan, include: [:campaign, :recommender, { zones: { methods: %i[soil_nature_name cultivation_variety_name], include: [{ support: { include: :storage } }, :activity, :production] } }])
     end

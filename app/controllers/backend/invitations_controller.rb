@@ -32,24 +32,31 @@ module Backend
     def index; end
 
     def new
-      @invitation = User.new
+      @invitation = FormObjects::Backend::Invitation.with_defaults
+
       @form_url = backend_invitations_path
     end
 
     def create
-      @invitation = User.invite!(invite_params, current_user)
+      @invitation = FormObjects::Backend::Invitation.with_defaults
+      @invitation.attributes = invite_params
 
-      if @invitation.errors.empty?
+      if @invitation.valid?
+        User.invite!(@invitation.attributes, current_user)
+
         redirect_to backend_invitations_path
       else
+        @form_url = backend_invitations_path
         render :new
       end
     end
 
     private
 
-    def invite_params
-      params.require(:user).permit(:first_name, :last_name, :language, :role_id, :email)
-    end
+      def invite_params
+        params.require(:form_objects_backend_invitation)
+              .permit(:first_name, :last_name, :language, :role_id, :email)
+              .symbolize_keys
+      end
   end
 end

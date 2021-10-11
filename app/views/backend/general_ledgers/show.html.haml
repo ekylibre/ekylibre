@@ -10,7 +10,8 @@
     = main_toolbar do |t|
       = t.export :general_ledger,
                  item_label: :export_as_pdf.tl,
-                 key: Printers::GeneralLedgerPrinter.build_key(financial_year: financial_year,
+                 key: Printers::GeneralLedgerPrinter.build_key(started_on: financial_year.started_on.to_s,
+                                                               stopped_on: financial_year.stopped_on.to_s,
                                                                states: params[:states],
                                                                lettering_state: params[:lettering_state],
                                                                account_number: params[:account_number],
@@ -23,8 +24,8 @@
   = kujaku actions: false do |k|
     - k.helper :subledger_crit
     - k.hidden :current_financial_year
-    - k.previous_navigation :previous_ledger, class: "btn btn-previous icn icn-before", params: params.slice(:current_financial_year, :ledger)
-    - k.next_navigation :next_ledger, class: "btn btn-next icn icn-after", params: params.slice(:current_financial_year, :ledger)
+    - k.previous_navigation :previous_ledger, class: "btn btn-previous icn icn-before", params: params.permit(:current_financial_year, :ledger).to_h
+    - k.next_navigation :next_ledger, class: "btn btn-next icn icn-after", params: params.permit(:current_financial_year, :ledger).to_h
 
 
   = main_list(:subledger_journal_entry_items)

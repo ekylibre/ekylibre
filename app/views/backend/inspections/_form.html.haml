@@ -5,14 +5,14 @@
   = f.referenced_association :product, source:  { scope: { availables: [at: f.object.sampled_at.strftime("%Y-%m-%d %H:%M")], of_expression: 'is plant and has indicator shape' }}, input_html: { data: {product_of_delivery_item: {url: backend_plant_path("RECORD_ID", format: :json)}}}
   = f.input(:implanter_application_width, wrapper: :append) do
     = f.input_field :implanter_application_width, data: { "when-item": :application_width, "when-set-value": "RECORD_VALUE" }
-    %span.add-on{data: { when: {item: :application_width_unit, "set-value": "RECORD_VALUE" } } }= Nomen::Unit[:meter].l
+    %span.add-on{data: { when: {item: :application_width_unit, "set-value": "RECORD_VALUE" } } }= Onoma::Unit[:meter].l
   = f.input :implanter_rows_number, input_html: { data: { "when-item": :rows_count, "when-set-value": "RECORD_VALUE" } }
   = f.input(:sampling_distance, wrapper: :append) do
     = f.input_field :sampling_distance
-    %span.add-on= Nomen::Unit[:meter].l
+    %span.add-on= Onoma::Unit[:meter].l
   = f.input(:product_net_surface_area, wrapper: :append) do
     = f.input_field(:product_net_surface_area_value, data: { "when-item": :population, "when-set-value": "RECORD_VALUE" })
-    = f.input_field(:product_net_surface_area_unit, collection: Nomen::Unit.where(dimension: :surface_area).selection, data: { "when-item": :unit_name, "when-set-value": "RECORD_VALUE" })
+    = f.input_field(:product_net_surface_area_unit, collection: Onoma::Unit.where(dimension: :surface_area).selection, data: { "when-item": :unit_name, "when-set-value": "RECORD_VALUE" })
   = f.input :forecast_harvest_week
   = f.input :comment, as: :text
 

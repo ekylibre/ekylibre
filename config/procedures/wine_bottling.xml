@@ -2,30 +2,30 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="wine_bottling" categories="viticulture_transformation" actions="wine_bottling">
     <parameters>
-      <parameter name="tank" type="target" filter="is equipment and can store(wine)" default-actor="storage"/>
+      <parameter name="tank" type="target" filter="is tank and can store(wine)" default-actor="storage"/>
       <input name="wine" filter="is wine" default-actor="first_localized_in: tank">
         <handler name="population"/>
         <handler indicator="net_volume" unit="hectoliter"
-                 if="PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(hectoliter)"
-                 forward="VALUE / PRODUCT..net_volume(hectoliter)"/>
+                 if="PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT.net_volume(hectoliter)"
+                 forward="VALUE / PRODUCT.net_volume(hectoliter)"/>
         <handler name="net_volume_in_liter" indicator="net_volume" unit="liter"
-                 if="PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(liter)"
-                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+                 if="PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT.net_volume(liter)"
+                 forward="VALUE / PRODUCT.net_volume(liter)"/>
       </input>
-      <input name="bottles" filter="is cork_bottle and can store(wine)">
+      <input name="bottles" filter="is bottle">
         <handler name="population"/>
         <handler indicator="net_volume" unit="hectoliter"
-                 if="PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(hectoliter)"
-                 forward="VALUE / PRODUCT..net_volume(hectoliter)"/>
+                 if="PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT.net_volume(hectoliter)"
+                 forward="VALUE / PRODUCT.net_volume(hectoliter)"/>
         <handler name="net_volume_in_liter" indicator="net_volume" unit="liter"
-                 if="PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(liter)"
-                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+                 if="PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT.net_volume(liter)"
+                 forward="VALUE / PRODUCT.net_volume(liter)"/>
       </input>
-      <input name="corks" filter="is cork and can close(cork_bottle)">
+      <input name="corks" filter="is cork">
         <handler name="population"/>
       </input>
       <parameter name="wine_man" type="doer" filter="can drive(equipment) and can move"/>

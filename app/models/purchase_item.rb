@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,8 +30,8 @@
 #  activity_budget_id     :integer
 #  amount                 :decimal(19, 4)   default(0.0), not null
 #  annotation             :text
-#  conditionning          :integer
-#  conditionning_quantity :integer
+#  conditionning          :decimal(19, 4)
+#  conditionning_quantity :decimal(19, 4)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  currency               :string           not null
@@ -58,7 +60,7 @@
 #  variant_id             :integer
 #
 
-class PurchaseItem < Ekylibre::Record::Base
+class PurchaseItem < ApplicationRecord
   include PeriodicCalculable
   refers_to :currency
   belongs_to :account
@@ -71,6 +73,8 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :fixed_asset, inverse_of: :purchase_items
   belongs_to :depreciable_product, class_name: 'Product'
+  belongs_to :conditioning_unit, class_name: 'Unit'
+  belongs_to :catalog_item
 
   has_many :parcels_purchase_orders_items, inverse_of: :purchase_order_item, foreign_key: 'purchase_order_item_id', dependent: :nullify, class_name: 'ReceptionItem'
   has_many :parcels_purchase_invoice_items, inverse_of: :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', dependent: :nullify, class_name: 'ReceptionItem'
@@ -79,16 +83,15 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :products, through: :parcels_purchase_invoice_items, source: :product
   has_one :product_nature_category, through: :variant, source: :category
 
-  enumerize :role, in: %i[merchandise fees service], predicates: true
+  enumerize :role, in: %i[merchandise service fees], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :conditionning, :conditionning_quantity, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :account, :currency, :purchase, :tax, presence: true
+  validates :account, :currency, :purchase, :tax, :conditioning_unit, :conditioning_quantity, presence: true
   validates :fixed, inclusion: { in: [true, false] }
-  validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
+  validates :fixed_asset_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
@@ -96,6 +99,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates :account, :tax, :reduction_percentage, presence: true
   validates :variant, presence: true, unless: proc { |item| item.variant&.variety.eql?('trailed_equipment') || item.variant&.variety.eql?('equipment') }
   validates :quantity, exclusion: { in: [0], message: :invalid }
+  validates :conditioning_unit, conditioning: true
 
   validates_associated :fixed_asset
 
@@ -104,11 +108,13 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
   delegate :name, :amount, :short_label, to: :tax, prefix: true
+  delegate :dimension, :of_dimension?, to: :unit
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
   # accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
+  alias_attribute :unit, :conditioning_unit
 
   acts_as_list scope: :purchase
   sums :purchase, :items, :pretax_amount, :amount
@@ -129,6 +135,8 @@ class PurchaseItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
   }
 
+  scope :of_role, ->(role) { where(role: role) }
+
   protect on: :update do
     !self.purchase.updateable?
   end
@@ -139,8 +147,6 @@ class PurchaseItem < Ekylibre::Record::Base
 
   before_validation do
     self.currency = purchase_currency if purchase
-
-    self.quantity ||= 0
     self.reduction_percentage ||= 0
 
     if fixed
@@ -154,13 +160,12 @@ class PurchaseItem < Ekylibre::Record::Base
       self.depreciable_product = nil
     end
 
-
     if tax && unit_pretax_amount
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       self.unit_amount = tax.amount_of(unit_pretax_amount)
       raw_pretax_amount = nil
       if pretax_amount.nil? || pretax_amount.zero?
-        raw_pretax_amount = unit_pretax_amount * self.quantity * reduction_coefficient
+        raw_pretax_amount = unit_pretax_amount * conditioning_quantity * reduction_coefficient
         self.pretax_amount = raw_pretax_amount.round(precision)
       end
       if amount.nil? || amount.zero?
@@ -169,6 +174,7 @@ class PurchaseItem < Ekylibre::Record::Base
     end
 
     if variant
+      self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit)
       self.label = variant.commercial_name
       self.account = if fixed && purchase.purchased?
                        # select outstanding_assets during purchase
@@ -188,10 +194,6 @@ class PurchaseItem < Ekylibre::Record::Base
     true
   end
 
-  before_destroy do
-    parcels_purchase_invoice_items.map { |parcel_item| parcel_item.update_attributes(purchase_invoice_item_id: nil) }
-  end
-
   after_destroy do
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
@@ -201,6 +203,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   validate do
     next unless fixed
+
     # Errors linked to fixed assets
 
     errors.add(:fixed, :asset_account) unless variant.fixed_asset_account
@@ -208,27 +211,25 @@ class PurchaseItem < Ekylibre::Record::Base
 
     depreciation_method = variant.fixed_asset_depreciation_method
     errors.add(:fixed, :asset_depreciation_method) if depreciation_method.blank?
-
-    # if depreciation_method.present? && depreciation_method.to_sym != :simplified_linear && fixed_asset_stopped_on.nil?
-    #   errors.add(:fixed, :fixed_asset_stopped_on_invalid)
-    # end
   end
 
-  after_save do
-    if Preference[:catalog_price_item_addition_if_blank]
-      %i[stock purchase].each do |usage|
-        # set stock catalog price if blank
-        catalog = Catalog.by_default!(usage)
-        next if catalog.nil? || variant.catalog_items.of_usage(usage).any? ||
-          unit_pretax_amount.blank? || unit_pretax_amount.zero?
-        variant.catalog_items.create!(
-          catalog: catalog,
-          amount: unit_pretax_amount, currency: currency
-        )
-      end
-    end
+  after_save if: proc { |item| item.purchase.is_a?(PurchaseInvoice) } do
+    %i[stock purchase].each do |usage|
+      catalog = Catalog.by_default!(usage)
+      item = CatalogItem.find_by(catalog: catalog, variant: variant, unit: conditioning_unit, started_at: purchase.invoiced_at)
+      next if catalog.nil?  || item || unit_pretax_amount.blank? || unit_pretax_amount.zero?
 
-    purchase.save! if purchase && purchase.is_a?(PurchaseInvoice)
+      catalog_item = variant.catalog_items.create!(
+        catalog: catalog,
+        amount: unit_pretax_amount,
+        currency: currency,
+        purchase_item: self,
+        started_at: purchase.invoiced_at,
+        unit: conditioning_unit
+      )
+      self.update_columns(catalog_item_id: catalog_item.id) if usage == :purchase
+    end
+    purchase.save!
   end
 
   def new_fixed_asset
@@ -286,6 +287,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if preexisting_asset
       return errors.add(:fixed_asset, :fixed_asset_missing) unless fixed_asset
       return errors.add(:fixed_asset, :fixed_asset_cannot_be_modified) unless fixed_asset.draft?
+
       fixed_asset.reload
       fixed_asset.update_amounts
     else
@@ -327,6 +329,7 @@ class PurchaseItem < Ekylibre::Record::Base
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     return nil unless purchase.respond_to?(:affair)
+
     if purchase.affair.balanced?
       1.00
     elsif purchase.affair.debit != 0.0
@@ -338,6 +341,7 @@ class PurchaseItem < Ekylibre::Record::Base
     return nil if first_reception.nil?
 
     return first_reception.number.concat(" (#{receptions_count})") if receptions_count > 1
+
     first_reception.number if receptions_count == 1
   end
 
@@ -353,44 +357,56 @@ class PurchaseItem < Ekylibre::Record::Base
     received_quantity.l(precision: 3)
   end
 
-  def quantity_to_receive
+  def quantity_to_receive(into_default_unit: false)
     return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
-    (quantity - received_quantity)
+    quantity = conditioning_quantity - received_quantity
+    into_default_unit ? UnitComputation.convert_into_variant_unit(variant, quantity, conditioning_unit) : quantity
   end
 
   def human_quantity_to_receive
     quantity_to_receive.l(precision: 3)
   end
 
+  def base_unit_amount
+    coeff = conditioning_unit&.coefficient
+    (unit_pretax_amount / coeff).round(2) if coeff && coeff != 1
+  end
+
+  def variant_name_with_unit
+    "#{variant_name} (#{variant.unit_name})"
+  end
+
   private
 
     def first_reception
-      case purchase.class
-        when PurchaseInvoice
-          parcels_purchase_invoice_items.first&.parcel
-        when PurchaseOrder
-          parcels_purchase_orders_items.first&.parcel
-        else
-          nil
+      if purchase.is_a?(PurchaseInvoice)
+        parcels_purchase_invoice_items.first&.parcel
+      elsif purchase.is_a?(PurchaseOrder)
+        parcels_purchase_orders_items.first&.parcel
+      else
+        nil
       end
     end
 
     def receptions_count
-      case purchase.class
-        when PurchaseInvoice
-          parcels_purchase_invoice_items.count
-        when PurchaseOrder
-          parcels_purchase_orders_items.count
-        else
-          0
+      if purchase.is_a?(PurchaseInvoice)
+        parcels_purchase_invoice_items.count
+      elsif purchase.is_a?(PurchaseOrder)
+        parcels_purchase_orders_items.count
+      else
+        0
       end
     end
 
     def received_quantity
-      parcels_purchase_orders_items
-        .select { |reception_item| reception_item.reception.state.to_sym == :given }
-        .map(&:population)
-        .sum
+      if merchandise?
+        parcels_purchase_orders_items
+          .select { |reception_item| reception_item.reception.state.to_sym == :given }
+          .map { |reception_item| reception_item.storings.where(conditioning_unit: conditioning_unit).pluck(:conditioning_quantity).sum }
+          .sum
+      else
+        parcels_purchase_orders_items.where(conditioning_unit: conditioning_unit).sum(:conditioning_quantity)
+      end
     end
 end

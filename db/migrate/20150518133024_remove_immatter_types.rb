@@ -1,4 +1,4 @@
-class RemoveImmatterTypes < ActiveRecord::Migration
+class RemoveImmatterTypes < ActiveRecord::Migration[4.2]
   def up
     execute "UPDATE products SET type='Product' WHERE type IN ('Immatter', 'Service')"
   end

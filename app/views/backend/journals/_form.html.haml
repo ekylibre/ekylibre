@@ -1,3 +1,4 @@
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
 = field_set do
   = f.input :name
   = f.input :code
@@ -8,4 +9,6 @@
     = f.input :used_for_gaps
     = f.input :used_for_permanent_stock_inventory
     = f.input :used_for_unbilled_payables
+  = f.input :isacompta_code
+  = f.input :isacompta_label
   = f.custom_fields

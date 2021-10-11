@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,7 +47,7 @@
 #  number                :string
 #  paid_at               :datetime
 #  payer_id              :integer
-#  providers             :jsonb
+#  provider              :jsonb
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer
@@ -55,7 +57,7 @@
 #  updater_id            :integer
 #
 
-class IncomingPayment < Ekylibre::Record::Base
+class IncomingPayment < ApplicationRecord
   include Letterable
   include Attachable
   include PeriodicCalculable
@@ -67,27 +69,26 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :commission_account, class_name: 'Account'
   belongs_to :responsible, class_name: 'User'
   belongs_to :deposit, inverse_of: :payments
-  belongs_to :journal_entry
+  belongs_to :journal_entry # , dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
   belongs_to :payer, class_name: 'Entity', inverse_of: :incoming_payments
   belongs_to :mode, class_name: 'IncomingPaymentMode', inverse_of: :payments
   has_many :journal_entry_items, through: :journal_entry
   has_one :bank_statement, -> { first }, through: :journal_entry_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :commission_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_account_number, :bank_check_number, :bank_name, :number, length: { maximum: 500 }, allow_blank: true
   validates :currency, :mode, presence: true
   validates :downpayment, :received, :scheduled, inclusion: { in: [true, false] }
   validates :receipt, length: { maximum: 500_000 }, allow_blank: true
-  validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :amount, numericality: true
   validates :commission_amount, numericality: { greater_than_or_equal_to: 0.0 }
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
-  validates :to_bank_at, financial_year_writeable: true
-
+  validates :to_bank_at, financial_year_writeable: true, ongoing_exchanges: true
   validates :currency, match: { with: :mode }
   validates :mode, match: { with: :deposit, to_invalidate: :deposit_id }, allow_blank: true
 
@@ -127,6 +128,10 @@ class IncomingPayment < Ekylibre::Record::Base
       self.currency = mode.currency
     end
     true
+  end
+
+  after_destroy do
+    journal_entry.remove if journal_entry.draft?
   end
 
   protect do

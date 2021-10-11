@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -87,6 +92,8 @@
 #  work_number                  :string
 #
 class Plant < Bioproduct
+  include Providable
+
   has_many :plant_countings
   refers_to :variety, scope: :plant
 
@@ -95,8 +102,9 @@ class Plant < Bioproduct
   # Return all Plant object who is alive in the given campaigns
   scope :of_campaign, lambda { |campaign|
     unless campaign.is_a?(Campaign)
-      raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}")
     end
+
     started_at = Date.new(campaign.harvest_year, 0o1, 0o1)
     stopped_at = Date.new(campaign.harvest_year, 12, 31)
     where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
@@ -128,6 +136,10 @@ class Plant < Bioproduct
     end
   end
 
+  def human_status
+    I18n.t("tooltips.models.plant.#{status}")
+  end
+
   def last_sowing
     Intervention
       .real
@@ -148,8 +160,10 @@ class Plant < Bioproduct
   def ready_to_harvest?
     analysis = analyses.where(nature: 'plant_analysis').reorder(sampled_at: :desc).first
     return false unless analysis
+
     item = analysis.items.find_by(indicator_name: 'ready_to_harvest')
     return false unless item
+
     item.value
   end
 
@@ -174,50 +188,51 @@ class Plant < Bioproduct
   # Returns unique varieties
   def self.unique_varieties
     pluck(:variety)
+      .compact
       .uniq
-      .map { |variety| Nomen::Variety.find(variety) }
+      .map { |variety| Onoma::Variety.find(variety) }
   end
 
   private
 
-  # FIXME: Why this code is here??? Not linked to Plant
-  def curves(collection, set_first_val, get_value, get_name, round = 2)
-    hashes = inspections.reorder(:sampled_at).map do |intervention|
-      pairs = collection.map do |grouping_crit|
-        pre_val = set_first_val.call(intervention, grouping_crit)
-        value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
-        value = value.round(round) if round
-        [get_name.call(grouping_crit), value]
+    # FIXME: Why this code is here??? Not linked to Plant
+    def curves(collection, set_first_val, get_value, get_name, round = 2)
+      hashes = inspections.reorder(:sampled_at).map do |intervention|
+        pairs = collection.map do |grouping_crit|
+          pre_val = set_first_val.call(intervention, grouping_crit)
+          value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
+          value = value.round(round) if round
+          [get_name.call(grouping_crit), value]
+        end
+        Rails.logger.info pairs.inspect.red
+        pairs_to_hash(pairs)
       end
-      Rails.logger.info pairs.inspect.red
-      pairs_to_hash(pairs)
+
+      merge_all(hashes)
     end
 
-    merge_all(hashes)
-  end
-
-  # FIXME: Why this code is here??? Not linked to Plant
-  # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
-  def merge_all(hashes)
-    hashes.reduce do |final, caliber_hash|
-      final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
+    # FIXME: Why this code is here??? Not linked to Plant
+    # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
+    def merge_all(hashes)
+      hashes.reduce do |final, caliber_hash|
+        final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
+      end
     end
-  end
 
-  # FIXME: Why this code is here??? Not linked to Plant
-  # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
-  def pairs_to_hash(array_of_pairs)
-    array_of_pairs
-      .group_by(&:first)
-      .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
-      .to_h
-  end
-
-  def link_to_production
-    outputs = InterventionOutput.where(product: self, reference_name: 'plant')
-    unless outputs.empty?
-      ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
-      update(activity_production: ap)
+    # FIXME: Why this code is here??? Not linked to Plant
+    # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
+    def pairs_to_hash(array_of_pairs)
+      array_of_pairs
+        .group_by(&:first)
+        .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
+        .to_h
     end
-  end
+
+    def link_to_production
+      outputs = InterventionOutput.where(product: self, reference_name: 'plant')
+      unless outputs.empty?
+        ap = outputs.first.intervention.targets.where(reference_name: 'land_parcel').first.product.activity_production
+        update(activity_production: ap)
+      end
+    end
 end

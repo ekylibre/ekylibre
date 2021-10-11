@@ -9,7 +9,7 @@ $activity_border_size: 5px;
   .activity-family-heading {
     margin: $default-gap * 2;
     .activity-family-title {
-      font-size: $fs-large;
+      font-size: $fs-medium;
       line-height: $lh-large;
       border-bottom: $menu-border;
     }
@@ -34,6 +34,14 @@ $activity_border_size: 5px;
   }
 }
 
+.activity-economic-containers {
+  @include make-row;
+  margin-left: 0;
+  margin-right: 0;
+  .activity-container {
+    padding: 0;
+  }
+}
 
 .procedure-dropdown {
   margin: $default-gap;
@@ -114,6 +122,9 @@ $activity_border_size: 5px;
   }
 
   .size {
+    &.animal_farming {
+      @include icon-before(people, $font-size: $fs-normal);
+    }
     @include icon-before(settings-ethernet, $font-size: $fs-normal);
   }
 

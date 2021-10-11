@@ -42,7 +42,8 @@ module Backend
     end
 
     def change_minutes
-      return unless nature = Nomen::EventNature[params[:nature]]
+      return unless nature = Onoma::EventNature[params[:nature]]
+
       value = nature.send(params[:field] || :name)
       render text: value.to_s, layout: false
     end

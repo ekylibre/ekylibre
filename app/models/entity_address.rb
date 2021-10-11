@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,7 +50,7 @@
 #  updater_id          :integer
 #
 
-class EntityAddress < Ekylibre::Record::Base
+class EntityAddress < ApplicationRecord
   attr_readonly :entity_id
   refers_to :mail_country, class_name: 'Country'
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
@@ -64,7 +66,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
   validates :canal, :entity, presence: true
   validates :coordinate, presence: true, length: { maximum: 500 }
-  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :thread, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :mail_country, length: { allow_nil: true, maximum: 2 }
@@ -134,7 +136,7 @@ class EntityAddress < Ekylibre::Record::Base
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? Entity
     nc = self.class.new
-    for attr, val in attributes.merge(created_at: current_time, updated_at: current_time, creator_id: stamper_id, updater_id: stamper_id).delete_if { |k, _v| k.to_s == 'id' }
+    attributes.merge(created_at: current_time, updated_at: current_time, creator_id: stamper_id, updater_id: stamper_id).delete_if { |k, _v| k.to_s == 'id' }.each do |attr, val|
       nc.send("#{attr}=", val)
     end
     nc.save!
@@ -177,7 +179,7 @@ class EntityAddress < Ekylibre::Record::Base
     lines << mail_line_1 unless options[:without] == :line_1
     lines += [mail_line_2, mail_line_3, mail_line_4, mail_line_5]
     lines << mail_line_6.to_s if options[:with_city]
-    lines << (Nomen::Country[mail_country] ? Nomen::Country[mail_country].human_name : '') if options[:with_country]
+    lines << (Onoma::Country[mail_country] ? Onoma::Country[mail_country].human_name : '') if options[:with_country]
     lines = lines.compact.collect { |x| x.gsub(options[:separator], ' ').gsub(/\ +/, ' ') }
     lines.delete ''
     lines.join(options[:separator])

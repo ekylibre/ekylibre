@@ -1,0 +1,353 @@
+{
+    "eng": {
+        "date": {
+            "abbr_day_names": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            "abbr_month_names": ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
+            "day_names": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "formats": {
+                "default": "%m/%d/%Y",
+                "legal": "%d %B %Y",
+                "long": "%B %d, %Y",
+                "month": "%B %Y",
+                "month_letter": "%d %B %Y",
+                "month_name": "%B",
+                "short": "%b %d",
+                "short_month": "%m/%Y"
+            },
+            "month_names": [
+                "",
+                "january",
+                "february",
+                "march",
+                "april",
+                "may",
+                "june",
+                "july",
+                "august",
+                "september",
+                "october",
+                "november",
+                "december"
+            ],
+            "order": ["month", "day", "year"]
+        },
+        "front-end": {
+            "active_list": { "labels": { "edit": "Edit", "manage_land_parcels": "Manage land parcels", "not_defined": "To define" } },
+            "bank_reconciliation": { "remove": "Remove" },
+            "intervention": {
+                "nature": {
+                    "add_two_hours": "Add two hours if application happened in a close area",
+                    "harvest": "Harvest:",
+                    "reentry": "Reentry:"
+                }
+            },
+            "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels" },
+            "land_parcel": { "create_modal": { "title": "Choose an activity" } },
+            "leaflet": {
+                "cut": { "panel": { "coordinatesProperty": "Coordinates", "surfacesProperty": "Surfaces", "title": "Plot splitting" } },
+                "draw": {
+                    "handlers": {
+                        "circle": { "tooltip": { "start": "Click and drag to draw circle." } },
+                        "circlemarker": { "tooltip": { "start": "Click and drag to draw circlemarker." } },
+                        "marker": { "tooltip": { "start": "Click map to place marker." } },
+                        "polygon": {
+                            "tooltip": {
+                                "cont": "Click to continue drawing shape.",
+                                "end": "Click first point to close this shape.",
+                                "start": "Click to start drawing shape."
+                            }
+                        },
+                        "polyline": {
+                            "error": "\u003cstrong\u003eError:\u003c/strong\u003e shape edges cannot cross!",
+                            "tooltip": {
+                                "cont": "Click to continue drawing line.",
+                                "end": "Click last point to finish line.",
+                                "start": "Click to start drawing line."
+                            }
+                        },
+                        "rectangle": { "tooltip": { "start": "Click and drag to draw rectangle." } },
+                        "simpleshape": { "tooltip": { "end": "Release mouse to finish drawing." } }
+                    },
+                    "panel": { "coordinatesProperty": "Coordinates", "title": "Creation" },
+                    "toolbar": {
+                        "actions": { "text": "Cancel", "title": "Cancel drawing" },
+                        "buttons": {
+                            "circle": "Draw a circle",
+                            "marker": "Draw a marker",
+                            "polygon": "Draw a polygon",
+                            "polyline": "Draw a polyline",
+                            "rectangle": "Draw a rectangle"
+                        },
+                        "undo": { "text": "Delete last point", "title": "Delete last point drawn" }
+                    }
+                },
+                "edit": {
+                    "handlers": {
+                        "edit": {
+                            "tooltip": { "subtext": "Click cancel to undo changes", "text": "Drag handles, or marker to edit feature" }
+                        },
+                        "remove": { "tooltip": { "text": "Click on a feature to remove" } }
+                    },
+                    "panel": { "title": "Editing" },
+                    "toolbar": {
+                        "actions": {
+                            "cancel": { "text": "Cancel", "title": "Cancel editing, discards all changes" },
+                            "clearAll": { "text": "Clear All", "title": "Clear all layers" },
+                            "save": { "text": "Save", "title": "Save changes" }
+                        },
+                        "buttons": {
+                            "edit": "Edit layers",
+                            "editDisabled": "No layers to edit",
+                            "remove": "Delete layers",
+                            "removeDisabled": "No layers to delete"
+                        }
+                    }
+                },
+                "fullscreenControl": { "title": "Fullscreen", "titleCancel": "Exit fullscreen mode" },
+                "fullscreenTitle": "Full Screen",
+                "importer": { "buttonTitle": "Import", "cancelText": "Cancel", "title": "Importer" },
+                "importerButtonTitle": "Import",
+                "interactive_maps": "A JS library for interactive maps",
+                "locking": {
+                    "from_date_html": "from {{from}}\u003cbr\u003e({{production}})",
+                    "from_to_date_html": "from {{from}} to {{to}}\u003cbr\u003e({{production}})",
+                    "label_html": "\u003cp class='title'\u003eUnavailable\u003c/p\u003e\u003cp\u003e{{content}}\u003c/p\u003e",
+                    "to_date_html": "until {{to}}\u003cbr\u003e({{production}})"
+                },
+                "merge": { "panel": { "title": "Plot merging" } },
+                "snap": { "panel": { "surfaceProperty": "Surface" } },
+                "split": {
+                    "handlers": {
+                        "cut": {
+                            "tooltip": { "subtext": "Click cancel to undo changes", "text": "Drag handles, or marker to edit feature" }
+                        },
+                        "remove": { "tooltip": { "text": "Click on a feature to remove" } }
+                    },
+                    "toolbar": {
+                        "actions": {
+                            "cancel": { "text": "Cancel", "title": "Cancel splitting, discards all changes" },
+                            "save": { "text": "Save", "title": "Save changes" }
+                        },
+                        "buttons": { "cutPolyline": "Split a plot" }
+                    }
+                },
+                "zoom": { "zoomInTitle": "Zoom in", "zoomOutTitle": "Zoom out" }
+            },
+            "levels": { "error": "Error!" },
+            "messages": {
+                "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below.",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
+            },
+            "production": {
+                "start_state_of_production": {
+                    "n_2_3_leaf": "N+2 (3rd leaf)",
+                    "n_3_4_leaf": "N+3 (2nd leaf)",
+                    "n_4_5_leaf": "N+4 (5th leaf)"
+                },
+                "zoomGuidance": "Insufficient zoom level",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
+            },
+            "unroll": { "server_error": "Server error" }
+        },
+        "time": {
+            "am": "am",
+            "formats": {
+                "compact": "%m/%d/%Y %H:%M",
+                "default": "%b. %d, %Y at %H:%M:%S",
+                "devise": { "mailer": { "invitation_instructions": { "accept_until_format": "%B %d, %Y %I:%M %p" } } },
+                "full": "%m/%d/%Y %H:%M:%S",
+                "long": "%B %d, %Y %H:%M",
+                "short": "%d %b %H:%M"
+            },
+            "js_formats": { "compact": "MM/DD/YYYY HH:mm", "full": "MM/DD/YYYY HH:mm:ss" },
+            "pm": "pm"
+        }
+    },
+    "fra": {
+        "date": {
+            "abbr_day_names": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+            "abbr_month_names": ["", "janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"],
+            "day_names": ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+            "formats": {
+                "default": "%d/%m/%Y",
+                "legal": "%d %B %Y",
+                "long": "%A %d %B %Y",
+                "month": "%B %Y",
+                "month_letter": "%d %B %Y",
+                "month_name": "%B",
+                "short": "%d %b",
+                "short_month": "%m/%Y"
+            },
+            "month_names": [
+                "",
+                "janvier",
+                "février",
+                "mars",
+                "avril",
+                "mai",
+                "juin",
+                "juillet",
+                "août",
+                "septembre",
+                "octobre",
+                "novembre",
+                "décembre"
+            ],
+            "order": ["day", "month", "year"]
+        },
+        "front-end": {
+            "active_list": {
+                "labels": { "edit": "Modifier", "manage_land_parcels": "Gérer le parcellaire", "not_defined": "A définir" },
+                "zoomGuidance": "Niveau de zoom insuffisant",
+                "zoomInTitle": "Zoomer",
+                "zoomOutTitle": "Dézoomer"
+            },
+            "bank_reconciliation": { "remove": "Effacer" },
+            "intervention": {
+                "nature": {
+                    "add_two_hours": "Ajouter 2h dans le cas d'une application en milieu fermé",
+                    "harvest": "Récolte :",
+                    "reentry": "Réentrée :"
+                }
+            },
+            "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales" },
+            "land_parcel": { "create_modal": { "title": "Choisir une activité" } },
+            "leaflet": {
+                "cut": {
+                    "panel": { "coordinatesProperty": "Coordonnées", "surfacesProperty": "Surfaces", "title": "Découpe de parcelles" }
+                },
+                "draw": {
+                    "handlers": {
+                        "circle": { "tooltip": { "start": "Cliquez et déplacez pour dessiner un cercle." } },
+                        "circlemarker": { "tooltip": { "start": "Cliquez et déplacez pour dessiner un marqueur circulaire." } },
+                        "marker": { "tooltip": { "start": "Cliquez sur la carte pour placer un marqueur." } },
+                        "polygon": {
+                            "tooltip": {
+                                "cont": "Cliquez pour continuer à dessiner une forme.",
+                                "end": "Cliquez sur le dernier point pour fermer cette forme.",
+                                "start": "Cliquez pour commencer à dessiner une forme."
+                            }
+                        },
+                        "polyline": {
+                            "error": "\u003cstrong\u003eErreur:\u003c/strong\u003e Les arrêtes de la forme ne doivent pas se croiser!",
+                            "tooltip": {
+                                "cont": "Cliquez pour continuer à dessiner une ligne.",
+                                "end": "Cliquez sur le dernier point pour terminer la ligne.",
+                                "start": "Cliquez pour commencer à dessiner d’une ligne."
+                            }
+                        },
+                        "rectangle": { "tooltip": { "start": "Cliquez et déplacez pour dessiner un rectangle." } },
+                        "simpleshape": { "tooltip": { "end": "Relachez la souris pour finir de dessiner." } }
+                    },
+                    "panel": { "coordinatesProperty": "Coordonnées", "title": "Création" },
+                    "toolbar": {
+                        "actions": { "text": "Annuler", "title": "Annulez le dessin" },
+                        "buttons": {
+                            "circle": "Dessiner un cercle",
+                            "marker": "Dessiner un marqueur",
+                            "polygon": "Dessiner un polygone",
+                            "polyline": "Dessiner une polyligne",
+                            "rectangle": "Dessiner un rectangle"
+                        },
+                        "finish": { "text": "Terminer", "title": "Terminer le dessin" },
+                        "undo": { "text": "Supprimer le dernier point", "title": "Supprimer le dernier point déssiné" }
+                    }
+                },
+                "edit": {
+                    "handlers": {
+                        "edit": {
+                            "tooltip": {
+                                "subtext": "Cliquez sur Annuler pour revenir sur les changements",
+                                "text": "Déplacez les ancres, ou le marqueur pour éditer l’objet"
+                            }
+                        },
+                        "remove": { "tooltip": { "text": "Cliquez sur l’objet à enlever" } }
+                    },
+                    "panel": { "title": "Edition" },
+                    "toolbar": {
+                        "actions": {
+                            "cancel": { "text": "Annuler", "title": "Annulez l’édition, ignorer tous les changements" },
+                            "clearAll": { "text": "Tout effacer", "title": "Effacez toutes les couches" },
+                            "save": { "text": "Sauver", "title": "Sauvegardez les changements" }
+                        },
+                        "buttons": {
+                            "edit": "Editer les couches",
+                            "editDisabled": "Pas de couches à éditer",
+                            "remove": "Supprimer les couches",
+                            "removeDisabled": "Pas de couches à supprimer"
+                        }
+                    }
+                },
+                "fullscreenControl": { "title": "Plein écran", "titleCancel": "Quitter le mode plein écran" },
+                "fullscreenTitle": "Plein écran",
+                "home": { "toolbar": { "buttons": { "home": "Centrer" } } },
+                "importer": { "buttonTitle": "Importer", "cancelText": "Annuler", "title": "Importer" },
+                "importerButtonTitle": "Importer",
+                "interactive_maps": "Une librairie JavaScript pour des cartes interactives",
+                "locking": {
+                    "from_date_html": "à partir du {{from}}\u003cbr\u003e({{production}})",
+                    "from_to_date_html": "du {{from}} au {{to}}\u003cbr\u003e({{production}})",
+                    "label_html": "\u003cp class='title'\u003eIndisponible\u003c/p\u003e\u003cp\u003e{{content}}\u003c/p\u003e",
+                    "to_date_html": "jusqu'au {{to}}\u003cbr\u003e({{production}})"
+                },
+                "merge": { "panel": { "title": "Fusion de parcelles" } },
+                "snap": { "panel": { "surfaceProperty": "Surface" } },
+                "split": {
+                    "handlers": {
+                        "cut": { "tooltip": { "subtext": "Annuler les changements", "text": "Drag handles, or marker to edit feature" } },
+                        "remove": { "tooltip": { "text": "Click on a feature to remove" } }
+                    },
+                    "toolbar": {
+                        "actions": {
+                            "cancel": { "text": "Annuler", "title": "Annuler les changements" },
+                            "save": { "text": "Sauver", "title": "Sauver les changements" }
+                        },
+                        "buttons": { "cutPolyline": "Découper une parcelle" }
+                    }
+                },
+                "zoom": { "zoomInTitle": "Zoomer", "zoomOutTitle": "Dézoomer" }
+            },
+            "levels": { "error": "Error!" },
+            "messages": {
+                "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below.",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
+            },
+            "notifications": {
+                "levels": { "error": "Erreur !" },
+                "messages": {
+                    "unvalid_cvi_cadastral_plant": "Au moins une référence de parcelle cadastrale n'a pas été reconnue. Veuillez corriger ou supprimer la/les référence(s) identifiée(s) en rouge."
+                },
+                "zoomInTitle": "Zoomer",
+                "zoomOutTitle": "Dézoomer"
+            },
+            "production": {
+                "start_state_of_production": {
+                    "n_2_3_leaf": "N+2 (3ème feuille)",
+                    "n_3_4_leaf": "N+3 (4ème feuille)",
+                    "n_4_5_leaf": "N+4 (5ème feuille"
+                },
+                "zoomGuidance": "Insufficient zoom level",
+                "zoomInTitle": "Zoom in",
+                "zoomOutTitle": "Zoom out"
+            },
+            "unroll": { "server_error": "Erreur serveur" }
+        },
+        "time": {
+            "am": "am",
+            "formats": {
+                "compact": "%d/%m/%Y %H:%M",
+                "default": "%d/%m/%Y %H:%M",
+                "devise": { "mailer": { "invitation_instructions": { "accept_until_format": "%d %B %Y %kh%M" } } },
+                "full": "%d/%m/%Y à %H:%M:%S",
+                "long": "%A %d %B %Y à %H:%M",
+                "short": "%d %b %H:%M",
+                "time": "%H:%M"
+            },
+            "js_formats": { "compact": "DD/MM/YYYY HH:mm", "full": "DD/MM/YYYY HH:mm:ss" },
+            "pm": "pm"
+        }
+    }
+}

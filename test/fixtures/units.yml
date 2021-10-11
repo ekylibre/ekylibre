@@ -1,0 +1,67 @@
+units_001:
+  base_unit_id: 1
+  coefficient: 1.0
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  id: 1
+  name: Kilogramme
+  reference_name: kilogram
+  symbol: kg
+  dimension: mass
+  type: ReferenceUnit
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+units_002:
+  base_unit_id: 2
+  coefficient: 1.0
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  id: 2
+  name: Litre
+  reference_name: liter
+  symbol: l
+  dimension: volume
+  type: ReferenceUnit
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+units_003:
+  base_unit_id: 3
+  coefficient: 1.0
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  id: 3
+  name: Unité
+  reference_name: unity
+  symbol: .
+  dimension: none
+  type: ReferenceUnit
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+units_004:
+  base_unit_id: 4
+  coefficient: 1.0
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  id: 4
+  name: Mètre carré
+  reference_name: square_meter
+  symbol: m²
+  dimension: surface_area
+  type: ReferenceUnit
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+units_005:
+  base_unit_id: 4
+  coefficient: 10000.0
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  id: 5
+  name: Hectare
+  reference_name: hectare
+  symbol: ha
+  dimension: surface_area
+  type: ReferenceUnit
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+units_006:
+  base_unit_id: 1
+  coefficient: 1000.0
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  id: 6
+  name: Tonne
+  reference_name: ton
+  symbol: t
+  dimension: mass
+  type: ReferenceUnit
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+

@@ -56,6 +56,7 @@ module Backend
       t.column :global_balance
       t.column :description, hidden: true
       t.status
+      t.column :state_label, hidden: true
     end
 
     def index
@@ -75,17 +76,19 @@ module Backend
 
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::VatRegisterPrinter', template: template, perform_as: current_user, **dataset_params)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: root_path)
         end
 
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:vat_register)
+
           printer = Printers::VatRegisterPrinter.new(template: template, **dataset_params)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
@@ -101,16 +104,18 @@ module Backend
         end
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
+
           PrinterJob.perform_later('Printers::PendingVatRegisterPrinter', template: template, tax_declaration: @tax_declaration, perform_as: current_user)
           notify_success(:document_in_preparation)
-          redirect_to :back
+          redirect_back(fallback_location: { action: :index })
         end
         format.csv do
           return unless template = DocumentTemplate.find_by_nature(:pending_vat_register)
+
           printer = Printers::PendingVatRegisterPrinter.new(template: template, tax_declaration: @tax_declaration)
           csv_string = CSV.generate(headers: true) do |csv|
-                         printer.run_csv(csv)
-                       end
+            printer.run_csv(csv)
+          end
           send_data csv_string, filename: "#{printer.document_name}.csv"
         end
       end
@@ -118,15 +123,25 @@ module Backend
 
     def new
       financial_year = FinancialYear.find(params[:financial_year_id])
+      tax_start = financial_year.next_tax_declaration_on
+      if tax_start
+        tax_stop = financial_year.tax_declaration_stopped_on(tax_start)
+        tax_stop = financial_year.stopped_on if tax_stop > financial_year.stopped_on
+      end
+      sales_order = Sale.order_between(tax_start, tax_stop)
+
       if financial_year.tax_declaration_mode_none?
         redirect_to params[:redirect] || { action: :index }
       elsif !financial_year.previous_consecutives?
         notify_error :financial_years_missing
         redirect_to params[:redirect] || { action: :index }
+      elsif sales_order.any?
+        notify_sales_order(sales_order)
+        redirect_to params[:redirect] || { action: :index }
       elsif financial_year.missing_tax_declaration?
         TaxDeclarationJob.perform_later(financial_year, current_user)
         notify_success(:vat_declaration_in_preparation)
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
       else
         notify_error :all_tax_declarations_have_already_existing
         redirect_to params[:redirect] || { action: :index }
@@ -135,14 +150,35 @@ module Backend
 
     def propose
       return unless @tax_declaration = find_and_check
+
       @tax_declaration.propose
       redirect_to action: :show, id: @tax_declaration.id
     end
 
     def confirm
       return unless @tax_declaration = find_and_check
+
       @tax_declaration.confirm
       redirect_to action: :show, id: @tax_declaration.id
     end
+
+    private
+
+      def notify_sales_order(sales_order)
+        sales = sales_order.map{|sale_order| helpers.link_to("#{:sale.tl} : #{sale_order.number}", backend_sale_path(sale_order))}
+        return if sales.empty?
+
+        notify_error(:tax_declaration_sales_order.tl(x: as_list(sales)), html: true)
+      end
+
+      # @param [Array<String>] elements
+      # @return [String] HTML representation of a list that contains all the elements in `elements`
+      def as_list(elements)
+        helpers.content_tag(:ul) do
+          elements.map do |element|
+            helpers.content_tag(:li, element)
+          end.join.html_safe
+        end
+      end
   end
 end

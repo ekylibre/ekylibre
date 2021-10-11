@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 # This object allow printing the general ledger
 module Printers
   class VatRegisterPrinter < PrinterBase
-
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(started_on:, stopped_on:, state:)
@@ -13,6 +14,7 @@ module Printers
 
     def initialize(*_args, state:, period:, started_on:, stopped_on:, template:, **_options)
       super(template: template)
+
       @state = state
       @period = period
       @started_on = started_on
@@ -24,13 +26,15 @@ module Printers
     end
 
     def document_name
-      "#{@template.nature.human_name} (#{humanized_period})"
+      "#{template.nature.human_name} (#{humanized_period})"
     end
 
     def humanized_period
       return :on_all_exercises.tl if @period == 'all'
+
       financial_year = FinancialYear.find_by(started_on: Date.parse(@started_on), stopped_on: Date.parse(@stopped_on))
       return financial_year.code if financial_year
+
       I18n.translate('labels.from_to_date', from: Date.parse(@started_on).l, to: Date.parse(@stopped_on).l)
     end
 
@@ -80,39 +84,36 @@ module Printers
       vat_dataset.compact
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
       data_filters = dataset.pop
 
-      generate_report(@template_path) do |r|
+      e = Entity.of_company
+      company_name = e.full_name
+      company_address = e.default_mail_address&.coordinate
 
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'PERIOD', humanized_period
+      r.add_field 'DATE', Date.today.l
+      r.add_field 'STARTED_ON', @started_on.to_date.l
+      r.add_field 'STOPPED_ON', @stopped_on.to_date.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'PERIOD', humanized_period
-        r.add_field 'DATE', Date.today.l
-        r.add_field 'STARTED_ON', @started_on.to_date.l
-        r.add_field 'STOPPED_ON', @stopped_on.to_date.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'DATA_FILTERS', data_filters * ' | '
-
-        r.add_table('Tableau1', dataset, header: true) do |t|
-          t.add_column(:entry_id) { |item| item[:entry_id] }
-          t.add_column(:entry_number) { |item| item[:entry_number] }
-          t.add_column(:entry_printed_on) { |item| item[:entry_printed_on] }
-          t.add_column(:entry_item_account_number) { |item| item[:entry_item_account_number] }
-          t.add_column(:entry_item_account_name) { |item| item[:entry_item_account_name] }
-          t.add_column(:entry_item_name) { |item| item[:entry_item_name] }
-          t.add_column(:entry_item_debit) { |item| item[:entry_item_debit] }
-          t.add_column(:entry_item_credit) { |item| item[:entry_item_credit] }
-          t.add_column(:tax_amount) { |item| item[:tax_amount] }
-          t.add_column(:pretax_amount) { |item| item[:pretax_amount] }
-          t.add_column(:tax_account) { |item| item[:tax_account] }
-        end
+      r.add_table('Tableau1', dataset, header: true) do |t|
+        t.add_column(:entry_id) { |item| item[:entry_id] }
+        t.add_column(:entry_number) { |item| item[:entry_number] }
+        t.add_column(:entry_printed_on) { |item| item[:entry_printed_on] }
+        t.add_column(:entry_item_account_number) { |item| item[:entry_item_account_number] }
+        t.add_column(:entry_item_account_name) { |item| item[:entry_item_account_name] }
+        t.add_column(:entry_item_name) { |item| item[:entry_item_name] }
+        t.add_column(:entry_item_debit) { |item| item[:entry_item_debit] }
+        t.add_column(:entry_item_credit) { |item| item[:entry_item_credit] }
+        t.add_column(:tax_amount) { |item| item[:tax_amount] }
+        t.add_column(:pretax_amount) { |item| item[:pretax_amount] }
+        t.add_column(:tax_account) { |item| item[:tax_account] }
       end
     end
 
@@ -136,21 +137,21 @@ module Printers
       ]
 
       dataset.each do |item|
-          csv << [
-            item[:entry_id],
-            item[:entry_number],
-            item[:entry_printed_on],
-            item[:entry_month_name],
-            item[:entry_item_account_number],
-            item[:entry_item_account_name],
-            item[:entry_item_name],
-            item[:entry_item_debit],
-            item[:entry_item_credit],
-            item[:tax_amount],
-            item[:pretax_amount],
-            item[:tax_name],
-            item[:tax_account]
-          ]
+        csv << [
+          item[:entry_id],
+          item[:entry_number],
+          item[:entry_printed_on],
+          item[:entry_month_name],
+          item[:entry_item_account_number],
+          item[:entry_item_account_name],
+          item[:entry_item_name],
+          item[:entry_item_debit],
+          item[:entry_item_credit],
+          item[:tax_amount],
+          item[:pretax_amount],
+          item[:tax_name],
+          item[:tax_account]
+        ]
       end
     end
   end

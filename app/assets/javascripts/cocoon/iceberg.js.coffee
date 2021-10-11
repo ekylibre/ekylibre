@@ -112,6 +112,8 @@
               value = ""
           else
             value = target.val()
+        else if target.is('[data-interpolate-data-attribute]')
+          value = target.data('interpolate-data-attribute')
         else
           value = target.html()
         element.html(value)
@@ -166,19 +168,21 @@
     interpolateStoring: ->
       zones = []
       form = if @newForm().length > 0 then @newForm() else @oldForm()
+
       form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
-          unit: $(this).find('.storage-unit-name').val()
-          name: $(this).find('input.hidden').val()
+          unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
+          name: $(this).find('input.parcel-item-storage').data('storage-name')
+
+      form.find('.role-row--non-merchandise').each ->
+        zones.push
+          quantity: $(this).find('input.reception-quantity').val()
+          unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
+
       data = zones: zones
 
-      unless @vm?
-        @vm = new Vue {
-          el: @line.find('#storing-display')[0]
-          data: data
-        }
-      @vm.$data.zones = zones
+      @line.find('#storing-display').html(storing_display_template(zones))
 
     retrievePreviousItemValue: ->
       line = @line
@@ -191,6 +195,15 @@
         for item in Object.keys(input_values_hash)
           line.find('*[data-remember=' + item + ']').val(input_values_hash[item])
 
+  storing_display_template = (zones) =>
+    zones.map((zone) =>
+      """
+        <p>
+          <strong class="storage-quantity">#{zone.quantity} #{zone.unit}</strong>
+          <span class="storage-zone">#{zone.name}</span>
+        </p>
+      """
+      ).reduce(((a, b) -> a + b), '')
 
   $(document).ready ->
     $('*[data-iceberg]').each ->

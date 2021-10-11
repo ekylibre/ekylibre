@@ -191,6 +191,7 @@ module Clean
           yield content
         end
         return content if mod.nil?
+
         code = "module #{mod}\n"
         code << content.dig
         code << 'end'

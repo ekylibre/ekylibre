@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +27,7 @@
 #
 #  allowed_entry_factor     :interval
 #  allowed_harvest_factor   :interval
+#  applications_frequency   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -36,6 +39,7 @@
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string
+#  imputation_ratio         :decimal(19, 4)   default(1), not null
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -50,14 +54,16 @@
 #  quantity_population      :decimal(19, 4)
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
+#  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  usage_id                 :string
+#  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
-#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -77,6 +83,8 @@ class InterventionAgent < InterventionProductParameter
   end
 
   def cost_amount_computation(nature: nil, natures: {})
+    # compute a unit price for a doer(worker) or an equipment only in time dimension (base unit : second)
+    # TODO Add computation from worker contract
     return InterventionParameter::AmountComputation.failed unless product
 
     quantity = if natures.empty?
@@ -85,27 +93,28 @@ class InterventionAgent < InterventionProductParameter
                  natures_quantity(natures)
                end
 
-    unit_name = Nomen::Unit.find(:hour).human_name
+    unit_name = Onoma::Unit.find(:hour).human_name
     unit_name = unit_name.pluralize if quantity > 1
+    # use hour_equipment unit for equipment and hour unit for other (doer, service...)
+    unit = self.is_a?(InterventionTool) ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour_worker)
 
     catalog_item =
-      begin
         if nature.present? && nature != :intervention
-          product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").first.catalog.usage
+          product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': "#{nature}_cost")&.first&.catalog&.usage
+        elsif nature.present? && nature == :intervention
+          product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': 'cost')&.first&.catalog&.usage
         else
-          product.variant.catalog_items.joins(:catalog).where('catalogs.usage': 'cost').first.catalog.usage
+          'cost'
         end
-      rescue
-        catalog_usage
-      end
 
     options = {
       catalog_usage: catalog_item,
       quantity: quantity.to_d,
-      unit_name: unit_name
+      unit_name: unit_name,
+      unit: unit
     }
 
-    options[:catalog_item] = product.default_catalog_item(options[:catalog_usage])
+    options[:catalog_item] = product.default_catalog_item(options[:catalog_usage], intervention.started_at, options[:unit], :dimension)
     InterventionParameter::AmountComputation.quantity(:catalog, options)
   end
 

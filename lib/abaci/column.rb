@@ -18,13 +18,14 @@ module Abaci
                 :string
               end
       if type =~ /r\(\w+\)/
-        @references = Nomen[type[2..-2]] || raise("Cannot find #{type}")
+        @references = Onoma[type[2..-2]] || raise("Cannot find #{type}")
       end
     end
 
     # Cast value from string
     def cast(value)
       return nil if value.blank?
+
       if @type == :decimal
         value.to_d
       elsif @type == :integer

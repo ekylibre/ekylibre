@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -501,7 +501,7 @@ shipments_002:
   pretax_amount: 0.0
   recipient_id: 11
   remain_owner: false
-  state: given
+  state: draft
   transporter_id: 4
   type: Shipment
   updated_at: 2014-11-05 15:14:00.962449000 Z

@@ -1,0 +1,9 @@
+#new_financial_year_exchange, #edit_financial_year_exchange {
+  .journal_ids {
+    display: flex;
+    flex-direction: column;
+    .journal_check_box {
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -16,18 +16,18 @@ namespace :db do
 
   if Rails.env.development?
     task reinit: :environment do
-      Lexicon.disable!
-
-      schema_whitelist = ['information_schema', 'postgis', Lexicon::DISABLED_SCHEMA].freeze
-      schemas = Ekylibre::Record::Base.connection
-                  .execute("SELECT schema_name FROM information_schema.schemata")
-                  .to_a
-                  .map { |h| h['schema_name'] }
-                  .reject {|schema| schema_whitelist.include?(schema) || schema =~ /^pg_/ }
+      schema_whitelist = %w[information_schema postgis].freeze
+      schemas = ApplicationRecord.connection
+                                 .execute("SELECT schema_name FROM information_schema.schemata")
+                                 .to_a
+                                 .map { |h| h['schema_name'] }
+                                 .reject { |schema| schema_whitelist.include?(schema) || schema =~ /^pg_/ || schema =~ /^lexicon/ }
 
       schemas.each do |schema|
-        Ekylibre::Record::Base.connection.execute("DROP SCHEMA \"#{schema}\" CASCADE")
+        ApplicationRecord.connection.execute("DROP SCHEMA \"#{schema}\" CASCADE")
       end
+
+      ApplicationRecord.connection.execute("CREATE SCHEMA \"public\"")
 
       Rake::Task['tenant:clear'].invoke
       Rake::Task['db:migrate'].invoke

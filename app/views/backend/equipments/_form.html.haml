@@ -2,3 +2,5 @@
   = field_set :identification do
     = f.picture
     = f.input :description
+    - if AnalyticSegment.where(name: 'equipments').exists?
+      = f.input :isacompta_analytic_code

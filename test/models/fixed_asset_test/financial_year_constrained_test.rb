@@ -2,7 +2,6 @@ require 'test_helper'
 
 module FixedAssetTest
   class FinancialYearConstrainedTest < Ekylibre::Testing::ApplicationTestCase
-
     test 'depreciations periods are computed correctly when the FinancialYear does not start the first day of the year' do
       create :financial_year, year: 2017, month: 3
 
@@ -10,7 +9,6 @@ module FixedAssetTest
 
       assert fa.depreciations.to_a.all? { |dep| dep.started_on.month == 3 }, "All depreciations periods should start on the same month as the begining of the FinancialYear"
     end
-
 
     test 'on_unclosed_periods? with closed journal' do
       create :financial_year, year: 2018
@@ -33,6 +31,5 @@ module FixedAssetTest
       assert fa.journal.closed_on < fa.started_on
       assert fa.on_unclosed_periods?
     end
-
   end
 end

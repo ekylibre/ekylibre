@@ -1,4 +1,4 @@
-class AddOpportunityColumnsInAffairs < ActiveRecord::Migration
+class AddOpportunityColumnsInAffairs < ActiveRecord::Migration[4.2]
   def change
     change_table :affairs do |t|
       t.references :responsible, index: true

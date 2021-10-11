@@ -21,6 +21,8 @@ module NotificationModule
       notification_message = translate_message_if_necessary(message, options)
 
       notistore = get_store(mode)
+      return if notistore[:notifications]&.[](nature.to_s)&.find { |n| n == notification_message }&.present?
+
       notifications = (notistore[:notifications] || {}).symbolize_keys
       notistore[:notifications] = { **notifications, nature => [*notifications.fetch(nature, []), notification_message] }.stringify_keys
     end
@@ -54,21 +56,27 @@ module NotificationModule
     end
 
     def has_notifications?(nature = nil)
-      return false unless flash[:notifications].is_a? Hash
-      if nature.nil?
-        for nature, messages in flash[:notifications]
-          return true if messages.any?
+      if flash[:notifications].is_a?(Hash)
+        if nature.nil?
+          flash[:notifications].keys.any? { |n| has_nature_notification?(n) }
+        else
+          has_nature_notification?(nature)
         end
-      elsif flash[:notifications][nature].is_a?(Array)
-        return true if flash[:notifications][nature].any?
+      else
+        false
       end
-      false
     end
 
   private
 
+    def has_nature_notification?(nature)
+      flash[:notifications][nature].is_a?(Array) && flash[:notifications][nature].any?
+    end
+
     def translate_message_if_necessary(message, options)
-      if message.is_a? String
+      if message.nil?
+        nil
+      elsif message.is_a? String
         message
       else
         ScopedTranslationHelper.with_i18n_scope :notifications, :messages, replace: true do
@@ -80,5 +88,4 @@ module NotificationModule
     def get_store(mode)
       mode == :now ? flash.now : flash
     end
-
 end

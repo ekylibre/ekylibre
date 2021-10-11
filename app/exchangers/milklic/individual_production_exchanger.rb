@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Milklic
   class IndividualProductionExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :milklic
+
     def import
       analyser_attributes = YAML.load_file(File.join(File.dirname(__FILE__), 'entity.yml'))
 
@@ -26,8 +31,9 @@ module Milklic
 
         # if an animal exist
         if animal = Animal.find_by(work_number: r.animal_work_number)
-          for i in 4..25
+          (4..25).each do |i|
             next unless row[i] && row.headers[i]
+
             milk_daily_production_measure = row[i].tr(',', '.').to_d.in_kilogram_per_day
             milk_daily_production_at = Date.strptime(row.headers[i], '%d/%m/%y').to_time
             reference_number = cattling_number + '-L' + r.animal_lactation_number.to_s + '-C' + milk_daily_production_at.month.to_s

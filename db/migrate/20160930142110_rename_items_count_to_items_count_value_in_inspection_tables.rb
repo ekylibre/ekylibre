@@ -1,4 +1,4 @@
-class RenameItemsCountToItemsCountValueInInspectionTables < ActiveRecord::Migration
+class RenameItemsCountToItemsCountValueInInspectionTables < ActiveRecord::Migration[4.2]
   def change
     rename_column :inspection_points, :items_count, :items_count_value
     rename_column :inspection_calibrations, :items_count, :items_count_value

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Products
   class SearchVariantByExpressionQuery
     def self.call(relation, scope, input_text, max)

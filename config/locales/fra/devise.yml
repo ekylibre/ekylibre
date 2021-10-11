@@ -20,6 +20,7 @@ fra:
       edit:
         header: "Enregistrer votre mot de passe"
         submit_button: "Enregistrer votre mot de passe"
+        sign_in_with_ekylibre: "Connexion avec Ekylibre.com"
       invitation_removed: "Votre invitation a été supprimée."
       invitation_token_invalid: "Le jeton d’invitation fourni n’est pas valide !"
       new:

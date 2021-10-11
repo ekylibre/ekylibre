@@ -1,4 +1,4 @@
-class PrinterJob < ActiveJob::Base
+class PrinterJob < ApplicationJob
   queue_as :default
   include Rails.application.routes.url_helpers
 
@@ -6,19 +6,22 @@ class PrinterJob < ActiveJob::Base
 
     def perform(printer_class, *args, template:, perform_as:, **options)
       begin
+        generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+        archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+
         printer = printer_class.constantize.new(*args, template: template, **options)
+        pdf_data = generator.generate_pdf(template: template, printer: printer)
 
-        pdf_data = printer.run_pdf
-
-        document = printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+        document = archiver.archive_document(pdf_content: pdf_data, template: template, key: printer.key, name: printer.document_name)
 
         perform_as.notifications.create!(success_notification_params(document.id))
 
         pdf_data
       rescue StandardError => error
-        Rails.logger.error $!
-        Rails.logger.error $!.backtrace.join("\n")
-        ExceptionNotifier.notify_exception($!, data: { message: error })
+        Rails.logger.error error
+        Rails.logger.error error.backtrace.join("\n")
+        ExceptionNotifier.notify_exception(error, data: { message: error })
+        ElasticAPM.report(error)
         perform_as.notifications.create!(error_notification_params(template.nature, error.message))
       end
     end
@@ -46,5 +49,4 @@ class PrinterJob < ActiveJob::Base
         interpolations: {}
       }
     end
-
 end

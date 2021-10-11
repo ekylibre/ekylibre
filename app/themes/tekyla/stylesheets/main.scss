@@ -107,16 +107,6 @@ i.icon {
 
   #parts {
     overflow: hidden;
-    li#settings-part {
-      a {
-        font-size: 0;
-        i {
-          @include is-icon($topbar-icon-size);
-          @include use-icon(wrench);
-          line-height: $topbar-height;
-        }
-      }
-    }
   }
 
   @media only screen and (max-width: $mini-screen){
@@ -568,8 +558,8 @@ html.exception {
   .toolbar + & {
     @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height} - 1px");
   }
-  .flash + & {
-    height: unset;
+  .toolbar + .flash + & {
+    @include calc(height, "100vh - #{$header-height + $topbar-height + $chat-btn-height + $toolbar-height + $lh-normal + $default-gap * 4}");
   }
 }
 
@@ -794,6 +784,11 @@ form.search {
   @include text-align(center);
   margin: 0 $default-gap;
   padding: $default-gap;
+  & i.default-zip {
+    font-size: 5em;
+    display: block;
+    margin: 0.5em;
+  }
   &.picture-identity {
     min-height: 180px;
     min-width: 180px;
@@ -888,6 +883,7 @@ form.search {
       // margin: 0 1% $default-gap;
       @include float(left);
     }
+    
     &--flex {
       display: inline-flex;
 
@@ -993,6 +989,11 @@ form.search {
       .checkbox-true, .checkbox-false {
         display: inline;
         vertical-align: middle;
+      }
+      &.text-ellipsis {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
     }
   }
@@ -1289,6 +1290,7 @@ html.backend {
   // margin: 0 0 $default-gap;
   padding: 0;
   background: $background-color; // mix(white, #CE0, 80%);
+  position: relative;
   @include clearfix;
   $line-height: $lh-normal;
   .feathers {
@@ -1299,9 +1301,35 @@ html.backend {
       padding: round($default-gap * 0.6) 0 0;
       margin-top: round($default-gap * 0.6);
       vertical-align: middle;
-      text-align: center;
+      // text-align: center;
       line-height: $line-height;
       min-height: $line-height;
+      .feather-block {
+        display: flex;
+        .label-container {
+          text-align: right;
+          width: 40%;
+          padding: 0px 42px;
+        }
+        .value-container {
+          span.radio {
+            display: inline-block;
+            margin-left: 0;
+          }
+        }
+
+        .value-container--journal-nature-crit {
+          max-width: 49%;
+        }
+
+        .select-block--intervention {
+          max-width: 49%;
+          select#activity_id {
+            width: 70%;
+          }
+        }
+      }
+
       label { color: $color; }
       .btn-filter {
         display: none;
@@ -1330,19 +1358,21 @@ html.backend {
     background: lighten($active-color, 20%);
   }
   a[data-toggle="kujaku"] {
-    @include float(right);
-    margin: $default-gap $default-gap * $default-ratio;
+    position: absolute;
+    top: $default-gap;
+    right: $default-gap;
     i {
       @include is-icon;
-      @include use-icon(minus-square-o);
+      @include use-icon(filter-list);
       color: $color;
       line-height: $line-height;
       vertical-align: middle;
+      transform:rotate(180deg);
     }
   }
   &.collapsed {
     a[data-toggle="kujaku"] i {
-      @include use-icon(plus-square-o);
+      transform:rotate(0deg);
     }
     .feathers {
       .feather {
@@ -1379,9 +1409,6 @@ html.backend {
     width: auto;
   }
 }
-
-
-
 
 .ui-dialog {
   position: absolute;
@@ -1772,6 +1799,36 @@ a[data-remove-closest], a[data-remove] {
   }
 }
 
+.sale-items-table{
+  table-layout:fixed;
+  width: 97%;
+  thead > tr > td {
+    max-width: calc((100% - 120px));
+    overflow: hidden;
+  }
+  .baby{
+    width: 1%;
+  }
+  .small-sale-item{
+    width: 5%;
+  }
+  .medium{
+    width: 7%;
+  }
+  .variant{
+    width: 150px;
+  }
+  .taxes{
+    width: 220px;
+  }
+  .conditioning{
+    width: 10%;
+  }
+}
+
+.fixed-hdpx-width{
+  width: 100px;
+}
 
 .remove-item {
   font-size: 0;
@@ -2652,6 +2709,11 @@ a[data-annotate] {
       }
       .cobble-body {
         // padding: $default-gap;
+        .list-footer-pagination { 
+          padding: 8px;
+          padding-right: 14px;
+          float: right;
+        }
         .cobble-toolbar {
           .list-pagination {
             float: none;
@@ -2681,6 +2743,7 @@ a[data-annotate] {
         }
         .cobble-end {
           clear: both;
+          padding-top: 8px;
         }
       }
       &.cobble-placeholder {
@@ -2773,6 +2836,10 @@ a[data-annotate] {
 
 .fieldset .fieldset-fields tr.nested-fields input.numeric, .fieldset .fieldset-fields tbody.nested-fields input.numeric {
   width: 5em;
+}
+
+.fieldset .fieldset-fields tr.nested-fields input.lg-numeric, .fieldset .fieldset-fields tbody.nested-fields input.lg-numeric {
+  width: 10em;
 }
 
 .smr {

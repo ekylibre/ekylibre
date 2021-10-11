@@ -5,15 +5,15 @@ module Ekylibre
         def run
           # interventions for all poaceae
           autumn_sowables = %i[poa hordeum_hibernum secale triticosecale triticum brassica_napus pisum_hibernum].collect do |n|
-            Nomen::Variety[n]
+            Onoma::Variety[n]
           end
 
           # spring_sowables = %i[hordeum_vernum pisum_vernum helianthus].collect do |n|
-          #   Nomen::Variety[n]
+          #   Onoma::Variety[n]
           # end
 
           later_spring_sowables = [:zea].collect do |n|
-            Nomen::Variety[n]
+            Onoma::Variety[n]
           end
 
           GC.start
@@ -35,14 +35,17 @@ module Ekylibre
             }
             ActivityProduction.joins(:activity).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.cultivation_variety]
+
+              variety = Onoma::Variety[production.cultivation_variety]
               if autumn_sowables.detect { |v| variety <= v }
                 year = production.campaign.name.to_i
                 Ekylibre::FirstRun::Booker.production = production
                 production.supports.joins(:storage, :activity).find_each do |support|
                   next unless support.active?
+
                   land_parcel = support.storage
                   next unless area = land_parcel.shape_area
+
                   coeff = (area.to_s.to_f / 10_000.0) / 6.0
                   # 7.99 -> 20.11 -> 40.21
 
@@ -126,14 +129,17 @@ module Ekylibre
             }
             Production.joins(:variant, :activity, :campaign).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.variant.variety]
+
+              variety = Onoma::Variety[production.variant.variety]
               if later_spring_sowables.detect { |v| variety <= v }
                 year = production.campaign.name.to_i
                 Ekylibre::FirstRun::Booker.production = production
                 production.supports.joins(:activity, :storage).find_each do |support|
                   next unless support.active?
+
                   land_parcel = support.storage
                   next unless area = land_parcel.shape_area
+
                   coeff = (area.to_s.to_f / 10_000.0) / 6.0
 
                   # Plowing 15-03-N -> 15-04-N
@@ -204,12 +210,15 @@ module Ekylibre
             a = Activity.of_families(:maize_crops)
             Production.of_activities(a).where(irrigated: true).joins(:activity, :campaign).find_each do |production|
               next unless production.active?
+
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
               production.supports.joins(:storage, :activity).find_each do |support|
                 next unless support.active?
+
                 land_parcel = support.storage
                 next unless area = land_parcel.shape_area
+
                 coeff = (area.to_s.to_f / 10_000.0) / 6.0
 
                 if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
@@ -232,14 +241,18 @@ module Ekylibre
           count :grass_interventions do |w|
             Production.joins(:variant, :activity, :campaign).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.variant.variety]
+
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :poa
+
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
               production.supports.joins(:storage, :activity).find_each do |support|
                 next unless support.active?
+
                 land_parcel = support.storage
                 next unless area = land_parcel.shape_area
+
                 coeff = (area.to_s.to_f / 10_000.0) / 6.0
                 bob = nil
                 sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 6, 6)).order('stopped_at DESC').first
@@ -275,14 +288,18 @@ module Ekylibre
           count :cereals_interventions do |w|
             Production.joins(:variant, :activity, :campaign).find_each do |production|
               next unless production.active?
-              variety = Nomen::Variety[production.variant.variety]
+
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :triticum_aestivum || variety <= :triticum_durum || variety <= :zea || variety <= :hordeum
+
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
               production.supports.joins(:storage, :activity).find_each do |support|
                 next unless support.active?
+
                 land_parcel = support.storage
                 next unless area = land_parcel.shape_area
+
                 coeff = (area.to_s.to_f / 10_000.0) / 6.0
                 # Harvest 01-07-M 30-07-M
                 sowing = support.interventions.where(reference_name: 'sowing').where('started_at < ?', Date.civil(year, 7, 1)).order('stopped_at DESC').first
@@ -310,12 +327,14 @@ module Ekylibre
             workers = Worker.all
             products = Product.where(variety: 'preparation').can('care(bos)').all
             Production.joins(:variant, :campaign).find_each do |production|
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :bos
+
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
               production.supports.joins(:storage).find_each do |support|
                 next unless support.storage.is_a?(AnimalGroup)
+
                 support.storage.members_at.find_each do |animal|
                   Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_treatment-0-1-readhealth' => 'false' } }) do |i|
                     i.add_cast(reference_name: 'animal',           actor: animal)
@@ -343,12 +362,14 @@ module Ekylibre
               break
             end
             Production.joins(:variant, :campaign).find_each do |production|
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :bos && production.variant.sex == 'female'
+
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
               production.supports.joins(:storage).find_each do |support|
                 next unless support.storage.is_a?(AnimalGroup)
+
                 support.storage.members_at.find_each do |animal|
                   Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: { readings: { 'base-animal_artificial_insemination-0-1-readstate' => 'heat', 'base-animal_artificial_insemination-0-1-readhealth' => 'true', 'base-animal_artificial_insemination-0-1-readembryo' => 'false' } }) do |i|
                     i.add_cast(reference_name: 'animal',       actor: animal)
@@ -365,12 +386,14 @@ module Ekylibre
 
           count :wine_interventions do |w|
             Production.joins(:variant, :campaign).find_each do |production|
-              variety = Nomen::Variety[production.variant.variety]
+              variety = Onoma::Variety[production.variant.variety]
               next unless variety <= :wine
+
               year = production.campaign.name.to_i
               Ekylibre::FirstRun::Booker.production = production
               production.supports.joins(:storage).find_each do |support|
                 next unless support.storage.contents.count > 0
+
                 Ekylibre::FirstRun::Booker.intervene(:complete_wine_transfer, year - 1, 9, 15, 0.5, support: support) do |i|
                   i.add_cast(reference_name: 'tank',             actor: support.storage)
                   i.add_cast(reference_name: 'wine',             actor: support.storage.contents.first)

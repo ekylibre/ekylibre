@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NamingFormats
   module LandParcels
     class BuildExampleInteractor
@@ -18,7 +20,8 @@ module NamingFormats
                    .new(cultivable_zone: CultivableZone.first,
                         activity: Activity.first,
                         campaign: Campaign.first,
-                        season: ActivitySeason.first)
+                        season: ActivitySeason.first,
+                        free_field: "[#{I18n.t('free_field', scope: 'enumerize.naming_format_field_land_parcel.field_name', locale: Preference[:language])}]")
                    .perform(field_values: @field_values)
       rescue StandardError => exception
         fail!(exception.message)
@@ -34,9 +37,9 @@ module NamingFormats
 
       private
 
-      def fail!(error)
-        @error = error
-      end
+        def fail!(error)
+          @error = error
+        end
     end
   end
 end

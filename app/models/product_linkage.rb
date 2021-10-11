@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +41,7 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-class ProductLinkage < Ekylibre::Record::Base
+class ProductLinkage < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :carrier, class_name: 'Product'
@@ -49,8 +51,8 @@ class ProductLinkage < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :carrier, :nature, :point, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(product_linkage) { product_linkage.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(product_linkage) { product_linkage.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :carried, presence: { if: :occupied? }
 
@@ -67,8 +69,8 @@ class ProductLinkage < Ekylibre::Record::Base
 
   private
 
-  # Returns all siblings in the chronological line
-  def siblings
-    carrier&.linkages&.with(point) || ProductLinkage.none
-  end
+    # Returns all siblings in the chronological line
+    def siblings
+      carrier&.linkages&.with(point) || ProductLinkage.none
+    end
 end

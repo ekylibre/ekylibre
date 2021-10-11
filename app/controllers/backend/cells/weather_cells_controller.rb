@@ -3,12 +3,14 @@ module Backend
     class WeatherCellsController < Backend::Cells::BaseController
       def show
         openweathermap_api_key = Identifier.find_by(nature: :openweathermap_api_key)
-        weather_client = OpenWeatherMapClient.from_identifier openweathermap_api_key
+        weather_client = OpenWeatherMapClient.from_identifier(openweathermap_api_key, current_user)
 
-        coordinates = params[:centroid]
-
-        # We try to get weather from cultivable zones
-        coordinates ||= CultivableZone.geom_union(:shape).centroid
+        coordinates = if params[:centroid]
+                        params[:centroid]
+                      else
+                        geom_centroid = CultivableZone.geom_union_centroid(:shape)
+                        geom_centroid.present? ? [geom_centroid.y, geom_centroid.x] : nil
+                      end
 
         # We use the 5days forecast free from openwheathermap
         if coordinates.present?
@@ -36,7 +38,7 @@ module Backend
               {
                 at: Time.zone.at(day[:dt]),
                 temperatures: %i[temp temp_min temp_max].reduce({}) do |hash, key|
-                  { **hash, key => day[:main].fetch(key, 0).in_kelvin }
+                  { **hash, key => day[:main].fetch(key, 0).in_celsius }
                 end,
                 # pressure: day.fetch(:main, {})[:pressure].in_hectopascal,
                 humidity: day.fetch(:main, {}).fetch(:humidity, 0).in_percent,

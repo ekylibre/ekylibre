@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Interventions
   module Phytosanitary
     class ProductApplicationValidator
-
       # @param [Array<Models::ProductWithUsage>] products_usages
       # @return [Models::ProductApplicationResult]
       def validate(products_usages)
@@ -28,6 +29,7 @@ module Interventions
         end
 
         # @param [Product] product
+        # @param [Campaign] current_campaign
         # @return [Array<Intervention>]
         def get_interventions_with_same_phyto(product, current_campaign)
           Intervention.of_campaigns(*[current_campaign, current_campaign.previous, current_campaign.following].compact)

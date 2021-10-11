@@ -22,6 +22,19 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :middle_hint, tag: 'div', class: 'control-group', error_class: 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper tag: 'div', class: 'controls' do |ba|
+      ba.wrapper tag: :div, class: :input_information do |info|
+        info.use :input
+        info.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+      end
+      ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+    end
+  end
+
   config.wrappers :prepend, tag: 'div', class: 'control-group', error_class: 'error' do |b|
     b.use :html5
     b.use :placeholder

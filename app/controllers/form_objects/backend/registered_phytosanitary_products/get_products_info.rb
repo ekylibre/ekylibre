@@ -1,3 +1,5 @@
+using Ekylibre::Utils::DateSoftParse
+
 module FormObjects
   module Backend
     module RegisteredPhytosanitaryProducts
@@ -6,15 +8,25 @@ module FormObjects
           # @return [GetProductsInfo]
           def from_params(params)
             new(params.permit(
-              :intervention_id,
-              :intervention_stopped_at,
-              targets_data: %i[id shape],
-              products_data: %i[product_id usage_id quantity dimension input_id live_data]
-            ))
+                  :intervention_id,
+                  :intervention_started_at,
+                  :intervention_stopped_at,
+                  targets_data: %i[id shape],
+                  products_data: %i[product_id usage_id quantity unit_name input_id live_data spray_volume]
+                ))
           end
         end
 
-        attr_accessor :targets_data, :products_data, :intervention_stopped_at, :intervention_id
+        attr_accessor :targets_data, :products_data, :intervention_started_at, :intervention_stopped_at, :intervention_id
+
+        # @return [DateTime, nil]
+        def intervention_started_at
+          if @intervention_started_at.nil?
+            nil
+          else
+            DateTime.soft_parse(@intervention_started_at)
+          end
+        end
 
         # @return [DateTime, nil]
         def intervention_stopped_at
@@ -50,16 +62,7 @@ module FormObjects
         end
 
         def targets_and_shape
-          @targets_and_shape ||= targets_data.flat_map do |data|
-            target = [Plant, LandParcel].map { |model| model.find_by(id: data[:id]) }.compact.first
-            shape = Charta::new_geometry(data[:shape])
-
-            if target.present?
-              [::Interventions::Phytosanitary::Models::TargetAndShape.new(target, shape)]
-            else
-              []
-            end
-          end
+          @targets_and_shape ||= ::Interventions::Phytosanitary::Models::TargetAndShape.from_targets_data(targets_data)
         end
 
         def targets_ids
@@ -83,10 +86,10 @@ module FormObjects
             input = InterventionInput.find_by(id: pu[:input_id])
             phyto = fetch_phyto(modified, input, product)
             usage = fetch_usage(modified, input, pu[:usage_id])
-            quantity = pu[:quantity].to_f
-            dimension = pu[:dimension]
+            measure = Measure.new(pu[:quantity].to_f, pu[:unit_name])
+            spray_volume = nil # pu[:spray_volume].blank? ? nil : pu[:spray_volume].to_d
 
-            ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, quantity, dimension)
+            ::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, measure, spray_volume)
           end.reject { |pu| pu.product.nil? }
         end
 

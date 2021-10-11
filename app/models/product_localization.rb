@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +41,7 @@
 #  updater_id      :integer
 #
 
-class ProductLocalization < Ekylibre::Record::Base
+class ProductLocalization < ApplicationRecord
   include TimeLineable
   include Taskable
   belongs_to :container, class_name: 'Product'
@@ -48,8 +50,8 @@ class ProductLocalization < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, :product, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(product_localization) { product_localization.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(product_localization) { product_localization.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
   validates :container, presence: { if: :interior? }
@@ -59,15 +61,7 @@ class ProductLocalization < Ekylibre::Record::Base
   }
 
   before_validation do
-    if container
-      self.nature ||= (container.owner.nil? || container.owner == Entity.of_company ? :interior : :exterior)
-    else
-      self.nature = :exterior unless transfer?
-    end
-  end
-
-  before_save do
-    self.container = nil unless interior?
+    self.nature = container.present? ? :interior : :exterior
   end
 
   after_save do
@@ -93,8 +87,8 @@ class ProductLocalization < Ekylibre::Record::Base
 
   private
 
-  # Returns all siblings in the chronological line
-  def siblings
-    (product ? product.localizations : self.class.none)
-  end
+    # Returns all siblings in the chronological line
+    def siblings
+      (product ? product.localizations : self.class.none)
+    end
 end

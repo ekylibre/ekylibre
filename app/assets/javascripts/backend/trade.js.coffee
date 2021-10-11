@@ -16,85 +16,100 @@
 
   # Manage fields filling in sales/purchases
   $(document).on "selector:change", "*[data-variant-of-deal-item]", (_event, _value, is_initialization) ->
-    element = $(this)
-    options = element.data("variant-of-deal-item")
-    variant_id = element.selector('value')
-    reg = new RegExp("\\bRECORD_ID\\b", "g")
-    form = element.closest('form')
-    params = {}
-    # TODO So so bad
-    form.find('#sale_client_id, #purchase_supplier_id, #sale_address_id, #purchase_address_id').each ->
-      selector = $(this)
-      value = selector.selector('value')
-      params[selector.attr('id')] = value if value?
-
-    if variant_id?
-      item = element.closest("*[data-trade-item]")
-      $.ajax
-        url: options.url.replace(reg, variant_id)
-        data: params
-        dataType: "json"
-        success: (data, status, request) ->
-          # Update fields
-          if data.name
-            item.find(options.label_field or ".label").val(data.name)
-
-          if data.depreciable
-            item.find('.fixed-asset').show()
-            preexistingAsset = item.find(".sale_items_preexisting_asset input[type='checkbox']").prop('checked')
-            item.find('#new_asset').hide() if preexistingAsset
-          else
-            item.find('.fixed-asset').hide()
-
-          if data.subscription?
-            if data.subscription.nature_name?
-              item.find('.subscription_nature_name').html(data.subscription.nature_name)
-            if data.subscription.started_on?
-              item.find('.subscription_started_on').val(data.subscription.started_on)
-            if data.subscription.stopped_on?
-              item.find('.subscription_stopped_on').val(data.subscription.stopped_on)
-            if data.subscription.address_id?
-              select = item.find('.subscription_address_id').first()
-              select.selector('value', data.subscription.address_id)
-            item.find('.subscription').show()
-          else
-            item.find('.subscription').hide()
-            select = item.find('.subscription_address_id').first()
-            select.selector('clear')
-            item.find('.subscription_started_on').val('')
-            item.find('.subscription_stopped_on').val('')
-
-
-          if !is_initialization && unit = data.unit
-            if unit.name
-              item.find(options.unit_name_tag or ".unit-name").html(data.name)
-
-            input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
-            if unit.pretax_amount?
-              input.val(unit.pretax_amount)
-            else if input.val() is ""
-              input.val(0)
-
-            input = item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']")
-            if unit.amount?
-              input.val(unit.amount)
-            else if input.val() is ""
-              input.val(0)
-
-            if data.tax_id?
-              item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
-
-          # Compute totals
-          if ['change', 'readystatechange'].includes event.type
-            E.trade.updateUnitPretaxAmount(item)
-
-        error: (request, status, error) ->
-          console.log("Error while retrieving price and tax fields content: #{error}")
-    else
-      console.warn "Cannot get variant ID"
+    E.trade.updateValues($(this), is_initialization)
 
 
   E.trade =
+
+    updateValues: ($element, is_initialization) ->
+      options = $element.data("variant-of-deal-item")
+      variant_id = $element.selector('value')
+      reg = new RegExp("\\bRECORD_ID\\b", "g")
+      form = $element.closest('form')
+      params = {}
+      # TODO So so bad
+      form.find('#sale_client_id, #purchase_supplier_id, #sale_address_id, #purchase_address_id').each ->
+        selector = $(this)
+        value = selector.selector('value')
+        params[selector.attr('id')] = value if value?
+
+      $conditioningSelector = $element.closest($element.data('parent')).find($element.data('filter-unroll'))
+      if $conditioningSelector.length
+        conditioningId = $conditioningSelector.first().selector('value')
+        params['conditioning_id'] = conditioningId if conditioningId
+
+      params['reference_date'] = form.find('[data-deal-reference-date]').val()
+
+      if variant_id?
+        item = $element.closest("*[data-trade-item]")
+        $.ajax
+          url: options.url.replace(reg, variant_id)
+          data: params
+          dataType: "json"
+          success: (data, status, request) ->
+            # Update fields
+            if data.name
+              item.find(options.label_field or ".label").val(data.name)
+
+            if data.depreciable
+              item.find('.fixed-asset').show()
+              preexistingAsset = item.find(".sale_items_preexisting_asset input[type='checkbox']").prop('checked')
+              item.find('#new_asset').hide() if preexistingAsset
+            else
+              item.find('.fixed-asset').hide()
+
+            if data.subscription?
+              if data.subscription.nature_name?
+                item.find('.subscription_nature_name').html(data.subscription.nature_name)
+              if data.subscription.started_on?
+                item.find('.subscription_started_on').val(data.subscription.started_on)
+              if data.subscription.stopped_on?
+                item.find('.subscription_stopped_on').val(data.subscription.stopped_on)
+              if data.subscription.address_id?
+                select = item.find('.subscription_address_id').first()
+                select.selector('value', data.subscription.address_id)
+              item.find('.subscription').show()
+            else
+              item.find('.subscription').hide()
+              select = item.find('.subscription_address_id').first()
+              select.selector('clear')
+              item.find('.subscription_started_on').val('')
+              item.find('.subscription_stopped_on').val('')
+
+
+            if !is_initialization && unit = data.unit
+              if unit.name
+                item.find(options.unit_name_tag or ".unit-name").html(data.name)
+
+              input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
+              if unit.pretax_amount?
+                input.val(unit.pretax_amount)
+                input.trigger('unit-value:change')
+              else if input.val() is ""
+                input.val(0)
+
+              input = item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']")
+              if unit.amount?
+                input.val(unit.amount)
+              else if input.val() is ""
+                input.val(0)
+
+              # Compute totals
+              E.trade.updateUnitPretaxAmount(item)
+              E.toggleValidateButton(item, false)
+
+
+              if data.tax_id?
+                item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
+
+            # Compute totals
+            if ['change', 'readystatechange'].includes event.type
+              E.trade.updateUnitPretaxAmount(item)
+
+          error: (request, status, error) ->
+            console.log("Error while retrieving price and tax fields content: #{error}")
+      else
+        console.warn "Cannot get variant ID"
 
     round: (value, digits) ->
       magnitude = Math.pow(10, digits)
@@ -199,7 +214,7 @@
         when 'pretax_amount'
           E.trade.updatePretaxAmount(item)
         when 'amount', 'conditionning', 'conditionning_quantity'
-          # Do nothing. Ability to customize precisely amount
+          E.trade.updateAmount(item) if item.closest('tbody').is('[data-trade-type="quick_affair"]') # Change THIS
         else
           console.error "Unknown component: #{component}"
 

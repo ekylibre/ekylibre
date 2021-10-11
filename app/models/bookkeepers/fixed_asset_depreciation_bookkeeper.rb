@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
   def call
     return unless accountable
@@ -43,7 +45,7 @@ class FixedAssetDepreciationBookkeeper < Ekylibre::Bookkeeper
     end
 
     def bookkeep_scrapped
-      exceptional_expenses_account = Account.find_or_import_from_nomenclature :exceptional_depreciations_imputations_expenses_for_fixed_assets
+      exceptional_expenses_account = Account.find_or_import_from_nomenclature(:exceptional_depreciations_imputations_expenses_for_fixed_assets)
 
       journal_entry(fixed_asset.journal, printed_on: fixed_asset.scrapped_on, if: accountable && !locked) do |entry|
         name = tc(:bookkeep_partial, resource: FixedAsset.model_name.human, number: fixed_asset.number, name: fixed_asset.name, position: position, total: fixed_asset.depreciations.count)

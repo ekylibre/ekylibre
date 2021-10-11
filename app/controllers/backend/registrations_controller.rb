@@ -39,11 +39,14 @@ module Backend
     end
 
     def update
-      @user = User.find(params[:id])
-      if @user.update(approved_params)
-        RegistrationMailer.approved(@user).deliver_now
+      @registration = User.find(params[:id])
+
+      if @registration.update(approved_params)
+        RegistrationMailer.approved(@registration).deliver_now
         redirect_to backend_registrations_path
       else
+        @form_url = backend_registration_path(@registration)
+
         render :edit
       end
     end
@@ -56,12 +59,12 @@ module Backend
 
     private
 
-    def signup_params
-      params.require(:user).permit(:first_name, :last_name, :language, :role_id)
-    end
+      def signup_params
+        params.require(:user).permit(:first_name, :last_name, :language, :role_id)
+      end
 
-    def approved_params
-      signup_params.merge(signup_at: nil)
-    end
+      def approved_params
+        signup_params.merge(signup_at: nil)
+      end
   end
 end

@@ -1,4 +1,4 @@
-class AddStoppedOnFixedAssetToPurchases < ActiveRecord::Migration
+class AddStoppedOnFixedAssetToPurchases < ActiveRecord::Migration[4.2]
   def up
     add_column :purchase_items, :fixed_asset_stopped_on, :date, default: nil
   end

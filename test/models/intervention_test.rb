@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,30 +87,16 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'destruction protection' do
     # It should not be possible to destroy an intervention marked as done
     assert_not interventions(:interventions_005).destroyable?
-    assert_raise Ekylibre::Record::RecordNotDestroyable do
+
+    # This was updated from Ekylibre::Record::RecordNotDestroyable to ActiveRecord::DeleteRestrictionError because it seems the last changes
+    # made the ActiveRecord callbacks checking for dependent models run BEFORE the Ekylibre::Record::Acts::Protected callbacks.
+    assert_raise ActiveRecord::DeleteRestrictionError do
       Intervention.destroy(interventions(:interventions_005).id)
     end
   end
 
   test 'creation and destruction' do
-    intervention = Intervention.create!(
-      procedure_name: :sowing,
-      working_periods: fake_working_periods,
-      # , actions: [:game_repellent, :fungicide]
-    )
-    Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
-      intervention.add_parameter!(:driver, bob)
-    end
-    intervention.add_parameter!(:tractor, Equipment.of_expression('can tow(equipment) and can move').first)
-    intervention.add_parameter!(:sower, Equipment.of_expression('can sow').first)
-    intervention.add_parameter!(:seeds, Product.of_expression('is seed and derives from plant and can grow').first, quantity: 25.in_kilogram, quantity_handler: :net_mass, quantity_population: 1)
-    cultivation_variant = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
-    LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
-      intervention.add_parameter!(:zone) do |g|
-        g.add_parameter!(:land_parcel, land_parcel)
-        g.add_parameter!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
-      end
-    end
+    intervention = create(:sowing_intervention_with_all_parameters)
     assert intervention.runnable?, 'Intervention should be runnable'
 
     intervention.destroy!
@@ -128,9 +114,8 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
     assert plant
-    now = Time.utc(2016, 07, 25, 20, 20, 20)
-
-    last_death_at = now + 1.year
+    now = Time.utc(2016, 04, 27, 20, 20, 20)
+    last_death_at = now + 3.months
     last_intervention = add_harvesting_intervention(plant, last_death_at)
     plant.reload
     assert_equal last_death_at, plant.dead_at, 'Dead_at of plant should be updated'
@@ -142,7 +127,7 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should be updated'
     assert_equal plant.dead_first_at, plant.dead_at, 'Dead_at should be equal to dead_first_at'
 
-    middle_death_at = now + 6.months
+    middle_death_at = now + 2.months
     middle_issue = Issue.create!(target: plant, nature: :issue, observed_at: middle_death_at, dead: true)
     plant.reload
     assert_equal first_death_at, plant.dead_at, 'Dead_at of plant should not be updated'
@@ -164,13 +149,46 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'cost_per_area' do
-    cultivable_zone = create(:cultivable_zone)
-    activity_production = create(:activity_production, cultivable_zone: cultivable_zone)
-    intervention = create(:intervention)
-    create(:intervention_target, intervention: intervention, product: activity_production.support, working_zone: activity_production.support.initial_shape)
+    land_parcel = create(:land_parcel)
+    intervention = create(:intervention, :with_target, on: land_parcel, reference_name: 'land_parcel')
 
     intervention.reload
     assert_equal 0.0, intervention.cost_per_area(:target)
+  end
+
+  test 'update variant of sowing intervention should create new product and destroy old one if the product is not used elsewhere' do
+    intervention = create(:sowing_intervention_with_all_parameters)
+    intervention.reload
+    output = intervention.outputs.last
+    product = output.product
+    new_variant = create(:corn_plant_variant)
+    output.update(variant_id: new_variant.id)
+    assert_nil Product.find_by(id: product.id)
+    assert output.product
+  end
+
+  test 'update variant of sowing intervention should return error if the product is used elsewhere' do
+    intervention = create(:sowing_intervention_with_all_parameters)
+    intervention.reload
+    output = intervention.outputs.last
+    product = output.product
+    packaging_intervention = create(:intervention, :packaging)
+    packaging_input = create(:intervention_input, product: product, intervention: packaging_intervention, reference_name: :product_to_prepare)
+    new_variant = create(:corn_plant_variant)
+    output.update(variant_id: new_variant.id)
+    assert !output.valid?
+  end
+
+  test "can't create or edit an intervention if any of the working periods is during a period of an opened financial year exchange AND there is inputs or outputs AND permanent stock inventory is activated" do
+    Preference.set!(:permanent_stock_inventory, true)
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    create(:financial_year_exchange, :opened, financial_year: fy, started_on: '2021-01-01', stopped_on: '2021-02-01')
+    int = build(:intervention, :spraying, started_at: '2021-01-15 15:00', stopped_at: '2021-01-15 16:00')
+    assert_not int.valid?
+
+    Preference.set!(:permanent_stock_inventory, false)
+    assert int.valid?
   end
 
   def add_harvesting_intervention(target, stopped_at)

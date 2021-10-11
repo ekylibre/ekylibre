@@ -1,18 +1,18 @@
-- all_taxes_included = f.object.catalog ? f.object.catalog.all_taxes_included : nil
-= field_set do
+= field_set :general_informations, class: ['catalog-items-form', ('catalog-items-form--all-taxes' if f.object.all_taxes_included)] do
   .control-group
     .controls
   = f.association :catalog
-  = f.referenced_association :variant
+  = f.referenced_association :variant, input_html: { data: { parent: '.fieldset', filter_unroll: '#catalog_item_unit_id' } }
+  = f.referenced_association :unit, input_html: { data: { filters_url: unroll_filters_by_dimensions_backend_units_path } }, new: { controller: :conditionings }
+  = f.input :all_taxes_included do
+    = f.check_box :all_taxes_included
   = f.input(:amount, wrapper: :append) do
     = f.input_field :amount
-    - if all_taxes_included
-      %span.add-on= :unit_price_amount_with_taxes.tl
-    - else
-      %span.add-on= :unit_price_amount.tl
-  - if all_taxes_included
+    %span.add-on.unit_price_amount= :unit_price_amount.tl
+    %span.add-on.unit_price_amount_with_taxes= :unit_price_amount_with_taxes.tl
+  #due-on
     = f.referenced_association :reference_tax
+  = f.input :started_at
   = f.input :commercial_name
   = f.input :commercial_description
   = f.custom_fields
-

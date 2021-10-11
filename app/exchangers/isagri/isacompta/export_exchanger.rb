@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 module Isagri
   module Isacompta
     # Exchanger to import COFTW.isa files from IsaCompta software
     class ExportExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :isagri
+
       def check
         SVF::Isacompta8550.parse(file)
       rescue SVF::InvalidSyntax
@@ -25,7 +30,7 @@ module Isagri
           raise ActiveExchanger::NotWellFormedFileError
         end
         used_versions = [8550]
-        version = used_versions.select { |x| x <= version }.sort[-1]
+        version = used_versions.select { |x| x <= version }.max
 
         if version == 8550
           begin
@@ -41,11 +46,12 @@ module Isagri
           fy = FinancialYear.find_by(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
           unless fy
             if FinancialYear.where('? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on', isa_fy.started_on, isa_fy.stopped_on).any?
-              raise ActiveExchanger::IncompatibleDataError, 'Financial year dates overlaps existing financial years'
+              raise ActiveExchanger::IncompatibleDataError.new('Financial year dates overlaps existing financial years')
             else
               if isa_fy.currency != 'EUR'
-                raise ActiveExchanger::IncompatibleDataError, "Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'"
+                raise ActiveExchanger::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'")
               end
+
               fy = FinancialYear.create!(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
             end
 
@@ -56,8 +62,32 @@ module Isagri
             # Adds missing accounts
             all_accounts = {}
             isa_fy.accounts.each do |isa_account|
-              unless account = Account.find_by(number: isa_account.number)
-                account = Account.create!(name: (isa_account.label.blank? ? isa_account.number : isa_account.label), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de'), description: isa_account.to_s)
+              normalized = account_normalizer.normalize!(isa_account.number)
+              if (account = Account.find_by(number: normalized)).nil?
+                attributes = {
+                  name: (isa_account.label.blank? ? isa_account.number : isa_account.label),
+                  number: normalized,
+                  reconcilable: isa_account.reconcilable,
+                  last_letter: isa_account.letter,
+                  debtor: (isa_account.input_direction == 'de'),
+                  description: isa_account.to_s
+                }
+
+                if normalized.start_with?(client_account_radix) || normalized.start_with?(supplier_account_radix)
+                  aux_number = normalized[client_account_radix.length..-1]
+
+                  if aux_number.match(/\A0*\z/).present?
+                    raise StandardError.new(tl(:errors, :radical_class_number_unauthorized, number: normalized))
+                  end
+
+                  attributes = attributes.merge(
+                    centralizing_account_name: normalized.start_with?(client_account_radix) ? 'clients' : 'suppliers',
+                    auxiliary_number: aux_number,
+                    nature: 'auxiliary'
+                  )
+                end
+
+                account = Account.create!(**attributes)
               end
               all_accounts[isa_account.number] = account.id
               w.check_point
@@ -172,12 +202,13 @@ module Isagri
             found = fy.journal_entries.size
             expected = isa_fy.entries.size
             if found != expected
-              raise StandardError, "The count of entries is different: #{found} in database and #{expected} in file"
+              raise StandardError.new("The count of entries is different: #{found} in database and #{expected} in file")
             end
+
             found = JournalEntryItem.between(fy.started_on, fy.stopped_on).count
             expected = isa_fy.entries.inject(0) { |s, e| s += e.lines.size }
             if found != expected
-              raise StandardError, "The count of entry items is different: #{found} in database and #{expected} in file"
+              raise StandardError.new("The count of entry items is different: #{found} in database and #{expected} in file")
             end
             # fy.journal_entries.each do |entry|
             # end
@@ -185,11 +216,27 @@ module Isagri
           end
 
         else
-          raise ActiveExchanger::NotWellFormedFileError, 'Version does not seems to be supported'
+          raise ActiveExchanger::NotWellFormedFileError.new('Version does not seems to be supported')
         end
 
         true
       end
+
+      protected
+
+        def account_normalizer
+          @account_normalier ||= Accountancy::AccountNumberNormalizer.build
+        end
+
+        # @return [String]
+        def client_account_radix
+          @client_account_radix ||= Preference.value(:client_account_radix).presence || '411'
+        end
+
+        # @return [String]
+        def supplier_account_radix
+          @supplier_account_radix ||= Preference.value(:supplier_account_radix).presence || '401'
+        end
     end
   end
 end

@@ -1,4 +1,4 @@
-class ChangeUsagesOfOldAccountsToMatchNomenclature < ActiveRecord::Migration
+class ChangeUsagesOfOldAccountsToMatchNomenclature < ActiveRecord::Migration[4.2]
   CHANGED = { fixed_asset_depreciations: :financial_asset_depreciations,
               fixed_assets: :financial_assets,
               fixed_assets_suppliers: :financial_assets_suppliers ,

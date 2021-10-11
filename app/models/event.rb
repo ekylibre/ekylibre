@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,7 +43,7 @@
 #  updater_id    :integer
 #
 
-class Event < Ekylibre::Record::Base
+class Event < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :affair
@@ -57,8 +59,8 @@ class Event < Ekylibre::Record::Base
   validates :nature, presence: true
   validates :place, length: { maximum: 500 }, allow_blank: true
   validates :restricted, inclusion: { in: [true, false] }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { on_or_after: ->(event) { event.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(event) { event.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
   validates :stopped_at, presence: true
@@ -86,7 +88,7 @@ class Event < Ekylibre::Record::Base
   before_validation do
     self.nature ||= :meeting
     self.started_at ||= Time.zone.now
-    if nature = Nomen::EventNature[self.nature]
+    if nature = Onoma::EventNature[self.nature]
       self.duration ||= nature.default_duration.to_i
     end
     if stopped_at && self.started_at

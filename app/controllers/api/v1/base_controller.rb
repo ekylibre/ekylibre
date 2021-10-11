@@ -28,65 +28,70 @@ module Api
       before_action :force_json!
       after_action :add_generic_headers!
 
-      hide_action :add_generic_headers!
-
-      def add_generic_headers!
-        response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
-        # response.headers['Access-Control-Allow-Origin'] = '*'
-      end
-
-      hide_action :force_json!
-
-      def force_json!
-        request.format = 'json'
-      end
-
-      hide_action :authenticate_api_user!
-
-      def authenticate_api_user!
-        user = nil
-        token = nil
-        if authorization = request.headers['Authorization']
-          keys = authorization.split(' ')
-          if keys.first == 'simple-token'
-            return authenticate_user_from_simple_token!(keys.second, keys.third)
-          end
-          render status: :bad_request, json: { message: 'Bad authorization.' }
-          return false
-        elsif params[:access_token] && params[:access_email]
-          return authenticate_user_from_simple_token!(params[:access_email], params[:access_token])
-        end
-        render status: :unauthorized, json: { message: 'Unauthorized.' }
-        false
-      end
-
-      hide_action :authenticate_user_from_simple_token!
-      # Check given token match with the user one and
-      def authenticate_user_from_simple_token!(email, token)
-        user = User.find_by(email: email)
-        # Notice how we use Devise.secure_compare to compare the token
-        # in the database with the token given in the params, mitigating
-        # timing attacks.
-        if user && Devise.secure_compare(user.authentication_token, token)
-          # Sign in using token should not be tracked by Devise trackable
-          # See https://github.com/plataformatec/devise/issues/953
-          env['devise.skip_trackable'] = true
-          # Notice the store option defaults to false, so the entity
-          # is not actually stored in the session and a token is needed
-          # for every request. That behaviour can be configured through
-          # the sign_in_token option.
-          sign_in user, store: false
-          return true
-        end
-        render status: :unauthorized, json: { message: 'Unauthorized.' }
-        false
-      end
-
-      def error_message(message, status: :bad_request)
-        render json: { message: message }, status: status
-      end
-
       protected
+
+        def add_generic_headers!
+          response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
+          # response.headers['Access-Control-Allow-Origin'] = '*'
+        end
+
+        def force_json!
+          request.format = 'json'
+        end
+
+        def authenticate_api_user!
+          user = nil
+          token = nil
+          if authorization = request.headers['Authorization']
+            keys = authorization.split(' ')
+            if keys.first == 'simple-token'
+              return authenticate_user_from_simple_token!(keys.second, keys.third)
+            end
+
+            render status: :bad_request, json: { message: 'Bad authorization.' }
+            return false
+          elsif params[:access_token] && params[:access_email]
+            return authenticate_user_from_simple_token!(params[:access_email], params[:access_token])
+          end
+          render status: :unauthorized, json: { message: 'Unauthorized.' }
+          false
+        end
+
+        # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+        def set_locale
+          locale = Maybe(valid_locale_or_nil(current_user&.language))
+                     .recover { valid_locale_or_nil(params.to_unsafe_hash.fetch(:locale, nil)) }
+                     .recover { http_accept_language.compatible_language_from(Ekylibre.http_languages.keys) }
+                     .recover { valid_locale_or_nil(Preference[:language]) }
+                     .recover { I18n.default_locale }
+
+          I18n.locale = session[:locale] = locale
+        end
+
+        # Check given token match with the user one and
+        def authenticate_user_from_simple_token!(email, token)
+          user = User.find_by(email: email)
+          # Notice how we use Devise.secure_compare to compare the token
+          # in the database with the token given in the params, mitigating
+          # timing attacks.
+          if user && Devise.secure_compare(user.authentication_token, token)
+            # Sign in using token should not be tracked by Devise trackable
+            # See https://github.com/plataformatec/devise/issues/953
+            request.env['devise.skip_trackable'] = true
+            # Notice the store option defaults to false, so the entity
+            # is not actually stored in the session and a token is needed
+            # for every request. That behaviour can be configured through
+            # the sign_in_token option.
+            sign_in user, store: false
+            return true
+          end
+          render status: :unauthorized, json: { message: 'Unauthorized.' }
+          false
+        end
+
+        def error_message(message, status: :bad_request)
+          render json: { message: message }, status: status
+        end
 
         def validate_provider(filtered_params)
           provider = filtered_params.fetch(:provider, {})
@@ -111,10 +116,24 @@ module Api
 
           if params.key?(:providers) && params[:providers].key?(:zero_id)
             ActiveSupport::Deprecation.warn('zero_id is deprecated')
-            provider_data = { **provider_data, vendor: 'Ekylibre', name: 'zero', id: 0, data: { zero_id: params[:providers][:zero_id] } }
+            provider_data = { **provider_data, vendor: 'ekylibre', name: 'zero', id: 0, data: { zero_id: params[:providers][:zero_id] } }
           end
 
           permitted_params.merge(provider: provider_data)
+        end
+
+      private
+
+        # Like `presence` but for valid locale strings
+        #
+        # @param [String, nil] locale
+        # @return [String, nil]
+        def valid_locale_or_nil(locale)
+          if locale.present? && I18n.available_locales.include?(locale)
+            locale
+          else
+            nil
+          end
         end
     end
   end

@@ -28,7 +28,7 @@ module Backend
 
     # management -> sales_conditions
     def self.sales_conditions
-      code = search_conditions(sales: %i[pretax_amount amount number initial_number description], entities: %i[number full_name]) + " ||= []\n"
+      code = search_conditions(sales: %i[pretax_amount amount reference_number number initial_number description], entities: %i[number full_name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND ((#{Sale.table_name}.invoiced_at IS NULL AND #{Sale.table_name}.created_at::DATE BETWEEN ? AND ?)'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -62,6 +62,10 @@ module Backend
       code << "  c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{Sale.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -78,11 +82,13 @@ module Backend
       t.column :client, url: true
       t.column :responsible, hidden: true
       t.column :description, hidden: true
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', sort: :provider_vendor, hidden: true
       t.status
       t.column :state_label
       t.column :pretax_amount, currency: true, on_select: :sum
       t.column :amount, currency: true, on_select: :sum
       t.column :affair_balance, currency: true, on_select: :sum, hidden: true
+
     end
 
     # Displays the main page with the list of sales
@@ -108,7 +114,7 @@ module Backend
       t.column :delivery
       t.column :address, label_method: :coordinate, children: false
       t.status
-      t.column :state, label_method: :human_state_name
+      t.column :state, label_method: :human_state_name, hidden: true
       t.column :transporter, children: false, url: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
@@ -143,16 +149,17 @@ module Backend
       # t.column :position
       t.column :label
       t.column :annotation, hidden: true
-      t.column :quantity
-      t.column :unit_name
-      t.column :unit_pretax_amount, currency: true
-      t.column :unit_amount, currency: true, hidden: true
-      t.column :reduction_percentage
-      t.column :tax, url: true, hidden: true
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
-      t.column :activity_budget, hidden: true
-      t.column :team, hidden: true
+      t.column :conditioning_unit
+      t.column :conditioning_quantity, class: 'right-align'
+      t.column :unit_pretax_amount, currency: true, class: 'right-align'
+      t.column :unit_amount, currency: true, hidden: true, class: 'right-align'
+      t.column :base_unit_amount, currency: true, hidden: true, class: "right-align default-unit-amount hidden"
+      t.column :reduction_percentage, class: 'right-align'
+      t.column :tax, url: true, hidden: true, class: 'right-align'
+      t.column :pretax_amount, currency: true, class: 'right-align'
+      t.column :amount, currency: true, class: 'right-align'
+      t.column :activity_budget, hidden: true, class: 'right-align'
+      t.column :team, hidden: true, class: 'right-align'
     end
 
     # Displays details of one sale selected with +params[:id]+
@@ -221,6 +228,7 @@ module Backend
 
     def duplicate
       return unless @sale = find_and_check
+
       unless @sale.duplicatable?
         notify_error :sale_is_not_duplicatable
         redirect_to params[:redirect] || { action: :index }
@@ -232,6 +240,7 @@ module Backend
 
     def cancel
       return unless @sale = find_and_check
+
       url = { controller: :sale_credits, action: :new, credited_sale_id: @sale.id }
       url[:redirect] = params[:redirect] if params[:redirect]
       redirect_to url
@@ -239,7 +248,12 @@ module Backend
 
     def confirm
       return unless @sale = find_and_check
-      @sale.confirm
+
+      if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
+        notify_error :financial_year_exchange_on_this_period
+      else
+        @sale.confirm
+      end
       redirect_to action: :show, id: @sale.id
     end
 
@@ -264,20 +278,25 @@ module Backend
 
     def abort
       return unless @sale = find_and_check
+
       @sale.abort
       redirect_to action: :show, id: @sale.id
     end
 
     def correct
       return unless @sale = find_and_check
+
       @sale.correct
       redirect_to action: :show, id: @sale.id
     end
 
     def invoice
       return unless @sale = find_and_check
-      if @sale.client.client_account.present?
-        ActiveRecord::Base.transaction do
+
+      if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
+        notify_error :financial_year_exchange_on_this_period
+      elsif @sale.client.client_account.present?
+        ApplicationRecord.transaction do
           raise ActiveRecord::Rollback unless @sale.invoice
         end
       else
@@ -288,13 +307,15 @@ module Backend
 
     def propose
       return unless @sale = find_and_check
+
       @sale.propose
       redirect_to action: :show, id: @sale.id
     end
 
     def propose_and_invoice
       return unless @sale = find_and_check
-      ActiveRecord::Base.transaction do
+
+      ApplicationRecord.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
         raise ActiveRecord::Rollback unless @sale.confirm
         # raise ActiveRecord::Rollback unless @sale.deliver
@@ -305,8 +326,28 @@ module Backend
 
     def refuse
       return unless @sale = find_and_check
+
       @sale.refuse
       redirect_to action: :show, id: @sale.id
+    end
+
+    def default_conditioning_unit
+      product = ProductNatureVariant.find_by_id(params[:id].to_i)
+      unit_id = product&.default_unit_id
+      render json: {
+        unit_id: unit_id.to_s,
+        unit_name: Unit.find_by_id(unit_id)&.name&.to_s
+      }
+    end
+
+    def conditioning_ratio
+      conditioning = Conditioning.find_by_id(params[:id].to_i)
+      coefficient = conditioning&.coefficient
+      render json: { coeff: coefficient }
+    end
+
+    def conditioning_ratios?
+      render json: Sale.find_by_id(params[:id])&.ratio_conditioning?
     end
 
     private
@@ -319,9 +360,17 @@ module Backend
           return false
         end
 
+        g = Ekylibre::DocumentManagement::DocumentGenerator.build
         printer = klass.new(template: template, sale: sale)
-        pdf_data = printer.run_pdf
-        printer.archive_report_template(pdf_data, nature: template.nature, key: printer.key, template: template, document_name: printer.document_name)
+        pdf_data = g.generate_pdf(template: template, printer: printer)
+
+        archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+        archiver.archive_document(
+          pdf_content: pdf_data,
+          template: template,
+          key: printer.key,
+          name: printer.document_name
+        )
 
         send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
 

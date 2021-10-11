@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module BordeauxSciencesAgro
   module Istea
     class JournalEntriesExchanger < ActiveExchanger::Base
+      category :accountancy
+      vendor :bordeaux_sciences_agro
+
       def check
         # Imports journal entries into journal to make accountancy in CSV format
         # filename example : 17005534_EXPORT_ECRITURES_COMPTABLES.TXT
@@ -48,8 +53,7 @@ module BordeauxSciencesAgro
             valid = false
           end
 
-          puts "#{line_number} - #{valid}".green
-
+          w.info "#{line_number} - #{valid}".green
         end
         valid
       end
@@ -86,7 +90,7 @@ module BordeauxSciencesAgro
             entries[number] = {
               printed_on: r.printed_on,
               journal: journal,
-              number: line_number,
+              number: r.journal_name,
               currency: journal.currency,
               items_attributes: {}
             }
@@ -164,7 +168,6 @@ module BordeauxSciencesAgro
             pretax_base: (row[21].blank? ? 0.0 : row[21].tr(',', '.').to_d)
           }.to_struct
         end
-
     end
   end
 end

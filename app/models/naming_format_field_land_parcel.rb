@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,5 +37,5 @@
 #  updater_id       :integer
 #
 class NamingFormatFieldLandParcel < NamingFormatField
-  enumerize :field_name, in: %i[cultivable_zone_name cultivable_zone_code activity campaign season production_mode], default: :cultivable_zone_name
+  enumerize :field_name, in: %i[cultivable_zone_name cultivable_zone_code activity campaign season production_mode free_field], default: :cultivable_zone_name
 end

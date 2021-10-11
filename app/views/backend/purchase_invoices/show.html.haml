@@ -2,16 +2,17 @@
   = purchase_invoice_badges @purchase_invoice
 
 - main_toolbar class: 'main-toolbar-fullwidth' do |t|
-  = t.export :purchases_invoice
+  = t.export(:purchases_invoice, target: "_blank")
+  
   = t.edit resource if resource.updateable?
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.destroy
 
   - unless @purchase_invoice.reconciled?
-    .change-reconcilation-state-block
+    .change-reconciliation-state-block
       - checked = false
       - checked = true if resource.reconciliation_state == :accepted
-      = check_box_tag 'new-reconcilation-state', checked, checked
+      = check_box_tag 'new-reconciliation-state', checked, checked
       %label= :accepted_for_paiment.tl
 
 = main_informations attachment: true do
@@ -38,7 +39,7 @@
   - c.cobble :items, title: PurchaseInvoice.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{ colspan: 5 }= :total.tl
+        %th{ colspan: 6 }= :total.tl
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
 
@@ -49,3 +50,5 @@
   - if resource.receptions.any?
     - c.cobble :receptions, title: PurchaseInvoice.human_attribute_name(:receptions) do
       = cobble_list :receptions
+
+= render 'timeline'

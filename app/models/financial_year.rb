@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,7 +47,7 @@
 #  updater_id                :integer
 #
 
-class FinancialYear < Ekylibre::Record::Base
+class FinancialYear < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
@@ -62,6 +64,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :fixed_asset_depreciations, dependent: :destroy
   has_many :inventories, dependent: :restrict_with_exception
   has_many :journal_entries, dependent: :restrict_with_exception
+  has_many :journal_entry_items
   has_many :tax_declarations, dependent: :restrict_with_exception
   has_many :archives, class_name: 'FinancialYearArchive', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -69,21 +72,21 @@ class FinancialYear < Ekylibre::Record::Base
   validates :code, presence: true, length: { maximum: 500 }
   validates :currency, :tax_declaration_mode, presence: true
   validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   # ]VALIDATORS]
   validates :currency, presence: true, length: { allow_nil: true, maximum: 3 }
   validates :code, uniqueness: true, length: { allow_nil: true, maximum: 20 }
   validates :tax_declaration_frequency, presence: { unless: :tax_declaration_mode_none? }
 
-
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :with_state, -> (*states) { where(state: states).reorder(:started_on) }
+  scope :with_state, ->(*states) { where(state: states).reorder(:started_on) }
   scope :closed, -> { with_state :closed }
   scope :opened, -> { with_state :opened }
-  scope :started_after, -> (date) { where('? < started_on', date).order(:started_on) }
+  scope :started_after, ->(date) { where('? < started_on', date).order(:started_on) }
   scope :stopped_before, ->(date) { where('stopped_on < ?', date).order(:started_on) }
+  scope :out_of_date_range, ->(date) { where('stopped_on > ? AND started_on < ?', date, date).opened }
   scope :in_preparation, -> { where(state: 'closure_in_preparation').reorder(:started_on) }
   scope :closables_or_lockables, -> { where(state: %i[opened closure_in_preparation]).where('started_on <= ?', Time.zone.now).where.not('? BETWEEN started_on AND stopped_on', Time.zone.now).reorder(:started_on) }
   scope :with_tax_declaration, -> { where.not(tax_declaration_mode: :none) }
@@ -96,7 +99,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   class << self
     def closest(searched_on)
-      sql_date = ActiveRecord::Base.connection.quote(searched_on)
+      sql_date = ApplicationRecord.connection.quote(searched_on)
       started_on_clause = "ABS(#{sql_date} - started_on)"
       stopped_on_clause = "ABS(#{sql_date} - stopped_on)"
       order("LEAST(#{started_on_clause}, #{stopped_on_clause}) ASC").first
@@ -126,10 +129,9 @@ class FinancialYear < Ekylibre::Record::Base
 
     def consecutive_destroyables(from = Date.new(1, 1, 1), upto = FinancialYear.current&.started_on)
       upto ||= FinancialYear.where('started_on < ?', Date.today).order(started_on: :desc).first.started_on
-      years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto)
-                .order(:started_on)
-      years.to_a.select!.with_index { |year, index| years[0..index].all?(&:destroyable?) }
-      FinancialYear.where(id: years.map(&:id))
+      years = FinancialYear.where("started_on BETWEEN ? AND ?", from, upto).order(:started_on)
+
+      years.take_while(&:destroyable?)
     end
 
     # Returns the date of the last closure if any
@@ -137,6 +139,7 @@ class FinancialYear < Ekylibre::Record::Base
       if year = closed.reorder(started_on: :desc).first
         return year.stopped_on
       end
+
       nil
     end
 
@@ -155,7 +158,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    if ref = Nomen::Currency.find(self.currency)
+    if ref = Onoma::Currency.find(self.currency)
       self.currency_precision ||= ref.precision
     end
     # self.started_on = self.started_on.beginning_of_day if self.started_on
@@ -207,6 +210,22 @@ class FinancialYear < Ekylibre::Record::Base
     code
   end
 
+  def fec_format
+    # return one of fec format depends on fiscal_position && commercial_accountancy_workflow
+    # all ba_bnc_ir_commercial_accountancy ba_ir_cash_accountancy bnc_ir_cash_accountancy
+    fiscal_position = Preference[:fiscal_position] # fr_ba_ir, ...
+    commercial_accountancy_workflow = Preference[:commercial_accountancy_workflow] # true (commercial_accountancy) / false (cash_accountancy)
+    if fiscal_position == "fr_ba_ir" && commercial_accountancy_workflow == false
+      "ba_ir_cash_accountancy"
+    elsif fiscal_position == "fr_bnc_ir" && commercial_accountancy_workflow == false
+      "bnc_ir_cash_accountancy"
+    elsif fiscal_position.in?(["fr_bnc_ir", "fr_ba_ir"]) && commercial_accountancy_workflow == true
+      "ba_bnc_ir_commercial_accountancy"
+    else
+      "all"
+    end
+  end
+
   def missing_tax_declaration?
     !tax_declaration_frequency_none? &&
       TaxDeclaration.where('? BETWEEN started_on AND stopped_on', stopped_on).empty?
@@ -237,6 +256,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def tax_declaration_stopped_on(from_on)
     return nil if tax_declaration_frequency_none?
+
     end_on = (from_on + tax_declaration_frequency_duration).beginning_of_month - 1
     end_on = stopped_on if end_on > stopped_on
     end_on
@@ -294,6 +314,8 @@ class FinancialYear < Ekylibre::Record::Base
 
   # When a financial year is closed,.all the matching journals are closed too.
   def close(closer, to_close_on = nil, options = {})
+    ActiveSupport::Deprecation.warn("FinancialYear#close is deprecated, use FinancialYearClose directly")
+
     FinancialYearClose.for_year(self, close_on: to_close_on, user: closer, **options).execute
   end
 
@@ -316,6 +338,7 @@ class FinancialYear < Ekylibre::Record::Base
     all_fy = FinancialYear.order(:started_on)
     self_index = all_fy.index(self)
     return nil if self_index.zero?
+
     previous_record = all_fy[self_index - 1]
   end
 
@@ -367,17 +390,17 @@ class FinancialYear < Ekylibre::Record::Base
     balance = FinancialYear.balance_expr(credit)
     if !forceds.empty? || !negatives.empty?
       forceds_and_negatives = forceds & negatives
-      balance = 'CASE'
+      balance = 'CASE'.dup
       balance << ' WHEN ' + forceds_and_negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit, forced: true)}" unless forceds_and_negatives.empty?
       balance << ' WHEN ' + forceds.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN #{FinancialYear.balance_expr(credit, forced: true)}" unless forceds.empty?
       balance << ' WHEN ' + negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit)}" unless negatives.empty?
       balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
 
-    query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}"
+    query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}".dup
     query << ' AND (' + normals.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')'
     query << ' AND NOT (' + excepts.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')' unless excepts.empty?
-    balance = ActiveRecord::Base.connection.select_value(query)
+    balance = ApplicationRecord.connection.select_value(query)
     (balance.blank? ? nil : balance.to_d)
   end
 
@@ -387,6 +410,7 @@ class FinancialYear < Ekylibre::Record::Base
     if value = balance(accounts, false)
       return value.l(currency: self.currency)
     end
+
     nil
   end
 
@@ -396,6 +420,7 @@ class FinancialYear < Ekylibre::Record::Base
     if value = balance(accounts, true)
       return value.l(currency: self.currency)
     end
+
     nil
   end
 
@@ -412,7 +437,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # Re-create all account_balances record for the financial year
   def compute_balances!
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_on BETWEEN #{self.class.connection.quote(started_on)} AND #{self.class.connection.quote(stopped_on)} GROUP BY account_id")
+    results = ApplicationRecord.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_on BETWEEN #{self.class.connection.quote(started_on)} AND #{self.class.connection.quote(stopped_on)} GROUP BY account_id")
     account_balances.clear
     results.each do |result|
       account_balances.create!(
@@ -436,7 +461,7 @@ class FinancialYear < Ekylibre::Record::Base
     last_journal_entry.items.clear
 
     if options[:fixed_assets_depreciations]
-      for depreciation in fixed_asset_depreciations.includes(:fixed_asset)
+      fixed_asset_depreciations.includes(:fixed_asset).each do |depreciation|
         name = tc(:bookkeep, resource: FixedAsset.model_name.human, number: depreciation.fixed_asset.number, name: depreciation.fixed_asset.name, position: depreciation.position, total: depreciation.fixed_asset.depreciations.count)
         # Charges
         last_journal_entry.add_debit(name, depreciation.fixed_asset.expenses_account, depreciation.amount)
@@ -449,7 +474,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def can_create_exchange?
-    accountant_with_booked_journal? && !opened_exchange?
+    accountant_with_booked_journal? && FinancialYearExchange.opened.none?
   end
 
   def opened_exchange?
@@ -458,14 +483,14 @@ class FinancialYear < Ekylibre::Record::Base
 
   def split_into_periods(interval)
     case interval
-      when 'year'
-        [[started_on, stopped_on]]
-      when 'semesters'
-        compute_ranges(6)
-      when 'trimesters'
-        compute_ranges(3)
-      when 'months'
-        compute_ranges(1)
+    when 'year'
+      [[started_on, stopped_on]]
+    when 'semesters'
+      compute_ranges(6)
+    when 'trimesters'
+      compute_ranges(3)
+    when 'months'
+      compute_ranges(1)
     end
   end
 
@@ -484,7 +509,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   def unbalanced_radical_account_classes_array
     # Expected to have a range from 1 to 7
-    radical_numbers = Nomen::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
+    radical_numbers = Onoma::Account.items.values.select { |a| a.send(Account.accounting_system)&.match(/^[1-9]$/) }.map { |a| a.send(Account.accounting_system) }
     balanced_radical_account_classes = []
     accounts = radical_numbers.map { |rad_numb| Account.where('number ~* ?', '^' + rad_numb + '0*$') }.flatten
     accounts.each do |account|
@@ -503,7 +528,8 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def balanced_balance_sheet?(timing = :prior_to_closure)
-    return Journal.sum_entry_items('1 2 3 4 5 6 7', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
+    return Journal.sum_entry_items('1 2 3 4 5 6 7 8', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
+
     computation = AccountancyComputation.new(self)
     balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
     balance_sheet_balance.zero?
@@ -554,9 +580,10 @@ class FinancialYear < Ekylibre::Record::Base
       start_date = started_on
       stop_date = started_on + number_of_months.month - 1.day
       return [[started_on, stopped_on]] if stopped_on <= stop_date
+
       ranges = []
       i = 0
-      while stopped_on >= stop_date do
+      while stopped_on >= stop_date
         i += 1
         ranges << [start_date, stop_date]
         start_date = started_on + (number_of_months * i).month
@@ -569,5 +596,4 @@ class FinancialYear < Ekylibre::Record::Base
     def accountant_with_booked_journal?
       accountant && accountant.booked_journals.any?
     end
-
 end

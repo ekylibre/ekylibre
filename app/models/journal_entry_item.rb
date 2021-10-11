@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,6 +50,7 @@
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
 #  letter                    :string
+#  lettered_at               :datetime
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
 #  position                  :integer
@@ -77,7 +80,7 @@
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-class JournalEntryItem < Ekylibre::Record::Base
+class JournalEntryItem < ApplicationRecord
   attr_readonly :entry_id, :journal_id, :state
   refers_to :absolute_currency, class_name: 'Currency'
   refers_to :currency
@@ -103,7 +106,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :accounting_label, :bank_statement_letter, :letter, :resource_prism, :resource_type, :tax_declaration_mode, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
-  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
@@ -113,7 +116,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :account, presence: true
   validates_format_of :name, with: /\A(?!translation missing: [a-z][a-z_]*).*\z/, allow_blank: true
 
-  delegate :balanced?, to: :entry, prefix: true
+  delegate :balanced?, :reference_number, to: :entry, prefix: true
   delegate :name, :number, :label, to: :account, prefix: true
   delegate :entity_country, :expected_financial_year, :continuous_number, to: :entry
   delegate :resource_label, to: :entry, prefix: true
@@ -146,7 +149,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     state :closed
   end
 
-  #
   before_validation do
     self.name = name.to_s[0..254]
     self.letter = nil if letter.blank?
@@ -163,6 +165,16 @@ class JournalEntryItem < Ekylibre::Record::Base
       letter_balance += debit - credit
       self.letter = letter_radix
       self.letter += '*' unless letter_balance.zero?
+    end
+
+    # Erase lettered_at if letter is unlettered or partially lettered
+    # Remember trigger will attempt to keep consistency
+    unless completely_lettered?
+      self.lettered_at = nil
+    end
+
+    if lettered_at.nil? && completely_lettered?
+      self.lettered_at = Time.zone.now
     end
     # END OF DANGER ZONE
 
@@ -189,7 +201,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     # end
   end
 
-  #
   validate do
     errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
     errors.add(:real_credit, :unvalid_amounts) if real_debit.nonzero? && real_credit.nonzero?
@@ -216,11 +227,13 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   def letter_radix
     return nil unless letter
+
     letter.delete('*')
   end
 
   def letter_group
     return JournalEntryItem.none unless letter
+
     account.journal_entry_items.where('letter = ? OR letter = ?', letter_radix, letter_radix + '*')
   end
 
@@ -240,8 +253,8 @@ class JournalEntryItem < Ekylibre::Record::Base
         self.debit  = real_debit * real_currency_rate
         self.credit = real_credit * real_currency_rate
         self.pretax_amount = real_pretax_amount * real_currency_rate
-        if currency && Nomen::Currency.find(currency)
-          precision = Nomen::Currency.find(currency).precision
+        if currency && Onoma::Currency.find(currency)
+          precision = Onoma::Currency.find(currency).precision
           self.debit  = debit.round(precision)
           self.credit = credit.round(precision)
           self.pretax_amount = pretax_amount.round(precision)
@@ -260,7 +273,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     else
       # FIXME: We need to do something better when currencies don't match
       if currency.present? && (absolute_currency.present? || real_currency.present?)
-        raise JournalEntry::IncompatibleCurrencies, "You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})"
+        raise JournalEntry::IncompatibleCurrencies.new("You cannot create an entry where the absolute currency (#{absolute_currency.inspect}) is not the real (#{real_currency.inspect}) or current one (#{currency.inspect})")
       end
     end
 
@@ -270,6 +283,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   def clear_bank_statement_reconciliation
     return unless bank_statement && bank_statement_letter
+
     bank_statement.items.where(letter: bank_statement_letter).update_all(letter: nil)
   end
 
@@ -328,6 +342,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns the previous item
   def previous
     return nil unless account
+
     if new_record?
       account.journal_entry_items.order(printed_on: :desc, id: :desc).where('printed_on <= ?', printed_on).limit(1).first
     else
@@ -362,6 +377,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Check if the current letter is balanced with all entry items with the same letter
   def balanced_letter?
     return true if letter.blank?
+
     account.balanced_letter?(letter)
   end
 
@@ -372,7 +388,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     mode
   end
 
-  #
   def resource
     if entry
       entry.resource_type
@@ -426,15 +441,17 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   def third_party
     return unless account
-    third_parties = Entity.uniq.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
+
+    third_parties = Entity.distinct.where('client_account_id = ? OR supplier_account_id = ? OR employee_account_id = ?', account.id, account.id, account.id)
     third_parties.take if third_parties.count == 1
   end
 
   # fixed_assets, expenses and revenues are used into tax declaration
   def vat_account
-   prefixes = Account.tax_declarations.pluck(:number).join
-   return if prefixes.empty? || !(account_number =~ /^[#{prefixes}].*/)
-   entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
+    prefixes = Account.tax_declarations.pluck(:number).join
+    return if prefixes.empty? || !(account_number =~ /^[#{prefixes}].*/)
+
+    entry.items.find_by(resource_prism: ["item_tax_reverse_charge", "item_tax"])&.account
   end
 
   def vat_account_label
@@ -443,15 +460,21 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   def associated_journal_entry_items_on_bank_reconciliation
     return [] unless bank_statement_letter
+
     JournalEntryItem.where(bank_statement_letter: bank_statement_letter, account: account).not.where(id: self)
   end
 
   def associated_bank_statement_items
     return [] unless bank_statement_letter
+
     BankStatementItem.joins(cash: :suspense_account).where('letter = ? AND cashes.suspense_account_id = ?', bank_statement_letter, account_id)
   end
 
   def displayed_label_in_accountancy
     accounting_label.present? ? accounting_label : name
+  end
+
+  def currently_exchanged?
+    entry.financial_year_exchange_id.present?
   end
 end

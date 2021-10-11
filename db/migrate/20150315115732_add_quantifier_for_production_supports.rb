@@ -1,4 +1,4 @@
-class AddQuantifierForProductionSupports < ActiveRecord::Migration
+class AddQuantifierForProductionSupports < ActiveRecord::Migration[4.2]
   FAMILIES = {
     exploitation: {},
     accountancy: {},
@@ -150,10 +150,10 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
         end
         # Update supports
         if p.with_supports
-          unless p.support_variant && Nomen::Variety.find(p.support_variant.variety) <= p.support_variety
-            support_variety = Nomen::Variety.find(p.support_variety)
-            item = Nomen::ProductNatureVariant.list.detect do |i|
-              variety = i.variety || Nomen::ProductNature.find(i.nature).variety
+          unless p.support_variant && Onoma::Variety.find(p.support_variant.variety) <= p.support_variety
+            support_variety = Onoma::Variety.find(p.support_variety)
+            item = Onoma::ProductNatureVariant.list.detect do |i|
+              variety = i.variety || Onoma::ProductNature.find(i.nature).variety
               support_variety >= variety
             end
             if item
@@ -175,10 +175,10 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
         end
         # Set cultivation
         if p.with_cultivation
-          unless p.cultivation_variant && Nomen::Variety.find(p.cultivation_variant.variety) <= p.cultivation_variety
-            cultivation_variety = Nomen::Variety.find(p.cultivation_variety)
-            item = Nomen::ProductNatureVariant.list.detect do |i|
-              variety = i.variety || Nomen::ProductNature.find(i.nature).variety
+          unless p.cultivation_variant && Onoma::Variety.find(p.cultivation_variant.variety) <= p.cultivation_variety
+            cultivation_variety = Onoma::Variety.find(p.cultivation_variety)
+            item = Onoma::ProductNatureVariant.list.detect do |i|
+              variety = i.variety || Onoma::ProductNature.find(i.nature).variety
               cultivation_variety >= variety
             end
             if item

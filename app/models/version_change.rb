@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -22,7 +24,8 @@
 
 class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
   def human_attribute_name
-    version.item.class.human_attribute_name(attribute)
+    attribute_name = attribute.sub(/_id$/, '')
+    version.item.class.human_attribute_name(attribute_name)
   end
 
   def human_old_value
@@ -35,12 +38,12 @@ class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
 
   private
 
-  def model
-    version.item.class
-  end
+    def model
+      version.item.class
+    end
 
-  def human_value(value)
-    attr = model.enumerized_attributes[attribute]
-    (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
-  end
+    def human_value(value)
+      attr = model.enumerized_attributes[attribute]
+      (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
+    end
 end

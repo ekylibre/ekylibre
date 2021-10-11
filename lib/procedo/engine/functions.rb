@@ -3,14 +3,6 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
-        def miscibility(set)
-          products = set.map do |parameter|
-            next parameter.variant if parameter.respond_to? :variant
-            parameter.product
-          end
-          Interventions::Phytosanitary::PhytosanitaryMiscibility.new(products.compact).validity
-        end
-
         # Test if population counting is as specified for given product
         def population_counting_is(product, expected)
           ((product && product.population_counting.to_sym) == expected ? 1 : 0)
@@ -22,26 +14,31 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             (parameter.product ? parameter.product.population : nil)
           end
           list.compact!
           return 0.0 if list.empty?
+
           list.sum
         end
 
         # Sums indicator values for a set of product
         def sum(set, indicator_name, unit = nil)
-          indicator = Nomen::Indicator.find!(indicator_name)
+          indicator = Onoma::Indicator.find!(indicator_name)
           raise 'Only measure indicator can use this function' unless indicator.datatype == :measure
+
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             (parameter.product ? parameter.product.get(indicator.name) : nil)
           end
           list.compact!
           return 0.0 if list.empty?
-          list.sum.to_d(unit ? unit : indicator.unit)
+
+          list.sum.to_d(unit || indicator.unit)
         end
 
         def sum_working_zone_areas(set, unit = nil)
@@ -49,10 +46,12 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             parameter.working_zone ? parameter.working_zone.area : nil
           end
           list.compact!
           return 0.0 if list.empty?
+
           list.sum.in(:square_meter).to_d(unit || :square_meter)
         end
 
@@ -62,9 +61,36 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
+
             zone = zone.nil? ? parameter.working_zone : zone.merge(parameter.working_zone)
           end
           zone
+        end
+
+        # WIP / # TODO
+        # puts call in xml procedure as :
+        # computed_complanted_plant_by_target(siblings(SELF, plant), SELF, siblings(SELF, plants))
+        # it's return the number (population) of complanted plant (input) divided by target.working_zone / target(s).working_zone by target
+        # to store complanted_vine_stock for each plant
+        # procedure = vine_complanting
+        def computed_complanted_plant_by_target(set, parameter, inputs)
+          # get sum of all working zone
+          puts "set [siblings(SELF, plant)] : #{set}".inspect.red
+          puts "parameter [SELF] : #{parameter}".inspect.yellow
+          working_zones_area = sum_working_zone_areas(set)
+          puts "working_zones_area : #{working_zones_area}".inspect.green
+          working_zone_area = parameter.working_zone.area
+          puts "working_zone_area : #{working_zone_area}".inspect.red
+          # sum of population of inputs
+          list = set.map do |input_parameter|
+            unless input_parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
+              raise 'Invalid parameter. Only product_parameter wanted. Got: ' + input_parameter.class.name
+            end
+
+            input_parameter.population || nil
+          end
+          list.compact!
+          (list.sum.to_d * (working_zone_area / working_zones_area)).to_d
         end
 
         # Returns a set composed of sibling parameter
@@ -89,15 +115,15 @@ module Procedo
         end
 
         def area(shape)
-          return shape.area.in(:square_meter).to_f(:square_meter)
+          shape.area.in(:square_meter).to_f(:square_meter)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:area, shape)
         end
 
         def intersection(shape, other_shape)
-          return shape.intersection(other_shape)
+          shape.intersection(other_shape)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:intersection, shape, other_shape)
         end
 
         def members_count(set)
@@ -109,13 +135,13 @@ module Procedo
             return 0
           end
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:members_count, set)
         end
 
         def contents_count(container)
-          return container.actor.containeds.count(&:available?)
+          container.actor.containeds.count(&:available?)
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:contents_count, container)
         end
 
         # compute a name from given variant
@@ -139,28 +165,27 @@ module Procedo
         end
 
         def variety_of(product)
-          return product.variety
+          product.variety
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)
         end
 
         def variant_of(product)
           return product.member_variant unless product.nil?
-          nil
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:variant_of, product)
         end
 
         def father_of(vial)
-          return vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
+          vial.mother.last_transplantation.input.father || vial.mother.last_insemination.input.producer
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:father_of, vial)
         end
 
         def mother_of(vial)
-          return vial.mother.last_transplantation.input.mother || vial.mother
+          vial.mother.last_transplantation.input.mother || vial.mother
         rescue
-          raise Procedo::Errors::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall.new(:mother_of, vial)
         end
 
         # return first date as Datetime object
@@ -173,18 +198,51 @@ module Procedo
           set.collect { |h| DateTime.parse(h[:stopped_at]) }.max
         end
 
-        def usage_unit_name_include(product, unit)
-          variant = product.variant
-          return 1 unless variant.imported_from == 'Lexicon' && variant.is_a?(Variants::Articles::PlantMedicineArticle)
-
-          phyto = RegisteredPhytosanitaryProduct.find_by_reference_name(variant.reference_name)
+        # @param [Product] product
+        # @param [Array<Symbol>] dimensions
+        # @return [Integer] 1 for true, 0 for false
+        def product_usages_among_dimensions(product, *dimensions)
+          phyto = product.phytosanitary_product
           return 1 if phyto.nil?
 
           usages = phyto.usages
           return 1 if usages.empty?
 
           usage_units = usages.pluck(:dose_unit).uniq.compact
-          usage_units.any? { |u| u =~ /\A#{Regexp.quote(unit)}_/ } || usage_units.empty? ? 1 : 0
+          checks = usage_units.any? do |usage_unit|
+            unit = Onoma::Unit.find(usage_unit)
+            dimensions.include?(unit.base_dimension.to_sym) || dimensions.include?(unit.dimension.to_sym)
+          end
+
+          checks || usage_units.empty? ? 1 : 0
+        end
+
+        def grain_indicators_present(product)
+          check = product.thousand_grains_mass.positive?
+          check ? 1 : 0
+        end
+
+        # for seed, convert quantity in mass or unit with thousand_grains_mass indicator from product
+        # @param [Decimal] quantity
+        # @param [Unit, Product or String] from
+        # @param [Unit, Product or String] to
+        # @param [Product] product
+        def seed_population(quantity, from, to, product)
+          if from.is_a?(Unit)
+            from_unit = from
+          elsif from.is_a?(Product)
+            from_unit = product.conditioning_unit
+          else
+            from_unit = Unit.find_by_reference_name(from.to_s)
+          end
+          if to.is_a?(Unit)
+            to_unit = to
+          elsif to.is_a?(Product)
+            to_unit = product.conditioning_unit
+          else
+            to_unit = Unit.find_by_reference_name(to.to_s)
+          end
+          UnitComputation.convert_seed_stock(quantity, from_unit, to_unit, product.variant)
         end
       end
     end

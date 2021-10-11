@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Accountancy
   module ConditionBuilder
     class JournalEntryConditionBuilder < Base
-
       # Build a condition for filter journal entries on period
       def period_condition(period, started_on:, stopped_on:, table_name:)
         if period.to_s == 'all'
@@ -25,20 +26,22 @@ module Accountancy
       end
 
       # Build an SQL condition based on options which should contains acceptable states
-      def journal_condition(journals, table_name)
-        if journals.nil? || !journals.is_a(Hash) || journals.empty?
+      def journal_condition(journal_ids, table_name:)
+        if journal_ids.blank?
           connection.quoted_false
         else
-          "#{table_name}.journal_id IN (#{journals.keys.map { |journal_id| quote(journal_id.to_i) }.join(',')})"
+          "#{table_name}.journal_id IN (#{journal_ids.map { |journal_id| quote(journal_id.to_i) }.join(',')})"
         end
       end
 
       # Build an SQL condition based on options which should contains acceptable states
+      # @param [Array<String, Symbol>] states
+      # @param [String] table_name
       def state_condition(states, table_name:)
-        if states.nil? || !states.is_a?(Hash) || states.empty?
+        if states.blank?
           JournalEntry.connection.quoted_false
         else
-          "#{table_name}.state IN (#{states.keys.map { |state| quote(state) }.join(',')})"
+          "#{table_name}.state IN (#{states.map { |state| quote(state) }.join(',')})"
         end
       end
     end

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -85,7 +85,12 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       deduction_account: Account.find_or_create_by_number('4567'),
       country: :fr
     )
-    item = purchase.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 3.791, tax: tax)
+    item = purchase.items.create!(variant: variants.first,
+                                  conditioning_quantity: 4,
+                                  unit_pretax_amount: 3.791,
+                                  tax: tax,
+                                  conditioning_unit: variants.first.guess_conditioning[:unit])
+
     assert item
     assert_equal 16, item.amount
     assert_equal 16, purchase.amount
@@ -96,17 +101,21 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert @supplier
     purchase = new_purchase
     3.times do |index|
-      variant = ProductNatureVariant.all.sample
+      variant = ProductNatureVariant.first
       tax = Tax.find_by(amount: 20)
       quantity = index + 1
-      item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: tax, quantity: quantity)
+      item = purchase.items.build(variant: variant,
+                                  unit_pretax_amount: 100,
+                                  tax: tax,
+                                  conditioning_quantity: quantity,
+                                  conditioning_unit: variant.guess_conditioning[:unit])
       item.save!
       assert_equal(quantity * 100, item.pretax_amount, "Item pre-tax amount should be #{quantity * 100}. Got #{item.pretax_amount.inspect}")
       assert_equal(quantity * 120, item.amount, "Item amount should be #{quantity * 120}. Got #{item.amount.inspect}")
       assert purchase.amount > 0, "Purchase amount should be greater than 0. Got: #{purchase.amount}"
     end
     2.times do |index|
-      variant = ProductNatureVariant.all.sample
+      variant = ProductNatureVariant.first
       tax = Tax.create_with(
         collect_account: Account.find_or_create_by_number('4566'),
         deduction_account: Account.find_or_create_by_number('4567'),
@@ -114,7 +123,11 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         country: :fr
       ).find_or_create_by!(amount: 20, intracommunity: true, nature: :normal_vat)
       quantity = index + 1
-      item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: tax, quantity: quantity)
+      item = purchase.items.build(variant: variant,
+                                  unit_pretax_amount: 100,
+                                  tax: tax,
+                                  conditioning_quantity: quantity,
+                                  conditioning_unit: variant.guess_conditioning[:unit])
       item.save!
       assert_equal(quantity * 100, item.pretax_amount, "Item pre-tax amount should be #{quantity * 100}. Got #{item.pretax_amount.inspect}")
       assert_equal(quantity * 100, item.amount, "Item amount should be #{quantity * 100}. Got #{item.amount.inspect}")
@@ -123,13 +136,24 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     assert_equal 5, purchase.items.count
 
-    variant = ProductNatureVariant.all.sample
+    variant = ProductNatureVariant.first
 
-    item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: Tax.find_by(amount: 20), quantity: 0.999, pretax_amount: 100)
+    item = purchase.items.build(variant: variant,
+                                unit_pretax_amount: 100,
+                                tax: Tax.find_by(amount: 20),
+                                conditioning_quantity: 0.999,
+                                pretax_amount: 100,
+                                conditioning_unit: variant.guess_conditioning[:unit])
     item.save!
     assert_equal 100, item.pretax_amount
 
-    item = purchase.items.build(variant: variant, unit_pretax_amount: 100, tax: Tax.find_by(amount: 20), quantity: 0.999, pretax_amount: 99, amount: 120)
+    item = purchase.items.build(variant: variant,
+                                unit_pretax_amount: 100,
+                                tax: Tax.find_by(amount: 20),
+                                conditioning_quantity: 0.999,
+                                pretax_amount: 99,
+                                amount: 120,
+                                conditioning_unit: variant.guess_conditioning[:unit])
     item.save!
     assert_equal 120, item.amount
 
@@ -137,23 +161,28 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'simple creation with nested items' do
+    first_variant = ProductNatureVariant.first
+    unit = first_variant.guess_conditioning[:unit]
+
     items_attributes = [
       {
-        tax: Tax.find_by!(amount: 20),
-        variant: ProductNatureVariant.first,
+        tax: Tax.find_by!(amount: 20.to_d),
+        variant: first_variant,
         unit_pretax_amount: 100,
-        quantity: 1
+        conditioning_quantity: 1,
+        conditioning_unit: unit
       },
       {
-        tax: Tax.find_by!(amount: 0),
-        variant_id: ProductNatureVariant.first.id,
+        tax: Tax.find_by!(amount: 0.to_d),
+        variant: first_variant,
         unit_pretax_amount: 450,
-        quantity: 2
+        conditioning_quantity: 2,
+        conditioning_unit: unit
       },
       { # Invalid item (rejected)
-        tax: Tax.find_by!(amount: 19.6),
+        tax: Tax.find_by!(amount: 19.6.to_d),
         unit_pretax_amount: 123,
-        quantity: 17
+        conditioning_quantity: 17
       }
     ]
     purchase = new_purchase(items_attributes: items_attributes)
@@ -163,6 +192,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    IdeaDiagnostic.delete_all
     Payslip.delete_all
     Purchase.delete_all
     PurchaseNature.delete_all
@@ -183,17 +213,22 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'payment date computation' do
+    first_variant = ProductNatureVariant.first
+    unit = first_variant.guess_conditioning[:unit]
+
     items_attributes = [{
       tax: Tax.find_by!(amount: 20),
-      variant: ProductNatureVariant.first,
+      variant: first_variant,
       unit_pretax_amount: 100,
-      quantity: 1
+      conditioning_quantity: 1,
+      conditioning_unit: unit
     },
                         {
                           tax: Tax.find_by!(amount: 0),
-                          variant_id: ProductNatureVariant.first.id,
+                          variant: first_variant,
                           unit_pretax_amount: 450,
-                          quantity: 2
+                          conditioning_quantity: 2,
+                          conditioning_unit: unit
                         }]
 
     purchase = new_purchase(items_attributes: items_attributes)
@@ -209,17 +244,22 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'updating third updates third in affair if purchase is alone in the deals' do
+    first_variant = ProductNatureVariant.first
+    unit = first_variant.guess_conditioning[:unit]
+
     items_attributes = [{
       tax: Tax.find_by!(amount: 20),
-      variant: ProductNatureVariant.first,
+      variant: first_variant,
       unit_pretax_amount: 100,
-      quantity: 1
+      conditioning_quantity: 1,
+      conditioning_unit: unit
     },
                         {
                           tax: Tax.find_by!(amount: 0),
-                          variant_id: ProductNatureVariant.first.id,
+                          variant: first_variant,
                           unit_pretax_amount: 450,
-                          quantity: 2
+                          conditioning_quantity: 2,
+                          conditioning_unit: unit
                         }]
 
     original_supplier = Entity.create(first_name: 'First', last_name: 'Supplier', supplier: true)
@@ -258,17 +298,17 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
-    attributes = {
-      type: type,
-      nature: nature || @nature,
-      supplier: supplier || @supplier,
-      invoiced_at: invoiced_at || @invoiced_at,
-      currency: currency,
-      state: state,
-      items_attributes: items_attributes || {}
-    }
+    def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
+      attributes = {
+        type: type,
+        nature: nature || @nature,
+        supplier: supplier || @supplier,
+        invoiced_at: invoiced_at || @invoiced_at,
+        currency: currency,
+        state: state,
+        items_attributes: items_attributes || {}
+      }
 
-    Purchase.create!(attributes)
-  end
+      Purchase.create!(attributes)
+    end
 end

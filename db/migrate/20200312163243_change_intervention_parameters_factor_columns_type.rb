@@ -1,4 +1,4 @@
-class ChangeInterventionParametersFactorColumnsType < ActiveRecord::Migration
+class ChangeInterventionParametersFactorColumnsType < ActiveRecord::Migration[4.2]
   def change
     database = Rails.configuration.database_configuration[Rails.env]['database']
     execute "ALTER DATABASE #{database} SET IntervalStyle = 'iso_8601'"

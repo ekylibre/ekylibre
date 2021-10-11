@@ -1,0 +1,20 @@
+- if @analytic_sequences_grid
+
+  - unless @analytic_sequences.any?
+    - main_toolbar do |t|
+      = t.new params: { redirect: nil }
+
+  = grid(@analytic_sequences_grid, html: { class: "wice-grid-list naming-formats-list" }) do |g|
+    - segments_count = @analytic_sequences_grid.resultset.map(&:segments).flatten.map(&:position).uniq.count
+
+    - g.column name: '', html: { style: 'width: 10px;' } do |analytic_sequence|
+      - link_to(edit_backend_analytic_sequence_path(analytic_sequence), class: "wice-grid-action") do
+        %i.wice-grid-action-icon.picto.picto-edit
+
+    - segments_count.times do |index|
+      - column_name = t('labels.sequence', counter: index + 1)
+
+      - g.column name: column_name do |analytic_sequence|
+        - segment = analytic_sequence.segments[index]
+        - unless segment.nil?
+          - segment.name.text

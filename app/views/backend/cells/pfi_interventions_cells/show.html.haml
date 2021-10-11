@@ -1,0 +1,43 @@
+- phyto_interventions = Intervention.of_nature_using_phytosanitary.of_campaign(@campaign)
+- pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(@campaign)
+- if @campaign && pfi_interventions.any?
+  :ruby
+    series = []
+
+    categories = {}
+    activities = Activity.where(id: pfi_interventions.pluck(:activity_id).uniq).reorder(:name)
+
+    activities.each do |act|
+      categories[act.id.to_s] = act.name
+    end
+
+    unit = Onoma::Unit[:percent]
+
+    segments = pfi_interventions.order(:segment_code).pluck(:segment_code).uniq
+
+    # data for bar chart by pfi segment and by month
+    segments.each do |segment|
+      # get all input in segment
+      pfi_in_segment = pfi_interventions.of_segment(segment)
+      segment_description = PfiInterventionParameter::PFI_SEGMENTS_TRANSCODE[segment.to_sym]
+      segment_name = "#{segment.to_s} - #{segment_description.to_s}"
+      # get all pfi values for activity
+      sums = {}
+      activities.each do |act|
+        pfi_on_activity = pfi_in_segment.of_activity(act)
+        sums[act.id.to_s] = pfi_on_activity.sum(:activity_pfi_value).to_s.to_f
+      end
+      series << { name: segment_name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: '' }, stack: 'time'}
+    end
+
+  - if series.any?
+    = column_highcharts(series, y_axis: {title: {text: :pfi_treatment_ratio.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
+    = link_to(:compute_pfi_report.tl, compute_pfi_report_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-cell--pfi")
+    = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-cell--pfi")
+  - else
+    = no_data
+
+- elsif @campaign && phyto_interventions.any?
+  = link_to(:compute_pfi_interventions.tl, compute_pfi_interventions_backend_cells_pfi_interventions_cell_path, remote: true, class: "btn btn-cell--pfi")
+- else
+  = no_data

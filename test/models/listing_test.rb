@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -91,6 +91,8 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'extract a custom field column' do
+    create :custom_field, :text, column_name: 'sdqdqsdq_sd_qsq', customized_type: 'Entity'
+
     ListingNode.rebuild!
     listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root
@@ -110,6 +112,8 @@ class ListingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'extract an associated custom field column' do
+    create :custom_field, :text, column_name: 'account_custom_test', customized_type: 'Account'
+
     ListingNode.rebuild!
     listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root

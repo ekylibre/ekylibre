@@ -78,13 +78,12 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'rounds' do
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     nature = SaleNature.find_or_create_by(currency: 'EUR')
     assert nature
     client = Entity.normal.first
     assert client
-    sale = Sale.create!(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
-    assert sale
-    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+
     # Standard case
     standard_vat = Tax.create!(
       name: 'Standard',
@@ -94,10 +93,19 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       deduction_account: Account.find_or_create_by_number('45671'),
       country: :fr
     )
-    first_item = sale.items.create!(variant: variants.first, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
+
+    sale = Sale.new(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
+    first_item = sale.items.new(variant: variants.first,
+                                conditioning_quantity: 4,
+                                unit_pretax_amount: 100,
+                                conditioning_unit: variants.first.guess_conditioning[:unit],
+                                tax: standard_vat)
+    sale.save!
+    assert sale
     assert first_item
     assert_equal 480, first_item.amount
     assert_equal 480, sale.amount
+
     # Limit case
     reduced_vat = Tax.create!(
       name: 'Reduced',
@@ -107,13 +115,18 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       deduction_account: Account.find_or_create_by_number('45672'),
       country: :fr
     )
-    second_item = sale.items.create!(variant: variants.second, quantity: 4, unit_pretax_amount: 3.791, tax: reduced_vat)
+    second_item = sale.items.create!(variant: variants.second,
+                                     conditioning_quantity: 4,
+                                     unit_pretax_amount: 3.791,
+                                     conditioning_unit: variants.second.guess_conditioning[:unit],
+                                     tax: reduced_vat)
+
     assert second_item
     assert_equal 16, second_item.amount
     assert_equal 496, sale.amount
 
     assert sale.propose!
-    assert sale.confirm!
+    assert sale.confirm!(DateTime.new(2018, 1, 1))
     assert sale.invoice!
 
     sale.reload
@@ -130,11 +143,10 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'unit pretax amount calculation based on total pretax amount' do
+    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
     nature = SaleNature.first
     assert nature
-    sale = Sale.create!(nature: nature, client: Entity.normal.first)
-    assert sale
-    variants = ProductNatureVariant.where(nature: ProductNature.where(population_counting: :decimal))
+
     tax = Tax.create!(
       name: 'Standard',
       amount: 20,
@@ -143,8 +155,17 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       deduction_account: Account.find_or_create_by_number('4567'),
       country: :fr
     )
+
     # Calculates unit_pretax_amount based on pretax_amount
-    item = sale.items.create!(variant: variants.first, quantity: 2, pretax_amount: 225, tax: tax, compute_from: 'pretax_amount')
+    sale = Sale.new(nature: nature, client: Entity.normal.first)
+    item = sale.items.new(variant: variants.first,
+                          conditioning_quantity: 2,
+                          pretax_amount: 225,
+                          tax: tax,
+                          conditioning_unit: variants.first.guess_conditioning[:unit],
+                          compute_from: 'pretax_amount')
+    sale.save!
+    assert sale
     assert item
     assert_equal 112.50, item.unit_pretax_amount
     assert_equal 270, item.amount
@@ -162,6 +183,7 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   test 'default_currency is nature\'s currency if currency is not specified' do
+    IdeaDiagnostic.delete_all
     Payslip.delete_all
     Catalog.delete_all
     SaleNature.delete_all
@@ -169,11 +191,22 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     Entity.delete_all
     Sale.delete_all
 
+    item_attributes = { variant: ProductNatureVariant.first,
+                        conditioning_quantity: 1,
+                        pretax_amount: 10,
+                        tax: Tax.first,
+                        conditioning_unit: Unit.import_from_lexicon(:unity),
+                        compute_from: 'pretax_amount' }
+
     catalog = Catalog.create!(code: 'food', name: 'Noncontaminated produce')
     nature = SaleNature.create!(currency: 'EUR', name: 'Perishables', catalog: catalog, journal: Journal.find_by_nature('sales'))
     max = Entity.create!(first_name: 'Max', last_name: 'Rockatansky', nature: :contact)
-    with = Sale.create!(client: max, nature: nature, currency: 'USD')
-    without = Sale.create!(client: max, nature: nature)
+    with = Sale.new(client: max, nature: nature, currency: 'USD')
+    with.items.new(item_attributes)
+    with.save!
+    without = Sale.new(client: max, nature: nature)
+    without.items.new(item_attributes)
+    without.save!
 
     assert_equal 'USD', with.default_currency
     assert_equal 'EUR', without.default_currency
@@ -195,9 +228,13 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       country: :fr
     )
 
-    sale = Sale.create!(nature: nature, client: Entity.normal.first, state: :order, invoiced_at: DateTime.new(2018, 1, 1))
-    sale.items.create!(variant: @variant, quantity: 4, unit_pretax_amount: 100, tax: standard_vat)
-    sale.reload
+    sale = Sale.new(nature: nature, client: Entity.normal.first, state: :order, invoiced_at: DateTime.new(2018, 1, 1))
+    sale.items.new(variant: @variant,
+                   conditioning_quantity: 4,
+                   unit_pretax_amount: 100,
+                   conditioning_unit: @variant.guess_conditioning[:unit],
+                   tax: standard_vat)
+    sale.save!
 
     assert sale.invoice
 
@@ -209,16 +246,16 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
-    assert_equal jei_s.variant, @variant
+    assert_equal jei_s.variant, ProductNatureVariant.find(@variant.id)
   end
 
   test 'Cannot create a sale during a financial year exchange' do
     FinancialYear.delete_all
-    financial_year = create(:financial_year, started_on: Date.today.beginning_of_year, stopped_on: Date.today.end_of_year)
-    exchange = FinancialYearExchange.create(financial_year: financial_year, stopped_on: Date.today - 2.day)
-    assert create(:sale, invoiced_at: Date.today - 1.day)
+    financial_year = create(:financial_year, started_on: Date.new(2021, 1, 1).beginning_of_year, stopped_on: Date.new(2021, 1, 1).end_of_year)
+    exchange = FinancialYearExchange.create(financial_year: financial_year, started_on: Date.new(2021, 3, 11) - 4.day, stopped_on: Date.new(2021, 3, 11) - 2.day)
+    assert create(:sale, invoiced_at: DateTime.new(2021, 3, 11) - 1.day)
     assert_raises ActiveRecord::RecordInvalid do
-      create(:sale, invoiced_at: Date.today - 3.day)
+      create(:sale, invoiced_at: DateTime.new(2021, 3, 11) - 3.day)
     end
   end
 
@@ -226,9 +263,56 @@ class SaleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     sale = create :sale, amount: 5000, items: 1
 
     assert sale.propose
-    assert sale.confirm
+    assert sale.confirm(Time.parse("2018-05-08T09-25-52Z"))
 
     assert sale.order?
     assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+  end
+
+  test 'A sale with state :order can have its items changed' do
+    # case direct sale on market for farmer like AMAP and ci
+    nature = SaleNature.find_or_create_by(currency: 'EUR')
+    assert nature
+
+    client = Entity.normal.first
+    assert client
+
+    standard_vat = Tax.create!(
+      name: 'Standard',
+      amount: 20,
+      nature: :normal_vat,
+      collect_account: Account.find_or_create_by_number('45661'),
+      deduction_account: Account.find_or_create_by_number('45671'),
+      country: :fr
+    )
+
+    sale = Sale.new(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
+    item = sale.items.new(variant: @variant, conditioning_quantity: 4, unit_pretax_amount: 10, tax: standard_vat, conditioning_unit: @variant.guess_conditioning[:unit])
+    sale.save!
+    assert sale
+
+    assert sale.propose!
+    assert sale.confirm!(Time.parse("2018-05-08T09-25-52Z"))
+    assert sale.order?
+    assert_equal 48, sale.amount
+
+    # sale order must have an draft entry updateable
+    entry = sale.journal_entry
+    assert 48, entry.items.find_by(account_id: client.account(:client).id).debit
+    assert 40, entry.items.find_by(account_id: item.account_id).credit
+
+    item.update(conditioning_quantity: 8)
+    assert sale.update invoiced_at: Time.parse("2018-05-08T10-25-52Z")
+
+    sale.reload
+
+    assert_equal 96, sale.amount
+    assert sale.invoice!
+
+    sale.reload
+
+    # sale invoice must have an entry up to date
+    assert 96, entry.items.find_by(account_id: client.account(:client).id).debit
+    assert 80, entry.items.find_by(account_id: item.account_id).credit
   end
 end

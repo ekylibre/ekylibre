@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,10 +30,14 @@
 #  creator_id                         :integer
 #  currency                           :string           not null
 #  custom_fields                      :jsonb
+#  financial_year_exchange_id         :integer
 #  id                                 :integer          not null, primary key
+#  isacompta_code                     :string
+#  isacompta_label                    :string
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
+#  provider                           :jsonb
 #  updated_at                         :datetime         not null
 #  updater_id                         :integer
 #  used_for_affairs                   :boolean          default(FALSE), not null
@@ -49,7 +53,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
 
   test 'presence of nature scopes' do
-    for nature in Journal.nature.values
+    Journal.nature.values.each do |nature|
       scope_name = nature.to_s.pluralize.to_sym
       assert Journal.respond_to?(scope_name), "Journal must have a scope #{scope_name}"
       # TODO: Check that scope works
@@ -66,7 +70,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     various_journal = create(:journal, :various)
     create_list(:journal_entry, 2, :with_items, :draft, journal: various_journal)
     various_journal.accountant = create(:entity, :accountant)
-    assert various_journal.entries.any? { |e| e.draft? || e.confirmed? }
+    assert(various_journal.entries.any? { |e| e.draft? || e.confirmed? })
     assert various_journal.save
     assert various_journal.entries.reload.all?(&:closed?), 'All journal entries should be closed after accountant assignment on journal'
   end
@@ -86,7 +90,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'cannot set an accountant which has opened exchanges in its financial year' do
     accountant = create(:entity, :accountant)
     financial_year = financial_years(:financial_years_025)
-    financial_year.update_column(:accountant_id, accountant)
+    financial_year.update_column(:accountant_id, accountant.id)
     create(:financial_year_exchange, :opened, financial_year: financial_year)
 
     journal = create(:journal, :various)
@@ -97,7 +101,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'cannot remove accountant which has opened exchanges in its financial year' do
     accountant = create(:entity, :accountant)
     financial_year = financial_years(:financial_years_025)
-    financial_year.update_column(:accountant_id, accountant)
+    financial_year.update_column(:accountant_id, accountant.id)
     journal = create(:journal, :various, accountant_id: accountant.id)
     create(:financial_year_exchange, :opened, financial_year: financial_year)
     journal.accountant = nil
@@ -119,7 +123,7 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       # centralize option should be removed after the update of Journal.trial_balance method with the fact that there is no centralizing account anymore in DB
       centralize: '301 302 310 320 330 340 374 401 411 421 467 603'
     }
-    balance = Accountancy::TrialBalanceCalculator.build(connection: Ekylibre::Record::Base.connection)
+    balance = Accountancy::TrialBalanceCalculator.build(connection: ApplicationRecord.connection)
                                                  .trial_balance(params)
 
     assert_equal BigDecimal(balance[0][2]), sale.amount
@@ -129,18 +133,45 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal BigDecimal(balance[3][3]), sale.amount
   end
 
+  test 'journal currently exchanged with isacompta format should require isacompta code and isacompta label presence + check length' do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    exchange = create(:financial_year_exchange, financial_year: fy, format: :isacompta)
+    journal = build(:journal, financial_year_exchange_id: exchange.id)
+    assert_not journal.valid?, 'Require isacompta fields'
+
+    journal.isacompta_label = 'My new isacompta label'
+    journal.isacompta_code = 'ABC'
+    assert_not journal.valid?, 'Isacompta code should have a maximum of 2 caracters'
+
+    journal.isacompta_code = 'AB'
+    journal.isacompta_label = 'This label contains more than 30 caracters and is not valid'
+    assert_not journal.valid?, 'Isacompta label should have a maximum of 30 caracters'
+
+    journal.isacompta_label = 'My new isacompta label'
+    assert journal.valid?, 'Should be valid'
+  end
+
+  test 'journal currently exchanged with ekyagri format should not require isacompta code and isacompta label presence' do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2021)
+    exchange = create(:financial_year_exchange, financial_year: fy, format: :ekyagri)
+    journal = build(:journal, financial_year_exchange_id: exchange.id)
+    assert journal.valid?, 'Should be valid'
+  end
+
   private
 
-  def clean_irrelevant_fixtures
-    FinancialYear.delete_all
-    OutgoingPayment.delete_all
-    Sale.delete_all
-    SaleItem.delete_all
-    Regularization.delete_all
-    Payslip.delete_all
-    JournalEntry.delete_all
-    JournalEntryItem.delete_all
-    Affair.delete_all
-    TaxDeclaration.delete_all
-  end
+    def clean_irrelevant_fixtures
+      FinancialYear.delete_all
+      OutgoingPayment.delete_all
+      Sale.delete_all
+      SaleItem.delete_all
+      Regularization.delete_all
+      Payslip.delete_all
+      JournalEntry.delete_all
+      JournalEntryItem.delete_all
+      Affair.delete_all
+      TaxDeclaration.delete_all
+    end
 end

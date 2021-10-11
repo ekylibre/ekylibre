@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class FixedAssetBookkeeper < Ekylibre::Bookkeeper
   def call
+    return unless changed.include?('state')
+
     @label = tc(:bookkeep_in_use_assets, resource: FixedAsset.model_name.human, number: number, name: name)
     @generic_waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
     @fixed_assets_suppliers_account = Account.find_or_import_from_nomenclature(:fixed_assets_suppliers)
@@ -45,6 +49,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
         purchase_items.each do |purchase_item|
           entry_item = purchase_item.journal_entry.items.detect { |i| i.resource_id == purchase_item.id && i.resource_prism == 'item_product' }
           next if waiting_asset_account_id == entry_item.account.id
+
           entry.add_credit(@label, entry_item.account.id, entry_item.real_balance, resource: resource, as: :fixed_asset)
           amounts << entry_item.real_balance
         end
@@ -60,6 +65,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
           # TODO: get entry item concerning
           jei = JournalEntryItem.find_by(resource_id: p_item.id, resource_type: p_item.class.name, account_id: @generic_waiting_asset_account.id)
           next unless jei && jei.real_balance.nonzero?
+
           account = if attribute_was(:state) == 'waiting' && waiting_asset_account
                       waiting_asset_account
                     else
@@ -76,7 +82,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
       if FinancialYear.at(started_on)&.opened?
         # puts "without purchase".inspect.green
         if waiting_journal_entry
-          waiting_account_id = waiting_asset_account_id ? waiting_asset_account_id : @generic_waiting_asset_account.id
+          waiting_account_id = waiting_asset_account_id || @generic_waiting_asset_account.id
           journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
             entry.add_credit(@label, waiting_account_id, depreciable_amount, resource: resource, as: :fixed_asset)
             entry.add_debit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
@@ -111,19 +117,26 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
       out_on = sold_on
       out_on ||= scrapped_on
 
+      # set correct label for entry
+      if sold?
+        label = :bookkeep_in_sold_assets
+      elsif scrapped?
+        label = :bookkeep_exit_assets
+      end
+
       # get last depreciation for date out_on
       depreciation_out_on = current_depreciation(out_on)
 
       if depreciation_out_on
-        scrapped_value = depreciation_out_on.depreciable_amount
-        scrapped_unvalue = depreciation_out_on.depreciated_amount
+        depreciation_value = depreciation_out_on.depreciable_amount
+        depreciation_unvalue = depreciation_out_on.depreciated_amount
 
-        # fixed asset sold
-        @label = tc(:bookkeep_in_sold_assets, resource: resource.class.model_name.human, number: number, name: name)
-        journal_entry(journal, printed_on: sold_on, as: :sold, if: sold?) do |entry|
+        # fixed asset go out (sold or scrapped)
+        @label = tc(label, resource: resource.class.model_name.human, number: number, name: name)
+        journal_entry(journal, printed_on: out_on, as: self.state.to_sym) do |entry|
           entry.add_credit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
-          entry.add_debit(@label, @fixed_assets_values_account.id, scrapped_value, resource: resource, as: :fixed_asset)
-          entry.add_debit(@label, allocation_account.id, scrapped_unvalue, resource: resource, as: :fixed_asset)
+          entry.add_debit(@label, @fixed_assets_values_account.id, depreciation_value, resource: resource, as: :fixed_asset)
+          entry.add_debit(@label, allocation_account.id, depreciation_unvalue, resource: resource, as: :fixed_asset)
         end
       end
     end

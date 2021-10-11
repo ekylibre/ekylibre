@@ -8,9 +8,9 @@ module Ekylibre
     @registered_plugins = {}
 
     cattr_accessor :directory, :mirrored_assets_directory
-    self.directory = Ekylibre.root.join('plugins')
+    self.directory = Rails.root.join('plugins')
     # Where the plugins assets are gathered for asset pipeline
-    self.mirrored_assets_directory = Ekylibre.root.join('tmp', 'plugins', 'assets')
+    self.mirrored_assets_directory = Rails.root.join('tmp', 'plugins', 'assets')
 
     # Returns a type (stylesheets, fonts...) directory for all plugins
     def self.type_assets_directory(type)
@@ -34,6 +34,7 @@ module Ekylibre
       def load
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
           next unless File.directory?(directory)
+
           load_plugin(directory)
         end
       end
@@ -53,6 +54,7 @@ module Ekylibre
       def load_integrations
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
           next unless File.directory?(directory)
+
           Dir.glob(File.join(directory, 'app', 'integrations', '**', '*.rb')).sort.each do |integration|
             require integration
           end
@@ -105,8 +107,10 @@ module Ekylibre
           each do |plugin|
             plugin.themes_assets.each do |name, addons|
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
+
               stylesheet << "// #{plugin.name}\n"
               next unless addons[:stylesheets]
+
               addons[:stylesheets].each do |file|
                 stylesheet << "@import \"#{file}\";\n"
               end
@@ -281,7 +285,7 @@ module Ekylibre
       options = requirements.extract_options!
       requirements.each do |requirement|
         unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d+.\d+(\.[a-z0-9]+)*\z/
-          raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
+          raise PluginRequirementError.new("Invalid version requirement expression: #{requirement}")
         end
       end
 
@@ -289,8 +293,9 @@ module Ekylibre
       version = version.split(' - ').first if version.include?('-')
 
       unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(version)
-        raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
+        raise PluginRequirementError.new("Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})")
       end
+
       true
     end
 
@@ -362,22 +367,22 @@ module Ekylibre
 
     private
 
-    def snippets_directory
-      @view_path.join('snippets')
-    end
+      def snippets_directory
+        @view_path.join('snippets')
+      end
 
-    def assets_directory
-      @root.join('app', 'assets')
-    end
+      def assets_directory
+        @root.join('app', 'assets')
+      end
 
-    def themes_directory
-      @root.join('app', 'themes')
-    end
+      def themes_directory
+        @root.join('app', 'themes')
+      end
 
-    def add_theme_asset(theme, file, type)
-      @themes_assets[theme] ||= {}
-      @themes_assets[theme][type] ||= []
-      @themes_assets[theme][type] << file
-    end
+      def add_theme_asset(theme, file, type)
+        @themes_assets[theme] ||= {}
+        @themes_assets[theme][type] ||= []
+        @themes_assets[theme][type] << file
+      end
   end
 end

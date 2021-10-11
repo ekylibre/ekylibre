@@ -36,12 +36,12 @@ module Backend
 
       private
 
-      def search_params
-        params.permit(:scope,
-                      :is_tool_or_doer,
-                      :q,
-                      :max)
-      end
+        def search_params
+          params.permit(:scope,
+                        :is_tool_or_doer,
+                        :q,
+                        :max)
+        end
     end
   end
 end

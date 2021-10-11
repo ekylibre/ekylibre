@@ -21,6 +21,7 @@ deu:
       long: "%e. %B %Y"
       month: "%DURCH"
       month_letter: "% D% B% Y"
+      # month_name: "%B"
       short: "%e. %b"
       short_month: "%m.%Y"
     month_names: ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]

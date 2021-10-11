@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,7 +67,7 @@
 # IncomingPayment |         |    X    |
 # Regularization  |    ?    |    ?    |
 #
-class Affair < Ekylibre::Record::Base
+class Affair < ApplicationRecord
   include Attachable
   refers_to :currency
   belongs_to :cash_session
@@ -86,7 +88,7 @@ class Affair < Ekylibre::Record::Base
 
   # has_many :tax_declarations,  inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :closed, inclusion: { in: [true, false] }
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :third, presence: true
@@ -134,6 +136,7 @@ class Affair < Ekylibre::Record::Base
   def deal_work_name
     d = deals_of_type(self.class.deal_class).first
     return d.number if d
+
     nil
   end
 
@@ -157,7 +160,7 @@ class Affair < Ekylibre::Record::Base
 
     # Removes empty affairs in the whole table
     def clean_deads
-      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})"
+      query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})".dup
       query << self.class.affairable_types.collect do |type|
         model = type.constantize
         " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
@@ -167,7 +170,7 @@ class Affair < Ekylibre::Record::Base
 
     # Returns heterogen list of deals of the affair
     def generate_deals_method
-      code  = "def deals\n"
+      code  = "def deals\n".dup
       array = affairable_types.collect do |class_name|
         "#{class_name}.where(affair_id: self.id).to_a"
       end.join(' + ')
@@ -194,9 +197,10 @@ class Affair < Ekylibre::Record::Base
     end
     return self if self == other
     if other.currency != currency
-      raise ArgumentError, "The currency (#{currency}) is different of the affair currency(#{other.currency})"
+      raise ArgumentError.new("The currency (#{currency}) is different of the affair currency(#{other.currency})")
     end
-    Ekylibre::Record::Base.transaction do
+
+    ApplicationRecord.transaction do
       other.deals.each do |deal|
         deal.update_columns(affair_id: id)
         deal.reload
@@ -209,9 +213,10 @@ class Affair < Ekylibre::Record::Base
 
   def extract!(deal)
     unless deals.include?(deal)
-      raise ArgumentError, 'Given deal is not one of the affair'
+      raise ArgumentError.new('Given deal is not one of the affair')
     end
-    Ekylibre::Record::Base.transaction do
+
+    ApplicationRecord.transaction do
       affair = self.class.create!(currency: deal.currency, third: deal.deal_third)
       update_column(:affair_id, affair.id)
       affair.refresh!
@@ -242,6 +247,10 @@ class Affair < Ekylibre::Record::Base
     else
       :stop
     end
+  end
+
+  def human_status
+    I18n.t("tooltips.models.affair.#{status}")
   end
 
   # Reload and save! affair to force counts and sums computation
@@ -283,10 +292,11 @@ class Affair < Ekylibre::Record::Base
   # Each of those holds a value equal to (VATed amount / total) * gap
   # so the amounts amounts taxed at each VAT %s in the gap are
   # proportional to the VAT %s amounts in the debit/credit.
-  def finish
+  def finish(at: nil)
     return false if balance.zero?
     raise 'Cannot finish anymore multi-thirds affairs' if multi_thirds?
-    precision = Nomen::Currency.find(currency).precision
+
+    precision = Onoma::Currency.find(currency).precision
     self.class.transaction do
       # Get all VAT-specified deals
       deals_amount = deals.map do |deal|
@@ -350,6 +360,7 @@ class Affair < Ekylibre::Record::Base
       # TODO: Check that rounds fit exactly wanted amount
 
       gap_class.create!(
+        printed_at: at,
         affair: self,
         amount: gap_amount,
         currency: currency,
@@ -406,6 +417,7 @@ class Affair < Ekylibre::Record::Base
 
   def reload_gaps
     return if gaps.none?
+
     gaps.each { |g| g.undeal! self }
     finish
   end
@@ -451,6 +463,7 @@ class Affair < Ekylibre::Record::Base
        (!letter? && letters.detect(&:present?))
       return true
     end
+
     false
   end
 

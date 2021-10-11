@@ -15,6 +15,7 @@
   - if content_for?(:tour)
     - attrs[:data] ||= {}
     - attrs[:data][:tour] = content_for(:tour)
+  = duke_tag if defined?(Duke)
   %body.body-backend{ attrs }
     = navigation_tag
     - attrs = {}

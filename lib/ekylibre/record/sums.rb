@@ -15,7 +15,7 @@ module Ekylibre
             elsif arg.is_a? Hash
               options.merge!(arg)
             else
-              raise ArgumentError, "Unvalid type #{arg.inspect}:#{arg.class.name}"
+              raise ArgumentError.new("Unvalid type #{arg.inspect}:#{arg.class.name}")
             end
           end
           method_name = options.delete(:method) || "sums_#{children}_of_#{target}"
@@ -25,7 +25,7 @@ module Ekylibre
           code = ''
 
           callbacks = options.delete(:callbacks) || %i[after_save after_destroy]
-          for callback in callbacks
+          callbacks.each do |callback|
             code << "#{callback} :#{method_name}\n"
           end
 
@@ -65,5 +65,3 @@ module Ekylibre
     end
   end
 end
-
-Ekylibre::Record::Base.send(:include, Ekylibre::Record::Sums)

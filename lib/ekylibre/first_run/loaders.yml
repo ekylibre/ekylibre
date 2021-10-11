@@ -54,53 +54,11 @@ land_parcels:
       georeading.shx: 'zones.shx'
     in: 'alamano/georeadings'
 
-  ekylibre_land_parcels:
-    path: 'alamano/land_parcels.csv'
+  telepac_v2018_cap_statements:
+    path: 'telepac/2018/statement.xml'
 
-  ekylibre_cultivable_zones:
-    path: 'alamano/cultivable_zones.csv'
-
-  telepac_v2014_cap_land_parcels:
-    format: :archive
-    path: 'ilot.zip'
-    files:
-      - 'ilot.shp'
-      - 'ilot.dbf'
-      - 'ilot.shx'
-    in: 'telepac'
-
-  telepac_v2014_land_parcels:
-    format: :archive
-    path: 'parcelle.zip'
-    files:
-      - 'parcelle.shp'
-      - 'parcelle.dbf'
-      - 'parcelle.shx'
-    in: 'telepac'
-
-  telepac_v2015_cap_land_parcels:
-    format: :archive
-    path: 'ilot.zip'
-    files:
-      - 'ilot.shp'
-      - 'ilot.dbf'
-      - 'ilot.shx'
-    in: 'telepac/2015'
-
-  telepac_v2015_land_parcels:
-    format: :archive
-    path: 'parcelle.zip'
-    files:
-      - 'parcelle.shp'
-      - 'parcelle.dbf'
-      - 'parcelle.shx'
-    in: 'telepac/2015'
-
-  telepac_v2015_cap_statements:
-    path: 'telepac/2015/statement.xml'
-
-  telepac_v2016_cap_statements:
-    path: 'telepac/2016/statement.xml'
+  telepac_v2019_cap_statements:
+    path: 'telepac/2019/statement.xml'
 
   telepac_v2017_cap_statements:
     path: 'telepac/2017/statement.xml'
@@ -110,6 +68,12 @@ land_parcels:
 
   telepac_v2019_cap_statements:
     path: 'telepac/2019/statement.xml'
+
+  telepac_v2020_cap_statements:
+    path: 'telepac/2020/statement.xml'
+
+  telepac_v2021_cap_statements:
+    path: 'telepac/2021/statement.xml'
 
   ekylibre_plants:
     path: 'alamano/plants.csv'
@@ -336,3 +300,9 @@ accountancy:
     path: 'isacompta/fixed_assets.csv'
   bordeaux_sciences_agro_istea_balance:
     path: 'istea/balance_2016_2018.TXT'
+  ekylibre_ofx_import:
+    path: 'crcmds/crcmds.zip'
+  ekylibre_fixed_assets:
+    path: 'alamano/fixed_assets.csv'
+  odicom_fec_txt:
+    path: 'odicom/fec.txt'

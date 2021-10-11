@@ -12,12 +12,26 @@ FactoryBot.define do
         intervention.group_parameters << gp
         input = create :intervention_input, intervention: intervention
         intervention.inputs << input
+
+        driver = create :driver, intervention: intervention
+        intervention.doers << driver
+
+        tractor = create :tractor_tool, intervention: intervention
+        intervention.tools << tractor
+
+        sower = create :sower_tool, intervention: intervention
+        intervention.tools << sower
       end
     end
 
     trait :harvesting do
       procedure_name { 'harvesting' }
       actions { [:harvest] }
+    end
+
+    trait :packaging do
+      procedure_name { 'packaging' }
+      actions { [] }
     end
 
     trait :with_working_period do
@@ -32,7 +46,7 @@ FactoryBot.define do
       end
 
       after(:build) do |intervention, evaluator|
-        create_list :tractor_tool, evaluator.tractor_count , intervention: intervention
+        create_list :tractor_tool, evaluator.tractor_count, intervention: intervention, initial_born_at: intervention.started_at - 1.day
       end
     end
 
@@ -52,7 +66,7 @@ FactoryBot.define do
       end
 
       after(:build) do |intervention, evaluator|
-        intervention.targets << build(:intervention_target, product: evaluator.on, intervention: intervention, reference_name: evaluator.reference_name)
+        intervention.targets << build(:intervention_target, product: evaluator.on, working_zone: evaluator.on&.initial_shape, intervention: intervention, reference_name: evaluator.reference_name)
       end
     end
   end

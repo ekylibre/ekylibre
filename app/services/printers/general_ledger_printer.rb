@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Printers
   class GeneralLedgerPrinter < PrinterBase
-
+    include ApplicationHelper
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
-      def build_key(financial_year:, lettering_state:, states:, ledger:, account_number:)
-        filters = [ledger]
-        filters.unshift(financial_year.code) if financial_year
+      def build_key(started_on:, stopped_on:, lettering_state:, states:, ledger:, account_number:)
+        filters = [ledger, started_on, stopped_on]
         filters.unshift(account_number) if account_number
         filters << lettering_state.join('-') if lettering_state
         filters << states.select { |k, v| v == '1' }.keys.sort.join('-') if states
@@ -13,18 +14,21 @@ module Printers
       end
     end
 
-    def initialize(*_args, accounts: nil, lettering_state: nil, states: nil, ledger:, account_number: nil, financial_year:, template:, **_options)
+    def initialize(*_args, accounts: nil, lettering_state: nil, states: nil, ledger:, account_number: nil, started_on:, stopped_on:, template:, **_options)
       super(template: template)
+
       @accounts = accounts
       @lettering_state = lettering_state
       @states = states
       @ledger = ledger
       @account_number = account_number
-      @financial_year = financial_year
+      @started_on = started_on
+      @stopped_on = stopped_on
     end
 
     def key
-      self.class.build_key(financial_year: @financial_year,
+      self.class.build_key(started_on: @started_on,
+                           stopped_on: @stopped_on,
                            states: @states,
                            lettering_state: @lettering_state,
                            account_number: @account_number,
@@ -33,22 +37,29 @@ module Printers
 
     def document_name
       if @account_number
-        "#{@template.nature.human_name} (#{@account_number}, #{@financial_year.code})"
+        "#{template.nature.human_name} (#{@account_number}, #{humanized_period})"
       else
         case @ledger
         when '401'
-          "#{:subledger_of_accounts_x.tl(account: :suppliers.tl)} (#{@financial_year.code})"
+          "#{:subledger_of_accounts_x.tl(account: :suppliers.tl)} (#{humanized_period})"
         when '411'
-          "#{:subledger_of_accounts_x.tl(account: :clients.tl)} (#{@financial_year.code})"
+          "#{:subledger_of_accounts_x.tl(account: :clients.tl)} (#{humanized_period})"
         else
-          "#{@template.nature.human_name} (#{@financial_year.code})"
+          "#{template.nature.human_name} (#{humanized_period})"
         end
       end
     end
 
+    def humanized_period
+      financial_year = FinancialYear.find_by(started_on: Date.parse(@started_on), stopped_on: Date.parse(@stopped_on))
+      return financial_year.code if financial_year
+
+      I18n.translate('labels.from_to_date', from: Date.parse(@started_on).l, to: Date.parse(@stopped_on).l)
+    end
+
     def compute_dataset
       accounts_filter_conditions = '1=1'
-      list_accounts = @accounts ? @accounts : ''
+      list_accounts = @accounts.present? ? @accounts : ''
 
       unless list_accounts.empty?
         accounts_filter_conditions += ' AND ' + list_accounts.collect do |account|
@@ -57,16 +68,29 @@ module Printers
       end
 
       c = @lettering_state.count if @lettering_state
-      lettering_state_filter_conditions = if c == 3 && @lettering_state.to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
+      lettering_state_filter_conditions = if c == 4 && @lettering_state.to_set.superset?(%w[unlettered partially_lettered lettered unleterred_at].to_set)
+                                            "1=1"
+                                          elsif c == 3 && @lettering_state.to_set.superset?(%w[unlettered partially_lettered lettered].to_set)
                                             '1=1'
+                                          elsif c == 3 && @lettering_state.to_set.superset?(%w[unlettered partially_lettered unlettered_at].to_set)
+                                            "letter IS NULL OR (letter IS NOT NULL AND letter ILIKE '%*') OR (letter IS NOT NULL AND letter NOT ILIKE '%*' AND lettered_at > '#{Time.zone.parse(@stopped_on.to_s) + 1.day}')"
+                                          elsif c == 3 && @lettering_state.to_set.superset?(%w[partially_lettered lettered unlettered_at].to_set)
+                                            'letter IS NOT NULL'
+                                          elsif c == 3 && @lettering_state.to_set.superset?(%w[unlettered lettered unlettered_at].to_set)
+                                            "letter IS NULL OR (letter IS NOT NULL AND letter NOT ILIKE '%*')"
                                           elsif c == 2 && @lettering_state.to_set.superset?(%w[partially_lettered lettered].to_set)
                                             'letter IS NOT NULL'
-                                          elsif c == 2 && @lettering_state.to_set.superset?(%w[partially_lettered unlettered].to_set)
-                                            "letter IS NULL OR letter ILIKE '%*' "
-                                          elsif c == 2 && @lettering_state.to_set.superset?(%w[lettered unlettered].to_set)
-                                            "letter IS NULL OR letter NOT ILIKE '%*' "
+                                          elsif c == 2 && @lettering_state.to_set.superset?(%w[unlettered partially_lettered].to_set)
+                                            "letter IS NULL OR (letter IS NOT NULL AND letter ILIKE '%*')"
+                                          elsif c == 2 && @lettering_state.to_set.superset?(%w[unlettered lettered].to_set)
+                                            "letter IS NULL OR (letter IS NOT NULL AND letter NOT ILIKE '%*')"
+                                          elsif c == 2 && @lettering_state.to_set.superset?(%w[lettered unlettered_at].to_set)
+                                            # same as lettered itself
+                                            "letter IS NOT NULL AND letter NOT ILIKE '%*'"
                                           elsif c == 1 && @lettering_state.to_set.superset?(['unlettered'].to_set)
                                             'letter IS NULL'
+                                          elsif c == 1 && @lettering_state.to_set.superset?(['unlettered_at'].to_set)
+                                            "letter IS NOT NULL AND letter NOT ILIKE '%*' AND lettered_at > '#{Time.zone.parse(@stopped_on.to_s) + 1.day}'"
                                           elsif c == 1 && @lettering_state.to_set.superset?(['lettered'].to_set)
                                             "letter IS NOT NULL AND letter NOT ILIKE '%*'"
                                           elsif c == 1 && @lettering_state.to_set.superset?(['partially_lettered'].to_set)
@@ -83,15 +107,17 @@ module Printers
       end
 
       ledger = []
-      started_on, stopped_on = [@financial_year.started_on, @financial_year.stopped_on]
+      global_balance = 0.0
+
       accounts = Account
-                 .where(accounts_filter_conditions)
-                 .includes(journal_entry_items: %i[entry variant])
-                 .where(journal_entry_items: { printed_on: started_on..stopped_on })
-                 .reorder('accounts.number ASC, journal_entries.number ASC')
+                   .where(accounts_filter_conditions)
+                   .includes(journal_entry_items: %i[entry variant])
+                   .where(journal_entry_items: { printed_on: @started_on..@stopped_on })
+                   .reorder('accounts.number ASC, journal_entries.number ASC')
 
       accounts.each do |account|
-        journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: started_on..stopped_on).reorder('printed_on ASC, entry_number ASC')
+        journal_entry_items = account.journal_entry_items.where(lettering_state_filter_conditions).where(states_array).where(printed_on: @started_on..@stopped_on).reorder('printed_on ASC, entry_number ASC')
+        next if (journal_entry_items.count < 1 || journal_entry_items.sum(:balance) == 0.0) && @lettering_state.present? && @lettering_state.include?("unlettered_at")
 
         account_entry = HashWithIndifferentAccess.new
         account_balance = 0.0
@@ -111,6 +137,7 @@ module Printers
           item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
           item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
           item[:name] = e.name.to_s
+          item[:variant] = e.variant.name if e.variant
           item[:journal_name] = e.entry.journal.name.to_s
           item[:letter] = e.letter
           item[:real_debit] = e.real_debit
@@ -127,8 +154,11 @@ module Printers
         account_entry[:count] = entry_count.to_s
         account_entry[:total_debit] = total_debit
         account_entry[:total_credit] = total_credit
+        global_balance += account_balance
         ledger << account_entry
       end
+
+      ledger << global_balance
 
       data_filters = []
 
@@ -145,6 +175,7 @@ module Printers
         content << :unlettered.tl if @lettering_state.include?('unlettered')
         content << :partially_lettered.tl if @lettering_state.include?('partially_lettered')
         content << :lettered.tl if @lettering_state.include?('lettered')
+        content << :unlettered_at.tl if @lettering_state.include?('unlettered_at')
         data_filters << :lettering_state.tl + ' : ' + content.to_sentence
       end
 
@@ -156,64 +187,66 @@ module Printers
         data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
       end
 
+      unless list_accounts.empty?
+        data_filters << :accounts.tl + ' : ' + list_accounts.to_sentence
+      end
+
       ledger << data_filters
       ledger.compact
     end
 
-    def run_pdf
+    def generate(r)
       dataset = compute_dataset
       data_filters = dataset.pop
+      global_balance = dataset.pop
 
-      started_on, stopped_on = [@financial_year.started_on, @financial_year.stopped_on]
+      e = Entity.of_company
+      company_name = e.full_name
+      company_address = e.default_mail_address&.coordinate
 
-      generate_report(@template_path) do |r|
+      r.add_field 'COMPANY_ADDRESS', company_address
+      r.add_field 'DOCUMENT_NAME', document_name
+      r.add_field 'FILE_NAME', key
+      r.add_field 'PERIOD', I18n.translate('labels.from_to_date', from: @started_on.l, to: @stopped_on.l)
+      r.add_field 'DATE', Date.today.l
+      r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
+      r.add_field 'STARTED_ON', @started_on.l
+      r.add_field 'STOPPED_ON', @stopped_on.l
+      r.add_field 'DATA_FILTERS', data_filters * ' | '
 
-        e = Entity.of_company
-        company_name = e.full_name
-        company_address = e.default_mail_address&.coordinate
+      r.add_section('Section1', dataset) do |s|
+        s.add_field(:account_number, :account_number)
+        s.add_field(:account_name, :account_name)
+        s.add_field(:count, :count)
+        s.add_field(:currency, :currency)
+        s.add_field(:total_debit, :total_debit)
+        s.add_field(:total_credit, :total_credit)
+        s.add_field(:total_cumulated_balance) do |acc|
+          acc[:total_debit] - acc[:total_credit]
+        end
 
-        r.add_field 'COMPANY_ADDRESS', company_address
-        r.add_field 'DOCUMENT_NAME', document_name
-        r.add_field 'FILE_NAME', key
-        r.add_field 'PERIOD', I18n.translate('labels.from_to_date', from: started_on.l, to: stopped_on.l)
-        r.add_field 'DATE', Date.today.l
-        r.add_field 'PRINTED_AT', Time.zone.now.l(format: '%d/%m/%Y %T')
-        r.add_field 'STARTED_ON', started_on.l
-        r.add_field 'STOPPED_ON', stopped_on.l
-        r.add_field 'DATA_FILTERS', data_filters * ' | '
-
-        r.add_section('Section1', dataset) do |s|
-          s.add_field(:account_number, :account_number)
-          s.add_field(:account_name, :account_name)
-          s.add_field(:count, :count)
-          s.add_field(:currency, :currency)
-          s.add_field(:total_debit, :total_debit)
-          s.add_field(:total_credit, :total_credit)
-          s.add_field(:total_cumulated_balance) do |acc|
-            acc[:total_debit] - acc[:total_credit]
-          end
-
-          s.add_table('Tableau1', :items, header: true) do |t|
-            t.add_column(:entry_number) { |item| item[:entry_number] }
-            t.add_column(:continuous_number) { |item| item[:continuous_number] }
-            t.add_column(:reference_number) { |item| item[:reference_number] }
-            t.add_column(:printed_on) { |item| item[:printed_on] }
-            t.add_column(:name) { |item| item[:name] }
-            t.add_column(:journal_name) { |item| item[:journal_name] }
-            t.add_column(:letter) { |item| item[:letter] }
-            t.add_column(:real_debit) { |item| item[:real_debit] }
-            t.add_column(:real_credit) { |item| item[:real_credit] }
-            t.add_column(:cumulated_balance) { |item| item[:cumulated_balance] }
-          end
+        s.add_table('Tableau1', :items, header: true) do |t|
+          t.add_column(:entry_number) { |item| item[:entry_number] }
+          t.add_column(:continuous_number) { |item| item[:continuous_number] }
+          t.add_column(:reference_number) { |item| item[:reference_number] }
+          t.add_column(:printed_on) { |item| item[:printed_on] }
+          t.add_column(:name) { |item| item[:name] }
+          t.add_column(:variant) { |item| item[:variant] }
+          t.add_column(:journal_name) { |item| item[:journal_name] }
+          t.add_column(:letter) { |item| item[:letter] }
+          t.add_column(:real_debit) { |item| item[:real_debit] }
+          t.add_column(:real_credit) { |item| item[:real_credit] }
+          t.add_column(:cumulated_balance) { |item| item[:cumulated_balance] }
         end
       end
+      r.add_field 'GLOBAL_BALANCE', number_to_accountancy(global_balance)
     end
 
     def run_ods
       require 'rodf'
       output = RODF::Spreadsheet.new
 
-      dataset = compute_dataset[0...-1]
+      dataset = compute_dataset[0...-2]
 
       output.instance_eval do
         office_style :head, family: :cell do
@@ -261,7 +294,7 @@ module Printers
     end
 
     def run_csv(csv)
-      dataset = compute_dataset[0...-1]
+      dataset = compute_dataset[0...-2]
 
       csv << [
         JournalEntryItem.human_attribute_name(:account_number),
@@ -280,7 +313,6 @@ module Printers
 
       dataset.each do |account|
         account[:items].each do |item|
-
           item_name = item[:name]
           account_name = account[:account_name]
           journal_name = item[:journal_name]

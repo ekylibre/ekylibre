@@ -34,7 +34,7 @@ module Api
           @interventions = @interventions.joins(<<-SQL).where(<<-CONDITIONS, user.worker.id).group('interventions.id')
             LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id
             LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id
-            LEFT JOIN products AS workers_or_tools_included ON intervention_participations.product_id = workers_or_tools_included.id AND workers_or_tools_included.type = 'Worker' 
+            LEFT JOIN products AS workers_or_tools_included ON intervention_participations.product_id = workers_or_tools_included.id AND workers_or_tools_included.type = 'Worker'
           SQL
 
             (record_interventions_interventions.state IS NULL
@@ -83,7 +83,7 @@ module Api
           permitted = super.permit(
             :procedure_name,
             :description,
-            :actions,
+            actions: [],
             working_periods_attributes: %i[started_at stopped_at],
             inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population usage_id],
             outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population],
@@ -93,7 +93,7 @@ module Api
             group_parameters_attributes: [
               :reference_name,
               inputs_attributes: %i[product_id quantity_value quantity_handler reference_name quantity_population],
-              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number variety],
+              outputs_attributes: %i[variant_id quantity_value quantity_handler reference_name quantity_population batch_number specie_variety_name variety],
               targets_attributes: [:product_id, :reference_name, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
               tools_attributes: %i[product_id reference_name],
               doers_attributes: %i[product_id reference_name]

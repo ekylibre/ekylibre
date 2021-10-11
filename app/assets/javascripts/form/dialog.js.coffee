@@ -70,12 +70,12 @@
           frame.trigger('dialog:show')
 
           $("##{frame_id}").on 'selector:menu-opened', (e) ->
-            $el = $(this).find('.form-fields')
+            $el = $(this).find('.form-fields:visible')
             pad = parseInt($el.css('padding-top').replace('px','')) + parseInt($el.css('padding-bottom').replace('px',''))
             $el.height($el[0].scrollHeight-pad) if $el[0].scrollHeight > $el.height() + pad
 
           $("##{frame_id}").on 'selector:menu-closed', (e) ->
-            $(this).find('.form-fields').height('auto')
+            $(this).find('.form-fields:visible').height('auto')
 
           return
 
@@ -181,5 +181,9 @@
         invalid: (frame, data, status, request) ->
           frame.html request.responseText
           return
+
+  $(document).on 'dialog:show', '.dialog', ->
+    if $('.modal').length
+      $(this).parent().css('z-index', '1050')
 
 ) ekylibre, jQuery

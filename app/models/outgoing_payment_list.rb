@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,7 +36,7 @@
 #  updated_at           :datetime
 #  updater_id           :integer
 #
-class OutgoingPaymentList < Ekylibre::Record::Base
+class OutgoingPaymentList < ApplicationRecord
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
   has_many :payments, class_name: 'PurchasePayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
   has_one :cash, through: :mode
@@ -55,10 +57,14 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     payments.joins(journal_entry: :items).where('LENGTH(TRIM(journal_entry_items.bank_statement_letter)) > 0 OR journal_entry_items.state = ?', :closed).exists?
   end
 
+  def sepa_exportable?
+    sepa? && payments.any?
+  end
+
   def to_sepa
     sct = SEPA::CreditTransfer.new(
       name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),
-      bic: mode.cash.bank_identifier_code || 'NOTPROVIDED',
+      bic: mode.cash.bank_identifier_code.presence || 'NOTPROVIDED',
       iban: mode.cash.iban
     )
 
@@ -115,6 +121,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
   def self.build_from_purchase_affairs(affairs, mode, responsible, initial_check_number = nil)
     purchase_payments = affairs.collect.with_index do |affair, index|
       next if affair.third_credit_balance <= 0
+
       PurchasePayment.new(
         affair: affair,
         amount: affair.third_credit_balance,

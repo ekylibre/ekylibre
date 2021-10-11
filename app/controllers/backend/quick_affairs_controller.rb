@@ -3,6 +3,7 @@ module Backend
   class QuickAffairsController < Backend::BaseController
     def new
       return head :bad_request unless nature = params[:nature_id]
+
       @bank_statement_items = BankStatementItem.where(id: params[:bank_statement_item_ids]) if params[:bank_statement_item_ids]
 
       date     = Maybe(@bank_statement_items).minimum(:transfered_on).or_nil
@@ -62,54 +63,57 @@ module Backend
 
     protected
 
-    def new_trade
-      return self.class::Trade.find_by(id: affair_params[:trade_id]) if @mode_for[:trade] =~ /existing/
-      third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
-      self.class::Trade.new(trade_params.merge(third_param))
-    end
+      def new_trade
+        return self.class::Trade.find_by(id: affair_params[:trade_id]) if @mode_for[:trade] =~ /existing/
 
-    def new_payment(third, at)
-      return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/
-      payment_attributes = payment_params
-                           .except(:bank_statement_item_ids)
-                           .merge(self.class::Payment.third_attribute => third)
-                           .merge(responsible: current_user, to_bank_at: at)
-      self.class::Payment.new payment_attributes
-    end
+        third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
+        self.class::Trade.new(trade_params.merge(third_param))
+      end
 
-    def use_existing?(name)
-      params[:affair][:"use_existing_#{name}"].present?
-    end
+      def new_payment(third, at)
+        return self.class::Payment.find_by(id: affair_params[:payment_id]) if @mode_for[:payment] =~ /existing/
 
-    def trade_params
-      params.require(:trade)
-            .permit :invoiced_at,
-                    :nature_id,
-                    :reference_number,
-                    :tax_payability,
-                    :description,
-                    items_attributes: %i[
-                      variant_id
-                      quantity
-                      amount
-                      tax_id
-                      reduction_percentage
-                      unit_pretax_amount
-                    ]
-    end
+        payment_attributes = payment_params
+                             .except(:bank_statement_item_ids)
+                             .merge(self.class::Payment.third_attribute => third)
+                             .merge(responsible: current_user, to_bank_at: at, paid_at: at)
+        self.class::Payment.new payment_attributes
+      end
 
-    def payment_params
-      params.require(:payment)
-            .permit :mode_id,
-                    :amount,
-                    :bank_statement_item_ids
-    end
+      def use_existing?(name)
+        params[:affair][:"use_existing_#{name}"].present?
+      end
 
-    def affair_params
-      params.require(:affair)
-            .permit :trade_id,
-                    :third_id,
-                    :payment_id
-    end
+      def trade_params
+        params.require(:trade)
+              .permit :invoiced_at,
+                      :nature_id,
+                      :reference_number,
+                      :tax_payability,
+                      :description,
+                      items_attributes: %i[
+                        variant_id
+                        conditioning_unit_id
+                        conditioning_quantity
+                        amount
+                        tax_id
+                        reduction_percentage
+                        unit_pretax_amount
+                      ]
+      end
+
+      def payment_params
+        params.require(:payment)
+              .permit :mode_id,
+                      :amount,
+                      :bank_statement_item_ids
+      end
+
+      def affair_params
+        params.require(:affair)
+              .permit :trade_id,
+                      :third_id,
+                      :payment_id
+      end
   end
 end

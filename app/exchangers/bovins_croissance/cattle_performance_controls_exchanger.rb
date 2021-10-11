@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module BovinsCroissance
   class CattlePerformanceControlsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :bovins_croissance
+
     def import
       rows = CSV.read(file, encoding: 'CP1252', col_sep: "\t", headers: true)
       w.count = rows.size

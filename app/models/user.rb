@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -73,11 +75,11 @@
 #  updater_id                             :integer
 #
 
-class User < Ekylibre::Record::Base
+class User < ApplicationRecord
   # No point accepted in preference name
-  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'.freeze
-  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'.freeze
-  PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'.freeze
+  PREFERENCE_SHOW_MAP_INTERVENTION_FORM = 'show_map_on_intervention_form'
+  PREFERENCE_SHOW_EXPORT_PREVIEW = 'show_export_preview'
+  PREFERENCE_SHOW_COMPARE_REALISED_PLANNED = 'compare_planned_and_realised'
   PREFERENCES = {
     PREFERENCE_SHOW_MAP_INTERVENTION_FORM => :boolean,
     PREFERENCE_SHOW_EXPORT_PREVIEW => :boolean,
@@ -106,7 +108,7 @@ class User < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :administrator, :commercial, :employed, :locked, inclusion: { in: [true, false] }
   validates :authentication_token, :confirmation_token, :invitation_token, :reset_password_token, :unlock_token, uniqueness: true, length: { maximum: 500 }, allow_blank: true
-  validates :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :current_sign_in_ip, :employment, :last_sign_in_ip, :provider, :uid, :unconfirmed_email, length: { maximum: 500 }, allow_blank: true
   validates :description, :rights, length: { maximum: 500_000 }, allow_blank: true
   validates :email, presence: true, uniqueness: true, length: { maximum: 500 }
@@ -278,10 +280,12 @@ class User < Ekylibre::Record::Base
 
   def can_access?(url)
     return true if administrator?
+
     if url.is_a?(Hash)
       unless url[:controller] && url[:action]
         raise "Invalid URL for accessibility test: #{url.inspect}"
       end
+
       key = "#{url[:controller].to_s.gsub(/^\//, '')}##{url[:action]}"
     else
       key = url.to_s
@@ -329,6 +333,7 @@ class User < Ekylibre::Record::Base
     default_financial_year = FinancialYear.on(Date.current)
     default_financial_year ||= FinancialYear.closest(Date.current)
     return nil unless default_financial_year
+
     preference = self.preference('current_financial_year', default_financial_year, :record)
     unless financial_year = preference.value
       financial_year = default_financial_year
@@ -403,6 +408,7 @@ class User < Ekylibre::Record::Base
 
     def self.generate_password(password_length = 8, mode = :normal)
       return '' if password_length.blank? || password_length < 1
+
       letters = case mode
                 when :dummy then
                   %w[a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9]

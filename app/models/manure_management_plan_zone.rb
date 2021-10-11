@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,7 +52,7 @@
 #  updated_at                                      :datetime         not null
 #  updater_id                                      :integer
 #
-class ManureManagementPlanZone < Ekylibre::Record::Base
+class ManureManagementPlanZone < ApplicationRecord
   belongs_to :plan, class_name: 'ManureManagementPlan', inverse_of: :zones
   belongs_to :activity_production
   has_one :activity, through: :activity_production
@@ -82,7 +84,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   end
 
   def compute
-    for name, value in Calculus::ManureManagementPlan.compute(parameters)
+    Calculus::ManureManagementPlan.compute(parameters).each do |name, value|
       if %w[absorbed_nitrogen_at_opening expected_yield humus_mineralization intermediate_cultivation_residue_mineralization irrigation_water_nitrogen maximum_nitrogen_input meadow_humus_mineralization mineral_nitrogen_at_opening nitrogen_at_closing nitrogen_input nitrogen_need organic_fertilizer_mineral_fraction previous_cultivation_residue_mineralization soil_production].include?(name.to_s)
         send("#{name}=", value.to_f(:kilogram_per_hectare))
       end
@@ -97,7 +99,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
       support: activity_production
     }
     if activity_production.usage
-      hash[:production_usage] = Nomen::ProductionUsage[activity_production.usage]
+      hash[:production_usage] = Onoma::ProductionUsage[activity_production.usage]
     end
     if computation_method && Calculus::ManureManagementPlan.method_exist?(computation_method.to_sym)
       hash[:method] = computation_method.to_sym
@@ -106,10 +108,10 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
       hash[:method] = :external
     end
     if administrative_area
-      hash[:administrative_area] = Nomen::AdministrativeArea[administrative_area]
+      hash[:administrative_area] = Onoma::AdministrativeArea[administrative_area]
     end
-    hash[:variety] = Nomen::Variety[cultivation_variety] if cultivation_variety
-    hash[:soil_nature] = Nomen::SoilNature[soil_nature] if soil_nature
+    hash[:variety] = Onoma::Variety[cultivation_variety] if cultivation_variety
+    hash[:soil_nature] = Onoma::SoilNature[soil_nature] if soil_nature
     if expected_yield
       hash[:expected_yield] = expected_yield.in(plan.mass_density_unit)
     end
@@ -123,16 +125,18 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   # To have human_name in report
   def soil_nature_name
-    unless soil_nature && item = Nomen::SoilNature[soil_nature].human_name
+    unless soil_nature && item = Onoma::SoilNature[soil_nature].human_name
       return nil
     end
+
     item
   end
 
   def cultivation_variety_name
-    unless cultivation_variety && item = Nomen::Variety[cultivation_variety].human_name
+    unless cultivation_variety && item = Onoma::Variety[cultivation_variety].human_name
       return nil
     end
+
     item
   end
 end

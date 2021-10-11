@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -134,20 +136,26 @@ class SaleOpportunity < SaleAffair
     end
   end
 
+  # Returns timeleft in seconds of the sale opportunities
+  def timeleft(at = Time.zone.now)
+    return nil if dead_line_at.nil? || dead_line_at <= at
+
+    (dead_line_at - at)
+  end
+
+  def human_status
+    I18n.t("tooltips.models.sale_opportunity.#{state}")
+  end
+
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
   end
 
-  # Returns timeleft in seconds of the sale opportunities
-  def timeleft(at = Time.zone.now)
-    return nil if dead_line_at.nil? || dead_line_at <= at
-    (dead_line_at - at)
-  end
-
   # Returns age in seconds of the sale opportunities
   def age(at = Time.zone.now)
     return nil if created_at.nil?
+
     (at - created_at)
   end
 end

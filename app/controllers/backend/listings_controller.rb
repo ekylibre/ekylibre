@@ -40,6 +40,7 @@ module Backend
 
     def extract
       return unless @listing = find_and_check
+
       begin
         @listing.save unless @listing.query?
         query = @listing.query.to_s
@@ -48,21 +49,21 @@ module Backend
         # FIXME: Manage suppression of CURRENT_COMPANY...
         first_item = []
         @listing.exportable_fields.each { |item| first_item << item.label }
-        result = ActiveRecord::Base.connection.select_rows(query)
+        result = ApplicationRecord.connection.select_rows(query)
         result.insert(0, first_item)
 
         respond_to do |format|
           format.xml { render xml: result.to_xml, filename: @listing.name.simpleize + '.xml' }
           format.csv do
             csv_string = Ekylibre::CSV.generate do |csv|
-              for item in result
+              result.each do |item|
                 csv << item
               end
             end
             send_data(csv_string, filename: @listing.name.simpleize + '.csv', type: Mime::CSV)
           end
         end
-      rescue Exception => e
+      rescue StandardError => e
         notify_error(:fails_to_extract_listing, message: e.message)
         redirect_to_back
       end
@@ -81,32 +82,38 @@ module Backend
 
     def edit
       return unless @listing = find_and_check
+
       t3e @listing.attributes
       # render_restfully_form
     end
 
     def update
       return unless @listing = find_and_check
+
       @listing.attributes = permitted_params
-      return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
+      return if save_and_redirect(@listing, url: { action: :index })
+
       t3e @listing.attributes
       # render_restfully_form
     end
 
     def destroy
       return unless @listing = find_and_check
+
       Listing.destroy(@listing.id) if @listing
       redirect_to action: :index
     end
 
     def duplicate
       return unless @listing = find_and_check
+
       @listing.duplicate
       redirect_to action: :index
     end
 
     def mail
       return unless @listing = find_and_check
+
       if (query = @listing.query).blank?
         @listing.save
         query = @listing.query
@@ -118,7 +125,7 @@ module Backend
         return
       end
       if session[:listing_coordinate_column] || @listing.coordinate_columns.count == 1
-        full_results = ActiveRecord::Base.connection.select_all(query)
+        full_results = ApplicationRecord.connection.select_all(query)
         listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_node, session[:listing_coordinate_column])
         # raise StandardError.new listing_coordinate_column.inspect
         results = full_results.reject { |c| c[listing_coordinate_column.label].blank? }
@@ -144,7 +151,7 @@ module Backend
             results = [results[0]]
             results[0][listing_coordinate_column.label] = params[:from]
           end
-          for result in results
+          results.each do |result|
             ts = texts.collect do |t|
               r = t.to_s.dup
               @columns.each { |c| r.gsub!(/\{\{#{c}\}\}/, result[c].to_s) }
@@ -161,8 +168,8 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.require(:listing).permit!
-    end
+      def permitted_params
+        params.require(:listing).permit!
+      end
   end
 end

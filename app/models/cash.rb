@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -49,6 +51,7 @@
 #  name                              :string           not null
 #  nature                            :string           default("bank_account"), not null
 #  owner_id                          :integer
+#  provider                          :jsonb
 #  spaced_iban                       :string
 #  suspend_until_reconciliation      :boolean          default(FALSE), not null
 #  suspense_account_id               :integer
@@ -56,9 +59,10 @@
 #  updater_id                        :integer
 #
 
-class Cash < Ekylibre::Record::Base
+class Cash < ApplicationRecord
   include Attachable
   include Customizable
+  include Providable
   BBAN_TRANSLATIONS = {
     fr: %w[abcdefghijklmonpqrstuvwxyz 12345678912345678923456789]
   }.freeze
@@ -84,7 +88,7 @@ class Cash < Ekylibre::Record::Base
   has_many :unpointed_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatement.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
            through: :suspense_account, source: :journal_entry_items
   has_many :unpointed_lines_suspended_journal_entry_items, -> { unpointed.where.not(entry_id: BankStatementItem.where('journal_entry_id IS NOT NULL').select(:journal_entry_id)) },
-                    through: :suspense_account, source: :journal_entry_items
+           through: :suspense_account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order(stopped_on: :desc) }, class_name: 'BankStatement'
 
   enumerize :nature, in: %i[bank_account cash_box associate_account], default: :bank_account, predicates: true
@@ -116,7 +120,6 @@ class Cash < Ekylibre::Record::Base
   scope :bank_accounts, -> { where(nature: 'bank_account') }
   scope :cash_boxes,    -> { where(nature: 'cash_box') }
   scope :associate_accounts, -> { where(nature: %w[associate_account owner_account]) }
-  scope :with_pointing_work, -> { where('(suspend_until_reconciliation AND suspense_account_id in (?)) OR (NOT suspend_until_reconciliation AND main_account_id IN (?))', JournalEntryItem.select(:suspense_account_id).unpointed, JournalEntryItem.select(:main_account_id).unpointed) }
   scope :pointables, -> { where(nature: %w[associate_account owner_account bank_account]) }
   scope :with_deposit, -> { where(id: IncomingPaymentMode.where(with_deposit: true).select(:cash_id)) }
 
@@ -223,7 +226,7 @@ class Cash < Ekylibre::Record::Base
       ban = (options['bank_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 89 + options['bank_agency_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 15 + options['bank_account_number'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 3)
       (options['bank_account_key'].to_i + ban.modulo(97) - 97).zero?
     else
-      raise ArgumentError, "Unknown country code #{country_code.inspect}"
+      raise ArgumentError.new("Unknown country code #{country_code.inspect}")
     end
   end
 
@@ -243,9 +246,11 @@ class Cash < Ekylibre::Record::Base
       %i[cash_box cash cashes]
     ].each do |nature, journal_nature, account_usage|
       next if find_by(nature: nature)
+
       journal = Journal.find_by(nature: journal_nature)
       account = Account.find_or_import_from_nomenclature(account_usage)
       next unless journal && account
+
       create!(
         name: "enumerize.cash.nature.#{nature}".t,
         nature: nature.to_s,
@@ -323,9 +328,13 @@ class Cash < Ekylibre::Record::Base
     return false if (journal_entry_items + statement_items).length.zero?
 
     bank_statement_id = statement_items.map(&:bank_statement_id).uniq.first
-    statement_entries = JournalEntryItem.where(resource: statement_items)
-    to_letter = journal_entry_items + statement_entries
-    suspense_account.mark(to_letter) if suspend_until_reconciliation
+
+    # if suspend_until_reconciliation, we letter bsi_jei and jei on suspense_account
+    if suspend_until_reconciliation
+      statement_entries = JournalEntryItem.where(resource: statement_items)
+      to_letter = journal_entry_items + statement_entries
+      suspense_account.mark(to_letter)
+    end
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)

@@ -20,16 +20,14 @@ namespace :journal_entry_error do
 
   private
 
-  def set_journal_parmeters
-    puts 'Enter tenant name :'.blue
-    @tenant = STDIN.gets.chomp
-    puts "#{Ekylibre::Tenant.switch!(@tenant)}".yellow
-  end
+    def set_journal_parmeters
+      puts 'Enter tenant name :'.blue
+      @tenant = STDIN.gets.chomp
+      puts Ekylibre::Tenant.switch!(@tenant).to_s.yellow
+    end
 
-
-  def find_invalid_journal_entries
-    list_of_invalid = JournalEntry.where(state: [:draft, :confirmed]).select(:number).group(:number).having("count(*) > 1").all
-    @invalids = list_of_invalid.map { |a| JournalEntry.where(number: a.number, state: [:confirmed, :draft]) }.flatten
-  end
-
+    def find_invalid_journal_entries
+      list_of_invalid = JournalEntry.where(state: [:draft, :confirmed]).select(:number).group(:number).having("count(*) > 1").all
+      @invalids = list_of_invalid.map { |a| JournalEntry.where(number: a.number, state: [:confirmed, :draft]) }.flatten
+    end
 end

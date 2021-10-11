@@ -21,6 +21,7 @@ require 'test_helper'
 module Backend
   class JournalEntriesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions(
+      except: :list,
       new: { journal_id: 3 },
       toggle_autocompletion: { format: :json },
       currency_state: { from: 'EUR' },
@@ -40,42 +41,47 @@ module Backend
       date = Date.new(2018, 1, 1)
       user = User.where(administrator: true).last
       sign_in(user)
-      post(:create,
-           journal_entry: {
-             journal_id: journal.id,
-             printed_on:  date,
-             real_currency_rate: 1,
-             real_currency: 'EUR',
-             number: 'HA0010',
-             affair_id: affair.id,
-             items_attributes: {
-               '1491818768866' => {
-                 name: 'Test',
-                 account_id: Account.last.id,
-                 activity_budget_id: ActivityBudget.first.id,
-                 team_id: Team.last.id,
-                 real_debit: 10,
-                 real_credit: 0.0,
-                 _destroy: false
-               },
-               '1491818830695' => {
-                 name: 'Hallo',
-                 account_id: Account.last.id,
-                 activity_budget_id: ActivityBudget.first.id,
-                 team_id: Team.last.id,
-                 real_debit: 0.0,
-                 real_credit: 10,
-                 _destroy: false
-               }
-             }
-           },
-           redirect: backend_sale_path(sale))
+      post(
+        :create,
+        params: {
+          journal_entry: {
+            journal_id: journal.id,
+            printed_on: date,
+            real_currency_rate: 1,
+            real_currency: 'EUR',
+            number: 'HA0010',
+            affair_id: affair.id,
+            items_attributes: {
+              '1491818768866' => {
+                name: 'Test',
+                account_id: Account.last.id,
+                activity_budget_id: ActivityBudget.first.id,
+                team_id: Team.last.id,
+                real_debit: 10,
+                real_credit: 0.0,
+                _destroy: false
+              },
+              '1491818830695' => {
+                name: 'Hallo',
+                account_id: Account.last.id,
+                activity_budget_id: ActivityBudget.first.id,
+                team_id: Team.last.id,
+                real_debit: 0.0,
+                real_credit: 10,
+                _destroy: false
+              }
+            }
+
+          },
+          redirect: backend_sale_path(sale)
+        }
+      )
       assert_response :redirect
       assert_redirected_to backend_sale_url(sale)
     end
 
     test 'duplicate' do
-      get :new, duplicate_of: JournalEntry.find_by(id: JournalEntryItem.first.id).id
+      get :new, params: { duplicate_of: JournalEntry.find_by(id: JournalEntryItem.first.id).id }
       assert_select '#items-table' do
         assert_select 'tbody.nested-fields'
       end
@@ -86,7 +92,7 @@ module Backend
       create(:financial_year, currency: 'FRF', year: 1994)
       user = create(:user)
       sign_in(user)
-      get :currency_state, on: '01/06/1994', from: 'EUR'
+      get :currency_state, params: { on: '01/06/1994', from: 'EUR' }
       assert_equal 6.55957, JSON.parse(@response.body)['exchange_rate']
     end
 
@@ -95,7 +101,7 @@ module Backend
       create(:financial_year, currency: 'EUR', year: 1994)
       user = create(:user)
       sign_in(user)
-      get :currency_state, on: '01/06/1994', from: 'EUR'
+      get :currency_state, params: { on: '01/06/1994', from: 'EUR' }
       assert_equal 1, JSON.parse(@response.body)['exchange_rate']
     end
 
@@ -103,8 +109,38 @@ module Backend
       FinancialYear.delete_all
       user = create(:user)
       sign_in(user)
-      get :currency_state, on: '01/06/1900', from: 'EUR'
+      get :currency_state, params: { on: '01/06/1900', from: 'EUR' }
       assert_empty JSON.parse(@response.body)
+    end
+
+    test 'the reference_number field is taken into account' do
+      post :create, params: {
+        journal_entry: {
+          journal_id: Journal.last.id,
+          printed_on: Date.new(2018, 1, 1),
+          real_currency_rate: 1,
+          real_currency: 'EUR',
+          number: 'HA0010',
+          reference_number: "Refnumber",
+          items_attributes: {
+            '1491818768866' => {
+              name: 'Test',
+              account_id: Account.last.id,
+              real_debit: 10,
+              real_credit: 0.0,
+            },
+            '1491818830695' => {
+              name: 'Hallo',
+              account_id: Account.last.id,
+              real_debit: 0.0,
+              real_credit: 10,
+            }
+          }
+
+        }
+      }
+
+      assert_equal "Refnumber", JournalEntry.last.reference_number
     end
   end
 end

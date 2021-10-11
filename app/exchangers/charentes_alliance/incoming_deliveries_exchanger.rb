@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module CharentesAlliance
   # Incoming deliveries extracted from Charentes Alliance extranet
   class IncomingDeliveriesExchanger < ActiveExchanger::Base
+    category :stocks
+    vendor :charentes_alliance
+
     def import
       here = Pathname.new(__FILE__).dirname
 
@@ -88,11 +93,12 @@ module CharentesAlliance
                       storage: building_division
                     )
         next unless reception.draft?
+
         previous_reception_number = r.reception_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_name)
-          product_nature_variant ||= if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
+          product_nature_variant ||= if Onoma::ProductNatureVariant.find(r.coop_variant_reference_name)
                                        ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
                                      else
                                        # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
@@ -104,20 +110,21 @@ module CharentesAlliance
         # Force population_counting to decimal for every product_nature used
         # here
         product_nature_variant.nature.update_columns(population_counting: :decimal)
+        conditioning_data = product_nature_variant.guess_conditioning
         # find a price from current supplier for a consider variant
         # TODO: waiting for a product price capitalization method
-        catalog_item = purchase_catalog.items.find_or_initialize_by(variant_id: product_nature_variant.id)
-        catalog_item.amount = r.product_unit_price
+        catalog_item = purchase_catalog.items.find_or_initialize_by(variant_id: product_nature_variant.id, unit: conditioning_data[:unit], started_at: r.ordered_on)
+        catalog_item.amount = r.product_unit_price.fdiv(conditioning_data[:quantity])
         catalog_item.save!
-        catalog_item = stock_catalog.items.find_or_initialize_by(variant_id: product_nature_variant.id)
-        catalog_item.amount = r.product_unit_price
+        catalog_item = stock_catalog.items.find_or_initialize_by(variant_id: product_nature_variant.id, unit: conditioning_data[:unit], started_at: r.ordered_on)
+        catalog_item.amount = r.product_unit_price.fdiv(conditioning_data[:quantity])
         catalog_item.save!
 
         # if r.reception_status == :given
-        item = reception.items.find_or_initialize_by(variant: product_nature_variant)
+        item = reception.items.find_or_initialize_by(variant: product_nature_variant, conditioning_unit: conditioning_data[:unit])
         item.product_name = r.matter_name + ' (' + r.ordered_on.l + ')'
         item.product_identification_number = r.ordered_on.to_s + '_' + r.reception_number + '_' + r.matter_name
-        item.quantity = r.quantity
+        item.conditioning_quantity = r.quantity * conditioning_data[:quantity]
         item.save!
         w.check_point
       end

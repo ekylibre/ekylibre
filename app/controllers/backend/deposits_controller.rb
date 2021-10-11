@@ -58,6 +58,7 @@ module Backend
     # Displays details of one deposit selected with +params[:id]+
     def show
       return unless @deposit = find_and_check
+
       t3e @deposit
       respond_with(@deposit, include: [:responsible, :journal_entry, :mode, :cash,
                                        { payments: { include: :payer } }])
@@ -77,6 +78,7 @@ module Backend
 
     def new
       return unless mode = find_mode
+
       @deposit = Deposit.new(
         created_at: Time.zone.today,
         mode: mode,
@@ -88,21 +90,25 @@ module Backend
 
     def create
       return unless find_mode
+
       @deposit = Deposit.new(permitted_params)
       unless @deposit.nil?
         return if save_and_redirect(@deposit, url: { action: :index })
+
         t3e mode: @deposit.mode.name
       end
     end
 
     def edit
       return unless @deposit = find_and_check
+
       t3e @deposit
     end
 
     def update
       return unless @deposit = find_and_check
       return if save_and_redirect(@deposit, attributes: permitted_params, url: { action: :index })
+
       t3e @deposit
     end
 
@@ -117,33 +123,36 @@ module Backend
     def unvalidateds
       @deposits = Deposit.unvalidateds
       if request.post?
+        # rubocop:disable Style/For
         for id, values in params[:unvalidateds] || {}
           return unless deposit = find_and_check(id: id)
+
           deposit.update_attributes!(locked: true) if deposit && values[:validated].to_i == 1
         end
+        # rubocop:enable Style/For
         redirect_to action: :unvalidateds
       end
     end
 
     protected
 
-    def find_mode(id = nil)
-      unless mode = IncomingPaymentMode.find_by(id: id || params[:mode_id])
-        notify_warning(:need_payment_mode_to_create_deposit)
-        redirect_to action: :index
-        return nil
+      def find_mode(id = nil)
+        unless mode = IncomingPaymentMode.find_by(id: id || params[:mode_id])
+          notify_warning(:need_payment_mode_to_create_deposit)
+          redirect_to action: :index
+          return nil
+        end
+        if params[:deposit] && params[:deposit][:mode_id] && params[:deposit][:mode_id].to_i != mode.id
+          notify_error(:need_payment_mode_to_create_deposit)
+          redirect_to action: :index
+          return nil
+        end
+        unless mode.depositable_payments.any?
+          notify_warning(:no_payment_to_deposit)
+          redirect_to action: :index
+          return nil
+        end
+        mode
       end
-      if params[:deposit] && params[:deposit][:mode_id] && params[:deposit][:mode_id].to_i != mode.id
-        notify_error(:need_payment_mode_to_create_deposit)
-        redirect_to action: :index
-        return nil
-      end
-      unless mode.depositable_payments.any?
-        notify_warning(:no_payment_to_deposit)
-        redirect_to action: :index
-        return nil
-      end
-      mode
-    end
   end
 end

@@ -6,6 +6,7 @@ module WorkingSet
       def load(string)
         array = new
         return array if string.blank?
+
         tree = WorkingSet.parse(string, root: :abilities_list)
         if tree && tree.list
           array << tree.list.first_ability.text_value
@@ -34,12 +35,13 @@ module WorkingSet
         begin
           ability = WorkingSet.parse(string, root: :ability)
         rescue WorkingSet::SyntaxError => e
-          raise InvalidExpression, "Cannot parse invalid ability: #{string.inspect}: #{e.message}"
+          raise InvalidExpression.new("Cannot parse invalid ability: #{string.inspect}: #{e.message}")
         end
 
-        unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
-          raise InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
+        unless ability_item = Onoma::Ability.find(ability.ability_name.text_value)
+          raise InvalidExpression.new("Unknown ability: #{ability.ability_name.text_value}")
         end
+
         parameters = []
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
@@ -59,18 +61,18 @@ module WorkingSet
               elsif parameter == :issue_nature
                 item = find_nomenclature_item(:issue_natures, parameters[index].text_value)
               else
-                raise StandardError, "What parameter type: #{parameter}?"
+                raise StandardError.new("What parameter type: #{parameter}?")
               end
               unless item
-                raise InvalidExpression, "Parameter #{parameter} (#{parameters[index].text_value}) is unknown in its nomenclature"
+                raise InvalidExpression.new("Parameter #{parameter} (#{parameters[index].text_value}) is unknown in its nomenclature")
               end
             end
           else
-            raise InvalidExpression, "Argument expected for ability #{ability_item.name}"
+            raise InvalidExpression.new("Argument expected for ability #{ability_item.name}")
           end
         else
           if parameters.any?
-            raise InvalidExpression, "No argument expected for ability #{ability_item.name}"
+            raise InvalidExpression.new("No argument expected for ability #{ability_item.name}")
           end
         end
       end
@@ -79,11 +81,12 @@ module WorkingSet
 
     protected
 
-    def find_nomenclature_item(nomenclature, name)
-      unless item = Nomen[nomenclature].find(name)
-        raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
+      def find_nomenclature_item(nomenclature, name)
+        unless item = Onoma[nomenclature].find(name)
+          raise InvalidExpression.new("Unknown item in #{nomenclature} nomenclature: #{name}")
+        end
+
+        item
       end
-      item
-    end
   end
 end

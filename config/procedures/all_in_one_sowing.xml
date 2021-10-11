@@ -6,74 +6,79 @@
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <output name="plant" filter="is plant" cardinality="1">
+        <output name="plant" filter="is plant and has indicator shape" cardinality="1">
           <attribute name="new_name"/>
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>
           </reading>
         </output>
       </group>
-      <input name="seeds" filter="is seed and derives from plant and can grow">
+      <input name="seeds" filter="is seed">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
-        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
-        <handler indicator="grains_area_density" unit="unity_per_square_meter"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0 and PRODUCT..thousand_grains_mass?"
-                 backward="(((POPULATION * PRODUCT..net_mass(gram)) / sum_working_zone_areas(land_parcel, :square_meter)) * 1000) / PRODUCT..thousand_grains_mass(gram)"
-                 forward="(((VALUE * PRODUCT..thousand_grains_mass(gram)) / 1000) * sum_working_zone_areas(land_parcel, :square_meter)) / PRODUCT..net_mass(gram)"/>
-        <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0 and PRODUCT..thousand_grains_mass?"
-                 backward="(POPULATION * PRODUCT..net_mass(gram)) / (sum_working_zone_areas(land_parcel, :hectare) * PRODUCT..thousand_grains_mass(gram))"
-                 forward="(VALUE * PRODUCT..thousand_grains_mass(gram) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(gram)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and grain_indicators_present(PRODUCT) == 1"
+                 backward="seed_population(POPULATION, PRODUCT, :kilogram, PRODUCT)"
+                 forward="VALUE / seed_population(1, PRODUCT, :kilogram, PRODUCT)"/>
+        <handler indicator="items_count" unit="unity"
+                 if="grain_indicators_present(PRODUCT) == 1"
+                 backward="seed_population(POPULATION, PRODUCT, :unity, PRODUCT)"
+                 forward="VALUE / seed_population(1, PRODUCT, :unity, PRODUCT)"/>
         <handler indicator="grains_count" unit="thousand"
-                 if="PRODUCT..net_mass? and PRODUCT..thousand_grains_mass?"
-                 backward="(POPULATION * PRODUCT..net_mass(gram)) / PRODUCT..thousand_grains_mass(gram)"
-                 forward="(VALUE * PRODUCT..thousand_grains_mass(gram)) / PRODUCT..net_mass(gram)"/>
+                 if="grain_indicators_present(PRODUCT) == 1"
+                 backward="seed_population(POPULATION, PRODUCT, :thousand, PRODUCT)"
+                 forward="VALUE / seed_population(1, PRODUCT, :thousand, PRODUCT)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="grain_indicators_present(PRODUCT) == 1 and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(seed_population(POPULATION, PRODUCT, :kilogram, PRODUCT)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / seed_population(1, PRODUCT, :kilogram, PRODUCT)"/>
+        <handler indicator="grains_area_density" unit="unity_per_square_meter"
+                 if="grain_indicators_present(PRODUCT) == 1 and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(seed_population(POPULATION, PRODUCT, :unity, PRODUCT)) / sum_working_zone_areas(land_parcel, :square_meter)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :square_meter)) / seed_population(1, PRODUCT, :unity, PRODUCT)"/>
+        <handler name="grains_area_density_in_thousand_per_hectare" indicator="grains_area_density" unit="thousand_per_hectare"
+                 if="grain_indicators_present(PRODUCT) == 1 and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(seed_population(POPULATION, PRODUCT, :thousand, PRODUCT)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / seed_population(1, PRODUCT, :thousand, PRODUCT)"/>
       </input>
       <input name="plant_medicine" filter="is preparation and can care(plant)" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram)"
+                 forward="VALUE / PRODUCT.net_mass(kilogram)"/>
         <handler indicator="net_volume" unit="liter"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(liter)"
-                 forward="VALUE / PRODUCT..net_volume(liter)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_volume?"
+                 backward="POPULATION * PRODUCT.net_volume(liter)"
+                 forward="VALUE / PRODUCT.net_volume(liter)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+                 if="PRODUCT.net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT.net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_mass(kilogram)"/>
         <handler indicator="volume_area_density" unit="liter_per_hectare"
-                 if="PRODUCT..net_volume? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_volume(liter)"/>
+                 if="PRODUCT.net_volume? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT.net_volume(liter)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_volume(liter)"/>
       </input>
       <input name="fertilizer" filter="is preparation and can fertilize" cardinality="*">
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
-                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram)"
+                 forward="VALUE / PRODUCT.net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+                 if="PRODUCT.net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT.net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_mass(kilogram)"/>
         <handler name="nitrogen" indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
+                 if="PRODUCT.net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT.net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT.net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
-      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <tool name="sower"   filter="can sow" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can sow)" cardinality="*"/>
+      <tool name="sower" filter="is equipment and can sow" cardinality="*"/>
+      <tool name="tool" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

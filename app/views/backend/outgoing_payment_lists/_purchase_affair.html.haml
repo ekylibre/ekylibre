@@ -4,9 +4,11 @@
   = hidden_field_tag 'purchase_affairs[]', nil, data: { outgoing_payment_purchase_affair_selection: true }
   .invoices-list__column--width-sm
     - checked = purchase_affair.third.supplier_payment_mode_id == params[:outgoing_payment_list][:mode_id].to_i
-    = check_box_tag :check, '1', false, data: { outgoing_payment_purchase_affair_selector: true, outgoing_payment_selected_amount: 0, check_on_load: checked }
+    = check_box_tag :check, '1', false, data: { outgoing_payment_purchase_affair_selector: true, outgoing_payment_selected_amount: 0 }
   .invoices-list__column--width-lg
     = purchases.minimum(:invoiced_at)&.l
+  .invoices-list__column--width-lg
+    = purchases.pluck(:reference_number).to_sentence
   .invoices-list__column--width-lg
     = link_to purchase_affair.class.model_name.human + ' ' + purchase_affair.number, backend_purchase_affair_path(purchase_affair)
   .invoices-list__column--width-lg

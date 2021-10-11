@@ -9,9 +9,9 @@
   = f.referenced_association(:initial_container, label: Product.human_attribute_name(:container), source: {scope: {can: "store(#{f.object.variety})"}}, input_html: { data: {product_of_delivery_item: {url: backend_product_path("RECORD_ID", format: :json)}}})
 
 - unless f.object.population_counting_unitary?
-  = f.input(:initial_population, wrapper: :append, class: :inline, label: Product.human_attribute_name(:population)) do
-    = f.input_field(:initial_population, as: :string)
-    %span.add-on= f.object.variant.unit_name
+  - scope = { of_dimensions: f.object.variant.compatible_dimensions }
+  = f.referenced_association :conditioning_unit, source: { scope: scope }, new: { controller: :conditionings }
+  = f.input(:initial_population, label: Product.human_attribute_name(:population), as: :decimal)
 
 - if f.object.indicators_list.include? :shape
   - shape_reading = f.object.readings.find { |reading| reading.indicator_name.to_s == 'shape' }

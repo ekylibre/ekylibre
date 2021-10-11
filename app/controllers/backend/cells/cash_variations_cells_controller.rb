@@ -33,7 +33,7 @@ module Backend
           res = started_at
           categories = []
 
-          while res < stopped_at do
+          while res < stopped_at
             categories << res
             res += 1.month
           end

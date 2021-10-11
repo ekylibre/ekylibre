@@ -35,6 +35,7 @@ module Backend
       t.column :number, url: true
       t.column :annotation
       t.status
+      t.column :state_label, hidden: true
       t.column :mode
       t.column :responsible
       t.column :started_at
@@ -49,6 +50,7 @@ module Backend
       t.column :nature
       t.column :state, label_method: :human_state_name
       t.status
+      t.column :state_label, hidden: true
       # t.column :sender, url: true
       # t.column :recipient, url: true
       # t.column :sale, url: true, hidden: true
@@ -62,6 +64,7 @@ module Backend
       t.column :number, url: true
       t.column :state, label_method: :human_state_name
       t.status
+      t.column :state_label, hidden: true
       t.column :sender, url: true
       # t.column :purchase, url: true, hidden: true
       # t.column :net_mass
@@ -73,6 +76,7 @@ module Backend
       t.column :number, url: true
       t.column :state, label_method: :human_state_name
       t.status
+      t.column :state_label, hidden: true
       t.column :recipient, url: true
       t.column :sale, url: true, hidden: true
       # t.column :net_mass
@@ -82,7 +86,8 @@ module Backend
     def show
       @entity_of_company_picture_path = Entity.of_company.picture_path
       return unless @delivery = find_and_check
-      respond_with(@delivery, methods: %i[all_parcels_prepared human_delivery_mode],
+
+      respond_with(@delivery, methods: %i[human_delivery_mode],
                               include: {
                                 parcels: {
                                   methods: %i[human_delivery_mode human_delivery_nature],

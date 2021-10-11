@@ -1,25 +1,47 @@
 {
   "dependencies": {
     "@rails/webpacker": "^4.0.7",
-    "chart.js": "^2.7.2",
+    "autosize": "^4.0.2",
+    "axios": "^0.20.0",
     "flatpickr": "~4.5.0",
-    "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "i18n-js": "^3.7.1",
+    "leaflet": "1.2.0",
+    "leaflet-draw": "0.4.12",
+    "leaflet-reactive_measure": "https://github.com/ekylibre/Leaflet.ReactiveMeasure",
+    "lodash": "^4.17",
+    "moment": "^2.24",
     "promise-polyfill": "^8.1.3",
     "rbush": "^3.0.1",
-    "stimulus": "^1.1.1",
-    "vue-chartjs": "^3.2.1",
-    "vuedraggable": "^2.16.0",
-    "whatwg-fetch": "^3.0.0"
+    "sortablejs": "^1.7.0",
+    "ts-loader": "^8.0.2",
+    "typescript": "^4.0.2",
+    "whatwg-fetch": "^3.0",
+    "vuedraggable": "2.16.0",
+    "vue-chartjs": "3.2.1",
+    "chart.js": "^2.7.0"
   },
   "devDependencies": {
-    "husky": "^3.0.7",
-    "moment-locales-webpack-plugin": "^1.0.7",
+    "@types/i18n-js": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^3.9",
+    "@typescript-eslint/parser": "^3.9",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^6.2.2",
+    "husky": "^3.1",
+    "moment-locales-webpack-plugin": "^1.0",
+    "prettier": "^2.0",
     "webpack-dev-server": "^3.7.2"
   },
   "husky": {
     "hooks": {
       "pre-commit": "ruby bin/hooks/pre-commit.rb"
     }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 140,
+    "tabWidth": 4
   }
 }

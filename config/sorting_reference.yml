@@ -1,0 +1,49 @@
+---
+    procedure_categories:
+    - administrative_tasks
+    - animal_breeding
+    - building_maintenance
+    - plants_transformation
+    - soil_working
+    - vineyard_maintenance
+    - animal_identification
+    - energy_supplying
+    - meat_transformation
+    - planting
+    - vine_fertilizing
+    - animal_feeding
+    - equipment_maintenance
+    - fertilizing
+    - fish_transformation
+    - vine_protection
+    - animal_production
+    - dairy_transformation
+    - handling
+    - irrigating
+    - vine_soil_working_and_maintenance
+    - animal_treating
+    - cook_transformation
+    - crop_protection
+    - troubleshooting
+    - vintage
+    - crop_maintenance
+    - habitat_maintenance
+    - packaging
+    - vine_planting
+    - harvesting
+    - textile_transformation
+    - vine_land_maintenance
+    - viticulture_transformation
+    - washing_packaging_transformation
+    - installations_modification
+    - land_maintenance
+    activity_families:
+    - vine_farming
+    - plant_farming
+    - animal_farming
+    - processing
+    - wine_making
+    - tool_maintaining
+    - service_delivering
+    - administering
+    

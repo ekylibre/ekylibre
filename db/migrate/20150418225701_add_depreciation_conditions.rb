@@ -1,4 +1,4 @@
-class AddDepreciationConditions < ActiveRecord::Migration
+class AddDepreciationConditions < ActiveRecord::Migration[4.2]
   def change
     rename_column :financial_assets, :charges_account_id, :expenses_account_id
 

@@ -33,6 +33,7 @@ module Backend
 
     def show
       return unless (@attachment = find_and_check)
+
       if @attachment.document.file?
         render json: {
           document: {
@@ -47,10 +48,11 @@ module Backend
 
     def destroy
       return unless (@attachment = find_and_check)
+
       document = @attachment.document
       @attachment.destroy
       document.destroy
-      if document.destroyed? && @attachment.destroyed?
+      if document.destroyed? && @attachment.paranoia_destroyed?
         render json: { attachment: 'deleted', status: :ok }
       else
         render json: { message: 'error' }, status: :unprocessable_entity

@@ -4,14 +4,14 @@
       = f.input :first_name
       = f.input :last_name
       = f.input :language, collection: available_languages
-      = f.input :theme, as: :radio_buttons, collection: ['tekyla', 'tekyla-sunrise', 'margarita'].sort.map{|t| [t.humanize, t] }
+      = f.input :theme, as: :radio_buttons, collection: Ekylibre::Application.instance.themes.map(&:name).sort.map{|t| [t.humanize, t] }
       = form_actions do
         = f.submit :update.ta, class: 'primary'
 
   - c.cobble :change_password do
     = simple_form_for([:backend, @user], url: change_password_backend_myself_path, method: :patch) do |f|
       = f.input :current_password, required: true
-      = f.input :password, required: true
+      = f.input :password, label: :new_password.tl, required: true
       = f.input :password_confirmation, required: true
       = form_actions do
         = f.submit :update.ta, class: 'primary'

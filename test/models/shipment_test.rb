@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -79,8 +79,9 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'shipments' do
     to_send = [{
-      population: @product.population,
-      source_product: @product
+      conditioning_quantity: @product.population,
+      source_product: @product,
+      conditioning_unit: @product.variant.guess_conditioning[:unit]
     }]
 
     shipment = new_shipment(items_attributes: to_send)
@@ -92,9 +93,10 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # bookkeep on shipments
   test 'bookeep shipments' do
     to_send = [{
-      population: @product.population,
+      conditioning_quantity: @product.population,
       source_product: @product,
-      unit_pretax_stock_amount: 15
+      unit_pretax_stock_amount: 15,
+      conditioning_unit: @product.variant.guess_conditioning[:unit]
     }]
 
     shipment = new_shipment(items_attributes: to_send)
@@ -126,12 +128,12 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'ship giving a transporter' do
     new_shipment
-    assert_nothing_raised { Shipment.ship(Shipment.all, transporter_id: @entity.id) }
+    assert_nothing_raised { Shipment.ship(Shipment.where.not(state: :given), transporter_id: @entity.id) }
   end
 
   test 'ship without transporter' do
     new_shipment
-    assert_raise { Shipment.ship(Shipment.all) }
+    assert_raise { Shipment.ship(Shipment.where.not(state: :given)) }
   end
 
   # ???? TODO: Figure what that test was supposed to be
@@ -143,27 +145,28 @@ class ShipmentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_shipment(delivery_mode: :third, address: nil, recipient: nil, separated: true, items_attributes: nil)
-    attributes = {
-      delivery_mode: delivery_mode,
-      recipient: recipient || @recipient,
-      address: address || @address,
-      separated_stock: separated,
-      given_at: DateTime.new(2018, 1, 1)
-    }
+    def new_shipment(delivery_mode: :third, address: nil, recipient: nil, separated: true, items_attributes: nil)
+      attributes = {
+        delivery_mode: delivery_mode,
+        recipient: recipient || @recipient,
+        address: address || @address,
+        separated_stock: separated,
+        given_at: DateTime.new(2018, 1, 1)
+      }
 
-    items_attributes ||= [{
-      population: 20,
-      source_product: @product,
-      unit_pretax_stock_amount: 15,
-      variant: @variant
-    }]
+      items_attributes ||= [{
+        conditioning_quantity: 20,
+        source_product: @product,
+        unit_pretax_stock_amount: 15,
+        variant: @variant,
+        conditioning_unit: @variant.guess_conditioning[:unit]
+      }]
 
-    shipment = Shipment.create!(attributes)
-    items_attributes.each do
-      shipment.items.create!(items_attributes)
+      shipment = Shipment.create!(attributes)
+      items_attributes.each do
+        shipment.items.create!(items_attributes)
+      end
+
+      shipment
     end
-
-    shipment
-  end
 end

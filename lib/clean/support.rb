@@ -12,6 +12,7 @@ module Clean
       def hash_to_yaml(hash, depth = nil)
         code = hash.sort_by { |a| a[0].to_s.tr('_', ' ').strip }.map do |k, v|
           next unless v
+
           pair_to_yaml(k, v)
         end.join("\n")
         code = "\n" + code.indent(depth).gsub(/^\s+$/, '') unless depth.nil?
@@ -148,6 +149,7 @@ module Clean
             keys = exp.split(/[\s\(\)\:\'\"\,]+/)
             key = keys[1].gsub(/\#\{[^\}]+\}/, '*')
             next if keys[2..-1].include?('title') || keys[2..-1].include?('label')
+
             list << key
           end
         end
@@ -184,7 +186,8 @@ module Clean
       end
 
       def browse(paths)
-        raise ArgumentError, 'Missing block' unless block_given?
+        raise ArgumentError.new('Missing block') unless block_given?
+
         paths.each do |path|
           Dir.glob(path).each do |file|
             yield file
@@ -238,6 +241,7 @@ module Clean
       def controllers_in_file
         Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each do |file|
           next if file.start_with? Rails.root.join('app', 'controllers', 'concerns').to_s
+
           require file
         end
         ObjectSpace

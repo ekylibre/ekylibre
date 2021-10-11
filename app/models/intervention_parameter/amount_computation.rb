@@ -1,4 +1,6 @@
-class InterventionParameter < Ekylibre::Record::Base
+# frozen_string_literal: true
+
+class InterventionParameter < ApplicationRecord
   # Amount computation represents how a amount is computed for a cost or an earn
   # in an intervention
   class AmountComputation
@@ -21,24 +23,26 @@ class InterventionParameter < Ekylibre::Record::Base
 
     def initialize(nature, origin = nil, options = {})
       unless NATURES.include?(nature)
-        raise ArgumentError, "Invalid nature. Got: #{nature.inspect}"
+        raise ArgumentError.new("Invalid nature. Got: #{nature.inspect}")
       end
+
       @nature = nature
       if quantity?
         unless ORIGINS.include?(origin)
-          raise ArgumentError, "Invalid origin. Got: #{origin.inspect}"
+          raise ArgumentError.new("Invalid origin. Got: #{origin.inspect}")
         end
+
         @origin = origin
       end
       @options = options
       @options[:quantity] ||= 0
-      check_option_presence!(:quantity, :unit_name) if quantity?
+      check_option_presence!(:quantity, :unit_name, :unit) if quantity?
       check_option_presence!(:catalog_usage) if catalog?
       check_option_presence!(:purchase_item) if purchase?
       check_option_presence!(:sale_item) if sale?
     end
 
-    %i[quantity unit_name catalog_usage catalog_item purchase_item sale_item].each do |nature|
+    %i[quantity unit_name unit catalog_usage catalog_item purchase_item sale_item].each do |nature|
       define_method nature do
         @options[nature]
       end
@@ -58,7 +62,7 @@ class InterventionParameter < Ekylibre::Record::Base
 
     # FIXME: Not suitable more multi-money support
     def currency
-      Nomen::Currency.find(Preference[:currency])
+      Onoma::Currency.find(Preference[:currency])
     end
 
     def human_unit_amount(_options = {})
@@ -74,7 +78,11 @@ class InterventionParameter < Ekylibre::Record::Base
     end
 
     def unit_amount
-      item ? item.unit_pretax_amount : 0.0
+      if catalog?
+        item ? item.pretax_amount(into: @options[:unit]) : 0.0
+      else
+        item ? item.unit_pretax_amount : 0.0
+      end
     end
 
     def amount?
@@ -97,12 +105,12 @@ class InterventionParameter < Ekylibre::Record::Base
 
     protected
 
-    def check_option_presence!(*options)
-      options.each do |option|
-        unless @options[option]
-          raise ArgumentError, "An option #{option.inspect} must be given. #{@options.inspect}"
+      def check_option_presence!(*options)
+        options.each do |option|
+          unless @options[option]
+            raise ArgumentError.new("An option #{option.inspect} must be given. #{@options.inspect}")
+          end
         end
       end
-    end
   end
 end

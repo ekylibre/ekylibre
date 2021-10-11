@@ -1,8 +1,7 @@
 = field_set do
-  = devise_error_messages!
   = f.input :first_name
   = f.input :last_name
   = f.input :language, include_blank: false
-  = f.input :role_id, collection: Role.all.pluck(:name, :id), include_blank: false
+  = f.referenced_association :role, required: true, new: false
   = f.input :email
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,7 +46,7 @@
 # credit.
 # Mirroring on credit record is managed by model, but some errors can happen
 # if the coder don't check everything. The destruction process is fragile.
-class DebtTransfer < Ekylibre::Record::Base
+class DebtTransfer < ApplicationRecord
   enumerize :nature, in: %i[sale_regularization purchase_regularization], predicates: true
 
   belongs_to :journal_entry, class_name: 'JournalEntry', dependent: :destroy
@@ -52,7 +54,7 @@ class DebtTransfer < Ekylibre::Record::Base
   belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :currency, presence: true, length: { maximum: 500 }
   validates :affair, :debt_transfer_affair, :nature, presence: true
@@ -82,6 +84,10 @@ class DebtTransfer < Ekylibre::Record::Base
                     end
   end
 
+  before_validation do
+    self.accounted_at ||= Time.zone.now
+  end
+
   before_destroy do
     DebtTransfer.where(
       affair: debt_transfer_affair,
@@ -101,7 +107,7 @@ class DebtTransfer < Ekylibre::Record::Base
       record = nil
       reflected = nil
 
-      ActiveRecord::Base.transaction do
+      ApplicationRecord.transaction do
         record = new(attributes.merge(amount: nil))
         reflected = create_reflection record
 
@@ -120,6 +126,7 @@ class DebtTransfer < Ekylibre::Record::Base
 
     def create_reflection(record)
       new(
+        accounted_at: record.accounted_at,
         affair: record.debt_transfer_affair,
         debt_transfer_affair: record.affair,
         currency: record.currency,
@@ -141,7 +148,7 @@ class DebtTransfer < Ekylibre::Record::Base
     # TODO: refactor
     if purchase_regularization?
       # Debit on supplier account + credit on regularization account
-      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
+      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: debt_transfer_affair.class.model_name.human, number: debt_transfer_affair.number, entity: debt_transfer_affair.third.full_name)
 
         debt_transfer_affair.third.reload
@@ -153,7 +160,7 @@ class DebtTransfer < Ekylibre::Record::Base
 
     if sale_regularization?
       # debit on regularization account + Credit on client account
-      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: created_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
+      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: affair.class.model_name.human, number: affair.number, entity: affair.third.full_name)
 
         affair.third.reload

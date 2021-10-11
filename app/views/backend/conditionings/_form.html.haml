@@ -1,0 +1,6 @@
+= field_set(@fieldset_label || :general_informations) do
+  = f.input :name
+  = f.input :work_code
+  = f.input :coefficient, disabled: f.object.protected_on_update?
+  = f.referenced_association :base_unit, disabled: f.object.protected_on_update?, source: { scope: @scope || {} }
+  = f.input :description

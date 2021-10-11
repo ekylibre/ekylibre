@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,7 +43,7 @@
 #  updater_id   :integer
 #
 
-class EntityLink < Ekylibre::Record::Base
+class EntityLink < ApplicationRecord
   belongs_to :entity
   belongs_to :linked, class_name: 'Entity'
   refers_to :nature, class_name: 'EntityLinkNature'
@@ -51,8 +53,8 @@ class EntityLink < Ekylibre::Record::Base
   validates :main, inclusion: { in: [true, false] }
   validates :entity, :linked, :nature, presence: true
   validates :post, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :stopped_at, timeliness: { on_or_after: ->(entity_link) { entity_link.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(entity_link) { entity_link.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
 
@@ -70,7 +72,7 @@ class EntityLink < Ekylibre::Record::Base
 
   before_validation do
     self.started_at ||= Time.zone.now
-    if (item = Nomen::EntityLinkNature[nature])
+    if (item = Onoma::EntityLinkNature[nature])
       self.entity_role = item.entity
       self.linked_role = item.linked
     end

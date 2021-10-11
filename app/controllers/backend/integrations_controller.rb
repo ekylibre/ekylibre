@@ -27,30 +27,40 @@ module Backend
 
     def edit
       return unless @integration = find_and_check(:integration)
+
+      if FinancialYearExchange.opened.present? && @integration.nature == "baqio"
+        notify_warning(:financial_year_exchange_open_baqio_integration.tl)
+      end
+
       t3e(@integration.attributes.merge(name: @integration.name))
       render(locals: { cancel_url: :back })
     end
 
     def destroy
-      return unless existing = Integration.find_by(nature: params[:nature])
+      return unless existing = Integration.find_by(nature: params[:nature]) || Integration.find_by(nature: params[:id])
+
       redirect_to action: :index, controller: :integrations if existing.destroy!
     end
 
     def create
       @integration = resource_model.new(permitted_params)
       t3e(@integration.attributes.merge(name: @integration.name))
-      return if save_and_redirect(@integration, url: :backend_integrations)
+      return if save_and_redirect(@integration, url: backend_integrations_path)
+
       @integration.errors.full_messages.each do |message|
         notify_error message
       end
-      render(locals: { cancel_url: :backend_integrations })
+      render(locals: { cancel_url: backend_integrations_path })
     end
 
     def update
       return unless @integration = find_and_check(:integration)
+
       t3e(@integration.attributes.merge(name: @integration.name))
       @integration.attributes = permitted_params
-      return if save_and_redirect(@integration, url: :backend_integrations)
+      redirect_url = params[:redirect] ||= backend_integrations_path
+      return if save_and_redirect(@integration, url: redirect_url)
+
       @integration.errors.full_messages.each do |message|
         notify_error message
       end

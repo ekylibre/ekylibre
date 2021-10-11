@@ -1,7 +1,7 @@
-#intervention-form
+- procedure = f.object.procedure
+%div{id: 'intervention-form', data: {procedure_set: procedure.present?}}
   - if f.object.errors.any? && Rails.env.development?
     = f.object.errors.inspect
-  - procedure = f.object.procedure
   - content_for :main_title do
     - interpolations = { number: f.object.number, nature: f.object.nature.l }
     - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
@@ -19,17 +19,23 @@
 
   -# Show the different kind of intervention, or the form to create intervention
   - if procedure
+
+    - if params[:ride_ids]
+      - params[:ride_ids].each do |ride_id|
+        = f.hidden_field :ride_ids, :multiple => true, :value => ride_id
+
     = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
     = field_set do
       = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
       = f.input :nature, as: :hidden
       = f.input :state, as: :hidden
+      = f.input :intervention_proposal_id, as: :hidden
       = hidden_field_tag('is_harvesting', f.object.decorate.harvesting?)
 
       #working-periods
         - unless f.object.working_periods.any?
-          - stopped_at ||= Time.zone.now
-          - started_at ||= stopped_at - 1.hour
+          - stopped_at ||= f.object.stopped_at.present? ? f.object.stopped_at : Time.zone.now
+          - started_at ||= f.object.started_at.present? ? f.object.started_at : stopped_at - 1.hour
           - f.object.working_periods.new(started_at: started_at, stopped_at: stopped_at)
         = f.nested_association(:working_periods, minimum: 1, locals: {namespace: 'working_periods'}, collection: f.object.working_periods.sort_by(&:started_at), partial: '/backend/interventions/working_period_fields')
       - if f.object.record?
@@ -53,6 +59,8 @@
 
     = field_set :parameters do
       - procedure.each_parameter do |parameter|
+        - if [:zone, :plant,:land_parcel, :cultivation].include? parameter.name
+          = render '/backend/interventions/crop_group_field', f: f
         = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
 
       -# - if procedure.parameters.any?{|p| p.is_a?(Procedo::Procedure::ProductParameter) and p.beta?}
@@ -62,17 +70,20 @@
       = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
   - else # Root Procedure Natures
     - main_period_selector(:year)
-    - Nomen::ActivityFamily.find_each do |family|
-      - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
-      - next unless categories.any?
+    - activity_families = Activity.pluck(:family).push("administering", "processing", "tool_maintaining").uniq
+    - nomen_activity_families = Onoma::ActivityFamily.list.select{ |e| activity_families.include?(e.name)}
+    - ListSorter.new(:activity_families, nomen_activity_families).sort.each do |family|
+      - procedure_categories = Onoma::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
+      - next unless procedure_categories.any?
       .activity-family
         .activity-family-heading
           %h2.activity-family-title= family.human_name
         .activity-family-body
-          - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
-            = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
-              - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-                - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
+          - ListSorter.new(:procedure_categories, procedure_categories).sort.each do |procedure_category|
+            = dropdown_menu_button(procedure_category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
+              - procedures = Procedo::Procedure.of_main_category(procedure_category.name.to_sym)
+              - procedures.sort_by(&:position).each do |procedure|
+                - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature], crop_group_ids: params[:crop_group_ids], ride_ids: params[:ride_ids], targets_attributes: params[:targets_attributes], group_parameters_attributes: params[:group_parameters_attributes]}
 
     - form_action_content(:after) do
       %span.pull-right

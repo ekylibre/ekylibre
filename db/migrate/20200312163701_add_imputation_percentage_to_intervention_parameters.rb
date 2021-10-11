@@ -1,4 +1,4 @@
-class AddImputationPercentageToInterventionParameters < ActiveRecord::Migration
+class AddImputationPercentageToInterventionParameters < ActiveRecord::Migration[4.2]
   def change
     add_column :intervention_parameters, :imputation_ratio, :decimal, precision: 19, scale: 4
 
@@ -12,7 +12,7 @@ class AddImputationPercentageToInterventionParameters < ActiveRecord::Migration
                 quantity_value = CASE
                                  WHEN p.srid IS NULL OR p.srid = 4326
                                    THEN ST_Area(working_zone::GEOGRAPHY)
-                                 ELSE 
+                                 ELSE
                                    ST_Area(ST_Transform(working_zone, COALESCE(p.srid)))
                                  END
             FROM (SELECT CASE

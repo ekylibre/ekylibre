@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,6 +27,7 @@
 #
 #  allowed_entry_factor     :interval
 #  allowed_harvest_factor   :interval
+#  applications_frequency   :interval
 #  assembly_id              :integer
 #  batch_number             :string
 #  component_id             :integer
@@ -36,6 +39,7 @@
 #  group_id                 :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string
+#  imputation_ratio         :decimal(19, 4)   default(1), not null
 #  intervention_id          :integer          not null
 #  lock_version             :integer          default(0), not null
 #  new_container_id         :integer
@@ -50,14 +54,16 @@
 #  quantity_population      :decimal(19, 4)
 #  quantity_unit_name       :string
 #  quantity_value           :decimal(19, 4)
+#  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
+#  specie_variety           :jsonb            default("{}")
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  usage_id                 :string
+#  using_live_data          :boolean          default(TRUE)
 #  variant_id               :integer
-#  variety                  :string
 #  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
@@ -95,7 +101,7 @@ class InterventionProductParameter < InterventionParameter
   accepts_nested_attributes_for :readings, allow_destroy: true
 
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
-  scope :of_actors, ->(actors) { where(product_id: actors.flatten.compact.map(&:id)) }
+  scope :of_actors, ->(actors) { where(product: actors) }
   scope :with_actor, -> { where.not(product_id: nil) }
   scope :with_working_zone, -> { where.not(working_zone: nil) }
 
@@ -124,6 +130,7 @@ class InterventionProductParameter < InterventionParameter
 
   validate do
     next unless intervention && intervention.procedure
+
     if reference
       if reference.handled? && quantity_handler? && !reference.handler(quantity_handler)
         errors.add(:quantity_handler, :invalid)
@@ -137,6 +144,8 @@ class InterventionProductParameter < InterventionParameter
   after_save do
     if product && dead && (!product.dead_at || product.dead_at > stopped_at)
       product.update_columns(dead_at: stopped_at)
+    elsif product && !dead && product.dead_at
+      product.update_columns(dead_at: nil)
     end
   end
 
@@ -199,8 +208,8 @@ class InterventionProductParameter < InterventionParameter
       }.with_indifferent_access
       if produced = product
         words[:variant]     = produced.variant_name
-        words[:variety]     = Nomen::Variety[produced.variety].human_name
-        words[:derivative_of] = (produced.derivative_of ? Nomen::Variety[produced.variety].human_name : nil)
+        words[:variety]     = Onoma::Variety[produced.variety].human_name
+        words[:derivative_of] = (produced.derivative_of ? Onoma::Variety[produced.variety].human_name : nil)
         words[:container] = (produced.container ? produced.container.name : nil)
         words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
         words[:born_at]     = produced.born_at.l
@@ -242,9 +251,9 @@ class InterventionProductParameter < InterventionParameter
   def units_selector_list
     options = self.reference.handlers.map do |handler|
       if handler.population?
-        [Nomen::Unit.find(:unity).human_name, handler.name]
+        [Onoma::Unit.find(:unity).human_name, handler.name]
       elsif handler.widget == :number
-        unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
+        unit = handler.unit? ? handler.unit : Onoma::Unit.find(:unity)
         ["#{unit.symbol} (#{handler.human_name})", handler.name]
       else
         fail "Cannot handler #{handler.widget} handlers"

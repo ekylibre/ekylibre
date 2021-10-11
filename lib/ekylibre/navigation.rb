@@ -43,8 +43,9 @@ module Ekylibre
       # Returns the path (part, group, item) from an action
       def reverse!(controller, action)
         unless path = reverse(controller, action)
-          raise ReverseImpossible, "Cannot reverse action #{controller}##{action}"
+          raise ReverseImpossible.new("Cannot reverse action #{controller}##{action}")
         end
+
         path
       end
 
@@ -53,6 +54,7 @@ module Ekylibre
         if r = reverse(controller, action)
           return r[:part]
         end
+
         nil
       end
 
@@ -106,6 +108,7 @@ module Ekylibre
         if node = @tree.get(*args)
           return node.icon
         end
+
         'question-sign'
       end
     end

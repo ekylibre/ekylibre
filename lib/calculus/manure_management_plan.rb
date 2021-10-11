@@ -14,6 +14,7 @@ module Calculus
       def find_method(name)
         class_name = @registered_methods[name]
         raise "Cannot find method: #{name.inspect}" unless class_name
+
         class_name.constantize
       end
 

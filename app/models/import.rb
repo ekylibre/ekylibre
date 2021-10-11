@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,7 +43,7 @@
 #  updater_id             :integer
 #
 
-class Import < Ekylibre::Record::Base
+class Import < ApplicationRecord
   belongs_to :importer, class_name: 'User'
   enumerize :nature, in: ActiveExchanger::Base.importers.keys, i18n_scope: ['exchangers']
   enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone
@@ -49,7 +51,7 @@ class Import < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :archive_content_type, :archive_file_name, length: { maximum: 500 }, allow_blank: true
   validates :archive_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :archive_updated_at, :imported_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :archive_updated_at, :imported_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :nature, :state, presence: true
   validates :progression_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
@@ -71,11 +73,14 @@ class Import < Ekylibre::Record::Base
     end
 
     # Create an import and run it directly
-    def launch!(nature, file, options = {}, &block)
+    def launch_result!(nature, file, options = {}, &block)
       f = File.open(file)
       import = create!(nature: nature, archive: f, options: options)
-      import.run(&block)
-      import
+      import.run_result(&block)
+    end
+
+    def launch!(nature, file, options = {}, &block)
+      launch_result!(nature, file, options, &block)
     end
   end
 
@@ -90,6 +95,26 @@ class Import < Ekylibre::Record::Base
   def run(&block)
     run_result(&block).to_bool
   end
+
+  def file_size
+    size_ko = 1000.to_f
+    size_mo = (size_ko * size_ko).to_f
+    size_go = (size_mo * size_ko).to_f
+    size_terra = (size_go * size_ko).to_f
+
+    if !self.archive_file_size.nil? && self.archive_file_size.to_d > 0
+      if self.archive_file_size < size_mo
+        "#{(self.archive_file_size/size_ko).round(2)} Ko"
+      elsif self.archive_file_size < size_go
+        "#{(self.archive_file_size/size_mo).round(2)} Mo"
+      elsif self.archive_file_size < size_terra
+        "#{(self.archive_file_size/size_go).round(2)} Go"
+      end
+    else
+      "-"
+    end
+  end
+
   # Run an import.
   # The optional code block allows have access to progression on each check point
   def run_result(&block)
@@ -115,12 +140,12 @@ class Import < Ekylibre::Record::Base
                   end
 
     case result.state
-      when :success
-        update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
-      when :aborted
-        update(state: :aborted)
-      else # when :failure + other cases that should not happen
-        update(state: :errored)
+    when :success
+      update(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: importer_id)
+    when :aborted
+      update(state: :aborted)
+    else # when :failure + other cases that should not happen
+      update(state: :errored)
     end
 
     result

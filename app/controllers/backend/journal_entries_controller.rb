@@ -41,6 +41,7 @@ module Backend
     end
 
     list(:items, model: :journal_entry_items, conditions: { entry_id: 'params[:id]'.c }, order: :position) do |t|
+      t.icon :lock, if: :currently_exchanged?
       t.column :displayed_label_in_accountancy, label: :entry_item_label
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
@@ -70,6 +71,7 @@ module Backend
 
     def show
       return unless @journal_entry = find_and_check
+
       t3e @journal_entry
       respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
                                    include: [
@@ -145,6 +147,7 @@ module Backend
         else
           notify_success(:journal_entry_has_been_saved_with_a_new_number, number: @journal_entry.number)
         end
+        check_fec_compliance if JournalEntry.fec_compliance_preference
 
         # TODO: Extract this somewhere else, this isn't SRP
         # Check if the method is called from "account/:id/mark" view
@@ -175,12 +178,15 @@ module Backend
 
     def edit
       return unless find_and_check_updateability
+
       t3e @journal_entry.attributes
     end
 
     def update
       return unless find_and_check_updateability
+
       if @journal_entry.update_attributes(permitted_params)
+        check_fec_compliance if JournalEntry.fec_compliance_preference
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return
       end
@@ -207,6 +213,7 @@ module Backend
     def toggle_autocompletion
       choice = (params[:autocompletion] == 'true')
       return unless Preference.set!(:entry_autocompletion, choice, :boolean)
+
       respond_to do |format|
         format.json { render json: { status: :success, preference: choice } }
       end
@@ -214,25 +221,46 @@ module Backend
 
     protected
 
-    def permitted_params
-      params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id team_id equipment_id _destroy])
-    end
-
-    def notify_global_errors
-      @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
-        next if /items\./ =~ field
-        messages.each { |m| notify_error_now m }
+      def permitted_params
+        params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :reference_number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id team_id equipment_id _destroy])
       end
-    end
 
-    def find_and_check_updateability
-      return false unless (@journal_entry = find_and_check)
-      unless @journal_entry.updateable?
-        notify_error(:journal_entry_already_validated)
-        redirect_to_back
-        return
+      def notify_global_errors
+        @journal_entry.errors.messages.except(:printed_on).each do |field, messages|
+          next if /items\./ =~ field
+
+          messages.each { |m| notify_error_now m }
+        end
       end
-      @journal_entry
-    end
+
+      def find_and_check_updateability
+        return false unless (@journal_entry = find_and_check)
+
+        unless @journal_entry.updateable?
+          notify_error(:journal_entry_already_validated)
+          redirect_to_back
+          return
+        end
+        @journal_entry
+      end
+
+      def check_fec_compliance
+        if @journal_entry.compliance_errors == []
+          notify_success(:fec_compliant_entry.tl)
+        else
+          errors = @journal_entry.compliance_errors.map do |err|
+            if err == :entry_item_account_name_not_uniq
+              duplicated_number_accounts = @journal_entry.duplicated_number_accounts
+              err.tl(accounts_number: duplicated_number_accounts.to_sentence, count: duplicated_number_accounts.count)
+            elsif err == :account_number_with_less_than_3_caracters
+              invalid_count = @journal_entry.invalid_accounts_number_count
+              err.tl(invalid_count: invalid_count, count: invalid_count)
+            else
+              err.tl
+            end
+          end
+          notify_warning(:non_fec_compliant_entry.tl(errors: errors.to_sentence, count: errors.count))
+        end
+      end
   end
 end

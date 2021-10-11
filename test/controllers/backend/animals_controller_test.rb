@@ -20,12 +20,12 @@ require 'test_helper'
 module Backend
   class AnimalsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions add_to_variant: :get_and_post,
-                               # add_to_group: :get_and_post, # TODO: Re-activate this test
+                               add_to_group:  { mode: :post_and_redirect, params: { id: "1,2" } },
                                add_to_container: :get_and_post,
                                add_group: { mode: :create,
                                             params: { variant_id: 31,
                                                       name: 'Fluffy' } },
-                               except: %i[change matching_interventions load_animals add_to_group update_many edit_many]
-    # TODO: Re-activate #matching_interventions, #add_to_group and #load_animals tests
+                               except: %i[change matching_interventions load_animals update_many edit_many sort_by_time_use]
+    # TODO: Re-activate #matching_interventions, and #load_animals tests
   end
 end

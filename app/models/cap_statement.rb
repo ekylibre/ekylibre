@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +38,7 @@
 #  updater_id    :integer
 #
 
-class CapStatement < Ekylibre::Record::Base
+class CapStatement < ApplicationRecord
   belongs_to :campaign
   belongs_to :declarant, class_name: 'Entity'
   has_many :islets, class_name: 'CapIslet', dependent: :destroy
@@ -55,9 +57,9 @@ class CapStatement < Ekylibre::Record::Base
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
-    for campaign in campaigns
+    campaigns.each do |campaign|
       unless campaign.is_a?(Campaign)
-        raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+        raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}")
       end
     end
     where(campaign_id: campaigns.map(&:id))

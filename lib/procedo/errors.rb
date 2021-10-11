@@ -46,6 +46,13 @@ module Procedo
     end
 
     class FailedFunctionCall < UncomputableFormula
+      attr_reader :args, :kwargs
+
+      def initialize(method, *args, **kwargs)
+        super("Failed function call: #{method}")
+        @args = args
+        @kwargs = kwargs
+      end
     end
   end
 end

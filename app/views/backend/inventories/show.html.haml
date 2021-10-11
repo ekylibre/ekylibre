@@ -4,7 +4,7 @@
     = t.refresh resource, method: :post
   - if resource.reflectable?
     = t.reflect resource, method: :post
-  = t.export :inventory_sheet
+  = t.export(:inventory_sheet, key: Printers::InventorySheetPrinter.build_key(id: resource.id, updated_at: Time.now))
 
 = main_informations attachment: true do
   = attributes_list do |l|

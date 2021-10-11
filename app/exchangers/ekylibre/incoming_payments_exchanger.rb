@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Imports incoming payment in CSV format (with commas in UTF-8)
   # Columns are:
@@ -10,6 +12,9 @@ module Ekylibre
   #  - G: reference of document in DMS (optional)
   #  - H: description (optional)
   class IncomingPaymentsExchanger < ActiveExchanger::Base
+    category :sales
+    vendor :ekylibre
+
     def check
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       valid = true
@@ -72,6 +77,7 @@ module Ekylibre
 
         # Check affair presence
         next unless r.reference_number && entity
+
         sale = Sale.find_by(client_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number)
         if sale
           w.info "Sale found with ID : #{sale.id}"
@@ -93,6 +99,7 @@ module Ekylibre
       rows.each_with_index do |row, index|
         line_number = index + 2
         w.check_point && next if row[0].blank?
+
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
           payer_full_name:    (row[1].blank? ? nil : row[1]),
@@ -115,7 +122,7 @@ module Ekylibre
         # find an incoming payment mode
         payment_mode = IncomingPaymentMode.find_by(name: r.incoming_payment_mode_name)
         unless payment_mode
-          raise ActiveExchanger::InvalidDataError, "Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_number}"
+          raise ActiveExchanger::InvalidDataError.new("Cannot find incoming payment mode #{r.incoming_payment_mode_name} at line #{line_number}")
         end
 
         # find an entity

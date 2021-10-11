@@ -1,7 +1,7 @@
 namespace :diagrams do
   task all: :environment do
     models = YAML.load_file(Rails.root.join('db', 'models.yml')).map(&:classify).map(&:constantize).delete_if do |m|
-      m.superclass != Ekylibre::Record::Base
+      m.superclass != ApplicationRecord
     end
     graph = Diagram::Model.relational(*models, name: 'all')
     graph.write
@@ -24,7 +24,7 @@ namespace :diagrams do
       sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit, Affair, Gap, GapItem],
       purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, PurchasePayment, OutgoingPaymentMode, Affair, Gap, GapItem],
       cap_statement: [CapStatement, CapIslet, CapLandParcel, Entity, Campaign],
-      delivery: [Delivery, Parcel, ParcelItem, Analysis, DeliveryTool] #
+      delivery: [Delivery, Parcel, ParcelItem, Analysis, DeliveryTool]
     }.each do |name, models|
       graph = Diagram::Model.relational(*models, name: "#{name}-relational")
       graph.write
@@ -41,8 +41,8 @@ namespace :diagrams do
   end
 
   task nomenclature: :environment do
-    Diagram::Nomenclature.inheritance_all(Nomen::Variety)
-    graph = Diagram::Nomenclature.inheritance(Nomen::Variety)
+    Diagram::Nomenclature.inheritance_all(Onoma::Variety)
+    graph = Diagram::Nomenclature.inheritance(Onoma::Variety)
     graph.write
   end
 

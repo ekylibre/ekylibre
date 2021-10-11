@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -77,16 +77,16 @@ reception_items_001:
   parcel_id: 5
   parted: false
   population: 0.0
-  pretax_amount: 0.0
+  conditioning_quantity: 0.0
   product_id: 56
   role: merchandise
   source_product_id: 56
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:16:48.644715000 Z
   updater_id: 1
   variant_id: 11
+  conditioning_unit_id: 1
 reception_items_002:
   created_at: 2014-11-07 14:13:05.516637000 Z
   creator_id: 1
@@ -96,16 +96,16 @@ reception_items_002:
   parcel_id: 6
   parted: false
   population: 0.0
-  pretax_amount: 0.0
+  conditioning_quantity: 0.0
   product_id: 76
   role: merchandise
   source_product_id: 76
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 14:13:05.516637000 Z
   updater_id: 1
-  variant_id: 4
+  variant_id: 1
+  conditioning_unit_id: 3
 reception_items_003:
   created_at: 2014-11-01 16:00:08.291496000 Z
   creator_id: 1
@@ -115,16 +115,16 @@ reception_items_003:
   parcel_id: 5
   parted: false
   population: 20.0
-  pretax_amount: 0.0
+  conditioning_quantity: 20.0
   product_id: 54
   role: merchandise
   source_product_id: 54
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:00:08.291496000 Z
   updater_id: 1
   variant_id: 11
+  conditioning_unit_id: 1
 reception_items_004:
   created_at: 2014-11-01 16:00:08.381565000 Z
   creator_id: 1
@@ -134,15 +134,15 @@ reception_items_004:
   parcel_id: 5
   parted: false
   population: 20.0
-  pretax_amount: 0.0
+  conditioning_quantity: 20.0
   product_id: 55
   source_product_id: 55
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:00:08.381565000 Z
   updater_id: 1
   variant_id: 9
+  conditioning_unit_id: 3
 reception_items_005:
   created_at: 2014-11-01 19:29:58.321983000 Z
   creator_id: 1
@@ -152,18 +152,18 @@ reception_items_005:
   parcel_id: 6
   parted: false
   population: 1.0
-  pretax_amount: 0.0
+  conditioning_quantity: 1.0
   product_id: 5
   product_identification_number: P00000000004
   product_name: Bonnemine
   role: merchandise
   source_product_id: 5
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:29:58.321983000 Z
   updater_id: 1
   variant_id: 17
+  conditioning_unit_id: 3
 reception_items_006:
   created_at: 2014-11-01 19:35:50.426074000 Z
   creator_id: 1
@@ -173,18 +173,18 @@ reception_items_006:
   parcel_id: 7
   parted: false
   population: 1.0
-  pretax_amount: 0.0
+  conditioning_quantity: 1.0
   product_id: 6
   product_identification_number: P00000000005
   product_name: Isabelle
   role: merchandise
   source_product_id: 6
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:35:50.426074000 Z
   updater_id: 1
   variant_id: 17
+  conditioning_unit_id: 3
 reception_items_007:
   created_at: 2014-11-01 20:19:35.464060000 Z
   creator_id: 1
@@ -194,16 +194,16 @@ reception_items_007:
   parcel_id: 8
   parted: false
   population: 10.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10.0
   product_id: 57
   role: merchandise
   source_product_id: 57
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:19:35.464060000 Z
   updater_id: 1
   variant_id: 20
+  conditioning_unit_id: 1
 reception_items_008:
   created_at: 2014-11-01 20:23:55.229924000 Z
   creator_id: 1
@@ -213,16 +213,16 @@ reception_items_008:
   parcel_id: 8
   parted: false
   population: 10.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10.0
   product_id: 58
   role: merchandise
   source_product_id: 58
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:23:55.229924000 Z
   updater_id: 1
   variant_id: 22
+  conditioning_unit_id: 2
 reception_items_009:
   created_at: 2014-11-01 20:23:55.300646000 Z
   creator_id: 1
@@ -232,16 +232,16 @@ reception_items_009:
   parcel_id: 8
   parted: false
   population: 10.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10.0
   product_id: 59
   role: merchandise
   source_product_id: 59
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:23:55.300646000 Z
   updater_id: 1
   variant_id: 21
+  conditioning_unit_id: 2
 reception_items_010:
   created_at: 2014-11-07 15:25:51.274872000 Z
   creator_id: 1
@@ -251,16 +251,16 @@ reception_items_010:
   parcel_id: 9
   parted: false
   population: 10.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10.0
   product_id: 98
   role: merchandise
   source_product_id: 98
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:25:51.274872000 Z
   updater_id: 1
   variant_id: 39
+  conditioning_unit_id: 1
 reception_items_011:
   created_at: 2014-11-07 15:44:20.571953000 Z
   creator_id: 1
@@ -270,16 +270,16 @@ reception_items_011:
   parcel_id: 10
   parted: false
   population: 20.0
-  pretax_amount: 0.0
+  conditioning_quantity: 20.0
   product_id: 100
   role: merchandise
   source_product_id: 100
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:44:20.571953000 Z
   updater_id: 1
   variant_id: 41
+  conditioning_unit_id: 1
 reception_items_012:
   created_at: 2014-11-07 15:44:20.650859000 Z
   creator_id: 1
@@ -289,16 +289,16 @@ reception_items_012:
   parcel_id: 10
   parted: false
   population: 200.0
-  pretax_amount: 0.0
+  conditioning_quantity: 200.0
   product_id: 101
   role: merchandise
   source_product_id: 101
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:44:20.650859000 Z
   updater_id: 1
   variant_id: 42
+  conditioning_unit_id: 1
 reception_items_013:
   created_at: 2014-11-07 16:47:34.946178000 Z
   creator_id: 1
@@ -308,16 +308,16 @@ reception_items_013:
   parcel_id: 11
   parted: false
   population: 0.0
-  pretax_amount: 0.0
+  conditioning_quantity: 0.0
   product_id: 107
   role: merchandise
   source_product_id: 107
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:52:05.873379000 Z
   updater_id: 1
   variant_id: 45
+  conditioning_unit_id: 3
 reception_items_014:
   created_at: 2014-11-07 19:05:46.951450000 Z
   creator_id: 1
@@ -327,16 +327,16 @@ reception_items_014:
   parcel_id: 12
   parted: false
   population: 2.0
-  pretax_amount: 0.0
+  conditioning_quantity: 2.0
   product_id: 126
   role: merchandise
   source_product_id: 126
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:46.951450000 Z
   updater_id: 1
   variant_id: 57
+  conditioning_unit_id: 1
 reception_items_015:
   created_at: 2014-11-07 19:05:47.023821000 Z
   creator_id: 1
@@ -346,16 +346,16 @@ reception_items_015:
   parcel_id: 12
   parted: false
   population: 4.0
-  pretax_amount: 0.0
+  conditioning_quantity: 4.0
   product_id: 127
   role: merchandise
   source_product_id: 127
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:47.023821000 Z
   updater_id: 1
   variant_id: 58
+  conditioning_unit_id: 1
 reception_items_016:
   created_at: 2014-11-07 19:05:47.096608000 Z
   creator_id: 1
@@ -365,16 +365,16 @@ reception_items_016:
   parcel_id: 12
   parted: false
   population: 30.0
-  pretax_amount: 0.0
+  conditioning_quantity: 30.0
   product_id: 128
   role: merchandise
   source_product_id: 128
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:47.096608000 Z
   updater_id: 1
   variant_id: 59
+  conditioning_unit_id: 1
 reception_items_017:
   created_at: 2014-11-07 19:12:05.114337000 Z
   creator_id: 1
@@ -384,16 +384,16 @@ reception_items_017:
   parcel_id: 13
   parted: false
   population: 10.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10.0
   product_id: 131
   role: merchandise
   source_product_id: 131
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:05.114337000 Z
   updater_id: 1
   variant_id: 60
+  conditioning_unit_id: 1
 reception_items_018:
   created_at: 2014-11-07 19:22:38.384189000 Z
   creator_id: 1
@@ -403,16 +403,16 @@ reception_items_018:
   parcel_id: 14
   parted: false
   population: 10.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10.0
   product_id: 133
   role: merchandise
   source_product_id: 133
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:22:38.384189000 Z
   updater_id: 1
   variant_id: 62
+  conditioning_unit_id: 2
 reception_items_019:
   created_at: 2014-11-07 19:34:09.524844000 Z
   creator_id: 1
@@ -422,16 +422,16 @@ reception_items_019:
   parcel_id: 15
   parted: false
   population: 10000.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10000.0
   product_id: 135
   role: merchandise
   source_product_id: 135
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:34:09.524844000 Z
   updater_id: 1
   variant_id: 63
+  conditioning_unit_id: 2
 reception_items_020:
   created_at: 2014-11-07 19:34:09.592706000 Z
   creator_id: 1
@@ -441,16 +441,16 @@ reception_items_020:
   parcel_id: 15
   parted: false
   population: 10000.0
-  pretax_amount: 0.0
+  conditioning_quantity: 10000.0
   product_id: 136
   role: merchandise
   source_product_id: 136
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:34:09.592706000 Z
   updater_id: 1
   variant_id: 64
+  conditioning_unit_id: 3
 reception_items_021:
   created_at: 2016-07-01 19:23:38.965986000 Z
   creator_id: 1
@@ -460,7 +460,7 @@ reception_items_021:
   parcel_id: 22
   parted: false
   population: 25.0
-  pretax_amount: 0.0
+  conditioning_quantity: 25.0
   product_enjoyment_id: 125
   product_id: 177
   product_identification_number: ''
@@ -469,11 +469,11 @@ reception_items_021:
   product_ownership_id: 125
   role: merchandise
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 19:23:51.514824000 Z
   updater_id: 1
   variant_id: 8
+  conditioning_unit_id: 2
 reception_items_022:
   created_at: 2016-07-01 19:23:38.967904000 Z
   creator_id: 1
@@ -483,7 +483,7 @@ reception_items_022:
   parcel_id: 22
   parted: false
   population: 35.0
-  pretax_amount: 0.0
+  conditioning_quantity: 35.0
   product_enjoyment_id: 126
   product_id: 178
   product_identification_number: ''
@@ -492,11 +492,11 @@ reception_items_022:
   product_ownership_id: 126
   role: merchandise
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 19:23:51.516467000 Z
   updater_id: 1
   variant_id: 22
+  conditioning_unit_id: 2
 reception_items_023:
   created_at: 2016-07-01 20:23:17.506398000 Z
   creator_id: 1
@@ -506,7 +506,7 @@ reception_items_023:
   parcel_id: 24
   parted: false
   population: 11.0
-  pretax_amount: 0.0
+  conditioning_quantity: 11.0
   product_enjoyment_id: 129
   product_id: 179
   product_identification_number: ''
@@ -515,11 +515,11 @@ reception_items_023:
   product_ownership_id: 130
   role: merchandise
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 20:23:25.161561000 Z
   updater_id: 1
   variant_id: 39
+  conditioning_unit_id: 1
 reception_items_024:
   created_at: 2016-08-10 14:27:46.130313000 Z
   creator_id: 1
@@ -529,7 +529,7 @@ reception_items_024:
   parcel_id: 25
   parted: false
   population: 250.0
-  pretax_amount: 0.0
+  conditioning_quantity: 250.0
   product_enjoyment_id: 132
   product_id: 180
   product_identification_number: ''
@@ -539,11 +539,11 @@ reception_items_024:
   product_ownership_id: 133
   role: merchandise
   type: ReceptionItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2016-08-10 14:27:50.035720000 Z
   updater_id: 1
   variant_id: 71
+  conditioning_unit_id: 3
 shipment_items_001:
   created_at: 2014-11-05 14:15:20.018501000 Z
   creator_id: 1
@@ -553,15 +553,15 @@ shipment_items_001:
   parcel_id: 3
   parted: false
   population: 20.0
-  pretax_amount: 0.0
+  conditioning_quantity: 20.0
   product_id: 55
   source_product_id: 55
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:15:20.018501000 Z
   updater_id: 1
   variant_id: 9
+  conditioning_unit_id: 3
 shipment_items_002:
   created_at: 2014-11-05 14:15:20.026550000 Z
   creator_id: 1
@@ -571,16 +571,16 @@ shipment_items_002:
   parcel_id: 3
   parted: false
   population: 5.095
-  pretax_amount: 0.0
+  conditioning_quantity: 5.095
   product_id: 53
   role: merchandise
   source_product_id: 53
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:15:20.026550000 Z
   updater_id: 1
   variant_id: 10
+  conditioning_unit_id: 1
 shipment_items_003:
   created_at: 2014-11-05 14:16:19.775348000 Z
   creator_id: 1
@@ -590,16 +590,16 @@ shipment_items_003:
   parcel_id: 4
   parted: false
   population: 0.0
-  pretax_amount: 0.0
+  conditioning_quantity: 0.0
   product_id: 11
   role: merchandise
   source_product_id: 11
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:16:19.775348000 Z
   updater_id: 1
   variant_id: 3
+  conditioning_unit_id: 3
 shipment_items_004:
   created_at: 2014-10-31 20:23:37.079652000 Z
   creator_id: 1
@@ -609,16 +609,16 @@ shipment_items_004:
   parcel_id: 4
   parted: false
   population: 7.0
-  pretax_amount: 0.0
+  conditioning_quantity: 7.0
   product_id: 53
   role: merchandise
   source_product_id: 53
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-10-31 20:23:37.079652000 Z
   updater_id: 1
   variant_id: 10
+  conditioning_unit_id: 1
 shipment_items_005:
   created_at: 2014-11-01 16:01:24.225780000 Z
   creator_id: 1
@@ -628,16 +628,16 @@ shipment_items_005:
   parcel_id: 2
   parted: false
   population: 0.0
-  pretax_amount: 0.0
+  conditioning_quantity: 0.0
   product_id: 56
   role: merchandise
   source_product_id: 56
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:01:24.225780000 Z
   updater_id: 1
   variant_id: 11
+  conditioning_unit_id: 1
 shipment_items_006:
   created_at: 2015-09-17 13:24:45.023730000 Z
   creator_id: 1
@@ -647,16 +647,16 @@ shipment_items_006:
   parcel_id: 20
   parted: false
   population: 8480.0
-  pretax_amount: 0.0
+  conditioning_quantity: 8480.0
   product_id: 136
   role: merchandise
   source_product_id: 136
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:24:45.023730000 Z
   updater_id: 1
   variant_id: 64
+  conditioning_unit_id: 3
 shipment_items_007:
   created_at: 2015-09-17 13:25:55.973878000 Z
   creator_id: 1
@@ -666,7 +666,7 @@ shipment_items_007:
   parcel_id: 21
   parted: true
   population: 250.0
-  pretax_amount: 0.0
+  conditioning_quantity: 250.0
   product_enjoyment_id: 90
   product_id: 144
   product_localization_id: 182
@@ -676,11 +676,11 @@ shipment_items_007:
   source_product_id: 144
   source_product_movement_id: 100
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:40:58.274949000 Z
   updater_id: 1
   variant_id: 19
+  conditioning_unit_id: 1
 shipment_items_008:
   created_at: 2016-07-01 20:13:19.530594000 Z
   creator_id: 1
@@ -690,7 +690,7 @@ shipment_items_008:
   parcel_id: 23
   parted: false
   population: 25.0
-  pretax_amount: 0.0
+  conditioning_quantity: 25.0
   product_enjoyment_id: 127
   product_id: 177
   product_localization_id: 219
@@ -698,8 +698,8 @@ shipment_items_008:
   role: merchandise
   source_product_id: 177
   type: ShipmentItem
-  unit_pretax_amount: 0.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 20:13:27.353453000 Z
   updater_id: 1
   variant_id: 8
+  conditioning_unit_id: 2

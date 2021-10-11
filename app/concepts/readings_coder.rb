@@ -1,39 +1,47 @@
+# frozen_string_literal: true
+
 class ReadingsCoder
-  SERIALIZE   = Hash.new { proc { |_, value| value } }
-                    .tap { |h| h[Measure]              = proc { |_, value| value.to_s    } }
-                    .tap { |h| h[Charta::Point]        = proc { |_, value| value.to_ewkt } }
-                    .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| value.to_ewkt } }
+  SERIALIZE = Hash.new { proc { |_, value| value } }
+                  .tap { |h| h[Measure] = proc { |_, value| value.to_s } }
+                  .tap { |h| h[Charta::Point] = proc { |_, value| value.to_ewkt } }
+                  .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| value.to_ewkt } }
 
   UNSERIALIZE = Hash.new { proc { |klass, value| klass.new(value) } }
                     .tap { |h| h[Charta::MultiPolygon] = proc { |_, value| Charta.new_geometry(value) } }
-                    .tap { |h| h[Charta::Point]        = proc { |_, value| Charta.new_geometry(value) } }
-                    .tap { |h| h[FalseClass]           = proc { |_, _| false                          } }
-                    .tap { |h| h[TrueClass]            = proc { |_, _| true                           } }
-                    .tap { |h| h[Integer]              = proc { |_, value| value.to_i } }
-                    .tap { |h| h[String]               = proc { |_, value| value } }
-                    .tap { |h| h[Bignum]               = proc { |_, value| value.to_i } }
-                    .tap { |h| h[Fixnum]               = proc { |_, value| value.to_i } }
-                    .tap { |h| h[Float]                = proc { |_, value| value.to_f } }
-                    .tap { |h| h[BigDecimal]           = proc { |_, value| BigDecimal(value) } }
+                    .tap { |h| h[Charta::Point] = proc { |_, value| Charta.new_geometry(value) } }
+                    .tap { |h| h[FalseClass] = proc { |_, _| false } }
+                    .tap { |h| h[TrueClass] = proc { |_, _| true } }
+                    .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[String] = proc { |_, value| value } }
+                    .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Integer] = proc { |_, value| value.to_i } }
+                    .tap { |h| h[Float] = proc { |_, value| value.to_f } }
+                    .tap { |h| h[BigDecimal] = proc { |_, value| BigDecimal(value) } }
                     .freeze
 
-  def self.load(json)
-    return {} if json.blank?
-    hash = JSON.parse(json.to_json)
-    hash = {} unless hash.is_a?(Hash)
-    hash.each do |indicator, value|
-      klass, value = value
-      klass = klass.constantize
-      hash[indicator] = UNSERIALIZE[klass][klass, value]
-    end
-    hash
-  end
+  class << self
+    def load(json)
+      hash = if json.is_a? Hash
+               json
+             elsif json.present? && json.is_a?(String)
+               JSON.parse(json)
+             else
+               {}
+             end
 
-  def self.dump(hash)
-    readings = hash.compact.map do |indicator, value|
-      klass = value.class
-      [indicator, [klass.name, SERIALIZE[klass][klass, value]]]
+      hash.transform_values do |(klass, value)|
+        klass = klass.constantize
+
+        UNSERIALIZE[klass][klass, value]
+      end
     end
-    readings.to_h.to_json
+
+    def dump(hash)
+      hash.compact.transform_values do |value|
+        klass = value.class
+
+        [klass.name, SERIALIZE[klass][klass, value]]
+      end.to_json
+    end
   end
 end

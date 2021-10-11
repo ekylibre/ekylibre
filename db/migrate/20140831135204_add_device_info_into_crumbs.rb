@@ -1,4 +1,4 @@
-class AddDeviceInfoIntoCrumbs < ActiveRecord::Migration
+class AddDeviceInfoIntoCrumbs < ActiveRecord::Migration[4.2]
   def up
     add_column :crumbs, :device_uid, :string
     execute "UPDATE crumbs SET device_uid = 'unknown:00000000'"

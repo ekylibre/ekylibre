@@ -5,7 +5,8 @@
   - responsibles = User.where(id: Contract.select(:responsible_id).distinct)
   - if responsibles.any?
     - k.helper do
-      %label= Contract.human_attribute_name(:responsible)
+      %div.label-container
+        %label= Contract.human_attribute_name(:responsible)
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
 - main_toolbar do |t|
   = t.new

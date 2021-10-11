@@ -15,6 +15,7 @@ module Pesticide
 
       def find(id, _options = {})
         return Unknown unless all[id]
+
         @data[id] = new(all[id].merge(number: id)) unless all[id].is_a?(Pesticide::Agent)
         all[id]
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -89,12 +94,13 @@
 
 require 'ffaker'
 
-class Product < Ekylibre::Record::Base
+class Product < ApplicationRecord
   include Attachable
   include Autocastable
   include Indicateable
   include Versionable
   include Customizable
+
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'
@@ -111,8 +117,10 @@ class Product < Ekylibre::Record::Base
   belongs_to :person, -> { contacts }, class_name: 'Entity'
   belongs_to :tracking
   belongs_to :variant, class_name: 'ProductNatureVariant'
-  # belongs_to :production, class_name: 'ActivityProduction'
   belongs_to :activity_production
+  belongs_to :member_variant, class_name: 'ProductNatureVariant'
+  belongs_to :conditioning_unit, class_name: 'Unit'
+
   has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
@@ -123,7 +131,7 @@ class Product < Ekylibre::Record::Base
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles(%i[input output target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
-  has_many :interventions, through: :intervention_product_parameters
+  has_many :interventions, -> { distinct }, through: :intervention_product_parameters
   has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles(%i[input target doer tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception, class_name: 'InterventionProductParameter'
   has_many :interventions_used_in, through: :used_intervention_parameters, source: :intervention
   has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
@@ -154,15 +162,28 @@ class Product < Ekylibre::Record::Base
   has_many :current_memberships, -> { current }, class_name: 'ProductMembership', foreign_key: :member_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
+  has_many :intervention_targets, inverse_of: :product
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
+  has_many :intervention_targets, inverse_of: :product
+  has_many :crop_group_items, foreign_key: :crop_id
+  has_many :crop_groups, through: :crop_group_items
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
+  has_one :incoming_parcel_item_storing, class_name: 'ParcelItemStoring', foreign_key: :product_id, inverse_of: :product
   has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
-  belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
   has_geometry :initial_geolocation, type: :point
+
+  enumerize :type_of_occupancy, in: %i[owner rent sharecropper], predicates: true
+
+  serialize :specie_variety, HashSerializer
+  store_accessor :specie_variety, :specie_variety_name
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|
@@ -172,6 +193,8 @@ class Product < Ekylibre::Record::Base
   scope :members_of, lambda { |group, viewed_at|
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: 'interior').at(viewed_at))
   }
+
+  scope :of_variant_active, -> { where(variant: ProductNatureVariant.active) }
 
   scope :members_of_place, ->(place, viewed_at) { contained_by(place, viewed_at) }
   scope :contained_by, lambda { |container, viewed_at = Time.zone.now|
@@ -185,8 +208,9 @@ class Product < Ekylibre::Record::Base
     of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
   }
   scope :of_working_set, lambda { |working_set|
-    item = Nomen::WorkingSet.find(working_set)
-    raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature" unless item
+    item = Onoma::WorkingSet.find(working_set)
+    raise StandardError.new("#{working_set.inspect} is not in Onoma::WorkingSet nomenclature") unless item
+
     of_expression(item.expression)
   }
   scope :of_expression, lambda { |expression|
@@ -267,8 +291,11 @@ class Product < Ekylibre::Record::Base
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
   scope :availables, ->(**args) {
+    ActiveSupport::Deprecation.warn("Product#availables and Product#available are deprecated, use Product#at instead")
+
     at = args[:at]
     return available if at.blank?
+
     if at.is_a?(String)
       if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
         available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
@@ -280,12 +307,29 @@ class Product < Ekylibre::Record::Base
       available.at(at)
     end
   }
-  scope :alive, -> { where(dead_at: nil) }
+  scope :actives, ->(**args) {
+    date = args[:at]
+    type = args[:type]
+    # TODO: Reversion
+    # product_ids = Larrere::ProductAvailability.at(date).where(available: true).select(:product_id)
+    # Product.availables(at: date).where(id: product_ids, type: type)
+    Product.availables(at: date).where(type: type)
+  }
+  scope :excluding, ->(*ids) {
+    where.not(id: ids)
+  }
+  scope :alive, ->(at: Time.now) { where('products.dead_at IS NULL OR products.dead_at >= ?', at) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
+  scope :land_parcels, -> { where(type: 'LandParcel') }
+  scope :animals, -> { where(type: 'Animal') }
+  scope :of_available_animal_group, -> { where(type: 'AnimalGroup', activity_production_id: nil) }
+
+  scope :fathers, -> { animals.indicate(sex: 'male', reproductor: true).order(:name) }
+  scope :mothers, -> { animals.indicate(sex: 'female', reproductor: true).order(:name) }
 
   scope :mine, -> { of_owner(:own) }
   scope :mine_or_undefined, ->(at = nil) {
@@ -305,7 +349,7 @@ class Product < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :birth_date_completeness, :birth_farm_number, :country, :end_of_life_reason, :father_country, :father_identification_number, :father_variety, :filiation_status, :identification_number, :mother_country, :mother_identification_number, :mother_variety, :origin_country, :origin_identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
-  validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :initial_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
@@ -314,13 +358,18 @@ class Product < Ekylibre::Record::Base
   validates :category, :nature, :variant, :variety, presence: true
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
-  validates :uuid, presence: true
+  validates :uuid, :conditioning_unit, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
+  validates :conditioning_unit, conditioning: true
 
-  store :reading_cache, accessors: Nomen::Indicator.all, coder: ReadingsCoder
+  delegate :dimension, :of_dimension?, to: :unit
+
+  alias_attribute :unit, :conditioning_unit
+
+  store :reading_cache, accessors: Onoma::Indicator.all, coder: ReadingsCoder
 
   # [DEPRECATIONS[
   #  - fixed_asset_id
@@ -336,6 +385,7 @@ class Product < Ekylibre::Record::Base
 
   def born_at_in_interventions
     return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
+
     first_used_at = first_intervention.started_at
     errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
@@ -357,7 +407,7 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
            to: :variant, prefix: true
-  delegate :unit_name, :france_maaid, :phytosanitary_product, to: :variant
+  delegate :unit_name, :france_maaid, :phytosanitary_product, :default_unit, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
@@ -377,6 +427,7 @@ class Product < Ekylibre::Record::Base
     self.initial_born_at = self.born_at
     self.initial_dead_at = dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
+    self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
     # self.net_surface_area = initial_shape.area.in(:hectare).round(3)
   end
 
@@ -388,13 +439,13 @@ class Product < Ekylibre::Record::Base
       errors.add(:dead_at, :invalid) if dead_at < born_at
     end
     if variant
-      if variety && Nomen::Variety.find(variant_variety)
-        unless Nomen::Variety.find(variant_variety) >= variety
+      if variety && Onoma::Variety.find(variant_variety)
+        unless Onoma::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)
         end
       end
-      if derivative_of && Nomen::Variety.find(variant_derivative_of)
-        unless Nomen::Variety.find(variant_derivative_of) >= derivative_of
+      if derivative_of && Onoma::Variety.find(variant_derivative_of)
+        unless Onoma::Variety.find(variant_derivative_of) >= derivative_of
           errors.add(:derivative_of, :invalid)
         end
       end
@@ -420,23 +471,15 @@ class Product < Ekylibre::Record::Base
 
       build_new_phase unless product_phases.any?
     end
-  end
 
-  after_commit do
-    if nature.population_counting_unitary? && population.zero?
+    if self.persisted? && nature.population_counting_unitary? && population.zero?
       m = movements.build(delta: 1, started_at: Time.now)
       m.save!
     end
   end
 
   protect(on: :destroy) do
-    analyses.any? || intervention_product_parameters.any? || issues.any? || parcel_items.any?
-  end
-
-  class << self
-    def miscibility_of(products_and_variants)
-      Intervention::Phytosanitary::PhytosanitaryMiscibility.new(products_and_variants).legality
-    end
+    analyses.exists? || intervention_product_parameters.exists? || issues.exists? || parcel_items.exists?
   end
 
   def production(_at = nil)
@@ -458,6 +501,24 @@ class Product < Ekylibre::Record::Base
   def best_activity_production(_options = {})
     activity_production
   end
+
+  # planning
+  def time_use_in_date(date)
+    intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
+    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
+    intervention_proposal_parameters = InterventionProposal::Parameter
+                                       .joins(:intervention_proposal)
+                                       .where(product_id: self, intervention_proposals: { estimated_date: date })
+                                       .where.not(intervention_proposals: { number: intervention_numbers })
+    duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
+    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
+    (duration / 3600.0).round(1) if duration.present?
+  end
+
+  def working_duration_info(date)
+    "#{self.time_use_in_date(date).to_s.gsub!(/\./, ',')} h"
+  end
+  # planning
 
   # TODO: Removes this ASAP
   def deliverable?
@@ -511,11 +572,16 @@ class Product < Ekylibre::Record::Base
       phase = phases.first_of_all || phases.build
       phase.variant = variant
       phase.save!
+
+      qty_in_variant_population = UnitComputation.convert_into_variant_population(variant, 1, conditioning_unit)
+
       # set indicators from variant in products readings
       variant.readings.each do |variant_reading|
-        reading = readings.first_of_all(variant_reading.indicator_name) ||
-        readings.new(indicator_name: variant_reading.indicator_name)
-        reading.value = variant_reading.value
+        is_stock_related = Unit::STOCK_INDICATOR_PER_DIMENSION.values.push('grains_count').include?(variant_reading.indicator_name)
+        val = is_stock_related ? variant_reading.value * qty_in_variant_population : variant_reading.value
+
+        reading = readings.first_of_all(variant_reading.indicator_name) || readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = val
         reading.read_at = born_at
         reading.save!
       end
@@ -552,7 +618,6 @@ class Product < Ekylibre::Record::Base
     save
   end
 
-
   def shape=(new_shape)
     reading_cache[:shape] = new_shape
     reading_cache[:net_surface_area] = calculate_net_surface_area
@@ -563,6 +628,9 @@ class Product < Ekylibre::Record::Base
   # Try to find the best name for the new products
   def choose_default_name
     return if name.present?
+
+    ActiveSupport::Deprecation.warn "Product#choose_default_name is deprecated."
+
     if variant
       if last = variant.products.reorder(id: :desc).first
         self.name = last.name
@@ -599,6 +667,7 @@ class Product < Ekylibre::Record::Base
     if current_phase
       phase_variant = current_phase.variant
       return if phase_variant.nil?
+
       self.nature_id = phase_variant.nature_id
       self.variety ||= phase_variant.variety
       if derivative_of.blank? && !phase_variant.derivative_of.nil?
@@ -626,34 +695,40 @@ class Product < Ekylibre::Record::Base
   # Returns age in seconds of the product
   def age(at = Time.zone.now)
     return 0 if born_at.nil? || born_at >= at
+
     ((dead_at || at) - born_at)
   end
 
-  # Returns item from default catalog for given usage
-  def default_catalog_item(usage)
+  # Returns item from default catalog for given usage and datetime
+  def default_catalog_item(usage, at = Time.now, into = default_unit, mode = :base_unit)
     return nil unless variant
-    variant.default_catalog_item(usage)
+
+    variant.default_catalog_item(usage, at, into, mode)
   end
 
   # Returns an evaluated price (without taxes) for the product in an intervention context
   # options could contains a parameter :at for the datetime of a catalog price
   # unit_price in a purchase context
+  # unit price in incoming item
   # or unit_price in a sale context
   # or unit_price in catalog price
   def evaluated_price(_options = {})
     filter = {
       variant_id: variant_id
     }
-    incoming_item = incoming_parcel_item
-    incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = parcel_items.with_nature(:outgoing).first
+    incoming_item = parcel_item_storings.last.parcel_item if parcel_item_storings.any?
+    incoming_purchase_item = incoming_item.purchase_invoice_item if incoming_item
+    outgoing_item = outgoing_parcel_item
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     price = if incoming_purchase_item
               # search a price in purchase item via incoming item price
               incoming_purchase_item.unit_pretax_amount
+            # search a price in incoming item price
+            elsif incoming_item && incoming_item.unit_pretax_amount != 0.0
+              incoming_item.unit_pretax_amount
+            # search a price in sale item via outgoing item price
             elsif outgoing_sale_item
-              # search a price in sale item via outgoing item price
               outgoing_sale_item.unit_pretax_amount
             elsif catalog_item = variant.catalog_items.limit(1).first
               # search a price in catalog price
@@ -693,10 +768,14 @@ class Product < Ekylibre::Record::Base
     end
   end
 
-  def population(options = {})
-    pops = populations.last_before(options[:at] || Time.zone.now)
-    return 0.0 if pops.none?
-    pops.first.value
+  def population(at: Time.zone.now, into: unit)
+    pops = populations.last_before(at)
+    return 0 if pops.none?
+
+    destination_unit = into.is_a?(Unit) ? into : Unit.import_from_lexicon(into)
+    raise ArgumentError.new("Unknown unit #{into}") unless destination_unit.present?
+
+    UnitComputation.convert_stock(pops.first.value, unit, destination_unit)
   end
 
   # Moves population with given quantity
@@ -709,6 +788,7 @@ class Product < Ekylibre::Record::Base
     if l = localizations.at(at).first
       return l.container
     end
+
     nil
   end
 
@@ -728,7 +808,7 @@ class Product < Ekylibre::Record::Base
 
   def containeds(at = Time.zone.now)
     list = []
-    for localization in ProductLocalization.where(container_id: id).at(at)
+    ProductLocalization.where(container_id: id).at(at).each do |localization|
       list << localization.product
       list += localization.product.containeds(at)
     end
@@ -744,6 +824,7 @@ class Product < Ekylibre::Record::Base
     if o = current_ownership
       return o.owner
     end
+
     nil
   end
 
@@ -757,16 +838,18 @@ class Product < Ekylibre::Record::Base
     containeds.select { |p| p.variant == variant }
   end
 
-  Nomen::Indicator.each do |indicator|
+  Onoma::Indicator.each do |indicator|
     alias_method :"cache_#{indicator}", indicator
 
     define_method indicator.to_sym do |*args|
       return get(indicator, *args) if args.present?
+
       send(:"cache_#{indicator}")
     end
 
     define_method :"#{indicator}!" do |*args|
       return get!(indicator, *args) if args.present?
+
       send(:"cache_#{indicator}")
     end
   end
@@ -815,10 +898,11 @@ class Product < Ekylibre::Record::Base
   def variables(_options = {})
     list = []
     abilities = self.abilities
-    variety       = Nomen::Variety[self.variety]
-    derivative_of = Nomen::Variety[self.derivative_of]
+    variety       = Onoma::Variety[self.variety]
+    derivative_of = Onoma::Variety[self.derivative_of]
     Procedo.each_variable do |variable|
       next if variable.new?
+
       if v = variable.computed_variety
         next unless variety <= v
       end
@@ -826,6 +910,7 @@ class Product < Ekylibre::Record::Base
         next unless derivative_of && derivative_of <= v
       end
       next if variable.abilities.detect { |a| !able_to?(a) }
+
       list << variable
     end
     list
@@ -834,6 +919,7 @@ class Product < Ekylibre::Record::Base
   def net_surface_area
     computed_surface = reading_cache[:net_surface_area] || reading_cache['net_surface_area']
     return computed_surface if computed_surface
+
     calculated = calculate_net_surface_area
     update(reading_cache: reading_cache.merge(net_surface_area: calculated))
     self.net_surface_area = calculated
@@ -863,8 +949,10 @@ class Product < Ekylibre::Record::Base
 
   def get(indicator, *args)
     return super if args.any?(&:present?)
+
     in_cache = reading_cache[indicator.to_s]
     return in_cache if in_cache
+
     indicator_value = super
     reading_cache[indicator.to_s] = indicator_value
     unless new_record?
@@ -874,8 +962,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def stock_info
-    info = "#{self.population.round(2)} #{self.variant.unit_name.downcase}"
-    info
+    "#{population.round(2)} #{conditioning_unit.name}"
   end
 
   def used_in_interventions_before(date)

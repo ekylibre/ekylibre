@@ -24,10 +24,10 @@
 
     - indicator_names.each do |indicator_name|
       - series = []
-      - indicator = Nomen::Indicator.find(indicator_name)
+      - indicator = Onoma::Indicator.find(indicator_name)
       - @supervision.items.each do |item|
         - data = item.historic_of(indicator_name)
         - series << { name: item.sensor.name, data: data, type: "spline", color: item.color }
-      - dataset = { name: indicator.human_name, valueDecimals: 1, series: series, unit: Nomen::Unit.find(indicator.unit).symbol }
-      - c.cobble indicator_name, label: Nomen::Indicator.find(indicator_name).human_name do
+      - dataset = { name: indicator.human_name, valueDecimals: 1, series: series, unit: Onoma::Unit.find(indicator.unit).symbol }
+      - c.cobble indicator_name, label: Onoma::Indicator.find(indicator_name).human_name do
         .graph{id: "graph-#{indicator_name}", data: {sync_chart: dataset.jsonize_keys.to_json}}

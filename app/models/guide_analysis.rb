@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +38,7 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-class GuideAnalysis < Ekylibre::Record::Base
+class GuideAnalysis < ApplicationRecord
   belongs_to :guide, inverse_of: :analyses
   has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id, dependent: :destroy
   enumerize :acceptance_status, in: %i[passed passed_with_warnings failed errored], predicates: true
@@ -44,8 +46,8 @@ class GuideAnalysis < Ekylibre::Record::Base
   validates :acceptance_status, :guide, presence: true
   validates :execution_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :latest, inclusion: { in: [true, false] }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(guide_analysis) { guide_analysis.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(guide_analysis) { guide_analysis.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validates :acceptance_status, inclusion: { in: acceptance_status.values }
 

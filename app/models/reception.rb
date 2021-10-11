@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -74,6 +76,8 @@ class Reception < Parcel
   has_many :items, class_name: 'ReceptionItem', inverse_of: :reception, foreign_key: :parcel_id, dependent: :destroy
   has_many :storings, through: :items, class_name: 'ParcelItemStoring'
 
+  validates :given_at, presence: true
+
   accepts_nested_attributes_for :items, allow_destroy: true
 
   def self.state_machine(*)
@@ -82,7 +86,7 @@ class Reception < Parcel
   end
 
   delegate :full_name, to: :sender, prefix: true
-  delegate :number, to: :purchase_order, prefix: true
+  delegate :number, to: :purchase_order, prefix: true, allow_nil: true
 
   alias_method :allow_items_update?, :draft?
   alias_method :entity, :sender
@@ -98,7 +102,7 @@ class Reception < Parcel
     self.state = :draft
   end
 
-  before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? }
+  before_validation :remove_all_items, if: ->(obj) { obj.intervention.present? && obj.purchase_id_changed? && !obj.updated_at_changed? }
 
   before_validation do
     if self.items.reject { |i| i.instance_variable_get :@marked_for_destruction }.any? { |i| i.purchase_order_item.present? }
@@ -137,6 +141,15 @@ class Reception < Parcel
     sender_id
   end
 
+  def human_status
+    state.human_name
+  end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state(self.state.to_sym).human_name
+  end
+
   def invoiced?
     purchase_order.present?
   end
@@ -144,5 +157,4 @@ class Reception < Parcel
   def in_accident?
     late_delivery || items.any?(&:non_compliant)
   end
-
 end

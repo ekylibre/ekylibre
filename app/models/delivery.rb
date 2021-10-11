@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,7 +45,7 @@
 #  updater_id              :integer
 #
 
-class Delivery < Ekylibre::Record::Base
+class Delivery < ApplicationRecord
   include Attachable
   include Customizable
   acts_as_numbered
@@ -60,9 +62,9 @@ class Delivery < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :annotation, length: { maximum: 500_000 }, allow_blank: true
   validates :number, :reference_number, length: { maximum: 500 }, allow_blank: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :state, presence: true, length: { maximum: 500 }
-  validates :stopped_at, timeliness: { on_or_after: ->(delivery) { delivery.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(delivery) { delivery.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :tools, reject_if: :all_blank, allow_destroy: true
@@ -125,6 +127,7 @@ class Delivery < Ekylibre::Record::Base
 
   def order
     return false unless can_order?
+
     parcels.each do |parcel|
       parcel.order if parcel.draft?
     end
@@ -133,6 +136,7 @@ class Delivery < Ekylibre::Record::Base
 
   def prepare
     return false unless can_prepare?
+
     parcels.each do |parcel|
       parcel.prepare if parcel.ordered?
     end
@@ -141,6 +145,7 @@ class Delivery < Ekylibre::Record::Base
 
   def check
     return false unless can_check?
+
     parcels.find_each do |parcel|
       # parcel.prepare if parcel.can_prepare?
       parcel.check if parcel.can_check?
@@ -156,12 +161,18 @@ class Delivery < Ekylibre::Record::Base
   def finish
     start if can_start?
     return false unless can_finish?
+
     update_column(:stopped_at, Time.zone.now)
     parcels.each do |parcel|
       parcel.check if parcel.in_preparation?
       parcel.give if parcel.prepared?
     end
     super
+  end
+
+  # Prints human name of current state
+  def state_label
+    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   def all_parcels_almost_prepared?

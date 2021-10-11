@@ -1,0 +1,31 @@
+.leaflet-tooltip {
+  color: $text-color;
+  font-size: $fs-normal;
+  display: block;
+  padding: 0.5 * $default-gap $default-gap;
+  text-shadow: 0 0 2px white;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
+    1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.leaflet-ghost-label {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  &:before,
+  &:after {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+  .leaflet-ghost-label-collapsed {
+    color: $active-color;
+    background: white;
+    font-weight: bold;
+    display: block;
+    min-width: $lh-normal;
+    border-radius: 50%;
+    border: $menu-border;
+    text-align: center;
+  }
+}

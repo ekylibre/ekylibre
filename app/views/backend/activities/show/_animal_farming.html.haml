@@ -1,0 +1,33 @@
+- main_toolbar do |t|
+  = t.edit resource
+  - budget = resource.budget_of(current_campaign)
+  - if budget && budget.items.any?
+    = tool_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id })
+  - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
+    = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :activities, action: :index)}, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
+
+  - if resource.productions.any?
+    = tool_to(:distribute_unaffected_products.tl, { controller: :products, action: :edit_many, activity_id: resource.id }, icon: false)
+
+- main_period_selector(:year)
+
+= main_informations attachment: true do
+  .big-infos
+    .med-info.important
+      %span.title= :number_of_animals.tl
+      %span.value=  resource.size_during(current_campaign).to_f.l(precision: 0)
+
+  = attributes_list do |l|
+    - l.attribute :production_system
+    - l.attribute :production_cycle
+    - l.attribute :use_tactics
+
+= cobbles do |c|
+
+  - if current_campaign
+    - c.cobble :budget do
+      = render 'budget'
+
+    - if resource.with_supports
+      - c.cobble(:productions) do
+        = render 'productions'

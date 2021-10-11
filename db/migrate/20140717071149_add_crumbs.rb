@@ -1,4 +1,4 @@
-class AddCrumbs < ActiveRecord::Migration
+class AddCrumbs < ActiveRecord::Migration[4.2]
   def change
     create_table :crumbs do |t|
       t.references :user, null: false, index: true

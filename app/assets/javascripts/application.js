@@ -28,15 +28,11 @@
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
+//= require behave_compat
 //= require_self
-//= require i18n
-//= require i18n/translations
-//= require i18n/locale
-//= require i18n/ext
 //= require wice_grid
 //= require wice_grid/settings
 //= require ekylibre
-//= require formize/behave
 //= require form/dialog
 //= require formize/observe
 //= require form/scope
@@ -51,31 +47,22 @@
 //= require jstz
 //= require heatmap
 //= require geographiclib
-//= require leaflet.js.erb
-//= require leaflet/draw
+//= require leaflet-reactive_measure/dist/reactive_measure.js
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require leaflet/heatmap
 //= require leaflet/measure
 //= require leaflet/easy-button
 //= require leaflet/modal
-//= require leaflet/label
-//= require d3
-//= require d3/tip
-//= require timeline-chart.js
-//= require autosize
+//= require map_draw_i18n
+//= require eky-cartography.js
+//= require cartography/map
 //= require plugins
 //= require_tree .
 //= require tour
 //= require bootstrap-slider
 
-//= require vue
 //= require sortablejs/Sortable.min.js
-//= require vuedraggable/dist/vuedraggable.js
-//= require chart.js/dist/Chart.min.js
-//= require vue-chartjs/dist/vue-chartjs.min.js
-
-//= require ext-plugins/vuejs/vue-chartjs
 
 // FIX Browser interoperability
 // href function seems to be ineffective

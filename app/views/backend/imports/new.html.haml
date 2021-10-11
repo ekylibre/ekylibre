@@ -1,0 +1,32 @@
+= flash_message_tag(:information, :wish_to_see_other_available_import_in_the_list_html.tl.html_safe, html: true)
+
+- @exchangers_by_category.each do |category, exchangers_by_vendor|
+  - next if category == :none
+
+  .import-container
+    .activity-family
+      .activity-family-heading
+        %h2.activity-family-title= category.tl
+
+    .import-row
+      - exchangers_by_vendor.each do |vendor, exchangers|
+        - next if vendor == :none
+        - collection = exchangers.map { |k, v| [v.human_name, k, data: { template_present: ActiveExchanger::Base.template_file_for(k, locale).is_some? }] }
+
+        .import-card
+          .import-logo
+            = image_tag "imports/#{vendor}.png", alt: ("vendors.#{vendor}").t
+
+          .import-description
+            .import-title
+              = ("vendors.#{vendor}").t
+
+            = ekylibre_form_for(resource, url: backend_imports_path, html: { multipart: true }) do |f|
+              = f.input :nature, label: :file_nature.tl,  collection: collection
+              .import-file-upload.hidden
+                = f.input :archive, label: false, id: 'import_nature'
+                = f.custom_fields
+                %a{ id: 'template_file_link' }= :download_template_file.tl
+                = form_actions do
+                  = submit_tag :import.tl, class: 'primary'
+                  %button.btn{ data: { hide_content: '.import-file-upload' } }= :cancel.tl

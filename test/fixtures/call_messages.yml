@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -2264,7 +2264,7 @@ call_responses_011:
   updated_at: 2017-01-04 13:51:57.099717000 Z
 call_responses_012:
   body: '[{"id":181,"name":"sdfghj,k;l:!","number":"PR00000000125","identification_number":null,"work_number":null,"born_at":"2016-04-06T17:23:00.000Z","dead_at":null,"uuid":"a9137f7d-85fc-4d0d-964b-741fc11f9734","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":22},{"id":110,"name":"Culture
-    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T15:39:00.000Z","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis_vinifera","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
+    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T15:39:00.000Z","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
     de prairie permanente [sept. 2007] (La Michardière)","number":"PR00000000047","identification_number":null,"work_number":null,"born_at":"2007-09-29T10:59:00.000Z","dead_at":null,"uuid":"7a730c0d-e83b-48a7-88c6-1a09c49ed019","variety":"poa","derivative_of":null,"variant_id":40,"nature_id":34,"category_id":8,"activity_id":3},{"id":92,"name":"Culture
     de blé [oct. 2012] (La Queue du Loup)","number":"PR00000000036","identification_number":null,"work_number":null,"born_at":"2012-10-17T10:09:00.000Z","dead_at":null,"uuid":"0f085a27-7a0b-4f10-8936-8c8042609feb","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":1},{"id":90,"name":"Culture
     de blé [nov. 2013] (La Crédanpouille)","number":"PR00000000034","identification_number":null,"work_number":null,"born_at":"2013-11-10T12:01:30.000Z","dead_at":null,"uuid":"83874c39-7047-43e1-9588-b418f207646f","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":null}]'
@@ -2308,7 +2308,7 @@ call_responses_014:
   updated_at: 2017-01-04 13:55:58.771617000 Z
 call_responses_015:
   body: '[{"id":181,"name":"sdfghj,k;l:!","number":"PR00000000125","identification_number":null,"work_number":null,"born_at":"2016-04-06T17:23:00.000Z","dead_at":null,"uuid":"a9137f7d-85fc-4d0d-964b-741fc11f9734","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":22},{"id":110,"name":"Culture
-    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T15:39:00.000Z","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis_vinifera","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
+    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T15:39:00.000Z","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
     de prairie permanente [sept. 2007] (La Michardière)","number":"PR00000000047","identification_number":null,"work_number":null,"born_at":"2007-09-29T10:59:00.000Z","dead_at":null,"uuid":"7a730c0d-e83b-48a7-88c6-1a09c49ed019","variety":"poa","derivative_of":null,"variant_id":40,"nature_id":34,"category_id":8,"activity_id":3},{"id":92,"name":"Culture
     de blé [oct. 2012] (La Queue du Loup)","number":"PR00000000036","identification_number":null,"work_number":null,"born_at":"2012-10-17T10:09:00.000Z","dead_at":null,"uuid":"0f085a27-7a0b-4f10-8936-8c8042609feb","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":1},{"id":90,"name":"Culture
     de blé [nov. 2013] (La Crédanpouille)","number":"PR00000000034","identification_number":null,"work_number":null,"born_at":"2013-11-10T12:01:30.000Z","dead_at":null,"uuid":"83874c39-7047-43e1-9588-b418f207646f","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":null}]'
@@ -2378,7 +2378,7 @@ call_responses_019:
   updated_at: 2017-01-04 14:03:09.163930000 Z
 call_responses_020:
   body: '[{"id":181,"name":"sdfghj,k;l:!","number":"PR00000000125","identification_number":null,"work_number":null,"born_at":"2016-04-06T19:23:00.000+02:00","dead_at":null,"uuid":"a9137f7d-85fc-4d0d-964b-741fc11f9734","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":22},{"id":110,"name":"Culture
-    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T16:39:00.000+01:00","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis_vinifera","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
+    de vigne [mars. 2008] (La Boutanche)","number":"PR00000000054","identification_number":null,"work_number":null,"born_at":"2008-03-15T16:39:00.000+01:00","dead_at":null,"uuid":"09251135-3e58-49e6-9d55-70dfa0b3a59b","variety":"vitis","derivative_of":null,"variant_id":44,"nature_id":36,"category_id":8,"activity_id":6},{"id":103,"name":"Culture
     de prairie permanente [sept. 2007] (La Michardière)","number":"PR00000000047","identification_number":null,"work_number":null,"born_at":"2007-09-29T12:59:00.000+02:00","dead_at":null,"uuid":"7a730c0d-e83b-48a7-88c6-1a09c49ed019","variety":"poa","derivative_of":null,"variant_id":40,"nature_id":34,"category_id":8,"activity_id":3},{"id":92,"name":"Culture
     de blé [oct. 2012] (La Queue du Loup)","number":"PR00000000036","identification_number":null,"work_number":null,"born_at":"2012-10-17T12:09:00.000+02:00","dead_at":null,"uuid":"0f085a27-7a0b-4f10-8936-8c8042609feb","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":1},{"id":90,"name":"Culture
     de blé [nov. 2013] (La Crédanpouille)","number":"PR00000000034","identification_number":null,"work_number":null,"born_at":"2013-11-10T13:01:30.000+01:00","dead_at":null,"uuid":"83874c39-7047-43e1-9588-b418f207646f","variety":"triticum_aestivum","derivative_of":null,"variant_id":16,"nature_id":15,"category_id":8,"activity_id":null}]'

@@ -1,4 +1,4 @@
-class FixPurchasePaymentAt < ActiveRecord::Migration
+class FixPurchasePaymentAt < ActiveRecord::Migration[4.2]
   def change
     reversible do |d|
       d.up do

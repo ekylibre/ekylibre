@@ -98,7 +98,7 @@ module Backend
 
       # Count results
       query = "SELECT count(filtered.record_id) AS total_count #{filter}"
-      @search[:count] = Ekylibre::Record::Base.connection.select_value(query).to_i
+      @search[:count] = ApplicationRecord.connection.select_value(query).to_i
       @search[:last_page] = (@search[:count].to_f / per_page).ceil
 
       # Select results
@@ -106,7 +106,7 @@ module Backend
       query << ' ORDER BY filtered.pertinence DESC, title'
       query << " LIMIT #{per_page}"
       query << " OFFSET #{per_page * (page - 1)}"
-      @search[:records] = Ekylibre::Record::Base.connection.select_all(query)
+      @search[:records] = ApplicationRecord.connection.select_all(query)
 
       if @search[:count] == 1
         record = @search[:records].first
@@ -127,57 +127,62 @@ module Backend
 
     private
 
-    def self.build_centralizing_query
-      excluded = %i[account_balance cash_session custom_field_choice deposit_item fixed_asset_depreciation inventory_item listing_node_item preference]
+      def self.build_centralizing_query
+        excluded = %i[account_balance cash_session custom_field_choice deposit_item fixed_asset_depreciation inventory_item listing_node_item preference ride ride_set]
 
-      auxiliaries = {
-        purchase_item: :purchase,
-        sale_item: :sale
-      }
+        auxiliaries = {
+          purchase_item: :purchase,
+          sale_item: :sale
+        }
 
-      queries = []
-      for model_name in Ekylibre::Schema.models
-        next if excluded.include?(model_name)
-        model = model_name.to_s.camelcase.constantize
-        next unless model.superclass == Ekylibre::Record::Base
-        cols = model.columns_definition.keys
-        title = %i[label name full_name reason code number].detect { |x| cols.include?(x.to_s) }
-        next unless title
-        main_model = nil
-        reflection = nil
-        if auxiliaries[model_name]
-          reflection = model.reflect_on_association(auxiliaries[model_name])
-          unless reflection.macro == :belongs_to
-            raise 'Cannot use this auxiliary. Only works with belongs_to for now.'
+        queries = []
+        Ekylibre::Schema.models.each do |model_name|
+          next if excluded.include?(model_name)
+
+          model = model_name.to_s.camelcase.constantize
+          next unless model.superclass == ApplicationRecord
+
+          cols = model.columns_definition.keys
+          title = %i[label name full_name reason code number].detect { |x| cols.include?(x.to_s) }
+          next unless title
+
+          main_model = nil
+          reflection = nil
+          if auxiliaries[model_name]
+            reflection = model.reflect_on_association(auxiliaries[model_name])
+            unless reflection.macro == :belongs_to
+              raise 'Cannot use this auxiliary. Only works with belongs_to for now.'
+            end
+
+            main_model = reflection.class_name.constantize
           end
-          main_model = reflection.class_name.constantize
-        end
-        columns = model.columns_definition.values.delete_if do |c|
-          %i[created_at creator_id depth id lft lock_version
-             position rights rgt type updated_at updater_id].include?(c[:name]) ||
-            %i[boolean spatial geometry json jsonb].include?(c[:type]) ||
-            c[:name].to_s =~ /\_file_size$/ ||
-            c[:name].to_s =~ /\_type$/ ||
-            c[:name].to_s =~ /\_id$/
-        end.collect do |c|
-          name = c[:name]
-          name = "#{model.table_name}.#{name}" if main_model
-          if model.respond_to?(name) && model.send(name).respond_to?(:options) && model.send(name).options.any?
-            'CASE ' + model.send(name).options.collect { |l, v| "WHEN #{name} = '#{v}' THEN '" + l.to_s.gsub("'", "''") + " '" }.join(' ') + " ELSE '' END"
-          else
-            "COALESCE(#{name} || ' ', '')"
+          columns = model.columns_definition.values.delete_if do |c|
+            %i[created_at creator_id depth id lft lock_version
+               position rights rgt type updated_at updater_id].include?(c[:name]) ||
+              %i[boolean spatial geometry json jsonb].include?(c[:type]) ||
+              c[:name].to_s =~ /\_file_size$/ ||
+              c[:name].to_s =~ /\_type$/ ||
+              c[:name].to_s =~ /\_id$/
+          end.collect do |c|
+            name = c[:name]
+            name = "#{model.table_name}.#{name}" if main_model
+            if model.respond_to?(name) && model.send(name).respond_to?(:options) && model.send(name).options.any?
+              'CASE ' + model.send(name).options.collect { |l, v| "WHEN #{name} = '#{v}' THEN '" + l.to_s.gsub("'", "''") + " '" }.join(' ') + " ELSE '' END"
+            else
+              "COALESCE(#{name} || ' ', '')"
+            end
           end
+          next unless columns.any?
+
+          query = if main_model
+                    "SELECT #{ApplicationRecord.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
+                  else
+                    "SELECT #{ApplicationRecord.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+                  end
+          queries << query
         end
-        next unless columns.any?
-        query = if main_model
-                  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (main_model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(#{main_model.table_name}.type)) > 0 THEN #{main_model.table_name}.type ELSE '#{main_model.table_name.to_s.classify}' END" : "'#{main_model.name}'") + " AS record_type, #{main_model.table_name}.id AS record_id FROM #{model.table_name} LEFT JOIN #{main_model.table_name} ON (#{model.table_name}.#{reflection.foreign_key} = #{main_model.table_name}.id)"
-                else
-                  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(' || ') + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
-                end
-        queries << query
+
+        @@centralizing_query = '(' + queries.join(') UNION ALL (') + ')'
       end
-
-      @@centralizing_query = '(' + queries.join(') UNION ALL (') + ')'
-    end
   end
 end

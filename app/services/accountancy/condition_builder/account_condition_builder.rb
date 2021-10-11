@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Accountancy
   module ConditionBuilder
     class AccountConditionBuilder < Base
-
       # Build an SQL condition to restrict accounts to some ranges
       # Example : 1-3 41 43
       def range_condition(range, table_name:)

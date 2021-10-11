@@ -21,6 +21,7 @@ jpn:
       long: "%Y年%m月%d日(%a)"
       month: "%Y年%m月"
       month_letter: "%d %B %Y"
+      # month_name: "%B"
       short: "%m/%d"
       short_month: "%m/%d"
     month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]

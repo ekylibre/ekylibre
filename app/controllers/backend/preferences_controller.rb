@@ -19,13 +19,13 @@ module Backend
                            params[:value]
                          end
       preference.save!
-      render nothing: true
+      head :ok
     end
 
     protected
 
-    def permitted_preference
-      User::PREFERENCES.keys.detect { |p| p == params[:id] }
-    end
+      def permitted_preference
+        User::PREFERENCES.keys.detect { |p| p == params[:id] }
+      end
   end
 end

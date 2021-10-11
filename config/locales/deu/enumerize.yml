@@ -5,9 +5,6 @@ deu:
         auxiliary: "Hilfs"
         # main: "Main"
         # standalone: "Standalone"
-      production_campaign:
-        at_cycle_end: "Am Zyklusende"
-        at_cycle_start: "Bei Zyklusbeginn"
       production_cycle:
         annual: "jährlich"
         perennial: "mehrjährig"
@@ -151,6 +148,12 @@ deu:
         refused: "Verweigert"
         waiting: "Warten"
     financial_year:
+      state:
+        # closed: "Closed"
+        # closing: "Closing"
+        # closure_in_preparation: "Closure in preparation"
+        # locked: "Locked"
+        # opened: "Opened"
       tax_declaration_frequency:
         monthly: "Monatlich"
         none: "Keiner"
@@ -381,6 +384,14 @@ deu:
         decimal: "Dezimal"
         integer: "Ganze Zahl"
         unitary: "Einheits-"
+      type:
+        # VariantTypes::AnimalType: "Animals"
+        # VariantTypes::ArticleType: "Articles"
+        # VariantTypes::CropType: "Crops"
+        # VariantTypes::EquipmentType: "Equipments"
+        # VariantTypes::ServiceType: "Services"
+        # VariantTypes::WorkerType: "Workers"
+        # VariantTypes::ZoneType: "Zones"
     product_nature_category:
       pictogram:
         # bank: "Bank"
@@ -426,10 +437,30 @@ deu:
         user: "Benutzer"
         wheat: "Weizen"
         wrench: "Schlüssel"
+      type:
+        # VariantCategories::AnimalCategory: "Animals"
+        # VariantCategories::ArticleCategory: "Articles"
+        # VariantCategories::CropCategory: "Crops"
+        # VariantCategories::EquipmentCategory: "Equipments"
+        # VariantCategories::ServiceCategory: "Services"
+        # VariantCategories::WorkerCategory: "Workers"
+        # VariantCategories::ZoneCategory: "Zones"
     product_nature_category_taxation:
       usage:
         purchase: "Kauf"
         sale: "Verkauf"
+    product_nature_variant:
+      type:
+        # Variants::AnimalVariant: "Animals"
+        # Variants::ArticleVariant: "Articles"
+        # Variants::Articles::FertilizerArticle: "Fertilizers"
+        # Variants::Articles::PlantMedicineArticle: "Plant medicines"
+        # Variants::Articles::SeedAndPlantArticle: "Seeds and plants"
+        # Variants::CropVariant: "Crops"
+        # Variants::EquipmentVariant: "Equipments"
+        # Variants::ServiceVariant: "Services"
+        # Variants::WorkerVariant: "Workers"
+        # Variants::ZoneVariant: "Zones"
     product_nature_variant_reading:
       indicator_datatype:
         # boolean: "Boolean"
@@ -458,12 +489,26 @@ deu:
         point: "Punkt"
         string: "Schnur"
     purchase:
+      reconciliation_state:
+        # accepted: "Accepted"
+        # reconcile: "Reconcile"
+        # to_reconcile: "To reconcile"
       tax_payability:
         at_invoicing: "Bei Fakturierung"
         at_paying: "Zu zahlen"
     purchase_nature: #?
       nature: #?
         purchase: "Kauf" #?
+    registered_phytosanitary_product:
+      state:
+        # authorized: "Authorized"
+        # inherited: "Inherited"
+        # withdrawn: "Withdrawn"
+    registered_phytosanitary_usage:
+      state:
+        # authorized: "Authorized"
+        # provisional: "Provisional"
+        # withdrawn: "Withdrawn"
     sale_item: #?
       compute_from: #?
         pretax_amount: "Vor Steuern in Höhe" #?

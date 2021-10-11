@@ -7,66 +7,78 @@
 = content_for(:heading_toolbar) do
   = purchase_invoice_badges f.object
 
-= field_set class: ['reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
-  = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
-  = f.input :reference_number
-  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
-  = f.referenced_association :delivery_address, source: :own_mails, new: false
-  = f.association :nature, as: :hidden
-  = f.input :invoiced_at, as: :date
-  = f.input :payment_delay
-  = f.input :tax_payability, as: :radio_buttons
-  = f.input :description
-  = f.custom_fields
+.purchase-form
+  = field_set class: ['reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
+    = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }, input_html: { data: { toggle_enable: '#showReconciliationModal', parent: '.fieldset-fields' } }
+    = f.input :reference_number
+    = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+    = f.referenced_association :delivery_address, source: :own_mails, new: false
+    = f.association :nature, as: :hidden
+    = f.input :invoiced_at, input_html: { data: { deal_reference_date: true } }
+    = f.input :payment_delay
+    = f.input :tax_payability, as: :radio_buttons
+    = f.input :description
+    = f.custom_fields
 
-  = field :element_status.tl do
-    %span.reconciliable-form__state.reconciliable-form__state--to-reconcile= :to_reconciliate.tl
-    %span.reconciliable-form__state.reconciliable-form__state--reconcile= :reconcile.tl
-    %span.reconciliable-form__state.reconciliable-form__state--accepted= :accepted.tl
+    = field :element_status.tl do
+      %span.reconciliable-form__state.reconciliable-form__state--to-reconcile= :to_reconciliate.tl
+      %span.reconciliable-form__state.reconciliable-form__state--reconcile= :reconcile.tl
+      %span.reconciliable-form__state.reconciliable-form__state--accepted= :accepted.tl
 
-  .purchase-totals
-    .purchase-total-row.total-except-tax
-      %span.total-label= :total_amount_without_taxes.tl
-      %span.total-value= f.object.decorate.total_amount_excluding_taxes.round_l
-      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
-    .purchase-total-row.vat-total
-      %span.total-label= :vat.tl
-      %span.total-value= f.object.decorate.total_vat_amount.round_l
-      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
-    .purchase-total-row.purchase-total
-      %span.total-label= :total_amount_with_taxes.tl
-      %span.total-value= f.object.decorate.total_amount_including_taxes.round_l
-      %span.total-currency= Nomen::Currency[f.object.currency]&.symbol
+    .purchase-totals
+      .purchase-total-row.total-except-tax
+        %span.total-label= :total_amount_without_taxes.tl
+        %span.total-value= (f.object.persisted? ? f.object.decorate.total_amount_excluding_taxes : 0.to_f).round_l
+        %span.total-currency= Onoma::Currency[f.object.currency]&.symbol
+      .purchase-total-row.vat-total
+        %span.total-label= :vat.tl
+        %span.total-value= (f.object.persisted? ? f.object.decorate.total_vat_amount : 0.to_f).round_l
+        %span.total-currency= Onoma::Currency[f.object.currency]&.symbol
+      .purchase-total-row.purchase-total
+        %span.total-label= :total_amount_with_taxes.tl
+        %span.total-value= (f.object.persisted? ? f.object.decorate.total_amount_including_taxes : 0.to_f).round_l
+        %span.total-currency= Onoma::Currency[f.object.currency]&.symbol
 
-  .control-group.button-modal-reconciliation
-    .controls
+    .control-group.button-modal-reconciliation
+      .controls
+        - if form_updatable
+          = button_tag :reconciliate_with_receptions.tl, id: 'showReconciliationModal', class: 'btn btn-default disabled', type: :button
+
+    = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+      .modal-body
+      .modal-footer
+
+    = f.attachments
+
+  = field_set Purchase.human_attribute_name(:items) do
+    .items
+      %table.list#items-table
+        %thead.table-head
+          %tr.table-headers
+            %th.act
+            %th.act
+            %th.product-column= :merchandises_services_costs.tl
+            %th.quantity-column= PurchaseItem.human_attribute_name(:quantity)
+            %th.conditioning-column= PurchaseItem.human_attribute_name(:conditioning)
+            %th.unit-amount-column= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+            %th.discount-column= PurchaseItem.human_attribute_name(:discount_with_percent)
+            %th.total-column= PurchaseItem.human_attribute_name(:total_amount_without_taxes)
+            %th.vat-rate-column= :vat_rate.tl
+
+        = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+          = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field, form_updatable: form_updatable
+        %tfoot#items__footer
       - if form_updatable
-        = button_tag :reconciliate_with_receptions.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
-
-  = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
-    .modal-body
-    .modal-footer
-
-  = f.attachments
-
-= field_set Purchase.human_attribute_name(:items) do
-  .items
-    %table.list#items-table
-      = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
-        = render 'item_fields', f: item, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field, form_updatable: form_updatable
-      %tfoot#items__footer
-    - if form_updatable
-      .row-footer
-        - PurchaseItem.role.values.each do |role|
-          :ruby
-            render_options = {
-              locals: {
-                role: role,
-                mode: params[:mode],
-                display_activity_item_field: display_activity_item_field,
-                display_team_item_field: display_team_item_field,
-                form_updatable: form_updatable
+        .row-footer
+          - PurchaseItem.role.values.each do |role|
+            :ruby
+              render_options = {
+                locals: {
+                  role: role,
+                  mode: params[:mode],
+                  display_activity_item_field: display_activity_item_field,
+                  display_team_item_field: display_team_item_field,
+                  form_updatable: form_updatable
+                }
               }
-            }
-          %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: render_options, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
-
+            %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: render_options, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

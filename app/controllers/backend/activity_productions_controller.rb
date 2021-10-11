@@ -22,6 +22,8 @@ module Backend
 
     unroll :rank_number, activity: :name, support: :name
 
+    layout 'assets_injection_layout' if defined?(Planning)
+
     def index
       redirect_to backend_activities_path
     end
@@ -30,8 +32,12 @@ module Backend
       redirect_to backend_activity_productions_path if params[:activity_id].nil? || params[:campaign_id].nil?
     end
 
+    before_action only: %i[new edit update create] do
+      @land_parcel_naming_format = NamingFormatLandParcel.includes(:fields).first
+    end
+
     # List interventions for one production support
-    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT intervention_id FROM activity_productions_interventions WHERE activity_production_id = ?)", 'record', 'params[:id]'.c], order: { created_at: :desc }, line_class: :status) do |t|
+    list(:interventions, conditions: ["#{Intervention.table_name}.nature = ? AND interventions.id IN (SELECT activity_productions_interventions.intervention_id FROM activity_productions_interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = activity_productions_interventions.intervention_id WHERE activity_production_id = ? AND campaigns_interventions.campaign_id = ?)", 'record', 'params[:id]'.c, 'current_campaign'.c], order: { created_at: :desc }, line_class: :status) do |t|
       t.column :name, url: true
       # t.status
       t.column :started_at
@@ -52,6 +58,58 @@ module Backend
       t.status
       t.column :born_at
       t.column :dead_at
+    end
+
+    def show
+      super
+
+      if @activity_production.present?
+        harvest_advisor = ::Interventions::Phytosanitary::PhytoHarvestAdvisor.new
+        @reentry_possible = harvest_advisor.reentry_possible?(@activity_production.support, Time.zone.now)
+      end
+    end
+
+    def new
+      # params.keys == %i[cultivable_zone_id, activity_id, campaign_id]
+      if params[:cultivable_zone_id].present?
+        cultivable_zone_shape = CultivableZone.find_by(id: params[:cultivable_zone_id]).shape
+      end
+
+      @activity_production = resource_model.new(
+        activity_id: params[:activity_id],
+        campaign_id: params[:campaign_id],
+        cultivable_zone_id: params[:cultivable_zone_id],
+        custom_fields: params[:custom_fields],
+        irrigated: params[:irrigated],
+        nitrate_fixing: params[:nitrate_fixing],
+        rank_number: params[:rank_number],
+        season_id: params[:season_id],
+        size_indicator_name: params[:size_indicator_name],
+        size_unit_name: params[:size_unit_name],
+        size_value: params[:size_value],
+        started_on: params[:started_on],
+        state: params[:state],
+        stopped_on: params[:stopped_on],
+        support_id: params[:support_id],
+        support_nature: params[:support_nature],
+        support_shape: params.fetch(:support_shape, cultivable_zone_shape),
+        tactic_id: params[:tactic_id],
+        usage: params[:usage]
+      )
+
+      if params[:activity_id] && activity = Activity.find(params[:activity_id])
+        @activity_production.attributes = ActivityProductions::DefaultAttributesValueBuilder.build(activity, current_campaign)
+      end
+
+      t3e(@activity_production.attributes.merge(name: @activity_production.name))
+      render(locals: { cancel_url: :back, with_continue: false })
+    end
+
+    def create
+      super
+    rescue ActiveRecord::RecordInvalid
+      notify_error_now(:empty_shape.tl)
+      render :new
     end
   end
 end

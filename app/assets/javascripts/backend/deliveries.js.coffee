@@ -31,7 +31,10 @@
         dataType: "json"
         success: (data, status, request) ->
           unit = item.find(".item-population-unit-name")
-          if data.unit_name
+          if data.conditioning_unit_name
+            unit.html(data.conditioning_unit_name)
+            item.attr('data-conditioning-unit-name', data.conditioning_unit_name)
+          else if data.unit_name
             unit.html(data.unit_name)
             item.attr('data-unit-name', data.unit_name)
           else
@@ -115,7 +118,6 @@
                 if selector_url.indexOf(scope) < 0
                   if selector_url.indexOf('?') < 0 then selector_url += '?' else selector_url += '&'
                   selector_url += scope
-                  $(this).selector('clear')
                 $(this).attr('data-selector', selector_url)
 
             else

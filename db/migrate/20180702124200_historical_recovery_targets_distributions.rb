@@ -1,4 +1,4 @@
-class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration
+class HistoricalRecoveryTargetsDistributions < ActiveRecord::Migration[4.2]
   def up
     execute 'UPDATE products SET activity_production_id = NULL WHERE activity_production_id NOT IN (SELECT id FROM activity_productions)'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -42,7 +44,7 @@
 #  updater_id       :integer
 #
 
-class Contract < Ekylibre::Record::Base
+class Contract < ApplicationRecord
   include Attachable
   include Customizable
   attr_readonly :currency
@@ -56,8 +58,8 @@ class Contract < Ekylibre::Record::Base
   validates :currency, :responsible, :supplier, presence: true
   validates :description, :number, :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   validates :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :stopped_on, timeliness: { on_or_after: ->(contract) { contract.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :stopped_on, timeliness: { on_or_after: ->(contract) { contract.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :state, presence: true
@@ -129,12 +131,14 @@ class Contract < Ekylibre::Record::Base
   # Returns dayleft in day of the contract
   def dayleft(on = Date.today)
     return nil if started_on.nil? || stopped_on <= on
+
     (stopped_on - on)
   end
 
   def status
     return :go if won?
     return :stop if lost?
+
     :caution
   end
 end

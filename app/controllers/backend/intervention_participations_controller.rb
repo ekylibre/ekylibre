@@ -20,33 +20,6 @@ module Backend
   class InterventionParticipationsController < Backend::BaseController
     manage_restfully only: %i[update destroy]
 
-    def index
-      @worked_on = if params[:worked_on].blank?
-                     first_participation = current_user.intervention_participations.unprompted.order(created_at: :desc).first
-                     first_participation.present? ? first_participation.created_at : Time.zone.today
-                   else
-                     params[:worked_on].to_date
-                   end
-    end
-
-    # Creates an intervention from intervention participation and redirects to an edit form for
-    # the newly created intervention.
-    def convert
-      return unless intervention_participation = find_and_check
-      begin
-        if intervention = intervention_participation.convert!(params.slice(:procedure_name, :working_width))
-          redirect_to edit_backend_intervention_path(intervention)
-        elsif current_user.intervention_participations.unprompted.any?
-          redirect_to backend_intervention_participations_path(worked_on: params[:worked_on])
-        else
-          redirect_to backend_interventions_path
-        end
-      rescue StandardError => e
-        notify_error(e.message)
-        redirect_to backend_intervention_participations_path(worked_on: params[:worked_on])
-      end
-    end
-
     def participations_modal
       @participation = nil
 
@@ -94,73 +67,73 @@ module Backend
 
     private
 
-    def permitted_params
-      params[:intervention_participation].permit(:intervention_id,
-                                                 :product_id,
-                                                 working_periods_attributes: %i[id started_at stopped_at nature])
-    end
-
-    def form_participations
-      form_participations = []
-
-      return form_participations if params[:participations].blank?
-
-      params[:participations].each do |form_participation|
-        form_participations << InterventionParticipation.new(JSON.parse(form_participation))
+      def permitted_params
+        params[:intervention_participation].permit(:intervention_id,
+                                                   :product_id,
+                                                   working_periods_attributes: %i[id started_at stopped_at nature])
       end
 
-      form_participations
-    end
+      def form_participations
+        form_participations = []
 
-    def intervention_tool
-      return nil if params[:product_id].nil?
+        return form_participations if params[:participations].blank?
 
-      product = Product.find(params[:product_id])
+        params[:participations].each do |form_participation|
+          form_participations << InterventionParticipation.new(JSON.parse(form_participation))
+        end
 
-      return nil unless product.is_a?(Equipment)
-
-      product
-    end
-
-    def intervention_started_at
-      return Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
-
-      Time.now
-    end
-
-    def calculate_working_periods(intervention, participation)
-      participations = form_participations
-      tool = intervention_tool
-      auto_calcul_mode = params[:auto_calcul_mode]
-
-      return [] if !auto_calcul_mode.nil? &&
-                   auto_calcul_mode.to_sym == :false ||
-                   participations.blank? || tool.nil?
-
-      working_duration_params = { intervention: intervention,
-                                  participations: participations,
-                                  product: participation.product }
-
-      natures = [:intervention, (:travel if tool.try(:tractor?))].compact
-
-      compute_service = InterventionWorkingTimeDurationCalculationService
-                   .new(**working_duration_params)
-      previous_stopped_at = intervention_started_at
-
-      natures.map do |nature|
-        duration = compute_service.perform(nature: nature, modal: true)
-
-        stopped_at = previous_stopped_at + (duration * 60 * 60)
-
-        working_period = InterventionWorkingPeriod
-                           .new(nature: nature,
-                                started_at: previous_stopped_at,
-                                stopped_at: stopped_at)
-
-        previous_stopped_at = stopped_at
-
-        working_period
+        form_participations
       end
-    end
+
+      def intervention_tool
+        return nil if params[:product_id].nil?
+
+        product = Product.find(params[:product_id])
+
+        return nil unless product.is_a?(Equipment)
+
+        product
+      end
+
+      def intervention_started_at
+        return Time.parse(params['intervention_started_at']) if params['intervention_started_at'].present?
+
+        Time.now
+      end
+
+      def calculate_working_periods(intervention, participation)
+        participations = form_participations
+        tool = intervention_tool
+        auto_calcul_mode = params[:auto_calcul_mode]
+
+        return [] if !auto_calcul_mode.nil? &&
+                     auto_calcul_mode.to_sym == :false ||
+                     participations.blank? || tool.nil?
+
+        working_duration_params = { intervention: intervention,
+                                    participations: participations,
+                                    product: participation.product }
+
+        natures = [:intervention, (:travel if tool.try(:tractor?))].compact
+
+        compute_service = InterventionWorkingTimeDurationCalculationService
+                     .new(**working_duration_params)
+        previous_stopped_at = intervention_started_at
+
+        natures.map do |nature|
+          duration = compute_service.perform(nature: nature, modal: true)
+
+          stopped_at = previous_stopped_at + (duration * 60 * 60)
+
+          working_period = InterventionWorkingPeriod
+                             .new(nature: nature,
+                                  started_at: previous_stopped_at,
+                                  stopped_at: stopped_at)
+
+          previous_stopped_at = stopped_at
+
+          working_period
+        end
+      end
   end
 end

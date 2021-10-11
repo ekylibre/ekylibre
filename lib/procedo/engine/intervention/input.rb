@@ -4,9 +4,7 @@ module Procedo
   module Engine
     class Intervention
       class Input < Procedo::Engine::Intervention::Quantified
-        attr_reader :usage
-
-        attr_reader :allowed_entry_factor, :allowed_harvest_factor
+        attr_reader :usage, :allowed_entry_factor, :allowed_harvest_factor
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)

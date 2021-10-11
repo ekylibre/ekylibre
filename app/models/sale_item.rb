@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -56,7 +58,7 @@
 #  variant_id             :integer          not null
 #
 
-class SaleItem < Ekylibre::Record::Base
+class SaleItem < ApplicationRecord
   include PeriodicCalculable
   attr_readonly :sale_id
   enumerize :compute_from, in: %i[unit_pretax_amount pretax_amount amount],
@@ -71,6 +73,8 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :depreciable_product, class_name: 'Product'
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
+  belongs_to :conditioning_unit, class_name: 'Unit'
+  belongs_to :catalog_item
   # belongs_to :tracking
   has_many :shipment_items
   has_many :shipments, through: :shipment_items
@@ -88,8 +92,10 @@ class SaleItem < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
   delegate :subscription_nature, to: :product_nature
   delegate :entity_id, to: :address, prefix: true
+  delegate :dimension, :of_dimension?, to: :unit
 
   # alias product_nature variant_nature
+  alias_attribute :unit, :conditioning_unit
 
   acts_as_list scope: :sale
   accepts_nested_attributes_for :subscriptions
@@ -100,7 +106,7 @@ class SaleItem < Ekylibre::Record::Base
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :compute_from, :currency, :sale, :variant, presence: true
+  validates :compute_from, :currency, :sale, :variant, :conditioning_unit, :conditioning_quantity, presence: true
   validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :fixed, inclusion: { in: [true, false] }
   validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
@@ -108,6 +114,7 @@ class SaleItem < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
   validates :quantity, presence: true, exclusion: { in: [0], message: :invalid }
+  validates :conditioning_unit, conditioning: true
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
@@ -121,11 +128,16 @@ class SaleItem < Ekylibre::Record::Base
 
   # return all sale items for the consider product_nature
   scope :of_product_nature, lambda { |product_nature|
-    joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
+    joins(:variant).merge(ProductNatureVariant.of_natures(Array(product_nature)))
+  }
+
+  # return all sale items for the consider product_nature
+  scope :of_product_nature_category, lambda { |product_nature_category|
+    joins(:variant).merge(ProductNatureVariant.of_category(product_nature_category))
   }
 
   scope :active, -> { includes(:sale).where.not(sales: { state: %i[refused aborted] }).order(created_at: :desc) }
-  scope :invoiced_on_or_after, -> (date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
+  scope :invoiced_on_or_after, ->(date) { includes(:sale).where("invoiced_at >= ? OR invoiced_at IS NULL", date) }
   scope :fixed, -> { where(fixed: true) }
   scope :linkable_to_fixed_asset, -> { active.fixed.where(fixed_asset_id: nil) }
   scope :linked_to_fixed_asset, -> { active.where.not(fixed_asset_id: nil) }
@@ -133,14 +145,15 @@ class SaleItem < Ekylibre::Record::Base
   calculable period: :month, column: :pretax_amount, at: 'sales.invoiced_at', name: :sum, joins: :sale
 
   before_validation do
-    self.currency = sale.currency if sale
-    self.compute_from ||= :unit_pretax_amount
     if sale && sale_credit
       self.credited_quantity ||= 0.0
-      self.quantity = -1 * credited_quantity
+      self.conditioning_quantity ||= -1 * credited_quantity
     end
+    self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit) if conditioning_unit && conditioning_quantity
+    self.currency = sale.currency if sale
+    self.compute_from ||= :unit_pretax_amount
     if tax
-      precision = Maybe(Nomen::Currency.find(currency)).precision.or_else(2)
+      precision = Maybe(Onoma::Currency.find(currency)).precision.or_else(2)
       if compute_from_unit_pretax_amount?
         if credited_item
           self.unit_pretax_amount ||= credited_item.unit_pretax_amount
@@ -152,9 +165,9 @@ class SaleItem < Ekylibre::Record::Base
         end
         self.unit_pretax_amount ||= 0.0
         self.quantity ||= 0.0
-        raw_pretax_amount = unit_pretax_amount * quantity * reduction_coefficient
+        raw_pretax_amount = unit_pretax_amount * conditioning_quantity * reduction_coefficient if conditioning_quantity
         self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
-        self.pretax_amount ||= raw_pretax_amount.round(precision)
+        self.pretax_amount ||= raw_pretax_amount.round(precision) if raw_pretax_amount
       elsif compute_from_pretax_amount?
         if sale.reference_number.blank?
           self.unit_pretax_amount = nil
@@ -179,7 +192,7 @@ class SaleItem < Ekylibre::Record::Base
       elsif compute_from?
         raise "Invalid compute_from value: #{compute_from.inspect}"
       end
-      self.amount ||= tax.amount_of(raw_pretax_amount).round(precision)
+      self.amount ||= tax.amount_of(raw_pretax_amount).round(precision) if raw_pretax_amount
     end
     if variant
       self.account_id = variant.category.product_account_id
@@ -191,12 +204,22 @@ class SaleItem < Ekylibre::Record::Base
     unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
 
-    next unless Preference[:catalog_price_item_addition_if_blank]
+    next unless Preference[:catalog_price_item_addition_if_blank] && sale.invoice?
+
     %i[stock sale].each do |usage|
       # set stock catalog price if blank
       next unless catalog = Catalog.by_default!(usage)
-      next if variant.catalog_items.of_usage(usage).any? || unit_pretax_amount.blank? || unit_pretax_amount.zero?
-      variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency)
+
+      item = CatalogItem.find_by(catalog: catalog, variant: variant, unit: conditioning_unit, started_at: sale.invoiced_at)
+      next if item || unit_pretax_amount.blank? || unit_pretax_amount.zero?
+
+      variant.catalog_items.create!(catalog: catalog,
+                                    all_taxes_included: false,
+                                    amount: unit_pretax_amount,
+                                    currency: currency,
+                                    sale_item: self,
+                                    started_at: sale.invoiced_at,
+                                    unit: conditioning_unit)
     end
   end
 
@@ -205,7 +228,8 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    return false if sale.draft?
+    return false if sale.draft? || sale.order?
+
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
     (changes.keys - authorized_columns).any?
   end
@@ -259,12 +283,17 @@ class SaleItem < Ekylibre::Record::Base
     amount - pretax_amount
   end
 
+  def base_unit_amount
+    coeff = conditioning_unit&.coefficient
+    (unit_pretax_amount / coeff).round(2) if coeff && coeff != 1
+  end
+
   def already_credited_quantity
-    credits.sum(:quantity)
+    credits.sum(:conditioning_quantity)
   end
 
   def creditable_quantity
-    quantity + already_credited_quantity
+    conditioning_quantity + already_credited_quantity
   end
 
   # know how many percentage of invoiced VAT to declare

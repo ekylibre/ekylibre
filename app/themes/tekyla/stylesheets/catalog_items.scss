@@ -1,0 +1,25 @@
+.catalog-items-form {
+  #due-on {
+    display: none;
+  }
+
+  .add-on.unit_price_amount{
+    display: inline-block;
+  }
+
+  .add-on.unit_price_amount_with_taxes{
+    display: none;
+  }
+
+  &--all-taxes .add-on.unit_price_amount{
+    display: none;
+  }
+
+  &--all-taxes .add-on.unit_price_amount_with_taxes{
+    display: inline-block;
+  }
+
+  &--all-taxes #due-on {
+    display: block;
+  }
+}

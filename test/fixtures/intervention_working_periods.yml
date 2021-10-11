@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -135,28 +135,6 @@ intervention_working_periods_009:
   started_at: 2007-09-29 08:00:00.000000000 Z
   stopped_at: 2007-09-29 13:40:00.000000000 Z
   updated_at: 2014-11-07 15:45:46.130915000 Z
-  updater_id: 1
-intervention_working_periods_010:
-  created_at: 2014-11-07 15:47:46.996499000 Z
-  creator_id: 1
-  duration: 5267400
-  id: 10
-  intervention_id: 18
-  lock_version: 4
-  started_at: 2014-07-01 12:35:00.000000000 Z
-  stopped_at: 2014-08-31 11:45:00.000000000 Z
-  updated_at: 2014-11-07 15:55:52.246355000 Z
-  updater_id: 1
-intervention_working_periods_011:
-  created_at: 2014-11-07 16:16:21.819333000 Z
-  creator_id: 1
-  duration: 5163600
-  id: 11
-  intervention_id: 19
-  lock_version: 0
-  started_at: 2014-09-01 15:15:00.000000000 Z
-  stopped_at: 2014-10-31 09:35:00.000000000 Z
-  updated_at: 2014-11-07 16:16:21.819333000 Z
   updater_id: 1
 intervention_working_periods_012:
   created_at: 2014-11-07 16:20:51.420516000 Z

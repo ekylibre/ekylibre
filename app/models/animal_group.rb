@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,10 +77,13 @@
 #  picture_file_name            :string
 #  picture_file_size            :integer
 #  picture_updated_at           :datetime
+#  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
+#  specie_variety               :jsonb            default("{}")
 #  team_id                      :integer
 #  tracking_id                  :integer
 #  type                         :string
+#  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #  uuid                         :uuid
@@ -95,16 +100,18 @@ class AnimalGroup < ProductGroup
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(Animal)
-      raise ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, options)
   end
 
   # Remove a member from the group
   def remove(member, options = {})
     unless member.is_a?(Animal)
-      raise ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
+
     super(member, options)
   end
 
@@ -130,7 +137,7 @@ class AnimalGroup < ProductGroup
 
   def daily_nitrogen_production(viewed_at = nil)
     quantity = []
-    for animal in members_at(viewed_at)
+    members_at(viewed_at).each do |animal|
       quantity << animal.daily_nitrogen_production.to_d
     end
     quantity.compact.sum.in_kilogram_per_day

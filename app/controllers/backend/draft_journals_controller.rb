@@ -22,7 +22,7 @@ module Backend
   class DraftJournalsController < Backend::BaseController
     include JournalEntriesCondition
 
-    list(:journal_entry_items, conditions: journal_entries_conditions(with_journals: true, state: :draft), joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:journal_entry_items, selectable: true, conditions: journal_entries_conditions(with_journals: true, state: :draft), joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date
@@ -36,6 +36,7 @@ module Backend
       t.column :credit, currency: true
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
+      t.empty :fec_compliance, class: 'fec-compliance', condition: 'JournalEntry.fec_compliance_preference'
     end
 
     # this method lists all the entries generated in draft mode
@@ -49,8 +50,10 @@ module Backend
       @draft_entries = journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
+      @entries_to_validate_count = @draft_entries.where(financial_year_exchange_id: nil).count
       @unbalanced_entries_count = journal_entries.where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).reject(&:balanced?).count
-      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
+      @can_validate = (@entries_to_validate_count > 0 && @unbalanced_entries_count == 0)
+      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) if @unbalanced_entries_count > 0
     end
 
     def list
@@ -63,40 +66,55 @@ module Backend
       @draft_entries = journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).order(:printed_on)
       @draft_entries_count = @draft_entries.count
       @draft_entries = @draft_entries.page(@current_page).per(20)
+      @entries_to_validate_count = @draft_entries.where(financial_year_exchange_id: nil).count
       @unbalanced_entries_count = journal_entries.where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).reject(&:balanced?).count
-      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) unless @unbalanced_entries_count < 1
+      @can_validate = (@entries_to_validate_count > 0 && @unbalanced_entries_count == 0)
+      notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) if @unbalanced_entries_count > 0
     end
 
     # This method confirm all draft entries
     def confirm
-      conditions = eval(self.class.journal_entries_conditions(with_journals: true, state: :draft))
-      journal_entries = JournalEntry.reorder(:printed_on).where(conditions)
-      journal_entries = journal_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
-      if journal_entries.empty?
-        redirect_to action: :show
-        return
-      end
-      previous_draft_entries = JournalEntry.where(state: :draft).where('printed_on < ?', journal_entries.first.printed_on)
-      previous_draft_entries = previous_draft_entries.joins(:financial_year).where('journal_entries.printed_on BETWEEN financial_years.started_on AND financial_years.stopped_on') # TODO: remove once journal entries will always have its financial_year_id associated to the printed_on
-      if previous_draft_entries.any?
-        notify_error(:draft_journal_entries_cannot_be_validated)
-      else
-        count = journal_entries.count
-        ValidateDraftJournalEntriesService.new(journal_entries).validate_all
-        notify_success(:draft_journal_entries_have_been_validated, count: count)
-      end
+      entries = entries_to_validate
+      entries_count = entries.count
+
+      ValidateDraftJournalEntriesService.new(entries).validate
+      notify_success(:draft_journal_entries_have_been_validated, count: entries_count)
       redirect_to action: :show
     end
 
-    def confirm_all
-      journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
-      journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
-      journal_entries_to_validate = journal_entries.where(state: :draft).where('printed_on BETWEEN ? AND ?', params[:from], params[:to]).order(:printed_on)
-      journal_entries_to_validate_count = journal_entries_to_validate.count
+    def fec_compliance_errors
+      fec_method = "fec_#{params[:category]}_errors"
+      entry = JournalEntry.find(params[:entry_id])
+      raise StandardError.new("Method #{fec_method} does not exist") if !entry.respond_to?(fec_method)
 
-      ValidateDraftJournalEntriesService.new(journal_entries_to_validate).validate_all
-      notify_success(:draft_journal_entries_have_been_validated, count: journal_entries_to_validate_count)
-      redirect_to action: :show
+      errors = entry.send(fec_method)
+      render partial: 'fec_compliance_errors', locals: { errors: errors, entry: entry }
     end
+
+    def confirmation_modal
+      if JournalEntry.fec_compliance_preference
+        entries = entries_to_validate
+
+        entries_fec_errors = entries.with_compliance_errors('fec', 'journal_entries')
+
+        @fec_error_count = {}
+        FEC::Check::JournalEntry.errors_name.each do |name|
+          @fec_error_count[name] = entries_fec_errors.with_compliance_error('fec', 'journal_entries', name).count
+        end
+
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+
+    private
+
+      def entries_to_validate
+        journal_id = params[:journal_id].blank? ? params[:journal_id] : params[:journal_id].to_i
+        journal_entries = journal_id.blank? ? JournalEntry.all : JournalEntry.where(journal_id: journal_id)
+
+        journal_entries.where(state: :draft, financial_year_exchange_id: nil).where('printed_on BETWEEN ? AND ?', params[:from], params[:to]).order(:printed_on)
+      end
   end
 end

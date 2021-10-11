@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Interventions
   module Computation
     class UpdateEngineIntervention
@@ -27,7 +29,7 @@ module Interventions
 
       def parameter_selector(attribute)
         (Constants::PRODUCT_PARAMETERS & Constants::PARAMETER_ACCEPTED_TYPES[attribute]).map do |collection_name|
-          (@parameters.fetch("#{collection_name}_attributes", {})).keys.map do |i|
+          @parameters.fetch("#{collection_name}_attributes", {}).keys.map do |i|
             "#{collection_name}[#{i}]#{attribute}"
           end
         end
@@ -35,14 +37,13 @@ module Interventions
 
       def group_parameters_selector
         @parameters['group_parameters_attributes'].map do |i, group_parameters|
-
           %i[product_id quantity_value].map { |attr| group_parameter_selector(attr, group_parameters, i) }
         end
       end
 
       def group_parameter_selector(attribute, group_parameters, index)
         (Constants::PRODUCT_PARAMETERS & Constants::GROUP_PARAMETER_ACCEPTED_TYPES[attribute]).map do |collection_name|
-          (group_parameters.fetch("#{collection_name}_attributes", {})).keys.map do |j|
+          group_parameters.fetch("#{collection_name}_attributes", {}).keys.map do |j|
             "group_parameters[#{index}]#{collection_name}[#{j}]#{attribute}"
           end
         end
@@ -50,5 +51,3 @@ module Interventions
     end
   end
 end
-
-

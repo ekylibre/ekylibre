@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -63,6 +65,7 @@
 #  picture_updated_at           :datetime
 #  proposer_id                  :integer
 #  prospect                     :boolean          default(FALSE), not null
+#  provider                     :jsonb
 #  reminder_submissive          :boolean          default(FALSE), not null
 #  responsible_id               :integer
 #  siret_number                 :string
@@ -80,7 +83,7 @@
 
 require 'digest/sha2'
 
-class Entity < Ekylibre::Record::Base
+class Entity < ApplicationRecord
   include Attachable
   include Autocastable
   include Commentable
@@ -93,8 +96,8 @@ class Entity < Ekylibre::Record::Base
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
   enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
-  #TODO: it should be rewritten when refers_to_lexicon is available
-  enumerize :legal_position_code, in: RegisteredLegalPosition.pluck(:code)
+  # TODO: it should be rewritten when refers_to_lexicon is available
+  enumerize :legal_position_code, in: MasterLegalPosition.pluck(:code)
   versionize exclude: [:full_name]
   belongs_to :client_account, class_name: 'Account'
   belongs_to :employee_account, class_name: 'Account'
@@ -119,6 +122,7 @@ class Entity < Ekylibre::Record::Base
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
+  has_many :idea_diagnostics, foreign_key: :auditor_id, dependent: :nullify
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
@@ -168,16 +172,15 @@ class Entity < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
   validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
-  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :first_financial_year_ends_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
+  validates :first_financial_year_ends_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :full_name, :last_name, presence: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
   validates :country, length: { allow_nil: true, maximum: 2 }
   validates :language, length: { allow_nil: true, maximum: 3 }
-  validates :siret_number, length: { allow_nil: true, maximum: 14 }
   validates :vat_number, length: { allow_nil: true, maximum: 20 }
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
@@ -286,21 +289,24 @@ class Entity < Ekylibre::Record::Base
   end
 
   def legal_position
-    RegisteredLegalPosition.find_by(code: legal_position_code)
+    MasterLegalPosition.find_by(code: legal_position_code)
   end
 
   def of_capital?
     return false unless legal_position
+
     legal_position.nature == "capital"
   end
 
   def of_person?
     return false unless legal_position
+
     legal_position.nature == "person"
   end
 
   def of_individual?
     return false unless legal_position
+
     legal_position.nature == "individual"
   end
 
@@ -327,11 +333,13 @@ class Entity < Ekylibre::Record::Base
 
   def client_accounting_balance
     return 0.0 unless client?
+
     economic_situation[:client_accounting_balance]
   end
 
   def supplier_accounting_balance
     return 0.0 unless supplier?
+
     economic_situation[:supplier_accounting_balance]
   end
 
@@ -357,7 +365,6 @@ class Entity < Ekylibre::Record::Base
     incoming_payments.last_updateds.first
   end
 
-  #
   def balance
     economic_situation[:trade_balance]
   end
@@ -373,8 +380,9 @@ class Entity < Ekylibre::Record::Base
     nature = nature.to_sym
     nature = conversions[nature] || nature
     unless natures.include?(nature)
-      raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
+      raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)")
     end
+
     valid_account = send("#{nature}_account")
     if valid_account.nil?
       prefix = Account.centalizing_account_prefix_for(nature)
@@ -415,7 +423,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def add_event(usage, operator, at = Time.zone.now)
-    if operator && item = Nomen::EventNature[usage]
+    if operator && item = Onoma::EventNature[usage]
       Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: { '0' => { participant_id: id, state: 'informative' }, '1' => { participant_id: operator.id, state: 'accepted' } })
     end
   end
@@ -460,12 +468,13 @@ class Entity < Ekylibre::Record::Base
   # Merge given entity into record. Alls related records of given entity will point on
   # self. Given entity is destroyed at the end, self remains.
   def merge_with(other, options = {})
-    raise StandardError, 'Company entity is not mergeable' if other.of_company?
+    raise StandardError.new('Company entity is not mergeable') if other.of_company?
+
     author = options[:author]
-    Ekylibre::Record::Base.transaction do
+    ApplicationRecord.transaction do
       # EntityAddress
-      threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread).delete_if(&:blank?)
-      other_threads = EntityAddress.unscoped.where(entity_id: other.id).uniq.pluck(:thread).delete_if(&:blank?)
+      threads = EntityAddress.unscoped.where(entity_id: id).distinct.pluck(:thread).delete_if(&:blank?)
+      other_threads = EntityAddress.unscoped.where(entity_id: other.id).distinct.pluck(:thread).delete_if(&:blank?)
       other_threads.each do |thread|
         thread.succ! while threads.include?(thread)
         threads << thread
@@ -483,6 +492,7 @@ class Entity < Ekylibre::Record::Base
       Ekylibre::Schema.tables.each do |table, columns|
         columns.each do |_name, column|
           next unless column.references
+
           if column.references.is_a?(String) # Polymorphic
             connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id} AND #{column.references} IN #{models_group}")
           elsif column.references == base_model # Straight
@@ -519,8 +529,8 @@ class Entity < Ekylibre::Record::Base
 
           if ["supplier_payment_delay", "nature"].include?(attr)
             value = "enumerize.entity.#{attr}.#{value}".t
-          elsif Entity.columns.detect { |column| column.name == attr }.cast_type.type == :boolean
-            value = value == true ? :y.tl : :n.tl
+          elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
+            value = value ? :y.tl : :n.tl
           else
             value = value.to_s
           end
@@ -546,6 +556,7 @@ class Entity < Ekylibre::Record::Base
 
   def financial_year_with_opened_exchange?
     return false unless persisted?
+
     financial_years.any?(&:opened_exchange?)
   end
 

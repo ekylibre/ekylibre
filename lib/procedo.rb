@@ -21,16 +21,18 @@ module Procedo
   class Error < StandardError
   end
 
-  @@list = HashWithIndifferentAccess.new
-
   class << self
+    def registry
+      Ekylibre::Application.instance.procedo_registry
+    end
+
     def procedures
-      @@list.values
+      registry.procedures.values
     end
 
     # Returns the names of the procedures
     def procedure_names
-      @@list.keys
+      registry.procedures.keys
     end
 
     # Returns an array of couple human_name/name sorted by human name.
@@ -40,13 +42,13 @@ module Procedo
 
     # Give access to named procedures
     def find(name)
-      @@list[name]
+      registry.procedures[name]
     end
     alias [] find
 
     # Browse all available procedures
     def each_procedure
-      @@list.each do |_, procedure|
+      registry.procedures.each do |_, procedure|
         yield procedure
       end
     end
@@ -74,23 +76,9 @@ module Procedo
       each_parameter(&block)
     end
 
-    # Load all files
-    def load
-      # Inventory procedures
-      Dir.glob(root.join('*.xml')).sort.each do |path|
-        Procedo::XML.parse(path).each do |procedure|
-          @@list[procedure.name] = procedure
-        end
-      end
-      true
-    end
-
     # Returns the root of the procedures
     def root
       Rails.root.join('config', 'procedures')
     end
   end
 end
-
-Procedo.load
-Rails.logger.info 'Loaded procedures: ' + Procedo.procedure_names.to_sentence

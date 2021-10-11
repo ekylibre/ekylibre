@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,6 +48,7 @@
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
 #  letter                    :string
+#  lettered_at               :datetime
 #  lock_version              :integer          default(0), not null
 #  name                      :string           not null
 #  position                  :integer
@@ -108,7 +109,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
 
   test 'should be valid when the name doesn\'t contain a translation error' do
     jei = JournalEntryItem.new(account: Account.first, real_debit: 125, real_credit: 0, name: "Tout va bien").tap(&:valid?)
-    assert_not jei.errors.messages[:name]
+    assert_not jei.errors.messages[:name].present?
   end
 
   test 'should not be valid when the name contains a translation error' do
@@ -203,7 +204,7 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     assert associated_bank_statement_items.any?
     item.destroy
     associated_bank_statement_items.map(&:reload)
-    assert associated_bank_statement_items.all? { |bsi| bsi.letter.nil? }
+    assert(associated_bank_statement_items.all? { |bsi| bsi.letter.nil? })
   end
 
   test 'bank statement letter is set to nil on validations when blank' do
@@ -251,4 +252,28 @@ class JournalEntryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixture
     item = create(:journal_entry_item, account: account, financial_year: financial_year)
     refute item.third_party
   end
+
+  test 'lettered_at behaviour' do
+    account = create(:account)
+    debit_jei = create(:journal_entry_item, account: account, real_debit: 200)
+    credit_jei = create(:journal_entry_item, account: account, real_credit: 100)
+    assert_nil debit_jei.lettered_at
+    assert_nil credit_jei.lettered_at
+    account.mark!([debit_jei.id, credit_jei.id])
+    [debit_jei, credit_jei].each(&:reload)
+    assert_nil debit_jei.lettered_at
+    assert_nil credit_jei.lettered_at
+    assert debit_jei.partially_lettered?
+    assert credit_jei.partially_lettered?
+    other_credit_jei = create(:journal_entry_item, account: account, real_credit: 100)
+    account.mark!([debit_jei.id, credit_jei.id, other_credit_jei.id])
+    [debit_jei, credit_jei, other_credit_jei].each(&:reload)
+    assert_not_nil debit_jei.lettered_at
+    assert_not_nil credit_jei.lettered_at
+    assert_not_nil other_credit_jei.lettered_at
+    assert debit_jei.completely_lettered?
+    assert credit_jei.completely_lettered?
+    assert other_credit_jei.completely_lettered?
+  end
+
 end

@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20150821230800
-class RenameInvalidDocumentNature < ActiveRecord::Migration
+class RenameInvalidDocumentNature < ActiveRecord::Migration[4.2]
   def up
     # Change item document_natures#vat_registry with {:name=>"vat_register"}
     execute "UPDATE document_templates SET nature='vat_register' WHERE nature='vat_registry'"

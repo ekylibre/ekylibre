@@ -27,7 +27,6 @@ module Backend
 
     before_action :save_search_preference, only: :index
 
-
     def self.list_conditions
       code = ''
       code = search_conditions(purchase_invoice: %i[number reference_number created_at pretax_amount amount], entities: %i[number full_name]) + " ||= []\n"
@@ -60,6 +59,12 @@ module Backend
       code << "     c[0] << ' AND NOT #{PurchaseAffair.table_name}.closed'\n"
       code << " end\n"
       code << "end\n"
+      code << "if params[:purchases_attachments] == 'y'\n"
+      code << "    c[0] << ' AND #{PurchaseInvoice.table_name}.id IN (SELECT DISTINCT resource_id FROM #{Attachment.table_name} WHERE #{Attachment.table_name}.resource_type = \\'Purchase\\' AND #{Attachment.table_name}.deleted_at IS NULL)'\n"
+      code << "end\n"
+      code << "if params[:purchases_attachments] == 'n'\n"
+      code << "    c[0] << ' AND NOT #{PurchaseInvoice.table_name}.id IN (SELECT DISTINCT resource_id FROM #{Attachment.table_name} WHERE #{Attachment.table_name}.resource_type = \\'Purchase\\' AND #{Attachment.table_name}.deleted_at IS NULL)'\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -69,28 +74,31 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :number, url: :true
+      t.column :supplier, url: true
       t.column :invoiced_at
       t.column :reference_number, url: true
-      t.column :supplier, url: true
-      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode
+      t.column :has_attachments, datatype: :boolean, class: 'center'
+      t.column :entity_payment_mode_name, through: :supplier, label: :supplier_payment_mode, hidden: true
       t.column :created_at
       t.status
+      t.column :human_status, label: :state, hidden: true
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
       t.column :amount, currency: true, on_select: :sum
     end
     # Mode de paiement du fournisseur
 
     list(:items, model: :purchase_items, order: { id: :asc }, conditions: { purchase_id: 'params[:id]'.c }) do |t|
-      t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
-      t.column :annotation
+      t.column :variant_name_with_unit, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
+      t.column :annotation, hidden: true
       t.column :first_reception_number, label: :reception, url: { controller: '/backend/receptions', id: 'RECORD.first_reception_id'.c }
-      t.column :quantity
-      t.column :unit_pretax_amount, currency: true
-      t.column :unit_amount, currency: true, hidden: true
-      t.column :reduction_percentage
-      t.column :tax, url: true, hidden: true
-      t.column :pretax_amount, currency: true
-      t.column :amount, currency: true
+      t.column :conditioning_unit
+      t.column :conditioning_quantity, class: 'right-align'
+      t.column :unit_pretax_amount, currency: true, class: 'right-align'
+      t.column :unit_amount, currency: true, hidden: true, class: 'right-align'
+      t.column :reduction_percentage, class: 'right-align'
+      t.column :tax, url: true, hidden: true, class: 'right-align'
+      t.column :pretax_amount, currency: true, class: 'right-align'
+      t.column :amount, currency: true, class: 'right-align'
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
       t.column :fixed_asset, url: true, hidden: true
@@ -110,6 +118,10 @@ module Backend
 
     def show
       return unless @purchase_invoice = find_and_check
+
+      if @purchase_invoice.versions.find_by(event: :create).nil?
+        Version.create!(event: :create, item: @purchase_invoice, created_at: @purchase_invoice.created_at, creator_id: @purchase_invoice.creator_id)
+      end
       respond_with(@purchase_invoice, methods: %i[taxes_amount affair_closed],
                    include: { delivery_address: { methods: [:mail_coordinate] },
                               supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
@@ -129,6 +141,17 @@ module Backend
       @purchase_invoice = if params[:duplicate_of]
                             PurchaseInvoice.find_by(id: params[:duplicate_of])
                               .deep_clone(include: :items, except: %i[state number affair_id reference_number payment_delay])
+                          elsif params[:reception_ids]
+                            receptions = Reception.where(id: params[:reception_ids].split(','))
+                            supplier_ids = receptions.pluck(:sender_id)
+                            supplier_id = supplier_ids.uniq.first
+                            invoice_attributes = {
+                              nature: nature,
+                              supplier_id: supplier_id,
+                              reconciliation_state: 'reconcile',
+                              items: InvoiceableItemsFilter.new.filter(receptions)
+                            }
+                            PurchaseInvoice.new(invoice_attributes)
                           else
                             PurchaseInvoice.new(nature: nature)
                           end
@@ -150,7 +173,7 @@ module Backend
         permitted_params[:items_attributes].each do |_key, item_attribute|
           ids = item_attribute[:parcels_purchase_invoice_items]
           parcel_item_ids = ids.blank? ? [] : JSON.parse(ids)
-          unreconciled_parcel_items = ParcelItem.where(id: parcel_item_ids).reject { |parcel_item| parcel_item.purchase_invoice_item }
+          unreconciled_parcel_items = ParcelItem.where(id: parcel_item_ids, purchase_invoice_item_id: nil)
           item_attribute[:parcels_purchase_invoice_items] = unreconciled_parcel_items
         end
       end
@@ -160,7 +183,7 @@ module Backend
       url = if params[:create_and_continue]
               { action: :new, continue: true }
             else
-              params[:redirect] || { action: :show, id: 'id'.c }
+              { action: :show, id: 'id'.c }
             end
 
       if @purchase_invoice.items.blank?
@@ -196,6 +219,9 @@ module Backend
                            notify: :record_x_updated,
                            identifier: :number)
       end
+
+      t3e(@purchase_invoice.attributes)
+
       render :edit
     end
 

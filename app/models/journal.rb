@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,10 +32,14 @@
 #  creator_id                         :integer
 #  currency                           :string           not null
 #  custom_fields                      :jsonb
+#  financial_year_exchange_id         :integer
 #  id                                 :integer          not null, primary key
+#  isacompta_code                     :string
+#  isacompta_label                    :string
 #  lock_version                       :integer          default(0), not null
 #  name                               :string           not null
 #  nature                             :string           not null
+#  provider                           :jsonb
 #  updated_at                         :datetime         not null
 #  updater_id                         :integer
 #  used_for_affairs                   :boolean          default(FALSE), not null
@@ -43,12 +49,16 @@
 #  used_for_unbilled_payables         :boolean          default(FALSE), not null
 #
 
-class Journal < Ekylibre::Record::Base
+class Journal < ApplicationRecord
   include Customizable
   include Providable
   attr_readonly :currency
   refers_to :currency
   belongs_to :accountant, class_name: 'Entity'
+  belongs_to :financial_year_exchange
+  delegate :ekyagri?, :isacompta?, to: :financial_year_exchange,
+    prefix: :exchanged_with_format, allow_nil: true
+
   has_many :cashes, dependent: :restrict_with_exception
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
@@ -58,7 +68,7 @@ class Journal < Ekylibre::Record::Base
   has_many :inventories, inverse_of: :journal
   enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure result], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
   validates :currency, :nature, presence: true
   validates :used_for_affairs, :used_for_gaps, :used_for_permanent_stock_inventory, :used_for_tax_declarations, :used_for_unbilled_payables, inclusion: { in: [true, false] }
@@ -68,14 +78,18 @@ class Journal < Ekylibre::Record::Base
   validates :code, uniqueness: true, format: { with: /\A[A-Z0-9]+\z/ }, length: { maximum: 4 }
   validates :name, uniqueness: true
   validates :accountant, absence: true, unless: :various_without_cash?
+  validates_format_of :isacompta_code, with: /\A[A-Z0-9]+\z/, if: -> { isacompta_code? || exchanged_with_format_isacompta? }
+  validates_length_of :isacompta_code, is: 2, if: -> { isacompta_code? || exchanged_with_format_isacompta? }
+  validates_length_of :isacompta_label, maximum: 30, if: -> { isacompta_label? || exchanged_with_format_isacompta? }
 
   selects_among_all :used_for_affairs, :used_for_gaps, :used_for_unbilled_payables, if: :various?, scope: :currency
   selects_among_all :used_for_permanent_stock_inventory, if: :stocks?, scope: :currency
 
   scope :used_for, lambda { |nature|
     unless Journal.nature.values.include?(nature.to_s)
-      raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
+      raise ArgumentError.new("Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}")
     end
+
     where(nature: nature.to_s)
   }
   scope :opened_on, lambda { |at|
@@ -90,8 +104,10 @@ class Journal < Ekylibre::Record::Base
   scope :cashes,          -> { where(nature: 'cash') }
   scope :results,         -> { where(nature: 'result') }
   scope :stocks,          -> { where(nature: 'stocks') }
-  scope :fixed_assets,    -> { where(nature: 'fixed_asset') }
+  scope :fixed_assets,    -> { where(nature: 'fixed_assets') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
+  scope :purchases_or_fixed_assets, -> { where(nature: %w[purchases fixed_assets]) }
+  scope :currently_exchanged, -> { joins(:financial_year_exchange).where("financial_year_exchanges.format = 'isacompta' AND (isacompta_code IS NULL OR isacompta_label IS NULL)") }
 
   before_validation(on: :create) do
     self.closed_on ||= FinancialYear.last_closure
@@ -145,9 +161,8 @@ class Journal < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     entries.any? || entry_items.any? || cashes.any? || sale_natures.any? ||
-      purchase_natures.any? || incoming_payment_modes.any?
+      purchase_natures.any? || incoming_payment_modes.any? || exchanged_with_format_isacompta?
   end
-
 
   # Prints human name of current state
   def nature_label
@@ -170,7 +185,8 @@ class Journal < Ekylibre::Record::Base
     def get(name)
       name = name.to_s
       pref_name = "#{name}_journal"
-      raise ArgumentError, "Unvalid journal name: #{name.inspect}" unless self.class.preferences_reference.key? pref_name
+      raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.key? pref_name
+
       unless journal = preferred(pref_name)
         journal = journals.find_by(nature: name)
         journal ||= journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency)
@@ -239,6 +255,7 @@ class Journal < Ekylibre::Record::Base
     def load_defaults(**_options)
       nature.values.each do |nature|
         next if find_by(nature: nature)
+
         financial_year = FinancialYear.first_of_all
         closed_on = financial_year ? (financial_year.started_on - 1) : Date.new(1899, 12, 31).end_of_month
         create!(
@@ -250,8 +267,17 @@ class Journal < Ekylibre::Record::Base
       end
     end
 
-    private
+    def find_or_create_default_result_journal
+      Journal.create_with(code: 'RESU', name: 'Résultat')
+             .find_or_create_by!(nature: 'result')
+    end
 
+    def find_or_create_default_forward_journal
+      Journal.create_with(code: 'RESU', name: 'Résultat')
+             .find_or_create_by!(nature: 'forward')
+    end
+
+    private
       # @deprecated
       def condition_builder
         ActiveSupport::Deprecation.warn 'Journal condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
@@ -269,6 +295,7 @@ class Journal < Ekylibre::Record::Base
     new_closed_on ||= (Time.zone.today << 1).end_of_month
     return false if new_closed_on.end_of_month != new_closed_on
     return false if new_closed_on < self.closed_on
+
     true
   end
 
@@ -292,7 +319,8 @@ class Journal < Ekylibre::Record::Base
       errors.add(:closed_on, :draft_entry_items, closed_on: new_closed_on.l)
     end
     return false unless errors.empty?
-    ActiveRecord::Base.transaction do
+
+    ApplicationRecord.transaction do
       entries.where(printed_on: (self.closed_on + 1)..new_closed_on).find_each(&:close)
       update_column(:closed_on, new_closed_on)
     end
@@ -302,7 +330,7 @@ class Journal < Ekylibre::Record::Base
   # Close a journal and force validation of draft entries to the given date
   def close!(closed_on)
     finished = false
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       JournalEntryItem.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       JournalEntry.where(journal_id: id).where('printed_on <= ?', closed_on).where.not(state: :closed).update_all(state: :closed)
       update_column(:closed_on, closed_on)
@@ -351,7 +379,6 @@ class Journal < Ekylibre::Record::Base
     accountant && accountant.financial_year_with_opened_exchange?
   end
 
-
   class << self
     # Computes the value of list of accounts in a String
     # Examples:
@@ -367,7 +394,7 @@ class Journal < Ekylibre::Record::Base
     #   E: - Crédit balance
     #   F: Débit balance
     def sum_entry_items(expression, options = {})
-      conn = ActiveRecord::Base.connection
+      conn = ApplicationRecord.connection
       journal_entry_items = 'jei'
       journal_entries = 'je'
       journals = 'j'
@@ -378,7 +405,7 @@ class Journal < Ekylibre::Record::Base
         journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
       end
 
-      from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+      from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)".dup
       if options[:unwanted_journal_nature]
         from_where << " JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
         from_where << " WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')'
@@ -416,7 +443,7 @@ class Journal < Ekylibre::Record::Base
               sum(COALESCE(jei.credit, 0)) as sum_credit,
               sum(COALESCE(jei.debit, 0)) - sum(COALESCE(jei.credit, 0)) as account_balance
         SQL
-
+        query = query.dup
         query << from_where
         query << journal_entries_states
         query << " AND (#{accounts_range[:include].join(' OR ')})" if accounts_range[:include]
@@ -435,7 +462,7 @@ class Journal < Ekylibre::Record::Base
         elsif mode == 'D'
           d = direction * (debit > credit ? debit - credit : 0)
         elsif mode == 'E'
-          e = direction * (-credit_balance)
+          e = direction * -credit_balance
         elsif mode == 'F'
           f = direction * debit_balance
         else

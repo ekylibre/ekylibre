@@ -2,10 +2,9 @@ module Backend
   module Variants
     module Articles
       class FertilizerArticlesController < Backend::Variants::ArticleVariantsController
-
-        importable_from_lexicon :variants, model_name: "Variants::Articles::#{controller_name.classify}".constantize,
-                                           filter_by_nature: 'article',
-                                           filter_by_sub_nature: 'fertilizer'
+        importable_from_lexicon :master_variants, model_name: "Variants::Articles::#{controller_name.classify}".constantize,
+                                                  primary_key: :reference_name,
+                                                  filters: { of_families: :article, of_sub_families: :fertilizer }
       end
     end
   end

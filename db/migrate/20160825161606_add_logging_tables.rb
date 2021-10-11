@@ -1,4 +1,4 @@
-class AddLoggingTables < ActiveRecord::Migration
+class AddLoggingTables < ActiveRecord::Migration[4.2]
   def change
     create_table :call_messages do |t|
       t.string      :status

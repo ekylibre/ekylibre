@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,14 +37,15 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class Campaign < Ekylibre::Record::Base
+class Campaign < ApplicationRecord
   has_many :cap_statements, dependent: :restrict_with_exception
   has_many :activity_budgets, inverse_of: :campaign, dependent: :restrict_with_exception
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
+  has_many :tactics, class_name: 'ActivityTactic', inverse_of: :campaign
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
-  validates :closed_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :closed_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :harvest_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
@@ -53,12 +56,18 @@ class Campaign < Ekylibre::Record::Base
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :activity_productions
+  has_many :cvi_statements
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) {
     ActiveSupport::Deprecation.warn "Campaign#at is deprecated, use Campaign#on instead"
     where(harvest_year: searched_at.year)
   }
+  scope :with_interventions, -> { where(id: HABTM_Interventions.select(:campaign_id)) }
+  scope :with_activity, -> { where('id IN (SELECT DISTINCT campaign_id from activities_campaigns)') }
+
+  scope :with_plant_farming_interventions, -> { where(id: HABTM_Interventions.where(intervention_id: Intervention.of_activity_family(:plant_farming)).select(:campaign_id)) }
+
   scope :on, ->(searched_on) { find_by(harvest_year: searched_on.year) }
   scope :of_activity_production, lambda { |activity_production|
     where('id IN (SELECT campaign_id FROM activity_productions_campaigns WHERE activity_production_id = ?)', activity_production.id)
@@ -76,6 +85,7 @@ class Campaign < Ekylibre::Record::Base
   class << self
     def of(year)
       raise 'Invalid year: ' + year.inspect unless year.to_s =~ /\A\d+\z/
+
       find_or_create_by!(harvest_year: year)
     end
 

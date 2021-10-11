@@ -48,6 +48,7 @@ module Procedo
       def find!(name)
         parameter = find(name)
         raise "Cannot find parameter: #{name.inspect}" unless parameter
+
         parameter
       end
 
@@ -58,6 +59,7 @@ module Procedo
         index = 1
         browse_all do |i|
           return index if i == parameter
+
           index += 1
         end
         nil
@@ -96,22 +98,22 @@ module Procedo
 
       protected
 
-      # Retrieve all (nested or not) Parameter objects in the group in the order
-      # defined by default.
-      def all_parameters
-        list = []
-        browse_all do |parameter|
-          list << parameter
+        # Retrieve all (nested or not) Parameter objects in the group in the order
+        # defined by default.
+        def all_parameters
+          list = []
+          browse_all do |parameter|
+            list << parameter
+          end
+          list
         end
-        list
-      end
 
-      def browse_all(&block)
-        @parameters.each do |_k, parameter|
-          yield parameter
-          parameter.browse_all(&block) if parameter.is_a?(Procedo::Procedure::GroupParameter)
+        def browse_all(&block)
+          @parameters.each do |_k, parameter|
+            yield parameter
+            parameter.browse_all(&block) if parameter.is_a?(Procedo::Procedure::GroupParameter)
+          end
         end
-      end
     end
   end
 end

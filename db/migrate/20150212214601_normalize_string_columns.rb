@@ -1,4 +1,4 @@
-class NormalizeStringColumns < ActiveRecord::Migration
+class NormalizeStringColumns < ActiveRecord::Migration[4.2]
   LIMITS = [
     [:gap_items, [:currency], 3],
     [:crumbs, %i[device_uid nature], 255],

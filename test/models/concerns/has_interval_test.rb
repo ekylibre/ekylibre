@@ -32,5 +32,4 @@ class HasIntervalTest < Ekylibre::Testing::ApplicationTestCase
     @dummy.delay = ""
     assert_nil @dummy.intercepted
   end
-
 end

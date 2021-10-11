@@ -1,4 +1,4 @@
-class FixHoeingParameterRenaming < ActiveRecord::Migration
+class FixHoeingParameterRenaming < ActiveRecord::Migration[4.2]
   def up
     execute "UPDATE intervention_parameters AS ip SET reference_name = 'hoe' FROM interventions AS i WHERE i.id = ip.intervention_id AND reference_name = 'cultivator' AND i.procedure_name = 'hoeing'"
   end

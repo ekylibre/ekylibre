@@ -1,20 +1,21 @@
 #!/bin/bash
+set -e
+
+function psql_exec {
+  psql -h "${POSTGRES_HOST}" -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" -c "$1"
+}
+
 (
     cd /app
 
-    RETRIES=300 # 5 minutes
-    until psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
-      echo "Waiting for postgres server, $((RETRIES--)) remaining attempts..."
-      sleep 1
-    done
+    bash test/ci/wait_pg.sh "${POSTGRES_HOST}" "${POSTGRES_USER}" "${POSTGRES_DB}"
 
-    echo "PostgreSQL is up and running"
-
-    psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'CREATE SCHEMA IF NOT EXISTS postgis; DROP EXTENSION postgis CASCADE;'
-    psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
-    psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
-    psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
-
+    psql_exec 'CREATE SCHEMA IF NOT EXISTS postgis; DROP EXTENSION postgis CASCADE;'
+    psql_exec 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+    psql_exec 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
+    psql_exec 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
+    psql_exec 'CREATE EXTENSION IF NOT EXISTS "pg_trgm" SCHEMA postgis;'
+    
     cp -f test/ci/database.yml config/database.yml
 
     gpg --import 'test/fixture-files/my-private-key.asc'
@@ -24,5 +25,5 @@
 
     bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false
 
-    bundle exec rake ${1:-test}
+    bin/rails test
 )

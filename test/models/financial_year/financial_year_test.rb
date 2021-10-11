@@ -69,7 +69,6 @@ module FinancialYearTest
       assert year.valid?
     end
 
-
     test 'financial year can t be created before company born at date' do
       assert FinancialYear.on(Date.civil(1900, 1, 4)).nil?
       assert FinancialYear.on(Date.civil(2015, 5, 4))
@@ -115,18 +114,14 @@ module FinancialYearTest
       assert create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :opened), 'There are still at least 2 financial years opened'
     end
 
-    test 'can not create accountant elements on a closed financial year' do
-      FinancialYear.delete_all
-      year = create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :closed)
-
-      create_accountant_elements_should_raise '06-01-2017'
-    end
-
     test 'can not create accountant elements on a locked financial year' do
       FinancialYear.delete_all
       year = create(:financial_year, started_on: '01-01-2017', stopped_on: '31-12-2017', state: :locked)
 
-      create_accountant_elements_should_raise '06-01-2017'
+      assert_raise(ActiveRecord::RecordInvalid) {create(:sale, invoiced_at: '06-01-2017')}
+      assert_raise(ActiveRecord::RecordInvalid) {create(:purchase_invoice, invoiced_at: '06-01-2017')}
+      assert_raise(ActiveRecord::RecordInvalid) {create(:cash_transfer, transfered_at: '06-01-2017')}
+      assert_raise(ActiveRecord::RecordInvalid) {create(:parcel, given_at: '06-01-2017')}
     end
 
     test 'destroy all consecutive financial years without entries' do
@@ -142,33 +137,15 @@ module FinancialYearTest
       Inventory.delete_all
 
       # Generate financial years with no journal entries, no tax declarations and no inventory in order to make destroyable
-      start_date = '01-01-2001'
-      stop_date = '31-12-2001'
-      dates = Array.new(10) { Hash.new }
-
-      # Get array of hash containing dates, IE : [{started_on: '01-01-2001', stopped_on: '01-01-2001'}, {started_on: '01-01-2002', stopped_on: '01-01-2002'}]
-      dates.each_with_index do |d, i|
-        d[:started_on] = start_date.to_date + i.year
-        d[:stopped_on] = stop_date.to_date + i.year
-      end
-
-      # Create financial years
-      dates.each { |d| create(:financial_year, :skip_validate, started_on: d[:started_on], stopped_on: d[:stopped_on], state: :opened) }
+      (2001..2010).each { |y| create(:financial_year, :skip_validate, year: y, state: :opened) }
       assert_equal FinancialYear.count, 10
       assert_equal FinancialYear.consecutive_destroyables.count, FinancialYear.count
 
       # Add an entry to a financial year, not the first nor the last, in order to make it not destroyable
       printed_on = FinancialYear.order(:started_on)[7].started_on + 100.days
       create(:journal_entry, :with_items, printed_on: printed_on)
-      assert_equal FinancialYear.consecutive_destroyables.count, 7
-      assert FinancialYear.consecutive_destroyables.delete_all
-    end
-
-    def create_accountant_elements_should_raise(accounting_date)
-      assert_raise(ActiveRecord::RecordInvalid) { create(:sale, invoiced_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:purchase_invoice, invoiced_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:cash_transfer, transfered_at: accounting_date) }
-      assert_raise(ActiveRecord::RecordInvalid) { create(:parcel, given_at: accounting_date) }
+      assert_equal 7, FinancialYear.consecutive_destroyables.count
+      assert FinancialYear.where(id: FinancialYear.consecutive_destroyables.map(&:id)).delete_all
     end
 
   end

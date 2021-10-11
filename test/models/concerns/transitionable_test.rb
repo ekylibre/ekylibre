@@ -11,7 +11,6 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
 
   test 'TransitionableShouldExtractOnlyTransitions' do
     class TransitionableShouldExtractOnlyTransitions
-
       module Transitions
         class TestTransition < Transitionable::Transition
           event :pouet
@@ -39,6 +38,7 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
         class Pouet < Transitionable::Transition
           event :pouet
         end
+
         class Tut < Transitionable::Transition
           event :tut
         end
@@ -46,13 +46,14 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
 
       include Transitionable
     end
+
     res = TransitionableForTestPredicatesMethod.new
 
     def res.state
       :pouet
     end
 
-    assert %i[can_pouet? can_tut?].all? { |pred| res.methods.include? pred }
+    assert(%i[can_pouet? can_tut?].all? { |pred| res.methods.include? pred })
 
     pouet = TransitionableForTestPredicatesMethod::Transitions::Pouet
     pouet.send :define_method, :can_run? do
@@ -84,6 +85,7 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
       class Transition < Transitionable::Transition
         from :draft
       end
+
       assert_equal [:draft], Transition.from
 
       res = Object.new
@@ -94,7 +96,6 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
 
       transition1 = Transition.new(res)
       assert transition1.can_run?
-
 
       res2 = Object.new
 
@@ -197,5 +198,4 @@ class TransitionableTest < Ekylibre::Testing::ApplicationTestCase
       assert_nil t4.error
     end
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,7 +50,7 @@
 #  updater_id             :integer
 #
 
-class Analysis < Ekylibre::Record::Base
+class Analysis < ApplicationRecord
   include Attachable
   include Customizable
   enumerize :retrieval_status, in: %i[ok controller_error internal_error sensor_error error], predicates: true
@@ -59,16 +61,17 @@ class Analysis < Ekylibre::Record::Base
   belongs_to :sensor
   belongs_to :host, class_name: 'Product', foreign_key: :host_id
   has_many :items, class_name: 'AnalysisItem', foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
+  has_one :wine_incoming_harvest
 
   has_geometry :geolocation, type: :point
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :analysed_at, :stopped_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :analysed_at, :stopped_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :retrieval_status, presence: true
   validates :number, :sampling_temporal_mode, presence: true, length: { maximum: 500 }
   validates :reference_number, :retrieval_message, length: { maximum: 500 }, allow_blank: true
-  validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
 
   acts_as_numbered
@@ -79,6 +82,10 @@ class Analysis < Ekylibre::Record::Base
     where(sampled_at: started_at..stopped_at)
   }
 
+  scope :with_indicator, lambda { |indicator|
+    where(id: AnalysisItem.where(indicator_name: indicator).select(:analysis_id))
+  }
+
   before_validation do
     self.sampled_at ||= Time.zone.now
   end
@@ -87,12 +94,17 @@ class Analysis < Ekylibre::Record::Base
     reload.items.each(&:save!)
   end
 
+  protect(on: :destroy) do
+    wine_incoming_harvest.present?
+  end
+
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+    unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
-    raise ArgumentError, 'Value must be given' if value.nil?
+    raise ArgumentError.new('Value must be given') if value.nil?
+
     options[:indicator_name] = indicator.name
     unless item = items.find_by(indicator_name: indicator.name)
       item = items.build(indicator_name: indicator.name)
@@ -103,18 +115,21 @@ class Analysis < Ekylibre::Record::Base
   end
 
   def get(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+    unless indicator.is_a?(Onoma::Item) || indicator = Onoma::Indicator[indicator]
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Onoma::Indicator.all.sort.to_sentence}.")
     end
+
     options = args.extract_options!
     items = self.items.where(indicator_name: indicator.name.to_s)
     return items.first.value if items.any?
+
     nil
   end
 
   # Returns if status changed since previous call
   def status_changed?
     return true unless previous
+
     previous.retrieval_status != retrieval_status
   end
 
@@ -125,9 +140,14 @@ class Analysis < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicator.all.include?(method_name.to_s)
+    if Onoma::Indicator.all.include?(method_name.to_s)
       return get(method_name, *args)
     end
+
     super
+  end
+
+  def has_attachments
+    self.attachments.present?
   end
 end

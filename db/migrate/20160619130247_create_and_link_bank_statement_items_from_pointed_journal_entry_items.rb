@@ -1,4 +1,4 @@
-class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord::Migration
+class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord::Migration[4.2]
   def up
     each_pointed_journal_entry_items_by_cash_id do |_, journal_entry_items|
       bank_statement_letter = 'A'

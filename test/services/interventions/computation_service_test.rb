@@ -2,20 +2,17 @@ require 'test_helper'
 
 module Interventions
   class ComputationServiceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
     test 'computation of simple intervention' do
-
-      input_product = create(:fertilizer_product)
-      input_product.variant.read!(:net_volume, '1 liter')
+      input_product = create(:phytosanitary_product, born_at: "2019-01-01T00:00:00Z")
+      input_product.read!(:net_volume, '1 liter', at: "2019-01-01T00:00:00Z")
 
       ewkt = "SRID=4326;MultiPolygon (((-1.017533540725708 44.23605999218229, -1.0204195976257324 44.236744122959124, -1.0197114944458008 44.238758034804555, -1.0165786743164062 44.238143107200145, -1.017533540725708 44.23605999218229)))"
 
       target_product = create(:corn_plant, initial_shape: Charta.new_geometry(ewkt))
 
-
       tool_product = create(:tractor)
 
-      attributes = {
+      attributes = ActionController::Parameters.new({
         procedure_name: "spraying",
         working_periods_attributes: [
           {
@@ -44,7 +41,7 @@ module Interventions
             product_id: tool_product.id
           }
         ]
-      }.with_indifferent_access
+      }.with_indifferent_access)
 
       options = {
         auto_calculate_working_periods: true,
@@ -53,18 +50,23 @@ module Interventions
       }
 
       @attributes = Interventions::Computation::Compute
-                            .new(parameters: attributes)
-                            .perform(options: options)
+                      .new(parameters: attributes)
+                      .perform(options: options)
 
       assert @attributes.present?
       assert @attributes.key? :procedure_name
     end
 
     test 'computation of complex intervention' do
-
       ## seed
       input_product = create(:seed_product)
-      input_product.variant.read!(:net_mass, '2000 kilogram')
+      input_product.variant.read!(:net_mass, '1000 kilogram')
+      input_product.variant.read!(:thousand_grains_mass, '300 gram')
+      input_product.variant.reload
+      unit = Unit.import_from_lexicon('ton_bulk')
+      input_product.conditioning_unit = unit
+      input_product.save!
+      input_product.reload
 
       ## land parcel
       ewkt = "SRID=4326;MultiPolygon (((-1.017533540725708 44.23605999218229, -1.0204195976257324 44.236744122959124, -1.0197114944458008 44.238758034804555, -1.0165786743164062 44.238143107200145, -1.017533540725708 44.23605999218229)))"
@@ -77,7 +79,7 @@ module Interventions
       ## plant
       output_variant = create(:corn_plant_variant)
 
-      attributes = {
+      attributes = ActionController::Parameters.new({
         procedure_name: "sowing",
         working_periods_attributes: [
           {
@@ -112,7 +114,7 @@ module Interventions
           }
         ]
 
-      }.with_indifferent_access
+      }.with_indifferent_access)
 
       options = {
         auto_calculate_working_periods: true,

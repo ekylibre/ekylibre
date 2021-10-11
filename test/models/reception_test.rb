@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -133,11 +133,11 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     # jei_s variant must be defined
     assert_not jei_s.variant.nil?
-    assert_equal jei_s.variant, @variant
+    assert_equal jei_s.variant, ProductNatureVariant.find(@variant.id)
 
     # jei_sm variant must be defined
     assert_not jei_sm.variant.nil?
-    assert_equal jei_sm.variant, @variant
+    assert_equal jei_sm.variant, ProductNatureVariant.find(@variant.id)
   end
 
   test 'unitary items in receptions' do
@@ -153,8 +153,10 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       variant: unitary_variant,
       product_name: 'Moo',
       product_identification_number: 'Cow-wow',
+      role: :merchandise,
       storings_attributes: [
-        { quantity: 1,
+        { conditioning_quantity: 1,
+          conditioning_unit: unitary_variant.guess_conditioning[:unit],
           storage: @storage } # Building.first
       ]
     }]
@@ -176,32 +178,34 @@ class ReceptionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   private
 
-  def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
-    attributes = {
-      delivery_mode: delivery_mode,
-      address: address || @address,
-      sender: sender || @sender,
-      separated_stock: separated,
-      given_at: DateTime.new(2018, 1, 1)
-    }
+    def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil)
+      attributes = {
+        delivery_mode: delivery_mode,
+        address: address || @address,
+        sender: sender || @sender,
+        separated_stock: separated,
+        given_at: DateTime.new(2018, 1, 1)
+      }
 
-    items_attributes ||= [{
-      # population: 20,
-      unit_pretax_stock_amount: 15,
-      variant: @variant,
-      storings_attributes: [
-        {
-          quantity: 20,
-          storage: storage || @storage
-        }
-      ]
-    }]
+      items_attributes ||= [{
+        # population: 20,
+        unit_pretax_stock_amount: 15,
+        variant: @variant,
+        role: :merchandise,
+        storings_attributes: [
+          {
+            conditioning_quantity: 20,
+            storage: storage || @storage,
+            conditioning_unit: @variant.guess_conditioning[:unit]
+          }
+        ]
+      }]
 
-    reception = Reception.create!(attributes)
-    items_attributes.each do
-      reception.items.create!(items_attributes)
+      reception = Reception.create!(attributes)
+      items_attributes.each do
+        reception.items.create!(items_attributes)
+      end
+
+      reception
     end
-
-    reception
-  end
 end

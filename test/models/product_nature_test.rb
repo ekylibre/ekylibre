@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -44,6 +44,7 @@
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  population_counting       :string           not null
+#  provider                  :jsonb
 #  reference_name            :string
 #  subscribing               :boolean          default(FALSE), not null
 #  subscription_days_count   :integer          default(0), not null
@@ -61,7 +62,7 @@ require 'test_helper'
 class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
   test 'working sets scope' do
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert ProductNature.of_working_set(item.name).count >= 0
     end
   end
@@ -116,10 +117,10 @@ class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     references = { animal: :bird_band,
                    article: :acidifier,
                    crop: :crop,
-                   equipment: :air_compressor,
+                   equipment: :blower,
                    service: :agricultural_service,
                    worker: :worker,
-                   zone: :zone }
+                   zone: :building_division }
 
     references.each { |type, reference| assert ProductNature.import_from_lexicon(reference).is_a?("VariantTypes::#{type.capitalize}Type".constantize) }
   end

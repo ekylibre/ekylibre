@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Import a GeoJSON file (as FeatureCollection) with `name` and `number`
   # properties for each feature.
   class CultivableZonesJsonExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     # def check
     #   valid = true
     #   clusters = JSON.parse(file.read).deep_symbolize_keys
@@ -31,15 +36,16 @@ module Ekylibre
 
     private
 
-    def ensure_clusters_valid_geojson(clusters)
-      raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.' if clusters['type'] != 'FeatureCollection'
-    end
+      def ensure_clusters_valid_geojson(clusters)
+        raise ActiveExchanger::NotWellFormedFileError.new('File seems to be JSON but not GeoJSON.') if clusters['type'] != 'FeatureCollection'
+      end
 
-    def zones_overlapping(shape)
-      # check if current cluster cover or overlap an existing cultivable zone
-      shapes_over_zone = CultivableZone.shape_covering(shape, 0.02)
-      return shapes_over_zone if shapes_over_zone.any?
-      CultivableZone.shape_matching(shape, 0.02)
-    end
+      def zones_overlapping(shape)
+        # check if current cluster cover or overlap an existing cultivable zone
+        shapes_over_zone = CultivableZone.shape_covering(shape, 0.02)
+        return shapes_over_zone if shapes_over_zone.any?
+
+        CultivableZone.shape_matching(shape, 0.02)
+      end
   end
 end

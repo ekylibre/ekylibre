@@ -168,6 +168,8 @@
     var element = $(this), frame;
     frame = $('#' + element.data("close-dialog"));
     frame.dialog("close");
+    frame.dialog("destroy");
+    frame.remove();
     return false;
   });
 
@@ -424,13 +426,18 @@
   });
 
 
-  // Auto focus
-  $.autoFocus = function () {
+// Auto focus
+const autoFocus = function () {
     this.focus();
     // this.select();
-  };
-  $.behave("*[data-autofocus]", "load", $.autoFocus);
-  $.behave("input[type='text']:not([class*='flatpickr']):first", "load", $.autoFocus);
+};
+$.behave("*[data-autofocus]", "load", autoFocus);
+// $.behave("input[type='text']:not([class*='flatpickr']):first", "load", $.autoFocus);
+$.behave(root => {
+    const candidates = _.filter(root.querySelectorAll("input[type='text']"), e => !e.classList.contains('flatpickr-input'))
+
+    return _.take(candidates, 1)
+}, "load", autoFocus)
   /*    $.behave("*:input:visible:first", "load", $.autoFocus);
         $.behave("*[data-autofocus]:visible", "load", $.autoFocus);*/
 
@@ -465,6 +472,24 @@
       }
     });
     return false;
+  });
+
+  $(document).on('change', 'input:radio[data-slide-toggle]', function (event) {
+    const selector = $(this).data('slide-toggle');
+    const closestSelector = $(this).data('slide-toggle-closest');
+    const parentSelector = $(this).data('parent');
+    const name = $(this).attr('name');
+    const $target = closestSelector ? $(this).closest(parentSelector).find(selector).closest(closestSelector) : $(this).closest(parentSelector).find(selector);
+    $target.slideToggle($(this).checked);
+    $(this).closest(parentSelector).find("input:radio[name='" + name + "'][data-slide-toggle]").not($(this)).trigger('uncheck');
+  });
+
+  $(document).on('uncheck', 'input:radio[data-slide-toggle]', function (event) {
+    const selector = $(this).data('slide-toggle');
+    const closestSelector = $(this).data('slide-toggle-closest');
+    const parentSelector = $(this).data('parent');
+    const $target = closestSelector ? $(this).closest(parentSelector).find(selector).closest(closestSelector) : $(this).closest(parentSelector).find(selector);
+    $target.hide();
   });
 
 

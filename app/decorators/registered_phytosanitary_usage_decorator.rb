@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RegisteredPhytosanitaryUsageDecorator < Draper::Decorator
   delegate_all
 
@@ -21,11 +23,16 @@ class RegisteredPhytosanitaryUsageDecorator < Draper::Decorator
 
   def usage_conditions
     return unless object.usage_conditions
+
     ApplicationController.helpers.picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{object.id}" })
   end
 
   def pre_harvest_delay
     object.pre_harvest_delay ? "#{object.pre_harvest_delay.in_full(:day)} j" : nil
+  end
+
+  def applications_frequency
+    object.applications_frequency ? "#{object.applications_frequency.in_full(:day)} j" : nil
   end
 
   def value_in_days(col)

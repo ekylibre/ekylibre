@@ -13,7 +13,7 @@
       {title: { text: :humidity.tl }, labels: { format: '{value} %' }, opposite: true},
       {title: { text: :pluviometry.tl }, labels: { format: '{value} mm' }, opposite: true},
       {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }},
-      {title: {text: Nomen::Indicator[:temperature].human_name}, labels: { format: '{value} °C' }},
+      {title: {text: Onoma::Indicator[:temperature].human_name}, labels: { format: '{value} °C' }},
     ]
 
   = spline_highcharts(series, x_axis: {categories: categories}, y_axis: y_axis, legend: true)

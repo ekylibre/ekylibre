@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -45,7 +47,7 @@
 #  updater_id                 :integer
 #
 
-class CashTransfer < Ekylibre::Record::Base
+class CashTransfer < ApplicationRecord
   include Customizable
   include Attachable
   acts_as_numbered
@@ -57,19 +59,17 @@ class CashTransfer < Ekylibre::Record::Base
   belongs_to :reception_cash, class_name: 'Cash'
   belongs_to :reception_journal_entry, class_name: 'JournalEntry'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :emission_amount, :reception_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :emission_cash, :emission_currency, :reception_cash, :reception_currency, presence: true
   validates :number, presence: true, length: { maximum: 500 }
-  validates :transfered_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :transfered_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validates :emission_currency, :reception_currency, length: { allow_nil: true, maximum: 3 }
   validates :emission_amount, numericality: { greater_than: 0.0 }
-  validates :transfered_at, presence: true, financial_year_writeable: true
-
-
+  validates :transfered_at, presence: true, financial_year_writeable: true, ongoing_exchanges: true
 
   before_validation do
     self.transfered_at ||= Time.zone.today
@@ -89,13 +89,10 @@ class CashTransfer < Ekylibre::Record::Base
 
   validate do
     errors.add(:reception_cash, :invalid) if reception_cash_id == emission_cash_id
-    if transfered_at
-      errors.add(:transfered_at, :financial_year_exchange_on_this_period) if transfered_during_financial_year_exchange?
-    end
   end
 
   bookkeep do |b|
-    transfer_account = Account.find_by(usages: :internal_transfers)
+    transfer_account = Account.find_or_import_from_nomenclature(:internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
     b.journal_entry(emission_cash.journal, printed_on: self.transfered_at.to_date, as: :emission) do |entry|
       entry.add_debit(label, transfer_account.id, emission_amount, as: :transfer)
@@ -105,10 +102,6 @@ class CashTransfer < Ekylibre::Record::Base
       entry.add_debit(label, reception_cash.account_id, reception_amount, as: :receiver)
       entry.add_credit(label, transfer_account.id, reception_amount, as: :transfer)
     end
-  end
-
-  def transfered_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', transfered_at).any?
   end
 
   def opened_financial_year?

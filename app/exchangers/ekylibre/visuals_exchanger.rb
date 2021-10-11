@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class VisualsExchanger < ActiveExchanger::Base
+    category :settings
+    vendor :ekylibre
+
     def import
       w.count = 1
       # load background

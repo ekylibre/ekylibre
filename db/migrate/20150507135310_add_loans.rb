@@ -1,4 +1,4 @@
-class AddLoans < ActiveRecord::Migration
+class AddLoans < ActiveRecord::Migration[4.2]
   def change
     create_table :loans do |t|
       t.references :lender, null: false, index: true

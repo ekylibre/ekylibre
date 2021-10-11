@@ -19,6 +19,7 @@ module Api
 
       def picture
         return unless contact = Entity.find_by(id: params[:contact_id])
+
         if contact.picture.file?
 
           unless File.exist?(contact.picture.path(:contact))
@@ -34,9 +35,9 @@ module Api
 
       protected
 
-      def permitted_params
-        params.permit(:last_synchro)
-      end
+        def permitted_params
+          params.permit(:last_synchro)
+        end
     end
   end
 end

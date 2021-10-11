@@ -17,6 +17,7 @@ namespace :http do
         errors.each do |name, code|
           details = I18n.translate("http.errors.#{name}", default: '', fallback: [])
           next if details.blank?
+
           file_name = "public/#{code}"
           file_name << ".#{locale}" unless I18n.default_locale == locale
           file_name << '.html'

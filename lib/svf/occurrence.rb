@@ -1,6 +1,7 @@
 module SVF
   class Occurrence
     attr_reader :name, :range, :line
+
     def initialize(name, definition)
       @name = name.to_s
       @line = @name
@@ -28,6 +29,7 @@ module SVF
 
     def numerous?
       return false unless @range
+
       (@range.first > 1) ||
         (@range.count > 1) ||
         @cardinality.in?(['*', '+'])

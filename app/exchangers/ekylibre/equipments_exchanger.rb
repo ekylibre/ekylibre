@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class EquipmentsExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     # Create or updates equipments
     def import
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
@@ -31,25 +36,36 @@ module Ekylibre
         end
 
         # find or import from variant reference_nameclature the correct ProductNatureVariant
-        unless (variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name))
-          if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+        variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
+        unless variant
+          if Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
             raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           end
         end
-        pmodel = variant.matching_model
 
         # create a price
         catalog = Catalog.find_by(usage: :cost)
-        if r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
-          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: 'EUR') # , indicator_name: r.price_indicator.to_s
+        if r.unit_pretax_amount && catalog && (r.price_indicator == :usage_duration)
+          unit = Unit.import_from_lexicon('hour_equipment')
+          price = variant.catalog_items.find_by(catalog: catalog,
+                                                all_taxes_included: false, currency: 'EUR',
+                                                unit: unit, started_at: r.born_at)
+          unless price
+            variant.catalog_items.create!(catalog: catalog,
+                                          all_taxes_included: false,
+                                          amount: r.unit_pretax_amount,
+                                          currency: 'EUR',
+                                          unit: unit,
+                                          started_at: r.born_at)
+          end
         end
 
         # create the owner if not exist
         if r.external == true
           owner = Entity.where(last_name: r.owner_name.to_s).first
-          owner ||= Entity.create!(born_at: Time.zone.today, last_name: r.owner_name.to_s, currency: Preference[:currency], language: Preference[:language], nature: :organization)
+          owner ||= Entity.create!(born_at: r.born_at, last_name: r.owner_name.to_s, currency: Preference[:currency], language: Preference[:language], nature: :organization)
         else
           owner = Entity.of_company
         end
@@ -64,7 +80,7 @@ module Ekylibre
         end
 
         # create the equipment
-        equipment = pmodel.create!(
+        equipment = Equipment.create!(
           variant_id: variant.id,
           name: r.name,
           initial_born_at: r.born_at,

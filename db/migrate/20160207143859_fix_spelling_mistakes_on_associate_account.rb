@@ -1,5 +1,5 @@
 # Migration generated with nomenclature migration #20160207142352
-class FixSpellingMistakesOnAssociateAccount < ActiveRecord::Migration
+class FixSpellingMistakesOnAssociateAccount < ActiveRecord::Migration[4.2]
   ACCOUNTS = {
     associated_accounts: :associates_current_accounts,
     locked_associated_accounts: :associates_frozen_accounts,

@@ -1,4 +1,4 @@
-class CreateWiceGridSerializedQueries < ::ActiveRecord::Migration #:nodoc:
+class CreateWiceGridSerializedQueries < ::ActiveRecord::Migration[4.2] #:nodoc:
   def change #:nodoc:
     create_table :wice_grid_serialized_queries do |t|
       t.column :name,      :string

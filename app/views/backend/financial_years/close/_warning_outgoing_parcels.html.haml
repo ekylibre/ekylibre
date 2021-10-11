@@ -2,4 +2,4 @@
   %i.warning-validation
   = :not_sent_outgoing_parcels_on_current_financial_year.tl(code: financial_year.code)
   - period_param = @financial_year.started_on.to_s + '_' + @financial_year.stopped_on.to_s
-  = link_to(:see_outgoing_parcels.tl,  backend_shipments_path(period: period_param, nature: :outgoing), target: '_blank')
+  = link_to(:see_shipments.tl,  backend_shipments_path(period: period_param, nature: :outgoing), target: '_blank')

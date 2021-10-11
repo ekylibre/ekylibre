@@ -8,11 +8,31 @@ Bundler.require(*Rails.groups)
 
 module Ekylibre
   class Application < Rails::Application
+    # @return [Array<Ekylibre::Plugin::Base>]
+    attr_reader :plugins
+
+    def initialize(*args, **opts, &block)
+      super
+
+      @plugins = []
+    end
+
+    # @return [Procedo::ProcedureRegistry]
+    def procedo_registry
+      @procedo_registry ||= Procedo::ProcedureRegistry.new
+    end
+
+    # @return [Array<Ekylibre::Plugin::Theme>]
+    def themes
+      plugins.flat_map(&:themes).map { |name| Ekylibre::Plugin::Theme.new(name) }
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('app', 'models', 'bookkeepers')
+    config.autoload_paths << Rails.root.join('app', 'models', 'lexicon')
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
@@ -21,20 +41,16 @@ module Ekylibre
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-    config.i18n.available_locales = %i[arb cmn deu eng fra ita jpn por spa]
-    I18n.config.enforce_available_locales = false
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :eng
-    config.i18n.locale = :eng
-
     # Confiure ActiveJob queue adapter
     config.active_job.queue_adapter = :sidekiq
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # Default starting from Rails 5
+    # TODO: enable this when all optional belongs_to have been edited with 'optional: true'
+    # config.active_record.belongs_to_required_by_default = true
+
+    # TODO: enable this when ready
+    # config.action_controller.per_form_csrf_tokens = true
+    # config.action_controller.forgery_protection_origin_check = true
 
     # Configure defaults for generators
     config.generators do |g|
@@ -45,22 +61,20 @@ module Ekylibre
     # APM
     config.elastic_apm.service_name = ENV.fetch('APM_SERVICE_NAME', 'Ekylibre')
 
-    # config.middleware.use Rack::Cors do
-    #   allow do
-    #     origins '*'
-    #     resource '*', :headers => :any, :methods => [:get, :post]
-    #   end
-    # end
+    config.middleware.use Rack::Cors do
+      allow do
+        origins /https:\/\/ekylibre.stoplight.io\.*/
+        resource '*', 
+          headers: :any,
+          methods: %i[get post put patch delete]
+      end
+    end
 
-    config.middleware.insert_after ActionDispatch::ParamsParser, ActionDispatch::XmlParamsParser
+    # TODO: Rails 5 upgrade: check if removing this is OK
+    # config.middleware.insert_after ActionDispatch::ParamsParser, ActiveSupport::XMLConverter
 
-    # Configure layouts for devise
-    config.to_prepare do
-      Devise::SessionsController.layout 'authentication'
-      Devise::RegistrationsController.layout proc { |_controller| user_signed_in? ? 'backend' : 'authentication' }
-      Devise::ConfirmationsController.layout 'authentication'
-      Devise::UnlocksController.layout 'authentication'
-      Devise::PasswordsController.layout 'authentication'
+    initializer :register_core_plugin, before: :load_config_initializers do
+      Ekylibre::Application.instance.plugins << Ekylibre::Core::Plugin.new
     end
 
     initializer :after_append_asset_paths, group: :all, after: :append_assets_path do

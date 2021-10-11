@@ -43,13 +43,13 @@ module Backend
       code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
 
       code << "unless params[:state].blank?\n"
-      code << "  if params[:state].include?('client')\n"
+      code << "  if params[:state] == 'client'\n"
       code << "    c[0] << ' AND #{Entity.table_name}.client IS TRUE'\n"
       code << "  end\n"
-      code << "  if params[:state].include?('supplier')\n"
+      code << "  if params[:state] == 'supplier'\n"
       code << "    c[0] << ' AND #{Entity.table_name}.supplier IS TRUE'\n"
       code << "  end\n"
-      code << "  if params[:state].include?('active')\n"
+      code << "  if params[:state] == 'active'\n"
       code << "    c[0] << ' AND #{Entity.table_name}.active IS TRUE'\n"
       code << "  end\n"
       code << "end\n"
@@ -94,6 +94,11 @@ module Backend
       code << "    c << params[:delay].to_i.to_s + ' days'\n"
       code << "  end\n"
       code << "end\n"
+
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{Entity.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -111,6 +116,7 @@ module Backend
       t.column :mail_line_3, through: :default_mail_address, hidden: true
       t.column :mail_line_4, through: :default_mail_address, hidden: true
       t.column :mail_line_5, through: :default_mail_address, hidden: true
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
       t.column :mail_line_6, through: :default_mail_address
       t.column :mail_country, label_method: :human_mail_country_name, through: :default_mail_address, hidden: true
       t.column :email, label_method: :coordinate, through: :default_email_address, hidden: true
@@ -123,6 +129,7 @@ module Backend
 
     def show
       return unless @entity = find_and_check
+
       respond_with(@entity, include: { default_mail_address: { methods: [:mail_coordinate] } }) do |format|
         format.html do
           t3e @entity.attributes, nature: @entity.nature.l
@@ -311,7 +318,7 @@ module Backend
       eval code
     end
 
-    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:client_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).client_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -336,7 +343,7 @@ module Backend
       eval code
     end
 
-    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+    list(:supplier_journal_entry_items, model: :journal_entry_items, conditions: { account_id: 'Entity.find(params[:id]).supplier_account_id'.c }, line_class: "(RECORD.completely_lettered? ? 'lettered-item' : '')".c, joins: :entry, order: "entry_id DESC, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
       t.column :journal, url: true
       t.column :entry_number, url: true
       t.column :printed_on, datatype: :date, label: :column
@@ -392,7 +399,7 @@ module Backend
           end
           cols = {}
           columns = all_columns
-          for prefix in columns.values.collect { |x| x.split(/\-/)[0] }.uniq
+          columns.values.collect { |x| x.split(/\-/)[0] }.uniq.each do |prefix|
             cols[prefix.to_sym] = {}
             columns.select { |_k, v| v.match(/^#{prefix}-/) }.each { |k, v| cols[prefix.to_sym][k.to_s] = v.split(/\-/)[1].to_sym }
           end
@@ -423,6 +430,7 @@ module Backend
       if request.post?
         return unless @master = find_and_check(id: params[:master])
         return unless @double = find_and_check(id: params[:double])
+
         if @master.id == @double.id
           notify_error_now(:cannot_merge_an_entity_with_itself)
           return

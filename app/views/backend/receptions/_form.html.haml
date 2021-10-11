@@ -8,51 +8,59 @@
 = content_for(:heading_toolbar) do
   = reception_badges f.object
 
-= field_set :general_informations, class: ['reception-form', ('reception-form--late' if f.object.late_delivery), 'reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
-  = f.input :nature, as: :hidden
-  = f.input :contract_id, as: :hidden
-  .delivery-item
-    = f.referenced_association :sender, required: true
-    = f.input :purchase_id, as: :hidden
-    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
-    = f.input :reference_number, label: :reception_number.tl
-  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
-  -#= f.referenced_association :sale
-  = f.input :given_at, as: :date, required: false, label: :receipt_date.tl
+.purchase-form
+  = field_set :general_informations, class: ['reception-form', ('reception-form--late' if f.object.late_delivery), 'reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
+    = f.input :nature, as: :hidden
+    = f.input :contract_id, as: :hidden
+    .delivery-item
+      = f.referenced_association :sender, required: true, input_html: { data: { toggle_enable: '#showReconciliationModal', parent: '.fieldset-fields' } }
+      = f.input :purchase_id, as: :hidden
+      = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
+      = f.input :reference_number, label: :reception_number.tl
+    = f.referenced_association :responsible, source: :employees, new: { employed: 1 }, label: :receipt_responsible.tl
+    = f.input :given_at, as: :date, required: true, label: :receipt_date.tl
 
-  = f.input :late_delivery do
-    = f.check_box :late_delivery
-    .reception-form__late-warning= :late_delivery.tl.upcase
-  #due-on
-    = f.input :planned_at, as: :date, required: false
+    = f.input :late_delivery do
+      = f.check_box :late_delivery
+      .reception-form__late-warning= :late_delivery.tl.upcase
+    #due-on
+      = f.input :planned_at, as: :date, required: false
 
-  = field :element_status.tl do
-    %span.reconciliable-form__state.reconciliable-form__state--to-reconcile
-      = :to_reconciliate.tl
-    %span.reconciliable-form__state.reconciliable-form__state--reconcile
-      = :reconcile.tl
-    %span.reconciliable-form__state.reconciliable-form__state--accepted
-      = :accepted.tl
+    = field :element_status.tl do
+      %span.reconciliable-form__state.reconciliable-form__state--to-reconcile
+        = :to_reconciliate.tl
+      %span.reconciliable-form__state.reconciliable-form__state--reconcile
+        = :reconcile.tl
+      %span.reconciliable-form__state.reconciliable-form__state--accepted
+        = :accepted.tl
+
+    - if f.object.allow_items_update?
+      .control-group.button-modal-reconciliation
+        .controls
+          = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default disabled', type: :button
+
+      = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
+        .modal-body
+        .modal-footer
+
+    = f.custom_fields
+    = f.attachments
 
   - if f.object.allow_items_update?
-    .control-group.button-modal-reconciliation
-      .controls
-        = button_tag :reconciliate_with_purchases_orders.tl, id: 'showReconciliationModal', class: 'btn btn-default', type: :button
+    = field_set f.object.class.human_attribute_name(:items) do
+      %table.list#receptions-items-table
+        %thead
+          %tr.table-headers
+            %th.act
+            %th.act
+            %th.product-column= ParcelItem.human_attribute_name(:product)
+            %th.storage-column= :storage.tl
+            %th.quantity-column= ParcelItem.human_attribute_name(:population)
+            %th.delivery-mode-column= ParcelItem.human_attribute_name(:delivery_mode)
 
-    = modal(id: "purchase_process_reconciliation", class: "", size: :large) do
-      .modal-body
-      .modal-footer
-
-  = f.custom_fields
-  = f.attachments
-
-
-- if f.object.allow_items_update?
-  = field_set f.object.class.human_attribute_name(:items) do
-    %table.list#receptions-items-table
-      = f.simple_fields_for :items, f.object.items do |item|
-        = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
-      %tfoot#items__footer
-    .row-footer
-      - ReceptionItem.role.values.each do |role|
-        %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before
+        = f.simple_fields_for :items, f.object.items do |item|
+          = render 'item_fields', f: item, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
+        %tfoot#items__footer
+      .row-footer
+        - ReceptionItem.role.values.each do |role|
+          %span{ class: "links add-#{role}"}= link_to_add_association :"add_#{role}".tl, f, :items, partial: 'item_fields', render_options: { locals: { role: role, mode: params[:mode], display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field } }, 'data-association-insertion-node' => '#items__footer', 'data-association-insertion-method' => :before

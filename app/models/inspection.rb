@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,7 +45,7 @@
 #  updater_id                     :integer
 #
 
-class Inspection < Ekylibre::Record::Base
+class Inspection < ApplicationRecord
   include Attachable
   belongs_to :activity
   belongs_to :product
@@ -58,7 +60,7 @@ class Inspection < Ekylibre::Record::Base
   validates :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :product_net_surface_area_unit, length: { maximum: 500 }, allow_blank: true
-  validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :activity, :product, presence: true
   # ]VALIDATORS]
   validates :implanter_rows_number, :product_net_surface_area_value, :implanter_application_width, :sampling_distance, numericality: { greater_than: 0 }, allow_blank: false
@@ -139,6 +141,7 @@ class Inspection < Ekylibre::Record::Base
 
   def points_of_category(category = nil)
     return points if category.blank?
+
     points.of_category(category)
   end
 
@@ -177,6 +180,7 @@ class Inspection < Ekylibre::Record::Base
   def product_net_surface_area
     return nil if product_net_surface_area_value.blank? ||
                   product_net_surface_area_unit.blank?
+
     product_net_surface_area_value.in(product_net_surface_area_unit)
   end
 
@@ -218,37 +222,42 @@ class Inspection < Ekylibre::Record::Base
 
   # UNITS
   def quantity_unit(dimension)
-    return Nomen::Unit.find(default_quantity_unit(dimension)) if dimension.to_sym == :items_count
+    return Onoma::Unit.find(default_quantity_unit(dimension)) if dimension.to_sym == :items_count
     return grading_net_mass_unit                              if dimension.to_sym == :net_mass
   end
 
   def quantity_per_area_unit(dimension)
     possible_unit = "#{quantity_unit(dimension).name}_per_#{product_net_surface_area.unit}"
-    return possible_unit if Nomen::Unit.find(possible_unit)
+    return possible_unit if Onoma::Unit.find(possible_unit)
+
     default_per_area_unit(dimension)
   end
 
   def user_quantity_unit(dimension)
     return :thousand  if dimension.to_sym == :items_count
     return :ton       if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
   def user_per_area_unit(dimension)
     return :thousand_per_hectare      if dimension.to_sym == :items_count
     return :ton_per_hectare           if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
   def default_per_area_unit(dimension)
     return :unity_per_square_meter     if dimension.to_sym == :items_count
     return :kilogram_per_square_meter  if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
   def default_quantity_unit(dimension)
     return :unity     if dimension.to_sym == :items_count
     return :kilogram  if dimension.to_sym == :net_mass
+
     unknown_dimension(dimension)
   end
 
@@ -258,35 +267,36 @@ class Inspection < Ekylibre::Record::Base
 
   protected
 
-  # CODE FACTORING
+    # CODE FACTORING
 
-  def mappable(method, dimension)
-    ->(point_or_calib) { point_or_calib.send(method, dimension) }
-  end
-
-  # Returns the sum of measurements on a scale if one is provided or the average
-  # of measurements across all scales if none is.
-  def calibration_values(dimension, method_name, scale = nil, marketable = false)
-    on_scales = [scale]
-    on_scales = scales if scale.nil?
-    return 0 if on_scales.empty?
-    sum_per_calib = on_scales.map do |s|
-      calib = calibrations.of_scale(s)
-      calib = calib.marketable if marketable
-      calib.map(&mappable(method_name, dimension)).compact.sum
+    def mappable(method, dimension)
+      ->(point_or_calib) { point_or_calib.send(method, dimension) }
     end
-    sum_per_calib.compact.reject(&:zero?).sum / sum_per_calib.size
-  end
 
-  def sum_on_points(method, from: nil, with: nil, round: false)
-    sum = points_of_category(from)
-          .map(&mappable(method, with))
-          .sum
-    round ? sum.round(round) : sum
-  end
+    # Returns the sum of measurements on a scale if one is provided or the average
+    # of measurements across all scales if none is.
+    def calibration_values(dimension, method_name, scale = nil, marketable = false)
+      on_scales = [scale]
+      on_scales = scales if scale.nil?
+      return 0 if on_scales.empty?
 
-  def sum_column_on(points, dimension)
-    column = column_for(dimension)
-    points.sum(column).in quantity_unit(dimension)
-  end
+      sum_per_calib = on_scales.map do |s|
+        calib = calibrations.of_scale(s)
+        calib = calib.marketable if marketable
+        calib.map(&mappable(method_name, dimension)).compact.sum
+      end
+      sum_per_calib.compact.reject(&:zero?).sum / sum_per_calib.size
+    end
+
+    def sum_on_points(method, from: nil, with: nil, round: false)
+      sum = points_of_category(from)
+            .map(&mappable(method, with))
+            .sum
+      round ? sum.round(round) : sum
+    end
+
+    def sum_column_on(points, dimension)
+      column = column_for(dimension)
+      points.sum(column).in quantity_unit(dimension)
+    end
 end

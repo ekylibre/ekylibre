@@ -3,15 +3,15 @@
   - exports << :sales_invoice if resource.invoice?
   - exports << :sales_order if resource.order?
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
-  = t.export(*exports, key: :number)
+  = t.export(*exports, key: :number, target: "_blank")
   = t.duplicate resource, method: :post, params: {redirect: nil}
   - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
     - shipment_items_attributes = resource.items.map do |item|
       - item_product = item.variant.products.order(born_at: :desc).first
-      - { source_product_id: item_product, population: item.quantity }
+      - { source_product_id: item_product, conditioning_quantity: item.conditioning_quantity }
     = t.new(resource, params: { controller: :shipments, shipment: { sale_id: resource.id, recipient_id: resource.client, items_attributes: shipment_items_attributes } }, label: :create_shipment.tl)
   - if resource.invoice?
-    = t.cancel(resource) if resource.cancellable?
+    = t.cancel(resource, label: :cancel_with_voucher.tl, title: :cancel_with_voucher.tl) if resource.cancellable?
   = t.edit resource if resource.updateable?
   = t.destroy if resource.destroyable?
 
@@ -21,6 +21,7 @@
   = attributes_list do |l|
     - l.attribute :client, :label => :label, url: true
     - l.attribute :number
+    - l.attribute :reference_number
     - l.attribute :initial_number if resource.invoice?
     - l.attribute :state_label
     - l.attribute :responsible, :label => :full_name
@@ -49,7 +50,7 @@
   - c.cobble :items, title: Sale.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
-        %th{colspan: 5}= :total.tl
+        %th.items-list-colspanned{colspan: 5}= :total.tl
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
 

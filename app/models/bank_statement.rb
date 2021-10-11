@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,18 +45,18 @@
 #  updater_id             :integer
 #
 
-class BankStatement < Ekylibre::Record::Base
+class BankStatement < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :cash
   belongs_to :journal_entry
   has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :credit, :debit, :initial_balance_credit, :initial_balance_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :number, presence: true, length: { maximum: 500 }
-  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(bank_statement) { bank_statement.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(bank_statement) { bank_statement.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :cash, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
@@ -70,14 +72,10 @@ class BankStatement < Ekylibre::Record::Base
     find_by('started_on <= ? AND stopped_on >= ? AND cash_id = ?', started_on, stopped_on, cash_id)
   }
 
-  scope :for_cash, ->(cash){ where(cash: cash) }
+  scope :for_cash, ->(cash) { where(cash: cash) }
 
-  scope :between, lambda { |started_on, stopped_on|
-    start_range = where(started_on: started_on..stopped_on)
-    stop_range = where(stopped_on: started_on..stopped_on)
-    start_range = start_range.where_values.reduce(:and)
-    stop_range = stop_range.where_values.reduce(:and)
-    where(start_range.or(stop_range)).distinct
+  scope :between, ->(started_on, stopped_on) {
+    where("started_on BETWEEN :start AND :stop OR stopped_on BETWEEN :start AND :stop", start: started_on, stop: stopped_on)
   }
 
   scope :on, ->(date) {
@@ -123,8 +121,8 @@ class BankStatement < Ekylibre::Record::Base
 
   bookkeep do |b|
     b.journal_entry(cash_journal, printed_on: stopped_on, if: (!cash.enable_bookkeep_bank_item_details && cash.suspend_until_reconciliation)) do |entry|
-        # label = "BS #{cash.name} #{number}"
-        # balance = items.sum('credit - debit')
+      # label = "BS #{cash.name} #{number}"
+      # balance = items.sum('credit - debit')
       items.each do |item|
         entry.add_debit(item.name, cash.main_account_id, item.credit_balance, as: :bank)
         entry.add_credit(item.name, cash.suspense_account_id, item.credit_balance, as: :suspended, resource: item)
@@ -184,9 +182,12 @@ class BankStatement < Ekylibre::Record::Base
     new_letter = next_letter
     return false if (journal_entry_items + statement_items).length.zero?
 
-    statement_entries = JournalEntryItem.where(resource: statement_items)
-    to_letter = journal_entry_items + statement_entries
-    cash.suspense_account.mark(to_letter) if cash.suspend_until_reconciliation
+    # if suspend_until_reconciliation, we letter bsi_jei and jei on suspense_account
+    if cash.suspend_until_reconciliation
+      statement_entries = JournalEntryItem.where(resource: statement_items)
+      to_letter = journal_entry_items + statement_entries
+      cash.suspense_account.mark(to_letter)
+    end
 
     saved = true
     saved &&= statement_items.update_all(letter: new_letter)
@@ -199,35 +200,41 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def eligible_journal_entry_items
-    unpointed = cash.unpointed_journal_entry_items
-    pointed = JournalEntryItem.where.not(bank_statement_letter: nil).where(account_id: self.cash.account_id)
-    eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
-
-    if cash.enable_bookkeep_bank_item_details
-      bsi_journal_entries_id = items.pluck(:journal_entry_id)
-      bsi_bookkeeped = JournalEntryItem.where(entry_id: bsi_journal_entries_id)
-      eligible_items = eligible_items.where.not(id: bsi_bookkeeped.pluck(:id))
-    end
-
-    eligible_items
+    # same method than eligible_entries_in with no dates
+    eligible_entries_in(nil, nil)
   end
 
   def eligible_entries_in(start, finish)
-    unpointed = cash.unpointed_journal_entry_items.between(start, finish)
-    pointed = JournalEntryItem.where.not(bank_statement_letter: nil).where(account_id: self.cash.account_id).between(start, finish)
-    eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
+    unpointed = cash.unpointed_journal_entry_items
+    unpointed = unpointed.between(start, finish) if start && finish
 
-    if cash.enable_bookkeep_bank_item_details
+    cash_account_id = cash.suspend_until_reconciliation ? cash.suspense_account_id : cash.main_account_id
+    pointed = JournalEntryItem.where.not(bank_statement_letter: nil).where(account_id: cash_account_id)
+    pointed = pointed.between(start, finish) if start && finish
+
+    ## case of suspense account and bookkeep details (journal_entries exist on each bsi)
+    ## check bank_statement_letter betweed bsi and jei (suspense_account : 511)
+    if cash.suspend_until_reconciliation && cash.enable_bookkeep_bank_item_details
+      # we don't want jei create by bsi bookkeeped
       bsi_journal_entries_id = items.pluck(:journal_entry_id)
       bsi_bookkeeped = JournalEntryItem.where(entry_id: bsi_journal_entries_id)
-      eligible_items = eligible_items.where.not(id: bsi_bookkeeped.pluck(:id))
+      eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id)).where.not(id: bsi_bookkeeped.pluck(:id))
+    ## case of suspense account (journal_entry exist on bs and is the same on each bsi) and not bookkeep details
+    elsif cash.suspend_until_reconciliation && !cash.enable_bookkeep_bank_item_details
+      # we don't want jei create by bs bookkeeped
+      bs_bookkeeped = JournalEntryItem.where(entry_id: journal_entry_id)
+      eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id)).where.not(id: bs_bookkeeped.pluck(:id))
+    ## case of no suspense account (no journal_entries link)
+    ## check bank_statement_letter betweed bsi and jei (main_account : 512)
+    else
+      eligible_items = JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
     end
 
     eligible_items
   end
 
   def save_with_items(statement_items)
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       saved = save
 
       previous_journal_entry_item_ids_by_letter = items.each_with_object({}) do |item, hash|
@@ -273,12 +280,14 @@ class BankStatement < Ekylibre::Record::Base
 
   private
 
-  def clear_reconciliation_with_letters(letters)
-    return unless letters.any?
-    JournalEntryItem.where(bank_statement_letter: letters).update_all(
-      bank_statement_id: nil,
-      bank_statement_letter: nil
-    )
-    BankStatementItem.where(letter: letters).update_all(letter: nil)
-  end
+    def clear_reconciliation_with_letters(letters)
+      return unless letters.any?
+
+      JournalEntryItem.where(bank_statement_letter: letters).update_all(
+        bank_statement_id: nil,
+        bank_statement_letter: nil,
+        letter: nil
+      )
+      BankStatementItem.where(letter: letters).update_all(letter: nil)
+    end
 end

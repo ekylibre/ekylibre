@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -59,7 +61,7 @@
 #  payment_at                               :datetime
 #  payment_delay                            :string           not null
 #  pretax_amount                            :decimal(19, 4)   default(0.0), not null
-#  providers                                :jsonb
+#  provider                                 :jsonb
 #  quantity_gap_on_invoice_journal_entry_id :integer
 #  reference_number                         :string
 #  responsible_id                           :integer
@@ -72,7 +74,7 @@
 #
 require 'benchmark'
 
-class Sale < Ekylibre::Record::Base
+class Sale < ApplicationRecord
   include Attachable
   include Customizable
   include Providable
@@ -98,7 +100,7 @@ class Sale < Ekylibre::Record::Base
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   has_many :parcel_items, through: :parcels, source: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :conclusion, :description, :introduction, length: { maximum: 500_000 }, allow_blank: true
   validates :client_reference, :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true
@@ -109,14 +111,16 @@ class Sale < Ekylibre::Record::Base
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
   validates :client, :currency, :nature, presence: true
-  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, allow_blank: true
+  validates :invoiced_at, presence: { if: :invoice? }, financial_year_writeable: true, ongoing_exchanges: true, allow_blank: true
+  validates_associated :items
+  validate :items_presence
   validates_delay_format_of :payment_delay, :expiration_delay
 
   alias_attribute :third_id, :client_id
 
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
-  accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :items, allow_destroy: true
 
   delegate :with_accounting, to: :nature
 
@@ -128,6 +132,10 @@ class Sale < Ekylibre::Record::Base
 
   scope :estimate_between, lambda { |started_at, stopped_at|
     where(accounted_at: started_at..stopped_at, state: :estimate)
+  }
+
+  scope :order_between, lambda { |started_at, stopped_at|
+    where(confirmed_at: started_at..stopped_at, state: :order)
   }
 
   scope :with_nature, ->(id) { where(nature_id: id) }
@@ -202,7 +210,6 @@ class Sale < Ekylibre::Record::Base
 
   validate do
     if invoiced_at
-      errors.add(:invoiced_at, :financial_year_exchange_on_this_period) if invoiced_during_financial_year_exchange?
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
 
       linked_fixed_asset_ids = items.map(&:fixed_asset_id).compact
@@ -213,6 +220,7 @@ class Sale < Ekylibre::Record::Base
     end
     %i[address delivery_address invoice_address].each do |mail_address|
       next unless send(mail_address)
+
       unless send(mail_address).mail?
         errors.add(mail_address, :must_be_a_mail_address)
       end
@@ -224,6 +232,12 @@ class Sale < Ekylibre::Record::Base
       self.class.columns_definition.keys.each do |attr|
         send(attr + '=', old_record.send(attr))
       end
+    end
+  end
+
+  after_update do
+    if self.aborted? && self.journal_entry.presence && self.journal_entry.destroyable?
+      self.journal_entry.destroy
     end
   end
 
@@ -247,8 +261,19 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, reference_number: number, printed_on: invoiced_on, if: (invoice? && items.any?)) do |entry|
-      label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description.gsub(/\r?\n/, ' / ')), sale: initial_number)
+    # take reference_number (external ref) if exist else take number (internal ref)
+    r_number = (reference_number.blank? ? number : reference_number)
+    # build description on entry
+    if reference_number.presence
+      products_info = reference_number
+    elsif description.presence
+      products_info = description.gsub(/\r?\n/, ' / ')
+    else
+      products_info = items.pluck(:label).to_sentence
+    end
+
+    b.journal_entry(self.nature.journal, reference_number: r_number, printed_on: invoiced_on, if: ((invoice? || order?) && items.any?)) do |entry|
+      label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: products_info, sale: initial_number)
       # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
       # if items.all? { |item| item.fixed_asset_id }
       #   affair_balanced = affair.incoming_payments.sum(:amount) == amount
@@ -272,10 +297,12 @@ class Sale < Ekylibre::Record::Base
     b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :undelivered_invoice, if: invoice?) do |entry|
       parcels.each do |parcel|
         next unless parcel.undelivered_invoice_journal_entry
+
         label = tc(:exchange_undelivered_invoice, resource: parcel.class.model_name.human, number: parcel.number, entity: supplier.full_name, mode: parcel.nature.tl)
         undelivered_items = parcel.undelivered_invoice_journal_entry.items
         undelivered_items.each do |undelivered_item|
           next unless undelivered_item.real_balance.nonzero?
+
           entry.add_credit(label, undelivered_item.account.id, undelivered_item.real_balance, resource: undelivered_item, as: :item_product, variant: undelivered_item.variant, accounting_label: undelivered_item.accounting_label)
         end
       end
@@ -288,18 +315,25 @@ class Sale < Ekylibre::Record::Base
     b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && invoice? && items.any?)) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 
-      for item in items
+      items.each do |item|
         next unless item.variant && item.variant.storable?
+
         shipment_items_quantity = item.shipment_items.map(&:population).compact.sum
         gap = item.quantity - shipment_items_quantity
         next unless item.shipment_items.any? && item.shipment_items.first.unit_pretax_stock_amount
+
         quantity = item.shipment_items.first.unit_pretax_stock_amount
         gap_value = gap * quantity
         next if gap_value.zero?
+
         entry.add_credit(label, item.variant.stock_account_id, gap_value, resource: item, as: :stock, variant: item.variant, accounting_label: item.accounting_label)
         entry.add_debit(label, item.variant.stock_movement_account_id, gap_value, resource: item, as: :stock_movement, variant: item.variant, accounting_label: item.accounting_label)
       end
     end
+  end
+
+  def items_presence
+    errors.add :items, :a_sale_must_have_at_least_one_sale_item if items.blank?
   end
 
   def invoiced_on
@@ -324,7 +358,13 @@ class Sale < Ekylibre::Record::Base
 
   # Gives the date to use for affair bookkeeping
   def dealt_at
-    (invoice? ? invoiced_at : self.created_at)
+    if invoice?
+      invoiced_at
+    elsif order?
+      confirmed_at
+    else
+      created_at
+    end
   end
 
   # Gives the amount to use for affair bookkeeping
@@ -335,10 +375,11 @@ class Sale < Ekylibre::Record::Base
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
+
     taxes = {}
     coeff = (credit? ? -1 : 1).to_d
     # coeff *= (self.send("deal_#{mode}?") ? 1 : -1)
-    for item in items
+    items.each do |item|
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
@@ -372,10 +413,6 @@ class Sale < Ekylibre::Record::Base
     items.any?
   end
 
-  def invoiced_during_financial_year_exchange?
-    FinancialYearExchange.opened.where('? BETWEEN started_on AND stopped_on', invoiced_at).any?
-  end
-
   def opened_financial_year?
     FinancialYear.on(invoiced_at)&.opened?
   end
@@ -398,13 +435,15 @@ class Sale < Ekylibre::Record::Base
   # Return at draft state
   def correct
     return false unless can_correct?
+
     super
   end
 
   # Confirm the sale order. This permits to define parcels and assert validity of sale
   def confirm(confirmed_at = Time.zone.now)
     return false unless can_confirm?
-    update_column(:confirmed_at, confirmed_at || Time.zone.now)
+
+    update!(confirmed_at: confirmed_at || Time.zone.now)
     super
   end
 
@@ -412,7 +451,8 @@ class Sale < Ekylibre::Record::Base
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(invoiced_at = Time.zone.now)
     return false unless can_invoice?
-    ActiveRecord::Base.transaction do
+
+    ApplicationRecord.transaction do
       # Set values for invoice
       self.invoiced_at ||= invoiced_at
       self.confirmed_at ||= self.invoiced_at
@@ -442,10 +482,11 @@ class Sale < Ekylibre::Record::Base
   # Duplicates a +sale+ in estimate state with its items and its active
   # subscriptions
   def duplicate(attributes = {})
-    raise StandardError, 'Uncancelable sale' unless duplicatable?
+    raise StandardError.new('Uncancelable sale') unless duplicatable?
+
     hash = %i[
       client_id nature_id letter_format annotation subject
-      function_title introduction conclusion description
+      function_title introduction conclusion description custom_fields
     ].each_with_object({}) do |field, h|
       h[field] = send(field)
     end
@@ -453,8 +494,8 @@ class Sale < Ekylibre::Record::Base
     items_attributes = {}
     items.order(:position).each_with_index do |item, index|
       attrs = %i[
-        variant_id quantity amount label pretax_amount annotation
-        reduction_percentage tax_id unit_amount unit_pretax_amount
+        variant_id quantity amount label pretax_amount annotation conditioning_quantity
+        reduction_percentage tax_id unit_amount unit_pretax_amount conditioning_unit
       ].each_with_object({}) do |field, h|
         h[field] = item.send(field)
       end
@@ -471,7 +512,32 @@ class Sale < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(state.to_sym).human_name
+    translation_key =
+    if invoice?
+      if self.affair.closed?
+        "invoiced_and_paid_sale"
+      elsif self.affair.credit.zero?
+        "unpaid_invoice"
+      else
+        "incoming_payment_different_from_the_amount_of_the_invoice"
+      end
+    elsif aborted?
+      "aborted"
+    elsif order?
+      "order"
+    elsif (draft? && DateTime.now > self.expired_at) || (estimate? && DateTime.now > self.expired_at)
+      "expired_quote"
+    elsif draft?
+      "draft_quote"
+    elsif estimate?
+      "estimate"
+    elsif refused?
+      "refused_quote"
+    else
+      "INVALID STATE"
+    end
+
+    I18n.t("tooltips.models.sale.#{translation_key}")
   end
 
   # Returns true if there is some products to deliver
@@ -485,6 +551,7 @@ class Sale < Ekylibre::Record::Base
   def name
     tc("label.#{credit? && invoice? ? :credit : state}", number: number)
   end
+
   alias label name
 
   # Alias for letter_format? method
@@ -502,6 +569,10 @@ class Sale < Ekylibre::Record::Base
 
   def taxes_amount
     amount - pretax_amount
+  end
+
+  def ratio_conditioning?
+    items.any?{|item| (coeff = item.conditioning_unit&.coefficient).present? && coeff != 1}
   end
 
   def sales_mentions
@@ -557,7 +628,7 @@ class Sale < Ekylibre::Record::Base
     x = []
     items.each do |item|
       attrs = %i[account currency variant reduction_percentage tax
-                 compute_from unit_pretax_amount unit_amount].each_with_object({}) do |attribute, hash|
+                 compute_from unit_pretax_amount unit_amount conditioning_unit].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end
@@ -565,7 +636,7 @@ class Sale < Ekylibre::Record::Base
         attrs[v] = -1 * item.send(v)
       end
       attrs[:credited_quantity] = item.creditable_quantity
-      attrs[:quantity] = -1 * item.creditable_quantity
+      attrs[:conditioning_quantity] = -1 * item.creditable_quantity
       attrs[:credited_item] = item
       if attrs[:credited_quantity] > 0
         sale_credit_item = sale_credit.items.build(attrs)
@@ -577,7 +648,14 @@ class Sale < Ekylibre::Record::Base
 
   # Returns status of affair if invoiced else "stop"
   def status
-    return affair.status if invoice? && affair
-    :stop
+    if invoice? && affair
+      affair.status
+    else
+      :stop
+    end
+  end
+
+  def human_status
+    state_label
   end
 end

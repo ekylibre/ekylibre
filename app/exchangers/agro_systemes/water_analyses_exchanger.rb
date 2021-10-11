@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module AgroSystemes
   class WaterAnalysesExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :agro_systemes
+
     def import
       here = Pathname.new(__FILE__).dirname
       analyser_attributes = YAML.load_file(here.join('entity.yml'))

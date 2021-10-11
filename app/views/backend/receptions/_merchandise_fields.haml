@@ -1,18 +1,24 @@
+- quantity_received = f.object.storings.reduce(0) { |sum, storing| sum + (storing.conditioning_quantity * storing.conditioning_unit.coefficient) }.to_f
+- base_unit = f.object.variant ? f.object.variant.default_unit_name.l : nil
+
 %div.role-row.role-row--merchandise
   .item-block-role.item-block-role--merchandise
     - if f.object.role == 'merchandise'
     :ruby
       options = {
         label: :merchandise.tl,
-        source: {scope: :purchaseables_stockables_or_depreciables},
+        source: {scope: {purchaseables_stockables_or_depreciables: true, active: true}}, 
         input_html: {
           class: "parcel-item-variant",
+          disabled: params[:mode] == 'prefilled',
           data: {
             product_of_delivery_item: {
               url: backend_product_nature_variant_path("RECORD_ID", format: :json),
               scope: 'target'
             },
             required: true,
+            parent: '.item-form',
+            filter_unroll: "[data-selector-id='parcel_item_storing_conditioning_unit_id']"
           }
         }
       }
@@ -54,11 +60,6 @@
       = render 'storing_fields', f: storing
     .div.storing__footer
       = link_to_add_association :add_storing.tl, f, :storings, partial: 'storing_fields', class: "link-add-storing", data: { :'association-insertion-method' => :before }
-      %label.total-labels
-        %span.total= :total.tl
-        %span.total-quantity{ data: { calculate: "sum", use: ".storing-fields:not(.removed-nested-fields) .storing-quantity", use_closest: ".nested-item-form", calculate_round: 2 } }= 0.0
-        %span{data: { 'when-item': 'unit_name', 'when-set-value': 'RECORD_VALUE', 'when-scope': 'target'}}
-          = variant.unit_name.or_else('unité(s)')
 
       = f.input :merge_stock
 
@@ -70,7 +71,7 @@
 
         .merchandise-total-stock-after-reception
           %span.stock-label= :stock_after_order.tl
-          %span.stock-value= f.object.decorate.merchandise_stock_after_reception(variant.current_stock.or_else(0))
-          %span.stock-unit= f.object.decorate.merchandise_stock_unit(variant.unit_name.or_else(""))
+          %span.stock-value{ data: { interpolate_data_attribute: quantity_received } }= f.object.decorate.merchandise_stock_after_reception(variant.current_stock.or_else(0))
+          %span.stock-unit{ data: { interpolate_data_attribute: base_unit } }= f.object.decorate.merchandise_stock_unit(variant.unit_name.or_else(""))
 
 

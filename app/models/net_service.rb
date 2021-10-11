@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,7 +33,7 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-class NetService < Ekylibre::Record::Base
+class NetService < ApplicationRecord
   refers_to :reference_name, class_name: 'NetService'
   has_many :identifiers, -> { order(:nature) }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -48,13 +50,13 @@ class NetService < Ekylibre::Record::Base
   end
 
   def reference
-    Nomen::NetService[reference_name]
+    Onoma::NetService[reference_name]
   end
 
   def each_identifier(&_block)
     if reference
       reference.identifiers.each do |identifier|
-        yield Nomen::IdentifierNature[identifier]
+        yield Onoma::IdentifierNature[identifier]
       end
     end
   end

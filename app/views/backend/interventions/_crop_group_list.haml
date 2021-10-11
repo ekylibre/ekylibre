@@ -1,0 +1,9 @@
+- crop_groups.each do |crop_group|
+  .crop-group-list
+    %div
+      %span{style: "font-weight: bold;"}
+        = "#{crop_group.name} - #{crop_group.total_area}"
+      .info-labels
+        - crop_group.labels.each do |label|
+          .label{ style: "background-color: #{label.color};"}
+            = label.name

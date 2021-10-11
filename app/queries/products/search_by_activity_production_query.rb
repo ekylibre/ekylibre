@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Products
   class SearchByActivityProductionQuery
     def self.call(relation, activity_production: nil)

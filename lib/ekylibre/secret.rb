@@ -20,6 +20,7 @@ module Ekylibre
       elsif store[env].is_a?(Hash)
         return store[env][name.to_s]
       end
+
       nil
     end
   end

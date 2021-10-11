@@ -1,3 +1,5 @@
+- main_period_selector(:year)
+
 = cobbles do |c|
   - c.cobble :general_informations do
     = product_mini_map
@@ -8,7 +10,7 @@
           %span.value= resource.activity_production.human_support_shape_area
         .med-info.important
           %span.title= :working_area.tl
-          %span.value= resource.activity_production.decorate.human_working_zone_area
+          %span.value= resource.activity_production.decorate.human_working_zone_area(current_campaign)
         - unless @reentry_possible.possible
           .med-info.delay
             %span.title= :re_entry_delay.tl
@@ -23,15 +25,18 @@
 
   - if resource&.activity_production&.interventions&.any?
     - c.cobble(:production_costs, title: :production_costs.tl) do
-      = render partial: 'backend/shared/production_costs', locals: { costs: resource.activity_production.decorate.production_costs }
-
-    - c.cobble(:interventions) do
-      = cobble_toolbar do |t|
-        = t.new(params: { controller: :interventions, production_support_id: resource.activity_production.id })
-        = cobble_list(:interventions)
+      = render partial: 'backend/shared/production_costs', locals: { costs: resource.activity_production.decorate.production_costs(current_campaign) }
   - else
     = no_data
 
-  - if resource&.activity_production&.decorate&.plants?
-    - c.cobble(:plants, title: :crops.tl) do
-      = cobble_list(:plants)
+  - c.cobble(:interventions) do
+    = cobble_toolbar do |t|
+      = t.new(params: { controller: :interventions, intervention: { product_id: resource&.id }, targets_attributes: [{ product_id: resource&.id, reference_name: "cultivation", working_zone: resource&.shape&.to_geojson }], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource&.id, reference_name: "land_parcel", working_zone: resource&.shape&.to_geojson } ] } ] })
+      = cobble_list(:interventions)
+
+  - c.cobble(:plants, title: :crops.tl) do
+    - disabled = LandParcel.count.zero? && (Matter.of_variety("seed").count.zero? || Matter.of_variety("plant").count.zero?)
+    = dropdown_menu_button(:new.tl, main_class: "btn btn-default btn-default--parcel #{'disabled' if disabled}", title: "#{:before_add_a_plant.tl if disabled}") do |d|
+      - %w[sowing mechanical_planting all_in_one_sowing sowing_with_spraying].each do |procedure|
+        - d.item procedure.tl, { controller: "/backend/interventions", action: :new, procedure_name: procedure, targets_attributes: [ { product_id: resource.id, reference_name: "land_parcel", working_zone: resource.shape&.to_geojson } ], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource.id, reference_name: "land_parcel", working_zone: resource.shape&.to_geojson } ] } ] }
+    = cobble_list(:plants)

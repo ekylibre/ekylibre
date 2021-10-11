@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Intervention
   class Recorder
     class Cast

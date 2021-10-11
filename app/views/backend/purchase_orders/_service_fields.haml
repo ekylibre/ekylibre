@@ -5,7 +5,7 @@
     :ruby
       options = {
         label: f.object.role.tl,
-        source: {scope: :purchaseables_services},
+        source: {scope: {purchaseables_services: true, active: true}},
         input_html: {
           class: "order-variant",
           data: {
@@ -14,6 +14,8 @@
               scope: 'unit'
             },
             required: true,
+            parent: '.item-form',
+            filter_unroll: "[data-selector-id='purchase_item_conditioning_unit_id']"
           }
         },
         required: true,
@@ -24,23 +26,25 @@
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
           %i.annotation-field
 
+  .item-block-quantity
+    .storing-fields
+      .storing-calculation
+        .storing-conditionning
+          = f.referenced_association :conditioning_unit, class: "order-conditionning", input_html: { data: { filters_url: unroll_filters_by_catalog_items_backend_units_path, conditioning_data_url: conditioning_data_backend_units_path, variant_selector: 'input.order-variant', required: true } }, new: { controller: :conditionings, action: :new_on_the_go }
 
-  .storing-calculation
-    .storing-quantifier
-      = f.input :quantity, wrapper: :append do
-        = f.input_field :quantity, class: "order-quantity storing-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
-        %span.add-on.item-population-unit-name
-          = variant.unit_name.or_else('unité')
+        .storing-quantifier
+          = f.input :conditioning_quantity, wrapper: :append do
+            = f.input_field :conditioning_quantity, class: "order-quantity", placeholder: '0', size: 7, data: { trade_component: "quantity", required: true }
 
-    .current-stock
-      .merchandise-current-stock
-        %span.stock-label= :current_stock.tl
-        %span.stock-value= f.object.decorate.merchandise_current_stock
-        %span.stock-unit= f.object.decorate.merchandise_stock_unit
-      .merchandise-stock-after-purchase
-        %span.stock-label= :stock_after_order.tl
-        %span.stock-value= f.object.decorate.merchandise_stock_after_order
-        %span.stock-unit= f.object.decorate.merchandise_stock_unit
+      .current-stock
+        .merchandise-current-stock
+          %span.stock-label= :current_stock.tl
+          %span.stock-value= f.object.decorate.merchandise_current_stock
+          %span.stock-unit= f.object.decorate.merchandise_stock_unit
+        .merchandise-stock-after-purchase
+          %span.stock-label= :stock_after_order.tl
+          %span.stock-value= f.object.decorate.merchandise_stock_after_order
+          %span.stock-unit= f.object.decorate.merchandise_stock_unit
 
 .annotation-section
   .annotation-field

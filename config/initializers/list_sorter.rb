@@ -1,0 +1,1 @@
+Rails.application.config.sorting_reference = YAML.load(File.read(Rails.root.join('config','sorting_reference.yml')))

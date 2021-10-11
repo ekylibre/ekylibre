@@ -1,0 +1,8 @@
+= field_set do
+  = f.input :name
+  = f.input :target, as: :radio_buttons
+  = f.nested_association(:labellings , button_label: :add_use.tl, partial: '/backend/crop_groups/labelling_fields', collection: f.object.labellings.any? ?  f.object.labellings : f.object.labellings.new )
+
+= field_set :land_parcels_plants.tl do
+  %div.crop-group-item-fields
+    = f.nested_association(:items, button_label: :add_crop.tl, partial: '/backend/crop_groups/item_fields', locals: {target: f.object.target } , collection: f.object.items.any? ?  f.object.items : f.object.items.new )

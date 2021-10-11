@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,10 +46,9 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
     trash_account = Account.create!(name: 'Just needed', number: '666')
     @entity.update(client: true, client_account: @client_account)
     @entity.update(supplier: true, supplier_account: @supplier_account)
-
+    variant = ProductNatureVariant.find_or_import!(:daucus_carotta).first
     @journal = create :journal, nature: :purchases, currency: :EUR
     @nature = create :purchase_nature, journal_currency: :EUR
-
 
     Purchase.create!(
       invoiced_at: DateTime.new(2018, 1, 1),
@@ -60,16 +59,17 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       items_attributes: [
         {
           unit_pretax_amount: 12,
-          quantity: 1,
+          conditioning_quantity: 1,
           tax: Tax.create!(
             country: :fr,
             nature: :null_vat,
             name: 'Test',
-            collect_account:  trash_account,
+            collect_account: trash_account,
             deduction_account: trash_account
           ),
-          variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
-          account: trash_account
+          variant: variant,
+          account: trash_account,
+          conditioning_unit: variant.guess_conditioning[:unit]
         }
       ]
     )
@@ -90,7 +90,7 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
         last_name: 'Test',
         role: Role.create!(name: 'Test')
       ),
-      to_bank_at: Time.now,
+      to_bank_at: DateTime.new(2018, 1, 2),
       amount: 9,
       mode: OutgoingPaymentMode.create!(
         name: 'TestMode',
@@ -98,13 +98,12 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
       )
     )
 
-    sale = Sale.create!(
+    sale = Sale.new(
       client: @entity
     )
 
-    SaleItem.create!(
-      sale: sale,
-      variant: ProductNatureVariant.find_or_import!(:daucus_carotta).first,
+    sale.items.new(
+      variant: variant,
       unit_pretax_amount: 8,
       tax: Tax.create!(
         country: 'fr',
@@ -113,14 +112,17 @@ class EconomicSituationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtur
         collect_account: trash_account,
         deduction_account: trash_account
       ),
-      quantity: 1,
+      conditioning_quantity: 1,
+      conditioning_unit: variant.guess_conditioning[:unit],
       amount: 8
     )
+    sale.save!
 
     IncomingPayment.create!(
       amount: 11,
       currency: 'EUR',
       payer: @entity,
+      to_bank_at: DateTime.new(2018, 1, 2),
       mode: IncomingPaymentMode.create!(
         name: 'IModeTest',
         cash: cash

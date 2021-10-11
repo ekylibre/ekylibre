@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -41,7 +43,7 @@
 #  working_width_value          :decimal(19, 4)
 #
 
-class PlantCounting < Ekylibre::Record::Base
+class PlantCounting < ApplicationRecord
   belongs_to :plant
   belongs_to :plant_density_abacus
   belongs_to :plant_density_abacus_item
@@ -55,7 +57,7 @@ class PlantCounting < Ekylibre::Record::Base
   validates :average_value, :working_width_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
-  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :rows_count_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :plant, :plant_density_abacus, :plant_density_abacus_item, presence: true
   # ]VALIDATORS]
@@ -121,22 +123,26 @@ class PlantCounting < Ekylibre::Record::Base
 
   def implanter_working_width
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless working_width_value || plant_sower.present?
+
     width = (working_width_value && working_width_value.in(:meter)) || indicator_working_width
     width / rows_count
   end
 
   def indicator_working_width
     return nil if plant_sower.blank?
+
     plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 
   def rows_count
     raise 'Cannot fetch indicators because we have neither sower nor in-table data.' unless rows_count_value || plant_sower.present?
+
     rows_count_value || indicator_rows_count
   end
 
   def indicator_rows_count
     return nil if plant_sower.blank?
+
     plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at)
   end
 

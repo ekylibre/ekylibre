@@ -23,10 +23,10 @@ module Backend
 
       protected
 
-      # Use a cell layout if asked
-      def wrap_cell
-        params[:layout].to_i > 0 || params[:layout] == 'true' ? 'cell' : false
-      end
+        # Use a cell layout if asked
+        def wrap_cell
+          params[:layout].to_i > 0 || params[:layout] == 'true' ? 'cell' : false
+        end
     end
   end
 end

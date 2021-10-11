@@ -47,6 +47,10 @@ module Backend
       # code << "elsif params[:s] == 'unparted'\n"
       # code << "  c[0] += ' AND used_amount != amount'\n"
       code << "end\n"
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{IncomingPayment.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -65,6 +69,7 @@ module Backend
       t.column :deposit, url: true
       t.column :work_name, through: :affair, label: :affair_number, url: { controller: :sale_affairs }
       t.column :bank_statement_number, through: :journal_entry, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statements.first.id'.c }, label: :bank_statement_number
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
     end
   end
 end

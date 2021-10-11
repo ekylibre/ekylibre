@@ -61,7 +61,7 @@ module Backend
           content_tag(:div, class: 'row') do
             imports.collect.with_index do |k, i|
               content_tag(:div, class: 'choice-padding') do
-                radio_button_tag(:importer_format, k, (i.zero? ? true : false)) + label_tag("importer_format_#{k}".to_sym, k)
+                radio_button_tag(:importer_format, k, i.zero?) + label_tag("importer_format_#{k}".to_sym, k)
               end
             end.join.html_safe
           end + content_tag(:div, class: 'row') do
@@ -116,6 +116,7 @@ module Backend
     # the area unit could be given with options :area_unit
     def model_map(records, options = {}, &block)
       return nil unless records.any?
+
       klass = records.first.class
       controller = klass.model_name.plural
       label_method = options.delete(:label_method) || :name
@@ -131,7 +132,7 @@ module Backend
           area_unit = options[:area_unit] || :hectare
           content = []
           # content << { label: klass.human_attribute_name(label_method), value: record.send(label_method) }
-          content << { label: Nomen::Indicator.find(:net_surface_area).human_name,
+          content << { label: Onoma::Indicator.find(:net_surface_area).human_name,
                        value: record.net_surface_area.in(area_unit).round(3).l }
           content << content_tag(:div, class: 'btn-group') do
             link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default') +
@@ -174,6 +175,7 @@ module Backend
     def collection_map(data, options = {}, &_block)
       html_options = {}
       return nil unless data.any?
+
       backgrounds = options.delete(:backgrounds) || []
       options = {
         controls: {

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +24,7 @@
 # == Table: registered_phytosanitary_usages
 #
 #  applications_count         :integer
-#  applications_frequency     :integer
+#  applications_frequency     :interval
 #  crop                       :jsonb
 #  crop_label_fra             :string
 #  decision_date              :date
@@ -55,11 +55,10 @@
 require 'test_helper'
 
 class RegisteredPhytosanitaryUsageTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-
   setup do
-    @trees_and_shrubs_usage = RegisteredPhytosanitaryUsage.find('20170220100309958136')
-    @tropical_crops_usage = RegisteredPhytosanitaryUsage.find('20191105094833754529')
-    @citrus_usage = RegisteredPhytosanitaryUsage.find('20160315165402324037')
+    @trees_and_shrubs_usage = RegisteredPhytosanitaryUsage.find('20150410094753552668')
+    @tropical_crops_usage = RegisteredPhytosanitaryUsage.find('20181227180331159035')
+    @citrus_usage = RegisteredPhytosanitaryUsage.find('201505310200035371')
   end
 
   test 'of_variety scope returns usages matching at least one of the provided varieties' do

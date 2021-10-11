@@ -16,7 +16,11 @@ module ActionIntegration
 
       @ciphered.map do |name, value|
         @cipher.iv = Parameters.decode(@ivs[name])
-        @values[name] = @cipher.update(Parameters.decode(value)) + @cipher.final
+        begin
+          @values[name] = @cipher.update(Parameters.decode(value)) + @cipher.final
+        rescue
+          @values[name] = I18n.t("labels.unavailable")
+        end
       end
 
       self
@@ -49,12 +53,12 @@ module ActionIntegration
 
     private
 
-    def self.encode(value)
-      Base64.encode64(value)
-    end
+      def self.encode(value)
+        Base64.encode64(value)
+      end
 
-    def self.decode(value)
-      Base64.decode64(value)
-    end
+      def self.decode(value)
+        Base64.decode64(value)
+      end
   end
 end

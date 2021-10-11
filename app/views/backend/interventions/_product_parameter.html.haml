@@ -19,33 +19,37 @@
         = lights('stop') if product_parameter.dead and product_parameter.product.dead_at
       %p= product_parameter.name
       %p= product_parameter.model_name.human
-      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_unit_name && product_parameter.quantity
+      - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_value
         %p
-          - if product_parameter.is_population?
-            = :x_thing.tl(x: product_parameter.quantity.round(2).l(precision: 0), thing: variant.unit_name.mb_chars.downcase)
-          - elsif product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
+          - if product_parameter.product.france_maaid.present? && product_parameter.is_a?(InterventionInput)
             %p
-              %span.value= product_parameter.legal_pesticide_informations&.fetch(:name, nil)
+              - pesticide = RegisteredPhytosanitaryProduct.where(france_maaid: product_parameter.product.france_maaid).first
+              %span.value= (pesticide.present? ? pesticide.proper_name : '')
             %p
               %span.title= :quantity.tl
-              %span.value= product_parameter.input_quantity_per_area.l(precision: 2)
+              %span.value= product_parameter.input_quantity_per_area.round_l
             - unless usage.nil?
               %p
                 = succeed " : " do
                   %span.title= t(:usage)
                 %span.value= usage.ephy_usage_phrase
                 - authorization_calculator = Interventions::Phytosanitary::InterventionInputAuthorizationCalculator.for_intervention(intervention)
-                - vote, messages = authorization_calculator.authorization_state(product_parameter)
+                - vote, messages = authorization_calculator.authorization_state(product_parameter, intervention)
                 - if vote == :allowed
                   %span.value= :allowed.tl
                 - elsif vote == :forbidden
                   %span.value= :forbidden.tl
-                  %span.value= messages.join(', ')
+                  %span.value= messages.compact.uniq.join(', ')
+
+              -# For PFI check value
+              - if product_parameter.pfi_input && !variant.phytosanitary_product&.adjuvant?
+                %span.title= :pfi_treatment_ratio.tl
+                %span.value= link_to(product_parameter.pfi_input.pfi_value.round(2), product_parameter.pfi_input.check_url, target: :_blank)
 
               - if frequency = usage.applications_frequency
                 %p
                   %span.title= :next_application_possible_on.tl
-                  %span.value= (resource.stopped_at + frequency).to_date.l
+                  %span.value= (resource.stopped_at + frequency).to_datetime.l
 
               - if usage.usage_conditions
                 %p
@@ -53,26 +57,9 @@
                   %span.value= picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{product_parameter.id}" })
                 = render 'usage_conditions_modal', id: product_parameter.id, usage: usage
 
-            -# TODO: reactivate when we have updated lexicon's data
-            -# if product_parameter.legal_pesticide_informations[:dose]
-              %p
-                %span.title= :legal_dose.tl
-                %span.value= product_parameter.legal_pesticide_informations[:dose].l(precision: 2)
-                = lights('stop') if product_parameter.legal_treatment_ratio > 1.0
-                = lights('caution') if product_parameter.legal_treatment_ratio == 1.0
-                = lights('go') if product_parameter.legal_treatment_ratio < 1.0
-            -# if product_parameter.pfi_reference_dose
-              %p
-                %span.title= :pfi_dose.tl
-                %span.value= product_parameter.pfi_reference_dose.dose.l(precision: 2)
-                = lights('stop') if product_parameter.pfi_treatment_ratio > 1.0
-                = lights('caution') if product_parameter.pfi_treatment_ratio == 1.0
-                = lights('go') if product_parameter.pfi_treatment_ratio < 1.0
-              %p
-                %span.title= :pfi_treatment_ratio.tl
-                %span.value= product_parameter.pfi_treatment_ratio.round(2)
           - else
-            = product_parameter.quantity.l(precision: 0)
+            = quantity_info(product_parameter)
+
   - elsif variant
     .picture
       - if variant.picture.file?

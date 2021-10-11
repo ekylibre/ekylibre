@@ -27,6 +27,15 @@ module Backend
                            "income_statement"]
 
 
+    HIDDEN_AGGREGATORS = %w[
+      fr_pcg82_balance_sheet
+      fr_pcg82_profit_and_loss_statement
+      fr_pcga_balance_sheet
+      fr_pcga_profit_and_loss_statement
+      vat_register
+      income_statement
+    ].freeze
+
     def index
       # FIXME: It should not be necessary to do that
       DocumentTemplate.load_defaults unless DocumentTemplate.any?
@@ -44,6 +53,7 @@ module Backend
 
       klass.parameters.each do |parameter|
         next if parameter.record_list?
+
         value_preference = "exports.#{klass.name}.parameters.#{parameter.name}.value"
         value = current_user.preference(value_preference, parameter.default).value
         params[parameter.name] ||= value
@@ -54,12 +64,12 @@ module Backend
       aggregator_parameters = @aggregator.class.parameters.map(&:name).uniq
       t3e name: klass.human_name
       if params[:format] == 'pdf'
-        ExportJob.perform_later(JSON(params), current_user.id)
+        ExportJob.perform_later(JSON(params.to_unsafe_h), current_user.id)
         notify_success(:document_in_preparation)
-        redirect_to :back
+        redirect_back(fallback_location: { action: :index })
       else
         if (aggregator_parameters - params.keys).empty?
-          notify(:information_success_print)
+          params[:id] == 'exchange_accountancy_file_fr'? notify(:information_success_download) : notify(:information_success_print)
           @btn_class = 'btn-primary'
         end
         respond_with @aggregator

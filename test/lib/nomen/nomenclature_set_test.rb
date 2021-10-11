@@ -1,13 +1,13 @@
 require 'test_helper'
 
-module Nomen
+module Onoma
   class NomenclatureSetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
       I18n.locale = ENV['LOCALE']
     end
 
     test 'set manipulation' do
-      set = Nomen::NomenclatureSet.new
+      set = Onoma::NomenclatureSet.new
       set.add_nomenclature(:vehicles)
       set.add_property(:vehicles, :height, :decimal)
       set.add_item(:vehicles, :truck,  height: 3)
@@ -37,7 +37,7 @@ module Nomen
 
       nomenclature = set.nomenclature(:vehicles)
       assert nomenclature
-      assert_raise Nomen::ItemNotFound do
+      assert_raise Onoma::ItemNotFound do
         nomenclature.selection_hash(:flash_mcqueen)
       end
     end

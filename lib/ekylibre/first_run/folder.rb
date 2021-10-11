@@ -32,10 +32,12 @@ module Ekylibre
         ActiveRecord::Base.transaction do
           puts 'Set locale...'
           ::I18n.locale = @preferences[:language] || :eng
+          puts 'Load Stripe credentials...'
+          load_stripe_credentials
           puts 'Load preferences...'
           load_preferences
           puts 'Load defaults...'
-          load_defaults
+          # load_defaults
           puts 'Load company...'
           load_company
           puts 'Load imports...'
@@ -44,6 +46,16 @@ module Ekylibre
           ::Preference.set!('first_run.executed', true, :boolean)
         end
         @progress.clear!
+      end
+
+      # Load stripe credentials of the instance
+      def load_stripe_credentials
+        if @preferences[:customer_id]
+          Preference.set!(:saassy_stripe_customer_id, @preferences[:customer_id], :string)
+        end
+        if @preferences[:subscription_id]
+          Preference.set!(:saassy_stripe_subscription_id, @preferences[:subscription_id], :string)
+        end
       end
 
       # Load global preferences of the instance
@@ -63,6 +75,7 @@ module Ekylibre
       def load_defaults(**options)
         default_datasets.each do |dataset|
           next if @defaults[dataset].is_a?(FalseClass)
+
           puts "Load default #{dataset}..."
           model = default_dataset_model(dataset)
           model.load_defaults(**options, preferences: @preferences)
@@ -95,6 +108,34 @@ module Ekylibre
           mail.mail_line_6 = @company[:mail_line_6]
           mail.save!
         end
+
+        if @company[:activities].present?
+          @company[:activities].each do |activity|
+            Activity.create_with(production_cycle: :annual)
+                    .find_or_create_by!(family: activity[:family], cultivation_variety: activity[:variety], name: activity[:label_fr])
+          end
+        end
+
+        if @company[:vegetal_activities].present?
+          @company[:vegetal_activities].each do |activity|
+            Activity.create!(
+              family: activity[:family],
+              cultivation_variety: activity[:variety],
+              name: activity[:label_fr],
+              reference_name: activity[:production_reference_name],
+              production_system_name: activity[:production_system_name],
+              production_started_on: activity[:production_started_on],
+              production_stopped_on: activity[:production_stopped_on],
+              production_cycle: activity[:production_cycle],
+              production_started_on_year: activity[:production_started_on_year],
+              production_stopped_on_year: activity[:production_stopped_on_year],
+              life_duration: activity[:life_duration],
+              start_state_of_production_year: activity[:start_state_of_production_year],
+              codes: { hajimari_id: activity[:id] }
+            )
+          end
+        end
+
         load_users(@company[:users]) if @company[:users]
       end
 
@@ -127,16 +168,16 @@ module Ekylibre
 
       def default_datasets
         %i[sequences accounts document_templates taxes journals cashes
-           sale_natures purchase_natures incoming_payment_modes
+           sale_natures purchase_natures incoming_payment_modes units
            outgoing_payment_modes product_natures product_nature_categories
-           product_nature_variants map_layers naming_format_land_parcels]
+           product_nature_variants catalog_items map_layers naming_format_land_parcels]
       end
 
       protected
 
-      def warn(message)
-        Rails.logger.warn(message)
-      end
+        def warn(message)
+          Rails.logger.warn(message)
+        end
     end
   end
 end

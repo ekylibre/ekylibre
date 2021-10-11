@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class EquipmentDecorator < ProductDecorator
   delegate_all
-  
+
   def hour_counter_present?
-    !hour_counter.nil?
+    !hour_counter.nil? && !hour_counter.value.to_f.zero?
   end
 
   def human_hour_counter
@@ -11,13 +13,13 @@ class EquipmentDecorator < ProductDecorator
 
   private
 
-  def hour_counter
-    hour_counter_product_reading = object
-                                   .readings
-                                   .find_by(indicator_name: :hour_counter)
+    def hour_counter
+      hour_counter_product_reading = object
+                                     .readings
+                                     .find_by(indicator_name: :hour_counter)
 
-    return nil if hour_counter_product_reading.nil?
+      return nil if hour_counter_product_reading.nil?
 
-    hour_counter_product_reading.value
-  end
+      hour_counter_product_reading.value
+    end
 end

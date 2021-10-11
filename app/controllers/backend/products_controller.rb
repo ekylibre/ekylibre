@@ -27,17 +27,24 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-    #TODO: ProductsController shoudln't rely on  an Intervention partial. Polymorphism maybe?
-    unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity'
-
+    # TODO: ProductsController shoudln't rely on  an Intervention partial. Polymorphism maybe?
+    if defined?(Planning)
+      unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity', custom_sort: :sort_by_time_use
+    else
+      unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity'
+    end
     # params:
     #   :q Text search
     #   :working_set
     def self.list_conditions
       code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
-      code << "unless params[:working_set].blank?\n"
-      code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
-      code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
+
+      code << "if params[:working_set_id].blank?\n"
+      code << "  item = 'is preparation'\n"
+      code << "  c[0] << \" AND #{Product.table_name}.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item)})\"\n"
+      code << "else \n"
+      code << "  item = Onoma::WorkingSet.find(params[:working_set_id])\n"
+      code << "  c[0] << \" AND #{Product.table_name}.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
 
       # State
@@ -79,19 +86,21 @@ module Backend
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety
       t.column :population
-      t.column :unit_name
+      t.column :conditioning_unit
       t.column :container, url: true
       t.column :description
       t.column :derivative_of
     end
 
     # Lists contained products of the current product
-    list(:contained_products, model: :product_localizations, conditions: { container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
+    list(:contained_products, model: :product_localizations, joins: { product: :variant }, conditions: { product_nature_variants: { active: true }, container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
       t.column :product, url: true
+      t.column :population, through: :product
+      t.column :unit_name, through: :product
+      t.column :started_at, datatype: :datetime
+      t.column :stopped_at, datatype: :datetime
       t.column :nature, hidden: true
-      t.column :intervention, url: true
-      t.column :started_at
-      t.column :stopped_at, hidden: true
+      t.column :intervention, url: true, hidden: true
     end
 
     # Lists carried linkages of the current product
@@ -178,7 +187,8 @@ module Backend
       t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
       t.column :nature, label_method: :reception_nature
       t.column :given_at, label_method: :reception_given_at, datatype: :datetime
-      t.column :population, label_method: :quantity
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :product_identification_number, through: :parcel_item
     end
 
@@ -187,7 +197,8 @@ module Backend
       t.column :shipment, url: { controller: :shipments }
       t.column :nature, through: :shipment
       t.column :given_at, through: :shipment, datatype: :datetime
-      t.column :population
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
       t.column :product_identification_number
     end
 
@@ -223,7 +234,8 @@ module Backend
     # Returns value of an indicator
     def take
       return unless @product = find_and_check
-      indicator = Nomen::Indicator.find(params[:indicator])
+
+      indicator = Onoma::Indicator.find(params[:indicator])
       unless indicator
         head :unprocessable_entity
         return
@@ -231,7 +243,7 @@ module Backend
 
       value = @product.get(indicator)
       if indicator.datatype == :measure
-        if unit = Nomen::Unit[params[:unit]]
+        if unit = Onoma::Unit[params[:unit]]
           value = value.convert(unit)
         end
         value = { unit: value.unit, value: value.to_d.round(4) }
@@ -258,7 +270,7 @@ module Backend
       @activity_productions = @activity_productions.of_activity(activity) if activity
       saved = true
       @targets = if params[:target_distributions]
-                   params[:target_distributions].map do |_id, target_distribution|
+                   params[:target_distributions].to_unsafe_h.map do |_id, target_distribution|
                      product = Product.find(target_distribution[:target_id])
                      activity_production_id = target_distribution[:activity_production_id]
                      if activity_production_id.empty? && product.activity_production_id.present?
@@ -278,21 +290,34 @@ module Backend
       end
     end
 
+    def sort_by_time_use(products)
+      return products if products.count.zero?
+
+      date = params['scope']['actives'][0]['at']
+      array = []
+      products.each do |product|
+        time_in_use = product.time_use_in_date(date).to_f
+        array.push([product.id, time_in_use])
+      end
+      array_values = array.map { |e| e.inspect.gsub(/[\[\]]/, '[' => '(', ']' => ')') }.join(', ')
+      Product.joins("JOIN (values #{array_values}) AS x (id, time) on products.id = x.id").order('x.time DESC')
+    end
+
     protected
 
-    def check_variant_availability
-      unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
-        redirect_to new_backend_product_nature_path
-        false
-      end
-    end
-
-    def clean_attachments
-      if permitted_params.include?('attachments_attributes')
-        permitted_params['attachments_attributes'].each do |k, v|
-          permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+      def check_variant_availability
+        unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
+          redirect_to new_backend_product_nature_path
+          false
         end
       end
-    end
+
+      def clean_attachments
+        if permitted_params.include?('attachments_attributes')
+          permitted_params['attachments_attributes'].each do |k, v|
+            permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+          end
+        end
+      end
   end
 end

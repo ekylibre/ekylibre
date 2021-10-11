@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,7 +40,7 @@
 #  usage_limit_nature :string
 #  usage_limit_on     :date
 #
-class Tracking < Ekylibre::Record::Base
+class Tracking < ApplicationRecord
   enumerize :usage_limit_nature, in: %i[no_limit used_by best_before], default: :no_limit, predicates: true
   belongs_to :producer, class_name: 'Entity'
   belongs_to :product
@@ -49,7 +51,7 @@ class Tracking < Ekylibre::Record::Base
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :serial, length: { maximum: 500 }, allow_blank: true
-  validates :usage_limit_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
+  validates :usage_limit_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :usage_limit_on, presence: { unless: :no_limit? }
 

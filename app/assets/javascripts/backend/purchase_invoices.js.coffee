@@ -59,39 +59,49 @@
     $('#new_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
     $('.edit_purchase_invoice').on 'cocoon:after-remove', E.Purchases.compute_amount
 
-    $('#new_purchase_invoice table.list').bind 'cocoon:after-insert', (event, insertedItem) ->
-      return if !insertedItem?
-      new_id = insertedItem.html().match(new RegExp('\\[(\\d+)\\]'))[1] #HACK: Get id from inputs
-      new_id = new_id || new Date().getTime()
+    $('#new_purchase_invoice table.list, .edit_purchase_invoice table.list').on 'cocoon:after-insert', (event, insertedItem) ->
+          if typeof insertedItem != 'undefined'
+            new_id = insertedItem.html().match(new RegExp('\\[(\\d+)\\]'))[1] #HACK: Get id from inputs
+            new_id = new_id || new Date().getTime()
 
-      insertedItem.attr('id', "new_reception_#{new_id}")
+            insertedItem.attr('id', "new_reception_#{new_id}")
+
+            $(insertedItem).find('input, select').each ->
+              oldId = $(this).attr('id')
+              if !!oldId
+                elementNewId = oldId.replace(/[0-9]+/, new_id)
+                $(this).attr('id', elementNewId)
+
+              oldName = $(this).attr('name')
+              if !!oldName
+                elementNewName = oldName.replace(/[0-9]+/, new_id)
+                $(this).attr('name', elementNewName)
+
+            element = $(insertedItem).find('#purchase_invoice_items_attributes_RECORD_ID_parcels_purchase_invoice_items')
+            newName = element.attr('name').replace('RECORD_ID', new_id)
+            newId = element.attr('id').replace('RECORD_ID', new_id)
+
+            $(element).attr('id', newId)
+            $(element).attr('name', newName)
 
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_fixed input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
       E.PurchaseInvoices.displayAssetsBlock(targettedElement)
 
-      if targettedElement.is(':checked')
-        E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
-
-
     $(document).on 'change', '.nested-item-form .fixed-asset-fields .purchase_invoice_items_preexisting_asset input[type="checkbox"]', (event) ->
       targettedElement = $(event.target)
       E.PurchaseInvoices.manageExistingAssetDisplay(targettedElement)
 
-      unless targettedElement.is(':checked')
-        E.PurchaseInvoices.manageStoppedOnFieldDisplay(targettedElement)
-
-
-    $(document).on 'click', '.change-reconcilation-state-block input[type="checkbox"]', (event) ->
+    $(document).on 'click', '.change-reconciliation-state-block input[type="checkbox"]', (event) ->
       checkbox = $(event.target)
-      E.PurchaseInvoicesShow.changeEventReconcilationStateBlock(checkbox)
+      E.PurchaseInvoicesShow.changeEventReconciliationStateBlock(checkbox)
 
     E.PurchaseInvoicesShow =
-      changeEventReconcilationStateBlock: (checkbox) ->
+      changeEventReconciliationStateBlock: (checkbox) ->
         reconciliationTitle = $('.reconciliation-title')
         purchase_invoice_id = window.location.pathname.split('/').pop()
         isReconcile = $(reconciliationTitle).attr('data-reconcile') == 'true'
-        url = "/backend/purchases/reconcilation_states/#{ purchase_invoice_id }"
+        url = "/backend/purchases/reconciliation_states/#{ purchase_invoice_id }"
 
         if checkbox.is(':checked')
           url += '/put_accepted_state'
@@ -127,23 +137,5 @@
       else
         existingAssetBlock.css('display', 'none')
         newAssetBlock.css('display', 'block')
-
-
-    manageStoppedOnFieldDisplay: (checkbox) ->
-      assetsFields = checkbox.closest('.assets')
-      assetsFields = checkbox.closest('.fixed-asset-fields').find('.assets') if assetsFields.length == 0
-
-      stoppedOnFieldBlock = assetsFields.find('.fixed-asset-stopped-on')
-
-      merchandise = checkbox.closest('.merchandise')
-      variantId = merchandise.find('.purchase_invoice_items_variant .selector-value').val()
-
-      $.ajax
-        url: "/backend/variants/fixed_assets/#{variantId}/fixed_assets_datas",
-        success: (data, status, request) ->
-          if data.depreciation_method == "simplified_linear" || data.depreciation_method == ""
-            stoppedOnFieldBlock.css('display', 'none')
-          else
-            stoppedOnFieldBlock.css('display', 'block')
 
 ) ekylibre, jQuery

@@ -37,22 +37,6 @@ class ::Symbol
   end
 end
 
-class ::DateTime
-  def self.soft_parse(*args, &block)
-    DateTime.parse(*args, &block)
-  rescue ArgumentError
-    nil
-  end
-end
-
-class ::Date
-  def self.soft_parse(*args, &block)
-    Date.parse(*args, &block)
-  rescue ArgumentError
-    nil
-  end
-end
-
 class ::Time
   def to_usec
     (utc.to_f * 1000).to_i
@@ -64,23 +48,6 @@ class ::Time
 end
 
 class ::Numeric
-  # Computes decimal count. Examples:
-  #  * 200 => -2
-  #  * 1.350 => 2
-  #  * 1.1 => 1
-  def decimal_count
-    return 0 if zero?
-    count = 0
-    value = dup
-    integers_count = Math.log10(value.floor).ceil
-    value /= 10 ** integers_count
-    while value != value.to_i
-      count += 1
-      value *= 10
-    end
-    count - integers_count
-  end
-
   # FROM ActiveSupport 6.0
   def minutes
     ActiveSupport::Duration.minutes(self)
@@ -104,8 +71,8 @@ class ::Numeric
   alias trimesters trimester
   alias semesters semester
 
-  def rounded_localize(precision: 2)
-    round(precision).localize(precision: precision)
+  def rounded_localize(precision: 2, **options)
+    round(precision).localize(precision: precision, **options)
   end
 
   alias round_l rounded_localize
@@ -147,16 +114,6 @@ class ::Hash
   # Build a struct from the hash
   def to_struct
     OpenStruct.new(self)
-  end
-
-  def reverse
-    self.flat_map { |key, values| values.map { |v| [v, key] } }
-        .group_by(&:first)
-        .map do |key, values|
-          raise StandardError.new "Duplicate value for key #{key}: #{values.join(', ')}" if values.size > 1
-          [key, values.first.second]
-        end
-        .to_h
   end
 end
 
@@ -227,81 +184,45 @@ module ActiveModel
   end
 end
 
-module ::I18n
-  def self.locale_label(locale = nil)
-    locale ||= self.locale
-    "#{locale} (" + locale_name + ')'
-  end
-
-  def self.locale_name(locale = nil)
-    locale ||= self.locale
-    ::I18n.t('i18n.name')
-  end
-
-  # Returns translation if found else nil
-  def self.translate_or_nil(*args)
-    result = translate(*args)
-    (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
-  end
-end
-
 # TODO: Get rid of this once the switch to Rails 5 has been made
 module ActiveSupport
   class Duration
     ISO_INDEX_UNIT = { '1' => :year, '2' => :month, '3' => :day, '4' => :hour, '5' => :minute, '6' => :second }
 
-    # FROM ActiveSupport 6.0
-    SECONDS_PER_MINUTE = 60
-    SECONDS_PER_HOUR = 3600
-    SECONDS_PER_DAY = 86400
-    SECONDS_PER_WEEK = 604800
-    SECONDS_PER_MONTH = 2629746 # 1/12 of a gregorian year
-    SECONDS_PER_YEAR = 31556952 # length of a gregorian year (365.2425 days)
-
-    PARTS_IN_SECONDS = {
-      seconds: 1,
-      minutes: SECONDS_PER_MINUTE,
-      hours: SECONDS_PER_HOUR,
-      days: SECONDS_PER_DAY,
-      weeks: SECONDS_PER_WEEK,
-      months: SECONDS_PER_MONTH,
-      years: SECONDS_PER_YEAR
-    }.freeze
-    # /FROM
     class << self
       # FROM ActiveSupport 6.0
       def seconds(value) #:nodoc:
-        new(value, seconds: value)
+        new(value, [[:seconds, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def minutes(value) #:nodoc:
-        new(value * SECONDS_PER_MINUTE, minutes: value)
+        new(value * SECONDS_PER_MINUTE, [[:minutes, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def hours(value) #:nodoc:
-        new(value * SECONDS_PER_HOUR, hours: value)
+        new(value * SECONDS_PER_HOUR, [[:hours, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def days(value) #:nodoc:
-        new(value * SECONDS_PER_DAY, days: value)
+        new(value * SECONDS_PER_DAY, [[:days, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def weeks(value) #:nodoc:
-        new(value * SECONDS_PER_WEEK, weeks: value)
+        new(value * SECONDS_PER_WEEK, [[:weeks, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def months(value) #:nodoc:
-        new(value * SECONDS_PER_MONTH, months: value)
+        new(value * SECONDS_PER_MONTH, [[:months, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       # FROM ActiveSupport 6.0
       def years(value) #:nodoc:
-        new(value * SECONDS_PER_YEAR, years: value)
+        new(value * SECONDS_PER_YEAR, [[:years, value]])
       end unless ActiveSupport::Duration.methods.include?(:parse)
 
       def parse(string)
@@ -385,15 +306,98 @@ module ActiveSupport
       def week_mixed_with_date?(parts)
         parts.key?(:weeks) && (parts.keys & DATE_COMPONENTS).any?
       end
-    end unless constants.include?(:ISO8601Serializer)
+    end
   end
 end
 
 module Charta
+  class Polygon
+    def without_hole_outside_shell
+      sql = <<-SQL
+        SELECT ST_AsText(
+                 ST_MakePolygon(
+                   ST_ExteriorRing(:feature)
+                 )
+               ) AS simplfied_shape
+      SQL
+      query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text])
+      simplfied_shape_text = ActiveRecord::Base.connection.execute(query).first['simplfied_shape']
+      Charta.new_geometry(simplfied_shape_text)
+    end
+
+    def hole_outside_shell?
+      sql = <<-SQL
+        SELECT St_IsValidreason(:feature) AS reason
+      SQL
+      query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text])
+      result = ActiveRecord::Base.connection.execute(query).first['reason']
+      result.start_with?("Hole lies outside shell")  
+    end
+
+  end
+
   class Geometry
-    def buffer(radius)
-      buffer_text = ActiveRecord::Base.connection.execute("SELECT ST_AsText(ST_Buffer(ST_GeomFromText('#{feature.as_text}')::geography, #{radius})) AS buffer").first['buffer']
-      Charta.new_geometry(buffer_text)
+    # Generates a simpler geometry.
+    # see ST_SimplifyPreserveTopology on http://revenant.ca/www/postgis/workshop/advanced.html#processing-functions
+
+    # @param [Float] tolerance
+    # @return [Charta::Geometry]
+    def simplify(tolerance)
+      sql = <<-SQL
+        SELECT ST_AsText(
+                 ST_SimplifyPreserveTopology(ST_GeomFromText(:feature), :tolerance )
+               ) AS simplfied_shape
+      SQL
+      query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text, tolerance: tolerance ])
+      simplfied_shape_text = ActiveRecord::Base.connection.execute(query).first['simplfied_shape']
+      Charta.new_geometry(simplfied_shape_text)
+    end
+  end
+end
+
+# Because RGeo broke compatibility in their serialization model with `projector_class` becoming `projectorclass`
+module RGeo
+  module Geographic
+    class Factory
+      def init_with(coder)
+        # :nodoc:
+        if (proj4_data = coder["proj4"])
+          CoordSys.check!(:proj4)
+          if proj4_data.is_a?(Hash)
+            proj4 = CoordSys::Proj4.create(proj4_data["proj4"], radians: proj4_data["radians"])
+          else
+            proj4 = CoordSys::Proj4.create(proj4_data.to_s)
+          end
+        else
+          proj4 = nil
+        end
+        if (coord_sys_data = coder["cs"])
+          coord_sys = CoordSys::CS.create_from_wkt(coord_sys_data.to_s)
+        else
+          coord_sys = nil
+        end
+        initialize(coder["impl_prefix"],
+                   has_z_coordinate: coder["has_z_coordinate"],
+                   has_m_coordinate: coder["has_m_coordinate"],
+                   srid: coder["srid"],
+                   wkt_generator: symbolize_hash(coder["wkt_generator"]),
+                   wkb_generator: symbolize_hash(coder["wkb_generator"]),
+                   wkt_parser: symbolize_hash(coder["wkt_parser"]),
+                   wkb_parser: symbolize_hash(coder["wkb_parser"]),
+                   uses_lenient_assertions: coder["lenient_assertions"],
+                   buffer_resolution: coder["buffer_resolution"],
+                   proj4: proj4,
+                   coord_sys: coord_sys
+        )
+        if (proj_klass = coder["projectorclass"] || coder["projector_class"]) && (proj_factory = coder["projection_factory"])
+          klass_ = RGeo::Geographic.const_get(proj_klass)
+          if klass_
+            projector = klass_.allocate
+            projector.set_factories(self, proj_factory)
+            @projector = projector
+          end
+        end
+      end
     end
   end
 end

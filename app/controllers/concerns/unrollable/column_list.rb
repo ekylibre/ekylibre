@@ -55,11 +55,11 @@ module Unrollable
 
     protected
 
-    def reflection_class(name, model)
-      reflection = model.reflect_on_association(name)
-      raise "Cannot find a reflection #{name} for #{model.name}" unless reflection
+      def reflection_class(name, model)
+        reflection = model.reflect_on_association(name)
+        raise "Cannot find a reflection #{name} for #{model.name}" unless reflection
 
-      reflection.class_name.constantize
-    end
+        reflection.class_name.constantize
+      end
   end
 end

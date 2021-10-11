@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -50,29 +52,29 @@
 #  updater_id        :integer
 #
 
-class OutgoingPayment < Ekylibre::Record::Base
+class OutgoingPayment < ApplicationRecord
   include Attachable
   include Customizable
   include PeriodicCalculable
   include Letterable
   refers_to :currency
   belongs_to :cash
-  belongs_to :journal_entry
+  belongs_to :journal_entry # , dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :list, class_name: 'OutgoingPaymentList', inverse_of: :payments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_check_number, :number, length: { maximum: 500 }, allow_blank: true
   validates :cash, :currency, :mode, :payee, :responsible, presence: true
   validates :delivered, :downpayment, inclusion: { in: [true, false] }
-  validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :amount, numericality: true
-  validates :to_bank_at, financial_year_writeable: true
+  validates :to_bank_at, financial_year_writeable: true, ongoing_exchanges: true
 
   delegate :full_name, to: :payee, prefix: true
 
@@ -104,6 +106,10 @@ class OutgoingPayment < Ekylibre::Record::Base
     end
   end
 
+  after_destroy do
+    journal_entry.remove if journal_entry.draft?
+  end
+
   protect do
     (journal_entry && journal_entry.closed?) ||
       pointed_by_bank_statement? || list.present?
@@ -132,7 +138,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def amount_to_letter
-    c = Nomen::Currency[currency]
+    c = Onoma::Currency[currency]
     precision = c.precision
     integers, decimals = amount.round(precision).divmod(1)
     decimals = (decimals * 10**precision).round

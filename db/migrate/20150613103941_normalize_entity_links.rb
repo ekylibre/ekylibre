@@ -1,4 +1,4 @@
-class NormalizeEntityLinks < ActiveRecord::Migration
+class NormalizeEntityLinks < ActiveRecord::Migration[4.2]
   def change
     rename_column :entity_links, :entity_1_id,   :entity_id
     rename_column :entity_links, :entity_1_role, :entity_role

@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module Ekylibre
   class BackupExchanger < ActiveExchanger::Base
+    vendor :ekylibre
+
     self.deprecated = true
 
     class Backup < Hash
@@ -134,6 +138,7 @@ module Ekylibre
                 undoubler_value = prefix + separator + counter.to_s
                 unique_code = keys.collect { |k| k == undoubler ? undoubler_value : item.send(k) }.join('-')
                 break unless dones.include?(unique_code)
+
                 counter += 1
               end
               item.send("#{undoubler}=", undoubler_value)
@@ -164,6 +169,7 @@ module Ekylibre
         if options[:rename]
           options[:rename].each do |old_column, new_column|
             raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+
             renamings[old_column] = new_column
           end
         end
@@ -229,7 +235,6 @@ module Ekylibre
 
       w.check_point
 
-      #
       f = File.open(database)
       doc = Nokogiri::XML(f) do |config|
         config.strict.nonet.noblanks.noent
@@ -242,6 +247,7 @@ module Ekylibre
       unless root.attr(:version).to_s == '20120806083148' # Ekylibre v0.4
         raise NotSupportedFormatError
       end
+
       data = Backup.load(root.children.first)
 
       w.check_point
@@ -258,7 +264,7 @@ module Ekylibre
       accounting_system = Preference[:accounting_system]
       data.browse_and_match(:account) do |item|
         unless account = Account.find_by(number: item.number)
-          reference = Nomen::Account.list.detect do |ref|
+          reference = Onoma::Account.list.detect do |ref|
             ref.send(accounting_system).to_s == item.number
           end
           account = Account.create!(number: item.number, name: item.name, label: item.label, last_letter: item.last_letter, debtor: item.is_debit, reconcilable: item.reconcilable, usages: (reference ? reference.name : nil), description: item.comment)

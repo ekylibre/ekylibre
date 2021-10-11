@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Dimensionable
   extend ActiveSupport::Concern
 
   def of_dimension?(dimension)
-    dose_unit.present? && Nomen::Unit.find(dose_unit).dimension == dimension.to_sym
+    dose_unit.present? && Onoma::Unit.find(dose_unit).dimension == dimension.to_sym
   end
 
   def among_dimensions?(*dimensions)

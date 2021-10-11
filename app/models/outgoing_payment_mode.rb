@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,7 +39,7 @@
 #  with_accounting :boolean          default(FALSE), not null
 #
 
-class OutgoingPaymentMode < Ekylibre::Record::Base
+class OutgoingPaymentMode < ApplicationRecord
   acts_as_list
   belongs_to :cash
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
@@ -68,6 +70,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
       cash_nature = nature == 'cash' ? :cash_box : :bank_account
       cash = Cash.find_by(nature: cash_nature)
       next unless cash
+
       create!(
         name: OutgoingPaymentMode.tc("default.#{nature}.name"),
         with_accounting: true,
@@ -78,9 +81,9 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
 
   private
 
-  def bank_details_for_sepa
-    if sepa && (cash.bank_account_holder_name.blank? || cash.iban.blank?)
-      errors.add(:sepa, :missing_bank_details_for_sepa)
+    def bank_details_for_sepa
+      if sepa && (cash.bank_account_holder_name.blank? || cash.iban.blank?)
+        errors.add(:sepa, :missing_bank_details_for_sepa)
+      end
     end
-  end
 end

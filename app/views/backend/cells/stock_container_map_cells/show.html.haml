@@ -1,40 +1,9 @@
-- if @variety and BuildingDivision.any?
-  :ruby
-    data = []
-    # Get all BuildingDivision
-    # FIXME Find a better way to find storage
-    BuildingDivision.includes(:nature).each do |building_division|
-      if building_division.shape and building_division.containeds.any?
-        popup_content = []
-        ids = []
-        ids = building_division.containeds.uniq.map(&:id)
-        # if there something in building_division
-        if ids.any?
-          # limit to 10 the product list for visualization popup reason
-          # TODO make a better method for this with a link_to list with parameter in product#index
-          popup_content << {label: :products.tl}
-          popup_content << {value: ids.count}
-          popup_content << {label: :net_surface_area.tl, value: building_division.net_surface_area.l}
-          popup_content << {label: :nominal_storable_easement_area.tl, value: building_division.nominal_storable_easement_area.l}
-          popup_content << render('popup', support: building_division)
-          item = {
-            name:       building_division.unroll_name,
-            nature:     building_division.nature_name,
-            shape:      building_division.shape,
-            popup: {header: true, content: popup_content}
-          }
-          data << item
-        end
-      end
-    end
-
-  = visualization do |v|
-    - v.serie :main, data
-    - v.categories :nature, :main
+- if @campaigns && BuildingDivision&.first&.shape.present?
+  = visualization({ async_url: backend_visualizations_stock_container_map_cells_visualizations_path(@url_params) }, {}) do |v|
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
-
+    - v.center BuildingDivision.first.shape.centroid
 - else
-  = no_data
+  .placeholding-message= :no_building.tn

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -147,22 +147,22 @@ class TaxDeclarationItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
 
   private
 
-  def clean_irrelevant_fixtures
-    FinancialYear.delete_all
-    OutgoingPayment.delete_all
-    Sale.delete_all
-    SaleItem.delete_all
-    Regularization.delete_all
-    Payslip.delete_all
-    JournalEntry.delete_all
-    JournalEntryItem.delete_all
-    Affair.delete_all
-    TaxDeclaration.delete_all
-  end
+    def clean_irrelevant_fixtures
+      FinancialYear.delete_all
+      OutgoingPayment.delete_all
+      Sale.delete_all
+      SaleItem.delete_all
+      Regularization.delete_all
+      Payslip.delete_all
+      JournalEntry.delete_all
+      JournalEntryItem.delete_all
+      Affair.delete_all
+      TaxDeclaration.delete_all
+    end
 
-  def create_journals
-    create(:journal, nature: 'result')
-    create(:journal, nature: 'closure')
-    create(:journal, nature: 'forward')
-  end
+    def create_journals
+      create(:journal, nature: 'result')
+      create(:journal, nature: 'closure')
+      create(:journal, nature: 'forward')
+    end
 end

@@ -1,8 +1,8 @@
 = kujaku do |k|
   - k.text
   - k.helper :journal_period_crit
-  - k.choice :all, :consume, :available
-  - k.needle_choice :working_set, [[]] + Nomen::WorkingSet.selection
+  - k.choice :all, :consume, :available ,label: :stock_status.tl
+  - k.list :sub_nature,label: :options.tl, list_values: [:fertilizer, :plant_medicine, :seed_and_plant, :other].map{ |nature| [nature.to_s.pluralize.tl, nature.to_s.camelize] }
   - if ProductLabelling.any?
     - k.helper do
       %label= Label.model_name.human

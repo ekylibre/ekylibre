@@ -1,4 +1,4 @@
-class AddIbanDetailsToEntities < ActiveRecord::Migration
+class AddIbanDetailsToEntities < ActiveRecord::Migration[4.2]
   def change
     change_table :entities do |t|
       t.string :bank_account_holder_name

@@ -1,4 +1,4 @@
-class AddProviderOnSalesAndIncomingPayments < ActiveRecord::Migration
+class AddProviderOnSalesAndIncomingPayments < ActiveRecord::Migration[4.2]
   def up
     # add providers colums to store pairs on provider / id number on sale and incoming payment
     add_column :sales, :providers, :jsonb

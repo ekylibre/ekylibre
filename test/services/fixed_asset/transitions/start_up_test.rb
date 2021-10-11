@@ -4,7 +4,6 @@ require_dependency Rails.root.join('app', 'models', 'fixed_asset')
 class FixedAsset
   module Transitions
     class StartUpTest < Ekylibre::Testing::ApplicationTestCase
-
       setup do
         create :financial_year, year: 2016
       end
@@ -14,9 +13,10 @@ class FixedAsset
         unsupported_states = FixedAsset.state.values - supported_states
         unsupported_states.each do |state|
           mock = Minitest::Mock.new
-          mock.expect :state, state
+          mock.expect(:state, state)
+          mock.expect(:started_on, nil)
 
-          transition = new_transition_for mock
+          transition = new_transition_for(mock)
 
           assert_not transition.can_run?, "Should not be able to run on a FixedAsset with state '#{state}'"
           assert_mock mock
@@ -25,10 +25,11 @@ class FixedAsset
 
       test 'should not be able start_up a fixed_asset if it is not in a valid state' do
         mock = Minitest::Mock.new
-        mock.expect :state, :draft
-        mock.expect :valid?, false
+        mock.expect(:state, :draft)
+        mock.expect(:valid?, false)
+        mock.expect(:started_on, nil)
 
-        transition = new_transition_for mock
+        transition = new_transition_for(mock)
         assert_not transition.can_run?
         assert_mock mock
       end

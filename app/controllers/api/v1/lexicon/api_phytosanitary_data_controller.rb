@@ -2,11 +2,10 @@ module Api
   module V1
     module Lexicon
       class ApiPhytosanitaryDataController < Api::V1::BaseController
-
         private
 
           def quote(str)
-            ActiveRecord::Base.connection.quote(str)
+            ApplicationRecord.connection.quote(str)
           end
 
           def paginated_result(model, order: nil)
@@ -50,7 +49,7 @@ module Api
             return [] if elements.empty?
 
             ids = elements.map { |e| "(#{quote(e[:id])})" }.join(',')
-            Ekylibre::Record::Base.connection.execute("SELECT t.id FROM  (values #{ids}) as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a
+            ApplicationRecord.connection.execute("SELECT t.id FROM  (values #{ids}) as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a
           end
 
           def get_updated_or_inserted_elements(elements, model:)

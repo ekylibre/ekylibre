@@ -1,11 +1,20 @@
+# frozen_string_literal: true
+
 module UPRA
   class ReproductorsExchanger < ActiveExchanger::Base
+    category :animal_farming
+    vendor :upra
+
     # Create or updates UPRA reproductors
     def import
       male_adult_cow = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
       # female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
-      owner = Entity.where(of_company: false).reorder(:id).first
-      now = Time.zone.now - 2.months
+      owner_name = 'UPRA Normande'
+      owner = Entity.find_by(last_name: owner_name) ||
+               Entity.where('last_name ILIKE ?', owner_name).first ||
+               Entity.create!(nature: :organization, last_name: owner_name, supplier: true)
+
+      at = Time.zone.now - 36.months
 
       rows = CSV.read(file, encoding: 'CP1252', col_sep: "\t", headers: true).delete_if { |r| r[4].blank? }
       w.count = rows.size
@@ -27,15 +36,15 @@ module UPRA
           variant: male_adult_cow,
           name: r.name,
           variety: 'bos_taurus',
-          born_at: '1900-01-01 01:00',
+          born_at: at,
           identification_number: r.identification_number[-10..-1],
           initial_owner: owner
         )
         # set default indicators
-        animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
-        animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
-        animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: now)
-        animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
+        animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: at)
+        animal.read!(:economical_milk_index,          r.inel.in_unity, at: at)
+        animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: at)
+        animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: at)
         # put in an external localization
         animal.localizations.create!(nature: :exterior)
         w.check_point

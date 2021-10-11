@@ -1,17 +1,17 @@
 = infos do
   .big-info
     %span.title= :currency.t(scope: 'preferences')
-    %span.value= Nomen::Currency[Preference[:currency]].human_name rescue "?"
+    %span.value= Onoma::Currency[Preference[:currency]].human_name rescue "?"
   .big-info
     %span.title= :country.t(scope: 'preferences')
-    %span.value= Nomen::Country[Preference[:country]].human_name rescue "?"
+    %span.value= Onoma::Country[Preference[:country]].human_name rescue "?"
   .big-info
     %span.title= :language.t(scope: 'preferences')
-    %span.value= Nomen::Language[Preference[:language]].human_name rescue "?"
+    %span.value= Onoma::Language[Preference[:language]].human_name rescue "?"
   .big-info
     %span.title= :accounting_system.t(scope: 'preferences')
     %span.value= Preference[:accounting_system].mb_chars.upcase.gsub('_', '-') rescue "?"
-  - fiscal_position = Nomen::FiscalPosition[Preference[:fiscal_position]]
+  - fiscal_position = Onoma::FiscalPosition[Preference[:fiscal_position]]
   - if fiscal_position.country.to_s == Preference[:country]
     .big-info
       %span.title= :fiscal_position.t(scope: 'preferences')

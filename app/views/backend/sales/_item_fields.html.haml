@@ -1,22 +1,43 @@
 - item ||= f.object
-- precision = Nomen::Currency[f.object.sale_currency].precision
+- precision = Onoma::Currency[f.object.sale_currency].precision
 %tbody.nested-fields{ data: { trade_item: "sale", currency_precision: precision } }
   %tr
     %td.annotable
-      = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables, action: :unroll_saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id, mode: :last_sale_item)}}})
+      :ruby
+        options = {
+          wrapper: :nested,
+          source: {
+            scope: { saleables: true, active: true },
+            action: :unroll_saleables
+          },
+          input_html: {
+            class: 'sale-variant',
+            data: {
+              variant_of_deal_item: {
+                url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id, mode: :last_sale_item)
+              },
+              parent: '.nested-fields',
+              filter_unroll: "[data-selector-id='sale_item_conditioning_unit_id']"
+            }
+          }
+        }
+
+      = f.referenced_association(:variant, **options)
       - if f.object.annotation.blank?
         = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
           %i
     = f.input_field :compute_from, as: :hidden, data: { compute_from_updater: true }
     %td= f.object.shipments.map { |i| i.reference_number.blank? ? i.number : i.reference_number }.to_sentence
-    %td= f.input :accounting_label, wrapper: :nested
-    %td= f.input(:quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}}, disabled: item.fixed)
+    %td= f.input :accounting_label, wrapper: :nested, input_html: {size: 9}
+    %td= f.referenced_association :conditioning_unit, wrapper: :nested, input_html: { size: 12, data: { filters_url: unroll_filters_by_catalog_items_backend_units_path, variant_selector: 'input.sale-variant' } }, new: { controller: :conditionings, action: :new_on_the_go }
+    %td= f.input(:conditioning_quantity, wrapper: :nested, input_html: {size: 5, data: {trade_component: "quantity"}}, disabled: item.fixed)
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {size: 8, data: {trade_component: "unit_pretax_amount", compute_from: :unit_pretax_amount }})
-    %td= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+    %td.unitary-quantity.hidden= f.input(:base_unit_amount, disabled: true, wrapper: :nested)
+    %td= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, {}, data:{value: 'rate', trade_component: "tax"})
     %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {size: 8, data: {trade_component: "reduction_percentage"}})
-    %td= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", size: 8, data: {trade_component: "pretax_amount", compute_from: :pretax_amount }})
-    %td= f.input(:amount, wrapper: :nested, input_html: { class: "wta", size: 8, data: { trade_component: "amount", compute_from: :amount } })
-    %td.currency= f.object.sale_currency
+    %td= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta lg-numeric", size: 6, maxlength: 6, data: {trade_component: "pretax_amount", compute_from: :pretax_amount }})
+    %td= f.input(:amount, wrapper: :nested, input_html: { class: "wta lg-numeric", size: 6, data: { trade_component: "amount", compute_from: :amount } })
+    %td.currency.right-align= f.object.sale_currency
     %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
 
   - attrs = {}
@@ -50,10 +71,10 @@
           #new_asset
             = f.referenced_association :depreciable_product, source: :depreciables
 
-  %tr.tr-add-on
-    %td{ colspan: 2 }
-      - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
-        = f.referenced_association(:activity_budget, new: false)
-    %td{ colspan: 3 }
-      - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
-        = f.referenced_association(:team)
+      .item-form-information
+        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+          .item-form.item-form__activity
+            = f.referenced_association(:activity_budget, new: false)
+        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
+          .item-form.item-form__team
+            = f.referenced_association(:team)

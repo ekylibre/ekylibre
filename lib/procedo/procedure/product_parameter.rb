@@ -22,8 +22,9 @@ module Procedo
         super(procedure, name, options)
         @type = type
         unless ProductParameter::TYPES.include?(@type)
-          raise ArgumentError, "Unknown parameter type: #{@type.inspect}"
+          raise ArgumentError.new("Unknown parameter type: #{@type.inspect}")
         end
+
         if options[:filter]
           @filter = options[:filter]
           # # Check filter syntax
@@ -54,8 +55,9 @@ module Procedo
       def add_handler(name, options = {})
         handler = Procedo::Procedure::Handler.new(self, name, options)
         if @handlers.key?(handler.name)
-          raise ArgumentError, "Handler name already taken: #{name}"
+          raise ArgumentError.new("Handler name already taken: #{name}")
         end
+
         @handlers[handler.name] = handler
       end
 
@@ -63,8 +65,9 @@ module Procedo
       def add_attribute(name, options = {})
         attribute = Procedo::Procedure::Attribute.new(self, name, options)
         if @attributes.key?(attribute.name)
-          raise ArgumentError, "Attribute name already taken: #{name}"
+          raise ArgumentError.new("Attribute name already taken: #{name}")
         end
+
         @attributes[attribute.name] = attribute
       end
 
@@ -72,8 +75,9 @@ module Procedo
       def add_reading(name, options = {})
         reading = Procedo::Procedure::Reading.new(self, name, options)
         if @readings.key?(reading.name)
-          raise ArgumentError, "Reading name already taken: #{name}"
+          raise ArgumentError.new("Reading name already taken: #{name}")
         end
+
         @readings[reading.name] = reading
       end
 
@@ -99,7 +103,7 @@ module Procedo
           default: [
             "is_#{name}_completely_destroyed_by_intervention".to_sym,
             "is_this_completely_destroyed_by_#{procedure.name}".to_sym,
-            'is_this_completely_destroyed_by_this_intervention'.to_sym
+            :is_this_completely_destroyed_by_this_intervention
           ]
         )
       end
@@ -113,7 +117,6 @@ module Procedo
         @procedure.parameters.reject { |v| v == self }
       end
 
-      #
       def handled?
         @handlers.any?
       end
@@ -126,6 +129,7 @@ module Procedo
       # Returns an attribute by its name
       def attribute(name)
         raise 'Invalid attribute: ' + name.inspect unless Procedo::Procedure::Attribute::TYPES.include?(name)
+
         @attributes[name]
       end
 
@@ -142,15 +146,18 @@ module Procedo
           end
           return nil unless candidates.any?
           return candidates.first if candidates.count == 1
+
           best = candidates.find { |h| h.unit.name.to_s == quantity.unit.to_s }
           (best || candidates.first)
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?
+
           candidates.first
         elsif quantity.is_a?(Charta::Geometry)
           candidates = handlers.select { |h| h.indicator.datatype == :multi_polygon }
           return nil unless candidates.any?
+
           candidates.first
         end
       end
@@ -169,6 +176,7 @@ module Procedo
       def components
         procedure.product_parameters(true).select do |p|
           next unless p.component_of?
+
           p.component_of? && p.component_of_with_parameter?(name, p == self)
         end
       end
@@ -189,11 +197,13 @@ module Procedo
         attribute = instance_variable_get(:"@#{attribute_name}")
         return nil unless attribute
         return attribute unless attribute =~ /\:/
+
         attr, other = attribute.split(/\:/)[0..1].map(&:strip)
         attr = attribute_name.to_s.underscore if attr.blank?
         unless parameter = @procedure.parameters[other]
-          raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
+          raise Procedo::Errors::MissingParameter.new("Parameter #{other.inspect} can not be found")
         end
+
         parameter.send("computed_#{attr}")
       end
 
@@ -216,7 +226,7 @@ module Procedo
         if @variant.start_with?(':')
           other = @variant[1..-1]
           return intervention.product_parameters.find_by(parameter: other).variant
-        elsif Nomen::ProductNatureVariant[@variant]
+        elsif Onoma::ProductNatureVariant[@variant]
           unless variant = ProductNatureVariant.find_by(nomen: @variant.to_s)
             variant = ProductNatureVariant.import_from_nomenclature(@variant)
           end
@@ -232,6 +242,7 @@ module Procedo
           other = @variant[1..-1]
           return @procedure.parameters[other]
         end
+
         nil
       end
 
@@ -239,6 +250,7 @@ module Procedo
         if v = variant_parameter
           return 'same_variant_as_x'.tl(x: v.human_name)
         end
+
         'unknown_variant'.tl
       end
 
@@ -266,6 +278,7 @@ module Procedo
 
       def depend_on?(parameter_name)
         return false if parameter_name == name
+
         @attributes.values.any? { |a| a.depend_on? parameter_name } ||
           @readings.values.any? { |r| r.depend_on? parameter_name } ||
           @handlers.values.any? { |h| h.depend_on? parameter_name } ||
@@ -282,12 +295,13 @@ module Procedo
       # true if all information provided by the parameter (variety, derivative_of
       # and/or abilities) match with actor's ones, false if at least one does not
       # fit or is missing
-      # @params [Product] actor a Product object or any object responding to
+      # @param [Product] actor a Product object or any object responding to
       #   #variety, #derivative_of and #abilities
       # @return [Boolean]
       def fulfilled_by?(actor)
         # do not test created parameters
         return false if new?
+
         expr = []
         expr << "is #{computed_variety}" if @variety.present?
         if @derivative_of.present? && actor.derivative_of.present?
@@ -297,6 +311,7 @@ module Procedo
           expr << @abilities.map { |a| "can #{a}" }.join(' and ')
         end
         return false if expr.empty?
+
         actor.of_expression(expr.join(' and '))
       end
 
@@ -314,24 +329,24 @@ module Procedo
 
       private
 
-      # Compares two Nomen::Variety items. Returns true if actor's item is the
-      # same as parameter's one or if actor's item is a child of parameter's
-      # variety, false otherwise.
-      # @param [Nomen::Variety] parameter_item current parameter own variety or
-      #   derivative_of
-      # @param [Nomen::Variety] actor_item the actor's variety or derivative_of
-      #   to compare
-      # @return [Boolean]
-      def same_items?(parameter_item, actor_item)
-        # if possible it is better to squeeze nomenclature items comparison since it's quite slow
-        return true if actor_item == parameter_item
+        # Compares two Onoma::Variety items. Returns true if actor's item is the
+        # same as parameter's one or if actor's item is a child of parameter's
+        # variety, false otherwise.
+        # @param [Onoma::Variety] parameter_item current parameter own variety or
+        #   derivative_of
+        # @param [Onoma::Variety] actor_item the actor's variety or derivative_of
+        #   to compare
+        # @return [Boolean]
+        def same_items?(parameter_item, actor_item)
+          # if possible it is better to squeeze nomenclature items comparison since it's quite slow
+          return true if actor_item == parameter_item
 
-        begin
-          return Nomen::Variety[parameter_item] >= actor_item
-        rescue # manage the case when there is no item in nomenclature for the varieties to compare
-          return false
+          begin
+            return Onoma::Variety[parameter_item] >= actor_item
+          rescue # manage the case when there is no item in nomenclature for the varieties to compare
+            return false
+          end
         end
-      end
     end
   end
 end

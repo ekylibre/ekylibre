@@ -41,6 +41,7 @@ module Map
       def load(path = nil)
         config_path = path || Rails.root.join('config', 'map_layers.yml.erb')
         raise 'No valid config file found for Map::Layer' unless Pathname(config_path).exist?
+
         layers = YAML.load(ERB.new(File.read(config_path)).result).deep_symbolize_keys
         layers.each do |provider, attributes|
           provider = ::Map::Provider.new(provider, attributes.try(:[], :url), attributes.try(:[], :enabled), attributes.try(:[], :by_default), attributes.try(:[], :type), attributes.try(:[], :options))
@@ -62,6 +63,7 @@ module Map
 
       def find(reference_name)
         return nil unless reference_name
+
         detect do |layer|
           layer.reference_name == reference_name
         end

@@ -11,6 +11,7 @@
 #= require visualization/paths
 #= require visualization/points
 #= require visualization/point_group
+#= require visualization/polyline
 #= require visualization/simple
 
 ((V, $) ->
@@ -45,7 +46,7 @@
       controlDefaults:
         fullscreen:
           position: 'topleft'
-          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
+          title: I18n.t("front-end.leaflet.fullscreenTitle")
         geocoder:
           collapsed: true,
           position: 'topright',
@@ -65,9 +66,9 @@
         zoom:
           position: 'topleft'
           zoomInText: ''
-          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
+          zoomInTitle: I18n.t("front-end.leaflet.zoomInTitle")
           zoomOutText: ''
-          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
+          zoomOutTitle: I18n.t("front-end.leaflet.zoomOutTitle")
       layers: {}
       layerDefaults:
         band:
@@ -125,7 +126,7 @@
           fill: true
           fillColor: "#CBCFFB"
           fillOpacity: 0.5
-          zoomGuidance: I18n.t("#{I18n.rootKey}.leaflet.zoomGuidance")
+          zoomGuidance: I18n.t("front-end.leaflet.zoomGuidance")
         paths:
           stroke: true
           color: "#333333"
@@ -237,6 +238,7 @@
           $.extend(true, @options, data)
           @_refreshControls()
           @optionalDataLoading()
+          @map.fire("async-layers-loaded")
         error: () =>
           dynamic_error = new L.Control(position: "bottomleft")
           dynamic_error.onAdd = (map) =>
@@ -463,11 +465,16 @@
         console.log("#{layer.name} layer added")
         unless layer.type == 'optional'
           try
-            group = new L.featureGroup(layerGroup)
-            bounds = group.getBounds()
+            if !!@layerGroup
+              @layerGroup.addLayer(overlayLayer)
+            else
+              @layerGroup = new L.featureGroup(layerGroup)
+            bounds = @layerGroup.getBounds()
             @map.fitBounds(bounds)
             if bounds.getNorthEast().equals bounds.getSouthWest()
               @map.setZoom 18
+
+
         # Add legend
         legend = @controls.legendControl.getContainer()
         legend.innerHTML += renderedLayer.buildLegend()

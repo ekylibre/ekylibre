@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,7 +34,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ActivitySeason < Ekylibre::Record::Base
+class ActivitySeason < ApplicationRecord
   belongs_to :activity, class_name: 'Activity', inverse_of: :seasons
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :season, foreign_key: :season_id
 

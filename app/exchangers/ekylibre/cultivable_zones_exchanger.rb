@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
 module Ekylibre
   # Import a list of cultivable zone from georeadings
   # Prefer ekylibre/cultivable_zones_json to import directly cultivable zones
   # REMOVEME This exchanger is not very useful in standalone mode
   class CultivableZonesExchanger < ActiveExchanger::Base
+    category :plant_farming
+    vendor :ekylibre
+
     DEFAULT_SHAPE = Charta.new_geometry('MULTIPOLYGON(((0 0,0 1,1 1,1 0,0 0)))').freeze
 
     def find_zone_by_matching_shape(shape)
@@ -46,7 +51,7 @@ module Ekylibre
         # update name & code anyway
         zone.name = r.name if r.name
         zone.work_number = r.code if r.code
-        if r.soil_nature && Nomen::SoilNature[r.soil_nature]
+        if r.soil_nature && Onoma::SoilNature[r.soil_nature]
           zone.soil_nature ||= r.soil_nature
         end
 

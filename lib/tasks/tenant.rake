@@ -1,71 +1,5 @@
 # Tenant tasks
 namespace :tenant do
-  namespace :multi_database do
-    task drop: :environment do
-      multi_database = ENV['MULTI_DATABASE'].to_i
-      if multi_database > 0
-        database = Rails.configuration.database_configuration[Rails.env]['database']
-        (16 ** multi_database).times do |i|
-          name = database + '_' + i.to_s(16).rjust(multi_database, '0')
-          ActiveRecord::Base.connection.execute("DROP DATABASE IF EXISTS #{name}")
-        end
-      end
-    end
-
-    task distribute: :environment do
-      beginning = (ENV['FROM'] || ENV['MULTI_DATABASE'] || 0).to_i
-      finish = (ENV['TO'] || ENV['MULTI_DATABASE'] || 1).to_i
-      if beginning == finish
-        puts 'Nothing to do. No change wanted.'
-        exit 0
-      end
-      database = Rails.configuration.database_configuration[Rails.env]['database']
-      now = Time.now.to_i.to_s(36)
-      Ekylibre::Tenant.list.each do |tenant|
-        start = Time.now
-        source = Ekylibre::Tenant.database_for(tenant, beginning)
-        destination = Ekylibre::Tenant.database_for(tenant, finish)
-        puts "Moving schema #{tenant} from #{source} to #{destination}...".cyan
-        # Warn if source and destination don't exist
-        Ekylibre::Tenant.switch_to_database(source)
-        source_exists = Apartment.connection.schema_exists? tenant
-        Ekylibre::Tenant.create_database_for!(tenant, finish)
-        Ekylibre::Tenant.switch_to_database(destination)
-        destination_exists = Apartment.connection.schema_exists? tenant
-
-        if source_exists && destination_exists
-          puts "For #{tenant}, source and destination exist. Destination is removed".red
-          Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{destination}` }
-        elsif !source_exists && !destination_exists
-          puts "For #{tenant}, no source and no destination exist".red
-          next
-        end
-
-        # Already migrated
-        if !source_exists && destination_exists
-          puts "For #{tenant}, no source and destination exist, schema already migrated".yellow
-          next
-        end
-
-        dump = "tmp/distribute-#{beginning}-#{finish}-#{now}-#{tenant}.sql"
-
-        # Dump source
-        Ekylibre::Tenant.with_pg_env(tenant) { `pg_dump -x -O -f #{dump} -n '"#{tenant}"' #{source}` }
-
-        # Restore destination
-        Ekylibre::Tenant.with_pg_env(tenant) { `psql -f #{dump} #{destination}` }
-
-        # Remove source and dump
-        if ENV['DELETE_AFTER_DISTRIBUTE']
-          Ekylibre::Tenant.with_pg_env(tenant) { `psql -c 'DROP SCHEMA "#{tenant}" CASCADE' #{source}` }
-          FileUtils.rm_rf(dump)
-        end
-
-        puts "Schema #{tenant} moved from #{source} to #{destination} in #{Time.now - start} seconds".green
-      end
-    end
-  end
-
   namespace :agg do
     # Create aggregation schema
     desc 'Create the aggregation schema'
@@ -95,27 +29,71 @@ namespace :tenant do
   task create: :environment do
     name = ENV['TENANT'] || ENV['name']
     Ekylibre::Tenant.create(name) unless Ekylibre::Tenant.exist?(name)
+    # Set Stripe preferences if exists
+    if ENV['CUS_ID'] && ENV['SUB_ID']
+      Ekylibre::Tenant.switch(name) do
+        # Add default map layers
+        MapLayer.load_defaults
+
+        Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string)
+        Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string)
+      end
+    end
   end
 
   desc 'Create a tenant with alone admin user (with TENANT, EMAIL, PASSWORD variable)'
   task init: :environment do
     tenant = ENV['TENANT']
     raise 'Need TENANT variable' unless tenant
+
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
+      # Set Stripe preferences if exists
+      Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string) if ENV['CUS_ID']
+      Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string) if ENV['SUB_ID']
       # Set basic preferences
-      language = Nomen::Language.find(ENV['LANGUAGE'])
+      language = Onoma::Language.find(ENV['LANGUAGE'])
       Preference.set! :language, language ? language.name : 'fra'
-      country = Nomen::Country.find(ENV['COUNTRY'])
+      country = Onoma::Country.find(ENV['COUNTRY'])
       Preference.set! :country, country ? country.name : 'fr'
-      currency = Nomen::Currency.find(ENV['CURRENCY'])
+      currency = Onoma::Currency.find(ENV['CURRENCY'])
       Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
+      puts "#{tenant.inspect.green} - Preference set (default is language: fra, country: fr, currency: EUR, SRS: WGS84)."
+      # Load default data
+      ::I18n.locale = Preference[:language]
+      Account.accounting_system = 'fr_pcga'
+      Account.load_defaults
+      Tax.load_defaults
+      Unit.load_defaults
+      Sequence.load_defaults
+      DocumentTemplate.load_defaults
+      MapLayer.load_defaults
+      NamingFormatLandParcel.load_defaults
+      fy = FinancialYear.create!(started_on: Date.new(Time.zone.now.year, 1, 1), stopped_on: Date.new(Time.zone.now.year, 12, 31))
+      Journal.load_defaults
+      SaleNature.load_defaults
+      PurchaseNature.load_defaults
+      puts "#{tenant.inspect.green} - Default configuration loaded (default is accounting: fr_pcga, fy: #{fy.name})."
+
+      attributes = {
+        language: 'fra',
+        currency: 'EUR',
+        nature: :organization,
+        siret_number: '32627372900011',
+        of_company: true,
+        last_name: 'GAEC JOULIN',
+        born_at: Date.new(Time.zone.now.year, 1, 1).to_time
+      }
+      company = Entity.create!(attributes)
+      company.addresses.create!(canal: :mail, mail_line_4: '8 rue du bouil bleu')
+      company.addresses.create!(canal: :mail, mail_line_6: '17250 SAINT-PORCHAIRE')
+      puts "#{tenant.inspect.green} - Default company created."
       # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
       user = User.find_by(email: email)
       if user
-        puts 'No user created. Already initialized.'
+        puts "#{tenant.inspect.yellow} - No user created. Already initialized."
       else
         attributes = {
           email: email,
@@ -126,8 +104,8 @@ namespace :tenant do
         }
         attributes[:password_confirmation] = attributes[:password]
         User.create!(attributes)
-        puts "Initialized with account #{email}."
-        puts "Password is: #{attributes[:password]}" unless ENV['PASSWORD']
+        puts "#{tenant.inspect.green} - User created with email #{email.inspect.yellow}"
+        puts "#{tenant.inspect.green} - User created with password #{attributes[:password].inspect.yellow}" unless ENV['PASSWORD']
       end
     end
   end
@@ -152,6 +130,7 @@ namespace :tenant do
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
     raise 'Need TENANT env variable to dump' unless tenant
+
     options = {}
     options[:path] = Pathname.new(archive) if archive
     options[:path] ||= Rails.root.join('tmp', 'archives') if tenant
@@ -171,12 +150,12 @@ namespace :tenant do
     STDOUT.flush
     input = STDIN.gets.chomp
     case input.upcase
-      when 'Y'
-        return true
-      when 'N'
-        return false
-      else
-        return default
+    when 'Y'
+      return true
+    when 'N'
+      return false
+    else
+      return default
     end
   end
 
@@ -203,7 +182,7 @@ namespace :tenant do
         first_name = "Support"
         last_name = "Ekylibre"
 
-        Ekylibre::Record::Base.transaction do
+        ApplicationRecord.transaction do
           person = Entity.find_by(first_name: first_name, last_name: last_name)
           person ||= Entity.create!(first_name: first_name, last_name: last_name, nature: :contact)
 
@@ -216,8 +195,9 @@ namespace :tenant do
 
   task restore: :environment do
     if Rails.env.production? && !ENV['DANGEROUS_MODE']
-      raise Ekylibre::ForbiddenImport, 'No restore is allowed on the production server.'
+      raise Ekylibre::ForbiddenImport.new('No restore is allowed on the production server.')
     end
+
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
     options = {}
@@ -227,6 +207,7 @@ namespace :tenant do
     end
     archive = Pathname.new(archive) unless archive.is_a? Pathname
     raise 'Need ARCHIVE env variable to find archive' unless archive
+
     if Ekylibre::Tenant.exist?(tenant) && ENV['FORCE'].to_i.zero?
       warnings = ["Tenant \"#{tenant}\" already exists. Do you really want to erase it and restore archive?",
                   'Really sure?']

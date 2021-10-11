@@ -1,8 +1,9 @@
 module Backend
   module VariantCategories
     class EquipmentCategoriesController < Backend::ProductNatureCategoriesController
-
-      importable_from_lexicon :variant_categories, model_name: "VariantCategories::#{controller_name.classify}".constantize, filter_by_nature: 'equipment'
+      importable_from_lexicon :master_variant_categories, model_name: "VariantCategories::#{controller_name.classify}".constantize,
+                                                          primary_key: :reference_name,
+                                                          filters: { of_families: :equipment }
     end
   end
 end

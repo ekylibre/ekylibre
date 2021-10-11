@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +23,7 @@
 #
 # == Table: product_nature_variants
 #
-#  active                    :boolean          default(FALSE), not null
+#  active                    :boolean          default(TRUE), not null
 #  category_id               :integer          not null
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -34,13 +34,14 @@
 #  id                        :integer          not null, primary key
 #  imported_from             :string
 #  lock_version              :integer          default(0), not null
-#  name                      :string
+#  name                      :string           not null
 #  nature_id                 :integer          not null
 #  number                    :string           not null
 #  picture_content_type      :string
 #  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
+#  provider                  :jsonb
 #  providers                 :jsonb
 #  reference_name            :string
 #  specie_variety            :string
@@ -66,10 +67,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Parcel.delete_all
     SaleItem.delete_all
     Sale.delete_all
-    ProductNatureCategory.delete_all
     ProductNature.delete_all
     ParcelItemStoring.delete_all
     Product.delete_all
+    ProductNatureCategory.delete_all
     JournalEntryItem.delete_all
     ProductNatureVariant.delete_all
     Payslip.delete_all
@@ -77,8 +78,25 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     Account.delete_all
   end
 
+  test "type is computed from category and variant at each validation" do
+    cat = create(:animal_category)
+    nature = create(:animals_nature)
+
+    pnv = ProductNatureVariant.new(
+      type: "Variants::ArticleVariant",
+      category: cat,
+      nature: nature
+    )
+
+    assert_equal "Variants::ArticleVariant", pnv.type
+
+    pnv.valid?
+
+    assert_equal "Variants::AnimalVariant", pnv.type
+  end
+
   test 'working sets' do
-    Nomen::WorkingSet.list.each do |item|
+    Onoma::WorkingSet.list.each do |item|
       assert ProductNatureVariant.of_working_set(item.name).count >= 0
     end
   end
@@ -101,9 +119,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to prepared' do
     variant = create(:product_nature_variant)
-    sale = create(:sale, items: 0)
-    sale.update(state: 'order')
+    sale = create(:sale)
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
+    sale.propose!
+    sale.confirm!(DateTime.parse('2018-01-01T00:00:00Z'))
     shipment = create(:shipment, sale: sale)
     shipment.update(state: 'prepared')
     assert_equal 50.0, variant.current_outgoing_stock_ordered_not_delivered
@@ -111,7 +130,7 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
 
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to draft and shipment state to draft' do
     variant = create(:product_nature_variant)
-    sale = create(:sale, items: 0)
+    sale = create(:sale)
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
     shipment = create(:shipment, sale: sale)
     assert_equal 0, variant.current_outgoing_stock_ordered_not_delivered
@@ -120,9 +139,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test 'current_outgoing_stock_ordered_not_delivered returns the right amount of variants when sale state is set to order and shipment state to given' do
     variant = create(:product_nature_variant)
     product = create(:product, variant: variant)
-    sale = create(:sale, items: 0)
-    sale.update(state: 'order')
+    sale = create(:sale, invoiced_at: DateTime.parse('2018-01-02T00:00:00Z'))
     create(:sale_item, sale: sale, variant: variant, quantity: 50.to_d)
+    sale.propose!
+    sale.confirm!(DateTime.parse('2018-01-01T00:00:00Z'))
     shipment = create(:shipment, sale: sale)
     create(:shipment_item, shipment: shipment, variant: variant, population: 1.to_d, source_product: product, product_identification_number: '12345678', product_name: 'Product name')
     shipment.update(state: 'given')
@@ -162,26 +182,26 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     references = { animal: :bee_band,
                    article: :acetal,
                    crop: :annual_fallow_crop,
-                   equipment: :air_compressor,
+                   equipment: :animal_medicine_tank,
                    service: :accommodation_taxe,
                    worker: :employee,
                    zone: :animal_building }
 
-    references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
+    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", ProductNatureVariant.import_from_nomenclature(reference).type }
 
     article_references = { plant_medicine: :additive, fertilizer: :bulk_ammo_phosphorus_sulfur_20_23_0, seed_and_plant: :ascott_wheat_seed_25 }
-    article_references.each { |type, reference| assert ProductNatureVariant.import_from_nomenclature(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
+    article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", ProductNatureVariant.import_from_nomenclature(reference).type }
   end
 
   test 'type is correctly set upon import from lexicon' do
     references = { article: :stake,
-                   equipment: :hose_reel,
+                   equipment: :geolocation_box,
                    service: :additional_activity,
-                   worker: :permanent }
+                   worker: :permanent_worker }
 
     references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::#{type.capitalize}Variant".constantize) }
 
-    article_references = { plant_medicine: :soft_wheat_herbicide, fertilizer: :horse_manure, seed_and_plant: :soft_wheat_seed }
+    article_references = { plant_medicine: '2000085_zebra', fertilizer: :horse_manure, seed_and_plant: :common_wheat_seed }
     article_references.each { |type, reference| assert ProductNatureVariant.import_from_lexicon(reference).is_a?("Variants::Articles::#{type.to_s.classify}Article".constantize) }
   end
 
@@ -194,9 +214,30 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
                    worker: :worker_variant,
                    zone: :land_parcel_variant }
 
-    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type}
+    references.each { |type, reference| assert_equal "Variants::#{type.capitalize}Variant", create(reference).type }
 
     article_references = { plant_medicine: :phytosanitary_variant, fertilizer: :fertilizer_variant, seed_and_plant: :seed_variant }
     article_references.each { |type, reference| assert_equal "Variants::Articles::#{type.to_s.classify}Article", create(reference).type }
+  end
+
+  test 'guess_conditioning' do
+    Unit.load_defaults
+    variant = create :seed_variant
+    conditioning_data = variant.guess_conditioning
+
+    assert_includes Unit.where(reference_name: %i[kilogram]), conditioning_data[:unit]
+    assert_equal 1, conditioning_data[:quantity]
+
+    variant.update!(default_quantity: 14)
+    conditioning_data = variant.guess_conditioning
+
+    assert_includes Unit.where(reference_name: %i[kilogram]), conditioning_data[:unit]
+    assert_equal 14, conditioning_data[:quantity]
+
+    variant.update!(default_quantity: 100)
+    conditioning_data = variant.guess_conditioning
+
+    assert_equal Unit.find_by_reference_name('quintal'), conditioning_data[:unit]
+    assert_equal 1, conditioning_data[:quantity]
   end
 end

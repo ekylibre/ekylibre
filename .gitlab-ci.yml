@@ -1,13 +1,20 @@
 stages:
+  - lint
   - build
   - test
-  - review
+#  - review
+  - doc
+  - deploy
 
 variables:
+  DOCKER_BUILDKIT: 1
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
   TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
   TEST_LATEST: ${CI_REGISTRY_IMAGE}/test:latest
   REVIEW_HOST: ${CI_BUILD_REF_SLUG}.ci.ekylibre.dev
   KUBE_NAMESPACE: eky-test-deploy
+
 #  PROD_RAILS: ${CI_REGISTRY_IMAGE}/ekylibre-rails:$CI_COMMIT_REF_SLUG
 #  PROD_RAILS_LATEST: ${CI_REGISTRY_IMAGE}/ekylibre-rails:latest
 #  PROD_WEB: ${CI_REGISTRY_IMAGE}/ekylibre-web:$CI_COMMIT_REF_SLUG
@@ -18,163 +25,179 @@ variables:
 #                 BUILD                 #
 #########################################
 build_test:
-  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1.5
   stage: build
-  interruptible: true
   except:
     - tags
   services:
-    - docker:18-dind
+    - docker:19.03-dind
   before_script:
     - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
     - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/test/Dockerfile -i test
 
-build_ci:
+#build_ci:
+#  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+#  stage: build
+#  when: manual
+#  only:
+#    - branches
+#  variables:
+#    RUBY_VERSION: "2.3"
+#  services:
+#    - docker:18-dind
+#  before_script:
+#    - apk add openssh-client
+#    - /install-ssh-key $PLUGIN_SSH_KEY
+#    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+#  script:
+#    - for plugin in $EKYLIBRE_PLUGINS; do echo "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" && git clone "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" "plugins/${plugin}"; done
+#    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/prod/Dockerfile -i ci-rails-aio-2.3
+#
+#
+#.review_key: &REVIEW_KEY
+#  name: review/eky/$CI_BUILD_REF_NAME
+#
+#.review_branches: &REVIEW_BRANCHES
+#  only:
+#    - branches
+#  except:
+#    - prod
+#    - core
+#
+#.default_review: &DEFAULT_REVIEW
+#  <<: *REVIEW_BRANCHES
+#  environment:
+#    <<: *REVIEW_KEY
+#    url: https://$REVIEW_HOST
+#    on_stop: review_stop
+#
+#review_start:
+#  <<: *DEFAULT_REVIEW
+#  stage: review
+#  dependencies:
+#    - build_ci
+#  image: registry.gitlab.com/ekylibre/helm-charts/ci-tool:master
+#  variables:
+#    GIT_STRATEGY: none
+#  script:
+#    - (cd /apps/eky-ci && helm dep update)
+#    - helm tiller run "$KUBE_NAMESPACE" -- helm upgrade
+#      --install
+#      --namespace "$KUBE_NAMESPACE"
+#      --set eky.image.tag=$CI_COMMIT_REF_SLUG
+#      --set eky.postgres.database=$CI_COMMIT_REF_SLUG
+#      --set eky.ingress.domain=${REVIEW_HOST}
+#      --set eky.rails.init.tenants[0]=demo1
+#      --set eky.rails.load.tenants[0]=demo
+#      --set eky.rails.load.lexicon=true
+#      ci-eky-${CI_COMMIT_REF_SLUG} /apps/eky-ci
+#  when: manual
+#
+#review_stop:
+#  <<: *REVIEW_BRANCHES
+#  environment:
+#    <<: *REVIEW_KEY
+#    action: stop
+#  stage: review
+#  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+#  variables:
+#    GIT_STRATEGY: none
+#  script:
+#    - helm tiller run "$KUBE_NAMESPACE" -- helm delete --purge ci-eky-${CI_COMMIT_REF_SLUG}
+#  when: manual
+
+doc_build:
   image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
-  stage: build
-  when: manual
+  stage: doc
   only:
-    - branches
-  variables:
-    RUBY_VERSION: "2.3"
+    - tags
+  dependencies:
+    - build_test
   services:
-    - docker:18-dind
+    - docker:19.03-dind
   before_script:
-    - apk add openssh-client
-    - /install-ssh-key $PLUGIN_SSH_KEY
     - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
-    - for plugin in $EKYLIBRE_PLUGINS; do echo "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" && git clone "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" "plugins/${plugin}"; done
-    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/prod/Dockerfile -i ci-rails-aio-2.3
+    - /exec ruby /build.rb -v -a TEST_IMAGE -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/doc/Dockerfile -i doc
 
-
-.review_key: &REVIEW_KEY
-  name: review/eky/$CI_BUILD_REF_NAME
-
-.review_branches: &REVIEW_BRANCHES
-  only:
-    - branches
-  except:
-    - prod
-    - core
-
-.default_review: &DEFAULT_REVIEW
-  <<: *REVIEW_BRANCHES
-  environment:
-    <<: *REVIEW_KEY
-    url: https://$REVIEW_HOST
-    on_stop: review_stop
-
-review_start:
-  <<: *DEFAULT_REVIEW
-  stage: review
-  dependencies:
-    - build_ci
+deploy_doc:
   image: registry.gitlab.com/ekylibre/helm-charts/ci-tool:master
+  stage: deploy
+  only:
+    - tags
+  when: manual
   variables:
     GIT_STRATEGY: none
+    KUBE_DOC_NAMESPACE: ekylibre-doc
   script:
-    - (cd /apps/eky-ci && helm dep update)
-    - helm tiller run "$KUBE_NAMESPACE" -- helm upgrade
+    - helm --kube-context ekylibre-doc tiller run "$KUBE_DOC_NAMESPACE" --
+      helm upgrade
       --install
-      --namespace "$KUBE_NAMESPACE"
-      --set eky.image.tag=$CI_COMMIT_REF_SLUG
-      --set eky.postgres.database=$CI_COMMIT_REF_SLUG
-      --set eky.ingress.domain=${REVIEW_HOST}
-      --set eky.rails.init.tenants[0]=demo1
-      --set eky.rails.load.tenants[0]=demo
-      --set eky.rails.load.lexicon=true
-      ci-eky-${CI_COMMIT_REF_SLUG} /apps/eky-ci
-  when: manual
+      --namespace "$KUBE_DOC_NAMESPACE"
+      --set doc.component=ekylibre
+      --set doc.version=latest
+      --set image.repository=registry.gitlab.com/ekylibre/eky/doc
+      --set image.tag=${CI_COMMIT_REF_SLUG}
+      ekylibre-latest
+      /apps/doc
 
-review_stop:
-  <<: *REVIEW_BRANCHES
-  environment:
-    <<: *REVIEW_KEY
-    action: stop
-  stage: review
-  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
+#########################################
+#                  LINT                 #
+#########################################
+rubocop:
+  stage: lint
+  image: registry.gitlab.com/ekylibre/tools/rubocop/rubocop:0.2.0
   variables:
-    GIT_STRATEGY: none
+     GIT_DEPTH: 1
   script:
-    - helm tiller run "$KUBE_NAMESPACE" -- helm delete --purge ci-eky-${CI_COMMIT_REF_SLUG}
-  when: manual
+    - rubocop --parallel
 
+eslint:
+  stage: lint
+  image: node:lts-alpine
+  variables:
+    GIT_DEPTH: 1
+  script:
+    - apk add git
+    - yarn
+    - yarn eslint .
 
 #########################################
 #               TEMPLATES               #
 #########################################
-.test_tpl: &test_task
-  image: $TEST_IMAGE
+test:
   stage: test
-  variables: &test_task_variables
+  image: $TEST_IMAGE
+  variables:
     # POSTGRES VARIABLES
-    POSTGRES_HOST: 127.0.0.1
-    REDIS_URL: redis://127.0.0.1:6379/
+    POSTGRES_HOST: postgres
+    REDIS_URL: redis://redis:6379/
     POSTGRES_USER: ekylibre
     POSTGRES_DB: ekylibre_test
     TZ: Europe/Paris
     GIT_STRATEGY: none
   services:
-    - mdillon/postgis:9.6-alpine
-    - redis:5.0-alpine
-  dependencies:
-    - build_test
+    # TODO switch to postgis/postgis:13-3.1-alpine when ready
+    - name: mdillon/postgis:9.6-alpine
+      alias: postgres
+    - name: redis:5.0-alpine
+      alias: redis
   except:
     - tags
-  tags:
-    - kubernetes
   script:
-    - env
-    - bash /app/test/ci/run_tests ${TASK}
-
+    - bash /app/test/ci/run_tests
 
 #########################################
 #                 TESTS                 #
 #########################################
-test_concepts:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:concepts
-test_controllers:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:controllers
-test_exchangers:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:exchangers
-test_helpers:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:helpers
-test_jobs:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:jobs
-test_lib:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:lib
-test_models:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:models
-test_services:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:services
-test_validators:
-  <<: *test_task
-  variables:
-    <<: *test_task_variables
-    TASK: test:validators
+#test_fast:
+#  <<: *test_task
+#  variables:
+#    <<: *test_task_variables
+#    SELECT: lower
+#test_long:
+#  <<: *test_task
+#  variables:
+#    <<: *test_task_variables
+#    SELECT: higher

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixedAsset
   module Transitions
     class Sell < Transitionable::Transition
@@ -7,19 +9,19 @@ class FixedAsset
       from :in_use
       to :sold
 
-      def initialize(fixed_asset, sold_on, **_options)
-        super fixed_asset
+      def initialize(fixed_asset, sold_on: nil, **)
+        super
 
         @sold_on = fixed_asset.sold_on || sold_on
       end
 
       def transition
-        resource.sold_on ||= @sold_on
+        resource.sold_on ||= sold_on
         resource.transaction do
-          active = resource.depreciation_on @sold_on
-          split_depreciation! active, @sold_on if active && @sold_on < active.stopped_on
+          active = resource.depreciation_on sold_on
+          split_depreciation! active, sold_on if active && sold_on < active.stopped_on
 
-          resource.depreciations.up_to(@sold_on).each { |d| d.update! accountable: true }
+          resource.depreciations.up_to(sold_on).each { |d| d.update! accountable: true }
 
           resource.update! state: :sold
 
@@ -30,18 +32,21 @@ class FixedAsset
           resource.sale.invoice unless resource.sale.invoice?
 
           resource.product.reload
-          resource.product.update! dead_at: @sold_on
-          true
+          resource.product.update! dead_at: sold_on
         end
       end
 
       def can_run?
         super && resource.valid? &&
-          FinancialYear.on(@sold_on)&.opened? &&
-          depreciations_valid?(@sold_on) &&
+          FinancialYear.on(sold_on)&.opened? &&
+          depreciations_valid?(sold_on) &&
           resource.product &&
           resource.sale
       end
+
+      private
+        # @return [Date]
+        attr_reader :sold_on
     end
   end
 end

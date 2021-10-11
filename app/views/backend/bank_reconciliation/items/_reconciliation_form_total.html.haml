@@ -1,0 +1,28 @@
+#matching
+  .title
+    %button#new-line.btn.btn-new.icn{ data: { bank_statement_dates_ranges: add_line_button.to_json } }
+      = :add_line.tl
+    %p= :balance_of_selection.tl
+
+  .amounts
+    .hidden.total_debit{data: {use: '.reconciliation-item.selected .amounts .debit', calculate: :sum, 'use-closest': '.reconciliation-list' }}= 0
+    .hidden.total_credit{data: {use: '.reconciliation-item.selected .amounts .credit', calculate: :sum, 'use-closest': '.reconciliation-list'}}= 0
+    .debit
+      %span.value{ data: { balance: '.total_credit - .total_debit', calculate_round: precision }}= 0
+    .credit
+      %span.value{ data: { balance: '.total_debit - .total_credit', calculate_round: precision }}= 0
+  .details
+#to-match
+  .title
+    %p= :remaining_amount_to_reconcile.tl
+  .amounts
+    .debit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+    .credit{ data: { use: ".reconciliation-item:not(.lettered) .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+  .details
+#final
+  .title
+    %p= :final_balance.tl
+  .amounts
+    .debit{ data: { use: ".reconciliation-item .amounts .debit", calculate: :sum, calculate_round: precision } }= 0
+    .credit{ data: { use: ".reconciliation-item .amounts .credit", calculate: :sum, calculate_round: precision } }= 0
+  .details

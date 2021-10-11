@@ -1,4 +1,4 @@
-- if @financial_year && Account.french_accounting_system?
+- if @financial_year && Account.french_accounting_system? && JournalEntry.where(financial_year: @financial_year).any?
   :ruby
 
     base_compute = AccountancyComputation.new(@financial_year)

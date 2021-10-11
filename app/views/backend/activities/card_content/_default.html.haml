@@ -1,0 +1,9 @@
+.activity-indicators
+  .activity-indicator.size
+    = activity.size_during(campaign).round(2).l(precision: 2) rescue nil
+  .activity-indicator.cumulated-time
+    = activity.working_duration.to_d.in(:second).convert(:hour).round.l(precision: 0)
+  .activity-indicator.opened-issues
+    = activity.opened_issues_count.to_s + '/' + activity.issues_count.to_s
+  .activity-indicator.cash
+    = activity.total_costs.to_i.l(currency: currency.name)

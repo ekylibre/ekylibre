@@ -9,10 +9,19 @@
   - responsibles = Entity.where(id: Sale.select(:responsible_id).distinct)
   - if responsibles.any?
     - k.helper do
-      %label= Sale.human_attribute_name(:responsible)
+      %div.label-container
+        %label= Sale.human_attribute_name(:responsible)
       = select_tag(:responsible_id, options_for_select([[]] + responsibles.collect{|u| [u.label, u.id]}, params[:responsible_id].to_i))
+  - providers = Sale.providers_vendors
+  - if providers.any?
+    - k.helper do
+      %div.label-container
+        %label= Sale.human_attribute_name(:providers)
+      = select_tag(:provider, options_for_select([[]] + providers.map(&:capitalize), params[:provider].to_s))
 
 - main_toolbar do |t|
-  = t.new variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }, params: { redirect: nil }
+  = t.new variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }
 
 = main_list
+
+

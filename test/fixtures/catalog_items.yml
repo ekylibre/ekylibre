@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -53,6 +53,8 @@ catalog_items_001:
   updated_at: 2014-11-05 09:42:34.140270000 Z
   updater_id: 1
   variant_id: 21
+  started_at: 2014-11-05 09:42:34.140270000 Z
+  unit_id: 2
 catalog_items_002:
   all_taxes_included: false
   amount: 70.0
@@ -66,6 +68,8 @@ catalog_items_002:
   updated_at: 2014-11-05 09:43:01.454470000 Z
   updater_id: 1
   variant_id: 9
+  started_at: 2014-11-05 09:43:01.454470000 Z
+  unit_id: 3
 catalog_items_003:
   all_taxes_included: false
   amount: 845.0
@@ -79,6 +83,8 @@ catalog_items_003:
   updated_at: 2014-11-05 09:44:02.471908000 Z
   updater_id: 1
   variant_id: 5
+  started_at: 2014-11-05 09:44:02.471908000 Z
+  unit_id: 3
 catalog_items_004:
   all_taxes_included: false
   amount: 1.56
@@ -92,6 +98,8 @@ catalog_items_004:
   updated_at: 2014-11-05 09:44:38.200592000 Z
   updater_id: 1
   variant_id: 18
+  started_at: 2014-11-05 09:44:38.200592000 Z
+  unit_id: 2
 catalog_items_005:
   all_taxes_included: false
   amount: 215.0
@@ -105,6 +113,8 @@ catalog_items_005:
   updated_at: 2014-11-05 09:45:47.114736000 Z
   updater_id: 1
   variant_id: 11
+  started_at: 2014-11-05 09:45:47.114736000 Z
+  unit_id: 1
 catalog_items_006:
   all_taxes_included: false
   amount: 198.0
@@ -118,6 +128,8 @@ catalog_items_006:
   updated_at: 2014-11-05 09:46:14.685730000 Z
   updater_id: 1
   variant_id: 10
+  started_at: 2014-11-05 09:46:14.685730000 Z
+  unit_id: 1
 catalog_items_007:
   all_taxes_included: false
   amount: 180.0
@@ -131,6 +143,8 @@ catalog_items_007:
   updated_at: 2014-11-05 09:46:51.845876000 Z
   updater_id: 1
   variant_id: 19
+  started_at: 2014-11-05 09:46:51.845876000 Z
+  unit_id: 1
 catalog_items_008:
   all_taxes_included: false
   amount: 15.0
@@ -146,6 +160,8 @@ catalog_items_008:
   updated_at: 2016-07-01 20:48:11.670286000 Z
   updater_id: 1
   variant_id: 23
+  started_at: 2016-07-01 20:48:11.670286000 Z
+  unit_id: 3
 catalog_items_009:
   all_taxes_included: false
   amount: 1500.0
@@ -161,6 +177,8 @@ catalog_items_009:
   updated_at: 2016-07-01 20:48:21.455953000 Z
   updater_id: 1
   variant_id: 39
+  started_at: 2016-07-01 20:48:21.455953000 Z
+  unit_id: 1
 catalog_items_010:
   all_taxes_included: false
   amount: 22.0
@@ -176,6 +194,8 @@ catalog_items_010:
   updated_at: 2016-07-01 20:48:30.925872000 Z
   updater_id: 1
   variant_id: 37
+  started_at: 2016-07-01 20:48:30.925872000 Z
+  unit_id: 3
 catalog_items_011:
   all_taxes_included: false
   amount: 16.0
@@ -191,6 +211,8 @@ catalog_items_011:
   updated_at: 2016-07-01 20:48:38.739313000 Z
   updater_id: 1
   variant_id: 26
+  started_at: 2016-07-01 20:48:38.739313000 Z
+  unit_id: 3
 catalog_items_012:
   all_taxes_included: false
   amount: 1.56
@@ -204,6 +226,8 @@ catalog_items_012:
   updated_at: 2016-11-20 22:08:58.286599000 Z
   updater_id: 1
   variant_id: 18
+  started_at: 2016-11-20 22:08:58.286599000 Z
+  unit_id: 2
 catalog_items_013:
   all_taxes_included: false
   amount: 1115.0
@@ -217,6 +241,8 @@ catalog_items_013:
   updated_at: 2016-11-20 22:12:15.445352000 Z
   updater_id: 1
   variant_id: 39
+  started_at: 2016-11-20 22:12:15.445352000 Z
+  unit_id: 1
 catalog_items_014:
   all_taxes_included: false
   amount: 1115.0
@@ -230,6 +256,8 @@ catalog_items_014:
   updated_at: 2016-11-20 22:12:15.449450000 Z
   updater_id: 1
   variant_id: 39
+  started_at: 2016-11-20 22:12:15.449450000 Z
+  unit_id: 1
 catalog_items_015:
   all_taxes_included: false
   amount: 99.6
@@ -243,6 +271,8 @@ catalog_items_015:
   updated_at: 2016-11-20 22:14:38.774969000 Z
   updater_id: 1
   variant_id: 42
+  started_at: 2016-11-20 22:14:38.774969000 Z
+  unit_id: 1
 catalog_items_016:
   all_taxes_included: false
   amount: 99.6
@@ -256,6 +286,8 @@ catalog_items_016:
   updated_at: 2016-11-20 22:14:38.779869000 Z
   updater_id: 1
   variant_id: 42
+  started_at: 2016-11-20 22:14:38.779869000 Z
+  unit_id: 1
 catalog_items_017:
   all_taxes_included: false
   amount: 250.0
@@ -269,6 +301,8 @@ catalog_items_017:
   updated_at: 2016-11-20 22:15:20.539493000 Z
   updater_id: 1
   variant_id: 57
+  started_at: 2016-11-20 22:15:20.539493000 Z
+  unit_id: 1
 catalog_items_018:
   all_taxes_included: false
   amount: 250.0
@@ -282,6 +316,8 @@ catalog_items_018:
   updated_at: 2016-11-20 22:15:20.544602000 Z
   updater_id: 1
   variant_id: 57
+  started_at: 2016-11-20 22:15:20.544602000 Z
+  unit_id: 1
 catalog_items_019:
   all_taxes_included: false
   amount: 121.21
@@ -295,6 +331,8 @@ catalog_items_019:
   updated_at: 2016-12-20 08:53:53.342743000 Z
   updater_id: 1
   variant_id: 10
+  started_at: 2016-12-20 08:53:53.342743000 Z
+  unit_id: 1
 catalog_items_020:
   all_taxes_included: false
   amount: 0.9
@@ -308,6 +346,8 @@ catalog_items_020:
   updated_at: 2016-12-20 18:16:56.969251000 Z
   updater_id: 1
   variant_id: 63
+  started_at: 2016-12-20 18:16:56.969251000 Z
+  unit_id: 2
 catalog_items_021:
   all_taxes_included: false
   amount: 0.9
@@ -321,6 +361,8 @@ catalog_items_021:
   updated_at: 2016-12-20 18:16:56.978348000 Z
   updater_id: 1
   variant_id: 63
+  started_at: 2016-12-20 18:16:56.978348000 Z
+  unit_id: 2
 catalog_items_022:
   all_taxes_included: false
   amount: 25.0
@@ -334,6 +376,8 @@ catalog_items_022:
   updated_at: 2018-09-20 09:33:26.045818000 Z
   updater_id: 1
   variant_id: 21
+  started_at: 2018-09-20 09:33:26.045818000 Z
+  unit_id: 2
 catalog_items_023:
   all_taxes_included: false
   amount: 25.0
@@ -347,3 +391,5 @@ catalog_items_023:
   updated_at: 2018-09-20 09:33:27.232018000 Z
   updater_id: 1
   variant_id: 21
+  started_at: 2018-09-20 09:33:27.232018000 Z
+  unit_id: 2
