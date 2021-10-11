@@ -74,21 +74,6 @@ module Backend
       end
     end
 
-    def index
-      respond_to do |format|
-        format.html
-        format.xml { render xml: resource_model.all }
-        format.json { render json: resource_model.all }
-        format.pdf {
-          return unless (template = find_and_check :document_template, params[:template])
-
-          PrinterJob.perform_later('Printers::LandParcelRegisterCampaignPrinter', template: template, campaign: current_campaign, perform_as: current_user)
-          notify_success(:document_in_preparation)
-          redirect_to backend_activities_path
-        }
-      end
-    end
-
     def show
       return unless @activity = find_and_check
 

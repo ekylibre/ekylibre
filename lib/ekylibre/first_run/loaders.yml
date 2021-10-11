@@ -54,11 +54,11 @@ land_parcels:
       georeading.shx: 'zones.shx'
     in: 'alamano/georeadings'
 
-  telepac_v2018_cap_statements:
-    path: 'telepac/2018/statement.xml'
+  ekylibre_land_parcels:
+    path: 'alamano/land_parcels.csv'
 
-  telepac_v2019_cap_statements:
-    path: 'telepac/2019/statement.xml'
+  ekylibre_cultivable_zones:
+    path: 'alamano/cultivable_zones.csv'
 
   telepac_v2017_cap_statements:
     path: 'telepac/2017/statement.xml'

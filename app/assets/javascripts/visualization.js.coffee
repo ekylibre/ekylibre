@@ -474,7 +474,7 @@
             if bounds.getNorthEast().equals bounds.getSouthWest()
               @map.setZoom 18
 
-
+        
         # Add legend
         legend = @controls.legendControl.getContainer()
         legend.innerHTML += renderedLayer.buildLegend()

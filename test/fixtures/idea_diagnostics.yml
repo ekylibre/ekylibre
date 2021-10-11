@@ -4,7 +4,7 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-idea_diagnostic_001: 
+idea_diagnostic_001:
   id: 1
   name: 'Idea 1'
   code: 'IDEA1'

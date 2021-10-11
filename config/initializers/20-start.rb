@@ -20,9 +20,6 @@ autoload :ActiveSensor,    'active_sensor'
 # App-specific libs
 require 'ekylibre'
 
-# Reference data
-require 'lexicon'
-
 require 'working_set'
 
 # XML definitions

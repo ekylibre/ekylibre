@@ -19,13 +19,6 @@
 module Backend
   class ExportsController < Backend::BaseController
     respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
-    HIDDEN_AGGREGATORS = [ "fr_pcg82_balance_sheet",
-                           "fr_pcg82_profit_and_loss_statement",
-                           "fr_pcga_balance_sheet",
-                           "fr_pcga_profit_and_loss_statement",
-                           "vat_register",
-                           "income_statement"]
-
 
     HIDDEN_AGGREGATORS = %w[
       fr_pcg82_balance_sheet

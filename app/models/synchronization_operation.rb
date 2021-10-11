@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = Informations
 #
 # == License
@@ -6,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2020 Ekylibre SAS
+# Copyright (C) 2015-2021 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,12 +40,12 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-class SynchronizationOperation < Ekylibre::Record::Base
+class SynchronizationOperation < ApplicationRecord
   enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone
   enumerize :operation_name, in: %i[get_inventory authenticate get_urls], predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :finished_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :finished_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :operation_name, :state, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
