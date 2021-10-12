@@ -525,6 +525,7 @@ class ProductNatureVariant < ApplicationRecord
     variety == 'service' ? '' : current_stock(into_default_unit: true)
   end
 
+  # TODO: refacto with conditioning
   # Return current quantity of all products link to the variant currently ordered or invoiced but not delivered
   def current_outgoing_stock_ordered_not_delivered(into_default_unit: false)
     undelivereds = sale_items.includes(:sale).map do |si|
