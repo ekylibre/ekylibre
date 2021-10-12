@@ -9,7 +9,7 @@ More details can be found on the official website https://ekylibre.com
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
+[![Screens](https://raw.github.com/ekylibre/ekylibre/eky-core/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/eky-core/doc/screenshots/screens.png)
 
 ## Setup
 
@@ -24,9 +24,9 @@ You can install Ekylibre on classic local mode or Docker mode
 We encourage you to contribute to Ekylibre.
 
 * [Wiki](https://github.com/ekylibre/ekylibre/wiki)
-* [Forum](https://ekylibre.discourse.group/)
+* [Forum](https://github.com/ekylibre/ekylibre/discussions)
 * [User Documentation - FR](https://doc.ekylibre.com/v2/fr/demarrage/)
-* [Official Demo](http://demo.ekylibre.farm)
+* [Official Demo](http://demo.ekylibre.io)
 * [Official Demo dataset - FR](https://github.com/ekylibre/first_run-demo)
 
 ## Follow us

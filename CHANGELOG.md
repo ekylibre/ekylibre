@@ -1,5 +1,7 @@
 # Change Log
 
+Since 2.29.0 version [New Changelog] (https://doc.ekylibre.com/v2/fr/notes-version/)
+
 ## [2.29.0](https://github.com/ekylibre/ekylibre/tree/2.29.0) (2017-01-07)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.28.0...2.29.0)
 
