@@ -11,7 +11,7 @@ module Ekylibre
         setup_factories
 
         setup_timestamp_format
-        reload_lexicon
+        EkyLexicon.new.load
 
         # TODO: reactivate this when we have a rails version compatible (5.2/6.0)
         # setup_minitest_reporters
@@ -74,57 +74,6 @@ module Ekylibre
           # end
 
           ::DatabaseCleaner.strategy = :transaction
-        end
-
-        def reload_lexicon
-          # use gem lexicon-common
-          puts "Loading Lexicon ...".cyan
-
-          factory = ::Lexicon::Common::Database::Factory.new
-          database = factory.new_instance(url: lexicon_db_url)
-          database.query("DROP SCHEMA IF EXISTS lexicon CASCADE")
-          puts "--Drop old Lexicon if exist...".cyan
-
-          lexicon_path = Rails.root.join('test', 'fixture-files')
-          lexicon_schema_path = Pathname.new(Gem::Specification.find_by_name('lexicon-common').gem_dir).join(::Lexicon::Common::LEXICON_SCHEMA_RELATIVE_PATH)
-
-          loader = ::Lexicon::Common::Package::DirectoryPackageLoader.new(lexicon_path, schema_validator: Lexicon::Common::Schema::ValidatorFactory.new(lexicon_schema_path).build)
-          puts "--Load and validate package...".cyan
-          package = loader.load_package('lexicon')
-
-          if package.nil?
-            puts 'Error while reading the lexicon package'
-          else
-            executor = ::Lexicon::Common::ShellExecutor.new
-            file_loader = ::Lexicon::Common::Production::FileLoader.new(shell: executor, database_url: lexicon_db_url)
-            table_locker = ::Lexicon::Common::Production::TableLocker.new(database_factory: factory, database_url: lexicon_db_url)
-            psql = ::Lexicon::Common::Psql.new(url: lexicon_db_url, executor: executor)
-
-            ds_loader = ::Lexicon::Common::Production::DatasourceLoader.new(shell: executor, database_factory: factory, file_loader: file_loader, database_url: lexicon_db_url, table_locker: table_locker, psql: psql)
-            puts "--Load Package in DB...".cyan
-            ds_loader.load_package(package)
-
-            puts "--Enable Package as lexicon in DB...".cyan
-            database.query <<~SQL
-              BEGIN;
-                ALTER SCHEMA "lexicon__#{package.version.to_s.gsub('.', '_')}" RENAME TO "lexicon";
-                CREATE TABLE "lexicon"."version" ("version" VARCHAR);
-                INSERT INTO "lexicon"."version" VALUES ('#{package.version}');
-              COMMIT;
-            SQL
-          end
-
-          puts 'Lexicon loaded successfully'.green
-        end
-
-        ## for lexicon
-        def lexicon_db_url
-          user = db_config['username']
-          host = db_config['host']
-          port = db_config['port'] || '5432'
-          dbname = db_config['database']
-          password = db_config['password']
-          URI.encode("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
         end
 
         def db_config
