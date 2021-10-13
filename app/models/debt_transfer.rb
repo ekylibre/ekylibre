@@ -140,7 +140,7 @@ class DebtTransfer < ApplicationRecord
     end
 
     def regularization_account
-      Account.find_or_import_from_nomenclature(:sundry_debtors_and_creditors)
+      Account.find_or_import_from_nomenclature(:attorneys)
     end
   end
 
