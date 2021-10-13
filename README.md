@@ -9,7 +9,7 @@ More details can be found on the official website https://ekylibre.com
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/eky-core/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/eky-core/doc/screenshots/screens.png)
+[![Screens](https://raw.github.com/ekylibre/ekylibre/eky-core/doc/screenshots/screens.png)](https://raw.github.com/ekylibre/ekylibre/eky-core/doc/screenshots/screens.png)
 
 ## Setup
 
