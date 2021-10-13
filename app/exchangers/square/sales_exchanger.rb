@@ -56,7 +56,7 @@ module Square
                     .recover { find_variant_by_name(sale_line.article_name) }
         if variant_check.present?
           w.info "Variant exist on Ekylibre from Square"
-          if variant_check.category.product_account_id?
+          if variant_check.category.product_account_id? ==Some(true) && variant_check.category.saleable? == Some(true)
             w.info "Product account exist"
           else
             w.error "Product account doesn't not exist on #{variant_check.name} with ID : #{variant_check.id}"
