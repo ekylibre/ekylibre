@@ -4,9 +4,15 @@ module Backend
       file_parsed = false
       geometries = {}
 
+      format = params[:importer_format]
       uploaded = params[:import_file]
+
+      if format.present? && format == 'kml'
+        render xml: uploaded.read.force_encoding('UTF-8')
+        return
+      end
+
       if uploaded.present?
-        format = params[:importer_format]
         geometries = import_shapes(uploaded, format)
       end
 
@@ -34,8 +40,8 @@ module Backend
           when 'gml'
             geojson_features_collection = ::Charta.from_gml(geometry, nil, false).to_json_object(true) if ::Charta::GML.valid?(geometry)
 
-          when 'kml'
-            geojson_features_collection = Charta.from_kml(geometry, false).to_json_object(true) if ::Charta::KML.valid?(geometry)
+          # when 'kml'
+          #   geojson_features_collection = Charta.from_kml(geometry, false).to_json_object(true) if ::Charta::KML.valid?(geometry)
 
           when 'geojson'
             geo = (begin
