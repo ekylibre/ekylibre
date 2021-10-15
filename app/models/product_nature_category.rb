@@ -226,7 +226,7 @@ class ProductNatureCategory < ApplicationRecord
 
       attributes = {
           active: true,
-          name: item.translation.send(Preference[:language]) + "(#{categories.count.to_s})",
+          name: category_name,
           reference_name: item.reference_name,
           depreciable: item.fixed_asset_account.present?,
           purchasable: item.purchase_account.present?,
