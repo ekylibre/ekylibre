@@ -43,7 +43,12 @@
             item.find(".item-variant-name").html(data.variant.name)
           pop = item.find(".item-population")
           total = item.find(".item-population-total")
-          if data.population
+          prefilled = element.closest('tr').find('.prefilled-conditioning')
+          if prefilled? && data.conditioning_coefficient
+            prefilled_val = prefilled.data("conditioningQuantity") * prefilled.data("conditioningCoefficient") / data.conditioning_coefficient
+            total.html(prefilled_val)
+            pop.val(prefilled_val)
+          else if data.population
             total.html(data.population)
             pop.attr('placeholder', data.population)
           else

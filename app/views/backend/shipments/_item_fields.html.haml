@@ -20,6 +20,8 @@
     %td
       .item-quantifier
         .item-quantifier-population
+          - if item.conditioning_unit&.name
+            %span.hidden.prefilled-conditioning{data: {conditioning_quantity: item.conditioning_quantity, conditioning_coefficient: item.conditioning_unit.coefficient}}
           :ruby
             hint = :x_unit.tl(quantity: "[QTY]", unit: "[UNT]")
               .gsub("[QTY]", content_tag(:span, source_product.population.or_else('&ndash;'.html_safe), class: "item-population-total"))
