@@ -61,6 +61,7 @@
 //= require_tree .
 //= require tour
 //= require bootstrap-slider
+//= require leaflet/L.KML
 
 //= require sortablejs/Sortable.min.js
 

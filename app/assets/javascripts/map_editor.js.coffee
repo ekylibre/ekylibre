@@ -921,33 +921,38 @@
                 $(this).find('[data-importer-spinner]').addClass('active')
 
               $(modal._container).on 'ajax:complete','form[data-importer-form]', (e,data) =>
+                parser = new DOMParser()
+                kml = parser.parseFromString(data.responseText.trim(), 'text/xml')
+                track = new L.KML(kml)
+                this.map.addLayer(track)
 
-                feature = $.parseJSON(data.responseText)
-                $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
+                bounds = track.getBounds()
+                this.map.fitBounds(bounds)
+                # $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
 
-                if feature.alert?
-                  $(modal._container).find('#alert').text(feature.alert)
-                else
-                  try
-                    widget.edition.addData feature
-                  catch
-                    polys = []
-                    this.edition = L.geoJson(feature, {
-                      onEachFeature: (feature, layer) =>
-                        @onEachFeature(feature, layer)
+                # if feature.alert?
+                #   $(modal._container).find('#alert').text(feature.alert)
+                # else
+                #   try
+                #     widget.edition.addData feature
+                #   catch
+                #     polys = []
+                #     this.edition = L.geoJson(feature, {
+                #       onEachFeature: (feature, layer) =>
+                #         @onEachFeature(feature, layer)
 
-                      style: (feature) =>
-                        @featureStyling feature
-                      filter: (feature) =>
-                        if feature.type == 'MultiPolygon'
-                          for coordinates in feature.coordinates
-                            polys.push {type: 'Polygon', coordinates: coordinates}
-                        !(feature.type == 'MultiPolygon')
-                    })
-                    this.edition.addTo this.map
+                #       style: (feature) =>
+                #         @featureStyling feature
+                #       filter: (feature) =>
+                #         if feature.type == 'MultiPolygon'
+                #           for coordinates in feature.coordinates
+                #             polys.push {type: 'Polygon', coordinates: coordinates}
+                #         !(feature.type == 'MultiPolygon')
+                #     })
+                #     this.edition.addTo this.map
 
-                  this.update()
-                  modal.hide()
+                this.update()
+                modal.hide()
 
 
                 this.navigateToLayer this.edition
