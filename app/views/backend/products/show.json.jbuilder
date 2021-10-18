@@ -3,6 +3,7 @@ variant = resource.variant
 nature = variant.nature
 json.unit_name variant.unit_name
 json.conditioning_unit_name resource.conditioning_unit.name
+json.conditioning_coefficient resource.conditioning_unit.coefficient
 json.variant do
   json.id resource.variant_id
   json.name resource.variant_name

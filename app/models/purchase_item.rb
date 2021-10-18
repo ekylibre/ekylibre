@@ -370,7 +370,7 @@ class PurchaseItem < ApplicationRecord
 
   def base_unit_amount
     coeff = conditioning_unit&.coefficient
-    (unit_pretax_amount / coeff).round(2) if coeff && coeff != 1
+    (unit_pretax_amount / coeff).round(2) if unit_pretax_amount && coeff && coeff != 1
   end
 
   def variant_name_with_unit
