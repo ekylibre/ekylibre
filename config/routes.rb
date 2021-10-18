@@ -1406,6 +1406,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
   root to: 'public#index'
+  mount ActionCable.server, at: '/cable'
 end

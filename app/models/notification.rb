@@ -54,6 +54,10 @@ class Notification < ApplicationRecord
   validates :target_type, :target_url, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
+  after_create do
+    ActionCable.server.broadcast("main_#{recipient.email}", event: 'new_notification')
+  end
+
   def read!
     update_attributes!(read_at: Time.zone.now)
   end
