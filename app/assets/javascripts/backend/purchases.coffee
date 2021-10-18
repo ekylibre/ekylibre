@@ -55,24 +55,25 @@
   $.each ['purchase_order', 'purchase_invoice'], (i, purchase_att) ->
 
     $(document).on 'input unit-value:change', ".#{purchase_att}_items_unit_pretax_amount > .controls > .input-append > input", ->
-      unit_amount = ($(this).val() / $(this).data().coeff).toFixed(1)
+      unit_amount = ($(this).val() / $(this).data().coeff).toFixed(2)
       $(this.closest('tr')).find(".#{purchase_att}_items_base_unit_amount > .controls > .input-append > input").val unit_amount
 
     $(document).on 'selector:change', ".#{purchase_att}_items_variant > .controls > .selector > .selector-value", ->
       that = this;
-      $.ajax '/backend/default_conditioning_unit',
-        type: 'get'
-        dataType: 'json'
-        data: 'id': @value
-        success: (data) ->
-          element = $(that.closest('tr')).find(".#{purchase_att}_items_conditioning_unit > .controls > .selector > .selector-search")
-          selector_value = $(that.closest('tr')).find(".#{purchase_att}_items_conditioning_unit > .controls > .selector > .selector-value")
-          len = 4 * Math.round(Math.round(1.11 * data.unit_name.length) / 4)
-          element.attr 'size', if len < 20 then 20 else if len > 80 then 80 else len
-          element.val data.unit_name
-          selector_value.prop 'itemLabel', data.unit_name
-          selector_value.val data.unit_id
-          selector_value.trigger 'selector:change'
+      if !$('.invoice-variant').attr("disabled")
+        $.ajax '/backend/default_conditioning_unit',
+          type: 'get'
+          dataType: 'json'
+          data: 'id': @value
+          success: (data) ->
+            element = $(that.closest('tr')).find(".#{purchase_att}_items_conditioning_unit > .controls > .selector > .selector-search")
+            selector_value = $(that.closest('tr')).find(".#{purchase_att}_items_conditioning_unit > .controls > .selector > .selector-value")
+            len = 4 * Math.round(Math.round(1.11 * data.unit_name.length) / 4)
+            element.attr 'size', if len < 20 then 20 else if len > 80 then 80 else len
+            element.val data.unit_name
+            selector_value.prop 'itemLabel', data.unit_name
+            selector_value.val data.unit_id
+            selector_value.trigger 'selector:change'
 
     $(document).on 'selector:change', ".#{purchase_att}_items_conditioning_unit > .controls > .selector > .selector-value", ->
       that = this;
@@ -88,7 +89,7 @@
             $(table).find('.unitary-quantity').show()
           $(table).find(".#{purchase_att}_items_unit_pretax_amount > .controls > .input-append > input").data 'coeff', coeff
           amount_input = $(table).find(".#{purchase_att}_items_unit_pretax_amount > .controls > .input-append > input")
-          unit_amount = (amount_input.val() / amount_input.data().coeff).toFixed(1)
+          unit_amount = (amount_input.val() / amount_input.data().coeff).toFixed(2)
           $(table).find(".#{purchase_att}_items_base_unit_amount > .controls > .input-append > input").val unit_amount
 
   E.Purchases =

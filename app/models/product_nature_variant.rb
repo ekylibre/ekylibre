@@ -262,6 +262,10 @@ class ProductNatureVariant < ApplicationRecord
     self.attributes['unit_name'] || I18n.translate("enumerize.product_nature_variant.default_unit_name.#{default_unit_name}")
   end
 
+  def name_with_unit
+    "#{name} (#{unit_name})"
+  end
+
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
