@@ -290,6 +290,7 @@
       itemHeader = []
       itemHeader.push("<span class='header-name'>Article</span>")
       itemHeader.push("<span class='header-quantity'>Quantité</span>")
+      itemHeader.push("<span class='header-conditioning-unit'> </span>")
       itemHeader.push("<span class='header-unit-pretax-amount'>Prix U HT</span>")
       itemHeader.push("<span class='header-amount'>Prix total</span>")
       $('.purchase-items-array').append("<li class='header-line'>" + itemHeader.join('') + "</li>")
@@ -302,9 +303,10 @@
             if intervention_id? && item.is_reception
               itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
             itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
-            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][population]' value ='#{item.quantity}'></input></span>")
-            itemLine.push("<span class='item-unit-pretax-amount'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][unit_pretax_amount]' value='#{item.unit_pretax_amount}' type='hidden'></input>" + item.unit_pretax_amount + "</span>")
-            itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.quantity +  "</span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_quantity]' value ='#{item.conditioning_quantity}'></input>#{item.conditioning_unit_name}</span>")
+            itemLine.push("<span class='item-conditioning-unit'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_unit_id]' value='#{item.conditioning_unit_id}' type='hidden'></input></span>")
+            itemLine.push("<span class='item-unit-pretax-amount'>" + item.unit_pretax_amount + "</span>")
+            itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.conditioning_quantity +  "</span>")
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
             itemLine.push("<span class='item-purchase-order-item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][purchase_order_item_id]' value='#{item.purchase_order_item}' type='hidden'></input></span>")
             $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
@@ -312,7 +314,7 @@
               $('.purchase-items-array').find('.item-line input').attr('disabled',true)
 
     updateTotalAmount: (input) ->
-      quantity = input.val()
+      quantity = parseFloat(input.val())
       totalAmount = quantity * parseFloat(input.parents('li.item-line').find('.item-unit-pretax-amount').text())
       input.parents('li.item-line').find('.item-amount').html(totalAmount.toFixed(2))
 
