@@ -30,7 +30,7 @@
         %label{ data: { item_value: "input.invoice-discount-percentage" } }
     %td.total-column.two-rows-column
       %span
-        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
+        %label{ class: 'amount-excluding-taxes', data: { item_value: "input.pre-tax-invoice-total" } }= f.object.variant ? f.object.variant.name : 'ERROR'
         %label= Onoma::Currency.find(f.object.currency).symbol
     %td.vat-rate-column
       %span
@@ -48,30 +48,28 @@
             %span.add-on
               = Onoma::Currency.find(f.object.currency).symbol
 
-        
         .invoice-base-unit-amount.unitary-quantity.hidden
           = f.input :base_unit_amount, disabled: true, wrapper: :append do
             = f.input_field :base_unit_amount, disabled: true, class: "invoice-unit-amount middle-input", label: :unit_amount.tl, data: { trade_component: "unit_pretax_amount" }
             %span.add-on
               = Onoma::Currency.find(f.object.currency).symbol
-
-
-        .invoice-discount-percentage-controls
-          = f.input :reduction_percentage, wrapper: :append do
-            = f.input_field :reduction_percentage, label: :discount_without_percent.tl, class: "invoice-discount-percentage", data: {trade_component: "reduction_percentage", required: true }
+              
+        .invoice-discount-percentage-controls.min-htdpx-width
+          = f.input :reduction_percentage, label: :discount_without_percent.tl, wrapper: :append do
+            = f.input_field :reduction_percentage, class: "invoice-discount-percentage", data: {trade_component: "reduction_percentage", required: true }
             %span.add-on
               = '%'
-
+              
         .vat-total-controls
           = f.input(:tax_id, label: :vat_rate.tl, required: true, collection: Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.usable_amount)/100)}]}, input_html: { class: "vat-total", data: {value: 'rate', trade_component: "tax", required: true}})
 
-        .pta-controls.pre-tax-invoice-total-controls.fixed-hdpx-width
+        .pta-controls.pre-tax-invoice-total-controls.fixed-hdfpx-width
           = f.input :pretax_amount, wrapper: :append do
             = f.input_field :pretax_amount, class: "pta pre-tax-invoice-total", data: {trade_component: "pretax_amount", required: true}
             %span.add-on
               = Onoma::Currency.find(f.object.currency).symbol
 
-        .pta-controls.invoice-total-controls.fixed-hdpx-width       
+        .pta-controls.invoice-total-controls.fixed-hdfpx-width
           = f.input :amount, wrapper: :append do
             = f.input_field :amount, class: "pta invoice-total", data: {trade_component: "amount", required: true}
             %span.add-on

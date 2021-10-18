@@ -373,10 +373,6 @@ class PurchaseItem < ApplicationRecord
     (unit_pretax_amount / coeff).round(2) if coeff && coeff != 1
   end
 
-  def variant_name_with_unit
-    "#{variant_name} (#{variant.unit_name})"
-  end
-
   private
 
     def first_reception

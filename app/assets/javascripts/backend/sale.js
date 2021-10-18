@@ -95,7 +95,7 @@
   });
 
   $(document).on("input unit-value:change", ".sale_items_unit_pretax_amount > input", function() {
-    var unit_amount = ($(this).val() / $(this).data().coeff).toFixed(1)
+    var unit_amount = ($(this).val() / $(this).data().coeff).toFixed(2)
     $(this.closest('.nested-fields')).find('.unitary-quantity > .sale_items_base_unit_amount > input').val(unit_amount)
   })
 

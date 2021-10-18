@@ -1826,8 +1826,13 @@ a[data-remove-closest], a[data-remove] {
   }
 }
 
-.fixed-hdpx-width{
-  width: 100px;
+.fixed-hdfpx-width{
+  width: 150px;
+  margin-right: 10px;
+}
+
+.min-htdpx-width{
+  min-width: 110px;
 }
 
 .remove-item {

@@ -1831,7 +1831,7 @@ fra:
     direct_expenses: "Charges directes" #?
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
-    discount_without_percent: "Remise"
+    discount_without_percent: "Réduction (%)"
     disease: "Maladie"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     disease_percentage: "Maladies (%)"
