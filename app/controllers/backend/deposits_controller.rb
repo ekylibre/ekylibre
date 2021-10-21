@@ -24,6 +24,31 @@ module Backend
 
     unroll
 
+    def self.deposit_conditions(_options = {})
+      code = search_conditions(incoming_payments: %i[bank_check_number number]) + "||=[]\n"
+      code << "if params[:paid_at].present? && params[:paid_at].to_s != 'all'\n"
+      code << " c[0] << ' AND #{IncomingPayment.table_name}.paid_at::DATE BETWEEN ? AND ?'\n"
+      code << " if params[:paid_at].to_s == 'interval'\n"
+      code << "   c << params[:paid_at_started_on]\n"
+      code << "   c << params[:paid_at_stopped_on]\n"
+      code << " else\n"
+      code << "   interval = params[:paid_at].to_s.split('_')\n"
+      code << "   c << interval.first\n"
+      code << "   c << interval.second\n"
+      code << " end\n"
+      code << "end\n"
+      code << "if params[:id].present?\n"
+      code << "  c[0] += \" AND \#{IncomingPayment.table_name}.deposit_id = ?\"\n"
+      code << "  c << params[:id]\n"
+      code << "else\n"
+      code << "  c[0] += \" AND \#{IncomingPayment.table_name}.mode_id = ?\"\n"
+      code << "  c << params[:mode_id]\n"
+      code << "  c[0] += \" AND \#{IncomingPayment.table_name}.deposit_id IS NULL\"\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
+
     list(order: { created_at: :desc }) do |t|
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, unless: :locked?
@@ -64,7 +89,7 @@ module Backend
                                        { payments: { include: :payer } }])
     end
 
-    list(:depositable_payments, model: :incoming_payments, conditions: ['deposit_id=? OR (mode_id=? AND deposit_id IS NULL)', 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: %i[to_bank_at created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at.to_date || Date.yesterday) > Time.zone.today ? 'critic' : '')".c) do |t|
+    list(:depositable_payments, model: :incoming_payments, conditions: deposit_conditions, paginate: true, order: %i[to_bank_at created_at], line_class: "((resource.payments.exists?(RECORD.id) rescue false) ? 'success' : (RECORD.to_bank_at.to_date || Date.yesterday) > Time.zone.today ? 'critic' : '')".c) do |t|
       t.column :number, url: true
       t.column :payer, url: true
       t.column :bank_name

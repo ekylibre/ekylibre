@@ -3,6 +3,16 @@
 = kujaku do |k|
   - k.text
   - k.choice :all, :not_received, :to_deposit_later, :to_deposit_now
+  - if IncomingPayment.where.not(to_bank_at: nil).any?
+    - k.helper do
+      = incoming_payment_period_crit(label: IncomingPayment.human_attribute_name(:paid_at), name: :paid_at)
+  - modes = IncomingPaymentMode.all()
+  - if modes.any?
+    - k.helper do
+      %div.label-container
+        %label= IncomingPayment.human_attribute_name(:mode)
+      = select_tag(:mode_id, options_for_select([[]] +  modes.map{|u| [u.name, u.id]}, params[:mode_id].to_i))
+
   - providers = IncomingPayment.providers_vendors
   - if providers.any?
     - k.helper do
