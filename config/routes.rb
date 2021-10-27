@@ -1231,6 +1231,9 @@ Rails.application.routes.draw do
 
     resources :sales, concerns: %i[list unroll] do
       collection do
+        get :default_conditioning_unit
+        get :conditioning_ratio
+        get :conditioning_ratio_presence
         get :contacts
       end
       member do
@@ -1392,10 +1395,6 @@ Rails.application.routes.draw do
     get 'invitations/list', to: 'invitations#list'
     get 'invitations/new', to: 'invitations#new'
     post 'invitations', to: 'invitations#create'
-
-    get 'default_conditioning_unit', to: 'sales#default_conditioning_unit'
-    get 'conditioning_ratio', to: 'sales#conditioning_ratio'
-    get 'conditioning_ratios', to: 'sales#conditioning_ratios?'
 
     resources :registrations, only: %i[index edit update destroy], concerns: [:list]
     resources :gaps, only: %i[index show destroy]

@@ -346,7 +346,7 @@ module Backend
       render json: { coeff: coefficient }
     end
 
-    def conditioning_ratios?
+    def conditioning_ratio_presence
       render json: Sale.find_by_id(params[:id])&.ratio_conditioning?
     end
 
