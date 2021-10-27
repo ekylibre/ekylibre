@@ -182,5 +182,83 @@ module Backend
       redirect_action = ok ? :show : :edit
       redirect_to params[:redirect] || { action: redirect_action, id: record.id }
     end
+
+    def mergeable_matters
+      matters = Matter.where(id: params[:selected])
+      res = matters.all? do |mat|
+        %i[name variant container variety derivative_of].all? do |attr|
+          mat.send(attr) == matters.first.send(attr)
+        end
+      end
+      render json: res
+    end
+
+    def merge_matters
+      if params[:id]
+        matters = Matter.where(id: params[:id].split(','))
+        f_matter = matters.first
+        new_matter = Matter.new(
+          name: f_matter.name,
+          variant: f_matter.variant,
+          initial_container: f_matter.container,
+          variety: f_matter.variety,
+          derivative_of: f_matter.derivative_of,
+          born_at: matters.map(&:born_at).min
+        )
+        if matters.all?{|matter| matter.conditioning_unit == f_matter.conditioning_unit}
+          new_matter.update(
+            conditioning_unit: f_matter.conditioning_unit,
+            initial_population: matters.sum(&:population)
+          )
+          new_matter.save!
+        else
+          new_matter.update(
+            conditioning_unit: f_matter.variant.default_unit,
+            initial_population: matters.sum{|matter| (matter.population * matter.conditioning_unit.coefficient)}
+          )
+          if (price_attributes = merged_matters_price_attributes(matters)).present?
+            if (catalog_item = CatalogItem.of_variant(f_matter.variant_id).of_unit(f_matter.variant.default_unit_id).of_usage(:cost).first)
+              catalog_item.update!(price_attributes)
+            else
+              new_matter.variant.catalog_items.create!(price_attributes)
+            end
+          end
+          new_matter.save!
+        end
+        matters.each do |matter|
+          matter.update!(dead_at: Time.now)
+        end
+        redirect_to backend_matter_path(id: new_matter.id)
+      end
+      render json: nil
+    end
+
+    private
+
+      def merged_matters_price_attributes(matters)
+        with_cost_matters = matters.reject do |matter|
+          matter.variant.catalog_items.of_usage(:cost).of_unit(matter.conditioning_unit).empty?
+        end
+        if with_cost_matters.present?
+          begin
+            amount = with_cost_matters.sum do |matter|
+              unit_price = matter.variant.catalog_items.of_usage(:cost).of_unit(matter.conditioning_unit).first.uncoefficiented_amount
+              matter.population * matter.conditioning_unit.coefficient * unit_price
+            end
+            amount /= with_cost_matters.sum(&:default_unit_population)
+            attributes = {
+              catalog: Catalog.find_by(usage: :cost),
+              all_taxes_included: false,
+              amount: amount.round(2),
+              unit: matters.first.variant.default_unit,
+              started_at: matters.map(&:born_at).min,
+              currency: Preference.get(:currency).value
+            }
+          rescue
+            return nil
+          end
+        end
+      end
+
   end
 end

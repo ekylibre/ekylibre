@@ -6251,7 +6251,7 @@ parcel_items:
     required: true
   merge_stock:
     type: boolean
-    default: true
+    default: false
   non_compliant:
     type: boolean
   non_compliant_detail:

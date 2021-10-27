@@ -2074,6 +2074,11 @@ ul.tree {
   margin-right: $fs-normal;
 }
 
+.merge-matter-div{
+  padding: 7px;
+  display: none;
+}
+
 .select-product {
   @include box-emphasis;
 }
