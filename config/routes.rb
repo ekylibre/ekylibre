@@ -982,6 +982,10 @@ Rails.application.routes.draw do
     # resources :contacts, concerns: :entities
 
     resources :receptions, concerns: %i[list unroll] do
+      collection do
+        get :mergeable_matters
+        get :merge_matters
+      end
       member do
         get :list_items
         get :list_storings

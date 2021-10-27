@@ -151,6 +151,10 @@ class CatalogItem < ApplicationRecord
     unit_amount_with_indicator
   end
 
+  def uncoefficiented_amount
+    unit&.coefficient ? (amount / unit.coefficient) : amount
+  end
+
   # Compute a pre-tax amount
   def pretax_amount(into: unit)
     destination_unit = into.is_a?(Unit) ? into : Unit.import_from_lexicon(into)

@@ -778,6 +778,10 @@ class Product < ApplicationRecord
     UnitComputation.convert_stock(pops.first.value, unit, destination_unit)
   end
 
+  def default_unit_population
+    unit&.coefficient ? (population * unit.coefficient) : population
+  end
+
   # Moves population with given quantity
   def move!(quantity, options = {})
     movements.create!(delta: quantity, started_at: options[:at])

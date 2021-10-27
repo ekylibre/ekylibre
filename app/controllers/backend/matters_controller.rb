@@ -46,7 +46,7 @@ module Backend
       code.c
     end
 
-    list(conditions: matters_conditions, join: :variant, distinct: true) do |t|
+    list(conditions: matters_conditions, selectable: true, join: :variant, distinct: true) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
@@ -60,5 +60,6 @@ module Backend
       t.column :description
       t.column :derivative_of
     end
+
   end
 end

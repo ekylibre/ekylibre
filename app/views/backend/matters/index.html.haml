@@ -11,5 +11,7 @@
 - main_toolbar do |t|
   = t.new params: { controller: :receptions, action: :new, redirect: nil }, label: :new_incoming_parcel.tl
   = t.new params: { redirect: nil }
-
+%div.merge-matter-div
+  = link_to(:merge.tl, nil, class: "btn btn-primary merge-matter-btn")
+   
 = main_list
