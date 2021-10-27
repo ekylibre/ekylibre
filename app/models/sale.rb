@@ -261,6 +261,7 @@ class Sale < ApplicationRecord
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
+    create_sale_catalog_items if %w[invoice order].include? state
     # take reference_number (external ref) if exist else take number (internal ref)
     r_number = (reference_number.blank? ? number : reference_number)
     # build description on entry
@@ -658,4 +659,24 @@ class Sale < ApplicationRecord
   def human_status
     state_label
   end
+
+  private
+
+    def create_sale_catalog_items
+      items.each do |sale_item|
+        next unless catalog = Catalog.by_default!(:sale)
+
+        invoice_date = invoiced_at || Time.now
+        item = CatalogItem.find_by(catalog: catalog, variant: sale_item.variant, unit: sale_item.conditioning_unit)
+        next if item || sale_item.unit_pretax_amount.blank? || sale_item.unit_pretax_amount.zero?
+
+        sale_item.variant.catalog_items.create!(catalog: catalog,
+                                      all_taxes_included: false,
+                                      amount: sale_item.unit_pretax_amount,
+                                      currency: sale_item.currency,
+                                      sale_item: sale_item,
+                                      started_at: invoice_date,
+                                      unit: sale_item.conditioning_unit)
+      end
+    end
 end

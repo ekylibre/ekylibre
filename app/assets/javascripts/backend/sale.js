@@ -38,7 +38,7 @@
     })
   }
   $(document).on("selector:change", '.sale_items_conditioning_unit > .selector > .selector-value', function(){
-    $.ajax('/backend/conditioning_ratio', {
+    $.ajax('/backend/sales/conditioning_ratio', {
       type: 'get',
       dataType: 'json',
       data: {
@@ -78,7 +78,7 @@
   });
 
   $(document).behave("load", ".default-unit-amount", function(event) {
-    $.ajax('/backend/conditioning_ratios', {
+    $.ajax('/backend/sales/conditioning_ratio_presence', {
       type: 'get',
       dataType: 'json',
       data: {
@@ -100,7 +100,7 @@
   })
 
   $(document).on("selector:change", ".sale_items_variant > .selector > .selector-value", function(){
-    $.ajax('/backend/default_conditioning_unit', {
+    $.ajax('/backend/sales/default_conditioning_unit', {
       type: 'get',
       dataType: 'json',
       data: {

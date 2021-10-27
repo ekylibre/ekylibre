@@ -61,7 +61,7 @@
     $(document).on 'selector:change', ".#{purchase_att}_items_variant > .controls > .selector > .selector-value", ->
       that = this;
       if !$('.invoice-variant').attr("disabled")
-        $.ajax '/backend/default_conditioning_unit',
+        $.ajax '/backend/sales/default_conditioning_unit',
           type: 'get'
           dataType: 'json'
           data: 'id': @value
@@ -77,7 +77,7 @@
 
     $(document).on 'selector:change', ".#{purchase_att}_items_conditioning_unit > .controls > .selector > .selector-value", ->
       that = this;
-      $.ajax '/backend/conditioning_ratio',
+      $.ajax '/backend/sales/conditioning_ratio',
         type: 'get'
         dataType: 'json'
         data: 'id': @value
