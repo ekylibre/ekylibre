@@ -155,7 +155,7 @@ rubocop:
 
 eslint:
   stage: lint
-  image: node:lts-alpine
+  image: node:14-alpine
   variables:
     GIT_DEPTH: 1
   script:
