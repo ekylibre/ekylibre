@@ -1008,7 +1008,7 @@ fra:
         title: "Choisir une activité"
     leaflet:
       interactive_maps: "Une librairie JavaScript pour des cartes interactives"
-      fullscreenControl: 
+      fullscreenControl:
         title: 'Plein écran'
         titleCancel: 'Quitter le mode plein écran'
       cut:
@@ -2998,6 +2998,7 @@ fra:
       other: "%{count} résultats" #?
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaires par type de produit"
+    revenues_by_sale_nature: "Chiffre d’affaires par type de vente"
     reverse: "Appliquer la condition inverse"
     revise: "Mettre à jour"
     right_parts: #?

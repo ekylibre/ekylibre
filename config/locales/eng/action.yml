@@ -1347,7 +1347,7 @@ eng:
           title: "Choose an activity"
     leaflet:
       interactive_maps: "A JS library for interactive maps"
-      fullscreenControl: 
+      fullscreenControl:
         title: 'Fullscreen'
         titleCancel: 'Exit fullscreen mode'
       cut:
@@ -2919,6 +2919,7 @@ eng:
     result: "Result"
     revenues: "Revenues"
     revenues_by_product_nature: "Revenues by product type"
+    revenues_by_sale_nature: "Revenues by sale type"
     reverse: "Reverse condition"
     revise: "Revise"
     rights: "Rights"
