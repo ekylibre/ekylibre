@@ -96,7 +96,7 @@ module Backend
     list(:contained_products, model: :product_localizations, joins: { product: :variant }, conditions: { product_nature_variants: { active: true }, container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
       t.column :product, url: true
       t.column :population, through: :product
-      t.column :unit_name, through: :product
+      t.column :unit_name, label_method: "product.conditioning_unit.name"
       t.column :started_at, datatype: :datetime
       t.column :stopped_at, datatype: :datetime
       t.column :nature, hidden: true
