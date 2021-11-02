@@ -2496,7 +2496,7 @@ fra:
     unit: "Unité"
     unit_amount: "PU TTC"
     unit_currency: "Monnaie de l’unité"
-    unit_name: "Unité"
+    unit_name: "Nom personnalisable de l'unité"
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
     base_unit_amount: "PU HT (Unité)"

@@ -1008,7 +1008,7 @@ fra:
         title: "Choisir une activité"
     leaflet:
       interactive_maps: "Une librairie JavaScript pour des cartes interactives"
-      fullscreenControl: 
+      fullscreenControl:
         title: 'Plein écran'
         titleCancel: 'Quitter le mode plein écran'
       cut:
@@ -4200,8 +4200,8 @@ fra:
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
-    backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
-    backend/product_nature_variants/saleables: "%{name} (%{unit_name}) - %{product_account_number}"
+    backend/product_nature_variants: "%{name} - %{charge_account_number}"
+    backend/product_nature_variants/saleables: "%{name} - %{product_account_number}"
     backend/product_natures: "%{name}"
     backend/products:
       default: "%{work_number} %{name} (%{number}) - %{container_name}"

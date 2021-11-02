@@ -26,11 +26,14 @@
     = f.input :gtin
     = f.input :active
     - if f.object.default_unit_updateable?
-      = f.referenced_association :default_unit, controller: '/backend/units', source: { scope: units_scope }, new: false
+      = f.input(:default_unit, wrapper: :append) do
+        = f.input(:default_quantity, disabled: false, wrapper: :simplest)
+        = f.referenced_association :default_unit, controller: '/backend/units', source: { scope: units_scope }, new: false, wrapper: :simplest
     - else
       = f.input(:default_unit, wrapper: :append) do
         = f.input(:default_quantity, disabled: true, wrapper: :simplest)
         = f.referenced_association(:default_unit, controller: '/backend/units', new: false, disabled: true, wrapper: :simplest)
+    = f.input :unit_name
     - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
       - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)
       = field :france_maaid.tl, selector_tag(:phyto_product_id, { controller: "/backend/registered_phytosanitary_products", action: :unroll }, { value: value&.id || f.object.france_maaid }, { disabled: f.object.phytosanitary_product.present? })

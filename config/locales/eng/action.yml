@@ -1347,7 +1347,7 @@ eng:
           title: "Choose an activity"
     leaflet:
       interactive_maps: "A JS library for interactive maps"
-      fullscreenControl: 
+      fullscreenControl:
         title: 'Fullscreen'
         titleCancel: 'Exit fullscreen mode'
       cut:
@@ -3928,8 +3928,8 @@ eng:
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
-    backend/product_nature_variants: "%{name} (%{unit_name}) - %{charge_account_number}"
-    backend/product_nature_variants/saleables: "%{name} (%{unit_name}) - %{product_account_number}"
+    backend/product_nature_variants: "%{name} - %{charge_account_number}"
+    backend/product_nature_variants/saleables: "%{name} - %{product_account_number}"
     backend/product_natures: "%{name}"
     backend/products:
       default: "%{work_number} %{name} (%{number})"

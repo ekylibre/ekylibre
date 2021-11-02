@@ -762,6 +762,7 @@ class ProductNatureVariant < ApplicationRecord
         default_quantity: base_unit_quantity,
         default_unit_name: base_unit.reference_name,
         type: find_type(item),
+        unit_name: default_unit.name,
         imported_from: 'Lexicon'
       )
       build_indicators_from_lexicon(item, variant)
@@ -814,6 +815,7 @@ class ProductNatureVariant < ApplicationRecord
           default_quantity: base_unit_quantity,
           default_unit_name: base_unit.reference_name,
           type: "Variants::Articles::PlantMedicineArticle",
+          unit_name: default_unit.name,
           imported_from: 'Lexicon'
         )
         build_phyto_indicators(item, variant)
