@@ -193,7 +193,8 @@ group :development do
   gem 'rubocop', '~> 1.11.0', require: false
 
   # Webservers
-  gem 'thin', '~> 1.8'
+  gem 'rack-handlers'
+  gem 'unicorn-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.0'
