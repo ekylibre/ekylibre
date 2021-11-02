@@ -47,5 +47,5 @@
       });
     }
   }
-  E.Matters = Matters;
+  E.MattersMerger = MattersMerger;
 })(ekylibre, jQuery);

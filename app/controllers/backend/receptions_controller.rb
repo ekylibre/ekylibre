@@ -229,8 +229,9 @@ module Backend
           matter.update!(dead_at: Time.now)
         end
         redirect_to backend_matter_path(id: new_matter.id)
+      else
+        render json: {}
       end
-      render json: nil
     end
 
     private
