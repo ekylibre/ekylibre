@@ -412,6 +412,8 @@ class ProductNature < ApplicationRecord
 
       nature_name = if force && natures.count > 0
                       item.translation.send(Preference[:language]) + "(#{natures.count.to_s})"
+                    elsif ProductNature.where(name: item.translation.send(Preference[:language])).count > 0
+                      item.translation.send(Preference[:language]) + "(#{natures.count.to_s})"
                     else
                       item.translation.send(Preference[:language])
                     end
