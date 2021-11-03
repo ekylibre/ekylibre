@@ -126,6 +126,11 @@ class SaleItem < ApplicationRecord
     joins(:sale).merge(Sale.estimate_between(started_at, stopped_at))
   }
 
+  # return all estimates sale items between two accounted_at dates
+  scope :of_sale_nature, lambda { |sale_nature|
+    joins(:sale).merge(Sale.of_nature(sale_nature))
+  }
+
   # return all sale items for the consider product_nature
   scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(Array(product_nature)))

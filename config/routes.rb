@@ -218,6 +218,7 @@ Rails.application.routes.draw do
       resource :parts_cell, only: :show
       resource :profit_and_loss_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
+      resource :revenues_by_sale_nature_cell, only: :show
       resource :rss_cell, only: :show
       resource :settings_statistics_cell, only: :show
       resource :square_revenues_by_category_cell, only: :show
@@ -1409,7 +1410,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   root to: 'public#index'
   mount ActionCable.server, at: '/cable'
 end

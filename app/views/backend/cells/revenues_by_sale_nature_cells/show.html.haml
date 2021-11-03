@@ -1,0 +1,47 @@
+- if @started_at && @stopped_at
+  :ruby
+    series = []
+    pie_data = []
+    categories = {}
+    date = @started_at
+    while date < @stopped_at
+      categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
+      date = date + 1.month
+    end
+
+    sale_items_datasource = SaleItem.between(@started_at, @stopped_at)
+
+    if sale_items_datasource.any?
+      # data for bar chart revenues by sale_nature and by month
+      SaleNature.find_each do |nature|
+        sale_items = sale_items_datasource.of_sale_nature(nature).reorder('sale.invoiced_at')
+        if sale_items.count > 0
+          item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
+            hash[pair.expr.to_i.to_s] = pair.sum.to_d
+            hash
+          end
+          series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys), stack: 'time' }
+        end
+        pie_data << { name: :total_pretax_revenues.tl, y: sale_items.sum(:pretax_amount).to_s.to_f}
+      end
+
+      # data for spline sum revenues by month
+      item_h = sale_items_datasource.sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
+        hash
+      end
+      series << {type: 'spline', name: :total_pretax_revenues.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+    end
+
+
+    # data for pie revenues by sale_nature
+    if pie_data.any?
+      series << {type: 'pie', name: :total.tl, data: pie_data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+    end
+
+  - if series.any?
+    = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
+  - else
+    = no_data
+- else
+  = no_data

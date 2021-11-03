@@ -140,6 +140,8 @@ class Sale < ApplicationRecord
 
   scope :with_nature, ->(id) { where(nature_id: id) }
 
+  scope :of_nature, ->(nature) { where(nature_id: nature.id) }
+
   scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
