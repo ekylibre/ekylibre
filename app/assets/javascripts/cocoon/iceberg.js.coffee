@@ -181,8 +181,8 @@
           unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
 
       data = zones: zones
-
-      @line.find('#storing-display').html(storing_display_template(zones))
+      @line.find('#conditioning-display').html(storing_display_template(zones, 'conditioning'))
+      @line.find('#storing-display').html(storing_display_template(zones, 'zone'))
 
     retrievePreviousItemValue: ->
       line = @line
@@ -195,16 +195,16 @@
         for item in Object.keys(input_values_hash)
           line.find('*[data-remember=' + item + ']').val(input_values_hash[item])
 
-  storing_display_template = (zones) =>
+  storing_display_template = (zones, name) =>
     zones.map((zone) =>
+      val = if name == 'zone' then zone.name else "#{zone.quantity} #{zone.unit}"
       """
         <p>
-          <strong class="storage-quantity">#{zone.quantity} #{zone.unit}</strong>
-          <span class="storage-zone">#{zone.name}</span>
+          <span class="storage-#{name}">#{val}</span>
         </p>
       """
       ).reduce(((a, b) -> a + b), '')
-
+      
   $(document).ready ->
     $('*[data-iceberg]').each ->
       mode = "add" if typeof($(this).data("display-items-form")) != 'undefined'
