@@ -196,7 +196,11 @@ module Square
     # @return [Tax]
     # Formule : [Montant TTC] / (1 + ([Taux TVA] / 100))=[Montant HT]
     def find_tax_by_amounts(pretax_amount, tax_amount)
-      tax_rate = (tax_amount.to_d / pretax_amount.to_d) * 100
+      tax_rate = if tax_amount.zero? && pretax_amount.zero?
+                   5.5
+                 else
+                   (tax_amount.to_d / pretax_amount.to_d) * 100
+                 end
       # hotfix because some product on Square are badly imputing taxe on 20 et 10 together
       tax_rate = 10.0 if tax_rate.between?(13, 16)
       tax_rate = 5.5 if tax_rate.between?(4, 6)
