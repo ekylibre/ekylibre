@@ -98,10 +98,17 @@ class ReceptionItem < ParcelItem
     read_at = reception ? reception_prepared_at : Time.zone.now
   end
 
+  def pretax_amount
+    return if quantity.nil? || unit_pretax_amount.nil?
+
+    unit_pretax_amount * quantity
+  end
+
   after_save do
     if purchase_order_to_close.present? && !purchase_order_to_close.closed?
       purchase_order_to_close.close
     end
+    reception.reload.save if quantity_changed?
   end
 
   after_destroy do

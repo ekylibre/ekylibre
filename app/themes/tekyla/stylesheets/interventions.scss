@@ -349,6 +349,7 @@ $preview-modal-height: 80vh;
   .reception-form {
     .purchase-items-array {
       margin-top: $default-gap * 2;
+      margin-left:  $default-gap * 2;
     }
 
     .header-line{
@@ -369,16 +370,23 @@ $preview-modal-height: 80vh;
     }
 
     .item-quantity, .header-quantity{
-      width: 13%;
+      width: 10%;
+      input{
+        width: 90%;
+      }
+    }
+
+    .item-conditioning-unit, .header-conditioning-unit{
+      width: 10%;
     }
 
     .item-unit-pretax-amount, .header-unit-pretax-amount{
-      width: 13%;
+      width: 10%;
       color: $lightened-grey;
     }
 
     .item-amount, .header-amount{
-      width: 13%;
+      width: 10%;
       color: $lightened-grey;
     }
   }

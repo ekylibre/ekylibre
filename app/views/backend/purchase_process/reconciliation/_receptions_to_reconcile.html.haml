@@ -5,8 +5,8 @@
     .list-headers
       %span.list-header.form-name= :reception.tl
       %span.list-header
-      %span.list-header= :quantity.tl
       %span.list-header= :conditioning.tl
+      %span.list-header= :quantity.tl
       %span.list-header= :unit_amount.tl
       %span.list-header= :total_amount_without_taxes.tl
     .list-models
@@ -51,7 +51,7 @@
                   %span.item-value= conditioning_unit.name
                   %span.item-value.quantity-to-fill= conditioning_quantity
                   %span.item-value.unit-cost= model_item.unit_pretax_amount
-                  %span.item-value.total-except-taxes= model_item.purchase_order_item.try(:pretax_amount)
+                  %span.item-value.total-except-taxes= model_item.pretax_amount
 
 .modal-footer
   .actions
