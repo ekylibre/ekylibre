@@ -32,6 +32,7 @@
         success: (data, status, request) ->
           unit = item.find(".item-population-unit-name")
           if data.conditioning_unit_name
+            unit.show()
             unit.html(data.conditioning_unit_name)
             item.attr('data-conditioning-unit-name', data.conditioning_unit_name)
           else if data.unit_name
@@ -44,7 +45,7 @@
           pop = item.find(".item-population")
           total = item.find(".item-population-total")
           prefilled = element.closest('tr').find('.prefilled-conditioning')
-          if prefilled? && data.conditioning_coefficient
+          if prefilled.length > 0 && data.conditioning_coefficient
             prefilled_val = prefilled.data("conditioningQuantity") * prefilled.data("conditioningCoefficient") / data.conditioning_coefficient
             total.html(prefilled_val)
             pop.val(prefilled_val)

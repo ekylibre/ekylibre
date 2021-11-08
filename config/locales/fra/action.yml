@@ -3729,7 +3729,7 @@ fra:
     x_trackings:
       one: "%{count} numéro de lot"
       other: "%{count} numéros de lot"
-    x_unit: "%{quantity}%{unit}"
+    x_unit: "%{quantity} %{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} de %{product}"
