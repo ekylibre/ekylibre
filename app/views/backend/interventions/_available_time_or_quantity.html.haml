@@ -1,6 +1,6 @@
 = label_item(item, filters, controller_path)
 %span.amount-part
-  - if defined?(Planning)
+  - if defined?(Planning) && params[:scope][:availables].present?
     - date = params[:scope][:availables].first[:at]
     - if item.time_use_in_date(date).zero?
       = '(' + item.stock_info + ')'

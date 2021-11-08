@@ -294,7 +294,7 @@ class Parcel < ApplicationRecord
 
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
             # 0 - Get unit_pretax_amount from parcel_item if exist
-            unit_pretax_amount = item.pretax_amount.zero? ? nil : item.pretax_amount
+            unit_pretax_amount = item.pretax_amount&.zero? ? nil : item.pretax_amount
             tax = Tax.current.first
             # 1 - from last sale item
             if (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
@@ -311,6 +311,9 @@ class Parcel < ApplicationRecord
             item.sale_item = sale.items.new(
               variant: item.variant,
               unit_pretax_amount: unit_pretax_amount || 0.0,
+              amount: unit_pretax_amount || 0.0,
+              conditioning_unit: item.conditioning_unit,
+              conditioning_quantity: item.conditioning_quantity,
               tax: tax,
               quantity: item.population
             )

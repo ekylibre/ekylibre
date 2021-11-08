@@ -96,7 +96,7 @@ module Backend
       t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
       t.column :product_identification_number, hidden: true
       t.column :conditioning_unit
-      t.column :conditioning_quantity
+      t.column :conditioning_quantity, class: 'left-align'
       t.column :analysis, url: true
     end
 

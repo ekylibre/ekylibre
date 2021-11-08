@@ -3442,7 +3442,7 @@ eng:
     x_trackings:
       one: "%{count} tracking"
       other: "%{count} trackings"
-    x_unit: "%{quantity}%{unit}"
+    x_unit: "%{quantity} %{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} of %{product}"
