@@ -290,8 +290,8 @@
       itemHeader = []
       itemHeader.push("<span class='header-name'>Article</span>")
       itemHeader.push("<span class='header-quantity'>Quantité</span>")
-      itemHeader.push("<span class='header-conditioning-unit'> </span>")
-      itemHeader.push("<span class='header-unit-pretax-amount'>Prix U HT</span>")
+      itemHeader.push("<span class='header-conditioning-unit'></span>")
+      itemHeader.push("<span class='header-unit-pretax-amount'>PU HT</span>")
       itemHeader.push("<span class='header-amount'>Prix total</span>")
       $('.purchase-items-array').append("<li class='header-line'>" + itemHeader.join('') + "</li>")
       $.get
@@ -303,8 +303,8 @@
             if intervention_id? && item.is_reception
               itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
             itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
-            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_quantity]' value ='#{item.conditioning_quantity}'></input>#{item.conditioning_unit_name}</span>")
-            itemLine.push("<span class='item-conditioning-unit'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_unit_id]' value='#{item.conditioning_unit_id}' type='hidden'></input></span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_quantity]' value ='#{item.conditioning_quantity}'></input></span>")
+            itemLine.push("<span class='item-conditioning-unit'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_unit_id]' value='#{item.conditioning_unit_id}' type='hidden'></input>#{item.conditioning_unit_name}</span>")
             itemLine.push("<span class='item-unit-pretax-amount'>" + item.unit_pretax_amount + "</span>")
             itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.conditioning_quantity +  "</span>")
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
