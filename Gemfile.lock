@@ -209,7 +209,6 @@ GEM
       semantic (~> 1.6)
       zeitwerk (~> 2.3)
     crass (1.0.6)
-    daemons (1.3.1)
     database_cleaner (1.99.0)
     dbf (4.1.3)
     debug_inspector (1.0.0)
@@ -248,7 +247,6 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.4)
       tzinfo
-    eventmachine (1.2.7)
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
@@ -469,6 +467,8 @@ GEM
       rack (>= 0.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-handlers (0.7.3)
+      rack
     rack-mini-profiler (2.3.2)
       rack (>= 1.2.0)
     rack-protection (2.1.0)
@@ -628,10 +628,6 @@ GEM
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
-    thin (1.8.0)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -665,6 +661,9 @@ GEM
     unicorn (5.8.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    unicorn-rails (2.2.1)
+      rack
+      unicorn
     uniform_notifier (1.10.0)
     uri_template (0.7.0)
     uuidtools (2.2.0)
@@ -788,6 +787,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.9)
   quandl (~> 1.1)
   rack-cors
+  rack-handlers
   rack-mini-profiler
   rails (= 5.0.7.2)
   rails-controller-testing (~> 1.0)
@@ -819,7 +819,6 @@ DEPENDENCIES
   sprockets (< 4.0)
   state_machine (~> 1.2)
   therubyracer
-  thin (~> 1.8)
   time_diff (~> 0.3.0)
   timecop (~> 0.9.0)
   treetop (~> 1.6)
@@ -828,6 +827,7 @@ DEPENDENCIES
   twitter-typeahead-rails (~> 0.11.1)
   uglifier (>= 1.3.0)
   unicorn (~> 5.8)
+  unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   wannabe_bool (~> 0.7.1)

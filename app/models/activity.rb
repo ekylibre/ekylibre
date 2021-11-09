@@ -72,7 +72,6 @@ class Activity < ApplicationRecord
   include Attachable
   include Customizable
   include Activities::LeftJoinable
-  include Activities::Colorable
 
   refers_to :family, class_name: 'ActivityFamily', predicates: true
   refers_to :cultivation_variety, class_name: 'Variety'
@@ -413,7 +412,33 @@ class Activity < ApplicationRecord
     production_system_name == "organic_farming"
   end
 
+  COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze
+  COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
+
   class << self
+    # Returns a color for given family and variety
+    # short-way solution, can be externalized in mid-way solution
+    def color(family, variety)
+      activity_family = Onoma::ActivityFamily.find(family)
+      variety = Onoma::Variety.find(variety)
+      return 'White' unless activity_family
+
+      if activity_family <= :plant_farming || activity_family <= :vine_farming
+        list = COLORS['varieties']
+        return 'Gray' unless list
+
+        variety.rise { |i| list[i.name] } unless variety.nil?
+      elsif activity_family <= :animal_farming
+        'Brown'
+      elsif activity_family <= :administering
+        'RoyalBlue'
+      elsif activity_family <= :tool_maintaining
+        'SlateGray'
+      else
+        'DarkGray'
+      end
+    end
+
     # Find nearest family on cultivation variety and support variety
     def best_for_cultivation(family, cultivation_variety)
       return nil unless any?

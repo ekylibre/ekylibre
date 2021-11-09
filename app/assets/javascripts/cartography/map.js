@@ -13,9 +13,6 @@
     E.Events.Map.edit.change = 'ekylibre:map:events:edit:change';
     E.Events.Map.split = {};
     E.Events.Map.split.change = 'ekylibre:map:events:split:change';
-    E.Events.Map.select = {};
-    E.Events.Map.select.select = 'ekylibre:map:events:select:select';
-    E.Events.Map.select.unselect = 'ekylibre:map:events:select:unselect';
     class Map {
         constructor(el, options) {
             this.el = el;
@@ -42,14 +39,6 @@
 
             $(this._cartography.map).on(Cartography.Events.split.change, (e) =>
                 $(document).trigger(E.Events.Map.split.change, e.originalEvent.data)
-            );
-
-            $(this._cartography.map).on(Cartography.Events.select.select, (e) =>
-                $(document).trigger(E.Events.Map.select.select, e.originalEvent.data)
-            );
-
-            $(this._cartography.map).on(Cartography.Events.select.unselect, (e) =>
-                $(document).trigger(E.Events.Map.select.unselect, e.originalEvent.data)
             );
         }
 
@@ -97,14 +86,6 @@
             return this._cartography.select.apply(this._cartography, arguments);
         }
 
-        unselectMany() {
-            this._cartography.unselectMany.apply(this._cartography, arguments);
-        }
-
-        unselect() {
-            this._cartography.unselect.apply(this._cartography, arguments);
-        }
-
         setView() {
             return this._cartography.setView.apply(this._cartography, arguments);
         }
@@ -148,13 +129,9 @@
 
     E.onDomReady(function () {
         const baseElements = $('*[data-cartography]');
-        if (baseElements.length == 0) return false;
-
-        const $baseElement = baseElements.first();
-        const options = $baseElement.data('cartography');
-        if (options.type != undefined) {
-            E.map = new E[`${options.type}Map`]($baseElement[0], options);
-        } else {
+        if (baseElements.length > 0) {
+            const $baseElement = baseElements.first();
+            const options = $baseElement.data('cartography');
             E.map = new Map($baseElement[0], options);
         }
     });
