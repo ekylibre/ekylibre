@@ -350,7 +350,7 @@ class Activity < ApplicationRecord
     if animal_farming?
       total = productions.of_campaign(campaign).map do |production|
         viewed_at = Time.zone.now.change(year: campaign.harvest_year)
-        production.support.members_at(viewed_at)&.count.to_i
+        production.support.members_count(viewed_at)
       end.sum
     else
       total = productions.of_campaign(campaign).map(&:size).sum
