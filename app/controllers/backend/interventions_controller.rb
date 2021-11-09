@@ -728,6 +728,7 @@ module Backend
                                   conditioning_unit_id: item.conditioning_unit_id,
                                   conditioning_unit_name: item.conditioning_unit.name,
                                   conditioning_quantity: item.conditioning_quantity,
+                                  quantity_to_receive: item.quantity_to_receive,
                                   unit_pretax_amount: item.unit_pretax_amount,
                                   is_reception: item.class == ReceptionItem,
                                   purchase_order_item: item.try(:purchase_order_item_id) || item.id,
