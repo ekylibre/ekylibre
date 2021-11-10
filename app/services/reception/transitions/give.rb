@@ -54,7 +54,7 @@ class Reception
                   p.population * p.conditioning_unit.coefficient
                 end
                 delta += storing.conditioning_quantity * storing.conditioning_unit.coefficient
-                if !(catalog_item = CatalogItem.of_variant(item.variant).of_unit(item.variant.default_unit_id).of_usage(:cost).first)
+                if !(catalog_item = CatalogItem.of_variant(item.variant).of_unit(item.variant.default_unit_id).of_usage(:stock).first)
                   if (price_attributes = merged_matters_price_attributes(products)).present?
                     product.variant.catalog_items.create!(price_attributes)
                   end
@@ -124,17 +124,17 @@ class Reception
 
         def merged_matters_price_attributes(matters)
           with_cost_matters = matters.reject do |matter|
-            matter.variant.catalog_items.of_usage(:cost).of_unit(matter.conditioning_unit).empty?
+            matter.variant.catalog_items.of_usage(:stock).of_unit(matter.conditioning_unit).empty?
           end
           if with_cost_matters.present?
             begin
               amount = with_cost_matters.sum do |matter|
-                unit_price = matter.variant.catalog_items.of_usage(:cost).of_unit(matter.conditioning_unit).first.uncoefficiented_amount
+                unit_price = matter.variant.catalog_items.of_usage(:stock).of_unit(matter.conditioning_unit).first.uncoefficiented_amount
                 matter.population * matter.conditioning_unit.coefficient * unit_price
               end
               amount /= with_cost_matters.sum(&:default_unit_population)
               attributes = {
-                catalog: Catalog.find_by(usage: :cost),
+                catalog: Catalog.find_by(usage: :stock),
                 all_taxes_included: false,
                 amount: amount.round(2),
                 unit: matters.first.variant.default_unit,

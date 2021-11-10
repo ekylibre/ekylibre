@@ -21,7 +21,10 @@ module Backend
     before_action :save_search_preference, only: :index
 
     def self.matters_conditions
-      code = list_conditions
+      code = "if params[:s].nil?\n"
+      code << "  params[:s] = 'available'\n"
+      code << "end\n"
+      code << list_conditions
       code << "c[0] << \" AND #{ProductNatureVariant.table_name}.type like ?\"\n"
       code << "c << '%Variants::Article%'\n"
       code << "c[0] << \" AND #{ProductNatureVariant.table_name}.active = ?\"\n"
