@@ -217,7 +217,7 @@ module Backend
             initial_population: matters.sum{|matter| (matter.population * matter.conditioning_unit.coefficient)}
           )
           if (price_attributes = merged_matters_price_attributes(matters)).present?
-            if (catalog_item = CatalogItem.of_variant(f_matter.variant_id).of_unit(f_matter.variant.default_unit_id).of_usage(:cost).first)
+            if (catalog_item = CatalogItem.of_variant(f_matter.variant_id).of_unit(f_matter.variant.default_unit_id).of_usage(:stock).first)
               catalog_item.update!(price_attributes)
             else
               new_matter.variant.catalog_items.create!(price_attributes)
@@ -238,17 +238,17 @@ module Backend
 
       def merged_matters_price_attributes(matters)
         with_cost_matters = matters.reject do |matter|
-          matter.variant.catalog_items.of_usage(:cost).of_unit(matter.conditioning_unit).empty?
+          matter.variant.catalog_items.of_usage(:stock).of_unit(matter.conditioning_unit).empty?
         end
         if with_cost_matters.present?
           begin
             amount = with_cost_matters.sum do |matter|
-              unit_price = matter.variant.catalog_items.of_usage(:cost).of_unit(matter.conditioning_unit).first.uncoefficiented_amount
+              unit_price = matter.variant.catalog_items.of_usage(:stock).of_unit(matter.conditioning_unit).first.uncoefficiented_amount
               matter.population * matter.conditioning_unit.coefficient * unit_price
             end
             amount /= with_cost_matters.sum(&:default_unit_population)
             attributes = {
-              catalog: Catalog.find_by(usage: :cost),
+              catalog: Catalog.find_by(usage: :stock),
               all_taxes_included: false,
               amount: amount.round(2),
               unit: matters.first.variant.default_unit,

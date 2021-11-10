@@ -92,7 +92,7 @@ module Backend
       t.column :stopped_at
     end
 
-    list(:products, conditions: { variant_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
+    list(:products, scope: [:alive], conditions: { variant_id: 'params[:id]'.c }, order: { born_at: :desc }) do |t|
       t.column :name, url: { controller: '/backend/products' }
       t.column :work_number
       t.column :identification_number
