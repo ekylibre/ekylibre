@@ -224,6 +224,7 @@ class ProductNatureVariant < ApplicationRecord
     end
     self.default_unit ||= Unit.import_from_lexicon(default_unit_name) if default_unit_name
     self.default_unit_name ||= default_unit.reference_name if default_unit
+    self.unit_name ||= default_unit.name if default_unit
   end
 
   validate do
@@ -258,9 +259,9 @@ class ProductNatureVariant < ApplicationRecord
     end
   end
 
-  def unit_name
-    self.attributes['unit_name'] || I18n.translate("enumerize.product_nature_variant.default_unit_name.#{default_unit_name}")
-  end
+  # def unit_name
+  # self.attributes['unit_name'] || I18n.translate("enumerize.product_nature_variant.default_unit_name.#{default_unit_name}")
+  # end
 
   def name_with_unit
     "#{name} (#{unit_name})"

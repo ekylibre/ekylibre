@@ -47,7 +47,7 @@ class UnitComputation
       return qty_in_variant_population if variant.of_dimension?(:none)
 
       indicator = variant.relevant_stock_indicator(variant.dimension)
-      qty_in_variant_population * indicator.in(variant.default_unit_name).to_f
+      qty_in_variant_population * (indicator.in(variant.default_unit_name).to_f / variant.default_quantity)
     end
 
     def coefficient(from, over)
