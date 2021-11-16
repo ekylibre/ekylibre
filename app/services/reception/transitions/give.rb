@@ -60,6 +60,7 @@ class Reception
                   end
                 end
                 products.each do |p|
+                  ProductMovement.create!(product: p, delta: -p.population, started_at: given_at)
                   p.update!(dead_at: Time.now)
                 end
               end
