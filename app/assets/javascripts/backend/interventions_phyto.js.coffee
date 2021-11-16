@@ -203,7 +203,9 @@
       $productSelectors.each -> productListManager.filterProduct($(this), productsIds)
 
     filterProduct: ($productSelector, productsIds) ->
-      url = new URL(window.location.origin.concat($productSelector.data('selector')))
+      is_input = $productSelector.data('selectorId') == 'intervention_input_product_id'
+      data_selector =  if is_input then $productSelector.attr('data-selector') else $productSelector.data('selector')
+      url = new URL(window.location.origin.concat(data_selector))
       selectorId = $productSelector.next('.selector-value').val()
       url.searchParams.set('scope[excluding]', _.reject(productsIds, (n) -> n == selectorId ))
       dataSelectorUrl = url.pathname.concat(url.search)

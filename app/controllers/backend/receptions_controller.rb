@@ -186,7 +186,7 @@ module Backend
     def mergeable_matters
       matters = Matter.where(id: params[:selected])
       res = matters.all? do |mat|
-        %i[name variant container variety derivative_of].all? do |attr|
+        %i[variant container variety derivative_of].all? do |attr|
           mat.send(attr) == matters.first.send(attr)
         end
       end
@@ -203,7 +203,7 @@ module Backend
           initial_container: f_matter.container,
           variety: f_matter.variety,
           derivative_of: f_matter.derivative_of,
-          born_at: matters.map(&:born_at).min
+          born_at: Time.now
         )
         if matters.all?{|matter| matter.conditioning_unit == f_matter.conditioning_unit}
           new_matter.update(
@@ -226,6 +226,7 @@ module Backend
           new_matter.save!
         end
         matters.each do |matter|
+          ProductMovement.create!(product: matter, delta: -matter.population, started_at: Time.now)
           matter.update!(dead_at: Time.now)
         end
         redirect_to backend_matter_path(id: new_matter.id)
