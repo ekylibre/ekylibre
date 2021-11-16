@@ -27,7 +27,7 @@ class AddConditioningUnitToProducts < ActiveRecord::Migration
         AND p.conditioning_unit_id IS NULL
     SQL
 
-    change_column_null :products, :conditioning_unit_id, false
+    # change_column_null :products, :conditioning_unit_id, false
   end
 
   def down
