@@ -81,7 +81,7 @@ class CultivableZone < ApplicationRecord
   alias net_surface_area shape_area
 
   def shape_svg
-    shape.to_svg(srid: 2154)
+    shape.to_svg
   end
 
   # get the first object with variety 'plant', availables
