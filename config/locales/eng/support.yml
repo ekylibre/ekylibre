@@ -76,8 +76,10 @@ eng:
         hint: "The application encounters problems. Administrators have been notified for this problem."
         title: "We're sorry, but something went wrong"
       maintenance:
-        hint: "Please come back later"
-        title: "The service is under maintenance and is unavailable for now"
+        hint: "As part of stabilizing our system and improving our quality of service, our platform is currently under maintenance.<br>
+               We apologize in advance for the inconvenience and invite you to log in later.<br>
+               The Ekylibre team"
+        title: "The service is under maintenance"
       not_found:
         hint: "You may have mistyped the address or the page may have moved."
         title: "The page you were looking for doesn't exist"
