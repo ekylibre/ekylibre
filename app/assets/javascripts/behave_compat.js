@@ -18,5 +18,5 @@
   }
 
   $(document).ajaxComplete(Behave.refresh)
-  $(document).on("cocoon:after-insert page:change", Behave.refresh)
+  $(document).on("cocoon:after-insert turbolinks:load", Behave.refresh)
 })(jQuery, Behave)

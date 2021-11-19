@@ -9,7 +9,7 @@
     = theme_link_tag
     = javascript_pack_tag :legacy
     = javascript_pack_tag :application
-    = javascript_include_tag :application, "data-turbolinks-track" => true
+    = javascript_include_tag :application, "data-turbolinks-track" => "reload"
   %body.body-authentication
     = yield :popover
     #wrap

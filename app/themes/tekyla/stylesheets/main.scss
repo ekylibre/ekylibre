@@ -239,7 +239,7 @@ $help-width: round($default-ratio * $side-width);
 
 
 html.backend {
-  &.turbolinks-progress-bar::before {
+  .turbolinks-progress-bar {
     height: 3px !important;
     background-color: white !important;
   }

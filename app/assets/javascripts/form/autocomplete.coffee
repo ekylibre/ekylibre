@@ -23,7 +23,7 @@
     $("input[data-autocomplete]").each ->
       $.loadTypeahead.call(this)
 
-  $(document).on "page:load cocoon:after-insert dialog:show", ->
+  $(document).on "turbolinks:load cocoon:after-insert dialog:show", ->
     $("input[data-autocomplete]").each ->
       $.loadTypeahead.call(this)
 

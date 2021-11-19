@@ -57,12 +57,11 @@ gem 'font-awesome-sass', '~> 5.15'
 # JS
 gem 'cocoon', '~> 1.2'
 gem 'jquery-rails', '~> 4.4'
-gem 'jquery-turbolinks', '~> 2.1'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'simple_calendar', '~> 2.4.0'
 gem 'therubyracer', platforms: :ruby
-gem 'turbolinks', '~> 2.0'
+gem 'turbolinks', '~> 5.2.1'
 gem 'twitter-typeahead-rails', '~> 0.11.1'
 
 # Front

@@ -24,7 +24,7 @@
 //= require jquery-ui/widgets/droppable
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require jquery.turbolinks
+//= require jquery_turbolinks_patch
 //= require turbolinks
 //= require active_list.jquery
 //= require knockout
@@ -68,19 +68,16 @@
 // FIX Browser interoperability
 // href function seems to be ineffective
 $.rails.href = function (element) {
-  return $(element).attr('href');
-}
+    return $(element).attr('href');
+};
 
-Turbolinks.enableTransitionCache();
-Turbolinks.enableProgressBar();
-
-$(document).ready(function() {
-  L.Icon.Default.imagePath = '/assets';
-  $(".snippet-content > ul > li").click(function(e) {
-    localStorage.scrollTop = $('.inner').scrollTop();
-  });
-  $('.inner').animate({ scrollTop: localStorage.scrollTop }, 0);
-  $(".collapse").click(function(){
-    localStorage.clear();
-  });
+$(document).ready(function () {
+    L.Icon.Default.imagePath = '/assets';
+    $('.snippet-content > ul > li').click(function (e) {
+        localStorage.scrollTop = $('.inner').scrollTop();
+    });
+    $('.inner').animate({ scrollTop: localStorage.scrollTop }, 0);
+    $('.collapse').click(function () {
+        localStorage.clear();
+    });
 });
