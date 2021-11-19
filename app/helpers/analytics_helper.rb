@@ -15,7 +15,7 @@ module AnalyticsHelper
           // (see https://developer.matomo.org/guides/spa-tracking)
           (function() {
             var previousPageUrl = null;
-            document.addEventListener('page:load', function(event) {
+            document.addEventListener('turbolinks:load', function(event) {
               if (previousPageUrl) {
                 _paq.push(['setReferrerUrl', previousPageUrl]);
                 _paq.push(['setCustomUrl', window.location.href]);

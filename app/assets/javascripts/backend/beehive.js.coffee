@@ -147,7 +147,7 @@
           .closest('li')
           .addClass('error')
 
-  $(document).on 'page:load', '.beehive .cell', $.fn.raiseContentErrorToCellTitle
+  $(document).on 'turbolinks:load', '.beehive .cell', $.fn.raiseContentErrorToCellTitle
 
   $(document).ready ->
     # Adds error style on title if necessary

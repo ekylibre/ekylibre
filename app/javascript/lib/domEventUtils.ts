@@ -11,8 +11,7 @@ export function onElementDetected(selector: string, callback: Function1<HTMLElem
 }
 
 export function onDomReady(callback: DomeEventListener) {
-    document.addEventListener('DOMContentLoaded', callback);
-    document.addEventListener('page:load', callback);
+    document.addEventListener('turbolinks:load', callback);
 }
 
 /**

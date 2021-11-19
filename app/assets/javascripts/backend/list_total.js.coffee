@@ -20,7 +20,7 @@
   $(document).ready () ->
     absoluteSum()
 
-    $('*[data-list-source]').on('page:change', absoluteSum)
+    $('*[data-list-source]').on('turbolinks:load', absoluteSum)
 
     timer = 0
     $('.list-selector').click () ->

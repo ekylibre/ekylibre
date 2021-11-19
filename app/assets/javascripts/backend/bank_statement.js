@@ -27,7 +27,6 @@
     };
   }
 
-  document.addEventListener('page:load', activateFlatpickr);
-  document.addEventListener('DOMContentLoaded', activateFlatpickr);
+  E.onDomReady(activateFlatpickr);
 
 })(ekylibre);

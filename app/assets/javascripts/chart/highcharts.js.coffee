@@ -34,7 +34,6 @@
       chartitem.highchart()
     return
 
-  $(document).ready $.loadHighcharts
-  $(document).on "page:load cocoon:after-insert cell:load", $.loadHighcharts
+  $(document).on "turbolinks:load cocoon:after-insert cell:load", $.loadHighcharts
 
 ) jQuery

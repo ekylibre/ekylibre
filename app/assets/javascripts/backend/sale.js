@@ -1,4 +1,4 @@
-(function () {
+(function (E) {
   // Sets the time of the selected date if the
   function handleSelectDate() {
     const element = document.querySelector('#sale_invoiced_at')
@@ -118,6 +118,6 @@
       })
     });
   });
-  document.addEventListener('DOMContentLoaded', handleSelectDate)
-  document.addEventListener('page:load', handleSelectDate)
-})()
+
+  E.onDomReady(handleSelectDate)
+})(ekylibre)

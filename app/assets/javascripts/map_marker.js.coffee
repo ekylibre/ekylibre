@@ -194,7 +194,6 @@
       $(this).mapmarker()
     return
 
-  $(document).ready $.loadMapMarker
-  $(document).on "page:load cocoon:after-insert cell:load dialog:show", $.loadMapMarker
+  $(document).on "turbolinks:load cocoon:after-insert cell:load dialog:show", $.loadMapMarker
 
 ) jQuery

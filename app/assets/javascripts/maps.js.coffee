@@ -67,8 +67,7 @@
     $("*[data-map]").mapsFromData()
     return
 
-  $(document).ready $.loadMaps
-  $(document).on "page:load cocoon:after-insert cell:load", $.loadMaps
+  $(document).on "turbolinks:load cocoon:after-insert cell:load", $.loadMaps
 
   true
 ) jQuery
