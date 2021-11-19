@@ -78,8 +78,11 @@ fra:
         hint: "L’application rencontre des problèmes. Les administrateurs ont été notifiés."
         title: "Nous sommes désolés, mais quelque chose s’est mal passé"
       maintenance:
-        hint: "Merci de revenir plus tard"
-        title: "Le service est en maintenance et est indisponible pour le moment"
+        hint: "Dans le cadre de la stabilisation de notre système et de l’amélioration de notre qualité de service, 
+               notre plateforme est actuellement en maintenance.<br>
+               Nous nous excusons d’avance pour la gêne occasionnée et vous invitons à vous connecter plus tard.<br>
+               L'équipe d'Ekylibre"
+        title: "Maintenance en cours"
       not_found:
         hint: "Vous pouvez avoir mal saisi l’adresse ou la page peut avoir été déplacée."
         title: "La page que vous voulez n’existe pas"

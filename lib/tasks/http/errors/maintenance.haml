@@ -1,0 +1,55 @@
+!!!
+- title = "http.errors.#{name}.title".t
+%html 
+  %head
+    %title= title
+    %meta{charset: "UTF-8"}
+    %meta{content: "width=device-width,initial-scale=1", name: "viewport"}
+    :scss
+      @import url(//fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@700&display=swap);
+      html {
+        height: 100%;
+        color: #333333;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        }
+
+        html body {
+          margin: 0;
+        }
+
+        html h1 {
+          font-family: 'Montserrat', sans-serif;
+        }
+
+        html p {
+          font-family: 'Lato', sans-serif;
+          font-size: 18px;
+          text-align: left;
+          max-width: 1000px;
+        }
+
+        img {
+          max-width: 1000px;
+        }
+
+        div.content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        div.dialog {
+          padding: 20px;
+          text-align: center;
+        }
+
+  %body
+    .dialog
+      .content
+        %h1= title
+        - hint = "http.errors.#{name}.hint".t(default: "")
+        %img(src="maintenance.png")
+        - unless hint.blank?
+          %p= hint
+    .dialog.legals= "Ekylibre #{Ekylibre::VERSION}"

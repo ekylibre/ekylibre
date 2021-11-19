@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Le service est en maintenance et est indisponible pour le moment</title>
+<title>Maintenance en cours</title>
 <meta charset='UTF-8'>
 <meta content='width=device-width,initial-scale=1' name='viewport'>
 <style>
@@ -11,35 +11,41 @@
     color: #333333;
     font-family: 'Montserrat', sans-serif;
     margin: 0; }
-    html body {
-      margin: 0; }
-    html h1 {
-      font-family: 'Montserrat', sans-serif;
-    }
-    html p {
-      font-family: 'Lato', sans-serif;
-      font-size: 18px;
-    }
-    
-    div.dialog {
-      padding: 20px;
-      text-align: center
-    }
+
+  html body {
+    margin: 0; }
+
+  html h1 {
+    font-family: 'Montserrat', sans-serif; }
+
+  html p {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    max-width: 1000px; }
+
+  img {
+    max-width: 1000px; }
+
+  div.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+
+  div.dialog {
+    padding: 20px;
+    text-align: center; }
 </style>
 </head>
 <body>
-  <div class='dialog'>
-    <div class='content'>
-      <h1>Le service est en maintenance et est indisponible pour le moment</h1>
-      <img src="maintenance.png" >
-      <p>
-        Dans le cadre de la stabilisation de notre système et de l’amélioration de notre qualité de service, notre plateforme est actuellement en maintenance.
-        Nous nous excusons d’avance pour la gêne occasionnée et vous invitons à vous connecter plus tard.
-        L'équipe d'Ekylibre
-      </p>
-    </div>
-  </div>
-
-  <div class='dialog legals'>Ekylibre 3.39.0</div>
+<div class='dialog'>
+<div class='content'>
+<h1>Maintenance en cours</h1>
+<img src='maintenance.png'>
+<p>Dans le cadre de la stabilisation de notre système et de l’amélioration de notre qualité de service, notre plateforme est actuellement en maintenance.<br> Nous nous excusons d’avance pour la gêne occasionnée et vous invitons à vous connecter plus tard.<br> L'équipe d'Ekylibre</p>
+</div>
+</div>
+<div class='dialog legals'>Ekylibre 3.39.0
+</div>
 </body>
 </html>

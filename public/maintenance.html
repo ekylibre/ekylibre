@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>The service is under maintenance and is unavailable at the moment</title>
+<title>The service is under maintenance</title>
 <meta charset='UTF-8'>
 <meta content='width=device-width,initial-scale=1' name='viewport'>
 <style>
@@ -11,35 +11,41 @@
     color: #333333;
     font-family: 'Montserrat', sans-serif;
     margin: 0; }
-    html body {
-      margin: 0; }
-    html h1 {
-      font-family: 'Montserrat', sans-serif;
-    }
-    html p {
-      font-family: 'Lato', sans-serif;
-      font-size: 18px;
-    }
-    
-    div.dialog {
-      padding: 20px;
-      text-align: center
-    }
+
+  html body {
+    margin: 0; }
+
+  html h1 {
+    font-family: 'Montserrat', sans-serif; }
+
+  html p {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    max-width: 1000px; }
+
+  img {
+    max-width: 1000px; }
+
+  div.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+
+  div.dialog {
+    padding: 20px;
+    text-align: center; }
 </style>
 </head>
 <body>
-  <div class='dialog'>
-    <div class='content'>
-      <h1>The service is under maintenance and is unavailable at the moment</h1>
-      <img src="maintenance.png" >
-      <p>
-        As part of stabilizing our system and improving our quality of service, our platform is currently under maintenance.
-        We apologize in advance for the inconvenience and invite you to log in later.
-        The Ekylibre team
-      </p>
-    </div>
-  </div>
-
-  <div class='dialog legals'>Ekylibre 3.39.0</div>
+<div class='dialog'>
+<div class='content'>
+<h1>The service is under maintenance</h1>
+<img src='maintenance.png'>
+<p>As part of stabilizing our system and improving our quality of service, our platform is currently under maintenance.<br> We apologize in advance for the inconvenience and invite you to log in later.<br> The Ekylibre team</p>
+</div>
+</div>
+<div class='dialog legals'>Ekylibre 3.39.0
+</div>
 </body>
 </html>
