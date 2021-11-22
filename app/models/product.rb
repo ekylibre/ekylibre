@@ -307,6 +307,9 @@ class Product < ApplicationRecord
       available.at(at)
     end
   }
+  scope :interventionables, ->(at: Time.now) {
+    at(at).joins(:activity_production).merge(ActivityProduction.at(at))
+  }
   scope :actives, ->(**args) {
     date = args[:at]
     type = args[:type]
@@ -547,6 +550,15 @@ class Product < ApplicationRecord
 
   def unroll_name
     'unrolls.backend/products'.t(attributes.symbolize_keys.merge(population: population, unit_name: unit_name))
+  end
+
+  def unambiguous_name
+    conditioning_string = if (conditioning_unit.symbol.nil? || conditioning_unit.symbol == '.')
+                            conditioning_unit.name
+                          else
+                            conditioning_unit.symbol
+                          end
+    "#{variant.name} - #{conditioning_string}"
   end
 
   # set initial owner and localization
