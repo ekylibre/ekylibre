@@ -34,8 +34,14 @@ COPY ./docker/dev/database.yml.sample /eky/config/database.yml
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
-    apt-get -y install --no-install-recommends postgresql-client-11 python3-pip
+    apt-get -y install --no-install-recommends postgresql-client-11 python3-pip git
 RUN useradd --create-home --home-dir /home/ekylibre -s /bin/bash -u $UID ekylibre && \
     chown -R ekylibre:ekylibre /eky
 
+RUN git clone https://gitlab.com/ekylibre/lexicon/lexicon-cli.git /lexicon-client
+WORKDIR /lexicon-client
+
+RUN mv /eky/docker/dev/lexicon-tmp.env ./.env && mkdir ./out && chown -R ekylibre:ekylibre . 
+
+WORKDIR /eky
 USER ekylibre
