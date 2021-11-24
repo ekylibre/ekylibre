@@ -155,6 +155,8 @@ class SaleItem < ApplicationRecord
       self.conditioning_quantity ||= -1 * credited_quantity
     end
     self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit) if conditioning_unit && conditioning_quantity
+    self.quantity ||= 1
+    self.conditioning_quantity ||= 1
     self.currency = sale.currency if sale
     self.compute_from ||= :unit_pretax_amount
     if tax
