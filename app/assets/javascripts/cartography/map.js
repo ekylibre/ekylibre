@@ -3,7 +3,6 @@
         E.Events = {};
     }
 
-    E.Events ||= {};
     E.Events.Map = {};
     E.Events.Map.initializing = 'ekylibre:map:events:initializing';
     E.Events.Map.ready = 'ekylibre:map:events:ready';
