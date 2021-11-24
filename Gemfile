@@ -172,7 +172,6 @@ gem 'savon', '~> 2.12'
 
 # Using git until we have a proper release system for cartography
 gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
-# gem 'cartography', path: '../cartography'
 
 group :production do
   # Use unicorn as the app server

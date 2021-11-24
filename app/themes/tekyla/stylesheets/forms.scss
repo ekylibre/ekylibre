@@ -94,7 +94,6 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
         &.required {
           abbr {
             color: $invalid-color;
-            float: right;
           }
         }
       }
@@ -200,7 +199,6 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     &.required {
       abbr {
         color: $invalid-color;
-        float: right;
       }
     }
 
@@ -238,6 +236,22 @@ $large-controls-margin-left: round($large-label-width * 1.1);
 
     & .lights-message.warning {
       color: #f44336;
+    }
+  }
+
+  &.vertical{
+    .control-label {
+      max-width: unset;
+      width: 100%;
+      &.required {
+        abbr {
+          float: unset;
+        }
+      }
+    }
+
+    .controls {
+      @include margin-left(11px);
     }
   }
 
