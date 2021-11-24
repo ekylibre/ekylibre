@@ -62,6 +62,9 @@ private/*
 /plugins/*
 !/plugins/.keep
 
+# Ignore docker initialization
+/docker/db/.initialized
+
 # Ignore local database config
 /config/database.yml
 /config/api.yml

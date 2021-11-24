@@ -3,16 +3,16 @@ test:
   encoding: unicode
   database: ekylibre_test
   schema_search_path: public,postgis,lexicon
-  host: <%= ENV['POSTGRES_HOST'] %>
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: db
+  username: ekylibre
+  password: password
   postgis_extension: []
 development:
   adapter: postgis
   encoding: unicode
-  database: ekylibre_development
+  database: eky_docker_development
   schema_search_path: public,postgis,lexicon
-  host: <%= ENV['POSTGRES_HOST'] %>
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: db
+  username: ekylibre
+  password: password
   postgis_extension: []

@@ -12,7 +12,7 @@ services:
       - '8808:8808'
     environment:
       POSTGRES_HOST: db
-      POSTGRES_DB: ekylibre_development
+      POSTGRES_DB: eky_docker_development
       POSTGRES_USER: ekylibre
       POSTGRES_PASSWORD: password
 
@@ -28,7 +28,6 @@ services:
         target: /eky/config/database.yml
       - .:/eky
       - bundle-volume:/usr/local/bundle
-      - ~/lexicon-cli:/lexicon-cli
       - ~/.ssh:/home/ekylibre/.ssh
     command: bash /eky/docker/dev/command.sh
     depends_on:
@@ -39,17 +38,18 @@ services:
     image: redis:5.0-alpine
 
   db:
-    image: mdillon/postgis:9.6
+    image: kartoza/postgis
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: ekylibre
-      POSTGRES_DB: ekylibre_development
+      POSTGRES_DB: eky_docker_development
       TZ: Europe/Paris
     volumes:
       - database-volume:/var/lib/postgresql/data
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5431:5432"
     command: ["postgres", "-c", "log_statement=all"]
 volumes:
-  database-volume:
+  database-volume: 
   bundle-volume:
