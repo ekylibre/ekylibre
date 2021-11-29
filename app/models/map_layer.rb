@@ -70,7 +70,7 @@ class MapLayer < ApplicationRecord
   scope :default_backgrounds, -> { available_backgrounds }
 
   before_validation do
-    self.opacity ||= 50
+    self.opacity ||= 100
   end
 
   def self.default_background
