@@ -43,7 +43,7 @@ module Interventions
       # @param [Boolean] with_signature
       # @return [JSON api_response, nil]
       def compute_pfi(with_signature: true)
-        return nil if @activity.nil? || @intervention_parameter_input.nil?
+        return nil if @activity.nil? || @intervention_parameter_input.nil? || @intervention_parameter_input.product&.variant&.phytosanitary_product&.adjuvant?
 
         # check if campaign is available on api
         begin
