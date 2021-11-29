@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS technical_workflows;
 
         CREATE TABLE technical_workflows (
           id character varying PRIMARY KEY NOT NULL,
-          name jsonb NOT NULL,
           family character varying,
           specie character varying,
           production_system character varying,
@@ -12,7 +11,8 @@ DROP TABLE IF EXISTS technical_workflows;
           start_month integer,
           unit character varying,
           life_state character varying,
-          life_cycle character varying
+          life_cycle character varying,
+          translation_id character varying NOT NULL
         );
 
         CREATE TABLE technical_workflow_procedures (

@@ -257,6 +257,13 @@ activity_budget_items:
   direction:
     type: string
     required: true
+  frequency:
+    type: string
+    required: true
+  global_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   id:
     type: integer
     required: true
@@ -266,12 +273,19 @@ activity_budget_items:
   lock_version:
     type: integer
     required: true
+  main_output:
+    type: boolean
+    required: true
+    default: false
   paid_on:
     type: date
   quantity:
     type: decimal
     precision: 19
     scale: 4
+  repetition:
+    type: integer
+    required: true
   unit_amount:
     type: decimal
     precision: 19
@@ -279,6 +293,9 @@ activity_budget_items:
   unit_currency:
     type: string
     required: true
+  unit_id:
+    type: integer
+    references: unit
   unit_population:
     type: decimal
     precision: 19
@@ -333,39 +350,6 @@ activity_budgets:
   updater_id:
     type: integer
     references: user
-activity_cost_outputs:
-  activity_id:
-    type: integer
-    references: activity
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  variant_id:
-    type: integer
-    references: product_nature_variant
-    required: true
-  variant_unit_id:
-    type: integer
-    references: unit
-    required: true
 activity_distributions:
   activity_id:
     type: integer
@@ -680,12 +664,15 @@ activity_tactics:
     required: true
   planned_on:
     type: date
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
   technical_workflow_id:
-    type: integer
+    type: string
     references: technical_workflow
-  technical_workflow_sequence_id:
-    type: integer
-    references: technical_workflow_sequence
+  technical_sequence_id:
+    type: string
+    references: technical_sequence
   updated_at:
     type: datetime
     required: true
@@ -9693,6 +9680,9 @@ technical_itinerary_intervention_templates:
     default: false
   duration:
     type: integer
+  frequency:
+    type: string
+    required: true
   id:
     type: integer
     required: true
@@ -9705,6 +9695,9 @@ technical_itinerary_intervention_templates:
     type: integer
   reference_hash:
     type: string
+  repetition:
+    type: integer
+    required: true
   technical_itinerary_id:
     type: integer
     references: technical_itinerary
@@ -9786,23 +9779,21 @@ technical_workflow_procedures:
   technical_workflow_id:
     type: string
     required: true
-technical_workflow_sequences:
+technical_sequences:
   family:
     type: string
   id:
     type: string
     required: true
-  name:
-    type: jsonb
-    required: true
   production_system:
     type: string
   specie:
     type: string
+technical_workflow_sequences:
   technical_workflow_id:
     type: string
     required: true
-  technical_workflow_sequence_id:
+  technical_sequence_id:
     type: string
     required: true
   year_start:
@@ -9819,9 +9810,6 @@ technical_workflows:
     type: string
   life_state:
     type: string
-  name:
-    type: jsonb
-    required: true
   production_system:
     type: string
   specie:
@@ -10115,33 +10103,16 @@ master_variant_categories:
     type: string
   storable:
     type: boolean
-variant_doer_contracts:
-  coefficient_total_cost:
-    type: decimal
-    precision: 19
-    scale: 4
-  duration:
+master_doer_contracts:
+  contract_end:
     type: string
-  gross_hourly_wage:
-    type: decimal
-    precision: 19
-    scale: 4
-  id:
-    type: string
-    required: true
-  name:
-    type: jsonb
-  net_hourly_wage:
-    type: decimal
-    precision: 19
-    scale: 4
   reference_name:
     type: string
     required: true
-  variant_id:
+  worker_variant:
     type: string
-  weekly_working_time:
-    type: string
+  salaried:
+    type: boolean
 master_variant_natures:
   abilities:
     type: text
@@ -10512,6 +10483,58 @@ wine_incoming_harvests:
     required: true
   ticket_number:
     type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+worker_contracts:
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  custom_fields:
+    type: jsonb
+  contract_end:
+    type: string
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  raw_hourly_amount:
+    type: decimal
+    precision: 8
+    scale: 2
+    required: true
+  monthly_duration:
+    type: decimal
+    precision: 8
+    scale: 2
+    required: true
+  name:
+    type: string
+  nature:
+    type: string
+  reference_name:
+    type: string
+  salaried:
+    type: boolean
+  started_at:
+    type: datetime
+    required: true
+  stopped_at:
+    type: datetime
   updated_at:
     type: datetime
     required: true

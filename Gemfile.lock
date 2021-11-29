@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ekylibre/agric.git
-  revision: 8d5ae172a89eb2fb01fb1917257e8e9b92f4bd73
+  revision: 389d51fd0b661f4eede000a92295f52457ca33ad
   branch: master
   specs:
     agric (4.1.0)
@@ -178,6 +178,11 @@ GEM
       uniform_notifier (~> 1.10.0)
     burisu-docsplit (0.7.9)
     byebug (11.1.3)
+    caxlsx (3.0.0)
+      htmlentities (~> 4.3, >= 4.3.4)
+      mimemagic (~> 0.3)
+      nokogiri (~> 1.8, >= 1.8.2)
+      rubyzip (~> 1.2, >= 1.2.1)
     charlock_holmes (0.7.7)
     charta (0.4.0)
       activesupport (~> 5.0)
@@ -210,6 +215,7 @@ GEM
       semantic (~> 1.6)
       zeitwerk (~> 2.3)
     crass (1.0.6)
+    daemons (1.3.1)
     database_cleaner (1.99.0)
     dbf (4.1.3)
     debug_inspector (1.0.0)
@@ -248,6 +254,7 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.4)
       tzinfo
+    eventmachine (1.2.7)
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
@@ -261,7 +268,7 @@ GEM
     faraday-net_http (1.0.1)
     fastimage (2.2.3)
     ffaker (2.18.0)
-    ffi (1.15.3)
+    ffi (1.15.4)
     fiddle (1.0.7)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -289,6 +296,7 @@ GEM
     hashie (4.1.0)
     holidays (8.4.1)
     hpricot (0.8.6)
+    htmlentities (4.3.4)
     http (4.1.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -465,8 +473,6 @@ GEM
       rack (>= 0.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-handlers (0.7.3)
-      rack
     rack-mini-profiler (2.3.2)
       rack (>= 1.2.0)
     rack-protection (2.1.0)
@@ -588,6 +594,9 @@ GEM
       nokogiri (>= 1.8.1)
       nori (~> 2.4)
       wasabi (~> 3.4)
+    scenic (1.5.4)
+      activerecord (>= 4.0.0)
+      railties (>= 4.0.0)
     semantic (1.6.1)
     sepa_king (0.12.0)
       activemodel (>= 3.1)
@@ -626,6 +635,10 @@ GEM
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
+    thin (1.8.0)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -660,15 +673,13 @@ GEM
     unicorn (5.8.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    unicorn-rails (2.2.1)
-      rack
-      unicorn
     uniform_notifier (1.10.0)
     uri_template (0.7.0)
     uuidtools (2.2.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
     victor (0.3.3)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -724,6 +735,7 @@ DEPENDENCIES
   browser (~> 5.2)
   bullet (< 5.6.0)
   cartography!
+  caxlsx
   charlock_holmes (~> 0.7.7)
   charta (~> 0.4.0)
   cocoon (~> 1.2)
@@ -786,7 +798,6 @@ DEPENDENCIES
   pry-rails (~> 0.3.9)
   quandl (~> 1.1)
   rack-cors
-  rack-handlers
   rack-mini-profiler
   rails (= 5.0.7.2)
   rails-controller-testing (~> 1.0)
@@ -807,6 +818,7 @@ DEPENDENCIES
   rubyzip (~> 1.2.2)
   sassc-rails (~> 2.0)
   savon (~> 2.12)
+  scenic
   semantic (~> 1.6)
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
@@ -818,6 +830,7 @@ DEPENDENCIES
   sprockets (< 4.0)
   state_machine (~> 1.2)
   therubyracer
+  thin (~> 1.8)
   time_diff (~> 0.3.0)
   timecop (~> 0.9.0)
   treetop (~> 1.6)
@@ -826,7 +839,6 @@ DEPENDENCIES
   twitter-typeahead-rails (~> 0.11.1)
   uglifier (>= 1.3.0)
   unicorn (~> 5.8)
-  unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   wannabe_bool (~> 0.7.1)

@@ -1,6 +1,9 @@
 = main_informations attachment: true do
   = infos do
-    - icon = resource.category.pictogram
+    - if resource.pictogram.present?
+      - icon = resource.pictogram
+    - else
+      - icon = resource.category.pictogram
     = resource_info(:number, important: true, title: resource.number)
     = resource_info(:work_number, important: true, title: resource.work_number)
     .med-info.important

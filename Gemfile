@@ -36,6 +36,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 gem 'activemodel-serializers-xml', '~> 1.0'
 gem 'activerecord-postgis-adapter', '~> 4.1'
 gem 'pg', '~> 1.0'
+gem 'scenic'
 
 # Multi-tenancy
 gem 'apartment', '~> 2.2.1'
@@ -147,6 +148,7 @@ gem 'beardley-open_sans', '>= 0.0.2'
 gem 'beardley-xml', '>= 1.1.2'
 
 # Import/Export
+gem 'caxlsx'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'combine_pdf', '~> 1.0'
 gem 'ekylibre-ofx-parser', '~> 1.2'
@@ -166,7 +168,7 @@ gem 'xml_errors_parser', gitlab: 'ekylibre/xsd_errors_parser', branch: 'master'
 
 # Web services
 gem 'mechanize', '~> 2.7'
-gem 'rest-client', '~> 2.0', require: false
+gem 'rest-client', '~> 2.0'
 gem 'rubyntlm', '>= 0.3.2'
 gem 'savon', '~> 2.12'
 

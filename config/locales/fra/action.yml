@@ -911,6 +911,11 @@ fra:
       index: "Équipiers"
       new: "Nouvel équipier"
       show: "Équipier %{name}"
+    backend/worker_contracts:
+      edit: "Modifier un contrat de travail"
+      index: "Contrats de travail"
+      new: "Nouveau contrat de travail"
+      show: "Détail contrat de travail\_: %{name}"
     public:
       index: "Accueil"
   errors:
@@ -1698,7 +1703,7 @@ fra:
     cost_sum: "Total charges d’exploitation" #?
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
-    costs_per_hectare: "Couts par hectare"
+    costs_per_hectare: "Coûts totaux (/ha)"
     could_not_attach_x_or_y_to_affair: "Erreur lors du rattachement des %{trade}/%{payment} à l’affaire"
     countings: "Comptages"
     country: "Pays" #?
@@ -1827,6 +1832,8 @@ fra:
     destroyed_by_ago: "Supprimé par %{author} %{when}"
     detail: "Détail"
     details: "Informations complémentaires"
+    detail_travel_intervention_duration: "Temps détaillé déplacement"
+    detail_working_intervention_duration: "Temps détaillé intervention"
     development_stage: "Stade(s) BBCH"
     direct_expenses: "Charges directes" #?
     direct_margin: "Marge directe" #?
@@ -1941,6 +1948,7 @@ fra:
     equipment_is_active_from: "L'équipement est actif à partir du"
     equipment_is_inactive_from: "L'équipement est inactif à partir du"
     equipment_name: "Nom de l’équipement"
+    equipment_nature: "Type d'équipement"
     equipment_natures: "Types d'équipement"
     equipment_travel_unit_pretax_amount: "Coût horaire equipement (déplacement)"
     equipment_unit_pretax_amount: "Coût horaire equipement"
@@ -2019,6 +2027,7 @@ fra:
     export_fixed_assets_gain_and_loss: "État des plus et moins-values" #?
     export_fixed_assets_general: "État des immobilisations" #?
     export_gain_and_loss_fixed_asset_registry: "État des plus et moins values"
+    export_global_costs: "Export_fiche_cout_global"
     export_income_statement: "Export compte de résultat"
     export_intervention_traceability: "export_fiche_tracabilite"
     export_purchase_order: "Bon de commande"
@@ -2157,6 +2166,7 @@ fra:
     give_discount: "Octroyer une remise" #?
     global_costs: "Coût global"
     global_preferences: "Préférences générales"
+    global_costs_xslx_export: "Fiche coûts (XSLX)"
     go: "Valider"
     go_back_to_financial_year_details: "Retourner aux détails de l'exercice comptable"
     gradings: "Agréages"
@@ -2242,7 +2252,7 @@ fra:
     infos_usage: "Informations usage"
     initial_balance_of_bank_statement: "Solde initial du relevé de compte"
     input_cost: "Coût d’intrant"
-    input_cost_per_hectare: "Coût des intrants par hectare" #?
+    input_cost_per_hectare: "Coût intrants (/ha)"
     inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
@@ -2252,8 +2262,11 @@ fra:
     interval: " personnalisé"
     intervention: "Intervention"
     intervention_at: "%{intervention} du %{at}"
+    intervention_duration: "Durée de l'intervention"
     intervention_message_miscibility: "Mélange autorisé"
     intervention_product_parameters: "Intervenants"
+    intervention_travel_unit_pretax_amount: "Coût horaire de déplacement"
+    intervention_unit_pretax_amount: "Coût horaire d'intervention"
     interventions: "Interventions"
     interventions_costs: "Coûts Interventions" #?
     interventions_count: "Nombre d’interventions"
@@ -2423,6 +2436,7 @@ fra:
     mails:
       one: "%{count} courriel"
       other: "%{count} courriels"
+    main_output: "Produit principal"
     main_settings: "Principaux paramètres"
     make_your_production_support: "Faire l’assolement ou le prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
@@ -2478,6 +2492,8 @@ fra:
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
     minimum_amount: "Montant minimum"
+    minimum_date_to_harvest_land_parcel: "Date DAR"
+    minimum_date_to_reenter_in_land_parcel: "Date DRE"
     minutes: "Min"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
@@ -2490,6 +2506,7 @@ fra:
     month: "Mois"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
+    monthly_duration: "Durée mensuelle"
     months: "Mois"
     more_detail: "Plus de détail" #?
     more_details: "Plus de détails" #?
@@ -2731,6 +2748,9 @@ fra:
     payslips: "Salaires"
     pdf_purchase_receipt_file_name: "justificatifs_achats_%{month}_%{year}.pdf"
     people: "Personnes"
+    per_day: "Par jour"
+    per_month: "Par mois"
+    per_year: "Par année"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
     period: "Période"
@@ -2758,6 +2778,7 @@ fra:
     phyto_data: "Données phytosanitaires"
     phytosanitary_product_does_not_exists:  "Le numéro d’AMM de votre produit est inconnu : corrigez-le pour bénéficier des vérifications réglementaires"
     phytosanitary_register: "Registre phytosanitaire"
+    phytosanitary_treatment_informations: "Justification traitement"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
@@ -2788,6 +2809,7 @@ fra:
     potassium_concentration_per_hectare: "Teneur en potassium par hectare" #?
     potential_hydrogen: "Potentiel hydrogène (pH)"
     pre_harvest_delay: "Délai avant récolte"
+    pre_harvest_delay_in_day: "DAR (j)"
     precipitation: "Précipitations"
     preferences: "Préférences"
     prepare_financial_year_for_closure: "Préparer la clôture de %{code}"
@@ -3252,6 +3274,8 @@ fra:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes et charges de personnels"
+    team: "Equipe"
+    teams: "Equipes"
     temperature: "Température" #?
     the_cultivation: "La parcelle ou culture"
     the_equipement: "L'équipement"
@@ -3268,7 +3292,7 @@ fra:
     threshold_commercialization_by_production: "Seuil de commercialisation par production"
     thumb: "Miniature"
     time_cost: "Coût de main d’œuvre"
-    time_cost_per_hectare: "Coût de main d’œuvre par hectare" #?
+    time_cost_per_hectare: "Coût de main d’œuvre (/ha)" #?
     time_spent_by_activity: "Temps passé par activités"
     time_zone: "Fuseau horaire"
     timeline: "Chronologie"
@@ -3360,6 +3384,7 @@ fra:
     toxic: "Toxique"
     toxic_for_aquatic_organisms: "Toxique pour organismes aquatiques"
     traceability_check: "Contrôle de cohérence de la tracabilité (Productions végétales)" #?
+    traceability_xslx_export: "Fiche tracabilité (XSLX)"
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
@@ -3376,6 +3401,7 @@ fra:
       ready: "Prêts" #?
       shipped: "Expédié" #?
       waiting: "En attente" #?
+    travel_intervention_duration: "Durée de déplacement"
     treatment: "Traitement" #?
     treatment_type: "Type de traitement"
     trimester: "Trimestre"
@@ -3446,6 +3472,7 @@ fra:
     use_forward: "Sélectionnez un journal pour reporter les à nouveaux" #?
     use_incoming_payment: "Rattacher l’encaissement %{payment}" #?
     used_accounts: "Comptes utilisés seulement" #?
+    used_on: "Première utilisation le"
     user_name: "Nom d’utilisateur" #?
     username: "Nom d’utilisateur"
     user_status: "État"
@@ -3505,11 +3532,21 @@ fra:
     worked_on: "Travaillé le" #?
     worked_zone_not_corresponding: "La zone travaillée ne correspond pas à celle planifiée"
     worker: "Équipier" #?
+    worker_contract_raw_hourly_amount: "Taux horaire brut"
+    worker_contract_started_at: "Date de début de contrat"
+    worker_contract_year_charged_cost: "Coût annuel chargé"
+    worker_contract_hour_charged_cost: "Coût horaire chargé"
+    worker_contract_month_charged_cost: "Coût mensuel chargé"
+    worker_contract_year_raw_cost: "Coût annuel brut"
+    worker_contract_hour_raw_cost: "Coût horaire brut"
+    worker_contract_month_raw_cost: "Coût mensuel brut"
     worker_natures: "Équipiers"
     workers: "Équipiers"
     workforce: "Main d'oeuvre"
     working_area: "Surface travaillée"
+    working_area_in_hectare: "Surface travaillée (ha)"
     working_duration: "Temps de travail"
+    working_duration_in_hour: "Temps de travail (h)"
     working_hectare_costs: "Coût par hectare travaillé"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_times: "Temps de travaux de %{name}"

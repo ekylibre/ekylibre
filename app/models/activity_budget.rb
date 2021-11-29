@@ -48,7 +48,7 @@ class ActivityBudget < ApplicationRecord
   has_many :purchase_items, dependent: :nullify
   has_many :sale_items, dependent: :nullify
 
-  enumerize :nature, in: %i[manual compute_from_itk], default: :manual, predicates: true
+  enumerize :nature, in: %i[manual compute_from_lexicon], default: :manual, predicates: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :currency, presence: true, length: { maximum: 500 }
@@ -72,11 +72,11 @@ class ActivityBudget < ApplicationRecord
   end
 
   def expenses_amount
-    expenses.sum(:amount)
+    expenses.sum(:global_amount)
   end
 
   def revenues_amount
-    revenues.sum(:amount)
+    revenues.sum(:global_amount)
   end
 
   def all_main_activities_gross_margin
@@ -185,29 +185,18 @@ class ActivityBudget < ApplicationRecord
     productions.any?
   end
 
-  # check production size if 'manual' or area in scenario if 'compute_from_itk'
+  # check production size if 'manual' or area in scenario if 'compute_from_lexicon'
   def productions_size
-    if manual?
-      productions.map(&:size_value).sum
-    elsif compute_from_itk? && technical_itinerary
-      # TODO: grab area from sap / sa / s with ti, campaign and activity
-      s_ids = Scenario.where(campaign_id: campaign.id).pluck(:id)
-      sa_ids = ScenarioActivity.where(activity_id: activity.id, planning_scenario_id: s_ids).pluck(:id)
-      sap = ScenarioActivity::Plot.where(technical_itinerary_id: technical_itinerary.id, planning_scenario_activity_id: sa_ids)
-      sap.sum(:area).round(2)
+    s = productions.map(&:size_value).sum
+    if s == 0.0 && activity.plant_farming? && activity.use_tactics?
+      1.0
+    else
+      s
     end
   end
 
   def productions_count
-    if manual?
-      productions.map(&:size_value).sum
-    elsif compute_from_itk?
-      # TODO: grab plot count from sap / sa / s with ti, campaign and activity
-      s_ids = Scenario.where(campaign_id: campaign.id).pluck(:id)
-      sa_ids = ScenarioActivity.where(activity_id: activity.id, planning_scenario_id: s_ids).pluck(:id)
-      sap = ScenarioActivity::Plot.where(technical_itinerary_id: technical_itinerary.id, planning_scenario_activity_id: sa_ids)
-      sap.count
-    end
+    productions.count
   end
 
   def estimated_duration
@@ -262,47 +251,24 @@ class ActivityBudget < ApplicationRecord
     budget
   end
 
+  # for economic module
+  def main_output
+    revenues&.where(main_output: true)&.first
+  end
+
+  # for economic module
+  def variety_output
+    main_output&.variant&.variety
+  end
+
+  # for economic module
   # return estimate yield from revenues item for given variety
-  def estimate_yield(variety, options = {})
-    # set default parameter if theres no one given
-    yield_unit = Onoma::Unit.find(options[:unit] || :quintal_per_hectare)
-    unless yield_unit
-      raise ArgumentError.new("Cannot find unit for yield estimate: #{options[:unit].inspect}")
+  def estimate_yield
+    if main_output
+      main_output.quantity
+    else
+      # TODO: implement other case of estimate_yield
+      0
     end
-
-    Onoma::Variety.find!(variety)
-
-    r = []
-    revenues.where(variant: ProductNatureVariant.of_variety(variety)).find_each do |item|
-      next if item.variant_indicator == 'working_period'
-
-      quantity_unit = item.variant_unit
-      quantity = if item.variant_indicator == 'population' && item.variant.frozen_indicators.detect { |i| i <= :net_mass }
-                   quantity_unit = :quintal
-                   item.quantity * item.variant.net_mass.to_f(quantity_unit)
-                 else
-                   item.quantity
-                 end
-      # TODO: do dimensional analysis to find exiting unit in matching dimension if necessary
-      item_unit = Onoma::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
-      next unless item_unit
-      next unless item_unit.dimension == yield_unit.dimension
-
-      harvest_yield = if item.per_working_unit?
-                        quantity
-                      elsif item.per_production?
-                        next if productions_size.zero?
-
-                        quantity * productions_count / productions_size
-                      else # per campaign
-                        next if productions_size.zero?
-
-                        quantity / productions_size
-                      end
-      r << harvest_yield.in(item_unit).convert(yield_unit)
-    end
-    return nil if r.empty?
-
-    r.sum
   end
 end

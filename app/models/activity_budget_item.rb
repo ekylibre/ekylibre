@@ -48,16 +48,20 @@
 class ActivityBudgetItem < ApplicationRecord
   refers_to :currency
   enumerize :direction, in: %i[revenue expense], predicates: true
+  enumerize :frequency, in: %i[per_day per_month per_year], predicates: true, default: :per_year, i18n_scope: "labels"
+  enumerize :origin, in: %i[manual itk automatic], predicates: true, default: :manual
+  enumerize :nature, in: %i[static dynamic], predicates: true, default: :static
   enumerize :computation_method, in: %i[per_campaign per_production per_working_unit], default: :per_working_unit, predicates: true
   # refers_to :variant_indicator, class_name: 'Indicator' # in: Activity.support_variant_indicator.values
   # refers_to :variant_unit, class_name: 'Unit'
 
   belongs_to :activity_budget, inverse_of: :items
+  belongs_to :unit, inverse_of: :budget_items
   has_one :activity, through: :activity_budget
   has_one :campaign, through: :activity_budget
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :productions, through: :activity
-  belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter
+  belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter, inverse_of: :budget_items
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -75,10 +79,16 @@ class ActivityBudgetItem < ApplicationRecord
 
   scope :revenues, -> { where(direction: :revenue).includes(:variant) }
   scope :expenses, -> { where(direction: :expense).includes(:variant) }
+  scope :of_campaign, ->(campaign) { joins(:activity_budget).merge(ActivityBudget.of_campaign(campaign)) }
+  scope :of_activity, ->(activity) { joins(:activity_budget).merge(ActivityBudget.of_activity(activity)) }
 
   before_validation do
     self.unit_currency = Preference[:currency] if unit_currency.blank?
     self.currency = unit_currency if currency.blank?
+    self.origin ||= :manual
+    self.nature ||= :static
+    self.frequency ||= :per_year
+    self.repetition ||= 1
   end
 
   validate do
@@ -90,6 +100,7 @@ class ActivityBudgetItem < ApplicationRecord
 
   after_validation do
     self.amount = unit_amount * quantity * coefficient if unit_amount.present?
+    self.global_amount = self.amount * year_repetition if self.amount.present?
   end
 
   # Computes the coefficient to use for amount computation
@@ -104,22 +115,41 @@ class ActivityBudgetItem < ApplicationRecord
     1
   end
 
+  # return the repetition of the item for the budget
+  def year_repetition
+    if per_year?
+      repetition
+    elsif per_month?
+      repetition * 12
+    elsif per_day?
+      repetition * 365
+    else
+      1
+    end
+  end
+
+  # return the number of day between repetition
+  def day_gap
+    if year_repetition != 0
+      365 / year_repetition
+    else
+      365
+    end
+  end
+
   # Duplicate an item in the same budget by default. Each attribute are
   # overwritable.
   def duplicate!(updates = {})
     new_attributes = %i[
       activity_budget amount computation_method currency direction
+      nature origin frequency repetition used_on
       quantity unit_amount unit_currency unit_population variant
-      variant_indicator variant_unit
+      variant_indicator variant_unit unit_id
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
     end.merge(updates)
     self.class.create!(new_attributes)
-  end
-
-  def unit
-    Onoma::Unit.find(variant_unit)
   end
 
   def total_quantity

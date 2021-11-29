@@ -149,6 +149,7 @@ class ProductNatureVariant < ApplicationRecord
 
   scope :purchaseables_stockables_or_depreciables, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.stockables_or_depreciables) }
   scope :purchaseables_services, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.services) }
+  scope :outputs_budgets, ->(campaign) { where(id: ActivityBudgetItem.joins(:activity_budget).merge(ActivityBudget.of_campaign(campaign)).revenues.pluck(:variant_id)).reorder(:name) }
 
   scope :derivative_of, ->(*varieties) { of_derivative_of(*varieties) }
 
@@ -757,6 +758,7 @@ class ProductNatureVariant < ApplicationRecord
         nature: nature,
         category: category,
         reference_name: item.reference_name,
+        pictogram: item.pictogram_name,
         variety: item.specie,
         derivative_of: item.target_specie,
         default_unit: base_unit,
@@ -808,6 +810,7 @@ class ProductNatureVariant < ApplicationRecord
         variant = new(
           name: item.name.capitalize,
           reference_name: item.reference_name,
+          pictogram: 'flask',
           active: true,
           nature: nature,
           france_maaid: item.france_maaid,

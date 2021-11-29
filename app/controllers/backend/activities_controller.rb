@@ -105,7 +105,7 @@ module Backend
           redirect_to backend_activity_path(@activity)
         end
       end
-      @technical_itinerary_id = @activity&.tactic&.technical_itinerary&.id
+      @technical_itinerary_id = @activity&.default_tactics&.of_campaign(current_campaign)&.first&.technical_itinerary&.id
     end
 
     # Duplicate activity basing on campaign

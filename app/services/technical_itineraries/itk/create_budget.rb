@@ -9,13 +9,13 @@ module TechnicalItineraries
         @activity = activity
         @scenario = scenario
         @campaign = campaign
+        @activity_tactic = ActivityTactic.find_by(activity: @activity, campaign: @campaign, default: true)
         @logger ||= Logger.new(File.join(Rails.root, 'log', "itk-#{@campaign.name}-#{Ekylibre::Tenant.current.to_s}.log"))
       end
 
       def create_plot_activity_for_scenario
         # check if activity has ITK
-        at = ActivityTactic.find_by(activity: @activity, campaign: @campaign, default: true)
-        ti = TechnicalItinerary.find_by(activity_tactic_id: at.id, activity: @activity, campaign: @campaign) if at
+        ti = @activity_tactic.technical_itinerary if @activity_tactic
         if ti
           # compute default area with campaign, N-1 or N-2
           current_area = @activity.size_during(@campaign).to_f
@@ -37,7 +37,7 @@ module TechnicalItineraries
           sap = ScenarioActivity::Plot.find_or_initialize_by(scenario_activity: sa)
           sap.technical_itinerary = ti
           sap.area = area
-          sap.planned_at = at.planned_on
+          sap.planned_at = @activity_tactic.planned_on
           sap.batch_planting = false
           sap.save!
           @logger.info("-----------------Scenario created for #{@activity.name}")
@@ -46,19 +46,19 @@ module TechnicalItineraries
         end
       end
 
+      # itk | (dynamic / static)
       def create_budget_from_itk
-        activity_tactic = ActivityTactic.find_by(campaign: @campaign, activity: @activity, default: true)
-        technical_itinerary = TechnicalItinerary.find_by(tactic: activity_tactic, campaign: @campaign, activity: @activity) if activity_tactic
+        technical_itinerary = @activity_tactic.technical_itinerary if @activity_tactic
         unless technical_itinerary
           @logger.error("No technical_itinerary found")
           return nil
         end
         # find corresponding budget and remove all previous items
-        activity_budget = ActivityBudget.find_or_create_by!(activity_id: @activity.id, campaign_id: @campaign.id, technical_itinerary_id: technical_itinerary.id)
-        activity_budget.items.destroy_all if activity_budget&.items&.any?
+        activity_budget = ActivityBudget.find_or_create_by!(activity_id: @activity.id, campaign_id: @campaign.id)
+        activity_budget.nature = 'compute_from_lexicon'
+        activity_budget.technical_itinerary_id = technical_itinerary.id
+        activity_budget.items&.where(origin: 'itk')&.destroy_all
         # find ti from activity and campaing and set new ti
-
-        activity_budget.nature = "compute_from_itk"
         activity_budget.save!
 
         scenario_activity = ScenarioActivity.find_by(scenario: @scenario, activity: @activity)
@@ -75,8 +75,20 @@ module TechnicalItineraries
         else
           @logger.error("No Budget item created because no scenario activity exist for #{@activity.name}")
         end
+
+        # create fixed direct charges from MasterBudget
+        master_budget_items = MasterBudget.of_family(@activity.family)
+        if master_budget_items.any?
+          master_budget_items.each do |master_budget_item|
+            create_budget_fixed_item_from_master_budget(activity_budget, master_budget_item)
+          end
+        else
+          @logger.error("No Budget item created because no direct fixed charges budget activity exist in Lexicon for #{@activity.name}")
+        end
+
       end
 
+      # itk | dynamic
       def create_budget_item_from_itk(activity_budget, daily_charge)
         used_on = daily_charge.reference_date
         # quantity = daily_charge.quantity # in population of variant
@@ -86,11 +98,12 @@ module TechnicalItineraries
 
         # get quantity, unit and computation method return {computation_method: ,quantity: ,indicator: , unit: ,unit_amount:}
         qup = find_quantity_unit_price(itpp, variant, area_in_hectare)
+        unit = Unit.import_from_lexicon(qup[:unit])
         # create budget_item
         if variant && used_on && itpp && qup.presence
-          activity_budget_item = activity_budget.items.find_or_initialize_by(variant_id: variant.id, used_on: used_on)
+          activity_budget_item = activity_budget.items.find_or_initialize_by(variant_id: variant.id, used_on: used_on, origin: :itk, nature: :dynamic)
           activity_budget_item.direction = qup[:direction]
-          activity_budget_item.variant_unit = qup[:unit]
+          activity_budget_item.unit_id = unit.id if unit
           activity_budget_item.product_parameter_id = itpp.id
           activity_budget_item.variant_indicator = qup[:indicator]
           activity_budget_item.computation_method = qup[:computation_method]
@@ -147,6 +160,30 @@ module TechnicalItineraries
           end
         end
         response
+      end
+
+      # itk | static
+      def create_budget_fixed_item_from_master_budget(activity_budget, master_budget_item)
+        used_on = master_budget_item.first_used_on(@campaign.harvest_year)
+        day_gap = master_budget_item.day_gap
+        variant = ProductNatureVariant.import_from_lexicon(master_budget_item.variant)
+        unit = Unit.import_from_lexicon(master_budget_item.unit)
+
+        if variant && used_on
+          activity_budget_item = activity_budget.items.find_or_initialize_by(variant_id: variant.id, used_on: used_on, origin: :itk, nature: :static)
+          activity_budget_item.direction = master_budget_item.direction
+          activity_budget_item.unit_id = unit.id if unit
+          activity_budget_item.variant_indicator = 'population'
+          activity_budget_item.computation_method = master_budget_item.computation_method
+          activity_budget_item.quantity = master_budget_item.quantity || 1.0
+          activity_budget_item.unit_amount = master_budget_item.unit_pretax_amount || 0.0
+          activity_budget_item.frequency = master_budget_item.frequency
+          activity_budget_item.repetition = master_budget_item.repetition
+          activity_budget_item.save!
+          @logger.info("budget_item_from_master_budget created for #{variant.name}")
+        else
+          @logger.error("budget_item_from_master_budget not created for #{variant.name}")
+        end
       end
 
     end

@@ -548,6 +548,18 @@ class Product < ApplicationRecord
     end
   end
 
+  # return the pictogram of variant or category
+  # old pictogram name are stored with _ instead of -
+  def pictogram
+    if variant.pictogram.present?
+      variant.pictogram.gsub('_', '-')
+    elsif category.pictogram.present?
+      category.pictogram.gsub('_', '-')
+    else
+      'question'
+    end
+  end
+
   def unroll_name
     'unrolls.backend/products'.t(attributes.symbolize_keys.merge(population: population, unit_name: unit_name))
   end

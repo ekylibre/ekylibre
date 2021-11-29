@@ -7,7 +7,11 @@ module Interventions
 
       # set urls for accessing IFT-API
       # https://alim.agriculture.gouv.fr/ift-api/swagger-ui.html
-      BASE_URL = "https://alim.agriculture.gouv.fr/ift-api"
+      if Rails.env.production?
+        BASE_URL = "https://alim.agriculture.gouv.fr/ift-api"
+      else
+        BASE_URL = "https://alim-pprd.agriculture.gouv.fr/ift-api"
+      end
       PFI_CAMPAIGN_URL = "/api/campagnes"
       PFI_COMPUTE_URL = "/api/ift/traitement"
       PFI_COMPUTE_SIGN_URL = "/api/ift/traitement/certifie"

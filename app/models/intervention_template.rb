@@ -111,8 +111,35 @@ class InterventionTemplate < ApplicationRecord
     "#{preparation_time_hours.to_i || 0} h #{preparation_time_minutes || 0} min"
   end
 
-  def total_cost
-    '-'
+  def total_cost(area = 1.0)
+    (doer_cost(area) + tool_cost(area) + input_cost(area)).round(2)
+  end
+
+  def doer_cost(area = 1.0)
+    cost = 0.0
+    if doers.any?
+      if preparation_time_hours
+        cost += ( preparation_time_hours * doers.map{ |i| i.cost_amount_computation.amount }.compact.sum )
+      end
+      cost += ( (time_per_hectare * area) * doers.map{ |i| i.cost_amount_computation.amount }.compact.sum )
+    end
+    cost
+  end
+
+  def tool_cost(area = 1.0)
+    cost = 0.0
+    if tools.any?
+      cost += (time_per_hectare * area) * tools.map{ |i| i.cost_amount_computation.amount.to_d }.compact.sum
+    end
+    cost
+  end
+
+  def input_cost(area = 1.0)
+    cost = 0.0
+    if inputs.any?
+      cost += area * inputs.map{ |i| i.cost_amount_computation.amount.to_d }.compact.sum
+    end
+    cost
   end
 
   def self.used_procedures
@@ -166,6 +193,38 @@ class InterventionTemplate < ApplicationRecord
     end
 
     product_parameter.quantity
+  end
+
+  class << self
+    def import_from_lexicon(technical_workflow_procedure:, intervention_model:, campaign: )
+      if it = InterventionTemplate.find_by(campaign_id: campaign.id, intervention_model_id: intervention_model.id, technical_workflow_procedure_id: technical_workflow_procedure.id)
+        return it
+      end
+      unless twp = TechnicalWorkflowProcedure.find(technical_workflow_procedure)
+        raise ArgumentError.new("The TWP #{technical_workflow_procedure.inspect} is not known")
+      end
+
+      unless im = InterventionModel.find(intervention_model)
+        raise ArgumentError.new("The IM #{intervention_model.inspect} is not known")
+      end
+
+      it = new(
+        procedure_name: im.procedure_reference,
+        campaign_id: campaign.id,
+        intervention_model_id: im.id,
+        technical_workflow_procedure_id: twp.id,
+        name: im.name[Preference[:language]],
+        active: true,
+        description: 'Set by Lexicon',
+        workflow: im.working_flow # hectare_per_hour or see in im.working_flow_unit
+      )
+
+      unless it.save
+        raise "Cannot create intervention template from Lexicon #{technical_workflow.inspect}: #{it.errors.full_messages.join(', ')}"
+      end
+
+      it
+    end
   end
 
   private

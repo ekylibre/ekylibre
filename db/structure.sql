@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.8 (Ubuntu 12.8-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.8 (Ubuntu 12.8-0ubuntu0.20.04.1)
+-- Dumped from database version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -35,13 +35,6 @@ CREATE SCHEMA postgis;
 --
 
 CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -302,15 +295,16 @@ CREATE TABLE lexicon.intervention_models (
 --
 
 CREATE TABLE lexicon.master_budgets (
+    activity_family character varying NOT NULL,
     budget_category character varying NOT NULL,
     variant character varying NOT NULL,
     mode character varying,
-    proportionnal character varying,
+    proportionnal_key character varying,
     repetition integer NOT NULL,
     frequency character varying NOT NULL,
     start_month integer NOT NULL,
     quantity numeric(8,2) NOT NULL,
-    price numeric(8,2) NOT NULL,
+    unit_pretax_amount numeric(8,2) NOT NULL,
     tax_rate numeric(8,2) NOT NULL,
     unit character varying NOT NULL,
     direction character varying NOT NULL
@@ -362,13 +356,18 @@ CREATE TABLE lexicon.master_crop_production_cap_sna_codes (
 CREATE TABLE lexicon.master_crop_production_prices (
     department_zone character varying NOT NULL,
     started_on date NOT NULL,
+    nature character varying,
     price_duration interval NOT NULL,
     specie character varying NOT NULL,
     waiting_price numeric(8,2) NOT NULL,
     final_price numeric(8,2) NOT NULL,
     currency character varying NOT NULL,
     price_unit character varying NOT NULL,
-    campaign integer NOT NULL
+    product_output_specie character varying NOT NULL,
+    production_reference_name character varying,
+    campaign integer,
+    organic boolean,
+    label character varying
 );
 
 
@@ -445,14 +444,16 @@ CREATE TABLE lexicon.master_dimensions (
 --
 
 CREATE TABLE lexicon.master_doer_contracts (
-    id character varying NOT NULL,
     reference_name character varying NOT NULL,
-    name jsonb,
-    duration character varying,
-    weekly_working_time character varying,
-    gross_hourly_wage numeric(19,4),
-    net_hourly_wage numeric(19,4),
-    coefficient_total_cost numeric(19,4)
+    worker_variant character varying NOT NULL,
+    salaried boolean,
+    contract_end character varying,
+    legal_monthly_working_time numeric(8,2) NOT NULL,
+    legal_monthly_offline_time numeric(8,2) NOT NULL,
+    min_raw_wage_per_hour numeric(8,2) NOT NULL,
+    salary_charges_ratio numeric(8,2) NOT NULL,
+    farm_charges_ratio numeric(8,2) NOT NULL,
+    translation_id character varying NOT NULL
 );
 
 
@@ -605,6 +606,7 @@ CREATE TABLE lexicon.master_variant_categories (
     default_vat_rate numeric(5,2),
     payment_frequency_value integer,
     payment_frequency_unit character varying,
+    pictogram character varying,
     translation_id character varying NOT NULL
 );
 
@@ -622,6 +624,7 @@ CREATE TABLE lexicon.master_variant_natures (
     abilities text[],
     variety character varying NOT NULL,
     derivative_of character varying,
+    pictogram character varying,
     translation_id character varying NOT NULL
 );
 
@@ -640,6 +643,7 @@ CREATE TABLE lexicon.master_variants (
     target_specie character varying,
     specie character varying,
     indicators jsonb,
+    pictogram character varying,
     translation_id character varying NOT NULL
 );
 
@@ -705,7 +709,10 @@ CREATE TABLE lexicon.registered_enterprises (
 
 CREATE TABLE lexicon.registered_eu_market_prices (
     id character varying NOT NULL,
+    nature character varying,
     category character varying,
+    specie character varying,
+    production_reference_name character varying,
     sector_code character varying,
     product_code character varying,
     product_label character varying,
@@ -871,6 +878,18 @@ CREATE TABLE lexicon.registered_postal_codes (
 
 
 --
+-- Name: registered_protected_water_zones; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_protected_water_zones (
+    id character varying NOT NULL,
+    name character varying,
+    updated_on date,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+);
+
+
+--
 -- Name: registered_quality_and_origin_signs; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -917,6 +936,19 @@ CREATE TABLE lexicon.registered_vine_varieties (
 
 
 --
+-- Name: technical_sequences; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.technical_sequences (
+    id character varying NOT NULL,
+    family character varying,
+    production_reference_name character varying NOT NULL,
+    production_system character varying,
+    translation_id character varying NOT NULL
+);
+
+
+--
 -- Name: technical_workflow_procedure_items; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -954,12 +986,7 @@ CREATE TABLE lexicon.technical_workflow_procedures (
 --
 
 CREATE TABLE lexicon.technical_workflow_sequences (
-    id character varying NOT NULL,
-    technical_workflow_sequence_id character varying NOT NULL,
-    name jsonb NOT NULL,
-    family character varying,
-    specie character varying,
-    production_system character varying,
+    technical_sequence_id character varying NOT NULL,
     year_start integer,
     year_stop integer,
     technical_workflow_id character varying NOT NULL
@@ -972,15 +999,15 @@ CREATE TABLE lexicon.technical_workflow_sequences (
 
 CREATE TABLE lexicon.technical_workflows (
     id character varying NOT NULL,
-    name jsonb NOT NULL,
     family character varying,
-    specie character varying,
+    production_reference_name character varying,
     production_system character varying,
     start_day integer,
     start_month integer,
     unit character varying,
     life_state character varying,
-    life_cycle character varying
+    life_cycle character varying,
+    translation_id character varying NOT NULL
 );
 
 
@@ -1128,10 +1155,10 @@ CREATE TABLE public.activities (
     life_duration numeric(5,2),
     start_state_of_production_year integer,
     reference_name character varying,
+    distribution_key character varying,
     isacompta_analytic_code character varying(2),
     production_started_on_year integer,
-    production_stopped_on_year integer,
-    distribution_key character varying
+    production_stopped_on_year integer
 );
 
 
@@ -1184,16 +1211,16 @@ CREATE TABLE public.activity_productions (
     custom_fields jsonb,
     season_id integer,
     tactic_id integer,
-    provider jsonb DEFAULT '{}'::jsonb,
-    headland_shape postgis.geometry(Geometry,4326),
-    custom_name character varying,
-    starting_year integer,
-    reference_name character varying,
     technical_itinerary_id integer,
     predicated_sowing_date date,
     batch_planting boolean,
     number_of_batch integer,
-    sowing_interval integer
+    sowing_interval integer,
+    provider jsonb DEFAULT '{}'::jsonb,
+    headland_shape postgis.geometry(Geometry,4326),
+    custom_name character varying,
+    starting_year integer,
+    reference_name character varying
 );
 
 
@@ -1354,13 +1381,13 @@ CREATE TABLE public.interventions (
     journal_entry_id integer,
     request_compliant boolean,
     auto_calculate_working_periods boolean DEFAULT false,
+    intervention_proposal_id integer,
     parent_id integer,
     purchase_id integer,
     costing_id integer,
     validator_id integer,
     providers jsonb,
-    provider jsonb,
-    intervention_proposal_id integer
+    provider jsonb
 );
 
 
@@ -1431,11 +1458,11 @@ CREATE TABLE public.products (
     codes jsonb,
     reading_cache jsonb DEFAULT '{}'::jsonb,
     activity_production_id integer,
+    conditioning_unit_id integer NOT NULL,
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
-    isacompta_analytic_code character varying(2),
-    conditioning_unit_id integer NOT NULL
+    isacompta_analytic_code character varying(2)
 );
 
 
@@ -1485,7 +1512,14 @@ CREATE TABLE public.activity_budget_items (
     activity_budget_id integer NOT NULL,
     used_on date,
     paid_on date,
-    product_parameter_id integer
+    product_parameter_id integer,
+    nature character varying,
+    origin character varying,
+    unit_id integer,
+    repetition integer DEFAULT 1 NOT NULL,
+    frequency character varying DEFAULT 'per_year'::character varying NOT NULL,
+    global_amount numeric(19,4),
+    main_output boolean DEFAULT false NOT NULL
 );
 
 
@@ -1527,44 +1561,6 @@ CREATE SEQUENCE public.activity_budgets_id_seq
 --
 
 ALTER SEQUENCE public.activity_budgets_id_seq OWNED BY public.activity_budgets.id;
-
-
---
--- Name: activity_cost_outputs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_cost_outputs (
-    id integer NOT NULL,
-    activity_id integer NOT NULL,
-    variant_id integer NOT NULL,
-    variant_unit_id integer NOT NULL,
-    name character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: activity_cost_outputs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_cost_outputs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_cost_outputs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_cost_outputs_id_seq OWNED BY public.activity_cost_outputs.id;
 
 
 --
@@ -1848,6 +1844,45 @@ CREATE VIEW public.activity_productions_interventions AS
 
 
 --
+-- Name: intervention_costings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_costings (
+    id integer NOT NULL,
+    inputs_cost numeric,
+    doers_cost numeric,
+    tools_cost numeric,
+    receptions_cost numeric,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: activity_productions_interventions_costs; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.activity_productions_interventions_costs AS
+ SELECT activity_productions.id AS activity_production_id,
+    interventions.id AS intervention_id,
+    intervention_targets.product_id AS target_id,
+    (intervention_costings.inputs_cost * intervention_targets.imputation_ratio) AS inputs,
+    (intervention_costings.doers_cost * intervention_targets.imputation_ratio) AS doers,
+    (intervention_costings.tools_cost * intervention_targets.imputation_ratio) AS tools,
+    (intervention_costings.receptions_cost * intervention_targets.imputation_ratio) AS receptions,
+    ((((intervention_costings.inputs_cost + intervention_costings.doers_cost) + intervention_costings.tools_cost) + intervention_costings.receptions_cost) * intervention_targets.imputation_ratio) AS total
+   FROM ((((public.activity_productions
+     JOIN public.products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN public.intervention_parameters intervention_targets ON (((intervention_targets.product_id = products.id) AND ((intervention_targets.type)::text = 'InterventionTarget'::text))))
+     JOIN public.interventions ON ((interventions.id = intervention_targets.intervention_id)))
+     JOIN public.intervention_costings ON ((interventions.costing_id = intervention_costings.id)))
+  WHERE (((interventions.state)::text <> 'rejected'::text) AND ((interventions.nature)::text = 'record'::text));
+
+
+--
 -- Name: activity_seasons; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1901,8 +1936,9 @@ CREATE TABLE public.activity_tactics (
     lock_version integer DEFAULT 0 NOT NULL,
     "default" boolean DEFAULT false,
     technical_workflow_id character varying,
-    technical_workflow_sequence_id character varying,
-    campaign_id integer
+    campaign_id integer,
+    technical_itinerary_id integer,
+    technical_sequence_id character varying
 );
 
 
@@ -5521,24 +5557,6 @@ ALTER SEQUENCE public.integrations_id_seq OWNED BY public.integrations.id;
 
 
 --
--- Name: intervention_costings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.intervention_costings (
-    id integer NOT NULL,
-    inputs_cost numeric,
-    doers_cost numeric,
-    tools_cost numeric,
-    receptions_cost numeric,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
 -- Name: intervention_costings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -7072,7 +7090,7 @@ CREATE TABLE public.parcel_items (
     purchase_order_item_id integer,
     product_work_number character varying,
     type character varying,
-    merge_stock boolean DEFAULT true,
+    merge_stock boolean DEFAULT false,
     project_budget_id integer,
     purchase_order_to_close_id integer,
     activity_budget_id integer,
@@ -8224,13 +8242,14 @@ CREATE TABLE public.product_nature_variants (
     stock_movement_account_id integer,
     france_maaid character varying,
     providers jsonb,
+    default_quantity numeric(19,4) DEFAULT 1 NOT NULL,
+    default_unit_name character varying NOT NULL,
+    default_unit_id integer NOT NULL,
     specie_variety character varying,
     type character varying NOT NULL,
     imported_from character varying,
     provider jsonb,
-    default_quantity numeric(19,4) DEFAULT 1 NOT NULL,
-    default_unit_name character varying NOT NULL,
-    default_unit_id integer NOT NULL
+    pictogram character varying
 );
 
 
@@ -9494,7 +9513,7 @@ CREATE TABLE public.technical_itineraries (
     creator_id integer,
     updater_id integer,
     originator_id integer,
-    activity_tactic_id integer
+    technical_workflow_id character varying
 );
 
 
@@ -9534,7 +9553,9 @@ CREATE TABLE public.technical_itinerary_intervention_templates (
     dont_divide_duration boolean DEFAULT false,
     reference_hash character varying,
     parent_hash character varying,
-    day_since_start numeric(19,4)
+    day_since_start numeric(19,4),
+    repetition integer DEFAULT 1 NOT NULL,
+    frequency character varying DEFAULT 'per_year'::character varying NOT NULL
 );
 
 
@@ -10021,6 +10042,52 @@ ALTER SEQUENCE public.wine_incoming_harvests_id_seq OWNED BY public.wine_incomin
 
 
 --
+-- Name: worker_contracts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_contracts (
+    id integer NOT NULL,
+    entity_id integer NOT NULL,
+    name character varying,
+    description text,
+    reference_name character varying,
+    nature character varying,
+    contract_end character varying,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone,
+    salaried boolean DEFAULT false NOT NULL,
+    monthly_duration numeric(8,2) NOT NULL,
+    raw_hourly_amount numeric(8,2) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    custom_fields jsonb
+);
+
+
+--
+-- Name: worker_contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_contracts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_contracts_id_seq OWNED BY public.worker_contracts.id;
+
+
+--
 -- Name: account_balances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -10053,13 +10120,6 @@ ALTER TABLE ONLY public.activity_budget_items ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.activity_budgets ALTER COLUMN id SET DEFAULT nextval('public.activity_budgets_id_seq'::regclass);
-
-
---
--- Name: activity_cost_outputs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_cost_outputs ALTER COLUMN id SET DEFAULT nextval('public.activity_cost_outputs_id_seq'::regclass);
 
 
 --
@@ -11393,6 +11453,143 @@ ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: worker_contracts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contracts ALTER COLUMN id SET DEFAULT nextval('public.worker_contracts_id_seq'::regclass);
+
+
+--
+-- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_budget_items activity_budget_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budget_items
+    ADD CONSTRAINT activity_budget_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: economic_indicators; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW public.economic_indicators AS
+ SELECT a.id AS activity_id,
+    c.id AS campaign_id,
+    ( SELECT sum(ap.size_value) AS sum
+           FROM public.activity_productions ap
+          WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
+                   FROM public.activity_productions_campaigns apc
+                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
+    a.size_unit_name AS activity_size_unit,
+    'main_direct_product'::text AS economic_indicator,
+    abm.global_amount AS amount,
+    abm.variant_id AS output_variant_id,
+    abm.unit_id AS output_variant_unit_id
+   FROM (((public.activity_budgets ab
+     JOIN public.activities a ON ((ab.activity_id = a.id)))
+     JOIN public.campaigns c ON ((ab.campaign_id = c.id)))
+     JOIN public.activity_budget_items abm ON (((abm.activity_budget_id = ab.id) AND (abm.main_output IS TRUE))))
+  WHERE (((abm.direction)::text = 'revenue'::text) AND ((a.nature)::text = 'main'::text))
+  GROUP BY a.id, c.id, abm.id
+UNION ALL
+ SELECT a.id AS activity_id,
+    c.id AS campaign_id,
+    ( SELECT sum(ap.size_value) AS sum
+           FROM public.activity_productions ap
+          WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
+                   FROM public.activity_productions_campaigns apc
+                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
+    a.size_unit_name AS activity_size_unit,
+    'other_direct_product'::text AS economic_indicator,
+    sum(abi.global_amount) AS amount,
+    NULL::integer AS output_variant_id,
+    NULL::integer AS output_variant_unit_id
+   FROM (((public.activity_budgets ab
+     JOIN public.activities a ON ((ab.activity_id = a.id)))
+     JOIN public.campaigns c ON ((ab.campaign_id = c.id)))
+     LEFT JOIN public.activity_budget_items abi ON ((abi.activity_budget_id = ab.id)))
+  WHERE (((abi.direction)::text = 'revenue'::text) AND (abi.main_output IS FALSE) AND ((a.nature)::text = 'main'::text))
+  GROUP BY a.id, c.id
+UNION ALL
+ SELECT a.id AS activity_id,
+    c.id AS campaign_id,
+    ( SELECT sum(ap.size_value) AS sum
+           FROM public.activity_productions ap
+          WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
+                   FROM public.activity_productions_campaigns apc
+                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
+    a.size_unit_name AS activity_size_unit,
+    'fixed_direct_charge'::text AS economic_indicator,
+    sum(abi.global_amount) AS amount,
+    NULL::integer AS output_variant_id,
+    NULL::integer AS output_variant_unit_id
+   FROM (((public.activity_budgets ab
+     JOIN public.activities a ON ((ab.activity_id = a.id)))
+     JOIN public.campaigns c ON ((ab.campaign_id = c.id)))
+     LEFT JOIN public.activity_budget_items abi ON ((abi.activity_budget_id = ab.id)))
+  WHERE (((abi.direction)::text = 'expense'::text) AND ((abi.nature)::text <> 'dynamic'::text) AND ((a.nature)::text = 'main'::text))
+  GROUP BY a.id, c.id
+UNION ALL
+ SELECT a.id AS activity_id,
+    c.id AS campaign_id,
+    ( SELECT sum(ap.size_value) AS sum
+           FROM public.activity_productions ap
+          WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
+                   FROM public.activity_productions_campaigns apc
+                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
+    a.size_unit_name AS activity_size_unit,
+    'proportional_direct_charge'::text AS economic_indicator,
+    sum(abi.global_amount) AS amount,
+    NULL::integer AS output_variant_id,
+    NULL::integer AS output_variant_unit_id
+   FROM (((public.activity_budgets ab
+     JOIN public.activities a ON ((ab.activity_id = a.id)))
+     JOIN public.campaigns c ON ((ab.campaign_id = c.id)))
+     LEFT JOIN public.activity_budget_items abi ON ((abi.activity_budget_id = ab.id)))
+  WHERE (((abi.direction)::text = 'expense'::text) AND ((abi.nature)::text = 'dynamic'::text) AND ((a.nature)::text = 'main'::text))
+  GROUP BY a.id, c.id
+UNION ALL
+ SELECT a.id AS activity_id,
+    c.id AS campaign_id,
+    '1'::numeric AS activity_size_value,
+    'unit'::character varying AS activity_size_unit,
+    'global_indirect_product'::text AS economic_indicator,
+    sum(abi.global_amount) AS amount,
+    NULL::integer AS output_variant_id,
+    NULL::integer AS output_variant_unit_id
+   FROM (((public.activity_budgets ab
+     JOIN public.activities a ON ((ab.activity_id = a.id)))
+     JOIN public.campaigns c ON ((ab.campaign_id = c.id)))
+     LEFT JOIN public.activity_budget_items abi ON ((abi.activity_budget_id = ab.id)))
+  WHERE (((abi.direction)::text = 'revenue'::text) AND ((a.nature)::text = 'auxiliary'::text))
+  GROUP BY a.id, c.id
+UNION ALL
+ SELECT a.id AS activity_id,
+    c.id AS campaign_id,
+    '1'::numeric AS activity_size_value,
+    'unit'::character varying AS activity_size_unit,
+    'global_indirect_charge'::text AS economic_indicator,
+    sum(abi.global_amount) AS amount,
+    NULL::integer AS output_variant_id,
+    NULL::integer AS output_variant_unit_id
+   FROM (((public.activity_budgets ab
+     JOIN public.activities a ON ((ab.activity_id = a.id)))
+     JOIN public.campaigns c ON ((ab.campaign_id = c.id)))
+     LEFT JOIN public.activity_budget_items abi ON ((abi.activity_budget_id = ab.id)))
+  WHERE (((abi.direction)::text = 'expense'::text) AND ((a.nature)::text = 'auxiliary'::text))
+  GROUP BY a.id, c.id
+  ORDER BY 1, 2
+  WITH NO DATA;
+
+
+--
 -- Name: intervention_model_items intervention_model_items_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -11453,7 +11650,7 @@ ALTER TABLE ONLY lexicon.master_dimensions
 --
 
 ALTER TABLE ONLY lexicon.master_doer_contracts
-    ADD CONSTRAINT master_doer_contracts_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT master_doer_contracts_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -11673,6 +11870,14 @@ ALTER TABLE ONLY lexicon.registered_vine_varieties
 
 
 --
+-- Name: technical_sequences technical_sequences_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.technical_sequences
+    ADD CONSTRAINT technical_sequences_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: technical_workflow_procedure_items technical_workflow_procedure_items_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
@@ -11686,14 +11891,6 @@ ALTER TABLE ONLY lexicon.technical_workflow_procedure_items
 
 ALTER TABLE ONLY lexicon.technical_workflow_procedures
     ADD CONSTRAINT technical_workflow_procedures_pkey PRIMARY KEY (id);
-
-
---
--- Name: technical_workflow_sequences technical_workflow_sequences_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.technical_workflow_sequences
-    ADD CONSTRAINT technical_workflow_sequences_pkey PRIMARY KEY (id);
 
 
 --
@@ -11721,35 +11918,11 @@ ALTER TABLE ONLY public.accounts
 
 
 --
--- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activities
-    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_budget_items activity_budget_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_budget_items
-    ADD CONSTRAINT activity_budget_items_pkey PRIMARY KEY (id);
-
-
---
 -- Name: activity_budgets activity_budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.activity_budgets
     ADD CONSTRAINT activity_budgets_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_cost_outputs activity_cost_outputs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_cost_outputs
-    ADD CONSTRAINT activity_cost_outputs_pkey PRIMARY KEY (id);
 
 
 --
@@ -13289,6 +13462,14 @@ ALTER TABLE ONLY public.wine_incoming_harvests
 
 
 --
+-- Name: worker_contracts worker_contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contracts
+    ADD CONSTRAINT worker_contracts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_model_items_article_reference; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -13338,10 +13519,17 @@ CREATE INDEX master_chart_of_accounts_reference_name ON lexicon.master_chart_of_
 
 
 --
--- Name: master_crop_production_prices_campaign; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: master_crop_production_prices_department_zone; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX master_crop_production_prices_campaign ON lexicon.master_crop_production_prices USING btree (campaign);
+CREATE INDEX master_crop_production_prices_department_zone ON lexicon.master_crop_production_prices USING btree (department_zone);
+
+
+--
+-- Name: master_crop_production_prices_product_output_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_prices_product_output_specie ON lexicon.master_crop_production_prices USING btree (product_output_specie);
 
 
 --
@@ -13349,6 +13537,13 @@ CREATE INDEX master_crop_production_prices_campaign ON lexicon.master_crop_produ
 --
 
 CREATE INDEX master_crop_production_prices_specie ON lexicon.master_crop_production_prices USING btree (specie);
+
+
+--
+-- Name: master_crop_production_prices_started_on; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_production_prices_started_on ON lexicon.master_crop_production_prices USING btree (started_on);
 
 
 --
@@ -13709,6 +13904,20 @@ CREATE INDEX registered_postal_codes_postal_code ON lexicon.registered_postal_co
 
 
 --
+-- Name: registered_protected_water_zones_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_protected_water_zones_id ON lexicon.registered_protected_water_zones USING btree (id);
+
+
+--
+-- Name: registered_protected_water_zones_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_protected_water_zones_shape ON lexicon.registered_protected_water_zones USING gist (shape);
+
+
+--
 -- Name: registered_seed_varieties_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -13730,6 +13939,27 @@ CREATE INDEX registered_vine_varieties_id ON lexicon.registered_vine_varieties U
 
 
 --
+-- Name: technical_sequences_family; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_sequences_family ON lexicon.technical_sequences USING btree (family);
+
+
+--
+-- Name: technical_sequences_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_sequences_id ON lexicon.technical_sequences USING btree (id);
+
+
+--
+-- Name: technical_sequences_production_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_sequences_production_reference_name ON lexicon.technical_sequences USING btree (production_reference_name);
+
+
+--
 -- Name: technical_workflow_procedure_items_procedure_reference; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -13744,17 +13974,10 @@ CREATE INDEX technical_workflow_procedure_items_technical_workflow_pro_id ON lex
 
 
 --
--- Name: technical_workflow_sequences_family; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: technical_workflow_sequences_technical_sequence_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX technical_workflow_sequences_family ON lexicon.technical_workflow_sequences USING btree (family);
-
-
---
--- Name: technical_workflow_sequences_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX technical_workflow_sequences_specie ON lexicon.technical_workflow_sequences USING btree (specie);
+CREATE INDEX technical_workflow_sequences_technical_sequence_id ON lexicon.technical_workflow_sequences USING btree (technical_sequence_id);
 
 
 --
@@ -13765,10 +13988,17 @@ CREATE INDEX technical_workflow_sequences_technical_workflow_id ON lexicon.techn
 
 
 --
--- Name: technical_workflow_sequences_technical_workflow_sequence_id; Type: INDEX; Schema: lexicon; Owner: -
+-- Name: technical_workflows_family; Type: INDEX; Schema: lexicon; Owner: -
 --
 
-CREATE INDEX technical_workflow_sequences_technical_workflow_sequence_id ON lexicon.technical_workflow_sequences USING btree (technical_workflow_sequence_id);
+CREATE INDEX technical_workflows_family ON lexicon.technical_workflows USING btree (family);
+
+
+--
+-- Name: technical_workflows_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_workflows_id ON lexicon.technical_workflows USING btree (id);
 
 
 --
@@ -13783,6 +14013,13 @@ CREATE INDEX technical_workflows_procedures_procedure_reference ON lexicon.techn
 --
 
 CREATE INDEX technical_workflows_procedures_technical_workflow_id ON lexicon.technical_workflow_procedures USING btree (technical_workflow_id);
+
+
+--
+-- Name: technical_workflows_production_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_workflows_production_reference_name ON lexicon.technical_workflows USING btree (production_reference_name);
 
 
 --
@@ -14003,6 +14240,13 @@ CREATE INDEX index_activity_budget_items_on_creator_id ON public.activity_budget
 
 
 --
+-- Name: index_activity_budget_items_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_budget_items_on_unit_id ON public.activity_budget_items USING btree (unit_id);
+
+
+--
 -- Name: index_activity_budget_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14070,55 +14314,6 @@ CREATE INDEX index_activity_budgets_on_updated_at ON public.activity_budgets USI
 --
 
 CREATE INDEX index_activity_budgets_on_updater_id ON public.activity_budgets USING btree (updater_id);
-
-
---
--- Name: index_activity_cost_outputs_on_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_activity_id ON public.activity_cost_outputs USING btree (activity_id);
-
-
---
--- Name: index_activity_cost_outputs_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_created_at ON public.activity_cost_outputs USING btree (created_at);
-
-
---
--- Name: index_activity_cost_outputs_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_creator_id ON public.activity_cost_outputs USING btree (creator_id);
-
-
---
--- Name: index_activity_cost_outputs_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_updated_at ON public.activity_cost_outputs USING btree (updated_at);
-
-
---
--- Name: index_activity_cost_outputs_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_updater_id ON public.activity_cost_outputs USING btree (updater_id);
-
-
---
--- Name: index_activity_cost_outputs_on_variant_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_variant_id ON public.activity_cost_outputs USING btree (variant_id);
-
-
---
--- Name: index_activity_cost_outputs_on_variant_unit_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_cost_outputs_on_variant_unit_id ON public.activity_cost_outputs USING btree (variant_unit_id);
 
 
 --
@@ -14332,6 +14527,13 @@ CREATE INDEX index_activity_productions_on_support_id ON public.activity_product
 
 
 --
+-- Name: index_activity_productions_on_support_nature; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_productions_on_support_nature ON public.activity_productions USING btree (support_nature);
+
+
+--
 -- Name: index_activity_productions_on_tactic_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14413,6 +14615,13 @@ CREATE INDEX index_activity_tactics_on_created_at ON public.activity_tactics USI
 --
 
 CREATE INDEX index_activity_tactics_on_creator_id ON public.activity_tactics USING btree (creator_id);
+
+
+--
+-- Name: index_activity_tactics_on_technical_itinerary_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_tactics_on_technical_itinerary_id ON public.activity_tactics USING btree (technical_itinerary_id);
 
 
 --
@@ -16194,6 +16403,20 @@ CREATE INDEX index_documents_on_updater_id ON public.documents USING btree (upda
 
 
 --
+-- Name: index_economic_indicators_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_indicators_on_activity_id ON public.economic_indicators USING btree (activity_id);
+
+
+--
+-- Name: index_economic_indicators_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_indicators_on_campaign_id ON public.economic_indicators USING btree (campaign_id);
+
+
+--
 -- Name: index_entities_on_client_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17741,6 +17964,13 @@ CREATE INDEX index_intervention_parameters_on_group_id ON public.intervention_pa
 
 
 --
+-- Name: index_intervention_parameters_on_int_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameters_on_int_and_type ON public.intervention_parameters USING btree (intervention_id, type);
+
+
+--
 -- Name: index_intervention_parameters_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -17773,6 +18003,27 @@ CREATE INDEX index_intervention_parameters_on_new_variant_id ON public.intervent
 --
 
 CREATE INDEX index_intervention_parameters_on_outcoming_product_id ON public.intervention_parameters USING btree (outcoming_product_id);
+
+
+--
+-- Name: index_intervention_parameters_on_pro_and_int_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameters_on_pro_and_int_ids ON public.intervention_parameters USING btree (product_id, intervention_id);
+
+
+--
+-- Name: index_intervention_parameters_on_pro_and_ref_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameters_on_pro_and_ref_and_type ON public.intervention_parameters USING btree (product_id, reference_name, type);
+
+
+--
+-- Name: index_intervention_parameters_on_pro_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameters_on_pro_and_type ON public.intervention_parameters USING btree (product_id, type);
 
 
 --
@@ -17836,6 +18087,13 @@ CREATE INDEX index_intervention_participations_on_creator_id ON public.intervent
 --
 
 CREATE INDEX index_intervention_participations_on_intervention_id ON public.intervention_participations USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_participations_on_pro_and_int_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_pro_and_int_ids ON public.intervention_participations USING btree (product_id, intervention_id);
 
 
 --
@@ -17906,6 +18164,20 @@ CREATE INDEX index_intervention_working_periods_on_created_at ON public.interven
 --
 
 CREATE INDEX index_intervention_working_periods_on_creator_id ON public.intervention_working_periods USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_working_periods_on_int_and_int_part_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_working_periods_on_int_and_int_part_ids ON public.intervention_working_periods USING btree (intervention_id, intervention_participation_id);
+
+
+--
+-- Name: index_intervention_working_periods_on_int_part_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_working_periods_on_int_part_id ON public.intervention_working_periods USING btree (intervention_participation_id);
 
 
 --
@@ -22487,13 +22759,6 @@ CREATE INDEX index_technical_itineraries_on_activity_id ON public.technical_itin
 
 
 --
--- Name: index_technical_itineraries_on_activity_tactic_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_technical_itineraries_on_activity_tactic_id ON public.technical_itineraries USING btree (activity_tactic_id);
-
-
---
 -- Name: index_technical_itineraries_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -22942,6 +23207,41 @@ CREATE INDEX index_wine_incoming_harvests_on_updater_id ON public.wine_incoming_
 
 
 --
+-- Name: index_worker_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contracts_on_created_at ON public.worker_contracts USING btree (created_at);
+
+
+--
+-- Name: index_worker_contracts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contracts_on_creator_id ON public.worker_contracts USING btree (creator_id);
+
+
+--
+-- Name: index_worker_contracts_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contracts_on_entity_id ON public.worker_contracts USING btree (entity_id);
+
+
+--
+-- Name: index_worker_contracts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contracts_on_updated_at ON public.worker_contracts USING btree (updated_at);
+
+
+--
+-- Name: index_worker_contracts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contracts_on_updater_id ON public.worker_contracts USING btree (updater_id);
+
+
+--
 -- Name: intervention_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -23117,6 +23417,29 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -23143,29 +23466,6 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
-
-
---
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
 
 
 --
@@ -23198,6 +23498,14 @@ CREATE RULE delete_activity_productions_campaigns AS
 
 CREATE RULE delete_activity_productions_interventions AS
     ON DELETE TO public.activity_productions_interventions DO INSTEAD NOTHING;
+
+
+--
+-- Name: activity_productions_interventions_costs delete_activity_productions_interventions_costs; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_activity_productions_interventions_costs AS
+    ON DELETE TO public.activity_productions_interventions_costs DO INSTEAD NOTHING;
 
 
 --
@@ -23305,14 +23613,6 @@ ALTER TABLE ONLY public.crop_group_labellings
 
 
 --
--- Name: activity_cost_outputs fk_rails_09fc9cbf21; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_cost_outputs
-    ADD CONSTRAINT fk_rails_09fc9cbf21 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
-
-
---
 -- Name: cvi_cadastral_plant_cvi_land_parcels fk_rails_0e970be37a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -23342,6 +23642,14 @@ ALTER TABLE ONLY public.parcel_items
 
 ALTER TABLE ONLY public.technical_itinerary_intervention_templates
     ADD CONSTRAINT fk_rails_12463de838 FOREIGN KEY (intervention_template_id) REFERENCES public.intervention_templates(id);
+
+
+--
+-- Name: worker_contracts fk_rails_13690625da; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contracts
+    ADD CONSTRAINT fk_rails_13690625da FOREIGN KEY (entity_id) REFERENCES public.entities(id) ON DELETE CASCADE;
 
 
 --
@@ -23398,14 +23706,6 @@ ALTER TABLE ONLY public.outgoing_payments
 
 ALTER TABLE ONLY public.outgoing_payments
     ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES public.entities(id) ON DELETE RESTRICT;
-
-
---
--- Name: activity_cost_outputs fk_rails_2400dac552; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_cost_outputs
-    ADD CONSTRAINT fk_rails_2400dac552 FOREIGN KEY (variant_id) REFERENCES public.product_nature_variants(id);
 
 
 --
@@ -23630,6 +23930,14 @@ ALTER TABLE ONLY public.intervention_template_product_parameters
 
 ALTER TABLE ONLY public.cvi_cadastral_plants
     ADD CONSTRAINT fk_rails_65b7099078 FOREIGN KEY (cvi_cultivable_zone_id) REFERENCES public.cvi_cultivable_zones(id);
+
+
+--
+-- Name: activity_budget_items fk_rails_66b3183944; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budget_items
+    ADD CONSTRAINT fk_rails_66b3183944 FOREIGN KEY (unit_id) REFERENCES public.units(id);
 
 
 --
@@ -23894,14 +24202,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.parcel_items
     ADD CONSTRAINT fk_rails_a6cf16ef60 FOREIGN KEY (team_id) REFERENCES public.teams(id);
-
-
---
--- Name: activity_cost_outputs fk_rails_a90ed4c55b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_cost_outputs
-    ADD CONSTRAINT fk_rails_a90ed4c55b FOREIGN KEY (variant_unit_id) REFERENCES public.units(id);
 
 
 --
@@ -24750,6 +25050,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200925170636'),
 ('20200926150810'),
 ('20200928073618'),
+('20200930105801'),
 ('20201001095904'),
 ('20201001133625'),
 ('20201005090447'),
@@ -24758,6 +25059,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201007121011'),
 ('20201008122920'),
 ('20201009073905'),
+('20201009163401'),
+('20201014085806'),
 ('20201015095353'),
 ('20201020100820'),
 ('20201027103331'),
@@ -24841,7 +25144,19 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210825155901'),
 ('20210902151057'),
 ('20210907154701'),
+('20210915100201'),
+('20210916133539'),
+('20210927184701'),
 ('20210930110901'),
-('20210930150701');
+('20210930150701'),
+('20211005214401'),
+('20211007145301'),
+('20211008165101'),
+('20211012164201'),
+('20211020205526'),
+('20211025191201'),
+('20211108090701'),
+('20211109153301'),
+('20211112154901');
 
 

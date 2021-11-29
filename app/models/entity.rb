@@ -167,6 +167,7 @@ class Entity < ApplicationRecord
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
   has_one :user, foreign_key: :person_id
+  has_many :worker_contracts, class_name: 'WorkerContract', inverse_of: :entity, foreign_key: :entity_id, dependent: :destroy
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

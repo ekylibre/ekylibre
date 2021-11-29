@@ -9,6 +9,7 @@ module Ekylibre
 
   class Tenant
     AGGREGATION_NAME = '__all__'.freeze
+    AGG_TABLES_NAME = %w[activities activity_productions].freeze
 
     class << self
       # Tests existence of a tenant
@@ -218,7 +219,7 @@ module Ekylibre
       end
 
       def drop_aggregation_schema!
-        ActiveRecord::Base.connection.execute("CREATE SCHEMA IF NOT EXISTS #{AGGREGATION_NAME};")
+        ActiveRecord::Base.connection.execute("DROP SCHEMA IF EXISTS #{AGGREGATION_NAME} CASCADE;")
       end
 
       def create_aggregation_schema!
@@ -231,7 +232,7 @@ module Ekylibre
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
-        Ekylibre::Schema.tables.keys.each do |table|
+        AGG_TABLES_NAME.each do |table|
           connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
           columns = Ekylibre::Schema.columns(table)
           queries = list.collect do |tenant|

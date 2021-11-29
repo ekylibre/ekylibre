@@ -9,7 +9,7 @@
   = infos do
     = product_info(:work_number, important: true)
     .med-info.important
-      - icon = resource.category.pictogram
+      - icon = resource.pictogram
       %span.title= Equipment.human_attribute_name(:variant)
       %span.value
         %i.picto{class: "picto-#{icon}"}

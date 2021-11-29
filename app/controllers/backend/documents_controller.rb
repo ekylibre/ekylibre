@@ -72,6 +72,10 @@ module Backend
                        :xml
                      when 'text/plain'
                        :text
+                     when 'application/vnd.oasis.opendocument.spreadsheet'
+                       :ods
+                     when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                       :xlsx
                      when 'application/zip'
                        :zip
                      else
@@ -81,6 +85,8 @@ module Backend
       respond_to do |format|
         format.html { t3e @document }
         format.json
+        format.xlsx { send_data(File.read(@document.file.path), type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', filename: @document.file_file_name) }
+        format.ods { send_data(File.read(@document.file.path), type: 'application/vnd.oasis.opendocument.spreadsheet', filename: @document.file_file_name) }
         format.xml { send_data(File.read(@document.file.path), type: 'application/xml', filename: @document.file_file_name) }
         format.text { send_data(File.read(@document.file.path), type: 'text/plain', filename: @document.file_file_name) }
         format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline', filename: @document.file_file_name) }

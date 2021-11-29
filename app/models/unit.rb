@@ -17,6 +17,7 @@ class Unit < ApplicationRecord
                                     time: 'usage_duration',
                                     energy: 'energy' }.freeze
 
+  has_many :budget_items, class_name: 'ActivityBudgetItem', foreign_key: :unit_id
   has_many :catalog_items
   has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :default_unit_id
   has_many :sale_items, foreign_key: :conditioning_unit_id
