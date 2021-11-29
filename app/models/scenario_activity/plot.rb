@@ -52,6 +52,49 @@ class ScenarioActivity < ApplicationRecord
       "#{:plot.tl} #{index}"
     end
 
+    # get budget for activity campaing and technical_itinerary if exist
+    def budget
+      ActivityBudget.find_by(activity: scenario_activity.activity, campaign: scenario_activity.scenario.campaign, technical_itinerary: technical_itinerary)
+    end
+
+    # use existing budget but compute with area in current scenario instead of real activity_production area
+    def expenses_amount
+      amount = 0.0
+      if budget
+        budget.expenses.each do |item|
+          if item.per_working_unit?
+            amount += item.unit_amount * item.quantity * area.round(2) * item.year_repetition
+          else
+            amount += item.global_amount
+          end
+        end
+      end
+      (amount / area).round(2)
+    end
+
+    # use existing budget but compute with area in current scenario instead of real activity_production area
+    def revenues_amount
+      amount = 0.0
+      if budget
+        budget.revenues.each do |item|
+          if item.per_working_unit?
+            amount += item.unit_amount * item.quantity * area.round(2) * item.year_repetition
+          else
+            amount += item.global_amount
+          end
+        end
+      end
+      (amount / area).round(2)
+    end
+
+    def raw_margin
+      revenues_amount - expenses_amount
+    end
+
+    def global_margin
+      (raw_margin * area).round(2)
+    end
+
     private
 
       def generate_daily_charges_irregular_batch

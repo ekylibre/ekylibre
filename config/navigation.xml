@@ -1205,6 +1205,17 @@
         <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
       </item>
+      <item name="worker_contracts">
+        <page to="backend/worker_contracts#index"/>
+        <page to="backend/worker_contracts#create"/>
+        <page to="backend/worker_contracts#destroy"/>
+        <page to="backend/worker_contracts#edit"/>
+        <page to="backend/worker_contracts#list"/>
+        <page to="backend/worker_contracts#new"/>
+        <page to="backend/worker_contracts#show"/>
+        <page to="backend/worker_contracts#picture"/>
+        <page to="backend/worker_contracts#unroll"/>
+      </item>
     </group>
   </part>
   <part name="tools" icon="magic">

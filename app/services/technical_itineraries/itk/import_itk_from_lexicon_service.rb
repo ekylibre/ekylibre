@@ -26,10 +26,8 @@ module TechnicalItineraries
         ApplicationRecord.transaction do
           @logger.info("---------------------------------------------------------------")
           @logger.info("---------------------------------------------------------------")
-          @logger.info("Start on #{@activities.count} activities for #{@campaign.name}")
-          @activities.reorder(:name).each do |activity|
-            # 0 - don't want auxiliary
-            next if activity.auxiliary?
+          @logger.info("Start on #{@activities.count} main activities for #{@campaign.name}")
+          @activities.main.reorder(:name).each do |activity|
 
             # 0 - check if activity have already a default ITK by using tactics
             at = ActivityTactic.find_by(activity_id: activity.id, campaign_id: @campaign.id, default: true)
@@ -43,13 +41,13 @@ module TechnicalItineraries
             #####################################################
             # technical_workflow (TW) for main annual activity  #
             #####################################################
-            if activity.main? && activity.annual?
+            if activity.main? && activity.annual? && activity.plant_farming?
               @logger.info("####################################################")
-              @logger.info("               ITK for #{activity.name}")
+              @logger.info("               ITK Plant Annual for #{activity.name}")
               @logger.info("####################################################")
 
               # 10 - find a default TW in lexicon by activity attributes
-              tw = find_technical_workflow(activity)
+              tw = find_technical_workflow(activity, at)
 
               if tw
                 # 11- create AT with link to TW
@@ -65,7 +63,7 @@ module TechnicalItineraries
                 tiit_ids = creation_service.create_procedures_and_intervention_templates(ti, temp_pn)
 
                 # 50 - Update AP activity_productions and activity
-                update_activity_productions_with_ti(activity, ti, tw)
+                update_activity_productions_with_ti(activity, ti, tw, at)
                 @logger.info("50 - activity productions updated with TI #{ti.id}")
 
                 # 51 - compute_day_between_intervention
@@ -81,9 +79,42 @@ module TechnicalItineraries
                 @log_result[:count_no_tw_exists] += 1
               end
             # technical_workflow_sequence for perennial
-            elsif activity.main? && activity.perennial?
-              @logger.error("No perennial ITK for the moment ! : #{activity.name}")
-              @log_result[:count_no_tw_exists] += 1
+            elsif activity.main? && activity.perennial? && activity.vine_farming?
+              @logger.info("####################################################")
+              @logger.info("               ITK Vine Perennial for #{activity.name}")
+              @logger.info("####################################################")
+              # 10 - find a default TW in lexicon by activity attributes
+              ts = find_technical_sequence(activity, at)
+              if ts
+                # 11- create AT with link to TW
+                creation_service = TechnicalItineraries::Itk::CreateTactic.new(activity: activity, technical_sequence: ts, campaign: @campaign)
+                at = creation_service.create_or_update_activity_tactic
+                @logger.info("11 - AT : #{at.name}")
+
+                # 12 - create TI with link to AT
+                tis = find_or_create_technical_itineraries(at, activity)
+                @logger.info("12 - TIS : #{tis.map(&:name)}")
+                tis.each do |ti|
+                  # 20 - create intervention template (IT) link to TI for each TechnicalWorkflowProcedure (TWP) in TW
+                  tiit_ids = creation_service.create_procedures_and_intervention_templates(ti, temp_pn)
+
+                  # 50 - Update AP activity_productions and activity
+                  update_activity_productions_with_ti(activity, ti, tw, at)
+                  @logger.info("50 - activity productions updated with TI #{ti.id}")
+
+                  # 51 - compute_day_between_intervention
+                  TechnicalItineraryInterventionTemplate.where(id: tiit_ids).each do |tiit_to_c|
+                    tiit_to_c.compute_day_between_intervention
+                    @logger.info("_51 - TIIT updated with compute_day_between_intervention : #{tiit_to_c.day_between_intervention}")
+                  end
+
+                  # log
+                  @log_result[:count_tw_created] += 1
+                end
+              else
+                @logger.error("10 - TS : no TS exist for #{activity.name}")
+                @log_result[:count_no_tw_exists] += 1
+              end
             end
           end
 
@@ -94,7 +125,7 @@ module TechnicalItineraries
           # create scenario and plot for activities
           @activities.reorder(:name).each do |activity|
             # create plot scenario for plant farming activities
-            next if activity.auxiliary? || activity.animal_farming?
+            next if activity.auxiliary? || activity.animal_farming? || activity.perennial?
 
             @logger.info("####################################################")
             @logger.info("     SCENARIOS & BUDGETS for #{activity.name}")
@@ -110,7 +141,14 @@ module TechnicalItineraries
           # Ekylibre technical_itinerary corresponding to scenario plot daily charges
 
           @logger.info("BUDGETS FOR ANIMAL ACTIVITY")
-          @logger.info("BUDGETS FOR ADMINISTRATIVE ACTIVITY")
+          @logger.info("BUDGETS FOR AUXILIARY ACTIVITY")
+          @activities.auxiliary.reorder(:name).each do |aux_activity|
+            @logger.info("####################################################")
+            @logger.info("     AUXILIARY BUDGET for #{aux_activity.name}")
+            @logger.info("####################################################")
+            creation_aux_budget_service = TechnicalItineraries::Itk::CreateAuxiliaryBudget.new(activity: aux_activity, campaign: @campaign)
+            creation_aux_budget_service.create_budget_from_lexicon
+          end
           @logger.info("---------------------------------------------------------------")
           @logger.info("---------------------------------------------------------------")
           # IV - create budget item for auxiliary activity in Ekylibre from Lexicon charges
@@ -128,23 +166,55 @@ module TechnicalItineraries
       private
 
         # 10 - find a default TW in lexicon by activity attributes
-        def find_technical_workflow(activity)
-          specie = activity.production_nature&.specie || activity.cultivation_variety
-          tw_by_att = TechnicalWorkflow.of_family(activity.family).of_specie(specie).where(production_system: (activity.production_system_name || 'intensive_farming'), life_cycle: activity.production_cycle)
-          @logger.info("10 - SEARCH TW by specie : #{tw_by_att.count} TW found ")
-          if tw_by_att.any?
-            tw_by_att.first
+        def find_technical_workflow(activity, at)
+          if at && at.technical_workflow
+            at.technical_workflow
           else
-            nil
+            activity_reference_name = activity.reference_name
+            tw_by_att = TechnicalWorkflow.of_family(activity.family).of_production(activity_reference_name).where(production_system: (activity.production_system_name || 'intensive_farming'), life_cycle: activity.production_cycle)
+            @logger.info("10 - SEARCH TW by specie : #{tw_by_att.count} TW found ")
+            if tw_by_att.any?
+              tw_by_att.first
+            else
+              nil
+            end
+          end
+        end
+
+        # 10 - find a default TW in lexicon by activity attributes
+        def find_technical_sequence(activity, at)
+          if at && at.technical_sequence
+            at.technical_sequence
+          else
+            activity_reference_name = activity.reference_name
+            ts_by_att = TechnicalSequence.of_family(activity.family).of_production(activity_reference_name).where(production_system: (activity.production_system_name || 'intensive_farming'))
+            @logger.info("10 - SEARCH TS by specie : #{ts_by_att.count} TS found ")
+            if ts_by_att.any?
+              ts_by_att.first
+            else
+              nil
+            end
           end
         end
 
         def find_or_create_technical_itinerary(at, activity)
-          ti = TechnicalItinerary.find_or_create_by(campaign: @campaign, activity: activity, activity_tactic_id: at.id, name: at.name, description: 'Set by Lexicon')
+          TechnicalItinerary.import_from_lexicon(campaign: @campaign, activity: activity, technical_workflow_id: at.technical_workflow_id)
+        end
+
+        def find_or_create_technical_itineraries(at, activity)
+          tis = []
+          TechnicalWorkflowSequence.where(technical_sequence_id: at.technical_sequence_id).each do |tws|
+            if ti = TechnicalItinerary.find_by(campaign: @campaign, activity: activity, technical_workflow_id: tws.technical_workflow_id)
+              tis << ti
+            else
+              tis << TechnicalItinerary.import_from_lexicon(campaign: @campaign, activity: activity, technical_workflow_id: tws.technical_workflow_id)
+            end
+          end
+          tis
         end
 
         # update activity production with ti and predicated_sowing_date with start date of tw
-        def update_activity_productions_with_ti(activity, ti, tw)
+        def update_activity_productions_with_ti(activity, ti, tw, at)
           aps = ActivityProduction.where(activity_id: activity.id, campaign_id: @campaign.id)
           aps.each do |ap|
             p_sowing_date = Date.new(ap.started_on.year, tw.start_month, tw.start_day)
@@ -154,6 +224,8 @@ module TechnicalItineraries
           end
           activity.use_tactics = true
           activity.save!
+          at.technical_itinerary_id = ti.id
+          at.save!
         end
 
         def fail!(error)

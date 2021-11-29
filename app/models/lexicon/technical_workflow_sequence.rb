@@ -30,5 +30,6 @@
 #
 class TechnicalWorkflowSequence < LexiconRecord
   include Lexiconable
-  has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_workflow_sequence_id
+  belongs_to :technical_sequence, class_name: 'TechnicalSequence'
+
 end

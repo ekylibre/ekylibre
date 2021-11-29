@@ -8,10 +8,8 @@
     .picture
       - if actor.picture.file?
         = image_tag(actor.picture.url(:thumb))
-      - elsif pictogram = actor.category.pictogram
-        .picto{class: "picto-#{pictogram.gsub('_', '-')}"}
       - else
-        .picto{class: 'picto-question'}
+        .picto{class: "picto-#{actor.pictogram}"}
 
     .details
       %h3
@@ -64,8 +62,10 @@
     .picture
       - if variant.picture.file?
         = image_tag(variant.picture.url(:thumb))
+      - elsif pictogram = variant.pictogram
+        .picto{class: "picto-#{pictogram}"}
       - elsif pictogram = variant.category.pictogram
-        .picto{class: "picto-#{pictogram.gsub('_', '-')}"}
+        .picto{class: "picto-#{pictogram}"}
       - else
         .picto{class: 'picto-question'}
 

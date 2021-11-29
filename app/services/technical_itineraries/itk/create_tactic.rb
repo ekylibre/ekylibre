@@ -3,11 +3,12 @@
 module TechnicalItineraries
   module Itk
     class CreateTactic
-      attr_reader :activity, :technical_workflow, :campaign
+      attr_reader :activity, :technical_workflow, :technical_sequence, :campaign
 
-      def initialize(activity:, technical_workflow:, campaign:)
+      def initialize(activity:, technical_workflow: nil, technical_sequence: nil, campaign:)
         @activity = activity
         @technical_workflow = technical_workflow
+        @technical_sequence = technical_sequence
         @campaign = campaign
         @logger ||= Logger.new(File.join(Rails.root, 'log', "itk-#{@campaign.name}-#{Ekylibre::Tenant.current.to_s}.log"))
       end
@@ -16,25 +17,36 @@ module TechnicalItineraries
       # return ActivityTactic
       def create_or_update_activity_tactic
         year_delta = @activity.production_started_on_year
-        if year_delta
-          sowed_started_on = Date.new((@campaign.harvest_year - year_delta), @technical_workflow.start_month, @technical_workflow.start_day)
+        if year_delta && @technical_workflow
+          sowed_started_on = Date.new((@campaign.harvest_year + year_delta), @technical_workflow.start_month, @technical_workflow.start_day)
         else
           sowed_started_on = nil
         end
 
         at = ActivityTactic.find_or_initialize_by(activity_id: @activity.id, campaign_id: @campaign.id, default: true)
-        at.mode = :sowed
-        at.mode_delta = 15
-        at.planned_on = sowed_started_on
-        at.name = @technical_workflow.name[Preference[:language]]
-        at.technical_workflow_id = @technical_workflow.id
-        at.save!
-        at
+        if @technical_workflow && at.technical_workflow
+          at
+        elsif @technical_workflow
+          at.mode = :sowed
+          at.mode_delta = 5
+          at.planned_on = sowed_started_on
+          at.name = @technical_workflow.translation.send(Preference[:language])
+          at.technical_workflow_id = @technical_workflow.id
+          at.save!
+          at
+        elsif @technical_sequence && at.technical_sequence
+          at
+        elsif @technical_sequence
+          at.name = @technical_sequence.translation.send(Preference[:language])
+          at.technical_sequence_id = @technical_sequence.id
+          at.save!
+          at
+        end
       end
 
       def create_procedures_and_intervention_templates(ti, temp_pn)
         tiit_ids = []
-        @technical_workflow.procedures.each do |twp|
+        ti.technical_workflow.procedures.each do |twp|
           # 21 - find detail reference procedure in InterventionModel (IM)
           im = InterventionModel.find_by(id: twp.procedure_reference)
           if im
@@ -45,7 +57,7 @@ module TechnicalItineraries
           end
 
           # 21 - Create IT from InterventionModel (IM)
-          it = create_it(im, twp)
+          it = InterventionTemplate.import_from_lexicon(technical_workflow_procedure: twp, intervention_model: im, campaign: @campaign )
 
           # 30 create all ITPP from InterventionModelItems IMI in Lexicon
           create_imi(im, it, temp_pn)
@@ -53,14 +65,16 @@ module TechnicalItineraries
           # 31 update all ITPP
           itpps = InterventionTemplate::ProductParameter.where(intervention_template_id: it.id, activity_id: @activity.id, intervention_model_item_id: im.items.pluck(:id))
           @logger.info("__31 - ITPP to update : #{itpps.count}")
-
+          puts itpps.inspect.yellow
           update_itpp(itpps, twp, it)
 
           # 40 - create TIIT link to TI, IT, TWP
           tiit = TechnicalItineraryInterventionTemplate.find_or_create_by!(technical_itinerary_id: ti.id,
                                                                 intervention_template_id: it.id,
                                                                 position: twp.position,
-                                                                day_since_start: twp.period.to_f)
+                                                                day_since_start: twp.period.to_f,
+                                                                repetition: twp.repetition,
+                                                                frequency: twp.frequency)
 
           tiit_ids << tiit.id
           @logger.info("_40 - TIIT created #{tiit.id} from position : #{tiit.position} and day_since_start : #{tiit.day_since_start}")
@@ -87,22 +101,10 @@ module TechnicalItineraries
         end
       end
 
-      # 21 - Create IT from InterventionModel (IM) if not exist link to IM and TWP
-      # it = InterventionTemplate.find_by(campaign_id: @campaign.id, procedure_name: im.procedure_reference, intervention_model_id: im.id)
-      # unless it
-      def create_it(im, twp)
-        it = InterventionTemplate.find_or_initialize_by(procedure_name: im.procedure_reference, campaign_id: @campaign.id, intervention_model_id: im.id, technical_workflow_procedure_id: twp.id)
-        it.name = im.name[Preference[:language]]
-        it.active = true
-        it.description = 'Set by Lexicon'
-        it.workflow =  im.working_flow # hectare_per_hour or see in im.working_flow_unit
-        it.save!
-        it
-      end
-
       def update_itpp(itpps, twp, it)
         activity_unit = @activity.size_unit_name
         itpps.each do |itpp|
+          puts itpp.inspect.red
           imi = InterventionModelItem.find(itpp.intervention_model_item_id)
           if %i[input output].include?(itpp.find_general_product_type)
             @logger.info("__311 - Start ITPP input/output #{itpp.id}")
@@ -142,7 +144,7 @@ module TechnicalItineraries
                 @logger.error("__312 - article are not imported from Lexicon : #{imi.article_reference}")
               end
               itpp.product_nature_id = article.nature.id
-              itpp.product_nature_variant_id = nil
+              itpp.product_nature_variant_id = article.id
               itpp.save!
               @logger.info("__312 - ITPP (doer tool) updated with IMI : #{imi.article_reference}")
             else

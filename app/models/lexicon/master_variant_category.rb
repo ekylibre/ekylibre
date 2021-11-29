@@ -53,4 +53,17 @@ class MasterVariantCategory < LexiconRecord
   belongs_to :translation, class_name: 'MasterTranslation'
 
   scope :of_families, ->(*families) { where(family: families) }
+
+  # convert 'uf940-seedling-solid.svg' to 'seedling-solid'
+  def pictogram_name
+    if pictogram.present?
+      a = pictogram.split('.')
+      a.pop
+      b = a.first.split('-')
+      b.shift
+      b.join('-')
+    else
+      nil
+    end
+  end
 end

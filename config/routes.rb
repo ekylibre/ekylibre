@@ -861,6 +861,7 @@ Rails.application.routes.draw do
     resources :map_editor_shapes, only: :index
 
     resources :master_crop_productions, only: [:show], concerns: %i[unroll], param: :reference_name
+    resources :master_doer_contracts, only: [:show], concerns: %i[unroll], param: :reference_name
 
     resources :matters do
       concerns :products, :list
@@ -1324,6 +1325,9 @@ Rails.application.routes.draw do
 
     resources :teams, concerns: %i[list unroll]
 
+    resources :technical_workflows, only: [:show], concerns: %i[unroll]
+    resources :technical_sequences, only: [:show], concerns: %i[unroll]
+
     resources :project_budgets, concerns: %i[list unroll]
 
     resources :tours, only: [] do
@@ -1393,6 +1397,8 @@ Rails.application.routes.draw do
     resources :wine_tanks, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
+
+    resources :worker_contracts, concerns: [:list], path: 'worker-contracts'
 
     root to: 'dashboards#home'
 

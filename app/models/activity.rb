@@ -85,7 +85,7 @@ class Activity < ApplicationRecord
   refers_to :production_system
   enumerize :nature, in: %i[main auxiliary standalone], default: :main, predicates: true
   enumerize :production_cycle, in: %i[annual perennial], default: :annual, predicates: true
-  enumerize :distribution_key, in: %i[gross_margin percentage], default: :gross_margin, predicates: true
+  enumerize :distribution_key, in: %i[gross_margin percentage equipment_intervention_duration], default: :gross_margin, predicates: true
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
@@ -100,8 +100,7 @@ class Activity < ApplicationRecord
   end
   has_many :supports, through: :productions
   # planning
-  has_one :tactic, -> { default }, class_name: 'ActivityTactic', inverse_of: :activity
-  has_many :tactics, class_name: 'ActivityTactic', inverse_of: :activity
+  has_many :default_tactics, -> { default }, class_name: 'ActivityTactic', inverse_of: :activity
   has_many :associations_intervention_templates, class_name: 'InterventionTemplateActivity', foreign_key: :activity_id
   has_many :intervention_templates, through: :associations_intervention_templates
 
@@ -140,9 +139,13 @@ class Activity < ApplicationRecord
   validates :start_state_of_production_year, :life_duration, absence: true, if: -> { annual? && !plant_farming? && !vine_farming? }
   validates :production_nature, absence: true, if: -> { !vine_farming? && !plant_farming? }
 
+  validates_associated :tactics
+  accepts_nested_attributes_for :tactics, allow_destroy: true
+
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
+  scope :auxiliary, -> { where(nature: 'auxiliary') }
 
   scope :of_support_variety, ->(variety) { where(support_variety: variety) }
 
@@ -293,8 +296,8 @@ class Activity < ApplicationRecord
 
   after_save do
     productions.each do |production|
-      production.update_column(:season_id, seasons.first.id) if use_seasons?
-      production.update_column(:tactic_id, tactics.first.id) if use_tactics?
+      production.update_column(:season_id, seasons.first.id) if use_seasons? && seasons.any? && production.season_id.nil?
+      production.update_column(:tactic_id, tactics.first.id) if use_tactics? && tactics.any? && production.tactic_id.nil?
     end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)

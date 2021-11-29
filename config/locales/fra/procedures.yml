@@ -157,8 +157,8 @@ fra:
     insecticide_to_input: "Insecticide à distribuer" #?
     insemination: "Insémination"
     inseminator: "Inséminateur"
-    interrow_hill_remover: "Décavaillonneuse"
-    interrow_hiller: "Chausseuse | Rechausseuse"
+    intervine_hill_remover: "Décavaillonneuse"
+    intervine_hiller: "Chausseuse | Rechausseuse"
     item: "Pièce"
     item_to_change: "Pièce changée" #?
     items: "Éléments" #?
@@ -393,6 +393,9 @@ fra:
     individual_feeding: "Alimentation individuelle"
     installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
+    intervine_hilling: "Chaussage | Déchaussage"
+    intervine_hill_removing: "Déchaussage"
+    intervine_maintenance: "Entretien intercep"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
     lifting: "Soulevage"
@@ -470,8 +473,6 @@ fra:
     vine_grubbing: "Arrachage"
     vine_harvest: "Vendange" #?
     vine_inter_row_grinding: "Broyage/roulage couvert inter-rang"
-    vine_inter_row_hill_removing: "Déchaussage"
-    vine_inter_row_hilling: "Chaussage | Rechaussage"
     vine_inter_row_sowing: "Semis inter-rang"
     vine_inter_row_weeding: "Désherbage inter-rang" #?
     vine_layering: "Marcottage"

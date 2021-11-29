@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2019 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,25 +23,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: activity_tactics
+# == Table: registered_pfi_crops
 #
-#  activity_id  :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode         :string
-#  mode_delta   :integer
-#  name         :string           not null
-#  planned_on   :date
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  id                  :integer          not null, primary key
+#  reference_label_fra :string
 #
-class ActivityCostOutput < ApplicationRecord
-  belongs_to :activity
-  belongs_to :variant, class_name: 'ProductNatureVariant'
-  belongs_to :variant_unit, class_name: 'Unit'
+class TechnicalSequence < LexiconRecord
+  include Lexiconable
+  include ScopeIntrospection
+  belongs_to :translation, class_name: 'MasterTranslation'
+  has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_workflow_sequence_id
+  has_many :sequences,  class_name: 'TechnicalWorkflowSequence', foreign_key: :technical_sequence_id
 
-  validates :variant, :variant_unit, :activity, presence: true
+  scope(:of_families, proc { |*families|
+    where(family: families.flatten.collect { |f| Onoma::ActivityFamily.all(f.to_sym) }.flatten.uniq.map(&:to_s))
+  })
+
+  scope(:of_family, proc { |family|
+    where(family: Onoma::ActivityFamily.all(family))
+  })
 
 end

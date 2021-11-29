@@ -47,10 +47,13 @@ module TechnicalItineraries
           first_template = find_first_template
 
           @itinerary_templates.each do |itinerary_template|
+            day_gap = itinerary_template.day_gap
             started_date = started_template_date(itinerary_template, first_template, sowing_start_date)
-
-            create_intervention_proposal(itinerary_template, started_date)
-            create_products_daily_charges(itinerary_template, started_date)
+            itinerary_template.year_repetition.times.each do |_rep|
+              create_intervention_proposal(itinerary_template, started_date)
+              create_products_daily_charges(itinerary_template, started_date)
+              started_date += day_gap
+            end
           end
         end
 

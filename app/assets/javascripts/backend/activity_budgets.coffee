@@ -3,139 +3,6 @@
 
 ((E, C, $) ->
   'use strict'
-
-  # Updates indicator/units list
-  # TODO Optimize this binding only valid selectors
-  $(document).on 'selector:change', "input#production_activity_id[data-selector]", ->
-    selector = $(this)
-    root = selector.data("use-closest")
-    root = "form" unless root?
-    form = selector.closest(root)
-    $.ajax
-      url: "/backend/productions/variants"
-      data:
-        activity_id: selector.selector('value')
-      success: (data, status, request) ->
-        form.find('#production_cultivation_variant_id[data-selector]').each ->
-          cv = $(this)
-          cv.attr('data-selector', "/backend/product_nature_variants/unroll?scope[of_variety]=#{data.cultivation_variety}")
-          cv.selector('check', true)
-
-        form.find('#production_support_variant_id[data-selector]').each ->
-          sv = $(this)
-          sv.attr('data-selector', "/backend/product_nature_variants/unroll?scope[of_variety]=#{data.support_variety}")
-          sv.selector('check', true)
-      error: () ->
-        console.error "Cannot retrieve variants"
-    true
-
-  # Updates indicator/units list
-  # TODO Optimize this binding only valid selectors
-  $(document).on 'selector:change', "input[data-selector][data-quantified]", ->
-    selector = $(this)
-    root = selector.data("use-closest")
-    root = "form" unless root?
-    form = selector.closest(root)
-    form.find("*[data-variant-quantifier='#{selector.data('selector-id')}']").each ->
-      select = $(this)
-      options = {}
-      options.population = true if select.data("quantifiers-population")
-      options.working_duration = true if select.data("quantifiers-working-duration")
-      $.ajax
-        url: "/backend/product_nature_variants/#{selector.selector('value')}/quantifiers.json"
-        data: options
-        success: (data, status, request) ->
-          select.html("")
-          $.each data, (index, item) ->
-            option = $("<option></option>")
-              .html(item.label)
-              .attr("value", "#{item.indicator}-#{item.unit}")
-              .attr("data-indicator", item.indicator)
-              .attr("data-unit", item.unit)
-              .attr("data-unit-symbol", item.unit_symbol)
-              .appendTo(select)
-          ##
-          select.find("option[data-unit='#{select.siblings(".quantifier-unit").val()}']").prop("selected", true)
-          ##
-          select.trigger("change")
-        error: () ->
-          console.error "Cannot retrieve quantifiers of variant ID=#{selector.val()}"
-    form.find("#supports .support .production_supports_storage input[data-selector]").each ->
-      $(this).selector('check')
-    true
-
-
-
-  # Set values in hidden fields indicator/unit
-  $(document).on 'change keyup', "select[data-variant-quantifier]", ->
-    select = $(this)
-    option = select.find("option:selected")
-    indicator = option.data("indicator")
-    unit = option.data("unit")
-    changed = false
-
-    # Sets values in hidden fields
-    field = select.siblings(".quantifier-indicator").first()
-    changed = true if field.val() != indicator
-    field.val(indicator)
-
-    field = select.siblings(".quantifier-unit").first()
-    changed = true if field.val() != unit
-    field.val(unit)
-
-    # Trigger only after value are set
-    if changed
-      select.siblings(".quantifier-unit").trigger("unit:change", [indicator, unit, option.data("unit-symbol")])
-    true
-
-  # Retrieves quantity with selected quantifier
-  # TODO Optimizes query count
-  $(document).on "unit:change", "#production_support_variant_unit", (event, indicator, unit, unitSymbol)->
-    form = $(this).closest("form")
-    # Set unit symbol
-    form.find(".working-unit").html(unitSymbol)
-
-    total = form.find("#supports-quantity").numericalValue()
-
-    form.find("#supports .support").each ->
-      support = $(this)
-      support.addClass("waiting")
-      # FIXME Quite bad, do not use non-specific/generic attributes
-      id = support.find("*[data-parameter-name='storage_id']").val()
-      $.ajax
-        url: "/backend/products/#{id}/take.json"
-        data:
-          indicator: indicator
-          unit: unit
-        success: (data, status, request) ->
-          E.updateSupportQuantity(support, data.value, unitSymbol)
-          support.removeClass("waiting")
-          if form.find("#supports .support.waiting").length == 0
-            newTotal = C.calculate.call(form.find("#supports-quantity"))
-            E.changeBudgetQuantities(form, total/newTotal)
-    true
-
-  # Retrieves quantity with selected quantifier for a given support
-  $(document).on "selector:change", "#supports .support input[data-parameter-name='storage_id']", (event)->
-    support = $(this).closest(".support")
-    form = $(this).closest("form")
-    option = form.find("select[data-variant-quantifier] option:selected")
-    indicator = option.data("indicator")
-    unit = option.data("unit")
-    unitSymbol = option.data("unit-symbol")
-    # Set unit symbol
-    form.find(".total .unit").html(unitSymbol)
-    # FIXME Quite bad, do not use non-specific/generic attributes
-    id = support.find("*[data-parameter-name='storage_id']").val()
-    $.ajax
-      url: "/backend/products/#{id}/take.json"
-      data:
-        indicator: indicator
-        unit: unit
-      success: (data, status, request) ->
-        E.updateSupportQuantity(support, data.value, unitSymbol)
-    true
-
   # Change budget coeff on computation method change
   $(document).on "change keyup", ".budget .computation-method", (event)->
     console.log 'change on computation-method'
@@ -167,7 +34,7 @@
     true
 
   # Referesh totals after delete support
-  $(document).on "cocoon:after-remove", "#supports", (event)->
+  $(document).on "cocoon:after-remove", ".budget", (event)->
     console.log "Delete support"
     form = $(this).closest("form")
     form.find(".computation-method").each ->
@@ -176,12 +43,16 @@
       C.changeNumericalValue(select.closest(".budget").find(".budget-coeff"), coeff)
     true
 
+    # Referesh totals after delete support
+  $(document).on "cocoon:before-remove", ".budget-items", (event, prevRow)->
+    prevRow.next('.frequencies').hide()
+
   # Refresh totals after insert
   $(document).on "cocoon:after-insert", ".budgets", (event)->
     $(this).find(".budget select.computation-method").each ->
       select = $(this)
-      select.trigger("change")
-    true
+      select.trigger("change") 
+    true 
 
   # Show working unit dependent stuff
   $(document).behave "load change", "#supports-quantity", (event)->
@@ -259,6 +130,16 @@
     support.selector('url', url)
     support.selector('check')
     true
+
+
+  $(document).on 'change', '.v-budget-frequency', (e) ->
+    dic = {per_month: 12, per_day: 365}
+    corrected = dic[$(this).find(':selected').val()]
+    val = if typeof corrected == 'undefined' then 1 else corrected
+    $(this).closest('.noHover').prev().find('.budget-frequency').text(val)
+
+  $(document).on 'keyup', '.v-budget-repetition', (e) ->
+    $(this).closest('.noHover').prev().find('.budget-repetition').text($(this).val())
 
   # Show working unit dependent stuff
   $(document).on "selector:change", "#supports .support .production_supports_storage input[data-selector]", (event)->

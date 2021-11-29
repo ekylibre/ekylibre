@@ -6,6 +6,7 @@ fra:
         general: "General" #?
     activity:
       distribution_key:
+        equipment_intervention_duration: "Temps de travail des équipements"
         gross_margin: "Marge brute"
         percentage: "Pourcentage"
       nature:

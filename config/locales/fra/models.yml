@@ -167,6 +167,7 @@ fra:
         isacompta_analytic_code: "Code analytique Isacompta"
         life_duration: "Durée de vie"
         production_cycle_period: "Campagne annuelle de production"
+        distribution_key: "Clef de répartition analytique"
       activity_budget:
         expenses_amount: "Montant des dépenses"
         revenues_amount: "Montant des recettes"
@@ -530,6 +531,12 @@ fra:
         born_at: "Date d'entrée"
         dead_at: "Date de sortie"
         age: "Ancienneté"
+      worker_contract: #?
+        monthly_duration: "Durée de travail mensuelle" #?
+        raw_hourly_amount: "Taux horaire brut"
+        started_at: "Date de début de contrat"
+        stopped_at: "Date de fin de contrat"
+        salaried: "Salarié"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
@@ -947,6 +954,7 @@ fra:
       loan: "Emprunt"
       loan_account: "Compte de prêt"
       loan_repayment: "Remboursement d’emprunt"
+      main_output: "Produit principal"
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
       map_layer: "Couche de carte"
@@ -2569,6 +2577,7 @@ fra:
     work_code: "Code de travail"
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
+    worked_area: "Surface travaillée"
     worker: "Équipier"
     workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?

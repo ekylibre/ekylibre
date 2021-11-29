@@ -3,7 +3,8 @@
 class UnitComputation
 
   class << self
-    # LUCAS_TODO: Add tests for these methods
+    # Convert for 35 quintal => 3,5 ton
+    # or 35 quintal_per_hectare => 3,5 ton_per_hectare
     def convert_stock(quantity, from, to)
       quantity * coefficient(from, to)
     end
@@ -30,6 +31,7 @@ class UnitComputation
       end
     end
 
+    # Convert for 35 €/quintal => 350 €/ton
     def convert_amount(amount, from, to)
       amount * coefficient(to, from)
     end

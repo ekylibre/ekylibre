@@ -8,7 +8,8 @@ class TechnicalItinerary < ApplicationRecord
 
   belongs_to :campaign
   belongs_to :activity
-  belongs_to :tactic, class_name: 'ActivityTactic', foreign_key: 'activity_tactic_id'
+  belongs_to :technical_workflow, class_name: TechnicalWorkflow
+  has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_itinerary_id
   belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
   belongs_to :updater, class_name: 'User', foreign_key: 'updater_id'
 
@@ -81,7 +82,12 @@ class TechnicalItinerary < ApplicationRecord
   end
 
   def total_cost
-    '-'
+    if activity_productions.any?
+      area = activity_productions&.map(&:net_surface_area)&.sum&.convert(:hectare)
+    else
+      area = 1.0
+    end
+    intervention_templates.map {|i| i.total_cost(area.to_f)}.compact.sum.round(2)
   end
 
   def global_workload
@@ -111,6 +117,33 @@ class TechnicalItinerary < ApplicationRecord
 
   def human_parameter_workload(type)
     "#{parameter_worload(type).round(2).l(precision: 2)} #{:hours_hectare.tl}"
+  end
+
+  class << self
+
+    def import_from_lexicon(campaign:, activity:, technical_workflow_id:)
+      if ti = TechnicalItinerary.find_by(campaign: campaign, activity: activity, technical_workflow_id: technical_workflow_id)
+        return ti
+      end
+      unless tw = TechnicalWorkflow.find(technical_workflow_id)
+        raise ArgumentError.new("The TW ID #{technical_workflow_id.inspect} is not known")
+      end
+
+      ti = new(
+        name: tw.translation.send(Preference[:language]),
+        campaign_id: campaign.id,
+        activity_id: activity.id,
+        description: 'Set by Lexicon',
+        technical_workflow_id: technical_workflow_id
+      )
+
+      unless ti.save
+        raise "Cannot create technical itinerary from Lexicon #{technical_workflow.inspect}: #{ti.errors.full_messages.join(', ')}"
+      end
+
+      ti
+    end
+
   end
 
   private

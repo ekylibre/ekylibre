@@ -1,6 +1,6 @@
-nom,First name,Last name,variant nomen,code,code place,date naissance,notes,prix unitaire,price indicator,user email
-Christian DUPONT,Christian,DUPONT,technician,CD,S09_D02,1982-10-01,,11.74,usage_duration,admin@ekylibre.org
-Brice TEXIER,Brice,TEXIER,technician,BT,S09_D02,1983-01-01,,11.74,usage_duration,
-David JOULIN,David,JOULIN,technician,DJ,S09_D02,1981-01-01,,11.74,usage_duration,
-Yvan JOULIN,Yvan,JOULIN,technician,YJ,S09_D02,1984-01-01,,11.74,usage_duration,
-Jean-Yves BRASLONG,Jean-Yves,BRASLONG,inseminator,JY,S09_D02,1984-01-01,,11.74,usage_duration,veto@ekylibre.org
+nom,First name,Last name,variant nomen,code,code place,date naissance,notes,prix unitaire,price indicator,user email,lexicon contract reference,contract start
+Christian DUPONT,Christian,DUPONT,associate,CD,S09_D02,1982-10-01,,11.74,usage_duration,admin@ekylibre.org,main_unsalaried_farmer,1983-01-01
+Brice TEXIER,Brice,TEXIER,permanent_worker,BT,S09_D02,1983-01-01,,11.74,usage_duration,,internship,2018-01-01
+David JOULIN,David,JOULIN,manager,DJ,S09_D02,1981-01-01,,11.74,usage_duration,,permanent_manager_salaried,2010-01-01
+Yvan JOULIN,Yvan,JOULIN,permanent_worker,YJ,S09_D02,1984-01-01,,11.74,usage_duration,,permanent_salaried,2015-01-01
+Jean-Yves BRASLONG,Jean-Yves,BRASLONG,inseminator,JY,S09_D02,1984-01-01,,11.74,usage_duration,veto@ekylibre.org,,

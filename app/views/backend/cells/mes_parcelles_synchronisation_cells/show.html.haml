@@ -1,7 +1,7 @@
 - if @integration.present?
   .synchro-date
     %h1= :synchronisation_cell.tl
-    %span.value= @integration.last_sync_at.strftime("%e/%m/%Y - %T")
+    %span.value= @integration.last_sync_at&.strftime("%e/%m/%Y - %T")
 
     = backend_form_for @integration do |f|
       = f.simple_fields_for :parameters do |p|

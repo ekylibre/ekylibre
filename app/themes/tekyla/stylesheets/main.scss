@@ -1835,6 +1835,19 @@ a[data-remove-closest], a[data-remove] {
   min-width: 110px;
 }
 
+tr.noHover:hover td { 
+  background-color: inherit;     
+  opacity: 1.0;
+}
+.simple-form-date-adjusted{
+  width: 75px;
+}
+.no-top-border{
+  border-top: none;
+}
+.first-used-on{
+  white-space: nowrap;
+}
 .remove-item {
   font-size: 0;
   i {

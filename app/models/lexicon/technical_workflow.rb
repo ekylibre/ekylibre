@@ -30,8 +30,10 @@
 #
 class TechnicalWorkflow < LexiconRecord
   include Lexiconable
+  include ScopeIntrospection
   # refers_to :family, class_name: 'ActivityFamily', predicates: true
   # refers_to :specie, class_name: 'Variety'
+  belongs_to :translation, class_name: 'MasterTranslation'
   has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_workflow_id
   has_many :procedures,   class_name: 'TechnicalWorkflowProcedure',
                      foreign_key: :technical_workflow_id, dependent: :restrict_with_exception
@@ -46,8 +48,8 @@ class TechnicalWorkflow < LexiconRecord
     where(family: Onoma::ActivityFamily.all(family))
   })
 
-  scope :of_specie, lambda { |variety|
-    where(specie: (variety.is_a?(Onoma::Item) ? variety : Onoma::Variety.find(variety)).self_and_children.map(&:name))
+  scope :of_production, lambda { |reference_name|
+    where(production_reference_name: reference_name)
   }
 
 end

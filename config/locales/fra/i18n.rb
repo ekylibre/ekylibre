@@ -6,7 +6,7 @@
     name: 'Français',
     plural: {
       keys: %i[one other],
-      rule: ->(n) { n < 2 ? :one : :other }
+      rule: ->(n) { n.to_f < 2 ? :one : :other }
     }
   },
   date: {

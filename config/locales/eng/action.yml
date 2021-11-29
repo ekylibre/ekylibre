@@ -2505,6 +2505,7 @@ eng:
     mails:
       one: "%{count} email"
       other: "%{count} emails"
+    main_output: "Main output product"
     main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
@@ -2535,8 +2536,6 @@ eng:
     merchandises_services_costs: "Merchandises, services or costs"
     merge: "Merge"
     merged_entity: |
-    Merged entity (ID=%{other}):
-
     method: "Method"
     minimal_temperature: "Minimal temperature"
     minimum_amount: "Minimum amount"

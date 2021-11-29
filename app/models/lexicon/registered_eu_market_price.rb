@@ -36,12 +36,7 @@
 #
 class RegisteredEuMarketPrice < LexiconRecord
   include Lexiconable
-  VARIETY_TO_PRODUCT_CODE = { avena_sativa: %w[AVOMILL AVO],
-                              hordeum_vulgare: %w[ORGBRAS ORGFOUR],
-                              triticum_aestivum: %w[BLTFOUR BLTPAN],
-                              triticum_durum: ['DUR'],
-                              zea_mays: ['MAI'] }.freeze
-  scope :of_variety, ->(variety) { where(product_code: VARIETY_TO_PRODUCT_CODE[variety.to_sym]) }
+  scope :of_specie, ->(specie) { where(specie: specie.to_s) }
   scope :of_country, ->(country) { where(country: country.to_s) }
   scope :between, lambda { |started_on, stopped_on|
     where(start_date: started_on..stopped_on)

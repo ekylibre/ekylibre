@@ -65,8 +65,6 @@ class ProductNatureCategory < ApplicationRecord
   include Providable
   include Categorizable
 
-  # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :pictogram, in: Onoma::ProductNatureCategory.pictogram.choices
   enumerize :type, in: %w[Animal Article Crop Equipment Service Worker Zone].map { |t| "VariantCategories::#{t}Category" }
   # refers_to :pictogram, class_name: 'ProductPictograms'
   belongs_to :fixed_asset_account, class_name: 'Account'
@@ -230,6 +228,7 @@ class ProductNatureCategory < ApplicationRecord
           active: true,
           name: category_name,
           reference_name: item.reference_name,
+          pictogram: item.pictogram_name,
           depreciable: item.fixed_asset_account.present?,
           purchasable: item.purchase_account.present?,
           saleable: item.sale_account.present?,

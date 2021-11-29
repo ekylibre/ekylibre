@@ -22,9 +22,9 @@ class ItkImportJob < ApplicationJob
 
     def notification_params(result)
       {
-        message: (result > 0 ? :activity_have_been_autoplanned_successfully : :activity_have_not_been_autoplanned),
+        message: (result > 0 ? :x_activity_have_been_autoplanned_successfully : :activity_have_not_been_autoplanned),
         level: (result > 0 ? :success : :error),
-        interpolations: {}
+        interpolations: { count: result.to_d }
       }
     end
 end

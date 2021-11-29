@@ -10,6 +10,7 @@ class InterventionTemplate < ApplicationRecord
     belongs_to :product_nature_variant, class_name: ProductNatureVariant, foreign_key: :product_nature_variant_id
 
     has_many :daily_charges, class_name: DailyCharge, dependent: :destroy, foreign_key: :intervention_template_product_parameter_id
+    has_many :budget_items, class_name: ActivityBudgetItem, dependent: :destroy, foreign_key: :product_parameter_id
 
     # Validation
     validates :quantity, presence: true
@@ -106,8 +107,32 @@ class InterventionTemplate < ApplicationRecord
       end
     end
 
-    def is_doer_or_tool
-      %i[doer tool].include?(find_general_product_type)
+    def cost_amount_computation(nature: :intervention)
+      started_at = Time.now
+      options = { quantity: quantity.to_d }
+      if is_doer_or_tool
+        # use hour_equipment unit for equipment and hour unit for other (doer, service...)
+        unit = is_tool ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour_worker)
+        unit_name = Onoma::Unit.find(:hour).human_name
+        unit_name = unit_name.pluralize if quantity > 1
+        options[:unit] = unit
+        options[:unit_name] = unit_name
+        options[:catalog_usage] = :cost
+        options[:catalog_item] = product_nature_variant&.default_catalog_item(options[:catalog_usage], started_at, options[:unit], :dimension) || nil
+      elsif is_input
+        unit = Unit.import_from_lexicon(self.unit.split('_per_').first)
+        unit_name = Onoma::Unit.find(unit.reference_name).human_name
+        options[:unit] = unit
+        options[:unit_name] = unit_name
+        options[:catalog_usage] = :purchase
+        options[:catalog_item] = product_nature_variant&.default_catalog_item(options[:catalog_usage], started_at, options[:unit]) || nil
+      else
+        options[:unit] = Unit.import_from_lexicon(:unity)
+        options[:unit_name] = 'unit'
+        options[:catalog_usage] = :cost
+        options[:catalog_item] = nil
+      end
+      return InterventionParameter::AmountComputation.quantity(:catalog, options)
     end
 
     private
@@ -136,6 +161,18 @@ class InterventionTemplate < ApplicationRecord
 
       def is_input_or_output
         %i[input output].include?(find_general_product_type)
+      end
+
+      def is_doer_or_tool
+        %i[doer tool].include?(find_general_product_type)
+      end
+
+      def is_tool
+        %i[tool].include?(find_general_product_type)
+      end
+
+      def is_input
+        %i[input].include?(find_general_product_type)
       end
   end
 end

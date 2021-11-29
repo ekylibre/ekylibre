@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TechnicalItineraryInterventionTemplate < ApplicationRecord
+  enumerize :frequency, in: %i[per_day per_month per_year], predicates: true, default: :per_year
   belongs_to :technical_itinerary, class_name: TechnicalItinerary
   belongs_to :intervention_template, class_name: InterventionTemplate
 
@@ -12,6 +13,11 @@ class TechnicalItineraryInterventionTemplate < ApplicationRecord
   attr_accessor :intervention_template_name, :is_planting, :is_harvesting, :procedure_name
 
   validates :position, presence: true
+
+  before_validation do
+    self.frequency ||= :per_year
+    self.repetition ||= 1
+  end
 
   # Need to access intervention_template_name in js
   def attributes
@@ -31,6 +37,28 @@ class TechnicalItineraryInterventionTemplate < ApplicationRecord
       TechnicalItineraryInterventionTemplate.where(parent_hash: reference_hash)
     else
       []
+    end
+  end
+
+  # return the repetition of the item for the budget
+  def year_repetition
+    if per_year?
+      repetition
+    elsif per_month?
+      repetition * 12
+    elsif per_day?
+      repetition * 365
+    else
+      1
+    end
+  end
+
+  # return the number of day between repetition
+  def day_gap
+    if year_repetition != 0
+      365 / year_repetition
+    else
+      365
     end
   end
 

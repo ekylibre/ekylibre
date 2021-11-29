@@ -52,6 +52,7 @@
         %tr
           %th= ActivityBudgetItem.human_attribute_name(:variant)
           %th= ActivityBudgetItem.human_attribute_name(:quantity)
+          %th= ActivityBudgetItem.human_attribute_name(:unit)
           %th= ActivityBudgetItem.human_attribute_name(:computation_method)
           %th= ActivityBudgetItem.human_attribute_name(:unit_price)
           %th= ActivityBudgetItem.human_attribute_name(:amount)
@@ -63,14 +64,14 @@
           %th
       %tfoot
         %tr.total
-          %th{colspan: 4}= :gross_profit.tl
-          %td{data: {check_positive: '.amount'}}
+          %th{colspan: 5}= :gross_profit.tl
+          %td.left-align{data: {check_positive: '.amount'}}
             %span.amount{data: {difference: '#revenues-amount - #expenses-amount', calculate_round: precision}}
             %span.currency= currency_symbol
-          %td.with-some-supports{data: {check_positive: ".amount"}}
+          %td.left-align{data: {check_positive: ".amount"}}
             %span.amount{data: {difference: '#revenues-amount-per-working-unit - #expenses-amount-per-working-unit', calculate_round: precision}}
             %span.currency= currency_symbol
           %th
-      %tbody
+      %tbody.budget-items
         = render 'items_form', direction: :expense, f: f, currency_symbol: currency_symbol, currency: currency, computation_methods: computation_methods
         = render 'items_form', direction: :revenue, f: f, currency_symbol: currency_symbol, currency: currency, computation_methods: computation_methods

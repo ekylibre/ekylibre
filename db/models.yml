@@ -4,7 +4,6 @@
 - activity
 - activity_budget
 - activity_budget_item
-- activity_cost_output
 - activity_distribution
 - activity_inspection_calibration_nature
 - activity_inspection_calibration_scale
@@ -246,4 +245,5 @@
 - wine_incoming_harvest_press
 - wine_incoming_harvest_storage
 - worker
+- worker_contract
 - zone

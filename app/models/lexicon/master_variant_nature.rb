@@ -46,4 +46,18 @@ class MasterVariantNature < LexiconRecord
 
   scope :of_families, ->(*families) { where(family: families) }
   scope :of_class_name, ->(*class_names) { where(nature: class_names) }
+
+  # convert 'uf940-seedling-solid.svg' to 'seedling-solid'
+  def pictogram_name
+    if pictogram.present?
+      a = pictogram.split('.')
+      a.pop
+      b = a.first.split('-')
+      b.shift
+      b.join('-')
+    else
+      nil
+    end
+  end
+
 end

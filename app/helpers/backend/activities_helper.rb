@@ -4,12 +4,12 @@ module Backend
     def number_to_cool(value, unit: '€', precision: nil)
       return '—' if value.zero? || value.nil?
 
-      precision ||= if value.to_d.abs < 10
+      precision ||= if value.to_f.abs < 10
                       2
                     else
-                      value.to_d.abs < 100 ? 1 : 0
+                      value.to_f.abs < 100 ? 1 : 0
                     end
-      html = value.to_d.round(precision).l(precision: precision).html_safe
+      html = value.to_f.round(precision).l(precision: precision).html_safe
       html += raw('&nbsp;') + h(unit) unless unit.blank?
       html
     end

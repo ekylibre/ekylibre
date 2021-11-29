@@ -26,8 +26,9 @@ module Backend
         is_tool_or_doer = search_params[:is_tool_or_doer]
         max = search_params[:max]
 
-        relation = ProductNature if is_tool_or_doer.to_b
-        relation = ProductNatureVariant unless is_tool_or_doer.to_b
+        # relation = ProductNature if is_tool_or_doer.to_b
+        # relation = ProductNatureVariant unless is_tool_or_doer.to_b
+        relation = ProductNatureVariant
 
         results = ::Products::SearchVariantByExpressionQuery.call(relation, scope, input_text, max)
 

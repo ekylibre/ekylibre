@@ -6,13 +6,15 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    -#
-      .med-info.important
-        - icon = resource.category.pictogram
-        %span.title= Matter.human_attribute_name(:variant)
-        %span.value
-          %i.picto{class: "picto-#{icon}"}
-          = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
+    .med-info.important
+      - if resource.variant.pictogram.present?
+        icon = resource.variant.pictogram
+      - else
+        icon = resource.category.pictogram
+      %span.title= Matter.human_attribute_name(:variant)
+      %span.value
+        %i.picto{class: "picto-#{icon}"}
+        = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     = product_info(:work_number, important: true)
     - if resource.born_at and resource.age >= 1.day
       .med-info

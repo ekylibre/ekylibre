@@ -188,4 +188,9 @@ class EntityAddress < ApplicationRecord
   def mail_coordinate
     mail_lines(separator: "\r\n")
   end
+
+  def department_number
+    mail_line_6_code[0..1] if mail_line_6_code.present?
+  end
+
 end
