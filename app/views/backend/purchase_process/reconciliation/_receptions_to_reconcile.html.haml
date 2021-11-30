@@ -1,5 +1,4 @@
 = hidden_field_tag 'purchase-orders', false
-
 .modal-body
   .purchase-orders
     .list-headers
@@ -24,7 +23,7 @@
               - next if model_item.purchase_invoice_item
 
               - datas = { variant_type: model_item.variant.variety, equipment_id: model_item.equipment_id, activity_budget_id: model_item.activity_budget_id, team_id: model_item.team_id, responsible_id: model.responsible_id, project_budget_id: model_item.project_budget_id, annotation: model_item.annotation, tax_id: model_item.purchase_order_item.try(:tax_id), reduction_percentage: model_item.purchase_order_item.try(:reduction_percentage), non_compliant: model_item.non_compliant.to_s, supplier_ref: reference_number }
-
+              
               - if model_item.storings.any?
                 - model_item.storings.group_by { |s| s.conditioning_unit_id }.each do |unit_id, storings|
                   - datas[:conditioning_unit_id] = unit_id
@@ -34,8 +33,8 @@
                     = check_box_tag('', '1', false, class: 'item-checkbox', data: { id: model_item.id })
                     %span.variant{ data: { id: model_item.variant_id } }= model_item.variant.name
                     %span.item-value
-                    %span.item-value.quantity-to-fill= datas[:conditioning_quantity]
                     %span.item-value= Unit.find(unit_id).name
+                    %span.item-value.quantity-to-fill= datas[:conditioning_quantity]
                     %span.item-value.unit-cost= model_item.unit_pretax_amount if model_item.purchase_order_item&.conditioning_unit_id == unit_id
                     %span.item-value.total-except-taxes= model_item.pretax_amount if model_item.purchase_order_item&.conditioning_unit_id == unit_id
 

@@ -58,6 +58,8 @@ class ParcelItemStoring < ApplicationRecord
 
   before_validation do
     self.quantity ||= UnitComputation.convert_into_variant_population(parcel_item.variant, conditioning_quantity, conditioning_unit)
+    parcel_item.conditioning_quantity ||= conditioning_quantity
+    parcel_item.conditioning_unit ||= conditioning_unit
   end
 
   after_create do
