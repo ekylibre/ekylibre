@@ -80,12 +80,12 @@
       @element.prop("widgetInitialized", true)
       @element.trigger("selector:created")
 
-    value: (newValue, callback = false) ->
+    value: (newValue, triggerEvents = false, callback = false) ->
       if newValue is null or newValue is undefined or newValue is ""
         val = parseInt(@valueField.val())
         val = null if isNaN(val)
         return val
-      this._set(newValue, false,  callback)
+      this._set(newValue, triggerEvents,  callback)
 
     _set: (id, triggerEvents = false, callback = false, options = {}) ->
       if id is null or id is undefined or id is ""
