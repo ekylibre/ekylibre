@@ -29,12 +29,11 @@ namespace :tenant do
   task create: :environment do
     name = ENV['TENANT'] || ENV['name']
     Ekylibre::Tenant.create(name) unless Ekylibre::Tenant.exist?(name)
-    # Set Stripe preferences if exists
-    if ENV['CUS_ID'] && ENV['SUB_ID']
-      Ekylibre::Tenant.switch(name) do
-        # Add default map layers
-        MapLayer.load_defaults
 
+    Ekylibre::Tenant.switch(name) do
+      MapLayer.load_defaults
+
+      if ENV['CUS_ID'] && ENV['SUB_ID']
         Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string)
         Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string)
       end
