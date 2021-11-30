@@ -99,9 +99,9 @@ class ReceptionItem < ParcelItem
   end
 
   def pretax_amount
-    return if quantity.nil? || unit_pretax_amount.nil?
+    return if conditioning_quantity.nil? || unit_pretax_amount.nil?
 
-    unit_pretax_amount * quantity
+    unit_pretax_amount * conditioning_quantity
   end
 
   after_save do
