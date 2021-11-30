@@ -92,13 +92,21 @@ module TechnicalItineraries
       def create_budget_item_from_itk(activity_budget, daily_charge)
         used_on = daily_charge.reference_date
         # quantity = daily_charge.quantity # in population of variant
-        area_in_hectare = daily_charge.area # in hectare
+        area_in_hectare = (daily_charge.area.to_f > 0.0 ? daily_charge.area : 1.0) # in hectare
         itpp = InterventionTemplate::ProductParameter.find_by(id: daily_charge.intervention_template_product_parameter_id)
-        variant = itpp.product_nature_variant
+        if itpp
+          variant = itpp.product_nature_variant
+          if variant
+            # get quantity, unit and computation method return {computation_method: ,quantity: ,indicator: , unit: ,unit_amount:}
+            qup = find_quantity_unit_price(itpp, variant, area_in_hectare)
+            unit = Unit.import_from_lexicon(qup[:unit])
+          else
+            @logger.error("No Variant found for itpp ID : #{itpp.id}")
+          end
+        else
+          @logger.error("No ITPP found for daily_charge ID : #{daily_charge.id}")
+        end
 
-        # get quantity, unit and computation method return {computation_method: ,quantity: ,indicator: , unit: ,unit_amount:}
-        qup = find_quantity_unit_price(itpp, variant, area_in_hectare)
-        unit = Unit.import_from_lexicon(qup[:unit])
         # create budget_item
         if variant && used_on && itpp && qup.presence
           activity_budget_item = activity_budget.items.find_or_initialize_by(variant_id: variant.id, used_on: used_on, origin: :itk, nature: :dynamic)
