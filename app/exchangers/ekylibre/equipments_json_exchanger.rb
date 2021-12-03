@@ -18,7 +18,7 @@ module Ekylibre
     def import
       equipments = JSON.parse(file.read)
       equipments.each do |equipment|
-        variant = ProductNatureVariant.import_from_nomenclature(equipment['type'])
+        variant = ProductNatureVariant.import_from_lexicon(equipment['type'])
         storage = Product.find_by(name: equipment['zone'])
         attributes = { initial_container: storage,
                        default_storage: storage,
