@@ -45,7 +45,7 @@
 
     # Referesh totals after delete support
   $(document).on "cocoon:before-remove", ".budget-items", (event, prevRow)->
-    prevRow.next('.frequencies').hide()
+    prevRow.next('.frequencies').remove()
 
   # Refresh totals after insert
   $(document).on "cocoon:after-insert", ".budgets", (event)->
@@ -62,7 +62,13 @@
       form.addClass("with-some-supports")
     else
       form.removeClass("with-some-supports")
+      $('.required-support').hide()
     true
+
+  # Referesh totals after delete support
+  $(document).on "cocoon:after-insert", ".budget-items", (event)->
+    if $('#supports-quantity').numericalValue() <= 0
+      $('.required-support').hide()
 
   E.coefficientValue = (form, name) ->
     coeff = 1
