@@ -8,7 +8,7 @@
   %td.decimal.left-align
     %span{id: "#{reflection}-amount", data: {use: ".nested-fields .#{direction}-amount", calculate: "sum", calculate_round: currency.precision}}= f.object.send(reflection).sum(:amount)
     %span.currency= currency_symbol
-  %td.decimal.left-align
+  %td.decimal.left-align.required-support
     %span{id: "#{reflection}-amount-per-working-unit", data: {use: ".nested-fields .#{direction}-amount-per-working-unit", calculate: "sum", calculate_round: currency.precision}}
     %span.currency= currency_symbol
   %th
