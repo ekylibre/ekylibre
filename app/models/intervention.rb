@@ -407,8 +407,12 @@ class Intervention < ApplicationRecord
     # compute pfi
     campaign = Campaign.find_by(harvest_year: started_at.year)
     if campaign
-      pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)
-      pfi_computation.create_or_update_pfi
+      if Interventions::Phytosanitary::PfiClientApi.down?
+        self.creator.notifications.create!(pfi_api_down_notification_generation)
+      else
+        pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)
+        pfi_computation.create_or_update_pfi
+      end
     end
   end
 
@@ -1136,6 +1140,14 @@ class Intervention < ApplicationRecord
     rides.each do |ride|
       ride.update(state: "unaffected")
     end
+  end
+
+  private def pfi_api_down_notification_generation
+    {
+      message: :pfi_api_down.tl,
+      level: :error,
+      interpolations: {}
+    }
   end
 
   class << self
