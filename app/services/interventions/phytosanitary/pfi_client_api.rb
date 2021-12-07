@@ -5,6 +5,12 @@ module Interventions
     class PfiClientApi
       attr_reader :campaign, :activity, :intervention_parameter_input, :area_ratio, :activities
 
+      class << self
+        def down?
+          RestClient.get('https://alim-pprd.agriculture.gouv.fr/ift-api/api/hello')&.code != 200
+        end
+      end
+
       # set urls for accessing IFT-API
       # https://alim.agriculture.gouv.fr/ift-api/swagger-ui.html
       if Rails.env.production?
@@ -46,7 +52,8 @@ module Interventions
       # Compute pfi for one input on intervention
       # @param [Boolean] with_signature
       # @return [JSON api_response, nil]
-      def compute_pfi(with_signature: true)
+      def compute_pfi(with_signature: true, with_notify: false)
+        @notify_user = with_notify
         return nil if @activity.nil? || @intervention_parameter_input.nil? || @intervention_parameter_input.product&.variant&.phytosanitary_product&.adjuvant?
 
         # check if campaign is available on api
@@ -54,7 +61,7 @@ module Interventions
           campaign_url = BASE_URL + PFI_CAMPAIGN_URL + "/#{@campaign.harvest_year}"
           RestClient.get campaign_url
         rescue RestClient::ExceptionWithResponse => e
-          e.response
+          notify_api_error_to_creator(error: e, log: campaign_url)
           return nil
         end
 
@@ -69,8 +76,17 @@ module Interventions
         p = build_params(@intervention_parameter_input)
         if p
           # call API and get response
-          call = RestClient::Request.execute(method: :get, url: url, headers: { params: p })
-          response = JSON.parse(call.body).deep_symbolize_keys
+          begin
+            call = RestClient::Request.execute(method: :get, url: url, headers: { params: p })
+            response = JSON.parse(call.body).deep_symbolize_keys
+            if response.dig(:iftTraitement, :avertissement)
+              notify_api_warnings_to_creator(warning: response[:iftTraitement][:avertissement][:libelle])
+            end
+            response
+          rescue RestClient::ExceptionWithResponse => e
+            notify_api_error_to_creator(error: e, log: "headers: #{p}, url: #{url}")
+            nil
+          end
         else
           nil
         end
@@ -249,6 +265,38 @@ module Interventions
             end
           else
             nil
+          end
+        end
+
+        def notify_api_error_to_creator(error: nil, log: "")
+          code = error.http_code
+          error_message = I18n.t('labels.pfi_client_error', campaign: @campaign.name, activity: @activity.name, input: @intervention_parameter_input.name, intervention: @intervention_parameter_input.intervention.name, loggable: log)
+          ExceptionNotifier.notify_exception(error, data: { message: error_message }) if code.to_s == '400'
+          if @notify_user
+            message = if code.to_s == '404'
+                        :pfi_api_down.tl
+                      else
+                        :pfi_api_error.tl
+                      end
+            @intervention_parameter_input.intervention.creator.notifications.create!({
+              message: message,
+              level: :error,
+              interpolations: {}
+            })
+          end
+        end
+
+        def notify_api_warnings_to_creator(warning: nil)
+          if @notify_user
+            @intervention = @intervention_parameter_input.intervention
+            @intervention.creator.notifications.create!({
+              message: :pfi_api_warnings.tl,
+              level: :error,
+              interpolations: {
+                id: @intervention.id,
+                warnings: warning
+              }
+            })
           end
         end
 
