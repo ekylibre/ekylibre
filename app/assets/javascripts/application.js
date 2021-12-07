@@ -65,7 +65,7 @@
 
 //= require sortablejs/Sortable.min.js
 
-//= require turbolinks_config
+//= require turbolinks_patch
 
 // FIX Browser interoperability
 // href function seems to be ineffective
