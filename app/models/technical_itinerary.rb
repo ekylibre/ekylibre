@@ -133,7 +133,7 @@ class TechnicalItinerary < ApplicationRecord
         name: tw.translation.send(Preference[:language]),
         campaign_id: campaign.id,
         activity_id: activity.id,
-        description: 'Set by Lexicon',
+        description: :set_by_lexicon.tl,
         technical_workflow_id: technical_workflow_id
       )
 
