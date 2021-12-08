@@ -217,17 +217,22 @@ paths:
         - schema:
             type: string
             format: email
+            example: test@ekylibre.com
           in: query
           name: contact_email
           description: Filter interventions by entity email
         - schema:
             type: string
             format: email
+            example: test@ekylibre.com
           in: query
           name: user_email
           description: Filter interventions by doer email
         - schema:
             type: boolean
+            enum:
+              - 'true'
+              - 'false'
           in: query
           name: with_interventions
           description: Filter interventions by relation to planned intervention
@@ -252,6 +257,14 @@ paths:
                       started_at: '2014-10-29T09:00:00.000+01:00'
                       stopped_at: '2014-10-29T12:00:00.000+01:00'
                       description: ' - Import Ekylibre interventions on 24/11/2020 14:41 - N° : 4'
+                      state: done
+                      working_duration: 7200
+                      costing:
+                        total: 0
+                        inputs: 0
+                        doers: 0
+                        tools: 0
+                        receptions: 0
                       parameters:
                         - id: 3
                           role: target
@@ -1244,8 +1257,10 @@ components:
             - done
             - validated
             - rejected
+          description: ("in_progree"/"done"/"validated")
         working_duration:
           type: number
+          description: working duration in seconds
         costs:
           $ref: '#/components/schemas/InterventionCosting'
     InterventionParameter:

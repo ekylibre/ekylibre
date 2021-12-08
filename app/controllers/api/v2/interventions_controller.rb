@@ -5,17 +5,16 @@ module Api
       READING_PARAMS = %i[tools targets].freeze
 
       def index
-        nature = params[:nature] || 'record'
         @interventions = Intervention
 
         if params[:contact_email]
-          entity = Entity.with_email(params[:contact_email]).take
+          user = Entity.with_email(params[:contact_email]).take
 
-          return render json: { errors: [:no_entity_with_email.tn(email: params[:contact_email])] }, status: :unprocessable_entity if entity.nil?
+          return render json: { errors: [:no_entity_with_email.tn(email: params[:contact_email])] }, status: :unprocessable_entity if user.nil?
 
-          return render json: { errors: [:no_worker_associated_with_entity_account.tn] }, status: :precondition_required if entity.worker.nil?
+          return render json: { errors: [:no_worker_associated_with_entity_account.tn] }, status: :precondition_required if user.worker.nil?
 
-          @interventions = @interventions.with_doers(entity.worker)
+          @interventions = @interventions.with_doers(user.worker)
         end
 
         if params[:user_email]
@@ -27,31 +26,35 @@ module Api
           @interventions = @interventions.with_doers(user.worker)
         end
 
-        if nature == 'request'
-          @interventions = @interventions.joins(<<-SQL).where(<<-CONDITIONS, user.worker.id).group('interventions.id')
-            LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id
-            LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id
-            LEFT JOIN products AS workers_or_tools_included ON intervention_participations.product_id = workers_or_tools_included.id AND workers_or_tools_included.type = 'Worker'
-          SQL
+        worker_id = user.present? ? user.worker.id : nil
+        @interventions = @interventions.joins(<<-SQL).where(<<-CONDITIONS, worker_id).group('interventions.id')
+          LEFT JOIN interventions record_interventions_interventions ON record_interventions_interventions.request_intervention_id = interventions.id
+          LEFT JOIN intervention_participations ON record_interventions_interventions.id = intervention_participations.intervention_id
+          LEFT JOIN products AS workers_or_tools_included ON intervention_participations.product_id = workers_or_tools_included.id AND workers_or_tools_included.type = 'Worker'
+        SQL
 
-            (record_interventions_interventions.state IS NULL
-            OR record_interventions_interventions.state = 'in_progress')
-            AND (workers_or_tools_included.id IS NULL
-            OR (workers_or_tools_included.id = ? AND intervention_participations.state = 'in_progress'))
-          CONDITIONS
+          (record_interventions_interventions.state IS NULL
+          OR record_interventions_interventions.state = 'in_progress')
+          AND (workers_or_tools_included.id IS NULL
+          OR (workers_or_tools_included.id = ? AND intervention_participations.state = 'in_progress'))
+        CONDITIONS
 
-          if params[:with_interventions]
-            if params[:with_interventions] == 'true'
-              @interventions = @interventions.where(id: Intervention.select(:request_intervention_id))
-            elsif params[:with_interventions] == 'false'
-              @interventions = @interventions.where.not(id: Intervention.select(:request_intervention_id))
-            else
-              head :unprocessable_entity
-              return
-            end
+        if params[:with_interventions]
+          if params[:with_interventions] == 'true'
+            @interventions = @interventions.where(id: Intervention.select(:request_intervention_id))
+          elsif params[:with_interventions] == 'false'
+            @interventions = @interventions.where.not(id: Intervention.select(:request_intervention_id))
+          else
+            head :unprocessable_entity
+            return
           end
         end
-        @interventions = @interventions.where(nature: nature).where.not(state: :rejected).order(:id)
+
+        if params[:nature]
+          @interventions = @interventions.where(nature: params[:nature])
+        end
+
+        @interventions = @interventions.where.not(state: :rejected).order(:id)
       end
 
       def create
