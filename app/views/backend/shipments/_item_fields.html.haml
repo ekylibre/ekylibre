@@ -27,7 +27,7 @@
             .gsub("[QTY]", content_tag(:span, source_product.population.or_else('&#8202;'.html_safe), class: "item-population-total"))
             .gsub("[UNT]", content_tag(:span, h(source_product.conditioning_unit.name.or_else('&#8202'.html_safe)), class: "item-population-unit-name").html_safe)
         = f.input :conditioning_quantity, wrapper: :nested_append, hint: hint.html_safe do
-          = f.input_field :conditioning_quantity, class: "item-population", placeholder: source_product.population.or_else(nil).to_s, required: true
+          = f.input_field :conditioning_quantity, class: "item-population", placeholder: source_product.population.or_else(nil).to_s, value: 1, required: true
           %span.add-on.item-population-unit-name.hidden= source_product.conditioning_unit.name.or_else('#')
       -# .errors= item.errors.inspect
     %td= f.referenced_association(:analysis, wrapper: :nested, hint: content_tag(:span, '&#8202;'.html_safe))
