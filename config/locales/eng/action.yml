@@ -1494,6 +1494,7 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    set_by_lexicon: "Set by lexicon"
     vineyard_area: "Vineyard area"
     productive_plants_yield: "Productive plant yield"
     young_plants_yield: "Young plant yield"
