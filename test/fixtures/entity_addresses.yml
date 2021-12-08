@@ -339,3 +339,16 @@ entity_addresses_017:
   thread: AAAA
   updated_at: 2016-11-05 08:55:21.247359000 Z
   updater_id: 1
+entity_addresses_018:
+  by_default: true
+  canal: email
+  coordinate: support@ekylibre.com
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  entity_id: 9
+  id: 18
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAC
+  updated_at: 2017-06-07 16:12:21.304704000 Z
+  updater_id: 1
