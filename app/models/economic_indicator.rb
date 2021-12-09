@@ -45,7 +45,7 @@ class EconomicIndicator < ApplicationRecord
 
     def activity_simulator(target_activity, campaign)
       items = {}.with_indifferent_access
-      main_indicator = EconomicIndicator.of_campaign(campaign).of_activity(target_activity).where.not(output_variant_id: nil)
+      main_indicator = EconomicIndicator.of_campaign(campaign).of_activity(target_activity).of_main_product
       indicators = EconomicIndicator.of_campaign(campaign).of_activity(target_activity)
       if main_indicator.any? && indicators.any?
         # set key for the moment
@@ -55,6 +55,7 @@ class EconomicIndicator < ApplicationRecord
         # build items
         items[:total_area] = main_indicator.first.activity_size_value.to_f.round(2)
         items[:area_unit] = main_indicator.first.activity_size_unit
+        items[:main_product_name] = main_indicator.first.output_variant.name
         items[:main_product_variety] = ActivityBudget.find_by(activity_id: target_activity.id, campaign_id: campaign.id)&.variety_output
         items[:main_product_yield] = ActivityBudget.find_by(activity_id: target_activity.id, campaign_id: campaign.id)&.estimate_yield.to_f.round(2)
         items[:main_product_yield_unit_id] = main_indicator.first.output_variant_unit_id
