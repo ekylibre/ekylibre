@@ -1078,6 +1078,7 @@ fra:
       wine_incoming_harvest_plant : "Réception de vendange - Cultures récoltées"
       wine_incoming_harvest_storage : "Réception de vendange - Cuverie"
       worker: "Équipier"
+      worker_contract: "Contrat de travail"
       zone: "Zone"
   attributes:
     starting_year: "L’année de début"
@@ -2579,6 +2580,7 @@ fra:
     work_number: "Numéro de travail"
     worked_area: "Surface travaillée"
     worker: "Équipier"
+    worker_contract: "Contrat de travail"
     workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"

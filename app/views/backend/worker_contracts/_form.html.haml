@@ -1,7 +1,7 @@
 = field_set do
-  = f.input :nature, as: :radio_buttons, show: '#{{value}}_options'
+  = f.input :nature, as: :radio_buttons, show: '#{{value}}_options', label_method: lambda {|a| a.last.tl}
   = f.referenced_association :entity, new: { nature: :contact }, source: { scope: :contacts }
-  = f.referenced_association :contract_nature, new: false
+  = f.referenced_association :contract_nature, new: false, label: :contract_nature.tl
   = f.input :name
   = f.input :description, as: :text
   = f.custom_fields
@@ -17,12 +17,6 @@
     = f.input(:raw_hourly_amount, wrapper: :simplest)
     = content_tag(:span, '€', class: 'add-on')
 
-= field_set(:temporary_worker_options) do
+= field_set(:worker_options) do
   = f.input :salaried
-  = f.input :stopped_at
-
-= field_set(:permanent_worker_options) do
-  = f.input :salaried
-
-= field_set(:external_staff_options) do
   = f.input :stopped_at

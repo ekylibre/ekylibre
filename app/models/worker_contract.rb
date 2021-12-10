@@ -48,6 +48,17 @@ class WorkerContract < ApplicationRecord
 
   scope :in_year, ->(year) { where('EXTRACT(YEAR FROM started_at) <= ? AND (stopped_at IS NULL OR EXTRACT(YEAR FROM stopped_at) >= ?)', year, year) }
 
+  after_create do
+    if Worker.find_by(person_id: entity.id).nil?
+      Worker.create!(
+        born_at: started_at,
+        person: entity,
+        name: entity.name,
+        variant: ProductNatureVariant.import_from_lexicon(nature)
+      )
+    end
+  end
+
   before_validation do
     self.name ||= contract_nature.translation.send(Preference[:language]) if contract_nature
   end
@@ -117,7 +128,7 @@ class WorkerContract < ApplicationRecord
       contract = new(
         name: item.translation.send(Preference[:language]),
         entity_id: entity.id,
-        description: 'Import from Lexicon',
+        description: :import_from_lexicon.tl,
         reference_name: item.reference_name,
         nature: item.worker_variant,
         salaried: item.salaried,
