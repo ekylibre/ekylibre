@@ -521,7 +521,7 @@ eng:
       purchase_payment: "Disbursement"
       reception: "Reception"
       reception_item: "Reception item"
-      reference_unit: "Unit"
+      reference_unit: "Reference unit"
       registered_agroedi_code: "Registered agroedi code"
       # registered_cadastral_building: "Registered building zone"
       # registered_hydrographic_item: "Registered hydro item"

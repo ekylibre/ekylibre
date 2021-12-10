@@ -42,6 +42,7 @@
 - cash_transfer
 - catalog
 - catalog_item
+- conditioning
 - contract
 - contract_item
 - crop_group
@@ -56,6 +57,7 @@
 - cvi_cultivable_zone
 - cvi_land_parcel
 - cvi_statement
+- daily_charge
 - dashboard
 - debt_transfer
 - delivery
@@ -105,8 +107,6 @@
 - intervention_group_parameter
 - intervention_input
 - intervention_labelling
-- intervention_model_item
-- intervention_model
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
@@ -115,9 +115,9 @@
 - intervention_proposal
 - intervention_proposal/parameter
 - intervention_target
-- intervention_template_activity
 - intervention_template
 - intervention_template/product_parameter
+- intervention_template_activity
 - intervention_tool
 - intervention_working_period
 - inventory
@@ -137,6 +137,8 @@
 - manure_management_plan
 - manure_management_plan_zone
 - map_layer
+- master_crop_production_cap_sna_code
+- master_legal_position
 - matter
 - naming_format
 - naming_format_field
@@ -195,7 +197,7 @@
 - purchase_payment
 - reception
 - reception_item
-- master_legal_position
+- reference_unit
 - regularization
 - ride
 - ride_set
@@ -228,14 +230,12 @@
 - tax_declaration_item
 - tax_declaration_item_part
 - team
-- technical_itinerary_intervention_template
 - technical_itinerary
-- technical_workflow_procedure_item
-- technical_workflow_procedure
-- technical_workflow_sequence
+- technical_itinerary_intervention_template
 - technical_workflow
 - token
 - tracking
+- unit
 - user
 - version
 - wice_grid_serialized_query

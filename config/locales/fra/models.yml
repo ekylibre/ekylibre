@@ -1021,7 +1021,7 @@ fra:
       purchase_payment: "Décaissement d’achat"
       reception: "Réception"
       reception_item: "Élément de réception"
-      reference_unit: "Unité"
+      reference_unit: "Unité de référence"
       registered_agroedi_code: "Code agroedi référencé"
       registered_building_zone: "Zone de bâtiment référencée" #?
       registered_legal_position: "Forme juridique"
