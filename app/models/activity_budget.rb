@@ -262,10 +262,51 @@ class ActivityBudget < ApplicationRecord
   end
 
   # for economic module
-  # return estimate yield from revenues item for given variety
-  def estimate_yield
-    if main_output
-      main_output.quantity
+  # return estimate yield from revenues item for main_product
+  # options with_unit true return a Measure
+  # options with_unit false return a value
+  def estimate_yield(with_unit: false)
+    if main_output && with_unit
+      unit_ref_name = main_output.unit.onoma_reference_name
+      unit_ref_name << "_per_#{activity.size_unit_name}" if activity.size_indicator_name == 'net_surface_area'
+      measure = Measure.new(main_output.quantity, unit_ref_name)
+      case main_output.computation_method
+      when 'per_working_unit'
+        measure
+      when 'per_campaign'
+        if any_production?
+          measure / productions_size
+        else
+          measure
+        end
+      when 'per_production'
+        if any_production?
+          measure / productions_count
+        else
+          measure
+        end
+      else
+        measure
+      end
+    elsif main_output
+      case main_output.computation_method
+      when 'per_working_unit'
+        main_output.quantity
+      when 'per_campaign'
+        if any_production?
+          ( main_output.quantity / productions_size ).round(2)
+        else
+          main_output.quantity
+        end
+      when 'per_production'
+        if any_production?
+          ( main_output.quantity / productions_count ).round(2)
+        else
+          main_output.quantity
+        end
+      else
+        main_output.quantity
+      end
     else
       # TODO: implement other case of estimate_yield
       0

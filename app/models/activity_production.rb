@@ -756,7 +756,7 @@ class ActivityProduction < ApplicationRecord
     budget = activity.budget_of(campaign)
     return nil unless budget
 
-    budget.estimate_yield(variety, options)
+    budget.estimate_yield(with_unit: true)
   end
 
   def current_cultivation
