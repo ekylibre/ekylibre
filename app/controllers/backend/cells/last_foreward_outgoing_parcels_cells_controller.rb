@@ -1,7 +1,7 @@
 module Backend
   module Cells
-    class LastOutgoingParcelsCellsController < Backend::Cells::BaseController
-      list(model: :shipments, conditions: { nature: 'outgoing', state: %w[given] }, order: 'given_at DESC', per_page: 5) do |t|
+    class LastForewardOutgoingParcelsCellsController < Backend::Cells::BaseController
+      list(model: :shipments, conditions: { nature: 'outgoing', state: %w[draft ordered in_preparation prepared] }, order: 'given_at DESC', per_page: 5) do |t|
         t.column :number, url: { controller: '/backend/shipments' }
         t.column :recipient, label: :full_name, url: { controller: '/backend/entities' }
         t.column :given_at

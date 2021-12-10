@@ -200,8 +200,8 @@ class InterventionInput < InterventionProductParameter
       return InterventionParameter::AmountComputation.quantity(:purchase, options)
     # elsif reception item link to order item, grab amount from order item
     elsif reception_item && reception_item.parcel_item && reception_item.parcel_item.purchase_order_item
-      options[:purchase_item] = reception_item.parcel_item.purchase_order_item
-      return InterventionParameter::AmountComputation.quantity(:purchase, options)
+      options[:order_item] = reception_item.parcel_item.purchase_order_item
+      return InterventionParameter::AmountComputation.quantity(:order, options)
     # grab amount from default purchase catalog item at intervention started_at
     else
       options[:catalog_usage] = :purchase

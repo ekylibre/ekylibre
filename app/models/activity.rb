@@ -230,6 +230,12 @@ class Activity < ApplicationRecord
     elsif animal_farming? || tool_maintaining?
       self.size_indicator_name = 'members_population'
       self.size_unit_name = 'unity'
+    elsif wine_making?
+      self.size_indicator_name = 'net_volume'
+      self.size_unit_name = 'unity'
+    elsif processing?
+      self.size_indicator_name = 'net_mass'
+      self.size_unit_name = 'unity'
     end
     self.cultivation_variety ||= item.cultivation_variety if with_cultivation
 

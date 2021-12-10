@@ -84,7 +84,7 @@ class InterventionAgent < InterventionProductParameter
 
   def cost_amount_computation(nature: nil, natures: {})
     # compute a unit price for a doer(worker) or an equipment only in time dimension (base unit : second)
-    # TODO Add computation from worker contract
+
     return InterventionParameter::AmountComputation.failed unless product
 
     quantity = if natures.empty?
@@ -98,24 +98,32 @@ class InterventionAgent < InterventionProductParameter
     # use hour_equipment unit for equipment and hour unit for other (doer, service...)
     unit = self.is_a?(InterventionTool) ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour_worker)
 
-    catalog_item =
-        if nature.present? && nature != :intervention
-          product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': "#{nature}_cost")&.first&.catalog&.usage
-        elsif nature.present? && nature == :intervention
-          product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': 'cost')&.first&.catalog&.usage
-        else
-          'cost'
-        end
+    # Add computation from worker contract
+    current_contract = WorkerContract.active_at(intervention.started_at).where(entity_id: product.person_id)
+    if current_contract.any?
+      options = { quantity: quantity.to_d, unit: unit, unit_name: unit_name, worker_contract_item: current_contract.first }
+      InterventionParameter::AmountComputation.quantity(:worker_contract, options)
+    # Add computation from worker or equipment catalog price
+    else
+      catalog_item =
+          if nature.present? && nature != :intervention
+            product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': "#{nature}_cost")&.first&.catalog&.usage
+          elsif nature.present? && nature == :intervention
+            product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': 'cost')&.first&.catalog&.usage
+          else
+            'cost'
+          end
 
-    options = {
-      catalog_usage: catalog_item,
-      quantity: quantity.to_d,
-      unit_name: unit_name,
-      unit: unit
-    }
+      options = {
+        catalog_usage: catalog_item,
+        quantity: quantity.to_d,
+        unit_name: unit_name,
+        unit: unit
+      }
 
-    options[:catalog_item] = product.default_catalog_item(options[:catalog_usage], intervention.started_at, options[:unit], :dimension)
-    InterventionParameter::AmountComputation.quantity(:catalog, options)
+      options[:catalog_item] = product.default_catalog_item(options[:catalog_usage], intervention.started_at, options[:unit], :dimension)
+      InterventionParameter::AmountComputation.quantity(:catalog, options)
+    end
   end
 
   def working_duration_params

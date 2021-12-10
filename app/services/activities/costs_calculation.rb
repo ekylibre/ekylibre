@@ -8,11 +8,11 @@ module Activities
           activity_id,
           activity_productions_campaign_id,
           campaigns_interventions_campaign_id,
-          SUM(inputs) AS inputs,
-          SUM(doers) AS doers,
-          SUM(tools) AS tools,
-          SUM(receptions) AS receptions,
-          SUM(total) AS total
+          ROUND(SUM(inputs), 2) AS inputs,
+          ROUND(SUM(doers), 2) AS doers,
+          ROUND(SUM(tools), 2) AS tools,
+          ROUND(SUM(receptions), 2) AS receptions,
+          ROUND(SUM(total), 2) AS total
         FROM (
           SELECT DISTINCT
             activity_productions.id,
@@ -46,11 +46,11 @@ module Activities
         GROUP BY activity_id, activity_productions_campaign_id,campaigns_interventions_campaign_id ;
       SQL
 
-      return { inputs: 0, doers: 0, tools: 0, receptions: 0, total: 0 } if activity_costs.values.empty?
+      return { inputs: 0.0, doers: 0.0, tools: 0.0, receptions: 0.0, total: 0.0 } if activity_costs.values.empty?
 
       activity_costs.first.symbolize_keys
         .except(:id, :activity_id, :activity_productions_campaign_id, :campaigns_interventions_campaign_id)
-        .transform_values(&:to_i)
+        .transform_values(&:to_f)
     end
   end
 end

@@ -1,9 +1,10 @@
 - series = []
 - interventions = Intervention.real.of_civil_year(@campaign.harvest_year)
-- if @campaign && interventions.any?
+- if interventions.any?
+  - intervention_dataset = interventions.habtm_activities.where(intervention_id: interventions.pluck(:id)).reorder(:intervention_started_at)
+- if @campaign && interventions.any? && intervention_dataset.any?
   :ruby
 
-    intervention_dataset = interventions.habtm_activities.where(intervention_id: interventions.pluck(:id)).reorder(:intervention_started_at)
     started_at = intervention_dataset.first.intervention_started_at.to_date
     stopped_at = intervention_dataset.last.intervention_started_at.to_date
 

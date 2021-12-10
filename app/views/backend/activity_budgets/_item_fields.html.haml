@@ -31,7 +31,9 @@
       %span= f.label :main_output.tl, wrapper: :nested
       %span= f.input :main_output, wrapper: :nested
   - else
-    %td.no-top-border{colspan: 2}= ''
+    %td.left-align.no-top-border
+      %span= f.label :nature.tl, wrapper: :nested
+      %span= f.input :nature, as: :radio_buttons, wrapper: :nested
   %td.left-align.no-top-border.first-used-on
     %i.icon.icon-time
     %span= f.label :used_on.tl, wrapper: :nested
