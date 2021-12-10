@@ -204,7 +204,8 @@ module Backend
       product_nature = @product_nature_variant.nature
       stock = @product_nature_variant.current_stock(into_default_unit: true)
       conditioning = Unit.find_by_id(params[:conditioning_id])
-      reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : nil
+      conditioning ||= @product_nature_variant&.default_unit
+      reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : Time.now
 
       infos = {
         name: @product_nature_variant.name,
@@ -262,8 +263,14 @@ module Backend
       end
 
       catalog_item = catalog ? catalog.items.of_variant(@product_nature_variant).of_unit(conditioning).active_at(reference_date).first : nil
-
-      if catalog_item
+      if params[:mode] == 'use_sale_catalog'
+        if (items = Catalog.find_by(usage: :sale).items.of_unit(conditioning).of_variant(@product_nature_variant).active_at(reference_date)).any?
+          item = items.first
+          infos[:unit][:pretax_amount] = item.pretax_amount
+          infos[:unit][:amount] = item.amount
+          infos[:tax_id] = item.reference_tax_id
+        end
+      elsif catalog_item
         infos[:all_taxes_included] = catalog_item.all_taxes_included
         unless infos[:tax_id] = (catalog_item.reference_tax ? catalog_item.reference_tax.id : nil)
           infos[:tax_id] = if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
@@ -285,13 +292,13 @@ module Backend
         end
       elsif params[:mode] == 'last_purchase_item'
         # get last item with tax, pretax amount and amount
-        if (items = PurchaseItem.where(variant: @product_nature_variant, conditioning_unit: conditioning)) && items.any?
+        if (items = PurchaseItem.where(variant: @product_nature_variant, conditioning_unit: conditioning)).any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
           infos[:unit][:pretax_amount] = item.unit_pretax_amount
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
-        elsif (items = @product_nature_variant.catalog_items.of_usage(:purchase).of_unit(conditioning).active_at(reference_date)) && items.any?
+        elsif (items = @product_nature_variant.catalog_items.of_usage(:purchase).of_unit(conditioning).active_at(reference_date)).any?
           item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
@@ -306,13 +313,13 @@ module Backend
         end
       elsif params[:mode] == 'last_sale_item'
         # get last item with tax, pretax amount and amount
-        if (items = SaleItem.where(variant: @product_nature_variant, conditioning_unit: conditioning)) && items.any?
+        if (items = SaleItem.where(variant: @product_nature_variant, conditioning_unit: conditioning)).any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
           infos[:unit][:pretax_amount] = item.unit_pretax_amount
           infos[:unit][:amount] = item.unit_amount
         # or get tax and amount from catalog
-        elsif (items = @product_nature_variant.catalog_items.of_usage(:sale).of_unit(conditioning).active_at(reference_date)) && items.any?
+        elsif (items = @product_nature_variant.catalog_items.of_usage(:sale).of_unit(conditioning).active_at(reference_date)).any?
           item = items.order(id: :desc).first
           if item.all_taxes_included
             infos[:unit][:pretax_amount] = item.reference_tax.pretax_amount_of(item.amount)
@@ -326,7 +333,7 @@ module Backend
           infos[:tax_id] = @product_nature_variant.category.purchase_taxes.first.id
         end
       end
-
+      infos[:unit][:pretax_amount] = 0 unless infos.dig(:unit, :pretax_amount)
       render json: infos
     end
 

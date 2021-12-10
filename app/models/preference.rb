@@ -206,6 +206,7 @@ class Preference < ApplicationRecord
 
   prefer :distribute_sales_and_purchases_on_activities, :boolean, false
   prefer :distribute_sales_and_purchases_on_teams, :boolean, false
+  prefer :use_sale_catalog, :boolean, true
 
   prefer :allow_analytics, :boolean, false
   prefer :check_fec_compliance, :boolean, true
