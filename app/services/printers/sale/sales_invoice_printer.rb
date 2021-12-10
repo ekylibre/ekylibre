@@ -95,7 +95,11 @@ module Printers
         r.add_table('details', sale.other_deals) do |s|
           s.add_field(:payment_date) { |item| AffairableDecorator.decorate(item).payment_date.l(format: '%d %B %Y') }
           s.add_field(:payment_number, &:number)
-          s.add_field(:payment_amount) { |item| item.class == sale.class ? '' : item.amount.round_l }
+          s.add_field(:payment_amount) { |item| if item.class == sale.class
+                                                  ''
+                                                else
+                                                  item.attribute_names.include?('amount') ? item.amount.round_l : item.affair.credit.round_l
+                                                end}
           s.add_field(:sale_affair) { |item| item.class == sale.class ? item.amount.round_l : '' }
         end
 
