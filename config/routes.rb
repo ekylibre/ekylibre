@@ -195,6 +195,8 @@ Rails.application.routes.draw do
       resource :last_documents_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
+      resource :last_foreward_incoming_parcels_cell, only: :show, concerns: :list
+      resource :last_foreward_outgoing_parcels_cell, only: :show, concerns: :list
       resource :last_incoming_parcels_cell, only: :show, concerns: :list
       resource :last_issues_cell, only: :show, concerns: :list
       resource :last_intervention_cell, only: :show

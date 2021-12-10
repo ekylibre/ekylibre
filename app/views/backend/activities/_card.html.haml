@@ -5,7 +5,7 @@
   = link_to('', {controller: :activities, action: :show, id: activity.id }, attrs.merge(class: 'activity-avatar', title: activity.name))
   .activity-content
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)
-    - if %w[administering animal_farming plant_farming tool_maintaining vine_farming].include?(activity.family)
+    - if %w[administering animal_farming plant_farming tool_maintaining vine_farming wine_making processing].include?(activity.family)
       = render "backend/activities/card_content/#{activity.family}", activity: activity, campaign: campaign, currency: currency
-    - else 
+    - else
       = render "backend/activities/card_content/default", activity: activity, campaign: campaign, currency: currency

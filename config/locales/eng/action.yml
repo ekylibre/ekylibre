@@ -2448,6 +2448,8 @@ eng:
     last_documents: "Last documents"
     last_entities: "Last entities"
     last_events: "Last events"
+    last_foreward_incoming_parcels: "Last foreward incoming parcels"
+    last_foreward_outgoing_parcels: "Last foreward outgoing parcels"
     last_incoming_parcels: "Last incoming parcels"
     last_inspection: "Last inspection"
     last_intervention: "Last intervention"

@@ -5,7 +5,7 @@
     - f.clear_actions!
     - f.add(:link, :valid.tl, new_backend_activity_path(redirect:params[:redirect]), class: 'btn primary', disabled:true, id:"activity_family_submit")
 - else
-  - if %w[administering tool_maintaining animal_farming plant_farming vine_farming].include?(f.object.family)
+  - if %w[administering tool_maintaining animal_farming plant_farming vine_farming wine_making processing].include?(f.object.family)
     = render "backend/activities/form/#{f.object.family}", f: f
   - else
     = render "backend/activities/form/default", f: f

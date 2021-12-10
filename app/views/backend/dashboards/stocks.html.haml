@@ -1,6 +1,9 @@
-= beehive(:stock) do
-  - hbox do
-    - cell :last_outgoing_parcels
-    - cell :last_incoming_parcels
-  - hbox do
-    - cell :stock_container_map
+= beehive(:stock) do |b|
+  - b.hbox do
+    - b.cell :last_incoming_parcels
+    - b.cell :last_outgoing_parcels
+  - b.hbox do
+    - b.cell :last_foreward_incoming_parcels
+    - b.cell :last_foreward_outgoing_parcels
+  - b.hbox do
+    - b.cell :stock_container_map

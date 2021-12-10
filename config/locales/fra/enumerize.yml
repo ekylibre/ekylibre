@@ -24,6 +24,9 @@ fra:
       direction:
         expense: "Frais"
         revenue: "Revenu"
+      nature:
+        dynamic: "Dynamique"
+        static: "Statique"
     activity_inspection_point_nature:
       category:
         deformity: "Malformation"
@@ -557,7 +560,7 @@ fra:
         fax: "Fax" #?
         letter: "Courrier" #?
         mail: "Email" #?
-        market_place: "" #?
+        market_place: "Boutique WEB" #?
         oral: "Verbal" #?
         sms: "SMS" #?
     registered_phytosanitary_product:

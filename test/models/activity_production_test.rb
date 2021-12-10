@@ -183,19 +183,19 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
     target2.reload
 
     assert_equal(
-      (intervention.costing.doers_cost * target1.imputation_ratio).to_i,
+      (intervention.costing.doers_cost * target1.imputation_ratio).round(2),
       production1.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
-      (intervention.costing.inputs_cost * target1.imputation_ratio).to_i,
+      (intervention.costing.inputs_cost * target1.imputation_ratio).round(2),
       production1.decorate.global_costs(campaign)[:inputs]
     )
     assert_equal(
-      (intervention.costing.doers_cost * target2.imputation_ratio).to_i,
+      (intervention.costing.doers_cost * target2.imputation_ratio).round(2),
       production2.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
-      (intervention.costing.inputs_cost * target2.imputation_ratio).to_i,
+      (intervention.costing.inputs_cost * target2.imputation_ratio).round(2),
       production2.decorate.global_costs(campaign)[:inputs]
     )
   end

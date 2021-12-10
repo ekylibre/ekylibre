@@ -46,6 +46,8 @@ class WorkerContract < ApplicationRecord
 
   scope :of_nature, ->(nature) { where(nature: nature) }
 
+  scope :active_at, ->(started_at)  { where('started_at <= ? AND (stopped_at IS NULL OR stopped_at >= ?)', started_at, started_at) }
+
   scope :in_year, ->(year) { where('EXTRACT(YEAR FROM started_at) <= ? AND (stopped_at IS NULL OR EXTRACT(YEAR FROM stopped_at) >= ?)', year, year) }
 
   before_validation do

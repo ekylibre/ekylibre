@@ -1,4 +1,4 @@
-- if resource.family? && %w[administering plant_farming wine_making animal_farming tool_maintaining default vine_farming].include?(resource.family)
+- if resource.family? && %w[administering plant_farming processing wine_making animal_farming tool_maintaining default vine_farming].include?(resource.family)
   = render "backend/activities/show/#{resource.family}", resource: resource
 - else
   = render 'backend/activities/show/default', resource: resource

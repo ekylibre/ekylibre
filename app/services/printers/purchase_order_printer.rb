@@ -26,7 +26,7 @@ module Printers
 
       @purchase_order.items.each do |item|
         i = HashWithIndifferentAccess.new
-        i[:variant] = item.variant_name_with_unit
+        i[:variant] = item.variant.name
         i[:conditioning] = item.conditioning_unit.name
         i[:quantity] = item.conditioning_quantity
         i[:unity] = item.variant.unit_name
