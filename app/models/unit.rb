@@ -66,6 +66,10 @@ class Unit < ApplicationRecord
     catalog_items.any? || sale_items.any? || purchase_items.any? || reception_items.any? || shipment_items.any? || products.any? || derivative_units.any?
   end
 
+  def onoma_reference_name
+    self.is_a?(Conditioning) ? self.base_unit.reference_name : self.reference_name
+  end
+
   class << self
     def import_from_nomenclature(reference_name)
       unless item = Onoma::Unit.find(reference_name)
