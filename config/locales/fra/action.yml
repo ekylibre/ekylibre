@@ -1674,6 +1674,7 @@ fra:
     contains: "Contient" #?
     content_products: "Produits contenus" #?
     contextual_help: "Aide contextuelle" #?
+    contract_nature: "Type de contrat"
     convert_balance_into_loss: "Passer le solde en perte"
     convert_balance_into_profit: "Passer le solde en profit"
     convert_into_contact: "Convertir en contact"
@@ -2047,6 +2048,7 @@ fra:
     export_xml_fec_bnc_ir_cash_accountancy: "Export FEC - Cas BNC IR - comptabilité de trésorerie (XML)"
     exportation: "Exportation" #?
     external_links: "Liens externes"
+    external_staff: "Travailleur extérieur"
     extract: "Extraire" #?
     extract_account_x: "Extrait de compte %{account_number}"
     extract_non_letter_odt: "Extrait de compte - Non lettrés en ODT" #?
@@ -2212,6 +2214,7 @@ fra:
     implanted_at: "Implantée le"
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde" #?
+    import_from_lexicon: "Importé du lexicon"
     import_incoming_payments: "Importer des encaissements"
     import_sales: "Importer des ventes"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
@@ -2760,6 +2763,7 @@ fra:
     period_to_take_into_account: "Période à prendre en compte"
     periods: "Périodes"
     permanent_stock_inventory: "Inventaire des stocks permanent"
+    permanent_worker: "Travailleur permanent"
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
@@ -3284,6 +3288,7 @@ fra:
     team: "Equipe"
     teams: "Equipes"
     temperature: "Température" #?
+    temporary_worker: "Travailleur temporaire"
     the_cultivation: "La parcelle ou culture"
     the_equipement: "L'équipement"
     the_land_parcel: "La parcelle"
@@ -3547,6 +3552,8 @@ fra:
     worker_contract_year_raw_cost: "Coût annuel brut"
     worker_contract_hour_raw_cost: "Coût horaire brut"
     worker_contract_month_raw_cost: "Coût mensuel brut"
+    worker_contract: "Contrat de travail"
+    worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
     workers: "Équipiers"
     workforce: "Main d'oeuvre"
