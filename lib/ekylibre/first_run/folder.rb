@@ -37,7 +37,7 @@ module Ekylibre
           puts 'Load preferences...'
           load_preferences
           puts 'Load defaults...'
-          # load_defaults
+          load_defaults
           puts 'Load company...'
           load_company
           puts 'Load imports...'
