@@ -134,6 +134,7 @@ class ParcelItem < ApplicationRecord
     end
 
     if conditioning_unit
+      self.conditioning_quantity ||= 1.0
       self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit) if variant
       self.quantity ||= UnitComputation.convert_into_variant_population(source_product.variant, conditioning_quantity, conditioning_unit) if source_product
     end

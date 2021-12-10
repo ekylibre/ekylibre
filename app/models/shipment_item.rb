@@ -104,6 +104,11 @@ class ShipmentItem < ParcelItem
       self.population = source_product.population if population.nil? || population.zero?
     end
 
+    # Update product_id when a product is added in edit shipment
+    if product_id.nil?
+      self.product_id = source_product_id
+    end
+
     true
   end
 
@@ -163,6 +168,7 @@ class ShipmentItem < ParcelItem
         ProductLocalization.create!(product: product, nature: :exterior, started_at: shipment_given_at, originator: self)
         ProductEnjoyment.create!(product: product, enjoyer: shipment_recipient, nature: :other, started_at: shipment_given_at, originator: self)
       end
+
       ProductMovement.create!(product: product, delta: -1 * conditioning_quantity, started_at: shipment_given_at, originator: self)
       # product deat_at update when give a unitary product in shipment
       if product_is_unitary?
