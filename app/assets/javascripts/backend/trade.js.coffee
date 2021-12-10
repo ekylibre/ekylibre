@@ -32,12 +32,13 @@
         selector = $(this)
         value = selector.selector('value')
         params[selector.attr('id')] = value if value?
-
       $conditioningSelector = $element.closest($element.data('parent')).find($element.data('filter-unroll'))
+      if $conditioningSelector[0] != $conditioningSelector.context
+        $conditioningSelector.closest('.selector').find('.selector-value').attr('value', '')
+        $conditioningSelector.val('')
       if $conditioningSelector.length
         conditioningId = $conditioningSelector.first().selector('value')
         params['conditioning_id'] = conditioningId if conditioningId
-
       params['reference_date'] = form.find('[data-deal-reference-date]').val()
 
       if variant_id?

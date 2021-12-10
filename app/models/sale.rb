@@ -264,6 +264,7 @@ class Sale < ApplicationRecord
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
     create_sale_catalog_items if %w[invoice order].include? state
+    update_sale_catalog if state == "invoice"
     # take reference_number (external ref) if exist else take number (internal ref)
     r_number = (reference_number.blank? ? number : reference_number)
     # build description on entry
@@ -679,6 +680,24 @@ class Sale < ApplicationRecord
                                       sale_item: sale_item,
                                       started_at: invoice_date,
                                       unit: sale_item.conditioning_unit)
+      end
+    end
+
+    def update_sale_catalog
+      if Preference.global.find_by(name: :use_sale_catalog)&.value
+        items.each do |item|
+          catalog_item = CatalogItem.of_usage(:sale).of_variant(item.variant).active_at(invoiced_at).of_unit(item.conditioning_unit).first
+          if catalog_item && item.unit_pretax_amount != catalog_item.amount
+            catalog_item.update!(stopped_at: invoiced_at)
+            CatalogItem.create!(
+              variant_id: item.variant_id,
+              amount: item.unit_pretax_amount,
+              started_at: invoiced_at,
+              unit_id: item.conditioning_unit_id,
+              catalog_id: Catalog.of_usage(:sale).first.id
+            )
+          end
+        end
       end
     end
 end

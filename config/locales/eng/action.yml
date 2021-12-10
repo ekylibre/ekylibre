@@ -3691,6 +3691,7 @@ eng:
     use_contextual_help: "Use contextual help"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     use_global_search: "Use global search"
+    use_sale_catalog: "Use the sale price catalog"
   rest:
     actions:
       abort: "Abort"

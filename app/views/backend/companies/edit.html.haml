@@ -42,6 +42,7 @@
     = render 'preferences_form', list: [:distribute_sales_and_purchases_on_activities, :distribute_sales_and_purchases_on_teams], settable: true
 
   = field_set :sales_preferences do
+    = render 'preferences_form', list: [:use_sale_catalog], settable: true
     = field "preferences.#{@s_c_preference.name}".t, { datatype: :text, value: @s_c_preference.value, name: "preferences[#{@s_c_preference.name}][value]" }, { label: { class: 'large-control-label' }, controls: { class: "large-controls" } }
 
   = f.actions
