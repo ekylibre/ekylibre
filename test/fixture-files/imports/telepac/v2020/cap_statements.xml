@@ -1,0 +1,3673 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<producteurs xmlns="urn:x-telepac:fr.gouv.agriculture.telepac:echange-producteur" xmlns:gml="http://www.opengis.net/gml"><producteur numero-pacage="033170081" campagne="Courante" fichier-xsd="Echanges-producteur-export-2020-V4">
+ <demandeur certificat-environnemental="false">
+  <identification-societe>
+   <exploitation>EARL JOULIN</exploitation>
+  </identification-societe>
+  <siret>32627372900011</siret>
+  <iban compte-iban="FR1710907000450572123456789" bic="AGRIFRPP17" titulaire="EARL JOULIN" />
+  <courriel>gaec.joulin@ekylibre.org</courriel>
+ </demandeur>
+ <rpg>
+  <ilot numero-ilot="13">
+   <commune>33004</commune>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422598.8194,6438929.6012 422598.819,6438929.5999 422598.8176,6438929.6003 422575.2252,6438969.4184 422575.2256,6438969.4198 422575.227,6438969.4194 422562.1245,6438990.9561 422552.257,6439008.183 422566.127,6439020.63 422551.582,6439048.201
+        422551.582,6439057.319 422573.819,6439069.304 422582.191,6439073.816 422593.263,6439086.625 422612.934,6439117.29 422614.321,6439122.229 422613.887,6439126.136 422607.156,6439151.101 422590.44,6439202.77 422573.073,6439250.964
+        422563.5186,6439271.915 422459.025,6439207.9711 422453.0715,6439204.8841 422259.8007,6439131.1965 422453.0551,6439204.8778 422453.0564,6439204.8773 422453.056,6439204.876 422437.7898,6439196.9602 422437.7897,6439196.9602 422341.8377,6439157.6356
+        422266.3344,6439123.8165 422266.3343,6439123.8165 422116.9009,6439072.6945 422000.5003,6439029.4375 422000.4999,6439029.4374 421982.4227,6439031.9308 421982.4218,6439031.9317 421982.4225,6439031.9327 422068.9769,6439063.8284 421934.5505,6439014.2918
+        421934.5506,6439014.2918 421952.164,6439020.7824 421952.1652,6439020.7819 421952.1647,6439020.7806 421905.2428,6438999.0854 421905.2415,6438999.0858 421905.2035,6438999.1571 421905.2039,6438999.1585 421905.203,6438999.158 421934.7293,6438943.7279
+        421938.4335,6438916.0789 421935.2585,6438909.4643 421935.0005,6438909.3108 421935.0017,6438909.3104 421935.0015,6438909.3091 421930.6931,6438906.437 421930.693,6438906.4369 421908.5684,6438893.5789 421908.567,6438893.5793 421908.5674,6438893.5807
+        421892.1313,6438883.7997 421886.3104,6438883.6674 421880.9526,6438886.8424 421880.9024,6438886.9004 421880.9024,6438886.8991 421880.9011,6438886.8988 421880.5452,6438887.1149 421880.5449,6438887.1151 421816.7201,6438960.7099 421816.7199,6438960.7101
+        421812.0673,6438961.9629 421812.0666,6438961.9642 421812.0679,6438961.9649 421805.4139,6438963.704 421762.7295,6438953.9864 421762.7307,6438953.9856 421762.7299,6438953.9844 421706.9166,6438941.2202 421706.9164,6438941.2196 421713.4303,6438935.0583
+        421713.4304,6438935.0582 421733.0719,6438908.7103 421733.0717,6438908.7089 421733.0703,6438908.7091 421715.428,6438929.7714 421818.9658,6438802.3508 421887.712,6438719.736 421939.772,6438661.953 421954.8835,6438651.9211 422017.8029,6438666.078
+        422127.541,6438733.334 422241.8121,6438781.3467 422598.861,6438929.527 422598.8194,6438929.6012
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+  <gml:innerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421733.1879,6438908.561 421733.1881,6438908.5624 421733.1895,6438908.5622 421794.1144,6438832.9379 421794.1142,6438832.9365 421794.1128,6438832.9367 421747.8146,6438889.9143 421747.814,6438889.9151 421733.1879,6438908.561
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:innerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <parcelles>
+    <parcelle>
+     <descriptif-parcelle numero-parcelle="1">
+      <culture-principale production-semences="false">
+       <code-culture>PPH</code-culture>
+       <declare-sie>false</declare-sie>
+      </culture-principale>
+      <engagements-maec surface-cible="false" />
+     </descriptif-parcelle>
+     <geometrie>
+
+      <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421934.5505,6439014.2918 421934.5506,6439014.2918 421952.164,6439020.7824 421952.1652,6439020.7819 421952.1647,6439020.7806 421905.2428,6438999.0854 421905.2415,6438999.0858 421905.2035,6438999.1571 421905.2039,6438999.1585 421905.203,6438999.158
+        421934.7293,6438943.7279 421938.4335,6438916.0789 421935.2585,6438909.4643 421935.0005,6438909.3108 421935.0017,6438909.3104 421935.0015,6438909.3091 421930.6931,6438906.437 421930.693,6438906.4369 421908.5684,6438893.5789 421908.567,6438893.5793
+        421908.5674,6438893.5807 421892.1313,6438883.7997 421886.3104,6438883.6674 421880.9526,6438886.8424 421880.9024,6438886.9004 421880.9024,6438886.8991 421880.9011,6438886.8988 421880.5452,6438887.1149 421880.5449,6438887.1151 421816.7201,6438960.7099
+        421816.7199,6438960.7101 421812.0673,6438961.9629 421812.0666,6438961.9642 421812.0679,6438961.9649 421805.4139,6438963.704 421762.7295,6438953.9864 421762.7307,6438953.9856 421762.7299,6438953.9844 421706.9166,6438941.2202 421706.9164,6438941.2196
+        421713.4303,6438935.0583 421713.4304,6438935.0582 421733.0719,6438908.7103 421733.0717,6438908.7089 421733.0703,6438908.7091 421715.428,6438929.7714 421818.9658,6438802.3508 421887.712,6438719.736 421939.772,6438661.953 421954.8835,6438651.9211
+        422017.8029,6438666.078 422127.541,6438733.334 422241.8121,6438781.3467 422598.861,6438929.527 422598.8194,6438929.6012 422598.819,6438929.5999 422598.8176,6438929.6003 422575.2252,6438969.4184 422575.2256,6438969.4198 422575.227,6438969.4194
+        422562.1245,6438990.9561 422552.257,6439008.183 422566.127,6439020.63 422551.582,6439048.201 422551.582,6439057.319 422573.819,6439069.304 422575.1354,6439070.0135 422451.6275,6439204.1353 422437.7898,6439196.9602 422437.7897,6439196.9602
+        422341.8377,6439157.6356 422266.3344,6439123.8165 422266.3343,6439123.8165 422116.9009,6439072.6945 422000.5003,6439029.4375 422000.4999,6439029.4374 421982.4227,6439031.9308 421982.4218,6439031.9317 421982.4225,6439031.9327 422068.9769,6439063.8284
+        421934.5505,6439014.2918
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+  <gml:innerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421733.1879,6438908.561 421733.1881,6438908.5624 421733.1895,6438908.5622 421794.1144,6438832.9379 421794.1142,6438832.9365 421794.1128,6438832.9367 421747.8146,6438889.9143 421747.814,6438889.9151 421733.1879,6438908.561
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:innerBoundaryIs>
+</gml:Polygon>
+
+
+     </geometrie>
+     <surface-admissible>1187</surface-admissible>
+    </parcelle>
+    <parcelle>
+     <descriptif-parcelle numero-parcelle="2">
+      <culture-principale production-semences="false">
+       <code-culture>PPH</code-culture>
+       <declare-sie>false</declare-sie>
+      </culture-principale>
+      <engagements-maec surface-cible="false" />
+     </descriptif-parcelle>
+     <geometrie>
+
+      <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422453.0715,6439204.8841 422453.0564,6439204.8773 422451.6275,6439204.1353 422575.1354,6439070.0135 422582.191,6439073.816 422593.263,6439086.625 422612.934,6439117.29 422614.321,6439122.229 422613.887,6439126.136 422607.156,6439151.101
+        422590.44,6439202.77 422573.073,6439250.964 422563.5186,6439271.915 422459.025,6439207.9711 422453.0715,6439204.8841
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+     </geometrie>
+     <surface-admissible>165</surface-admissible>
+    </parcelle>
+   </parcelles>
+  </ilot>
+  <sna-declaree>
+   <numeroSna>033004688509</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421810.2919,6440146.089 421805.8041,6440144.26 421805.6572,6440144.1639 421804.2377,6440142.8245 421798.6985,6440137.5979 421791.3472,6440127.6897 421792.077,6440126.9951 421799.4751,6440136.9665 421804.962,6440142.1352 421806.278,6440143.3749
+        421810.8109,6440145.396 421811.2939,6440145.6114 421811.489,6440145.608 421811.596,6440145.64 421811.7571,6440145.75 421811.8638,6440145.9133 421811.9,6440146.105 421811.86,6440146.2959 421811.75,6440146.4571 421811.5868,6440146.5638
+        421811.395,6440146.6 421811.2041,6440146.56 421811.1133,6440146.5096 421810.9784,6440146.3687 421810.2919,6440146.089
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>10</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033004860511</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        423154.4,6439972.8921 423154.3649,6439973.084 423154.2591,6439973.2479 423154.0987,6439973.3588 423153.908,6439973.3999 423153.716,6439973.3649 423153.5521,6439973.2591 423150.2884,6439970.0838 423130.0908,6439940.7873 423118.0773,6439923.9825
+        423097.4749,6439895.1632 423093.5528,6439888.8236 423089.6207,6439880.9423 423084.721,6439864.4434 423073.6218,6439827.646 423061.0244,6439786.8544 423045.1194,6439740.1379 423035.2208,6439705.6427 423023.9166,6439669.0276 423013.5178,6439629.6321
+        423001.2191,6439586.3366 423001.2034,6439586.1422 423001.2633,6439585.9565 423001.3897,6439585.8079 423001.5634,6439585.719 423001.7579,6439585.7034 423001.9435,6439585.7633 423002.0921,6439585.8897 423002.181,6439586.0634 423014.4835,6439629.3724
+        423024.8808,6439668.7624 423036.1806,6439705.3621 423046.0773,6439739.8504 423061.9778,6439786.5525 423074.5787,6439827.3556 423085.6793,6439864.1577 423090.5669,6439880.6156 423094.4371,6439888.3561 423098.3164,6439894.6227 423099.1004,6439895.7193
+        423130.9117,6439940.2162 423151.0835,6439969.4754 423154.2479,6439972.5409 423154.3589,6439972.7013 423154.4,6439972.8921
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <largeur>1.5</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>4</numeroParcelle>
+     <longueur-sie>265.6</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>5</numeroParcelle>
+     <longueur-sie>0</longueur-sie>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>7</numeroParcelle>
+     <longueur-sie>99.5</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033004896991</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421811.395,6440146.6 421809.2994,6440147.5585 421809.1259,6440147.5993 421803.3204,6440147.8996 421798.7077,6440148.0879 421798.4224,6440148.0995 421794.4971,6440148.291 421789.3088,6440152.7932 421773.0399,6440165.5688 421759.1376,6440180.5689
+        421742.6344,6440195.6717 421723.7472,6440212.6602 421699.1341,6440238.072 421675.6487,6440259.1589 421652.178,6440283.8281 421648.8508,6440288.036 421647.4804,6440292.539 421646.0822,6440297.6324 421646.0091,6440297.7876 421645.8878,6440297.9089
+        421635.092,6440305.5059 421633.3247,6440306.8054 421633.2021,6440306.666 421632.746,6440305.9898 421634.5123,6440304.6911 421645.1654,6440297.1944 421646.5217,6440292.2544 421647.9217,6440287.6544 421648.0078,6440287.4899 421651.4378,6440283.1554
+        421674.966,6440258.428 421698.453,6440237.3396 421723.0657,6440211.9283 421741.9641,6440194.9297 421758.4473,6440179.845 421772.3912,6440164.8068 421788.6816,6440152.0143 421793.9723,6440147.4224 421794.0635,6440147.3595 421794.1663,6440147.3182
+        421794.2757,6440147.3006 421798.3796,6440147.1004 421799.8064,6440147.0422 421803.2769,6440146.9005 421808.9837,6440146.6053 421810.2919,6440146.089 421810.9784,6440146.3687 421811.1133,6440146.5096 421811.2041,6440146.56 421811.395,6440146.6
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>10</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>10</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <longueur-sie>12.2</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033004930150</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422811.8529,6439623.5645 422813.197,6439624.1404 422813.3578,6439624.2508 422813.4643,6439624.4143 422813.5,6439624.6061 422813.4596,6439624.7969 422813.3493,6439624.9578 422813.1857,6439625.0642 422812.994,6439625.1 422812.8031,6439625.0596
+        422805.2605,6439621.8276 422804.1041,6439622.2432 422745.1146,6439643.4425 422743.1179,6439644.1601 422735.1754,6439647.831 422698.6407,6439664.7168 422685.174,6439670.9409 422682.9317,6439671.987 422626.4187,6439698.3512 422606.1372,6439707.8128
+        422601.1305,6439710.0447 422586.2412,6439718.9099 422585.9871,6439719.04 422581.4448,6439721.7657 422581.4393,6439721.769 422518.3713,6439759.3204 422506.5341,6439767.581 422506.2825,6439766.5385 422517.8442,6439758.4704 422600.6964,6439709.1433
+        422605.7261,6439706.9012 422650.8397,6439685.8549 422682.0179,6439671.3098 422684.7537,6439670.0335 422742.759,6439643.2265 422762.1465,6439636.2591 422803.3257,6439621.4603 422805.1075,6439620.82 422805.2915,6439620.7907 422805.4735,6439620.8309
+        422811.8529,6439623.5645
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033004972231</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424004.6166,6439512.6351 424004.5851,6439511.054 424003.5779,6439507.1216 424002.7116,6439502.6077 423994.3157,6439468.9243 423987.3166,6439442.4277 423987.3003,6439442.2833 423987.4003,6439439.2833 423987.417,6439439.1707 423987.4588,6439439.0647
+        423988.307,6439437.4909 423988.438,6439437.3742 423994.3074,6439433.7622 424001.4561,6439430.348 424002.2266,6439428.8888 424002.4331,6439428.7618 424002.3912,6439428.5772 424002.6301,6439428.125 424002.0567,6439427.1055 424002.0356,6439427.0127
+        424001.9049,6439426.8355 423973.6964,6439388.5951 423936.6939,6439337.9917 423898.194,6439284.3918 423867.1941,6439241.2919 423867.1133,6439241.1144 423867.1066,6439240.9194 423867.175,6439240.7367 423867.3081,6439240.5941 423867.424,6439240.5413
+        423867.4856,6439240.5133 423867.6806,6439240.5065 423867.8633,6439240.5749 423868.0059,6439240.708 423899.0061,6439283.8083 423933.982,6439332.502 423937.5049,6439337.4066 423940.1407,6439341.0112 423974.503,6439388.004 424002.9024,6439426.5032
+        424002.9546,6439426.5918 424002.9876,6439426.6892 424003.4876,6439428.8892 424003.5,6439428.9918 424003.491,6439429.0948 424003.461,6439429.1937 424003.4113,6439429.2843 424003.344,6439429.3628 424003.2621,6439429.4258 423989.0774,6439438.1548
+        423988.3959,6439439.4328 423988.3022,6439442.2433 423995.2852,6439468.6791 424003.6911,6439502.4058 424005.5986,6439512.3616 424006.0986,6439518.8616 424006.0957,6439518.9654 424004.8915,6439528.0918 424003.1916,6439537.1915 424000.8891,6439549.604
+        423995.7106,6439573.9622 423995.49,6439574.9999 423993.3291,6439586.066 423990.9975,6439594.4218 423988.6702,6439599.2758 423987.7977,6439602.4482 423986.4768,6439607.2506 423983.5074,6439616.6537 423984.2889,6439624.8598 423986.737,6439629.756
+        423987.4925,6439630.9755 423986.6599,6439631.5267 423985.8528,6439630.2236 423983.3528,6439625.2236 423983.3023,6439625.0474 423982.5023,6439616.6474 423982.5028,6439616.5474 423982.5232,6439616.4494 423985.5204,6439606.9584 423985.8727,6439605.682
+        423987.7492,6439598.8838 423991.2215,6439591.6415 423994.511,6439574.796 423997.3886,6439561.2602 423999.9096,6439549.4024 424002.2085,6439537.0082 424003.9061,6439527.9213 424004.359,6439524.4867 424004.8021,6439521.909 424004.7884,6439521.2299
+        424005.0975,6439518.8863 424004.6166,6439512.6351
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>139.3</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005020044</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422263.3898,6439916.0311 422263.42,6439916.1453 422266.8373,6439920.5195 422269.6224,6439924.0845 422269.8094,6439924.3238 422271.2073,6439926.3627 422272.3393,6439928.5551 422273.1906,6439930.8711 422273.716,6439933.137 422273.3786,6439933.3246
+        422271.1938,6439934.5399 422269.0091,6439935.7551 422266.8243,6439936.9703 422264.6395,6439938.1855 422262.4548,6439939.4008 422260.27,6439940.616 422260.1151,6439940.4296 422258.5171,6439938.5069 422256.9192,6439936.5843 422255.3213,6439934.6616
+        422253.7234,6439932.7389 422252.1254,6439930.8163 422250.5275,6439928.8936 422237.888,6439915.707 422239.034,6439913.092 422242.9249,6439910.1507 422244.715,6439908.4055 422246.505,6439906.6602 422247.0726,6439905.9533 422237.2168,6439893.8486
+        422229.8416,6439884.6212 422252.548,6439867.312 422253.811,6439866.3032 422255.7644,6439864.743 422257.7179,6439863.1828 422259.6713,6439861.6226 422261.6247,6439860.0625 422263.5781,6439858.5023 422265.5315,6439856.9421 422267.4849,6439855.3819
+        422269.4383,6439853.8217 422271.3917,6439852.2615 422273.3451,6439850.7013 422275.2985,6439849.1411 422277.252,6439847.5809 422279.2054,6439846.0208 422281.1588,6439844.4606 422283.1122,6439842.9004 422285.0656,6439841.3402 422287.019,6439839.78
+        422287.5042,6439840.7412 422288.6308,6439842.973 422289.7574,6439845.2048 422290.884,6439847.4366 422292.0105,6439849.6683 422293.1371,6439851.9001 422294.2637,6439854.1319 422295.0406,6439855.671 422294.6205,6439856.1941 422292.7087,6439858.0156
+        422258.9604,6439886.1426 422258.9067,6439886.2481 422258.9462,6439886.3596 422262.4814,6439890.1894 422264.1791,6439892.3006 422265.5715,6439894.6187 422266.6359,6439897.1045 422267.3527,6439899.7119 422267.7083,6439902.3925 422267.6964,6439905.0966
+        422267.317,6439907.7739 422266.5773,6439910.3749 422265.4909,6439912.8512 422264.0781,6439915.1568 422263.3898,6439916.0311
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>11</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005020477</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        419529.115,6442409.7787 419529.1983,6442409.6023 419529.3428,6442409.4712 419529.5264,6442409.4054 419681.4268,6442386.8054 419786.1256,6442371.3056 419914.1317,6442351.7047 419954.7292,6442346.105 420061.8269,6442330.2054 420163.2269,6442315.2054
+        420163.4217,6442315.215 420163.598,6442315.2985 420163.729,6442315.4431 420163.7946,6442315.6268 420163.785,6442315.8217 420163.7015,6442315.998 420163.5569,6442316.129 420163.3732,6442316.1946 420061.9733,6442331.1946 419954.8683,6442347.0953
+        419914.272,6442352.6948 419786.2732,6442372.2946 419681.5734,6442387.7946 419529.6736,6442410.3946 419529.4787,6442410.3851 419529.3023,6442410.3017 419529.1713,6442410.1572 419529.1055,6442409.9736 419529.115,6442409.7787
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>21</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>21</numeroIlot>
+     <numeroParcelle>8</numeroParcelle>
+     <longueur-sie>641.5</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005025428</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422906.072,6439620.025 422908.542,6439628.847 422900.073,6439629.2 422898.308,6439620.731 422906.072,6439620.025
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005084528</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421811.5868,6440146.5638 421811.75,6440146.4571 421811.86,6440146.2959 421811.9,6440146.105 421811.8638,6440145.9133 421817.686,6440149.8899 421836.2208,6440162.772 421847.6043,6440171.2775 421847.544,6440171.3628 421839.8277,6440178.6777
+        421817.9375,6440197.6692 421796.3438,6440218.4631 421768.1453,6440245.1617 421746.8472,6440265.6598 421722.3442,6440289.3627 421690.9639,6440319.144 421685.9923,6440325.0105 421683.1865,6440328.8101 421681.4623,6440331.1449 421708.6588,6440357.4517
+        421738.6588,6440388.3517 421738.7647,6440388.5155 421738.8,6440388.7074 421738.7591,6440388.8981 421738.6483,6440389.0587 421738.4845,6440389.1647 421738.2926,6440389.1999 421738.1019,6440389.1591 421737.9413,6440389.0483 421707.9468,6440358.1539
+        421680.4524,6440331.5594 421680.3864,6440331.4809 421680.3378,6440331.3906 421680.3086,6440331.2923 421680.3001,6440331.1901 421680.3126,6440331.0884 421680.3457,6440330.9913 421680.3978,6440330.903 421682.4718,6440328.0953 421685.2186,6440324.3767
+        421690.2558,6440318.4373 421721.6541,6440288.639 421746.1533,6440264.9397 421767.4563,6440244.4369 421795.6547,6440217.7384 421817.2724,6440196.9223 421839.164,6440177.9296 421846.41,6440171.06 421817.1133,6440150.7096 421811.395,6440146.6
+        421811.5868,6440146.5638
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>10</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>10</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <longueur-sie>270.6</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005182538</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    421939.585,6438928.142
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005259212</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        419849.204,6442204.016 419849.874,6442206.249 419844.739,6442207.588 419844.07,6442206.249 419849.204,6442204.016
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005265115</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        420308.403,6442112.266 420309.073,6442115.391 420303.046,6442117.177 420302.823,6442113.828 420308.403,6442112.266
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033005513709</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422710.078,6439692.37
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006145573</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422121.756,6438970.48
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006145588</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422127.513,6438963.676
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006145603</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422138.765,6438946.143
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006145619</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422144.5861,6438935.3028
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006483381</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B2</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422158.4237,6438921.2655 422159.5218,6438919.3755 422272.276,6438958.345 422345.025,6438983.707 422351.1426,6438985.7833 422350.1768,6438987.3338 422349.9844,6438987.6368 422246.692,6438952.56 422157.9849,6438921.9649 422158.4237,6438921.2655
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006487565</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B2</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421818.9658,6438802.3508 421962.149,6438851.113 422002.417,6438865.129 422145.467,6438914.518 422158.5616,6438919.0437 422157.5721,6438920.7413 422157.0151,6438921.6304 422144.132,6438917.187 422058.48,6438887.376 421965.708,6438855.563
+        421905.864,6438834.428 421823.771,6438806.174 421817.9409,6438803.5825 421818.9658,6438802.3508
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006488250</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B2</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422351.022,6438987.8682 422352.1119,6438986.1123 422418.441,6439008.624 422486.518,6439032.428 422551.258,6439054.453 422551.582,6439054.5763 422551.582,6439056.9987 422480.29,6439032.649 422377.062,6438996.832 422350.9587,6438987.9676
+        422351.022,6438987.8682
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516102</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422599.68,6439834.022
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516120</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422604.762,6439830.846
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516135</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422611.876,6439825.129
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516152</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422619.118,6439820.428
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516162</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422645.289,6439804.93
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516176</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422673.111,6439786.763
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516197</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422722.53,6439755.891
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006516216</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422706.522,6439767.071
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006518012</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422735.359,6439730.229
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006518019</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422763.817,6439795.658
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006518049</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422790.75,6439835.93
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006658599</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    424090.201,6438873.095
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>14</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>14</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006658617</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    424087.388,6438864.063
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>14</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>14</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006658629</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    424085.611,6438857.252
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>14</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>14</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006658725</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422235.314,6439955.84
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>11</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>11</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006659564</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    423076.485,6440114.148
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006659590</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    423082.77,6440126.718
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006659755</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    424086.8933,6439463.4802
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006659758</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    424067.4013,6439410.5707
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006666177</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    423990.044,6439439.853
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006666198</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    423994.999,6439435.988
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006668792</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    424101.01,6438902.857
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>14</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>14</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006674192</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    420009.044,6442091.282
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>22</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006679216</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    421804.679,6440146.07
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>10</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>10</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006679233</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    421805.527,6440150.73
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>10</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>10</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006692663</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422034.616,6438704.605
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006693267</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    421236.671,6441141.541
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>1</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006701208</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422969.533,6439740.215
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>7</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006701224</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    422998.958,6439724.76
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>7</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033006701244</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    423007.577,6439721.491
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>7</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007508234</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421813.895,6438966.092 421820.659,6438957.637 421826.3012,6438949.6622 421840.1655,6438937.6604 421851.5426,6438927.8708 421860.8031,6438914.1125 421868.7406,6438901.9416 421873.452,6438892.257 421879.0219,6438888.8712 421883.033,6438886.433
+        421896.7271,6438879.2482 421901.4896,6438875.8086 421907.0458,6438875.544 421916.3657,6438870.1915 421916.8354,6438879.2482 421918.1579,6438889.5672 421921.3329,6438896.7109 421922.487,6438902.027 421927.372,6438905.596 421937.1093,6438913.5636
+        421937.1338,6438913.6174 421937.4477,6438914.3083 421932.82,6438918.935 421918.917,6438925.511 421909.336,6438918.935 421898.815,6438915.741 421885.674,6438926.5479 421883.2927,6438951.9479 421879.324,6438963.3251 421889.1136,6438976.5542
+        421874.826,6438979.2001 421864.5073,6438991.3709 421855.776,6438988.7251 421847.0447,6438973.6438 421838.0489,6438978.1417 421829.865,6438977.928 421813.52,6438973.419 421813.895,6438966.092
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007516013</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424075.69,6438841.705 424079.392,6438840.372 424082.798,6438838.447 424081.613,6438833.117 424077.467,6438831.34 424067.991,6438828.675 424065.178,6438827.342 424060.439,6438825.861 424060.735,6438824.529 424066.214,6438820.827
+        424066.3864,6438820.8601 424073.3835,6438823.813 424075.098,6438824.973 424083.538,6438830.155 424088.572,6438834.153 424090.349,6438837.855 424090.1803,6438838.6644 424088.868,6438844.962 424083.538,6438847.479 424082.451,6438847.0048
+        424075.394,6438843.926 424075.69,6438841.705
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>14</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007592038</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421404.3617,6441168.7622 421413.8374,6441170.22 421426.1468,6441172.3095 421409.2818,6441201.0162 421406.733,6441204.8202 421401.8713,6441198.8671 421402.5394,6441194.8205 421392.8814,6441188.2604 421384.797,6441185.178 421386.6857,6441173.6823
+        421392.6992,6441169.8555 421404.3617,6441168.7622
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>1</numeroIlot>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007693990</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422967.596,6440191.589 422971.662,6440197.687 422971.916,6440203.785 422975.219,6440215.981 422976.235,6440223.096 422974.457,6440225.637 422972.4582,6440225.8473 422969.629,6440226.145 422964.547,6440217.252 422960.736,6440209.629
+        422954.638,6440199.466 422953.621,6440196.417 422956.0671,6440194.8987 422960.99,6440191.843 422967.596,6440191.589
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007761706</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    420251.2977,6441995.5461
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>22</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007875525</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421432.172,6439057.531 421438.689,6439063.117 421437.013,6439068.888 421436.4466,6439069.6811 421435.151,6439071.495 421430.31,6439071.495 421427.3884,6439064.045 421426.586,6439061.999 421432.172,6439057.531
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>12</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007911145</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422338.3613,6439154.7328 422308.4633,6439144.1494 422272.4799,6439127.7452 422284.6508,6439118.2202 422289.6779,6439107.1077 422286.7675,6439094.1431 422293.6466,6439080.3847 422305.8175,6439065.568 422319.5759,6439058.1597 422332.0113,6439064.7743
+        422328.207,6439070.984 422328.898,6439082.034 422325.3967,6439089.6452 422331.2176,6439093.6139 422338.6259,6439097.0535 422352.9134,6439107.6369 422361.6447,6439111.0765 422364.811,6439118.638 422357.904,6439133.141 422340.638,6439139.357
+        422339.6842,6439150.764 422338.3613,6439154.7328
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033007984791</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422578.969,6439718.033 422585.067,6439714.73 422587.862,6439714.475 422588.116,6439717.016 422588.3352,6439717.8384 422588.624,6439718.922 422548.224,6439742.553 422539.585,6439751.192 422534.504,6439753.351 422532.6845,6439751.0263
+        422532.217,6439750.429 422534.758,6439745.856 422572.743,6439720.447 422578.969,6439718.033
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <largeur>7.2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008143684</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422552.1447,6438957.8814 422546.0593,6438969.5231 422530.978,6438967.9356 422526.51,6438955.008 422517.2196,6438955.5002 422505.0488,6438951.796 422493.143,6438945.377 422480.071,6438942.281 422462.871,6438938.497 422460.463,6438929.209
+        422462.4508,6438926.9251 422471.4466,6438927.1897 422486.951,6438925.769 422493.4071,6438915.548 422510.3404,6438907.6105 422531.7717,6438907.6105 422547.1176,6438915.548 422566.1676,6438926.6605 422568.8135,6438934.0689 422536.5342,6438934.8626
+        422539.925,6438947.785 422552.1447,6438957.8814
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008144108</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422188.0784,6439077.7386 422207.6576,6439080.3844 422211.3617,6439070.8594 422216.1242,6439063.7156 422225.6493,6439063.1865 422230.6764,6439065.5677 422243.1118,6439070.3302 422253.166,6439071.3886 422268.2473,6439072.1823 422285.4452,6439076.1511
+        422281.243,6439084.797 422277.79,6439091.703 422269.8348,6439107.372 422262.1618,6439118.4845 422252.927,6439113.803 422244.64,6439112.422 422228.2951,6439108.4303 422208.9805,6439104.9907 422126.1657,6439075.8865 422132.2512,6439069.5365
+        422153.4179,6439067.1552 422188.0784,6439077.7386
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008310205</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V8</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424099.201,6439490.208 424096.552,6439487.771 424094.115,6439483.956 424092.843,6439480.035 424092.207,6439476.114 424092.101,6439471.346 424099.201,6439490.208
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008315463</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422104.0503,6438707.6847 422090.5565,6438713.5056 422086.3232,6438709.8014 422076.5336,6438696.3076 422093.2024,6438665.6159 422211.0745,6438696.8368 422186.7328,6438743.4035 422616.9461,6438925.1727 422630.1753,6438888.6601 422632.8211,6438907.7101
+        422631.4982,6438928.0831 422617.2107,6438940.2539 422603.4523,6438936.8144 422591.5461,6438930.4643 422547.8897,6438910.8851 422454.6863,6438874.0882 422429.4185,6438859.4038 422370.354,6438835.4787 422304.8694,6438814.8412 422254.8631,6438779.387
+        422226.5526,6438784.6786 422184.7484,6438764.8348 422116.7503,6438725.1473 422104.0503,6438707.6847
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008355612</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421922.3948,6438665.5203 421916.3291,6438651.6078 421915.9883,6438651.4961 421901.3664,6438646.7082 421900.6773,6438646.4825 421900.181,6438646.32 421873.7423,6438637.6626 421836.7099,6438625.5362 421834.1339,6438624.6927 421805.564,6438615.3374
+        421793.4717,6438611.3778 421778.5309,6438606.4853 421774.524,6438606.355 421761.3955,6438603.0785 421751.4736,6438601.7556 421685.063,6438581.1181 421627.6483,6438565.3753 421580.869,6438549.071 421580.7083,6438545.2116 421582.422,6438542.29
+        421584.7858,6438542.2242 421590.568,6438541.268 421595.389,6438546.515 421603.5,6438537.8 421609.0,6438539.3 421612.0,6438541.8 421625.4,6438544.5 421628.0,6438545.0 421637.5,6438549.3 421647.0,6438551.3
+        421662.0,6438557.3 421666.8,6438560.0 421670.5,6438564.3 421672.8,6438565.0 421675.0,6438564.3 421678.0,6438561.3 421679.5,6438561.0 421683.0,6438561.8 421689.0,6438562.3 421691.0,6438563.3
+        421694.0,6438566.3 421696.0,6438566.8 421703.0,6438567.3 421707.5,6438571.8 421711.3,6438573.0 421716.9,6438571.1 421719.5,6438570.3 421724.9325,6438568.0363 421812.3122,6438596.5818 421853.3227,6438610.3402
+        421849.6185,6438577.0026 421857.0269,6438546.5755 421891.6874,6438552.1318 421886.3957,6438574.886 421897.2436,6438603.461 421934.8145,6438619.0715 421966.8292,6438629.6548 422007.3105,6438634.4173 422028.7418,6438642.884 422024.5637,6438668.9676
+        422019.0,6438670.8 422014.5,6438670.0 422007.8,6438667.0 422004.0,6438668.8 422000.5,6438670.0 422000.0,6438669.7 421994.5,6438666.8 421983.5,6438662.8 421977.5,6438661.5 421973.5,6438663.0
+        421971.0,6438661.8 421970.3,6438661.0 421969.3,6438656.0 421968.0,6438654.3 421961.3,6438652.5 421958.5,6438653.3 421955.8,6438657.0 421950.9684,6438659.8338 421946.76,6438658.082 421939.772,6438661.953
+        421932.7135,6438672.9287 421923.4531,6438682.1891 421913.9281,6438692.7725 421904.8976,6438700.6612 421903.013,6438699.963 421903.1551,6438699.4184 421908.1072,6438690.6558 421917.6323,6438678.2203 421922.3948,6438665.5203
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+  <gml:innerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421904.9448,6438696.2595 421903.4234,6438698.9715 421903.0927,6438699.9637 421903.5557,6438700.129 421938.0508,6438658.6886 421936.9264,6438658.1263 421904.9448,6438696.2595
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:innerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008361714</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422453.455,6439193.0973 422442.6071,6439200.7702 422424.6154,6439194.4202 422412.7091,6439187.2764 422396.0403,6439182.7785 422366.4069,6439167.4326 422371.6986,6439155.791 422389.9549,6439148.3826 422402.6549,6439148.118 422409.7987,6439146.0014
+        422425.1446,6439143.0909 422435.4633,6439140.1805 422445.615,6439143.501 422455.284,6439151.789 422456.666,6439166.292 422454.594,6439173.889 422453.903,6439184.939 422453.455,6439193.0973
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008370774</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        419429.517,6442202.676 419431.5566,6442200.0691 419434.0701,6442214.3567 419435.3075,6442228.5046 419438.67,6442247.77 419440.903,6442261.834 419441.8753,6442268.3318 419442.4049,6442271.3989 419442.019,6442275.005 419441.572,6442278.8
+        419438.224,6442275.228 419433.089,6442272.773 419428.624,6442270.987 419424.16,6442269.647 419422.151,6442267.638 419422.597,6442262.504 419423.713,6442259.378 419425.946,6442254.021 419425.946,6442249.779 419424.829,6442245.314
+        419423.713,6442239.733 419425.946,6442234.376 419427.508,6442241.966 419428.178,6442245.984 419430.187,6442247.323 419433.089,6442245.091 419433.536,6442240.626 419429.517,6442202.676
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008415357</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422416.776,6438872.45 422410.3277,6438879.0357 422401.3318,6438880.8878 422394.188,6438874.0087 422381.7526,6438867.3941 422372.4922,6438873.4795 422363.4963,6438867.1295 422357.266,6438849.746 422333.5983,6438852.3128 422322.7504,6438843.5815
+        422310.8441,6438834.3211 422301.8483,6438840.4065 422291.0003,6438837.7607 422272.2149,6438844.9044 422267.9815,6438833.2627 422250.519,6438832.7336 422235.9669,6438826.119 422233.0565,6438814.7419 422252.3711,6438794.3689 422268.2461,6438795.4272
+        422291.7941,6438816.0648 422304.4941,6438817.1231 422314.8129,6438822.6794 422334.1275,6438824.5315 422353.826,6438839.083 422361.394,6438837.019 422368.961,6438836.331 422379.9005,6438840.4065 422393.6589,6438847.0211 422406.6235,6438852.0482
+        422418.0006,6438859.9857 422416.776,6438872.45
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008505148</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421812.4566,6438810.92 421818.5421,6438813.8305 421831.7713,6438817.9315 421839.3119,6438819.9159 421864.3151,6438828.9117 421875.4276,6438833.1451 421879.1318,6438833.4097 421888.3922,6438837.5107 421905.7225,6438844.5222 421904.6641,6438847.6972
+        421900.4308,6438851.4014 421899.9611,6438863.0482 421894.6694,6438870.9857 421889.3778,6438876.8065 421879.5286,6438876.5368 421872.1203,6438881.2993 421861.3319,6438883.4211 421855.7756,6438889.242 421841.2235,6438883.9503 421831.6985,6438888.1836
+        421805.1806,6438879.7118 421800.4181,6438883.1514 421796.9785,6438887.3848 421789.041,6438887.9139 421785.0722,6438883.6806 421779.2514,6438883.6806 421771.3138,6438885.7973 421762.6487,6438889.3691 421756.8279,6438888.5754 421754.7112,6438882.1592
+        421779.0529,6438851.6659 421812.4566,6438810.92
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008582327</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422554.274,6439811.413 422564.2746,6439821.4136 422567.348,6439824.487 422594.753,6439863.961 422600.787,6439876.281 422600.4015,6439876.5985 422596.513,6439879.801 422553.519,6439814.179 422554.274,6439811.413
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <largeur>7.2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008587681</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        423055.492,6440155.251 423062.155,6440152.36 423067.685,6440146.578 423071.582,6440142.304 423077.616,6440140.544 423075.9394,6440147.3491 423075.479,6440149.218 423069.194,6440153.869 423064.291,6440157.137 423060.018,6440161.662
+        423057.001,6440164.051 423055.5326,6440162.7398 423053.481,6440160.908 423055.492,6440155.251
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <largeur>7.5</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>2</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <longueur-sie>5.1</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008623219</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421322.9668,6441295.6184 421324.3558,6441294.8908 421333.872,6441300.236 421338.757,6441303.773 421338.7392,6441303.9868 421338.42,6441307.816 421336.659,6441306.2018 421329.1845,6441300.5132 421322.9668,6441295.6184
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>1</numeroIlot>
+     <largeur>3.2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>17.3</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008659230</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424071.756,6439417.831 424075.783,6439423.766 424076.631,6439429.064 424084.897,6439452.059 424083.625,6439451.317 424080.34,6439445.912 424079.068,6439440.826 424076.419,6439434.68 424072.71,6439426.732 424071.015,6439420.904
+        424071.756,6439417.831
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <largeur>3.6</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>34.8</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008659639</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422519.894,6439757.417 422524.34,6439757.925 422525.5418,6439759.2336 422530.057,6439764.15 422536.028,6439773.678 422542.253,6439782.571 422545.429,6439788.415 422545.811,6439792.354 422545.4594,6439792.6414 422544.413,6439793.497
+        422541.618,6439794.387 422521.799,6439765.166 422518.623,6439759.576 422519.894,6439757.417
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <largeur>7.4</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008660444</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        423225.2148,6439827.3671 423233.1524,6439823.3983 423234.1164,6439828.6735 423238.7086,6439841.1255 423243.3388,6439853.164 423261.4474,6439886.8095 423254.5334,6439886.9959 423252.5993,6439885.9724 423237.518,6439857.7942 423230.3742,6439843.7713
+        423222.0398,6439830.4098 423225.2148,6439827.3671
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <largeur>12.4</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <longueur-sie>14.1</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008687945</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422630.075,6439924.048 422628.566,6439924.174 422606.064,6439887.467 422607.5794,6439887.5208 422609.584,6439887.592 422629.823,6439921.283 422629.832,6439921.3818 422630.075,6439924.048
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>3</numeroIlot>
+     <largeur>2.9</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>3</numeroIlot>
+     <numeroParcelle>2</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008722819</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421514.3239,6438875.4828 421501.572,6438899.034 421497.563,6438896.794 421508.5022,6438872.9366 421509.317,6438873.225 421514.3239,6438875.4828
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>12</numeroIlot>
+     <largeur>6.3</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>12</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>26.5</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008727842</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421225.509,6441150.552 421228.161,6441154.088 421184.842,6441200.059 421178.6364,6441194.8783 421187.494,6441186.504 421225.509,6441150.552
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>1</numeroIlot>
+     <largeur>8</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>4</numeroParcelle>
+     <longueur-sie>0.3</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>32.4</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <longueur-sie>31</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033008782387</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421899.567,6438993.334 421908.585,6438982.249 421914.785,6438973.607 421919.294,6438965.153 421922.864,6438962.335 421922.864,6438964.778 421921.7446,6438967.8559 421919.106,6438975.111 421916.664,6438981.123 421911.967,6438988.073
+        421908.961,6438997.091 421905.203,6438999.158 421904.9216,6438999.0812 421899.004,6438997.467 421899.567,6438993.334
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <largeur>6</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033048166799</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        420123.751,6442420.176 420134.002,6442455.459 420131.738,6442455.6403 420120.6524,6442419.7324 420123.751,6442420.176
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>21</numeroIlot>
+     <largeur>2.8</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>21</numeroIlot>
+     <numeroParcelle>8</numeroParcelle>
+     <longueur-sie>37.1</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033048768723</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V8</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422797.1212,6439811.5196 422792.0941,6439799.481 422800.9576,6439792.4695 422815.1129,6439792.8664 422816.965,6439803.9789 422810.8795,6439808.3446 422804.7941,6439812.181 422797.1212,6439811.5196
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>2</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033048796291</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422429.3686,6438859.7793 422430.0962,6438860.2093 422392.4424,6438921.1666 422546.4761,6438986.063 422580.8794,6438922.4763 422581.7723,6438922.8401 422547.1398,6438986.9379 422547.0246,6438987.0803 422546.8658,6438987.1717 422546.6848,6438987.1998
+        422546.5058,6438987.1607 422391.9357,6438921.9557 422352.1119,6438986.1123 422351.022,6438987.8682 422350.9587,6438987.9676 422259.8007,6439131.1965 422259.0101,6439130.9194 422349.9844,6438987.6368 422350.1768,6438987.3338 422351.1426,6438985.7833
+        422391.1379,6438921.576 422202.647,6438845.154 422159.5218,6438919.3755 422158.4237,6438921.2655 422157.9849,6438921.9649 422068.9769,6439063.8284 422068.1252,6439063.5215 422157.0151,6438921.6304 422157.5721,6438920.7413 422158.5616,6438919.0437
+        422202.0089,6438844.506 422202.068,6438844.3483 422202.1972,6438844.2022 422241.8121,6438781.3467 422242.6389,6438781.7435 422203.1615,6438844.4041 422391.5843,6438920.8715 422429.3686,6438859.7793
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <largeur>0.9</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033051290791</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V2</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422920.268,6439589.419 422928.0088,6439587.8356 422929.4198,6439591.5489 422878.361,6439605.468 422839.1299,6439611.8079 422856.7247,6439605.524 422874.0549,6439601.4229 422895.6185,6439595.8005 422920.268,6439589.419
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>7</numeroParcelle>
+     <longueur-sie>69.2</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033051290792</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V2</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422931.139,6439587.5322 422936.616,6439586.075 422963.292,6439578.57 422975.032,6439577.307 422987.887,6439575.97 422999.0047,6439576.6842 423011.2417,6439575.4936 423005.3382,6439578.3343 423000.816,6439579.759 422996.581,6439581.022
+        422963.9474,6439581.9759 422931.0728,6439589.9134 422931.139,6439587.5322
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>7</numeroParcelle>
+     <longueur-sie>11.2</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>4</numeroParcelle>
+     <longueur-sie>6.7</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052161309</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V8</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421460.9389,6439080.3703 421461.468,6439074.814 421552.4849,6438893.574 421554.6016,6438894.6324 421461.9972,6439079.3119 421460.9389,6439080.3703
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>12</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052161333</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V8</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421422.8389,6439054.3128 421422.5743,6439050.8732 421497.9807,6438898.2083 421500.0974,6438899.7958 421423.8972,6439054.3128 421422.8389,6439054.3128
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>12</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052317746</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422240.1516,6439911.1856 422145.8283,6439812.0584 422147.2817,6439810.6844 422223.1504,6439891.0888 422241.4083,6439910.0611 422240.1516,6439911.1856
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>11</numeroIlot>
+     <largeur>2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>11</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>136.9</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052317805</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    421137.0305,6441171.6614
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>1</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>4</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052317813</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421186.4079,6441202.4526 421335.5342,6441305.9377 421334.7405,6441307.3929 421317.8733,6441295.4205 421290.4227,6441275.6428 421185.2899,6441204.1109 421141.9041,6441175.5398 421143.0041,6441173.8694 421186.3959,6441202.4445 421186.4079,6441202.4526
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>1</numeroIlot>
+     <largeur>2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>4</numeroParcelle>
+     <longueur-sie>186.3</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <longueur-sie>10.5</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>1</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>36.6</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052317838</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424102.2288,6438834.5133 424159.7758,6438814.6695 424160.4278,6438816.5603 424102.8808,6438836.4041 424102.2288,6438834.5133
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>14</numeroIlot>
+     <largeur>2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>14</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052375107</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421814.7201,6438804.957 421760.9765,6438873.6826 421733.9559,6438908.0786 421706.2077,6438941.1185 421705.5852,6438940.9391 421733.4929,6438907.6486 421760.4473,6438873.3188 421814.1248,6438804.6263 421814.7201,6438804.957
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033052985215</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        419590.6115,6442251.4446 419590.6115,6442246.4175 419597.7552,6442244.0363 419600.1365,6442249.5925 419590.6115,6442251.4446
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053103049</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A1</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        420048.7028,6442504.7054 420043.6757,6442478.7762 420048.5705,6442477.1887 420053.4653,6442478.1147 420061.4028,6442502.0596 420048.7028,6442504.7054
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>23</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053103155</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        420087.5321,6442163.764 420087.3998,6442162.1765 420092.2946,6442162.0442 420092.2946,6442163.4994 420087.5321,6442163.764
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>22</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053141335</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        423989.2911,6439601.4799 423991.1102,6439594.6669 423993.756,6439584.8111 423996.4018,6439585.0095 423997.4271,6439586.597 423996.3688,6439587.7877 423994.7151,6439588.9122 423994.9136,6439589.8382 423995.6412,6439590.1028 423995.5089,6439591.095
+        423995.9719,6439591.7564 423995.4427,6439593.3439 423994.3182,6439594.4023 423994.649,6439595.659 423992.0693,6439596.6512 423992.4662,6439597.9742 423993.2599,6439600.0247 423992.863,6439601.9429 423991.1432,6439602.1414 423989.2911,6439601.4799
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053141577</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V8</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424006.2246,6439518.9298 424005.6955,6439512.3483 424005.3317,6439510.6947 424003.8765,6439502.8895 424006.4561,6439504.0139 424006.9192,6439505.9983 424008.1429,6439507.2882 424007.1507,6439508.6442 424007.6468,6439511.5546 424007.8121,6439516.6478
+        424007.2499,6439519.9551 424008.209,6439523.527 424007.8121,6439527.2973 424007.6137,6439530.5054 424007.0845,6439532.2583 424006.7869,6439533.2505 424006.5554,6439534.4411 424006.6877,6439536.4585 424006.0593,6439536.9546 424005.8939,6439538.6744
+        424005.7947,6439540.0966 424005.2986,6439540.8242 424005.0009,6439542.1802 424004.9679,6439543.6684 424004.6041,6439545.719 424004.2733,6439546.645 424004.4387,6439548.2987 424003.8765,6439549.6877 424003.5788,6439551.6721 424002.8843,6439553.1935
+        424001.0983,6439553.7226 424002.5205,6439555.8393 424001.9252,6439556.8315 424001.9913,6439558.5513 424001.2968,6439560.0396 424001.2306,6439561.7594 424000.4369,6439563.0492 424000.4038,6439564.769 424000.3046,6439566.0588 423999.1139,6439567.018
+        423999.2793,6439568.1424 423999.9408,6439569.5977 423999.0809,6439570.6891 423999.7423,6439571.4167 423999.7423,6439573.0703 423999.0809,6439573.9964 423999.2132,6439575.6169 423996.865,6439575.65 423997.758,6439577.5352 423998.0887,6439579.255
+        423996.5012,6439581.1401 423996.7076,6439583.6766 423993.9876,6439582.9591 423995.7074,6439574.6248 423997.4603,6439565.9266 424001.2306,6439548.3317 424004.8025,6439528.8187 424006.2246,6439518.9298
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053141589</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V8</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        423997.8571,6439475.9678 423998.6177,6439474.1487 424000.6021,6439475.0748 424000.7344,6439478.4813 424001.6274,6439479.6389 424002.5203,6439482.7808 424003.281,6439484.7982 424004.2732,6439487.3118 424004.7693,6439490.3876 424005.4638,6439493.3972
+        424005.9599,6439495.8446 424005.8276,6439498.292 424002.818,6439498.4574 423997.7836,6439477.3491 423997.8571,6439475.9678
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053178210</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V2</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424141.4954,6439642.1459 424140.7017,6439639.8969 424140.1725,6439635.5313 424139.9079,6439629.7104 424136.7329,6439610.6604 424134.3213,6439603.3741 424132.371,6439595.119 424130.252,6439589.397 424127.2079,6439578.5135 424129.616,6439576.256
+        424131.1767,6439579.8364 424133.8225,6439587.7739 424137.3944,6439599.4156 424138.9819,6439605.7656 424140.7017,6439613.7031 424141.4954,6439620.45 424144.2736,6439627.3292 424147.4486,6439633.9438 424148.7715,6439637.3834 424150.2267,6439639.7646
+        424150.0944,6439641.2198 424146.9194,6439642.8073 424144.009,6439643.3365 424141.4954,6439642.1459
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>73</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053187873</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        419449.6659,6442310.2818 419469.5449,6442463.7348 419468.5531,6442463.8632 419448.6741,6442310.4102 419449.6659,6442310.2818
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>21</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>21</numeroIlot>
+     <numeroParcelle>8</numeroParcelle>
+     <longueur-sie>102.6</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+    <intersectionSnaParcelle>
+     <numeroIlot>21</numeroIlot>
+     <numeroParcelle>3</numeroParcelle>
+     <longueur-sie>52.1</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053483427</numeroSna>
+   <categorieSna>EA</categorieSna>
+   <typeSna>B3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        419861.5413,6442427.9443 419860.7476,6442425.563 419875.0351,6442421.5942 419879.2684,6442440.3797 419865.2455,6442443.5547 419866.5684,6442441.1735 419877.4164,6442438.5276 419874.2414,6442423.9755 419861.5413,6442427.9443
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>21</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053619399</numeroSna>
+   <categorieSna>AT</categorieSna>
+   <typeSna>A4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424129.4992,6439576.256 424128.4595,6439576.256 424127.8118,6439574.0078 424125.6147,6439564.0597 424124.2205,6439557.7471 424121.1068,6439549.8928 424116.7112,6439538.8053 424115.6222,6439533.749 424115.3188,6439532.3405 424112.1985,6439523.9547
+        424096.1317,6439480.775 424080.9222,6439440.2474 424072.2307,6439412.0747 424062.8675,6439389.7341 424059.8579,6439384.1117 424035.45,6439346.3093 424026.6857,6439332.2863 424013.688,6439314.3608 423966.2613,6439247.1565 423966.7905,6439246.7596
+        423997.2507,6439289.3245 424027.3471,6439331.7902 424060.387,6439383.5164 424063.529,6439389.1719 424072.1923,6439409.5066 424074.6836,6439416.6333 424081.8734,6439439.9383 424095.815,6439477.0853 424097.0686,6439480.4256 424116.2888,6439532.0947
+        424117.6801,6439538.5541 424125.1883,6439557.4922 424128.7849,6439573.7767 424129.4992,6439576.256
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>20</numeroIlot>
+     <largeur>1</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>20</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <longueur-sie>115.6</longueur-sie>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053632188</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    423008.6348,6439604.4591
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>4</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>4</numeroIlot>
+     <numeroParcelle>4</numeroParcelle>
+     <declare-sie>true</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033053632208</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V1</typeSna>
+   <geometrie>
+
+    <gml:Point>
+  <gml:coordinates>
+    421957.0099,6438917.1766
+  </gml:coordinates>
+</gml:Point>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646799</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V3</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421973.4998,6439013.1806 421977.7331,6439021.1181 421972.706,6439027.9973 421959.2123,6439025.616 421939.1039,6439016.6202 421946.5122,6439006.3014 421955.2435,6439012.916 421966.356,6439008.9472 421973.4998,6439013.1806
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646821</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422453.0551,6439204.8778 422442.6071,6439200.7702 422453.455,6439193.0973 422453.903,6439184.939 422454.594,6439173.889 422456.666,6439166.292 422455.284,6439151.789 422445.615,6439143.501 422435.4633,6439140.1805 422425.1446,6439143.0909
+        422409.7987,6439146.0014 422402.6549,6439148.118 422389.9549,6439148.3826 422371.6986,6439155.791 422366.4069,6439167.4326 422353.1775,6439162.141 422338.3613,6439154.7328 422339.6842,6439150.764 422340.638,6439139.357 422357.904,6439133.141
+        422364.811,6439118.638 422361.6447,6439111.0765 422352.9134,6439107.6369 422338.6259,6439097.0535 422331.2176,6439093.6139 422325.3967,6439089.6452 422328.898,6439082.034 422328.207,6439070.984 422332.0113,6439064.7743 422336.2442,6439072.1825
+        422343.9171,6439075.8867 422351.59,6439076.4158 422359.5276,6439078.2679 422366.4067,6439085.9409 422361.3796,6439097.318 422366.6713,6439098.9055 422371.6984,6439095.4659 422375.4026,6439093.3492 422384.663,6439096.7888 422382.0172,6439105.5201
+        422383.0755,6439110.2826 422387.3089,6439110.018 422390.2193,6439113.9867 422401.3318,6439115.3097 422407.6818,6439111.0763 422412.1797,6439111.6055 422406.0943,6439120.3368 422404.5068,6439127.7451 422408.211,6439133.8305 422412.1797,6439131.9784
+        422416.1485,6439127.4805 422423.0277,6439131.1847 422429.6423,6439129.3326 422433.8756,6439123.5118 422439.961,6439122.9826 422443.9298,6439126.1576 422449.7506,6439132.243 422459.0111,6439127.2159 422449.7506,6439109.4888 422459.5403,6439111.3409
+        422470.3882,6439119.0138 422481.5007,6439120.8659 422485.7341,6439122.718 422488.3799,6439130.3909 422483.3528,6439132.7722 422476.4736,6439129.8618 422471.4465,6439133.0368 422464.0382,6439138.3285 422466.684,6439141.5035 422472.7694,6439140.7097
+        422482.2945,6439141.2389 422484.4111,6439144.4139 422483.3528,6439154.2035 422490.7611,6439157.1139 422481.2361,6439170.3431 422463.2444,6439192.3036 422457.4236,6439198.9182 422453.0551,6439204.8778
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646843</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422301.3201,6439057.366 422298.4097,6439069.5369 422287.0326,6439069.2723 422285.4452,6439076.1511 422268.2473,6439072.1823 422253.166,6439071.3886 422243.1118,6439070.3302 422228.295,6439063.9806 422225.6493,6439063.1865 422216.1242,6439063.7156
+        422211.3617,6439070.8594 422207.6576,6439080.3844 422188.0784,6439077.7386 422153.4179,6439067.1552 422132.2512,6439069.5365 422126.1657,6439075.8865 422105.5281,6439067.6848 422109.7614,6439051.8098 422114.7885,6439039.3743 422124.5781,6439038.8452
+        422133.574,6439039.1098 422139.6594,6439040.4327 422132.7802,6439052.6035 422144.6865,6439055.514 422150.7719,6439054.7202 422151.3011,6439047.5764 422157.6511,6439043.0785 422163.7365,6439033.8181 422169.2928,6439033.2889 422174.0553,6439047.5764
+        422179.8761,6439049.1639 422176.9657,6439031.966 422184.1095,6439030.3785 422188.3428,6439022.1764 422195.7512,6439014.5035 422201.3074,6439022.441 422199.1908,6439033.5535 422200.5137,6439040.9618 422204.747,6439044.4014 422196.8095,6439049.4285
+        422191.2532,6439051.2806 422187.0199,6439052.0744 422182.2574,6439054.9848 422188.3428,6439059.2181 422187.0199,6439065.5681 422190.7241,6439070.0661 422197.3387,6439071.389 422205.8053,6439066.0973 422210.3033,6439062.3931 422215.3304,6439057.6306
+        422211.8908,6439054.191 422204.2178,6439051.2806 422208.9804,6439047.5764 422214.272,6439040.6973 422221.945,6439036.7285 422221.4158,6439026.9389 422230.6762,6439028.2618 422235.1742,6439032.4952 422246.8158,6439040.4327 422245.7575,6439042.2848
+        422237.5554,6439047.3119 422235.9679,6439054.4556 422244.9638,6439054.4556 422253.1659,6439049.6931 422260.5742,6439041.7556 422274.8617,6439048.6348 422285.1805,6439051.016 422299.468,6439055.2494 422301.3201,6439057.366
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646844</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422076.4235,6439057.3659 422076.6881,6439055.5138 422077.7464,6439052.6034 422076.9527,6439048.8992 422080.1277,6439044.9305 422092.8277,6439039.3742 422096.7964,6439029.8492 422108.1736,6439025.8804 422113.4652,6439031.4367 422114.7885,6439039.3743
+        422109.7614,6439051.8098 422105.5281,6439067.6848 422086.7423,6439061.5993 422076.4235,6439057.3659
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646853</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421953.8772,6438988.7859 421949.1147,6438984.2879 421945.6751,6438978.4671 421948.3209,6438964.9733 421948.3209,6438946.4525 421953.0834,6438931.3712 422042.2482,6438966.2962 422037.7503,6438976.8796 422035.6336,6438982.7004 422033.2523,6438987.7275
+        422035.8982,6438991.1671 422042.2482,6438993.2838 422049.1274,6438991.4317 422053.6253,6438984.5525 422056.0066,6438981.1129 422061.2982,6438977.9379 422065.267,6438978.9963 422075.3212,6438981.9067 422076.3795,6438984.8171 422075.8503,6438989.315
+        422077.7024,6438992.7546 422082.7295,6438990.638 422085.9045,6438986.4046 422095.9587,6438986.6692 422100.1921,6438986.14 422104.9546,6438989.0505 422062.6211,6439049.6402 422055.4774,6439048.3172 422033.5169,6439038.5276 422025.5794,6439032.4422
+        422016.8481,6439029.2672 422012.3502,6439026.3568 422005.7356,6439024.2401 421999.3856,6439027.4151 421997.5335,6439023.1818 422000.1794,6439018.6839 421999.3856,6439011.2755 421991.7127,6439003.6026 421976.1022,6438996.4588 421970.2814,6438989.315
+        421962.0793,6438989.0505 421961.8147,6438989.0505 421953.8772,6438988.7859
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646869</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V6</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422173.3863,6438922.22 422171.7988,6438918.2512 422171.6665,6438912.9596 422172.8572,6438909.2554 422177.2228,6438900.5241 422189.7905,6438885.8397 422190.8489,6438874.5949 422195.0822,6438868.2449 422196.9343,6438862.5563 422203.0197,6438865.0699
+        422207.5177,6438862.0272 422206.5916,6438859.249 422206.0625,6438854.7511 422208.4437,6438852.3699 422213.3385,6438857.6615 422243.6334,6438866.7897 422244.6917,6438870.4939 422244.9563,6438875.2564 422239.9292,6438879.8866 422239.5323,6438884.1199
+        422241.7813,6438887.9564 422244.4271,6438891.396 422246.8084,6438896.8199 422251.5709,6438898.5397 422255.5396,6438898.672 422258.4501,6438897.3491 422265.0647,6438898.1429 422270.0917,6438897.0845 422272.473,6438893.9095 422274.8543,6438890.2053
+        422278.5584,6438889.4116 422286.4959,6438888.0887 422289.4064,6438889.147 422290.9939,6438891.2637 422292.9782,6438894.9679 422298.1376,6438896.0262 422301.4449,6438892.7189 422306.7366,6438892.5866 422316.9231,6438896.5554 422317.4523,6438902.3762
+        422315.6002,6438907.1387 422315.2033,6438909.7846 422315.8648,6438913.7533 422317.4523,6438916.2669 422318.5106,6438918.6481 422316.1293,6438920.6325 422312.1606,6438923.8075 422307.1335,6438922.7492 422304.4876,6438919.3096 422302.371,6438913.4887
+        422301.8418,6438909.7846 422302.5033,6438906.345 422301.1803,6438902.3762 422297.2116,6438902.2439 422294.4335,6438907.1387 422289.8032,6438910.0491 422287.0251,6438910.5783 422282.7918,6438910.5783 422278.2938,6438909.7846 422275.648,6438908.4616
+        422273.0022,6438905.8158 422271.1501,6438902.9054 422267.7105,6438902.9054 422264.0063,6438904.7575 422265.5938,6438909.52 422269.298,6438917.8544 422275.9126,6438926.1888 422280.6751,6438928.57 422284.1147,6438930.6867 422286.2314,6438933.5971
+        422289.1418,6438936.2429 422291.7876,6438935.8461 422293.3751,6438934.1263 422295.7564,6438932.8034 422298.2699,6438933.7294 422299.196,6438936.2429 422302.1064,6438939.1534 422305.546,6438941.5346 422307.9272,6438945.2388 422309.2502,6438948.6784
+        422309.2502,6438953.1763 422307.1335,6438954.7638 422302.9001,6438952.118 422294.4335,6438948.4138 422289.9355,6438945.3711 422283.7178,6438943.3867 422277.3678,6438944.5773 422273.0022,6438946.0325 422267.1813,6438950.2659 422253.6875,6438944.7096
+        422236.3573,6438939.0211 422231.0656,6438935.9784 422226.7,6438935.3169 422221.8052,6438938.6242 422173.3863,6438922.22
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646882</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422419.0593,6438924.8088 422405.8301,6438922.9567 422402.1259,6438916.3421 422413.503,6438894.3817 422426.9968,6438874.8025 422428.7447,6438866.9949 422430.8613,6438860.3803 422454.6863,6438874.0882 422547.8897,6438910.8851 422591.5461,6438930.4643
+        422603.4523,6438936.8144 422600.0349,6438944.1231 422587.0703,6438945.9752 422570.9307,6438952.8544 422557.1724,6438981.9586 422538.1223,6438978.519 422530.978,6438967.9356 422546.0593,6438969.5231 422552.1447,6438957.8814 422539.925,6438947.785
+        422536.5342,6438934.8626 422568.8135,6438934.0689 422566.1676,6438926.6605 422531.7717,6438907.6105 422510.3404,6438907.6105 422493.4071,6438915.548 422486.951,6438925.769 422471.4466,6438927.1897 422462.4508,6438926.9251 422460.463,6438929.209
+        422462.871,6438938.497 422480.071,6438942.281 422493.143,6438945.377 422493.6722,6438958.1461 422482.5597,6438957.0877 422474.093,6438953.3836 422461.3927,6438943.5943 422448.6927,6438941.4776 422435.728,6438935.6567 422436.7864,6438925.6026
+        422432.0239,6438922.163 422425.9384,6438917.4005 422419.5884,6438921.3692 422419.0593,6438924.8088
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646886</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V5</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422217.7106,6438825.8549 422226.1773,6438809.4507 422233.0565,6438814.7419 422235.9669,6438826.119 422250.519,6438832.7336 422267.9815,6438833.2627 422272.2149,6438844.9044 422291.0003,6438837.7607 422301.8483,6438840.4065 422310.8441,6438834.3211
+        422322.7504,6438843.5815 422333.5983,6438852.3128 422357.266,6438849.746 422363.4963,6438867.1295 422372.4922,6438873.4795 422360.5859,6438880.3591 422350.0025,6438882.4758 422343.6525,6438884.8571 422335.715,6438879.3008 422321.9567,6438886.7092
+        422312.1671,6438887.7675 422296.8212,6438880.0946 422280.9462,6438872.157 422275.6545,6438864.4841 422265.0711,6438862.1029 422259.2503,6438862.632 422253.694,6438862.1029 422249.7253,6438854.4299 422245.7565,6438857.8695 422238.8773,6438853.107
+        422230.6752,6438849.6674 422224.3252,6438851.7841 422213.2127,6438847.0216 422207.921,6438838.5549 422214.0064,6438829.8236 422217.7106,6438825.8549
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+  </sna-declaree>
+  <sna-declaree>
+   <numeroSna>033054646919</numeroSna>
+   <categorieSna>VG</categorieSna>
+   <typeSna>V4</typeSna>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421756.4793,6438952.3732 421731.3438,6438944.9648 421731.9092,6438943.0464 421756.8472,6438950.3966 421763.2574,6438949.6273 421763.5861,6438949.6424 421770.9945,6438951.2299 421771.0882,6438951.2548 421788.5507,6438956.8111 421788.8318,6438956.9525
+        421795.4464,6438961.715 421795.6303,6438961.8863 421806.2136,6438974.5863 421804.6772,6438975.8667 421794.175,6438963.264 421787.7925,6438958.6686 421770.528,6438953.1753 421763.3302,6438951.6329 421756.8812,6438952.4069 421756.4793,6438952.3732
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+   <intersectionsSnaIlots>
+    <intersectionSnaIlot>
+     <numeroIlot>13</numeroIlot>
+     <largeur>2</largeur>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaIlot>
+   </intersectionsSnaIlots>
+   <intersectionsSnaParcelles>
+    <intersectionSnaParcelle>
+     <numeroIlot>13</numeroIlot>
+     <numeroParcelle>1</numeroParcelle>
+     <declare-sie>false</declare-sie>
+    </intersectionSnaParcelle>
+   </intersectionsSnaParcelles>
+  </sna-declaree>
+  <zdh-declaree>
+   <numeroZdh>033000534491</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422746.557,6439767.815 422741.432,6439772.535 422703.441,6439797.718 422628.326,6439848.301 422595.91,6439869.764 422592.504,6439864.582 422525.639,6439762.332 422525.421,6439755.385 422585.987,6439719.04 422677.832,6439672.043
+        422681.512,6439670.935 422684.342,6439673.032 422746.557,6439767.815
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033006405549</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422518.4041,6439130.9464 422453.0389,6439204.8717 422451.4924,6439204.282 422518.4041,6439130.9464
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033000534474</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422835.7874,6440033.4065 422841.6544,6440034.8732 422841.077,6440035.869 422841.816,6440037.969 422909.68,6440120.754 422911.416,6440125.096 422910.331,6440127.701 422903.167,6440133.563 422902.335,6440138.643 422934.729,6440188.247
+        422946.151,6440185.665 422953.749,6440191.092 422974.209,6440224.69 422944.346,6440244.43 422893.73,6440173.568 422834.51,6440215.579 422746.5746,6440094.581 422835.7874,6440033.4065
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033005656084</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421816.8614,6438804.8797 421887.712,6438719.736 421939.772,6438661.953 421947.6541,6438656.5105 421954.8835,6438651.9211 422017.8029,6438666.078 422127.541,6438733.334 422243.829,6438781.7404 422152.5124,6438919.1604 422352.3775,6438984.4329
+        422393.6526,6438923.5786 422537.057,6438983.3746 422536.5279,6439010.3621 422566.127,6439020.63 422551.582,6439048.201 422551.582,6439057.319 422573.819,6439069.304 422582.191,6439073.816 422593.263,6439086.625 422612.934,6439117.29
+        422614.321,6439122.229 422613.887,6439126.136 422607.156,6439151.101 422590.44,6439202.77 422573.073,6439250.964 422560.698,6439278.1 422453.237,6439216.012 422446.6908,6439212.1052 422448.0924,6439210.4659 422518.4041,6439130.9464
+        422311.4996,6439052.1004 422109.3579,6438984.1025 421957.243,6438933.4853 421950.9511,6438910.6771 421970.716,6438858.6897 421816.8614,6438804.8797
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033007006607</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424106.673,6438917.86 424102.935,6438913.384 424082.094,6438848.472 424083.388,6438843.154 424090.777,6438838.27 424088.606,6438830.237 424064.943,6438820.251 424049.312,6438822.856 424046.035,6438820.355 424036.625,6438796.625
+        424036.287,6438793.983 424037.856,6438791.264 424139.84,6438758.596 424142.445,6438761.853 424159.596,6438812.869 424161.984,6438816.343 424164.726,6438816.171 424172.404,6438813.521 424175.878,6438813.738 424198.091,6438869.895
+        424198.456,6438873.004 424195.416,6438875.827 424118.315,6438913.494 424106.673,6438917.86
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033005816050</numeroZdh>
+   <densiteVegetation>PLUS_80</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422243.829,6438781.7404 422598.861,6438929.527 422552.257,6439008.183 422566.127,6439020.63 422536.5279,6439010.3621 422537.057,6438983.3746 422393.6526,6438923.5786 422352.3775,6438984.4329 422152.5124,6438919.1604 422243.829,6438781.7404
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033007006577</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        424173.271,6438801.363 424171.829,6438798.584 424162.759,6438769.396 424164.37,6438766.845 424320.677,6438713.658 424322.848,6438715.395 424331.749,6438749.913 424330.628,6438751.725 424175.95,6438801.828 424173.271,6438801.363
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033006405600</numeroZdh>
+   <densiteVegetation>PLUS_80</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421735.4802,6438905.0938 421735.7449,6438905.3012 421733.093,6438908.682 421715.4306,6438929.7682 421730.9431,6438910.6775 421731.7046,6438909.7509 421731.9486,6438909.4401 421735.4802,6438905.0938
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033004811726</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422789.842,6439817.69 422697.578,6439673.537 422696.927,6439667.459 422699.098,6439663.985 422742.733,6439644.447 422797.05,6439621.538 422802.868,6439621.0 422805.976,6439624.126 422884.511,6439761.36 422885.308,6439762.7526
+        422796.2683,6439827.345 422789.842,6439817.69
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033005816048</numeroZdh>
+   <densiteVegetation>PLUS_80</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422518.4041,6439130.9464 422451.4924,6439204.282 422453.0388,6439204.8717 422448.0924,6439210.4659 422446.6908,6439212.1052 422439.777,6439207.979 422341.217,6439165.863 422268.274,6439134.167 422117.176,6439081.197 421981.0026,6439032.1267
+        421977.6918,6439032.5834 421958.7488,6439023.8248 421917.016,6439007.384 421908.549,6439003.476 421904.425,6439000.003 421934.601,6438943.993 421938.29,6438916.162 421935.252,6438909.476 421930.693,6438906.437 421892.499,6438884.24
+        421886.623,6438883.425 421880.545,6438887.115 421816.72,6438960.71 421805.431,6438963.75 421706.916,6438941.22 421705.995,6438941.033 421733.093,6438908.682 421735.7449,6438905.3012 421768.022,6438865.326 421812.381,6438810.264
+        421816.8614,6438804.8797 421970.716,6438858.6897 421950.9511,6438910.6771 421957.243,6438933.4853 422109.3579,6438984.1025 422311.4996,6439052.1004 422518.4041,6439130.9464
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033007281079</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        422220.456,6439958.758 422108.499,6439850.796 422109.15,6439846.237 422146.708,6439810.851 422215.093,6439745.071 422222.04,6439742.683 422225.947,6439745.288 422280.655,6439834.514 422280.004,6439842.764 422230.09,6439884.364
+        422247.899,6439903.657 422239.034,6439913.092 422237.888,6439915.707 422254.17,6439936.548 422253.519,6439944.363 422232.243,6439959.343 422225.948,6439960.211 422220.456,6439958.758
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+  <zdh-declaree>
+   <numeroZdh>033004192535</numeroZdh>
+   <densiteVegetation>MOINS_10</densiteVegetation>
+   <geometrie>
+
+    <gml:Polygon>
+  <gml:outerBoundaryIs>
+    <gml:LinearRing>
+      <gml:coordinates>
+        421416.297,6438820.957 421415.534,6438819.166 421415.743,6438816.67 421478.306,6438715.505 421492.853,6438691.633 421814.55,6438804.837 421735.7449,6438905.3012 421725.3735,6438897.1722 421717.436,6438889.2347 421707.3818,6438879.1805
+        421695.7401,6438874.418 421681.4525,6438865.9513 421670.8692,6438868.068 421660.2858,6438873.3596 421651.29,6438868.068 421641.765,6438859.0721 421637.5316,6438854.3096 421633.8275,6438846.9013 421624.3024,6438851.1346 421618.4816,6438856.4263
+        421606.3107,6438863.3055 421597.844,6438863.8346 421591.494,6438858.5429 421583.5565,6438852.7221 421575.619,6438848.4888 421560.2731,6438842.1387 421554.9815,6438837.3762 421549.1606,6438828.9096 421541.2231,6438824.147 421535.4023,6438820.972
+        421522.7022,6438809.8595 421514.7647,6438800.8637 421494.1272,6438789.222 421486.7188,6438782.872 421478.2521,6438778.6386 421474.548,6438777.0511 421468.198,6438779.697 421458.6729,6438796.6303 421448.0896,6438814.0929 421442.5135,6438832.9121
+        421416.297,6438820.957
+      </gml:coordinates>
+    </gml:LinearRing>
+  </gml:outerBoundaryIs>
+</gml:Polygon>
+
+
+   </geometrie>
+  </zdh-declaree>
+ </rpg>
+ <demandes-aides-pilier1-et-AR paiement-jeunes-agriculteurs="false" soja="true" proteagineux="false" legumineuses-fourrageres-deshydratation="false" semences-legumineuses-fourrageres="false" ble-dur="false" prunes-transformation="false" cerises-transformation="false" peches-transformation="false" poires-transformation="false" tomates-industrie="false" pommes-terre-feculieres="false" chanvre="false" houblon="false" semences-graminees="false" riz="false">
+  <demande-aides-decouplees aides-decouplees="true" derogation-AB="false" schema-certification-mais="false" />
+  <demande-legumineuses-fourrageres legumineuse-fourragere="false" />
+  <demande-assurance-recolte assurance-recolte="false" />
+ </demandes-aides-pilier1-et-AR>
+ <demandes-aides-pilier2 demande-ab="false" demande-maec="false" demande-agroforesterie="false">
+  <ichn demande-ichn="false" />
+ </demandes-aides-pilier2>
+</producteur></producteurs>

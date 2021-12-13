@@ -398,6 +398,22 @@ module RGeo
           end
         end
       end
+      
+      #patch waiting for rgeo 3.0 https://github.com/rgeo/rgeo/issues/277
+      def set_property(prop, value)
+        case prop
+        when :has_z_coordinate
+          @support_z = value
+        when :has_m_coordinate
+          @support_m = value
+        when :uses_lenient_assertions
+          @lenient_assertions = value
+        when :buffer_resolution
+          @buffer_resolution = value
+        when :is_geographic
+          value
+        end
+      end
     end
   end
 end

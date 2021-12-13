@@ -38,6 +38,13 @@ CREATE SCHEMA public;
 
 
 --
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -9673,7 +9680,10 @@ CREATE TABLE public.units (
     dimension character varying NOT NULL,
     type character varying NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
 );
 
 
@@ -11482,12 +11492,12 @@ ALTER TABLE ONLY public.activity_budget_items
 CREATE MATERIALIZED VIEW public.economic_indicators AS
  SELECT a.id AS activity_id,
     c.id AS campaign_id,
-    ( SELECT sum(ap.size_value) AS sum
+    COALESCE(( SELECT sum(ap.size_value) AS sum
            FROM public.activity_productions ap
           WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
                    FROM public.activity_productions_campaigns apc
-                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
-    a.size_unit_name AS activity_size_unit,
+                  WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
+    COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'main_direct_product'::text AS economic_indicator,
     abm.global_amount AS amount,
     abm.variant_id AS output_variant_id,
@@ -11501,12 +11511,12 @@ CREATE MATERIALIZED VIEW public.economic_indicators AS
 UNION ALL
  SELECT a.id AS activity_id,
     c.id AS campaign_id,
-    ( SELECT sum(ap.size_value) AS sum
+    COALESCE(( SELECT sum(ap.size_value) AS sum
            FROM public.activity_productions ap
           WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
                    FROM public.activity_productions_campaigns apc
-                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
-    a.size_unit_name AS activity_size_unit,
+                  WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
+    COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'other_direct_product'::text AS economic_indicator,
     sum(abi.global_amount) AS amount,
     NULL::integer AS output_variant_id,
@@ -11520,12 +11530,12 @@ UNION ALL
 UNION ALL
  SELECT a.id AS activity_id,
     c.id AS campaign_id,
-    ( SELECT sum(ap.size_value) AS sum
+    COALESCE(( SELECT sum(ap.size_value) AS sum
            FROM public.activity_productions ap
           WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
                    FROM public.activity_productions_campaigns apc
-                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
-    a.size_unit_name AS activity_size_unit,
+                  WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
+    COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'fixed_direct_charge'::text AS economic_indicator,
     sum(abi.global_amount) AS amount,
     NULL::integer AS output_variant_id,
@@ -11539,12 +11549,12 @@ UNION ALL
 UNION ALL
  SELECT a.id AS activity_id,
     c.id AS campaign_id,
-    ( SELECT sum(ap.size_value) AS sum
+    COALESCE(( SELECT sum(ap.size_value) AS sum
            FROM public.activity_productions ap
           WHERE ((ap.activity_id = a.id) AND (ap.id IN ( SELECT apc.activity_production_id
                    FROM public.activity_productions_campaigns apc
-                  WHERE (apc.campaign_id = c.id))))) AS activity_size_value,
-    a.size_unit_name AS activity_size_unit,
+                  WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
+    COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'proportional_direct_charge'::text AS economic_indicator,
     sum(abi.global_amount) AS amount,
     NULL::integer AS output_variant_id,
@@ -11559,7 +11569,7 @@ UNION ALL
  SELECT a.id AS activity_id,
     c.id AS campaign_id,
     '1'::numeric AS activity_size_value,
-    'unit'::character varying AS activity_size_unit,
+    'unity'::character varying AS activity_size_unit,
     'global_indirect_product'::text AS economic_indicator,
     sum(abi.global_amount) AS amount,
     NULL::integer AS output_variant_id,
@@ -11574,7 +11584,7 @@ UNION ALL
  SELECT a.id AS activity_id,
     c.id AS campaign_id,
     '1'::numeric AS activity_size_value,
-    'unit'::character varying AS activity_size_unit,
+    'unity'::character varying AS activity_size_unit,
     'global_indirect_charge'::text AS economic_indicator,
     sum(abi.global_amount) AS amount,
     NULL::integer AS output_variant_id,
@@ -22850,6 +22860,20 @@ CREATE INDEX index_units_on_base_unit_id ON public.units USING btree (base_unit_
 
 
 --
+-- Name: index_units_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_creator_id ON public.units USING btree (creator_id);
+
+
+--
+-- Name: index_units_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_units_on_updater_id ON public.units USING btree (updater_id);
+
+
+--
 -- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -23417,29 +23441,6 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
-
-
---
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -23466,6 +23467,29 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
+
+
+--
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
 
 
 --
@@ -25157,6 +25181,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211025191201'),
 ('20211108090701'),
 ('20211109153301'),
-('20211112154901');
+('20211112154901'),
+('20211125181101'),
+('20211206150144'),
+('20211209142107');
 
 
