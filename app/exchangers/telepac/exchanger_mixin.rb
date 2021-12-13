@@ -231,6 +231,21 @@ module Telepac
         end
       end
 
+      def shape_corrector
+        @shape_corrector ||= ShapeCorrector.build
+      end
+
+      def transform_geometry(geometry, srid)
+        geom = ::Charta.from_gml(geometry, srid).transform(:WGS84)
+        if !geom.is_simple?
+          corrected_geom = shape_corrector.try_fix(geom)
+          raise StandardError.new('Invalid geometry') if !corrected_geom.is_simple?
+
+          geom = corrected_geom.or_raise
+        end
+        geom
+      end
+
       def handle_islet(cap_statement, doc)
         doc.css('ilot').each do |islet|
           # get islet attributes
@@ -242,7 +257,7 @@ module Telepac
           # islet shape, validate GML and transform into Charta
           geometry = islet.xpath('.//gml:Polygon')
           geometry.first['srsName'] = "EPSG:#{srid}"
-          geom = ::Charta.from_gml(geometry.first.to_xml.to_s.squish, srid).transform(:WGS84).convert_to(:multi_polygon)
+          geom = transform_geometry(geometry.first.to_xml.to_s.squish, srid).convert_to(:multi_polygon)
 
           islet_attributes = {
             cap_statement: cap_statement,
@@ -291,7 +306,7 @@ module Telepac
           # land_parcel shape, validate GML and transform into Charta
           geometry = land_parcel.xpath('.//gml:Polygon')
           geometry.first['srsName'] = "EPSG:#{srid}"
-          geom = ::Charta.from_gml(geometry.first.to_xml.to_s.squish, srid).transform(:WGS84).convert_to(:multi_polygon)
+          geom = transform_geometry(geometry.first.to_xml.to_s.squish, srid).convert_to(:multi_polygon)
 
           cap_land_parcel_attributes = {
             cap_islet: cap_islet,
@@ -345,13 +360,13 @@ module Telepac
           geometry = sna.xpath('.//gml:Polygon')
           if !geometry.empty?
             geometry.first['srsName'] = "EPSG:#{global_srid}"
-            geom = ::Charta.from_gml(geometry.first.to_xml.to_s.squish, global_srid).transform(:WGS84).convert_to(:multi_polygon)
+            geom = transform_geometry(geometry.first.to_xml.to_s.squish, global_srid).convert_to(:multi_polygon)
           end
 
           geometry = sna.xpath('.//gml:Point')
           if !geometry.empty?
             geometry.first['srsName'] = "EPSG:#{global_srid}"
-            geom = ::Charta.from_gml(geometry.first.to_xml.to_s.squish, global_srid).transform(:WGS84).convert_to(:point)
+            geom = transform_geometry(geometry.first.to_xml.to_s.squish, global_srid).convert_to(:point)
           end
 
           next if geom.empty?
