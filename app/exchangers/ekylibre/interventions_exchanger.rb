@@ -5,6 +5,10 @@ module Ekylibre
     category :plant_farming
     vendor :ekylibre
 
+    def import_resource
+      @import_resource ||= Import.find(options[:import_id])
+    end
+
     def check
       rows = CSV.read(file, headers: true, col_sep: ';').delete_if { |r| r[0].blank? }.sort { |a, b| [a[2].split(/\D/).reverse.join, a[0]] <=> [b[2].split(/\D/).reverse.join, b[0]] }
       valid = true
@@ -231,6 +235,7 @@ module Ekylibre
         end
 
         if intervention
+          intervention.creator ||= import_resource&.creator || User.first
           intervention.description ||= ''
           intervention.description += ' - ' + information_import_context + ' - N° : ' + r.intervention_number.to_s
           intervention.save!

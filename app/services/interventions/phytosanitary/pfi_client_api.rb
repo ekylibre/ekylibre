@@ -272,13 +272,14 @@ module Interventions
           code = error.http_code
           error_message = I18n.t('labels.pfi_client_error', campaign: @campaign.name, activity: @activity.name, input: @intervention_parameter_input.name, intervention: @intervention_parameter_input.intervention.name, loggable: log)
           ExceptionNotifier.notify_exception(error, data: { message: error_message }) if code.to_s == '400'
-          if @notify_user
+          creator = @intervention_parameter_input.intervention.creator
+          if @notify_user && creator
             message = if code.to_s == '404'
                         :pfi_api_down.tl
                       else
                         :pfi_api_error.tl
                       end
-            @intervention_parameter_input.intervention.creator.notifications.create!({
+            creator.notifications.create!({
               message: message,
               level: :error,
               interpolations: {}
@@ -287,9 +288,10 @@ module Interventions
         end
 
         def notify_api_warnings_to_creator(warning: nil)
-          if @notify_user
-            @intervention = @intervention_parameter_input.intervention
-            @intervention.creator.notifications.create!({
+          @intervention = @intervention_parameter_input.intervention
+          creator = @intervention.creator
+          if @notify_user && creator
+            creator.notifications.create!({
               message: :pfi_api_warnings.tl,
               level: :error,
               interpolations: {
