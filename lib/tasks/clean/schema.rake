@@ -10,42 +10,38 @@ namespace :clean do
     symodels = models.collect { |x| x.name.underscore.to_sym }
 
     errors = 0
-    # schema_file = Rails.root.join("lib", "ekylibre", "schema", "reference.rb")
 
     schema_hash = {}
-    schema_yaml = "---\n"
+
+    table_name_to_class = ActiveRecord::Base.descendants.reject(&:abstract_class).index_by(&:table_name)
+
     ApplicationRecord.connection.tables.sort.delete_if do |table|
       %w[schema_migrations spatial_ref_sys oauth_access_grants oauth_access_tokens oauth_applications].include?(table.to_s)
     end.each do |table|
       schema_hash[table] = {}
-      schema_yaml << "\n#{table}:\n"
       columns = ApplicationRecord.connection.columns(table).sort_by(&:name)
       max = columns.map(&:name).map(&:size).max + 1
       model = begin
                 table.classify.constantize
               rescue
-                nil
+                table_name_to_class[table]
               end
       columns.each do |column|
         next if column.name.start_with?('_')
 
         column_hash = { type: column.type.to_s }
-        schema_yaml << "  #{column.name}: {type: #{column.type}"
 
         if column.type == :decimal
           if column.precision
-            schema_yaml << ", precision: #{column.precision}"
             column_hash[:precision] = column.precision
           end
           if column.scale
-            schema_yaml << ", scale: #{column.scale}"
             column_hash[:scale] = column.scale
           end
         end
         if column.name.end_with?('_id') && column.type != :string
           reference_name = column.name.to_s[0..-4].to_sym
           unless val = Ekylibre::Schema.references(table, column)
-            # puts model.name.red + ": " + model.descendants.map(&:name).to_sentence.yellow
             if column.name == 'parent_id'
               val = model.name.underscore.to_sym
             elsif %i[creator_id updater_id].include? column.name
@@ -63,36 +59,31 @@ namespace :clean do
               val = reflection.class_name.underscore.to_sym
             end
           end
-          errors += 1 if val.nil?
-          schema_yaml << ", references: #{val}"
-          column_hash[:references] = val.to_s
+          if val.nil? && table.start_with?("registered_", "master_")
+          else
+            errors += 1 if val.nil?
+            column_hash[:references] = val.to_s
+          end
         end
         if column.limit
-          schema_yaml << ", limit: #{column.limit.inspect}"
           column_hash[:limit] = column.limit
         end
         if column.null.is_a? FalseClass
-          schema_yaml << ', required: true'
           column_hash[:required] = true
         end
         unless column.default.nil?
           if column.type == :string
-            schema_yaml << ", default: #{column.default.inspect}"
             column_hash[:default] = column.default
-          else
-            schema_yaml << ", default: #{column.default}"
           end
           if column.type == :boolean
             column_hash[:default] = column.default != 'false'
           end
         end
-        schema_yaml << "}\n"
         schema_hash[table][column.name] = column_hash.deep_stringify_keys
       end.join(",\n").dig
     end.join(",\n").dig
 
     File.open(Ekylibre::Schema.root.join('tables.yml'), 'wb') do |f|
-      # f.write(schema_yaml)
       f.write(schema_hash.to_yaml)
     end
 

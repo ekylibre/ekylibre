@@ -5,8 +5,6 @@ class ScenarioActivity < ApplicationRecord
     self.table_name = "planning_scenario_activity_plots"
     belongs_to :scenario_activity, class_name: ScenarioActivity, foreign_key: :planning_scenario_activity_id
     belongs_to :technical_itinerary, class_name: TechnicalItinerary
-    belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
-    belongs_to :updater, class_name: 'User', foreign_key: 'updater_id'
     has_one :batch, class_name: ActivityProductionBatch, dependent: :destroy, foreign_key: :planning_scenario_activity_plot_id
 
     accepts_nested_attributes_for :batch, allow_destroy: true
