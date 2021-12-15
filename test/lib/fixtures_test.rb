@@ -2,8 +2,11 @@ require 'test_helper'
 
 class FixturesTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Checks the validity of references files for models
+  MATERIALIZED_VIEWS = %i[economic_indicator].freeze
 
   Ekylibre::Schema.models.sort.each do |model_name|
+    next if MATERIALIZED_VIEWS.include?(model_name)
+
     model = model_name.to_s.classify.constantize
 
     test "all fixtures validity: #{model.name}" do

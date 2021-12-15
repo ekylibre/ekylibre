@@ -11,8 +11,6 @@ class InterventionTemplate < ApplicationRecord
   has_many :technical_itineraries, through: :technical_itinerary_intervention_templates
 
   belongs_to :campaign
-  belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
-  belongs_to :updater, class_name: 'User', foreign_key: 'updater_id'
   belongs_to :originator, class_name: ::InterventionTemplate
   has_one :linked_intervention_template, class_name: ::InterventionTemplate, foreign_key: 'originator_id', dependent: :nullify
 

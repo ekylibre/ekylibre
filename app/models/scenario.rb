@@ -9,8 +9,6 @@ class Scenario < ApplicationRecord
   has_many :scenario_activities, class_name: ScenarioActivity, foreign_key: :planning_scenario_id, dependent: :destroy
 
   accepts_nested_attributes_for :scenario_activities
-  belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
-  belongs_to :updater, class_name: 'User', foreign_key: 'updater_id'
 
   def generate_daily_charges
     plots = get_plots

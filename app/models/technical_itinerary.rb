@@ -10,8 +10,6 @@ class TechnicalItinerary < ApplicationRecord
   belongs_to :activity
   belongs_to :technical_workflow, class_name: TechnicalWorkflow
   has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_itinerary_id
-  belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
-  belongs_to :updater, class_name: 'User', foreign_key: 'updater_id'
 
   belongs_to :originator, class_name: TechnicalItinerary
   has_one :linked_technical_itinerary, class_name: TechnicalItinerary, foreign_key: 'originator_id', dependent: :nullify
