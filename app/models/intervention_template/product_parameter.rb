@@ -34,11 +34,11 @@ class InterventionTemplate < ApplicationRecord
     end
 
     def unit_symbol
-      Onoma::Unit[unit]&.symbol
+      Onoma::Unit[procedure_unit]&.symbol
     end
 
     def unit_per_area?
-      %i[volume_area_density mass_area_density surface_area_density].include? Onoma::Unit[unit]&.dimension
+      %i[volume_area_density mass_area_density surface_area_density].include? Onoma::Unit[procedure_unit]&.dimension
     end
 
     def find_general_product_type
@@ -55,13 +55,13 @@ class InterventionTemplate < ApplicationRecord
     end
 
     def quantity_in_unit(area)
-      if unit == 'unit'
+      if procedure_unit == "unity"
         return self.quantity * area
       end
 
       quantity = self.quantity
-        .in(unit)
-        .convert(unit.gsub(/_per_.*/, '') + '_per_hectare')
+        .in(procedure_unit)
+        .convert(procedure_unit.gsub(/_per_.*/, '') + '_per_hectare')
         .to_f
 
       quantity * area
@@ -78,18 +78,18 @@ class InterventionTemplate < ApplicationRecord
       # if input or output
       if %i[input output].include?(self.find_general_product_type)
         if self.unit_per_area?
-          short_unit = unit.split('_per_').first
+          short_unit = procedure_unit.split('_per_').first
           puts short_unit.inspect.yellow
-          area_unit = unit.split('_per_').last
+          area_unit = procedure_unit.split('_per_').last
           puts area_unit.inspect.yellow
           area_coef = Measure.new(1.0, area_unit.to_sym).convert(:hectare).to_f
           puts area_coef.inspect.yellow
           global_quantity = (self.quantity * (area_in_hectare / area_coef)).in(short_unit.to_sym).round(2)
           puts global_quantity.inspect.green
-        elsif self.unit == 'unit'
-          global_quantity = (self.quantity * area_in_hectare).in(:unit).round(2)
+        elsif procedure_unit == "unity"
+          global_quantity = (self.quantity * area_in_hectare).in(:unity).round(2)
         else
-          product_parameter.quantity.in(product_parameter.unit.to_sym)
+          product_parameter.quantity.in(product_parameter.procedure_unit.to_sym)
         end
       end
       global_quantity
@@ -97,7 +97,7 @@ class InterventionTemplate < ApplicationRecord
 
     def quantity_with_unit
       if is_input_or_output
-        if unit == "population"
+        if procedure_unit == "unity"
           "#{quantity} #{:unit.tl}"
         else
           measure.l(precision: 1)
@@ -112,17 +112,21 @@ class InterventionTemplate < ApplicationRecord
       options = { quantity: quantity.to_d }
       if is_doer_or_tool
         # use hour_equipment unit for equipment and hour unit for other (doer, service...)
-        unit = is_tool ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour_worker)
+        clean_unit = is_tool ? Unit.import_from_lexicon(:hour_equipment) : Unit.import_from_lexicon(:hour_worker)
         unit_name = Onoma::Unit.find(:hour).human_name
         unit_name = unit_name.pluralize if quantity > 1
-        options[:unit] = unit
+        options[:unit] = clean_unit
         options[:unit_name] = unit_name
         options[:catalog_usage] = :cost
         options[:catalog_item] = product_nature_variant&.default_catalog_item(options[:catalog_usage], started_at, options[:unit], :dimension) || nil
       elsif is_input
-        unit = Unit.import_from_lexicon(self.unit.split('_per_').first)
-        unit_name = Onoma::Unit.find(unit.reference_name).human_name
-        options[:unit] = unit
+        if self.unit_per_area?
+          clean_unit = Unit.import_from_lexicon(procedure_unit.split('_per_').first)
+        else
+          clean_unit = Unit.import_from_lexicon(procedure_unit)
+        end
+        unit_name = Onoma::Unit.find(clean_unit.onoma_reference_name).human_name
+        options[:unit] = clean_unit
         options[:unit_name] = unit_name
         options[:catalog_usage] = :purchase
         options[:catalog_item] = product_nature_variant&.default_catalog_item(options[:catalog_usage], started_at, options[:unit]) || nil
@@ -141,22 +145,42 @@ class InterventionTemplate < ApplicationRecord
         procedure['type'] == 'plant'
       end
 
-      # unit correspond to handler name in this model
+      # find unit corresponding to handler
+      # handler correspond to input/output name in procedure xml
+      # <input name="fertilizer" ... <> procedure[:type] = fertilizer
+      # <handler name="ton" indicator="mass_area_density" unit="ton_per_hectare" ..../>
+      # or <handler indicator="volume_area_density" unit="liter_per_hectare" .../>
+      # or <handler name="population"/> ...
       def procedure_handler
-        return if is_doer_or_tool
+        return nil if is_doer_or_tool
 
-        intervention_template.procedure
-                              .parameters
-                              .find { |p| p.name == procedure['type'].to_sym }
-                              .handlers
-                              .find { |h| h.name == unit.to_sym }
+        # find all handlers for an input or an ouptut for parameter in procedure[:type] JSONB columns
+        handlers = intervention_template
+          .procedure.parameters
+          .find { |p| p.name == procedure['type'].to_sym }
+          .handlers
+
+        if handlers.find { |h| h.name.to_s == unit.to_s }.present?
+          handlers.find { |h| h.name.to_s == unit.to_s }
+        elsif handlers.find { |h| h.unit&.name == unit.to_s }.present?
+          handlers.find { |h| h.unit&.name == unit.to_s }
+        else
+          nil
+        end
+
       end
 
       def procedure_unit
         handler = procedure_handler
-        return nil if handler.nil?
-
-        handler.unit.name
+        if handler.nil? || unit == "unit" || unit == "unity"
+          "unity"
+        elsif handler.unit?
+          handler.unit.name
+        elsif handler.name == "population" || unit == "population"
+          product_nature_variant.default_unit_name
+        else
+          nil
+        end
       end
 
       def is_input_or_output
