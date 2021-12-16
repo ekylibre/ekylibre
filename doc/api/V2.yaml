@@ -412,33 +412,32 @@ paths:
               - Matter
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/modified_since'
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
-              examples:
-                example-1:
-                  value:
-                    - id: 0
-                      name: string
-                      number: string
-                      population: string
-                      variety: string
-                      abilities:
-                        - {}
-                      born_at: string
-                      derivative_of: string
-                      variant_unit_name: string
-                      shape_svg: string
       deprecated: false
       security: []
       description: 'Returns a list of products you’ve previously created. '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+            examples:
+              example-1:
+                value:
+                  id: 1235
+                  name: Blé dur 2015 (1)
+                  number: P00000001234
+                  variety: grain
+                  abilities:
+                    - feed(animal)
+                  born_at: '2021-01-22T09:13:00.000+01:00'
+                  derivative_of: triticum_durum
+                  variant_unit_name: Tonne
+                  shape_svg: '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserve_aspect_ratio="xMidYMid meet" width="180" height="180" view_box="-0.215623 -47.432218 0.0008970000000000089 0.00023600000000101318"><path d="M-0.214726,47.432151L-0.214751,47.432218L-0.215623,47.432058L-0.215594,47.431982L-0.214726,47.432151Z"/></svg>'
+                  population: '-1.0'
+                  unit_name: Tonne
+                  container_name: Silo à grain
   /profile:
     get:
       tags:
@@ -1432,25 +1431,16 @@ components:
           id: 1235
           name: Blé dur 2015 (1)
           number: P00000001234
-          population: '-1.0'
           variety: grain
           abilities:
             - feed(animal)
           born_at: '2021-01-22T09:13:00.000+01:00'
           derivative_of: triticum_durum
           variant_unit_name: Tonne
-          value:
-            id: 1235
-            name: Blé dur 2015 (1)
-            number: P00000001234
-            population: '-1.0'
-            variety: grain
-            abilities:
-              - feed(animal)
-            born_at: '2021-01-22T09:13:00.000+01:00'
-            derivative_of: triticum_durum
-            variant_unit_name: Tonne
-            shape_svg: '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserve_aspect_ratio="xMidYMid meet" width="180" height="180" view_box="-0.215623 -47.432218 0.0008970000000000089 0.00023600000000101318"><path d="M-0.214726,47.432151L-0.214751,47.432218L-0.215623,47.432058L-0.215594,47.431982L-0.214726,47.432151Z"/></svg>'
+          shape_svg: '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserve_aspect_ratio="xMidYMid meet" width="180" height="180" view_box="-0.215623 -47.432218 0.0008970000000000089 0.00023600000000101318"><path d="M-0.214726,47.432151L-0.214751,47.432218L-0.215623,47.432058L-0.215594,47.431982L-0.214726,47.432151Z"/></svg>'
+          population: '-1.0'
+          unit_name: Tonne
+          container_name: Silo à grain
       properties:
         id:
           type: number
@@ -1458,9 +1448,6 @@ components:
           type: string
           minLength: 1
         number:
-          type: string
-          minLength: 1
-        population:
           type: string
           minLength: 1
         variety:
@@ -1476,21 +1463,30 @@ components:
         derivative_of:
           type: string
           minLength: 1
-        variant_unit_name:
-          type: string
-          minLength: 1
         shape_svg:
           type: string
+        population:
+          type: string
+          minLength: 1
+          description: Product quantity in stock (only for matter)
+        unit_name:
+          type: string
+          description: Name of the packaging (only for matter)
+        container_name:
+          type: string
+          description: name of the storage place (only for matter and equipment)
+        france_maaid:
+          type: string
+          description: reference number (only for plant protection products)
       required:
         - id
         - name
         - number
-        - population
         - variety
         - abilities
         - born_at
         - derivative_of
-        - variant_unit_name
+        - population
     Variants:
       description: ''
       type: object
