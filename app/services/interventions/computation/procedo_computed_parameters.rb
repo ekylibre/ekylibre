@@ -19,6 +19,9 @@ module Interventions
               if group_parameters_values.blank?
                 group_parameters.delete("#{collection_name}_attributes")
               else
+                group_parameters_values.each do |gp_value|
+                  gp_value["readings_attributes"] = gp_value["readings_attributes"].each_with_index.to_h.invert if gp_value.key?("readings_attributes")
+                end
                 group_parameters["#{collection_name}_attributes"] = group_parameters_values.each_with_index.to_h.invert
               end
             end
@@ -45,6 +48,9 @@ module Interventions
           if parameter_values.blank?
             @parameters.delete("#{collection_name}_attributes")
           else
+            parameter_values.each do |p_value|
+              p_value["readings_attributes"] = p_value["readings_attributes"].each_with_index.to_h.invert if p_value.key?("readings_attributes")
+            end
             @parameters["#{collection_name}_attributes"] = parameter_values.each_with_index.to_h.invert
           end
         end

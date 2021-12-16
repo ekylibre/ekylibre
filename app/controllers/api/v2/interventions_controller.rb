@@ -106,20 +106,24 @@ module Api
             working_periods_attributes: %i[id started_at stopped_at _destroy],
             inputs_attributes: %i[id product_id quantity_value quantity_handler reference_name quantity_population usage_id _destroy],
             outputs_attributes: %i[id variant_id quantity_value quantity_handler reference_name quantity_population _destroy],
-            tools_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
-            targets_attributes: %i[id product_id reference_name _destroy],
+            tools_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: readings_attributes],
+            targets_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: readings_attributes],
             doers_attributes: %i[id product_id reference_name _destroy],
             group_parameters_attributes: [
               :id,
               :reference_name,
               :_destroy,
               inputs_attributes: %i[id product_id quantity_value quantity_handler reference_name quantity_population _destroy],
-              outputs_attributes: %i[id variant_id quantity_value quantity_handler reference_name quantity_population batch_number specie_variety_name _destroy],
-              targets_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: %i[indicator_name measure_value_value measure_value_unit]],
+              outputs_attributes: [:id, :variant_id, :quantity_value, :quantity_handler, :reference_name, :quantity_population, :batch_number, :specie_variety_name, :_destroy, :new_name, :identification_number, readings_attributes: readings_attributes],
+              targets_attributes: [:id, :product_id, :reference_name, :_destroy, readings_attributes: readings_attributes],
               tools_attributes: %i[id product_id reference_name _destroy],
               doers_attributes: %i[id product_id reference_name _destroy]
             ]
           ]
+        end
+
+        def readings_attributes
+          %i[boolean_value indicator_name measure_value_value measure_value_unit choice_value decimal_value string_value]
         end
     end
   end

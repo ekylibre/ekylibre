@@ -391,7 +391,7 @@ product_natures_016:
   variable_indicators_list: animal_life_state, economical_milk_index, fat_matter_concentration_index,
     healthy, lactating, last_birth_children_count, mammalia_birth_count, mammalia_reproduction_event_abortion,
     mammalia_reproduction_method_embryo_transplant, mammalia_reproduction_state, milk_daily_production,
-    net_mass, protein_concentration_index, unique_synthesis_index
+    net_mass, protein_concentration_index, unique_synthesis_index, mammalia_birth_condition
   variety: bos
   type: VariantTypes::AnimalType
 product_natures_017:
