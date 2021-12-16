@@ -43,7 +43,7 @@ module Procedo
                      elsif datatype == :decimal
                        val.to_d
                      elsif datatype == :boolean
-                       %w[1 true t ok yes].include?(val.downcase)
+                       val.blank? ? nil : %w[1 true t ok yes].include?(val.to_s.downcase)
                      elsif datatype == :choice
                        val.blank? ? nil : val.to_sym
                      else
@@ -97,7 +97,7 @@ module Procedo
             indicator_name: name,
             indicator_datatype: datatype
           }
-          if measure?
+          if measure? && @value.present?
             hash[:measure_value_value] = @value.to_d.to_s.to_f
             hash[:measure_value_unit] = @value.unit
           elsif %i[point geometry multi_polygon].include?(datatype)

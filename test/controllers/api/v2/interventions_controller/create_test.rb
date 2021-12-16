@@ -7,6 +7,7 @@ module Api
       connect_with_token
 
       setup do
+        @request.headers['CONTENT_TYPE'] = "application/json"
         @provider = { vendor: 'ekylibre',
           name: 'zero',
           id: 0,
@@ -27,7 +28,7 @@ module Api
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime }
-],
+                ],
                    targets_attributes: [
                      { product_id: land_parcel.id, reference_name: 'land_parcel' }
                    ],
@@ -126,6 +127,17 @@ module Api
               stopped_at: "2017-11-06 12:04:39"
             }
           ],
+          inputs_attributes: [
+            {
+              product_id: product.id,
+              quantity_value: 2000,
+              quantity_unit_name: 'kilogram',
+              quantity_indicator_name: 'net_mass',
+              quantity_population: 2,
+              quantity_handler: 'net_mass',
+              reference_name: 'seeds'
+            }
+          ],
           group_parameters_attributes: [
             {
               reference_name: 'zone',
@@ -144,42 +156,31 @@ module Api
                 }
               ]
             },
-            {
-              reference_name: 'zone',
-              targets_attributes: [
-                {
-                  product_id: land_parcel2.id,
-                  reference_name: 'land_parcel'
-                }
-              ],
-              outputs_attributes: [
-                {
-                  variant_id: variant.id,
-                  reference_name: 'plant',
-                  specie_variety_name: 'test',
-                  batch_number: 'test2'
-                }
-              ]
-            }
-          ],
-          inputs_attributes: [
-            {
-              product_id: product.id,
-              quantity_value: 2000,
-              quantity_unit_name: 'kilogram',
-              quantity_indicator_name: 'net_mass',
-              quantity_population: 2,
-              quantity_handler: 'net_mass',
-              reference_name: 'seeds'
-            }
+            # {
+            #   reference_name: 'zone',
+            #   targets_attributes: [
+            #     {
+            #       product_id: land_parcel2.id,
+            #       reference_name: 'land_parcel'
+            #     }
+            #   ],
+            #   outputs_attributes: [
+            #     {
+            #       variant_id: variant.id,
+            #       reference_name: 'plant',
+            #       specie_variety_name: 'test',
+            #       batch_number: 'test3'
+            #     }
+            #   ]
+            # },
           ]
         }
         post :create, params: params
         assert_response :created
         id = json_response['id']
         intervention = Intervention.find(id)
-        assert_equal 2, intervention.group_parameters.count
-        assert_equal 2, intervention.outputs.count
+        assert_equal 1, intervention.group_parameters.count
+        assert_equal 1, intervention.outputs.count
         assert_equal 'test', intervention.outputs.last.specie_variety_name
         assert_equal 'test2', intervention.outputs.last.batch_number
       end
@@ -295,7 +296,7 @@ module Api
               reference_name: "work",
               targets_attributes: [
                 {
-                  product_id: tractor2,
+                  product_id: tractor2.id,
                   reference_name: "equipment"
                 }
               ]
@@ -304,7 +305,7 @@ module Api
               reference_name: "work",
               targets_attributes: [
                 {
-                  product_id: tractor3,
+                  product_id: tractor3.id,
                   reference_name: "equipment",
                   readings_attributes: [
                     {
@@ -328,6 +329,67 @@ module Api
         assert_equal intervention.targets.find_by(product_id: tractor2.id).readings, []
         target_reading3 = intervention.targets.find_by(product_id: tractor3.id).readings.first
         assert_equal target_reading3.value, Measure.new(15, :hour)
+      end
+
+      test 'create parturition intervention' do
+        mammalia = Animal.find(5)
+        worker1 = Worker.find(79)
+        params ={ procedure_name: 'parturition',
+                  provider: provider,
+                  group_parameters_attributes: [
+                    {
+                      reference_name: 'parturition',
+                      targets_attributes: [
+                        {
+                          product_id: mammalia.id,
+                          reference_name: 'mother'
+                        }
+                      ],
+                      outputs_attributes: [
+                        {
+                          variant_id: mammalia.variant_id,
+                          quantity_population: 1,
+                          reference_name: "child",
+                          new_name: 'nouveau nom',
+                          identification_number: 1000,
+                          readings_attributes: [
+                            {
+                              indicator_name: "net_mass",
+                              measure_value_value: 250,
+                              measure_value_unit: "kilogram"
+                            },
+                            {
+                              indicator_name: "sex",
+                              choice_value: "female"
+                            },
+                            {
+                              indicator_name: "mammalia_birth_condition",
+                              choice_value: "without_help"
+                            },
+                            {
+                              indicator_name: "healthy",
+                              boolean_value: true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  working_periods_attributes: [
+                    { started_at: '01/01/2019 12:00'.to_datetime,
+                      stopped_at: '01/01/2019 13:30'.to_datetime }
+                  ],
+                  doers_attributes: [
+                    { product_id: worker1.id, reference_name: 'caregiver' }
+                  ],  }
+        post :create, params: params
+        assert_response :created
+        id = json_response['id']
+        intervention = Intervention.find(id)
+        assert_equal 1, intervention.targets.count
+        assert_equal 1, intervention.outputs.count
+        output = intervention.outputs.first
+        assert_equal 4, output.readings.count
       end
     end
   end
