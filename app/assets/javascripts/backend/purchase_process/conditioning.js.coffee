@@ -20,7 +20,7 @@
   $(document).on 'selector:change', '[data-conditioning-data-url]', (e) ->
     addConditioningData $(this)
 
-  $(document).on 'selector:change', '[data-variant-selector]', (e, _a, _b, options = {}) ->
-    E.trade.updateValues($(this).closest('.nested-fields').find($(this).data('variant-selector')).first(), false) unless options.manuallyTriggered
+  $(document).on 'selector:change', '[data-variant-selector]', (e, _a, is_initialization, options = {}) ->
+    E.trade.updateValues($(this).closest('.nested-fields').find($(this).data('variant-selector')).first(), is_initialization) unless options.manuallyTriggered
 
 ) ekylibre, jQuery
