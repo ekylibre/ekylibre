@@ -50,6 +50,13 @@
   C.toCurrency = (value) ->
     C.formatNumber2 value, 2, '.', ''
 
+  C.toBudgetCurrency = (value) ->
+    if Math.abs(value) > 100
+      res = parseInt(value)
+      res.toString().replace /\B(?=(\d{3})+(?!\d))/g, ' '
+    else
+      res = C.formatNumber2 value, 2, '.', ''
+
   # Auto-calculation
   C.autoCalculate = ->
     $("*[data-use][data-auto-calculate]").each ()->
@@ -87,6 +94,8 @@
       # Set
       if element.is("input")
         element.val C.toCurrency(newValue)
+      else if element.data("format") == 'budget'
+        element.html C.toBudgetCurrency(newValue)
       else
         element.html C.toCurrency(newValue)
       element

@@ -46,6 +46,9 @@ module Backend
       activity = Activity.find_by(id: params[:activity_id])
       campaign = Campaign.find_by(id: params[:campaign_id])
       new_activity_budget = @activity_budget.duplicate!(activity, campaign)
+      new_activity_budget.items.each do |budget_item|
+        budget_item.update!(used_on: budget_item.used_on.change(year: budget_item.used_on.year + 1)) if budget_item.used_on.present?
+      end
       if params[:edit]
         redirect_to action: :edit, id: new_activity_budget.id, redirect: params[:redirect]
       else

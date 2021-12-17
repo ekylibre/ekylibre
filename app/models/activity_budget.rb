@@ -67,6 +67,10 @@ class ActivityBudget < ApplicationRecord
   delegate :size_indicator, :size_unit, to: :activity
   delegate :count, to: :productions, prefix: true
 
+  after_save do
+    items.revenues.first.update!(main_output: true) if items.revenues.any? && items.revenues.none?(&:main_output)
+  end
+
   before_validation on: :create do
     self.currency ||= Preference[:currency]
   end

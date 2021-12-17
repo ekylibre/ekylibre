@@ -155,6 +155,10 @@
   $(document).on "cocoon:after-insert", "#supports", (event)->
     E.updateAllProductUnrollURL $(this).closest('form')
 
+  E.onDomReady ->
+    $('.budget-amount').each () ->
+      $(this).html(C.toBudgetCurrency($(this).numericalValue()))
+
   # Show working unit dependent stuff
   $(document).behave "load selector:set", "#production_support_variant_id", (event)->
     variant = $(this)
