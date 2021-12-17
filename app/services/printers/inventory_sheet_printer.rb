@@ -63,7 +63,7 @@ module Printers
                 type: product.nature.name,
                 actual: item.actual_population,
                 expected: item.expected_population,
-                unity: product.variant.unit_name,
+                unity: product.conditioning_unit.name,
                 unit_value: is_depreciable?(item, "unit_value"),
                 total_value: is_depreciable?(item, "total_value")
               }
@@ -87,7 +87,7 @@ module Printers
             type: item.product.nature.name,
             actual: item.actual_population,
             expected: item.expected_population,
-            unity: item.product.variant.unit_name,
+            unity: item.product.conditioning_unit.name,
             unit_value: is_depreciable?(item, "unit_value"),
             total_value: is_depreciable?(item, "total_value")
           }
