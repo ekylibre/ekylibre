@@ -54,22 +54,21 @@
           %th= ActivityBudgetItem.human_attribute_name(:quantity)
           %th= ActivityBudgetItem.human_attribute_name(:unit)
           %th= ActivityBudgetItem.human_attribute_name(:computation_method)
-          %th= ActivityBudgetItem.human_attribute_name(:unit_price)
-          %th= ActivityBudgetItem.human_attribute_name(:amount)
+          %th= ActivityBudgetItem.human_attribute_name(:unit_pretax_amount_explicit)
+          %th= ActivityBudgetItem.human_attribute_name(:pretax_amount)
           %th.with-some-supports
-            %span= ActivityBudgetItem.human_attribute_name(:amount)
-            %span= "/"
             - unit = f.object.size_unit unless f.object.activity.nil?
-            %span.working-unit= (unit ? unit.symbol : "?")
+            %span.working-unit= ActivityBudgetItem.human_attribute_name(:pretax_with_support_amount, unit: unit ? unit.symbol : "?")
+
           %th
       %tfoot
         %tr.total
           %th{colspan: 5}= :gross_profit.tl
-          %td.left-align{data: {check_positive: '.amount'}}
-            %span.amount{data: {difference: '#revenues-amount - #expenses-amount', calculate_round: precision}}
+          %td.left-align.budget-total{data: {check_positive: '.amount'}}
+            %span.amount{data: {difference: '#revenues-amount - #expenses-amount', calculate_round: precision, format: "budget"}}= '0.00'
             %span.currency= currency_symbol
-          %td.left-align.required-support{data: {check_positive: ".amount"}}
-            %span.amount{data: {difference: '#revenues-amount-per-working-unit - #expenses-amount-per-working-unit', calculate_round: precision}}
+          %td.left-align.required-support.budget-total{data: {check_positive: ".amount"}}
+            %span.amount{data: {difference: '#revenues-amount-per-working-unit - #expenses-amount-per-working-unit', calculate_round: precision, format: "budget"}}= '0.00'
             %span.currency= currency_symbol
           %th
       %tbody.budget-items

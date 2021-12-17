@@ -2087,6 +2087,7 @@ fra:
     prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
     pretax_selling_amount: "Prix de vente HT"
+    pretax_with_support_amount: "Montant/%{unit} HT"
     previous_cultivation_residue_mineralization: "Minéralisation des résidus de culture du précédent (Mr)"
     price: "Prix"
     price_templates: "Modèles de prix" #?
@@ -2508,6 +2509,7 @@ fra:
     unit_name: "Nom personnalisable de l'unité"
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
+    unit_pretax_amount_explicit: "Prix unitaire HT"
     base_unit_amount: "PU HT (Unité)"
     unit_pretax_stock_amount: "Unité stocks avant impôts montant"
     unit_price: "Prix unitaire" #?

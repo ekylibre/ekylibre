@@ -16,13 +16,13 @@
     = f.input :unit_currency, as: :hidden
     = f.input :direction, as: :hidden
   %td.decimal.left-align
-    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2}}= f.object.amount.round(2)
+    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, format: "budget"}}= f.object.amount.round(2)
     %span.currency= currency_symbol
   - frequency_dic = {per_day: 365, per_month: 12, per_year: 1}
   %td.budget-frequency.hidden= frequency_dic.key?(f.object.frequency.to_sym) ? frequency_dic[f.object.frequency.to_sym] : 1
   %td.budget-repetition.hidden= f.object.repetition
   %td.decimal.left-align.required-support
-    %span{class: "budget-amount-per-working-unit #{direction}-amount-per-working-unit", data: {use: ".budget-amount", use_closest: ".budget", divide_by: '#supports-quantity', calculate_round: currency.precision}}
+    %span{class: "budget-amount-per-working-unit #{direction}-amount-per-working-unit", data: {use: ".budget-amount", use_closest: ".budget", divide_by: '#supports-quantity', calculate_round: currency.precision, format: "budget"}}
     %span.currency= currency_symbol
   %td.center-align.action{rowspan: 2}= link_to_remove_nested_association(:budget, f)
 %tr.noHover.frequencies
