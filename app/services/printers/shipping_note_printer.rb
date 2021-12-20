@@ -59,10 +59,10 @@ module Printers
         t.add_field(:product_name) { |item| item.source_product.name }
 
         # Parcel_quantity
-        t.add_field(:parcel_quantity, &:quantity)
+        t.add_field(:parcel_quantity) { |item| item.conditioning_quantity.round_l }
 
         # Unit
-        t.add_field(:unit) { |item| item.variant.unit_name }
+        t.add_field(:unit) { |item| item.conditioning_unit.name }
       end
     end
 
