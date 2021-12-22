@@ -213,7 +213,7 @@ class InterventionTemplate < ApplicationRecord
         technical_workflow_procedure_id: twp.id,
         name: im.name[Preference[:language]],
         active: true,
-        description: 'Set by Lexicon',
+        description: :set_by_lexicon.tl,
         workflow: im.working_flow # hectare_per_hour or see in im.working_flow_unit
       )
 
