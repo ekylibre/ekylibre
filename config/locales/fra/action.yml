@@ -1174,6 +1174,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    analytic_options: Options analytiques
     set_by_lexicon: "Paramétré à partir du lexicon"
     vineyard_area: "Surface encepagée"
     productive_plants_yield: "Pieds productifs estimés"
