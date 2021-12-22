@@ -1494,6 +1494,12 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    depreciation_percentage: Depreciation percentage
+    depreciation_period: Depreciation period
+    type_of_value: Type of value
+    year_s: Year(s)
+    value: 'Value'
+    analytic_options: analytic options
     set_by_lexicon: "Set by lexicon"
     vineyard_area: "Vineyard area"
     productive_plants_yield: "Productive plant yield"

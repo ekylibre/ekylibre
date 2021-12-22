@@ -1174,6 +1174,12 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    depreciation_percentage: Pourcentage d'amortissement
+    depreciation_period: Durée d'amortissement
+    type_of_value: Type de valeur
+    year_s: Année(s)
+    value: 'Valeur'
+    analytic_options: Options analytiques
     set_by_lexicon: "Paramétré à partir du lexicon"
     vineyard_area: "Surface encepagée"
     productive_plants_yield: "Pieds productifs estimés"

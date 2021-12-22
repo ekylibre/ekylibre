@@ -29,7 +29,22 @@
     = f.input :depreciation_period, as: :radio_buttons
 
   = field_set(:linear_options) do
-    = f.input :depreciation_percentage, input_html: { name: 'fixed_asset[linear_depreciation_percentage]' }
+    .control-group
+      = label_tag :type_of_value.tl, nil, class: 'control-label'
+      .controls
+        - %i[depreciation_period depreciation_percentage].each_with_index do |depreciation_type , index|
+          %span.radio
+            = label_tag depreciation_type do
+              = radio_button_tag 'depeciation_type', depreciation_type, index == 0 , id: depreciation_type, data: { show: ".{{value}}"}
+              = depreciation_type.tl
+    
+    = f.input :depreciation_percentage, label: :value.tl, input_html: { name: 'fixed_asset[linear_depreciation_percentage]' } do
+      .depreciation_percentage.input-append
+        = f.input :depreciation_percentage, wrapper: :simplest
+        %span.add-on %
+      .depreciation_period.input-append
+        = field_tag(name: :fixed_asset_depreciation_period, datatype: :decimal)
+        %span.add-on= :year_s.tl
 
   = field_set(:regressive_options) do
     = f.input :depreciation_percentage, input_html: { name: 'fixed_asset[regressive_depreciation_percentage]' }
