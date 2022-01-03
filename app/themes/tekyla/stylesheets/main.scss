@@ -1826,6 +1826,20 @@ a[data-remove-closest], a[data-remove] {
   }
 }
 
+.tp-box{
+  font-weight: bold;
+}
+
+.budget-item-locked{
+  td span span input, td div input, td span div input, td span a, td span select{
+    pointer-events: none;
+    background-color: #F0F0F0;
+  }
+  span span span label, td span label{
+    color: lightgray;
+  }
+}
+
 .fixed-hdfpx-width{
   width: 150px;
   margin-right: 10px;

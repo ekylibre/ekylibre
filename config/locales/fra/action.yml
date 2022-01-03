@@ -3403,6 +3403,7 @@ fra:
     trailed_equipments: "Équipements tractés"
     transactions_by_month: "Transactions par mois"
     transfer: "Effectuer les transferts"
+    transfer_price: "Prix de cession:"
     transformations: "Transformations" #?
     transformed_products: "Produits transformés" #?
     translation_not_realised: "La synchronisation n'a pas encore été effectuée. Veuillez la réaliser dans l'écran de la connexion partenaire afin d'avoir accès aux fonctionnalités."
@@ -3483,6 +3484,7 @@ fra:
     usage_phyto: "Usage"
     use_forward: "Sélectionnez un journal pour reporter les à nouveaux" #?
     use_incoming_payment: "Rattacher l’encaissement %{payment}" #?
+    use_transfer_price: "Utiliser le prix de cession"
     used_accounts: "Comptes utilisés seulement" #?
     used_on: "Première utilisation le"
     user_name: "Nom d’utilisateur" #?
