@@ -547,7 +547,12 @@ module Backend
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << input(:born_at)
+          if %w[Matter Equipment].include?(self.object.class.name)
+            fs << input(:born_at, hint: "define_born_at_for_#{self.object.class.name.downcase}".tl)
+          else
+            fs << input(:born_at)
+          end
+
           fs << input(:dead_at)
 
           fs << nested_association(:labellings)

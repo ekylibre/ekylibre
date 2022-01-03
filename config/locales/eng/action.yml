@@ -1494,6 +1494,8 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    define_born_at_for_matter: 'Note : set a date from which you want to use this new matter in the application'
+    define_born_at_for_equipment: 'Note : set a date from which you want to use this new equipment in the application'
     analytic_options: analytic options
     set_by_lexicon: "Set by lexicon"
     vineyard_area: "Vineyard area"

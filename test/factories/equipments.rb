@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :equipment do
+    born_at { DateTime.new(2017, 6, 1)}
     initial_born_at {}
     sequence(:number) { |n| "E0000#{n}"}
     name { 'Equipment' }
@@ -29,6 +30,7 @@ FactoryBot.define do
     sequence(:number) { |n| "S0000#{n}"}
     name { 'Sower' }
     type { 'Equipment' }
+    born_at { DateTime.new(2017, 6, 1) }
     association :category, factory: :sower_category
     association :variant, factory: :sower_variant
   end

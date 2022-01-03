@@ -1174,6 +1174,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    define_born_at_for_matter: 'Note : définissez une date à partir de laquelle vous souhaitez utiliser cette nouvelle matière dans l’application'
+    define_born_at_for_equipment: 'Note : définissez une date à partir de laquelle vous souhaitez utiliser ce nouvel équipement dans l’application'
     analytic_options: Options analytiques
     set_by_lexicon: "Paramétré à partir du lexicon"
     vineyard_area: "Surface encepagée"
