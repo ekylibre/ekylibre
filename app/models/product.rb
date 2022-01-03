@@ -424,18 +424,9 @@ class Product < ApplicationRecord
 
   after_initialize :choose_default_name
 
-  before_validation do
-    self.initial_born_at ||= Time.zone.now
-    self.born_at ||= self.initial_born_at
-    self.initial_born_at = self.born_at
-    self.initial_dead_at = dead_at
-    self.uuid ||= UUIDTools::UUID.random_create.to_s
-    self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
-    # self.net_surface_area = initial_shape.area.in(:hectare).round(3)
-  end
-
-  before_validation :set_default_values, on: :create
+  before_validation :set_default_values_on_create, on: :create
   before_validation :update_default_values, on: :update
+  before_validation :set_default_values
 
   validate do
     if dead_at && born_at
@@ -453,13 +444,6 @@ class Product < ApplicationRecord
         end
       end
     end
-  end
-
-  after_validation do
-    self.born_at ||= self.initial_born_at
-    self.dead_at ||= initial_dead_at
-    self.default_storage ||= initial_container
-    self.initial_container ||= self.default_storage
   end
 
   after_save do
@@ -674,8 +658,22 @@ class Product < ApplicationRecord
     end
   end
 
-  # Sets nature and variety from variant
   def set_default_values
+    if %w[Matter Equipment].exclude?(self.class.name)
+      self.initial_born_at ||= Time.zone.now
+      self.born_at ||= self.initial_born_at
+    end
+    self.initial_dead_at = dead_at
+    self.uuid ||= UUIDTools::UUID.random_create.to_s
+    self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
+    self.born_at ||= self.initial_born_at
+    self.dead_at ||= initial_dead_at
+    self.default_storage ||= initial_container
+    self.initial_container ||= self.default_storage
+  end
+
+  # Sets nature and variety from variant
+  def set_default_values_on_create
     if variant
       self.nature_id = variant.nature_id
       self.variety ||= variant.variety
