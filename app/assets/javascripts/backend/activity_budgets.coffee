@@ -67,6 +67,8 @@
 
   # Referesh totals after delete support
   $(document).on "cocoon:after-insert", ".budget-items", (event)->
+    $(event.currentTarget).find('.budget-amount').each ->
+      $(this).html(C.toBudgetCurrency($(this).numericalValue()))
     if $('#supports-quantity').numericalValue() <= 0
       $('.required-support').hide()
 
@@ -158,6 +160,70 @@
   E.onDomReady ->
     $('.budget-amount').each () ->
       $(this).html(C.toBudgetCurrency($(this).numericalValue()))
+    $('.activity_budget_revenues_main_output .checkbox input').each () ->
+      $(this).trigger('main_output:set')
+    $('.activity_budget_revenues_use_transfer_price .checkbox input').each () ->
+      E.changeTransferPriceDisplay($(this), $(this).is(':checked'))
+    $('.budget-locked').each () ->
+      if $('.budget-locked').val() == 'true'
+        $(this).closest('.budget').addClass('budget-item-locked')
+        $(this).closest('.budget').next('.frequencies').addClass('budget-item-locked')
+
+  $(document).behave "change", ".activity_budget_revenues_main_output .checkbox input", (event)->
+    $(this).trigger('main_output:set')
+
+  $(document).behave "change", ".budget-total .amount", (event)->
+    $('.activity_budget_revenues_use_transfer_price .checkbox input').each () ->
+      E.updateTransferPrice($(this))
+
+  $(document).behave "change", ".activity_budget_revenues_use_transfer_price .checkbox input", (event)->
+    if $(this).is(':checked')
+      E.changeTransferPriceDisplay($(this), true)
+      $(this).closest('.frequencies').next('.transfered-activity').show()
+    else
+      E.changeTransferPriceDisplay($(this), false)
+      $(this).closest('.frequencies').next('.transfered-activity').hide()
+
+  $(document).behave "main_output:set", ".activity_budget_revenues_main_output .checkbox input", (event) ->
+    if $(this).is(':checked')
+      if $(".activity_budget_revenues_main_output .checkbox input:checked").length > 1
+        $('.activity_budget_revenues_main_output .checkbox input').prop('checked', false).trigger('change')
+        $(this).prop('checked', true)
+      $(this).closest('.frequencies').find('.transfer-price').show()
+      $(this).closest('.frequencies').find('.use-transfer-price').show()
+      $(this).closest('.frequencies').find('.activity_budget_revenues_use_transfer_price .checkbox input').trigger('change')
+    else
+      $(this).closest('.frequencies').find('.activity_budget_revenues_use_transfer_price .checkbox input').prop('checked', false).trigger('change')
+      $(this).closest('.frequencies').find('.use-transfer-price').hide()
+      $(this).closest('.frequencies').find('.transfer-price').hide()
+
+  E.updateTransferPrice = (element) ->
+    budget = element.closest('.frequencies').prev('.budget')
+    wu = if $('th.with-some-supports').css('display') != 'none' then '-per-working-unit' else ''
+    non_taken_revenue = budget.find('.revenue-amount'+wu).numericalValue()
+    revenues = $(".revenue-amount"+wu)
+    expenses = $('#expenses-amount'+wu).numericalValue()
+    mapped_revenues = $.map revenues, (val, i) ->
+      $(val).numericalValue()
+    revenues_sum = -(non_taken_revenue);
+    $.each mapped_revenues, ->
+      revenues_sum += this
+    quantity = parseFloat(budget.find('.budget-quantity').val())
+    transfer_price = ((expenses - revenues_sum)/quantity).toFixed(2)
+    transfer_price = if $.isNumeric(transfer_price) then transfer_price else 0.00
+    element.closest('.frequencies').find('.transfer-price-box').html(transfer_price)
+    element.closest('.frequencies').find('.v-transfer-price').attr('value', transfer_price)
+    if element.is(':checked')
+      budget.find('.activity_budget_revenues_unit_amount span input').attr('value',transfer_price).prop('value',transfer_price)
+    return transfer_price
+
+  E.changeTransferPriceDisplay = (element, state) ->
+    transfer_price = E.updateTransferPrice(element)
+    if state
+      element.closest('.frequencies').prev('.budget').find('.activity_budget_revenues_unit_amount span input').attr('value', transfer_price)
+      element.closest('.frequencies').prev('.budget').find('.activity_budget_revenues_unit_amount span input').prop("disabled", true)
+    else
+      element.closest('.frequencies').prev('.budget').find('.activity_budget_revenues_unit_amount span input').prop("disabled",false)
 
   # Show working unit dependent stuff
   $(document).behave "load selector:set", "#production_support_variant_id", (event)->
