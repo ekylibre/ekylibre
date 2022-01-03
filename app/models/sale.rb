@@ -667,7 +667,7 @@ class Sale < ApplicationRecord
 
     def create_sale_catalog_items
       items.each do |sale_item|
-        next unless catalog = Catalog.by_default!(:sale)
+        next unless (catalog = nature.catalog) && Preference.global.find_by(name: :use_sale_catalog)&.value
 
         invoice_date = invoiced_at || Time.now
         item = CatalogItem.find_by(catalog: catalog, variant: sale_item.variant, unit: sale_item.conditioning_unit)
@@ -687,13 +687,12 @@ class Sale < ApplicationRecord
       if Preference.global.find_by(name: :use_sale_catalog)&.value
         items.each do |item|
           catalog_item = nature.catalog.items.of_variant(item.variant).active_at(invoiced_at).of_unit(item.conditioning_unit).first
-          if catalog_item && item.unit_amount != catalog_item.amount
+          if catalog_item && item.unit_pretax_amount != catalog_item.amount
             catalog_item.update!(stopped_at: invoiced_at)
             CatalogItem.create!(
               variant_id: item.variant_id,
-              all_taxes_included: true,
+              amount: item.unit_pretax_amount,
               reference_tax: item.tax,
-              amount: item.unit_amount,
               started_at: invoiced_at,
               unit_id: item.conditioning_unit_id,
               catalog_id: Catalog.of_usage(:sale).first.id
