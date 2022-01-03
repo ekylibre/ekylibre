@@ -204,7 +204,6 @@ module Backend
       product_nature = @product_nature_variant.nature
       stock = @product_nature_variant.current_stock(into_default_unit: true)
       conditioning = Unit.find_by_id(params[:conditioning_id])
-      conditioning ||= @product_nature_variant&.default_unit
       reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : Time.now
 
       infos = {
@@ -261,9 +260,23 @@ module Backend
       elsif params[:sale_nature_id]
         catalog = SaleNature.find(params[:sale_nature_id]).catalog
       end
+      sale_nature = params[:sale_nature_id] ? SaleNature.find_by_id(params[:sale_nature_id]) : SaleNature.first
       catalog_item = catalog ? catalog.items.of_variant(@product_nature_variant).of_unit(conditioning).active_at(reference_date).first : nil
+      if %w[use_sale_catalog last_sale_item].include?(params[:mode])
+        if !conditioning
+          if (items = SaleItem.of_sale_nature(sale_nature).where(variant: @product_nature_variant)).any?
+            item = items.order(id: :desc).first
+            infos[:unit][:conditioning_id] = item.conditioning_unit_id
+            infos[:unit][:name] = item.conditioning_unit.name
+            conditioning = item.conditioning_unit
+          else
+            conditioning = @product_nature_variant&.default_unit
+            infos[:unit][:conditioning_id] = conditioning.id
+            infos[:unit][:name] = conditioning.name
+          end
+        end
+      end
       if params[:mode] == 'use_sale_catalog'
-        sale_nature = params[:sale_nature_id] ? SaleNature.find_by_id(params[:sale_nature_id]) : SaleNature.first
         if (items = sale_nature.catalog.items.of_unit(conditioning).of_variant(@product_nature_variant).active_at(reference_date)).any?
           item = items.first
           infos[:all_taxes_included] = item.all_taxes_included
@@ -273,7 +286,6 @@ module Backend
         end
       elsif params[:mode] == 'last_sale_item'
         # get last item with tax, pretax amount and amount
-        sale_nature = params[:sale_nature_id] ? SaleNature.find_by_id(params[:sale_nature_id]) : SaleNature.first
         if (items = SaleItem.of_sale_nature(sale_nature).where(variant: @product_nature_variant, conditioning_unit: conditioning)).any?
           item = items.order(id: :desc).first
           infos[:tax_id] = item.tax_id
