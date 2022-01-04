@@ -72,7 +72,7 @@ class FinancialYearExchange < ApplicationRecord
   scope :closed, -> { where.not(closed_at: nil) }
   scope :at, ->(date) { where('? BETWEEN started_on AND stopped_on', date) }
 
-  enumerize :format, in: %i[ekyagri isacompta], default: :ekyagri, predicates: true, scope: true
+  enumerize :format, in: %i[ekylibre isacompta], default: :ekylibre, predicates: true, scope: true
 
   class << self
     def for_public_token(public_token)

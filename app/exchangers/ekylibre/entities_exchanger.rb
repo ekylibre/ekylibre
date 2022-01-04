@@ -2,7 +2,7 @@
 
 module Ekylibre
   class EntitiesExchanger < ActiveExchanger::Base
-    category :stocks
+    category :human_resources
     vendor :ekylibre
 
     # Create or updates entities

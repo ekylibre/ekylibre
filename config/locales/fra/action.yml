@@ -582,21 +582,21 @@ fra:
       edit: "Modifier la catégorie comptable\_: %{name}"
       index: "Catégories comptables"
       new: "Nouvelle catégorie comptable"
-      pick: "Importer une catégorie comptable"
+      pick: "Importer une catégorie de référence"
       show: "Catégorie comptable\_: %{name}"
     backend/product_nature_variants:
-      create: "Nouvelle variante de produit"
-      edit: "Modifier la variante de produit\_: %{name}"
-      index: "Variantes de produits"
-      new: "Nouvelle variante de produit"
-      pick: "Importer une variante de produits"
-      show: "Variante de produit\_: %{name}"
+      create: "Nouvel article"
+      edit: "Modifier l'article'\_: %{name}"
+      index: "Articles"
+      new: "Nouvel article"
+      pick: "Importer un article de référence"
+      show: "Article\_: %{name}"
     backend/product_natures:
-      edit: "Modifier le type de produit\_: %{name}"
-      index: "Types de produits"
-      new: "Nouveau type de produit"
-      pick: "Importer un type de produit"
-      show: "Type de produit\_: %{name}"
+      edit: "Modifier le profil fonctionnel\_: %{name}"
+      index: "Profils fonctionnels"
+      new: "Nouveau profil fonctionnel"
+      pick: "Importer un profil fonctionnel"
+      show: "Profil fonctionnel\_: %{name}"
     backend/productions: #?
       edit: "Modifier la production\_: %{name}" #?
       index: "Productions" #?
@@ -819,8 +819,8 @@ fra:
       index: "Catégories d'animaux"
       pick: "Importer une catégorie d'animaux"
     backend/variant_categories/article_categories:
-      index: "Catégories comptables d'articles"
-      pick: "Importer une catégorie comptable d'articles"
+      index: "Catégories d'articles stockables"
+      pick: "Importer une catégorie d'articles stockables"
     backend/variant_categories/crop_categories:
       index: "Catégories de cultures"
       pick: "Importer une catégorie de cultures"
@@ -837,71 +837,71 @@ fra:
       index: "Catégories de zones"
       pick: "Importer une catégorie de zones"
     backend/variant_types/animal_types:
-      index: "Types d'animaux"
-      pick: "Importer un type d'animaux"
+      index: "Profils d'animaux"
+      pick: "Importer un profil d'animaux de référence"
     backend/variant_types/article_types:
-      index: "Types d'articles"
-      pick: "Importer un type d'articles"
+      index: "Profils d'articles stockables"
+      pick: "Importer un profil d'articles de référence"
     backend/variant_types/crop_types:
-      index: "Types de cultures"
-      pick: "Importer un type de cultures"
+      index: "Profils de cultures"
+      pick: "Importer un profil de cultures de référence"
     backend/variant_types/equipment_types:
-      index: "Types d'équipements"
-      pick: "Importer un type d'équipements"
+      index: "Profils d'équipements"
+      pick: "Importer un profil d'équipements de référence"
     backend/variant_types/service_types:
-      index: "Types de services"
-      pick: "Importer un type de services"
+      index: "Profils de services"
+      pick: "Importer un profil de services de référence"
     backend/variant_types/worker_types:
-      index: "Types d'équipiers"
-      pick: "Importer un type d'équipiers"
+      index: "Profils d'équipiers"
+      pick: "Importer un profil d'équipiers de référence"
     backend/variant_types/zone_types:
-      index: "Types de zones"
-      pick: "Importer un type de zones"
+      index: "Profils de zones"
+      pick: "Importer un profil de zones de référence"
     backend/variants/animal_variants:
       index: "Animaux"
-      pick: "Importer un animal"
+      pick: "Importer un animal de référence"
     backend/variants/article_variants:
-      index: "Autres articles"
-      pick: "Importer un article"
+      index: "Autres articles stockables"
+      pick: "Importer un article de référence"
     backend/variants/articles/farm_product_articles:
       index: "Produits de l'exploitation"
-      pick: "Importer un produit de l'exploitation"
+      pick: "Importer un produit de l'exploitation de référence"
     backend/variants/articles/fertilizer_articles:
       index: "Engrais"
-      pick: "Importer un engrais"
+      pick: "Importer un engrais de référence"
     backend/variants/articles/plant_medicine_articles:
       index: "Produits phytosanitaires"
-      pick: "Importer un produit phytosanitaire"
+      pick: "Importer un produit phytosanitaire de référence"
     backend/variants/articles/seed_and_plant_articles:
       index: "Semences et plants"
-      pick: "Importer une semence ou un plant"
+      pick: "Importer une semence ou un plant de référence"
     backend/variants/crop_variants:
       index: "Cultures"
-      pick: "Importer une culture"
+      pick: "Importer une culture de référence"
     backend/variants/equipment_variants:
       index: "Équipements"
-      pick: "Importer un équipement"
+      pick: "Importer un équipement de référence"
     backend/variants/equipments/fixed_equipment_equipments:
       index: "Équipements fixes"
-      pick: "Importer un équipement fixe"
+      pick: "Importer un équipement fixe de référence"
     backend/variants/equipments/motorized_equipment_equipments:
       index: "Équipements motorisés"
-      pick: "Importer un équipement motorisé"
+      pick: "Importer un équipement motorisé de référence"
     backend/variants/equipments/tool_equipments:
       index: "Outils"
-      pick: "Importer un outil"
+      pick: "Importer un outil de référence"
     backend/variants/equipments/trailed_equipment_equipments:
       index: "Équipements tractés"
-      pick: "Importer un équipement tracté"
+      pick: "Importer un équipement tracté de référence"
     backend/variants/service_variants:
       index: "Services"
-      pick: "Importer un service"
+      pick: "Importer un service de référence"
     backend/variants/worker_variants:
       index: "Équipiers"
-      pick: "Importer un équipier"
+      pick: "Importer un équipier de référence"
     backend/variants/zone_variants:
       index: "Zones"
-      pick: "Importer une zone"
+      pick: "Importer une zone de référence"
     backend/wine_tanks:
       index: "Cuverie"
     backend/wine_transformers: #?
@@ -1194,13 +1194,13 @@ fra:
     planting_campaign: "Campagne de plantation"
     activate_transmit_analytic_codes: "La séquence analytique est disponible en sélectionnant l’option 'Transmettre les codes analytiques' de l’échange comptable au format Isacompta dans un exercice comptable"
     isacompta_format_exchanges: "Échanges au format Isacompta"
-    ekyagri_format_exchanges: "Échanges au format Ekylibre"
+    ekylibre_format_exchanges: "Échanges au format Ekylibre"
     complete_isacompta_journal_code_html: "Complétez les codes des journaux Isacompta sélectionnés dans votre échange comptable : %{journals_link}"
     number_of_animals: "Membres"
     warning_could_not_use_ift: "Attention, si la production de référence n'est pas renseignée, les IFT ne pourront pas être calculés."
     start_state_of_production: "1ère année de production (plantation année N)"
     isacompta_format_exchanges: "Échanges au format Isacompta"
-    ekyagri_format_exchanges: "Échanges au format Ekylibre"
+    ekylibre_format_exchanges: "Échanges au format Ekylibre"
     csv_format: "Format CSV"
     fec_txt_format: "Format FEC TXT"
     fec_xml_format: "Format FEC XML"
@@ -1325,7 +1325,7 @@ fra:
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Planifier une intervention"
     add_item: "Ajouter un élément"
-    add_itk_on_activities: "Planifier & Budgeter automatiquement les activités"
+    add_itk_on_activities: "Planifier et budgéter automatiquement les activités"
     add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
@@ -1461,7 +1461,7 @@ fra:
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area: "Zone"
     area_measure: "Superficie" #?
-    articles: "Articles"
+    articles: "Articles stockables"
     seeds_or_plants_stock: "Des semences ou des plants en stock"
     assessable_operations: "Opérations imposables (H.T)" #?
     asset_exists: "Immobilisation en cours existante"
@@ -1601,7 +1601,7 @@ fra:
     childrens: "Enfants" #?
     choices: "Choix"
     choose_an_activity: "Choisir une activité"
-    choose_a_type_of_product: "Choisissez un type de produit"
+    choose_a_type_of_product: "Choisissez un article"
     choose_an_existing_conditioning: "Choisir un conditionnement existant"
     choose_creation_mode: "Choisissez un mode de création"
     choose_delete_interventions_options: "Vous souhaitez :"
@@ -2083,7 +2083,7 @@ fra:
     file_to_import: "Fichier à importer" #?
     file_to_upload: "Fichier à importer"
     file_trimming: "Découpage du fichier :"
-    fill_analytic_codes_of_your_activities: "Renseigner vos codes analytiques Isacompta | %{missing_code_count} manquants sur le segment %{segment}"
+    fill_analytic_codes_of_your_activities: "Renseignez vos codes analytiques Isacompta | %{missing_code_count} manquants sur le segment %{segment}"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
     filter_on: "Filtrer sur"
@@ -2416,7 +2416,7 @@ fra:
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
-    link_conditioning_to_variant_guidance: "Afin d'être en mesure d'utiliser un conditionnement avec la variante choisie, veuillez le séléctionner parmi ceux existant ou en créer un nouveau."
+    link_conditioning_to_variant_guidance: "Afin d'être en mesure d'utiliser un conditionnement avec l'article choisi, veuillez le séléctionner parmi ceux existant ou en créer un nouveau."
     link_to_a_sale: "Rattacher à une vente"
     lipolysis: "Lipolyse" #?
     liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d’affaire HT) %{financial_year}"
@@ -2536,9 +2536,9 @@ fra:
     n_1_trial_balance_display: "Affichage de la période N-1 de la balance comptable"
     name: "Nom"
     name_already_exists: "Attention, ce nom existe déjà"
-    nature: "Type"
+    nature: "Profil"
     nature_changed: "Le type des animaux a changé"
-    natures: "Types"
+    natures: "Profils"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
     needed_quantity: "Quantité nécessaire"
@@ -2556,10 +2556,12 @@ fra:
     new: "Nouveau"
     new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
+    new_article: "Nouvel article"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
     new_budget: "Nouveau budget"
     new_call: "Nouvel appel"
+    new_category: "Nouvelle catégorie"
     new_contact: "Nouveau contact"
     new_container: "Nouvel emplacement"
     new_delivery_of_x_parcels:
@@ -2589,6 +2591,7 @@ fra:
     new_outgoing_payment: "Nouveau décaissement"
     new_password: "Nouveau mot de passe"
     new_payment: "Enregistrer un nouvel encaissement" #?
+    new_profil: "Nouveau profil"
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
     new_purchase: "Nouvel achat" #?
@@ -2704,7 +2707,7 @@ fra:
     other_receivables: "Autres créances"
     other_reserves: "1068 - Autres réserves"
     other_results: "Autres résultats…" #?
-    others: "Autres"
+    others: "Autres articles stockables"
     others_debts: "Autres dettes"
     others_debts_advance_products: "Produits constatés d'avance"
     others_debts_advance_receivables: "Avances et acomptes reçus sur commandes"
@@ -2768,6 +2771,7 @@ fra:
     per_year: "Par année"
     percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
     percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
+    percentage_options : "Options de répartition par pourcentage"
     period: "Période"
     period_to_take_into_account: "Période à prendre en compte"
     periods: "Périodes"
@@ -2799,6 +2803,9 @@ fra:
     phytosanitary_product_does_not_exists:  "Le numéro d’AMM de votre produit est inconnu : corrigez-le pour bénéficier des vérifications réglementaires"
     phytosanitary_register: "Registre phytosanitaire"
     phytosanitary_treatment_informations: "Justification traitement"
+    pick_reference_article: "Importer un article de référence"
+    pick_reference_category: " Importer une catégorie de référence"
+    pick_reference_profile: "Importer un profil de référence"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
@@ -2853,6 +2860,7 @@ fra:
     prices_for_all: "Tous les prix" #?
     prices_for_clients: "Les prix de vente" #?
     prices_for_suppliers: "Les prix d’achat du fournisseur" #?
+    prices_list: "Prix catalogue"
     prices_import: "Importer un fichier CSV" #?
     print: "Imprimer"
     print_at: "Le" #?
@@ -2871,15 +2879,15 @@ fra:
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
     product_name: "Produit"
-    product_nature: "Type de produit"
+    product_nature: "Profil fonctionnel"
     product_nature_category: "Catégorie comptable"
-    product_nature_variants: "Variantes"
-    product_nature_variant: "Variante"
-    product_natures: "Types de produit"
+    product_nature_variants: "Articles"
+    product_nature_variant: "Article"
+    product_natures: "Profils fonctionnels"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
     product_value: "Chiffre d’affaire de l’exercice %{financial_year}"
-    product_variant: "Variante de produit"
+    product_variant: "Article de référence :"
     production: "Production"
     production_cost: "Coût de production"
     production_costs: "Coûts de production"
@@ -2891,6 +2899,7 @@ fra:
     productions: "Productions"
     productions_map: "Carte des productions" #?
     productions_sales: "Ventes de biens"
+    product_catalogue : "Catalogue d'articles"
     products: "Produits"
     products_purchases: "Approvisionnements"
     products_sales: "Ventes de marchandises"
@@ -3093,7 +3102,7 @@ fra:
       all: "Toutes" #?
       current: "En cours" #?
       unpaid: "Impayées" #?
-    same_variant_as_x: "Même variante de produit que %{x}"
+    same_variant_as_x: "Même article que %{x}"
     save: "Enregistrer"
     save_salary: "Enregistrer un salaire"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
@@ -3454,7 +3463,7 @@ fra:
     unknown: "Inconnu"
     unknown_condition: "Type de condition inconnue"
     unknown_user: "Utilisateur inconnu"
-    unknown_variant: "Variante de produit inconnue"
+    unknown_variant: "Aticle inconnue"
     unlettered: "Non lettré"
     unlettered_at: "Non lettré à date"
     unlock: "Déverrouiller"
@@ -3516,8 +3525,8 @@ fra:
     value_on_debit_and_credit: "Une valeur est présente au débit et au crédit"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
-    variant: "Variante"
-    variants: "Variantes"
+    variant: "Article"
+    variants: "Articles"
     vat: "TVA"
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
@@ -3570,7 +3579,7 @@ fra:
     worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
     workers: "Équipiers"
-    workforce: "Main d'oeuvre"
+    workforce: "Main œuvre"
     working_area: "Surface travaillée"
     working_area_in_hectare: "Surface travaillée (ha)"
     working_duration: "Temps de travail"

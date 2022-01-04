@@ -46,6 +46,12 @@
     - else
       = cobble_list(:products)
 
+- if resource.purchasable? || resource.saleable? || resource.storable?
+  - c.cobble(:prices_list) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: '/backend/catalog_items', :variant_id => resource.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
+
 - if resource.saleable?
   - c.cobble(:sale_items) do
     = cobble_list(:sale_items)
@@ -65,12 +71,6 @@
 
   - c.cobble(:suppliers) do
     = cobble_list(:suppliers)
-
-- if resource.purchasable? || resource.saleable? || resource.storable?
-  - c.cobble(:catalog_items) do
-    = cobble_toolbar do |t|
-      = t.new(params: {controller: '/backend/catalog_items', :variant_id => resource.id, redirect: request.fullpath}, tool: 'new-price')
-    = cobble_list(:catalog_items)
 
 - if resource.of_variety? :equipment
   - c.cobble(:components) do
