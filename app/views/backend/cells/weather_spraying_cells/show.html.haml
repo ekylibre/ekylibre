@@ -1,0 +1,45 @@
+- if @forecast
+    %table.weather-spraying
+        %thead 
+            %tr 
+                %th.fixed.center-align{:scope => "row"} Date
+                - @date.each do |date|
+                    %th.center-align{:scope => "col"}
+                        .flex-wrap
+                            %span=date.first
+                            %span=date.last
+        %tbody
+            %tr
+                %th.fixed.center-align{:scope => "row"}
+                - @weather.each do |weather|
+                    %td.center-align
+                        .flex-wrap
+                            %img{:src => "https://openweathermap.org/img/wn/#{weather.first}@2x.png"}
+                            %span.weather-label=weather.last
+            %tr
+                %th.fixed.center-align{:scope => "row"}= :temperature.tl
+                - @temperatures.each do |temp|
+                    %td.center-align= temp
+            %tr
+                %th.fixed.center-align{:scope => "row"}= :humidity.tl
+                - @humidity.each do |hum|
+                    %td.center-align= hum
+            %tr
+                %th.fixed.center-align{:scope => "row"}= :wind_speed.tl
+                - @wind_speed.each do |wind|
+                    %td.center-align= wind
+            %tr
+                %th.fixed.center-align{:scope => "row"}= :pluviometry.tl
+                - @pluviometry.each do |pluvio|
+                    %td.center-align= pluvio
+            %tr
+                %th.fixed.center-align{:scope => "row"}= :spraying_condition.tl
+                - @condition.each do |cond|
+                    %td.center-align
+                        .flex-wrap
+                            %span.spraying-condition-color{:class => "#{cond}"}
+                            %span="weather_spraying_#{cond}".to_sym.tl
+- else
+    = no_data
+
+        
