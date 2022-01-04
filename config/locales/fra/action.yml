@@ -2213,6 +2213,7 @@ fra:
     human_working_zone_area: "Zone travaillée" #?
     humans: "RH"
     humidity: "Humidité"
+    hygrometry: "Hygrométrie"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
@@ -3199,6 +3200,7 @@ fra:
     special_caracter: "L'écriture présente un nom contenant des caractères spéciaux"
     spray_volume: "Volume de bouillie"
     spraying_map: "Carte de pulvérisation" #?
+    spraying_condition: "Conditions de pulvérisation"
     standard: "Standard" #?
     standard_vat: "TVA Standard"
     start: "Du"
@@ -3541,6 +3543,10 @@ fra:
     waters: "Eaux"
     wear: "Usure" #?
     weather: "Météo"
+    weather_spraying: "Météo avec conditions de pulvérisation"
+    weather_spraying_go: "Idéales"
+    weather_spraying_caution: "Possibles"
+    weather_spraying_stop: "Défavorables"
     website: "Site web"
     week: "Semaine" #?
     wice_grid_columns: "Colonnes"

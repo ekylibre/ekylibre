@@ -1,0 +1,49 @@
+table.weather-spraying{
+    @include clearfix;
+    display: block;
+    overflow: auto;
+    thead{
+      th {
+        border-bottom: 2px solid #dee2e6;
+      }
+    }
+    th.fixed {
+    position:sticky;
+    left:0px;
+    min-width: 6.25rem;
+    border-right: 2px solid #dee2e6;
+    }
+    td,th {
+      padding: 0.75rem;
+      min-width: 4.5rem;
+    }
+    td img {
+      width: 3.75rem;
+    }
+
+    .flex-wrap{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .flex-wrap .weather-label{
+      min-height: 40px;
+    }
+
+    span.spraying-condition-color{
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+    }
+    .spraying-condition-color.stop{
+        background: #f39da0;
+    }
+    .spraying-condition-color.caution{
+        background: #ddeb94;
+    }
+    .spraying-condition-color.go{
+        background: #a3d5a2;
+    }
+}
