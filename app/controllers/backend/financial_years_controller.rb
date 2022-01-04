@@ -51,7 +51,7 @@ module Backend
       t.column :amount, currency: true
     end
 
-    list(:ekyagri_format_exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c, format: 'ekyagri' }) do |t|
+    list(:ekylibre_format_exchanges, model: :financial_year_exchanges, conditions: { financial_year_id: 'params[:id]'.c, format: 'ekylibre' }) do |t|
       t.action :journal_entries_export, format: :csv, label: :journal_entries_export.ta, class: 'export-action'
       t.action :journal_entries_import, label: :journal_entries_import.ta, if: :opened?, class: 'import-action'
       t.action :notify_accountant_modal, if: :opened?, class: 'notify-accountant-action'

@@ -11,7 +11,7 @@ La gestion des achats est similaire à la gestion des ventes. En effet, les rôl
 ==== Ajout d'un produit à la commande ====
 
   - Cliquez sur "Ajouter un élément"
-  - Sélectionnez une variante de produit à acheter. Si vous avez définit un prix ou déjà acheté ce type de produit, un tarif vous sera proposé automatiquement
+  - Sélectionnez un article de produit à acheter. Si vous avez définit un prix ou déjà acheté ce type de produit, un tarif vous sera proposé automatiquement
   - Mettez à jour le prix unitaire hors-taxe (PUHT) si nécessaire
   - Vérifiez la TVA
   - Appliquez un pourcentage de réduction si nécessaire

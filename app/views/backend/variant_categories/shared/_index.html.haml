@@ -6,7 +6,7 @@
     - btn_class = controller_name.match(/#{Regexp.quote(nature)}/) ? 'btn-pill active' : 'btn-pill'
     = link_to nature.pluralize.tl, send("backend_variant_categories_#{nature}_categories_path"), class: btn_class
 
-  = t.pick params: { redirect_show_path: backend_product_nature_categories_path, selector_label: :product_nature_category.tl }
-  = t.new params: { controller: '/backend/product_nature_categories', subdivision: controller_name }
+  = t.pick label: :pick_reference_category.tl, params: { redirect_show_path: backend_product_nature_categories_path, selector_label: :product_nature_category.tl }
+  = t.new label: :new_category.tl, params: { controller: '/backend/product_nature_categories', subdivision: controller_name }
 
 = main_list "constant_name" => "VariantCategories::#{controller_name.classify}"

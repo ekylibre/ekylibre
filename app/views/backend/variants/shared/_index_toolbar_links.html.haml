@@ -13,6 +13,6 @@
     - btn_class = controller_name.match(/#{Regexp.quote(nature)}/) ? 'btn-pill active' : 'btn-pill'
     = link_to nature.pluralize.tl, send("backend_variants_#{nature}_variants_path"), class: btn_class
 
-  = t.pick params: { redirect_show_path: "/#{controller_path}", redirect_edit_path: backend_product_nature_variants_path, selector_label: :product_variant.tl }
-  = t.new params: { controller: "/#{controller_path}", subdivision: controller_name }
+  = t.pick label: :pick_reference_article.tl, params: { redirect_show_path: "/#{controller_path}", redirect_edit_path: backend_product_nature_variants_path, selector_label: :product_variant.tl }
+  = t.new label: :new_article.tl, params: { controller: "/#{controller_path}", subdivision: controller_name }
 

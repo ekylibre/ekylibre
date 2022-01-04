@@ -613,7 +613,7 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
-        get :list_ekyagri_format_exchanges
+        get :list_ekylibre_format_exchanges
         get :list_isacompta_format_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
