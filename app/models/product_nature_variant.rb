@@ -175,6 +175,11 @@ class ProductNatureVariant < ApplicationRecord
 
   scope :of_id, ->(id) { where(id: id) }
 
+  scope :with_name, ->(name) {
+    name_match_rule = "#{Regexp.escape(name)}(\\s\\(\\d*\\))?$" # match "variant", "variant (1)" ,etc.
+    where("name ~ ?", name_match_rule)
+  }
+
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
       reception_items.any? || shipment_items.any? || phases.any?
