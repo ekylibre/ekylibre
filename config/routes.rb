@@ -1116,6 +1116,7 @@ Rails.application.routes.draw do
         get :unroll_saleables
       end
       member do
+        post :duplicate
         get :detail
         get :list_components
         get :list_catalog_items
