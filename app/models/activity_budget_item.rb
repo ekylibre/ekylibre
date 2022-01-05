@@ -56,6 +56,7 @@ class ActivityBudgetItem < ApplicationRecord
   # refers_to :variant_unit, class_name: 'Unit'
 
   belongs_to :activity_budget, inverse_of: :items
+  belongs_to :transfered_activity_budget, class_name: 'ActivityBudget'
   belongs_to :unit, inverse_of: :budget_items
   has_one :activity, through: :activity_budget
   has_one :campaign, through: :activity_budget
@@ -101,6 +102,31 @@ class ActivityBudgetItem < ApplicationRecord
   after_validation do
     self.amount = unit_amount * quantity * coefficient if unit_amount.present?
     self.global_amount = self.amount * year_repetition if self.amount.present?
+  end
+
+  after_save do
+    if use_transfer_price && (budget = ActivityBudget.find_by_id(transfered_activity_budget_id)).present?
+      if (expense = budget.expenses.find_by(variant: variant))
+        expense.update!(
+          quantity: quantity,
+          used_on: used_on,
+          unit_id: unit_id,
+          unit_amount: transfer_price,
+          locked: true
+        )
+      else
+        budget.items.create!(
+          direction: :expense,
+          quantity: quantity,
+          variant: variant,
+          unit_id: unit_id,
+          unit_amount: transfer_price,
+          used_on: used_on,
+          computation_method: :per_working_unit,
+          locked: true
+        )
+      end
+    end
   end
 
   # Computes the coefficient to use for amount computation

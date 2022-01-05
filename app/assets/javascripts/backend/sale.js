@@ -99,25 +99,6 @@
     $(this.closest('.nested-fields')).find('.unitary-quantity > .sale_items_base_unit_amount > input').val(unit_amount)
   })
 
-  $(document).on("selector:change", ".sale_items_variant > .selector > .selector-value", function(){
-    $.ajax('/backend/sales/default_conditioning_unit', {
-      type: 'get',
-      dataType: 'json',
-      data: {
-        "id": this.value
-      },
-      success: ((data) => {
-        var element = $(this.closest('tr')).find('.sale_items_conditioning_unit > .selector > .selector-search')
-        var selector_value = $(this.closest('tr')).find('.sale_items_conditioning_unit > .selector > .selector-value')
-        var len = 4 * Math.round(Math.round(1.11 * data.unit_name.length) / 4);
-        element.attr("size", (len < 20 ? 20 : (len > 80 ? 80 : len)));
-        element.val(data.unit_name);
-        selector_value.prop("itemLabel", data.unit_name)
-        selector_value.val(data.unit_id)
-        selector_value.trigger('selector:change')
-      })
-    });
-  });
 
   E.onDomReady(handleSelectDate)
 })(ekylibre)

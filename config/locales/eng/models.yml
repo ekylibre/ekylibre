@@ -1961,6 +1961,7 @@ eng:
     trade_balance: "Trade balance"
     transaction_nature: "Transaction nature"
     transaction_number: "Transaction number"
+    transfered_activity_budget: "Activity transfer to a designed budget"
     transfered_at: "Transfered at"
     transfered_on: "Transfered on"
     transporter: "Transporter"

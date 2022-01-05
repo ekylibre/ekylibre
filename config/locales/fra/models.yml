@@ -2490,6 +2490,7 @@ fra:
     trade_balance: "Balance commerciale"
     transaction_nature: "Nature de l'opération"
     transaction_number: "Numéro de transaction"
+    transfered_activity_budget: "Cession d'activité vers un budget cible"
     transfered_at: "Transféré à"
     transfered_on: "Transféré le"
     transfers: "Transferts" #?

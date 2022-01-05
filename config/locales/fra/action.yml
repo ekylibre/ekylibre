@@ -1182,7 +1182,7 @@ fra:
     define_born_at_for_matter: 'Note : définissez une date à partir de laquelle vous souhaitez utiliser cette nouvelle matière dans l’application'
     define_born_at_for_equipment: 'Note : définissez une date à partir de laquelle vous souhaitez utiliser ce nouvel équipement dans l’application'
     analytic_options: Options analytiques
-    set_by_lexicon: "Paramétré à partir du lexicon"
+    set_by_lexicon: "Paramétrage automatique"
     vineyard_area: "Surface encepagée"
     productive_plants_yield: "Pieds productifs estimés"
     young_plants_yield: "Jeunes plants estimés"
@@ -3422,6 +3422,7 @@ fra:
     trailed_equipments: "Équipements tractés"
     transactions_by_month: "Transactions par mois"
     transfer: "Effectuer les transferts"
+    transfer_price: "Prix de cession:"
     transformations: "Transformations" #?
     transformed_products: "Produits transformés" #?
     translation_not_realised: "La synchronisation n'a pas encore été effectuée. Veuillez la réaliser dans l'écran de la connexion partenaire afin d'avoir accès aux fonctionnalités."
@@ -3502,6 +3503,7 @@ fra:
     usage_phyto: "Usage"
     use_forward: "Sélectionnez un journal pour reporter les à nouveaux" #?
     use_incoming_payment: "Rattacher l’encaissement %{payment}" #?
+    use_transfer_price: "Utiliser le prix de cession"
     used_accounts: "Comptes utilisés seulement" #?
     used_on: "Première utilisation le"
     user_name: "Nom d’utilisateur" #?
@@ -4127,7 +4129,7 @@ fra:
     use_contextual_help: "Utiliser l’aide contextuelle"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     use_global_search: "Utiliser la recherche globale"
-    use_sale_catalog: "Utiliser le catalogue de prix de ventes"
+    use_sale_catalog: "Mettre à jour le catalogue de prix de vente après facturation"
   rest:
     actions:
       abort: "Annuler"

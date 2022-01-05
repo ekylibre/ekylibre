@@ -549,7 +549,13 @@ class Product < ApplicationRecord
   end
 
   def unambiguous_name
-    conditioning_string = if (conditioning_unit.symbol.nil? || conditioning_unit.symbol == '.')
+    conditioning_string = if (conditioning_unit.symbol == '.')
+                            if default_unit&.symbol.present?
+                              default_unit.symbol
+                            else
+                              default_unit.name
+                            end
+                          elsif conditioning_unit.symbol.nil?
                             conditioning_unit.name
                           else
                             conditioning_unit.symbol

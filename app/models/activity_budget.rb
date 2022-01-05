@@ -58,6 +58,7 @@ class ActivityBudget < ApplicationRecord
 
   scope :opened, -> { where(activity: Activity.actives) }
   scope :of_campaign, ->(campaign) { where(campaign: campaign) }
+  scope :excepted, ->(exception) {where.not(id: exception)}
   scope :of_activity, ->(activity) { where(activity: activity) }
 
   accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
