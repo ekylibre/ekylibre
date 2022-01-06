@@ -179,6 +179,7 @@ fra:
     matters: "Matières"
     mechanic: "Mécanicien"
     mechanical_pollinator: "Pollinisateur artificiel"
+    mechanical_weeder: "Outil de désherbage mécanique"
     medicine: "Traitement" #?
     medicine_to_give: "Traitement à donner" #?
     medicine_to_spray: "Traitement à pulvériser" #?
@@ -393,7 +394,7 @@ fra:
     individual_feeding: "Alimentation individuelle"
     installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
-    intervine_hilling: "Chaussage | Déchaussage"
+    intervine_hilling: "Chaussage | Rechaussage"
     intervine_hill_removing: "Déchaussage"
     intervine_maintenance: "Entretien intercep"
     item_replacement: "Remplacement de pièce" #?
