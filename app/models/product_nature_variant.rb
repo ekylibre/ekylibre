@@ -148,6 +148,7 @@ class ProductNatureVariant < ApplicationRecord
   scope :tools, -> { where(nature: ProductNature.tools) }
 
   scope :purchaseables_stockables_or_depreciables, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.stockables_or_depreciables) }
+  scope :purchaseables_not_services, -> { ProductNatureVariant.purchaseables.where.not(nature: ProductNature.services) }
   scope :purchaseables_services, -> { ProductNatureVariant.purchaseables.merge(ProductNatureVariant.services) }
   scope :outputs_budgets, ->(campaign) { where(id: ActivityBudgetItem.joins(:activity_budget).merge(ActivityBudget.of_campaign(campaign)).revenues.pluck(:variant_id)).reorder(:name) }
 

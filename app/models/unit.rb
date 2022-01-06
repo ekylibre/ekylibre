@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Unit < ApplicationRecord
+  include Providable
   # INFO to convert unit or price, see service UnitComputation
   BASE_UNIT_PER_DIMENSION = { none: 'unity',
                               volume: 'liter',
@@ -46,7 +47,7 @@ class Unit < ApplicationRecord
   scope :imported, -> { where.not(reference_name: nil) }
   scope :of_variant, ->(variant_id) { where(id: CatalogItem.where(variant_id: variant_id).pluck(:unit_id).uniq) }
 
-  protect allow_update_on: %i[name work_code description symbol updated_at], form_reachable: true do
+  protect allow_update_on: %i[name work_code description symbol updated_at provider], form_reachable: true do
     reference_name.present? || associated?
   end
 
