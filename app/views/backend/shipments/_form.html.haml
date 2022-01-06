@@ -3,7 +3,11 @@
   .delivery-item
     = f.referenced_association :recipient, required: true, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
     = f.input :sale_id, as: :hidden
-    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }
+    -# Autoset default address from entity on change only if new_record
+    - if f.object.new_record?
+      = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }
+    - else
+      = f.referenced_association :address, source: :mails, new: { canal: :mail }
   = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
