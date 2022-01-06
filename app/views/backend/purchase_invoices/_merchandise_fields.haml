@@ -6,7 +6,7 @@
       :ruby
         options = {
           label: :merchandise.tl,
-          source: {scope: :purchaseables_stockables_or_depreciables},
+          source: {scope: :purchaseables_not_services},
           input_html: {
             class: "invoice-variant",
             disabled: params[:mode] == 'prefilled',
