@@ -81,6 +81,7 @@ module Backend
       t.column :planned_at
       t.column :given_at
       t.column :recipient, url: true
+      t.column :address, url: true, hidden: true
       t.status
       t.column :state, label_method: :human_state_name, hidden: true
       t.column :delivery, url: true

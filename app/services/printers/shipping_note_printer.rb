@@ -10,6 +10,14 @@ module Printers
       @shipment = shipment
     end
 
+    def currency
+      @currency ||= Onoma::Currency.find(Preference[:currency])
+    end
+
+    def as_currency(value)
+      value.l(currency: currency.name, precision: 2)
+    end
+
     def generate(r)
       # Companies
       company = EntityDecorator.decorate(Entity.of_company)
@@ -63,7 +71,21 @@ module Printers
 
         # Unit
         t.add_field(:unit) { |item| item.conditioning_unit.name }
+
+        # Total_quantity
+        t.add_field(:total_quantity) { |item|  (item.conditioning_quantity * item.conditioning_unit.coefficient).round_l}
+
+        # PU HT
+        t.add_field(:amount) { |item| as_currency(item.base_unit_amount) }
+
+        # base unit name
+        t.add_field(:base_unit) { |item| item.conditioning_unit.base_unit.symbol}
       end
+
+      # Footer
+      r.add_field :company_activity_code, company.activity_code
+      r.add_field :company_vat, company.vat_number
+      r.add_field :company_siret, company.siret_number
     end
 
     def key
