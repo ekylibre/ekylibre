@@ -3,45 +3,49 @@ require 'test_helper'
 class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
   setup do
     fix_preferences
-    @variant = ProductNatureVariant.import_from_nomenclature :hay_round_bales
+
+    @variant = ProductNatureVariant.import_from_lexicon('0_0_18')
 
     @fy = create :financial_year, year: 2018
     @catalog = create :catalog, usage: :stock
-    @catalog.items.create! variant: @variant, amount: 10.0, started_at: Date.new(2018, 1, 1)
+    @unit_pretax_amount = 10.0
+    @initial_population = 10.0
+    @catalog.items.create! variant: @variant, amount: @unit_pretax_amount, started_at: Date.new(2018, 1, 1)
 
-    @product = create :matter, name: 'matter', variant: @variant
+    @product = create :matter, name: 'Engrais 0_0_18', variant: @variant
     create :journal, used_for_permanent_stock_inventory: true
   end
 
   test "Reflecting an inventory without previous stock initializes stock value and amount" do
     inventory = create :inventory, year: 2018, financial_year: @fy
 
-    inventory.items.create! product: @product, expected_population: 0, actual_population: 10
+    inventory.items.create! product: @product, expected_population: 0, actual_population: @initial_population
     inventory.reload
     inventory.reflect!
 
     assert inventory.reflected?
     assert inventory.journal_entry.present?
 
-    assert_equal 100.0, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
-    assert_equal -100.0, @variant.stock_movement_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal (@initial_population * @unit_pretax_amount), @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal -(@initial_population * @unit_pretax_amount), @variant.stock_movement_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
   end
 
   test "Reflecting an inventory with initial stock and no accountancy value creates the correct movement and journal_entry" do
-    @product.update! initial_population: 20
+    new_population = 20.0
+    @product.update! initial_population: new_population
     inventory = create :inventory, year: 2018, financial_year: @fy
 
-    inventory.items.create! product: @product, expected_population: 20, actual_population: 10
+    inventory.items.create! product: @product, expected_population: new_population, actual_population: @initial_population
     inventory.reload
     inventory.reflect!
 
     assert inventory.reflected?
     assert inventory.journal_entry.present?
 
-    assert_equal -10, inventory.items.first.reload.product_movement.delta
+    assert_equal -(new_population - @initial_population), inventory.items.first.reload.product_movement.delta
 
-    assert_equal 100.0, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
-    assert_equal -100.0, @variant.stock_movement_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal (new_population - @initial_population) * @unit_pretax_amount, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal -((new_population - @initial_population) * @unit_pretax_amount), @variant.stock_movement_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
   end
 
   test "Reflecting an inventory with initial stock and initial accountancy amount creates the correct movement and journal entry" do
@@ -177,5 +181,8 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
 
     def fix_preferences
       Preference.set! :currency, :EUR
+      Preference.set! :language, :fra
+      Preference.set! :country, :fr
+      I18n.locale = :fra
     end
 end
