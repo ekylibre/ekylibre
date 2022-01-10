@@ -139,6 +139,19 @@ class ShipmentItem < ParcelItem
     sale_item
   end
 
+  def catalog_item_sale_amount
+    date = self.shipment.planned_at.present? ? self.shipment.planned_at : self.shipment.created_at
+    catalog = Catalog.by_default!(:sale)
+    item = CatalogItem.active_at(date).find_by(catalog: catalog, variant: self.variant, unit: self.unit)
+    item.present? ? item.amount : 0
+  end
+
+  def base_unit_amount
+    coeff = self.conditioning_unit&.coefficient
+    amount = catalog_item_sale_amount
+    amount != 0 && coeff ? (amount / coeff).round(2) : 0
+  end
+
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check

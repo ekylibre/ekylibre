@@ -76,9 +76,10 @@ module Backend
       # t.column :name, through: :building, url: true
       t.column :product, url: true
       # t.column :serial_number, through: :product
-      t.column :expected_population, precision: 3, class: 'left-align'
-      t.column :actual_population, precision: 3, class: 'left-align'
+      t.column :expected_population, precision: 2, class: 'left-align'
+      t.column :actual_population, precision: 2, class: 'left-align'
       t.column :unit, label_method: "product.conditioning_unit.name", class: 'left-align'
+      t.column :unit_pretax_stock_amount, precision: 2, class: 'left-align'
       t.column :container, url: true, hidden: true
     end
 

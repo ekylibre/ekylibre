@@ -8,7 +8,11 @@
   = field_set do
     .delivery-item
       = f.referenced_association :financial_year, source: :opened, new: false, input_html: { data: { product_of_delivery_item: { url: backend_financial_year_path("RECORD_ID", format: :json) }.to_json }}
-      = f.input :name, input_html: { data: { when_item: :name, when_set_value: "RECORD_VALUE"} }
+      -# Set name from financial_year if new_record
+      - if f.object.new_record?
+        = f.input :name, input_html: { data: { when_item: :name, when_set_value: "RECORD_VALUE"} }
+      - else
+        = f.input :name
       = f.referenced_association :journal
       = f.referenced_association :responsible #, source: :employees
       = f.input :achieved_at, input_html: { data: { when_item: :achieved_at, when_set_value: "RECORD_VALUE"} }
