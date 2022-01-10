@@ -99,7 +99,7 @@ class Matter < Product
   scope :of_category, ->(category) { where(category: category) if category.present? }
   scope :of_variety, ->(variety) { where(variety: variety) }
   scope :with_name, ->(name) {
-    name_match_rule = "#{name}+(\\s\\(\\d*\\))?$" # match "matter", "matter (1)" ,etc.
+    name_match_rule = "#{Regexp.escape(name)}(\\s\\(\\d*\\))?$" # match "matter", "matter (1)" ,etc.
     where("name ~ ?", name_match_rule)
   }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

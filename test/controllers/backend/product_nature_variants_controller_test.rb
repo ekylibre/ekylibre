@@ -32,7 +32,7 @@ module Backend
 
       new_variant = ProductNatureVariant.order(created_at: :desc).first
       assert_equal "#{variant.name} (1)", new_variant.name
-      assert_redirected_to backend_product_nature_variant_url(new_variant)
+      assert_redirected_to edit_backend_product_nature_variant_url(new_variant)
     end
 
     private def crush_hash(hash)
