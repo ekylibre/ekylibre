@@ -422,7 +422,7 @@ module Backend
       variant_with_same_name_count = product_nature_variant.class.with_name(variant_name).count
       rank = " (#{variant_with_same_name_count})" if variant_with_same_name_count > 0
       @new_product_nature_variant.name = "#{variant_name}#{rank}"
-      return if save_and_redirect(@new_product_nature_variant, url: { action: :show, id: 'id'.c }, notify: :record_x_created, identifier: :name)
+      return if save_and_redirect(@new_product_nature_variant, url: { action: :edit, id: 'id'.c }, notify: :record_x_created, identifier: :name)
     end
 
     private
