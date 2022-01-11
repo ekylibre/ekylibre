@@ -586,7 +586,7 @@ fra:
       show: "Catégorie comptable\_: %{name}"
     backend/product_nature_variants:
       create: "Nouvel article"
-      edit: "Modifier l'article'\_: %{name}"
+      edit: "Modifier l'article\_: %{name}"
       index: "Articles"
       new: "Nouvel article"
       pick: "Importer un article de référence"
@@ -1483,6 +1483,7 @@ fra:
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
     authorized: "Autorisé"
+    authorized_outgoing_count: "Nombre de décaissements authorisés"
     automatic: "Auto"
     auxiliary: "Auxiliaire"
     available: "Disponible"
@@ -2708,6 +2709,7 @@ fra:
     other_reserves: "1068 - Autres réserves"
     other_results: "Autres résultats…" #?
     others: "Autres articles stockables"
+    others_equipments: "Autres équipements"
     others_debts: "Autres dettes"
     others_debts_advance_products: "Produits constatés d'avance"
     others_debts_advance_receivables: "Avances et acomptes reçus sur commandes"
@@ -2721,6 +2723,7 @@ fra:
     others_debts_total: "Autres dettes" #?
     out_of_current_financial_year: "L’écriture présente une date de valeur sur un autre exercice"
     outgoing: "Sortant" #?
+    outgoing_count: "Nombre de décaissements"
     outgoing_parcel_quantities: "Quantités (Colis sortant)"
     outgoing_parcels: "Colis sortants"
     outgoing_payment: "Décaissement"
