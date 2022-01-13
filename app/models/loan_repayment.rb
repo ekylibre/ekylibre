@@ -68,6 +68,10 @@ class LoanRepayment < ApplicationRecord
     where('locked IS FALSE AND accountable IS FALSE AND journal_entry_id IS NULL AND due_on <= ?', limit_on)
   }
 
+  scope :between, lambda { |started_on, stopped_on|
+    where(due_on: started_on..stopped_on)
+  }
+
   before_validation do
     self.base_amount ||= 0
     self.insurance_amount ||= 0

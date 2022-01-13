@@ -101,6 +101,7 @@ class FixedAsset < ApplicationRecord
   belongs_to :special_imputation_asset_account, class_name: 'Account'
   belongs_to :waiting_asset_account, class_name: 'Account'
 
+  belongs_to :activity
   belongs_to :product
   belongs_to :tax
   belongs_to :sale
