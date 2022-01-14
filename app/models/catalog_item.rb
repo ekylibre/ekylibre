@@ -167,7 +167,7 @@ class CatalogItem < ApplicationRecord
   alias unit_pretax_amount pretax_amount
 
   def sibling_items
-    self.class.of_variant(variant).of_usage(catalog.usage).of_unit(unit)
+    self.class.of_variant(variant).where(catalog: catalog).of_unit(unit)
   end
 
   def following_items
