@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+-- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
+-- Dumped by pg_dump version 13.5 (Debian 13.5-0+deb11u1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,6 +15,20 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
 
 --
 -- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
@@ -31,17 +45,30 @@ CREATE SCHEMA postgis;
 
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
+-- Name: asbinary(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
 --
 
-CREATE SCHEMA public;
+CREATE FUNCTION public.asbinary(postgis.geometry) RETURNS bytea
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/postgis-3', 'LWGEOM_asBinary';
 
 
 --
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+-- Name: asbinary(postgis.geometry, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
-COMMENT ON SCHEMA public IS 'standard public schema';
+CREATE FUNCTION public.asbinary(postgis.geometry, text) RETURNS bytea
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/postgis-3', 'LWGEOM_asBinary';
+
+
+--
+-- Name: astext(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.astext(postgis.geometry) RETURNS text
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/postgis-3', 'LWGEOM_asText';
 
 
 --
@@ -205,6 +232,87 @@ $$;
 
 
 --
+-- Name: estimated_extent(text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.estimated_extent(text, text) RETURNS postgis.box2d
+    LANGUAGE c IMMUTABLE STRICT SECURITY DEFINER
+    AS '$libdir/postgis-3', 'geometry_estimated_extent';
+
+
+--
+-- Name: estimated_extent(text, text, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.estimated_extent(text, text, text) RETURNS postgis.box2d
+    LANGUAGE c IMMUTABLE STRICT SECURITY DEFINER
+    AS '$libdir/postgis-3', 'geometry_estimated_extent';
+
+
+--
+-- Name: geomfromtext(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geomfromtext(text) RETURNS postgis.geometry
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$SELECT ST_GeomFromText($1)$_$;
+
+
+--
+-- Name: geomfromtext(text, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.geomfromtext(text, integer) RETURNS postgis.geometry
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$SELECT ST_GeomFromText($1, $2)$_$;
+
+
+--
+-- Name: ndims(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.ndims(postgis.geometry) RETURNS smallint
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/postgis-3', 'LWGEOM_ndims';
+
+
+--
+-- Name: setsrid(postgis.geometry, integer); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.setsrid(postgis.geometry, integer) RETURNS postgis.geometry
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/postgis-3', 'LWGEOM_set_srid';
+
+
+--
+-- Name: srid(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.srid(postgis.geometry) RETURNS integer
+    LANGUAGE c IMMUTABLE STRICT
+    AS '$libdir/postgis-3', 'LWGEOM_get_srid';
+
+
+--
+-- Name: st_asbinary(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.st_asbinary(text) RETURNS bytea
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$ SELECT ST_AsBinary($1::geometry);$_$;
+
+
+--
+-- Name: st_astext(bytea); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.st_astext(bytea) RETURNS text
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$ SELECT ST_AsText($1::geometry);$_$;
+
+
+--
 -- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -246,6 +354,44 @@ BEGIN
   RETURN NEW;
 END;
 $$;
+
+
+--
+-- Name: gist_geometry_ops; Type: OPERATOR FAMILY; Schema: public; Owner: -
+--
+
+CREATE OPERATOR FAMILY public.gist_geometry_ops USING gist;
+
+
+--
+-- Name: gist_geometry_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
+--
+
+CREATE OPERATOR CLASS public.gist_geometry_ops
+    FOR TYPE postgis.geometry USING gist FAMILY public.gist_geometry_ops AS
+    STORAGE postgis.box2df ,
+    OPERATOR 1 postgis.<<(postgis.geometry,postgis.geometry) ,
+    OPERATOR 2 postgis.&<(postgis.geometry,postgis.geometry) ,
+    OPERATOR 3 postgis.&&(postgis.geometry,postgis.geometry) ,
+    OPERATOR 4 postgis.&>(postgis.geometry,postgis.geometry) ,
+    OPERATOR 5 postgis.>>(postgis.geometry,postgis.geometry) ,
+    OPERATOR 6 postgis.~=(postgis.geometry,postgis.geometry) ,
+    OPERATOR 7 postgis.~(postgis.geometry,postgis.geometry) ,
+    OPERATOR 8 postgis.@(postgis.geometry,postgis.geometry) ,
+    OPERATOR 9 postgis.&<|(postgis.geometry,postgis.geometry) ,
+    OPERATOR 10 postgis.<<|(postgis.geometry,postgis.geometry) ,
+    OPERATOR 11 postgis.|>>(postgis.geometry,postgis.geometry) ,
+    OPERATOR 12 postgis.|&>(postgis.geometry,postgis.geometry) ,
+    OPERATOR 13 postgis.<->(postgis.geometry,postgis.geometry) FOR ORDER BY pg_catalog.float_ops ,
+    OPERATOR 14 postgis.<#>(postgis.geometry,postgis.geometry) FOR ORDER BY pg_catalog.float_ops ,
+    FUNCTION 1 (postgis.geometry, postgis.geometry) postgis.geometry_gist_consistent_2d(internal,postgis.geometry,integer) ,
+    FUNCTION 2 (postgis.geometry, postgis.geometry) postgis.geometry_gist_union_2d(bytea,internal) ,
+    FUNCTION 3 (postgis.geometry, postgis.geometry) postgis.geometry_gist_compress_2d(internal) ,
+    FUNCTION 4 (postgis.geometry, postgis.geometry) postgis.geometry_gist_decompress_2d(internal) ,
+    FUNCTION 5 (postgis.geometry, postgis.geometry) postgis.geometry_gist_penalty_2d(internal,internal,internal) ,
+    FUNCTION 6 (postgis.geometry, postgis.geometry) postgis.geometry_gist_picksplit_2d(internal,internal) ,
+    FUNCTION 7 (postgis.geometry, postgis.geometry) postgis.geometry_gist_same_2d(postgis.geometry,postgis.geometry,internal) ,
+    FUNCTION 8 (postgis.geometry, postgis.geometry) postgis.geometry_gist_distance_2d(internal,postgis.geometry,integer);
 
 
 SET default_tablespace = '';
@@ -1465,7 +1611,7 @@ CREATE TABLE public.products (
     codes jsonb,
     reading_cache jsonb DEFAULT '{}'::jsonb,
     activity_production_id integer,
-    conditioning_unit_id integer NOT NULL,
+    conditioning_unit_id integer,
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
@@ -1526,7 +1672,11 @@ CREATE TABLE public.activity_budget_items (
     repetition integer DEFAULT 1 NOT NULL,
     frequency character varying DEFAULT 'per_year'::character varying NOT NULL,
     global_amount numeric(19,4),
-    main_output boolean DEFAULT false NOT NULL
+    main_output boolean DEFAULT false NOT NULL,
+    use_transfer_price boolean DEFAULT false,
+    transfer_price double precision,
+    locked boolean DEFAULT false,
+    transfered_activity_budget_id integer
 );
 
 
@@ -9681,6 +9831,7 @@ CREATE TABLE public.units (
     type character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    provider jsonb,
     lock_version integer DEFAULT 0 NOT NULL,
     creator_id integer,
     updater_id integer
@@ -14247,6 +14398,13 @@ CREATE INDEX index_activity_budget_items_on_created_at ON public.activity_budget
 --
 
 CREATE INDEX index_activity_budget_items_on_creator_id ON public.activity_budget_items USING btree (creator_id);
+
+
+--
+-- Name: index_activity_budget_items_on_transfered_activity_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_budget_items_on_transfered_activity_budget_id ON public.activity_budget_items USING btree (transfered_activity_budget_id);
 
 
 --
@@ -23441,6 +23599,29 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -23467,29 +23648,6 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
-
-
---
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
 
 
 --
@@ -24525,6 +24683,14 @@ ALTER TABLE ONLY public.planning_scenario_activities
 
 
 --
+-- Name: activity_budget_items fk_rails_f53bdb334e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budget_items
+    ADD CONSTRAINT fk_rails_f53bdb334e FOREIGN KEY (transfered_activity_budget_id) REFERENCES public.activity_budgets(id);
+
+
+--
 -- Name: daily_charges fk_rails_f713d67210; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25182,8 +25348,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211108090701'),
 ('20211109153301'),
 ('20211112154901'),
+('20211124110921'),
 ('20211125181101'),
 ('20211206150144'),
-('20211209142107');
+('20211209142107'),
+('20211220140042');
 
 

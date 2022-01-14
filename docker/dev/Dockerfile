@@ -3,6 +3,7 @@ ARG RUBY_VERSION=2.6
 FROM ruby:${RUBY_VERSION}
 
 ARG UID=1000
+ARG GID=1000
 
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
 
@@ -35,7 +36,9 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
     echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
     apt-get -y install --no-install-recommends postgresql-client-11 python3-pip git
-RUN useradd --create-home --home-dir /home/ekylibre -s /bin/bash -u $UID ekylibre && \
+
+RUN addgroup --gid $GID ekylibre  && \
+    useradd --create-home --home-dir /home/ekylibre -s /bin/bash -g $GID -u $UID ekylibre && \
     chown -R ekylibre:ekylibre /eky
 
 RUN git clone https://gitlab.com/ekylibre/lexicon/lexicon-cli.git /lexicon-client
