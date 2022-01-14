@@ -3,7 +3,9 @@
     "@rails/webpacker": "^4.0.7",
     "autosize": "^4.0.2",
     "axios": "^0.20.0",
+    "chart.js": "^2.7.0",
     "flatpickr": "~4.5.0",
+    "highcharts": "^9.3.2",
     "i18n-js": "^3.7.1",
     "leaflet": "1.2.0",
     "leaflet-draw": "0.4.12",
@@ -15,10 +17,9 @@
     "sortablejs": "^1.7.0",
     "ts-loader": "^8.0.2",
     "typescript": "^4.0.2",
-    "whatwg-fetch": "^3.0",
-    "vuedraggable": "2.16.0",
     "vue-chartjs": "3.2.1",
-    "chart.js": "^2.7.0"
+    "vuedraggable": "2.16.0",
+    "whatwg-fetch": "^3.0"
   },
   "devDependencies": {
     "@types/i18n-js": "^3.0.3",
