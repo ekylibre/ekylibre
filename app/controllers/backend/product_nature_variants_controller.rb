@@ -276,21 +276,18 @@ module Backend
           end
         end
       end
-      if params[:mode] == 'use_sale_catalog'
+      if params[:mode] == 'last_sale_item' && (items = SaleItem.of_sale_nature(sale_nature).where(variant: @product_nature_variant, conditioning_unit: conditioning)).any?
+        item = items.order(id: :desc).first
+        infos[:tax_id] = item.tax_id
+        infos[:unit][:pretax_amount] = item.unit_pretax_amount
+        infos[:unit][:amount] = item.unit_amount
+      elsif %w[use_sale_catalog last_sale_item].include?(params[:mode])
         if (items = sale_nature.catalog.items.of_unit(conditioning).of_variant(@product_nature_variant).active_at(reference_date)).any?
           item = items.first
           infos[:all_taxes_included] = item.all_taxes_included
           infos[:unit][:pretax_amount] = item.pretax_amount
           infos[:unit][:amount] = item.amount
           infos[:tax_id] = item.reference_tax_id
-        end
-      elsif params[:mode] == 'last_sale_item'
-        # get last item with tax, pretax amount and amount
-        if (items = SaleItem.of_sale_nature(sale_nature).where(variant: @product_nature_variant, conditioning_unit: conditioning)).any?
-          item = items.order(id: :desc).first
-          infos[:tax_id] = item.tax_id
-          infos[:unit][:pretax_amount] = item.unit_pretax_amount
-          infos[:unit][:amount] = item.unit_amount
         end
       elsif catalog_item
         infos[:all_taxes_included] = catalog_item.all_taxes_included
