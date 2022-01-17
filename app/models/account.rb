@@ -128,7 +128,7 @@ class Account < ApplicationRecord
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
-  scope :loans, -> { of_usage(:loans) }
+  scope :loans, -> { of_usages(:loans, :long_term_loans, :short_term_loans) }
   scope :interests, -> { of_usages(:campaigns_interests, :long_term_loans_interests, :short_term_loans_interests) }
   scope :insurances, -> { of_usages(:equipment_maintenance_expenses, :exploitation_risk_insurance_expenses, :infirmity_and_death_insurance_expenses, :insurance_expenses) }
   scope :payment_guarantees, -> { of_usage(:payment_guarantees) }

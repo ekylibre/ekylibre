@@ -17,6 +17,7 @@
 = field_set do
   = f.input :name
   = f.input :description, as: :text
+  = f.referenced_association :activity
   = f.referenced_association :product, source: :depreciables, required: %w[sell scrap].include?(params[:mode])
   = f.custom_fields
   = hidden_field_tag :mode, params[:mode]

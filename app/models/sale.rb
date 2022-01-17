@@ -679,6 +679,7 @@ class Sale < ApplicationRecord
                                       currency: sale_item.currency,
                                       sale_item: sale_item,
                                       started_at: invoice_date,
+                                      reference_tax: sale_item.tax,
                                       unit: sale_item.conditioning_unit)
       end
     end
@@ -695,7 +696,7 @@ class Sale < ApplicationRecord
               reference_tax: item.tax,
               started_at: invoiced_at,
               unit_id: item.conditioning_unit_id,
-              catalog_id: Catalog.of_usage(:sale).first.id
+              catalog_id: nature.catalog.id
             )
           end
         end

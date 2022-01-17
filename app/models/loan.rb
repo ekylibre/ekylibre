@@ -74,6 +74,7 @@ class Loan < ApplicationRecord
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
   enumerize :state, in: %i[draft ongoing repaid], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
+  belongs_to :activity
   belongs_to :cash
   belongs_to :journal_entry
   belongs_to :lender, class_name: 'Entity'

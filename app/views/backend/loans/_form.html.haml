@@ -2,6 +2,7 @@
   = f.object.errors.inspect
 = field_set do
   = f.input :name
+  = f.referenced_association :activity
   = f.input :amount
   = f.referenced_association :cash
   = f.referenced_association :lender
