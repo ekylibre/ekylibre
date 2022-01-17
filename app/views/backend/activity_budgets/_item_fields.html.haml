@@ -31,9 +31,6 @@
     %td.left-align.no-top-border
       %span= f.label :main_output.tl, wrapper: :nested
       %span= f.input :main_output, wrapper: :nested
-      %span.use-transfer-price.hidden
-        %span= f.label :use_transfer_price.tl, wrapper: :nested
-        %span= f.input :use_transfer_price, wrapper: :nested
   - else
     %td.left-align.no-top-border
       %span= f.label :nature.tl, wrapper: :nested
@@ -46,11 +43,16 @@
     %span= f.input :repetition, wrapper: :nested, :input_html => {:maxlength => 3, class: "v-budget-repetition"}
     %span.add-on= :x
     %span= f.input :frequency, wrapper: :nested, :input_html => {class: "v-budget-frequency"}
-  %td.left-align.no-top-border.transfer-price.hidden
+  %td.left-align.no-top-border.transfer-price.hidden.unwrapped
     = f.input :transfer_price, as: :hidden, :input_html => {class: "v-transfer-price"}
     %span= :transfer_price.tl
     %span.tp-box.transfer-price-box= f.object.transfer_price&.round(2)
     %span.tp-box.currency= currency_symbol
-%tr.noHover.transfered-activity.hidden
-  %td{colspan: 5}
-    %span= f.referenced_association :transfered_activity_budget, source: {scope: { of_campaign: f.object.campaign, excepted: f.object.activity_budget.id} }, new: false
+- if direction == :revenue
+  %tr.no-border.noHover.transfered-activity
+    %td.left-align{style: "white-space: nowrap;"}
+      %span.use-transfer-price.hidden
+        %span= f.label :use_transfer_price.tl, wrapper: :nested
+        %span= f.input :use_transfer_price, wrapper: :nested
+    %td{colspan: 5}
+      %span.transfered-to-activity.hidden= f.referenced_association :transfered_activity_budget, source: {scope: { of_campaign: f.object.campaign, excepted: f.object.activity_budget.id} }, new: false
