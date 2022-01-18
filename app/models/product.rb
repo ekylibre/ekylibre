@@ -665,14 +665,10 @@ class Product < ApplicationRecord
   end
 
   def set_default_values
-    if %w[Matter Equipment].exclude?(self.class.name)
-      self.initial_born_at ||= Time.zone.now
-      self.born_at ||= self.initial_born_at
-    end
+    set_default_born_at
     self.initial_dead_at = dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
     self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
-    self.born_at ||= self.initial_born_at
     self.dead_at ||= initial_dead_at
     self.default_storage ||= initial_container
     self.initial_container ||= self.default_storage
@@ -1000,4 +996,21 @@ class Product < ApplicationRecord
   def used_in_interventions_before(date)
     InterventionTool.where(product: self).joins(:intervention).where('interventions.started_at < ?', date).any?
   end
+
+  private
+
+    def set_default_born_at
+      if %w[Matter Equipment].exclude?(self.class.name)
+        self.initial_born_at ||= Time.zone.now
+        self.born_at ||= self.initial_born_at
+        self.initial_born_at = self.born_at
+        return nil
+      end
+
+      if initial_born_at.present?
+        self.born_at = self.initial_born_at
+      else
+        self.initial_born_at = self.born_at
+      end
+    end
 end
