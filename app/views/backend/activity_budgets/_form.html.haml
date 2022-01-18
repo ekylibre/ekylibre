@@ -64,10 +64,10 @@
       %tfoot
         %tr.total
           %th{colspan: 5}= :gross_profit.tl
-          %td.left-align.budget-total{data: {check_positive: '.amount'}}
+          %td.left-align.budget-total.unwrapped{data: {check_positive: '.amount'}}
             %span.amount{data: {difference: '#revenues-amount - #expenses-amount', calculate_round: precision, format: "budget"}}= '0.00'
             %span.currency= currency_symbol
-          %td.left-align.required-support.budget-total{data: {check_positive: ".amount"}}
+          %td.left-align.required-support.budget-total.unwrapped{data: {check_positive: ".amount"}}
             %span.amount{data: {difference: '#revenues-amount-per-working-unit - #expenses-amount-per-working-unit', calculate_round: precision, format: "budget"}}= '0.00'
             %span.currency= currency_symbol
           %th
