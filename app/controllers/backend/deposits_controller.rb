@@ -116,10 +116,15 @@ module Backend
     def create
       return unless find_mode
 
+      payment_ids = permitted_params['payment_ids']
+      permitted_params.except!('payment_ids')
       @deposit = Deposit.new(permitted_params)
-      unless @deposit.nil?
-        return if save_and_redirect(@deposit, url: { action: :index })
-
+      if @deposit.present?
+        @deposit.save!
+        notify_success(:deposit_in_preparation)
+        DepositPaymentsJob.perform_later(id: @deposit.id, payment_ids: payment_ids, user_id: current_user.id)
+        redirect_to(backend_deposits_path)
+      else
         t3e mode: @deposit.mode.name
       end
     end

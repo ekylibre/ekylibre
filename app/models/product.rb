@@ -560,7 +560,7 @@ class Product < ApplicationRecord
                           else
                             conditioning_unit.symbol
                           end
-    "#{variant.name} - #{conditioning_string}"
+    "#{name} - #{conditioning_string}"
   end
 
   # set initial owner and localization

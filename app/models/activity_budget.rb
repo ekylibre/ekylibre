@@ -250,7 +250,7 @@ class ActivityBudget < ApplicationRecord
   # Duplicate current budget in given activity and campaign
   def duplicate!(activity, campaign)
     budget = ActivityBudget.find_or_create_by!(activity: activity, campaign: campaign)
-    items.each do |item|
+    items.order(id: :asc).each do |item|
       item.duplicate!(activity_budget: budget)
     end
     budget
