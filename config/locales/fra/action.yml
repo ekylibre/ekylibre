@@ -1481,6 +1481,8 @@ fra:
     available_area: "Surface disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
+    add_catalog_price: "Ajouter un prix catalogue"
+    add_child: "Ajouter un sous-composant"
     back: "Revenir à la page précédente"
     backup: "Sauvegarder" #?
     backups: "Sauvegardes" #?
@@ -1821,6 +1823,7 @@ fra:
     delta: "+/-"
     deposit: "Remise en banque"
     depositable_options: "Options de remise en banque"
+    deposit_created: "La remise en banque %{id} a bien été créée."
     deposits: "Dépôts"
     depreciation: "Amortissement"
     depreciations: "Dépréciations"
@@ -3872,6 +3875,7 @@ fra:
       # could_not_attach_x_or_y_to_affair: "Could not attach %{x} or %{y} to affair"
       dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
       density_is_not_computable_in_counting: "La densité de semis n’a pas pu être calculée pour ce comptage. Veuillez compléter les informations manquantes dans le comptage ou dans les indicateurs du semoir."
+      deposit_in_preparation: "Votre remise en banque est en cours de création et une notification vous sera envoyée dès qu'elle sera prête"
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       document_in_preparation: "Votre document est en cours de préparation et une notification vous sera envoyée dès qu'il sera prêt."
