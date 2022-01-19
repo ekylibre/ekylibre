@@ -1174,6 +1174,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    grubbing_year : "Année d’arrachage"
     set_by_lexicon: "Paramétrage automatique"
     vineyard_area: "Surface encepagée"
     productive_plants_yield: "Pieds productifs estimés"
