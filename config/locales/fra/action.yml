@@ -2700,7 +2700,10 @@ fra:
     organic_matter_concentration: "Teneur en matière organique"
     organic_usage: "Utilisable en agriculture biologique" #?
     original_component: "D’origine"
+    other_animals: "Autres animaux"
+    other_articles: "Autres articles stockables"
     other_debts: "Autres dettes" #?
+    other_equipments: "Autres équipements"
     other_expenses: "Autres charges d’exploitation"
     other_financial_debts: "Autres dettes financières"
     other_products: "Autres produits"
@@ -2708,8 +2711,7 @@ fra:
     other_receivables: "Autres créances"
     other_reserves: "1068 - Autres réserves"
     other_results: "Autres résultats…" #?
-    others: "Autres articles stockables"
-    others_equipments: "Autres équipements"
+    others: "Autres"
     others_debts: "Autres dettes"
     others_debts_advance_products: "Produits constatés d'avance"
     others_debts_advance_receivables: "Avances et acomptes reçus sur commandes"
@@ -2785,7 +2787,7 @@ fra:
     pertinence: "%{value}%"
     pfi_activity: "IFT activité"
     pfi_activity_production: "IFT production (parcelle/culture)"
-    pfi_api_down: "Les services de calcul de l'IFT ne sont pas disponible. Re-calculez votre IFT."
+    pfi_api_down: "Les services de calcul de l’IFT ne sont pas disponibles. Veuillez réessayer ultérieurement."
     pfi_api_error: "Une erreur s'est produite dans le calcul de l'IFT, nos équipe sont informées."
     pfi_api_warnings: "Le calcul de l'IFT a renvoyé des avertissement(s) pour l'intervention %{id}.\n%{warnings}"
     pfi_client_error: "Erreur lors du calcul IFT pour:\n campagne: %{campaign}\n intervention: %{intervention}\n activité: %{activity}\n intrant: %{input}\n requête: %{loggable}"
@@ -3307,8 +3309,8 @@ fra:
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes et charges de personnels"
-    team: "Equipe"
-    teams: "Equipes"
+    team: "Équipe"
+    teams: "Équipes"
     temperature: "Température" #?
     temporary_worker: "Travailleur temporaire"
     the_cultivation: "La parcelle ou culture"

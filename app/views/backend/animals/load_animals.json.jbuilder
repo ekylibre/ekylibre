@@ -18,6 +18,6 @@ end
 
 json.without_group do
   json.id nil
-  json.name :others.tl
+  json.name :other_animals.tl
   json.partial! 'place', animals: @animals.select { |animal| animal.memberships.empty? }
 end

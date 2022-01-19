@@ -2,12 +2,12 @@
   = dropdown_menu_button(:articles.tl, main_class: 'btn-pill' + (controller_name.match(/article/) ? ' active' : '')) do |d|
     - %w[farm_product fertilizer plant_medicine seed_and_plant].each do |sub_nature|
       - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/articles/#{sub_nature}_articles", action: :index }
-    - d.item :others.tl, { controller: '/backend/variants/article_variants', action: :index }
+    - d.item :other_articles.tl, { controller: '/backend/variants/article_variants', action: :index }
 
   = dropdown_menu_button(:equipments.tl, main_class: 'btn-pill' + (controller_name.match(/equipment/) ? ' active' : '')) do |d|
     - %w[fixed_equipment motorized_equipment tool trailed_equipment].each do |sub_nature|
       - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/equipments/#{sub_nature}_equipments", action: :index }
-    - d.item :others.tl, { controller: '/backend/variants/equipment_variants', action: :index }
+    - d.item :other_equipments.tl, { controller: '/backend/variants/equipment_variants', action: :index }
 
   - %w[animal crop service worker zone].each do |nature|
     - btn_class = controller_name.match(/#{Regexp.quote(nature)}/) ? 'btn-pill active' : 'btn-pill'
