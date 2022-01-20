@@ -63,6 +63,7 @@ class ActivityBudgetItem < ApplicationRecord
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :productions, through: :activity
   belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter, inverse_of: :budget_items
+  has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :activity_budget_item, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
@@ -127,6 +128,8 @@ class ActivityBudgetItem < ApplicationRecord
         )
       end
     end
+    # update economic_cash_indicators
+    update_economic_cash_indicators
   end
 
   # Computes the coefficient to use for amount computation
@@ -160,6 +163,34 @@ class ActivityBudgetItem < ApplicationRecord
       365 / year_repetition
     else
       365
+    end
+  end
+
+  # compute and save activity_budget_item for each cash movement in economic_cash_indicators
+  def update_economic_cash_indicators
+    self.economic_cash_indicators.destroy_all
+    # get default vat for current item
+    # TODO CHANGE ME to grab tax on categories or existed purchases or sales
+    tax_ratio = 1.055
+    # build default attributes
+    default_attributes = { context: self.activity_budget.name,
+                           context_color: self.activity.color,
+                           campaign: self.campaign,
+                           activity: self.activity,
+                           activity_budget: self.activity_budget,
+                           product_nature_variant: self.variant,
+                           pretax_amount: self.amount,
+                           amount: (self.amount * tax_ratio).round(2),
+                           direction: self.direction,
+                           origin: self.origin,
+                           nature: self.nature }
+    gap_used_on = self.used_on
+    gap_paid_on = self.paid_on
+    # create cash movement for each year repetition with used and paid
+    year_repetition.times do |_rep|
+      economic_cash_indicators.create!(default_attributes.merge({ used_on: gap_used_on, paid_on: gap_paid_on }))
+      gap_used_on += day_gap.days if gap_used_on
+      gap_paid_on += day_gap.days if gap_paid_on
     end
   end
 

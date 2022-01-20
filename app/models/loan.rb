@@ -72,7 +72,7 @@ class Loan < ApplicationRecord
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
-  enumerize :state, in: %i[draft ongoing repaid], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
+  enumerize :state, in: %i[draft ongoing repaid], predicates: true, default: :draft, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :activity
   belongs_to :cash
@@ -85,6 +85,7 @@ class Loan < ApplicationRecord
   belongs_to :bank_guarantee_account, class_name: 'Account'
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
+  has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :loan, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accountable_repayments_started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
@@ -121,6 +122,8 @@ class Loan < ApplicationRecord
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
       r.update_all(locked: true)
     end
+    # update economic_cash_indicators
+    update_economic_cash_indicators
   end
 
   # Prevents from deleting if entry exist
@@ -131,6 +134,40 @@ class Loan < ApplicationRecord
   # Prevents from deleting if entry exist
   protect on: :update do
     !repayments.all?(&:updateable?)
+  end
+
+  # compute and save loan for each cash movement in economic_cash_indicators
+  def update_economic_cash_indicators
+    self.economic_cash_indicators.destroy_all
+
+    # build default attributes
+    default_attributes = { context: 'Emprunt',
+                           context_color: 'Maroon',
+                           origin: 'loan',
+                           nature: nil }
+
+    # received cash from loan
+    campaign = Campaign.of(ongoing_at.year)
+    loan_attrs = { campaign_id: campaign.id,
+                   direction: 'revenue',
+                   used_on: ongoing_at.to_date,
+                   paid_on: ongoing_at.to_date,
+                   amount: amount,
+                   pretax_amount: amount }
+    self.economic_cash_indicators.create!(default_attributes.merge(loan_attrs))
+
+    # create cash movement for each repayments
+    repayments.each do |rep|
+      campaign = Campaign.of(rep.due_on.year)
+      rep_attributes = { campaign_id: campaign.id,
+                         direction: 'expense',
+                         used_on: rep.due_on,
+                         paid_on: rep.due_on,
+                         amount: rep.amount,
+                         pretax_amount: rep.amount }
+      attrs = default_attributes.merge(rep_attributes)
+      self.economic_cash_indicators.create!(attrs)
+    end
   end
 
   bookkeep do |b|

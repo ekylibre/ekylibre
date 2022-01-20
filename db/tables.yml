@@ -2745,6 +2745,52 @@ documents:
     type: boolean
     required: true
     default: false
+economic_cash_indicators:
+  activity_id:
+    type: integer
+    references: activity
+  activity_budget_id:
+    type: integer
+    references: activity_budget
+  activity_budget_item_id:
+    type: integer
+    references: activity_budget_item
+  amount:
+    type: decimal
+  campaign_id:
+    type: integer
+    references: campaign
+  created_at:
+    type: datetime
+  creator_id:
+    type: integer
+    references: user
+  direction:
+    type: string
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  origin:
+    type: string
+  paid_on:
+    type: date
+  pretax_amount:
+    type: decimal
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  updated_at:
+    type: datetime
+  updater_id:
+    type: integer
+    references: user
+  used_on:
+    type: date
 entities:
   active:
     type: boolean

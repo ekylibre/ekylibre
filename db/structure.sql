@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 13.5 (Debian 13.5-0+deb11u1)
+-- Dumped from database version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,20 +15,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
 
 --
 -- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
@@ -45,30 +31,10 @@ CREATE SCHEMA postgis;
 
 
 --
--- Name: asbinary(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE FUNCTION public.asbinary(postgis.geometry) RETURNS bytea
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_asBinary';
-
-
---
--- Name: asbinary(postgis.geometry, text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.asbinary(postgis.geometry, text) RETURNS bytea
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_asBinary';
-
-
---
--- Name: astext(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.astext(postgis.geometry) RETURNS text
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_asText';
+CREATE SCHEMA public;
 
 
 --
@@ -232,87 +198,6 @@ $$;
 
 
 --
--- Name: estimated_extent(text, text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.estimated_extent(text, text) RETURNS postgis.box2d
-    LANGUAGE c IMMUTABLE STRICT SECURITY DEFINER
-    AS '$libdir/postgis-3', 'geometry_estimated_extent';
-
-
---
--- Name: estimated_extent(text, text, text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.estimated_extent(text, text, text) RETURNS postgis.box2d
-    LANGUAGE c IMMUTABLE STRICT SECURITY DEFINER
-    AS '$libdir/postgis-3', 'geometry_estimated_extent';
-
-
---
--- Name: geomfromtext(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.geomfromtext(text) RETURNS postgis.geometry
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$SELECT ST_GeomFromText($1)$_$;
-
-
---
--- Name: geomfromtext(text, integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.geomfromtext(text, integer) RETURNS postgis.geometry
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$SELECT ST_GeomFromText($1, $2)$_$;
-
-
---
--- Name: ndims(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.ndims(postgis.geometry) RETURNS smallint
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_ndims';
-
-
---
--- Name: setsrid(postgis.geometry, integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.setsrid(postgis.geometry, integer) RETURNS postgis.geometry
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_set_srid';
-
-
---
--- Name: srid(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.srid(postgis.geometry) RETURNS integer
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_get_srid';
-
-
---
--- Name: st_asbinary(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.st_asbinary(text) RETURNS bytea
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$ SELECT ST_AsBinary($1::geometry);$_$;
-
-
---
--- Name: st_astext(bytea); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.st_astext(bytea) RETURNS text
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$ SELECT ST_AsText($1::geometry);$_$;
-
-
---
 -- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -354,44 +239,6 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
---
--- Name: gist_geometry_ops; Type: OPERATOR FAMILY; Schema: public; Owner: -
---
-
-CREATE OPERATOR FAMILY public.gist_geometry_ops USING gist;
-
-
---
--- Name: gist_geometry_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS public.gist_geometry_ops
-    FOR TYPE postgis.geometry USING gist FAMILY public.gist_geometry_ops AS
-    STORAGE postgis.box2df ,
-    OPERATOR 1 postgis.<<(postgis.geometry,postgis.geometry) ,
-    OPERATOR 2 postgis.&<(postgis.geometry,postgis.geometry) ,
-    OPERATOR 3 postgis.&&(postgis.geometry,postgis.geometry) ,
-    OPERATOR 4 postgis.&>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 5 postgis.>>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 6 postgis.~=(postgis.geometry,postgis.geometry) ,
-    OPERATOR 7 postgis.~(postgis.geometry,postgis.geometry) ,
-    OPERATOR 8 postgis.@(postgis.geometry,postgis.geometry) ,
-    OPERATOR 9 postgis.&<|(postgis.geometry,postgis.geometry) ,
-    OPERATOR 10 postgis.<<|(postgis.geometry,postgis.geometry) ,
-    OPERATOR 11 postgis.|>>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 12 postgis.|&>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 13 postgis.<->(postgis.geometry,postgis.geometry) FOR ORDER BY pg_catalog.float_ops ,
-    OPERATOR 14 postgis.<#>(postgis.geometry,postgis.geometry) FOR ORDER BY pg_catalog.float_ops ,
-    FUNCTION 1 (postgis.geometry, postgis.geometry) postgis.geometry_gist_consistent_2d(internal,postgis.geometry,integer) ,
-    FUNCTION 2 (postgis.geometry, postgis.geometry) postgis.geometry_gist_union_2d(bytea,internal) ,
-    FUNCTION 3 (postgis.geometry, postgis.geometry) postgis.geometry_gist_compress_2d(internal) ,
-    FUNCTION 4 (postgis.geometry, postgis.geometry) postgis.geometry_gist_decompress_2d(internal) ,
-    FUNCTION 5 (postgis.geometry, postgis.geometry) postgis.geometry_gist_penalty_2d(internal,internal,internal) ,
-    FUNCTION 6 (postgis.geometry, postgis.geometry) postgis.geometry_gist_picksplit_2d(internal,internal) ,
-    FUNCTION 7 (postgis.geometry, postgis.geometry) postgis.geometry_gist_same_2d(postgis.geometry,postgis.geometry,internal) ,
-    FUNCTION 8 (postgis.geometry, postgis.geometry) postgis.geometry_gist_distance_2d(internal,postgis.geometry,integer);
 
 
 SET default_tablespace = '';
@@ -567,7 +414,8 @@ CREATE TABLE lexicon.master_crop_production_yields (
 
 CREATE TABLE lexicon.master_crop_productions (
     reference_name character varying NOT NULL,
-    specie character varying NOT NULL,
+    activity_family character varying NOT NULL,
+    specie character varying,
     usage character varying,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
@@ -821,10 +669,31 @@ CREATE TABLE lexicon.registered_agroedi_codes (
 --
 
 CREATE TABLE lexicon.registered_cadastral_buildings (
+    id integer NOT NULL,
     nature character varying,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     centroid postgis.geometry(Point,4326)
 );
+
+
+--
+-- Name: registered_cadastral_buildings_id_seq; Type: SEQUENCE; Schema: lexicon; Owner: -
+--
+
+CREATE SEQUENCE lexicon.registered_cadastral_buildings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: registered_cadastral_buildings_id_seq; Type: SEQUENCE OWNED BY; Schema: lexicon; Owner: -
+--
+
+ALTER SEQUENCE lexicon.registered_cadastral_buildings_id_seq OWNED BY lexicon.registered_cadastral_buildings.id;
 
 
 --
@@ -833,12 +702,57 @@ CREATE TABLE lexicon.registered_cadastral_buildings (
 
 CREATE TABLE lexicon.registered_cadastral_parcels (
     id character varying NOT NULL,
+    town_insee_code character varying,
+    section_prefix character varying,
     section character varying,
     work_number character varying,
     net_surface_area integer,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     centroid postgis.geometry(Point,4326)
 );
+
+
+--
+-- Name: registered_cadastral_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_cadastral_prices (
+    id integer NOT NULL,
+    mutation_id character varying,
+    mutation_date date,
+    mutation_reference character varying,
+    mutation_nature character varying,
+    cadastral_price numeric(14,2),
+    cadastral_parcel_id character varying,
+    building_nature character varying,
+    building_area integer,
+    cadastral_parcel_area integer,
+    address character varying,
+    postal_code character varying,
+    city character varying,
+    department character varying,
+    centroid postgis.geometry(Point,4326)
+);
+
+
+--
+-- Name: registered_cadastral_prices_id_seq; Type: SEQUENCE; Schema: lexicon; Owner: -
+--
+
+CREATE SEQUENCE lexicon.registered_cadastral_prices_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: registered_cadastral_prices_id_seq; Type: SEQUENCE OWNED BY; Schema: lexicon; Owner: -
+--
+
+ALTER SEQUENCE lexicon.registered_cadastral_prices_id_seq OWNED BY lexicon.registered_cadastral_prices.id;
 
 
 --
@@ -1069,6 +983,33 @@ CREATE TABLE lexicon.registered_seed_varieties (
     specie_name_fra character varying,
     variety_name character varying,
     registration_date date
+);
+
+
+--
+-- Name: registered_soil_available_water_capacities; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_soil_available_water_capacities (
+    id character varying NOT NULL,
+    available_water_reference_value integer,
+    available_water_min_value numeric(19,4),
+    available_water_max_value numeric(19,4),
+    available_water_unit character varying,
+    available_water_label character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+);
+
+
+--
+-- Name: registered_soil_depths; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_soil_depths (
+    id character varying NOT NULL,
+    soil_depth_value numeric(19,4),
+    soil_depth_unit character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL
 );
 
 
@@ -4091,7 +4032,8 @@ CREATE TABLE public.documents (
     sha256_fingerprint character varying,
     signature text,
     mandatory boolean DEFAULT false,
-    processable_attachment boolean DEFAULT true NOT NULL
+    processable_attachment boolean DEFAULT true NOT NULL,
+    klippa_metadata jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -4113,6 +4055,56 @@ CREATE SEQUENCE public.documents_id_seq
 --
 
 ALTER SEQUENCE public.documents_id_seq OWNED BY public.documents.id;
+
+
+--
+-- Name: economic_cash_indicators; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.economic_cash_indicators (
+    id integer NOT NULL,
+    context character varying,
+    context_color character varying,
+    activity_id integer,
+    activity_budget_id integer,
+    activity_budget_item_id integer,
+    worker_contract_id integer,
+    loan_id integer,
+    campaign_id integer,
+    product_nature_variant_id integer,
+    used_on date,
+    paid_on date,
+    direction character varying,
+    nature character varying,
+    origin character varying,
+    pretax_amount numeric,
+    amount numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: economic_cash_indicators_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.economic_cash_indicators_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: economic_cash_indicators_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.economic_cash_indicators_id_seq OWNED BY public.economic_cash_indicators.id;
 
 
 --
@@ -9831,10 +9823,10 @@ CREATE TABLE public.units (
     type character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    provider jsonb,
     lock_version integer DEFAULT 0 NOT NULL,
     creator_id integer,
-    updater_id integer
+    updater_id integer,
+    provider jsonb
 );
 
 
@@ -10249,6 +10241,20 @@ ALTER SEQUENCE public.worker_contracts_id_seq OWNED BY public.worker_contracts.i
 
 
 --
+-- Name: registered_cadastral_buildings id; Type: DEFAULT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_buildings ALTER COLUMN id SET DEFAULT nextval('lexicon.registered_cadastral_buildings_id_seq'::regclass);
+
+
+--
+-- Name: registered_cadastral_prices id; Type: DEFAULT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_prices ALTER COLUMN id SET DEFAULT nextval('lexicon.registered_cadastral_prices_id_seq'::regclass);
+
+
+--
 -- Name: account_balances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -10659,6 +10665,13 @@ ALTER TABLE ONLY public.document_templates ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.documents ALTER COLUMN id SET DEFAULT nextval('public.documents_id_seq'::regclass);
+
+
+--
+-- Name: economic_cash_indicators id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.economic_cash_indicators ALTER COLUMN id SET DEFAULT nextval('public.economic_cash_indicators_id_seq'::regclass);
 
 
 --
@@ -11919,11 +11932,27 @@ ALTER TABLE ONLY lexicon.registered_agroedi_codes
 
 
 --
+-- Name: registered_cadastral_buildings registered_cadastral_buildings_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_buildings
+    ADD CONSTRAINT registered_cadastral_buildings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: registered_cadastral_parcels registered_cadastral_parcels_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
 ALTER TABLE ONLY lexicon.registered_cadastral_parcels
     ADD CONSTRAINT registered_cadastral_parcels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_cadastral_prices registered_cadastral_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_prices
+    ADD CONSTRAINT registered_cadastral_prices_pkey PRIMARY KEY (id);
 
 
 --
@@ -12020,6 +12049,22 @@ ALTER TABLE ONLY lexicon.registered_quality_and_origin_signs
 
 ALTER TABLE ONLY lexicon.registered_seed_varieties
     ADD CONSTRAINT registered_seed_varieties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_soil_available_water_capacities registered_soil_available_water_capacities_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_soil_available_water_capacities
+    ADD CONSTRAINT registered_soil_available_water_capacities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_soil_depths registered_soil_depths_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_soil_depths
+    ADD CONSTRAINT registered_soil_depths_pkey PRIMARY KEY (id);
 
 
 --
@@ -12524,6 +12569,14 @@ ALTER TABLE ONLY public.document_templates
 
 ALTER TABLE ONLY public.documents
     ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: economic_cash_indicators economic_cash_indicators_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.economic_cash_indicators
+    ADD CONSTRAINT economic_cash_indicators_pkey PRIMARY KEY (id);
 
 
 --
@@ -13729,6 +13782,13 @@ CREATE INDEX master_crop_production_yields_specie ON lexicon.master_crop_product
 
 
 --
+-- Name: master_crop_productions_activity_family; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_productions_activity_family ON lexicon.master_crop_productions USING btree (activity_family);
+
+
+--
 -- Name: master_crop_productions_agroedi_crop_code; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -13841,6 +13901,13 @@ CREATE INDEX registered_cadastral_buildings_centroid ON lexicon.registered_cadas
 
 
 --
+-- Name: registered_cadastral_buildings_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_buildings_id ON lexicon.registered_cadastral_buildings USING btree (id);
+
+
+--
 -- Name: registered_cadastral_buildings_shape; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -13855,10 +13922,73 @@ CREATE INDEX registered_cadastral_parcels_centroid ON lexicon.registered_cadastr
 
 
 --
+-- Name: registered_cadastral_parcels_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_id ON lexicon.registered_cadastral_parcels USING btree (id);
+
+
+--
+-- Name: registered_cadastral_parcels_section; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_section ON lexicon.registered_cadastral_parcels USING btree (section);
+
+
+--
+-- Name: registered_cadastral_parcels_section_prefix; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_section_prefix ON lexicon.registered_cadastral_parcels USING btree (section_prefix);
+
+
+--
 -- Name: registered_cadastral_parcels_shape; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_cadastral_parcels_shape ON lexicon.registered_cadastral_parcels USING gist (shape);
+
+
+--
+-- Name: registered_cadastral_parcels_town_insee_code; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_town_insee_code ON lexicon.registered_cadastral_parcels USING btree (town_insee_code);
+
+
+--
+-- Name: registered_cadastral_parcels_work_number; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_work_number ON lexicon.registered_cadastral_parcels USING btree (work_number);
+
+
+--
+-- Name: registered_cadastral_prices_cadastral_parcel_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_cadastral_parcel_id ON lexicon.registered_cadastral_prices USING btree (cadastral_parcel_id);
+
+
+--
+-- Name: registered_cadastral_prices_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_centroid ON lexicon.registered_cadastral_prices USING gist (centroid);
+
+
+--
+-- Name: registered_cadastral_prices_department; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_department ON lexicon.registered_cadastral_prices USING btree (department);
+
+
+--
+-- Name: registered_cadastral_prices_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_id ON lexicon.registered_cadastral_prices USING btree (id);
 
 
 --
@@ -14090,6 +14220,34 @@ CREATE INDEX registered_seed_varieties_id ON lexicon.registered_seed_varieties U
 --
 
 CREATE INDEX registered_seed_varieties_id_specie ON lexicon.registered_seed_varieties USING btree (id_specie);
+
+
+--
+-- Name: registered_soil_available_water_capacities_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_id ON lexicon.registered_soil_available_water_capacities USING btree (id);
+
+
+--
+-- Name: registered_soil_available_water_capacities_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_shape ON lexicon.registered_soil_available_water_capacities USING gist (shape);
+
+
+--
+-- Name: registered_soil_depths_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_id ON lexicon.registered_soil_depths USING btree (id);
+
+
+--
+-- Name: registered_soil_depths_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_shape ON lexicon.registered_soil_depths USING gist (shape);
 
 
 --
@@ -16568,6 +16726,125 @@ CREATE INDEX index_documents_on_updated_at ON public.documents USING btree (upda
 --
 
 CREATE INDEX index_documents_on_updater_id ON public.documents USING btree (updater_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_activity_budget_id ON public.economic_cash_indicators USING btree (activity_budget_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_activity_budget_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_activity_budget_item_id ON public.economic_cash_indicators USING btree (activity_budget_item_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_activity_id ON public.economic_cash_indicators USING btree (activity_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_campaign_id ON public.economic_cash_indicators USING btree (campaign_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_context; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_context ON public.economic_cash_indicators USING btree (context);
+
+
+--
+-- Name: index_economic_cash_indicators_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_created_at ON public.economic_cash_indicators USING btree (created_at);
+
+
+--
+-- Name: index_economic_cash_indicators_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_creator_id ON public.economic_cash_indicators USING btree (creator_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_direction; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_direction ON public.economic_cash_indicators USING btree (direction);
+
+
+--
+-- Name: index_economic_cash_indicators_on_loan_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_loan_id ON public.economic_cash_indicators USING btree (loan_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_nature; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_nature ON public.economic_cash_indicators USING btree (nature);
+
+
+--
+-- Name: index_economic_cash_indicators_on_origin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_origin ON public.economic_cash_indicators USING btree (origin);
+
+
+--
+-- Name: index_economic_cash_indicators_on_paid_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_paid_on ON public.economic_cash_indicators USING btree (paid_on);
+
+
+--
+-- Name: index_economic_cash_indicators_on_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_product_nature_variant_id ON public.economic_cash_indicators USING btree (product_nature_variant_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_updated_at ON public.economic_cash_indicators USING btree (updated_at);
+
+
+--
+-- Name: index_economic_cash_indicators_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_updater_id ON public.economic_cash_indicators USING btree (updater_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_used_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_used_on ON public.economic_cash_indicators USING btree (used_on);
+
+
+--
+-- Name: index_economic_cash_indicators_on_worker_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_worker_contract_id ON public.economic_cash_indicators USING btree (worker_contract_id);
 
 
 --
@@ -25352,6 +25629,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125181101'),
 ('20211206150144'),
 ('20211209142107'),
-('20211220140042');
+('20211217170401'),
+('20211220140042'),
+('20220120092001');
 
 
