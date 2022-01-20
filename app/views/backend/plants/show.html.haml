@@ -25,10 +25,21 @@
         %span.title= :planting_campaign.tl
         %span.value
           = resource.born_at.year
+      - if resource.dead_at
+        .med-info.important
+          %span.title= :grubbing_year.tl
+          %span.value
+            = resource.dead_at.year
+      - if resource.born_at && resource.age >= 1.day
+        = product_info(:age) do |age|
+          %i.picto{class: "picto-clock-o"}
+          = human_age(resource.born_at, display: 1)
       .med-info.important
         %span.title= :vine_certification.tl
         %span.value
           = resource.certification_label
+      = product_info(:status, important: true) do |status|
+        = lights(status, title: resource.human_status)
       = product_info :description
       = product_info :container do |container|
         %i.picto{class: "zone"}

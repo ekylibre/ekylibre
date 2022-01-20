@@ -21,6 +21,7 @@ module Activities
             products.id,
             activity_productions.activity_id AS activity_id,
             activity_productions_campaigns.campaign_id AS campaign_id,
+            campaigns_interventions.campaign_id AS campaigns_interventions_campaign_id,
             CASE
               WHEN interventions.procedure_name NOT IN (#{PLANTING})
               THEN ST_Area(intervention_parameters.working_zone, TRUE) / 10000
@@ -29,6 +30,7 @@ module Activities
               ELSE ST_Area(products.initial_shape, TRUE) / 10000
             END AS area
           FROM interventions
+          INNER JOIN campaigns_interventions ON campaigns_interventions.intervention_id = interventions.id
           INNER JOIN intervention_parameters
             ON interventions.id = intervention_parameters.intervention_id
             AND (CASE
@@ -48,7 +50,8 @@ module Activities
         ) subquery
         WHERE activity_id = #{activity.id}
         AND campaign_id = #{campaign.id}
-        GROUP BY activity_id, campaign_id;
+        AND campaigns_interventions_campaign_id = #{campaign.id}
+        GROUP BY activity_id, campaign_id, campaigns_interventions_campaign_id;
       SQL
 
       return 0.0.in(:hectare) if activity_campaign_working_zone_area.values.empty?

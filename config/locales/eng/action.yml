@@ -1502,6 +1502,7 @@ eng:
     year_s: Year(s)
     value: 'Value'
     analytic_options: analytic options
+    grubbing_year : "Grubbing year"
     set_by_lexicon: "Set by lexicon"
     vineyard_area: "Vineyard area"
     productive_plants_yield: "Productive plant yield"
