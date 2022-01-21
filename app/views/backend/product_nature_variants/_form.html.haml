@@ -18,8 +18,8 @@
 
 - if f.object.nature.present?
   = field_set do
-    = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: scope }, disabled: true
-    = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: scope }
+    = f.referenced_association :nature, label: :product_nature.tl, controller: '/backend/product_natures', source: { scope: scope }, disabled: true
+    = f.referenced_association :category, label: :product_nature_category.tl ,controller: '/backend/product_nature_categories', source: { scope: scope }
     = f.variety scope: nature, child_scope: f.object.products
     = f.input :name
     = f.input :work_number

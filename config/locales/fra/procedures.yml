@@ -195,7 +195,7 @@ fra:
     mulching_material: "Matériel de paillage"
     net_implanter: "Dérouleur de filet"
     net_roll: "Enrouleur de filet"
-    new_animal_variant: "Nouveau variant de l'animal" #?
+    new_animal_variant: "Nouvel article de l'animal" #?
     nuts: "Fruits à coques" #?
     nuts_harvester: "Récolteuse de fruits à coques" #?
     nuts_to_deliver: "Fruits à coques à livrer" #?
@@ -291,7 +291,7 @@ fra:
     tunnel_implanter: "Outil de pose de tunnel/chenille"
     tunnel_remover: "Outil de retrait de tunnel/chenille"
     uncover: "Débâcheuse"
-    variant: "Variant"
+    variant: "Article"
     vehicle: "Véhicule"
     vial: "Paillette"
     vial_to_give: "Paillette à utiliser" #?

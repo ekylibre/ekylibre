@@ -118,6 +118,7 @@ module ToolbarHelper
       record = args.shift
       url = {}
       url.update(options.delete(:params)) if options[:params].is_a? Hash
+      url[:controller] ||= options.delete(:controller) if options.key?(:controller)
       url[:controller] ||= @template.controller_path
       url[:action] ||= name
       url[:id] = record.id if record && record.class < ApplicationRecord

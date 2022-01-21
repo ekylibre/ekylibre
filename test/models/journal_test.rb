@@ -152,10 +152,10 @@ class JournalTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert journal.valid?, 'Should be valid'
   end
 
-  test 'journal currently exchanged with ekyagri format should not require isacompta code and isacompta label presence' do
+  test 'journal currently exchanged with ekylibre format should not require isacompta code and isacompta label presence' do
     FinancialYear.delete_all
     fy = create(:financial_year, year: 2021)
-    exchange = create(:financial_year_exchange, financial_year: fy, format: :ekyagri)
+    exchange = create(:financial_year_exchange, financial_year: fy, format: :ekylibre)
     journal = build(:journal, financial_year_exchange_id: exchange.id)
     assert journal.valid?, 'Should be valid'
   end

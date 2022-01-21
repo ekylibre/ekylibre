@@ -1,11 +1,11 @@
-====== Variantes de produits ======
+====== Articles ======
 
-===== Qu'est-ce qu'une variante de produit~? =====
+===== Qu'est-ce qu'un article~? =====
 
-Une variante de produit est lié à un type de produit.
+Un article est lié à un type de produit.
 
-La variante (ou variant) de produit porte les informations de marque, de prix, d'espèces et variétés des produits qu'il peut contenir ainsi que des indicateurs fixes.
+L'article porte les informations de marque, de prix, d'espèces et variétés des produits qu'il peut contenir ainsi que des indicateurs fixes.
 
->>> Ex  : Ammonitrate 33%, Urée 46% qui sont des variantes rattachées au type Engrais minéral
+>>> Ex  : Ammonitrate 33%, Urée 46% qui sont des articles rattachées au type Engrais minéral
 
-Vous pouvez [[>backend/product_nature_variants#pick|piocher]] une variante ou le créer à partir d'une fiche d'un  [[>backend/product_natures#index|type de produit]]
+Vous pouvez [[>backend/product_nature_variants#pick|piocher]] un article ou le créer à partir d'une fiche d'un  [[>backend/product_natures#index|type de produit]]

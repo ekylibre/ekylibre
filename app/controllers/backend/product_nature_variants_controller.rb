@@ -70,12 +70,12 @@ module Backend
       t.column :active
       t.column :name, url: { namespace: :backend }
       t.column :number
-      t.column :work_number
-      t.column :nature, url: { controller: '/backend/product_natures' }
+      t.column :work_number, hidden: true
+      t.column :nature, hidden: true, url: { controller: '/backend/product_natures' }
       t.column :category, url: { controller: '/backend/product_nature_categories' }
       t.column :current_stock_displayed, label: :current_stock
       # t.column :current_outgoing_stock_ordered_not_delivered_displayed
-      t.column :unit_name
+      t.column :unit_name, label: :unit
       t.column :variety
       t.column :derivative_of
     end
@@ -409,6 +409,17 @@ module Backend
       @form_url = backend_product_nature_variant_path(@product_nature_variant)
       @key = 'product_nature_variant'
       render(locals: { cancel_url: { action: :index }, with_continue: false })
+    end
+
+    def duplicate
+      product_nature_variant = find_and_check
+      @new_product_nature_variant = product_nature_variant.dup
+      @new_product_nature_variant.readings = product_nature_variant.readings.map(&:dup)
+      variant_name = @new_product_nature_variant.name
+      variant_with_same_name_count = product_nature_variant.class.with_name(variant_name).count
+      rank = " (#{variant_with_same_name_count})" if variant_with_same_name_count > 0
+      @new_product_nature_variant.name = "#{variant_name}#{rank}"
+      return if save_and_redirect(@new_product_nature_variant, url: { action: :edit, id: 'id'.c }, notify: :record_x_created, identifier: :name)
     end
 
     private

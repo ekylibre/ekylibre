@@ -302,33 +302,40 @@ class InterventionWorkingTimeDurationCalculationServiceTest < Ekylibre::Testing:
     end
 
     def create_equipments
+      born_at = DateTime.new(2017, 6, 1)
+
       @tractor = Equipment.create!(
         name: 'Fake tractor',
         variety: 'tractor',
+        born_at: born_at,
         variant: ProductNatureVariant.where(variety: 'tractor').first
       )
 
       @second_tractor = Equipment.create!(
         name: 'Fake second tractor',
         variety: 'tractor',
+        born_at: born_at,
         variant: ProductNatureVariant.where(variety: 'tractor').first
       )
 
       @third_tractor = Equipment.create!(
         name: 'Fake third tractor',
         variety: 'tractor',
+        born_at: born_at,
         variant: ProductNatureVariant.where(variety: 'tractor').first
       )
 
       @tool = Equipment.create!(
         name: 'Fake seeder',
         variety: 'trailed_equipment',
+        born_at: born_at,
         variant: ProductNatureVariant.where(variety: 'trailed_equipment').first
       )
 
       @second_tool = Equipment.create!(
         name: 'Fake second seeder',
         variety: 'trailed_equipment',
+        born_at: born_at,
         variant: ProductNatureVariant.where(variety: 'trailed_equipment').first
       )
     end

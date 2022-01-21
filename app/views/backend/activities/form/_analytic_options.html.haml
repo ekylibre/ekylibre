@@ -1,0 +1,8 @@
+= field_set(:analytic_options) do
+  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  .auxiliary-nature-options
+    = f.input :distribution_key, as: :radio_buttons, show: '#{{value}}_options'
+    = field_set(:percentage_options) do
+      = f.nested_association(:distributions)
+  - if AnalyticSegment.where(name: 'activities').exists?
+    = f.input :isacompta_analytic_code

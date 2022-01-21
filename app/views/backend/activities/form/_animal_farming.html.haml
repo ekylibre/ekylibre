@@ -1,6 +1,5 @@
 = field_set do
   = f.input :name
-  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, class: "disabled" }
   = f.referenced_nomenclature :production_system
   - family = Onoma::ActivityFamily[f.object.family]
@@ -24,6 +23,6 @@
       = f.input_field :life_duration
       %span.add-on= :year.tl.pluralize
   = f.input :description
-  - if AnalyticSegment.where(name: 'activities').exists?
-    = f.input :isacompta_analytic_code
   = f.custom_fields
+
+= render 'backend/activities/form/analytic_options', f: f

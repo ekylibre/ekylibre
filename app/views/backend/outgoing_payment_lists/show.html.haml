@@ -11,7 +11,7 @@
   = attributes_list do |l|
     - l.attribute :number
     - l.attribute :mode
-    - l.attribute :payments_count, datatype: :integer
+    - l.attribute :payments_count, label: :outgoing_count, datatype: :integer
     - l.attribute :payments_sum, label: :total, datatype: :float, currency: true
 
 = cobbles do |c|
