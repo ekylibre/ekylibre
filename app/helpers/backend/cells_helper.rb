@@ -18,10 +18,20 @@
 
 module Backend
   module CellsHelper
+
     # No data permit to mark cell as empty
     def no_data
       # content_tag(:div, :no_data.tl, class: 'no-data')
       nil
+    end
+
+    def popover_description(title, description)
+      icon = content_tag(:i, nil, title: title, type: "button", data: { content: description, toggle: 'popover', cell: "info" })
+      content_tag(:div, icon, class: 'cell-header ')
+    end
+
+    def cell_footer(content)
+      content_tag(:div, content, class: 'cell-footer')
     end
 
     def errored
