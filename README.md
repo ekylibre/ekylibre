@@ -15,16 +15,18 @@ More details can be found on the official website https://ekylibre.com
 
 Global requirement before installing Ekylibre
 
-* [Ubuntu 18.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/57016415/Ubuntu+18.04)
 * [Ubuntu 20.04 LTS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11829377/Ubuntu+20.04+LTS)
 * [MacOS](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/11763849/MAC+OS)
 
 ## Ekylibre Installation
 
+### Linux
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
 * [Lexicon-cli](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/9338928/Lexicon-cli+Installation)
 * [Installation Ekylibre](https://ekylibre.atlassian.net/wiki/spaces/EKYLIBRE/pages/7405675/Eky+Installation)
+
+### [Docker](https://github.com/ekylibre/ekylibre/blob/main/docker/README.md)
 
 ## Contributing
 
