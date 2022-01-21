@@ -106,13 +106,11 @@ class InterventionAgent < InterventionProductParameter
     # Add computation from worker or equipment catalog price
     else
       catalog_item =
-          if nature.present? && nature != :intervention
-            product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': "#{nature}_cost")&.first&.catalog&.usage
-          elsif nature.present? && nature == :intervention
-            product.variant.catalog_items&.joins(:catalog)&.where('catalogs.usage': 'cost')&.first&.catalog&.usage
-          else
-            'cost'
-          end
+        if nature.present? && nature != :intervention && product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").any?
+          "#{nature}_cost"
+        else
+          catalog_usage
+        end
 
       options = {
         catalog_usage: catalog_item,

@@ -724,6 +724,7 @@ paths:
               - BuildingDivision
               - Plant
               - Matter
+              - Animal
         - $ref: '#/components/parameters/Authorization'
       responses:
         '200':

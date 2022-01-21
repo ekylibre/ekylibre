@@ -68,5 +68,13 @@ require 'test_helper'
 
 class InterventionAgentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  setup do
+    @intervention_agent = create(:driver)
+  end
+
+  test "#cost_amount_computation" do
+    cost_amount_computation = @intervention_agent.cost_amount_computation(nature: :intervention)
+    assert_equal 0.0, cost_amount_computation.amount, "Amount is 0 if there isn't any worker contract or catalog item"
+  end
 end
