@@ -1,5 +1,7 @@
 # Needs base HighCharts files
 #
+#= require jquery
+#= require jquery_ujs
 #= require highcharts/highcharts
 #= require highcharts/highcharts-more
 
