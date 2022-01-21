@@ -231,6 +231,7 @@ Rails.application.routes.draw do
       resource :unbalanced_clients_cell, only: :show, concerns: :list
       resource :unbalanced_suppliers_cell, only: :show, concerns: :list
       resource :weather_cell, only: :show
+      resource :weather_spraying_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
 
@@ -613,7 +614,7 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
-        get :list_ekyagri_format_exchanges
+        get :list_ekylibre_format_exchanges
         get :list_isacompta_format_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
@@ -1115,6 +1116,7 @@ Rails.application.routes.draw do
         get :unroll_saleables
       end
       member do
+        post :duplicate
         get :detail
         get :list_components
         get :list_catalog_items

@@ -6,7 +6,7 @@
     = hidden_field_tag(:redirect_edit_path, params[:redirect_edit_path])
 
   - if @lexicon_table
-    = field params[:selector_label], selector_tag(:reference_id, { controller: "/backend/#{@lexicon_table}", action: :unroll, exclude: @imported_ids, scope: @scopes, primary_key: @primary_key })
+    = field params[:selector_label], selector_tag(:reference_id, { controller: "/backend/#{@lexicon_table}", action: :unroll, scope: @scopes, primary_key: @primary_key })
   - else
     = f.input :reference_name, label: params[:selector_label], collection: @available_items
 

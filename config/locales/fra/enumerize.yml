@@ -422,7 +422,7 @@ fra:
         unitary: "Unitaire"
       type:
         VariantTypes::AnimalType: "Animaux"
-        VariantTypes::ArticleType: "Articles"
+        VariantTypes::ArticleType: "Articles stockables"
         VariantTypes::CropType: "Cultures"
         VariantTypes::EquipmentType: "Équipements"
         VariantTypes::ServiceType: "Services"
@@ -496,7 +496,7 @@ fra:
         unity: "Unité"
       type:
         Variants::AnimalVariant: "Animaux"
-        Variants::ArticleVariant: "Articles"
+        Variants::ArticleVariant: "Articles stockables"
         Variants::Articles::FarmProductArticle: "Produits de l'exploitation"
         Variants::Articles::FertilizerArticle: "Engrais"
         Variants::Articles::PlantMedicineArticle: "Produits phytosanitaires"
@@ -636,8 +636,8 @@ fra:
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories comptables"
-        product_nature_variants: "Variantes de produits"
-        product_natures: "Types de produits"
+        product_nature_variants: "Articles"
+        product_natures: "Profils fonctionnels"
         products: "Produits"
         purchases: "Achats"
         ride: "Sections d'un trajet"

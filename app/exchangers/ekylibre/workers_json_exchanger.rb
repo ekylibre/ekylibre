@@ -2,7 +2,7 @@
 
 module Ekylibre
   class WorkersJsonExchanger < ActiveExchanger::Base
-    category :plant_farming
+    category :human_resources
     vendor :ekylibre
 
     def import

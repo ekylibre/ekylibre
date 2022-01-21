@@ -47,7 +47,7 @@
         - elsif column.type ==  :boolean
           = select_tag("conditions[#{id}][comparator]", options_for_select([["est vrai", :is_true], ["est faux", :is_false]]))
         - else
-          = select_tag("conditions[#{id}][comparator]", options_for_select([["contient", :contains], ["commence par", :begins], ["finit par", :finishes], ["est", :equal], ["est égal à l'un des élements suivants", :in]]))
+          = select_tag("conditions[#{id}][comparator]", options_for_select([["contient", :contains], ["commence par", :begins], ["finit par", :finishes], ["est", :equal], ["est égal à l'un des éléments suivants", :in]]))
           = text_field_tag("conditions[#{id}][comparated]")
     - else
       =  :unknown_condition.tl

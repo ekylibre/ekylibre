@@ -94,12 +94,24 @@
 class Matter < Product
   refers_to :variety, scope: :matter
   validates :initial_population, presence: true
+  validates :born_at, presence: true
 
   scope :of_category, ->(category) { where(category: category) if category.present? }
   scope :of_variety, ->(variety) { where(variety: variety) }
+  scope :with_name, ->(name) {
+    name_match_rule = "#{Regexp.escape(name)}(\\s\\(\\d*\\))?$" # match "matter", "matter (1)" ,etc.
+    where("name ~ ?", name_match_rule)
+  }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
   def choose_default_name
-    Rails.logger.warn "`choose_default_name` do nothing for Matters"
+    return nil if variant_id.nil? || name.present?
+
+    variant_name = variant.name
+    matter_with_name_count = self.class.with_name(variant_name).count
+
+    rank = " (#{matter_with_name_count})" if matter_with_name_count > 0
+
+    self.name = "#{variant_name}#{rank}"
   end
 end
