@@ -1,7 +1,7 @@
 module Api
   module V2
     class ProductsController < Api::V2::BaseController
-      ACCEPTED_TYPES = %w[Worker Equipment LandParcel BuildingDivision Plant Matter].freeze
+      ACCEPTED_TYPES = %w[Animal Worker Equipment LandParcel BuildingDivision Plant Matter].freeze
       NESTED_INCLUDE_ASSOCIATION = { LandParcel: { activity_production: :activity } }.freeze
 
       def index
