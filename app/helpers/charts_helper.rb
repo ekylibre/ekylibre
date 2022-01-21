@@ -17,7 +17,7 @@
 #
 
 module ChartsHelper
-  OPTIONS = %i[colors credits exporting labels legend loading navigation pane plot_options series subtitle title tooltip x_axis y_axis drilldown].each_with_object({}) do |name, hash|
+  OPTIONS = %i[colors credits drilldown exporting labels legend loading navigation pane plot_options series subtitle title tooltip x_axis y_axis].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.tr('_', '-') # camelize(:lower)
     hash
   end.freeze
@@ -224,9 +224,6 @@ module ChartsHelper
       end
       series = [series] unless series.is_a?(Array)
       options[:series] = series
-      if options[:drilldown].is_a?(Array)
-        options[:drilldown] = { series: options[:drilldown] }
-      end
       OPTIONS.each do |name, _absolute_name|
         if %i[legend credits].include?(name)
           if options.has_key?(name.to_sym)
