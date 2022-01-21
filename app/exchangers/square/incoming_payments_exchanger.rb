@@ -9,17 +9,17 @@ module Square
     NORMALIZATION_CONFIG = [
       { col: 0, name: :invoiced_on, type: :us_date, constraint: :not_nil },
       { col: 1, name: :invoiced_hour, type: :string, constraint: :not_nil },
-      { col: 10, name: :amount, type: :currency, constraint: :not_nil },
-      { col: 12, name: :cb_amount, type: :currency, constraint: :not_nil },
-      { col: 14, name: :cash_amount, type: :currency, constraint: :not_nil },
-      { col: 16, name: :other_amount, type: :currency, constraint: :not_nil },
-      { col: 17, name: :other_mode, type: :string },
-      { col: 20, name: :global_net_amount, type: :currency, constraint: :not_nil },
-      { col: 21, name: :transaction_number, type: :string, constraint: :not_nil },
-      { col: 22, name: :payment_number, type: :string, constraint: :not_nil },
-      { col: 25, name: :pos_equipment_name, type: :string },
-      { col: 28, name: :payment_url, type: :string },
-      { col: 31, name: :pos_name, type: :string }
+      { col: 11, name: :amount, type: :currency, constraint: :not_nil },
+      { col: 13, name: :cb_amount, type: :currency, constraint: :not_nil },
+      { col: 15, name: :cash_amount, type: :currency, constraint: :not_nil },
+      { col: 17, name: :other_amount, type: :currency, constraint: :not_nil },
+      { col: 18, name: :other_mode, type: :string },
+      { col: 21, name: :global_net_amount, type: :currency, constraint: :not_nil },
+      { col: 22, name: :transaction_number, type: :string, constraint: :not_nil },
+      { col: 23, name: :payment_number, type: :string, constraint: :not_nil },
+      { col: 26, name: :pos_equipment_name, type: :string },
+      { col: 29, name: :payment_url, type: :string },
+      { col: 32, name: :pos_name, type: :string }
     ].freeze
 
     def check
