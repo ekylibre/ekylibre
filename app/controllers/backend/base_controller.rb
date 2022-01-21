@@ -30,6 +30,7 @@ module Backend
     before_action :authorize_user!
     before_action :set_versioner
     before_action :set_current_campaign
+    before_action :set_current_financial_year
     before_action :set_current_period_interval
     before_action :set_current_period
     before_action :publish_backend_action
@@ -37,10 +38,26 @@ module Backend
     include Userstamp
 
     helper_method :current_campaign
+    helper_method :current_financial_year
     helper_method :current_period_interval
     helper_method :current_period
 
     protected
+
+      def current_financial_year
+        @current_financial_year ||= current_user.current_financial_year
+      end
+
+      def set_current_financial_year
+        if params[:current_financial_year]
+          financial_year = FinancialYear.find_by!(id: params[:current_financial_year].to_i)
+
+          if current_financial_year != financial_year
+            @current_financial_year = financial_year
+            current_user.current_financial_year = @current_financial_year
+          end
+        end
+      end
 
       def current_campaign
         @current_campaign ||= current_user.current_campaign
