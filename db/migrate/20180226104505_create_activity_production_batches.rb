@@ -1,6 +1,6 @@
 class CreateActivityProductionBatches < ActiveRecord::Migration
   def change
-    unless table_exists?(:activity_production_batches)
+    unless data_source_exists?(:activity_production_batches)
       create_table :activity_production_batches do |t|
         t.integer :number
         t.integer :day_interval

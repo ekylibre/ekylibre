@@ -40,7 +40,7 @@ module Interventions
             # Build 'html' selector which enables to recognize which part of the attributes needs to be updated
             UpdateEngineIntervention.new(engine_intervention, procedo_attrs).perform
 
-            attributes = attributes.merge(attrs).deep_merge(engine_intervention.to_attributes)
+            attributes = attributes.merge(attrs).to_unsafe_h.deep_merge(engine_intervention.to_attributes)
           ensure
             # Readings added on references needs to be removed after merging attributes in order for the visual interface not to display additional fields
             RemoveCustomProcedureReadings.new(engine_intervention).perform if readings.any?

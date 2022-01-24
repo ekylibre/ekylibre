@@ -16,7 +16,7 @@ module FormObjects
       end
 
       include Ekylibre::Model
-      include Enumerize
+      extend Enumerize
 
       attr_accessor :first_name, :last_name, :language, :role_id, :email
       enumerize :language, in: I18n.available_locales, i18n_scope: ["nomenclatures.languages.items"]

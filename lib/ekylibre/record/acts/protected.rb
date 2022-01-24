@@ -30,7 +30,7 @@ module Ekylibre
             [options[:on]].flatten.each do |callback|
               method_name = "protected_on_#{callback}?".to_sym
 
-              send("before_#{callback}", "raise_exception_unless_#{callback}able?")
+              send("before_#{callback}", "raise_exception_unless_#{callback}able?".to_sym)
 
               define_method "raise_exception_unless_#{callback}able?" do
                 allowed_fields = options[:"allow_#{callback}_on"] || []

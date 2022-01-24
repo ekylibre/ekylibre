@@ -1,6 +1,6 @@
 class CreateDailyCharges < ActiveRecord::Migration
   def up
-    unless table_exists?(:daily_charges)
+    unless data_source_exists?(:daily_charges)
       create_table :daily_charges do |t|
         t.date :reference_date
         t.string :product_type

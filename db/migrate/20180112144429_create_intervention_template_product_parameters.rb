@@ -1,6 +1,6 @@
 class CreateInterventionTemplateProductParameters < ActiveRecord::Migration
   def change
-    unless table_exists?(:intervention_template_product_parameters)
+    unless data_source_exists?(:intervention_template_product_parameters)
       create_table :intervention_template_product_parameters do |t|
         t.references :intervention_template, index: { name: :intervention_template_id }, foreign_key: true
         t.references :product_nature, index: { name: :product_nature_id }, foreign_key: true

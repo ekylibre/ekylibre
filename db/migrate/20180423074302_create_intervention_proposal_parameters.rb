@@ -1,6 +1,6 @@
 class CreateInterventionProposalParameters < ActiveRecord::Migration
   def change
-    unless table_exists?(:intervention_proposal_parameters)
+    unless data_source_exists?(:intervention_proposal_parameters)
       create_table :intervention_proposal_parameters do |t|
         t.references :intervention_proposal, index: { name: :intervention_proposal_parameter_id }, foreign_key: true
         t.references :product, index: true, foreign_key: true
