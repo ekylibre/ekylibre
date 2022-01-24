@@ -90,7 +90,7 @@ module Backend
                              .where(activity_production_id: @activity.productions.map(&:id),
                                     dead_at: nil)
                              .where.not(inspections: { forecast_harvest_week: nil })
-                             .uniq
+                             .distinct
 
           @crops = initialize_grid(activity_crops, decorate: true)
 

@@ -33,7 +33,11 @@ module Pickable
         redirect_to edit_url || show_url || :back
       rescue => e
         notify_error :an_error_was_raised_during_import
-        redirect_to params[:redirect_show_path] || :back
+        if params[:redirect_show_path].present?
+          redirect_to params[:redirect_show_path]
+        else
+          redirect_back(fallback_location: root_path)
+        end
       end
     end
 

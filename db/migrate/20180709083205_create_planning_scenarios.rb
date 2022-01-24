@@ -1,6 +1,6 @@
 class CreatePlanningScenarios < ActiveRecord::Migration
   def change
-    unless table_exists?(:planning_scenarios)
+    unless data_source_exists?(:planning_scenarios)
       create_table :planning_scenarios do |t|
         t.string :name
         t.string :description

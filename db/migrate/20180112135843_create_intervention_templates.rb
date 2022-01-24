@@ -1,6 +1,6 @@
 class CreateInterventionTemplates < ActiveRecord::Migration
   def change
-    unless table_exists?(:intervention_templates)
+    unless data_source_exists?(:intervention_templates)
       create_table :intervention_templates do |t|
         t.string :name
         t.boolean :active, default: true
