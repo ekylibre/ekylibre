@@ -39,6 +39,7 @@ class WorkerContract < ApplicationRecord
 
   belongs_to :entity, class_name: 'Entity', inverse_of: :worker_contracts
   belongs_to :contract_nature, primary_key: :reference_name, class_name: 'MasterDoerContract', foreign_key: :reference_name
+  has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :worker_contract, dependent: :destroy
 
   enumerize :nature, in: %i[permanent_worker temporary_worker external_staff], default: :permanent_worker, predicates: true
 
@@ -65,11 +66,60 @@ class WorkerContract < ApplicationRecord
     self.name ||= contract_nature.translation.send(Preference[:language]) if contract_nature
   end
 
+  after_save do
+    # update economic_cash_indicators
+    update_economic_cash_indicators
+  end
+
   def month_duration
     if stopped_at && (stopped_at - started_at) < 1.year
       (stopped_at - started_at).month
     else
       12
+    end
+  end
+
+  # compute and save worker_contract for each cash movement in economic_cash_indicators
+  def update_economic_cash_indicators
+    self.economic_cash_indicators.destroy_all
+
+    # build month period from contract dates
+    res = started_at.to_time
+    stop = stopped_at&.to_time || (Time.now + 1.years).to_time
+    periods = []
+
+    while res < stop
+      campaign = Campaign.of(res.year)
+      if res.end_of_month <= stop
+        periods << { campaign_id: campaign.id, used_on: res.end_of_month.to_date, month_coef_for_amount: 1.0 }
+      else
+        month_coef = (stop.day - res.day).to_d / 30.0
+        periods << { campaign_id: campaign.id, used_on: stop.to_date, month_coef_for_amount: month_coef.round(2) }
+      end
+      res += 1.month
+    end
+
+    # build default attributes
+    default_attributes = { context: 'Salaires',
+                           context_color: 'Chocolate',
+                           direction: 'expense',
+                           origin: 'contract',
+                           nature: self.nature }
+
+    # create cash movement for each year repetition with used and paid
+    periods.each do |period|
+      gap_used_on = period[:used_on]
+      gap_paid_on = period[:used_on]
+      salary_amount = (cost(period: :month, mode: :charged) * period[:month_coef_for_amount]).round(2)
+      period_attributes = { campaign_id: period[:campaign_id],
+                            used_on: gap_used_on,
+                            paid_on: gap_paid_on,
+                            amount: salary_amount,
+                            pretax_amount: salary_amount }
+      puts period.inspect.yellow
+      attrs = default_attributes.merge(period_attributes)
+      puts attrs.inspect.red
+      self.economic_cash_indicators.create!(attrs)
     end
   end
 

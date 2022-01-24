@@ -1,7 +1,11 @@
 # Needs base HighCharts files
 #
+#= require jquery
+#= require jquery_ujs
 #= require highcharts/highcharts
 #= require highcharts/highcharts-more
+#= require highcharts/modules/drilldown
+#= require highcharts/modules/exporting
 
 (($) ->
   "use strict"

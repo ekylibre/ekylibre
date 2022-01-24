@@ -62,6 +62,7 @@
 //= require tour
 //= require bootstrap-slider
 //= require leaflet/L.KML
+//= require chart/highcharts
 
 //= require sortablejs/Sortable.min.js
 
