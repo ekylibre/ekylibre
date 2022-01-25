@@ -1,3 +1,4 @@
+= hidden_field_tag 'is-purchase-orders', true
 = hidden_field_tag 'purchase-orders', true
 
 .modal-body
@@ -38,5 +39,10 @@
             = label_tag "Non", nil, class: "close-purchase-order-radio-label"
 
 .modal-footer
-  .actions
-    %button{ class: "btn btn-default valid-modal" }= :valid.tl
+  %span.total-label= :total.tl + " :"
+  %span.footer-item.total-quantity
+  %span.footer-item
+  %span.footer-item
+  %span.footer-item
+  %span.footer-item.total-amount
+  %button{ class: "btn btn-default valid-modal" }= :valid.tl

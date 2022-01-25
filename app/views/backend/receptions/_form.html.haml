@@ -13,7 +13,7 @@
     = f.input :nature, as: :hidden
     = f.input :contract_id, as: :hidden
     .delivery-item
-      = f.referenced_association :sender, required: true, input_html: { data: { toggle_enable: '#showReconciliationModal', parent: '.fieldset-fields' } }
+      = f.referenced_association :sender, required: true
       = f.input :purchase_id, as: :hidden
       = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }, label: :receiving_address.tl
       = f.input :reference_number, label: :reception_number.tl

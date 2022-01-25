@@ -9,7 +9,7 @@
 
 .purchase-form
   = field_set class: ['reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
-    = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }, input_html: { data: { toggle_enable: '#showReconciliationModal', parent: '.fieldset-fields' } }
+    = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
     = f.input :reference_number
     = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
     = f.referenced_association :delivery_address, source: :own_mails, new: false

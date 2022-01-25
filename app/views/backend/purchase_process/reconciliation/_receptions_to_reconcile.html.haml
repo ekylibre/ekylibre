@@ -53,5 +53,10 @@
                   %span.item-value.total-except-taxes= model_item.pretax_amount
 
 .modal-footer
-  .actions
-    %button{ class: "btn btn-default valid-modal" }= :valid.tl
+  %span.total-label= :total.tl + " :"
+  %span.footer-item
+  %span.footer-item
+  %span.footer-item.total-quantity
+  %span.footer-item
+  %span.footer-item.total-amount
+  %button{ class: "btn btn-default valid-modal" }= :valid.tl
