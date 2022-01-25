@@ -74,6 +74,11 @@
   }
 }
 
+.modal-backdrop.in {
+  width: 100%;
+  height: 100%;
+}
+
 .modal.vertical-center {
   .modal-dialog {
     margin-top: 0;

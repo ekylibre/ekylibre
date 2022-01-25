@@ -28,7 +28,7 @@
     %td.quantity-column
       %label
         - population_data = f.object.merchandise? ? { item_value: '.merchandise-total-stock-after-reception .stock-value' } : {}
-        %span{ data: population_data }
+        %span.population{ data: population_data }
         - unit_data = f.object.merchandise? ? { item_value: '.merchandise-total-stock-after-reception .stock-unit' } : {}
         %span{ data: unit_data }
     %td.delivery-mode-column
