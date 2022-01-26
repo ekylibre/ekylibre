@@ -1337,6 +1337,14 @@ eng:
   front-end:
     bank_reconciliation:
       remove: "Remove"
+    highcharts:
+      downloadJPEG: "Download JPG image"
+      downloadPDF: "Download PDF document"
+      downloadPNG: "Download PNG image"
+      downloadSVG: "Download SVG vector image"
+      exitFullscreen: "Exit full screen"
+      printChart: "Print the chart"
+      viewFullscreen: "View in full screen"
     intervention:
       nature:
         add_two_hours: "Add two hours if application happened in a close area"

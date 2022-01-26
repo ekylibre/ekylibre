@@ -34,6 +34,15 @@
         "front-end": {
             "active_list": { "labels": { "edit": "Edit", "manage_land_parcels": "Manage land parcels", "not_defined": "To define" } },
             "bank_reconciliation": { "remove": "Remove" },
+            "highcharts": {
+                "downloadJPEG": "Download JPG image",
+                "downloadPDF": "Download PDF document",
+                "downloadPNG": "Download PNG image",
+                "downloadSVG": "Download SVG vector image",
+                "exitFullscreen": "Exit full screen",
+                "printChart": "Print the chart",
+                "viewFullscreen": "View in full screen"
+            },
             "intervention": {
                 "nature": {
                     "add_two_hours": "Add two hours if application happened in a close area",
@@ -41,7 +50,15 @@
                     "reentry": "Reentry:"
                 }
             },
-            "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels", "market_threshold": "Market threshold" },
+            "labels": {
+                "cadastral_land_parcel_zones": "Cadastral land parcels",
+                "eu_price": "EU price",
+                "farmer_price": "Farm price",
+                "market_threshold": "Market threshold",
+                "matif_price": "MATIF price",
+                "shipping_price": "Ship price",
+                "world_price": "World price"
+            },
             "land_parcel": { "create_modal": { "title": "Choose an activity" } },
             "leaflet": {
                 "cut": { "panel": { "coordinatesProperty": "Coordinates", "surfacesProperty": "Surfaces", "title": "Plot splitting" } },
@@ -221,6 +238,15 @@
                 "zoomOutTitle": "Dézoomer"
             },
             "bank_reconciliation": { "remove": "Effacer" },
+            "highcharts": {
+                "downloadJPEG": "Télécharger en image JPG",
+                "downloadPDF": "Télécharger en document PDF",
+                "downloadPNG": "Télécharger en image PNG",
+                "downloadSVG": "Télécharger en vecteur d'image SVG",
+                "exitFullscreen": "Quitter le mode plein écran",
+                "printChart": "Imprimer le graphique",
+                "viewFullscreen": "Voir en plein écran"
+            },
             "intervention": {
                 "nature": {
                     "add_two_hours": "Ajouter 2h dans le cas d'une application en milieu fermé",
@@ -228,7 +254,15 @@
                     "reentry": "Réentrée :"
                 }
             },
-            "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales", "market_threshold": "Seuil de commercialisation" },
+            "labels": {
+                "cadastral_land_parcel_zones": "Parcelles cadastrales",
+                "eu_price": "Prix UE",
+                "farmer_price": "Prix départ ferme",
+                "market_threshold": "Seuil de commercialisation",
+                "matif_price": "Prix MATIF",
+                "shipping_price": "Prix départ port",
+                "world_price": "Prix mondial"
+            },
             "land_parcel": { "create_modal": { "title": "Choisir une activité" } },
             "leaflet": {
                 "cut": {
