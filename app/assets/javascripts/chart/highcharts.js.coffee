@@ -40,4 +40,8 @@
 
   $(document).on "turbolinks:load cocoon:after-insert cell:load", $.loadHighcharts
 
+  Highcharts.setOptions({
+    lang: I18n.t("front-end.highcharts")
+});
+
 ) jQuery
