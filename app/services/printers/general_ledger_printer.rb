@@ -14,6 +14,7 @@ module Printers
       end
     end
 
+    # ledger params could be one of 'general_ledger', '401', '411', "suppliers", "clients"
     def initialize(*_args, accounts: nil, lettering_state: nil, states: nil, ledger:, account_number: nil, started_on:, stopped_on:, template:, **_options)
       super(template: template)
 
@@ -24,6 +25,13 @@ module Printers
       @account_number = account_number
       @started_on = started_on
       @stopped_on = stopped_on
+      # buid variable according to ledger params
+      case @ledger
+      when '401' || 'suppliers'
+        @accounts = ['401']
+      when '411' || 'clients'
+        @accounts = ['411']
+      end
     end
 
     def key

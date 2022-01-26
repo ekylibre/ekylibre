@@ -1405,6 +1405,7 @@ fra:
     all_periods: "Tous les exercices"
     all_the_categories: "Toutes les catégories comptables" #?
     allocation_balance: "Affectation du budget - Allocation %{name}"
+    allocate_result: "Affectation du résultat"
     allowed: "Autorisé"
     allowed_harvest_on: "RÉCOLTE POSSIBLE À PARTIR DU"
     already_credited_quantity: "Qté. déjà passée en avoir" #?

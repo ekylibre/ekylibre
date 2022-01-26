@@ -1685,6 +1685,7 @@ eng:
     all_periods: "All financial years"
     all_the_categories: "All accounting categories"
     allocation_balance: "Budget allocation - %{name} allocation"
+    allocate_result: "Result allocation"
     allowed: "Allowed"
     allowed_harvest_on: "Allowed harvest on"
     amount: "Amount"
