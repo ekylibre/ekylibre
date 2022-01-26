@@ -11,7 +11,7 @@ class FinancialYearClose
     end
   end
 
-  attr_reader :result_account, :carry_forward_account, :close_error
+  attr_reader :carry_forward_account, :close_error
 
   class UnbalancedBalanceSheet < StandardError; end
 
@@ -20,8 +20,9 @@ class FinancialYearClose
     1 => 'compute_balances',
     2 => 'close_result_entry',
     3 => 'close_carry_forward',
-    4 => 'journals_closure',
-    5 => 'generate_documents_post_closure'
+    4 => 'allocate_result',
+    5 => 'journals_closure',
+    6 => 'generate_documents_post_closure'
   }.freeze
 
   def initialize(year, to_close_on, closer, disable_document_generation: false, **options)
@@ -29,8 +30,9 @@ class FinancialYearClose
     @started_on = @year.started_on
     @closer = closer
     @to_close_on = to_close_on || options[:to_close_on] || @year.stopped_on
-    @progress = Progress.new(:close_main, id: @year.id, max: 6)
+    @progress = Progress.new(:close_main, id: @year.id, max: CLOSURE_STEPS.count)
     @errors = []
+    @logger ||= Logger.new(File.join(Rails.root, 'log', "closure-#{Ekylibre::Tenant.current.to_s}-#{@to_close_on.to_s}.log"))
     @currency = @year.currency
     @disable_document_generation = disable_document_generation
     @options = options
@@ -77,51 +79,63 @@ class FinancialYearClose
 
   def execute
     @start = Time.now
+    @logger.info("------- Closure for year ID : #{@year.id.to_s} -----------")
     return false unless @year.closable?
 
+    @logger.info('0 - Verify closability')
     ensure_closability!
 
     ApplicationRecord.transaction do
+
+      @logger.info((CLOSURE_STEPS[0]).to_s)
       @year.update_attributes({ state: 'opened' })
-
       dump_tenant
-
       generate_documents('prior_to_closure')
       @progress.increment!
 
+      @logger.info((CLOSURE_STEPS[1]).to_s)
       benchmark('Compute Balance') do
         @year.compute_balances!
         @progress.increment!
       end
 
+      @logger.info((CLOSURE_STEPS[2]).to_s)
       benchmark('Generate Result Entry') do
+        @logger.info('4 - Generate result entry')
         generate_result_entry!
         @progress.increment!
       end
 
+      @logger.info((CLOSURE_STEPS[3]).to_s)
       log("Disable Partial Lettering Triggers")
+      @logger.info("5 - Disable Partial Lettering Triggers")
       disable_partial_lettering
-
+      @logger.info("6 - Generate carrying forward entry")
       generate_carrying_forward_entry!
+      log("Enable Partial Lettering Triggers")
+      @logger.info("6 bis - Enable Partial Lettering Triggers")
+      enable_partial_lettering
       @progress.increment!
 
-      enable_partial_lettering
-
+      @logger.info((CLOSURE_STEPS[4]).to_s)
+      @logger.info("7 - Allocate Result")
+      @logger.info("forward_journal_id : #{@forward_journal.id}") if @forward_journal
       allocate_results if @forward_journal
-
-      log("Enable Partial Lettering Triggers")
+      @logger.info("7 bis - Enable Partial Lettering Triggers")
       enable_partial_lettering
+      @progress.increment!
 
+      @logger.info((CLOSURE_STEPS[5]).to_s)
+      @logger.info("Locked depreciations repayments")
       locked_depreciations_repayments
-
-      log("Close Journals")
+      @logger.info("Close Journals")
       Journal.find_each do |journal|
         journal.close!(@to_close_on) if journal.closed_on < @to_close_on
       end
       @progress.increment!
 
-      log("Close Financial Year")
-
+      @logger.info((CLOSURE_STEPS[6]).to_s)
+      @logger.info("Close Financial Year")
       raise UnbalancedBalanceSheet.new(:closure_failed_because_balance_sheet_unbalanced.tl) unless @year.balanced_balance_sheet?(:post_closure)
 
       generate_documents('post_closure')
@@ -215,21 +229,25 @@ class FinancialYearClose
         }
       end
 
-      result = AccountancyComputation.new(@year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
-      @result_account = get_result_account_for(result)
+      @result = AccountancyComputation.new(@year).sum_entry_items_by_line(:profit_and_loss_statement, :exercice_result)
+      @result_account = get_result_account_for(@result)
 
-      return unless items.any?
+      if items.any? && @result.to_f != 0.0 && @result_journal.present?
 
-      items << loss_or_profit_item(@result_account, result) unless result.zero?
+        items << loss_or_profit_item(@result_account, @result)
 
-      return unless @result_journal
+        return unless @result_journal
 
-      @result_journal.entries.create!(
-        printed_on: @to_close_on,
-        currency: @result_journal.currency,
-        items_attributes: items,
-        state: :confirmed
-      )
+        @result_journal.entries.create!(
+          printed_on: @to_close_on,
+          currency: @result_journal.currency,
+          items_attributes: items,
+          state: :confirmed
+        )
+        @logger.info("Result #{@result.to_f} entry created on account id #{@result_account.id}")
+      else
+        @logger.error("No Result entry : #{@result.to_f}")
+      end
     ensure
       progress.clean!
     end
@@ -386,48 +404,67 @@ class FinancialYearClose
     end
 
     def allocate_results
-      result_balance_debit = result_account.totals[:balance_debit]
-      result_balance_credit = result_account.totals[:balance_credit]
+      result_balance_debit = @result_account.totals[:balance_debit]
+      result_balance_credit = @result_account.totals[:balance_credit]
       previous_carry_forward_balance_debit = 0
       previous_carry_forward_balance_credit = 0
+      @logger.info("result_balance_debit : #{result_balance_debit}")
+      @logger.info("result_balance_credit : #{result_balance_credit}")
 
-      items = [{
-                 name: :balance_of_the_income_statement.tl,
-                 real_debit: result_balance_credit,
-                 real_credit: result_balance_debit,
-                 account_id: result_account.id
-               }]
+      if result_balance_debit.to_f == 0.0 && result_balance_credit.to_f == 0.0
+        @logger.error("No value on credit or debit for result for account id : #{@result_account.id}. Maybe result aleready been allocated manually.")
+      else
+        items = [{
+                   name: :balance_of_the_income_statement.tl,
+                   real_debit: result_balance_credit,
+                   real_credit: result_balance_debit,
+                   account_id: @result_account.id
+                 }]
+        @logger.info("initial items : #{items.inspect}")
+        pcfa = previous_carry_forward_account
+        previous_carry_forward_balance_debit = 0.0
+        previous_carry_forward_balance_credit = 0.0
+        if pcfa
+          @logger.info("pcfa : #{pcfa.inspect}")
+          previous_carry_forward_balance_debit = pcfa.totals[:balance_debit]
+          previous_carry_forward_balance_credit = pcfa.totals[:balance_credit]
+          @logger.info("previous_carry_forward_balance_debit : #{previous_carry_forward_balance_debit}")
+          @logger.info("previous_carry_forward_balance_credit : #{previous_carry_forward_balance_credit}")
 
-      if (pcfa = previous_carry_forward_account)
-        previous_carry_forward_balance_debit = pcfa.totals[:balance_debit]
-        previous_carry_forward_balance_credit = pcfa.totals[:balance_credit]
+          items << {
+            name: :balance_allocated_to_retained_earnings.tl,
+            real_debit: previous_carry_forward_balance_credit,
+            real_credit: previous_carry_forward_balance_debit,
+            account_id: pcfa.id
+          }
 
-        items << {
-          name: :balance_allocated_to_retained_earnings.tl,
-          real_debit: previous_carry_forward_balance_credit,
-          real_credit: previous_carry_forward_balance_debit,
-          account_id: pcfa.id
-        }
+        end
+
+        to_allocate_balance = result_balance_debit - result_balance_credit + previous_carry_forward_balance_debit - previous_carry_forward_balance_credit
+        debit_or_credit = to_allocate_balance.positive? ? :debit : :credit
+
+        @logger.info("to_allocate_balance (initial + pcfa) : #{to_allocate_balance} on #{debit_or_credit}")
+
+        @logger.info("allocations : #{@options[:allocations].inspect}")
+
+        @options[:allocations].each do |(number, value)|
+          account = Account.find_or_create_by_number(number)
+          @logger.info("allocation #{number.to_s} - #{account.name} = #{value.to_s}")
+          items << {
+            name: :allocation_balance.tl(name: account.name),
+            "real_#{debit_or_credit}": value,
+            account_id: account.id
+          }
+        end
+
+        @logger.info("items for allocate result : #{items.inspect}")
+        JournalEntry.create!(
+          journal: @forward_journal,
+          printed_on: @to_close_on + 1.day,
+          real_currency: @forward_journal.currency,
+          items_attributes: items
+        )
       end
-
-      to_allocate_balance = result_balance_debit - result_balance_credit + previous_carry_forward_balance_debit - previous_carry_forward_balance_credit
-      debit_or_credit = to_allocate_balance.positive? ? :debit : :credit
-
-      @options[:allocations].each do |(number, value)|
-        account = Account.find_or_create_by_number(number)
-        items << {
-          name: :allocation_balance.tl(name: account.name),
-          "real_#{debit_or_credit}": value,
-          account_id: account.id
-        }
-      end
-
-      JournalEntry.create!(
-        journal: @forward_journal,
-        printed_on: @to_close_on + 1.day,
-        real_currency: @forward_journal.currency,
-        items_attributes: items
-      )
     end
 
     def reletter_items!(items, letter)
@@ -534,7 +571,12 @@ class FinancialYearClose
         .uniq
     end
 
+    #
+    # Documents
+    #
+
     def generate_documents(timing)
+      @logger.info('Generate document')
       progress = Progress.new("generate_documents_#{timing}", id: @year.id, max: 6)
 
       if @disable_document_generation
@@ -648,9 +690,10 @@ class FinancialYearClose
     def dump_tenant
       # @year state will be set to 'closing' when restoring this dump, think about updating it to 'opened'
       tenant = Ekylibre::Tenant.current
+      @logger.info("Dump #{tenant.to_s}")
       dump_path = Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
       FileUtils.mkdir_p dump_path
-
+      @logger.info("Create folder in #{dump_path.to_s}")
       Dir.mktmpdir do |dir|
         Ekylibre::Tenant.dump(tenant, path: Pathname.new(dir))
         FileUtils.mv "#{dir}/#{tenant}.zip", dump_path
