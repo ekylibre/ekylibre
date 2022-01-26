@@ -484,6 +484,7 @@ Rails.application.routes.draw do
         get :list_parcels
         get :list_receptions
         get :list_shipments
+        get :list_global_shipment_items
         post :order
         post :prepare
         post :check
