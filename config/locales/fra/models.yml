@@ -309,6 +309,8 @@ fra:
       parcel:
         contract: "Contrat"
       parcel_item:
+        parcels_conditioning_quantity: "Quantité globale"
+        parcels_conditioning_unit_name: "Unité"
         population: "Quantité"
         product_name: "Nom du produit"
       parcel_item_storing:

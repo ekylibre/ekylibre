@@ -2183,6 +2183,7 @@ fra:
     global_costs: "Coût global"
     global_preferences: "Préférences générales"
     global_costs_xslx_export: "Fiche coûts (XSLX)"
+    global_shipment_items: "Produits à expédier"
     go: "Valider"
     go_back_to_financial_year_details: "Retourner aux détails de l'exercice comptable"
     gradings: "Agréages"

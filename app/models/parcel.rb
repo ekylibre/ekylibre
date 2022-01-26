@@ -148,7 +148,7 @@ class Parcel < ApplicationRecord
   end
 
   def content_sentence
-    items.map(&:name).compact.to_sentence
+    items.map{|i| "#{i.conditioning_quantity.to_s} #{i.conditioning_unit.name} #{i.name}" }.compact.to_sentence
   end
 
   def separated_stock?
