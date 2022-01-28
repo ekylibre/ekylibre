@@ -360,13 +360,16 @@ class Activity < ApplicationRecord
     if animal_farming?
       total = productions.of_campaign(campaign).map do |production|
         viewed_at = Time.zone.now.change(year: campaign.harvest_year)
-        production.support.members_count(viewed_at)
-      end.sum
+        production.support&.members_count(viewed_at)
+      end.compact.sum(0.0)
     else
-      total = productions.of_campaign(campaign).map(&:size).sum
+      total = productions.of_campaign(campaign).map(&:size).compact.sum
     end
-    total = total.in(size_unit) if size_unit
-    total
+    if size_unit
+      total.in(size_unit)
+    else
+      total
+    end
   end
 
   # Returns human_name of support variety

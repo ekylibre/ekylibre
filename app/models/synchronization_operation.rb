@@ -75,6 +75,7 @@ class SynchronizationOperation < ApplicationRecord
     def run(operation, options = {})
       so = create!(operation_name: operation, state: :undone)
       Ekylibre::Hook.publish operation, options.merge(synchronization_operation_id: so.id)
+      so.id
     end
   end
 end
