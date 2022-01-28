@@ -1883,6 +1883,8 @@ fra:
     document: "Document joint"
     documents: "Documents"
     document_global_costs: "Fiche Coût Global"
+    document_import_failed: "Le document %{name} n'a pas pu être importé correctement."
+    document_imported_successfully: "Le document %{name} a été importé avec succès."
     document_intervention_traceability: "Fiche Tracabilité"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
