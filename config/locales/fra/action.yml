@@ -2606,7 +2606,7 @@ fra:
     new_outgoing_payment: "Nouveau décaissement"
     new_password: "Nouveau mot de passe"
     new_payment: "Enregistrer un nouvel encaissement" #?
-    new_profil: "Nouveau profil"
+    new_profile: "Nouveau profil"
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
     new_purchase: "Nouvel achat" #?
@@ -4098,14 +4098,14 @@ fra:
       vat_declaration_generated: "La déclaration de TVA a été générée avec succès."
       vat_declaration_in_preparation: "La déclaration de TVA pour la période demandée est en cours de préparation, une notification vous sera envoyée dès qu'elle sera prête."
       x_activity_have_been_autoplanned_successfully:
-        one: "%{count} activité a été planifié automatiquement"
-        other: "%{count} activités ont été planifié automatiquement"
+        one: "%{count} activité a été planifiée automatiquement"
+        other: "%{count} activités ont été planifiées automatiquement."
       x_activity_have_already_been_planned:
-        one: "%{count} activité a déjà été planifié"
-        other: "%{count} activités ont déjà été planifié"
+        one: "%{count} activité a déjà été planifiée"
+        other: "%{count} activités ont déjà été planifiées"
       x_activity_have_not_been_autoplanned:
-        one: "%{count} activité n'a pas été planifié automatiquement"
-        other: "%{count} activités n'ont pas été planifié automatiquement"
+        one: "Aucune activité n'a pas été planifiée automatiquement."
+        other: "%{count} activité(s) n'ont pas été planifiée(s) automatiquement"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
         other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"
