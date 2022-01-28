@@ -64,6 +64,21 @@ module Backend
       t.column :file_fingerprint, hidden: true
     end
 
+    def create
+      if params[:document][:file]&.content_type&.match(/image/)
+        file_params = { path: permitted_params[:file].tempfile.path, filename: permitted_params[:file].original_filename, content_type: permitted_params[:file].content_type }
+        document_params = permitted_params.to_h.except(:file)
+        ImageDocumentCreationJob.perform_later(document_params, file_params, current_user.id)
+        notify_success(:document_in_preparation)
+        redirect_to backend_documents_path
+      else
+        @document = resource_model.new(permitted_params)
+        return if save_and_redirect(@document, url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+
+        render(locals: { cancel_url: { action: :index }, with_continue: false })
+      end
+    end
+
     def show
       return unless @document = find_and_check
 

@@ -2070,6 +2070,8 @@ eng:
     document: "Document"
     documents: "Documents"
     document_global_costs: "Global Cost Sheet"
+    document_import_failed: "The document %{name} couldn't be imported correctly."
+    document_imported_successfully: "The document %{name} has been successfully imported"
     document_intervention_traceability: "Traceability Sheet"
     document_natures: "Document types"
     document_templates: "Document templates"
