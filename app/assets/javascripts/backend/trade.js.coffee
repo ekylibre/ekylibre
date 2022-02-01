@@ -33,7 +33,7 @@
         value = selector.selector('value')
         params[selector.attr('id')] = value if value?
       $conditioningSelector = $element.closest($element.data('parent')).find($element.data('filter-unroll'))
-      if $conditioningSelector[0] != $conditioningSelector.context
+      if $conditioningSelector[0] != $conditioningSelector.context && !is_initialization
         $conditioningSelector.closest('.selector').find('.selector-value').attr('value', '')
         $conditioningSelector.val('')
       if $conditioningSelector.length
@@ -77,7 +77,7 @@
               item.find('.subscription_started_on').val('')
               item.find('.subscription_stopped_on').val('')
 
-
+            
             if !is_initialization && unit = data.unit
               if unit.name
                 item.find(options.unit_name_tag or ".unit-name").html(data.name)
