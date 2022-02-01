@@ -1020,6 +1020,7 @@ fra:
       create_modal:
         title: "Choisir une activité"
     leaflet:
+      zoomGuidance: "Niveau de zoom insuffisant"
       interactive_maps: "Une librairie JavaScript pour des cartes interactives"
       fullscreenControl:
         title: 'Plein écran'
