@@ -8,12 +8,12 @@
       <tool name="press" filter="is equipment and can press(grape)"/>
       <doer name="wine_man" filter="can move"/>
       <output name="juice" variety="juice" derivative-of="variety: grape_to_press" filter="is juice and derives from grape" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="net_volume" unit="hectoliter" to="population" backward="POPULATION * PRODUCT..net_volume(hectoliter)" forward="VALUE / PRODUCT..net_volume(hectoliter)"/>
-        <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
-        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram" to="population" backward="POPULATION * PRODUCT..net_mass(kilogram)" forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="net_volume" unit="hectoliter" to="population" backward="POPULATION * PRODUCT.net_volume(hectoliter)" forward="VALUE / PRODUCT.net_volume(hectoliter)"/>
+        <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT.net_mass(ton)" forward="VALUE / PRODUCT.net_mass(ton)"/>
+        <handler name="net_mass_in_kilogram" indicator="net_mass" unit="kilogram" to="population" backward="POPULATION * PRODUCT.net_mass(kilogram)" forward="VALUE / PRODUCT.net_mass(kilogram)"/>
       </output>
       <output name="residue" variety="pomace" derivative-of=":grape_to_press" filter="is pomace and derives from grape" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="net_mass" unit="kilogram" to="population" backward="POPULATION * PRODUCT..net_mass(kilogram)" forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="net_mass" unit="kilogram" to="population" backward="POPULATION * PRODUCT.net_mass(kilogram)" forward="VALUE / PRODUCT.net_mass(kilogram)"/>
       </output>
     </parameters>
   </procedure>
