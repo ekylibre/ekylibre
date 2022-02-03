@@ -1354,6 +1354,7 @@ eng:
         create_modal:
           title: "Choose an activity"
     leaflet:
+      zoomGuidance: "Insufficient zoom level"
       interactive_maps: "A JS library for interactive maps"
       fullscreenControl:
         title: 'Fullscreen'

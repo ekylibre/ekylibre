@@ -148,7 +148,8 @@
                         "buttons": { "cutPolyline": "Split a plot" }
                     }
                 },
-                "zoom": { "zoomInTitle": "Zoom in", "zoomOutTitle": "Zoom out" }
+                "zoom": { "zoomInTitle": "Zoom in", "zoomOutTitle": "Zoom out" },
+                "zoomGuidance": "Insufficient zoom level"
             },
             "levels": { "error": "Error!" },
             "messages": {
@@ -357,7 +358,8 @@
                         "buttons": { "cutPolyline": "Découper une parcelle" }
                     }
                 },
-                "zoom": { "zoomInTitle": "Zoomer", "zoomOutTitle": "Dézoomer" }
+                "zoom": { "zoomInTitle": "Zoomer", "zoomOutTitle": "Dézoomer" },
+                "zoomGuidance": "Niveau de zoom insuffisant"
             },
             "levels": { "error": "Error!" },
             "messages": {
