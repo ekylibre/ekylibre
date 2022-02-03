@@ -35,12 +35,16 @@
             "active_list": { "labels": { "edit": "Edit", "manage_land_parcels": "Manage land parcels", "not_defined": "To define" } },
             "bank_reconciliation": { "remove": "Remove" },
             "highcharts": {
+                "downloadCSV": "Download CSV data",
                 "downloadJPEG": "Download JPG image",
                 "downloadPDF": "Download PDF document",
                 "downloadPNG": "Download PNG image",
                 "downloadSVG": "Download SVG vector image",
+                "downloadXLS": "Download XLS data",
                 "exitFullscreen": "Exit full screen",
+                "hideData": "Hide data",
                 "printChart": "Print the chart",
+                "viewData": "View data",
                 "viewFullscreen": "View in full screen"
             },
             "intervention": {
@@ -239,12 +243,16 @@
             },
             "bank_reconciliation": { "remove": "Effacer" },
             "highcharts": {
+                "downloadCSV": "Télécharger en tableur CSV",
                 "downloadJPEG": "Télécharger en image JPG",
                 "downloadPDF": "Télécharger en document PDF",
                 "downloadPNG": "Télécharger en image PNG",
                 "downloadSVG": "Télécharger en vecteur d'image SVG",
+                "downloadXLS": "Télécharger en tableur XLS",
                 "exitFullscreen": "Quitter le mode plein écran",
+                "hideData": "Cacher les données",
                 "printChart": "Imprimer le graphique",
+                "viewData": "Voir les données",
                 "viewFullscreen": "Voir en plein écran"
             },
             "intervention": {

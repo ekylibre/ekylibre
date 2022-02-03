@@ -1004,13 +1004,17 @@ fra:
     bank_reconciliation:
       remove: "Effacer"
     highcharts:
+      downloadCSV: "Télécharger en tableur CSV"
       downloadJPEG: "Télécharger en image JPG"
       downloadPDF: "Télécharger en document PDF"
       downloadPNG: "Télécharger en image PNG"
       downloadSVG: "Télécharger en vecteur d'image SVG"
+      downloadXLS: "Télécharger en tableur XLS"
       exitFullscreen: "Quitter le mode plein écran"
+      hideData: "Cacher les données"
       printChart: "Imprimer le graphique"
       viewFullscreen: "Voir en plein écran"
+      viewData: "Voir les données"
     intervention:
       nature:
         add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"
