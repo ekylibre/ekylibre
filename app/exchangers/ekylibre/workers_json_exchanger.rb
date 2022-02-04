@@ -18,11 +18,6 @@ module Ekylibre
           entity_id: entity.id,
           started_at: Time.now
         )
-        Worker.create!(
-          person: entity,
-          name: entity.full_name,
-          variant: ProductNatureVariant.import_from_lexicon(worker['type'])
-        )
       end
     end
   end
