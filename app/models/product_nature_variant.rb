@@ -626,7 +626,7 @@ class ProductNatureVariant < ApplicationRecord
 
   def relevant_stock_indicator(dim)
     indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dim.to_sym]
-    indicator_name ? send(indicator_name) : Measure.new(1, :unity)
+    indicator_name ? Measure.new(1, send(indicator_name).unit) : Measure.new(1, :unity)
   end
 
   class << self
