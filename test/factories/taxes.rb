@@ -4,6 +4,7 @@ FactoryBot.define do
     nature { 'intermediate_vat' }
     sequence(:name) { |n| "TVA française intermédiaire #{n}" }
     amount { 10 }
+    active { true }
     association :collect_account, factory: :account
     association :deduction_account, factory: :account
   end
