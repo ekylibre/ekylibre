@@ -3684,6 +3684,7 @@ eng:
       synchronization_operation_finished_successfully: "Operation %{operation_name} finished successfully"
       synchronization_operation_in_progress: "Operation %{operation_name} in progress"
       # tax_declaration_warning: "Tax declaration warning"
+      tax_declaration_stopped_on_greater_than_date_today: "tax declaration stopped on is greater than today !"
       the_automatic_lettering_cannot_be_done_in_accountancy: "The automatic lettering cannot be done in accountancy"
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "The automatic lettering cannot be done in accountancy because too many thirds are present"
       the_bookkeep_date_format_is_invalid: "The bookkeep date format is invalid"

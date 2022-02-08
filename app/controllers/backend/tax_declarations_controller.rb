@@ -101,6 +101,9 @@ module Backend
       respond_to do |format|
         format.html do
           t3e @tax_declaration.attributes
+          if  @tax_declaration.stopped_on > Date.today
+            notify_warning(:tax_declaration_stopped_on_greater_than_date_today)
+          end
         end
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
