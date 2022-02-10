@@ -67,7 +67,7 @@ module Variants
         if dim == 'none' && !grains_count.zero?
           send(:grains_count).in(:unity)
         elsif dim =='none' && !thousand_grains_mass.zero? && !net_mass.zero?
-          thousand_grains_count = send(:net_mass).in(:kilogram).to_f / send(:thousand_grains_mass).in(:kilogram).to_f
+          thousand_grains_count = 1 / send(:thousand_grains_mass).in(:kilogram).to_f
           Measure.new(thousand_grains_count, :thousand).in(:unity)
         else
           super

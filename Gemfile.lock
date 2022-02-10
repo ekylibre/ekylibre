@@ -68,12 +68,6 @@ GIT
     xml_errors_parser (0.0.3)
       i18n
 
-PATH
-  remote: ../plugins/ekylibre-hajimari
-  specs:
-    hajimari (3.0.0)
-      mechanize (~> 2.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -773,7 +767,6 @@ DEPENDENCIES
   geocoder (~> 1.6)
   git (~> 1.8)
   gpgme (~> 2.0)
-  hajimari!
   haml (~> 5.2)
   holidays
   http_accept_language (~> 2.1)

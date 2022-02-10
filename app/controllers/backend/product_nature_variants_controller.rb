@@ -205,7 +205,6 @@ module Backend
       stock = @product_nature_variant.current_stock(into_default_unit: true)
       conditioning = Unit.find_by_id(params[:conditioning_id])
       reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : Time.now
-
       infos = {
         name: @product_nature_variant.name,
         number: @product_nature_variant.number,
@@ -344,7 +343,7 @@ module Backend
                                   .sum(:quantity)
       variant = ProductNatureVariant.find(params[:id])
       storage = Product.find(params[:storage_id])
-      stock = quantity * variant.default_quantity
+      stock = quantity
       unit = variant.default_unit_name.l.pluralize(stock == 0 ? 1 : stock)
       render json: { quantity: stock, unit: unit, name: storage.name }
     end

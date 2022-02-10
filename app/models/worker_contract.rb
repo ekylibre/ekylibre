@@ -116,9 +116,7 @@ class WorkerContract < ApplicationRecord
                             paid_on: gap_paid_on,
                             amount: salary_amount,
                             pretax_amount: salary_amount }
-      puts period.inspect.yellow
       attrs = default_attributes.merge(period_attributes)
-      puts attrs.inspect.red
       self.economic_cash_indicators.create!(attrs)
     end
   end
