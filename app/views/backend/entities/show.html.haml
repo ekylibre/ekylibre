@@ -2,7 +2,7 @@
 
 - main_toolbar do |t|
   = t.export(:entity_sheet, target:"_blank")
-  
+
   = t.edit resource
   = t.destroy
   - if resource.contact? && !resource.worker && !resource.client? && !resource.supplier? && !resource.transporter? && !resource.prospect?
