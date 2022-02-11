@@ -1338,6 +1338,7 @@ eng:
     bank_reconciliation:
       remove: "Remove"
     highcharts:
+      category: "Category"
       downloadCSV: "Download CSV data"
       downloadJPEG: "Download JPG image"
       downloadPDF: "Download PDF document"
