@@ -1004,6 +1004,7 @@ fra:
     bank_reconciliation:
       remove: "Effacer"
     highcharts:
+      category: "Catégorie"
       downloadCSV: "Télécharger en tableur CSV"
       downloadJPEG: "Télécharger en image JPG"
       downloadPDF: "Télécharger en document PDF"
@@ -1011,10 +1012,10 @@ fra:
       downloadSVG: "Télécharger en vecteur d'image SVG"
       downloadXLS: "Télécharger en tableur XLS"
       exitFullscreen: "Quitter le mode plein écran"
-      hideData: "Cacher les données"
+      hideData: "Masquer les données"
       printChart: "Imprimer le graphique"
-      viewFullscreen: "Voir en plein écran"
-      viewData: "Voir les données"
+      viewFullscreen: "Afficher en plein écran"
+      viewData: "Afficher les données"
     intervention:
       nature:
         add_two_hours: "Ajouter 2h dans le cas d'une application en milieu fermé"

@@ -35,6 +35,7 @@
             "active_list": { "labels": { "edit": "Edit", "manage_land_parcels": "Manage land parcels", "not_defined": "To define" } },
             "bank_reconciliation": { "remove": "Remove" },
             "highcharts": {
+                "category": "Category",
                 "downloadCSV": "Download CSV data",
                 "downloadJPEG": "Download JPG image",
                 "downloadPDF": "Download PDF document",
@@ -161,12 +162,6 @@
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
             },
-            "notifications": {
-                "levels": { "error": "Error!" },
-                "messages": {
-                    "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below."
-                }
-            },
             "production": {
                 "start_state_of_production": {
                     "n_2_3_leaf": "N+2 (3rd leaf)",
@@ -176,16 +171,6 @@
                 "zoomGuidance": "Insufficient zoom level",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
-            },
-            "templates": {
-                "actions": { "edit": "Edit", "regroup": "Group", "split": "Split" },
-                "form": {
-                    "calculated_area": "Calculated area",
-                    "land_parcel": "Land parcel",
-                    "name": "Name",
-                    "required": "required",
-                    "vine_variety_name": "Variety of vine"
-                }
             },
             "unroll": { "server_error": "Server error" }
         },
@@ -244,6 +229,7 @@
             },
             "bank_reconciliation": { "remove": "Effacer" },
             "highcharts": {
+                "category": "Catégorie",
                 "downloadCSV": "Télécharger en tableur CSV",
                 "downloadJPEG": "Télécharger en image JPG",
                 "downloadPDF": "Télécharger en document PDF",
@@ -251,10 +237,10 @@
                 "downloadSVG": "Télécharger en vecteur d'image SVG",
                 "downloadXLS": "Télécharger en tableur XLS",
                 "exitFullscreen": "Quitter le mode plein écran",
-                "hideData": "Cacher les données",
+                "hideData": "Masquer les données",
                 "printChart": "Imprimer le graphique",
-                "viewData": "Voir les données",
-                "viewFullscreen": "Voir en plein écran"
+                "viewData": "Afficher les données",
+                "viewFullscreen": "Afficher en plein écran"
             },
             "intervention": {
                 "nature": {
@@ -392,16 +378,6 @@
                 "zoomGuidance": "Insufficient zoom level",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
-            },
-            "templates": {
-                "actions": { "edit": "Modifier", "regroup": "Regrouper", "split": "Dissocier" },
-                "form": {
-                    "calculated_area": "Superficie calculée",
-                    "land_parcel": "Parcelle",
-                    "name": "Nom",
-                    "required": "Obligatoire",
-                    "vine_variety_name": "variety"
-                }
             },
             "unroll": { "server_error": "Erreur serveur" }
         },
