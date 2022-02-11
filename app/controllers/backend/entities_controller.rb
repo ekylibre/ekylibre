@@ -38,7 +38,7 @@ module Backend
     #   :q Text search
     def self.entities_conditions
       code = ''
-      code = search_conditions(entities: %i[number full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+      code = search_conditions(entities: %i[number full_name description iban siret_number vat_number custom_fields], entity_addresses: [:coordinate]) + " ||= []\n"
 
       code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
 
@@ -103,7 +103,7 @@ module Backend
       code.c
     end
 
-    list(conditions: entities_conditions, order: 'entities.last_name, entities.first_name') do |t|
+    list(conditions: entities_conditions, joins: :addresses, order: 'entities.last_name, entities.first_name') do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :active, datatype: :boolean
