@@ -916,6 +916,11 @@ fra:
       index: "Contrats de travail"
       new: "Nouveau contrat de travail"
       show: "Détail contrat de travail\_: %{name}"
+    backend/worker_time_logs:
+      edit: "Modifier une saisie de temps"
+      index: "Temps des équipiers"
+      new: "Nouvelle saisie de temps "
+      show: "Détail saisie de temps"
     public:
       index: "Accueil"
   errors:
@@ -3825,6 +3830,9 @@ fra:
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"
+    x_time_logs:
+      one: "%{count} saisie de temps"
+      other: "%{count} saisies de temps"
     x_thing: "%{x} %{thing}"
     x_times:
       one: "%{count} fois"
