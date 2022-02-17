@@ -37,6 +37,8 @@
     # alert(splitted.length);
     integers = splitted[0].replace(/^0+[1-9]+/g, '')
     decimals = (splitted[1] or '').replace(/0+$/g, '')
+    if decimals.length > precision
+      decimals = decimals.substring(0, precision)
     while decimals.length < precision
       decimals = decimals + '0'
     formatted = integers
@@ -96,6 +98,7 @@
         element.val C.toCurrency(newValue)
       else if element.data("format") == 'budget'
         element.html C.toBudgetCurrency(newValue)
+        element.data('trueValue', newValue)
       else
         element.html C.toCurrency(newValue)
       element

@@ -17,7 +17,7 @@
     = f.input :direction, as: :hidden
     = f.input :locked, as: :hidden, input_html: {class: "budget-locked"}
   %td.decimal.left-align.unwrapped
-    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, format: "budget"}}= f.object.amount.round(2) || '0.00'
+    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, true_value: f.object.amount, format: "budget"}}= f.object.amount.round(2) || '0.00'
     %span.currency= currency_symbol
   - frequency_dic = {per_day: 365, per_month: 12, per_year: 1}
   %td.budget-frequency.hidden= frequency_dic.key?(f.object.frequency.to_sym) ? frequency_dic[f.object.frequency.to_sym] : 1
@@ -54,5 +54,7 @@
       %span.use-transfer-price.hidden
         %span= f.label :use_transfer_price.tl, wrapper: :nested
         %span= f.input :use_transfer_price, wrapper: :nested
-    %td{colspan: 5}
-      %span.transfered-to-activity.hidden= f.referenced_association :transfered_activity_budget, source: {scope: { of_campaign: f.object.campaign, excepted: f.object.activity_budget.id} }, new: false
+    %td
+      %span.transfered-to-activity.hidden= f.label :transfered_activity_budget
+    %td
+      %span.transfered-to-activity.hidden= f.referenced_association :transfered_activity_budget, wrapper: :nested, source: {scope: { of_campaign: f.object.campaign, excepted: f.object.activity_budget.id} }, new: false
