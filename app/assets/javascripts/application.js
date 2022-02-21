@@ -68,6 +68,8 @@
 
 //= require turbolinks_patch
 
+//= require channels
+
 // FIX Browser interoperability
 // href function seems to be ineffective
 $.rails.href = function (element) {

@@ -264,6 +264,7 @@ Rails.application.routes.draw do
         get :list_distributions
         get :list_productions
         get :compute_pfi_report
+        post :generate_budget
       end
     end
 

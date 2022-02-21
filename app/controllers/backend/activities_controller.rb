@@ -153,7 +153,7 @@ module Backend
         return redirect_to(params[:redirect] || { action: :index })
       end
       if activities.any?
-        ItkImportJob.perform_later(activities.pluck(:id), current_campaign, current_user)
+        ItkImportJob.perform_later(activity_ids: activities.pluck(:id), current_campaign: current_campaign, current_user: current_user)
       else
         notify_error(:no_activities_present)
         redirect_to(params[:redirect] || { action: :index })
@@ -191,6 +191,19 @@ module Backend
     list(:distributions, model: :activity_distributions, conditions: { activity_id: 'params[:id]'.c }) do |t|
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
+    end
+
+    def generate_budget
+      @activity = Activity.find(params[:id])
+      budget = @activity.budgets.find_by(campaign: current_campaign)
+      return if Preference.find_by(name: 'ItkImportJob_running').present?
+
+      if @activity.technical_workflow(current_campaign).present?
+        ItkImportJob.perform_later(activity_ids: [@activity.id], current_campaign: current_campaign, user: current_user)
+      else
+        notify_warning(:no_reference_budget_found)
+        redirect_to action: :show
+      end
     end
   end
 end

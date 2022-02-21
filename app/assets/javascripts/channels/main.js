@@ -1,7 +1,6 @@
-//= require action_cable
-(function (E, $) {
+(function (E, cable, $) {
   E.onDomReady(function () {
-    if (!ActionCable.main_consumer){
+    if (!cable.subscriptions.MainChannel){
       user_email = $("#ws-att").data("current-account");
       subscribe_main_ws(user_email);
     }
@@ -11,9 +10,7 @@
    * Creates ActionCable connection & bind to user-Main-channel
    */
   function subscribe_main_ws(user_email) {
-    consumer = ActionCable.createConsumer('/cable');
-    ActionCable.main_consumer = consumer
-    subscription = consumer.subscriptions.create({
+    subscription = cable.consumer.subscriptions.create({
       channel: 'MainChannel',
       roomId: user_email
     }, {
@@ -25,6 +22,9 @@
           case 'new_notification':
             update_notifications();
         }
+    },
+    connected: function(){
+        cable.subscriptions.MainChannel = this
     }
     });
   }
@@ -95,4 +95,4 @@
     icon: "<%= image_url('icon/ipad.png') %>"
   });
 
-})(ekylibre, jQuery);
+})(ekylibre, cable, jQuery);
