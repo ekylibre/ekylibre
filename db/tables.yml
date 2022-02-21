@@ -11001,3 +11001,41 @@ worker_contracts:
   updater_id:
     type: integer
     references: user
+worker_time_logs:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  custom_fields:
+    type: jsonb
+  description:
+    type: text
+  worker_id:
+    type: integer
+    references: product
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  duration:
+    type: integer
+    required: true
+  provider:
+    type: jsonb
+  started_at:
+    type: datetime
+    required: true
+  stopped_at:
+    type: datetime
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
