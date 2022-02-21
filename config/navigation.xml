@@ -1197,6 +1197,19 @@
         <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
       </item>
+      <item name="worker_groups">
+        <page to="backend/worker_groups#index"/>
+        <page to="backend/worker_groups#create"/>
+        <page to="backend/worker_groups#destroy"/>
+        <page to="backend/worker_groups#edit"/>
+        <page to="backend/worker_groups#list"/>
+        <page to="backend/worker_groups#new"/>
+        <page to="backend/worker_groups#show"/>
+        <page to="backend/worker_groups#update"/>
+        <page to="backend/worker_groups#edit_many"/>
+        <page to="backend/worker_groups#update_many"/>
+        <page to="backend/workers#unroll"/>
+      </item>
       <item name="worker_contracts">
         <page to="backend/worker_contracts#index"/>
         <page to="backend/worker_contracts#create"/>
