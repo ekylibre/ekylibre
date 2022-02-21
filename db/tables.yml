@@ -11141,6 +11141,25 @@ worker_groups:
   creator_id:
     type: integer
     references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  usage:
+    type: string
+  work_number:
+    type: string
 worker_time_logs:
   created_at:
     type: datetime
@@ -11152,19 +11171,13 @@ worker_time_logs:
     type: jsonb
   description:
     type: text
-  worker_id:
+  duration:
     type: integer
-    references: product
     required: true
   id:
     type: integer
     required: true
   lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-  duration:
     type: integer
     required: true
   provider:
@@ -11181,7 +11194,7 @@ worker_time_logs:
   updater_id:
     type: integer
     references: user
-  usage:
-    type: string
-  work_number:
-    type: string
+  worker_id:
+    type: integer
+    references: worker
+    required: true
