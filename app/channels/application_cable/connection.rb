@@ -2,5 +2,18 @@
 
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
+    identified_by :current_user, :tenant
+
+    def connect
+      self.tenant = request.subdomain
+      Apartment::Tenant.switch!(tenant)
+      self.current_user = find_verified_user
+    end
+
+    private
+
+      def find_verified_user
+        env['warden'].session_serializer.fetch('user') || reject_unauthorized_connection
+      end
   end
 end

@@ -1724,6 +1724,8 @@ fra:
     copy_from_previous_campaign: "Copier à partir de la campagne précédente"
     copy_of: "Copie de %{source}"
     copy_previous_budget: "Copier à partir du budget précédent"
+    generate_reference_budget: "Générer un budget de référence"
+    regenerate_reference_budget: "Réinitialiser avec un budget de référence"
     corporeal_assets: "Immobilisations corporelles"
     corporeal_assets_advances: "Avances et acomptes"
     corporeal_assets_buildings: "Constructions"
@@ -2595,7 +2597,7 @@ fra:
     new_article: "Nouvel article"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
-    new_budget: "Nouveau budget"
+    new_budget: "Créer un nouveau budget"
     new_call: "Nouvel appel"
     new_category: "Nouvelle catégorie"
     new_contact: "Nouveau contact"
@@ -3898,6 +3900,7 @@ fra:
       success: "Opération réussie\_!"
       warning: "Attention\_!"
     messages:
+      no_reference_budget_found: "Aucun budget de référence n'a été trouvé pour cette activité"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page."
       accounts_cannot_be_truncated_to_preference:
         one: "Le compte comptable %{accounts} ne peut être tronqué à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ce compte comptable si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
@@ -4027,7 +4030,7 @@ fra:
       no_availables_product_on_current_campaign: "Votre cible (parcelle/culture) n'est pas disponnible pour la période mentionnée par défault dans l'intervention."
       no_balance_template: "Pas de modèle de document pour la balance" #?
       no_bank_statement_found_for_this_period: "Aucun relevé de compte trouvé pour cette période."
-      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante"
+      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante. Plus d'information sur la gestion des budgets prévisionnels <a href=\"https://doc.ekylibre.com/v2/fr/performance/#budgets\" target=\"_blank\">ici  <i class=\"icon icon-help\"></i></a>"
       no_building: "Aucune zone de stockage n’est définie. Veuillez en créer une pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."

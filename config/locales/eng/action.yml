@@ -1939,6 +1939,8 @@ eng:
     copy_from_previous_campaign: "Copy from previous campaign"
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
+    generate_reference_budget: "Generate reference budget"
+    regenerate_reference_budget: "Regenerate reference budget"
     corporeal_assets: "Corporeal assets"
     corporeal_assets_advances: "Advances"
     corporeal_assets_buildings: "Buildings"
@@ -3543,6 +3545,7 @@ eng:
       success: "Success!"
       warning: "Warning!"
     messages:
+      no_reference_budget_found: "No reference budget found for this activity"
       access_denied: "Access denied."
       accounts_cannot_be_truncated_to_preference:
         one: "The account %{accounts} cannot be truncated to the selected preference (%{preference} characters). Only zero can be automatically removed. Please update this account if you want to change the company preference to %{preference} characters."

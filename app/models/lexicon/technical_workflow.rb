@@ -52,4 +52,10 @@ class TechnicalWorkflow < LexiconRecord
     where(production_reference_name: reference_name)
   }
 
+  scope :for_activity, ->(activity) {
+    of_family(activity.family)
+    .of_production(activity.reference_name)
+    .where(production_system: (activity.production_system_name || 'intensive_farming'), life_cycle: activity.production_cycle)
+  }
+
 end
