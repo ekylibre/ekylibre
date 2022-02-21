@@ -1,0 +1,6 @@
+= field_set do
+  = f.input :name, required: true
+  = f.input :work_number
+  = f.input :usage
+  %div.worker-group-item-fields
+    = f.nested_association(:items, button_label: :add_worker.tl, partial: 'worker_field', collection: f.object.items.any? ?  f.object.items : f.object.items.new )
