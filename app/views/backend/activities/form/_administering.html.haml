@@ -3,16 +3,16 @@
   = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, class: "disabled" }
   = f.referenced_nomenclature :production_system
   - family = Onoma::ActivityFamily[f.object.family]
-  = f.input :production_cycle, as: :radio_buttons
+  = f.input :production_cycle, as: :radio_buttons, checked: :perennial
   = f.input(:production_cycle_period, label: :production_cycle_period.tl, wrapper: :append) do
     = content_tag(:span, :from.tl, class: 'add-on')
-    = f.input(:production_started_on, input_html: { data: { flatpickr_alt_format: 'd-F',flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
+    = f.input(:production_started_on, input_html: { data: { flatpickr_alt_format: 'd-F',flatpickr_calendar_class: 'day-names-hidden year-hidden', default_date: ["#{Time.now.year}-01-01"] }}, wrapper: :simplest)
     = content_tag(:span, :year_long.tl, class: 'add-on')
-    = f.input(:production_started_on_year, collection: [["N-1", -1 ],["N", 0]], wrapper: :simplest)
+    = f.input(:production_started_on_year, collection: [["N-1", -1 ],["N", 0]], wrapper: :simplest, selected: ["N", 0])
     = content_tag(:span, :to_next_year.tl, class: 'add-on')
-    = f.input(:production_stopped_on, input_html: { data: { flatpickr_alt_format: 'd-F', flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
+    = f.input(:production_stopped_on, input_html: { data: { flatpickr_alt_format: 'd-F', flatpickr_calendar_class: 'day-names-hidden year-hidden', default_date: ["#{Time.now.year}-12-31"] }}, wrapper: :simplest)
     = content_tag(:span, :year_long.tl, class: 'add-on')
-    = f.input(:production_stopped_on_year, collection: [["N", 0],["N+1", 1]], input_html: {class: f.object.production_stopped_on_year == 0 ? 'disabled' : ''}, wrapper: :simplest)
+    = f.input(:production_stopped_on_year, collection: [["N", 0],["N+1", 1]], input_html: {class: f.object.production_stopped_on_year == 0 ? 'disabled' : ''}, wrapper: :simplest, selected: ["N", 0])
   = f.input :description
   = f.custom_fields
 
