@@ -91,6 +91,16 @@ class CashTransfer < ApplicationRecord
     errors.add(:reception_cash, :invalid) if reception_cash_id == emission_cash_id
   end
 
+  after_destroy do
+    emission_journal_entry.remove if emission_journal_entry.draft?
+    reception_journal_entry.remove if reception_journal_entry.draft?
+  end
+
+  protect do
+    (emission_journal_entry && emission_journal_entry.closed?) ||
+    (reception_journal_entry && reception_journal_entry.closed?)
+  end
+
   bookkeep do |b|
     transfer_account = Account.find_or_import_from_nomenclature(:internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, description: description, emission: emission_cash.name, reception: reception_cash.name)
