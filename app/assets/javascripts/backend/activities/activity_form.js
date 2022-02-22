@@ -1,6 +1,7 @@
 (function (E, $) {
     const varietyService = new E.VarietyService();
     const masterCropProductionService = new E.MasterCropProductionService();
+    const campaignService = new E.CampaignService();
     const defaultStateStateOfProduction = [
         { label: '', year: null, default: true },
         { label: 'N+1', year: 1, default: false },
@@ -39,16 +40,24 @@
                     this.onProductionNatureChange();
                 }
             });
+
+            $('#tactics-field').on('cocoon:after-insert', () => {
+                const referenceName = this.$productionNatureInput.next().val();
+                const campaignId = $('.period-selector .period').data('campaign-id');
+                this.setTechnicalInputsScope(referenceName);
+                this.setTacticCampaign(campaignId);
+            });
         }
 
         onProductionNatureChange() {
-            const productionNaturesId =  this.$productionNatureInput.next().val();
-            if (productionNaturesId == null) {
+            const productionReferenceName = this.$productionNatureInput.next().val();
+            if (productionReferenceName == null) {
                 this.resetVarieties();
                 this.showHint();
             } else {
+                this.setTechnicalInputsScope(productionReferenceName);
                 this.reset();
-                masterCropProductionService.get(productionNaturesId).then((productionNature) => {
+                masterCropProductionService.get(productionReferenceName).then((productionNature) => {
                     if (
                         productionNature.started_on_year != null &&
                         productionNature.stopped_on_year != null &&
@@ -73,7 +82,7 @@
                         this.setProductionCycle(productionNature.cycle);
                     }
 
-                    let startStateOfProduction
+                    let startStateOfProduction;
                     if (productionNature.start_states && productionNature.start_states.length > 0) {
                         startStateOfProduction = productionNature.start_states;
                     } else {
@@ -104,6 +113,32 @@
         resetVarieties() {
             const familyCultivationVariety = $('select#activity_cultivation_variety').data('family-cultivation-variety');
             this._updateSelectWithFamilyVarieties(familyCultivationVariety);
+        }
+
+        get $technicalWorkflowInput() {
+            return this.$formElement.find("[id ^='activity_tactics_attributes'][id $='_technical_workflow_id']");
+        }
+
+        get $technicalSequenceInput() {
+            return this.$formElement.find("[id ^='activity_tactics_attributes'][id $='_technical_sequence_id']");
+        }
+
+        get $tacticCampaignInput() {
+            return this.$formElement.find("[id ^='activity_tactics_attributes'][id $='_campaign_id']");
+        }
+
+        setTechnicalInputsScope(referenceName) {
+            const scope = `unroll?scope[of_production]=${referenceName}`              
+
+            if (this.$technicalWorkflowInput.length > 0 &&  referenceName !== '' ) {
+                const unrollUrl = this.$technicalWorkflowInput.data('selector').replace(/unroll.*/, scope);
+                this.$technicalWorkflowInput.attr('data-selector', unrollUrl);
+            }
+
+            if (this.$technicalSequenceInput.length > 0 &&  referenceName !== '' ) {
+                const unrollUrl = this.$technicalSequenceInput.data('selector').replace(/unroll.*/, scope);
+                this.$technicalSequenceInput.attr('data-selector', unrollUrl);
+            }
         }
 
         _updateSelectWithFamilyVarieties(familyCultivationVariety) {
@@ -137,6 +172,12 @@
         showHint() {
             const $hint = this.$productionNatureControl.find('p.help-block');
             $hint.show();
+        }
+
+        setTacticCampaign(value) {
+            if (this.$tacticCampaignInput.length > 0) {
+                this.$tacticCampaignInput.val(value);
+            }
         }
 
         setProductionPeriod(startedOn, stoppedOn, startedOnYear, stoppedOnYear) {
@@ -181,7 +222,51 @@
             return;
         }
 
-        new ActivityForm($formElement).init();
+        const activity_form = new ActivityForm($formElement);
+        activity_form.init();
+
+        const periodSelectorElement = document.querySelector('.period-selector');
+        if (!!periodSelectorElement) {
+            new CampaignSelector(periodSelectorElement, activity_form).bindEvents();
+        }
+    }
+
+    class CampaignSelector {
+        constructor(element, activityForm) {
+            this.element = element;
+            this.activityForm = activityForm;
+            this.nextButton = element.querySelector('.btn-next');
+            this.previousButton = element.querySelector('.btn-previous');
+            this.currentButton = element.querySelector('.period');
+        }
+
+        bindEvents() {
+            this.previousButton.addEventListener('click', () => {
+                this.changeCampaign('previous');
+            });
+
+            this.nextButton.addEventListener('click', () => {
+                this.changeCampaign('next');
+            });
+        }
+
+        get currentYear() {
+            return parseInt(this.currentButton.innerText);
+        }
+
+        changeCampaign(action) {
+            let year;
+            if (action == 'next') {
+                year = this.currentYear + 1;
+            } else {
+                year = this.currentYear - 1;
+            }
+            this.currentButton.innerText = year;
+            campaignService.getByName(this.currentYear).then((campaing) => {
+                this.activityForm.setTacticCampaign(campaing.id);
+                this.currentButton.dataset.campaignId = campaing.id;
+            });
+        }
     }
 
     E.onDomReady(function () {

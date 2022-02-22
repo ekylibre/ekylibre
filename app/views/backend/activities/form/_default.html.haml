@@ -38,6 +38,11 @@
 
 = render 'backend/activities/form/analytic_options', f: f
 
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)
+
 = field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
   = f.input :use_gradings, show: '#inspections-fields'
   #inspections-fields
@@ -63,8 +68,3 @@
   = f.input :use_seasons, show: '#seasons-fields'
   #seasons-fields
     = f.nested_association(:seasons)
-
-= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
-  = f.input :use_tactics, show: '#tactics-fields'
-  #tactics-fields
-    = f.nested_association(:tactics, maximum: 1)
