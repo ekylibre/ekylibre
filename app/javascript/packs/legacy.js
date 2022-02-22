@@ -20,6 +20,8 @@ import 'lib/leaflet/default-icon';
 import { MasterCropProductionService } from 'services/masterCropProductionService';
 import { VarietyService } from 'services/varietyService';
 import { CultivableZoneService } from 'services/cultivableZoneService';
+import { CampaignService } from 'services/campaignService';
+
 import 'components/map/pause-icon.js';
 
 export let Ekylibre = {
@@ -36,6 +38,7 @@ export let Ekylibre = {
     MasterCropProductionService,
     VarietyService,
     CultivableZoneService,
+    CampaignService,
 };
 
 export let globals = {
