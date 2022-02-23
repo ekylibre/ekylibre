@@ -9,7 +9,6 @@
     = theme_link_tag
     = matomo_tag
     = action_cable_meta_tag
-    #ws-att{data: {current_account: current_user.email} }
     = javascript_pack_tag :legacy
     = javascript_pack_tag :application
     = javascript_include_tag :application, "data-turbolinks-track" => "reload"
@@ -49,3 +48,4 @@
           = main_state_bar_tag
           #core= yield
     = yield :popover
+  #ws-att{data: {current_account: current_user.email} }
