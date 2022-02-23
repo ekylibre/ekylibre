@@ -2040,229 +2040,6 @@ schedulings:
       dependencies:
       - read-technical_itineraries
 
-stocks:
-  building_divisions:
-    read:
-      actions:
-      - "backend/building_divisions#index"
-      - "backend/building_divisions#list"
-      - "backend/building_divisions#list_carried_linkages"
-      - "backend/building_divisions#list_carrier_linkages"
-      - "backend/building_divisions#list_contained_products"
-      - "backend/building_divisions#list_fixed_assets"
-      - "backend/building_divisions#list_groups"
-      - "backend/building_divisions#list_inspections"
-      - "backend/building_divisions#list_intervention_product_parameters"
-      - "backend/building_divisions#list_issues"
-      - "backend/building_divisions#list_members"
-      - "backend/building_divisions#list_places"
-      - "backend/building_divisions#list_readings"
-      - "backend/building_divisions#list_reception_items"
-      - "backend/building_divisions#list_shipment_items"
-      - "backend/building_divisions#list_trackings"
-      - "backend/building_divisions#picture"
-      - "backend/building_divisions#show"
-      - "backend/building_divisions#unroll"
-    write:
-      dependencies:
-      - read-building_divisions
-      actions:
-      - "backend/building_divisions#create"
-      - "backend/building_divisions#destroy"
-      - "backend/building_divisions#edit"
-      - "backend/building_divisions#edit_many"
-      - "backend/building_divisions#new"
-      - "backend/building_divisions#take"
-      - "backend/building_divisions#update"
-      - "backend/building_divisions#update_many"
-
-  incoming_deliveries:
-    read:
-      actions:
-      - "backend/receptions#index"
-      - "backend/receptions#list"
-      - "backend/receptions#list_items"
-      - "backend/receptions#list_storings"
-      - "backend/receptions#show"
-      - "backend/receptions#unroll"
-    write:
-      dependencies:
-      - read-incoming_deliveries
-      actions:
-      - "backend/receptions#create"
-      - "backend/receptions#destroy"
-      - "backend/receptions#edit"
-      - "backend/receptions#give"
-      - "backend/receptions#new"
-      - "backend/receptions#update"
-
-  inventories:
-    read:
-      actions:
-      - "backend/inventories#index"
-      - "backend/inventories#list"
-      - "backend/inventories#list_items"
-      - "backend/inventories#show"
-      - "backend/inventories#unroll"
-    write:
-      dependencies:
-      - read-inventories
-      actions:
-      - "backend/inventories#create"
-      - "backend/inventories#destroy"
-      - "backend/inventories#edit"
-      - "backend/inventories#new"
-      - "backend/inventories#reflect"
-      - "backend/inventories#refresh"
-      - "backend/inventories#update"
-
-  matters:
-    read:
-      actions:
-      - "backend/matters#index"
-      - "backend/matters#list"
-      - "backend/matters#list_carried_linkages"
-      - "backend/matters#list_carrier_linkages"
-      - "backend/matters#list_contained_products"
-      - "backend/matters#list_fixed_assets"
-      - "backend/matters#list_groups"
-      - "backend/matters#list_inspections"
-      - "backend/matters#list_intervention_product_parameters"
-      - "backend/matters#list_issues"
-      - "backend/matters#list_members"
-      - "backend/matters#list_places"
-      - "backend/matters#list_readings"
-      - "backend/matters#list_reception_items"
-      - "backend/matters#list_shipment_items"
-      - "backend/matters#list_trackings"
-      - "backend/matters#picture"
-      - "backend/matters#show"
-      - "backend/matters#unroll"
-    write:
-      dependencies:
-      - read-matters
-      actions:
-      - "backend/matters#create"
-      - "backend/matters#destroy"
-      - "backend/matters#edit"
-      - "backend/matters#edit_many"
-      - "backend/matters#new"
-      - "backend/matters#take"
-      - "backend/matters#update"
-      - "backend/matters#update_many"
-
-  outgoing_deliveries:
-    read:
-      actions:
-      - "backend/shipments#index"
-      - "backend/shipments#list"
-      - "backend/shipments#list_items"
-      - "backend/shipments#show"
-      - "backend/shipments#unroll"
-    write:
-      dependencies:
-      - read-outgoing_deliveries
-      actions:
-      - "backend/shipments#cancel"
-      - "backend/shipments#check"
-      - "backend/shipments#create"
-      - "backend/shipments#destroy"
-      - "backend/shipments#edit"
-      - "backend/shipments#give"
-      - "backend/shipments#new"
-      - "backend/shipments#order"
-      - "backend/shipments#prepare"
-      - "backend/shipments#update"
-
-  products:
-    read:
-      actions:
-      - "backend/products#index"
-      - "backend/products#list"
-      - "backend/products#list_carried_linkages"
-      - "backend/products#list_carrier_linkages"
-      - "backend/products#list_contained_products"
-      - "backend/products#list_fixed_assets"
-      - "backend/products#list_groups"
-      - "backend/products#list_inspections"
-      - "backend/products#list_intervention_product_parameters"
-      - "backend/products#list_issues"
-      - "backend/products#list_members"
-      - "backend/products#list_places"
-      - "backend/products#list_readings"
-      - "backend/products#list_reception_items"
-      - "backend/products#list_shipment_items"
-      - "backend/products#list_trackings"
-      - "backend/products#picture"
-      - "backend/products#show"
-      - "backend/products#unroll"
-      - "backend/products/indicators#variable_indicators"
-      - "backend/products/interventions#has_harvesting"
-      - "backend/products/search_products#datas"
-      - "backend/products/search_variants#search_by_expression"
-    write:
-      dependencies:
-      - read-products
-      actions:
-      - "backend/product_localizations#create"
-      - "backend/product_localizations#destroy"
-      - "backend/product_localizations#edit"
-      - "backend/product_localizations#new"
-      - "backend/product_localizations#update"
-      - "backend/products#create"
-      - "backend/products#destroy"
-      - "backend/products#edit"
-      - "backend/products#new"
-      - "backend/products#take"
-      - "backend/products#update"
-
-  trackings:
-    read:
-      actions:
-      - "backend/trackings#index"
-      - "backend/trackings#list"
-      - "backend/trackings#list_products"
-      - "backend/trackings#show"
-      - "backend/trackings#unroll"
-    write:
-      dependencies:
-      - read-trackings
-      actions:
-      - "backend/trackings#create"
-      - "backend/trackings#destroy"
-      - "backend/trackings#edit"
-      - "backend/trackings#new"
-      - "backend/trackings#update"
-
-  transports:
-    read:
-      actions:
-      - "backend/deliveries#index"
-      - "backend/deliveries#list"
-      - "backend/deliveries#list_parcels"
-      - "backend/deliveries#list_receptions"
-      - "backend/deliveries#list_shipments"
-      - "backend/deliveries#show"
-      - "backend/deliveries#unroll"
-    write:
-      dependencies:
-      - read-outgoing_deliveries
-      - read-transports
-      actions:
-      - "backend/deliveries#cancel"
-      - "backend/deliveries#check"
-      - "backend/deliveries#create"
-      - "backend/deliveries#destroy"
-      - "backend/deliveries#edit"
-      - "backend/deliveries#finish"
-      - "backend/deliveries#new"
-      - "backend/deliveries#order"
-      - "backend/deliveries#prepare"
-      - "backend/deliveries#start"
-      - "backend/deliveries#update"
-      - "backend/shipments#ship"
-
-
 settings:
   buildings:
     read:
@@ -2773,6 +2550,228 @@ settings:
       actions:
       - "backend/users#lock"
       - "backend/users#unlock"
+
+stocks:
+  building_divisions:
+    read:
+      actions:
+      - "backend/building_divisions#index"
+      - "backend/building_divisions#list"
+      - "backend/building_divisions#list_carried_linkages"
+      - "backend/building_divisions#list_carrier_linkages"
+      - "backend/building_divisions#list_contained_products"
+      - "backend/building_divisions#list_fixed_assets"
+      - "backend/building_divisions#list_groups"
+      - "backend/building_divisions#list_inspections"
+      - "backend/building_divisions#list_intervention_product_parameters"
+      - "backend/building_divisions#list_issues"
+      - "backend/building_divisions#list_members"
+      - "backend/building_divisions#list_places"
+      - "backend/building_divisions#list_readings"
+      - "backend/building_divisions#list_reception_items"
+      - "backend/building_divisions#list_shipment_items"
+      - "backend/building_divisions#list_trackings"
+      - "backend/building_divisions#picture"
+      - "backend/building_divisions#show"
+      - "backend/building_divisions#unroll"
+    write:
+      dependencies:
+      - read-building_divisions
+      actions:
+      - "backend/building_divisions#create"
+      - "backend/building_divisions#destroy"
+      - "backend/building_divisions#edit"
+      - "backend/building_divisions#edit_many"
+      - "backend/building_divisions#new"
+      - "backend/building_divisions#take"
+      - "backend/building_divisions#update"
+      - "backend/building_divisions#update_many"
+
+  incoming_deliveries:
+    read:
+      actions:
+      - "backend/receptions#index"
+      - "backend/receptions#list"
+      - "backend/receptions#list_items"
+      - "backend/receptions#list_storings"
+      - "backend/receptions#show"
+      - "backend/receptions#unroll"
+    write:
+      dependencies:
+      - read-incoming_deliveries
+      actions:
+      - "backend/receptions#create"
+      - "backend/receptions#destroy"
+      - "backend/receptions#edit"
+      - "backend/receptions#give"
+      - "backend/receptions#new"
+      - "backend/receptions#update"
+
+  inventories:
+    read:
+      actions:
+      - "backend/inventories#index"
+      - "backend/inventories#list"
+      - "backend/inventories#list_items"
+      - "backend/inventories#show"
+      - "backend/inventories#unroll"
+    write:
+      dependencies:
+      - read-inventories
+      actions:
+      - "backend/inventories#create"
+      - "backend/inventories#destroy"
+      - "backend/inventories#edit"
+      - "backend/inventories#new"
+      - "backend/inventories#reflect"
+      - "backend/inventories#refresh"
+      - "backend/inventories#update"
+
+  matters:
+    read:
+      actions:
+      - "backend/matters#index"
+      - "backend/matters#list"
+      - "backend/matters#list_carried_linkages"
+      - "backend/matters#list_carrier_linkages"
+      - "backend/matters#list_contained_products"
+      - "backend/matters#list_fixed_assets"
+      - "backend/matters#list_groups"
+      - "backend/matters#list_inspections"
+      - "backend/matters#list_intervention_product_parameters"
+      - "backend/matters#list_issues"
+      - "backend/matters#list_members"
+      - "backend/matters#list_places"
+      - "backend/matters#list_readings"
+      - "backend/matters#list_reception_items"
+      - "backend/matters#list_shipment_items"
+      - "backend/matters#list_trackings"
+      - "backend/matters#picture"
+      - "backend/matters#show"
+      - "backend/matters#unroll"
+    write:
+      dependencies:
+      - read-matters
+      actions:
+      - "backend/matters#create"
+      - "backend/matters#destroy"
+      - "backend/matters#edit"
+      - "backend/matters#edit_many"
+      - "backend/matters#new"
+      - "backend/matters#take"
+      - "backend/matters#update"
+      - "backend/matters#update_many"
+
+  outgoing_deliveries:
+    read:
+      actions:
+      - "backend/shipments#index"
+      - "backend/shipments#list"
+      - "backend/shipments#list_items"
+      - "backend/shipments#show"
+      - "backend/shipments#unroll"
+    write:
+      dependencies:
+      - read-outgoing_deliveries
+      actions:
+      - "backend/shipments#cancel"
+      - "backend/shipments#check"
+      - "backend/shipments#create"
+      - "backend/shipments#destroy"
+      - "backend/shipments#edit"
+      - "backend/shipments#give"
+      - "backend/shipments#new"
+      - "backend/shipments#order"
+      - "backend/shipments#prepare"
+      - "backend/shipments#update"
+
+  products:
+    read:
+      actions:
+      - "backend/products#index"
+      - "backend/products#list"
+      - "backend/products#list_carried_linkages"
+      - "backend/products#list_carrier_linkages"
+      - "backend/products#list_contained_products"
+      - "backend/products#list_fixed_assets"
+      - "backend/products#list_groups"
+      - "backend/products#list_inspections"
+      - "backend/products#list_intervention_product_parameters"
+      - "backend/products#list_issues"
+      - "backend/products#list_members"
+      - "backend/products#list_places"
+      - "backend/products#list_readings"
+      - "backend/products#list_reception_items"
+      - "backend/products#list_shipment_items"
+      - "backend/products#list_trackings"
+      - "backend/products#picture"
+      - "backend/products#show"
+      - "backend/products#unroll"
+      - "backend/products/indicators#variable_indicators"
+      - "backend/products/interventions#has_harvesting"
+      - "backend/products/search_products#datas"
+      - "backend/products/search_variants#search_by_expression"
+    write:
+      dependencies:
+      - read-products
+      actions:
+      - "backend/product_localizations#create"
+      - "backend/product_localizations#destroy"
+      - "backend/product_localizations#edit"
+      - "backend/product_localizations#new"
+      - "backend/product_localizations#update"
+      - "backend/products#create"
+      - "backend/products#destroy"
+      - "backend/products#edit"
+      - "backend/products#new"
+      - "backend/products#take"
+      - "backend/products#update"
+
+  trackings:
+    read:
+      actions:
+      - "backend/trackings#index"
+      - "backend/trackings#list"
+      - "backend/trackings#list_products"
+      - "backend/trackings#show"
+      - "backend/trackings#unroll"
+    write:
+      dependencies:
+      - read-trackings
+      actions:
+      - "backend/trackings#create"
+      - "backend/trackings#destroy"
+      - "backend/trackings#edit"
+      - "backend/trackings#new"
+      - "backend/trackings#update"
+
+  transports:
+    read:
+      actions:
+      - "backend/deliveries#index"
+      - "backend/deliveries#list"
+      - "backend/deliveries#list_parcels"
+      - "backend/deliveries#list_receptions"
+      - "backend/deliveries#list_shipments"
+      - "backend/deliveries#show"
+      - "backend/deliveries#unroll"
+    write:
+      dependencies:
+      - read-outgoing_deliveries
+      - read-transports
+      actions:
+      - "backend/deliveries#cancel"
+      - "backend/deliveries#check"
+      - "backend/deliveries#create"
+      - "backend/deliveries#destroy"
+      - "backend/deliveries#edit"
+      - "backend/deliveries#finish"
+      - "backend/deliveries#new"
+      - "backend/deliveries#order"
+      - "backend/deliveries#prepare"
+      - "backend/deliveries#start"
+      - "backend/deliveries#update"
+      - "backend/shipments#ship"
 
 tools:
   cap_statements:

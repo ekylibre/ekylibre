@@ -10,9 +10,11 @@ module Ekylibre
 
       # Load a right definition file
       def load_file(file, origin = :unknown)
-        YAML.load_file(file).each do |resource, interactions|
-          interactions.each do |interaction, options|
-            add_right(resource, interaction, options.symbolize_keys.merge(origin: origin))
+        YAML.load_file(file).each do |category, resources|
+          resources.each do |resource, interactions|
+            interactions.each do |interaction, options|
+              add_right(category, resource, interaction, options.symbolize_keys.merge(origin: origin))
+            end
           end
         end
       end
@@ -22,12 +24,13 @@ module Ekylibre
       end
 
       # Add an access right
-      def add_right(resource, interaction, options = {})
-        right = Right.new(resource, interaction, options)
+      def add_right(category, resource, interaction, options = {})
+        right = Right.new(category, resource, interaction, options)
         # @rights << right unless @rights.include?(right)
         @resources ||= {}.with_indifferent_access
-        @resources[right.resource] ||= {}.with_indifferent_access
-        @resources[right.resource][right.interaction] = right
+        @resources[right.category] ||= {}.with_indifferent_access
+        @resources[right.category][right.resource] ||= {}.with_indifferent_access
+        @resources[right.category][right.resource][right.interaction] = right
       end
 
       # Remove an access right
@@ -42,6 +45,11 @@ module Ekylibre
         return @resources[resource][interaction] if @resources[resource]
 
         nil
+      end
+
+      # Returns the translated name of a category
+      def human_category_name(category)
+        "access.categories.#{category}".t
       end
 
       # Returns the translated name of a resource
