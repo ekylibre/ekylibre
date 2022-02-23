@@ -2,7 +2,10 @@ DROP TABLE IF EXISTS registered_eu_market_prices;
 
         CREATE TABLE registered_eu_market_prices (
           id character varying PRIMARY KEY NOT NULL,
+          nature character varying,
           category character varying,
+          specie character varying,
+          production_reference_name character varying,
           sector_code character varying,
           product_code character varying,
           product_label character varying,
