@@ -34,15 +34,15 @@ module Ekylibre
       end
 
       # Remove an access right
-      def remove_right(resource, interaction)
-        right = find(resource, interaction)
+      def remove_right(category, resource, interaction)
+        right = find(category, resource, interaction)
         # @rights.delete(right)
-        @resources[resource].delete(right)
+        @resources[category][resource].delete(right)
       end
 
       # Find a given right by resource and interaction
-      def find(resource, interaction)
-        return @resources[resource][interaction] if @resources[resource]
+      def find(category, resource, interaction)
+        return @resources[category][resource][interaction] if @resources[category] && @resources[category][resource]
 
         nil
       end
@@ -70,8 +70,8 @@ module Ekylibre
       end
 
       # Returns interactions of a given resource
-      def interactions_of(resource)
-        @resources[resource].keys
+      def interactions_of(category, resource)
+        @resources[category][resource].keys
       end
 
       # Returns a hash for all known rights

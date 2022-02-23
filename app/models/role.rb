@@ -96,7 +96,7 @@ class Role < ApplicationRecord
       array << 'all' if array.size < 3
       resource = array.second
       action = array.third
-      action = Ekylibre::Access.interactions_of(resource) if action == 'all'
+      action = Ekylibre::Access.interactions_of(category, resource) if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash
@@ -122,11 +122,12 @@ class Role < ApplicationRecord
 
     rights = item.accesses.each_with_object({}) do |right, hash|
       array = right.to_s.split('-')
-      array.insert(0, 'all') if array.size < 3
-      array << 'all' if array.size < 3
-      resource = array.second
-      action = array.third
-      action = Ekylibre::Access.interactions_of(resource) if action == 'all'
+      array.insert(0, 'all') if array.size < 4
+      array << 'all' if array.size < 4
+      category = array.second
+      resource = array.third
+      action = array.last
+      action = Ekylibre::Access.interactions_of(category, resource) if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash

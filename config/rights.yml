@@ -1042,8 +1042,6 @@ accountancy:
       - "backend/taxes#new"
       - "backend/taxes#update"
 
-economic:
-
 entities:
   entities:
     read:
