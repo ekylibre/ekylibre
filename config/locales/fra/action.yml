@@ -1704,6 +1704,7 @@ fra:
     consult_unbalanced_entries:
       one: "Consulter l'écriture à équilibrer"
       other: "Consulter les écritures à équilibrer (%{count})"
+    consult_ekylibre_api: "Consulter l'API Ekylibre"
     consume: "Consommé"
     contact: "à l’adresse" #?
     contact_support_to_delete_production: "Pour supprimer cette production, veuillez contacter le support par chat."
@@ -2448,6 +2449,7 @@ fra:
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
     lettering_state: "État du lettrage"
+    lexicon_version: "Version Lexicon"
     liabilities: "Passifs"
     liabilities_gaps: "Ecart de conversion passif"
     liability_reserves: "Réserves"

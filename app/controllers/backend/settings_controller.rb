@@ -22,12 +22,20 @@ module Backend
       @properties = []
       @properties.insert(0, [tl(:ekylibre_version), Ekylibre.version])
       @properties << [tl(:database_version), ActiveRecord::Migrator.current_version]
-      datasource_credit = DatasourceCredit.find_by(datasource: "phytosanitary")
-      if datasource_credit.present?
-        @date = datasource_credit.updated_at.localize
-      else
-        @date = ""
-      end
+
+      @properties << [tl(:lexicon_version), File.open('.lexicon-version', &:gets)&.strip]
+    end
+
+    list(:datasources,
+         conditions: ["(#{DatasourceCredit.table_name}.licence_url = '') IS NOT TRUE"],
+         model: :datasource_credits,
+         order: :name) do |t|
+      t.column :name
+      t.column :url, hidden: true
+      t.column :provider
+      t.column :licence
+      t.column :licence_url, hidden: true
+      t.column :updated_at
     end
   end
 end

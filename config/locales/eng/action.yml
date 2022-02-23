@@ -1924,6 +1924,7 @@ eng:
     consult_unbalanced_entries:
       one: "Consult the unbalanced entry"
       other: "Consult unbalanced entries (%{count})"
+    consult_ekylibre_api: "Consult Ekylibre API"
     consume: "Consume"
     contact_support_to_delete_production: "To delete this production, please contact us with the chat."
     contained_products: "Contained products"
@@ -2512,6 +2513,7 @@ eng:
     letterable: "Letterable"
     lettered: "Lettered"
     lettering_state: "Lettering state"
+    lexicon_version: "Lexicon version"
     liabilities: "Liabilities"
     liabilities_gaps: "Liabilities gaps"
     liability_reserves: "Liability reserves"

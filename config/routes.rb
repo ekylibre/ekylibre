@@ -148,6 +148,7 @@ Rails.application.routes.draw do
     resource :settings, only: [] do
       member do
         get :about
+        get :list_datasources
       end
     end
 
