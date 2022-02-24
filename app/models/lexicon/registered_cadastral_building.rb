@@ -31,15 +31,6 @@
 #
 class RegisteredCadastralBuilding < LexiconRecord
   include Lexiconable
-  scope :in_bounding_box, lambda { |bounding_box|
-    where("registered_cadastral_buildings.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
-  }
 
-  def shape
-    ::Charta.new_geometry(self[:shape])
-  end
-
-  def centroid
-    ::Charta.new_geometry(self[:centroid])
-  end
+  has_geometry :shape
 end
