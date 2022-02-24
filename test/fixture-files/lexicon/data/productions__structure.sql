@@ -67,6 +67,7 @@ DROP TABLE IF EXISTS master_crop_productions;
         CREATE TABLE master_crop_production_prices (
           department_zone character varying NOT NULL,
           started_on DATE NOT NULL,
+          nature character varying,
           price_duration interval NOT NULL,
           specie character varying NOT NULL,
           waiting_price numeric(8,2) NOT NULL,

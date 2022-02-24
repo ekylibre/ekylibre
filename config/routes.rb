@@ -148,6 +148,7 @@ Rails.application.routes.draw do
     resource :settings, only: [] do
       member do
         get :about
+        get :list_datasources
       end
     end
 
@@ -373,6 +374,7 @@ Rails.application.routes.draw do
     resources :campaigns, concerns: %i[list unroll] do
       collection do
         get :current
+        get :show_by_name
       end
       member do
         # get :list_activity_productions

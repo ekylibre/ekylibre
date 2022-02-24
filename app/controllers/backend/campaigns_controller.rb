@@ -56,6 +56,14 @@ module Backend
       t3e(@campaign.attributes)
     end
 
+    def show_by_name
+      return unless @campaign = Campaign.find_by(name: params[:name])
+
+      respond_to do |format|
+        format.json
+      end
+    end
+
     def open
       return unless (@campaign = find_and_check)
 
