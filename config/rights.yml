@@ -2013,31 +2013,6 @@ sales:
       - "backend/tasks#start"
       - "backend/tasks#update"
 
-schedulings:
-  intervention_templates:
-    read:
-      dependencies:
-      - read-intervention_templates-schedulings
-    write:
-      dependencies:
-      - read-intervention_templates-schedulings
-
-  schedulings:
-    read:
-      dependencies:
-      - read-schedulings-schedulings
-    write:
-      dependencies:
-      - read-schedulings-schedulings
-
-  technical_itineraries:
-    read:
-      dependencies:
-      - read-technical_itineraries-schedulings
-    write:
-      dependencies:
-      - read-technical_itineraries-schedulings
-
 settings:
   buildings:
     read:
