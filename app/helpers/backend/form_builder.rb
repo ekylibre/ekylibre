@@ -690,31 +690,32 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      puts "#{reference}".yellow
       Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_category_name(a.first).ascii <=> Ekylibre::Access.human_category_name(b.first).ascii }.each do |category, resources|
-        html << @template.field_set(category.to_sym) do
-          resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
-            resource_reference = reference[resource] || []
-            @template.content_tag(:div, class: 'control-group booleans') do
-              @template.content_tag(:label, class: 'control-label') do
-                Ekylibre::Access.human_resource_name(resource)
-              end +
-                @template.content_tag(:div, class: 'controls') do
-                  rights.collect do |interaction, right|
-                    checked = resource_reference.include?(interaction.to_s)
-                    attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
-                    if right.dependencies
-                      attributes[:data][:need_accesses] = right.dependencies.join(' ')
-                    end
-                    attributes[:class] << ' active' if checked
-                    @template.content_tag(:label, attributes) do
-                      @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
-                        ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
-                    end
-                  end.join.html_safe
-                end
-            end   
-          end
+        data = ''.html_safe
+        resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
+          resource_reference = reference[resource] || []
+          data << @template.content_tag(:div, class: 'control-group booleans') do
+            @template.content_tag(:label, class: 'control-label') do
+              Ekylibre::Access.human_resource_name(resource)
+            end +
+              @template.content_tag(:div, class: 'controls') do
+                rights.collect do |interaction, right|
+                  checked = resource_reference.include?(interaction.to_s)
+                  attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}-#{category}" } }
+                  if right.dependencies
+                    attributes[:data][:need_accesses] = right.dependencies.join(' ')
+                  end
+                  attributes[:class] << ' active' if checked
+                  @template.content_tag(:label, attributes) do
+                    @template.check_box_tag("#{prefix}[#{name}][#{category}][#{resource}][]", interaction, checked) +
+                      ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
+                  end
+                end.join.html_safe
+              end
+          end   
+        end
+        html << @template.field_set(category.to_sym,  options = {'collapsed': ' not-collapsed'}) do
+          data
         end
       end
       html

@@ -70,8 +70,8 @@ module Ekylibre
       end
 
       # Returns interactions of a given resource
-      def interactions_of(category, resource)
-        @resources[category][resource].keys
+      def interactions_of(resource)
+        @resources[resource].keys
       end
 
       # Returns a hash for all known rights
@@ -84,9 +84,11 @@ module Ekylibre
 
       def rights_of(action)
         list = []
-        @resources.each do |_resource, interactions|
-          interactions.each do |_interaction, right|
-            list << right.name if right.actions.include?(action)
+        @resources.each do |_catgory, resources|
+          resources.each do |_resource, interactions|
+            interactions.each do |_interaction, right|
+              list << right.name if right.actions.include?(action)
+            end
           end
         end
         list
