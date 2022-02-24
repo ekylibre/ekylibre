@@ -12,17 +12,20 @@ namespace :clean do
     read_exp = /\#(list(\_\w+)*|index|show|unroll|picture)$/
 
     rights = {}
-    Ekylibre::Access.resources.sort.each do |resource, interactions|
-      rights[resource] ||= {}
-      interactions.keys.each do |access|
-        old_rights[resource] ||= {}
-        old_rights[resource][access] ||= {}
-        rights[resource][access] ||= {}
-        rights[resource][access][:dependencies] = old_rights[resource][access][:dependencies] || (access == :read ? [] : ["read-#{resource}"])
-        rights[resource][access][:deprecated] = true if old_rights[resource][access][:deprecated]
-        actions = (ref["backend/#{resource}"] || []).collect { |a| "backend/#{resource}##{a}" }
-        read_actions = actions.select { |x| x.to_s =~ read_exp }
-        rights[resource][access][:actions] = old_rights[resource][access][:actions] || (actions.nil? ? [] : access == :read ? read_actions : (actions - read_actions))
+    Ekylibre::Access.resources.sort.each do |category, resources|
+      rights[category] ||= {}
+      resources.sort.each do |resource, interactions|
+        rights[category][resource] ||= {}
+        interactions.keys.each do |access|
+          old_rights[category][resource] ||= {}
+          old_rights[category][resource][access] ||= {}
+          rights[category][resource][access] ||= {}
+          rights[category][resource][access][:dependencies] = old_rights[category][resource][access][:dependencies] || (access == :read ? [] : ["read-#{resource}-#{category}"])
+          rights[category][resource][access][:deprecated] = true if old_rights[category][resource][access][:deprecated]
+          actions = (ref["backend/#{resource}"] || []).collect { |a| "backend/#{resource}##{a}" }
+          read_actions = actions.select { |x| x.to_s =~ read_exp }
+          rights[category][resource][access][:actions] = old_rights[category][resource][access][:actions] || (actions.nil? ? [] : access == :read ? read_actions : (actions - read_actions))
+        end
       end
     end
 
@@ -39,27 +42,31 @@ namespace :clean do
         yaml << "#     - \"#{action}\"\n"
       end
     end
-    rights.each do |resource, accesses|
+    rights.each do |category, resources|
       yaml << "\n"
-      yaml << "#{resource}:\n"
-      accesses.each do |access, details|
-        next unless details[:dependencies].any? || details[:actions].any?
+      yaml << "#{category}:\n"
+      resources.each do |resource, accesses|
+        yaml << "\n"
+        yaml << "#{resource}:\n"
+        accesses.each do |access, details|
+          next unless details[:dependencies].any? || details[:actions].any?
 
-        yaml << "  #{access}:\n"
-        yaml << "    deprecated: true\n" if details[:deprecated]
-        if details[:dependencies].any?
-          yaml << "    dependencies:\n"
-          details[:dependencies].sort.each do |dependency|
-            yaml << "    - #{dependency}\n"
+          yaml << "  #{access}:\n"
+          yaml << "    deprecated: true\n" if details[:deprecated]
+          if details[:dependencies].any?
+            yaml << "    dependencies:\n"
+            details[:dependencies].sort.each do |dependency|
+              yaml << "    - #{dependency}\n"
+            end
           end
-        end
-        next unless details[:actions].any?
+          next unless details[:actions].any?
 
-        yaml << "    actions:\n"
-        details[:actions].sort.each do |action|
-          yaml << "    - \"#{action}\""
-          yaml << ' #?' if unexistent_actions.include?(action)
-          yaml << "\n"
+          yaml << "    actions:\n"
+          details[:actions].sort.each do |action|
+            yaml << "    - \"#{action}\""
+            yaml << ' #?' if unexistent_actions.include?(action)
+            yaml << "\n"
+          end
         end
       end
     end

@@ -50,7 +50,7 @@ module Backend
 
     list(conditions: subscriptions_conditions, order: { started_on: :desc }, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? ' squeezed' : '')".c) do |t|
       t.action :edit
-      t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :renew, method: :post, if: 'current_user.can?(:write, :sales, :sales) && RECORD.renewable?'.c
       t.action :suspend, method: :post, if: :suspendable?
       t.action :takeover, method: :post, if: :suspended
       t.action :destroy, if: :destroyable_by_user?
@@ -71,7 +71,7 @@ module Backend
         redirect_to params[:redirect] || { action: :show, id: @subscription.id }
         return
       end
-      unless current_user.can?(:write, :sales)
+      unless current_user.can?(:write, :sales, :sales)
         notify_error :access_denied
         redirect_to params[:redirect] || { action: :show, id: @subscription.id }
         return

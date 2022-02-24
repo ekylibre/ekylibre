@@ -1945,6 +1945,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
     earns: "Gains" #?
+    economic: "Économique"
     edit: "Modifier"
     edit_budget: "Modifier le budget"
     edition_date: "Date d'édition"
@@ -3153,6 +3154,7 @@ fra:
     save_in_draft: "Sauvegarder dans le brouillard"
     saved_but_couldnt_letter_x_and_y: "Les %{trade}/%{payment} ont été enregistrés mais n’ont pas pu être lettrés."
     scheduled: "Échéance"
+    schedulings: "Planification"
     scrapped_on: "Mise au rebut le"
     search: "Rechercher"
     search_account: "Rechercher un compte" #?

@@ -4,7 +4,7 @@
     - menu.item :export_as_odt.tl, format: :odt
 
   = t.destroy
-  - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
+  - if current_user.can?(:write, :incoming_deliveries, :stocks) && resource.can_generate_parcel?
     - disabled = resource.closed? || resource.fully_reconciled?
     = t.new(params: { controller: :receptions, purchase_order_ids: resource.id, nature: :incoming, mode: 'prefilled' }, disabled: disabled, label: :generate_parcel.tl)
 = main_state_bar(resource)

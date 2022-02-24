@@ -84,7 +84,7 @@ module Ekylibre
 
       def rights_of(action)
         list = []
-        @resources.each do |_catgory, resources|
+        @resources.each do |_category, resources|
           resources.each do |_resource, interactions|
             interactions.each do |_interaction, right|
               list << right.name if right.actions.include?(action)

@@ -691,9 +691,11 @@ module Backend
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
       Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_category_name(a.first).ascii <=> Ekylibre::Access.human_category_name(b.first).ascii }.each do |category, resources|
+
+        resource_category = reference[category.to_s] || []
         data = ''.html_safe
         resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
-          resource_reference = reference[resource] || []
+          resource_reference = resource_category.include?(resource.to_s) ? resource_category[resource.to_s] : []
           data << @template.content_tag(:div, class: 'control-group booleans') do
             @template.content_tag(:label, class: 'control-label') do
               Ekylibre::Access.human_resource_name(resource)
@@ -712,9 +714,9 @@ module Backend
                   end
                 end.join.html_safe
               end
-          end   
+          end
         end
-        html << @template.field_set(category.to_sym,  options = {'collapsed': ' not-collapsed'}) do
+        html << @template.field_set(category.to_sym,  options = { collapsed: ' collapsed' }) do
           data
         end
       end

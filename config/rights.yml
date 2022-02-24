@@ -719,7 +719,7 @@ accountancy:
       - "backend/accounts#unroll"
     write:
       dependencies:
-      - read-accounts
+      - read-accounts-accountancy
       actions:
       - "backend/accounts#create"
       - "backend/accounts#destroy"
@@ -741,7 +741,7 @@ accountancy:
       - "backend/bank_statements#unroll"
     write:
       dependencies:
-      - read-bank_statements
+      - read-bank_statements-accountancy
       actions:
       - "backend/bank_reconciliation/gaps#create"
       - "backend/bank_reconciliation/items#count"
@@ -774,7 +774,7 @@ accountancy:
       - "backend/cashes#unroll"
     write:
       dependencies:
-      - read-cashes
+      - read-cashes-accountancy
       actions:
       - "backend/cashes#create"
       - "backend/cashes#destroy"
@@ -791,7 +791,7 @@ accountancy:
       - "backend/cash_transfers#unroll"
     write:
       dependencies:
-      - read-cash_transfers
+      - read-cash_transfers-accountancy
       actions:
       - "backend/cash_transfers#create"
       - "backend/cash_transfers#destroy"
@@ -832,7 +832,7 @@ accountancy:
       - "backend/financial_years#unroll"
     write:
       dependencies:
-      - read-financial_years
+      - read-financial_years-accountancy
       actions:
       - "backend/financial_years#create"
       - "backend/financial_years#destroy"
@@ -841,7 +841,7 @@ accountancy:
       - "backend/financial_years#update"
     close:
       dependencies:
-      - read-financial_years
+      - read-financial_years-accountancy
       actions:
       - "backend/financial_years#close"
       - "backend/financial_years#compute_balances"
@@ -852,7 +852,7 @@ accountancy:
       - "backend/financial_year_exchanges#show"
     write:
       dependencies:
-      - read-financial_year_exchanges
+      - read-financial_year_exchanges-accountancy
       actions:
       - "backend/financial_year_exchanges#close"
       - "backend/financial_year_exchanges#create"
@@ -873,7 +873,7 @@ accountancy:
       - "backend/fixed_assets#unroll"
     write:
       dependencies:
-      - read-fixed_assets
+      - read-fixed_assets-accountancy
       actions:
       - "backend/fixed_assets#create"
       - "backend/fixed_assets#depreciate"
@@ -903,7 +903,7 @@ accountancy:
       - "backend/sale_gaps#show"
     write:
       dependencies:
-      - read-gaps
+      - read-gaps-accountancy
       actions:
       - "backend/gaps#destroy"
       - "backend/purchase_gaps#destroy"
@@ -927,7 +927,7 @@ accountancy:
       - "backend/trial_balances#show"
     write:
       dependencies:
-      - read-journals
+      - read-journals-accountancy
       actions:
       - "backend/journals#bookkeep"
       - "backend/journals#create"
@@ -937,7 +937,7 @@ accountancy:
       - "backend/journals#update"
     close:
       dependencies:
-      - read-journals
+      - read-journals-accountancy
       actions:
       - "backend/journals#close"
 
@@ -948,7 +948,7 @@ accountancy:
       - "backend/draft_journals#show"
     confirm:
       dependencies:
-      - read-journal_draft
+      - read-journal_draft-accountancy
       actions:
       - "backend/draft_journals#confirm"
 
@@ -967,7 +967,7 @@ accountancy:
       - "backend/regularizations#show"
     write:
       dependencies:
-      - read-journal_entries
+      - read-journal_entries-accountancy
       actions:
       - "backend/journal_entries#create"
       - "backend/journal_entries#currency_state"
@@ -991,7 +991,7 @@ accountancy:
       - "backend/loans#unroll"
     write:
       dependencies:
-      - read-loans
+      - read-loans-accountancy
       actions:
       - "backend/loan_repayments#edit"
       - "backend/loan_repayments#new"
@@ -1014,7 +1014,7 @@ accountancy:
       - "backend/tax_declarations#unroll"
     write:
       dependencies:
-      - read-tax_declarations
+      - read-tax_declarations-accountancy
       actions:
       - "backend/tax_declarations#confirm"
       - "backend/tax_declarations#create"
@@ -1033,7 +1033,7 @@ accountancy:
       - "backend/taxes#unroll"
     write:
       dependencies:
-      - read-taxes
+      - read-taxes-accountancy
       actions:
       - "backend/taxes#create"
       - "backend/taxes#destroy"
@@ -1077,7 +1077,7 @@ entities:
       - "backend/entity_links#show"
     write:
       dependencies:
-      - read-entities
+      - read-entities-entities
       actions:
       - "backend/entities#autocomplete"
       - "backend/entities#create"
@@ -1095,7 +1095,7 @@ entities:
       - "backend/entity_addresses#update"
     link:
       dependencies:
-      - read-entities
+      - read-entities-entities
       actions:
       - "backend/entity_links#create"
       - "backend/entity_links#destroy"
@@ -1115,7 +1115,7 @@ entities:
       - "backend/events#unroll"
     write:
       dependencies:
-      - read-events
+      - read-events-entities
       actions:
       - "backend/event_participations#create"
       - "backend/event_participations#destroy"
@@ -1141,7 +1141,7 @@ human_resources:
       - "backend/payslip_natures#unroll"
     write:
       dependencies:
-      - read-payslip_natures
+      - read-payslip_natures-human_resources
       actions:
       - "backend/payslip_natures#create"
       - "backend/payslip_natures#destroy"
@@ -1158,7 +1158,7 @@ human_resources:
       - "backend/payslip_payments#unroll"
     write:
       dependencies:
-      - read-payslip_payments
+      - read-payslip_payments-human_resources
       actions:
       - "backend/payslip_payments#create"
       - "backend/payslip_payments#destroy"
@@ -1179,7 +1179,7 @@ human_resources:
       - "backend/payslips#unroll"
     write:
       dependencies:
-      - read-payslips
+      - read-payslips-human_resources
       actions:
       - "backend/payslip_affairs#attach"
       - "backend/payslip_affairs#detach"
@@ -1203,7 +1203,7 @@ human_resources:
       - "backend/teams#unroll"
     write:
       dependencies:
-      - read-teams
+      - read-teams-human_resources
       actions:
       - "backend/teams#create"
       - "backend/teams#destroy"
@@ -1235,7 +1235,7 @@ human_resources:
       - "backend/workers#unroll"
     write:
       dependencies:
-      - read-workers
+      - read-workers-human_resources
       actions:
       - "backend/workers#create"
       - "backend/workers#destroy"
@@ -1273,7 +1273,7 @@ productions:
       - "backend/plant_density_abacus_items#unroll"
     write:
       dependencies:
-      - read-activities
+      - read-activities-productions
       actions:
       - "api/v1/plant_countings#create"
       - "backend/activities#create"
@@ -1319,7 +1319,7 @@ productions:
       - "backend/analyses#unroll"
     write:
       dependencies:
-      - read-analyses
+      - read-analyses-productions
       actions:
       - "backend/analyses#create"
       - "backend/analyses#destroy"
@@ -1353,7 +1353,7 @@ productions:
       - "backend/animal_groups#unroll"
     write:
       dependencies:
-      - read-animal_groups
+      - read-animal_groups-productions
       actions:
       - "backend/animal_groups#create"
       - "backend/animal_groups#destroy"
@@ -1391,7 +1391,7 @@ productions:
       - "backend/animals#unroll"
     write:
       dependencies:
-      - read-animals
+      - read-animals-productions
       actions:
       - "backend/animals#add_group"
       - "backend/animals#add_to_container"
@@ -1418,7 +1418,7 @@ productions:
       - "backend/campaigns#unroll"
     write:
       dependencies:
-      - read-campaigns
+      - read-campaigns-productions
       actions:
       - "backend/campaigns#create"
       - "backend/campaigns#destroy"
@@ -1436,7 +1436,7 @@ productions:
       - "backend/crop_groups#show"
     write:
       dependencies:
-      - read-crop_groups
+      - read-crop_groups-productions
       actions:
       - "backend/crop_groups#create"
       - "backend/crop_groups#destroy"
@@ -1453,7 +1453,7 @@ productions:
       - "backend/cultivable_zones#unroll"
     write:
       dependencies:
-      - read-cultivable_zones
+      - read-cultivable_zones-productions
       actions:
       - "backend/cap_islets#convert"
       - "backend/cultivable_zones#create"
@@ -1486,7 +1486,7 @@ productions:
       - "backend/equipments#unroll"
     write:
       dependencies:
-      - read-equipments
+      - read-equipments-productions
       actions:
       - "backend/equipments#create"
       - "backend/equipments#destroy"
@@ -1517,7 +1517,7 @@ productions:
       - "backend/interventions/costs#parameter_cost"
     write:
       dependencies:
-      - read-interventions
+      - read-interventions-productions
       actions:
       - "api/v1/crumbs#create"
       - "api/v1/interventions#create"
@@ -1541,7 +1541,7 @@ productions:
       - "backend/issues#unroll"
     write:
       dependencies:
-      - read-issues
+      - read-issues-productions
       actions:
       - "api/v1/issues#create"
       - "backend/issues#abort"
@@ -1577,7 +1577,7 @@ productions:
       - "backend/land_parcels#unroll"
     write:
       dependencies:
-      - read-land_parcels
+      - read-land_parcels-productions
       actions:
       - "backend/land_parcels#create"
       - "backend/land_parcels#destroy"
@@ -1591,7 +1591,7 @@ productions:
   observations:
     write:
       dependencies:
-      - read-observations
+      - read-observations-productions
       actions:
       - "backend/observations#create"
       - "backend/observations#destroy"
@@ -1607,7 +1607,7 @@ productions:
       - "backend/plant_countings#show"
     write:
       dependencies:
-      - read-plant_countings
+      - read-plant_countings-productions
       actions:
       - "backend/plant_countings#create"
       - "backend/plant_countings#destroy"
@@ -1641,7 +1641,7 @@ productions:
       - "backend/plants#unroll"
     write:
       dependencies:
-      - read-plants
+      - read-plants-productions
       actions:
       - "backend/plants#create"
       - "backend/plants#destroy"
@@ -1662,7 +1662,7 @@ productions:
       - "backend/prescriptions#unroll"
     write:
       dependencies:
-      - read-prescriptions
+      - read-prescriptions-productions
       actions:
       - "backend/prescriptions#create"
       - "backend/prescriptions#destroy"
@@ -1694,7 +1694,7 @@ productions:
       - "backend/product_groups#unroll"
     write:
       dependencies:
-      - read-product_groups
+      - read-product_groups-productions
       actions:
       - "backend/product_groups#create"
       - "backend/product_groups#destroy"
@@ -1715,7 +1715,7 @@ productions:
       - "backend/activity_productions#unroll"
     write:
       dependencies:
-      - read-productions
+      - read-productions-productions
       actions:
       - "backend/activity_productions#create"
       - "backend/activity_productions#destroy"
@@ -1742,7 +1742,7 @@ purchases:
       - "backend/entities#list_contracts"
     write:
       dependencies:
-      - read-contracts
+      - read-contracts-purchases
       actions:
       - "backend/contracts#create"
       - "backend/contracts#destroy"
@@ -1765,7 +1765,7 @@ purchases:
       - "backend/outgoing_payment_lists#show"
     write:
       dependencies:
-      - read-outgoing_payment_lists
+      - read-outgoing_payment_lists-purchases
       actions:
       - "backend/outgoing_payment_lists#create"
       - "backend/outgoing_payment_lists#destroy"
@@ -1783,7 +1783,7 @@ purchases:
       - "backend/purchase_payments#unroll"
     write:
       dependencies:
-      - read-outgoing_payments
+      - read-outgoing_payments-purchases
       actions:
       - "backend/outgoing_payments#create"
       - "backend/outgoing_payments#destroy"
@@ -1821,7 +1821,7 @@ purchases:
       - "backend/unreceived_purchase_orders#show"
     write:
       dependencies:
-      - read-purchases
+      - read-purchases-purchases
       actions:
       - "backend/debt_transfers#create"
       - "backend/debt_transfers#destroy"
@@ -1864,7 +1864,7 @@ purchases:
       - "backend/subscriptions#unroll"
     write:
       dependencies:
-      - read-subscriptions
+      - read-subscriptions-purchases
       actions:
       - "backend/subscriptions#create"
       - "backend/subscriptions#destroy"
@@ -1888,7 +1888,7 @@ sales:
       - "backend/sale_tickets#show"
     write:
       dependencies:
-      - read-affairs
+      - read-affairs-sales
       actions:
       - "backend/affairs#attach"
       - "backend/affairs#detach"
@@ -1912,7 +1912,7 @@ sales:
         - "backend/incoming_payments#unroll"
       write:
         dependencies:
-        - read-incoming_payments
+        - read-incoming_payments-sales
         actions:
         - "backend/incoming_payments#create"
         - "backend/incoming_payments#destroy"
@@ -1942,7 +1942,7 @@ sales:
       - "backend/sales#unroll"
     write:
       dependencies:
-      - read-sales
+      - read-sales-sales
       actions:
       - "backend/debt_transfers#create"
       - "backend/debt_transfers#destroy"
@@ -1988,7 +1988,7 @@ sales:
       - "backend/sales#update"
     cancel:
       dependencies:
-      - read-sales
+      - read-sales-sales
       actions:
       - "backend/sale_credits#create"
       - "backend/sale_credits#new"
@@ -2002,7 +2002,7 @@ sales:
       - "backend/tasks#show"
     write:
       dependencies:
-      - read-tasks
+      - read-tasks-sales
       actions:
       - "backend/tasks#create"
       - "backend/tasks#destroy"
@@ -2017,26 +2017,26 @@ schedulings:
   intervention_templates:
     read:
       dependencies:
-      - read-intervention_templates
+      - read-intervention_templates-schedulings
     write:
       dependencies:
-      - read-intervention_templates
+      - read-intervention_templates-schedulings
 
   schedulings:
     read:
       dependencies:
-      - read-schedulings
+      - read-schedulings-schedulings
     write:
       dependencies:
-      - read-schedulings
+      - read-schedulings-schedulings
 
   technical_itineraries:
     read:
       dependencies:
-      - read-technical_itineraries
+      - read-technical_itineraries-schedulings
     write:
       dependencies:
-      - read-technical_itineraries
+      - read-technical_itineraries-schedulings
 
 settings:
   buildings:
@@ -2064,7 +2064,7 @@ settings:
       - "backend/buildings#unroll"
     write:
       dependencies:
-      - read-buildings
+      - read-buildings-settings
       actions:
       - "backend/buildings#create"
       - "backend/buildings#destroy"
@@ -2088,7 +2088,7 @@ settings:
       - "backend/catalogs#unroll"
     write:
       dependencies:
-      - read-catalogs
+      - read-catalogs-settings
       actions:
       - "backend/catalog_items#create"
       - "backend/catalog_items#destroy"
@@ -2112,7 +2112,7 @@ settings:
       - "backend/custom_fields#unroll"
     write:
       dependencies:
-      - read-custom_fields
+      - read-custom_fields-settings
       actions:
       - "backend/custom_field_choices#down"
       - "backend/custom_field_choices#up"
@@ -2134,7 +2134,7 @@ settings:
       - "backend/districts#unroll"
     write:
       dependencies:
-      - read-districts
+      - read-districts-settings
       actions:
       - "backend/districts#create"
       - "backend/districts#destroy"
@@ -2151,7 +2151,7 @@ settings:
       - "backend/document_templates#unroll"
     write:
       dependencies:
-      - read-document_templates
+      - read-document_templates-settings
       actions:
       - "backend/document_templates#create"
       - "backend/document_templates#destroy"
@@ -2169,7 +2169,7 @@ settings:
       - "backend/georeadings#unroll"
     write:
       dependencies:
-      - read-georeadings
+      - read-georeadings-settings
       actions:
       - "backend/georeadings#create"
       - "backend/georeadings#destroy"
@@ -2186,7 +2186,7 @@ settings:
       - "backend/incoming_payment_modes#unroll"
     write:
       dependencies:
-      - read-incoming_payment_modes
+      - read-incoming_payment_modes-settings
       actions:
       - "backend/incoming_payment_modes#create"
       - "backend/incoming_payment_modes#destroy"
@@ -2206,7 +2206,7 @@ settings:
       - "backend/labels#unroll"
     write:
       dependencies:
-      - read-labels
+      - read-labels-settings
       actions:
       - "backend/labels#create"
       - "backend/labels#destroy"
@@ -2223,7 +2223,7 @@ settings:
       - "backend/myselves#show"
     write:
       dependencies:
-      - read-myselves
+      - read-myselves-settings
       actions:
       - "backend/dashboards#create"
       - "backend/dashboards#destroy"
@@ -2245,7 +2245,7 @@ settings:
       - "backend/naming_formats#show"
     write:
       dependencies:
-      - read-naming_formats
+      - read-naming_formats-settings
       actions:
       - "backend/naming_format_land_parcels#create"
       - "backend/naming_format_land_parcels#destroy"
@@ -2265,7 +2265,7 @@ settings:
       - "backend/outgoing_payment_modes#unroll"
     write:
       dependencies:
-      - read-outgoing_payment_modes
+      - read-outgoing_payment_modes-settings
       actions:
       - "backend/outgoing_payment_modes#create"
       - "backend/outgoing_payment_modes#destroy"
@@ -2284,7 +2284,7 @@ settings:
       - "backend/postal_zones#unroll"
     write:
       dependencies:
-      - read-postal_zones
+      - read-postal_zones-settings
       actions:
       - "backend/postal_zones#autocomplete"
       - "backend/postal_zones#create"
@@ -2305,7 +2305,7 @@ settings:
       - "backend/product_nature_categories#unroll"
     write:
       dependencies:
-      - read-product_nature_categories
+      - read-product_nature_categories-settings
       actions:
       - "backend/product_nature_categories#create"
       - "backend/product_nature_categories#destroy"
@@ -2332,7 +2332,7 @@ settings:
       - "backend/product_nature_variants#unroll"
     write:
       dependencies:
-      - read-product_nature_variants
+      - read-product_nature_variants-settings
       actions:
       - "backend/product_nature_variant_components#autocomplete"
       - "backend/product_nature_variants#create"
@@ -2353,7 +2353,7 @@ settings:
       - "backend/product_natures#unroll"
     write:
       dependencies:
-      - read-product_natures
+      - read-product_natures-settings
       actions:
       - "backend/product_natures#create"
       - "backend/product_natures#destroy"
@@ -2372,7 +2372,7 @@ settings:
       - "backend/project_budgets#unroll"
     write:
       dependencies:
-      - read-project_budgets
+      - read-project_budgets-settings
       actions:
       - "backend/project_budgets#create"
       - "backend/project_budgets#destroy"
@@ -2389,7 +2389,7 @@ settings:
       - "backend/purchase_natures#unroll"
     write:
       dependencies:
-      - read-purchase_natures
+      - read-purchase_natures-settings
       actions:
       - "backend/purchase_natures#create"
       - "backend/purchase_natures#destroy"
@@ -2407,7 +2407,7 @@ settings:
       - "backend/roles#unroll"
     write:
       dependencies:
-      - read-roles
+      - read-roles-settings
       actions:
       - "backend/roles#create"
       - "backend/roles#destroy"
@@ -2426,7 +2426,7 @@ settings:
       - "backend/sale_natures#unroll"
     write:
       dependencies:
-      - read-sale_natures
+      - read-sale_natures-settings
       actions:
       - "backend/sale_natures#create"
       - "backend/sale_natures#destroy"
@@ -2443,7 +2443,7 @@ settings:
       - "backend/sequences#unroll"
     write:
       dependencies:
-      - read-sequences
+      - read-sequences-settings
       actions:
       - "backend/sequences#create"
       - "backend/sequences#destroy"
@@ -2459,7 +2459,7 @@ settings:
       - "backend/settings#about"
     write:
       dependencies:
-      - read-settings
+      - read-settings-settings
       actions:
       - "backend/companies#update"
 
@@ -2487,7 +2487,7 @@ settings:
       - "backend/settlements#unroll"
     write:
       dependencies:
-      - read-settlements
+      - read-settlements-settings
       actions:
       - "backend/settlements#create"
       - "backend/settlements#destroy"
@@ -2509,7 +2509,7 @@ settings:
       - "backend/subscription_natures#unroll"
     write:
       dependencies:
-      - read-subscription_natures
+      - read-subscription_natures-settings
       actions:
       - "backend/subscription_natures#create"
       - "backend/subscription_natures#destroy"
@@ -2530,7 +2530,8 @@ settings:
       - "backend/users#unroll"
     write:
       dependencies:
-      - read-users
+      - read-users-settings
+      - read-entities-entities
       actions:
       - "backend/invitations#create"
       - "backend/invitations#new"
@@ -2544,7 +2545,7 @@ settings:
       - "backend/users#update"
     lock:
       dependencies:
-      - read-users
+      - read-users-settings
       actions:
       - "backend/users#lock"
       - "backend/users#unlock"
@@ -2574,7 +2575,7 @@ stocks:
       - "backend/building_divisions#unroll"
     write:
       dependencies:
-      - read-building_divisions
+      - read-building_divisions-stocks
       actions:
       - "backend/building_divisions#create"
       - "backend/building_divisions#destroy"
@@ -2596,7 +2597,7 @@ stocks:
       - "backend/receptions#unroll"
     write:
       dependencies:
-      - read-incoming_deliveries
+      - read-incoming_deliveries-stocks
       actions:
       - "backend/receptions#create"
       - "backend/receptions#destroy"
@@ -2615,7 +2616,7 @@ stocks:
       - "backend/inventories#unroll"
     write:
       dependencies:
-      - read-inventories
+      - read-inventories-stocks
       actions:
       - "backend/inventories#create"
       - "backend/inventories#destroy"
@@ -2649,7 +2650,7 @@ stocks:
       - "backend/matters#unroll"
     write:
       dependencies:
-      - read-matters
+      - read-matters-stocks
       actions:
       - "backend/matters#create"
       - "backend/matters#destroy"
@@ -2670,7 +2671,7 @@ stocks:
       - "backend/shipments#unroll"
     write:
       dependencies:
-      - read-outgoing_deliveries
+      - read-outgoing_deliveries-stocks
       actions:
       - "backend/shipments#cancel"
       - "backend/shipments#check"
@@ -2711,7 +2712,7 @@ stocks:
       - "backend/products/search_variants#search_by_expression"
     write:
       dependencies:
-      - read-products
+      - read-products-stocks
       actions:
       - "backend/product_localizations#create"
       - "backend/product_localizations#destroy"
@@ -2735,7 +2736,7 @@ stocks:
       - "backend/trackings#unroll"
     write:
       dependencies:
-      - read-trackings
+      - read-trackings-stocks
       actions:
       - "backend/trackings#create"
       - "backend/trackings#destroy"
@@ -2755,8 +2756,8 @@ stocks:
       - "backend/deliveries#unroll"
     write:
       dependencies:
-      - read-outgoing_deliveries
-      - read-transports
+      - read-outgoing_deliveries-stocks
+      - read-transports-stocks
       actions:
       - "backend/deliveries#cancel"
       - "backend/deliveries#check"
@@ -2791,7 +2792,7 @@ tools:
       - "backend/cap_statements#unroll"
     write:
       dependencies:
-      - read-cap_statements
+      - read-cap_statements-tools
       actions:
       - "backend/cap_islets#create"
       - "backend/cap_islets#destroy"
@@ -2818,7 +2819,7 @@ tools:
       - "backend/documents#unroll"
     write:
       dependencies:
-      - read-documents
+      - read-documents-tools
       actions:
       - "backend/documents#create"
       - "backend/documents#destroy"
@@ -2845,7 +2846,7 @@ tools:
     write:
       deprecated: true
       dependencies:
-      - read-identifiers
+      - read-identifiers-tools
       actions:
       - "backend/identifiers#create"
       - "backend/identifiers#destroy"
@@ -2862,7 +2863,7 @@ tools:
       - "backend/imports#show"
     write:
       dependencies:
-      - read-imports
+      - read-imports-tools
       actions:
       - "backend/imports#create"
       - "backend/imports#destroy"
@@ -2871,7 +2872,7 @@ tools:
       - "backend/imports#update"
     execute:
       dependencies:
-      - read-imports
+      - read-imports-tools
       actions:
       - "backend/imports#abort"
       - "backend/imports#run"
@@ -2889,7 +2890,7 @@ tools:
       - "backend/net_services#show"
     write:
       dependencies:
-      - read-integrations
+      - read-integrations-tools
       actions:
       - "backend/identifiers#create"
       - "backend/identifiers#destroy"
@@ -2916,7 +2917,7 @@ tools:
       - "backend/listings#unroll"
     write:
       dependencies:
-      - read-listings
+      - read-listings-tools
       actions:
       - "backend/listing_nodes#create"
       - "backend/listing_nodes#destroy"
@@ -2931,7 +2932,7 @@ tools:
       - "backend/listings#update"
     execute:
       dependencies:
-      - read-listings
+      - read-listings-tools
       actions:
       - "backend/listings#extract"
       - "backend/listings#mail"
@@ -2944,7 +2945,7 @@ tools:
       - "backend/map_layers#show"
     write:
       dependencies:
-      - read-map_layers
+      - read-map_layers-tools
       actions:
       - "backend/map_layers#create"
       - "backend/map_layers#destroy"
@@ -2966,7 +2967,7 @@ tools:
     write:
       deprecated: true
       dependencies:
-      - read-net_services
+      - read-net_services-tools
       actions:
       - "backend/integrations#create"
       - "backend/integrations#destroy"
@@ -2991,7 +2992,7 @@ tools:
       - "backend/sensors#unroll"
     write:
       dependencies:
-      - read-sensors
+      - read-sensors-tools
       actions:
       - "backend/sensors#create"
       - "backend/sensors#destroy"

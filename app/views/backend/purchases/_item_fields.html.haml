@@ -35,8 +35,8 @@
 
     %tr.tr-add-on
       %td{ colspan: 3 }
-        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities, :productions) && ActivityBudget.opened.any?
           = f.referenced_association(:activity_budget, new: false)
       %td{ colspan: 3 }
-        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
+        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams, :human_resources)
           = f.referenced_association(:team)

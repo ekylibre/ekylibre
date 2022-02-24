@@ -30,11 +30,11 @@
       dataType: "json"
       success: (data, status, response) ->
         $("*[data-access]").removeClass("active");
-        # console.log data.rights
-        for resource, actions of data.rights
-          for action in actions
-            $("*[data-access='#{action}-#{resource}']").addClass("active")
-        $("*[data-access]").checkAccesses();
+        for category, resources of data.rights
+          for resource, actions of resources
+            for action in actions
+              $("*[data-access='#{action}-#{resource}-#{category}']").addClass("active")
+          $("*[data-access]").checkAccesses();
       error: E.ajaxErrorHandler
 
     return true
