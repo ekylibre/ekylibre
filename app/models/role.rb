@@ -62,19 +62,21 @@ class Role < ApplicationRecord
 
       # Remove revoked rights
       revoked_rights.each do |right|
-        resource, action = right.split('-')
-        if user.rights[resource]
-          user.rights[resource].delete(action)
-          user.rights.delete(resource) if user.rights[resource].blank?
+        category, resource, action = right.split('-')
+        if user.rights[category][resource]
+          user.rights[category][resource].delete(action)
+          user.rights[category].delete(resource) if user.rights[category][resource].blank?
+          user.rights.delete(category) if user.rights[category].blank?
         end
       end
 
       # Add granted rights
       granted_rights.each do |right|
-        resource, action = right.split('-')
-        user.rights[resource] = [] unless user.rights[resource].is_a?(Array)
-        unless user.rights[resource].include?(action)
-          user.rights[resource] << action
+        category, resource, action = right.split('-')
+        user.rights[category] ||= {}
+        user.rights[category][resource] = [] unless user.rights[category][resource].is_a?(Array)
+        unless user.rights[category][resource].include?(action)
+          user.rights[category][resource] << action
         end
       end
 
