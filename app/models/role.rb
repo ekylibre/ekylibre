@@ -62,21 +62,19 @@ class Role < ApplicationRecord
 
       # Remove revoked rights
       revoked_rights.each do |right|
-        category, resource, action = right.split('-')
-        if user.rights[category][resource]
-          user.rights[category][resource].delete(action)
-          user.rights[category].delete(resource) if user.rights[category][resource].blank?
-          user.rights.delete(category) if user.rights[category].blank?
+        resource, action = right.split('-')
+        if user.rights[resource]
+          user.rights[resource].delete(action)
+          user.rights.delete(resource) if user.rights[resource].blank?
         end
       end
 
       # Add granted rights
       granted_rights.each do |right|
-        category, resource, action = right.split('-')
-        user.rights[category] ||= {}
-        user.rights[category][resource] = [] unless user.rights[category][resource].is_a?(Array)
-        unless user.rights[category][resource].include?(action)
-          user.rights[category][resource] << action
+        resource, action = right.split('-')
+        user.rights[resource] = [] unless user.rights[resource].is_a?(Array)
+        unless user.rights[resource].include?(action)
+          user.rights[resource] << action
         end
       end
 
@@ -98,7 +96,7 @@ class Role < ApplicationRecord
       array << 'all' if array.size < 3
       resource = array.second
       action = array.third
-      action = Ekylibre::Access.interactions_of(category, resource) if action == 'all'
+      action = Ekylibre::Access.interactions_of(resource) if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash
@@ -124,12 +122,11 @@ class Role < ApplicationRecord
 
     rights = item.accesses.each_with_object({}) do |right, hash|
       array = right.to_s.split('-')
-      array.insert(0, 'all') if array.size < 4
-      array << 'all' if array.size < 4
-      category = array.second
-      resource = array.third
-      action = array.last
-      action = Ekylibre::Access.interactions_of(category, resource) if action == 'all'
+      array.insert(0, 'all') if array.size < 3
+      array << 'all' if array.size < 3
+      resource = array.second
+      action = array.third
+      action = Ekylibre::Access.interactions_of(resource) if action == 'all'
       hash[resource] ||= []
       hash[resource] += [action].flatten.map(&:to_s)
       hash

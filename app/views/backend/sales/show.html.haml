@@ -5,7 +5,7 @@
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
   = t.export(*exports, key: :number, target: "_blank")
   = t.duplicate resource, method: :post, params: {redirect: nil}
-  - if current_user.can?(:write, :outgoing_deliveries, :stocks) && resource.can_generate_parcel?
+  - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
     - shipment_items_attributes = resource.items.map do |item|
       - item_product = item.variant.products.order(born_at: :desc).first
       - { source_product_id: item_product, conditioning_quantity: item.conditioning_quantity , conditioning_unit_id: item.conditioning_unit}

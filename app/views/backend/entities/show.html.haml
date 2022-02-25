@@ -22,7 +22,7 @@
     .info
       %span.title= :currently_subscribed_to.tl
       %span.value= subscriptions.map { |subscription| link_to("#{subscription.nature.name} (#{subscription.number})", { controller: :subscriptions, action: :show, id: subscription.id }) }.to_sentence.html_safe
-  - if current_user.can? :read, :accounts , :accountancy
+  - if current_user.can? :read, :accounts
     - [:client, :supplier, :employee].each do |nature|
       - if resource.send(nature) && (account = resource.send("#{nature}_account"))
         .info

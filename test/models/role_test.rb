@@ -51,14 +51,14 @@ class RoleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       role: manager
     )
 
-    manager.rights = {'sales' => {
+    manager.rights = {
       'sales' => %w[read write]
     }
     manager.save!
 
     bob.reload
-    assert bob.rights['sales']['sales'], 'User should have right resource "sales"'
-    assert bob.rights['sales']['sales'].include?('read'), 'User should have right "read-sales"'
-    assert bob.rights['sales']['sales'].include?('write'), 'User should have right "write-sales"'
+    assert bob.rights['sales'], 'User should have right resource "sales"'
+    assert bob.rights['sales'].include?('read'), 'User should have right "read-sales"'
+    assert bob.rights['sales'].include?('write'), 'User should have right "write-sales"'
   end
 end

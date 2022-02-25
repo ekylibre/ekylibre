@@ -2,10 +2,9 @@ module Ekylibre
   module Access
     # Right class permit to define which resource is concerned, which interaction
     class Right
-      attr_reader :interaction, :resource, :category, :actions, :dependencies
+      attr_reader :interaction, :resource, :actions, :dependencies
 
-      def initialize(category, resource, interaction, options = {})
-        @category     = category.to_sym
+      def initialize(resource, interaction, options = {})
         @resource     = resource.to_sym
         @interaction  = interaction.to_sym
         @actions      = []
@@ -40,11 +39,7 @@ module Ekylibre
 
       # Unique name of the right
       def name
-        "#{@interaction}-#{@resource}-#{@category}"
-      end
-
-      def human_category_name
-        Ekylibre::Access.human_category_name(@category)
+        "#{@interaction}-#{@resource}"
       end
 
       def human_resource_name

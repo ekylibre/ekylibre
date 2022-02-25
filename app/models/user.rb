@@ -274,8 +274,8 @@ class User < ApplicationRecord
     message
   end
 
-  def can?(action, resource, category)
-    administrator? || right_exist?(action, resource, category)
+  def can?(action, resource)
+    administrator? || right_exist?(action, resource)
   end
 
   def can_access?(url)

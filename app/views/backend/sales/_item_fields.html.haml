@@ -73,9 +73,9 @@
             = f.referenced_association :depreciable_product, source: :depreciables
 
       .item-form-information
-        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities, :productions) && ActivityBudget.opened.any?
+        - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
           .item-form.item-form__activity
             = f.referenced_association(:activity_budget, new: false)
-        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams, :human_resources)
+        - if Preference[:distribute_sales_and_purchases_on_teams] && current_user.can?(:read, :teams)
           .item-form.item-form__team
             = f.referenced_association(:team)

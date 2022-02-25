@@ -14,8 +14,8 @@ module Rightable
   # Returns rights as a list of "resource-action" strings
   def rights_array
     array = []
-    each_right do |category, resource, action|
-      array << category + '-' +resource + '-' + action
+    each_right do |resource, action|
+      array << resource + '-' + action
     end
     array
   end
@@ -23,8 +23,8 @@ module Rightable
   # Returns rights as a list of "action-resource" strings
   def resource_actions
     array = []
-    each_right do |category, resource, action|
-      array << action + '-' +resource + '-' + category
+    each_right do |resource, action|
+      array << action + '-' + resource
     end
     array
   end
@@ -33,18 +33,16 @@ module Rightable
   def each_right
     return unless rights
 
-    rights.each do |category, resources|
-      resources.each do |resource, actions|
-        actions.each do |action|
-          yield category, resource, action
-        end
+    rights.each do |resource, actions|
+      actions.each do |action|
+        yield resource, action
       end
     end
   end
 
-  def right_exist?(action, resource, category)
-    return false unless rights && rights[category.to_s] && rights[category.to_s][resource.to_s]
+  def right_exist?(action, resource)
+    return false unless rights && rights[resource.to_s]
 
-    rights[category.to_s][resource.to_s].include?(action.to_s)
+    rights[resource.to_s].include?(action.to_s)
   end
 end
