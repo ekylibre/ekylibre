@@ -672,10 +672,10 @@ shipment_items_007:
   product_localization_id: 182
   product_movement_id: 100
   product_ownership_id: 90
-  sale_item_id: 19
   source_product_id: 144
   source_product_movement_id: 100
   type: ShipmentItem
+  unit_pretax_sale_amount: 10.0
   unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:40:58.274949000 Z
   updater_id: 1

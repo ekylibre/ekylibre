@@ -28,6 +28,8 @@
       item = element.closest(".delivery-item")
       $.ajax
         url: options.url.replace(reg, product_id)
+        # get params from field sale_nature_id, planned_at from options
+        data: {sale_nature_id: options.sale_nature_id, planned_at: options.planned_at}
         dataType: "json"
         success: (data, status, request) ->
           unit = item.find(".item-population-unit-name")
@@ -40,6 +42,11 @@
             item.attr('data-unit-name', data.unit_name)
           else
             unit.html('#')
+          # for sale_price from sale_nature from json builder
+          if data.default_sale_price
+            item.find(".item-unit-pretax-sale-amount").val(data.default_sale_price)
+          else
+            item.find(".item-unit-pretax-sale-amount").val(0.00)
           if data.variant
             item.find(".item-variant-name").html(data.variant.name)
           pop = item.find(".item-population")

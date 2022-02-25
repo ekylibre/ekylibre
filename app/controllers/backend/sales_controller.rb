@@ -380,6 +380,7 @@ module Backend
       def printer_class(nature)
         case nature
         when 'sales_invoice'  then Printers::Sale::SalesInvoicePrinter
+        when 'sales_invoice_shipment'  then Printers::Sale::SalesInvoiceShipmentPrinter
         when 'sales_order'    then Printers::Sale::SalesOrderPrinter
         when 'sales_estimate' then Printers::Sale::SalesEstimatePrinter
         else nil
@@ -400,7 +401,7 @@ module Backend
                                        } },
                                        affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                        invoice_address: { methods: [:mail_coordinate] },
-                                       items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, shipment_items: { include: %i[product parcel] }] } })
+                                       items: { methods: %i[taxes_amount tax_name tax_short_label], include: [:variant, :shipment_item, :shipment, shipment_items: { include: %i[product parcel] }] } })
       end
   end
 end

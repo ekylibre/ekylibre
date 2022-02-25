@@ -3,6 +3,8 @@ require 'test_helper'
 module Printers
   class ShippingNotePrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     setup do
+      I18n.locale = :fra
+      Preference.set!(:currency, 'EUR')
       @template = Minitest::Mock.new
       @template.expect :nature, :shipping_note
       @template.expect :nil?, false
