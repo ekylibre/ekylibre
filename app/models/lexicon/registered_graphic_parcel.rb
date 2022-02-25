@@ -35,30 +35,5 @@
 class RegisteredGraphicParcel < LexiconRecord
   include Lexiconable
 
-  def shape
-    ::Charta.new_geometry(self[:shape])
-  end
-
-  scope :in_bounding_box, lambda { |bounding_box|
-    where("registered_graphic_parcels.shape && ST_MakeEnvelope(#{bounding_box})")
-  }
-
-  scope :without_intersected_with_selection, ->(*selected_ids){
-    joins(<<~SQL).where('selecteds.id IS NULL')
-      LEFT JOIN (#{RegisteredGraphicParcel.where(id: selected_ids).to_sql}) AS selecteds
-      ON (ST_INTERSECTS(registered_graphic_parcels.shape, selecteds.shape)
-        AND NOT ST_TOUCHES(registered_graphic_parcels.shape, selecteds.shape))
-        AND registered_graphic_parcels.id != selecteds.id
-    SQL
-  }
-
-  scope :without_intersected_with_shape, ->(shape){
-    joins(<<~SQL).where('rgp.intersect_with_shape = FALSE')
-      LEFT JOIN (SELECT (ST_INTERSECTS(registered_graphic_parcels.shape, '#{shape}')
-                        AND NOT ST_TOUCHES(registered_graphic_parcels.shape, '#{shape}')) AS intersect_with_shape,
-                        id
-                FROM registered_graphic_parcels) as rgp
-                ON registered_graphic_parcels.id = rgp.id
-    SQL
-  }
+  has_geometry :shape
 end

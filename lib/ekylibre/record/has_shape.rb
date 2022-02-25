@@ -151,6 +151,29 @@ module Ekylibre
                                       .order('ST_Distance(' + col + ', ST_Centroid(\'' + ewkt + '\')) ASC')
                                       .limit(1))
             }
+
+            scope :without_intersected_with_selection, ->(*selected_ids){
+              joins(<<~SQL).where('selecteds.id IS NULL')
+                LEFT JOIN (#{self.where(id: selected_ids).to_sql}) AS selecteds
+                ON (ST_INTERSECTS(#{self.table_name}.#{col}, selecteds.#{col})
+                  AND NOT ST_TOUCHES(#{self.table_name}.#{col}, selecteds.#{col}))
+                  AND #{self.table_name}.id != selecteds.id
+              SQL
+            }
+
+            scope :in_bounding_box, ->(bounding_box){
+              where("#{self.table_name}.#{col} && ST_MakeEnvelope(#{bounding_box})")
+            }
+
+            scope 'without_intersected_with_' + col, ->(shape){
+              joins(<<~SQL).where('table_2.intersect_with_shape = FALSE')
+                LEFT JOIN (SELECT (ST_INTERSECTS(#{self.table_name}.#{col}, '#{shape}')
+                                  AND NOT ST_TOUCHES(#{self.table_name}.#{col}, '#{shape}')) AS intersect_with_shape,
+                                  id
+                          FROM #{self.table_name}) as table_2
+                          ON #{self.table_name}.id = table_2.id
+              SQL
+            }
           end
         end
 

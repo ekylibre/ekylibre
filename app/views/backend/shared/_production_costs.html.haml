@@ -7,7 +7,7 @@
       .big-info.cost.total-cost
         %span.title= cost_key.tl.upper
         %span.value
-          = costs_types[:total].l(currency: currency.name)
+          = costs_types[:total].to_i.l(currency: currency.name)
 
       - costs_types.except(:total).each do |key, value|
         - cost_type = key.to_s.singularize
@@ -17,4 +17,4 @@
           %span.value
             - picto_class = cost_type.to_sym == :reception ? 'picto-recent-actors' : "picto-#{ cost_type }"
             %i.picto{ class: picto_class }
-            = value.l(currency: currency.name)
+            = value.to_i.l(currency: currency.name)
