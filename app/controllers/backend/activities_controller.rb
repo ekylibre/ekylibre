@@ -156,7 +156,7 @@ module Backend
         return redirect_to(params[:redirect] || { action: :index })
       end
       if activities.any?
-        ItkImportJob.perform_later(activity_ids: activities.pluck(:id), current_campaign: current_campaign, current_user: current_user)
+        ItkImportJob.perform_later(activity_ids: activities.pluck(:id), current_campaign: current_campaign, user: current_user)
       else
         notify_error(:no_activities_present)
         redirect_to(params[:redirect] || { action: :index })
@@ -201,7 +201,7 @@ module Backend
       budget = @activity.budgets.find_by(campaign: current_campaign)
       return if Preference.find_by(name: 'ItkImportJob_running').present?
 
-      if @activity.technical_workflow(current_campaign).present?
+      if @activity.technical_workflow(current_campaign).present? || ( @activity.auxiliary? && MasterBudget.of_family(@activity.family).any?)
         ItkImportJob.perform_later(activity_ids: [@activity.id], current_campaign: current_campaign, user: current_user)
       else
         notify_warning(:no_reference_budget_found)
