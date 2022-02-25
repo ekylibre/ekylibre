@@ -238,6 +238,7 @@
             this.nextButton = element.querySelector('.btn-next');
             this.previousButton = element.querySelector('.btn-previous');
             this.currentButton = element.querySelector('.period');
+            this.campaignInput = element.querySelector('#campaign_name');
         }
 
         bindEvents() {
@@ -261,6 +262,7 @@
             } else {
                 year = this.currentYear - 1;
             }
+            this.campaignInput.value = year
             this.currentButton.innerText = year;
             campaignService.getByName(this.currentYear).then((campaing) => {
                 this.activityForm.setTacticCampaign(campaing.id);
