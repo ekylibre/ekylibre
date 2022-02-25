@@ -76,9 +76,8 @@ class ParcelItem < ApplicationRecord
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id', class_name: 'PurchaseItem'
   belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', class_name: 'PurchaseItem'
-
   belongs_to :product
-  belongs_to :sale_item
+  belongs_to :sale_item, inverse_of: :shipment_items # for a sale order who create shipments
   belongs_to :delivery
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :source_product, class_name: 'Product'

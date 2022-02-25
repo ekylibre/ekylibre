@@ -2642,6 +2642,7 @@ fra:
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
     new_shipment: "Nouvelle expédition"
+    new_shipment_with_sale_nature: "Nouvelle expédition (Type de vente)"
     new_title: "Nouveau titre" #?
     new_value: "Nouvelle valeur" #?
     new_writing: "Nouvel écrit"

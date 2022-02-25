@@ -4,7 +4,8 @@ using Ekylibre::Utils::NumericLocalization
 
 module Printers
   module Sale
-    class SalesInvoicePrinter < SalePrinterBase
+    class SalesInvoiceShipmentPrinter < SalePrinterBase
+      include ApplicationHelper
       def initialize(sale:, template:)
         super(sale: SaleDecorator.decorate(sale), template: template)
       end
@@ -17,6 +18,36 @@ module Printers
         end
       end
 
+      def build_shipment_sale_items(sale)
+        dataset = []
+        sale.items.group_by(&:shipment).each do |shipment, items|
+          h = {}
+          h[:number] = "#{:shipping_note.tl} #{shipment.number}" if shipment
+          h[:reference_number] = shipment&.reference_number
+          h[:given_at] = shipment&.given_at&.l(format: '%d %B %Y')
+          h[:address] = shipment&.address&.coordinate
+          h[:global_pretax_amount] = items.pluck(:pretax_amount).compact.sum.round_l
+          h[:global_vat_amount] = (items.pluck(:amount).compact.sum - items.pluck(:pretax_amount).compact.sum).round_l
+          h[:global_amount] = items.pluck(:amount).compact.sum.round_l
+          h[:items] = []
+          items.each do |item|
+            h_i = {}
+            h_i[:code] = item.variant.number
+            h_i[:variant] = "#{item.variant.name} (#{item.conditioning_unit.name})"
+            h_i[:quantity] = item.conditioning_quantity.round_l
+            h_i[:unit_pretax_amount] = item.unit_pretax_amount.round_l_auto
+            h_i[:discount] = item.reduction_percentage.round_l || '0.00'
+            h_i[:pretax_amount] = item.pretax_amount.round_l
+            h_i[:vat_amount] = (item.pretax_amount * item.tax.amount / 100).abs.round_l
+            h_i[:vat_rate] = item.tax.amount.round_l
+            h_i[:amount] = item.amount.round_l
+            h[:items] << h_i
+          end
+          dataset << h
+        end
+        dataset
+      end
+
       def generate(r)
         # Companies
         company = EntityDecorator.decorate(Entity.of_company)
@@ -27,8 +58,6 @@ module Printers
 
         client_reference = Maybe(sale).client_reference.fmap(&:presence).or_else('Non renseigné')
 
-        description = Maybe(sale).description.fmap { |d| [{ description: d }] }.or_else([])
-
         # Header
         r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
 
@@ -37,12 +66,12 @@ module Printers
 
         # Title
         r.add_field :title, I18n.t('labels.export_sales_invoice')
-        r.add_field :invoiced_at, sale.invoiced_at.l(format: '%d %B %Y')
+        r.add_field :invoiced_at, sale.invoiced_at.l(format: '%d %B %Y') if sale.invoiced_at.present?
         r.add_field :responsible, Maybe(sale).responsible.full_name.or_else('Non renseigné')
         r.add_field :client_reference, client_reference
 
         # Expired_at
-        r.add_field :expired_at, Delay.new(sale.payment_delay).compute(sale.invoiced_at).l(format: '%d %B %Y')
+        r.add_field :expired_at, Delay.new(sale.payment_delay).compute(sale.invoiced_at).l(format: '%d %B %Y') if sale.invoiced_at.present?
 
         # Company_address
         r.add_field :company_name, company.full_name
@@ -57,29 +86,30 @@ module Printers
         # Receiver vat_number
         r.add_field :receiver_vat_number, receiver.vat_number
 
-        r.add_section('Section-delivery-address', delivery_address_dataset(sale, receiver)) do |da_s|
-          da_s.add_field(:delivery_address) { |e| e[:delivery_address] }
-        end
-
         # Estimate_number
         r.add_field :number, sale.number
+        r.add_field :description, sale.description
 
-        r.add_section('Section-description', description) do |sd|
-          sd.add_field(:description) { |item| item[:description] }
-        end
-
-        # Items_table
-        r.add_table('items', sale.items) do |t|
-          t.add_field(:code) { |item| item.variant.number }
-          t.add_field(:variant) { |item| "#{item.variant.name} (#{item.conditioning_unit.name})" }
-          t.add_field(:annotation, &:annotation)
-          t.add_field(:quantity) { |item| item.conditioning_quantity.round_l }
-          t.add_field(:unit_pretax_amount) { |item| item.unit_pretax_amount.round_l_auto }
-          t.add_field(:discount) { |item| item.reduction_percentage.round_l || '0.00' }
-          t.add_field(:pretax_amount) { |item| item.pretax_amount.round_l }
-          t.add_field(:vat_amount) { |item| (item.pretax_amount * item.tax.amount / 100).abs.round_l }
-          t.add_field(:vat_rate) { |item| item.tax.amount.round_l }
-          t.add_field(:amount) { |item| item.amount.round_l }
+        # details group by parcel
+        dataset_shipment_items = build_shipment_sale_items(sale)
+        r.add_section('Section-parcel', dataset_shipment_items) do |pa|
+          pa.add_field(:number) { |item| item[:number] }
+          pa.add_field(:given_at) { |item| item[:given_at] }
+          pa.add_field(:address) { |item| item[:address] }
+          pa.add_field(:g_pt_am) { |item| item[:global_pretax_amount] }
+          pa.add_field(:g_vt_am) { |item| item[:global_vat_amount] }
+          pa.add_field(:g_am) { |item| item[:global_amount] }
+          pa.add_table('parcel-items', :items) do |t|
+            t.add_field(:code) { |item| item[:code] }
+            t.add_field(:variant) { |item| item[:variant] }
+            t.add_field(:quantity) { |item| item[:quantity] }
+            t.add_field(:pu) { |item| item[:unit_pretax_amount] }
+            t.add_field(:rem) { |item| item[:discount] }
+            t.add_field(:ht) { |item| item[:pretax_amount] }
+            t.add_field(:vat) { |item| item[:vat_amount] }
+            t.add_field(:vat_rate) { |item| item[:vat_rate] }
+            t.add_field(:ttc) { |item| item[:amount] }
+          end
         end
 
         # Sales conditions
@@ -121,19 +151,6 @@ module Printers
           r.add_field :action, I18n.t('labels.pay').downcase
         end
         r.add_field :left_to_pay, (sale.affair.debit - sale.affair.credit).round_l
-
-        # Parcels
-        parcels = sale.parcel_items.any? ? [sale] : []
-
-        r.add_section('Section-parcels', parcels) do |s|
-          s.add_table('parcels', :parcel_items) do |t|
-            t.add_field(:parcel_code) { |item| item.variant.number }
-            t.add_field(:parcel_variant) { |item| item.variant.name }
-            t.add_field(:parcel_quantity) { |item| item.quantity.round_l }
-            t.add_field(:parcel_number) { |item| item.parcel.number }
-            t.add_field(:planned_at) { |item| item.parcel.planned_at.l(format: '%d %B %Y') }
-          end
-        end
 
         # Footer
         r.add_field :footer, "#{I18n.t 'attributes.intracommunity_vat'} : #{company.vat_number} - #{I18n.t 'attributes.siret'} : #{company.siret_number} - #{I18n.t 'attributes.activity_code'} : #{company.activity_code}"

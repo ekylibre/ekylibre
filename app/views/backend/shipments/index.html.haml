@@ -36,6 +36,7 @@
   - k.choice *([[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]]), name: :invoice_status, label: :invoice_status.tl
 
 - main_toolbar do |t|
-  = t.new params: { redirect: nil }, label: :new_shipment.tl
+  -#= t.new params: { redirect: nil }, label: :new_shipment.tl
+  = t.new label: :new_shipment_with_sale_nature.tl, variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {sale_nature_id: n.id}] }
 
 = main_list
