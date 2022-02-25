@@ -5,6 +5,8 @@
     end
     hash
   end.sort{|a,b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
+  .group_by{ |right| Ekylibre::Access.category(right[0].to_sym)}
+  .sort{|a,b| Ekylibre::Access.human_category_name(a.first).ascii <=> Ekylibre::Access.human_category_name(b.first).ascii }
 .access-control-list
   - list.each do |category, resources|
     = field_set(category.to_sym) do

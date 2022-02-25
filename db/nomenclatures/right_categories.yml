@@ -1,0 +1,110 @@
+---
+accountancy:
+- accounts
+- bank_statements
+- cashes
+- cash_transfers
+- deposits
+- financial_years
+- financial_year_exchanges
+- fixed_assets
+- gaps
+- journals
+- journal_draft
+- journal_entries
+- loans
+- tax_declarations
+- taxes
+entities:
+- entities
+- events
+human_resources:
+- payslip_natures
+- payslip_payments
+- payslips
+- teams
+- workers
+sales:
+- affairs
+- sales
+- tasks
+tools:
+- cap_statements
+- documents
+- exports
+- identifiers
+- imports
+- integrations
+- listings
+- map_layers
+- net_services
+- sensors
+productions:
+- activities
+- analyses
+- animal_groups
+- animals
+- campaigns
+- crop_groups
+- cultivable_zones
+- equipments
+- interventions
+- issues
+- land_parcels
+- observations
+- plant_countings
+- plants
+- prescriptions
+- product_groups
+- productions
+- wine_tanks
+purchases:
+- contracts
+- outgoing_payment_lists
+- outgoing_payments
+- purchases
+- subscriptions
+stocks:
+- building_divisions
+- incoming_deliveries
+- inventories
+- matters
+- outgoing_deliveries
+- products
+- trackings
+- transports
+settings:
+- buildings
+- catalogs
+- custom_fields
+- districts
+- document_templates
+- georeadings
+- incoming_payment_modes
+- labels
+- myselves
+- naming_formats
+- outgoing_payment_modes
+- postal_zones
+- product_nature_categories
+- product_nature_variants
+- product_natures
+- project_budgets
+- purchase_natures
+- roles
+- sale_natures
+- sequences
+- settings
+- settlements
+- subscription_natures
+- users
+others:
+- fungi
+- guide_analyses
+- guides
+- incoming_payments
+- intervention_templates
+- manure_management_plans
+- schedulings
+- supervisions
+- technical_itineraries
