@@ -57,6 +57,7 @@ class SaleNature < ApplicationRecord
   belongs_to :journal
   belongs_to :payment_mode, class_name: 'IncomingPaymentMode'
   has_many :sales, foreign_key: :nature_id, dependent: :restrict_with_exception
+  has_many :shipments, class_name: 'Shipment', dependent: :nullify, inverse_of: :sale_nature
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :downpayment, inclusion: { in: [true, false] }

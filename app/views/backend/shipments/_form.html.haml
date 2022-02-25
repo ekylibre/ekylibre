@@ -7,7 +7,7 @@
     - delivery_address_id = params.dig(:shipment, :delivery_address_id)
     - if f.object.new_record? && delivery_address_id.present?
       = f.referenced_association :address, source: :mails, input_html: {value: delivery_address_id}, new: { canal: :mail }
-    - elsif f.object.new_record? 
+    - elsif f.object.new_record?
       = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }
     - else
       = f.referenced_association :address, source: :mails, new: { canal: :mail }
@@ -32,6 +32,7 @@
           %th.act
           %th.product-column= ParcelItem.human_attribute_name(:product)
           %th.quantity-column= ParcelItem.human_attribute_name(:population)
+          %th.price-column= ParcelItem.human_attribute_name(:unit_pretax_sale_amount)
           %th.delivery-mode-column= ParcelItem.human_attribute_name(:analysis)
 
       = f.simple_fields_for :items, f.object.items do |item|

@@ -268,7 +268,12 @@ class Parcel < ApplicationRecord
         end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = SaleNature.by_default
+        # fetch nature
+        if parcels&.last&.sale_nature
+          nature = parcels&.last&.sale_nature
+        elsif SaleNature.by_default
+          nature = SaleNature.by_default
+        else
           unless journal = Journal.sales.opened_on(planned_at).first
             raise 'No sale journal'
           end
@@ -281,9 +286,11 @@ class Parcel < ApplicationRecord
             name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
           )
         end
+        # create sale
         sale = Sale.new(
           client: third,
           nature: nature,
+          state: :order,
           # created_at: planned_at,
           delivery_address: parcels.last.address
         )
@@ -295,20 +302,22 @@ class Parcel < ApplicationRecord
             next unless item.variant.saleable? && item.population && item.population > 0
 
             catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
-            # 0 - Get unit_pretax_amount from parcel_item if exist
-            unit_pretax_amount = item.pretax_amount&.zero? ? nil : item.pretax_amount
+            # 0 - Get unit_pretax_sale_amount from parcel_item if exist
+            unit_pretax_amount = item.unit_pretax_sale_amount&.zero? ? nil : item.unit_pretax_sale_amount
             tax = Tax.current.first
-            # 1 - from last sale item
-            if (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
-              unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
-              tax = last_sale_items.order(id: :desc).first.tax
-            # 2 - from catalog with taxes
-            elsif catalog_item && catalog_item.all_taxes_included
-              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
-              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
-            # 3 - from catalog without taxes
-            elsif catalog_item
-              unit_pretax_amount ||= catalog_item.amount
+            unless unit_pretax_amount
+              # 1 - from last sale item
+              if (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
+                unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
+                tax = last_sale_items.order(id: :desc).first.tax
+              # 2 - from catalog with taxes
+              elsif catalog_item && catalog_item.all_taxes_included
+                unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
+                tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
+              # 3 - from catalog without taxes
+              elsif catalog_item
+                unit_pretax_amount ||= catalog_item.amount
+              end
             end
             item.sale_item = sale.items.new(
               variant: item.variant,
@@ -317,6 +326,7 @@ class Parcel < ApplicationRecord
               conditioning_unit: item.conditioning_unit,
               conditioning_quantity: item.conditioning_quantity,
               tax: tax,
+              shipment_item_id: item.id,
               quantity: item.population
             )
           end

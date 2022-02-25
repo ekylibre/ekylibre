@@ -6924,6 +6924,10 @@ parcel_items:
     references: entity
   type:
     type: string
+  unit_pretax_sale_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   unit_pretax_stock_amount:
     type: decimal
     precision: 19
@@ -7020,6 +7024,9 @@ parcels:
   sale_id:
     type: integer
     references: sale
+  sale_nature_id:
+    type: integer
+    references: sale_natures
   sender_id:
     type: integer
     references: entity
@@ -9563,6 +9570,9 @@ sale_items:
     type: integer
     references: sale
     required: true
+  shipment_item_id:
+    type: integer
+    references: parcel_item
   tax_id:
     type: integer
     references: tax

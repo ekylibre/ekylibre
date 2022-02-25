@@ -29,6 +29,7 @@ module Backend
       t.column :name, url: true
       t.column :active
       t.column :by_default
+      t.column :catalog, url: true
       t.column :currency
       # t.column :name, :through => :expiration, url: true
       # t.column :name, :through => :payment_delay, url: true
