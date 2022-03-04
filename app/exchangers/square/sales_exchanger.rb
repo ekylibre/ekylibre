@@ -9,7 +9,7 @@ module Square
     # filename example : articles-2020-11-30-2021-01-13.csv
     # encoding UTF-16, separator tab
     NORMALIZATION_CONFIG = [
-      { col: 0, name: :invoiced_on, type: :us_date, constraint: :not_nil },
+      { col: 0, name: :invoiced_on, type: :date, constraint: :not_nil },
       { col: 1, name: :invoiced_hour, type: :string, constraint: :not_nil },
       { col: 3, name: :category_name, type: :string },
       { col: 4, name: :article_name, type: :string },
