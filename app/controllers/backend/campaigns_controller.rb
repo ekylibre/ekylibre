@@ -57,7 +57,7 @@ module Backend
     end
 
     def show_by_name
-      return unless @campaign = Campaign.find_by(name: params[:name])
+      @campaign = Campaign.find_or_create_by!(harvest_year: params[:name].to_i)
 
       respond_to do |format|
         format.json

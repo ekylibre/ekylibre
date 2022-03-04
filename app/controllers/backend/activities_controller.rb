@@ -213,6 +213,8 @@ module Backend
 
       def open_activity
         @campaign = Campaign.find_by(name: params[:campaign][:name])
+        current_user.current_campaign = @campaign
+        current_user.current_period = Date.new(@campaign.harvest_year).to_s
         @activity.budgets.find_or_create_by!(campaign: @campaign)
       end
   end
