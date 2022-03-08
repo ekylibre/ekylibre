@@ -1811,6 +1811,7 @@ fra:
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
     database_version: "Version de la base de données"
+    datasources: "Liste des sources de données"
     date: "Date" #?
     date_range: "%{from} au %{to}"
     dated_cash: "%{cash}\_: %{on}"
@@ -4136,8 +4137,8 @@ fra:
         one: "%{count} activité a déjà été planifiée"
         other: "%{count} activités ont déjà été planifiées"
       x_activity_have_not_been_autoplanned:
-        one: "Aucune activité n'a pas été planifiée automatiquement."
-        other: "%{count} activité(s) n'ont pas été planifiée(s) automatiquement"
+        one: "Aucune activité n'a été planifiée automatiquement."
+        other: "%{count} activité(s) n'ont été planifiée(s) automatiquement"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
         other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"

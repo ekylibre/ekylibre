@@ -2007,6 +2007,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     database_version: "Database Version"
+    datasources: "Datasources"
     # date: "Date"
     date_range: "%{from} to %{to}"
     dated_cash: "%{cash}: %{on}"
