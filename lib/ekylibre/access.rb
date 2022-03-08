@@ -30,8 +30,8 @@ module Ekylibre
       end
 
       def category(resource)
-        puts resource.inspect.blue 
-        puts RIGHT_NAMES_CATEGORIES[resource].inspect.green 
+        puts resource.inspect.blue
+        puts RIGHT_NAMES_CATEGORIES[resource].inspect.green
         RIGHT_NAMES_CATEGORIES[resource]
       end
 
