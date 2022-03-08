@@ -1198,6 +1198,9 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    protected_water_zones: "Zone de captage"
+    theoritical_soil_depths: "Profondeur de sol"
+    theoritical_water_capacities: "Réserve utile en eau"
     depreciation_percentage: Pourcentage d'amortissement
     depreciation_period: Durée d'amortissement
     type_of_value: Type de valeur

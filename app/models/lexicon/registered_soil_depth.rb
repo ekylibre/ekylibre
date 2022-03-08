@@ -32,11 +32,8 @@
 #
 class RegisteredSoilDepth < LexiconRecord
   include Lexiconable
-  scope :in_bounding_box, lambda { |bounding_box|
-    where("registered_soil_depths.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
-  }
+  include Ekylibre::Record::HasShape
+  composed_of :soil_depth, class_name: 'Measure', mapping: [%w[soil_depth_value to_d], %w[soil_depth_unit unit]]
 
-  def shape
-    ::Charta.new_geometry(self[:shape])
-  end
+  has_geometry :shape
 end

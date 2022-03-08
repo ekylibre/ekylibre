@@ -11,6 +11,9 @@
     .med-info
       %span.title= CultivableZone.human_attribute_name(:work_number)
       %span.value= resource.work_number
+    .med-info
+      %span.title= CultivableZone.human_attribute_name(:net_surface_area)
+      %span.value= resource.human_shape_area
     - if resource.production_system
       .med-info
         %span.title= CultivableZone.human_attribute_name(:production_system)
@@ -19,9 +22,24 @@
       .med-info
         %span.title= CultivableZone.human_attribute_name(:soil_nature)
         %span.value= resource.human_soil_nature_name
-    .med-info
-      %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-      %span.value= resource.human_shape_area
+    - if resource.protected_water_zones
+      .med-info
+        %span.title= :protected_water_zones.tl
+        %span.value
+          %i.picto{ class: 'picto-water-protection' }
+          = resource.protected_water_zones.pluck(:name).to_sentence
+    - if resource.theoritical_soil_depths
+      .med-info
+        %span.title= :theoritical_soil_depths.tl
+        %span.value
+          %i.picto{ class: 'picto-blur-linear' }
+          = resource.theoritical_soil_depths.first.soil_depth.l(precision: 0)
+    - if resource.theoritical_water_capacities
+      .med-info
+        %span.title= :theoritical_water_capacities.tl
+        %span.value
+          %i.picto{ class: 'picto-water-arrow-up' }
+          = resource.theoritical_water_capacities.first.name
     - if resource.current_cultivations.any?
       .med-info
         %span.title= :current_cultivation.tl

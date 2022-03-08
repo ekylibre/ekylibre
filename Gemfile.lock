@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ekylibre/agric.git
-  revision: 532cb06cdc2494ee820bdfd4443429850109373a
+  revision: 7a400bb2469c53bf3833e3cbc4eeea100f89d210
   branch: master
   specs:
     agric (4.1.0)

@@ -23,26 +23,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_soil_available_water_capacities
+# == Table: registered_protected_water_zones
 #
-# id character varying PRIMARY KEY NOT NULL,
-# available_water_reference_value integer,
-# available_water_min_value numeric(19,4),
-# available_water_max_value numeric(19,4),
-# available_water_unit character varying,
-# available_water_label character varying,
+# id character varying NOT NULL,
+# name character varying,
+# updated_on date,
 # shape postgis.geometry(MultiPolygon, 4326) NOT NULL
 #
-class RegisteredSoilAvailableWaterCapacity < LexiconRecord
+class RegisteredProtectedWaterZone < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
-  composed_of :available_water_max, class_name: 'Measure', mapping: [%w[available_water_max_value to_d], %w[available_water_unit unit]]
-  composed_of :available_water_min, class_name: 'Measure', mapping: [%w[available_water_min_value to_d], %w[available_water_unit unit]]
 
   has_geometry :shape
-
-  def name
-    available_water_label
-  end
 
 end

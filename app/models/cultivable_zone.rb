@@ -104,6 +104,30 @@ class CultivableZone < ApplicationRecord
     nil
   end
 
+  # return protected_water_zones intersecting cultivable_zone
+  def protected_water_zones
+    water_zones = RegisteredProtectedWaterZone.shape_intersecting(shape)
+    return water_zones if water_zones.any?
+
+    nil
+  end
+
+  # return theoritical soil depth intersecting cultivable_zone
+  def theoritical_soil_depths
+    zones = RegisteredSoilDepth.shape_intersecting(shape)
+    return zones if zones.any?
+
+    nil
+  end
+
+  # return theoritical water capacities intersecting cultivable_zone
+  def theoritical_water_capacities
+    zones = RegisteredSoilAvailableWaterCapacity.shape_intersecting(shape)
+    return zones if zones.any?
+
+    nil
+  end
+
   after_commit do
     activity_productions.each(&:update_names)
     Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)
