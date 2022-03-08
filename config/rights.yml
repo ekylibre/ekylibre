@@ -704,6 +704,23 @@
 #     - "public/financial_year_exchange_exports#csv"
 #     - "public/financial_year_exchange_exports#show"
 
+all_purchases:
+  read:
+    dependencies:
+    - read-subscriptions
+    - read-purchases
+    - read-contracts
+    - read-outgoing_payments
+    - read-outgoing_payment_lists
+  write:
+    dependencies:
+    - read-all_purchases
+    - write-subscriptions
+    - write-purchases
+    - write-contracts
+    - write-outgoing_payments
+    - write-outgoing_payment_lists
+
 accounts:
   read:
     actions:
@@ -817,6 +834,21 @@ affairs:
     - "backend/sale_tickets#finish"
     - "backend/sale_tickets#select"
     - "backend/sale_tickets#unroll"
+
+analytic_sequences:
+  read:
+    actions:
+    - "backend/analytic_sequences#index"
+    - "backend/analytic_sequences#list"
+  write:
+    dependencies:
+    - read-analytic_sequences
+    actions:
+    - "backend/analytic_sequences#edit"
+    - "backend/analytic_sequences#update"
+    - "backend/analytic_sequences#new"
+    - "backend/analytic_sequences#create"
+    - "backend/analytic_sequences#destroy"
 
 analyses:
   read:
@@ -1009,6 +1041,7 @@ buildings:
   write:
     dependencies:
     - read-buildings
+    - read-product_nature_variants
     actions:
     - "backend/buildings#create"
     - "backend/buildings#destroy"
@@ -1125,6 +1158,8 @@ catalogs:
   write:
     dependencies:
     - read-catalogs
+    - read-conditionings
+    - read-product_nature_variants
     actions:
     - "backend/catalog_items#create"
     - "backend/catalog_items#destroy"
@@ -1136,6 +1171,33 @@ catalogs:
     - "backend/catalogs#edit"
     - "backend/catalogs#new"
     - "backend/catalogs#update"
+
+conditionings:
+  read:
+    actions:
+    - "backend/conditionings#list"
+    - "backend/conditionings#index"
+    - "backend/conditionings#list_products"
+    - "backend/conditionings#show"
+    - "backend/conditionings#unroll"
+    
+
+  write:
+    dependencies:
+    - read-conditionings
+    actions:
+    - "backend/conditionings#new"
+    - "backend/conditionings#create"
+    - "backend/conditionings#destroy"
+    - "backend/conditionings#edit"
+    - "backend/conditionings#update"
+    - "backend/conditionings#new_on_the_go"
+    - "backend/conditionings#create_on_the_go"
+    - "backend/units#unroll"
+    - "backend/reference_units#list"
+    - "backend/reference_units#unroll"
+
+
 
 contracts:
   read:
@@ -1489,41 +1551,6 @@ fixed_assets:
     - "backend/fixed_assets#start_up"
     - "backend/fixed_assets#update"
 
-fungi:
-  read:
-    actions:
-    - "backend/fungi#index"
-    - "backend/fungi#list"
-    - "backend/fungi#list_carried_linkages"
-    - "backend/fungi#list_carrier_linkages"
-    - "backend/fungi#list_contained_products"
-    - "backend/fungi#list_fixed_assets"
-    - "backend/fungi#list_groups"
-    - "backend/fungi#list_inspections"
-    - "backend/fungi#list_intervention_product_parameters"
-    - "backend/fungi#list_issues"
-    - "backend/fungi#list_members"
-    - "backend/fungi#list_places"
-    - "backend/fungi#list_readings"
-    - "backend/fungi#list_reception_items"
-    - "backend/fungi#list_shipment_items"
-    - "backend/fungi#list_trackings"
-    - "backend/fungi#picture"
-    - "backend/fungi#show"
-    - "backend/fungi#unroll"
-  write:
-    dependencies:
-    - read-fungi
-    actions:
-    - "backend/fungi#create"
-    - "backend/fungi#destroy"
-    - "backend/fungi#edit"
-    - "backend/fungi#edit_many"
-    - "backend/fungi#new"
-    - "backend/fungi#take"
-    - "backend/fungi#update"
-    - "backend/fungi#update_many"
-
 gaps:
   read:
     actions:
@@ -1564,34 +1591,10 @@ georeadings:
     - "backend/georeadings#new"
     - "backend/georeadings#update"
 
-guide_analyses:
+humans_dashboard:
   read:
     actions:
-    - "backend/guide_analyses#list_points"
-    - "backend/guide_analyses#show"
-
-guides:
-  read:
-    actions:
-    - "backend/guides#index"
-    - "backend/guides#list"
-    - "backend/guides#list_analyses"
-    - "backend/guides#show"
-    - "backend/guides#unroll"
-  write:
-    dependencies:
-    - read-guides
-    actions:
-    - "backend/guides#create"
-    - "backend/guides#destroy"
-    - "backend/guides#edit"
-    - "backend/guides#new"
-    - "backend/guides#update"
-  execute:
-    dependencies:
-    - read-guides
-    actions:
-    - "backend/guides#run"
+    - "backend/dashboards#humans"
 
 identifiers:
   read:
@@ -1723,14 +1726,6 @@ integrations:
     - "backend/net_services#new"
     - "backend/net_services#update"
 
-intervention_templates:
-  read:
-    dependencies:
-    - read-intervention_templates
-  write:
-    dependencies:
-    - read-intervention_templates
-
 interventions:
   read:
     actions:
@@ -1806,6 +1801,22 @@ issues:
     - "backend/issues#new"
     - "backend/issues#reopen"
     - "backend/issues#update"
+
+invitations:
+  read:
+    actions:
+    - "backend/invitations#index"
+    - "backend/invitations#list"
+  write:
+    dependencies:
+    - read-invitations
+    - read-users
+    - read-roles
+    actions:
+    - "backend/invitations#new"
+    - "backend/invitations#create"
+
+
 
 journal_draft:
   read:
@@ -1982,24 +1993,6 @@ loans:
     - "backend/loans#new"
     - "backend/loans#repay"
     - "backend/loans#update"
-
-manure_management_plans:
-  read:
-    actions:
-    - "backend/manure_management_plans#index"
-    - "backend/manure_management_plans#list"
-    - "backend/manure_management_plans#list_zones"
-    - "backend/manure_management_plans#show"
-    - "backend/manure_management_plans#unroll"
-  write:
-    dependencies:
-    - read-manure_management_plans
-    actions:
-    - "backend/manure_management_plans#create"
-    - "backend/manure_management_plans#destroy"
-    - "backend/manure_management_plans#edit"
-    - "backend/manure_management_plans#new"
-    - "backend/manure_management_plans#update"
 
 map_layers:
   read:
@@ -2181,6 +2174,7 @@ outgoing_payment_modes:
   write:
     dependencies:
     - read-outgoing_payment_modes
+    - read-cashes
     actions:
     - "backend/outgoing_payment_modes#create"
     - "backend/outgoing_payment_modes#destroy"
@@ -2217,6 +2211,8 @@ outgoing_payments:
 
 payslip_natures:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/payslip_natures#index"
     - "backend/payslip_natures#list"
@@ -2234,6 +2230,8 @@ payslip_natures:
 
 payslip_payments:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/payslip_payments#index"
     - "backend/payslip_payments#list"
@@ -2251,6 +2249,8 @@ payslip_payments:
 
 payslips:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/payslip_affairs#index"
     - "backend/payslip_affairs#list"
@@ -2414,6 +2414,7 @@ product_nature_categories:
   write:
     dependencies:
     - read-product_nature_categories
+    - read-accounts
     actions:
     - "backend/product_nature_categories#create"
     - "backend/product_nature_categories#destroy"
@@ -2438,9 +2439,12 @@ product_nature_variants:
     - "backend/product_nature_variants#picture"
     - "backend/product_nature_variants#show"
     - "backend/product_nature_variants#unroll"
+    - "backend/units#unroll"
   write:
     dependencies:
     - read-product_nature_variants
+    - read-product_natures
+    - read-product_nature_categories
     actions:
     - "backend/product_nature_variant_components#autocomplete"
     - "backend/product_nature_variants#create"
@@ -2459,6 +2463,7 @@ product_natures:
     - "backend/product_natures#list_variants"
     - "backend/product_natures#show"
     - "backend/product_natures#unroll"
+    - "backend/product_natures#compatible_varieties"
   write:
     dependencies:
     - read-product_natures
@@ -2624,6 +2629,20 @@ purchases:
     - "backend/unreceived_purchase_orders#edit"
     - "backend/unreceived_purchase_orders#update"
 
+registrations:
+  read:
+    actions:
+    - "backend/registrations#index"
+    - "backend/registrations#list"
+  write:
+    dependencies:
+    - read-registrations
+    - read-users
+    actions:
+    - "backend/registrations#update"
+    - "backend/registrations#edit"
+    - "backend/registrations#destroy"
+
 roles:
   read:
     actions:
@@ -2735,14 +2754,6 @@ sales:
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
 
-schedulings:
-  read:
-    dependencies:
-    - read-schedulings
-  write:
-    dependencies:
-    - read-schedulings
-
 sensors:
   read:
     actions:
@@ -2818,6 +2829,7 @@ settlements:
   write:
     dependencies:
     - read-settlements
+    - read-product_nature_variants
     actions:
     - "backend/settlements#create"
     - "backend/settlements#destroy"
@@ -2942,6 +2954,8 @@ taxes:
 
 teams:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/teams#index"
     - "backend/teams#list"
@@ -2956,14 +2970,6 @@ teams:
     - "backend/teams#edit"
     - "backend/teams#new"
     - "backend/teams#update"
-
-technical_itineraries:
-  read:
-    dependencies:
-    - read-technical_itineraries
-  write:
-    dependencies:
-    - read-technical_itineraries
 
 trackings:
   read:
@@ -3014,10 +3020,6 @@ transports:
 users:
   read:
     actions:
-    - "backend/invitations#index"
-    - "backend/invitations#list"
-    - "backend/registrations#index"
-    - "backend/registrations#list"
     - "backend/users#index"
     - "backend/users#list"
     - "backend/users#show"
@@ -3025,12 +3027,9 @@ users:
   write:
     dependencies:
     - read-users
+    - read-entities
+    - read-roles
     actions:
-    - "backend/invitations#create"
-    - "backend/invitations#new"
-    - "backend/registrations#destroy"
-    - "backend/registrations#edit"
-    - "backend/registrations#update"
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"
@@ -3049,8 +3048,68 @@ wine_tanks:
     - "backend/wine_tanks#index"
     - "backend/wine_tanks#list"
 
+worker_groups:
+  read:
+    dependencies:
+    - read-human_dashboard
+    actions:
+    - "backend/worker_groups#index"
+    - "backend/worker_groups#list"
+    - "backend/worker_groups#show"
+    - "backend/worker_groups#unroll"
+    - "backend/worker_groups#unroll_list"
+  write:
+    dependencies:
+    - read-worker_groups
+    actions:
+    - "backend/worker_groups#edit"
+    - "backend/worker_groups#create"
+    - "backend/worker_groups#new"
+    - "backend/worker_groups#duplicate"
+    - "backend/worker_groups#destroy"
+    - "backend/worker_groups#list_workers"
+
+worker_contracts:
+  read:
+      dependencies:
+      - read-human_dashboard
+      actions:
+      - "backend/worker_contracts#index"
+      - "backend/worker_contracts#show"
+      - "backend/worker_contracts#list"
+      - "backend/worker_contracts#unroll"
+  write:
+    dependencies:
+    - read-entities
+    - read-worker_contracts
+    actions:
+    - "backend/worker_contracts#edit"
+    - "backend/worker_contracts#create"
+    - "backend/worker_contracts#new"
+    - "backend/worker_contracts#destroy"
+
+worker_time_logs:
+  read:
+    dependencies:
+    - read-human_dashboard
+    actions:
+    - "backend/worker_time_logs#index"
+    - "backend/worker_time_logs#list"
+    - "backend/worker_time_logs#show"
+  write:
+    dependencies:
+    - read-workers
+    - read-worker_time_logs
+    actions:
+    - "backend/worker_time_logs#edit"
+    - "backend/worker_time_logs#create"
+    - "backend/worker_time_logs#new"
+    - "backend/worker_time_logs#destroy"
+
 workers:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/workers#index"
     - "backend/workers#list"

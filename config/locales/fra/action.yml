@@ -1945,7 +1945,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
     earns: "Gains" #?
-    economic: "Économique"
+    economics: "Économique"
     edit: "Modifier"
     edit_budget: "Modifier le budget"
     edition_date: "Date d'édition"

@@ -1,10 +1,8 @@
 ---
 accountancy:
-- accounts
 - bank_statements
 - cashes
 - cash_transfers
-- deposits
 - financial_years
 - financial_year_exchanges
 - fixed_assets
@@ -15,21 +13,38 @@ accountancy:
 - loans
 - tax_declarations
 - taxes
+economics:
+- costs
+- economic_dashboard
+- margins
+- simulators
 entities:
 - entities
 - events
 human_resources:
+- humans_dashboard
 - payslip_natures
 - payslip_payments
 - payslips
 - teams
+- worker_groups
+- worker_contracts
+- worker_time_logs
 - workers
 sales:
 - affairs
 - sales
 - tasks
+- incoming_payments
+- deposits
 tools:
 - cap_statements
+- cadastral_land_parcel_zones
+- cvi_cadastral_plants
+- cvi_cultivable_zones
+- cvi_land_parcels
+- cvi_statement_conversions
+- cvi_statements
 - documents
 - exports
 - identifiers
@@ -38,7 +53,9 @@ tools:
 - listings
 - map_layers
 - net_services
+- tools
 - sensors
+- supervisions
 productions:
 - activities
 - analyses
@@ -58,7 +75,9 @@ productions:
 - product_groups
 - productions
 - wine_tanks
+- wine_incoming_harvests
 purchases:
+- all_purchases
 - contracts
 - outgoing_payment_lists
 - outgoing_payments
@@ -74,13 +93,17 @@ stocks:
 - trackings
 - transports
 settings:
+- accounts
+- analytic_sequences
 - buildings
 - catalogs
+- conditionings
 - custom_fields
 - districts
 - document_templates
 - georeadings
 - incoming_payment_modes
+- invitations
 - labels
 - myselves
 - naming_formats
@@ -91,6 +114,7 @@ settings:
 - product_natures
 - project_budgets
 - purchase_natures
+- registrations
 - roles
 - sale_natures
 - sequences
@@ -98,13 +122,9 @@ settings:
 - settlements
 - subscription_natures
 - users
-others:
-- fungi
-- guide_analyses
-- guides
-- incoming_payments
+schedulings:
 - intervention_templates
-- manure_management_plans
-- schedulings
-- supervisions
+- load_plans
 - technical_itineraries
+- scenarios
+- schedulings
