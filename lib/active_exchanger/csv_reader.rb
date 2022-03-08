@@ -5,9 +5,8 @@ module ActiveExchanger
     # Possible CSV separators to check
     SEPARATORS = [",", ";", "\t", "|", "#"].freeze
 
-    def initialize(col_sep: ',', headers: true)
+    def initialize(col_sep: ',')
       @separator = col_sep
-      @headers = headers
     end
 
     def read(filename, col_sep: @separator)
@@ -16,7 +15,7 @@ module ActiveExchanger
 
       col_sep ||= separator(File.read(filename, encoding: detection[:encoding]))
 
-      CSV.read(filename, headers: @headers, encoding: detection[:encoding], col_sep: col_sep)
+      CSV.read(filename, headers: true, encoding: detection[:encoding], col_sep: col_sep)
     end
 
     private
