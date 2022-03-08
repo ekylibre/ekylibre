@@ -23,14 +23,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_cadastral_buildings
+# == Table: registered_soil_depths
 #
-#  centroid :geometry({:srid=>4326, :type=>"st_point"})
-#  nature   :string
-#  shape    :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+# id character varying PRIMARY KEY NOT NULL,
+# soil_depth_value numeric(19,4),
+# soil_depth_unit character varying,
+# shape postgis.geometry(MultiPolygon, 4326) NOT NULL
 #
-class RegisteredCadastralBuilding < LexiconRecord
+class RegisteredSoilDepth < LexiconRecord
   include Lexiconable
+  scope :in_bounding_box, lambda { |bounding_box|
+    where("registered_soil_depths.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
+  }
 
-  has_geometry :shape
+  def shape
+    ::Charta.new_geometry(self[:shape])
+  end
 end

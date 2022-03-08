@@ -27,6 +27,7 @@ module Printers
 
         # Title
         r.add_field :title, title
+        r.add_field :expired_at, sale.expired_at&.to_date&.l
 
         # Aborted
         r.add_section('section-aborted', state) do |s|
@@ -62,6 +63,7 @@ module Printers
         r.add_table('items', sale.items) do |t|
           t.add_field(:code) { |item| item.variant.number }
           t.add_field(:variant) { |item| "#{item.variant.name} (#{item.conditioning_unit.name})" }
+          t.add_field(:annotation, &:annotation)
           t.add_field(:quantity) { |item| item.conditioning_quantity.round_l }
           t.add_field(:unit_pretax_amount) { |item| item.unit_pretax_amount.round_l_auto }
           t.add_field(:discount) { |item| item.reduction_percentage.round_l || '0.00' }
@@ -69,6 +71,14 @@ module Printers
           t.add_field(:vat_amount) { |item| (item.pretax_amount * item.tax.amount / 100).abs.round_l }
           t.add_field(:vat_rate) { |item| item.tax.amount.round_l }
           t.add_field(:amount) { |item| item.amount.round_l }
+        end
+
+        # vat totals
+        r.add_table('vat-totals', build_vat_totals, headers: true) do |v|
+          v.add_field(:vat_name) { |item| item[:tax_name] }
+          v.add_field(:vat_rate) { |item| item[:tax_rate] }
+          v.add_field(:vat_base) { |item| item[:tax_base_pretax_amount] }
+          v.add_field(:vat_amount) { |item| item[:tax_amount] }
         end
 
         # Totals
@@ -80,6 +90,7 @@ module Printers
           # Details
           r.add_table('details', sale.other_deals) do |s|
             s.add_field(:payment_date) { |item| AffairableDecorator.decorate(item).payment_date.l(format: '%d %B %Y') }
+            s.add_field(:payment_mode) { |item| (item.is_a?(IncomingPayment) ? item.mode.name : '') }
             s.add_field(:payment_number, &:number)
             s.add_field(:payment_amount) { |item| item.class == sale.class ? '' : item.amount.round_l }
             s.add_field(:sale_affair) { |item| item.class == sale.class ? item.amount.round_l : '' }

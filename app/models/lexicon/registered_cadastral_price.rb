@@ -23,14 +23,31 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_cadastral_buildings
+# == Table: registered_cadastral_prices
 #
-#  centroid :geometry({:srid=>4326, :type=>"st_point"})
-#  nature   :string
-#  shape    :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+# id SERIAL PRIMARY KEY NOT NULL,
+# mutation_id character varying,
+# mutation_date DATE,
+# mutation_reference character varying,
+# mutation_nature character varying,
+# cadastral_price numeric(14,2),
+# cadastral_parcel_id character varying,
+# building_nature character varying,
+# building_area integer,
+# cadastral_parcel_area integer,
+# address character varying,
+# postal_code character varying,
+# city character varying,
+# department character varying,
+# centroid postgis.geometry(Point,4326)
 #
-class RegisteredCadastralBuilding < LexiconRecord
+class RegisteredCadastralPrice < LexiconRecord
   include Lexiconable
+  scope :in_bounding_box, lambda { |bounding_box|
+    where("registered_cadastral_prices.centroid && ST_MakeEnvelope(#{bounding_box.join(', ')})")
+  }
 
-  has_geometry :shape
+  def centroid
+    ::Charta.new_geometry(self[:centroid])
+  end
 end

@@ -85,6 +85,8 @@ eng:
     telepac_v2018_cap_statements: "TelePAC 2018 statement (XML)"
     telepac_v2019_cap_statements: "TelePAC 2019 statement (XML)"
     telepac_v2020_cap_statements: "TelePAC 2020 statement (XML)"
+    telepac_v2021_cap_statements: "TelePAC 2021 statement (XML)"
+    telepac_v2022_cap_statements: "TelePAC 2022 statement (XML)"
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_i_seven_fec_txt: "Accountancy FEC (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Accountancy (ECX) ‒ Sagei7"

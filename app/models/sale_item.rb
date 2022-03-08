@@ -76,8 +76,12 @@ class SaleItem < ApplicationRecord
   belongs_to :conditioning_unit, class_name: 'Unit'
   belongs_to :catalog_item
   # belongs_to :tracking
+  # for a sale order who create shipments 1 order => n shipments
   has_many :shipment_items
   has_many :shipments, through: :shipment_items
+  # for a sale creating from shipments n shipments => 1 sale
+  belongs_to :shipment_item, inverse_of: :sale_item, foreign_key: :shipment_item_id
+  has_one :shipment, through: :shipment_item
   has_many :credits, class_name: 'SaleItem', foreign_key: :credited_item_id
   has_many :subscriptions, dependent: :destroy
   has_one :subscription, -> { order(:id) }, inverse_of: :sale_item

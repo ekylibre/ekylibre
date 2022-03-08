@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ekylibre/agric.git
-  revision: 65825326cf5617e1d4b57b957a616a1eb4ca0046
+  revision: 532cb06cdc2494ee820bdfd4443429850109373a
   branch: master
   specs:
     agric (4.1.0)
@@ -272,7 +272,7 @@ GEM
     faraday-net_http (1.0.1)
     fastimage (2.2.3)
     ffaker (2.18.0)
-    ffi (1.15.4)
+    ffi (1.15.5)
     fiddle (1.0.7)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -315,7 +315,7 @@ GEM
       rack
       socksify
     humanize (2.5.1)
-    i18n (1.8.11)
+    i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     i18n-complements (1.1.1)
       i18n (>= 0.6)
@@ -369,7 +369,7 @@ GEM
       semantic (~> 1.6)
       zeitwerk (~> 2.4)
     libv8 (3.16.14.19)
-    loofah (2.13.0)
+    loofah (2.14.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     luhn (1.0.2)
@@ -393,7 +393,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
+    mini_portile2 (2.8.0)
     minitest (5.15.0)
     minitest-reporters (1.4.3)
       ansi
@@ -410,8 +410,8 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nori (2.6.0)
     ntlm-http (0.1.1)
@@ -427,7 +427,7 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    onoma (0.6.3)
+    onoma (0.6.4)
       activesupport (>= 4.2)
       nokogiri (>= 1.10.4)
       zeitwerk (~> 2.4.0)
@@ -790,7 +790,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.6.3)
+  onoma (~> 0.6.4)
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)

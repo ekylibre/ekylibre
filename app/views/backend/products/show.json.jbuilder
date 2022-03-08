@@ -25,3 +25,13 @@ json.ownership do
     json.nature :none
   end
 end
+# catalog price link to sale nature, variant / conditionning from shipment
+if params[:sale_nature_id] && params[:planned_at]
+  sale_nature = SaleNature.find(params[:sale_nature_id])
+  if sale_nature && variant
+    price_items = sale_nature.catalog.items.of_variant(variant).of_unit(resource.conditioning_unit).active_at(params[:planned_at])
+    if price_items.any?
+      json.default_sale_price price_items.first.pretax_amount
+    end
+  end
+end

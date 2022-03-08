@@ -23,14 +23,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_cadastral_buildings
+# == Table: registered_soil_available_water_capacities
 #
-#  centroid :geometry({:srid=>4326, :type=>"st_point"})
-#  nature   :string
-#  shape    :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+# id character varying PRIMARY KEY NOT NULL,
+# available_water_reference_value integer,
+# available_water_min_value numeric(19,4),
+# available_water_max_value numeric(19,4),
+# available_water_unit character varying,
+# available_water_label character varying,
+# shape postgis.geometry(MultiPolygon, 4326) NOT NULL
 #
-class RegisteredCadastralBuilding < LexiconRecord
+class RegisteredSoilAvailableWaterCapacity < LexiconRecord
   include Lexiconable
+  scope :in_bounding_box, lambda { |bounding_box|
+    where("registered_soil_available_water_capacities.shape && ST_MakeEnvelope(#{bounding_box.join(', ')})")
+  }
 
-  has_geometry :shape
+  def shape
+    ::Charta.new_geometry(self[:shape])
+  end
 end

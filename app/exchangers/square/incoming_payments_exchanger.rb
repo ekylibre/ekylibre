@@ -7,7 +7,7 @@ module Square
 
     # encoding UTF-16, separator tab
     NORMALIZATION_CONFIG = [
-      { col: 0, name: :invoiced_on, type: :us_date, constraint: :not_nil },
+      { col: 0, name: :invoiced_on, type: :date, constraint: :not_nil },
       { col: 1, name: :invoiced_hour, type: :string, constraint: :not_nil },
       { col: 11, name: :amount, type: :currency, constraint: :not_nil },
       { col: 13, name: :cb_amount, type: :currency, constraint: :not_nil },

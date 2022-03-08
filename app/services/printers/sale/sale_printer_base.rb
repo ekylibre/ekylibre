@@ -18,6 +18,20 @@ module Printers
                    .recover { Cash.bank_accounts.first }
       end
 
+      # @return [ { } ]
+      def build_vat_totals
+        dataset = []
+        sale.items.group_by(&:tax).each do |tax, items|
+          h = {}
+          h[:tax_name] = tax.name
+          h[:tax_rate] = tax.amount
+          h[:tax_base_pretax_amount] = items.pluck(:pretax_amount).compact.sum.round_l
+          h[:tax_amount] = (items.pluck(:amount).compact.sum - items.pluck(:pretax_amount).compact.sum).round_l
+          dataset << h
+        end
+        dataset
+      end
+
       # @return [String]
       def key
         sale.number

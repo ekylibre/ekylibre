@@ -141,6 +141,7 @@
           position: "bottomleft"
           metric: true
           feet: false
+          tooltip: true
         importers:
           gml: true
           geojson: true
