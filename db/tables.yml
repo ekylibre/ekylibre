@@ -271,9 +271,6 @@ activity_budget_items:
   lock_version:
     type: integer
     required: true
-  locked:
-    type: boolean
-    default: false
   main_output:
     type: boolean
     required: true
@@ -294,11 +291,6 @@ activity_budget_items:
   repetition:
     type: integer
     required: true
-  transfer_price:
-    type: float
-  transfered_activity_budget_id:
-    type: integer
-    references: activity_budget
   unit_amount:
     type: decimal
     precision: 19
@@ -319,9 +311,6 @@ activity_budget_items:
   updater_id:
     type: integer
     references: user
-  use_transfer_price:
-    type: boolean
-    default: false
   used_on:
     type: date
   variant_id:
@@ -2757,27 +2746,22 @@ documents:
     required: true
     default: false
 economic_cash_indicators:
+  activity_id:
+    type: integer
+    references: activity
   activity_budget_id:
     type: integer
     references: activity_budget
   activity_budget_item_id:
     type: integer
     references: activity_budget_item
-  activity_id:
-    type: integer
-    references: activity
   amount:
     type: decimal
   campaign_id:
     type: integer
     references: campaign
-  context:
-    type: string
-  context_color:
-    type: string
   created_at:
     type: datetime
-    required: true
   creator_id:
     type: integer
     references: user
@@ -2786,9 +2770,6 @@ economic_cash_indicators:
   id:
     type: integer
     required: true
-  loan_id:
-    type: integer
-    references: loan
   lock_version:
     type: integer
     required: true
@@ -2805,15 +2786,11 @@ economic_cash_indicators:
     references: product_nature_variant
   updated_at:
     type: datetime
-    required: true
   updater_id:
     type: integer
     references: user
   used_on:
     type: date
-  worker_contract_id:
-    type: integer
-    references: worker_contract
 entities:
   active:
     type: boolean
@@ -6114,9 +6091,6 @@ master_crop_production_yields:
     scale: 2
     required: true
 master_crop_productions:
-  activity_family:
-    type: string
-    required: true
   agroedi_crop_code:
     type: string
   idea_botanic_family:
@@ -6134,6 +6108,7 @@ master_crop_productions:
     type: string
   specie:
     type: string
+    required: true
   started_on:
     type: date
     required: true
@@ -8411,6 +8386,7 @@ products:
   conditioning_unit_id:
     type: integer
     references: unit
+    required: true
   country:
     type: string
   created_at:
@@ -8565,9 +8541,6 @@ products:
     required: true
   work_number:
     type: string
-  worker_group_item_id:
-    type: integer
-    references: worker_group_item
 project_budgets:
   created_at:
     type: datetime
@@ -8866,9 +8839,6 @@ registered_cadastral_buildings:
     limit:
       srid: 4326
       type: st_point
-  id:
-    type: integer
-    required: true
   nature:
     type: string
   shape:
@@ -8890,54 +8860,13 @@ registered_cadastral_parcels:
     type: integer
   section:
     type: string
-  section_prefix:
-    type: string
   shape:
     type: geometry
     limit:
       srid: 4326
       type: multi_polygon
     required: true
-  town_insee_code:
-    type: string
   work_number:
-    type: string
-registered_cadastral_prices:
-  address:
-    type: string
-  building_area:
-    type: integer
-  building_nature:
-    type: string
-  cadastral_parcel_area:
-    type: integer
-  cadastral_parcel_id:
-    type: string
-  cadastral_price:
-    type: decimal
-    precision: 14
-    scale: 2
-  centroid:
-    type: geometry
-    limit:
-      srid: 4326
-      type: st_point
-  city:
-    type: string
-  department:
-    type: string
-  id:
-    type: integer
-    required: true
-  mutation_date:
-    type: date
-  mutation_id:
-    type: string
-  mutation_nature:
-    type: string
-  mutation_reference:
-    type: string
-  postal_code:
     type: string
 registered_enterprises:
   address:
@@ -9251,46 +9180,6 @@ registered_seed_varieties:
     type: string
   variety_name:
     type: string
-registered_soil_available_water_capacities:
-  available_water_label:
-    type: string
-  available_water_max_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  available_water_min_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  available_water_reference_value:
-    type: integer
-  available_water_unit:
-    type: string
-  id:
-    type: string
-    required: true
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
-    required: true
-registered_soil_depths:
-  id:
-    type: string
-    required: true
-  shape:
-    type: geometry
-    limit:
-      srid: 4326
-      type: multi_polygon
-    required: true
-  soil_depth_unit:
-    type: string
-  soil_depth_value:
-    type: decimal
-    precision: 19
-    scale: 4
 registered_vine_varieties:
   category:
     type: string
@@ -10702,8 +10591,6 @@ units:
   name:
     type: string
     required: true
-  provider:
-    type: jsonb
   reference_name:
     type: string
   symbol:
