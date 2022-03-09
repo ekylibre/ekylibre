@@ -78,21 +78,6 @@
             background: mix(white, $success-color, 60%);
           }
         }
-        .time-log {
-          @include display(block);
-          background: $active-color;
-          color: white;
-          padding: 0.1 * $default-gap 0.4 * $default-gap;
-          margin: 0.1 * $default-gap;
-          @include border-radius($default-border-radius);
-          @include ellipsis;
-          &.squeezed {
-            text-decoration: line-through;
-          }
-          &.overtime {
-            background: mix(white, $success-color, 60%);
-          }
-        }
       }
       &.today {
         background: #FE9;
