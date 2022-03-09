@@ -1380,7 +1380,6 @@ fra:
     add_tool: "Ajouter un outil"
     add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
     add_website: "Ajouter un site web"
-    add_worker: "Ajouter un équipier"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
@@ -1746,7 +1745,6 @@ fra:
     create_a_new_conditioning: "Créer un nouveau conditionnement"
     create_a_sale: "Créer une vente"
     create_and_continue: "Créer et saisir suivant"
-    create_group: "Créer un groupe"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -2219,7 +2217,6 @@ fra:
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
     group_by_centralizing_accounts: "Groupement par comptes centralisateurs"
-    group_size: "Taille du groupe"
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
@@ -3616,7 +3613,6 @@ fra:
     worker_contract: "Contrat de travail"
     worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
-    worker_number: "Nombre d'équipiers"
     workers: "Équipiers"
     workforce: "Main œuvre"
     working_area: "Surface travaillée"

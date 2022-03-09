@@ -30,7 +30,7 @@ module Backend
       code.c
     end
 
-    list(conditions: list_conditions, selectable: true) do |t|
+    list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
