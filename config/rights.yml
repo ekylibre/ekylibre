@@ -1172,6 +1172,17 @@ catalogs:
     - "backend/catalogs#new"
     - "backend/catalogs#update"
 
+companies:
+  read:
+    actions:
+    - "backend/companies#edit"
+  write:
+    dependencies:
+    - read-settings
+    actions:
+    - "backend/companies#update"
+
+
 conditionings:
   read:
     actions:
@@ -1281,6 +1292,22 @@ custom_fields:
     - "backend/custom_fields#sort"
     - "backend/custom_fields#up"
     - "backend/custom_fields#update"
+
+dashboards:
+  read:
+    actions:
+    - "backend/dashboards#index"
+    - "backend/dashboards#list"
+    - "backend/dashboards#show"
+  write:
+    dependencies:
+    - read-dashboards
+    actions:
+    - "backend/dashboards#create"
+    - "backend/dashboards#destroy"
+    - "backend/dashboards#edit"
+    - "backend/dashboards#new"
+    - "backend/dashboards#update"
 
 deposits:
   read:
@@ -1667,6 +1694,9 @@ incoming_payment_modes:
   write:
     dependencies:
     - read-incoming_payment_modes
+    - read-cashes
+    - read-journals
+    - read-accounts
     actions:
     - "backend/incoming_payment_modes#create"
     - "backend/incoming_payment_modes#destroy"
@@ -2046,25 +2076,6 @@ matters:
     - "backend/matters#take"
     - "backend/matters#update"
     - "backend/matters#update_many"
-
-myselves:
-  read:
-    actions:
-    - "backend/dashboards#index"
-    - "backend/dashboards#list"
-    - "backend/dashboards#show"
-    - "backend/myselves#show"
-  write:
-    dependencies:
-    - read-myselves
-    actions:
-    - "backend/dashboards#create"
-    - "backend/dashboards#destroy"
-    - "backend/dashboards#edit"
-    - "backend/dashboards#new"
-    - "backend/dashboards#update"
-    - "backend/myselves#change_password"
-    - "backend/myselves#update"
 
 naming_formats:
   read:
@@ -2792,17 +2803,6 @@ sequences:
     - "backend/sequences#load"
     - "backend/sequences#new"
     - "backend/sequences#update"
-
-settings:
-  read:
-    actions:
-    - "backend/companies#edit"
-    - "backend/settings#about"
-  write:
-    dependencies:
-    - read-settings
-    actions:
-    - "backend/companies#update"
 
 settlements:
   read:

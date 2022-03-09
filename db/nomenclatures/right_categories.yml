@@ -97,15 +97,16 @@ settings:
 - analytic_sequences
 - buildings
 - catalogs
+- companies
 - conditionings
 - custom_fields
+- dashboards
 - districts
 - document_templates
 - georeadings
 - incoming_payment_modes
 - invitations
 - labels
-- myselves
 - naming_formats
 - outgoing_payment_modes
 - postal_zones
@@ -118,7 +119,6 @@ settings:
 - roles
 - sale_natures
 - sequences
-- settings
 - settlements
 - subscription_natures
 - users
