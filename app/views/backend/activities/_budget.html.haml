@@ -1,5 +1,8 @@
 - budget = resource.budgets.find_by(campaign: current_campaign)
 - if budget && budget.items.any?
+  .help-panel
+    = link_to(:edit_budget.tl, { controller: :activity_budgets, action: :edit, id: budget.id }, class: 'btn btn-default icn btn-edit')
+    = link_to_async_action(:regenerate_reference_budget.tl, 'ItkImportJob', { controller: :activities, action: :generate_budget, id: resource.id }, method: :post, class: 'btn btn-default' )
   = infos do
     - balance = budget.revenues_amount.round(budget.currency_precision) - budget.expenses_amount.round(budget.currency_precision)
     = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
@@ -11,7 +14,8 @@
       %span.value= balance.round(budget.currency_precision).l(currency: budget.currency)
 - else
   .help-panel
-    %p.help-message= :no_budget_defined_for_current_campaign.tn
+    %p.help-message= :no_budget_defined_for_current_campaign.tn.html_safe
+    = link_to_async_action(:generate_reference_budget.tl, 'ItkImportJob', { controller: :activities, action: :generate_budget, id: resource.id }, method: :post, class: 'btn btn-default' )
     - if current_campaign.preceding && resource.budgets.find_by(campaign: current_campaign.preceding)
       - source = resource.budgets.find_by(campaign: current_campaign.preceding)
       = link_to(:copy_previous_budget.tl, { controller: :activity_budgets, action: :duplicate, activity_id: resource.id, campaign_id: current_campaign.id, id: source.id, edit: true, redirect: request.fullpath }, method: :post, class: 'btn btn-default')

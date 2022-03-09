@@ -564,7 +564,7 @@ html.exception {
 }
 
 #about-us {
-  padding: 15vh 15vw;
+  padding: 5vh 5vw;
   .logo {
     margin: 20px auto;
     max-width: 60%;
@@ -837,11 +837,11 @@ form.search {
     white-space: nowrap;
     @include ellipsis;
     display: block;
-    height: $lh-very-huge;
+    height: $lh-huge;
     &, * {
       font-family: $awesome-font-family;
       font-size: $fs-very-huge;
-      line-height: $lh-very-huge;
+      line-height: $lh-huge;
       // @include text-align(center);
     }
     .picto {

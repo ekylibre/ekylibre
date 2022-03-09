@@ -1924,6 +1924,7 @@ eng:
     consult_unbalanced_entries:
       one: "Consult the unbalanced entry"
       other: "Consult unbalanced entries (%{count})"
+    consult_ekylibre_api: "Consult Ekylibre API"
     consume: "Consume"
     contact_support_to_delete_production: "To delete this production, please contact us with the chat."
     contained_products: "Contained products"
@@ -1939,6 +1940,8 @@ eng:
     copy_from_previous_campaign: "Copy from previous campaign"
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
+    generate_reference_budget: "Generate reference budget"
+    regenerate_reference_budget: "Regenerate reference budget"
     corporeal_assets: "Corporeal assets"
     corporeal_assets_advances: "Advances"
     corporeal_assets_buildings: "Buildings"
@@ -2004,6 +2007,7 @@ eng:
     # data: "Data"
     # data_transmissions: "Data transmissions"
     database_version: "Database Version"
+    datasources: "Datasources"
     # date: "Date"
     date_range: "%{from} to %{to}"
     dated_cash: "%{cash}: %{on}"
@@ -2510,6 +2514,7 @@ eng:
     letterable: "Letterable"
     lettered: "Lettered"
     lettering_state: "Lettering state"
+    lexicon_version: "Lexicon version"
     liabilities: "Liabilities"
     liabilities_gaps: "Liabilities gaps"
     liability_reserves: "Liability reserves"
@@ -3543,6 +3548,7 @@ eng:
       success: "Success!"
       warning: "Warning!"
     messages:
+      no_reference_budget_found: "No reference budget found for this activity"
       access_denied: "Access denied."
       accounts_cannot_be_truncated_to_preference:
         one: "The account %{accounts} cannot be truncated to the selected preference (%{preference} characters). Only zero can be automatically removed. Please update this account if you want to change the company preference to %{preference} characters."

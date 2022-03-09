@@ -21,9 +21,10 @@ module Backend
     include InspectionViewable
 
     PLANT_FAMILY_ACTIVITIES = %w[plant_farming vine_farming].freeze
-    manage_restfully except: %i[index show], subclass_inheritance: true
 
     unroll
+
+    after_action :open_activity, only: :create, unless: -> { @activity.new_record? }
 
     list line_class: '(:success if RECORD.of_campaign?(current_campaign))'.c do |t|
       # t.action :show, url: {format: :pdf}, image: :print
@@ -37,41 +38,6 @@ module Backend
       t.column :with_supports
       t.column :support_variety, hidden: true
       t.column :isacompta_analytic_code, hidden: AnalyticSegment.where(name: 'activities').none?
-    end
-
-    def index
-      missing_code_count = Activity.where('isacompta_analytic_code IS NULL').count
-      segment = AnalyticSegment.find_by(name: 'activities')
-      if segment.presence && missing_code_count > 0
-        notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
-      end
-      @currency = Onoma::Currency.find(Preference[:currency])
-      @activities_of_campaign = Activity.of_campaign(current_campaign)
-      @availables_activities = Activity.availables.where.not(id: @activities_of_campaign)
-      @families = @activities_of_campaign.order(:family).collect(&:family).uniq
-      @activities = @activities_of_campaign
-                      .left_join_working_duration_of_campaign(current_campaign)
-                      .left_join_issues_count_of_campaign(current_campaign)
-                      .left_join_production_costs_of_campaign(current_campaign)
-
-      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
-      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
-      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
-      @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
-      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
-
-      respond_to do |format|
-        format.html
-        format.xml { render xml: resource_model.all }
-        format.json { render json: resource_model.all }
-        format.pdf {
-          return unless (template = find_and_check :document_template, params[:template])
-
-          PrinterJob.perform_later(tl("activity_printers.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, perform_as: current_user)
-          notify_success(:document_in_preparation)
-          redirect_to backend_activities_path
-        }
-      end
     end
 
     def show
@@ -106,6 +72,43 @@ module Backend
         end
       end
       @technical_itinerary_id = @activity&.default_tactics&.of_campaign(current_campaign)&.first&.technical_itinerary&.id
+    end
+
+    manage_restfully except: %i[index show]
+
+    def index
+      missing_code_count = Activity.where('isacompta_analytic_code IS NULL').count
+      segment = AnalyticSegment.find_by(name: 'activities')
+      if segment.presence && missing_code_count > 0
+        notify_warning :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+      end
+      @currency = Onoma::Currency.find(Preference[:currency])
+      @activities_of_campaign = Activity.of_campaign(current_campaign)
+      @availables_activities = Activity.availables.where.not(id: @activities_of_campaign)
+      @families = @activities_of_campaign.order(:family).collect(&:family).uniq
+      @activities = @activities_of_campaign
+                      .left_join_working_duration_of_campaign(current_campaign)
+                      .left_join_issues_count_of_campaign(current_campaign)
+                      .left_join_production_costs_of_campaign(current_campaign)
+
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
+
+      respond_to do |format|
+        format.html
+        format.xml { render xml: resource_model.all }
+        format.json { render json: resource_model.all }
+        format.pdf {
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later(tl("activity_printers.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_activities_path
+        }
+      end
     end
 
     # Duplicate activity basing on campaign
@@ -153,7 +156,7 @@ module Backend
         return redirect_to(params[:redirect] || { action: :index })
       end
       if activities.any?
-        ItkImportJob.perform_later(activities.pluck(:id), current_campaign, current_user)
+        ItkImportJob.perform_later(activity_ids: activities.pluck(:id), current_campaign: current_campaign, user: current_user)
       else
         notify_error(:no_activities_present)
         redirect_to(params[:redirect] || { action: :index })
@@ -192,5 +195,27 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
+
+    def generate_budget
+      @activity = Activity.find(params[:id])
+      budget = @activity.budgets.find_by(campaign: current_campaign)
+      return if Preference.find_by(name: 'ItkImportJob_running').present?
+
+      if @activity.technical_workflow(current_campaign).present? || ( @activity.auxiliary? && MasterBudget.of_family(@activity.family).any?)
+        ItkImportJob.perform_later(activity_ids: [@activity.id], current_campaign: current_campaign, user: current_user)
+      else
+        notify_warning(:no_reference_budget_found)
+        redirect_to action: :show
+      end
+    end
+
+    private
+
+      def open_activity
+        @campaign = Campaign.find_by(name: params[:campaign][:name])
+        current_user.current_campaign = @campaign
+        current_user.current_period = Date.new(@campaign.harvest_year).to_s
+        @activity.budgets.find_or_create_by!(campaign: @campaign)
+      end
   end
 end
