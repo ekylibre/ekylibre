@@ -1408,6 +1408,18 @@ Rails.application.routes.draw do
 
     resources :worker_contracts, concerns: [:list], path: 'worker-contracts'
 
+    resources :worker_groups, concerns: %i[list unroll] do
+      member do
+        post :duplicate
+      end
+      member do
+        get :list_workers
+      end
+      collection do
+        get :unroll_list
+      end
+    end
+
     root to: 'dashboards#home'
 
     get :invitations, to: 'invitations#index'
