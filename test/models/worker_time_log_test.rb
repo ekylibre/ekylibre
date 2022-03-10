@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # = Informations
 #
 # == License
@@ -91,45 +89,26 @@
 #  variety                      :string           not null
 #  work_number                  :string
 #
+require 'test_helper'
 
-class Worker < Product
-  refers_to :variety, scope: :worker
-  belongs_to :team
-  has_one :user, through: :person
-  include Attachable
-  validates :person, presence: true
-  has_many :intervention_participations, inverse_of: :product, foreign_key: :product_id, dependent: :destroy
-  has_many :time_logs, class_name: 'WorkerTimeLog', inverse_of: :worker, foreign_key: :worker_id, dependent: :destroy
-
-  accepts_nested_attributes_for :time_logs, allow_destroy: true
-
-  scope :drivers, -> { Worker.where(id: InterventionParameter.where(reference_name: :driver).pluck(:product_id).uniq) }
-
-  before_validation do
-    self.team_id = user.team_id if user && user.team
+class WorkerTimeLogTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+  test_model_actions
+  # setup entity with worker and contract
+  setup do
+    I18n.locale = :fra
+    @entity = create(:entity, :worker)
+    @worker_contract = WorkerContract.import_from_lexicon(reference_name: 'permanent_salaried', entity_id: @entity.id)
+    @worker = Worker.find_by(person_id: @entity.id)
   end
 
-  def participation(intervention)
-    InterventionParticipation.find_by(product: self, intervention: intervention)
+  test 'should compute duration from started_at and stopped_at' do
+    time_log = @worker.time_logs.create!(started_at: (Time.zone.now - 1.hours), stopped_at: Time.zone.now)
+    assert_equal 3600, time_log.duration
   end
 
-  def working_duration(_options = {})
-    InterventionWorkingPeriod.with_intervention_parameter(:doer, self)
-                             .sum(:duration).in_second
+  test 'should compute stopped_at from started_at and duration' do
+    time_log = @worker.time_logs.create!(started_at: (Time.zone.now - 1.hours), duration: 3600)
+    assert_equal (time_log.started_at + time_log.duration), time_log.stopped_at
   end
 
-  def worker_duration(campaign, unit = :hour)
-    return unless campaign
-
-    start = Time.new(campaign.harvest_year, 1, 1).beginning_of_day.utc
-    stop = Time.new(campaign.harvest_year, 12, 31).end_of_day.utc
-    WorkerTimeIndicator.refresh
-    total = WorkerTimeIndicator.of_workers(self).between(start, stop).sum(:duration)
-    if total == "0"
-      minutes = 0.00
-    else
-      minutes = ActiveSupport::Duration.parse(total).in_full(:minute)
-    end
-    Measure.new(minutes, :minute).convert(unit).round(2).l(precision: 2)
-  end
 end

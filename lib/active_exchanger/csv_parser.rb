@@ -47,6 +47,8 @@ module ActiveExchanger
         Date.parse(value)
       when :us_date
         Date.strptime(value, "%m/%d/%y")
+      when :string
+        value.to_s
       else
         value
       end
@@ -59,6 +61,8 @@ module ActiveExchanger
         value.present?
       when :greater_or_equal_to_zero
         value.is_a?(Numeric) && value >= 0
+      when :greater_to_zero
+        value.is_a?(Numeric) && value > 0
       else
         false
       end
