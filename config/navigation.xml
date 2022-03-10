@@ -1192,6 +1192,7 @@
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#list_trackings"/>
+        <page to="backend/workers#list_time_logs"/>
         <page to="backend/workers#picture"/>
         <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
@@ -1219,6 +1220,15 @@
         <page to="backend/worker_contracts#show"/>
         <page to="backend/worker_contracts#picture"/>
         <page to="backend/worker_contracts#unroll"/>
+      </item>
+      <item name="worker_time_logs">
+        <page to="backend/worker_time_logs#index"/>
+        <page to="backend/worker_time_logs#create"/>
+        <page to="backend/worker_time_logs#destroy"/>
+        <page to="backend/worker_time_logs#edit"/>
+        <page to="backend/worker_time_logs#list"/>
+        <page to="backend/worker_time_logs#new"/>
+        <page to="backend/worker_time_logs#show"/>
       </item>
     </group>
   </part>

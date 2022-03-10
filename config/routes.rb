@@ -1404,7 +1404,13 @@ Rails.application.routes.draw do
 
     resources :wine_tanks, only: [:index], concerns: [:list]
 
-    resources :workers, concerns: :products
+    resources :workers, concerns: :products do
+      member do
+        get :list_time_logs
+      end
+    end
+
+    resources :worker_time_logs, concerns: [:list], path: 'worker-time-logs'
 
     resources :worker_contracts, concerns: [:list], path: 'worker-contracts'
 
