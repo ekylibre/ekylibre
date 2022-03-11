@@ -301,6 +301,8 @@ eng:
         plant_specie_variety_name: "Specie"
       wine_incoming_harvest_storage:
         storage: "Storage tank"
+      worker_time_log:
+        human_duration: "Duration" #?
     errors:
       messages:
         <<: *error_messages

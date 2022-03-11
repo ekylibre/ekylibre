@@ -542,6 +542,8 @@ fra:
         started_at: "Date de début de contrat"
         stopped_at: "Date de fin de contrat"
         salaried: "Salarié"
+      worker_time_log:
+        human_duration: "Durée" #?
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
@@ -1084,6 +1086,7 @@ fra:
       wine_incoming_harvest_storage : "Réception de vendange - Cuverie"
       worker: "Équipier"
       worker_contract: "Contrat de travail"
+      worker_time_log: "Saisie des temps"
       zone: "Zone"
   attributes:
     starting_year: "L’année de début"

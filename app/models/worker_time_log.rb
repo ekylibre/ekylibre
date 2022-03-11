@@ -47,6 +47,7 @@ class WorkerTimeLog < ApplicationRecord
   validates :duration, presence: true, numericality: { greater_than: 0, less_than: 86_400 }
   validates :started_at, :stopped_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :worker, presence: true
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
