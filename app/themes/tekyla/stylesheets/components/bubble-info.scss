@@ -1,0 +1,12 @@
+.bubble-info {
+  i {
+    font-family: Agric;
+    color: #5c85d5;
+    font-size: 18px;
+    padding-left: 10px;
+    @include use-icon(info-outline);
+  }
+  i:hover{
+    cursor: pointer;
+  }
+}
