@@ -1598,6 +1598,9 @@ fra:
     casts: "Intervention"
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
+    catalog_item_update: "Mettre à jour le catalogue de prix"
+    catalog_update_title: "Cochez pour mettre à jour"
+    catalog_update_description: "En cochant cette case, le PU HT définit sera automatiquement mis à jour dans le catalogue de prix du type de vente sélectionné"
     category: "Catégorie comptable"
     category_code: "Code catégorie" #?
     category_name: "Catégorie comptable" #?
