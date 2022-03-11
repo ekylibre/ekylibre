@@ -6,6 +6,12 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
+    -#= product_info(:variant, important: true) do |variant|
+      - if variant.pictogram.any?
+        - icon = variant.pictogram
+      - if icon
+        %i.picto{class: "picto-#{icon}"}
+      = link_to(variant.name, controller: :product_nature_variants, action: :show, id: variant.id)
     - if resource.person
       = product_info(:person) do |person|
         %i.picto{class: "picto-user"}
@@ -16,14 +22,10 @@
         = human_age(resource.dead_at ? Time.zone.now - (resource.dead_at - resource.born_at) : resource.born_at, display: 2)
     = product_info(:working_duration) do |working_duration|
       %i.picto{class: "picto-timelapse"}
-      = resource.worker_duration(current_campaign)
+      = resource.working_duration(as: :doer).in_hour.round(1).l(precision: 1)
   = labels_info(resource.labels)
 
 = cobbles do |c|
-  - c.cobble(:time_logs, title: :x_time_logs.tl(count: resource.time_logs.count)) do
-    = cobble_toolbar do |t|
-      = t.new(params: { controller: :worker_time_logs, worker_id: resource&.id } )
-      = cobble_list(:time_logs)
 
   - if resource.intervention_product_parameters.any?
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do

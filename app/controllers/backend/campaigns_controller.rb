@@ -56,6 +56,14 @@ module Backend
       t3e(@campaign.attributes)
     end
 
+    def show_by_name
+      @campaign = Campaign.find_or_create_by!(harvest_year: params[:name].to_i)
+
+      respond_to do |format|
+        format.json
+      end
+    end
+
     def open
       return unless (@campaign = find_and_check)
 

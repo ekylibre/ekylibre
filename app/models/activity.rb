@@ -511,4 +511,12 @@ class Activity < ApplicationRecord
   def productions_next_rank_number
     (productions.maximum(:rank_number) || 0) + 1
   end
+
+  def technical_workflow(campaign)
+    tactic = tactics.find_by(campaign_id: campaign.id, default: true)
+
+    return tactic.technical_workflow if tactic.present? && tactic.technical_workflow.present?
+
+    TechnicalWorkflow.for_activity(self).first
+  end
 end

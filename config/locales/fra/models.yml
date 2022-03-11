@@ -2165,7 +2165,7 @@ fra:
     project_budget: "Budget interne"
     proposer: "Parrain"
     prospect: "Prospect"
-    # provider: "Provider"
+    provider: "Fournisseur"
     providers: "Solution tierce"
     provider_vendor: "Solution tierce"
     provider_name: "Fournisseur"

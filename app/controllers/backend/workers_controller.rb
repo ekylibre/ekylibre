@@ -30,7 +30,7 @@ module Backend
       code.c
     end
 
-    list(conditions: list_conditions, selectable: true) do |t|
+    list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
@@ -40,15 +40,6 @@ module Backend
       t.column :variety
       t.column :container, url: true
       t.column :description
-    end
-
-    list(:time_logs, model: :worker_time_logs, conditions: { worker_id: 'params[:id]'.c }, order: { started_at: :asc }) do |t|
-      t.action :edit
-      t.action :destroy
-      t.column :started_at, datatype: :datetime
-      t.column :human_duration, on_select: :sum, value_method: 'duration.in(:second).in(:hour)', datatype: :decimal, class: 'center-align'
-      t.column :stopped_at, datatype: :datetime, hidden: true
-      t.column :description, hidden: true
     end
 
     def index

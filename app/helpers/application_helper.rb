@@ -296,6 +296,14 @@ module ApplicationHelper
     link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl, back_url)
   end
 
+  def link_to_async_action(label, job, options, html_options)
+    html_options = html_options.merge(data: { perform_job_button: true, job: job })
+    active = Preference[job + '_running'] rescue false
+    link_to(options, html_options) do
+      (label + " " + content_tag('span', nil, class: "spinner #{active ? 'active' : nil}")).html_safe
+    end
+  end
+
   def attribute_item(object, attribute, options = {})
     value_class = 'value'
     if object.is_a? String

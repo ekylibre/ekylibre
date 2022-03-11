@@ -73,6 +73,10 @@
             = f.referenced_association :depreciable_product, source: :depreciables
 
       .item-form-information
+        - if Preference[:use_sale_catalog]
+          .item-form.item-form__activity
+            - content_info = content_tag(:i, nil, title: :catalog_update_title.tl, type: "button", data: { content: :catalog_update_description.tl, toggle: 'popover' })
+            = f.input(:catalog_item_update, label: "#{:catalog_item_update.tl} #{content_info}".html_safe, label_html: { class: 'bubble-info' })
         - if Preference[:distribute_sales_and_purchases_on_activities] && current_user.can?(:read, :activities) && ActivityBudget.opened.any?
           .item-form.item-form__activity
             = f.referenced_association(:activity_budget, new: false)

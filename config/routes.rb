@@ -148,6 +148,7 @@ Rails.application.routes.draw do
     resource :settings, only: [] do
       member do
         get :about
+        get :list_datasources
       end
     end
 
@@ -264,6 +265,7 @@ Rails.application.routes.draw do
         get :list_distributions
         get :list_productions
         get :compute_pfi_report
+        post :generate_budget
       end
     end
 
@@ -372,6 +374,7 @@ Rails.application.routes.draw do
     resources :campaigns, concerns: %i[list unroll] do
       collection do
         get :current
+        get :show_by_name
       end
       member do
         # get :list_activity_productions
@@ -1401,27 +1404,9 @@ Rails.application.routes.draw do
 
     resources :wine_tanks, only: [:index], concerns: [:list]
 
-    resources :workers, concerns: :products do
-      member do
-        get :list_time_logs
-      end
-    end
-
-    resources :worker_time_logs, concerns: [:list], path: 'worker-time-logs'
+    resources :workers, concerns: :products
 
     resources :worker_contracts, concerns: [:list], path: 'worker-contracts'
-
-    resources :worker_groups, concerns: %i[list unroll] do
-      member do
-        post :duplicate
-      end
-      member do
-        get :list_workers
-      end
-      collection do
-        get :unroll_list
-      end
-    end
 
     root to: 'dashboards#home'
 

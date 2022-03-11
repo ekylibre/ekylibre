@@ -1,5 +1,8 @@
 = field_set(:analytic_options) do
-  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  - if ["tool_maintaining", "administering"].include?(f.object.family)
+    = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options', checked: :auxiliary
+  - else 
+    = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   .auxiliary-nature-options
     = f.input :distribution_key, as: :radio_buttons, show: '#{{value}}_options'
     = field_set(:percentage_options) do

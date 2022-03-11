@@ -916,16 +916,6 @@ fra:
       index: "Contrats de travail"
       new: "Nouveau contrat de travail"
       show: "Détail contrat de travail\_: %{name}"
-    backend/worker_groups:
-      index: "Groupe d'équipiers"
-      edit: "Modifier un groupe d'équipiers"
-      new: "Nouveau groupe d'équipiers"
-      show: "Détail groupe d'équipiers\_: %{name}"
-    backend/worker_time_logs:
-      edit: "Modifier une saisie de temps"
-      index: "Temps des équipiers"
-      new: "Nouvelle saisie de temps "
-      show: "Détail saisie de temps"
     public:
       index: "Accueil"
   errors:
@@ -1393,7 +1383,6 @@ fra:
     add_tool: "Ajouter un outil"
     add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
     add_website: "Ajouter un site web"
-    add_worker: "Ajouter un équipier"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
@@ -1601,6 +1590,9 @@ fra:
     casts: "Intervention"
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
+    catalog_item_update: "Mettre à jour le catalogue de prix"
+    catalog_update_title: "Cochez pour mettre à jour"
+    catalog_update_description: "En cochant cette case, le PU HT définit sera automatiquement mis à jour dans le catalogue de prix du type de vente sélectionné"
     category: "Catégorie comptable"
     category_code: "Code catégorie" #?
     category_name: "Catégorie comptable" #?
@@ -1707,6 +1699,7 @@ fra:
     consult_unbalanced_entries:
       one: "Consulter l'écriture à équilibrer"
       other: "Consulter les écritures à équilibrer (%{count})"
+    consult_ekylibre_api: "Consulter l'API Ekylibre"
     consume: "Consommé"
     contact: "à l’adresse" #?
     contact_support_to_delete_production: "Pour supprimer cette production, veuillez contacter le support par chat."
@@ -1727,6 +1720,8 @@ fra:
     copy_from_previous_campaign: "Copier à partir de la campagne précédente"
     copy_of: "Copie de %{source}"
     copy_previous_budget: "Copier à partir du budget précédent"
+    generate_reference_budget: "Générer un budget de référence"
+    regenerate_reference_budget: "Réinitialiser avec un budget de référence"
     corporeal_assets: "Immobilisations corporelles"
     corporeal_assets_advances: "Avances et acomptes"
     corporeal_assets_buildings: "Constructions"
@@ -1756,7 +1751,6 @@ fra:
     create_a_new_conditioning: "Créer un nouveau conditionnement"
     create_a_sale: "Créer une vente"
     create_and_continue: "Créer et saisir suivant"
-    create_group: "Créer un groupe"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -1811,6 +1805,7 @@ fra:
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
     database_version: "Version de la base de données"
+    datasources: "Liste des sources de données"
     date: "Date" #?
     date_range: "%{from} au %{to}"
     dated_cash: "%{cash}\_: %{on}"
@@ -2228,7 +2223,6 @@ fra:
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
     group_by_centralizing_accounts: "Groupement par comptes centralisateurs"
-    group_size: "Taille du groupe"
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
@@ -2449,6 +2443,7 @@ fra:
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
     lettering_state: "État du lettrage"
+    lexicon_version: "Version Lexicon"
     liabilities: "Passifs"
     liabilities_gaps: "Ecart de conversion passif"
     liability_reserves: "Réserves"
@@ -2598,7 +2593,7 @@ fra:
     new_article: "Nouvel article"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
-    new_budget: "Nouveau budget"
+    new_budget: "Créer un nouveau budget"
     new_call: "Nouvel appel"
     new_category: "Nouvelle catégorie"
     new_contact: "Nouveau contact"
@@ -3624,7 +3619,6 @@ fra:
     worker_contract: "Contrat de travail"
     worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
-    worker_number: "Nombre d'équipiers"
     workers: "Équipiers"
     workforce: "Main œuvre"
     working_area: "Surface travaillée"
@@ -3843,9 +3837,6 @@ fra:
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"
-    x_time_logs:
-      one: "%{count} saisie de temps"
-      other: "%{count} saisies de temps"
     x_thing: "%{x} %{thing}"
     x_times:
       one: "%{count} fois"
@@ -3902,6 +3893,7 @@ fra:
       success: "Opération réussie\_!"
       warning: "Attention\_!"
     messages:
+      no_reference_budget_found: "Aucun budget de référence n'a été trouvé pour cette activité"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page."
       accounts_cannot_be_truncated_to_preference:
         one: "Le compte comptable %{accounts} ne peut être tronqué à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ce compte comptable si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
@@ -4031,7 +4023,7 @@ fra:
       no_availables_product_on_current_campaign: "Votre cible (parcelle/culture) n'est pas disponnible pour la période mentionnée par défault dans l'intervention."
       no_balance_template: "Pas de modèle de document pour la balance" #?
       no_bank_statement_found_for_this_period: "Aucun relevé de compte trouvé pour cette période."
-      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante"
+      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante. Plus d'information sur la gestion des budgets prévisionnels <a href=\"https://doc.ekylibre.com/v2/fr/performance/#budgets\" target=\"_blank\">ici  <i class=\"icon icon-help\"></i></a>"
       no_building: "Aucune zone de stockage n’est définie. Veuillez en créer une pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
@@ -4134,8 +4126,8 @@ fra:
         one: "%{count} activité a déjà été planifiée"
         other: "%{count} activités ont déjà été planifiées"
       x_activity_have_not_been_autoplanned:
-        one: "Aucune activité n'a pas été planifiée automatiquement."
-        other: "%{count} activité(s) n'ont pas été planifiée(s) automatiquement"
+        one: "Aucune activité n'a été planifiée automatiquement."
+        other: "%{count} activité(s) n'ont été planifiée(s) automatiquement"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
         other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"

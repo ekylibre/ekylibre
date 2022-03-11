@@ -30,12 +30,12 @@
             if (this.previewElement.classList.contains('loading-error')) {
                 this.previewElement.classList.remove('loading-error');
             }
-            this.previewElement.classList.add('spinner');
+            this.previewElement.classList.add('spinner','active');
             this.previewElement.textContent = '';
         }
 
         disableLoader() {
-            this.previewElement.classList.remove('spinner');
+            this.previewElement.classList.remove('spinner','active');
         }
 
         setValue(value) {

@@ -38,15 +38,6 @@ CREATE SCHEMA public;
 
 
 --
--- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
---
-
-CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
-    LANGUAGE c
-    AS '$libdir/pgcrypto', 'pg_random_uuid';
-
-
---
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -4433,8 +4424,7 @@ CREATE TABLE public.sale_items (
     fixed_asset_id integer,
     conditioning_unit_id integer NOT NULL,
     conditioning_quantity numeric(20,10) NOT NULL,
-    catalog_item_id integer,
-    shipment_item_id integer
+    catalog_item_id integer
 );
 
 
@@ -7257,8 +7247,7 @@ CREATE TABLE public.parcel_items (
     team_id integer,
     annotation text,
     conditioning_unit_id integer,
-    conditioning_quantity numeric(20,10),
-    unit_pretax_sale_amount numeric(19,4)
+    conditioning_quantity numeric(20,10)
 );
 
 
@@ -7326,8 +7315,7 @@ CREATE TABLE public.parcels (
     type character varying,
     late_delivery boolean,
     intervention_id integer,
-    reconciliation_state character varying,
-    sale_nature_id integer
+    reconciliation_state character varying
 );
 
 
@@ -10254,174 +10242,6 @@ ALTER SEQUENCE public.worker_contracts_id_seq OWNED BY public.worker_contracts.i
 
 
 --
--- Name: worker_group_items; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.worker_group_items (
-    id integer NOT NULL,
-    worker_id integer,
-    worker_group_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: worker_group_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.worker_group_items_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: worker_group_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.worker_group_items_id_seq OWNED BY public.worker_group_items.id;
-
-
---
--- Name: worker_groups; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.worker_groups (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    work_number character varying,
-    active boolean DEFAULT true NOT NULL,
-    usage character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: worker_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.worker_groups_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: worker_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.worker_groups_id_seq OWNED BY public.worker_groups.id;
-
-
---
--- Name: worker_time_logs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.worker_time_logs (
-    id integer NOT NULL,
-    worker_id integer NOT NULL,
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone NOT NULL,
-    duration integer NOT NULL,
-    description text,
-    custom_fields jsonb DEFAULT '{}'::jsonb,
-    provider jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: worker_time_indicators; Type: MATERIALIZED VIEW; Schema: public; Owner: -
---
-
-CREATE MATERIALIZED VIEW public.worker_time_indicators AS
- SELECT s.worker_id,
-    min(s.started_at) AS start_at,
-    max(s.stopped_at) AS stop_at,
-    (max(s.stopped_at) - min(s.started_at)) AS duration
-   FROM ( SELECT s_1.worker_id,
-            s_1.started_at,
-            s_1.stopped_at,
-            s_1.lag_stopped_at,
-            count(*) FILTER (WHERE (s_1.started_at > s_1.lag_stopped_at)) OVER (PARTITION BY s_1.worker_id ORDER BY s_1.started_at) AS grp
-           FROM ( SELECT s_2.worker_id,
-                    s_2.started_at,
-                    s_2.stopped_at,
-                    lag(s_2.stopped_at) OVER (PARTITION BY s_2.worker_id ORDER BY s_2.started_at) AS lag_stopped_at
-                   FROM ( SELECT s_3.worker_id,
-                            s_3.started_at,
-                            s_3.stopped_at
-                           FROM ( SELECT wtl.worker_id,
-                                    wtl.started_at,
-                                    wtl.duration,
-                                    wtl.stopped_at,
-                                    'worker_time_log'::text AS nature
-                                   FROM public.worker_time_logs wtl
-                                UNION ALL
-                                 SELECT ip.product_id AS worker_id,
-                                    iwp.started_at,
-                                    iwp.duration,
-                                    iwp.stopped_at,
-                                    'intervention'::text AS nature
-                                   FROM ((public.intervention_working_periods iwp
-                                     JOIN public.interventions i ON ((i.id = iwp.intervention_id)))
-                                     JOIN public.intervention_parameters ip ON (((ip.intervention_id = i.id) AND ((ip.type)::text = 'InterventionDoer'::text))))
-                                  WHERE ((iwp.intervention_participation_id IS NULL) AND (NOT (ip.product_id IN ( SELECT intervention_participations.product_id
-   FROM public.intervention_participations
-  WHERE (intervention_participations.intervention_id = i.id)))))
-                                UNION ALL
-                                 SELECT ipa.product_id AS worker_id,
-                                    iwp.started_at,
-                                    iwp.duration,
-                                    iwp.stopped_at,
-                                    'intervention_participation'::text AS nature
-                                   FROM ((public.intervention_working_periods iwp
-                                     JOIN public.intervention_participations ipa ON ((ipa.id = iwp.intervention_participation_id)))
-                                     JOIN public.intervention_parameters ip ON (((ip.product_id = ipa.product_id) AND ((ip.type)::text = 'InterventionDoer'::text))))
-                                  WHERE (iwp.intervention_id IS NULL)
-                                  GROUP BY ipa.product_id, iwp.started_at, iwp.stopped_at, iwp.duration, iwp.nature
-                          ORDER BY 1, 2) s_3) s_2) s_1) s
-  GROUP BY s.worker_id, s.grp
-  ORDER BY s.worker_id, (min(s.started_at))
-  WITH NO DATA;
-
-
---
--- Name: worker_time_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.worker_time_logs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: worker_time_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.worker_time_logs_id_seq OWNED BY public.worker_time_logs.id;
-
-
---
 -- Name: registered_cadastral_buildings id; Type: DEFAULT; Schema: lexicon; Owner: -
 --
 
@@ -11812,27 +11632,6 @@ ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY public.worker_contracts ALTER COLUMN id SET DEFAULT nextval('public.worker_contracts_id_seq'::regclass);
-
-
---
--- Name: worker_group_items id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_group_items ALTER COLUMN id SET DEFAULT nextval('public.worker_group_items_id_seq'::regclass);
-
-
---
--- Name: worker_groups id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_groups ALTER COLUMN id SET DEFAULT nextval('public.worker_groups_id_seq'::regclass);
-
-
---
--- Name: worker_time_logs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_time_logs ALTER COLUMN id SET DEFAULT nextval('public.worker_time_logs_id_seq'::regclass);
 
 
 --
@@ -13883,30 +13682,6 @@ ALTER TABLE ONLY public.wine_incoming_harvests
 
 ALTER TABLE ONLY public.worker_contracts
     ADD CONSTRAINT worker_contracts_pkey PRIMARY KEY (id);
-
-
---
--- Name: worker_group_items worker_group_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_group_items
-    ADD CONSTRAINT worker_group_items_pkey PRIMARY KEY (id);
-
-
---
--- Name: worker_groups worker_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_groups
-    ADD CONSTRAINT worker_groups_pkey PRIMARY KEY (id);
-
-
---
--- Name: worker_time_logs worker_time_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_time_logs
-    ADD CONSTRAINT worker_time_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -20413,13 +20188,6 @@ CREATE INDEX index_parcels_on_sale_id ON public.parcels USING btree (sale_id);
 
 
 --
--- Name: index_parcels_on_sale_nature_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_parcels_on_sale_nature_id ON public.parcels USING btree (sale_nature_id);
-
-
---
 -- Name: index_parcels_on_sender_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -22569,13 +22337,6 @@ CREATE INDEX index_sale_items_on_sale_id ON public.sale_items USING btree (sale_
 
 
 --
--- Name: index_sale_items_on_shipment_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_sale_items_on_shipment_item_id ON public.sale_items USING btree (shipment_item_id);
-
-
---
 -- Name: index_sale_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -23955,118 +23716,6 @@ CREATE INDEX index_worker_contracts_on_updater_id ON public.worker_contracts USI
 
 
 --
--- Name: index_worker_group_items_on_worker_group_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_group_items_on_worker_group_id ON public.worker_group_items USING btree (worker_group_id);
-
-
---
--- Name: index_worker_group_items_on_worker_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_group_items_on_worker_id ON public.worker_group_items USING btree (worker_id);
-
-
---
--- Name: index_worker_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_groups_on_created_at ON public.worker_groups USING btree (created_at);
-
-
---
--- Name: index_worker_groups_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_groups_on_creator_id ON public.worker_groups USING btree (creator_id);
-
-
---
--- Name: index_worker_groups_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_groups_on_updated_at ON public.worker_groups USING btree (updated_at);
-
-
---
--- Name: index_worker_groups_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_groups_on_updater_id ON public.worker_groups USING btree (updater_id);
-
-
---
--- Name: index_worker_time_indicators_on_start_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_indicators_on_start_at ON public.worker_time_indicators USING btree (start_at);
-
-
---
--- Name: index_worker_time_indicators_on_stop_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_indicators_on_stop_at ON public.worker_time_indicators USING btree (stop_at);
-
-
---
--- Name: index_worker_time_indicators_on_worker_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_indicators_on_worker_id ON public.worker_time_indicators USING btree (worker_id);
-
-
---
--- Name: index_worker_time_logs_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_created_at ON public.worker_time_logs USING btree (created_at);
-
-
---
--- Name: index_worker_time_logs_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_creator_id ON public.worker_time_logs USING btree (creator_id);
-
-
---
--- Name: index_worker_time_logs_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_started_at ON public.worker_time_logs USING btree (started_at);
-
-
---
--- Name: index_worker_time_logs_on_stopped_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_stopped_at ON public.worker_time_logs USING btree (stopped_at);
-
-
---
--- Name: index_worker_time_logs_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_updated_at ON public.worker_time_logs USING btree (updated_at);
-
-
---
--- Name: index_worker_time_logs_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_updater_id ON public.worker_time_logs USING btree (updater_id);
-
-
---
--- Name: index_worker_time_logs_on_worker_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_worker_time_logs_on_worker_id ON public.worker_time_logs USING btree (worker_id);
-
-
---
 -- Name: intervention_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24662,14 +24311,6 @@ ALTER TABLE ONLY public.wine_incoming_harvest_presses
 
 
 --
--- Name: parcels fk_rails_47f94280b8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.parcels
-    ADD CONSTRAINT fk_rails_47f94280b8 FOREIGN KEY (sale_nature_id) REFERENCES public.sale_natures(id);
-
-
---
 -- Name: wine_incoming_harvest_inputs fk_rails_4ba0624d55; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24771,14 +24412,6 @@ ALTER TABLE ONLY public.intervention_template_product_parameters
 
 ALTER TABLE ONLY public.cvi_cadastral_plants
     ADD CONSTRAINT fk_rails_65b7099078 FOREIGN KEY (cvi_cultivable_zone_id) REFERENCES public.cvi_cultivable_zones(id);
-
-
---
--- Name: worker_time_logs fk_rails_664c16001e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.worker_time_logs
-    ADD CONSTRAINT fk_rails_664c16001e FOREIGN KEY (worker_id) REFERENCES public.products(id) ON DELETE CASCADE;
 
 
 --
@@ -26020,11 +25653,4 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211206150144'),
 ('20211209142107'),
 ('20211220140042'),
-('20220120092001'),
-('20220204085501'),
-('20220204185601'),
-('20220207140622'),
-('20220208175301'),
-('20220209183201');
-
-
+('20220120092001');
