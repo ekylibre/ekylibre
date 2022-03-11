@@ -949,7 +949,8 @@ CREATE TABLE lexicon.registered_postal_codes (
     postal_code character varying NOT NULL,
     city_delivery_name character varying,
     city_delivery_detail character varying,
-    city_centroid postgis.geometry(Point,4326)
+    city_centroid postgis.geometry(Point,4326),
+    city_shape postgis.geometry(MultiPolygon,4326)
 );
 
 
@@ -959,6 +960,8 @@ CREATE TABLE lexicon.registered_postal_codes (
 
 CREATE TABLE lexicon.registered_protected_water_zones (
     id character varying NOT NULL,
+    administrative_zone character varying,
+    creator_name character varying,
     name character varying,
     updated_on date,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL
@@ -1565,7 +1568,8 @@ CREATE TABLE public.products (
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
-    isacompta_analytic_code character varying(2)
+    isacompta_analytic_code character varying(2),
+    worker_group_item_id integer
 );
 
 
@@ -4041,8 +4045,7 @@ CREATE TABLE public.documents (
     sha256_fingerprint character varying,
     signature text,
     mandatory boolean DEFAULT false,
-    processable_attachment boolean DEFAULT true NOT NULL,
-    klippa_metadata jsonb DEFAULT '{}'::jsonb
+    processable_attachment boolean DEFAULT true NOT NULL
 );
 
 
@@ -4433,7 +4436,8 @@ CREATE TABLE public.sale_items (
     conditioning_unit_id integer NOT NULL,
     conditioning_quantity numeric(20,10) NOT NULL,
     catalog_item_id integer,
-    shipment_item_id integer
+    shipment_item_id integer,
+    catalog_item_update boolean DEFAULT false
 );
 
 
@@ -9835,10 +9839,10 @@ CREATE TABLE public.units (
     type character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    provider jsonb,
     lock_version integer DEFAULT 0 NOT NULL,
     creator_id integer,
-    updater_id integer,
-    provider jsonb
+    updater_id integer
 );
 
 
@@ -10250,6 +10254,77 @@ CREATE SEQUENCE public.worker_contracts_id_seq
 --
 
 ALTER SEQUENCE public.worker_contracts_id_seq OWNED BY public.worker_contracts.id;
+
+
+--
+-- Name: worker_group_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_group_items (
+    id integer NOT NULL,
+    worker_id integer,
+    worker_group_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: worker_group_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_group_items_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_group_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_group_items_id_seq OWNED BY public.worker_group_items.id;
+
+
+--
+-- Name: worker_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_groups (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    work_number character varying,
+    active boolean DEFAULT true NOT NULL,
+    usage character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: worker_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_groups_id_seq OWNED BY public.worker_groups.id;
 
 
 --
@@ -11740,6 +11815,20 @@ ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY public.worker_contracts ALTER COLUMN id SET DEFAULT nextval('public.worker_contracts_id_seq'::regclass);
+
+
+--
+-- Name: worker_group_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_items ALTER COLUMN id SET DEFAULT nextval('public.worker_group_items_id_seq'::regclass);
+
+
+--
+-- Name: worker_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_groups ALTER COLUMN id SET DEFAULT nextval('public.worker_groups_id_seq'::regclass);
 
 
 --
@@ -13800,6 +13889,22 @@ ALTER TABLE ONLY public.worker_contracts
 
 
 --
+-- Name: worker_group_items worker_group_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_items
+    ADD CONSTRAINT worker_group_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_groups worker_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_groups
+    ADD CONSTRAINT worker_groups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: worker_time_logs worker_time_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14316,6 +14421,13 @@ CREATE INDEX registered_postal_codes_country ON lexicon.registered_postal_codes 
 --
 
 CREATE INDEX registered_postal_codes_postal_code ON lexicon.registered_postal_codes USING btree (postal_code);
+
+
+--
+-- Name: registered_postal_codes_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_postal_codes_shape ON lexicon.registered_postal_codes USING gist (city_shape);
 
 
 --
@@ -22026,6 +22138,13 @@ CREATE INDEX index_products_on_variety ON public.products USING btree (variety);
 
 
 --
+-- Name: index_products_on_worker_group_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_worker_group_item_id ON public.products USING btree (worker_group_item_id);
+
+
+--
 -- Name: index_project_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -23839,6 +23958,48 @@ CREATE INDEX index_worker_contracts_on_updater_id ON public.worker_contracts USI
 
 
 --
+-- Name: index_worker_group_items_on_worker_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_items_on_worker_group_id ON public.worker_group_items USING btree (worker_group_id);
+
+
+--
+-- Name: index_worker_group_items_on_worker_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_items_on_worker_id ON public.worker_group_items USING btree (worker_id);
+
+
+--
+-- Name: index_worker_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_created_at ON public.worker_groups USING btree (created_at);
+
+
+--
+-- Name: index_worker_groups_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_creator_id ON public.worker_groups USING btree (creator_id);
+
+
+--
+-- Name: index_worker_groups_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_updated_at ON public.worker_groups USING btree (updated_at);
+
+
+--
+-- Name: index_worker_groups_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_updater_id ON public.worker_groups USING btree (updater_id);
+
+
+--
 -- Name: index_worker_time_indicators_on_start_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24365,6 +24526,14 @@ ALTER TABLE ONLY public.interventions
 
 ALTER TABLE ONLY public.outgoing_payments
     ADD CONSTRAINT fk_rails_1facec8a15 FOREIGN KEY (list_id) REFERENCES public.outgoing_payment_lists(id);
+
+
+--
+-- Name: products fk_rails_20cb1a9318; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_20cb1a9318 FOREIGN KEY (worker_group_item_id) REFERENCES public.worker_group_items(id);
 
 
 --
@@ -25853,10 +26022,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125181101'),
 ('20211206150144'),
 ('20211209142107'),
-('20211217170401'),
 ('20211220140042'),
 ('20220120092001'),
 ('20220204085501'),
 ('20220204185601'),
+('20220207140622'),
 ('20220208175301'),
-('20220209183201');
+('20220209183201'),
+('20220308153250');
+
+
