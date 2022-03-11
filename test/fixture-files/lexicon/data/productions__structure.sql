@@ -8,7 +8,8 @@ DROP TABLE IF EXISTS master_crop_productions;
 
         CREATE TABLE master_crop_productions (
           reference_name character varying PRIMARY KEY NOT NULL,
-          specie character varying NOT NULL,
+          activity_family character varying NOT NULL,
+          specie character varying,
           usage character varying,
           started_on DATE NOT NULL,
           stopped_on DATE NOT NULL,
@@ -22,6 +23,7 @@ DROP TABLE IF EXISTS master_crop_productions;
         );
 
         CREATE INDEX master_crop_productions_specie ON master_crop_productions(specie);
+        CREATE INDEX master_crop_productions_activity_family ON master_crop_productions(activity_family);
         CREATE INDEX master_crop_productions_agroedi_crop_code ON master_crop_productions(agroedi_crop_code);
 
         CREATE TABLE master_crop_production_start_states (

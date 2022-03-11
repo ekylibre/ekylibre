@@ -38,6 +38,15 @@ CREATE SCHEMA public;
 
 
 --
+-- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
+--
+
+CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
+    LANGUAGE c
+    AS '$libdir/pgcrypto', 'pg_random_uuid';
+
+
+--
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -951,6 +960,8 @@ CREATE TABLE lexicon.registered_postal_codes (
 
 CREATE TABLE lexicon.registered_protected_water_zones (
     id character varying NOT NULL,
+    administrative_zone character varying,
+    creator_name character varying,
     name character varying,
     updated_on date,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL
@@ -1557,8 +1568,7 @@ CREATE TABLE public.products (
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
-    isacompta_analytic_code character varying(2),
-    worker_group_item_id integer
+    isacompta_analytic_code character varying(2)
 );
 
 
@@ -4424,7 +4434,9 @@ CREATE TABLE public.sale_items (
     fixed_asset_id integer,
     conditioning_unit_id integer NOT NULL,
     conditioning_quantity numeric(20,10) NOT NULL,
-    catalog_item_id integer
+    catalog_item_id integer,
+    shipment_item_id integer,
+    catalog_item_update boolean DEFAULT false
 );
 
 
@@ -7247,7 +7259,8 @@ CREATE TABLE public.parcel_items (
     team_id integer,
     annotation text,
     conditioning_unit_id integer,
-    conditioning_quantity numeric(20,10)
+    conditioning_quantity numeric(20,10),
+    unit_pretax_sale_amount numeric(19,4)
 );
 
 
@@ -7315,7 +7328,8 @@ CREATE TABLE public.parcels (
     type character varying,
     late_delivery boolean,
     intervention_id integer,
-    reconciliation_state character varying
+    reconciliation_state character varying,
+    sale_nature_id integer
 );
 
 
@@ -20188,6 +20202,13 @@ CREATE INDEX index_parcels_on_sale_id ON public.parcels USING btree (sale_id);
 
 
 --
+-- Name: index_parcels_on_sale_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_sale_nature_id ON public.parcels USING btree (sale_nature_id);
+
+
+--
 -- Name: index_parcels_on_sender_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21903,13 +21924,6 @@ CREATE INDEX index_products_on_variety ON public.products USING btree (variety);
 
 
 --
--- Name: index_products_on_worker_group_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_products_on_worker_group_item_id ON public.products USING btree (worker_group_item_id);
-
-
---
 -- Name: index_project_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -22334,6 +22348,13 @@ CREATE INDEX index_sale_items_on_fixed_asset_id ON public.sale_items USING btree
 --
 
 CREATE INDEX index_sale_items_on_sale_id ON public.sale_items USING btree (sale_id);
+
+
+--
+-- Name: index_sale_items_on_shipment_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_shipment_item_id ON public.sale_items USING btree (shipment_item_id);
 
 
 --
@@ -24175,14 +24196,6 @@ ALTER TABLE ONLY public.outgoing_payments
 
 
 --
--- Name: products fk_rails_20cb1a9318; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT fk_rails_20cb1a9318 FOREIGN KEY (worker_group_item_id) REFERENCES public.worker_group_items(id);
-
-
---
 -- Name: outgoing_payments fk_rails_214eda6f83; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24308,6 +24321,14 @@ ALTER TABLE ONLY public.intervention_proposals
 
 ALTER TABLE ONLY public.wine_incoming_harvest_presses
     ADD CONSTRAINT fk_rails_45a09dccce FOREIGN KEY (press_id) REFERENCES public.products(id);
+
+
+--
+-- Name: parcels fk_rails_47f94280b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.parcels
+    ADD CONSTRAINT fk_rails_47f94280b8 FOREIGN KEY (sale_nature_id) REFERENCES public.sale_natures(id);
 
 
 --
@@ -25653,4 +25674,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211206150144'),
 ('20211209142107'),
 ('20211220140042'),
-('20220120092001');
+('20220120092001'),
+('20220204085501'),
+('20220204185601'),
+('20220308153250');
+
+
