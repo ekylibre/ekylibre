@@ -916,16 +916,6 @@ fra:
       index: "Contrats de travail"
       new: "Nouveau contrat de travail"
       show: "Détail contrat de travail\_: %{name}"
-    backend/worker_groups:
-      index: "Groupe d'équipiers"
-      edit: "Modifier un groupe d'équipiers"
-      new: "Nouveau groupe d'équipiers"
-      show: "Détail groupe d'équipiers\_: %{name}"
-    backend/worker_time_logs:
-      edit: "Modifier une saisie de temps"
-      index: "Temps des équipiers"
-      new: "Nouvelle saisie de temps "
-      show: "Détail saisie de temps"
     public:
       index: "Accueil"
   errors:
@@ -1390,7 +1380,6 @@ fra:
     add_tool: "Ajouter un outil"
     add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
     add_website: "Ajouter un site web"
-    add_worker: "Ajouter un équipier"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
@@ -1598,6 +1587,9 @@ fra:
     casts: "Intervention"
     catalog: "Description pour catalogue"
     catalog_items: "Éléments de catalogue"
+    catalog_item_update: "Mettre à jour le catalogue de prix"
+    catalog_update_title: "Cochez pour mettre à jour"
+    catalog_update_description: "En cochant cette case, le PU HT définit sera automatiquement mis à jour dans le catalogue de prix du type de vente sélectionné"
     category: "Catégorie comptable"
     category_code: "Code catégorie" #?
     category_name: "Catégorie comptable" #?
@@ -1756,7 +1748,6 @@ fra:
     create_a_new_conditioning: "Créer un nouveau conditionnement"
     create_a_sale: "Créer une vente"
     create_and_continue: "Créer et saisir suivant"
-    create_group: "Créer un groupe"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -1811,6 +1802,7 @@ fra:
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
     database_version: "Version de la base de données"
+    datasources: "Liste des sources de données"
     date: "Date" #?
     date_range: "%{from} au %{to}"
     dated_cash: "%{cash}\_: %{on}"
@@ -2229,7 +2221,6 @@ fra:
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
     group_by_centralizing_accounts: "Groupement par comptes centralisateurs"
-    group_size: "Taille du groupe"
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
@@ -3627,7 +3618,6 @@ fra:
     worker_contract: "Contrat de travail"
     worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
-    worker_number: "Nombre d'équipiers"
     workers: "Équipiers"
     workforce: "Main œuvre"
     working_area: "Surface travaillée"
@@ -3846,9 +3836,6 @@ fra:
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"
-    x_time_logs:
-      one: "%{count} saisie de temps"
-      other: "%{count} saisies de temps"
     x_thing: "%{x} %{thing}"
     x_times:
       one: "%{count} fois"
@@ -4138,8 +4125,8 @@ fra:
         one: "%{count} activité a déjà été planifiée"
         other: "%{count} activités ont déjà été planifiées"
       x_activity_have_not_been_autoplanned:
-        one: "Aucune activité n'a pas été planifiée automatiquement."
-        other: "%{count} activité(s) n'ont pas été planifiée(s) automatiquement"
+        one: "Aucune activité n'a été planifiée automatiquement."
+        other: "%{count} activité(s) n'ont été planifiée(s) automatiquement"
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
         one: "%{count} amortissement d'immobilisation a été comptabilisé avec succès"
         other: "%{count} amortissements d'immobilisations ont été comptabilisés avec succès"

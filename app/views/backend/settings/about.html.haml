@@ -7,10 +7,10 @@
       %span.value= p[1]
 
   .med-info
-    %span.value= link_to(:consult_ekylibre_api.tl, 'https://ekylibre.com/api', target: '_blank', style: 'color:rgb(100, 148, 193)')
+    %span.value= link_to(:consult_ekylibre_api.tl, 'https://ekylibre.com/api', target: '_blank', style: 'color:rgb(100, 148, 193); font-size: 31px;')
       
   = cobbles do |c|
-    - c.cobble :datasources do
+    - c.cobble :datasources.tl do
       = cobble_list :datasources
 
   .med-info

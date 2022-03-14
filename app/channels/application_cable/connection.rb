@@ -5,7 +5,7 @@ module ApplicationCable
     identified_by :current_user, :tenant
 
     def connect
-      self.tenant = request.subdomain
+      self.tenant = request.subdomains.first
       Apartment::Tenant.switch!(tenant)
       self.current_user = find_verified_user
     end

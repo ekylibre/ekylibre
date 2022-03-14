@@ -47,7 +47,7 @@
     b = CapIslet.bounding_box(resource.cap_islets)
     if b.present?
       h = RegisteredHydrographicItem.in_bounding_box(b.join(', '))
-      z = RegisteredCadastralBuilding.in_bounding_box(b)
+      z = RegisteredCadastralBuilding.in_bounding_box(b.join(', '))
     else
       h = RegisteredHydrographicItem.none
       z = RegisteredCadastralBuilding.none

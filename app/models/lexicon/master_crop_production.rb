@@ -50,6 +50,8 @@ class MasterCropProduction < LexiconRecord
 
   scope :of_species, ->(*species) { where(specie: species) }
 
+  scope :of_reference_names, ->(*ref_names) { where(reference_name: ref_names) }
+
   has_interval :life_duration
 
   # @return [String] Name of the main associated output
