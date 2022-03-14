@@ -6,7 +6,7 @@ module Backend
       @land_parcel = create :lemon_land_parcel, :organic, born_at: DateTime.new(2018, 1, 1)
       phyto_references = { copless: '2000087_copless', award: '2190613_award', sultan: '2000003_sultan', zebra: '2000085_zebra' }
       phyto_references.each { |name, ref| instance_variable_set "@#{name}", create(:phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name(ref)) }
-      @award_usage = RegisteredPhytosanitaryUsage.find('20200331165039076592')
+      @award_usage = RegisteredPhytosanitaryUsage.find('20210727175041473315')
       user_sign_in
     end
 

@@ -646,6 +646,8 @@ class ProductNatureVariant < ApplicationRecord
       if variants.empty?
         # Filter and imports
         filtereds = flattened_nomenclature.select do |item|
+          next if item.variety.nil?
+
           item.variety >= variety &&
             ((derivative_of && item.derivative_of && item.derivative_of >= derivative_of) || (derivative_of.blank? && item.derivative_of.blank?))
         end

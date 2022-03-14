@@ -36,4 +36,7 @@
 class RegisteredAgroediCode < LexiconRecord
   include Lexiconable
   scope :of_reference_code, ->(code) { where(reference_code: code.to_s) }
+  scope :of_ekylibre_codes, lambda { |context, value|
+    where(ekylibre_scope: context.to_s, reference_code: value.to_s)
+  }
 end
