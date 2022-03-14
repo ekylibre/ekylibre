@@ -10,9 +10,10 @@ module Accountancy
 
       test 'import working' do
         import = @importer.import_bank_statement(file_path("import_cfonb.csv"))
+        assert import.success?
+
         bank_statement = import.value
         bank_statement_items = bank_statement.items
-        assert import.success?
 
         assert_equal [DateTime.new(2020, 7, 31), DateTime.new(2020, 9, 1)], [bank_statement.started_on, bank_statement.stopped_on]
 

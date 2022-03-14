@@ -9,7 +9,7 @@ module Interventions
         shape = Charta.new_geometry("SRID=4326;Polygon ((-0.7835698127746582 45.83066819629935, -0.7841813564300537 45.830862562911996, -0.7846426963806152 45.830298150295135, -0.7839131355285645 45.83011125743876, -0.7835698127746582 45.83066819629935))")
         product = create(:phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2190613_award'))
         phyto = product.phytosanitary_product
-        usage = RegisteredPhytosanitaryUsage.find('20200331165039123741')
+        usage = RegisteredPhytosanitaryUsage.find('20210727175041473315')
 
         targets_and_shape = [::Interventions::Phytosanitary::Models::TargetAndShape.new(target, shape)]
         products_usages = [::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, 1.in(:population), nil)]

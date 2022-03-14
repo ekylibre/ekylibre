@@ -7001,7 +7001,7 @@ parcels:
     references: sale
   sale_nature_id:
     type: integer
-    references: sale_natures
+    references: sale_nature
   sender_id:
     type: integer
     references: entity
@@ -9461,7 +9461,7 @@ sale_items:
     required: true
   shipment_item_id:
     type: integer
-    references: parcel_item
+    references: shipment_item
   tax_id:
     type: integer
     references: tax

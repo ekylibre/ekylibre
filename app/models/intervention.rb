@@ -294,6 +294,9 @@ class Intervention < ApplicationRecord
   scope :with_outputs, ->(*outputs) { where(id: InterventionOutput.of_actors(outputs).select(:intervention_id)) }
   scope :with_doers, ->(*doers) { where(id: InterventionDoer.of_actors(doers).select(:intervention_id)) }
   scope :with_input_of_maaids, ->(*maaids) { where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id)) }
+  scope :with_input_presence, -> { where(id: InterventionInput.all.pluck(:intervention_id).uniq) }
+  scope :without_input_presence, -> { where.not(id: InterventionInput.all.pluck(:intervention_id).uniq) }
+  scope :without_output_presence, -> { where.not(id: InterventionOutput.all.pluck(:intervention_id).uniq) }
   scope :done, -> {}
 
   before_validation do
