@@ -37,6 +37,7 @@ sales:
 - tasks
 - incoming_payments
 - deposits
+- subscriptions
 tools:
 - cap_statements
 - cadastral_land_parcel_zones
@@ -77,12 +78,12 @@ productions:
 - wine_tanks
 - wine_incoming_harvests
 purchases:
-- all_purchases
 - contracts
 - outgoing_payment_lists
 - outgoing_payments
-- purchases
-- subscriptions
+- purchase_orders
+- purchase_invoices
+- purchase_affairs
 stocks:
 - building_divisions
 - incoming_deliveries

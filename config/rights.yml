@@ -704,23 +704,6 @@
 #     - "public/financial_year_exchange_exports#csv"
 #     - "public/financial_year_exchange_exports#show"
 
-all_purchases:
-  read:
-    dependencies:
-    - read-subscriptions
-    - read-purchases
-    - read-contracts
-    - read-outgoing_payments
-    - read-outgoing_payment_lists
-  write:
-    dependencies:
-    - read-all_purchases
-    - write-subscriptions
-    - write-purchases
-    - write-contracts
-    - write-outgoing_payments
-    - write-outgoing_payment_lists
-
 accounts:
   read:
     actions:
@@ -1683,6 +1666,7 @@ incoming_deliveries:
     - "backend/receptions#give"
     - "backend/receptions#new"
     - "backend/receptions#update"
+    - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
 
 incoming_payment_modes:
   read:
@@ -2573,6 +2557,7 @@ purchase_natures:
     - "backend/purchase_natures#unroll"
   write:
     dependencies:
+    - read-journals
     - read-purchase_natures
     actions:
     - "backend/purchase_natures#create"
@@ -2581,48 +2566,39 @@ purchase_natures:
     - "backend/purchase_natures#new"
     - "backend/purchase_natures#update"
 
-purchases:
+purchase_affairs:
   read:
     actions:
     - "backend/purchase_affairs#index"
     - "backend/purchase_affairs#list"
     - "backend/purchase_affairs#show"
     - "backend/purchase_affairs#unroll"
-    - "backend/purchase_invoices#index"
-    - "backend/purchase_invoices#list"
-    - "backend/purchase_invoices#list_items"
-    - "backend/purchase_invoices#list_receptions"
-    - "backend/purchase_invoices#show"
-    - "backend/purchase_invoices#unroll"
-    - "backend/purchase_orders#index"
-    - "backend/purchase_orders#list"
-    - "backend/purchase_orders#list_items"
-    - "backend/purchase_orders#show"
-    - "backend/purchase_orders#unroll"
-    - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
-    - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
-    - "backend/unreceived_purchase_orders#index"
-    - "backend/unreceived_purchase_orders#list"
-    - "backend/unreceived_purchase_orders#show"
   write:
     dependencies:
-    - read-purchases
+    - read-purchase_affairs
     actions:
-    - "backend/debt_transfers#create"
-    - "backend/debt_transfers#destroy"
-    - "backend/interventions#purchase"
     - "backend/purchase_affairs#attach"
     - "backend/purchase_affairs#detach"
     - "backend/purchase_affairs#detach_gaps"
     - "backend/purchase_affairs#finish"
     - "backend/purchase_affairs#select"
-    - "backend/purchase_invoices#create"
-    - "backend/purchase_invoices#destroy"
-    - "backend/purchase_invoices#edit"
-    - "backend/purchase_invoices#new"
-    - "backend/purchase_invoices#pay"
-    - "backend/purchase_invoices#payment_mode"
-    - "backend/purchase_invoices#update"
+    
+
+purchase_orders:
+  read:
+    actions:
+    - "backend/purchase_orders#index"
+    - "backend/purchase_orders#list"
+    - "backend/purchase_orders#list_items"
+    - "backend/purchase_orders#show"
+    - "backend/purchase_orders#unroll"
+  write:
+    dependencies:
+    - read-conditionings
+    - read-entities
+    - read-purchase_orders
+    - read-product_nature_variants
+    actions:
     - "backend/purchase_orders#close"
     - "backend/purchase_orders#create"
     - "backend/purchase_orders#destroy"
@@ -2630,6 +2606,38 @@ purchases:
     - "backend/purchase_orders#new"
     - "backend/purchase_orders#open"
     - "backend/purchase_orders#update"
+
+purchase_invoices:
+  read:
+    dependencies:
+    - read-purchase_affairs
+    actions:
+    - "backend/purchase_invoices#index"
+    - "backend/purchase_invoices#list"
+    - "backend/purchase_invoices#list_items"
+    - "backend/purchase_invoices#list_receptions"
+    - "backend/purchase_invoices#show"
+    - "backend/purchase_invoices#unroll"
+    - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
+    - "backend/unreceived_purchase_orders#index"
+    - "backend/unreceived_purchase_orders#list"
+    - "backend/unreceived_purchase_orders#show"
+  
+  write:
+    dependencies:
+    - read-purchase_invoices
+    - write-purchase_affairs
+    actions:
+    - "backend/debt_transfers#create"
+    - "backend/debt_transfers#destroy"
+    - "backend/interventions#purchase"
+    - "backend/purchase_invoices#create"
+    - "backend/purchase_invoices#destroy"
+    - "backend/purchase_invoices#edit"
+    - "backend/purchase_invoices#new"
+    - "backend/purchase_invoices#pay"
+    - "backend/purchase_invoices#payment_mode"
+    - "backend/purchase_invoices#update"
     - "backend/purchases/reconciliation_states#put_accepted_state"
     - "backend/purchases/reconciliation_states#put_reconcile_state"
     - "backend/purchases/reconciliation_states#put_to_reconcile_state"
@@ -2639,6 +2647,7 @@ purchases:
     - "backend/unreceived_purchase_orders#destroy"
     - "backend/unreceived_purchase_orders#edit"
     - "backend/unreceived_purchase_orders#update"
+
 
 registrations:
   read:
@@ -2683,6 +2692,9 @@ sale_natures:
     - "backend/sale_natures#unroll"
   write:
     dependencies:
+    - read-catalogs
+    - read-journals
+    - read-incoming_payment_modes
     - read-sale_natures
     actions:
     - "backend/sale_natures#create"
@@ -2868,6 +2880,7 @@ subscriptions:
     - "backend/subscriptions#unroll"
   write:
     dependencies:
+    - read-subscription_natures
     - read-subscriptions
     actions:
     - "backend/subscriptions#create"
