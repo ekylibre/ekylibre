@@ -6,7 +6,7 @@ module Backend
       def show; end
 
       def compute_pfi_interventions
-        intervention_ids = Intervention.of_nature_using_phytosanitary.of_campaign(@campaign).pluck(:id)
+        intervention_ids = Intervention.where(nature: 'record').of_nature_using_phytosanitary.of_campaign(@campaign).pluck(:id)
         PfiCalculationJob.perform_later(@campaign, intervention_ids, current_user)
       end
 

@@ -168,7 +168,7 @@ module Interventions
               crop["culture"] = { idMetier: grab_pfi_crop_code(activity), libelle: "", groupeCultures: { idMetier: "", libelle: "" } }
               crop["parcelle"] = { nom: ap.name, surface: ap.support_shape_area.convert(:hectare).to_f.round(2) }
               crop["traitements"] = []
-              ap.interventions.of_nature_using_phytosanitary.each do |int|
+              ap.interventions.where(nature: 'record').of_nature_using_phytosanitary.each do |int|
                 int.inputs.each do |intervention_input|
                   treatment = compute_crop_interventions_for_pfi_report(ap, intervention_input)
                   crop["traitements"] << treatment if treatment && !intervention_input.product&.variant&.phytosanitary_product&.adjuvant?
