@@ -94,7 +94,7 @@ fra:
       products: "Produits"
       project_budgets: "Budgets internes"
       purchase_natures: "Types d’achat"
-      purchase_orders: "Commandes"
+      purchases: "Achats"
       registrations: "Inscriptions"
       roles: "Rôles"
       sale_natures: "Types de vente"

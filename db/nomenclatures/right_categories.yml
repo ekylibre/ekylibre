@@ -81,9 +81,7 @@ purchases:
 - contracts
 - outgoing_payment_lists
 - outgoing_payments
-- purchase_orders
-- purchase_invoices
-- purchase_affairs
+- purchases
 stocks:
 - building_divisions
 - incoming_deliveries
