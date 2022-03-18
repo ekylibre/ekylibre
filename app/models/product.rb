@@ -331,6 +331,8 @@ class Product < ApplicationRecord
   scope :animals, -> { where(type: 'Animal') }
   scope :of_available_animal_group, -> { where(type: 'AnimalGroup', activity_production_id: nil) }
 
+  scope :land_parcel_alive, ->(at: Time.now) { joins(activity_production: :support).where('supports_activity_productions.dead_at IS NULL OR supports_activity_productions.dead_at >= ?', at) }
+
   scope :fathers, -> { animals.indicate(sex: 'male', reproductor: true).order(:name) }
   scope :mothers, -> { animals.indicate(sex: 'female', reproductor: true).order(:name) }
 

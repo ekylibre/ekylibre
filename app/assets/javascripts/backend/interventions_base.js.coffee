@@ -148,8 +148,13 @@
       return if newTime == ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
-        re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
-        scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3")
+        target = $(item).data('intervention-updater').search(/targets/i)
+        if target != -1
+          re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)(scope\[land_parcel_alive\]\[\]\[at\]=)(.*?)(&)/
+          scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3" + "$4" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$6")
+        else
+          re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
+          scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
     _setWaiting: (form, computing) ->
