@@ -694,8 +694,11 @@ module Backend
         data = ''.html_safe
         resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
           resource_reference = reference.include?(resource.to_s) ? reference[resource.to_s] : []
+          all_access = resource.to_s.match?(/all_access/i)
+          attributes = { class: "control-label" }
+          attributes[:class] << 'label-bold' if all_access
           data << @template.content_tag(:div, class: 'control-group booleans') do
-            @template.content_tag(:label, class: 'control-label') do
+            @template.content_tag(:label, attributes) do
               Ekylibre::Access.human_resource_name(resource)
             end +
               @template.content_tag(:div, class: 'controls') do
@@ -714,8 +717,14 @@ module Backend
               end
           end
         end
-        html << @template.field_set(category.to_sym,  options = { collapsed: ' collapsed' }) do
-          data
+        if data.include? 'active'
+          html << @template.field_set(category.to_sym, collapsed: true, class: 'active') do
+            data
+          end
+        else
+          html << @template.field_set(category.to_sym, collapsed: true) do
+            data
+          end
         end
       end
       html

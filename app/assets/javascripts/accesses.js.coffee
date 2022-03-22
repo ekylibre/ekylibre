@@ -21,7 +21,7 @@
     $(this).toggleClass("active").checkAccesses()
     return false
 
-    # Through a "role" selector, it can refresh totally on access check
+  # Through a "role" selector, it can refresh totally on access check
   $(document).on "selector:change", "*[data-selector][data-refresh-access-control-list]", (_event, _selectedElement, was_initializing) ->
     if was_initializing
       return

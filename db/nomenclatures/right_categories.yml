@@ -1,5 +1,7 @@
 ---
 accountancy:
+- access_all_accountancy
+- affairs
 - bank_statements
 - cashes
 - cash_transfers
@@ -14,14 +16,17 @@ accountancy:
 - tax_declarations
 - taxes
 economics:
+- access_all_economics
 - costs
 - economic_dashboard
 - margins
 - simulators
 entities:
+- access_all_entities
 - entities
 - events
 human_resources:
+- access_all_human_resources
 - humans_dashboard
 - payslip_natures
 - payslip_payments
@@ -32,13 +37,14 @@ human_resources:
 - worker_time_logs
 - workers
 sales:
-- affairs
+- access_all_sales
 - sales
 - tasks
 - incoming_payments
 - deposits
 - subscriptions
 tools:
+- access_all_tools
 - cap_statements
 - cadastral_land_parcel_zones
 - cvi_cadastral_plants
@@ -58,6 +64,7 @@ tools:
 - sensors
 - supervisions
 productions:
+- access_all_productions
 - activities
 - analyses
 - animal_groups
@@ -78,20 +85,25 @@ productions:
 - wine_tanks
 - wine_incoming_harvests
 purchases:
+- access_all_purchases
 - contracts
 - outgoing_payment_lists
 - outgoing_payments
-- purchases
+- purchase_orders
+- purchase_invoices
 stocks:
+- access_all_stocks
 - building_divisions
-- incoming_deliveries
 - inventories
 - matters
 - outgoing_deliveries
 - products
+- receptions
 - trackings
 - transports
+- unreceived_purchase_orders
 settings:
+- access_all_settings
 - accounts
 - analytic_sequences
 - buildings
@@ -122,6 +134,7 @@ settings:
 - subscription_natures
 - users
 schedulings:
+- access_all_schedulings
 - intervention_templates
 - load_plans
 - technical_itineraries

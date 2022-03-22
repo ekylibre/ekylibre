@@ -704,6 +704,290 @@
 #     - "public/financial_year_exchange_exports#csv"
 #     - "public/financial_year_exchange_exports#show"
 
+access_all_accountancy: 
+  read:
+    dependencies:
+    - read-affairs
+    - read-bank_statements
+    - read-cashes
+    - read-cash_transfers
+    - read-financial_years
+    - read-financial_year_exchanges
+    - read-fixed_assets
+    - read-gaps
+    - read-journals
+    - read-journal_draft
+    - read-journal_entries
+    - read-loans
+    - read-tax_declarations
+    - read-taxes
+  write:
+    dependencies:
+    - read-access_all_accountancy
+    - write-affairs
+    - write-bank_statements
+    - write-cashes
+    - write-cash_transfers
+    - write-financial_years
+    - write-financial_year_exchanges
+    - write-fixed_assets
+    - write-gaps
+    - write-journals
+    - write-journal_draft
+    - write-journal_entries
+    - write-loans
+    - write-tax_declarations
+    - write-taxes
+
+access_all_entities:
+  read:
+    dependencies:
+    - read-entities
+    - read-events
+  write:
+    dependencies:
+    - read-access_all_entities
+    - write-entities
+    - write-events
+
+access_all_human_resources:
+  read:
+    dependencies:
+    - read-humans_dashboard
+    - read-payslip_natures
+    - read-payslip_payments
+    - read-payslips
+    - read-teams
+    - read-worker_groups
+    - read-worker_contracts
+    - read-worker_time_logs
+    - read-workers
+  write:
+    dependencies:
+    - read-access_all_human_resources
+    - write-humans_dashboard
+    - write-payslip_natures
+    - write-payslip_payments
+    - write-payslips
+    - write-teams
+    - write-worker_groups
+    - write-worker_contracts
+    - write-worker_time_logs
+    - write-workers
+
+access_all_productions:
+  read:
+    dependencies:
+    - read-activities
+    - read-analyses
+    - read-animal_groups
+    - read-animals
+    - read-campaigns
+    - read-crop_groups
+    - read-cultivable_zones
+    - read-equipments
+    - read-interventions
+    - read-issues
+    - read-land_parcels
+    - read-observations
+    - read-plant_countings
+    - read-plants
+    - read-prescriptions
+    - read-product_groups
+    - read-productions
+    - read-wine_tanks
+    - read-wine_incoming_harvests
+  write:
+    dependencies:
+    - read-access_all_productions
+    - write-activities
+    - write-analyses
+    - write-animal_groups
+    - write-animals
+    - write-campaigns
+    - write-crop_groups
+    - write-cultivable_zones
+    - write-equipments
+    - write-interventions
+    - write-issues
+    - write-land_parcels
+    - write-observations
+    - write-plant_countings
+    - write-plants
+    - write-prescriptions
+    - write-product_groups
+    - write-productions
+    - write-wine_tanks
+    - write-wine_incoming_harvests
+
+access_all_purchases:
+  read:
+    dependencies:
+    - read-contracts
+    - read-outgoing_payment_lists
+    - read-outgoing_payments
+    - read-purchase_orders
+    - read-purchase_invoices
+  write:
+    dependencies:
+    - read-access_all_purchases
+    - write-contracts
+    - write-outgoing_payment_lists
+    - write-outgoing_payments
+    - write-purchase_orders
+    - write-purchase_invoices
+
+access_all_sales:
+  read:
+    dependencies:
+    - read-sales
+    - read-tasks
+    - read-incoming_payments
+    - read-deposits
+    - read-subscriptions
+  write:
+    dependencies:
+    - read-access_all_sales
+    - write-sales
+    - write-tasks
+    - write-incoming_payments
+    - write-deposits
+    - write-subscriptions
+
+access_all_settings:
+  read:
+    dependencies:
+    - read-accounts
+    - read-analytic_sequences
+    - read-buildings
+    - read-catalogs
+    - read-companies
+    - read-conditionings
+    - read-custom_fields
+    - read-dashboards
+    - read-districts
+    - read-document_templates
+    - read-georeadings
+    - read-incoming_payment_modes
+    - read-invitations
+    - read-labels
+    - read-naming_formats
+    - read-outgoing_payment_modes
+    - read-postal_zones
+    - read-product_nature_categories
+    - read-product_nature_variants
+    - read-product_natures
+    - read-project_budgets
+    - read-purchase_natures
+    - read-registrations
+    - read-roles
+    - read-sale_natures
+    - read-sequences
+    - read-settlements
+    - read-subscription_natures
+    - read-users
+  write:
+    dependencies:
+    - read-access_all_settings
+    - write-accounts
+    - write-analytic_sequences
+    - write-buildings
+    - write-catalogs
+    - write-companies
+    - write-conditionings
+    - write-custom_fields
+    - write-dashboards
+    - write-districts
+    - write-document_templates
+    - write-geowriteings
+    - write-incoming_payment_modes
+    - write-invitations
+    - write-labels
+    - write-naming_formats
+    - write-outgoing_payment_modes
+    - write-postal_zones
+    - write-product_nature_categories
+    - write-product_nature_variants
+    - write-product_natures
+    - write-project_budgets
+    - write-purchase_natures
+    - write-registrations
+    - write-roles
+    - write-sale_natures
+    - write-sequences
+    - write-settlements
+    - write-subscription_natures
+    - write-users
+
+access_all_stocks:
+  read:
+    dependencies:
+    - read-building_divisions
+    - read-inventories
+    - read-matters
+    - read-outgoing_deliveries
+    - read-products
+    - read-receptions
+    - read-trackings
+    - read-transports
+    - read-unreceived_purchase_orders
+  write:
+    dependencies:
+    - read-access_all_stocks
+    - write-building_divisions
+    - write-inventories
+    - write-matters
+    - write-outgoing_deliveries
+    - write-products
+    - write-receptions
+    - write-trackings
+    - write-transports
+    - write-unreceived_purchase_orders
+
+
+access_all_tools:
+  read:
+    dependencies:
+    - read-cap_statements
+    - read-cadastral_land_parcel_zones
+    - read-cvi_cadastral_plants
+    - read-cvi_cultivable_zones
+    - read-cvi_land_parcels
+    - read-cvi_statement_conversions
+    - read-cvi_statements
+    - read-documents
+    - read-exports
+    - read-identifiers
+    - read-imports
+    - read-integrations
+    - read-listings
+    - read-map_layers
+    - read-net_services
+    - read-tools
+    - read-sensors
+    - read-supervisions
+  write:
+    dependencies:
+    - read-access_all_tools
+    - write-cap_statements
+    - write-cadastral_land_parcel_zones
+    - write-cvi_cadastral_plants
+    - write-cvi_cultivable_zones
+    - write-cvi_land_parcels
+    - write-cvi_statement_conversions
+    - write-cvi_statements
+    - write-documents
+    - write-exports
+    - write-identifiers
+    - write-imports
+    - write-integrations
+    - write-listings
+    - write-map_layers
+    - write-net_services
+    - write-tools
+    - write-sensors
+    - write-supervisions
+
 accounts:
   read:
     actions:
@@ -798,6 +1082,7 @@ affairs:
     - "backend/affairs#index"
     - "backend/affairs#list"
     - "backend/affairs#show"
+    - "backend/affairs#unroll"
     - "backend/sale_tickets#index"
     - "backend/sale_tickets#list"
     - "backend/sale_tickets#show"
@@ -810,7 +1095,6 @@ affairs:
     - "backend/affairs#detach_gaps"
     - "backend/affairs#finish"
     - "backend/affairs#select"
-    - "backend/affairs#unroll"
     - "backend/sale_tickets#attach"
     - "backend/sale_tickets#detach"
     - "backend/sale_tickets#detach_gaps"
@@ -1647,28 +1931,6 @@ imports:
     - "backend/imports#abort"
     - "backend/imports#run"
 
-incoming_deliveries:
-  read:
-    actions:
-    - "backend/receptions#index"
-    - "backend/receptions#list"
-    - "backend/receptions#list_items"
-    - "backend/receptions#list_storings"
-    - "backend/receptions#show"
-    - "backend/receptions#unroll"
-  write:
-    dependencies:
-    - read-incoming_deliveries
-    - read-products
-    actions:
-    - "backend/receptions#create"
-    - "backend/receptions#destroy"
-    - "backend/receptions#edit"
-    - "backend/receptions#give"
-    - "backend/receptions#new"
-    - "backend/receptions#update"
-    - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
-
 incoming_payment_modes:
   read:
     actions:
@@ -1694,14 +1956,19 @@ incoming_payment_modes:
 
 incoming_payments:
   read:
+    dependencies:
+    - read-affairs
     actions:
     - "backend/incoming_payments#index"
     - "backend/incoming_payments#list"
     - "backend/incoming_payments#show"
     - "backend/incoming_payments#unroll"
+
   write:
     dependencies:
     - read-incoming_payments
+    - read-incoming_payment_modes
+    - write-affairs
     actions:
     - "backend/incoming_payments#create"
     - "backend/incoming_payments#destroy"
@@ -2182,6 +2449,8 @@ outgoing_payment_modes:
 
 outgoing_payments:
   read:
+    dependencies:
+    - read-affairs
     actions:
     - "backend/outgoing_payments#index"
     - "backend/outgoing_payments#show"
@@ -2193,6 +2462,8 @@ outgoing_payments:
   write:
     dependencies:
     - read-outgoing_payments
+    - read-outgoing_payment_modes
+    - write-affairs
     actions:
     - "backend/outgoing_payments#create"
     - "backend/outgoing_payments#destroy"
@@ -2567,19 +2838,9 @@ purchase_natures:
     - "backend/purchase_natures#new"
     - "backend/purchase_natures#update"
 
-purchases:
+purchase_orders:
   read:
     actions:
-    - "backend/purchase_affairs#index"
-    - "backend/purchase_affairs#list"
-    - "backend/purchase_affairs#show"
-    - "backend/purchase_affairs#unroll"
-    - "backend/purchase_invoices#index"
-    - "backend/purchase_invoices#list"
-    - "backend/purchase_invoices#list_items"
-    - "backend/purchase_invoices#list_receptions"
-    - "backend/purchase_invoices#show"
-    - "backend/purchase_invoices#unroll"
     - "backend/purchase_orders#index"
     - "backend/purchase_orders#list"
     - "backend/purchase_orders#list_items"
@@ -2587,28 +2848,12 @@ purchases:
     - "backend/purchase_orders#unroll"
     - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
     - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
-    - "backend/unreceived_purchase_orders#index"
-    - "backend/unreceived_purchase_orders#list"
-    - "backend/unreceived_purchase_orders#show"
   write:
     dependencies:
-    - read-purchases
+    - read-purchase_orders
+    - read-product_nature_variants
+    - read-conditionings
     actions:
-    - "backend/debt_transfers#create"
-    - "backend/debt_transfers#destroy"
-    - "backend/interventions#purchase"
-    - "backend/purchase_affairs#attach"
-    - "backend/purchase_affairs#detach"
-    - "backend/purchase_affairs#detach_gaps"
-    - "backend/purchase_affairs#finish"
-    - "backend/purchase_affairs#select"
-    - "backend/purchase_invoices#create"
-    - "backend/purchase_invoices#destroy"
-    - "backend/purchase_invoices#edit"
-    - "backend/purchase_invoices#new"
-    - "backend/purchase_invoices#pay"
-    - "backend/purchase_invoices#payment_mode"
-    - "backend/purchase_invoices#update"
     - "backend/purchase_orders#close"
     - "backend/purchase_orders#create"
     - "backend/purchase_orders#destroy"
@@ -2616,16 +2861,62 @@ purchases:
     - "backend/purchase_orders#new"
     - "backend/purchase_orders#open"
     - "backend/purchase_orders#update"
+
+purchase_invoices:
+  read:
+    actions:
+    - "backend/purchase_invoices#index"
+    - "backend/purchase_invoices#list"
+    - "backend/purchase_invoices#list_items"
+    - "backend/purchase_invoices#list_receptions"
+    - "backend/purchase_invoices#show"
+    - "backend/purchase_invoices#unroll"
+
+  write:
+    dependencies:
+    - read-purchase_invoices
+    - read-product_nature_variants
+    - read-conditionings
+    actions:
+    - "backend/purchase_invoices#create"
+    - "backend/purchase_invoices#destroy"
+    - "backend/purchase_invoices#edit"
+    - "backend/purchase_invoices#new"
+    - "backend/purchase_invoices#pay"
+    - "backend/purchase_invoices#payment_mode"
+    - "backend/purchase_invoices#update"
+    - "backend/quick_purchases#create"
+    - "backend/quick_purchases#new"
     - "backend/purchases/reconciliation_states#put_accepted_state"
     - "backend/purchases/reconciliation_states#put_reconcile_state"
     - "backend/purchases/reconciliation_states#put_to_reconcile_state"
-    - "backend/quick_purchases#create"
-    - "backend/quick_purchases#new"
-    - "backend/unreceived_purchase_orders#create"
-    - "backend/unreceived_purchase_orders#destroy"
-    - "backend/unreceived_purchase_orders#edit"
-    - "backend/unreceived_purchase_orders#update"
+    - "backend/debt_transfers#create"
+    - "backend/debt_transfers#destroy"
+    - "backend/interventions#purchase"
 
+receptions:
+  read:
+    actions:
+    - "backend/receptions#index"
+    - "backend/receptions#list"
+    - "backend/receptions#list_items"
+    - "backend/receptions#list_storings"
+    - "backend/receptions#show"
+    - "backend/receptions#unroll"
+  write:
+    dependencies:
+    - read-receptions
+    - read-product_nature_variants
+    - read-conditionings
+    - read-products
+    actions:
+    - "backend/receptions#create"
+    - "backend/receptions#destroy"
+    - "backend/receptions#edit"
+    - "backend/receptions#give"
+    - "backend/receptions#new"
+    - "backend/receptions#update"
+    - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
 
 registrations:
   read:
@@ -3007,6 +3298,22 @@ transports:
     - "backend/deliveries#start"
     - "backend/deliveries#update"
     - "backend/shipments#ship"
+
+unreceived_purchase_orders:
+  read:
+    actions:
+    - "backend/unreceived_purchase_orders#index"
+    - "backend/unreceived_purchase_orders#list"
+    - "backend/unreceived_purchase_orders#show"
+  write:
+    dependencies:
+    - read-purchase_orders
+    - read-unreceived_purchase_orders
+    actions:
+    - "backend/unreceived_purchase_orders#create"
+    - "backend/unreceived_purchase_orders#destroy"
+    - "backend/unreceived_purchase_orders#edit"
+    - "backend/unreceived_purchase_orders#update"
 
 users:
   read:
