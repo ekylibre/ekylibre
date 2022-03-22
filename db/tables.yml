@@ -9499,6 +9499,9 @@ sale_items:
   catalog_item_id:
     type: integer
     references: catalog_item
+  catalog_item_update:
+    type: boolean
+    default: false
   codes:
     type: jsonb
   compute_from:

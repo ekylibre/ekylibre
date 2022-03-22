@@ -6,6 +6,6 @@
   - k.helper do
     %div.label-container
       %label= :use.tl
-    = select_tag(:usage, options_for_select([""] + @usages.map{ |s| [s, s]}))
+    = select_tag(:label, options_for_select([""] + @labels.map{ |s| [s.name, s.name]}))
 
 = main_list

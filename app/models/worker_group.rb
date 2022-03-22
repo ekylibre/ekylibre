@@ -34,8 +34,11 @@
 #  codes                        :jsonb
 class WorkerGroup < ApplicationRecord
   has_many :items, class_name: "WorkerGroupItem", dependent: :destroy
+  has_many :labellings, class_name: 'WorkerGroupLabelling', dependent: :destroy
+  has_many :labels, through: :labellings
   has_many :workers, through: :items, source: :worker, source_type: 'Product'
   accepts_nested_attributes_for :items, allow_destroy: true
+  accepts_nested_attributes_for :labellings, allow_destroy: true, reject_if: :label_already_present
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :name, presence: true, length: { maximum: 500 }
@@ -49,5 +52,15 @@ class WorkerGroup < ApplicationRecord
   def workers_name
     Worker.find(items.map(&:worker_id)).map(&:name).join(", ")
   end
+
+  def label_names
+    labellings.collect(&:name).sort.join(', ')
+  end
+
+  private
+
+    def label_already_present(attributes)
+      labellings.reject(&:marked_for_destruction?).map(&:label_id).include?(attributes[:label_id].to_i)
+    end
 
 end

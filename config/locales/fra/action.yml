@@ -917,10 +917,10 @@ fra:
       new: "Nouveau contrat de travail"
       show: "Détail contrat de travail\_: %{name}"
     backend/worker_groups:
-      index: "Groupe d'équipiers"
+      index: "Groupes d'équipiers"
       edit: "Modifier un groupe d'équipiers"
       new: "Nouveau groupe d'équipiers"
-      show: "Détail groupe d'équipiers\_: %{name}"
+      show: "Groupe d'équipiers: %{name}"
     backend/worker_time_logs:
       edit: "Modifier une saisie de temps"
       index: "Temps des équipiers"
@@ -3635,6 +3635,7 @@ fra:
     worker_contract_hour_raw_cost: "Coût horaire brut"
     worker_contract_month_raw_cost: "Coût mensuel brut"
     worker_contract: "Contrat de travail"
+    worker_group: "Groupe d'équipiers"
     worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
     worker_number: "Nombre d'équipiers"
