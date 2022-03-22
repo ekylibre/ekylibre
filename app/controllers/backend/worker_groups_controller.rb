@@ -25,21 +25,22 @@ module Backend
     before_action :kujaku_options, only: %i[index]
 
     def kujaku_options
-      @usages = WorkerGroup.all.map(&:usage).uniq
+      @labels = Label.joins(:worker_group_labellings).where.not(worker_group_labellings: { worker_group_id: nil }).distinct
     end
 
     def self.worker_groups_conditions
       code = ''
-      code << search_conditions(worker_groups: %i[name], products: %i[name]) + " ||= []\n"
-      code << "unless params[:usage].blank? \n"
-      code << "  c[0] << ' AND usage = ?'\n"
-      code << "  c << params[:usage]\n"
+      code << search_conditions(products: %i[name]) + " ||= []\n"
+      code << "unless params[:label].blank? \n"
+      code << "  c[0] << ' AND labels.name = ?'\n"
+      code << "  c << params[:label]\n"
       code << "end\n"
       code << "c\n "
       code.c
     end
 
-    list selectable: true, conditions: worker_groups_conditions, joins: "
+    list selectable: true, conditions: worker_groups_conditions, joins: "LEFT JOIN worker_group_labellings ON worker_group_labellings.worker_group_id = worker_groups.id
+      LEFT JOIN labels ON labels.id = worker_group_labellings.label_id
       LEFT JOIN worker_group_items ON worker_group_items.worker_group_id = worker_groups.id
       LEFT JOIN products ON products.id = worker_group_items.worker_id ", distinct: true do |t|
       t.action :edit
@@ -48,7 +49,7 @@ module Backend
       t.column :name, url: true
       t.column :workers_name, label: :worker
       t.column :work_number
-      t.column :usage
+      t.column :uses, label_method: :label_names, label: :use
       t.column :group_size, label: :group_size
     end
 

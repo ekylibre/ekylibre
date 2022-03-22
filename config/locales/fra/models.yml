@@ -1086,6 +1086,8 @@ fra:
       wine_incoming_harvest_storage : "Réception de vendange - Cuverie"
       worker: "Équipier"
       worker_contract: "Contrat de travail"
+      worker_group: "Groupe d'équipiers"
+      worker_groups: "Groupes d'équipiers"
       worker_time_log: "Saisie des temps"
       zone: "Zone"
   attributes:
