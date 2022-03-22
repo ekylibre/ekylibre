@@ -1,5 +1,5 @@
 ---
-encoding: 'ISO-8859-15'
+encoding: 'UTF-8'
 root:
   - interchange: 1
 lines:
@@ -142,8 +142,8 @@ lines:
       - land_parcel_work_number: string-4
       - harvest_year: string-4
       - srs: string-3 # 3 : Lambert2 etendu | 4 : WGS84
-      - longitude: string-11
-      - latitude: string-10
+      - latitude: string-11 # decimal-10.3
+      - longitude:  string-10 # decimal-9.2
       - elevation: string-18
 
   contract:
@@ -152,6 +152,10 @@ lines:
       - land_parcel_order_number: string-4
       - land_parcel_work_number: string-4
       - harvest_year: string-4
+      - code: string-3 #2 repository_id 2
+      - contract_description: string-35
+      - other_contract_description: string-35
+      - contract_started_on: string-8 #SSAAMMJJ
 
   crop_history:
     key: "PH"

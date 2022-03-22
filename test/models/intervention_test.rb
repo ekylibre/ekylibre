@@ -113,8 +113,9 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'killing target' do
     plant = Plant.all.detect { |p| p.dead_first_at.nil? && p.dead_at.nil? }
+    # plant born_at 2013-11-10
     assert plant
-    now = Time.utc(2016, 04, 27, 20, 20, 20)
+    now = plant.born_at
     last_death_at = now + 3.months
     last_intervention = add_harvesting_intervention(plant, last_death_at)
     plant.reload

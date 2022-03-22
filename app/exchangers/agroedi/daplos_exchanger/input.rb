@@ -93,10 +93,7 @@ module Agroedi
         nomen_unit = if edi_unit && edi_unit.ekylibre_value
                        Onoma::Unit.find(edi_unit.ekylibre_value.to_sym)
                      end
-        return nomen_unit if nomen_unit
-
-        # BUG: What if the unit isn't in the lexicon or not in Nomen?
-        raise "No unit for #{unit_edicode}"
+        nomen_unit || nil
       end
 
       def daplos_area_unit
@@ -108,72 +105,118 @@ module Agroedi
                        unit_name += '_per_hectare' unless dimensioned
                        Onoma::Unit.find(unit_name.to_sym)
                      end
-        return nomen_unit if nomen_unit
-
-        raise "No unit for #{area_unit_edicode}"
+        nomen_unit || nil
       end
 
       # The reference is the DISTRIBUTED quantity (dimension_per_area) always
       def daplos_quantity(area: true)
-        if area
+        if daplos.input_quantity_per_hectare && area && daplos_area_unit
           daplos.input_quantity_per_hectare.to_f.in daplos_area_unit
-        else
+        elsif daplos.input_quantity && daplos_unit
           daplos.input_quantity.to_f.in daplos_unit
+        else
+          raise "No quantity computed concerning  unit : #{daplos_unit}  and area_unit : #{daplos_area_unit} for #{daplos.inspect}"
         end
       end
 
       def article
-        article = RegisteredAgroediCode.of_reference_code(nature_edicode)
-                                       .first
-                                       &.ekylibre_value
-                                       &.to_sym
-        article || raise("Nature code #{nature_edicode.inspect} has no equivalent in Ekylibre reference")
+        item = {}
+        article = RegisteredAgroediCode.of_reference_code(nature_edicode).first
+        item[:name] = article.reference_label
+        item[:nature] = article.ekylibre_value
+        item.to_struct || raise("Nature code #{nature_edicode.inspect} has no equivalent in Ekylibre reference")
       end
 
       private
 
         def find_or_create_product!(variety = nil)
+          born_at = intervention.started_at - 2.hours
           variant = find_or_create_variant
+          products = variant.products.where(name: daplos.input_name)
+          if products.any?
+            matter = products.first
+            if born_at < matter.initial_born_at
+              matter.initial_born_at = born_at
+              matter.born_at = born_at
+              matter.save!
+              matter.readings.update_all(read_at: born_at)
+            end
+            matter
+          else
+            store_in = BuildingDivision.first
+            product_model = variant.matching_model
+            conditioning_data = variant.guess_conditioning
+            unit = find_product_unit
+            # BUG: What if building_division.blank?
+            matter = product_model.create!(variant: variant,
+                                           name: daplos.input_name,
+                                           initial_born_at: born_at,
+                                           initial_population: 1.0,
+                                           conditioning_unit: unit,
+                                           initial_owner: Entity.of_company,
+                                           initial_container: store_in,
+                                           default_storage: store_in)
 
-          return variant.products.first if variant.products.any?
-
-          store_in = BuildingDivision.first
-          product_model = variant.nature.matching_model
-          # BUG: What if building_division.blank?
-          matter = product_model.create!(variant: variant,
-                                         initial_born_at: intervention.started_at,
-                                         initial_population: 0.0,
-                                         initial_owner: Entity.of_company,
-                                         initial_container: store_in,
-                                         default_storage: store_in)
-
-          if article && article.to_s == "seed" && variety
-            matter.derivative_of = variety
-            matter.save!
+            if article.nature.present? && (article.nature == "seed" ||article.nature == "seedling") && variety
+              matter.derivative_of = variety
+              matter.read!(:net_mass, Measure.new(1.0, :kilogram), at: born_at, force: true)
+            elsif article.nature.present? && (article.nature == "mineral_fertilizer" || article.nature == "organic_fertilizer")
+              if unit.dimension == 'mass'
+                matter.read!(:net_mass, Measure.new(unit.coefficient, :kilogram), at: born_at, force: true)
+              elsif unit.dimension == 'volume'
+                matter.read!(:net_volume, Measure.new(unit.coefficient, :liter), at: born_at, force: true)
+              end
+            end
+            matter
           end
-          matter
+        end
+
+        # return a conditioning_unit Unit
+        def find_product_unit
+          if daplos_unit.name && MasterUnit.find_by(reference_name: daplos_unit.name)
+            Unit.import_from_lexicon(daplos_unit.name)
+          else
+            raise "No way to find unit from daplos_unit : #{daplos_unit.inspect}"
+          end
         end
 
         def find_or_create_variant
-          name = daplos.input_name
-          variant = ProductNatureVariant.where(name: name, active: true).first
+          nature = ProductNature.import_from_lexicon(article.nature)
+          variant = ProductNatureVariant.where(name: daplos.input_name, nature_id: nature.id, active: true).first
+          return variant if variant
+
+          if article.nature.to_sym == :plant_medicine && daplos.input_phytosanitary_number.present?
+            variant = ProductNatureVariant.import_from_lexicon(daplos.input_phytosanitary_number)
+          elsif article.nature.present?
+            lexicon_variants = MasterVariant.where(family: 'article', nature: article.nature)
+            if lexicon_variants.any?
+              ref = lexicon_variants.first.reference_name
+              variant = ProductNatureVariant.import_from_lexicon(ref, true)
+            end
+          end
+
+          # set thousand_grains_mass on seed
+          if variant && article.nature.to_sym == :seed || article.nature.to_sym == :seedling
+            variant.read! :thousand_grains_mass, Measure.new(50, :gram)
+          end
 
           unless variant
-            # BUG: what if article.blank?
-            variant = ProductNatureVariant.import_from_nomenclature(article, force: true) if article
-            variant.name = name
-            variant.save!
+            raise "No way to create variant #{daplos.input_name} from nature #{article.nature} and edicode #{nature_edicode.inspect}"
           end
 
-          if daplos.input_phytosanitary_number.present?
-            # BUG: What if two inputs with different MAAID have the same variant
-            # (since the find_by is on `name` only)
-            variant.france_maaid = daplos.input_phytosanitary_number
-            variant.save!
+          if article.nature.present? && (article.nature == "mineral_fertilizer" || article.nature == "organic_fertilizer" || article.nature == "plant_medicine")
+            variant.read! :net_mass, Measure.new(1.0, :kilogram)
+            variant.read! :net_volume, Measure.new(1.0, :liter)
+          elsif article.nature.present? && article.nature == "seedling"
+            variant.read! :net_mass, Measure.new(1.0, :kilogram)
           end
+
+          variant.name = daplos.input_name
+          variant.tap(&:save!)
 
           variant
         end
+
     end
   end
 end

@@ -1203,6 +1203,13 @@ fra:
     depreciation_period: "Durée d'amortissement"
     type_of_value: "Type de valeur"
     year_s: "Année(s)"
+    protected_water_zones: "Zone de captage"
+    theoritical_soil_depths: "Profondeur de sol"
+    theoritical_water_capacities: "Réserve utile en eau"
+    depreciation_percentage: Pourcentage d'amortissement
+    depreciation_period: Durée d'amortissement
+    type_of_value: Type de valeur
+    year_s: Année(s)
     value: 'Valeur'
     define_born_at_for_matter: 'Note : définissez une date à partir de laquelle vous souhaitez utiliser cette nouvelle matière dans l’application'
     define_born_at_for_equipment: 'Note : définissez une date à partir de laquelle vous souhaitez utiliser ce nouvel équipement dans l’application'

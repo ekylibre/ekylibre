@@ -1513,6 +1513,9 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    protected_water_zones: "Protected water zones"
+    theoritical_soil_depths: "Theoritical soil depths"
+    theoritical_water_capacities: "Theoritical water capacities"
     define_born_at_for_matter: 'Note : set a date from which you want to use this new matter in the application'
     define_born_at_for_equipment: 'Note : set a date from which you want to use this new equipment in the application'
     depreciation_percentage: Depreciation percentage
