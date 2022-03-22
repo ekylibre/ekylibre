@@ -333,6 +333,10 @@ eng:
           attributes:
             to_bank_at:
               financial_year_exchange_on_this_period: "There is an opened accounting exchange at this period"
+        purchase_payment:
+          attributes:
+            to_bank_at:
+              financial_year_matching_this_date_is_in_closure_preparation: "The accounting year corresponding to this date is being prepared for closure by another user"
     models:
       account: "Account"
       account_balance: "Account balance"

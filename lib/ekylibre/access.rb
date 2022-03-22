@@ -3,6 +3,10 @@ module Ekylibre
     # autoload :Resource, 'ekylibre/access/resource'
     autoload :Right, 'ekylibre/access/right'
 
+    CATEGORIES_RIGHT_NAMES_FILE = Rails.root.join('db', 'nomenclatures', 'right_categories.yml').freeze
+    CATEGORIES_RIGHT_NAMES = (CATEGORIES_RIGHT_NAMES_FILE.exist? ? YAML.load_file(CATEGORIES_RIGHT_NAMES_FILE) : {}).deep_symbolize_keys.freeze
+    RIGHT_NAMES_CATEGORIES = CATEGORIES_RIGHT_NAMES.each_with_object({}) { |(k, v), h| v.map{|f| h[f] = k};  }.deep_symbolize_keys
+
     class << self
       def config_file
         Rails.root.join('config', 'rights.yml')
@@ -19,6 +23,14 @@ module Ekylibre
 
       def resources
         @resources.deep_symbolize_keys
+      end
+
+      def resources_by_category
+        @resources.deep_symbolize_keys.group_by{ |resource| category(resource[0]) }.deep_symbolize_keys
+      end
+
+      def category(resource)
+        RIGHT_NAMES_CATEGORIES[resource]
       end
 
       # Add an access right
@@ -42,6 +54,11 @@ module Ekylibre
         return @resources[resource][interaction] if @resources[resource]
 
         nil
+      end
+
+      # Returns the translated name of a resource
+      def human_category_name(category)
+        "access.categories.#{category}".t
       end
 
       # Returns the translated name of a resource

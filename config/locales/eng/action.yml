@@ -2131,6 +2131,7 @@ eng:
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
+    economics: "Economic"
     edit: "Edit"
     edit_budget: "Edit budget"
     edition_date: "Edition date"
