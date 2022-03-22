@@ -1,0 +1,131 @@
+---
+accountancy:
+- affairs
+- bank_statements
+- cashes
+- cash_transfers
+- financial_years
+- financial_year_exchanges
+- fixed_assets
+- gaps
+- journals
+- journal_draft
+- journal_entries
+- loans
+- tax_declarations
+- taxes
+economics:
+- costs
+- economic_dashboard
+- margins
+- simulators
+entities:
+- entities
+- events
+human_resources:
+- humans_dashboard
+- payslip_natures
+- payslip_payments
+- payslips
+- teams
+- worker_groups
+- worker_contracts
+- worker_time_logs
+- workers
+sales:
+- sales
+- tasks
+- incoming_payments
+- deposits
+- subscriptions
+tools:
+- cap_statements
+- cadastral_land_parcel_zones
+- cvi_cadastral_plants
+- cvi_cultivable_zones
+- cvi_land_parcels
+- cvi_statement_conversions
+- cvi_statements
+- documents
+- exports
+- identifiers
+- imports
+- integrations
+- listings
+- map_layers
+- net_services
+- tools
+- sensors
+- supervisions
+productions:
+- activities
+- analyses
+- animal_groups
+- animals
+- campaigns
+- crop_groups
+- cultivable_zones
+- equipments
+- interventions
+- issues
+- land_parcels
+- observations
+- plant_countings
+- plants
+- prescriptions
+- product_groups
+- productions
+- wine_tanks
+- wine_incoming_harvests
+purchases:
+- contracts
+- outgoing_payment_lists
+- outgoing_payments
+- purchase_orders
+- purchase_invoices
+stocks:
+- building_divisions
+- inventories
+- matters
+- outgoing_deliveries
+- products
+- receptions
+- trackings
+- transports
+- unreceived_purchase_orders
+settings:
+- accounts
+- analytic_sequences
+- buildings
+- catalogs
+- companies
+- conditionings
+- custom_fields
+- dashboards
+- districts
+- document_templates
+- georeadings
+- incoming_payment_modes
+- invitations
+- labels
+- naming_formats
+- outgoing_payment_modes
+- postal_zones
+- product_nature_categories
+- product_nature_variants
+- product_natures
+- project_budgets
+- purchase_natures
+- registrations
+- roles
+- sale_natures
+- sequences
+- settlements
+- subscription_natures
+- users
+schedulings:
+- intervention_templates
+- load_plans
+- technical_itineraries
+- scenarios
+- schedulings

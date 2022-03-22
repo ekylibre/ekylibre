@@ -5,10 +5,15 @@
     end
     hash
   end.sort{|a,b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }
+  .group_by{ |right| Ekylibre::Access.category(right[0].to_sym)}
+  .sort{|a,b| Ekylibre::Access.human_category_name(a.first).ascii <=> Ekylibre::Access.human_category_name(b.first).ascii }
 .access-control-list
-  - list.each do |resource, interactions|
-    %span.access
-      %span.resource= Ekylibre::Access.human_resource_name(resource)
-      - interactions.each do |interaction|
-        %span.chk-access{class: "chk-access-#{interaction} active"}
-          = Ekylibre::Access.human_interaction_name(interaction).strip
+  - list.each do |category, resources|
+    = field_set(category.to_sym) do
+      - resources.each do |resource, interactions|
+        .control-group.booleans
+          .control-label= Ekylibre::Access.human_resource_name(resource)
+          .controls
+            - interactions.each do |interaction|
+              %label.chk-access{class: "chk-access-#{interaction} active"}
+                = Ekylibre::Access.human_interaction_name(interaction).strip

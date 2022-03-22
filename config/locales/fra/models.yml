@@ -802,6 +802,10 @@ fra:
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
           payment_delay_custom_validation_message: "Formats acceptés : %{values}" #?
+        purchase_payment:
+          attributes:
+            to_bank_at:
+              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
         purchase_item: #?
           attributes: #?
             fixed: #?

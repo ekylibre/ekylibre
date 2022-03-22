@@ -12,6 +12,14 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
   $size: $fs-normal;
   background: white;
 
+  &.active {
+    border-color: $active-color;
+
+    .fieldset-legend {
+      background-color: rgba($active-color, 0.12);
+    }
+  }
+
   .fieldset-legend {
     padding: $vertical-spacing $spacing;
 
