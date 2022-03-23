@@ -54,7 +54,8 @@ class WorkerGroup < ApplicationRecord
   end
 
   def label_names
-    labellings.collect(&:name).sort.join(', ')
+    present_labellings = labellings.reject{|labelling| labelling.label_id.nil?}
+    present_labellings.collect(&:name).sort.join(', ')
   end
 
   private
