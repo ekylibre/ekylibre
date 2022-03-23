@@ -916,6 +916,16 @@ fra:
       index: "Contrats de travail"
       new: "Nouveau contrat de travail"
       show: "Détail contrat de travail\_: %{name}"
+    backend/worker_groups:
+      index: "Groupes d'équipiers"
+      edit: "Modifier un groupe d'équipiers"
+      new: "Nouveau groupe d'équipiers"
+      show: "Groupe d'équipiers: %{name}"
+    backend/worker_time_logs:
+      edit: "Modifier une saisie de temps"
+      index: "Temps des équipiers"
+      new: "Nouvelle saisie de temps "
+      show: "Détail saisie de temps"
     public:
       index: "Accueil"
   errors:
@@ -1188,6 +1198,11 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    human_duration: "Durée"
+    depreciation_percentage: "Pourcentage d'amortissement"
+    depreciation_period: "Durée d'amortissement"
+    type_of_value: "Type de valeur"
+    year_s: "Année(s)"
     protected_water_zones: "Zone de captage"
     theoritical_soil_depths: "Profondeur de sol"
     theoritical_water_capacities: "Réserve utile en eau"
@@ -1383,6 +1398,7 @@ fra:
     add_tool: "Ajouter un outil"
     add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
     add_website: "Ajouter un site web"
+    add_worker: "Ajouter un équipier"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
@@ -1751,6 +1767,7 @@ fra:
     create_a_new_conditioning: "Créer un nouveau conditionnement"
     create_a_sale: "Créer une vente"
     create_and_continue: "Créer et saisir suivant"
+    create_group: "Créer un groupe"
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -2224,6 +2241,7 @@ fra:
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
     group_by_centralizing_accounts: "Groupement par comptes centralisateurs"
+    group_size: "Taille du groupe"
     groups: "Groupes"
     guide_evolution: "Évolution du guide"
     guides: "Référentiels" #?
@@ -3619,8 +3637,11 @@ fra:
     worker_contract_hour_raw_cost: "Coût horaire brut"
     worker_contract_month_raw_cost: "Coût mensuel brut"
     worker_contract: "Contrat de travail"
+    worker_group: "Groupe d'équipiers"
     worker_options: "Options du travailleur"
     worker_natures: "Équipiers"
+    worker_number: "Nombre d'équipiers"
+    worker_time_log: "Saisie des temps"
     workers: "Équipiers"
     workforce: "Main œuvre"
     working_area: "Surface travaillée"
@@ -3839,6 +3860,9 @@ fra:
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"
+    x_time_logs:
+      one: "%{count} saisie de temps"
+      other: "%{count} saisies de temps"
     x_thing: "%{x} %{thing}"
     x_times:
       one: "%{count} fois"

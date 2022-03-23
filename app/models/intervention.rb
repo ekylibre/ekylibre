@@ -417,6 +417,8 @@ class Intervention < ApplicationRecord
         pfi_computation.create_or_update_pfi
       end
     end
+    # refresh view
+    WorkerTimeIndicator.refresh
   end
 
   after_create do

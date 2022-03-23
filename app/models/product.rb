@@ -170,6 +170,8 @@ class Product < ApplicationRecord
   has_many :intervention_targets, inverse_of: :product
   has_many :crop_group_items, foreign_key: :crop_id
   has_many :crop_groups, through: :crop_group_items
+  has_many :worker_groups, through: :worker_group_items
+  has_many :worker_group_items, foreign_key: :worker_id
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
@@ -327,6 +329,7 @@ class Product < ApplicationRecord
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
+  scope :workers, -> { where(type: 'Worker') }
   scope :land_parcels, -> { where(type: 'LandParcel') }
   scope :animals, -> { where(type: 'Animal') }
   scope :of_available_animal_group, -> { where(type: 'AnimalGroup', activity_production_id: nil) }

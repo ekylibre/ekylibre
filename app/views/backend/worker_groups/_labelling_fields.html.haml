@@ -1,0 +1,8 @@
+.nested-fields
+  = link_to_remove_nested_association('label', f)
+  = f.input :label, label: :use.tl do
+    = f.referenced_association_field :label
+    - if f.object.id
+      = link_to(:configure_label_format.tl,edit_backend_label_path(f.object.id), target: :_blank)
+    - else
+      = link_to(:configure_label_format.tl,backend_labels_path, target: :_blank, style: 'display:none')
