@@ -690,7 +690,7 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      Ekylibre::Access.resources_by_category.sort { |a, b| Ekylibre::Access.human_category_name(a.first).ascii <=> Ekylibre::Access.human_category_name(b.first).ascii }.each do |category, resources|
+      Ekylibre::Access.resources_by_category.each do |category, resources|
         data = ''.html_safe
         resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
           resource_reference = reference.include?(resource.to_s) ? reference[resource.to_s] : []
@@ -716,11 +716,11 @@ module Backend
           end
         end
         if data.include? 'active'
-          html << @template.field_set(category.to_sym, collapsed: true, class: 'active') do
+          html << @template.field_set(category.to_sym, collapsed: true, subfieldset: true, class: 'active') do
             data
           end
         else
-          html << @template.field_set(category.to_sym, collapsed: true) do
+          html << @template.field_set(category.to_sym, collapsed: true, subfieldset: true) do
             data
           end
         end
