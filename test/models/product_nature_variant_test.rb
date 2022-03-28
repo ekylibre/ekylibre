@@ -161,13 +161,13 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
   test "services' stocks are computed correctly" do
     service = create(:service_variant)
     purchase = create(:purchase_order)
-    create(:purchase_item, purchase: purchase, variant: service, quantity: 50)
+    create(:purchase_item, purchase: purchase, variant: service, conditioning_quantity: 50)
 
     assert_equal service.quantity_purchased, 50
     assert_equal service.current_stock, 50
 
     reception = create(:reception)
-    create(:reception_item, reception: reception, variant: service, population: 30)
+    create(:reception_item, reception: reception, variant: service, conditioning_quantity: 30)
 
     assert_equal service.quantity_received, 0
     assert_equal service.current_stock, 50

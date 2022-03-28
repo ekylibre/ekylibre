@@ -91,12 +91,4 @@ class ShipmentItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     shipment_item = create(:shipment_item)
     assert_equal 1, shipment_item.population
   end
-
-  test 'shipment_item with population have the given population' do
-    nature = create(:product_nature, population_counting: :decimal)
-    variant = create(:product_nature_variant, nature: nature)
-    product = create(:product, variant: variant)
-    shipment_item = create(:shipment_item, population: 12, source_product: product)
-    assert_equal 12, shipment_item.population
-  end
 end

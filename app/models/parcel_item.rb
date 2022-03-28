@@ -143,6 +143,8 @@ class ParcelItem < ApplicationRecord
     true
   end
 
+  before_save :update_quantity_with_conditioning_quantity
+
   validate do
     computed_population = storings.map(&:quantity).reduce(&:+) || 0
     if product_is_unitary? && computed_population > 1
@@ -202,6 +204,14 @@ class ParcelItem < ApplicationRecord
 
     purchase_invoice_item.purchase.number
   end
+
+  private
+
+    def update_quantity_with_conditioning_quantity
+      return unless conditioning_quantity_changed?
+
+      self.quantity = conditioning_quantity
+    end
 
   protected
 
