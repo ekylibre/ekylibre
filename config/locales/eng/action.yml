@@ -1232,7 +1232,7 @@ eng:
       index: "Worker groups"
       edit: "Edit a worker group"
       new: "New worker group"
-      show: "Worker group: %{name}"
+      show: "Worker group : %{name}"
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
