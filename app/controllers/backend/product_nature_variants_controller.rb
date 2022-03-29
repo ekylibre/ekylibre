@@ -328,6 +328,16 @@ module Backend
         # or get tax from category
         elsif @product_nature_variant.category.sale_taxes.any?
           infos[:tax_id] = @product_nature_variant.category.sale_taxes.first.id
+        else
+          item = nil
+        end
+        if item
+          infos[:unit][:conditioning_id] = item.conditioning_unit_id
+          infos[:unit][:name] = item.conditioning_unit.name
+          conditioning = item.conditioning_unit
+        else
+          infos[:unit][:conditioning_id] = @product_nature_variant.default_unit_id
+          infos[:unit][:name] = @product_nature_variant.default_unit.name
         end
       end
       infos[:unit][:pretax_amount] = 0 unless infos.dig(:unit, :pretax_amount)
