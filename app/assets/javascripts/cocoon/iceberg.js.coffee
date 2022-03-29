@@ -182,10 +182,6 @@
       data = zones: zones
       @line.find('#conditioning-display').html(storing_display_template(zones, 'conditioning'))
       @line.find('#storing-display').html(storing_display_template(zones, 'zone'))
-      if form_nature == 'reception'
-        @line.find('.quantity-column span.population').html(zones[0].quantity)
-      else
-        @line.find('.conditioning-column label').html(zones[0].unit)
 
     retrievePreviousItemValue: ->
       line = @line

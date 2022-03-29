@@ -77,20 +77,24 @@
               item.find('.subscription_started_on').val('')
               item.find('.subscription_stopped_on').val('')
 
-            
+
             if !is_initialization && unit = data.unit
               if unit.name
                 item.find(options.unit_name_tag or ".unit-name").html(data.name)
               if unit.conditioning_id && unit.name
-                element = item.find('.sale_items_conditioning_unit > .selector > .selector-search')
+                sale_element = item.find('.sale_items_conditioning_unit > .selector > .selector-search')
+                element = if sale_element.length != 0 then sale_element else item.find('.purchase_invoice_items_conditioning_unit > .controls > .selector > .selector-search')
                 if !element.val()
-                  selector_value = item.find('.sale_items_conditioning_unit > .selector > .selector-value')
+                  sale_selector = item.find('.purchase_invoice_items_conditioning_unit > .controls > .selector > .selector-value')
+                  selector_value = if sale_selector.length != 0 then sale_selector else item.find('.purchase_invoice_items_conditioning_unit > .controls > .selector > .selector-value')
                   len = 4 * Math.round(Math.round(1.11 * unit.name.length) / 4)
                   element.attr 'size', if len < 20 then 20 else if len > 80 then 80 else len
                   element.val unit.name
                   selector_value.prop 'itemLabel', unit.name
                   selector_value.val unit.conditioning_id
                   selector_value.trigger 'selector:change'
+                  selector_value.trigger "selector:set"
+                  element.trigger "selector:set"
               input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
               if unit.pretax_amount?
                 input.val(unit.pretax_amount)
