@@ -133,6 +133,28 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
 
   }
 
+  &.subfieldset {
+    &.collapsed {
+      .buttons .toggle {
+        @include use-icon(plus-square-o);
+      }
+  
+      .fieldset-fields {
+        display: none;
+      }
+    }
+  
+    &.not-collapsed .buttons .toggle {
+      @include use-icon(minus-square-o);
+    }
+  
+    &.error.collapsed .fieldset-legend {
+      &, *, label, span {
+        color: $invalid-color;
+      }
+    }
+  }
+
   &.collapsed {
     .buttons .toggle {
       @include use-icon(plus-square-o);

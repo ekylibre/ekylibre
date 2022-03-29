@@ -978,7 +978,8 @@ module ApplicationHelper
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
     classes = ['fieldset', name.to_s, options.fetch(:class, [])].flatten
-    classes << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
+    classes << (options[:collapsed] ? 'collapsed' : 'not-collapsed')
+    classes << (options[:subfieldset] ? 'subfieldset' : '')
     name_sym = name.to_s.tr('-', '_').to_sym
     wrap(content_tag(:div,
                      content_tag(:div,

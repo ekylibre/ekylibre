@@ -1,4 +1,8 @@
 ---
+# Sort as navigation.yml
+entities:
+- entities
+- events
 accountancy:
 - affairs
 - bank_statements
@@ -14,49 +18,28 @@ accountancy:
 - loans
 - tax_declarations
 - taxes
-economics:
-- costs
-- economic_dashboard
-- margins
-- simulators
-entities:
-- entities
-- events
-human_resources:
-- humans_dashboard
-- payslip_natures
-- payslip_payments
-- payslips
-- teams
-- worker_groups
-- worker_contracts
-- worker_time_logs
-- workers
 sales:
 - sales
 - tasks
 - incoming_payments
 - deposits
 - subscriptions
-tools:
-- cap_statements
-- cadastral_land_parcel_zones
-- cvi_cadastral_plants
-- cvi_cultivable_zones
-- cvi_land_parcels
-- cvi_statement_conversions
-- cvi_statements
-- documents
-- exports
-- identifiers
-- imports
-- integrations
-- listings
-- map_layers
-- net_services
-- tools
-- sensors
-- supervisions
+purchases:
+- contracts
+- outgoing_payment_lists
+- outgoing_payments
+- purchase_orders
+- purchase_invoices
+stocks:
+- building_divisions
+- inventories
+- matters
+- outgoing_deliveries
+- products
+- receptions
+- trackings
+- transports
+- unreceived_purchase_orders
 productions:
 - activities
 - analyses
@@ -77,22 +60,46 @@ productions:
 - productions
 - wine_tanks
 - wine_incoming_harvests
-purchases:
-- contracts
-- outgoing_payment_lists
-- outgoing_payments
-- purchase_orders
-- purchase_invoices
-stocks:
-- building_divisions
-- inventories
-- matters
-- outgoing_deliveries
-- products
-- receptions
-- trackings
-- transports
-- unreceived_purchase_orders
+economics:
+- costs
+- economic_dashboard
+- margins
+- simulators
+schedulings:
+- intervention_templates
+- load_plans
+- technical_itineraries
+- scenarios
+- schedulings
+human_resources:
+- humans_dashboard
+- payslip_natures
+- payslip_payments
+- payslips
+- teams
+- worker_groups
+- worker_contracts
+- worker_time_logs
+- workers
+tools:
+- cap_statements
+- cadastral_land_parcel_zones
+- cvi_cadastral_plants
+- cvi_cultivable_zones
+- cvi_land_parcels
+- cvi_statement_conversions
+- cvi_statements
+- documents
+- exports
+- identifiers
+- imports
+- integrations
+- listings
+- map_layers
+- net_services
+- tools
+- sensors
+- supervisions
 settings:
 - accounts
 - analytic_sequences
@@ -123,9 +130,3 @@ settings:
 - settlements
 - subscription_natures
 - users
-schedulings:
-- intervention_templates
-- load_plans
-- technical_itineraries
-- scenarios
-- schedulings
