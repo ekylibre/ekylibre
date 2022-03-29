@@ -920,7 +920,7 @@ fra:
       index: "Groupes d'équipiers"
       edit: "Modifier un groupe d'équipiers"
       new: "Nouveau groupe d'équipiers"
-      show: "Groupe d'équipiers: %{name}"
+      show: "Groupe d'équipiers : %{name}"
     backend/worker_time_logs:
       edit: "Modifier une saisie de temps"
       index: "Temps des équipiers"
