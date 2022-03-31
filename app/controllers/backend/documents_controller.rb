@@ -65,8 +65,9 @@ module Backend
     end
 
     def create
-      if params[:document][:file]&.content_type&.match(/image/)
+      if params[:document][:file]&.content_type&.match(/image/) || (params[:document][:file]&.size || 0) > 300_000
         file_params = { path: permitted_params[:file].tempfile.path, filename: permitted_params[:file].original_filename, content_type: permitted_params[:file].content_type }
+        File.open(permitted_params[:file].tempfile.path)
         document_params = permitted_params.to_h.except(:file)
         ImageDocumentCreationJob.perform_later(document_params, file_params, current_user.id)
         notify_success(:document_in_preparation)
