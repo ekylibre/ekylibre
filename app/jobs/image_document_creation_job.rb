@@ -1,7 +1,9 @@
 class ImageDocumentCreationJob < ActiveJob::Base
   queue_as :default
 
+  # rubocop:disable Lint/RescueException
   def perform(document_params, file_params, user_id)
+    @name = document_params[:name]
     user = User.find(user_id)
     begin
       attachment_params = {
@@ -14,10 +16,12 @@ class ImageDocumentCreationJob < ActiveJob::Base
       @document = Document.new(document_params)
       @document.save!
       user.notifications.create!(document_import_success_params)
-  rescue
-    user.notifications.create!(document_import_failed_params)
+    rescue Exception => e
+      Rails.logger.error "Exception : #{e}"
+      user.notifications.create!(document_import_failed_params)
     end
   end
+  # rubocop:enable Lint/RescueException
 
   private
 
@@ -26,7 +30,7 @@ class ImageDocumentCreationJob < ActiveJob::Base
         message: :document_imported_successfully.tl,
         level: :success,
         target_url: "/backend/documents/#{@document.id}",
-        interpolations: { name: @document.name }
+        interpolations: { name: @name }
       }
     end
 
@@ -35,7 +39,7 @@ class ImageDocumentCreationJob < ActiveJob::Base
         message: :document_import_failed.tl,
         level: :error,
         target_url: "/backend/documents",
-        interpolations: { name: @document.name }
+        interpolations: { name: @name }
       }
     end
 
