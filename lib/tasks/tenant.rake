@@ -34,6 +34,7 @@ namespace :tenant do
       MapLayer.load_defaults
 
       if ENV['CUS_ID'] && ENV['SUB_ID']
+        Preference.set!(:sales_conditions, '')
         Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string)
         Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string)
       end
@@ -58,6 +59,7 @@ namespace :tenant do
       currency = Onoma::Currency.find(ENV['CURRENCY'])
       Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
+      Preference.set!(:sales_conditions, '')
       puts "#{tenant.inspect.green} - Preference set (default is language: fra, country: fr, currency: EUR, SRS: WGS84)."
       # Load default data
       ::I18n.locale = Preference[:language]
