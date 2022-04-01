@@ -65,13 +65,13 @@ class PurchaseOrderTest < Ekylibre::Testing::ApplicationControllerTestCase::With
   test 'reconciliation_state is set correctly' do
     purchase_item = create :purchase_item, :of_purchase_order, quantity: 10
     reception_one = create(:reception)
-    reception_item_one = create :reception_item, quantity: 5, variant: purchase_item.variant, purchase_order_item: purchase_item, reception: reception_one
+    reception_item_one = create :reception_item, conditioning_quantity: 5, variant: purchase_item.variant, purchase_order_item: purchase_item, reception: reception_one
     reception_item_one.reception.save!
     purchase_item.purchase.reload
 
     assert_equal 'to_reconcile', purchase_item.purchase.reconciliation_state
 
-    reception_item_two = create :reception_item, purchase_order_item: purchase_item, quantity: 5, variant: purchase_item.variant, reception: reception_one
+    reception_item_two = create :reception_item, purchase_order_item: purchase_item, conditioning_quantity: 5, variant: purchase_item.variant, reception: reception_one
     reception_item_two.reception.reload
     reception_item_two.reception.save!
 
