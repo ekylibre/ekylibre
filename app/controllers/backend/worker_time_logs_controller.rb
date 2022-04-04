@@ -20,10 +20,8 @@ module Backend
   class WorkerTimeLogsController < Backend::BaseController
     manage_restfully except: :index, stopped_at: 'Time.zone.now'.c, started_at: 'Time.zone.now - 4.hours'.c
 
-    before_action :save_search_preference, only: :index
-
     def self.list_conditions
-      code = search_conditions(worker_time_logs: %i[description], workers: %i[name]) + " ||= []\n"
+      code = search_conditions(worker_time_logs: %i[description started_at], workers: %i[name]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{WorkerTimeLog.table_name}.started_at BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -47,9 +45,9 @@ module Backend
       t.action :destroy
       t.column :worker, url: true
       t.column :started_at, datatype: :datetime
+      t.column :stopped_at, datatype: :datetime
+      t.column :description
       t.column :human_duration, on_select: :sum, value_method: 'duration.in(:second).in(:hour)', datatype: :decimal, class: 'center-align'
-      t.column :description, hidden: true
-      t.column :stopped_at, datatype: :datetime, hidden: true
     end
 
     def index

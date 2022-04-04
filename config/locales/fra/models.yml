@@ -31,8 +31,8 @@ fra:
       is: "%{attribute} doit être un(e) %{thing}"
       is_at: "%{attribute} doit être le %{restriction}"
       items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
-      less_than: "%{attribute} doit être inférieur à %{count}"
-      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+      less_than: "%{attribute} doit être inférieur(e) à %{count}"
+      less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
       models: #?
         sepa/credit_transfer_transaction: #?
           attributes: #?
@@ -110,8 +110,8 @@ fra:
         is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
-        less_than: "%{attribute} doit être inférieur à %{count}"
-        less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+        less_than: "%{attribute} doit être inférieur(e) à %{count}"
+        less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
         missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         models: #?
           sepa/credit_transfer_transaction: #?
@@ -592,8 +592,8 @@ fra:
         is: "%{attribute} doit être un(e) %{thing}"
         is_at: "%{attribute} doit être le %{restriction}"
         items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
-        less_than: "%{attribute} doit être inférieur à %{count}"
-        less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+        less_than: "%{attribute} doit être inférieur(e) à %{count}"
+        less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
         mandatory_reading: "Veuillez saisir une valeur pour l'indicateur %{name}"
         missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         models: #?
@@ -2670,8 +2670,8 @@ fra:
       is: "%{attribute} doit être un(e) %{thing}"
       is_at: "%{attribute} doit être le %{restriction}"
       items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
-      less_than: "%{attribute} doit être inférieur à %{count}"
-      less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
+      less_than: "%{attribute} doit être inférieur(e) à %{count}"
+      less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
       missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
       models: #?
         sepa/credit_transfer_transaction: #?
