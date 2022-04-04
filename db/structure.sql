@@ -38,6 +38,13 @@ CREATE SCHEMA public;
 
 
 --
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
 -- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
 --
 
@@ -10290,6 +10297,39 @@ ALTER SEQUENCE public.worker_group_items_id_seq OWNED BY public.worker_group_ite
 
 
 --
+-- Name: worker_group_labellings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_group_labellings (
+    id integer NOT NULL,
+    worker_group_id integer,
+    label_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: worker_group_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_group_labellings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_group_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_group_labellings_id_seq OWNED BY public.worker_group_labellings.id;
+
+
+--
 -- Name: worker_groups; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -11822,6 +11862,13 @@ ALTER TABLE ONLY public.worker_contracts ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.worker_group_items ALTER COLUMN id SET DEFAULT nextval('public.worker_group_items_id_seq'::regclass);
+
+
+--
+-- Name: worker_group_labellings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings ALTER COLUMN id SET DEFAULT nextval('public.worker_group_labellings_id_seq'::regclass);
 
 
 --
@@ -13894,6 +13941,14 @@ ALTER TABLE ONLY public.worker_contracts
 
 ALTER TABLE ONLY public.worker_group_items
     ADD CONSTRAINT worker_group_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_group_labellings worker_group_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings
+    ADD CONSTRAINT worker_group_labellings_pkey PRIMARY KEY (id);
 
 
 --
@@ -23972,6 +24027,20 @@ CREATE INDEX index_worker_group_items_on_worker_id ON public.worker_group_items 
 
 
 --
+-- Name: index_worker_group_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_labellings_on_label_id ON public.worker_group_labellings USING btree (label_id);
+
+
+--
+-- Name: index_worker_group_labellings_on_worker_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_labellings_on_worker_group_id ON public.worker_group_labellings USING btree (worker_group_id);
+
+
+--
 -- Name: index_worker_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24245,29 +24314,6 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
-
-
---
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -24294,6 +24340,29 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
+
+
+--
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
 
 
 --
@@ -24614,6 +24683,14 @@ ALTER TABLE ONLY public.intervention_crop_groups
 
 ALTER TABLE ONLY public.intervention_template_activities
     ADD CONSTRAINT fk_rails_39759d6fe4 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: worker_group_labellings fk_rails_3aae8cba7d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings
+    ADD CONSTRAINT fk_rails_3aae8cba7d FOREIGN KEY (label_id) REFERENCES public.labels(id);
 
 
 --
@@ -24950,6 +25027,14 @@ ALTER TABLE ONLY public.payslip_natures
 
 ALTER TABLE ONLY public.inventories
     ADD CONSTRAINT fk_rails_86687e98ce FOREIGN KEY (journal_id) REFERENCES public.journals(id);
+
+
+--
+-- Name: worker_group_labellings fk_rails_87473cbb34; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings
+    ADD CONSTRAINT fk_rails_87473cbb34 FOREIGN KEY (worker_group_id) REFERENCES public.worker_groups(id);
 
 
 --
@@ -26029,4 +26114,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220207140622'),
 ('20220208175301'),
 ('20220209183201'),
-('20220308153250');
+('20220308153250'),
+('20220318165450'),
+('20220328232801');
+
+

@@ -52,6 +52,8 @@ class WorkerTimeLog < ApplicationRecord
   validates :worker, presence: true
   # ]VALIDATORS]
   validates :duration, presence: true, numericality: { greater_than: 0, less_than: 86_400 }
+  validate :duration_is_between_0_and_24h, if: :duration
+  validate :stopped_at_is_valid, if: :stopped_at
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
@@ -80,15 +82,6 @@ class WorkerTimeLog < ApplicationRecord
     true
   end
 
-  validate do
-    if started_at && stopped_at && stopped_at <= started_at
-      errors.add(:stopped_at, :posterior, to: started_at.l)
-    end
-    if stopped_at && stopped_at > Time.zone.now
-      errors.add(:stopped_at, :before, restriction: Time.zone.now.l)
-    end
-  end
-
   after_save do
     WorkerTimeIndicator.refresh # refresh view
   end
@@ -104,5 +97,25 @@ class WorkerTimeLog < ApplicationRecord
   def human_duration(unit = :hour)
     duration.in(:second).convert(unit).round(2).l(precision: 2)
   end
+
+  private
+
+    def duration_is_between_0_and_24h
+      if duration >= 86_400
+        errors.add(:duration, :less_than, count: '24H')
+      end
+      if duration < 0
+        errors.add(:duration, :greater_than, count: '0H')
+      end
+    end
+
+    def stopped_at_is_valid
+      if started_at && stopped_at <= started_at
+        errors.add(:stopped_at, :posterior, to: started_at.l)
+      end
+      if stopped_at > Time.zone.now
+        errors.add(:stopped_at, :before, restriction: Time.zone.now.l)
+      end
+    end
 
 end

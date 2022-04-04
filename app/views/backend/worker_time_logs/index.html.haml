@@ -3,7 +3,6 @@
 
 = kujaku do |k|
   - k.text
-  - k.helper :journal_period_crit
   - w_ids = WorkerTimeLog.all.pluck(:worker_id).compact.uniq
   - workers = Worker.where(id: w_ids).reorder(:name)
   - if workers.any?
