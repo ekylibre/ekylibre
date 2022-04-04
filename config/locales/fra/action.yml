@@ -597,6 +597,9 @@ fra:
       new: "Nouveau profil fonctionnel"
       pick: "Importer un profil fonctionnel"
       show: "Profil fonctionnel\_: %{name}"
+    backend/product_readings:
+      edit: "Editer l'indicateur:"
+      new: "Nouvel indicateur"
     backend/productions: #?
       edit: "Modifier la production\_: %{name}" #?
       index: "Productions" #?

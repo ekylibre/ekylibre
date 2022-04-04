@@ -213,10 +213,10 @@ module Backend
     end
 
     # Lists readings of the current product
-    list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :indicator_name
-      t.column :read_at
-      t.column :value
+    list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c, indicator_datatype: '%i[string integer decimal boolean choice measure]'.c }, order: { created_at: :desc }) do |t|
+      t.column :indicator, datatype: :item
+      t.column :value, datatype: :measure, class: 'center'
+      t.column :read_at, datatype: :datetime
     end
 
     # Lists readings of the current product
