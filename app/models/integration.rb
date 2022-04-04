@@ -42,9 +42,9 @@
 # to keep them reusable when necessary.
 class Integration < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  enumerize :state, in: %i[undone in_progress finished], default: :undone
-
+  validates :last_sync_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :nature, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   delegate :authentication_mode, :check_connection, :integration_name, to: :integration_type
   composed_of :parameters,

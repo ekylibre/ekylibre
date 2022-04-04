@@ -96,8 +96,11 @@ class ActivityProduction < ApplicationRecord
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :custom_name, :state, length: { maximum: 500 }, allow_blank: true
+  validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
+  validates :custom_name, :reference_name, :state, length: { maximum: 500 }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
+  validates :number_of_batch, :sowing_interval, :starting_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }

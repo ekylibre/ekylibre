@@ -45,8 +45,9 @@ class ParcelItemStoring < ApplicationRecord
   belongs_to :conditioning_unit, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :conditioning_quantity, presence: true, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }
   validates :quantity, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :parcel_item, :storage, :conditioning_unit, :conditioning_quantity, presence: true
+  validates :conditioning_unit, :parcel_item, :storage, presence: true
   # ]VALIDATORS]
   validates :quantity, presence: true
   validates :conditioning_unit, conditioning: true

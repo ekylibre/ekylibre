@@ -53,9 +53,14 @@ class CviStatement < ApplicationRecord
   has_many :cvi_cultivable_zones, dependent: :destroy
   has_many :cvi_land_parcels, through: :cvi_cultivable_zones
 
-  validates :extraction_date, :siret_number, :farm_name, :declarant, :state, presence: true
-  validates :siret_number, siret_format: true
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :cvi_number, :declarant, :farm_name, :siret_number, presence: true, length: { maximum: 500 }
+  validates :extraction_date, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }
+  validates :state, presence: true
+  validates :total_area_unit, length: { maximum: 500 }, allow_blank: true
   validates :total_area_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  # ]VALIDATORS]
+  validates :siret_number, siret_format: true
 
   def convertible?
     cvi_cadastral_plants.all?(&:land_parcel_id)

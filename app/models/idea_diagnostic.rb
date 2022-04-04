@@ -45,12 +45,13 @@ class IdeaDiagnostic < ApplicationRecord
   belongs_to :campaign
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :name, presence: true, length: { maximum: 500 }
-  validates :auditor, presence: true
+  validates :code, :name, presence: true, length: { maximum: 500 }
+  validates :stopped_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :campaign, presence: true
-  validates :campaign_id, uniqueness: { message: :unicity_by_campaign }
-
   # ]VALIDATORS]
+  validates :campaign_id, uniqueness: { message: :unicity_by_campaign }
+  validates :auditor, presence: true
+
   before_validation :set_default_values
 
   private

@@ -38,4 +38,8 @@
 class CropGroupItem < ApplicationRecord
   belongs_to :crop_group
   belongs_to :crop, polymorphic: true
+
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :crop_type, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
 end

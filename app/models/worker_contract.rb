@@ -42,8 +42,15 @@ class WorkerContract < ApplicationRecord
   has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :worker_contract, dependent: :destroy
 
   enumerize :nature, in: %i[permanent_worker temporary_worker external_staff], default: :permanent_worker, predicates: true
-
-  validates :entity, :started_at, :monthly_duration, :raw_hourly_amount, presence: true
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :contract_end, :name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :monthly_duration, :raw_hourly_amount, presence: true, numericality: { greater_than: -1_000_000, less_than: 1_000_000 }
+  validates :salaried, inclusion: { in: [true, false] }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(worker_contract) { worker_contract.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :entity, presence: true
+  # ]VALIDATORS]
 
   scope :of_nature, ->(nature) { where(nature: nature) }
 

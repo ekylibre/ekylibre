@@ -3,6 +3,10 @@
 class Scenario < ApplicationRecord
   self.table_name = "planning_scenarios"
 
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :area, numericality: true, allow_blank: true
+  validates :description, :name, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
   validates :name, :campaign, presence: true
 
   belongs_to :campaign, class_name: Campaign, foreign_key: :campaign_id

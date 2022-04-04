@@ -66,8 +66,13 @@ class ActivityBudgetItem < ApplicationRecord
   has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :activity_budget_item, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :activity_budget, :computation_method, :currency, :direction, presence: true
+  validates :amount, :global_amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :activity_budget, :computation_method, :currency, :direction, :frequency, presence: true
+  validates :locked, :use_transfer_price, inclusion: { in: [true, false] }, allow_blank: true
+  validates :main_output, inclusion: { in: [true, false] }
+  validates :paid_on, :used_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :repetition, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :transfer_price, numericality: true, allow_blank: true
   validates :unit_currency, presence: true, length: { maximum: 500 }
   validates :variant_indicator, :variant_unit, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]

@@ -108,12 +108,13 @@ class ProductNatureVariant < ApplicationRecord
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :france_maaid, :gtin, :picture_content_type, :picture_file_name, :reference_name, :specie_variety, :work_number, length: { maximum: 500 }, allow_blank: true
-  validates :name, :unit_name, presence: true, length: { maximum: 500 }
+  validates :default_quantity, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :category, :default_unit, :default_unit_name, :nature, :variety, presence: true
+  validates :france_maaid, :gtin, :pictogram, :picture_content_type, :picture_file_name, :reference_name, :specie_variety, :unit_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
-  validates :category, :nature, :variety, :default_unit_name, :default_unit_id, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
