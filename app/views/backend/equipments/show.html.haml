@@ -58,6 +58,8 @@
   = labels_info(resource.labels)
 
 = cobbles do |c|
+  - c.cobble(:readings) do
+    = cobble_list(:readings)
 
   - record_interventions_without_equipment_maintenance = resource.interventions.with_nature(:record).without_procedure_name(:equipment_maintenance)
   - record_interventions_with_equipment_maintenance_as_tool = resource.interventions.with_nature(:record).with_procedure_name(:equipment_maintenance).where("intervention_parameters.type = 'InterventionTool'")

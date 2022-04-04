@@ -585,6 +585,11 @@
         <page to="backend/product_localizations#edit"/>
         <page to="backend/product_localizations#new"/>
         <page to="backend/product_localizations#update"/>
+        <page to="backend/product_readings#create"/>
+        <page to="backend/product_readings#destroy"/>
+        <page to="backend/product_readings#edit"/>
+        <page to="backend/product_readings#new"/>
+        <page to="backend/product_readings#update"/>
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#create"/>
         <page to="backend/product_groups#destroy"/>

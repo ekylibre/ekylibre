@@ -1037,6 +1037,7 @@ Rails.application.routes.draw do
     resources :plants, concerns: :products do
       member do
         get :list_plant_countings
+        get :list_plant_readings
       end
     end
 
@@ -1098,6 +1099,8 @@ Rails.application.routes.draw do
     resources :product_groups, concerns: :products
 
     resources :product_localizations, except: %i[index show]
+
+    resources :product_readings, except: %i[index show]
 
     resources :product_natures, concerns: %i[incorporate list unroll] do
       member do

@@ -714,6 +714,9 @@ eng:
       new: "New functional profile"
       pick: "Pick functional profile"
       show: "Functional profile: %{name}"
+    backend/product_readings:
+      edit: "Edit indicator:"
+      new: "New indicator"
     backend/products/indicators:
       # variable_indicators: "Variable indicators indicator: %{name}"
     backend/products/interventions:

@@ -114,6 +114,8 @@
   - if resource.intervention_product_parameters.any?
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
       = cobble_list(:intervention_product_parameters)
+  - c.cobble(:readings) do
+    = cobble_list(:readings)
 
   - c.cobble(:trackings, title: :x_trackings.tl(count: resource.trackings.count)) do
     = cobble_toolbar do |t|
@@ -143,4 +145,3 @@
     = cobble_list(:inspections)
 
   =# render partial: 'backend/shared/distributions', locals: {c: c}
-  
