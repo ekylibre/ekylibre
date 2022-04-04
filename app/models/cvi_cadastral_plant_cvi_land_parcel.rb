@@ -38,4 +38,8 @@
 class CviCadastralPlantCviLandParcel < ApplicationRecord
   belongs_to :cvi_land_parcel
   belongs_to :cvi_cadastral_plant
+
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :percentage, numericality: true, allow_blank: true
+  # ]VALIDATORS]
 end

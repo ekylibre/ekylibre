@@ -32,7 +32,13 @@ class Unit < ApplicationRecord
   enumerize :type, in: %w[ReferenceUnit Conditioning]
   enumerize :dimension, in: BASE_UNIT_PER_DIMENSION.keys
 
-  validates :name, :coefficient, presence: true
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :coefficient, presence: true, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :dimension, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :reference_name, :symbol, :work_code, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
   validates :symbol, uniqueness: true, allow_blank: true
   validates :name, uniqueness: true
 

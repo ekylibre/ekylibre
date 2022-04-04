@@ -49,6 +49,12 @@ class EconomicCashIndicator < ApplicationRecord
   belongs_to :worker_contract, inverse_of: :economic_cash_indicators
   belongs_to :loan, inverse_of: :economic_cash_indicators
 
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :amount, :pretax_amount, numericality: true, allow_blank: true
+  validates :context, :context_color, length: { maximum: 500 }, allow_blank: true
+  validates :paid_on, :used_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  # ]VALIDATORS]
+
   scope :of_campaign, ->(campaign) { where(campaign: campaign)}
   scope :of_context, ->(context) { where(context: context)}
   scope :of_activity, ->(activity) { where(activity: activity)}

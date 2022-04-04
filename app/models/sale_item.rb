@@ -110,10 +110,11 @@ class SaleItem < ApplicationRecord
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :compute_from, :currency, :sale, :variant, :conditioning_unit, :conditioning_quantity, presence: true
+  validates :catalog_item_update, :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
+  validates :compute_from, :conditioning_unit, :currency, :sale, :variant, presence: true
+  validates :conditioning_quantity, presence: true, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }
   validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :fixed, inclusion: { in: [true, false] }
-  validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true

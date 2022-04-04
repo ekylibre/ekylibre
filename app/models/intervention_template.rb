@@ -14,7 +14,12 @@ class InterventionTemplate < ApplicationRecord
   belongs_to :originator, class_name: ::InterventionTemplate
   has_one :linked_intervention_template, class_name: ::InterventionTemplate, foreign_key: 'originator_id', dependent: :nullify
 
-  # Validation
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :active, inclusion: { in: [true, false] }, allow_blank: true
+  validates :description, :name, :procedure_name, length: { maximum: 500 }, allow_blank: true
+  validates :preparation_time_hours, :preparation_time_minutes, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :workflow, numericality: true, allow_blank: true
+  # ]VALIDATORS]
   validates :name, :procedure_name, :workflow, :campaign, presence: true
   validate :campaign_id_not_changed, if: :campaign_id_changed?, on: :update
   validate on: :create do

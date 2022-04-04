@@ -67,7 +67,7 @@ class Document < ApplicationRecord
   validates :file_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :key, :name, :number, presence: true, length: { maximum: 500 }
   validates :mandatory, inclusion: { in: [true, false] }, allow_blank: true
-  validates :uploaded, inclusion: { in: [true, false] }
+  validates :processable_attachment, :uploaded, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :nature, length: { allow_nil: true, maximum: 120 }

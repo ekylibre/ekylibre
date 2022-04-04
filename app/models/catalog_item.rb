@@ -60,14 +60,15 @@ class CatalogItem < ApplicationRecord
   validates :all_taxes_included, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :commercial_description, length: { maximum: 500_000 }, allow_blank: true
-  validates :commercial_name, length: { maximum: 500 }, allow_blank: true
-  validates :catalog, :currency, :variant, :unit, :started_at, presence: true
+  validates :commercial_name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :catalog, :currency, :unit, :variant, presence: true
   validates :name, presence: true, length: { maximum: 500 }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(catalog_item) { catalog_item.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :started_at, uniqueness: { scope: %i[catalog_id variant_id unit_id], message: :there_is_already_a_catalog_item_starting_at_the_exact_same_time }
   validates :reference_tax, presence: { if: :all_taxes_included }
-  validates :stopped_at, timeliness: { on_or_after: ->(catalog_item) { catalog_item.started_at }, type: :date, if: -> { stopped_at } }
   validates :unit, conditioning: true
 
   # delegate :product_nature_id, :product_nature, to: :template
@@ -114,8 +115,9 @@ class CatalogItem < ApplicationRecord
     self.name = commercial_name
     self.name = variant_name if commercial_name.blank? && variant
     self.unit ||= variant.guess_conditioning[:unit] if variant
-    set_stopped_at if catalog && following_items.any?
   end
+
+  before_validation :set_stopped_at
 
   after_save do
     set_previous_stopped_at if previous_items.any?
@@ -230,8 +232,10 @@ class CatalogItem < ApplicationRecord
   private
 
     def set_stopped_at
-      following_item = following_items.first
-      self.stopped_at = following_item.started_at - 1.minute
+      if catalog && following_items.any?
+        following_item = following_items.first
+        self.stopped_at = following_item.started_at - 1.minute if id != following_item.id
+      end
     end
 
     def set_previous_stopped_at

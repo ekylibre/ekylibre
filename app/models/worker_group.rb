@@ -41,7 +41,10 @@ class WorkerGroup < ApplicationRecord
   accepts_nested_attributes_for :labellings, allow_destroy: true, reject_if: :label_already_present
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :active, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
+  validates :usage, :work_number, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
 
   scope :at, ->(at) { where(arel_table[:created_at].lteq(at)) }
 

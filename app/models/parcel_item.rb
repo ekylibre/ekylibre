@@ -95,11 +95,13 @@ class ParcelItem < ApplicationRecord
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :annotation, length: { maximum: 500_000 }, allow_blank: true
+  validates :conditioning_quantity, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }, allow_blank: true
   validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :product_work_number, :role, length: { maximum: 500 }, allow_blank: true
   validates :merge_stock, :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
-  validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :population, :unit_pretax_sale_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :parcel, presence: true
   # ]VALIDATORS]
 
   validates :variant, presence: true
