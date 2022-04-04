@@ -81,11 +81,17 @@ module Agroedi
     private
 
       def daplos
+        force_utf8_encoding
         @daplos = SVF::EdiDaplos2.parse(file)
       rescue SVF::InvalidSyntax
         return false
       end
       alias_method :daplos?, :daplos
+
+      def force_utf8_encoding
+        content = File.read(file).encode("UTF-8", invalid: :replace, undef: :replace, replace: "_")
+        File.write(file, content)
+      end
 
       # TODO: Do this as pre-import work instead of destroying interventions
       def regroup_interventions!
