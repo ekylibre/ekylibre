@@ -81,6 +81,7 @@ module Clean
 
           !column.null && validable_column?(column)
         end.each do |reflection|
+          nexit if model.subclasses.any?
           validation = 'presence: true'
           validations[validation] ||= []
           validations[validation] << reflection.name.to_sym

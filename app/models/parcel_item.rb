@@ -101,7 +101,6 @@ class ParcelItem < ApplicationRecord
   validates :parted, inclusion: { in: [true, false] }
   validates :population, :unit_pretax_sale_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :parcel, presence: true
   # ]VALIDATORS]
 
   validates :variant, presence: true
