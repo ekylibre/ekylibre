@@ -61,8 +61,9 @@ class CultivableZone < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :work_number, presence: true, length: { maximum: 500 }
-  validates :shape, presence: true, shape: true
+  validates :shape, presence: true
   # ]VALIDATORS]
+  validates :shape, shape: true
   validates :uuid, presence: true
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
