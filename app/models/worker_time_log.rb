@@ -95,7 +95,7 @@ class WorkerTimeLog < ApplicationRecord
   end
 
   def human_duration(unit = :hour)
-    duration.in(:second).convert(unit).round(2).l(precision: 2)
+    duration&.in(:second)&.convert(unit)&.round(2)&.l(precision: 2)
   end
 
   private
