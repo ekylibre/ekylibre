@@ -190,7 +190,7 @@ module Backend
     private
 
       def shipment_params
-        params.require(:shipment).permit(:planned_at, :sale_id, :sale_nature_id, :recipient_id, items_attributes: %i[source_product_id conditioning_quantity conditioning_unit_id])
+        params.require(:shipment).permit(:planned_at, :sale_id, :sale_nature_id, :recipient_id, items_attributes: %i[source_product_id conditioning_quantity conditioning_unit_id unit_pretax_sale_amount])
       end
   end
 end
