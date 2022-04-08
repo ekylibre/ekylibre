@@ -22,8 +22,8 @@ module ActionIntegration
           action_base(path, data, Net::HTTP::Patch, headers, &block)
         end
 
-        def delete_base(path, &block)
-          action_base(path, nil, Net::HTTP::Delete, &block)
+        def delete_base(path, headers = {}, &block)
+          action_base(path, nil, Net::HTTP::Delete, headers, &block)
         end
 
         def action_base(path, data, action_class, headers = {}, &block)
