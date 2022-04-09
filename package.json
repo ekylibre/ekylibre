@@ -9,7 +9,7 @@
     "leaflet-draw": "0.4.12",
     "leaflet-reactive_measure": "https://github.com/ekylibre/Leaflet.ReactiveMeasure",
     "lodash": "^4.17",
-    "moment": "^2.24",
+    "moment": "^2.29",
     "promise-polyfill": "^8.1.3",
     "rbush": "^3.0.1",
     "sortablejs": "^1.7.0",
