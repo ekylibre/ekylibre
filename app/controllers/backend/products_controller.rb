@@ -77,6 +77,26 @@ module Backend
       code.c
     end
 
+    def self.intervention_parameters_conditions
+      code = search_conditions(intervention_parameter: %i[id]) + " ||= []\n"
+
+      code << "if params[:id].present?\n"
+      code << " c[0] << 'AND #{InterventionParameter.table_name}.product_id = ? '\n"
+      code << " c << params[:id]\n"
+      code << "end\n"
+
+      code << "if params[:current_campaign].present?\n"
+      code << " c[0] << 'AND #{InterventionParameter.table_name}.intervention_id IN (SELECT id FROM interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = interventions.id WHERE campaigns_interventions.campaign_id = ? AND interventions.nature = ?) '\n"
+      code << " c << current_campaign.id\n"
+      code << " c << \'record\' \n"
+      code << "else"
+      code << " c[0] << 'AND #{InterventionParameter.table_name}.intervention_id IN (SELECT id FROM interventions WHERE interventions.nature = ?) '\n"
+      code << " c << \'record\' \n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
     list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -161,7 +181,7 @@ module Backend
     end
 
     # Lists intervention product parameters of the current product
-    list(:intervention_product_parameters, model: :intervention_parameters, conditions: { interventions: { nature: :record }, product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+    list(:intervention_product_parameters, model: :intervention_parameters, conditions: intervention_parameters_conditions, order: 'interventions.started_at DESC') do |t|
       t.column :intervention, url: true
       # t.column :roles, hidden: true
       t.column :reference, label_method: :name, sort: :reference_name
