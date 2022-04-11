@@ -30,6 +30,22 @@ module Backend
       code.c
     end
 
+    def self.worker_time_logs_conditions
+      code = search_conditions(worker_time_logs: %i[worker description]) + " ||= []\n"
+      code << "if params[:id].present?\n"
+      code << " c[0] << ' AND #{WorkerTimeLog.table_name}.worker_id = ?'\n"
+      code << " c << params[:id]\n"
+      code << "end\n"
+
+      code << "if params[:current_period].present?\n"
+      code << " c[0] << ' AND EXTRACT(YEAR FROM #{WorkerTimeLog.table_name}.started_at) = ?'\n"
+      code << " c << params[:current_period].to_date.year\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+
+    end
+
     list(conditions: list_conditions, selectable: true) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
@@ -42,7 +58,7 @@ module Backend
       t.column :description
     end
 
-    list(:time_logs, model: :worker_time_logs, conditions: { worker_id: 'params[:id]'.c }, order: { started_at: :asc }) do |t|
+    list(:time_logs, model: :worker_time_logs, conditions: worker_time_logs_conditions, order: { started_at: :asc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :started_at, datatype: :datetime
