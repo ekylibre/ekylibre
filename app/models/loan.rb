@@ -67,7 +67,7 @@ class Loan < ApplicationRecord
   include Customizable
   include Transitionable
   include Providable
-
+  # take care to restart serveur when updating code because of Transitionable lib
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
@@ -140,7 +140,7 @@ class Loan < ApplicationRecord
 
   # Prevents from deleting if entry exist
   protect on: :update do
-    !repayments.all?(&:updateable?) || (journal_entry && !journal_entry.updateable?)
+    !repayments.all?(&:updateable?) || (journal_entry && !journal_entry.editable?)
   end
 
   # compute and save loan for each cash movement in economic_cash_indicators
