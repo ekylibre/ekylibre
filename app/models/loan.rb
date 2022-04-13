@@ -72,7 +72,7 @@ class Loan < ApplicationRecord
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
-  enumerize :state, in: %i[draft ongoing repaid], predicates: true, default: :draft, i18n_scope: "models.#{model_name.param_key}.states"
+  enumerize :state, in: %i[draft ongoing repaid], default: :draft, predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :activity
   belongs_to :cash
@@ -107,15 +107,23 @@ class Loan < ApplicationRecord
   scope :drafts, -> { where(state: %w[draft]) }
   scope :ongoing_within, ->(start_time, stop_time) { where('loans.ongoing_at BETWEEN ? and ?', start_time, stop_time) }
 
+  after_initialize do
+    next if persisted?
+
+    self.currency ||= Preference[:currency]
+    self.state ||= :draft
+  end
+
   before_validation do
     self.state ||= :draft
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
+    true
   end
 
   after_save do
-    generate_repayments if draft?
+    generate_repayments if (draft? || ongoing?)
     # if accountable_repayments_started_on, locked repayments before accountable_repayments_started_on
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
@@ -127,12 +135,12 @@ class Loan < ApplicationRecord
 
   # Prevents from deleting if entry exist
   protect on: :destroy do
-    (journal_entry && ongoing?) || repayments.any? { |repayment| !repayment.destroyable? } || repaid?
+    (journal_entry && !journal_entry.destroyable?) || repayments.any? { |repayment| !repayment.destroyable? } || repaid?
   end
 
   # Prevents from deleting if entry exist
   protect on: :update do
-    !repayments.all?(&:updateable?)
+    !repayments.all?(&:updateable?) || (journal_entry && !journal_entry.updateable?)
   end
 
   # compute and save loan for each cash movement in economic_cash_indicators
@@ -274,6 +282,6 @@ class Loan < ApplicationRecord
   end
 
   def editable?
-    updateable? && draft?
+    updateable?
   end
 end
