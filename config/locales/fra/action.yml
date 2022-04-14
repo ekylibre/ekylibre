@@ -3929,6 +3929,7 @@ fra:
         other: "Les comptes comptables %{accounts} ne peuvent être tronqués à la préférence comptable sélectionnée (%{preference} caractères). Seul le zéro peut être automatiquement supprimé. Veuillez modifier ces comptes comptables si vous souhaitez ajuster la préférence de la société à %{preference} caractères"
       accountant_without_email: "Merci de renseigner l’email du comptable"
       # aggeratio_not_found: "The export requested was not found"
+      amount_different_between_purchase_and_fixed_asset: "Le montant de la facture liée et le montant amortissable sont différent de %{amount} €"
       all_fixed_assets_must_be_depreciable: "Tous les immobilisations doivent être amortissables"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
