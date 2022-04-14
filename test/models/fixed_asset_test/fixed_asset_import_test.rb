@@ -16,7 +16,7 @@ module FixedAssetTest
                   amount: 50_000,
                   percentage: 10.00,
                   journal: @journal
-
+      fa.reload
       fa_je = fa.journal_entry
 
       assert fa_je.balanced?
