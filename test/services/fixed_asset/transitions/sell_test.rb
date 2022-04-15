@@ -99,6 +99,7 @@ class FixedAsset
         @fixed_asset.update!(sold_on: @sold_on)
 
         @fixed_asset.sell
+        @fixed_asset.reload
         sale.reload
 
         remaining_depreciation = @fixed_asset.depreciations.first
