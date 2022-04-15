@@ -34,7 +34,7 @@
       -# .errors= item.errors.inspect
     %td
       = f.input :unit_pretax_sale_amount, wrapper: :nested_append, hint: '&#8202;'.html_safe do
-        = f.input_field :unit_pretax_sale_amount, class: "item-unit-pretax-sale-amount"
+        = f.input_field :unit_pretax_sale_amount, class: "item-unit-pretax-sale-amount #{item.unit_pretax_sale_amount.present? ? 'fake-disabled' : nil}"
         %span.add-on.item-unit-pretax-sale-amount-start= '€'
     %td= f.referenced_association(:analysis, wrapper: :nested, hint: content_tag(:span, '&#8202;'.html_safe))
 

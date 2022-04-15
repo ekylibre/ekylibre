@@ -1830,6 +1830,11 @@ a[data-remove-closest], a[data-remove] {
   font-weight: bold;
 }
 
+.fake-disabled{
+  color: gray;
+  pointer-events: none;
+}
+
 .budget-item-locked{
   td span span input, td div input, td span div input, td span a, td span select{
     pointer-events: none;
