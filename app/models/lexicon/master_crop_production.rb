@@ -85,7 +85,7 @@ class MasterCropProduction < LexiconRecord
 
   # @return [String]
   def cycle
-    start_states.any? ? 'perennial' : 'annual'
+    life_duration.nil? ? 'annual' : 'perennial'
   end
 
   # @return [Boolean]
