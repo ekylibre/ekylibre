@@ -102,12 +102,22 @@ class Equipment < Matter
 
   validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
 
+  before_destroy :delete_samsys_machine
+
   def tractor?
     variety == :tractor
   end
 
   def self_prepelled_equipment?
     variety == :self_prepelled_equipment
+  end
+
+  # Call job to delete equipment in Samsys, if Samsys plugin is defined
+  def delete_samsys_machine
+    if defined?(EkylibreSamsys)
+      SamsysDeleteEquipmentJob.perform_later(equipment_id: self.id)
+    end
+    true
   end
 
   ##################################################
