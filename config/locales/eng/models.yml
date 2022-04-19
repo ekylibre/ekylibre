@@ -120,6 +120,14 @@ eng:
       conditioning:
         base_unit: "Unit"
         coefficient: "Quantity"
+      cvi_statement:
+        cvi_number: "CVI number"
+        extraction_date: "Extraction date"
+        created_at: "Created at"
+        declarant: "Declarant"
+        farm_name: "Farm name"
+        total_area: "Total area"
+        state: "State"
       document:
         filename: "File"
       document_template:
