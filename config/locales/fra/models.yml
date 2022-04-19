@@ -205,6 +205,14 @@ fra:
       conditioning:
         base_unit: "Unité"
         coefficient: "Quantité"
+      cvi_statement:
+        cvi_number: "Numéro de CVI"
+        extraction_date: "Date d'extraction"
+        created_at: "Créé le"
+        declarant: "Déclarant"
+        farm_name: "Nom du domaine"
+        total_area: "Surface totale"
+        state: "État"
       document:
         filename: "Fichier"
       document_archive: #?
