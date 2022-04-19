@@ -66,6 +66,8 @@ class BankStatementItem < ApplicationRecord
   validates :started_on, presence: true, if: :bank_statement
   validates :stopped_on, presence: true, if: :bank_statement
 
+  alias_attribute :number, :transaction_number
+
   delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
   scope :transfered_between, lambda { |period_start, period_end|
