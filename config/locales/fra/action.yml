@@ -1201,6 +1201,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    setting_number: Réglage nº
+    configure_sprayer_indicators: 'Paramétrer les caractéristiques du pulvérisateur'
     human_duration: "Durée"
     depreciation_percentage: "Pourcentage d'amortissement"
     depreciation_period: "Durée d'amortissement"
@@ -1371,6 +1373,7 @@ fra:
     add_new_record: "Ajouter un nouvel enregistrement"
     add_new: "+ Nouveau"
     add_outgoing_payment: "Ajouter un décaissement"
+    add_parameter_setting: "Ajouter \"Réglage de la pulvérisation\""
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_payslip: "Ajouter un salaire"

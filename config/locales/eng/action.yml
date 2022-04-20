@@ -1516,6 +1516,8 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    setting_number: Setting nº
+    configure_sprayer_indicators: Configure sprayer indicators
     protected_water_zones: "Protected water zones"
     theoritical_soil_depths: "Theoritical soil depths"
     theoritical_water_capacities: "Theoritical water capacities"
@@ -1648,6 +1650,7 @@ eng:
     add_mobile: "Add mobile phone number"
     add_new_record: "Add new record"
     add_outgoing_payment: "Add disbursement"
+    add_parameter_setting: "Add \"Sprayer settings\""
     add_participation: "Add participation"
     add_payment: "Add payment"
     add_payslip: "Add payslip"

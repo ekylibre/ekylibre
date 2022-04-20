@@ -21,6 +21,7 @@ import { MasterCropProductionService } from 'services/masterCropProductionServic
 import { VarietyService } from 'services/varietyService';
 import { CultivableZoneService } from 'services/cultivableZoneService';
 import { CampaignService } from 'services/campaignService';
+import { ProductService } from 'services/productService';
 
 import 'components/map/pause-icon.js';
 
@@ -39,6 +40,7 @@ export let Ekylibre = {
     VarietyService,
     CultivableZoneService,
     CampaignService,
+    ProductService,
 };
 
 export let globals = {

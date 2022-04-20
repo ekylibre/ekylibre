@@ -128,7 +128,7 @@ module Backend
 
     def reading(options = {})
       indicator = Onoma::Indicator.find!(@object.indicator_name)
-      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden) })
+      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden), fixed_unit: options[:fixed_unit] || true })
     end
 
     def variant_quantifier_of(association, *args, &block)
