@@ -71,6 +71,7 @@ class LoanTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     main = Account.find_or_create_by_number('512001')
     suspense = Account.find_or_create_by_number('511001')
     currency = 'EUR'
+    @user = User.first
 
     @cash = Cash.create!(
       name: '¡Banky!',
@@ -83,6 +84,7 @@ class LoanTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     @entity = Entity.create!(last_name: 'CA')
     @on = Date.parse('2017-01-01')
+    @bookkeep_until = Date.parse('2020-12-31')
 
     attributes = {
       name: 'FENDT 820',
@@ -148,4 +150,68 @@ class LoanTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # assert_equal 0.88, l.repayments.last.interest_amount.to_f
     # assert_equal 16.67, l.repayments.last.insurance_amount.to_f
   end
+
+  test 'update loan when state is ongoing' do
+    l = @loan
+
+    l.repayment_period = :year
+    l.repayment_duration = 10
+    l.amount = 100_000.00
+    l.interest_percentage = 1.2
+    l.insurance_percentage = 0.2
+    l.save!
+    assert_equal 10, l.repayments.count
+    l.confirm(ongoing_at: @on.to_time, current_user: @user)
+    assert_equal 'ongoing', l.state
+    l.reload
+    l.amount = 200_000.00
+    l.repayment_duration = 20
+    l.save!
+    l.reload
+    assert_equal 20, l.repayments.count
+  end
+
+  test 'update / delete loan when state is ongoing depending on loan entry state' do
+    l = @loan
+
+    l.repayment_period = :year
+    l.repayment_duration = 10
+    l.amount = 100_000.00
+    l.interest_percentage = 1.2
+    l.insurance_percentage = 0.2
+    l.save!
+    assert_equal 10, l.repayments.count
+    l.confirm(ongoing_at: @on.to_time, current_user: @user)
+    l.reload
+    assert_equal 'ongoing', l.state
+    assert l.destroyable?
+    assert l.updateable?
+    # validate journal_entry
+    l.journal_entry.update(state: :confirmed, validated_at: @on.to_time)
+    JournalEntryItem.where(entry_id: l.journal_entry.id).update_all(state: :confirmed)
+    l.reload
+    refute l.updateable?
+    refute l.destroyable?
+  end
+
+  test 'update / delete or not loan when state is ongoing depending on loan_repaymments entries state' do
+    l = @loan
+
+    l.repayment_period = :year
+    l.repayment_duration = 10
+    l.amount = 100_000.00
+    l.interest_percentage = 1.2
+    l.insurance_percentage = 0.2
+    l.save!
+    l.confirm(ongoing_at: @on.to_time, current_user: @user)
+    l.reload
+    # validate journal_entry
+    Loan.bookkeep_repayments(until: @bookkeep_until)
+    JournalEntry.where(id: l.repayments.pluck(:journal_entry_id)).update_all(state: :confirmed, validated_at: @bookkeep_until.to_time)
+    JournalEntryItem.where(entry_id: l.repayments.pluck(:journal_entry_id)).update_all(state: :confirmed)
+    l.reload
+    refute l.updateable?
+    refute l.destroyable?
+  end
+
 end

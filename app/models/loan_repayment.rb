@@ -79,13 +79,9 @@ class LoanRepayment < ApplicationRecord
     self.amount = base_amount + insurance_amount + interest_amount
   end
 
-  # Prevents from deleting if entry exist
-  protect on: %i[destroy] do
-    journal_entry
-  end
-
-  protect on: :update do
-    locked
+  # Prevents from deleting if entry exist and validated
+  protect on: %i[update destroy] do
+    locked || (journal_entry && !journal_entry.destroyable?)
   end
 
   bookkeep do |b|
