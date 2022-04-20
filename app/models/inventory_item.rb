@@ -96,4 +96,16 @@ class InventoryItem < ApplicationRecord
   def actual_pretax_stock_amount
     actual_population * unit_pretax_stock_amount
   end
+
+  def price_at(time)
+    if variant && unit_pretax_stock_amount == 0.0
+      catalog_items = variant.catalog_items.of_usage(:stock).of_unit(product.conditioning_unit).active_at(time)
+      return catalog_items.first.pretax_amount if catalog_items.any?
+    end
+    "0.0"
+  end
+
+  def population_at(time)
+    product.population(at: time)
+  end
 end

@@ -2351,6 +2351,7 @@ fra:
     invalid_format: "Format invalide"
     inventories: "Inventaires"
     inventory: "Inventaire"
+    inventory_category_warning: "Pour faire un inventaire sur l'ensemble de vos stocks, ne pas sélectionner de catégorie comptable"
     inventory_print: "Imprimer l’inventaire" #?
     inventory_variations: "Variations d’inventaire"
     investment_security: "Valeur mobilière de placement"

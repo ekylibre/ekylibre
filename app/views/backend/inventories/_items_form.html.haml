@@ -17,10 +17,10 @@
             %span= link_to(:details.tl, controller: "/backend/products", action: :show, id: nested.object.product_id)
           - else
             = nested.input :actual_population, wrapper: :nested_append do
-              = nested.input_field :actual_population
+              = nested.input_field :actual_population, value: nested.object.population_at(f.object.achieved_at)
               %span.add-on= nested.object.product.conditioning_unit.name
-              %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l(precision: 0)
+              %span.help-block= :expected_quantity_is_x.tl x: nested.object.population_at(f.object.achieved_at).l(precision: 0)
         %td.inventory-items{colspan: 2}
           = nested.input :unit_pretax_stock_amount, wrapper: :nested_append do
-            = nested.input_field :unit_pretax_stock_amount
+            = nested.input_field :unit_pretax_stock_amount, value: nested.object.price_at(f.object.achieved_at)
             %span.add-on= currency_symbol + " / " + nested.object.product.conditioning_unit.name
