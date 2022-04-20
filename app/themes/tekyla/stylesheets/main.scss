@@ -883,7 +883,7 @@ form.search {
       // margin: 0 1% $default-gap;
       @include float(left);
     }
-    
+
     &--flex {
       display: inline-flex;
 
@@ -1854,8 +1854,8 @@ a[data-remove-closest], a[data-remove] {
   min-width: 110px;
 }
 
-tr.noHover:hover td { 
-  background-color: inherit;     
+tr.noHover:hover td {
+  background-color: inherit;
   opacity: 1.0;
 }
 .simple-form-date-adjusted{
@@ -2407,6 +2407,14 @@ svg.map {
 
 
 .badge {
+  &.blue{
+    background: blue;
+    float: inherit !important;
+  }
+  &.red{
+    background: red;
+    float: inherit !important;
+  }
   background: $neutral-color;
   @include border-radius(1000px);
   @include inline-block;
@@ -2754,7 +2762,7 @@ a[data-annotate] {
       }
       .cobble-body {
         // padding: $default-gap;
-        .list-footer-pagination { 
+        .list-footer-pagination {
           padding: 8px;
           padding-right: 14px;
           float: right;

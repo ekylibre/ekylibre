@@ -94,6 +94,7 @@ class Intervention < ApplicationRecord
   has_many :crop_groups, through: :intervention_crop_groups
   has_many :rides, dependent: :nullify
   has_many :parameter_settings, class_name: 'InterventionParameterSetting', dependent: :nullify
+  has_many :parameter_setting_items, class_name: 'InterventionSettingItem', through: :parameter_settings, source: :settings
   has_many :settings, class_name: 'InterventionSettingItem', dependent: :destroy
 
   has_and_belongs_to_many :activities
@@ -906,6 +907,15 @@ class Intervention < ApplicationRecord
   def working_area(unit = :hectare)
     ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
     working_zone_area(unit)
+  end
+
+  def spray_mix_volume_area_density
+    global_volume_area_indicator = self.settings.find_by(indicator_name: 'spray_mix_volume_area_density')
+    if spraying? && global_volume_area_indicator.present?
+      global_volume_area_indicator.value
+    else
+      nil
+    end
   end
 
   def activity_imputation(activity)

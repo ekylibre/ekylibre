@@ -3754,6 +3754,9 @@ fra:
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
+    x_key_indicators:
+      one: "%{count} indicateur clé"
+      other: "%{count} indicateurs clés"
     x_lettered_at_before_printed_on:
       one: "1 écriture présente une date d'écriture postérieure à sa date de lettrage"
       other: "%{count} écritures présentent une date d'écriture postérieure à sa date de lettrage"
