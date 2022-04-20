@@ -160,6 +160,8 @@ module Ekylibre
           state = 'ongoing'
         end
 
+        cash = Cash.where("name ILIKE ?", row.cash_name + '%').first
+
         # add general loan attributes
         loan_attributes = {
           name: row.name,
@@ -167,7 +169,8 @@ module Ekylibre
           ongoing_at: (row.ongoing_at.present? ? row.ongoing_at : nil),
           accountable_repayments_started_on: (row.accountable_repayments_started_on.present? ? row.accountable_repayments_started_on : nil),
           amount: row.amount,
-          cash: Cash.where("name ILIKE ?", row.cash_name + '%').first,
+          cash: cash,
+          currency: cash.currency,
           lender: find_or_create_lender(row.lender_name),
           interest_percentage: row.interest_percentage,
           loan_account: find_or_create_account(row.loan_account_number),

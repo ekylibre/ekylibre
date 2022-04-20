@@ -22,7 +22,7 @@
   = f.custom_fields
   = hidden_field_tag :mode, params[:mode]
 
-- if (f.object.draft? || f.object.waiting?) && (params[:mode].blank? || !params[:mode] || f.object.new_record?)
+- if (f.object.draft? || f.object.waiting? || f.object.in_use?) && (params[:mode].blank? || !params[:mode] || f.object.new_record?)
   = field_set(:depreciation) do
     = f.money :depreciable_amount
     = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
@@ -38,7 +38,7 @@
             = label_tag depreciation_type do
               = radio_button_tag 'depeciation_type', depreciation_type, index == 0 , id: depreciation_type, data: { show: ".{{value}}"}
               = depreciation_type.tl
-    
+
     = f.input :depreciation_percentage, label: :value.tl, input_html: { name: 'fixed_asset[linear_depreciation_percentage]' } do
       .depreciation_percentage.input-append
         = f.input :depreciation_percentage, wrapper: :simplest
@@ -54,6 +54,8 @@
   = field_set(:accountancy) do
     = f.referenced_association :journal, source: :purchases_or_fixed_assets
     = f.referenced_association :asset_account, source: :assets
+    - if f.object.waiting?
+      = f.referenced_association :waiting_asset_account, source: :outstanding_assets
     = f.referenced_association :special_imputation_asset_account, source: :capitalized_revenues
     = f.referenced_association :allocation_account, source: :assets_depreciations
     = f.referenced_association :expenses_account, source: :asset_depreciations_inputations_expenses

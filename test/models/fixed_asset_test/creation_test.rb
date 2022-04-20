@@ -21,5 +21,6 @@ module FixedAssetTest
                  started_on: Date.new(2015, 1, 2)
       assert fa.valid?, fa.errors.messages
     end
+
   end
 end
