@@ -4,6 +4,7 @@
   - product = product_parameter.product
   - variant = product_parameter.variant
   - usage = product_parameter.relevant_usage
+  - spray_mix_volume_area_density = resource.spray_mix_volume_area_density
   - if actor
     .picture
       - if actor.picture.file?
@@ -25,7 +26,11 @@
               %span.value= (pesticide.present? ? pesticide.proper_name : '')
             %p
               %span.title= :quantity.tl
-              %span.value= product_parameter.input_quantity_per_area.round_l
+              %span.badge.red= product_parameter.input_quantity_per_area.round_l
+              - if spray_mix_volume_area_density
+                %br
+                %span.title= Onoma::Indicator[:spray_mix_volume_area_density].human_name
+                %span.badge.blue= spray_mix_volume_area_density.round_l
             - unless usage.nil?
               %p
                 = succeed " : " do

@@ -82,7 +82,7 @@ class InterventionParameterReading < ApplicationRecord
   after_save do
     if product
       case indicator_name
-      when :hour_counter
+      when 'hour_counter'
         save_hour_counter
       when 'cut_vine'
         save_cut_vine

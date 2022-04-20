@@ -587,7 +587,7 @@ module Backend
         indicators = variant.variable_indicators.delete_if do |i|
           whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
         end
-        if indicators.any?
+        if object.new_record? && indicators.any?
 
           if @object.readings.empty?
             indicators.each do |indicator|

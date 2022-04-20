@@ -93,6 +93,17 @@
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)
 
+  - if resource.parameter_setting_items.any?
+    - c.cobble(:settings) do
+      - resource.parameter_setting_items.group_by(&:intervention_parameter_setting_id).each do |setting, items|
+        .big-info
+          %span.title= :setting_number.tl + ' ' + setting.to_s
+        = infos do
+          - items.each do |item|
+            .med-info
+              %span.title= item.indicator.l
+              %span.value= item.value.round_l
+
   - if resource.receptions.any?
     - c.cobble(:service_deliveries) do
       = cobble_list(:service_deliveries)
