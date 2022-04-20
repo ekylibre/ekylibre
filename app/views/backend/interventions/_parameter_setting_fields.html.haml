@@ -1,0 +1,11 @@
+.nested-fields.parameter-setting
+  - if f.object.nature.nil?
+    - f.object.nature = :spraying
+  = link_to_remove_nested_association('label', f)
+  = f.input :name, wrapper: :append do
+    = text_field_tag :name,  f.object.name , disabled: true
+  = f.hidden_field :nature
+  - f.object.reference_indicator_names.each do |indicator_name|
+    - unless f.object.settings.detect{|r| r.indicator_name.to_s == indicator_name.to_s }
+      - f.object.settings << InterventionSettingItem.new(indicator_name: indicator_name)
+  = f.nested_association(:settings, new: false)

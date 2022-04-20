@@ -25,6 +25,24 @@ json.ownership do
     json.nature :none
   end
 end
+
+json.readings(resource.readings) do |reading|
+  json.id(reading.id)
+  json.indicator_name(reading.indicator_name)
+  json.indicator_datatype(reading.indicator_datatype)
+  json.absolute_measure_value_value(reading.absolute_measure_value_value)
+  json.absolute_measure_value_unit(reading.absolute_measure_value_unit)
+  json.boolean_value(reading.boolean_value)
+  json.choice_value(reading.choice_value)
+  json.decimal_value(reading.decimal_value)
+  json.multi_polygon_value(reading.multi_polygon_value)
+  json.integer_value(reading.integer_value)
+  json.measure_value_value(reading.measure_value_value)
+  json.measure_value_unit(reading.measure_value_unit)
+  json.measure_value_unit_symbol(Onoma::Unit[reading.measure_value_unit]&.symbol)
+  json.point_value(reading.point_value)
+  json.string_value(reading.string_value)
+end
 # catalog price link to sale nature, variant / conditionning from shipment
 if params[:sale_nature_id] && params[:planned_at]
   sale_nature = SaleNature.find(params[:sale_nature_id])

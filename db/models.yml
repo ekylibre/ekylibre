@@ -112,10 +112,12 @@
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
+- intervention_parameter_setting
 - intervention_participation
 - intervention_product_parameter
 - intervention_proposal
 - intervention_proposal/parameter
+- intervention_setting_item
 - intervention_target
 - intervention_template
 - intervention_template/product_parameter
