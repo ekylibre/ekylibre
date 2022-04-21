@@ -9,41 +9,41 @@ class PlantDecorator < ProductDecorator
   #                                  #
   ####################################
 
-  def production_costs
+  def production_costs(current_campaign)
     {
-      global_costs: human_global_costs,
-      cultivated_hectare_costs: human_cultivated_hectare_costs,
-      working_hectare_costs: human_working_hectare_costs
+      global_costs: human_global_costs(current_campaign),
+      cultivated_hectare_costs: human_cultivated_hectare_costs(current_campaign),
+      working_hectare_costs: human_working_hectare_costs(current_campaign)
     }
   end
 
-  def global_costs
-    calcul_global_costs
+  def human_global_costs(current_campaign)
+    human_costs(global_costs(current_campaign))
   end
 
-  def human_global_costs
-    human_costs(global_costs)
+  def human_cultivated_hectare_costs(current_campaign)
+    humanize_costs(cultivated_hectare_costs(current_campaign))
   end
 
-  def cultivated_hectare_costs
-    costs = costs_by_area(global_costs, object.net_surface_area.to_d)
+  def global_costs(current_campaign)
+    calcul_global_costs(current_campaign: current_campaign)
+  end
+
+  def cultivated_hectare_costs(current_campaign)
+    costs = costs_by_area(global_costs(current_campaign), object.net_surface_area.to_d)
 
     with_total_costs(costs)
   end
 
-  def human_cultivated_hectare_costs
-    humanize_costs(cultivated_hectare_costs)
-  end
-
-  def working_hectare_costs
-    costs = calcul_global_costs(with_working_zone_area: true)
+  def working_hectare_costs(current_campaign)
+    costs = calcul_global_costs(current_campaign: current_campaign, with_working_zone_area: true)
     total_costs(costs)
 
     costs
   end
 
-  def human_working_hectare_costs
-    humanize_costs(working_hectare_costs)
+  def human_working_hectare_costs(current_campaign)
+    humanize_costs(working_hectare_costs(current_campaign))
   end
 
   ####################################
@@ -213,8 +213,8 @@ class PlantDecorator < ProductDecorator
     last_inspection.user_per_area_unit(:net_mass)
   end
 
-  def working_zone_area
-    interventions = decorated_interventions
+  def working_zone_area(current_campaign)
+    interventions = decorated_interventions(current_campaign)
     working_zone = 0.in(:hectare)
 
     interventions.map do |intervention|
@@ -225,8 +225,8 @@ class PlantDecorator < ProductDecorator
     working_zone
   end
 
-  def human_working_zone_area
-    working_zone_area
+  def human_working_zone_area(current_campaign)
+    working_zone_area(current_campaign)
       .in(:hectare)
       .round(3)
       .l
@@ -253,9 +253,9 @@ class PlantDecorator < ProductDecorator
         .unit_preference(user)
     end
 
-    def calcul_global_costs(with_working_zone_area: false)
+    def calcul_global_costs(current_campaign: nil, with_working_zone_area: false)
       costs = { inputs: 0, doers: 0, tools: 0, receptions: 0 }
-      interventions = decorated_interventions
+      interventions = decorated_interventions(current_campaign)
       working_zone_area = 0.in(:hectare)
 
       interventions.map do |intervention|
@@ -272,8 +272,8 @@ class PlantDecorator < ProductDecorator
       costs
     end
 
-    def decorated_interventions
-      InterventionDecorator.decorate_collection(object.interventions)
+    def decorated_interventions(current_campaign)
+      InterventionDecorator.decorate_collection(object.interventions.of_campaign(current_campaign))
     end
 
     # @deprecated
