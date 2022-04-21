@@ -237,8 +237,19 @@ class FinancialYear < ApplicationRecord
 
   def next_tax_declaration_on
     declarations = TaxDeclaration.where('stopped_on BETWEEN ? AND ?', started_on, stopped_on)
+    # if declarations exists, then started_on = stopped_on + 1.day
     if declarations.any?
       declarations.order(stopped_on: :desc).first.stopped_on + 1
+    # if no declarations exists, 01/01 01/04 01/07 or 01/10 if quaterly? and fy started as the same month.
+    elsif tax_declaration_frequency_quaterly?
+      case started_on.month
+      when 1 then Date.new(started_on.year, 1, 1)
+      when 4 then Date.new(started_on.year, 4, 1)
+      when 7 then Date.new(started_on.year, 7, 1)
+      when 10 then Date.new(started_on.year, 10, 1)
+      else started_on
+      end
+    # if no declarations and no quaterly?, fy.started_on
     else
       started_on
     end
