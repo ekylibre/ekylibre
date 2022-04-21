@@ -140,6 +140,42 @@ class Plant < Bioproduct
     I18n.t("tooltips.models.plant.#{status}")
   end
 
+  def vine_density(at: Time.now)
+    rows_inter = self.rows_interval(at: at).convert(:meter).round(2)
+    plants_inter = self.plants_interval(at: at).convert(:meter).round(2)
+    if rows_inter.to_f != 0.0 && plants_inter.to_f != 0.0
+      (10_000 / (plants_inter.to_f * rows_inter.to_f)).round(0)
+    else
+      nil
+    end
+  end
+
+  def theoretical_vine_stock(at: Time.now)
+    if vine_density(at: at)
+      (vine_density(at: at) * self.net_surface_area.convert(:hectare).to_f).round(0)
+    else
+      nil
+    end
+  end
+
+  def missing_vine_ratio(at: Time.now)
+    item = self.reading(:missing_vine_stock, { at: at })
+    if item && theoretical_vine_stock(at: at)
+      ((item.value.to_f / theoretical_vine_stock(at: at).to_f) * 100).round(0).in(:percent)
+    else
+      nil
+    end
+  end
+
+  def estimated_vine_stock(at: Time.now)
+    item = self.reading(:missing_vine_stock, { at: at })
+    if item && theoretical_vine_stock(at: at)
+      (theoretical_vine_stock(at: at).to_i - item.value)
+    else
+      nil
+    end
+  end
+
   def last_sowing
     Intervention
       .real

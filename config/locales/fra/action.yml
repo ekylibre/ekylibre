@@ -1201,6 +1201,11 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    missing_vine_stock: "Total de pieds manquants"
+    estimated_vine_stock: "Pieds productifs estimés"
+    missing_vine_ratio: "Taux de pieds manquants"
+    theoretical_vine_stock: "Pieds théoriques"
+    vine_density: "Densité de plantation"
     setting_number: Réglage nº
     configure_sprayer_indicators: 'Paramétrer les caractéristiques du pulvérisateur'
     human_duration: "Durée"
@@ -3610,6 +3615,7 @@ fra:
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
     vine_planting: "Plantation de vignes"
+    vine_stock_indicators: "Indicateurs pieds de vigne"
     virtual_quantity: "Quantité virtuelle" #?
     wages: "Rémunérations"
     warning_date_not_in_period: "Attention : La date saisie n'est pas sur l'exercice en cours."

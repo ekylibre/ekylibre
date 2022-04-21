@@ -14,11 +14,18 @@
     .med-info.important
       %span.title= :use.tl
       = labels_info(resource.labels)
+    - if resource.plant?
+      .med-info.important
+        %span.title= :estimated_vine_stock.tl
+        %span.value= resource.crop_estimated_vine_stock
+      .med-info.important
+        %span.title= :missing_vine_stock.tl
+        %span.value= resource.crop_missing_vine_stock
 
 = cobbles do |c|
   - c.cobble(:map) do
     = model_map(resource.crops, id: :land_parcels_plants.tl, layer_options: {fill_color: '#3171A9', fill_opacity:0.8 })
-  
+
   - if resource.target == 'plant'
     - c.cobble(:crops) do
       = cobble_list(:plants)
@@ -27,4 +34,3 @@
       = cobble_list(:productions)
   - c.cobble(:interventions) do
     = cobble_list(:interventions)
-  
