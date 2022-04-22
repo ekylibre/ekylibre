@@ -13,10 +13,15 @@ module Ekylibre
           last_name: worker['last_name'],
           nature: 'contact'
         )
+        started_at = if (Time.zone.now - 1.year) < Entity.of_company.born_at
+                       Entity.of_company.born_at
+                     else
+                       Time.zone.now - 1.year
+                     end
         WorkerContract.import_from_lexicon(
           reference_name: worker['contract'],
           entity_id: entity.id,
-          started_at: Time.now
+          started_at: started_at
         )
       end
     end
