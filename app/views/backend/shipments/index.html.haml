@@ -36,7 +36,8 @@
   - k.choice *([[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]]), name: :invoice_status, label: :invoice_status.tl
 
 - main_toolbar do |t|
-  -#= t.new params: { redirect: nil }, label: :new_shipment.tl
   = t.new label: :new_shipment_with_sale_nature.tl, variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {sale_nature_id: n.id}] }
+  = t.new params: { controller: :shipments, action: :invoice, id: 0 },  method: :post, label: 'rest.actions.invoice'.t , class: 'disabled', id: 'generate-invoice-btn'
+  = t.new params: { controller: :shipments, action: :ship, id: 0 },method: :post, label: :supply.tl , class: 'disabled', id: 'ship-btn'
 
-= main_list
+= main_list data: ['recipient_id', 'shippable?', 'invoiceable?']
