@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.9 (Ubuntu 12.9-0ubuntu0.20.04.1)
+-- Dumped from database version 13.5 (Ubuntu 13.5-2.pgdg20.04+1)
+-- Dumped by pg_dump version 13.5 (Ubuntu 13.5-2.pgdg20.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -35,22 +35,6 @@ CREATE SCHEMA postgis;
 --
 
 CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
---
--- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
---
-
-CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
-    LANGUAGE c
-    AS '$libdir/pgcrypto', 'pg_random_uuid';
 
 
 --
@@ -5868,6 +5852,43 @@ ALTER SEQUENCE public.intervention_parameter_readings_id_seq OWNED BY public.int
 
 
 --
+-- Name: intervention_parameter_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_parameter_settings (
+    id integer NOT NULL,
+    intervention_id integer,
+    intervention_parameter_id integer,
+    nature character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_parameter_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_parameter_settings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_parameter_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_parameter_settings_id_seq OWNED BY public.intervention_parameter_settings.id;
+
+
+--
 -- Name: intervention_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -6001,6 +6022,55 @@ CREATE SEQUENCE public.intervention_proposals_id_seq
 --
 
 ALTER SEQUENCE public.intervention_proposals_id_seq OWNED BY public.intervention_proposals.id;
+
+
+--
+-- Name: intervention_setting_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_setting_items (
+    id integer NOT NULL,
+    intervention_parameter_setting_id integer,
+    intervention_id integer,
+    indicator_name character varying NOT NULL,
+    indicator_datatype character varying NOT NULL,
+    absolute_measure_value_value numeric(19,4),
+    absolute_measure_value_unit character varying,
+    boolean_value boolean DEFAULT false NOT NULL,
+    choice_value character varying,
+    decimal_value numeric(19,4),
+    geometry_value postgis.geometry(Geometry,4326),
+    integer_value integer,
+    measure_value_value numeric(19,4),
+    measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
+    string_value text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_setting_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_setting_items_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_setting_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_setting_items_id_seq OWNED BY public.intervention_setting_items.id;
 
 
 --
@@ -8352,6 +8422,30 @@ ALTER SEQUENCE public.product_nature_variant_readings_id_seq OWNED BY public.pro
 
 
 --
+-- Name: units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.units (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    reference_name character varying,
+    base_unit_id integer,
+    symbol character varying,
+    work_code character varying,
+    coefficient numeric(20,10) DEFAULT 1.0 NOT NULL,
+    description text,
+    dimension character varying NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    provider jsonb,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
 -- Name: product_nature_variant_suppliers_infos; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -8360,19 +8454,22 @@ CREATE VIEW public.product_nature_variant_suppliers_infos AS
     total_purchase_infos.entity_id,
     total_purchase_infos.variant_id,
     total_purchase_infos.ordered_quantity,
+    total_purchase_infos.ordered_unit_name,
     round((total_purchase_infos.total_amount / total_purchase_infos.ordered_quantity), 2) AS average_unit_pretax_amount,
     latest_purchases.unit_pretax_amount AS last_unit_pretax_amount
    FROM (( SELECT p.supplier_id,
-            sum(pi.quantity) AS ordered_quantity,
-            sum((pi.unit_pretax_amount * pi.quantity)) AS total_amount,
+            sum(pi.conditioning_quantity) AS ordered_quantity,
+            sum((pi.unit_pretax_amount * pi.conditioning_quantity)) AS total_amount,
+            pi_units.name AS ordered_unit_name,
             pi.variant_id,
             e.full_name,
             e.id AS entity_id
-           FROM ((public.purchase_items pi
+           FROM (((public.purchase_items pi
+             JOIN public.units pi_units ON ((pi.conditioning_unit_id = pi_units.id)))
              JOIN public.purchases p ON ((pi.purchase_id = p.id)))
              JOIN public.entities e ON ((e.id = p.supplier_id)))
           WHERE ((p.type)::text = 'PurchaseInvoice'::text)
-          GROUP BY p.supplier_id, pi.variant_id, e.full_name, e.id) total_purchase_infos
+          GROUP BY p.supplier_id, pi.variant_id, pi_units.name, e.full_name, e.id) total_purchase_infos
      JOIN ( SELECT DISTINCT ON (p.supplier_id, pi.variant_id) p.supplier_id,
             pi.variant_id,
             pi.unit_pretax_amount
@@ -9830,30 +9927,6 @@ ALTER SEQUENCE public.trackings_id_seq OWNED BY public.trackings.id;
 
 
 --
--- Name: units; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.units (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    reference_name character varying,
-    base_unit_id integer,
-    symbol character varying,
-    work_code character varying,
-    coefficient numeric(20,10) DEFAULT 1.0 NOT NULL,
-    description text,
-    dimension character varying NOT NULL,
-    type character varying NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    provider jsonb,
-    lock_version integer DEFAULT 0 NOT NULL,
-    creator_id integer,
-    updater_id integer
-);
-
-
---
 -- Name: units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -11123,6 +11196,13 @@ ALTER TABLE ONLY public.intervention_parameter_readings ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: intervention_parameter_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings ALTER COLUMN id SET DEFAULT nextval('public.intervention_parameter_settings_id_seq'::regclass);
+
+
+--
 -- Name: intervention_parameters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -11148,6 +11228,13 @@ ALTER TABLE ONLY public.intervention_proposal_parameters ALTER COLUMN id SET DEF
 --
 
 ALTER TABLE ONLY public.intervention_proposals ALTER COLUMN id SET DEFAULT nextval('public.intervention_proposals_id_seq'::regclass);
+
+
+--
+-- Name: intervention_setting_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items ALTER COLUMN id SET DEFAULT nextval('public.intervention_setting_items_id_seq'::regclass);
 
 
 --
@@ -13088,6 +13175,14 @@ ALTER TABLE ONLY public.intervention_parameter_readings
 
 
 --
+-- Name: intervention_parameter_settings intervention_parameter_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings
+    ADD CONSTRAINT intervention_parameter_settings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_parameters intervention_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -13117,6 +13212,14 @@ ALTER TABLE ONLY public.intervention_proposal_parameters
 
 ALTER TABLE ONLY public.intervention_proposals
     ADD CONSTRAINT intervention_proposals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_setting_items intervention_setting_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items
+    ADD CONSTRAINT intervention_setting_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -18476,6 +18579,20 @@ CREATE INDEX index_inspections_on_updater_id ON public.inspections USING btree (
 
 
 --
+-- Name: index_int_parameter_setting_items_on_int_parameter_setting_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_int_parameter_setting_items_on_int_parameter_setting_id ON public.intervention_setting_items USING btree (intervention_parameter_setting_id);
+
+
+--
+-- Name: index_int_parameter_settings_on_int_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_int_parameter_settings_on_int_parameter_id ON public.intervention_parameter_settings USING btree (intervention_parameter_id);
+
+
+--
 -- Name: index_integrations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18655,6 +18772,41 @@ CREATE INDEX index_intervention_parameter_readings_on_updated_at ON public.inter
 --
 
 CREATE INDEX index_intervention_parameter_readings_on_updater_id ON public.intervention_parameter_readings USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_created_at ON public.intervention_parameter_settings USING btree (created_at);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_creator_id ON public.intervention_parameter_settings USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_intervention_id ON public.intervention_parameter_settings USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_updated_at ON public.intervention_parameter_settings USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_updater_id ON public.intervention_parameter_settings USING btree (updater_id);
 
 
 --
@@ -18865,6 +19017,48 @@ CREATE INDEX index_intervention_proposal_parameters_on_product_id ON public.inte
 --
 
 CREATE INDEX index_intervention_proposals_on_activity_production_id ON public.intervention_proposals USING btree (activity_production_id);
+
+
+--
+-- Name: index_intervention_setting_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_created_at ON public.intervention_setting_items USING btree (created_at);
+
+
+--
+-- Name: index_intervention_setting_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_creator_id ON public.intervention_setting_items USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_setting_items_on_indicator_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_indicator_name ON public.intervention_setting_items USING btree (indicator_name);
+
+
+--
+-- Name: index_intervention_setting_items_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_intervention_id ON public.intervention_setting_items USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_setting_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_updated_at ON public.intervention_setting_items USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_setting_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_updater_id ON public.intervention_setting_items USING btree (updater_id);
 
 
 --
@@ -24314,6 +24508,29 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -24340,29 +24557,6 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
-
-
---
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
 
 
 --
@@ -24774,6 +24968,14 @@ ALTER TABLE ONLY public.journal_entries
 
 
 --
+-- Name: intervention_setting_items fk_rails_5764cea836; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items
+    ADD CONSTRAINT fk_rails_5764cea836 FOREIGN KEY (intervention_parameter_setting_id) REFERENCES public.intervention_parameter_settings(id);
+
+
+--
 -- Name: cvi_cadastral_plants fk_rails_5a05077b24; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24923,6 +25125,14 @@ ALTER TABLE ONLY public.cvi_land_parcels
 
 ALTER TABLE ONLY public.intervention_proposal_parameters
     ADD CONSTRAINT fk_rails_73168818a2 FOREIGN KEY (product_nature_variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: intervention_parameter_settings fk_rails_739cf87a8f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings
+    ADD CONSTRAINT fk_rails_739cf87a8f FOREIGN KEY (intervention_parameter_id) REFERENCES public.intervention_parameters(id);
 
 
 --
@@ -25278,6 +25488,14 @@ ALTER TABLE ONLY public.payslips
 
 
 --
+-- Name: intervention_parameter_settings fk_rails_c2a2d75e30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings
+    ADD CONSTRAINT fk_rails_c2a2d75e30 FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
 -- Name: payslips fk_rails_c3bf0a90b6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25459,6 +25677,14 @@ ALTER TABLE ONLY public.daily_charges
 
 ALTER TABLE ONLY public.cap_neutral_areas
     ADD CONSTRAINT fk_rails_f9fd6a9e09 FOREIGN KEY (cap_statement_id) REFERENCES public.cap_statements(id);
+
+
+--
+-- Name: intervention_setting_items fk_rails_fb2f506f44; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items
+    ADD CONSTRAINT fk_rails_fb2f506f44 FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
 
 
 --
@@ -26111,11 +26337,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220120092001'),
 ('20220204085501'),
 ('20220204185601'),
-('20220207140622'),
 ('20220208175301'),
 ('20220209183201'),
 ('20220308153250'),
 ('20220318165450'),
-('20220328232801');
+('20220328131305'),
+('20220328132211'),
+('20220328232801'),
+('20220414120300'),
+('20220414120336');
 
 

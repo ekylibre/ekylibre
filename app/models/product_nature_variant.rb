@@ -529,14 +529,14 @@ class ProductNatureVariant < ApplicationRecord
     if variety == 'service'
       quantity_purchased - quantity_received
     elsif into_default_unit
-      products.alive.map { |product| UnitComputation.convert_into_variant_unit(product.variant, product.population, product.conditioning_unit) }.sum
+      products.alive.map { |product| UnitComputation.convert_into_variant_default_unit(product.variant, product.population, product.conditioning_unit) }.sum
     else
       products.alive.map { |product| UnitComputation.convert_into_variant_population(product.variant, product.population, product.conditioning_unit) }.sum
     end
   end
 
   def current_stock_displayed
-    variety == 'service' ? '' : current_stock(into_default_unit: true)
+    variety == 'service' ? '' : current_stock
   end
 
   # TODO: refacto with conditioning
@@ -625,9 +625,13 @@ class ProductNatureVariant < ApplicationRecord
     end
   end
 
-  def relevant_stock_indicator(dim)
-    indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dim.to_sym]
-    indicator_name ? Measure.new(1, send(indicator_name).unit) : Measure.new(1, :unity)
+  # Return revelent stock indicator of the dimension
+  #
+  # @param dimension [String] dimension
+  # @return [Measure]
+  def relevant_stock_indicator(dimension)
+    indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dimension.to_sym]
+    indicator_name ? send(indicator_name) : Measure.new(1, :unity)
   end
 
   class << self

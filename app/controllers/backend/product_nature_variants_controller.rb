@@ -168,6 +168,7 @@ module Backend
                   ['pnv_infos.entity_id', 'entity_id'],
                   ['pnv_infos.variant_id', 'variant_id'],
                   ['pnv_infos.ordered_quantity', 'ordered_quantity'],
+                  ['pnv_infos.ordered_unit_name', 'ordered_unit_name'],
                   ['pnv_infos.average_unit_pretax_amount', 'average_unit_pretax_amount'],
                   ['pnv_infos.last_unit_pretax_amount', 'last_unit_pretax_amount']],
          joins: 'INNER JOIN product_nature_variant_suppliers_infos pnv_infos
@@ -179,10 +180,12 @@ module Backend
                  pnv_infos.variant_id,
                  ordered_quantity,
                  average_unit_pretax_amount,
-                 last_unit_pretax_amount',
+                 last_unit_pretax_amount,
+                 ordered_unit_name',
          order: 'supplier_name') do |t|
       t.column :supplier_name, label: :name, url: { controller: '/backend/entities', action: :show, id: 'RECORD.entity_id'.c }
       t.column :ordered_quantity
+      t.column :ordered_unit_name, label: :conditioning
       t.column :average_unit_pretax_amount
       t.column :last_unit_pretax_amount
       t.action :order_again, icon_name: 'cart-plus', url: { controller: '/backend/purchase_orders', action: :new, supplier_id: 'RECORD.entity_id'.c, items_attributes: [{ variant_id: 'params[:id]'.c, role: 'merchandise' }], display_items_form: true }
