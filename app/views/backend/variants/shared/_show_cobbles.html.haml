@@ -8,7 +8,7 @@
         dataset.map do |product|
           items = ProductMovement.where(product: product).reorder(:started_at)
           item_h = items.sort.inject({}) do |hash, pair|
-            hash[pair.started_at.to_usec] = UnitComputation.convert_into_variant_unit(product.variant, pair.population.to_d, product.conditioning_unit)
+            hash[pair.started_at.to_usec] = UnitComputation.convert_into_variant_default_unit(product.variant, pair.population.to_d, product.conditioning_unit)
             hash
           end
           data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)

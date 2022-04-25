@@ -39,7 +39,7 @@ module Backend
     def conditioning_data
       unit = Unit.find(params[:filter_id])
       variant = ProductNatureVariant.find(params[:variant_id])
-      coefficient = UnitComputation.convert_into_variant_unit(variant, 1, unit)
+      coefficient = UnitComputation.convert_into_variant_default_unit(variant, 1, unit)
 
       respond_to do |format|
         format.json { render json: { coefficient: coefficient, unit_name: unit.name } }

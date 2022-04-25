@@ -1,5 +1,5 @@
 - variant = f.object.variant
-- conditioning_coefficient = f.object.conditioning_unit && variant ? UnitComputation.convert_into_variant_unit(variant, 1, f.object.conditioning_unit) : nil
+- conditioning_coefficient = f.object.conditioning_unit && variant ? UnitComputation.convert_into_variant_default_unit(variant, 1, f.object.conditioning_unit) : nil
 - conditioning_unit = f.object.conditioning_unit ? f.object.conditioning_unit.name : nil
 
 .item-block.role-row.role-row--non-merchandise

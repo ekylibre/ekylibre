@@ -362,7 +362,7 @@ class PurchaseItem < ApplicationRecord
     return unless purchase.is_a?(PurchaseOrder) ||  parcels_purchase_orders_items.empty?
 
     quantity = conditioning_quantity - received_quantity
-    into_default_unit ? UnitComputation.convert_into_variant_unit(variant, quantity, conditioning_unit) : quantity
+    into_default_unit ? UnitComputation.convert_into_variant_default_unit(variant, quantity, conditioning_unit) : quantity
   end
 
   def human_quantity_to_receive

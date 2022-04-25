@@ -36,6 +36,12 @@ class UnitComputation
       amount * coefficient(to, from)
     end
 
+    # Return quantity value in variant unit
+    #
+    # @param variant [ProductNatureVariant] variant
+    # @param quantity [Float] quantity/population
+    # @param from [Unit] unit
+    # @return [Float]
     def convert_into_variant_population(variant, quantity, from)
       indicator = variant.relevant_stock_indicator(from.dimension)
       indicator_unit = Unit.import_from_lexicon(indicator.unit)
@@ -44,7 +50,13 @@ class UnitComputation
       qty_in_indicator_unit / indicator.to_f
     end
 
-    def convert_into_variant_unit(variant, quantity, from)
+    # Return quantity value in variant default unit
+    #
+    # @param variant [ProductNatureVariant] variant
+    # @param quantity [Float] quantity/population
+    # @param from [Unit] unit
+    # @return [Float]
+    def convert_into_variant_default_unit(variant, quantity, from)
       qty_in_variant_population = convert_into_variant_population(variant, quantity, from)
       return qty_in_variant_population if variant.of_dimension?(:none)
 
