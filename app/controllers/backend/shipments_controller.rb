@@ -70,9 +70,9 @@ module Backend
       code.c
     end
 
-    list(conditions: shipments_conditions, order: { planned_at: :desc }) do |t|
-      t.action :invoice, on: :both, method: :post, if: :invoiceable?
-      t.action :ship, on: :both, method: :post, if: :shippable?
+    list(conditions: shipments_conditions, selectable: true, order: { planned_at: :desc }) do |t|
+      t.action :invoice, method: :post, if: :invoiceable?
+      t.action :ship, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true
