@@ -204,7 +204,7 @@ short_balance_sheet:
   stocks_total_products_depreciations: '397 C'
   stocks_total_products_net: '37 397'
   stocks_total_products_raw: '37'
-  entities_advance_giveables: '4091' #
+  entities_advance_giveables: '4090 4091' #
   entities_client_total: '41 !419 491' #
   entities_client_total_depreciations: '491 C' #
   entities_client_total_net: '41 !419 491' #
