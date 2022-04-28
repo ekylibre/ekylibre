@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # = Informations
 #
 # == License
@@ -56,22 +54,16 @@
 #  variety                   :string           not null
 #  work_number               :string
 #
+require 'test_helper'
+
 module Variants
   module Articles
-    class SeedAndPlantArticle < Variants::ArticleVariant
-      def variant_type
-        :article
-      end
-
-      def relevant_stock_indicator(dim)
-        if dim == 'none' && !grains_count.zero?
-          send(:grains_count).in(:unity)
-        elsif dim =='none' && !thousand_grains_mass.zero? && !net_mass.zero?
-          thousand_grains_count = net_mass.in(:kilogram) / send(:thousand_grains_mass).in(:kilogram)
-          Measure.new(thousand_grains_count, :thousand).in(:unity)
-        else
-          super
-        end
+    class SeedAndPlantArticleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
+      test "#relevant_stock_indicator" do
+        variant = create(:seed_variant)
+        variant.readings.find_by(indicator_name: "net_mass").update(measure_value_value: 25, measure_value_unit: :kilogram)
+        variant.readings.find_by(indicator_name: "thousand_grains_mass").update(measure_value_value: 50, measure_value_unit: :gram)
+        assert_equal Measure.new(500_000, :unity), variant.becomes(SeedAndPlantArticle).relevant_stock_indicator('none')
       end
     end
   end
