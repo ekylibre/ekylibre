@@ -28,7 +28,7 @@
     - default_unit_updateable = f.object.default_unit_updateable?
     = f.input(:default_unit, wrapper: :append) do
       = f.input(:default_quantity, disabled: !default_unit_updateable, wrapper: :simplest, error: false)
-      = f.referenced_association(:default_unit, controller: '/backend/units', new: false, disabled: !default_unit_updateable, wrapper: :simplest)
+      = f.referenced_association(:default_unit, controller: '/backend/units', source: { scope: :is_reference_units }, new: false, disabled: !default_unit_updateable, wrapper: :simplest)
       = f.error(:default_quantity)
     = f.input :unit_name
     - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)

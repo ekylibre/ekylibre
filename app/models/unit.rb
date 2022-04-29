@@ -50,6 +50,7 @@ class Unit < ApplicationRecord
   scope :of_dimensions, ->(*dimensions) { where(dimension: dimensions) }
   scope :of_reference, -> { where(reference_name: BASE_UNIT_PER_DIMENSION.values) }
   scope :references_for_dimensions, ->(*dimensions) { of_reference.of_dimensions(*dimensions) }
+  scope :is_reference_units, -> { where(type: "ReferenceUnit")}
   scope :imported, -> { where.not(reference_name: nil) }
   scope :of_variant, ->(variant_id) { where(id: CatalogItem.where(variant_id: variant_id).pluck(:unit_id).uniq) }
 
