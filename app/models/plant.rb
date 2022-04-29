@@ -176,6 +176,15 @@ class Plant < Bioproduct
     end
   end
 
+  def gap_real_estimated_vine_stock(at: Time.now)
+    item = self.reading(:plants_count, { at: at })
+    if estimated_vine_stock(at: at) && item
+      (estimated_vine_stock(at: at).to_i - item.value)
+    else
+      nil
+    end
+  end
+
   def last_sowing
     Intervention
       .real

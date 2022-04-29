@@ -1201,6 +1201,9 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    gap_real_estimated_vine_stock: "Ecart Pieds productifs estimés/réels"
+    plants_count: "Pieds productifs réels"
+    specie_variety_name: 'Variété / Cépage'
     missing_vine_stock: "Total de pieds manquants"
     estimated_vine_stock: "Pieds productifs estimés"
     missing_vine_ratio: "Taux de pieds manquants"
@@ -4236,6 +4239,7 @@ fra:
       convert: "Convertir"
       correct: "Corriger"
       create: "Créer"
+      create_vine_plants: "Générer une culture pour %{count} parcelle(s)"
       decrement: "Décrementer" #?
       destroy: "Supprimer"
       detach: "Détacher"

@@ -111,5 +111,21 @@ module Backend
       notify_error_now(:empty_shape.tl)
       render :new
     end
+
+    def create_plants
+      redirect = params[:redirect] || backend_activities_path
+      if params[:activity_production_ids].blank? || params[:campaign_id].blank?
+        notify_error_now(:no_production_exists.tl)
+        redirect_to redirect
+      end
+      productions = ActivityProduction.where(id: params[:activity_production_ids])
+      campaign = Campaign.find(params[:campaign_id])
+      productions.each do |production|
+        plant_creation_service = ActivityProductions::VinePlantBuilder.new(production, campaign)
+        plant_creation_service.create_vine_plant_from_production
+      end
+      redirect_to redirect
+    end
+
   end
 end

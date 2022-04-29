@@ -7,6 +7,8 @@
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy show_disabled: true, disabled_tooltip_content: :cannot_delete_this_production.tl
+  - if resource.activity.family == 'vine_farming'
+    = tool_to :create_vine_plants.ta(count: 1), {action: :create_plants, controller: :activity_productions, activity_production_ids: [resource.id], campaign_id: current_campaign.id, redirect: request.fullpath}, tool: :grape
 
 = main_informations attachment: true do
   - if (resource.plant_farming? || resource.vine_farming?)  && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))

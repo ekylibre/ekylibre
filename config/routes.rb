@@ -280,6 +280,9 @@ Rails.application.routes.draw do
                                                   only: [], path: 'activity-inspection-point-natures'
 
     resources :activity_productions, concerns: [:unroll] do
+      collection do
+        get :create_plants
+      end
       member do
         get :list_interventions
         get :list_plants
