@@ -4,16 +4,25 @@
   = infos do
     .big-info
       %span.title= :theoretical_vine_stock.tl
-      %span.value= resource.theoretical_vine_stock(at: last_time_of_year).l
+      %span.value= resource.theoretical_vine_stock(at: last_time_of_year)&.l
     .big-info.important
       %span.title= :missing_vine_stock.tl
-      %span.value= link_to(item.value.round_l, {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: indicator_name, read_at: Time.now, redirect: request.fullpath})
+      - value_item = ( item.present? ? item.value.round_l : '--' )
+      %span.value= link_to(value_item, {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: indicator_name, read_at: Time.now, redirect: request.fullpath})
     .big-info
       %span.title= :missing_vine_ratio.tl
-      %span.value= resource.missing_vine_ratio(at: last_time_of_year).round_l
+      %span.value= resource.missing_vine_ratio(at: last_time_of_year)&.round_l
     .big-info
       %span.title= :estimated_vine_stock.tl
-      %span.value= resource.estimated_vine_stock(at: last_time_of_year).l
+      %span.value= resource.estimated_vine_stock(at: last_time_of_year)&.l
+    .big-info.important
+      %span.title= :plants_count.tl
+      - plant_item = resource.reading(:plants_count, {at: last_time_of_year})
+      - value_item = ( plant_item.present? ? plant_item.value.round_l : '--' )
+      %span.value= link_to(value_item, {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: :plants_count, read_at: Time.now, redirect: request.fullpath})
+    .big-info.important
+      %span.title= :gap_real_estimated_vine_stock.tl
+      %span.value= resource.gap_real_estimated_vine_stock(at: last_time_of_year)&.l
 
 - else
   = no_data

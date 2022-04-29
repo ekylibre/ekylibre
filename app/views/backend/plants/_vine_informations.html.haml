@@ -5,19 +5,27 @@
       = resource.net_surface_area.round(3).l precision: 3
   - if !resource.specie_variety.blank? && resource.specie_variety_name
     .med-info
-      %span.title= :vine_variety_name.tl
+      %span.title= :specie_variety_name.tl
       %span.value
         = resource.specie_variety_name
   .med-info.important
     %span.title= :vine_rows_interval.tl
     %span.value
       %i.picto{class: "picto-arrows-h"}
-      = resource.rows_interval(at: last_time_of_year).convert(:centimeter).round(2).l precision: 0
+      - item = resource.reading(:rows_interval, {at: last_time_of_year})
+      - if item.present?
+        = link_to(item.value.convert(:centimeter).round_l, {controller: :product_readings, action: :edit, id: item.id, redirect: request.fullpath})
+      - else
+        = link_to('--', {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: :rows_interval, read_at: Time.now, redirect: request.fullpath})
   .med-info.important
     %span.title= :vine_plants_interval.tl
     %span.value
       %i.picto{class: "picto-arrows-v"}
-      = resource.plants_interval(at: last_time_of_year).convert(:centimeter).round(2).l precision: 0
+      - item = resource.reading(:plants_interval, {at: last_time_of_year})
+      - if item.present?
+        = link_to(item.value.convert(:centimeter).round_l, {controller: :product_readings, action: :edit, id: item.id, redirect: request.fullpath})
+      - else
+        = link_to('--', {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: :plants_interval, read_at: Time.now, redirect: request.fullpath})
   .med-info.important
     %span.title= :planting_campaign.tl
     %span.value
@@ -34,7 +42,11 @@
   .med-info.important
     %span.title= :vine_certification.tl
     %span.value
-      = resource.certification_label
+      - item = resource.reading(:certification_label, {at: last_time_of_year})
+      - if item.present?
+        = link_to(item.value, {controller: :product_readings, action: :edit, id: item.id, redirect: request.fullpath})
+      - else
+        = link_to('--', {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: :certification_label, read_at: Time.now, redirect: request.fullpath})
   .med-info.important
     %span.title= :vine_density.tl
     %span.value= resource.vine_density(at: last_time_of_year).l
