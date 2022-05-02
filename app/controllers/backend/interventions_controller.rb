@@ -192,6 +192,9 @@ module Backend
       return unless @intervention = find_and_check
 
       t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
+      dataset_params = {
+        intervention: @intervention,
+      }
       respond_to do |format|
         format.html
         format.pdf {
@@ -201,8 +204,14 @@ module Backend
           notify_success(:document_in_preparation)
           redirect_to backend_interventions_path
         }
-      end
+        format.odt do
+          return unless template = DocumentTemplate.find_by_nature(params[:document_nature_name])
 
+          printer = Printers::PhytosanitaryApplicatorSheetPrinter.new(template: template, **dataset_params)
+          g = Ekylibre::DocumentManagement::DocumentGenerator.build
+          send_data g.generate_odt(template: template, printer: printer), filename: "#{printer.document_name}.odt"
+        end
+      end
     end
 
     # TODO: Reimplement this with correct use of permitted params

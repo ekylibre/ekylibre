@@ -48,7 +48,7 @@ class InterventionParameterSetting < ApplicationRecord
   validates :nature, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
 
-  accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? && params['string_value'].blank? }, allow_destroy: true
 
   def name
     :setting_number.tl(locale: Preference[:language]) +  (id || (self.class.last_id + 1)).to_s
