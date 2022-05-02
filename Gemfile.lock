@@ -62,7 +62,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/onoma.git
-  revision: 33b430be5d3861830785a1be21c82f3bca9e7f54
+  revision: d314860b75aca4eebda9ea54dc00a6569f9ca59d
   branch: dev
   specs:
     onoma (0.6.4)
