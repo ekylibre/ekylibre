@@ -732,6 +732,7 @@ Rails.application.routes.draw do
         get :compare_realised_with_planned
       end
       member do
+        get :export
         post :sell
         post :purchase
         get :list_product_parameters

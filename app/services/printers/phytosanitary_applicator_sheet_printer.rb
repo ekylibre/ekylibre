@@ -146,9 +146,5 @@ module Printers
     def document_name
       template.nature.human_name.to_s
     end
-
-    def compute_dataset
-      @intervention
-    end
   end
 end

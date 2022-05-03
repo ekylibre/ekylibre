@@ -11,9 +11,8 @@
     = t.menu(displayed_state, class: "btn btn-primary dropdown", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
       - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, state: next_state[1].to_sym }), method: :post) if next_state
   = dropdown_menu_button(:export.ta, icon: :download) do |d|
-    - d.item Onoma::DocumentNature.find(:phytosanitary_applicator_sheet).human_name, params: { document_nature_name: :phytosanitary_applicator_sheet, format: :odt }
-    - d.item 'Fiche DRAAF'
-
+    - d.item Onoma::DocumentNature.find(:phytosanitary_applicator_sheet).human_name, export_backend_intervention_path(id: resource.id, document_nature_name: :phytosanitary_applicator_sheet, format: :odt)
+    - d.item Onoma::DocumentNature.find(:draaf_sheet).human_name, export_backend_intervention_path(id: resource.id, document_nature_name: :draaf_sheet, format: :odt)
 - currency = Onoma::Currency.find(resource.currency)
 
 = cobbles do |c|
