@@ -104,6 +104,7 @@ class ProductNatureVariant < ApplicationRecord
   has_many :journal_entry_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
+  has_many :intervention_template_product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :product_nature_variant_id, inverse_of: :product_nature_variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -185,7 +186,7 @@ class ProductNatureVariant < ApplicationRecord
 
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      reception_items.any? || shipment_items.any? || phases.any?
+      reception_items.any? || shipment_items.any? || phases.any? || intervention_template_product_parameters.any?
   end
 
   before_validation on: :create do
@@ -732,7 +733,7 @@ class ProductNatureVariant < ApplicationRecord
       variant
     end
 
-    def import_from_lexicon(reference_name, force = false)
+    def import_from_lexicon(reference_name, force = false, new_name = '')
       if RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name) || RegisteredPhytosanitaryProduct.find_by_id(reference_name)
         return import_phyto_from_lexicon(reference_name)
       end
@@ -753,11 +754,18 @@ class ProductNatureVariant < ApplicationRecord
 
       return variants.first if !force && variants.count > 0
 
-      variant_name = if force && variants.count > 0
-                       item.translation.send(Preference[:language]) + "(#{variants.count.to_s})"
-                     else
-                       item.translation.send(Preference[:language])
-                     end
+      if new_name.present?
+        count_same_name = ProductNatureVariant.where(name: new_name).count
+        if count_same_name > 0
+          variant_name = new_name + "(#{count_same_name.to_s})"
+        else
+          variant_name = new_name
+        end
+      elsif force && variants.count > 0
+        variant_name = item.translation.send(Preference[:language]) + "(#{variants.count.to_s})"
+      else
+        variant_name = item.translation.send(Preference[:language])
+      end
 
       category = ProductNatureCategory.import_from_lexicon(item.category)
       nature = ProductNature.import_from_lexicon(item.nature)

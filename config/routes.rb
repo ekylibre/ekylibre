@@ -516,7 +516,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :documents, concerns: %i[list unroll]
+    resources :documents, concerns: %i[list unroll] do
+      collection do
+        post :purchase_scan
+      end
+    end 
 
     resource :draft_journal, only: [:show] do
       member do

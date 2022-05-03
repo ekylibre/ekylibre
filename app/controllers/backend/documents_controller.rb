@@ -52,9 +52,11 @@ module Backend
     list(conditions: list_conditions) do |t|
       t.action :destroy, if: :destroyable?
       t.column :mandatory, class: "center-align"
+      t.column :ocr_presence, datatype: :boolean, class: "center-align"
       t.column :number, url: true
       t.column :name, url: true
       t.column :nature
+      t.column :attachement_presence, datatype: :boolean, class: "center-align", hidden: true
       t.column :created_at
       t.column :file_updated_at, url: { format: :pdf }
       t.column :template, url: true
@@ -110,5 +112,30 @@ module Backend
         format.zip { send_file(@document.file.path, type: 'application/zip', filename: @document.name) }
       end
     end
+
+    def purchase_scan
+      return unless @document = Document.find(params[:id])
+
+      # launch OCR to create metadata if does not exist
+      unless @document.klippa_metadata.present?
+        PurchaseInvoices::KlippaOcr.new.post_document_and_parse(@document)
+      end
+      # launch Parser on metadata to create purchase
+      if @document.attach_to_resource && @document.klippa_metadata.present?
+        purchase_id = @document.attach_to_resource
+        notify :already_transform_purchase_document
+        redirect_to backend_purchase_invoice_path(id: purchase_id)
+      elsif @document.klippa_metadata.present?
+        klippa_parser = PurchaseInvoices::KlippaParser.new(@document.id)
+        new_purchase_id = klippa_parser.parse_and_create_invoice
+        if new_purchase_id
+          redirect_to backend_purchase_invoice_path(id: new_purchase_id)
+        else
+          notify_error :cannot_transform_purchase_document
+          redirect_to params[:redirect] || { action: :show, id: @document.id }
+        end
+      end
+    end
+
   end
 end

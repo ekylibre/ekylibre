@@ -989,6 +989,7 @@ fra:
       net_service: "Service en ligne"
       notification: "Notification"
       observation: "Observation"
+      ocr_presence: "OCR"
       outgoing_payment: "Décaissement"
       outgoing_payment_list: "Liste de décaissements"
       outgoing_payment_mode: "Mode de décaissement"
@@ -1103,6 +1104,7 @@ fra:
       worker_time_log: "Saisie des temps"
       zone: "Zone"
   attributes:
+    attachement_presence: "Pièce de gestion"
     starting_year: "L’année de début"
     declared_area: "Superficie déclarée"
     calculated_area: "Superficie calculée"
@@ -2004,6 +2006,7 @@ fra:
     number_increment: "Incrément"
     # number_of_batch: "Number of batch"
     number_start: "Début de la numération"
+    ocr_presence: "OCR"
     observations: "Observations"
     observed_at: "Observé à"
     of_company: "Dossier basé sur cette entreprise"
