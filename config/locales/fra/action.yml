@@ -1219,6 +1219,9 @@ fra:
     protected_water_zones: "Zone de captage"
     theoritical_soil_depths: "Profondeur de sol"
     theoritical_water_capacities: "Réserve utile en eau"
+    file_content_text: "Contenu textuel du document"
+    ocr_informations: "Informations générées par IA"
+    purchase_invoice_generated_by_ai: "Facture d'achat générée automatiquement"
     depreciation_percentage: Pourcentage d'amortissement
     depreciation_period: Durée d'amortissement
     type_of_value: Type de valeur
@@ -1507,6 +1510,7 @@ fra:
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
+    are_you_sure_you_want_to_convert_into_purchase_via_ocr: "Êtes-vous sûr(e) de vouloir lancer la conversion automatique (OCR) en facture\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area: "Zone"
     area_measure: "Superficie" #?
@@ -2742,6 +2746,8 @@ fra:
     number_with_param: "N° %{number}"
     numbers: "Numéros"
     objective_costs_per_hectare: "Objectif de coûts totaux (/ha)" #?
+    ocr_level_1: "Extraction textuelle (niv 1 : OCR)"
+    ocr_level_2: "Extraction avancée (niv 2 : IA)"
     ofx: "Format OFX"
     on_account: "À remettre sur le compte"
     on_all_exercises: "sur tous les exercices"
@@ -2998,7 +3004,7 @@ fra:
     purchase: "Achat"
     purchase_invoice_items: "Facture d'achats"
     purchase_invoice_number: "N° de facture"
-    purchase_items: "Lignes de l’achat"
+    purchase_items: "Lignes d'achat"
     purchase_number: "N° d’achat"
     purchase_order: "Commande"
     purchase_order_items: "Commandes d'achats"
@@ -3006,6 +3012,7 @@ fra:
     purchase_receipts_export_file: "Justificatif(s) d'achat"
     purchase_receipts: "Justificatifs achats"
     purchase_receipts_file_name: "Justificatifs factures achats"
+    purchase_scan: "Convertir en facture d'achat"
     purchase_steps: #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?
@@ -3951,6 +3958,7 @@ fra:
       all_purchases_must_be_ordered: "Tous les achats doivent être commandés ou facturés." #?
       all_purchases_must_be_ordered_or_invoiced: "Tous les achats doivent être commandés ou facturés."
       all_tax_declarations_have_already_existing: "Toutes les déclarations de TVA existent déjà"
+      already_transform_purchase_document: "Une facture d'achat est déjà lié à ce document"
       an_error_was_raised_during_import: "Une erreur est survenue durant l'import."
       bad_file: "Le fichier ne semble pas correspondre." #?
       before_add_a_plant_add_a_x_html: "Avant d’ajouter une culture, vous devez d’abord ajouter\_: %{x}"
@@ -3966,6 +3974,7 @@ fra:
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
       cannot_finish_affair: "Impossible de terminer l’affaire"
+      cannot_transform_purchase_document: "Impossible de convertir ce document en facture"
       cannot_import_file: "Impossible d’importer le fichier (%{message})" #?
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
@@ -4298,6 +4307,7 @@ fra:
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"
       purchase: "Passer en achat"
+      purchase_scan: "Convertir le document en facture d'achat (OCR)"
       qualify: "Qualifier"
       quote: "Réaliser un devis"
       reconciliation: "Rapprocher"

@@ -2721,6 +2721,8 @@ documents:
   key:
     type: string
     required: true
+  klippa_metadata:
+    type: jsonb
   lock_version:
     type: integer
     required: true

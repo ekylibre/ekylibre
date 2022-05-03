@@ -173,7 +173,6 @@ class PurchaseItem < ApplicationRecord
         self.amount = tax.amount_of(raw_pretax_amount || pretax_amount).round(precision)
       end
     end
-
     if variant
       self.quantity ||= UnitComputation.convert_into_variant_population(variant, conditioning_quantity, conditioning_unit)
       self.label = variant.commercial_name
@@ -181,7 +180,7 @@ class PurchaseItem < ApplicationRecord
                        # select outstanding_assets during purchase
                        Account.find_or_import_from_nomenclature(:outstanding_assets)
                      else
-                       variant.charge_account || Account.find_by(usages: :expenses)
+                       variant.charge_account || Account.find_by(usages: :expenses) || Account.find_by(usages: :other_expenses)
                      end
     end
   end
