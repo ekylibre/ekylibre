@@ -1,0 +1,28 @@
+- metadata = document.klippa_metadata.deep_symbolize_keys
+.big-info
+  %span.title= :ocr_informations.tl
+= infos do
+  .med-info
+    %span.title= Purchase.human_attribute_name(:invoiced_at)
+    %span.value= Date.parse(metadata[:purchasedate]).l
+  .med-info
+    %span.title= Purchase.human_attribute_name(:supplier)
+    %span.value= metadata[:merchant_name]
+  .med-info
+    %span.title= :purchase_items.tl
+    %span.value= (metadata[:lines].any? ? metadata[:lines].first[:lineitems].count : nil)
+  .med-info
+    %span.title= Purchase.human_attribute_name(:amount)
+    %span.value= (metadata[:amount].present? ? (metadata[:amount].to_d / 100).to_d : nil)
+  .med-info
+    %span.title= :tax_amount.tl
+    %span.value= (metadata[:vatamount].present? ? (metadata[:vatamount].to_d / 100).to_d : nil)
+  .med-info
+    %span.title= Purchase.human_attribute_name(:pretax_amount)
+    %span.value= (metadata[:amountexvat].present? ? (metadata[:amountexvat].to_d / 100).to_d : nil)
+
+- if document.attach_to_resource
+  - purchase = PurchaseInvoice.find(document.attach_to_resource)
+  .med-info
+    %span.title= :purchase_invoice_generated_by_ai.tl
+    %span.value= link_to(purchase.number, backend_purchase_invoice_path(purchase.id))

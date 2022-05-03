@@ -3,7 +3,7 @@
 
 - main_toolbar class: 'main-toolbar-fullwidth' do |t|
   = t.export(:purchases_invoice, target: "_blank")
-  
+
   = t.edit resource if resource.updateable?
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.destroy
@@ -33,6 +33,11 @@
     - l.attribute :affair, url: true, label: :number if resource.affair
     - l.attribute :undelivered_invoice_journal_entry, url: true if resource.undelivered_invoice_journal_entry
     - l.attribute :quantity_gap_on_invoice_journal_entry, url: true if resource.quantity_gap_on_invoice_journal_entry
+
+
+- ocr_document = resource.has_klippa_ocr_attachment
+- if ocr_document
+  = render 'ocr', document: ocr_document
 
 = cobbles do |c|
 

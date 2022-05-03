@@ -96,6 +96,29 @@ class Document < ApplicationRecord
     self.file_content_text = file_content_text.truncate(500_000) if file_content_text
   end
 
+  def attachement_presence
+    if self.attachments
+      true
+    else
+      false
+    end
+  end
+
+  def ocr_presence
+    self.klippa_metadata.present?
+  end
+
+  # known if a document has already a purchase link to him
+  # return nil or Purchase
+  def attach_to_resource(nature = "Purchase")
+    attach = self.attachments.where(resource_type: nature)
+    if attach.any?
+      attach.first.resource_id
+    else
+      nil
+    end
+  end
+
   # Caution: if you set processable_attachment to false when creating a zip document put it before the file
   # like this => Document.create!(name: file_name, processable_attachment: false, file: File.open(file_path))
   # not like this => Document.create!(name: file_name, file: File.open(file_path), processable_attachment: false)

@@ -1,3 +1,7 @@
+- if @document.nature == 'purchases_original'
+  - unless @document.attach_to_resource
+    - main_toolbar do |t|
+      = t.action :purchase_scan, "data-confirm" => :are_you_sure_you_want_to_convert_into_purchase_via_ocr.tl, method: :post, params: {id: @document.id}
 = main_informations do
   - if @document.file.exists?
     .picture
@@ -42,3 +46,12 @@
             .modal-footer
               = link_to :signature_check.tl, "#{FinancialYearArchive::PUBLIC_KEY_URL}?signature=#{@document.signature.gsub(/\n/, '¤').gsub(/\+/, '§')}", class: "btn btn-primary", target: '_blank'
               %button.btn.btn-primary.no-icn{ type: 'button', 'data-dismiss': 'modal' }= :cancel.tl
+
+- if @document.klippa_metadata.present?
+  = cobbles do |c|
+    - c.cobble :ocr_level_2 do
+      = render 'ocr', document: @document
+    - c.cobble :ocr_level_1 do
+      .med-info
+        %span.title= :file_content_text.tl
+        %span.text= @document.file_content_text
