@@ -223,16 +223,17 @@ module Backend
       }
 
       return unless template = DocumentTemplate.find_by_nature(params[:document_nature_name])
-      printer_class_name = "Printers::#{params[:document_nature_name].camelize}Printer".constantize        
+
+      printer_class_name = "Printers::#{params[:document_nature_name].camelize}Printer".constantize
       printer = printer_class_name.new(template: template, **dataset_params)
       g = Ekylibre::DocumentManagement::DocumentGenerator.build
-  
+
       respond_to do |format|
         format.odt do
           send_data g.generate_odt(template: template, printer: printer), filename: "#{printer.document_name}.odt"
         end
       end
-      
+
     end
 
     # TODO: Reimplement this with correct use of permitted params

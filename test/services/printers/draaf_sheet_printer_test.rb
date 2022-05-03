@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Printers
-  class PhytosanitaryApplicatorSheetPrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
+  class DraafSheetPrinterTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     setup do
       @template = Minitest::Mock.new
       @template.expect :nature, :draaf_sheet
@@ -16,7 +16,7 @@ module Printers
       @template.verify
     end
 
-    test 'should print a phytosanitary applicator sheet' do
+    test 'should print draaf sheet' do
       printer = Printers::DraafSheetPrinter.new(template: @template, intervention: intervention)
       generator = Ekylibre::DocumentManagement::DocumentGenerator.build
       odf_data = generator.generate_odt(template: @template, printer: printer)
