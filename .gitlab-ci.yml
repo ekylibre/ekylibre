@@ -187,7 +187,6 @@ test:
     - tags
   script:
     - bash /app/test/ci/run_tests
-  allow_failure: true
 #########################################
 #                 TESTS                 #
 #########################################
