@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Printers
-  class DraafSheetPrinter < PrinterBase
+  class AcWorkSheetPrinter < PrinterBase
     def initialize(*_args, intervention:, template:, **_options)
       super(template: template)
       @intervention = intervention
