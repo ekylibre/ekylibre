@@ -62,7 +62,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/onoma.git
-  revision: d314860b75aca4eebda9ea54dc00a6569f9ca59d
+  revision: 46ae2d8b36403dc5c7a5eea5255398c3d935b176
   branch: dev
   specs:
     onoma (0.6.4)
@@ -420,7 +420,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.4)
+    nokogiri (1.13.5)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nori (2.6.0)
