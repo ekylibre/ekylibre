@@ -162,7 +162,12 @@ class Intervention < ApplicationRecord
   end
 
   accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, :rides, :parameter_settings, allow_destroy: true
-  accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :parameter_settings, reject_if: ->(params) do
+    params["settings_attributes"].values.all? do |items|
+      items['measure_value_value'].blank? && items['integer_value'].blank? && items['boolean_value'].blank? && items['decimal_value'].blank? && items['string_value'].blank?
+    end
+  end
+  accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? && params['string_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|

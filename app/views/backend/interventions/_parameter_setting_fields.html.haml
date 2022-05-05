@@ -7,5 +7,5 @@
   = f.hidden_field :nature
   - f.object.reference_indicator_names.each do |indicator_name|
     - unless f.object.settings.detect{|r| r.indicator_name.to_s == indicator_name.to_s }
-      - f.object.settings << InterventionSettingItem.new(indicator_name: indicator_name)
+      - f.object.settings.build(indicator_name: indicator_name)
   = f.nested_association(:settings, new: false)
