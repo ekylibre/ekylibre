@@ -56,19 +56,9 @@ module Printers
     end
 
     def parameter_settings
+      sprayer_row_count = Maybe(sprayer_equipment&.rows_count).or_else('?')
       intervention.parameter_settings.map do |p|
-        settings = p.settings.each_with_object({ name: p.name }){ |s, h| h[s.indicator.name.to_sym] = s.value.is_a?(Measure) ? s.value.to_f : s.value }
-        if @intervention.targets.map{|t| t.product.type}.include?('LandParcel')
-          settings[:row_count] = '?'
-        else
-          rows_intervals = @intervention.targets.map { |t| t.product.rows_interval }
-          if rows_intervals.uniq.length != 1
-            settings[:row_count] = '?'
-          else
-            settings[:row_count] = (p.settings.where(indicator_name: :width).first.value.in(:meter).to_d / rows_intervals.uniq.first.in(:meter).to_d).round(2)
-          end
-        end
-        settings
+        p.settings.each_with_object({ name: p.name, row_count: sprayer_row_count }){ |s, h| h[s.indicator.name.to_sym] = s.value.is_a?(Measure) ? s.value.to_f : s.value }
       end
     end
 
@@ -86,8 +76,11 @@ module Printers
       ]
     end
 
+    def sprayer_equipment
+      @sprayer_equipment ||= intervention.tools.find_by(reference_name: :sprayer)&.product
+    end
+
     def doses
-      sprayer_equipment = intervention.tools.where(reference_name: :sprayer).first&.product
       sprayer_volume = sprayer_equipment.nominal_storable_net_volume if sprayer_equipment
       spray_mix_volume_area_density = intervention.settings.first&.value
       if sprayer_volume.nil? || total_spray_mix_volume.nil?
@@ -99,7 +92,6 @@ module Printers
             }
           ]
       end
-
       sprayer_volume_in_liter = sprayer_volume.in(:liter)
 
       doses = Array.new(total_spray_mix_volume / sprayer_volume_in_liter, sprayer_volume_in_liter).push(total_spray_mix_volume.to_f % sprayer_volume_in_liter.to_f)
@@ -108,7 +100,12 @@ module Printers
         {
           name: "Dose n°#{i+1}",
           spray_mix_volume: dose.in(:liter).round_l,
-          products: @intervention.inputs.map { |i| { product_dose: (i.input_quantity_per_area.to_f * ( dose.in(:liter).to_f / spray_mix_volume_area_density.to_f)).in(i.product.conditioning_unit.onoma_reference_name).round_l, product_name: i.product.name } }
+          products: @intervention.inputs.map do |i|
+            product_dose = (i.input_quantity_per_area.to_f * ( dose.in(:liter).to_f / spray_mix_volume_area_density.to_f))
+                             .in(i.product.conditioning_unit.onoma_reference_name)
+                             .round_l
+            { product_dose: product_dose, product_name: i.product.name }
+          end
         }
       end
     end
