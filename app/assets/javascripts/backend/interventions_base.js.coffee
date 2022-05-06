@@ -1029,13 +1029,11 @@
 
   settingForm = {
     updateInsertedSettingName: ($settingField, insertedItem) ->
-      lastId = parseInt($settingField.data('last-id'))
-      builtCount = $settingField.find(".nested-fields.parameter-setting").length
-      alreadySavedCount = $settingField.find('.nested-parameter_settings > [id^="intervention_parameter_settings_attributes"][id$="id"]').length
-      $nameInput = insertedItem.find('[id="name"]').first()
+      builtCount = $settingField.find(".parameter-setting").length
+      $nameInput = insertedItem.find('[name$="[name]"]')
       name = $nameInput.val()
       nameIndexRegex = /[0-9]*$/ #match 15 in 'Réglage nº15'
-      newName = name.replace(nameIndexRegex, lastId + builtCount - alreadySavedCount)
+      newName = name.replace(nameIndexRegex, builtCount )
       $nameInput.val(newName)
   }
 

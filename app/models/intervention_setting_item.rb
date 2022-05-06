@@ -37,6 +37,7 @@
 #  indicator_datatype                :string           not null
 #  indicator_name                    :string           not null
 #  integer_value                     :integer
+#  intervention_id                   :integer
 #  intervention_parameter_setting_id :integer
 #  lock_version                      :integer          default(0), not null
 #  measure_value_unit                :string

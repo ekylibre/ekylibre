@@ -273,6 +273,9 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    intervention_parameter_setting:
+      nature:
+        spraying: Spraying setting
     intervention_participation:
       state:
         done: "Done"

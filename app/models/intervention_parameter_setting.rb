@@ -31,6 +31,8 @@
 #  intervention_id           :integer
 #  intervention_parameter_id :integer
 #  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nature                    :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #
@@ -45,20 +47,20 @@ class InterventionParameterSetting < ApplicationRecord
   enumerize :nature, in: %i[spraying]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :nature, presence: true, length: { maximum: 500 }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :nature, presence: true
   # ]VALIDATORS]
+  validates :name, uniqueness: { scope: :intervention_id }
+
+  after_initialize :set_name
 
   accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? && params['string_value'].blank? }, allow_destroy: true
 
-  def name
-    :setting_number.tl(locale: Preference[:language]) +  (id || (self.class.last_id + 1)).to_s
+  def set_name
+    self.name ||= :setting_number.tl(locale: Preference[:language]) + (Maybe(intervention.settings&.count).or_else(0) + 1).to_s
   end
 
   def reference_indicator_names
     SETTING_NAMES_INDICATORS[nature.to_sym]
-  end
-
-  def self.last_id
-    connection.execute("SELECT last_value FROM intervention_parameter_settings_id_seq").first['last_value']
   end
 end
