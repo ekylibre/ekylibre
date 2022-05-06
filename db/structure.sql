@@ -5865,7 +5865,8 @@ CREATE TABLE public.intervention_parameter_settings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    name character varying NOT NULL
 );
 
 
@@ -26349,6 +26350,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220414120300'),
 ('20220414120336'),
 ('20220429082601'),
-('20220429184701');
-
-
+('20220429184701'),
+('20220505102323');

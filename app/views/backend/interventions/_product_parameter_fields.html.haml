@@ -39,7 +39,7 @@
       = f.referenced_association_field :product, source: {scope: scope, keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.deep_merge(product_data) }, new: false
       - if reference.name == :sprayer
         #configure-product{style: "display: #{f.object.product.present? ? 'inline-block' : 'none' }"}
-          = link_to(:configure_sprayer_indicators.tl, edit_backend_product_path(f.object.product&.id || 0 ), target: "_blank", id: 'edit-product')
+          = link_to(:configure_sprayer_indicators.tl, backend_product_path(f.object.product&.id || 0 ), target: "_blank", id: 'edit-product')
           = link_to '#' do 
             = content_tag(:i, '', id: 'reload-product', class: 'icon icon-rotate-right', style: "font-size: 25px;")
     - if f.object.reference_name.to_sym == :plant_medicine

@@ -40,10 +40,12 @@
 intervention_parameter_setting_001:
   id: 1
   nature: spraying
+  name: Réglage n°1
   intervention_id: 9
   intervention_parameter_id:
 intervention_parameter_setting_001:
   id: 2
   nature: spraying
+  name: Réglage n°1
   intervention_id: 10
   intervention_parameter_id:

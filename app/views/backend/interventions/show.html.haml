@@ -100,11 +100,11 @@
 
   - if resource.parameter_setting_items.any?
     - c.cobble(:settings) do
-      - resource.parameter_setting_items.group_by(&:intervention_parameter_setting_id).each do |setting, items|
+      - resource.parameter_settings.each do |parameter_setting|
         .big-info
-          %span.title= :setting_number.tl + ' ' + setting.to_s
+          %span.title= parameter_setting.name
         = infos do
-          - items.each do |item|
+          - parameter_setting.settings.each do |item|
             .med-info
               %span.title= item.indicator.l
               %span.value= item.value.is_a?(Measure) ? item.value.round_l : item.value

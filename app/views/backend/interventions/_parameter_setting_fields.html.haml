@@ -2,10 +2,13 @@
   - if f.object.nature.nil?
     - f.object.nature = :spraying
   = link_to_remove_nested_association('label', f)
-  = f.input :name, wrapper: :append do
-    = text_field_tag :name,  f.object.name , disabled: true
+  = f.input :name,  label: f.object.nature.human_name, input_html: { class: 'disabled', value: f.object.name  }
   = f.hidden_field :nature
-  - f.object.reference_indicator_names.each do |indicator_name|
-    - unless f.object.settings.detect{|r| r.indicator_name.to_s == indicator_name.to_s }
-      - f.object.settings.build(indicator_name: indicator_name)
-  = f.nested_association(:settings, new: false)
+  :ruby
+    f.object.reference_indicator_names.each do |indicator_name|
+      unless f.object.settings.detect{|r| r.indicator_name.to_s == indicator_name.to_s }
+        f.object.settings.build(indicator_name: indicator_name)
+      end
+    end
+    collection = f.object.settings.sort_by{ |s| f.object.reference_indicator_names.index(s.indicator_name)}
+  = f.nested_association(:settings, new: false, collection: collection )
