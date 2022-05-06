@@ -167,6 +167,7 @@ gem 'sepa_king', '~> 0.12.0'
 gem 'xml_errors_parser', gitlab: 'ekylibre/xsd_errors_parser', branch: 'master'
 
 # Web services
+gem 'faraday', '~> 1.8.0'
 gem 'mechanize', '~> 2.7'
 gem 'rest-client', '~> 2.0'
 gem 'rubyntlm', '>= 0.3.2'
