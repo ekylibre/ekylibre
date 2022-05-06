@@ -162,21 +162,23 @@ module Backend
         format.csv do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
 
-          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
-          csv_string = CSV.generate(headers: true) do |csv|
-            printer.run_csv(csv)
-          end
-          send_data csv_string, filename: "#{printer.document_name}.csv"
+          csv_options =  { headers: true }
+
+          GeneralLedgerPrinterJob.perform_later(template, 'csv', csv_options, perform_as: current_user, **dataset_params)
+          notify_success(:document_in_preparation)
+          redirect_to action: 'index'
         end
 
         format.xcsv do
           return unless (template = DocumentTemplate.find_by_nature(:general_ledger))
 
-          printer = Printers::GeneralLedgerPrinter.new(template: template, **dataset_params)
-          csv_string = CSV.generate(headers: true, col_sep: ';', encoding: 'CP1252') do |csv|
-            printer.run_csv(csv)
-          end
-          send_data csv_string, filename: "#{printer.document_name}.csv"
+          csv_options =  { headers: true,
+                           col_sep: ';',
+                           encoding: 'CP1252' }
+
+          GeneralLedgerPrinterJob.perform_later(template, 'xcsv', csv_options, perform_as: current_user, **dataset_params)
+          notify_success(:document_in_preparation)
+          redirect_to action: 'index'
         end
 
         format.pdf do
