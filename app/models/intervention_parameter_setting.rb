@@ -57,7 +57,9 @@ class InterventionParameterSetting < ApplicationRecord
   accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? && params['string_value'].blank? }, allow_destroy: true
 
   def set_name
-    self.name ||= :setting_number.tl(locale: Preference[:language]) + (Maybe(intervention.settings&.count).or_else(0) + 1).to_s
+    return if self.name.present? &&  self.name != "Default name"
+
+    self.name = :setting_number.tl(locale: Preference[:language]) + (Maybe(intervention&.settings&.count).or_else(0) + 1).to_s
   end
 
   def reference_indicator_names
