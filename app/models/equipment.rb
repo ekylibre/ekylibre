@@ -102,7 +102,7 @@ class Equipment < Matter
 
   validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
 
-  before_destroy :delete_samsys_machine
+  before_destroy :delete_samsys_machine, if: proc { |equipment| equipment.provider? && equipment.provider_vendor == 'samsys' && equipment.provider_data[:id].present? }
 
   def tractor?
     variety == :tractor
@@ -114,10 +114,9 @@ class Equipment < Matter
 
   # Call job to delete equipment in Samsys, if Samsys plugin is defined
   def delete_samsys_machine
-    if defined?(EkylibreSamsys)
-      SamsysDeleteEquipmentJob.perform_later(equipment_id: self.id)
+    if defined?(EkylibreSamsys) && self.provider_data[:id].present?
+      SamsysDeleteEquipmentJob.perform_later(equipment_id: self.provider_data[:id])
     end
-    true
   end
 
   ##################################################
