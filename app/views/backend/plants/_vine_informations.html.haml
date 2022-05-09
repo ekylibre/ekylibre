@@ -49,7 +49,7 @@
         = link_to('--', {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: :certification_label, read_at: Time.now, redirect: request.fullpath})
   .med-info.important
     %span.title= :vine_density.tl
-    %span.value= resource.vine_density(at: last_time_of_year).l
+    %span.value= resource.vine_density(at: last_time_of_year)&.l
   = product_info :description
   = product_info :container do |container|
     %i.picto{class: "zone"}

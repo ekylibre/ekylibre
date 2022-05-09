@@ -3689,6 +3689,7 @@ eng:
       no_worker_associated_with_entity_account: "No worker associated with entity account"
       no_user_with_email: "No user with email %{email}"
       no_entity_with_email: "No entity with email %{email}"
+      plants_created_from_vine_productions: "%{count} vine plantation are been created. For updating parameters, clic directly on them."
       please_contact_support_for_further_information: "%{message} Please contact our support for further information."
       please_select_a_period_containing_journal_entries: "Please select a period containing journal entries and click the search button to be able to display or export the trial balance."
       previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."

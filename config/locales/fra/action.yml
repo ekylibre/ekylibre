@@ -598,7 +598,7 @@ fra:
       pick: "Importer un profil fonctionnel"
       show: "Profil fonctionnel\_: %{name}"
     backend/product_readings:
-      edit: "Editer l'indicateur:"
+      edit: "Modifier l'indicateur\_: %{indicator_name}"
       new: "Nouvel indicateur"
     backend/productions: #?
       edit: "Modifier la production\_: %{name}" #?
@@ -4116,6 +4116,7 @@ fra:
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
       pfi_have_been_computed: "IFT calculés"
       pfi_have_not_been_computed: "Erreur : IFT non calculés"
+      plants_created_from_vine_productions: "%{count} plantation de vignes ont bien été créée(s). Pour modifier les paramètres d'inter-rang, d'inter-pied ou d'appellation, cliquez directement sur l'indicateur. Pour modifier le cépage ou le contour de la culture, cliquez sur le bouton 'Modifier'"
       please_contact_support_for_further_information: "%{message} Veuillez contacter le support pour plus d'informations."
       please_select_a_period_containing_journal_entries: "Veuillez sélectionner une période comportant des écritures comptables puis cliquer sur le bouton de recherche afin de pouvoir afficher ou exporter la balance."
       previouos_financial_year_is_not_closed: "L’exercice précédent n’a pas été clôturé."
