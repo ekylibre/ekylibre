@@ -4443,6 +4443,37 @@ intervention_parameter_readings:
   updater_id:
     type: integer
     references: user
+intervention_parameter_settings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  intervention_parameter_id:
+    type: integer
+    references: intervention_parameter
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  nature:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_parameters:
   allowed_entry_factor:
     type: string
@@ -4650,6 +4681,73 @@ intervention_proposals:
   updated_at:
     type: datetime
     required: true
+intervention_setting_items:
+  absolute_measure_value_unit:
+    type: string
+  absolute_measure_value_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  boolean_value:
+    type: boolean
+    required: true
+    default: false
+  choice_value:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  decimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  geometry_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  id:
+    type: integer
+    required: true
+  indicator_datatype:
+    type: string
+    required: true
+  indicator_name:
+    type: string
+    required: true
+  integer_value:
+    type: integer
+  intervention_id:
+    type: integer
+    references: intervention
+  intervention_parameter_setting_id:
+    type: integer
+    references: intervention_parameter_setting
+  lock_version:
+    type: integer
+    required: true
+  measure_value_unit:
+    type: string
+  measure_value_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  point_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  string_value:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_template_activities:
   activity_id:
     type: integer

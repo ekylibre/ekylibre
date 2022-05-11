@@ -1516,6 +1516,8 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    setting_number: Setting nº
+    configure_sprayer_indicators: Configure sprayer indicators
     protected_water_zones: "Protected water zones"
     theoritical_soil_depths: "Theoritical soil depths"
     theoritical_water_capacities: "Theoritical water capacities"
@@ -1650,6 +1652,7 @@ eng:
     add_mobile: "Add mobile phone number"
     add_new_record: "Add new record"
     add_outgoing_payment: "Add disbursement"
+    add_parameter_setting: "Add \"Sprayer settings\""
     add_participation: "Add participation"
     add_payment: "Add payment"
     add_payslip: "Add payslip"
@@ -3686,6 +3689,7 @@ eng:
       no_worker_associated_with_entity_account: "No worker associated with entity account"
       no_user_with_email: "No user with email %{email}"
       no_entity_with_email: "No entity with email %{email}"
+      plants_created_from_vine_productions: "%{count} vine plantation are been created. For updating parameters, clic directly on them."
       please_contact_support_for_further_information: "%{message} Please contact our support for further information."
       please_select_a_period_containing_journal_entries: "Please select a period containing journal entries and click the search button to be able to display or export the trial balance."
       previouos_financial_year_is_not_closed: "The previous financial year hasn't been closed."

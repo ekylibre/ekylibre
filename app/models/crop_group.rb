@@ -71,6 +71,14 @@ class CropGroup < ApplicationRecord
     crops.collect(&:net_surface_area).sum.in(:hectare)
   end
 
+  def crop_estimated_vine_stock
+    self.plants.map(&:estimated_vine_stock).compact.sum
+  end
+
+  def crop_missing_vine_stock
+    self.plants.map(&:missing_vine_stock).compact.sum
+  end
+
   private
 
     def label_already_present(attributes)

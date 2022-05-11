@@ -273,7 +273,8 @@ class DocumentTemplate < ApplicationRecord
             File.open(template_path, 'rb:UTF-8') do |f|
               template = find_by(nature: nature, managed: true)
               if template.nil?
-                template = new(nature: nature, managed: true, active: true, by_default: false, archiving: 'last', signed: Onoma::DocumentNature.find(nature).signed)
+                document_nature = Onoma::DocumentNature.find(nature)
+                template = new(nature: nature, managed: true, active: document_nature.active, by_default: false, archiving: 'last', signed: document_nature.signed)
               end
 
               manageds.delete(template)

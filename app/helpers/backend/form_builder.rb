@@ -128,7 +128,7 @@ module Backend
 
     def reading(options = {})
       indicator = Onoma::Indicator.find!(@object.indicator_name)
-      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden) })
+      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden), fixed_unit: options[:fixed_unit] || true })
     end
 
     def variant_quantifier_of(association, *args, &block)
@@ -587,7 +587,7 @@ module Backend
         indicators = variant.variable_indicators.delete_if do |i|
           whole_indicators.include?(i) || %i[geolocation shape].include?(i.name.to_sym)
         end
-        if indicators.any?
+        if object.new_record? && indicators.any?
 
           if @object.readings.empty?
             indicators.each do |indicator|

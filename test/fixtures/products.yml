@@ -3394,6 +3394,7 @@ plants_001:
   nature_id: 15
   number: PR00000000034
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Apache'}
   type: Plant
   updated_at: 2014-11-05 15:40:15.833985000 Z
   updater_id: 1
@@ -3423,6 +3424,7 @@ plants_002:
   nature_id: 15
   number: PR00000000036
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Apache'}
   type: Plant
   updated_at: 2014-11-06 17:50:07.013572000 Z
   updater_id: 1
@@ -3448,6 +3450,7 @@ plants_003:
   nature_id: 34
   number: PR00000000047
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Melange'}
   type: Plant
   updated_at: 2014-11-07 15:45:45.794867000 Z
   updater_id: 1
@@ -3480,6 +3483,7 @@ plants_004:
   nature_id: 36
   number: PR00000000054
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Cabernet Sauvignon R'}
   type: Plant
   updated_at: 2014-11-07 16:50:07.190626000 Z
   updater_id: 1
@@ -3506,6 +3510,7 @@ plants_005:
   nature_id: 15
   number: PR00000000125
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Apache'}
   type: Plant
   updated_at: 2016-12-20 18:24:29.729982000 Z
   updater_id: 1

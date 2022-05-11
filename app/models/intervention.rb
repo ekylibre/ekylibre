@@ -69,6 +69,8 @@ class Intervention < ApplicationRecord
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
   PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
+  SETTINGS = %i[spray_mix_volume_area_density].freeze
+  SPRAYING_PROCEDURE_NAMES = %w[spraying sowing_with_spraying vine_spraying_without_fertilizing vine_spraying_with_fertilizing].freeze
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -91,6 +93,9 @@ class Intervention < ApplicationRecord
   has_many :intervention_crop_groups, dependent: :destroy
   has_many :crop_groups, through: :intervention_crop_groups
   has_many :rides, dependent: :nullify
+  has_many :parameter_settings, class_name: 'InterventionParameterSetting', dependent: :nullify
+  has_many :parameter_setting_items, class_name: 'InterventionSettingItem', through: :parameter_settings, source: :settings
+  has_many :settings, class_name: 'InterventionSettingItem', dependent: :destroy
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -156,7 +161,13 @@ class Intervention < ApplicationRecord
     HABTM_Activities
   end
 
-  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, :rides, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, :rides, :parameter_settings, allow_destroy: true
+  accepts_nested_attributes_for :parameter_settings, reject_if: ->(params) do
+    params["settings_attributes"].values.all? do |items|
+      items['measure_value_value'].blank? && items['integer_value'].blank? && items['boolean_value'].blank? && items['decimal_value'].blank? && items['string_value'].blank?
+    end
+  end
+  accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? && params['string_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -903,6 +914,15 @@ class Intervention < ApplicationRecord
     working_zone_area(unit)
   end
 
+  def spray_mix_volume_area_density
+    global_volume_area_indicator = self.settings.find_by(indicator_name: 'spray_mix_volume_area_density')
+    if spraying? && global_volume_area_indicator.present?
+      global_volume_area_indicator.value
+    else
+      nil
+    end
+  end
+
   def activity_imputation(activity)
     if activity.size_indicator == :net_surface_area
       unit = :hectare
@@ -1127,6 +1147,10 @@ class Intervention < ApplicationRecord
 
   def using_phytosanitary?
     PHYTO_PROCEDURE_NAMES.include?(procedure_name)
+  end
+
+  def spraying?
+    SPRAYING_PROCEDURE_NAMES.include?(procedure_name)
   end
 
   # @private

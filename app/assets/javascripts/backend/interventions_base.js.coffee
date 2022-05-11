@@ -1027,5 +1027,72 @@
         addTwoHours = I18n.translate("front-end.intervention.nature.add_two_hours")
         $(".harvest-warning").append("<span>#{addTwoHours}</span>")
 
+  settingForm = {
+    updateInsertedSettingName: ($settingField, insertedItem) ->
+      builtCount = $settingField.find(".parameter-setting").length
+      $nameInput = insertedItem.find('[name$="[name]"]')
+      name = $nameInput.val()
+      nameIndexRegex = /[0-9]*$/ #match 15 in 'Réglage nº15'
+      newName = name.replace(nameIndexRegex, builtCount )
+      $nameInput.val(newName)
+  }
 
+  $(document).on('cocoon:after-insert', '#parameter-settings', (e, insertedItem ) ->
+    settingForm.updateInsertedSettingName($(this), insertedItem)
+  )
+
+  productService = new E.ProductService()
+
+  sprayerForm = {
+    selectors: {
+      toolInput: '.intervention_tools_product [data-selector]'
+      editSprayerLink: '#edit-product'
+      configureProductDiv: '#configure-product'
+      reloadSprayerLink: '#configure-product i'
+    },
+
+    handleConfigureProductDiv: ($nestedField) ->
+     $configureProductDiv = $nestedField.find(sprayerForm.selectors.configureProductDiv)
+     $configureProductDiv.css('display', 'inline-block')
+
+    handleLinkToProductEdit: ($nestedField, id) ->
+      $editSprayerLink = $nestedField.find(sprayerForm.selectors.editSprayerLink)
+      $editSprayerLink.attr("href", $editSprayerLink.attr("href").replace(/[0-9]*(?=\/edit)/, id))
+
+    setReadings: ($nestedField, readings) ->
+      regex = /\[([^\]\[]+)\]$/
+      for _i, reading of readings
+        $readingDiv = $nestedField.find(".#{reading.indicator_name}")
+        $readingDiv.find('input').each( (_index) ->
+          match = regex.exec(this.name)
+          name = match[1]
+          if this.disabled == true
+            this.setAttribute('value', reading['measure_value_unit_symbol'])
+          else
+            this.setAttribute('value', reading[name])
+            # this.classList.add('disabled')
+        )
+
+    updateReadingInputs: ($selector, id) ->
+      productService.get(id).then( (product) ->
+        sprayerForm.setReadings($selector, product.readings)
+      )
+
+    onSelectorChange: ($selector, id) ->
+      $nestedField = $selector.parents(".nested-fields")
+      @handleLinkToProductEdit($nestedField, id)
+      @handleConfigureProductDiv($nestedField)
+      @updateReadingInputs($nestedField,id)
+  }
+
+  $(document).on 'selector:change', sprayerForm.selectors.toolInput, (_event, _selectedElement, was_initializing) ->
+    if was_initializing
+      return
+    id = $(@).next().val()
+    sprayerForm.onSelectorChange($(@), id)
+
+  $(document).on 'click', sprayerForm.selectors.reloadSprayerLink, (event) ->
+    $nestedField = $(this).parents(".nested-fields")
+    productId = $nestedField.find(sprayerForm.selectors.toolInput).next().val()
+    sprayerForm.updateReadingInputs($nestedField,productId)
 ) ekylibre, jQuery

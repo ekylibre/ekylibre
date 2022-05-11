@@ -14,7 +14,7 @@ module Ekylibre
           phytosanitary_certification prescription products_sheet provisional_manure_management_plan purchases_estimate
           purchases_original security_data_sheet stocks tax_assessment vine_phytosanitary_register wine_bottling_register
           wine_detention_register wine_manipulation_register wine_incoming_harvest_register
-        ]
+]
 
         # Keep the test up to date: If a nature is removed make sure it is not flagged as missing
         # Missing document is present in Nomenclature but not in Ekylibre

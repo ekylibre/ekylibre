@@ -266,7 +266,7 @@ class Product < ApplicationRecord
   }
 
   scope :supports_of_campaign, lambda { |campaign|
-    joins(:supports).merge(ActivityProduction.of_campaign(campaign))
+    joins(:supports).distinct.merge(ActivityProduction.of_campaign(campaign))
   }
   scope :shape_intersecting, lambda { |shape|
     where(id: ProductReading.multi_polygon_value_surface_intersecting(shape).select(:product_id))

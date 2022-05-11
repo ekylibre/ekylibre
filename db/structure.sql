@@ -4036,7 +4036,8 @@ CREATE TABLE public.documents (
     sha256_fingerprint character varying,
     signature text,
     mandatory boolean DEFAULT false,
-    processable_attachment boolean DEFAULT true NOT NULL
+    processable_attachment boolean DEFAULT true NOT NULL,
+    klippa_metadata jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -5864,7 +5865,8 @@ CREATE TABLE public.intervention_parameter_settings (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    name character varying NOT NULL
 );
 
 
@@ -26333,6 +26335,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211125181101'),
 ('20211206150144'),
 ('20211209142107'),
+('20211217170401'),
 ('20211220140042'),
 ('20220120092001'),
 ('20220204085501'),
@@ -26345,6 +26348,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220328132211'),
 ('20220328232801'),
 ('20220414120300'),
-('20220414120336');
-
-
+('20220414120336'),
+('20220429082601'),
+('20220429184701'),
+('20220505102323');

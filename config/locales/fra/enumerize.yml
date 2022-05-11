@@ -271,6 +271,9 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    intervention_parameter_setting:
+      nature:
+        spraying: Réglage de la pulvérisation
     intervention_participation:
       state:
         done: "Terminé"

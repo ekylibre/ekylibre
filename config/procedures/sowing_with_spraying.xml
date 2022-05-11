@@ -59,7 +59,11 @@
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can sow)" cardinality="*"/>
       <tool name="sower" filter="is equipment and can sow" cardinality="*"/>
-      <tool name="sprayer" filter="is equipment and can spray" cardinality="*"/>
+      <tool name="sprayer" filter="is equipment and can spray" cardinality="*">
+        <reading name="nominal_storable_net_volume" />
+        <reading name="application_width" />
+        <reading name="rows_count" />
+      </tool>
     </parameters>
   </procedure>
 </procedures>

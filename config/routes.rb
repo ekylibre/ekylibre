@@ -280,6 +280,9 @@ Rails.application.routes.draw do
                                                   only: [], path: 'activity-inspection-point-natures'
 
     resources :activity_productions, concerns: [:unroll] do
+      collection do
+        get :create_plants
+      end
       member do
         get :list_interventions
         get :list_plants
@@ -729,6 +732,7 @@ Rails.application.routes.draw do
         get :compare_realised_with_planned
       end
       member do
+        get :export
         post :sell
         post :purchase
         get :list_product_parameters
