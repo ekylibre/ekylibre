@@ -37,7 +37,7 @@
 #  nature               :string
 #  number               :string
 #  provider             :jsonb
-#  road                 :integer
+#  road                 :decimal
 #  sleep_count          :integer
 #  sleep_duration       :interval
 #  started_at           :datetime
@@ -55,7 +55,7 @@ class RideSet < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :area_smart, :area_with_overlap, :area_without_overlap, :gasoline, numericality: true, allow_blank: true
   validates :duration, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
-  validates :road, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :road, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }, allow_blank: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(ride_set) { ride_set.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
@@ -75,7 +75,7 @@ class RideSet < ApplicationRecord
   end
 
   def equipment
-    self.rides.first.equipment_name
+    self.rides.first&.equipment_name
   end
 
   def state
