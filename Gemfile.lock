@@ -68,6 +68,19 @@ GIT
     xml_errors_parser (0.0.3)
       i18n
 
+PATH
+  remote: ../plugins/ekylibre-planning
+  specs:
+    planning (0.1.0)
+      coffee-rails
+      factory_bot
+      jbuilder
+      lodash-rails
+      onoma (~> 0.7.0)
+      rails (~> 5.0.7.2)
+      sassc-rails (~> 2.0)
+      vuejs-rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -383,6 +396,8 @@ GEM
       semantic (~> 1.6)
       zeitwerk (~> 2.4)
     libv8 (3.16.14.19)
+    lodash-rails (4.17.21)
+      railties (>= 3.1)
     loofah (2.14.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -699,6 +714,7 @@ GEM
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
     victor (0.3.3)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -811,6 +827,7 @@ DEPENDENCIES
   paranoia (~> 2.2)
   pdf-reader (~> 2.4)
   pg (~> 1.0)
+  planning!
   possibly!
   prawn (~> 2.4)
   pry (~> 0.12.0)
@@ -862,6 +879,7 @@ DEPENDENCIES
   unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
+  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webpacker (~> 4.x)
