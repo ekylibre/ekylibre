@@ -57,6 +57,10 @@ eng:
       edit_specified: "Edit land parcel of %{activity}"
       new_specified: "New land parcel of %{activity}"
       show: "Land parcel\_: %{name}"
+    backend/activity_productions_of_vine:
+      edit_specified: "Edit land parcel of %{activity}"
+      new_specified: "New land parcel of %{activity}"
+      show: "Land parcel\_: %{name}"
     backend/activity_seasons:
       # edit: "Edit activity season: %{name}"
       # index: "Activity seasons"

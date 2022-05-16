@@ -42,6 +42,10 @@ fra:
       edit_specified: "Modifier la parcelle de %{activity}"
       new_specified: "Nouvelle parcelle de %{activity}"
       show: "Parcelle\_: %{name}"
+    backend/activity_productions_of_vine:
+      edit_specified: "Modifier la parcelle de %{activity}"
+      new_specified: "Nouvelle parcelle de %{activity}"
+      show: "Parcelle\_: %{name}"
     backend/affairs:
       attach: "Associer une affaire"
       detach: "Dissocier une affaire"
@@ -1201,7 +1205,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
-    gap_real_estimated_vine_stock: "Ecart Pieds productifs estimés/réels"
+    gap_real_estimated_vine_stock: "Écart Pieds productifs estimés/réels"
     plants_count: "Pieds productifs réels"
     specie_variety_name: 'Variété / Cépage'
     missing_vine_stock: "Total de pieds manquants"

@@ -4,7 +4,10 @@
   - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
   - if activity
     - controller_name = controller_path
-    - controller_name += "_of_plant" if resource.plant_farming?
+    - if resource.plant_farming?
+      - controller_name += "_of_plant"
+    - elsif resource.vine_farming?
+      - controller_name += "_of_vine"
     - action_title_key << '_specified'
   = "actions.#{controller_name}.#{action_title_key}".t(activity: activity.name)
 
