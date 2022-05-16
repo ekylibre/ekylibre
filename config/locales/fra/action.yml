@@ -2864,6 +2864,7 @@ fra:
     pfi_api_down: "Les services de calcul de l’IFT ne sont pas disponibles. Veuillez réessayer ultérieurement."
     pfi_api_error: "Une erreur s'est produite dans le calcul de l'IFT, nos équipe sont informées."
     pfi_api_warnings: "Le calcul de l'IFT a renvoyé des avertissement(s) pour l'intervention %{id}.\n%{warnings}"
+    pfi_campaign_not_opened_yet: "La campagne %{campaign_harvest_year} n'est pas encore ouverte sur le service du ministère de l'agriculture."
     pfi_client_error: "Erreur lors du calcul IFT pour:\n campagne: %{campaign}\n intervention: %{intervention}\n activité: %{activity}\n intrant: %{input}\n requête: %{loggable}"
     pfi_dose: "Dose de référence (IFT)"
     pfi_have_been_computed: "OK : les IFT ont été calculés"

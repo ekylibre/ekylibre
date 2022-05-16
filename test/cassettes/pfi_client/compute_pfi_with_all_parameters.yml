@@ -1,0 +1,105 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://alim-pprd.agriculture.gouv.fr/ift-api/api/campagnes/2020
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.6.6p146
+      Host:
+      - alim-pprd.agriculture.gouv.fr
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 May 2022 14:30:54 GMT
+      Expires:
+      - '0'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      X-Xss-Protection:
+      - 1; mode=block
+      Pragma:
+      - no-cache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      Content-Type:
+      - application/json;charset=UTF-8
+      Vary:
+      - User-Agent,Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "idMetier" : "2020",
+          "libelle" : "2019/2020",
+          "active" : true
+        }
+    adapter_metadata:
+      vcr_decompressed: gzip
+  recorded_at: Tue, 10 May 2022 14:30:56 GMT
+- request:
+    method: get
+    uri: https://alim-pprd.agriculture.gouv.fr/ift-api/api/ift/traitement/certifie?campagneIdMetier=2020&cultureIdMetier=1194&typeTraitementIdMetier=T23
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.6.6p146
+      Host:
+      - alim-pprd.agriculture.gouv.fr
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 May 2022 14:30:57 GMT
+      Expires:
+      - '0'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      X-Xss-Protection:
+      - 1; mode=block
+      Pragma:
+      - no-cache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      Content-Type:
+      - application/json;charset=UTF-8
+      Vary:
+      - User-Agent,Accept-Encoding
+      Content-Length:
+      - '2771'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        ewogICJpZCIgOiAiYTQ0ZTM3MGYtMTcxZS00ZTFmLTg2MGQtOGRhN2QzOTAxNjU5IiwKICAiaWZ0VHJhaXRlbWVudCIgOiB7CiAgICAiaWZ0IiA6IDEsCiAgICAic2VnbWVudCIgOiB7CiAgICAgICJpZE1ldGllciIgOiAiUzUiLAogICAgICAibGliZWxsZSIgOiAiRm9uZ2ljaWRlc19iYWN0ZXJpY2lkZXMiLAogICAgICAiZGVzY3JpcHRpb24iIDogIlRyYWl0ZW1lbnRzIGF1IGNoYW1wIGZvbmdpY2lkZXMtYmFjdMOpcmljaWRlcyBob3JzIHByb2R1aXRzIGRlIGJpb2NvbnRyw7RsZSIKICAgIH0sCiAgICAiYXZlcnRpc3NlbWVudCIgOiB7CiAgICAgICJpZE1ldGllciIgOiAiQVYxIiwKICAgICAgImxpYmVsbGUiIDogIkF1Y3VuZSBkb3NlIGRlIHLDqWbDqXJlbmNlIG5lIGNvcnJlc3BvbmQgw6AgbGEgc8OpbGVjdGlvbi4gUGFyIGNvbnZlbnRpb24sIGzigJlJRlQgZGUgdm90cmUgdHJhaXRlbWVudCBlc3Qgw6lnYWwgw6AgMSAobGUgY2FzIMOpY2jDqWFudCBjb3JyaWfDqSBwYXIgbGUgcG91cmNlbnRhZ2UgZGUgc3VyZmFjZSB0cmFpdMOpZSkuIgogICAgfSwKICAgICJjYW1wYWduZSIgOiB7CiAgICAgICJpZE1ldGllciIgOiAiMjAyMCIsCiAgICAgICJsaWJlbGxlIiA6ICIyMDE5LzIwMjAiLAogICAgICAiYWN0aXZlIiA6IHRydWUKICAgIH0sCiAgICAiY3VsdHVyZSIgOiB7CiAgICAgICJpZE1ldGllciIgOiAiMTE5NCIsCiAgICAgICJsaWJlbGxlIiA6ICJWaWduZSIsCiAgICAgICJncm91cGVDdWx0dXJlcyIgOiB7CiAgICAgICAgImlkTWV0aWVyIiA6ICJHQ1U0IiwKICAgICAgICAibGliZWxsZSIgOiAiVmlnbmUiCiAgICAgIH0KICAgIH0sCiAgICAidHlwZVRyYWl0ZW1lbnQiIDogewogICAgICAiaWRNZXRpZXIiIDogIlQyMyIsCiAgICAgICJsaWJlbGxlIiA6ICJUcmFpdGVtZW50IGNoYW1wIGZvbmdpY2lkZXMtYmFjdMOpcmljaWRlcyIsCiAgICAgICJhdmFudFNlbWlzIiA6IGZhbHNlCiAgICB9LAogICAgImZhY3RldXJEZUNvcnJlY3Rpb24iIDogMTAwLAogICAgImRhdGVDcmVhdGlvbiIgOiAiMjAyMi0wNS0xMFQxNjozMDo1Ny4xOTIiCiAgfSwKICAic2lnbmF0dXJlIiA6ICJleUpyYVdRaU9pSlBWR013VFZSQmQxSlVZek5TVlZaSFRrUnJlVTVFUWtOT2VtTXdUMFJGTTFFd1VURk9hMWswVG5wc1FsSlZXa1JPYWs1RVRVRTlQU0lzSW1Gc1p5STZJbEpUTWpVMkluMC5leUpwWm5RaU9qRXNJbk5sWjIxbGJuUWlPbnNpYVdSTlpYUnBaWElpT2lKVE5TSXNJbXhwWW1Wc2JHVWlPaUpHYjI1bmFXTnBaR1Z6WDJKaFkzUmxjbWxqYVdSbGN5SXNJbVJsYzJOeWFYQjBhVzl1SWpvaVZISmhhWFJsYldWdWRITWdZWFVnWTJoaGJYQWdabTl1WjJsamFXUmxjeTFpWVdOMHc2bHlhV05wWkdWeklHaHZjbk1nY0hKdlpIVnBkSE1nWkdVZ1ltbHZZMjl1ZEhMRHRHeGxJbjBzSW1GMlpYSjBhWE56WlcxbGJuUWlPbnNpYVdSTlpYUnBaWElpT2lKQlZqRWlMQ0pzYVdKbGJHeGxJam9pUVhWamRXNWxJR1J2YzJVZ1pHVWdjc09wWnNPcGNtVnVZMlVnYm1VZ1kyOXljbVZ6Y0c5dVpDRERvQ0JzWVNCenc2bHNaV04wYVc5dUxpQlFZWElnWTI5dWRtVnVkR2x2Yml3Z2JPS0FtVWxHVkNCa1pTQjJiM1J5WlNCMGNtRnBkR1Z0Wlc1MElHVnpkQ0REcVdkaGJDRERvQ0F4SUNoc1pTQmpZWE1ndzZsamFNT3BZVzUwSUdOdmNuSnBaOE9wSUhCaGNpQnNaU0J3YjNWeVkyVnVkR0ZuWlNCa1pTQnpkWEptWVdObElIUnlZV2wwdzZsbEtTNGlmU3dpWkc5elpWSmxabVZ5Wlc1alpTSTZiblZzYkN3aWRXNXBkR1ZFYjNObFVtVm1aWEpsYm1ObElqcHVkV3hzTENKd2NtOWtkV2wwVEdsaVpXeHNaU0k2Ym5Wc2JDd2lZMkZ0Y0dGbmJtVWlPbnNpYVdSTlpYUnBaWElpT2lJeU1ESXdJaXdpYkdsaVpXeHNaU0k2SWpJd01Ua3ZNakF5TUNJc0ltRmpkR2wyWlNJNmRISjFaWDBzSW1OMWJIUjFjbVVpT25zaWFXUk5aWFJwWlhJaU9pSXhNVGswSWl3aWJHbGlaV3hzWlNJNklsWnBaMjVsSWl3aVozSnZkWEJsUTNWc2RIVnlaWE1pT25zaWFXUk5aWFJwWlhJaU9pSkhRMVUwSWl3aWJHbGlaV3hzWlNJNklsWnBaMjVsSW4xOUxDSjBlWEJsVkhKaGFYUmxiV1Z1ZENJNmV5SnBaRTFsZEdsbGNpSTZJbFF5TXlJc0lteHBZbVZzYkdVaU9pSlVjbUZwZEdWdFpXNTBJR05vWVcxd0lHWnZibWRwWTJsa1pYTXRZbUZqZE1PcGNtbGphV1JsY3lJc0ltRjJZVzUwVTJWdGFYTWlPbVpoYkhObGZTd2liblZ0WlhKdlFXMXRJanB1ZFd4c0xDSmphV0pzWlNJNmJuVnNiQ3dpZFc1cGRHVWlPbTUxYkd3c0ltUnZjMlVpT201MWJHd3NJblp2YkhWdFpVUmxRbTkxYVd4c2FXVWlPbTUxYkd3c0ltWmhZM1JsZFhKRVpVTnZjbkpsWTNScGIyNGlPakV3TUN3aVpHRjBaVU55WldGMGFXOXVJam9pTWpBeU1pMHdOUzB4TUZReE5qb3pNRG8xTnk0eE9USWlMQ0pqYjIxdFpXNTBZV2x5WlNJNmJuVnNiQ3dpWkdGMFpWUnlZV2wwWlcxbGJuUWlPbTUxYkd4OS5ZWDJGanQxMTVaZzZEWk1FZXpjRGpDVHRESzM5NFo0TjlsNWtfMERKcDBOZy02c0dXYVFCdWxDVHJJRUZFcHJlelpTc3ZoU3VFWm1lT0JrdlhFLXU4eUVmbUtDWlpEXzA0QV9lMm5KZ3lvVDV5alhDZzhZZGFXeFdTYkdXWk1UQjhjUV9zMzhxY0lXeXhRbDRiSDNwRXlVZGxTeGVvbWFNRUo3dW5nY2JhVUZudnJIUG9zTVRjc0ozaDJjMHoyZGg3QmVteDBpbTNPSjFwaXdxMDRzakI5TTV0SkJ5WjN3TFFYTlVzaFFYdUlDT29HRU5UanlTcmNhd196cklPSHdHSVk4YV9GRkdtTWdrYkw2TjlBcjlqSWtHcjN6azE5Ums1ZHhnY254dUUyY250ZHBZdi1MdFVWOEpiOWhUUndpTXUzWjJpLU9KeWZtNmcyRUhRSmdBQ2ciCn0=
+    adapter_metadata:
+      vcr_decompressed: gzip
+  recorded_at: Tue, 10 May 2022 14:30:57 GMT
+recorded_with: VCR 6.0.0

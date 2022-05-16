@@ -230,6 +230,8 @@ GEM
     corindon (0.8.0)
       semantic (~> 1.6)
       zeitwerk (~> 2.3)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     database_cleaner (1.99.0)
     dbf (4.1.3)
@@ -320,6 +322,7 @@ GEM
       temple (>= 0.8.0)
       tilt
     hana (1.3.7)
+    hashdiff (1.0.1)
     hashery (2.1.2)
     hashie (4.1.0)
     holidays (8.4.1)
@@ -704,6 +707,7 @@ GEM
     uuidtools (2.2.0)
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
+    vcr (6.0.0)
     victor (0.3.3)
     wannabe_bool (0.7.1)
     warden (1.2.9)
@@ -717,6 +721,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webmock (3.13.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webpacker (4.3.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -868,8 +876,10 @@ DEPENDENCIES
   unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
+  vcr (~> 6.0.0)
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
+  webmock (~> 3.13.0)
   webpacker (~> 4.x)
   wice_grid (~> 4.0)
   xml_errors_parser!

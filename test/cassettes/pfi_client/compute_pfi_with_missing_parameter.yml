@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://alim-pprd.agriculture.gouv.fr/ift-api/api/campagnes/2020
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.6.6p146
+      Host:
+      - alim-pprd.agriculture.gouv.fr
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 May 2022 14:31:01 GMT
+      Expires:
+      - '0'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      X-Xss-Protection:
+      - 1; mode=block
+      Pragma:
+      - no-cache
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      Content-Type:
+      - application/json;charset=UTF-8
+      Vary:
+      - User-Agent,Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "idMetier" : "2020",
+          "libelle" : "2019/2020",
+          "active" : true
+        }
+    adapter_metadata:
+      vcr_decompressed: gzip
+  recorded_at: Tue, 10 May 2022 14:31:01 GMT
+recorded_with: VCR 6.0.0

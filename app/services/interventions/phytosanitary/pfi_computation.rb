@@ -30,8 +30,8 @@ module Interventions
           # compute pfi for each input in intervention for all target
           # call API with parameters
 
-          pfi_call = Interventions::Phytosanitary::PfiClientApi.new(campaign: @campaign, activity: activity, intervention_parameter_input: input, area_ratio: global_area_ratio)
-          response = pfi_call.compute_pfi(with_notify: true)
+          pfi_call = Interventions::Phytosanitary::PfiClientApi.new(campaign: @campaign, activity: activity, intervention_parameter_input: input, area_ratio: global_area_ratio, notify_user: true)
+          response = pfi_call.compute_pfi
           if response
             # update pfi_intervention_paramter with API response
             pfi = PfiInterventionParameter.find_or_initialize_by(campaign_id: @campaign.id, input_id: input.id, nature: :intervention)

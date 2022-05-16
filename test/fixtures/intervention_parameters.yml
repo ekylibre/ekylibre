@@ -630,6 +630,7 @@ intervention_inputs_009:
   outcoming_product_id: 111
   position: 2
   product_id: 57
+  usage_id: '20141124083922341465'
   quantity_handler: population
   quantity_population: 6.4745
   quantity_value: 6.4745

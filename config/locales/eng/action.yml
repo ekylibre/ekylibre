@@ -2812,6 +2812,7 @@ eng:
     pfi_api_down: "The PFI calculation services are not available. Recalculate your PFI."
     pfi_api_error: "An error occured durant the PFI calculation. Our teams are aware of the issue."
     pfi_api_warnings: "The IFT calculation for intervention %{id} had warnings.\n%{warnings}"
+    pfi_campaign_not_opened_yet: "Campaign %{campaign_harvest_year} is not opened yet on Ministry of Agriculture service."
     pfi_client_error: "PFI calculation failed for:\n campaign: %{campaign}\n intervention: %{intervention}\n activity: %{activity}\n input: %{input}\n request: %{loggable}"
     pfi_dose: "Pfi dose"
     pfi_interventions: "Pfi"
