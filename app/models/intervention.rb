@@ -421,7 +421,7 @@ class Intervention < ApplicationRecord
     # compute pfi
     campaign = Campaign.find_by(harvest_year: started_at.year)
     if campaign
-      if Interventions::Phytosanitary::PfiClientApi.down?
+      if Interventions::Phytosanitary::PfiClientApi.new(campaign: campaign).down?
         self.creator.notifications.create!(pfi_api_down_notification_generation)
       else
         pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)

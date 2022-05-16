@@ -184,6 +184,7 @@ activities_005:
   description: ''
   family: plant_farming
   id: 6
+  reference_name: vine
   life_duration: 30
   lock_version: 2
   measure_grading_items_count: false

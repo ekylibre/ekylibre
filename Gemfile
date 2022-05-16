@@ -235,6 +235,8 @@ group :test do
   gem 'rails-controller-testing', '~> 1.0'
   # for loading lexicon 5 in test mode
   gem 'lexicon-common', '~> 0.2.0'
+  gem 'vcr', "~> 6.0.0"
+  gem 'webmock', "~> 3.13.0"
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
