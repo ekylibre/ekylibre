@@ -8767,7 +8767,7 @@ journal_entry_items_262:
   name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2016-09-30
+  printed_on: 2016-08-31
   real_balance: 176.16
   real_credit: 0.0
   real_currency: EUR
@@ -8800,7 +8800,7 @@ journal_entry_items_263:
   name: "[Disbursement D20160004] SEPA  for Coop Ain Coop'In"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2016-09-30
+  printed_on: 2016-08-31
   real_balance: -176.16
   real_credit: 176.16
   real_currency: EUR
@@ -8831,7 +8831,7 @@ journal_entry_items_264:
   name: "[Disbursement D20160003] SEPA  for BAKTOUBI Inc."
   position: 1
   pretax_amount: 0.0
-  printed_on: 2016-09-30
+  printed_on: 2016-08-31
   real_balance: 1850.0
   real_credit: 0.0
   real_currency: EUR
@@ -8862,7 +8862,7 @@ journal_entry_items_265:
   name: "[Disbursement D20160003] SEPA  for BAKTOUBI Inc."
   position: 2
   pretax_amount: 0.0
-  printed_on: 2016-09-30
+  printed_on: 2016-08-31
   real_balance: -1850.0
   real_credit: 1850.0
   real_currency: EUR
@@ -8895,7 +8895,7 @@ journal_entry_items_266:
   name: "[Décaissement D20160002] En espèce  pour Coop Ain Coop'In"
   position: 1
   pretax_amount: 0.0
-  printed_on: 2015-08-28
+  printed_on: 2015-09-01
   real_balance: 20520.0
   real_credit: 0.0
   real_currency: EUR
@@ -8928,7 +8928,7 @@ journal_entry_items_267:
   name: "[Décaissement D20160002] En espèce  pour Coop Ain Coop'In"
   position: 2
   pretax_amount: 0.0
-  printed_on: 2015-08-28
+  printed_on: 2015-09-01
   real_balance: -20520.0
   real_credit: 20520.0
   real_currency: EUR

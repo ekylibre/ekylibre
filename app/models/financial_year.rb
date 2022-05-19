@@ -169,6 +169,12 @@ class FinancialYear < ApplicationRecord
     code&.succ! while self.class.where(code: code).where.not(id: id || 0).any?
   end
 
+  # Block if user want to change date and jei are present on date outside fy
+  validate do
+    outside_jei = JournalEntryItem.where(financial_year_id: self.id) - JournalEntryItem.where(financial_year_id: self.id).between(started_on, stopped_on)
+    errors.add(:stopped_on, :jei_on_other_fy, count: outside_jei.count.to_s) if outside_jei.count > 0
+  end
+
   # Enforces the fact that there should not be a gap between two FinancialYear
   validate do
     next_fy = FinancialYear.started_after(stopped_on).first

@@ -706,6 +706,7 @@ fra:
               on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})" #?
             stopped_on: #?
               end_of_month: "%{attribute} doit être une date de fin de mois" #?
+              jei_on_other_fy: "Changement de date impossible, %{count} écritures se trouvent sur des dates en dehors de l'exercice"
           can_only_have_two_years_opened: "Vous ne pouvez avoir que 2 exercices ouverts en même temps" #?
           can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré" #?
           overlap: "%{attribute} se trouve sur un exercice existant" #?

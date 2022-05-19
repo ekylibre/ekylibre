@@ -321,6 +321,20 @@ eng:
               truncation_error:
                 one: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last character can't be removed."
                 other: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last %{count} characters can't be removed."
+        financial_year: #?
+          attributes: #?
+            accountant: #?
+              frozen: "No way to update accountant because exchange is on" #?
+            started_on: #?
+              consecutive: "Financial year must be consecutive" #?
+              frozen: "No way to change started_on after being created" #?
+              on_or_after: "start date must be in line with entity of company (%{restriction})" #?
+            stopped_on: #?
+              end_of_month: "%{attribute} must be at end of month" #?
+              jei_on_other_fy: "No way to change date, %{count} entries are outside financial year"
+          can_only_have_two_years_opened: "No more than 2 financial year opened at the same time" #?
+          can_only_update_code: "You can only update label of a closed financial year" #?
+          overlap: "%{attribute} overlap another financial year" #?
         intervention_target:
           attributes:
             product:
