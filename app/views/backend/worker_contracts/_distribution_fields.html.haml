@@ -1,0 +1,7 @@
+.nested-fields
+  = link_to_remove_nested_association(:distribution, f)
+  = f.input :distrib, label: WorkerContractDistribution.model_name.human, wrapper: :append  do
+    = f.referenced_association :main_activity, source: :main
+    = f.input(:affectation_percentage, wrapper: :append) do
+      = f.input(:affectation_percentage, wrapper: :simplest)
+      = content_tag(:span, '%', class: 'add-on')

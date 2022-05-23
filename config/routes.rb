@@ -523,7 +523,7 @@ Rails.application.routes.draw do
       collection do
         post :purchase_scan
       end
-    end 
+    end
 
     resource :draft_journal, only: [:show] do
       member do
@@ -579,6 +579,9 @@ Rails.application.routes.draw do
     end
 
     resource :entries_ledger, only: [:show], path: 'entries-ledger' do
+      collection do
+        put :update_journal_entry_items
+      end
       member do
         get :list_journal_entry_items
       end
@@ -1423,7 +1426,11 @@ Rails.application.routes.draw do
 
     resources :worker_time_logs, concerns: [:list], path: 'worker-time-logs'
 
-    resources :worker_contracts, concerns: [:list], path: 'worker-contracts'
+    resources :worker_contracts, concerns: [:list], path: 'worker-contracts' do
+      member do
+        get :list_distributions
+      end
+    end
 
     resources :worker_groups, concerns: %i[list unroll] do
       member do

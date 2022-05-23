@@ -243,3 +243,15 @@ short_balance_sheet:
   debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 E, 456 E, 458 E'
   others_debts_advance_products: '487' #
   others_debts_liabilities_gaps: '470 471 E, 477' #
+economic_indicator:
+  main_direct_products: '707 C, - 7097, 701 702 703 705 706 708 C, - 7090 7091 7092 7093 7095 7096 7098, 704 756 C, - 7094, - 712 713, 72 73 C'
+  fixed_direct_products: '74 C, 75 C'
+  proportional_direct_charges: '600 601 602 603 604 D'
+  fixed_direct_charges: '605 606 61 62 63 64 65 D'
+  indirect_products: '72 73 74 75 C !756'
+  cash_provisions: '511, 512 F, 514 F, 515, 516, 517 F, 5187, 52, 53, 54'
+  indirect_charges: '605 606 61 62 63 65 67 D'
+  employees_wages: '64 D !6412 !6413 !644 !646'
+  depreciations_charges: '681 D'
+  loans_charges: '66 686 D'
+  farmer_wages: '6412 6413 644 646 D'

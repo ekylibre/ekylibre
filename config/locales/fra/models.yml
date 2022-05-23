@@ -545,6 +545,7 @@ fra:
         dead_at: "Date de sortie"
         age: "Ancienneté"
       worker_contract: #?
+        distribution_key: "Clé de répartition analytique"
         monthly_duration: "Durée de travail mensuelle" #?
         raw_hourly_amount: "Taux horaire brut"
         started_at: "Date de début de contrat"
@@ -2611,6 +2612,7 @@ fra:
     worked_area: "Surface travaillée"
     worker: "Équipier"
     worker_contract: "Contrat de travail"
+    worker_contract_distribution: "Répartitions analytiques des contrats de travail"
     workflow: "Débit de chantier" #?
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"

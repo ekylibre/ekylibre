@@ -148,6 +148,7 @@
       </item>
       <item name="entries_ledger">
         <page to="backend/entries_ledgers#show"/>
+        <page to="backend/entries_ledgers#update_jei"/>
         <page to="backend/entries_ledgers#list_journal_entry_items"/>
       </item>
       <item name="general_ledger">
@@ -1221,6 +1222,7 @@
         <page to="backend/worker_contracts#destroy"/>
         <page to="backend/worker_contracts#edit"/>
         <page to="backend/worker_contracts#list"/>
+        <page to="backend/worker_contracts#list_distributions"/>
         <page to="backend/worker_contracts#new"/>
         <page to="backend/worker_contracts#show"/>
         <page to="backend/worker_contracts#picture"/>

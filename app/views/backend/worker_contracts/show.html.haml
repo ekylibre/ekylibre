@@ -28,3 +28,16 @@
     - l.attribute :entity, label: :full_name, url: true
     - l.attribute :salaried
     - l.attribute :description
+
+= cobbles do |c|
+  - if resource.distributions.any?
+    - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do
+      :ruby
+        data = resource.distributions.reorder(:affectation_percentage).find_each.map do |distribution|
+          percentage = distribution.affectation_percentage.to_s.to_f
+
+          { name: :label_value.th(label: distribution.main_activity_name, value: number_to_percentage(percentage, precision: 2)), y: percentage }
+        end
+        series = [{type: 'pie', name: Activity.human_attribute_name(:distributions), data: data}]
+
+      = pie_highcharts(series, legend: true)

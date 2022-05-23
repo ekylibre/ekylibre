@@ -697,3 +697,11 @@ fra:
         create: "Créer"
         destroy: "Détruire"
         update: "Mettre à jour"
+    worker_contract:
+      distribution_key:
+        gross_margin: "Marge brute"
+        percentage: "Pourcentage"
+      nature:
+        permanent_worker: "Main d'oeuvre permanente"
+        temporary_worker: "Main d'oeuvre temporaire"
+        external_staff: "Main d'oeuvre extérieure"

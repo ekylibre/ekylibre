@@ -11175,6 +11175,38 @@ wine_incoming_harvests:
   updater_id:
     type: integer
     references: user
+worker_contract_distributions:
+  worker_contract_id:
+    type: integer
+    references: worker_contract
+    required: true
+  affectation_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  main_activity_id:
+    type: integer
+    references: activity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 worker_contracts:
   contract_end:
     type: string

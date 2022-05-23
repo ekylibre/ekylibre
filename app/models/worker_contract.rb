@@ -36,11 +36,11 @@
 class WorkerContract < ApplicationRecord
   include Customizable
   include Attachable
-
+  enumerize :distribution_key, in: %i[gross_margin percentage], default: :gross_margin, predicates: true
   belongs_to :entity, class_name: 'Entity', inverse_of: :worker_contracts
   belongs_to :contract_nature, primary_key: :reference_name, class_name: 'MasterDoerContract', foreign_key: :reference_name
   has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :worker_contract, dependent: :destroy
-
+  has_many :distributions, class_name: 'WorkerContractDistribution', dependent: :destroy, inverse_of: :worker_contract
   enumerize :nature, in: %i[permanent_worker temporary_worker external_staff], default: :permanent_worker, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :contract_end, :name, :reference_name, length: { maximum: 500 }, allow_blank: true
@@ -51,11 +51,13 @@ class WorkerContract < ApplicationRecord
   validates :stopped_at, timeliness: { on_or_after: ->(worker_contract) { worker_contract.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :entity, presence: true
   # ]VALIDATORS]
+  accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
   scope :of_nature, ->(nature) { where(nature: nature) }
 
   scope :active_at, ->(started_at)  { where('started_at <= ? AND (stopped_at IS NULL OR stopped_at >= ?)', started_at, started_at) }
 
+  scope :in_month, ->(month) { where('EXTRACT(MONTH FROM started_at) <= ? AND (stopped_at IS NULL OR EXTRACT(MONTH FROM stopped_at) >= ?)', month, month) }
   scope :in_year, ->(year) { where('EXTRACT(YEAR FROM started_at) <= ? AND (stopped_at IS NULL OR EXTRACT(YEAR FROM stopped_at) >= ?)', year, year) }
 
   after_create do
@@ -71,16 +73,35 @@ class WorkerContract < ApplicationRecord
 
   before_validation do
     self.name ||= contract_nature.translation.send(Preference[:language]) if contract_nature
+    self.contract_end ||= 'determined' if stopped_at
+    self.distribution_key ||= :gross_margin
   end
 
   after_save do
+    if distributions.any?
+      total = distributions.sum(:affectation_percentage)
+      if total != 100
+        sum = 0
+        distributions.each do |distribution|
+          percentage = (distribution.affectation_percentage * 100.0 / total).round(2)
+          sum += percentage
+          distribution.update_column(:affectation_percentage, percentage)
+        end
+        if sum != 100
+          distribution = distributions.last
+          distribution.update_column(:affectation_percentage, distribution.affectation_percentage + (100 - sum))
+        end
+      end
+    else
+      distributions.clear
+    end
     # update economic_cash_indicators
     update_economic_cash_indicators
   end
 
   def month_duration
     if stopped_at && (stopped_at - started_at) < 1.year
-      (stopped_at - started_at).month
+      ((stopped_at - started_at).to_f / ( 3600 * 24 * 30 )).round(2)
     else
       12
     end
@@ -162,12 +183,17 @@ class WorkerContract < ApplicationRecord
 
   class << self
 
-    def annual_cost(nature, campaign, permanent_salaried = true)
+    def annual_cost(nature, campaign, permanent_salaried = true, activity = nil)
       cost = 0.0
       in_year(campaign.harvest_year).of_nature(nature).each do |contract|
         next if contract.salaried != permanent_salaried && contract.nature == 'permanent_worker'
 
-        contract_value = contract.cost(period: :year, mode: :charged)
+        if activity
+          ratio = contract.distributions.where(main_activity: activity).sum(:affectation_percentage)
+          contract_value = ( ratio / 100 ) * contract.cost(period: :year, mode: :charged)
+        else
+          contract_value = contract.cost(period: :year, mode: :charged)
+        end
         cost += contract_value.to_f if contract_value.present?
       end
       cost

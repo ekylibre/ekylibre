@@ -250,6 +250,7 @@
 - wine_incoming_harvest_storage
 - worker
 - worker_contract
+- worker_contract_distribution
 - worker_group
 - worker_group_item
 - worker_time_indicator

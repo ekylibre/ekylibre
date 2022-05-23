@@ -6,6 +6,9 @@
                                                                                                              lettering_state: params[:lettering_state],
                                                                                                              account_number: params[:accounts],
                                                                                                              ledger: 'general_ledger')
+    %div#set-activity-budget-on-jei
+      = text_field_tag(:activity_budget_id, nil, disabled: true, data: { selector: url_for(controller: :activity_budgets, action: :unroll, scope: :opened) })
+      = link_to(:set_activity_budget_on_jei.tl, update_journal_entry_items_backend_entries_ledger_path(journal_entry_item_ids: 0, activity_budget_id: 0), method: :put, class: "btn btn-primary disabled")
 
 = kujaku do |k|
   - k.text
@@ -15,4 +18,6 @@
   - k.helper :journals_crit
   - k.number :amount_range_crit
   - k.multi_choice :lettering_state, data: %i[lettered unlettered partially_lettered unlettered_at].map { |s| { label: s.tl, name: s } }, label: :lettering_state.tl
+
+
 = main_list(:journal_entry_items)

@@ -1520,6 +1520,7 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    set_activity_budget_on_jei: "Set this element on jei"
     setting_number: Setting nº
     configure_sprayer_indicators: Configure sprayer indicators
     protected_water_zones: "Protected water zones"
@@ -3570,6 +3571,8 @@ eng:
       success: "Success!"
       warning: "Warning!"
     messages:
+      jei_updated_with_activity_budget: "%{count} entrie(s) has been set to %{budget_name} for a global amount of %{amount}€"
+      missing_activity_budget: "Aucun budget n'est présent"
       no_reference_budget_found: "No reference budget found for this activity"
       access_denied: "Access denied."
       accounts_cannot_be_truncated_to_preference:

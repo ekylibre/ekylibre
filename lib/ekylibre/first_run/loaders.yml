@@ -307,6 +307,8 @@ accountancy:
     path: 'isacompta/fixed_assets.csv'
   bordeaux_sciences_agro_istea_balance:
     path: 'istea/balance_2016_2018.TXT'
+  bordeaux_sciences_agro_istea_journal_entries:
+    path: 'istea/journal_entries_2020_2022.TXT'
   ekylibre_ofx_import:
     path: 'crcmds/crcmds.zip'
   ekylibre_fixed_assets:

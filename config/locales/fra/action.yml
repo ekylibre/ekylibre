@@ -1205,6 +1205,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    set_activity_budget_on_jei: "Affecter cet element analytique à la selection"
     gap_real_estimated_vine_stock: "Écart Pieds productifs estimés/réels"
     plants_count: "Pieds productifs réels"
     specie_variety_name: 'Variété / Cépage'
@@ -3950,6 +3951,8 @@ fra:
       success: "Opération réussie\_!"
       warning: "Attention\_!"
     messages:
+      jei_updated_with_activity_budget: "%{count} écriture(s) comptable(s) ont été affecté au budget %{budget_name} pour un montant total de %{amount}€"
+      missing_activity_budget: "Aucun budget n'est présent"
       no_reference_budget_found: "Aucun budget de référence n'a été trouvé pour cette activité"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page."
       accounts_cannot_be_truncated_to_preference:
