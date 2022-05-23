@@ -418,6 +418,12 @@ class Journal < ApplicationRecord
         from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
       end
 
+      if options[:activity_budget_id] && options[:activity_budget_id] == 'only_nil'
+        from_where << " AND #{journal_entry_items}.activity_budget_id IS NULL"
+      elsif options[:activity_budget_id] && options[:activity_budget_id] != 'only_nil'
+        from_where << " AND #{journal_entry_items}.activity_budget_id = #{options[:activity_budget_id]}"
+      end
+
       values = expression.split(/\,/).collect do |expr|
         words = expr.strip.split(/\s+/)
         direction = 1

@@ -52,6 +52,18 @@ class EconomicIndicator < ApplicationRecord
         key = :gross_margin
         # compute ratio for activity (indirects) loans, depreciations and salary
         ratio = main_indicator.first.generate_ratio(target_activity, key = key)
+        # build fixed_direct_charges (worker, loan and fixed asset directly set on target_activity)
+        fixed_direct_charges = 0.0
+        options = { activity_id: target_activity.id }
+        # direct charge on budget
+        fixed_direct_charges += indicators.find_by(economic_indicator: 'fixed_direct_charge')&.amount.to_f.round(2)
+        # loan repayments charge amount && depreciations charges
+        fixed_direct_charges += EconomicIndicator.loan_repayments_charges_amount(campaign, options).to_f.round(2)
+        fixed_direct_charges += EconomicIndicator.depreciations_charges_amount(campaign, options).to_f.round(2)
+        # worker contracts directly on activities
+        fixed_direct_charges += WorkerContract.where(distribution_key: 'percentage').annual_cost(%w[permanent_worker temporary_worker external_staff], campaign, true, target_activity).to_f.round(2)
+        fixed_direct_charges += WorkerContract.where(distribution_key: 'percentage').annual_cost(%w[permanent_worker], campaign, false, target_activity).to_f.round(2)
+
         # build items
         items[:total_area] = main_indicator.first.activity_size_value.to_f.round(2)
         items[:area_unit] = main_indicator.first.activity_size_unit
@@ -59,18 +71,32 @@ class EconomicIndicator < ApplicationRecord
         items[:main_product_variety] = ActivityBudget.find_by(activity_id: target_activity.id, campaign_id: campaign.id)&.variety_output
         items[:main_product_yield] = ActivityBudget.find_by(activity_id: target_activity.id, campaign_id: campaign.id)&.estimate_yield.to_f.round(2)
         items[:main_product_yield_unit_id] = main_indicator.first.output_variant_unit_id
+        # PLANNED VALUES
         items[:proportional_main_product_products] = main_indicator.first.amount.to_f.round(2) || 0.0
         items[:fixed_direct_products] = indicators.find_by(economic_indicator: 'other_direct_product')&.amount.to_f.round(2) || 0.0
         items[:proportional_direct_charges] = indicators.find_by(economic_indicator: 'proportional_direct_charge')&.amount.to_f.round(2) || 0.0
-        items[:fixed_direct_charges] = indicators.find_by(economic_indicator: 'fixed_direct_charge')&.amount.to_f.round(2) || 0.0
+        items[:fixed_direct_charges] = fixed_direct_charges
         items[:gross_margin] = EconomicIndicator.activity_gross_margin_amount(target_activity, campaign).to_f.round(2) || 0.0
         items[:activity_indirect_products] = { activity_value: (EconomicIndicator.activity_indirect_amount(campaign, :global_indirect_product).to_f.round(2) || 0.0) * ratio, activity_ratio: ratio }
         items[:activity_cash_provisions] = { activity_value: 0.0, activity_ratio: ratio }
         items[:activity_indirect_charges] = { activity_value: (EconomicIndicator.activity_indirect_amount(campaign, :global_indirect_charge).to_f.round(2) || 0.0) * ratio, activity_ratio: ratio }
-        items[:activity_employees_wages] = { activity_value: ((WorkerContract.annual_cost(%w[permanent_worker temporary_worker external_staff], campaign, true).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
+        items[:activity_employees_wages] = { activity_value: ((WorkerContract.where.not(distribution_key: 'percentage').annual_cost(%w[permanent_worker temporary_worker external_staff], campaign, true).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
         items[:activity_depreciations_charges] = { activity_value: ((EconomicIndicator.depreciations_charges_amount(campaign).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
         items[:activity_loans_charges] = { activity_value: ((EconomicIndicator.loan_repayments_charges_amount(campaign).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
-        items[:activity_farmer_wages] = { activity_value: ((WorkerContract.annual_cost(%w[permanent_worker], campaign, false).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
+        items[:activity_farmer_wages] = { activity_value: ((WorkerContract.where.not(distribution_key: 'percentage').annual_cost(%w[permanent_worker], campaign, false).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
+        # REALISED VALUES
+        items[:real_proportional_main_product_products] = main_indicator.first.compute_realised_element(:main_direct_products)
+        items[:real_fixed_direct_products] = main_indicator.first.compute_realised_element(:fixed_direct_products)
+        items[:real_proportional_direct_charges] = main_indicator.first.compute_realised_element(:proportional_direct_charges)
+        items[:real_fixed_direct_charges] = main_indicator.first.compute_realised_element(:fixed_direct_charges)
+        items[:real_gross_margin] = (items[:real_proportional_main_product_products] + items[:real_fixed_direct_products]) - (items[:real_proportional_direct_charges] + items[:real_fixed_direct_charges])
+        items[:real_activity_indirect_products] = { activity_value: main_indicator.first.compute_realised_element(:indirect_products, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_cash_provisions] = { activity_value: main_indicator.first.compute_realised_element(:cash_provisions, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_indirect_charges] = { activity_value: main_indicator.first.compute_realised_element(:indirect_charges, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_employees_wages] = { activity_value: main_indicator.first.compute_realised_element(:employees_wages, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_depreciations_charges] = { activity_value: main_indicator.first.compute_realised_element(:depreciations_charges, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_loans_charges] = { activity_value: main_indicator.first.compute_realised_element(:loans_charges, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_farmer_wages] = { activity_value: main_indicator.first.compute_realised_element(:farmer_wages, :all) * ratio, activity_ratio: ratio }
         items
       else
         nil
@@ -181,6 +207,19 @@ class EconomicIndicator < ApplicationRecord
     else
       ratio.round(2)
     end
+  end
+
+  # get accountancy element
+  # on activity periods
+  # where activity_budget_id present on jei
+  # with accountancy mandatary indicator
+  def compute_realised_element(accountancy_indicator = nil, mode = :activity)
+    if mode == :activity
+      current_compute = EconomicAccountancyComputation.new(self.campaign, self.activity)
+    elsif mode == :all
+      current_compute = EconomicAccountancyComputation.new(self.campaign)
+    end
+    current_compute.sum_entry_items_by_line(accountancy_indicator)
   end
 
 end

@@ -20,3 +20,9 @@
 = field_set(:worker_options) do
   = f.input :salaried
   = f.input :stopped_at
+
+= field_set(:analytic_options) do
+  .auxiliary-nature-options
+    = f.input :distribution_key, as: :radio_buttons, show: '#{{value}}_options'
+    = field_set(:percentage_options) do
+      = f.nested_association(:distributions)

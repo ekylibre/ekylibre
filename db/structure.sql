@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.5 (Ubuntu 13.5-2.pgdg20.04+1)
--- Dumped by pg_dump version 13.5 (Ubuntu 13.5-2.pgdg20.04+1)
+-- Dumped from database version 13.7 (Ubuntu 13.7-1.pgdg20.04+1)
+-- Dumped by pg_dump version 13.7 (Ubuntu 13.7-1.pgdg20.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -35,6 +35,13 @@ CREATE SCHEMA postgis;
 --
 
 CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -8940,7 +8947,7 @@ CREATE TABLE public.ride_sets (
     id integer NOT NULL,
     started_at timestamp without time zone,
     stopped_at timestamp without time zone,
-    road integer,
+    road numeric(19,4),
     nature character varying,
     sleep_count integer,
     provider jsonb,
@@ -10293,6 +10300,43 @@ ALTER SEQUENCE public.wine_incoming_harvests_id_seq OWNED BY public.wine_incomin
 
 
 --
+-- Name: worker_contract_distributions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_contract_distributions (
+    id integer NOT NULL,
+    worker_contract_id integer NOT NULL,
+    affectation_percentage numeric(19,4) NOT NULL,
+    main_activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: worker_contract_distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_contract_distributions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_contract_distributions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_contract_distributions_id_seq OWNED BY public.worker_contract_distributions.id;
+
+
+--
 -- Name: worker_contracts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10314,7 +10358,8 @@ CREATE TABLE public.worker_contracts (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    distribution_key character varying
 );
 
 
@@ -11937,6 +11982,13 @@ ALTER TABLE ONLY public.wine_incoming_harvest_storages ALTER COLUMN id SET DEFAU
 --
 
 ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextval('public.wine_incoming_harvests_id_seq'::regclass);
+
+
+--
+-- Name: worker_contract_distributions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contract_distributions ALTER COLUMN id SET DEFAULT nextval('public.worker_contract_distributions_id_seq'::regclass);
 
 
 --
@@ -14030,6 +14082,14 @@ ALTER TABLE ONLY public.wine_incoming_harvest_storages
 
 ALTER TABLE ONLY public.wine_incoming_harvests
     ADD CONSTRAINT wine_incoming_harvests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_contract_distributions worker_contract_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contract_distributions
+    ADD CONSTRAINT worker_contract_distributions_pkey PRIMARY KEY (id);
 
 
 --
@@ -24174,6 +24234,48 @@ CREATE INDEX index_wine_incoming_harvests_on_updater_id ON public.wine_incoming_
 
 
 --
+-- Name: index_worker_contract_distributions_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_created_at ON public.worker_contract_distributions USING btree (created_at);
+
+
+--
+-- Name: index_worker_contract_distributions_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_creator_id ON public.worker_contract_distributions USING btree (creator_id);
+
+
+--
+-- Name: index_worker_contract_distributions_on_main_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_main_activity_id ON public.worker_contract_distributions USING btree (main_activity_id);
+
+
+--
+-- Name: index_worker_contract_distributions_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_updated_at ON public.worker_contract_distributions USING btree (updated_at);
+
+
+--
+-- Name: index_worker_contract_distributions_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_updater_id ON public.worker_contract_distributions USING btree (updater_id);
+
+
+--
+-- Name: index_worker_contract_distributions_on_worker_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_worker_contract_id ON public.worker_contract_distributions USING btree (worker_contract_id);
+
+
+--
 -- Name: index_worker_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24510,29 +24612,6 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
-
-
---
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -24559,6 +24638,29 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
+
+
+--
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
 
 
 --
@@ -26351,4 +26453,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220414120336'),
 ('20220429082601'),
 ('20220429184701'),
-('20220505102323');
+('20220505102323'),
+('20220510111701'),
+('20220512094001'),
+('20220512132701');
+
+

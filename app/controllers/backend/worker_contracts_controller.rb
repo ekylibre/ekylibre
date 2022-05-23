@@ -37,5 +37,11 @@ module Backend
       t.column :description
     end
 
+    # List of distribution for one worker_contract
+    list(:distributions, model: :worker_contract_distributions, conditions: { worker_contract_id: 'params[:id]'.c }) do |t|
+      t.column :affectation_percentage, percentage: true
+      t.column :main_activity, url: true
+    end
+
   end
 end
