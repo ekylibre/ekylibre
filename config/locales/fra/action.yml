@@ -4030,6 +4030,7 @@ fra:
       financial_year_is_not_past: "L'exercice est encore en cours."
       financial_year_x_could_not_be_closed: "L'exercice %{name} n'a pas pu être clos."
       financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
+      financial_year_exchange_deposit: "La remise en banque n'a pas pu se créer. Un échange comptable est en cours sur l'exercice comptable : %{code}"
       financial_year_x_successfully_closed: "L'exercice %{name} est clos !"
       financial_years_missing: "Vous devez créer tous les exercices comptables manquant depuis le premier exercice enregistré"
       financial_years_missing_tax_declarations: "Vous devez créer toutes les déclarations des exercices suivants\_: %{codes}"

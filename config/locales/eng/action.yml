@@ -1287,6 +1287,7 @@ eng:
       expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
       expired: "has expired, please request a new one"
       financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
+      financial_year_exchange_deposit: "The deposit could not be created. An financial year exchange is in progress on the accounting year : %{code}"
       financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
       financial_year_not_found: "There is no financial year at this date"
       greater_than: "%{attribute} must be greater than %{count}"
