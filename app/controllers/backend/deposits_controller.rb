@@ -118,14 +118,21 @@ module Backend
 
       payment_ids = permitted_params['payment_ids']
       permitted_params.except!('payment_ids')
-      @deposit = Deposit.new(permitted_params)
-      if @deposit.present?
-        @deposit.save!
-        notify_success(:deposit_in_preparation)
-        DepositPaymentsJob.perform_later(id: @deposit.id, payment_ids: payment_ids, user_id: current_user.id)
+
+      fye = find_fy_exchange(payment_ids)
+      if fye.present?
+        notify_error :financial_year_exchange_deposit.tn(code: fye)
         redirect_to(backend_deposits_path)
       else
-        t3e mode: @deposit.mode.name
+        @deposit = Deposit.new(permitted_params)
+        if @deposit.present?
+          @deposit.save!
+          notify_success(:deposit_in_preparation)
+          DepositPaymentsJob.perform_later(id: @deposit.id, payment_ids: payment_ids, user_id: current_user.id)
+          redirect_to(backend_deposits_path)
+        else
+          t3e mode: @deposit.mode.name
+        end
       end
     end
 
@@ -183,6 +190,17 @@ module Backend
           return nil
         end
         mode
+      end
+
+      def find_fy_exchange(payment_ids)
+        payment_ids.map do |p_id|
+          fye = FinancialYearExchange.opened.at(IncomingPayment.find(p_id).paid_at)
+          if fye.any?
+            return fye.first.financial_year.code
+          end
+        end
+
+        return false
       end
   end
 end
