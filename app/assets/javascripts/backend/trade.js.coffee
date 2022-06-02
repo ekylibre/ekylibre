@@ -77,6 +77,12 @@
               item.find('.subscription_started_on').val('')
               item.find('.subscription_stopped_on').val('')
 
+            tradeType = item.data('tradeItem')
+            $taxSelector = item.find("*[data-trade-component='tax']")
+            if ['purchase', 'sale'].includes(tradeType)
+              tax_ids =  data.tax_ids[tradeType]
+            if tax_ids?
+              E.trade._handleTaxSelectorOptions($taxSelector, tax_ids)
 
             if !is_initialization && unit = data.unit
               if unit.name
@@ -112,9 +118,8 @@
               E.trade.updateUnitPretaxAmount(item)
               E.toggleValidateButton(item, false)
 
-
-              if data.tax_id?
-                item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
+              if tax_ids?
+                E.trade._handleTaxSelectorValue($taxSelector, tax_ids)
 
             # Compute totals
             if ['change', 'readystatechange'].includes event.type
@@ -124,6 +129,18 @@
             console.log("Error while retrieving price and tax fields content: #{error}")
       else
         console.warn "Cannot get variant ID"
+
+    _handleTaxSelectorValue: ($taxSelector, tax_ids) ->
+      if tax_ids.length > 0
+        $taxSelector.val(tax_ids[0])
+    
+    _handleTaxSelectorOptions: ($taxSelector, tax_ids) ->
+      if tax_ids.length > 1
+        $taxSelector.children('option').toArray().map((option) ->
+          $(option).show()
+          if !tax_ids.includes(parseInt(option.value))
+            $(option).hide()
+        )
 
     round: (value, digits) ->
       magnitude = Math.pow(10, digits)

@@ -205,6 +205,7 @@ module Backend
       return unless @product_nature_variant = find_and_check
 
       product_nature = @product_nature_variant.nature
+      product_category = @product_nature_variant.category
       stock = @product_nature_variant.current_stock(into_default_unit: true)
       conditioning = Unit.find_by_id(params[:conditioning_id])
       reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : Time.now
@@ -219,7 +220,11 @@ module Backend
         default_unit_name: @product_nature_variant.default_unit_name.l.pluralize(stock == 0 ? 1 : stock),
         default_unit_stock: stock,
         default_unit_id: @product_nature_variant.default_unit_id,
-        is_equipment: @product_nature_variant.is_a?(::Variants::EquipmentVariant)
+        is_equipment: @product_nature_variant.is_a?(::Variants::EquipmentVariant),
+        tax_ids: {
+          sale: product_category.sale_taxations.collect(&:tax).collect(&:id),
+          purchase: product_category.purchase_taxations.collect(&:tax).collect(&:id)
+        }
       }
 
       if product_nature.subscribing?
@@ -335,9 +340,9 @@ module Backend
           item = nil
         end
         if item
-          infos[:unit][:conditioning_id] = item.conditioning_unit_id
-          infos[:unit][:name] = item.conditioning_unit.name
-          conditioning = item.conditioning_unit
+          infos[:unit][:conditioning_id] = item.unit_id
+          infos[:unit][:name] = item.unit.name
+          conditioning = item.unit
         else
           infos[:unit][:conditioning_id] = @product_nature_variant.default_unit_id
           infos[:unit][:name] = @product_nature_variant.default_unit.name
