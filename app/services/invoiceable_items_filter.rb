@@ -13,7 +13,7 @@ class InvoiceableItemsFilter
           role: item.role,
           conditioning_quantity: item.conditioning_quantity,
           conditioning_unit_id: item.conditioning_unit_id,
-          tax_id: item.purchase_order_item&.tax_id,
+          tax_id: item.purchase_order_item&.tax_id || item.variant.category.purchase_taxes&.ids&.first,
           activity_budget_id: item.activity_budget_id,
           project_budget_id: item.project_budget_id,
           team_id: item.team_id,
