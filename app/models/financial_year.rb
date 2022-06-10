@@ -545,11 +545,19 @@ class FinancialYear < ApplicationRecord
   end
 
   def balanced_balance_sheet?(timing = :prior_to_closure)
-    return Journal.sum_entry_items('1 2 3 4 5 6 7 8', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
-
+    all_account_numbers_to_check = '1 2 3 4 5 6 7 8'
     computation = AccountancyComputation.new(self)
     balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
-    balance_sheet_balance.zero?
+    result = balance_sheet_balance.zero?
+    if timing == :prior_to_closure
+      return false unless Journal.sum_entry_items(all_account_numbers_to_check, started_on: started_on, stopped_on: stopped_on).zero?
+    end
+    result
+  end
+
+  def balanced_waiting_cash_account?
+    cash_waiting_account_to_check = '58'
+    Journal.sum_entry_items(cash_waiting_account_to_check, started_on: started_on, stopped_on: stopped_on).zero?
   end
 
   def previous_year_result_carried_forward?
