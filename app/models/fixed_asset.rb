@@ -284,9 +284,9 @@ class FixedAsset < ApplicationRecord
   protect on: :update do
     return true if (old_record.scrapped? || old_record.sold?)
 
-    if (!depreciations.all?(&:destroyable?) || (journal_entry && journal_entry.confirmed?))
-      authorized_columns = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on updater_id updated_at]
-      (changes.keys - authorized_columns).any?
+    if depreciations.any?(&:locked_or_journal_entry_confirmed?) || (journal_entry && journal_entry.confirmed?)
+      AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on updater_id updated_at state].freeze
+      (changes.keys - AUTHORIZED_COLUMNS).any?
     else
       false
     end
