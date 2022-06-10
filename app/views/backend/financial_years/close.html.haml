@@ -21,6 +21,7 @@
                drafts_empty: @financial_year.no_draft_entry?,
                entries_balanced: @financial_year.no_entry_to_balance?,
                no_entries_on_radicals: @financial_year.unbalanced_radical_account_classes_array.empty?,
+               balanced_waiting_cash_account: @financial_year.balanced_waiting_cash_account?,
                balanced_balance_sheet: @financial_year.balanced_balance_sheet?,
                previous_year_result_carried_forward: @financial_year.previous_year_result_carried_forward?)
 
