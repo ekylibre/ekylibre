@@ -86,6 +86,10 @@ class FixedAssetDepreciation < ApplicationRecord
   end
 
   protect on: :destroy do
+    locked_or_journal_entry_confirmed?
+  end
+
+  def locked_or_journal_entry_confirmed?
     locked || (journal_entry && journal_entry.confirmed?)
   end
 
