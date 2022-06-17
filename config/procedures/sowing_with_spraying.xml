@@ -54,6 +54,15 @@
                  if="PRODUCT.net_volume? and sum_working_zone_areas(land_parcel) != 0"
                  backward="(POPULATION * PRODUCT.net_volume(liter)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_volume(liter)"/>
+        <handler indicator="specific_weight" unit="kilogram_per_hectoliter"
+                 if="PRODUCT.net_mass? and sum_working_zone_areas(land_parcel) != 0 and (product_usages_among_dimensions(PRODUCT, :mass) == 1)"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram) / ((SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare))"
+                 forward="(VALUE * (SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_mass(kilogram)"/>
+        <handler indicator="volume_density" unit="liter_per_hectoliter"
+                 if="PRODUCT.net_volume? and sum_working_zone_areas(land_parcel) != 0 and (product_usages_among_dimensions(PRODUCT, :volume) == 1)"
+                 backward="POPULATION * PRODUCT.net_volume(liter) / ((SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare))"
+                 forward="(VALUE * (SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_volume(liter)"/>
+        <attribute name="spray_volume_value" />
       </input>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>

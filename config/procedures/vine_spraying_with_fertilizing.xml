@@ -50,6 +50,15 @@
                  if="PRODUCT.net_volume? and sum_working_zone_areas(plant) != 0 and (product_usages_among_dimensions(PRODUCT, :volume) == 1)"
                  backward="(POPULATION * PRODUCT.net_volume(liter)) / sum_working_zone_areas(plant, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / PRODUCT.net_volume(liter)"/>
+        <handler indicator="specific_weight" unit="kilogram_per_hectoliter"
+                 if="PRODUCT.net_mass? and sum_working_zone_areas(plant) != 0 and (product_usages_among_dimensions(PRODUCT, :mass) == 1)"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram) / ((SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(plant, :hectare))"
+                 forward="(VALUE * (SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(plant, :hectare)) / PRODUCT.net_mass(kilogram)"/>
+        <handler indicator="volume_density" unit="liter_per_hectoliter"
+                 if="PRODUCT.net_volume? and sum_working_zone_areas(plant) != 0 and (product_usages_among_dimensions(PRODUCT, :volume) == 1)"
+                 backward="POPULATION * PRODUCT.net_volume(liter) / ((SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(plant, :hectare))"
+                 forward="(VALUE * (SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(plant, :hectare)) / PRODUCT.net_volume(liter)"/>
+        <attribute name="spray_volume_value" />
         <attribute name="usage_id" />
         <attribute name="allowed_entry_factor" />
         <attribute name="allowed_harvest_factor" />

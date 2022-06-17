@@ -1106,6 +1106,7 @@ fra:
       worker_time_log: "Saisie des temps"
       zone: "Zone"
   attributes:
+    spray_volume_value: "Volume de bouillie"
     attachement_presence: "Pièce de gestion"
     starting_year: "L’année de début"
     declared_area: "Superficie déclarée"

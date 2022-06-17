@@ -2557,6 +2557,7 @@ fra:
     mask_draft_items: "Retirer les lignes d'écriture en brouillard"
     mask_lettered_items: "Masquer les lignes lettrées"
     mass: "Masse"
+    spray_volume_should_be_defined: Le volume de bouillie doit être renseigné
     max_dose_unit_not_handled: "L’unité de la dose maximale d’application n’est pas prise en charge par Ekylibre" #?
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"

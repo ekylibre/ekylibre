@@ -152,23 +152,33 @@
     _displayDose: ($input, data) ->
       for key, value of data.dose_validation
         addedClass = if key == 'stop' then 'warning' else ''
-        $input.closest('.controls').find('.lights').addClass("lights-#{key}")
-        $input.closest('.controls').find('.lights-message').addClass(addedClass).text("#{value}")
+        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').addClass("lights-#{key}")
+        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').addClass(addedClass).text("#{value}")
 
     _clearLights: ($input) ->
-      $input.closest('.controls').find('.lights').removeClass("lights-go lights-caution lights-stop")
-      $input.closest('.controls').find('.lights-message').removeClass("warning")
+      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').removeClass("lights-go lights-caution lights-stop")
+      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').removeClass("warning")
 
     _retrieveValues: ($input, $productField) ->
       interventionId = $('input#intervention_id').val()
       inputId = $productField.find('#intervention_parameter_id').val()
       productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
       liveData = $productField.find('.intervention_inputs_using_live_data input').val()
-      quantity = $input.val()
+      quantity = $productField.find('.intervention_inputs_quantity input').val()
       unitName = $productField.find('.intervention_inputs_quantity select').get(0).selectedOptions[0].dataset.handlerUnit
       targetsData = retrieveTargetsData()
+      sprayVolume = $productField.find("[data-intervention-field='spray-volume']").first().val()
 
-      { product_id: productId, quantity: quantity, unit_name: unitName, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData }
+      {
+        product_id: productId,
+        quantity: quantity,
+        unit_name: unitName,
+        targets_data: targetsData,
+        intervention_id: interventionId,
+        input_id: inputId,
+        live_data: liveData
+        spray_volume: sprayVolume
+      }
 
 
   sprayingMap =
@@ -212,6 +222,32 @@
       $productSelector.data('selector', dataSelectorUrl)
       $productSelector.attr('data-selector', dataSelectorUrl)
 
+  sprayVolume = {
+    selectors: {
+      input: "[data-intervention-field='spray-volume']",
+    }
+
+    bindEvents: () ->
+      $(document).on 'input', @selectors.input, ->
+        $replicaInputs = $(sprayVolume.selectors.input).not("##{this.id}")
+        sprayVolume._updateReplicaInputs($replicaInputs, this.value)
+      
+      $(document).on 'cocoon:after-insert', '.nested-inputs', (_e, $insertedItem) ->
+        $replicaInput = $insertedItem.find(sprayVolume.selectors.input)
+        value = $(sprayVolume.selectors.input)
+          .toArray()
+          .filter( (e) -> e.value != '' )
+          .map( (e) -> e.value )[0]
+        sprayVolume._updateReplicaInputs($replicaInput, value || '', false)
+
+    _updateReplicaInputs: (replicaInputs, value, trigger = true ) ->
+      replicaInputs.each () ->
+        $(this).val(value)
+        $(this).trigger('change') if trigger
+  }
+
+  sprayVolume.bindEvents()
+
   # Update products infos on target remove
   $(document).on 'cocoon:after-remove', '.nested-targets', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
@@ -245,6 +281,10 @@
   # Update allowed doses on quantity change
   # And compute authorization badge again
   $(document).on 'input change', "input[data-intervention-field='quantity-value']", ->
+    productsInfos.display()
+    usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
+
+  $(document).on 'input change', "input[data-intervention-field='spray-volume']", ->
     productsInfos.display()
     usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 

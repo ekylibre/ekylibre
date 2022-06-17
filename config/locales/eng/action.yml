@@ -2591,6 +2591,7 @@ eng:
     mask_draft_items: "Mask draft items"
     mask_lettered_items: "Mask lettered items"
     mass: "Masse"
+    spray_volume_should_be_defined: Spray volume should be defined
     # max_dose_unit_not_handled: "Max dose unit not handled"
     maximal_temperature: "Maximal temperature"
     maximum_amount: "Maximum amount"

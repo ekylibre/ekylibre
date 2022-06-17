@@ -4565,6 +4565,10 @@ intervention_parameters:
     required: true
   specie_variety:
     type: jsonb
+  spray_volume_value:
+    type: decimal
+    precision: 19
+    scale: 4
   type:
     type: string
   unit_pretax_stock_amount:
