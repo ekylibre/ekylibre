@@ -501,6 +501,8 @@ eng:
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
+      opportunity: "Opportunity"
+      opportunities: "Opportunities"
       outgoing_payment: "Outgoing payment"
       outgoing_payment_list: "Disbursement list"
       outgoing_payment_mode: "Disbursement mode"
