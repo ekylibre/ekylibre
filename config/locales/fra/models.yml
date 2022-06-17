@@ -2020,6 +2020,8 @@ fra:
     operation: "Travail"
     operation_name: "Nom de l’opération"
     operations: "Travaux" #?
+    opportunity: "Opportunité"
+    opportunities: "Opportunités"
     ordered_at: "Commandé le"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?

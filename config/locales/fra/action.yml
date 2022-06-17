@@ -1042,6 +1042,8 @@ fra:
       create_modal:
         title: "Choisir une activité"
     leaflet:
+      zoomInTitle: "Zoomer"
+      zoomOutTitle: "Dézoomer"
       zoomGuidance: "Niveau de zoom insuffisant"
       interactive_maps: "Une librairie JavaScript pour des cartes interactives"
       fullscreenControl:
@@ -1205,7 +1207,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
-    set_activity_budget_on_jei: "Affecter cet element analytique à la selection"
+    set_activity_budget_on_jei: "Affecter cet élément analytique à la sélection"
     gap_real_estimated_vine_stock: "Écart Pieds productifs estimés/réels"
     plants_count: "Pieds productifs réels"
     specie_variety_name: 'Variété / Cépage'
@@ -2749,6 +2751,7 @@ fra:
     number_of_cap_islets: "Nombre d’ilôt PAC"
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_of_cap_neutral_areas: "Nombre d'élèments SNA"
+    number_of_tools: "Nombre d'outils"
     number_options: "Options de numérotations" #?
     number_with_param: "N° %{number}"
     numbers: "Numéros"

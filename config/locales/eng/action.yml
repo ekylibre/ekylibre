@@ -2724,6 +2724,7 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     number_of_cap_neutral_areas: "Number of cap neutral areas"
+    number_of_tools: "Number of tools"
     number_with_param: "N° %{number}"
     numbers: "Numbers"
     # objective_costs_per_hectare: "Objective costs per hectare"
