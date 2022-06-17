@@ -64,8 +64,9 @@
         = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
       
       - if f.object.spraying?
-        - f.object.settings.new(indicator_name: :spray_mix_volume_area_density) if f.object.settings.none?
-        = f.nested_association(:settings, new: false)
+        -# .master-spray-volume
+        -#   - f.object.settings.new(indicator_name: :spray_mix_volume_area_density) if f.object.settings.none?
+        -#   = f.nested_association(:settings, new: false)
         #parameter-settings
           = f.nested_association(:parameter_settings)
 

@@ -27,8 +27,9 @@ class RegisteredPhytosanitaryUsageDoseComputation
     else
       reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
       user_measure = compute_user_measure(measure, usage, product, targets_data, spray_volume)
-
-      if user_measure.present? && reference_measure.dimension == user_measure.dimension
+      if !measure.zero? && reference_measure.has_repartition_dimension?(:volume) && spray_volume.zero?
+        { none: :spray_volume_should_be_defined.tl }
+      elsif user_measure.present? && reference_measure.dimension == user_measure.dimension
         compute_dose_message(user_measure, reference_measure)
       else
         { none: :max_dose_unit_not_handled.tl }
