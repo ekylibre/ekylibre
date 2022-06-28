@@ -62,11 +62,18 @@
         - if [:zone, :plant,:land_parcel, :cultivation].include? parameter.name
           = render '/backend/interventions/crop_group_field', f: f
         = render '/backend/interventions/parameter_form', reference: parameter, f: f, namespace: ''
-      
       - if f.object.spraying?
-        -# .master-spray-volume
-        -#   - f.object.settings.new(indicator_name: :spray_mix_volume_area_density) if f.object.settings.none?
-        -#   = f.nested_association(:settings, new: false)
+        .master-spray-volume
+          :ruby
+            spray_volume = f.object.settings.new(indicator_name: :spray_mix_volume_area_density) if f.object.settings.none?
+
+            #copy spray volume error message from inputs to setting
+            if f.object.errors.has_key?(:"inputs.spray_volume_value")
+              spray_volume.errors.add(:measure_value_value, f.object.errors.full_messages_for(:"inputs.spray_volume_value").join)
+            end 
+
+          = f.nested_association(:settings, new: false, locals: { intervention_form: f })
+
         #parameter-settings
           = f.nested_association(:parameter_settings)
 

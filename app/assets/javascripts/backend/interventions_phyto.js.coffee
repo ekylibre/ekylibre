@@ -224,17 +224,18 @@
 
   sprayVolume = {
     selectors: {
-      input: "[data-intervention-field='spray-volume']",
+      primaryInput: ".master-spray-volume input[id$='measure_value_value']",
+      replicaInput: "[data-intervention-field='spray-volume']",
     }
 
     bindEvents: () ->
-      $(document).on 'input', @selectors.input, ->
-        $replicaInputs = $(sprayVolume.selectors.input).not("##{this.id}")
+      $(document).on 'input', @selectors.primaryInput, ->
+        $replicaInputs = $(sprayVolume.selectors.replicaInput)
         sprayVolume._updateReplicaInputs($replicaInputs, this.value)
       
       $(document).on 'cocoon:after-insert', '.nested-inputs', (_e, $insertedItem) ->
-        $replicaInput = $insertedItem.find(sprayVolume.selectors.input)
-        value = $(sprayVolume.selectors.input)
+        $replicaInput = $insertedItem.find(sprayVolume.selectors.replicaInput)
+        value = $(sprayVolume.selectors.replicaInput)
           .toArray()
           .filter( (e) -> e.value != '' )
           .map( (e) -> e.value )[0]
