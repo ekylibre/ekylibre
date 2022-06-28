@@ -1,6 +1,6 @@
 - main_toolbar do |t|
-  = t.edit
-  = t.destroy
+  = t.edit if resource.updateable?
+  = t.destroy if resource.destroyable?
 
 = main_state_bar(resource)
 
@@ -20,4 +20,3 @@
   - if resource.affair
     - c.cobble :affair do
       = affair_of(resource, default: 'PayslipPayment')
-
