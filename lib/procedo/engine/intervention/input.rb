@@ -12,7 +12,11 @@ module Procedo
           if @attributes[:usage_id].present?
             self.usage_id = @attributes[:usage_id]
           end
-          @spray_volume_value = @attributes[:spray_volume_value].to_d if @attributes[:spray_volume_value].present?
+          @spray_volume_value = if @attributes[:spray_volume_value].present?
+                                  @attributes[:spray_volume_value].to_d
+                                else
+                                  1
+                                end
         end
 
         def usage_id
