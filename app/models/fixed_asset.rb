@@ -183,22 +183,7 @@ class FixedAsset < ApplicationRecord
     self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
-
-    if depreciation_method_linear?
-      if started_on
-        months = 12 * (100.0 / depreciation_percentage.to_f)
-        self.stopped_on = started_on + months.floor.months
-        self.stopped_on += (months - months.floor) * 30.0 - 1
-      end
-    end
-    if depreciation_method_regressive?
-      self.depreciation_fiscal_coefficient ||= 1.75
-      if started_on
-        months = 12 * (100.0 / depreciation_percentage.to_f)
-        self.stopped_on = started_on >> months.floor
-        self.stopped_on += (months - months.floor) * 30.0 - 1
-      end
-    end
+    set_stopped_on
     true
   end
 
@@ -285,7 +270,7 @@ class FixedAsset < ApplicationRecord
     return true if (old_record.scrapped? || old_record.sold?)
 
     if depreciations.any?(&:locked_or_journal_entry_confirmed?) || (journal_entry && journal_entry.confirmed?)
-      AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on updater_id updated_at state].freeze
+      AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on scrapped_on updater_id updated_at state].freeze
       (changes.keys - AUTHORIZED_COLUMNS).any?
     else
       false
@@ -294,6 +279,26 @@ class FixedAsset < ApplicationRecord
 
   protect on: :destroy do
     (waiting? && waiting_journal_entry&.confirmed?) || (in_use? && journal_entry&.confirmed?) || scrapped? || sold? || !depreciations.all?(&:destroyable?)
+  end
+
+  def set_stopped_on
+    return if %w[sold scrapped].include?(state)
+
+    if depreciation_method_linear?
+      if started_on
+        months = 12 * (100.0 / depreciation_percentage.to_f)
+        self.stopped_on = started_on + months.floor.months
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
+    end
+    if depreciation_method_regressive?
+      self.depreciation_fiscal_coefficient ||= 1.75
+      if started_on
+        months = 12 * (100.0 / depreciation_percentage.to_f)
+        self.stopped_on = started_on >> months.floor
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
+    end
   end
 
   def on_unclosed_periods?

@@ -33,6 +33,7 @@ class FixedAsset
           resource.depreciations.update_all locked: true
 
           resource.product.update! dead_at: scrapped_on
+          resource.update_columns stopped_on: scrapped_on
         end
       end
 
