@@ -11,8 +11,8 @@ module Backend
     end
 
     list(joins: %i[affair employee], order: { emitted_on: :desc }) do |t|
-      t.action :edit
-      t.action :destroy
+      t.action :edit, if: :updateable?
+      t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :employee, url: true
       t.column :emitted_on
