@@ -23,6 +23,7 @@ eng:
     agro_systemes_water_analyses: "AGRO Systèmes water analyses"
     agroedi_daplos: "Plant production"
     bordeaux_sciences_agro_istea_balance: "Accounting balance ‒ ISTEA ‒ Bordeaux Sciences Agro"
+    bordeaux_sciences_agro_istea_fec_txt: "FEC import (TXT) ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     # bordeaux_sciences_agro_istea_journal_entries: "Bordeaux sciences agro istea journal entries"
     bovins_croissance_cattle_performance_controls: "Bovins Croissance cattle performance controls"
     caj_incoming_deliveries: "Caj incoming deliveries"
