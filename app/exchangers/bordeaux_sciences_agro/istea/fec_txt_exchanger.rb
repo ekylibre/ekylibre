@@ -2,119 +2,150 @@
 
 module BordeauxSciencesAgro
   module Istea
-    class JournalEntriesExchanger < ActiveExchanger::Base
+    class FecTxtExchanger < ActiveExchanger::Base
       category :accountancy
       vendor :bordeaux_sciences_agro
 
-      def check
-        # Imports journal entries into journal to make accountancy in CSV format
-        # filename example : 17005534_EXPORT_ECRITURES_COMPTABLES.TXT
-        # Columns are:
-        #  0 - A: journal number : "90"
-        #  1 - B: journal code : "STD"
-        #  2 - C: printed_on : "01/01/2017"
-        #  3 - D: entry code : "STOCK"
-        #  4 - E: entry label : "FAçON CULTURALE"
-        #  5 - F: ??
-        #  6 - G: account number : "34150000"
-        #  7 - H: activity code : "3000"
-        #  8 - I: ?? : "16"
-        #  9 - J: activity name : "ENSILAGE MAIS"
-        #  10 - K: quantity : "154.000"
-        #  11 - L: quantity_unit : "T"
-        #  17 - R: entry item label : "FC 1100 BLE TENDRE"
-        #  18 - S: debit : ""
-        #  19 - T: credit : "430.50"
-        #  21 - V: pretax_amount : "430.50"
+      #  0 - A: JournalCode : "2"
+      #  1 - B: JournalLib : "BILAN D'OUVERTURE"
+      #  2 - C: EcritureNum : "0"
+      #  3 - D: EcritureDate : "20190401"
+      #  4 - E: CompteNum : "468600000"
+      #  5 - F: CompteLib : "Charges à payer"
+      #  6 - G: CompAuxNum : ""
+      #  7 - H: CompAuxLib : ""
+      #  8 - I: PieceRef : "Anouveau"
+      #  9 - J: PieceDate : "20190401"
+      #  10 - K: EcritureLib : "A nouveau"
+      #  11 - L: Debit : "0"
+      #  12 - M: Credit : "2981,42"
+      #  13 - N: EcritureLet : "A"
+      #  14 - O: DateLet : "20190401"
+      #  15 - P: ValidDate : "20200428"
+      #  16 - Q: MontantDevise
+      #  17 - R: Idevise
+      NORMALIZATION_CONFIG = [
+        { col: 0, name: :journal_code, type: :string },
+        { col: 1, name: :journal_lib, type: :string },
+        { col: 2, name: :continuous_number, type: :string },
+        { col: 3, name: :printed_on, type: :date },
+        { col: 4, name: :account_number, type: :string },
+        { col: 5, name: :account_name, type: :string },
+        { col: 6, name: :auxiliary_account_number, type: :string },
+        { col: 7, name: :auxiliary_account_name, type: :string },
+        { col: 8, name: :item_name, type: :string },
+        { col: 9, name: :item_printed_on, type: :date },
+        { col: 10, name: :entry_item_name, type: :string },
+        { col: 11, name: :debit_amount, type: :float },
+        { col: 12, name: :credit_amount, type: :float },
+        { col: 13, name: :entry_item_letter, type: :string },
+        { col: 14, name: :entry_item_lettered_on, type: :string },
+        { col: 15, name: :validated_on, type: :date },
+        { col: 16, name: :currency_value, type: :float },
+        { col: 17, name: :currency_id, type: :string }
+      ].freeze
 
-        source = File.read(file)
-        detection = CharlockHolmes::EncodingDetector.detect(source)
-        rows = CSV.read(file, headers: false, encoding: detection[:encoding], col_sep: ';')
+      def check
+        # Imports FEC journal entries into journal to make accountancy in CSV format
+        # From local software ISTEA
+        # filename example : FEC20201231.TXT
+        # separator is '|' and encoding is UTF-8
+
+        rows, errors = parse_file(file)
         w.count = rows.size
 
-        valid = true
-
-        fy_start = FinancialYear.at(Date.parse(rows.first[2]))
-        fy_stop = FinancialYear.at(Date.parse(rows.last[2]))
-        unless fy_start && fy_stop
-          valid = false
+        valid = errors.all?(&:empty?)
+        if valid == false
+          w.error "The file is invalid: #{errors}"
+          return false
         end
 
         rows.each_with_index do |row, index|
           line_number = index + 2
-          r = parse_row(row)
           # w.check_point
 
-          if r.pretax_base == 0.0 && (r.debit_amount - r.credit_amount) == 0.0
+          fy_start = FinancialYear.at(row.printed_on)
+          unless fy_start
+            w.error "FinancialYear does not exist for #{row.printed_on} in line : #{line_number} - #{valid}".red
             valid = false
           end
 
-          if r.account_number.blank? || r.printed_on.blank? || r.entry_name.blank?
+          if (row.debit_amount - row.credit_amount) == 0.0
+            w.error "Errors on amount in line : #{line_number} - #{valid}".red
+            valid = false
+          end
+
+          if row.account_number.blank? || row.printed_on.blank? || row.item_name.blank?
+            w.error "Errors on account (#{row.account_number}) or printed_on (#{row.printed_on.to_s}) or item_name (#{row.item_name}) in line : #{line_number} - #{valid}".red
             valid = false
           end
 
           w.info "#{line_number} - #{valid}".green
         end
+        w.info "End validation : #{valid}".yellow
         valid
       end
 
       def import
-        source = File.read(file)
-        detection = CharlockHolmes::EncodingDetector.detect(source)
-        rows = CSV.read(file, headers: false, encoding: detection[:encoding], col_sep: ';')
+        rows, _errors = parse_file(file)
         w.count = rows.size
 
+        # find or create a unique journal for ODICOM
         journal = find_or_create_journal('ISTE', 'Import ISTEA', 'various')
 
         entries = {}
-
         rows.each_with_index do |row, index|
           line_number = index + 2
-          r = parse_row(row)
 
           # case of negative values
-          if r.debit_amount < 0.0
-            r.credit_amount = -r.debit_amount
-            r.debit_amount = 0.0
+          if row.debit_amount < 0.0
+            row.credit_amount = -row.debit_amount
+            row.debit_amount = 0.0
           end
 
-          if r.credit_amount < 0.0
-            r.debit_amount = -r.credit_amount
-            r.credit_amount = 0.0
+          if row.credit_amount < 0.0
+            row.debit_amount = -row.credit_amount
+            row.credit_amount = 0.0
           end
 
-          number = r.printed_on.to_s + '_' + r.journal_name + '_' + r.entry_name
+          number = row.continuous_number.gsub(/(-|_|\s)/, 'I')
+
           w.info "--------------------index : #{index} | number : #{line_number}--------------------------"
 
-          unless entries[number]
-            entries[number] = {
-              printed_on: r.printed_on,
-              journal: journal,
-              number: line_number,
-              currency: journal.currency,
-              items_attributes: {}
-            }
+          # create entry attributes
+
+          entries[number] ||= {
+            printed_on: row.printed_on,
+            journal: journal,
+            number: number,
+            currency: journal.currency,
+            provider: provider_value,
+            items_attributes: {}
+          }
+
+          # create account
+          if row.account_number.start_with?(client_account_radix, supplier_account_radix)
+            account = find_or_create_account(row.account_number, row.account_name)
+            find_or_create_entities(row.printed_on, account, row.account_number)
+            w.info "third account & entity created: #{account.label.inspect.green}"
+          else
+            account = find_or_create_account(row.account_number, row.account_name)
+            w.info "account created: #{account.label.inspect.green}"
           end
 
-          if r.account_number && r.entry_name
-            account = find_or_create_account(r.account_number, r.entry_name)
-            if r.account_number.start_with?(client_account_radix, supplier_account_radix)
-              find_or_create_entity(r.printed_on, account, r.entry_name)
-            end
-            w.info "account : #{account.label.inspect.red}"
-          end
-
+          # create entry item attributes
           id = (entries[number][:items_attributes].keys.max || 0) + 1
           entries[number][:items_attributes][id] = {
-            real_debit: r.debit_amount.to_f,
-            real_credit: r.credit_amount.to_f,
+            real_debit: row.debit_amount.to_f,
+            real_credit: row.credit_amount.to_f,
             account: account,
-            name: r.entry_item_name
+            name: row.entry_item_name
           }
           w.check_point
         end
 
         w.reset!(entries.keys.size)
+        # create entry
         entries.values.each do |entry|
           w.info "JE : #{entry}".inspect.yellow
           j = JournalEntry.create!(entry)
@@ -144,7 +175,7 @@ module BordeauxSciencesAgro
         def find_account_by_provider(account_number)
           unwrap_one('account') do
             Account.of_provider_name(self.class.vendor, provider_name)
-                  .of_provider_data(:account_number, account_number)
+                   .of_provider_data(:account_number, account_number)
           end
         end
 
@@ -173,8 +204,7 @@ module BordeauxSciencesAgro
             aux_number = acc_number[client_account_radix.length..-1]
 
             if aux_number.match(/\A0*\z/).present?
-              aux_number = acc_name.delete(' ').upcase[0..8]
-              # raise StandardError.new("Can't create account. Number provided (#{aux_number}) can't be a radical class")
+              raise StandardError.new("Can't create account. Number provided (#{aux_number}) can't be a radical class")
             end
 
             attrs = attrs.merge(
@@ -183,61 +213,52 @@ module BordeauxSciencesAgro
               nature: 'auxiliary'
             )
           end
+
           Account.create!(attrs)
         end
 
         # @return [String]
         def client_account_radix
-          @client_account_radix ||= (Preference.value(:client_account_radix).presence || '411')
+          @client_account_radix ||= Preference.value(:client_account_radix).presence || '411'
         end
 
         # @return [String]
         def supplier_account_radix
-          @supplier_account_radix ||= (Preference.value(:supplier_account_radix).presence || '401')
+          @supplier_account_radix ||= Preference.value(:supplier_account_radix).presence || '401'
         end
 
         # @param [Date] period_started_on
         # @param [Account] acc
         # @return [Entity]
-        def find_or_create_entity(period_started_on, acc, provider_account_number)
-          entity = Maybe(find_entity_by_provider(provider_account_number))
-            .recover { find_entity_by_account(acc) }
-            .recover { create_entity(period_started_on, acc, provider_account_number) }
+        def find_or_create_entities(period_started_on, acc, provider_account_number)
+          Maybe(find_entities_by_provider(provider_account_number))
+            .recover { find_entities_by_account(acc) }
+            .recover { [create_entity(period_started_on, acc, provider_account_number)] }
             .or_raise
-
-          if entity.first_met_at.nil? || (period_started_on && period_started_on < entity.first_met_at.to_date)
-            entity.update!(first_met_at: period_started_on.to_datetime)
-          end
-
-          entity
         end
 
-        # @param [String] sage_account_number
-        # @return [Entity, nil]
-        def find_entity_by_provider(provider_account_number)
-          unwrap_one('entity') do
-            Entity.of_provider_name(self.class.vendor, provider_name)
-                  .of_provider_data(:account_number, provider_account_number)
-          end
+        # @param [String] provider_account_number
+        # @return [Array<Entity>]
+        def find_entities_by_provider(provider_account_number)
+          Entity.of_provider_name(self.class.vendor, provider_name)
+                .of_provider_data(:account_number, provider_account_number)
         end
 
         # @param [Account] account
-        # @return [Entity, nil]
-        def find_entity_by_account(account)
-          unwrap_one('entity') do
-            if account.centralizing_account_name == "clients"
-              Entity.where(client_account: account)
-            elsif account.centralizing_account_name == "suppliers"
-              Entity.where(supplier_account: account)
-            else
-              raise StandardError.new("Unreachable code!")
-            end
+        # @return [Array<Entity>]
+        def find_entities_by_account(account)
+          if account.centralizing_account_name == "clients"
+            Entity.where(client_account: account).to_a
+          elsif account.centralizing_account_name == "suppliers"
+            Entity.where(supplier_account: account).to_a
+          else
+            raise StandardError.new("Unreachable code!")
           end
         end
 
         # @param [Date] period_started_on
         # @param [Account] account
-        # @param [String] sage_account_number
+        # @param [String] provider_account_number
         # @return [Entity]
         def create_entity(period_started_on, account, provider_account_number)
           last_name = account.name.mb_chars.capitalize
@@ -293,20 +314,6 @@ module BordeauxSciencesAgro
           end
         end
 
-        def parse_row(row)
-          {
-            printed_on: Date.parse(row[2].to_s),
-            journal_name: row[3].to_s.strip,
-            entry_name: row[4].to_s.delete(" ").strip,
-            account_number: row[6].to_s.strip,
-            account_name: (row[9].blank? ? nil : row[9].to_s.strip),
-            entry_item_name: row[17].to_s.strip,
-            debit_amount: (row[18].blank? ? 0.0 : row[18].tr(',', '.').to_d),
-            credit_amount: (row[19].blank? ? 0.0 : row[19].tr(',', '.').to_d),
-            pretax_base: (row[21].blank? ? 0.0 : row[21].tr(',', '.').to_d)
-          }.to_struct
-        end
-
       protected
 
         def unwrap_one(name, exact: false, &block)
@@ -333,11 +340,18 @@ module BordeauxSciencesAgro
         end
 
         def provider_value(**data)
-          { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: { sender_infos: '', **data } }
+          { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: data }
         end
 
         def provider_name
           :journal_entries
+        end
+
+        def parse_file(file)
+          rows = ActiveExchanger::CsvReader.new(col_sep: '|').read(file)
+          parser = ActiveExchanger::CsvParser.new(NORMALIZATION_CONFIG)
+
+          parser.normalize(rows)
         end
     end
   end
