@@ -88,6 +88,7 @@ class ActivityBudgetItem < ApplicationRecord
   scope :expenses, -> { where(direction: :expense).includes(:variant) }
   scope :of_campaign, ->(campaign) { joins(:activity_budget).merge(ActivityBudget.of_campaign(campaign)) }
   scope :of_activity, ->(activity) { joins(:activity_budget).merge(ActivityBudget.of_activity(activity)) }
+  scope :of_main_output, -> { where(main_output: true) }
 
   before_validation do
     self.unit_currency = Preference[:currency] if unit_currency.blank?
@@ -103,6 +104,7 @@ class ActivityBudgetItem < ApplicationRecord
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
+    errors.add(:main_output, :empty) if direction == 'revenue' && main_output == false && activity_budget.revenues.of_main_output.none?
   end
 
   after_validation do
@@ -204,7 +206,7 @@ class ActivityBudgetItem < ApplicationRecord
   def duplicate!(updates = {})
     new_attributes = %i[
       activity_budget amount computation_method currency direction
-      nature origin frequency repetition used_on
+      nature origin frequency repetition used_on main_output
       quantity unit_amount unit_currency unit_population variant
       variant_indicator variant_unit unit_id
     ].each_with_object({}) do |attr, h|

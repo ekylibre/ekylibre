@@ -7,6 +7,8 @@
 - if Rails.env.development? && f.object.errors.any?
   = f.object.errors.inspect
 
+= f.error(:revenues)
+
 :ruby
   currency = Onoma::Currency.find(Preference[:currency])
   precision = currency.precision
