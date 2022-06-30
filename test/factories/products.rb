@@ -89,6 +89,10 @@ FactoryBot.define do
     derivative_of { :plant }
   end
 
+  factory :deliverable_product, class: Product do
+    association :variant, factory: :deliverable_variant
+  end
+
   factory :phytosanitary_product, class: Product do
     association :variant, factory: :plant_medicine_variant
     variety { :preparation }

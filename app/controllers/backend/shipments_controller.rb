@@ -151,7 +151,7 @@ module Backend
           purchase = Parcel.convert_to_purchase(parcels)
           redirect_to backend_purchase_path(purchase)
         elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
-          sale = Parcel.convert_to_sale(parcels)
+          sale = ParcelToSaleConverter.new(parcels: parcels).call
           redirect_to backend_sale_path(sale)
         end
       rescue ActiveRecord::RecordInvalid => error
