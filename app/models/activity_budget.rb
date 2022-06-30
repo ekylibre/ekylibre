@@ -55,6 +55,7 @@ class ActivityBudget < ApplicationRecord
   validates :activity, :campaign, presence: true
   # ]VALIDATORS]
   validates_associated :expenses, :revenues
+  validate :one_default_revenue_exist, if: -> { activity && activity.main? }
 
   scope :opened, -> { where(activity: Activity.actives) }
   scope :of_campaign, ->(campaign) { where(campaign: campaign) }
@@ -68,12 +69,19 @@ class ActivityBudget < ApplicationRecord
   delegate :size_indicator, :size_unit, to: :activity
   delegate :count, to: :productions, prefix: true
 
-  after_save do
-    items.revenues.first.update!(main_output: true) if items.revenues.any? && items.revenues.none?(&:main_output)
-  end
-
   before_validation on: :create do
     self.currency ||= Preference[:currency]
+    revenues.first.update!(main_output: true) if revenues.size == 1 && revenues.of_main_output.none?
+  end
+
+  def one_default_revenue_exist
+    if old_record.present?
+      if revenues.empty? && items.any?
+        errors.add(:revenues, :main_activity_must_have_one_product)
+      elsif !revenues.empty? && revenues.of_main_output.none?
+        errors.add(:revenues, :main_activity_must_have_one_default_product)
+      end
+    end
   end
 
   def expenses_amount

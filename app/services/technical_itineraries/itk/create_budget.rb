@@ -54,12 +54,13 @@ module TechnicalItineraries
           return nil
         end
         # find corresponding budget and remove all previous items
-        activity_budget = ActivityBudget.find_or_create_by!(activity_id: @activity.id, campaign_id: @campaign.id)
+        activity_budget = ActivityBudget.find_or_initialize_by(activity_id: @activity.id, campaign_id: @campaign.id)
+        activity_budget.currency = Preference[:currency]
         activity_budget.nature = 'compute_from_lexicon'
         activity_budget.technical_itinerary_id = technical_itinerary.id
         activity_budget.items&.where(origin: 'itk')&.destroy_all
-        # find ti from activity and campaing and set new ti
         activity_budget.save!
+        # find ti from activity and campaing and set new ti
 
         scenario_activity = ScenarioActivity.find_by(scenario: @scenario, activity: @activity)
         if scenario_activity
@@ -85,7 +86,11 @@ module TechnicalItineraries
         else
           @logger.error("No Budget item created because no direct fixed charges budget activity exist in Lexicon for #{@activity.name}")
         end
-
+        # check if only one revenue then set up main_product
+        activity_budget.reload
+        if activity_budget.revenues.size == 1 && activity_budget.revenues.pluck(:main_output).compact.uniq == [false]
+          activity_budget.revenues.first.update!(main_output: true)
+        end
       end
 
       # itk | dynamic
@@ -93,30 +98,32 @@ module TechnicalItineraries
         used_on = daily_charge.reference_date
         # quantity = daily_charge.quantity # in population of variant
         area_in_hectare = (daily_charge.area.to_f > 0.0 ? daily_charge.area : 1.0) # in hectare
-        itpp = InterventionTemplate::ProductParameter.find_by(id: daily_charge.intervention_template_product_parameter_id)
-        if itpp
-          variant = itpp.product_nature_variant
+        inter_template_prod_param = InterventionTemplate::ProductParameter.find_by(id: daily_charge.intervention_template_product_parameter_id)
+        if inter_template_prod_param
+          variant = inter_template_prod_param.product_nature_variant
           if variant
+            main_product = %i[output].include?(inter_template_prod_param.find_general_product_type) && %i[grain silage milk wine juice fermented_juice].include?(variant.variety.to_sym)
             # get quantity, unit and computation method return {computation_method: ,quantity: ,indicator: , unit: ,unit_amount:}
-            qup = find_quantity_unit_price(itpp, variant, area_in_hectare)
+            qup = find_quantity_unit_price(inter_template_prod_param, variant, area_in_hectare)
             unit = Unit.import_from_lexicon(qup[:unit])
           else
-            @logger.error("No Variant found for itpp ID : #{itpp.id}")
+            @logger.error("No Variant found for inter_template_prod_param ID : #{inter_template_prod_param.id}")
           end
         else
           @logger.error("No ITPP found for daily_charge ID : #{daily_charge.id}")
         end
 
         # create budget_item
-        if variant && used_on && itpp && qup.presence
+        if variant && used_on && inter_template_prod_param && qup.presence
           activity_budget_item = activity_budget.items.find_or_initialize_by(variant_id: variant.id, used_on: used_on, origin: :itk, nature: :dynamic)
           activity_budget_item.direction = qup[:direction]
           activity_budget_item.unit_id = unit.id if unit
-          activity_budget_item.product_parameter_id = itpp.id
+          activity_budget_item.product_parameter_id = inter_template_prod_param.id
           activity_budget_item.variant_indicator = qup[:indicator]
           activity_budget_item.computation_method = qup[:computation_method]
           activity_budget_item.quantity = qup[:quantity] || 1
           activity_budget_item.unit_amount = qup[:unit_amount] || 0.0
+          activity_budget_item.main_output = main_product
           activity_budget_item.save!
           @logger.info("budget_item_from_itk created for #{variant.name}")
         else
@@ -124,17 +131,17 @@ module TechnicalItineraries
         end
       end
 
-      def find_quantity_unit_price(itpp, variant, area_in_hectare)
+      def find_quantity_unit_price(inter_template_prod_param, variant, area_in_hectare)
         # for input only
         response = {}
-        quantity_in_unit = itpp.global_quantity_in_unit(area_in_hectare)
+        quantity_in_unit = inter_template_prod_param.global_quantity_in_unit(area_in_hectare)
         @logger.info("Quantity in unit is #{quantity_in_unit.inspect}")
 
-        if %i[input].include?(itpp.find_general_product_type)
+        if %i[input].include?(inter_template_prod_param.find_general_product_type)
           response[:computation_method] = :per_working_unit
           response[:direction] = :expense
           catalog = Catalog.where(usage: %w[cost purchase stock])
-        elsif %i[output].include?(itpp.find_general_product_type)
+        elsif %i[output].include?(inter_template_prod_param.find_general_product_type)
           response[:computation_method] = :per_working_unit
           response[:direction] = :revenue
           catalog = Catalog.where(usage: %w[cost sale])

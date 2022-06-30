@@ -89,6 +89,7 @@ activity_budget_items_003:
   direction: revenue
   id: 3
   lock_version: 1
+  main_output: true
   quantity: 70.0
   unit_amount: 15.2
   unit_currency: EUR
@@ -124,6 +125,7 @@ activity_budget_items_005:
   direction: revenue
   id: 5
   lock_version: 0
+  main_output: true
   quantity: 70.0
   unit_amount: 10.0
   unit_currency: EUR
