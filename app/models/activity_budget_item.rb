@@ -104,7 +104,7 @@ class ActivityBudgetItem < ApplicationRecord
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
-    errors.add(:main_output, :empty) if direction == 'revenue' && main_output == false && activity_budget.revenues.of_main_output.none?
+    errors.add(:main_output, :empty) if direction == 'revenue' && main_output == false && !activity_budget.revenues.map(&:main_output).include?(true)
   end
 
   after_validation do
