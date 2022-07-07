@@ -222,8 +222,10 @@ activities_006:
   measure_grading_sizes: false
   name: Vin
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   suspended: false
   updated_at: 2015-03-08 16:33:39.397458000 Z
@@ -245,8 +247,10 @@ activities_007:
   measure_grading_sizes: false
   name: Luzerne implantée pour la récolte 2015
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -271,8 +275,10 @@ activities_008:
   measure_grading_sizes: false
   name: Maïs (zea_mays)
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -297,8 +303,10 @@ activities_009:
   measure_grading_sizes: false
   name: Blé tendre d’hiver
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -323,8 +331,10 @@ activities_010:
   name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
     la récolte 2015 et de céréales
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -348,8 +358,10 @@ activities_011:
   measure_grading_sizes: false
   name: Ray-grass de 5 ans ou moins
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -373,8 +385,10 @@ activities_012:
   measure_grading_sizes: false
   name: Autre prairie temporaire de 5 ans ou moins
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -398,8 +412,10 @@ activities_013:
   measure_grading_sizes: false
   name: Blé dur d’hiver
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -424,8 +440,10 @@ activities_014:
   name: Mélange de légumineuses prépondérantes au semis et de graminées fourragères
     de 5 ans ou moins
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -449,8 +467,10 @@ activities_015:
   measure_grading_sizes: false
   name: Dactyle de 5 ans ou moins
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -475,8 +495,10 @@ activities_016:
   measure_grading_sizes: false
   name: Sorgho
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -501,8 +523,10 @@ activities_017:
   measure_grading_sizes: false
   name: Orge d'hiver
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -527,8 +551,10 @@ activities_018:
   measure_grading_sizes: false
   name: Maïs ensilage
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -554,8 +580,10 @@ activities_019:
   name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
     la récolte 2015 et d’herbacées ou de graminées fourragères
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -579,8 +607,10 @@ activities_020:
   measure_grading_sizes: false
   name: Pois de printemps semé avant le 31/05
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -609,8 +639,10 @@ activities_021:
   measure_grading_sizes: true
   name: Carotte
   nature: main
-  production_started_on: 2000-08-05,
-  production_stopped_on: 2001-08-05,
+  production_started_on: 2000-10-01
+  production_started_on_year: -1
+  production_stopped_on: 2000-07-31
+  production_stopped_on_year: 0
   production_cycle: annual
   production_system_name: organic_farming
   size_indicator_name: net_surface_area
