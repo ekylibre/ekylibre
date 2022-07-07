@@ -147,6 +147,18 @@ class Activity < ApplicationRecord
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
+  scope :with_production_dates, -> do
+    where.not(production_started_on: nil,
+              production_started_on_year: nil,
+              production_stopped_on: nil,
+              production_stopped_on_year: nil)
+  end
+  scope :without_production_dates, -> do
+    where(production_started_on: nil)
+      .or(where(production_started_on_year: nil))
+      .or(where(production_stopped_on: nil))
+      .or(where(production_stopped_on_year: nil))
+  end
   scope :main, -> { where(nature: 'main') }
   scope :auxiliary, -> { where(nature: 'auxiliary') }
 
