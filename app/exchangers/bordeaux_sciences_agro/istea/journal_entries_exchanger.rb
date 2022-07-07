@@ -281,7 +281,14 @@ module BordeauxSciencesAgro
         # @param [Symbol] nature
         # @return [Journal]
         def create_journal(code, name, nature)
-          Journal.create!(name: name, code: code, nature: nature, provider: provider_value(journal_code: code))
+          journal = Journal.find_by(name: name, code: code, nature: nature)
+          if journal
+            journal.provider = provider_value(journal_code: code)
+            journal.save!
+          else
+            journal = Journal.create!(name: name, code: code, nature: nature, provider: provider_value(journal_code: code))
+          end
+          journal
         end
 
         # @param [String]
