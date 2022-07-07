@@ -69,16 +69,16 @@ class ActivityBudget < ApplicationRecord
   delegate :size_indicator, :size_unit, to: :activity
   delegate :count, to: :productions, prefix: true
 
-  before_validation on: :create do
+  before_validation do
     self.currency ||= Preference[:currency]
-    revenues.first.update!(main_output: true) if revenues.size == 1 && revenues.of_main_output.none?
+    revenues.first.update!(main_output: true) if revenues.size == 1 && !revenues.map(&:main_output).include?(true)
   end
 
   def one_default_revenue_exist
     if old_record.present?
       if revenues.empty? && items.any?
         errors.add(:revenues, :main_activity_must_have_one_product)
-      elsif !revenues.empty? && revenues.of_main_output.none?
+      elsif revenues.any? && !revenues.map(&:main_output).include?(true)
         errors.add(:revenues, :main_activity_must_have_one_default_product)
       end
     end
