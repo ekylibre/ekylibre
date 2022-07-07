@@ -19,7 +19,7 @@ module PurchaseInvoices
           # replace / by - because path/folder don't like ∕ in name
           fy_path = root.join(fy.name.gsub("/", "-"))
           fy_path.mkdir
-          purchase_invoices = PurchaseInvoice.invoiced_between(fy.started_on, fy.stopped_on).reorder(:invoiced_at)
+          purchase_invoices = PurchaseInvoice.invoiced_between(fy.started_on, fy.stopped_on.end_of_day).reorder(:invoiced_at)
           pis_by_month = purchase_invoices.group_by { |pi| [pi.invoiced_at.strftime('%m'), pi.invoiced_at.strftime('%Y')] }
 
           pis_by_month.each do |date, pis|

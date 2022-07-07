@@ -315,7 +315,7 @@ module Backend
     private
 
       def has_invoice?(financial_year)
-        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on).exists?
+        PurchaseInvoice.invoiced_between(financial_year.started_on, financial_year.stopped_on.end_of_day).exists?
       end
 
       def fetch_progress_values(id)
