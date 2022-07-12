@@ -5,8 +5,6 @@ FactoryBot.define do
     production_cycle { :annual }
     production_started_on { Date.new(2020, 2, 3) - rand(10_000) }
     production_stopped_on { Date.new(2020, 2, 3) + rand(10_000) }
-    production_started_on_year { 0 }
-    production_stopped_on_year { 0 }
     cultivation_variety { Onoma::ActivityFamily.find(family).cultivation_variety }
   end
 
