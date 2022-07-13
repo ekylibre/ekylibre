@@ -191,7 +191,7 @@ module Printers
         {
           name: production.name,
           surface: production.net_surface_area.in_hectare.round_l,
-          cultivable_zone: production.cultivable_zone.name,
+          cultivable_zone: production.cultivable_zone&.name,
           pac_islet: select_num_pac(production),
           activity: production.activity.name,
           period: compare_date(production.started_on.to_date.l, production.stopped_on.to_date.l),
