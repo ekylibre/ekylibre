@@ -339,10 +339,10 @@ module Backend
         else
           item = nil
         end
-        if item
-          infos[:unit][:conditioning_id] = item.unit_id
+        if item && item.conditioning_unit
+          infos[:unit][:conditioning_id] = item.conditioning_unit_id
           infos[:unit][:name] = item.unit.name
-          conditioning = item.unit
+          conditioning = item.conditioning_unit
         else
           infos[:unit][:conditioning_id] = @product_nature_variant.default_unit_id
           infos[:unit][:name] = @product_nature_variant.default_unit.name
