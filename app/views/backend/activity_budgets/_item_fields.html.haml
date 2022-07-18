@@ -17,7 +17,7 @@
     = f.input :direction, as: :hidden
     = f.input :locked, as: :hidden, input_html: {class: "budget-locked"}
   %td.decimal.left-align.unwrapped
-    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, true_value: f.object.amount, format: "budget"}}= f.object.amount.round(2) || '0.00'
+    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, true_value: f.object.amount, format: "budget"}}= f.object&.amount&.round(2) || '0.00'
     %span.currency= currency_symbol
   - frequency_dic = {per_day: 365, per_month: 12, per_year: 1}
   %td.budget-frequency.hidden= frequency_dic.key?(f.object.frequency.to_sym) ? frequency_dic[f.object.frequency.to_sym] : 1
@@ -43,6 +43,8 @@
     %span= f.input :repetition, wrapper: :nested, :input_html => {:maxlength => 3, class: "v-budget-repetition"}
     %span.add-on= :x
     %span= f.input :frequency, wrapper: :nested, :input_html => {class: "v-budget-frequency"}
+  %td.left-align.no-top-border
+    %span= f.referenced_association :tax, new: false, source: { scope: :usable_in_budget } ,wrapper: :nested
   %td.left-align.no-top-border.transfer-price.hidden.unwrapped
     = f.input :transfer_price, as: :hidden, :input_html => {class: "v-transfer-price"}
     %span= :transfer_price.tl

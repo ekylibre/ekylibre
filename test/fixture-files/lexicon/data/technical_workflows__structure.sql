@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS technical_workflows;
           unit character varying,
           life_state character varying,
           life_cycle character varying,
+          plant_density integer,
           translation_id character varying NOT NULL
         );
 

@@ -71,6 +71,14 @@ DROP TABLE IF EXISTS registered_phytosanitary_cropsets;
           untreated_buffer_plants integer,
           decision_date date,
           state character varying NOT NULL,
+          extract_spray_volume_max_quantity character varying,
+          extract_spray_volume_max_unit character varying,
+          spray_volume_max_quantity numeric(19,4),
+          spray_volume_max_unit character varying,
+          spray_volume_max_unit_name character varying,
+          spray_volume_max_dose_quantity numeric(19,4),
+          spray_volume_max_dose_unit character varying,
+          spray_volume_max_dose_unit_name character varying,
           record_checksum integer
         );
 

@@ -88,8 +88,16 @@ class ActivityBudget < ApplicationRecord
     expenses.sum(:global_amount)
   end
 
+  def expenses_pretax_amount
+    expenses.sum(:global_pretax_amount)
+  end
+
   def revenues_amount
     revenues.sum(:global_amount)
+  end
+
+  def revenues_pretax_amount
+    revenues.sum(:global_pretax_amount)
   end
 
   def all_main_activities_gross_margin

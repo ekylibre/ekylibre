@@ -9,14 +9,14 @@ module TechnicalItineraries
         @activity = activity
         @scenario = scenario
         @campaign = campaign
-        @activity_tactic = ActivityTactic.find_by(activity: @activity, campaign: @campaign, default: true)
+        @activity_tactic = ActivityTactic.find_by(activity: @activity, default: true)
         @logger ||= Logger.new(File.join(Rails.root, 'log', "itk-#{@campaign.name}-#{Ekylibre::Tenant.current.to_s}.log"))
       end
 
       def create_plot_activity_for_scenario
-        # check if activity has ITK
+        # check if activity is annual / perennial and has ITK
         ti = @activity_tactic.technical_itinerary if @activity_tactic
-        if ti
+        if @activity.annual? && ti
           # compute default area with campaign, N-1 or N-2
           current_area = @activity.size_during(@campaign).to_f
           previous_area = (@campaign.preceding ? @activity.size_during(@campaign.preceding).to_f : 0.0)
@@ -40,7 +40,21 @@ module TechnicalItineraries
           sap.planned_at = @activity_tactic.planned_on
           sap.batch_planting = false
           sap.save!
-          @logger.info("-----------------Scenario created for #{@activity.name}")
+          @logger.info("-----------------Scenario (annual) created for #{@activity.name}")
+        elsif @activity.perennial? && ti
+          # compute default area with campaign and already affected ap
+          area = @activity.productions.where(technical_itinerary_id: ti.id).map{|ap| (ap.support_shape_area.present? ? (ap.support_shape_area.to_f / 10_000) : 0).round(2)}.compact.sum
+
+          # link activity and scenario
+          sa = ScenarioActivity.find_or_create_by(scenario: @scenario, activity: @activity)
+          # create one plot for all activity
+          sap = ScenarioActivity::Plot.find_or_initialize_by(scenario_activity: sa)
+          sap.technical_itinerary = ti
+          sap.area = area.round(2)
+          sap.planned_at = @activity_tactic.planned_on
+          sap.batch_planting = false
+          sap.save!
+          @logger.info("-----------------Scenario (annual) created for #{@activity.name}")
         else
           @logger.error("-----------------No scenario created because no TI exist for #{@activity.name}")
         end
@@ -76,7 +90,7 @@ module TechnicalItineraries
         else
           @logger.error("No Budget item created because no scenario activity exist for #{@activity.name}")
         end
-
+        activity_budget.reload
         # create fixed direct charges from MasterBudget
         master_budget_items = MasterBudget.of_family(@activity.family)
         if master_budget_items.any?
@@ -85,11 +99,6 @@ module TechnicalItineraries
           end
         else
           @logger.error("No Budget item created because no direct fixed charges budget activity exist in Lexicon for #{@activity.name}")
-        end
-        # check if only one revenue then set up main_product
-        activity_budget.reload
-        if activity_budget.revenues.size == 1 && activity_budget.revenues.pluck(:main_output).compact.uniq == [false]
-          activity_budget.revenues.first.update!(main_output: true)
         end
       end
 
@@ -102,7 +111,7 @@ module TechnicalItineraries
         if inter_template_prod_param
           variant = inter_template_prod_param.product_nature_variant
           if variant
-            main_product = %i[output].include?(inter_template_prod_param.find_general_product_type) && %i[grain silage milk wine juice fermented_juice].include?(variant.variety.to_sym)
+            main_product = %i[output].include?(inter_template_prod_param.find_general_product_type) && %i[grain silage milk wine juice fermented_juice fruit].include?(variant.variety.to_sym)
             # get quantity, unit and computation method return {computation_method: ,quantity: ,indicator: , unit: ,unit_amount:}
             qup = find_quantity_unit_price(inter_template_prod_param, variant, area_in_hectare)
             unit = Unit.import_from_lexicon(qup[:unit])
@@ -115,6 +124,7 @@ module TechnicalItineraries
 
         # create budget_item
         if variant && used_on && inter_template_prod_param && qup.presence
+          # create budget item
           activity_budget_item = activity_budget.items.find_or_initialize_by(variant_id: variant.id, used_on: used_on, origin: :itk, nature: :dynamic)
           activity_budget_item.direction = qup[:direction]
           activity_budget_item.unit_id = unit.id if unit
@@ -124,6 +134,7 @@ module TechnicalItineraries
           activity_budget_item.quantity = qup[:quantity] || 1
           activity_budget_item.unit_amount = qup[:unit_amount] || 0.0
           activity_budget_item.main_output = main_product
+          activity_budget_item.tax = find_default_tax_on_variant(variant, qup[:direction])
           activity_budget_item.save!
           @logger.info("budget_item_from_itk created for #{variant.name}")
         else
@@ -159,8 +170,14 @@ module TechnicalItineraries
             response[:indicator] = unit_amount_with_indicator[:indicator]
             @logger.info("last_catalog_item conversion for #{variant.name} | unit_amount : #{response[:unit_amount]} - unit : #{response[:unit]} - indicator : #{response[:indicator]}")
           else
-            MasterPrice.where(reference_article_name: variant.reference_name).each do |v_price|
-              CatalogItem.import_from_lexicon(v_price.reference_name)
+            if variant.type == 'Variants::Articles::PlantMedicineArticle'
+              MasterPhytosanitaryPrice.where(reference_article_name: variant.france_maaid).each do |v_price|
+                CatalogItem.import_from_lexicon(v_price.reference_name)
+              end
+            else
+              MasterPrice.where(reference_article_name: variant.reference_name).each do |v_price|
+                CatalogItem.import_from_lexicon(v_price.reference_name)
+              end
             end
             created_catalog_item = CatalogItem.find_by(variant_id: variant.id, catalog_id: catalog.pluck(:id))
             if created_catalog_item
@@ -194,10 +211,24 @@ module TechnicalItineraries
           activity_budget_item.unit_amount = master_budget_item.unit_pretax_amount || 0.0
           activity_budget_item.frequency = master_budget_item.frequency
           activity_budget_item.repetition = master_budget_item.repetition
+          activity_budget_item.tax = find_default_tax_on_variant(variant, master_budget_item.direction)
           activity_budget_item.save!
           @logger.info("budget_item_from_master_budget created for #{variant.name}")
         else
           @logger.error("budget_item_from_master_budget not created for #{variant.name}")
+        end
+      end
+
+      def find_default_tax_on_variant(variant, direction)
+        sale_tax = variant.category.purchase_taxes
+        purchase_tax = variant.category.sale_taxes
+        # find default tax on variant
+        if direction.to_sym == :expense && purchase_tax.any?
+          purchase_tax.first
+        elsif direction.to_sym == :revenue && sale_tax.any?
+          sale_tax.first
+        else
+          nil
         end
       end
 

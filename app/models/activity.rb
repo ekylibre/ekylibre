@@ -534,4 +534,13 @@ class Activity < ApplicationRecord
 
     TechnicalWorkflow.for_activity(self).first
   end
+
+  def technical_sequence
+    tactic = tactics.find_by(default: true)
+    if tactic.present? && tactic.technical_sequence.present?
+      tactic.technical_sequence
+    else
+      TechnicalSequence.for_activity(self).first
+    end
+  end
 end

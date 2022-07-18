@@ -101,8 +101,8 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Reference data
-# gem 'onoma', gitlab: 'ekylibre/onoma', branch: 'dev'
-gem 'onoma', '~> 0.8.0'
+gem 'onoma', gitlab: 'ekylibre/onoma', branch: 'dev'
+# gem 'onoma', '~> 0.7.0'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop', '~> 1.6'

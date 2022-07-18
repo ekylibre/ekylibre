@@ -3638,6 +3638,7 @@ fra:
     view_modes: #?
       printable: "Mode «\_Imprimable\_»" #?
       resized: "Mode «\_Tout à l’écran\_»" #?
+    vine_farming: "Production viticole"
     vine_planting: "Plantation de vignes"
     vine_stock_indicators: "Indicateurs pieds de vigne"
     virtual_quantity: "Quantité virtuelle" #?

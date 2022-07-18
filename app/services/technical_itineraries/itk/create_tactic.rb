@@ -23,22 +23,27 @@ module TechnicalItineraries
           sowed_started_on = nil
         end
 
-        at = ActivityTactic.find_or_initialize_by(activity_id: @activity.id, campaign_id: @campaign.id, default: true)
+        at = ActivityTactic.find_or_initialize_by(activity_id: @activity.id, default: true)
         if @technical_workflow && at.technical_workflow
+          at.planned_on ||= sowed_started_on
+          at.save!
           at
         elsif @technical_workflow
           at.mode = :sowed
           at.mode_delta = 5
-          at.planned_on = sowed_started_on
+          at.planned_on ||= sowed_started_on
           at.name = @technical_workflow.translation.send(Preference[:language])
           at.technical_workflow_id = @technical_workflow.id
           at.save!
           at
         elsif @technical_sequence && at.technical_sequence
+          at.planned_on ||= sowed_started_on
+          at.save!
           at
         elsif @technical_sequence
           at.name = @technical_sequence.translation.send(Preference[:language])
           at.technical_sequence_id = @technical_sequence.id
+          at.planned_on ||= sowed_started_on
           at.save!
           at
         end
@@ -65,24 +70,18 @@ module TechnicalItineraries
           # 31 update all ITPP
           itpps = InterventionTemplate::ProductParameter.where(intervention_template_id: it.id, activity_id: @activity.id, intervention_model_item_id: im.items.pluck(:id))
           @logger.info("__31 - ITPP to update : #{itpps.count}")
-          puts itpps.inspect.yellow
           update_itpp(itpps, twp, it)
 
           # 40 - create TIIT link to TI, IT, TWP
-          tiit = TechnicalItineraryInterventionTemplate.find_or_create_by!(technical_itinerary_id: ti.id,
-                                                                intervention_template_id: it.id,
-                                                                position: twp.position,
-                                                                day_since_start: twp.period.to_f,
-                                                                repetition: twp.repetition,
-                                                                frequency: twp.frequency)
+          update_or_create_tiit(ti, it, twp)
 
-          tiit_ids << tiit.id
-          @logger.info("_40 - TIIT created #{tiit.id} from position : #{tiit.position} and day_since_start : #{tiit.day_since_start}")
+          recompute_position_for_tiit(ti)
           # 41 - create ITA link to A, IT
           ita = InterventionTemplateActivity.find_or_create_by!(intervention_template_id: it.id, activity_id: @activity.id)
           @logger.info("_41 - ITA created #{ita.id}")
           # end
         end
+        tiit_ids = TechnicalItineraryInterventionTemplate.where(technical_itinerary_id: ti.id).pluck(:id)
         tiit_ids
       end
 
@@ -98,6 +97,32 @@ module TechnicalItineraries
           temp_itpp.technical_workflow_procedure_item_id = nil
           temp_itpp.save!
           @logger.info("__30 - ITPP created from : #{imi.id} - #{imi.procedure_item_reference}")
+        end
+      end
+
+      def update_or_create_tiit(ti, it, twp)
+        # basic case : 1 per_year, no conversion
+        if twp.repetition == 1 && twp.frequency == 'per_year'
+          tiit = TechnicalItineraryInterventionTemplate.find_or_create_by!(technical_itinerary_id: ti.id,
+                                                                intervention_template_id: it.id,
+                                                                position: twp.position,
+                                                                day_since_start: twp.period.to_f,
+                                                                repetition: 1,
+                                                                frequency: 'per_year')
+          @logger.info("_40 - SIMPLE TIIT created #{tiit.id} from position : #{tiit.position} and day_since_start : #{tiit.day_since_start}")
+        # complex case : 2 per_month, conversion per year
+        else
+          reps = create_repetition(twp)
+          @logger.info("_40 - #{reps.intervention_count} interventions to generate with individual offset #{reps.individual_offset} from #{reps.initial_start}")
+          (1..reps.intervention_count).each_with_index do |_rep, index|
+            tiit = TechnicalItineraryInterventionTemplate.find_or_create_by!(technical_itinerary_id: ti.id,
+                                                                  intervention_template_id: it.id,
+                                                                  position: (twp.position + index),
+                                                                  day_since_start: reps.initial_start + (index * reps.individual_offset),
+                                                                  repetition: 1,
+                                                                  frequency: 'per_year')
+            @logger.info("_40 - COMPLEX TIIT created #{tiit.id} from position : #{tiit.position} and day_since_start : #{tiit.day_since_start}")
+          end
         end
       end
 
@@ -155,6 +180,44 @@ module TechnicalItineraries
           end
         end
       end
+
+      private
+
+        # return a Hash
+        # of the procedure during one technical_itinerary (so one year)
+        # initial_start : number of day since sowing first intervention start
+        # intervention_count : number of intervention to generate
+        # individual_offset : day offset of each intervention between them
+        def create_repetition(twp)
+          # set initial_value
+          individual_offset = nil
+          # get period
+          period_day_start = twp.period.split('_').first.to_f
+          period_day_end = twp.period.split('_').last.to_f
+          period_duration = period_day_end - period_day_start
+          # set global repetition on year
+          if twp.frequency == 'per_year'
+            rep = twp.repetition
+          elsif twp.frequency == 'per_month'
+            rep = twp.repetition * 12
+          elsif twp.frequency == 'per_day'
+            rep = twp.repetition * 365
+          else
+            rep = 1
+          end
+          if rep > 1
+            individual_offset = (period_duration / (rep - 1)).to_f
+          end
+          { initial_start: period_day_start, intervention_count: rep, individual_offset: individual_offset }.to_struct
+        end
+
+        # reorder position after creating each items of TechnicalItinerary
+        def recompute_position_for_tiit(ti)
+          TechnicalItineraryInterventionTemplate.where(technical_itinerary_id: ti.id).reorder(:day_since_start).each_with_index do |tiit, index|
+            tiit.position = index
+            tiit.save!
+          end
+        end
 
     end
   end

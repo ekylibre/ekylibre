@@ -265,6 +265,10 @@ activity_budget_items:
     type: decimal
     precision: 19
     scale: 4
+  global_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   id:
     type: integer
     required: true
@@ -284,6 +288,10 @@ activity_budget_items:
     type: string
   paid_on:
     type: date
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   product_parameter_id:
     type: integer
     references: intervention_template/product_parameter
@@ -294,6 +302,9 @@ activity_budget_items:
   repetition:
     type: integer
     required: true
+  tax_id:
+    type: integer
+    references: tax
   transfer_price:
     type: float
   transfered_activity_budget_id:
@@ -4841,8 +4852,10 @@ intervention_templates:
   updater_id:
     type: integer
     references: user
-  workflow:
+  workflow_value:
     type: decimal
+  workflow_unit:
+    type: string
 intervention_working_periods:
   created_at:
     type: datetime
@@ -10573,6 +10586,10 @@ technical_itineraries:
     required: true
   name:
     type: string
+  plant_density:
+    type: decimal
+    precision: 19
+    scale: 4
   originator_id:
     type: integer
     references: technical_itinerary

@@ -74,10 +74,10 @@ class TechnicalItinerary < ApplicationRecord
   end
 
   def average_yield
-    intervention_template = intervention_templates.find_by(procedure_name: 'harvesting')
+    harvest_procedures = Procedo::Procedure.of_action(:harvest).map(&:name)
+    intervention_template = intervention_templates.find_by(procedure_name: harvest_procedures)
     if intervention_template.present?
-      product_parameter = intervention_template.product_parameters.where("procedure ->> 'type' = ?", 'matters')
-        &.first
+      product_parameter = intervention_template.product_parameters.where("procedure ->> 'type' = ?", 'matters')&.first
       "#{product_parameter&.quantity&.l(precision: 1)} #{product_parameter.unit_symbol}" if product_parameter.present?
     end
   end
@@ -135,7 +135,8 @@ class TechnicalItinerary < ApplicationRecord
         campaign_id: campaign.id,
         activity_id: activity.id,
         description: :set_by_lexicon.tl,
-        technical_workflow_id: technical_workflow_id
+        technical_workflow_id: technical_workflow_id,
+        plant_density: tw.plant_density&.to_f
       )
 
       unless ti.save

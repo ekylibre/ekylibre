@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS master_crop_productions;
           idea_botanic_family character varying,
           idea_specie_family character varying,
           idea_output_family character varying,
+          color character varying,
           translation_id character varying NOT NULL
         );
 

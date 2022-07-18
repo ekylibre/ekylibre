@@ -84,6 +84,8 @@ class Tax < ApplicationRecord
 
   scope :intracommunity, -> { where(intracommunity: true, nature: 'eu_vat') }
 
+  scope :usable_in_budget, -> { where.not(nature: %w[eu_vat import_export_vat]).reorder(:amount) }
+
   before_validation do
     if Onoma::TaxNature.find(nature)
       self.name = short_label if name.blank?
