@@ -130,12 +130,12 @@ class Activity < ApplicationRecord
   validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
   validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
   validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
+  validate :validate_production_cycle_period_presence
 
   with_options if: -> { perennial? && (plant_farming? || vine_farming?) } do
     validates :start_state_of_production_year, :life_duration, presence: true
     validates :production_stopped_on_year, inclusion: { in: [0], message: :invalid }
     validates :production_cycle_length, presence: true
-    validate :validate_production_cycle_period_presence
   end
 
   validates :life_duration, presence: true, if: -> { animal_farming? }
@@ -254,7 +254,17 @@ class Activity < ApplicationRecord
     end
     self.cultivation_variety ||= item.cultivation_variety if with_cultivation
 
+    set_defaut_production_dates
     set_production_relative_year
+  end
+
+  def set_defaut_production_dates
+    if %w[administering processing service_delivering tool_maintaining wine_making animal_farming].include?(family)
+      self.production_started_on ||= Date.new(2000, 1, 1)
+      self.production_stopped_on ||= Date.new(2000, 12, 31)
+      self.production_started_on_year ||= 0
+      self.production_stopped_on_year ||= 0
+    end
   end
 
   # production_started_on and production_stopped_on year is relative to campaign. Set year value to 2000.

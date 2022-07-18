@@ -4,7 +4,7 @@
   = f.referenced_nomenclature :production_system
   - family = Onoma::ActivityFamily[f.object.family]
   = f.input :production_cycle, as: :radio_buttons, checked: :perennial
-  = f.input(:production_cycle_period, label: :production_cycle_period.tl, wrapper: :append) do
+  = f.input(:production_cycle_period, label: :production_cycle_period.tl, wrapper: :append, required: true) do
     = content_tag(:span, :from.tl, class: 'add-on')
     = f.input(:production_started_on, input_html: { data: { flatpickr_alt_format: 'd-F',flatpickr_calendar_class: 'day-names-hidden year-hidden', default_date: ["#{Time.now.year}-01-01"] }}, wrapper: :simplest)
     = content_tag(:span, :year_long.tl, class: 'add-on')
