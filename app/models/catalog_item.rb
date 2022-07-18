@@ -182,15 +182,24 @@ class CatalogItem < ApplicationRecord
 
   class << self
     def import_from_lexicon(reference_name)
-      unless item = MasterPrice.find_by(reference_name: reference_name)
+      # global case
+      if MasterPrice.find_by(reference_name: reference_name)
+        item = MasterPrice.find_by(reference_name: reference_name)
+        unless variant = ProductNatureVariant.find_by_reference_name(item.reference_article_name)
+          variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name)
+        end
+      # phyto case
+      elsif MasterPhytosanitaryPrice.find_by(reference_name: reference_name)
+        item = MasterPhytosanitaryPrice.find_by(reference_name: reference_name)
+        unless variant = ProductNatureVariant.find_by_france_maaid(item.reference_article_name.to_s)
+          variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name.to_s)
+        end
+      else
         raise ArgumentError.new("The variant price #{reference_name.inspect} is unknown")
       end
+
       if catalog_item = CatalogItem.find_by(reference_name: reference_name)
         return catalog_item
-      end
-
-      unless variant = ProductNatureVariant.find_by_reference_name(item.reference_article_name)
-        variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name)
       end
 
       unit = Unit.import_from_lexicon(item.reference_packaging_name)

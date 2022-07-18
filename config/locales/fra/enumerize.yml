@@ -279,6 +279,10 @@ fra:
         done: "Terminé"
         in_progress: "En cours"
         validated: "Validé"
+    intervention_template:
+      workflow_unit:
+        hectare_per_hour: "Ha/H"
+        plant_per_hour: "Plante ou Pied/H"
     intervention_working_period:
       nature:
         intervention: "Intervention"

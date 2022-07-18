@@ -56,9 +56,9 @@ require 'test_helper'
 
 class RegisteredPhytosanitaryUsageTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
-    @trees_and_shrubs_usage = RegisteredPhytosanitaryUsage.find('20150410094753552668')
-    @tropical_crops_usage = RegisteredPhytosanitaryUsage.find('20210807231210455031')
-    @citrus_usage = RegisteredPhytosanitaryUsage.find('201505310200035371')
+    @trees_and_shrubs_usage = RegisteredPhytosanitaryUsage.find_by(species: '{ephy_trees_and_shrubs}')
+    @tropical_crops_usage = RegisteredPhytosanitaryUsage.find_by(species: '{ephy_tropical_crops}')
+    @citrus_usage = RegisteredPhytosanitaryUsage.find_by(species: '{ephy_citrus}')
   end
 
   test 'of_variety scope returns usages matching at least one of the provided varieties' do

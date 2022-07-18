@@ -61,6 +61,16 @@ GIT
       rubyzip (~> 1.2.0)
 
 GIT
+  remote: https://gitlab.com/ekylibre/onoma.git
+  revision: d52601e8f1d7c26c14b9d0ce05bac8962ee50618
+  branch: dev
+  specs:
+    onoma (0.7.0)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (~> 2.4.0)
+
+GIT
   remote: https://gitlab.com/ekylibre/xsd_errors_parser.git
   revision: 28b3c703463642ca52194038294bddabefc1fee3
   branch: master
@@ -286,6 +296,8 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
     fastimage (2.2.3)
     ffaker (2.18.0)
     ffi (1.15.5)
@@ -430,6 +442,9 @@ GEM
     nokogiri (1.13.5)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nordigen-ruby (1.0.1)
+      faraday (~> 1.8.0)
+      faraday_middleware (~> 1.2.0)
     nori (2.6.0)
     ntlm-http (0.1.1)
     oauth2 (1.4.4)
@@ -444,10 +459,6 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    onoma (0.8.0)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
@@ -621,6 +632,7 @@ GEM
     scenic (1.5.4)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
+    securerandom (0.2.0)
     semantic (1.6.1)
     sepa_king (0.12.0)
       activemodel (>= 3.1)
@@ -703,6 +715,7 @@ GEM
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
     victor (0.3.3)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -810,10 +823,11 @@ DEPENDENCIES
   minitest-reporters (~> 1.4)
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8)
+  nordigen-ruby
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.8.0)
+  onoma!
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
@@ -848,6 +862,7 @@ DEPENDENCIES
   sassc-rails (~> 2.0)
   savon (~> 2.12)
   scenic
+  securerandom
   semantic (~> 1.6)
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
@@ -871,6 +886,7 @@ DEPENDENCIES
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   vcr (~> 6.0.0)
+  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webmock (~> 3.13.0)

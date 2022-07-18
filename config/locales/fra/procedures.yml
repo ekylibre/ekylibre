@@ -472,7 +472,7 @@ fra:
     vine_frost_protecting: "Protection anti-gel"
     vine_grapes_removing: "Éclaircissage"
     vine_grubbing: "Arrachage"
-    vine_harvest: "Vendange" #?
+    vine_harvesting: "Vendange" #?
     vine_inter_row_grinding: "Broyage/roulage couvert inter-rang"
     vine_inter_row_sowing: "Semis inter-rang"
     vine_inter_row_weeding: "Désherbage inter-rang" #?

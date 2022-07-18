@@ -61,6 +61,7 @@ class ActivityBudgetItem < ApplicationRecord
   has_one :activity, through: :activity_budget
   has_one :campaign, through: :activity_budget
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :tax
   has_many :productions, through: :activity
   belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter, inverse_of: :budget_items
   has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :activity_budget_item, dependent: :destroy
@@ -97,6 +98,7 @@ class ActivityBudgetItem < ApplicationRecord
     self.nature ||= :static
     self.frequency ||= :per_year
     self.repetition ||= 1
+    self.tax ||= Tax.usable_in_budget.find_by(amount: 0.0)
   end
 
   validate do
@@ -104,11 +106,13 @@ class ActivityBudgetItem < ApplicationRecord
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
-    errors.add(:main_output, :empty) if direction == 'revenue' && main_output == false && !activity_budget.revenues.map(&:main_output).include?(true)
+    true
   end
 
   after_validation do
-    self.amount = unit_amount * quantity * coefficient if unit_amount.present?
+    self.pretax_amount = unit_amount * quantity * coefficient if unit_amount.present?
+    self.global_pretax_amount = self.pretax_amount * year_repetition if self.pretax_amount.present?
+    self.amount = tax.amount_of(self.pretax_amount) if self.pretax_amount.present? && tax.present?
     self.global_amount = self.amount * year_repetition if self.amount.present?
   end
 
@@ -120,6 +124,7 @@ class ActivityBudgetItem < ApplicationRecord
           used_on: used_on,
           unit_id: unit_id,
           unit_amount: transfer_price,
+          tax: tax,
           locked: true
         )
       else
@@ -130,6 +135,7 @@ class ActivityBudgetItem < ApplicationRecord
           unit_id: unit_id,
           unit_amount: transfer_price,
           used_on: used_on,
+          tax: tax,
           computation_method: :per_working_unit,
           locked: true
         )
@@ -176,9 +182,6 @@ class ActivityBudgetItem < ApplicationRecord
   # compute and save activity_budget_item for each cash movement in economic_cash_indicators
   def update_economic_cash_indicators
     self.economic_cash_indicators.destroy_all
-    # get default vat for current item
-    # TODO CHANGE ME to grab tax on categories or existed purchases or sales
-    tax_ratio = 1.055
     # build default attributes
     default_attributes = { context: self.activity_budget.name,
                            context_color: self.activity.color,
@@ -186,8 +189,8 @@ class ActivityBudgetItem < ApplicationRecord
                            activity: self.activity,
                            activity_budget: self.activity_budget,
                            product_nature_variant: self.variant,
-                           pretax_amount: self.amount,
-                           amount: (self.amount * tax_ratio).round(2),
+                           pretax_amount: self.pretax_amount,
+                           amount: self.amount,
                            direction: self.direction,
                            origin: self.origin,
                            nature: self.nature }
@@ -205,10 +208,10 @@ class ActivityBudgetItem < ApplicationRecord
   # overwritable.
   def duplicate!(updates = {})
     new_attributes = %i[
-      activity_budget amount computation_method currency direction
+      activity_budget amount pretax_amount computation_method currency direction
       nature origin frequency repetition used_on main_output
       quantity unit_amount unit_currency unit_population variant
-      variant_indicator variant_unit unit_id
+      variant_indicator variant_unit unit_id tax_id
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h

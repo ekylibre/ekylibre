@@ -61,7 +61,6 @@
           %th.with-some-supports
             - unit = f.object.size_unit unless f.object.activity.nil?
             %span.working-unit= ActivityBudgetItem.human_attribute_name(:pretax_with_support_amount, unit: unit ? unit.symbol : "?")
-
           %th
       %tfoot
         %tr.total

@@ -43,4 +43,14 @@ class TechnicalSequence < LexiconRecord
     where(family: Onoma::ActivityFamily.all(family))
   })
 
+  scope :of_production, lambda { |reference_name|
+    where(production_reference_name: reference_name)
+  }
+
+  scope :for_activity, ->(activity) {
+    of_family(activity.family)
+    .of_production(activity.reference_name)
+    .where(production_system: (activity.production_system_name || 'intensive_farming'))
+  }
+
 end

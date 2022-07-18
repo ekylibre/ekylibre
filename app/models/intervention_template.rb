@@ -42,6 +42,8 @@
 #
 
 class InterventionTemplate < ApplicationRecord
+  enumerize :workflow_unit, in: %i[hectare_per_hour plant_per_hour], default: :hectare_per_hour, predicates: true
+  composed_of :workflow, class_name: 'Measure', mapping: [%w[workflow_value to_d], %w[workflow_unit unit]]
   # Relation
   has_many :product_parameters, class_name: ::InterventionTemplate::ProductParameter, foreign_key: :intervention_template_id, dependent: :destroy
   # Joins table with activities
@@ -59,9 +61,9 @@ class InterventionTemplate < ApplicationRecord
   validates :active, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, :name, :procedure_name, length: { maximum: 500 }, allow_blank: true
   validates :preparation_time_hours, :preparation_time_minutes, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :workflow, numericality: true, allow_blank: true
+  validates :workflow_value, numericality: true, allow_blank: true
   # ]VALIDATORS]
-  validates :name, :procedure_name, :workflow, :campaign, presence: true
+  validates :name, :procedure_name, :workflow_value, :campaign, presence: true
   validate :campaign_id_not_changed, if: :campaign_id_changed?, on: :update
   validate on: :create do
     if originator && originator.linked_intervention_template.present?
@@ -192,8 +194,16 @@ class InterventionTemplate < ApplicationRecord
     end.compact
   end
 
-  def time_per_hectare
-    (1.0 / workflow)
+  def time_per_hectare(plant_density = 4000.0)
+    if (workflow_value.present? && workflow_value.zero?) || workflow_value.nil? || workflow_value.blank?
+      1.0
+    elsif workflow_unit == :hectare_per_hour
+      (1.0 / workflow_value)
+    elsif workflow_unit == :plant_per_hour
+      (plant_density / workflow_value)
+    else
+      1.0
+    end
   end
 
   def human_time_per_hectare
@@ -204,7 +214,17 @@ class InterventionTemplate < ApplicationRecord
   end
 
   def human_workflow
-    "#{workflow.round(2).l(precision: 2)} #{:hectare_hours.tl}"
+    workflow.l(precision: 2)
+  end
+
+  def human_inputs_or_outputs_quantity
+    if inputs.any?
+      inputs.map{|i| "#{i.product_nature_variant.name} : #{i.quantity_with_unit}"}.compact.to_sentence
+    elsif outputs.any?
+      outputs.map{|i| "#{i.product_nature_variant.name} : #{i.quantity_with_unit}"}.compact.to_sentence
+    else
+      nil
+    end
   end
 
   def tools
@@ -260,7 +280,8 @@ class InterventionTemplate < ApplicationRecord
         name: im.name[Preference[:language]],
         active: true,
         description: :set_by_lexicon.tl,
-        workflow: im.working_flow # hectare_per_hour or see in im.working_flow_unit
+        workflow_value: im.working_flow,
+        workflow_unit: im.working_flow_unit # hectare_per_hour or plant_per_hour or animal_per_hour (not implemented)
       )
 
       unless it.save

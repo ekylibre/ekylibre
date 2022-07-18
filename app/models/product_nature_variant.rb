@@ -821,7 +821,7 @@ class ProductNatureVariant < ApplicationRecord
 
     def import_phyto_from_lexicon(reference_name)
       item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name) || RegisteredPhytosanitaryProduct.find_by_id(reference_name)
-      unless variant = ProductNatureVariant.find_by_reference_name(reference_name)
+      unless variant = ProductNatureVariant.find_by_reference_name(item.reference_name)
         category = ProductNatureCategory.import_from_lexicon(:plant_medicine)
         nature = ProductNature.import_from_lexicon(:plant_medicine)
         default_unit_name = item.usages.any? ? get_phyto_unit(item) : :liter

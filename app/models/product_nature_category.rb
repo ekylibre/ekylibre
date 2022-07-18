@@ -244,7 +244,13 @@ class ProductNatureCategory < ApplicationRecord
         account_name = item.send("#{account}_account")
         attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(account_name) if account_name.present?
       end
-      create!(attributes)
+      category = create!(attributes)
+      if item.default_vat_rate.present?
+        tax = Tax.usable_in_budget.find_by(amount: item.default_vat_rate)
+        category.sale_taxations.find_or_create_by(tax: tax, usage: :sale) if tax && category.saleable
+        category.purchase_taxations.find_or_create_by(tax: tax, usage: :purchase) if tax && category.purchasable
+      end
+      category
     end
 
     def load_defaults(**_options)

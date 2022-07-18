@@ -97,8 +97,13 @@ eng:
         production_cycle_period: "Production campaign period"
         isacompta_analytic_code: "Isacompta analytic code"
       activity_budget:
+        balance: "Balance amount"
         expenses_amount: "Expenses amount"
+        expenses_pretax_amount: "Expenses pretax amount"
+        pretax_balance: "Balance pretax amount"
         revenues_amount: "Revenues amount"
+        revenues_pretax_amount: "Revenues pretax amount"
+        isacompta_analytic_code: "Isacompta analytic code"
       activity_tactic:
         default: "Default"
         mode: "Planning type"

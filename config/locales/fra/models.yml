@@ -169,8 +169,12 @@ fra:
         production_cycle_period: "Campagne annuelle de production"
         distribution_key: "Clé de répartition analytique"
       activity_budget:
-        expenses_amount: "Montant des dépenses"
-        revenues_amount: "Montant des recettes"
+        balance: "Solde TTC"
+        expenses_amount: "Montant des dépenses TTC"
+        expenses_pretax_amount: "Montant des dépenses HT"
+        pretax_balance: "Solde HT"
+        revenues_amount: "Montant des recettes TTC"
+        revenues_pretax_amount: "Montant des recettes HT"
         isacompta_analytic_code: "Code analytique Isacompta"
       activity_production: #?
         production_usage: "Usage futur" #?
