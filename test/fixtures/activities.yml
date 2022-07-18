@@ -247,6 +247,8 @@ activities_007:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -273,6 +275,8 @@ activities_008:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -298,6 +302,8 @@ activities_009:
   name: Blé tendre d’hiver
   nature: main
   production_started_on: 2000-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_stopped_on: 2001-08-05,
   production_cycle: annual
   size_indicator_name: net_surface_area
@@ -325,6 +331,8 @@ activities_010:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -350,6 +358,8 @@ activities_011:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -375,6 +385,8 @@ activities_012:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -400,6 +412,8 @@ activities_013:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -426,6 +440,8 @@ activities_014:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -451,6 +467,8 @@ activities_015:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -477,6 +495,8 @@ activities_016:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -503,6 +523,8 @@ activities_017:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -529,6 +551,8 @@ activities_018:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -556,6 +580,8 @@ activities_019:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -581,6 +607,8 @@ activities_020:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
@@ -611,6 +639,8 @@ activities_021:
   nature: main
   production_started_on: 2000-08-05,
   production_stopped_on: 2001-08-05,
+  production_started_on_year: -1
+  production_stopped_on_year: 0
   production_cycle: annual
   production_system_name: organic_farming
   size_indicator_name: net_surface_area
