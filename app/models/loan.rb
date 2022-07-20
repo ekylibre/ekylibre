@@ -276,6 +276,10 @@ class Loan < ApplicationRecord
     I18n.t("tooltips.models.loan.#{status}")
   end
 
+  def number
+    "L#{id.to_s}_#{started_on.to_s}"
+  end
+
   # Prints human name of current state
   def state_label
     self.class.state_machine.state(self.state.to_sym).human_name
