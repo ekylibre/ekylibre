@@ -90,11 +90,11 @@ module Unrollable
       end
 
       def unaccented_match(term, pattern)
-        "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ApplicationRecord.sanitize("[!BEGIN!]#{pattern}%")})"
+        "unaccent(CAST(#{term} AS VARCHAR)) ILIKE unaccent(#{ActiveRecord::Base.connection.quote("[!BEGIN!]#{pattern}%")})"
       end
 
       def exact_unaccented_match(term, pattern)
-        "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ApplicationRecord.sanitize(pattern.to_s)})"
+        "unaccent(CAST(#{term} AS VARCHAR)) NOT ILIKE unaccent(#{ActiveRecord::Base.connection.quote(pattern.to_s)})"
       end
 
       def bad_scope(scope, model)

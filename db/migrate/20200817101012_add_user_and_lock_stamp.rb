@@ -1,4 +1,4 @@
-class AddUserAndLockStamp < ActiveRecord::Migration
+class AddUserAndLockStamp < ActiveRecord::Migration[4.2]
   AFFECTED_TABLES = %i[cvi_cadastral_plants cvi_cadastral_plant_cvi_land_parcels cvi_cultivable_zones cvi_land_parcels cvi_statements locations].freeze
 
   def self.up

@@ -1,4 +1,4 @@
-class AddConditioningToSaleAndPurchaseItems < ActiveRecord::Migration
+class AddConditioningToSaleAndPurchaseItems < ActiveRecord::Migration[4.2]
   def up
     remove_column :purchase_items, :conditionning
     remove_column :purchase_items, :conditionning_quantity

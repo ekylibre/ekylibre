@@ -1,4 +1,4 @@
-class AddQuantityAndUnitToInterventionProposalParameters < ActiveRecord::Migration
+class AddQuantityAndUnitToInterventionProposalParameters < ActiveRecord::Migration[4.2]
   def up
     unless column_exists?(:intervention_proposal_parameters, :quantity)
       add_column :intervention_proposal_parameters, :quantity, :decimal

@@ -1,4 +1,4 @@
-class CreateActivityProductionIrregularBatches < ActiveRecord::Migration
+class CreateActivityProductionIrregularBatches < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:activity_production_irregular_batches)
       create_table :activity_production_irregular_batches do |t|

@@ -1,4 +1,4 @@
-class AddLandModificationDateColumn < ActiveRecord::Migration
+class AddLandModificationDateColumn < ActiveRecord::Migration[4.2]
   def change
     add_column :cvi_cadastral_plants, :land_modification_date , :date
     add_column :cvi_land_parcels, :land_modification_date , :date

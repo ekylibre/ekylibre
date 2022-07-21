@@ -172,6 +172,17 @@ module Api
               stopped_at: "2017-11-06 12:04:39"
             }
           ],
+          inputs_attributes: [
+            {
+                product_id: product.id,
+                quantity_value: 2000,
+                quantity_unit_name: 'kilogram',
+                quantity_indicator_name: 'net_mass',
+                quantity_population: 2,
+                quantity_handler: 'net_mass',
+                reference_name: 'seeds'
+              }
+            ],
           group_parameters_attributes: [
             {
               reference_name: 'zone',
@@ -190,44 +201,33 @@ module Api
                 }
               ]
             },
-            {
-              reference_name: 'zone',
-              targets_attributes: [
-                {
-                  product_id: land_parcel2.id,
-                  reference_name: 'land_parcel'
-                }
-              ],
-              outputs_attributes: [
-                {
-                  variant_id: variant.id,
-                  reference_name: 'plant',
-                  variety: 'test',
-                  batch_number: 'test2'
-                }
-              ]
-            }
-          ],
-          inputs_attributes: [
-            {
-              product_id: product.id,
-              quantity_value: 2000,
-              quantity_unit_name: 'kilogram',
-              quantity_indicator_name: 'net_mass',
-              quantity_population: 2,
-              quantity_handler: 'net_mass',
-              reference_name: 'seeds'
-            }
+            # {
+            #   reference_name: 'zone',
+            #   targets_attributes: [
+            #     {
+            #       product_id: land_parcel2.id,
+            #       reference_name: 'land_parcel'
+            #     }
+            #   ],
+            #   outputs_attributes: [
+            #     {
+            #       variant_id: variant.id,
+            #       reference_name: 'plant',
+            #       variety: 'test',
+            #       batch_number: 'test2'
+            #     }
+            #   ]
+            # }
           ]
         }
         post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
         intervention = Intervention.find(id)
-        assert_equal 2, intervention.group_parameters.count
-        assert_equal 2, intervention.outputs.count
+        assert_equal 1, intervention.group_parameters.count
+        assert_equal 1, intervention.outputs.count
         assert_equal 'test', intervention.outputs.last.specie_variety_name
-        assert_equal 'test2', intervention.outputs.last.batch_number
+        # assert_equal 'test2', intervention.outputs.last.batch_number
       end
 
       test 'create fertilizing intervention (with readings on tools)' do

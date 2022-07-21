@@ -1,4 +1,4 @@
-class ChangeCviCultivableZone < ActiveRecord::Migration
+class ChangeCviCultivableZone < ActiveRecord::Migration[4.2]
   def change
     remove_column :cvi_cultivable_zones, :communes, :string
     remove_column :cvi_cultivable_zones, :cadastral_references, :string

@@ -1,4 +1,4 @@
-class SaveAgainActivityProductionWithBatch < ActiveRecord::Migration
+class SaveAgainActivityProductionWithBatch < ActiveRecord::Migration[4.2]
   def change
     unless column_exists?(:intervention_proposals, :batch_number)
       add_column :intervention_proposals, :batch_number, :integer

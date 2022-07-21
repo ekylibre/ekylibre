@@ -47,7 +47,7 @@ module Backend
     def create
       return unless @listing_node = find_and_check(id: params[:parent_id])
 
-      render text: '[UnfoundListingNode]' unless @listing_node
+      render plain: '[UnfoundListingNode]' unless @listing_node
       desc = params[:nature].split('-')
       # raise StandardError.new desc.inspect
       if desc[0] == 'special'
@@ -76,7 +76,7 @@ module Backend
       if request.xhr?
         if params[:type] == 'hide' || params[:type] == 'show'
           @listing_node.exportable = !@listing_node.exportable
-          render text: ''
+          render plain: ''
         elsif params[:type] == 'column_label'
           @listing_node.label = params[:label]
           render(partial: 'backend/listing_nodes/column_label', object: @listing_node)
@@ -88,7 +88,7 @@ module Backend
           @listing_node.position = params[:position]
           render(partial: 'backend/listing_nodes/position', object: @listing_node)
         else
-          render(text: '[ERROR] Unknown update type')
+          render(plain: '[ERROR] Unknown update type')
         end
         @listing_node.save
       else
@@ -102,7 +102,7 @@ module Backend
       if request.xhr?
         if params[:type] == 'exportable' # "hide" or params[:type] == "show"
           @listing_node.exportable = !@listing_node.exportable
-          render text: ''
+          render plain: ''
         elsif params[:type] == 'column_label'
           @listing_node.label = params[:label]
           render(partial: 'backend/listing_nodes/column_label', object: @listing_node)

@@ -1,4 +1,4 @@
-class ChangeCviLandParcel < ActiveRecord::Migration
+class ChangeCviLandParcel < ActiveRecord::Migration[4.2]
   def change
     remove_column :cvi_land_parcels, :commune, :string
     remove_column :cvi_land_parcels, :locality, :string

@@ -1,4 +1,4 @@
-class CreateInterventionProposals < ActiveRecord::Migration
+class CreateInterventionProposals < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:intervention_proposals)
       create_table :intervention_proposals do |t|

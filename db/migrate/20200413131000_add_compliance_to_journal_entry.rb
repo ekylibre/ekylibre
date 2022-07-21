@@ -1,4 +1,4 @@
-class AddComplianceToJournalEntry < ActiveRecord::Migration
+class AddComplianceToJournalEntry < ActiveRecord::Migration[4.2]
   def change
     add_column :journal_entries, :compliance, :jsonb, default: '{}'
 

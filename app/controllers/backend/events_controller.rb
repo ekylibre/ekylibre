@@ -45,7 +45,7 @@ module Backend
       return unless nature = Onoma::EventNature[params[:nature]]
 
       value = nature.send(params[:field] || :name)
-      render text: value.to_s, layout: false
+      render plain: value.to_s, layout: false
     end
 
     list(:participations, model: :event_participations, conditions: { event_id: 'params[:id]'.c }, order: :id) do |t|

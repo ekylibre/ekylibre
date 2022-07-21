@@ -1,4 +1,4 @@
-class AddCreatorAndUpdatorToTechnicalItinerary < ActiveRecord::Migration
+class AddCreatorAndUpdatorToTechnicalItinerary < ActiveRecord::Migration[4.2]
   def change
     unless column_exists?(:technical_itineraries, :creator_id)
       add_column :technical_itineraries, :creator_id, :integer

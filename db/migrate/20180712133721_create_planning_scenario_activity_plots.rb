@@ -1,4 +1,4 @@
-class CreatePlanningScenarioActivityPlots < ActiveRecord::Migration
+class CreatePlanningScenarioActivityPlots < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:planning_scenario_activity_plots)
       create_table :planning_scenario_activity_plots do |t|

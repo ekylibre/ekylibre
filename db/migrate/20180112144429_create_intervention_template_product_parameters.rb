@@ -1,4 +1,4 @@
-class CreateInterventionTemplateProductParameters < ActiveRecord::Migration
+class CreateInterventionTemplateProductParameters < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:intervention_template_product_parameters)
       create_table :intervention_template_product_parameters do |t|

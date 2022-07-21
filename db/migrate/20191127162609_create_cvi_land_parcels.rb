@@ -1,4 +1,4 @@
-class CreateCviLandParcels < ActiveRecord::Migration
+class CreateCviLandParcels < ActiveRecord::Migration[4.2]
   def change
     create_table :cvi_land_parcels do |t|
       t.string :name, null: false
