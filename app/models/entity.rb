@@ -120,7 +120,6 @@ class Entity < ApplicationRecord
   end
   has_many :contracts, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
-  has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
   has_many :idea_diagnostics, foreign_key: :auditor_id, dependent: :nullify
   has_many :issues, as: :target, dependent: :destroy
@@ -130,6 +129,7 @@ class Entity < ApplicationRecord
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
+  has_many :events, through: :participations
   has_many :purchase_invoices, class_name: 'PurchaseInvoice', foreign_key: :supplier_id
   has_many :purchase_orders, class_name: 'PurchaseOrder', foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception

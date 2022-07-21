@@ -1,4 +1,4 @@
-class AddCadastralRefUpdatedToCviCadastralPlant < ActiveRecord::Migration
+class AddCadastralRefUpdatedToCviCadastralPlant < ActiveRecord::Migration[4.2]
   def change
     add_column :cvi_cadastral_plants, :cadastral_ref_updated, :boolean, default: false
 

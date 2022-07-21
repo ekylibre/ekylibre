@@ -1,4 +1,4 @@
-class CreateInterventionProposalParameters < ActiveRecord::Migration
+class CreateInterventionProposalParameters < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:intervention_proposal_parameters)
       create_table :intervention_proposal_parameters do |t|

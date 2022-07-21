@@ -1,4 +1,4 @@
-class CreateTechnicalItineraryInterventionTemplates < ActiveRecord::Migration
+class CreateTechnicalItineraryInterventionTemplates < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:technical_itinerary_intervention_templates)
       create_table :technical_itinerary_intervention_templates do |t|

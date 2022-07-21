@@ -16,7 +16,7 @@ ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '5.0.7.2'
+gem 'rails', '5.1.7'
 gem 'turnout', '~> 2.5' # Maintenance mode
 
 # IRB and CLI
@@ -34,7 +34,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 4.1'
+gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'pg', '~> 1.0'
 gem 'scenic'
 
@@ -183,7 +183,7 @@ group :production do
 end
 
 group :development do
-  gem 'bullet', '< 5.6.0'
+  gem 'bullet', '~> 5.7.0'
 
   gem 'better_errors', '~> 2.9'
   gem 'rack-mini-profiler'

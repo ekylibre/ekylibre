@@ -181,7 +181,7 @@ module Backend
     end
 
     # Lists issues of the current product
-    list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c }, order: { observed_at: :desc }) do |t|
+    list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'controller_name.classify'.c }, order: { observed_at: :desc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :nature, url: true

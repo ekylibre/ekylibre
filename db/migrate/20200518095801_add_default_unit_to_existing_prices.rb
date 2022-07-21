@@ -1,4 +1,4 @@
-class AddDefaultUnitToExistingPrices < ActiveRecord::Migration
+class AddDefaultUnitToExistingPrices < ActiveRecord::Migration[4.2]
   def change
     reversible do |dir|
 

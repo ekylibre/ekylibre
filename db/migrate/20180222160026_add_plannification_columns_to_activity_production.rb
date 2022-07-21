@@ -1,4 +1,4 @@
-class AddPlannificationColumnsToActivityProduction < ActiveRecord::Migration
+class AddPlannificationColumnsToActivityProduction < ActiveRecord::Migration[4.2]
   def change
     unless column_exists?(:activity_productions, :technical_itinerary_id)
       add_reference :activity_productions, :technical_itinerary, index: true, foreign_key: true

@@ -1,4 +1,4 @@
-class CreateCviCultivableZones < ActiveRecord::Migration
+class CreateCviCultivableZones < ActiveRecord::Migration[4.2]
   def change
     create_table :cvi_cultivable_zones do |t|
       t.string :name, null: false

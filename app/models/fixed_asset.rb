@@ -257,7 +257,7 @@ class FixedAsset < ApplicationRecord
     # end
     # end
     depreciate! if @auto_depreciate
-    sale.update_columns(invoiced_at: sold_on.to_datetime) if changes[:sold_on] && sale && !sale.invoice? && sold_on
+    sale.update_columns(invoiced_at: sold_on.to_datetime) if saved_changes[:sold_on] && sale && !sale.invoice? && sold_on
   end
 
   after_update do

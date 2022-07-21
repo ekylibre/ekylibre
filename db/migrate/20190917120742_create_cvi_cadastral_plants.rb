@@ -1,4 +1,4 @@
-class CreateCviCadastralPlants < ActiveRecord::Migration
+class CreateCviCadastralPlants < ActiveRecord::Migration[4.2]
   def change
     create_table :cvi_cadastral_plants do |t|
       t.string :commune, null: false

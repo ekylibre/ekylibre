@@ -1,4 +1,4 @@
-class CreateInterventionTemplateActivities < ActiveRecord::Migration
+class CreateInterventionTemplateActivities < ActiveRecord::Migration[4.2]
   def change
     unless data_source_exists?(:intervention_template_activities)
       create_table :intervention_template_activities do |t|

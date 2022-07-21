@@ -1,4 +1,4 @@
-class AddFecDocumentTemplates < ActiveRecord::Migration
+class AddFecDocumentTemplates < ActiveRecord::Migration[4.2]
 
     NATURES = { fec_data_error: "Fichier d'erreurs de données FEC",
                 fec_structure_error: "Fichier d'erreurs de structure FEC" }

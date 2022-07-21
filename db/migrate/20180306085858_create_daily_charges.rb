@@ -1,4 +1,4 @@
-class CreateDailyCharges < ActiveRecord::Migration
+class CreateDailyCharges < ActiveRecord::Migration[4.2]
   def up
     unless data_source_exists?(:daily_charges)
       create_table :daily_charges do |t|
