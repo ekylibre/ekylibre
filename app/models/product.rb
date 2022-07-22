@@ -498,14 +498,18 @@ class Product < ApplicationRecord
   # planning
   def time_use_in_date(date)
     intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
-    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
-    intervention_proposal_parameters = InterventionProposal::Parameter
-                                       .joins(:intervention_proposal)
-                                       .where(product_id: self, intervention_proposals: { estimated_date: date })
-                                       .where.not(intervention_proposals: { number: intervention_numbers })
-    duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
-    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
-    (duration / 3600.0).round(1) if duration.present?
+    if intervention_parameters.any?
+      intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
+      intervention_proposal_parameters = InterventionProposal::Parameter
+                                         .joins(:intervention_proposal)
+                                         .where(product_id: self, intervention_proposals: { estimated_date: date })
+                                         .where.not(intervention_proposals: { number: intervention_numbers })
+      duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
+      duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
+      (duration / 3600.0).round(1) if duration.present?
+    else
+      0
+    end
   end
 
   def working_duration_info(date)
