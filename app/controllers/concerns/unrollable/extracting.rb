@@ -26,7 +26,7 @@ module Unrollable
       scope_is_without_params = params[:scope].is_a?(String) || params[:scope].is_a?(Symbol)
       return { params[:scope] => true } if scope_is_without_params
 
-      params[:scope]
+      params[:scope].to_unsafe_h
     end
 
     def self.fill_in_from(options, filters)

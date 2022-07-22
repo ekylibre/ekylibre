@@ -433,12 +433,15 @@ module Backend
     end
 
     # Computes impacts of a updated value in an intervention input context
+    # TODO: Reimplement this with correct use of permitted params
     def compute
       unless params[:intervention]
         head(:unprocessable_entity)
         return
       end
-      intervention_params = params[:intervention].deep_symbolize_keys
+      # The use of unsafe_params is a crutch to have this code working fast.
+      # However, this whole method should be implemented using REAL permitted_params.
+      intervention_params = params[:intervention].to_unsafe_h.deep_symbolize_keys
       procedure = Procedo.find(intervention_params[:procedure_name])
       unless procedure
         head(:not_found)
