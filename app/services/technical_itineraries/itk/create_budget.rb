@@ -220,8 +220,8 @@ module TechnicalItineraries
       end
 
       def find_default_tax_on_variant(variant, direction)
-        sale_tax = variant.category.purchase_taxes
-        purchase_tax = variant.category.sale_taxes
+        sale_tax = variant.category.sale_taxes
+        purchase_tax = variant.category.purchase_taxes
         # find default tax on variant
         if direction.to_sym == :expense && purchase_tax.any?
           purchase_tax.first
