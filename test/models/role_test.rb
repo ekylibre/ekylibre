@@ -61,4 +61,10 @@ class RoleTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert bob.rights['sales'].include?('read'), 'User should have right "read-sales"'
     assert bob.rights['sales'].include?('write'), 'User should have right "write-sales"'
   end
+
+  test '#import_from_lexicon imports role' do
+    master_role = MasterUserRole.first
+    role = Role.import_from_lexicon(master_role.reference_name)
+    assert_equal(role.name, master_role.translation.fra)
+  end
 end
