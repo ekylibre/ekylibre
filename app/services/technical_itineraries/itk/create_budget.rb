@@ -161,9 +161,11 @@ module TechnicalItineraries
         if catalog
           response[:quantity] = (quantity_in_unit.value / area_in_hectare).round(2)
           @logger.info("Quantity per hectare is #{response[:quantity]}")
-          last_catalog_item = CatalogItem.find_by(variant_id: variant.id, catalog_id: catalog.pluck(:id))
+          itk_unit_dimension = Onoma::Unit[quantity_in_unit.unit.to_sym].dimension
+          existing_units = Unit.where(dimension: itk_unit_dimension.to_s)
+          last_catalog_item = CatalogItem.find_by(variant_id: variant.id, catalog_id: catalog.pluck(:id), unit_id: existing_units.pluck(:id))
           if last_catalog_item
-            @logger.info("last_catalog_item found for #{variant.name} | ID : #{last_catalog_item.id} | amount : #{last_catalog_item.amount} | unit : amount : #{last_catalog_item.unit.reference_name}")
+            @logger.info("last_catalog_item found for #{variant.name} | ID : #{last_catalog_item.id} | amount : #{last_catalog_item.amount} | unit : #{last_catalog_item.unit.reference_name}")
             unit_amount_with_indicator = last_catalog_item.unit_amount_in_target_unit(quantity_in_unit.unit)
             response[:unit_amount] = unit_amount_with_indicator[:unit_amount]
             response[:unit] = unit_amount_with_indicator[:unit]
@@ -179,7 +181,7 @@ module TechnicalItineraries
                 CatalogItem.import_from_lexicon(v_price.reference_name)
               end
             end
-            created_catalog_item = CatalogItem.find_by(variant_id: variant.id, catalog_id: catalog.pluck(:id))
+            created_catalog_item = CatalogItem.find_by(variant_id: variant.id, catalog_id: catalog.pluck(:id), unit_id: existing_units.pluck(:id))
             if created_catalog_item
               unit_amount_with_indicator = created_catalog_item.unit_amount_in_target_unit(quantity_in_unit.unit)
               response[:unit_amount] = unit_amount_with_indicator[:unit_amount]
