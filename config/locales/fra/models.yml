@@ -498,6 +498,8 @@ fra:
         intracommunity_payable: "Intra-communautaire"
       team:
         isacompta_analytic_code: "Code analytique Isacompta"
+      technical_itinerary:
+        plant_density: 'Densité'
       user: #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?

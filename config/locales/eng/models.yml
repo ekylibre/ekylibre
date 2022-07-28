@@ -2485,6 +2485,8 @@ eng:
         validated: "Validated"
     team:
       default: "Main team"
+    technical_itinerary:
+        plant_density: 'Density'
     user:
       invitation:
         accepted: "Accepted"
