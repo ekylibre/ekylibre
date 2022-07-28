@@ -61,16 +61,6 @@ GIT
       rubyzip (~> 1.2.0)
 
 GIT
-  remote: https://gitlab.com/ekylibre/onoma.git
-  revision: d52601e8f1d7c26c14b9d0ce05bac8962ee50618
-  branch: dev
-  specs:
-    onoma (0.7.0)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
-
-GIT
   remote: https://gitlab.com/ekylibre/xsd_errors_parser.git
   revision: 28b3c703463642ca52194038294bddabefc1fee3
   branch: master
@@ -300,9 +290,6 @@ GEM
     fastimage (2.2.5)
     ffaker (2.20.0)
     ffi (1.15.4)
-    ffi-compiler (1.0.1)
-      ffi (>= 1.0.0)
-      rake
     fiddle (1.1.0)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -458,6 +445,10 @@ GEM
     omniauth-oauth2 (1.7.2)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
+    onoma (0.8.1)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
@@ -824,7 +815,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma!
+  onoma (~> 0.8.1)
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
