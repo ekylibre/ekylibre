@@ -78,7 +78,8 @@ module FEC
           journal_data[:name] = journal.name
           journal_data[:entries] = []
           entries.includes(:incoming_payments, :purchase_payments, items: :account).references(items: :account).each do |entry|
-            next if entry.items.empty?
+            items = entry.items.of_unclosure_account_number.includes(:account).where.not(balance: 0.0)
+            next if items.empty?
 
             next if %w[ba_ir_cash_accountancy bnc_ir_cash_accountancy].include?(@fiscal_position) && !entry.first_payment
 
@@ -108,7 +109,7 @@ module FEC
             # end
             # end
             entry_data[:items] = []
-            entry.items.of_unclosure_account_number.includes(:account).where.not(balance: 0.0).each do |item|
+            items.each do |item|
               entry_item_data = {}
               account = item.account
               if account.nature == 'auxiliary'
