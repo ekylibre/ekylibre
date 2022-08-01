@@ -9,9 +9,9 @@ module Backend
         head :unprocessable_entity
         return
       end
-      @attachment = subject.attachments.create!(params[:attachments].permit!)
+      @attachment = subject.attachments.new(permitted_params)
       respond_to do |format|
-        if @attachment.save(params)
+        if @attachment.save
           format.json do
             render json: {
               name: @attachment.name,
@@ -58,5 +58,12 @@ module Backend
         render json: { message: 'error' }, status: :unprocessable_entity
       end
     end
+
+    private
+
+      def permitted_params
+        params.require(:attachments).permit(document_attributes: %i[name key uploaded file])
+      end
+
   end
 end
