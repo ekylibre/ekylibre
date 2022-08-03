@@ -14,11 +14,8 @@ module Backend
                           geom_centroid = CultivableZone.geom_union_centroid(:shape)
                           geom_centroid.present? ? [geom_centroid.y, geom_centroid.x] : nil
                         end
-
           # We use the 5days forecast free from openwheathermap
-          if coordinates.present?
-            weather_client.fetch_forecast(coordinates)
-          end
+          weather_client.fetch_forecast(coordinates)
         end
 
         def build_hourly_forecast(json)

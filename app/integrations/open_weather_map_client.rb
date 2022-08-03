@@ -19,6 +19,10 @@ class OpenWeatherMapClient
   end
 
   def fetch_forecast(coordinates)
+    if coordinates.nil?
+      return None()
+    end
+
     if apikey.is_none?
       logger.warn 'Missing OpenWeatherMap api key in identifiers)'
       return None()
