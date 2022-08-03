@@ -59,7 +59,7 @@ module Backend
 
       t3e @account
       dataset_params = {
-        states: params[:states].to_h,
+        states: params[:states]&.to_unsafe_h,
         lettering_state: params[:lettering_state],
         account: @account,
         period: params[:period],

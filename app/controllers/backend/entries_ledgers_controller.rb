@@ -72,7 +72,7 @@ module Backend
 
       dataset_params = { accounts: accounts,
                          lettering_state: params[:lettering_state],
-                         states: params[:states].to_h,
+                         states: params[:states]&.to_unsafe_h,
                          ledger: 'general_ledger',
                          started_on: @started_on,
                          stopped_on: @stopped_on }
