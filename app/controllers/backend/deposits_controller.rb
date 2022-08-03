@@ -116,8 +116,7 @@ module Backend
     def create
       return unless find_mode
 
-      payment_ids = permitted_params['payment_ids']
-      permitted_params.except!('payment_ids')
+      payment_ids = permitted_params.delete('payment_ids')
 
       fye = find_fy_exchange(payment_ids)
       if fye.present?

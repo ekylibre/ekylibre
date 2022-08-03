@@ -39,7 +39,7 @@ module Backend
 
     def create
       @invitation = FormObjects::Backend::Invitation.with_defaults
-      @invitation.attributes = invite_params
+      @invitation.assign_attributes(invite_params)
 
       if @invitation.valid?
         User.invite!(@invitation.attributes, current_user)
@@ -56,7 +56,6 @@ module Backend
       def invite_params
         params.require(:form_objects_backend_invitation)
               .permit(:first_name, :last_name, :language, :role_id, :email)
-              .symbolize_keys
       end
   end
 end
