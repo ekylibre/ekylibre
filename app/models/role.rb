@@ -126,7 +126,7 @@ class Role < ApplicationRecord
       array << 'all' if array.size < 3
       resource = array.second
       action = array.third
-      next if Ekylibre::Access.find(resource, action).nil?
+      next if Ekylibre::Access.resources[resource.to_sym].nil?
 
       action = Ekylibre::Access.interactions_of(resource) if action == 'all'
       hash[resource] ||= []
