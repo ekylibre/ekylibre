@@ -724,6 +724,7 @@ Rails.application.routes.draw do
       collection do
         patch :compute
         get :modal
+        get :selection_modal
         post :change_state
         get :change_page
         get :purchase_order_items
@@ -738,6 +739,7 @@ Rails.application.routes.draw do
         get :export
         post :sell
         post :purchase
+        get :update_with_rides
         get :list_product_parameters
         get :list_record_interventions
         get :list_service_deliveries

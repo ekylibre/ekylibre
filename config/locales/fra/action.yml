@@ -1209,6 +1209,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    none_intervention_request_found: Aucune intervention planifiée ne correspond au(x) trajet(s) selectionné(s)
+    select_intervention_request: Sélectionner une intervention
     set_activity_budget_on_jei: "Affecter cet élément analytique à la sélection"
     gap_real_estimated_vine_stock: "Écart Pieds productifs estimés/réels"
     plants_count: "Pieds productifs réels"

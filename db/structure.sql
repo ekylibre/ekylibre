@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 13.7 (Ubuntu 13.7-1.pgdg20.04+1)
--- Dumped by pg_dump version 13.7 (Ubuntu 13.7-1.pgdg20.04+1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -1594,7 +1587,7 @@ CREATE TABLE public.activity_budget_items (
     id integer NOT NULL,
     variant_id integer,
     direction character varying NOT NULL,
-    amount numeric(19,4) DEFAULT 0.0,
+    pretax_amount numeric(19,4) DEFAULT 0.0,
     unit_amount numeric(19,4) DEFAULT 0.0,
     quantity numeric(19,4) DEFAULT 0.0,
     variant_indicator character varying,
@@ -1622,7 +1615,10 @@ CREATE TABLE public.activity_budget_items (
     use_transfer_price boolean DEFAULT false,
     transfer_price double precision,
     locked boolean DEFAULT false,
-    transfered_activity_budget_id integer
+    transfered_activity_budget_id integer,
+    tax_id integer,
+    amount numeric(19,4),
+    global_pretax_amount numeric(19,4)
 );
 
 
@@ -6163,14 +6159,15 @@ CREATE TABLE public.intervention_templates (
     campaign_id integer,
     preparation_time_hours integer,
     preparation_time_minutes integer,
-    workflow numeric,
+    workflow_value numeric,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
     originator_id integer,
     technical_workflow_procedure_id character varying,
-    intervention_model_id character varying
+    intervention_model_id character varying,
+    workflow_unit character varying
 );
 
 
@@ -9785,7 +9782,8 @@ CREATE TABLE public.technical_itineraries (
     creator_id integer,
     updater_id integer,
     originator_id integer,
-    technical_workflow_id character varying
+    technical_workflow_id character varying,
+    plant_density numeric(19,4)
 );
 
 
@@ -12050,7 +12048,7 @@ CREATE MATERIALIZED VIEW public.economic_indicators AS
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'main_direct_product'::text AS economic_indicator,
-    abm.global_amount AS amount,
+    abm.global_pretax_amount AS amount,
     abm.variant_id AS output_variant_id,
     abm.unit_id AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -12069,7 +12067,7 @@ UNION ALL
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'other_direct_product'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -12088,7 +12086,7 @@ UNION ALL
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'fixed_direct_charge'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -12107,7 +12105,7 @@ UNION ALL
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'proportional_direct_charge'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -12122,7 +12120,7 @@ UNION ALL
     '1'::numeric AS activity_size_value,
     'unity'::character varying AS activity_size_unit,
     'global_indirect_product'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -12137,7 +12135,7 @@ UNION ALL
     '1'::numeric AS activity_size_value,
     'unity'::character varying AS activity_size_unit,
     'global_indirect_charge'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -15006,6 +15004,13 @@ CREATE INDEX index_activity_budget_items_on_created_at ON public.activity_budget
 --
 
 CREATE INDEX index_activity_budget_items_on_creator_id ON public.activity_budget_items USING btree (creator_id);
+
+
+--
+-- Name: index_activity_budget_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_budget_items_on_tax_id ON public.activity_budget_items USING btree (tax_id);
 
 
 --
@@ -25618,6 +25623,14 @@ ALTER TABLE ONLY public.regularizations
 
 
 --
+-- Name: activity_budget_items fk_rails_cbe05cc9fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budget_items
+    ADD CONSTRAINT fk_rails_cbe05cc9fc FOREIGN KEY (tax_id) REFERENCES public.taxes(id);
+
+
+--
 -- Name: technical_itineraries fk_rails_d02ebd3a2f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -26452,6 +26465,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220512094001'),
 ('20220512132701'),
 ('20220603121153'),
-('20220627090824');
+('20220622174701'),
+('20220622183901'),
+('20220627090824'),
+('20220708090701'),
+('20220708171301');
 
 

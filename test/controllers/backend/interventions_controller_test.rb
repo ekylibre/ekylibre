@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Backend
   class InterventionsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions set: :show, except: %i[validate_harvest_delay validate_reentry_delay run change_state change_page compute unroll purchase sell modal purchase_order_items compare_realised_with_planned create_duplicate_intervention export]
+    test_restfully_all_actions set: :show, except: %i[update_with_rides validate_harvest_delay validate_reentry_delay run change_state change_page compute unroll purchase sell modal purchase_order_items compare_realised_with_planned create_duplicate_intervention export]
     # , compute: { mode: create params: { format: json } }
     # TODO: Re-activate #compute, #change_state, #unroll, #purchase, #sell,
     # #modal, #change_page and #purchase_order_items test
@@ -17,6 +17,20 @@ module Backend
       assert_raises ActionController::ParameterMissing do
         post :change_state, params: params
       end
+    end
+
+    test 'change state action with ride_ids should redirect' do
+      intrevention = create(:intervention, nature: :request)
+      post :change_state, params: { intervention: { intervention_id: intrevention.id, state: :done }, ride_ids: 1 }
+      record_intervention = intrevention.reload.record_interventions.first
+      assert_redirected_to "/backend/interventions/#{record_intervention.id}/update_with_rides?ride_ids=1"
+    end
+
+    test '#update_with_rides' do
+      intrevention = create(:intervention, nature: :request)
+      ride = create(:ride)
+      post :update_with_rides, params: { id: intrevention.id, ride_ids: ride.id }
+      assert_response :redirect
     end
 
     test 'sowing intervention : change state action from request intervention to in_progress intervention should create new intervention with same parameters' do

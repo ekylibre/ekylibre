@@ -288,8 +288,11 @@ module Backend
       end
 
       if params[:procedure_name].present? && params[:ride_ids].present?
-        rides_params_computation = ::Interventions::RidesComputation.new(params[:ride_ids], params[:procedure_name])
-        options.merge!(rides_params_computation.options)
+        options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
+          ride_ids: params[:ride_ids],
+          procedure_name: params[:procedure_name]
+        )
+        options.merge!(options_from_rides)
       end
 
       # , :doers, :inputs, :outputs, :tools
@@ -507,7 +510,11 @@ module Backend
         return
       end
 
-      interventions_ids = JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
+      interventions_ids = if state_change_permitted_params[:intervention_id].present?
+                            [state_change_permitted_params[:intervention_id]]
+                          else
+                            JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
+                          end
       new_state = state_change_permitted_params[:state].to_sym
 
       @interventions = Intervention.find(interventions_ids)
@@ -597,11 +604,44 @@ module Backend
         intervention = @interventions.first
         if intervention.request? && intervention.record_interventions.any?
           record_intervention = intervention.record_interventions.first
-          return redirect_to backend_intervention_path(record_intervention)
+          response.headers['X-Return-Code'] = 'success'
+          redirect_path = if params[:ride_ids].present?
+                            update_with_rides_backend_intervention_path(record_intervention, ride_ids: params[:ride_ids])
+                          else
+                            backend_intervention_path(record_intervention)
+                          end
+
+          return redirect_to redirect_path
         end
       end
 
       redirect_to_back
+    end
+
+    def update_with_rides
+      intervention = find_and_check
+      rides = Ride.find(params[:ride_ids])
+      if params[:ride_ids].present?
+        options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
+          ride_ids: params[:ride_ids],
+          procedure_name: intervention.procedure_name
+        )
+        targets_attributes = options_from_rides[:group_parameters_attributes]
+        targets_attributes = options_from_rides[:targets_attributes] if targets_attributes.empty?
+
+        targets_attributes.each do |target_attributes|
+          target = intervention.targets.find_by(product_id: target_attributes[:product_id])
+          if target.present?
+            target.update!(target_attributes)
+          end
+        end
+        existing_target_product_ids = intervention.targets.pluck(:product_id)
+        options_from_rides[:group_parameters_attributes].reject!{ |attributes| existing_target_product_ids.include?(attributes[:product_id])}
+        options_from_rides[:targets_attributes].reject!{ |attributes| existing_target_product_ids.include?(attributes[:product_id])}
+
+        intervention.update!(options_from_rides)
+      end
+      redirect_to edit_backend_intervention_path(intervention)
     end
 
     # FIXME: Not linked directly to interventions
@@ -641,6 +681,24 @@ module Backend
         render partial: 'duplicate_modal',
                locals: { intervention: @interventions.first }
       end
+    end
+
+    def selection_modal
+      interventions = Intervention.with_nature(:request)
+        .joins('LEFT JOIN interventions record_interventions ON interventions.id = record_interventions.request_intervention_id')
+        .where(record_interventions: { request_intervention_id: nil } )
+
+      interventions_similarity_scores = interventions.map do |intervention|
+        ::Interventions::Geolocation::SimilaritiesWithRidesScoreCounter.new(
+          intervention: intervention,
+          rides: Ride.where(id: params[:ride_ids])
+        )
+      end
+
+      @ordered_interventions = ::Interventions::Geolocation::OrderByRideSimilarities.call(
+        interventions_similarity_scores: interventions_similarity_scores
+      )
+      render partial: 'selection_modal', locals: { interventions: @ordered_interventions, ride_ids: params[:ride_ids] }
     end
 
     def create_duplicate_intervention
@@ -749,7 +807,7 @@ module Backend
       end
 
       def state_change_permitted_params
-        params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
+        params.require(:intervention).permit(:interventions_ids, :intervention_id, :state, :delete_option)
       end
 
       def find_items(id, pretax_amount, items)
