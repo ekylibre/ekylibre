@@ -57,6 +57,7 @@ class Ride < ApplicationRecord
   belongs_to :ride_set
   belongs_to :intervention
   has_many :crumbs, dependent: :destroy
+  belongs_to :cultivable_zone
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :area_smart, :area_with_overlap, :area_without_overlap, :distance_km, :gasoline, numericality: true, allow_blank: true
@@ -73,7 +74,7 @@ class Ride < ApplicationRecord
   scope :of_nature, ->(nature_name) { where(nature: nature_name) }
 
   acts_as_numbered :number
-  enumerize :nature, in: %i[road work]
+  enumerize :nature, in: %i[road work], scope: true
   enumerize :state, in: %i[affected unaffected], default: :unaffected
 
   state_machine :state do
@@ -87,6 +88,16 @@ class Ride < ApplicationRecord
 
   after_update do
     self.link_intervention if self.intervention_id.present?
+  end
+
+  def working_zone
+    width = begin
+              equipment.width
+            rescue NoMethodError => e
+              3.5
+            end
+    line = ::Charta.make_line(crumbs.order(:read_at).pluck(:geolocation))
+    line.to_rgeo.buffer( width / 2)
   end
 
   %i[duration sleep_duration].each do |col|

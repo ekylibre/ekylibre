@@ -1,0 +1,46 @@
+%h1= :select_intervention_request.tl
+- if interventions.any? 
+  = form_for(:intervention, url: change_state_backend_interventions_path) do |f|
+    - ride_ids.each do |id|
+      = hidden_field_tag 'ride_ids[]', id, id: "ride_ids_#{id}"
+    .control-group.radio_buttons.intervention-request-selector
+      = f.hidden_field(:state, value: 'done')
+      - interventions.each do |intervention|
+        :ruby
+          targets_name = intervention.targets.map{ |target| target.product.name }.join(' / ')
+          inputs_name = intervention.inputs.map{ |input| input.product.name }.join(' / ')
+          worker_name = intervention.doers.map{ |doer| doer.product.name }.join(' / ')
+          tools_name = intervention.tools.map{ |tool| tool.product.name }.join(' / ')
+        %div
+          = f.label :id, for: "intervention_intervention_id_#{intervention.id}" do
+            = f.radio_button :intervention_id, intervention.id
+            %ul
+              %li
+                %span.title= intervention.name
+              %li
+                %span.title= Intervention.human_attribute_name(:started_at) + " : "
+                %span.value= intervention.started_at.l
+              - if targets_name.present?
+                %li
+                  %span.title= :targets.tl + " : "
+                  %span.value= targets_name
+              - if inputs_name.present?
+                %li
+                  %span.title= :inputs.tl + " : "
+                  %span.value= inputs_name
+              - if worker_name.present?
+                %li
+                  %span.title= :workers.tl + " : "
+                  %span.value= worker_name
+              - if tools_name.present?
+                %li
+                  %span.title= :equipments.tl + " : "
+                  %span.value= tools_name
+    .form-actions
+      = f.submit :validate.tl
+      = link_to :cancel.tl, :back, class: "btn"
+- else 
+  = :none_intervention_request_found.tl
+  .form-actions
+    = link_to :cancel.tl, :back, class: "btn"
+
