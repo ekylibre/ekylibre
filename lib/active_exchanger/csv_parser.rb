@@ -48,7 +48,7 @@ module ActiveExchanger
       when :us_date
         Date.strptime(value, "%m/%d/%y")
       when :string
-        value.to_s
+        value.to_s.strip
       else
         value
       end

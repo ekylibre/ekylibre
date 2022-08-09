@@ -16,6 +16,7 @@ fra:
           financial_year_needed: "Un exercice comptable se terminant au %{stopped_on} est nécessaire."
           unreachable_code: "Code inaccessible"
   exchangers:
+    agrigest_fec_txt: "FEC import (TXT) - Agrigest"
     agro_systemes_soil_analyses: "Analyses de sol ‒ AGRO Systèmes"
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"
     agroedi_daplos: "Fiche parcellaire - Daplos Agro-EDI"
@@ -118,6 +119,7 @@ fra:
     viniteca_plant_zones: "Plantations (SHP/ZIP) ‒ Viniteca"
     vivescia_purchase: "Achats - Vivescia"
   vendors:
+    agrigest: "Agrigest"
     agro_systemes: "Agro Systèmes"
     agroedi: "Agro-EDI"
     bordeaux_sciences_agro: "Bordeaux Sciences Agro"
