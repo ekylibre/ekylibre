@@ -19,6 +19,7 @@ eng:
           closing: "Sage - Closing entries"
           forward: "Sage - Carrying forward entries"
   exchangers:
+    agrigest_fec_txt: "FEC import (TXT) - Agrigest"
     agro_systemes_soil_analyses: "AGRO Systèmes soil analyses"
     agro_systemes_water_analyses: "AGRO Systèmes water analyses"
     agroedi_daplos: "Plant production"
@@ -111,6 +112,7 @@ eng:
     viniteca_plant_zones: "Viniteca plant zones"
     vivescia_purchase: "Vivescia purchase"
   vendors:
+    agrigest: "Agrigest"
     agro_systemes: "Agro Systèmes"
     agroedi: "Agro-EDI"
     bordeaux_sciences_agro: "Bordeaux Sciences Agro"
