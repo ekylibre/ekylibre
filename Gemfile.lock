@@ -61,6 +61,16 @@ GIT
       rubyzip (~> 1.2.0)
 
 GIT
+  remote: https://gitlab.com/ekylibre/onoma.git
+  revision: 17eaa8705b45783be9b5b96a158f8f6daeaa1e9d
+  branch: dev
+  specs:
+    onoma (0.8.1)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (~> 2.4.0)
+
+GIT
   remote: https://gitlab.com/ekylibre/xsd_errors_parser.git
   revision: 28b3c703463642ca52194038294bddabefc1fee3
   branch: master
@@ -445,10 +455,6 @@ GEM
     omniauth-oauth2 (1.7.2)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    onoma (0.8.1)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
@@ -704,6 +710,7 @@ GEM
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
     victor (0.3.3)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -815,7 +822,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.8.1)
+  onoma!
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
@@ -873,6 +880,7 @@ DEPENDENCIES
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   vcr (~> 6.0.0)
+  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webmock (~> 3.13.0)
