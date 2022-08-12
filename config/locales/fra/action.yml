@@ -2909,6 +2909,7 @@ fra:
     planned_again_intervention_in: "Planifier de nouveau cette intervention le"
     planned_at: "Date prévisionnelle" #?
     planned_by: "Planifiée par" #?
+    planned_budget_sheet: "Budget prévisionnel"
     planning_of: "Planification de"
     plant: "Culture"
     plant_counting: "Comptage"

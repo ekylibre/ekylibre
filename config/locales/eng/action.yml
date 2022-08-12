@@ -1607,11 +1607,13 @@ eng:
       intervention_register: "Printers::InterventionRegisterPrinter"
       phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
       activity_cost: "Printers::ActivityCostPrinter"
+      planned_budget_sheet: "Printers::PlannedBudgetPrinter"
       show:
         land_parcel_register: "Printers::LandParcelRegisterActivityPrinter"
         intervention_register: "Printers::InterventionRegisterActivityPrinter"
         phytosanitary_register: "Printers::PhytosanitaryRegisterPrinter"
         activity_cost: "Printers::ActivityCostPrinter"
+        planned_budget_sheet: "Printers::PlannedBudgetPrinter"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     accumulated_stock: "Accumulated stock of %{name}"

@@ -128,7 +128,7 @@ class EconomicIndicator < ApplicationRecord
     def activity_indirect_amount(campaign, indicator)
       activity_indirect_element_amount = 0.0
       of_campaign(campaign).where(economic_indicator: indicator.to_s).each do |agip|
-        activity_indirect_element_amount += agip.amount.round(2)
+        activity_indirect_element_amount += agip.amount.round(2) if agip.amount
       end
       activity_indirect_element_amount
     end

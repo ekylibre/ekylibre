@@ -47,6 +47,7 @@ module Backend
       @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
       @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
       @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @planned_budget_document = DocumentTemplate.find_by(nature: :planned_budget_sheet)
       @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
       respond_to do |format|
         format.html do
@@ -95,6 +96,7 @@ module Backend
       @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
       @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
       @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @planned_budget_document = DocumentTemplate.find_by(nature: :planned_budget_sheet)
       @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
 
       respond_to do |format|
