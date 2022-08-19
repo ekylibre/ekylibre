@@ -9,9 +9,9 @@ FactoryBot.define do
     land_parcel_number { rand(10) }
     area_value { rand.round(2) }
     area_unit { :hectare }
-    inter_vine_plant_distance_value { rand.round(2) }
+    inter_vine_plant_distance_value { rand(30..100) }
     inter_vine_plant_distance_unit { :centimeter }
-    inter_row_distance_value { rand.round(2) }
+    inter_row_distance_value { rand(30..100) }
     inter_row_distance_unit { :centimeter }
     planting_campaign { FFaker::Time.between(10.years.ago, Date.today).year }
     state { %i[planted removed_with_authorization].sample }
