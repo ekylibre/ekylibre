@@ -55,7 +55,7 @@ location_003:
   id: 3
   localizable_id: 1
   localizable_type: CviCadastralPlant
-  registered_postal_zone_id: MyString
+  registered_postal_zone_id: "01001_01400_LABERG_"
   locality: MyString
   creator_id: 1
   lock_version: 0
@@ -65,7 +65,7 @@ location_004:
   id: 4
   localizable_id: 2
   localizable_type: CviCadastralPlant
-  registered_postal_zone_id: MyString
+  registered_postal_zone_id: "01001_01400_LABERG_"
   locality: MyString
   creator_id: 1
   lock_version: 0
@@ -75,7 +75,7 @@ location_005:
   id: 5
   localizable_id: 3
   localizable_type: CviCadastralPlant
-  registered_postal_zone_id: MyString
+  registered_postal_zone_id: "01001_01400_LABERG_"
   locality: MyString
   creator_id: 1
   lock_version: 0
@@ -85,7 +85,7 @@ location_006:
   id: 6
   localizable_id: 4
   localizable_type: CviCadastralPlant
-  registered_postal_zone_id: MyString
+  registered_postal_zone_id: "01001_01400_LABERG_"
   locality: MyString
   creator_id: 1
   lock_version: 0

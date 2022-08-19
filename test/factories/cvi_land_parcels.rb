@@ -3,9 +3,9 @@ FactoryBot.define do
     name { FFaker::NameFR.name }
     declared_area_unit { :hectare }
     declared_area_value { BigDecimal(rand.round(2), 4) }
-    inter_vine_plant_distance_value { BigDecimal(rand.round(2), 4) }
+    inter_vine_plant_distance_value { rand(30..100) }
     inter_vine_plant_distance_unit { :centimeter }
-    inter_row_distance_value { BigDecimal(rand.round(2), 4) }
+    inter_row_distance_value { rand(30..100) }
     inter_row_distance_unit { :centimeter }
     designation_of_origin_id { RegisteredQualityAndOriginSign.order('RANDOM()').first.id }
     vine_variety_id { RegisteredVineVariety.where(category: 'variety').order('RANDOM()').first.id }
