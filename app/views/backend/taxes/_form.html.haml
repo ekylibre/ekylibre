@@ -11,3 +11,9 @@
 
   = f.input :intracommunity
   = f.referenced_association :intracommunity_payable_account, source: { scope: :intracommunity_payable}
+
+= field_set(:isacompta_code) do
+  = f.input :collect_isacompta_code
+  = f.input :deduction_isacompta_code
+  = f.input :fixed_asset_collect_isacompta_code
+  = f.input :fixed_asset_deduction_isacompta_code

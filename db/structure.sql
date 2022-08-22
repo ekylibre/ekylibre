@@ -31,6 +31,15 @@ CREATE SCHEMA public;
 
 
 --
+-- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
+--
+
+CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
+    LANGUAGE c
+    AS '$libdir/pgcrypto', 'pg_random_uuid';
+
+
+--
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -418,6 +427,7 @@ CREATE TABLE lexicon.master_crop_productions (
     idea_botanic_family character varying,
     idea_specie_family character varying,
     idea_output_family character varying,
+    color character varying,
     translation_id character varying NOT NULL
 );
 
@@ -482,7 +492,9 @@ CREATE TABLE lexicon.master_packagings (
 --
 
 CREATE TABLE lexicon.master_phenological_stages (
-    bbch_code integer NOT NULL,
+    id character varying NOT NULL,
+    bbch_code character varying NOT NULL,
+    variety character varying NOT NULL,
     biaggiolini character varying,
     eichhorn_lorenz character varying,
     chasselas_date character varying,
@@ -917,6 +929,14 @@ CREATE TABLE lexicon.registered_phytosanitary_usages (
     untreated_buffer_plants integer,
     decision_date date,
     state character varying NOT NULL,
+    extract_spray_volume_max_quantity character varying,
+    extract_spray_volume_max_unit character varying,
+    spray_volume_max_quantity numeric(19,4),
+    spray_volume_max_unit character varying,
+    spray_volume_max_unit_name character varying,
+    spray_volume_max_dose_quantity numeric(19,4),
+    spray_volume_max_dose_unit character varying,
+    spray_volume_max_dose_unit_name character varying,
     record_checksum integer
 );
 
@@ -1097,6 +1117,7 @@ CREATE TABLE lexicon.technical_workflows (
     unit character varying,
     life_state character varying,
     life_cycle character varying,
+    plant_density integer,
     translation_id character varying NOT NULL
 );
 
@@ -5863,7 +5884,7 @@ CREATE TABLE public.intervention_parameter_settings (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    name character varying NOT NULL
+    name character varying DEFAULT 'Default name'::character varying NOT NULL
 );
 
 
@@ -9007,7 +9028,8 @@ CREATE TABLE public.rides (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_id integer,
-    shape postgis.geometry(Geometry,4326)
+    shape postgis.geometry(Geometry,4326),
+    cultivable_zone_id bigint
 );
 
 
@@ -9702,7 +9724,11 @@ CREATE TABLE public.taxes (
     fixed_asset_collect_account_id integer,
     intracommunity boolean DEFAULT false NOT NULL,
     intracommunity_payable_account_id integer,
-    provider jsonb
+    provider jsonb,
+    collect_isacompta_code character varying,
+    deduction_isacompta_code character varying,
+    fixed_asset_deduction_isacompta_code character varying,
+    fixed_asset_collect_isacompta_code character varying
 );
 
 
@@ -12233,7 +12259,7 @@ ALTER TABLE ONLY lexicon.master_packagings
 --
 
 ALTER TABLE ONLY lexicon.master_phenological_stages
-    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (bbch_code);
+    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (id);
 
 
 --
@@ -22770,6 +22796,13 @@ CREATE INDEX index_rides_on_creator_id ON public.rides USING btree (creator_id);
 
 
 --
+-- Name: index_rides_on_cultivable_zone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_cultivable_zone_id ON public.rides USING btree (cultivable_zone_id);
+
+
+--
 -- Name: index_rides_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -25519,6 +25552,14 @@ ALTER TABLE ONLY public.tax_declaration_item_parts
 
 
 --
+-- Name: rides fk_rails_b169d5afbf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides
+    ADD CONSTRAINT fk_rails_b169d5afbf FOREIGN KEY (cultivable_zone_id) REFERENCES public.cultivable_zones(id);
+
+
+--
 -- Name: financial_years fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -26469,6 +26510,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220622183901'),
 ('20220627090824'),
 ('20220708090701'),
-('20220708171301');
+('20220708171301'),
+('20220728083430'),
+('20220809100201'),
+('20220819114201');
 
 

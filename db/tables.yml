@@ -10480,6 +10480,8 @@ taxes:
   collect_account_id:
     type: integer
     references: account
+  collect_isacompta_code:
+    type: string
   country:
     type: string
     required: true
@@ -10492,14 +10494,20 @@ taxes:
   deduction_account_id:
     type: integer
     references: account
+  deduction_isacompta_code:
+    type: string
   description:
     type: text
   fixed_asset_collect_account_id:
     type: integer
     references: account
+  fixed_asset_collect_isacompta_code:
+    type: string
   fixed_asset_deduction_account_id:
     type: integer
     references: account
+  fixed_asset_deduction_isacompta_code:
+    type: string
   id:
     type: integer
     required: true
