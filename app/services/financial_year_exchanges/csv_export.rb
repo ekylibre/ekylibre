@@ -22,7 +22,8 @@ module FinancialYearExchanges
                  libelle_ecriture
                  debit
                  credit
-                 lettrage].freeze
+                 lettrage
+                 code_tva].freeze
 
     def generate_ekyagri(exchange)
       Tempfile.open do |tempfile|
@@ -36,8 +37,14 @@ module FinancialYearExchanges
               journal_entry_items.name AS name,
               journal_entry_items.absolute_debit AS debit,
               journal_entry_items.absolute_credit AS credit,
-              journal_entry_items.letter AS letter
-
+              journal_entry_items.letter AS letter,
+              CASE
+                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.deduction_account_id THEN taxes.deduction_isacompta_code
+                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.collect_account_id THEN taxes.collect_isacompta_code
+                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_deduction_account_id THEN taxes.fixed_asset_deduction_isacompta_code
+                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_collect_account_id THEN taxes.fixed_asset_collect_isacompta_code
+                ELSE NULL
+              END AS vat_code
           FROM journal_entries
           JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
           JOIN accounts ON (journal_entry_items.account_id = accounts.id)
@@ -45,6 +52,9 @@ module FinancialYearExchanges
               accounts.id = entities.supplier_account_id OR
               accounts.id = entities.client_account_id OR
               accounts.id = entities.employee_account_id
+          )
+          LEFT JOIN taxes ON (
+              journal_entry_items.tax_id = taxes.id
           )
           JOIN journals ON (journal_entries.journal_id = journals.id)
           WHERE journal_entries.financial_year_exchange_id = #{exchange.id}
@@ -63,7 +73,8 @@ module FinancialYearExchanges
               row['name'],
               row['debit'],
               row['credit'],
-              row['letter']
+              row['letter'],
+              row['vat_code']
             ]
           end
         end
@@ -84,6 +95,7 @@ module FinancialYearExchanges
                            credit
                            lettrage
                            date_echeance
+                           code_tva
                            sequence_analytique].freeze
 
     def generate_isacompta(exchange, transmit_isacompta_analytic_codes)
@@ -102,7 +114,14 @@ module FinancialYearExchanges
                 journal_entry_items.absolute_debit AS debit,
                 journal_entry_items.absolute_credit AS credit,
                 journal_entry_items.isacompta_letter AS letter,
-                outgoing_payments.to_bank_at AS to_bank_at,
+                outgoing_payments.to_bank_at AS to_paid_at,
+                CASE
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.deduction_account_id THEN taxes.deduction_isacompta_code
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.collect_account_id THEN taxes.collect_isacompta_code
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_deduction_account_id THEN taxes.fixed_asset_deduction_isacompta_code
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_collect_account_id THEN taxes.fixed_asset_collect_isacompta_code
+                  ELSE NULL
+                END AS vat_code,
                 activities.isacompta_analytic_code AS activity_analytic_code,
                 project_budgets.isacompta_analytic_code AS project_budget_analytic_code,
                 teams.isacompta_analytic_code AS team_analytic_code,
@@ -115,6 +134,9 @@ module FinancialYearExchanges
                 accounts.id = entities.supplier_account_id OR
                 accounts.id = entities.client_account_id OR
                 accounts.id = entities.employee_account_id
+            )
+            LEFT JOIN taxes ON (
+                journal_entry_items.tax_id = taxes.id
             )
             LEFT JOIN activity_budgets ON
               journal_entry_items.activity_budget_id = activity_budgets.id
@@ -149,6 +171,7 @@ module FinancialYearExchanges
                 row['credit'],
                 row['letter'],
                 row['to_paid_at'],
+                row['vat_code'],
                 AnalyticSequence.first.segments.map do |segment|
                   row[segment.name.singularize + '_analytic_code']
                 end.join('')
@@ -173,7 +196,14 @@ module FinancialYearExchanges
                 journal_entry_items.absolute_debit AS debit,
                 journal_entry_items.absolute_credit AS credit,
                 journal_entry_items.isacompta_letter AS letter,
-                outgoing_payments.to_bank_at AS to_bank_at
+                outgoing_payments.to_bank_at AS to_paid_at,
+                CASE
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.deduction_account_id THEN taxes.deduction_isacompta_code
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.collect_account_id THEN taxes.collect_isacompta_code
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_deduction_account_id THEN taxes.fixed_asset_deduction_isacompta_code
+                  WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_collect_account_id THEN taxes.fixed_asset_collect_isacompta_code
+                  ELSE NULL
+                END AS vat_code
 
             FROM journal_entries
             JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
@@ -182,6 +212,9 @@ module FinancialYearExchanges
                 accounts.id = entities.supplier_account_id OR
                 accounts.id = entities.client_account_id OR
                 accounts.id = entities.employee_account_id
+            )
+            LEFT JOIN taxes ON (
+                journal_entry_items.tax_id = taxes.id
             )
             LEFT JOIN outgoing_payments ON
               outgoing_payments.journal_entry_id = journal_entries.id
@@ -205,7 +238,8 @@ module FinancialYearExchanges
                 row['debit'],
                 row['credit'],
                 row['letter'],
-                row['to_paid_at']
+                (row['to_paid_at'].present? ? Date.parse(row['to_paid_at']).strftime('%d%m%Y') : nil),
+                row['vat_code']
               ]
             end
           end
