@@ -2,6 +2,8 @@
 
 module Printers
   class PlannedBudgetPrinter < PrinterBase
+    # for accessing to number_to_accountancy
+    include ApplicationHelper
 
     class << self
       # TODO: move this elsewhere when refactoring the Document Management System
@@ -51,15 +53,15 @@ module Printers
           {
             name: activity.name,
             activity_size: "#{support_size.round_l(precision: 2)} #{activity.size_unit&.symbol}",
-            activity_expenses: ab.expenses_amount&.round_l(currency: ab.currency, precision: 2),
-            activity_revenues: ab.revenues_amount&.round_l(currency: ab.currency, precision: 2),
-            activity_balance: (ab.revenues_amount - ab.expenses_amount)&.round_l(currency: ab.currency, precision: 2),
-            activity_pretax_expenses: ab.expenses_pretax_amount&.round_l(currency: ab.currency, precision: 2),
-            activity_pretax_revenues: ab.revenues_pretax_amount&.round_l(currency: ab.currency, precision: 2),
-            activity_pretax_balance: (ab.revenues_pretax_amount - ab.expenses_pretax_amount)&.round_l(currency: ab.currency, precision: 2),
-            activity_pretax_expenses_per_support_size: (ab.expenses_pretax_amount / support_size)&.round_l(currency: ab.currency, precision: 2),
-            activity_pretax_revenues_per_support_size: (ab.revenues_pretax_amount / support_size)&.round_l(currency: ab.currency, precision: 2),
-            activity_pretax_balance_per_support_size: "#{((ab.revenues_pretax_amount / support_size) - (ab.expenses_pretax_amount / support_size))&.round_l(currency: ab.currency, precision: 2)} / #{activity.size_unit&.symbol}",
+            activity_expenses: ab.expenses_amount&.round(0),
+            activity_revenues: ab.revenues_amount&.round(0),
+            activity_balance: (ab.revenues_amount - ab.expenses_amount)&.round(0),
+            activity_pretax_expenses: ab.expenses_pretax_amount&.round(0),
+            activity_pretax_revenues: ab.revenues_pretax_amount&.round(0),
+            activity_pretax_balance: (ab.revenues_pretax_amount - ab.expenses_pretax_amount)&.round(0),
+            activity_pretax_expenses_per_support_size: (ab.expenses_pretax_amount / support_size)&.round(0),
+            activity_pretax_revenues_per_support_size: (ab.revenues_pretax_amount / support_size)&.round(0),
+            activity_pretax_balance_per_support_size: "#{((ab.revenues_pretax_amount / support_size) - (ab.expenses_pretax_amount / support_size))&.round(0)} / #{activity.size_unit&.symbol}",
             expenses: ab.expenses.reorder(:id).map do |expense|
               {
                 article_name: expense.variant_name,
@@ -71,7 +73,7 @@ module Printers
                 frequency: expense.frequency.l,
                 computation_method: expense.computation_method.l,
                 global_pretax_amount: expense.global_pretax_amount&.round_l(currency: ab.currency, precision: 2),
-                global_pretax_amount_per_support_size: (expense.global_pretax_amount / support_size)&.round_l(currency: ab.currency, precision: 2)
+                global_pretax_amount_per_support_size: (expense.global_pretax_amount.present? ? (expense.global_pretax_amount / support_size)&.round_l(currency: ab.currency, precision: 2) : nil)
               }
             end,
             revenues: ab.revenues.reorder(:id).map do |revenue|
@@ -85,7 +87,7 @@ module Printers
                 frequency: revenue.frequency.l,
                 computation_method: revenue.computation_method.l,
                 global_pretax_amount: revenue.global_pretax_amount&.round_l(currency: ab.currency, precision: 2),
-                global_pretax_amount_per_support_size: (revenue.global_pretax_amount / support_size)&.round_l(currency: ab.currency, precision: 2)
+                global_pretax_amount_per_support_size: (revenue.global_pretax_amount.present? ? (revenue.global_pretax_amount / support_size)&.round_l(currency: ab.currency, precision: 2) : nil)
               }
             end
           }
@@ -105,6 +107,17 @@ module Printers
           pretax_balance_per_support_size: act[:activity_pretax_balance_per_support_size]
         }
       end.compact
+      # compute totals
+      totals = {
+        name: :totals.tl,
+        expenses: activities_dataset.map{ |act| act[:activity_expenses] }.compact.sum,
+        revenues: activities_dataset.map{ |act| act[:activity_revenues] }.compact.sum,
+        balance: activities_dataset.map{ |act| act[:activity_balance] }.compact.sum,
+        pretax_expenses: activities_dataset.map{ |act| act[:activity_pretax_expenses] }.compact.sum,
+        pretax_revenues: activities_dataset.map{ |act| act[:activity_pretax_revenues] }.compact.sum,
+        pretax_balance: activities_dataset.map{ |act| act[:activity_pretax_balance] }.compact.sum
+      }
+      summary << totals
       dataset << summary
       dataset << activities_dataset
       dataset
@@ -122,14 +135,14 @@ module Printers
       r.add_field 'FILENAME', document_name
       r.add_table(:global_budget, dataset[0]) do |g|
         g.add_field(:name) { |act| act[:name]}
-        g.add_field(:expenses) { |act| act[:expenses]}
-        g.add_field(:revenues) { |act| act[:revenues]}
-        g.add_field(:balance) { |act| act[:balance]}
-        g.add_field(:pretax_expenses) { |act| act[:pretax_expenses]}
-        g.add_field(:pretax_revenues) { |act| act[:pretax_revenues]}
-        g.add_field(:pretax_balance) { |act| act[:pretax_balance]}
-        g.add_field(:pss_expenses) { |act| act[:pretax_expenses_per_support_size]}
-        g.add_field(:pss_revenues) { |act| act[:pretax_revenues_per_support_size]}
+        g.add_field(:expenses) { |act| act[:expenses]&.l(precision: 0)}
+        g.add_field(:revenues) { |act| act[:revenues]&.l(precision: 0)}
+        g.add_field(:balance) { |act| act[:balance]&.l(precision: 0)}
+        g.add_field(:pretax_expenses) { |act| act[:pretax_expenses]&.l(precision: 0)}
+        g.add_field(:pretax_revenues) { |act| act[:pretax_revenues]&.l(precision: 0)}
+        g.add_field(:pretax_balance) { |act| act[:pretax_balance]&.l(precision: 0)}
+        g.add_field(:pss_expenses) { |act| act[:pretax_expenses_per_support_size]&.l(precision: 0)}
+        g.add_field(:pss_revenues) { |act| act[:pretax_revenues_per_support_size]&.l(precision: 0)}
         g.add_field(:pss_balance) { |act| act[:pretax_balance_per_support_size]}
       end
       r.add_section(:section_activity, dataset[1]) do |s|
