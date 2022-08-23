@@ -622,23 +622,11 @@ module Backend
       intervention = find_and_check
       rides = Ride.find(params[:ride_ids])
       if params[:ride_ids].present?
+        intervention.targets.destroy_all
         options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
           ride_ids: params[:ride_ids],
           procedure_name: intervention.procedure_name
         )
-        targets_attributes = options_from_rides[:group_parameters_attributes]
-        targets_attributes = options_from_rides[:targets_attributes] if targets_attributes.empty?
-
-        targets_attributes.each do |target_attributes|
-          target = intervention.targets.find_by(product_id: target_attributes[:product_id])
-          if target.present?
-            target.update!(target_attributes)
-          end
-        end
-        existing_target_product_ids = intervention.targets.pluck(:product_id)
-        options_from_rides[:group_parameters_attributes].reject!{ |attributes| existing_target_product_ids.include?(attributes[:product_id])}
-        options_from_rides[:targets_attributes].reject!{ |attributes| existing_target_product_ids.include?(attributes[:product_id])}
-
         intervention.update!(options_from_rides)
       end
       redirect_to edit_backend_intervention_path(intervention)
