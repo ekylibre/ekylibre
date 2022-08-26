@@ -93,17 +93,17 @@ class RideSet < ApplicationRecord
 
   def rides_affected?
     rides = self.rides.map(&:state)
-    rides.uniq.size <= 1 && rides.include?("affected")
+    rides.uniq.size <= 1 && rides.include?(:affected)
   end
 
   def rides_of_nature_work_affected?
     rides = self.rides.of_nature("work").map(&:state)
-    rides.uniq.size <= 1 && rides.include?("affected")
+    rides.uniq.size <= 1 && rides.include?(:affected)
   end
 
   def rides_of_nature_work_partially_affected?
     rides = self.rides.of_nature("work").map(&:state)
-    rides.uniq.size >= 2 && rides.include?("affected")
+    rides.uniq.size >= 2 && rides.include?(:affected)
   end
 
   def rides_of_nature_road_partially_affected?

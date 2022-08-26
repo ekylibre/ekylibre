@@ -48,7 +48,7 @@ module Interventions
         end
 
         def existing_rides
-          @existing_rides ||= Ride.joins(:equipment).where(id: @ride_ids, state: :unaffected, nature: :work).reorder(:started_at)
+          @existing_rides ||= Ride.joins(:equipment).with_state(:unaffected).where(id: @ride_ids, nature: :work).reorder(:started_at)
         end
 
         def started_at

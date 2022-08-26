@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,21 +30,23 @@
 #  area_without_overlap :float
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  cultivable_zone_id   :integer(8)
 #  distance_km          :float
 #  duration             :interval
 #  equipment_name       :string
 #  gasoline             :float
 #  id                   :integer          not null, primary key
+#  intervention_id      :integer
 #  lock_version         :integer          default(0), not null
 #  nature               :string
 #  number               :string
 #  product_id           :integer
 #  provider             :jsonb
 #  ride_set_id          :integer
+#  shape                :geometry({:srid=>4326, :type=>"geometry"})
 #  sleep_count          :integer
 #  sleep_duration       :interval
 #  started_at           :datetime
-#  state                :string
 #  stopped_at           :datetime
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -72,22 +74,13 @@ class Ride < ApplicationRecord
   has_geometry :shape, type: :line_string
 
   scope :of_nature, ->(nature_name) { where(nature: nature_name) }
+  scope :with_state, ->(state) {  where("intervention_id IS #{state == :affected ? 'NOT NULL' : 'NULL'}") }
 
   acts_as_numbered :number
   enumerize :nature, in: %i[road work], scope: true
-  enumerize :state, in: %i[affected unaffected], default: :unaffected
 
-  state_machine :state do
-    state :unaffected
-    state :affected
-
-    event :link_intervention do
-      transition unaffected: :affected
-    end
-  end
-
-  after_update do
-    self.link_intervention if self.intervention_id.present?
+  def state
+    intervention_id.present? ? :affected : :unaffected
   end
 
   def working_zone

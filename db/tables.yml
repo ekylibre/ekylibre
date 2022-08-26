@@ -9523,10 +9523,14 @@ rides:
   creator_id:
     type: integer
     references: user
+  cultivable_zone_id:
+    type: integer
+    references: cultivable_zone
+    limit: 8
   distance_km:
     type: float
   duration:
-    type: string
+    type: interval
   equipment_name:
     type: string
   gasoline:
@@ -9560,11 +9564,9 @@ rides:
   sleep_count:
     type: integer
   sleep_duration:
-    type: string
+    type: interval
   started_at:
     type: datetime
-  state:
-    type: string
   stopped_at:
     type: datetime
   updated_at:
