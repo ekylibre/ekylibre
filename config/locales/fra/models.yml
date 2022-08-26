@@ -1126,7 +1126,7 @@ fra:
     rootstock_name: "Porte-greffe"
     rootstock_names: "Porte-greffe(s)"
     vine_variety_name: "Cépage" #?
-    isacompta_code: "Code Isacompta"
+    isacompta_code: "Codes Isacompta"
     isacompta_label: "Libellé Isacompta"
     abilities: "Compétences"
     abilities_list: "Liste des compétences"
@@ -1334,7 +1334,7 @@ fra:
     # codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
-    collect_isacompta_code: "Code ISACOMPTA - TVA collectée"
+    collect_isacompta_code: "Code Isacompta - TVA collectée"
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute" #?
     collected_pretax_amount: "Montant HT collectées"
@@ -1459,7 +1459,7 @@ fra:
     deductible_pretax_amount: "Montant HT déductible"
     deductible_tax_amount: "Montant de la taxe déductible"
     deduction_account: "TVA déductible"
-    deduction_isacompta_code: "Code ISACOMPTA - TVA déductible"
+    deduction_isacompta_code: "Code Isacompta - TVA déductible"
     deduction_taxes: "TVA déductible" #?
     default_computation_method: "Méthode de calcul par défaut"
     default_mail_address: "Adresse email par défaut"
@@ -1642,11 +1642,11 @@ fra:
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
     fixed_assets_categories: "Catégories comptables avec immobilisation" #?
     fixed_asset_collect_account: "TVA collectée sur les immobilisations"
-    fixed_asset_collect_isacompta_code: "Code ISACOMPTA - TVA collectée sur immobilisations"
+    fixed_asset_collect_isacompta_code: "Code Isacompta - TVA collectée sur les immobilisations"
     fixed_asset_deductible_pretax_amount: "Montant HT déductibles sur immobilisation"
     fixed_asset_deductible_tax_amount: "Montant taxes déductibles sur immobilisation"
     fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
-    fixed_asset_deduction_isacompta_code: "Code ISACOMPTA - TVA déductible sur immobilisations"
+    fixed_asset_deduction_isacompta_code: "Code Isacompta - TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
