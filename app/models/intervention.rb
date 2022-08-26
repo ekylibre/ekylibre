@@ -140,8 +140,6 @@ class Intervention < ApplicationRecord
 
   before_validation :set_number, on: :create
 
-  before_destroy :unset_rides, prepend: true
-
   def set_number
     # planning
     if intervention_proposal.present? && !parent_id.present?
@@ -1163,12 +1161,6 @@ class Intervention < ApplicationRecord
 
   private def during_financial_year_exchange?
     FinancialYearExchange.opened.at(printed_at).exists?
-  end
-
-  private def unset_rides
-    rides.each do |ride|
-      ride.update(state: "unaffected")
-    end
   end
 
   private def pfi_api_down_notification_generation

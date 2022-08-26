@@ -9002,7 +9002,6 @@ CREATE TABLE public.rides (
     sleep_count integer,
     equipment_name character varying,
     provider jsonb,
-    state character varying,
     product_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -26512,6 +26511,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220708171301'),
 ('20220728083430'),
 ('20220809100201'),
-('20220819114201');
+('20220819114201'),
+('20220825131358');
 
 
