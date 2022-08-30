@@ -10,15 +10,17 @@ module Interventions
         new(*args).call
       end
 
-      def initialize(ride_ids:, procedure_name:)
+      def initialize(ride_ids:, procedure_name:, target_class: nil)
         @ride_ids = ride_ids
         @procedure_name = procedure_name
+        @target_class = target_class
       end
 
       def call
         options = {
           targets_attributes: [],
           group_parameters_attributes: [],
+          ride_ids: ride_ids
         }
 
         return options if target_parameter.nil?
@@ -40,6 +42,7 @@ module Interventions
       end
 
       private
+        attr_reader :ride_ids
 
         def working_zone
           crumbs = Crumb.where(ride_id: existing_rides.pluck(:id))
@@ -79,11 +82,13 @@ module Interventions
         end
 
         def matching_targets
-          @matching_targets ||= target_class(target_parameter.name).at(started_at).shape_intersecting(working_zone)
+          @matching_targets ||= target_class.at(started_at).shape_intersecting(working_zone)
         end
 
-        def target_class(target_parameter)
-          case target_parameter
+        def target_class
+          return @target_class if @target_class.present?
+
+          case target_parameter.name
           when :land_parcel then LandParcel
           when :plant       then Plant
           when :cultivation then LandParcel
