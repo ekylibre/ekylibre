@@ -620,12 +620,15 @@ module Backend
 
     def update_with_rides
       intervention = find_and_check
+      target_class = Product.where(id: intervention.targets.pluck(:product_id)).pluck(:type).first&.constantize
       rides = Ride.find(params[:ride_ids])
       if params[:ride_ids].present?
         intervention.targets.destroy_all
+        intervention.working_periods.destroy_all
         options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
           ride_ids: params[:ride_ids],
-          procedure_name: intervention.procedure_name
+          procedure_name: intervention.procedure_name,
+          target_class: target_class
         )
         intervention.update!(options_from_rides)
       end

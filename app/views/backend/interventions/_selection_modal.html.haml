@@ -5,7 +5,7 @@
       = hidden_field_tag 'ride_ids[]', id, id: "ride_ids_#{id}"
     .control-group.radio_buttons.intervention-request-selector
       = f.hidden_field(:state, value: 'done')
-      - interventions.each do |intervention|
+      - interventions.each_with_index do |intervention, index|
         :ruby
           targets_name = intervention.targets.map{ |target| target.product.name }.join(' / ')
           inputs_name = intervention.inputs.map{ |input| input.product.name }.join(' / ')
@@ -13,7 +13,7 @@
           tools_name = intervention.tools.map{ |tool| tool.product.name }.join(' / ')
         %div
           = f.label :id, for: "intervention_intervention_id_#{intervention.id}" do
-            = f.radio_button :intervention_id, intervention.id
+            = f.radio_button :intervention_id, intervention.id, checked: (index == 0)
             %ul
               %li
                 %span.title= intervention.name
@@ -37,8 +37,8 @@
                   %span.title= :equipments.tl + " : "
                   %span.value= tools_name
     .form-actions
-      = f.submit :validate.tl
       = link_to :cancel.tl, :back, class: "btn"
+      = f.submit :validate.tl, class: "btn btn-primary"
 - else 
   = :none_intervention_request_found.tl
   .form-actions
