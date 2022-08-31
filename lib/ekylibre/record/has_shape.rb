@@ -14,7 +14,7 @@ module Ekylibre
                     begin
                       Charta.from_geojson(value)
                     rescue => e
-                      fixed_geojson = correct_geojson(value)
+                      fixed_geojson = correct_geojson(value, options[:type])
                       value = fixed_geojson.get if fixed_geojson.is_some?
                     end
                   else
@@ -37,9 +37,9 @@ module Ekylibre
           value.to_rgeo
         end
 
-        def correct_geojson(value)
+        def correct_geojson(value, type)
           geojson = Charta::GeoJSON.new(value, "4326")
-          correct_shape(geojson, options[:type])
+          correct_shape(geojson, type)
         end
 
         def correct_shape(shape, type)
