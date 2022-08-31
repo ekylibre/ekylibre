@@ -11,13 +11,23 @@ module Ekylibre
           return value if value.is_a? RGeo::Feature::Instance
 
           value = if value.is_a?(Hash) || (value.is_a?(String) && value =~ /\A\{.*\}\z/)
-                    Charta.from_geojson(value)
+                    begin
+                      Charta.from_geojson(value)
+                    rescue => e
+                      fixed_geojson = correct_geojson(value)
+                      value = fixed_geojson.get if fixed_geojson.is_some?
+                    end
                   else
                     Charta.new_geometry(value)
                   end
 
           fixed_value = correct_shape(value, options[:type])
           value = fixed_value.get if fixed_value.is_some?
+
+          if value.type == :geometry_collection
+            extracted_shape = extract_geometries(value, options[:type])
+            value = extracted_shape.get if extracted_shape.is_some?
+          end
 
           if options[:type] && options[:type] == :multi_polygon
             value = value.convert_to(:multi_polygon)
@@ -27,9 +37,19 @@ module Ekylibre
           value.to_rgeo
         end
 
+        def correct_geojson(value)
+          geojson = Charta::GeoJSON.new(value, "4326")
+          correct_shape(geojson, options[:type])
+        end
+
         def correct_shape(shape, type)
           corrector = ShapeCorrector.build
           corrector.try_fix(shape, geometry_type: type)
+        end
+
+        def extract_geometries(shape, type)
+          corrector = ShapeCorrector.build
+          corrector.extract_geometries(shape, type)
         end
       end
 

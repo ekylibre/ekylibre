@@ -54,7 +54,32 @@ class ShapeCorrector
     try_postgis_geojson_fix(geojson, srid)
   end
 
+  # @param [String] ewkt
+  # @param [Symbol] geometry_type
+  # @return [Maybe<String>]
+  def extract_geometries(ewkt, geometry_type)
+    postgis_geometries_extraction(ewkt, geometry_type)
+      .fmap { |ewkt| Charta.new_geometry(ewkt) }
+  end
+
   private
+
+    def postgis_geometries_extraction(ewkt, geometry_type)
+      res = @connection.execute(<<~SQL).to_a.first
+        SELECT
+          ST_AsEWKT(
+            ST_collectionExtract(
+              ST_GeomFromEWKT('#{ewkt}')
+            , #{find_postgis_integer_type(geometry_type)})
+          )AS extracted_shape
+      SQL
+
+      if res.present?
+        Maybe(res['extracted_shape'])
+      else
+        None()
+      end
+    end
 
     # @param [String] ewkt
     # @return [Maybe<String>]
@@ -82,11 +107,9 @@ class ShapeCorrector
           ST_AsEWKT(
             ST_MakeValid(
               ST_AsEWKT(
-                ST_collectionExtract(
-                  ST_MakeValid(
-                      ST_GeomFromEWKT('#{ewkt}')
-                  )
-                , #{find_postgis_integer_type(geometry_type)})
+                ST_MakeValid(
+                    ST_GeomFromEWKT('#{ewkt}')
+                )
               )
             )
           ) AS valid_shape

@@ -20,4 +20,11 @@ class ShapeCorrectorTest < Ekylibre::Testing::ApplicationTestCase
       assert @corrector.try_fix(@shape).is_none?
     end
   end
+
+  test "#extract_geometries return an extracted geometry with the right type" do
+    shape = Charta.new_geometry("SRID=4326; GEOMETRYCOLLECTION(POINT(2 0),POLYGON((0 0, 1 0, 1 1, 0 1, 0 0)))")
+    extracted = @corrector.extract_geometries(shape, :polygon).get
+    assert(%i[polygon multi_polygon].include?(extracted.type))
+    assert_equal(shape.area, extracted.area )
+  end
 end
