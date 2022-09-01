@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/charta.git
-  revision: 9a241c3f142d4a6acd501ffe78737cc691486a47
+  revision: fe4db0fcdc6e59b016d6cfb8bc94fcb3004a02e8
   branch: master
   specs:
     charta (0.4.0)
@@ -703,7 +703,7 @@ GEM
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
-    victor (0.3.3)
+    victor (0.3.4)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
