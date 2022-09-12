@@ -1,10 +1,9 @@
 %h1= :select_intervention_request.tl
-- if interventions.any? 
-  = form_for(:intervention, url: change_state_backend_interventions_path) do |f|
+- if interventions.any?
+  = form_tag(link_rides_to_planned_backend_interventions_path, method: :put) do |f|
     - ride_ids.each do |id|
       = hidden_field_tag 'ride_ids[]', id, id: "ride_ids_#{id}"
     .control-group.radio_buttons.intervention-request-selector
-      = f.hidden_field(:state, value: 'done')
       - interventions.each_with_index do |intervention, index|
         :ruby
           targets_name = intervention.targets.map{ |target| target.product.name }.join(' / ')
@@ -12,8 +11,8 @@
           worker_name = intervention.doers.map{ |doer| doer.product.name }.join(' / ')
           tools_name = intervention.tools.map{ |tool| tool.product.name }.join(' / ')
         %div
-          = f.label :id, for: "intervention_intervention_id_#{intervention.id}" do
-            = f.radio_button :intervention_id, intervention.id, checked: (index == 0)
+          = label_tag :id, for: "intervention_id_#{intervention.id}" do
+            = radio_button_tag :id, intervention.id, checked: (index == 0)
             %ul
               %li
                 %span.title= intervention.name
@@ -38,8 +37,8 @@
                   %span.value= tools_name
     .form-actions
       = link_to :cancel.tl, :back, class: "btn"
-      = f.submit :validate.tl, class: "btn btn-primary"
-- else 
+      = submit_tag :validate.tl, class: "btn btn-primary"
+- else
   = :none_intervention_request_found.tl
   .form-actions
     = link_to :cancel.tl, :back, class: "btn"

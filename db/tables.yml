@@ -9517,6 +9517,10 @@ rides:
     type: float
   area_without_overlap:
     type: float
+  converting_to_intervention:
+    type: boolean
+    required: true
+    default: false
   created_at:
     type: datetime
     required: true

@@ -505,98 +505,18 @@ module Backend
     end
 
     def change_state
-      unless state_change_permitted_params
-        head :unprocessable_entity
-        return
-      end
-
-      interventions_ids = if state_change_permitted_params[:intervention_id].present?
-                            [state_change_permitted_params[:intervention_id]]
-                          else
-                            JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
-                          end
+      interventions_ids = JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
       new_state = state_change_permitted_params[:state].to_sym
 
       @interventions = Intervention.find(interventions_ids)
-
       Intervention.transaction do
         @interventions.each do |intervention|
-          next if intervention.request? && intervention.record_interventions.any?
-
-          if intervention.nature == :record && new_state == :rejected
-
-            unless intervention.request_intervention_id.nil?
-              intervention_request = Intervention.find(intervention.request_intervention_id)
-
-              if state_change_permitted_params[:delete_option].to_sym == :delete_request
-                intervention_request.destroy!
-              else
-                intervention_request.parameters = intervention.parameters
-                intervention_request.save!
-              end
-            end
-
-            intervention.destroy!
-            next
-          end
-
-          if intervention.nature == :request && new_state == :rejected
-            intervention.state = new_state
-
-            next unless intervention.valid?
-
-            intervention.save!
-
-            next
-          end
-
-          new_intervention = intervention
-
-          if intervention.nature == :request
-            new_intervention = intervention.dup
-            intervention.working_periods.each do |wp|
-              new_intervention.working_periods.build(wp.dup.attributes)
-            end
-            intervention.group_parameters.each do |group_parameter|
-              duplicate_group_parameter = group_parameter.dup
-              duplicate_group_parameter.intervention = new_intervention
-              %i[doers inputs outputs targets tools].each do |type|
-                parameters = group_parameter.send(type)
-                parameters.each do |parameter|
-                  duplicate_parameter = parameter.dup
-                  duplicate_parameter.group = duplicate_group_parameter
-                  duplicate_parameter.intervention = new_intervention
-                  duplicate_group_parameter.send(type) << duplicate_parameter
-                end
-              end
-              new_intervention.group_parameters << duplicate_group_parameter
-            end
-            intervention.product_parameters.where(group_id: nil).each do |parameter|
-              new_intervention.product_parameters << parameter.dup
-            end
-            intervention.participations.includes(:working_periods).each do |participation|
-              dup_participation = participation.dup.attributes.merge({ state: 'in_progress' })
-              new_participation = new_intervention.participations.build(dup_participation)
-              participation.working_periods.each do |wp|
-                new_participation.working_periods.build(wp.dup.attributes)
-              end
-            end
-            intervention.receptions.each do |reception|
-              new_intervention.receptions << reception
-            end
-            new_intervention.request_intervention_id = intervention.id
-          end
-
-          if new_state == :validated
-            new_intervention.validator = current_user
-          end
-
-          new_intervention.state = new_state
-          new_intervention.nature = :record
-
-          next unless new_intervention.valid?
-
-          new_intervention.save!
+          ::Interventions::ChangeState.call(
+            intervention: intervention,
+            new_state: state_change_permitted_params[:state],
+            delete_option: state_change_permitted_params[:delete_option],
+            validator: current_user
+          )
         end
       end
 
@@ -604,35 +524,25 @@ module Backend
         intervention = @interventions.first
         if intervention.request? && intervention.record_interventions.any?
           record_intervention = intervention.record_interventions.first
-          response.headers['X-Return-Code'] = 'success'
-          redirect_path = if params[:ride_ids].present?
-                            update_with_rides_backend_intervention_path(record_intervention, ride_ids: params[:ride_ids])
-                          else
-                            backend_intervention_path(record_intervention)
-                          end
-
-          return redirect_to redirect_path
+          return redirect_to backend_intervention_path(record_intervention)
         end
       end
 
       redirect_to_back
     end
 
-    def update_with_rides
-      intervention = find_and_check
-      target_class = Product.where(id: intervention.targets.pluck(:product_id)).pluck(:type).first&.constantize
+    def link_rides_to_planned
+      return unless intervention = find_and_check
+
       rides = Ride.find(params[:ride_ids])
-      if params[:ride_ids].present?
-        intervention.targets.destroy_all
-        intervention.working_periods.destroy_all
-        options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
-          ride_ids: params[:ride_ids],
-          procedure_name: intervention.procedure_name,
-          target_class: target_class
-        )
-        intervention.update!(options_from_rides)
+      ::Interventions::LinkRidesToPlannedJob.perform_later(intervention, rides, perform_as: current_user)
+      response.headers['X-Return-Code'] = 'success'
+      notify_success(:intervention_in_preparation)
+      if defined?(EkylibreSamsys)
+        redirect_to backend_ride_set_path(rides.first.ride_set)
+      else
+        redirect_to backend_interventions_path(intervention)
       end
-      redirect_to edit_backend_intervention_path(intervention)
     end
 
     # FIXME: Not linked directly to interventions

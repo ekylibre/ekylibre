@@ -63,10 +63,12 @@ class Ride < ApplicationRecord
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :area_smart, :area_with_overlap, :area_without_overlap, :distance_km, :gasoline, numericality: true, allow_blank: true
-  validates :duration, :equipment_name, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
+  validates :converting_to_intervention, inclusion: { in: [true, false] }
+  validates :equipment_name, :number, length: { maximum: 500 }, allow_blank: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(ride) { ride.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
+  validates :duration, :equipment_name, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
 
   has_interval :duration, :sleep_duration
 
@@ -74,13 +76,21 @@ class Ride < ApplicationRecord
   has_geometry :shape, type: :line_string
 
   scope :of_nature, ->(nature_name) { where(nature: nature_name) }
-  scope :with_state, ->(state) {  where("intervention_id IS #{state == :affected ? 'NOT NULL' : 'NULL'}") }
+  scope :with_state, ->(state) do
+    if state == :affecting
+      where(converting_to_intervention: true)
+    else
+      where("intervention_id IS #{state == :affected ? 'NOT NULL' : 'NULL'}")
+    end
+  end
 
   acts_as_numbered :number
   enumerize :nature, in: %i[road work], scope: true
 
   def state
-    intervention_id.present? ? :affected : :unaffected
+    return :affected if intervention_id.present?
+
+    converting_to_intervention ? :affecting : :unaffected
   end
 
   def working_zone
