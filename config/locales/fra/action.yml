@@ -4026,6 +4026,7 @@ fra:
       equipment_is_at_end_of_life: "L’équipment %{name} approche la fin de sa vie. Temps restant: %{remaining_time}."
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       error_client_account_empty: "Opération impossible, le compte client est vide"
+      error_during_intervention_creation_from_rides: "Une erreur est survenue lors de la création de l'intervention à partir d'un trajet géolocalisé"
       error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
       error_during_pfi_report_generation: "Rapport IFT : %{error_message}"
       error_during_vat_declaration_generation: "Une erreur est survenue durant la génération de la déclaration de TVA."
@@ -4058,6 +4059,8 @@ fra:
       information_success_download: "Création réussie ! Vous pouvez maintenant lancer le téléchargement via le bouton 'Télécharger'."
       informations_feed_is_unreachable: "Le flux d’informations (%{url}) est inaccessible. Message d’erreur\_: %{message}"
       integrate_tools_you_are_using_every_day: "Intégrez les outils que vous utilisez tous les jours"
+      intervention_created_from_rides: "L'intervention issue d'un trajet géolocalisé a été créée avec succès"
+      intervention_in_preparation: "Votre intervention est en cours de création et une notification vous sera envoyée dès qu'elle sera prête."
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
       inventory_reflection_in_progress: "L'inventaire est en cours de reflètement, vous serez notifié(e) une fois le processus terminé. D'ici là, vous pouvez continuer à utiliser l'application."

@@ -734,12 +734,12 @@ Rails.application.routes.draw do
         get :validate_reentry_delay
         post :create_duplicate_intervention
         get :compare_realised_with_planned
+        put :link_rides_to_planned
       end
       member do
         get :export
         post :sell
         post :purchase
-        get :update_with_rides
         get :list_product_parameters
         get :list_record_interventions
         get :list_service_deliveries

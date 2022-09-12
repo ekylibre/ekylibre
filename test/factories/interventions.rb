@@ -24,6 +24,10 @@ FactoryBot.define do
       end
     end
 
+    trait :request do
+      nature :request
+    end
+
     trait :harvesting do
       procedure_name { 'harvesting' }
       actions { [:harvest] }
