@@ -251,28 +251,25 @@ module Backend
         options[param] = unsafe_params[param]
       end
 
-      if params['targets_attributes'].present?
-        id = params['targets_attributes'].first['product_id'].to_i
-      end
-
-      # check if a target product exist when selecting a procedure otherwise send a flash message
-      if params['procedure_name'].present?
+      attributes_have_only_product_id = params[:targets_attributes] && params[:targets_attributes].all?{ |target_attributes| target_attributes.keys.length == 1 && target_attributes[:product_id].present? }
+      if params['procedure_name'].present? && attributes_have_only_product_id
         procedure = Procedo::Procedure.find(params['procedure_name'])
         target_parameter = procedure.parameters_of_type(:target, true).first if procedure
+        notify_warning_now(:no_target_exist_on_procedure) if target_parameter.nil?
 
-        # if theres no products relatives to selected procedure (target && filter), notify user and clean params
-        if procedure.present? && target_parameter.present?
-          if target_parameter.is_a?(Procedo::Procedure::ProductParameter)
-            filter = target_parameter.filter
-          else
-            notify_warning_now(:no_target_exist_on_procedure)
+        if target_parameter
+          products = Product.where(id: unsafe_params.delete('targets_attributes').map{ |ta| ta[:product_id] }.compact)
+          target_attributes_builder = ::Interventions::TargetsAttributesBuilder.new(target_parameter, products, at: Time.zone.now - 1.hour)
+
+          if target_attributes_builder.products_matching_to_filter.blank?
+            notify_warning_now(:no_availables_product_matching_current_filter)
           end
-          if Product.of_expression(filter).blank?
-            # notify user and remove unsafe_params concerning targets_attributes && group_parameters_attributes
-            notify_warning_now(:no_product_matching_current_filter)
-            unsafe_params.delete('targets_attributes')
-            unsafe_params.delete('group_parameters_attributes')
+
+          if target_attributes_builder.available_products.blank?
+            notify_warning_now(:no_availables_product_on_current_campaign)
           end
+
+          options.deep_merge!(target_attributes_builder.attributes)
         end
       end
 
@@ -293,33 +290,6 @@ module Backend
           procedure_name: params[:procedure_name]
         )
         options.merge!(options_from_rides)
-      end
-
-      # , :doers, :inputs, :outputs, :tools
-      %i[group_parameters targets].each do |param|
-        next unless unsafe_params.include?(:intervention) || unsafe_params.include?("#{param}_attributes")
-
-        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
-        next unless options[:targets_attributes]
-
-        targets = if options[:targets_attributes].is_a? Array
-                    options[:targets_attributes].collect { |k, _| k[:product_id] }
-                  else
-                    options[:targets_attributes].collect { |_, v| v[:product_id] }
-                  end
-        availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
-
-        if availables.any? && filter.present? && Product.where(id: availables).of_expression(filter).blank?
-          notify_warning_now(:no_availables_product_matching_current_filter)
-        elsif availables.blank?
-          notify_warning_now(:no_availables_product_on_current_campaign)
-        end
-
-        options[:targets_attributes].select! do |k, v|
-          # This does not work with Rails 5 without the unsafe_params trick
-          obj = k.is_a?(Hash) ? k : v
-          obj.include?(:product_id) && availables.include?(obj[:product_id].to_i)
-        end
       end
 
       %i[doers inputs outputs tools participations working_periods intervention_crop_groups].each do |param|
