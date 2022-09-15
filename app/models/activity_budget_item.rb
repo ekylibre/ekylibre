@@ -116,33 +116,30 @@ class ActivityBudgetItem < ApplicationRecord
     self.global_amount = self.amount * year_repetition if self.amount.present?
   end
 
-  after_save do
-    if use_transfer_price && (budget = ActivityBudget.find_by_id(transfered_activity_budget_id)).present?
-      if (expense = budget.expenses.find_by(variant: variant))
-        expense.update!(
-          quantity: quantity,
-          used_on: used_on,
-          unit_id: unit_id,
-          unit_amount: transfer_price,
-          tax: tax,
-          locked: true
-        )
-      else
-        budget.items.create!(
-          direction: :expense,
-          quantity: quantity,
-          variant: variant,
-          unit_id: unit_id,
-          unit_amount: transfer_price,
-          used_on: used_on,
-          tax: tax,
-          computation_method: :per_working_unit,
-          locked: true
-        )
-      end
+  after_save :handle_transfered_item
+  after_save :update_economic_cash_indicators
+
+  # Create or update expense in the activity budget in witch item is transfered
+  def handle_transfered_item
+    return if !use_transfer_price
+    return if (transfered_activity_budget = ActivityBudget.find_by_id(transfered_activity_budget_id)).nil?
+
+    attributes = {
+      quantity: total_quantity,
+      used_on: used_on,
+      unit_id: unit_id,
+      unit_amount: transfer_price,
+      tax: tax,
+      computation_method: :per_campaign,
+      locked: true
+    }
+    if (expense = transfered_activity_budget.expenses.find_by(variant: variant))
+      expense.update!(attributes)
+    else
+      transfered_activity_budget.items.create!(
+        attributes.merge({ direction: :expense, variant: variant })
+      )
     end
-    # update economic_cash_indicators
-    update_economic_cash_indicators
   end
 
   # Computes the coefficient to use for amount computation
