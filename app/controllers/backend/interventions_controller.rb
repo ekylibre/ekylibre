@@ -259,17 +259,17 @@ module Backend
 
         if target_parameter
           products = Product.where(id: unsafe_params.delete('targets_attributes').map{ |ta| ta[:product_id] }.compact)
-          target_attributes_builder = ::Interventions::TargetsAttributesBuilder.new(target_parameter, products, at: Time.zone.now - 1.hour)
+          targets_attributes_builder = ::Interventions::TargetsAttributesBuilder.new(target_parameter, products, at: Time.zone.now - 1.hour)
 
-          if target_attributes_builder.products_matching_to_filter.blank?
+          if targets_attributes_builder.products_matching_to_filter.blank?
             notify_warning_now(:no_availables_product_matching_current_filter)
           end
 
-          if target_attributes_builder.available_products.blank?
+          if targets_attributes_builder.available_products.blank?
             notify_warning_now(:no_availables_product_on_current_campaign)
           end
 
-          options.deep_merge!(target_attributes_builder.attributes)
+          options.deep_merge!(targets_attributes_builder.attributes)
         end
       end
 
