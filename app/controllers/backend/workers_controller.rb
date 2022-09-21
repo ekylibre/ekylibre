@@ -67,6 +67,18 @@ module Backend
       t.column :human_duration, on_select: :sum, value_method: 'duration.in(:second).in(:hour)', datatype: :decimal, class: 'center-align'
     end
 
+    list(:catalog_items, conditions: { product_id: 'params[:id]'.c }) do |t|
+      t.action :edit, url: { controller: '/backend/catalog_items' }
+      t.action :destroy, url: { controller: '/backend/catalog_items' }
+      t.column :name, url: { controller: '/backend/catalog_items' }
+      t.column :unit
+      t.column :amount, url: { controller: '/backend/catalog_items' }, currency: true
+      t.column :all_taxes_included
+      t.column :catalog, url: { controller: '/backend/catalogs' }
+      t.column :started_at
+      t.column :stopped_at
+    end
+
     def index
       respond_to do |format|
         format.pdf do

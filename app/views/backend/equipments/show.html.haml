@@ -76,6 +76,10 @@
     - c.cobble(:equipment_maintenance_interventions, title: :x_equipment_maintenance_interventions.tl(count: record_equipment_maintenance_interventions.count)) do
       = cobble_list(:equipment_maintenance_interventions)
 
+  - c.cobble(:prices_list) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: '/backend/catalog_items', :product_id => resource.id, :variant_id => resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
   - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})

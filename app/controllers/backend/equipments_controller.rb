@@ -49,6 +49,8 @@ module Backend
       t.column :work_number, url: true
       t.column :name, url: true
       t.column :born_at
+      t.column :variant, url: true
+      t.column :nature, url: true
       t.status
       t.column :state, hidden: true
       t.column :container, url: true
@@ -58,6 +60,18 @@ module Backend
     list(:links, model: :product_link, conditions: { product_id: 'params[:id]'.c }) do |t|
       t.column :nature
       t.column :linked_id, url: { controller: 'backend/equipments', id: 'RECORD.linked_id'.c }, label_method: :linked_name
+    end
+
+    list(:catalog_items, conditions: { product_id: 'params[:id]'.c }) do |t|
+      t.action :edit, url: { controller: '/backend/catalog_items' }
+      t.action :destroy, url: { controller: '/backend/catalog_items' }
+      t.column :name, url: { controller: '/backend/catalog_items' }
+      t.column :unit
+      t.column :amount, url: { controller: '/backend/catalog_items' }, currency: true
+      t.column :all_taxes_included
+      t.column :catalog, url: { controller: '/backend/catalogs' }
+      t.column :started_at
+      t.column :stopped_at
     end
 
     list(:interventions_on_field, model: :intervention_parameters, joins: :intervention, conditions: [

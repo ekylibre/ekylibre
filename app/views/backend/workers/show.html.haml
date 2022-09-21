@@ -20,6 +20,10 @@
   = labels_info(resource.labels)
 
 = cobbles do |c|
+  - c.cobble(:prices_list) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: '/backend/catalog_items', :product_id => resource.id, :variant_id => resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
 
   - c.cobble(:time_logs, title: :x_time_logs.tl(count: resource.time_logs.of_year(current_period.to_date.year).count)) do
     = cobble_toolbar do |t|

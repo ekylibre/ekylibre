@@ -97,6 +97,7 @@ module Backend
       t.column :product_work_number
       t.column :conditioning_unit
       t.column :conditioning_quantity, class: 'left-align'
+      t.column :unit_pretax_stock_amount, currency: true
       t.column :unit_pretax_amount, currency: true
       t.column :analysis, url: true
     end
@@ -111,6 +112,7 @@ module Backend
       t.column :product, url: true
       t.column :conditioning_unit
       t.column :conditioning_quantity
+      t.column :unit_pretax_stock_amount, currency: true, through: :parcel_item
       t.column :unit_pretax_amount, currency: true, through: :parcel_item
       t.column :analysis, url: true, through: :parcel_item
     end
