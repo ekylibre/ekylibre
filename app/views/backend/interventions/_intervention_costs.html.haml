@@ -15,6 +15,8 @@
         = link_to(computation.human_unit_amount, {controller: :purchase_invoices, action: :show, id: computation.purchase.id})
       - elsif computation.order?
         = link_to(computation.human_unit_amount, {controller: :purchase_orders, action: :show, id: computation.order_item.purchase_id})
+      - elsif computation.reception?
+        = link_to(computation.human_unit_amount, {controller: :receptions, action: :show, id: computation.reception.id})
       - elsif computation.worker_contract?
         = link_to(computation.human_unit_amount, {controller: :worker_contracts, action: :edit, id: computation.worker_contract_item.id, redirect: request.fullpath})
       - elsif computation.catalog?
@@ -37,6 +39,8 @@
         = :amount_computed_from.th(source: link_to(computation.purchase.number, {controller: :purchase_invoices, action: :show, id: computation.purchase.id}, title: PurchaseInvoice.model_name.human))
       - elsif computation.order?
         = :amount_computed_from.th(source: link_to(PurchaseOrder.find(computation.order_item.purchase_id)&.number, {controller: :purchase_orders, action: :show, id: computation.order_item.purchase_id}, title: PurchaseOrder.model_name.human))
+      - elsif computation.reception?
+        = :amount_computed_from.th(source: link_to(computation.reception.number, {controller: :receptions, action: :show, id: computation.reception.id}, title: Reception.model_name.human))
       - elsif computation.worker_contract?
         = :amount_computed_from.th(source: link_to(computation.worker_contract_item.name, {controller: :worker_contracts, action: :show, id: computation.worker_contract_item.id}, title: WorkerContract.model_name.human))
       - elsif computation.catalog? && computation.catalog_item && computation.catalog

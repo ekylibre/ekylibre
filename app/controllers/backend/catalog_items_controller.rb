@@ -23,7 +23,7 @@ module Backend
     unroll
 
     def new
-      @catalog_item = CatalogItem.new(catalog_id: params[:catalog_id], variant_id: params[:variant_id], unit_id: params[:unit_id], started_at: params[:started_at] || Time.now)
+      @catalog_item = CatalogItem.new(catalog_id: params[:catalog_id], product_id: params[:product_id], variant_id: params[:variant_id], unit_id: params[:unit_id], started_at: params[:started_at] || Time.now)
       render locals: { with_continue: true, cancel_url: :backend_catalogs }
     end
 
@@ -32,6 +32,7 @@ module Backend
       t.action :destroy
       t.column :name, url: true
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
+      t.column :product, url: { controller: 'RECORD.product.class.name.tableize'.c, namespace: :backend }
       t.column :amount, currency: true
       t.column :reference_tax, url: true
       t.column :all_taxes_included

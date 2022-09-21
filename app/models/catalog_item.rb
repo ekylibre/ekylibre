@@ -36,6 +36,7 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string           not null
+#  product_id             :integer
 #  reference_tax_id       :integer
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -47,6 +48,7 @@ class CatalogItem < ApplicationRecord
   attr_readonly :catalog_id
   refers_to :currency
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :product, class_name: 'Product'
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
   belongs_to :unit
@@ -67,7 +69,7 @@ class CatalogItem < ApplicationRecord
   validates :stopped_at, timeliness: { on_or_after: ->(catalog_item) { catalog_item.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :started_at, uniqueness: { scope: %i[catalog_id variant_id unit_id], message: :there_is_already_a_catalog_item_starting_at_the_exact_same_time }
+  validates :started_at, uniqueness: { scope: %i[catalog_id variant_id unit_id product_id], message: :there_is_already_a_catalog_item_starting_at_the_exact_same_time }
   validates :reference_tax, presence: { if: :all_taxes_included }
   validates :unit, conditioning: true
 
@@ -84,6 +86,10 @@ class CatalogItem < ApplicationRecord
 
   scope :of_variant, lambda { |variant|
     where(variant: variant)
+  }
+
+  scope :of_product, lambda { |product|
+    where(product: product)
   }
 
   scope :of_unit, lambda { |unit|
@@ -114,7 +120,11 @@ class CatalogItem < ApplicationRecord
     self.amount = amount.round(4) if amount
     self.name = commercial_name
     self.name = variant_name if commercial_name.blank? && variant
+    self.name = product.name if commercial_name.blank? && product
     self.unit ||= variant.guess_conditioning[:unit] if variant
+    self.unit ||= product.conditioning_unit if product
+    self.variant ||= product.variant if product
+    set_stopped_at if catalog && following_items.any?
   end
 
   before_validation :set_stopped_at
@@ -169,7 +179,11 @@ class CatalogItem < ApplicationRecord
   alias unit_pretax_amount pretax_amount
 
   def sibling_items
-    self.class.of_variant(variant).where(catalog: catalog).of_unit(unit)
+    if product
+      self.class.of_product(product).where(catalog: catalog).of_unit(unit)
+    else
+      self.class.of_variant(variant).where(catalog: catalog).of_unit(unit)
+    end
   end
 
   def following_items

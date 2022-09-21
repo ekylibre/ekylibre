@@ -22,7 +22,7 @@ module Backend
 
     def self.matters_conditions
 
-      code = search_conditions(products: %i[name work_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: %i[name work_number identification_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
 
       code << "if params[:s].nil?\n"
       code << "  params[:s] = 'available'\n"
@@ -85,13 +85,14 @@ module Backend
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :work_number
+      t.column :identification_number
       t.column :name, url: true
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety
       t.column :population
       t.column :conditioning_unit
       t.column :container, url: true
-      t.column :description
+      t.column :description, hidden: true
       t.column :derivative_of
     end
 

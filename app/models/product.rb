@@ -170,8 +170,9 @@ class Product < ApplicationRecord
   has_many :intervention_targets, inverse_of: :product
   has_many :crop_group_items, foreign_key: :crop_id
   has_many :crop_groups, through: :crop_group_items
-  has_many :worker_group_items, foreign_key: :worker_id
   has_many :worker_groups, through: :worker_group_items
+  has_many :worker_group_items, foreign_key: :worker_id
+  has_many :catalog_items, foreign_key: :product_id, dependent: :destroy
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
@@ -242,7 +243,7 @@ class Product < ApplicationRecord
     where(activity_production: production)
   }
   scope :of_productions, lambda { |*productions|
-    of_productions(productions.flatten)
+    of_production(productions.flatten)
   }
 
   scope :of_crumbs, lambda { |*crumbs|

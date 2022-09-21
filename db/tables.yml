@@ -1693,6 +1693,9 @@ catalog_items:
   purchase_item_id:
     type: integer
     references: purchase_item
+  product_id:
+    type: integer
+    references: product
   reference_name:
     type: string
   reference_tax_id:

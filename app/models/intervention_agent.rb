@@ -101,12 +101,23 @@ class InterventionAgent < InterventionProductParameter
 
     # Add computation from worker contract
     current_contract = WorkerContract.active_at(intervention.started_at).where(entity_id: product.person_id)
+    current_product_catalog_item = CatalogItem.of_product(product).active_at(intervention.started_at).of_dimension_unit(unit.dimension).reorder('started_at DESC').first
     if current_contract.any?
       options = { quantity: quantity.to_d, unit: unit, unit_name: unit_name, worker_contract_item: current_contract.first }
       InterventionParameter::AmountComputation.quantity(:worker_contract, options)
-    # Add computation from worker or equipment catalog price
+    # Add computation from worker or equipment product catalog price
+    elsif current_product_catalog_item.present?
+      options = {
+        catalog_usage: catalog_usage,
+        catalog_item: current_product_catalog_item,
+        quantity: quantity.to_d,
+        unit_name: unit_name,
+        unit: unit
+      }
+      InterventionParameter::AmountComputation.quantity(:catalog, options)
+    # Add computation from worker or equipment variant catalog price
     else
-      catalog_item =
+      usage =
         if nature.present? && nature != :intervention && product.variant.catalog_items.joins(:catalog).where('catalogs.usage': "#{nature}_cost").any?
           "#{nature}_cost"
         else
@@ -114,7 +125,7 @@ class InterventionAgent < InterventionProductParameter
         end
 
       options = {
-        catalog_usage: catalog_item,
+        catalog_usage: usage,
         quantity: quantity.to_d,
         unit_name: unit_name,
         unit: unit

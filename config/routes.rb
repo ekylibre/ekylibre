@@ -575,6 +575,7 @@ Rails.application.routes.draw do
         get :list_interventions_on_field
         get :list_equipment_maintenance_interventions
         get :list_links
+        get :list_catalog_items
       end
     end
 
@@ -1423,6 +1424,7 @@ Rails.application.routes.draw do
     resources :workers, concerns: :products do
       member do
         get :list_time_logs
+        get :list_catalog_items
       end
     end
 

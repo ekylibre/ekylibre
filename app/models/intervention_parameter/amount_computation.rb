@@ -5,7 +5,7 @@ class InterventionParameter < ApplicationRecord
   # in an intervention
   class AmountComputation
     NATURES = %i[failed none quantity].freeze
-    ORIGINS = %i[catalog purchase sale order worker_contract].freeze
+    ORIGINS = %i[catalog purchase sale reception order worker_contract].freeze
 
     class << self
       def failed
@@ -40,11 +40,12 @@ class InterventionParameter < ApplicationRecord
       check_option_presence!(:catalog_usage) if catalog?
       check_option_presence!(:purchase_item) if purchase?
       check_option_presence!(:order_item) if order?
+      check_option_presence!(:reception_item) if reception?
       check_option_presence!(:sale_item) if sale?
       check_option_presence!(:worker_contract_item) if worker_contract?
     end
 
-    %i[quantity unit_name unit catalog_usage catalog_item purchase_item order_item sale_item worker_contract_item].each do |nature|
+    %i[quantity unit_name unit catalog_usage catalog_item purchase_item order_item reception_item sale_item worker_contract_item].each do |nature|
       define_method nature do
         @options[nature]
       end
@@ -84,6 +85,8 @@ class InterventionParameter < ApplicationRecord
         item ? item.pretax_amount(into: @options[:unit]) : 0.0
       elsif worker_contract?
         item ? item.cost(period: :hour, mode: :charged) : 0.0
+      elsif reception?
+        item ? item.unit_pretax_stock_amount : 0.0
       else
         item ? item.unit_pretax_amount : 0.0
       end
@@ -106,6 +109,8 @@ class InterventionParameter < ApplicationRecord
     delegate :sale, to: :sale_item
 
     delegate :purchase, to: :purchase_item
+
+    delegate :reception, to: :reception_item
 
     protected
 
