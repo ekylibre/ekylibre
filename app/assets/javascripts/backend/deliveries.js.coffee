@@ -18,7 +18,7 @@
       $("##{input.val()}").show()
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:set", "*[data-product-of-delivery-item]", ->
+  $(document).on "selector:set", "*[data-product-of-delivery-item]", (e, wasInitializing) ->
     element = $(this)
     options = element.data("product-of-delivery-item")
     product_id = element.selector('value')
@@ -42,11 +42,7 @@
             item.attr('data-unit-name', data.unit_name)
           else
             unit.html('#')
-          # for sale_price from sale_nature from json builder
-          if data.default_sale_price
-            item.find(".item-unit-pretax-sale-amount").val(data.default_sale_price)
-          else
-            item.find(".item-unit-pretax-sale-amount").val(0.00)
+          set_default_sale_price(item, data.default_sale_price) if !wasInitializing
           if data.variant
             item.find(".item-variant-name").html(data.variant.name)
           pop = item.find(".item-population")
@@ -158,6 +154,11 @@
     else
       console.warn "Cannot get product ID"
 
+  set_default_sale_price = (item, default_price) ->
+    if default_price
+      item.find(".item-unit-pretax-sale-amount").val(default_price)
+    else
+      item.find(".item-unit-pretax-sale-amount").val(0.00)
 
   # Computes changes on items
   $(document).on "click", ".item-parted", (event) ->

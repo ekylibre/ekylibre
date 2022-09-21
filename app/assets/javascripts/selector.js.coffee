@@ -182,8 +182,8 @@
           @valueField.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @, wasInitializing: was_initializing}}))
           @element.trigger "selector:change", [selectedElement, was_initializing]
           @element.get(0).dispatchEvent(new CustomEvent('unroll:selector:change', {bubbles: true, detail: {unroll: @, wasInitializing: was_initializing}}))
-        @valueField.trigger "selector:set"
-        @element.trigger "selector:set"
+        @valueField.trigger "selector:set", [was_initializing]
+        @element.trigger "selector:set", [was_initializing]
       $(document).data('editedMode', false)
 
       if (redirect = @element.data("redirect-on-change-url")) && (param = @element.attr('id')) && id
