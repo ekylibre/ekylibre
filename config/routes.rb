@@ -735,6 +735,7 @@ Rails.application.routes.draw do
         post :create_duplicate_intervention
         get :compare_realised_with_planned
         put :link_rides_to_planned
+        post :create_from_rides
       end
       member do
         get :export
