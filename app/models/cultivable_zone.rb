@@ -54,6 +54,7 @@ class CultivableZone < ApplicationRecord
   belongs_to :owner, class_name: 'Entity'
   has_many :activity_productions, foreign_key: :cultivable_zone_id
   has_many :activities, through: :activity_productions
+  has_many :analyses, dependent: :nullify
   has_many :current_activity_productions, -> { current }, foreign_key: :cultivable_zone_id, class_name: 'ActivityProduction'
   has_many :current_supports, through: :current_activity_productions, source: :support
   has_many :supports, through: :activity_productions
