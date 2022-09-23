@@ -7,7 +7,7 @@
   %td
     - coefficient = f.object.coefficient&.zero? ? 1 : f.object.coefficient
     - f.object.computation_method ||= computation_methods.first.second
-    = f.input :computation_method, wrapper: :nested, input_html: {class: 'budget-computation-method computation-method'}, include_blank: false, collection: computation_methods
+    = f.input :computation_method, wrapper: :nested, input_html: {class: 'budget-computation-method computation-method unlocked'}, include_blank: false, collection: computation_methods
     = hidden_field_tag(:coeff, coefficient, class: "budget-coeff")
   %td
     = f.input :unit_amount, wrapper: :nested_append do
@@ -38,7 +38,7 @@
   %td.left-align.no-top-border.first-used-on
     %i.icon.icon-time
     %span= f.label :used_on.tl, wrapper: :nested
-    %span= f.input :used_on, wrapper: :nested, input_html: {class:'simple-form-date-adjusted'}
+    %span= f.input :used_on, wrapper: :nested, input_html: {class:'simple-form-date-adjusted unlocked'}
   %td.left-align.no-top-border{colspan: 2}
     %span= f.input :repetition, wrapper: :nested, :input_html => {:maxlength => 3, class: "v-budget-repetition"}
     %span.add-on= :x
