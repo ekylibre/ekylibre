@@ -309,6 +309,7 @@ class Intervention < ApplicationRecord
   scope :done, -> {}
 
   before_validation do
+    self.trouble_encountered ||= false
     if working_periods.any? && !working_periods.detect { |p| p.started_at.blank? || p.stopped_at.blank? }
       self.started_at = working_periods.map(&:started_at).min
       self.stopped_at = working_periods.map(&:stopped_at).max

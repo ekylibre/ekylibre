@@ -285,11 +285,15 @@ module Backend
       end
 
       if params[:procedure_name].present? && params[:ride_ids].present?
-        options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
-          ride_ids: params[:ride_ids],
-          procedure_name: params[:procedure_name]
-        )
-        options.merge!(options_from_rides)
+        rides = Ride.find(params[:ride_ids])
+        ::Interventions::CreateFromRidesJob.perform_later(options, rides, perform_as: current_user)
+        notify_success(:intervention_in_preparation)
+        if defined?(EkylibreSamsys)
+          redirect_to backend_ride_set_path(rides.first.ride_set)
+        else
+          redirect_to_back
+        end
+        return
       end
 
       %i[doers inputs outputs tools participations working_periods intervention_crop_groups].each do |param|

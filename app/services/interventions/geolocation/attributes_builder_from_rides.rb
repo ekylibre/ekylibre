@@ -20,7 +20,7 @@ module Interventions
         options = {
           targets_attributes: [],
           group_parameters_attributes: [],
-          ride_ids: ride_ids
+          ride_ids: existing_rides.pluck(:id)
         }
 
         return options if target_parameter.nil?
@@ -28,8 +28,10 @@ module Interventions
 
         if matching_targets.any?
           target_options = matching_targets.map {|target| { reference_name: target_parameter.name, product_id: target.id, working_zone: compute_target_working_zone(target.shape) }}
-          options[:started_at] = started_at
-          options[:stopped_at] = stopped_at
+          options[:working_periods_attributes] = [{
+            started_at: started_at,
+            stopped_at: stopped_at
+          }]
 
           if  target_parameter_group_name.present?
             options[:group_parameters_attributes] = target_options.map{ |target| { reference_name:  target_parameter_group_name, targets_attributes: [target] }}
