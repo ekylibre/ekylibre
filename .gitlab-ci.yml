@@ -186,7 +186,7 @@ test:
   except:
     - tags
   script:
-    - bash /app/test/ci/run_tests
+    - bash /app/test/ci/run_tests "$ENV"
 #########################################
 #                 TESTS                 #
 #########################################
