@@ -30,13 +30,13 @@
     = no_data
 
   - c.cobble(:interventions) do
-    :ruby
-      new_params = {
-        controller: :interventions,
-        intervention: { product_id: resource.id },
-        targets_attributes: [{ product_id: resource.id }]
-      }
     = cobble_toolbar do |t|
+      :ruby
+        new_params = {
+          controller: :interventions,
+          intervention: { product_id: resource.id },
+          targets_attributes: [{ product_id: resource.id }]
+        }
       = t.new(params: new_params)
       = cobble_list(:interventions)
 

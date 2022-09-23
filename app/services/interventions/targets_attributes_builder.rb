@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Interventions
-  class TargetAttributesBuilder
+  class TargetsAttributesBuilder
     GROUP_PARAMETER_REF_NAME = 'zone'
 
     def initialize(target_parameter, products, at:)

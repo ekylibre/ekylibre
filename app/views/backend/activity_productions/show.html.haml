@@ -118,7 +118,13 @@
 
       - c.cobble(:interventions) do
         = cobble_toolbar do |t|
-          = t.new(params: { controller: :interventions, intervention: { product_id: resource&.support&.id }, targets_attributes: [{ product_id: resource&.support&.id, reference_name: "cultivation", working_zone: resource&.support&.shape&.to_geojson }], group_parameters_attributes: [ { reference_name: "zone", targets_attributes: [ { product_id: resource&.support&.id, reference_name: "land_parcel", working_zone: resource&.support&.shape&.to_geojson } ] } ] })
+          :ruby
+            new_params = {
+              controller: :interventions,
+              intervention: { product_id: resource&.support&.id },
+              targets_attributes: [{ product_id: resource&.support&.id }]
+            }
+          = t.new(params: new_params)
         - if resource.interventions.any?
           = cobble_list(:interventions)
 
