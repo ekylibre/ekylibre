@@ -863,6 +863,9 @@ analyses:
   creator_id:
     type: integer
     references: user
+  cultivable_zone_id:
+    type: integer
+    references: cultivable_zone
   custom_fields:
     type: jsonb
   description:

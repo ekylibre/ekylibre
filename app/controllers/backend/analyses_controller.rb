@@ -55,6 +55,7 @@ module Backend
       t.column :product, url: true
       t.column :analyser, url: true
       t.column :analysed_at
+      t.column :cultivable_zone, url: true, hidden: true
       t.column :sampled_at, hidden: true
       t.column :sampler, url: true, hidden: true
     end
