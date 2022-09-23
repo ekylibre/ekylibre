@@ -1837,11 +1837,13 @@ a[data-remove-closest], a[data-remove] {
 
 .budget-item-locked{
   td span span input, td div input, td span div input, td span a, td span select{
-    pointer-events: none;
-    background-color: #F0F0F0;
-  }
-  span span span label, td span label{
-    color: lightgray;
+    &:not(.unlocked){
+      pointer-events: none;
+      background-color: #F0F0F0;
+    }
+    span span span label, td span label{
+      color: lightgray;
+    }
   }
 }
 
