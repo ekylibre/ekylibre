@@ -41,6 +41,8 @@ RUN addgroup --gid $GID ekylibre  && \
     useradd --create-home --home-dir /home/ekylibre -s /bin/bash -g $GID -u $UID ekylibre && \
     chown -R ekylibre:ekylibre /eky
 
+RUN mkdir -p /opt/proj/share && tar -xf ./docker/dev/proj.tar.gz -C /opt/proj/share/
+
 RUN git clone https://gitlab.com/ekylibre/lexicon/lexicon-cli.git /lexicon-client
 WORKDIR /lexicon-client
 
