@@ -10,6 +10,7 @@ module Interventions
       def perform(intervention_options, rides, perform_as:, **options)
         begin
           ActiveRecord::Base.transaction do
+            intervention_options[:creator_id] = perform_as.id
             options_from_rides = ::Interventions::Geolocation::AttributesBuilderFromRides.call(
               ride_ids: rides.map(&:id),
               procedure_name: intervention_options[:procedure_name]
