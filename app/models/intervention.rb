@@ -417,19 +417,11 @@ class Intervention < ApplicationRecord
 
     reconcile_receptions
 
-    # compute pfi
-    campaign = Campaign.find_by(harvest_year: started_at.year)
-    if campaign
-      if Interventions::Phytosanitary::PfiClientApi.new(campaign: campaign).down?
-        self.creator.notifications.create!(pfi_api_down_notification_generation)
-      else
-        pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)
-        pfi_computation.create_or_update_pfi
-      end
-    end
     # refresh view
     WorkerTimeIndicator.refresh
   end
+
+  after_save :compute_pfi_async
 
   after_create do
     Ekylibre::Hook.publish :create_intervention, self
@@ -1160,16 +1152,15 @@ class Intervention < ApplicationRecord
     end
   end
 
-  private def during_financial_year_exchange?
-    FinancialYearExchange.opened.at(printed_at).exists?
+  private def compute_pfi_async
+    campaign = Campaign.find_by(harvest_year: started_at.year)
+    return if campaign.nil?
+
+    PfiCalculationJob.perform_later(campaign, [self], creator)
   end
 
-  private def pfi_api_down_notification_generation
-    {
-      message: :pfi_api_down.tl,
-      level: :error,
-      interpolations: {}
-    }
+  private def during_financial_year_exchange?
+    FinancialYearExchange.opened.at(printed_at).exists?
   end
 
   class << self
