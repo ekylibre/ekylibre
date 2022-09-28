@@ -50,11 +50,10 @@
           prefilled = element.closest('tr').find('.prefilled-conditioning')
           if prefilled.length > 0 && data.conditioning_coefficient
             prefilled_val = prefilled.data("conditioningQuantity") * prefilled.data("conditioningCoefficient") / data.conditioning_coefficient
-            total.html(prefilled_val)
+            total.html(data.population)
             pop.val(prefilled_val)
           else if data.population
             total.html(data.population)
-            pop.attr('placeholder', data.population)
           else
             total.html('&ndash;')
             pop.attr('placeholder', '0')
