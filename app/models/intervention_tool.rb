@@ -69,8 +69,4 @@
 #
 class InterventionTool < InterventionAgent
   belongs_to :intervention, inverse_of: :tools
-
-  def catalog_usage
-    :travel_cost
-  end
 end
