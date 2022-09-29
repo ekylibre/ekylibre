@@ -1404,6 +1404,7 @@ fra:
     add_plant_density_abacus: "Ajouter une table de référence de densité de semis"
     add_point: "Ajouter un point"
     add_polygon: "Ajouter un polygone"
+    add_product_catalog_price: "Ajouter un prix catalogue (Produit)"
     add_production: "Ajouter une production"
     add_purchase: "Ajouter un achat"
     add_purchase_invoice: "Ajouter une facture d'achat"
@@ -1425,8 +1426,10 @@ fra:
     add_tactic: "Ajouter un itinéraire technique"
     add_tool: "Ajouter un outil"
     add_two_hours_reentry_delay: "Ajouter 2h dans le cas d'une application en milieu fermé"
+    add_variant_catalog_price: "Ajouter un prix catalogue (Article)"
     add_website: "Ajouter un site web"
     add_worker: "Ajouter un équipier"
+    add_worker_contract: "Ajouter un contrat de travail"
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
