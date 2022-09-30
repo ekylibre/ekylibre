@@ -1,0 +1,42 @@
+inherits_from:
+    - .haml-lint_todo.yml
+
+exclude:
+  - lib/templates/haml/scaffold/*
+
+linters:
+  InlineStyles:
+    enabled: false
+
+  InstanceVariables:
+    enabled: false
+
+  LineLength:
+    enabled: false
+    max: 80
+
+  ConsecutiveComments:
+    enabled: false
+
+  RuboCop:
+    enabled: false
+    ignored_cops:
+      # These cops are incredibly noisy when it comes to HAML templates, so we
+      # ignore them.
+      - Layout/BlockAlignment
+      - Layout/EndAlignment
+      - Layout/LineLength
+      - Lint/Void
+      - Naming/FileName
+      - Style/AlignParameters
+      - Style/BlockNesting
+      - Style/ElseAlignment
+      - Style/FileName
+      - Style/FinalNewline
+      - Style/FrozenStringLiteralComment
+      - Style/IfUnlessModifier
+      - Style/IndentationWidth
+      - Style/Next
+      - Style/TrailingWhitespace
+      - Style/WhileUntilModifier
+      - Cop/StaticTranslationDefinition

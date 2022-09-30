@@ -1,6 +1,6 @@
 - budget = resource.budgets.find_by(campaign: current_campaign)
 - if budget && budget.items.any?
-  :ruby 
+  :ruby
     link_to_edit_options = { controller: :activity_budgets, action: :edit,id: budget.id, redirect: request.fullpath}
     balance = budget.revenues_amount.round - budget.expenses_amount.round
     pretax_balance = budget.revenues_pretax_amount.round - budget.expenses_pretax_amount.round
