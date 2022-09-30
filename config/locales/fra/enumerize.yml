@@ -44,7 +44,7 @@ fra:
     activity_tactic:
       mode:
         harvested: "Date de récolte prévisionnelle"
-        sowed: "Date de semis prévisionnelle"
+        sowed: "Date de semis prévisionnelle ou de début de campagne annuelle de production"
     analysis:
       retrieval_status:
         controller_error: "Erreur de contrôleur"

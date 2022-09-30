@@ -46,6 +46,15 @@
                 const campaignId = $('.period-selector .period').data('campaign-id');
                 this.setTechnicalInputsScope(referenceName);
                 this.setTacticCampaign(campaignId);
+                this.setActivityTacticDate();
+            });
+
+            this.$formElement.find('input#activity_production_started_on').on('change', () => {
+                this.setActivityTacticDate();
+            });
+
+            this.$formElement.find('#activity_production_started_on_year').on('change', () => {
+                this.setActivityTacticDate();
             });
         }
 
@@ -180,6 +189,24 @@
             }
         }
 
+        setActivityTacticDate() {       
+            const isActivityProductionPerennial = $('#activity_production_cycle_perennial').is(":checked");
+
+            if (isActivityProductionPerennial) {
+                const activityProductionStartedOn = $('#activity_production_started_on').val();
+                const activityProductionStartedOnYear = $('#activity_production_started_on_year').val();
+
+                if (activityProductionStartedOn !== ''  && activityProductionStartedOnYear !== '') {
+                    const campaignYear = document.querySelector('[data-campaign-id]').innerText;
+                    const startedYearOfCurrentCampaign = parseInt(campaignYear) + parseInt(activityProductionStartedOnYear);
+                    const startedDateOfCurrentCampaign = startedYearOfCurrentCampaign + activityProductionStartedOn.slice(4);
+    
+                    const $activityTacticsStartedAt = $('.activity_tactics_Date').find('.date')
+                    $activityTacticsStartedAt.val(startedDateOfCurrentCampaign);
+                }
+            }  
+        }
+
         setProductionPeriod(startedOn, stoppedOn, startedOnYear, stoppedOnYear) {
             this.fpStartedOn.setDate(startedOn);
             this.fpStoppedOn.setDate(stoppedOn);
@@ -268,6 +295,8 @@
                 this.activityForm.setTacticCampaign(campaing.id);
                 this.currentButton.dataset.campaignId = campaing.id;
             });
+
+            this.activityForm.setActivityTacticDate();
         }
     }
 

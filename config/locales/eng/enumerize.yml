@@ -40,7 +40,7 @@ eng:
     activity_tactic:
       mode:
         harvested: "From harvesting date"
-        sowed: "From sowing date"
+        sowed: "Estimated date of sowing or start of annual production campaign"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
