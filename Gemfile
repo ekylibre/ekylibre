@@ -190,6 +190,7 @@ group :development do
   gem 'ruby-prof', '~> 1.4'
 
   # Code metrics
+  gem 'haml_lint', require: false
   gem 'rails_best_practices', '~> 1.20', require: false
   gem 'rubocop', '~> 1.11.0', require: false
 

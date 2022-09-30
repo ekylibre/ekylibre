@@ -1,13 +1,13 @@
 stages:
   - lint
   - build
+  - hamllint
   - test
 #  - review
   - doc
   - deploy
 
 variables:
-  DOCKER_BUILDKIT: 0
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
   TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
@@ -162,6 +162,13 @@ eslint:
     - apk add git
     - yarn
     - yarn eslint .
+
+hamllint:
+  stage: lint
+  image: ruby:2.6-buster
+  script:
+  - gem install haml_lint -v 0.40.1
+  - haml-lint -c .haml-lint.yml
 
 #########################################
 #               TEMPLATES               #
