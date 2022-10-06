@@ -1,0 +1,25 @@
+.autocomplete {
+    background: white;
+    z-index: 1000;
+    overflow: auto;
+    box-sizing: border-box;
+    border: 1px solid rgba(50, 50, 50, 0.6);
+    width: auto!important;
+    border: 1px solid rgba(0,0,0,0.15);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.18);
+    * {
+        font: inherit;
+    }
+    & > div {
+        padding: 0 4px;
+    }
+    .group {
+        background: #eee;
+    }
+
+    & > div:hover:not(.group),
+    & > div.selected {
+        background: #e6e6e6;
+        cursor: pointer;
+    }
+}
