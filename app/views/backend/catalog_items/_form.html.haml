@@ -1,4 +1,5 @@
 - product = Product.find(params[:product_id]) if params[:product_id]
+- product ||= Product.find(f.object.product_id) if f.object.product_id
 = field_set :general_informations, class: ['catalog-items-form', ('catalog-items-form--all-taxes' if f.object.all_taxes_included)] do
   .control-group
     .controls
