@@ -5,6 +5,7 @@ module Procedo
     class Intervention
       class ProductParameter < Procedo::Engine::Intervention::Parameter
         attr_reader :product, :working_zone, :readings, :read_at, :assembly, :component
+        attr_accessor :working_zone_area_value
 
         delegate :get, to: :product
 
@@ -17,6 +18,9 @@ module Procedo
           if attributes[:working_zone]
             @working_zone = Charta.new_geometry(attributes[:working_zone])
             @working_zone = @working_zone.convert_to(:multi_polygon)
+          end
+          if attributes[:working_zone_area_value]
+            @working_zone_area_value = attributes[:working_zone_area_value].to_f
           end
           if intervention && intervention.working_periods.present?
             first_period_key = intervention.working_periods.keys.min_by(&:to_i)
@@ -62,9 +66,17 @@ module Procedo
           @working_zone.present?
         end
 
+        def working_zone_area_value?
+          @working_zone_area_value.present?
+        end
+
         def working_zone=(value)
           @working_zone = Charta.new_geometry(value)
           impact_dependencies!(:working_zone)
+        end
+
+        def working_zone_area
+          Measure.new(@working_zone_area_value, :hectare)
         end
 
         def add_reading(id, attributes = {})
@@ -117,6 +129,7 @@ module Procedo
           hash = super
           hash[:product_id] = product_id if product?
           hash[:working_zone] = @working_zone.to_json if working_zone?
+          hash[:working_zone_area_value] = @working_zone_area_value.to_f if working_zone_area_value?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
 
@@ -140,6 +153,7 @@ module Procedo
           hash = super
           hash[:product_id] = product_id if product?
           hash[:working_zone] = @working_zone.to_json if working_zone?
+          hash[:working_zone_area_value] = @working_zone_area_value.to_f if working_zone_area_value?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
 
@@ -277,7 +291,7 @@ module Procedo
         end
 
         def env
-          super.merge(product: product, working_zone: working_zone, read_at: read_at)
+          super.merge(product: product, working_zone: working_zone, working_zone_area_value: working_zone_area_value, read_at: read_at)
         end
       end
     end

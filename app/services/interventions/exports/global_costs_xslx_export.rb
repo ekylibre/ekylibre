@@ -21,7 +21,7 @@ module Interventions
             i.started_at as started_at,
             target_products.name AS target_name,
             target_products.id AS target_product_id,
-            CASE target_intervention.working_zone WHEN NULL THEN NULL ELSE ST_Area(target_intervention.working_zone, true) / 10000 END AS target_working_zone,
+            CASE target_intervention.working_zone_area_value WHEN NULL THEN NULL ELSE target_intervention.working_zone_area_value END AS target_working_zone,
             apic.inputs AS inputs_costs,
             apic.doers AS doers_costs,
             apic.tools AS tools_costs,

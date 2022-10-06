@@ -15,6 +15,7 @@ json.born_at resource.born_at if resource.born_at
 json.dead_at resource.dead_at if resource.dead_at
 json.population resource.population
 json.shape resource.shape.to_json if resource.shape
+json.netSurfaceAreaInHectare resource.net_surface_area.in(:hectare).value.to_f  if resource.shape
 # Ownership
 json.ownership do
   ownership = resource.current_ownership

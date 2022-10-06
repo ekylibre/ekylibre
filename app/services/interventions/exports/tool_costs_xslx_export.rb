@@ -17,7 +17,7 @@ module Interventions
             i.procedure_name AS procedure_name,
             i.working_duration / 3600.0 AS intervention_duration,
             i.number AS intervention_number,
-            (SELECT SUM(ST_Area(ipt.working_zone, true) / 10000) FROM intervention_parameters AS ipt WHERE ipt.intervention_id = i.id AND ipt.type = 'InterventionTarget' AND ipt.reference_name IN ('land_parcel', 'cultivation', 'plant', 'zone')) AS intervention_working_area,
+            (SELECT SUM(ipt.working_zone_area_value) FROM intervention_parameters AS ipt WHERE ipt.intervention_id = i.id AND ipt.type = 'InterventionTarget' AND ipt.reference_name IN ('land_parcel', 'cultivation', 'plant', 'zone')) AS intervention_working_area,
             i.id AS intervention_id,
             (SELECT SUM(iwp.duration / 3600.0)
             FROM intervention_working_periods AS iwp

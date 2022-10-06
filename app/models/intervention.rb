@@ -404,8 +404,6 @@ class Intervention < ApplicationRecord
       if target.identification_number && target.product.identification_number.nil?
         target.update_column :identification_number, target.identification_number
       end
-      # compute imputation_ratio
-      update_target_imputation_ratio(target)
     end
 
     participations.update_all(state: state) unless state == :in_progress
@@ -421,6 +419,7 @@ class Intervention < ApplicationRecord
     WorkerTimeIndicator.refresh
   end
 
+  after_save :handle_targets_imputation_ratio
   after_save :compute_pfi_async
 
   after_create do
@@ -477,22 +476,6 @@ class Intervention < ApplicationRecord
       inputs.each { |input| write_parameter_entry_items.call(input, true) }
       outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
-  end
-
-  def update_target_imputation_ratio(target)
-    # compute quantity_value & quantity_unit_name for imputation_ratio
-    if target.working_zone.presence
-      a = target.working_zone.area
-      target.update_column :quantity_value, a
-      target.update_column :quantity_unit_name, 'square_meter'
-      target.update_column :quantity_indicator_name, 'net_surface_area'
-      b = targets.where.not(working_zone: nil).map{|t| t.working_zone.area }.compact.sum
-      ratio = (a.to_f / b.to_f ) if a && b && (b != 0.0)
-    else
-      b = targets.where(working_zone: nil).count
-      ratio = (1.0 / b.to_f) if b != 0
-    end
-    target.update_column :imputation_ratio, ratio
   end
 
   def update_costing
@@ -867,7 +850,7 @@ class Intervention < ApplicationRecord
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     area = if targets.any?
-             targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+             targets.with_working_zone_area.map(&:working_area).sum.in(unit)
            else
              0.0.in(unit)
            end
@@ -919,7 +902,7 @@ class Intervention < ApplicationRecord
       unit = :hectare
       precision = 2
       if targets.any?
-        at = targets.of_activity(activity).with_working_zone.map(&:working_zone_area).sum.in(unit)
+        at = targets.of_activity(activity).with_working_zone_area.map(&:working_area).sum.in(unit)
         coeff = (at.to_d / working_zone_area.to_d) if working_zone_area.to_d != 0.0
         return nil unless coeff
 
@@ -1157,6 +1140,21 @@ class Intervention < ApplicationRecord
     return if campaign.nil?
 
     PfiCalculationJob.perform_later(campaign, [self], creator)
+  end
+
+  # @private
+  # Lifecycle: called after save
+  private def handle_targets_imputation_ratio
+    targets.reload
+    total_targets_quantity = if targets.any?(&:working_zone_area_value)
+                               targets.where.not(working_zone_area_value: nil).sum(:working_zone_area_value)
+                             else
+                               targets.where(working_zone_area_value: nil).count
+                             end
+
+    targets.find_each do |target|
+      target.update_imputation_ratio(total_targets_quantity)
+    end
   end
 
   private def during_financial_year_exchange?

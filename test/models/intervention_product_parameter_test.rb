@@ -69,5 +69,24 @@ require 'test_helper'
 
 class InterventionProductParameterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test '#nullify_working_zone_if_working_zone_area before_validation callback' do
+    target = create(:intervention_target, :with_working_zone)
+    target.update(working_zone_area: 10)
+    assert_nil(target.reload.working_zone)
+  end
+
+  test '#set_working_zone_area_from_working_zone before_validation callback' do
+    target = build(:intervention_target, :with_working_zone)
+    area = target.working_zone.area
+    target.send(:set_working_zone_area_from_working_zone)
+    assert(Measure.new(area.round(4), 'square_meter').in_hectare.round(4).inspect == target.working_zone_area.inspect )
+  end
+
+  test '#set_quantity_from_working_zone before_validation callback' do
+    target = build(:intervention_target, :with_working_zone)
+    area = target.working_zone.area
+    target.send(:set_quantity_from_working_zone)
+    assert(Measure.new(area.round(4), 'square_meter').inspect == target.quantity.inspect )
+  end
 end

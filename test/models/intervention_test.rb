@@ -192,6 +192,33 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert int.valid?
   end
 
+  test "#handle_targets_imputation_ratio calculate the right ratio with cultivation targets" do
+    # on create with 2 targets
+    intervention = build(:intervention)
+    targets = build_list(:intervention_target, 2, :with_cultivation, reference_name: 'land_parcel')
+    intervention.targets << targets
+    intervention.save
+    target = targets.first.reload
+    assert_equal(0.5, target.imputation_ratio)
+
+    # on update, when adding a new target
+    other_targets = build(:intervention_target, :with_cultivation, reference_name: 'land_parcel')
+    intervention.targets << other_targets
+    intervention.save
+    target = intervention.reload.targets.first.reload
+    assert_equal(0.3333, target.imputation_ratio)
+  end
+
+  test "#handle_targets_imputation_ratio calculate the right ratio with animal targets" do
+    intervention = build(:intervention, procedure_name: 'animal_artificial_insemination', actions: [:animal_artificial_insemination])
+    animal = create(:animal, born_at: DateTime.new(2017, 3, 1))
+    targets = build_list(:intervention_target, 2, product_id: animal.id, reference_name: 'animal')
+    intervention.targets << targets
+    intervention.save
+    target = targets.first.reload
+    assert_equal(0.5, target.imputation_ratio)
+  end
+
   def add_harvesting_intervention(target, stopped_at)
     Intervention.create!(
       procedure_name: :harvesting,
