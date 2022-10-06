@@ -182,7 +182,7 @@ class CatalogItem < ApplicationRecord
     if product
       self.class.of_product(product).where(catalog: catalog).of_unit(unit)
     else
-      self.class.of_variant(variant).where(catalog: catalog).of_unit(unit)
+      self.class.of_variant(variant).where(catalog: catalog, product_id: nil).of_unit(unit)
     end
   end
 
