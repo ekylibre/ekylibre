@@ -83,6 +83,10 @@
     = field_set :service_delivering do
       = f.nested_association(:receptions, maximum: 1, button_label: :add_service_delivering.tl, partial: '/backend/interventions/reception_fields')
   - else # Root Procedure Natures
+    .show-map-input
+      = label_tag do
+        = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
+        = :view_map_when_creating_an_intervention.tl
     - main_period_selector(:year)
     - activity_families = Activity.pluck(:family).push("administering", "processing", "tool_maintaining").uniq
     - nomen_activity_families = Onoma::ActivityFamily.list.select{ |e| activity_families.include?(e.name)}
@@ -98,10 +102,4 @@
               - procedures = Procedo::Procedure.of_main_category(procedure_category.name.to_sym)
               - procedures.sort_by(&:position).each do |procedure|
                 - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature], crop_group_ids: params[:crop_group_ids], ride_ids: params[:ride_ids], targets_attributes: params[:targets_attributes]&.map(&:to_unsafe_h), group_parameters_attributes: params[:group_parameters_attributes]&.map(&:to_unsafe_h)}
-
-    - form_action_content(:after) do
-      %span.pull-right
-        = label_tag do
-          = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
-          = :view_map_when_creating_an_intervention.tl
     - f.clear_actions!

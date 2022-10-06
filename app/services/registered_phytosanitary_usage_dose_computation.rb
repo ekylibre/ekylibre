@@ -74,7 +74,6 @@ class RegisteredPhytosanitaryUsageDoseComputation
         nil
       else
         zero_as_nil = ->(value) { value.zero? ? None() : value }
-
         params = {
           into: usage_unit,
           area: Maybe(compute_area(targets_data)).fmap(&zero_as_nil),
@@ -100,7 +99,11 @@ class RegisteredPhytosanitaryUsageDoseComputation
     # @return [Measure<area>] the area of given targets
     def compute_area(targets)
       targets.values.sum do |target_info|
-        Charta.new_geometry(target_info[:shape]).area
+        if target_info[:working_zone_area_value]
+          target_info[:working_zone_area_value].to_f.in(:hectare)
+        else
+          Charta.new_geometry(target_info[:shape]).area
+        end
       end.in(:square_meter)
     end
 end

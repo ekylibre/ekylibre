@@ -4607,6 +4607,12 @@ intervention_parameters:
   variant_id:
     type: integer
     references: product_nature_variant
+  variety:
+    type: string
+  working_zone_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
   working_zone:
     type: geometry
     limit:

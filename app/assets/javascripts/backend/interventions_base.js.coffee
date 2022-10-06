@@ -492,7 +492,7 @@
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement, nestedProductParameterBlock)
 
 
-  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event) ->
+  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event, _selectedElement, wasInitializing) ->
     landParcelPlantSelectorElement = $(event.target).closest('.nested-product_parameter').find('.land-parcel-plant-selector')
     productId = $(event.target).closest('.selector').find('.selector-value').val()
 
@@ -502,6 +502,17 @@
 
     E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+    
+  $(document).on 'selector:change', "[data-selector-id=intervention_target_product_id]", (event, _selectedElement, wasInitializing) ->
+    if wasInitializing
+      return
+
+    productId = $(this).next().val()
+    $workingZoneAreaInput = $(this).closest('.nested-targets .nested-product-parameter').find('.intervention_targets_working_zone_area input')
+    if $workingZoneAreaInput.length == 0
+      return
+
+    E.interventionForm.setWorkingZoneArea(productId, $workingZoneAreaInput)
 
   $(document).on 'change', '#compare-planned-and-realised', (event) ->
     $.ajax
@@ -590,7 +601,6 @@
           else
             landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
 
-
     checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement, nestedCultivationBlock = null) ->
       interventionNature = $('.intervention_nature input[type="hidden"]').val()
 
@@ -638,6 +648,17 @@
         started_at = $('#intervention_working_periods_attributes_0_started_at').val()
         $(this).each ->
           E.interventions.updateAvailabilityInstant(started_at)
+    
+    setWorkingZoneArea: (productId, $workingZoneAreaInput) ->
+      $.ajax
+        url: "/backend/products/#{productId}.json",
+        success: (data, status, request) ->
+          workingZoneAreaValue = data.netSurfaceAreaInHectare
+          return unless workingZoneAreaValue
+
+          $workingZoneAreaInput.val(workingZoneAreaValue)
+
+
 
   $(document).ready ->
 

@@ -2624,7 +2624,7 @@ fra:
     work_code: "Code de travail"
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
-    worked_area: "Surface travaillée"
+    working_zone_area: "Surface travaillée"
     worker: "Équipier"
     worker_contract: "Contrat de travail"
     worker_contract_distribution: "Répartitions analytiques des contrats de travail"

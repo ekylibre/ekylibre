@@ -69,6 +69,7 @@
 #
 
 class InterventionProductParameter < InterventionParameter
+  DEFAULT_WORKING_ZONE_AREA_UNIT = :hectare
   belongs_to :assembly, class_name: 'Product'
   belongs_to :component, class_name: 'ProductNatureVariantComponent'
   belongs_to :intervention, inverse_of: :product_parameters
@@ -86,8 +87,10 @@ class InterventionProductParameter < InterventionParameter
 
   has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w[quantity_value to_d], %w[quantity_unit_name unit]]
+  composed_of :working_zone_area, class_name: 'Measure', mapping: [%w[working_zone_area_value to_d]], constructor: ->(value) { Measure.new(value, DEFAULT_WORKING_ZONE_AREA_UNIT) }
 
   validates :quantity_indicator_name, :quantity_unit_name, presence: { if: :measurable? }
+  validates :working_zone_area_value, presence: true, if: -> { working_zone.present? }
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :variant, prefix: true
@@ -105,6 +108,7 @@ class InterventionProductParameter < InterventionParameter
   scope :of_actors, ->(actors) { where(product: actors) }
   scope :with_actor, -> { where.not(product_id: nil) }
   scope :with_working_zone, -> { where.not(working_zone: nil) }
+  scope :with_working_zone_area, -> { where.not(working_zone_area_value: nil) }
 
   before_validation do
     self.intervention = group.intervention if group && !intervention
@@ -128,6 +132,9 @@ class InterventionProductParameter < InterventionParameter
     end
     true
   end
+  before_validation :nullify_working_zone_if_working_zone_area
+  before_validation :set_working_zone_area_from_working_zone
+  before_validation :set_quantity_from_working_zone
 
   validate do
     next unless intervention && intervention.procedure
@@ -154,6 +161,13 @@ class InterventionProductParameter < InterventionParameter
     product.update_columns(dead_at: product.dead_first_at) if product && dead
   end
 
+  def update_imputation_ratio(total_targets_quantity)
+    total_target_quantity = working_zone_area_value || 1
+
+    ratio = (total_target_quantity.to_f / total_targets_quantity.to_f )
+    update_column(:imputation_ratio, ratio)
+  end
+
   def name
     reference ? reference.human_name : reference_name.humanize
   end
@@ -163,7 +177,11 @@ class InterventionProductParameter < InterventionParameter
   end
 
   def working_area
-    working_zone&.area&.in_square_meter
+    if working_zone_area.nonzero?
+      working_zone_area.in_square_meter
+    else
+      nil
+    end
   end
 
   def working_zone_svg
@@ -264,5 +282,28 @@ class InterventionProductParameter < InterventionParameter
 
   def relevant_usage
     reference_data['usage'].present? ? InterventionParameter::LoggedPhytosanitaryUsage.new(reference_data['usage']) : usage
+  end
+
+  private def nullify_working_zone_if_working_zone_area
+    if working_zone_area_value_changed? && !working_zone_changed?
+      self.working_zone = nil
+    end
+  end
+
+  private def set_working_zone_area_from_working_zone
+    return true if working_zone.nil? || working_zone_area_value.present?
+
+    self.working_zone_area_value = working_zone&.area&.in_square_meter&.in(DEFAULT_WORKING_ZONE_AREA_UNIT)&.value
+    true
+  end
+
+  private def set_quantity_from_working_zone
+    return true if working_zone.nil? && working_zone_area_value.nil?
+
+    area = working_zone&.area || working_zone&.in_square_meter&.value
+    self.quantity_value = area
+    self.quantity_unit_name = 'square_meter'
+    self.quantity_indicator_name = 'net_surface_area'
+    true
   end
 end

@@ -26,8 +26,8 @@ module Interventions
             sowing_output.batch_number as plant_batch_number,
             sowing_output.specie_variety->>'name' as plant_variety,
             CASE
-		          WHEN it.working_zone IS NULL THEN it.quantity_population
-		          WHEN it.working_zone IS NOT NULL THEN ST_Area(it.working_zone, true) / 10000
+		          WHEN it.working_zone_area_value IS NULL THEN it.quantity_population
+		          WHEN it.working_zone_area_value IS NOT NULL THEN it.working_zone_area_value
 		          ELSE NULL END AS working_area,
             ap.size_value as surface_area,
             (SELECT (ST_Area(pr.multi_polygon_value, true) / 10000) FROM product_readings pr WHERE pr.product_id = p.id AND indicator_name = 'shape' ORDER BY pr.read_at DESC LIMIT 1) as target_surface_area,
