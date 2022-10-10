@@ -3,6 +3,6 @@
   - for journal in Journal.order(:name)
     - name = journal.name.html_safe
     - classes = []
-    - classes << "active" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
+    - classes << "active" if (@journal && controller_name == "journals" && action_name == "show" && journal.id == @journal.id) || (@journal_entry && @journal_entry.journal_id == journal.id)
     %dd{class: classes}
       = link_to(name, params.merge(controller: :journals, action: :show, id: journal.id), title: journal.name)

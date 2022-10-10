@@ -12,7 +12,7 @@
 
     started_on = (stopped_on - d).beginning_of_month
 
-    if year = FinancialYear.first_of_all and year.started_on > started_on
+    if (year = FinancialYear.first_of_all) && year.started_on > started_on
       started_on = year.started_on
     end
 

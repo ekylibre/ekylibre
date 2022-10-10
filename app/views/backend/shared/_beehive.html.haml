@@ -17,7 +17,7 @@
       = :reset.tl
   - beehive.layout(current_user)[:boxes].each_with_index do |box, box_index|
     .box.box-horizontal{data: {beehive_box: box_index}}
-      - box[:cells].each_with_index do |cell, index|
+      - box[:cells].each_with_index do |cell, _index|
         - if beehive.available_cell_types.include?(cell[:type].to_s)
           = render "backend/shared/beehive/cell", cell: cell, beehive: beehive
   = link_to("##{beehive.id}", class: "btn btn-new new-box", data: {beehive_task: "new-box"}) do

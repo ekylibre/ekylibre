@@ -2,9 +2,10 @@
   - j.face :map, title: :map do
     :ruby
       geolocations = Product.of_working_set(:wine_tanks).collect do |tank|
-        { name:         tank.name,
-          nature:       tank.nature_name,
-          shape:        tank.shape
+        {
+          name: tank.name,
+          nature: tank.nature_name,
+          shape: tank.shape
         }
       end
     = visualization(box: {height: "100%"}) do |v|

@@ -69,7 +69,7 @@
     .control-group
       %label.string.required.control-label= payment_model_name.human
       .controls.delivery-item
-        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll, **(payment_scope.to_h.dup) }, { value: @payment.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@payment.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
+        = selector_tag :"affair[payment_id]", { controller: 'backend/' + payment_model_name.plural, action: :unroll, **payment_scope.to_h.dup }, { value: @payment.id }, "data-product-of-delivery-item": {url: send(:"backend_#{@payment.class.name.underscore}_path", "RECORD_ID", format: :json) }.to_json
         #payment_amount.hidden{ 'data-when-item': :amount, 'data-when-set-value': "RECORD_VALUE" }
 
   = form_actions do

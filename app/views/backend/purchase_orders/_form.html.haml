@@ -46,7 +46,7 @@
             %th.total-column= PurchaseItem.human_attribute_name(:total_amount_without_taxes)
             %th.vat-rate-column= :vat_rate.tl
 
-        = f.simple_fields_for :items, f.object.items.sort_by { |i| i.id.to_i } do |item|
+        = f.simple_fields_for(:items, f.object.items.sort_by { |i| i.id.to_i }) do |item|
           = render 'item_fields', f: item, display_items_form: @display_items_form, display_activity_item_field: display_activity_item_field, display_team_item_field: display_team_item_field
 
         %tfoot#items__footer

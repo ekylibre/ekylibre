@@ -6,7 +6,7 @@
 - main_toolbar do |t|
   = t.new(params: { controller: :journal_entries, journal_id: resource.id, redirect: nil }, label: :add_entry.tl, disabled: FinancialYear.opened.none?) unless resource.booked_for_accountant?
   = t.edit resource
-  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journal_path(params[:id]), journal_id: params[:id] }, { class: [('btn btn-default no-icn'),('disabled' if @draft_entries_count < 1)] }
+  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journal_path(params[:id]), journal_id: params[:id] }, { class: ['btn btn-default no-icn',('disabled' if @draft_entries_count < 1)] }
   - if params[:period]
     = t.export :journal_ledger, key: Printers::JournalLedgerPrinter.build_key(started_on: params[:started_on],
                                                                               stopped_on: params[:stopped_on],

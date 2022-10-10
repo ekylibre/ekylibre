@@ -110,7 +110,7 @@
 
   - if next_state.present?
     = dropdown_menu_button(displayed_state, class: "btn btn-primary change-status dropup", icon: false, force_menu: true, disable_with: tl(:please_wait)) do |menu|
-      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([intervention.id]).to_json, state: next_state[1].to_sym, redirect: false }), method: :post) if next_state
+      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => [intervention.id].to_json, state: next_state[1].to_sym, redirect: false }), method: :post) if next_state
 
   = link_to :see_details.tl, backend_intervention_path(intervention), class: 'btn btn-default'
   = link_to :edit.tl, edit_backend_intervention_path(intervention), class: 'btn btn-default'

@@ -19,14 +19,16 @@ linters:
     enabled: false
 
   RuboCop:
-    enabled: false
+    enabled: true
     ignored_cops:
       # These cops are incredibly noisy when it comes to HAML templates, so we
       # ignore them.
       - Layout/BlockAlignment
       - Layout/EndAlignment
+      - Layout/EmptyLineAfterGuardClause
       - Layout/LineLength
       - Lint/Void
+      - Lint/InterpolationCheck
       - Naming/FileName
       - Style/AlignParameters
       - Style/BlockNesting
@@ -40,3 +42,56 @@ linters:
       - Style/TrailingWhitespace
       - Style/WhileUntilModifier
       - Cop/StaticTranslationDefinition
+
+      # Too many offenses to enable this for now.
+      - Style/For
+      - Layout/TrailingEmptyLines
+      - Layout/SpaceInsideHashLiteralBraces
+      - Layout/SpaceAfterComma
+      - Style/HashSyntax
+      - Style/QuotedSymbols
+      - Layout/SpaceInsideStringInterpolation
+      - Layout/SpaceInsideArrayLiteralBrackets
+      - Layout/SpaceAfterColon
+      - Layout/SpaceBeforeComma
+      - Style/SymbolArray
+      - Lint/AmbiguousOperatorPrecedence
+      - Layout/LeadingCommentSpace
+      - Style/SymbolProc
+      - Style/WordArray
+      - Style/EachWithObject
+      - Style/MapToHash
+      - Style/ParallelAssignment
+      - Style/MethodCallWithoutArgsParentheses
+      - Security/Eval
+      - Lint/SymbolConversion
+      - Style/PercentLiteralDelimiters
+      - Style/RedundantInterpolation
+      - Style/RandomWithOffset
+      - Style/CaseEquality
+      - Style/MultilineBlockChain
+      - Layout/MultilineMethodCallBraceLayout
+      - Style/RedundantConditional
+      - Style/IfWithBooleanLiteralBranches
+      - Lint/RedundantSplatExpansion
+      - Style/UnlessElse
+      - Style/ZeroLengthPredicate
+      - Layout/TrailingWhitespace
+      - Style/CommentAnnotation
+      - Style/NumericLiteralPrefix
+      - Style/StringLiteralsInInterpolation
+      - Lint/BooleanSymbol
+      - Style/NestedParenthesizedCalls
+      - Style/SignalException
+      - Layout/ElseAlignment
+      - Layout/IndentationWidth
+      - Style/IfInsideElse
+      - Style/RedundantCondition
+      - Style/SelfAssignment
+      - Layout/EmptyLines
+      - Style/SymbolLiteral
+      - Style/RegexpLiteral
+      - Style/PreferredHashMethods
+      - Style/NilComparison
+      - Style/CommentedKeyword
+      - Layout/EmptyComment

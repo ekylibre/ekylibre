@@ -15,7 +15,7 @@
     .details
       %h3
         = link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
-        = lights('stop') if product_parameter.dead and product_parameter.product.dead_at
+        = lights('stop') if product_parameter.dead && product_parameter.product.dead_at
       %p= product_parameter.name
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_value

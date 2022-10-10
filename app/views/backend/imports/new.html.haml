@@ -15,11 +15,11 @@
 
         .import-card
           .import-logo
-            = image_tag "imports/#{vendor}.png", alt: ("vendors.#{vendor}").t
+            = image_tag "imports/#{vendor}.png", alt: "vendors.#{vendor}".t
 
           .import-description
             .import-title
-              = ("vendors.#{vendor}").t
+              = "vendors.#{vendor}".t
 
             = ekylibre_form_for(resource, url: backend_imports_path, html: { multipart: true }) do |f|
               = f.input :nature, label: :file_nature.tl,  collection: collection

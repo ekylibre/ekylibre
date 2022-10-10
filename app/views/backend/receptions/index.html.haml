@@ -19,8 +19,8 @@
         %label= Reception.human_attribute_name(:responsible)
       = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.label, u.id]}, params[:responsible_id].to_i))
 
-  - k.choice *([[:all.tl, :all]] + resource_model.delivery_mode.values.map{ |s| [s.l, s] }), name: :delivery_mode, label: Reception.human_attribute_name(:delivery_mode)
-  - k.choice *([[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]]), name: :invoice_status, label: :invoice_status.tl
+  - k.choice(*([[:all.tl, :all]] + resource_model.delivery_mode.values.map{ |s| [s.l, s] }), name: :delivery_mode, label: Reception.human_attribute_name(:delivery_mode))
+  - k.choice(*[[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]], name: :invoice_status, label: :invoice_status.tl)
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }, label: :new_reception.tl

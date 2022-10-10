@@ -1,6 +1,6 @@
 = infos do
   = product_info(:work_number, important: true)
-  = product_info(:net_surface_area, important: true) do |population|
+  = product_info(:net_surface_area, important: true) do
     = resource.net_surface_area.round(3).l
 
   .med-info.important
@@ -13,7 +13,7 @@
   - if resource.dead_at
     = product_info(:dead_at, important: true)
   - if resource.born_at && resource.age >= 1.day
-    = product_info(:age) do |age|
+    = product_info(:age) do
       %i.picto{class: "picto-clock-o"}
       = human_age(resource.born_at, display: 2)
   -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground

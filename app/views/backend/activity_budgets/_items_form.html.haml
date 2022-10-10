@@ -1,6 +1,6 @@
 - reflection = direction.to_s.pluralize
 - locals = { direction: direction, currency_symbol: currency_symbol, currency: currency, computation_methods: computation_methods }
-= f.simple_fields_for reflection, f.object.send(reflection).sort_by{|h| [h.locked ? 0 : 1, h.id]} do |item|
+= f.simple_fields_for(reflection, f.object.send(reflection).sort_by{|h| [h.locked ? 0 : 1, h.id]}) do |item|
   = render 'item_fields', locals.merge(f: item)
 %tr.total{id: "#{reflection}-total-row"}
   %th= link_to_add_association "add_#{direction}".tl, f, reflection, partial: 'item_fields', 'data-association-insertion-node' => "##{reflection}-total-row", 'data-association-insertion-method' => :before, class: "btn primary", render_options: { locals: locals }

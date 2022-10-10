@@ -16,7 +16,7 @@
         %i.picto{class: "picto-#{icon}"}
         = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     = product_info(:work_number, important: true)
-    - if resource.born_at and resource.age >= 1.day
+    - if resource.born_at && resource.age >= 1.day
       .med-info
         %span.title= Matter.human_attribute_name(:age)
         %span.value

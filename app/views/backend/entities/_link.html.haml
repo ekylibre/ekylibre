@@ -9,7 +9,7 @@
   - linked = link_to(link.entity.full_name, {controller: :entities, action: :show, id: link.entity.id})
   - relationship = nature.human_notion_name(:linked)
   - inverse_post = link.post
-- if post.blank? and inverse_post.blank?
+- if post.blank? && inverse_post.blank?
   = :relationship_of_entity.tl(entity: linked, relationship: relationship).html_safe
 - elsif inverse_post.blank?
   = :relationship_of_entity_as_post.tl(entity: linked, relationship: relationship, post: post).html_safe

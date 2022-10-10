@@ -1,7 +1,7 @@
 - main_period_selector(:year)
 
 = janus do |j|
-  - main_toolbar do |t|
+  - main_toolbar do
     .controls
       %button{class: "btn btn-default #{'disabled' unless (Activity.any? { |activity| activity.plant_farming? || activity.vine_farming?  } && CultivableZone.any?) }", id: "generate-land-parcel-btn"}
         = :generate_land_parcel.tl

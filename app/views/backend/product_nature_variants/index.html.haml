@@ -15,7 +15,7 @@
         %label= ProductNatureVariant.human_attribute_name(:nature)
       = select_tag(:nature_id, options_for_select([[]] + natures.order(:name).collect{|u| [u.name, u.id]}, params[:nature_id]))
 
-- main_toolbar do |t|
+- main_toolbar do
   = dropdown_menu_button(:articles.tl, main_class: 'btn-pill') do |d|
     - %w[farm_product fertilizer plant_medicine seed_and_plant].each do |sub_nature|
       - d.item sub_nature.pluralize.tl, { controller: "/backend/variants/articles/#{sub_nature}_articles", action: :index }

@@ -8,10 +8,6 @@
 
 linters:
 
-  # Offense count: 2417
-  RuboCop:
-    enabled: false
-
   # Offense count: 764
   SpaceInsideHashAttributes:
     exclude:
