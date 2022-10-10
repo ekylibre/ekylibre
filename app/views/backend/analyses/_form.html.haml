@@ -18,7 +18,7 @@
 
 = field_set :items do
   :ruby
-    if params[:nature] and nature = Onoma::AnalysisNature.find(params[:nature])
+    if params[:nature] && nature = Onoma::AnalysisNature.find(params[:nature])
       unless nature.items.nil?
         nature.items.each do |item|
           next unless indicator = Onoma::Indicator.find(item.to_s)

@@ -7,4 +7,4 @@
       .tax-declaration-alert-description
         = I18n.translate "activerecord.attributes.tax_declaration.no_financial_year_message"
       .tax-declaration-alert-button.btn.btn-default
-        = link_to("#{I18n.translate "activerecord.attributes.tax_declaration.no_financial_year_button"}", backend_financial_years_path, class: "btn btn-default")
+        = link_to(I18n.translate("activerecord.attributes.tax_declaration.no_financial_year_button"), backend_financial_years_path, class: "btn btn-default")

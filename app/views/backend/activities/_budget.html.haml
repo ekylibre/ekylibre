@@ -4,6 +4,20 @@
     link_to_edit_options = { controller: :activity_budgets, action: :edit,id: budget.id, redirect: request.fullpath}
     balance = budget.revenues_amount.round - budget.expenses_amount.round
     pretax_balance = budget.revenues_pretax_amount.round - budget.expenses_pretax_amount.round
+    balance_class = if balance > 0
+                      'positive'
+                    elsif balance <= 0
+                      'negative'
+                    else
+                      'caution'
+                    end
+    pretaxe_balance_class = if balance > 0
+                              'positive'
+                            elsif balance <= 0
+                              'negative'
+                            else
+                              'caution'
+                            end
   .help-panel
     = link_to(:edit_budget.tl, link_to_edit_options, class: 'btn btn-default icn btn-edit')
     = link_to_async_action(:regenerate_reference_budget.tl, 'ItkImportJob', { controller: :activities, action: :generate_budget, id: resource.id }, method: :post, remote: true, class: 'btn btn-default' )
@@ -13,13 +27,13 @@
     = link_to(link_to_edit_options) do
       = info ActivityBudget.human_attribute_name(:expenses_amount), budget.expenses_amount.round.l(currency: budget.currency)
     = infos do
-      = info ActivityBudget.human_attribute_name(:balance), balance.l(currency: budget.currency), class: (balance > 0 ? 'positive' : balance <= 0 ? 'negative' : 'caution')
+      = info ActivityBudget.human_attribute_name(:balance), balance.l(currency: budget.currency), class: balance_class_name
     = link_to(link_to_edit_options) do
       = info ActivityBudget.human_attribute_name(:revenues_pretax_amount), budget.revenues_pretax_amount.round.l(currency: budget.currency)
     = link_to(link_to_edit_options) do
       = info ActivityBudget.human_attribute_name(:expenses_pretax_amount), budget.expenses_pretax_amount.round.l(currency: budget.currency)
     = infos do
-      = info ActivityBudget.human_attribute_name(:pretax_balance), pretax_balance.l(currency: budget.currency), class: (pretax_balance > 0 ? 'positive' : pretax_balance <= 0 ? 'negative' : 'caution')
+      = info ActivityBudget.human_attribute_name(:pretax_balance), pretax_balance.l(currency: budget.currency), class: pretaxe_balance_class
 - else
   .help-panel
     %p.help-message= :no_budget_defined_for_current_campaign.tn.html_safe

@@ -1,6 +1,6 @@
 - changes = version.changes.delete_if { |c| (c.old_value.blank? && c.new_value.blank?) || side.except.include?(c.attribute.to_sym) }
 - classes = ["log-version", "log-version-#{version.event}"]
-- classes << "log-without-content" if (version.update? and changes.empty?) or !version.update?
+- classes << "log-without-content" if (version.update? && changes.empty?) || !version.update?
 .log{class: classes}
   - if version.creator
     .log-avatar= image_tag version.creator.avatar_url(size: avatar_size)

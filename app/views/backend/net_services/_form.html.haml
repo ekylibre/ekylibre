@@ -1,7 +1,7 @@
 = field_set do
   = f.input :reference_name, as: :hidden
   = f.input :reference_name, disabled: true
-  - if f.object and f.object.reference
+  - if f.object && f.object.reference
     - f.object.each_identifier do |identifier|
       - unless f.object.identifiers.detect{|i| i.nature.to_s == identifier.name.to_s}
         - f.object.identifiers.build(nature: identifier.name)

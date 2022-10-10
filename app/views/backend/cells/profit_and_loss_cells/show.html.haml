@@ -19,7 +19,15 @@
       - item = "#{r}_result"
       - result = base_compute.sum_entry_items_by_line(:profit_and_loss_statement, item.to_sym)
       - if result
-        .big-info{class: (result > 0 ? :positive : result < 0 ? :negative : :caution)}
+        :ruby
+          result_class = if result > 0
+                           :positive
+                         elsif result < 0
+                          :negative
+                         else
+                          :caution
+                         end
+        .big-info{class: result_class}
           %span.title= item.to_sym.tl(financial_year: @financial_year.name)
           %span.value= result.l(currency: Preference[:currency])
 

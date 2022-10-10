@@ -2,7 +2,7 @@
   names = []
   preference = current_user.preferences.find_by(name: "beehive.#{params[:beehive]}")
   if preference
-    config = YAML.load(preference.value)
+    config = YAML.safe_load(preference.value)
     config = {} unless config.is_a?(Hash)
     names = (config.deep_symbolize_keys[:boxes] || {}).map do |box|
       (box[:cells] || {}).map { |cell| cell[:name].to_s }

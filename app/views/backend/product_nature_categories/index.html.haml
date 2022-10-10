@@ -2,7 +2,7 @@
   - k.text
   - k.choice :all, :active, :inactive
 
-- main_toolbar do |t|
+- main_toolbar do
   - %w[article animal crop equipment service worker zone].each do |nature|
     = link_to nature.pluralize.tl, send("backend_variant_categories_#{nature}_categories_path"), class: 'btn-pill'
 

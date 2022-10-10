@@ -24,7 +24,7 @@
     - unless resource.population_counting_unitary?
       = product_info :population, important: true do |population|
         = population.round(2).l(precision: 2) + " " + resource.conditioning_unit.name
-    = product_info(:tracking, important: true) do |tracking|
+    = product_info(:tracking, important: true) do
       = link_to(resource.tracking.serial, controller: :trackings, action: :show, id: resource.tracking.id)
     - if resource.current_ownership && resource.current_ownership.other?
       = product_info(:owner, important: true) do |owner|
@@ -65,7 +65,7 @@
     = cobble_list(:intervention_product_parameters)
 
   - c.cobble(:places) do
-    = cobble_toolbar do |t|
+    = cobble_toolbar do
       = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
     = cobble_list(:places)
 

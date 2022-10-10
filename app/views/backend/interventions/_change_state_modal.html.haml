@@ -17,7 +17,7 @@
 
       = hidden_field_tag('intervention[interventions_ids]', interventions_ids.to_json)
 
-      = field Intervention.human_attribute_name(:status), nil do |check_box|
+      = field Intervention.human_attribute_name(:status), nil do
 
         - Intervention.state.options.each do |state, option|
 

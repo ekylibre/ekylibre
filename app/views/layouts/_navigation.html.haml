@@ -38,18 +38,17 @@
 
   .collapse
 
-    - if true # current_part
-      %ul#parts
-        - Ekylibre::Navigation.parts.each do |part|
-          - next unless part_authorized?(part)
-          %li.separator
-          :ruby
-            attrs = {id: "#{part.name}-part"}
-            attrs[:class] = :active if current_part == part
-          %li{attrs}
-            = link_to(controller: "/#{ part.default_page.controller }", action: part.default_page.action) do
-              %i
-              = part.human_name
+    %ul#parts
+      - Ekylibre::Navigation.parts.each do |part|
+        - next unless part_authorized?(part)
+        %li.separator
+        :ruby
+          attrs = {id: "#{part.name}-part"}
+          attrs[:class] = :active if current_part == part
+        %li{attrs}
+          = link_to(controller: "/#{ part.default_page.controller }", action: part.default_page.action) do
+            %i
+            = part.human_name
 
     %ul#user
       = main_tools

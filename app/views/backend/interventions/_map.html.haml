@@ -40,8 +40,16 @@
     - v.categories :activity, :main
   - resource.product_parameters.each do |parameter|
     - if parameter.crumbs.any?
-      - v.serie "path_#{parameter.id}", parameter.crumbs.reorder(:read_at).collect{|c| {name: parameter.name, shape: c.geolocation}}
-      - v.path (parameter.product ? parameter.product.name : parameter.variant ? parameter.variant.name : parameter.name), "path_#{parameter.id}"
+      :ruby
+        label = if parameter.product
+                  parameter.product.name
+                elsif parameter.variant
+                  parameter.variant.name
+                else
+                  parameter.name
+                end
+      - v.serie("path_#{parameter.id}", parameter.crumbs.reorder(:read_at).collect{|c| {name: parameter.name, shape: c.geolocation}})
+      - v.path label, "path_#{parameter.id}"
       - count += 1
   - v.control :zoom
   - v.control :scale

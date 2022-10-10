@@ -9,7 +9,14 @@
   - c.cobble :general_informations do
     = infos do
       .med-info.important
-        - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
+        :ruby
+          sex_icon = if resource.sex == 'male'
+                       'mars'
+                     elsif resource.sex == 'female'
+                       'venus'
+                     else
+                       'sex'
+                     end
         %span.title= resource.class.human_attribute_name(:work_number)
         %span.value
           %i.picto{class: "picto-#{sex_icon}"}

@@ -32,8 +32,8 @@
   -#   - k.helper do
   -#     %label= Shipment.human_attribute_name(:transporter)
   -#     = select_tag(:transporter_id, options_for_select([[]] + transporters.order(:name).collect{|u| [u.name, u.id]}, params[:transporter_id]))
-  - k.choice *([[:all.tl, :all]] + resource_model.delivery_mode.values.map{ |s| [s.l, s] }), name: :delivery_mode, label: Shipment.human_attribute_name(:delivery_mode)
-  - k.choice *([[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]]), name: :invoice_status, label: :invoice_status.tl
+  - k.choice(*([[:all.tl, :all]] + resource_model.delivery_mode.values.map{ |s| [s.l, s] }), name: :delivery_mode, label: Shipment.human_attribute_name(:delivery_mode))
+  - k.choice(*[[:all.tl, :all], [:invoiced.tl, :invoiced], [:uninvoiced.tl, :uninvoiced]], name: :invoice_status, label: :invoice_status.tl)
 
 - main_toolbar do |t|
   = t.new label: :new_shipment_with_sale_nature.tl, variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {sale_nature_id: n.id}] }

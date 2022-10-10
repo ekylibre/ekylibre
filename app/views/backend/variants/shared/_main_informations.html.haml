@@ -25,7 +25,7 @@
           = pluralize(resource.current_stock.round(2), resource.unit_name)
     .med-info.important
       %span.title= :quantity_to_receive.tl
-      %span.value{ title: (quantity_to_receive(resource)) }
+      %span.value{ title: quantity_to_receive(resource) }
         = quantity_to_receive resource
     .med-info.important
       %span.title= ProductNatureVariant.human_attribute_name(:category)

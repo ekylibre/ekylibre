@@ -11,10 +11,10 @@
         %i.picto{class: "picto-user"}
         = link_to(person.full_name, controller: :entities, action: :show, id: person.id)
     - if resource.born_at && resource.age >= 1.day
-      = product_info(:age) do |age|
+      = product_info(:age) do
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.dead_at ? Time.zone.now - (resource.dead_at - resource.born_at) : resource.born_at, display: 2)
-    = product_info(:working_duration) do |working_duration|
+    = product_info(:working_duration) do
       %i.picto{class: "picto-timelapse"}
       = resource.worker_duration(current_campaign)
   = labels_info(resource.labels)

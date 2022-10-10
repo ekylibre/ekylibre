@@ -1,4 +1,4 @@
-- if @variety and @indicator
+- if @variety && @indicator
   :ruby
     series = []
     unit = @unit
@@ -21,7 +21,7 @@
       series << {name: ProductNature.model_name.human, data: product_natures_serie.delete_if{|v| v[:y].zero? }, size: "60%", data_labels: {color: 'white', distance: -30}}
       series << {name: ProductNatureVariant.model_name.human, data: product_nature_variants_serie.delete_if{|v| v[:y].zero? }, size: "80%", inner_size: "60%"}
     end
-  - if series.empty? or product_natures_serie.collect{|h| h[:y]}.sum <= 0 or product_nature_variants_serie.collect{|h| h[:y]}.sum <= 0
+  - if series.empty? || product_natures_serie.collect{|h| h[:y]}.sum <= 0 || product_nature_variants_serie.collect{|h| h[:y]}.sum <= 0
     = no_data
   - else
     = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f}#{' ' + unit.symbol.to_s if unit}"}, title: :stock_of_x.tl(x: Onoma::Variety[@variety].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: false}}, legend: true)

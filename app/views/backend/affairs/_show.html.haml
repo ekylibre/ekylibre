@@ -48,7 +48,7 @@
               %td.name
                 - if deal.is_a? DebtTransfer
                   - foreign_deal = deal.debt_transfer_affair
-                  = (foreign_deal.deals.reject{ |d| d.is_a?(DebtTransfer) }.map { |d| link_to(d.number, controller: "/backend/" + d.class.name.tableize, action: :show, id: d.id) }.to_sentence).html_safe
+                  = foreign_deal.deals.reject{ |d| d.is_a?(DebtTransfer) }.map { |d| link_to(d.number, controller: "/backend/" + d.class.name.tableize, action: :show, id: d.id) }.to_sentence.html_safe
 
                 - else
                   = link_to(deal.number, controller: "/backend/" + deal.class.name.tableize, action: :show, id: deal.id)

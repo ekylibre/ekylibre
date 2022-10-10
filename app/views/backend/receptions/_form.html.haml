@@ -9,7 +9,7 @@
   = reception_badges f.object
 
 .purchase-form
-  = field_set :general_informations, class: ['reception-form', ('reception-form--late' if f.object.late_delivery), 'reconciliable-form', ("reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}")] do
+  = field_set :general_informations, class: ['reception-form', ('reception-form--late' if f.object.late_delivery), 'reconciliable-form', "reconciliable-form--#{f.object.reconciliation_state.to_s.dasherize}"] do
     = f.input :nature, as: :hidden
     = f.input :contract_id, as: :hidden
     .delivery-item

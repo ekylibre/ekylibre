@@ -7,4 +7,4 @@
     .map-layer-heading
       .map-layer-title
         = I18n.t(nature, scope: [:enumerize, :map_layer, :nature])
-    = render @map_layers.to_a.select{ |ml| ml.nature == nature }
+    = render(@map_layers.to_a.select{ |ml| ml.nature == nature })
