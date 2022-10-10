@@ -27,7 +27,7 @@
     = link_to(link_to_edit_options) do
       = info ActivityBudget.human_attribute_name(:expenses_amount), budget.expenses_amount.round.l(currency: budget.currency)
     = infos do
-      = info ActivityBudget.human_attribute_name(:balance), balance.l(currency: budget.currency), class: balance_class_name
+      = info ActivityBudget.human_attribute_name(:balance), balance.l(currency: budget.currency), class: balance_class
     = link_to(link_to_edit_options) do
       = info ActivityBudget.human_attribute_name(:revenues_pretax_amount), budget.revenues_pretax_amount.round.l(currency: budget.currency)
     = link_to(link_to_edit_options) do
