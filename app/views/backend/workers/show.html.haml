@@ -10,6 +10,12 @@
       = product_info(:person) do |person|
         %i.picto{class: "picto-user"}
         = link_to(person.full_name, controller: :entities, action: :show, id: person.id)
+    .med-info.important
+      - icon = resource.pictogram
+      %span.title= Worker.human_attribute_name(:variant)
+      %span.value
+        %i.picto{class: "picto-#{icon}"}
+        = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     - if resource.born_at && resource.age >= 1.day
       = product_info(:age) do
         %i.picto{class: "picto-clock-o"}
@@ -22,7 +28,9 @@
 = cobbles do |c|
   - c.cobble(:prices_list) do
     = cobble_toolbar do |t|
-      = t.new(params: {controller: '/backend/catalog_items', :product_id => resource.id, :variant_id => resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
+      - unit = Unit.import_from_lexicon(:hour_worker)
+      - catalog  = Catalog.by_default!(:cost)
+      = t.new(params: {controller: '/backend/catalog_items', catalog_id: catalog.id, unit_id: unit.id, product_id: resource.id, variant_id: resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
     = cobble_list(:catalog_items)
 
   - c.cobble(:time_logs, title: :x_time_logs.tl(count: resource.time_logs.of_year(current_period.to_date.year).count)) do

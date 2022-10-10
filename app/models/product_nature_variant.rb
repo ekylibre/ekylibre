@@ -375,9 +375,9 @@ class ProductNatureVariant < ApplicationRecord
 
     catalog = Catalog.by_default!(usage)
     if mode == :dimension
-      catalog.items.of_variant(self).of_dimension_unit(destination_unit.dimension).started_before(at).reorder('started_at DESC').first
+      catalog.items.of_variant(self).where(product_id: nil).of_dimension_unit(destination_unit.dimension).started_before(at).reorder('started_at DESC').first
     elsif mode == :base_unit
-      catalog.items.of_variant(self).of_base_unit(destination_unit.base_unit).started_before(at).reorder('started_at DESC').first
+      catalog.items.of_variant(self).where(product_id: nil).of_base_unit(destination_unit.base_unit).started_before(at).reorder('started_at DESC').first
     else
       raise ArgumentError.new("Unknown mode #{mode}")
     end

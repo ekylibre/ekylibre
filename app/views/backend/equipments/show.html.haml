@@ -78,7 +78,9 @@
 
   - c.cobble(:prices_list) do
     = cobble_toolbar do |t|
-      = t.new(params: {controller: '/backend/catalog_items', :product_id => resource.id, :variant_id => resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
+      - unit = Unit.import_from_lexicon(:hour_equipment)
+      - catalog  = Catalog.by_default!(:cost)
+      = t.new(params: {controller: '/backend/catalog_items', catalog_id: catalog.id, unit_id: unit.id, product_id: resource.id, variant_id: resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
     = cobble_list(:catalog_items)
   - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
     = cobble_toolbar do |t|

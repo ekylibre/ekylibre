@@ -80,7 +80,7 @@ module Backend
       t.column :derivative_of
     end
 
-    list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|
+    list(:catalog_items, conditions: { variant_id: 'params[:id]'.c, product_id: nil }) do |t|
       t.action :edit, url: { controller: '/backend/catalog_items' }
       t.action :destroy, url: { controller: '/backend/catalog_items' }
       t.column :name, url: { controller: '/backend/catalog_items' }
