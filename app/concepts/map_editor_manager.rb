@@ -63,7 +63,7 @@ class MapEditorManager
 
     def plants_serie(options = {})
       plants = Plant.at(options[:started_at]).collect do |l|
-        next unless l.shape || l.variety
+        next if l.shape.nil? || l.variety.nil?
 
         [l.shape.to_text, { name: l.name, variety: Onoma::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety) }]
       end.compact
