@@ -1037,8 +1037,6 @@ html.backend {
 
 
 #help {
-  background: #EEE;
-  @include gradient-vertical(#EED, #DDC);
   padding: 0;
   .header {
     height: $header-height;

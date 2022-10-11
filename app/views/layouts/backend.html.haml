@@ -12,14 +12,17 @@
     = javascript_pack_tag :legacy
     = javascript_pack_tag :application
     = javascript_include_tag :application, "data-turbolinks-track" => "reload"
-  - attrs = {}
-  - if content_for?(:tour)
-    - attrs[:data] ||= {}
-    - attrs[:data][:tour] = content_for(:tour)
+  :ruby
+    body_attrs = {}
+    if content_for?(:tour)
+      body_attrs[:data] ||= {}
+      body_attrs[:data][:tour] = content_for(:tour)
+    end
   = duke_tag if defined?(Duke)
-  %body.body-backend{ attrs }
+  %body.body-backend{body_attrs}
     = navigation_tag
     - attrs = {}
+    - attrs[:class] = "show-help" if help_shown?
     #wrap{attrs}
       %aside#side.visible
         .inner
@@ -47,5 +50,7 @@
           = notifications_tag
           = main_state_bar_tag
           #core= yield
+      #help
+        .inner= render(partial: "backend/helps/search", object: @article)
     = yield :popover
   #ws-att{data: {current_account: current_user.email} }

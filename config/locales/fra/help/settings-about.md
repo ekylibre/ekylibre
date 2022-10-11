@@ -1,0 +1,3 @@
+# À propos de l'_À propos_... 
+
+Juste une petite page pour dire d'où vient **Ekylibre**.

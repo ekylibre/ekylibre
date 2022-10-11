@@ -2,9 +2,6 @@
   article = "#{self.controller_name}-#{self.action_name}" # search
   base_params = {controller: :help, action: :show}
   base_params[:dialog] = params[:dialog] if params[:dialog]
-  # cache(controller: :help, action: :show, :locale => ::I18n.locale, id: article.split(/[^a-z0-9\-]/)[-2]) do
-  # raise @article.inspect
-  # raise article.inspect
 - cache("#{I18n.locale}-#{article}") do
   .header
     %h1= :help.tl
@@ -14,9 +11,8 @@
     - else
       %h1= :missing_help.tl
       .help-error= :error_no_file.tl(article: article.to_s)
-    -#=Ekylibre.helps.inspect
 - unless controller_path == "backend/helps"
   #help-center
-    = link_to({controller: "/backend/helps", action: :index}, class: "btn btn-big btn-help") do
+    %a{ href: 'https://doc.ekylibre.com/v2/fr/demarrage/', class: "btn btn-big btn-help", target:"_blank" }
       %i
       = :help_center.tl
