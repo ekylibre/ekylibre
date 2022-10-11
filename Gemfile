@@ -176,6 +176,9 @@ gem 'savon', '~> 2.12'
 # Using git until we have a proper release system for cartography
 gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
 
+# Used to convert markdown to html
+gem 'gitlab_kramdown', '~> 0.6'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn', '~> 5.8'
