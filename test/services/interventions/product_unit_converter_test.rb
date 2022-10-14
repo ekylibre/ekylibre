@@ -103,7 +103,12 @@ module Interventions
 
     test 'convert_net_into_area_density handles conversion from net to net_area_density' do
       assert_measure_equal 1.in(:liter_per_hectare), @converter.convert_net_into_area_density(5.in(:liter), into: unit(:liter_per_hectare), area: Maybe(5.in(:hectare))).or_raise
-      assert_measure_equal 0.1.in(:gram_per_square_meter), @converter.convert_net_into_area_density(5_000.in(:kilogram), into: unit(:gram_per_square_meter), area: Maybe(50_000.in(:square_meter))).or_raise
+      assert_measure_equal 100.in(:gram_per_square_meter), @converter.convert_net_into_area_density(5_000.in(:kilogram), into: unit(:gram_per_square_meter), area: Maybe(50_000.in(:square_meter))).or_raise
+    end
+
+    test 'convert_net_into_area_density handles conversion from net to net_area_density even even if units are of the same dimension but differents' do
+      assert_measure_equal 1000.in(:liter_per_hectare), @converter.convert_net_into_area_density(5.in(:cubic_meter), into: unit(:liter_per_hectare), area: Maybe(5.in(:hectare))).or_raise
+      assert_measure_equal 1000.in(:liter_per_hectare), @converter.convert_net_into_area_density(5000.in(:liter), into: unit(:liter_per_hectare), area: Maybe(50_000.in(:square_meter))).or_raise
     end
 
     test 'convert_net_into_area_density does not handle net unit conversion' do

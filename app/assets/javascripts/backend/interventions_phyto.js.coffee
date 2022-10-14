@@ -138,6 +138,11 @@
 
 
   usageDoseInfos =
+    displayAll: () ->
+      that = this
+      $('.nested-plant_medicine').each -> 
+        that.display($(this).find("input[data-intervention-field='quantity-value']"), $(this))
+
     display: ($quantityInput, $productField) ->
       @._clearLights($quantityInput)
       usageId = $productField.find("[data-selector-id='intervention_input_usage_id']").next('.selector-value').val()
@@ -289,7 +294,12 @@
 
   $(document).on 'input change', "input[data-intervention-field='spray-volume']", ->
     productsInfos.display()
-    usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
+    $nestedPlantMedicine = $(this).closest('.nested-plant_medicine')
+    usageDoseInfos.display($nestedPlantMedicine.find("input[data-intervention-field='quantity-value']"), $nestedPlantMedicine)
+  
+  $(document).on 'input change', "input[data-intervention-field='working-zone-area-value']", ->
+    productsInfos.display()
+    usageDoseInfos.displayAll()
 
   $(document).on 'selector:clear', "[data-selector-id='intervention_input_usage_id']", ->
     $('.nested-plant_medicine').each -> usageMainInfos.displayAuthorizationDisclaimer($(this), true)

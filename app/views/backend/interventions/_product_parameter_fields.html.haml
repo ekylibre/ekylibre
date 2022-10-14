@@ -146,7 +146,7 @@
       = f.geometry :working_zone, { show: {}, input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: { useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: backend_map_editor_shapes_path(layers: [:land_parcels, :plants], started_at: started_at) }.merge(optional_data) }
     - else
       = f.input(:working_zone_area, wrapper: :append, class: :inline) do
-        = f.input_field(:working_zone_area_value, "data-intervention-updater"=> prefix + 'working_zone_area_value')
+        = f.input_field(:working_zone_area_value, "data-intervention-updater"=> prefix + 'working_zone_area_value', "data-intervention-field"=> 'working-zone-area-value')
         = content_tag(:span, Onoma::Unit[:hectare].symbol, class: 'add-on')
 
   - if reference.attribute(:killable)
