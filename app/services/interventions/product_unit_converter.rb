@@ -164,7 +164,7 @@ module Interventions
     def convert_net_into_area_density(measure, into:, area:)
       if into.dimension.to_s.include?(measure.dimension.to_s)
         area.fmap do |area|
-          Measure.new((measure.value.to_f / area.value.to_f), into)
+          Measure.new((measure.in(into.base_unit).value.to_f / area.in(into.repartition_unit).value.to_f), into)
         end
       else
         None()
