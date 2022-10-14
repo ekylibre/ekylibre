@@ -88,6 +88,10 @@ class CultivableZone < ApplicationRecord
     shape.to_svg
   end
 
+  def shape_to_geojson
+    shape.to_geojson
+  end
+
   # get the first object with variety 'plant', availables
   def current_cultivations(at = Time.zone.now)
     Plant.contained_by(current_supports, at)

@@ -5,14 +5,14 @@ info:
   contact:
     name: Ekylibre developers
     email: dev@ekylibre.com
-    url: ekylibre.com
-  version: '.0'
+    url: 'https://ekylibre.com'
+  version: '2.0'
+  license:
+    name: AGPLv3
 servers:
-  - url: 'https://demo.ekylibre.farm/api/v2'
+  - url: 'https://demo-innovation.ekylibre.io/api/v2'
     variables: {}
-    description: Production
-  - url: 'https://demo.ekylibre-alpha.farm/api/v2'
-    description: Test
+    description: Staging external
   - url: 'http://demo.ekylibre.lan:3000/api/v2'
     description: Local
 paths:
@@ -139,11 +139,48 @@ paths:
         - $ref: '#/components/parameters/Content-Type'
     parameters:
       - schema:
-          type: string
+          type: integer
         name: id
         in: path
         required: true
         description: Intervention id
+  '/cultivable_zones/{uuid}':
+    put:
+      summary: Update a cultivable zone
+      operationId: put_cultivable_zones
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '':
+          $ref: '#/components/responses/Created'
+      description: Update a cultivable zone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CultivableZone'
+            examples:
+              example-1:
+                value:
+                  uuid: adb71533-5250-4164-80fc-adaf6f84dce4
+                  shape: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+                  name: ZC 152
+        description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      tags:
+        - Cultivable zone
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+          example: '"adb71533-5250-4164-80fc-adaf6f84dce4"'
+        name: uuid
+        in: path
+        required: true
   /interventions:
     post:
       tags:
@@ -306,6 +343,80 @@ paths:
       deprecated: false
       security: []
       description: 'Returns a list of interventions you’ve previously created. '
+    parameters: []
+  /cultivable_zones:
+    post:
+      summary: Create a cultivable zone
+      operationId: post_cultivable_zones
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CultivableZone'
+            examples:
+              example:
+                value:
+                  name: Zone 1
+                  work_number: ZC01
+                  shape: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+        required: true
+      deprecated: false
+      security: []
+      description: Create a new cultivable zone with name and shape.
+      responses:
+        '200':
+          description: OK
+    get:
+      summary: List of Cultivable zones
+      operationId: get_cultivable_zones
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CultivableZone'
+              examples:
+                example:
+                  value:
+                    - uuid: e64cfa83-8f67-4be0-ba96-db7a9659a675
+                      work_number: ZC04
+                      name: Raguenaud
+                      shape:
+                        feature: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+                        properties: {}
+                      shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792163257283729,45.8212392141659],[-0.791904819365336,45.8212103045779],[-0.791480654542158,45.8212221132556],[-0.791101405009501,45.8211429977115],[-0.79069849642266,45.821064450282],[-0.791605612418384,45.8202552159891],[-0.792163257283729,45.8212392141659]]]]}'
+                    - uuid: c27fb3d8-bc75-413f-88de-2fe6dc62c341
+                      work_number: ZC05
+                      name: Le terrier
+                      shape:
+                        feature: 'SRID=4326;MULTIPOLYGON (((-0.792399590855693 45.8188374022447, -0.792865365477503 45.8195537456412, -0.792992985339246 45.8197481895666, -0.793614987390093 45.820722192761, -0.79335919994024 45.8207644364383, -0.793020321298577 45.8206933822684, -0.792744016705707 45.8205834866754, -0.791813666589333 45.8191694002046, -0.791835035631219 45.8190790430171, -0.792399590855693 45.8188374022447)))'
+                        properties: {}
+                      shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792399590855693,45.8188374022447],[-0.792865365477503,45.8195537456412],[-0.792992985339246,45.8197481895666],[-0.793614987390093,45.820722192761],[-0.79335919994024,45.8207644364383],[-0.793020321298577,45.8206933822684],[-0.792744016705707,45.8205834866754],[-0.791813666589333,45.8191694002046],[-0.791835035631219,45.8190790430171],[-0.792399590855693,45.8188374022447]]]]}'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      deprecated: false
+      security: []
+      description: Returns a list of cultivable zones
+      tags:
+        - Cultivable zones
     parameters: []
   /variants:
     get:
@@ -1933,6 +2044,42 @@ components:
           type: number
         page_count:
           type: number
+    CultivableZone:
+      title: CultivableZone
+      x-stoplight:
+        id: r1hdmyl8pk4nz
+      type: object
+      x-examples:
+        example-1:
+          id: 52
+          uuid: e64cfa83-8f67-4be0-ba96-db7a9659a675
+          shape:
+            feature: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+            properties: {}
+          shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792163257283729,45.8212392141659],[-0.791904819365336,45.8212103045779],[-0.791480654542158,45.8212221132556],[-0.791101405009501,45.8211429977115],[-0.79069849642266,45.821064450282],[-0.791605612418384,45.8202552159891],[-0.792163257283729,45.8212392141659]]]]}'
+          name: Raguenaud
+          work_number: ZC04
+      properties:
+        id:
+          type: integer
+          format: int32
+          readOnly: true
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        shape:
+          type: string
+          format: json-pointer
+        name:
+          type: string
+        work_number:
+          type: string
+        shape_to_geojson:
+          type: string
+          format: json-pointer
+          readOnly: true
+      description: ''
   responses:
     Created:
       description: Resource successfully created
@@ -2037,6 +2184,7 @@ components:
         type: string
         default: 'true'
       description: Activate pagination ("true"/"false")
+  securitySchemes: {}
 tags:
   - name: Auth
   - name: Interventions
