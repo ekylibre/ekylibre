@@ -46,15 +46,15 @@
                 const campaignId = $('.period-selector .period').data('campaign-id');
                 this.setTechnicalInputsScope(referenceName);
                 this.setTacticCampaign(campaignId);
-                this.setActivityTacticDate();
+                $('.activity_tactics_Date').find('.date').val(this.setActivityTacticDate());
             });
 
             this.$formElement.find('input#activity_production_started_on').on('change', () => {
-                this.setActivityTacticDate();
+                $('.activity_tactics_Date').find('.date').get(0)._flatpickr.setDate(this.setActivityTacticDate());
             });
 
             this.$formElement.find('#activity_production_started_on_year').on('change', () => {
-                this.setActivityTacticDate();
+                $('.activity_tactics_Date').find('.date').get(0)._flatpickr.setDate(this.setActivityTacticDate());
             });
         }
 
@@ -199,10 +199,9 @@
                 if (activityProductionStartedOn !== ''  && activityProductionStartedOnYear !== '') {
                     const campaignYear = document.querySelector('[data-campaign-id]').innerText;
                     const startedYearOfCurrentCampaign = parseInt(campaignYear) + parseInt(activityProductionStartedOnYear);
+
                     const startedDateOfCurrentCampaign = startedYearOfCurrentCampaign + activityProductionStartedOn.slice(4);
-    
-                    const $activityTacticsStartedAt = $('.activity_tactics_Date').find('.date')
-                    $activityTacticsStartedAt.val(startedDateOfCurrentCampaign);
+                    return startedDateOfCurrentCampaign;
                 }
             }  
         }
@@ -296,7 +295,7 @@
                 this.currentButton.dataset.campaignId = campaing.id;
             });
 
-            this.activityForm.setActivityTacticDate();
+            $('.activity_tactics_Date').find('.date').get(0)._flatpickr.setDate(this.activityForm.setActivityTacticDate());
         }
     }
 
