@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     end
 
     namespace :v2, defaults: { format: 'json' } do
+      resources :cultivable_zones, only: %i[index create update], param: :uuid
       resources :tokens, only: %i[create destroy]
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
