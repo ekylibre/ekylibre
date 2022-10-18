@@ -64,7 +64,7 @@ function baseDateRangeOptions(element) {
 
 function setupBlurListener(flatInstance) {
     const input = flatInstance.altInput;
-    input.addEventListener('blur', (e) => flatInstance.setDate(input.value, true, flatInstance.config.altFormat));
+    input.addEventListener('blur', () => flatInstance.setDate(input.value, true, flatInstance.config.altFormat));
 }
 
 export function enableDatePicker(element) {

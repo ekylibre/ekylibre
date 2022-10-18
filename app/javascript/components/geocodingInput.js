@@ -1,13 +1,13 @@
 import autocomplete from 'autocompleter';
 import { GeocodingService } from 'services/GeocodingService';
 
-export function geocodingInput(element, onSelectCallback = null) {
+export function geocodingInput(element, country, onSelectCallback = null) {
     const geocodingService = new GeocodingService();
 
     autocomplete({
         input: element,
         fetch: function (text, update) {
-            geocodingService.suggest(text).then((result) => {
+            geocodingService.suggest(text, country).then((result) => {
                 const suggestions = result.map((address) => {
                     return { label: address, value: address };
                 });

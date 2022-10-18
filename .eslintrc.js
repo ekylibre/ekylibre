@@ -10,17 +10,27 @@ module.exports = {
         'plugin:vue/base',
         'prettier',
         'prettier/vue',
-        'plugin:@typescript-eslint/recommended'
+    ],
+    'overrides': [
+      {
+        'files': ['**/**/*.ts'],
+        'plugins': [
+          '@typescript-eslint',
+        ],
+        'extends': ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+        'parser': '@typescript-eslint/parser',
+        'parserOptions': {
+          'project': ['./tsconfig.json'],
+        },
+      },
     ],
     'parserOptions': {
         'ecmaVersion': 11,
-        'parser': '@typescript-eslint/parser',
         'sourceType': 'module'
     },
     'plugins': [
         'prettier',
         'vue',
-        '@typescript-eslint'
     ],
     'rules': {
         'indent': [
