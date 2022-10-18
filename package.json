@@ -5,6 +5,7 @@
     "autosize": "^4.0.2",
     "axios": "^0.20.0",
     "chart.js": "^2.7.0",
+    "country-iso-2-to-3": "^1.1.0",
     "dotenv": "^16.0.3",
     "flatpickr": "~4.5.0",
     "highcharts": "^9.3.2",
