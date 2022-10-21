@@ -1522,6 +1522,8 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    phyto_validation_done_with_total_zone: "Phytosanitary validation done with total zone"
+    phyto_intervention_alert_if_map_disabled: "Map is diabled; This intervention should require to validate phytosanitary regulations (ZNT, délai de ré-entrée, etc.). Validations are performed with the total plant/land parcel area." 
     none_intervention_request_found: "None intervention matches selected rides"
     select_intervention_request: "select intervention request"
     set_activity_budget_on_jei: "Set this element on jei"

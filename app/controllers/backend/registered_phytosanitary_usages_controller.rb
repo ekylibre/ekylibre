@@ -46,10 +46,10 @@ module Backend
       product = Product.find_by(id: params[:product_id])
 
       stopped_at = DateTime.soft_parse(params.fetch(:intervention_stopped_at, ''))
-      targets_and_shape = ::Interventions::Phytosanitary::Models::TargetAndShape.from_targets_data(targets_data)
+      targets_zone = ::Interventions::Phytosanitary::Models::TargetZone.from_targets_data(targets_data)
 
       application_validator = ::Interventions::Phytosanitary::MaxApplicationValidator.new(
-        targets_and_shape: targets_and_shape,
+        targets_zone: targets_zone,
         intervention_to_ignore: intervention,
         intervention_stopped_at: stopped_at
       )

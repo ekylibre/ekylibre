@@ -70,11 +70,11 @@
       - if resource.working_zone_area.to_f > 0.0
         .big-info
           %span.title= Intervention.human_attribute_name(:working_zone_area)
-          %span.value= resource.human_working_zone_area(precision: 2)
+          %span.value= resource.human_working_zone_area(precision: 4)
 
         .big-info
           %span.title= :net_surface_area.tl
-          %span.value= resource.human_activity_production_zone_area(precision: 2)
+          %span.value= resource.human_activity_production_zone_area(precision: 4)
 
         .big-info
           - unit = Onoma::Unit.find(:hectare)

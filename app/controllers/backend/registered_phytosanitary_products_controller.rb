@@ -13,7 +13,7 @@ module Backend
             render json: {}
           else
             validator = ::Interventions::Phytosanitary::ValidatorCollectionValidator.build(
-              infos.targets_and_shape,
+              infos.targets_zone,
               intervention_to_ignore: infos.intervention,
               intervention_started_at: infos.intervention_started_at,
               intervention_stopped_at: infos.intervention_stopped_at

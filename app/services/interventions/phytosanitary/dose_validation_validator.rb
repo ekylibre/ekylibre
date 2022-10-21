@@ -3,12 +3,12 @@
 module Interventions
   module Phytosanitary
     class DoseValidationValidator < ProductApplicationValidator
-      attr_reader :targets_and_shape, :unit_converter
+      attr_reader :targets_zone, :unit_converter
 
-      # @param [Array<Models::TargetAndShape>] targets_and_shape
+      # @param [Array<Models::TargetZone>] targets_zone
       # @param [ProductUnitConverter] unit_converter
-      def initialize(targets_and_shape:, unit_converter:)
-        @targets_and_shape = targets_and_shape
+      def initialize(targets_zone:, unit_converter:)
+        @targets_zone = targets_zone
         @unit_converter = unit_converter
       end
 
@@ -17,7 +17,7 @@ module Interventions
       def validate(products_usages)
         result = Models::ProductApplicationResult.new
 
-        if targets_and_shape.empty? || shapes_area.to_f.zero? || products_usages.any? { |pu| pu.usage.nil? }
+        if targets_zone.empty? || area.to_f.zero? || products_usages.any? { |pu| pu.usage.nil? }
           products_usages.each { |pu| result.vote_unknown(pu.product) }
         else
           products_usages.each do |pu|
@@ -63,28 +63,16 @@ module Interventions
 
           {
             into: Maybe(Onoma::Unit.find(product_usage.usage.dose_unit)),
-            area: Maybe(shapes_area.in(:hectare)).fmap(&zero_as_nil),
+            area: Maybe(area.in(:hectare)).fmap(&zero_as_nil),
             net_mass: Maybe(product_usage.product.net_mass).fmap(&zero_as_nil),
             net_volume: Maybe(product_usage.product.net_volume).fmap(&zero_as_nil),
             spray_volume: Maybe(product_usage.spray_volume).fmap(&zero_as_nil).in(:liter_per_hectare)
           }
         end
 
-        def targets_data
-          targets_and_shape.map.with_index { |e, i| [i.to_s, { shape: e.shape }] }.to_h
-        end
-
         # @return [Measure<area>]
-        def shapes_area
-          value = targets_and_shape.sum do |ts|
-            if ts.shape.nil?
-              0
-            else
-              ts.shape.area
-            end
-          end
-
-          Measure.new(value, :square_meter)
+        def area
+          targets_zone.sum(&:area)
         end
     end
   end

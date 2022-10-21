@@ -3,11 +3,11 @@
 module Interventions
   module Phytosanitary
     class NonTreatmentAreasValidator < ProductApplicationValidator
-      attr_reader :targets_and_shape
+      attr_reader :targets_zone
 
-      # @param [Array<Models::TargetAndShape>] targets_and_shape
-      def initialize(targets_and_shape:)
-        @targets_and_shape = targets_and_shape
+      # @param [Array<Models::TargetZone>] targets_zone
+      def initialize(targets_zone:)
+        @targets_zone = targets_zone
       end
 
       # @param [Array<Models::ProductWithUsage>] products_usages
@@ -15,13 +15,13 @@ module Interventions
       def validate(products_usages)
         result = Models::ProductApplicationResult.new
 
-        if targets_and_shape.empty?
+        if targets_zone.empty?
           products_usages.each { |pu| result.vote_unknown(pu.product) }
         else
           products_usages.each do |pu|
             if pu.usage.nil?
               result.vote_unknown(pu.product)
-            elsif working_zone_overlapping_nta?(pu.usage, targets_and_shape)
+            elsif working_zone_overlapping_nta?(pu.usage, targets_zone)
               result.vote_forbidden(pu.product, :working_zone_overlaps_nta.tl)
             end
           end
@@ -32,10 +32,10 @@ module Interventions
 
       private
 
-        def working_zone_overlapping_nta?(usage, targets_and_shape)
+        def working_zone_overlapping_nta?(usage, targets_zone)
           return false unless buffer = usage.untreated_buffer_aquatic
 
-          shapes = targets_and_shape.map(&:shape)
+          shapes = targets_zone.map(&:shape)
           RegisteredHydrographicItem.buffer_intersecting(buffer, *shapes).any?
         end
     end

@@ -94,7 +94,7 @@ class InterventionProductParameter < InterventionParameter
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :variant, prefix: true
-  delegate :work_name, to: :product, prefix: true
+  delegate :work_name, :shape,  to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
@@ -300,7 +300,7 @@ class InterventionProductParameter < InterventionParameter
   private def set_quantity_from_working_zone
     return true if working_zone.nil? && working_zone_area_value.nil?
 
-    area = working_zone&.area || working_zone&.in_square_meter&.value
+    area = working_zone&.area || working_zone_area&.in_square_meter&.value
     self.quantity_value = area
     self.quantity_unit_name = 'square_meter'
     self.quantity_indicator_name = 'net_surface_area'
