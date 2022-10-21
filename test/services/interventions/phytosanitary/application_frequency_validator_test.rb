@@ -4,7 +4,7 @@ module Interventions
   module Phytosanitary
     class ApplicationFrequencyValidatorTest < Ekylibre::Testing::ApplicationTestCase
       test "if no targets, all products should be marked as unknown" do
-        validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_and_shape: [])
+        validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_zone: [])
 
         product = { phytosanitary_product: { france_maaid: "qzdqzd" }.to_struct }.to_struct
         product_usages = [Models::ProductWithUsage.new(product, RegisteredPhytosanitaryProduct.new, RegisteredPhytosanitaryUsage.new, nil, nil)]
@@ -24,7 +24,7 @@ module Interventions
           [{ applications_frequency: ActiveSupport::Duration.parse("P4D"), applications_count: 1 }, "8548547", "", true, :allowed]
         ]
 
-        validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_and_shape: [])
+        validator = Interventions::Phytosanitary::ApplicationFrequencyValidator.new(targets_zone: [])
 
         cases.each do |usage_params, maaid, phyto, interval_respected, expected|
           product = make_product(france_maaid: maaid, phytosanitary_product: phyto)

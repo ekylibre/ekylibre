@@ -3,13 +3,13 @@
 module Interventions
   module Phytosanitary
     module Models
-      class TargetAndShape
+      class TargetZone
         class << self
           # @param [Intervention] intervention
-          # @return [Array<TargetAndShape>]
+          # @return [Array<TargetZone>]
           def from_intervention(intervention)
             intervention.targets.map do |target|
-              new(target.product, target.working_zone)
+              new(target.product, target.working_zone || target.product_shape, target.working_area)
             end
           end
 
@@ -17,14 +17,15 @@ module Interventions
           #     Each value has two keys:
           #       'id' A Product id that is expected to be a Planr or LandParcel
           #       'shape' A GeoJSON String
-          # @return [Array<TargetAndShape>]
+          # @return [Array<TargetZone>]
           def from_targets_data(targets_data)
             targets_data.flat_map do |data|
               target = [Plant, LandParcel].map { |model| model.find_by(id: data[:id]) }.compact.first
               shape = Charta::new_geometry(data[:shape])
+              working_zone_area_value = Measure.new(data[:working_zone_area_value]&.to_f || 0, :hectare).in(:square_meter)
 
               if target.present?
-                [::Interventions::Phytosanitary::Models::TargetAndShape.new(target, shape)]
+                [::Interventions::Phytosanitary::Models::TargetZone.new(target, shape, working_zone_area_value)]
               else
                 []
               end
@@ -32,13 +33,15 @@ module Interventions
           end
         end
 
-        attr_reader :target, :shape
+        attr_reader :target, :shape, :area
 
         # @param [LandParcel, Plant] target
         # @param [Charta::Geometry] shape
-        def initialize(target, shape)
+        # @param [Measure] area in square meter
+        def initialize(target, shape, area)
           @target = target
           @shape = shape
+          @area = area
         end
       end
     end

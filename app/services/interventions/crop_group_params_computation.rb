@@ -16,10 +16,22 @@ module Interventions
       return options if target_parameter.nil?
 
       if matching_targets.any?
-        target_options = matching_targets.map {|target| { reference_name: target_parameter.name, product_id: target.id, working_zone: target.shape }}
+        target_options = matching_targets.map  do |target|
+          {
+            reference_name: target_parameter.name,
+            product_id: target.id,
+            working_zone: target.shape,
+            working_zone_area_value: target.shape.area.in(:square_meter).convert(:hectare).to_d(nil, 4)
+          }
+        end
 
         if  target_parameter_group_name.present?
-          options[:group_parameters_attributes] = target_options.map{ |target| { reference_name:  target_parameter_group_name, targets_attributes: [target] }}
+          options[:group_parameters_attributes] = target_options.map do |target|
+            {
+              reference_name:  target_parameter_group_name,
+              targets_attributes: [target]
+            }
+          end
         else
           options[:targets_attributes] = target_options
         end

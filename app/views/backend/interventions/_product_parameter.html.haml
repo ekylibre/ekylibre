@@ -60,6 +60,11 @@
                   %span.value= picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{product_parameter.id}" })
                 = render 'usage_conditions_modal', id: product_parameter.id, usage: usage
 
+              - if !@has_working_zone_shape
+                %p
+                  %span.title
+                    = :phyto_validation_done_with_total_zone.tl
+
           - else
             = quantity_info(product_parameter)
 

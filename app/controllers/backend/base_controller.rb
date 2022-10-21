@@ -326,6 +326,11 @@ module Backend
                                                    end
       end
 
+      def user_preference_value(name, default = nil)
+        preference = current_user.preferences.find_by(name: name)
+        preference ? preference.value : default
+      end
+
       class << self
         # search is a hash like {table: [columns...]}
         def search_conditions(search = {}, options = {})

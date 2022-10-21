@@ -27,7 +27,16 @@ module Interventions
         return options if existing_rides.blank?
 
         if matching_targets.any?
-          target_options = matching_targets.map {|target| { reference_name: target_parameter.name, product_id: target.id, working_zone: compute_target_working_zone(target.shape) }}
+          working_zone = compute_target_working_zone(target.shape)
+          target_options = matching_targets.map do |target|
+            {
+              reference_name: target_parameter.name,
+              product_id: target.id,
+              working_zone: working_zone,
+              working_zone_area_value: working_zone.area.in(:square_meter).convert(:hectare).to_d(nil, 4)
+            }
+          end
+
           options[:working_periods_attributes] = [{
             started_at: started_at,
             stopped_at: stopped_at

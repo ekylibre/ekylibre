@@ -22,9 +22,10 @@
         = label_tag :target.tl, nil, class: 'control-label'
 
         .controls
-          = radio_button_tag "target#{f.index}", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          - id = f.index || 'new_targets'
+          = radio_button_tag "target[#{id}]", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
           = label_tag :plant.tl
-          = radio_button_tag "target#{f.index}", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = radio_button_tag "target[#{id}]", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
     - product_data = {}
@@ -134,7 +135,7 @@
       = f.referenced_association :new_variant, source: { scope: reference.attribute(:new_variant).scope_hash.merge(availables: true), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_variant_id' } }, new: false
 
   - if reference.attribute(:working_zone)
-    - if user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
+    - if @map_is_shown
       :ruby
         procedures = Intervention::PHYTO_PROCEDURE_NAMES
         optional_data = if procedures.include?(params[:procedure_name]) || procedures.any? { |p| f.object&.intervention&.send("#{p}?") }

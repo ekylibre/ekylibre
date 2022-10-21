@@ -61,8 +61,8 @@ module FormObjects
           inspector.relevant_parameters_modified?(live_data: live_data?, intervention: intervention, targets_ids: targets_ids, inputs_data: inputs_data)
         end
 
-        def targets_and_shape
-          @targets_and_shape ||= ::Interventions::Phytosanitary::Models::TargetAndShape.from_targets_data(targets_data)
+        def targets_zone
+          @targets_zone ||= ::Interventions::Phytosanitary::Models::TargetZone.from_targets_data(targets_data)
         end
 
         def targets_ids
@@ -75,7 +75,7 @@ module FormObjects
 
         # @return [Array<Plant, LandParcel>]
         def targets
-          targets_and_shape.map(&:target)
+          targets_zone.map(&:target)
         end
 
         def products_and_usages

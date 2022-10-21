@@ -18,7 +18,7 @@
   = f.input :auto_calculate_working_periods, as: :hidden
 
   -# Show the different kind of intervention, || the form to create intervention
-  - if procedure
+  - if procedure  
 
     - if params[:ride_ids]
       - params[:ride_ids].each do |ride_id|
@@ -85,7 +85,7 @@
   - else # Root Procedure Natures
     .show-map-input
       = label_tag do
-        = check_box_tag('value', 'true', user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true), data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
+        = check_box_tag('value', 'true', @map_is_shown, data: { remote: true, url: backend_preference_path(id: User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM), method: 'PATCH' })
         = :view_map_when_creating_an_intervention.tl
     - main_period_selector(:year)
     - activity_families = Activity.pluck(:family).push("administering", "processing", "tool_maintaining").uniq

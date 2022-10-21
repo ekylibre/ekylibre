@@ -7,7 +7,7 @@ module Interventions
     class DoseValidationValidatorTest < Ekylibre::Testing::ApplicationTestCase
       setup do
         @validator = DoseValidationValidator.new(
-          targets_and_shape: [],
+          targets_zone: [],
           unit_converter: ProductUnitConverter.new
         )
 
