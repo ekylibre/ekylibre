@@ -350,7 +350,7 @@ module Backend
       super
 
       @map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
-      if @intervention&.using_phytosanitary? && !@map_is_shown
+      if @intervention && @intervention.using_phytosanitary? && !@map_is_shown
         notify_warning(:phyto_intervention_alert_if_map_disabled.tl)
       end
     end
