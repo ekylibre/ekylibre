@@ -132,12 +132,7 @@ class CatalogItem < ApplicationRecord
   after_save do
     set_previous_stopped_at if previous_items.any?
     # update interventions with update price
-    intervention_ids_to_update = []
-    variant.products.each do |product|
-      intervention_ids_to_update << product.interventions.where('started_at >= ?', started_at)&.pluck(:id)
-    end
-    int_ids = intervention_ids_to_update.compact.uniq
-    UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
+    update_intervention_costs
   end
 
   # Find unit_amout in default unit of variant
@@ -264,5 +259,18 @@ class CatalogItem < ApplicationRecord
     def set_previous_stopped_at
       previous_item = previous_items.last
       previous_item.update!(stopped_at: started_at - 1.minute)
+    end
+
+    def update_intervention_costs
+      intervention_ids_to_update = []
+      if product
+        intervention_ids_to_update << product.interventions.where('started_at >= ?', started_at)&.pluck(:id)
+      else
+        variant.products.each do |pro|
+          intervention_ids_to_update << pro.interventions.where('started_at >= ?', started_at)&.pluck(:id)
+        end
+      end
+      int_ids = intervention_ids_to_update.compact.uniq
+      UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
     end
 end
