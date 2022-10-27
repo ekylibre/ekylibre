@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/active_list.git
-  revision: 154e190c6bca181fd8162ba33417681b89b6a56b
+  revision: 507f5add216a023e04cd20df319774fbb08c1419
   branch: master
   specs:
     active_list (8.1.0)
