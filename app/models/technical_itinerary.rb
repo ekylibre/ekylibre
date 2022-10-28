@@ -92,32 +92,33 @@ class TechnicalItinerary < ApplicationRecord
   end
 
   def global_workload
-    total = 0.0
+    total = 0.000
     intervention_templates.each do |it|
       total += it.time_per_hectare
     end
-    total
+    total.to_d.round(2)
   end
 
   def human_global_workload
-    (Time.mktime(0)+ global_workload * 3600).strftime("%H h %M min")
+    a = ActiveSupport::Duration.build(global_workload * 3600)
+    "#{a.in_full(:hour)} h #{a.parts[:minutes]} min"
   end
 
-  def parameter_worload(type)
-    if %i[tools doers].include?(type)
-      result = 0
-      intervention_templates.each do |it|
-        elements = it.send(type)
+  def parameter_worload(nature)
+    result = 0
+    if %i[tools doers].include?(nature)
+      self.intervention_templates.each do |it|
+        elements = it.send(nature)
         elements.each do |element|
           result += (element.quantity * it.time_per_hectare)
         end
       end
-      result
     end
+    result.to_d.round(2)
   end
 
-  def human_parameter_workload(type)
-    "#{parameter_worload(type).round(2).l(precision: 2)} #{:hours_hectare.tl}"
+  def human_parameter_workload(nature)
+    "#{parameter_worload(nature).l(precision: 2)} #{:hours_hectare.tl}"
   end
 
   class << self

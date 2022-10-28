@@ -92,14 +92,10 @@ class InterventionProposal < ApplicationRecord
 
   def estimated_working_time(target_parcel = nil)
     if target_parcel.nil?
-      return area / technical_itinerary_intervention_template
-                      .intervention_template
-                      .workflow
+      return area / technical_itinerary_intervention_template&.intervention_template&.workflow&.to_d
     end
 
-    target_parcel.calculate_net_surface_area.to_d / technical_itinerary_intervention_template
-                                            .intervention_template
-                                            .workflow
+    target_parcel.calculate_net_surface_area.to_d / technical_itinerary_intervention_template&.intervention_template&.workflow.to_d
   end
 
   def human_estimated_working_time(target_parcel = nil)

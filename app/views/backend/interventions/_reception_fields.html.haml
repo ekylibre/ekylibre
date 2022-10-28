@@ -3,7 +3,7 @@
 	- purchase_order = @intervention.receptions.count >= 1 ? @intervention.receptions.first.purchase_id : ""
 	= field Entity.human_attribute_name(:supplier),
 	selector_tag(:supplier_id,
-	{controller: :entities,
+	{controller: 'backend/entities',
 		action: :unroll,
 		scope: :suppliers },
 		{},
@@ -13,7 +13,7 @@
 			data: { product_of_delivery_item: { url: backend_entity_path("RECORD_ID",
 				format: :json) }})
 	.purchase-order-input
-		= f.referenced_association :purchase_order, label: :order.tl, input_html: { class: "reception-purchase",
+		= f.referenced_association :purchase_order, source: { controller: 'backend/purchase_orders' }, label: :order.tl, input_html: { class: "reception-purchase",
 			name: "intervention[receptions_attributes][0][purchase_id]",
 			disabled: true,
 			value: purchase_order,

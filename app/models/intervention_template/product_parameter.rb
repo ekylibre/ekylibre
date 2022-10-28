@@ -20,6 +20,12 @@ class InterventionTemplate < ApplicationRecord
 
     attr_accessor :product_name
 
+    before_save do
+      if product_nature_variant.present?
+        self.product_nature_id = self.product_nature_variant.nature.id
+      end
+    end
+
     # Need to access product_name in js
     def attributes
       super.merge(product_name: '')
