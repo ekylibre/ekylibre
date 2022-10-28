@@ -198,9 +198,9 @@ class InterventionTemplate < ApplicationRecord
     if (workflow_value.present? && workflow_value.zero?) || workflow_value.nil? || workflow_value.blank?
       1.0
     elsif workflow_unit == :hectare_per_hour
-      (1.0 / workflow_value)
+      (1.0 / workflow_value).to_d
     elsif workflow_unit == :plant_per_hour
-      (plant_density / workflow_value)
+      (plant_density / workflow_value).to_d
     else
       1.0
     end
