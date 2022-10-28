@@ -25,7 +25,7 @@ Cette cellule affiche, dans un graphe combiné et pour la durée d'un exercice c
 
 Dans la barre latérale du module, cliquez sur **"Ventes"** pour enregitrer un nouveau devis dont le statut évoluera progressivement en fonction de la relation client et jusqu'à l'établissement de la facture.
 
-Dans la barre latérale du module, cliquez sur **"Opportunités"** pour afficher la liste des opportunités commerciales liées avec la probabilité de réaliser une nouvelles affaire avec un prospect ou un client.
+Dans la barre latérale du module, cliquez sur **"Opportunités"** pour afficher la liste des opportunités commerciales liées avec la probabilité de réaliser une nouvelle affaire avec un prospect ou un client.
 
 Dans la barre latérale du module, cliquez sur **"Encaissements"** pour accéder à la liste des encaissements enregistrés dans l'application et vous permettre d'en créer de nouveaux. Un encaissement peut, plus facilement, être renseigné depuis la vue d'une facture.
 
