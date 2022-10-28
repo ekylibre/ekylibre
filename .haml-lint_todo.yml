@@ -284,6 +284,7 @@ linters:
       - "app/views/backend/catalog_items/show.html.haml"
       - "app/views/backend/catalogs/show.html.haml"
       - "app/views/backend/cells/cashes_balance_cells/show.html.haml"
+      - "app/views/backend/cells/economic_map_cells/show.html.haml"
       - "app/views/backend/cells/last_intervention_cells/show.html.haml"
       - "app/views/backend/cells/map_cells/show.html.haml"
       - "app/views/backend/cells/mes_parcelles_synchronisation_cells/show.html.haml"

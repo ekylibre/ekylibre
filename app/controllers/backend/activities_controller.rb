@@ -211,6 +211,24 @@ module Backend
       end
     end
 
+    def traceability_xslx_export
+      return unless @activity = find_and_check
+
+      campaigns = Campaign.where(id: params[:campaign_id])
+      InterventionExportJob.perform_later(activity_id: @activity.id, campaign_ids: campaigns.pluck(:id), user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to backend_activity_path(@activity)
+    end
+
+    def global_costs_xslx_export
+      return unless @activity = find_and_check
+
+      campaigns = Campaign.where(id: params[:campaign_id])
+      GlobalCostExportJob.perform_later(activity_id: @activity.id, campaign_ids: campaigns.pluck(:id), user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to backend_activity_path(@activity)
+    end
+
     private
 
       def open_activity

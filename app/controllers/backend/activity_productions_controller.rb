@@ -105,6 +105,15 @@ module Backend
       render(locals: { cancel_url: :back, with_continue: false })
     end
 
+    def traceability_xslx_export
+      return unless @activity_production = find_and_check
+
+      campaigns = @activity_production.campaigns
+      InterventionExportJob.perform_later(activity_id: @activity_production.activity.id, activity_production_id: @activity_production.id, campaign_ids: campaigns.pluck(:id), user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to backend_activity_production_path(@activity_production)
+    end
+
     def create
       super
     rescue ActiveRecord::RecordInvalid
