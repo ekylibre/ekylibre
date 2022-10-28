@@ -347,12 +347,14 @@ module Backend
     end
 
     def edit
-      super
+      return unless @intervention = find_and_check(:intervention)
 
       @map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
       if @intervention && @intervention.using_phytosanitary? && !@map_is_shown
         notify_warning(:phyto_intervention_alert_if_map_disabled.tl)
       end
+
+      super
     end
 
     def create
