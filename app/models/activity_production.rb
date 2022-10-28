@@ -146,6 +146,7 @@ class ActivityProduction < ApplicationRecord
   }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
+  scope :of_cultivable_zone, ->(cultivable_zone) { where(cultivable_zone: cultivable_zone) }
   scope :of_activities, lambda { |*activities|
     where(activity_id: activities.flatten.map(&:id))
   }
@@ -164,6 +165,8 @@ class ActivityProduction < ApplicationRecord
   }
 
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
+  scope :start_before, ->(at) { where('started_on < ?', at.to_date) }
+  scope :stop_after, ->(at) { where('stopped_on > ?', at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
   scope :with_technical_itinerary, -> { where.not(technical_itinerary: nil)}
@@ -195,6 +198,8 @@ class ActivityProduction < ApplicationRecord
   end
 
   before_validation do
+    self.state ||= :opened
+    self.batch_planting ||= false
     self.started_on ||= Date.today
     self.usage ||= Onoma::ProductionUsage.first
     self.support_nature ||= :cultivation

@@ -1,5 +1,6 @@
 - main_toolbar do |t|
   = t.edit
+  = t.action(:tool_costs_xslx_export, label: :tool_costs_xslx_export.tl, params: { equipment_ids: resource.id, campaign_id: current_campaign.id })
   = t.destroy
 
 - main_period_selector(:year)

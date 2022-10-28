@@ -188,6 +188,7 @@ Rails.application.routes.draw do
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show
+      resource :economic_map_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :elapsed_interventions_times_by_workers_cell, only: :show
       resource :expenses_by_product_nature_category_cell, only: :show
@@ -266,6 +267,8 @@ Rails.application.routes.draw do
         get :list_distributions
         get :list_productions
         get :compute_pfi_report
+        get :traceability_xslx_export
+        get :global_costs_xslx_export
         post :generate_budget
       end
     end
@@ -285,6 +288,7 @@ Rails.application.routes.draw do
         get :create_plants
       end
       member do
+        get :traceability_xslx_export
         get :list_interventions
         get :list_plants
       end
@@ -575,6 +579,7 @@ Rails.application.routes.draw do
       member do
         get :list_interventions_on_field
         get :list_equipment_maintenance_interventions
+        get :tool_costs_xslx_export
         get :list_links
         get :list_catalog_items
       end
@@ -1412,6 +1417,7 @@ Rails.application.routes.draw do
     end
 
     namespace :visualizations do
+      resource :economic_map_cells_visualizations, only: :show
       resource :plants_visualizations, only: :show
       resource :map_cells_visualizations, only: :show
       resource :stock_container_map_cells_visualizations, only: :show

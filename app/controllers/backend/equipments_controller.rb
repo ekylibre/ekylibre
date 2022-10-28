@@ -127,5 +127,14 @@ module Backend
         format.json { render json: resource_model.all }
       end
     end
+
+    def tool_costs_xslx_export
+      equipments = Equipment.where(id: params[:equipment_ids])
+      campaigns = Campaign.where(id: params[:campaign_id])
+      ToolCostExportJob.perform_later(equipment_ids: equipments.pluck(:id), campaign_ids: campaigns.pluck(:id), user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to action: :show
+    end
+
   end
 end

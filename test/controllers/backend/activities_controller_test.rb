@@ -3,7 +3,7 @@ require 'test_helper'
 module Backend
   class ActivitiesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions duplicate: { params: { source_activity_id: 1 } },
-                               except: %i[show compute_pfi_report add_itk_on_activities generate_budget]
+                               except: %i[show compute_pfi_report add_itk_on_activities generate_budget traceability_xslx_export global_costs_xslx_export]
 
     test 'show action' do
       get :show, params: { id: 'NaID', redirect: root_url, locale: @locale }

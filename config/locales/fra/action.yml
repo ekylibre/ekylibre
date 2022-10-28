@@ -1956,6 +1956,7 @@ fra:
     document_imported_successfully: "Le document %{name} a été importé avec succès."
     document_intervention_traceability: "Fiche Tracabilité"
     document_natures: "Types de documents"
+    document_tool_costs: "Fiche Coût Equipement"
     document_templates: "Modèles de documents"
     document_type: "Type de document"
     documentation: "Documentation"
@@ -1993,6 +1994,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
     earns: "Gains" #?
+    economic_map: "Carte économique"
     economics: "Économique"
     edit: "Modifier"
     edit_budget: "Modifier le budget"
