@@ -85,7 +85,7 @@ class Intervention < ApplicationRecord
   belongs_to :purchase
   belongs_to :costing, class_name: 'InterventionCosting', dependent: :destroy
   belongs_to :validator, class_name: 'User', foreign_key: :validator_id
-  belongs_to :intervention_proposal, class_name: InterventionProposal
+  belongs_to :intervention_proposal, class_name: 'InterventionProposal'
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings

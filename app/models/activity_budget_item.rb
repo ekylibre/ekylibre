@@ -63,7 +63,7 @@ class ActivityBudgetItem < ApplicationRecord
   belongs_to :variant, class_name: 'ProductNatureVariant'
   belongs_to :tax
   has_many :productions, through: :activity
-  belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter, inverse_of: :budget_items
+  belongs_to :product_parameter, class_name: 'InterventionTemplate::ProductParameter', inverse_of: :budget_items
   has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :activity_budget_item, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

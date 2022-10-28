@@ -211,7 +211,7 @@ class ProductNatureVariant < ApplicationRecord
   end
 
   before_validation on: :update do
-    if changes.key?('category_id') || changes.key?('nature_id')
+    if changes_to_save.key?('category_id') || changes_to_save.key?('nature_id')
       type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end

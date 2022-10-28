@@ -5,12 +5,12 @@ class InterventionTemplate < ApplicationRecord
   class ProductParameter < ApplicationRecord
     self.table_name = "intervention_template_product_parameters"
 
-    belongs_to :intervention_template, class_name: InterventionTemplate, foreign_key: :intervention_template_id
-    belongs_to :product_nature, class_name: ProductNature, foreign_key: :product_nature_id
-    belongs_to :product_nature_variant, class_name: ProductNatureVariant, foreign_key: :product_nature_variant_id
+    belongs_to :intervention_template, class_name: 'InterventionTemplate', foreign_key: :intervention_template_id
+    belongs_to :product_nature, class_name: 'ProductNature', foreign_key: :product_nature_id
+    belongs_to :product_nature_variant, class_name: 'ProductNatureVariant', foreign_key: :product_nature_variant_id
 
-    has_many :daily_charges, class_name: DailyCharge, dependent: :destroy, foreign_key: :intervention_template_product_parameter_id
-    has_many :budget_items, class_name: ActivityBudgetItem, dependent: :destroy, foreign_key: :product_parameter_id
+    has_many :daily_charges, class_name: 'DailyCharge', dependent: :destroy, foreign_key: :intervention_template_product_parameter_id
+    has_many :budget_items, class_name: 'ActivityBudgetItem', dependent: :destroy, foreign_key: :product_parameter_id
 
     # Validation
     validates :quantity, presence: true

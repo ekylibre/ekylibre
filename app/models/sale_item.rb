@@ -213,7 +213,7 @@ class SaleItem < ApplicationRecord
   end
 
   after_save do
-    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
+    unlink_fixed_asset(attribute_before_last_save(:fixed_asset_id)) if attribute_before_last_save(:fixed_asset_id)
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
     next unless Preference[:catalog_price_item_addition_if_blank] && sale.invoice?
 
@@ -242,7 +242,7 @@ class SaleItem < ApplicationRecord
     return false if sale.draft? || sale.order?
 
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
-    (changes.keys - authorized_columns).any?
+    (changes_to_save.keys - authorized_columns).any?
   end
 
   def unlink_fixed_asset(former_id)

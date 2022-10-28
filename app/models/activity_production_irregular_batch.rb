@@ -2,7 +2,7 @@
 
 class ActivityProductionIrregularBatch < ApplicationRecord
 
-  belongs_to :activity_production_batch, class_name: ActivityProductionBatch, foreign_key: :activity_production_batch_id, required: true
+  belongs_to :activity_production_batch, class_name: 'ActivityProductionBatch', foreign_key: :activity_production_batch_id, required: true
 
   # Sowing date should be between the period of the activity production
   validate :sowing_date_between_period_of_activity_production

@@ -84,10 +84,10 @@ class ActivityProduction < ApplicationRecord
   belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
 
   # planning
-  belongs_to :technical_itinerary, class_name: TechnicalItinerary
-  has_one :batch, class_name: ActivityProductionBatch, dependent: :destroy, inverse_of: :activity_production
-  has_many :daily_charges, class_name: DailyCharge, dependent: :destroy, foreign_key: :activity_production_id
-  has_many :intervention_proposals, class_name: InterventionProposal, dependent: :destroy, foreign_key: :activity_production_id
+  belongs_to :technical_itinerary, class_name: 'TechnicalItinerary'
+  has_one :batch, class_name: 'ActivityProductionBatch', dependent: :destroy, inverse_of: :activity_production
+  has_many :daily_charges, class_name: 'DailyCharge', dependent: :destroy, foreign_key: :activity_production_id
+  has_many :intervention_proposals, class_name: 'InterventionProposal', dependent: :destroy, foreign_key: :activity_production_id
 
   accepts_nested_attributes_for :batch, allow_destroy: true
 

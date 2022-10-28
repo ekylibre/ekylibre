@@ -120,7 +120,7 @@ class PurchaseInvoice < Purchase
     items.each do |item|
       item.create_fixed_asset if item.fixed_asset.nil?
 
-      item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
+      item.update_fixed_asset if item.fixed_asset.present? && item.saved_change_to_pretax_amount?
     end
     UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end

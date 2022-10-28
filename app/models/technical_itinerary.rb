@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 class TechnicalItinerary < ApplicationRecord
-  has_many :itinerary_templates, class_name: TechnicalItineraryInterventionTemplate, dependent: :destroy
-  has_many :intervention_templates, through: :itinerary_templates, class_name: InterventionTemplate
+  has_many :itinerary_templates, class_name: 'TechnicalItineraryInterventionTemplate', dependent: :destroy
+  has_many :intervention_templates, through: :itinerary_templates, class_name: 'InterventionTemplate'
 
-  has_many :activity_productions, class_name: ActivityProduction, foreign_key: :technical_itinerary_id
+  has_many :activity_productions, class_name: 'ActivityProduction', foreign_key: :technical_itinerary_id
 
   belongs_to :campaign
   belongs_to :activity
-  belongs_to :technical_workflow, class_name: TechnicalWorkflow
+  belongs_to :technical_workflow, class_name: 'TechnicalWorkflow'
   has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_itinerary_id
 
-  belongs_to :originator, class_name: TechnicalItinerary
-  has_one :linked_technical_itinerary, class_name: TechnicalItinerary, foreign_key: 'originator_id', dependent: :nullify
+  belongs_to :originator, class_name: 'TechnicalItinerary'
+  has_one :linked_technical_itinerary, class_name: 'TechnicalItinerary', foreign_key: 'originator_id', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, :name, length: { maximum: 500 }, allow_blank: true
