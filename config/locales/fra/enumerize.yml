@@ -167,6 +167,12 @@ fra:
       nature:
         contact: "Contact"
         organization: "Organisation"
+      client_payment_delay: #?
+        1 week: "à réception" #?
+        30 days: "30 jours" #?
+        30 days, end of month: "30 jours fin du mois" #?
+        60 days: "60 jours" #?
+        60 days, end of month: "60 jours fin du mois" #?
       supplier_payment_delay: #?
         1 week: "à réception" #?
         30 days: "30 jours" #?

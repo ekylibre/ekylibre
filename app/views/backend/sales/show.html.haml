@@ -60,7 +60,7 @@
       = cobble_list :subscriptions
 
   - c.cobble(:affair, title: Sale.human_attribute_name(:affair)) do
-    = affair_of(resource, default: 'IncomingPayment')
+    = affair_of(resource, default: 'IncomingPayment', url_options: { incoming_payment: { responsible_id: resource.responsible_id, mode_id: resource.client.client_payment_mode&.id, paid_at: resource.payment_at, to_bank_at: resource.payment_at } })
 
   - if resource.parcels.any?
     - c.cobble :shipments do

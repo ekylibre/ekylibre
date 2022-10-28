@@ -33,6 +33,8 @@
 #  born_at                      :datetime
 #  client                       :boolean          default(FALSE), not null
 #  client_account_id            :integer
+#  client_payment_delay       :string
+#  client_payment_mode_id     :integer
 #  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
@@ -96,6 +98,7 @@ class Entity < ApplicationRecord
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
   enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
+  enumerize :client_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   # TODO: it should be rewritten when refers_to_lexicon is available
   enumerize :legal_position_code, in: MasterLegalPosition.pluck(:code)
   versionize exclude: [:full_name]
@@ -106,6 +109,7 @@ class Entity < ApplicationRecord
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
   belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
+  belongs_to :client_payment_mode, class_name: 'IncomingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
   with_options class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy do
     has_many :all_addresses
@@ -125,6 +129,7 @@ class Entity < ApplicationRecord
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
+  has_many :outcoming_payments, foreign_key: :payee_id, inverse_of: :payee
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
