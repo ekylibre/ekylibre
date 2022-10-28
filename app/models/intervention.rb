@@ -813,9 +813,7 @@ class Intervention < ApplicationRecord
   end
 
   def human_total_cost
-    %i[input tool doer].map do |type|
-      (cost(type) || 0.0).to_d
-    end.sum.round(Onoma::Currency.find(currency).precision)
+    total_cost.round(Onoma::Currency.find(currency).precision)
   end
 
   def total_cost_per_area(area_unit = :hectare)

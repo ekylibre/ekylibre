@@ -95,7 +95,7 @@ class WorkerContract < ApplicationRecord
     else
       distributions.clear
     end
-    # update economic_cash_indicators
+    update_intervention_costs
     update_economic_cash_indicators
   end
 
@@ -105,6 +105,16 @@ class WorkerContract < ApplicationRecord
     else
       12
     end
+  end
+
+  # update intervention where worker has a contract before intervention
+  def update_intervention_costs
+    intervention_ids_to_update = []
+    if entity.worker
+      intervention_ids_to_update << entity.worker.interventions.where('started_at >= ?', started_at)&.pluck(:id)
+    end
+    int_ids = intervention_ids_to_update.flatten.compact.uniq
+    UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
   end
 
   # compute and save worker_contract for each cash movement in economic_cash_indicators
