@@ -1321,6 +1321,9 @@ fra:
     client_account: "Compte client associé"
     client_accounting_balance: "Solde comptable client"
     client_accounts: "Comptes clients" #?
+    client_payment_delay: "Delai de paiement client"
+    client_payment_mode: "Mode de paiement"
+    client_payment_modes: "Modes de paiement du client"
     client_reference: "N° du bon de commande (référence client)"
     client_trade_balance: "Balance commerciale du client"
     clients: "Clients"

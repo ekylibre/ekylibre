@@ -2855,6 +2855,11 @@ entities:
   client_account_id:
     type: integer
     references: account
+  client_payment_delay:
+    type: string
+  client_payment_mode_id:
+    type: integer
+    references: incoming_payment_mode
   codes:
     type: jsonb
   country:

@@ -50,7 +50,7 @@
 
   - if resource.affair
     - c.cobble :affair do
-      = affair_of(resource, default: 'PurchasePayment')
+      = affair_of(resource, default: 'PurchasePayment', url_options: { purchase_payment: { responsible_id: resource.responsible_id, mode_id: resource.supplier.supplier_payment_mode&.id, paid_at: resource.payment_at, to_bank_at: resource.payment_at } })
 
   - if resource.receptions.any?
     - c.cobble :receptions, title: PurchaseInvoice.human_attribute_name(:receptions) do

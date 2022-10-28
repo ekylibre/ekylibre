@@ -1691,6 +1691,7 @@ fra:
     client_accounting_balance: "Solde du client" #?
     client_code: "Code cl." #?
     client_informations: "Informations client"
+    client_payment_mode: "Mode de paiement"
     client_phone: "Téléphone" #?
     client_receivables: "Créances client"
     clients: "Clients"

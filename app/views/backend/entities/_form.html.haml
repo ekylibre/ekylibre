@@ -42,6 +42,8 @@
     = f.input :authorized_payments_count
     = f.input :deliveries_conditions, as: :text
     = f.referenced_association :client_account, source: :clients, new: { auxiliary_number: Account.generate_auxiliary_account_number(:clients), nature: :auxiliary }
+    = f.input :client_payment_delay
+    = f.referenced_association :client_payment_mode
 = field_set(:supplier_informations) do
   = f.input :supplier, show: '#supplier-informations'
   #supplier-informations
@@ -50,12 +52,10 @@
     = f.referenced_association :supplier_payment_mode
     = f.input :transporter
 
-
 = field_set(:bank_account) do
   = f.input :bank_account_holder_name
   = f.input :bank_identifier_code
   = f.input :iban
-
 
 - if f.object.contact?
   = field_set(:employee_informations) do

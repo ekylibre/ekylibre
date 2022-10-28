@@ -99,6 +99,7 @@ class Sale < ApplicationRecord
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   has_many :parcel_items, through: :parcels, source: :items
+  has_one :client_payment_mode, through: :client
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
