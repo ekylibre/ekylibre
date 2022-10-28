@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class DailyCharge < ApplicationRecord
-  belongs_to :activity_production, class_name: ActivityProduction, required: true
-  belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter, required: true, foreign_key: :intervention_template_product_parameter_id
+  belongs_to :activity_production, class_name: 'ActivityProduction', required: true
+  belongs_to :product_parameter, class_name: 'InterventionTemplate::ProductParameter', required: true, foreign_key: :intervention_template_product_parameter_id
   belongs_to :activity
   validates :reference_date, :product_type, :quantity, :area, presence: true
 

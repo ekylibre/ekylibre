@@ -271,7 +271,7 @@ class FixedAsset < ApplicationRecord
 
     if depreciations.any?(&:locked_or_journal_entry_confirmed?) || (journal_entry && journal_entry.confirmed?)
       AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on scrapped_on updater_id updated_at state].freeze
-      (changes.keys - AUTHORIZED_COLUMNS).any?
+      (changes_to_save.keys - AUTHORIZED_COLUMNS).any?
     else
       false
     end

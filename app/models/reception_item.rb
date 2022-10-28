@@ -108,7 +108,7 @@ class ReceptionItem < ParcelItem
     if purchase_order_to_close.present? && !purchase_order_to_close.closed?
       purchase_order_to_close.close
     end
-    reception.reload.save if quantity_changed?
+    reception.reload.save if saved_change_to_quantity?
   end
 
   after_destroy do

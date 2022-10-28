@@ -71,7 +71,7 @@ class ParcelItemStoring < ApplicationRecord
 
   after_update do
     population = parcel_item.population
-    population -= quantity_was
+    population -= quantity_before_last_save
     population += quantity
     parcel_item.update_attributes(population: population)
   end

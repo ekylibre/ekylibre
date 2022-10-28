@@ -9,8 +9,8 @@ class Scenario < ApplicationRecord
   # ]VALIDATORS]
   validates :name, :campaign, presence: true
 
-  belongs_to :campaign, class_name: Campaign, foreign_key: :campaign_id
-  has_many :scenario_activities, class_name: ScenarioActivity, foreign_key: :planning_scenario_id, dependent: :destroy
+  belongs_to :campaign, class_name: 'Campaign', foreign_key: :campaign_id
+  has_many :scenario_activities, class_name: 'ScenarioActivity', foreign_key: :planning_scenario_id, dependent: :destroy
 
   accepts_nested_attributes_for :scenario_activities
 

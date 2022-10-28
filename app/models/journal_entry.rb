@@ -359,7 +359,7 @@ class JournalEntry < ApplicationRecord
   end
 
   protect on: :update do
-    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed? || (old_record.confirmed? && (changes.keys - %w[state updated_at]).any?))
+    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed? || (old_record.confirmed? && (changes_to_save.keys - %w[state updated_at]).any?))
   end
 
   protect on: :destroy do

@@ -99,10 +99,10 @@ class InterventionOutput < InterventionProductParameter
   after_save do
     next if destroyed?
 
-    is_not_created_from_change_state = id_was.present? || intervention.request_intervention.nil?
+    is_not_created_from_change_state = id_before_last_save.present? || intervention.request_intervention.nil?
     if is_not_created_from_change_state
       output = variant.products.new
-      if variant_id_was
+      if variant_id_before_last_save
         # The only case an output product can be linked to 2 interventions is when the product is linked to the self intervention and the request intervention linked (if there is one)
         if product.intervention_product_parameters.count == 2
           product_movement.destroy!

@@ -99,10 +99,6 @@ class ProductReading < ApplicationRecord
       product.send("#{indicator_name}=", value)
       product.update_column(:reading_cache, product.reading_cache)
     end
-
-    # if product && product.initial_shape_changed?
-    #   product.net_surface_area = product.initial_shape.area.in(:hectare).round(3)
-    # end
   end
 
   def self.first_of_all(indicator_name)

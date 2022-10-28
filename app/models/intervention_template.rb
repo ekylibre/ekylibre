@@ -45,17 +45,17 @@ class InterventionTemplate < ApplicationRecord
   enumerize :workflow_unit, in: %i[hectare_per_hour plant_per_hour], default: :hectare_per_hour, predicates: true
   composed_of :workflow, class_name: 'Measure', mapping: [%w[workflow_value to_d], %w[workflow_unit unit]]
   # Relation
-  has_many :product_parameters, class_name: ::InterventionTemplate::ProductParameter, foreign_key: :intervention_template_id, dependent: :destroy
+  has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
   # Joins table with activities
-  has_many :association_activities, class_name: ::InterventionTemplateActivity, foreign_key: :intervention_template_id, dependent: :destroy
+  has_many :association_activities, class_name: 'InterventionTemplateActivity', foreign_key: :intervention_template_id, dependent: :destroy
   has_many :activities, through: :association_activities
 
-  has_many :technical_itinerary_intervention_templates, dependent: :destroy, class_name: ::TechnicalItineraryInterventionTemplate
+  has_many :technical_itinerary_intervention_templates, dependent: :destroy, class_name: 'TechnicalItineraryInterventionTemplate'
   has_many :technical_itineraries, through: :technical_itinerary_intervention_templates
 
   belongs_to :campaign
-  belongs_to :originator, class_name: ::InterventionTemplate
-  has_one :linked_intervention_template, class_name: ::InterventionTemplate, foreign_key: 'originator_id', dependent: :nullify
+  belongs_to :originator, class_name: 'InterventionTemplate'
+  has_one :linked_intervention_template, class_name: 'InterventionTemplate', foreign_key: 'originator_id', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }, allow_blank: true

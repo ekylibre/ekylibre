@@ -3,7 +3,7 @@
 class FixedAssetBookkeeper < Ekylibre::Bookkeeper
   def call
     attrs_for_triggering_bookeep = %w[state started_on stopped_on depreciable_amount depreciation_percentage asset_account_id waiting_asset_account_id]
-    return unless changed.any? {|change| attrs_for_triggering_bookeep.include?(change) }
+    return unless saved_changes.keys.any? {|change| attrs_for_triggering_bookeep.include?(change) }
 
     @label = tc(:bookkeep_in_use_assets, resource: FixedAsset.model_name.human, number: number, name: name)
     @generic_waiting_asset_account = Account.find_or_import_from_nomenclature(:outstanding_assets)
@@ -68,7 +68,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
           jei = JournalEntryItem.find_by(resource_id: p_item.id, resource_type: p_item.class.name, account_id: @generic_waiting_asset_account.id)
           next unless jei && jei.real_balance.nonzero?
 
-          account = if attribute_was(:state) == 'waiting' && waiting_asset_account
+          account = if attribute_before_last_save(:state) == 'waiting' && waiting_asset_account
                       waiting_asset_account
                     else
                       jei.account

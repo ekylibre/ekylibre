@@ -25,7 +25,7 @@ FactoryBot.define do
     end
 
     trait :request do
-      nature :request
+      nature { :request }
     end
 
     trait :harvesting do
