@@ -270,7 +270,7 @@ class CatalogItem < ApplicationRecord
           intervention_ids_to_update << pro.interventions.where('started_at >= ?', started_at)&.pluck(:id)
         end
       end
-      int_ids = intervention_ids_to_update.compact.uniq
+      int_ids = intervention_ids_to_update.flatten.compact.uniq
       UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
     end
 end
