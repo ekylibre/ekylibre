@@ -16,6 +16,13 @@ module Interventions
     def call
       return if intervention.request? && intervention.record_interventions.any?
 
+      intervention_to_update = intervention
+
+      if intervention.nature == :request
+        intervention_to_update = build_duplicate_intervention
+        intervention_to_update.request_intervention_id = intervention.id
+      end
+
       case new_state
       when :rejected
         case intervention.nature.to_sym
@@ -27,29 +34,24 @@ module Interventions
           return
         end
       when :validated
-        new_intervention.validator = validator
+        intervention_to_update.validator = validator
       end
 
-      if intervention.nature == :request
-        new_intervention.request_intervention_id = intervention.id
-      end
+      intervention_to_update.state = new_state
+      intervention_to_update.nature = :record
 
-      new_intervention.state = new_state
-      new_intervention.nature = :record
+      return if intervention_to_update.invalid?
 
-      return if new_intervention.invalid?
-
-      new_intervention.save!
-      new_intervention
+      intervention_to_update.save!
+      intervention_to_update
     end
 
     private
 
       attr_reader :intervention, :new_state, :delete_option, :validator
-      attr_writer :new_intervention
 
-      def new_intervention
-        @new_intervention ||= BuildDuplicate.call(intervention)
+      def build_duplicate_intervention
+        BuildDuplicate.call(intervention)
       end
 
       def handle_rejected_record

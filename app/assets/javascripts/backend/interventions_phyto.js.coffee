@@ -212,7 +212,10 @@
       Array.from(document.querySelectorAll(".nested-plant_medicine"))
           .filter((el) => !el.classList.contains('removed-nested-fields'))
           .map (element) =>
-            element.querySelector('.intervention_inputs_product input.selector-value').value
+            productInputelement = element.querySelector('.intervention_inputs_product input.selector-value')
+
+            if productInputelement
+              productInputelement.value
 
     filterProducts: ->
       productsIds = productListManager.retrieveProductsIds()
