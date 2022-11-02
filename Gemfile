@@ -70,7 +70,7 @@ gem 'active_list', gitlab: 'ekylibre/active_list', branch: 'master'
 gem 'formize', '~> 2.1.0'
 gem 'kaminari', '~> 1.1'
 gem 'remotipart', '~> 1.2'
-gem 'simple_form', '~> 3.4'
+gem 'simple_form', '~> 4.0.0'
 gem 'wice_grid', '~> 4.0'
 
 # View Engines
