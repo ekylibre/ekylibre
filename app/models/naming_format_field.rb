@@ -44,9 +44,13 @@ class NamingFormatField < ApplicationRecord
 
   scope :free_field, -> { where(field_name: 'free_field') }
 
-  before_create do
-    last_field = naming_format.fields.last
-    self.position = 0 unless naming_format.fields.any?
-    self.position = last_field.position + 1 if naming_format.fields.any?
-  end
+  before_create :set_position_with_next_value
+
+  private
+
+    def set_position_with_next_value
+      last_field = naming_format.reload.fields.order(:position).last
+      self.position = 0 unless naming_format.fields.any?
+      self.position = last_field.position + 1 if naming_format.fields.any?
+    end
 end
