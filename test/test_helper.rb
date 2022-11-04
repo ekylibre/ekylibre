@@ -14,6 +14,34 @@ require 'database_cleaner'
 helper = Ekylibre::Testing::Helper.new
 helper.setup
 
+if ENV['COVERAGE']
+  require 'simplecov'
+
+  if ENV['CI']
+    require 'simplecov-cobertura'
+    SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+  end
+
+  SimpleCov.start('rails') do
+    add_group 'Concepts', 'app/concepts'
+    add_group 'Decorators', 'app/decorators'
+    add_group 'Integrations', 'app/integrations'
+    add_group 'Interactors', 'app/interactors'
+    add_group 'Queries', 'app/queries'
+    add_group 'Services', 'app/services'
+    add_group 'Exchangers', 'app/exchangers'
+    add_group 'Validators', 'app/validators'
+    add_filter do |source_file|
+      source_file.lines.count < 7
+    end
+  end
+
+  SimpleCov.at_exit do
+    # SimpleCov.minimum_coverage 43
+    SimpleCov.result.format!
+  end
+end
+
 class Minitest::Result
   def method(name)
     self.instance_of?(Minitest::Result) && name == self.name ? self : super

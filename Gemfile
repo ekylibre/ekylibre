@@ -235,6 +235,9 @@ group :test do
 
   gem 'pdf-reader', '~> 2.4'
 
+  gem 'simplecov', '~> 0.21.2'
+  gem 'simplecov-cobertura', '~> 2.1.0'
+
   gem 'rails-controller-testing', '~> 1.0'
   # for loading lexicon 5 in test mode
   gem 'lexicon-common', '~> 0.2.0'

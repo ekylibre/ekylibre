@@ -198,6 +198,15 @@ test:
     - tags
   script:
     - bash /app/test/ci/run_tests "$ENV"
+  after_script:
+    - mv /app/coverage/ ./coverage/
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/coverage.xml
+  coverage: '/\(\d+.\d+\%\) covered/'
+
 #########################################
 #                 TESTS                 #
 #########################################
