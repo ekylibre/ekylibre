@@ -285,25 +285,23 @@ class InterventionProductParameter < InterventionParameter
   end
 
   private def nullify_working_zone_if_working_zone_area
-    if working_zone_area_value_changed? && !working_zone_changed?
+    if will_save_change_to_working_zone_area_value? && !will_save_change_to_working_zone?
       self.working_zone = nil
     end
   end
 
   private def set_working_zone_area_from_working_zone
-    return true if working_zone.nil? || working_zone_area_value.present?
+    return nil if working_zone.nil? || !will_save_change_to_working_zone?
 
     self.working_zone_area_value = working_zone&.area&.in_square_meter&.in(DEFAULT_WORKING_ZONE_AREA_UNIT)&.value
-    true
   end
 
   private def set_quantity_from_working_zone
-    return true if working_zone.nil? && working_zone_area_value.nil?
+    return nil if working_zone.nil? && working_zone_area_value.nil?
 
     area = working_zone&.area || working_zone_area&.in_square_meter&.value
     self.quantity_value = area
     self.quantity_unit_name = 'square_meter'
     self.quantity_indicator_name = 'net_surface_area'
-    true
   end
 end
