@@ -27,5 +27,5 @@ function psql_exec {
 
     bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false
 
-    bin/rails test
+    COVERAGE=true CI=true bin/rails test 
 )
