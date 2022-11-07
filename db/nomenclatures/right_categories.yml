@@ -68,6 +68,7 @@ economics:
 schedulings:
 - intervention_templates
 - load_plans
+- planning_dashboard
 - technical_itineraries
 - scenarios
 - schedulings
