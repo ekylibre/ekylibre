@@ -359,9 +359,9 @@
     # Stopped_at is not automaticaly updated to started_at + 1 hour if stopped_at is manually updated
     E.interventionForm.setupStoppedAtInputBehaviour()
 
-  $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
-      # Don't refresh values if selector is initializing
-      return if options? && options['initializing']
+  $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, wasInitializing) ->
+      return if wasInitializing
+
       $(this).each ->
         options = {}
         options['display_cost'] = true
@@ -575,6 +575,8 @@
 
       if unitName
         intervention['unit_name'] = unitName
+
+      return if Object.values(intervention).every( (val) -> val == undefined)
 
       $.ajax
         url: "/backend/interventions/costs/parameter_cost",
