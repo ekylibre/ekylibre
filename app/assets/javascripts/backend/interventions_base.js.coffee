@@ -508,7 +508,7 @@
       return
 
     productId = $(this).next().val()
-    $workingZoneAreaInput = $(this).closest('.nested-targets .nested-product-parameter').find('.intervention_targets_working_zone_area input')
+    $workingZoneAreaInput = $(this).closest('.nested-targets').find("[class$='targets_working_zone_area'] input")
     if $workingZoneAreaInput.length == 0
       return
 
