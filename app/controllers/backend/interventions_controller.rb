@@ -338,8 +338,8 @@ module Backend
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
-      @map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
-      if @intervention.using_phytosanitary? && !@map_is_shown
+      map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
+      if @intervention.using_phytosanitary? && !map_is_shown
         notify_warning(:phyto_intervention_alert_if_map_disabled.tl)
       end
 
@@ -349,8 +349,8 @@ module Backend
     def edit
       return unless @intervention = find_and_check(:intervention)
 
-      @map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
-      if @intervention && @intervention.using_phytosanitary? && !@map_is_shown
+      map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM)
+      if @intervention && @intervention.using_phytosanitary? && !map_is_shown
         notify_warning(:phyto_intervention_alert_if_map_disabled.tl)
       end
 
