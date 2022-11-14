@@ -132,9 +132,8 @@ class InterventionProductParameter < InterventionParameter
     end
     true
   end
-  before_validation :nullify_working_zone_if_working_zone_area
-  before_validation :set_working_zone_area_from_working_zone
-  before_validation :set_quantity_from_working_zone
+
+  before_validation :handle_working_zone_attributes
 
   validate do
     next unless intervention && intervention.procedure
@@ -282,6 +281,12 @@ class InterventionProductParameter < InterventionParameter
 
   def relevant_usage
     reference_data['usage'].present? ? InterventionParameter::LoggedPhytosanitaryUsage.new(reference_data['usage']) : usage
+  end
+
+  private def handle_working_zone_attributes
+    nullify_working_zone_if_working_zone_area
+    set_working_zone_area_from_working_zone
+    set_quantity_from_working_zone
   end
 
   private def nullify_working_zone_if_working_zone_area
