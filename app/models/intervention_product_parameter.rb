@@ -90,7 +90,6 @@ class InterventionProductParameter < InterventionParameter
   composed_of :working_zone_area, class_name: 'Measure', mapping: [%w[working_zone_area_value to_d]], constructor: ->(value) { Measure.new(value, DEFAULT_WORKING_ZONE_AREA_UNIT) }
 
   validates :quantity_indicator_name, :quantity_unit_name, presence: { if: :measurable? }
-  validates :working_zone_area_value, presence: true, if: -> { working_zone.present? }
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :variant, prefix: true

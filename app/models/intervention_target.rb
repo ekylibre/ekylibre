@@ -70,11 +70,15 @@
 class InterventionTarget < InterventionProductParameter
   belongs_to :intervention, inverse_of: :targets
   has_many :pfi_targets, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :target_id, dependent: :destroy
+
   validates :product, presence: true
+
   scope :of_activity, ->(activity) { where(product_id: Product.where(activity_production_id: activity.productions.select(:id))) }
   scope :of_activities, ->(activities) { where(product_id: Product.where(activity_production_id: activities.map { |a| a.productions.select(:id) }.flatten.uniq)) }
   scope :of_activity_production, ->(activity_production) { where(product_id: Product.where(activity_production: activity_production)) }
   scope :of_interventions, ->(interventions) { where(intervention_id: interventions.map(&:id)) }
+
+  validate :working_zone_area_greater_than_0_ha
 
   validate do
     if product
@@ -111,4 +115,10 @@ class InterventionTarget < InterventionProductParameter
     ActiveSupport::Deprecation.warn('InterventionTarget#activity_production is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity_production instead.')
     best_activity_production
   end
+
+  private
+
+    def working_zone_area_greater_than_0_ha
+      errors.add(:working_zone_area, :greater_than, count: '0 ha') if reference&.attribute(:working_zone) && working_zone_area_value && working_zone_area_value <= 0
+    end
 end
