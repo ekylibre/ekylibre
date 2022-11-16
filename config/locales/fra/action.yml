@@ -2288,7 +2288,7 @@ fra:
     health_h3: "Santé H3"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
-    help_center: "Centre d’aide"
+    help_center: "Documentation"
     hide_lettered_lines: "Cacher les lignes lettrées"
     hint: "Astuce\_: %{value}"
     historic: "Historique"
