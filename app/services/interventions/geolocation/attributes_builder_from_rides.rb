@@ -4,8 +4,6 @@ module Interventions
   module Geolocation
     # Build intervention target attributes (including computed working zone) from rides
     class AttributesBuilderFromRides
-      DEFAULT_TOOL_WIDTH = 3.5
-
       def self.call(*args)
         new(*args).call
       end
@@ -27,19 +25,18 @@ module Interventions
         return options if existing_rides.blank?
 
         if matching_targets.any?
-          working_zone = compute_target_working_zone(target.shape)
           target_options = matching_targets.map do |target|
+            target_working_zone = compute_target_working_zone(target.shape)
             {
               reference_name: target_parameter.name,
               product_id: target.id,
-              working_zone: working_zone,
-              working_zone_area_value: working_zone.area.in(:square_meter).convert(:hectare).to_d(nil, 4)
+              working_zone: target_working_zone,
             }
           end
 
           options[:working_periods_attributes] = [{
             started_at: started_at,
-            stopped_at: stopped_at
+            stopped_at: existing_rides.maximum(:stopped_at)
           }]
 
           if  target_parameter_group_name.present?
@@ -56,33 +53,15 @@ module Interventions
         attr_reader :ride_ids
 
         def working_zone
-          crumbs = Crumb.where(ride_id: existing_rides.pluck(:id))
-          line = ::Charta.make_line(crumbs.order(:read_at).pluck(:geolocation))
-          line.buffer(tool_width)
+          @working_zone ||= Rides::ComputeWorkingZone.call(rides: existing_rides)
         end
 
         def existing_rides
-          @existing_rides ||= Ride.joins(:equipment).with_state(:unaffected).where(id: @ride_ids, nature: :work).reorder(:started_at)
+          @existing_rides ||= Ride.left_joins(:equipment).linkable_to_intervention.where(id: @ride_ids)
         end
 
         def started_at
-          existing_rides.first.started_at
-        end
-
-        def stopped_at
-          existing_rides.last.stopped_at
-        end
-
-        def ride_main_equipment
-          existing_rides.first.equipment
-        end
-
-        def tool_width
-          if (width = ride_main_equipment.get(:application_width).in(:meter).to_f).zero?
-            DEFAULT_TOOL_WIDTH
-          else
-            width
-          end
+          existing_rides.minimum(:started_at)
         end
 
         def target_parameter
