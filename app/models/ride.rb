@@ -84,6 +84,10 @@ class Ride < ApplicationRecord
     end
   end
 
+  scope :linkable_to_intervention, -> {
+    with_state(:unaffected).where(nature: :work)
+  }
+
   acts_as_numbered :number
   enumerize :nature, in: %i[road work], scope: true
 
@@ -94,13 +98,7 @@ class Ride < ApplicationRecord
   end
 
   def working_zone
-    width = begin
-              equipment.width
-            rescue NoMethodError => e
-              3.5
-            end
-    line = ::Charta.make_line(crumbs.order(:read_at).pluck(:geolocation))
-    line.to_rgeo.buffer( width / 2)
+    Rides::ComputeWorkingZone.call(rides: [self])
   end
 
   %i[duration sleep_duration].each do |col|
