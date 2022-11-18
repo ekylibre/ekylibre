@@ -45,12 +45,13 @@ module Interventions
           # compute pfi for each target relative to current input in intervention
           @intervention.targets.each do |target|
             # compute ratio from working_zone and surface area of land_parcel or plant in square meter
-            if target.working_zone && target&.product&.get(:net_surface_area)
-              crop_area = target.product.get(:net_surface_area).convert(:square_meter)
-              target_area_ratio = ((target.working_zone.area.to_f / crop_area.to_f).round(2) * 100)
-            else
-              target_area_ratio = nil
-            end
+            target_working_area = target.working_area
+            crop_area = target&.product&.get(:net_surface_area)
+            target_area_ratio = if target_working_area && crop_area
+                                  ratio = ((target_working_area.convert(:square_meter).to_f / crop_area.convert(:square_meter).to_f).round(2) * 100)
+                                  ratio <= 100 ? ratio : 100
+                                end
+
             pfi_call = Interventions::Phytosanitary::PfiClientApi.new(campaign: @campaign, activity: activity, intervention_parameter_input: input, area_ratio: target_area_ratio)
             response = pfi_call.compute_pfi
             if response
