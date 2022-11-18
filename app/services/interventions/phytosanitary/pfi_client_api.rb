@@ -3,20 +3,7 @@
 module Interventions
   module Phytosanitary
     class PfiClientApi
-      attr_reader :campaign, :activity, :intervention_parameter_input, :area_ratio, :activities, :notify_user
-
-      # set urls for accessing IFT-API
-      # https://alim.agriculture.gouv.fr/ift-api/swagger-ui.html
-      if Rails.env.production?
-        BASE_URL = "https://alim.agriculture.gouv.fr/ift-api"
-      else
-        BASE_URL = "https://alim-pprd.agriculture.gouv.fr/ift-api"
-      end
-      DEMO_URL = "/api/hello"
-      PFI_CAMPAIGN_URL = "/api/campagnes"
-      PFI_COMPUTE_URL = "/api/ift/traitement"
-      PFI_COMPUTE_SIGN_URL = "/api/ift/traitement/certifie"
-      PFI_REPORT_PDF_URL = "/api/ift/bilan/pdf"
+      attr_reader :pfi_client, :campaign, :activity, :intervention_parameter_input, :area_ratio, :activities, :notify_user, :report_title
 
       # transcode unit between IFT-API and Ekylibre
       TRANSCODE_UNIT = {
@@ -35,6 +22,7 @@ module Interventions
       # @param [<<Array>> Activity] activities
       # @param [String] report_title
       def initialize(campaign:, activity: nil, intervention_parameter_input: nil, area_ratio: 100, activities: nil, report_title: nil, notify_user: false)
+        @pfi_client = Clients::Gouv::PfiClient.new
         @campaign = campaign
         @activity = activity
         @intervention_parameter_input = intervention_parameter_input
@@ -47,8 +35,7 @@ module Interventions
 
       def down?
         begin
-          response = RestClient.get(BASE_URL + DEMO_URL)
-          response.code != 200
+          pfi_client.down?
         rescue RestClient::ExceptionWithResponse => e
           true
         end
@@ -58,11 +45,11 @@ module Interventions
       # @return [JSON api_response, nil]
       def get_campaign(harvest_year)
         begin
-          campaign_url = BASE_URL + PFI_CAMPAIGN_URL + "/" + harvest_year
-          response = RestClient.get(campaign_url)
+          pfi_client.get_campaign(harvest_year)
         rescue RestClient::ExceptionWithResponse => e
           message = :pfi_campaign_not_opened_yet.tl(campaign_harvest_year: harvest_year) if e.http_code == 404
-          notify_api_error_to_creator(error: e, log: campaign_url, message: message)
+          url = e.response.request.url
+          notify_api_error_to_creator(error: e, log: url, message: message)
           nil
         end
       end
@@ -76,26 +63,20 @@ module Interventions
         # check if campaign is available on api
         return if get_campaign(@campaign.harvest_year.to_s).nil?
 
-        # build url if we want signature
-        if with_signature == true
-          url = BASE_URL + PFI_COMPUTE_SIGN_URL
-        else
-          url = BASE_URL + PFI_COMPUTE_URL
-        end
-
         # build params and return nil if no mandatory params is set
         p = build_params(@intervention_parameter_input)
         if p
           # call API and get response
           begin
-            call = RestClient::Request.execute(method: :get, url: url, headers: { params: p })
-            response = JSON.parse(call.body).deep_symbolize_keys
+            response = pfi_client.compute(p, with_signature: with_signature)
             if response.dig(:iftTraitement, :avertissement)
               notify_api_warnings_to_creator(warning: response[:iftTraitement][:avertissement][:libelle])
             end
             response
           rescue RestClient::ExceptionWithResponse => e
-            notify_api_error_to_creator(error: e, log: "headers: #{p}, url: #{url}")
+            url = e.response.request.url
+            headers = e.response.request.headers
+            notify_api_error_to_creator(error: e, log: "headers: #{headers}, url: #{url}")
             nil
           end
         end
@@ -112,14 +93,11 @@ module Interventions
           return { status: :e_activities_production_nature, body: activities_missing_pn.pluck(:name).to_sentence }
         end
 
-        url = BASE_URL + PFI_REPORT_PDF_URL
-        params = "?campagneIdMetier=#{grab_harvest_year}&titre=#{@report_title}"
-        url << params
         # params["parcellesCultivees"] = build_crops
         body = build_crops
         # call API and get response
         begin
-          response = RestClient.post url, body.to_json, content_type: 'application/json'
+          response = pfi_client.compute_report(grab_harvest_year, report_title, body)
           { status: true, body: response.body }
           # RestClient::Request.execute(method: :post, url: url, payload: body, headers: params)
         rescue RestClient::ExceptionWithResponse => err

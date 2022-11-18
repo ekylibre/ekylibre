@@ -32,7 +32,14 @@ class PfiInterventionParameter < ApplicationRecord
   belongs_to :campaign
   enumerize :nature, in: %i[intervention crop]
 
-  PFI_BASE_URL = "https://alim.agriculture.gouv.fr/ift/verifier-traitement-ift/"
+  PFI_BASE_URL = if Rails.env.production?
+                   "https://alim.agriculture.gouv.fr/"
+                 else
+                   "https://alim-pprd.agriculture.gouv.fr/"
+                 end
+
+  PFI_CHECK_URL = PFI_BASE_URL + 'ift/verifier-traitement-ift/'
+
   PFI_SEGMENTS_TRANSCODE = { S1: "Traitement de semences",
                              S2: "Biocontrole",
                              S3: "Herbicides",
@@ -54,7 +61,7 @@ class PfiInterventionParameter < ApplicationRecord
   # url to check the pfi computation data on agriculture.gouv.fr
   def check_url
     if !response.nil? && response['id']
-      url = PFI_BASE_URL + response['id'].to_s
+      url = PFI_CHECK_URL + response['id'].to_s
     else
       nil
     end
