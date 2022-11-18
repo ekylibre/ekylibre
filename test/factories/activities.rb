@@ -31,6 +31,17 @@ FactoryBot.define do
     end
   end
 
+  trait :with_productions_with_support do
+    transient do
+      production_count { 2 }
+    end
+
+    after(:create) do |activity, evaluator|
+      create_list :activity_production, evaluator.production_count, :with_cultivable_zone, activity: activity
+      activity.reload
+    end
+  end
+
   factory :corn_activity, class: Activity do
     sequence(:name)  { |n| "Corn - TEST#{n.to_s.rjust(8, '0')}" }
     family           { :plant_farming }

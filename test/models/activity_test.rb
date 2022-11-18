@@ -197,7 +197,7 @@ class ActivityTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       activity.update!(family: :animal_farming, cultivation_variety: :animal)
     end
 
-    activity = create(:activity, :with_productions, :perennial, family: :plant_farming)
+    activity = create(:activity, :with_productions_with_support, :perennial, family: :plant_farming)
     assert_raises ActiveRecord::RecordInvalid do
       activity.update!(family: :animal_farming, cultivation_variety: :animal)
     end
