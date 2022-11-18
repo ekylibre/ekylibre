@@ -119,6 +119,7 @@ class ActivityProduction < ApplicationRecord
   validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validate :sowing_date_between_period_of_activity_production
+  validate :stopped_on_after_last_intervention
   validate :support_shape_presence_if_vegetal_farming
 
   # validates_numericality_of :size_value, greater_than: 0
@@ -499,15 +500,6 @@ class ActivityProduction < ApplicationRecord
     batch.destroy
   end
 
-  def sowing_date_between_period_of_activity_production
-    if predicated_sowing_date.present? && predicated_sowing_date < started_on
-      errors.add(:predicated_sowing_date, :date_should_be_after_start_date_of_production)
-    end
-
-    if predicated_sowing_date.present? && predicated_sowing_date > stopped_on
-      errors.add(:predicated_sowing_date, :date_should_be_before_end_of_production)
-    end
-  end
   # planning
 
   def cost(role = :input)
@@ -846,7 +838,23 @@ class ActivityProduction < ApplicationRecord
   #   super
   # end
 
+  private def sowing_date_between_period_of_activity_production
+    if predicated_sowing_date.present? && predicated_sowing_date < started_on
+      errors.add(:predicated_sowing_date, :date_should_be_after_start_date_of_production)
+    end
+
+    if predicated_sowing_date.present? && predicated_sowing_date > stopped_on
+      errors.add(:predicated_sowing_date, :date_should_be_before_end_of_production)
+    end
+  end
+
   private def support_shape_presence_if_vegetal_farming
     errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape.blank?
+  end
+
+  private def stopped_on_after_last_intervention
+    return if interventions.none?
+
+    validates_date :stopped_on, after: ->{ interventions.order(:stopped_at).pluck(:stopped_at).last }
   end
 end
