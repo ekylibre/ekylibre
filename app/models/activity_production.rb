@@ -119,6 +119,7 @@ class ActivityProduction < ApplicationRecord
   validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validate :sowing_date_between_period_of_activity_production
+  validate :support_shape_presence_if_vegetal_farming
 
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
@@ -228,10 +229,6 @@ class ActivityProduction < ApplicationRecord
     self.state ||= :opened
     self.batch_planting ||= false
     true
-  end
-
-  validate do
-    errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape && support_shape.empty?
   end
 
   after_save do
@@ -848,4 +845,8 @@ class ActivityProduction < ApplicationRecord
   #   end
   #   super
   # end
+
+  private def support_shape_presence_if_vegetal_farming
+    errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape.blank?
+  end
 end
