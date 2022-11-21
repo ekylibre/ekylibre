@@ -13,7 +13,7 @@
       - if changes.any?
         .log-body
           %ul.log-changes
-            - for change in changes
+            - changes.each do |change|
               %li
                 %p
                   - if change.old_value.blank?
