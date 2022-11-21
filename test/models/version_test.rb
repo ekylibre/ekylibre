@@ -37,5 +37,15 @@ require 'test_helper'
 
 class VersionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test 'version of entity last name' do
+    e = Entity.create! first_name: 'Charly', last_name: 'Watts'
+    e.update! first_name: 'Mick', last_name: 'Jagger'
+    e.reload
+    assert e.valid?
+    change = e.versions.first.changes.last
+    assert_equal e.human_changed_attribute_value(change, 'old'), 'Watts'
+    assert_equal e.human_changed_attribute_value(change, 'new'), 'Jagger'
+  end
+
 end
