@@ -648,13 +648,11 @@ class ActivityProduction < ApplicationRecord
       return nil
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
-    # puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
     unless Onoma::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
 
     total_quantity = 0.0.in(size_unit_name)
-    # puts "total_quantity : #{total_quantity}".inspect.red
 
     target_distribution_plants = Plant.where(activity_production: self)
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
@@ -662,20 +660,12 @@ class ActivityProduction < ApplicationRecord
     # harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
     harvest_interventions ||= interventions.real.of_category(procedure_category)
 
-    # puts "harvest_interventions count : #{harvest_interventions.count}".inspect.yellow
-
     coef_area = []
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
       harvest_interventions.includes(:targets).find_each do |harvest|
-        harvest_working_area = []
-        harvest.targets.each do |target|
-          if zone = target.working_zone
-            harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
-          end
-        end
-        # puts "harvest_working_area : #{harvest_working_area}".inspect.yellow
+        harvest_working_area = harvest.working_zone_area(unit: surface_unit_name)
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
@@ -686,16 +676,12 @@ class ActivityProduction < ApplicationRecord
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
-        # puts "total_quantity : #{total_quantity}".inspect.yellow
-        h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
-        # puts "surface_unit_name : #{surface_unit_name}".inspect.green
-        # puts "h : #{h}".inspect.green
+
+        h = harvest_working_area.to_f
         if h && h > 0.0
           global_coef_harvest_yield << (h * (total_quantity.to_f / h))
           coef_area << h
         end
-        # puts "global_coef_harvest_yield : #{global_coef_harvest_yield}".inspect.green
-        # puts "coef_area : #{coef_area}".inspect.green
       end
     end
 
