@@ -20,8 +20,8 @@ Cliquez sur **"Évènements"** pour accéder à la page de création d'un nouvel
 
 **[Tiers]** 
 
-Cliquez sur **"Tiers"** pour accéder à la page de création ou de gestion des [**contacts**](https://doc.ekylibre.com/v2/fr/chapitre8/#contact) et des [**organisations**](https://doc.ekylibre.com/v2/fr/chapitre8/#organisation).
+Cliquez sur **"Tiers"** pour accéder à la page de création ou de gestion des [**contacts**](https://doc.ekylibre.com/v2/fr/chapitre8/#contact) et des [**organisations**](https://doc.ekylibre.com/v2/fr/chapitre8/#organisation){:target="_blank"}.
 
 ## Personnalisation du tableau de bord 
 
-La configuration de ce tableau de bord est personnalisable en suivant les instructions délivrées dans la documentation [via ce lien](https://doc.ekylibre.com/v2/fr/chapitre4/#perso).
+La configuration de ce tableau de bord est personnalisable en suivant les instructions délivrées dans la documentation [via ce lien](https://doc.ekylibre.com/v2/fr/chapitre4/#perso){:target="_blank"}.
