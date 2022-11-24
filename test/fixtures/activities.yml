@@ -81,6 +81,8 @@ activities_001:
   production_stopped_on: 2000-07-31
   production_stopped_on_year: 0
   production_cycle: annual
+  production_system_name: organic_farming
+  reference_name: winter_common_wheat
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone

@@ -106,3 +106,13 @@ campaigns_007:
   name: '2012'
   updated_at: 2016-01-25 13:27:19.389707000 Z
   updater_id: 1
+campaigns_008:
+  closed: false
+  created_at: 2016-01-25 13:27:19.389707000 Z
+  creator_id: 1
+  harvest_year: 2000
+  id: 9
+  lock_version: 0
+  name: '2000'
+  updated_at: 2016-01-25 13:27:19.389707000 Z
+  updater_id: 1
