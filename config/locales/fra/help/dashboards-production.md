@@ -9,7 +9,7 @@ Il est conseillé d'avoir enregistré dans un premier temps vos **équipiers** g
 ## Comment gérer la production ?
 
 * La gestion du parcellaire établit le lien entre les zones cultivables, les parcelles et les cultures. Pour réaliser la conversion du parcellaire cadastral CVI en parcellaire cultural des activités viticoles, utilisez la fonctionnalité "Casier Viticole Informatisé" disponible dans le module [**Outils**](/backend/dashboards/tools) de la solution **Eky**viti&nbsp;;
-* Les activités peuvent également couvrir les travaux administratifs, de maintenance, de vinification et les prestations de service. Certaines d'entre elles sont prises en compte pour le calcul des [budgets prévisionnels](https://doc.ekylibre.com/v2/fr/performance/#budgets){:target="_blank"}, des coûts de production et des marges&nbsp;;
+* Les activités peuvent également couvrir les travaux administratifs, de maintenance, de vinification et les prestations de service. Certaines d'entre elles sont prises en compte pour le calcul des [**budgets prévisionnels**](https://doc.ekylibre.com/v2/fr/performance/#budgets){:target="_blank"}, des coûts de production et des marges&nbsp;;
 * Le module permet la création de **documents réglementaires** tels que le cahier de cultures, le registre des interventions, le registre phytosanitaire, qu'il est possible d'imprimer et d'archiver&nbsp;;
 * D'autres tâches (gestion des budgets, pulvérisations, coûts, itinéraires culturaux, etc.) sont expliquées dans l'aide et dans la documentation en fonction de votre progression dans les différents écrans de l'application.
 
@@ -37,13 +37,13 @@ Dans la barre latérale du module&nbsp;:
 
 **[Production]** 
 
-Cliquez sur **"Activités"** pour afficher la liste des [activités](https://doc.ekylibre.com/v2/fr/chapitre9/#nelle-activite){:target="_blank"} ouvertes durant une campagne et vous permettre d'en créer ou d'en ouvrir de nouvelles.
+Cliquez sur **"Activités"** pour afficher la liste des [**activités**](https://doc.ekylibre.com/v2/fr/chapitre9/#nelle-activite){:target="_blank"} ouvertes durant une campagne et vous permettre d'en créer ou d'en ouvrir de nouvelles.
 
-Cliquez sur **"Interventions"** pour afficher la liste des [interventions](https://doc.ekylibre.com/v2/fr/chapitre9/#nelle-interv){:target="_blank"} enregistrées dans l'application et vous permettre d'en saisir ou d'en planifier de nouvelles.
+Cliquez sur **"Interventions"** pour afficher la liste des [**interventions**](https://doc.ekylibre.com/v2/fr/chapitre9/#nelle-interv){:target="_blank"} enregistrées dans l'application et vous permettre d'en saisir ou d'en planifier de nouvelles.
 
-Cliquez sur **"Équipements"** pour afficher la liste des [équipements](https://doc.ekylibre.com/v2/fr/chapitre8/#equipements){:target="_blank"} enregistrés dans l'application et vous permettre d'en créer de nouveaux.
+Cliquez sur **"Équipements"** pour afficher la liste des [**équipements**](https://doc.ekylibre.com/v2/fr/chapitre8/#equipements){:target="_blank"} enregistrés dans l'application et vous permettre d'en créer de nouveaux.
 
-Cliquez sur **"Trajets géolocalisés"** pour afficher la liste des [trajets synchronisés](https://doc.ekylibre.com/v2/fr/chapitre10/#samsys){:target="_blank"} avec une solution tierce, suite à une connexion partenaire établie avec un fournisseur de boîtiers géolocalisés.
+Cliquez sur **"Trajets géolocalisés"** pour afficher la liste des [**trajets synchronisés**](https://doc.ekylibre.com/v2/fr/chapitre10/#samsys){:target="_blank"} avec une solution tierce, suite à une connexion partenaire établie avec un fournisseur de boîtiers géolocalisés.
 
 Les [**"Réceptions de vendange"**](https://doc.ekylibre.com/v2/fr/ekyviti/#vendange){:target="_blank"} sont réservées aux offres **Eky**viti et permettent d'enregistrer ce type d'intervention exclusivement à l'aide de l'assistant vocal et interactif **Duke**.
 
@@ -55,7 +55,7 @@ Cliquez sur **"Parcelles"** pour afficher la liste des parcelles assollées et v
 
 Cliquez sur **"Cultures"** pour afficher la liste des cultures et vous permettre d'en créer de nouvelles en sélectionnant une intervention d'implantation de culture sur une parcelle.
 
-Cliquez sur **"Groupements parcellaires"** pour afficher la liste des [groupements parcellaires](https://doc.ekylibre.com/v2/fr/chapitre9/#group-parcel){:target="_blank"} et vous permettre d'en créer de nouveaux en associant ensemble plusieurs cultures ou parcelles.
+Cliquez sur **"Groupements parcellaires"** pour afficher la liste des [**groupements parcellaires**](https://doc.ekylibre.com/v2/fr/chapitre9/#group-parcel){:target="_blank"} et vous permettre d'en créer de nouveaux en associant ensemble plusieurs cultures ou parcelles.
 
 **[Animaux]** 
 

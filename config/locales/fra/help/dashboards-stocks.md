@@ -36,25 +36,25 @@ Dans la barre latérale du module&nbsp;:
 
 **[Stocks]**
 
-Cliquez sur **"Matières"** pour afficher la liste des [matières](https://doc.ekylibre.com/v2/fr/chapitre8/#nelle-matiere){:target="_blank"} et vous permettre d'en créer de nouvelles. Cette fonctionnalité nécessite d'avoir, avec le module [**Configuration**](/backend/dashboards/settings), préalablement importé ou créé les articles stockables que vous utilisez ou produisez sur votre exploitation.
+Cliquez sur **"Matières"** pour afficher la liste des [**matières**](https://doc.ekylibre.com/v2/fr/chapitre8/#nelle-matiere){:target="_blank"} et vous permettre d'en créer de nouvelles. Cette fonctionnalité nécessite d'avoir, avec le module [**Configuration**](/backend/dashboards/settings), préalablement importé ou créé les articles stockables que vous utilisez ou produisez sur votre exploitation.
 
-Cliquez sur **"Inventaires"** pour afficher la liste des [inventaires](https://doc.ekylibre.com/v2/fr/chapitre8/#nel-inventaire){:target="_blank"} et vous permettre d'en créer de nouveaux.
+Cliquez sur **"Inventaires"** pour afficher la liste des [**inventaires**](https://doc.ekylibre.com/v2/fr/chapitre8/#nel-inventaire){:target="_blank"} et vous permettre d'en créer de nouveaux.
 
-Cliquez sur **"Zones de stockage"** pour afficher la liste des [zones de stockage](https://doc.ekylibre.com/v2/fr/chapitre6/#stockage){:target="_blank"} et vous permettre d'en créer de nouvelles. Elles sont requises pour réaliser les réceptions de marchandises et visualiser les produits contenus dans chacune d'entre elles.
+Cliquez sur **"Zones de stockage"** pour afficher la liste des [**zones de stockage**](https://doc.ekylibre.com/v2/fr/chapitre6/#stockage){:target="_blank"} et vous permettre d'en créer de nouvelles. Elles sont requises pour réaliser les réceptions de marchandises et visualiser les produits contenus dans chacune d'entre elles.
 
 **[Réceptions]**
 
 Cliquez sur **"Commandes à réceptionner"** pour afficher la liste des commandes à réceptionner et vous permettre d'en créer de nouvelles.
 
-Cliquez sur **"Réceptions"** pour afficher la liste des [réceptions](https://doc.ekylibre.com/v2/fr/chapitre8/#recept-stocks){:target="_blank"} et vous permettre d'en enregistrer de nouvelles. Les réceptions peuvent être rapprochées avec des commandes enregistrées via le module [**Achats**](/backend/dashboards/purchases) (offres Gestion et Performance uniquement).
+Cliquez sur **"Réceptions"** pour afficher la liste des [**réceptions**](https://doc.ekylibre.com/v2/fr/chapitre8/#recept-stocks){:target="_blank"} et vous permettre d'en enregistrer de nouvelles. Les réceptions peuvent être rapprochées avec des commandes enregistrées via le module [**Achats**](/backend/dashboards/purchases) (offres Gestion et Performance uniquement).
 
 **[Expéditions]**
 
-Cliquez sur **"Expéditions"** pour afficher la liste des [expéditions](https://doc.ekylibre.com/v2/fr/chapitre8/#nelle-expedition){:target="_blank"} et vous permettre d'en créer de nouvelles.
+Cliquez sur **"Expéditions"** pour afficher la liste des [**expéditions**](https://doc.ekylibre.com/v2/fr/chapitre8/#nelle-expedition){:target="_blank"} et vous permettre d'en créer de nouvelles.
 
 **[Livraisons]**
 
-Cliquez sur **"Livraisons"** pour afficher la liste des [livraisons](https://doc.ekylibre.com/v2/fr/chapitre8/#livraison){:target="_blank"} et vous permettre d'en paramétrer de nouvelles.
+Cliquez sur **"Livraisons"** pour afficher la liste des [**livraisons**](https://doc.ekylibre.com/v2/fr/chapitre8/#livraison){:target="_blank"} et vous permettre d'en paramétrer de nouvelles.
 
 La fonctionnalité **"Numéros de suivi"** n'est pas encore opérationnelle.
 

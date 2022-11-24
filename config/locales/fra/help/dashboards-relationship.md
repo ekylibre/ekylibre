@@ -14,13 +14,13 @@ Cette cellule affiche initialement le nom de l'exploitation et celui de son admi
 
 Dans la barre latérale du module&nbsp;:
 
-**[Évènements]** 
-
-Cliquez sur **"Évènements"** pour accéder à la page de création d'un nouvel évènement.
-
 **[Tiers]** 
 
 Cliquez sur **"Tiers"** pour accéder à la page de création ou de gestion des [**contacts**](https://doc.ekylibre.com/v2/fr/chapitre8/#contact){:target="_blank"} et des [**organisations**](https://doc.ekylibre.com/v2/fr/chapitre8/#organisation){:target="_blank"}.
+
+**[Évènements]** 
+
+Cliquez sur **"Évènements"** pour accéder à la page de création d'un nouvel évènement.
 
 ## Personnalisation du tableau de bord 
 

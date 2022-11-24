@@ -16,15 +16,15 @@ Dans la barre latérale du module&nbsp;:
 
 **[Coûts]**
 
-Cliquez sur **"Coûts de production"** pour accéder aux tableaux récapitulatifs des [coûts](https://doc.ekylibre.com/v2/fr/performance/#couts-prod){:target="_blank"} (prévus/réalisés) calculés dynamiquement pour chaque activité, en fonction d'un budget prévisionnel, des charges directes (engrais, semences, produits phytosanitaires…) et indirectes (assurance, électricité, etc.).
+Cliquez sur **"Coûts de production"** pour accéder aux tableaux récapitulatifs des [**coûts**](https://doc.ekylibre.com/v2/fr/performance/#couts-prod){:target="_blank"} (prévus/réalisés) calculés dynamiquement pour chaque activité, en fonction d'un budget prévisionnel, des charges directes (engrais, semences, produits phytosanitaires…) et indirectes (assurance, électricité, etc.).
 
 **[Marges]**
 
-Cliquez sur **"Marges"** pour accéder aux tableaux récapitulatifs des [marges](https://doc.ekylibre.com/v2/fr/performance/#marges){:target="_blank"} (prévues/réalisées) calculées dynamiquement pour chaque activité, en fonction d'un budget prévisionnel, des charges directes (engrais, semences, produits phytosanitaires…) et indirectes (assurance, électricité, etc.).
+Cliquez sur **"Marges"** pour accéder aux tableaux récapitulatifs des [**marges**](https://doc.ekylibre.com/v2/fr/performance/#marges){:target="_blank"} (prévues/réalisées) calculées dynamiquement pour chaque activité, en fonction d'un budget prévisionnel, des charges directes (engrais, semences, produits phytosanitaires…) et indirectes (assurance, électricité, etc.).
 
 **[Seuils de commercialisation]**
 
-Cliquez sur **"Seuils de commercialisation"** pour accéder à la page de simulation des [seuils de commercialisation](https://doc.ekylibre.com/v2/fr/performance/#seuils){:target="_blank"} calculés dynamiquement pour chaque activité, en fonction d'un budget prévisionnel, des rémunérations, des charges directes/indirectes, des provisions/réserves annuelles et du rendement visé.
+Cliquez sur **"Seuils de commercialisation"** pour accéder à la page de simulation des [**seuils de commercialisation**](https://doc.ekylibre.com/v2/fr/performance/#seuils){:target="_blank"} calculés dynamiquement pour chaque activité, en fonction d'un budget prévisionnel, des rémunérations, des charges directes/indirectes, des provisions/réserves annuelles et du rendement visé.
 
 ## Personnalisation du tableau de bord 
 
