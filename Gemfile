@@ -101,7 +101,7 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Reference data
-gem 'onoma', '~> 0.8.2'
+gem 'onoma', gitlab: 'ekylibre/onoma', branch: 'dev'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop', '~> 1.6'
@@ -157,12 +157,12 @@ gem 'holidays' # Deal with statutory and other holidays
 gem 'luhn', '~> 1.0'
 gem 'mimemagic', '~> 0.3.5'
 gem 'nokogiri', '~> 1.8'
-gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-2'
+gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: 'dev'
 gem 'prawn', '~> 2.4'
 gem 'quandl', '~> 1.1'
 gem 'rodf', '~> 1.0'
 gem 'roo', '~> 2.8'
-gem 'rubyzip', '~> 1.2.2'
+gem 'rubyzip', '~> 1.3.0'
 gem 'sepa_king', '~> 0.12.0'
 gem 'xml_errors_parser', gitlab: 'ekylibre/xsd_errors_parser', branch: 'master'
 
