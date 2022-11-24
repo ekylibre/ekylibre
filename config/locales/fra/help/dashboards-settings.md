@@ -58,7 +58,7 @@ Cliquez sur **"Formats de nommage"** pour paramétrer le [**format de nommage**]
 
 Cliquez sur **"Séquences"** pour personnaliser les [**séquences**](https://doc.ekylibre.com/v2/fr/chapitre4/#sequences){:target="_blank"} utilisées pour dénommer un enregistrement ou une opération dans l'application.
 
-Cliquez sur **"Tableaux de bord"** pour afficher la liste des [tableaux de bord](https://doc.ekylibre.com/v2/fr/chapitre4/#perso){:target="_blank"} et vous permettre d'en configurer de nouveaux, utilisables à l'ouverture de la page d'accueil.
+Cliquez sur **"Tableaux de bord"** pour afficher la liste des [**tableaux de bord**](https://doc.ekylibre.com/v2/fr/chapitre4/#perso){:target="_blank"} et vous permettre d'en configurer de nouveaux, utilisables à l'ouverture de la page d'accueil.
 
 **[Ventes/Achats]**
 
