@@ -323,6 +323,7 @@ fra:
   procedures:
     administrative_task: "Tâche administrative générale" #?
     administrative_tasks: "Tâches administratives"
+    all_in_one_planting: "Plantation «\_tout-en-un\_»"
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
     animal_antibiotic_treatment: "Traitement antibiotique" #?
     animal_artificial_insemination: "Insémination artificielle"

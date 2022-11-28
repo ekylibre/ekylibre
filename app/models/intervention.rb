@@ -68,7 +68,7 @@ class Intervention < ApplicationRecord
   include Providable
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
-  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
+  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing all_in_one_planting sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
   SETTINGS = %i[spray_mix_volume_area_density].freeze
   SPRAYING_PROCEDURE_NAMES = %w[spraying sowing_with_spraying vine_spraying_without_fertilizing vine_spraying_with_fertilizing].freeze
 

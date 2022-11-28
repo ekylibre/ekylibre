@@ -2,6 +2,10 @@ module Backend
   module InterventionsHelper
     include ChartsHelper
 
+    def planting_and_sowing_procedures
+      %w[sowing mechanical_planting all_in_one_sowing all_in_one_planting sowing_with_spraying vine_planting]
+    end
+
     def add_taskboard_tasks(interventions, column)
       interventions.each do |intervention|
         column.task(*taskboard_task(intervention))
