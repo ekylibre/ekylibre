@@ -38,12 +38,12 @@
     - installations_modification
     - land_maintenance
     activity_families:
-    - vine_farming
     - plant_farming
+    - vine_farming
     - animal_farming
     - processing
     - wine_making
-    - tool_maintaining
     - service_delivering
     - administering
+    - tool_maintaining
     
