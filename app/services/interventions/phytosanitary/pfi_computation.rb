@@ -25,11 +25,11 @@ module Interventions
         # get first activity for the moment
         # TODO return nil if activity is not uniq
         activity = @intervention.activities.first
-        global_area_ratio = (@intervention.area_cost_coefficient * 100).round(2)
+        area_cost_coefficient = (@intervention.area_cost_coefficient * 100).round(2)
+        global_area_ratio = area_cost_coefficient <= 100 ? area_cost_coefficient : 100
         @intervention.inputs.each do |input|
           # compute pfi for each input in intervention for all target
           # call API with parameters
-
           pfi_call = Interventions::Phytosanitary::PfiClientApi.new(campaign: @campaign, activity: activity, intervention_parameter_input: input, area_ratio: global_area_ratio, notify_user: true)
           response = pfi_call.compute_pfi
           if response
