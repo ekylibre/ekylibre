@@ -1994,7 +1994,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
     earns: "Gains" #?
-    economic_map: "Carte économique"
+    economic_map: "Production : carte des coûts d’intervention"
     economics: "Économique"
     edit: "Modifier"
     edit_budget: "Modifier le budget"
@@ -2560,7 +2560,7 @@ fra:
     manual: "Manuel"
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
-    map: "Carte"
+    map: "Production : carte des activités, IFT et ZNT"
     map_preferences: "Préférences Carte"
     margins: "Marges" #?
     mark_all_as_read: "Tout marquer comme lu"
@@ -3462,8 +3462,8 @@ fra:
     to_reconcile: "À rapprocher"
     to_reconciliate: "À rapprocher"
     today: "Aujourd’hui"
-    tool_cost: "Coût de matériel"
-    tool_cost_per_hectare: "Coût de matériel (/ha)" #?
+    tool_cost: "Coût d'équipement"
+    tool_cost_per_hectare: "Coût d'équipement (/ha)" #?
     tool_costs_xslx_export: "Fiche coûts matériel (XSLX)" #?
     tools: "Outils"
     tools_list: "Liste d’outils" #?
