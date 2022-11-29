@@ -299,8 +299,6 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    faraday_middleware (1.2.0)
-      faraday (~> 1.0)
     fastimage (2.2.6)
     ffaker (2.18.0)
     ffi (1.15.5)
@@ -456,9 +454,6 @@ GEM
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nordigen-ruby (1.0.1)
-      faraday (~> 1.8.0)
-      faraday_middleware (~> 1.2.0)
     nori (2.6.0)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -646,7 +641,6 @@ GEM
     scenic (1.5.4)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    securerandom (0.2.0)
     semantic (1.6.1)
     sepa_king (0.12.0)
       activemodel (>= 3.1)
@@ -739,7 +733,6 @@ GEM
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
     victor (0.3.3)
-    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -850,7 +843,6 @@ DEPENDENCIES
   minitest-reporters (~> 1.4)
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8)
-  nordigen-ruby
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
@@ -889,7 +881,6 @@ DEPENDENCIES
   sassc-rails (~> 2.0)
   savon (~> 2.12)
   scenic
-  securerandom
   semantic (~> 1.6)
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
@@ -915,7 +906,6 @@ DEPENDENCIES
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   vcr (~> 6.0.0)
-  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webmock (~> 3.13.0)
