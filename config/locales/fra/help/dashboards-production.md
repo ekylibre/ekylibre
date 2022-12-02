@@ -15,7 +15,7 @@ Il est conseillé d'avoir enregistré dans un premier temps vos **équipiers** g
 
 ## Indicateurs
 
-**[Carte]** 
+**[Production&nbsp;: carte des activités, IFT et ZNT]** 
 
 Cette cellule affiche, sur un fond de carte, les différentes productions végétales ou viticoles. Un menu permet de changer de fond de carte, de visualiser ou de masquer certaines informations telles que les activités ouvertes durant une campagne, les catégories de SNA, les IFT de la production et les ZNT aquatiques.
 
