@@ -211,6 +211,12 @@
               unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
               E.interventionForm.displayCost(targettedElement, quantity, unitName)
 
+            isUsingMap = $("[data-intervention-updater$='working_zone_area_value']").length == 0 
+            isTargetProductUpdate = data.updater_id.includes('targets_attributes') && data.updater_id.includes('product_id')
+
+            if isUsingMap && isTargetProductUpdate
+              refreshQuantityWithDelay()
+
     hideKujakuFilters: (hideFilters) ->
       if hideFilters
         $('.feathers input[name*="nature"], .feathers input[name*="state"]').closest('.feather').hide()
@@ -658,7 +664,7 @@
           workingZoneAreaValue = data.netSurfaceAreaInHectare
           return unless workingZoneAreaValue
 
-          $workingZoneAreaInput.val(workingZoneAreaValue)
+          $workingZoneAreaInput.val(workingZoneAreaValue).trigger('input')
 
 
 
@@ -1118,4 +1124,24 @@
     $nestedField = $(this).parents(".nested-fields")
     productId = $nestedField.find(sprayerForm.selectors.toolInput).next().val()
     sprayerForm.updateReadingInputs($nestedField,productId)
+  
+  refreshQuantityWithDelay =  -> 
+    $("*[data-intervention-updater$='quantity_value']").each (i) -> 
+      that = this
+      debounceTime = 1000 * (1 + i * 2) # Refresh won't be performed if executed at the same time, each quantity refresh will be performed every seconds
+      _.debounce( ->
+        E.interventions.refresh $(that)
+      , debounceTime)()
+
+  refreshQuantityWhenTargetChange = ->
+    $(document).on 'mapchange', "[data-intervention-updater$='working_zone']",
+      refreshQuantityWithDelay
+
+    $(document).on 'input', "[data-intervention-updater$='working_zone_area_value']",
+      refreshQuantityWithDelay
+
+  # Hack: we need to recompute quantity population when target change
+  refreshQuantityWhenTargetChange()
+
+
 ) ekylibre, jQuery
