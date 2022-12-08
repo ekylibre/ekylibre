@@ -1,10 +1,9 @@
 # Documentation for Ekylibre
 
-Create API doc via the `rake rerdoc` command. Also available at
-[https://doc.ekylibre.dev](https://doc.ekylibre.dev)
-
+- [Installation](./Installation.md)
+- [Docker](../docker/README.md)
+- [API doc](https://ekylibre.stoplight.io/docs/eky/751aacde8cec8-ekylibre)
 - [Git and Gitlab](git.md)
-- [Setup](https://wiki.ekylibre.org/fr/guides/developement)
 - [UI toolkit](ui.md)
   - State bar
 - [Backend components](components.md)
