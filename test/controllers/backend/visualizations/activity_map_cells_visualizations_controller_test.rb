@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   module Visualizations
-    class MapCellsVisualizationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
+    class ActivityMapCellsVisualizationsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
       setup do
         # Ekylibre::Tenant.switch!('test')
         # @locale = ENV['LOCALE'] || I18n.default_locale

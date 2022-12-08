@@ -211,7 +211,7 @@ Rails.application.routes.draw do
       resource :last_sales_cell, only: :show, concerns: :list
       resource :last_workers_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
-      resource :map_cell, only: :show
+      resource :activity_map_cell, only: :show
       resource :mes_parcelles_synchronisation_cell, only: :show
       resource :pfi_interventions_cell, only: :show do
         member do
@@ -1419,7 +1419,7 @@ Rails.application.routes.draw do
     namespace :visualizations do
       resource :economic_map_cells_visualizations, only: :show
       resource :plants_visualizations, only: :show
-      resource :map_cells_visualizations, only: :show
+      resource :activity_map_cells_visualizations, only: :show
       resource :stock_container_map_cells_visualizations, only: :show
       resource :land_parcels_visualizations, only: :show
       resource :resources_visualizations, only: :show
