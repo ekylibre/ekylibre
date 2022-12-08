@@ -1344,6 +1344,7 @@ fra:
     activities: "Activités"
     activity: "Activité"
     activity_cost: "Coûts de production détaillés"
+    activity_map: "Production : carte des activités, IFT et ZNT"
     activity_production: "Production"
     activity_productions: "Productions"
     accumulated_stock: "Cumul des stocks de %{name}"
@@ -2560,7 +2561,7 @@ fra:
     manual: "Manuel"
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
-    map: "Production : carte des activités, IFT et ZNT"
+    map: "Carte"
     map_preferences: "Préférences Carte"
     margins: "Marges" #?
     mark_all_as_read: "Tout marquer comme lu"

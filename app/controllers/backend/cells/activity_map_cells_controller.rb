@@ -1,6 +1,6 @@
 module Backend
   module Cells
-    class MapCellsController < Backend::Cells::BaseController
+    class ActivityMapCellsController < Backend::Cells::BaseController
       def show
         @campaigns = if params[:campaign_ids]
                        Campaign.find(params[:campaign_ids])

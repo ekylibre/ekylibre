@@ -61,9 +61,9 @@ module Backend
           config = view_context.configure_visualization do |v|
             v.serie :main, data
             v.choropleth :global_cost, :main, stop_color: "#E77000"
-            v.choropleth :tool_cost, :main, stop_color: "#00AA00"
-            v.choropleth :input_cost, :main, stop_color: "#1122DD"
-            v.choropleth :time_cost, :main, stop_color: "#E77000"
+            v.choropleth :tool_cost, :main, enabled: false, stop_color: "#00AA00"
+            v.choropleth :input_cost, :main, enabled: false, stop_color: "#1122DD"
+            v.choropleth :time_cost, :main, enabled: false, stop_color: "#E77000"
           end
 
         end

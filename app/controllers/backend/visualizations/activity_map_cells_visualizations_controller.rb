@@ -1,6 +1,6 @@
 module Backend
   module Visualizations
-    class MapCellsVisualizationsController < Backend::VisualizationsController
+    class ActivityMapCellsVisualizationsController < Backend::VisualizationsController
       respond_to :json
 
       def show
