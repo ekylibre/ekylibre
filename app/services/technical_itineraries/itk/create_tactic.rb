@@ -24,29 +24,33 @@ module TechnicalItineraries
         end
 
         at = ActivityTactic.find_or_initialize_by(activity_id: @activity.id, default: true)
-        if @technical_workflow && at.technical_workflow
-          at.planned_on ||= sowed_started_on
-          at.save!
-          at
-        elsif @technical_workflow
-          at.mode = :sowed
-          at.mode_delta = 5
-          at.planned_on ||= sowed_started_on
-          at.name = @technical_workflow.translation.send(Preference[:language])
-          at.technical_workflow_id = @technical_workflow.id
-          at.save!
-          at
-        elsif @technical_sequence && at.technical_sequence
-          at.planned_on ||= sowed_started_on
-          at.save!
-          at
-        elsif @technical_sequence
-          at.name = @technical_sequence.translation.send(Preference[:language])
-          at.technical_sequence_id = @technical_sequence.id
-          at.planned_on ||= sowed_started_on
-          at.save!
-          at
-        end
+        planned_on = at.planned_on || sowed_started_on
+        attributes = if @technical_workflow
+                       return { planned_on: planned_on } if at.technical_workflow
+
+                       { 
+                         planned_on: planned_on,
+                         mode: :sowed,
+                         mode_delta: 5,
+                         name: @technical_workflow.translation.send(Preference[:language]),
+                         technical_workflow_id: @technical_workflow.id
+                       }
+
+                     elsif @technical_sequence
+                       return { planned_on: planned_on } if at.technical_sequence
+
+                       { 
+                         planned_on: planned_on,
+                         name: @technical_sequence.translation.send(Preference[:language]),
+                         technical_sequence_id: @technical_sequence.id
+                       }
+                     end
+
+        return nil unless attributes
+
+        at.attributes = attributes
+        at.save!
+        at 
       end
 
       def create_procedures_and_intervention_templates(ti, temp_pn)
@@ -84,6 +88,8 @@ module TechnicalItineraries
         tiit_ids = TechnicalItineraryInterventionTemplate.where(technical_itinerary_id: ti.id).pluck(:id)
         tiit_ids
       end
+
+      private
 
       def create_imi(im, it, temp_pn)
         im.items.each do |imi|
@@ -180,8 +186,6 @@ module TechnicalItineraries
           end
         end
       end
-
-      private
 
         # return a Hash
         # of the procedure during one technical_itinerary (so one year)
