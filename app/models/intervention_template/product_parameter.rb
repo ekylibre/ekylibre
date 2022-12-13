@@ -190,19 +190,23 @@ class InterventionTemplate < ApplicationRecord
       end
 
       def is_input_or_output
-        %i[input output].include?(find_general_product_type)
+        %i[input output].include?(symbolized_type)
       end
 
       def is_doer_or_tool
-        %i[doer tool].include?(find_general_product_type)
+        %i[doer tool].include?(symbolized_type)
       end
 
       def is_tool
-        %i[tool].include?(find_general_product_type)
+        %i[tool].include?(symbolized_type)
       end
 
       def is_input
-        %i[input].include?(find_general_product_type)
+        %i[input].include?(symbolized_type)
+      end
+
+      private def symbolized_type
+        type.demodulize.downcase.to_sym
       end
   end
 end

@@ -46,6 +46,13 @@ class InterventionTemplate < ApplicationRecord
   composed_of :workflow, class_name: 'Measure', mapping: [%w[workflow_value to_d], %w[workflow_unit unit]]
   # Relation
   has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
+  with_options inverse_of: :intervention_template do
+    has_many :doers, class_name: 'InterventionTemplate::Doer'
+    has_many :inputs, class_name: 'InterventionTemplate::Input'
+    has_many :outputs, class_name: 'InterventionTemplate::Output'
+    has_many :tools, class_name: 'InterventionTemplate::Tool'
+  end
+
   # Joins table with activities
   has_many :association_activities, class_name: 'InterventionTemplateActivity', foreign_key: :intervention_template_id, dependent: :destroy
   has_many :activities, through: :association_activities
@@ -227,25 +234,25 @@ class InterventionTemplate < ApplicationRecord
     end
   end
 
-  def tools
-    procedure_tool = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.tool?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_tool)
-  end
+  # def tools
+  #   procedure_tool = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.tool?) }.compact
+  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_tool)
+  # end
 
-  def doers
-    procedure_doer = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.doer?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_doer)
-  end
+  # def doers
+  #   procedure_doer = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.doer?) }.compact
+  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_doer)
+  # end
 
-  def inputs
-    procedure_input = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.input?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_input)
-  end
+  # def inputs
+  #   procedure_input = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.input?) }.compact
+  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_input)
+  # end
 
-  def outputs
-    procedure_output = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.output?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_output)
-  end
+  # def outputs
+  #   procedure_output = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.output?) }.compact
+  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_output)
+  # end
 
   def quantity_of_parameter(product_parameter, area)
     unless %i[input output].include?(product_parameter.find_general_product_type)
