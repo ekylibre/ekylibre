@@ -420,7 +420,7 @@ class Intervention < ApplicationRecord
   end
 
   after_save :handle_targets_imputation_ratio
-  after_save :compute_pfi_async
+  after_commit :compute_pfi_async
 
   after_create do
     Ekylibre::Hook.publish :create_intervention, self
