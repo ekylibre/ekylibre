@@ -129,7 +129,7 @@ class Entity < ApplicationRecord
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
-  has_many :outcoming_payments, foreign_key: :payee_id, inverse_of: :payee
+  has_many :outcoming_payments, class_name: 'OutgoingPayment', foreign_key: :payee_id, inverse_of: :payee
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id

@@ -4,7 +4,7 @@ module Backend
       to_bank_at: 'Time.zone.today'.c,
       paid_at: 'Time.zone.today'.c,
       responsible_id: 'current_user.id'.c,
-      mode_id: 'params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:payee_id].to_i)) ? payer.outgoing_payments.reorder(id: :desc).first.mode_id : nil'.c,
+      mode_id: 'params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:payee_id].to_i)) ? payer.outcoming_payments.reorder(id: :desc).first.mode_id : nil'.c,
       t3e: {
         payee: 'RECORD&.payee&.full_name'.c
       }
