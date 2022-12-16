@@ -18,6 +18,5 @@
 
 module Public
   class BaseController < ::BaseController
-    protect_from_forgery
   end
 end

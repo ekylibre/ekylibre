@@ -38,7 +38,7 @@
 class MasterCropProductionStartState < LexiconRecord
   include Lexiconable
 
-  belongs_to :production_nature, class_name: 'MasterCropProduction', inverse_of: :start_states
+  belongs_to :production_nature, class_name: 'MasterCropProduction', foreign_key: :production, inverse_of: :start_states
 
   def self.defaults
     (1..5).map { |year| new(year: year, key: "n_#{year}") }

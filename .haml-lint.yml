@@ -95,3 +95,4 @@ linters:
       - Style/NilComparison
       - Style/CommentedKeyword
       - Layout/EmptyComment
+      - Style/RedundantStringEscape

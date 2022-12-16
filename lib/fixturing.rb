@@ -117,12 +117,12 @@ module Fixturing
     end
 
     def migrate(tenant, options = {})
-      target = ActiveRecord::Migrator.last_migration.version
+      target = ActiveRecord::Base.connection.migration_context.last_migration.version
       origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect
         Ekylibre::Tenant.switch(tenant) do
-          ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, target)
+          ActiveRecord::Base.connection.migration_context.migrate(target)
         end
       else
         say 'No more migrations', :green
@@ -132,7 +132,7 @@ module Fixturing
     def rollback(tenant, steps = 1)
       say "Rollback (Steps count: #{steps})"
       Ekylibre::Tenant.switch(tenant) do
-        ActiveRecord::Migrator.rollback(ActiveRecord::Migrator.migrations_paths, steps)
+        ActiveRecord::Base.connection.migration_context.rollback(steps)
       end
     end
 
