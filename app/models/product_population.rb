@@ -46,8 +46,8 @@ class ProductPopulation < ApplicationRecord
   validates :value, numericality: true, allow_blank: true
   # ]VALIDATORS]
 
-  scope :chain,                   ->(product) { where(product: product).order(started_at: :asc) }
-  scope :initial_population_for,  ->(product) { chain(product).first }
+  scope :sequence,                ->(product) { where(product: product).order(started_at: :asc) }
+  scope :initial_population_for,  ->(product) { sequence(product).first }
   scope :at,                      ->(time)    { where(started_at: time) }
   scope :before,                  ->(time)    { where(arel_table[:started_at].lt(time)) }
   scope :after,                   ->(time)    { where(arel_table[:started_at].gt(time)) }
@@ -56,12 +56,12 @@ class ProductPopulation < ApplicationRecord
   scope :before_with,             ->(time)    { where(arel_table[:started_at].lteq(time)) }
   scope :after_with,              ->(time)    { where(arel_table[:started_at].gteq(time)) }
 
-  def chain
-    self.class.chain(product)
+  def sequence
+    self.class.sequence(product)
   end
 
   def siblings
-    chain.where.not(id: id)
+    sequence.where.not(id: id)
   end
 
   def previous_population

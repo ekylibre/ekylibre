@@ -1,13 +1,5 @@
-local: &local
-  :url: redis://localhost:6379
-  :host: localhost
-  :port: 6379
-  :timeout: 1
-  :inline: true
-development: *local
-test: &test
-  :url: <%= ENV.fetch('REDIS_URL', 'redis://localhost:6379/') %>
-  :host: localhost
-  :port: 6379
-  :timeout: 1
-  :inline: true
+development: &default
+  adapter: redis
+  url: <%= ENV.fetch('REDIS_URL', 'redis://localhost:6379') %>
+test: *default
+production: *default

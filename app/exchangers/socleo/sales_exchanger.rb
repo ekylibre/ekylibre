@@ -265,7 +265,7 @@ module Socleo
     def create_variant(account, account_number)
       computed_name = "Service - Vente en ligne - #{account.number}"
 
-      pnc = ProductNatureCategory.create_with(active: true, saleable: true, nature: :service, type: 'VariantCategories::ServiceCategory')
+      pnc = ProductNatureCategory.create_with(active: true, saleable: true, type: 'VariantCategories::ServiceCategory')
                                  .find_or_create_by(product_account_id: account.id, name: computed_name)
 
       pn = ProductNature.create_with(active: true, variety: 'service', population_counting: 'decimal')

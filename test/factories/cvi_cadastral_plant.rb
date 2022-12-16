@@ -2,10 +2,10 @@ FactoryBot.define do
   factory :cvi_cadastral_plant do
     work_number { rand(5) }
     section { %w[A F G].sample }
-    designation_of_origin_id { RegisteredQualityAndOriginSign.order('RANDOM()').first.id }
-    vine_variety_id { RegisteredVineVariety.where(category: 'variety').order('RANDOM()').first.id }
-    rootstock_id { RegisteredVineVariety.where(category: 'rootstock').order('RANDOM()').first.id }
-    land_parcel_id { RegisteredCadastralParcel.order('RANDOM()').first.id }
+    designation_of_origin_id { RegisteredQualityAndOriginSign.order(Arel.sql('RANDOM()')).first.id }
+    vine_variety_id { RegisteredVineVariety.where(category: 'variety').order(Arel.sql('RANDOM()')).first.id }
+    rootstock_id { RegisteredVineVariety.where(category: 'rootstock').order(Arel.sql('RANDOM()')).first.id }
+    land_parcel_id { RegisteredCadastralParcel.order(Arel.sql('RANDOM()')).first.id }
     land_parcel_number { rand(10) }
     area_value { rand.round(2) }
     area_unit { :hectare }

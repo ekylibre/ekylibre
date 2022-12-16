@@ -22,7 +22,6 @@ module Backend
     prepend RespondWithTemplate
     include RestfullyManageable
     include Unrollable
-    protect_from_forgery
 
     layout :dialog_or_not
 

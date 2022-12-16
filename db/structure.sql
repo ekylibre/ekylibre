@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA lexicon;
-
-
---
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -24000,7 +23993,7 @@ ALTER TABLE ONLY public.financial_years
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis", "lexicon";
+SET search_path TO public,postgis,lexicon;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121212122000'),
