@@ -31,8 +31,10 @@ class PostgresValidatedEwktFeatureBuilder
   end
 end
 
-Charta.default_feature_factory = Charta::Factory::SimpleFeatureFactory.new(
-  ewkt_builder: PostgresValidatedEwktFeatureBuilder.new(decorated: Charta::Factory::EwktFeatureBuilder.new, shape_corrector: ShapeCorrector.build),
-  srid_provider: Charta::Factory::SridProvider.build,
-  transformer: Charta::Factory::Transformers::EwktTransformerChain.build
-)
+if (ActiveRecord::Base.connection.present? rescue false)
+  Charta.default_feature_factory = Charta::Factory::SimpleFeatureFactory.new(
+    ewkt_builder: PostgresValidatedEwktFeatureBuilder.new(decorated: Charta::Factory::EwktFeatureBuilder.new, shape_corrector: ShapeCorrector.build),
+    srid_provider: Charta::Factory::SridProvider.build,
+    transformer: Charta::Factory::Transformers::EwktTransformerChain.build
+  )
+end
