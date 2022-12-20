@@ -112,6 +112,8 @@ yarn-debug.log*
 
 .env
 
+OFFER
+
 # Remote rubocop configurations
 /.rubocop-*
 .rbenv-gemsets

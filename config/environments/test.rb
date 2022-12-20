@@ -42,7 +42,7 @@ Rails.application.configure do
   config.active_support.test_order = :random
 
   # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
+  config.active_support.deprecation = :silence
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
