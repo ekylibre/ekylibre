@@ -3,3 +3,4 @@
 %p
   %i{class: "#{icon_class}-validation"}
   = message.tl
+  = (:balance_gap.tl + ' ' + number_to_accountancy(financial_year.balance_sheet_balance.to_f)).html_safe unless success
