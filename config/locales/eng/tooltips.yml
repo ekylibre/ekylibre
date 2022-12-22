@@ -54,6 +54,7 @@ eng:
         estimate: "Estimate quote"
         unpaid_invoice: "Unpaid invoice"
         invalid_state: "Invalid state"
+        paid_order: "Paid order"
       sale_opportunity:
         lost: "Lost"
         negociation: "Negociation"

@@ -54,6 +54,7 @@ fra:
         estimate: "Devis envoyé"
         unpaid_invoice: "Facture impayée"
         invalid_state: "État invalide"
+        paid_order: "Commande payée"
       sale_opportunity:
         lost: "Perdue"
         negociation: "Négociation"

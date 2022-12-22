@@ -530,7 +530,11 @@ class Sale < ApplicationRecord
     elsif aborted?
       "aborted"
     elsif order?
-      "order"
+      if self.affair.closed?
+        "paid_order"
+      else
+        "order"
+      end
     elsif (draft? && DateTime.now > self.expired_at) || (estimate? && DateTime.now > self.expired_at)
       "expired_quote"
     elsif draft?
@@ -540,7 +544,7 @@ class Sale < ApplicationRecord
     elsif refused?
       "refused_quote"
     else
-      "INVALID STATE"
+      "invalid_state"
     end
 
     I18n.t("tooltips.models.sale.#{translation_key}")
@@ -654,7 +658,7 @@ class Sale < ApplicationRecord
 
   # Returns status of affair if invoiced else "stop"
   def status
-    if invoice? && affair
+    if (invoice? || order?) && affair
       affair.status
     else
       :stop
