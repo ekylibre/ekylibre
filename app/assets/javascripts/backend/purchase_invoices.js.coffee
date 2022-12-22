@@ -137,5 +137,21 @@
       else
         existingAssetBlock.css('display', 'none')
         newAssetBlock.css('display', 'block')
+  
+  urlParams = ->
+    queryString = window.location.search
+    new URLSearchParams(queryString)
+
+  undisabledInputOnNewPurchaseInvoiceItem = ->
+    if urlParams().get('mode') == 'prefilled'
+      document.querySelectorAll('input[data-selector-id=\'purchase_item_variant_id\']').forEach (currentValue) ->
+        if currentValue['value'] == ''
+          currentValue.disabled = false
+        return
+    return
+
+  $(document).on 'cocoon:after-insert', '#new_purchase_invoice', (e) ->
+    undisabledInputOnNewPurchaseInvoiceItem()
+    return
 
 ) ekylibre, jQuery
