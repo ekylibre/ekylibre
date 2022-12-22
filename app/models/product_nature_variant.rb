@@ -205,14 +205,14 @@ class ProductNatureVariant < ApplicationRecord
     end
 
     unless from_lexicon?
-      type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
+      type_allocator = Variants::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end
   end
 
   before_validation on: :update do
     if changes_to_save.key?('category_id') || changes_to_save.key?('nature_id')
-      type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
+      type_allocator = Variants::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end
   end

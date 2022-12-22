@@ -1209,6 +1209,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    create_zero_intial_stock: Créer un stock initial à zéro
+    product_will_be_imported_with_zero_stock: Un produit avec un stock initial à zéro va être automatiquement créé. Vous pourrez le modifier depuis Stock > Matières.
     balance_gap: "Ecart au bilan de\_"
     phyto_validation_done_with_total_zone: "Contrôles effectués sur la surface totale de la zone"
     phyto_intervention_alert_if_map_disabled: "Vous n’utilisez pas la cartographie, cette intervention nécessitant de respecter la réglementation (doses utilisées, ZNT, etc.), les contrôles sont effectués à partir de la surface totale des parcelles ou des cultures."
@@ -4210,6 +4212,11 @@ fra:
       unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel" #?
       update_is_done: "La mise à jour a été effectuée"
       validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
+      variant_has_been_imported: "L’article a été importé. Vous pouvez personnaliser ci-dessous les informations de l'article de référence et cliquer sur Modifier."
+      article_has_been_imported: "L’article a été importé. Vous pouvez personnaliser ci-dessous les informations de l'article de référence et cliquer sur Modifier. Pour créer des produits associés à cet article de référence, cochez 'Création d'un stock initial à zéro' ou rendez-vous dans Stock > Matière > Nouvelle réception."
+      animal_has_been_imported:  "L’article a été importé. Personnalisez ci-dessous les informations de l'article de référence puis cliquez sur Modifier. Pour créer ensuite des animaux ou des groupes d'animaux associés à cet article de référence, rendez-vous sur Production > Animaux > Nouveau ou Production > Groupe d'animaux > Nouveau."
+      equipment_has_been_imported: "L’article a été importé. Vous pouvez personnaliser ci-dessous les informations de l'article de référence et cliquer sur Modifier. Pour créer ensuite des équipements associés à cet article de référence, rendez-vous dans Production > Équipements > Nouveau."
+      worker_has_been_imported: "L’article a été importé. Vous pouvez personnaliser ci-dessous les informations de l'article de référence et cliquer sur Modifier. Pour créer ensuite des équipiers associés à cet article de référence, rendez-vous dans RH > Équipiers > Nouveau."
       vat_declaration_generated: "La déclaration de TVA a été générée avec succès."
       vat_declaration_in_preparation: "La déclaration de TVA pour la période demandée est en cours de préparation, une notification vous sera envoyée dès qu'elle sera prête."
       x_activity_have_been_autoplanned_successfully:

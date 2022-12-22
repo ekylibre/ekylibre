@@ -1523,6 +1523,8 @@ eng:
       server_error: "Server error"
   labels:
     balance_gap: "balance gap\_"
+    create_zero_intial_stock: Create zero initial stock
+    product_will_be_imported_with_zero_stock: Product with zero initial stock will be created
     phyto_validation_done_with_total_zone: "Phytosanitary validation done with total zone"
     phyto_intervention_alert_if_map_disabled: "Map is diabled; This intervention should require to validate phytosanitary regulations (ZNT, délai de ré-entrée, etc.). Validations are performed with the total plant/land parcel area."
     none_intervention_request_found: "None intervention matches selected rides"
@@ -3763,6 +3765,11 @@ eng:
       unbalanced_journal_entries_are_present_in_year: "Some unbalanced journal entries are present in the financial year."
       unexpected_resource_type: "Unexpected resource type: %{type}"
       update_is_done: "The update has been made"
+      variant_has_been_imported: "Article has been imported. You can customize reference article and click on edit."
+      article_has_been_imported: "Article has been imported. You can customize reference article and click on edit. To create an product associated to this article, you have to go to Stock > Matters > New."
+      animal_has_been_imported: "Article has been imported. You can customize reference article and click on edit. To create an animals or animal groups associated to this article, you have to go to Production > Animals > New or Production > Animal Groups  > new."
+      equipment_has_been_imported:  "Article has been imported. You can customize reference article and click on edit. To create an equipment associated to this article, you have to go to Production > Equipments > New."
+      worker_has_been_imported: "Article has been imported. You can customize reference article and click on edit. To create a worker associated to this article, you have to go to HR > Workers > New."
       vat_declaration_generated: "VAT declaration was successfully generated."
       vat_declaration_in_preparation: "The VAT declaration for the selected period is currently being generated, you will receive a notification as soon as it has been processed."
       x_fixed_asset_depreciations_have_been_bookkept_successfully:
