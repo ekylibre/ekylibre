@@ -393,7 +393,7 @@ module Backend
                   end
 
       if nature_id.present? && (nature = ProductNature.find_by(id: nature_id)).present?
-        type_allocator = Variant::TypeAllocatorService.new(nature: nature)
+        type_allocator = Variants::TypeAllocatorService.new(nature: nature)
         model_klass = type_allocator.find_type.constantize
         attributes[:nature] = nature
       else
@@ -409,8 +409,17 @@ module Backend
     def create
       instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new(permitted_params))
       @key = :product_nature_variant
-      handle_maaid(instance_variable_get("@#{controller_name.singularize}"), params[:phyto_product_id])
-      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      variant = instance_variable_get("@#{controller_name.singularize}")
+      handle_maaid(variant, params[:phyto_product_id])
+      if save_and_redirect(variant,
+                           url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })),
+                           notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
+                           identifier: :name)
+        if params[:create_zero_intial_stock].to_boolean && variant.storable?
+          ::Variants::CreateProductService.call(variant: variant) if params[:create_zero_intial_stock].to_boolean
+        end
+        return
+      end
 
       render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
@@ -421,7 +430,15 @@ module Backend
       t3e(@product_nature_variant.attributes)
       @product_nature_variant.attributes = permitted_params
       handle_maaid(@product_nature_variant, params[:phyto_product_id])
-      return if save_and_redirect(@product_nature_variant, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      if save_and_redirect(@product_nature_variant,
+                           url: params[:redirect] || { action: :show, id: 'id'.c },
+                           notify: (params[:redirect] ? :record_x_updated : false),
+                           identifier: :name )
+        if params[:create_zero_intial_stock].to_boolean && @product_nature_variant.storable?
+          ::Variants::CreateProductService.call(variant: @product_nature_variant)
+        end
+        return
+      end
 
       @form_url = backend_product_nature_variant_path(@product_nature_variant)
       @key = 'product_nature_variant'

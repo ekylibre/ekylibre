@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Variant
+module Variants
   class TypeAllocatorService
 
     attr_reader :category, :nature

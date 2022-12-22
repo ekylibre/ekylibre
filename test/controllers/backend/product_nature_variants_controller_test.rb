@@ -35,6 +35,16 @@ module Backend
       assert_redirected_to edit_backend_product_nature_variant_url(new_variant)
     end
 
+    test '#update with product creation with zero stock' do
+      stockable_variant = create :deliverable_variant
+      create_product_service_mock = Minitest::Mock.new
+      create_product_service_mock.expect(:call, nil, [{ variant: stockable_variant.becomes(Variants::Articles::SeedAndPlantArticle) }])
+      Variants::CreateProductService.stub :call, create_product_service_mock do
+        patch :update, params: { product_nature_variant: crush_hash(stockable_variant.attributes), id: stockable_variant.id, create_zero_intial_stock: 'true' }
+      end
+      create_product_service_mock.verify
+    end
+
     private def crush_hash(hash)
       hash.compact.transform_values { |v| v.is_a?(Hash) ? crush_hash(v) : v }
     end
