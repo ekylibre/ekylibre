@@ -40,40 +40,45 @@ module TechnicalItineraries
         technical_itinerary = TechnicalItinerary.import_from_lexicon(campaign: campaign, activity: activity, technical_workflow_id: technical_workflow.id)
         technical_itinerary_intervention_template_ids = CreateTactic.new(activity: activity, technical_workflow: nil, technical_sequence: nil, campaign: campaign)
                                                                     .create_procedures_and_intervention_templates(technical_itinerary, temp_pn )
-        ti_inter_template_ids = TechnicalItineraryInterventionTemplate.all.pluck(:id)
+        ti_inter_templates = TechnicalItineraryInterventionTemplate.all
+        ti_inter_template_ids = ti_inter_templates.pluck(:id)
         assert_equal( ti_inter_template_ids.sort, technical_itinerary_intervention_template_ids.sort, "Return ids")
 
-        # expected = {
-        #   # technical_itinerary_id: 14,
-        #   # intervention_template_id: 12,
-        #   position: 0,
-        #   day_since_start: 0.14e3,
-        #   repetition: 1,
-        #   frequency: 'per_year'
-        # }
-        # assert_attributes_equal(expected, ti_inter_template)
+        positions = ti_inter_templates.all.pluck(:position).sort
         
-        assert_equal(26, InterventionTemplate.count)
-        # intervention_template = InterventionTemplate.first
-        
-        # product_parameters = intervention_template.product_parameters
-        # assert_equal(3, product_parameters.count)
+        assert_equal((0..31).to_a, positions , 'Recompute positions for technical itinerary intervention templates')
+        ti_inter_template_with_last_position = ti_inter_templates.find_by(position: 31)
 
-        # product_parameter = product_parameters.first
-        # expected = {
-        #   # intervention_template_id: 16,
-        #   product_nature_id: 62,
-        #   product_nature_variant_id: 76,
-        #   # activity_id: 25,
-        #   quantity: 0.1e1,
-        #   unit: "unit",
-        #   type: nil,
-        #   procedure: {"name"=>"", "type"=>"driver"},
-        #   intervention_model_item_id: "SUP_PLO_WIN_LV_driver_permanent_worker",
-        #   technical_workflow_procedure_item_id: nil,
-        #   # product_name: ""
-        # }
-        # assert_attributes_equal(expected,product_parameter)
+        expected_attributes = {
+          # technical_itinerary_id: 8,
+          # intervention_template_id: 206,
+          day_since_start: 0.28e3,
+          repetition: 1,
+          frequency: 'per_year'
+        }
+        
+        assert_attributes_equal(expected_attributes, ti_inter_template_with_last_position)
+        assert_equal(26, InterventionTemplate.count)
+  
+        intervention_template = InterventionTemplate.first
+        
+        product_parameters = intervention_template.product_parameters
+        assert_equal(4, product_parameters.count)
+
+        product_parameter = product_parameters.first
+        expected = {
+          # intervention_template_id: 16,
+          product_nature_id: 62,
+          product_nature_variant_id: 76,
+          # activity_id: 25,
+          quantity: 0.1e1,
+          unit: "unit",
+          type: nil,
+          procedure: {"name"=>"", "type"=>"driver"},
+          intervention_model_item_id: "FER_COM_LV_driver_permanent_worker",
+          technical_workflow_procedure_item_id: nil,
+        }
+        assert_attributes_equal(expected,product_parameter)
 
         assert_equal(26, InterventionTemplateActivity.count)
       end

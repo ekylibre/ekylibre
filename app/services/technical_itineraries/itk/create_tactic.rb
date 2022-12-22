@@ -135,7 +135,6 @@ module TechnicalItineraries
       def update_itpp(itpps, twp, it)
         activity_unit = @activity.size_unit_name
         itpps.each do |itpp|
-          puts itpp.inspect.red
           imi = InterventionModelItem.find(itpp.intervention_model_item_id)
           if %i[input output].include?(itpp.find_general_product_type)
             @logger.info("__311 - Start ITPP input/output #{itpp.id}")
