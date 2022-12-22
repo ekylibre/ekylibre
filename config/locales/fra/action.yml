@@ -1209,6 +1209,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    balance_gap: "Ecart au bilan de\_"
     phyto_validation_done_with_total_zone: "Contrôles effectués sur la surface totale de la zone"
     phyto_intervention_alert_if_map_disabled: "Vous n’utilisez pas la cartographie, cette intervention nécessitant de respecter la réglementation (doses utilisées, ZNT, etc.), les contrôles sont effectués à partir de la surface totale des parcelles ou des cultures."
     none_intervention_request_found: Aucune intervention planifiée ne correspond au(x) trajet(s) selectionné(s)

@@ -544,10 +544,13 @@ class FinancialYear < ApplicationRecord
     balanced_radical_account_classes
   end
 
+  def balance_sheet_balance
+    computation = AccountancyComputation.new(self)
+    computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
+  end
+
   def balanced_balance_sheet?(timing = :prior_to_closure)
     all_account_numbers_to_check = '1 2 3 4 5 6 7 8'
-    computation = AccountancyComputation.new(self)
-    balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
     result = balance_sheet_balance.zero?
     if timing == :prior_to_closure
       return false unless Journal.sum_entry_items(all_account_numbers_to_check, started_on: started_on, stopped_on: stopped_on).zero?

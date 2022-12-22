@@ -1522,6 +1522,7 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    balance_gap: "balance gap\_"
     phyto_validation_done_with_total_zone: "Phytosanitary validation done with total zone"
     phyto_intervention_alert_if_map_disabled: "Map is diabled; This intervention should require to validate phytosanitary regulations (ZNT, délai de ré-entrée, etc.). Validations are performed with the total plant/land parcel area."
     none_intervention_request_found: "None intervention matches selected rides"
