@@ -56,6 +56,7 @@ module Customizable
   end
 
   included do
+    scope :of_custom_data, ->(key, value) {  where("custom_fields ->> ? = ?", key, value)}
     # serialize :custom_fields
 
     # FIXME: Message doesn't appear in form...
