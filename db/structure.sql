@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA lexicon;
+
+
+--
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -1612,7 +1619,8 @@ CREATE TABLE public.bank_statement_items (
     memo character varying,
     accounted_at timestamp without time zone,
     journal_entry_id integer,
-    transaction_nature character varying
+    transaction_nature character varying,
+    provider jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -1658,7 +1666,7 @@ CREATE TABLE public.bank_statements (
     initial_balance_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
     initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     journal_entry_id integer,
-    accounted_at timestamp without time zone
+    accounted_at timestamp without time zone,
 );
 
 
@@ -24654,6 +24662,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220825131358'),
 ('20220907064546'),
 ('20220928131936'),
-('20221027160401');
+('20221027160401'),
+('20221117085001'),
+('20221208093301'),
+('20221220080638');
 
 

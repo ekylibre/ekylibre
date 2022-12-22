@@ -1122,6 +1122,8 @@ bank_statement_items:
   name:
     type: string
     required: true
+  provider:
+    type: jsonb
   transaction_nature:
     type: string
   transaction_number:
