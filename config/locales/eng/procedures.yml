@@ -213,6 +213,7 @@ eng:
     zone: "Zone"
   procedures:
     administrative_tasks: "Administrative tasks"
+    all_in_one_planting: "All-in-one planting"
     all_in_one_sowing: "All-in-one seeding"
     animal_artificial_insemination: "Artificial insemination"
     animal_group_changing: "Animal movement"
