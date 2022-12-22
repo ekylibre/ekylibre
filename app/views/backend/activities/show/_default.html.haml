@@ -8,7 +8,7 @@
 
   = t.export :land_parcel_register, :intervention_register, :activity_cost, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity)
   = t.export :phytosanitary_register, key: Printers::PhytosanitaryRegisterPrinter.build_key(campaign: current_campaign, activity: @activity), label: :print_ift_and_regulatory_register
-  = tool_to(:compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false)
+  = tool_to(:compute_pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, icon: false)
 
 - main_period_selector(:year)
 

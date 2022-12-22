@@ -166,17 +166,19 @@ module Backend
     end
 
     def compute_pfi_report
-      @activity = find_and_check
       campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
-
-      if @activity.present?
-        activity_ids = []
-        activity_ids << @activity.id
-      else
-        activity_ids = Activity.actives.of_campaign(campaign).of_families(PLANT_FAMILY_ACTIVITIES).with_production_nature.pluck(:id)
-      end
-      PfiReportJob.perform_later(campaign, activity_ids, current_user)
+      activities = if params[:id]
+                     Activity.where(id: params[:id])
+                   else
+                     Activity.actives
+                             .of_campaign(campaign)
+                             .of_families(PLANT_FAMILY_ACTIVITIES)
+                             .with_production_nature
+                   end
+      PfiReportJob.perform_later(campaign, activities.pluck(:id), current_user)
       notify_success(:document_in_preparation)
+      redirect_path = params[:id] ? backend_activity_path(activities.first) : backend_activities_path
+      redirect_to redirect_path
     end
 
     # List of productions for one activity

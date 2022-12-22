@@ -1134,8 +1134,9 @@ class Intervention < ApplicationRecord
   end
 
   private def compute_pfi_async
+    return if !eligible_for_pfi_calculation?
+
     campaign = Campaign.find_by(harvest_year: started_at.year)
-    return if campaign.nil?
 
     PfiCalculationJob.perform_later(campaign, [self], creator)
   end
@@ -1157,6 +1158,10 @@ class Intervention < ApplicationRecord
 
   private def during_financial_year_exchange?
     FinancialYearExchange.opened.at(printed_at).exists?
+  end
+
+  private def eligible_for_pfi_calculation?
+    using_phytosanitary? && inputs.any?
   end
 
   class << self

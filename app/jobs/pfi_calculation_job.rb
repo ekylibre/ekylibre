@@ -21,19 +21,35 @@ class PfiCalculationJob < ApplicationJob
       Rails.logger.error error.backtrace.join("\n")
       ExceptionNotifier.notify_exception(error, data: { message: error })
     end
-    notification = perform_as.notifications.build(notification_params(result))
+    notification = perform_as.notifications.build(notification_params(result, interventions))
     notification.save
   end
 
   private
 
-    def notification_params(result)
-      {
+    def notification_params(result, interventions)
+      attributes = {
         message: (result > 0 ? :pfi_have_been_computed : :pfi_have_not_been_computed),
         level: (result > 0 ? :success : :error),
-        target_type: 'Intervention',
         interpolations: {}
       }
+
+      if interventions.length == 1
+        intervention = interventions.first
+        attributes.merge!(
+          {
+            message: (result > 0 ? :pfi_have_been_computed_for_intervention : :pfi_have_not_been_computed_for_intervention),
+            level: (result > 0 ? :success : :error),
+            target_type: 'Intervention',
+            target_url: backend_intervention_path(intervention),
+            interpolations: {
+              name: intervention.name
+            },
+          }
+        )
+      end
+
+      attributes
     end
 
     def pfi_api_down_notification_generation

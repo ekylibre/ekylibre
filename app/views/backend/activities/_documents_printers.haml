@@ -1,6 +1,6 @@
 = dropdown_menu_button(:documents.tl, main_class: "btn btn-default icn btn-print", force_menu: true) do |d|
   - if conditions && @pfi_interventions.any?
-    - d.item :pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, remote: true, icon: false
+    - d.item :pfi_report.tl, { controller: :activities, action: :compute_pfi_report}, icon: false
     - d.separator
   - if @land_parcel_document
     - d.item :land_parcel_register.tl, { controller: :activities, action: action, key: Printers::LandParcelRegisterActivityPrinter.build_key(campaign: current_campaign, activity: @activity), template: @land_parcel_document.id, format: :pdf}, remote: false
