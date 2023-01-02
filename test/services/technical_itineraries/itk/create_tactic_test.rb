@@ -5,7 +5,7 @@ require 'test_helper'
 module TechnicalItineraries
   module Itk
     class CreateTacticTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-      
+
       test '#create_or_update_activity_tactic if technical_workflow' do
         activity = create(:activity, reference_name: :vine )
         technical_workflow = TechnicalWorkflow.of_production(:vine).first
@@ -15,7 +15,7 @@ module TechnicalItineraries
 
         assert_equal(5, activity_tactic.mode_delta)
         assert_equal("sowed", activity_tactic.mode)
-        assert_equal(Date.new(2016,1,11), activity_tactic.planned_on)
+        assert_equal(Date.new(2016, 1, 11), activity_tactic.planned_on)
         assert_equal("Vigne large | P-1", activity_tactic.name)
         assert_equal("vine_farming_vine_intensive_farming_before_planting", activity_tactic.technical_workflow_id)
       end
@@ -45,8 +45,8 @@ module TechnicalItineraries
         assert_equal( ti_inter_template_ids.sort, technical_itinerary_intervention_template_ids.sort, "Return ids")
 
         positions = ti_inter_templates.all.pluck(:position).sort
-        
-        assert_equal((0..31).to_a, positions , 'Recompute positions for technical itinerary intervention templates')
+
+        assert_equal((0..31).to_a, positions, 'Recompute positions for technical itinerary intervention templates')
         ti_inter_template_with_last_position = ti_inter_templates.find_by(position: 31)
 
         expected_attributes = {
@@ -56,12 +56,12 @@ module TechnicalItineraries
           repetition: 1,
           frequency: 'per_year'
         }
-        
+
         assert_attributes_equal(expected_attributes, ti_inter_template_with_last_position)
         assert_equal(26, InterventionTemplate.count)
-  
+
         intervention_template = InterventionTemplate.first
-        
+
         product_parameters = intervention_template.product_parameters
         assert_equal(4, product_parameters.count)
 
@@ -74,11 +74,11 @@ module TechnicalItineraries
           quantity: 0.1e1,
           unit: "unit",
           type: nil,
-          procedure: {"name"=>"", "type"=>"driver"},
+          procedure: { "name"=>"", "type"=>"driver" },
           intervention_model_item_id: "FER_COM_LV_driver_permanent_worker",
           technical_workflow_procedure_item_id: nil,
         }
-        assert_attributes_equal(expected,product_parameter)
+        assert_attributes_equal(expected, product_parameter)
 
         assert_equal(26, InterventionTemplateActivity.count)
       end
