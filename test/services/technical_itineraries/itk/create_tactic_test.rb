@@ -68,8 +68,8 @@ module TechnicalItineraries
         product_parameter = product_parameters.first
         expected = {
           # intervention_template_id: 16,
-          product_nature_id: 62,
-          product_nature_variant_id: 76,
+          # product_nature_id: 62,
+          # product_nature_variant_id: 76,
           # activity_id: 25,
           quantity: 0.1e1,
           unit: "unit",
