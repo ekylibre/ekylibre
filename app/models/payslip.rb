@@ -52,7 +52,7 @@ class Payslip < ApplicationRecord
   include Customizable
   belongs_to :account
   belongs_to :employee, class_name: 'Entity'
-  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :journal_entry
   belongs_to :nature, class_name: 'PayslipNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -81,12 +81,16 @@ class Payslip < ApplicationRecord
       transition draft: :invoice
     end
     event :correct do
-      transition invoice: :draft
+      transition invoice: :draft, if: :has_no_entry?
     end
   end
 
   protect do
     (journal_entry && (journal_entry.closed? || journal_entry.confirmed?))
+  end
+
+  after_destroy do
+    journal_entry.remove if (journal_entry.present? && journal_entry.draft?)
   end
 
   # This callback permits to add journal entries corresponding to the payslip
@@ -110,6 +114,10 @@ class Payslip < ApplicationRecord
 
   def label
     number
+  end
+
+  def has_no_entry?
+    journal_entry&.draft?
   end
 
   def human_status

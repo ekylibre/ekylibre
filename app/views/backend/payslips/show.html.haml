@@ -1,3 +1,6 @@
+= content_for(:heading_toolbar) do
+  = outgoing_payment_badges @payslip
+
 - main_toolbar do |t|
   = t.edit if resource.updateable?
   = t.destroy if resource.destroyable?

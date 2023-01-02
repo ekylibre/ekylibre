@@ -13,22 +13,25 @@
     border: solid 2px;
     display: none;
 
-    &--reconcile, &--accepted, &--allowed {
+    &--reconcile, &--accepted, &--allowed, &--draft {
       color: #4CAF50;
       border-color: #4CAF50;
     }
 
-    &--incident {
+    &--incident, &--confirmed {
       color: $caution-color;
       border-color: $caution-color;
     }
 
-    &--to-reconcile, &--forbidden {
+    &--to-reconcile, &--forbidden, &--closed{
       color: #f44336;
       border-color: #f44336;
     }
   }
 
+  &--closed &__badge--closed,
+  &--draft &__badge--draft,
+  &--confirmed &__badge--confirmed,
   &--reconcile &__badge--reconcile,
   &--incident &__badge--incident,
   &--to-reconcile &__badge--to-reconcile,
