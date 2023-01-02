@@ -90,6 +90,8 @@ class JournalEntry < ApplicationRecord
   end
   has_many :purchase_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
+  has_many :payslips, dependent: :nullify
+  has_many :payslip_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
   has_many :regularizations, dependent: :nullify
   has_many :sales, dependent: :nullify
