@@ -37,4 +37,8 @@ class InterventionModel < LexiconRecord
   include Lexiconable
   has_many :items, class_name: 'InterventionModelItem', foreign_key: :intervention_model_id, dependent: :restrict_with_exception
   has_many :technical_workflow_procedure, class_name: 'TechnicalWorkflowProcedure', foreign_key: :procedure_reference, dependent: :restrict_with_exception
+
+  def procedure
+    Procedo.find(procedure_reference)
+  end
 end

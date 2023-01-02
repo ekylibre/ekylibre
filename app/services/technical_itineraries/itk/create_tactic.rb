@@ -98,7 +98,7 @@ module TechnicalItineraries
             temp_itpp.product_nature_variant_id = nil
             temp_itpp.quantity = 1.0
             temp_itpp.unit = 'unit'
-            temp_itpp.type = nil
+            temp_itpp.type = imi.product_parameter_type
             temp_itpp.procedure = { 'name' => '', 'type' => imi.procedure_item_reference }
             temp_itpp.technical_workflow_procedure_item_id = nil
             temp_itpp.save!

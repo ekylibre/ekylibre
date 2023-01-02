@@ -46,7 +46,11 @@ module TechnicalItineraries
 
         positions = ti_inter_templates.all.pluck(:position).sort
 
+<<<<<<< HEAD
         assert_equal((0..31).to_a, positions, 'Recompute positions for technical itinerary intervention templates')
+=======
+        assert_equal((0..31).to_a, positions , 'Recompute positions for technical itinerary intervention templates')
+>>>>>>> cd9e15b904 (Fix create tactic tests)
         ti_inter_template_with_last_position = ti_inter_templates.find_by(position: 31)
 
         expected_attributes = {
@@ -73,8 +77,8 @@ module TechnicalItineraries
           # activity_id: 25,
           quantity: 0.1e1,
           unit: "unit",
-          type: nil,
-          procedure: { "name"=>"", "type"=>"driver" },
+          type: "InterventionTemplate::Doer",
+          procedure: {"name"=>"", "type"=>"driver" },
           intervention_model_item_id: "FER_COM_LV_driver_permanent_worker",
           technical_workflow_procedure_item_id: nil,
         }
