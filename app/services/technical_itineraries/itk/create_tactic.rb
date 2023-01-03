@@ -153,6 +153,7 @@ module TechnicalItineraries
                   new_itpp.product_nature_variant_id = article.id
                   new_itpp.activity_id = @activity.id
                   new_itpp.quantity = twpi.quantity
+                  new_itpp.type = imi.product_parameter_type
                   new_itpp.unit = "#{base_unit.name}_per_#{activity_unit}"
                   new_itpp.procedure = { 'name' => '', 'type' => imi.procedure_item_reference }
                   new_itpp.intervention_model_item_id = imi.id
