@@ -205,7 +205,7 @@ class InterventionTemplate < ApplicationRecord
         %i[input].include?(symbolized_type)
       end
 
-      private def symbolized_type
+      def symbolized_type
         type.demodulize.downcase.to_sym
       end
   end

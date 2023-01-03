@@ -88,7 +88,10 @@ class TechnicalItinerary < ApplicationRecord
     else
       area = 1.0
     end
-    intervention_templates.map {|i| i.total_cost(area.to_f)}.compact.sum.round(2)
+    intervention_templates.group(:id).count(:id).map do |id, repetition|
+      intervention_template = intervention_templates.find(id)
+      repetition * intervention_template.total_cost(area.to_f)
+    end.compact.sum.round(2)
   end
 
   def global_workload
