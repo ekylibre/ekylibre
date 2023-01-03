@@ -234,26 +234,6 @@ class InterventionTemplate < ApplicationRecord
     end
   end
 
-  # def tools
-  #   procedure_tool = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.tool?) }.compact
-  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_tool)
-  # end
-
-  # def doers
-  #   procedure_doer = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.doer?) }.compact
-  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_doer)
-  # end
-
-  # def inputs
-  #   procedure_input = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.input?) }.compact
-  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_input)
-  # end
-
-  # def outputs
-  #   procedure_output = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.output?) }.compact
-  #   product_parameters.where("procedure ->> 'type' IN (?)", procedure_output)
-  # end
-
   def quantity_of_parameter(product_parameter, area)
     unless %i[input output].include?(product_parameter.find_general_product_type)
       return time_per_hectare * product_parameter.quantity * area
