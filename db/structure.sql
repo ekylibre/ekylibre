@@ -1666,7 +1666,7 @@ CREATE TABLE public.bank_statements (
     initial_balance_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
     initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     journal_entry_id integer,
-    accounted_at timestamp without time zone,
+    accounted_at timestamp without time zone
 );
 
 
@@ -24001,7 +24001,7 @@ ALTER TABLE ONLY public.financial_years
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public,postgis,lexicon;
+SET search_path TO public,postgis,lexicon,marti;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121212122000'),

@@ -219,9 +219,9 @@ module Telepac
 
       def transform_geometry(geometry, srid)
         geom = ::Charta.from_gml(geometry, srid).transform(:WGS84)
-        if !geom.is_simple?
+        if !geom.simple?
           corrected_geom = shape_corrector.try_fix(geom)
-          raise StandardError.new('Invalid geometry') if !corrected_geom.is_simple?
+          raise StandardError.new('Invalid geometry') if !corrected_geom.simple?
 
           geom = corrected_geom.or_raise
         end

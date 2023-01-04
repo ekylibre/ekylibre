@@ -23,34 +23,32 @@ module Interventions
 
         return options if target_parameter.nil?
         return options if existing_rides.blank?
+        return options if matching_targets.blank?
 
-        if matching_targets.any?
-          target_options = matching_targets.map do |target|
-            target_working_zone = compute_target_working_zone(target.shape)
-            {
-              reference_name: target_parameter.name,
-              product_id: target.id,
-              working_zone: target_working_zone,
-            }
-          end
+        target_options = matching_targets.map do |target|
+          target_working_zone = compute_target_working_zone(target.shape)
+          {
+            reference_name: target_parameter.name,
+            product_id: target.id,
+            working_zone: target_working_zone,
+          }
+        end
 
-          options[:working_periods_attributes] = [{
-            started_at: started_at,
-            stopped_at: existing_rides.maximum(:stopped_at)
-          }]
+        options[:working_periods_attributes] = [{
+          started_at: started_at,
+          stopped_at: existing_rides.maximum(:stopped_at)
+        }]
 
-          if  target_parameter_group_name.present?
-            options[:group_parameters_attributes] = target_options.map{ |target| { reference_name:  target_parameter_group_name, targets_attributes: [target] }}
-          else
-            options[:targets_attributes] = target_options
-          end
+        if target_parameter_group_name.present?
+          options[:group_parameters_attributes] = target_options.map{ |t| { reference_name:  target_parameter_group_name, targets_attributes: [t] }}
+        else
+          options[:targets_attributes] = target_options
         end
 
         options
       end
 
       private
-        attr_reader :ride_ids
 
         def working_zone
           @working_zone ||= Rides::ComputeWorkingZone.call(rides: existing_rides)
@@ -72,10 +70,11 @@ module Interventions
         end
 
         def matching_targets
-          @matching_targets ||= target_class.at(started_at).shape_intersecting(working_zone)
+          ap_ids = ActivityProduction.at(started_at).pluck(:id)
+          target_klass.where(activity_production_id: ap_ids).shape_intersecting(working_zone)
         end
 
-        def target_class
+        def target_klass
           return @target_class if @target_class.present?
 
           case target_parameter.name

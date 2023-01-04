@@ -302,6 +302,16 @@ interventions:
       - 'interventions.csv'
     in: 'isaculture'
 
+  ekylibre_rides:
+    format: :archive
+    path: 'rides.zip'
+    files:
+      - 'rides.shp'
+      - 'rides.dbf'
+      - 'rides.shx'
+      - 'rides.prj'
+    in: 'alamano/rides'
+
 accountancy:
   isagri_isacompta_fixed_assets:
     path: 'isacompta/fixed_assets.csv'
