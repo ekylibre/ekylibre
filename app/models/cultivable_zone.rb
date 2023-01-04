@@ -112,6 +112,14 @@ class CultivableZone < ApplicationRecord
     nil
   end
 
+  # return cadastral_land_parcels intersecting cultivable_zone
+  def cadastral_land_parcels
+    cadastrals = RegisteredCadastralParcel.shape_intersecting(shape).order(section: :asc, work_number: :asc)
+    return cadastrals if cadastrals.any?
+
+    nil
+  end
+
   # return protected_water_zones intersecting cultivable_zone
   def protected_water_zones
     water_zones = RegisteredProtectedWaterZone.shape_intersecting(shape)

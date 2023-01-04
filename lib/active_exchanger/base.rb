@@ -5,7 +5,7 @@ module ActiveExchanger
     @@exchangers = {}
 
     CATEGORIES = %i[accountancy animal_farming human_resources none plant_farming purchases sales settings stocks].freeze
-    VENDORS = %i[agro_systemes agrigest agroedi bordeaux_sciences_agro bovins_croissance caj charentes_alliance ebp ekylibre fiea isagri lely_milk_robot lilco logicall milklic none odicom socleo quadra sage square synel synest telepac upra vivescia].freeze
+    VENDORS = %i[agro_systemes agrigest agroedi bordeaux_sciences_agro bovins_croissance caj charentes_alliance ebp ekylibre fiea isagri lely_milk_robot lilco logicall milklic none odicom process_to_wine socleo quadra sage square synel synest telepac upra vivescia].freeze
 
     class << self
       def inherited(subclass)
