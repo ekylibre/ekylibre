@@ -61,6 +61,7 @@ fra:
     ekylibre_pictures: "Images équipements / tiers"
     ekylibre_plants: "Plantations et cultures ‒ Ekylibre"
     ekylibre_purchases: "Achats (CSV) ‒ Ekylibre"
+    ekylibre_rides: "Trajets (ZIP ‒ ’SHP’) ‒ Ekylibre"
     ekylibre_sales: "Ventes (CSV) ‒ Ekylibre"
     ekylibre_settings: "Configuration ‒ Ekylibre"
     ekylibre_storages_json: "Ekylibre storages json" #?

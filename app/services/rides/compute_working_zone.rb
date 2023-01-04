@@ -14,8 +14,13 @@ module Rides
     end
 
     def call
-      line = ::Charta.make_line(ordered_crumbs.pluck(:geolocation))
-      line.to_rgeo.buffer( tool_width / 2)
+      points = if ordered_crumbs.any?
+                 ordered_crumbs.pluck(:geolocation)
+               else
+                 points_from_rides_shapes
+               end
+      line = ::Charta.make_line(points).to_rgeo
+      line.buffer( tool_width / 2 )
     end
 
     private
@@ -32,6 +37,10 @@ module Rides
 
       def ordered_crumbs
         Crumb.where(ride_id: rides.pluck(:id)).order(:read_at)
+      end
+
+      def points_from_rides_shapes
+        rides.order(:started_at).flat_map { |ride| ride.shape.points }
       end
 
   end
