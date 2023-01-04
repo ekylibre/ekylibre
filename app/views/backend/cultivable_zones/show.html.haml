@@ -22,12 +22,18 @@
       .med-info
         %span.title= CultivableZone.human_attribute_name(:soil_nature)
         %span.value= resource.human_soil_nature_name
+    - if resource.cadastral_land_parcels
+      .med-info
+        %span.title= :cadastral_land_parcels.tl
+        %span.value
+          %i.picto{ class: 'picto-land-parcels' }
+          = resource.cadastral_land_parcels.pluck(:section, :work_number).map { |section, work_number| "#{section}#{work_number}" }.to_sentence
     - if resource.protected_water_zones
       .med-info
         %span.title= :protected_water_zones.tl
         %span.value
           %i.picto{ class: 'picto-water-protection' }
-          = resource.protected_water_zones.pluck(:name).to_sentence
+          = resource.protected_water_zones.first.label
     - if resource.theoritical_soil_depths
       .med-info
         %span.title= :theoritical_soil_depths.tl

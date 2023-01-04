@@ -36,4 +36,12 @@ class RegisteredProtectedWaterZone < LexiconRecord
 
   has_geometry :shape
 
+  def label
+    if name.present?
+      name
+    elsif creator_name.present?
+      creator_name
+    end
+  end
+
 end

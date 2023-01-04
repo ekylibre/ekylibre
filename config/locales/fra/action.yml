@@ -1212,6 +1212,7 @@ fra:
     create_zero_intial_stock: Créer un stock initial à zéro
     product_will_be_imported_with_zero_stock: Un produit avec un stock initial à zéro va être automatiquement créé. Vous pourrez le modifier depuis Stock > Matières.
     balance_gap: "Ecart au bilan de\_"
+    cadastral_land_parcels: "Parcelles cadastrales"
     phyto_validation_done_with_total_zone: "Contrôles effectués sur la surface totale de la zone"
     phyto_intervention_alert_if_map_disabled: "Vous n’utilisez pas la cartographie, cette intervention nécessitant de respecter la réglementation (doses utilisées, ZNT, etc.), les contrôles sont effectués à partir de la surface totale des parcelles ou des cultures."
     none_intervention_request_found: Aucune intervention planifiée ne correspond au(x) trajet(s) selectionné(s)
