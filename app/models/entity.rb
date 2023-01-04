@@ -266,7 +266,7 @@ class Entity < ApplicationRecord
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || receptions.any? || shipments.any? || financial_year_with_opened_exchange?
+    of_company? || sales_invoices.any? || outcoming_payments.any? || incoming_payments.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || receptions.any? || shipments.any? || financial_year_with_opened_exchange?
   end
 
   class << self

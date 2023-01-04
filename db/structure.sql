@@ -31,6 +31,15 @@ CREATE SCHEMA public;
 
 
 --
+-- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
+--
+
+CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
+    LANGUAGE c
+    AS '$libdir/pgcrypto', 'pg_random_uuid';
+
+
+--
 -- Name: compute_journal_entry_continuous_number(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -1217,74 +1226,6 @@ ALTER SEQUENCE public.accounts_id_seq OWNED BY public.accounts.id;
 
 
 --
--- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.active_storage_attachments (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    record_type character varying NOT NULL,
-    record_id bigint NOT NULL,
-    blob_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.active_storage_attachments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
-
-
---
--- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.active_storage_blobs (
-    id bigint NOT NULL,
-    key character varying NOT NULL,
-    filename character varying NOT NULL,
-    content_type character varying,
-    metadata text,
-    byte_size bigint NOT NULL,
-    checksum character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.active_storage_blobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
-
-
---
 -- Name: activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1495,8 +1436,8 @@ CREATE TABLE public.intervention_parameters (
     using_live_data boolean DEFAULT true,
     applications_frequency interval,
     specie_variety jsonb DEFAULT '{}'::jsonb,
-    working_zone_area_value numeric(19,4),
-    spray_volume_value numeric(19,4)
+    spray_volume_value numeric(19,4),
+    working_zone_area_value numeric(19,4)
 );
 
 
@@ -2611,8 +2552,7 @@ CREATE TABLE public.bank_statements (
     initial_balance_debit numeric(19,4) DEFAULT 0.0 NOT NULL,
     initial_balance_credit numeric(19,4) DEFAULT 0.0 NOT NULL,
     journal_entry_id integer,
-    accounted_at timestamp without time zone,
-    provider jsonb DEFAULT '{}'::jsonb
+    accounted_at timestamp without time zone
 );
 
 
@@ -10697,20 +10637,6 @@ ALTER TABLE ONLY public.accounts ALTER COLUMN id SET DEFAULT nextval('public.acc
 
 
 --
--- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
-
-
---
--- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
-
-
---
 -- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -12612,22 +12538,6 @@ ALTER TABLE ONLY public.account_balances
 
 ALTER TABLE ONLY public.accounts
     ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
-
-
---
--- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_attachments
-    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
-
-
---
--- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_blobs
-    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -15070,27 +14980,6 @@ CREATE INDEX index_accounts_on_updated_at ON public.accounts USING btree (update
 --
 
 CREATE INDEX index_accounts_on_updater_id ON public.accounts USING btree (updater_id);
-
-
---
--- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
-
-
---
--- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
-
-
---
--- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
 
 
 --
@@ -25802,14 +25691,6 @@ ALTER TABLE ONLY public.intervention_parameter_settings
 
 
 --
--- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.active_storage_attachments
-    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
-
-
---
 -- Name: payslips fk_rails_c3bf0a90b6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -26029,7 +25910,7 @@ ALTER TABLE ONLY public.financial_years
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public,postgis,lexicon;
+SET search_path TO public,postgis,lexicon,marti;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121212122000'),
@@ -26690,11 +26571,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220825131358'),
 ('20220907064546'),
 ('20220928131936'),
-('20221018142504'),
 ('20221027160401'),
 ('20221117085001'),
 ('20221208093301'),
-('20221212171447'),
 ('20221220080638');
 
 

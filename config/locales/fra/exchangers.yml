@@ -61,6 +61,7 @@ fra:
     ekylibre_pictures: "Images équipements / tiers"
     ekylibre_plants: "Plantations et cultures ‒ Ekylibre"
     ekylibre_purchases: "Achats (CSV) ‒ Ekylibre"
+    ekylibre_rides: "Trajets (ZIP ‒ ’SHP’) ‒ Ekylibre"
     ekylibre_sales: "Ventes (CSV) ‒ Ekylibre"
     ekylibre_settings: "Configuration ‒ Ekylibre"
     ekylibre_storages_json: "Ekylibre storages json" #?
@@ -88,6 +89,7 @@ fra:
     logicall_entities: "Clients (CSV) ‒ Logic’All"
     milklic_individual_production: "Production laitière individuelle - Milklic"
     odicom_fec_txt: "FEC import (TXT) - Odicom"
+    process_to_wine_activity_productions_kml: "Parcelles (KML) ‒ Process to wine"
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_i_seven_fec_txt: "FEC import (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
@@ -136,6 +138,7 @@ fra:
     milklic: "Mil'Klic"
     none: "None"
     odicom: "Odicom"
+    process_to_wine: "Process to wine"
     socleo: "Socleo"
     quadra: "Quadra"
     sage: "Sage"
