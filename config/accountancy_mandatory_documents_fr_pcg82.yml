@@ -97,7 +97,7 @@ balance_sheet:
   stocks_middle_products_depreciations: '395 C'
   stocks_end_products: '37 38'
   stocks_end_products_depreciations: '397 C'
-  entities_advance_giveables: '4091' #
+  entities_advance_giveables: '4090 4091' #
   entities_client_receivables: '411 4131 416 417 418'
   entities_client_receivables_depreciations: '491 C'
   entities_others_clients: '412 4132'
