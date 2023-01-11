@@ -325,6 +325,10 @@ eng:
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
+      state:
+        draft: "Draft"
+        ongoing: "Ongoing"
+        repaid: "Repaid"
     map_layer:
       nature:
         background: "Background"

@@ -333,6 +333,10 @@ fra:
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+      state:
+        draft: "Brouillon"
+        ongoing: "En cours"
+        repaid: "Remboursé"
     map_layer:
       nature:
         background: "Fond"
