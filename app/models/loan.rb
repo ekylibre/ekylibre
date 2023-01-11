@@ -72,7 +72,7 @@ class Loan < ApplicationRecord
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
-  enumerize :state, in: %i[draft ongoing repaid], default: :draft, predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
+  enumerize :state, in: %i[draft ongoing repaid], predicates: true, default: :draft, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :activity
   belongs_to :cash
@@ -278,11 +278,6 @@ class Loan < ApplicationRecord
 
   def number
     "L#{id.to_s}_#{started_on.to_s}"
-  end
-
-  # Prints human name of current state
-  def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
   end
 
   def editable?
