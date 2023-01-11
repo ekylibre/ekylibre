@@ -48,11 +48,12 @@ module FinancialYearExchanges
           FROM journal_entries
           JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
           JOIN accounts ON (journal_entry_items.account_id = accounts.id)
-          LEFT JOIN entities ON (
+          LEFT JOIN entities ON
+            (
               accounts.id = entities.supplier_account_id OR
               accounts.id = entities.client_account_id OR
               accounts.id = entities.employee_account_id
-          )
+            ) AND journal_entry_items.name ~ entities.full_name
           LEFT JOIN taxes ON (
               journal_entry_items.tax_id = taxes.id
           )
@@ -130,11 +131,6 @@ module FinancialYearExchanges
             FROM journal_entries
             JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
             JOIN accounts ON (journal_entry_items.account_id = accounts.id)
-            LEFT JOIN entities ON (
-                accounts.id = entities.supplier_account_id OR
-                accounts.id = entities.client_account_id OR
-                accounts.id = entities.employee_account_id
-            )
             LEFT JOIN taxes ON (
                 journal_entry_items.tax_id = taxes.id
             )
@@ -208,11 +204,6 @@ module FinancialYearExchanges
             FROM journal_entries
             JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
             JOIN accounts ON (journal_entry_items.account_id = accounts.id)
-            LEFT JOIN entities ON (
-                accounts.id = entities.supplier_account_id OR
-                accounts.id = entities.client_account_id OR
-                accounts.id = entities.employee_account_id
-            )
             LEFT JOIN taxes ON (
                 journal_entry_items.tax_id = taxes.id
             )
