@@ -4028,6 +4028,8 @@ fra:
       depreciation_failed: "Les immobilisations n’ont pas pu être dépréciées."
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       document_in_preparation: "Votre document est en cours de préparation et une notification vous sera envoyée dès qu'il sera prêt."
+      stand_by_document_transformation: "Votre document a été pris en compte. Il est en attente de traitement"
+      successfully_document_transformation: "Votre document a été correctement transformé"
       document_template_not_handled: "Modèle de document non géré: %{nature}"
       draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
       draft_journal_entries_cannot_be_validated: "Vous devez valider toutes les écritures précédentes avant de valider celles-ci"
@@ -4109,6 +4111,7 @@ fra:
       need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
       need_to_edit_or_correct_entries_before_validating: "Il est nécessaire de corriger ou de supprimer ces écritures avant de réaliser une clôture ou une validation globale du brouillard."
       net_services_and_identifiers_are_always_available_but_are_deprecated_and_will_be_removed_in_next_major_release: "Les services en ligne et les identifiants sont toujours disponibles mais sont deconseillés et seront remplacés dans la prochaine version majeure"
+      network_error: "Erreur de communication réseau"
       new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
       no_activities_found: "Aucunes activités végétales ou viticoles ouvertes"
       no_archived_prints: "Aucune impression déjà archivée"
