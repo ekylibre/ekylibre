@@ -117,13 +117,8 @@ module Backend
       return unless @document = Document.find(params[:id])
 
       # launch OCR to create metadata if does not exist
-      # or show error
       unless @document.klippa_metadata.present?
-        p = PurchaseInvoices::SaisigoOcr.new.post_document_and_parse(@document)
-        if p[:status] != :success
-          notify(p[:message], p[:status])
-          redirect_to params[:redirect] || { action: :show, id: @document.id }
-        end
+        PurchaseInvoices::KlippaOcr.new.post_document_and_parse(@document)
       end
       # launch Parser on metadata to create purchase
       if @document.attach_to_resource && @document.klippa_metadata.present?
@@ -131,7 +126,7 @@ module Backend
         notify :already_transform_purchase_document
         redirect_to backend_purchase_invoice_path(id: purchase_id)
       elsif @document.klippa_metadata.present?
-        klippa_parser = PurchaseInvoices::SaisigoParser.new(@document.id)
+        klippa_parser = PurchaseInvoices::KlippaParser.new(@document.id)
         new_purchase_id = klippa_parser.parse_and_create_invoice
         if new_purchase_id
           redirect_to backend_purchase_invoice_path(id: new_purchase_id)

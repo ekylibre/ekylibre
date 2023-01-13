@@ -124,7 +124,6 @@ gem 'validates_timeliness', '~> 4'
 gem 'devise', '~> 4.7'
 gem 'devise-i18n-views', '~> 0.3.7'
 gem 'devise_invitable', '~> 2.0'
-gem 'googleauth'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-oauth2', '~> 1.7'
 
