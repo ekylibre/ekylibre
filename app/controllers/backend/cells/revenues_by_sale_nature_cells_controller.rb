@@ -6,7 +6,7 @@ module Backend
         if f
           @financial_year = f
           @started_at = f.started_on.to_time
-          @stopped_at = f.stopped_on.to_time
+          @stopped_at = f.stopped_on.end_of_day
         end
       end
     end
