@@ -112,7 +112,6 @@ yarn-debug.log*
 
 .env
 
-ekylibre_saisigo_keys.json
 OFFER
 
 # Remote rubocop configurations
