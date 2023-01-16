@@ -393,7 +393,7 @@ module Backend
                   end
 
       if nature_id.present? && (nature = ProductNature.find_by(id: nature_id)).present?
-        type_allocator = Variants::TypeAllocatorService.new(nature: nature)
+        type_allocator = ::Variants::TypeAllocatorService.new(nature: nature)
         model_klass = type_allocator.find_type.constantize
         attributes[:nature] = nature
       else
