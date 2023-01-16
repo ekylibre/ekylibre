@@ -1161,6 +1161,7 @@ html.backend {
       line-height: $lh-normal;
     }
     h3 {
+      white-space: nowrap;
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
       @include margin-right($default-gap * 4);

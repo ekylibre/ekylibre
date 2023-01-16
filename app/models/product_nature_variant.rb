@@ -98,6 +98,8 @@ class ProductNatureVariant < ApplicationRecord
   has_many :reception_items, class_name: 'ReceptionItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :shipment_items, class_name: 'ShipmentItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :inventory_items, through: :products
+  has_many :inventories, through: :inventory_items
   has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -633,6 +635,10 @@ class ProductNatureVariant < ApplicationRecord
   def relevant_stock_indicator(dimension)
     indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dimension.to_sym]
     indicator_name ? send(indicator_name) : Measure.new(1, :unity)
+  end
+
+  def last_inventory
+    inventories.order(:achieved_at).last
   end
 
   class << self
