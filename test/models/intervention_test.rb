@@ -219,6 +219,11 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal(0.5, target.imputation_ratio)
   end
 
+  test '#human_working_duration return duration rounded at 2 decimal places with unit' do
+    intervention = build_stubbed(:intervention, working_duration: 5400)
+    assert_equal('1.50 h', intervention.human_working_duration)
+  end
+
   def add_harvesting_intervention(target, stopped_at)
     Intervention.create!(
       procedure_name: :harvesting,
@@ -248,4 +253,5 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       InterventionWorkingPeriod.new(started_at: now - 30.minutes, stopped_at: now, nature: 'travel')
     ]
   end
+
 end
