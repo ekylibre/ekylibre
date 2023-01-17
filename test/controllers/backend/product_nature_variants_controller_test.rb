@@ -38,7 +38,7 @@ module Backend
     test '#update with product creation with zero stock' do
       stockable_variant = create :deliverable_variant
       create_product_service_mock = Minitest::Mock.new
-      create_product_service_mock.expect(:call, nil, [{ variant: stockable_variant.becomes(Variants::Articles::SeedAndPlantArticle) }])
+      create_product_service_mock.expect(:call, nil, variant: stockable_variant.becomes(Variants::Articles::SeedAndPlantArticle))
       Variants::CreateProductService.stub :call, create_product_service_mock do
         patch :update, params: { product_nature_variant: crush_hash(stockable_variant.attributes), id: stockable_variant.id, create_zero_intial_stock: 'true' }
       end
