@@ -15,8 +15,8 @@ module Backend
     test '#link_rides_to_planned' do
       intervention = create(:intervention, nature: :request)
       ride = create(:ride)
-      mock= MiniTest::Mock.new
-      mock.expect(:call, nil, [intervention, [ride], { perform_as: @user }])
+      mock = MiniTest::Mock.new
+      mock.expect(:call, nil, [intervention, [ride]], perform_as: @user)
       ::Interventions::LinkRidesToPlannedJob.stub(:perform_later, mock) do
         put :link_rides_to_planned, xhr: true, params: { id: intervention.id, ride_ids: [ride.id] }
       end

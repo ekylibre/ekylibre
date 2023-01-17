@@ -233,7 +233,7 @@ group :test do
 
   gem 'database_cleaner', '~> 1.8'
 
-  gem 'minitest', "~> 5.14"
+  gem 'minitest', "~> 5.17.0"
   gem 'minitest-reporters', '~> 1.4'
 
   gem 'factory_bot', '< 5'
