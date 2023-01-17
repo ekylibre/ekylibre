@@ -74,6 +74,7 @@ class ProductNatureCategory < ApplicationRecord
   belongs_to :product_account, class_name: 'Account'
   belongs_to :stock_account, class_name: 'Account'
   belongs_to :stock_movement_account, class_name: 'Account'
+  has_many :inventories
   has_many :products, foreign_key: :category_id, dependent: :restrict_with_exception
   has_many :taxations, class_name: 'ProductNatureCategoryTaxation', dependent: :destroy
   has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :category_id, inverse_of: :category, dependent: :restrict_with_exception
