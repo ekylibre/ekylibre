@@ -466,7 +466,7 @@ module ApplicationHelper
   end
 
   def button_group(options = {}, &block)
-    options[:class] = options[:class].to_s + ' btn-group'
+    options[:class] = options[:class].to_s + ' btn btn-group'
     content_tag(:div, options, &block)
   end
 
