@@ -271,6 +271,7 @@ countries:
 varieties:
   acer: varieties/acer.jpg
   actinopterygii: varieties/actinopterygii.jpg
+  administrative: varieties/administrative.jpg
   adoxaceae: varieties/adoxaceae.jpg
   ajuga: varieties/ajuga.jpg
   allium: varieties/allium.jpg
@@ -309,6 +310,7 @@ varieties:
   brassica_rapa_pekinensis: varieties/brassica_rapa_pekinensis.jpg
   brassica_rapa_rapa: varieties/brassica_rapa_rapa.jpg
   bromus: varieties/bromus.jpg
+  calf: varieties/calf.jpg
   canidae: varieties/canidae.jpg
   cannabis: varieties/cannabis.jpg
   capra: varieties/capra.jpg
@@ -347,10 +349,12 @@ varieties:
   dactylis: varieties/dactylis.jpg
   daucus: varieties/daucus.jpg
   diervillaceae: varieties/diervillaceae.jpg
+  direct_sale: varieties/direct_sale.jpg
   elaeagnus: varieties/elaeagnus.jpg
   equidae: varieties/equidae.jpg
   eruca: varieties/eruca.jpg
   eucalyptus: varieties/eucalyptus.jpg
+  external_service: varieties/external_service.jpg
   fagopyrum: varieties/fagopyrum.jpg
   fagus: varieties/fagus.jpg
   felidae: varieties/felidae.jpg
@@ -367,6 +371,7 @@ varieties:
   glycine: varieties/glycine.jpg
   gossypium: varieties/gossypium.jpg
   guizotia: varieties/guizotia.jpg
+  heifer: varieties/heifer.jpg
   helianthus: varieties/helianthus.jpg
   helianthus_tuberosus: varieties/helianthus_tuberosus.jpg
   hevea: varieties/hevea.jpg
@@ -376,6 +381,7 @@ varieties:
   humulus: varieties/humulus.jpg
   hydrangeaceae: varieties/hydrangeaceae.jpg
   hypericum: varieties/hypericum.jpg
+  indirect_sale: varieties/indirect_sale.jpg
   insecta: varieties/insecta.jpg
   ipomoea_batatas: varieties/ipomoea_batatas.jpg
   juglans: varieties/juglans.jpg
@@ -398,10 +404,15 @@ varieties:
   malva: varieties/malva.jpg
   mangifera: varieties/mangifera.jpg
   manihot: varieties/manihot.jpg
+  maintenance: varieties/maintenance.jpg
+  meat_cow: varieties/meat_cow.jpg
+  meat_laboratory: varieties/meat_laboratory.jpg
   medicago: varieties/medicago.jpg
   melilotus: varieties/melilotus.jpg
   melissa: varieties/melissa.jpg
   mentha: varieties/mentha.jpg
+  milk_cow: varieties/milk_cow.jpg
+  milk_laboratory: varieties/milk_laboratory.jpg
   miscanthus: varieties/miscanthus.jpg
   morus: varieties/morus.jpg
   musa: varieties/musa.jpg
@@ -471,10 +482,14 @@ varieties:
   valeriana: varieties/valeriana.jpg
   valerianella: varieties/valerianella.jpg
   vanilla: varieties/vanilla.jpg
+  vegetable_laboratory: varieties/vegetable_laboratory.jpg
   veronica: varieties/veronica.jpg
   vicia: varieties/vicia.jpg
   vigna: varieties/vigna.jpg
   viola: varieties/viola.jpg
   vitex: varieties/vitex.jpg
   vitis: varieties/vitis.png
+  wine_storehouse: varieties/wine_storehouse.jpg
+  winery: varieties/winery.jpg
+  young_bull: varieties/young_bull.jpg
   zea: varieties/zea.jpg
