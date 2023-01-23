@@ -5,18 +5,17 @@ module NomenHelper
   COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze
   COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
 
-  def item_avatar_path(item)
+  def item_avatar_path(item, reference_name = nil)
     nomenclature = AVATARS[item.nomenclature.table_name]
     return nil unless nomenclature
 
-    item.rise { |i| nomenclature[i.name] }
+    nomenclature[reference_name] || item.rise { |i| nomenclature[i.name] }
   end
 
   def activity_avatar_path(activity)
-    if (variety = Onoma::Variety.find(activity.cultivation_variety))
-      path = item_avatar_path(variety)
-    end
-    path ||= item_avatar_path Onoma::ActivityFamily.find(activity.family)
+    variety = Onoma::Variety.find(activity.cultivation_variety)
+    path = item_avatar_path(variety, activity.reference_name)
+    path ||= item_avatar_path(Onoma::ActivityFamily.find(activity.family))
     path
   end
 

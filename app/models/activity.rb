@@ -140,7 +140,6 @@ class Activity < ApplicationRecord
 
   validates :life_duration, presence: true, if: -> { animal_farming? }
   validates :start_state_of_production_year, :life_duration, absence: true, if: -> { annual? && !plant_farming? && !vine_farming? }
-  validates :production_nature, absence: true, if: -> { !vine_farming? && !plant_farming? }
 
   validates_associated :tactics
   accepts_nested_attributes_for :tactics, allow_destroy: true
