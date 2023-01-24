@@ -6,6 +6,8 @@ module NomenHelper
   COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
 
   def item_avatar_path(item, reference_name = nil)
+    return nil unless item
+
     nomenclature = AVATARS[item.nomenclature.table_name]
     return nil unless nomenclature
 
