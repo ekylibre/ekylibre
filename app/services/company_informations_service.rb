@@ -28,6 +28,7 @@ class CompanyInformationsService
     address = build_address(address_etablissement)
     full_address = [address, city].join(' ')
     coordinates = get_geolocation(full_address)
+
     {
       company_name: etablissement.dig(:uniteLegale, :denominationUniteLegale),
       address: address,
@@ -61,6 +62,8 @@ class CompanyInformationsService
 
     def get_geolocation(address)
       response = address_info_client.get_address(address)
+      return {} unless response.dig(:features, 0, :geometry, :coordinates)
+
       response[:features][0][:geometry][:coordinates]
     end
 
