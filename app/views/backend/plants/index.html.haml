@@ -21,9 +21,7 @@
       %span.range-maximum.range-maximum--plant= max.l(precision: 0)
 
 - main_toolbar do
-  = dropdown_menu_button(:generate_plant.tl, main_class: "btn btn-default #{'disabled' if LandParcel.count.zero? && Matter.of_variety("seed").count.zero?}") do |d|
-    - planting_and_sowing_procedures.each do |variety|
-      - d.item variety.tl, { controller: "/backend/interventions", action: :new, procedure_name: variety }
+  = new_planting_and_sowing_dropdown(:generate_plant.tl)
 
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?

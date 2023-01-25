@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="mechanical_planting" categories="planting" actions="planting">
+  <procedure name="mechanical_planting" categories="planting" actions="planting" position="23" >
     <parameters>
       <group name="zone">
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
