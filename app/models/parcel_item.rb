@@ -76,9 +76,8 @@ class ParcelItem < ApplicationRecord
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id', class_name: 'PurchaseItem'
   belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', class_name: 'PurchaseItem'
-
   belongs_to :product
-  belongs_to :sale_item
+  belongs_to :sale_item, inverse_of: :shipment_items # for a sale order who create shipments
   belongs_to :delivery
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :source_product, class_name: 'Product'
@@ -96,10 +95,11 @@ class ParcelItem < ApplicationRecord
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :annotation, length: { maximum: 500_000 }, allow_blank: true
+  validates :conditioning_quantity, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }, allow_blank: true
   validates :currency, :non_compliant_detail, :product_identification_number, :product_name, :product_work_number, :role, length: { maximum: 500 }, allow_blank: true
   validates :merge_stock, :non_compliant, inclusion: { in: [true, false] }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
-  validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :population, :unit_pretax_sale_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
 
@@ -125,7 +125,7 @@ class ParcelItem < ApplicationRecord
     if variant
       catalog_item = variant.catalog_items.of_usage(:stock)
       if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
-        self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
+        self.unit_pretax_stock_amount ||= catalog_item.first.pretax_amount
       end
     end
 
@@ -143,6 +143,8 @@ class ParcelItem < ApplicationRecord
 
     true
   end
+
+  before_save :update_quantity_with_conditioning_quantity
 
   validate do
     computed_population = storings.map(&:quantity).reduce(&:+) || 0
@@ -203,6 +205,14 @@ class ParcelItem < ApplicationRecord
 
     purchase_invoice_item.purchase.number
   end
+
+  private
+
+    def update_quantity_with_conditioning_quantity
+      return unless conditioning_quantity_changed?
+
+      self.quantity = conditioning_quantity
+    end
 
   protected
 

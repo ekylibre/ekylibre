@@ -3,7 +3,7 @@
 
 - main_toolbar class: 'main-toolbar-fullwidth' do |t|
   = t.export(:purchases_invoice, target: "_blank")
-  
+
   = t.edit resource if resource.updateable?
   = t.new label: :duplicate.tl, params: { duplicate_of: resource.id, redirect: nil }
   = t.destroy
@@ -34,6 +34,11 @@
     - l.attribute :undelivered_invoice_journal_entry, url: true if resource.undelivered_invoice_journal_entry
     - l.attribute :quantity_gap_on_invoice_journal_entry, url: true if resource.quantity_gap_on_invoice_journal_entry
 
+
+- ocr_document = resource.has_klippa_ocr_attachment
+- if ocr_document
+  = render 'ocr', document: ocr_document
+
 = cobbles do |c|
 
   - c.cobble :items, title: PurchaseInvoice.human_attribute_name(:items) do
@@ -45,7 +50,7 @@
 
   - if resource.affair
     - c.cobble :affair do
-      = affair_of(resource, default: 'PurchasePayment')
+      = affair_of(resource, default: 'PurchasePayment', url_options: { purchase_payment: { responsible_id: resource.responsible_id, mode_id: resource.supplier.supplier_payment_mode&.id, paid_at: resource.payment_at, to_bank_at: resource.payment_at } })
 
   - if resource.receptions.any?
     - c.cobble :receptions, title: PurchaseInvoice.human_attribute_name(:receptions) do

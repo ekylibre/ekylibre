@@ -13,7 +13,7 @@ module NavigationHelper
     def initialize(pg_error, *args)
       column = pg_error.message.split('"').second
       error_message = "Column #{column} is specified in order but isn't present in table columns."
-      super(error_message, pg_error.backtrace, *args)
+      super(error_message)
     end
   end
 

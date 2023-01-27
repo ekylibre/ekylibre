@@ -64,11 +64,12 @@ module Backend
       t.column :cash, url: true
       t.status
       t.column :activity, url: true
-      t.column :state_label, hidden: true
+      t.column :state, hidden: true
       t.column :started_on
       t.column :repayment_duration
       t.column :repayment_period
-      t.column :shift_duration
+      t.column :shift_duration, hidden: true
+      t.column :journal_entry, url: true, hidden: true
     end
 
     list :repayments, model: :loan_repayments, conditions: { loan_id: 'params[:id]'.c } do |t|

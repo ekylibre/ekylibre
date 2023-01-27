@@ -24,7 +24,7 @@ fra:
     depreciations_inputations_expenses: "Charges des imputations des dépréciations" #?
     derivative: "Dérivé" #?
     doer: "Opérateur" #?
-    doer_cost: "Cout de main d'oeuvre"
+    doer_cost: "Cout de main d'œuvre"
     doer_name: "Acteur"
     doers_name: "Nom des acteurs"
     duration_in_hour: "Durée (heures)"
@@ -66,7 +66,7 @@ fra:
     milk_saleable_on: "Lait vendable le"
     milk_withdrawal_period: "Période de retrait du lait"
     name: "Nom"
-    nature: "Type"
+    nature: "Profil"
     net_revenue: "Revenu net" #?
     net_surface_area: "Surface nette"
     nitrogen_balance: "Balance azotée" #?
@@ -92,7 +92,7 @@ fra:
     previous_production_name: "Précédente production" #?
     printed_on: "Imprimé le" #?
     product_account_label: "Compte de produits" #?
-    product_nature_name: "Type de produit" #?
+    product_nature_name: "Profil fonctionnel" #?
     production_support: "Support à la production"
     productions_sales: "Ventes de productions" #?
     products_purchases: "Achats de produits" #?
@@ -124,8 +124,8 @@ fra:
     tools_name: "Nom de l'outil"
     total_cost_per_area: "Coût total par zone" #?
     variable_name: "Variable" #?
-    variant_name: "Variante"
-    variant_variety: "Variété de la variante" #?
+    variant_name: "Article"
+    variant_variety: "Variété de l'article" #?
     vine_yield: "Rendement en vin" #?
     wages: "Salaires" #?
     working_area: "Superficie travaillée"

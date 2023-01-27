@@ -21,18 +21,20 @@
     $(this).toggleClass("active").checkAccesses()
     return false
 
-    # Through a "role" selector, it can refresh totally on access check
-  $(document).on "selector:change", "*[data-selector][data-refresh-access-control-list]", ->
+  # Through a "role" selector, it can refresh totally on access check
+  $(document).on "selector:change", "*[data-selector][data-refresh-access-control-list]", (_event, _selectedElement, was_initializing) ->
+    if was_initializing
+      return
     element = $(this)
     $.ajax element.data("refresh-access-control-list").replace(/ID/g, element.selector("value")),
       dataType: "json"
       success: (data, status, response) ->
-        $("*[data-access]").removeClass("active");
+        $("*[data-access]").removeClass("active")
         # console.log data.rights
         for resource, actions of data.rights
           for action in actions
             $("*[data-access='#{action}-#{resource}']").addClass("active")
-        $("*[data-access]").checkAccesses();
+        $("*[data-access]").checkAccesses()
       error: E.ajaxErrorHandler
 
     return true

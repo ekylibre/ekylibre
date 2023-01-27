@@ -20,8 +20,7 @@
               = render 'backend/notifications/item', notification: notification
 
           = link_to :manage_notifications.tl, backend_notifications_path(redirect: request.fullpath), class: 'notifications-menu__link text-center'
-
-    %li= link_to(content_tag(:i, nil, class: 'icon icon-help'), "https://doc.ekylibre.com/v2", title: :help.tl, target: :_blank)
+    %li= link_to(content_tag(:i), toggle_backend_helps_path, data: {toggle: 'help'}, title: :help.tl, class: (help_shown? ? [:active] : []))
 
 %nav#top
 
@@ -38,18 +37,17 @@
 
   .collapse
 
-    - if true # current_part
-      %ul#parts
-        - Ekylibre::Navigation.parts.each do |part|
-          - next unless part_authorized?(part)
-          %li.separator
-          :ruby
-            attrs = {id: "#{part.name}-part"}
-            attrs[:class] = :active if current_part == part
-          %li{attrs}
-            = link_to(controller: "/#{ part.default_page.controller }", action: part.default_page.action) do
-              %i
-              = part.human_name
+    %ul#parts
+      - Ekylibre::Navigation.parts.each do |part|
+        - next unless part_authorized?(part)
+        %li.separator
+        :ruby
+          attrs = {id: "#{part.name}-part"}
+          attrs[:class] = :active if current_part == part
+        %li{attrs}
+          = link_to(controller: "/#{ part.default_page.controller }", action: part.default_page.action) do
+            %i
+            = part.human_name
 
     %ul#user
       = main_tools

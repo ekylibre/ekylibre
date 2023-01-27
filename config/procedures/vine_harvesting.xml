@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="vine_harvesting" categories="harvesting" actions="harvest">
+    <parameters>
+      <target name="plant" filter="is vitis and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <handler indicator="shape">
+          <compute to="shape" expr="intersection(VALUE, PRODUCT.shape)"/>
+          <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
+        </handler>
+      </target>
+      <output name="matters" derivative-of="variety: vitis" filter="derives from vitis" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <attribute name="new_name"/>
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="quintal"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(quintal)"
+                 forward="VALUE / VARIANT.net_mass(quintal)"/>
+        <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="quintal_per_hectare"
+                 if="sum_working_zone_areas(plant, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
+                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum_working_zone_areas(plant, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / VARIANT.net_mass(quintal)"/>
+        <handler name="mass_area_density_in_ton" indicator="mass_area_density" unit="ton_per_hectare"
+                 if="sum_working_zone_areas(plant, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
+                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum_working_zone_areas(plant, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / VARIANT.net_mass(ton)"/>
+        <handler indicator="net_volume" unit="hectoliter"
+                 if="VARIANT? and VARIANT.net_volume?"
+                 backward="POPULATION * VARIANT.net_volume(hectoliter)"
+                 forward="VALUE / VARIANT.net_volume(hectoliter)"/>
+        <handler indicator="volume_area_density" unit="hectoliter_per_hectare"
+                 if="sum_working_zone_areas(plant, :hectare) >= 0.1 and VARIANT? and VARIANT.net_volume?"
+                 backward="(POPULATION * VARIANT.net_volume(hectoliter)) / sum_working_zone_areas(plant, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(plant, :hectare)) / VARIANT.net_volume(hectoliter)"/>
+      </output>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can harvest(plant))" cardinality="*"/>
+      <tool name="cropper" filter="is equipment and can harvest(plant)" cardinality="*"/>
+      <tool name="implement" filter="is trailed_equipment and can store(matter)" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

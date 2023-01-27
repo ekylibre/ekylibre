@@ -148,8 +148,13 @@
       return if newTime == ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
-        re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
-        scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3")
+        target = $(item).data('intervention-updater').search(/targets/i)
+        if target != -1
+          re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)(scope\[land_parcel_alive\]\[\]\[at\]=)(.*?)(&)/
+          scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3" + "$4" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$6")
+        else
+          re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)/
+          scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
     _setWaiting: (form, computing) ->
@@ -205,6 +210,12 @@
               quantity = $(parentBlock).find('input[data-intervention-field="quantity-value"]').val()
               unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
               E.interventionForm.displayCost(targettedElement, quantity, unitName)
+
+            isUsingMap = $("[data-intervention-updater$='working_zone_area_value']").length == 0 
+            isTargetProductUpdate = data.updater_id.includes('targets_attributes') && data.updater_id.includes('product_id')
+
+            if isUsingMap && isTargetProductUpdate
+              refreshQuantityWithDelay()
 
     hideKujakuFilters: (hideFilters) ->
       if hideFilters
@@ -303,10 +314,10 @@
             if intervention_id? && item.is_reception
               itemLine.push("<span class='item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][id]' value='#{item.id}' type='hidden'></input></span>")
             itemLine.push("<span class='item-name'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][variant_id]' value='#{item.variant_id}' type='hidden'></input>" + item.name + "</span>")
-            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_quantity]' value ='#{item.quantity_to_receive}'></input></span>")
+            itemLine.push("<span class='item-quantity'><input type='number' class='input-quantity' name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_quantity]' value ='#{item.quantity}'></input></span>")
             itemLine.push("<span class='item-conditioning-unit'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][conditioning_unit_id]' value='#{item.conditioning_unit_id}' type='hidden'></input>#{item.conditioning_unit_name}</span>")
             itemLine.push("<span class='item-unit-pretax-amount'>" + item.unit_pretax_amount + "</span>")
-            itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.quantity_to_receive +  "</span>")
+            itemLine.push("<span class='item-amount'>" + item.unit_pretax_amount * item.quantity +  "</span>")
             itemLine.push("<span class='item-role'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][role]' value='#{item.role}' type='hidden'></input></span>")
             itemLine.push("<span class='item-purchase-order-item-id'><input name='intervention[receptions_attributes][0][items_attributes][#{-index}][purchase_order_item_id]' value='#{item.purchase_order_item}' type='hidden'></input></span>")
             $('.purchase-items-array').append("<li class='item-line'>" + itemLine.join('') + "</li>")
@@ -354,9 +365,9 @@
     # Stopped_at is not automaticaly updated to started_at + 1 hour if stopped_at is manually updated
     E.interventionForm.setupStoppedAtInputBehaviour()
 
-  $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, options) ->
-      # Don't refresh values if selector is initializing
-      return if options? && options['initializing']
+  $(document).on 'selector:change', '*[data-intervention-updater]', (event, _element, wasInitializing) ->
+      return if wasInitializing
+
       $(this).each ->
         options = {}
         options['display_cost'] = true
@@ -487,7 +498,7 @@
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement, nestedProductParameterBlock)
 
 
-  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event) ->
+  $(document).on 'selector:change', '.nested-parameters .nested-plant .intervention_targets_product .selector-search', (event, _selectedElement, wasInitializing) ->
     landParcelPlantSelectorElement = $(event.target).closest('.nested-product_parameter').find('.land-parcel-plant-selector')
     productId = $(event.target).closest('.selector').find('.selector-value').val()
 
@@ -497,6 +508,17 @@
 
     E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
+    
+  $(document).on 'selector:change', "[data-selector-id=intervention_target_product_id]", (event, _selectedElement, wasInitializing) ->
+    if wasInitializing
+      return
+
+    productId = $(this).next().val()
+    $workingZoneAreaInput = $(this).closest('.nested-targets').find("[class$='targets_working_zone_area'] input")
+    if $workingZoneAreaInput.length == 0
+      return
+
+    E.interventionForm.setWorkingZoneArea(productId, $workingZoneAreaInput)
 
   $(document).on 'change', '#compare-planned-and-realised', (event) ->
     $.ajax
@@ -560,6 +582,8 @@
       if unitName
         intervention['unit_name'] = unitName
 
+      return if Object.values(intervention).every( (val) -> val == undefined)
+
       $.ajax
         url: "/backend/interventions/costs/parameter_cost",
         data: { intervention: intervention }
@@ -584,7 +608,6 @@
             landParcelPlantSelectorElement.find('.land-parcel-radio-button').prop('checked', true)
           else
             landParcelPlantSelectorElement.find('.plant-radio-button').prop('checked', true)
-
 
     checkHarvestInProgress: (event, productId, landParcelPlantSelectorElement, nestedCultivationBlock = null) ->
       interventionNature = $('.intervention_nature input[type="hidden"]').val()
@@ -633,6 +656,17 @@
         started_at = $('#intervention_working_periods_attributes_0_started_at').val()
         $(this).each ->
           E.interventions.updateAvailabilityInstant(started_at)
+    
+    setWorkingZoneArea: (productId, $workingZoneAreaInput) ->
+      $.ajax
+        url: "/backend/products/#{productId}.json",
+        success: (data, status, request) ->
+          workingZoneAreaValue = data.netSurfaceAreaInHectare
+          return unless workingZoneAreaValue
+
+          $workingZoneAreaInput.val(workingZoneAreaValue).trigger('input')
+
+
 
   $(document).ready ->
 
@@ -1021,6 +1055,93 @@
       if $(".harvest-warning").length == 1 && data.action == "reentry" && moment.duration(data.period_duration).asHours() == 8
         addTwoHours = I18n.translate("front-end.intervention.nature.add_two_hours")
         $(".harvest-warning").append("<span>#{addTwoHours}</span>")
+
+  settingForm = {
+    updateInsertedSettingName: ($settingField, insertedItem) ->
+      builtCount = $settingField.find(".parameter-setting").length
+      $nameInput = insertedItem.find('[name$="[name]"]')
+      name = $nameInput.val()
+      nameIndexRegex = /[0-9]*$/ #match 15 in 'Réglage nº15'
+      newName = name.replace(nameIndexRegex, builtCount )
+      $nameInput.val(newName)
+  }
+
+  $(document).on('cocoon:after-insert', '#parameter-settings', (e, insertedItem ) ->
+    settingForm.updateInsertedSettingName($(this), insertedItem)
+  )
+
+  productService = new E.ProductService()
+
+  sprayerForm = {
+    selectors: {
+      toolInput: '.intervention_tools_product [data-selector]'
+      editSprayerLink: '#edit-product'
+      configureProductDiv: '#configure-product'
+      reloadSprayerLink: '#configure-product i'
+    },
+
+    handleConfigureProductDiv: ($nestedField) ->
+     $configureProductDiv = $nestedField.find(sprayerForm.selectors.configureProductDiv)
+     $configureProductDiv.css('display', 'inline-block')
+
+    handleLinkToProductEdit: ($nestedField, id) ->
+      $editSprayerLink = $nestedField.find(sprayerForm.selectors.editSprayerLink)
+      $editSprayerLink.attr("href", $editSprayerLink.attr("href").replace(/[0-9]*(?=\/edit)/, id))
+
+    setReadings: ($nestedField, readings) ->
+      regex = /\[([^\]\[]+)\]$/
+      for _i, reading of readings
+        $readingDiv = $nestedField.find(".#{reading.indicator_name}")
+        $readingDiv.find('input').each( (_index) ->
+          match = regex.exec(this.name)
+          name = match[1]
+          if this.disabled == true
+            this.setAttribute('value', reading['measure_value_unit_symbol'])
+          else
+            this.setAttribute('value', reading[name])
+            # this.classList.add('disabled')
+        )
+
+    updateReadingInputs: ($selector, id) ->
+      productService.get(id).then( (product) ->
+        sprayerForm.setReadings($selector, product.readings)
+      )
+
+    onSelectorChange: ($selector, id) ->
+      $nestedField = $selector.parents(".nested-fields")
+      @handleLinkToProductEdit($nestedField, id)
+      @handleConfigureProductDiv($nestedField)
+      @updateReadingInputs($nestedField,id)
+  }
+
+  $(document).on 'selector:change', sprayerForm.selectors.toolInput, (_event, _selectedElement, was_initializing) ->
+    if was_initializing
+      return
+    id = $(@).next().val()
+    sprayerForm.onSelectorChange($(@), id)
+
+  $(document).on 'click', sprayerForm.selectors.reloadSprayerLink, (event) ->
+    $nestedField = $(this).parents(".nested-fields")
+    productId = $nestedField.find(sprayerForm.selectors.toolInput).next().val()
+    sprayerForm.updateReadingInputs($nestedField,productId)
+  
+  refreshQuantityWithDelay =  -> 
+    $("*[data-intervention-updater$='quantity_value']").each (i) -> 
+      that = this
+      debounceTime = 1000 * (1 + i * 2) # Refresh won't be performed if executed at the same time, each quantity refresh will be performed every seconds
+      _.debounce( ->
+        E.interventions.refresh $(that)
+      , debounceTime)()
+
+  refreshQuantityWhenTargetChange = ->
+    $(document).on 'mapchange', "[data-intervention-updater$='working_zone']",
+      refreshQuantityWithDelay
+
+    $(document).on 'input', "[data-intervention-updater$='working_zone_area_value']",
+      refreshQuantityWithDelay
+
+  # Hack: we need to recompute quantity population when target change
+  refreshQuantityWhenTargetChange()
 
 
 ) ekylibre, jQuery

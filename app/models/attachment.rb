@@ -48,7 +48,7 @@ class Attachment < ApplicationRecord
 
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :deleted_at, :expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :resource_type, presence: true, length: { maximum: 500 }
   validates :document, :resource, presence: true
   # ]VALIDATORS]

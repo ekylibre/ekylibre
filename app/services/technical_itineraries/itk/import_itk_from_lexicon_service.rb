@@ -30,7 +30,7 @@ module TechnicalItineraries
           @activities.main.reorder(:name).each do |activity|
 
             # 0 - check if activity have already a default ITK by using tactics
-            at = ActivityTactic.find_by(activity_id: activity.id, campaign_id: @campaign.id, default: true)
+            at = ActivityTactic.find_by(activity_id: activity.id, default: true)
             if at
               @log_result[:count_tw_already_exists] += 1
             end
@@ -85,6 +85,7 @@ module TechnicalItineraries
               @logger.info("####################################################")
               # 10 - find a default TW in lexicon by activity attributes
               ts = find_technical_sequence(activity, at)
+              plain_prod_tw_id = ts.sequences.reorder(:year_start).last.technical_workflow_id
               if ts
                 # 11- create AT with link to TW
                 creation_service = TechnicalItineraries::Itk::CreateTactic.new(activity: activity, technical_sequence: ts, campaign: @campaign)
@@ -98,9 +99,11 @@ module TechnicalItineraries
                   # 20 - create intervention template (IT) link to TI for each TechnicalWorkflowProcedure (TWP) in TW
                   tiit_ids = creation_service.create_procedures_and_intervention_templates(ti, temp_pn)
 
-                  # 50 - Update AP activity_productions and activity
-                  update_activity_productions_with_ti(activity, ti, tw, at)
-                  @logger.info("50 - activity productions updated with TI #{ti.id}")
+                  # 50 - Update AP activity_productions and activity for PP only
+                  if ti.technical_workflow_id == plain_prod_tw_id
+                    update_plain_prod_activity_productions_with_ti(activity, ti, ti.technical_workflow, at)
+                    @logger.info("50 - activity productions in PP updated with TI corresponding to PP #{ti.id}")
+                  end
 
                   # 51 - compute_day_between_intervention
                   TechnicalItineraryInterventionTemplate.where(id: tiit_ids).each do |tiit_to_c|
@@ -118,9 +121,9 @@ module TechnicalItineraries
             end
           end
 
-          # II - create scenario for current campaign
+          # PLANT_FARMING II - create scenario for current campaign
           # find or create scenario and destroy previous scenario_activities
-          plant_farming_annual_scenario = Scenario.find_or_create_by(campaign: @campaign, name: "GLOBAL-#{@campaign.harvest_year}")
+          plant_farming_annual_scenario = Scenario.find_or_create_by(campaign: @campaign, name: "#{:plant_farming.tl} | #{@campaign.harvest_year}")
           plant_farming_annual_scenario.scenario_activities.destroy_all if plant_farming_annual_scenario.scenario_activities.any?
           # create scenario and plot for activities
           @activities.reorder(:name).each do |activity|
@@ -132,6 +135,23 @@ module TechnicalItineraries
             @logger.info("####################################################")
 
             creation_budget_service = TechnicalItineraries::Itk::CreateBudget.new(activity: activity, scenario: plant_farming_annual_scenario, campaign: @campaign)
+
+            creation_budget_service.create_plot_activity_for_scenario
+            creation_budget_service.create_budget_from_itk
+          end
+
+          # VINE_FARMING II - create scenario for current campaign
+          # find or create scenario and destroy previous scenario_activities
+          vine_farming_annual_scenario = Scenario.find_or_create_by(campaign: @campaign, name: "#{:vine_farming.tl} | #{@campaign.harvest_year}")
+          vine_farming_annual_scenario.scenario_activities.destroy_all if vine_farming_annual_scenario.scenario_activities.any?
+          # create scenario and plot for activities
+          @activities.where(family: 'vine_farming').reorder(:name).each do |activity|
+
+            @logger.info("####################################################")
+            @logger.info("     SCENARIOS & BUDGETS for #{activity.name}")
+            @logger.info("####################################################")
+
+            creation_budget_service = TechnicalItineraries::Itk::CreateBudget.new(activity: activity, scenario: vine_farming_annual_scenario, campaign: @campaign)
 
             creation_budget_service.create_plot_activity_for_scenario
             creation_budget_service.create_budget_from_itk
@@ -220,6 +240,22 @@ module TechnicalItineraries
             p_sowing_date = Date.new(ap.started_on.year, tw.start_month, tw.start_day)
             ap.technical_itinerary_id = ti.id
             ap.predicated_sowing_date = ((ap.started_on > p_sowing_date || ap.stopped_on < p_sowing_date) ? ap.started_on : p_sowing_date)
+            ap.save!
+          end
+          activity.use_tactics = true
+          activity.save!
+          at.technical_itinerary_id = ti.id
+          at.save!
+        end
+
+        # update activity production with ti and predicated_sowing_date with start date of tw
+        def update_plain_prod_activity_productions_with_ti(activity, ti, tw, at)
+          # select only ap in plain production
+          aps = activity.productions.where('starting_year <= ?', @campaign.harvest_year)
+          aps.each do |ap|
+            p_start_date = Date.new((@campaign.harvest_year + ap.production_started_on_year), tw.start_month, tw.start_day)
+            ap.technical_itinerary_id = ti.id
+            ap.predicated_sowing_date = p_start_date
             ap.save!
           end
           activity.use_tactics = true

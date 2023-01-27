@@ -67,12 +67,12 @@ class Loan < ApplicationRecord
   include Customizable
   include Transitionable
   include Providable
-
+  # take care to restart serveur when updating code because of Transitionable lib
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
   enumerize :shift_method, in: %i[immediate_payment anatocism], default: :immediate_payment
   enumerize :repayment_period, in: %i[month year trimester semester], default: :month, predicates: { prefix: true }
   enumerize :insurance_repayment_method, in: %i[initial to_repay], default: :to_repay, predicates: true
-  enumerize :state, in: %i[draft ongoing repaid], predicates: true, i18n_scope: "models.#{model_name.param_key}.states"
+  enumerize :state, in: %i[draft ongoing repaid], predicates: true, default: :draft, i18n_scope: "models.#{model_name.param_key}.states"
   refers_to :currency
   belongs_to :activity
   belongs_to :cash
@@ -85,6 +85,7 @@ class Loan < ApplicationRecord
   belongs_to :bank_guarantee_account, class_name: 'Account'
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
+  has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :loan, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accountable_repayments_started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :accounted_at, :ongoing_at, :repaid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
@@ -95,7 +96,6 @@ class Loan < ApplicationRecord
   validates :name, presence: true, length: { maximum: 500 }
   validates :repayment_duration, :shift_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
-  validates :state, length: { maximum: 500 }, allow_blank: true
   validates :use_bank_guarantee, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :loan_account, :interest_account, presence: true
@@ -107,30 +107,74 @@ class Loan < ApplicationRecord
   scope :drafts, -> { where(state: %w[draft]) }
   scope :ongoing_within, ->(start_time, stop_time) { where('loans.ongoing_at BETWEEN ? and ?', start_time, stop_time) }
 
+  after_initialize do
+    next if persisted?
+
+    self.currency ||= Preference[:currency]
+    self.state ||= :draft
+  end
+
   before_validation do
     self.state ||= :draft
     self.ongoing_at ||= started_on.to_time if started_on
     self.currency ||= cash.currency if cash
     self.shift_duration ||= 0
+    true
   end
 
   after_save do
-    generate_repayments if draft?
+    generate_repayments if (draft? || ongoing?)
     # if accountable_repayments_started_on, locked repayments before accountable_repayments_started_on
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
       r.update_all(locked: true)
     end
+    # update economic_cash_indicators
+    update_economic_cash_indicators
   end
 
   # Prevents from deleting if entry exist
   protect on: :destroy do
-    (journal_entry && ongoing?) || repayments.any? { |repayment| !repayment.destroyable? } || repaid?
+    (journal_entry && !journal_entry.destroyable?) || repayments.any? { |repayment| !repayment.destroyable? } || repaid?
   end
 
   # Prevents from deleting if entry exist
   protect on: :update do
-    !repayments.all?(&:updateable?)
+    !repayments.all?(&:updateable?) || (journal_entry && !journal_entry.editable?)
+  end
+
+  # compute and save loan for each cash movement in economic_cash_indicators
+  def update_economic_cash_indicators
+    self.economic_cash_indicators.destroy_all
+
+    # build default attributes
+    default_attributes = { context: 'Emprunt',
+                           context_color: 'Maroon',
+                           origin: 'loan',
+                           nature: nil }
+
+    # received cash from loan
+    campaign = Campaign.of(ongoing_at.year)
+    loan_attrs = { campaign_id: campaign.id,
+                   direction: 'revenue',
+                   used_on: ongoing_at.to_date,
+                   paid_on: ongoing_at.to_date,
+                   amount: amount,
+                   pretax_amount: amount }
+    self.economic_cash_indicators.create!(default_attributes.merge(loan_attrs))
+
+    # create cash movement for each repayments
+    repayments.each do |rep|
+      campaign = Campaign.of(rep.due_on.year)
+      rep_attributes = { campaign_id: campaign.id,
+                         direction: 'expense',
+                         used_on: rep.due_on,
+                         paid_on: rep.due_on,
+                         amount: rep.amount,
+                         pretax_amount: rep.amount }
+      attrs = default_attributes.merge(rep_attributes)
+      self.economic_cash_indicators.create!(attrs)
+    end
   end
 
   bookkeep do |b|
@@ -232,12 +276,11 @@ class Loan < ApplicationRecord
     I18n.t("tooltips.models.loan.#{status}")
   end
 
-  # Prints human name of current state
-  def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+  def number
+    "L#{id.to_s}_#{started_on.to_s}"
   end
 
   def editable?
-    updateable? && draft?
+    updateable?
   end
 end

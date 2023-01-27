@@ -67,6 +67,14 @@ FactoryBot.define do
     variety { 'tank' }
   end
 
+  factory :animal, class: Product do
+    association :category, factory: :animal_category
+    association :nature, factory: :animals_nature
+    association :variant, factory: :animal_variant
+    variety { 'animal' }
+
+  end
+
   factory :asset_fixable_product, class: Product do
     association :category, factory: :equipment_category
     association :nature, factory: :equipment_nature
@@ -87,6 +95,10 @@ FactoryBot.define do
     association :variant, factory: :seed_variant
     variety { :seed }
     derivative_of { :plant }
+  end
+
+  factory :deliverable_product, class: Product do
+    association :variant, factory: :deliverable_variant
   end
 
   factory :phytosanitary_product, class: Product do

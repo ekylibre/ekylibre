@@ -24,6 +24,10 @@ FactoryBot.define do
       end
     end
 
+    trait :request do
+      nature { :request }
+    end
+
     trait :harvesting do
       procedure_name { 'harvesting' }
       actions { [:harvest] }
@@ -46,7 +50,7 @@ FactoryBot.define do
       end
 
       after(:build) do |intervention, evaluator|
-        create_list :tractor_tool, evaluator.tractor_count, intervention: intervention, initial_born_at: intervention.started_at - 1.day
+        create_list :tractor_tool, evaluator.tractor_count, intervention: intervention
       end
     end
 

@@ -268,32 +268,12 @@ module Backend
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
-    def main_period_selector(*intervals)
-      content_for(:heading_toolbar) do
-        period_selector(*intervals)
-      end
-    end
-
     def heading_toolbar(&block)
       content_for(:heading_toolbar, &block)
     end
 
     def form_action_content(side = :after, &block)
       content_for(:"#{side}_form_actions", &block)
-    end
-
-    def period_selector(*intervals)
-      options = intervals.extract_options!
-      current_period = current_user.current_period.to_date
-      current_interval = current_user.current_period_interval.to_sym
-      current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
-
-      default_intervals = %i[day week month year]
-      intervals = default_intervals if intervals.empty?
-      intervals &= default_intervals
-      current_interval = intervals.last unless intervals.include?(current_interval)
-
-      render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
     end
 
     def main_financial_year_selector(financial_year)

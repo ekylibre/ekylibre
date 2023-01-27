@@ -268,9 +268,20 @@ countries:
   za: countries/za.png
   zm: countries/zm.png
   zw: countries/zw.png
+productions:
+  direct_sale: productions/direct_sale.jpg
+  external_service: productions/external_service.jpg
+  indirect_sale: productions/indirect_sale.jpg
+  maintenance: productions/maintenance.jpg
+  meat_laboratory: productions/meat_laboratory.jpg
+  milk_laboratory: productions/milk_laboratory.jpg
+  vegetable_laboratory: productions/vegetable_laboratory.jpg
+  wine_storehouse: productions/wine_storehouse.jpg
+  winery: productions/winery.jpg
 varieties:
   acer: varieties/acer.jpg
   actinopterygii: varieties/actinopterygii.jpg
+  administrative: varieties/administrative.jpg
   adoxaceae: varieties/adoxaceae.jpg
   ajuga: varieties/ajuga.jpg
   allium: varieties/allium.jpg
@@ -309,6 +320,7 @@ varieties:
   brassica_rapa_pekinensis: varieties/brassica_rapa_pekinensis.jpg
   brassica_rapa_rapa: varieties/brassica_rapa_rapa.jpg
   bromus: varieties/bromus.jpg
+  calf: varieties/calf.jpg
   canidae: varieties/canidae.jpg
   cannabis: varieties/cannabis.jpg
   capra: varieties/capra.jpg
@@ -367,6 +379,7 @@ varieties:
   glycine: varieties/glycine.jpg
   gossypium: varieties/gossypium.jpg
   guizotia: varieties/guizotia.jpg
+  heifer: varieties/heifer.jpg
   helianthus: varieties/helianthus.jpg
   helianthus_tuberosus: varieties/helianthus_tuberosus.jpg
   hevea: varieties/hevea.jpg
@@ -398,10 +411,13 @@ varieties:
   malva: varieties/malva.jpg
   mangifera: varieties/mangifera.jpg
   manihot: varieties/manihot.jpg
+  maintenance: varieties/maintenance.jpg
+  meat_cow: varieties/meat_cow.jpg
   medicago: varieties/medicago.jpg
   melilotus: varieties/melilotus.jpg
   melissa: varieties/melissa.jpg
   mentha: varieties/mentha.jpg
+  milk_cow: varieties/milk_cow.jpg
   miscanthus: varieties/miscanthus.jpg
   morus: varieties/morus.jpg
   musa: varieties/musa.jpg
@@ -477,4 +493,5 @@ varieties:
   viola: varieties/viola.jpg
   vitex: varieties/vitex.jpg
   vitis: varieties/vitis.png
+  young_bull: varieties/young_bull.jpg
   zea: varieties/zea.jpg

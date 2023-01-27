@@ -3,14 +3,14 @@
 module Interventions
   module Phytosanitary
     class ApplicationFrequencyValidator < ProductApplicationValidator
-      attr_reader :targets_and_shape, :intervention_started_at, :intervention_stopped_at, :ignored_intervention
+      attr_reader :targets_zone, :intervention_started_at, :intervention_stopped_at, :ignored_intervention
 
-      # @param [Array<Models::TargetAndShape>] targets_and_shape
+      # @param [Array<Models::TargetZone>] targets_zone
       # @option [DateTime, nil] intervention_started_at
       # @option [DateTime, nil] intervention_stopped_at
       # @option [Intervention, nil] ignored_intervention
-      def initialize(targets_and_shape:, ignored_intervention: nil, intervention_started_at: nil, intervention_stopped_at: nil)
-        @targets_and_shape = targets_and_shape
+      def initialize(targets_zone:, ignored_intervention: nil, intervention_started_at: nil, intervention_stopped_at: nil)
+        @targets_zone = targets_zone
         @intervention_started_at = intervention_started_at
         @intervention_stopped_at = intervention_stopped_at
         @ignored_intervention = ignored_intervention
@@ -21,7 +21,7 @@ module Interventions
       def validate(products_usages)
         result = Models::ProductApplicationResult.new
 
-        if targets_and_shape.empty? || intervention_stopped_at.nil?
+        if targets_zone.empty? || intervention_stopped_at.nil?
           products_usages.each { |pu| result.vote_unknown(pu.product) }
         else
           # @var [Hash<Symbol => Array<Models::ProductUsage>>] groups
@@ -67,7 +67,7 @@ module Interventions
 
       # @return [Array<Charta::Geometry>]
       def get_targeted_zones
-        targets_and_shape.map(&:shape)
+        targets_zone.map(&:shape)
       end
 
       # @param [Models::ProductWithUsage] product_usage

@@ -192,6 +192,10 @@ module Backend
       return unless @intervention = find_and_check
 
       t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
+      dataset_params = {
+        intervention: @intervention,
+      }
+      @has_working_zone_shape = @intervention.targets.pluck(:working_zone).compact.any?
       respond_to do |format|
         format.html
         format.pdf {
@@ -201,6 +205,34 @@ module Backend
           notify_success(:document_in_preparation)
           redirect_to backend_interventions_path
         }
+        format.odt do
+          return unless template = DocumentTemplate.find_by_nature(params[:document_nature_name])
+
+          printer = Printers::PhytosanitaryApplicatorSheetPrinter.new(template: template, **dataset_params)
+          g = Ekylibre::DocumentManagement::DocumentGenerator.build
+          send_data g.generate_odt(template: template, printer: printer), filename: "#{printer.document_name}.odt"
+        end
+      end
+    end
+
+    def export
+      return unless @intervention = find_and_check
+
+      t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
+      dataset_params = {
+        intervention: @intervention,
+      }
+
+      return unless template = DocumentTemplate.find_by_nature(params[:document_nature_name])
+
+      printer_class_name = "Printers::#{params[:document_nature_name].camelize}Printer".constantize
+      printer = printer_class_name.new(template: template, **dataset_params)
+      g = Ekylibre::DocumentManagement::DocumentGenerator.build
+
+      respond_to do |format|
+        format.odt do
+          send_data g.generate_odt(template: template, printer: printer), filename: "#{printer.document_name}.odt"
+        end
       end
 
     end
@@ -220,28 +252,25 @@ module Backend
         options[param] = unsafe_params[param]
       end
 
-      if params['targets_attributes'].present?
-        id = params['targets_attributes'].first['product_id'].to_i
-      end
-
-      # check if a target product exist when selecting a procedure otherwise send a flash message
-      if params['procedure_name'].present?
+      attributes_have_only_product_id = params[:targets_attributes] && params[:targets_attributes].all?{ |target_attributes| target_attributes.keys.length == 1 && target_attributes[:product_id].present? }
+      if params['procedure_name'].present? && attributes_have_only_product_id
         procedure = Procedo::Procedure.find(params['procedure_name'])
         target_parameter = procedure.parameters_of_type(:target, true).first if procedure
+        notify_warning_now(:no_target_exist_on_procedure) if target_parameter.nil?
 
-        # if theres no products relatives to selected procedure (target && filter), notify user and clean params
-        if procedure.present? && target_parameter.present?
-          if target_parameter.is_a?(Procedo::Procedure::ProductParameter)
-            filter = target_parameter.filter
-          else
-            notify_warning_now(:no_target_exist_on_procedure)
+        if target_parameter
+          products = Product.where(id: unsafe_params.delete('targets_attributes').map{ |ta| ta[:product_id] }.compact)
+          targets_attributes_builder = ::Interventions::TargetsAttributesBuilder.new(target_parameter, products, at: Time.zone.now - 1.hour)
+
+          if targets_attributes_builder.products_matching_to_filter.blank?
+            notify_warning_now(:no_availables_product_matching_current_filter)
           end
-          if Product.of_expression(filter).blank?
-            # notify user and remove unsafe_params concerning targets_attributes && group_parameters_attributes
-            notify_warning_now(:no_product_matching_current_filter)
-            unsafe_params.delete('targets_attributes')
-            unsafe_params.delete('group_parameters_attributes')
+
+          if targets_attributes_builder.available_products.blank?
+            notify_warning_now(:no_availables_product_on_current_campaign)
           end
+
+          options.deep_merge!(targets_attributes_builder.attributes)
         end
       end
 
@@ -257,35 +286,15 @@ module Backend
       end
 
       if params[:procedure_name].present? && params[:ride_ids].present?
-        rides_params_computation = ::Interventions::RidesComputation.new(params[:ride_ids], params[:procedure_name])
-        options.merge!(rides_params_computation.options)
-      end
-
-      # , :doers, :inputs, :outputs, :tools
-      %i[group_parameters targets].each do |param|
-        next unless unsafe_params.include?(:intervention) || unsafe_params.include?("#{param}_attributes")
-
-        options[:"#{param}_attributes"] = unsafe_params["#{param}_attributes"] || []
-        next unless options[:targets_attributes]
-
-        targets = if options[:targets_attributes].is_a? Array
-                    options[:targets_attributes].collect { |k, _| k[:product_id] }
-                  else
-                    options[:targets_attributes].collect { |_, v| v[:product_id] }
-                  end
-        availables = Product.where(id: targets).at(Time.zone.now - 1.hour).collect(&:id)
-
-        if availables.any? && filter.present? && Product.where(id: availables).of_expression(filter).blank?
-          notify_warning_now(:no_availables_product_matching_current_filter)
-        elsif availables.blank?
-          notify_warning_now(:no_availables_product_on_current_campaign)
+        rides = Ride.find(params[:ride_ids])
+        ::Interventions::CreateFromRidesJob.perform_later(options, rides, perform_as: current_user)
+        notify_success(:intervention_in_preparation)
+        if defined?(EkylibreSamsys)
+          redirect_to backend_ride_set_path(rides.first.ride_set)
+        else
+          redirect_to_back
         end
-
-        options[:targets_attributes].select! do |k, v|
-          # This does not work with Rails 5 without the unsafe_params trick
-          obj = k.is_a?(Hash) ? k : v
-          obj.include?(:product_id) && availables.include?(obj[:product_id].to_i)
-        end
+        return
       end
 
       %i[doers inputs outputs tools participations working_periods intervention_crop_groups].each do |param|
@@ -329,7 +338,23 @@ module Backend
       from_request = Intervention.find_by(id: params[:request_intervention_id])
       @intervention = from_request.initialize_record if from_request
 
+      map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
+      if @intervention.using_phytosanitary? && !map_is_shown
+        notify_warning(:phyto_intervention_alert_if_map_disabled.tl)
+      end
+
       render(locals: { cancel_url: { action: :index }, with_continue: true })
+    end
+
+    def edit
+      return unless @intervention = find_and_check(:intervention)
+
+      map_is_shown = user_preference_value(User::PREFERENCE_SHOW_MAP_INTERVENTION_FORM, true)
+      if @intervention && @intervention.using_phytosanitary? && !map_is_shown
+        notify_warning(:phyto_intervention_alert_if_map_disabled.tl)
+      end
+
+      super
     end
 
     def create
@@ -402,12 +427,15 @@ module Backend
     end
 
     # Computes impacts of a updated value in an intervention input context
+    # TODO: Reimplement this with correct use of permitted params
     def compute
       unless params[:intervention]
         head(:unprocessable_entity)
         return
       end
-      intervention_params = params[:intervention].deep_symbolize_keys
+      # The use of unsafe_params is a crutch to have this code working fast.
+      # However, this whole method should be implemented using REAL permitted_params.
+      intervention_params = params[:intervention].to_unsafe_h.deep_symbolize_keys
       procedure = Procedo.find(intervention_params[:procedure_name])
       unless procedure
         head(:not_found)
@@ -468,94 +496,18 @@ module Backend
     end
 
     def change_state
-      unless state_change_permitted_params
-        head :unprocessable_entity
-        return
-      end
-
       interventions_ids = JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
       new_state = state_change_permitted_params[:state].to_sym
 
       @interventions = Intervention.find(interventions_ids)
-
       Intervention.transaction do
         @interventions.each do |intervention|
-          next if intervention.request? && intervention.record_interventions.any?
-
-          if intervention.nature == :record && new_state == :rejected
-
-            unless intervention.request_intervention_id.nil?
-              intervention_request = Intervention.find(intervention.request_intervention_id)
-
-              if state_change_permitted_params[:delete_option].to_sym == :delete_request
-                intervention_request.destroy!
-              else
-                intervention_request.parameters = intervention.parameters
-                intervention_request.save!
-              end
-            end
-
-            intervention.destroy!
-            next
-          end
-
-          if intervention.nature == :request && new_state == :rejected
-            intervention.state = new_state
-
-            next unless intervention.valid?
-
-            intervention.save!
-
-            next
-          end
-
-          new_intervention = intervention
-
-          if intervention.nature == :request
-            new_intervention = intervention.dup
-            intervention.working_periods.each do |wp|
-              new_intervention.working_periods.build(wp.dup.attributes)
-            end
-            intervention.group_parameters.each do |group_parameter|
-              duplicate_group_parameter = group_parameter.dup
-              duplicate_group_parameter.intervention = new_intervention
-              %i[doers inputs outputs targets tools].each do |type|
-                parameters = group_parameter.send(type)
-                parameters.each do |parameter|
-                  duplicate_parameter = parameter.dup
-                  duplicate_parameter.group = duplicate_group_parameter
-                  duplicate_parameter.intervention = new_intervention
-                  duplicate_group_parameter.send(type) << duplicate_parameter
-                end
-              end
-              new_intervention.group_parameters << duplicate_group_parameter
-            end
-            intervention.product_parameters.where(group_id: nil).each do |parameter|
-              new_intervention.product_parameters << parameter.dup
-            end
-            intervention.participations.includes(:working_periods).each do |participation|
-              dup_participation = participation.dup.attributes.merge({ state: 'in_progress' })
-              new_participation = new_intervention.participations.build(dup_participation)
-              participation.working_periods.each do |wp|
-                new_participation.working_periods.build(wp.dup.attributes)
-              end
-            end
-            intervention.receptions.each do |reception|
-              new_intervention.receptions << reception
-            end
-            new_intervention.request_intervention_id = intervention.id
-          end
-
-          if new_state == :validated
-            new_intervention.validator = current_user
-          end
-
-          new_intervention.state = new_state
-          new_intervention.nature = :record
-
-          next unless new_intervention.valid?
-
-          new_intervention.save!
+          ::Interventions::ChangeState.call(
+            intervention: intervention,
+            new_state: state_change_permitted_params[:state],
+            delete_option: state_change_permitted_params[:delete_option],
+            validator: current_user
+          )
         end
       end
 
@@ -568,6 +520,20 @@ module Backend
       end
 
       redirect_to_back
+    end
+
+    def link_rides_to_planned
+      return unless intervention = find_and_check
+
+      rides = Ride.find(params[:ride_ids])
+      ::Interventions::LinkRidesToPlannedJob.perform_later(intervention, rides, perform_as: current_user)
+      response.headers['X-Return-Code'] = 'success'
+      notify_success(:intervention_in_preparation)
+      if defined?(EkylibreSamsys)
+        redirect_to backend_ride_set_path(rides.first.ride_set)
+      else
+        redirect_to backend_interventions_path(intervention)
+      end
     end
 
     # FIXME: Not linked directly to interventions
@@ -607,6 +573,24 @@ module Backend
         render partial: 'duplicate_modal',
                locals: { intervention: @interventions.first }
       end
+    end
+
+    def selection_modal
+      interventions = Intervention.with_nature(:request)
+        .joins('LEFT JOIN interventions record_interventions ON interventions.id = record_interventions.request_intervention_id')
+        .where(record_interventions: { request_intervention_id: nil } )
+
+      interventions_similarity_scores = interventions.map do |intervention|
+        ::Interventions::Geolocation::SimilaritiesWithRidesScoreCounter.new(
+          intervention: intervention,
+          rides: Ride.where(id: params[:ride_ids])
+        )
+      end
+
+      @ordered_interventions = ::Interventions::Geolocation::OrderByRideSimilarities.call(
+        interventions_similarity_scores: interventions_similarity_scores
+      )
+      render partial: 'selection_modal', locals: { interventions: @ordered_interventions, ride_ids: params[:ride_ids] }
     end
 
     def create_duplicate_intervention
@@ -715,7 +699,7 @@ module Backend
       end
 
       def state_change_permitted_params
-        params.require(:intervention).permit(:interventions_ids, :state, :delete_option)
+        params.require(:intervention).permit(:interventions_ids, :intervention_id, :state, :delete_option)
       end
 
       def find_items(id, pretax_amount, items)
@@ -728,7 +712,7 @@ module Backend
                                   conditioning_unit_id: item.conditioning_unit_id,
                                   conditioning_unit_name: item.conditioning_unit.name,
                                   conditioning_quantity: item.conditioning_quantity,
-                                  quantity_to_receive: item.quantity_to_receive,
+                                  quantity: item.send(item.class.name == 'PurchaseItem' ? :quantity_to_receive : :conditioning_quantity),
                                   unit_pretax_amount: item.unit_pretax_amount,
                                   is_reception: item.class == ReceptionItem,
                                   purchase_order_item: item.try(:purchase_order_item_id) || item.id,

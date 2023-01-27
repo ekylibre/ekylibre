@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -55,6 +55,7 @@
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
 #  specie_variety           :jsonb            default("{}")
+#  spray_volume_value       :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -68,5 +69,24 @@ require 'test_helper'
 
 class InterventionProductParameterTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  test '#nullify_working_zone_if_working_zone_area before_validation callback' do
+    target = create(:intervention_target, :with_working_zone)
+    target.update(working_zone_area: 10)
+    assert_nil(target.reload.working_zone)
+  end
+
+  test '#set_working_zone_area_from_working_zone before_validation callback' do
+    target = build(:intervention_target, :with_working_zone)
+    area = target.working_zone.area
+    target.send(:set_working_zone_area_from_working_zone)
+    assert(Measure.new(area.round(4), 'square_meter').in_hectare.round(4).inspect == target.working_zone_area.inspect )
+  end
+
+  test '#set_quantity_from_working_zone before_validation callback' do
+    target = build(:intervention_target, :with_working_zone)
+    area = target.working_zone.area
+    target.send(:set_quantity_from_working_zone)
+    assert(Measure.new(area.round(4), 'square_meter').inspect == target.quantity.inspect )
+  end
 end

@@ -2,7 +2,7 @@ module Pickable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def importable_from_lexicon(lexicon_table, model_name: nil, primary_key: :id, filters: {})
+    def importable_from_lexicon(lexicon_table, model_name: nil, primary_key: :id, filters: {}, notify: {})
       record_name = controller_name.singularize
       model = model_name || controller_name.classify.constantize
       lexicon_model = lexicon_table.to_s.classify.constantize
@@ -29,11 +29,16 @@ module Pickable
           edit_url = params[:redirect_edit_path] + '/' + instance_variable_get("@#{record_name}").id.to_s + '/edit?' + { redirect: show_url }.to_query
         end
 
-        notify_success :record_has_been_imported
+        success_notification = notify[:success] || :record_has_been_imported
+        notify_success success_notification
         redirect_to edit_url || show_url || :back
       rescue => e
         notify_error :an_error_was_raised_during_import
-        redirect_to params[:redirect_show_path] || :back
+        if params[:redirect_show_path].present?
+          redirect_to params[:redirect_show_path]
+        else
+          redirect_back(fallback_location: root_path)
+        end
       end
     end
 

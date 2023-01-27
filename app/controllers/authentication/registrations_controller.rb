@@ -11,7 +11,9 @@ module Authentication
     # POST /resource
     def create
       super
-      RegistrationMailer.signed_up(resource).deliver_now
+      if resource.persisted?
+        RegistrationMailer.signed_up(resource).deliver_now
+      end
     end
 
     # GET /resource/edit

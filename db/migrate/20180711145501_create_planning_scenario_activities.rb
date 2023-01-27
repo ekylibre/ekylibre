@@ -1,6 +1,6 @@
-class CreatePlanningScenarioActivities < ActiveRecord::Migration
+class CreatePlanningScenarioActivities < ActiveRecord::Migration[4.2]
   def change
-    unless table_exists?(:planning_scenario_activities)
+    unless data_source_exists?(:planning_scenario_activities)
       create_table :planning_scenario_activities do |t|
         t.references :activity, index: true, foreign_key: true
         t.references :planning_scenario, index: true, foreign_key: true

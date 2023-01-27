@@ -76,6 +76,7 @@
 
   .modal-content {
     padding-top: $default-gap * 6;
+    padding-right: 50px;
     .modal-body {
       max-height: 700px;
       overflow: auto;
@@ -93,7 +94,7 @@
     @include flex-row(flex-start);
     padding-left: $default-gap * 10;
     border-bottom: solid 1px #ddd;
-    font-weight: lighter;
+    font-weight: bolder;
 
     .list-header.form-name {
       flex: 0 0 40%;
@@ -114,7 +115,7 @@
       }
       .reception-date {
         font-size: 12px;
-        font-weight: lighter;
+        font-weight: bolder;
         font-style: italic;
       }
     }

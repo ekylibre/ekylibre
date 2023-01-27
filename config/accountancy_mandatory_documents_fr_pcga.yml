@@ -18,9 +18,9 @@ profit_and_loss_statement:
   social_expenses: '645 646 647 648 649 D'
   depreciations_inputations_expenses: '681 D'
   other_expenses: '65 D, !656'
-  products_subtotal: '70 !709 71 72 74 75 781 791 C, - 709'
+  products_subtotal: '70 !709 72 74 75 781 791 C, - 71, - 709'
   charges_subtotal: '60 61 62 63 64 65 681'
-  exploitation_result: '70 71 72 74 75 781 791 C, - 60 61 62 63 64 65 681'
+  exploitation_result: '70 72 74 75 781 791 C, - 71, - 60 61 62 63 64 65 681'
   financial_participations: '761 C'
   financial_debts: '762 C'
   financial_others_interests: '763 764 765 768 C'
@@ -29,12 +29,12 @@ profit_and_loss_statement:
   financial_net_cession_values: '767 C'
   financial_products_subtotal: '76 786 796 C'
   financial_asset_dotations: '686 D'
-  financial_interests_and_charges: '661 664 665 668 D'
+  financial_interests_and_charges: '661, 664 665 668 D'
   financial_negative_change: '666 D'
   financial_net_cession_debts: '667 D'
   financial_expenses_subtotal: '66 686 D'
   financial_result: '76 786 796 C, - 66 686'
-  before_taxe_result: '70 71 72 74 75 781 791 76 786 796 C, - 60 61 62 63 64 65 681 66 686'
+  before_taxe_result: '70 72 74 75 781 791 76 786 796 C, - 71, - 60 61 62 63 64 65 681 66 686'
   exceptional_products_on_management_operations: '771 772 C'
   exceptional_products_on_assets_cessions: '775 C'
   exceptional_products_on_capital_operations: '777 778 C'
@@ -48,18 +48,18 @@ profit_and_loss_statement:
   exceptional_result: '77 787 797 C, - 67 687'
   employee_involvement: '691 D'
   profit_taxe: '695 697 699 D'
-  products_total: '7 C'
-  charges_total: '6 D'
-  exercice_result: '70 71 72 74 75 781 791 76 786 796 77 787 797 C, - 60 61 62 63 64 65 681 66 686 67 687 691 695 697 699'
+  products_total: '- 7'
+  charges_total: '- 6'
+  exercice_result: '70 72 74 75 781 791 76 786 796 77 787 797 C, - 71, - 60 61 62 63 64 65 681 66 686 67 687 691 695 697 699'
 ratio:
-  exercice_production: '70 !707 !7097 71 72 73 75 C'
+  exercice_production: '- 70 71 72 73 75 !707 !7097'
   commercial_margin: '707 7097 C, - 607 6097 6037'
   production_purchases: '601 602 6091 6092 6031 6032 D'
   production_others_charges: '605 606 61 62 6355 6095 6096 6098 D'
-  added_value: '70 71 72 73 75 707 7097 C, - 607 6097 6037 601 602 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098'
+  added_value: '- 70 71 72 73 75 707 7097, - 607 6097 6037 601 602 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098'
   taxes_and_wages: '63 !6355 64 D'
   subsidies: '742 743 744 745 C'
-  operating_margin: '70 71 72 73 75 707 7097 742 743 744 745 C, - 607 6097 6037 601 602 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098 63 64'
+  operating_margin: '- 70 71 72 73 75 707 7097 742 743 744 745, - 607 6097 6037 601 602 6091 6092 6031 6032 605 606 61 62 6355 6095 6096 6098 63 64'
 balance_sheet:
   unsubcribed_capital: '109'
   incorporeal_assets_creation_costs: '201'
@@ -130,10 +130,10 @@ balance_sheet:
   entities_client_receivables_depreciations: '491 C'
   entities_others_clients: '412 4132'
   entities_state_receivables: '445 F' #
-  entities_associate_receivables: '4551 F, 4552 F, 4558 F' #
+  entities_associate_receivables: '4550 F, 4551 F, 4552 F, 4558 F' #
   entities_associate_receivables_depreciations: '4955'
-  entities_associate_receivables_net: '4551 F, 4552 F, 4558 F, 4955' #
-  entities_associate_receivables_raw: '4551 F, 4552 F, 4558 F'
+  entities_associate_receivables_net: '4550 F, 4551 F, 4552 F, 4558 F, 4955' #
+  entities_associate_receivables_raw: '4550 F, 4551 F, 4552 F, 4558 F'
   entities_other_receivables: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462, 463 F, 465, 467 F, 4687, 478 F'
   entities_other_receivables_depreciations: '4951 4952 4953 4954 4958 496'
   entities_other_receivables_net: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462, 463 F, 465, 467 F, 4687, 478 F, 4951 4952 4953 4954 4958 496'
@@ -159,7 +159,7 @@ balance_sheet:
   debts_land_parcel_loans: '- 1640 1641'
   debts_others_loans: '- 1642 1643 1644 1645 1646 1647 1648 1649'
   debts_associate_locked_debts: '4553 4554 C' #
-  others_debts_associate_debts: '4551 E, 4552 E, 4558 E' #
+  others_debts_associate_debts: '4550 E, 4551 E, 4552 E, 4558 E' #
   debts_cashe_debts: '519 C, 512 E, 514 E, 517 E, 5186 C'
   debts_other_financial_debts: '161 163 165 1675 168 C, 17, 426, 451 E, 456 E, 458 E'
   others_debts_advance_receivables: '419 C' #
@@ -204,16 +204,16 @@ short_balance_sheet:
   stocks_total_products_depreciations: '397 C'
   stocks_total_products_net: '37 397'
   stocks_total_products_raw: '37'
-  entities_advance_giveables: '4091' #
+  entities_advance_giveables: '4090 4091' #
   entities_client_total: '41 !419 491' #
   entities_client_total_depreciations: '491 C' #
   entities_client_total_net: '41 !419 491' #
   entities_client_total_raw: '41 !419' #
   entities_state_receivables: '445 F' #
-  entities_associate_receivables: '4551 F, 4552 F, 4558 F' #
+  entities_associate_receivables: '4550 F, 4551 F, 4552 F, 4558 F' #
   entities_associate_receivables_depreciations: '4955'
-  entities_associate_receivables_net: '4551 F, 4552 F, 4558 F, 4955' #
-  entities_associate_receivables_raw: '4551 F, 4552 F, 4558 F'
+  entities_associate_receivables_net: '4550 F, 4551 F, 4552 F, 4558 F, 4955' #
+  entities_associate_receivables_raw: '4550 F, 4551 F, 4552 F, 4558 F'
   entities_other_receivables: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462, 463 F, 465, 467 F, 4687, 478 F'
   entities_other_receivables_depreciations: '4951 4952 4953 4954 4958 496'
   entities_other_receivables_net: '4096 4097 4098 425 4287 4387, 441 !4419, 443 F, 444 F, 4487, 451 F, 452 F, 453 F, 454 F, 456 F, 458 F, 461 F, 462,463 F, 465, 467 F, 4687, 478 F, 4951 4952 4953 4954 4958 496'
@@ -237,9 +237,21 @@ short_balance_sheet:
   others_debts_advance_receivables: '419 C' #
   others_debts_supplier_receivables: '401 4031 402 4032 408 C, 472 E, 463 E'
   others_debts_state_debts: '445 E'
-  debts_associate_total: '4551 E, 4552 E, 4558 E, 4553 4554 C'
+  debts_associate_total: '4550 E, 4551 E, 4552 E, 4558 E, 4553 4554 C'
   others_debts_social_debts: '- 421 422 424 427 4280 4282 4283 4284 4286 431 437 4382 4383 4386 442, 443 E, 444 E, 446, 447 4482 4486 457 C'
   others_debts_total: '269 279 404 405 4419 C, 452 E, 453 E, 454 E, 461 E, 464, 467 E, 4686 C, 478 E, 509'
   debts_cashe_debts_total: '519 C, 512 E, 514 E, 517 E, 5186 C, 426, 451 E, 456 E, 458 E'
   others_debts_advance_products: '487' #
   others_debts_liabilities_gaps: '470 471 E, 477' #
+economic_indicator:
+  main_direct_products: '707 C, - 7097, 701 702 703 705 706 708 C, - 7090 7091 7092 7093 7095 7096 7098, 704 756 C, - 7094, - 712 713, 72 73 C'
+  fixed_direct_products: '74 C, 75 C'
+  proportional_direct_charges: '600 601 602 603 604 D'
+  fixed_direct_charges: '605 606 61 62 63 64 65 D'
+  indirect_products: '72 73 74 75 C !756'
+  cash_provisions: '511, 512 F, 514 F, 515, 516, 517 F, 5187, 52, 53, 54'
+  indirect_charges: '605 606 61 62 63 65 67 D'
+  employees_wages: '64 D !6412 !6413 !644 !646'
+  depreciations_charges: '681 D'
+  loans_charges: '66, 686 D'
+  farmer_wages: '6412 6413 644 646 D'

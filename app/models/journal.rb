@@ -71,6 +71,8 @@ class Journal < ApplicationRecord
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
   validates :currency, :nature, presence: true
+  validates :isacompta_code, length: { maximum: 2 }, allow_blank: true
+  validates :isacompta_label, length: { maximum: 30 }, allow_blank: true
   validates :used_for_affairs, :used_for_gaps, :used_for_permanent_stock_inventory, :used_for_tax_declarations, :used_for_unbilled_payables, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
@@ -414,6 +416,12 @@ class Journal < ApplicationRecord
       end
       if options[:started_on] || options[:stopped_on]
         from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
+      end
+
+      if options[:activity_budget_id] && options[:activity_budget_id] == 'only_nil'
+        from_where << " AND #{journal_entry_items}.activity_budget_id IS NULL"
+      elsif options[:activity_budget_id] && options[:activity_budget_id] != 'only_nil'
+        from_where << " AND #{journal_entry_items}.activity_budget_id = #{options[:activity_budget_id]}"
       end
 
       values = expression.split(/\,/).collect do |expr|

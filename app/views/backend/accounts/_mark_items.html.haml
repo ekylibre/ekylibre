@@ -1,7 +1,15 @@
 - items.each do |item|
   - checked = (item.letter.blank? && (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
   - trid, conf = "e#{item.id}", {}
-  %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "selected " : "test") + cycle("even", "odd") + (item.completely_lettered? ? ' lettered-item' : '')}
+  :ruby
+    tr_class = if item.closed?
+                 "disabled "
+               elsif checked
+                 "selected"
+               else
+                 "test"
+               end
+  %tr{id: trid, class: tr_class + cycle("even", "odd") + (item.completely_lettered? ? ' lettered-item' : '')}
     %td.chk
       - unless item.completely_lettered? || item.closed?
         = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", data: {add_class: "selected", add_class_to: "##{trid}"})
@@ -9,7 +17,7 @@
     %td.ltr
       = item.letter
     %td.act
-      - unless item.letter.blank? or item.closed?
+      - unless item.letter.blank? || item.closed?
         %a.unmark{href: "/backend/accounts/#{account_id}/unmark?letter=#{item.letter}", title: unmark_title, rel: "nofollow", data: {confirm: confirm_label, method: "post"}}
           %i
           = unmark_label

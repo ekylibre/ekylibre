@@ -345,4 +345,8 @@ class Cash < ApplicationRecord
 
     saved && new_letter
   end
+
+  def synchronizable?
+    iban.present?
+  end
 end

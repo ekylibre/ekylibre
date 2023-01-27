@@ -54,15 +54,19 @@ class CultivableZone < ApplicationRecord
   belongs_to :owner, class_name: 'Entity'
   has_many :activity_productions, foreign_key: :cultivable_zone_id
   has_many :activities, through: :activity_productions
+  has_many :analyses, dependent: :nullify
   has_many :current_activity_productions, -> { current }, foreign_key: :cultivable_zone_id, class_name: 'ActivityProduction'
   has_many :current_supports, through: :current_activity_productions, source: :support
   has_many :supports, through: :activity_productions
+  has_many :rides
+
   has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :work_number, presence: true, length: { maximum: 500 }
-  validates :shape, presence: true, shape: true
+  validates :shape, presence: true
   # ]VALIDATORS]
+  validates :shape, shape: true
   validates :uuid, presence: true
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
@@ -84,6 +88,10 @@ class CultivableZone < ApplicationRecord
     shape.to_svg
   end
 
+  def shape_to_geojson
+    shape.to_geojson
+  end
+
   # get the first object with variety 'plant', availables
   def current_cultivations(at = Time.zone.now)
     Plant.contained_by(current_supports, at)
@@ -100,6 +108,38 @@ class CultivableZone < ApplicationRecord
   def city_name
     islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.city_name if islets.any?
+
+    nil
+  end
+
+  # return cadastral_land_parcels intersecting cultivable_zone
+  def cadastral_land_parcels
+    cadastrals = RegisteredCadastralParcel.shape_intersecting(shape).order(section: :asc, work_number: :asc)
+    return cadastrals if cadastrals.any?
+
+    nil
+  end
+
+  # return protected_water_zones intersecting cultivable_zone
+  def protected_water_zones
+    water_zones = RegisteredProtectedWaterZone.shape_intersecting(shape)
+    return water_zones if water_zones.any?
+
+    nil
+  end
+
+  # return theoritical soil depth intersecting cultivable_zone
+  def theoritical_soil_depths
+    zones = RegisteredSoilDepth.shape_intersecting(shape)
+    return zones if zones.any?
+
+    nil
+  end
+
+  # return theoritical water capacities intersecting cultivable_zone
+  def theoritical_water_capacities
+    zones = RegisteredSoilAvailableWaterCapacity.shape_intersecting(shape)
+    return zones if zones.any?
 
     nil
   end

@@ -1,17 +1,43 @@
 - budget = resource.budgets.find_by(campaign: current_campaign)
 - if budget && budget.items.any?
+  :ruby
+    link_to_edit_options = { controller: :activity_budgets, action: :edit,id: budget.id, redirect: request.fullpath}
+    balance = budget.revenues_amount.round - budget.expenses_amount.round
+    pretax_balance = budget.revenues_pretax_amount.round - budget.expenses_pretax_amount.round
+    balance_class = if balance > 0
+                      'positive'
+                    elsif balance <= 0
+                      'negative'
+                    else
+                      'caution'
+                    end
+    pretaxe_balance_class = if balance > 0
+                              'positive'
+                            elsif balance <= 0
+                              'negative'
+                            else
+                              'caution'
+                            end
+  .help-panel
+    = link_to(:edit_budget.tl, link_to_edit_options, class: 'btn btn-default icn btn-edit')
+    = link_to_async_action(:regenerate_reference_budget.tl, 'ItkImportJob', { controller: :activities, action: :generate_budget, id: resource.id }, method: :post, remote: true, class: 'btn btn-default' )
   = infos do
-    - balance = budget.revenues_amount.round(budget.currency_precision) - budget.expenses_amount.round(budget.currency_precision)
-    = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
-      = info ActivityBudget.human_attribute_name(:revenues_amount), budget.revenues_amount.round(budget.currency_precision).l(currency: budget.currency)
-    = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
-      = info ActivityBudget.human_attribute_name(:expenses_amount), budget.expenses_amount.round(budget.currency_precision).l(currency: budget.currency)
-    .big-info{class: (balance > 0 ? :positive : balance <= 0 ? :negative : :caution)}
-      %span.title= :balance.tl
-      %span.value= balance.round(budget.currency_precision).l(currency: budget.currency)
+    = link_to(link_to_edit_options) do
+      = info ActivityBudget.human_attribute_name(:revenues_amount), budget.revenues_amount.round.l(currency: budget.currency)
+    = link_to(link_to_edit_options) do
+      = info ActivityBudget.human_attribute_name(:expenses_amount), budget.expenses_amount.round.l(currency: budget.currency)
+    = infos do
+      = info ActivityBudget.human_attribute_name(:balance), balance.l(currency: budget.currency), class: balance_class
+    = link_to(link_to_edit_options) do
+      = info ActivityBudget.human_attribute_name(:revenues_pretax_amount), budget.revenues_pretax_amount.round.l(currency: budget.currency)
+    = link_to(link_to_edit_options) do
+      = info ActivityBudget.human_attribute_name(:expenses_pretax_amount), budget.expenses_pretax_amount.round.l(currency: budget.currency)
+    = infos do
+      = info ActivityBudget.human_attribute_name(:pretax_balance), pretax_balance.l(currency: budget.currency), class: pretaxe_balance_class
 - else
   .help-panel
-    %p.help-message= :no_budget_defined_for_current_campaign.tn
+    %p.help-message= :no_budget_defined_for_current_campaign.tn.html_safe
+    = link_to_async_action(:generate_reference_budget.tl, 'ItkImportJob', { controller: :activities, action: :generate_budget, id: resource.id }, method: :post, remote: true, class: 'btn btn-default' )
     - if current_campaign.preceding && resource.budgets.find_by(campaign: current_campaign.preceding)
       - source = resource.budgets.find_by(campaign: current_campaign.preceding)
       = link_to(:copy_previous_budget.tl, { controller: :activity_budgets, action: :duplicate, activity_id: resource.id, campaign_id: current_campaign.id, id: source.id, edit: true, redirect: request.fullpath }, method: :post, class: 'btn btn-default')

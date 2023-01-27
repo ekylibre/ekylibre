@@ -28,12 +28,14 @@
         }
 
         updateBtnsHref(ids) {
-            const url = new URL(this.interventionRequestUrl);
+            const url_request = new URL(this.interventionRequestUrl);
+            const url_record = new URL(this.interventionRecordUrl);
             if (ids.length > 0) {
-                ids.map((id) => url.searchParams.append('crop_group_ids[]', id));
+                ids.map((id) => url_request.searchParams.append('crop_group_ids[]', id));
+                ids.map((id) => url_record.searchParams.append('crop_group_ids[]', id));
             }
-            this.interventionRequestBtn.setAttribute('href', url);
-            this.interventionRecordBtn.setAttribute('href', url);
+            this.interventionRequestBtn.setAttribute('href', url_request);
+            this.interventionRecordBtn.setAttribute('href', url_record);
         }
 
         get selectedIds() {

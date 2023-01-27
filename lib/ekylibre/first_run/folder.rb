@@ -111,14 +111,16 @@ module Ekylibre
 
         if @company[:activities].present?
           @company[:activities].each do |activity|
-            Activity.create_with(production_cycle: :annual)
-                    .find_or_create_by!(family: activity[:family], cultivation_variety: activity[:variety], name: activity[:label_fr])
+            open_activity = Activity.create_with(production_cycle: :annual)
+                                .find_or_create_by!(family: activity[:family], cultivation_variety: activity[:variety], name: activity[:label_fr], reference_name: activity[:production_reference_name])
+            current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
+            open_activity.budgets.find_or_create_by!(campaign: current_campaign)
           end
         end
 
         if @company[:vegetal_activities].present?
           @company[:vegetal_activities].each do |activity|
-            Activity.create!(
+            open_activity =  Activity.create!(
               family: activity[:family],
               cultivation_variety: activity[:variety],
               name: activity[:label_fr],
@@ -133,6 +135,9 @@ module Ekylibre
               start_state_of_production_year: activity[:start_state_of_production_year],
               codes: { hajimari_id: activity[:id] }
             )
+
+            current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
+            open_activity.budgets.find_or_create_by!(campaign: current_campaign)
           end
         end
 

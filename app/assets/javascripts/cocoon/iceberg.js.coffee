@@ -168,18 +168,17 @@
     interpolateStoring: ->
       zones = []
       form = if @newForm().length > 0 then @newForm() else @oldForm()
-
+      form_nature = if @line.find('#storing-display').length > 0 then 'reception' else 'purchase'
       form.find('.storing-fields').not('.removed-nested-fields').each ->
         zones.push
           quantity: $(this).find('input.storing-quantity').val()
-          unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
-          name: $(this).find('input.parcel-item-storage').data('storage-name')
+          unit: if form_nature == 'reception' then $(this).find('input.reception-conditionning').val() else $(this).find('input.invoice-conditioning').val()
+          name: $(this).find('input.parcel-item-storage').val()         
 
       form.find('.role-row--non-merchandise').each ->
         zones.push
           quantity: $(this).find('input.reception-quantity').val()
           unit: $(this).find('[data-coefficient]').data('interpolate-data-attribute')
-
       data = zones: zones
       @line.find('#conditioning-display').html(storing_display_template(zones, 'conditioning'))
       @line.find('#storing-display').html(storing_display_template(zones, 'zone'))

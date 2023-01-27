@@ -34,6 +34,20 @@
         "front-end": {
             "active_list": { "labels": { "edit": "Edit", "manage_land_parcels": "Manage land parcels", "not_defined": "To define" } },
             "bank_reconciliation": { "remove": "Remove" },
+            "highcharts": {
+                "category": "Category",
+                "downloadCSV": "Download CSV data",
+                "downloadJPEG": "Download JPG image",
+                "downloadPDF": "Download PDF document",
+                "downloadPNG": "Download PNG image",
+                "downloadSVG": "Download SVG vector image",
+                "downloadXLS": "Download XLS data",
+                "exitFullscreen": "Exit full screen",
+                "hideData": "Hide data",
+                "printChart": "Print the chart",
+                "viewData": "View data",
+                "viewFullscreen": "View in full screen"
+            },
             "intervention": {
                 "nature": {
                     "add_two_hours": "Add two hours if application happened in a close area",
@@ -41,7 +55,7 @@
                     "reentry": "Reentry:"
                 }
             },
-            "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels", "market_threshold": "Market threshold" },
+            "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels" },
             "land_parcel": { "create_modal": { "title": "Choose an activity" } },
             "leaflet": {
                 "cut": { "panel": { "coordinatesProperty": "Coordinates", "surfacesProperty": "Surfaces", "title": "Plot splitting" } },
@@ -131,19 +145,14 @@
                         "buttons": { "cutPolyline": "Split a plot" }
                     }
                 },
-                "zoom": { "zoomInTitle": "Zoom in", "zoomOutTitle": "Zoom out" }
+                "zoom": { "zoomInTitle": "Zoom in", "zoomOutTitle": "Zoom out" },
+                "zoomGuidance": "Insufficient zoom level"
             },
             "levels": { "error": "Error!" },
             "messages": {
                 "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below.",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
-            },
-            "notifications": {
-                "levels": { "error": "Error!" },
-                "messages": {
-                    "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below."
-                }
             },
             "production": {
                 "start_state_of_production": {
@@ -154,16 +163,6 @@
                 "zoomGuidance": "Insufficient zoom level",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
-            },
-            "templates": {
-                "actions": { "edit": "Edit", "regroup": "Group", "split": "Split" },
-                "form": {
-                    "calculated_area": "Calculated area",
-                    "land_parcel": "Land parcel",
-                    "name": "Name",
-                    "required": "required",
-                    "vine_variety_name": "Variety of vine"
-                }
             },
             "unroll": { "server_error": "Server error" }
         },
@@ -221,6 +220,20 @@
                 "zoomOutTitle": "Dézoomer"
             },
             "bank_reconciliation": { "remove": "Effacer" },
+            "highcharts": {
+                "category": "Catégorie",
+                "downloadCSV": "Télécharger en tableur CSV",
+                "downloadJPEG": "Télécharger en image JPG",
+                "downloadPDF": "Télécharger en document PDF",
+                "downloadPNG": "Télécharger en image PNG",
+                "downloadSVG": "Télécharger en vecteur d'image SVG",
+                "downloadXLS": "Télécharger en tableur XLS",
+                "exitFullscreen": "Quitter le mode plein écran",
+                "hideData": "Masquer les données",
+                "printChart": "Imprimer le graphique",
+                "viewData": "Afficher les données",
+                "viewFullscreen": "Afficher en plein écran"
+            },
             "intervention": {
                 "nature": {
                     "add_two_hours": "Ajouter 2h dans le cas d'une application en milieu fermé",
@@ -228,7 +241,7 @@
                     "reentry": "Réentrée :"
                 }
             },
-            "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales", "market_threshold": "Seuil de commercialisation" },
+            "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales" },
             "land_parcel": { "create_modal": { "title": "Choisir une activité" } },
             "leaflet": {
                 "cut": {
@@ -323,7 +336,10 @@
                         "buttons": { "cutPolyline": "Découper une parcelle" }
                     }
                 },
-                "zoom": { "zoomInTitle": "Zoomer", "zoomOutTitle": "Dézoomer" }
+                "zoom": { "zoomInTitle": "Zoomer", "zoomOutTitle": "Dézoomer" },
+                "zoomGuidance": "Niveau de zoom insuffisant",
+                "zoomInTitle": "Zoomer",
+                "zoomOutTitle": "Dézoomer"
             },
             "levels": { "error": "Error!" },
             "messages": {
@@ -348,16 +364,6 @@
                 "zoomGuidance": "Insufficient zoom level",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
-            },
-            "templates": {
-                "actions": { "edit": "Modifier", "regroup": "Regrouper", "split": "Dissocier" },
-                "form": {
-                    "calculated_area": "Superficie calculée",
-                    "land_parcel": "Parcelle",
-                    "name": "Nom",
-                    "required": "Obligatoire",
-                    "vine_variety_name": "variety"
-                }
             },
             "unroll": { "server_error": "Erreur serveur" }
         },

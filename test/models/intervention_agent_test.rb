@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -55,6 +55,7 @@
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
 #  specie_variety           :jsonb            default("{}")
+#  spray_volume_value       :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -68,5 +69,13 @@ require 'test_helper'
 
 class InterventionAgentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  setup do
+    @intervention_agent = create(:driver)
+  end
+
+  test "#cost_amount_computation" do
+    cost_amount_computation = @intervention_agent.cost_amount_computation(nature: :intervention)
+    assert_equal 0.0, cost_amount_computation.amount, "Amount is 0 if there isn't any worker contract or catalog item"
+  end
 end

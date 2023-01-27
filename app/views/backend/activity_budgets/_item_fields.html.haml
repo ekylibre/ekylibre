@@ -7,7 +7,7 @@
   %td
     - coefficient = f.object.coefficient&.zero? ? 1 : f.object.coefficient
     - f.object.computation_method ||= computation_methods.first.second
-    = f.input :computation_method, wrapper: :nested, input_html: {class: 'budget-computation-method computation-method'}, include_blank: false, collection: computation_methods
+    = f.input :computation_method, wrapper: :nested, input_html: {class: 'budget-computation-method computation-method unlocked'}, include_blank: false, collection: computation_methods
     = hidden_field_tag(:coeff, coefficient, class: "budget-coeff")
   %td
     = f.input :unit_amount, wrapper: :nested_append do
@@ -16,13 +16,13 @@
     = f.input :unit_currency, as: :hidden
     = f.input :direction, as: :hidden
     = f.input :locked, as: :hidden, input_html: {class: "budget-locked"}
-  %td.decimal.left-align
-    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, format: "budget"}}= f.object.amount.round(2) || '0.00'
+  %td.decimal.left-align.unwrapped
+    %span{class: "budget-amount #{direction}-amount", data: {use: '.budget-frequency, .budget-repetition, .budget-quantity, .budget-unit-amount, .budget-coeff', use_closest: '.nested-fields', calculate: "mul", calculate_round: 2, true_value: f.object.amount, format: "budget"}}= f.object&.amount&.round(2) || '0.00'
     %span.currency= currency_symbol
   - frequency_dic = {per_day: 365, per_month: 12, per_year: 1}
   %td.budget-frequency.hidden= frequency_dic.key?(f.object.frequency.to_sym) ? frequency_dic[f.object.frequency.to_sym] : 1
   %td.budget-repetition.hidden= f.object.repetition
-  %td.decimal.left-align.required-support
+  %td.decimal.left-align.required-support.unwrapped
     %span{class: "budget-amount-per-working-unit #{direction}-amount-per-working-unit", data: {use: ".budget-amount", use_closest: ".budget", divide_by: '#supports-quantity', calculate_round: currency.precision, format: "budget"}}= '0.00'
     %span.currency= currency_symbol
   %td.center-align.action{rowspan: 2}= link_to_remove_nested_association(:budget, f)
@@ -38,11 +38,13 @@
   %td.left-align.no-top-border.first-used-on
     %i.icon.icon-time
     %span= f.label :used_on.tl, wrapper: :nested
-    %span= f.input :used_on, wrapper: :nested, input_html: {class:'simple-form-date-adjusted'}
+    %span= f.input :used_on, wrapper: :nested, input_html: {class:'simple-form-date-adjusted unlocked'}
   %td.left-align.no-top-border{colspan: 2}
     %span= f.input :repetition, wrapper: :nested, :input_html => {:maxlength => 3, class: "v-budget-repetition"}
     %span.add-on= :x
     %span= f.input :frequency, wrapper: :nested, :input_html => {class: "v-budget-frequency"}
+  %td.left-align.no-top-border
+    %span= f.referenced_association :tax, new: false, source: { scope: :usable_in_budget } ,wrapper: :nested
   %td.left-align.no-top-border.transfer-price.hidden.unwrapped
     = f.input :transfer_price, as: :hidden, :input_html => {class: "v-transfer-price"}
     %span= :transfer_price.tl
@@ -54,5 +56,7 @@
       %span.use-transfer-price.hidden
         %span= f.label :use_transfer_price.tl, wrapper: :nested
         %span= f.input :use_transfer_price, wrapper: :nested
-    %td{colspan: 5}
-      %span.transfered-to-activity.hidden= f.referenced_association :transfered_activity_budget, source: {scope: { of_campaign: f.object.campaign, excepted: f.object.activity_budget.id} }, new: false
+    %td
+      %span.transfered-to-activity.hidden= f.label :transfered_activity_budget
+    %td
+      %span.transfered-to-activity.hidden= f.referenced_association :transfered_activity_budget, wrapper: :nested, source: {scope: { of_campaign: f.object.campaign, excepted: f.object.activity_budget.id} }, new: false

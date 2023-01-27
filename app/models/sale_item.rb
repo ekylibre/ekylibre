@@ -76,8 +76,12 @@ class SaleItem < ApplicationRecord
   belongs_to :conditioning_unit, class_name: 'Unit'
   belongs_to :catalog_item
   # belongs_to :tracking
+  # for a sale order who create shipments 1 order => n shipments
   has_many :shipment_items
   has_many :shipments, through: :shipment_items
+  # for a sale creating from shipments n shipments => 1 sale
+  belongs_to :shipment_item, inverse_of: :sale_item, foreign_key: :shipment_item_id
+  has_one :shipment, through: :shipment_item
   has_many :credits, class_name: 'SaleItem', foreign_key: :credited_item_id
   has_many :subscriptions, dependent: :destroy
   has_one :subscription, -> { order(:id) }, inverse_of: :sale_item
@@ -106,10 +110,11 @@ class SaleItem < ApplicationRecord
   validates :accounting_label, length: { maximum: 500 }, allow_blank: true
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
-  validates :compute_from, :currency, :sale, :variant, :conditioning_unit, :conditioning_quantity, presence: true
+  validates :catalog_item_update, :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
+  validates :compute_from, :conditioning_unit, :currency, :sale, :variant, presence: true
+  validates :conditioning_quantity, presence: true, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }
   validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :fixed, inclusion: { in: [true, false] }
-  validates :preexisting_asset, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :tax, presence: true
@@ -208,7 +213,7 @@ class SaleItem < ApplicationRecord
   end
 
   after_save do
-    unlink_fixed_asset(attribute_was(:fixed_asset_id)) if attribute_was(:fixed_asset_id)
+    unlink_fixed_asset(attribute_before_last_save(:fixed_asset_id)) if attribute_before_last_save(:fixed_asset_id)
     link_fixed_asset(fixed_asset_id) if fixed_asset_id
     next unless Preference[:catalog_price_item_addition_if_blank] && sale.invoice?
 
@@ -237,7 +242,7 @@ class SaleItem < ApplicationRecord
     return false if sale.draft? || sale.order?
 
     authorized_columns = %w[fixed_asset_id depreciable_product_id updated_at]
-    (changes.keys - authorized_columns).any?
+    (changes_to_save.keys - authorized_columns).any?
   end
 
   def unlink_fixed_asset(former_id)

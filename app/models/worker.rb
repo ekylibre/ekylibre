@@ -99,6 +99,9 @@ class Worker < Product
   include Attachable
   validates :person, presence: true
   has_many :intervention_participations, inverse_of: :product, foreign_key: :product_id, dependent: :destroy
+  has_many :time_logs, class_name: 'WorkerTimeLog', inverse_of: :worker, foreign_key: :worker_id, dependent: :destroy
+
+  accepts_nested_attributes_for :time_logs, allow_destroy: true
 
   scope :drivers, -> { Worker.where(id: InterventionParameter.where(reference_name: :driver).pluck(:product_id).uniq) }
 
@@ -113,5 +116,20 @@ class Worker < Product
   def working_duration(_options = {})
     InterventionWorkingPeriod.with_intervention_parameter(:doer, self)
                              .sum(:duration).in_second
+  end
+
+  def worker_duration(campaign, unit = :hour)
+    return unless campaign
+
+    start = Time.new(campaign.harvest_year, 1, 1).beginning_of_day.utc
+    stop = Time.new(campaign.harvest_year, 12, 31).end_of_day.utc
+    WorkerTimeIndicator.refresh
+    total = WorkerTimeIndicator.of_workers(self).between(start, stop).sum(:duration)
+    if total == "0"
+      minutes = 0.00
+    else
+      minutes = ActiveSupport::Duration.parse(total).in_full(:minute)
+    end
+    Measure.new(minutes, :minute).convert(unit).round(2).l(precision: 2)
   end
 end

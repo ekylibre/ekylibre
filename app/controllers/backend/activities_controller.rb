@@ -21,9 +21,10 @@ module Backend
     include InspectionViewable
 
     PLANT_FAMILY_ACTIVITIES = %w[plant_farming vine_farming].freeze
-    manage_restfully except: %i[index show], subclass_inheritance: true
 
     unroll
+
+    after_action :open_activity, only: :create, unless: -> { @activity.new_record? }
 
     list line_class: '(:success if RECORD.of_campaign?(current_campaign))'.c do |t|
       # t.action :show, url: {format: :pdf}, image: :print
@@ -38,6 +39,43 @@ module Backend
       t.column :support_variety, hidden: true
       t.column :isacompta_analytic_code, hidden: AnalyticSegment.where(name: 'activities').none?
     end
+
+    def show
+      return unless @activity = find_and_check
+
+      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
+      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
+      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
+      @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @planned_budget_document = DocumentTemplate.find_by(nature: :planned_budget_sheet)
+      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
+      respond_to do |format|
+        format.html do
+
+          activity_crops = Plant
+                             .joins(:inspections)
+                             .where(activity_production_id: @activity.productions.map(&:id),
+                                    dead_at: nil)
+                             .where.not(inspections: { forecast_harvest_week: nil })
+                             .distinct
+
+          @crops = initialize_grid(activity_crops, decorate: true)
+
+          t3e @activity
+        end
+
+        format.pdf do
+          return unless (template = find_and_check :document_template, params[:template])
+
+          PrinterJob.perform_later(tl("activity_printers.show.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
+          notify_success(:document_in_preparation)
+          redirect_to backend_activity_path(@activity)
+        end
+      end
+      @technical_itinerary_id = @activity&.default_tactics&.of_campaign(current_campaign)&.first&.technical_itinerary&.id
+    end
+
+    manage_restfully except: %i[index show]
 
     def index
       missing_code_count = Activity.where('isacompta_analytic_code IS NULL').count
@@ -58,6 +96,7 @@ module Backend
       @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
       @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
       @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
+      @planned_budget_document = DocumentTemplate.find_by(nature: :planned_budget_sheet)
       @pfi_interventions = PfiCampaignsActivitiesIntervention.of_campaign(current_campaign)
 
       respond_to do |format|
@@ -72,40 +111,6 @@ module Backend
           redirect_to backend_activities_path
         }
       end
-    end
-
-    def show
-      return unless @activity = find_and_check
-
-      @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
-      @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
-      @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)
-      @activity_cost_document = DocumentTemplate.find_by(nature: :activity_cost)
-      @pfi_interventions = PfiCampaignsActivitiesIntervention.of_activity(@activity).of_campaign(current_campaign)
-      respond_to do |format|
-        format.html do
-
-          activity_crops = Plant
-                             .joins(:inspections)
-                             .where(activity_production_id: @activity.productions.map(&:id),
-                                    dead_at: nil)
-                             .where.not(inspections: { forecast_harvest_week: nil })
-                             .uniq
-
-          @crops = initialize_grid(activity_crops, decorate: true)
-
-          t3e @activity
-        end
-
-        format.pdf do
-          return unless (template = find_and_check :document_template, params[:template])
-
-          PrinterJob.perform_later(tl("activity_printers.show.#{template.nature}", locale: :eng), template: template, campaign: current_campaign, activity: @activity, perform_as: current_user)
-          notify_success(:document_in_preparation)
-          redirect_to backend_activity_path(@activity)
-        end
-      end
-      @technical_itinerary_id = @activity&.default_tactics&.of_campaign(current_campaign)&.first&.technical_itinerary&.id
     end
 
     # Duplicate activity basing on campaign
@@ -153,7 +158,7 @@ module Backend
         return redirect_to(params[:redirect] || { action: :index })
       end
       if activities.any?
-        ItkImportJob.perform_later(activities.pluck(:id), current_campaign, current_user)
+        ItkImportJob.perform_later(activity_ids: activities.pluck(:id), current_campaign: current_campaign, user: current_user)
       else
         notify_error(:no_activities_present)
         redirect_to(params[:redirect] || { action: :index })
@@ -161,17 +166,19 @@ module Backend
     end
 
     def compute_pfi_report
-      @activity = find_and_check
       campaign = Campaign.find_by(id: params[:campaign_id]) || current_campaign
-
-      if @activity.present?
-        activity_ids = []
-        activity_ids << @activity.id
-      else
-        activity_ids = Activity.actives.of_campaign(campaign).of_families(PLANT_FAMILY_ACTIVITIES).with_production_nature.pluck(:id)
-      end
-      PfiReportJob.perform_later(campaign, activity_ids, current_user)
+      activities = if params[:id]
+                     Activity.where(id: params[:id])
+                   else
+                     Activity.actives
+                             .of_campaign(campaign)
+                             .of_families(PLANT_FAMILY_ACTIVITIES)
+                             .with_production_nature
+                   end
+      PfiReportJob.perform_later(campaign, activities.pluck(:id), current_user)
       notify_success(:document_in_preparation)
+      redirect_path = params[:id] ? backend_activity_path(activities.first) : backend_activities_path
+      redirect_to redirect_path
     end
 
     # List of productions for one activity
@@ -192,5 +199,45 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
+
+    def generate_budget
+      @activity = Activity.find(params[:id])
+      budget = @activity.budgets.find_by(campaign: current_campaign)
+      return if Preference.find_by(name: 'ItkImportJob_running').present?
+
+      if @activity.technical_workflow(current_campaign).present? || ( @activity.vine_farming? && @activity.technical_sequence.present? ) || ( @activity.auxiliary? && MasterBudget.of_family(@activity.family).any?)
+        ItkImportJob.perform_later(activity_ids: [@activity.id], current_campaign: current_campaign, user: current_user)
+      else
+        notify_warning(:no_reference_budget_found)
+        redirect_to action: :show
+      end
+    end
+
+    def traceability_xslx_export
+      return unless @activity = find_and_check
+
+      campaigns = Campaign.where(id: params[:campaign_id])
+      InterventionExportJob.perform_later(activity_id: @activity.id, campaign_ids: campaigns.pluck(:id), user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to backend_activity_path(@activity)
+    end
+
+    def global_costs_xslx_export
+      return unless @activity = find_and_check
+
+      campaigns = Campaign.where(id: params[:campaign_id])
+      GlobalCostExportJob.perform_later(activity_id: @activity.id, campaign_ids: campaigns.pluck(:id), user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to backend_activity_path(@activity)
+    end
+
+    private
+
+      def open_activity
+        @campaign = Campaign.find_by(name: params[:campaign][:name])
+        current_user.current_campaign = @campaign
+        current_user.current_period = Date.new(@campaign.harvest_year).to_s
+        @activity.budgets.find_or_create_by!(campaign: @campaign)
+      end
   end
 end

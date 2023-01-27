@@ -75,6 +75,9 @@ land_parcels:
   telepac_v2021_cap_statements:
     path: 'telepac/2021/statement.xml'
 
+  telepac_v2022_cap_statements:
+    path: 'telepac/2022/statement.xml'
+
   ekylibre_plants:
     path: 'alamano/plants.csv'
 
@@ -160,6 +163,8 @@ equipments:
     path: 'alamano/equipments'
     table: products
     id_column: work_number
+
+workers:
   ekylibre_workers:
     path: 'alamano/workers.csv'
   workers_pictures:
@@ -167,6 +172,8 @@ equipments:
     path: 'alamano/workers'
     table: products
     id_column: work_number
+  ekylibre_worker_time_logs:
+    path: 'alamano/worker_time_logs.csv'
 
 products:
   ekylibre_matters:
@@ -295,11 +302,23 @@ interventions:
       - 'interventions.csv'
     in: 'isaculture'
 
+  ekylibre_rides:
+    format: :archive
+    path: 'rides.zip'
+    files:
+      - 'rides.shp'
+      - 'rides.dbf'
+      - 'rides.shx'
+      - 'rides.prj'
+    in: 'alamano/rides'
+
 accountancy:
   isagri_isacompta_fixed_assets:
     path: 'isacompta/fixed_assets.csv'
   bordeaux_sciences_agro_istea_balance:
     path: 'istea/balance_2016_2018.TXT'
+  bordeaux_sciences_agro_istea_journal_entries:
+    path: 'istea/journal_entries_2020_2022.TXT'
   ekylibre_ofx_import:
     path: 'crcmds/crcmds.zip'
   ekylibre_fixed_assets:

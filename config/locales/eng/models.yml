@@ -30,7 +30,7 @@ eng:
       invalid: "%{attribute} is invalid"
       invalid_at: "%{attribute} is_invalid. Error near %{error}"
       invalid_child: "At least one value of %{attribute} is invalid."
-      invalid_conditioning_dimension: "As the selected variant's dimension (%{variant_dimension}) is not the same as the chosen conditioning's (%{conditioning_dimension}), it is mandatory to provide a value for the variant indicator %{indicator_name}"
+      invalid_conditioning_dimension: "As the selected article's dimension (%{variant_dimension}) is not the same as the chosen conditioning's (%{conditioning_dimension}), it is mandatory to provide a value for the article indicator %{indicator_name}"
       invalid_date: "%{attribute} is not a valid date"
       invalid_datetime: "%{attribute} is not a valid datetime"
       invalid_population_for_unitary_product: "The equipment %{name} cannot have a quantity of %{population} as it is supposed to be unique."
@@ -97,9 +97,15 @@ eng:
         production_cycle_period: "Production campaign period"
         isacompta_analytic_code: "Isacompta analytic code"
       activity_budget:
+        balance: "Balance amount"
         expenses_amount: "Expenses amount"
+        expenses_pretax_amount: "Expenses pretax amount"
+        pretax_balance: "Balance pretax amount"
         revenues_amount: "Revenues amount"
+        revenues_pretax_amount: "Revenues pretax amount"
+        isacompta_analytic_code: "Isacompta analytic code"
       activity_tactic:
+        default: "Default"
         mode: "Planning type"
       animal: #?
         born_at: "Born on" #?
@@ -119,6 +125,14 @@ eng:
       conditioning:
         base_unit: "Unit"
         coefficient: "Quantity"
+      cvi_statement:
+        cvi_number: "CVI number"
+        extraction_date: "Extraction date"
+        created_at: "Created at"
+        declarant: "Declarant"
+        farm_name: "Farm name"
+        total_area: "Total area"
+        state: "State"
       document:
         filename: "File"
       document_template:
@@ -202,6 +216,7 @@ eng:
         seeding_density_value: "Expected seeding density"
       product_nature_category:
         type: "Nature"
+        variants_count: "Variants count"
       product_nature_variant:
         specie_variety: "Variety"
         status: "Allowed"
@@ -219,7 +234,7 @@ eng:
         ordered_quantity: "Ordered quantity"
         supplier_name: "Supplier"
         total_amount_without_taxes: "Amount HT"
-        variant_name_with_unit: "Variant"
+        variant_name_with_unit: "Article"
       purchase_order:
         delivery_address: "Billing address"
       registered_phytosanitary_product:
@@ -299,6 +314,8 @@ eng:
         plant_specie_variety_name: "Specie"
       wine_incoming_harvest_storage:
         storage: "Storage tank"
+      worker_time_log:
+        human_duration: "Duration" #?
     errors:
       messages:
         <<: *error_messages
@@ -309,6 +326,24 @@ eng:
               truncation_error:
                 one: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last character can't be removed."
                 other: "Unable to change the length of %{value} to match the configuration (%{standard_length} characters), the last %{count} characters can't be removed."
+        activity_production:
+          attributes:
+            stopped_on:
+              after: "Stopped on must be after the last intervention : %{restriction}" 
+        financial_year: #?
+          attributes: #?
+            accountant: #?
+              frozen: "No way to update accountant because exchange is on" #?
+            started_on: #?
+              consecutive: "Financial year must be consecutive" #?
+              frozen: "No way to change started_on after being created" #?
+              on_or_after: "start date must be in line with entity of company (%{restriction})" #?
+            stopped_on: #?
+              end_of_month: "%{attribute} must be at end of month" #?
+              jei_on_other_fy: "No way to change date, %{count} entries are outside financial year"
+          can_only_have_two_years_opened: "No more than 2 financial year opened at the same time" #?
+          can_only_update_code: "You can only update label of a closed financial year" #?
+          overlap: "%{attribute} overlap another financial year" #?
         intervention_target:
           attributes:
             product:
@@ -329,6 +364,10 @@ eng:
           attributes:
             to_bank_at:
               financial_year_exchange_on_this_period: "There is an opened accounting exchange at this period"
+        purchase_payment:
+          attributes:
+            to_bank_at:
+              financial_year_matching_this_date_is_in_closure_preparation: "The accounting year corresponding to this date is being prepared for closure by another user"
     models:
       account: "Account"
       account_balance: "Account balance"
@@ -471,6 +510,8 @@ eng:
       net_service: "Net service"
       notification: "Notification"
       observation: "Observation"
+      opportunity: "Opportunity"
+      opportunities: "Opportunities"
       outgoing_payment: "Outgoing payment"
       outgoing_payment_list: "Disbursement list"
       outgoing_payment_mode: "Disbursement mode"
@@ -499,7 +540,7 @@ eng:
       product_localization: "Product localization"
       product_membership: "Product membership"
       product_movement: "Product movement"
-      product_nature: "Product type"
+      product_nature: "Functional profile"
       product_nature_category: "Accounting category"
       product_nature_category_taxation: "Product type category taxation"
       product_nature_variant: "Product type variant"
@@ -569,41 +610,47 @@ eng:
       tracking: "Tracking"
       user: "User"
       # user_role: "User role"
-      # variant: "Variant"
-      # variant_categories/animal_category: "Variant categories/animal category"
-      # variant_categories/article_category: "Variant categories/article category"
-      # variant_categories/crop_category: "Variant categories/crop category"
-      # variant_categories/equipment_category: "Variant categories/equipment category"
-      # variant_categories/service_category: "Variant categories/service category"
-      # variant_categories/worker_category: "Variant categories/worker category"
-      # variant_categories/zone_category: "Variant categories/zone category"
-      # variant_category: "Variant category"
-      # variant_nature: "Variant nature"
-      # variant_types/animal_type: "Variant types/animal type"
-      # variant_types/article_type: "Variant types/article type"
-      # variant_types/crop_type: "Variant types/crop type"
-      # variant_types/equipment_type: "Variant types/equipment type"
-      # variant_types/service_type: "Variant types/service type"
-      # variant_types/worker_type: "Variant types/worker type"
-      # variant_types/zone_type: "Variant types/zone type"
-      # variants/animal_variant: "Variants/animal variant"
-      # variants/article_variant: "Variants/article variant"
-      # variants/articles/fertilizer_article: "Variants/articles/fertilizer article"
-      # variants/articles/plant_medicine_article: "Variants/articles/plant medicine article"
-      # variants/articles/seed_and_plant_article: "Variants/articles/seed and plant article"
-      # variants/crop_variant: "Variants/crop variant"
-      # variants/equipment_variant: "Variants/equipment variant"
-      # variants/service_variant: "Variants/service variant"
-      # variants/worker_variant: "Variants/worker variant"
-      # variants/zone_variant: "Variants/zone variant"
+      # variant: "Article"
+      # variant_categories/animal_category: "Article categories/animal category"
+      # variant_categories/article_category: "Article categories/article category"
+      # variant_categories/crop_category: "Article categories/crop category"
+      # variant_categories/equipment_category: "Article categories/equipment category"
+      # variant_categories/service_category: "Article categories/service category"
+      # variant_categories/worker_category: "Article categories/worker category"
+      # variant_categories/zone_category: "Article categories/zone category"
+      # variant_category: "Article category"
+      # variant_nature: "Article nature"
+      # variant_types/animal_type: "Article types/animal type"
+      # variant_types/article_type: "Article types/article type"
+      # variant_types/crop_type: "Article types/crop type"
+      # variant_types/equipment_type: "Article types/equipment type"
+      # variant_types/service_type: "Article types/service type"
+      # variant_types/worker_type: "Article types/worker type"
+      # variant_types/zone_type: "Article types/zone type"
+      # variants/animal_variant: "Articles/animal article"
+      # variants/article_variant: "Articles/article article"
+      # variants/articles/fertilizer_article: "Articles/stockables articles/fertilizer article"
+      # variants/articles/plant_medicine_article: "Articles/stockables articles/plant medicine article"
+      # variants/articles/seed_and_plant_article: "Articles/stockables articles/seed and plant article"
+      # variants/crop_variant: "Articles/crop article"
+      # variants/equipment_variant: "Articles/equipment article"
+      # variants/service_variant: "Articles/service article"
+      # variants/worker_variant: "Articles/worker article"
+      # variants/zone_variant: "Articles/zone article"
       version: "Version"
       # wice_grid_serialized_query: "Wice grid serialized query"
       worker: "Worker"
+      worker_contract: "Worker contract"
+      worker_contract_distribution: "Worker contract distribution"
+      worker_group: "Worker group"
+      worker_groups: "Worker groups"
+      worker_time_log: "Worker time log"
       wine_incoming_harvest_input: "Wine incoming harvest input"
       wine_incoming_harvest_plant: "Wine incoming harvest plan"
       wine_incoming_harvest_storage: "Wine incoming harvest storage"
       zone: "Zone"
   attributes:
+    spray_volume_value: "Spray volume"
     starting_year: "Starting year"
     isacompta_code: "Isacompta code"
     isacompta_label: "Isacompta label"
@@ -873,7 +920,7 @@ eng:
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
     cultivable_zones: "Cultivable zones"
-    cultivation_variant: "Cultivation variant"
+    cultivation_variant: "Cultivation article"
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"
@@ -931,7 +978,7 @@ eng:
     default_storage: "Default storage"
     default_unit: "Default unit"
     default_unit_name: "Default unit"
-    default_variant: "Default variant"
+    default_variant: "Default article"
     # default_vat_rate: "Default vat rate"
     # default_website_address: "Default website address"
     deleted_at: "Deleted at"
@@ -1281,7 +1328,7 @@ eng:
     item_object: "Item object"
     item_type: "Item type"
     item_value: "Item value"
-    # item_variants: "Item variants"
+    # item_variants: "Item articles"
     items: "Items"
     items_count: "Items count"
     items_count_value: "Items count value"
@@ -1370,6 +1417,7 @@ eng:
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
     # main_journal_entry_items: "Main journal entry items"
+    main_output: 'Main output'
     main_production: "Main production"
     managed: "Managed"
     managed_sales: "Managed sales"
@@ -1399,7 +1447,7 @@ eng:
     measure_value_value: "Measure value value"
     meeting_origin: "Meeting origin"
     member: "Member"
-    member_variant: "Member variant"
+    member_variant: "Member article"
     members: "Members"
     members_count: "Members count"
     memberships: "Memberships"
@@ -1428,7 +1476,7 @@ eng:
     multi_polygon_value: "The outline of the shape"
     name: "Name"
     naming_format: "Naming format"
-    nature: "Type"
+    nature: "Profile"
     nature_name: "Type name"
     natures: "Types"
     net_mass: "Net mass"
@@ -1439,7 +1487,7 @@ eng:
     new_container: "New container"
     new_group: "New group"
     new_name: "New name"
-    new_variant: "New variant"
+    new_variant: "New article"
     nitrate_fixing: "Nitrate fixing"
     nitrogen_at_closing: "Nitrogen at closing"
     nitrogen_input: "Nitrogen input"
@@ -1498,8 +1546,8 @@ eng:
     # parcels_purchase_invoice_items: "Parcels purchase invoice items"
     # parcels_purchase_orders_items: "Parcels purchase orders items"
     parent: "Parent"
-    part_product_nature_variant: "Part product type variant"
-    part_product_nature_variant_id: "Part product type variant"
+    part_product_nature_variant: "Part article"
+    part_product_nature_variant_id: "Part article"
     part_replacements: "Part replacements"
     parted: "Parted"
     parted_product: "Parted product"
@@ -1592,13 +1640,13 @@ eng:
     product_memberships: "Product memberships"
     product_movement: "Product movement"
     product_name: "Product"
-    product_nature: "Product type"
+    product_nature: "Functional profile"
     product_nature_categories: "Accounting categories"
     product_nature_category: "Accounting category"
     product_nature_category_taxations: "Accounting category taxations"
-    product_nature_variant: "Product type variant"
-    product_nature_variant_id: "Product type variant"
-    product_natures: "Product types"
+    product_nature_variant: "Article"
+    product_nature_variant_id: "Article"
+    product_natures: "Functional profiles"
     # product_net_surface_area_unit: "Product net surface area unit"
     # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"
@@ -1850,8 +1898,8 @@ eng:
     stock_movement_account: "Stock movement account"
     stocks_categories: "Stocks categories"
     # stocks_movement_categories: "Stocks movement categories"
-    # stocks_movement_variants: "Stocks movement variants"
-    # stocks_variants: "Stocks variants"
+    # stocks_movement_variants: "Stocks movement articles"
+    # stocks_variants: "Stocks articles"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Storable"
@@ -1887,9 +1935,9 @@ eng:
     support: "Support"
     support_nature: "Support type"
     support_shape: "Support shape"
-    support_variant: "Support variant"
+    support_variant: "Support article"
     support_variant_indicator: "Working indicator"
-    support_variant_unit: "Support variant unit"
+    support_variant_unit: "Support article unit"
     support_variety: "Support variety"
     supports: "Supports"
     suspend_until_reconciliation: "Suspend until reconciliation"
@@ -1924,6 +1972,8 @@ eng:
     taxations: "Taxations"
     team: "Team"
     technical_itinerary: "Technical itinerary"
+    technical_workflow: "Technical workflow"
+    technical_sequence: "Technical sequence"
     template: "Template"
     theme: "Theme"
     theoretical_number: "Theoretical number"
@@ -2021,12 +2071,12 @@ eng:
     # validator: "Validator"
     value: "Value"
     variable_indicators_list: "Variable indicators list"
-    variant: "Variant"
-    # variant_category: "Variant category"
-    variant_indicator: "Variant indicator"
+    variant: "Article"
+    # variant_category: "Article category"
+    variant_indicator: "Article indicator"
     variant_nature: "Variant nature"
-    variant_unit: "Variant unit"
-    variants: "Variants"
+    variant_unit: "Article unit"
+    variants: "Articles"
     variety: "Variety"
     variety_name: "Variety name"
     vat_account: "VAT account"
@@ -2439,6 +2489,8 @@ eng:
         validated: "Validated"
     team:
       default: "Main team"
+    technical_itinerary:
+        plant_density: 'Density'
     user:
       invitation:
         accepted: "Accepted"

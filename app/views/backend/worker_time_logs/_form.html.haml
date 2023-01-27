@@ -1,0 +1,8 @@
+= field_set do
+  = f.referenced_association :worker, new: false, source: { scope: :workers }
+  = f.input :started_at
+  = f.input :stopped_at
+  = f.input :duration do
+    = f.input_field :human_duration, readonly: true, disabled: true
+  = f.input :description, as: :text
+  = f.custom_fields

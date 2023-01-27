@@ -236,7 +236,7 @@ class TaxDeclaration < ApplicationRecord
   def compute!
     set_entry_items_tax_modes
 
-    taxes = Tax.order(:name)
+    taxes = Tax.where(active: true).reorder(:name)
     # Removes unwanted tax declaration item
     items.where.not(tax: taxes).find_each(&:destroy)
     # Create or update other items

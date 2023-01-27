@@ -4,7 +4,7 @@
   = f.hidden_field :indicator_name
   - if indicator.datatype == :measure
     - f.object.measure_value_unit ||= indicator.unit
-  = f.input("#{indicator.datatype}_value", wrapper: :append, label: indicator.human_name) do |i|
+  = f.input("#{indicator.datatype}_value", wrapper: :append, label: indicator.human_name) do
     - if indicator.datatype == :measure
       = f.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
       = f.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Onoma::Unit[u].human_name, u]})

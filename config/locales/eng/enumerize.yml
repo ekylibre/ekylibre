@@ -40,7 +40,7 @@ eng:
     activity_tactic:
       mode:
         harvested: "From harvesting date"
-        sowed: "From sowing date"
+        sowed: "Estimated date of sowing or start of annual production campaign"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
@@ -273,6 +273,9 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    intervention_parameter_setting:
+      nature:
+        spraying: Spraying setting
     intervention_participation:
       state:
         done: "Done"
@@ -322,6 +325,10 @@ eng:
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
+      state:
+        draft: "Draft"
+        ongoing: "Ongoing"
+        repaid: "Repaid"
     map_layer:
       nature:
         background: "Background"
@@ -432,7 +439,7 @@ eng:
         unitary: "Unitary"
       type:
         VariantTypes::AnimalType: "Animals"
-        VariantTypes::ArticleType: "Articles"
+        VariantTypes::ArticleType: "Stockable articles"
         VariantTypes::CropType: "Crops"
         VariantTypes::EquipmentType: "Equipments"
         VariantTypes::ServiceType: "Services"
@@ -514,7 +521,7 @@ eng:
         # Nomenclature: "Nomenclature"
       type:
         Variants::AnimalVariant: "Animals"
-        Variants::ArticleVariant: "Articles"
+        Variants::ArticleVariant: "Stockable articles"
         Variants::Articles::FarmProductArticle: "Farm products"
         Variants::Articles::FertilizerArticle: "Fertilizers"
         Variants::Articles::PlantMedicineArticle: "Plant medicines"
@@ -712,8 +719,8 @@ eng:
         plant_countings: "Plant countings"
         plants: "Plants"
         product_nature_categories: "Accounting categories"
-        product_nature_variants: "Product nature variants"
-        product_natures: "Product natures"
+        product_nature_variants: "Articles"
+        product_natures: "Functional profiles"
         products: "Products"
         purchases: "Purchases"
         ride: "Ride"

@@ -1,4 +1,4 @@
-class AddProviderToCultivableZones < ActiveRecord::Migration
+class AddProviderToCultivableZones < ActiveRecord::Migration[4.2]
   def change
     add_provider_to :cultivable_zones
   end

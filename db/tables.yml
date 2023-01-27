@@ -265,12 +265,19 @@ activity_budget_items:
     type: decimal
     precision: 19
     scale: 4
+  global_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  locked:
+    type: boolean
+    default: false
   main_output:
     type: boolean
     required: true
@@ -281,6 +288,10 @@ activity_budget_items:
     type: string
   paid_on:
     type: date
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   product_parameter_id:
     type: integer
     references: intervention_template/product_parameter
@@ -291,6 +302,14 @@ activity_budget_items:
   repetition:
     type: integer
     required: true
+  tax_id:
+    type: integer
+    references: tax
+  transfer_price:
+    type: float
+  transfered_activity_budget_id:
+    type: integer
+    references: activity_budget
   unit_amount:
     type: decimal
     precision: 19
@@ -311,6 +330,9 @@ activity_budget_items:
   updater_id:
     type: integer
     references: user
+  use_transfer_price:
+    type: boolean
+    default: false
   used_on:
     type: date
   variant_id:
@@ -841,6 +863,9 @@ analyses:
   creator_id:
     type: integer
     references: user
+  cultivable_zone_id:
+    type: integer
+    references: cultivable_zone
   custom_fields:
     type: jsonb
   description:
@@ -1097,6 +1122,8 @@ bank_statement_items:
   name:
     type: string
     required: true
+  provider:
+    type: jsonb
   transaction_nature:
     type: string
   transaction_number:
@@ -1671,6 +1698,9 @@ catalog_items:
   purchase_item_id:
     type: integer
     references: purchase_item
+  product_id:
+    type: integer
+    references: product
   reference_name:
     type: string
   reference_tax_id:
@@ -2710,6 +2740,8 @@ documents:
   key:
     type: string
     required: true
+  klippa_metadata:
+    type: jsonb
   lock_version:
     type: integer
     required: true
@@ -2745,6 +2777,64 @@ documents:
     type: boolean
     required: true
     default: false
+economic_cash_indicators:
+  activity_budget_id:
+    type: integer
+    references: activity_budget
+  activity_budget_item_id:
+    type: integer
+    references: activity_budget_item
+  activity_id:
+    type: integer
+    references: activity
+  amount:
+    type: decimal
+  campaign_id:
+    type: integer
+    references: campaign
+  context:
+    type: string
+  context_color:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  direction:
+    type: string
+  id:
+    type: integer
+    required: true
+  loan_id:
+    type: integer
+    references: loan
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  origin:
+    type: string
+  paid_on:
+    type: date
+  pretax_amount:
+    type: decimal
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  used_on:
+    type: date
+  worker_contract_id:
+    type: integer
+    references: worker_contract
 entities:
   active:
     type: boolean
@@ -2767,6 +2857,11 @@ entities:
   client_account_id:
     type: integer
     references: account
+  client_payment_delay:
+    type: string
+  client_payment_mode_id:
+    type: integer
+    references: incoming_payment_mode
   codes:
     type: jsonb
   country:
@@ -4372,6 +4467,37 @@ intervention_parameter_readings:
   updater_id:
     type: integer
     references: user
+intervention_parameter_settings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  intervention_parameter_id:
+    type: integer
+    references: intervention_parameter
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  nature:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_parameters:
   allowed_entry_factor:
     type: string
@@ -4463,6 +4589,10 @@ intervention_parameters:
     required: true
   specie_variety:
     type: jsonb
+  spray_volume_value:
+    type: decimal
+    precision: 19
+    scale: 4
   type:
     type: string
   unit_pretax_stock_amount:
@@ -4484,6 +4614,12 @@ intervention_parameters:
   variant_id:
     type: integer
     references: product_nature_variant
+  variety:
+    type: string
+  working_zone_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
   working_zone:
     type: geometry
     limit:
@@ -4579,6 +4715,73 @@ intervention_proposals:
   updated_at:
     type: datetime
     required: true
+intervention_setting_items:
+  absolute_measure_value_unit:
+    type: string
+  absolute_measure_value_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  boolean_value:
+    type: boolean
+    required: true
+    default: false
+  choice_value:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  decimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  geometry_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  id:
+    type: integer
+    required: true
+  indicator_datatype:
+    type: string
+    required: true
+  indicator_name:
+    type: string
+    required: true
+  integer_value:
+    type: integer
+  intervention_id:
+    type: integer
+    references: intervention
+  intervention_parameter_setting_id:
+    type: integer
+    references: intervention_parameter_setting
+  lock_version:
+    type: integer
+    required: true
+  measure_value_unit:
+    type: string
+  measure_value_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  point_value:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  string_value:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_template_activities:
   activity_id:
     type: integer
@@ -4668,8 +4871,10 @@ intervention_templates:
   updater_id:
     type: integer
     references: user
-  workflow:
+  workflow_value:
     type: decimal
+  workflow_unit:
+    type: string
 intervention_working_periods:
   created_at:
     type: datetime
@@ -6045,6 +6250,9 @@ master_crop_production_yields:
     scale: 2
     required: true
 master_crop_productions:
+  activity_family:
+    type: string
+    required: true
   agroedi_crop_code:
     type: string
   idea_botanic_family:
@@ -6062,7 +6270,6 @@ master_crop_productions:
     type: string
   specie:
     type: string
-    required: true
   started_on:
     type: date
     required: true
@@ -6853,6 +7060,10 @@ parcel_items:
     references: entity
   type:
     type: string
+  unit_pretax_sale_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   unit_pretax_stock_amount:
     type: decimal
     precision: 19
@@ -6949,6 +7160,9 @@ parcels:
   sale_id:
     type: integer
     references: sale
+  sale_nature_id:
+    type: integer
+    references: sale_nature
   sender_id:
     type: integer
     references: entity
@@ -8333,7 +8547,6 @@ products:
   conditioning_unit_id:
     type: integer
     references: unit
-    required: true
   country:
     type: string
   created_at:
@@ -8488,6 +8701,9 @@ products:
     required: true
   work_number:
     type: string
+  worker_group_item_id:
+    type: integer
+    references: worker_group_item
 project_budgets:
   created_at:
     type: datetime
@@ -8786,6 +9002,9 @@ registered_cadastral_buildings:
     limit:
       srid: 4326
       type: st_point
+  id:
+    type: integer
+    required: true
   nature:
     type: string
   shape:
@@ -8807,13 +9026,54 @@ registered_cadastral_parcels:
     type: integer
   section:
     type: string
+  section_prefix:
+    type: string
   shape:
     type: geometry
     limit:
       srid: 4326
       type: multi_polygon
     required: true
+  town_insee_code:
+    type: string
   work_number:
+    type: string
+registered_cadastral_prices:
+  address:
+    type: string
+  building_area:
+    type: integer
+  building_nature:
+    type: string
+  cadastral_parcel_area:
+    type: integer
+  cadastral_parcel_id:
+    type: string
+  cadastral_price:
+    type: decimal
+    precision: 14
+    scale: 2
+  centroid:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  city:
+    type: string
+  department:
+    type: string
+  id:
+    type: integer
+    required: true
+  mutation_date:
+    type: date
+  mutation_id:
+    type: string
+  mutation_nature:
+    type: string
+  mutation_reference:
+    type: string
+  postal_code:
     type: string
 registered_enterprises:
   address:
@@ -9127,6 +9387,46 @@ registered_seed_varieties:
     type: string
   variety_name:
     type: string
+registered_soil_available_water_capacities:
+  available_water_label:
+    type: string
+  available_water_max_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  available_water_min_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  available_water_reference_value:
+    type: integer
+  available_water_unit:
+    type: string
+  id:
+    type: string
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
+    required: true
+registered_soil_depths:
+  id:
+    type: string
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
+    required: true
+  soil_depth_unit:
+    type: string
+  soil_depth_value:
+    type: decimal
+    precision: 19
+    scale: 4
 registered_vine_varieties:
   category:
     type: string
@@ -9207,7 +9507,9 @@ ride_sets:
   provider:
     type: jsonb
   road:
-    type: integer
+    type: decimal
+    precision: 19
+    scale: 4
   shape:
     type: geometry
     limit:
@@ -9234,16 +9536,24 @@ rides:
     type: float
   area_without_overlap:
     type: float
+  converting_to_intervention:
+    type: boolean
+    required: true
+    default: false
   created_at:
     type: datetime
     required: true
   creator_id:
     type: integer
     references: user
+  cultivable_zone_id:
+    type: integer
+    references: cultivable_zone
+    limit: 8
   distance_km:
     type: float
   duration:
-    type: string
+    type: interval
   equipment_name:
     type: string
   gasoline:
@@ -9277,11 +9587,9 @@ rides:
   sleep_count:
     type: integer
   sleep_duration:
-    type: string
+    type: interval
   started_at:
     type: datetime
-  state:
-    type: string
   stopped_at:
     type: datetime
   updated_at:
@@ -9335,6 +9643,9 @@ sale_items:
   catalog_item_id:
     type: integer
     references: catalog_item
+  catalog_item_update:
+    type: boolean
+    default: false
   codes:
     type: jsonb
   compute_from:
@@ -9406,6 +9717,9 @@ sale_items:
     type: integer
     references: sale
     required: true
+  shipment_item_id:
+    type: integer
+    references: shipment_item
   tax_id:
     type: integer
     references: tax
@@ -10191,6 +10505,8 @@ taxes:
   collect_account_id:
     type: integer
     references: account
+  collect_isacompta_code:
+    type: string
   country:
     type: string
     required: true
@@ -10203,14 +10519,20 @@ taxes:
   deduction_account_id:
     type: integer
     references: account
+  deduction_isacompta_code:
+    type: string
   description:
     type: text
   fixed_asset_collect_account_id:
     type: integer
     references: account
+  fixed_asset_collect_isacompta_code:
+    type: string
   fixed_asset_deduction_account_id:
     type: integer
     references: account
+  fixed_asset_deduction_isacompta_code:
+    type: string
   id:
     type: integer
     required: true
@@ -10297,6 +10619,10 @@ technical_itineraries:
     required: true
   name:
     type: string
+  plant_density:
+    type: decimal
+    precision: 19
+    scale: 4
   originator_id:
     type: integer
     references: technical_itinerary
@@ -10535,6 +10861,8 @@ units:
   name:
     type: string
     required: true
+  provider:
+    type: jsonb
   reference_name:
     type: string
   symbol:
@@ -10901,6 +11229,38 @@ wine_incoming_harvests:
   updater_id:
     type: integer
     references: user
+worker_contract_distributions:
+  worker_contract_id:
+    type: integer
+    references: worker_contract
+    required: true
+  affectation_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  main_activity_id:
+    type: integer
+    references: activity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 worker_contracts:
   contract_end:
     type: string
@@ -10955,3 +11315,87 @@ worker_contracts:
   updater_id:
     type: integer
     references: user
+worker_group_items:
+  created_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  worker_group_id:
+    type: integer
+    references: worker_group
+  worker_id:
+    type: integer
+    references: worker
+worker_groups:
+  active:
+    type: boolean
+    required: true
+    default: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  usage:
+    type: string
+  work_number:
+    type: string
+worker_time_logs:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  custom_fields:
+    type: jsonb
+  description:
+    type: text
+  duration:
+    type: integer
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  provider:
+    type: jsonb
+  started_at:
+    type: datetime
+    required: true
+  stopped_at:
+    type: datetime
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  worker_id:
+    type: integer
+    references: worker
+    required: true

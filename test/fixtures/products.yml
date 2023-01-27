@@ -2058,6 +2058,7 @@ land_parcels_038:
   variety: land_parcel
   conditioning_unit_id: 4
 matters_001:
+  born_at: 2014-10-31 17:19:32.000000000 Z
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -2076,6 +2077,7 @@ matters_001:
   variety: matter
   conditioning_unit_id: 3
 matters_002:
+  born_at: 2014-10-31 17:19:32.000000000 Z
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -2094,6 +2096,7 @@ matters_002:
   variety: matter
   conditioning_unit_id: 3
 matters_003:
+  born_at: 2014-10-31 17:19:32.000000000 Z
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -2112,6 +2115,7 @@ matters_003:
   variety: matter
   conditioning_unit_id: 3
 matters_004:
+  born_at: 2014-10-31 17:19:32.000000000 Z
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -2130,6 +2134,7 @@ matters_004:
   variety: matter
   conditioning_unit_id: 3
 matters_005:
+  born_at: 2014-10-31 17:19:32.000000000 Z
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -2148,6 +2153,7 @@ matters_005:
   variety: matter
   conditioning_unit_id: 3
 matters_006:
+  born_at: 2014-10-31 17:19:32.000000000 Z
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -2372,7 +2378,7 @@ matters_015:
   category_id: 5
   created_at: 2014-11-05 15:40:15.688874000 Z
   creator_id: 1
-  dead_at: 2013-11-10 12:01:30.000000000 Z
+  dead_at: 2013-11-12 12:01:30.000000000 Z
   default_storage_id: 20
   derivative_of: triticum_aestivum_rubisko
   id: 89
@@ -2397,7 +2403,7 @@ matters_016:
   category_id: 5
   created_at: 2014-11-06 17:50:06.929964000 Z
   creator_id: 1
-  dead_at: 2012-10-17 10:09:00.000000000 Z
+  dead_at: 2012-10-18 10:09:00.000000000 Z
   default_storage_id: 20
   derivative_of: triticum_aestivum_rubisko
   id: 91
@@ -2568,7 +2574,7 @@ matters_023:
   category_id: 5
   created_at: 2014-11-07 15:45:45.728092000 Z
   creator_id: 1
-  dead_at: 2007-09-29 10:59:00.000000000 Z
+  dead_at: 2007-09-30 10:59:00.000000000 Z
   default_storage_id: 21
   derivative_of: poa
   id: 102
@@ -2644,7 +2650,7 @@ matters_026:
   category_id: 19
   created_at: 2014-11-07 16:50:07.026840000 Z
   creator_id: 1
-  dead_at: 2008-03-15 15:39:00.000000000 Z
+  dead_at: 2008-03-16 15:39:00.000000000 Z
   default_storage_id: 21
   derivative_of: vitis
   id: 109
@@ -2936,7 +2942,7 @@ matters_038:
   category_id: 22
   created_at: 2014-11-07 19:08:55.092680000 Z
   creator_id: 1
-  dead_at: 2013-10-05 13:22:00.000000000 Z
+  dead_at: 2013-10-06 13:22:00.000000000 Z
   default_storage_id: 21
   derivative_of: saccharomyces_cerevisiae
   id: 129
@@ -3009,7 +3015,7 @@ matters_041:
   category_id: 22
   created_at: 2014-11-07 19:12:42.843046000 Z
   creator_id: 1
-  dead_at: 2013-10-07 09:41:00.000000000 Z
+  dead_at: 2013-10-08 09:41:00.000000000 Z
   default_storage_id: 21
   id: 132
   initial_born_at: 2013-10-07 09:45:00.000000000 Z
@@ -3057,7 +3063,7 @@ matters_043:
   category_id: 22
   created_at: 2014-11-07 19:24:10.209263000 Z
   creator_id: 1
-  dead_at: 2013-10-15 08:44:00.000000000 Z
+  dead_at: 2013-10-16 08:44:00.000000000 Z
   default_storage_id: 21
   id: 134
   initial_born_at: 2013-10-15 08:48:00.000000000 Z
@@ -3131,7 +3137,7 @@ matters_046:
   category_id: 21
   created_at: 2014-11-07 19:36:59.034307000 Z
   creator_id: 1
-  dead_at: 2013-10-30 13:52:00.000000000 Z
+  dead_at: 2013-10-30 15:52:00.000000000 Z
   default_storage_id: 116
   derivative_of: grape
   id: 139
@@ -3156,7 +3162,7 @@ matters_047:
   category_id: 23
   created_at: 2014-11-07 19:36:59.103331000 Z
   creator_id: 1
-  dead_at: 2013-10-30 13:52:00.000000000 Z
+  dead_at: 2013-10-30 15:52:00.000000000 Z
   default_storage_id: 21
   id: 140
   initial_born_at: 2013-10-30 14:00:00.000000000 Z
@@ -3180,7 +3186,7 @@ matters_048:
   category_id: 23
   created_at: 2014-11-07 19:36:59.170065000 Z
   creator_id: 1
-  dead_at: 2013-10-30 13:52:00.000000000 Z
+  dead_at: 2013-10-30 15:52:00.000000000 Z
   default_storage_id: 21
   id: 141
   initial_born_at: 2013-10-30 14:00:00.000000000 Z
@@ -3351,7 +3357,7 @@ matters_055:
   derivative_of: equipment
   id: 180
   identification_number: ''
-  initial_born_at: 2016-08-10 14:27:49.798212000 Z
+  initial_born_at: 2016-08-10 13:27:49.798212000 Z
   initial_movement_id: 173
   initial_owner_id: 1
   initial_population: 0.0
@@ -3388,6 +3394,7 @@ plants_001:
   nature_id: 15
   number: PR00000000034
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Apache'}
   type: Plant
   updated_at: 2014-11-05 15:40:15.833985000 Z
   updater_id: 1
@@ -3417,6 +3424,7 @@ plants_002:
   nature_id: 15
   number: PR00000000036
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Apache'}
   type: Plant
   updated_at: 2014-11-06 17:50:07.013572000 Z
   updater_id: 1
@@ -3442,6 +3450,7 @@ plants_003:
   nature_id: 34
   number: PR00000000047
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Melange'}
   type: Plant
   updated_at: 2014-11-07 15:45:45.794867000 Z
   updater_id: 1
@@ -3474,6 +3483,7 @@ plants_004:
   nature_id: 36
   number: PR00000000054
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Cabernet Sauvignon R'}
   type: Plant
   updated_at: 2014-11-07 16:50:07.190626000 Z
   updater_id: 1
@@ -3500,6 +3510,7 @@ plants_005:
   nature_id: 15
   number: PR00000000125
   reading_cache: {}
+  specie_variety: {specie_variety_name: 'Apache'}
   type: Plant
   updated_at: 2016-12-20 18:24:29.729982000 Z
   updater_id: 1

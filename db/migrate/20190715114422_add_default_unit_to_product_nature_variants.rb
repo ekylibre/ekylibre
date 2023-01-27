@@ -1,4 +1,4 @@
-class AddDefaultUnitToProductNatureVariants < ActiveRecord::Migration
+class AddDefaultUnitToProductNatureVariants < ActiveRecord::Migration[4.2]
   def up
     add_column :product_nature_variants, :default_quantity, :decimal, precision: 19, scale: 4, default: 1
     add_column :product_nature_variants, :default_unit_name, :string

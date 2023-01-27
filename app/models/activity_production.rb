@@ -84,10 +84,10 @@ class ActivityProduction < ApplicationRecord
   belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
 
   # planning
-  belongs_to :technical_itinerary, class_name: TechnicalItinerary
-  has_one :batch, class_name: ActivityProductionBatch, dependent: :destroy, inverse_of: :activity_production
-  has_many :daily_charges, class_name: DailyCharge, dependent: :destroy, foreign_key: :activity_production_id
-  has_many :intervention_proposals, class_name: InterventionProposal, foreign_key: :activity_production_id
+  belongs_to :technical_itinerary, class_name: 'TechnicalItinerary'
+  has_one :batch, class_name: 'ActivityProductionBatch', dependent: :destroy, inverse_of: :activity_production
+  has_many :daily_charges, class_name: 'DailyCharge', dependent: :destroy, foreign_key: :activity_production_id
+  has_many :intervention_proposals, class_name: 'InterventionProposal', dependent: :destroy, foreign_key: :activity_production_id
 
   accepts_nested_attributes_for :batch, allow_destroy: true
 
@@ -96,8 +96,11 @@ class ActivityProduction < ApplicationRecord
   composed_of :size, class_name: 'Measure', mapping: [%w[size_value to_d], %w[size_unit_name unit]]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :custom_name, :state, length: { maximum: 500 }, allow_blank: true
+  validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
+  validates :custom_name, :reference_name, :state, length: { maximum: 500 }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
+  validates :number_of_batch, :sowing_interval, :starting_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
   validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -116,6 +119,8 @@ class ActivityProduction < ApplicationRecord
   validates :number_of_batch, :sowing_interval, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   validate :sowing_date_between_period_of_activity_production
+  validate :stopped_on_after_last_intervention
+  validate :support_shape_presence_if_vegetal_farming
 
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
@@ -143,6 +148,7 @@ class ActivityProduction < ApplicationRecord
   }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
+  scope :of_cultivable_zone, ->(cultivable_zone) { where(cultivable_zone: cultivable_zone) }
   scope :of_activities, lambda { |*activities|
     where(activity_id: activities.flatten.map(&:id))
   }
@@ -161,6 +167,8 @@ class ActivityProduction < ApplicationRecord
   }
 
   scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
+  scope :start_before, ->(at) { where('started_on < ?', at.to_date) }
+  scope :stop_after, ->(at) { where('stopped_on > ?', at.to_date) }
   scope :current, -> { at(Time.zone.now) }
 
   scope :with_technical_itinerary, -> { where.not(technical_itinerary: nil)}
@@ -192,6 +200,8 @@ class ActivityProduction < ApplicationRecord
   end
 
   before_validation do
+    self.state ||= :opened
+    self.batch_planting ||= false
     self.started_on ||= Date.today
     self.usage ||= Onoma::ProductionUsage.first
     self.support_nature ||= :cultivation
@@ -220,10 +230,6 @@ class ActivityProduction < ApplicationRecord
     self.state ||= :opened
     self.batch_planting ||= false
     true
-  end
-
-  validate do
-    errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape && support_shape.empty?
   end
 
   after_save do
@@ -494,15 +500,6 @@ class ActivityProduction < ApplicationRecord
     batch.destroy
   end
 
-  def sowing_date_between_period_of_activity_production
-    if predicated_sowing_date.present? && predicated_sowing_date < started_on
-      errors.add(:predicated_sowing_date, :date_should_be_after_start_date_of_production)
-    end
-
-    if predicated_sowing_date.present? && predicated_sowing_date > stopped_on
-      errors.add(:predicated_sowing_date, :date_should_be_before_end_of_production)
-    end
-  end
   # planning
 
   def cost(role = :input)
@@ -651,13 +648,11 @@ class ActivityProduction < ApplicationRecord
       return nil
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
-    # puts "harvest_yield_unit_name : #{harvest_yield_unit_name}".inspect.red
     unless Onoma::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
 
     total_quantity = 0.0.in(size_unit_name)
-    # puts "total_quantity : #{total_quantity}".inspect.red
 
     target_distribution_plants = Plant.where(activity_production: self)
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
@@ -665,20 +660,12 @@ class ActivityProduction < ApplicationRecord
     # harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
     harvest_interventions ||= interventions.real.of_category(procedure_category)
 
-    # puts "harvest_interventions count : #{harvest_interventions.count}".inspect.yellow
-
     coef_area = []
     global_coef_harvest_yield = []
 
     if harvest_interventions.any?
       harvest_interventions.includes(:targets).find_each do |harvest|
-        harvest_working_area = []
-        harvest.targets.each do |target|
-          if zone = target.working_zone
-            harvest_working_area << ::Charta.new_geometry(zone).area.in(:square_meter)
-          end
-        end
-        # puts "harvest_working_area : #{harvest_working_area}".inspect.yellow
+        harvest_working_area = harvest.working_zone_area(unit: surface_unit_name)
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
@@ -689,16 +676,12 @@ class ActivityProduction < ApplicationRecord
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
-        # puts "total_quantity : #{total_quantity}".inspect.yellow
-        h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
-        # puts "surface_unit_name : #{surface_unit_name}".inspect.green
-        # puts "h : #{h}".inspect.green
+
+        h = harvest_working_area.to_f
         if h && h > 0.0
           global_coef_harvest_yield << (h * (total_quantity.to_f / h))
           coef_area << h
         end
-        # puts "global_coef_harvest_yield : #{global_coef_harvest_yield}".inspect.green
-        # puts "coef_area : #{coef_area}".inspect.green
       end
     end
 
@@ -840,4 +823,24 @@ class ActivityProduction < ApplicationRecord
   #   end
   #   super
   # end
+
+  private def sowing_date_between_period_of_activity_production
+    if predicated_sowing_date.present? && predicated_sowing_date < started_on
+      errors.add(:predicated_sowing_date, :date_should_be_after_start_date_of_production)
+    end
+
+    if predicated_sowing_date.present? && predicated_sowing_date > stopped_on
+      errors.add(:predicated_sowing_date, :date_should_be_before_end_of_production)
+    end
+  end
+
+  private def support_shape_presence_if_vegetal_farming
+    errors.add(:support_shape, :empty) if (plant_farming? || vine_farming?) && support_shape.blank?
+  end
+
+  private def stopped_on_after_last_intervention
+    return if interventions.none?
+
+    validates_date :stopped_on, after: ->{ interventions.order(:stopped_at).pluck(:stopped_at).last }
+  end
 end

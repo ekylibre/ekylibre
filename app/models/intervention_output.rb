@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,6 +57,7 @@
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
 #  specie_variety           :jsonb            default("{}")
+#  spray_volume_value       :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -98,10 +99,10 @@ class InterventionOutput < InterventionProductParameter
   after_save do
     next if destroyed?
 
-    is_not_created_from_change_state = id_was.present? || intervention.request_intervention.nil?
+    is_not_created_from_change_state = id_before_last_save.present? || intervention.request_intervention.nil?
     if is_not_created_from_change_state
       output = variant.products.new
-      if variant_id_was
+      if variant_id_before_last_save
         # The only case an output product can be linked to 2 interventions is when the product is linked to the self intervention and the request intervention linked (if there is one)
         if product.intervention_product_parameters.count == 2
           product_movement.destroy!

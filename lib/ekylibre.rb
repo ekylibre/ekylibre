@@ -63,12 +63,12 @@ module Ekylibre
       ::I18n.available_locales.each do |locale|
         @helps[locale] = HashWithIndifferentAccess.new
         locales_dir = root.join('config', 'locales', locale.to_s, 'help')
-        Dir[locales_dir.join('**', '*.txt')].sort.each do |file|
+        Dir[locales_dir.join('**', '*.md')].sort.each do |file|
           path = Pathname.new(file).relative_path_from(locales_dir)
           File.open(file, 'rb:UTF-8') do |f|
-            help = { title: f.read[/^======\s*(.*)\s*======$/, 1].strip, name: path.to_s.gsub(/\.txt$/, ''), file: file }
+            help = { title: f.read[/^#\s*(.*)$/, 1].strip, name: path.to_s.gsub(/\.md$/, ''), file: file }
             if help[:title].present?
-              @helps[locale][path.to_s.gsub(/\.txt$/, '')] = help
+              @helps[locale][path.to_s.gsub(/\.md$/, '')] = help
             end
           end
         end

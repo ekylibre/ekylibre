@@ -1,4 +1,4 @@
-class CreateCviCadastralPlantCviLandParcels < ActiveRecord::Migration
+class CreateCviCadastralPlantCviLandParcels < ActiveRecord::Migration[4.2]
   def change
     create_table :cvi_cadastral_plant_cvi_land_parcels do |t|
       t.decimal :percentage, default: 1.0

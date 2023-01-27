@@ -1,4 +1,4 @@
-class AddConditioningUnitToProducts < ActiveRecord::Migration
+class AddConditioningUnitToProducts < ActiveRecord::Migration[4.2]
   def up
     add_column :products, :conditioning_unit_id, :integer, index: true
     add_foreign_key :products, :units, column: :conditioning_unit_id

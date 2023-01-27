@@ -8,7 +8,7 @@
         dataset.map do |product|
           items = ProductMovement.where(product: product).reorder(:started_at)
           item_h = items.sort.inject({}) do |hash, pair|
-            hash[pair.started_at.to_usec] = UnitComputation.convert_into_variant_unit(product.variant, pair.population.to_d, product.conditioning_unit)
+            hash[pair.started_at.to_usec] = UnitComputation.convert_into_variant_default_unit(product.variant, pair.population.to_d, product.conditioning_unit)
             hash
           end
           data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
@@ -33,7 +33,16 @@
       end
 
     - if series.any?
-      = line_highcharts(series, legend: { layout: 'horizontal', align: 'bottom', vertical_align: 'bottom', border_width: 0, align: 'center' }, y_axis: { title: { text: :population.tl }, min: 0 }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }}, chart: { spacing_bottom: 40 }, tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' })
+      :ruby
+        options =
+          {
+            legend: { layout: 'horizontal', vertical_align: 'bottom', border_width: 0, align: 'center' },
+            y_axis: { title: { text: :population.tl }, min: 0 },
+            x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }},
+            chart: { spacing_bottom: 40 },
+            tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' }
+          }
+      = line_highcharts(series, options)
     - else
       = no_data
 - c.cobble(:products) do
@@ -45,6 +54,12 @@
       = cobble_list(:products)
     - else
       = cobble_list(:products)
+
+- if resource.purchasable? || resource.saleable? || resource.storable?
+  - c.cobble(:prices_list) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: '/backend/catalog_items', :variant_id => resource.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
 
 - if resource.saleable?
   - c.cobble(:sale_items) do
@@ -65,12 +80,6 @@
 
   - c.cobble(:suppliers) do
     = cobble_list(:suppliers)
-
-- if resource.purchasable? || resource.saleable? || resource.storable?
-  - c.cobble(:catalog_items) do
-    = cobble_toolbar do |t|
-      = t.new(params: {controller: '/backend/catalog_items', :variant_id => resource.id, redirect: request.fullpath}, tool: 'new-price')
-    = cobble_list(:catalog_items)
 
 - if resource.of_variety? :equipment
   - c.cobble(:components) do

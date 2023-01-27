@@ -67,7 +67,7 @@ class Document < ApplicationRecord
   validates :file_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :key, :name, :number, presence: true, length: { maximum: 500 }
   validates :mandatory, inclusion: { in: [true, false] }, allow_blank: true
-  validates :uploaded, inclusion: { in: [true, false] }
+  validates :processable_attachment, :uploaded, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :nature, length: { allow_nil: true, maximum: 120 }
@@ -94,6 +94,29 @@ class Document < ApplicationRecord
     self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
     # DB limitation
     self.file_content_text = file_content_text.truncate(500_000) if file_content_text
+  end
+
+  def attachement_presence
+    if self.attachments
+      true
+    else
+      false
+    end
+  end
+
+  def ocr_presence
+    self.klippa_metadata.present?
+  end
+
+  # known if a document has already a purchase link to him
+  # return nil or Purchase
+  def attach_to_resource(nature = "Purchase")
+    attach = self.attachments.where(resource_type: nature)
+    if attach.any?
+      attach.first.resource_id
+    else
+      nil
+    end
   end
 
   # Caution: if you set processable_attachment to false when creating a zip document put it before the file

@@ -1,0 +1,17 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy resource
+
+= main_informations do
+  .big-infos
+    .med-info.important
+      %span.title= :started_at.tl
+      %span.value= resource.started_at.l
+    .med-info.important
+      %span.title= :duration.tl
+      %span.value= resource.human_duration
+
+  = attributes_list do |l|
+    - l.attribute :person, label: :full_name, url: true
+    - l.attribute :worker, url: true
+    - l.attribute :description

@@ -17,12 +17,17 @@ module Ekylibre
 
     def import
       equipments = JSON.parse(file.read)
+      born_at = if (Time.zone.now - 1.year) < Entity.of_company.born_at
+                  Entity.of_company.born_at
+                else
+                  Time.zone.now - 1.year
+                end
       equipments.each do |equipment|
         variant = ProductNatureVariant.import_from_lexicon(equipment['type'])
         storage = Product.find_by(name: equipment['zone'])
         attributes = { initial_container: storage,
                        default_storage: storage,
-                       initial_born_at: Entity.of_company.born_at,
+                       initial_born_at: born_at,
                        variant: variant }
         Equipment.create!(equipment.slice('name').merge(attributes))
       end

@@ -84,6 +84,7 @@ module Backend
       t.column :human_status, label: :state, hidden: true
       t.column :pretax_amount, currency: true, on_select: :sum, hidden: true
       t.column :amount, currency: true, on_select: :sum
+      t.column :affair_balance, currency: true, on_select: :sum, hidden: true
     end
     # Mode de paiement du fournisseur
 

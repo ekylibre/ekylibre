@@ -22,9 +22,10 @@
         = label_tag :target.tl, nil, class: 'control-label'
 
         .controls
-          = radio_button_tag "target#{f.index}", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
+          - id = f.index || 'new_targets'
+          = radio_button_tag "target[#{id}]", 'plant', f.object.decorate.plant?, class: 'plant-radio-button'
           = label_tag :plant.tl
-          = radio_button_tag "target#{f.index}", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
+          = radio_button_tag "target[#{id}]", 'land_parcel', f.object.decorate.land_parcel?, class: 'land-parcel-radio-button'
           = label_tag :land_parcel_name.tl
 
     - product_data = {}
@@ -32,8 +33,16 @@
       - product_data[:filter_unroll] = "[data-selector-id='intervention_input_usage_id']"
       - product_data[:parent] = '.nested-fields'
       - product_data[:retrieve_unroll] = "[data-selector-id='intervention_target_product_id']"
-    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")], of_variant_active: true), keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.merge(product_data) }, new: false
-
+    - scope = reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")], of_variant_active: true)
+    - if f.object.reference_name.to_sym == :cultivation
+      - scope.merge!({land_parcel_alive: [at: started_at.strftime("%Y-%m-%d %H:%M")]})
+    = f.input :product,label: reference.human_name , wrapper: :append do
+      = f.referenced_association_field :product, source: { controller: 'backend/products', scope: scope, keep: true, partial_unroll: reference.input? }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id', harvest_in_progress_error_message: t('errors.messages.harvest_in_progress') }.deep_merge(product_data) }, new: false
+      - if reference.name == :sprayer
+        #configure-product{style: "display: #{f.object.product.present? ? 'inline-block' : 'none' }"}
+          = link_to(:configure_sprayer_indicators.tl, backend_product_path(f.object.product&.id || 0 ), target: "_blank", id: 'edit-product')
+          = link_to '#' do
+            = content_tag(:i, '', id: 'reload-product', class: 'icon icon-rotate-right', style: "font-size: 25px;")
     - if f.object.reference_name.to_sym == :plant_medicine
       %span.allowed-mentions
         %img#bee-usage.hidden{ src: image_path("phytosanitary_products/allowed_mentions/bee-usage.svg"), alt: :bee_usage.tl, title: :bee_usage.tl}
@@ -111,7 +120,7 @@
     - if attr.hidden?
       = f.input :identification_number, as: :hidden, input_html: { data: { intervention_updater: prefix + 'identification_number' }}
     - else
-      = f.input :identification_number, required: true, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? and f.object.product.identification_number) ? true : false }
+      = f.input :identification_number, required: true, input_html: { data: { intervention_updater: prefix + 'identification_number' }, disabled: (f.object.product.present? && f.object.product.identification_number) ? true : false }
   - if (attr = reference.attribute(:new_container))
     = f.referenced_association :new_container, source: { scope: reference.attribute(:new_container).scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'new_container_id' } }, new: false
 
@@ -137,11 +146,12 @@
 
       = f.geometry :working_zone, { show: {}, input_html: { data: { intervention_updater: prefix + 'working_zone' }}, editor: { useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }, dynamic_series: backend_map_editor_shapes_path(layers: [:land_parcels, :plants], started_at: started_at) }.merge(optional_data) }
     - else
-      - working_zone = f.object.working_zone.to_json if f.object.working_zone.present?
-      = f.geometry :working_zone, { as: :hidden, no_map: true, show: false, input_html: { value: working_zone, data: { intervention_updater: prefix + 'working_zone' }} }
+      = f.input(:working_zone_area, wrapper: :append, class: :inline) do
+        = f.input_field(:working_zone_area_value, "data-intervention-updater"=> prefix + 'working_zone_area_value', "data-intervention-field"=> 'working-zone-area-value')
+        = content_tag(:span, Onoma::Unit[:hectare].symbol, class: 'add-on')
 
   - if reference.attribute(:killable)
-    = f.yes_no_radio :dead, label: reference.killable_question
+    = f.yes_no_radio :dead, label: reference.killable_question, checked: %i[vine_grubbing].include?(reference.procedure_name)
   - if reference.component_of?
     = render '/backend/interventions/component_field', f: f, reference: reference, prefix: prefix
 
@@ -153,7 +163,8 @@
     = f.simple_fields_for(:readings, f.object.readings) do |r|
       - ref = reference.reading(r.object.indicator_name)
       - next unless ref
-      = r.reading as: (ref.accessible? ? nil : :hidden), input_html: { data: { intervention_updater: prefix + 'readings' }}
+      %div{class: r.object.indicator_name}
+        = r.reading as: (ref.accessible? ? nil : :hidden), input_html: { data: { intervention_updater: prefix + 'readings' }}
 
   .errors
     - if reference.display_status

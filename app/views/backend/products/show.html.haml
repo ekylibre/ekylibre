@@ -1,3 +1,10 @@
+:ruby
+  icon_name = if resource.variant.pictogram.present?
+                resource.variant.pictogram
+              else
+                resource.category.pictogram
+              end
+
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy
@@ -7,16 +14,12 @@
   = render 'picture'
   = infos do
     .med-info.important
-      - if resource.variant.pictogram.present?
-        icon = resource.variant.pictogram
-      - else
-        icon = resource.category.pictogram
       %span.title= Matter.human_attribute_name(:variant)
       %span.value
-        %i.picto{class: "picto-#{icon}"}
+        %i.picto{class: "picto-#{icon_name}"}
         = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     = product_info(:work_number, important: true)
-    - if resource.born_at and resource.age >= 1.day
+    - if resource.born_at && resource.age >= 1.day
       .med-info
         %span.title= Matter.human_attribute_name(:age)
         %span.value

@@ -47,7 +47,7 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
 
     validate_fog
 
-    close = FinancialYearClose.new(@year, @year.stopped_on, @closer, result_journal: result, disable_document_generation: true)
+    close = FinancialYearClose.new(@year, @year.stopped_on, @closer, disable_document_generation: true, result_journal: result)
     assert close.execute, close.close_error
 
     assert_equal 5, JournalEntry.count
@@ -80,12 +80,11 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     validate_fog
 
     close = FinancialYearClose.new(
-      @year, @year.stopped_on, @closer,
+      @year, @year.stopped_on, @closer, disable_document_generation: true,
       result_journal: result,
       closure_journal: closing,
       forward_journal: forward,
-      allocations: {},
-      disable_document_generation: true
+      allocations: {}
     )
 
     assert close.execute, close.close_error
@@ -131,12 +130,11 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     validate_fog
 
     close = FinancialYearClose.new(
-      @year, @year.stopped_on, @closer,
+      @year, @year.stopped_on, @closer, disable_document_generation: true,
       result_journal: result,
       closure_journal: closing,
       forward_journal: forward,
-      allocations: { '101' => 800 },
-      disable_document_generation: true
+      allocations: { '101' => 800 }
     )
 
     assert close.execute, close.close_error
@@ -182,9 +180,8 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     validate_fog
 
     close = FinancialYearClose.new(
-      @year, @year.stopped_on, @closer,
-      result_journal: result,
-      disable_document_generation: true
+      @year, @year.stopped_on, @closer, disable_document_generation: true,
+      result_journal: result
     )
 
     assert_not close.execute
@@ -234,12 +231,11 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     assert_equal 1700, allocations.values.reduce(&:+)
 
     close = FinancialYearClose.new(
-      @year, @year.stopped_on, User.first,
+      @year, @year.stopped_on, User.first, disable_document_generation: true,
       allocations: allocations,
       result_journal: result,
       closure_journal: closing,
-      forward_journal: forward,
-      disable_document_generation: true
+      forward_journal: forward
     )
 
     assert close.execute, close.close_error

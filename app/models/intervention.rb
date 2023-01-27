@@ -68,7 +68,9 @@ class Intervention < ApplicationRecord
   include Providable
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
-  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
+  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing all_in_one_planting sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
+  SETTINGS = %i[spray_mix_volume_area_density].freeze
+  SPRAYING_PROCEDURE_NAMES = %w[spraying sowing_with_spraying vine_spraying_without_fertilizing vine_spraying_with_fertilizing].freeze
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -83,7 +85,7 @@ class Intervention < ApplicationRecord
   belongs_to :purchase
   belongs_to :costing, class_name: 'InterventionCosting', dependent: :destroy
   belongs_to :validator, class_name: 'User', foreign_key: :validator_id
-  belongs_to :intervention_proposal, class_name: InterventionProposal
+  belongs_to :intervention_proposal, class_name: 'InterventionProposal'
   has_many :receptions, class_name: 'Reception', dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
@@ -91,6 +93,9 @@ class Intervention < ApplicationRecord
   has_many :intervention_crop_groups, dependent: :destroy
   has_many :crop_groups, through: :intervention_crop_groups
   has_many :rides, dependent: :nullify
+  has_many :parameter_settings, class_name: 'InterventionParameterSetting', dependent: :nullify
+  has_many :parameter_setting_items, class_name: 'InterventionSettingItem', through: :parameter_settings, source: :settings
+  has_many :settings, class_name: 'InterventionSettingItem', dependent: :destroy
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -135,8 +140,6 @@ class Intervention < ApplicationRecord
 
   before_validation :set_number, on: :create
 
-  before_destroy :unset_rides, prepend: true
-
   def set_number
     # planning
     if intervention_proposal.present? && !parent_id.present?
@@ -156,7 +159,13 @@ class Intervention < ApplicationRecord
     HABTM_Activities
   end
 
-  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, :rides, allow_destroy: true
+  accepts_nested_attributes_for :group_parameters, :participations, :doers, :inputs, :outputs, :targets, :tools, :working_periods, :labellings, :intervention_crop_groups, :rides, :parameter_settings, allow_destroy: true
+  accepts_nested_attributes_for :parameter_settings, reject_if: ->(params) do
+    params["settings_attributes"].values.all? do |items|
+      items['measure_value_value'].blank? && items['integer_value'].blank? && items['boolean_value'].blank? && items['decimal_value'].blank? && items['string_value'].blank?
+    end
+  end
+  accepts_nested_attributes_for :settings, reject_if: ->(params) { params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? && params['string_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :receptions, reject_if: :all_blank, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
@@ -294,9 +303,13 @@ class Intervention < ApplicationRecord
   scope :with_outputs, ->(*outputs) { where(id: InterventionOutput.of_actors(outputs).select(:intervention_id)) }
   scope :with_doers, ->(*doers) { where(id: InterventionDoer.of_actors(doers).select(:intervention_id)) }
   scope :with_input_of_maaids, ->(*maaids) { where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id)) }
+  scope :with_input_presence, -> { where(id: InterventionInput.all.pluck(:intervention_id).uniq) }
+  scope :without_input_presence, -> { where.not(id: InterventionInput.all.pluck(:intervention_id).uniq) }
+  scope :without_output_presence, -> { where.not(id: InterventionOutput.all.pluck(:intervention_id).uniq) }
   scope :done, -> {}
 
   before_validation do
+    self.trouble_encountered ||= false
     if working_periods.any? && !working_periods.detect { |p| p.started_at.blank? || p.stopped_at.blank? }
       self.started_at = working_periods.map(&:started_at).min
       self.stopped_at = working_periods.map(&:stopped_at).max
@@ -391,8 +404,6 @@ class Intervention < ApplicationRecord
       if target.identification_number && target.product.identification_number.nil?
         target.update_column :identification_number, target.identification_number
       end
-      # compute imputation_ratio
-      update_target_imputation_ratio(target)
     end
 
     participations.update_all(state: state) unless state == :in_progress
@@ -404,17 +415,12 @@ class Intervention < ApplicationRecord
 
     reconcile_receptions
 
-    # compute pfi
-    campaign = Campaign.find_by(harvest_year: started_at.year)
-    if campaign
-      if Interventions::Phytosanitary::PfiClientApi.down?
-        self.creator.notifications.create!(pfi_api_down_notification_generation)
-      else
-        pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: self)
-        pfi_computation.create_or_update_pfi
-      end
-    end
+    # refresh view
+    WorkerTimeIndicator.refresh
   end
+
+  after_save :handle_targets_imputation_ratio
+  after_commit :compute_pfi_async
 
   after_create do
     Ekylibre::Hook.publish :create_intervention, self
@@ -470,22 +476,6 @@ class Intervention < ApplicationRecord
       inputs.each { |input| write_parameter_entry_items.call(input, true) }
       outputs.each { |output| write_parameter_entry_items.call(output, false) }
     end
-  end
-
-  def update_target_imputation_ratio(target)
-    # compute quantity_value & quantity_unit_name for imputation_ratio
-    if target.working_zone.presence
-      a = target.working_zone.area
-      target.update_column :quantity_value, a
-      target.update_column :quantity_unit_name, 'square_meter'
-      target.update_column :quantity_indicator_name, 'net_surface_area'
-      b = targets.where.not(working_zone: nil).map{|t| t.working_zone.area }.compact.sum
-      ratio = (a.to_f / b.to_f ) if a && b && (b != 0.0)
-    else
-      b = targets.where(working_zone: nil).count
-      ratio = (1.0 / b.to_f) if b != 0
-    end
-    target.update_column :imputation_ratio, ratio
   end
 
   def update_costing
@@ -706,7 +696,7 @@ class Intervention < ApplicationRecord
   end
 
   def human_working_duration(unit = :hour)
-    working_duration.in(:second).convert(unit).round.l(precision: 2)
+    working_duration.in(:second).convert(unit).round(2).l(precision: 2)
   end
 
   def working_duration_of_nature(nature = :intervention)
@@ -823,9 +813,7 @@ class Intervention < ApplicationRecord
   end
 
   def human_total_cost
-    %i[input tool doer].map do |type|
-      (cost(type) || 0.0).to_d
-    end.sum.round(Onoma::Currency.find(currency).precision)
+    total_cost.round(Onoma::Currency.find(currency).precision)
   end
 
   def total_cost_per_area(area_unit = :hectare)
@@ -860,7 +848,7 @@ class Intervention < ApplicationRecord
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     area = if targets.any?
-             targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
+             targets.with_working_zone_area.map(&:working_area).sum.in(unit)
            else
              0.0.in(unit)
            end
@@ -898,12 +886,21 @@ class Intervention < ApplicationRecord
     working_zone_area(unit)
   end
 
+  def spray_mix_volume_area_density
+    global_volume_area_indicator = self.settings.find_by(indicator_name: 'spray_mix_volume_area_density')
+    if spraying? && global_volume_area_indicator.present?
+      global_volume_area_indicator.value
+    else
+      nil
+    end
+  end
+
   def activity_imputation(activity)
     if activity.size_indicator == :net_surface_area
       unit = :hectare
       precision = 2
       if targets.any?
-        at = targets.of_activity(activity).with_working_zone.map(&:working_zone_area).sum.in(unit)
+        at = targets.of_activity(activity).with_working_zone_area.map(&:working_area).sum.in(unit)
         coeff = (at.to_d / working_zone_area.to_d) if working_zone_area.to_d != 0.0
         return nil unless coeff
 
@@ -1124,6 +1121,10 @@ class Intervention < ApplicationRecord
     PHYTO_PROCEDURE_NAMES.include?(procedure_name)
   end
 
+  def spraying?
+    SPRAYING_PROCEDURE_NAMES.include?(procedure_name)
+  end
+
   # @private
   # Lifecycle: called after save
   private def reconcile_receptions
@@ -1132,22 +1133,35 @@ class Intervention < ApplicationRecord
     end
   end
 
+  private def compute_pfi_async
+    return if !eligible_for_pfi_calculation?
+
+    campaign = Campaign.find_by(harvest_year: started_at.year)
+
+    PfiCalculationJob.perform_later(campaign, [self], creator)
+  end
+
+  # @private
+  # Lifecycle: called after save
+  private def handle_targets_imputation_ratio
+    targets.reload
+    total_targets_quantity = if targets.any?(&:working_zone_area_value)
+                               targets.where.not(working_zone_area_value: nil).sum(:working_zone_area_value)
+                             else
+                               targets.where(working_zone_area_value: nil).count
+                             end
+
+    targets.find_each do |target|
+      target.update_imputation_ratio(total_targets_quantity)
+    end
+  end
+
   private def during_financial_year_exchange?
     FinancialYearExchange.opened.at(printed_at).exists?
   end
 
-  private def unset_rides
-    rides.each do |ride|
-      ride.update(state: "unaffected")
-    end
-  end
-
-  private def pfi_api_down_notification_generation
-    {
-      message: :pfi_api_down.tl,
-      level: :error,
-      interpolations: {}
-    }
+  private def eligible_for_pfi_calculation?
+    using_phytosanitary? && inputs.any?
   end
 
   class << self

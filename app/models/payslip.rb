@@ -72,7 +72,7 @@ class Payslip < ApplicationRecord
   alias_attribute :third_id, :employee_id
 
   acts_as_numbered
-  acts_as_affairable :employee
+  acts_as_affairable :employee, class_name: 'PayslipAffair'
 
   state_machine :state, initial: :draft do
     state :draft
@@ -81,8 +81,16 @@ class Payslip < ApplicationRecord
       transition draft: :invoice
     end
     event :correct do
-      transition invoice: :draft
+      transition invoice: :draft, if: :has_no_entry?
     end
+  end
+
+  protect do
+    (journal_entry && (journal_entry.closed? || journal_entry.confirmed?))
+  end
+
+  after_destroy do
+    journal_entry.remove if (journal_entry.present? && journal_entry.draft?)
   end
 
   # This callback permits to add journal entries corresponding to the payslip
@@ -106,6 +114,10 @@ class Payslip < ApplicationRecord
 
   def label
     number
+  end
+
+  def has_no_entry?
+    journal_entry&.draft?
   end
 
   def human_status

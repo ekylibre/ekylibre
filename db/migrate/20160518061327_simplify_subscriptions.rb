@@ -64,7 +64,7 @@ class SimplifySubscriptions < ActiveRecord::Migration[4.2]
     end
 
     revert do
-      add_column :product_nature_categories, :subscription_duration
+      add_column :product_nature_categories, :subscription_duration, :string
       add_reference :product_nature_categories, :subscription_nature, index: true
     end
   end

@@ -55,6 +55,7 @@ class ActivityBudget < ApplicationRecord
   validates :activity, :campaign, presence: true
   # ]VALIDATORS]
   validates_associated :expenses, :revenues
+  validate :one_default_revenue_exist, if: -> { activity && activity.main? }
 
   scope :opened, -> { where(activity: Activity.actives) }
   scope :of_campaign, ->(campaign) { where(campaign: campaign) }
@@ -68,20 +69,35 @@ class ActivityBudget < ApplicationRecord
   delegate :size_indicator, :size_unit, to: :activity
   delegate :count, to: :productions, prefix: true
 
-  after_save do
-    items.revenues.first.update!(main_output: true) if items.revenues.any? && items.revenues.none?(&:main_output)
+  before_validation do
+    self.currency ||= Preference[:currency]
+    revenues.first.update!(main_output: true) if revenues.size == 1 && !revenues.map(&:main_output).include?(true)
   end
 
-  before_validation on: :create do
-    self.currency ||= Preference[:currency]
+  def one_default_revenue_exist
+    if old_record.present?
+      if revenues.empty? && items.any?
+        errors.add(:revenues, :main_activity_must_have_one_product)
+      elsif revenues.any? && !revenues.map(&:main_output).include?(true)
+        errors.add(:revenues, :main_activity_must_have_one_default_product)
+      end
+    end
   end
 
   def expenses_amount
     expenses.sum(:global_amount)
   end
 
+  def expenses_pretax_amount
+    expenses.sum(:global_pretax_amount)
+  end
+
   def revenues_amount
     revenues.sum(:global_amount)
+  end
+
+  def revenues_pretax_amount
+    revenues.sum(:global_pretax_amount)
   end
 
   def all_main_activities_gross_margin
@@ -250,7 +266,7 @@ class ActivityBudget < ApplicationRecord
   # Duplicate current budget in given activity and campaign
   def duplicate!(activity, campaign)
     budget = ActivityBudget.find_or_create_by!(activity: activity, campaign: campaign)
-    items.each do |item|
+    items.order(id: :asc).each do |item|
       item.duplicate!(activity_budget: budget)
     end
     budget

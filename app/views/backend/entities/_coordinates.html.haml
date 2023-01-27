@@ -31,7 +31,7 @@
     %span.value
       - if address.email?
         = mail_to(address.coordinate, address.coordinate)
-      - elsif address.phone? or address.mobile?
+      - elsif address.phone? || address.mobile?
         %a{:href => "tel:#{address.coordinate}"}= address.coordinate
       - elsif address.mail?
         = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.mail_lines(without: :line_1))}")

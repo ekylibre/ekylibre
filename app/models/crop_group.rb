@@ -44,7 +44,9 @@ class CropGroup < ApplicationRecord
   has_many :labels, through: :labellings
   has_many :intervention_crop_groups, dependent: :destroy
 
-  validates :name, presence: true
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :name, presence: true, length: { maximum: 500 }
+  # ]VALIDATORS]
 
   accepts_nested_attributes_for :labellings, allow_destroy: true, reject_if: :label_already_present
   accepts_nested_attributes_for :items, allow_destroy: true, reject_if: :crop_already_present
@@ -67,6 +69,14 @@ class CropGroup < ApplicationRecord
 
   def total_area
     crops.collect(&:net_surface_area).sum.in(:hectare)
+  end
+
+  def crop_estimated_vine_stock
+    self.plants.map(&:estimated_vine_stock).compact.sum
+  end
+
+  def crop_missing_vine_stock
+    self.plants.map(&:missing_vine_stock).compact.sum
   end
 
   private

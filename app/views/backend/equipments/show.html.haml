@@ -1,8 +1,11 @@
 - main_toolbar do |t|
   = t.edit
+  = t.action(:tool_costs_xslx_export, label: :tool_costs_xslx_export.tl, params: { equipment_ids: resource.id, campaign_id: current_campaign.id })
   = t.destroy
 
 - main_period_selector(:year)
+
+- last_time_of_year = Time.new(current_campaign.harvest_year, 12, 31, 20, 00)
 
 = main_informations attachment: true do
   = render 'picture'
@@ -14,8 +17,8 @@
       %span.value
         %i.picto{class: "picto-#{icon}"}
         = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-    - if resource.born_at and resource.age >= 1.day
-      = product_info(:age) do |age|
+    - if resource.born_at && resource.age >= 1.day
+      = product_info(:age) do
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
     .med-info.important
@@ -48,16 +51,19 @@
         %span.title= Equipment.human_attribute_name(:description)
         %span.value= resource.description
 
-    - if resource.decorate.hour_counter_present?
-      .med-info
-        %span.title= :hour_counter.tl
-        %span.value
-          %i.picto{class: "picto-timelapse"}
-          = resource.decorate.human_hour_counter
-
   = labels_info(resource.labels)
 
 = cobbles do |c|
+  - if resource.readings.any?
+    - c.cobble(:readings, title: :x_key_indicators.tl(count: resource.readings.pluck(:indicator_name).uniq.count)) do
+      = infos do
+        - resource.readings.group_by(&:indicator_name).each do |indicator_name, _items|
+          - if indicator_name != 'geolocation'
+            - item = resource.reading(indicator_name, {at: last_time_of_year})
+            - if item
+              .med-info
+                %span.title= item.indicator.l
+                %span.value= link_to(item.value.round_l, {controller: :product_readings, action: :new, product_id: resource.id, indicator_name: indicator_name, read_at: Time.now, redirect: request.fullpath})
 
   - record_interventions_without_equipment_maintenance = resource.interventions.with_nature(:record).without_procedure_name(:equipment_maintenance)
   - record_interventions_with_equipment_maintenance_as_tool = resource.interventions.with_nature(:record).with_procedure_name(:equipment_maintenance).where("intervention_parameters.type = 'InterventionTool'")
@@ -71,6 +77,12 @@
     - c.cobble(:equipment_maintenance_interventions, title: :x_equipment_maintenance_interventions.tl(count: record_equipment_maintenance_interventions.count)) do
       = cobble_list(:equipment_maintenance_interventions)
 
+  - c.cobble(:prices_list) do
+    = cobble_toolbar do |t|
+      - unit = Unit.import_from_lexicon(:hour_equipment)
+      - catalog  = Catalog.by_default!(:cost)
+      = t.new(params: {controller: '/backend/catalog_items', catalog_id: catalog.id, unit_id: unit.id, product_id: resource.id, variant_id: resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
   - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
@@ -78,13 +90,13 @@
 
   - if resource.fixed_assets.any?
     - c.cobble(:fixed_assets, title: :x_fixed_assets.tl(count: resource.fixed_assets.count)) do
-      = cobble_toolbar do |t|
+      = cobble_toolbar do
         = cobble_list(:fixed_assets)
 
   - time_spent_by_activity(resource, cobbler: c, current_campaign: current_campaign)
 
   - c.cobble(:places) do
-    = cobble_toolbar do |t|
+    = cobble_toolbar do
       .toolbar
         = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
       = cobble_list(:places)

@@ -296,6 +296,15 @@ module ApplicationHelper
     link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl, back_url)
   end
 
+  def link_to_async_action(label, job, options, html_options = { class: '' })
+    html_options[:class] += ' btn-spinner'
+    html_options = html_options.merge(data: { perform_job_button: true, job: job })
+    active = Preference[job + '_running'] rescue false
+    link_to(options, html_options) do
+      (label + " " + content_tag('span', nil, class: "spinner #{active ? 'active' : nil}")).html_safe
+    end
+  end
+
   def attribute_item(object, attribute, options = {})
     value_class = 'value'
     if object.is_a? String
@@ -457,7 +466,7 @@ module ApplicationHelper
   end
 
   def button_group(options = {}, &block)
-    options[:class] = options[:class].to_s + ' btn-group'
+    options[:class] = options[:class].to_s + ' btn btn-group'
     content_tag(:div, options, &block)
   end
 
@@ -970,7 +979,8 @@ module ApplicationHelper
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
     classes = ['fieldset', name.to_s, options.fetch(:class, [])].flatten
-    classes << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
+    classes << (options[:collapsed] ? 'collapsed' : 'not-collapsed')
+    classes << (options[:subfieldset] ? 'subfieldset' : '')
     name_sym = name.to_s.tr('-', '_').to_sym
     wrap(content_tag(:div,
                      content_tag(:div,

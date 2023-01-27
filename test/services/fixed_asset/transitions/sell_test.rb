@@ -92,6 +92,18 @@ class FixedAsset
         assert_equal sale.invoiced_at, @fixed_asset.sold_on.to_datetime
       end
 
+      test 'should change the state of the fixed_asset' do
+        sale = create :sale, state: :draft
+        create :sale_item, :fixed, variant: @product.variant, fixed_asset: @fixed_asset, sale: sale
+        @fixed_asset.reload
+        @fixed_asset.update!(sold_on: @sold_on)
+        @fixed_asset.sell
+
+        assert_equal 'sold', @fixed_asset.state
+        assert_equal @sold_on, @fixed_asset.sold_on
+        assert_equal @sold_on, @fixed_asset.stopped_on
+      end
+
       test 'selling a fixed asset generates accurate journal entries' do
         sale = create :sale, state: :draft
         create :sale_item, :fixed, variant: @product.variant, fixed_asset: @fixed_asset, sale: sale
@@ -99,6 +111,7 @@ class FixedAsset
         @fixed_asset.update!(sold_on: @sold_on)
 
         @fixed_asset.sell
+        @fixed_asset.reload
         sale.reload
 
         remaining_depreciation = @fixed_asset.depreciations.first

@@ -20,12 +20,12 @@
     - if resource.current_stock
       .med-info.important
         %span.title= :current_stock.tl
-        %span.value{ title: pluralize(resource.current_stock(into_default_unit: true).round(2), resource.unit_name) }
+        %span.value{ title: pluralize(resource.current_stock.round(2), resource.unit_name) }
           %i.picto{class: "picto-stock"}
-          = pluralize(resource.current_stock(into_default_unit: true).round(2), resource.unit_name)
+          = pluralize(resource.current_stock.round(2), resource.unit_name)
     .med-info.important
       %span.title= :quantity_to_receive.tl
-      %span.value{ title: (quantity_to_receive(resource)) }
+      %span.value{ title: quantity_to_receive(resource) }
         = quantity_to_receive resource
     .med-info.important
       %span.title= ProductNatureVariant.human_attribute_name(:category)

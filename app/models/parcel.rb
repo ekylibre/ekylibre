@@ -148,7 +148,9 @@ class Parcel < ApplicationRecord
   end
 
   def content_sentence
-    items.map(&:name).compact.to_sentence
+    items.map do |i|
+      [i.conditioning_quantity.to_s, i.conditioning_unit&.name.to_s, i.name].compact.join(' ')
+    end.compact.to_sentence
   end
 
   def separated_stock?
@@ -254,80 +256,6 @@ class Parcel < ApplicationRecord
     # Returns an array of all the transporter ids for the given parcels
     def transporters_of(parcels)
       parcels.map(&:transporter_id).compact
-    end
-
-    # Convert parcels to one sale. Assume that all parcels are checked before.
-    # Sale is written in DB with default values
-    def convert_to_sale(parcels)
-      sale = nil
-      transaction do
-        parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
-        end.sort_by(&:first_available_date)
-        third = detect_third(parcels)
-        planned_at = parcels.last.first_available_date || Time.zone.now
-        unless nature = SaleNature.by_default
-          unless journal = Journal.sales.opened_on(planned_at).first
-            raise 'No sale journal'
-          end
-
-          nature = SaleNature.create!(
-            active: true,
-            currency: Preference[:currency],
-            journal: journal,
-            by_default: true,
-            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
-          )
-        end
-        sale = Sale.new(
-          client: third,
-          nature: nature,
-          # created_at: planned_at,
-          delivery_address: parcels.last.address
-        )
-
-        # Adds items
-        parcels.each do |parcel|
-          parcel.items.order(:id).each do |item|
-            # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
-            next unless item.variant.saleable? && item.population && item.population > 0
-
-            catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
-            # 0 - Get unit_pretax_amount from parcel_item if exist
-            unit_pretax_amount = item.pretax_amount&.zero? ? nil : item.pretax_amount
-            tax = Tax.current.first
-            # 1 - from last sale item
-            if (last_sale_items = SaleItem.where(variant: item.variant)) && last_sale_items.any?
-              unit_pretax_amount ||= last_sale_items.order(id: :desc).first.unit_pretax_amount
-              tax = last_sale_items.order(id: :desc).first.tax
-            # 2 - from catalog with taxes
-            elsif catalog_item && catalog_item.all_taxes_included
-              unit_pretax_amount ||= catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
-              tax = catalog_item.reference_tax || item.variant.category.sale_taxes.first || Tax.current.first
-            # 3 - from catalog without taxes
-            elsif catalog_item
-              unit_pretax_amount ||= catalog_item.amount
-            end
-            item.sale_item = sale.items.new(
-              variant: item.variant,
-              unit_pretax_amount: unit_pretax_amount || 0.0,
-              amount: unit_pretax_amount || 0.0,
-              conditioning_unit: item.conditioning_unit,
-              conditioning_quantity: item.conditioning_quantity,
-              tax: tax,
-              quantity: item.population
-            )
-          end
-        end
-
-        if sale.items.any?
-          # Refreshes affair
-          sale.save!
-          parcels.each(&:reload)
-          parcels.each { |p| p.update!(sale_id: sale.id) }
-        end
-      end
-      sale.persisted? ? sale : nil
     end
 
     # Convert parcels to one purchase. Assume that all parcels are checked before.

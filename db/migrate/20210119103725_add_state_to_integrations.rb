@@ -1,4 +1,4 @@
-class AddStateToIntegrations < ActiveRecord::Migration
+class AddStateToIntegrations < ActiveRecord::Migration[4.2]
   def change
     add_column :integrations, :state, :string
 

@@ -1,6 +1,6 @@
-class CreateTechnicalItineraries < ActiveRecord::Migration
+class CreateTechnicalItineraries < ActiveRecord::Migration[4.2]
   def change
-    unless table_exists?(:technical_itineraries)
+    unless data_source_exists?(:technical_itineraries)
       create_table :technical_itineraries do |t|
         t.string :name
         t.references :campaign, index: true, foreign_key: true

@@ -44,7 +44,7 @@ fra:
     activity_tactic:
       mode:
         harvested: "Date de récolte prévisionnelle"
-        sowed: "Date de semis prévisionnelle"
+        sowed: "Date de semis prévisionnelle ou de début de campagne annuelle de production"
     analysis:
       retrieval_status:
         controller_error: "Erreur de contrôleur"
@@ -167,6 +167,12 @@ fra:
       nature:
         contact: "Contact"
         organization: "Organisation"
+      client_payment_delay: #?
+        1 week: "à réception" #?
+        30 days: "30 jours" #?
+        30 days, end of month: "30 jours fin du mois" #?
+        60 days: "60 jours" #?
+        60 days, end of month: "60 jours fin du mois" #?
       supplier_payment_delay: #?
         1 week: "à réception" #?
         30 days: "30 jours" #?
@@ -271,11 +277,18 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    intervention_parameter_setting:
+      nature:
+        spraying: Réglage de la pulvérisation
     intervention_participation:
       state:
         done: "Terminé"
         in_progress: "En cours"
         validated: "Validé"
+    intervention_template:
+      workflow_unit:
+        hectare_per_hour: "Ha/H"
+        plant_per_hour: "Plante ou Pied/H"
     intervention_working_period:
       nature:
         intervention: "Intervention"
@@ -320,6 +333,10 @@ fra:
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+      state:
+        draft: "Brouillon"
+        ongoing: "En cours"
+        repaid: "Remboursé"
     map_layer:
       nature:
         background: "Fond"
@@ -422,7 +439,7 @@ fra:
         unitary: "Unitaire"
       type:
         VariantTypes::AnimalType: "Animaux"
-        VariantTypes::ArticleType: "Articles"
+        VariantTypes::ArticleType: "Articles stockables"
         VariantTypes::CropType: "Cultures"
         VariantTypes::EquipmentType: "Équipements"
         VariantTypes::ServiceType: "Services"
@@ -496,7 +513,7 @@ fra:
         unity: "Unité"
       type:
         Variants::AnimalVariant: "Animaux"
-        Variants::ArticleVariant: "Articles"
+        Variants::ArticleVariant: "Articles stockables"
         Variants::Articles::FarmProductArticle: "Produits de l'exploitation"
         Variants::Articles::FertilizerArticle: "Engrais"
         Variants::Articles::PlantMedicineArticle: "Produits phytosanitaires"
@@ -636,8 +653,8 @@ fra:
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories comptables"
-        product_nature_variants: "Variantes de produits"
-        product_natures: "Types de produits"
+        product_nature_variants: "Articles"
+        product_natures: "Profils fonctionnels"
         products: "Produits"
         purchases: "Achats"
         ride: "Sections d'un trajet"
@@ -694,3 +711,11 @@ fra:
         create: "Créer"
         destroy: "Détruire"
         update: "Mettre à jour"
+    worker_contract:
+      distribution_key:
+        gross_margin: "Marge brute"
+        percentage: "Pourcentage"
+      nature:
+        permanent_worker: "Main d'oeuvre permanente"
+        temporary_worker: "Main d'oeuvre temporaire"
+        external_staff: "Main d'oeuvre extérieure"

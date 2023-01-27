@@ -16,8 +16,11 @@ ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '5.0.7.2'
+gem 'rails', '5.2.8.1'
 gem 'turnout', '~> 2.5' # Maintenance mode
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # IRB and CLI
 gem 'colored' # , require: false
@@ -34,7 +37,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 4.1'
+gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'pg', '~> 1.0'
 gem 'scenic'
 
@@ -70,7 +73,7 @@ gem 'active_list', gitlab: 'ekylibre/active_list', branch: 'master'
 gem 'formize', '~> 2.1.0'
 gem 'kaminari', '~> 1.1'
 gem 'remotipart', '~> 1.2'
-gem 'simple_form', '~> 3.4'
+gem 'simple_form', '~> 4.0'
 gem 'wice_grid', '~> 4.0'
 
 # View Engines
@@ -101,15 +104,15 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Reference data
-gem 'onoma', '~> 0.6.3'
+gem 'onoma', '~> 0.8.4'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop', '~> 1.6'
 
 # Models helpers
 gem 'acts_as_list', '~> 1.0'
-gem 'awesome_nested_set', '~> 3.1.1'
-gem 'deep_cloneable', '~> 2.2.1'
+gem 'awesome_nested_set', '~> 3.2.1'
+gem 'deep_cloneable', '~> 2.4.0'
 gem 'draper', "~> 3.0"
 gem 'enumerize', '~> 2.4'
 gem 'paranoia', '~> 2.2' # Hide and restore records without actually deleting them
@@ -157,16 +160,17 @@ gem 'holidays' # Deal with statutory and other holidays
 gem 'luhn', '~> 1.0'
 gem 'mimemagic', '~> 0.3.5'
 gem 'nokogiri', '~> 1.8'
-gem 'odf-report', gitlab: 'ekylibre/odf-report', tag: 'v0.6.0-2'
+gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: 'dev'
 gem 'prawn', '~> 2.4'
 gem 'quandl', '~> 1.1'
 gem 'rodf', '~> 1.0'
 gem 'roo', '~> 2.8'
-gem 'rubyzip', '~> 1.2.2'
+gem 'rubyzip', '~> 1.3.0'
 gem 'sepa_king', '~> 0.12.0'
 gem 'xml_errors_parser', gitlab: 'ekylibre/xsd_errors_parser', branch: 'master'
 
 # Web services
+gem 'faraday', '~> 1.8.0'
 gem 'mechanize', '~> 2.7'
 gem 'rest-client', '~> 2.0'
 gem 'rubyntlm', '>= 0.3.2'
@@ -175,13 +179,16 @@ gem 'savon', '~> 2.12'
 # Using git until we have a proper release system for cartography
 gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
 
+# Used to convert markdown to html
+gem 'gitlab_kramdown', '~> 0.6'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn', '~> 5.8'
 end
 
 group :development do
-  gem 'bullet', '< 5.6.0'
+  gem 'bullet', '~> 5.7.0'
 
   gem 'better_errors', '~> 2.9'
   gem 'rack-mini-profiler'
@@ -189,6 +196,7 @@ group :development do
   gem 'ruby-prof', '~> 1.4'
 
   # Code metrics
+  gem 'haml_lint', require: false
   gem 'rails_best_practices', '~> 1.20', require: false
   gem 'rubocop', '~> 1.11.0', require: false
 
@@ -209,6 +217,8 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.8'
   gem 'pry-rails', '~> 0.3.9'
 
+  # gem 'listen', '>= 3.0.5', '< 3.2' See config/environments/development.rb:68
+
   # For git manipulation in test:git task
   gem 'git', '~> 1.8'
 
@@ -223,16 +233,21 @@ group :test do
 
   gem 'database_cleaner', '~> 1.8'
 
-  gem 'minitest', "~> 5.14"
+  gem 'minitest', "~> 5.17.0"
   gem 'minitest-reporters', '~> 1.4'
 
   gem 'factory_bot', '< 5'
 
   gem 'pdf-reader', '~> 2.4'
 
+  gem 'simplecov', '~> 0.21.2'
+  gem 'simplecov-cobertura', '~> 2.1.0'
+
   gem 'rails-controller-testing', '~> 1.0'
   # for loading lexicon 5 in test mode
   gem 'lexicon-common', '~> 0.2.0'
+  gem 'vcr', "~> 6.0.0"
+  gem 'webmock', "~> 3.13.0"
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

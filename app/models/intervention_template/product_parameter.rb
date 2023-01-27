@@ -5,12 +5,12 @@ class InterventionTemplate < ApplicationRecord
   class ProductParameter < ApplicationRecord
     self.table_name = "intervention_template_product_parameters"
 
-    belongs_to :intervention_template, class_name: InterventionTemplate, foreign_key: :intervention_template_id
-    belongs_to :product_nature, class_name: ProductNature, foreign_key: :product_nature_id
-    belongs_to :product_nature_variant, class_name: ProductNatureVariant, foreign_key: :product_nature_variant_id
+    belongs_to :intervention_template, class_name: 'InterventionTemplate', foreign_key: :intervention_template_id
+    belongs_to :product_nature, class_name: 'ProductNature', foreign_key: :product_nature_id
+    belongs_to :product_nature_variant, class_name: 'ProductNatureVariant', foreign_key: :product_nature_variant_id
 
-    has_many :daily_charges, class_name: DailyCharge, dependent: :destroy, foreign_key: :intervention_template_product_parameter_id
-    has_many :budget_items, class_name: ActivityBudgetItem, dependent: :destroy, foreign_key: :product_parameter_id
+    has_many :daily_charges, class_name: 'DailyCharge', dependent: :destroy, foreign_key: :intervention_template_product_parameter_id
+    has_many :budget_items, class_name: 'ActivityBudgetItem', dependent: :destroy, foreign_key: :product_parameter_id
 
     # Validation
     validates :quantity, presence: true
@@ -19,6 +19,12 @@ class InterventionTemplate < ApplicationRecord
     validates :unit, presence: true, if: :quantitiy_positive?, unless: :procedure_is_plant?
 
     attr_accessor :product_name
+
+    before_save do
+      if product_nature_variant.present?
+        self.product_nature_id = self.product_nature_variant.nature.id
+      end
+    end
 
     # Need to access product_name in js
     def attributes
@@ -184,19 +190,23 @@ class InterventionTemplate < ApplicationRecord
       end
 
       def is_input_or_output
-        %i[input output].include?(find_general_product_type)
+        %i[input output].include?(symbolized_type)
       end
 
       def is_doer_or_tool
-        %i[doer tool].include?(find_general_product_type)
+        %i[doer tool].include?(symbolized_type)
       end
 
       def is_tool
-        %i[tool].include?(find_general_product_type)
+        %i[tool].include?(symbolized_type)
       end
 
       def is_input
-        %i[input].include?(find_general_product_type)
+        %i[input].include?(symbolized_type)
+      end
+
+      def symbolized_type
+        type.demodulize.downcase.to_sym
       end
   end
 end

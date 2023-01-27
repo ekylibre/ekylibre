@@ -37,5 +37,10 @@
 require 'test_helper'
 
 class NamingFormatFieldTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-  # Add tests here...
+  test '#set_position_with_next_value after create callback' do
+    naming_format = create(:naming_format)
+    naming_format_fields = create_list(:naming_format_field, 2, naming_format: naming_format)
+    naming_format_field = create(:naming_format_field, naming_format: naming_format)
+    assert_equal(2, naming_format_field.position, 'Postion should take the next position value of naming format')
+  end
 end

@@ -4,6 +4,7 @@
   - product = product_parameter.product
   - variant = product_parameter.variant
   - usage = product_parameter.relevant_usage
+  - spray_mix_volume_area_density = resource.spray_mix_volume_area_density
   - if actor
     .picture
       - if actor.picture.file?
@@ -14,7 +15,7 @@
     .details
       %h3
         = link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
-        = lights('stop') if product_parameter.dead and product_parameter.product.dead_at
+        = lights('stop') if product_parameter.dead && product_parameter.product.dead_at
       %p= product_parameter.name
       %p= product_parameter.model_name.human
       - if actor.is_a?(Product) && !actor.population_counting_unitary? && variant && product_parameter.quantity_value
@@ -25,7 +26,11 @@
               %span.value= (pesticide.present? ? pesticide.proper_name : '')
             %p
               %span.title= :quantity.tl
-              %span.value= product_parameter.input_quantity_per_area.round_l
+              %span.badge.red= product_parameter.input_quantity_per_area.round_l
+              - if spray_mix_volume_area_density
+                %br
+                %span.title= Onoma::Indicator[:spray_mix_volume_area_density].human_name
+                %span.badge.blue= spray_mix_volume_area_density.round_l
             - unless usage.nil?
               %p
                 = succeed " : " do
@@ -54,6 +59,11 @@
                   %span.title.smr= :usage_conditions.tl
                   %span.value= picto_tag('info-circle', color: '#3f70ce', pointer: true, data: { toggle: 'modal', target: "#usage-conditions-modal-#{product_parameter.id}" })
                 = render 'usage_conditions_modal', id: product_parameter.id, usage: usage
+
+              - if !@has_working_zone_shape
+                %p
+                  %span.title
+                    = :phyto_validation_done_with_total_zone.tl
 
           - else
             = quantity_info(product_parameter)
@@ -86,7 +96,7 @@
 
 
   - if intervention.participations.empty? || (product.decorate.not_worker_or_equipment? && product.decorate.no_participation?(intervention.id))
-    = add_working_period_cost(product_parameter)
+    = add_working_period_cost(product_parameter, nature: :intervention)
   - else
     - participation = product_parameter.participation if product_parameter.is_a?(InterventionDoer)
     - is_equipment = product.try(:tractor?) || product.try(:self_prepelled_equipment?)

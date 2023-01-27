@@ -37,6 +37,7 @@
 class ProjectBudget < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :isacompta_analytic_code, length: { maximum: 2 }, allow_blank: true
   validates :name, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :name, presence: true

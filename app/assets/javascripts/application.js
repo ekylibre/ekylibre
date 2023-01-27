@@ -62,10 +62,13 @@
 //= require tour
 //= require bootstrap-slider
 //= require leaflet/L.KML
+//= require chart/highcharts
 
 //= require sortablejs/Sortable.min.js
 
 //= require turbolinks_patch
+
+//= require channels
 
 // FIX Browser interoperability
 // href function seems to be ineffective

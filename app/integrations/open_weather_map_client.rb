@@ -19,6 +19,10 @@ class OpenWeatherMapClient
   end
 
   def fetch_forecast(coordinates)
+    if coordinates.nil?
+      return None()
+    end
+
     if apikey.is_none?
       logger.warn 'Missing OpenWeatherMap api key in identifiers)'
       return None()
@@ -43,7 +47,7 @@ class OpenWeatherMapClient
     end
 
     def url_for(lat, lng)
-      "/data/2.5/forecast?lat=#{lat}&lon=#{lng}&mode=json&units=metric&lang=#{@language}&APPID=#{apikey.get}"
+      "/data/2.5/onecall?lat=#{lat}&lon=#{lng}&mode=json&units=metric&lang=#{@language}&APPID=#{apikey.get}"
     end
 
     def build_client

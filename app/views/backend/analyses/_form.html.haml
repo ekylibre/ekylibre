@@ -1,11 +1,14 @@
+- nature_check = f.object.nature || params[:nature]
 = field_set do
-  - if params[:nature]
+  - if nature_check
     = f.input :nature, as: :hidden
   - else
     = f.input :nature
   = f.input :number
   = f.input :reference_number
   = f.input :sampled_at
+  - if nature_check == 'soil_analysis'
+    = f.referenced_association :cultivable_zone
   - unless params[:without_geolocation].to_i > 0
     = f.geolocation
   = f.referenced_association :sampler
@@ -15,7 +18,7 @@
 
 = field_set :items do
   :ruby
-    if params[:nature] and nature = Onoma::AnalysisNature.find(params[:nature])
+    if params[:nature] && nature = Onoma::AnalysisNature.find(params[:nature])
       unless nature.items.nil?
         nature.items.each do |item|
           next unless indicator = Onoma::Indicator.find(item.to_s)

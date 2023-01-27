@@ -81,8 +81,16 @@ class FixedAssetDepreciation < ApplicationRecord
 
   bookkeep
 
-  protect(on: :destroy) do
-    journal_entry.present? && !journal_entry.draft?
+  protect on: :update do
+    journal_entry && journal_entry.confirmed?
+  end
+
+  protect on: :destroy do
+    locked_or_journal_entry_confirmed?
+  end
+
+  def locked_or_journal_entry_confirmed?
+    locked || (journal_entry && journal_entry.confirmed?)
   end
 
   after_initialize do

@@ -170,6 +170,9 @@ class Product < ApplicationRecord
   has_many :intervention_targets, inverse_of: :product
   has_many :crop_group_items, foreign_key: :crop_id
   has_many :crop_groups, through: :crop_group_items
+  has_many :worker_groups, through: :worker_group_items
+  has_many :worker_group_items, foreign_key: :worker_id
+  has_many :catalog_items, foreign_key: :product_id, dependent: :destroy
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ReceptionItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ShipmentItem', foreign_key: :product_id, inverse_of: :product
@@ -240,7 +243,7 @@ class Product < ApplicationRecord
     where(activity_production: production)
   }
   scope :of_productions, lambda { |*productions|
-    of_productions(productions.flatten)
+    of_production(productions.flatten)
   }
 
   scope :of_crumbs, lambda { |*crumbs|
@@ -264,7 +267,7 @@ class Product < ApplicationRecord
   }
 
   scope :supports_of_campaign, lambda { |campaign|
-    joins(:supports).merge(ActivityProduction.of_campaign(campaign))
+    joins(:supports).distinct.merge(ActivityProduction.of_campaign(campaign))
   }
   scope :shape_intersecting, lambda { |shape|
     where(id: ProductReading.multi_polygon_value_surface_intersecting(shape).select(:product_id))
@@ -327,9 +330,12 @@ class Product < ApplicationRecord
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
+  scope :workers, -> { where(type: 'Worker') }
   scope :land_parcels, -> { where(type: 'LandParcel') }
   scope :animals, -> { where(type: 'Animal') }
   scope :of_available_animal_group, -> { where(type: 'AnimalGroup', activity_production_id: nil) }
+
+  scope :land_parcel_alive, ->(at: Time.now) { joins(activity_production: :support).where('supports_activity_productions.dead_at IS NULL OR supports_activity_productions.dead_at >= ?', at) }
 
   scope :fathers, -> { animals.indicate(sex: 'male', reproductor: true).order(:name) }
   scope :mothers, -> { animals.indicate(sex: 'female', reproductor: true).order(:name) }
@@ -355,6 +361,7 @@ class Product < ApplicationRecord
   validates :born_at, :dead_at, :first_calving_on, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :initial_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :isacompta_analytic_code, length: { maximum: 2 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -424,18 +431,9 @@ class Product < ApplicationRecord
 
   after_initialize :choose_default_name
 
-  before_validation do
-    self.initial_born_at ||= Time.zone.now
-    self.born_at ||= self.initial_born_at
-    self.initial_born_at = self.born_at
-    self.initial_dead_at = dead_at
-    self.uuid ||= UUIDTools::UUID.random_create.to_s
-    self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
-    # self.net_surface_area = initial_shape.area.in(:hectare).round(3)
-  end
-
-  before_validation :set_default_values, on: :create
+  before_validation :set_default_values_on_create, on: :create
   before_validation :update_default_values, on: :update
+  before_validation :set_default_values
 
   validate do
     if dead_at && born_at
@@ -453,13 +451,6 @@ class Product < ApplicationRecord
         end
       end
     end
-  end
-
-  after_validation do
-    self.born_at ||= self.initial_born_at
-    self.dead_at ||= initial_dead_at
-    self.default_storage ||= initial_container
-    self.initial_container ||= self.default_storage
   end
 
   after_save do
@@ -508,14 +499,18 @@ class Product < ApplicationRecord
   # planning
   def time_use_in_date(date)
     intervention_parameters = InterventionParameter.joins(:intervention).where(product_id: self, interventions: { started_at: date }).includes(:intervention).uniq { |p| p.intervention.number }
-    intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
-    intervention_proposal_parameters = InterventionProposal::Parameter
-                                       .joins(:intervention_proposal)
-                                       .where(product_id: self, intervention_proposals: { estimated_date: date })
-                                       .where.not(intervention_proposals: { number: intervention_numbers })
-    duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
-    duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
-    (duration / 3600.0).round(1) if duration.present?
+    if intervention_parameters.any?
+      intervention_numbers = intervention_parameters.includes(:intervention).map { |p| p.intervention.number }
+      intervention_proposal_parameters = InterventionProposal::Parameter
+                                         .joins(:intervention_proposal)
+                                         .where(product_id: self, intervention_proposals: { estimated_date: date })
+                                         .where.not(intervention_proposals: { number: intervention_numbers })
+      duration = intervention_parameters.includes(:intervention).map(&:duration).inject(:+) || 0
+      duration += (intervention_proposal_parameters.map { |p| p.intervention_proposal.estimated_working_time }.inject(:+) || 0) * 3600
+      (duration / 3600.0).round(1) if duration.present?
+    else
+      0
+    end
   end
 
   def working_duration_info(date)
@@ -680,8 +675,18 @@ class Product < ApplicationRecord
     end
   end
 
-  # Sets nature and variety from variant
   def set_default_values
+    set_default_born_at
+    self.initial_dead_at = dead_at
+    self.uuid ||= UUIDTools::UUID.random_create.to_s
+    self.conditioning_unit ||= variant.guess_conditioning[:unit] if variant
+    self.dead_at ||= initial_dead_at
+    self.default_storage ||= initial_container
+    self.initial_container ||= self.default_storage
+  end
+
+  # Sets nature and variety from variant
+  def set_default_values_on_create
     if variant
       self.nature_id = variant.nature_id
       self.variety ||= variant.variety
@@ -1002,4 +1007,21 @@ class Product < ApplicationRecord
   def used_in_interventions_before(date)
     InterventionTool.where(product: self).joins(:intervention).where('interventions.started_at < ?', date).any?
   end
+
+  private
+
+    def set_default_born_at
+      if %w[Matter Equipment].exclude?(self.class.name)
+        self.initial_born_at ||= Time.zone.now
+        self.born_at ||= self.initial_born_at
+        self.initial_born_at = self.born_at
+        return nil
+      end
+
+      if initial_born_at.present?
+        self.born_at = self.initial_born_at
+      else
+        self.initial_born_at = self.born_at
+      end
+    end
 end

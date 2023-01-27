@@ -3,13 +3,13 @@ FactoryBot.define do
     name { FFaker::NameFR.name }
     declared_area_unit { :hectare }
     declared_area_value { BigDecimal(rand.round(2), 4) }
-    inter_vine_plant_distance_value { BigDecimal(rand.round(2), 4) }
+    inter_vine_plant_distance_value { rand(30..100) }
     inter_vine_plant_distance_unit { :centimeter }
-    inter_row_distance_value { BigDecimal(rand.round(2), 4) }
+    inter_row_distance_value { rand(30..100) }
     inter_row_distance_unit { :centimeter }
-    designation_of_origin_id { RegisteredQualityAndOriginSign.order('RANDOM()').first.id }
-    vine_variety_id { RegisteredVineVariety.where(category: 'variety').order('RANDOM()').first.id }
-    rootstock_id { RegisteredVineVariety.where(category: 'rootstock').order('RANDOM()').first.id }
+    designation_of_origin_id { RegisteredQualityAndOriginSign.order(Arel.sql('RANDOM()')).first.id }
+    vine_variety_id { RegisteredVineVariety.where(category: 'variety').order(Arel.sql('RANDOM()')).first.id }
+    rootstock_id { RegisteredVineVariety.where(category: 'rootstock').order(Arel.sql('RANDOM()')).first.id }
     state { %i[planted removed_with_authorization].sample }
     shape { FFaker::Shape.polygon.simplify(0.05) }
     planting_campaign { FFaker::Time.between(10.years.ago, 5.years.ago).year.to_s }

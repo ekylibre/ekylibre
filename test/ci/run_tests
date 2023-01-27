@@ -8,6 +8,8 @@ function psql_exec {
 (
     cd /app
 
+    cat $1 > .env
+
     bash test/ci/wait_pg.sh "${POSTGRES_HOST}" "${POSTGRES_USER}" "${POSTGRES_DB}"
 
     psql_exec 'CREATE SCHEMA IF NOT EXISTS postgis; DROP EXTENSION postgis CASCADE;'
@@ -25,5 +27,5 @@ function psql_exec {
 
     bundle exec rake db:migrate RAILS_ENV=test VERBOSE=false
 
-    bin/rails test
+    COVERAGE=true CI=true bin/rails test 
 )

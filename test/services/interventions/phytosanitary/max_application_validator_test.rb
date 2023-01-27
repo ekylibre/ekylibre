@@ -33,7 +33,7 @@ module Interventions
       end
 
       test 'vaidate product_usages' do
-        validator = MaxApplicationValidator.new(targets_and_shape: [Models::TargetAndShape.new(nil, nil)], intervention_stopped_at: DateTime.new(2001, 2, 3, 4, 5, 6))
+        validator = MaxApplicationValidator.new(targets_zone: [Models::TargetZone.new(nil, nil, nil)], intervention_stopped_at: DateTime.new(2001, 2, 3, 4, 5, 6))
         product_usage = Models::ProductWithUsage.new(
           ProductMock.new,
           InterventionParameter::LoggedPhytosanitaryProduct.new,
@@ -53,7 +53,7 @@ module Interventions
 
         # The validator is configured for the creation of an intervention
         validator = MaxApplicationValidator.new(
-          targets_and_shape: [Models::TargetAndShape.new(nil, nil)],
+          targets_zone: [Models::TargetZone.new(nil, nil, nil)],
           intervention_stopped_at: DateTime.parse("2020-01-02T16:00:00Z"),
           intervention_to_ignore: nil
         )
@@ -80,7 +80,7 @@ module Interventions
 
         # The validator is configured for the edition of i2
         validator = MaxApplicationValidator.new(
-          targets_and_shape: [Models::TargetAndShape.new(nil, nil)],
+          targets_zone: [Models::TargetZone.new(nil, nil, nil)],
           intervention_stopped_at: DateTime.parse("2020-01-02T16:00:00Z"),
           intervention_to_ignore: i2
         )

@@ -74,6 +74,7 @@ class ProductNatureCategory < ApplicationRecord
   belongs_to :product_account, class_name: 'Account'
   belongs_to :stock_account, class_name: 'Account'
   belongs_to :stock_movement_account, class_name: 'Account'
+  has_many :inventories
   has_many :products, foreign_key: :category_id, dependent: :restrict_with_exception
   has_many :taxations, class_name: 'ProductNatureCategoryTaxation', dependent: :destroy
   has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :category_id, inverse_of: :category, dependent: :restrict_with_exception
@@ -85,7 +86,7 @@ class ProductNatureCategory < ApplicationRecord
   validates :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, inclusion: { in: [true, false] }
   validates :asset_fixable, inclusion: { in: [true, false] }, allow_blank: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :fixed_asset_depreciation_method, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :fixed_asset_depreciation_method, :pictogram, :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :fixed_asset_depreciation_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
@@ -244,7 +245,13 @@ class ProductNatureCategory < ApplicationRecord
         account_name = item.send("#{account}_account")
         attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(account_name) if account_name.present?
       end
-      create!(attributes)
+      category = create!(attributes)
+      if item.default_vat_rate.present?
+        tax = Tax.usable_in_budget.find_by(amount: item.default_vat_rate)
+        category.sale_taxations.find_or_create_by(tax: tax, usage: :sale) if tax && category.saleable
+        category.purchase_taxations.find_or_create_by(tax: tax, usage: :purchase) if tax && category.purchasable
+      end
+      category
     end
 
     def load_defaults(**_options)

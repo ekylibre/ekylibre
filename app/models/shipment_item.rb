@@ -74,6 +74,7 @@ class ShipmentItem < ParcelItem
 
   has_one :storage, through: :shipment
   has_one :contract, through: :shipment
+
   belongs_to :product
   validates :source_product, presence: true
 

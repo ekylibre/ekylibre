@@ -58,6 +58,7 @@ class IncomingPaymentMode < ApplicationRecord
   belongs_to :depositables_journal, class_name: 'Journal'
   has_many :depositable_payments, -> { where(deposit_id: nil) }, class_name: 'IncomingPayment', foreign_key: :mode_id
   has_many :payments, foreign_key: :mode_id, class_name: 'IncomingPayment', dependent: :restrict_with_exception
+  has_many :client_payment_modes, class_name: 'Entity', foreign_key: :client_payment_mode_id, inverse_of: :client_payment_mode, dependent: :restrict_with_error
   # has_many :unlocked_payments, -> { where("journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})") }, foreign_key: :mode_id, class_name: "IncomingPayment"
   has_many :unlocked_payments, -> { where(journal_entry_id: JournalEntry.where(state: 'draft')) }, foreign_key: :mode_id, class_name: 'IncomingPayment'
 
@@ -96,7 +97,7 @@ class IncomingPaymentMode < ApplicationRecord
   end
 
   protect(on: :destroy) do
-    payments.any?
+    payments.any? || client_payment_modes.any?
   end
 
   def commission_amount(amount)

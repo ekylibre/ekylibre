@@ -45,7 +45,7 @@ module Backend
     end
 
     def new
-      @inventory = Inventory.new(product_nature_category_id: params[:product_nature_category_id])
+      @inventory = Inventory.new(product_nature_category_id: params[:product_nature_category_id], achieved_at: params[:achieved_at], financial_year_id: params[:financial_year_id])
     end
 
     def create

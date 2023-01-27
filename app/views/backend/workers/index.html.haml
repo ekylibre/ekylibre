@@ -7,7 +7,8 @@
 = kujaku do |k|
   - k.text
   - if Worker.any?
-    - variant_list = ProductNatureVariant.where(id: Worker.select(:variant_id).uniq).pluck(:name, :id)
+    - variant_list = ProductNatureVariant.where(id: Worker.select(:variant_id).distinct).pluck(:name, :id)
     - k.list :variant, list_values: variant_list
-
+%div.merge-matter-div.create-workers-group.hidden
+  = link_to(:create_group.tl, nil, class: "btn btn-primary create-worker-group-btn")
 = main_list

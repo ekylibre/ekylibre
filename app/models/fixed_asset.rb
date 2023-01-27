@@ -183,22 +183,7 @@ class FixedAsset < ApplicationRecord
     self.depreciation_percentage = 20 if depreciation_percentage.blank? || depreciation_percentage <= 0
     self.purchase_amount ||= depreciable_amount
     self.purchased_on ||= started_on
-
-    if depreciation_method_linear?
-      if started_on
-        months = 12 * (100.0 / depreciation_percentage.to_f)
-        self.stopped_on = started_on + months.floor.months
-        self.stopped_on += (months - months.floor) * 30.0 - 1
-      end
-    end
-    if depreciation_method_regressive?
-      self.depreciation_fiscal_coefficient ||= 1.75
-      if started_on
-        months = 12 * (100.0 / depreciation_percentage.to_f)
-        self.stopped_on = started_on >> months.floor
-        self.stopped_on += (months - months.floor) * 30.0 - 1
-      end
-    end
+    set_stopped_on
     true
   end
 
@@ -272,7 +257,7 @@ class FixedAsset < ApplicationRecord
     # end
     # end
     depreciate! if @auto_depreciate
-    sale.update_columns(invoiced_at: sold_on.to_datetime) if changes[:sold_on] && sale && !sale.invoice? && sold_on
+    sale.update_columns(invoiced_at: sold_on.to_datetime) if saved_changes[:sold_on] && sale && !sale.invoice? && sold_on
   end
 
   after_update do
@@ -282,11 +267,38 @@ class FixedAsset < ApplicationRecord
   end
 
   protect on: :update do
-    old_record.scrapped? || old_record.sold?
+    return true if (old_record.scrapped? || old_record.sold?)
+
+    if depreciations.any?(&:locked_or_journal_entry_confirmed?) || (journal_entry && journal_entry.confirmed?)
+      AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on scrapped_on updater_id updated_at state].freeze
+      (changes_to_save.keys - AUTHORIZED_COLUMNS).any?
+    else
+      false
+    end
   end
 
   protect on: :destroy do
-    waiting? && waiting_journal_entry&.confirmed? || in_use? || scrapped? || sold? || !depreciations.all?(&:destroyable?)
+    (waiting? && waiting_journal_entry&.confirmed?) || (in_use? && journal_entry&.confirmed?) || scrapped? || sold? || !depreciations.all?(&:destroyable?)
+  end
+
+  def set_stopped_on
+    return if %w[sold scrapped].include?(state)
+
+    if depreciation_method_linear?
+      if started_on
+        months = 12 * (100.0 / depreciation_percentage.to_f)
+        self.stopped_on = started_on + months.floor.months
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
+    end
+    if depreciation_method_regressive?
+      self.depreciation_fiscal_coefficient ||= 1.75
+      if started_on
+        months = 12 * (100.0 / depreciation_percentage.to_f)
+        self.stopped_on = started_on >> months.floor
+        self.stopped_on += (months - months.floor) * 30.0 - 1
+      end
+    end
   end
 
   def on_unclosed_periods?
@@ -335,9 +347,7 @@ class FixedAsset < ApplicationRecord
       depreciation_start = started_on.beginning_of_month if depreciation_method == :regressive
 
       periods = DepreciationCalculator.new(fy_reference, depreciation_period.to_sym).depreciation_period(depreciation_start, depreciation_percentage)
-
       total_duration = periods.sum(&:last)
-
       case depreciation_method
       when 'linear'
         depreciate_with_linear_method(periods, total_duration)
@@ -354,16 +364,17 @@ class FixedAsset < ApplicationRecord
   # Depreciate using linear method
   # Years have 12 months with 30 days
   def depreciate_with_linear_method(periods, depreciable_days)
-    depreciable_amount = self.depreciable_amount
+    self.reload
+    dep_amount = self.depreciable_amount
     # case of depreciations (locked or accounted) exists.
     # recompute depreciable_days and depreciable_amount
     depreciations.each do |dep|
       depreciable_days -= dep.duration
-      depreciable_amount -= dep.amount
+      dep_amount -= dep.amount
     end
 
     # remaining amount to distribute into depreciations
-    remaining_amount = depreciable_amount.to_d
+    remaining_amount = dep_amount.to_d
     position = 1
     # for each period, check if theres a depreciations (locked or accounted) or create it
     periods.each_with_index do |period, index|
@@ -379,7 +390,6 @@ class FixedAsset < ApplicationRecord
       else
         stop = period[1].end_of_month
       end
-
       depreciation = depreciations.on(start).first
       unless depreciation
         depreciation = depreciations.new(started_on: start, stopped_on: stop)
@@ -388,7 +398,7 @@ class FixedAsset < ApplicationRecord
         if periods[index + 1].nil?
           depreciation.amount = depreciations.up_to(start).reorder(:started_on).last.depreciable_amount
         else
-          depreciation.amount = [remaining_amount, currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+          depreciation.amount = [remaining_amount, currency.to_currency.round(dep_amount * duration / depreciable_days)].min
         end
         remaining_amount -= depreciation.amount
       end
@@ -401,18 +411,19 @@ class FixedAsset < ApplicationRecord
 
   # Depreciate using regressive method
   def depreciate_with_regressive_method(periods, _depreciable_days)
+    self.reload
     depreciable_days = duration
-    depreciable_amount = self.depreciable_amount
+    dep_amount = self.depreciable_amount
     reload.depreciations.each do |depreciation|
       depreciable_days -= depreciation.duration
-      depreciable_amount -= depreciation.amount
+      dep_amount -= depreciation.amount
     end
 
     remaining_days = depreciable_days
     regressive_depreciation_percentage = depreciation_percentage * depreciation_fiscal_coefficient
 
     ## Create it if not exists?
-    remaining_amount = depreciable_amount.to_d
+    remaining_amount = dep_amount.to_d
     position = 1
 
     periods.each_with_index do |period, index|

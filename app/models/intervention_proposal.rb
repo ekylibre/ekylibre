@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class InterventionProposal < ApplicationRecord
-  belongs_to :technical_itinerary_intervention_template, class_name: TechnicalItineraryInterventionTemplate, required: true
-  belongs_to :activity_production, class_name: ActivityProduction, required: true
-  belongs_to :irregular_batch, class_name: ActivityProductionIrregularBatch, foreign_key: :activity_production_irregular_batch_id
+  belongs_to :technical_itinerary_intervention_template, class_name: 'TechnicalItineraryInterventionTemplate', required: true
+  belongs_to :activity_production, class_name: 'ActivityProduction', required: true
+  belongs_to :irregular_batch, class_name: 'ActivityProductionIrregularBatch', foreign_key: :activity_production_irregular_batch_id
 
-  has_one :intervention, class_name: Intervention
-  has_many :parameters, class_name: InterventionProposal::Parameter, dependent: :destroy
+  has_one :intervention, class_name: 'Intervention'
+  has_many :parameters, class_name: 'InterventionProposal::Parameter', dependent: :destroy
 
   validates :estimated_date, :area, :number, presence: true
 
@@ -92,14 +92,10 @@ class InterventionProposal < ApplicationRecord
 
   def estimated_working_time(target_parcel = nil)
     if target_parcel.nil?
-      return area / technical_itinerary_intervention_template
-                      .intervention_template
-                      .workflow
+      return area / technical_itinerary_intervention_template&.intervention_template&.workflow&.to_d
     end
 
-    target_parcel.calculate_net_surface_area.to_d / technical_itinerary_intervention_template
-                                            .intervention_template
-                                            .workflow
+    target_parcel.calculate_net_surface_area.to_d / technical_itinerary_intervention_template&.intervention_template&.workflow.to_d
   end
 
   def human_estimated_working_time(target_parcel = nil)

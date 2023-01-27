@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 13.5 (Debian 13.5-0+deb11u1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -15,20 +8,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
 
 --
 -- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
@@ -45,30 +24,19 @@ CREATE SCHEMA postgis;
 
 
 --
--- Name: asbinary(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE FUNCTION public.asbinary(postgis.geometry) RETURNS bytea
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_asBinary';
+CREATE SCHEMA public;
 
 
 --
--- Name: asbinary(postgis.geometry, text); Type: FUNCTION; Schema: public; Owner: -
+-- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
 --
 
-CREATE FUNCTION public.asbinary(postgis.geometry, text) RETURNS bytea
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_asBinary';
-
-
---
--- Name: astext(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.astext(postgis.geometry) RETURNS text
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_asText';
+CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
+    LANGUAGE c
+    AS '$libdir/pgcrypto', 'pg_random_uuid';
 
 
 --
@@ -232,87 +200,6 @@ $$;
 
 
 --
--- Name: estimated_extent(text, text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.estimated_extent(text, text) RETURNS postgis.box2d
-    LANGUAGE c IMMUTABLE STRICT SECURITY DEFINER
-    AS '$libdir/postgis-3', 'geometry_estimated_extent';
-
-
---
--- Name: estimated_extent(text, text, text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.estimated_extent(text, text, text) RETURNS postgis.box2d
-    LANGUAGE c IMMUTABLE STRICT SECURITY DEFINER
-    AS '$libdir/postgis-3', 'geometry_estimated_extent';
-
-
---
--- Name: geomfromtext(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.geomfromtext(text) RETURNS postgis.geometry
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$SELECT ST_GeomFromText($1)$_$;
-
-
---
--- Name: geomfromtext(text, integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.geomfromtext(text, integer) RETURNS postgis.geometry
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$SELECT ST_GeomFromText($1, $2)$_$;
-
-
---
--- Name: ndims(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.ndims(postgis.geometry) RETURNS smallint
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_ndims';
-
-
---
--- Name: setsrid(postgis.geometry, integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.setsrid(postgis.geometry, integer) RETURNS postgis.geometry
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_set_srid';
-
-
---
--- Name: srid(postgis.geometry); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.srid(postgis.geometry) RETURNS integer
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/postgis-3', 'LWGEOM_get_srid';
-
-
---
--- Name: st_asbinary(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.st_asbinary(text) RETURNS bytea
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$ SELECT ST_AsBinary($1::geometry);$_$;
-
-
---
--- Name: st_astext(bytea); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.st_astext(bytea) RETURNS text
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$ SELECT ST_AsText($1::geometry);$_$;
-
-
---
 -- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -354,44 +241,6 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
---
--- Name: gist_geometry_ops; Type: OPERATOR FAMILY; Schema: public; Owner: -
---
-
-CREATE OPERATOR FAMILY public.gist_geometry_ops USING gist;
-
-
---
--- Name: gist_geometry_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS public.gist_geometry_ops
-    FOR TYPE postgis.geometry USING gist FAMILY public.gist_geometry_ops AS
-    STORAGE postgis.box2df ,
-    OPERATOR 1 postgis.<<(postgis.geometry,postgis.geometry) ,
-    OPERATOR 2 postgis.&<(postgis.geometry,postgis.geometry) ,
-    OPERATOR 3 postgis.&&(postgis.geometry,postgis.geometry) ,
-    OPERATOR 4 postgis.&>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 5 postgis.>>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 6 postgis.~=(postgis.geometry,postgis.geometry) ,
-    OPERATOR 7 postgis.~(postgis.geometry,postgis.geometry) ,
-    OPERATOR 8 postgis.@(postgis.geometry,postgis.geometry) ,
-    OPERATOR 9 postgis.&<|(postgis.geometry,postgis.geometry) ,
-    OPERATOR 10 postgis.<<|(postgis.geometry,postgis.geometry) ,
-    OPERATOR 11 postgis.|>>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 12 postgis.|&>(postgis.geometry,postgis.geometry) ,
-    OPERATOR 13 postgis.<->(postgis.geometry,postgis.geometry) FOR ORDER BY pg_catalog.float_ops ,
-    OPERATOR 14 postgis.<#>(postgis.geometry,postgis.geometry) FOR ORDER BY pg_catalog.float_ops ,
-    FUNCTION 1 (postgis.geometry, postgis.geometry) postgis.geometry_gist_consistent_2d(internal,postgis.geometry,integer) ,
-    FUNCTION 2 (postgis.geometry, postgis.geometry) postgis.geometry_gist_union_2d(bytea,internal) ,
-    FUNCTION 3 (postgis.geometry, postgis.geometry) postgis.geometry_gist_compress_2d(internal) ,
-    FUNCTION 4 (postgis.geometry, postgis.geometry) postgis.geometry_gist_decompress_2d(internal) ,
-    FUNCTION 5 (postgis.geometry, postgis.geometry) postgis.geometry_gist_penalty_2d(internal,internal,internal) ,
-    FUNCTION 6 (postgis.geometry, postgis.geometry) postgis.geometry_gist_picksplit_2d(internal,internal) ,
-    FUNCTION 7 (postgis.geometry, postgis.geometry) postgis.geometry_gist_same_2d(postgis.geometry,postgis.geometry,internal) ,
-    FUNCTION 8 (postgis.geometry, postgis.geometry) postgis.geometry_gist_distance_2d(internal,postgis.geometry,integer);
 
 
 SET default_tablespace = '';
@@ -567,7 +416,8 @@ CREATE TABLE lexicon.master_crop_production_yields (
 
 CREATE TABLE lexicon.master_crop_productions (
     reference_name character varying NOT NULL,
-    specie character varying NOT NULL,
+    activity_family character varying NOT NULL,
+    specie character varying,
     usage character varying,
     started_on date NOT NULL,
     stopped_on date NOT NULL,
@@ -577,6 +427,7 @@ CREATE TABLE lexicon.master_crop_productions (
     idea_botanic_family character varying,
     idea_specie_family character varying,
     idea_output_family character varying,
+    color character varying,
     translation_id character varying NOT NULL
 );
 
@@ -641,7 +492,9 @@ CREATE TABLE lexicon.master_packagings (
 --
 
 CREATE TABLE lexicon.master_phenological_stages (
-    bbch_code integer NOT NULL,
+    id character varying NOT NULL,
+    bbch_code character varying NOT NULL,
+    variety character varying NOT NULL,
     biaggiolini character varying,
     eichhorn_lorenz character varying,
     chasselas_date character varying,
@@ -821,10 +674,31 @@ CREATE TABLE lexicon.registered_agroedi_codes (
 --
 
 CREATE TABLE lexicon.registered_cadastral_buildings (
+    id integer NOT NULL,
     nature character varying,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     centroid postgis.geometry(Point,4326)
 );
+
+
+--
+-- Name: registered_cadastral_buildings_id_seq; Type: SEQUENCE; Schema: lexicon; Owner: -
+--
+
+CREATE SEQUENCE lexicon.registered_cadastral_buildings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: registered_cadastral_buildings_id_seq; Type: SEQUENCE OWNED BY; Schema: lexicon; Owner: -
+--
+
+ALTER SEQUENCE lexicon.registered_cadastral_buildings_id_seq OWNED BY lexicon.registered_cadastral_buildings.id;
 
 
 --
@@ -833,12 +707,57 @@ CREATE TABLE lexicon.registered_cadastral_buildings (
 
 CREATE TABLE lexicon.registered_cadastral_parcels (
     id character varying NOT NULL,
+    town_insee_code character varying,
+    section_prefix character varying,
     section character varying,
     work_number character varying,
     net_surface_area integer,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     centroid postgis.geometry(Point,4326)
 );
+
+
+--
+-- Name: registered_cadastral_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_cadastral_prices (
+    id integer NOT NULL,
+    mutation_id character varying,
+    mutation_date date,
+    mutation_reference character varying,
+    mutation_nature character varying,
+    cadastral_price numeric(14,2),
+    cadastral_parcel_id character varying,
+    building_nature character varying,
+    building_area integer,
+    cadastral_parcel_area integer,
+    address character varying,
+    postal_code character varying,
+    city character varying,
+    department character varying,
+    centroid postgis.geometry(Point,4326)
+);
+
+
+--
+-- Name: registered_cadastral_prices_id_seq; Type: SEQUENCE; Schema: lexicon; Owner: -
+--
+
+CREATE SEQUENCE lexicon.registered_cadastral_prices_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: registered_cadastral_prices_id_seq; Type: SEQUENCE OWNED BY; Schema: lexicon; Owner: -
+--
+
+ALTER SEQUENCE lexicon.registered_cadastral_prices_id_seq OWNED BY lexicon.registered_cadastral_prices.id;
 
 
 --
@@ -1010,6 +929,14 @@ CREATE TABLE lexicon.registered_phytosanitary_usages (
     untreated_buffer_plants integer,
     decision_date date,
     state character varying NOT NULL,
+    extract_spray_volume_max_quantity character varying,
+    extract_spray_volume_max_unit character varying,
+    spray_volume_max_quantity numeric(19,4),
+    spray_volume_max_unit character varying,
+    spray_volume_max_unit_name character varying,
+    spray_volume_max_dose_quantity numeric(19,4),
+    spray_volume_max_dose_unit character varying,
+    spray_volume_max_dose_unit_name character varying,
     record_checksum integer
 );
 
@@ -1026,7 +953,8 @@ CREATE TABLE lexicon.registered_postal_codes (
     postal_code character varying NOT NULL,
     city_delivery_name character varying,
     city_delivery_detail character varying,
-    city_centroid postgis.geometry(Point,4326)
+    city_centroid postgis.geometry(Point,4326),
+    city_shape postgis.geometry(MultiPolygon,4326)
 );
 
 
@@ -1036,6 +964,8 @@ CREATE TABLE lexicon.registered_postal_codes (
 
 CREATE TABLE lexicon.registered_protected_water_zones (
     id character varying NOT NULL,
+    administrative_zone character varying,
+    creator_name character varying,
     name character varying,
     updated_on date,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL
@@ -1069,6 +999,33 @@ CREATE TABLE lexicon.registered_seed_varieties (
     specie_name_fra character varying,
     variety_name character varying,
     registration_date date
+);
+
+
+--
+-- Name: registered_soil_available_water_capacities; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_soil_available_water_capacities (
+    id character varying NOT NULL,
+    available_water_reference_value integer,
+    available_water_min_value numeric(19,4),
+    available_water_max_value numeric(19,4),
+    available_water_unit character varying,
+    available_water_label character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+);
+
+
+--
+-- Name: registered_soil_depths; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.registered_soil_depths (
+    id character varying NOT NULL,
+    soil_depth_value numeric(19,4),
+    soil_depth_unit character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL
 );
 
 
@@ -1160,6 +1117,7 @@ CREATE TABLE lexicon.technical_workflows (
     unit character varying,
     life_state character varying,
     life_cycle character varying,
+    plant_density integer,
     translation_id character varying NOT NULL
 );
 
@@ -1477,7 +1435,9 @@ CREATE TABLE public.intervention_parameters (
     reference_data jsonb DEFAULT '{}'::jsonb,
     using_live_data boolean DEFAULT true,
     applications_frequency interval,
-    specie_variety jsonb DEFAULT '{}'::jsonb
+    specie_variety jsonb DEFAULT '{}'::jsonb,
+    spray_volume_value numeric(19,4),
+    working_zone_area_value numeric(19,4)
 );
 
 
@@ -1615,7 +1575,8 @@ CREATE TABLE public.products (
     type_of_occupancy character varying,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
-    isacompta_analytic_code character varying(2)
+    isacompta_analytic_code character varying(2),
+    worker_group_item_id integer
 );
 
 
@@ -1648,7 +1609,7 @@ CREATE TABLE public.activity_budget_items (
     id integer NOT NULL,
     variant_id integer,
     direction character varying NOT NULL,
-    amount numeric(19,4) DEFAULT 0.0,
+    pretax_amount numeric(19,4) DEFAULT 0.0,
     unit_amount numeric(19,4) DEFAULT 0.0,
     quantity numeric(19,4) DEFAULT 0.0,
     variant_indicator character varying,
@@ -1676,7 +1637,10 @@ CREATE TABLE public.activity_budget_items (
     use_transfer_price boolean DEFAULT false,
     transfer_price double precision,
     locked boolean DEFAULT false,
-    transfered_activity_budget_id integer
+    transfered_activity_budget_id integer,
+    tax_id integer,
+    amount numeric(19,4),
+    global_pretax_amount numeric(19,4)
 );
 
 
@@ -2274,7 +2238,8 @@ CREATE TABLE public.analyses (
     stopped_at timestamp without time zone,
     retrieval_status character varying DEFAULT 'ok'::character varying NOT NULL,
     retrieval_message character varying,
-    custom_fields jsonb
+    custom_fields jsonb,
+    cultivable_zone_id integer
 );
 
 
@@ -2540,7 +2505,8 @@ CREATE TABLE public.bank_statement_items (
     memo character varying,
     accounted_at timestamp without time zone,
     journal_entry_id integer,
-    transaction_nature character varying
+    transaction_nature character varying,
+    provider jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -3075,7 +3041,8 @@ CREATE TABLE public.catalog_items (
     reference_name character varying,
     unit_id integer NOT NULL,
     sale_item_id integer,
-    purchase_item_id integer
+    purchase_item_id integer,
+    product_id integer
 );
 
 
@@ -4091,7 +4058,8 @@ CREATE TABLE public.documents (
     sha256_fingerprint character varying,
     signature text,
     mandatory boolean DEFAULT false,
-    processable_attachment boolean DEFAULT true NOT NULL
+    processable_attachment boolean DEFAULT true NOT NULL,
+    klippa_metadata jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -4113,6 +4081,56 @@ CREATE SEQUENCE public.documents_id_seq
 --
 
 ALTER SEQUENCE public.documents_id_seq OWNED BY public.documents.id;
+
+
+--
+-- Name: economic_cash_indicators; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.economic_cash_indicators (
+    id integer NOT NULL,
+    context character varying,
+    context_color character varying,
+    activity_id integer,
+    activity_budget_id integer,
+    activity_budget_item_id integer,
+    worker_contract_id integer,
+    loan_id integer,
+    campaign_id integer,
+    product_nature_variant_id integer,
+    used_on date,
+    paid_on date,
+    direction character varying,
+    nature character varying,
+    origin character varying,
+    pretax_amount numeric,
+    amount numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: economic_cash_indicators_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.economic_cash_indicators_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: economic_cash_indicators_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.economic_cash_indicators_id_seq OWNED BY public.economic_cash_indicators.id;
 
 
 --
@@ -4174,6 +4192,8 @@ CREATE TABLE public.entities (
     first_financial_year_ends_on date,
     legal_position_code character varying,
     provider jsonb,
+    client_payment_delay character varying,
+    client_payment_mode_id bigint,
     CONSTRAINT company_born_at_not_null CHECK (((of_company = false) OR ((of_company = true) AND (born_at IS NOT NULL))))
 );
 
@@ -4431,7 +4451,9 @@ CREATE TABLE public.sale_items (
     fixed_asset_id integer,
     conditioning_unit_id integer NOT NULL,
     conditioning_quantity numeric(20,10) NOT NULL,
-    catalog_item_id integer
+    catalog_item_id integer,
+    shipment_item_id integer,
+    catalog_item_update boolean DEFAULT false
 );
 
 
@@ -5855,6 +5877,44 @@ ALTER SEQUENCE public.intervention_parameter_readings_id_seq OWNED BY public.int
 
 
 --
+-- Name: intervention_parameter_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_parameter_settings (
+    id integer NOT NULL,
+    intervention_id integer,
+    intervention_parameter_id integer,
+    nature character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    name character varying DEFAULT 'Default name'::character varying NOT NULL
+);
+
+
+--
+-- Name: intervention_parameter_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_parameter_settings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_parameter_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_parameter_settings_id_seq OWNED BY public.intervention_parameter_settings.id;
+
+
+--
 -- Name: intervention_parameters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -5991,6 +6051,55 @@ ALTER SEQUENCE public.intervention_proposals_id_seq OWNED BY public.intervention
 
 
 --
+-- Name: intervention_setting_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.intervention_setting_items (
+    id integer NOT NULL,
+    intervention_parameter_setting_id integer,
+    intervention_id integer,
+    indicator_name character varying NOT NULL,
+    indicator_datatype character varying NOT NULL,
+    absolute_measure_value_value numeric(19,4),
+    absolute_measure_value_unit character varying,
+    boolean_value boolean DEFAULT false NOT NULL,
+    choice_value character varying,
+    decimal_value numeric(19,4),
+    geometry_value postgis.geometry(Geometry,4326),
+    integer_value integer,
+    measure_value_value numeric(19,4),
+    measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
+    string_value text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_setting_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.intervention_setting_items_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_setting_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.intervention_setting_items_id_seq OWNED BY public.intervention_setting_items.id;
+
+
+--
 -- Name: intervention_template_activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6077,14 +6186,15 @@ CREATE TABLE public.intervention_templates (
     campaign_id integer,
     preparation_time_hours integer,
     preparation_time_minutes integer,
-    workflow numeric,
+    workflow_value numeric,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
     originator_id integer,
     technical_workflow_procedure_id character varying,
-    intervention_model_id character varying
+    intervention_model_id character varying,
+    workflow_unit character varying
 );
 
 
@@ -7254,7 +7364,8 @@ CREATE TABLE public.parcel_items (
     team_id integer,
     annotation text,
     conditioning_unit_id integer,
-    conditioning_quantity numeric(20,10)
+    conditioning_quantity numeric(20,10),
+    unit_pretax_sale_amount numeric(19,4)
 );
 
 
@@ -7322,7 +7433,8 @@ CREATE TABLE public.parcels (
     type character varying,
     late_delivery boolean,
     intervention_id integer,
-    reconciliation_state character varying
+    reconciliation_state character varying,
+    sale_nature_id integer
 );
 
 
@@ -8337,6 +8449,30 @@ ALTER SEQUENCE public.product_nature_variant_readings_id_seq OWNED BY public.pro
 
 
 --
+-- Name: units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.units (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    reference_name character varying,
+    base_unit_id integer,
+    symbol character varying,
+    work_code character varying,
+    coefficient numeric(20,10) DEFAULT 1.0 NOT NULL,
+    description text,
+    dimension character varying NOT NULL,
+    type character varying NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    provider jsonb,
+    lock_version integer DEFAULT 0 NOT NULL,
+    creator_id integer,
+    updater_id integer
+);
+
+
+--
 -- Name: product_nature_variant_suppliers_infos; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -8345,19 +8481,22 @@ CREATE VIEW public.product_nature_variant_suppliers_infos AS
     total_purchase_infos.entity_id,
     total_purchase_infos.variant_id,
     total_purchase_infos.ordered_quantity,
+    total_purchase_infos.ordered_unit_name,
     round((total_purchase_infos.total_amount / total_purchase_infos.ordered_quantity), 2) AS average_unit_pretax_amount,
     latest_purchases.unit_pretax_amount AS last_unit_pretax_amount
    FROM (( SELECT p.supplier_id,
-            sum(pi.quantity) AS ordered_quantity,
-            sum((pi.unit_pretax_amount * pi.quantity)) AS total_amount,
+            sum(pi.conditioning_quantity) AS ordered_quantity,
+            sum((pi.unit_pretax_amount * pi.conditioning_quantity)) AS total_amount,
+            pi_units.name AS ordered_unit_name,
             pi.variant_id,
             e.full_name,
             e.id AS entity_id
-           FROM ((public.purchase_items pi
+           FROM (((public.purchase_items pi
+             JOIN public.units pi_units ON ((pi.conditioning_unit_id = pi_units.id)))
              JOIN public.purchases p ON ((pi.purchase_id = p.id)))
              JOIN public.entities e ON ((e.id = p.supplier_id)))
           WHERE ((p.type)::text = 'PurchaseInvoice'::text)
-          GROUP BY p.supplier_id, pi.variant_id, e.full_name, e.id) total_purchase_infos
+          GROUP BY p.supplier_id, pi.variant_id, pi_units.name, e.full_name, e.id) total_purchase_infos
      JOIN ( SELECT DISTINCT ON (p.supplier_id, pi.variant_id) p.supplier_id,
             pi.variant_id,
             pi.unit_pretax_amount
@@ -8826,7 +8965,7 @@ CREATE TABLE public.ride_sets (
     id integer NOT NULL,
     started_at timestamp without time zone,
     stopped_at timestamp without time zone,
-    road integer,
+    road numeric(19,4),
     nature character varying,
     sleep_count integer,
     provider jsonb,
@@ -8878,7 +9017,6 @@ CREATE TABLE public.rides (
     sleep_count integer,
     equipment_name character varying,
     provider jsonb,
-    state character varying,
     product_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -8895,7 +9033,9 @@ CREATE TABLE public.rides (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_id integer,
-    shape postgis.geometry(Geometry,4326)
+    shape postgis.geometry(Geometry,4326),
+    cultivable_zone_id bigint,
+    converting_to_intervention boolean DEFAULT false NOT NULL
 );
 
 
@@ -9590,7 +9730,11 @@ CREATE TABLE public.taxes (
     fixed_asset_collect_account_id integer,
     intracommunity boolean DEFAULT false NOT NULL,
     intracommunity_payable_account_id integer,
-    provider jsonb
+    provider jsonb,
+    collect_isacompta_code character varying,
+    deduction_isacompta_code character varying,
+    fixed_asset_deduction_isacompta_code character varying,
+    fixed_asset_collect_isacompta_code character varying
 );
 
 
@@ -9670,7 +9814,8 @@ CREATE TABLE public.technical_itineraries (
     creator_id integer,
     updater_id integer,
     originator_id integer,
-    technical_workflow_id character varying
+    technical_workflow_id character varying,
+    plant_density numeric(19,4)
 );
 
 
@@ -9812,30 +9957,6 @@ CREATE SEQUENCE public.trackings_id_seq
 --
 
 ALTER SEQUENCE public.trackings_id_seq OWNED BY public.trackings.id;
-
-
---
--- Name: units; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.units (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    reference_name character varying,
-    base_unit_id integer,
-    symbol character varying,
-    work_code character varying,
-    coefficient numeric(20,10) DEFAULT 1.0 NOT NULL,
-    description text,
-    dimension character varying NOT NULL,
-    type character varying NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    provider jsonb,
-    lock_version integer DEFAULT 0 NOT NULL,
-    creator_id integer,
-    updater_id integer
-);
 
 
 --
@@ -10203,6 +10324,43 @@ ALTER SEQUENCE public.wine_incoming_harvests_id_seq OWNED BY public.wine_incomin
 
 
 --
+-- Name: worker_contract_distributions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_contract_distributions (
+    id integer NOT NULL,
+    worker_contract_id integer NOT NULL,
+    affectation_percentage numeric(19,4) NOT NULL,
+    main_activity_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: worker_contract_distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_contract_distributions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_contract_distributions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_contract_distributions_id_seq OWNED BY public.worker_contract_distributions.id;
+
+
+--
 -- Name: worker_contracts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10224,7 +10382,8 @@ CREATE TABLE public.worker_contracts (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    distribution_key character varying
 );
 
 
@@ -10246,6 +10405,221 @@ CREATE SEQUENCE public.worker_contracts_id_seq
 --
 
 ALTER SEQUENCE public.worker_contracts_id_seq OWNED BY public.worker_contracts.id;
+
+
+--
+-- Name: worker_group_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_group_items (
+    id integer NOT NULL,
+    worker_id integer,
+    worker_group_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: worker_group_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_group_items_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_group_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_group_items_id_seq OWNED BY public.worker_group_items.id;
+
+
+--
+-- Name: worker_group_labellings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_group_labellings (
+    id integer NOT NULL,
+    worker_group_id integer,
+    label_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: worker_group_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_group_labellings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_group_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_group_labellings_id_seq OWNED BY public.worker_group_labellings.id;
+
+
+--
+-- Name: worker_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_groups (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    work_number character varying,
+    active boolean DEFAULT true NOT NULL,
+    usage character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: worker_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_groups_id_seq OWNED BY public.worker_groups.id;
+
+
+--
+-- Name: worker_time_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.worker_time_logs (
+    id integer NOT NULL,
+    worker_id integer NOT NULL,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone NOT NULL,
+    duration integer NOT NULL,
+    description text,
+    custom_fields jsonb DEFAULT '{}'::jsonb,
+    provider jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: worker_time_indicators; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+--
+
+CREATE MATERIALIZED VIEW public.worker_time_indicators AS
+ SELECT s.worker_id,
+    min(s.started_at) AS start_at,
+    max(s.stopped_at) AS stop_at,
+    (max(s.stopped_at) - min(s.started_at)) AS duration
+   FROM ( SELECT s_1.worker_id,
+            s_1.started_at,
+            s_1.stopped_at,
+            s_1.lag_stopped_at,
+            count(*) FILTER (WHERE (s_1.started_at > s_1.lag_stopped_at)) OVER (PARTITION BY s_1.worker_id ORDER BY s_1.started_at) AS grp
+           FROM ( SELECT s_2.worker_id,
+                    s_2.started_at,
+                    s_2.stopped_at,
+                    lag(s_2.stopped_at) OVER (PARTITION BY s_2.worker_id ORDER BY s_2.started_at) AS lag_stopped_at
+                   FROM ( SELECT s_3.worker_id,
+                            s_3.started_at,
+                            s_3.stopped_at
+                           FROM ( SELECT wtl.worker_id,
+                                    wtl.started_at,
+                                    wtl.duration,
+                                    wtl.stopped_at,
+                                    'worker_time_log'::text AS nature
+                                   FROM public.worker_time_logs wtl
+                                UNION ALL
+                                 SELECT ip.product_id AS worker_id,
+                                    iwp.started_at,
+                                    iwp.duration,
+                                    iwp.stopped_at,
+                                    'intervention'::text AS nature
+                                   FROM ((public.intervention_working_periods iwp
+                                     JOIN public.interventions i ON ((i.id = iwp.intervention_id)))
+                                     JOIN public.intervention_parameters ip ON (((ip.intervention_id = i.id) AND ((ip.type)::text = 'InterventionDoer'::text))))
+                                  WHERE ((iwp.intervention_participation_id IS NULL) AND (NOT (ip.product_id IN ( SELECT intervention_participations.product_id
+   FROM public.intervention_participations
+  WHERE (intervention_participations.intervention_id = i.id)))))
+                                UNION ALL
+                                 SELECT ipa.product_id AS worker_id,
+                                    iwp.started_at,
+                                    iwp.duration,
+                                    iwp.stopped_at,
+                                    'intervention_participation'::text AS nature
+                                   FROM ((public.intervention_working_periods iwp
+                                     JOIN public.intervention_participations ipa ON ((ipa.id = iwp.intervention_participation_id)))
+                                     JOIN public.intervention_parameters ip ON (((ip.product_id = ipa.product_id) AND ((ip.type)::text = 'InterventionDoer'::text))))
+                                  WHERE (iwp.intervention_id IS NULL)
+                                  GROUP BY ipa.product_id, iwp.started_at, iwp.stopped_at, iwp.duration, iwp.nature
+                          ORDER BY 1, 2) s_3) s_2) s_1) s
+  GROUP BY s.worker_id, s.grp
+  ORDER BY s.worker_id, (min(s.started_at))
+  WITH NO DATA;
+
+
+--
+-- Name: worker_time_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.worker_time_logs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: worker_time_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.worker_time_logs_id_seq OWNED BY public.worker_time_logs.id;
+
+
+--
+-- Name: registered_cadastral_buildings id; Type: DEFAULT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_buildings ALTER COLUMN id SET DEFAULT nextval('lexicon.registered_cadastral_buildings_id_seq'::regclass);
+
+
+--
+-- Name: registered_cadastral_prices id; Type: DEFAULT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_prices ALTER COLUMN id SET DEFAULT nextval('lexicon.registered_cadastral_prices_id_seq'::regclass);
 
 
 --
@@ -10662,6 +11036,13 @@ ALTER TABLE ONLY public.documents ALTER COLUMN id SET DEFAULT nextval('public.do
 
 
 --
+-- Name: economic_cash_indicators id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.economic_cash_indicators ALTER COLUMN id SET DEFAULT nextval('public.economic_cash_indicators_id_seq'::regclass);
+
+
+--
 -- Name: entities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -10886,6 +11267,13 @@ ALTER TABLE ONLY public.intervention_parameter_readings ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: intervention_parameter_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings ALTER COLUMN id SET DEFAULT nextval('public.intervention_parameter_settings_id_seq'::regclass);
+
+
+--
 -- Name: intervention_parameters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -10911,6 +11299,13 @@ ALTER TABLE ONLY public.intervention_proposal_parameters ALTER COLUMN id SET DEF
 --
 
 ALTER TABLE ONLY public.intervention_proposals ALTER COLUMN id SET DEFAULT nextval('public.intervention_proposals_id_seq'::regclass);
+
+
+--
+-- Name: intervention_setting_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items ALTER COLUMN id SET DEFAULT nextval('public.intervention_setting_items_id_seq'::regclass);
 
 
 --
@@ -11614,10 +12009,45 @@ ALTER TABLE ONLY public.wine_incoming_harvests ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: worker_contract_distributions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contract_distributions ALTER COLUMN id SET DEFAULT nextval('public.worker_contract_distributions_id_seq'::regclass);
+
+
+--
 -- Name: worker_contracts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.worker_contracts ALTER COLUMN id SET DEFAULT nextval('public.worker_contracts_id_seq'::regclass);
+
+
+--
+-- Name: worker_group_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_items ALTER COLUMN id SET DEFAULT nextval('public.worker_group_items_id_seq'::regclass);
+
+
+--
+-- Name: worker_group_labellings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings ALTER COLUMN id SET DEFAULT nextval('public.worker_group_labellings_id_seq'::regclass);
+
+
+--
+-- Name: worker_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_groups ALTER COLUMN id SET DEFAULT nextval('public.worker_groups_id_seq'::regclass);
+
+
+--
+-- Name: worker_time_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_time_logs ALTER COLUMN id SET DEFAULT nextval('public.worker_time_logs_id_seq'::regclass);
 
 
 --
@@ -11650,7 +12080,7 @@ CREATE MATERIALIZED VIEW public.economic_indicators AS
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'main_direct_product'::text AS economic_indicator,
-    abm.global_amount AS amount,
+    abm.global_pretax_amount AS amount,
     abm.variant_id AS output_variant_id,
     abm.unit_id AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -11669,7 +12099,7 @@ UNION ALL
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'other_direct_product'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -11688,7 +12118,7 @@ UNION ALL
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'fixed_direct_charge'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -11707,7 +12137,7 @@ UNION ALL
                   WHERE (apc.campaign_id = c.id))))), '1'::numeric) AS activity_size_value,
     COALESCE(a.size_unit_name, 'unity'::character varying) AS activity_size_unit,
     'proportional_direct_charge'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -11722,7 +12152,7 @@ UNION ALL
     '1'::numeric AS activity_size_value,
     'unity'::character varying AS activity_size_unit,
     'global_indirect_product'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -11737,7 +12167,7 @@ UNION ALL
     '1'::numeric AS activity_size_value,
     'unity'::character varying AS activity_size_unit,
     'global_indirect_charge'::text AS economic_indicator,
-    sum(abi.global_amount) AS amount,
+    sum(abi.global_pretax_amount) AS amount,
     NULL::integer AS output_variant_id,
     NULL::integer AS output_variant_unit_id
    FROM (((public.activity_budgets ab
@@ -11835,7 +12265,7 @@ ALTER TABLE ONLY lexicon.master_packagings
 --
 
 ALTER TABLE ONLY lexicon.master_phenological_stages
-    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (bbch_code);
+    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (id);
 
 
 --
@@ -11919,11 +12349,27 @@ ALTER TABLE ONLY lexicon.registered_agroedi_codes
 
 
 --
+-- Name: registered_cadastral_buildings registered_cadastral_buildings_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_buildings
+    ADD CONSTRAINT registered_cadastral_buildings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: registered_cadastral_parcels registered_cadastral_parcels_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
 --
 
 ALTER TABLE ONLY lexicon.registered_cadastral_parcels
     ADD CONSTRAINT registered_cadastral_parcels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_cadastral_prices registered_cadastral_prices_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_cadastral_prices
+    ADD CONSTRAINT registered_cadastral_prices_pkey PRIMARY KEY (id);
 
 
 --
@@ -12020,6 +12466,22 @@ ALTER TABLE ONLY lexicon.registered_quality_and_origin_signs
 
 ALTER TABLE ONLY lexicon.registered_seed_varieties
     ADD CONSTRAINT registered_seed_varieties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_soil_available_water_capacities registered_soil_available_water_capacities_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_soil_available_water_capacities
+    ADD CONSTRAINT registered_soil_available_water_capacities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registered_soil_depths registered_soil_depths_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.registered_soil_depths
+    ADD CONSTRAINT registered_soil_depths_pkey PRIMARY KEY (id);
 
 
 --
@@ -12527,6 +12989,14 @@ ALTER TABLE ONLY public.documents
 
 
 --
+-- Name: economic_cash_indicators economic_cash_indicators_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.economic_cash_indicators
+    ADD CONSTRAINT economic_cash_indicators_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: entities entities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -12783,6 +13253,14 @@ ALTER TABLE ONLY public.intervention_parameter_readings
 
 
 --
+-- Name: intervention_parameter_settings intervention_parameter_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings
+    ADD CONSTRAINT intervention_parameter_settings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_parameters intervention_parameters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -12812,6 +13290,14 @@ ALTER TABLE ONLY public.intervention_proposal_parameters
 
 ALTER TABLE ONLY public.intervention_proposals
     ADD CONSTRAINT intervention_proposals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_setting_items intervention_setting_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items
+    ADD CONSTRAINT intervention_setting_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -13623,11 +14109,51 @@ ALTER TABLE ONLY public.wine_incoming_harvests
 
 
 --
+-- Name: worker_contract_distributions worker_contract_distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_contract_distributions
+    ADD CONSTRAINT worker_contract_distributions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: worker_contracts worker_contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.worker_contracts
     ADD CONSTRAINT worker_contracts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_group_items worker_group_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_items
+    ADD CONSTRAINT worker_group_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_group_labellings worker_group_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings
+    ADD CONSTRAINT worker_group_labellings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_groups worker_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_groups
+    ADD CONSTRAINT worker_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: worker_time_logs worker_time_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_time_logs
+    ADD CONSTRAINT worker_time_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -13726,6 +14252,13 @@ CREATE INDEX master_crop_production_yields_production ON lexicon.master_crop_pro
 --
 
 CREATE INDEX master_crop_production_yields_specie ON lexicon.master_crop_production_yields USING btree (specie);
+
+
+--
+-- Name: master_crop_productions_activity_family; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_crop_productions_activity_family ON lexicon.master_crop_productions USING btree (activity_family);
 
 
 --
@@ -13841,6 +14374,13 @@ CREATE INDEX registered_cadastral_buildings_centroid ON lexicon.registered_cadas
 
 
 --
+-- Name: registered_cadastral_buildings_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_buildings_id ON lexicon.registered_cadastral_buildings USING btree (id);
+
+
+--
 -- Name: registered_cadastral_buildings_shape; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -13855,10 +14395,73 @@ CREATE INDEX registered_cadastral_parcels_centroid ON lexicon.registered_cadastr
 
 
 --
+-- Name: registered_cadastral_parcels_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_id ON lexicon.registered_cadastral_parcels USING btree (id);
+
+
+--
+-- Name: registered_cadastral_parcels_section; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_section ON lexicon.registered_cadastral_parcels USING btree (section);
+
+
+--
+-- Name: registered_cadastral_parcels_section_prefix; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_section_prefix ON lexicon.registered_cadastral_parcels USING btree (section_prefix);
+
+
+--
 -- Name: registered_cadastral_parcels_shape; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_cadastral_parcels_shape ON lexicon.registered_cadastral_parcels USING gist (shape);
+
+
+--
+-- Name: registered_cadastral_parcels_town_insee_code; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_town_insee_code ON lexicon.registered_cadastral_parcels USING btree (town_insee_code);
+
+
+--
+-- Name: registered_cadastral_parcels_work_number; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_work_number ON lexicon.registered_cadastral_parcels USING btree (work_number);
+
+
+--
+-- Name: registered_cadastral_prices_cadastral_parcel_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_cadastral_parcel_id ON lexicon.registered_cadastral_prices USING btree (cadastral_parcel_id);
+
+
+--
+-- Name: registered_cadastral_prices_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_centroid ON lexicon.registered_cadastral_prices USING gist (centroid);
+
+
+--
+-- Name: registered_cadastral_prices_department; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_department ON lexicon.registered_cadastral_prices USING btree (department);
+
+
+--
+-- Name: registered_cadastral_prices_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_id ON lexicon.registered_cadastral_prices USING btree (id);
 
 
 --
@@ -14065,6 +14668,13 @@ CREATE INDEX registered_postal_codes_postal_code ON lexicon.registered_postal_co
 
 
 --
+-- Name: registered_postal_codes_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_postal_codes_shape ON lexicon.registered_postal_codes USING gist (city_shape);
+
+
+--
 -- Name: registered_protected_water_zones_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -14090,6 +14700,34 @@ CREATE INDEX registered_seed_varieties_id ON lexicon.registered_seed_varieties U
 --
 
 CREATE INDEX registered_seed_varieties_id_specie ON lexicon.registered_seed_varieties USING btree (id_specie);
+
+
+--
+-- Name: registered_soil_available_water_capacities_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_id ON lexicon.registered_soil_available_water_capacities USING btree (id);
+
+
+--
+-- Name: registered_soil_available_water_capacities_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_shape ON lexicon.registered_soil_available_water_capacities USING gist (shape);
+
+
+--
+-- Name: registered_soil_depths_id; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_id ON lexicon.registered_soil_depths USING btree (id);
+
+
+--
+-- Name: registered_soil_depths_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_shape ON lexicon.registered_soil_depths USING gist (shape);
 
 
 --
@@ -14398,6 +15036,13 @@ CREATE INDEX index_activity_budget_items_on_created_at ON public.activity_budget
 --
 
 CREATE INDEX index_activity_budget_items_on_creator_id ON public.activity_budget_items USING btree (creator_id);
+
+
+--
+-- Name: index_activity_budget_items_on_tax_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_budget_items_on_tax_id ON public.activity_budget_items USING btree (tax_id);
 
 
 --
@@ -14965,6 +15610,13 @@ CREATE INDEX index_analyses_on_created_at ON public.analyses USING btree (create
 --
 
 CREATE INDEX index_analyses_on_creator_id ON public.analyses USING btree (creator_id);
+
+
+--
+-- Name: index_analyses_on_cultivable_zone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_analyses_on_cultivable_zone_id ON public.analyses USING btree (cultivable_zone_id);
 
 
 --
@@ -15686,6 +16338,13 @@ CREATE INDEX index_catalog_items_on_creator_id ON public.catalog_items USING btr
 --
 
 CREATE INDEX index_catalog_items_on_name ON public.catalog_items USING btree (name);
+
+
+--
+-- Name: index_catalog_items_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_catalog_items_on_product_id ON public.catalog_items USING btree (product_id);
 
 
 --
@@ -16571,6 +17230,125 @@ CREATE INDEX index_documents_on_updater_id ON public.documents USING btree (upda
 
 
 --
+-- Name: index_economic_cash_indicators_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_activity_budget_id ON public.economic_cash_indicators USING btree (activity_budget_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_activity_budget_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_activity_budget_item_id ON public.economic_cash_indicators USING btree (activity_budget_item_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_activity_id ON public.economic_cash_indicators USING btree (activity_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_campaign_id ON public.economic_cash_indicators USING btree (campaign_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_context; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_context ON public.economic_cash_indicators USING btree (context);
+
+
+--
+-- Name: index_economic_cash_indicators_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_created_at ON public.economic_cash_indicators USING btree (created_at);
+
+
+--
+-- Name: index_economic_cash_indicators_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_creator_id ON public.economic_cash_indicators USING btree (creator_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_direction; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_direction ON public.economic_cash_indicators USING btree (direction);
+
+
+--
+-- Name: index_economic_cash_indicators_on_loan_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_loan_id ON public.economic_cash_indicators USING btree (loan_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_nature; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_nature ON public.economic_cash_indicators USING btree (nature);
+
+
+--
+-- Name: index_economic_cash_indicators_on_origin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_origin ON public.economic_cash_indicators USING btree (origin);
+
+
+--
+-- Name: index_economic_cash_indicators_on_paid_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_paid_on ON public.economic_cash_indicators USING btree (paid_on);
+
+
+--
+-- Name: index_economic_cash_indicators_on_product_nature_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_product_nature_variant_id ON public.economic_cash_indicators USING btree (product_nature_variant_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_updated_at ON public.economic_cash_indicators USING btree (updated_at);
+
+
+--
+-- Name: index_economic_cash_indicators_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_updater_id ON public.economic_cash_indicators USING btree (updater_id);
+
+
+--
+-- Name: index_economic_cash_indicators_on_used_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_used_on ON public.economic_cash_indicators USING btree (used_on);
+
+
+--
+-- Name: index_economic_cash_indicators_on_worker_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_economic_cash_indicators_on_worker_contract_id ON public.economic_cash_indicators USING btree (worker_contract_id);
+
+
+--
 -- Name: index_economic_indicators_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -16589,6 +17367,13 @@ CREATE INDEX index_economic_indicators_on_campaign_id ON public.economic_indicat
 --
 
 CREATE INDEX index_entities_on_client_account_id ON public.entities USING btree (client_account_id);
+
+
+--
+-- Name: index_entities_on_client_payment_mode_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entities_on_client_payment_mode_id ON public.entities USING btree (client_payment_mode_id);
 
 
 --
@@ -17908,6 +18693,20 @@ CREATE INDEX index_inspections_on_updater_id ON public.inspections USING btree (
 
 
 --
+-- Name: index_int_parameter_setting_items_on_int_parameter_setting_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_int_parameter_setting_items_on_int_parameter_setting_id ON public.intervention_setting_items USING btree (intervention_parameter_setting_id);
+
+
+--
+-- Name: index_int_parameter_settings_on_int_parameter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_int_parameter_settings_on_int_parameter_id ON public.intervention_parameter_settings USING btree (intervention_parameter_id);
+
+
+--
 -- Name: index_integrations_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -18087,6 +18886,41 @@ CREATE INDEX index_intervention_parameter_readings_on_updated_at ON public.inter
 --
 
 CREATE INDEX index_intervention_parameter_readings_on_updater_id ON public.intervention_parameter_readings USING btree (updater_id);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_created_at ON public.intervention_parameter_settings USING btree (created_at);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_creator_id ON public.intervention_parameter_settings USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_intervention_id ON public.intervention_parameter_settings USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_updated_at ON public.intervention_parameter_settings USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_parameter_settings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_parameter_settings_on_updater_id ON public.intervention_parameter_settings USING btree (updater_id);
 
 
 --
@@ -18297,6 +19131,48 @@ CREATE INDEX index_intervention_proposal_parameters_on_product_id ON public.inte
 --
 
 CREATE INDEX index_intervention_proposals_on_activity_production_id ON public.intervention_proposals USING btree (activity_production_id);
+
+
+--
+-- Name: index_intervention_setting_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_created_at ON public.intervention_setting_items USING btree (created_at);
+
+
+--
+-- Name: index_intervention_setting_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_creator_id ON public.intervention_setting_items USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_setting_items_on_indicator_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_indicator_name ON public.intervention_setting_items USING btree (indicator_name);
+
+
+--
+-- Name: index_intervention_setting_items_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_intervention_id ON public.intervention_setting_items USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_setting_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_updated_at ON public.intervention_setting_items USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_setting_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_setting_items_on_updater_id ON public.intervention_setting_items USING btree (updater_id);
 
 
 --
@@ -19900,6 +20776,13 @@ CREATE INDEX index_parcels_on_responsible_id ON public.parcels USING btree (resp
 --
 
 CREATE INDEX index_parcels_on_sale_id ON public.parcels USING btree (sale_id);
+
+
+--
+-- Name: index_parcels_on_sale_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_sale_nature_id ON public.parcels USING btree (sale_nature_id);
 
 
 --
@@ -21618,6 +22501,13 @@ CREATE INDEX index_products_on_variety ON public.products USING btree (variety);
 
 
 --
+-- Name: index_products_on_worker_group_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_worker_group_item_id ON public.products USING btree (worker_group_item_id);
+
+
+--
 -- Name: index_project_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21933,6 +22823,13 @@ CREATE INDEX index_rides_on_creator_id ON public.rides USING btree (creator_id);
 
 
 --
+-- Name: index_rides_on_cultivable_zone_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rides_on_cultivable_zone_id ON public.rides USING btree (cultivable_zone_id);
+
+
+--
 -- Name: index_rides_on_intervention_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -22042,6 +22939,13 @@ CREATE INDEX index_sale_items_on_fixed_asset_id ON public.sale_items USING btree
 --
 
 CREATE INDEX index_sale_items_on_sale_id ON public.sale_items USING btree (sale_id);
+
+
+--
+-- Name: index_sale_items_on_shipment_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_shipment_item_id ON public.sale_items USING btree (shipment_item_id);
 
 
 --
@@ -23389,6 +24293,48 @@ CREATE INDEX index_wine_incoming_harvests_on_updater_id ON public.wine_incoming_
 
 
 --
+-- Name: index_worker_contract_distributions_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_created_at ON public.worker_contract_distributions USING btree (created_at);
+
+
+--
+-- Name: index_worker_contract_distributions_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_creator_id ON public.worker_contract_distributions USING btree (creator_id);
+
+
+--
+-- Name: index_worker_contract_distributions_on_main_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_main_activity_id ON public.worker_contract_distributions USING btree (main_activity_id);
+
+
+--
+-- Name: index_worker_contract_distributions_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_updated_at ON public.worker_contract_distributions USING btree (updated_at);
+
+
+--
+-- Name: index_worker_contract_distributions_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_updater_id ON public.worker_contract_distributions USING btree (updater_id);
+
+
+--
+-- Name: index_worker_contract_distributions_on_worker_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_contract_distributions_on_worker_contract_id ON public.worker_contract_distributions USING btree (worker_contract_id);
+
+
+--
 -- Name: index_worker_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -23421,6 +24367,132 @@ CREATE INDEX index_worker_contracts_on_updated_at ON public.worker_contracts USI
 --
 
 CREATE INDEX index_worker_contracts_on_updater_id ON public.worker_contracts USING btree (updater_id);
+
+
+--
+-- Name: index_worker_group_items_on_worker_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_items_on_worker_group_id ON public.worker_group_items USING btree (worker_group_id);
+
+
+--
+-- Name: index_worker_group_items_on_worker_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_items_on_worker_id ON public.worker_group_items USING btree (worker_id);
+
+
+--
+-- Name: index_worker_group_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_labellings_on_label_id ON public.worker_group_labellings USING btree (label_id);
+
+
+--
+-- Name: index_worker_group_labellings_on_worker_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_group_labellings_on_worker_group_id ON public.worker_group_labellings USING btree (worker_group_id);
+
+
+--
+-- Name: index_worker_groups_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_created_at ON public.worker_groups USING btree (created_at);
+
+
+--
+-- Name: index_worker_groups_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_creator_id ON public.worker_groups USING btree (creator_id);
+
+
+--
+-- Name: index_worker_groups_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_updated_at ON public.worker_groups USING btree (updated_at);
+
+
+--
+-- Name: index_worker_groups_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_groups_on_updater_id ON public.worker_groups USING btree (updater_id);
+
+
+--
+-- Name: index_worker_time_indicators_on_start_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_indicators_on_start_at ON public.worker_time_indicators USING btree (start_at);
+
+
+--
+-- Name: index_worker_time_indicators_on_stop_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_indicators_on_stop_at ON public.worker_time_indicators USING btree (stop_at);
+
+
+--
+-- Name: index_worker_time_indicators_on_worker_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_indicators_on_worker_id ON public.worker_time_indicators USING btree (worker_id);
+
+
+--
+-- Name: index_worker_time_logs_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_created_at ON public.worker_time_logs USING btree (created_at);
+
+
+--
+-- Name: index_worker_time_logs_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_creator_id ON public.worker_time_logs USING btree (creator_id);
+
+
+--
+-- Name: index_worker_time_logs_on_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_started_at ON public.worker_time_logs USING btree (started_at);
+
+
+--
+-- Name: index_worker_time_logs_on_stopped_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_stopped_at ON public.worker_time_logs USING btree (stopped_at);
+
+
+--
+-- Name: index_worker_time_logs_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_updated_at ON public.worker_time_logs USING btree (updated_at);
+
+
+--
+-- Name: index_worker_time_logs_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_updater_id ON public.worker_time_logs USING btree (updater_id);
+
+
+--
+-- Name: index_worker_time_logs_on_worker_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_worker_id ON public.worker_time_logs USING btree (worker_id);
 
 
 --
@@ -23883,11 +24955,27 @@ ALTER TABLE ONLY public.outgoing_payments
 
 
 --
+-- Name: products fk_rails_20cb1a9318; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_20cb1a9318 FOREIGN KEY (worker_group_item_id) REFERENCES public.worker_group_items(id);
+
+
+--
 -- Name: outgoing_payments fk_rails_214eda6f83; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.outgoing_payments
     ADD CONSTRAINT fk_rails_214eda6f83 FOREIGN KEY (payee_id) REFERENCES public.entities(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: analyses fk_rails_226357896d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.analyses
+    ADD CONSTRAINT fk_rails_226357896d FOREIGN KEY (cultivable_zone_id) REFERENCES public.cultivable_zones(id);
 
 
 --
@@ -23963,6 +25051,14 @@ ALTER TABLE ONLY public.intervention_template_activities
 
 
 --
+-- Name: worker_group_labellings fk_rails_3aae8cba7d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings
+    ADD CONSTRAINT fk_rails_3aae8cba7d FOREIGN KEY (label_id) REFERENCES public.labels(id);
+
+
+--
 -- Name: sale_items fk_rails_3ed1a3f84a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24011,6 +25107,14 @@ ALTER TABLE ONLY public.wine_incoming_harvest_presses
 
 
 --
+-- Name: parcels fk_rails_47f94280b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.parcels
+    ADD CONSTRAINT fk_rails_47f94280b8 FOREIGN KEY (sale_nature_id) REFERENCES public.sale_natures(id);
+
+
+--
 -- Name: wine_incoming_harvest_inputs fk_rails_4ba0624d55; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24032,6 +25136,14 @@ ALTER TABLE ONLY public.purchase_items
 
 ALTER TABLE ONLY public.journal_entries
     ADD CONSTRAINT fk_rails_5076105ec1 FOREIGN KEY (financial_year_exchange_id) REFERENCES public.financial_year_exchanges(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: intervention_setting_items fk_rails_5764cea836; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items
+    ADD CONSTRAINT fk_rails_5764cea836 FOREIGN KEY (intervention_parameter_setting_id) REFERENCES public.intervention_parameter_settings(id);
 
 
 --
@@ -24115,6 +25227,14 @@ ALTER TABLE ONLY public.cvi_cadastral_plants
 
 
 --
+-- Name: worker_time_logs fk_rails_664c16001e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_time_logs
+    ADD CONSTRAINT fk_rails_664c16001e FOREIGN KEY (worker_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+
+--
 -- Name: activity_budget_items fk_rails_66b3183944; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24176,6 +25296,14 @@ ALTER TABLE ONLY public.cvi_land_parcels
 
 ALTER TABLE ONLY public.intervention_proposal_parameters
     ADD CONSTRAINT fk_rails_73168818a2 FOREIGN KEY (product_nature_variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: intervention_parameter_settings fk_rails_739cf87a8f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings
+    ADD CONSTRAINT fk_rails_739cf87a8f FOREIGN KEY (intervention_parameter_id) REFERENCES public.intervention_parameters(id);
 
 
 --
@@ -24283,6 +25411,14 @@ ALTER TABLE ONLY public.inventories
 
 
 --
+-- Name: worker_group_labellings fk_rails_87473cbb34; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.worker_group_labellings
+    ADD CONSTRAINT fk_rails_87473cbb34 FOREIGN KEY (worker_group_id) REFERENCES public.worker_groups(id);
+
+
+--
 -- Name: planning_scenarios fk_rails_88d915988d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24344,6 +25480,14 @@ ALTER TABLE ONLY public.loans
 
 ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels
     ADD CONSTRAINT fk_rails_9a5a14882f FOREIGN KEY (cvi_cadastral_plant_id) REFERENCES public.cvi_cadastral_plants(id);
+
+
+--
+-- Name: catalog_items fk_rails_9a8920d164; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.catalog_items
+    ADD CONSTRAINT fk_rails_9a8920d164 FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
@@ -24451,6 +25595,14 @@ ALTER TABLE ONLY public.tax_declaration_item_parts
 
 
 --
+-- Name: rides fk_rails_b169d5afbf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rides
+    ADD CONSTRAINT fk_rails_b169d5afbf FOREIGN KEY (cultivable_zone_id) REFERENCES public.cultivable_zones(id);
+
+
+--
 -- Name: financial_years fk_rails_b170b89c1e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24480,6 +25632,14 @@ ALTER TABLE ONLY public.parcel_items
 
 ALTER TABLE ONLY public.intervention_templates
     ADD CONSTRAINT fk_rails_b5c0e91173 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
+-- Name: entities fk_rails_b7534d0f33; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.entities
+    ADD CONSTRAINT fk_rails_b7534d0f33 FOREIGN KEY (client_payment_mode_id) REFERENCES public.incoming_payment_modes(id);
 
 
 --
@@ -24523,6 +25683,14 @@ ALTER TABLE ONLY public.payslips
 
 
 --
+-- Name: intervention_parameter_settings fk_rails_c2a2d75e30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_parameter_settings
+    ADD CONSTRAINT fk_rails_c2a2d75e30 FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
 -- Name: payslips fk_rails_c3bf0a90b6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24544,6 +25712,14 @@ ALTER TABLE ONLY public.parcels
 
 ALTER TABLE ONLY public.regularizations
     ADD CONSTRAINT fk_rails_ca9854019b FOREIGN KEY (journal_entry_id) REFERENCES public.journal_entries(id);
+
+
+--
+-- Name: activity_budget_items fk_rails_cbe05cc9fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_budget_items
+    ADD CONSTRAINT fk_rails_cbe05cc9fc FOREIGN KEY (tax_id) REFERENCES public.taxes(id);
 
 
 --
@@ -24707,6 +25883,14 @@ ALTER TABLE ONLY public.cap_neutral_areas
 
 
 --
+-- Name: intervention_setting_items fk_rails_fb2f506f44; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.intervention_setting_items
+    ADD CONSTRAINT fk_rails_fb2f506f44 FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
 -- Name: products fk_rails_fb915499a4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24726,7 +25910,7 @@ ALTER TABLE ONLY public.financial_years
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "public", "postgis", "lexicon";
+SET search_path TO public,postgis,lexicon,marti;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121212122000'),
@@ -25348,10 +26532,48 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211108090701'),
 ('20211109153301'),
 ('20211112154901'),
+('20211123104101'),
 ('20211124110921'),
 ('20211125181101'),
 ('20211206150144'),
 ('20211209142107'),
-('20211220140042');
+('20211210174201'),
+('20211217170401'),
+('20211220140042'),
+('20220120092001'),
+('20220204085501'),
+('20220204185601'),
+('20220208175301'),
+('20220209183201'),
+('20220308153250'),
+('20220317190801'),
+('20220318165450'),
+('20220328131305'),
+('20220328132211'),
+('20220328232801'),
+('20220414120300'),
+('20220414120336'),
+('20220429082601'),
+('20220429184701'),
+('20220505102323'),
+('20220510111701'),
+('20220512094001'),
+('20220512132701'),
+('20220603121153'),
+('20220622174701'),
+('20220622183901'),
+('20220627090824'),
+('20220708090701'),
+('20220708171301'),
+('20220728083430'),
+('20220809100201'),
+('20220819114201'),
+('20220825131358'),
+('20220907064546'),
+('20220928131936'),
+('20221027160401'),
+('20221117085001'),
+('20221208093301'),
+('20221220080638');
 
 

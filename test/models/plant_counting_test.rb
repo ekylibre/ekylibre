@@ -58,27 +58,24 @@ class PlantCountingTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   ].freeze
 
   setup do
-    @activity = Activity.create!(
-      name: 'InspectionTestActivity',
-      nature: 'main',
-      description: '',
-      family: 'plant_farming',
-      cultivation_variety: 'daucus_carota',
+    @activity = create(:activity,
+                       name: 'InspectionTestActivity',
+                       nature: 'main',
+                       description: '',
+                       cultivation_variety: 'daucus_carota',
 
-      with_cultivation: true,
-      with_supports: true,
-      support_variety: 'land_parcel',
-      size_unit_name: 'hectare',
-      size_indicator_name: 'net_surface_area',
+                       with_cultivation: true,
+                       with_supports: true,
+                       support_variety: 'land_parcel',
+                       size_unit_name: 'hectare',
+                       size_indicator_name: 'net_surface_area',
 
-      suspended: false,
-      production_cycle: 'annual',
-      production_started_on: Date.new(2000, 3, 1),
-      production_stopped_on: Date.new(2001, 7, 1),
-      production_system_name: 'intensive_farming',
+                       suspended: false,
+                       production_started_on: Date.new(2000, 3, 1),
+                       production_stopped_on: Date.new(2001, 7, 1),
+                       production_system_name: 'intensive_farming',
 
-      use_countings: true
-    )
+                       use_countings: true)
 
     @abacus = @activity.plant_density_abaci.create!(
       name: 'Carotte - 3 rangs',

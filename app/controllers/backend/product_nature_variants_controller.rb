@@ -70,17 +70,17 @@ module Backend
       t.column :active
       t.column :name, url: { namespace: :backend }
       t.column :number
-      t.column :work_number
-      t.column :nature, url: { controller: '/backend/product_natures' }
+      t.column :work_number, hidden: true
+      t.column :nature, hidden: true, url: { controller: '/backend/product_natures' }
       t.column :category, url: { controller: '/backend/product_nature_categories' }
       t.column :current_stock_displayed, label: :current_stock
       # t.column :current_outgoing_stock_ordered_not_delivered_displayed
-      t.column :unit_name
+      t.column :unit_name, label: :unit
       t.column :variety
       t.column :derivative_of
     end
 
-    list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|
+    list(:catalog_items, conditions: { variant_id: 'params[:id]'.c, product_id: nil }) do |t|
       t.action :edit, url: { controller: '/backend/catalog_items' }
       t.action :destroy, url: { controller: '/backend/catalog_items' }
       t.column :name, url: { controller: '/backend/catalog_items' }
@@ -168,6 +168,7 @@ module Backend
                   ['pnv_infos.entity_id', 'entity_id'],
                   ['pnv_infos.variant_id', 'variant_id'],
                   ['pnv_infos.ordered_quantity', 'ordered_quantity'],
+                  ['pnv_infos.ordered_unit_name', 'ordered_unit_name'],
                   ['pnv_infos.average_unit_pretax_amount', 'average_unit_pretax_amount'],
                   ['pnv_infos.last_unit_pretax_amount', 'last_unit_pretax_amount']],
          joins: 'INNER JOIN product_nature_variant_suppliers_infos pnv_infos
@@ -179,10 +180,12 @@ module Backend
                  pnv_infos.variant_id,
                  ordered_quantity,
                  average_unit_pretax_amount,
-                 last_unit_pretax_amount',
+                 last_unit_pretax_amount,
+                 ordered_unit_name',
          order: 'supplier_name') do |t|
       t.column :supplier_name, label: :name, url: { controller: '/backend/entities', action: :show, id: 'RECORD.entity_id'.c }
       t.column :ordered_quantity
+      t.column :ordered_unit_name, label: :conditioning
       t.column :average_unit_pretax_amount
       t.column :last_unit_pretax_amount
       t.action :order_again, icon_name: 'cart-plus', url: { controller: '/backend/purchase_orders', action: :new, supplier_id: 'RECORD.entity_id'.c, items_attributes: [{ variant_id: 'params[:id]'.c, role: 'merchandise' }], display_items_form: true }
@@ -202,10 +205,10 @@ module Backend
       return unless @product_nature_variant = find_and_check
 
       product_nature = @product_nature_variant.nature
+      product_category = @product_nature_variant.category
       stock = @product_nature_variant.current_stock(into_default_unit: true)
       conditioning = Unit.find_by_id(params[:conditioning_id])
       reference_date = params[:reference_date].present? ? DateTime.parse(params[:reference_date]) : Time.now
-
       infos = {
         name: @product_nature_variant.name,
         number: @product_nature_variant.number,
@@ -217,7 +220,11 @@ module Backend
         default_unit_name: @product_nature_variant.default_unit_name.l.pluralize(stock == 0 ? 1 : stock),
         default_unit_stock: stock,
         default_unit_id: @product_nature_variant.default_unit_id,
-        is_equipment: @product_nature_variant.is_a?(::Variants::EquipmentVariant)
+        is_equipment: @product_nature_variant.is_a?(::Variants::EquipmentVariant),
+        tax_ids: {
+          sale: product_category.sale_taxations.collect(&:tax).collect(&:id),
+          purchase: product_category.purchase_taxations.collect(&:tax).collect(&:id)
+        }
       }
 
       if product_nature.subscribing?
@@ -329,6 +336,16 @@ module Backend
         # or get tax from category
         elsif @product_nature_variant.category.sale_taxes.any?
           infos[:tax_id] = @product_nature_variant.category.sale_taxes.first.id
+        else
+          item = nil
+        end
+        if item && item.conditioning_unit
+          infos[:unit][:conditioning_id] = item.conditioning_unit_id
+          infos[:unit][:name] = item.unit.name
+          conditioning = item.conditioning_unit
+        else
+          infos[:unit][:conditioning_id] = @product_nature_variant.default_unit_id
+          infos[:unit][:name] = @product_nature_variant.default_unit.name
         end
       end
       infos[:unit][:pretax_amount] = 0 unless infos.dig(:unit, :pretax_amount)
@@ -344,7 +361,7 @@ module Backend
                                   .sum(:quantity)
       variant = ProductNatureVariant.find(params[:id])
       storage = Product.find(params[:storage_id])
-      stock = quantity * variant.default_quantity
+      stock = quantity
       unit = variant.default_unit_name.l.pluralize(stock == 0 ? 1 : stock)
       render json: { quantity: stock, unit: unit, name: storage.name }
     end
@@ -376,7 +393,7 @@ module Backend
                   end
 
       if nature_id.present? && (nature = ProductNature.find_by(id: nature_id)).present?
-        type_allocator = Variant::TypeAllocatorService.new(nature: nature)
+        type_allocator = ::Variants::TypeAllocatorService.new(nature: nature)
         model_klass = type_allocator.find_type.constantize
         attributes[:nature] = nature
       else
@@ -392,8 +409,17 @@ module Backend
     def create
       instance_variable_set("@#{controller_name.singularize}", controller_path.gsub('backend/', '').classify.constantize.new(permitted_params))
       @key = :product_nature_variant
-      handle_maaid(instance_variable_get("@#{controller_name.singularize}"), params[:phyto_product_id])
-      return if save_and_redirect(instance_variable_get("@#{controller_name.singularize}"), url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      variant = instance_variable_get("@#{controller_name.singularize}")
+      handle_maaid(variant, params[:phyto_product_id])
+      if save_and_redirect(variant,
+                           url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })),
+                           notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
+                           identifier: :name)
+        if params[:create_zero_intial_stock].to_boolean && variant.storable?
+          ::Variants::CreateProductService.call(variant: variant) if params[:create_zero_intial_stock].to_boolean
+        end
+        return
+      end
 
       render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
@@ -404,11 +430,30 @@ module Backend
       t3e(@product_nature_variant.attributes)
       @product_nature_variant.attributes = permitted_params
       handle_maaid(@product_nature_variant, params[:phyto_product_id])
-      return if save_and_redirect(@product_nature_variant, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      if save_and_redirect(@product_nature_variant,
+                           url: params[:redirect] || { action: :show, id: 'id'.c },
+                           notify: (params[:redirect] ? :record_x_updated : false),
+                           identifier: :name )
+        if params[:create_zero_intial_stock].to_boolean && @product_nature_variant.storable?
+          ::Variants::CreateProductService.call(variant: @product_nature_variant)
+        end
+        return
+      end
 
       @form_url = backend_product_nature_variant_path(@product_nature_variant)
       @key = 'product_nature_variant'
       render(locals: { cancel_url: { action: :index }, with_continue: false })
+    end
+
+    def duplicate
+      product_nature_variant = find_and_check
+      @new_product_nature_variant = product_nature_variant.dup
+      @new_product_nature_variant.readings = product_nature_variant.readings.map(&:dup)
+      variant_name = @new_product_nature_variant.name
+      variant_with_same_name_count = product_nature_variant.class.with_name(variant_name).count
+      rank = " (#{variant_with_same_name_count})" if variant_with_same_name_count > 0
+      @new_product_nature_variant.name = "#{variant_name}#{rank}"
+      return if save_and_redirect(@new_product_nature_variant, url: { action: :edit, id: 'id'.c }, notify: :record_x_created, identifier: :name)
     end
 
     private

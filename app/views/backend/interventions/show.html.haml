@@ -9,7 +9,12 @@
   = t.new params: { request_intervention_id: resource.id, redirect: nil } if resource.request?
   - unless resource.state == 'validated'
     = t.menu(displayed_state, class: "btn btn-primary dropdown", icon: false, disable_with: tl(:please_wait), force_menu: true) do |menu|
-      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => ([resource.id]).to_json, state: next_state[1].to_sym }), method: :post) if next_state
+      - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => [resource.id].to_json, state: next_state[1].to_sym }), method: :post) if next_state
+  - if resource.spraying?
+    = t.tool(Onoma::DocumentNature.find(:phytosanitary_applicator_sheet).human_name, { action: :export, params: { id: resource.id, document_nature_name: :phytosanitary_applicator_sheet, format: :odt }}, icon: :download)
+    - document = DocumentTemplate.find_by(nature: :ac_work_sheet )
+    - if document.present? && document.active?
+      = t.tool(Onoma::DocumentNature.find(:ac_work_sheet).human_name, { action: :export, params: { id: resource.id, document_nature_name: :ac_work_sheet, format: :odt }}, icon: :download)
 
 - currency = Onoma::Currency.find(resource.currency)
 
@@ -65,11 +70,11 @@
       - if resource.working_zone_area.to_f > 0.0
         .big-info
           %span.title= Intervention.human_attribute_name(:working_zone_area)
-          %span.value= resource.human_working_zone_area(precision: 2)
+          %span.value= resource.human_working_zone_area(precision: 4)
 
         .big-info
           %span.title= :net_surface_area.tl
-          %span.value= resource.human_activity_production_zone_area(precision: 2)
+          %span.value= resource.human_activity_production_zone_area(precision: 4)
 
         .big-info
           - unit = Onoma::Unit.find(:hectare)
@@ -92,6 +97,17 @@
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)
+
+  - if resource.parameter_setting_items.any?
+    - c.cobble(:settings) do
+      - resource.parameter_settings.each do |parameter_setting|
+        .big-info
+          %span.title= parameter_setting.name
+        = infos do
+          - parameter_setting.settings.each do |item|
+            .med-info
+              %span.title= item.indicator.l
+              %span.value= item.value.is_a?(Measure) ? item.value.round_l : item.value
 
   - if resource.receptions.any?
     - c.cobble(:service_deliveries) do

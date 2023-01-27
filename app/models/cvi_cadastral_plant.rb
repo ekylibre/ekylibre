@@ -70,10 +70,14 @@ class CviCadastralPlant < ApplicationRecord
   has_one :registered_postal_zone, through: :location
   has_many :cvi_cadastral_plant_cvi_land_parcels, dependent: :destroy
 
-  validates :work_number, :section, :state, presence: true
-  validates :area_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :inter_row_distance_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :inter_vine_plant_distance_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :area_unit, :inter_row_distance_unit, :inter_vine_plant_distance_unit, :land_parcel_number, :planting_campaign, length: { maximum: 500 }, allow_blank: true
+  validates :area_value, :inter_row_distance_value, :inter_vine_plant_distance_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :cadastral_ref_updated, inclusion: { in: [true, false] }, allow_blank: true
+  validates :land_modification_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
+  validates :section, :work_number, presence: true, length: { maximum: 500 }
+  validates :state, presence: true
+  # ]VALIDATORS]
   validates_presence_of :land_parcel, on: :update, message: :cannot_find_land_parcel
 
   delegate :registered_postal_zone_id, to: :location

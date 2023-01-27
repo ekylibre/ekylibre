@@ -82,6 +82,26 @@ module Backend
       # t.column :net_mass
     end
 
+    list(
+      :global_shipment_items,
+      model: :parcel_items,
+      select: [%w[product_id product_id],
+               ['p.name', 'product_name'],
+               ['SUM(parcel_items.conditioning_quantity)', 'parcels_conditioning_quantity'],
+               ['u.name', 'parcels_conditioning_unit_name']],
+      joins: ['INNER JOIN products p ON parcel_items.product_id = p.id', 'INNER JOIN units u ON parcel_items.conditioning_unit_id = u.id'],
+      conditions: { id: 'ParcelItem.joins(:parcel).where(parcels: { delivery_id: params[:id]}).pluck(:id)'.c },
+      count: 'DISTINCT product_id',
+      group: 'p.name,
+              product_id,
+              parcels_conditioning_unit_name',
+      order: 'p.name'
+    ) do |t|
+      t.column :product_name
+      t.column :parcels_conditioning_quantity
+      t.column :parcels_conditioning_unit_name
+    end
+
     # Displays details of one sale selected with +params[:id]+
     def show
       @entity_of_company_picture_path = Entity.of_company.picture_path

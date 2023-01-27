@@ -1,7 +1,14 @@
 # Needs base HighCharts files
 #
+#= require jquery
+#= require jquery_ujs
 #= require highcharts/highcharts
 #= require highcharts/highcharts-more
+#= require highcharts/modules/data
+#= require highcharts/modules/drilldown
+#= require highcharts/modules/exporting
+#= require highcharts/modules/export-data
+#= require highcharts/modules/accessibility
 
 (($) ->
   "use strict"
@@ -35,5 +42,9 @@
     return
 
   $(document).on "turbolinks:load cocoon:after-insert cell:load", $.loadHighcharts
+
+  Highcharts.setOptions({
+    lang: I18n.t("front-end.highcharts")
+});
 
 ) jQuery

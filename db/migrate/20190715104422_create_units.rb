@@ -1,4 +1,4 @@
-class CreateUnits < ActiveRecord::Migration
+class CreateUnits < ActiveRecord::Migration[4.2]
   UNITS = [["Million", "million", 37, "M.", 1000000.0, "none", "ReferenceUnit"],
            ["Acre", "acre", 33, "acre", 4046.8564224, "surface_area", "ReferenceUnit"],
            ["Are", "are", 33, "a", 100.0, "surface_area", "ReferenceUnit"],

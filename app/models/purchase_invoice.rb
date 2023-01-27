@@ -120,7 +120,7 @@ class PurchaseInvoice < Purchase
     items.each do |item|
       item.create_fixed_asset if item.fixed_asset.nil?
 
-      item.update_fixed_asset if item.fixed_asset.present? && item.pretax_amount_changed?
+      item.update_fixed_asset if item.fixed_asset.present? && item.saved_change_to_pretax_amount?
     end
     UpdateInterventionCostingsJob.perform_later(interventions.pluck(:id))
   end
@@ -250,5 +250,18 @@ class PurchaseInvoice < Purchase
 
   def has_attachments
     self.attachments.present?
+  end
+
+  def has_klippa_ocr_attachment
+    if self.attachments.present?
+      document = self.attachments.first.document
+      if document.klippa_metadata.present?
+        document
+      else
+        nil
+      end
+    else
+      nil
+    end
   end
 end

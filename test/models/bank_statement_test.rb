@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,23 +24,23 @@
 # == Table: bank_statements
 #
 #  accounted_at           :datetime
-#  cash_id                :integer          not null
+#  cash_id                :integer(4)       not null
 #  created_at             :datetime         not null
-#  creator_id             :integer
+#  creator_id             :integer(4)
 #  credit                 :decimal(19, 4)   default(0.0), not null
 #  currency               :string           not null
 #  custom_fields          :jsonb
 #  debit                  :decimal(19, 4)   default(0.0), not null
-#  id                     :integer          not null, primary key
+#  id                     :integer(4)       not null, primary key
 #  initial_balance_credit :decimal(19, 4)   default(0.0), not null
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
-#  journal_entry_id       :integer
-#  lock_version           :integer          default(0), not null
+#  journal_entry_id       :integer(4)
+#  lock_version           :integer(4)       default(0), not null
 #  number                 :string           not null
 #  started_on             :date             not null
 #  stopped_on             :date             not null
 #  updated_at             :datetime         not null
-#  updater_id             :integer
+#  updater_id             :integer(4)
 #
 
 require 'test_helper'

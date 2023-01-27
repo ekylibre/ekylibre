@@ -8,7 +8,6 @@
 
     url = $selector.data('conditioning-data-url')
     $quantity = $selector.closest('.storing-calculation').find("[data-trade-component='quantity']")
-
     $.getJSON url, filter_id: filterId, variant_id: variantId, (data) ->
       $selector.data('coefficient', data.coefficient)
       $selector.attr('data-coefficient', data.coefficient)

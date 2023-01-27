@@ -1980,6 +1980,7 @@ eng:
         short_balance_sheet: "Short balance sheet"
         stocks: "Stocks"
         tax_assessment: "Tax assessment"
+        technical_itinerary_sheet: "Technical itinerary sheet"
         trial_balance: "Trial balance"
         vat_register: "VAT register"
         veterinary_booklet: "Veterinary booklet"
@@ -2976,7 +2977,7 @@ eng:
         output: "Output"
         target: "Target"
         tool: "Tool"
-        variant: "Variant"
+        variant: "Article"
       name: "Procedure roles"
     product_nature_categories:
       choices:
@@ -4379,7 +4380,7 @@ eng:
         variable_indicators: "Variable indicators"
         variety: "Variety"
     production_natures:
-      name: "Production natures"
+      name: "Articles"
     production_systems:
       items:
         extensive_farming: "Extensive farming"
@@ -4438,7 +4439,7 @@ eng:
         minimum_power: "Minimum power"
         origin: "Origin"
         power_unit: "Power unit"
-        variant: "Variant"
+        variant: "Article"
         year: "Year"
     sexes:
       items:

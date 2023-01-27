@@ -6,7 +6,15 @@
       - shape ||= cast.product.shape(at: @intervention.started_at) if cast.product
       - if shape
         - v.serie cast.id, [{name: cast.name, shape: shape}]
-        - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
+        :ruby
+          label = if cast.product
+                    cast.product.name
+                  elsif cast.variant
+                    cast.variant.name
+                  else
+                    cast.name
+                  end
+        - v.simple label, cast.id, fill_color: cycle(theme_colors)
         - count += 1
     - v.control :zoom
     - v.control :scale

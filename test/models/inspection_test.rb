@@ -111,38 +111,35 @@ class InspectionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   ].freeze
 
   setup do
-    @activity = Activity.create!(
-      name: 'InspectionTestActivity',
-      nature: 'main',
-      description: '',
-      family: 'plant_farming',
-      cultivation_variety: 'daucus_carota',
+    @activity = create(:activity,
+                       name: 'InspectionTestActivity',
+                       nature: 'main',
+                       description: '',
+                       cultivation_variety: 'daucus_carota',
 
-      with_cultivation: true,
-      with_supports: true,
-      support_variety: 'land_parcel',
-      size_unit_name: 'hectare',
-      size_indicator_name: 'net_surface_area',
+                       with_cultivation: true,
+                       with_supports: true,
+                       support_variety: 'land_parcel',
+                       size_unit_name: 'hectare',
+                       size_indicator_name: 'net_surface_area',
 
-      suspended: false,
-      production_cycle: 'annual',
-      production_started_on: Date.new(2000, 3, 1),
-      production_stopped_on: Date.new(2001, 7, 1),
-      production_system_name: 'intensive_farming',
+                       suspended: false,
+                       production_started_on: Date.new(2000, 3, 1),
+                       production_stopped_on: Date.new(2001, 7, 1),
+                       production_system_name: 'intensive_farming',
 
-      use_countings: true,
-      use_seasons: false,
-      use_tactics: false,
+                       use_countings: true,
+                       use_seasons: false,
+                       use_tactics: false,
 
-      # Here be what we're actually interested by.
-      use_gradings: true,
-      measure_grading_items_count: true,
-      measure_grading_net_mass: true,
-      grading_net_mass_unit_name: 'kilogram',
-      measure_grading_sizes: true,
-      grading_sizes_indicator_name: 'length',
-      grading_sizes_unit_name: 'centimeter'
-    )
+                       # Here be what we're actually interested by.
+                       use_gradings: true,
+                       measure_grading_items_count: true,
+                       measure_grading_net_mass: true,
+                       grading_net_mass_unit_name: 'kilogram',
+                       measure_grading_sizes: true,
+                       grading_sizes_indicator_name: 'length',
+                       grading_sizes_unit_name: 'centimeter')
 
     @scales = SCALES_ATTRIBUTES.map { |attrs| { size_indicator_name: attrs.first, size_unit_name: attrs.last } }
                                .map { |s_attrs| @activity.inspection_calibration_scales.create!(s_attrs) }

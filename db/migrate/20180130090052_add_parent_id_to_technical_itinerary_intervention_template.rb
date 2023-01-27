@@ -1,4 +1,4 @@
-class AddParentIdToTechnicalItineraryInterventionTemplate < ActiveRecord::Migration
+class AddParentIdToTechnicalItineraryInterventionTemplate < ActiveRecord::Migration[4.2]
   def change
     remove_column :technical_itinerary_intervention_templates, :is_duplicate, :boolean, default: false
     unless column_exists?(:technical_itinerary_intervention_templates, :reference_hash)

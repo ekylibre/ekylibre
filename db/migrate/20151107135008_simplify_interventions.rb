@@ -516,11 +516,11 @@ class SimplifyInterventions < ActiveRecord::Migration[4.2]
           dir.up do
             # Transform Points and Linestrings to Polygons with ST_Buffer function
             execute "UPDATE #{table} SET #{column} = ST_Multi(ST_Union(ARRAY[ST_Buffer(ST_CollectionExtract(#{column}, 1), #{RADIUS}), ST_Buffer(ST_CollectionExtract(#{column}, 2), #{RADIUS}), ST_CollectionExtract(#{column}, 3)]))"
-            change_column table, column, :geometry, limit: 'MULTIPOLYGON,4326'
+            change_column table, column, :multi_polygon, srid: 4326
             execute "UPDATE #{table} SET #{column} = ST_Multi(#{column})"
           end
           dir.down do
-            change_column table, column, :geometry, limit: 'GEOMETRY,4326'
+            change_column table, column, :geometry, srid: 4326
           end
         end
       end

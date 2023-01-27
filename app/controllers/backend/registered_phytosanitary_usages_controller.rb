@@ -46,10 +46,10 @@ module Backend
       product = Product.find_by(id: params[:product_id])
 
       stopped_at = DateTime.soft_parse(params.fetch(:intervention_stopped_at, ''))
-      targets_and_shape = ::Interventions::Phytosanitary::Models::TargetAndShape.from_targets_data(targets_data)
+      targets_zone = ::Interventions::Phytosanitary::Models::TargetZone.from_targets_data(targets_data)
 
       application_validator = ::Interventions::Phytosanitary::MaxApplicationValidator.new(
-        targets_and_shape: targets_and_shape,
+        targets_zone: targets_zone,
         intervention_to_ignore: intervention,
         intervention_stopped_at: stopped_at
       )
@@ -81,8 +81,9 @@ module Backend
       product = Product.find(params[:product_id])
       service = RegisteredPhytosanitaryUsageDoseComputation.build
       measure = Measure.new(params[:quantity].to_f, params[:unit_name])
+      spray_volume = Measure.new(params[:spray_volume].to_f, :liter_per_hectare)
 
-      dose_validation = service.validate_dose(usage, product, measure, targets_data, nil)
+      dose_validation = service.validate_dose(usage, product, measure, targets_data, spray_volume)
       authorizations = compute_authorization(dose_validation, :dose_validation)
 
       render json: { dose_validation: dose_validation, authorizations: authorizations, modified: modified }

@@ -2,10 +2,10 @@
 
 class TechnicalItineraryInterventionTemplate < ApplicationRecord
   enumerize :frequency, in: %i[per_day per_month per_year], predicates: true, default: :per_year
-  belongs_to :technical_itinerary, class_name: TechnicalItinerary
-  belongs_to :intervention_template, class_name: InterventionTemplate
+  belongs_to :technical_itinerary, class_name: 'TechnicalItinerary'
+  belongs_to :intervention_template, class_name: 'InterventionTemplate'
 
-  has_many :intervention_proposals, class_name: InterventionProposal
+  has_many :intervention_proposals, class_name: 'InterventionProposal'
 
   # belongs_to :parent, -> { where(reference_hash: self.parent_hash)}
   # has_many :childs, ->(child) { where(reference_hash: child.parent_hash)}
@@ -70,9 +70,9 @@ class TechnicalItineraryInterventionTemplate < ApplicationRecord
       planting = ti if ti.intervention_template.planting?
     end
 
-    return '-' if planting.nil?
-
-    if position < planting.position
+    if planting.nil?
+      '-'
+    elsif position < planting.position
       tiit = tiit.where(position: (position + 1)..(planting.position))
       - tiit.sum(:day_between_intervention)
     else
@@ -85,7 +85,7 @@ class TechnicalItineraryInterventionTemplate < ApplicationRecord
     previous_tiit = TechnicalItineraryInterventionTemplate.where(technical_itinerary: technical_itinerary).where(position: (position - 1)).first
     ante_previous_tiit = TechnicalItineraryInterventionTemplate.where(technical_itinerary: technical_itinerary).where(position: (position - 2)).first
     # first intervention on ITK
-    if position == 1
+    if position == 0
       day_b_i = 0
     # second or more intervention on ITK with previous exist and day_since_start
     elsif previous_tiit && previous_tiit.day_since_start && day_since_start
@@ -104,5 +104,9 @@ class TechnicalItineraryInterventionTemplate < ApplicationRecord
 
   def human_day_between_intervention
     "#{day_between_intervention} j"
+  end
+
+  def inputs_or_outputs
+    intervention_template.human_inputs_or_outputs_quantity
   end
 end

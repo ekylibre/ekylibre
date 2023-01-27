@@ -6,16 +6,12 @@ module Printers
 
     def initialize(shipment:, template:)
       super(template: template)
-
+      @currency = Onoma::Currency.find(Preference[:currency] || 'EUR')
       @shipment = shipment
     end
 
-    def currency
-      @currency ||= Onoma::Currency.find(Preference[:currency])
-    end
-
     def as_currency(value)
-      value.l(currency: currency.name, precision: 2)
+      value.l(currency: @currency.name, precision: 2)
     end
 
     def generate(r)
@@ -76,7 +72,10 @@ module Printers
         t.add_field(:total_quantity) { |item|  (item.conditioning_quantity * item.conditioning_unit.coefficient).round_l}
 
         # PU HT
-        t.add_field(:amount) { |item| as_currency(item.base_unit_amount) }
+        t.add_field(:amount) { |item| item.unit_pretax_sale_amount.present? ? as_currency(item.unit_pretax_sale_amount): as_currency(0.00) }
+
+        # PU HT
+        t.add_field(:global_amount) { |item| item.unit_pretax_sale_amount.present? ? as_currency(item.conditioning_quantity * item.conditioning_unit.coefficient * item.unit_pretax_sale_amount) : as_currency(0.00) }
 
         # base unit name
         t.add_field(:base_unit) { |item| item.conditioning_unit.base_unit.symbol}

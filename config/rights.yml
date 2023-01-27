@@ -1,37 +1,75 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
-#     - "api/v1/base#error_message"
-#     - "api/v1/contacts#error_message"
-#     - "api/v1/crumbs#error_message"
-#     - "api/v1/intervention_participations#error_message"
-#     - "api/v1/intervention_targets#error_message"
 #     - "api/v1/intervention_targets#show"
-#     - "api/v1/interventions#error_message"
-#     - "api/v1/issues#error_message"
-#     - "api/v1/lexicon/api_phytosanitary_data#error_message"
 #     - "api/v1/lexicon/registered_phytosanitary_cropsets#create"
-#     - "api/v1/lexicon/registered_phytosanitary_cropsets#error_message"
 #     - "api/v1/lexicon/registered_phytosanitary_cropsets#index"
 #     - "api/v1/lexicon/registered_phytosanitary_products#create"
-#     - "api/v1/lexicon/registered_phytosanitary_products#error_message"
 #     - "api/v1/lexicon/registered_phytosanitary_products#index"
 #     - "api/v1/lexicon/registered_phytosanitary_risks#create"
-#     - "api/v1/lexicon/registered_phytosanitary_risks#error_message"
 #     - "api/v1/lexicon/registered_phytosanitary_risks#index"
 #     - "api/v1/lexicon/registered_phytosanitary_usages#create"
-#     - "api/v1/lexicon/registered_phytosanitary_usages#error_message"
 #     - "api/v1/lexicon/registered_phytosanitary_usages#index"
-#     - "api/v1/plant_countings#error_message"
-#     - "api/v1/plant_density_abaci#error_message"
-#     - "api/v1/plants#error_message"
-#     - "api/v1/products#error_message"
 #     - "api/v1/products#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
-#     - "api/v1/tokens#error_message"
-#     - "api/v1/users#error_message"
 #     - "api/v1/users#show"
-#     - "api/v1/variants#error_message"
 #     - "api/v1/variants#index"
+#     - "api/v2/base#record_not_found"
+#     - "api/v2/base#rescue_bad_params"
+#     - "api/v2/base#rescue_param_missing"
+#     - "api/v2/cultivable_zones#create"
+#     - "api/v2/cultivable_zones#index"
+#     - "api/v2/cultivable_zones#update"
+#     - "api/v2/interventions#create"
+#     - "api/v2/interventions#index"
+#     - "api/v2/interventions#record_not_found"
+#     - "api/v2/interventions#rescue_bad_params"
+#     - "api/v2/interventions#rescue_param_missing"
+#     - "api/v2/interventions#update"
+#     - "api/v2/lexicon/api_phytosanitary_data#record_not_found"
+#     - "api/v2/lexicon/api_phytosanitary_data#rescue_bad_params"
+#     - "api/v2/lexicon/api_phytosanitary_data#rescue_param_missing"
+#     - "api/v2/lexicon/registered_phytosanitary_cropsets#create"
+#     - "api/v2/lexicon/registered_phytosanitary_cropsets#index"
+#     - "api/v2/lexicon/registered_phytosanitary_cropsets#record_not_found"
+#     - "api/v2/lexicon/registered_phytosanitary_cropsets#rescue_bad_params"
+#     - "api/v2/lexicon/registered_phytosanitary_cropsets#rescue_param_missing"
+#     - "api/v2/lexicon/registered_phytosanitary_products#create"
+#     - "api/v2/lexicon/registered_phytosanitary_products#index"
+#     - "api/v2/lexicon/registered_phytosanitary_products#record_not_found"
+#     - "api/v2/lexicon/registered_phytosanitary_products#rescue_bad_params"
+#     - "api/v2/lexicon/registered_phytosanitary_products#rescue_param_missing"
+#     - "api/v2/lexicon/registered_phytosanitary_risks#create"
+#     - "api/v2/lexicon/registered_phytosanitary_risks#index"
+#     - "api/v2/lexicon/registered_phytosanitary_risks#record_not_found"
+#     - "api/v2/lexicon/registered_phytosanitary_risks#rescue_bad_params"
+#     - "api/v2/lexicon/registered_phytosanitary_risks#rescue_param_missing"
+#     - "api/v2/lexicon/registered_phytosanitary_usages#create"
+#     - "api/v2/lexicon/registered_phytosanitary_usages#index"
+#     - "api/v2/lexicon/registered_phytosanitary_usages#record_not_found"
+#     - "api/v2/lexicon/registered_phytosanitary_usages#rescue_bad_params"
+#     - "api/v2/lexicon/registered_phytosanitary_usages#rescue_param_missing"
+#     - "api/v2/products#index"
+#     - "api/v2/products#record_not_found"
+#     - "api/v2/products#rescue_bad_params"
+#     - "api/v2/products#rescue_param_missing"
+#     - "api/v2/tokens#create"
+#     - "api/v2/tokens#destroy"
+#     - "api/v2/tokens#record_not_found"
+#     - "api/v2/tokens#rescue_bad_params"
+#     - "api/v2/tokens#rescue_param_missing"
+#     - "api/v2/users#record_not_found"
+#     - "api/v2/users#rescue_bad_params"
+#     - "api/v2/users#rescue_param_missing"
+#     - "api/v2/users#show"
+#     - "api/v2/users#update"
+#     - "api/v2/variants#index"
+#     - "api/v2/variants#record_not_found"
+#     - "api/v2/variants#rescue_bad_params"
+#     - "api/v2/variants#rescue_param_missing"
+#     - "application#authorized?"
+#     - "application#current_theme"
+#     - "application#current_theme="
+#     - "application#human_action_name"
 #     - "authentication/invitations#create"
 #     - "authentication/invitations#destroy"
 #     - "authentication/invitations#edit"
@@ -56,15 +94,27 @@
 #     - "backend/account_balances#show"
 #     - "backend/accounts#filter_select_collection"
 #     - "backend/accounts#reconciliable_list"
-#     - "backend/activities#family"
+#     - "backend/activities#add_itk_on_activities"
+#     - "backend/activities#compute_pfi_report"
+#     - "backend/activities#generate_budget"
+#     - "backend/activity_budgets#list_intervention_templates"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/activity_productions#create_plants"
+#     - "backend/animal_groups#list_interventions"
+#     - "backend/animal_groups#sort_by_time_use"
+#     - "backend/animals#list_interventions"
+#     - "backend/animals#sort_by_time_use"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
 #     - "backend/bank_statement_items#show"
+#     - "backend/bank_statements#import_cfonb"
+#     - "backend/bank_statements#import_ofx"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
-#     - "backend/calculators/grains_commercialization_threshold_simulators#show"
+#     - "backend/building_divisions#sort_by_time_use"
+#     - "backend/buildings#sort_by_time_use"
+#     - "backend/campaigns#show_by_name"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cash_variations_cells#area_highcharts"
@@ -72,12 +122,9 @@
 #     - "backend/cells/cash_variations_cells#area_spline_highcharts"
 #     - "backend/cells/cash_variations_cells#area_spline_range_highcharts"
 #     - "backend/cells/cash_variations_cells#bar_highcharts"
-#     - "backend/cells/cash_variations_cells#cartesian_chart"
-#     - "backend/cells/cash_variations_cells#category_chart"
 #     - "backend/cells/cash_variations_cells#column_highcharts"
 #     - "backend/cells/cash_variations_cells#column_range_highcharts"
 #     - "backend/cells/cash_variations_cells#contrasted_color"
-#     - "backend/cells/cash_variations_cells#distribution_chart"
 #     - "backend/cells/cash_variations_cells#formate_and_translate"
 #     - "backend/cells/cash_variations_cells#lightness"
 #     - "backend/cells/cash_variations_cells#ligthen"
@@ -87,7 +134,6 @@
 #     - "backend/cells/cash_variations_cells#scatter_highcharts"
 #     - "backend/cells/cash_variations_cells#show"
 #     - "backend/cells/cash_variations_cells#spline_highcharts"
-#     - "backend/cells/cash_variations_cells#tree_distribution_chart"
 #     - "backend/cells/cash_variations_cells#waterfall_highcharts"
 #     - "backend/cells/cashes_balance_cells#show"
 #     - "backend/cells/cashes_balance_evolution_cells#show"
@@ -95,6 +141,7 @@
 #     - "backend/cells/cropping_plan_on_cultivable_zones_cells#show"
 #     - "backend/cells/current_stocks_by_variety_cells#show"
 #     - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
+#     - "backend/cells/elapsed_interventions_times_by_workers_cells#show"
 #     - "backend/cells/events_cells#show"
 #     - "backend/cells/expenses_by_product_nature_category_cells#show"
 #     - "backend/cells/guide_evolution_cells#show"
@@ -105,6 +152,10 @@
 #     - "backend/cells/last_entities_cells#show"
 #     - "backend/cells/last_events_cells#list"
 #     - "backend/cells/last_events_cells#show"
+#     - "backend/cells/last_foreward_incoming_parcels_cells#list"
+#     - "backend/cells/last_foreward_incoming_parcels_cells#show"
+#     - "backend/cells/last_foreward_outgoing_parcels_cells#list"
+#     - "backend/cells/last_foreward_outgoing_parcels_cells#show"
 #     - "backend/cells/last_incoming_parcels_cells#list"
 #     - "backend/cells/last_incoming_parcels_cells#show"
 #     - "backend/cells/last_intervention_cells#show"
@@ -114,7 +165,6 @@
 #     - "backend/cells/last_movements_cells#show"
 #     - "backend/cells/last_outgoing_parcels_cells#list"
 #     - "backend/cells/last_outgoing_parcels_cells#show"
-#     - "backend/cells/last_socleo_import_cells#show"
 #     - "backend/cells/last_products_cells#list"
 #     - "backend/cells/last_products_cells#show"
 #     - "backend/cells/last_purchases_invoices_cells#list"
@@ -123,18 +173,25 @@
 #     - "backend/cells/last_purchases_orders_cells#show"
 #     - "backend/cells/last_sales_cells#list"
 #     - "backend/cells/last_sales_cells#show"
+#     - "backend/cells/last_socleo_import_cells#show"
+#     - "backend/cells/last_workers_cells#list"
+#     - "backend/cells/last_workers_cells#show"
 #     - "backend/cells/main_settings_cells#show"
 #     - "backend/cells/map_cells#show"
+#     - "backend/cells/mes_parcelles_synchronisation_cells#show"
 #     - "backend/cells/parts_cells#show"
 #     - "backend/cells/payable_taxes_cells#show"
+#     - "backend/cells/pfi_interventions_cells#compute_pfi_interventions"
+#     - "backend/cells/pfi_interventions_cells#compute_pfi_report"
+#     - "backend/cells/pfi_interventions_cells#show"
 #     - "backend/cells/profit_and_loss_cells#show"
-#     - "backend/cells/quandl_cells#show"
 #     - "backend/cells/revenues_by_product_nature_cells#show"
+#     - "backend/cells/revenues_by_sale_nature_cells#show"
 #     - "backend/cells/rss_cells#show"
 #     - "backend/cells/settings_statistics_cells#show"
+#     - "backend/cells/square_revenues_by_category_cells#show"
 #     - "backend/cells/stewardship_cells#show"
 #     - "backend/cells/stock_container_map_cells#show"
-#     - "backend/cells/threshold_commercialization_by_production_cells#show"
 #     - "backend/cells/traceability_check_cells#show"
 #     - "backend/cells/trade_counts_cells#show"
 #     - "backend/cells/unbalanced_clients_cells#list"
@@ -142,13 +199,25 @@
 #     - "backend/cells/unbalanced_suppliers_cells#list"
 #     - "backend/cells/unbalanced_suppliers_cells#show"
 #     - "backend/cells/weather_cells#show"
+#     - "backend/cells/weather_spraying_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
+#     - "backend/cobbles/inspections_cobbles#show"
 #     - "backend/cobbles/production_cost_cobbles#show"
 #     - "backend/cobbles/stock_in_ground_cobbles#show"
+#     - "backend/conditionings#conditioning_data"
+#     - "backend/conditionings#unroll_filters_by_catalog_items"
+#     - "backend/conditionings#unroll_filters_by_dimensions"
+#     - "backend/controller_helpers/activity_production_creations#create"
+#     - "backend/controller_helpers/activity_production_creations#new"
+#     - "backend/crop_groups#kujaku_options"
+#     - "backend/crop_groups#list_interventions"
+#     - "backend/crop_groups#list_plants"
+#     - "backend/crop_groups#list_productions"
+#     - "backend/crop_groups#unroll"
+#     - "backend/crops#unroll"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#home"
-#     - "backend/dashboards#humans"
 #     - "backend/dashboards#production"
 #     - "backend/dashboards#purchases"
 #     - "backend/dashboards#relationship"
@@ -158,23 +227,55 @@
 #     - "backend/dashboards#settings"
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
-#     - "backend/draft_journals#confirm_all"
+#     - "backend/deliveries#list_global_shipment_items"
+#     - "backend/documents#purchase_scan"
+#     - "backend/draft_journals#confirmation_modal"
+#     - "backend/draft_journals#fec_compliance_errors"
 #     - "backend/draft_journals#list"
+#     - "backend/equipments#list_equipment_maintenance_interventions"
+#     - "backend/equipments#list_interventions_on_field"
+#     - "backend/equipments#list_links"
+#     - "backend/equipments#sort_by_time_use"
+#     - "backend/exchanger_template_files#show"
 #     - "backend/financial_year_archives#create"
 #     - "backend/financial_year_closure_preparations#create"
 #     - "backend/financial_year_closure_preparations#destroy"
+#     - "backend/financial_year_exchanges#notify_accountant_modal"
 #     - "backend/financial_years#destroy_all_empty"
+#     - "backend/financial_years#list_ekylibre_format_exchanges"
+#     - "backend/financial_years#list_isacompta_format_exchanges"
 #     - "backend/financial_years#lock"
 #     - "backend/financial_years#run_progress"
 #     - "backend/fixed_assets#link_to_sale"
 #     - "backend/fixed_assets#stand_by"
-#     - "backend/general_ledgers#archive_report"
-#     - "backend/general_ledgers#archive_report_template"
-#     - "backend/general_ledgers#find_open_document_template"
-#     - "backend/general_ledgers#find_template"
-#     - "backend/general_ledgers#generate_document"
-#     - "backend/general_ledgers#generate_report"
-#     - "backend/general_ledgers#generate_report_file"
+#     - "backend/fungi#create"
+#     - "backend/fungi#destroy"
+#     - "backend/fungi#edit"
+#     - "backend/fungi#edit_many"
+#     - "backend/fungi#index"
+#     - "backend/fungi#list"
+#     - "backend/fungi#list_carried_linkages"
+#     - "backend/fungi#list_carrier_linkages"
+#     - "backend/fungi#list_contained_products"
+#     - "backend/fungi#list_fixed_assets"
+#     - "backend/fungi#list_groups"
+#     - "backend/fungi#list_inspections"
+#     - "backend/fungi#list_intervention_product_parameters"
+#     - "backend/fungi#list_issues"
+#     - "backend/fungi#list_members"
+#     - "backend/fungi#list_places"
+#     - "backend/fungi#list_readings"
+#     - "backend/fungi#list_reception_items"
+#     - "backend/fungi#list_shipment_items"
+#     - "backend/fungi#list_trackings"
+#     - "backend/fungi#new"
+#     - "backend/fungi#picture"
+#     - "backend/fungi#show"
+#     - "backend/fungi#sort_by_time_use"
+#     - "backend/fungi#take"
+#     - "backend/fungi#unroll"
+#     - "backend/fungi#update"
+#     - "backend/fungi#update_many"
 #     - "backend/general_ledgers#list_centralized_ledger_accounts"
 #     - "backend/general_ledgers#list_subledger_accounts"
 #     - "backend/general_ledgers#list_subledger_journal_entry_items"
@@ -183,9 +284,24 @@
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
 #     - "backend/golumns#update"
+#     - "backend/guide_analyses#list_points"
+#     - "backend/guide_analyses#show"
+#     - "backend/guides#create"
+#     - "backend/guides#destroy"
+#     - "backend/guides#edit"
+#     - "backend/guides#index"
+#     - "backend/guides#list"
+#     - "backend/guides#list_analyses"
+#     - "backend/guides#new"
+#     - "backend/guides#run"
+#     - "backend/guides#show"
+#     - "backend/guides#unroll"
+#     - "backend/guides#update"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
+#     - "backend/intervention_participations#destroy"
+#     - "backend/intervention_participations#update"
 #     - "backend/interventions#compare_realised_with_planned"
 #     - "backend/interventions#create_duplicate_intervention"
 #     - "backend/interventions#duplicate_interventions"
@@ -199,15 +315,42 @@
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#list_interventions"
 #     - "backend/land_parcels#list_plants"
+#     - "backend/land_parcels#sort_by_time_use"
 #     - "backend/loan_repayments#create"
+#     - "backend/manure_management_plans#create"
+#     - "backend/manure_management_plans#destroy"
+#     - "backend/manure_management_plans#edit"
+#     - "backend/manure_management_plans#index"
+#     - "backend/manure_management_plans#list"
+#     - "backend/manure_management_plans#list_zones"
+#     - "backend/manure_management_plans#new"
+#     - "backend/manure_management_plans#show"
+#     - "backend/manure_management_plans#unroll"
+#     - "backend/manure_management_plans#update"
 #     - "backend/map_editor_shapes#index"
 #     - "backend/map_editors#upload"
+#     - "backend/master_crop_productions#show"
 #     - "backend/master_crop_productions#unroll"
+#     - "backend/master_doer_contracts#show"
+#     - "backend/master_doer_contracts#unroll"
+#     - "backend/master_user_roles#unroll"
+#     - "backend/master_variant_categories#unroll"
+#     - "backend/master_variant_natures#unroll"
+#     - "backend/master_variants#unroll"
+#     - "backend/matters#sort_by_time_use"
+#     - "backend/myselves#change_password"
+#     - "backend/myselves#show"
+#     - "backend/myselves#update"
+#     - "backend/naming_format_land_parcels#build"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/outgoing_payment_modes#sepa"
+#     - "backend/plants#sort_by_time_use"
 #     - "backend/preferences#update"
+#     - "backend/product_groups#sort_by_time_use"
+#     - "backend/product_nature_categories#list_product_nature_variants"
+#     - "backend/product_nature_variants#duplicate"
 #     - "backend/product_nature_variants#list_purchase_invoice_items"
 #     - "backend/product_nature_variants#list_purchase_order_items"
 #     - "backend/product_nature_variants#list_receptions"
@@ -216,27 +359,66 @@
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/product_nature_variants#storage_detail"
 #     - "backend/product_nature_variants#unroll_saleables"
-#     - "backend/product_natures#compatible_varieties"
+#     - "backend/product_readings#create"
+#     - "backend/product_readings#destroy"
+#     - "backend/product_readings#edit"
+#     - "backend/product_readings#new"
+#     - "backend/product_readings#update"
+#     - "backend/production_usages#show"
+#     - "backend/products#sort_by_time_use"
+#     - "backend/purchase_affairs#attach"
+#     - "backend/purchase_affairs#detach"
+#     - "backend/purchase_affairs#detach_gaps"
+#     - "backend/purchase_affairs#finish"
+#     - "backend/purchase_affairs#index"
+#     - "backend/purchase_affairs#list"
+#     - "backend/purchase_affairs#select"
+#     - "backend/purchase_affairs#show"
+#     - "backend/purchase_affairs#unroll"
 #     - "backend/purchases#show"
+#     - "backend/receptions#merge_matters"
+#     - "backend/receptions#mergeable_matters"
+#     - "backend/reference_units#conditioning_data"
+#     - "backend/reference_units#create"
+#     - "backend/reference_units#destroy"
+#     - "backend/reference_units#edit"
+#     - "backend/reference_units#index"
+#     - "backend/reference_units#list_products"
+#     - "backend/reference_units#new"
+#     - "backend/reference_units#show"
+#     - "backend/reference_units#unroll_filters_by_catalog_items"
+#     - "backend/reference_units#unroll_filters_by_dimensions"
+#     - "backend/reference_units#update"
 #     - "backend/registered_phytosanitary_products#get_products_infos"
 #     - "backend/registered_phytosanitary_products#unroll"
 #     - "backend/registered_phytosanitary_usages#dose_validations"
 #     - "backend/registered_phytosanitary_usages#filter_usages"
 #     - "backend/registered_phytosanitary_usages#get_usage_infos"
 #     - "backend/registered_phytosanitary_usages#unroll"
+#     - "backend/sales#conditioning_ratio"
+#     - "backend/sales#conditioning_ratio_presence"
+#     - "backend/sales#default_conditioning_unit"
 #     - "backend/sensors#last_locations"
+#     - "backend/settings#about"
+#     - "backend/settings#list_datasources"
+#     - "backend/settlements#sort_by_time_use"
 #     - "backend/shipments#invoice"
 #     - "backend/snippets#toggle"
+#     - "backend/technical_sequences#unroll"
+#     - "backend/technical_workflows#unroll"
 #     - "backend/tours#finish"
-#     - "backend/master_user_roles#unroll"
+#     - "backend/units#conditioning_data"
+#     - "backend/units#list_products"
+#     - "backend/units#unroll_filters_by_catalog_items"
+#     - "backend/units#unroll_filters_by_dimensions"
 #     - "backend/users/wice_grid_preferences#save_column"
-#     - "backend/master_variant_categories#unroll"
 #     - "backend/variant_categories/animal_categories#create"
 #     - "backend/variant_categories/animal_categories#destroy"
 #     - "backend/variant_categories/animal_categories#edit"
 #     - "backend/variant_categories/animal_categories#incorporate"
 #     - "backend/variant_categories/animal_categories#index"
 #     - "backend/variant_categories/animal_categories#list"
+#     - "backend/variant_categories/animal_categories#list_product_nature_variants"
 #     - "backend/variant_categories/animal_categories#list_products"
 #     - "backend/variant_categories/animal_categories#list_taxations"
 #     - "backend/variant_categories/animal_categories#new"
@@ -250,6 +432,7 @@
 #     - "backend/variant_categories/article_categories#incorporate"
 #     - "backend/variant_categories/article_categories#index"
 #     - "backend/variant_categories/article_categories#list"
+#     - "backend/variant_categories/article_categories#list_product_nature_variants"
 #     - "backend/variant_categories/article_categories#list_products"
 #     - "backend/variant_categories/article_categories#list_taxations"
 #     - "backend/variant_categories/article_categories#new"
@@ -263,6 +446,7 @@
 #     - "backend/variant_categories/crop_categories#incorporate"
 #     - "backend/variant_categories/crop_categories#index"
 #     - "backend/variant_categories/crop_categories#list"
+#     - "backend/variant_categories/crop_categories#list_product_nature_variants"
 #     - "backend/variant_categories/crop_categories#list_products"
 #     - "backend/variant_categories/crop_categories#list_taxations"
 #     - "backend/variant_categories/crop_categories#new"
@@ -276,6 +460,7 @@
 #     - "backend/variant_categories/equipment_categories#incorporate"
 #     - "backend/variant_categories/equipment_categories#index"
 #     - "backend/variant_categories/equipment_categories#list"
+#     - "backend/variant_categories/equipment_categories#list_product_nature_variants"
 #     - "backend/variant_categories/equipment_categories#list_products"
 #     - "backend/variant_categories/equipment_categories#list_taxations"
 #     - "backend/variant_categories/equipment_categories#new"
@@ -289,6 +474,7 @@
 #     - "backend/variant_categories/service_categories#incorporate"
 #     - "backend/variant_categories/service_categories#index"
 #     - "backend/variant_categories/service_categories#list"
+#     - "backend/variant_categories/service_categories#list_product_nature_variants"
 #     - "backend/variant_categories/service_categories#list_products"
 #     - "backend/variant_categories/service_categories#list_taxations"
 #     - "backend/variant_categories/service_categories#new"
@@ -302,6 +488,7 @@
 #     - "backend/variant_categories/worker_categories#incorporate"
 #     - "backend/variant_categories/worker_categories#index"
 #     - "backend/variant_categories/worker_categories#list"
+#     - "backend/variant_categories/worker_categories#list_product_nature_variants"
 #     - "backend/variant_categories/worker_categories#list_products"
 #     - "backend/variant_categories/worker_categories#list_taxations"
 #     - "backend/variant_categories/worker_categories#new"
@@ -315,6 +502,7 @@
 #     - "backend/variant_categories/zone_categories#incorporate"
 #     - "backend/variant_categories/zone_categories#index"
 #     - "backend/variant_categories/zone_categories#list"
+#     - "backend/variant_categories/zone_categories#list_product_nature_variants"
 #     - "backend/variant_categories/zone_categories#list_products"
 #     - "backend/variant_categories/zone_categories#list_taxations"
 #     - "backend/variant_categories/zone_categories#new"
@@ -322,7 +510,6 @@
 #     - "backend/variant_categories/zone_categories#show"
 #     - "backend/variant_categories/zone_categories#unroll"
 #     - "backend/variant_categories/zone_categories#update"
-#     - "backend/master_variant_natures#unroll"
 #     - "backend/variant_types/animal_types#compatible_varieties"
 #     - "backend/variant_types/animal_types#create"
 #     - "backend/variant_types/animal_types#destroy"
@@ -414,10 +601,10 @@
 #     - "backend/variant_types/zone_types#show"
 #     - "backend/variant_types/zone_types#unroll"
 #     - "backend/variant_types/zone_types#update"
-#     - "backend/master_variants#unroll"
 #     - "backend/variants/animal_variants#create"
 #     - "backend/variants/animal_variants#destroy"
 #     - "backend/variants/animal_variants#detail"
+#     - "backend/variants/animal_variants#duplicate"
 #     - "backend/variants/animal_variants#edit"
 #     - "backend/variants/animal_variants#incorporate"
 #     - "backend/variants/animal_variants#index"
@@ -443,6 +630,7 @@
 #     - "backend/variants/article_variants#create"
 #     - "backend/variants/article_variants#destroy"
 #     - "backend/variants/article_variants#detail"
+#     - "backend/variants/article_variants#duplicate"
 #     - "backend/variants/article_variants#edit"
 #     - "backend/variants/article_variants#incorporate"
 #     - "backend/variants/article_variants#index"
@@ -465,9 +653,36 @@
 #     - "backend/variants/article_variants#unroll"
 #     - "backend/variants/article_variants#unroll_saleables"
 #     - "backend/variants/article_variants#update"
+#     - "backend/variants/articles/farm_product_articles#create"
+#     - "backend/variants/articles/farm_product_articles#destroy"
+#     - "backend/variants/articles/farm_product_articles#detail"
+#     - "backend/variants/articles/farm_product_articles#duplicate"
+#     - "backend/variants/articles/farm_product_articles#edit"
+#     - "backend/variants/articles/farm_product_articles#incorporate"
+#     - "backend/variants/articles/farm_product_articles#index"
+#     - "backend/variants/articles/farm_product_articles#list"
+#     - "backend/variants/articles/farm_product_articles#list_catalog_items"
+#     - "backend/variants/articles/farm_product_articles#list_components"
+#     - "backend/variants/articles/farm_product_articles#list_products"
+#     - "backend/variants/articles/farm_product_articles#list_purchase_invoice_items"
+#     - "backend/variants/articles/farm_product_articles#list_purchase_order_items"
+#     - "backend/variants/articles/farm_product_articles#list_receptions"
+#     - "backend/variants/articles/farm_product_articles#list_sale_items"
+#     - "backend/variants/articles/farm_product_articles#list_shipments"
+#     - "backend/variants/articles/farm_product_articles#list_suppliers"
+#     - "backend/variants/articles/farm_product_articles#new"
+#     - "backend/variants/articles/farm_product_articles#pick"
+#     - "backend/variants/articles/farm_product_articles#picture"
+#     - "backend/variants/articles/farm_product_articles#quantifiers"
+#     - "backend/variants/articles/farm_product_articles#show"
+#     - "backend/variants/articles/farm_product_articles#storage_detail"
+#     - "backend/variants/articles/farm_product_articles#unroll"
+#     - "backend/variants/articles/farm_product_articles#unroll_saleables"
+#     - "backend/variants/articles/farm_product_articles#update"
 #     - "backend/variants/articles/fertilizer_articles#create"
 #     - "backend/variants/articles/fertilizer_articles#destroy"
 #     - "backend/variants/articles/fertilizer_articles#detail"
+#     - "backend/variants/articles/fertilizer_articles#duplicate"
 #     - "backend/variants/articles/fertilizer_articles#edit"
 #     - "backend/variants/articles/fertilizer_articles#incorporate"
 #     - "backend/variants/articles/fertilizer_articles#index"
@@ -493,6 +708,7 @@
 #     - "backend/variants/articles/plant_medicine_articles#create"
 #     - "backend/variants/articles/plant_medicine_articles#destroy"
 #     - "backend/variants/articles/plant_medicine_articles#detail"
+#     - "backend/variants/articles/plant_medicine_articles#duplicate"
 #     - "backend/variants/articles/plant_medicine_articles#edit"
 #     - "backend/variants/articles/plant_medicine_articles#incorporate"
 #     - "backend/variants/articles/plant_medicine_articles#index"
@@ -520,6 +736,7 @@
 #     - "backend/variants/articles/seed_and_plant_articles#create"
 #     - "backend/variants/articles/seed_and_plant_articles#destroy"
 #     - "backend/variants/articles/seed_and_plant_articles#detail"
+#     - "backend/variants/articles/seed_and_plant_articles#duplicate"
 #     - "backend/variants/articles/seed_and_plant_articles#edit"
 #     - "backend/variants/articles/seed_and_plant_articles#incorporate"
 #     - "backend/variants/articles/seed_and_plant_articles#index"
@@ -545,6 +762,7 @@
 #     - "backend/variants/crop_variants#create"
 #     - "backend/variants/crop_variants#destroy"
 #     - "backend/variants/crop_variants#detail"
+#     - "backend/variants/crop_variants#duplicate"
 #     - "backend/variants/crop_variants#edit"
 #     - "backend/variants/crop_variants#incorporate"
 #     - "backend/variants/crop_variants#index"
@@ -570,6 +788,7 @@
 #     - "backend/variants/equipment_variants#create"
 #     - "backend/variants/equipment_variants#destroy"
 #     - "backend/variants/equipment_variants#detail"
+#     - "backend/variants/equipment_variants#duplicate"
 #     - "backend/variants/equipment_variants#edit"
 #     - "backend/variants/equipment_variants#incorporate"
 #     - "backend/variants/equipment_variants#index"
@@ -592,9 +811,114 @@
 #     - "backend/variants/equipment_variants#unroll"
 #     - "backend/variants/equipment_variants#unroll_saleables"
 #     - "backend/variants/equipment_variants#update"
+#     - "backend/variants/equipments/fixed_equipment_equipments#create"
+#     - "backend/variants/equipments/fixed_equipment_equipments#destroy"
+#     - "backend/variants/equipments/fixed_equipment_equipments#detail"
+#     - "backend/variants/equipments/fixed_equipment_equipments#duplicate"
+#     - "backend/variants/equipments/fixed_equipment_equipments#edit"
+#     - "backend/variants/equipments/fixed_equipment_equipments#incorporate"
+#     - "backend/variants/equipments/fixed_equipment_equipments#index"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_catalog_items"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_components"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_products"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_purchase_invoice_items"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_purchase_order_items"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_receptions"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_sale_items"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_shipments"
+#     - "backend/variants/equipments/fixed_equipment_equipments#list_suppliers"
+#     - "backend/variants/equipments/fixed_equipment_equipments#new"
+#     - "backend/variants/equipments/fixed_equipment_equipments#pick"
+#     - "backend/variants/equipments/fixed_equipment_equipments#picture"
+#     - "backend/variants/equipments/fixed_equipment_equipments#quantifiers"
+#     - "backend/variants/equipments/fixed_equipment_equipments#show"
+#     - "backend/variants/equipments/fixed_equipment_equipments#storage_detail"
+#     - "backend/variants/equipments/fixed_equipment_equipments#unroll"
+#     - "backend/variants/equipments/fixed_equipment_equipments#unroll_saleables"
+#     - "backend/variants/equipments/fixed_equipment_equipments#update"
+#     - "backend/variants/equipments/motorized_equipment_equipments#create"
+#     - "backend/variants/equipments/motorized_equipment_equipments#destroy"
+#     - "backend/variants/equipments/motorized_equipment_equipments#detail"
+#     - "backend/variants/equipments/motorized_equipment_equipments#duplicate"
+#     - "backend/variants/equipments/motorized_equipment_equipments#edit"
+#     - "backend/variants/equipments/motorized_equipment_equipments#incorporate"
+#     - "backend/variants/equipments/motorized_equipment_equipments#index"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_catalog_items"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_components"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_products"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_purchase_invoice_items"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_purchase_order_items"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_receptions"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_sale_items"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_shipments"
+#     - "backend/variants/equipments/motorized_equipment_equipments#list_suppliers"
+#     - "backend/variants/equipments/motorized_equipment_equipments#new"
+#     - "backend/variants/equipments/motorized_equipment_equipments#pick"
+#     - "backend/variants/equipments/motorized_equipment_equipments#picture"
+#     - "backend/variants/equipments/motorized_equipment_equipments#quantifiers"
+#     - "backend/variants/equipments/motorized_equipment_equipments#show"
+#     - "backend/variants/equipments/motorized_equipment_equipments#storage_detail"
+#     - "backend/variants/equipments/motorized_equipment_equipments#unroll"
+#     - "backend/variants/equipments/motorized_equipment_equipments#unroll_saleables"
+#     - "backend/variants/equipments/motorized_equipment_equipments#update"
+#     - "backend/variants/equipments/tool_equipments#create"
+#     - "backend/variants/equipments/tool_equipments#destroy"
+#     - "backend/variants/equipments/tool_equipments#detail"
+#     - "backend/variants/equipments/tool_equipments#duplicate"
+#     - "backend/variants/equipments/tool_equipments#edit"
+#     - "backend/variants/equipments/tool_equipments#incorporate"
+#     - "backend/variants/equipments/tool_equipments#index"
+#     - "backend/variants/equipments/tool_equipments#list"
+#     - "backend/variants/equipments/tool_equipments#list_catalog_items"
+#     - "backend/variants/equipments/tool_equipments#list_components"
+#     - "backend/variants/equipments/tool_equipments#list_products"
+#     - "backend/variants/equipments/tool_equipments#list_purchase_invoice_items"
+#     - "backend/variants/equipments/tool_equipments#list_purchase_order_items"
+#     - "backend/variants/equipments/tool_equipments#list_receptions"
+#     - "backend/variants/equipments/tool_equipments#list_sale_items"
+#     - "backend/variants/equipments/tool_equipments#list_shipments"
+#     - "backend/variants/equipments/tool_equipments#list_suppliers"
+#     - "backend/variants/equipments/tool_equipments#new"
+#     - "backend/variants/equipments/tool_equipments#pick"
+#     - "backend/variants/equipments/tool_equipments#picture"
+#     - "backend/variants/equipments/tool_equipments#quantifiers"
+#     - "backend/variants/equipments/tool_equipments#show"
+#     - "backend/variants/equipments/tool_equipments#storage_detail"
+#     - "backend/variants/equipments/tool_equipments#unroll"
+#     - "backend/variants/equipments/tool_equipments#unroll_saleables"
+#     - "backend/variants/equipments/tool_equipments#update"
+#     - "backend/variants/equipments/trailed_equipment_equipments#create"
+#     - "backend/variants/equipments/trailed_equipment_equipments#destroy"
+#     - "backend/variants/equipments/trailed_equipment_equipments#detail"
+#     - "backend/variants/equipments/trailed_equipment_equipments#duplicate"
+#     - "backend/variants/equipments/trailed_equipment_equipments#edit"
+#     - "backend/variants/equipments/trailed_equipment_equipments#incorporate"
+#     - "backend/variants/equipments/trailed_equipment_equipments#index"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_catalog_items"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_components"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_products"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_purchase_invoice_items"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_purchase_order_items"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_receptions"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_sale_items"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_shipments"
+#     - "backend/variants/equipments/trailed_equipment_equipments#list_suppliers"
+#     - "backend/variants/equipments/trailed_equipment_equipments#new"
+#     - "backend/variants/equipments/trailed_equipment_equipments#pick"
+#     - "backend/variants/equipments/trailed_equipment_equipments#picture"
+#     - "backend/variants/equipments/trailed_equipment_equipments#quantifiers"
+#     - "backend/variants/equipments/trailed_equipment_equipments#show"
+#     - "backend/variants/equipments/trailed_equipment_equipments#storage_detail"
+#     - "backend/variants/equipments/trailed_equipment_equipments#unroll"
+#     - "backend/variants/equipments/trailed_equipment_equipments#unroll_saleables"
+#     - "backend/variants/equipments/trailed_equipment_equipments#update"
 #     - "backend/variants/service_variants#create"
 #     - "backend/variants/service_variants#destroy"
 #     - "backend/variants/service_variants#detail"
+#     - "backend/variants/service_variants#duplicate"
 #     - "backend/variants/service_variants#edit"
 #     - "backend/variants/service_variants#incorporate"
 #     - "backend/variants/service_variants#index"
@@ -620,6 +944,7 @@
 #     - "backend/variants/worker_variants#create"
 #     - "backend/variants/worker_variants#destroy"
 #     - "backend/variants/worker_variants#detail"
+#     - "backend/variants/worker_variants#duplicate"
 #     - "backend/variants/worker_variants#edit"
 #     - "backend/variants/worker_variants#incorporate"
 #     - "backend/variants/worker_variants#index"
@@ -645,6 +970,7 @@
 #     - "backend/variants/zone_variants#create"
 #     - "backend/variants/zone_variants#destroy"
 #     - "backend/variants/zone_variants#detail"
+#     - "backend/variants/zone_variants#duplicate"
 #     - "backend/variants/zone_variants#edit"
 #     - "backend/variants/zone_variants#incorporate"
 #     - "backend/variants/zone_variants#index"
@@ -667,12 +993,29 @@
 #     - "backend/variants/zone_variants#unroll"
 #     - "backend/variants/zone_variants#unroll_saleables"
 #     - "backend/variants/zone_variants#update"
+#     - "backend/varieties#selection"
+#     - "backend/visualizations/inspections_visualizations#caliber_series"
+#     - "backend/visualizations/inspections_visualizations#chart_style"
+#     - "backend/visualizations/inspections_visualizations#inspection_series"
+#     - "backend/visualizations/inspections_visualizations#number_to_cool"
+#     - "backend/visualizations/inspections_visualizations#ratio_to_cool"
+#     - "backend/visualizations/inspections_visualizations#show"
+#     - "backend/visualizations/inspections_visualizations#spline_categories"
+#     - "backend/visualizations/inspections_visualizations#spline_series"
+#     - "backend/visualizations/inspections_visualizations#support_series"
 #     - "backend/visualizations/land_parcels_visualizations#show"
 #     - "backend/visualizations/map_cells_visualizations#show"
 #     - "backend/visualizations/non_treatment_areas_visualizations#show"
 #     - "backend/visualizations/plants_visualizations#show"
 #     - "backend/visualizations/resources_visualizations#show"
+#     - "backend/visualizations/stock_container_map_cells_visualizations#show"
 #     - "backend/visuals#picture"
+#     - "backend/worker_contracts#update"
+#     - "backend/worker_groups#kujaku_options"
+#     - "backend/worker_groups#update"
+#     - "backend/worker_time_logs#update"
+#     - "backend/workers#list_time_logs"
+#     - "backend/workers#sort_by_time_use"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
@@ -701,8 +1044,6 @@
 #     - "devise/unlocks#show"
 #     - "iot/analyses#create"
 #     - "public#index"
-#     - "public/financial_year_exchange_exports#csv"
-#     - "public/financial_year_exchange_exports#show"
 
 accounts:
   read:
@@ -798,6 +1139,7 @@ affairs:
     - "backend/affairs#index"
     - "backend/affairs#list"
     - "backend/affairs#show"
+    - "backend/affairs#unroll"
     - "backend/sale_tickets#index"
     - "backend/sale_tickets#list"
     - "backend/sale_tickets#show"
@@ -810,7 +1152,6 @@ affairs:
     - "backend/affairs#detach_gaps"
     - "backend/affairs#finish"
     - "backend/affairs#select"
-    - "backend/affairs#unroll"
     - "backend/sale_tickets#attach"
     - "backend/sale_tickets#detach"
     - "backend/sale_tickets#detach_gaps"
@@ -836,6 +1177,21 @@ analyses:
     - "backend/analyses#new"
     - "backend/analyses#update"
     - "backend/analysis_items#new"
+
+analytic_sequences:
+  read:
+    actions:
+    - "backend/analytic_sequences#index"
+    - "backend/analytic_sequences#list" #?
+  write:
+    dependencies:
+    - read-analytic_sequences
+    actions:
+    - "backend/analytic_sequences#create"
+    - "backend/analytic_sequences#destroy" #?
+    - "backend/analytic_sequences#edit"
+    - "backend/analytic_sequences#new"
+    - "backend/analytic_sequences#update"
 
 animal_groups:
   read:
@@ -942,7 +1298,7 @@ bank_statements:
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
     - "backend/bank_statements#edit_interval"
-    - "backend/bank_statements#import"
+    - "backend/bank_statements#import" #?
     - "backend/bank_statements#new"
     - "backend/bank_statements#update"
     - "backend/quick_affairs#create"
@@ -1009,6 +1365,7 @@ buildings:
   write:
     dependencies:
     - read-buildings
+    - read-product_nature_variants
     actions:
     - "backend/buildings#create"
     - "backend/buildings#destroy"
@@ -1125,6 +1482,8 @@ catalogs:
   write:
     dependencies:
     - read-catalogs
+    - read-conditionings
+    - read-product_nature_variants
     actions:
     - "backend/catalog_items#create"
     - "backend/catalog_items#destroy"
@@ -1136,6 +1495,39 @@ catalogs:
     - "backend/catalogs#edit"
     - "backend/catalogs#new"
     - "backend/catalogs#update"
+
+companies:
+  read:
+    actions:
+    - "backend/companies#edit"
+  write:
+    dependencies:
+    - read-settings
+    actions:
+    - "backend/companies#update"
+
+conditionings:
+  read:
+    actions:
+    - "backend/conditionings#index"
+    - "backend/conditionings#list"
+    - "backend/conditionings#list_products"
+    - "backend/conditionings#show"
+    - "backend/conditionings#unroll"
+  write:
+    dependencies:
+    - read-conditionings
+    actions:
+    - "backend/conditionings#create"
+    - "backend/conditionings#create_on_the_go"
+    - "backend/conditionings#destroy"
+    - "backend/conditionings#edit"
+    - "backend/conditionings#new"
+    - "backend/conditionings#new_on_the_go"
+    - "backend/conditionings#update"
+    - "backend/reference_units#list"
+    - "backend/reference_units#unroll"
+    - "backend/units#unroll"
 
 contracts:
   read:
@@ -1175,8 +1567,9 @@ crop_groups:
     actions:
     - "backend/crop_groups#create"
     - "backend/crop_groups#destroy"
-    - "backend/crop_groups#update"
     - "backend/crop_groups#duplicate"
+    - "backend/crop_groups#update"
+
 cultivable_zones:
   read:
     actions:
@@ -1219,6 +1612,22 @@ custom_fields:
     - "backend/custom_fields#sort"
     - "backend/custom_fields#up"
     - "backend/custom_fields#update"
+
+dashboards:
+  read:
+    actions:
+    - "backend/dashboards#index"
+    - "backend/dashboards#list"
+    - "backend/dashboards#show"
+  write:
+    dependencies:
+    - read-dashboards
+    actions:
+    - "backend/dashboards#create"
+    - "backend/dashboards#destroy"
+    - "backend/dashboards#edit"
+    - "backend/dashboards#new"
+    - "backend/dashboards#update"
 
 deposits:
   read:
@@ -1445,7 +1854,7 @@ financial_years:
     - "backend/financial_years#index"
     - "backend/financial_years#list"
     - "backend/financial_years#list_account_balances"
-    - "backend/financial_years#list_exchanges"
+    - "backend/financial_years#list_exchanges" #?
     - "backend/financial_years#list_fixed_asset_depreciations"
     - "backend/financial_years#show"
     - "backend/financial_years#unroll"
@@ -1489,41 +1898,6 @@ fixed_assets:
     - "backend/fixed_assets#start_up"
     - "backend/fixed_assets#update"
 
-fungi:
-  read:
-    actions:
-    - "backend/fungi#index"
-    - "backend/fungi#list"
-    - "backend/fungi#list_carried_linkages"
-    - "backend/fungi#list_carrier_linkages"
-    - "backend/fungi#list_contained_products"
-    - "backend/fungi#list_fixed_assets"
-    - "backend/fungi#list_groups"
-    - "backend/fungi#list_inspections"
-    - "backend/fungi#list_intervention_product_parameters"
-    - "backend/fungi#list_issues"
-    - "backend/fungi#list_members"
-    - "backend/fungi#list_places"
-    - "backend/fungi#list_readings"
-    - "backend/fungi#list_reception_items"
-    - "backend/fungi#list_shipment_items"
-    - "backend/fungi#list_trackings"
-    - "backend/fungi#picture"
-    - "backend/fungi#show"
-    - "backend/fungi#unroll"
-  write:
-    dependencies:
-    - read-fungi
-    actions:
-    - "backend/fungi#create"
-    - "backend/fungi#destroy"
-    - "backend/fungi#edit"
-    - "backend/fungi#edit_many"
-    - "backend/fungi#new"
-    - "backend/fungi#take"
-    - "backend/fungi#update"
-    - "backend/fungi#update_many"
-
 gaps:
   read:
     actions:
@@ -1564,34 +1938,10 @@ georeadings:
     - "backend/georeadings#new"
     - "backend/georeadings#update"
 
-guide_analyses:
+humans_dashboard:
   read:
     actions:
-    - "backend/guide_analyses#list_points"
-    - "backend/guide_analyses#show"
-
-guides:
-  read:
-    actions:
-    - "backend/guides#index"
-    - "backend/guides#list"
-    - "backend/guides#list_analyses"
-    - "backend/guides#show"
-    - "backend/guides#unroll"
-  write:
-    dependencies:
-    - read-guides
-    actions:
-    - "backend/guides#create"
-    - "backend/guides#destroy"
-    - "backend/guides#edit"
-    - "backend/guides#new"
-    - "backend/guides#update"
-  execute:
-    dependencies:
-    - read-guides
-    actions:
-    - "backend/guides#run"
+    - "backend/dashboards#humans"
 
 identifiers:
   read:
@@ -1634,26 +1984,6 @@ imports:
     - "backend/imports#abort"
     - "backend/imports#run"
 
-incoming_deliveries:
-  read:
-    actions:
-    - "backend/receptions#index"
-    - "backend/receptions#list"
-    - "backend/receptions#list_items"
-    - "backend/receptions#list_storings"
-    - "backend/receptions#show"
-    - "backend/receptions#unroll"
-  write:
-    dependencies:
-    - read-incoming_deliveries
-    actions:
-    - "backend/receptions#create"
-    - "backend/receptions#destroy"
-    - "backend/receptions#edit"
-    - "backend/receptions#give"
-    - "backend/receptions#new"
-    - "backend/receptions#update"
-
 incoming_payment_modes:
   read:
     actions:
@@ -1663,7 +1993,10 @@ incoming_payment_modes:
     - "backend/incoming_payment_modes#unroll"
   write:
     dependencies:
+    - read-accounts
+    - read-cashes
     - read-incoming_payment_modes
+    - read-journals
     actions:
     - "backend/incoming_payment_modes#create"
     - "backend/incoming_payment_modes#destroy"
@@ -1676,6 +2009,8 @@ incoming_payment_modes:
 
 incoming_payments:
   read:
+    dependencies:
+    - read-affairs
     actions:
     - "backend/incoming_payments#index"
     - "backend/incoming_payments#list"
@@ -1683,7 +2018,9 @@ incoming_payments:
     - "backend/incoming_payments#unroll"
   write:
     dependencies:
+    - read-incoming_payment_modes
     - read-incoming_payments
+    - write-affairs
     actions:
     - "backend/incoming_payments#create"
     - "backend/incoming_payments#destroy"
@@ -1723,14 +2060,6 @@ integrations:
     - "backend/net_services#new"
     - "backend/net_services#update"
 
-intervention_templates:
-  read:
-    dependencies:
-    - read-intervention_templates
-  write:
-    dependencies:
-    - read-intervention_templates
-
 interventions:
   read:
     actions:
@@ -1749,6 +2078,8 @@ interventions:
     - "backend/interventions#show"
     - "backend/interventions#unroll"
     - "backend/interventions/costs#parameter_cost"
+    - "backend/interventions#export"
+
   write:
     dependencies:
     - read-interventions
@@ -1782,6 +2113,20 @@ inventories:
     - "backend/inventories#reflect"
     - "backend/inventories#refresh"
     - "backend/inventories#update"
+
+invitations:
+  read:
+    actions:
+    - "backend/invitations#index"
+    - "backend/invitations#list"
+  write:
+    dependencies:
+    - read-invitations
+    - read-roles
+    - read-users
+    actions:
+    - "backend/invitations#create"
+    - "backend/invitations#new"
 
 issues:
   read:
@@ -1983,24 +2328,6 @@ loans:
     - "backend/loans#repay"
     - "backend/loans#update"
 
-manure_management_plans:
-  read:
-    actions:
-    - "backend/manure_management_plans#index"
-    - "backend/manure_management_plans#list"
-    - "backend/manure_management_plans#list_zones"
-    - "backend/manure_management_plans#show"
-    - "backend/manure_management_plans#unroll"
-  write:
-    dependencies:
-    - read-manure_management_plans
-    actions:
-    - "backend/manure_management_plans#create"
-    - "backend/manure_management_plans#destroy"
-    - "backend/manure_management_plans#edit"
-    - "backend/manure_management_plans#new"
-    - "backend/manure_management_plans#update"
-
 map_layers:
   read:
     actions:
@@ -2053,25 +2380,6 @@ matters:
     - "backend/matters#take"
     - "backend/matters#update"
     - "backend/matters#update_many"
-
-myselves:
-  read:
-    actions:
-    - "backend/dashboards#index"
-    - "backend/dashboards#list"
-    - "backend/dashboards#show"
-    - "backend/myselves#show"
-  write:
-    dependencies:
-    - read-myselves
-    actions:
-    - "backend/dashboards#create"
-    - "backend/dashboards#destroy"
-    - "backend/dashboards#edit"
-    - "backend/dashboards#new"
-    - "backend/dashboards#update"
-    - "backend/myselves#change_password"
-    - "backend/myselves#update"
 
 naming_formats:
   read:
@@ -2180,6 +2488,7 @@ outgoing_payment_modes:
     - "backend/outgoing_payment_modes#unroll"
   write:
     dependencies:
+    - read-cashes
     - read-outgoing_payment_modes
     actions:
     - "backend/outgoing_payment_modes#create"
@@ -2192,6 +2501,8 @@ outgoing_payment_modes:
 
 outgoing_payments:
   read:
+    dependencies:
+    - read-affairs
     actions:
     - "backend/outgoing_payments#index"
     - "backend/outgoing_payments#show"
@@ -2202,7 +2513,9 @@ outgoing_payments:
     - "backend/purchase_payments#unroll"
   write:
     dependencies:
+    - read-outgoing_payment_modes
     - read-outgoing_payments
+    - write-affairs
     actions:
     - "backend/outgoing_payments#create"
     - "backend/outgoing_payments#destroy"
@@ -2217,6 +2530,8 @@ outgoing_payments:
 
 payslip_natures:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/payslip_natures#index"
     - "backend/payslip_natures#list"
@@ -2234,6 +2549,8 @@ payslip_natures:
 
 payslip_payments:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/payslip_payments#index"
     - "backend/payslip_payments#list"
@@ -2251,6 +2568,8 @@ payslip_payments:
 
 payslips:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/payslip_affairs#index"
     - "backend/payslip_affairs#list"
@@ -2413,14 +2732,15 @@ product_nature_categories:
     - "backend/product_nature_categories#unroll"
   write:
     dependencies:
+    - read-accounts
     - read-product_nature_categories
     actions:
     - "backend/product_nature_categories#create"
     - "backend/product_nature_categories#destroy"
     - "backend/product_nature_categories#edit"
-    - "backend/product_nature_categories#incorporate"
+    - "backend/product_nature_categories#incorporate" #?
     - "backend/product_nature_categories#new"
-    - "backend/product_nature_categories#pick"
+    - "backend/product_nature_categories#pick" #?
     - "backend/product_nature_categories#update"
 
 product_nature_variants:
@@ -2438,22 +2758,26 @@ product_nature_variants:
     - "backend/product_nature_variants#picture"
     - "backend/product_nature_variants#show"
     - "backend/product_nature_variants#unroll"
+    - "backend/units#unroll"
   write:
     dependencies:
+    - read-product_nature_categories
     - read-product_nature_variants
+    - read-product_natures
     actions:
     - "backend/product_nature_variant_components#autocomplete"
     - "backend/product_nature_variants#create"
     - "backend/product_nature_variants#destroy"
     - "backend/product_nature_variants#edit"
-    - "backend/product_nature_variants#incorporate"
+    - "backend/product_nature_variants#incorporate" #?
     - "backend/product_nature_variants#new"
-    - "backend/product_nature_variants#pick"
+    - "backend/product_nature_variants#pick" #?
     - "backend/product_nature_variants#update"
 
 product_natures:
   read:
     actions:
+    - "backend/product_natures#compatible_varieties"
     - "backend/product_natures#index"
     - "backend/product_natures#list"
     - "backend/product_natures#list_variants"
@@ -2466,9 +2790,9 @@ product_natures:
     - "backend/product_natures#create"
     - "backend/product_natures#destroy"
     - "backend/product_natures#edit"
-    - "backend/product_natures#incorporate"
+    - "backend/product_natures#incorporate" #?
     - "backend/product_natures#new"
-    - "backend/product_natures#pick"
+    - "backend/product_natures#pick" #?
     - "backend/product_natures#update"
 
 productions:
@@ -2548,6 +2872,38 @@ project_budgets:
     - "backend/project_budgets#new"
     - "backend/project_budgets#update"
 
+purchase_invoices:
+  read:
+    actions:
+    - "backend/purchase_invoices#index"
+    - "backend/purchase_invoices#list"
+    - "backend/purchase_invoices#list_items"
+    - "backend/purchase_invoices#list_receptions"
+    - "backend/purchase_invoices#show"
+    - "backend/purchase_invoices#unroll"
+  write:
+    dependencies:
+    - read-conditionings
+    - read-product_nature_variants
+    - read-purchase_invoices
+    - read-purchase_natures
+    actions:
+    - "backend/debt_transfers#create"
+    - "backend/debt_transfers#destroy"
+    - "backend/interventions#purchase"
+    - "backend/purchase_invoices#create"
+    - "backend/purchase_invoices#destroy"
+    - "backend/purchase_invoices#edit"
+    - "backend/purchase_invoices#new"
+    - "backend/purchase_invoices#pay"
+    - "backend/purchase_invoices#payment_mode"
+    - "backend/purchase_invoices#update"
+    - "backend/purchases/reconciliation_states#put_accepted_state"
+    - "backend/purchases/reconciliation_states#put_reconcile_state"
+    - "backend/purchases/reconciliation_states#put_to_reconcile_state"
+    - "backend/quick_purchases#create"
+    - "backend/quick_purchases#new"
+
 purchase_natures:
   read:
     actions:
@@ -2557,6 +2913,7 @@ purchase_natures:
     - "backend/purchase_natures#unroll"
   write:
     dependencies:
+    - read-journals
     - read-purchase_natures
     actions:
     - "backend/purchase_natures#create"
@@ -2565,19 +2922,9 @@ purchase_natures:
     - "backend/purchase_natures#new"
     - "backend/purchase_natures#update"
 
-purchases:
+purchase_orders:
   read:
     actions:
-    - "backend/purchase_affairs#index"
-    - "backend/purchase_affairs#list"
-    - "backend/purchase_affairs#show"
-    - "backend/purchase_affairs#unroll"
-    - "backend/purchase_invoices#index"
-    - "backend/purchase_invoices#list"
-    - "backend/purchase_invoices#list_items"
-    - "backend/purchase_invoices#list_receptions"
-    - "backend/purchase_invoices#show"
-    - "backend/purchase_invoices#unroll"
     - "backend/purchase_orders#index"
     - "backend/purchase_orders#list"
     - "backend/purchase_orders#list_items"
@@ -2585,28 +2932,12 @@ purchases:
     - "backend/purchase_orders#unroll"
     - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
     - "backend/purchase_process/reconciliation#receptions_to_reconciliate"
-    - "backend/unreceived_purchase_orders#index"
-    - "backend/unreceived_purchase_orders#list"
-    - "backend/unreceived_purchase_orders#show"
   write:
     dependencies:
-    - read-purchases
+    - read-conditionings
+    - read-product_nature_variants
+    - read-purchase_orders
     actions:
-    - "backend/debt_transfers#create"
-    - "backend/debt_transfers#destroy"
-    - "backend/interventions#purchase"
-    - "backend/purchase_affairs#attach"
-    - "backend/purchase_affairs#detach"
-    - "backend/purchase_affairs#detach_gaps"
-    - "backend/purchase_affairs#finish"
-    - "backend/purchase_affairs#select"
-    - "backend/purchase_invoices#create"
-    - "backend/purchase_invoices#destroy"
-    - "backend/purchase_invoices#edit"
-    - "backend/purchase_invoices#new"
-    - "backend/purchase_invoices#pay"
-    - "backend/purchase_invoices#payment_mode"
-    - "backend/purchase_invoices#update"
     - "backend/purchase_orders#close"
     - "backend/purchase_orders#create"
     - "backend/purchase_orders#destroy"
@@ -2614,15 +2945,44 @@ purchases:
     - "backend/purchase_orders#new"
     - "backend/purchase_orders#open"
     - "backend/purchase_orders#update"
-    - "backend/purchases/reconciliation_states#put_accepted_state"
-    - "backend/purchases/reconciliation_states#put_reconcile_state"
-    - "backend/purchases/reconciliation_states#put_to_reconcile_state"
-    - "backend/quick_purchases#create"
-    - "backend/quick_purchases#new"
-    - "backend/unreceived_purchase_orders#create"
-    - "backend/unreceived_purchase_orders#destroy"
-    - "backend/unreceived_purchase_orders#edit"
-    - "backend/unreceived_purchase_orders#update"
+
+receptions:
+  read:
+    actions:
+    - "backend/receptions#index"
+    - "backend/receptions#list"
+    - "backend/receptions#list_items"
+    - "backend/receptions#list_storings"
+    - "backend/receptions#show"
+    - "backend/receptions#unroll"
+  write:
+    dependencies:
+    - read-conditionings
+    - read-product_nature_variants
+    - read-products
+    - read-receptions
+    actions:
+    - "backend/purchase_process/reconciliation#purchase_orders_to_reconciliate"
+    - "backend/receptions#create"
+    - "backend/receptions#destroy"
+    - "backend/receptions#edit"
+    - "backend/receptions#give"
+    - "backend/receptions#new"
+    - "backend/receptions#update"
+
+registrations:
+  read:
+    actions:
+    - "backend/registrations#index"
+    - "backend/registrations#list"
+  write:
+    dependencies:
+    - read-registrations
+    - read-users
+    actions:
+    - "backend/registrations#destroy"
+    - "backend/registrations#edit"
+    - "backend/registrations#update"
 
 roles:
   read:
@@ -2653,6 +3013,9 @@ sale_natures:
     - "backend/sale_natures#unroll"
   write:
     dependencies:
+    - read-catalogs
+    - read-incoming_payment_modes
+    - read-journals
     - read-sale_natures
     actions:
     - "backend/sale_natures#create"
@@ -2683,6 +3046,7 @@ sales:
     - "backend/sales#unroll"
   write:
     dependencies:
+    - read-sale_natures
     - read-sales
     actions:
     - "backend/debt_transfers#create"
@@ -2735,14 +3099,6 @@ sales:
     - "backend/sale_credits#new"
     - "backend/sales#cancel"
 
-schedulings:
-  read:
-    dependencies:
-    - read-schedulings
-  write:
-    dependencies:
-    - read-schedulings
-
 sensors:
   read:
     actions:
@@ -2782,17 +3138,6 @@ sequences:
     - "backend/sequences#new"
     - "backend/sequences#update"
 
-settings:
-  read:
-    actions:
-    - "backend/companies#edit"
-    - "backend/settings#about"
-  write:
-    dependencies:
-    - read-settings
-    actions:
-    - "backend/companies#update"
-
 settlements:
   read:
     actions:
@@ -2817,6 +3162,7 @@ settlements:
     - "backend/settlements#unroll"
   write:
     dependencies:
+    - read-product_nature_variants
     - read-settlements
     actions:
     - "backend/settlements#create"
@@ -2856,6 +3202,7 @@ subscriptions:
     - "backend/subscriptions#unroll"
   write:
     dependencies:
+    - read-subscription_natures
     - read-subscriptions
     actions:
     - "backend/subscriptions#create"
@@ -2942,6 +3289,8 @@ taxes:
 
 teams:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/teams#index"
     - "backend/teams#list"
@@ -2956,14 +3305,6 @@ teams:
     - "backend/teams#edit"
     - "backend/teams#new"
     - "backend/teams#update"
-
-technical_itineraries:
-  read:
-    dependencies:
-    - read-technical_itineraries
-  write:
-    dependencies:
-    - read-technical_itineraries
 
 trackings:
   read:
@@ -3011,26 +3352,35 @@ transports:
     - "backend/deliveries#update"
     - "backend/shipments#ship"
 
+unreceived_purchase_orders:
+  read:
+    actions:
+    - "backend/unreceived_purchase_orders#index"
+    - "backend/unreceived_purchase_orders#list"
+    - "backend/unreceived_purchase_orders#show"
+  write:
+    dependencies:
+    - read-purchase_orders
+    - read-unreceived_purchase_orders
+    actions:
+    - "backend/unreceived_purchase_orders#create"
+    - "backend/unreceived_purchase_orders#destroy"
+    - "backend/unreceived_purchase_orders#edit"
+    - "backend/unreceived_purchase_orders#update"
+
 users:
   read:
     actions:
-    - "backend/invitations#index"
-    - "backend/invitations#list"
-    - "backend/registrations#index"
-    - "backend/registrations#list"
     - "backend/users#index"
     - "backend/users#list"
     - "backend/users#show"
     - "backend/users#unroll"
   write:
     dependencies:
+    - read-entities
+    - read-roles
     - read-users
     actions:
-    - "backend/invitations#create"
-    - "backend/invitations#new"
-    - "backend/registrations#destroy"
-    - "backend/registrations#edit"
-    - "backend/registrations#update"
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"
@@ -3049,8 +3399,68 @@ wine_tanks:
     - "backend/wine_tanks#index"
     - "backend/wine_tanks#list"
 
+worker_contracts:
+  read:
+    dependencies:
+    - read-human_dashboard
+    actions:
+    - "backend/worker_contracts#index"
+    - "backend/worker_contracts#list"
+    - "backend/worker_contracts#show"
+    - "backend/worker_contracts#unroll"
+  write:
+    dependencies:
+    - read-entities
+    - read-worker_contracts
+    actions:
+    - "backend/worker_contracts#create"
+    - "backend/worker_contracts#destroy"
+    - "backend/worker_contracts#edit"
+    - "backend/worker_contracts#new"
+
+worker_groups:
+  read:
+    dependencies:
+    - read-human_dashboard
+    actions:
+    - "backend/worker_groups#index"
+    - "backend/worker_groups#list"
+    - "backend/worker_groups#show"
+    - "backend/worker_groups#unroll"
+    - "backend/worker_groups#unroll_list" #?
+  write:
+    dependencies:
+    - read-worker_groups
+    actions:
+    - "backend/worker_groups#create"
+    - "backend/worker_groups#destroy"
+    - "backend/worker_groups#duplicate"
+    - "backend/worker_groups#edit"
+    - "backend/worker_groups#list_workers"
+    - "backend/worker_groups#new"
+
+worker_time_logs:
+  read:
+    dependencies:
+    - read-human_dashboard
+    actions:
+    - "backend/worker_time_logs#index"
+    - "backend/worker_time_logs#list"
+    - "backend/worker_time_logs#show"
+  write:
+    dependencies:
+    - read-worker_time_logs
+    - read-workers
+    actions:
+    - "backend/worker_time_logs#create"
+    - "backend/worker_time_logs#destroy"
+    - "backend/worker_time_logs#edit"
+    - "backend/worker_time_logs#new"
+
 workers:
   read:
+    dependencies:
+    - read-human_dashboard
     actions:
     - "backend/workers#index"
     - "backend/workers#list"

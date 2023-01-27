@@ -27,8 +27,9 @@ class RegisteredPhytosanitaryUsageDoseComputation
     else
       reference_measure = Measure.new((usage.dose_quantity * usage.dose_unit_factor).to_f, usage.dose_unit)
       user_measure = compute_user_measure(measure, usage, product, targets_data, spray_volume)
-
-      if user_measure.present? && reference_measure.dimension == user_measure.dimension
+      if !measure.zero? && reference_measure.has_repartition_dimension?(:volume) && spray_volume.zero?
+        { none: :spray_volume_should_be_defined.tl }
+      elsif user_measure.present? && reference_measure.dimension == user_measure.dimension
         compute_dose_message(user_measure, reference_measure)
       else
         { none: :max_dose_unit_not_handled.tl }
@@ -73,7 +74,6 @@ class RegisteredPhytosanitaryUsageDoseComputation
         nil
       else
         zero_as_nil = ->(value) { value.zero? ? None() : value }
-
         params = {
           into: usage_unit,
           area: Maybe(compute_area(targets_data)).fmap(&zero_as_nil),
@@ -99,7 +99,11 @@ class RegisteredPhytosanitaryUsageDoseComputation
     # @return [Measure<area>] the area of given targets
     def compute_area(targets)
       targets.values.sum do |target_info|
-        Charta.new_geometry(target_info[:shape]).area
+        if target_info[:working_zone_area_value]
+          target_info[:working_zone_area_value].to_f.in(:hectare)
+        else
+          Charta.new_geometry(target_info[:shape]).area
+        end
       end.in(:square_meter)
     end
 end

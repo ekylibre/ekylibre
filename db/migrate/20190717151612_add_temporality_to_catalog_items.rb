@@ -1,4 +1,4 @@
-class AddTemporalityToCatalogItems < ActiveRecord::Migration
+class AddTemporalityToCatalogItems < ActiveRecord::Migration[4.2]
   def up
     add_column    :catalog_items, :started_at, :datetime
     add_column    :catalog_items, :stopped_at, :datetime

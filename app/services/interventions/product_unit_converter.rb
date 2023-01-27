@@ -10,6 +10,8 @@ module Interventions
     # @param [Maybe<Measure<volume_concentration>>] spray_volume
     # @return [Maybe<Measure>] The result if the computation is successful, None otherwise.
     def convert(measure, into:, area:, net_mass:, net_volume:, spray_volume:)
+      return Maybe(measure.in(into)) if measure.dimension == into.dimension
+
       # Population <=> any
       if population_dimension?(measure.nomenclature_unit)
         convert_population_into_mass_or_volume(measure, into: Onoma::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
@@ -21,9 +23,6 @@ module Interventions
           .fmap do |net_unit|
             convert_mass_or_volume_into_population(net_unit, net_mass: net_mass, net_volume: net_volume)
           end
-      # passthrough
-      elsif measure.dimension == into.dimension
-        Maybe(measure.in(into))
       # Base dimensions are different
       elsif measure.base_dimension != into.base_dimension
         if net_dimension?(measure.dimension.to_sym)
@@ -42,18 +41,27 @@ module Interventions
         convert_net_into_area_density(measure, into: into, area: area)
       elsif measure.repartition_dimension == :surface_area && net_dimension?(into.dimension)
         convert_area_density_into_net(measure, into: into, area: area)
-      # concentration => Net
-      elsif measure.repartition_dimension == :volume && net_dimension?(into.dimension)
-        convert_concentration_into_net(measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
-      # Concentration => area_density
-      elsif measure.repartition_dimension == :volume && into.repartition_dimension == :surface_area
-        into_base_unit = Onoma::Unit.find(into.base_unit)
 
-        convert(measure, into: into_base_unit, net_mass: net_mass, net_volume: net_volume, area: area, spray_volume: spray_volume)
-          .fmap do |new_measure|
-            convert(new_measure, into: into, net_mass: net_mass, net_volume: net_volume, area: area, spray_volume: spray_volume)
-          end
-      # any => concentration
+      # concentration
+      elsif measure.repartition_dimension == :volume || into.repartition_dimension == :volume
+        return None() if spray_volume.is_none? || spray_volume.get.unit.to_sym != :liter_per_hectare
+
+        if net_dimension?(into.dimension)
+          convert_concentration_into_net(measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
+        # Net => concentration
+        elsif net_dimension?(measure.dimension)
+          convert_net_into_concentration(measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
+        # Concentration => area_density
+        elsif measure.repartition_dimension == :surface_area
+          measure_concentration = Measure.new(((measure.value / spray_volume.get.value) * 100).to_f, "#{measure.base_unit}_per_hectoliter".to_sym)
+          Maybe(measure_concentration.in(into))
+        # Area_density => concentration
+        elsif into.repartition_dimension == :surface_area
+          measure_area_density = Measure.new(((measure.value * spray_volume.get.value) / 100).to_f, "#{measure.base_unit}_per_hectare".to_sym)
+          Maybe(measure_area_density.in(into))
+        else
+          None()
+        end
       else
         None()
       end
@@ -156,7 +164,7 @@ module Interventions
     def convert_net_into_area_density(measure, into:, area:)
       if into.dimension.to_s.include?(measure.dimension.to_s)
         area.fmap do |area|
-          Measure.new((measure.value.to_f / area.value.to_f), into)
+          Measure.new((measure.in(into.base_unit).value.to_f / area.in(into.repartition_unit).value.to_f), into)
         end
       else
         None()
@@ -207,17 +215,26 @@ module Interventions
     # @param [Maybe<Measure<volume_concentration>>] spray_volume
     def convert_concentration_into_net(measure, into:, area:, net_mass:, net_volume:, spray_volume:)
       spray_volume.fmap do |spray_volume|
-        if spray_volume.unit.to_sym != :liter_per_hectare || (measure.unit.to_sym != :liter_per_hectoliter && measure.unit.to_sym != :kilogram_per_hectoliter)
-          None()
-        else
-          area.fmap do |area|
-            compute_ratio_between_net_units(from: Onoma::Unit.find(measure.base_unit), to: into, net_mass: net_mass, net_volume: net_volume)
-              .fmap do |ratio|
-                total_sprayed = spray_volume.value.to_f * area.in(:hectare).value.to_f
-                product_sprayed = measure.value.to_f * total_sprayed / 100.0 * ratio
-                Measure.new(product_sprayed, into)
-              end
-          end
+        area.fmap do |area|
+          compute_ratio_between_net_units(from: Onoma::Unit.find(measure.base_unit), to: into, net_mass: net_mass, net_volume: net_volume)
+            .fmap do |ratio|
+              total_sprayed = spray_volume.value.to_f * area.in(:hectare).value.to_f
+              product_sprayed = measure.value.to_f * total_sprayed / 100.0 * ratio
+              Measure.new(product_sprayed, into)
+            end
+        end
+      end
+    end
+
+    def convert_net_into_concentration(measure, into:, area:, net_mass:, net_volume:, spray_volume:)
+      spray_volume.fmap do |spray_volume|
+        area.fmap do |area|
+          compute_ratio_between_net_units(from: Onoma::Unit.find(measure.unit), to: Onoma::Unit.find(into.base_unit), net_mass: net_mass, net_volume: net_volume)
+            .fmap do |ratio|
+              total_sprayed = spray_volume.value.to_f * area.in(:hectare).value.to_f
+              product_concentration = measure.value.to_f * 100  * ratio / total_sprayed
+              Measure.new(product_concentration, into)
+            end
         end
       end
     end

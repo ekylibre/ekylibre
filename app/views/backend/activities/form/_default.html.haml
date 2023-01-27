@@ -1,6 +1,5 @@
 = field_set do
   = f.input :name
-  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   = f.referenced_nomenclature :family, input_html: { data: { activity_family: true }, class: "disabled" }
   = f.referenced_nomenclature :production_system
   - family = Onoma::ActivityFamily[f.object.family]
@@ -15,7 +14,7 @@
                                                       collection: (with_cultivation ? Onoma::Variety.selection(family.cultivation_variety) : []),
                                                       wrapper_html: { style: "display: #{with_cultivation ? 'block' : 'none'}" }
   = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
-  = f.input(:production_cycle_period, label: :production_cycle_period.tl, wrapper: :append) do
+  = f.input(:production_cycle_period, label: :production_cycle_period.tl, wrapper: :append, required: true) do
     = content_tag(:span, :from.tl, class: 'add-on')
     = f.input(:production_started_on, input_html: { data: { flatpickr_alt_format: 'd-F',flatpickr_calendar_class: 'day-names-hidden year-hidden' }}, wrapper: :simplest)
     = content_tag(:span, :year_long.tl, class: 'add-on')
@@ -35,9 +34,14 @@
         = f.input_field :life_duration
         %span.add-on= :year.tl.pluralize
   = f.input :description
-  - if AnalyticSegment.where(name: 'activities').exists?
-    = f.input :isacompta_analytic_code
   = f.custom_fields
+
+= render 'backend/activities/form/analytic_options', f: f
+
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)
 
 = field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
   = f.input :use_gradings, show: '#inspections-fields'
@@ -64,8 +68,3 @@
   = f.input :use_seasons, show: '#seasons-fields'
   #seasons-fields
     = f.nested_association(:seasons)
-
-= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
-  = f.input :use_tactics, show: '#tactics-fields'
-  #tactics-fields
-    = f.nested_association(:tactics, maximum: 1)

@@ -20,8 +20,9 @@ module Backend
   class BeehivesController < Backend::BaseController
     # Save beehive config in preferences
     def update
+      params = permitted_params.to_h
       params['boxes'] ||= []
-      boxes = params['boxes'].sort_by { |a| a[0] }.map do |box|
+      boxes = params['boxes'].to_h.sort_by { |a| a[0] }.map do |box|
         next unless box.second['cells']
 
         cells = box.second['cells'].symbolize_keys.sort_by { |a| a[0] }.map do |cell|
@@ -47,5 +48,11 @@ module Backend
       end
       head :ok
     end
+
+    private
+
+      def permitted_params
+        params.permit(:id, boxes: [cells: %i[name type]])
+      end
   end
 end

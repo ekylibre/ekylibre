@@ -38,7 +38,7 @@ module Backend
     #   :q Text search
     def self.entities_conditions
       code = ''
-      code = search_conditions(entities: %i[number full_name], entity_addresses: [:coordinate]) + " ||= []\n"
+      code = search_conditions(entities: %i[number full_name description iban siret_number vat_number custom_fields]) + " ||= []\n"
 
       code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
 
@@ -181,7 +181,7 @@ module Backend
     end
 
     # Lists issues of the current product
-    list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c }, order: { observed_at: :desc }) do |t|
+    list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'controller_name.classify'.c }, order: { observed_at: :desc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :nature, url: true

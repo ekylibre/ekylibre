@@ -18,21 +18,24 @@
 
 - if f.object.nature.present?
   = field_set do
-    = f.referenced_association :nature, controller: '/backend/product_natures', source: { scope: scope }, disabled: true
-    = f.referenced_association :category, controller: '/backend/product_nature_categories', source: { scope: scope }
+    = f.referenced_association :nature, label: :product_nature.tl, controller: '/backend/product_natures', source: { scope: scope }, disabled: true
+    = f.referenced_association :category, label: :product_nature_category.tl ,controller: '/backend/product_nature_categories', source: { scope: scope }
     = f.variety scope: nature, child_scope: f.object.products
     = f.input :name
     = f.input :work_number
     = f.input :gtin
     = f.input :active
-    - if f.object.default_unit_updateable?
-      = f.input(:default_unit, wrapper: :append) do
-        = f.input(:default_quantity, disabled: false, wrapper: :simplest)
-        = f.referenced_association :default_unit, controller: '/backend/units', source: { scope: units_scope }, new: false, wrapper: :simplest
-    - else
-      = f.input(:default_unit, wrapper: :append) do
-        = f.input(:default_quantity, disabled: true, wrapper: :simplest)
-        = f.referenced_association(:default_unit, controller: '/backend/units', new: false, disabled: true, wrapper: :simplest)
+    - if f.object.article?
+      .control-group
+        = label_tag(:create_zero_intial_stock, :create_zero_intial_stock.tl, class: 'control-label' )
+        .controls
+          = check_box_tag(:create_zero_intial_stock, true, params['create_zero_intial_stock'].to_boolean)
+          %p.help-block= :product_will_be_imported_with_zero_stock.tl
+    - default_unit_updateable = f.object.default_unit_updateable?
+    = f.input(:default_unit, wrapper: :append) do
+      = f.input(:default_quantity, disabled: !default_unit_updateable, wrapper: :simplest, error: false)
+      = f.referenced_association(:default_unit, controller: '/backend/units', source: { scope: :is_reference_units }, new: false, disabled: !default_unit_updateable, wrapper: :simplest)
+      = f.error(:default_quantity)
     = f.input :unit_name
     - if params[:subdivision] == 'plant_medicine_articles' || f.object.is_a?(Variants::Articles::PlantMedicineArticle)
       - value = RegisteredPhytosanitaryProduct.find_by_reference_name(f.object.reference_name)

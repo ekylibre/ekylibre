@@ -1,7 +1,7 @@
 = field_set do
   = f.referenced_association :sale_item, as: :hidden
   - unless f.object.sale_item
-    = f.referenced_association :nature
+    = f.referenced_association :nature, label: :subscription_nature.tl
   = f.referenced_association :address, source: { scope: :mails }
   = f.input :started_on
   = f.input :stopped_on

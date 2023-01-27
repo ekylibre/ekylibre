@@ -58,7 +58,8 @@ class FixedAsset
         assert t.run, t_err(t)
 
         assert_equal 'scrapped', fa.state
-        assert_equal Date.new(2018, 9, 5), fa.scrapped_on
+        assert_equal scrapped_on, fa.scrapped_on
+        assert_equal scrapped_on, fa.stopped_on
         assert fa.depreciations.all? &:has_journal_entry?
 
         before_scrap = fa.reload.depreciations.up_to scrapped_on

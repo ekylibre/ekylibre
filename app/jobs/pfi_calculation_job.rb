@@ -3,10 +3,15 @@ class PfiCalculationJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   # Compute and store(create or update) pfi for each intervention in a campaign
-  def perform(campaign, intervention_ids, user)
+  def perform(campaign, interventions, perform_as)
+    if Interventions::Phytosanitary::PfiClientApi.new(campaign: campaign).down?
+      perform_as.notifications.create!(pfi_api_down_notification_generation)
+      return
+    end
+
     begin
       result = 0
-      Intervention.where(id: intervention_ids).each do |intervention|
+      interventions.each do |intervention|
         pfi_computation = Interventions::Phytosanitary::PfiComputation.new(campaign: campaign, intervention: intervention)
         pfi_computation.create_or_update_pfi
         result += 1
@@ -16,17 +21,41 @@ class PfiCalculationJob < ApplicationJob
       Rails.logger.error error.backtrace.join("\n")
       ExceptionNotifier.notify_exception(error, data: { message: error })
     end
-    notification = user.notifications.build(notification_params(result))
+    notification = perform_as.notifications.build(notification_params(result, interventions))
     notification.save
   end
 
   private
 
-    def notification_params(result)
-      {
+    def notification_params(result, interventions)
+      attributes = {
         message: (result > 0 ? :pfi_have_been_computed : :pfi_have_not_been_computed),
         level: (result > 0 ? :success : :error),
-        target_type: 'Intervention',
+        interpolations: {}
+      }
+
+      if interventions.length == 1
+        intervention = interventions.first
+        attributes.merge!(
+          {
+            message: (result > 0 ? :pfi_have_been_computed_for_intervention : :pfi_have_not_been_computed_for_intervention),
+            level: (result > 0 ? :success : :error),
+            target_type: 'Intervention',
+            target_url: backend_intervention_path(intervention),
+            interpolations: {
+              name: intervention.name
+            },
+          }
+        )
+      end
+
+      attributes
+    end
+
+    def pfi_api_down_notification_generation
+      {
+        message: :pfi_api_down.tl,
+        level: :error,
         interpolations: {}
       }
     end

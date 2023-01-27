@@ -39,8 +39,9 @@
 #  updater_id         :integer
 #
 class InspectionCalibration < ApplicationRecord
-  include Inspectable
   belongs_to :nature, class_name: 'ActivityInspectionCalibrationNature', inverse_of: :inspection_calibrations
+  include Inspectable
+
   belongs_to :inspection, inverse_of: :calibrations
   has_one :product, through: :inspection
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -123,39 +123,21 @@ module Telepac
         activity ||= Activity.find_by(name: attributes[:name])
 
         if activity.nil?
-          if production_cycle == :annual
-            attributes.update(
-              family: family_found.name,
-              nature: :main,
-              production_cycle: production_cycle,
-              size_indicator: 'net_surface_area',
-              size_unit: 'hectare',
-              with_cultivation: true,
-              with_supports: true,
-              life_duration: 1,
-              production_started_on: lexicon_production_nature.start_on(cap_year).change(year: 2000),
-              production_stopped_on: lexicon_production_nature.stop_on(cap_year).change(year: 2000),
-              production_started_on_year: lexicon_production_nature.started_on_year,
-              production_stopped_on_year: lexicon_production_nature.stopped_on_year
-            )
-          elsif production_cycle == :perennial
-            attributes.update(
-              family: family_found.name,
-              nature: :main,
-              production_cycle: production_cycle,
-              size_indicator: 'net_surface_area',
-              size_unit: 'hectare',
-              with_cultivation: true,
-              with_supports: true,
-              life_duration: lexicon_production_nature.life_duration.parts[:years].to_d,
-              start_state_of_production_year: 2,
-              production_started_on: lexicon_production_nature.start_on(cap_year).change(year: 2000),
-              production_stopped_on: lexicon_production_nature.stop_on(cap_year).change(year: 2000),
-              production_started_on_year: lexicon_production_nature.started_on_year,
-              production_stopped_on_year: lexicon_production_nature.stopped_on_year
-            )
-          end
-
+          attributes.update(
+            family: family_found.name,
+            nature: :main,
+            production_cycle: production_cycle,
+            size_indicator: 'net_surface_area',
+            size_unit: 'hectare',
+            with_cultivation: true,
+            with_supports: true,
+            life_duration: lexicon_production_nature.life_duration&.parts&.fetch(:years),
+            start_state_of_production_year: production_cycle == :perennial ? 2 : nil,
+            production_started_on: lexicon_production_nature.started_on.change(year: 2000),
+            production_stopped_on: lexicon_production_nature.stopped_on.change(year: 2000),
+            production_started_on_year: lexicon_production_nature.started_on_year,
+            production_stopped_on_year: lexicon_production_nature.stopped_on_year
+          )
           activity = Activity.create!(attributes)
         end
 
@@ -237,9 +219,9 @@ module Telepac
 
       def transform_geometry(geometry, srid)
         geom = ::Charta.from_gml(geometry, srid).transform(:WGS84)
-        if !geom.is_simple?
+        if !geom.simple?
           corrected_geom = shape_corrector.try_fix(geom)
-          raise StandardError.new('Invalid geometry') if !corrected_geom.is_simple?
+          raise StandardError.new('Invalid geometry') if !corrected_geom.simple?
 
           geom = corrected_geom.or_raise
         end

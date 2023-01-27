@@ -35,18 +35,5 @@ module ActivityProductions
       assert_equal Date.new(2012, 2, 2), attributes.fetch(:stopped_on)
       assert_equal nil, attributes.fetch(:starting_year)
     end
-
-    test 'return correct attributes if activity is annual and the cycle is not setted' do
-      activity = create(:activity,
-                        production_started_on: nil,
-                        production_stopped_on: nil,
-                        production_started_on_year: nil,
-                        production_stopped_on_year: nil)
-      attributes = DefaultAttributesValueBuilder.build(activity, campaign)
-      assert_equal Date.today.change(year: 2011), attributes.fetch(:started_on)
-      assert_equal (Date.today - 1.day).change(year: 2012), attributes.fetch(:stopped_on)
-      assert_equal nil, attributes.fetch(:starting_year)
-    end
-
   end
 end

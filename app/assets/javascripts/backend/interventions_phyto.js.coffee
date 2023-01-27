@@ -4,8 +4,10 @@
       .filter((el) => !el.classList.contains('removed-nested-fields'))
       .map (element) =>
         shape_value = $(element).find('.intervention_targets_working_zone input').val() || $(element).find('.intervention_group_parameters_targets_working_zone input').val()
+        working_zone_area_value = $(element).find('.intervention_targets_working_zone_area input').val() || $(element).find('.intervention_group_parameters_targets_working_zone_area input').val()
         id: $(element).find("[data-selector-id='intervention_target_product_id']").next('.selector-value').val()
         shape: shape_value
+        working_zone_area_value: working_zone_area_value
 
   retrieveMaxStoppedAt = () =>
     stoppedAtDates = $(".intervention-stopped-at[type='hidden']").map ->
@@ -136,6 +138,11 @@
 
 
   usageDoseInfos =
+    displayAll: () ->
+      that = this
+      $('.nested-plant_medicine').each -> 
+        that.display($(this).find("input[data-intervention-field='quantity-value']"), $(this))
+
     display: ($quantityInput, $productField) ->
       @._clearLights($quantityInput)
       usageId = $productField.find("[data-selector-id='intervention_input_usage_id']").next('.selector-value').val()
@@ -152,23 +159,33 @@
     _displayDose: ($input, data) ->
       for key, value of data.dose_validation
         addedClass = if key == 'stop' then 'warning' else ''
-        $input.closest('.controls').find('.lights').addClass("lights-#{key}")
-        $input.closest('.controls').find('.lights-message').addClass(addedClass).text("#{value}")
+        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').addClass("lights-#{key}")
+        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').addClass(addedClass).text("#{value}")
 
     _clearLights: ($input) ->
-      $input.closest('.controls').find('.lights').removeClass("lights-go lights-caution lights-stop")
-      $input.closest('.controls').find('.lights-message').removeClass("warning")
+      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').removeClass("lights-go lights-caution lights-stop")
+      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').removeClass("warning")
 
     _retrieveValues: ($input, $productField) ->
       interventionId = $('input#intervention_id').val()
       inputId = $productField.find('#intervention_parameter_id').val()
       productId = $productField.find("[data-selector-id='intervention_input_product_id']").first().selector('value')
       liveData = $productField.find('.intervention_inputs_using_live_data input').val()
-      quantity = $input.val()
+      quantity = $productField.find('.intervention_inputs_quantity input').val()
       unitName = $productField.find('.intervention_inputs_quantity select').get(0).selectedOptions[0].dataset.handlerUnit
       targetsData = retrieveTargetsData()
+      sprayVolume = $productField.find("[data-intervention-field='spray-volume']").first().val()
 
-      { product_id: productId, quantity: quantity, unit_name: unitName, targets_data: targetsData, intervention_id: interventionId, input_id: inputId, live_data: liveData }
+      {
+        product_id: productId,
+        quantity: quantity,
+        unit_name: unitName,
+        targets_data: targetsData,
+        intervention_id: interventionId,
+        input_id: inputId,
+        live_data: liveData
+        spray_volume: sprayVolume
+      }
 
 
   sprayingMap =
@@ -195,7 +212,10 @@
       Array.from(document.querySelectorAll(".nested-plant_medicine"))
           .filter((el) => !el.classList.contains('removed-nested-fields'))
           .map (element) =>
-            element.querySelector('.intervention_inputs_product input.selector-value').value
+            productInputelement = element.querySelector('.intervention_inputs_product input.selector-value')
+
+            if productInputelement
+              productInputelement.value
 
     filterProducts: ->
       productsIds = productListManager.retrieveProductsIds()
@@ -211,6 +231,33 @@
       dataSelectorUrl = url.pathname.concat(url.search)
       $productSelector.data('selector', dataSelectorUrl)
       $productSelector.attr('data-selector', dataSelectorUrl)
+
+  sprayVolume = {
+    selectors: {
+      primaryInput: ".master-spray-volume input[id$='measure_value_value']",
+      replicaInput: "[data-intervention-field='spray-volume']",
+    }
+
+    bindEvents: () ->
+      $(document).on 'input', @selectors.primaryInput, ->
+        $replicaInputs = $(sprayVolume.selectors.replicaInput)
+        sprayVolume._updateReplicaInputs($replicaInputs, this.value)
+      
+      $(document).on 'cocoon:after-insert', '.nested-inputs', (_e, $insertedItem) ->
+        $replicaInput = $insertedItem.find(sprayVolume.selectors.replicaInput)
+        value = $(sprayVolume.selectors.replicaInput)
+          .toArray()
+          .filter( (e) -> e.value != '' )
+          .map( (e) -> e.value )[0]
+        sprayVolume._updateReplicaInputs($replicaInput, value || '', false)
+
+    _updateReplicaInputs: (replicaInputs, value, trigger = true ) ->
+      replicaInputs.each () ->
+        $(this).val(value)
+        $(this).trigger('change') if trigger
+  }
+
+  sprayVolume.bindEvents()
 
   # Update products infos on target remove
   $(document).on 'cocoon:after-remove', '.nested-targets', ->
@@ -247,6 +294,15 @@
   $(document).on 'input change', "input[data-intervention-field='quantity-value']", ->
     productsInfos.display()
     usageDoseInfos.display($(this), $(this).closest('.nested-plant_medicine'))
+
+  $(document).on 'input change', "input[data-intervention-field='spray-volume']", ->
+    productsInfos.display()
+    $nestedPlantMedicine = $(this).closest('.nested-plant_medicine')
+    usageDoseInfos.display($nestedPlantMedicine.find("input[data-intervention-field='quantity-value']"), $nestedPlantMedicine)
+  
+  $(document).on 'input change', "input[data-intervention-field='working-zone-area-value']", ->
+    productsInfos.display()
+    usageDoseInfos.displayAll()
 
   $(document).on 'selector:clear', "[data-selector-id='intervention_input_usage_id']", ->
     $('.nested-plant_medicine').each -> usageMainInfos.displayAuthorizationDisclaimer($(this), true)

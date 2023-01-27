@@ -9,7 +9,7 @@ module Backend
       # usage PPAMC*Trt Part.Aer.*Maladies fongiques - mildiou
       # 3,3 kg/ha - 3 times max
       @product = create :phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2000087_copless')
-      @usage = RegisteredPhytosanitaryUsage.find('20200825141049365674')
+      @usage = RegisteredPhytosanitaryUsage.find('20220419145719695491')
       # create 2 interventions
       2.times { |index| create_intervention(index) }
       user_sign_in

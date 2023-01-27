@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="all_in_one_sowing" categories="planting, fertilizing, crop_protection" actions="sowing, fertilization" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent">
+  <procedure name="all_in_one_sowing" categories="planting, fertilizing, crop_protection" actions="sowing, fertilization" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent" position="22">
     <parameters>
       <group name="zone">
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">

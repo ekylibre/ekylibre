@@ -202,19 +202,22 @@
   E.updateTransferPrice = (element) ->
     frequencies = element.closest('.transfered-activity').prev('.frequencies')
     budget = frequencies.prev('.budget')
-    wu = if $('th.with-some-supports').css('display') != 'none' then '-per-working-unit' else ''
-    non_taken_revenue = budget.find('.revenue-amount'+wu).numericalValue()
-    revenues = $(".revenue-amount"+wu)
-    expenses = $('#expenses-amount'+wu).numericalValue()
-    mapped_revenues = $.map revenues, (val, i) ->
-      $(val).numericalValue()
+    non_taken_revenue = budget.find('.revenue-amount').data('trueValue')
+    mapped_expenses = $.map $('.expense-amount'), (val, i) ->
+      $(val).data('trueValue')
+    expenses_sum = 0
+    $.each mapped_expenses, ->
+      expenses_sum += parseFloat(this)
+    mapped_revenues = $.map $(".revenue-amount"), (val, i) ->
+      $(val).data('trueValue')
     revenues_sum = -(non_taken_revenue);
     $.each mapped_revenues, ->
-      revenues_sum += this
+      revenues_sum += parseFloat(this)
     quantity = parseFloat(budget.find('.budget-quantity').val())
-    transfer_price = ((expenses - revenues_sum)/quantity).toFixed(2)
+    coefficient = if $('.budget-coeff').val() then $('.budget-coeff').val() else 1
+    transfer_price = ((expenses_sum - revenues_sum)/(coefficient * quantity))
     transfer_price = if $.isNumeric(transfer_price) then transfer_price else 0.00
-    frequencies.find('.transfer-price-box').html(transfer_price)
+    frequencies.find('.transfer-price-box').html(C.toBudgetCurrency(transfer_price))
     frequencies.find('.v-transfer-price').attr('value', transfer_price)
     if element.is(':checked')
       budget.find('.activity_budget_revenues_unit_amount span input').attr('value',transfer_price).prop('value',transfer_price)

@@ -12,6 +12,14 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
   $size: $fs-normal;
   background: white;
 
+  &.active {
+    border-color: $active-color;
+
+    .fieldset-legend {
+      background-color: rgba($active-color, 0.12);
+    }
+  }
+
   .fieldset-legend {
     padding: $vertical-spacing $spacing;
 
@@ -123,6 +131,28 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
       @include margin-right(0);
     }
 
+  }
+
+  &.subfieldset {
+    &.collapsed {
+      .buttons .toggle {
+        @include use-icon(plus-square-o);
+      }
+  
+      .fieldset-fields {
+        display: none;
+      }
+    }
+  
+    &.not-collapsed .buttons .toggle {
+      @include use-icon(minus-square-o);
+    }
+  
+    &.error.collapsed .fieldset-legend {
+      &, *, label, span {
+        color: $invalid-color;
+      }
+    }
   }
 
   &.collapsed {

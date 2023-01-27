@@ -2101,7 +2101,7 @@ journal_entries_079:
   journal_id: 2
   lock_version: 7
   number: BNK000010
-  printed_on: 2016-09-30
+  printed_on: 2016-08-31
   real_balance: 0.0
   real_credit: 1850.0
   real_currency: EUR
@@ -2127,7 +2127,7 @@ journal_entries_080:
   journal_id: 2
   lock_version: 7
   number: BNK000011
-  printed_on: 2016-09-30
+  printed_on: 2016-08-31
   real_balance: 0.0
   real_credit: 176.16
   real_currency: EUR
@@ -2153,7 +2153,7 @@ journal_entries_081:
   journal_id: 10
   lock_version: 7
   number: BNK000012
-  printed_on: 2015-08-28
+  printed_on: 2015-09-01
   real_balance: 0.0
   real_credit: 176.16
   real_currency: EUR

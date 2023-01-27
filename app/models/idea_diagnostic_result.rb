@@ -33,4 +33,7 @@
 class IdeaDiagnosticResult < ApplicationRecord
   belongs_to :idea_diagnostic
 
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :normal_result, :overlap_resut, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
 end

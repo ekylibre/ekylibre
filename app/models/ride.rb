@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,21 +30,23 @@
 #  area_without_overlap :float
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  cultivable_zone_id   :integer(8)
 #  distance_km          :float
 #  duration             :interval
 #  equipment_name       :string
 #  gasoline             :float
 #  id                   :integer          not null, primary key
+#  intervention_id      :integer
 #  lock_version         :integer          default(0), not null
 #  nature               :string
 #  number               :string
 #  product_id           :integer
 #  provider             :jsonb
 #  ride_set_id          :integer
+#  shape                :geometry({:srid=>4326, :type=>"geometry"})
 #  sleep_count          :integer
 #  sleep_duration       :interval
 #  started_at           :datetime
-#  state                :string
 #  stopped_at           :datetime
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -57,6 +59,16 @@ class Ride < ApplicationRecord
   belongs_to :ride_set
   belongs_to :intervention
   has_many :crumbs, dependent: :destroy
+  belongs_to :cultivable_zone
+
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :area_smart, :area_with_overlap, :area_without_overlap, :distance_km, :gasoline, numericality: true, allow_blank: true
+  validates :converting_to_intervention, inclusion: { in: [true, false] }
+  validates :equipment_name, :number, length: { maximum: 500 }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(ride) { ride.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  # ]VALIDATORS]
+  validates :duration, :equipment_name, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
 
   has_interval :duration, :sleep_duration
 
@@ -64,22 +76,29 @@ class Ride < ApplicationRecord
   has_geometry :shape, type: :line_string
 
   scope :of_nature, ->(nature_name) { where(nature: nature_name) }
-
-  acts_as_numbered :number
-  enumerize :nature, in: %i[road work]
-  enumerize :state, in: %i[affected unaffected], default: :unaffected
-
-  state_machine :state do
-    state :unaffected
-    state :affected
-
-    event :link_intervention do
-      transition unaffected: :affected
+  scope :with_state, ->(state) do
+    if state == :affecting
+      where(converting_to_intervention: true)
+    else
+      where("intervention_id IS #{state == :affected ? 'NOT NULL' : 'NULL'}")
     end
   end
 
-  after_update do
-    self.link_intervention if self.intervention_id.present?
+  scope :linkable_to_intervention, -> {
+    with_state(:unaffected).where(nature: :work)
+  }
+
+  acts_as_numbered :number
+  enumerize :nature, in: %i[road work], scope: true
+
+  def state
+    return :affected if intervention_id.present?
+
+    converting_to_intervention ? :affecting : :unaffected
+  end
+
+  def working_zone
+    Rides::ComputeWorkingZone.call(rides: [self])
   end
 
   %i[duration sleep_duration].each do |col|

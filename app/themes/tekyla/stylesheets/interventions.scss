@@ -703,3 +703,27 @@ $preview-modal-height: 80vh;
   padding: round($fs-normal/4) 0;
   font-style: italic;
 }
+
+
+.intervention-request-selector {
+  div:not(:first-child){
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: gray;
+  }
+  ul {
+      display: inline-block;
+      li {
+          list-style-type: none !important;
+          span.title {
+              font-weight: bold;
+          }
+      }
+  }
+}
+
+.show-map-input{
+  margin: $default-gap * 2;
+}

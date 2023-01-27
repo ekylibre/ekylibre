@@ -3,25 +3,7 @@
 module Interventions
   module Phytosanitary
     class PfiClientApi
-      attr_reader :campaign, :activity, :intervention_parameter_input, :area_ratio, :activities
-
-      class << self
-        def down?
-          RestClient.get('https://alim-pprd.agriculture.gouv.fr/ift-api/api/hello')&.code != 200
-        end
-      end
-
-      # set urls for accessing IFT-API
-      # https://alim.agriculture.gouv.fr/ift-api/swagger-ui.html
-      if Rails.env.production?
-        BASE_URL = "https://alim.agriculture.gouv.fr/ift-api"
-      else
-        BASE_URL = "https://alim-pprd.agriculture.gouv.fr/ift-api"
-      end
-      PFI_CAMPAIGN_URL = "/api/campagnes"
-      PFI_COMPUTE_URL = "/api/ift/traitement"
-      PFI_COMPUTE_SIGN_URL = "/api/ift/traitement/certifie"
-      PFI_REPORT_PDF_URL = "/api/ift/bilan/pdf"
+      attr_reader :pfi_client, :campaign, :activity, :intervention_parameter_input, :area_ratio, :activities, :notify_user, :report_title
 
       # transcode unit between IFT-API and Ekylibre
       TRANSCODE_UNIT = {
@@ -39,7 +21,8 @@ module Interventions
       # @param [Decimal] area_ratio
       # @param [<<Array>> Activity] activities
       # @param [String] report_title
-      def initialize(campaign:, activity: nil, intervention_parameter_input: nil, area_ratio: 100, activities: nil, report_title: nil)
+      def initialize(campaign:, activity: nil, intervention_parameter_input: nil, area_ratio: 100, activities: nil, report_title: nil, notify_user: false)
+        @pfi_client = Clients::Gouv::PfiClient.new
         @campaign = campaign
         @activity = activity
         @intervention_parameter_input = intervention_parameter_input
@@ -47,48 +30,55 @@ module Interventions
         # for pdf pfi report only
         @activities = activities.of_families(%i[plant_farming vine_farming]) if activities
         @report_title = report_title || @campaign.name
+        @notify_user = notify_user
+      end
+
+      def down?
+        begin
+          pfi_client.down?
+        rescue RestClient::ExceptionWithResponse => e
+          true
+        end
+      end
+
+      # @param [String] harvest_year
+      # @return [JSON api_response, nil]
+      def get_campaign(harvest_year)
+        begin
+          pfi_client.get_campaign(harvest_year)
+        rescue RestClient::ExceptionWithResponse => e
+          message = :pfi_campaign_not_opened_yet.tl(campaign_harvest_year: harvest_year) if e.http_code == 404
+          url = e.response.request.url
+          notify_api_error_to_creator(error: e, log: url, message: message)
+          nil
+        end
       end
 
       # Compute pfi for one input on intervention
       # @param [Boolean] with_signature
       # @return [JSON api_response, nil]
-      def compute_pfi(with_signature: true, with_notify: false)
-        @notify_user = with_notify
+      def compute_pfi(with_signature: true)
         return nil if @activity.nil? || @intervention_parameter_input.nil? || @intervention_parameter_input.product&.variant&.phytosanitary_product&.adjuvant?
 
         # check if campaign is available on api
-        begin
-          campaign_url = BASE_URL + PFI_CAMPAIGN_URL + "/#{@campaign.harvest_year}"
-          RestClient.get campaign_url
-        rescue RestClient::ExceptionWithResponse => e
-          notify_api_error_to_creator(error: e, log: campaign_url)
-          return nil
-        end
-
-        # build url if we want signature
-        if with_signature == true
-          url = BASE_URL + PFI_COMPUTE_SIGN_URL
-        else
-          url = BASE_URL + PFI_COMPUTE_URL
-        end
+        return if get_campaign(@campaign.harvest_year.to_s).nil?
 
         # build params and return nil if no mandatory params is set
         p = build_params(@intervention_parameter_input)
         if p
           # call API and get response
           begin
-            call = RestClient::Request.execute(method: :get, url: url, headers: { params: p })
-            response = JSON.parse(call.body).deep_symbolize_keys
+            response = pfi_client.compute(p, with_signature: with_signature)
             if response.dig(:iftTraitement, :avertissement)
               notify_api_warnings_to_creator(warning: response[:iftTraitement][:avertissement][:libelle])
             end
             response
           rescue RestClient::ExceptionWithResponse => e
-            notify_api_error_to_creator(error: e, log: "headers: #{p}, url: #{url}")
+            url = e.response.request.url
+            headers = e.response.request.headers
+            notify_api_error_to_creator(error: e, log: "headers: #{headers}, url: #{url}")
             nil
           end
-        else
-          nil
         end
       end
 
@@ -103,14 +93,11 @@ module Interventions
           return { status: :e_activities_production_nature, body: activities_missing_pn.pluck(:name).to_sentence }
         end
 
-        url = BASE_URL + PFI_REPORT_PDF_URL
-        params = "?campagneIdMetier=#{grab_harvest_year}&titre=#{@report_title}"
-        url << params
         # params["parcellesCultivees"] = build_crops
         body = build_crops
         # call API and get response
         begin
-          response = RestClient.post url, body.to_json, content_type: 'application/json'
+          response = pfi_client.compute_report(grab_harvest_year, report_title, body)
           { status: true, body: response.body }
           # RestClient::Request.execute(method: :post, url: url, payload: body, headers: params)
         rescue RestClient::ExceptionWithResponse => err
@@ -168,7 +155,7 @@ module Interventions
               crop["culture"] = { idMetier: grab_pfi_crop_code(activity), libelle: "", groupeCultures: { idMetier: "", libelle: "" } }
               crop["parcelle"] = { nom: ap.name, surface: ap.support_shape_area.convert(:hectare).to_f.round(2) }
               crop["traitements"] = []
-              ap.interventions.of_nature_using_phytosanitary.each do |int|
+              ap.interventions.where(nature: 'record').of_campaign(@campaign).of_nature_using_phytosanitary.each do |int|
                 int.inputs.each do |intervention_input|
                   treatment = compute_crop_interventions_for_pfi_report(ap, intervention_input)
                   crop["traitements"] << treatment if treatment && !intervention_input.product&.variant&.phytosanitary_product&.adjuvant?
@@ -219,8 +206,6 @@ module Interventions
         def grab_pfi_crop_code(activity)
           if activity.production_nature&.pfi_crop
             activity.production_nature&.pfi_crop&.tfi_code
-          else
-            nil
           end
         end
 
@@ -228,8 +213,6 @@ module Interventions
           if intervention_input&.usage&.target_name_label_fra
             pfi_target = intervention_input.usage.pfi_target
             pfi_target.default_pfi_treatment_type_id if pfi_target
-          else
-            nil
           end
         end
 
@@ -238,19 +221,13 @@ module Interventions
             pfi_target = intervention_input.usage.pfi_target
             if pfi_target && pfi_target.pfi_id.present?
               pfi_target.pfi_id
-            else
-              nil
             end
-          else
-            nil
           end
         end
 
         def grab_france_maaid_from_usage(intervention_input)
           if intervention_input&.usage&.france_maaid
             intervention_input.usage.france_maaid
-          else
-            nil
           end
         end
 
@@ -263,22 +240,20 @@ module Interventions
             when :mass_area_density then quantity_area.convert(:kilogram_per_hectare)
             else nil
             end
-          else
-            nil
           end
         end
 
-        def notify_api_error_to_creator(error: nil, log: "")
+        def notify_api_error_to_creator(error: nil, log: "", message: nil)
           code = error.http_code
           error_message = I18n.t('labels.pfi_client_error', campaign: @campaign.name, activity: @activity.name, input: @intervention_parameter_input.name, intervention: @intervention_parameter_input.intervention.name, loggable: log)
           ExceptionNotifier.notify_exception(error, data: { message: error_message }) if code.to_s == '400'
           creator = @intervention_parameter_input.intervention.creator
           if @notify_user && creator
-            message = if code.to_s == '404'
-                        :pfi_api_down.tl
-                      else
-                        :pfi_api_error.tl
-                      end
+            message ||= if code.to_s == '404'
+                          :pfi_api_down.tl
+                        else
+                          :pfi_api_error.tl
+                        end
             creator.notifications.create!({
               message: message,
               level: :error,

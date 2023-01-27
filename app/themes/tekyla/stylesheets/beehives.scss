@@ -38,7 +38,6 @@ $configuring-min-height: 400px;
       display: block;
       vertical-align: top;
 
-
       .cell-inner {
         background: white;
         border: $cell-border;
@@ -74,6 +73,29 @@ $configuring-min-height: 400px;
           }
         }
 
+        .cell-header {
+          position: relative;
+          i[data-cell="info"] {
+            position: absolute;
+            top: -30px;
+            right: 30px;
+            font-family: Agric;
+            color: #5c85d5;
+            font-size: x-large;
+            @include use-icon(info-outline);
+          }
+          i[data-cell="info"]:hover{
+            cursor: pointer;
+          }
+        }
+
+        .cell-footer {
+          color: $neutral-color;
+          font-weight: bold;
+          padding: 9px 25px;
+          text-align: right;
+        }
+
         .cell-content {
           // padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
           height: auto;
@@ -88,6 +110,7 @@ $configuring-min-height: 400px;
           clear: both;
         }
       }
+
       &.dragging, &.ui-sortable-helper {
         width: auto;
         .cell-inner {

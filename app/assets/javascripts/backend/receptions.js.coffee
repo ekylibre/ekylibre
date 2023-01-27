@@ -132,6 +132,9 @@
   updateQuantities = ($form) =>
     $form.find('.storing-quantity').each -> updateQuantity $(this)
 
+  $(document).on 'selector:change', '.reception_sender .controls .selector, .purchase_invoice_supplier .controls .selector', (event) ->
+    $('#showReconciliationModal').removeClass('disabled')
+
   $(document).on 'keyup change', '.nested-fields .item-form__role .storing-quantifier .storing-quantity', (event) ->
     onQuantityChanged $(this)
 

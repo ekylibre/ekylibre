@@ -2,7 +2,7 @@
 <navigation>
   <part name="relationship" icon="people">
     <page to="backend/dashboards#relationship"/>
-    <group name="entities" icon="group">
+    <group name="entities" icon="user-friends">
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>
@@ -93,7 +93,7 @@
       </item>
     </group>
   </part>
-  <part name="accountancy" icon="money">
+  <part name="accountancy" icon="calculator">
     <page to="backend/dashboards#accountancy"/>
     <group name="journals" icon="book">
       <item name="journals">
@@ -148,6 +148,7 @@
       </item>
       <item name="entries_ledger">
         <page to="backend/entries_ledgers#show"/>
+        <page to="backend/entries_ledgers#update_jei"/>
         <page to="backend/entries_ledgers#list_journal_entry_items"/>
       </item>
       <item name="general_ledger">
@@ -181,7 +182,7 @@
         <page to="backend/financial_year_exchanges#close"/>
       </item>
     </group>
-    <group name="fixed_assets" icon="home">
+    <group name="fixed_assets" icon="assets">
       <item name="fixed_assets">
         <page to="backend/fixed_assets#index"/>
         <page to="backend/fixed_assets#create"/>
@@ -201,7 +202,7 @@
         <page to="backend/fixed_assets#start_up"/>
       </item>
     </group>
-    <group name="vat" icon="legal">
+    <group name="vat" icon="percent">
       <item name="tax_declarations">
         <page to="backend/tax_declarations#index"/>
         <page to="backend/tax_declarations#create"/>
@@ -522,9 +523,9 @@
       </item>
     </group>
   </part>
-  <part name="stocks" icon="truck">
+  <part name="stocks" icon="warehouse-full">
     <page to="backend/dashboards#stocks"/>
-    <group name="stocks" icon="matter">
+    <group name="stocks" icon="warehouse-full">
       <item name="stocks">
         <page to="backend/matters#index"/>
         <page to="backend/matters#create"/>
@@ -585,6 +586,11 @@
         <page to="backend/product_localizations#edit"/>
         <page to="backend/product_localizations#new"/>
         <page to="backend/product_localizations#update"/>
+        <page to="backend/product_readings#create"/>
+        <page to="backend/product_readings#destroy"/>
+        <page to="backend/product_readings#edit"/>
+        <page to="backend/product_readings#new"/>
+        <page to="backend/product_readings#update"/>
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#create"/>
         <page to="backend/product_groups#destroy"/>
@@ -625,15 +631,6 @@
         <page to="backend/inventories#unroll"/>
         <page to="backend/inventories#update"/>
       </item>
-      <item name="conditionings">
-        <page to="backend/conditionings#index"/>
-        <page to="backend/conditionings#new"/>
-        <page to="backend/conditionings#create"/>
-        <page to="backend/conditionings#edit"/>
-        <page to="backend/conditionings#update"/>
-        <page to="backend/conditionings#destroy"/>
-        <page to="backend/conditionings#show"/>
-      </item>
       <item name="building_divisions">
         <page to="backend/building_divisions#index"/>
         <page to="backend/building_divisions#create"/>
@@ -664,7 +661,7 @@
         <page to="backend/building_divisions#picture"/>
       </item>
     </group>
-    <group name="receptions" icon="truck">
+    <group name="receptions" icon="box">
       <item name="unreceived_purchase_orders">
         <page to="backend/unreceived_purchase_orders#index"/>
         <page to="backend/unreceived_purchase_orders#create"/>
@@ -687,7 +684,7 @@
         <page to="backend/receptions#list_items"/>
       </item>
     </group>
-    <group name="shipments" icon="truck">
+    <group name="shipments" icon="pallet-boxes">
       <item name="shipments">
         <page to="backend/shipments#index"/>
         <page to="backend/shipments#create"/>
@@ -744,9 +741,9 @@
       </item>
     </group>
   </part>
-  <part name="production" icon="cogs">
+  <part name="production" icon="farm">
     <page to="backend/dashboards#production"/>
-    <group name="production" icon="cogs">
+    <group name="production" icon="farm">
       <item name="activities">
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
@@ -1127,7 +1124,7 @@
       </item>
     </group>
   </part>
-  <part name="humans">
+  <part name="humans" icon="user-cowboy">
     <page to="backend/dashboards#humans"/>
     <group name="payslips" icon="archive">
       <item name="payslips">
@@ -1201,8 +1198,22 @@
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#list_trackings"/>
+        <page to="backend/workers#list_time_logs"/>
         <page to="backend/workers#picture"/>
         <page to="backend/workers#take"/>
+        <page to="backend/workers#unroll"/>
+      </item>
+      <item name="worker_groups">
+        <page to="backend/worker_groups#index"/>
+        <page to="backend/worker_groups#create"/>
+        <page to="backend/worker_groups#destroy"/>
+        <page to="backend/worker_groups#edit"/>
+        <page to="backend/worker_groups#list"/>
+        <page to="backend/worker_groups#new"/>
+        <page to="backend/worker_groups#show"/>
+        <page to="backend/worker_groups#update"/>
+        <page to="backend/worker_groups#edit_many"/>
+        <page to="backend/worker_groups#update_many"/>
         <page to="backend/workers#unroll"/>
       </item>
       <item name="worker_contracts">
@@ -1211,16 +1222,26 @@
         <page to="backend/worker_contracts#destroy"/>
         <page to="backend/worker_contracts#edit"/>
         <page to="backend/worker_contracts#list"/>
+        <page to="backend/worker_contracts#list_distributions"/>
         <page to="backend/worker_contracts#new"/>
         <page to="backend/worker_contracts#show"/>
         <page to="backend/worker_contracts#picture"/>
         <page to="backend/worker_contracts#unroll"/>
       </item>
+      <item name="worker_time_logs">
+        <page to="backend/worker_time_logs#index"/>
+        <page to="backend/worker_time_logs#create"/>
+        <page to="backend/worker_time_logs#destroy"/>
+        <page to="backend/worker_time_logs#edit"/>
+        <page to="backend/worker_time_logs#list"/>
+        <page to="backend/worker_time_logs#new"/>
+        <page to="backend/worker_time_logs#show"/>
+      </item>
     </group>
   </part>
   <part name="tools" icon="magic">
     <page to="backend/dashboards#tools"/>
-    <group name="exchanges">
+    <group name="exchanges" icon="exchange">
       <item name="imports">
         <page to="backend/imports#index"/>
         <page to="backend/imports#run"/>
@@ -1414,79 +1435,7 @@
         <page to="backend/settings#about"/>
       </item>
     </group>
-    <group name="products" icon="wheat">
-      <item name="product_nature_categories">
-        <page to="backend/product_nature_categories#index"/>
-        <page to="backend/variant_categories/animal_categories#index"/>
-        <page to="backend/variant_categories/article_categories#index"/>
-        <page to="backend/variant_categories/crop_categories#index"/>
-        <page to="backend/variant_categories/equipment_categories#index"/>
-        <page to="backend/variant_categories/service_categories#index"/>
-        <page to="backend/variant_categories/worker_categories#index"/>
-        <page to="backend/variant_categories/zone_categories#index"/>
-        <page to="backend/variant_categories/animal_categories#pick"/>
-        <page to="backend/variant_categories/article_categories#pick"/>
-        <page to="backend/variant_categories/crop_categories#pick"/>
-        <page to="backend/variant_categories/equipment_categories#pick"/>
-        <page to="backend/variant_categories/service_categories#pick"/>
-        <page to="backend/variant_categories/worker_categories#pick"/>
-        <page to="backend/variant_categories/zone_categories#pick"/>
-        <page to="backend/variant_categories/animal_categories#incorporate"/>
-        <page to="backend/variant_categories/article_categories#incorporate"/>
-        <page to="backend/variant_categories/crop_categories#incorporate"/>
-        <page to="backend/variant_categories/equipment_categories#incorporate"/>
-        <page to="backend/variant_categories/service_categories#incorporate"/>
-        <page to="backend/variant_categories/worker_categories#incorporate"/>
-        <page to="backend/variant_categories/zone_categories#incorporate"/>
-        <page to="backend/product_nature_categories#create"/>
-        <page to="backend/product_nature_categories#destroy"/>
-        <page to="backend/product_nature_categories#edit"/>
-        <page to="backend/product_nature_categories#incorporate"/>
-        <page to="backend/product_nature_categories#list"/>
-        <page to="backend/product_nature_categories#list_products"/>
-        <page to="backend/product_nature_categories#list_product_natures" nonexistent="true"/>
-        <page to="backend/product_nature_categories#list_taxations"/>
-        <page to="backend/product_nature_categories#new"/>
-        <page to="backend/product_nature_categories#pick"/>
-        <page to="backend/product_nature_categories#show"/>
-        <page to="backend/product_nature_categories#unroll"/>
-        <page to="backend/product_nature_categories#update"/>
-      </item>
-      <item name="product_natures">
-        <page to="backend/product_natures#index"/>
-        <page to="backend/variant_types/animal_types#index"/>
-        <page to="backend/variant_types/article_types#index"/>
-        <page to="backend/variant_types/crop_types#index"/>
-        <page to="backend/variant_types/equipment_types#index"/>
-        <page to="backend/variant_types/service_types#index"/>
-        <page to="backend/variant_types/worker_types#index"/>
-        <page to="backend/variant_types/zone_types#index"/>
-        <page to="backend/variant_types/animal_types#pick"/>
-        <page to="backend/variant_types/article_types#pick"/>
-        <page to="backend/variant_types/crop_types#pick"/>
-        <page to="backend/variant_types/equipment_types#pick"/>
-        <page to="backend/variant_types/service_types#pick"/>
-        <page to="backend/variant_types/worker_types#pick"/>
-        <page to="backend/variant_types/zone_types#pick"/>
-        <page to="backend/variant_types/animal_types#incorporate"/>
-        <page to="backend/variant_types/article_types#incorporate"/>
-        <page to="backend/variant_types/crop_types#incorporate"/>
-        <page to="backend/variant_types/equipment_types#incorporate"/>
-        <page to="backend/variant_types/service_types#incorporate"/>
-        <page to="backend/variant_types/worker_types#incorporate"/>
-        <page to="backend/variant_types/zone_types#incorporate"/>
-        <page to="backend/product_natures#create"/>
-        <page to="backend/product_natures#destroy"/>
-        <page to="backend/product_natures#edit"/>
-        <page to="backend/product_natures#incorporate"/>
-        <page to="backend/product_natures#list"/>
-        <page to="backend/product_natures#new"/>
-        <page to="backend/product_natures#pick"/>
-        <page to="backend/product_natures#show"/>
-        <page to="backend/product_natures#update"/>
-        <page to="backend/product_natures#list_variants"/>
-        <page to="backend/product_natures#unroll"/>
-      </item>
+    <group name="product_catalogue" icon="wheat">
       <item name="product_nature_variants">
         <page to="backend/product_nature_variants#index"/>
         <page to="backend/variants/animal_variants#index"/>
@@ -1600,6 +1549,15 @@
         <page to="backend/product_nature_variant_components#autocomplete"/>
         <page to="backend/product_nature_variant_components#unroll"/>
       </item>
+      <item name="conditionings">
+        <page to="backend/conditionings#index"/>
+        <page to="backend/conditionings#new"/>
+        <page to="backend/conditionings#create"/>
+        <page to="backend/conditionings#edit"/>
+        <page to="backend/conditionings#update"/>
+        <page to="backend/conditionings#destroy"/>
+        <page to="backend/conditionings#show"/>
+      </item>
       <item name="catalogs">
         <page to="backend/catalogs#index"/>
         <page to="backend/catalogs#create"/>
@@ -1620,14 +1578,77 @@
         <page to="backend/catalog_items#unroll"/>
         <page to="backend/catalog_items#update"/>
       </item>
-      <item name="reference_units">
-        <page to="backend/reference_units#index"/>
-        <page to="backend/reference_units#new"/>
-        <page to="backend/reference_units#create"/>
-        <page to="backend/reference_units#edit"/>
-        <page to="backend/reference_units#update"/>
-        <page to="backend/reference_units#destroy"/>
-        <page to="backend/reference_units#show"/>
+      <item name="product_nature_categories">
+        <page to="backend/product_nature_categories#index"/>
+        <page to="backend/variant_categories/animal_categories#index"/>
+        <page to="backend/variant_categories/article_categories#index"/>
+        <page to="backend/variant_categories/crop_categories#index"/>
+        <page to="backend/variant_categories/equipment_categories#index"/>
+        <page to="backend/variant_categories/service_categories#index"/>
+        <page to="backend/variant_categories/worker_categories#index"/>
+        <page to="backend/variant_categories/zone_categories#index"/>
+        <page to="backend/variant_categories/animal_categories#pick"/>
+        <page to="backend/variant_categories/article_categories#pick"/>
+        <page to="backend/variant_categories/crop_categories#pick"/>
+        <page to="backend/variant_categories/equipment_categories#pick"/>
+        <page to="backend/variant_categories/service_categories#pick"/>
+        <page to="backend/variant_categories/worker_categories#pick"/>
+        <page to="backend/variant_categories/zone_categories#pick"/>
+        <page to="backend/variant_categories/animal_categories#incorporate"/>
+        <page to="backend/variant_categories/article_categories#incorporate"/>
+        <page to="backend/variant_categories/crop_categories#incorporate"/>
+        <page to="backend/variant_categories/equipment_categories#incorporate"/>
+        <page to="backend/variant_categories/service_categories#incorporate"/>
+        <page to="backend/variant_categories/worker_categories#incorporate"/>
+        <page to="backend/variant_categories/zone_categories#incorporate"/>
+        <page to="backend/product_nature_categories#create"/>
+        <page to="backend/product_nature_categories#destroy"/>
+        <page to="backend/product_nature_categories#edit"/>
+        <page to="backend/product_nature_categories#incorporate"/>
+        <page to="backend/product_nature_categories#list"/>
+        <page to="backend/product_nature_categories#list_products"/>
+        <page to="backend/product_nature_categories#list_product_natures" nonexistent="true"/>
+        <page to="backend/product_nature_categories#list_taxations"/>
+        <page to="backend/product_nature_categories#new"/>
+        <page to="backend/product_nature_categories#pick"/>
+        <page to="backend/product_nature_categories#show"/>
+        <page to="backend/product_nature_categories#unroll"/>
+        <page to="backend/product_nature_categories#update"/>
+      </item>
+      <item name="product_natures">
+        <page to="backend/product_natures#index"/>
+        <page to="backend/variant_types/animal_types#index"/>
+        <page to="backend/variant_types/article_types#index"/>
+        <page to="backend/variant_types/crop_types#index"/>
+        <page to="backend/variant_types/equipment_types#index"/>
+        <page to="backend/variant_types/service_types#index"/>
+        <page to="backend/variant_types/worker_types#index"/>
+        <page to="backend/variant_types/zone_types#index"/>
+        <page to="backend/variant_types/animal_types#pick"/>
+        <page to="backend/variant_types/article_types#pick"/>
+        <page to="backend/variant_types/crop_types#pick"/>
+        <page to="backend/variant_types/equipment_types#pick"/>
+        <page to="backend/variant_types/service_types#pick"/>
+        <page to="backend/variant_types/worker_types#pick"/>
+        <page to="backend/variant_types/zone_types#pick"/>
+        <page to="backend/variant_types/animal_types#incorporate"/>
+        <page to="backend/variant_types/article_types#incorporate"/>
+        <page to="backend/variant_types/crop_types#incorporate"/>
+        <page to="backend/variant_types/equipment_types#incorporate"/>
+        <page to="backend/variant_types/service_types#incorporate"/>
+        <page to="backend/variant_types/worker_types#incorporate"/>
+        <page to="backend/variant_types/zone_types#incorporate"/>
+        <page to="backend/product_natures#create"/>
+        <page to="backend/product_natures#destroy"/>
+        <page to="backend/product_natures#edit"/>
+        <page to="backend/product_natures#incorporate"/>
+        <page to="backend/product_natures#list"/>
+        <page to="backend/product_natures#new"/>
+        <page to="backend/product_natures#pick"/>
+        <page to="backend/product_natures#show"/>
+        <page to="backend/product_natures#update"/>
+        <page to="backend/product_natures#list_variants"/>
+        <page to="backend/product_natures#unroll"/>
       </item>
     </group>
     <group name="access" icon="shield">

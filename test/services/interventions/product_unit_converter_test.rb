@@ -103,7 +103,12 @@ module Interventions
 
     test 'convert_net_into_area_density handles conversion from net to net_area_density' do
       assert_measure_equal 1.in(:liter_per_hectare), @converter.convert_net_into_area_density(5.in(:liter), into: unit(:liter_per_hectare), area: Maybe(5.in(:hectare))).or_raise
-      assert_measure_equal 0.1.in(:gram_per_square_meter), @converter.convert_net_into_area_density(5_000.in(:kilogram), into: unit(:gram_per_square_meter), area: Maybe(50_000.in(:square_meter))).or_raise
+      assert_measure_equal 100.in(:gram_per_square_meter), @converter.convert_net_into_area_density(5_000.in(:kilogram), into: unit(:gram_per_square_meter), area: Maybe(50_000.in(:square_meter))).or_raise
+    end
+
+    test 'convert_net_into_area_density handles conversion from net to net_area_density even even if units are of the same dimension but differents' do
+      assert_measure_equal 1000.in(:liter_per_hectare), @converter.convert_net_into_area_density(5.in(:cubic_meter), into: unit(:liter_per_hectare), area: Maybe(5.in(:hectare))).or_raise
+      assert_measure_equal 1000.in(:liter_per_hectare), @converter.convert_net_into_area_density(5000.in(:liter), into: unit(:liter_per_hectare), area: Maybe(50_000.in(:square_meter))).or_raise
     end
 
     test 'convert_net_into_area_density does not handle net unit conversion' do
@@ -144,8 +149,46 @@ module Interventions
       assert_measure_equal 2.in(:liter), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:liter), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
       assert_measure_equal 1.in(:kilogram), @converter.convert_concentration_into_net(2.in(:liter_per_hectoliter), into: unit(:kilogram), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
       assert_measure_equal 1.in(:kilogram), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:kilogram), area: Maybe(50_000.in(:square_meter)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise
-      assert_equal None(), @converter.convert_concentration_into_net(1.in(:kilogram_per_hectoliter), into: unit(:kilogram), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:milliliter_per_square_meter)))
-      assert_equal None(), @converter.convert_concentration_into_net(1.in(:gram_per_liter), into: unit(:kilogram), area: Maybe(5.in(:hectare)), net_mass: Maybe(1.in(:kilogram)), net_volume: Maybe(2.in(:liter)), spray_volume: Maybe(20.in(:milliliter_per_square_meter)))
+    end
+
+    test 'convert handler conversion from mass to mass_concentration and back' do
+      [
+        [1.in(:kilogram), 1.in(:kilogram_per_hectoliter), unit(:kilogram)],
+        [2.in(:liter), 2.in(:liter_per_hectoliter), unit(:liter)],
+        [2.in(:liter), 1.in(:kilogram_per_hectoliter), unit(:liter)],
+        [1.in(:kilogram), 2.in(:liter_per_hectoliter), unit(:kilogram)],
+
+        [1.in(:kilogram_per_hectoliter), 1.in(:kilogram), unit(:kilogram_per_hectoliter)],
+        [2.in(:liter_per_hectoliter), 2.in(:liter), unit(:liter_per_hectoliter)],
+        [1.in(:kilogram_per_hectoliter), 2.in(:liter), unit(:kilogram_per_hectoliter)],
+        [2.in(:liter_per_hectoliter), 1.in(:kilogram), unit(:liter_per_hectoliter)]
+
+      ].each do |expected, measure, into|
+        assert_measure_equal(expected,
+                             @converter.convert(measure,
+                                                into: into,
+                                                area: Maybe(5.in(:hectare)),
+                                                net_mass: Maybe(1.in(:kilogram)),
+                                                net_volume: Maybe(2.in(:liter)),
+                                                spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise)
+      end
+    end
+
+    test 'convert handler conversion from area_density to concentration and back' do
+      [
+        [10.in(:kilogram_per_hectoliter), 2.in(:kilogram_per_hectare), unit(:kilogram_per_hectoliter)],
+        [2.in(:kilogram_per_hectare), 10.in(:kilogram_per_hectoliter), unit(:kilogram_per_hectare)],
+        [10.in(:liter_per_hectoliter), 2.in(:liter_per_hectare), unit(:liter_per_hectoliter)],
+        [2.in(:liter_per_hectare), 10.in(:liter_per_hectoliter), unit(:liter_per_hectare)],
+      ].each do |expected, measure, into|
+        assert_measure_equal(expected,
+                             @converter.convert(measure,
+                                                into: into,
+                                                area: Maybe(50_000.in(:square_meter)),
+                                                net_mass: Maybe(1.in(:kilogram)),
+                                                net_volume: Maybe(2.in(:liter)),
+                                                spray_volume: Maybe(20.in(:liter_per_hectare))).or_raise)
+      end
     end
 
     test 'convert handles conversion from concentration to population' do

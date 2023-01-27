@@ -3,7 +3,7 @@ require 'test_helper'
 module Backend
   class ActivitiesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions duplicate: { params: { source_activity_id: 1 } },
-                               except: %i[show compute_pfi_report add_itk_on_activities]
+                               except: %i[show compute_pfi_report add_itk_on_activities generate_budget traceability_xslx_export global_costs_xslx_export]
 
     test 'show action' do
       get :show, params: { id: 'NaID', redirect: root_url, locale: @locale }
@@ -26,5 +26,13 @@ module Backend
       assert_response :success
       assert_select 'div.cobble-stock-in-ground', count: 0
     end
+
+    # Uncomment when action cable becomes testable
+
+    # test 'generate_budget action' do
+    #   activity = create :activity
+    #   post :generate_budget, params: { id: activity.id }
+    #   assert_redirect
+    # end
   end
 end

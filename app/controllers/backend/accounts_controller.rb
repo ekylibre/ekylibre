@@ -59,7 +59,7 @@ module Backend
 
       t3e @account
       dataset_params = {
-        states: params[:states].to_h,
+        states: params[:states]&.to_unsafe_h,
         lettering_state: params[:lettering_state],
         account: @account,
         period: params[:period],
@@ -147,7 +147,7 @@ module Backend
 
       if request.post?
         if params[:journal_entry_item]
-          letter = @account.mark(params[:journal_entry_item].select { |_k, v| v[:to_mark].to_i == 1 }.collect { |k, _v| k.to_i })
+          letter = @account.mark(params[:journal_entry_item].to_unsafe_h.select { |_k, v| v[:to_mark].to_i == 1 }.collect { |k, _v| k.to_i })
           if letter.nil?
             notify_error_now(:cannot_mark_entry_items)
           else

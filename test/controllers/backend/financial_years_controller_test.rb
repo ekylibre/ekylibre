@@ -56,6 +56,8 @@ module Backend
       Regularization.delete_all
       Payslip.delete_all
       JournalEntry.delete_all
+      user = User.first
+
       setup_allocation
 
       @company.update!(legal_position_code: "SA")
@@ -125,8 +127,17 @@ module Backend
         allocations: allocations
       }
 
+      @financial_year.reload
+
       assert_equal 1, flash[:notifications]['success'].count
-      assert @financial_year.reload.close(User.first, nil, result_journal: result)
+      result = FinancialYearClose.for_year(@financial_year,
+                                           close_on: @financial_year.stopped_on,
+                                           user: user,
+                                           result_journal: result,
+                                           closure_journal: closing,
+                                           forward_journal: forward,
+                                           allocations: allocations).execute
+      assert result
 
       @company.update!(legal_position_code: "GAEC")
       @next_year2 = create(:financial_year, started_on: Date.new(2010, 1, 1), stopped_on: Date.new(2010, 12, 31))

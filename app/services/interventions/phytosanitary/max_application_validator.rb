@@ -3,20 +3,20 @@
 module Interventions
   module Phytosanitary
     class MaxApplicationValidator < ProductApplicationValidator
-      attr_reader :targets_and_shape, :intervention_to_ignore, :intervention_stopped_at
+      attr_reader :targets_zone, :intervention_to_ignore, :intervention_stopped_at
 
-      # @param [Array<Models::TargetAndShape>] targets_and_shape
+      # @param [Array<Models::TargetZone>] targets_zone
       # @option [Intervention, nil] intervention_to_ignore
       # @option [DateTime, nil] intervention_stopped_at
-      def initialize(targets_and_shape:, intervention_to_ignore: nil, intervention_stopped_at: nil)
-        @targets_and_shape = targets_and_shape
+      def initialize(targets_zone:, intervention_to_ignore: nil, intervention_stopped_at: nil)
+        @targets_zone = targets_zone
         @intervention_to_ignore = intervention_to_ignore
         @intervention_stopped_at = intervention_stopped_at
       end
 
       # @return [Array<Charta::Geometry>]
       def get_targeted_zones
-        targets_and_shape.map(&:shape)
+        targets_zone.map(&:shape)
       end
 
       # @param [Product] product
@@ -41,7 +41,7 @@ module Interventions
       def validate(products_usages)
         result = Models::ProductApplicationResult.new
 
-        if targets_and_shape.empty? || intervention_stopped_at.nil?
+        if targets_zone.empty? || intervention_stopped_at.nil?
           products_usages.each do |product_usage|
             result.vote_unknown(product_usage.product)
           end

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="sowing_with_spraying" categories="planting, crop_protection" actions="sowing" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent">
+  <procedure name="sowing_with_spraying" categories="planting, crop_protection" actions="sowing" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent" position="21">
     <parameters>
       <group name="zone">
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
@@ -54,12 +54,25 @@
                  if="PRODUCT.net_volume? and sum_working_zone_areas(land_parcel) != 0"
                  backward="(POPULATION * PRODUCT.net_volume(liter)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_volume(liter)"/>
+        <handler indicator="specific_weight" unit="kilogram_per_hectoliter"
+                 if="PRODUCT.net_mass? and sum_working_zone_areas(land_parcel) != 0 and (product_usages_among_dimensions(PRODUCT, :mass) == 1)"
+                 backward="POPULATION * PRODUCT.net_mass(kilogram) / ((SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare))"
+                 forward="(VALUE * (SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_mass(kilogram)"/>
+        <handler indicator="volume_density" unit="liter_per_hectoliter"
+                 if="PRODUCT.net_volume? and sum_working_zone_areas(land_parcel) != 0 and (product_usages_among_dimensions(PRODUCT, :volume) == 1)"
+                 backward="POPULATION * PRODUCT.net_volume(liter) / ((SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare))"
+                 forward="(VALUE * (SPRAY_VOLUME_VALUE / 100) * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT.net_volume(liter)"/>
+        <attribute name="spray_volume_value" />
       </input>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="is motorized_vehicle and (can tow(equipment) or can sow)" cardinality="*"/>
       <tool name="sower" filter="is equipment and can sow" cardinality="*"/>
-      <tool name="sprayer" filter="is equipment and can spray" cardinality="*"/>
+      <tool name="sprayer" filter="is equipment and can spray" cardinality="*">
+        <reading name="nominal_storable_net_volume" />
+        <reading name="application_width" />
+        <reading name="rows_count" />
+      </tool>
     </parameters>
   </procedure>
 </procedures>

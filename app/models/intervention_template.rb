@@ -1,21 +1,76 @@
 # frozen_string_literal: true
 
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2022 Ekylibre SAS
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: intervention_templates
+#
+#  active                          :boolean          default(TRUE)
+#  campaign_id                     :integer
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  description                     :string
+#  id                              :integer          not null, primary key
+#  intervention_model_id           :string
+#  name                            :string
+#  originator_id                   :integer
+#  preparation_time_hours          :integer
+#  preparation_time_minutes        :integer
+#  procedure_name                  :string
+#  technical_workflow_procedure_id :string
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
+#  workflow                        :decimal(, )
+#
+
 class InterventionTemplate < ApplicationRecord
+  enumerize :workflow_unit, in: %i[hectare_per_hour plant_per_hour], default: :hectare_per_hour, predicates: true
+  composed_of :workflow, class_name: 'Measure', mapping: [%w[workflow_value to_d], %w[workflow_unit unit]]
   # Relation
-  has_many :product_parameters, class_name: ::InterventionTemplate::ProductParameter, foreign_key: :intervention_template_id, dependent: :destroy
+  has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
+  with_options inverse_of: :intervention_template do
+    has_many :doers, class_name: 'InterventionTemplate::Doer'
+    has_many :inputs, class_name: 'InterventionTemplate::Input'
+    has_many :outputs, class_name: 'InterventionTemplate::Output'
+    has_many :tools, class_name: 'InterventionTemplate::Tool'
+  end
+
   # Joins table with activities
-  has_many :association_activities, class_name: ::InterventionTemplateActivity, foreign_key: :intervention_template_id, dependent: :destroy
+  has_many :association_activities, class_name: 'InterventionTemplateActivity', foreign_key: :intervention_template_id, dependent: :destroy
   has_many :activities, through: :association_activities
 
-  has_many :technical_itinerary_intervention_templates, dependent: :destroy, class_name: ::TechnicalItineraryInterventionTemplate
+  has_many :technical_itinerary_intervention_templates, dependent: :destroy, class_name: 'TechnicalItineraryInterventionTemplate'
   has_many :technical_itineraries, through: :technical_itinerary_intervention_templates
 
   belongs_to :campaign
-  belongs_to :originator, class_name: ::InterventionTemplate
-  has_one :linked_intervention_template, class_name: ::InterventionTemplate, foreign_key: 'originator_id', dependent: :nullify
+  belongs_to :originator, class_name: 'InterventionTemplate'
+  has_one :linked_intervention_template, class_name: 'InterventionTemplate', foreign_key: 'originator_id', dependent: :nullify
 
-  # Validation
-  validates :name, :procedure_name, :workflow, :campaign, presence: true
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :active, inclusion: { in: [true, false] }, allow_blank: true
+  validates :description, :name, :procedure_name, length: { maximum: 500 }, allow_blank: true
+  validates :preparation_time_hours, :preparation_time_minutes, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :workflow_value, numericality: true, allow_blank: true
+  # ]VALIDATORS]
+  validates :name, :procedure_name, :workflow_value, :campaign, presence: true
   validate :campaign_id_not_changed, if: :campaign_id_changed?, on: :update
   validate on: :create do
     if originator && originator.linked_intervention_template.present?
@@ -146,8 +201,16 @@ class InterventionTemplate < ApplicationRecord
     end.compact
   end
 
-  def time_per_hectare
-    (1.0 / workflow)
+  def time_per_hectare(plant_density = 4000.0)
+    if (workflow_value.present? && workflow_value.zero?) || workflow_value.nil? || workflow_value.blank?
+      1.0
+    elsif workflow_unit == :hectare_per_hour
+      (1.0 / workflow_value).to_d
+    elsif workflow_unit == :plant_per_hour
+      (plant_density / workflow_value).to_d
+    else
+      1.0
+    end
   end
 
   def human_time_per_hectare
@@ -158,27 +221,17 @@ class InterventionTemplate < ApplicationRecord
   end
 
   def human_workflow
-    "#{workflow.round(2).l(precision: 2)} #{:hectare_hours.tl}"
+    workflow.l(precision: 2)
   end
 
-  def tools
-    procedure_tool = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.tool?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_tool)
-  end
-
-  def doers
-    procedure_doer = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.doer?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_doer)
-  end
-
-  def inputs
-    procedure_input = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.input?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_input)
-  end
-
-  def outputs
-    procedure_output = procedure.parameters.map{ |p| p.name if (p.class == Procedo::Procedure::ProductParameter && p.output?) }.compact
-    product_parameters.where("procedure ->> 'type' IN (?)", procedure_output)
+  def human_inputs_or_outputs_quantity
+    if inputs.any?
+      inputs.map{|i| "#{i.product_nature_variant.name} : #{i.quantity_with_unit}"}.compact.to_sentence
+    elsif outputs.any?
+      outputs.map{|i| "#{i.product_nature_variant.name} : #{i.quantity_with_unit}"}.compact.to_sentence
+    else
+      nil
+    end
   end
 
   def quantity_of_parameter(product_parameter, area)
@@ -214,7 +267,8 @@ class InterventionTemplate < ApplicationRecord
         name: im.name[Preference[:language]],
         active: true,
         description: :set_by_lexicon.tl,
-        workflow: im.working_flow # hectare_per_hour or see in im.working_flow_unit
+        workflow_value: im.working_flow,
+        workflow_unit: im.working_flow_unit # hectare_per_hour or plant_per_hour or animal_per_hour (not implemented)
       )
 
       unless it.save

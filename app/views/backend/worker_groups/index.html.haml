@@ -1,0 +1,11 @@
+- main_toolbar do |t|
+  = t.new
+
+= kujaku do |k|
+  - k.text
+  - k.helper do
+    %div.label-container
+      %label= :use.tl
+    = select_tag(:label, options_for_select([""] + @labels.map{ |s| [s.name, s.name]}))
+
+= main_list

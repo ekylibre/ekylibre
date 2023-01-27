@@ -40,5 +40,9 @@ class Location < ApplicationRecord
   belongs_to :localizable, polymorphic: true
   belongs_to :registered_postal_zone, class_name: 'RegisteredPostalCode', foreign_key: :registered_postal_zone_id
 
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :locality, :localizable_type, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
+
   delegate :city_name, to: :registered_postal_zone
 end

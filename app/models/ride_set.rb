@@ -37,7 +37,7 @@
 #  nature               :string
 #  number               :string
 #  provider             :jsonb
-#  road                 :integer
+#  road                 :decimal
 #  sleep_count          :integer
 #  sleep_duration       :interval
 #  started_at           :datetime
@@ -52,6 +52,14 @@ class RideSet < ApplicationRecord
   has_many :rides, dependent: :destroy
   has_many :crumbs, through: :rides
 
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :area_smart, :area_with_overlap, :area_without_overlap, :gasoline, numericality: true, allow_blank: true
+  validates :duration, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
+  validates :road, numericality: { greater_than: -10_000_000_000, less_than: 10_000_000_000 }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(ride_set) { ride_set.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  # ]VALIDATORS]
+
   # Shape represents a polygon with all the rides linked with a buffer
   has_geometry :shape
 
@@ -60,6 +68,10 @@ class RideSet < ApplicationRecord
   acts_as_numbered :number
   enumerize :nature, in: %i[road work]
 
+  scope :between, lambda { |started_at, stopped_at|
+    where(started_at: started_at..stopped_at)
+  }
+
   %i[duration sleep_duration state].each do |col|
     define_method "decorated_#{col}" do
       decorate.send(col)
@@ -67,7 +79,7 @@ class RideSet < ApplicationRecord
   end
 
   def equipment
-    self.rides.first.equipment_name
+    self.rides.first&.equipment_name
   end
 
   def state
@@ -81,17 +93,17 @@ class RideSet < ApplicationRecord
 
   def rides_affected?
     rides = self.rides.map(&:state)
-    rides.uniq.size <= 1 && rides.include?("affected")
+    rides.uniq.size <= 1 && rides.include?(:affected)
   end
 
   def rides_of_nature_work_affected?
     rides = self.rides.of_nature("work").map(&:state)
-    rides.uniq.size <= 1 && rides.include?("affected")
+    rides.uniq.size <= 1 && rides.include?(:affected)
   end
 
   def rides_of_nature_work_partially_affected?
     rides = self.rides.of_nature("work").map(&:state)
-    rides.uniq.size >= 2 && rides.include?("affected")
+    rides.uniq.size >= 2 && rides.include?(:affected)
   end
 
   def rides_of_nature_road_partially_affected?

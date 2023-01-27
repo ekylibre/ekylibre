@@ -33,6 +33,8 @@
 #  born_at                      :datetime
 #  client                       :boolean          default(FALSE), not null
 #  client_account_id            :integer
+#  client_payment_delay       :string
+#  client_payment_mode_id     :integer
 #  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
@@ -96,6 +98,7 @@ class Entity < ApplicationRecord
   refers_to :country
   enumerize :nature, in: %i[organization contact], default: :organization, predicates: true
   enumerize :supplier_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
+  enumerize :client_payment_delay, in: ['1 week', '30 days', '30 days, end of month', '60 days', '60 days, end of month']
   # TODO: it should be rewritten when refers_to_lexicon is available
   enumerize :legal_position_code, in: MasterLegalPosition.pluck(:code)
   versionize exclude: [:full_name]
@@ -106,6 +109,7 @@ class Entity < ApplicationRecord
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
   belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
+  belongs_to :client_payment_mode, class_name: 'IncomingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
   with_options class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy do
     has_many :all_addresses
@@ -120,16 +124,17 @@ class Entity < ApplicationRecord
   end
   has_many :contracts, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
-  has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
   has_many :idea_diagnostics, foreign_key: :auditor_id, dependent: :nullify
   has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: 'Entity', foreign_key: 'proposer_id'
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
+  has_many :outcoming_payments, class_name: 'OutgoingPayment', foreign_key: :payee_id, inverse_of: :payee
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id, dependent: :destroy
   has_many :purchase_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
   has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
+  has_many :events, through: :participations
   has_many :purchase_invoices, class_name: 'PurchaseInvoice', foreign_key: :supplier_id
   has_many :purchase_orders, class_name: 'PurchaseOrder', foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
@@ -261,7 +266,7 @@ class Entity < ApplicationRecord
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || receptions.any? || shipments.any? || financial_year_with_opened_exchange?
+    of_company? || sales_invoices.any? || outcoming_payments.any? || incoming_payments.any? || participations.any? || sales.any? || parcels.any? || purchases.any? || receptions.any? || shipments.any? || financial_year_with_opened_exchange?
   end
 
   class << self

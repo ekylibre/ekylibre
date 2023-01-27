@@ -5,12 +5,18 @@ module Procedo
     class Intervention
       class Input < Procedo::Engine::Intervention::Quantified
         attr_reader :usage, :allowed_entry_factor, :allowed_harvest_factor
+        attr_accessor :spray_volume_value
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           if @attributes[:usage_id].present?
             self.usage_id = @attributes[:usage_id]
           end
+          @spray_volume_value = if @attributes[:spray_volume_value].present?
+                                  @attributes[:spray_volume_value].to_d
+                                else
+                                  1
+                                end
         end
 
         def usage_id
@@ -43,11 +49,17 @@ module Procedo
           hash[:usage_id] = usage_id if usage_id.present?
           hash[:allowed_entry_factor] = allowed_entry_factor if allowed_entry_factor.present?
           hash[:allowed_harvest_factor] = allowed_harvest_factor if allowed_harvest_factor.present?
+          hash[:spray_volume_value] = spray_volume_value if spray_volume_value.present?
           hash
         end
 
         def env
-          super.merge(usage_id: usage_id, allowed_entry_factor: allowed_entry_factor, allowed_harvest_factor: allowed_harvest_factor)
+          super.merge(
+            usage_id: usage_id,
+            allowed_entry_factor: allowed_entry_factor,
+            allowed_harvest_factor: allowed_harvest_factor,
+            spray_volume_value: spray_volume_value
+          )
         end
       end
     end

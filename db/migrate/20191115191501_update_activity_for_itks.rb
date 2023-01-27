@@ -1,4 +1,4 @@
-class UpdateActivityForItks < ActiveRecord::Migration
+class UpdateActivityForItks < ActiveRecord::Migration[4.2]
   def change
     add_column :activity_tactics, :default, :boolean, default: false
     add_column :activity_tactics, :technical_workflow_id, :string, index: true

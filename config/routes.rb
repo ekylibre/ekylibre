@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     end
 
     namespace :v2, defaults: { format: 'json' } do
+      resources :cultivable_zones, only: %i[index create update], param: :uuid
       resources :tokens, only: %i[create destroy]
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
@@ -148,6 +149,7 @@ Rails.application.routes.draw do
     resource :settings, only: [] do
       member do
         get :about
+        get :list_datasources
       end
     end
 
@@ -186,6 +188,7 @@ Rails.application.routes.draw do
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show
+      resource :economic_map_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :elapsed_interventions_times_by_workers_cell, only: :show
       resource :expenses_by_product_nature_category_cell, only: :show
@@ -208,7 +211,7 @@ Rails.application.routes.draw do
       resource :last_sales_cell, only: :show, concerns: :list
       resource :last_workers_cell, only: :show, concerns: :list
       resource :main_settings_cell, only: :show
-      resource :map_cell, only: :show
+      resource :activity_map_cell, only: :show
       resource :mes_parcelles_synchronisation_cell, only: :show
       resource :pfi_interventions_cell, only: :show do
         member do
@@ -231,6 +234,7 @@ Rails.application.routes.draw do
       resource :unbalanced_clients_cell, only: :show, concerns: :list
       resource :unbalanced_suppliers_cell, only: :show, concerns: :list
       resource :weather_cell, only: :show
+      resource :weather_spraying_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
 
@@ -263,6 +267,9 @@ Rails.application.routes.draw do
         get :list_distributions
         get :list_productions
         get :compute_pfi_report
+        get :traceability_xslx_export
+        get :global_costs_xslx_export
+        post :generate_budget
       end
     end
 
@@ -277,7 +284,11 @@ Rails.application.routes.draw do
                                                   only: [], path: 'activity-inspection-point-natures'
 
     resources :activity_productions, concerns: [:unroll] do
+      collection do
+        get :create_plants
+      end
       member do
+        get :traceability_xslx_export
         get :list_interventions
         get :list_plants
       end
@@ -371,6 +382,7 @@ Rails.application.routes.draw do
     resources :campaigns, concerns: %i[list unroll] do
       collection do
         get :current
+        get :show_by_name
       end
       member do
         # get :list_activity_productions
@@ -483,6 +495,7 @@ Rails.application.routes.draw do
         get :list_parcels
         get :list_receptions
         get :list_shipments
+        get :list_global_shipment_items
         post :order
         post :prepare
         post :check
@@ -511,7 +524,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :documents, concerns: %i[list unroll]
+    resources :documents, concerns: %i[list unroll] do
+      collection do
+        post :purchase_scan
+      end
+    end
 
     resource :draft_journal, only: [:show] do
       member do
@@ -562,11 +579,16 @@ Rails.application.routes.draw do
       member do
         get :list_interventions_on_field
         get :list_equipment_maintenance_interventions
+        get :tool_costs_xslx_export
         get :list_links
+        get :list_catalog_items
       end
     end
 
     resource :entries_ledger, only: [:show], path: 'entries-ledger' do
+      collection do
+        put :update_journal_entry_items
+      end
       member do
         get :list_journal_entry_items
       end
@@ -613,7 +635,7 @@ Rails.application.routes.draw do
         post :compute_balances
         get :list_account_balances
         get :list_fixed_asset_depreciations
-        get :list_ekyagri_format_exchanges
+        get :list_ekylibre_format_exchanges
         get :list_isacompta_format_exchanges
         get :run_progress
         match 'lock', via: %i[get post]
@@ -709,6 +731,7 @@ Rails.application.routes.draw do
       collection do
         patch :compute
         get :modal
+        get :selection_modal
         post :change_state
         get :change_page
         get :purchase_order_items
@@ -718,8 +741,11 @@ Rails.application.routes.draw do
         get :validate_reentry_delay
         post :create_duplicate_intervention
         get :compare_realised_with_planned
+        put :link_rides_to_planned
+        post :create_from_rides
       end
       member do
+        get :export
         post :sell
         post :purchase
         get :list_product_parameters
@@ -1032,6 +1058,7 @@ Rails.application.routes.draw do
     resources :plants, concerns: :products do
       member do
         get :list_plant_countings
+        get :list_plant_readings
       end
     end
 
@@ -1094,6 +1121,8 @@ Rails.application.routes.draw do
 
     resources :product_localizations, except: %i[index show]
 
+    resources :product_readings, except: %i[index show]
+
     resources :product_natures, concerns: %i[incorporate list unroll] do
       member do
         get :compatible_varieties
@@ -1115,6 +1144,7 @@ Rails.application.routes.draw do
         get :unroll_saleables
       end
       member do
+        post :duplicate
         get :detail
         get :list_components
         get :list_catalog_items
@@ -1387,8 +1417,9 @@ Rails.application.routes.draw do
     end
 
     namespace :visualizations do
+      resource :economic_map_cells_visualizations, only: :show
       resource :plants_visualizations, only: :show
-      resource :map_cells_visualizations, only: :show
+      resource :activity_map_cells_visualizations, only: :show
       resource :stock_container_map_cells_visualizations, only: :show
       resource :land_parcels_visualizations, only: :show
       resource :resources_visualizations, only: :show
@@ -1398,9 +1429,32 @@ Rails.application.routes.draw do
 
     resources :wine_tanks, only: [:index], concerns: [:list]
 
-    resources :workers, concerns: :products
+    resources :workers, concerns: :products do
+      member do
+        get :list_time_logs
+        get :list_catalog_items
+      end
+    end
 
-    resources :worker_contracts, concerns: [:list], path: 'worker-contracts'
+    resources :worker_time_logs, concerns: [:list], path: 'worker-time-logs'
+
+    resources :worker_contracts, concerns: [:list], path: 'worker-contracts' do
+      member do
+        get :list_distributions
+      end
+    end
+
+    resources :worker_groups, concerns: %i[list unroll] do
+      member do
+        post :duplicate
+      end
+      member do
+        get :list_workers
+      end
+      collection do
+        get :unroll_list
+      end
+    end
 
     root to: 'dashboards#home'
 

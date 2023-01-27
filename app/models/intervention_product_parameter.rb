@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,6 +57,7 @@
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
 #  specie_variety           :jsonb            default("{}")
+#  spray_volume_value       :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -68,6 +69,7 @@
 #
 
 class InterventionProductParameter < InterventionParameter
+  DEFAULT_WORKING_ZONE_AREA_UNIT = :hectare
   belongs_to :assembly, class_name: 'Product'
   belongs_to :component, class_name: 'ProductNatureVariantComponent'
   belongs_to :intervention, inverse_of: :product_parameters
@@ -85,12 +87,13 @@ class InterventionProductParameter < InterventionParameter
 
   has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w[quantity_value to_d], %w[quantity_unit_name unit]]
+  composed_of :working_zone_area, class_name: 'Measure', mapping: [%w[working_zone_area_value to_d]], constructor: ->(value) { Measure.new(value, DEFAULT_WORKING_ZONE_AREA_UNIT) }
 
   validates :quantity_indicator_name, :quantity_unit_name, presence: { if: :measurable? }
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :variant, prefix: true
-  delegate :work_name, to: :product, prefix: true
+  delegate :work_name, :shape,  to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product
   delegate :tracking, to: :product
@@ -104,6 +107,7 @@ class InterventionProductParameter < InterventionParameter
   scope :of_actors, ->(actors) { where(product: actors) }
   scope :with_actor, -> { where.not(product_id: nil) }
   scope :with_working_zone, -> { where.not(working_zone: nil) }
+  scope :with_working_zone_area, -> { where.not(working_zone_area_value: nil) }
 
   before_validation do
     self.intervention = group.intervention if group && !intervention
@@ -127,6 +131,8 @@ class InterventionProductParameter < InterventionParameter
     end
     true
   end
+
+  before_validation :handle_working_zone_attributes
 
   validate do
     next unless intervention && intervention.procedure
@@ -153,6 +159,13 @@ class InterventionProductParameter < InterventionParameter
     product.update_columns(dead_at: product.dead_first_at) if product && dead
   end
 
+  def update_imputation_ratio(total_targets_quantity)
+    total_target_quantity = working_zone_area_value || 1
+
+    ratio = (total_target_quantity.to_f / total_targets_quantity.to_f )
+    update_column(:imputation_ratio, ratio)
+  end
+
   def name
     reference ? reference.human_name : reference_name.humanize
   end
@@ -162,7 +175,11 @@ class InterventionProductParameter < InterventionParameter
   end
 
   def working_area
-    working_zone&.area&.in_square_meter
+    if working_zone_area.nonzero?
+      working_zone_area.in_square_meter
+    else
+      nil
+    end
   end
 
   def working_zone_svg
@@ -263,5 +280,32 @@ class InterventionProductParameter < InterventionParameter
 
   def relevant_usage
     reference_data['usage'].present? ? InterventionParameter::LoggedPhytosanitaryUsage.new(reference_data['usage']) : usage
+  end
+
+  private def handle_working_zone_attributes
+    nullify_working_zone_if_working_zone_area
+    set_working_zone_area_from_working_zone
+    set_quantity_from_working_zone
+  end
+
+  private def nullify_working_zone_if_working_zone_area
+    if will_save_change_to_working_zone_area_value? && !will_save_change_to_working_zone?
+      self.working_zone = nil
+    end
+  end
+
+  private def set_working_zone_area_from_working_zone
+    return nil if working_zone.nil? || !will_save_change_to_working_zone?
+
+    self.working_zone_area_value = working_zone&.area&.in_square_meter&.in(DEFAULT_WORKING_ZONE_AREA_UNIT)&.value
+  end
+
+  private def set_quantity_from_working_zone
+    return nil if working_zone.nil? && working_zone_area_value.nil?
+
+    area = working_zone&.area || working_zone_area&.in_square_meter&.value
+    self.quantity_value = area
+    self.quantity_unit_name = 'square_meter'
+    self.quantity_indicator_name = 'net_surface_area'
   end
 end

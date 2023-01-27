@@ -5,6 +5,15 @@
     - f.clear_actions!
     - f.add(:link, :valid.tl, new_backend_activity_path(redirect:params[:redirect]), class: 'btn primary', disabled:true, id:"activity_family_submit")
 - else
+  = content_for(:heading_toolbar) do
+    - @campaign ||= current_campaign 
+    .btn-group.period-selector
+      %a{href:"#", class:"btn btn-previous icn icn-only"}
+      %a{href:"#", class:"btn period year", data: {campaign_id: @campaign.id } }
+        = params.dig(:campaign,:name) || @campaign.name
+      %a{href:"#", class:"btn btn-next icn icn-only"}
+      = simple_fields_for :campaign do |c|
+        = c.input :name, as: :hidden, input_html: { value: params.dig(:campaign,:name) || @campaign.name , form: "new_activity"}
   - if %w[administering tool_maintaining animal_farming plant_farming vine_farming wine_making processing].include?(f.object.family)
     = render "backend/activities/form/#{f.object.family}", f: f
   - else

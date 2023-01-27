@@ -67,6 +67,7 @@
 - document
 - document_template
 - easement
+- economic_cash_indicator
 - economic_indicator
 - economic_situation
 - entity
@@ -111,10 +112,12 @@
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
+- intervention_parameter_setting
 - intervention_participation
 - intervention_product_parameter
 - intervention_proposal
 - intervention_proposal/parameter
+- intervention_setting_item
 - intervention_target
 - intervention_template
 - intervention_template/product_parameter
@@ -247,4 +250,9 @@
 - wine_incoming_harvest_storage
 - worker
 - worker_contract
+- worker_contract_distribution
+- worker_group
+- worker_group_item
+- worker_time_indicator
+- worker_time_log
 - zone

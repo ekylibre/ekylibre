@@ -63,7 +63,7 @@
       - infos.each do |info, label|
         - if params[:heatmap].to_i > 0
           - v.heatmap "heatmap_#{info}", "crumb_#{cast.id}", reference: info.to_s.camelcase(:lower), label: label + " (Heatmap)"
-        - if params[:heatmap].to_i <= 0 or params[:band].to_i > 0
+        - if params[:heatmap].to_i <= 0 || params[:band].to_i > 0
           - v.band    "band_#{info}", "crumb_#{cast.id}", reference: info.to_s.camelcase(:lower), label: label + " (Bande)"
       -# v.heatmap (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "heatmap_#{cast.id}", reference: :leftFlow
       - count += 1

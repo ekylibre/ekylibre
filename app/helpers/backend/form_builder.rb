@@ -128,7 +128,7 @@ module Backend
 
     def reading(options = {})
       indicator = Onoma::Indicator.find!(@object.indicator_name)
-      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden) })
+      @template.render(partial: 'backend/shared/reading_form', locals: { f: self, indicator: indicator, hidden: (options[:as] == :hidden), fixed_unit: options[:fixed_unit] || true })
     end
 
     def variant_quantifier_of(association, *args, &block)
@@ -337,7 +337,7 @@ module Backend
       editor[:controls] ||= {}
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
-      editor[:controls][:importers] ||= { formats: %i[gml kml geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
+      editor[:controls][:importers] ||= { formats: %i[kml], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
       editor[:withoutLabel] = true
@@ -547,7 +547,12 @@ module Backend
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << input(:born_at)
+          if %w[Matter Equipment].include?(self.object.class.name)
+            fs << input(:born_at, hint: "define_born_at_for_#{self.object.class.name.downcase}".tl)
+          else
+            fs << input(:born_at)
+          end
+
           fs << input(:dead_at)
 
           fs << nested_association(:labellings)
@@ -685,26 +690,39 @@ module Backend
       prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect { |x| "[#{x}]" }.join
       html = ''.html_safe
       reference = (@object.send(name) || {}).with_indifferent_access
-      Ekylibre::Access.resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
-        resource_reference = reference[resource] || []
-        html << @template.content_tag(:div, class: 'control-group booleans') do
-          @template.content_tag(:label, class: 'control-label') do
-            Ekylibre::Access.human_resource_name(resource)
-          end +
-            @template.content_tag(:div, class: 'controls') do
-              rights.collect do |interaction, right|
-                checked = resource_reference.include?(interaction.to_s)
-                attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
-                if right.dependencies
-                  attributes[:data][:need_accesses] = right.dependencies.join(' ')
-                end
-                attributes[:class] << ' active' if checked
-                @template.content_tag(:label, attributes) do
-                  @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
-                    ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
-                end
-              end.join.html_safe
-            end
+      Ekylibre::Access.resources_by_category.each do |category, resources|
+        data = ''.html_safe
+        resources.sort { |a, b| Ekylibre::Access.human_resource_name(a.first).ascii <=> Ekylibre::Access.human_resource_name(b.first).ascii }.each do |resource, rights|
+          resource_reference = reference.include?(resource.to_s) ? reference[resource.to_s] : []
+          attributes = { class: "control-label" }
+          data << @template.content_tag(:div, class: 'control-group booleans') do
+            @template.content_tag(:label, attributes) do
+              Ekylibre::Access.human_resource_name(resource)
+            end +
+              @template.content_tag(:div, class: 'controls') do
+                rights.collect do |interaction, right|
+                  checked = resource_reference.include?(interaction.to_s)
+                  attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
+                  if right.dependencies
+                    attributes[:data][:need_accesses] = right.dependencies.join(' ')
+                  end
+                  attributes[:class] << ' active' if checked
+                  @template.content_tag(:label, attributes) do
+                    @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
+                      ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
+                  end
+                end.join.html_safe
+              end
+          end
+        end
+        if data.include? 'active'
+          html << @template.field_set(category.to_sym, collapsed: true, subfieldset: true, class: 'active') do
+            data
+          end
+        else
+          html << @template.field_set(category.to_sym, collapsed: true, subfieldset: true) do
+            data
+          end
         end
       end
       html

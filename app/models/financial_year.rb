@@ -169,6 +169,12 @@ class FinancialYear < ApplicationRecord
     code&.succ! while self.class.where(code: code).where.not(id: id || 0).any?
   end
 
+  # Block if user want to change date and jei are present on date outside fy
+  validate do
+    outside_jei = JournalEntryItem.where(financial_year_id: self.id) - JournalEntryItem.where(financial_year_id: self.id).between(started_on, stopped_on)
+    errors.add(:stopped_on, :jei_on_other_fy, count: outside_jei.count.to_s) if outside_jei.count > 0
+  end
+
   # Enforces the fact that there should not be a gap between two FinancialYear
   validate do
     next_fy = FinancialYear.started_after(stopped_on).first
@@ -237,8 +243,19 @@ class FinancialYear < ApplicationRecord
 
   def next_tax_declaration_on
     declarations = TaxDeclaration.where('stopped_on BETWEEN ? AND ?', started_on, stopped_on)
+    # if declarations exists, then started_on = stopped_on + 1.day
     if declarations.any?
       declarations.order(stopped_on: :desc).first.stopped_on + 1
+    # if no declarations exists, 01/01 01/04 01/07 or 01/10 if quaterly? and fy started as the same month.
+    elsif tax_declaration_frequency_quaterly?
+      case started_on.month
+      when 1 then Date.new(started_on.year, 1, 1)
+      when 4 then Date.new(started_on.year, 4, 1)
+      when 7 then Date.new(started_on.year, 7, 1)
+      when 10 then Date.new(started_on.year, 10, 1)
+      else started_on
+      end
+    # if no declarations and no quaterly?, fy.started_on
     else
       started_on
     end
@@ -527,12 +544,23 @@ class FinancialYear < ApplicationRecord
     balanced_radical_account_classes
   end
 
-  def balanced_balance_sheet?(timing = :prior_to_closure)
-    return Journal.sum_entry_items('1 2 3 4 5 6 7 8', started_on: started_on, stopped_on: stopped_on).zero? if timing == :prior_to_closure
-
+  def balance_sheet_balance
     computation = AccountancyComputation.new(self)
-    balance_sheet_balance = computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
-    balance_sheet_balance.zero?
+    computation.active_balance_sheet_amount - computation.passive_balance_sheet_amount
+  end
+
+  def balanced_balance_sheet?(timing = :prior_to_closure)
+    all_account_numbers_to_check = '1 2 3 4 5 6 7 8'
+    result = balance_sheet_balance.zero?
+    if timing == :prior_to_closure
+      return false unless Journal.sum_entry_items(all_account_numbers_to_check, started_on: started_on, stopped_on: stopped_on).zero?
+    end
+    result
+  end
+
+  def balanced_waiting_cash_account?
+    cash_waiting_account_to_check = '58'
+    Journal.sum_entry_items(cash_waiting_account_to_check, started_on: started_on, stopped_on: stopped_on).zero?
   end
 
   def previous_year_result_carried_forward?

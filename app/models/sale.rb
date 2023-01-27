@@ -94,11 +94,12 @@ class Sale < ApplicationRecord
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
-  has_many :parcels, dependent: :destroy, inverse_of: :sale, class_name: 'Shipment'
+  has_many :parcels, dependent: :nullify, inverse_of: :sale, class_name: 'Shipment'
   has_many :items, -> { order('position, sale_items.id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   has_many :parcel_items, through: :parcels, source: :items
+  has_one :client_payment_mode, through: :client
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
@@ -106,7 +107,8 @@ class Sale < ApplicationRecord
   validates :client_reference, :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true
   validates :credit, :has_downpayment, :letter_format, inclusion: { in: [true, false] }
   validates :client, :currency, :payer, :payment_delay, presence: true
-  validates :number, :state, presence: true, length: { maximum: 500 }
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
@@ -258,7 +260,7 @@ class Sale < ApplicationRecord
   end
 
   protect on: :destroy do
-    old_record.invoice? || old_record.order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
+    old_record.invoice? || old_record.order? || !subscriptions.all?(&:destroyable?)
   end
 
   # This callback bookkeeps the sale depending on its state
@@ -528,7 +530,11 @@ class Sale < ApplicationRecord
     elsif aborted?
       "aborted"
     elsif order?
-      "order"
+      if self.affair.closed?
+        "paid_order"
+      else
+        "order"
+      end
     elsif (draft? && DateTime.now > self.expired_at) || (estimate? && DateTime.now > self.expired_at)
       "expired_quote"
     elsif draft?
@@ -538,7 +544,7 @@ class Sale < ApplicationRecord
     elsif refused?
       "refused_quote"
     else
-      "INVALID STATE"
+      "invalid_state"
     end
 
     I18n.t("tooltips.models.sale.#{translation_key}")
@@ -652,7 +658,7 @@ class Sale < ApplicationRecord
 
   # Returns status of affair if invoiced else "stop"
   def status
-    if invoice? && affair
+    if (invoice? || order?) && affair
       affair.status
     else
       :stop
@@ -668,6 +674,7 @@ class Sale < ApplicationRecord
     def create_sale_catalog_items
       items.each do |sale_item|
         next unless (catalog = nature.catalog) && Preference.global.find_by(name: :use_sale_catalog)&.value
+        next unless sale_item.catalog_item_update
 
         invoice_date = invoiced_at || Time.now
         item = CatalogItem.find_by(catalog: catalog, variant: sale_item.variant, unit: sale_item.conditioning_unit)
@@ -687,17 +694,26 @@ class Sale < ApplicationRecord
     def update_sale_catalog
       if Preference.global.find_by(name: :use_sale_catalog)&.value
         items.each do |item|
+          next unless item.catalog_item_update
+
           catalog_item = nature.catalog.items.of_variant(item.variant).active_at(invoiced_at).of_unit(item.conditioning_unit).first
           if catalog_item && item.unit_pretax_amount != catalog_item.amount
-            catalog_item.update!(stopped_at: invoiced_at)
-            CatalogItem.create!(
-              variant_id: item.variant_id,
-              amount: item.unit_pretax_amount,
-              reference_tax: item.tax,
-              started_at: invoiced_at,
-              unit_id: item.conditioning_unit_id,
-              catalog_id: nature.catalog.id
-            )
+
+            if catalog_item.started_at == invoiced_at
+              catalog_item.update!(amount: item.unit_pretax_amount)
+            else
+              catalog_item.update!(stopped_at: invoiced_at)
+
+              CatalogItem.create!(
+                variant_id: item.variant_id,
+                amount: item.unit_pretax_amount,
+                reference_tax: item.tax,
+                started_at: invoiced_at,
+                unit_id: item.conditioning_unit_id,
+                catalog_id: nature.catalog.id
+              )
+            end
+
           end
         end
       end

@@ -54,6 +54,7 @@ class Notification < ApplicationRecord
   validates :target_type, :target_url, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
+  # take care of desactivate this after_create for action cable during local test mode because of SocketError: getaddrinfo
   after_create do
     ActionCable.server.broadcast("main_#{recipient.email}", event: 'new_notification')
   end

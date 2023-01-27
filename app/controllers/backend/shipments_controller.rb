@@ -70,9 +70,9 @@ module Backend
       code.c
     end
 
-    list(conditions: shipments_conditions, order: { planned_at: :desc }) do |t|
-      t.action :invoice, on: :both, method: :post, if: :invoiceable?
-      t.action :ship, on: :both, method: :post, if: :shippable?
+    list(conditions: shipments_conditions, selectable: true, order: { planned_at: :desc }) do |t|
+      t.action :invoice, method: :post, if: :invoiceable?
+      t.action :ship, method: :post, if: :shippable?
       t.action :edit, if: :updateable?
       t.action :destroy
       t.column :number, url: true
@@ -96,8 +96,9 @@ module Backend
       t.column :product, url: true, hidden: true
       t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
       t.column :product_identification_number, hidden: true
-      t.column :conditioning_unit
       t.column :conditioning_quantity, class: 'left-align'
+      t.column :conditioning_unit
+      t.column :unit_pretax_sale_amount, currency: true, class: 'center-align'
       t.column :analysis, url: true
     end
 
@@ -132,7 +133,11 @@ module Backend
     end
 
     def new
-      @shipment = Shipment.new(shipment_params)
+      if params[:sale_nature_id] && nature = SaleNature.find_by(id: params[:sale_nature_id])
+        @shipment = Shipment.new(shipment_params.merge({ sale_nature_id: params[:sale_nature_id] }))
+      else
+        @shipment = Shipment.new(shipment_params)
+      end
     end
 
     # Converts parcel to trade
@@ -146,7 +151,7 @@ module Backend
           purchase = Parcel.convert_to_purchase(parcels)
           redirect_to backend_purchase_path(purchase)
         elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
-          sale = Parcel.convert_to_sale(parcels)
+          sale = ParcelToSaleConverter.new(parcels: parcels).call
           redirect_to backend_sale_path(sale)
         end
       rescue ActiveRecord::RecordInvalid => error
@@ -185,7 +190,7 @@ module Backend
     private
 
       def shipment_params
-        params.require(:shipment).permit(:planned_at, :sale_id, :recipient_id, items_attributes: %i[source_product_id conditioning_quantity conditioning_unit_id])
+        params.require(:shipment).permit(:planned_at, :sale_id, :sale_nature_id, :recipient_id, items_attributes: %i[source_product_id conditioning_quantity conditioning_unit_id unit_pretax_sale_amount])
       end
   end
 end

@@ -1,13 +1,14 @@
 - if params[:action] == 'new' && f.object.product_nature_category.nil? && params[:product_nature_category] != 'all'
+  = f.referenced_association :financial_year, source: :opened, new: false, input_html: { data: { product_of_delivery_item: { url: backend_financial_year_path("RECORD_ID", format: :json) }.to_json }}
+  = f.input :achieved_at, input_html: { data: { when_item: :achieved_at, when_set_value: "RECORD_VALUE"} }
   = f.referenced_association :product_nature_category, label: :category_of_product.tl
+  .span.add-container= :inventory_category_warning.tl
   - f.clear_actions!
   - f.add do
-    = link_to(:all_the_categories.tl, new_backend_inventory_path(product_nature_category: 'all'), class: 'btn btn-primary validate-inventory-category', data: { validate_tl: :validate.tl })
+    = link_to(:validate.tl, new_backend_inventory_path(product_nature_category: 'all'), class: 'btn btn-primary validate-inventory-category', data: { validate_tl: :validate.tl })
 - else
-  -# TODO: rename variables in deliveries.js.coffee
   = field_set do
     .delivery-item
-      = f.referenced_association :financial_year, source: :opened, new: false, input_html: { data: { product_of_delivery_item: { url: backend_financial_year_path("RECORD_ID", format: :json) }.to_json }}
       -# Set name from financial_year if new_record
       - if f.object.new_record?
         = f.input :name, input_html: { data: { when_item: :name, when_set_value: "RECORD_VALUE"} }
@@ -15,8 +16,9 @@
         = f.input :name
       = f.referenced_association :journal
       = f.referenced_association :responsible #, source: :employees
-      = f.input :achieved_at, input_html: { data: { when_item: :achieved_at, when_set_value: "RECORD_VALUE"} }
       = f.input :disable_accountancy
+      = f.referenced_association :financial_year, input_html: {value: params[:financial_year_id]}, as: :hidden
+      = f.input(:achieved_at, value: params[:achieved_at], as: :hidden)
       = f.referenced_association :product_nature_category, as: :hidden
       - %w(product_id product_nature_variant_id product_nature_id).each do |field|
         = f.input(field, value: params[field], as: :hidden) if params[field]

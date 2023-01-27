@@ -4,7 +4,7 @@ module Printers
   class PhytosanitaryRegisterPrinter < PrinterBase
     IMPLANTATION_PROCEDURE_NAMES = %w[sowing sowing_without_plant_output sowing_with_spraying mechanical_planting].freeze
     HARVESTING_PROCEDURE_NAMES = %w[straw_bunching harvesting direct_silage].freeze
-    SPRAYING_PROCEDURE_NAMES = %w[all_in_one_sowing chemical_mechanical_weeding spraying sowing_with_spraying spraying
+    SPRAYING_PROCEDURE_NAMES = %w[all_in_one_sowing all_in_one_planting chemical_mechanical_weeding spraying sowing_with_spraying spraying
                                   vine_chemical_weeding vine_spraying_without_fertilizing vine_leaves_fertilizing_with_spraying
                                   vine_spraying_with_fertilizing].freeze
     PHYTOSANITARY_PRODUCT = %w[Variants::Article::PlantMedicineArticle].freeze
@@ -191,7 +191,7 @@ module Printers
         {
           name: production.name,
           surface: production.net_surface_area.in_hectare.round_l,
-          cultivable_zone: production.cultivable_zone.name,
+          cultivable_zone: production.cultivable_zone&.name,
           pac_islet: select_num_pac(production),
           activity: production.activity.name,
           period: compare_date(production.started_on.to_date.l, production.stopped_on.to_date.l),

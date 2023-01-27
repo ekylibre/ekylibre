@@ -47,7 +47,13 @@ module Procedo
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
 
-            parameter.working_zone ? parameter.working_zone.area : nil
+            if parameter.working_zone_area_value?
+              parameter.working_zone_area
+            elsif parameter.working_zone
+              parameter.working_zone.area
+            else
+              nil
+            end
           end
           list.compact!
           return 0.0 if list.empty?

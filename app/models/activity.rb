@@ -112,10 +112,13 @@ class Activity < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
+  validates :isacompta_analytic_code, length: { maximum: 2 }, allow_blank: true
   validates :life_duration, numericality: { greater_than: -1_000, less_than: 1_000 }, allow_blank: true
   validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :production_started_on, :production_stopped_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
+  validates :production_started_on_year, :production_stopped_on_year, :start_state_of_production_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :use_seasons, :use_tactics, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :cultivation_variety, presence: true, if: -> { Onoma::ActivityFamily[family] && Onoma::ActivityFamily[family].cultivation_variety.present? }
@@ -127,23 +130,34 @@ class Activity < ApplicationRecord
   validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
   validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
   validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?
+  validate :validate_production_cycle_period_presence
 
   with_options if: -> { perennial? && (plant_farming? || vine_farming?) } do
     validates :start_state_of_production_year, :life_duration, presence: true
     validates :production_stopped_on_year, inclusion: { in: [0], message: :invalid }
     validates :production_cycle_length, presence: true
-    validate :validate_production_cycle_period_presence
   end
 
   validates :life_duration, presence: true, if: -> { animal_farming? }
   validates :start_state_of_production_year, :life_duration, absence: true, if: -> { annual? && !plant_farming? && !vine_farming? }
-  validates :production_nature, absence: true, if: -> { !vine_farming? && !plant_farming? }
 
   validates_associated :tactics
   accepts_nested_attributes_for :tactics, allow_destroy: true
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
+  scope :with_production_dates, -> do
+    where.not(production_started_on: nil,
+              production_started_on_year: nil,
+              production_stopped_on: nil,
+              production_stopped_on_year: nil)
+  end
+  scope :without_production_dates, -> do
+    where(production_started_on: nil)
+      .or(where(production_started_on_year: nil))
+      .or(where(production_stopped_on: nil))
+      .or(where(production_stopped_on_year: nil))
+  end
   scope :main, -> { where(nature: 'main') }
   scope :auxiliary, -> { where(nature: 'auxiliary') }
 
@@ -239,7 +253,17 @@ class Activity < ApplicationRecord
     end
     self.cultivation_variety ||= item.cultivation_variety if with_cultivation
 
+    set_defaut_production_dates
     set_production_relative_year
+  end
+
+  def set_defaut_production_dates
+    if %w[administering processing service_delivering tool_maintaining wine_making animal_farming].include?(family)
+      self.production_started_on ||= Date.new(2000, 1, 1)
+      self.production_stopped_on ||= Date.new(2000, 12, 31)
+      self.production_started_on_year ||= 0
+      self.production_stopped_on_year ||= 0
+    end
   end
 
   # production_started_on and production_stopped_on year is relative to campaign. Set year value to 2000.
@@ -360,13 +384,16 @@ class Activity < ApplicationRecord
     if animal_farming?
       total = productions.of_campaign(campaign).map do |production|
         viewed_at = Time.zone.now.change(year: campaign.harvest_year)
-        production.support.members_count(viewed_at)
-      end.sum
+        production.support&.members_count(viewed_at)
+      end.compact.sum(0.0)
     else
-      total = productions.of_campaign(campaign).map(&:size).sum
+      total = productions.of_campaign(campaign).map(&:size).compact.sum
     end
-    total = total.in(size_unit) if size_unit
-    total
+    if size_unit
+      total.in(size_unit)
+    else
+      total
+    end
   end
 
   # Returns human_name of support variety
@@ -507,5 +534,22 @@ class Activity < ApplicationRecord
   # @return [Interger] rank number of the next activity_production
   def productions_next_rank_number
     (productions.maximum(:rank_number) || 0) + 1
+  end
+
+  def technical_workflow(campaign)
+    tactic = tactics.find_by(campaign_id: campaign.id, default: true)
+
+    return tactic.technical_workflow if tactic.present? && tactic.technical_workflow.present?
+
+    TechnicalWorkflow.for_activity(self).first
+  end
+
+  def technical_sequence
+    tactic = tactics.find_by(default: true)
+    if tactic.present? && tactic.technical_sequence.present?
+      tactic.technical_sequence
+    else
+      TechnicalSequence.for_activity(self).first
+    end
   end
 end

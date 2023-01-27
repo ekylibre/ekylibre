@@ -33,7 +33,7 @@
         value = selector.selector('value')
         params[selector.attr('id')] = value if value?
       $conditioningSelector = $element.closest($element.data('parent')).find($element.data('filter-unroll'))
-      if $conditioningSelector[0] != $conditioningSelector.context
+      if $conditioningSelector[0] != $conditioningSelector.context && !is_initialization
         $conditioningSelector.closest('.selector').find('.selector-value').attr('value', '')
         $conditioningSelector.val('')
       if $conditioningSelector.length
@@ -77,20 +77,30 @@
               item.find('.subscription_started_on').val('')
               item.find('.subscription_stopped_on').val('')
 
+            tradeType = item.data('tradeItem')
+            $taxSelector = item.find("*[data-trade-component='tax']")
+            if ['purchase', 'sale'].includes(tradeType)
+              tax_ids =  data.tax_ids[tradeType]
+            if tax_ids?
+              E.trade._handleTaxSelectorOptions($taxSelector, tax_ids)
 
             if !is_initialization && unit = data.unit
               if unit.name
                 item.find(options.unit_name_tag or ".unit-name").html(data.name)
               if unit.conditioning_id && unit.name
-                element = item.find('.sale_items_conditioning_unit > .selector > .selector-search')
+                sale_element = item.find('.sale_items_conditioning_unit > .selector > .selector-search')
+                element = if sale_element.length != 0 then sale_element else item.find('.purchase_invoice_items_conditioning_unit > .controls > .selector > .selector-search')
                 if !element.val()
-                  selector_value = item.find('.sale_items_conditioning_unit > .selector > .selector-value')
+                  sale_selector = item.find('.purchase_invoice_items_conditioning_unit > .controls > .selector > .selector-value')
+                  selector_value = if sale_selector.length != 0 then sale_selector else item.find('.purchase_invoice_items_conditioning_unit > .controls > .selector > .selector-value')
                   len = 4 * Math.round(Math.round(1.11 * unit.name.length) / 4)
                   element.attr 'size', if len < 20 then 20 else if len > 80 then 80 else len
                   element.val unit.name
                   selector_value.prop 'itemLabel', unit.name
                   selector_value.val unit.conditioning_id
                   selector_value.trigger 'selector:change'
+                  selector_value.trigger "selector:set"
+                  element.trigger "selector:set"
               input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
               if unit.pretax_amount?
                 input.val(unit.pretax_amount)
@@ -108,9 +118,8 @@
               E.trade.updateUnitPretaxAmount(item)
               E.toggleValidateButton(item, false)
 
-
-              if data.tax_id?
-                item.find(options.tax or "*[data-trade-component='tax']").val(data.tax_id)
+              if tax_ids?
+                E.trade._handleTaxSelectorValue($taxSelector, tax_ids)
 
             # Compute totals
             if ['change', 'readystatechange'].includes event.type
@@ -120,6 +129,18 @@
             console.log("Error while retrieving price and tax fields content: #{error}")
       else
         console.warn "Cannot get variant ID"
+
+    _handleTaxSelectorValue: ($taxSelector, tax_ids) ->
+      if tax_ids.length > 0
+        $taxSelector.val(tax_ids[0])
+    
+    _handleTaxSelectorOptions: ($taxSelector, tax_ids) ->
+      if tax_ids.length > 1
+        $taxSelector.children('option').toArray().map((option) ->
+          $(option).show()
+          if !tax_ids.includes(parseInt(option.value))
+            $(option).hide()
+        )
 
     round: (value, digits) ->
       magnitude = Math.pow(10, digits)

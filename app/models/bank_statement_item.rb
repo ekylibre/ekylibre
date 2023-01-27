@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,26 +26,29 @@
 # == Table: bank_statement_items
 #
 #  accounted_at       :datetime
-#  bank_statement_id  :integer          not null
+#  bank_statement_id  :integer(4)       not null
 #  created_at         :datetime         not null
-#  creator_id         :integer
+#  creator_id         :integer(4)
 #  credit             :decimal(19, 4)   default(0.0), not null
 #  currency           :string           not null
 #  debit              :decimal(19, 4)   default(0.0), not null
-#  id                 :integer          not null, primary key
+#  id                 :integer(4)       not null, primary key
 #  initiated_on       :date
-#  journal_entry_id   :integer
+#  journal_entry_id   :integer(4)
 #  letter             :string
-#  lock_version       :integer          default(0), not null
+#  lock_version       :integer(4)       default(0), not null
 #  memo               :string
 #  name               :string           not null
+#  provider           :jsonb            default("{}")
 #  transaction_nature :string
 #  transaction_number :string
 #  transfered_on      :date             not null
 #  updated_at         :datetime         not null
-#  updater_id         :integer
+#  updater_id         :integer(4)
 #
 class BankStatementItem < ApplicationRecord
+  include Providable
+
   refers_to :currency
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
@@ -58,13 +61,15 @@ class BankStatementItem < ApplicationRecord
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_statement, :currency, presence: true
   validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
-  validates :letter, :memo, :transaction_number, :transaction_nature, length: { maximum: 500 }, allow_blank: true
+  validates :letter, :memo, :transaction_nature, :transaction_number, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   # ]VALIDATORS]
 
   validates :started_on, presence: true, if: :bank_statement
   validates :stopped_on, presence: true, if: :bank_statement
+
+  alias_attribute :number, :transaction_number
 
   delegate :name, :currency, :journal, :account, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 

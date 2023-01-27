@@ -5,6 +5,8 @@ FactoryBot.define do
     production_cycle { :annual }
     production_started_on { Date.new(2020, 2, 3) - rand(10_000) }
     production_stopped_on { Date.new(2020, 2, 3) + rand(10_000) }
+    production_started_on_year { -1 }
+    production_stopped_on_year { 0 }
     cultivation_variety { Onoma::ActivityFamily.find(family).cultivation_variety }
   end
 
@@ -29,6 +31,17 @@ FactoryBot.define do
     end
   end
 
+  trait :with_productions_with_support do
+    transient do
+      production_count { 2 }
+    end
+
+    after(:create) do |activity, evaluator|
+      create_list :activity_production, evaluator.production_count, :with_cultivable_zone, activity: activity
+      activity.reload
+    end
+  end
+
   factory :corn_activity, class: Activity do
     sequence(:name)  { |n| "Corn - TEST#{n.to_s.rjust(8, '0')}" }
     family           { :plant_farming }
@@ -36,6 +49,8 @@ FactoryBot.define do
     cultivation_variety { :plant }
     production_started_on { Date.new(2000, 3, 1) }
     production_stopped_on { Date.new(2000, 11, 30) }
+    production_started_on_year { -1 }
+    production_stopped_on_year { 0 }
 
     trait :fully_inspectable do
       use_gradings { true }
@@ -65,6 +80,8 @@ FactoryBot.define do
     cultivation_variety { :poncirus }
     production_started_on { Date.new(2000, 3, 1) }
     production_stopped_on { Date.new(2000, 11, 30) }
+    production_started_on_year { -1 }
+    production_stopped_on_year { 0 }
 
     trait :organic do
       production_system_name { :organic_farming }

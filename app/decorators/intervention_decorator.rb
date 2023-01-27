@@ -109,6 +109,7 @@ class InterventionDecorator < Draper::Decorator
     object
       .outputs
       .of_actor(product)
+      .to_a
       .flatten
       .map(&:product)
       .map(&:net_surface_area)

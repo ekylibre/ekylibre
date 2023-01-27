@@ -61,12 +61,19 @@ class ActivityBudgetItem < ApplicationRecord
   has_one :activity, through: :activity_budget
   has_one :campaign, through: :activity_budget
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :tax
   has_many :productions, through: :activity
-  belongs_to :product_parameter, class_name: InterventionTemplate::ProductParameter, inverse_of: :budget_items
+  belongs_to :product_parameter, class_name: 'InterventionTemplate::ProductParameter', inverse_of: :budget_items
+  has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :activity_budget_item, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :activity_budget, :computation_method, :currency, :direction, presence: true
+  validates :amount, :global_amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :activity_budget, :computation_method, :currency, :direction, :frequency, presence: true
+  validates :locked, :use_transfer_price, inclusion: { in: [true, false] }, allow_blank: true
+  validates :main_output, inclusion: { in: [true, false] }
+  validates :paid_on, :used_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :repetition, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :transfer_price, numericality: true, allow_blank: true
   validates :unit_currency, presence: true, length: { maximum: 500 }
   validates :variant_indicator, :variant_unit, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
@@ -82,6 +89,7 @@ class ActivityBudgetItem < ApplicationRecord
   scope :expenses, -> { where(direction: :expense).includes(:variant) }
   scope :of_campaign, ->(campaign) { joins(:activity_budget).merge(ActivityBudget.of_campaign(campaign)) }
   scope :of_activity, ->(activity) { joins(:activity_budget).merge(ActivityBudget.of_activity(activity)) }
+  scope :of_main_output, -> { where(main_output: true) }
 
   before_validation do
     self.unit_currency = Preference[:currency] if unit_currency.blank?
@@ -90,6 +98,7 @@ class ActivityBudgetItem < ApplicationRecord
     self.nature ||= :static
     self.frequency ||= :per_year
     self.repetition ||= 1
+    self.tax ||= Tax.usable_in_budget.find_by(amount: 0.0)
   end
 
   validate do
@@ -97,35 +106,39 @@ class ActivityBudgetItem < ApplicationRecord
     if currency && unit_currency
       errors.add(:currency, :invalid) if currency != unit_currency
     end
+    true
   end
 
   after_validation do
-    self.amount = unit_amount * quantity * coefficient if unit_amount.present?
+    self.pretax_amount = unit_amount * quantity * coefficient if unit_amount.present?
+    self.global_pretax_amount = self.pretax_amount * year_repetition if self.pretax_amount.present?
+    self.amount = tax.amount_of(self.pretax_amount) if self.pretax_amount.present? && tax.present?
     self.global_amount = self.amount * year_repetition if self.amount.present?
   end
 
-  after_save do
-    if use_transfer_price && (budget = ActivityBudget.find_by_id(transfered_activity_budget_id)).present?
-      if (expense = budget.expenses.find_by(variant: variant))
-        expense.update!(
-          quantity: quantity,
-          used_on: used_on,
-          unit_id: unit_id,
-          unit_amount: transfer_price,
-          locked: true
-        )
-      else
-        budget.items.create!(
-          direction: :expense,
-          quantity: quantity,
-          variant: variant,
-          unit_id: unit_id,
-          unit_amount: transfer_price,
-          used_on: used_on,
-          computation_method: :per_working_unit,
-          locked: true
-        )
-      end
+  after_save :handle_transfered_item
+  after_save :update_economic_cash_indicators
+
+  # Create or update expense in the activity budget in witch item is transfered
+  def handle_transfered_item
+    return if !use_transfer_price
+    return if (transfered_activity_budget = ActivityBudget.find_by_id(transfered_activity_budget_id)).nil?
+
+    attributes = {
+      quantity: total_quantity,
+      used_on: used_on,
+      unit_id: unit_id,
+      unit_amount: transfer_price,
+      tax: tax,
+      computation_method: :per_campaign,
+      locked: true
+    }
+    if (expense = transfered_activity_budget.expenses.find_by(variant: variant))
+      expense.update!(attributes)
+    else
+      transfered_activity_budget.items.create!(
+        attributes.merge({ direction: :expense, variant: variant })
+      )
     end
   end
 
@@ -163,14 +176,39 @@ class ActivityBudgetItem < ApplicationRecord
     end
   end
 
+  # compute and save activity_budget_item for each cash movement in economic_cash_indicators
+  def update_economic_cash_indicators
+    self.economic_cash_indicators.destroy_all
+    # build default attributes
+    default_attributes = { context: self.activity_budget.name,
+                           context_color: self.activity.color,
+                           campaign: self.campaign,
+                           activity: self.activity,
+                           activity_budget: self.activity_budget,
+                           product_nature_variant: self.variant,
+                           pretax_amount: self.pretax_amount,
+                           amount: self.amount,
+                           direction: self.direction,
+                           origin: self.origin,
+                           nature: self.nature }
+    gap_used_on = self.used_on
+    gap_paid_on = self.paid_on
+    # create cash movement for each year repetition with used and paid
+    year_repetition.times do |_rep|
+      economic_cash_indicators.create!(default_attributes.merge({ used_on: gap_used_on, paid_on: gap_paid_on }))
+      gap_used_on += day_gap.days if gap_used_on
+      gap_paid_on += day_gap.days if gap_paid_on
+    end
+  end
+
   # Duplicate an item in the same budget by default. Each attribute are
   # overwritable.
   def duplicate!(updates = {})
     new_attributes = %i[
-      activity_budget amount computation_method currency direction
-      nature origin frequency repetition used_on
+      activity_budget amount pretax_amount computation_method currency direction
+      nature origin frequency repetition used_on main_output
       quantity unit_amount unit_currency unit_population variant
-      variant_indicator variant_unit unit_id
+      variant_indicator variant_unit unit_id tax_id
     ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h

@@ -132,7 +132,7 @@ module FixedAssetTest
 
       assert fa.destroyable?
       assert fa.start_up
-      assert_not fa.destroyable?
+      assert fa.destroyable?
 
       FixedAssetDepreciator.new.depreciate([fa], up_to: Date.new(2017, 12, 31))
       fa.reload
@@ -143,6 +143,7 @@ module FixedAssetTest
       fdep.journal_entry.confirm
       fa.reload
       assert_not fa.depreciations.first.destroyable?
+      assert_not fa.destroyable?
     end
 
     test 'depreciate class method returns the amount of depreciations according to until option provided' do
@@ -199,6 +200,28 @@ module FixedAssetTest
 
       assert_equal 10, fa.depreciations.count
       assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
+    end
+
+    test 'a in_use FixedAsset are bookkeeped, edited, re-bookkeeped' do
+      fa = create :fixed_asset, :yearly,
+                  percentage: 20.0,
+                  started_on: Date.new(2017, 1, 1),
+                  amount: 50_000
+
+      assert_equal 5, fa.depreciations.count
+      assert_equal 50_000, fa.depreciations.map(&:amount).reduce(&:+)
+      fa.start_up
+
+      fa.reload
+      assert_equal 50_000, fa.journal_entry.real_credit
+      fa.depreciable_amount = 100_000
+      assert fa.save
+      fa.reload
+      assert_equal 100_000, fa.journal_entry.real_credit
+      assert_equal 100_000, fa.depreciations.map(&:amount).reduce(&:+)
+      fa.journal_entry.confirm
+      fa.reload
+      assert_not fa.destroyable?
     end
 
     test 'linking a fixed asset to a sale updates tax, amounts and sold_on fields according to the sale it refers to' do

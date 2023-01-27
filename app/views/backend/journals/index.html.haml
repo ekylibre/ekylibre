@@ -6,7 +6,7 @@
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
-  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journals_path, current_financial_year: financial_year }, { class: [('btn btn-default no-icn'),('disabled' if @draft_entries_count < 1)] }
+  = link_to t("labels.consult_the_day_book", count: @draft_entries_count), { controller: :draft_journals, action: :show, redirection: backend_journals_path, current_financial_year: financial_year }, { class: ['btn btn-default no-icn',('disabled' if @draft_entries_count < 1)] }
   - unless @unbalanced_entries_count < 1
     = link_to t("labels.consult_unbalanced_entries", count: @unbalanced_entries_count), { controller: :invalid_journal_entries, action: :index }, { class: 'btn btn-default no-icn' }
   - if FinancialYear.with_validated_entries.include? financial_year

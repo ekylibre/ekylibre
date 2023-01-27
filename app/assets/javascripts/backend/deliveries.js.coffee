@@ -18,7 +18,7 @@
       $("##{input.val()}").show()
 
   # Manage fields filling in sales/purchases
-  $(document).on "selector:set", "*[data-product-of-delivery-item]", ->
+  $(document).on "selector:set", "*[data-product-of-delivery-item]", (e, wasInitializing) ->
     element = $(this)
     options = element.data("product-of-delivery-item")
     product_id = element.selector('value')
@@ -28,6 +28,8 @@
       item = element.closest(".delivery-item")
       $.ajax
         url: options.url.replace(reg, product_id)
+        # get params from field sale_nature_id, planned_at from options
+        data: {sale_nature_id: options.sale_nature_id, planned_at: options.planned_at}
         dataType: "json"
         success: (data, status, request) ->
           unit = item.find(".item-population-unit-name")
@@ -40,6 +42,7 @@
             item.attr('data-unit-name', data.unit_name)
           else
             unit.html('#')
+          set_default_sale_price(item, data.default_sale_price) if !wasInitializing
           if data.variant
             item.find(".item-variant-name").html(data.variant.name)
           pop = item.find(".item-population")
@@ -47,11 +50,10 @@
           prefilled = element.closest('tr').find('.prefilled-conditioning')
           if prefilled.length > 0 && data.conditioning_coefficient
             prefilled_val = prefilled.data("conditioningQuantity") * prefilled.data("conditioningCoefficient") / data.conditioning_coefficient
-            total.html(prefilled_val)
+            total.html(data.population)
             pop.val(prefilled_val)
           else if data.population
             total.html(data.population)
-            pop.attr('placeholder', data.population)
           else
             total.html('&ndash;')
             pop.attr('placeholder', '0')
@@ -151,6 +153,11 @@
     else
       console.warn "Cannot get product ID"
 
+  set_default_sale_price = (item, default_price) ->
+    if default_price
+      item.find(".item-unit-pretax-sale-amount").val(default_price)
+    else
+      item.find(".item-unit-pretax-sale-amount").val(0.00)
 
   # Computes changes on items
   $(document).on "click", ".item-parted", (event) ->

@@ -5,15 +5,20 @@ DROP TABLE IF EXISTS technical_workflows;
         CREATE TABLE technical_workflows (
           id character varying PRIMARY KEY NOT NULL,
           family character varying,
-          specie character varying,
+          production_reference_name character varying,
           production_system character varying,
           start_day integer,
           start_month integer,
           unit character varying,
           life_state character varying,
           life_cycle character varying,
+          plant_density integer,
           translation_id character varying NOT NULL
         );
+
+        CREATE INDEX technical_workflows_id ON technical_workflows(id);
+        CREATE INDEX technical_workflows_family ON technical_workflows(family);
+        CREATE INDEX technical_workflows_production_reference_name ON technical_workflows(production_reference_name);
 
         CREATE TABLE technical_workflow_procedures (
           id character varying PRIMARY KEY NOT NULL,

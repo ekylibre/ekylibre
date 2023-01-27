@@ -36,6 +36,7 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string           not null
+#  product_id             :integer
 #  reference_tax_id       :integer
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -47,6 +48,7 @@ class CatalogItem < ApplicationRecord
   attr_readonly :catalog_id
   refers_to :currency
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :product, class_name: 'Product'
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
   belongs_to :unit
@@ -60,14 +62,15 @@ class CatalogItem < ApplicationRecord
   validates :all_taxes_included, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :commercial_description, length: { maximum: 500_000 }, allow_blank: true
-  validates :commercial_name, length: { maximum: 500 }, allow_blank: true
-  validates :catalog, :currency, :variant, :unit, :started_at, presence: true
+  validates :commercial_name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :catalog, :currency, :unit, :variant, presence: true
   validates :name, presence: true, length: { maximum: 500 }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(catalog_item) { catalog_item.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :started_at, uniqueness: { scope: %i[catalog_id variant_id unit_id], message: :there_is_already_a_catalog_item_starting_at_the_exact_same_time }
+  validates :started_at, uniqueness: { scope: %i[catalog_id variant_id unit_id product_id], message: :there_is_already_a_catalog_item_starting_at_the_exact_same_time }
   validates :reference_tax, presence: { if: :all_taxes_included }
-  validates :stopped_at, timeliness: { on_or_after: ->(catalog_item) { catalog_item.started_at }, type: :date, if: -> { stopped_at } }
   validates :unit, conditioning: true
 
   # delegate :product_nature_id, :product_nature, to: :template
@@ -83,6 +86,10 @@ class CatalogItem < ApplicationRecord
 
   scope :of_variant, lambda { |variant|
     where(variant: variant)
+  }
+
+  scope :of_product, lambda { |product|
+    where(product: product)
   }
 
   scope :of_unit, lambda { |unit|
@@ -113,19 +120,19 @@ class CatalogItem < ApplicationRecord
     self.amount = amount.round(4) if amount
     self.name = commercial_name
     self.name = variant_name if commercial_name.blank? && variant
+    self.name = product.name if commercial_name.blank? && product
     self.unit ||= variant.guess_conditioning[:unit] if variant
+    self.unit ||= product.conditioning_unit if product
+    self.variant ||= product.variant if product
     set_stopped_at if catalog && following_items.any?
   end
+
+  before_validation :set_stopped_at
 
   after_save do
     set_previous_stopped_at if previous_items.any?
     # update interventions with update price
-    intervention_ids_to_update = []
-    variant.products.each do |product|
-      intervention_ids_to_update << product.interventions.where('started_at >= ?', started_at)&.pluck(:id)
-    end
-    int_ids = intervention_ids_to_update.compact.uniq
-    UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
+    update_intervention_costs
   end
 
   # Find unit_amout in default unit of variant
@@ -167,7 +174,11 @@ class CatalogItem < ApplicationRecord
   alias unit_pretax_amount pretax_amount
 
   def sibling_items
-    self.class.of_variant(variant).where(catalog: catalog).of_unit(unit)
+    if product
+      self.class.of_product(product).where(catalog: catalog).of_unit(unit)
+    else
+      self.class.of_variant(variant).where(catalog: catalog, product_id: nil).of_unit(unit)
+    end
   end
 
   def following_items
@@ -180,15 +191,24 @@ class CatalogItem < ApplicationRecord
 
   class << self
     def import_from_lexicon(reference_name)
-      unless item = MasterPrice.find_by(reference_name: reference_name)
+      # global case
+      if MasterPrice.find_by(reference_name: reference_name)
+        item = MasterPrice.find_by(reference_name: reference_name)
+        unless variant = ProductNatureVariant.find_by_reference_name(item.reference_article_name)
+          variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name)
+        end
+      # phyto case
+      elsif MasterPhytosanitaryPrice.find_by(reference_name: reference_name)
+        item = MasterPhytosanitaryPrice.find_by(reference_name: reference_name)
+        unless variant = ProductNatureVariant.find_by_france_maaid(item.reference_article_name.to_s)
+          variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name.to_s)
+        end
+      else
         raise ArgumentError.new("The variant price #{reference_name.inspect} is unknown")
       end
+
       if catalog_item = CatalogItem.find_by(reference_name: reference_name)
         return catalog_item
-      end
-
-      unless variant = ProductNatureVariant.find_by_reference_name(item.reference_article_name)
-        variant = ProductNatureVariant.import_from_lexicon(item.reference_article_name)
       end
 
       unit = Unit.import_from_lexicon(item.reference_packaging_name)
@@ -230,12 +250,27 @@ class CatalogItem < ApplicationRecord
   private
 
     def set_stopped_at
-      following_item = following_items.first
-      self.stopped_at = following_item.started_at - 1.minute
+      if catalog && following_items.any?
+        following_item = following_items.first
+        self.stopped_at = following_item.started_at - 1.minute if id != following_item.id
+      end
     end
 
     def set_previous_stopped_at
       previous_item = previous_items.last
       previous_item.update!(stopped_at: started_at - 1.minute)
+    end
+
+    def update_intervention_costs
+      intervention_ids_to_update = []
+      if product
+        intervention_ids_to_update << product.interventions.where('started_at >= ?', started_at)&.pluck(:id)
+      else
+        variant.products.each do |pro|
+          intervention_ids_to_update << pro.interventions.where('started_at >= ?', started_at)&.pluck(:id)
+        end
+      end
+      int_ids = intervention_ids_to_update.flatten.compact.uniq
+      UpdateInterventionCostingsJob.perform_later(int_ids, to_reload: true) if int_ids.any?
     end
 end

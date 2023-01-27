@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2022 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,6 +57,7 @@
 #  reference_data           :jsonb            default("{}")
 #  reference_name           :string           not null
 #  specie_variety           :jsonb            default("{}")
+#  spray_volume_value       :decimal(19, 4)
 #  type                     :string
 #  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
 #  updated_at               :datetime         not null
@@ -77,13 +78,14 @@ class InterventionParameter < ApplicationRecord
   store_accessor :specie_variety, :specie_variety_name
 
   has_interval :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency
+  composed_of :spray_volume, class_name: 'Measure', mapping: [%w[spray_volume_value to_d]], constructor: proc { |value| Measure.new(value, 'liter_per_hectare') }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency, :batch_number, :currency, :identification_number, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
   validates :dead, inclusion: { in: [true, false] }
-  validates :imputation_ratio, :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :imputation_ratio, :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :quantity_population, :working_zone_area_value, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
-  validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :using_live_data, inclusion: { in: [true, false] }, allow_blank: true
   validates :intervention, presence: true
   # ]VALIDATORS]

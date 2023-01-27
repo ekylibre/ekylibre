@@ -49,6 +49,8 @@
 class DebtTransfer < ApplicationRecord
   enumerize :nature, in: %i[sale_regularization purchase_regularization], predicates: true
 
+  attribute :reflect, :boolean, default: false
+
   belongs_to :journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :affair, class_name: 'Affair', inverse_of: :debt_transfers
   belongs_to :debt_transfer_affair, class_name: 'Affair', inverse_of: :debt_regularizations
@@ -131,7 +133,8 @@ class DebtTransfer < ApplicationRecord
         debt_transfer_affair: record.affair,
         currency: record.currency,
         amount: record.amount,
-        nature: record.nature == :sale_regularization ? :purchase_regularization : :sale_regularization
+        nature: record.nature == :sale_regularization ? :purchase_regularization : :sale_regularization,
+        reflect: record.reflect == false
       )
     end
 
@@ -147,8 +150,9 @@ class DebtTransfer < ApplicationRecord
   bookkeep do |b|
     # TODO: refactor
     if purchase_regularization?
+
       # Debit on supplier account + credit on regularization account
-      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
+      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: ((reflect ? true : debt_transfer_affair.unbalanced?) && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: debt_transfer_affair.class.model_name.human, number: debt_transfer_affair.number, entity: debt_transfer_affair.third.full_name)
 
         debt_transfer_affair.third.reload
@@ -159,8 +163,9 @@ class DebtTransfer < ApplicationRecord
     end
 
     if sale_regularization?
+
       # debit on regularization account + Credit on client account
-      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (debt_transfer_affair.unbalanced? && affair.unbalanced? && affair.deals_count > 0)) do |entry|
+      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: ((reflect ? true : debt_transfer_affair.unbalanced?) && affair.unbalanced? && affair.deals_count > 0)) do |entry|
         label = tc(nature, resource: affair.class.model_name.human, number: affair.number, entity: affair.third.full_name)
 
         affair.third.reload

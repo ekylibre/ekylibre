@@ -37,6 +37,14 @@ module Procedo
         end
       end
 
+      # Returns procedures of given actions
+      def of_action(*s_actions)
+        options = s_actions.extract_options!
+        select(options) do |p|
+          p.has_action?(*s_actions)
+        end
+      end
+
       # Returns procedures which main category match given ones
       def of_main_category(*categories)
         options = categories.extract_options!

@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import 'pages/index';
 
 import { StateBadgeSet, StateSet } from 'components/state_badge_set';
+import { geocodingInput } from 'components/geocodingInput';
 import { ajax, customFetch } from 'services/ajax';
 import RBush from 'rbush';
 import * as moment from 'moment';
@@ -20,6 +21,10 @@ import 'lib/leaflet/default-icon';
 import { MasterCropProductionService } from 'services/masterCropProductionService';
 import { VarietyService } from 'services/varietyService';
 import { CultivableZoneService } from 'services/cultivableZoneService';
+import { CampaignService } from 'services/campaignService';
+import { ProductService } from 'services/productService';
+import { GeocodingService } from 'services/GeocodingService';
+
 import 'components/map/pause-icon.js';
 
 export let Ekylibre = {
@@ -36,6 +41,9 @@ export let Ekylibre = {
     MasterCropProductionService,
     VarietyService,
     CultivableZoneService,
+    CampaignService,
+    ProductService,
+    GeocodingService,
 };
 
 export let globals = {
@@ -50,6 +58,7 @@ export let globals = {
     mapeditor: {},
     StateBadgeSet,
     StateSet,
+    geocodingInput,
     visualization: {},
 };
 

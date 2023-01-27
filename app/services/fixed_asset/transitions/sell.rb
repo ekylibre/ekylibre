@@ -33,6 +33,7 @@ class FixedAsset
 
           resource.product.reload
           resource.product.update! dead_at: sold_on
+          resource.update_columns stopped_on: sold_on
         end
       end
 

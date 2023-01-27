@@ -1,4 +1,4 @@
-class CreateCviStatements < ActiveRecord::Migration
+class CreateCviStatements < ActiveRecord::Migration[4.2]
   def change
     create_table :cvi_statements do |t|
       t.string :cvi_number, null: false

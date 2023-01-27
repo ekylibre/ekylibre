@@ -6,29 +6,40 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    -#= product_info(:variant, important: true) do |variant|
-      - if variant.pictogram.any?
-        - icon = variant.pictogram
-      - if icon
-        %i.picto{class: "picto-#{icon}"}
-      = link_to(variant.name, controller: :product_nature_variants, action: :show, id: variant.id)
     - if resource.person
       = product_info(:person) do |person|
         %i.picto{class: "picto-user"}
         = link_to(person.full_name, controller: :entities, action: :show, id: person.id)
+    .med-info.important
+      - icon = resource.pictogram
+      %span.title= Worker.human_attribute_name(:variant)
+      %span.value
+        %i.picto{class: "picto-#{icon}"}
+        = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     - if resource.born_at && resource.age >= 1.day
-      = product_info(:age) do |age|
+      = product_info(:age) do
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.dead_at ? Time.zone.now - (resource.dead_at - resource.born_at) : resource.born_at, display: 2)
-    = product_info(:working_duration) do |working_duration|
+    = product_info(:working_duration) do
       %i.picto{class: "picto-timelapse"}
-      = resource.working_duration(as: :doer).in_hour.round(1).l(precision: 1)
+      = resource.worker_duration(current_campaign)
   = labels_info(resource.labels)
 
 = cobbles do |c|
+  - c.cobble(:prices_list) do
+    = cobble_toolbar do |t|
+      - unit = Unit.import_from_lexicon(:hour_worker)
+      - catalog  = Catalog.by_default!(:cost)
+      = t.new(params: {controller: '/backend/catalog_items', catalog_id: catalog.id, unit_id: unit.id, product_id: resource.id, variant_id: resource.variant.id, redirect: request.fullpath}, tool: 'new-price')
+    = cobble_list(:catalog_items)
 
-  - if resource.intervention_product_parameters.any?
-    - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
+  - c.cobble(:time_logs, title: :x_time_logs.tl(count: resource.time_logs.of_year(current_period.to_date.year).count)) do
+    = cobble_toolbar do |t|
+      = t.new(params: { controller: :worker_time_logs, worker_id: resource&.id } )
+      = cobble_list(:time_logs)
+
+  - if resource.interventions.of_campaign(current_campaign).real.any?
+    - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.of_campaign(current_campaign).real.count)) do
       = cobble_list(:intervention_product_parameters)
 
   - time_spent_by_activity(resource, cobbler: c, as: :doer, current_campaign: current_campaign)

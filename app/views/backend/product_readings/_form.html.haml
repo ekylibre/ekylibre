@@ -1,0 +1,17 @@
+- indicator = Onoma::Indicator.find(f.object.indicator_name)
+= field_set do
+  = f.hidden_field :indicator_name
+  = f.referenced_association :product, readonly: true
+  = f.input :read_at
+  - if indicator.datatype == :measure
+    - f.object.measure_value_unit ||= indicator.unit
+  = f.input("#{indicator.datatype}_value", wrapper: :append, label: indicator.human_name) do
+    - if indicator.datatype == :measure
+      = f.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
+      = f.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Onoma::Unit[u].human_name, u]})
+    - elsif indicator.datatype == :choice
+      = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
+    - elsif [:boolean, :string, :decimal].include?(indicator.datatype)
+      = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: indicator.datatype)
+    - else
+      = f.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)

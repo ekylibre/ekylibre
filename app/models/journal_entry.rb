@@ -90,6 +90,8 @@ class JournalEntry < ApplicationRecord
   end
   has_many :purchase_payments, dependent: :nullify
   has_many :incoming_payments, dependent: :nullify
+  has_many :payslips, dependent: :nullify
+  has_many :payslip_payments, dependent: :nullify
   has_many :purchases, dependent: :nullify
   has_many :regularizations, dependent: :nullify
   has_many :sales, dependent: :nullify
@@ -104,10 +106,10 @@ class JournalEntry < ApplicationRecord
   validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :absolute_currency, :currency, :journal, :real_currency, presence: true
   validates :continuous_number, uniqueness: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, :reference_number, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
   validates :number, :state, presence: true, length: { maximum: 500 }
   validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
-  validates :reference_number, :resource_prism, :resource_type, length: { maximum: 500 }, allow_blank: true
   validates :validated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
@@ -359,7 +361,7 @@ class JournalEntry < ApplicationRecord
   end
 
   protect on: :update do
-    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed? || (old_record.confirmed? && (changes.keys - %w[state updated_at]).any?))
+    !importing_from_exchange && (printed_on <= journal.closed_on || old_record.closed? || (old_record.confirmed? && (changes_to_save.keys - %w[state updated_at]).any?))
   end
 
   protect on: :destroy do

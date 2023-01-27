@@ -21,14 +21,30 @@ module Backend
     before_action :save_search_preference, only: :index
 
     def self.matters_conditions
-      code = "if params[:s].nil?\n"
+
+      code = search_conditions(products: %i[name work_number identification_number number description uuid], product_nature_variants: [:name]) + " ||= []\n"
+
+      code << "if params[:s].nil?\n"
       code << "  params[:s] = 'available'\n"
       code << "end\n"
-      code << list_conditions
+
       code << "c[0] << \" AND #{ProductNatureVariant.table_name}.type like ?\"\n"
       code << "c << '%Variants::Article%'\n"
       code << "c[0] << \" AND #{ProductNatureVariant.table_name}.active = ?\"\n"
       code << "c << 't'\n"
+
+      # Label
+      code << "if params[:label_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Product.table_name}.id IN (SELECT product_id FROM product_labellings WHERE label_id IN (?))'\n"
+      code << "  c << params[:label_id].to_i\n"
+      code << "end\n"
+
+      # State
+      code << "if params[:s] == 'available'\n"
+      code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NULL'\n"
+      code << "elsif params[:s] == 'consume'\n"
+      code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NOT NULL'\n"
+      code << "end\n"
 
       # Display matter with population > 0
       code << "if params[:s] == 'available'\n"
@@ -45,8 +61,23 @@ module Backend
       code << "     c << 'Variants::Articles::'+ params[:sub_nature_id].to_s + 'Article'\n"
       code << "  end\n"
       code << "end\n"
+
+      # Period
+      code << "if params[:period].to_s != 'all'\n"
+      code << "  started_on = params[:started_on]\n"
+      code << "  stopped_on = params[:stopped_on]\n"
+      code << "  c[0] << ' AND #{Product.table_name}.born_at::DATE BETWEEN ? AND ?'\n"
+      code << "  c << started_on\n"
+      code << "  c << stopped_on\n"
+      code << "  if params[:s] == 'consume'\n"
+      code << "    c[0] << ' AND #{Product.table_name}.dead_at::DATE BETWEEN ? AND ?'\n"
+      code << "    c << started_on\n"
+      code << "    c << stopped_on\n"
+      code << "  end\n"
+      code << "end\n"
       code << "c\n"
       code.c
+
     end
 
     list(conditions: matters_conditions, selectable: true, join: :variant, distinct: true) do |t|
@@ -54,13 +85,14 @@ module Backend
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :work_number
+      t.column :identification_number
       t.column :name, url: true
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety
       t.column :population
       t.column :conditioning_unit
       t.column :container, url: true
-      t.column :description
+      t.column :description, hidden: true
       t.column :derivative_of
     end
 

@@ -1,4 +1,4 @@
-class FixMissingMigrationOnSupplierPaymentDelay < ActiveRecord::Migration
+class FixMissingMigrationOnSupplierPaymentDelay < ActiveRecord::Migration[4.2]
   def up
     transcode_payment_delay = [
       ["0 days", "1 week"],

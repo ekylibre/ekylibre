@@ -2170,6 +2170,7 @@ fra:
         short_balance_sheet: "Bilan simplifié"
         stocks: "Stocks"
         tax_assessment: "Avis d’imposition"
+        technical_itinerary_sheet: "Itinéraire technique"
         trial_balance: "Balance comptable"
         vat_register: "Registre de TVA"
         veterinary_booklet: "Carnet vétérinaire"
@@ -3203,7 +3204,7 @@ fra:
         output: "Extrant"
         target: "Cible"
         tool: "Outil"
-        variant: "Variant"
+        variant: "Article"
       name: "Rôles de procédures"
     product_nature_categories:
       choices:
@@ -4272,7 +4273,7 @@ fra:
         young_pig_band: "Bande de porcelets"
         young_rabbit: "Lapereau"
         zea_herbicide: "Herbicide maïs"
-      name: "Variantes de produits"
+      name: "Articles"
       property_natures:
         derivative_of: "Dérivé de la variété"
         frozen_indicators_values: "Valeur d’indicateur fixe"
@@ -4734,7 +4735,7 @@ fra:
         activity: "Activité"
         production_code: "Code"
         telepac_crop_code: "Code de type de culture TéléPAC"
-        variant_support: "Variant"
+        variant_support: "Article"
     production_systems:
       items:
         extensive_farming: "Agriculture extensive"
@@ -4793,7 +4794,7 @@ fra:
         minimum_power: "Puissance minimale"
         origin: "Origine"
         power_unit: "Unité de puissance"
-        variant: "Variant"
+        variant: "Article"
         year: "Année"
     sexes:
       items:

@@ -141,6 +141,7 @@
           position: "bottomleft"
           metric: true
           feet: false
+          tooltip: true
         importers:
           gml: true
           geojson: true
@@ -904,7 +905,6 @@
             title: this.options.controls.importers.title
             onShow: (evt) =>
               modal = evt.modal
-
               modal.reloadContent(this.options.controls.importers.content)
 
               $('*[data-editor-submit]', modal._container).on 'click', (e) ->
@@ -924,32 +924,11 @@
                 parser = new DOMParser()
                 kml = parser.parseFromString(data.responseText.trim(), 'text/xml')
                 track = new L.KML(kml)
-                this.map.addLayer(track)
+                this.edition = track
+                this.edition.addTo this.map
 
                 bounds = track.getBounds()
                 this.map.fitBounds(bounds)
-                # $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
-
-                # if feature.alert?
-                #   $(modal._container).find('#alert').text(feature.alert)
-                # else
-                #   try
-                #     widget.edition.addData feature
-                #   catch
-                #     polys = []
-                #     this.edition = L.geoJson(feature, {
-                #       onEachFeature: (feature, layer) =>
-                #         @onEachFeature(feature, layer)
-
-                #       style: (feature) =>
-                #         @featureStyling feature
-                #       filter: (feature) =>
-                #         if feature.type == 'MultiPolygon'
-                #           for coordinates in feature.coordinates
-                #             polys.push {type: 'Polygon', coordinates: coordinates}
-                #         !(feature.type == 'MultiPolygon')
-                #     })
-                #     this.edition.addTo this.map
 
                 this.update()
                 modal.hide()

@@ -52,9 +52,11 @@ module Backend
     list(conditions: list_conditions) do |t|
       t.action :destroy, if: :destroyable?
       t.column :mandatory, class: "center-align"
+      t.column :ocr_presence, datatype: :boolean, class: "center-align"
       t.column :number, url: true
       t.column :name, url: true
       t.column :nature
+      t.column :attachement_presence, datatype: :boolean, class: "center-align", hidden: true
       t.column :created_at
       t.column :file_updated_at, url: { format: :pdf }
       t.column :template, url: true
@@ -62,6 +64,22 @@ module Backend
       t.column :file_size, class: "center-align"
       t.column :file_content_text, hidden: true
       t.column :file_fingerprint, hidden: true
+    end
+
+    def create
+      if params[:document][:file]&.content_type&.match(/image/) || (params[:document][:file]&.size || 0) > 300_000
+        file_params = { path: permitted_params[:file].tempfile.path, filename: permitted_params[:file].original_filename, content_type: permitted_params[:file].content_type }
+        File.open(permitted_params[:file].tempfile.path)
+        document_params = permitted_params.to_h.except(:file)
+        ImageDocumentCreationJob.perform_later(document_params, file_params, current_user.id)
+        notify_success(:document_in_preparation)
+        redirect_to backend_documents_path
+      else
+        @document = resource_model.new(permitted_params)
+        return if save_and_redirect(@document, url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+
+        render(locals: { cancel_url: { action: :index }, with_continue: false })
+      end
     end
 
     def show
@@ -94,5 +112,30 @@ module Backend
         format.zip { send_file(@document.file.path, type: 'application/zip', filename: @document.name) }
       end
     end
+
+    def purchase_scan
+      return unless @document = Document.find(params[:id])
+
+      # launch OCR to create metadata if does not exist
+      unless @document.klippa_metadata.present?
+        PurchaseInvoices::KlippaOcr.new.post_document_and_parse(@document)
+      end
+      # launch Parser on metadata to create purchase
+      if @document.attach_to_resource && @document.klippa_metadata.present?
+        purchase_id = @document.attach_to_resource
+        notify :already_transform_purchase_document
+        redirect_to backend_purchase_invoice_path(id: purchase_id)
+      elsif @document.klippa_metadata.present?
+        klippa_parser = PurchaseInvoices::KlippaParser.new(@document.id)
+        new_purchase_id = klippa_parser.parse_and_create_invoice
+        if new_purchase_id
+          redirect_to backend_purchase_invoice_path(id: new_purchase_id)
+        else
+          notify_error :cannot_transform_purchase_document
+          redirect_to params[:redirect] || { action: :show, id: @document.id }
+        end
+      end
+    end
+
   end
 end

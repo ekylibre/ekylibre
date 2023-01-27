@@ -1,7 +1,44 @@
 - main_toolbar do |t|
   = t.new
 
+- main_period_selector(:year)
+
 = kujaku do |k|
   - k.text
 
-= main_list
+= janus do |j|
+  - j.face :list do
+    = main_list
+  - j.face :chart do
+    :ruby
+      series = []
+      # categories is for month on X axis
+      categories = []
+      started_at = Date.new(current_campaign.harvest_year, 1, 1)
+      stopped_at = Date.new(current_campaign.harvest_year, 12, 31)
+      datasets = WorkerContract.in_year(current_campaign.harvest_year)
+
+      res = started_at
+      while res < stopped_at
+        categories << res.strftime("%Y-%m")
+        res += 1.month
+      end
+
+      datasets.group_by(&:nature).each do |nature, dataset|
+        serie_data = []
+        categories.each do |month|
+          worker_in_month = WorkerContract.where(id: dataset.pluck(:id)).in_month(month.split('-').last.to_i)
+          if worker_in_month.any?
+            value = 0.0
+            worker_in_month.each do |worker|
+              value += worker.cost(period: :month, mode: :charged).to_f
+            end
+            serie_data << { name: "enumerize.worker_contract.nature.#{nature}".t, y: value }
+          else
+            serie_data << { name: :nature.tl, y: nil }
+          end
+        end
+        series << { type: 'column', name: "enumerize.worker_contract.nature.#{nature}".t, data: serie_data }
+      end
+
+    = column_highcharts(series, x_axis: {categories: categories}, y_axis: {title: {text: :global_cost.tl}}, legend: { enabled: true }, stack_labels: {enabled: true, format: "{total} €"}, plot_options: {column: {stacking: 'normal'}, series: {marker: {enabled: true}}})

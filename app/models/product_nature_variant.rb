@@ -98,26 +98,30 @@ class ProductNatureVariant < ApplicationRecord
   has_many :reception_items, class_name: 'ReceptionItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :shipment_items, class_name: 'ShipmentItem', foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :inventories, through: :category
   has_many :members, class_name: 'Product', foreign_key: :member_variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :journal_entry_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
+  has_many :intervention_template_product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :product_nature_variant_id, inverse_of: :product_nature_variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :france_maaid, :gtin, :picture_content_type, :picture_file_name, :reference_name, :specie_variety, :work_number, length: { maximum: 500 }, allow_blank: true
-  validates :name, :unit_name, presence: true, length: { maximum: 500 }
+  validates :default_quantity, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :category, :default_unit, :default_unit_name, :nature, :variety, presence: true
+  validates :france_maaid, :gtin, :pictogram, :picture_content_type, :picture_file_name, :reference_name, :specie_variety, :unit_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
-  validates :category, :nature, :variety, :default_unit_name, :default_unit_id, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :gtin, length: { allow_nil: true, maximum: 14 }
+  validates :default_quantity, numericality: { greater_than: 0, less_than: 1_000_000_000_000_000 }
   validate :readings_presence
   validates_attachment_content_type :picture, content_type: /image/
 
@@ -176,9 +180,14 @@ class ProductNatureVariant < ApplicationRecord
 
   scope :of_id, ->(id) { where(id: id) }
 
+  scope :with_name, ->(name) {
+    name_match_rule = "#{Regexp.escape(name)}(\\s\\(\\d*\\))?$" # match "variant", "variant (1)" ,etc.
+    where("name ~ ?", name_match_rule)
+  }
+
   protect(on: :destroy) do
     products.any? || sale_items.any? || purchase_items.any? ||
-      reception_items.any? || shipment_items.any? || phases.any?
+      reception_items.any? || shipment_items.any? || phases.any? || intervention_template_product_parameters.any?
   end
 
   before_validation on: :create do
@@ -197,14 +206,14 @@ class ProductNatureVariant < ApplicationRecord
     end
 
     unless from_lexicon?
-      type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
+      type_allocator = Variants::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end
   end
 
   before_validation on: :update do
-    if changes.key?('category_id') || changes.key?('nature_id')
-      type_allocator = Variant::TypeAllocatorService.new(category: category, nature: nature)
+    if changes_to_save.key?('category_id') || changes_to_save.key?('nature_id')
+      type_allocator = Variants::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end
   end
@@ -367,9 +376,9 @@ class ProductNatureVariant < ApplicationRecord
 
     catalog = Catalog.by_default!(usage)
     if mode == :dimension
-      catalog.items.of_variant(self).of_dimension_unit(destination_unit.dimension).started_before(at).reorder('started_at DESC').first
+      catalog.items.of_variant(self).where(product_id: nil).of_dimension_unit(destination_unit.dimension).started_before(at).reorder('started_at DESC').first
     elsif mode == :base_unit
-      catalog.items.of_variant(self).of_base_unit(destination_unit.base_unit).started_before(at).reorder('started_at DESC').first
+      catalog.items.of_variant(self).where(product_id: nil).of_base_unit(destination_unit.base_unit).started_before(at).reorder('started_at DESC').first
     else
       raise ArgumentError.new("Unknown mode #{mode}")
     end
@@ -522,14 +531,14 @@ class ProductNatureVariant < ApplicationRecord
     if variety == 'service'
       quantity_purchased - quantity_received
     elsif into_default_unit
-      products.alive.map { |product| UnitComputation.convert_into_variant_unit(product.variant, product.population, product.conditioning_unit) }.sum
+      products.alive.map { |product| UnitComputation.convert_into_variant_default_unit(product.variant, product.population, product.conditioning_unit) }.sum
     else
       products.alive.map { |product| UnitComputation.convert_into_variant_population(product.variant, product.population, product.conditioning_unit) }.sum
     end
   end
 
   def current_stock_displayed
-    variety == 'service' ? '' : current_stock(into_default_unit: true)
+    variety == 'service' ? '' : current_stock
   end
 
   # TODO: refacto with conditioning
@@ -618,9 +627,17 @@ class ProductNatureVariant < ApplicationRecord
     end
   end
 
-  def relevant_stock_indicator(dim)
-    indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dim.to_sym]
+  # Return revelent stock indicator of the dimension
+  #
+  # @param dimension [String] dimension
+  # @return [Measure]
+  def relevant_stock_indicator(dimension)
+    indicator_name = Unit::STOCK_INDICATOR_PER_DIMENSION[dimension.to_sym]
     indicator_name ? send(indicator_name) : Measure.new(1, :unity)
+  end
+
+  def last_inventory
+    inventories.order(:achieved_at).last
   end
 
   class << self
@@ -640,6 +657,8 @@ class ProductNatureVariant < ApplicationRecord
       if variants.empty?
         # Filter and imports
         filtereds = flattened_nomenclature.select do |item|
+          next if item.variety.nil?
+
           item.variety >= variety &&
             ((derivative_of && item.derivative_of && item.derivative_of >= derivative_of) || (derivative_of.blank? && item.derivative_of.blank?))
         end
@@ -719,7 +738,7 @@ class ProductNatureVariant < ApplicationRecord
       variant
     end
 
-    def import_from_lexicon(reference_name, force = false)
+    def import_from_lexicon(reference_name, force = false, new_name = '')
       if RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name) || RegisteredPhytosanitaryProduct.find_by_id(reference_name)
         return import_phyto_from_lexicon(reference_name)
       end
@@ -740,11 +759,18 @@ class ProductNatureVariant < ApplicationRecord
 
       return variants.first if !force && variants.count > 0
 
-      variant_name = if force && variants.count > 0
-                       item.translation.send(Preference[:language]) + "(#{variants.count.to_s})"
-                     else
-                       item.translation.send(Preference[:language])
-                     end
+      if new_name.present?
+        count_same_name = ProductNatureVariant.where(name: new_name).count
+        if count_same_name > 0
+          variant_name = new_name + "(#{count_same_name.to_s})"
+        else
+          variant_name = new_name
+        end
+      elsif force && variants.count > 0
+        variant_name = item.translation.send(Preference[:language]) + "(#{variants.count.to_s})"
+      else
+        variant_name = item.translation.send(Preference[:language])
+      end
 
       category = ProductNatureCategory.import_from_lexicon(item.category)
       nature = ProductNature.import_from_lexicon(item.nature)
@@ -800,7 +826,7 @@ class ProductNatureVariant < ApplicationRecord
 
     def import_phyto_from_lexicon(reference_name)
       item = RegisteredPhytosanitaryProduct.find_by_reference_name(reference_name) || RegisteredPhytosanitaryProduct.find_by_id(reference_name)
-      unless variant = ProductNatureVariant.find_by_reference_name(reference_name)
+      unless variant = ProductNatureVariant.find_by_reference_name(item.reference_name)
         category = ProductNatureCategory.import_from_lexicon(:plant_medicine)
         nature = ProductNature.import_from_lexicon(:plant_medicine)
         default_unit_name = item.usages.any? ? get_phyto_unit(item) : :liter

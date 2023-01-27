@@ -564,7 +564,7 @@ html.exception {
 }
 
 #about-us {
-  padding: 15vh 15vw;
+  padding: 5vh 5vw;
   .logo {
     margin: 20px auto;
     max-width: 60%;
@@ -837,11 +837,11 @@ form.search {
     white-space: nowrap;
     @include ellipsis;
     display: block;
-    height: $lh-very-huge;
+    height: $lh-huge;
     &, * {
       font-family: $awesome-font-family;
       font-size: $fs-very-huge;
-      line-height: $lh-very-huge;
+      line-height: $lh-huge;
       // @include text-align(center);
     }
     .picto {
@@ -883,7 +883,7 @@ form.search {
       // margin: 0 1% $default-gap;
       @include float(left);
     }
-    
+
     &--flex {
       display: inline-flex;
 
@@ -1037,8 +1037,6 @@ html.backend {
 
 
 #help {
-  background: #EEE;
-  @include gradient-vertical(#EED, #DDC);
   padding: 0;
   .header {
     height: $header-height;
@@ -1163,6 +1161,7 @@ html.backend {
       line-height: $lh-normal;
     }
     h3 {
+      white-space: nowrap;
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
       @include margin-right($default-gap * 4);
@@ -1830,13 +1829,20 @@ a[data-remove-closest], a[data-remove] {
   font-weight: bold;
 }
 
+.fake-disabled{
+  color: gray;
+  pointer-events: none;
+}
+
 .budget-item-locked{
   td span span input, td div input, td span div input, td span a, td span select{
-    pointer-events: none;
-    background-color: #F0F0F0;
-  }
-  span span span label, td span label{
-    color: lightgray;
+    &:not(.unlocked){
+      pointer-events: none;
+      background-color: #F0F0F0;
+    }
+    span span span label, td span label{
+      color: lightgray;
+    }
   }
 }
 
@@ -1849,8 +1855,8 @@ a[data-remove-closest], a[data-remove] {
   min-width: 110px;
 }
 
-tr.noHover:hover td { 
-  background-color: inherit;     
+tr.noHover:hover td {
+  background-color: inherit;
   opacity: 1.0;
 }
 .simple-form-date-adjusted{
@@ -1860,6 +1866,9 @@ tr.noHover:hover td {
   border-top: none;
 }
 .first-used-on, .budget-total{
+  white-space: nowrap;
+}
+.unwrapped{
   white-space: nowrap;
 }
 .remove-item {
@@ -2399,6 +2408,14 @@ svg.map {
 
 
 .badge {
+  &.blue{
+    background: blue;
+    float: inherit !important;
+  }
+  &.red{
+    background: red;
+    float: inherit !important;
+  }
   background: $neutral-color;
   @include border-radius(1000px);
   @include inline-block;
@@ -2746,7 +2763,7 @@ a[data-annotate] {
       }
       .cobble-body {
         // padding: $default-gap;
-        .list-footer-pagination { 
+        .list-footer-pagination {
           padding: 8px;
           padding-right: 14px;
           float: right;
@@ -2885,4 +2902,8 @@ a[data-annotate] {
 
 .sml {
   margin-left: 10px;
+}
+
+#set-activity-budget-on-jei{
+  margin-top: 10px;
 }

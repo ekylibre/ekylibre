@@ -1,7 +1,7 @@
 - storing ||= f.object
 - variant = Maybe(storing.parcel_item.variant)
 - storage_name = storing.storage ? storing.storage.name : nil
-- conditioning_coefficient = storing.conditioning_unit && variant.is_some? ? UnitComputation.convert_into_variant_unit(variant.get, 1, storing.conditioning_unit) : nil
+- conditioning_coefficient = storing.conditioning_unit && variant.is_some? ? UnitComputation.convert_into_variant_default_unit(variant.get, 1, storing.conditioning_unit) : nil
 - conditioning_unit = storing.conditioning_unit ? storing.conditioning_unit.name : nil
 
 .nested-fields.storing-fields

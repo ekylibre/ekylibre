@@ -34,7 +34,7 @@ module Backend
       code.c
     end
 
-    list(:journal_entry_items, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
+    list(:journal_entry_items, selectable: true, model: :journal_entry_items, conditions: list_conditions, joins: %i[entry account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position", export_class: ListExportJob) do |t|
       t.column :account, url: true
       t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
       t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -43,6 +43,7 @@ module Backend
       t.column :printed_on
       t.column :name
       t.column :variant, url: true, hidden: true
+      t.column :activity_budget, url: true, hidden: true
       t.column :letter
       t.column :real_debit,  currency: :real_currency, hidden: true
       t.column :real_credit, currency: :real_currency, hidden: true
@@ -71,7 +72,7 @@ module Backend
 
       dataset_params = { accounts: accounts,
                          lettering_state: params[:lettering_state],
-                         states: params[:states].to_h,
+                         states: params[:states]&.to_unsafe_h,
                          ledger: 'general_ledger',
                          started_on: @started_on,
                          stopped_on: @stopped_on }
@@ -87,5 +88,23 @@ module Backend
         end
       end
     end
+
+    # update journal_entry_items with activity_budget_id from list
+    def update_journal_entry_items
+      activity_budget = ActivityBudget.find_by(id: params[:activity_budget_id]) if params[:activity_budget_id].present?
+      journal_entry_item_ids = params[:journal_entry_item_ids].split(',') if params[:journal_entry_item_ids]
+      if activity_budget && journal_entry_item_ids.any?
+        journal_entry_items = JournalEntryItem.where(id: journal_entry_item_ids)
+        journal_entry_items.each{|jei| jei.update(activity_budget_id: activity_budget.id)}
+        notify_success(:jei_updated_with_activity_budget,
+                       budget_name: activity_budget.name,
+                       count: journal_entry_items.count.to_s,
+                       amount: journal_entry_items.sum(:balance).abs)
+      else
+        notify_error(:missing_activity_budget)
+      end
+      redirect_to action: :show
+    end
+
   end
 end
