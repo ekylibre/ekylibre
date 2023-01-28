@@ -30,16 +30,16 @@ GIT
 
 GIT
   remote: https://gitlab.com/ekylibre/charta.git
-  revision: fe4db0fcdc6e59b016d6cfb8bc94fcb3004a02e8
-  branch: master
+  revision: 0792bd23db8b2a9df0985c133a828fd6d5424dfe
+  branch: feature/upgrade-3.0
   specs:
     charta (0.4.0)
-      activesupport (~> 5.0)
+      activesupport (~> 5.2)
       json (>= 1.8.0)
       nokogiri (>= 1.7.0)
-      rgeo (~> 2.0)
-      rgeo-geojson (~> 2.0)
-      rgeo-proj4 (~> 2.0)
+      rgeo (~> 3.0)
+      rgeo-geojson
+      rgeo-proj4
       victor (~> 0.3.3)
       zeitwerk (~> 2.4.0)
 
@@ -585,14 +585,14 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.5)
-    rgeo (2.3.1)
+    rgeo (3.0.0)
     rgeo-activerecord (6.2.2)
       activerecord (>= 5.0)
       rgeo (>= 1.0.0)
     rgeo-geojson (2.1.1)
       rgeo (>= 1.0.0)
-    rgeo-proj4 (2.0.1)
-      rgeo (~> 2.0)
+    rgeo-proj4 (4.0.0)
+      rgeo (~> 3.0.0)
     rgeo-shapefile (3.0.0)
       dbf (~> 4.0)
       rgeo (>= 1.0)
@@ -735,7 +735,7 @@ GEM
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
-    victor (0.3.3)
+    victor (0.3.4)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -872,9 +872,9 @@ DEPENDENCIES
   redis-namespace (~> 1.8)
   remotipart (~> 1.2)
   rest-client (~> 2.0)
-  rgeo (~> 2.2)
-  rgeo-geojson (~> 2.1)
-  rgeo-shapefile (~> 3.0)
+  rgeo (~> 3.0)
+  rgeo-geojson
+  rgeo-shapefile
   rjb (= 1.6.2)
   rodf (~> 1.0)
   roo (~> 2.8)
