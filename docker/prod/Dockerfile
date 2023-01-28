@@ -17,7 +17,7 @@ RUN cp /app/docker/prod/build_config/application.yml /app/docker/prod/build_conf
 FROM registry.gitlab.com/ekylibre/docker-base-images/ruby${RUBY_VERSION}-prod:master AS rails
 
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(grep -oP 'VERSION_CODENAME=\K\w+' /etc/os-release)-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
     apt-get -y install --no-install-recommends postgresql-client-11 python3-pip && \
     pip3 install minio
