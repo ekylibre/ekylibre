@@ -85,6 +85,18 @@ full_diff.scan(%r{^diff --git a/(.+) b/.*\nnew file mode}).each do |file|
   end
 end
 
+FILE_SIZE_LIMIT = 99 #MB
+command = "git ls-files -t `find . -type f -size +#{FILE_SIZE_LIMIT}M |xargs`"
+too_large_files = `#{command}`.split(/\n+/)
+
+if too_large_files.any?
+  too_large_files.each do |file|
+    file_path = file.split(' ').last
+    puts %{Error: git pre-commit hook detected file with size superior to #{FILE_SIZE_LIMIT}MB: "#{file_path}\n--------------}
+    error_found = true
+  end
+end
+
 # Finally, report errors
 if error_found
   puts "To commit anyway, use --no-verify"
