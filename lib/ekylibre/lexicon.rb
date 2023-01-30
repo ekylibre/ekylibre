@@ -17,7 +17,6 @@ module Ekylibre
     def load
       puts "Loading Lexicon ...".cyan
       drop_existing_version
-
       package = if Rails.env.test?
                   load_package('lexicon')
                 else
@@ -27,7 +26,7 @@ module Ekylibre
 
       if package.nil?
         puts 'Error while reading the lexicon package'.red
-        raise
+        exit(false)
       else
         load_package_in_db(package)
       end
@@ -48,25 +47,28 @@ module Ekylibre
           puts "[ OK  ] The version #{version_in_file} has been downloaded.".green
         else
           puts '[ NOK ] Error while downloading.'.red
-          raise
+          exit(false)
         end
       rescue Aws::Sigv4::Errors::MissingCredentialsError => e
         puts '[ NOK ] Missing credentials to download from MINIO'.red
-        raise
+        exit(false)
       end
 
       def load_package(version)
         puts "--Load and validate package...".cyan
-        package = loader.load_package(version_in_file)
+        package = loader.load_package(version)
       end
 
       def version_in_file
         version = File.open('.lexicon-version', &:gets)&.strip
-        puts "No version is mentionned in the .lexicon-version file".red if version.blank?
+        if version.blank?
+          puts "No version is mentionned in the .lexicon-version file".red
+          exit(false)
+        end
         version
       rescue
         puts 'The file .lexicon-version is missing'.red
-        raise
+        exit(false)
       end
 
       # load from db/lexicon on production or development env
