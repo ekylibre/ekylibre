@@ -216,6 +216,10 @@ class ProductNatureVariant < ApplicationRecord
       type_allocator = Variants::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end
+
+    if changes_to_save.key?('default_unit_id')
+      self.default_unit_name = default_unit.reference_name
+    end
   end
 
   before_validation do
