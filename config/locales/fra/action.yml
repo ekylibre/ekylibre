@@ -1264,6 +1264,7 @@ fra:
     complete_isacompta_journal_code_html: "Complétez les codes des journaux Isacompta sélectionnés dans votre échange comptable : %{journals_link}"
     number_of_animals: "Membres"
     warning_could_not_use_ift: "Attention, si la production de référence n'est pas renseignée, les IFT ne pourront pas être calculés."
+    warning_could_not_compute_stock: "Stock comptable négatif. Faite une OD."
     start_state_of_production: "1ère année de production (plantation année N)"
     isacompta_format_exchanges: "Échanges au format Isacompta"
     ekylibre_format_exchanges: "Échanges au format Ekylibre"
