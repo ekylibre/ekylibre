@@ -231,16 +231,13 @@ class ProductNatureVariant < ApplicationRecord
       if derivative_of.blank? && nature.derivative_of
         self.derivative_of ||= nature.derivative_of
       end
-
-      if category && storable?
-        self.stock_account ||= create_unique_account(:stock)
-        self.stock_movement_account ||= create_unique_account(:stock_movement)
-      end
     end
     self.default_unit ||= Unit.import_from_lexicon(default_unit_name) if default_unit_name
     self.default_unit_name ||= default_unit.reference_name if default_unit
     self.unit_name ||= default_unit.name if default_unit
   end
+
+  before_save :set_accounts_from_category
 
   validate do
     if nature.present?
@@ -962,5 +959,14 @@ class ProductNatureVariant < ApplicationRecord
           "Variants::#{item.family.classify}Variant"
         end
       end
+  end
+
+  # @private
+  # Lifecycle: called before_save
+  private def set_accounts_from_category
+    if category && category_id_changed? && storable?
+      self.stock_account = create_unique_account(:stock)
+      self.stock_movement_account = create_unique_account(:stock_movement)
+    end
   end
 end
