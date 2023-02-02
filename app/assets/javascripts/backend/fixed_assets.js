@@ -31,11 +31,11 @@
     });
 
     function yearToPercent(year) {
-        return Math.round((1 / year) * 100 * 100) / 100;
+        return Math.round((1 / year) * 100 * 10000) / 10000;
     }
 
     function percentToYear(percent) {
-        return Math.round((1 / (percent / 100)) * 100) / 100;
+        return Math.round((1 / (percent / 100)) * 10000) / 10000;
     }
 
     function handleDepreciationConversion(element) {

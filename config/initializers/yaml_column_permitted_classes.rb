@@ -16,5 +16,6 @@ Rails.application.config.active_record.yaml_column_permitted_classes =
     RGeo::Geographic::ProjectedPointImpl,
     RGeo::Geographic::Factory,
     Time,
-    Date
+    Date,
+    Nori::StringWithAttributes
   ]

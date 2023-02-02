@@ -240,4 +240,10 @@ class ProductNatureVariantTest < Ekylibre::Testing::ApplicationTestCase::WithFix
     assert_equal Unit.find_by_reference_name('quintal'), conditioning_data[:unit]
     assert_equal 1, conditioning_data[:quantity]
   end
+
+  test 'create and update change the default unit name' do
+    pnv = create(:product_nature_variant, default_unit: Unit.find_by(reference_name: :kilogram))
+    pnv.update!(default_unit: Unit.find_by(reference_name: :unity))
+    assert_equal 'unity', pnv.default_unit_name
+  end
 end
