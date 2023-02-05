@@ -9,12 +9,19 @@ Rails.application.config.active_record.yaml_column_permitted_classes =
     Charta::Point,
     Measure,
     Rational,
-    RGeo::Geos::CAPIFactory,
-    RGeo::Geos::CAPIMultiPolygonImpl,
-    RGeo::Geos::CAPIPointImpl,
     RGeo::Geographic::ProjectedMultiPolygonImpl,
     RGeo::Geographic::ProjectedPointImpl,
     RGeo::Geographic::Factory,
     Time,
     Date
   ]
+
+if defined?(RGeo::Geos::CAPIFactory)
+  Rails.application.config.active_record.yaml_column_permitted_classes << RGeo::Geos::CAPIFactory
+end
+if defined?(RGeo::Geos::CAPIMultiPolygonImpl)
+  Rails.application.config.active_record.yaml_column_permitted_classes << RGeo::Geos::CAPIMultiPolygonImpl
+end
+if defined?(RGeo::Geos::CAPIPointImpl)
+  Rails.application.config.active_record.yaml_column_permitted_classes << RGeo::Geos::CAPIPointImpl
+end
