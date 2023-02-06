@@ -65,7 +65,8 @@ class InventoryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     )
 
     inventory = Inventory.create!(name: Date.today.year.to_s, achieved_at: Date.today.end_of_year - 16.day, financial_year: year)
-    inventory.items.create!(product: @product, actual_population: 4, expected_population: 10, unit_pretax_stock_amount: 10)
+    item = inventory.items.create!(product: @product, expected_population: 10)
+    item.update!(actual_population: 4, unit_pretax_stock_amount: 10)
     inventory.refresh!
 
     assert inventory.reload.reflect
