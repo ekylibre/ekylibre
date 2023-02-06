@@ -1,63 +1,26 @@
-:ruby
-  currency = Onoma::Currency[Preference[:currency]]
-  currency_name = currency.name
-  currency_symbol = currency.symbol
+- currency_symbol = Onoma::Currency[Preference[:currency]].symbol
 %table.table
   %thead
     %tr
-      %th.left-align{colspan: 3}= Product.human_attribute_name(:name)
-      %th.left-align{colspan: 1}= InventoryItem.human_attribute_name(:actual_population)
-      %th.left-align{colspan: 1}= InventoryItem.human_attribute_name(:unit_pretax_stock_amount)
-      %th.left-align{colspan: 2}= InventoryItem.human_attribute_name(:stock_account)
+      %th.left-align{colspan: 2}= Product.human_attribute_name(:name)
+      %th.left-align{colspan: 2}= InventoryItem.human_attribute_name(:actual_population)
+      %th.left-align{colspan: 2}= InventoryItem.human_attribute_name(:unit_pretax_stock_amount)
   %tbody
     = f.simple_fields_for :items, items do |nested|
-      - hint = content_tag :span, class: 'hint-warning' do
-        %br
-        %i.icon.icon-warning
-        = :warning_could_not_compute_stock.tl
-      :ruby
-        stock_value = nil
-        attempted_population = 0.0
-        if f.object.financial_year.present? && nested.object.product.present?
-          attempted_population = nested.object.population_at(f.object.achieved_at)
-          variant = nested.object.product.variant
-          if variant&.stock_account
-            stock_value = variant.stock_account.journal_entry_items_calculate(:balance, f.object.financial_year.started_on.to_time, f.object.achieved_at, except: [f.object.journal_entry_id].compact)
-          end
-        end
-        if stock_value.nil? || stock_value < 0.0
-          status = 'stop'
-        elsif attempted_population.to_f < 0.0
-          status = 'caution'
-        else
-          status = 'go'
-        end
-        hint_status = (status == 'stop' ? hint : nil)
       %tr.noHover.nested-fields
         = nested.association :product, as: :hidden
         = nested.input :expected_population, as: :hidden
-        %td.inventory-items{colspan: 3}
-          %span= link_to(nested.object.product.name, controller: "/backend/products", action: :show, id: nested.object.product_id, target: "_blank")
-          = lights(status)
-          = hint_status
-        %td.inventory-items{colspan: 1}
+        %td.inventory-items{colspan: 2}
+          %span= link_to(nested.object.product.name, controller: "/backend/products", action: :show, id: nested.object.product_id, target: :_blank)
+        %td.inventory-items{colspan: 2}
           - if nested.object.population_counting_unitary?
             %span= link_to(:details.tl, controller: "/backend/products", action: :show, id: nested.object.product_id)
           - else
             = nested.input :actual_population, wrapper: :nested_append do
-              = nested.input_field :actual_population, value: attempted_population
+              = nested.input_field :actual_population, value: nested.object.population_at(f.object.achieved_at)
               %span.add-on= nested.object.product.conditioning_unit.name
-              %br
-              %span.help-block= :expected_quantity_is_x.tl x: attempted_population.l(precision: 0)
-        %td.inventory-items{colspan: 1}
+              %span.help-block= :expected_quantity_is_x.tl x: nested.object.population_at(f.object.achieved_at).l(precision: 0)
+        %td.inventory-items{colspan: 2}
           = nested.input :unit_pretax_stock_amount, wrapper: :nested_append do
             = nested.input_field :unit_pretax_stock_amount, value: nested.object.price_at(f.object.achieved_at)
             %span.add-on= currency_symbol + " / " + nested.object.product.conditioning_unit.name
-        %td.inventory-items{colspan: 2}
-          = nested.input :stock_amount, wrapper: :nested_append do
-            - if variant&.stock_account
-              %span= stock_value.l(precision: 0, currency: currency_name)
-              %br
-              %span.help-block= link_to(variant.stock_account.label, controller: "/backend/accounts", action: :show, id: variant.stock_account.id, target: "_blank")
-            - else
-              = hint_status

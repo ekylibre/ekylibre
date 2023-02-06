@@ -1560,7 +1560,6 @@ eng:
     activate_transmit_analytic_codes: "Analytic sequence is available on option select 'Transmit analytic codes'"
     number_of_animals: "Number of animals"
     warning_could_not_use_ift: "Warning, if production nature is not setted, treatment frequency index won't be calculated."
-    warning_could_not_compute_stock: "Accountancy stock is negative. Fix the issue by creating an entry."
     start_state_of_production: "Start state of production (year N)"
     isacompta_format_exchanges: "Exchanges in Isacompta format"
     ekylibre_format_exchanges: "Exchanges in Ekylibre format"
