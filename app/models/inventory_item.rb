@@ -62,15 +62,23 @@ class InventoryItem < ApplicationRecord
   delegate :storable?, to: :variant
   delegate :currency, to: :inventory, prefix: true
 
+  after_initialize do
+    if !persisted? && inventory
+      self.actual_population = population_at(achieved_at)
+      self.unit_pretax_stock_amount = price_at(achieved_at)
+    end
+  end
+
   before_validation do
     self.actual_population = expected_population if population_counting_unitary?
-    self.currency = inventory_currency if inventory
-    if variant
-      catalog_item = variant.catalog_items.of_usage(:stock)
-      if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
-        self.unit_pretax_stock_amount ||= catalog_item.first.pretax_amount
-        self.unit_pretax_stock_amount = catalog_item.first.pretax_amount if self.unit_pretax_stock_amount == 0.0
-      end
+    if inventory
+      self.currency = inventory_currency
+      self.actual_population ||= population_at(achieved_at)
+      self.unit_pretax_stock_amount ||= price_at(achieved_at)
+    else
+      self.currency = 'EUR'
+      self.actual_population ||= 0.0
+      self.unit_pretax_stock_amount ||= 0.0
     end
   end
 
@@ -98,14 +106,24 @@ class InventoryItem < ApplicationRecord
   end
 
   def price_at(time)
-    if variant && unit_pretax_stock_amount == 0.0
-      catalog_items = variant.catalog_items.of_usage(:stock).of_unit(product.conditioning_unit).active_at(time)
-      return catalog_items.first.pretax_amount if catalog_items.any?
+    if product
+      catalog_items = product.variant.catalog_items.of_unit(product.conditioning_unit).active_at(time)
     end
-    "0.0"
+    if catalog_items.any?
+      catalog_items.first.pretax_amount
+    else
+      0.0
+    end
   end
 
   def population_at(time)
-    product.population(at: time)
+    p = product.population(at: time)
+    if p && p < 0.0
+      0.0
+    elsif p && p >= 0.0
+      p
+    else
+      nil
+    end
   end
 end

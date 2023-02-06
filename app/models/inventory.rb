@@ -136,7 +136,7 @@ class Inventory < ApplicationRecord
 
   def build_missing_items
     self.achieved_at ||= Time.zone.now
-    Matter.at(achieved_at).mine_or_undefined(achieved_at).of_category(product_nature_category).includes(:populations).find_each do |product|
+    Matter.at(self.achieved_at).mine_or_undefined(self.achieved_at).of_category(product_nature_category).includes(:populations).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
 
       population = product.population(at: self.achieved_at)

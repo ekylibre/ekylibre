@@ -12,30 +12,32 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     @initial_population = 10.0
     @catalog.items.create! variant: @variant, amount: @unit_pretax_amount, started_at: Date.new(2018, 1, 1)
 
-    @product = create :matter, name: 'Engrais 0_0_18', variant: @variant
-    create :journal, used_for_permanent_stock_inventory: true
+    @product = ::Variants::CreateProductService.call(variant: @variant)
+    create :journal, nature: :various, used_for_permanent_stock_inventory: true
   end
 
   test "Reflecting an inventory without previous stock initializes stock value and amount" do
-    inventory = create :inventory, year: 2018, financial_year: @fy
-
-    inventory.items.create! product: @product, expected_population: 0, actual_population: @initial_population
+    inventory = create :inventory, year: 2018, financial_year: @fy, achieved_at: @fy.stopped_on.to_time
+    item = inventory.items.new(product: @product, expected_population: 0)
+    item.save!
+    item.update!(actual_population: @initial_population)
     inventory.reload
     inventory.reflect!
-
     assert inventory.reflected?
     assert inventory.journal_entry.present?
 
-    assert_equal (@initial_population * @unit_pretax_amount), @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
-    assert_equal -(@initial_population * @unit_pretax_amount), @variant.stock_movement_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal (@initial_population * @unit_pretax_amount), stock_account_balance(:balance)
+    assert_equal -(@initial_population * @unit_pretax_amount), stock_movement_account_balance(:balance)
   end
 
   test "Reflecting an inventory with initial stock and no accountancy value creates the correct movement and journal_entry" do
     new_population = 20.0
     @product.update! initial_population: new_population
-    inventory = create :inventory, year: 2018, financial_year: @fy
+    inventory = create :inventory, year: 2018, financial_year: @fy, achieved_at: @fy.stopped_on.to_time
 
-    inventory.items.create! product: @product, expected_population: new_population, actual_population: @initial_population
+    item = inventory.items.new product: @product, expected_population: new_population
+    item.save!
+    item.update!(actual_population: @initial_population)
     inventory.reload
     inventory.reflect!
 
@@ -44,8 +46,8 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
 
     assert_equal -(new_population - @initial_population), inventory.items.first.reload.product_movement.delta
 
-    assert_equal (new_population - @initial_population) * @unit_pretax_amount, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
-    assert_equal -((new_population - @initial_population) * @unit_pretax_amount), @variant.stock_movement_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal (new_population - @initial_population) * @unit_pretax_amount, stock_account_balance(:balance)
+    assert_equal -((new_population - @initial_population) * @unit_pretax_amount), stock_movement_account_balance(:balance)
   end
 
   test "Reflecting an inventory with initial stock and initial accountancy amount creates the correct movement and journal entry" do
@@ -56,18 +58,20 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
       { real_credit: 200, name: "init stock", account: Account.find_or_create_by_number("471") }
     ]
 
-    inventory = create :inventory, year: 2018, financial_year: @fy
+    inventory = create :inventory, year: 2018, financial_year: @fy, achieved_at: @fy.stopped_on.to_time
 
-    inventory.items.create! product: @product, expected_population: 20, actual_population: 10
+    item = inventory.items.new product: @product, expected_population: 20
+    item.save!
+    item.update!(actual_population: 10)
     inventory.reload
     inventory.reflect!
 
     assert inventory.reflected?
     assert inventory.journal_entry.present?
 
-    assert_equal 100.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_account_balance(:balance)
     # Debit in movement account is 100 here as its a loss of stock
-    assert_equal 100.0.to_d, @variant.stock_movement_account.journal_entry_items_calculate(:debit, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_movement_account_balance(:debit)
 
     # Inventory loss should be 10
     assert_equal -10.to_d, inventory.items.first.reload.product_movement.delta
@@ -83,18 +87,20 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
       { real_credit: 200, name: "init stock", account: Account.find_or_create_by_number("471") }
     ]
 
-    inventory = create :inventory, year: 2018, financial_year: @fy
+    inventory = create :inventory, year: 2018, financial_year: @fy, achieved_at: @fy.stopped_on.to_time
 
-    inventory.items.create! product: @product, expected_population: 20, actual_population: 10
+    item = inventory.items.new product: @product, expected_population: 20
+    item.save!
+    item.update!(actual_population: 10)
     inventory.reload
     inventory.reflect!
 
     assert inventory.reflected?
     assert inventory.journal_entry.present?
 
-    assert_equal 100.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_account_balance(:balance)
     # Debit in movement account is 100 here as its a loss of stock
-    assert_equal 100.0.to_d, @variant.stock_movement_account.journal_entry_items_calculate(:debit, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_movement_account_balance(:debit)
 
     # Inventory loss should be 10
     assert_equal -10.to_d, inventory.items.first.reload.product_movement.delta
@@ -108,7 +114,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
 
     assert inventory.journal_entry.present?
 
-    assert_equal 200.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 200.0.to_d, stock_account_balance(:balance)
 
     # Inventory loss should be 0
     assert_equal 10.to_d, inventory.items.first.reload.product_movement.delta
@@ -126,16 +132,18 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
 
     first_inventory = create :inventory, year: 2018, day: 15, financial_year: @fy
 
-    first_inventory.items.create! product: @product, expected_population: 20, actual_population: 10
+    item = first_inventory.items.new product: @product, expected_population: 20
+    item.save!
+    item.update!(actual_population: 10)
     first_inventory.reload
     first_inventory.reflect!
 
     assert first_inventory.reflected?
     assert first_inventory.journal_entry.present?
 
-    assert_equal 100.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_account_balance(:balance)
     # Debit in movement account is 100 here as its a loss of stock
-    assert_equal 100.0.to_d, @variant.stock_movement_account.journal_entry_items_calculate(:debit, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_movement_account_balance(:debit)
 
     # Inventory loss should be 10
     assert_equal -10.to_d, first_inventory.items.first.reload.product_movement.delta
@@ -145,14 +153,16 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     # Add inventory
     second_inventory = create :inventory, year: 2018, day: 25, financial_year: @fy
 
-    second_inventory.items.create! product: @product, expected_population: 10, actual_population: 30
+    item = second_inventory.items.new product: @product, expected_population: 10
+    item.save!
+    item.update!(actual_population: 30)
     second_inventory.reload
     second_inventory.reflect!
 
     assert second_inventory.reflected?
     assert second_inventory.journal_entry.present?
 
-    assert_equal 300.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 300.0.to_d, stock_account_balance(:balance)
 
     # Inventory loss should be 0
     assert_equal 20.to_d, second_inventory.items.first.reload.product_movement.delta
@@ -167,14 +177,14 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert second_inventory.destroyable?
     assert second_inventory.updateable?
     second_inventory.destroy!
-    assert_equal 100.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 100.0.to_d, stock_account_balance(:balance)
 
     # destroy first_inventory and have the right value
     assert first_inventory.destroyable?
     assert first_inventory.updateable?
     first_inventory.destroy!
     # must have the same value than before all inventories
-    assert_equal 200.0.to_d, @variant.stock_account.journal_entry_items_calculate(:balance, @fy.started_on, @fy.stopped_on)
+    assert_equal 200.0.to_d, stock_account_balance(:balance)
   end
 
   private
@@ -184,5 +194,13 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
       Preference.set! :language, :fra
       Preference.set! :country, :fr
       I18n.locale = :fra
+    end
+
+    def stock_account_balance(operation_nature)
+      @variant.stock_account.journal_entry_items_calculate(operation_nature, @fy.started_on, @fy.stopped_on)
+    end
+
+    def stock_movement_account_balance(operation_nature)
+      @variant.stock_movement_account.journal_entry_items_calculate(operation_nature, @fy.started_on, @fy.stopped_on)
     end
 end
