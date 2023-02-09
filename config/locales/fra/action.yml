@@ -1209,6 +1209,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    fill_thousand_grains_count: Renseignez le poids de mille grains pour obtenir un calcul automatique des autres indicateurs.
     create_zero_intial_stock: Créer un stock initial à zéro
     product_will_be_imported_with_zero_stock: Un produit avec un stock initial à zéro va être automatiquement créé. Vous pourrez le modifier depuis Stock > Matières.
     balance_gap: "Écart au bilan de\_"

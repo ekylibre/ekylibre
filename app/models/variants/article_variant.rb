@@ -61,5 +61,13 @@ module Variants
     def variant_type
       :article
     end
+
+    def default_unit_updateable?
+      !imported? && super
+    end
+
+    def self.restricted_base_unit_list
+      %i[unity kilogram liter]
+    end
   end
 end

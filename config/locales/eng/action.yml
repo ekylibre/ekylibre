@@ -1522,6 +1522,7 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    fill_thousand_grains_count: Fill in thousand grains mass to get other indicators values.
     balance_gap: "balance gap\_"
     create_zero_intial_stock: Create zero initial stock
     product_will_be_imported_with_zero_stock: Product with zero initial stock will be created
