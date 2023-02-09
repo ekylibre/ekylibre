@@ -4,8 +4,7 @@ module Procedo
       class Reading
         include Reassignable
 
-        attr_accessor :value
-        attr_reader :parameter, :id, :reference, :indicator
+        attr_reader :value, :parameter, :id, :reference, :indicator
 
         delegate :intervention, to: :parameter
         delegate :name, :datatype, to: :indicator

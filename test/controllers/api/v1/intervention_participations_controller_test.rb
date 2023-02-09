@@ -132,8 +132,7 @@ module Api
                                         :with_working_period,
                                         procedure_name: :plant_watering,
                                         actions: [:irrigation],
-                                        nature: :request
-                                       )
+                                        nature: :request)
           payload = {
             intervention_id: request_intervention.id,
             request_compliant: 1,
@@ -363,8 +362,7 @@ module Api
                                           :with_working_period,
                                           procedure_name: :plant_watering,
                                           actions: [:irrigation],
-                                          nature: :request
-                                         )
+                                          nature: :request)
             {
               intervention_id: request_intervention.id,
               request_compliant: 1,
@@ -651,8 +649,7 @@ module Api
                                         actions: [:irrigation],
                                         nature: :request,
                                         started_at: intervention_started_at,
-                                        stopped_at: intervention_stopped_at
-                                       )
+                                        stopped_at: intervention_stopped_at)
           {
             intervention_id: request_intervention.id,
             request_compliant: 1,

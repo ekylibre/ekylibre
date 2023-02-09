@@ -73,7 +73,7 @@ module Backend
       t.action :payment_mode, on: :both, if: :payable?
       t.action :edit
       t.action :destroy
-      t.column :number, url: :true
+      t.column :number, url: true
       t.column :supplier, url: true
       t.column :invoiced_at
       t.column :reference_number, url: true

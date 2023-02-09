@@ -213,16 +213,6 @@ class Equipment < Matter
     current_work_life / total_working_lifespan
   end
 
-  #### [0 - 100%]
-
-  def lifespan_progress_percent
-    lifespan_progress * 100
-  end
-
-  def working_lifespan_progress_percent
-    working_lifespan_progress * 100
-  end
-
   ##################################################
   ### Work duration ################################
 

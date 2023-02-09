@@ -60,7 +60,7 @@ class FixedAsset
         assert_equal 'scrapped', fa.state
         assert_equal scrapped_on, fa.scrapped_on
         assert_equal scrapped_on, fa.stopped_on
-        assert fa.depreciations.all? &:has_journal_entry?
+        assert fa.depreciations.all?(&:has_journal_entry?)
 
         before_scrap = fa.reload.depreciations.up_to scrapped_on
         assert_equal scrapped_on, before_scrap.last.stopped_on

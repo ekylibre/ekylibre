@@ -27,7 +27,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert inventory.journal_entry.present?
 
     assert_equal (@initial_population * @unit_pretax_amount), stock_account_balance(:balance)
-    assert_equal -(@initial_population * @unit_pretax_amount), stock_movement_account_balance(:balance)
+    assert_equal(-(@initial_population * @unit_pretax_amount), stock_movement_account_balance(:balance))
   end
 
   test "Reflecting an inventory with initial stock and no accountancy value creates the correct movement and journal_entry" do
@@ -44,10 +44,10 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert inventory.reflected?
     assert inventory.journal_entry.present?
 
-    assert_equal -(new_population - @initial_population), inventory.items.first.reload.product_movement.delta
+    assert_equal(-(new_population - @initial_population), inventory.items.first.reload.product_movement.delta)
 
     assert_equal (new_population - @initial_population) * @unit_pretax_amount, stock_account_balance(:balance)
-    assert_equal -((new_population - @initial_population) * @unit_pretax_amount), stock_movement_account_balance(:balance)
+    assert_equal(-((new_population - @initial_population) * @unit_pretax_amount), stock_movement_account_balance(:balance))
   end
 
   test "Reflecting an inventory with initial stock and initial accountancy amount creates the correct movement and journal entry" do
@@ -74,7 +74,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert_equal 100.0.to_d, stock_movement_account_balance(:debit)
 
     # Inventory loss should be 10
-    assert_equal -10.to_d, inventory.items.first.reload.product_movement.delta
+    assert_equal(-10.to_d, inventory.items.first.reload.product_movement.delta)
     # Entry item of stock account should be credit: 100 as we record a loss of stock
     assert_equal 100.to_d, inventory.journal_entry.items.where(account: @variant.stock_account).first.credit
   end
@@ -103,7 +103,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert_equal 100.0.to_d, stock_movement_account_balance(:debit)
 
     # Inventory loss should be 10
-    assert_equal -10.to_d, inventory.items.first.reload.product_movement.delta
+    assert_equal(-10.to_d, inventory.items.first.reload.product_movement.delta)
     # Entry item of stock account should be credit: 100 as we record a loss of stock
     assert_equal 100.to_d, inventory.journal_entry.items.where(account: @variant.stock_account).first.credit
 
@@ -146,7 +146,7 @@ class InventoryReflectTest < Ekylibre::Testing::ApplicationTestCase
     assert_equal 100.0.to_d, stock_movement_account_balance(:debit)
 
     # Inventory loss should be 10
-    assert_equal -10.to_d, first_inventory.items.first.reload.product_movement.delta
+    assert_equal(-10.to_d, first_inventory.items.first.reload.product_movement.delta)
     # Entry item of stock account should be credit: 100 as we record a loss of stock
     assert_equal 100.to_d, first_inventory.journal_entry.items.where(account: @variant.stock_account).first.credit
 

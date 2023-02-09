@@ -14,7 +14,7 @@ module StateBadgeSetHelper
     content_tag :div, **html.except(:classes), class: [*html.fetch(:classes, []), 'state-badge-set', set_style] do
       states.map do |id, name|
         state_badge name.tl, class: ['state-badge-set__badge', "state-badge-set__badge--#{id.to_s.dasherize}"]
-      end.reduce &:+
+      end.reduce(&:+)
     end
   end
 

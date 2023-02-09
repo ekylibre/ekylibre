@@ -42,17 +42,16 @@ module Ekylibre
         person ||= Entity.where('first_name ILIKE ? AND last_name ILIKE ?', r.first_name.strip, r.last_name.strip).first
         if person
           person.update_attributes!(country: r.country) if person.country.blank?
-        elsif
-          person = Entity.new(
-            first_name: r.first_name,
-            last_name: r.last_name,
-            number: r.number,
-            nature: r.nature,
-            country: r.country,
-            active: r.active,
-            prospect: r.prospect,
-            transporter: r.transporter
-          )
+        elsif person = Entity.new(
+          first_name: r.first_name,
+          last_name: r.last_name,
+          number: r.number,
+          nature: r.nature,
+          country: r.country,
+          active: r.active,
+          prospect: r.prospect,
+          transporter: r.transporter
+        )
           person.save!
         end
         if r.client_account_number

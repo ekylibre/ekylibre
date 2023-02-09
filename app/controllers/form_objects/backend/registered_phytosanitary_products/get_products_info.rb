@@ -17,7 +17,8 @@ module FormObjects
           end
         end
 
-        attr_accessor :targets_data, :products_data, :intervention_started_at, :intervention_stopped_at, :intervention_id
+        attr_accessor :intervention_id
+        attr_writer :targets_data, :products_data, :intervention_started_at, :intervention_stopped_at
 
         # @return [DateTime, nil]
         def intervention_started_at

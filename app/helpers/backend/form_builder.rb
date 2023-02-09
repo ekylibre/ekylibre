@@ -217,7 +217,7 @@ module Backend
       input = super
 
       if is_nomenclature_select?(attribute_name)
-        input&.options&.fetch(:collection)&.sort_by! &options.fetch(:label_method, :first)
+        input&.options&.fetch(:collection)&.sort_by!(&options.fetch(:label_method, :first))
       end
 
       input

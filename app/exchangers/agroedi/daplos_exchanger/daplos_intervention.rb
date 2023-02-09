@@ -88,7 +88,8 @@ module Agroedi
         code = daplos.intervention_nature_edicode
         match_record = RegisteredAgroediCode.find_by(
           repository_id: 14,
-          reference_code: code)
+          reference_code: code
+        )
         ekylibre_agroedi = match_record&.ekylibre_value&.to_sym
         unless ekylibre_agroedi
           raise "Intervention nature #{code.inspect} has no equivalent in Ekylibre reference"

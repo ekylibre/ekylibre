@@ -117,11 +117,6 @@ class Subscription < ApplicationRecord
     address.mail_line_1
   end
 
-  def active?(instant = nil)
-    instant ||= Time.zone.today
-    self.started_on <= instant && instant <= stopped_on
-  end
-
   def renewable?
     sale_item && children.empty?
   end

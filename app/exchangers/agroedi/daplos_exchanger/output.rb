@@ -56,7 +56,8 @@ module Agroedi
 
         match_record = RegisteredAgroediCode.find_by(
           repository_id: 15,
-          reference_code: daplos.output_nature_edicode)
+          reference_code: daplos.output_nature_edicode
+        )
         ekylibre_edicode = match_record&.ekylibre_value&.to_sym
         unless ekylibre_edicode
           raise "Nature code #{daplos.output_nature_edicode.inspect}" +
@@ -70,7 +71,8 @@ module Agroedi
 
         match_record = RegisteredAgroediCode.find_by(
           repository_id: 18,
-          reference_code: daplos.output_specie_edicode)
+          reference_code: daplos.output_specie_edicode
+        )
         ekylibre_edicode = match_record&.ekylibre_value&.to_sym
 
         @specie_edicode = ekylibre_edicode

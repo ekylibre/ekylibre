@@ -67,7 +67,7 @@ module Backend
            IncomingPaymentMode,
            OutgoingPaymentMode,
            Journal,
-           Account].each &:delete_all
+           Account].each(&:delete_all)
         end
 
         def setup_accountancy(**options)

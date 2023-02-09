@@ -53,13 +53,13 @@ module Backend
       end
 
       def translated_interpolations(error)
-        with_i18n_scope *i18n_scope_for(error.resource, error.transition), :interpolations, replace: true do
+        with_i18n_scope(*i18n_scope_for(error.resource, error.transition), :interpolations, replace: true) do
           error.interpolations.map { |key, value| [key, stl(value)] }.to_h
         end
       end
 
       def with_translation_scope(error, &block)
-        with_i18n_scope *i18n_scope_for(error.resource, error.transition), :errors, replace: true, &block
+        with_i18n_scope(*i18n_scope_for(error.resource, error.transition), :errors, replace: true, &block)
       end
 
       def i18n_scope_for(resource, transition)

@@ -3,7 +3,7 @@ module Ekylibre
     class Base
       LOADERS = YAML.load_file(Pathname.new(__FILE__).dirname.join('loaders.yml')).deep_symbolize_keys.freeze
 
-      attr_reader :max, :path, :verbose, :mode, :force
+      attr_reader :max, :verbose, :mode, :force
 
       def initialize(path, options = {})
         @verbose = !options[:verbose].is_a?(FalseClass)

@@ -61,7 +61,7 @@ module Printers
         assert_equal 1.in_square_meter, result[:prod2].get
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
 
       test 'weight_quantity_by_area does nothing if the quantity has a repartition_dimension in surface_area' do
@@ -94,7 +94,7 @@ module Printers
         assert_equal 3.in_square_meter, result.get
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
 
       test 'normalize_to_base_unit does nothing if the measure does not have a repartition dimension in surface_area' do

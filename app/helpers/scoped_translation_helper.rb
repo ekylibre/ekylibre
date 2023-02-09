@@ -6,7 +6,7 @@ module ScopedTranslationHelper
     end
 
     def i18n_scope_set(*scope)
-      @i18n_scope = translation_key *scope
+      @i18n_scope = translation_key(*scope)
     end
 
     def with_i18n_scope(*parts, replace: false)
@@ -32,7 +32,7 @@ module ScopedTranslationHelper
   end
 
   def with_i18n_scope(*parts, replace: false, &block)
-    ScopedTranslationHelper.with_i18n_scope *parts, replace: replace, &block
+    ScopedTranslationHelper.with_i18n_scope(*parts, replace: replace, &block)
   end
 
   def stl(unit, **options)

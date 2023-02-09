@@ -196,8 +196,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       assert_equal 0.0, tax_item.fixed_asset_deductible_pretax_amount
       assert_equal 0.0, tax_item.intracommunity_payable_tax_amount
       assert_equal 0.0, tax_item.intracommunity_payable_pretax_amount
-      assert_equal -356.0, tax_item.balance_tax_amount
-      assert_equal -1780.0, tax_item.balance_pretax_amount
+      assert_equal(-356.0, tax_item.balance_tax_amount)
+      assert_equal(-1780.0, tax_item.balance_pretax_amount)
 
       assert_equal 3, tax_item.parts.length
       tax_item.parts.detect { |part| part.journal_entry_item.entry == purchase1_entry }.tap do |p|
@@ -229,7 +229,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       end
     end
 
-    assert_equal -356, subject.global_balance
+    assert_equal(-356, subject.global_balance)
   end
   test 'compute declaration with journal entry items on debit created previously but not declared' do
     #
@@ -303,7 +303,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
                     started_on: (started_on + 1.month).beginning_of_month,
                     stopped_on: (stopped_on + 1.month).end_of_month)
     assert subject.save
-    assert_equal -300, subject.global_balance
+    assert_equal(-300, subject.global_balance)
   end
   test 'compute declaration with journal entry items on payment but without payment' do
     #
@@ -502,8 +502,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       assert_equal 0.0, tax_item.fixed_asset_deductible_pretax_amount
       assert_equal 0.0, tax_item.intracommunity_payable_tax_amount
       assert_equal 0.0, tax_item.intracommunity_payable_pretax_amount
-      assert_equal -66.67, tax_item.balance_tax_amount
-      assert_equal -333.33, tax_item.balance_pretax_amount
+      assert_equal(-66.67, tax_item.balance_tax_amount)
+      assert_equal(-333.33, tax_item.balance_pretax_amount)
 
       assert_equal 1, tax_item.parts.length
       tax_item.parts.detect { |part| part.journal_entry_item.entry == purchase1_entry }.tap do |p|
@@ -517,7 +517,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       end
     end
 
-    assert_equal -66.67, subject.global_balance
+    assert_equal(-66.67, subject.global_balance)
   end
   test 'compute declaration with journal entry items on payment with payment and previous declared' do
     #
@@ -718,7 +718,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
                       financial_year: financial_year,
                       started_on: previous_declaration_started_on,
                       stopped_on: previous_declaration_stopped_on)
-    assert_equal -6.67, previous.global_balance
+    assert_equal(-6.67, previous.global_balance)
 
     subject = build(:tax_declaration,
                     financial_year: financial_year,
@@ -895,8 +895,8 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
       assert_equal 0.0, tax_item.fixed_asset_deductible_pretax_amount
       assert_equal 0.0, tax_item.intracommunity_payable_tax_amount
       assert_equal 0.0, tax_item.intracommunity_payable_pretax_amount
-      assert_equal -50.0, tax_item.balance_tax_amount
-      assert_equal -250.0, tax_item.balance_pretax_amount
+      assert_equal(-50.0, tax_item.balance_tax_amount)
+      assert_equal(-250.0, tax_item.balance_pretax_amount)
 
       assert_equal 2, tax_item.parts.length
       tax_item.parts.detect { |part| part.journal_entry_item.entry == purchase1_entry }.tap do |p|
@@ -918,7 +918,7 @@ class TaxDeclarationTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
         assert_equal 'deductible', p.direction
       end
     end
-    assert_equal -50.0, subject.global_balance
+    assert_equal(-50.0, subject.global_balance)
   end
   test 'does not create tax declaration item parts with zero amount' do
     tax = create(:tax)

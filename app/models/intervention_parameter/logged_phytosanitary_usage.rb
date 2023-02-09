@@ -9,7 +9,8 @@ class InterventionParameter
                     untreated_buffer_arthropod pre_harvest_delay development_stage_min development_stage_max untreated_buffer_plants crop_label_fra
                     applications_frequency ephy_usage_phrase].freeze
 
-    attr_accessor *ATTRIBUTES, :in_field_reentry_delay, :france_maaid
+    attr_accessor(*ATTRIBUTES, :france_maaid)
+    attr_writer :in_field_reentry_delay
 
     def decorated_development_stage_min
       if development_stage_min && !development_stage_max
