@@ -13,7 +13,7 @@ FactoryBot.define do
     end
 
     after(:build) do |land_parcel, evaluator|
-      land_parcel.activity_production = create *evaluator.production_name, support: land_parcel, started_on: land_parcel.born_at&.to_date
+      land_parcel.activity_production = create(*evaluator.production_name, support: land_parcel, started_on: land_parcel.born_at&.to_date)
     end
 
     factory :lemon_land_parcel do

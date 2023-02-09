@@ -23,7 +23,7 @@ module Printers
         assert_equal 0.5, result
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
 
       test 'product_area_ratio handle multiple units' do
@@ -40,7 +40,7 @@ module Printers
         assert_equal 0.5, result
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
 
       test 'product_area_ratio defaults to 0 if no working_area' do
@@ -59,7 +59,7 @@ module Printers
         assert_equal 0, result
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
 
       test 'product_area_ratio defaults ignore records with no target area' do
@@ -76,7 +76,7 @@ module Printers
         assert_equal 0.5, @printer.product_area_ratio(%i[prod1 prod3], intervention)
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
 
       test 'product_area_ratio defaults to 0 if target not present in the intervention' do
@@ -92,7 +92,7 @@ module Printers
         assert_equal 0, @printer.product_area_ratio(%i[prod3], intervention)
 
         intervention.verify
-        target_mocks.each &:verify
+        target_mocks.each(&:verify)
       end
     end
   end

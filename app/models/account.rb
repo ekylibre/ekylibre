@@ -399,8 +399,6 @@ class Account < ApplicationRecord
       conditions
     end
 
-    alias find_with_regexp regexp_condition
-
     # Find all account matching with the regexp in a String
     # 123 will take all accounts 123*
     # ^456 will remove all accounts 456*

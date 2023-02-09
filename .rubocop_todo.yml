@@ -10,28 +10,6 @@ inherit_from: https://gitlab.com/ekylibre/tools/rubocop/-/raw/0.2.0/.rubocop.yml
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-Layout/ConditionPosition:
-  Exclude:
-    - 'app/exchangers/ekylibre/entities_exchanger.rb'
-    - 'app/exchangers/la_graine_informatique/vinifera/entities_exchanger.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: around, only_before
-Layout/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'app/helpers/analytics_helper.rb'
-    - 'app/models/journal.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Exclude:
-    - 'app/controllers/api/v1/variants_controller.rb'
-    - 'app/exchangers/panier_local/sales_exchanger.rb'
-    - 'app/interactors/interventions/build_intervention_interactor.rb'
 
 # Offense count: 10
 # Cop supports --auto-correct.
@@ -43,96 +21,10 @@ Layout/MultilineArrayBraceLayout:
     - 'app/services/printers/short_balance_sheet_printer.rb'
     - 'test/controllers/api/v1/interventions_controller_test.rb'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineHashBraceLayout:
-  Exclude:
-    - 'app/controllers/backend/notifications_controller.rb'
-    - 'lib/delay.rb'
-    - 'test/controllers/api/v1/interventions_controller_test.rb'
-
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineMethodCallBraceLayout:
-  Exclude:
-    - 'app/exchangers/agroedi/daplos_exchanger/daplos_intervention.rb'
-    - 'app/exchangers/agroedi/daplos_exchanger/output.rb'
-    - 'app/exchangers/ekylibre/cash_transfers_exchanger.rb'
-    - 'app/jobs/financial_year_close_job.rb'
-    - 'test/controllers/api/v1/intervention_participations_controller_test.rb'
-
-# Offense count: 49
-Lint/AmbiguousOperator:
-  Exclude:
-    - 'app/controllers/backend/tax_declarations_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/helpers/backend/base_helper.rb'
-    - 'app/helpers/backend/form_builder.rb'
-    - 'app/helpers/backend/transition_exception_rendering_helper.rb'
-    - 'app/helpers/scoped_translation_helper.rb'
-    - 'app/helpers/state_badge_set_helper.rb'
-    - 'app/models/accountancy/duration.rb'
-    - 'app/models/concerns/periodic_calculable.rb'
-    - 'app/models/intervention_parameter/logged_phytosanitary_product.rb'
-    - 'app/models/intervention_parameter/logged_phytosanitary_usage.rb'
-    - 'app/models/reception.rb'
-    - 'app/services/state_bar_builder.rb'
-    - 'config/initializers/wice_grid_draper_support.rb'
-    - 'lib/ekylibre/plugin/routing.rb'
-    - 'plugins/hajimari/app/controllers/hajimari/buildings_controller.rb'
-    - 'plugins/hajimari/app/models/hajimari/telepac_file.rb'
-    - 'test/controllers/backend/bank_reconciliation/gaps_controller_test.rb'
-    - 'test/factories/land_parcels.rb'
-    - 'test/models/bank_statement_test.rb'
-    - 'test/models/inventory/inventory_reflect_test.rb'
-    - 'test/models/sale_item_test.rb'
-    - 'test/models/tax_declaration_test.rb'
-    - 'test/services/fixed_asset/transitions/scrap_test.rb'
-    - 'test/services/printers/land_parcel_register/land_parcel_register_base_printer_test.rb'
-    - 'test/services/printers/land_parcel_register/product_area_ratio.rb'
-
-# Offense count: 4
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'app/exchangers/ekylibre/purchases_exchanger.rb'
-    - 'app/helpers/unroll_helper.rb'
-    - 'app/models/product_nature_category.rb'
-
-# Offense count: 5
+# Offense count: 1
 Lint/BooleanSymbol:
   Exclude:
     - 'app/controllers/backend/intervention_participations_controller.rb'
-    - 'app/controllers/backend/purchase_invoices_controller.rb'
-    - 'app/controllers/backend/purchase_orders_controller.rb'
-    - 'app/controllers/backend/unreceived_purchase_orders_controller.rb'
-    - 'db/migrate/20160420121330_add_plant_countings.rb'
-
-# Offense count: 1
-Lint/DuplicateHashKey:
-  Exclude:
-    - 'db/migrate/20171212100101_rename_french_taxes_names.rb'
-
-# Offense count: 19
-Lint/DuplicateMethods:
-  Exclude:
-    - 'app/controllers/form_objects/backend/registered_phytosanitary_products/get_products_info.rb'
-    - 'app/models/account.rb'
-    - 'app/models/equipment.rb'
-    - 'app/models/intervention_parameter/logged_phytosanitary_usage.rb'
-    - 'app/models/subscription.rb'
-    - 'lib/action_integration/base.rb'
-    - 'lib/ekylibre/first_run/base.rb'
-    - 'lib/ekylibre/navigation/node.rb'
-    - 'lib/nomen/nomenclature.rb'
-    - 'lib/procedo/engine/intervention/reading.rb'
-    - 'lib/procedo/procedure/handler.rb'
-    - 'plugins/hajimari/app/models/hajimari/equipment.rb'
-    - 'plugins/hajimari/app/models/hajimari/telepac_upload.rb'
-    - 'test/concepts/financial_year_exchange_import_test.rb'
 
 # Offense count: 5
 Lint/IneffectiveAccessModifier:

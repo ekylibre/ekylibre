@@ -16,7 +16,7 @@ module Ekylibre
         end
       end
 
-      attr_reader :type, :name, :parent, :pages, :icon, :index, :children, :pages, :default_page
+      attr_reader :type, :name, :parent, :icon, :index, :children, :pages, :default_page
 
       def initialize(type, name, options = {})
         @type = type.to_sym

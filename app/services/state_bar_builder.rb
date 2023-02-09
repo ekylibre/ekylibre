@@ -23,7 +23,7 @@ class StateBarBuilder
       )
     end
 
-    StateBarHelper::StateBar.new *buttons, transitions_enabled: transitions_enabled?
+    StateBarHelper::StateBar.new(*buttons, transitions_enabled: transitions_enabled?)
   end
 
   private

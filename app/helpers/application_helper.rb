@@ -959,7 +959,7 @@ module ApplicationHelper
     options[:controls] ||= {}
 
     if block_given?
-      content = capture &block
+      content = capture(&block)
     elsif input.is_a? Hash
       content = field_tag input
     else

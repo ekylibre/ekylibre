@@ -116,7 +116,7 @@ class Reception < Parcel
     purchase_order_ids = items.map { |item| item.purchase_order_item&.purchase_id }.uniq.compact
     if purchase_order_ids.any?
       purchase_orders = PurchaseOrder.find(purchase_order_ids)
-      purchase_orders.each &:update_reconciliation_status!
+      purchase_orders.each(&:update_reconciliation_status!)
     end
   end
 

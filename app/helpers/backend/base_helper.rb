@@ -313,7 +313,7 @@ module Backend
 
     def main_list(*args)
       options = args.extract_options!
-      list *args, options.deep_merge(content_for: { settings: :meta_toolbar, pagination: :meta_toolbar, actions: :main_toolbar })
+      list(*args, options.deep_merge(content_for: { settings: :meta_toolbar, pagination: :meta_toolbar, actions: :main_toolbar }))
     end
 
     def janus(*args, &_block)

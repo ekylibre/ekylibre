@@ -4,7 +4,7 @@ module Accountancy
   class Duration
     class << self
       def diff(start, stop)
-        safe_diff *[start, stop].sort
+        safe_diff(*[start, stop].sort)
       end
 
       private
