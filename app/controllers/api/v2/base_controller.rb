@@ -26,6 +26,7 @@ module Api
 
       before_action :authenticate_api_user!
       before_action :force_json!
+      before_action :set_locale
       after_action :add_generic_headers!
 
       rescue_from ActionController::ParameterMissing, with: :rescue_param_missing
@@ -73,15 +74,22 @@ module Api
           false
         end
 
-        # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+        # set locale in the following order
+        # 1. params[:locale]
+        # 2. Accept-Language header
+        # 3. user language
+        # 4. language preference
+        # or default_locale
         def set_locale
-          locale = Maybe(valid_locale_or_nil(current_user&.language))
-                     .recover { valid_locale_or_nil(params.to_unsafe_hash.fetch(:locale, nil)) }
-                     .recover { http_accept_language.compatible_language_from(Ekylibre.http_languages.keys) }
-                     .recover { valid_locale_or_nil(Preference[:language]) }
-                     .recover { I18n.default_locale }
+          locale = Maybe(
+            valid_locale_or_nil(params.to_unsafe_hash.fetch(:locale, nil)) ||
+            Ekylibre.http_languages.fetch(http_accept_language.compatible_language_from(Ekylibre.http_languages.keys), nil) ||
+            valid_locale_or_nil(current_user&.language) ||
+            valid_locale_or_nil(Preference[:language])
+          )
+                   .or_else { I18n.default_locale }
 
-          I18n.locale = session[:locale] = locale
+          I18n.locale = locale
         end
 
         # Check given token match with the user one and
@@ -134,7 +142,7 @@ module Api
         # @param [String, nil] locale
         # @return [String, nil]
         def valid_locale_or_nil(locale)
-          if locale.present? && I18n.available_locales.include?(locale)
+          if locale.present? && I18n.available_locales.include?(locale.to_sym)
             locale
           else
             nil

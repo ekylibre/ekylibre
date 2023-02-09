@@ -39,7 +39,7 @@ module Api
         put :update, params: params
         json = JSON.parse response.body
         assert_response :bad_request
-        assert json['errors'].include?("Email is invalid")
+        assert json['errors'].any?
       end
     end
   end

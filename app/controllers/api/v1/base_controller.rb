@@ -57,17 +57,6 @@ module Api
           false
         end
 
-        # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
-        def set_locale
-          locale = Maybe(valid_locale_or_nil(current_user&.language))
-                     .recover { valid_locale_or_nil(params.to_unsafe_hash.fetch(:locale, nil)) }
-                     .recover { http_accept_language.compatible_language_from(Ekylibre.http_languages.keys) }
-                     .recover { valid_locale_or_nil(Preference[:language]) }
-                     .recover { I18n.default_locale }
-
-          I18n.locale = session[:locale] = locale
-        end
-
         # Check given token match with the user one and
         def authenticate_user_from_simple_token!(email, token)
           user = User.find_by(email: email)
