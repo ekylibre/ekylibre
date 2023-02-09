@@ -1,6 +1,14 @@
 openapi: 3.0.0
 info:
-  description: 'The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.'
+  description: |-
+      # Overview
+
+      The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+
+      ## Localizing
+
+      By defaut, labels and errors are translated to user preffered locale. It can be override, by passing `locale: <locale>` to request body, or by setting the Accept-Language headers.
+      Availables values are `['fra', 'eng']`.
   title: Ekylibre
   contact:
     name: Ekylibre developers
