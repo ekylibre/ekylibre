@@ -47,6 +47,7 @@ class Unit < ApplicationRecord
   end
   scope :multiple_of, ->(x) { where('coefficient % ? = 0', x) }
   scope :of_dimension_multiple_of, ->(dimension, x) { send("of_#{dimension}").multiple_of(x) }
+  scope :of_names, ->(*names) { where(reference_name: names) }
   scope :of_dimensions, ->(*dimensions) { where(dimension: dimensions) }
   scope :of_reference, -> { where(reference_name: BASE_UNIT_PER_DIMENSION.values) }
   scope :references_for_dimensions, ->(*dimensions) { of_reference.of_dimensions(*dimensions) }

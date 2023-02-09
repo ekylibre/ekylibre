@@ -583,6 +583,10 @@ class ProductNatureVariant < ApplicationRecord
     products.none? && catalog_items.none? && purchase_items.none? && sale_items.none? && shipment_items.none? && reception_items.none?
   end
 
+  def imported?
+    imported_from.present?
+  end
+
   def guess_conditioning
     unit = Unit.find_by(base_unit: default_unit, coefficient: default_quantity)
     unit ? { unit: unit, quantity: 1 } : { unit: default_unit, quantity: default_quantity }
@@ -646,6 +650,10 @@ class ProductNatureVariant < ApplicationRecord
     # already imported
     def any_reference_available?
       Onoma::ProductNatureVariant.without(ProductNatureVariant.pluck(:reference_name).uniq).any?
+    end
+
+    def restricted_base_unit_list
+      []
     end
 
     # Find or import variant from nomenclature with given attributes
