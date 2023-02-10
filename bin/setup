@@ -46,10 +46,17 @@ EOS
   brew link --overwrite node@14
 
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  # Linux
-  echo "🚚 Installing packages..."
+  # Detecting OS Version
+  OS_VERSION=$(lsb_release -ds)
+  if [[ "$OS_VERSION" == "Ubuntu 20.04"* ]]; then
+  echo "🚚 Installing packages for $OS_VERSION..."
   sudo apt-get install -y git curl rbenv ruby-build postgresql postgis redis yarn proj geos imagemagick graphicsmagick tesseract-ocr
-  # Not tested, maybe it could depend on the distro
+  elif [[ "$OS_VERSION" == "Ubuntu 22.04"* ]]; then
+  echo "🚚 Installing packages for $OS_VERSION..."
+  sudo apt-get install -y git curl rbenv ruby-build build-essential libreadline-dev libssl-dev zlib1g-dev libqt5core5a redis-server postgresql-14 postgresql-14-postgis-3 postgresql-14-postgis-3-scripts libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-8-jdk libicu-dev libpq-dev tesseract-ocr pdftk
+  else
+    echo "Unsupported OS Version. Cannot install dependencies for $OS_VERSION."
+  fi
 else
   echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
 fi
