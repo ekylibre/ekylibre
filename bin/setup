@@ -48,7 +48,7 @@ EOS
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux
   echo "🚚 Installing packages..."
-  sudo apt-get install -y git curl rbenv ruby-build postgresql postgis redis yarn proj geos imagemagick graphicsmagick tesseract-ocr
+  sudo apt-get install -y git curl rbenv ruby-build postgresql postgis redis yarn proj geos imagemagick graphicsmagick tesseract-ocr build-essential libreadline-dev libssl-dev zlib1g-dev redis-server
   # Not tested, maybe it could depend on the distro
 else
   echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
@@ -75,6 +75,46 @@ else
   echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
   gem install bundler:$BUNDLER_VERSION --conservative
 fi
+
+# Install nvm
+echo "🚚 Installing Node.js ..."
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+nvm install --lts
+nvm alias default 14.17.4
+
+# Configure PostGres
+sudo -su postgres
+createuser -d -P -s ekylibre
+echo "ALTER USER ekylibre SUPERUSER;" | psq
+
+# TODO : Edit pg_hba.conf to use md5 password authentication instead of peer authentication for unix sockets
+# Find and replace in file (local   all  all  peer) by (local  all  all md5)
+# sudo vim /etc/postgresql/13/main/pg_hba.conf
+echo "Editing pg_hba.conf"
+file="/etc/postgresql/13/main/pg_hba.conf"
+search="local   all  all  peer"
+replace="local  all  all md5"
+
+while read -r line; do
+  if [[ $line = $search ]]; then
+    echo $replace
+  else
+    echo $line
+  fi
+done < "$file" | sudo tee "$file" > /dev/null
+
+# Java & Redis
+echo "Installing Java & Redis ..."
+sudo add-apt-repository ppa:rock-core/qt4
+sudo apt-get update
+sudo apt-get install libqtcore4
+sudo apt install imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-8-jdk libqtwebkit-dev libicu-dev libpq-dev tesseract-ocr pdftk
+
+# Java & Redis
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.profile
+source ~/.bashrc
+source ~/.profile
 
 # Install gems
 echo "🚚 Installing gems..."
