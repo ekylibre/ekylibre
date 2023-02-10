@@ -48,7 +48,7 @@
               = nested.input_field :actual_population
               %span.add-on= nested.object.product.conditioning_unit.name
               %br
-              %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l(precision: 0)
+              %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.round(2).l(precision: 0)
         %td.inventory-items{colspan: 1}
           = nested.input :unit_pretax_stock_amount, wrapper: :nested_append do
             = nested.input_field :unit_pretax_stock_amount
