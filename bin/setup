@@ -62,7 +62,7 @@ else
 fi
 
 # Get ruby version from .ruby-version and install it if it's not already installed
-RUBY_VERSION=$(cat .ruby-version)
+RUBY_VERSION=$(cat .ruby-version &> /dev/null)
 # Set RUBY_VERSION to default value if empty
 RUBY_VERSION=${RUBY_VERSION:-2.7.7}
 # Install ruby version if not already
@@ -72,8 +72,9 @@ else
   echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
   rbenv install $RUBY_VERSION
 fi
+rbenv rehash
 rbenv local $RUBY_VERSION
-
+rbenv rehash
 # Get bundler version from Gemfile.lock and install it if it's not already installed
 BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
 if gem list bundler -i -v $BUNDLER_VERSION; then
