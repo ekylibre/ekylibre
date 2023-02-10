@@ -96,6 +96,7 @@
     ```java
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     ```
+
     ```java
     sudo apt install postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
     ```

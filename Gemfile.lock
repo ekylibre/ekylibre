@@ -29,21 +29,6 @@ GIT
     cartography (0.0.1)
 
 GIT
-  remote: https://gitlab.com/ekylibre/charta.git
-  revision: 0792bd23db8b2a9df0985c133a828fd6d5424dfe
-  branch: feature/upgrade-3.0
-  specs:
-    charta (0.4.0)
-      activesupport (~> 5.2)
-      json (>= 1.8.0)
-      nokogiri (>= 1.7.0)
-      rgeo (~> 3.0)
-      rgeo-geojson
-      rgeo-proj4
-      victor (~> 0.3.3)
-      zeitwerk (~> 2.4.0)
-
-GIT
   remote: https://gitlab.com/ekylibre/eky-possibly.git
   revision: 483d102852e2ab8fcbf695b9e25a40902302a593
   tag: v3.1.1
@@ -68,6 +53,19 @@ GIT
   specs:
     xml_errors_parser (0.0.3)
       i18n
+
+PATH
+  remote: ../charta
+  specs:
+    charta (0.4.0)
+      activesupport (~> 5.2)
+      json (>= 1.8.0)
+      nokogiri (>= 1.7.0)
+      rgeo (~> 3.0)
+      rgeo-geojson
+      rgeo-proj4
+      victor (~> 0.3.3)
+      zeitwerk (~> 2.4.0)
 
 GEM
   remote: https://rubygems.org/

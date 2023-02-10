@@ -92,7 +92,8 @@ gem 'exception_notification', '~> 4.4'
 gem 'redis-namespace', '~> 1.8'
 
 # Manipulate map data
-gem 'charta', gitlab: 'ekylibre/charta', branch: 'feature/upgrade-3.0'
+# gem 'charta', gitlab: 'ekylibre/charta', branch: 'feature/upgrade-3.0'
+gem 'charta', path: '../charta'
 gem 'geocoder', '~> 1.6'
 gem 'rgeo', '~> 3.0'
 gem 'rgeo-geojson'
