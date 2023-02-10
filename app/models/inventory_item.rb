@@ -63,9 +63,10 @@ class InventoryItem < ApplicationRecord
   delegate :currency, to: :inventory, prefix: true
 
   after_initialize do
+    # callback are 2 times executed during creating inventory.
     if !persisted? && inventory
-      self.actual_population = population_at(achieved_at)
-      self.unit_pretax_stock_amount = price_at(achieved_at)
+      self.actual_population = population_at(achieved_at) if actual_population.present? && actual_population < 0.0
+      self.unit_pretax_stock_amount = price_at(achieved_at) if unit_pretax_stock_amount.present? && unit_pretax_stock_amount == 0.0
     end
   end
 
