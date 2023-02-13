@@ -90,7 +90,10 @@ class InterventionProductParameterTest < Ekylibre::Testing::ApplicationTestCase:
     assert(Measure.new(area.round(4), 'square_meter').inspect == target.quantity.inspect )
   end
 
-  test '#shandle_product_dead_at after_save callback' do
+  test '#handle_product_dead_at after_save callback' do
+    target = create(:intervention_target, :with_working_zone, dead: false)
+    assert_not_nil(target.product.dead_at, 'If it doesn\'t destroy, the product dead_at should not change')
+
     target = create(:intervention_target, :with_working_zone, dead: true)
     stopped_at = target.stopped_at
     product = target.product

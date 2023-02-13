@@ -157,7 +157,7 @@ class InterventionProductParameter < InterventionParameter
               elsif dead_before_last_save && !dead && product.dead_at
                 product.initial_dead_at
               end
-    product.update_columns(dead_at: dead_at)
+    product.update_columns(dead_at: dead_at) if dead_at
   end
 
   after_destroy do
