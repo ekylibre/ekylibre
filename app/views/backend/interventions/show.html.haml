@@ -12,9 +12,12 @@
       - menu.item(next_state[0], change_state_backend_interventions_path(:intervention => { :interventions_ids => [resource.id].to_json, state: next_state[1].to_sym }), method: :post) if next_state
   - if resource.spraying?
     = t.tool(Onoma::DocumentNature.find(:phytosanitary_applicator_sheet).human_name, { action: :export, params: { id: resource.id, document_nature_name: :phytosanitary_applicator_sheet, format: :odt }}, icon: :download)
-    - document = DocumentTemplate.find_by(nature: :ac_work_sheet )
-    - if document.present? && document.active?
-      = t.tool(Onoma::DocumentNature.find(:ac_work_sheet).human_name, { action: :export, params: { id: resource.id, document_nature_name: :ac_work_sheet, format: :odt }}, icon: :download)
+    - documents = DocumentTemplate.where(nature: :ac_work_sheet)
+    - if documents.present?
+      = t.menu(Onoma::DocumentNature.find(:ac_work_sheet).human_name, class: "btn btn btn-default dropdown", icon: false, force_menu: true) do |menu|
+        - documents.each do |document|
+          - if document.active?
+            - menu.item(document.name, { action: :export, params: { id: resource.id, document_nature_name: :ac_work_sheet, format: :odt, template: document.id }}, icon: :download)
 
 - currency = Onoma::Currency.find(resource.currency)
 
