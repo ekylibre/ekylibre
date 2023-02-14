@@ -1,7 +1,7 @@
 import { onDomReady } from 'lib/domEventUtils';
 import { MeasureService } from 'services/measureService';
 import { UnitService } from 'services/unitService';
-import { _ } from 'lodash';
+import { round } from 'lodash';
 
 onDomReady(() => {
     const formElement = document.querySelector('#new_product_nature_variant, #edit_product_nature_variant');
@@ -32,7 +32,7 @@ function bindSeedIndicators() {
         const netMass = netMassIndicatorField.indicator.value;
         const grainsCount = (netMass * conversionFactor) / thousandGrainsMassValue;
         if (netMass !== null && typeof grainsCount === 'number') {
-            grainsCountIndicatorField.update(_.round(grainsCount, 2));
+            grainsCountIndicatorField.update(round(grainsCount, 2));
         }
     });
 
@@ -41,7 +41,7 @@ function bindSeedIndicators() {
         const netMass = netMassIndicatorField.indicator.value;
         const thousandGrainsMassValue = (netMass * conversionFactor) / grainsCount;
         if (netMass !== null && typeof thousandGrainsMassValue === 'number') {
-            thousandGrainsMassIndicatorField.update(_.round(thousandGrainsMassValue, 2));
+            thousandGrainsMassIndicatorField.update(round(thousandGrainsMassValue, 2));
         }
     });
 
