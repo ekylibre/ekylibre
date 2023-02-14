@@ -35,12 +35,12 @@ module Printers
     def dataset
       return @dataset if @dataset.present?
 
-      target_names = intervention.targets.map(&:variant).pluck(:name).join(', ')
+      target_names = intervention.targets.map(&:variant).pluck(:name).uniq.join(', ')
       working_zone = intervention.decorate.sum_targets_working_zone_area
       equipment = Product.joins(:intervention_product_parameters).merge(intervention.tools.where(reference_name: 'sprayer')).pluck(:name).join(', ')
       activity_name = intervention.activities.pluck(:name).join(', ')
       projected_work_period = intervention.started_at.strftime('%d-%m-%Y')
-      workers = Product.joins(:intervention_product_parameters).where(variety: 'worker').pluck(:name).uniq.join(', ')
+      workers = intervention.doers.map{ |doer| doer.product.name }.join(' / ')
       manager_full_name = Entity.where(nature: 'organization').of_company.full_name
       inputs = intervention.inputs
       working_zone_overlaps_nta = check_overlaps_nta(intervention)
@@ -52,7 +52,7 @@ module Printers
         workers: workers,
         manager_full_name: manager_full_name,
         working_zone_overlaps_nta: working_zone_overlaps_nta,
-        max_entry_factor: inputs.map(&:allowed_entry_factor).compact.max,
+        max_entry_factor: inputs.map(&:allowed_entry_factor).compact.max.to_i / 3600,
         max_harvest_factor: inputs.map(&:allowed_harvest_factor).compact.max,
         max_untreated_buffer_aquatic: inputs.map(&:usage).compact.map(&:untreated_buffer_aquatic).compact.max,
         inputs: intervention.inputs.map do |input|
@@ -65,7 +65,7 @@ module Printers
                     allowed_entry_factor: input.allowed_entry_factor,
                     untreated_buffer_aquatic: input.usage&.untreated_buffer_aquatic,
                     allowed_harvest_factor: input.allowed_harvest_factor,
-                    france_maid: input.usage&.france_maaid
+                    france_maid: input.product.variant.france_maaid
                   }
                 end
       }
