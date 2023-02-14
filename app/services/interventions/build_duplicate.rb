@@ -17,6 +17,8 @@ module Interventions
       duplicate_product_parameters
       duplicate_participations
       duplicate_receptions
+      duplicate_parameter_settings
+      duplicate_settings
       new_intervention
     end
 
@@ -69,6 +71,25 @@ module Interventions
       def duplicate_receptions
         intervention.receptions.each do |reception|
           new_intervention.receptions << reception
+        end
+      end
+
+      def duplicate_settings
+        intervention.settings.each do |setting|
+          new_intervention.settings << setting
+        end
+      end
+
+      def duplicate_parameter_settings
+        intervention.parameter_settings.includes(:settings).each do |parameter_setting|
+          dup_parameter_setting = parameter_setting.dup
+          dup_parameter_setting.intervention = new_intervention
+          parameter_setting.settings.each do |setting|
+            duplicate_setting = setting.dup
+            duplicate_setting.intervention_parameter_setting = dup_parameter_setting
+            dup_parameter_setting.settings << duplicate_setting
+          end
+          new_intervention.parameter_settings << dup_parameter_setting
         end
       end
   end
