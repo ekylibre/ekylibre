@@ -112,6 +112,119 @@ paths:
         in: path
         required: true
         description: token
+  '/cultivable_zones/{uuid}':
+    put:
+      summary: Update a cultivable zone
+      operationId: put_cultivable_zones
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '':
+          $ref: '#/components/responses/Created'
+      description: Update a cultivable zone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CultivableZone'
+            examples:
+              example-1:
+                value:
+                  uuid: adb71533-5250-4164-80fc-adaf6f84dce4
+                  shape: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+                  name: ZC 152
+        description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      tags:
+        - Cultivable zones
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+          example: '"adb71533-5250-4164-80fc-adaf6f84dce4"'
+        name: uuid
+        in: path
+        required: true
+  /cultivable_zones:
+    post:
+      summary: Create a cultivable zone
+      operationId: post_cultivable_zones
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CultivableZone'
+            examples:
+              example:
+                value:
+                  name: Zone 1
+                  work_number: ZC01
+                  shape: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+        required: true
+      deprecated: false
+      security: []
+      description: Create a new cultivable zone with name and shape.
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Cultivable zones
+    get:
+      summary: List of Cultivable zones
+      operationId: get_cultivable_zones
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CultivableZone'
+              examples:
+                example:
+                  value:
+                    - uuid: e64cfa83-8f67-4be0-ba96-db7a9659a675
+                      work_number: ZC04
+                      name: Raguenaud
+                      shape:
+                        feature: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
+                        properties: {}
+                      shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792163257283729,45.8212392141659],[-0.791904819365336,45.8212103045779],[-0.791480654542158,45.8212221132556],[-0.791101405009501,45.8211429977115],[-0.79069849642266,45.821064450282],[-0.791605612418384,45.8202552159891],[-0.792163257283729,45.8212392141659]]]]}'
+                    - uuid: c27fb3d8-bc75-413f-88de-2fe6dc62c341
+                      work_number: ZC05
+                      name: Le terrier
+                      shape:
+                        feature: 'SRID=4326;MULTIPOLYGON (((-0.792399590855693 45.8188374022447, -0.792865365477503 45.8195537456412, -0.792992985339246 45.8197481895666, -0.793614987390093 45.820722192761, -0.79335919994024 45.8207644364383, -0.793020321298577 45.8206933822684, -0.792744016705707 45.8205834866754, -0.791813666589333 45.8191694002046, -0.791835035631219 45.8190790430171, -0.792399590855693 45.8188374022447)))'
+                        properties: {}
+                      shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792399590855693,45.8188374022447],[-0.792865365477503,45.8195537456412],[-0.792992985339246,45.8197481895666],[-0.793614987390093,45.820722192761],[-0.79335919994024,45.8207644364383],[-0.793020321298577,45.8206933822684],[-0.792744016705707,45.8205834866754],[-0.791813666589333,45.8191694002046],[-0.791835035631219,45.8190790430171],[-0.792399590855693,45.8188374022447]]]]}'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      deprecated: false
+      security: []
+      description: Returns a list of cultivable zones
+      tags:
+        - Cultivable zones
+    parameters: []
   '/interventions/{id}':
     put:
       summary: ''
@@ -152,43 +265,6 @@ paths:
         in: path
         required: true
         description: Intervention id
-  '/cultivable_zones/{uuid}':
-    put:
-      summary: Update a cultivable zone
-      operationId: put_cultivable_zones
-      responses:
-        '200':
-          description: OK
-        '201':
-          description: Created
-        '':
-          $ref: '#/components/responses/Created'
-      description: Update a cultivable zone
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CultivableZone'
-            examples:
-              example-1:
-                value:
-                  uuid: adb71533-5250-4164-80fc-adaf6f84dce4
-                  shape: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
-                  name: ZC 152
-        description: ''
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-        - $ref: '#/components/parameters/Content-Type'
-      tags:
-        - Cultivable zone
-    parameters:
-      - schema:
-          type: string
-          format: uuid
-          example: '"adb71533-5250-4164-80fc-adaf6f84dce4"'
-        name: uuid
-        in: path
-        required: true
   /interventions:
     post:
       tags:
@@ -351,81 +427,12 @@ paths:
       deprecated: false
       security: []
       description: 'Returns a list of interventions you’ve previously created. '
-    parameters: []
-  /cultivable_zones:
-    post:
-      summary: Create a cultivable zone
-      operationId: post_cultivable_zones
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-        - $ref: '#/components/parameters/Content-Type'
-      requestBody:
-        description: ''
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CultivableZone'
-            examples:
-              example:
-                value:
-                  name: Zone 1
-                  work_number: ZC01
-                  shape: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
-          application/xml:
-            schema:
-              type: object
-              properties: {}
-          multipart/form-data:
-            schema:
-              type: object
-              properties: {}
+    parameters:
+      - schema:
+          type: string
+        name: ''
+        in: path
         required: true
-      deprecated: false
-      security: []
-      description: Create a new cultivable zone with name and shape.
-      responses:
-        '200':
-          description: OK
-    get:
-      summary: List of Cultivable zones
-      operationId: get_cultivable_zones
-      parameters:
-        - $ref: '#/components/parameters/Authorization'
-      responses:
-        '200':
-          description: ''
-          headers: {}
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CultivableZone'
-              examples:
-                example:
-                  value:
-                    - uuid: e64cfa83-8f67-4be0-ba96-db7a9659a675
-                      work_number: ZC04
-                      name: Raguenaud
-                      shape:
-                        feature: 'SRID=4326;MULTIPOLYGON (((-0.792163257283729 45.8212392141659, -0.791904819365336 45.8212103045779, -0.791480654542158 45.8212221132556, -0.791101405009501 45.8211429977115, -0.79069849642266 45.821064450282, -0.791605612418384 45.8202552159891, -0.792163257283729 45.8212392141659)))'
-                        properties: {}
-                      shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792163257283729,45.8212392141659],[-0.791904819365336,45.8212103045779],[-0.791480654542158,45.8212221132556],[-0.791101405009501,45.8211429977115],[-0.79069849642266,45.821064450282],[-0.791605612418384,45.8202552159891],[-0.792163257283729,45.8212392141659]]]]}'
-                    - uuid: c27fb3d8-bc75-413f-88de-2fe6dc62c341
-                      work_number: ZC05
-                      name: Le terrier
-                      shape:
-                        feature: 'SRID=4326;MULTIPOLYGON (((-0.792399590855693 45.8188374022447, -0.792865365477503 45.8195537456412, -0.792992985339246 45.8197481895666, -0.793614987390093 45.820722192761, -0.79335919994024 45.8207644364383, -0.793020321298577 45.8206933822684, -0.792744016705707 45.8205834866754, -0.791813666589333 45.8191694002046, -0.791835035631219 45.8190790430171, -0.792399590855693 45.8188374022447)))'
-                        properties: {}
-                      shape_to_geojson: '{"type":"MultiPolygon","coordinates":[[[[-0.792399590855693,45.8188374022447],[-0.792865365477503,45.8195537456412],[-0.792992985339246,45.8197481895666],[-0.793614987390093,45.820722192761],[-0.79335919994024,45.8207644364383],[-0.793020321298577,45.8206933822684],[-0.792744016705707,45.8205834866754],[-0.791813666589333,45.8191694002046],[-0.791835035631219,45.8190790430171],[-0.792399590855693,45.8188374022447]]]]}'
-        '422':
-          description: Unprocessable Entity (WebDAV)
-      deprecated: false
-      security: []
-      description: Returns a list of cultivable zones
-      tags:
-        - Cultivable zones
-    parameters: []
   /variants:
     get:
       tags:
@@ -1296,50 +1303,78 @@ components:
       type: object
       x-examples:
         example-1:
-          id: 1
+          id: 9
           nature: record
-          procedure_name: sowing_without_plant_output
-          number: '1'
-          name: Semis simple (sans gestion des cultures) n°1
-          started_at: '2014-10-29T09:00:00.000+01:00'
-          stopped_at: '2014-10-29T12:00:00.000+01:00'
-          description: ' - Import Ekylibre interventions on 24/11/2020 14:41 - N° : 4'
+          procedure_name: plowing
+          number: '8'
+          name: 'Plowing #8'
+          started_at: '2012-10-03T08:30:00.000Z'
+          stopped_at: '2012-10-03T12:30:00.000Z'
+          description: null
+          state: done
+          working_duration: 14400
+          request_intervention_id: null
+          costing:
+            total: 0
+            inputs: 0
+            doers: 0
+            tools: 0
+            receptions: 0
           parameters:
-            - id: 3
-              role: target
-              name: land_parcel
-              label: Parcelle
-              product:
-                id: 6
-                name: Blé tendre d’hiver 2015 Enclouse des chatâigniers
-            - id: 2
-              role: input
-              name: seeds
-              label: Semences
-              product:
-                id: 311
-                name: Semence de blé Rubisko
-            - id: 1
+            - id: 30
+              group_id: null
+              intervention_id: 9
               role: doer
               name: driver
-              label: Conducteur
-              product:
-                id: 295
-                name: David JOULIN
-            - id: 4
+              label: Driver
+              product_id: 79
+              working_zone: null
+              quantity_handler: null
+              quantity_indicator_name: null
+              quantity_population: 0
+              quantity_unit_name: null
+              quantity_value: null
+            - id: 31
+              group_id: null
+              intervention_id: 9
               role: tool
               name: tractor
-              label: Tracteur
-              product:
-                id: 252
-                name: Tracteur CASE-IH 533
-            - id: 5
+              label: Tractor / Self propelled
+              product_id: 29
+              working_zone: null
+              quantity_handler: null
+              quantity_indicator_name: null
+              quantity_population: 1
+              quantity_unit_name: null
+              quantity_value: null
+            - id: 32
+              group_id: null
+              intervention_id: 9
+              role: target
+              name: cultivation
+              label: Cultivation
+              product_id: 83
+              working_zone:
+                feature: 'SRID=4326;MULTIPOLYGON (((-0.796809196472168 45.8269227686334, -0.79651951789856 45.8257153564987, -0.795301795005798 45.8259060022611, -0.794320106506348 45.8240368979822, -0.796240568161011 45.823562135501, -0.796680450439453 45.8240705424138, -0.79751193523407 45.8253078957196, -0.798069834709167 45.8259471218497, -0.798091292381287 45.8262386962433, -0.797989368438721 45.8264592450906, -0.797780156135559 45.8266349359199, -0.796809196472168 45.8269227686334)))'
+                properties: {}
+              quantity_handler: null
+              quantity_indicator_name: null
+              quantity_population: 5.3806
+              quantity_unit_name: null
+              quantity_value: null
+            - id: 33
+              group_id: null
+              intervention_id: 9
               role: tool
-              name: sower
-              label: Semoir
-              product:
-                id: 259
-                name: Semoir grains
+              name: plow
+              label: Plough
+              product_id: 31
+              working_zone: null
+              quantity_handler: null
+              quantity_indicator_name: null
+              quantity_population: 1
+              quantity_unit_name: null
+              quantity_value: null
       properties:
         id:
           type: number
@@ -1382,19 +1417,60 @@ components:
         costs:
           $ref: '#/components/schemas/InterventionCosting'
     InterventionParameter:
-      description: ''
       type: object
       x-examples:
-        example-1:
-          value:
-            id: 3
-            role: target
-            name: land_parcel
-            label: Parcelle
-            product_id: 6
+        Example 1:
+          id: 32
+          group_id: null
+          intervention_id: 9
+          role: target
+          name: cultivation
+          label: Cultivation
+          product_id: 83
+          working_zone:
+            feature: 'SRID=4326;MULTIPOLYGON (((-0.796809196472168 45.8269227686334, -0.79651951789856 45.8257153564987, -0.795301795005798 45.8259060022611, -0.794320106506348 45.8240368979822, -0.796240568161011 45.823562135501, -0.796680450439453 45.8240705424138, -0.79751193523407 45.8253078957196, -0.798069834709167 45.8259471218497, -0.798091292381287 45.8262386962433, -0.797989368438721 45.8264592450906, -0.797780156135559 45.8266349359199, -0.796809196472168 45.8269227686334)))'
+            properties: {}
+          quantity_handler: null
+          quantity_indicator_name: null
+          quantity_population: 5.3806
+          quantity_unit_name: null
+          quantity_value: null
+        Example 2:
+          id: 30
+          group_id: null
+          intervention_id: 9
+          role: doer
+          name: driver
+          label: Driver
+          product_id: 79
+          working_zone: null
+          quantity_handler: null
+          quantity_indicator_name: null
+          quantity_population: 0
+          quantity_unit_name: null
+          quantity_value: null
+        Example 3:
+          id: 31
+          group_id: null
+          intervention_id: 9
+          role: tool
+          name: tractor
+          label: Tractor / Self propelled
+          product_id: 29
+          working_zone: null
+          quantity_handler: null
+          quantity_indicator_name: null
+          quantity_population: 1
+          quantity_unit_name: null
+          quantity_value: null
       properties:
         id:
-          type: number
+          type: integer
+        group_id:
+          type: integer
+          nullable: true
+        intervention_id:
+          type: integer
         role:
           type: string
         name:
@@ -1402,7 +1478,30 @@ components:
         label:
           type: string
         product_id:
+          type: integer
+        working_zone:
+          type: object
+          nullable: true
+          properties:
+            feature:
+              type: string
+            properties:
+              type: object
+        quantity_handler:
+          type: string
+          nullable: true
+        quantity_indicator_name:
+          type: string
+          nullable: true
+        quantity_population:
           type: number
+          nullable: true
+        quantity_unit_name:
+          type: string
+          nullable: true
+        quantity_value:
+          type: number
+          nullable: true
     InterventionTarget:
       description: ''
       type: object
