@@ -11,9 +11,9 @@ module Ekylibre
           options = columns.extract_options!
 
           columns = [:by_default] if columns.empty?
-          code  = ''
+          code  = []
 
-          scope = table_name.classify.constantize.name # "self.class"
+          scope = [table_name.classify.constantize.name] # "self.class"
           scope << ".#{options[:subset]}" if options[:subset]
           scope_columns = []
           if s = options[:scope]
@@ -59,7 +59,7 @@ module Ekylibre
             end
             code << "end\n"
 
-            pode = "self.#{column} = true unless #{scope}.where(#{column}: true).any?\n"
+            pode = "self.#{column} = true unless #{scope.join}.where(#{column}: true).any?\n"
             code << "def set_#{column}_if_first\n"
             if options[:if]
               code << "  if self.#{options[:if]}\n"
@@ -70,7 +70,7 @@ module Ekylibre
             end
             code << "end\n"
 
-            pode << "self.#{column} = true unless #{scope}.where(#{column}: true).where.not(id: self.id).any?\n"
+            pode << "self.#{column} = true unless #{scope.join}.where(#{column}: true).where.not(id: self.id).any?\n"
             code << "def set_#{column}_if_alone\n"
             if options[:if]
               code << "  if self.#{options[:if]}\n"
@@ -82,7 +82,7 @@ module Ekylibre
             code << "end\n"
 
             pode = "if self.#{column}?\n"
-            pode << "  #{scope}.where(#{column}: true).where.not(id: self.id).update_all(#{column}: false)\n"
+            pode << "  #{scope.join}.where(#{column}: true).where.not(id: self.id).update_all(#{column}: false)\n"
             pode << "end\n"
             code << "def ensure_#{column}_uniqueness\n"
             if options[:if]
@@ -104,7 +104,7 @@ module Ekylibre
             code << "end\n"
           end
 
-          class_eval code
+          class_eval code.join
         end
       end
     end

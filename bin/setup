@@ -120,30 +120,40 @@ fi
 
 # Load lexicon
 echo "⚙️ Loading lexicon..."
+export MINIO_HOST=https://io.ekylibre.tech/
+export MINIO_ACCESS_KEY=ekylibre
+export MINIO_SECRET_KEY=Gandi2021%
 bin/rails lexicon:load
 
+# Load demo first run unless SKIP_DEMO is true
 if [ "$SKIP_DEMO" = true ] ; then
-  echo "⚙️ Skipping demo first run..."
-  exit 0
+  echo "⚙️ Skipping demo first run"
 else
   DEMO=${DEMO:-demo}
   # Prepare first run for development unless it already exists
-  if [ -d db/first_runs/${DEMO} ]; then
+  if [ -d db/first_runs ]; then
     echo "⚙️ First run for development already exists."
   else
     echo "⚙️ Pull first run for development..."
-    mkdir -p db/first_runs
-    git clone git@github.com:ekylibre/first_run-demo.git db/first_runs/${DEMO}
+    # mkdir -p db/first_runs
+    git clone git@github.com:ekylibre/first_run-demo.git db/first_runs
   fi
 
   # Load demo first run unless schema is not present in database
   if psql -At -c 'SELECT nspname FROM pg_catalog.pg_namespace;' | grep -q ${DEMO}; then
+    echo "⚙️ Demo first run already loaded."
+  else
     echo "⚙️ Execute demo first run for development..."
     export TENANT=${DEMO}
     bin/rails first_run
     unset TENANT
-    echo "⚙️ Add ${DEMO}.ekylibre.lan to /etc/hosts..."
-    echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee --append /etc/host
+    # Unless the domain is already in /etc/hosts, add it
+    if grep -q "${DEMO}.ekylibre.lan" /etc/hosts; then
+      echo "⚙️ ${DEMO}.ekylibre.lan is already in /etc/hosts."
+    else
+      echo "⚙️ Add ${DEMO}.ekylibre.lan to /etc/hosts..."
+      echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee --append /etc/host
+    fi
   fi
 fi
 
