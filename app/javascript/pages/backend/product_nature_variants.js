@@ -10,7 +10,7 @@ onDomReady(() => {
     }
 });
 
-const form = { init, bindDefaultUnitToUnitName, bindDefaultUnitInputToIndicatorInput, bindSeedIndicators };
+const form = { init, bindDefaultUnitToUnitName, bindDefaultUnitInputToIndicatorInput, bindSeedIndicators, disableNetMassWhenUnity };
 
 function init(formElement) {
     form.bindDefaultUnitInputToIndicatorInput();
@@ -18,39 +18,79 @@ function init(formElement) {
     const natureSelector = formElement.querySelector('#product_nature_variant_nature_id');
     if (natureSelector != null && natureSelector.dataset.selectorId.includes('seed_and_plant_article')) {
         form.bindSeedIndicators();
+        form.disableNetMassWhenUnity();
     }
 }
 
+// Autocomplete thousand grains mass when grains count is filled and vice versa
 function bindSeedIndicators() {
+    const unitService = new UnitService();
+    const defaultUnitSelector = document.querySelector('#product_nature_variant_default_unit_id');
     const thousandGrainsMassIndicatorField = getIndicatorField('thousand_grains_mass');
     const grainsCountIndicatorField = getIndicatorField('grains_count');
     const netMassIndicatorField = getIndicatorField('net_mass');
     const conversionFactor = 1000;
 
     thousandGrainsMassIndicatorField.element.addEventListener('change', function (event) {
-        const thousandGrainsMassValue = event.target.value;
+        getDefaultUnitName().then(function (referenceName) {
+            if (referenceName !== 'unity') {
+                updateGrainsCount(event.target.value);
+            }
+        });
+    });
+
+    grainsCountIndicatorField.element.addEventListener('change', function (event) {
+        getDefaultUnitName().then(function (referenceName) {
+            if (referenceName !== 'unity') {
+                updateThousandGrainsMass(event.target.value);
+            }
+        });
+    });
+
+    function getDefaultUnitName() {
+        const unitId = defaultUnitSelector.nextSibling.value;
+        return unitService.get(unitId).then(function (unit) {
+            return unit.reference_name;
+        });
+    }
+
+    function updateGrainsCount(thousandGrainsMassValue) {
         const netMass = netMassIndicatorField.indicator.value;
         const grainsCount = (netMass * conversionFactor) / thousandGrainsMassValue;
         if (netMass !== null && typeof grainsCount === 'number') {
             grainsCountIndicatorField.update(round(grainsCount, 2));
         }
-    });
+    }
 
-    grainsCountIndicatorField.element.addEventListener('change', function (event) {
-        const grainsCount = event.target.value;
+    function updateThousandGrainsMass(grainsCount) {
         const netMass = netMassIndicatorField.indicator.value;
         const thousandGrainsMassValue = (netMass * conversionFactor) / grainsCount;
         if (netMass !== null && typeof thousandGrainsMassValue === 'number') {
             thousandGrainsMassIndicatorField.update(round(thousandGrainsMassValue, 2));
         }
-    });
-
-    netMassIndicatorField.valueInput.addEventListener('change', function () {
-        grainsCountIndicatorField.update('');
-        thousandGrainsMassIndicatorField.update('');
-    });
+    }
 }
 
+// Disable and nullify indicator net mass, when default unit is unity
+function disableNetMassWhenUnity() {
+    const unitService = new UnitService();
+    const defaultUnitSelector = document.querySelector('#product_nature_variant_default_unit_id');
+    const netMassIndicatorField = getIndicatorField('net_mass');
+
+    defaultUnitSelector.addEventListener('unroll:selector:change', handleUnitChange);
+
+    function handleUnitChange() {
+        const unitId = defaultUnitSelector.nextSibling.value;
+        unitService.get(unitId).then(function (unit) {
+            if (unit.reference_name === 'unity') {
+                netMassIndicatorField.disable();
+                netMassIndicatorField.update('');
+            }
+        });
+    }
+}
+
+// Autocomplete unit name when default unit is selected
 function bindDefaultUnitToUnitName() {
     const defaultUnitSelector = document.querySelector('#product_nature_variant_default_unit_id');
     const unitNameInput = document.querySelector('#product_nature_variant_unit_name');
@@ -68,12 +108,19 @@ function bindDefaultUnitToUnitName() {
     }
 }
 
+// Autocomplete and disable indicator matching the default unit
 function bindDefaultUnitInputToIndicatorInput() {
     const measureService = new MeasureService();
     const unitService = new UnitService();
     const defaultQuantityInput = document.querySelector('#product_nature_variant_default_quantity');
     const defaultUnitSelector = document.querySelector('#product_nature_variant_default_unit_id');
-    const allowdDimension = ['mass', 'volume'];
+    const dimensionIndicatorName = {
+        mass: 'net_mass',
+        volume: 'net_volume',
+        none: 'grains_count',
+    };
+
+    const allowedDimension = Object.keys(dimensionIndicatorName);
 
     // Attach event listeners to the default quantity input and unit selector
     defaultQuantityInput.addEventListener('change', handleQuantityChange);
@@ -97,10 +144,10 @@ function bindDefaultUnitInputToIndicatorInput() {
         const unitId = defaultUnitSelector.nextSibling.value;
 
         unitService.get(unitId).then(function (unit) {
-            if (!allowdDimension.includes(unit.dimension)) {
+            if (!allowedDimension.includes(unit.dimension)) {
                 return;
             }
-            const indicatorName = `net_${unit.dimension}`;
+            const indicatorName = getIndicatorName(unit.dimension);
             const indicatorField = getIndicatorField(indicatorName);
             if (indicatorField != null) {
                 const siblingUnitName = indicatorField.indicator.unit;
@@ -121,6 +168,10 @@ function bindDefaultUnitInputToIndicatorInput() {
         indicatorValueInputs.forEach(function (input) {
             input.classList.remove('disabled');
         });
+    }
+
+    function getIndicatorName(dimension) {
+        return dimensionIndicatorName[dimension];
     }
 }
 
