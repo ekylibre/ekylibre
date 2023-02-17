@@ -9,7 +9,7 @@ set -e
 
 SKIP_DEMO=false
 
-LIST_OF_20_04_DEPENDENCIES="git curl rbenv ruby-build postgresql postgis redis yarn proj geos imagemagick graphicsmagick tesseract-ocr build-essential libreadline-dev libssl-dev zlib1g-dev redis-server"
+LIST_OF_20_04_DEPENDENCIES="git curl build-essential libreadline-dev libssl-dev zlib1g-dev redis-server"
 
 LIST_OF_22_04_DEPENDENCIES="git curl rbenv ruby-build build-essential libreadline-dev libssl-dev zlib1g-dev libqt5core5a redis-server postgresql-14 postgresql-14-postgis-3 postgresql-14-postgis-3-scripts libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-8-jdk libicu-dev libpq-dev tesseract-ocr pdftk"
 
@@ -53,6 +53,8 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Detecting OS Version
   OS_VERSION=$(lsb_release -ds)
   if [[ "$OS_VERSION" == "Ubuntu 20.04"* ]]; then
+    # sudo apt install git curl
+
     LIST_OF_OS_DEPENDENCIES=$LIST_OF_20_04_DEPENDENCIES
   elif [[ "$OS_VERSION" == "Ubuntu 22.04"* ]]; then
     LIST_OF_OS_DEPENDENCIES=$LIST_OF_22_04_DEPENDENCIES
@@ -75,36 +77,56 @@ fi
 # file does not exist
 # RUBY_VERSION=$(cat .ruby-version &> /dev/null)
 # Set RUBY_VERSION to default value if empty
-RUBY_VERSION="2.6.6"
-# Install ruby version if not already
-if rbenv versions | grep -q $RUBY_VERSION; then
-  echo "✅ Ruby version $RUBY_VERSION is already installed."
-else
-  echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
-  rbenv install $RUBY_VERSION
-fi
-rbenv rehash
-rbenv local $RUBY_VERSION
-rbenv rehash
-# Get bundler version from Gemfile.lock and install it if it's not already installed
-BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
-if gem list bundler -i -v $BUNDLER_VERSION; then
-  echo "✅ Bundler version $BUNDLER_VERSION is already installed."
-else
-  echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
-  gem install bundler:$BUNDLER_VERSION --conservative
-fi
+# git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+# git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+# git -C ~/.rbenv/plugins/ruby-build pull
+# echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+# echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+# source ~/.bashrc
+
+# RUBY_VERSION="2.6.6"
+# # Install ruby version if not already
+# if rbenv versions | grep -q $RUBY_VERSION; then
+#   echo "✅ Ruby version $RUBY_VERSION is already installed."
+# else
+#   echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
+#   rbenv install $RUBY_VERSION
+#   rbenv global $RUBY_VERSION
+# fi
+# rbenv rehash
+# rbenv local $RUBY_VERSION
+# rbenv rehash
+# # Get bundler version from Gemfile.lock and install it if it's not already installed
+# BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
+# if gem list bundler -i -v $BUNDLER_VERSION; then
+#   echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+# else
+#   echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+#   gem install bundler:$BUNDLER_VERSION --conservative
+# fi
 
 # Install nvm
 echo "🚚 Installing Node.js ..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-nvm install --lts
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm install 14.17.4
 nvm alias default 14.17.4
+npm i -g yarn
 
 # Configure PostGres
-sudo -su postgres
-createuser -d -P -s ekylibre
-echo "ALTER USER ekylibre SUPERUSER;" | psq
+sudo apt-get update
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo apt install postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
+# sudo -su postgres
+# createuser -d -P -s ekylibre
+sudo -u postgres bash -c "psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\""
+# psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\"
+# psql -c \"ALTER USER ekylibre SUPERUSER; \"
+# echo "ALTER USER ekylibre SUPERUSER;" | psql
+sudo -u postgres bash -c "psql -c \"ALTER USER ekylibre SUPERUSER;\""
 
 # TODO : Edit pg_hba.conf to use md5 password authentication instead of peer authentication for unix sockets
 # Find and replace in file (local   all  all  peer) by (local  all  all md5)
