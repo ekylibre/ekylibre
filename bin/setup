@@ -44,8 +44,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew "node@14"
 EOS
   brew link --overwrite node@14
-  bundle config build.rgeo --with-geos-dir=$(brew --prefix geos) --with-proj-dir=$(brew --prefix proj)
-
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux
   echo "🚚 Installing packages..."
@@ -75,6 +73,11 @@ if gem list bundler -i -v $BUNDLER_VERSION; then
 else
   echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
   gem install bundler:$BUNDLER_VERSION --conservative
+fi
+
+# Configure gems installation depending on OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  bundle config build.rgeo --with-geos-dir=$(brew --prefix geos) --with-proj-dir=$(brew --prefix proj)
 fi
 
 # Install gems
