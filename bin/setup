@@ -28,8 +28,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   # Assuming that git and curl are already installed
   echo "🚚 Installing formulæ..."
   brew bundle --file=- <<-EOS
-    brew "cmake"
-    brew "gawk"
     brew "rbenv"
     brew "ruby-build"
     brew "postgresql@14"
@@ -46,6 +44,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew "node@14"
 EOS
   brew link --overwrite node@14
+  bundle config build.rgeo --with-geos-dir=$(brew --prefix geos) --with-proj-dir=$(brew --prefix proj)
 
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux
@@ -76,16 +75,6 @@ if gem list bundler -i -v $BUNDLER_VERSION; then
 else
   echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
   gem install bundler:$BUNDLER_VERSION --conservative
-fi
-
-# Pre-install rgeo gem for MacOS only
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  echo "🚚 Pre-installing gems..."
-  # Extract rgeo version from Gemfile.lock
-  RGEO_VERSION=$(grep -E "^    rgeo " Gemfile.lock | awk -F '[()]' '{print $2}')
-
-  echo "gem install rgeo -v $RGEO_VERSION -- --with-geos-dir=$(brew --prefix geos) --with-proj-dir=$(brew --prefix proj)"
-  gem install rgeo -v $RGEO_VERSION -- --with-geos-dir=$(brew --prefix geos) --with-proj-dir=$(brew --prefix proj)
 fi
 
 # Install gems
