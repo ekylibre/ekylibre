@@ -1,64 +1,20 @@
 # BUG
 
-## Technical scope
+## Comportement actuel du bogue, étapes pour reproduire, comportement attendu
 
-- [ ] Models
-- [ ] Controllers
-- [ ] Vues
-- [ ] API
-- [ ] Librairies
-- [ ] Plugins
-- [ ] Lexicon
-- [ ] JS
-- [ ] Mobile
-- [ ] Printers
-- [ ] Exchangers
-- [ ] Procedo
+(Comment peut-on reproduire le bogue ? )
 
-## Functional scope
+(Que se passe-t-il ?)
 
-- [ ] Accountancy
-- [ ] Entities
-- [ ] Sales
-- [ ] Purchases
-- [ ] Stocks
-- [ ] Productions
-- [ ] Tools
-- [ ] HR
-- [ ] Settings
-- [ ] First_run
+(Ce qui devrait se passer à la place)
 
-## Estimate quota time and elapsed time
+## Logs et/ou URL et/ou captures d'écran pertinentes
 
-(How much time is affected to the issue)
+(Tous les logs pertinents - veuillez utiliser des blocs de code (```) pour formater les log et le code.)
 
-`/estimate 7h`
+## Correctif possible
 
-`/spend 7h`
+(Si possible, indiquez l'origine du problème.)
 
-## Estimate size difficulty (XS to XL)
-
-- [ ] XS
-- [ ] S
-- [ ] M
-- [ ] L
-- [ ] XL
-
-## Current bug behavior, steps to reproduce, correct behavior
-
-(How one can reproduce the issue - this is very important)
-
-(What actually happens)
-
-(What you should see instead)
-
-## Relevant logs and/or urls and/or screenshots
-
-(Paste any relevant logs - please use code blocks (```) to format console output, logs, and code, as it's very hard to read otherwise.)
-
-## Possible fixes
-
-(If you can, link to the line of code that might be responsible for the problem)
 
 /label ~Bug ~"Shaping - A faire"
-/cc me
