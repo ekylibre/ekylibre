@@ -8,6 +8,7 @@
 set -e
 
 SKIP_DEMO=false
+RUBY_MAJOR_VERSION=2.7
 
 # Detect if arguments includes option --no-demo to skip demo first run
 if [[ " $@ " =~ " --skip-demo " ]]; then
@@ -39,24 +40,64 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew "proj"
     brew "geos"
     brew "imagemagick"
+    brew "graphicsmagick"
     brew "tesseract"
     brew "icu4c"
     brew "node@14"
 EOS
   brew link --overwrite node@14
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  # Test if sudo is installed and stop if not
+  if ! command -v sudo &> /dev/null; then
+    echo "sudo is required to install packages on Linux. Please install it and run this script again."
+    exit 12
+  fi
   # Linux
   echo "🚚 Installing packages..."
-  sudo apt-get install -y git curl rbenv ruby-build postgresql postgis redis yarn proj geos imagemagick graphicsmagick tesseract-ocr
-  # Not tested, maybe it could depend on the distro
+  sudo apt update
+  sudo apt install -y git curl postgresql-postgis redis yarnpkg proj-bin proj-data libgeos-dev libicu-dev imagemagick graphicsmagick tesseract-ocr
+
+  # Install rbenv and ruby-build if not already installed
+  if ! command -v rbenv &> /dev/null; then
+    # If ~/.rbenv already exists, exit
+    if [ -d ~/.rbenv ]; then
+      echo "Cannot install rbenv. ~/.rbenv already exists. Please remove it and run this script again."
+      exit 1
+    fi
+
+    echo "🚚 Installing rbenv..."
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
+    # Add rbenv to PATH
+    echo "🛠️ Adding rbenv to PATH..."
+    echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
+
+    # Initialize rbenv
+    echo "🛠️ Initializing rbenv..."
+    eval "$(~/.rbenv/bin/rbenv init - bash)"
+
+    echo "🚚 Installing ruby-build..."
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)/plugins/ruby-build"
+  fi
 else
   echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
 fi
 
+# Create a .ruby-version file if it doesn't exist
+if [[ ! -f .ruby-version ]]; then
+  echo "🛠️ Creating .ruby-version..."
+  rbenv install --list-all | grep -E "^${RUBY_MAJOR_VERSION}" | tail -n 1 > .ruby-version
+fi
+
 # Get ruby version from .ruby-version and install it if it's not already installed
 RUBY_VERSION=$(cat .ruby-version)
-# Set RUBY_VERSION to default value if empty
-RUBY_VERSION=${RUBY_VERSION:-2.7.7}
+
+# If RUBY_VERSION is not set, exit
+if [ -z "$RUBY_VERSION" ]; then
+  echo "Cannot configure .ruby-version. Maybe you have an old OS which doesn't which doesn't know about Ruby ${RUBY_MAJOR_VERSION}."
+  exit 1
+fi
+
 # Install ruby version if not already
 if rbenv versions | grep -q $RUBY_VERSION; then
   echo "✅ Ruby version $RUBY_VERSION is already installed."
@@ -152,11 +193,11 @@ else
     bin/rails first_run
     unset TENANT
     # Unless the domain is already in /etc/hosts, add it
-    if grep -q "${DEMO}.ekylibre.lan" /etc/hosts; then
+    if grep -q " ${DEMO}.ekylibre.lan" /etc/hosts; then
       echo "⚙️ ${DEMO}.ekylibre.lan is already in /etc/hosts."
     else
       echo "⚙️ Add ${DEMO}.ekylibre.lan to /etc/hosts..."
-      echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee --append /etc/host
+      echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee -a /etc/hosts
     fi
   fi
 fi
