@@ -148,8 +148,8 @@
       return if newTime == ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
-        target = $(item).data('intervention-updater').search(/targets/i)
-        if target != -1
+        itemIsTarget = /targets/.test($(item).data('intervention-updater'))
+        if itemIsTarget
           re =  /(scope\[availables\]\[\]\[at\]=)(.*?)(&)(scope\[land_parcel_alive\]\[\]\[at\]=)(.*?)(&)/
           scopeUri = scopeUri.replace(re, "$1" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$3" + "$4" + moment(newTime).format('YYYY-MM-DD HH:mm') + "$6")
         else
