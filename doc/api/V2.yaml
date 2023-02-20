@@ -468,6 +468,7 @@ paths:
                         - produce(animal)
                         - produce(excrement)
                         - produce(milk)
+                      reference_name: breeding_cow
                     - id: 2
                       name: Taurillon
                       number: '000002'
@@ -480,6 +481,7 @@ paths:
                         - consume(water)
                         - move
                         - produce(excrement)
+                      reference_name: breeding_cow
                 items:
                   $ref: '#/components/schemas/Variants'
               examples:
@@ -499,6 +501,7 @@ paths:
                         - produce(animal)
                         - produce(excrement)
                         - produce(milk)
+                      reference_name: breeding_cow
                     - id: 2
                       name: Taurillon
                       number: '000002'
@@ -511,6 +514,7 @@ paths:
                         - consume(water)
                         - move
                         - produce(excrement)
+                      reference_name: breeding_cow
       deprecated: false
       security: []
       description: 'Returns a list of variants you’ve previously created. '
@@ -564,6 +568,7 @@ paths:
                   population: '-1.0'
                   unit_name: Tonne
                   container_name: Silo à grain
+                  variant_id: 1
   /profile:
     get:
       tags:
@@ -1726,6 +1731,8 @@ components:
           items:
             required: []
             properties: {}
+        reference_name:
+          type: string
       required:
         - id
         - name
@@ -1748,6 +1755,7 @@ components:
             - produce(animal)
             - produce(excrement)
             - produce(milk)
+          reference_name: breeding_cow
           value:
             id: 1
             name: Vache
@@ -1763,6 +1771,7 @@ components:
               - produce(animal)
               - produce(excrement)
               - produce(milk)
+            reference_name: breeding_cow
       x-tags:
         - ' Product nature variants'
     Profile:
