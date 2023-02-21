@@ -28,7 +28,6 @@ else
   git -C $HOME/.rbenv/plugins/ruby-build pull
   echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
   echo 'eval "$(rbenv init -)"' >> $HOME/.bashrc
-  source $HOME/.bashrc
   rbenv rehash
 fi
 
