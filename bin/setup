@@ -17,20 +17,26 @@ fi
 # Install OS-specific packages for MacOS, Debian, and Ubuntu
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
-  bash "install/macos"
+  sh bin/install/./macos
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Detecting OS Version
   OS_VERSION=$(lsb_release -ds)
   if [[ "$OS_VERSION" == "Ubuntu 20.04"* ]]; then
-    bash "install/ubuntu_20_04"
+    sh bin/install/./ubuntu_20_04
   elif [[ "$OS_VERSION" == "Ubuntu 22.04"* ]]; then
-    bash "install/ubuntu_22_04"
+    sh bin/install/./ubuntu_22_04
   else
     echo "Unsupported Linux OS Version. Cannot install dependencies for $OS_VERSION."
   fi
 else
   echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
 fi
+
+# Installing public certificates
+echo "🚚 Installing Renater certificates..."
+sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4_usertrust_rsa_certification_authority.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4_usertrust_rsa_certification_authority.crt \
+&& sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4.crt \
+&& sudo update-ca-certificates
 
 # Install gems
 echo "🚚 Installing gems..."
@@ -57,7 +63,7 @@ if [ ! -f config/database.yml ]; then
   echo "  pool: 10" >> config/database.yml
   echo "  postgis_extension: []" >> config/database.yml
   echo "  schema_search_path: public,postgis,lexicon" >> config/database.yml
-  echo "  username: ekylibre" >> config/database.yml
+  echo "  username: public,postgis,lexicon" >> config/database.yml
   echo "  password: ekylibre" >> config/database.yml
   echo "  host: 127.0.0.1" >> config/database.yml
   echo "test:" >> config/database.yml
