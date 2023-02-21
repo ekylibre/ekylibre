@@ -175,15 +175,20 @@ module Ekylibre
                 aps = ap.of_cultivation_variety(r.target_variety).where(cultivable_zone: support)
                 aps ||= ap.support_shape_intersecting(support.shape).of_cultivation_variety(r.target_variety)
               end
-              # or try to find without variety if theres only one production for the current campaign and cultivable zone
+              # or try to find without variety if there is only one production for the current campaign and cultivable zone
               if aps.blank? && ap.where(cultivable_zone: support).any?
                 aps = ap.where(cultivable_zone: support)
               end
-              # or try to find with shape if theres only one production for the current campaign
+              # or try to find with shape if there is only one production for the current campaign
               if aps.blank? && ap.support_shape_intersecting(support.shape).any?
                 aps = ap.support_shape_intersecting(support.shape)
               end
-              ps = aps.map(&:support)
+              if aps.present?
+                ps = aps.map(&:support)
+              else
+                w.warn "No production found for #{support.name} (#{support.id})".red
+                ps = []
+              end
               w.info "case A1 : CZ #{ps}".inspect.blue
             # case A2 : Product
             elsif support.is_a?(Product) || support.is_a?(LandParcel)
@@ -206,8 +211,6 @@ module Ekylibre
         end
 
         w.debug supports.inspect.yellow
-
-        raise "stop #{r.target_variety}" unless supports.any?
 
         # case 1 supports exists
         if supports.any?

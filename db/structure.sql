@@ -31,12 +31,10 @@ CREATE SCHEMA public;
 
 
 --
--- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
 --
 
-CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
-    LANGUAGE c
-    AS '$libdir/pgcrypto', 'pg_random_uuid';
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -427,7 +425,6 @@ CREATE TABLE lexicon.master_crop_productions (
     idea_botanic_family character varying,
     idea_specie_family character varying,
     idea_output_family character varying,
-    color character varying,
     translation_id character varying NOT NULL
 );
 
@@ -492,9 +489,7 @@ CREATE TABLE lexicon.master_packagings (
 --
 
 CREATE TABLE lexicon.master_phenological_stages (
-    id character varying NOT NULL,
-    bbch_code character varying NOT NULL,
-    variety character varying NOT NULL,
+    bbch_code integer NOT NULL,
     biaggiolini character varying,
     eichhorn_lorenz character varying,
     chasselas_date character varying,
@@ -929,14 +924,6 @@ CREATE TABLE lexicon.registered_phytosanitary_usages (
     untreated_buffer_plants integer,
     decision_date date,
     state character varying NOT NULL,
-    extract_spray_volume_max_quantity character varying,
-    extract_spray_volume_max_unit character varying,
-    spray_volume_max_quantity numeric(19,4),
-    spray_volume_max_unit character varying,
-    spray_volume_max_unit_name character varying,
-    spray_volume_max_dose_quantity numeric(19,4),
-    spray_volume_max_dose_unit character varying,
-    spray_volume_max_dose_unit_name character varying,
     record_checksum integer
 );
 
@@ -964,8 +951,6 @@ CREATE TABLE lexicon.registered_postal_codes (
 
 CREATE TABLE lexicon.registered_protected_water_zones (
     id character varying NOT NULL,
-    administrative_zone character varying,
-    creator_name character varying,
     name character varying,
     updated_on date,
     shape postgis.geometry(MultiPolygon,4326) NOT NULL
@@ -1117,7 +1102,6 @@ CREATE TABLE lexicon.technical_workflows (
     unit character varying,
     life_state character varying,
     life_cycle character varying,
-    plant_density integer,
     translation_id character varying NOT NULL
 );
 
@@ -1436,8 +1420,8 @@ CREATE TABLE public.intervention_parameters (
     using_live_data boolean DEFAULT true,
     applications_frequency interval,
     specie_variety jsonb DEFAULT '{}'::jsonb,
-    spray_volume_value numeric(19,4),
-    working_zone_area_value numeric(19,4)
+    working_zone_area_value numeric(19,4),
+    spray_volume_value numeric(19,4)
 );
 
 
@@ -12265,7 +12249,7 @@ ALTER TABLE ONLY lexicon.master_packagings
 --
 
 ALTER TABLE ONLY lexicon.master_phenological_stages
-    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT master_phenological_stages_pkey PRIMARY KEY (bbch_code);
 
 
 --
@@ -25910,7 +25894,7 @@ ALTER TABLE ONLY public.financial_years
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public,postgis,lexicon,marti;
+SET search_path TO public,postgis,lexicon;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121212122000'),
@@ -26574,6 +26558,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221027160401'),
 ('20221117085001'),
 ('20221208093301'),
+('20221212171447'),
 ('20221220080638');
 
 

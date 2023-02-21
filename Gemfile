@@ -64,7 +64,7 @@ gem 'jquery-rails', '~> 4.4'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'simple_calendar', '~> 2.4.0'
-gem 'therubyracer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
 gem 'turbolinks', '~> 5.2.1'
 gem 'twitter-typeahead-rails', '~> 0.11.1'
 
@@ -92,7 +92,7 @@ gem 'exception_notification', '~> 4.4'
 gem 'redis-namespace', '~> 1.8'
 
 # Manipulate map data
-gem 'charta', gitlab: 'ekylibre/charta', branch: 'master'
+gem 'charta', path: '../charta' # gitlab: 'ekylibre/charta', branch: 'master'
 gem 'geocoder', '~> 1.6'
 gem 'rgeo', '~> 2.2'
 gem 'rgeo-geojson', '~> 2.1'
@@ -245,7 +245,7 @@ group :test do
 
   gem 'rails-controller-testing', '~> 1.0'
   # for loading lexicon 5 in test mode
-  gem 'lexicon-common', '~> 0.2.0'
+  gem 'lexicon-common', path: '../lexicon-common' # ~> 0.2.0'
   gem 'vcr', "~> 6.0.0"
   gem 'webmock', "~> 3.13.0"
 end
