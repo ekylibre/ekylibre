@@ -5,7 +5,7 @@
 # Exit if any subcommand fails
 set -e
 
-LIST_OF_20_04_DEPENDENCIES="git curl build-essential libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk"
+LIST_OF_20_04_DEPENDENCIES="git curl build-essential make libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk"
 
 sudo apt-get install -qq -s -y $LIST_OF_20_04_DEPENDENCIES
 if [ $? -eq 0 ]; then
