@@ -70,7 +70,7 @@ PATH
 PATH
   remote: ../lexicon-common
   specs:
-    lexicon-common (0.2.0)
+    lexicon-common (0.2.1)
       aws-sdk-s3 (~> 1.84)
       colored (~> 1.2)
       concurrent-ruby (~> 1.1)
@@ -159,7 +159,7 @@ GEM
     awesome_nested_set (3.2.1)
       activerecord (>= 4.0.0, < 7.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.712.0)
+    aws-partitions (1.714.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -922,4 +922,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   1.17.3
+   2.1.4

@@ -55,7 +55,7 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux
   echo "🚚 Installing packages..."
   sudo apt update
-  sudo apt install -y git curl postgresql-postgis redis yarnpkg proj-bin proj-data libgeos-dev libicu-dev imagemagick graphicsmagick tesseract-ocr
+  sudo apt install -y git build-essential curl redis postgresql-postgis libpq-dev libffi-dev libnode-dev default-jdk libproj-dev libgeos-dev libgeos++-dev libicu-dev zlib1g-dev libreadline-dev libssl-dev imagemagick graphicsmagick tesseract-ocr
 
   # Install rbenv and ruby-build if not already installed
   if ! command -v rbenv &> /dev/null; then
@@ -78,6 +78,26 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     echo "🚚 Installing ruby-build..."
     git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)/plugins/ruby-build"
+  fi
+
+  # Set JAVA_HOME
+  echo "🛠️ Setting JAVA_HOME..."
+  export JAVA_HOME=/usr/lib/jvm/default-java
+
+  # Install nodejs if not already installed
+  if ! command -v node &> /dev/null; then
+    echo "🚚 Installing nodejs..."
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    sudo apt install -y nodejs
+  fi
+
+  # Install yarn if not already installed
+  if ! command -v yarn &> /dev/null; then
+    echo "🚚 Installing yarn..."
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt update
+    sudo apt install -y yarn
   fi
 else
   echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
