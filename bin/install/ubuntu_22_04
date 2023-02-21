@@ -1,0 +1,234 @@
+#!/bin/bash
+
+# This script is a way to set up or update your development environment automatically for Ubuntu 20.04.
+
+# Exit if any subcommand fails
+set -e
+
+SKIP_DEMO=false
+
+LIST_OF_20_04_DEPENDENCIES="git curl build-essential libreadline-dev libssl-dev zlib1g-dev redis-server imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-8-jdk libpq-dev tesseract-ocr pdftk"
+
+LIST_OF_22_04_DEPENDENCIES="git curl rbenv ruby-build build-essential libreadline-dev libssl-dev zlib1g-dev libqt5core5a redis-server postgresql-14 postgresql-14-postgis-3 postgresql-14-postgis-3-scripts libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-8-jdk libicu-dev libpq-dev tesseract-ocr pdftk"
+
+# Detect if arguments includes option --no-demo to skip demo first run
+if [[ " $@ " =~ " --skip-demo " ]]; then
+  SKIP_DEMO=true
+fi
+
+# Install OS-specific packages for MacOS, Debian, and Ubuntu
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # Mac OSX
+  echo "🔍 Check if Homebrew is present..."
+  if command -v brew &> /dev/null
+  then
+    echo "✅ Homebrew is already installed."
+  else
+    echo "✨ Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  # Assuming that git and curl are already installed
+  echo "🚚 Installing formulæ..."
+  brew bundle --file=- <<-EOS
+    brew "rbenv"
+    brew "ruby-build"
+    brew "postgresql@14"
+    brew "postgis"
+    brew "libpq"
+    brew "libxml2"
+    brew "redis"
+    brew "yarn"
+    brew "proj"
+    brew "geos"
+    brew "imagemagick"
+    brew "tesseract"
+    brew "icu4c"
+    brew "node@14"
+EOS
+  brew link --overwrite node@14
+
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  # Detecting OS Version
+  OS_VERSION=$(lsb_release -ds)
+  if [[ "$OS_VERSION" == "Ubuntu 20.04"* ]]; then
+    # sudo apt install git curl
+
+    LIST_OF_OS_DEPENDENCIES=$LIST_OF_20_04_DEPENDENCIES
+  elif [[ "$OS_VERSION" == "Ubuntu 22.04"* ]]; then
+    LIST_OF_OS_DEPENDENCIES=$LIST_OF_22_04_DEPENDENCIES
+  else
+    echo "Unsupported OS Version. Cannot install dependencies for $OS_VERSION."
+  fi
+  sudo apt-get install -qq -s -y $LIST_OF_OS_DEPENDENCIES
+  if [ $? -eq 0 ]; then
+    echo "✅ Packages already installed for $OS_VERSION"
+  else
+    echo "🚚 Installing packages for $OS_VERSION..."
+    sudo apt-get install -qq -y $LIST_OF_OS_DEPENDENCIES
+    echo "✅ Packages installed for $OS_VERSION"
+  fi
+else
+  echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
+fi
+
+# Get ruby version from .ruby-version and install it if it's not already installed
+# file does not exist
+# RUBY_VERSION=$(cat .ruby-version &> /dev/null)
+# Set RUBY_VERSION to default value if empty
+# git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+# git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+# git -C ~/.rbenv/plugins/ruby-build pull
+# echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+# echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+# source ~/.bashrc
+
+# RUBY_VERSION="2.6.6"
+# # Install ruby version if not already
+# if rbenv versions | grep -q $RUBY_VERSION; then
+#   echo "✅ Ruby version $RUBY_VERSION is already installed."
+# else
+#   echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
+#   rbenv install $RUBY_VERSION
+#   rbenv global $RUBY_VERSION
+# fi
+# rbenv rehash
+# rbenv local $RUBY_VERSION
+# rbenv rehash
+# # Get bundler version from Gemfile.lock and install it if it's not already installed
+# BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
+# if gem list bundler -i -v $BUNDLER_VERSION; then
+#   echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+# else
+#   echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+#   gem install bundler:$BUNDLER_VERSION --conservative
+# fi
+
+# Install nvm
+echo "🚚 Installing Node.js ..."
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm install 14.17.4
+nvm alias default 14.17.4
+npm i -g yarn
+
+# Configure PostGres
+sudo apt-get update
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo apt install postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
+# sudo -su postgres
+# createuser -d -P -s ekylibre
+sudo -u postgres bash -c "psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\""
+# psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\"
+# psql -c \"ALTER USER ekylibre SUPERUSER; \"
+# echo "ALTER USER ekylibre SUPERUSER;" | psql
+sudo -u postgres bash -c "psql -c \"ALTER USER ekylibre SUPERUSER;\""
+
+# TODO : Edit pg_hba.conf to use md5 password authentication instead of peer authentication for unix sockets
+# Find and replace in file (local   all  all  peer) by (local  all  all md5)
+# sudo vim /etc/postgresql/13/main/pg_hba.conf
+echo "Editing pg_hba.conf"
+file="/etc/postgresql/13/main/pg_hba.conf"
+search="local   all  all  peer"
+replace="local  all  all md5"
+
+while read -r line; do
+  if [[ $line = $search ]]; then
+    echo $replace
+  else
+    echo $line
+  fi
+done < "$file" | sudo tee "$file" > /dev/null
+
+# Java & Redis
+echo "Installing Java & Redis ..."
+sudo add-apt-repository ppa:rock-core/qt4
+sudo apt-get update
+sudo apt-get install libqtwebkit-dev libicu-dev libqtcore4
+
+# Java & Redis
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.profile
+source ~/.bashrc
+source ~/.profile
+
+# Install gems
+echo "🚚 Installing gems..."
+bundle install --jobs=4
+
+# Install JS packages
+echo "🚚 Installing JS packages..."
+yarn install
+
+# Copy .env if it doesn't exist
+if [ ! -f .env ]; then
+  echo "🛠️ Copying .env..."
+  cp .env.dist .env
+fi
+
+# Copy database.yml if it doesn't exist
+if [ ! -f config/database.yml ]; then
+  echo "🛠️ Creating config/database.yml..."
+  echo "# Generated by bin/setup" > config/database.yml
+  echo "development: &development" >> config/database.yml
+  echo "  adapter: postgis" >> config/database.yml
+  echo "  encoding: unicode" >> config/database.yml
+  echo "  database: ekylibre_development" >> config/database.yml
+  echo "  pool: 10" >> config/database.yml
+  echo "  postgis_extension: []" >> config/database.yml
+  echo "  schema_search_path: public,postgis,lexicon" >> config/database.yml
+  echo "test:" >> config/database.yml
+  echo "  <<: *development" >> config/database.yml
+  echo "  database: ekylibre_test<%= ENV['TEST_ENV_NUMBER'] %>" >> config/database.yml
+fi
+
+# Get database name from config/database.yml
+DATABASE_NAME=$(ruby -ryaml -e "puts YAML.load_file('config/database.yml')['development']['database']")
+
+# If postgresql database exists, migrate only DB schema else setup it.
+if psql -lqt | cut -d \| -f 1 | grep -qw $DATABASE_NAME; then
+  echo "⚙️ Migrating database schema..."
+  bin/rails db:migrate
+else
+  echo "⚙️ Creating database..."
+  bin/rails db:create db:migrate
+fi
+
+# Load lexicon
+echo "⚙️ Loading lexicon..."
+bin/rails lexicon:load
+
+if [ "$SKIP_DEMO" = true ] ; then
+  echo "⚙️ Skipping demo first run..."
+  exit 0
+else
+  DEMO=${DEMO:-demo}
+  # Prepare first run for development unless it already exists
+  if [ -d db/first_runs/${DEMO} ]; then
+    echo "⚙️ First run for development already exists."
+  else
+    echo "⚙️ Pull first run for development..."
+    mkdir -p db/first_runs
+    git clone git@github.com:ekylibre/first_run-demo.git db/first_runs/${DEMO}
+  fi
+
+  # Load demo first run unless schema is not present in database
+  if psql -At -c 'SELECT nspname FROM pg_catalog.pg_namespace;' | grep -q ${DEMO}; then
+    echo "⚙️ Execute demo first run for development..."
+    export TENANT=${DEMO}
+    bin/rails first_run
+    unset TENANT
+    echo "⚙️ Add ${DEMO}.ekylibre.lan to /etc/hosts..."
+    echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee --append /etc/host
+  fi
+fi
+
+# Remove old logs and tempfiles
+echo "⚙️ Removing old logs and tempfiles..."
+bin/rails log:clear tmp:clear
+
+# Restart the application server
+echo "⚙️ Restarting application server..."
+bin/rails restart

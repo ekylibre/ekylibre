@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# This script is a way to set up or update your development environment automatically for Ubuntu 20.04.
+
+# Exit if any subcommand fails
+set -e
+
+SKIP_DEMO=false
+
+LIST_OF_20_04_DEPENDENCIES="git curl build-essential libreadline-dev libssl-dev zlib1g-dev redis-server imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-8-jdk libpq-dev tesseract-ocr pdftk"
+
+sudo apt-get install -qq -s -y $LIST_OF_20_04_DEPENDENCIES
+if [ $? -eq 0 ]; then
+  echo "✅ Packages already installed for $OS_VERSION"
+else
+  echo "🚚 Installing packages for $OS_VERSION..."
+  sudo apt-get install -qq -y $LIST_OF_OS_DEPENDENCIES
+  echo "✅ Packages installed for $OS_VERSION"
+fi
+
+# Set RUBY_VERSION to default value if empty
+git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
+git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
+git -C $HOME/.rbenv/plugins/ruby-build pull
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
+echo 'eval "$(rbenv init -)"' >> $HOME/.bashrc
+source $HOME/.bashrc
+
+RUBY_VERSION="2.6.6"
+# Install ruby version if not already
+if rbenv versions | grep -q $RUBY_VERSION; then
+  echo "✅ Ruby version $RUBY_VERSION is already installed."
+else
+  echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
+  rbenv install $RUBY_VERSION
+  rbenv rehash
+  rbenv global $RUBY_VERSION
+fi
+
+# Configure PostGres
+sudo apt-get update
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo apt install postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
+# sudo -su postgres
+# createuser -d -P -s ekylibre
+sudo -u postgres bash -c "psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\""
+# psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\"
+# psql -c \"ALTER USER ekylibre SUPERUSER; \"
+# echo "ALTER USER ekylibre SUPERUSER;" | psql
+sudo -u postgres bash -c "psql -c \"ALTER USER ekylibre SUPERUSER;\""
+
+# TODO : Edit pg_hba.conf to use md5 password authentication instead of peer authentication for unix sockets
+# Find and replace in file (local   all  all  peer) by (local  all  all md5)
+# sudo vim /etc/postgresql/13/main/pg_hba.conf
+echo "Editing pg_hba.conf"
+file="/etc/postgresql/13/main/pg_hba.conf"
+search="local   all  all  peer"
+replace="local  all  all md5"
+
+while read -r line; do
+  if [[ $line = $search ]]; then
+    echo $replace
+  else
+    echo $line
+  fi
+done < "$file" | sudo tee "$file" > /dev/null
+
+# Java & Redis
+echo "Installing Java & Redis ..."
+sudo add-apt-repository ppa:rock-core/qt4
+sudo apt-get update
+sudo apt-get install libqtwebkit-dev libicu-dev libqtcore4
+
+# Java & Redis
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> $HOME/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> $HOME/.profile
+source $HOME/.bashrc
+source $HOME/.profile
