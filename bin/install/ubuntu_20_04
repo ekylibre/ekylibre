@@ -87,8 +87,11 @@ echo "✅ Proj specific version installed."
 
 # Java & Redis
 echo "🚚 Installing Qt4, Java && Redis ..."
-sudo add-apt-repository ppa:rock-core/qt4
-sudo apt-get update
+QT_PPA="ppa:rock-core/qt4"
+if ! grep -q "^deb .*$QT_PPA" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+  sudo add-apt-repository ppa:rock-core/qt4
+  sudo apt-get update
+fi
 sudo apt-get install -qq -y libqtcore4 openjdk-8-jdk libqtwebkit-dev libicu-dev libqtcore4 redis-server
 
 # Java & Redis
