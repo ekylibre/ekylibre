@@ -11,3 +11,4 @@ json.quantity_indicator_name parameter.quantity_indicator_name
 json.quantity_population parameter.quantity_population&.to_f
 json.quantity_unit_name parameter.quantity_unit_name
 json.quantity_value parameter.quantity_value&.to_f
+json.usage_id parameter.usage_id
