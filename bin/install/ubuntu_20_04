@@ -82,7 +82,7 @@ fi
 # PROJ_VERSION=pkg-config --modversion proj
 echo "🚚 Configuring Proj specific version ..."
 sudo mkdir -p /opt/proj/share
-sudo unzip bin/install/proj.tar.gz -d /opt/proj/share
+sudo untar bin/install/proj.tar.gz -d /opt/proj/share
 echo "✅ Proj specific version installed."
 
 # Java & Redis
