@@ -5,7 +5,7 @@
 # Exit if any subcommand fails
 set -e
 
-LIST_OF_20_04_DEPENDENCIES="git curl build-essential make libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk"
+LIST_OF_20_04_DEPENDENCIES="git curl build-essential make libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk libreoffice"
 echo "Setup process for Ubuntu 20.04"
 echo "🚚 Installing packages..."
 sudo apt-get install -qq -y $LIST_OF_20_04_DEPENDENCIES
@@ -63,11 +63,16 @@ else
   echo "✅ Postgresql 13 && Postgis 2.5 installed."
   # sudo -su postgres
   # createuser -d -P -s ekylibre
-  sudo -u postgres bash -c "psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\""
   # psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\"
   # psql -c \"ALTER USER ekylibre SUPERUSER; \"
   # echo "ALTER USER ekylibre SUPERUSER;" | psql
-  sudo -u postgres bash -c "psql -c \"ALTER USER ekylibre SUPERUSER;\""
+  if psql -t -c '\du' | cut -d \| -f 1 | grep -qw ekylibre; then
+    echo "✅ Postgresql role ekylibre already exist."
+  else
+    sudo -u postgres bash -c "psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\""
+    sudo -u postgres bash -c "psql -c \"ALTER USER ekylibre SUPERUSER;\""
+    echo "✅ Postgresql role ekylibre created."
+  fi
 
   # TODO : Edit pg_hba.conf to use md5 password authentication instead of peer authentication for unix sockets
   # Find and replace in file (local   all  all  peer) by (local  all  all md5)
