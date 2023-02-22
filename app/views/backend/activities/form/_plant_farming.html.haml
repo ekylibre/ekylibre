@@ -27,7 +27,7 @@
   - if is_vegetal_farming
     .perennial-production-cycle-options
       = f.input :start_state_of_production_year, label: :start_state_of_production.tl,
-                                                  collection: f.object.production_nature && f.object.production_nature.start_states || MasterCropProductionStartState.defaults,
+                                                  collection: f.object.production_nature && f.object.production_nature.start_states || MasterProductionStartState.defaults,
                                                   label_method: lambda { |ssop| ssop.label(locale: locale) }, value_method: :year,
                                                   required: is_perennial_vegetal_farming
       = f.input :life_duration, required: is_perennial_vegetal_farming, wrapper: :append do
@@ -41,8 +41,7 @@
 = field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
   = f.input :use_tactics, show: '#tactics-fields'
   #tactics-fields
-    = f.nested_association(:tactics, maximum: 1)
-
+    = f.nested_association(:tactics, partial: '/backend/activities/tactic_fields', locals: {campaign: campaign})
 
 = field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
   = f.input :use_gradings, show: '#inspections-fields'

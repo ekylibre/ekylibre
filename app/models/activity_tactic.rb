@@ -61,6 +61,30 @@ class ActivityTactic < ApplicationRecord
 
   scope :of_activity, lambda { |activity| where(activity: activity)}
 
+  before_validation do
+    set_default_name
+    set_planned_on
+  end
+
+  def set_default_name
+    if name.blank? && campaign
+      if technical_itinerary
+        self.name = "#{technical_itinerary.name} #{campaign.name}"
+      elsif technical_workflow
+        self.name =  "#{technical_workflow.translation.send(Preference[:language])} #{campaign.name}"
+      elsif technical_sequence
+        self.name = "#{technical_sequence.translation.send(Preference[:language])} #{campaign.name}"
+      end
+    end
+  end
+
+  def set_planned_on
+    year_delta = activity.production_started_on_year
+    if planned_on.blank? && year_delta && technical_workflow && campaign
+      self.planned_on = Date.new((campaign.harvest_year + year_delta), technical_workflow.start_month, technical_workflow.start_day)
+    end
+  end
+
   def of_family
     Activity.where(id: activity_id).map(&:family).join.to_sym
   end

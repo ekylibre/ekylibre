@@ -2399,6 +2399,8 @@ daily_charges:
   activity_production_id:
     type: integer
     references: activity_production
+  animal_population:
+    type: integer
   area:
     type: decimal
   created_at:
@@ -2416,6 +2418,9 @@ daily_charges:
     type: string
   quantity:
     type: decimal
+  quantity_unit_id:
+    type: integer
+    references: unit
   reference_date:
     type: date
   updated_at:
@@ -4362,7 +4367,7 @@ intervention_labellings:
 intervention_model_items:
   article_reference:
     type: string
-  id:
+  reference_name:
     type: string
     required: true
   indicator_name:
@@ -4381,7 +4386,7 @@ intervention_model_items:
 intervention_models:
   category_name:
     type: jsonb
-  id:
+  reference_name:
     type: string
     required: true
   name:
@@ -6164,7 +6169,7 @@ master_crop_production_cap_sna_codes:
   translation_id:
     type: string
     required: true
-master_crop_production_prices:
+master_production_prices:
   campaign:
     type: integer
   currency:
@@ -6206,7 +6211,7 @@ master_crop_production_prices:
     precision: 8
     scale: 2
     required: true
-master_crop_production_start_states:
+master_production_start_states:
   key:
     type: string
     required: true
@@ -6228,7 +6233,7 @@ master_crop_production_tfi_codes:
   tfi_label:
     type: string
     required: true
-master_crop_production_yields:
+master_production_yields:
   campaign:
     type: integer
     required: true
@@ -6249,7 +6254,7 @@ master_crop_production_yields:
     precision: 8
     scale: 2
     required: true
-master_crop_productions:
+master_productions:
   activity_family:
     type: string
     required: true
@@ -7345,6 +7350,32 @@ planning_scenario_activities:
   planning_scenario_id:
     type: integer
     references: scenario
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+planning_scenario_activity_animals:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  planned_at:
+    type: date
+  planning_scenario_activity_id:
+    type: integer
+    references: scenario_activity
+  population:
+    type: integer
+  technical_itinerary_id:
+    type: integer
+    references: technical_itinerary
   updated_at:
     type: datetime
     required: true
@@ -10626,7 +10657,7 @@ technical_itineraries:
   originator_id:
     type: integer
     references: technical_itinerary
-  technical_workflow_id:
+  reference_name:
     type: string
   updated_at:
     type: datetime
@@ -10677,7 +10708,7 @@ technical_itinerary_intervention_templates:
 technical_sequences:
   family:
     type: string
-  id:
+  reference_name:
     type: string
     required: true
   production_reference_name:
@@ -10693,7 +10724,7 @@ technical_workflow_procedure_items:
     type: string
   article_reference:
     type: string
-  id:
+  reference_name:
     type: string
     required: true
   procedure_item_reference:
@@ -10715,7 +10746,7 @@ technical_workflow_procedures:
     type: string
   frequency:
     type: string
-  id:
+  reference_name:
     type: string
     required: true
   name:
@@ -10748,7 +10779,7 @@ technical_workflow_sequences:
 technical_workflows:
   family:
     type: string
-  id:
+  reference_name:
     type: string
     required: true
   life_cycle:

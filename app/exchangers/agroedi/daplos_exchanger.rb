@@ -19,8 +19,8 @@ module Agroedi
         else
           crops.each do |crop|
             crop_specie = crop.crop_specie_edicode
-            prods = MasterCropProduction.where(agroedi_crop_code: crop_specie)
-            transcode_species = RegisteredAgroediCode.of_ekylibre_codes('MasterCropProduction', crop_specie).pluck(:ekylibre_value).compact.uniq
+            prods = MasterProduction.where(agroedi_crop_code: crop_specie)
+            transcode_species = RegisteredAgroediCode.of_ekylibre_codes('MasterProduction', crop_specie).pluck(:ekylibre_value).compact.uniq
             if prods.count > 0
               w.info "Production nature exist for #{crop_specie}"
               valid = true

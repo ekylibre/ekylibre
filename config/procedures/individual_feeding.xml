@@ -21,6 +21,10 @@
                  if="PRODUCT.net_mass? and PRODUCT.net_mass != 0 and PRODUCT.dry_matter_rate?"
                  backward="POPULATION * (PRODUCT.net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"
                  forward="VALUE / (PRODUCT.net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"/>
+       <handler name="food_mass_per_animal" indicator="mass_head_density" unit="kilogram_per_head"
+                if="population_count(animal) > 0 and PRODUCT.net_mass?"
+                backward="POPULATION * (PRODUCT.net_mass(kilogram) / population_count(animal))"
+                forward="VALUE * (population_count(animal) / PRODUCT.net_mass(kilogram))"/>       
       </input>
       <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>

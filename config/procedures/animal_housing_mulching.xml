@@ -21,7 +21,7 @@
       </input>
       <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
-      <tool name="cleaner" filter="is equipment and can blow" cardinality="*"/>
+      <tool name="equipment" filter="is equipment" cardinality="*"/>
       <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
     </parameters>
   </procedure>

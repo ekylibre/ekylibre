@@ -35,9 +35,9 @@ module TechnicalItineraries
       test '#create_procedures_and_intervention_templates' do
         temp_pn = ProductNature.first
         activity = create(:activity, reference_name: :vine )
-        technical_workflow = TechnicalWorkflow.find('vine_farming_vine_organic_farming_organic_before_plain_prod')
+        technical_workflow = TechnicalWorkflow.find_by_reference_name('vine_farming_vine_organic_farming_organic_before_plain_prod')
         campaign = Campaign.current.last
-        technical_itinerary = TechnicalItinerary.import_from_lexicon(campaign: campaign, activity: activity, technical_workflow_id: technical_workflow.id)
+        technical_itinerary = TechnicalItinerary.import_from_lexicon_with_activity_and_campaign(campaign: campaign, activity: activity, technical_workflow_id: technical_workflow.reference_name)
         technical_itinerary_intervention_template_ids = CreateTactic.new(activity: activity, technical_workflow: nil, technical_sequence: nil, campaign: campaign)
                                                                     .create_procedures_and_intervention_templates(technical_itinerary, temp_pn )
         ti_inter_templates = TechnicalItineraryInterventionTemplate.all

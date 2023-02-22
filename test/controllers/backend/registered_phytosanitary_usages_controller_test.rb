@@ -6,10 +6,13 @@ module Backend
       create :campaign, harvest_year: 2018
 
       @land_parcel = create :lemon_land_parcel, born_at: DateTime.new(2018, 1, 1)
-      # usage PPAMC*Trt Part.Aer.*Maladies fongiques - mildiou
+      # 19993200 PPAMC*Trt Part.Aer.*Maladies fongiques
       # 3,3 kg/ha - 3 times max
+      # Date de retrait de l'usage : 14/09/2022
+
       @product = create :phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2000087_copless')
-      @usage = RegisteredPhytosanitaryUsage.find('20220419145719695491')
+      @usage = RegisteredPhytosanitaryUsage.find('20220906094534891668')
+
       # create 2 interventions
       2.times { |index| create_intervention(index) }
       user_sign_in

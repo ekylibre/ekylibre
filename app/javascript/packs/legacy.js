@@ -18,7 +18,7 @@ import _ from 'lodash';
 import L from 'leaflet';
 import 'leaflet-draw';
 import 'lib/leaflet/default-icon';
-import { MasterCropProductionService } from 'services/masterCropProductionService';
+import { MasterProductionService } from 'services/masterProductionService';
 import { VarietyService } from 'services/varietyService';
 import { CultivableZoneService } from 'services/cultivableZoneService';
 import { CampaignService } from 'services/campaignService';
@@ -38,7 +38,7 @@ export let Ekylibre = {
     notification: { setup, notify },
     onElementDetected,
     onDomReady,
-    MasterCropProductionService,
+    MasterProductionService,
     VarietyService,
     CultivableZoneService,
     CampaignService,

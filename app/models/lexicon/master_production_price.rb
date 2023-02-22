@@ -34,7 +34,7 @@
 #  product_human_name_fra :string
 #  reference_number       :string
 #
-class MasterCropProductionPrice < LexiconRecord
+class MasterProductionPrice < LexiconRecord
   include Lexiconable
 
   scope :of_variety, ->(variety) { where(specie: variety.to_s) }

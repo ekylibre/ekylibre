@@ -14,7 +14,8 @@ DROP TABLE IF EXISTS registered_eu_market_prices;
           unit_name character varying,
           country character varying,
           price numeric(8,2),
-          start_date date
+          start_date date,
+          end_date date
         );
 
         CREATE INDEX registered_eu_market_prices_id ON registered_eu_market_prices(id);

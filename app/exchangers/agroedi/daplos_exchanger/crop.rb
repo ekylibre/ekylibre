@@ -48,22 +48,22 @@ module Agroedi
         daplos.crop_specie_edicode
       end
 
-      # return MasterCropProduction
+      # return MasterProduction
       def production_nature
 
         # return if already set
         return @production_nature if @production_nature
 
         specie_code = daplos.crop_specie_edicode
-        # try on MasterCropProduction uniq reference of agroedi_crop_code
-        potential_natures = MasterCropProduction.where(agroedi_crop_code: specie_code)
+        # try on MasterProduction uniq reference of agroedi_crop_code
+        potential_natures = MasterProduction.where(agroedi_crop_code: specie_code)
         # try on full dictionnary of agroedi_crop_code
         unless potential_natures.any?
-          crop_reference = RegisteredAgroediCode.of_ekylibre_codes('MasterCropProduction', specie_code).pluck(:ekylibre_value).compact.uniq
-          potential_natures = MasterCropProduction.of_reference_names(crop_reference) if crop_reference.any?
+          crop_reference = RegisteredAgroediCode.of_ekylibre_codes('MasterProduction', specie_code).pluck(:ekylibre_value).compact.uniq
+          potential_natures = MasterProduction.of_reference_names(crop_reference) if crop_reference.any?
         end
 
-        raise "No MasterCropProduction found for #{specie_code}" unless potential_natures.any?
+        raise "No MasterProduction found for #{specie_code}" unless potential_natures.any?
 
         # if cap_support_ids, try to filter by cultivation_variety
         if potential_natures.any? && cap_support_ids.any?

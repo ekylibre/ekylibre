@@ -35,7 +35,7 @@
 #  started_on                :date             not null
 #  stopped_on                :date             not null
 #
-class MasterCropProduction < LexiconRecord
+class MasterProduction < LexiconRecord
   ARBITRARY_CHOOSEN_YEAR = 2000
 
   include Lexiconable
@@ -46,7 +46,7 @@ class MasterCropProduction < LexiconRecord
   has_many :cap_codes, class_name: 'MasterCropProductionCapCode', foreign_key: :production
   has_one :pfi_crop, -> { where('campaign = 2020') }, class_name: 'MasterCropProductionTfiCode', foreign_key: :production
   has_many :outputs, class_name: 'MasterProductionOutput', inverse_of: :production_nature, foreign_key: :production_nature_id
-  has_many :start_states, class_name: 'MasterCropProductionStartState', inverse_of: :production_nature, foreign_key: :production
+  has_many :start_states, class_name: 'MasterProductionStartState', inverse_of: :production_nature, foreign_key: :production
 
   scope :of_species, ->(*species) { where(specie: species) }
 

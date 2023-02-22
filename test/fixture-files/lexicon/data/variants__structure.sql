@@ -48,6 +48,7 @@ CREATE INDEX master_variant_natures_reference_name ON master_variant_natures(ref
           specie character varying,
           indicators jsonb,
           pictogram character varying,
+          name_tags text[],
           translation_id character varying NOT NULL
         );
 

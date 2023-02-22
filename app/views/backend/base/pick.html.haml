@@ -5,6 +5,9 @@
   - if params[:redirect_edit_path]
     = hidden_field_tag(:redirect_edit_path, params[:redirect_edit_path])
 
+  - if params[:current_campaign]
+    = hidden_field_tag(:current_campaign, params[:current_campaign])
+
   - if @lexicon_table
     = field params[:selector_label], selector_tag(:reference_id, { controller: "/backend/#{@lexicon_table}", action: :unroll, scope: @scopes, primary_key: @primary_key })
   - else
