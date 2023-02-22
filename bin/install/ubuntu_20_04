@@ -7,14 +7,9 @@ set -e
 
 LIST_OF_20_04_DEPENDENCIES="git curl build-essential make libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk"
 
-sudo apt-get install -qq -s -y $LIST_OF_20_04_DEPENDENCIES
-if [ $? -eq 0 ]; then
-  echo "✅ Packages already installed for $OS_VERSION"
-else
-  echo "🚚 Installing packages for $OS_VERSION..."
-  sudo apt-get install -qq -y $LIST_OF_20_04_DEPENDENCIES
-  echo "✅ Packages installed for $OS_VERSION"
-fi
+echo "🚚 Installing packages for $OS_VERSION..."
+sudo apt-get install -qq -y $LIST_OF_20_04_DEPENDENCIES
+echo "✅ Packages installed for $OS_VERSION"
 
 # Set RUBY_VERSION to default value if empty
 DIR_RBENV=$HOME/.rbenv
