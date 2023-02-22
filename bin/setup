@@ -14,6 +14,8 @@ if [[ " $@ " =~ " --skip-demo " ]]; then
   SKIP_DEMO=true
 fi
 
+cat bin/install/alt.txt
+
 # Install OS-specific packages for MacOS, Debian, and Ubuntu
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
