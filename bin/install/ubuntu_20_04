@@ -6,10 +6,10 @@
 set -e
 
 LIST_OF_20_04_DEPENDENCIES="git curl build-essential make libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk"
-
-echo "🚚 Installing packages for $OS_VERSION..."
+echo "Setup process for Ubuntu 20.04"
+echo "🚚 Installing packages..."
 sudo apt-get install -qq -y $LIST_OF_20_04_DEPENDENCIES
-echo "✅ Packages installed for $OS_VERSION"
+echo "✅ Packages installed"
 
 # Set RUBY_VERSION to default value if empty
 DIR_RBENV=$HOME/.rbenv
@@ -17,7 +17,7 @@ if [ -d "$DIR_RBENV" ];
 then
     echo "✅ Rbenv directory exist"
 else
-  echo "🚚 Installing Rbenv for $OS_VERSION..."
+  echo "🚚 Installing Rbenv..."
   git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
   git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
   git -C $HOME/.rbenv/plugins/ruby-build pull
@@ -36,16 +36,18 @@ else
   rbenv install $RUBY_VERSION
   rbenv rehash
   rbenv global $RUBY_VERSION
+  echo "✅ Ruby version $RUBY_VERSION installed."
 fi
 
 # Install nvm
-echo "🚚 Installing Node.js ..."
+echo "🚚 Installing Node.js..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 nvm install 14.17.4
 nvm alias default 14.17.4
 npm i -g yarn
+echo "✅ Node.js installed."
 
 DIR_POSTGRES=/etc/postgresql/13
 if [ -d "$DIR_POSTGRES" ];
@@ -53,11 +55,12 @@ then
     echo "✅ Postgresql 13 directory exist"
 else
   # Configure PostGres
-  echo "🚚 Installing Postgresql && Postgis for $OS_VERSION..."
+  echo "🚚 Installing Postgresql && Postgis..."
   sudo apt-get update
   sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-  sudo apt install postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
+  sudo apt-get install -qq -y postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
+  echo "✅ Postgresql 13 && Postgis 2.5 installed."
   # sudo -su postgres
   # createuser -d -P -s ekylibre
   sudo -u postgres bash -c "psql -c \"CREATE USER ekylibre WITH PASSWORD 'ekylibre';\""
@@ -69,25 +72,18 @@ else
   # TODO : Edit pg_hba.conf to use md5 password authentication instead of peer authentication for unix sockets
   # Find and replace in file (local   all  all  peer) by (local  all  all md5)
   # sudo vim /etc/postgresql/13/main/pg_hba.conf
-  echo "Editing pg_hba.conf"
+  echo "🛠️ Editing pg_hba.conf"
   file="/etc/postgresql/13/main/pg_hba.conf"
-  search="local   all  all  peer"
-  replace="local  all  all md5"
-
-  while read -r line; do
-    if [[ $line = $search ]]; then
-      echo $replace
-    else
-      echo $line
-    fi
-  done < "$file" | sudo tee "$file" > /dev/null
+  sed -i  '/^local all all peer/ s/peer/md5/' $file
+  echo "✅ Postgresql 13 setup OK."
 fi
 
 # replace Proj version with version working with Rgeo
 # PROJ_VERSION=pkg-config --modversion proj
-echo "🚚 Configuring Proj version ..."
+echo "🚚 Configuring Proj specific version ..."
 sudo mkdir -p /opt/proj/share
-sudo unzip proj.tar.gz -d /opt/proj/share
+sudo unzip bin/install/proj.tar.gz -d /opt/proj/share
+echo "✅ Proj specific version installed."
 
 # Java & Redis
 echo "🚚 Installing Qt4, Java && Redis ..."
@@ -99,5 +95,6 @@ sudo apt-get install openjdk-8-jdk libqtwebkit-dev libicu-dev libqtcore4 redis-s
 # Java & Redis
 echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> $HOME/.bashrc
 echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> $HOME/.profile
-source $HOME/.bashrc
-source $HOME/.profile
+. ~/.bashrc
+. ~/.profile
+echo "✅ Qt4, Java && Redis installed."
