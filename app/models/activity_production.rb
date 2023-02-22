@@ -81,7 +81,7 @@ class ActivityProduction < ApplicationRecord
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
-  belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
+  belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterProduction', foreign_key: :reference_name
 
   # planning
   belongs_to :technical_itinerary, class_name: 'TechnicalItinerary'

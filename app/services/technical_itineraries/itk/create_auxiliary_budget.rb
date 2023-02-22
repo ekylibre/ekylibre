@@ -8,7 +8,6 @@ module TechnicalItineraries
       def initialize(activity:, campaign:)
         @activity = activity
         @campaign = campaign
-        @logger ||= Logger.new(File.join(Rails.root, 'log', "itk-#{@campaign.name}-#{Ekylibre::Tenant.current.to_s}.log"))
       end
 
       # automatic | static
@@ -24,8 +23,6 @@ module TechnicalItineraries
           master_budget_items.each do |master_budget_item|
             create_budget_item_from_master_budget(activity_budget, master_budget_item)
           end
-        else
-          @logger.error("No Budget item created because no budget activity exist in Lexicon for #{@activity.name}")
         end
       end
 
@@ -45,10 +42,6 @@ module TechnicalItineraries
           activity_budget_item.frequency = master_budget_item.frequency
           activity_budget_item.repetition = master_budget_item.repetition
           activity_budget_item.save!
-          # update used_on
-          @logger.info("budget_item_from_master_budget created for #{variant.name}")
-        else
-          @logger.error("budget_item_from_master_budget not created for #{variant.name}")
         end
       end
 

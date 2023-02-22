@@ -8,7 +8,7 @@ class TechnicalItinerary < ApplicationRecord
 
   belongs_to :campaign
   belongs_to :activity
-  belongs_to :technical_workflow, class_name: 'TechnicalWorkflow'
+  belongs_to :technical_workflow, class_name: 'TechnicalWorkflow', foreign_key: :reference_name
   has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_itinerary_id
 
   belongs_to :originator, class_name: 'TechnicalItinerary'
@@ -126,20 +126,48 @@ class TechnicalItinerary < ApplicationRecord
 
   class << self
 
-    def import_from_lexicon(campaign:, activity:, technical_workflow_id:)
-      if ti = TechnicalItinerary.find_by(campaign: campaign, activity: activity, technical_workflow_id: technical_workflow_id)
-        return ti
+    def import_from_lexicon(reference_name, force = false, harvest_year = nil)
+      campaign = Campaign.find_by_harvest_year(harvest_year.to_i) if harvest_year
+      unless campaign
+        raise ArgumentError.new("The technical workflow can't be imported without harvest_year#{harvest_year.inspect}")
       end
-      unless tw = TechnicalWorkflow.find(technical_workflow_id)
-        raise ArgumentError.new("The TW ID #{technical_workflow_id.inspect} is not known")
+      unless tw = TechnicalWorkflow.find_by_reference_name(reference_name)
+        raise ArgumentError.new("The technical workflow ID #{reference_name.inspect} is not known")
       end
 
+      ti = TechnicalItinerary.find_by(campaign: campaign, reference_name: reference_name)
+      return ti if ti
+
+      unless activity = Activity.find_by(reference_name: tw.production_reference_name)
+        activity = Activity.import_from_lexicon(tw.production_reference_name)
+      end
+
+      ti = self.create_blank_ti(tw, campaign, activity)
+      temp_pn = ProductNature.first
+      creation_service = TechnicalItineraries::Itk::CreateTactic.new(activity: activity, technical_workflow: tw, campaign: campaign)
+      tiit_ids = creation_service.create_procedures_and_intervention_templates(ti, temp_pn)
+      TechnicalItineraryInterventionTemplate.where(id: tiit_ids).each(&:compute_day_between_intervention)
+      ti
+    end
+
+    def import_from_lexicon_with_activity_and_campaign(campaign:, activity:, technical_workflow_id:)
+      if ti = TechnicalItinerary.find_by(campaign: campaign, activity: activity, reference_name: technical_workflow_id)
+        return ti
+      end
+      unless tw = TechnicalWorkflow.find_by_reference_name(technical_workflow_id)
+        raise ArgumentError.new("The technical workflow reference_name #{technical_workflow_id.inspect} is not known")
+      end
+
+      self.create_blank_ti(tw, campaign, activity)
+    end
+
+    def create_blank_ti(tw, campaign, activity)
       ti = new(
         name: tw.translation.send(Preference[:language]),
         campaign_id: campaign.id,
         activity_id: activity.id,
         description: :set_by_lexicon.tl,
-        technical_workflow_id: technical_workflow_id,
+        reference_name: tw.reference_name,
         plant_density: tw.plant_density&.to_f
       )
 

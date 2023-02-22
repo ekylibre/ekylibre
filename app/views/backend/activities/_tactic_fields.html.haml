@@ -2,7 +2,7 @@
   - bulk_units = Onoma::Unit.where(dimension: :mass).selection.reverse
   = link_to_remove_nested_association(:tactics, f)
   = f.input :default
-  = f.referenced_association :campaign, as: :hidden
+  = f.referenced_association :campaign
   - if f.object.activity.annual?
     = f.referenced_association :technical_workflow, new: false
   - if f.object.activity.perennial?

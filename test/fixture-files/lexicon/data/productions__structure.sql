@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS master_crop_production_prices;
-DROP TABLE IF EXISTS master_crop_production_yields;
+DROP TABLE IF EXISTS master_production_prices;
+DROP TABLE IF EXISTS master_production_yields;
 DROP TABLE IF EXISTS master_crop_production_tfi_codes;
 DROP TABLE IF EXISTS master_crop_production_cap_sna_codes;
 DROP TABLE IF EXISTS master_crop_production_cap_codes;
-DROP TABLE IF EXISTS master_crop_production_start_states;
-DROP TABLE IF EXISTS master_crop_productions;
+DROP TABLE IF EXISTS master_production_start_states;
+DROP TABLE IF EXISTS master_productions;
 
-        CREATE TABLE master_crop_productions (
+        CREATE TABLE master_productions (
           reference_name character varying PRIMARY KEY NOT NULL,
           activity_family character varying NOT NULL,
           specie character varying,
@@ -23,11 +23,12 @@ DROP TABLE IF EXISTS master_crop_productions;
           translation_id character varying NOT NULL
         );
 
-        CREATE INDEX master_crop_productions_specie ON master_crop_productions(specie);
-        CREATE INDEX master_crop_productions_activity_family ON master_crop_productions(activity_family);
-        CREATE INDEX master_crop_productions_agroedi_crop_code ON master_crop_productions(agroedi_crop_code);
+        CREATE INDEX master_productions_reference_name ON master_productions(reference_name);
+        CREATE INDEX master_productions_specie ON master_productions(specie);
+        CREATE INDEX master_productions_activity_family ON master_productions(activity_family);
+        CREATE INDEX master_productions_agroedi_crop_code ON master_productions(agroedi_crop_code);
 
-        CREATE TABLE master_crop_production_start_states (
+        CREATE TABLE master_production_start_states (
           production character varying NOT NULL,
           year integer NOT NULL,
           key character varying NOT NULL
@@ -55,7 +56,7 @@ DROP TABLE IF EXISTS master_crop_productions;
           campaign integer NOT NULL
         );
 
-        CREATE TABLE master_crop_production_yields (
+        CREATE TABLE master_production_yields (
           department_zone character varying NOT NULL,
           specie character varying NOT NULL,
           production character varying NOT NULL,
@@ -63,11 +64,11 @@ DROP TABLE IF EXISTS master_crop_productions;
           yield_unit character varying NOT NULL,
           campaign integer NOT NULL
         );
-        CREATE INDEX master_crop_production_yields_specie ON master_crop_production_yields(specie);
-        CREATE INDEX master_crop_production_yields_production ON master_crop_production_yields(production);
-        CREATE INDEX master_crop_production_yields_campaign ON master_crop_production_yields(campaign);
+        CREATE INDEX master_production_yields_specie ON master_production_yields(specie);
+        CREATE INDEX master_production_yields_production ON master_production_yields(production);
+        CREATE INDEX master_production_yields_campaign ON master_production_yields(campaign);
 
-        CREATE TABLE master_crop_production_prices (
+        CREATE TABLE master_production_prices (
           department_zone character varying NOT NULL,
           started_on DATE NOT NULL,
           nature character varying,
@@ -83,7 +84,7 @@ DROP TABLE IF EXISTS master_crop_productions;
           organic boolean,
           label character varying
         );
-        CREATE INDEX master_crop_production_prices_specie ON master_crop_production_prices(specie);
-        CREATE INDEX master_crop_production_prices_department_zone ON master_crop_production_prices(department_zone);
-        CREATE INDEX master_crop_production_prices_started_on ON master_crop_production_prices(started_on);
-        CREATE INDEX master_crop_production_prices_product_output_specie ON master_crop_production_prices(product_output_specie);
+        CREATE INDEX master_production_prices_specie ON master_production_prices(specie);
+        CREATE INDEX master_production_prices_department_zone ON master_production_prices(department_zone);
+        CREATE INDEX master_production_prices_started_on ON master_production_prices(started_on);
+        CREATE INDEX master_production_prices_product_output_specie ON master_production_prices(product_output_specie);

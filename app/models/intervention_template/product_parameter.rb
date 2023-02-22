@@ -47,6 +47,10 @@ class InterventionTemplate < ApplicationRecord
       %i[volume_area_density mass_area_density surface_area_density].include? Onoma::Unit[procedure_unit]&.dimension
     end
 
+    def unit_per_head?
+      %i[unity_unity_density mass_unity_density volume_unity_density].include? Onoma::Unit[procedure_unit]&.dimension
+    end
+
     def find_general_product_type
       return :tool if has_product_parameter?(intervention_template.tools)
       return :doer if has_product_parameter?(intervention_template.doers)
@@ -65,10 +69,18 @@ class InterventionTemplate < ApplicationRecord
         return self.quantity * area
       end
 
+      unit_repartition_label = if unit_per_area?
+                                 '_per_hectare'
+                               elsif unit_per_head?
+                                 '_per_head'
+                               end
+
+      return nil if unit_repartition_label.nil?
+
       quantity = self.quantity
-        .in(procedure_unit)
-        .convert(procedure_unit.gsub(/_per_.*/, '') + '_per_hectare')
-        .to_f
+                     .in(procedure_unit)
+                     .convert(procedure_unit.gsub(/_per_.*/, '') + unit_repartition_label)
+                     .to_f
 
       quantity * area
     end
@@ -85,13 +97,9 @@ class InterventionTemplate < ApplicationRecord
       if %i[input output].include?(self.find_general_product_type)
         if self.unit_per_area?
           short_unit = procedure_unit.split('_per_').first
-          puts short_unit.inspect.yellow
           area_unit = procedure_unit.split('_per_').last
-          puts area_unit.inspect.yellow
           area_coef = Measure.new(1.0, area_unit.to_sym).convert(:hectare).to_f
-          puts area_coef.inspect.yellow
           global_quantity = (self.quantity * (area_in_hectare / area_coef)).in(short_unit.to_sym).round(2)
-          puts global_quantity.inspect.green
         elsif procedure_unit == "unity"
           global_quantity = (self.quantity * area_in_hectare).in(:unity).round(2)
         else
@@ -126,7 +134,7 @@ class InterventionTemplate < ApplicationRecord
         options[:catalog_usage] = :cost
         options[:catalog_item] = product_nature_variant&.default_catalog_item(options[:catalog_usage], started_at, options[:unit], :dimension) || nil
       elsif is_input
-        if self.unit_per_area?
+        if self.unit_per_area? || self.unit_per_head?
           clean_unit = Unit.import_from_lexicon(procedure_unit.split('_per_').first)
         else
           clean_unit = Unit.import_from_lexicon(procedure_unit)
@@ -206,7 +214,11 @@ class InterventionTemplate < ApplicationRecord
       end
 
       def symbolized_type
-        type.demodulize.downcase.to_sym
+        if type.presence
+          type.demodulize.downcase.to_sym
+        else
+          find_general_product_type
+        end
       end
   end
 end

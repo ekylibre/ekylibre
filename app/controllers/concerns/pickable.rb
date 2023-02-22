@@ -2,7 +2,7 @@ module Pickable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def importable_from_lexicon(lexicon_table, model_name: nil, primary_key: :id, filters: {}, notify: {})
+    def importable_from_lexicon(lexicon_table, model_name: nil, primary_key: :id, filters: {}, notify: {}, use_campaign: false)
       record_name = controller_name.singularize
       model = model_name || controller_name.classify.constantize
       lexicon_model = lexicon_table.to_s.classify.constantize
@@ -15,12 +15,16 @@ module Pickable
         @imported_ids = lexicon_model.including_references(imported_references).pluck(primary_key)
         @scopes = filters
         @key = record_name
+        @use_campaign = use_campaign
       end
 
       define_method :incorporate do
         reference_name = lexicon_model.find_by(primary_key => params[:reference_id]).reference_name
-        instance_variable_set "@#{record_name}", model.send('import_from_lexicon', reference_name, true)
-
+        if use_campaign && params[:current_campaign].present?
+          instance_variable_set "@#{record_name}", model.send('import_from_lexicon', reference_name, true, params[:current_campaign])
+        else
+          instance_variable_set "@#{record_name}", model.send('import_from_lexicon', reference_name, true)
+        end
         if params[:redirect_show_path].present?
           show_url = params[:redirect_show_path] + '/' + instance_variable_get("@#{record_name}").id.to_s
         end

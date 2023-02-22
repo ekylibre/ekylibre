@@ -4,11 +4,12 @@ class DailyCharge < ApplicationRecord
   belongs_to :activity_production, class_name: 'ActivityProduction', required: true
   belongs_to :product_parameter, class_name: 'InterventionTemplate::ProductParameter', required: true, foreign_key: :intervention_template_product_parameter_id
   belongs_to :activity
+  belongs_to :quantity_unit, class_name: 'Unit'
   has_one :product_nature_variant, through: :product_parameter
   has_one :product_nature, through: :product_parameter
   has_one :intervention_template, through: :product_parameter
 
-  validates :reference_date, :product_type, :quantity, :area, presence: true
+  validates :reference_date, :product_type, :quantity, presence: true
 
   scope :of_type, ->(type) { where(product_general_type: type) }
 

@@ -205,7 +205,7 @@ module Backend
       budget = @activity.budgets.find_by(campaign: current_campaign)
       return if Preference.find_by(name: 'ItkImportJob_running').present?
 
-      if @activity.technical_workflow(current_campaign).present? || ( @activity.vine_farming? && @activity.technical_sequence.present? ) || ( @activity.auxiliary? && MasterBudget.of_family(@activity.family).any?)
+      if @activity.technical_workflow(current_campaign).present? || ( ( @activity.vine_farming? || @activity.animal_farming? ) && @activity.technical_sequence.present? ) || ( @activity.auxiliary? && MasterBudget.of_family(@activity.family).any?)
         ItkImportJob.perform_later(activity_ids: [@activity.id], current_campaign: current_campaign, user: current_user)
       else
         notify_warning(:no_reference_budget_found)

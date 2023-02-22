@@ -888,7 +888,7 @@ Rails.application.routes.draw do
 
     resources :map_editor_shapes, only: :index
 
-    resources :master_crop_productions, only: [:show], concerns: %i[unroll], param: :reference_name
+    resources :master_productions, only: [:show], concerns: %i[unroll], param: :reference_name
     resources :master_doer_contracts, only: [:show], concerns: %i[unroll], param: :reference_name
 
     resources :matters do
