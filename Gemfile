@@ -218,7 +218,8 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.9'
 
   # gem 'listen', '>= 3.0.5', '< 3.2' See config/environments/development.rb:68
-
+  # for loading lexicon 5 in test / dev mode
+  gem 'lexicon-common', '~> 0.2.1'
   # For git manipulation in test:git task
   gem 'git', '~> 1.8'
 
@@ -244,8 +245,6 @@ group :test do
   gem 'simplecov-cobertura', '~> 2.1.0'
 
   gem 'rails-controller-testing', '~> 1.0'
-  # for loading lexicon 5 in test mode
-  gem 'lexicon-common', '~> 0.2.0'
   gem 'vcr', "~> 6.0.0"
   gem 'webmock', "~> 3.13.0"
 end
