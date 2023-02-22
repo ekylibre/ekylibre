@@ -1,14 +1,14 @@
 openapi: 3.0.0
 info:
   description: |-
-      # Overview
+    # Overview
 
-      The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+    The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
 
-      ## Localizing
+    ## Localizing
 
-      By defaut, labels and errors are translated to user preffered locale. It can be override, by passing `locale: <locale>` to request body, or by setting the Accept-Language headers.
-      Availables values are `['fra', 'eng']`.
+    By defaut, labels and errors are translated to user preffered locale. It can be override, by passing `locale: <locale>` to request body, or by setting the Accept-Language headers.
+    Availables values are `['fra', 'eng']`.
   title: Ekylibre
   contact:
     name: Ekylibre developers
@@ -1440,6 +1440,7 @@ components:
           quantity_population: 5.3806
           quantity_unit_name: null
           quantity_value: null
+          usage_id: null
         Example 2:
           id: 30
           group_id: null
@@ -1454,6 +1455,7 @@ components:
           quantity_population: 0
           quantity_unit_name: null
           quantity_value: null
+          usage_id: null
         Example 3:
           id: 31
           group_id: null
@@ -1468,6 +1470,23 @@ components:
           quantity_population: 1
           quantity_unit_name: null
           quantity_value: null
+          usage_id: null
+        Example 4:
+          id: 0
+          group_id: 0
+          intervention_id: 0
+          role: string
+          name: string
+          label: string
+          product_id: 0
+          working_zone:
+            feature: string
+            properties: {}
+          quantity_handler: net_volume
+          quantity_value: 2.6
+          quantity_unit_name: liter
+          quantity_indicator_name: net_volume
+          usage_id: '20220419151438243073'
       properties:
         id:
           type: integer
@@ -1507,6 +1526,10 @@ components:
         quantity_value:
           type: number
           nullable: true
+        usage_id:
+          type: string
+          nullable: true
+      title: ''
     InterventionTarget:
       description: ''
       type: object
