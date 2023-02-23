@@ -43,11 +43,20 @@ sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4_usertrust_rsa
 
 # Get bundler version from Gemfile.lock and install it if it's not already installed
 BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
-if gem list bundler -i -v $BUNDLER_VERSION; then
-  echo "✅ Bundler version $BUNDLER_VERSION is already installed."
-else
-  echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
-  gem install bundler:$BUNDLER_VERSION --conservative
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if gem list bundler -i -v $BUNDLER_VERSION; then
+    echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+  else
+    echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+    gem install bundler:$BUNDLER_VERSION --conservative
+  fi
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  if ~/.rbenv/shims/gem list bundler -i -v $BUNDLER_VERSION; then
+    echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+  else
+    echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+    ~/.rbenv/shims/gem install bundler:$BUNDLER_VERSION --conservative
+  fi
 fi
 
 # Configure gems installation depending on OS
