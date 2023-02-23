@@ -5,7 +5,7 @@
 # Exit if any subcommand fails
 set -e
 
-RUBY_MAJOR_VERSION=2.6.6
+RUBY_VERSION=2.6.6
 
 LIST_OF_20_04_DEPENDENCIES="git curl build-essential file libicu-dev libcurl4-openssl-dev libreadline-dev libssl-dev zlib1g-dev fonts-lato libsodium-dev qt5-default libqt5webkit5 imagemagick graphicsmagick libffi-dev libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev libxml2-dev libxslt1-dev tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-11-jdk redis-server"
 echo "Setup process for Ubuntu 20.04"
@@ -28,21 +28,6 @@ else
   echo 'eval "$(rbenv init -)"' >> ~/.profile
   . ~/.bashrc
   . ~/.profile
-fi
-
-# Create a .ruby-version file if it doesn't exist
-if [[ ! -f .ruby-version ]]; then
-  echo "🛠️ Creating .ruby-version..."
-  rbenv install --list-all | grep -E "^${RUBY_MAJOR_VERSION}" | tail -n 1 > .ruby-version
-fi
-
-# Get ruby version from .ruby-version and install it if it's not already installed
-RUBY_VERSION=$(cat .ruby-version)
-
-# If RUBY_VERSION is not set, exit
-if [ -z "$RUBY_VERSION" ]; then
-  echo "Cannot configure .ruby-version. Maybe you have an old OS which doesn't which doesn't know about Ruby ${RUBY_MAJOR_VERSION}."
-  exit 1
 fi
 
 # Install ruby version if not already
