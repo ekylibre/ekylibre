@@ -36,10 +36,11 @@ if rbenv versions | grep -q $RUBY_VERSION; then
 else
   echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
   rbenv install $RUBY_VERSION
-  rbenv rehash
   echo "✅ Ruby version $RUBY_VERSION installed."
 fi
 rbenv local $RUBY_VERSION
+rbenv global $RUBY_VERSION
+rbenv rehash
 
 # Install nvm
 echo "🚚 Installing Node.js..."
