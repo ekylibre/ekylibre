@@ -24,7 +24,6 @@ else
   echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
   echo 'eval "$(rbenv init -)"' >> $HOME/.bashrc
   . ~/.bashrc
-  rbenv rehash
 fi
 
 RUBY_VERSION="2.6.6"
