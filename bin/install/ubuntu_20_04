@@ -22,9 +22,9 @@ else
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   git -C ~/.rbenv/plugins/ruby-build pull
-  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.bashrc
   echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$PATH"' >> ~/.profile
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.profile
   echo 'eval "$(rbenv init -)"' >> ~/.profile
   . ~/.bashrc
   . ~/.profile
