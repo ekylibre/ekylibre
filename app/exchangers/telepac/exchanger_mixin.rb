@@ -160,7 +160,7 @@ module Telepac
         else
           number = 'ZC#' + format('%02d', cap_land_parcel.islet_number.to_s)
           cultivable_zone = CultivableZone.find_or_initialize_by(work_number: number)
-          cultivable_zone.name ||= cap_land_parcel.islet.city_name + " #" + format('%02d', cap_land_parcel.islet_number.to_s)
+          cultivable_zone.name ||= "#{cap_land_parcel.islet.city_name} ##{format('%02d', cap_land_parcel.islet_number.to_s)}"
           cultivable_zone.shape ||= cap_islet_shape
           cultivable_zone.save!
         end
