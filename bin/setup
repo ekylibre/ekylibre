@@ -40,6 +40,20 @@ sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4_usertrust_rsa
 && sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4.crt \
 && sudo update-ca-certificates
 
+# Get bundler version from Gemfile.lock and install it if it's not already installed
+BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
+if gem list bundler -i -v $BUNDLER_VERSION; then
+  echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+else
+  echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+  gem install bundler:$BUNDLER_VERSION --conservative
+fi
+
+# Configure gems installation depending on OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  bundle config build.rgeo --with-geos-dir=$(brew --prefix geos) --with-proj-dir=$(brew --prefix proj)
+fi
+
 # Install gems
 echo "🚚 Installing gems..."
 bundle install --jobs=4
@@ -87,6 +101,9 @@ fi
 
 # Load lexicon
 echo "⚙️ Loading lexicon..."
+export MINIO_HOST=https://io.ekylibre.tech/
+export MINIO_ACCESS_KEY=ekylibre
+export MINIO_SECRET_KEY=Gandi2021%
 bin/rails lexicon:load
 
 if [ "$SKIP_DEMO" = true ] ; then
@@ -105,12 +122,19 @@ else
 
   # Load demo first run unless schema is not present in database
   if psql -At -c 'SELECT nspname FROM pg_catalog.pg_namespace;' | grep -q ${DEMO}; then
+    echo "⚙️ Demo first run already loaded."
+  else
     echo "⚙️ Execute demo first run for development..."
     export TENANT=${DEMO}
     bin/rails first_run
     unset TENANT
-    echo "⚙️ Add ${DEMO}.ekylibre.lan to /etc/hosts..."
-    echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee --append /etc/host
+    # Unless the domain is already in /etc/hosts, add it
+    if grep -q " ${DEMO}.ekylibre.lan" /etc/hosts; then
+      echo "⚙️ ${DEMO}.ekylibre.lan is already in /etc/hosts."
+    else
+      echo "⚙️ Add ${DEMO}.ekylibre.lan to /etc/hosts..."
+      echo "127.0.0.1 ${DEMO}.ekylibre.lan" | sudo tee -a /etc/hosts
+    fi
   fi
 fi
 
