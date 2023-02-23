@@ -15,9 +15,7 @@ class EkyLexicon
     # or from test/fixture-files on test env
     if Rails.env.production? || Rails.env.development?
       lexicon_path = Rails.root.join('db', 'lexicon')
-      unless File.directory?(lexicon_path)
-        FileUtils.mkdir_p(lexicon_path)
-      end
+      FileUtils.mkdir_p(lexicon_path)
     elsif Rails.env.test?
       lexicon_path = Rails.root.join('test', 'fixture-files')
     end
