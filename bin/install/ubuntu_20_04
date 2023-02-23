@@ -16,19 +16,24 @@ echo "✅ Packages installed"
 # Set RUBY_VERSION to default value if empty
 if [ -d "$HOME/.rbenv" ];
 then
-    echo "✅ Rbenv directory exist"
+  echo "✅ Rbenv directory exist"
+  git -C ~/.rbenv pull
+  if [ -d "$HOME/.rbenv/plugins/ruby-build" ];
+  then
+    git -C ~/.rbenv/plugins/ruby-build pull
+  fi
 else
   echo "🚚 Installing Rbenv..."
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   git -C ~/.rbenv/plugins/ruby-build pull
-  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.bashrc
-  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.profile
-  echo 'eval "$(rbenv init -)"' >> ~/.profile
-  . ~/.bashrc
-  . ~/.profile
 fi
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.profile
+echo 'eval "$(rbenv init -)"' >> ~/.profile
+. ~/.bashrc
+. ~/.profile
 
 # Install ruby version if not already
 if rbenv versions | grep -q $RUBY_VERSION; then
