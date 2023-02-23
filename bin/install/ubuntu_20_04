@@ -23,7 +23,7 @@ else
   echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(rbenv init -)"' >> ~/.bashrc
   . ~/.bashrc
-  eval "$(~/.rbenv/bin/rbenv init - bash)"
+  . "$(~/.rbenv/bin/rbenv init - bash)"
 fi
 
 RUBY_VERSION="2.6.6"
