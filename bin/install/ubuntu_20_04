@@ -5,7 +5,7 @@
 # Exit if any subcommand fails
 set -e
 
-LIST_OF_20_04_DEPENDENCIES="git curl build-essential make libreadline-dev libssl-dev zlib1g-dev imagemagick graphicsmagick libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev tesseract-ocr pdftk libreoffice"
+LIST_OF_20_04_DEPENDENCIES="git curl build-essential file libicu-dev libcurl4-openssl-dev libreadline-dev libssl-dev zlib1g-dev fonts-lato libsodium-dev qt5-default libqt5webkit5 imagemagick graphicsmagick libffi-dev libproj-dev libgeos-dev libffi-dev libgeos++-dev libpq-dev libxml2-dev libxslt1-dev tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-11-jdk redis-server"
 echo "Setup process for Ubuntu 20.04"
 echo "🚚 Installing packages..."
 sudo apt-get install -qq -y $LIST_OF_20_04_DEPENDENCIES
@@ -20,10 +20,12 @@ else
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   git -C ~/.rbenv/plugins/ruby-build pull
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
   echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$PATH"' >> ~/.profile
+  echo 'eval "$(rbenv init -)"' >> ~/.profile
   . ~/.bashrc
-  . "$(~/.rbenv/bin/rbenv init - bash)"
+  . ~/.profile
 fi
 
 RUBY_VERSION="2.6.6"
@@ -58,7 +60,7 @@ else
   sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
   sudo apt-get update
-  sudo apt-get install -qq -y postgresql-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
+  sudo apt-get install -qq -y postgresql-13 postgresql-client-13 postgresql-13-postgis-2.5 postgresql-13-postgis-2.5-scripts
   echo "✅ Postgresql 13 && Postgis 2.5 installed."
   # sudo -su postgres
   # createuser -d -P -s ekylibre
@@ -90,18 +92,8 @@ sudo tar -xvzf bin/install/proj.tar.gz -C /opt/proj/share
 echo "✅ Proj specific version installed."
 
 # Java & Redis
-echo "🚚 Installing Qt4, Java && Redis ..."
-# QT_PPA="ppa:rock-core/qt4"
-# if ! grep -q "^deb .*$QT_PPA" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-#   sudo add-apt-repository ppa:rock-core/qt4
-#   sudo apt-get update
-#   sudo apt-get install -qq -y libqtcore4 libqtwebkit-dev  libqtcore4
-# fi
-sudo apt-get install -qq -y openjdk-8-jdk libicu-dev redis-server
-
-# Java & Redis
-echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> $HOME/.bashrc
-echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> $HOME/.profile
+echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.profile
 . ~/.bashrc
 . ~/.profile
-echo "✅ Qt4, Java && Redis installed."
+echo "✅ Java path configured."
