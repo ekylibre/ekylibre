@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# This script is a way to set up or update your development environment automatically for Ubuntu 20.04.
+
+# Exit if any subcommand fails
+set -e
+
+RUBY_MAJOR_VERSION=2.7
+
+echo "🔍 Check if Homebrew is present..."
+if command -v brew &> /dev/null
+then
+  echo "✅ Homebrew is already installed."
+else
+  echo "✨ Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+# Assuming that git and curl are already installed
+echo "🚚 Installing formulæ..."
+brew bundle --file=- <<-EOS
+  brew "rbenv"
+  brew "ruby-build"
+  brew "postgresql@14"
+  brew "postgis"
+  brew "libpq"
+  brew "libxml2"
+  brew "redis"
+  brew "yarn"
+  brew "proj"
+  brew "geos"
+  brew "imagemagick"
+  brew "graphicsmagick"
+  brew "tesseract"
+  brew "icu4c"
+  brew "node@14"
+EOS
+brew link --overwrite node@14
+
+# Create a .ruby-version file if it doesn't exist
+if [[ ! -f .ruby-version ]]; then
+  echo "🛠️ Creating .ruby-version..."
+  rbenv install --list-all | grep -E "^${RUBY_MAJOR_VERSION}" | tail -n 1 > .ruby-version
+fi
+
+# Get ruby version from .ruby-version and install it if it's not already installed
+RUBY_VERSION=$(cat .ruby-version)
+
+# If RUBY_VERSION is not set, exit
+if [ -z "$RUBY_VERSION" ]; then
+  echo "Cannot configure .ruby-version. Maybe you have an old OS which doesn't which doesn't know about Ruby ${RUBY_MAJOR_VERSION}."
+  exit 1
+fi
+
+# Install ruby version if not already
+if rbenv versions | grep -q $RUBY_VERSION; then
+  echo "✅ Ruby version $RUBY_VERSION is already installed."
+else
+  echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
+  rbenv install $RUBY_VERSION
+fi
+rbenv local $RUBY_VERSION

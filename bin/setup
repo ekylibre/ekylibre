@@ -15,125 +15,48 @@ if [[ " $@ " =~ " --skip-demo " ]]; then
   SKIP_DEMO=true
 fi
 
+cat bin/install/alt.txt
+
 # Install OS-specific packages for MacOS, Debian, and Ubuntu
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
-  echo "🔍 Check if Homebrew is present..."
-  if command -v brew &> /dev/null
-  then
-    echo "✅ Homebrew is already installed."
-  else
-    echo "✨ Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-  # Assuming that git and curl are already installed
-  echo "🚚 Installing formulæ..."
-  brew bundle --file=- <<-EOS
-    brew "rbenv"
-    brew "ruby-build"
-    brew "postgresql@14"
-    brew "postgis"
-    brew "libpq"
-    brew "libxml2"
-    brew "redis"
-    brew "yarn"
-    brew "proj"
-    brew "geos"
-    brew "imagemagick"
-    brew "graphicsmagick"
-    brew "tesseract"
-    brew "icu4c"
-    brew "node@14"
-EOS
-  brew link --overwrite node@14
+  sh bin/install/./macos
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  # Test if sudo is installed and stop if not
-  if ! command -v sudo &> /dev/null; then
-    echo "sudo is required to install packages on Linux. Please install it and run this script again."
-    exit 12
-  fi
-  # Linux
-  echo "🚚 Installing packages..."
-  sudo apt update
-  sudo apt install -y git build-essential curl redis postgresql-postgis libpq-dev libffi-dev libnode-dev default-jdk libproj-dev libgeos-dev libgeos++-dev libicu-dev zlib1g-dev libreadline-dev libssl-dev imagemagick graphicsmagick tesseract-ocr
-
-  # Install rbenv and ruby-build if not already installed
-  if ! command -v rbenv &> /dev/null; then
-    # If ~/.rbenv already exists, exit
-    if [ -d ~/.rbenv ]; then
-      echo "Cannot install rbenv. ~/.rbenv already exists. Please remove it and run this script again."
-      exit 1
-    fi
-
-    echo "🚚 Installing rbenv..."
-    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-
-    # Add rbenv to PATH
-    echo "🛠️ Adding rbenv to PATH..."
-    echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
-
-    # Initialize rbenv
-    echo "🛠️ Initializing rbenv..."
-    eval "$(~/.rbenv/bin/rbenv init - bash)"
-
-    echo "🚚 Installing ruby-build..."
-    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)/plugins/ruby-build"
-  fi
-
-  # Set JAVA_HOME
-  echo "🛠️ Setting JAVA_HOME..."
-  export JAVA_HOME=/usr/lib/jvm/default-java
-
-  # Install nodejs if not already installed
-  if ! command -v node &> /dev/null; then
-    echo "🚚 Installing nodejs..."
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-    sudo apt install -y nodejs
-  fi
-
-  # Install yarn if not already installed
-  if ! command -v yarn &> /dev/null; then
-    echo "🚚 Installing yarn..."
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt update
-    sudo apt install -y yarn
+  # Detecting OS Version
+  OS_VERSION=$(lsb_release -ds)
+  if [[ "$OS_VERSION" == "Ubuntu 20.04"* ]]; then
+    sh bin/install/./ubuntu_20_04
+  elif [[ "$OS_VERSION" == "Ubuntu 22.04"* ]]; then
+    sh bin/install/./ubuntu_22_04
+  else
+    echo "Unsupported Linux OS Version. Cannot install dependencies for $OS_VERSION."
   fi
 else
   echo "Unsupported OS. Cannot install dependencies for $OSTYPE."
 fi
 
-# Create a .ruby-version file if it doesn't exist
-if [[ ! -f .ruby-version ]]; then
-  echo "🛠️ Creating .ruby-version..."
-  rbenv install --list-all | grep -E "^${RUBY_MAJOR_VERSION}" | tail -n 1 > .ruby-version
-fi
-
-# Get ruby version from .ruby-version and install it if it's not already installed
-RUBY_VERSION=$(cat .ruby-version)
-
-# If RUBY_VERSION is not set, exit
-if [ -z "$RUBY_VERSION" ]; then
-  echo "Cannot configure .ruby-version. Maybe you have an old OS which doesn't which doesn't know about Ruby ${RUBY_MAJOR_VERSION}."
-  exit 1
-fi
-
-# Install ruby version if not already
-if rbenv versions | grep -q $RUBY_VERSION; then
-  echo "✅ Ruby version $RUBY_VERSION is already installed."
-else
-  echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
-  rbenv install $RUBY_VERSION
-fi
-rbenv local $RUBY_VERSION
+# Installing public certificates
+echo "🚚 Installing Renater certificates..."
+sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4_usertrust_rsa_certification_authority.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4_usertrust_rsa_certification_authority.crt \
+&& sudo wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4.crt \
+&& sudo update-ca-certificates
 
 # Get bundler version from Gemfile.lock and install it if it's not already installed
 BUNDLER_VERSION=$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | tr -d ' ')
-if gem list bundler -i -v $BUNDLER_VERSION; then
-  echo "✅ Bundler version $BUNDLER_VERSION is already installed."
-else
-  echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
-  gem install bundler:$BUNDLER_VERSION --conservative
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if gem list bundler -i -v $BUNDLER_VERSION; then
+    echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+  else
+    echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+    gem install bundler:$BUNDLER_VERSION --conservative
+  fi
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  if ~/.rbenv/shims/gem list bundler -i -v $BUNDLER_VERSION; then
+    echo "✅ Bundler version $BUNDLER_VERSION is already installed."
+  else
+    echo "✨ Bundler version $BUNDLER_VERSION is not installed. Installing..."
+    ~/.rbenv/shims/gem install bundler:$BUNDLER_VERSION --conservative
+  fi
 fi
 
 # Configure gems installation depending on OS
@@ -166,6 +89,9 @@ if [ ! -f config/database.yml ]; then
   echo "  pool: 10" >> config/database.yml
   echo "  postgis_extension: []" >> config/database.yml
   echo "  schema_search_path: public,postgis,lexicon" >> config/database.yml
+  echo "  username: public,postgis,lexicon" >> config/database.yml
+  echo "  password: ekylibre" >> config/database.yml
+  echo "  host: 127.0.0.1" >> config/database.yml
   echo "test:" >> config/database.yml
   echo "  <<: *development" >> config/database.yml
   echo "  database: ekylibre_test<%= ENV['TEST_ENV_NUMBER'] %>" >> config/database.yml

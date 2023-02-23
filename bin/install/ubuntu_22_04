@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# This script is a way to set up or update your development environment automatically for Ubuntu 20.04.
+
+# Exit if any subcommand fails
+set -e
+
+RUBY_VERSION=2.6.6
+
+LIST_OF_22_04_DEPENDENCIES="git curl build-essential libreadline-dev libssl-dev zlib1g-dev libqt5core5a redis-server postgresql-14 postgresql-14-postgis-3 postgresql-14-postgis-3-scripts libproj-dev libgeos-dev libffi-dev libgeos++-dev openjdk-11-jdk libicu-dev libpq-dev tesseract-ocr pdftk"
+echo "Setup process for Ubuntu 22.04"
+echo "🚚 Installing packages..."
+sudo apt-get install -qq -y $LIST_OF_22_04_DEPENDENCIES
+echo "✅ Packages installed"
+
+# Set RUBY_VERSION to default value if empty
+if [ -d "~/.rbenv" ];
+then
+    echo "✅ Rbenv directory exist"
+else
+  echo "🚚 Installing Rbenv..."
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+  git -C ~/.rbenv/plugins/ruby-build pull
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.bashrc
+  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$HOME/.rbenv/libexec:$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"' >> ~/.profile
+  echo 'eval "$(rbenv init -)"' >> ~/.profile
+  . ~/.bashrc
+  . ~/.profile
+fi
+
+# Install ruby version if not already
+if rbenv versions | grep -q $RUBY_VERSION; then
+  echo "✅ Ruby version $RUBY_VERSION is already installed."
+else
+  echo "✨ Ruby version $RUBY_VERSION is not installed. Installing..."
+  rbenv install $RUBY_VERSION
+  echo "✅ Ruby version $RUBY_VERSION installed."
+fi
+rbenv local $RUBY_VERSION
+rbenv global $RUBY_VERSION
+rbenv rehash
+
+# Install nvm
+# TODO
+
+# Install Postgresql / Postgis
+# TODO
+
+# Install Java
+# TODO
