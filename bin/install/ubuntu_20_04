@@ -14,7 +14,7 @@ sudo apt-get install -qq -y $LIST_OF_20_04_DEPENDENCIES
 echo "✅ Packages installed"
 
 # Set RUBY_VERSION to default value if empty
-if [ -d "~/.rbenv" ];
+if [ -d "$HOME/.rbenv" ];
 then
     echo "✅ Rbenv directory exist"
 else
@@ -43,14 +43,19 @@ rbenv global $RUBY_VERSION
 rbenv rehash
 
 # Install nvm
-echo "🚚 Installing Node.js..."
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-nvm install 14.17.4
-nvm alias default 14.17.4
-npm i -g yarn
-echo "✅ Node.js installed."
+if [ -d "$HOME/.nvm" ];
+then
+    echo "✅ Node.js directory exist"
+else
+  echo "🚚 Installing Node.js..."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+  export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  nvm install 14.17.4
+  nvm alias default 14.17.4
+  npm i -g yarn
+  echo "✅ Node.js installed."
+fi
 
 DIR_POSTGRES=/etc/postgresql/13
 if [ -d "$DIR_POSTGRES" ];
