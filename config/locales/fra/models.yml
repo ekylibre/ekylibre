@@ -674,7 +674,7 @@ fra:
         activity_production:
           attributes:
             stopped_on:
-              after: "La date de fin doit être après la dernière intervention réalisée : %{restriction}" 
+              after: "La date de fin doit être après la dernière intervention réalisée : %{restriction}"
         bank_statement: #?
           initial_balance_credit: #?
             unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
@@ -992,7 +992,7 @@ fra:
       master_equipment_cost: "Coûts d'usage des équipements" #?
       master_equipment_flow: "Débits de chantier des équipements" #?
       master_equipment_nature: "Référence des tyoes d'équipements" #?
-      master_crop_production: "Codes de référence des productions" #?
+      master_production: "Codes de référence des productions" #?
       matter: "Matière"
       naming_format: "Format de nommage" #?
       naming_format_field: "Champ du format de nommage" #?

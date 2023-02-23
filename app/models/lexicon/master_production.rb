@@ -23,7 +23,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: master_crop_productions
+# == Table: master_productions
 #
 #  agroedi_crop_code         :string
 #  id                        :integer          not null, primary key
