@@ -895,7 +895,7 @@ Rails.application.routes.draw do
       concerns :products, :list
     end
 
-    resources :measures, only: [], defaults: {format: 'json'}do
+    resources :measures, only: [], defaults: {format: 'json'} do
       collection do
         get :convert
       end
