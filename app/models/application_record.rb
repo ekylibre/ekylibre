@@ -95,22 +95,19 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   # Allow to grab old / new attribute from a resource object to have the history aka versioning
-  # ex : e = Entity.find(1) // resource object
-  # e.client_payment_mode // object on resource object
-  # e.name // value on resource object
   def human_changed_attribute_value(change, state)
     att = change.attribute.gsub(/_id$/, '')
     value_retrievable = change.attribute.match(/_id$/) && respond_to?(att) && send(att).respond_to?('name')
-    # if value is retrievable (object on resource object) from resource object and state new, we grab it from resource object
-    if value_retrievable && state == 'new'
-      (send(att).respond_to?('label') ? send(att).label : send(att).name).to_s
-    # if value is retrievable from resource object and state old, we grab his id from change object
-    elsif value_retrievable && state == 'old'
-      old_rec = send(att).model_name.name.constantize.find(change.send("human_#{state}_value"))
-      (old_rec.respond_to?('label') ? old_rec.label : old_rec.name).to_s
-    # we grad value directly from change object (value on resource object)
+    return change.send("human_#{state}_value") unless value_retrievable
+
+    value_is_a_record = send(att).is_a?(ActiveRecord::Base)
+    return (send(att).respond_to?('label') ? send(att).label : send(att).name).to_s if !value_is_a_record
+
+    rec = send(att).model_name.name.constantize.find_by_id(change.send("#{state}_value"))
+    if rec && rec.respond_to?('name') && rec.name
+      (rec.respond_to?('label') ? rec.label : rec.name).to_s
     else
-      change.send("human_#{state}_value")
+      "#{att.tl}(#{change.send("human_#{state}_value")} )"
     end
   end
 
