@@ -46,7 +46,7 @@ module Ekylibre
         if result.success?
           success("The version #{version} has been downloaded.")
         else
-          error('Error while downloading.')
+          error("Error while downloading : #{result.error.message}")
         end
       rescue Aws::Sigv4::Errors::MissingCredentialsError => e
         error('Missing credentials to download from MINIO')
