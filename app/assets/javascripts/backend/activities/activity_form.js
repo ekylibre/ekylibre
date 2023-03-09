@@ -1,6 +1,6 @@
 (function (E, $) {
     const varietyService = new E.VarietyService();
-    const masterCropProductionService = new E.MasterCropProductionService();
+    const masterCropProductionService = new E.MasterProductionService();
     const campaignService = new E.CampaignService();
     const defaultStateStateOfProduction = [
         { label: '', year: null, default: true },
@@ -137,7 +137,7 @@
         }
 
         setTechnicalInputsScope(referenceName) {
-            const scope = `unroll?scope[of_production]=${referenceName}`              
+            const scope = `unroll?scope[of_production]=${referenceName}`
 
             if (this.$technicalWorkflowInput.length > 0 &&  referenceName !== '' ) {
                 const unrollUrl = this.$technicalWorkflowInput.data('selector').replace(/unroll.*/, scope);
@@ -189,7 +189,7 @@
             }
         }
 
-        setActivityTacticDate() {       
+        setActivityTacticDate() {
             const isActivityProductionPerennial = $('#activity_production_cycle_perennial').is(":checked");
 
             if (isActivityProductionPerennial) {
@@ -203,7 +203,7 @@
                     const startedDateOfCurrentCampaign = startedYearOfCurrentCampaign + activityProductionStartedOn.slice(4);
                     return startedDateOfCurrentCampaign;
                 }
-            }  
+            }
         }
 
         setProductionPeriod(startedOn, stoppedOn, startedOnYear, stoppedOnYear) {

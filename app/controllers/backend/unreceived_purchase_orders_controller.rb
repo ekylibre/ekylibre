@@ -39,7 +39,7 @@ module Backend
     list(conditions: list_conditions, model: :purchase_order, joins: :supplier, order: { created_at: :desc, number: :desc }) do |t|
       t.action :edit
       t.action :destroy
-      t.column :number, url: :true
+      t.column :number, url: true
       t.column :reference_number, url: true
       t.column :supplier, url: true
       t.column :created_at

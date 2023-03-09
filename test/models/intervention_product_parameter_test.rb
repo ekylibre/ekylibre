@@ -89,4 +89,17 @@ class InterventionProductParameterTest < Ekylibre::Testing::ApplicationTestCase:
     target.send(:set_quantity_from_working_zone)
     assert(Measure.new(area.round(4), 'square_meter').inspect == target.quantity.inspect )
   end
+
+  test '#handle_product_dead_at after_save callback' do
+    target = create(:intervention_target, :with_working_zone, dead: false)
+    assert_not_nil(target.product.dead_at, 'If it doesn\'t destroy, the product dead_at should not change')
+
+    target = create(:intervention_target, :with_working_zone, dead: true)
+    stopped_at = target.stopped_at
+    product = target.product
+    assert_equal(stopped_at, target.product.dead_at, 'If it destroy, the product dead_at should be equal to intervention stopped_at, only if it\'s anterior to product dead_at')
+
+    target.update(dead: false)
+    assert_equal(product.initial_dead_at, target.product.dead_at, "If it changes form dead to alive, the product dead_at should be equal to initial dead_at")
+  end
 end

@@ -66,16 +66,16 @@ module Printers
                    else
                      @campaign.activities
                    end.map do |activity|
-        if @campaign.interventions.of_activity(activity).present?
+        if (interventions = @campaign.interventions.of_activity(activity)).any?
           {
             name: activity.name,
             area: activity.net_surface_area(@campaign).in_hectare,
             summary: [{
               name: activity.name,
-              int_count: "#{@campaign.interventions.of_activity(activity).count} interventions",
-              total_duration: human_duration(activity.interventions.sum(&:duration))
+              int_count: "#{interventions.count} interventions",
+              total_duration: human_duration(interventions.sum(&:duration))
             }.merge(activity.decorate.production_costs(@campaign)[:global_costs])],
-            interventions: @campaign.interventions.of_activity(activity).order('STARTED_AT').map do |intervention|
+            interventions: interventions.order('STARTED_AT').map do |intervention|
               {
                 name: intervention.name,
                 date: human_date(intervention),

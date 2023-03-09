@@ -6,7 +6,7 @@ module UnrollHelper
 
   def self.label_item(item, filters, controller, action_name = "unroll")
     item_names = filters.map { |f| [f.name, f.value_of(item)] }.to_h
-    controller = "#{controller}/#{action_name.gsub /^unroll_/, ''}" if action_name && action_name != 'unroll'
+    controller = "#{controller}/#{action_name.gsub(/^unroll_/, '')}" if action_name && action_name != 'unroll'
 
     defaults = [
       "unrolls.#{controller}.default".to_sym,

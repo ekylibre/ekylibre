@@ -42,7 +42,7 @@
 #
 
 class InterventionTemplate < ApplicationRecord
-  enumerize :workflow_unit, in: %i[hectare_per_hour plant_per_hour], default: :hectare_per_hour, predicates: true
+  enumerize :workflow_unit, in: %i[hectare_per_hour plant_per_hour head_per_hour], default: :hectare_per_hour, predicates: true
   composed_of :workflow, class_name: 'Measure', mapping: [%w[workflow_value to_d], %w[workflow_unit unit]]
   # Relation
   has_many :product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :intervention_template_id, dependent: :destroy
@@ -206,6 +206,8 @@ class InterventionTemplate < ApplicationRecord
       1.0
     elsif workflow_unit == :hectare_per_hour
       (1.0 / workflow_value).to_d
+    elsif workflow_unit == :hectare_per_head
+      (1.0 / workflow_value).to_d
     elsif workflow_unit == :plant_per_hour
       (plant_density / workflow_value).to_d
     else
@@ -248,31 +250,31 @@ class InterventionTemplate < ApplicationRecord
 
   class << self
     def import_from_lexicon(technical_workflow_procedure:, intervention_model:, campaign: )
-      if it = InterventionTemplate.find_by(campaign_id: campaign.id, intervention_model_id: intervention_model.id, technical_workflow_procedure_id: technical_workflow_procedure.id)
+      if it = InterventionTemplate.find_by(campaign_id: campaign.id, intervention_model_id: intervention_model.reference_name, technical_workflow_procedure_id: technical_workflow_procedure.reference_name)
         return it
       end
-      unless twp = TechnicalWorkflowProcedure.find(technical_workflow_procedure)
+      unless twp = TechnicalWorkflowProcedure.find_by_reference_name(technical_workflow_procedure)
         raise ArgumentError.new("The TWP #{technical_workflow_procedure.inspect} is not known")
       end
 
-      unless im = InterventionModel.find(intervention_model)
+      unless im = InterventionModel.find_by_reference_name(intervention_model)
         raise ArgumentError.new("The IM #{intervention_model.inspect} is not known")
       end
 
       it = new(
         procedure_name: im.procedure_reference,
         campaign_id: campaign.id,
-        intervention_model_id: im.id,
-        technical_workflow_procedure_id: twp.id,
+        intervention_model_id: im.reference_name,
+        technical_workflow_procedure_id: twp.reference_name,
         name: im.name[Preference[:language]],
         active: true,
         description: :set_by_lexicon.tl,
         workflow_value: im.working_flow,
-        workflow_unit: im.working_flow_unit # hectare_per_hour or plant_per_hour or animal_per_hour (not implemented)
+        workflow_unit: im.working_flow_unit # hectare_per_hour or plant_per_hour or head_per_hour
       )
 
       unless it.save
-        raise "Cannot create intervention template from Lexicon #{technical_workflow.inspect}: #{it.errors.full_messages.join(', ')}"
+        raise "Cannot create intervention template from Lexicon #{technical_workflow_procedure.inspect}: #{it.errors.full_messages.join(', ')}"
       end
 
       it

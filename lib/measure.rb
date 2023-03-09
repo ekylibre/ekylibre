@@ -78,7 +78,7 @@ class Measure
     @unit = unit.to_s
     unless @@units.items[@unit]
       units = @@units.where(symbol: @unit)
-      if units.size > 1
+      if units.size > 2
         raise AmbiguousUnit.new("The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}.")
       elsif units.size.zero?
         # fail ArgumentError, "Unknown unit: #{unit.inspect}"

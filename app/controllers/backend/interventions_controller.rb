@@ -223,7 +223,9 @@ module Backend
         intervention: @intervention,
       }
 
-      return unless template = DocumentTemplate.find_by_nature(params[:document_nature_name])
+      template = DocumentTemplate.find_by(id: params[:template]) ||
+                 DocumentTemplate.find_by(nature: params[:document_nature_name])
+      return unless template
 
       printer_class_name = "Printers::#{params[:document_nature_name].camelize}Printer".constantize
       printer = printer_class_name.new(template: template, **dataset_params)

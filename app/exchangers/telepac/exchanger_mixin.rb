@@ -95,7 +95,7 @@ module Telepac
 
         # check in Lexicon
         cap_year = [2017, cap_year].max
-        lexicon_production_nature = MasterCropProduction.joins(:cap_codes)
+        lexicon_production_nature = MasterProduction.joins(:cap_codes)
                                                         .where('master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?', crop_code, cap_year).first
         raise StandardError.new("The code #{crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
 

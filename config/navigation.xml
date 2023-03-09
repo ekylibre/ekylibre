@@ -2383,8 +2383,8 @@
       <item name="traceability_check_cells">
         <page to="backend/cells/traceability_check_cells#show"/>
       </item>
-      <item name="master_crop_productions">
-        <page to="backend/master_crop_productions#unroll"/>
+      <item name="master_productions">
+        <page to="backend/master_productions#unroll"/>
       </item>
     </group>
   </inaccessible-actions>

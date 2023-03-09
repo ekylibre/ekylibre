@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface MasterCropProduction {
+interface MasterProduction {
     specie: string;
     started_on: string;
     stopped_on: string;
@@ -17,8 +17,8 @@ interface StartStateOfProduction {
     default: boolean;
 }
 
-export class MasterCropProductionService {
-    get(reference_name: string): Promise<MasterCropProduction> {
-        return axios.get<MasterCropProduction>(`/backend/master_crop_productions/${reference_name}.json`).then((res) => res.data);
+export class MasterProductionService {
+    get(reference_name: string): Promise<MasterProduction> {
+        return axios.get<MasterProduction>(`/backend/master_productions/${reference_name}.json`).then((res) => res.data);
     }
 }

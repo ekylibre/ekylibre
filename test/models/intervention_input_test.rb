@@ -69,5 +69,115 @@ require 'test_helper'
 
 class InterventionInputTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  setup do
+    FinancialYear.delete_all
+    fy = create(:financial_year, year: 2022)
+    @catalog = Catalog.by_default!('purchase')
+    @started_at = Date.parse('15/02/2022').to_time
+    @sender = Entity.create!(last_name: 'Reception test')
+    @address = @sender.addresses.create!(canal: 'mail', mail_line_1: 'Yolo', mail_line_2: 'Another test')
+    @storage = BuildingDivision.first
+    @variant = ProductNatureVariant.import_from_lexicon('ammonitrate_33')
+    @activity = Activity.find_by(production_cycle: :annual, family: 'plant_farming')
+    @campaign = Campaign.of(2022)
+    @activity_production = @activity.productions.create!(started_on: '2021-10-01', stopped_on: '2022-08-31', campaign: @campaign, cultivable_zone: CultivableZone.first)
+    @land_parcel = @activity_production.support
+  end
+
+  test 'check intervention input price computation from catalog when reception item is zero price' do
+    price = 0.35
+    new_catalog_price(price: price)
+    reception = new_reception(price: 0.0, quantity: 200.0)
+    reception.give
+    reception.reload
+    fertilizer_product = reception.items.first.storings.first.product
+    intervention = new_fertilizing_intervention(fertilizer_product, 500.0)
+    intervention.reload
+    computation = intervention.inputs.first.cost_amount_computation
+    assert_equal true, computation.quantity?
+    assert_equal true, computation.catalog?
+    assert_equal price, computation.unit_amount
+  end
+
+  test 'check intervention input price computation from reception when reception item is not zero price' do
+    price = 0.35
+    new_catalog_price(price: price)
+    reception = new_reception(price: 0.50, quantity: 200.0)
+    reception.give
+    reception.reload
+    fertilizer_product = reception.items.first.storings.first.product
+    intervention = new_fertilizing_intervention(fertilizer_product, 500.0)
+    intervention.reload
+    computation = intervention.inputs.first.cost_amount_computation
+    assert_equal true, computation.quantity?
+    assert_equal true, computation.reception?
+    assert_equal 0.50, computation.unit_amount
+  end
+
+  private
+
+    def new_reception(delivery_mode: :third, address: nil, sender: nil, separated: nil, items_attributes: nil, storage: nil, price: nil, quantity: nil)
+      attributes = {
+        delivery_mode: delivery_mode,
+        address: address || @address,
+        sender: sender || @sender,
+        separated_stock: separated,
+        given_at: @started_at - 5.days
+      }
+
+      items_attributes ||= [{
+        # population: 20,
+        unit_pretax_stock_amount: price,
+        variant: @variant,
+        role: :merchandise,
+        storings_attributes: [
+          {
+            conditioning_quantity: quantity,
+            storage: @storage,
+            conditioning_unit: @variant.guess_conditioning[:unit]
+          }
+        ]
+      }]
+
+      reception = Reception.create!(attributes)
+      items_attributes.each do
+        reception.items.create!(items_attributes)
+      end
+
+      reception
+    end
+
+    def new_catalog_price(price: nil)
+      @variant.catalog_items.create!(catalog: @catalog, amount: price, unit: @variant.guess_conditioning[:unit], started_at: @started_at - 5.days)
+    end
+
+    def new_fertilizing_intervention(fertilizer_product, quantity)
+      Intervention.create!(
+        procedure_name: :fertilizing,
+        working_periods_attributes: {
+          '0' => {
+            started_at: @started_at,
+            stopped_at: @started_at + 4.hours,
+            nature: 'intervention'
+          }
+        },
+        targets_attributes: {
+          '0' => {
+            reference_name: :cultivation,
+            product_id: @land_parcel.id,
+            dead: false
+          }
+        },
+        inputs_attributes: {
+          '0' => {
+            reference_name: :fertilizer,
+            product_id: fertilizer_product.id,
+            quantity_value: quantity,
+            quantity_population: quantity,
+            quantity_handler: 'net_mass'
+          }
+        }
+      )
+    end
 end

@@ -67,10 +67,12 @@ module Api
         driver = create(:worker)
         tractor = create(:equipment)
         hoe = create(:equipment)
-        params = { procedure_name: 'hoeing',
+        params = {
+                   procedure_name: 'hoeing',
                    providers: { zero_id: 5 },
                    working_periods_attributes: [
-                     { started_at: '01/01/2019 12:00'.to_datetime,
+                     {
+                      started_at: '01/01/2019 12:00'.to_datetime,
                        stopped_at: '01/01/2019 13:30'.to_datetime
                      }],
                    targets_attributes: [
@@ -85,7 +87,7 @@ module Api
                      { product_id: tractor.id, reference_name: 'tractor' },
                      { product_id: hoe.id, reference_name: 'hoe' },
                    ]
-        }
+                  }
         post :create, params: params
         assert_response :created
         id = JSON.parse(response.body)['id']
@@ -105,8 +107,7 @@ module Api
                    providers: { zero_id: 5 },
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
-                       stopped_at: '01/01/2019 13:30'.to_datetime
-                     }],
+                       stopped_at: '01/01/2019 13:30'.to_datetime }],
                    inputs_attributes: [
                      {
                        product_id: input_product.id,
@@ -114,8 +115,7 @@ module Api
                        quantity_population: 5000,
                        quantity_handler: 'net_mass',
                        reference_name: 'fertilizer'
-                     }]
-        }
+                     }] }
 
         post :create, params: params
         assert_response :created
@@ -132,8 +132,7 @@ module Api
                    providers: { zero_id: 5 },
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
-                       stopped_at: '01/01/2019 13:30'.to_datetime
-                     }],
+                       stopped_at: '01/01/2019 13:30'.to_datetime }],
                    targets_attributes: [{
                                           product_id: plant.id,
                                           reference_name: 'plant'
@@ -145,8 +144,7 @@ module Api
                        quantity_population: 5,
                        quantity_handler: 'net_mass',
                        reference_name: 'matters'
-                     }]
-        }
+                     }] }
 
         post :create, params: params
         assert_response :created
@@ -241,8 +239,7 @@ module Api
                    providers: { zero_id: 5 },
                    working_periods_attributes: [
                      { started_at: '01/01/2019 12:00'.to_datetime,
-                       stopped_at: '01/01/2019 13:30'.to_datetime
-                   }],
+                       stopped_at: '01/01/2019 13:30'.to_datetime }],
                    inputs_attributes: [
                      {
                        product_id: input_product.id,
@@ -271,8 +268,7 @@ module Api
                                             measure_value_value: "5",
                                             measure_value_unit: "hour"
                                           }]
-                                        }]
-        }
+                                        }] }
 
         post :create, params: params
         assert_response :created

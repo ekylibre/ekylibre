@@ -216,6 +216,10 @@ class ProductNatureVariant < ApplicationRecord
       type_allocator = Variants::TypeAllocatorService.new(category: category, nature: nature)
       self.type = type_allocator.find_type
     end
+
+    if changes_to_save.key?('default_unit_id')
+      self.default_unit_name = default_unit.reference_name
+    end
   end
 
   before_validation do
@@ -227,16 +231,13 @@ class ProductNatureVariant < ApplicationRecord
       if derivative_of.blank? && nature.derivative_of
         self.derivative_of ||= nature.derivative_of
       end
-
-      if category && storable?
-        self.stock_account ||= create_unique_account(:stock)
-        self.stock_movement_account ||= create_unique_account(:stock_movement)
-      end
     end
     self.default_unit ||= Unit.import_from_lexicon(default_unit_name) if default_unit_name
     self.default_unit_name ||= default_unit.reference_name if default_unit
     self.unit_name ||= default_unit.name if default_unit
   end
+
+  before_save :set_accounts_from_category
 
   validate do
     if nature.present?
@@ -582,6 +583,10 @@ class ProductNatureVariant < ApplicationRecord
     products.none? && catalog_items.none? && purchase_items.none? && sale_items.none? && shipment_items.none? && reception_items.none?
   end
 
+  def imported?
+    imported_from.present?
+  end
+
   def guess_conditioning
     unit = Unit.find_by(base_unit: default_unit, coefficient: default_quantity)
     unit ? { unit: unit, quantity: 1 } : { unit: default_unit, quantity: default_quantity }
@@ -645,6 +650,10 @@ class ProductNatureVariant < ApplicationRecord
     # already imported
     def any_reference_available?
       Onoma::ProductNatureVariant.without(ProductNatureVariant.pluck(:reference_name).uniq).any?
+    end
+
+    def restricted_base_unit_list
+      []
     end
 
     # Find or import variant from nomenclature with given attributes
@@ -958,5 +967,14 @@ class ProductNatureVariant < ApplicationRecord
           "Variants::#{item.family.classify}Variant"
         end
       end
+  end
+
+  # @private
+  # Lifecycle: called before_save
+  private def set_accounts_from_category
+    if category && category_id_changed? && storable?
+      self.stock_account = create_unique_account(:stock)
+      self.stock_movement_account = create_unique_account(:stock_movement)
+    end
   end
 end

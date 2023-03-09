@@ -64,10 +64,6 @@ module Procedo
         @unit = unit
       end
 
-      def dimension_name
-        @unit.dimension.to_sym
-      end
-
       def population?
         @name == :population
       end

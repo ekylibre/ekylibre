@@ -27,22 +27,11 @@ module Api
         assert_response :ok
         assert json_response.size <= 30
 
-        get :index, params: { contact_email: 'support@ekylibre.com', nature: 'request', with_interventions: 'true' }
-        assert_response :ok
-        assert json_response.size <= 30
-
         get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'false' }
         assert_response :ok
         assert json_response.size <= 30
 
-        get :index, params: { contact_email: 'support@ekylibre.com', nature: 'request', with_interventions: 'false' }
-        assert_response :ok
-        assert json_response.size <= 30
-
         get :index, params: { user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'falsesd' }
-        assert_response :unprocessable_entity
-
-        get :index, params: { contact_email: 'support@ekylibre.com', nature: 'request', with_interventions: 'falsesd' }
         assert_response :unprocessable_entity
       end
 

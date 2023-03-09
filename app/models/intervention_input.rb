@@ -194,20 +194,26 @@ class InterventionInput < InterventionProductParameter
     quantity_population * unit_pretax_stock_amount
   end
 
+  # compute price in the current order of
+  # 1 / purchase invoice of item
+  # 2 / unit pretax amount in reception of item
+  # 3 / purchase order of item
+  # 4 / catalog price of item
   def cost_amount_computation(nature: nil, natures: {})
     return InterventionParameter::AmountComputation.failed unless product
 
     reception_item = product.incoming_parcel_item_storing
     options = { quantity: quantity_population, unit_name: product.conditioning_unit.name, unit: product.conditioning_unit }
     # if reception item link to purchase item, grab amount from purchase item
-    if reception_item&.parcel_item&.purchase_invoice_item
+    ri = reception_item&.parcel_item
+    if ri && ri.purchase_invoice_item
       options[:purchase_item] = reception_item.parcel_item.purchase_invoice_item
       return InterventionParameter::AmountComputation.quantity(:purchase, options)
     # elsif reception item has a unit pretax storage price
-    elsif reception_item&.parcel_item&.unit_pretax_stock_amount
+    elsif ri && (ri.unit_pretax_stock_amount > 0.0)
       options[:reception_item] = reception_item.parcel_item
       return InterventionParameter::AmountComputation.quantity(:reception, options)
-    elsif reception_item&.parcel_item&.purchase_order_item
+    elsif ri && ri.purchase_order_item
       options[:order_item] = reception_item.parcel_item.purchase_order_item
       return InterventionParameter::AmountComputation.quantity(:order, options)
     # grab amount from default purchase catalog item at intervention started_at

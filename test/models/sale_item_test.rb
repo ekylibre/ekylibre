@@ -187,9 +187,9 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
                               conditioning_unit: variants.fourth.guess_conditioning[:unit],
                               tax: reduced_vat)
 
-    assert_equal -3.79, item.unit_pretax_amount
-    assert_equal -15.17, item.pretax_amount
-    assert_equal -16.00, item.amount
+    assert_equal(-3.79, item.unit_pretax_amount)
+    assert_equal(-15.17, item.pretax_amount)
+    assert_equal(-16.00, item.amount)
   end
 
   test 'should not compute anything existing field with reference number' do

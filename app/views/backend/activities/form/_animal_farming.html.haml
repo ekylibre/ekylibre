@@ -4,6 +4,7 @@
   = f.referenced_nomenclature :production_system
   - family = Onoma::ActivityFamily[f.object.family]
   - with_cultivation = family.cultivation_variety.present?
+  = f.referenced_association :production_nature, new: false
   = f.referenced_nomenclature :cultivation_variety, required: with_cultivation,
                                                       input_html: { data: { family_cultivation_variety: family.cultivation_variety }},
                                                       collection: (with_cultivation ? Onoma::Variety.selection(family.cultivation_variety) : []),
@@ -26,3 +27,8 @@
   = f.custom_fields
 
 = render 'backend/activities/form/analytic_options', f: f
+
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)

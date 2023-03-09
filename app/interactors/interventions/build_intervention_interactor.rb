@@ -22,7 +22,6 @@ module Interventions
       @intervention.attributes = attributes
       @intervention.save!
       @intervention
-
     rescue ActiveRecord::RecordInvalid => exception
       raise
     rescue StandardError => exception

@@ -104,7 +104,7 @@ class Activity < ApplicationRecord
   has_many :associations_intervention_templates, class_name: 'InterventionTemplateActivity', foreign_key: :activity_id
   has_many :intervention_templates, through: :associations_intervention_templates
 
-  belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterCropProduction', foreign_key: :reference_name
+  belongs_to :production_nature, primary_key: :reference_name, class_name: 'MasterProduction', foreign_key: :reference_name
 
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :campaigns
@@ -209,7 +209,7 @@ class Activity < ApplicationRecord
   def set_default
     case family
     when 'vine_farming'
-      vine_default_production = MasterCropProduction.find_by(specie: 'vitis')
+      vine_default_production = MasterProduction.find_by(specie: 'vitis')
 
       self.reference_name ||= vine_default_production.reference_name
       self.cultivation_variety ||= 'vitis'
@@ -384,7 +384,7 @@ class Activity < ApplicationRecord
     if animal_farming?
       total = productions.of_campaign(campaign).map do |production|
         viewed_at = Time.zone.now.change(year: campaign.harvest_year)
-        production.support&.members_count(viewed_at)
+        production.support.members_at(viewed_at).count if production.support
       end.compact.sum(0.0)
     else
       total = productions.of_campaign(campaign).map(&:size).compact.sum
@@ -450,6 +450,40 @@ class Activity < ApplicationRecord
   end
 
   class << self
+
+    def import_from_lexicon(reference_name, force = false)
+      unless mp = MasterProduction.find_by_reference_name(reference_name)
+        raise ArgumentError.new("The master production #{reference_name.inspect} is not known")
+      end
+
+      a = find_by_reference_name(reference_name)
+      return a if a
+
+      # find annual or perennial activity
+      if mp.life_duration.present? && mp.life_duration.parts[:years].to_d > 1.0
+        production_cycle = :perennial
+      else
+        production_cycle = :annual
+      end
+
+      attributes = {
+        family: mp.activity_family,
+        nature: :main,
+        production_cycle: production_cycle,
+        cultivation_variety: mp.specie,
+        name: mp.translation.send(Preference[:language]),
+        reference_name: mp.reference_name,
+        life_duration: mp.life_duration&.parts&.fetch(:years),
+        start_state_of_production_year: production_cycle == :perennial ? 2 : nil,
+        production_started_on: mp.started_on.change(year: 2000),
+        production_stopped_on: mp.stopped_on.change(year: 2000),
+        production_started_on_year: mp.started_on_year,
+        production_stopped_on_year: mp.stopped_on_year
+      }
+      activity = new(attributes)
+      activity.save!
+    end
+
     # Find nearest family on cultivation variety and support variety
     def best_for_cultivation(family, cultivation_variety)
       return nil unless any?

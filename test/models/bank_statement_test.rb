@@ -403,7 +403,7 @@ class BankStatementTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   def wipe_db
     [IdeaDiagnostic, Payslip, PayslipNature, InventoryItem, Inventory, Journal, Account, Cash, BankStatement, BankStatementItem,
      OutgoingPayment, Entity, IncomingPayment, IncomingPaymentMode, OutgoingPaymentMode]
-      .each &:delete_all
+      .each(&:delete_all)
   end
 
   def setup_data(**options)

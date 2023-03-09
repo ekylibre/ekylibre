@@ -74,7 +74,10 @@ module Printers
         # PU HT
         t.add_field(:amount) { |item| item.unit_pretax_sale_amount.present? ? as_currency(item.unit_pretax_sale_amount): as_currency(0.00) }
 
-        # PU HT
+        # PU HT / base unit
+        t.add_field(:base_unit_amount) { |item| item.unit_pretax_sale_amount.present? ? as_currency(item.unit_pretax_sale_amount / item.conditioning_unit.coefficient ): as_currency(0.00) }
+
+        # PT HT
         t.add_field(:global_amount) { |item| item.unit_pretax_sale_amount.present? ? as_currency(item.conditioning_quantity * item.conditioning_unit.coefficient * item.unit_pretax_sale_amount) : as_currency(0.00) }
 
         # base unit name

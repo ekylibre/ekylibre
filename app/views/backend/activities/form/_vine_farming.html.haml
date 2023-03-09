@@ -27,7 +27,7 @@
   - if is_vegetal_farming
     .perennial-production-cycle-options
       = f.input :start_state_of_production_year, label: :start_state_of_production.tl,
-                                                  collection: f.object.production_nature && f.object.production_nature.start_states || MasterCropProductionStartState.defaults,
+                                                  collection: f.object.production_nature && f.object.production_nature.start_states || MasterProductionStartState.defaults,
                                                   label_method: lambda { |ssop| ssop.label(locale: locale) }, value_method: :year,
                                                   required: is_perennial_vegetal_farming
       = f.input :life_duration, required: is_perennial_vegetal_farming, wrapper: :append do
@@ -68,4 +68,3 @@
   = f.input :use_seasons, show: '#seasons-fields'
   #seasons-fields
     = f.nested_association(:seasons)
-

@@ -888,11 +888,17 @@ Rails.application.routes.draw do
 
     resources :map_editor_shapes, only: :index
 
-    resources :master_crop_productions, only: [:show], concerns: %i[unroll], param: :reference_name
+    resources :master_productions, only: [:show], concerns: %i[unroll], param: :reference_name
     resources :master_doer_contracts, only: [:show], concerns: %i[unroll], param: :reference_name
 
     resources :matters do
       concerns :products, :list
+    end
+
+    resources :measures, only: [], defaults: {format: 'json'} do
+      collection do
+        get :convert
+      end
     end
 
     resources :naming_formats
@@ -1398,7 +1404,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :units, only: [], concerns: :unroll do
+    resources :units, only: [:show], concerns: :unroll do
       collection do
         get :unroll_filters_by_catalog_items
         get :conditioning_data

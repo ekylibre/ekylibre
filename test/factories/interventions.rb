@@ -63,6 +63,13 @@ FactoryBot.define do
       end
     end
 
+    trait :with_spraying_settings do
+      after(:build) do |intervention|
+        intervention.settings << build(:intervention_setting_item, :of_spray_mix_volume_area_density, intervention: intervention)
+        intervention.parameter_settings << build(:intervention_parameter_setting, :with_indicators, intervention: intervention)
+      end
+    end
+
     trait :with_target do
       transient do
         on { nil }

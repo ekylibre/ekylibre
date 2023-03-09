@@ -16,6 +16,14 @@
                   if="PRODUCT.net_volume? and population_count(animal) != 0"
                   backward="(POPULATION * PRODUCT.net_volume(milliliter)) / population_count(animal)"
                   forward="(VALUE * population_count(animal)) / PRODUCT.net_volume(liter)"/>
+        <handler name="medicine_mass_per_animal" indicator="mass_head_density" unit="kilogram_per_head"
+                  if="population_count(animal) > 0 and PRODUCT.net_mass?"
+                  backward="POPULATION * (PRODUCT.net_mass(kilogram) / population_count(animal))"
+                  forward="VALUE * (population_count(animal) / PRODUCT.net_mass(kilogram))"/>
+        <handler name="medicine_volume_per_animal" indicator="volume_head_density" unit="liter_per_head"
+                  if="population_count(animal) > 0 and PRODUCT.net_volume?"
+                  backward="POPULATION * (PRODUCT.net_volume(liter) / population_count(animal))"
+                  forward="VALUE * (population_count(animal) / PRODUCT.net_volume(liter))"/>
       </input>
       <doer name="caregiver" filter="is worker and can administer_care(animal)" cardinality="*"/>
     </parameters>

@@ -137,7 +137,7 @@ module Ekylibre
             attrs[:saleable] = true if attrs[:product_account]
             attrs[:purchasable] = true if attrs[:charge_account]
             attrs[:depreciable] = true if attrs[:fixed_asset_account]
-            attrs[:type] = variant.type.gsub /Variant/, 'Category'
+            attrs[:type]= variant.type.gsub(/Variant/, 'Category')
             unless category = ProductNatureCategory.find_by(attrs)
               category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
             end
@@ -146,7 +146,7 @@ module Ekylibre
             n_attrs[:name] = attrs[:name]
             n_attrs[:variety] = attrs[:variety]
             n_attrs[:population_counting] = :decimal
-            n_attrs[:type] = variant.type.gsub /Variant/, 'Type'
+            n_attrs[:type]= variant.type.gsub(/Variant/, 'Type')
             nature = ProductNature.find_or_create_by!(n_attrs)
 
             unless variant = nature.variants.first

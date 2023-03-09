@@ -52,7 +52,8 @@ module Ekylibre
             emission_amount: r.amount,
             emission_cash_id: emission_cash.id,
             reception_cash_id: reception_cash.id,
-            transfered_at: r.started_on.to_time)
+            transfered_at: r.started_on.to_time
+          )
         end
 
         w.check_point

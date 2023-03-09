@@ -2,9 +2,9 @@ require 'test_helper'
 
 module Interventions
   class BuildDuplicateTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
-    test 'It should build new intervention with same parameters' do
-      # Following intervention gets 1 group parameter (containing 1 target + 1 output) and 1 input
-      intervention = create(:sowing_intervention_with_all_parameters, nature: :request)
+    test 'It should build new intervention with same parameters and settings' do
+      # Following intervention gets 1 group parameter (containing 1 target + 1 output), 1 input, 1 setting, 1 setting parameter
+      intervention = create(:sowing_intervention_with_all_parameters, :with_spraying_settings, nature: :request)
 
       duplicate_intervention = BuildDuplicate.call(intervention)
 
@@ -31,6 +31,19 @@ module Interventions
       assert_equal intervention_inputs.last.product_id, duplicate_inputs.last.product_id
       assert_equal intervention_inputs.last.quantity_value, duplicate_inputs.last.quantity_value
       assert_equal intervention_inputs.last.quantity_handler, duplicate_inputs.last.quantity_handler
+
+      # settings
+      intervention_settings = intervention.settings
+      duplicate_settings = duplicate_intervention.settings
+      assert_equal intervention_settings.length, duplicate_settings.length
+
+      # parameter_settings
+      intervention_parameter_settings = intervention.parameter_settings
+      duplicate_parameter_settings = duplicate_intervention.parameter_settings
+      assert_equal intervention_parameter_settings.length, duplicate_parameter_settings.length
+      intervention_parameter_setting_items = intervention.parameter_setting_items
+      duplicate_parameter_setting_items = duplicate_intervention.parameter_settings.flat_map(&:settings)
+      assert_equal intervention_parameter_setting_items.length, duplicate_parameter_setting_items.length
     end
   end
 end

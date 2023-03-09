@@ -127,7 +127,7 @@
         }
 
         setUsageFromProduction(productionReferenceName) {
-            new E.MasterCropProductionService()
+            new E.MasterProductionService()
                 .get(productionReferenceName)
                 .then((masterCropProduction) => {
                     if (masterCropProduction.usage != undefined) {

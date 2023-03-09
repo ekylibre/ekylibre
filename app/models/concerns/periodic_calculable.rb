@@ -6,7 +6,7 @@ module PeriodicCalculable
   PARAMETERS = %i[period at name column].freeze
 
   included do
-    class_attribute *(PARAMETERS.map { |p| "default_calculable_#{p}" })
+    class_attribute(*(PARAMETERS.map { |p| "default_calculable_#{p}" }))
     # self.default_calculable_column = :id
     self.default_calculable_period = :month
     self.default_calculable_at = :created_at

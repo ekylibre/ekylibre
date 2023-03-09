@@ -147,12 +147,17 @@ class InterventionProductParameter < InterventionParameter
     true
   end
 
-  after_save do
-    if product && dead && (!product.dead_at || product.dead_at > stopped_at)
-      product.update_columns(dead_at: stopped_at)
-    elsif product && !dead && product.dead_at
-      product.update_columns(dead_at: nil)
-    end
+  after_save :handle_product_dead_at
+
+  def handle_product_dead_at
+    return unless product
+
+    dead_at = if dead && (!product.dead_at || product.dead_at > stopped_at)
+                stopped_at
+              elsif dead_before_last_save && !dead && product.dead_at
+                product.initial_dead_at
+              end
+    product.update_columns(dead_at: dead_at) if dead_at
   end
 
   after_destroy do

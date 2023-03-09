@@ -102,11 +102,6 @@ module ActionIntegration
         name.underscore.gsub(/\_integration\z/, '')
       end
 
-      # Toto::BonjourHelloIntegration => toto/bonjour_hello
-      def integration_path
-        name.underscore.gsub(/\_integration\z/, '')
-      end
-
       #################
 
       def authentication_mode

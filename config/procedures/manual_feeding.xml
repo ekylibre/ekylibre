@@ -8,10 +8,6 @@
                  if="PRODUCT.net_mass? and PRODUCT.net_mass != 0"
                  backward="POPULATION * PRODUCT.net_mass(ton)"
                  forward="VALUE / PRODUCT.net_mass(ton)"/>
-        <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
-                 if="members_count(herd) > 0 and PRODUCT.net_mass? and PRODUCT.net_mass != 0"
-                 backward="POPULATION * (PRODUCT.net_mass(kilogram) / members_count(herd))"
-                 forward="VALUE * (members_count(herd) / PRODUCT.net_mass(kilogram))"/>
         <handler indicator="net_volume" unit="cubic_meter"
                  if="PRODUCT.net_volume? and PRODUCT.net_volume != 0"
                  backward="POPULATION * PRODUCT.net_volume(cubic_meter)"
@@ -20,6 +16,10 @@
                  if="PRODUCT.net_mass? and PRODUCT.net_mass != 0 and PRODUCT.dry_matter_rate?"
                  backward="POPULATION * (PRODUCT.net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"
                  forward="VALUE / (PRODUCT.net_mass(ton) * PRODUCT.dry_matter_rate(mass_percent) / 100)"/>
+        <handler name="food_mass_per_animal" indicator="mass_head_density" unit="kilogram_per_head"
+                  if="members_count(herd) > 0 and PRODUCT.net_mass?"
+                  backward="POPULATION * (PRODUCT.net_mass(kilogram) / members_count(herd))"
+                  forward="VALUE * (members_count(herd) / PRODUCT.net_mass(kilogram))"/>
       </input>
       <doer name="caregiver" filter="is worker and can administer_care(animal)"/>
     </parameters>

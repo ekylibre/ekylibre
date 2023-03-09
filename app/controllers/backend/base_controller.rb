@@ -148,6 +148,10 @@ module Backend
                              name: record.send(options[:identifier]))
             end
             url = options[:url]
+
+            if record.class.column_names.include?('type')
+              record = record.becomes(record.type.constantize)
+            end
             record.reload
             if url.is_a? Hash
               url.each do |k, v|

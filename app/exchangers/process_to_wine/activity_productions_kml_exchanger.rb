@@ -16,7 +16,7 @@ module ProcessToWine
 
     def import
       @year = Time.zone.now.year
-      @lexicon_production_nature = MasterCropProduction.find_by(reference_name: 'vine')
+      @lexicon_production_nature = MasterProduction.find_by(reference_name: 'vine')
       # import and parse file
       doc = Nokogiri::XML(File.open(file)) do |config|
         config.strict.nonet.noblanks

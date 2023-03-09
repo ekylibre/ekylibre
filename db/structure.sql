@@ -31,12 +31,10 @@ CREATE SCHEMA public;
 
 
 --
--- Name: gen_random_uuid(); Type: FUNCTION; Schema: postgis; Owner: -
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
 --
 
-CREATE FUNCTION postgis.gen_random_uuid() RETURNS uuid
-    LANGUAGE c
-    AS '$libdir/pgcrypto', 'pg_random_uuid';
+COMMENT ON SCHEMA public IS 'standard public schema';
 
 
 --
@@ -267,7 +265,7 @@ CREATE TABLE lexicon.datasource_credits (
 --
 
 CREATE TABLE lexicon.intervention_model_items (
-    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
     procedure_item_reference character varying NOT NULL,
     article_reference character varying,
     indicator_name character varying,
@@ -282,7 +280,7 @@ CREATE TABLE lexicon.intervention_model_items (
 --
 
 CREATE TABLE lexicon.intervention_models (
-    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
     name jsonb,
     category_name jsonb,
     number character varying,
@@ -352,39 +350,6 @@ CREATE TABLE lexicon.master_crop_production_cap_sna_codes (
 
 
 --
--- Name: master_crop_production_prices; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.master_crop_production_prices (
-    department_zone character varying NOT NULL,
-    started_on date NOT NULL,
-    nature character varying,
-    price_duration interval NOT NULL,
-    specie character varying NOT NULL,
-    waiting_price numeric(8,2) NOT NULL,
-    final_price numeric(8,2) NOT NULL,
-    currency character varying NOT NULL,
-    price_unit character varying NOT NULL,
-    product_output_specie character varying NOT NULL,
-    production_reference_name character varying,
-    campaign integer,
-    organic boolean,
-    label character varying
-);
-
-
---
--- Name: master_crop_production_start_states; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.master_crop_production_start_states (
-    production character varying NOT NULL,
-    year integer NOT NULL,
-    key character varying NOT NULL
-);
-
-
---
 -- Name: master_crop_production_tfi_codes; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -393,42 +358,6 @@ CREATE TABLE lexicon.master_crop_production_tfi_codes (
     tfi_label character varying NOT NULL,
     production character varying,
     campaign integer NOT NULL
-);
-
-
---
--- Name: master_crop_production_yields; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.master_crop_production_yields (
-    department_zone character varying NOT NULL,
-    specie character varying NOT NULL,
-    production character varying NOT NULL,
-    yield_value numeric(8,2) NOT NULL,
-    yield_unit character varying NOT NULL,
-    campaign integer NOT NULL
-);
-
-
---
--- Name: master_crop_productions; Type: TABLE; Schema: lexicon; Owner: -
---
-
-CREATE TABLE lexicon.master_crop_productions (
-    reference_name character varying NOT NULL,
-    activity_family character varying NOT NULL,
-    specie character varying,
-    usage character varying,
-    started_on date NOT NULL,
-    stopped_on date NOT NULL,
-    agroedi_crop_code character varying,
-    season character varying,
-    life_duration interval,
-    idea_botanic_family character varying,
-    idea_specie_family character varying,
-    idea_output_family character varying,
-    color character varying,
-    translation_id character varying NOT NULL
 );
 
 
@@ -546,6 +475,75 @@ CREATE TABLE lexicon.master_prices (
 
 
 --
+-- Name: master_production_prices; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_production_prices (
+    department_zone character varying NOT NULL,
+    started_on date NOT NULL,
+    nature character varying,
+    price_duration interval NOT NULL,
+    specie character varying NOT NULL,
+    waiting_price numeric(8,2) NOT NULL,
+    final_price numeric(8,2) NOT NULL,
+    currency character varying NOT NULL,
+    price_unit character varying NOT NULL,
+    product_output_specie character varying NOT NULL,
+    production_reference_name character varying,
+    campaign integer,
+    organic boolean,
+    label character varying
+);
+
+
+--
+-- Name: master_production_start_states; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_production_start_states (
+    production character varying NOT NULL,
+    year integer NOT NULL,
+    key character varying NOT NULL
+);
+
+
+--
+-- Name: master_production_yields; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_production_yields (
+    department_zone character varying NOT NULL,
+    specie character varying NOT NULL,
+    production character varying NOT NULL,
+    yield_value numeric(8,2) NOT NULL,
+    yield_unit character varying NOT NULL,
+    campaign integer NOT NULL
+);
+
+
+--
+-- Name: master_productions; Type: TABLE; Schema: lexicon; Owner: -
+--
+
+CREATE TABLE lexicon.master_productions (
+    reference_name character varying NOT NULL,
+    activity_family character varying NOT NULL,
+    specie character varying,
+    usage character varying,
+    started_on date NOT NULL,
+    stopped_on date NOT NULL,
+    agroedi_crop_code character varying,
+    season character varying,
+    life_duration interval,
+    idea_botanic_family character varying,
+    idea_specie_family character varying,
+    idea_output_family character varying,
+    color character varying,
+    translation_id character varying NOT NULL
+);
+
+
+--
 -- Name: master_taxonomy; Type: TABLE; Schema: lexicon; Owner: -
 --
 
@@ -650,6 +648,7 @@ CREATE TABLE lexicon.master_variants (
     specie character varying,
     indicators jsonb,
     pictogram character varying,
+    name_tags text[],
     translation_id character varying NOT NULL
 );
 
@@ -793,7 +792,8 @@ CREATE TABLE lexicon.registered_eu_market_prices (
     unit_name character varying,
     country character varying,
     price numeric(8,2),
-    start_date date
+    start_date date,
+    end_date date
 );
 
 
@@ -1050,7 +1050,7 @@ CREATE TABLE lexicon.registered_vine_varieties (
 --
 
 CREATE TABLE lexicon.technical_sequences (
-    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
     family character varying,
     production_reference_name character varying NOT NULL,
     production_system character varying,
@@ -1063,7 +1063,7 @@ CREATE TABLE lexicon.technical_sequences (
 --
 
 CREATE TABLE lexicon.technical_workflow_procedure_items (
-    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
     actor_reference character varying,
     procedure_item_reference character varying,
     article_reference character varying,
@@ -1079,7 +1079,7 @@ CREATE TABLE lexicon.technical_workflow_procedure_items (
 --
 
 CREATE TABLE lexicon.technical_workflow_procedures (
-    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
     "position" integer NOT NULL,
     name jsonb NOT NULL,
     repetition integer,
@@ -1108,7 +1108,7 @@ CREATE TABLE lexicon.technical_workflow_sequences (
 --
 
 CREATE TABLE lexicon.technical_workflows (
-    id character varying NOT NULL,
+    reference_name character varying NOT NULL,
     family character varying,
     production_reference_name character varying,
     production_system character varying,
@@ -1436,8 +1436,8 @@ CREATE TABLE public.intervention_parameters (
     using_live_data boolean DEFAULT true,
     applications_frequency interval,
     specie_variety jsonb DEFAULT '{}'::jsonb,
-    spray_volume_value numeric(19,4),
-    working_zone_area_value numeric(19,4)
+    working_zone_area_value numeric(19,4),
+    spray_volume_value numeric(19,4)
 );
 
 
@@ -3720,7 +3720,9 @@ CREATE TABLE public.daily_charges (
     activity_production_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    activity_id integer
+    activity_id integer,
+    quantity_unit_id bigint,
+    animal_population integer
 );
 
 
@@ -7640,6 +7642,42 @@ ALTER SEQUENCE public.planning_scenario_activities_id_seq OWNED BY public.planni
 
 
 --
+-- Name: planning_scenario_activity_animals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.planning_scenario_activity_animals (
+    id bigint NOT NULL,
+    planning_scenario_activity_id bigint,
+    technical_itinerary_id bigint,
+    population integer,
+    planned_at date,
+    creator_id integer,
+    updater_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: planning_scenario_activity_animals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.planning_scenario_activity_animals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: planning_scenario_activity_animals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.planning_scenario_activity_animals_id_seq OWNED BY public.planning_scenario_activity_animals.id;
+
+
+--
 -- Name: planning_scenario_activity_plots; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -9814,7 +9852,7 @@ CREATE TABLE public.technical_itineraries (
     creator_id integer,
     updater_id integer,
     originator_id integer,
-    technical_workflow_id character varying,
+    reference_name character varying,
     plant_density numeric(19,4)
 );
 
@@ -11561,6 +11599,13 @@ ALTER TABLE ONLY public.planning_scenario_activities ALTER COLUMN id SET DEFAULT
 
 
 --
+-- Name: planning_scenario_activity_animals id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_animals ALTER COLUMN id SET DEFAULT nextval('public.planning_scenario_activity_animals_id_seq'::regclass);
+
+
+--
 -- Name: planning_scenario_activity_plots id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -12185,7 +12230,7 @@ UNION ALL
 --
 
 ALTER TABLE ONLY lexicon.intervention_model_items
-    ADD CONSTRAINT intervention_model_items_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT intervention_model_items_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12193,7 +12238,7 @@ ALTER TABLE ONLY lexicon.intervention_model_items
 --
 
 ALTER TABLE ONLY lexicon.intervention_models
-    ADD CONSTRAINT intervention_models_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT intervention_models_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12218,14 +12263,6 @@ ALTER TABLE ONLY lexicon.master_crop_production_cap_codes
 
 ALTER TABLE ONLY lexicon.master_crop_production_cap_sna_codes
     ADD CONSTRAINT master_crop_production_cap_sna_codes_pkey PRIMARY KEY (reference_name);
-
-
---
--- Name: master_crop_productions master_crop_productions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
---
-
-ALTER TABLE ONLY lexicon.master_crop_productions
-    ADD CONSTRAINT master_crop_productions_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12282,6 +12319,14 @@ ALTER TABLE ONLY lexicon.master_phytosanitary_prices
 
 ALTER TABLE ONLY lexicon.master_prices
     ADD CONSTRAINT master_prices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: master_productions master_productions_pkey; Type: CONSTRAINT; Schema: lexicon; Owner: -
+--
+
+ALTER TABLE ONLY lexicon.master_productions
+    ADD CONSTRAINT master_productions_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12497,7 +12542,7 @@ ALTER TABLE ONLY lexicon.registered_vine_varieties
 --
 
 ALTER TABLE ONLY lexicon.technical_sequences
-    ADD CONSTRAINT technical_sequences_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT technical_sequences_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12505,7 +12550,7 @@ ALTER TABLE ONLY lexicon.technical_sequences
 --
 
 ALTER TABLE ONLY lexicon.technical_workflow_procedure_items
-    ADD CONSTRAINT technical_workflow_procedure_items_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT technical_workflow_procedure_items_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12513,7 +12558,7 @@ ALTER TABLE ONLY lexicon.technical_workflow_procedure_items
 --
 
 ALTER TABLE ONLY lexicon.technical_workflow_procedures
-    ADD CONSTRAINT technical_workflow_procedures_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT technical_workflow_procedures_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -12521,7 +12566,7 @@ ALTER TABLE ONLY lexicon.technical_workflow_procedures
 --
 
 ALTER TABLE ONLY lexicon.technical_workflows
-    ADD CONSTRAINT technical_workflows_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT technical_workflows_pkey PRIMARY KEY (reference_name);
 
 
 --
@@ -13589,6 +13634,14 @@ ALTER TABLE ONLY public.planning_scenario_activities
 
 
 --
+-- Name: planning_scenario_activity_animals planning_scenario_activity_animals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_animals
+    ADD CONSTRAINT planning_scenario_activity_animals_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: planning_scenario_activity_plots planning_scenario_activity_plots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14178,6 +14231,13 @@ CREATE INDEX intervention_model_items_procedure_item_reference ON lexicon.interv
 
 
 --
+-- Name: intervention_model_items_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX intervention_model_items_reference_name ON lexicon.intervention_model_items USING btree (reference_name);
+
+
+--
 -- Name: intervention_models_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -14192,6 +14252,13 @@ CREATE INDEX intervention_models_procedure_reference ON lexicon.intervention_mod
 
 
 --
+-- Name: intervention_models_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX intervention_models_reference_name ON lexicon.intervention_models USING btree (reference_name);
+
+
+--
 -- Name: master_budgets_variant; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -14203,76 +14270,6 @@ CREATE INDEX master_budgets_variant ON lexicon.master_budgets USING btree (varia
 --
 
 CREATE INDEX master_chart_of_accounts_reference_name ON lexicon.master_chart_of_accounts USING btree (reference_name);
-
-
---
--- Name: master_crop_production_prices_department_zone; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_prices_department_zone ON lexicon.master_crop_production_prices USING btree (department_zone);
-
-
---
--- Name: master_crop_production_prices_product_output_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_prices_product_output_specie ON lexicon.master_crop_production_prices USING btree (product_output_specie);
-
-
---
--- Name: master_crop_production_prices_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_prices_specie ON lexicon.master_crop_production_prices USING btree (specie);
-
-
---
--- Name: master_crop_production_prices_started_on; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_prices_started_on ON lexicon.master_crop_production_prices USING btree (started_on);
-
-
---
--- Name: master_crop_production_yields_campaign; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_yields_campaign ON lexicon.master_crop_production_yields USING btree (campaign);
-
-
---
--- Name: master_crop_production_yields_production; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_yields_production ON lexicon.master_crop_production_yields USING btree (production);
-
-
---
--- Name: master_crop_production_yields_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_production_yields_specie ON lexicon.master_crop_production_yields USING btree (specie);
-
-
---
--- Name: master_crop_productions_activity_family; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_productions_activity_family ON lexicon.master_crop_productions USING btree (activity_family);
-
-
---
--- Name: master_crop_productions_agroedi_crop_code; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_productions_agroedi_crop_code ON lexicon.master_crop_productions USING btree (agroedi_crop_code);
-
-
---
--- Name: master_crop_productions_specie; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX master_crop_productions_specie ON lexicon.master_crop_productions USING btree (specie);
 
 
 --
@@ -14308,6 +14305,83 @@ CREATE INDEX master_prices_reference_name ON lexicon.master_prices USING btree (
 --
 
 CREATE INDEX master_prices_reference_packaging_name ON lexicon.master_prices USING btree (reference_packaging_name);
+
+
+--
+-- Name: master_production_prices_department_zone; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_prices_department_zone ON lexicon.master_production_prices USING btree (department_zone);
+
+
+--
+-- Name: master_production_prices_product_output_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_prices_product_output_specie ON lexicon.master_production_prices USING btree (product_output_specie);
+
+
+--
+-- Name: master_production_prices_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_prices_specie ON lexicon.master_production_prices USING btree (specie);
+
+
+--
+-- Name: master_production_prices_started_on; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_prices_started_on ON lexicon.master_production_prices USING btree (started_on);
+
+
+--
+-- Name: master_production_yields_campaign; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_yields_campaign ON lexicon.master_production_yields USING btree (campaign);
+
+
+--
+-- Name: master_production_yields_production; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_yields_production ON lexicon.master_production_yields USING btree (production);
+
+
+--
+-- Name: master_production_yields_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_production_yields_specie ON lexicon.master_production_yields USING btree (specie);
+
+
+--
+-- Name: master_productions_activity_family; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_productions_activity_family ON lexicon.master_productions USING btree (activity_family);
+
+
+--
+-- Name: master_productions_agroedi_crop_code; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_productions_agroedi_crop_code ON lexicon.master_productions USING btree (agroedi_crop_code);
+
+
+--
+-- Name: master_productions_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_productions_reference_name ON lexicon.master_productions USING btree (reference_name);
+
+
+--
+-- Name: master_productions_specie; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX master_productions_specie ON lexicon.master_productions USING btree (specie);
 
 
 --
@@ -14745,13 +14819,6 @@ CREATE INDEX technical_sequences_family ON lexicon.technical_sequences USING btr
 
 
 --
--- Name: technical_sequences_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX technical_sequences_id ON lexicon.technical_sequences USING btree (id);
-
-
---
 -- Name: technical_sequences_production_reference_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -14759,10 +14826,24 @@ CREATE INDEX technical_sequences_production_reference_name ON lexicon.technical_
 
 
 --
+-- Name: technical_sequences_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_sequences_reference_name ON lexicon.technical_sequences USING btree (reference_name);
+
+
+--
 -- Name: technical_workflow_procedure_items_procedure_reference; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX technical_workflow_procedure_items_procedure_reference ON lexicon.technical_workflow_procedure_items USING btree (procedure_reference);
+
+
+--
+-- Name: technical_workflow_procedure_items_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_workflow_procedure_items_reference_name ON lexicon.technical_workflow_procedure_items USING btree (reference_name);
 
 
 --
@@ -14794,17 +14875,17 @@ CREATE INDEX technical_workflows_family ON lexicon.technical_workflows USING btr
 
 
 --
--- Name: technical_workflows_id; Type: INDEX; Schema: lexicon; Owner: -
---
-
-CREATE INDEX technical_workflows_id ON lexicon.technical_workflows USING btree (id);
-
-
---
 -- Name: technical_workflows_procedures_procedure_reference; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX technical_workflows_procedures_procedure_reference ON lexicon.technical_workflow_procedures USING btree (procedure_reference);
+
+
+--
+-- Name: technical_workflows_procedures_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_workflows_procedures_reference_name ON lexicon.technical_workflow_procedures USING btree (reference_name);
 
 
 --
@@ -14819,6 +14900,13 @@ CREATE INDEX technical_workflows_procedures_technical_workflow_id ON lexicon.tec
 --
 
 CREATE INDEX technical_workflows_production_reference_name ON lexicon.technical_workflows USING btree (production_reference_name);
+
+
+--
+-- Name: technical_workflows_reference_name; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX technical_workflows_reference_name ON lexicon.technical_workflows USING btree (reference_name);
 
 
 --
@@ -15015,6 +15103,20 @@ CREATE INDEX index_activities_on_updated_at ON public.activities USING btree (up
 --
 
 CREATE INDEX index_activities_on_updater_id ON public.activities USING btree (updater_id);
+
+
+--
+-- Name: index_activity_animals_on_scenario_activities_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_animals_on_scenario_activities_id ON public.planning_scenario_activity_animals USING btree (planning_scenario_activity_id);
+
+
+--
+-- Name: index_activity_animals_on_technical_itineraries_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_animals_on_technical_itineraries_id ON public.planning_scenario_activity_animals USING btree (technical_itinerary_id);
 
 
 --
@@ -16877,6 +16979,13 @@ CREATE INDEX index_daily_charges_on_activity_id ON public.daily_charges USING bt
 --
 
 CREATE INDEX index_daily_charges_on_activity_production_id ON public.daily_charges USING btree (activity_production_id);
+
+
+--
+-- Name: index_daily_charges_on_quantity_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daily_charges_on_quantity_unit_id ON public.daily_charges USING btree (quantity_unit_id);
 
 
 --
@@ -25091,6 +25200,14 @@ ALTER TABLE ONLY public.crumbs
 
 
 --
+-- Name: planning_scenario_activity_animals fk_rails_442263e15b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_animals
+    ADD CONSTRAINT fk_rails_442263e15b FOREIGN KEY (planning_scenario_activity_id) REFERENCES public.planning_scenario_activities(id);
+
+
+--
 -- Name: intervention_proposals fk_rails_4491a90f0b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25795,6 +25912,14 @@ ALTER TABLE ONLY public.intervention_proposals
 
 
 --
+-- Name: daily_charges fk_rails_e4002567be; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_charges
+    ADD CONSTRAINT fk_rails_e4002567be FOREIGN KEY (quantity_unit_id) REFERENCES public.units(id);
+
+
+--
 -- Name: intervention_proposal_parameters fk_rails_e4aa584bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25848,6 +25973,14 @@ ALTER TABLE ONLY public.financial_year_exchanges
 
 ALTER TABLE ONLY public.journal_entry_items
     ADD CONSTRAINT fk_rails_f46de3d8ed FOREIGN KEY (project_budget_id) REFERENCES public.project_budgets(id);
+
+
+--
+-- Name: planning_scenario_activity_animals fk_rails_f50e5fb222; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.planning_scenario_activity_animals
+    ADD CONSTRAINT fk_rails_f50e5fb222 FOREIGN KEY (technical_itinerary_id) REFERENCES public.technical_itineraries(id);
 
 
 --
@@ -26571,9 +26704,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220825131358'),
 ('20220907064546'),
 ('20220928131936'),
+('20221018142504'),
 ('20221027160401'),
 ('20221117085001'),
 ('20221208093301'),
+('20221212171447'),
+('20221220080638'),
+('20230106154801'),
+('20230202085101');
 ('20221220080638');
-
-

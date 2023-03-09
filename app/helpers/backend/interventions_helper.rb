@@ -2,8 +2,17 @@ module Backend
   module InterventionsHelper
     include ChartsHelper
 
-    def planting_and_sowing_procedures
-      %w[sowing mechanical_planting all_in_one_sowing all_in_one_planting sowing_with_spraying vine_planting]
+    def new_planting_and_sowing_dropdown(name)
+      procedures = %w[sowing mechanical_planting all_in_one_sowing all_in_one_planting sowing_with_spraying vine_planting].map do |procedure_name|
+        Procedo::Procedure.find(procedure_name)
+      end
+
+      disabled = LandParcel.count.zero? && Matter.of_variety("seed").count.zero?
+      dropdown_menu_button(name, main_class: "btn btn-default #{'disabled' if disabled}") do |d|
+        procedures.each do |procedure|
+          d.item procedure.human_name, { controller: "/backend/interventions", action: :new, procedure_name: procedure.name }
+        end
+      end
     end
 
     def add_taskboard_tasks(interventions, column)

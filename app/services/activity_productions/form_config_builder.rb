@@ -41,11 +41,11 @@ module ActivityProductions
 
         return { of_species: [specie] } if SPECIES_WITHOUT_CHILDREN.include?(specie)
 
-        production_natures = MasterCropProduction.of_species(species)
+        production_natures = MasterProduction.of_species(species)
         while production_natures.count == 0
           specie = specie.parent
           species = specie.children(recursively: true).map(&:name).push(specie.name)
-          production_natures = MasterCropProduction.of_species(species)
+          production_natures = MasterProduction.of_species(species)
         end
 
         { of_species: species }

@@ -13,7 +13,7 @@
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT.net_mass?"
                  backward="POPULATION * PRODUCT.net_mass(ton)"
                  forward="VALUE / PRODUCT.net_mass(ton)"/>
-        <handler name="food_mass_per_animal" indicator="net_mass" unit="kilogram"
+        <handler name="food_mass_per_animal" indicator="mass_head_density" unit="kilogram_per_head"
                  if="members_count(herd) > 0 and PRODUCT.net_mass?"
                  backward="POPULATION * (PRODUCT.net_mass(kilogram) / members_count(herd))"
                  forward="VALUE * (members_count(herd) / PRODUCT.net_mass(kilogram))"/>

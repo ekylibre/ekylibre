@@ -26,6 +26,13 @@ module Backend
       end
     end
 
+    def show
+      unit = Unit.find(params[:id])
+      respond_to do |format|
+        format.json { render json: { id: unit.id, reference_name: unit.reference_name, dimension: unit.dimension } }
+      end
+    end
+
     def unroll_filters_by_catalog_items
       variant = ProductNatureVariant.find(params[:filter_id])
       scope = { of_variant: [variant.id] }

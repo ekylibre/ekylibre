@@ -1522,6 +1522,7 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    fill_thousand_grains_count: Fill in thousand grains mass to get other indicators values.
     balance_gap: "balance gap\_"
     create_zero_intial_stock: Create zero initial stock
     product_will_be_imported_with_zero_stock: Product with zero initial stock will be created
@@ -1560,6 +1561,7 @@ eng:
     activate_transmit_analytic_codes: "Analytic sequence is available on option select 'Transmit analytic codes'"
     number_of_animals: "Number of animals"
     warning_could_not_use_ift: "Warning, if production nature is not setted, treatment frequency index won't be calculated."
+    warning_could_not_compute_stock: "Accountancy stock is negative. Fix the issue by creating an entry."
     start_state_of_production: "Start state of production (year N)"
     isacompta_format_exchanges: "Exchanges in Isacompta format"
     ekylibre_format_exchanges: "Exchanges in Ekylibre format"
@@ -3187,7 +3189,7 @@ eng:
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"
     technical_itinerary_sheet: "Technical itinerary sheet"
-    the_cultivation: "La parcelle ou culture"
+    the_cultivation: "Cultivation"
     the_equipement: "L'équipement"
     the_land_parcel: "La parcelle"
     the_plant: "La culture"

@@ -6,7 +6,6 @@ module Api
           variants = begin
             date = modified_since.to_date
             ProductNatureVariant.where('updated_at > ?', date).includes(:nature)
-
           rescue StandardError
             nil
           end

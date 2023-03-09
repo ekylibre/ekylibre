@@ -16,9 +16,13 @@ class Scenario < ApplicationRecord
 
   def generate_daily_charges
     plots = get_plots
+    animals = get_animals
     daily_charges = []
     plots.each do |plot|
       daily_charges.concat(plot.generate_daily_charges)
+    end
+    animals.each do |animal|
+      daily_charges.concat(animal.generate_daily_charges)
     end
     daily_charges
   end
@@ -37,6 +41,10 @@ class Scenario < ApplicationRecord
     # rubocop:disable Naming/AccessorMethodName
     def get_plots
       ScenarioActivity::Plot.of_scenario(self)
+    end
+
+    def get_animals
+      ScenarioActivity::Animal.of_scenario(self)
     end
   # rubocop:enable Naming/AccessorMethodName
 end
