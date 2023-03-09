@@ -15,7 +15,7 @@ module Ekylibre
     end
 
     def load
-      puts "Loading Lexicon ...".cyan
+      info("Loading Lexicon ...")
       drop_existing_version
       package = if Rails.env.test?
                   load_package('lexicon')
@@ -25,8 +25,7 @@ module Ekylibre
                 end
 
       if package.nil?
-        puts 'Error while reading the lexicon package'.red
-        exit(false)
+        error('Error while reading the lexicon package')
       else
         load_package_in_db(package)
       end
@@ -41,34 +40,37 @@ module Ekylibre
       end
 
       def download
-        puts "--Download lexicon #{version_in_file}...".cyan
-        result = download_lexicon(data_path, loader, version_in_file)
+        version = version_in_file
+        info("Download lexicon #{version}...")
+        result = download_lexicon(data_path, loader, semantic_version(version))
         if result.success?
-          puts "[ OK  ] The version #{version_in_file} has been downloaded.".green
+          success("The version #{version} has been downloaded.")
         else
-          puts '[ NOK ] Error while downloading.'.red
-          exit(false)
+          error('Error while downloading.')
         end
       rescue Aws::Sigv4::Errors::MissingCredentialsError => e
-        puts '[ NOK ] Missing credentials to download from MINIO'.red
-        exit(false)
+        error('Missing credentials to download from MINIO')
       end
 
       def load_package(version)
-        puts "--Load and validate package...".cyan
+        info("Load and validate package...")
         package = loader.load_package(version)
       end
 
       def version_in_file
         version = File.open('.lexicon-version', &:gets)&.strip
         if version.blank?
-          puts "No version is mentionned in the .lexicon-version file".red
-          exit(false)
+          error( "No version is mentionned in the .lexicon-version file")
         end
         version
       rescue
-        puts 'The file .lexicon-version is missing'.red
-        exit(false)
+        error('The file .lexicon-version is missing')
+      end
+
+      def semantic_version(version)
+        semver = Semantic::Version.new(version) 
+      rescue
+        error("Version #{version} doesn't exist")
       end
 
       # load from db/lexicon on production or development env
@@ -88,7 +90,7 @@ module Ekylibre
       end
 
       def drop_existing_version
-        puts "--Drop old Lexicon if exist...".cyan
+        info("Drop old Lexicon if exist...")
         @database.query("DROP SCHEMA IF EXISTS lexicon CASCADE")
       end
 
@@ -106,7 +108,7 @@ module Ekylibre
         Rails.application.config.database_configuration[Rails.env.to_s]
       end
 
-      def download_lexicon(out_dir, loader, version)
+      def download_lexicon(out_dir, loader, semantic_version)
         raw = ::Aws::S3::Client.new(endpoint: ENV.fetch('MINIO_HOST', 'https://io.ekylibre.dev'),
                                   access_key_id: ENV.fetch('MINIO_ACCESS_KEY', nil),
                                   secret_access_key: ENV.fetch('MINIO_SECRET_KEY', nil),
@@ -114,8 +116,20 @@ module Ekylibre
                                   region: 'us-east-1')
         s3 = ::Lexicon::Common::Remote::S3Client.new(raw: raw)
         downloader = ::Lexicon::Common::Remote::PackageDownloader.new(s3: s3, out_dir: out_dir, package_loader: loader)
-        semver = Semantic::Version.new(version) rescue nil
-        downloader.download(semver)
+        downloader.download(semantic_version)
+      end
+
+      def info(message)
+        puts "-- #{message}".cyan
+      end
+
+      def success(message)
+        puts "[ OK ] #{message}".green
+      end
+
+      def error(message)
+        puts "[ NOK ] #{message}".red
+        exit(false)
       end
 
       def load_package_in_db(package)
@@ -125,10 +139,10 @@ module Ekylibre
         psql = ::Lexicon::Common::Psql.new(url: lexicon_db_url, executor: executor)
 
         ds_loader = ::Lexicon::Common::Production::DatasourceLoader.new(shell: executor, database_factory: @factory, file_loader: file_loader, database_url: lexicon_db_url, table_locker: table_locker, psql: psql)
-        puts "--Load Package in DB...".cyan
+        info("Load Package in DB...")
         ds_loader.load_package(package)
 
-        puts "--Enable Package as lexicon in DB...".cyan
+        info("Enable Package as lexicon in DB...")
         @database.query <<~SQL
           BEGIN;
             ALTER SCHEMA "lexicon__#{package.version.to_s.gsub('.', '_')}" RENAME TO "lexicon";
@@ -136,7 +150,7 @@ module Ekylibre
             INSERT INTO "lexicon"."version" VALUES ('#{package.version}');
           COMMIT;
         SQL
-        puts 'Lexicon loaded successfully'.green
+        success('Lexicon loaded successfully')
       end
   end
 end
