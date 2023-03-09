@@ -68,7 +68,7 @@ module Ekylibre
       end
 
       def semantic_version(version)
-        semver = Semantic::Version.new(version) 
+        semver = Semantic::Version.new(version)
       rescue
         error("Version #{version} doesn't exist")
       end
