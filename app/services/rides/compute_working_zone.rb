@@ -28,7 +28,7 @@ module Rides
 
       def tool_width
         width = begin
-                  rides.first.equipment.width&.to_f
+                  rides.first.ride_set.products.map{ |product| product.get(:application_width).to_f }.compact.max || DEFAULT_TOOL_WIDTH
                 rescue NoMethodError => e
                   DEFAULT_TOOL_WIDTH
                 end

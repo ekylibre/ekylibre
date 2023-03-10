@@ -261,8 +261,14 @@ eng:
         status: "Allowed"
         usage_conditions: "Usage conditions"
       ride:
+        additional_tool_one: "Tool 1"
+        additional_tool_two: "Tool 2"
+        main_equipment: "Equipment"
         sleep_duration: "Break time"
       ride_set:
+        additional_tool_one: "Tool 1"
+        additional_tool_two: "Tool 2"
+        main_equipment: "Equipment"
         provider_vendor: "Provider"
         road: "Total distance (km)"
         sleep_duration: "Break time"

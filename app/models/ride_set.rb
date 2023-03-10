@@ -51,7 +51,8 @@ class RideSet < ApplicationRecord
   include HasInterval
   has_many :rides, dependent: :destroy
   has_many :crumbs, through: :rides
-
+  has_many :equipments, class_name: 'RideSetEquipment', dependent: :destroy
+  has_many :products, through: :equipments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :area_smart, :area_with_overlap, :area_without_overlap, :gasoline, numericality: true, allow_blank: true
   validates :duration, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
@@ -78,8 +79,18 @@ class RideSet < ApplicationRecord
     end
   end
 
-  def equipment
-    self.rides.first&.equipment_name
+  def main_equipment
+    equipments.of_nature('main').first.name
+  end
+
+  def additional_tool_one
+    tool_one = equipments.of_nature('additional')[0]
+    tool_one.name if tool_one
+  end
+
+  def additional_tool_two
+    tool_two = equipments.of_nature('additional')[1]
+    tool_two.name if tool_two
   end
 
   def state
