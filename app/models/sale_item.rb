@@ -188,7 +188,13 @@ class SaleItem < ApplicationRecord
         end
         self.pretax_amount ||= 0.0
         raw_pretax_amount = pretax_amount
-        self.unit_pretax_amount ||= (raw_pretax_amount / quantity / reduction_coefficient).round(precision)
+
+        raw_unit_pretax_amount = (raw_pretax_amount / quantity / reduction_coefficient).round(precision)
+        self.unit_pretax_amount ||= raw_unit_pretax_amount
+
+        if raw_unit_pretax_amount.nan?
+          self.unit_pretax_amount = 0.0
+        end
         self.unit_amount ||= tax.amount_of(unit_pretax_amount).round(precision)
       elsif compute_from_amount?
         if sale.reference_number.blank?
