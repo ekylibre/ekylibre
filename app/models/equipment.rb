@@ -98,6 +98,10 @@ class Equipment < Matter
   has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
   has_many :rides, class_name: 'Ride', foreign_key: :product_id
+
+  has_many :ride_set_equipments
+  has_many :ride_sets, through: :ride_set_equipments
+
   refers_to :variety, scope: :equipment
 
   validates_length_of :isacompta_analytic_code, is: 2, if: :isacompta_analytic_code?

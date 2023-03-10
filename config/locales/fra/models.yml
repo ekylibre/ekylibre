@@ -457,9 +457,15 @@ fra:
         untreated_buffer_plants: "ZNT plantes" #?
         usage_conditions: "Conditions d'usage"
       ride:
+        additional_tool_one: "Outil 1"
+        additional_tool_two: "Outil 2"
+        main_equipment: "Équipement"
         sleep_duration: "Temps de pause"
         provider_vendor: "Fournisseur"
       ride_set:
+        additional_tool_one: "Outil 1"
+        additional_tool_two: "Outil 2"
+        main_equipment: "Équipement"
         provider_vendor: "Fournisseur"
         road: "Distance totale (km)"
         sleep_duration: "Temps de pause"

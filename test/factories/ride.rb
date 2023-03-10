@@ -7,7 +7,6 @@ FactoryBot.define do
     provider { { "samsys" => "5f154208b4ff99eae26bf282" } }
     duration {'PT2H25M52S'}
     sleep_duration { 'PT2H8M54S' }
-    equipment_name { "Machine Étienne " }
     ride_set
   end
 end

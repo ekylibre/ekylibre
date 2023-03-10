@@ -59,16 +59,17 @@ class Ride < ApplicationRecord
   belongs_to :ride_set
   belongs_to :intervention
   has_many :crumbs, dependent: :destroy
+
   belongs_to :cultivable_zone
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :area_smart, :area_with_overlap, :area_without_overlap, :distance_km, :gasoline, numericality: true, allow_blank: true
   validates :converting_to_intervention, inclusion: { in: [true, false] }
-  validates :equipment_name, :number, length: { maximum: 500 }, allow_blank: true
+  validates :number, length: { maximum: 500 }, allow_blank: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(ride) { ride.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
-  validates :duration, :equipment_name, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
+  validates :duration, :number, :sleep_duration, length: { maximum: 500 }, allow_blank: true
 
   has_interval :duration, :sleep_duration
 
@@ -99,6 +100,20 @@ class Ride < ApplicationRecord
 
   def working_zone
     Rides::ComputeWorkingZone.call(rides: [self])
+  end
+
+  def main_equipment
+    ride_set.equipments.of_nature('main').first.name
+  end
+
+  def additional_tool_one
+    tool_one = ride_set.equipments.of_nature('additional')[0]
+    tool_one.name if tool_one
+  end
+
+  def additional_tool_two
+    tool_two = ride_set.equipments.of_nature('additional')[1]
+    tool_two.name if tool_two
   end
 
   %i[duration sleep_duration].each do |col|
