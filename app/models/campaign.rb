@@ -125,6 +125,10 @@ class Campaign < ApplicationRecord
     self.class.where('harvest_year > ?', harvest_year).order(:harvest_year)
   end
 
+  def current_and_followings
+    self.class.where('harvest_year >= ?', harvest_year).order(:harvest_year)
+  end
+
   # Return the following campaign
   def following
     followings.first

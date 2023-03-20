@@ -2656,8 +2656,8 @@ fra:
     preparation_time: Temps de préparation
     average_yield: Rendement moyen
     technical_itinerary: Itinéraire cultural
-    technical_workflow: "Itinéraire technique"
-    technical_sequence: "Séquence itinéraire technique"
+    technical_workflow: "Itinéraire technique (Lexicon)"
+    technical_sequence: "Séquence d'itinéraires techniques (Lexicon)"
     technical_itineraries: Itinéraires culturaux
     intervention_templates_list: Liste des interventions
     technical_itinerary_parameters: Paramètres de l'itinéraire cultural

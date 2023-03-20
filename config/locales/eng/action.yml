@@ -1522,6 +1522,10 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    import_or_create_technical_itinerary: "Import a technical itinerary from reference or create it first"
+    pick_existing_technical_itinerary: "Pick an existing technical itinerary"
+    pick_technical_workflow_from_lexicon: "Set a technical itinerary from reference (Lexicon), it will import it in your database."
+    pick_technical_sequence_from_lexicon: "Set a sequence of technical itineraries from reference (Lexicon)"
     fill_thousand_grains_count: Fill in thousand grains mass to get other indicators values.
     balance_gap: "balance gap\_"
     create_zero_intial_stock: Create zero initial stock
