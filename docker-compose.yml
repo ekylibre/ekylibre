@@ -11,10 +11,10 @@ services:
       - "3000:3000"
       - '8808:8808'
     environment:
-      POSTGRES_HOST: db
-      POSTGRES_DB: eky_docker_development
-      POSTGRES_USER: ekylibre
-      POSTGRES_PASSWORD: password
+      DB_HOST: db
+      DB_DEV_NAME: eky_development
+      DB_USERNAME: ekylibre
+      DB_PASSWORD: password
 
       REDIS_URL: redis://redis
 
@@ -23,9 +23,6 @@ services:
       ELASTIC_APM_ACTIVE: "false"
       BUNDLE_PATH: /usr/local/bundle/vendor
     volumes:
-      - type: bind
-        source: ./docker/dev/database.yml.sample
-        target: /eky/config/database.yml
       - .:/eky
       - bundle-volume:/usr/local/bundle
       - ~/.ssh:/home/ekylibre/.ssh
@@ -38,11 +35,11 @@ services:
     image: redis:5.0-alpine
 
   db:
-    image: kartoza/postgis
+    image: kartoza/postgis:13
     environment:
-      POSTGRES_PASSWORD: password
       POSTGRES_USER: ekylibre
-      POSTGRES_DB: eky_docker_development
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: eky_development, eky_test
       TZ: Europe/Paris
     volumes:
       - database-volume:/var/lib/postgresql/data
