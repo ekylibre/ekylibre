@@ -1,14 +1,17 @@
+- ti_exist = TechnicalItinerary.of_activity(f.object.activity).any?
 .nested-fields
   - bulk_units = Onoma::Unit.where(dimension: :mass).selection.reverse
   = link_to_remove_nested_association(:tactics, f)
   = f.input :default
   = f.referenced_association :campaign
-  - if f.object.activity.annual?
-    = f.referenced_association :technical_workflow, new: false
-  - if f.object.activity.perennial?
-    = f.referenced_association :technical_sequence, new: false
-  - if defined?(Planning) && TechnicalItinerary.of_activity(f.object.activity).any?
-    = f.referenced_association :technical_itinerary, source: {controller: 'planning/technical_itineraries', scope: { of_activity: f.object.activity} }, new: false
+  - if defined?(Planning) && ti_exist
+    = f.referenced_association :technical_itinerary, source: {controller: 'planning/technical_itineraries', scope: { of_activity: f.object.activity} }, new: false, hint: :pick_existing_technical_itinerary.tl
+  - elsif defined?(Planning)
+    = link_to(:import_or_create_technical_itinerary.tl, controller: 'planning/technical_itineraries', action: :index, target: :_blank)
+    -# if f.object.activity.annual?
+      = f.referenced_association :technical_workflow, new: false, hint: :pick_technical_workflow_from_lexicon.tl
+    -# if f.object.activity.perennial?
+      = f.referenced_association :technical_sequence, new: false, hint: :pick_technical_sequence_from_lexicon.tl
   = f.input :name
   = f.input :mode, as: :radio_buttons
   = f.delta_field(:planned_on, :mode_delta, :mode_unit_name, :days, {'name': :date.tl})
