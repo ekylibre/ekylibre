@@ -30,12 +30,15 @@ RUN mkdir /eky
 WORKDIR /eky
 
 COPY . /eky
-COPY ./docker/dev/database.yml.sample /eky/config/database.yml
 
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
     echo "deb http://apt.postgresql.org/pub/repos/apt/ $(grep -oP 'VERSION_CODENAME=\K\w+' /etc/os-release)-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
     apt-get -y install --no-install-recommends postgresql-client-11 python3-pip git
+
+RUN wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4_usertrust_rsa_certification_authority.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4_usertrust_rsa_certification_authority.crt \
+    && wget https://services.renater.fr/_media/tcs/geant_ov_rsa_ca_4.pem -O /usr/local/share/ca-certificates/geant_ov_rsa_ca_4.crt \
+    && update-ca-certificates
 
 RUN addgroup --gid $GID ekylibre  && \
     useradd --create-home --home-dir /home/ekylibre -s /bin/bash -g $GID -u $UID ekylibre && \
@@ -43,10 +46,6 @@ RUN addgroup --gid $GID ekylibre  && \
 
 RUN mkdir -p /opt/proj/share && tar -xf ./docker/dev/proj.tar.gz -C /opt/proj/share/
 
-RUN git clone https://gitlab.com/ekylibre/lexicon/lexicon-cli.git /lexicon-client
-WORKDIR /lexicon-client
+RUN mv ./.env.dist ./.env && mkdir -p ./db/lexicon
 
-RUN mv /eky/docker/dev/lexicon-tmp.env ./.env && mkdir ./out && chown -R ekylibre:ekylibre .
-
-WORKDIR /eky
 USER ekylibre
