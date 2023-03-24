@@ -103,7 +103,7 @@ class Ride < ApplicationRecord
   end
 
   def main_equipment
-    ride_set.equipments.of_nature('main').first.name
+    ride_set.equipments.of_nature('main')&.first&.name
   end
 
   def additional_tool_one
