@@ -114,7 +114,7 @@ class OfxImport
 
     def generate_bank_statement_number
       statement_duration_days = (ofx_statement.end_date - ofx_statement.start_date).to_i
-      if statement_duration_days <= 99
+      if statement_duration_days <= 365
         formatted_duration = format('%02i', statement_duration_days)
         ofx_statement.start_date.strftime('%Y%m%d') + formatted_duration
       end
