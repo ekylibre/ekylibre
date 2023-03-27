@@ -264,6 +264,8 @@ purchases:
 bank_statements:
   ekylibre_bank_statements:
     path: 'alamano/bank_statements.ods'
+  ekylibre_ofx_import:
+    path: 'alamano/ofx.zip'
 
 cash_transfers:
   ekylibre_cash_transfers:
