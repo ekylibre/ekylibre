@@ -13,9 +13,7 @@ module Rides
       working_zone = Rides::ComputeWorkingZone.call(rides: [ride])
       assert_equal(4470.75047466861, working_zone.area)
 
-      equipment =  create(:equipment)
-      equipment.read!('width', Measure.new(10, :meter))
-      ride.update(equipment: equipment)
+      ride.ride_set.products.first.read!('width', Measure.new(10, :meter))
       working_zone = Rides::ComputeWorkingZone.call(rides: [ride])
       assert_equal(4470.75047466861, working_zone.area)
     end

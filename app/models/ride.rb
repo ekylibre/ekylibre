@@ -55,9 +55,8 @@ class Ride < ApplicationRecord
   include Attachable
   include Providable
   include HasInterval
-  belongs_to :equipment, class_name: 'Equipment', foreign_key: :product_id
   belongs_to :ride_set
-  belongs_to :intervention
+  belongs_to :intervention, dependent: :destroy
   has_many :crumbs, dependent: :destroy
 
   belongs_to :cultivable_zone
@@ -114,6 +113,10 @@ class Ride < ApplicationRecord
   def additional_tool_two
     tool_two = ride_set.equipments.of_nature('additional')[1]
     tool_two.name if tool_two
+  end
+
+  def equipments_name
+    ride_set.equipments.map { |equipment| equipment.product.name }.join('+ ')
   end
 
   %i[duration sleep_duration].each do |col|
