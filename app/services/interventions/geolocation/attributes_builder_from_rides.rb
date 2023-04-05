@@ -34,6 +34,18 @@ module Interventions
           }
         end
 
+        if procedure = Procedo::Procedure.find(@procedure_name)
+          existing_rides.first.ride_set.equipments.map(&:product).each_with_index do |equipment, index|
+            procedure.parameters_of_type(:tool).each do |tool|
+              next unless equipment.of_expression(tool.filter)
+
+              options[:tools_attributes] ||= {}
+              options[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
+              break
+            end
+          end
+        end
+
         options[:working_periods_attributes] = [{
           started_at: started_at,
           stopped_at: existing_rides.maximum(:stopped_at)
@@ -55,11 +67,15 @@ module Interventions
         end
 
         def existing_rides
-          @existing_rides ||= Ride.left_joins(:equipment).linkable_to_intervention.where(id: @ride_ids)
+          @existing_rides ||= Ride.linkable_to_intervention.where(id: @ride_ids)
         end
 
         def started_at
           existing_rides.minimum(:started_at)
+        end
+
+        def main_equipment
+          existing_rides.first.ride_set.equipments.find_by(nature: 'main')
         end
 
         def target_parameter
