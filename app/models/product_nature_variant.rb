@@ -217,6 +217,13 @@ class ProductNatureVariant < ApplicationRecord
       self.type = type_allocator.find_type
     end
 
+    # reorder journal entry if exist and not lock
+    if changes_to_save.key?('category_id')
+      if journal_entry_items.any?
+        true
+      end
+    end
+
     if changes_to_save.key?('default_unit_id')
       self.default_unit_name = default_unit.reference_name
     end
@@ -237,7 +244,9 @@ class ProductNatureVariant < ApplicationRecord
     self.unit_name ||= default_unit.name if default_unit
   end
 
-  before_save :set_accounts_from_category
+  before_save :set_stock_accounts_from_category
+
+  after_update :set_other_accounts_from_category
 
   validate do
     if nature.present?
@@ -971,10 +980,27 @@ class ProductNatureVariant < ApplicationRecord
 
   # @private
   # Lifecycle: called before_save
-  private def set_accounts_from_category
+  private def set_stock_accounts_from_category
     if category && category_id_changed? && storable?
       self.stock_account = create_unique_account(:stock)
       self.stock_movement_account = create_unique_account(:stock_movement)
+    end
+  end
+
+  # @private
+  # Lifecycle: called after_update
+  private def set_other_accounts_from_category
+    if saved_change_to_attribute?(:category_id) && journal_entry_items.any?
+      modes = []
+      modes << 'purchase' if purchase_items.any?
+      modes << 'sale' if sale_items.any?
+      if FixedAsset.of_variant(self).any?
+        modes << 'fixed_asset'
+        modes << 'fixed_asset_allocation'
+        modes << 'fixed_asset_expenses'
+      end
+      # stock account are management by set_stock_accounts_from_category
+      Accountancy::AccountCategoryChangingJob.perform_later(category: category, financial_year: FinancialYear.current, modes: modes, variant_id: id, perform_as: updater)
     end
   end
 end

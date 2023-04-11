@@ -82,6 +82,15 @@ module Backend
       @product_nature_category = find_and_check
       @form_url = backend_product_nature_category_path(@product_nature_category)
       @key = 'product_nature_category'
+      # infos concerning mass changing account on category
+      fy = FinancialYear.current
+      started_at = fy.started_on.to_time
+      stopped_at = fy.stopped_on.to_time
+      sales_or_purchases_or_assets_count = 0
+      sales_or_purchases_or_assets_count += PurchaseItem.of_product_nature_category(@product_nature_category).between(started_at, stopped_at).count
+      sales_or_purchases_or_assets_count += SaleItem.of_product_nature_category(@product_nature_category).between(started_at, stopped_at).count
+      sales_or_purchases_or_assets_count += FixedAsset.of_product_nature_category(@product_nature_category).start_between(started_at.to_date, stopped_at.to_date).count
+      notify_warning_now(:there_are_x_existing_items_on_category_to_update_if_you_change_account, count: sales_or_purchases_or_assets_count) if sales_or_purchases_or_assets_count > 0
       t3e(@product_nature_category.attributes)
     end
 
