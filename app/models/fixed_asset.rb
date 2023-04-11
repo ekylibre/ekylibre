@@ -106,6 +106,7 @@ class FixedAsset < ApplicationRecord
   belongs_to :tax
   belongs_to :sale
   belongs_to :sale_item
+
   has_many :purchase_items, inverse_of: :fixed_asset
   has_many :depreciations, -> { order(:position) }, dependent: :destroy, class_name: 'FixedAssetDepreciation' do
     def following(depreciation)
@@ -117,6 +118,7 @@ class FixedAsset < ApplicationRecord
   has_many :parcel_items, through: :purchase_item
   has_many :delivery_products, through: :parcel_items, source: :product
   has_one :tool, class_name: 'Equipment'
+  has_one :variant, class_name: 'ProductNatureVariant', through: :product
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
@@ -155,7 +157,25 @@ class FixedAsset < ApplicationRecord
   scope :used, -> { where(state: %w[in_use]) }
   scope :sold_or_scrapped, -> { where(state: %w[sold scrapped]) }
   scope :start_before, ->(date) { where('fixed_assets.started_on <= ?', date) }
+  scope :start_after, ->(date) { where('fixed_assets.started_on >= ?', date) }
   scope :not_linked_to_sale, -> { used.where(sale_id: nil, sale_item_id: nil) }
+
+  scope :start_between, lambda { |started_on, stopped_on|
+    where('fixed_assets.started_on >= ? AND fixed_assets.started_on <= ?', started_on, stopped_on)
+  }
+
+  # return all fixed_asset for the consider product_nature_category
+  scope :of_product_nature_category, lambda { |product_nature_category|
+    joins(:variant).merge(ProductNatureVariant.of_category(product_nature_category))
+  }
+
+  scope :of_variant, lambda { |variant|
+    joins(:variant).merge(ProductNatureVariant.where(id: variant.id))
+  }
+
+  scope :of_variants, lambda { |variants|
+    joins(:variant).merge(ProductNatureVariant.where(id: variants.pluck(:id)))
+  }
 
   # [DEPRECATIONS[
   #  - purchase_id

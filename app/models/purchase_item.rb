@@ -126,9 +126,14 @@ class PurchaseItem < ApplicationRecord
   scope :between, lambda { |started_at, stopped_at|
     joins(:purchase).merge(Purchase.invoiced_between(started_at, stopped_at))
   }
-  # return all sale items for the consider product_nature
+  # return all purchase items for the consider product_nature
   scope :of_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
+  }
+
+  # return all purchase items for the consider product_nature_variant
+  scope :of_variants, lambda { |variants|
+    joins(:variant).merge(ProductNatureVariant.where(id: variants.pluck(:id)))
   }
 
   # return all sale items for the consider product_nature

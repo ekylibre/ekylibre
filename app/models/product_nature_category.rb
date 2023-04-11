@@ -128,6 +128,22 @@ class ProductNatureCategory < ApplicationRecord
     true
   end
 
+  after_update do
+    if variants.any?
+      modes = []
+      modes << 'purchase' if saved_change_to_attribute?(:charge_account_id) && PurchaseItem.of_product_nature_category(self).any?
+      modes << 'sale' if saved_change_to_attribute?(:product_account_id) && SaleItem.of_product_nature_category(self).any?
+      if FixedAsset.of_product_nature_category(self).any?
+        modes << 'fixed_asset' if saved_change_to_attribute?(:fixed_asset_account_id)
+        modes << 'fixed_asset_allocation' if saved_change_to_attribute?(:fixed_asset_allocation_account_id)
+        modes << 'fixed_asset_expenses' if saved_change_to_attribute?(:fixed_asset_expenses_account_id)
+      end
+      modes << 'stock' if saved_change_to_attribute?(:stock_account_id) && storable?
+      modes << 'stock_movement' if saved_change_to_attribute?(:stock_movement_account_id) && storable?
+      Accountancy::AccountCategoryChangingJob.perform_later(category: self, financial_year: FinancialYear.current, modes: modes, perform_as: updater) if modes.any?
+    end
+  end
+
   def to
     to = []
     to << :sales if saleable?

@@ -1306,6 +1306,7 @@ fra:
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
     account_certification_by_competent_person: "Je certifie que mes comptes ont été révisés en dehors du logiciel par la personne compétente."
     account_certification_by_competent_person_close: "Je certifie que mes comptes ont été révisés par la personne compétente."
+    account_changing_updated: "%{mode} : %{count} enregistrement(s) mis à jour avec le compte %{number}"
     account_claims_assets: "Créances" #?
     account_client_to_create: "— Créer automatiquement un compte client —" #?
     account_current_assets: "Actif circulant" #?
@@ -2229,6 +2230,7 @@ fra:
     first_contact: "Adresse principale" #?
     first_line_as_title: "Titre en première ligne"
     fiscal: "Fisc"
+    fixed_asset: 'Immobilisation'
     fixed_asset_debts: "Dettes sur immobilisations"
     fixed_asset_depreciations: "Amortissements"
     fixed_asset_depreciations_not_accounted_on_current_financial_year: "Des amortissements n'ont pas été passés en comptabilité sur l'exercice %{code}"
@@ -4206,6 +4208,7 @@ fra:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
+      there_are_x_existing_items_on_category_to_update_if_you_change_account: "%{count} pièces de gestion sur l'exercice en cours (vente, achat, immobilisation, stock) vont être modifiées si vous modifier un compte comptable. Cela ne modifie pas les écritures comptables validées ou vérouillées"
       there_are_x_remaining_unbalanced_entries:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."

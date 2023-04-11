@@ -141,6 +141,11 @@ class SaleItem < ApplicationRecord
     joins(:variant).merge(ProductNatureVariant.of_natures(Array(product_nature)))
   }
 
+  # return all sale items for the consider product_nature_variant
+  scope :of_variants, lambda { |variants|
+    joins(:variant).merge(ProductNatureVariant.where(id: variants.pluck(:id)))
+  }
+
   # return all sale items for the consider product_nature
   scope :of_product_nature_category, lambda { |product_nature_category|
     joins(:variant).merge(ProductNatureVariant.of_category(product_nature_category))
