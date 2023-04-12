@@ -8,7 +8,8 @@ module Accountancy
       I18n.locale = :fra
       FinancialYear.delete_all
       Preference.set!(:accounting_system, 'fr_pcga')
-      @fy = create(:financial_year, year: 2023)
+      @fy_first = create(:financial_year, year: 2022)
+      @fy_last = create(:financial_year, year: 2023)
       @nature = SaleNature.find_or_create_by(currency: 'EUR')
       @client = Entity.normal.first
       @standard_vat = Tax.create!(
@@ -37,7 +38,7 @@ module Accountancy
       account = Account.find_or_create_by_number('70200000')
       variant.category.update(product_account: account)
       # call service
-      service = Accountancy::AccountCategoryChanging.new(category: variant.category, financial_year: @fy, modes: ['sale'])
+      service = Accountancy::AccountCategoryChanging.new(category: variant.category, financial_year_ids: [@fy_first.id, @fy_last.id], modes: ['sale'])
       service.perform
       sale.reload
       assert_equal sale.items.first.account_id, account.id

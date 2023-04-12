@@ -83,9 +83,9 @@ module Backend
       @form_url = backend_product_nature_category_path(@product_nature_category)
       @key = 'product_nature_category'
       # infos concerning mass changing account on category
-      fy = FinancialYear.current
-      started_at = fy.started_on.to_time
-      stopped_at = fy.stopped_on.to_time
+      fy = FinancialYear.opened.order(:started_on)
+      started_at = fy.first.started_on.to_time
+      stopped_at = fy.last.stopped_on.to_time
       sales_or_purchases_or_assets_count = 0
       sales_or_purchases_or_assets_count += PurchaseItem.of_product_nature_category(@product_nature_category).between(started_at, stopped_at).count
       sales_or_purchases_or_assets_count += SaleItem.of_product_nature_category(@product_nature_category).between(started_at, stopped_at).count

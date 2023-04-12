@@ -7,18 +7,18 @@ module Accountancy
     # financial_year FinancialYear, default is FinancialYear.current
     # category ProductNatureCategory
     # variant_id Integer of ProductNatureVariant
-    def initialize(category:, financial_year:, modes:, variant_id: nil)
+    def initialize(category:, financial_year_ids:, modes:, variant_id: nil)
       @category = category
       if variant_id.present?
         @variants = ProductNatureVariant.where(id: variant_id)
       else
         @variants = @category.variants
       end
-      @financial_year = financial_year
-      @started_on = @financial_year.started_on
-      @stopped_on = @financial_year.stopped_on
-      @started_at = @financial_year.started_on.to_time
-      @stopped_at = @financial_year.stopped_on.to_time
+      @financial_years = FinancialYear.where(id: financial_year_ids).opened.reorder(:started_on)
+      @started_on = @financial_years.first.started_on
+      @stopped_on = @financial_years.last.stopped_on
+      @started_at = @started_on.to_time
+      @stopped_at = @stopped_on.to_time
       @modes = modes
       @result_infos = []
     end
@@ -81,7 +81,7 @@ module Accountancy
       end
 
       def sale_journal_entries
-        JournalEntryItem.where(financial_year: @financial_year, variant_id: @variants.pluck(:id), resource_type: 'SaleItem', resource_prism: 'item_product')
+        JournalEntryItem.where(financial_year_id: @financial_years.pluck(:id), variant_id: @variants.pluck(:id), resource_type: 'SaleItem', resource_prism: 'item_product')
       end
 
       def purchase_items
@@ -89,7 +89,7 @@ module Accountancy
       end
 
       def purchase_journal_entries
-        JournalEntryItem.where(financial_year: @financial_year, variant_id: @variants.pluck(:id), resource_type: 'PurchaseItem', resource_prism: 'item_product')
+        JournalEntryItem.where(financial_year_id: @financial_years.pluck(:id), variant_id: @variants.pluck(:id), resource_type: 'PurchaseItem', resource_prism: 'item_product')
       end
 
       def fixed_assets_items

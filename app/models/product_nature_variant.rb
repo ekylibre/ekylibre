@@ -1000,7 +1000,7 @@ class ProductNatureVariant < ApplicationRecord
         modes << 'fixed_asset_expenses'
       end
       # stock account are management by set_stock_accounts_from_category
-      Accountancy::AccountCategoryChangingJob.perform_later(category: category, financial_year: FinancialYear.current, modes: modes, variant_id: id, perform_as: updater)
+      Accountancy::AccountCategoryChangingJob.perform_later(category: category, financial_year_ids: FinancialYear.opened.pluck(:id), modes: modes, variant_id: id, perform_as: updater)
     end
   end
 end

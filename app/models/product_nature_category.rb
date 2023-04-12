@@ -140,7 +140,7 @@ class ProductNatureCategory < ApplicationRecord
       end
       modes << 'stock' if saved_change_to_attribute?(:stock_account_id) && storable?
       modes << 'stock_movement' if saved_change_to_attribute?(:stock_movement_account_id) && storable?
-      Accountancy::AccountCategoryChangingJob.perform_later(category: self, financial_year: FinancialYear.current, modes: modes, perform_as: updater) if modes.any?
+      Accountancy::AccountCategoryChangingJob.perform_later(category: self, financial_year_ids: FinancialYear.opened.pluck(:id), modes: modes, perform_as: updater) if modes.any?
     end
   end
 

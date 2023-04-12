@@ -4208,7 +4208,7 @@ fra:
       the_automatic_lettering_cannot_be_done_in_accountancy_because_too_many_thirds_are_present: "Le lettrage automatique ne peut pas être fait en comptabilité parce que trop de tiers sont présents"
       the_bookkeep_date_format_is_invalid: "Le format de la date de comptabilisation n’est pas valide"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
-      there_are_x_existing_items_on_category_to_update_if_you_change_account: "%{count} pièces de gestion sur l'exercice en cours (vente, achat, immobilisation, stock) vont être modifiées si vous modifier un compte comptable. Cela ne modifie pas les écritures comptables validées ou vérouillées"
+      there_are_x_existing_items_on_category_to_update_if_you_change_account: "Attention ! %{count} pièces de gestion (vente, achat, immobilisation, stock) sont associées à cette catégorie sur les exercices ouverts. Les écritures comptables associées seront mises à jour si vous en modifiez les paramètres comptables. Cela ne va pas modifier les écritures comptables déjà validées ou vérouillées"
       there_are_x_remaining_unbalanced_entries:
         one: "%{count} écriture sur la période n'est pas équilibrée. Elle doit être corrigée pour effectuer une validation globale."
         other: "%{count} écritures sur la période ne sont pas équilibrées. Elle doivent être corrigées pour effectuer une validation globale."
