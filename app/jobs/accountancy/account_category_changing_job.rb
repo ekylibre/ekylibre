@@ -7,8 +7,8 @@ module Accountancy
     # financial_year FinancialYear, default is current
     # category ProductNatureCategory
     # variant_id Integer of ProductNatureVariant
-    def perform(category:, financial_year:, modes:, variant_id: nil, perform_as:)
-      account_service_changing = Accountancy::AccountCategoryChanging.new(category: category, financial_year: financial_year, modes: modes, variant_id: variant_id)
+    def perform(category:, financial_year_ids:, modes:, variant_id: nil, perform_as:)
+      account_service_changing = Accountancy::AccountCategoryChanging.new(category: category, financial_year_ids: financial_year_ids, modes: modes, variant_id: variant_id)
       account_service_changing.perform
       infos = account_service_changing.result_infos
       infos.each do |info|
