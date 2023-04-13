@@ -63,6 +63,7 @@ class CustomField < ApplicationRecord
   validates :column_name, format: { with: /\A([a-z]+(\_[a-z]+)*)+\z/ }
   validates :column_name, exclusion: { in: ['_destroy'] }
   validates :customized_type, presence: true
+  validate :column_name_dont_use_reserved_words
 
   accepts_nested_attributes_for :choices
   acts_as_list scope: 'customized_type = \'#{customized_type}\''
@@ -111,4 +112,12 @@ class CustomField < ApplicationRecord
   def customized_table_name
     customized_model.table_name
   end
+
+  private
+
+    def column_name_dont_use_reserved_words
+      if column_name && respond_to?(column_name, true)
+        errors.add(:name, :invalid)
+      end
+    end
 end
