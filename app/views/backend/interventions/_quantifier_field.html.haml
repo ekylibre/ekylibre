@@ -20,8 +20,13 @@
     end
 
   = f.input(:quantity, wrapper: :append, required: f.object.class.validators_on(:quantity_population).any? { |v| v.is_a? ActiveRecord::Validations::PresenceValidator }) do
-    = f.input :quantity_value, input_html: { data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value', intervention_handler: "quantity" } }, wrapper: :simplest
-    = f.input(:quantity_handler, collection: options, include_blank: false, input_html: { data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler', **additional_data } }, wrapper: :simplest)
+    - if  %w[plant_medicine fertilizer].include?(reference.name.to_s)
+      = f.input(:quantity_handler, collection: options, include_blank: false, input_html: { data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler', **additional_data } }, wrapper: :simplest)
+      = f.input :quantity_value, input_html: { data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value', intervention_handler: "quantity" } }, wrapper: :simplest
+    - else
+      = f.input :quantity_value, input_html: { data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value', intervention_handler: "quantity" } }, wrapper: :simplest
+      = f.input(:quantity_handler, collection: options, include_blank: false, input_html: { data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler', **additional_data } }, wrapper: :simplest)
+
   = f.error :quantity_population
   = f.input(:spray_volume, as: :hidden, wrapper: :append, class: :inline, label: :spray_volume.tl) do
     = f.input_field(:spray_volume_value, { data: { intervention_field: 'spray-volume' } })
