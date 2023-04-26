@@ -77,15 +77,37 @@ module Accountancy
       end
 
       def sale_items
-        SaleItem.of_variants(@variants).between(@started_at, @stopped_at)
+        si = SaleItem.of_variants(@variants).between(@started_at, @stopped_at)
+        si_ids = si.pluck(:id)
+        # find and excluse sale items link to vat items
+        jei = JournalEntryItem.where(financial_year_id: @financial_years.pluck(:id), resource_id: si_ids, resource_type: 'SaleItem', resource_prism: 'item_tax')
+        tdip = TaxDeclarationItemPart.where(journal_entry_item_id: jei.pluck(:id)) if jei.any?
+        if jei.any? && tdip.any?
+          jei_to_exclude = JournalEntryItem.where(id: tdip.pluck(:journal_entry_item_id))
+          si_to_exclude = SaleItem.where(id: jei_to_exclude.pluck(:resource_id))
+          si - si_to_exclude
+        else
+          si
+        end
+      end
+
+      def purchase_items
+        pi = PurchaseItem.of_variants(@variants).between(@started_at, @stopped_at)
+        pi_ids = pi.pluck(:id)
+        # find and excluse purchase items link to vat items
+        jei = JournalEntryItem.where(financial_year_id: @financial_years.pluck(:id), resource_id: pi_ids, resource_type: 'PurchaseItem', resource_prism: 'item_tax')
+        tdip = TaxDeclarationItemPart.where(journal_entry_item_id: jei.pluck(:id)) if jei.any?
+        if jei.any? && tdip.any?
+          jei_to_exclude = JournalEntryItem.where(id: tdip.pluck(:journal_entry_item_id))
+          pi_to_exclude = PurchaseItem.where(id: jei_to_exclude.pluck(:resource_id))
+          pi - pi_to_exclude
+        else
+          pi
+        end
       end
 
       def sale_journal_entries
         JournalEntryItem.where(financial_year_id: @financial_years.pluck(:id), variant_id: @variants.pluck(:id), resource_type: 'SaleItem', resource_prism: 'item_product')
-      end
-
-      def purchase_items
-        PurchaseItem.of_variants(@variants).between(@started_at, @stopped_at)
       end
 
       def purchase_journal_entries
