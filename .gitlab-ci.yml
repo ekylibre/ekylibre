@@ -12,7 +12,7 @@ variables:
   DOCKER_TLS_CERTDIR: ""
   TEST_IMAGE: ${CI_REGISTRY_IMAGE}/test:$CI_COMMIT_REF_SLUG
   TEST_LATEST: ${CI_REGISTRY_IMAGE}/test:latest
-  REVIEW_HOST: ${CI_BUILD_REF_SLUG}.ci.ekylibre.dev
+  REVIEW_HOST: ${CI_COMMIT_REF_SLUG}.ci.ekylibre.dev
   KUBE_NAMESPACE: eky-test-deploy
 
 #  PROD_RAILS: ${CI_REGISTRY_IMAGE}/ekylibre-rails:$CI_COMMIT_REF_SLUG
@@ -32,7 +32,7 @@ build_test:
   services:
     - docker:19.03-dind
   before_script:
-    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
     - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/test/Dockerfile -i test
 
@@ -49,14 +49,14 @@ build_test:
 #  before_script:
 #    - apk add openssh-client
 #    - /install-ssh-key $PLUGIN_SSH_KEY
-#    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+#    - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
 #  script:
 #    - for plugin in $EKYLIBRE_PLUGINS; do echo "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" && git clone "git@gitlab.com:ekylibre/ekylibre-${plugin}.git" "plugins/${plugin}"; done
 #    - /exec ruby /build.rb -v -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/prod/Dockerfile -i ci-rails-aio-2.3
 #
 #
 #.review_key: &REVIEW_KEY
-#  name: review/eky/$CI_BUILD_REF_NAME
+#  name: review/eky/$CI_COMMIT_REF_NAME
 #
 #.review_branches: &REVIEW_BRANCHES
 #  only:
@@ -117,7 +117,7 @@ doc_build:
   services:
     - docker:19.03-dind
   before_script:
-    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
     - /exec ruby /build.rb -v -a TEST_IMAGE -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/doc/Dockerfile -i doc
 
