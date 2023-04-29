@@ -408,6 +408,7 @@ linters:
       - "app/views/backend/unreceived_purchase_orders/index.html.haml"
       - "app/views/backend/unreceived_purchase_orders/show.html.haml"
       - "app/views/backend/users/show.html.haml"
+      - "app/views/backend/user_tickets/show.html.haml"
       - "app/views/backend/variants/articles/plant_medicine_articles/_plant_medicines_cobbles.html.haml"
       - "app/views/backend/variants/shared/_main_informations.html.haml"
       - "app/views/backend/wine_tanks/index.html.haml"

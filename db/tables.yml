@@ -11035,6 +11035,40 @@ users:
 version:
   version:
     type: string
+user_tickets:
+  agent_email:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  provider:
+    type: jsonb
+  ticket_quantity:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  used_on:
+    type: date
+  user_email:
+    type: string
 versions:
   created_at:
     type: datetime
