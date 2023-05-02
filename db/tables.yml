@@ -10784,6 +10784,41 @@ regularizations:
     type: integer
     references: user
     limit: 4
+ride_set_equipments:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 8
+  id:
+    type: integer
+    limit: 8
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  nature:
+    type: string
+  product_id:
+    type: integer
+    references: product
+    limit: 8
+  provider:
+    type: jsonb
+  ride_set_id:
+    type: integer
+    references: ride_set
+    limit: 8
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 8
 ride_sets:
   area_smart:
     type: float
@@ -10867,8 +10902,6 @@ rides:
     type: float
   duration:
     type: interval
-  equipment_name:
-    type: string
   gasoline:
     type: float
   id:
@@ -12376,6 +12409,45 @@ units:
     limit: 4
   work_code:
     type: string
+user_tickets:
+  agent_email:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 8
+  description:
+    type: text
+  id:
+    type: integer
+    limit: 8
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  name:
+    type: string
+  provider:
+    type: jsonb
+  ticket_quantity:
+    type: integer
+    limit: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 8
+  used_on:
+    type: date
+  user_email:
+    type: string
 users:
   administrator:
     type: boolean
@@ -12514,40 +12586,6 @@ users:
     limit: 4
 version:
   version:
-    type: string
-user_tickets:
-  agent_email:
-    type: string
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  description:
-    type: text
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-  provider:
-    type: jsonb
-  ticket_quantity:
-    type: integer
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  used_on:
-    type: date
-  user_email:
     type: string
 versions:
   created_at:
