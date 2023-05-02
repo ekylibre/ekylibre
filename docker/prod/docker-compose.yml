@@ -1,41 +1,86 @@
 version: "3.4"
 
 services:
-  rails:
-    image: ${RAILS_IMAGE:?RAILS_IMAGE is not set or empty}
+  app:
+    user: ekylibre
+    env_file: .env
+    image: registry.gitlab.com/ekylibre/eky/ekylibre:test-ci
+    build:
+      dockerfile: docker/prod/Dockerfile
+      context: ../..
     ports:
-      - 0.0.0.0:8080:8080
-    environment:
-      POSTGRES_HOST: db
-      POSTGRES_DB: ekylibre
-      POSTGRES_USER: ekylibre
-      POSTGRES_PASSWORD: password
-
-      REDIS_URL: redis://redis
-
-      RAILS_ENV: production
-      RAILS_SERVE_STATIC_FILES: "true"
-      RAILS_LOG_TO_STDOUT: "true"
-      GPG_EMAIL: do-not-trust@ekylibre.com
-      DEVISE_SECRET_KEY: !ChangeMe!
-      SECRET_KEY_BASE: !ChangeMe!
-
-      ELASTIC_APM_ACTIVE: "false"
-
-      SMTP_ADDRESS: smtp-relay.gmail.com
-      SMTP_DOMAIN: ekylibre.com
-      SMTP_USER_NAME: do-not-trust@ekylibre.com
-      SMTP_PASSWORD: !SetMe!
+      - "3000:3000"
+      - '8808:8808'
     volumes:
-      - ../../app:/app/app:ro
+      - log:/app/log
+      - tmp:/app/tmp
+      - public:/app/public
+    command: docker/startup.sh
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  sidekiq:
+    env_file: .env
+    image: registry.gitlab.com/ekylibre/eky/ekylibre:test-ci
+    build:
+      dockerfile: docker/prod/Dockerfile
+      context: ../..
+    command: bundle exec sidekiq
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      app:
+        condition: service_started
+    restart: on-failure
 
   redis:
     image: redis:5.0-alpine
 
   db:
-    image: ${DATABASE_IMAGE:?DATABASE_IMAGE is not set or empty}
+    image: kartoza/postgis:13
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: ekylibre
-      POSTGRES_DB: ekylibre
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_PROD_NAME}
+      POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
+      ALLOW_IP_RANGE: 0.0.0.0/24
       TZ: Europe/Paris
+    volumes:
+      - database-prod-volume:/var/lib/postgresql/data
+      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5431:5432"
+    command: ["postgres", "-c", "log_statement=all"]
+    healthcheck:
+      test: "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_PROD_NAME}"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - public:/app/public     
+      - certs:/etc/letsencrypt
+    depends_on:
+      - app
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certs:/etc/letsencrypt
+      - ./letsencrypt:/bin/letsencrypt
+    entrypoint: /bin/sh
+
+volumes:
+  database-prod-volume:
+  log:
+  tmp:
+  public:
+  certs:

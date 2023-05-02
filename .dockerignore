@@ -3,10 +3,9 @@
 .gitconfig
 .idea/
 /config/application.yml
-/config/database.yml
 coverage/
 db/first_runs/
-db/lexicon/data.sql
+db/lexicon/
 doc/
 k8s/
 log/

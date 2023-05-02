@@ -92,7 +92,7 @@ def render_item_label(item)
   name = item.namespace.is_a?(CodeObjects::Proxy) ? item.path : item.name
   has_children = item.is_a?(CodeObjects::NamespaceObject) && run_verifier(item.children).any? { |o| o.is_a?(CodeObjects::NamespaceObject) }
 
-  html = ""
+  html = "".dup
   html << "<a class='toggle'></a> " if has_children
   html << linkify(item, name)
   html << " &lt; #{item.superclass.name}" if item.is_a?(CodeObjects::ClassObject) && item.superclass

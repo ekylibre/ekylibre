@@ -66,7 +66,6 @@ private/*
 /docker/db/.initialized
 
 # Ignore local database config
-/config/database.yml
 /config/api.yml
 /config/tools.xml
 /config/tenants.yml
@@ -111,8 +110,6 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
-
-OFFER
 
 # Remote rubocop configurations
 /.rubocop-*

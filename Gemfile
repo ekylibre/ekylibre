@@ -182,6 +182,9 @@ gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
 # Used to convert markdown to html
 gem 'gitlab_kramdown', '~> 0.6'
 
+# for loading lexicon 5 in test mode
+gem 'lexicon-common', '~> 0.2.0'
+
 group :production do
   # Use unicorn as the app server
   gem 'unicorn', '~> 5.8'
@@ -244,8 +247,7 @@ group :test do
   gem 'simplecov-cobertura', '~> 2.1.0'
 
   gem 'rails-controller-testing', '~> 1.0'
-  # for loading lexicon 5 in test mode
-  gem 'lexicon-common', '~> 0.2.0'
+
   gem 'vcr', "~> 6.0.0"
   gem 'webmock', "~> 3.13.0"
 end

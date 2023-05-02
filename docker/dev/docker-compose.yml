@@ -1,0 +1,71 @@
+version: "3.4"
+
+services:
+  app:
+    stdin_open: true
+    tty: true
+    build:
+      dockerfile: docker/dev/Dockerfile
+      context: ../..
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    env_file: .env
+    ports:
+      - "3000:3000"
+      - '8808:8808'
+    volumes:
+      - ../..:/app
+      - bundle-volume:/app/vendor/bundle
+      - docker-dev:/app/docker/dev
+      - ~/.ssh:/home/ekylibre/.ssh
+      - ../../../plugins/:/plugins/
+    command: docker/startup.sh
+    depends_on:
+      - redis
+      - db
+
+  sidekiq:
+    build:
+      dockerfile: docker/dev/Dockerfile
+      context: ../..
+    env_file: .env
+    volumes:
+      - ../..:/app
+      - bundle-volume:/app/vendor/bundle
+      - docker-dev:/app/docker/dev
+      - ~/.ssh:/home/ekylibre/.ssh
+      - ../../../plugins/:/plugins/
+    command: /app/docker/dev/sidekiq_startup.sh
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      app:
+        condition: service_started
+    restart: on-failure
+
+  redis:
+    image: redis:5.0-alpine
+
+  db:
+    image: kartoza/postgis:13
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DEV_NAME}
+      TZ: Europe/Paris
+    volumes:
+      - database-volume:/var/lib/postgresql/data
+      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5431:5432"
+    command: ["postgres", "-c", "log_statement=all"]
+    healthcheck:
+      test: "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_DEV_NAME}"
+
+volumes:
+  database-volume:
+  bundle-volume:
+  docker-dev:
