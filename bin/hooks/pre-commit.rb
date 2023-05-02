@@ -29,7 +29,6 @@ PRIVATE_KEY_INDICATORS = [
 
 #Warning signs that someone is committing files with secrets.
 SECRET_INDICATORS = [
-  /database\.yml/,
   /application\.yml/
 ]
 

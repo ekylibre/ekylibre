@@ -6,14 +6,6 @@ rake_commands="db:migrate"
 
 CLI=${APP_NAME}
 
-# database.yml
-rm -f ${APP_HOME}/config/database.yml
-if [ ! -f /etc/${APP_NAME}/database.yml ]; then
-   echo '# Please configure database connection' > /etc/${APP_NAME}/database.yml
-   echo '--- {}' >> /etc/${APP_NAME}/database.yml
-fi
-ln -sf /etc/${APP_NAME}/database.yml ${APP_HOME}/config/database.yml
-
 # tenants.yml
 rm -f ${APP_HOME}/config/tenants.yml
 if [ ! -f /etc/${APP_NAME}/tenants.yml ]; then

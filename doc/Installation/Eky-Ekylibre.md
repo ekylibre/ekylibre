@@ -16,7 +16,6 @@ Assume that you have completed the global installation of your development envir
     `bundle install && yarn install`  
     
 4.  Copy of the necessary configuration files :  
-    `cp config/database.yml.sample config/database.yml`  
     `cp .env.dist .env`  
     **<u>Then ask any developer to share the credentials to put in these files.</u>**  
     
