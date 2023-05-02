@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,28 +26,29 @@
 # == Table: analyses
 #
 #  analysed_at            :datetime
-#  analyser_id            :integer
+#  analyser_id            :integer(4)
 #  created_at             :datetime         not null
-#  creator_id             :integer
+#  creator_id             :integer(4)
+#  cultivable_zone_id     :integer(4)
 #  custom_fields          :jsonb
 #  description            :text
 #  geolocation            :geometry({:srid=>4326, :type=>"st_point"})
-#  host_id                :integer
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
+#  host_id                :integer(4)
+#  id                     :integer(4)       not null, primary key
+#  lock_version           :integer(4)       default(0), not null
 #  nature                 :string           not null
 #  number                 :string           not null
-#  product_id             :integer
+#  product_id             :integer(4)
 #  reference_number       :string
 #  retrieval_message      :string
 #  retrieval_status       :string           default("ok"), not null
 #  sampled_at             :datetime         not null
-#  sampler_id             :integer
+#  sampler_id             :integer(4)
 #  sampling_temporal_mode :string           default("instant"), not null
-#  sensor_id              :integer
+#  sensor_id              :integer(4)
 #  stopped_at             :datetime
 #  updated_at             :datetime         not null
-#  updater_id             :integer
+#  updater_id             :integer(4)
 #
 
 class Analysis < ApplicationRecord

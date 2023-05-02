@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,15 +23,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: worker_group
+# == Table: worker_groups
 #
-#  activity_production_id       :integer
-#  address_id                   :integer
-#  birth_date_completeness      :string
-#  birth_farm_number            :string
-#  born_at                      :datetime
-#  category_id                  :integer          not null
-#  codes                        :jsonb
+#  active       :boolean          default(TRUE), not null
+#  created_at   :datetime         not null
+#  creator_id   :integer(4)
+#  id           :integer(4)       not null, primary key
+#  lock_version :integer(4)       default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer(4)
+#  usage        :string
+#  work_number  :string
+#
 class WorkerGroup < ApplicationRecord
   has_many :items, class_name: "WorkerGroupItem", dependent: :destroy
   has_many :labellings, class_name: 'WorkerGroupLabelling', dependent: :destroy

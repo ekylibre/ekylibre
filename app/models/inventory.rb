@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,23 +28,23 @@
 #  accounted_at               :datetime
 #  achieved_at                :datetime
 #  created_at                 :datetime         not null
-#  creator_id                 :integer
+#  creator_id                 :integer(4)
 #  currency                   :string
 #  custom_fields              :jsonb
 #  disable_accountancy        :boolean          default(FALSE)
-#  financial_year_id          :integer
-#  id                         :integer          not null, primary key
-#  journal_entry_id           :integer
-#  journal_id                 :integer
-#  lock_version               :integer          default(0), not null
+#  financial_year_id          :integer(4)
+#  id                         :integer(4)       not null, primary key
+#  journal_entry_id           :integer(4)
+#  journal_id                 :integer(4)
+#  lock_version               :integer(4)       default(0), not null
 #  name                       :string           not null
 #  number                     :string           not null
-#  product_nature_category_id :integer
+#  product_nature_category_id :integer(4)
 #  reflected                  :boolean          default(FALSE), not null
 #  reflected_at               :datetime
-#  responsible_id             :integer
+#  responsible_id             :integer(4)
 #  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  updater_id                 :integer(4)
 #
 
 class Inventory < ApplicationRecord

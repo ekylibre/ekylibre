@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,11 +27,11 @@
 #
 #  ekylibre_scope  :string
 #  ekylibre_value  :string
-#  id              :integer          not null, primary key
+#  id              :integer(4)       not null, primary key
 #  reference_code  :string
-#  reference_id    :integer          not null
+#  reference_id    :integer(4)       not null
 #  reference_label :string
-#  repository_id   :integer          not null
+#  repository_id   :integer(4)       not null
 #
 class RegisteredAgroediCode < LexiconRecord
   include Lexiconable

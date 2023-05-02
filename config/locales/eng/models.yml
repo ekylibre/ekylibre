@@ -594,6 +594,7 @@ eng:
       sale_nature: "Sale type"
       sale_opportunity: "Sale opportunity"
       sale_ticket: "Sale ticket"
+      scenario_activity/animal: "Animal scenario activity"
       sensor: "Sensor"
       sequence: "Sequence"
       settlement: "Settlement"

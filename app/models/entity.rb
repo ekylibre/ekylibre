@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,35 +27,35 @@
 #
 #  active                       :boolean          default(TRUE), not null
 #  activity_code                :string
-#  authorized_payments_count    :integer
+#  authorized_payments_count    :integer(4)
 #  bank_account_holder_name     :string
 #  bank_identifier_code         :string
 #  born_at                      :datetime
 #  client                       :boolean          default(FALSE), not null
-#  client_account_id            :integer
-#  client_payment_delay       :string
-#  client_payment_mode_id     :integer
+#  client_account_id            :integer(4)
+#  client_payment_delay         :string
+#  client_payment_mode_id       :integer(8)
 #  codes                        :jsonb
 #  country                      :string
 #  created_at                   :datetime         not null
-#  creator_id                   :integer
+#  creator_id                   :integer(4)
 #  currency                     :string           not null
 #  custom_fields                :jsonb
 #  dead_at                      :datetime
 #  deliveries_conditions        :string
 #  description                  :text
 #  employee                     :boolean          default(FALSE), not null
-#  employee_account_id          :integer
+#  employee_account_id          :integer(4)
 #  first_financial_year_ends_on :date
 #  first_met_at                 :datetime
 #  first_name                   :string
 #  full_name                    :string           not null
 #  iban                         :string
-#  id                           :integer          not null, primary key
+#  id                           :integer(4)       not null, primary key
 #  language                     :string           not null
 #  last_name                    :string           not null
 #  legal_position_code          :string
-#  lock_version                 :integer          default(0), not null
+#  lock_version                 :integer(4)       default(0), not null
 #  locked                       :boolean          default(FALSE), not null
 #  meeting_origin               :string
 #  nature                       :string           not null
@@ -63,22 +63,22 @@
 #  of_company                   :boolean          default(FALSE), not null
 #  picture_content_type         :string
 #  picture_file_name            :string
-#  picture_file_size            :integer
+#  picture_file_size            :integer(4)
 #  picture_updated_at           :datetime
-#  proposer_id                  :integer
+#  proposer_id                  :integer(4)
 #  prospect                     :boolean          default(FALSE), not null
 #  provider                     :jsonb
 #  reminder_submissive          :boolean          default(FALSE), not null
-#  responsible_id               :integer
+#  responsible_id               :integer(4)
 #  siret_number                 :string
 #  supplier                     :boolean          default(FALSE), not null
-#  supplier_account_id          :integer
+#  supplier_account_id          :integer(4)
 #  supplier_payment_delay       :string
-#  supplier_payment_mode_id     :integer
+#  supplier_payment_mode_id     :integer(4)
 #  title                        :string
 #  transporter                  :boolean          default(FALSE), not null
 #  updated_at                   :datetime         not null
-#  updater_id                   :integer
+#  updater_id                   :integer(4)
 #  vat_number                   :string
 #  vat_subjected                :boolean          default(TRUE), not null
 #

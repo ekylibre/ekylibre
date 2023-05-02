@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,49 +25,50 @@
 #
 # == Table: parcel_items
 #
-#  activity_budget_id            :integer
-#  analysis_id                   :integer
+#  activity_budget_id            :integer(4)
+#  analysis_id                   :integer(4)
 #  annotation                    :text
+#  conditioning_quantity         :decimal(20, 10)
+#  conditioning_unit_id          :integer(4)
 #  created_at                    :datetime         not null
-#  creator_id                    :integer
+#  creator_id                    :integer(4)
 #  currency                      :string
-#  delivery_id                   :integer
+#  delivery_id                   :integer(4)
 #  delivery_mode                 :string
-#  equipment_id                  :integer
-#  id                            :integer          not null, primary key
-#  lock_version                  :integer          default(0), not null
-#  merge_stock                   :boolean          default(TRUE)
+#  equipment_id                  :integer(4)
+#  id                            :integer(4)       not null, primary key
+#  lock_version                  :integer(4)       default(0), not null
+#  merge_stock                   :boolean          default(FALSE)
 #  non_compliant                 :boolean
 #  non_compliant_detail          :string
-#  parcel_id                     :integer          not null
+#  parcel_id                     :integer(4)       not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
-#  pretax_amount                 :decimal(19, 4)   default(0.0), not null
-#  product_enjoyment_id          :integer
-#  product_id                    :integer
+#  product_enjoyment_id          :integer(4)
+#  product_id                    :integer(4)
 #  product_identification_number :string
-#  product_localization_id       :integer
-#  product_movement_id           :integer
+#  product_localization_id       :integer(4)
+#  product_movement_id           :integer(4)
 #  product_name                  :string
-#  product_ownership_id          :integer
+#  product_ownership_id          :integer(4)
 #  product_work_number           :string
-#  project_budget_id             :integer
-#  purchase_invoice_item_id      :integer
-#  purchase_order_item_id        :integer
-#  purchase_order_to_close_id    :integer
+#  project_budget_id             :integer(4)
+#  purchase_invoice_item_id      :integer(4)
+#  purchase_order_item_id        :integer(4)
+#  purchase_order_to_close_id    :integer(4)
 #  role                          :string
-#  sale_item_id                  :integer
+#  sale_item_id                  :integer(4)
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  source_product_id             :integer
-#  source_product_movement_id    :integer
-#  team_id                       :integer
-#  transporter_id                :integer
+#  source_product_id             :integer(4)
+#  source_product_movement_id    :integer(4)
+#  team_id                       :integer(4)
+#  transporter_id                :integer(4)
 #  type                          :string
-#  unit_pretax_amount            :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_sale_amount       :decimal(19, 4)
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
-#  updater_id                    :integer
-#  variant_id                    :integer
+#  updater_id                    :integer(4)
+#  variant_id                    :integer(4)
 #
 class ShipmentItem < ParcelItem
   belongs_to :shipment, inverse_of: :items, class_name: 'Shipment', foreign_key: :parcel_id

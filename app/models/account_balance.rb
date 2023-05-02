@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,23 +25,23 @@
 #
 # == Table: account_balances
 #
-#  account_id        :integer          not null
+#  account_id        :integer(4)       not null
 #  created_at        :datetime         not null
-#  creator_id        :integer
+#  creator_id        :integer(4)
 #  currency          :string           not null
-#  financial_year_id :integer          not null
+#  financial_year_id :integer(4)       not null
 #  global_balance    :decimal(19, 4)   default(0.0), not null
-#  global_count      :integer          default(0), not null
+#  global_count      :integer(4)       default(0), not null
 #  global_credit     :decimal(19, 4)   default(0.0), not null
 #  global_debit      :decimal(19, 4)   default(0.0), not null
-#  id                :integer          not null, primary key
+#  id                :integer(4)       not null, primary key
 #  local_balance     :decimal(19, 4)   default(0.0), not null
-#  local_count       :integer          default(0), not null
+#  local_count       :integer(4)       default(0), not null
 #  local_credit      :decimal(19, 4)   default(0.0), not null
 #  local_debit       :decimal(19, 4)   default(0.0), not null
-#  lock_version      :integer          default(0), not null
+#  lock_version      :integer(4)       default(0), not null
 #  updated_at        :datetime         not null
-#  updater_id        :integer
+#  updater_id        :integer(4)
 #
 
 class AccountBalance < ApplicationRecord

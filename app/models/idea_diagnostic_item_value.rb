@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,8 +25,19 @@
 #
 # == Table: idea_diagnostic_item_values
 #
-#  id                      :integer          not null, primary key
-#  idea_diagnostic_item_id :integer
+#  boolean_value           :boolean
+#  created_at              :datetime         not null
+#  creator_id              :integer(4)
+#  float_value             :float
+#  id                      :integer(4)       not null, primary key
+#  idea_diagnostic_item_id :integer(4)
+#  integer_value           :integer(4)
+#  lock_version            :integer(4)       default(0), not null
+#  name                    :string
+#  nature                  :string           default("string")
+#  string_value            :string
+#  updated_at              :datetime         not null
+#  updater_id              :integer(4)
 #
 class IdeaDiagnosticItemValue < ApplicationRecord
   belongs_to :idea_diagnostic_item

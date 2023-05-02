@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,38 +25,39 @@
 #
 #  accountable_repayments_started_on :date
 #  accounted_at                      :datetime
+#  activity_id                       :integer(4)
 #  amount                            :decimal(19, 4)   not null
-#  bank_guarantee_account_id         :integer
-#  bank_guarantee_amount             :integer
-#  cash_id                           :integer          not null
+#  bank_guarantee_account_id         :integer(4)
+#  bank_guarantee_amount             :integer(4)
+#  cash_id                           :integer(4)       not null
 #  created_at                        :datetime         not null
-#  creator_id                        :integer
+#  creator_id                        :integer(4)
 #  currency                          :string           not null
 #  custom_fields                     :jsonb
-#  id                                :integer          not null, primary key
-#  initial_releasing_amount          :boolean          default(FALSE), not null
-#  insurance_account_id              :integer
+#  id                                :integer(4)       not null, primary key
+#  initial_releasing_amount          :boolean          default(TRUE), not null
+#  insurance_account_id              :integer(4)
 #  insurance_percentage              :decimal(19, 4)   not null
 #  insurance_repayment_method        :string
-#  interest_account_id               :integer
+#  interest_account_id               :integer(4)
 #  interest_percentage               :decimal(19, 4)   not null
-#  journal_entry_id                  :integer
-#  lender_id                         :integer          not null
-#  loan_account_id                   :integer
-#  lock_version                      :integer          default(0), not null
+#  journal_entry_id                  :integer(4)
+#  lender_id                         :integer(4)       not null
+#  loan_account_id                   :integer(4)
+#  lock_version                      :integer(4)       default(0), not null
 #  name                              :string           not null
 #  ongoing_at                        :datetime
 #  provider                          :jsonb
 #  repaid_at                         :datetime
-#  repayment_duration                :integer          not null
+#  repayment_duration                :integer(4)       not null
 #  repayment_method                  :string           not null
 #  repayment_period                  :string           not null
-#  shift_duration                    :integer          default(0), not null
+#  shift_duration                    :integer(4)       default(0), not null
 #  shift_method                      :string
 #  started_on                        :date             not null
 #  state                             :string
 #  updated_at                        :datetime         not null
-#  updater_id                        :integer
+#  updater_id                        :integer(4)
 #  use_bank_guarantee                :boolean
 #
 require 'test_helper'

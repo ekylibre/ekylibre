@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,24 +25,24 @@
 #
 #  accounted_at               :datetime
 #  created_at                 :datetime         not null
-#  creator_id                 :integer
+#  creator_id                 :integer(4)
 #  currency_rate              :decimal(19, 10)  not null
 #  custom_fields              :jsonb
 #  description                :text
 #  emission_amount            :decimal(19, 4)   not null
-#  emission_cash_id           :integer          not null
+#  emission_cash_id           :integer(4)       not null
 #  emission_currency          :string           not null
-#  emission_journal_entry_id  :integer
-#  id                         :integer          not null, primary key
-#  lock_version               :integer          default(0), not null
+#  emission_journal_entry_id  :integer(4)
+#  id                         :integer(4)       not null, primary key
+#  lock_version               :integer(4)       default(0), not null
 #  number                     :string           not null
 #  reception_amount           :decimal(19, 4)   not null
-#  reception_cash_id          :integer          not null
+#  reception_cash_id          :integer(4)       not null
 #  reception_currency         :string           not null
-#  reception_journal_entry_id :integer
+#  reception_journal_entry_id :integer(4)
 #  transfered_at              :datetime         not null
 #  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  updater_id                 :integer(4)
 #
 ---
 cash_transfers_001:

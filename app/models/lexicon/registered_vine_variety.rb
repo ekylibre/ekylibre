@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,16 +23,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: master_vine_varieties
+# == Table: registered_vine_varieties
 #
-#  category_name    :string           not null
-#  color            :string
-#  customs_code     :string
-#  fr_validated     :string
-#  id               :string           not null, primary key
-#  specie_long_name :string
-#  specie_name      :string           not null
-#  utility          :string
+#  category     :string           not null
+#  color        :string
+#  custom_code  :string
+#  fr_validated :boolean
+#  id           :string           not null, primary key
+#  long_name    :string
+#  short_name   :string           not null
+#  utilities    Array<:text>
 #
 class RegisteredVineVariety < LexiconRecord
   self.primary_key = 'id'

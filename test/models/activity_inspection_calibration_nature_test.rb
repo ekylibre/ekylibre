@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,15 +24,15 @@
 # == Table: activity_inspection_calibration_natures
 #
 #  created_at    :datetime         not null
-#  creator_id    :integer
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
+#  creator_id    :integer(4)
+#  id            :integer(4)       not null, primary key
+#  lock_version  :integer(4)       default(0), not null
 #  marketable    :boolean          default(FALSE), not null
 #  maximal_value :decimal(19, 4)   not null
 #  minimal_value :decimal(19, 4)   not null
-#  scale_id      :integer          not null
+#  scale_id      :integer(4)       not null
 #  updated_at    :datetime         not null
-#  updater_id    :integer
+#  updater_id    :integer(4)
 #
 require 'test_helper'
 

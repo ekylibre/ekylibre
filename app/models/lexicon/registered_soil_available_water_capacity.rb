@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,13 +25,13 @@
 #
 # == Table: registered_soil_available_water_capacities
 #
-# id character varying PRIMARY KEY NOT NULL,
-# available_water_reference_value integer,
-# available_water_min_value numeric(19,4),
-# available_water_max_value numeric(19,4),
-# available_water_unit character varying,
-# available_water_label character varying,
-# shape postgis.geometry(MultiPolygon, 4326) NOT NULL
+#  available_water_label           :string
+#  available_water_max_value       :decimal(19, 4)
+#  available_water_min_value       :decimal(19, 4)
+#  available_water_reference_value :integer(4)
+#  available_water_unit            :string
+#  id                              :string           not null, primary key
+#  shape                           :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
 #
 class RegisteredSoilAvailableWaterCapacity < LexiconRecord
   include Lexiconable

@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,21 +25,21 @@
 #
 # == Table: registered_cadastral_prices
 #
-# id SERIAL PRIMARY KEY NOT NULL,
-# mutation_id character varying,
-# mutation_date DATE,
-# mutation_reference character varying,
-# mutation_nature character varying,
-# cadastral_price numeric(14,2),
-# cadastral_parcel_id character varying,
-# building_nature character varying,
-# building_area integer,
-# cadastral_parcel_area integer,
-# address character varying,
-# postal_code character varying,
-# city character varying,
-# department character varying,
-# centroid postgis.geometry(Point,4326)
+#  address               :string
+#  building_area         :integer(4)
+#  building_nature       :string
+#  cadastral_parcel_area :integer(4)
+#  cadastral_parcel_id   :string
+#  cadastral_price       :decimal(14, 2)
+#  centroid              :geometry({:srid=>4326, :type=>"st_point"})
+#  city                  :string
+#  department            :string
+#  id                    :integer(4)       not null, primary key
+#  mutation_date         :date
+#  mutation_id           :string
+#  mutation_nature       :string
+#  mutation_reference    :string
+#  postal_code           :string
 #
 class RegisteredCadastralPrice < LexiconRecord
   include Lexiconable

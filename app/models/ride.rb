@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2022 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,31 +25,31 @@
 #
 # == Table: rides
 #
-#  area_smart           :float
-#  area_with_overlap    :float
-#  area_without_overlap :float
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  cultivable_zone_id   :integer(8)
-#  distance_km          :float
-#  duration             :interval
-#  equipment_name       :string
-#  gasoline             :float
-#  id                   :integer          not null, primary key
-#  intervention_id      :integer
-#  lock_version         :integer          default(0), not null
-#  nature               :string
-#  number               :string
-#  product_id           :integer
-#  provider             :jsonb
-#  ride_set_id          :integer
-#  shape                :geometry({:srid=>4326, :type=>"geometry"})
-#  sleep_count          :integer
-#  sleep_duration       :interval
-#  started_at           :datetime
-#  stopped_at           :datetime
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  area_smart                 :float
+#  area_with_overlap          :float
+#  area_without_overlap       :float
+#  converting_to_intervention :boolean          default(FALSE), not null
+#  created_at                 :datetime         not null
+#  creator_id                 :integer(4)
+#  cultivable_zone_id         :integer(8)
+#  distance_km                :float
+#  duration                   :interval
+#  gasoline                   :float
+#  id                         :integer(4)       not null, primary key
+#  intervention_id            :integer(4)
+#  lock_version               :integer(4)       default(0), not null
+#  nature                     :string
+#  number                     :string
+#  product_id                 :integer(4)
+#  provider                   :jsonb
+#  ride_set_id                :integer(4)
+#  shape                      :geometry({:srid=>4326, :type=>"geometry"})
+#  sleep_count                :integer(4)
+#  sleep_duration             :interval
+#  started_at                 :datetime
+#  stopped_at                 :datetime
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer(4)
 #
 class Ride < ApplicationRecord
   include Attachable

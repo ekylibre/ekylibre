@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,18 +23,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: intervention_costings
+# == Table: economic_cash_indicators
 #
-#  created_at      :datetime
-#  creator_id      :integer
-#  doers_cost      :decimal(, )
-#  id              :integer          not null, primary key
-#  inputs_cost     :decimal(, )
-#  lock_version    :integer          default(0), not null
-#  receptions_cost :decimal(, )
-#  tools_cost      :decimal(, )
-#  updated_at      :datetime
-#  updater_id      :integer
+#  activity_budget_id        :integer(4)
+#  activity_budget_item_id   :integer(4)
+#  activity_id               :integer(4)
+#  amount                    :decimal(, )
+#  campaign_id               :integer(4)
+#  context                   :string
+#  context_color             :string
+#  created_at                :datetime         not null
+#  creator_id                :integer(4)
+#  direction                 :string
+#  id                        :integer(4)       not null, primary key
+#  loan_id                   :integer(4)
+#  lock_version              :integer(4)       default(0), not null
+#  nature                    :string
+#  origin                    :string
+#  paid_on                   :date
+#  pretax_amount             :decimal(, )
+#  product_nature_variant_id :integer(4)
+#  updated_at                :datetime         not null
+#  updater_id                :integer(4)
+#  used_on                   :date
+#  worker_contract_id        :integer(4)
 #
 class EconomicCashIndicator < ApplicationRecord
   enumerize :direction, in: %i[revenue expense], predicates: true

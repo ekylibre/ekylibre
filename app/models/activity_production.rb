@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,35 +25,41 @@
 #
 # == Table: activity_productions
 #
-#  activity_id          :integer          not null
-#  campaign_id          :integer
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  cultivable_zone_id   :integer
-#  custom_fields        :jsonb
-#  custom_name          :string
-#  id                   :integer          not null, primary key
-#  irrigated            :boolean          default(FALSE), not null
-#  lock_version         :integer          default(0), not null
-#  nitrate_fixing       :boolean          default(FALSE), not null
-#  production_nature_id :integer
-#  provider             :jsonb            default("{}")
-#  rank_number          :integer          not null
-#  season_id            :integer
-#  size_indicator_name  :string           not null
-#  size_unit_name       :string
-#  size_value           :decimal(19, 4)   not null
-#  started_on           :date
-#  starting_year        :integer
-#  state                :string
-#  stopped_on           :date
-#  support_id           :integer          not null
-#  support_nature       :string
-#  support_shape        :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  tactic_id            :integer
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  usage                :string           not null
+#  activity_id            :integer(4)       not null
+#  batch_planting         :boolean
+#  campaign_id            :integer(4)
+#  created_at             :datetime         not null
+#  creator_id             :integer(4)
+#  cultivable_zone_id     :integer(4)
+#  custom_fields          :jsonb
+#  custom_name            :string
+#  headland_shape         :geometry({:srid=>4326, :type=>"geometry"})
+#  id                     :integer(4)       not null, primary key
+#  irrigated              :boolean          default(FALSE), not null
+#  lock_version           :integer(4)       default(0), not null
+#  nitrate_fixing         :boolean          default(FALSE), not null
+#  number_of_batch        :integer(4)
+#  predicated_sowing_date :date
+#  provider               :jsonb            default("{}")
+#  rank_number            :integer(4)       not null
+#  reference_name         :string
+#  season_id              :integer(4)
+#  size_indicator_name    :string           not null
+#  size_unit_name         :string
+#  size_value             :decimal(19, 4)   not null
+#  sowing_interval        :integer(4)
+#  started_on             :date
+#  starting_year          :integer(4)
+#  state                  :string
+#  stopped_on             :date
+#  support_id             :integer(4)       not null
+#  support_nature         :string
+#  support_shape          :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id              :integer(4)
+#  technical_itinerary_id :integer(4)
+#  updated_at             :datetime         not null
+#  updater_id             :integer(4)
+#  usage                  :string           not null
 #
 
 class ActivityProduction < ApplicationRecord

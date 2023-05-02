@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,22 +23,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Materialized View: working_time_indicators
-#  worker_id           :integer             not null
-#  start_at            :datetime            not null
-#  stop_at             :datetime            not null
-#  duration            :interval
+# == Table: worker_time_indicators
 #
-# Compile 3 sources of time in a view group by worker
-# - working_time coming from WorkingTimeLog for one worker
-# - working period coming from intervention for a worker as a doer with no participations
-# - working period coming from intervention for a worker as a doer with participations (detailled times)
-# each period (started_at / stopped_at) are lag by other if overlapps
-# ex :
-# period 1 => 01/01/2022 - 09H00 - 12H00
-# period 2 => 01/01/2022 - 08H00 - 11H30
-# period 3 => 01/01/2022 - 07H00 - 10H30
-# => 01/01/2022 - 07H00 - 12H00
+#  duration  :interval
+#  start_at  :datetime
+#  stop_at   :datetime
+#  worker_id :integer(4)
+#
 
 class WorkerTimeIndicator < ApplicationRecord
   include HasInterval

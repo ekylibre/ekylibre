@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,35 +24,35 @@
 # == Table: incoming_payments
 #
 #  accounted_at          :datetime
-#  affair_id             :integer
+#  affair_id             :integer(4)
 #  amount                :decimal(19, 4)   not null
 #  bank_account_number   :string
 #  bank_check_number     :string
 #  bank_name             :string
 #  codes                 :jsonb
-#  commission_account_id :integer
+#  commission_account_id :integer(4)
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
-#  creator_id            :integer
+#  creator_id            :integer(4)
 #  currency              :string           not null
 #  custom_fields         :jsonb
-#  deposit_id            :integer
+#  deposit_id            :integer(4)
 #  downpayment           :boolean          default(TRUE), not null
-#  id                    :integer          not null, primary key
-#  journal_entry_id      :integer
-#  lock_version          :integer          default(0), not null
-#  mode_id               :integer          not null
+#  id                    :integer(4)       not null, primary key
+#  journal_entry_id      :integer(4)
+#  lock_version          :integer(4)       default(0), not null
+#  mode_id               :integer(4)       not null
 #  number                :string
 #  paid_at               :datetime
-#  payer_id              :integer
+#  payer_id              :integer(4)
 #  provider              :jsonb
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
-#  responsible_id        :integer
+#  responsible_id        :integer(4)
 #  scheduled             :boolean          default(FALSE), not null
 #  to_bank_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  updater_id            :integer
+#  updater_id            :integer(4)
 #
 
 require 'test_helper'

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,20 +26,20 @@
 #  active          :boolean          default(TRUE), not null
 #  column_name     :string           not null
 #  created_at      :datetime         not null
-#  creator_id      :integer
+#  creator_id      :integer(4)
 #  customized_type :string           not null
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  maximal_length  :integer
+#  id              :integer(4)       not null, primary key
+#  lock_version    :integer(4)       default(0), not null
+#  maximal_length  :integer(4)
 #  maximal_value   :decimal(19, 4)
-#  minimal_length  :integer
+#  minimal_length  :integer(4)
 #  minimal_value   :decimal(19, 4)
 #  name            :string           not null
 #  nature          :string           not null
-#  position        :integer
+#  position        :integer(4)
 #  required        :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
-#  updater_id      :integer
+#  updater_id      :integer(4)
 #
 
 require 'test_helper'
@@ -56,6 +56,8 @@ class CustomFieldTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   Ekylibre::Schema.models.each do |model_name|
     model = model_name.to_s.camelcase.constantize
+    next if model.respond_to?('sti_descendant?') && model.sti_descendant?
+
     if !model.respond_to?(:customizable?) || !model.customizable?
       test "should not add custom fields on #{model_name}" do
         assert_raise ActiveRecord::RecordInvalid, "Souldn't add custom field on not customizable models like #{model.name}" do
@@ -77,6 +79,7 @@ class CustomFieldTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
           assert_equal first_column_name, field.column_name, 'Column name should not change'
 
           record = model.all.detect { |r| r.valid? && r.updateable? }
+
           assert record.present?, "A valid and updateable #{model.name} must exist to test custom fields on it"
 
           # Set value

@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,13 +26,13 @@
 # == Table: product_populations
 #
 #  created_at   :datetime
-#  creator_id   :integer
-#  id           :integer          primary key
-#  lock_version :integer
-#  product_id   :integer
+#  creator_id   :integer(4)
+#  id           :integer(4)       primary key
+#  lock_version :integer(4)
+#  product_id   :integer(4)
 #  started_at   :datetime
 #  updated_at   :datetime
-#  updater_id   :integer
+#  updater_id   :integer(4)
 #  value        :decimal(, )
 #
 

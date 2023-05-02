@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,19 +26,19 @@
 # == Table: manure_management_plans
 #
 #  annotation                 :text
-#  campaign_id                :integer          not null
+#  campaign_id                :integer(4)       not null
 #  created_at                 :datetime         not null
-#  creator_id                 :integer
+#  creator_id                 :integer(4)
 #  default_computation_method :string           not null
-#  id                         :integer          not null, primary key
-#  lock_version               :integer          default(0), not null
+#  id                         :integer(4)       not null, primary key
+#  lock_version               :integer(4)       default(0), not null
 #  locked                     :boolean          default(FALSE), not null
 #  name                       :string           not null
 #  opened_at                  :datetime         not null
-#  recommender_id             :integer          not null
+#  recommender_id             :integer(4)       not null
 #  selected                   :boolean          default(FALSE), not null
 #  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  updater_id                 :integer(4)
 #
 class ManureManagementPlan < ApplicationRecord
   include Attachable

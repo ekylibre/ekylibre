@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,15 +25,20 @@
 #
 # == Table: master_productions
 #
-#  agroedi_crop_code         :string
-#  id                        :integer          not null, primary key
-#  life_duration             :decimal(5, 2)
-#  main_input                :string
-#  season                    :string
-#  specie                    :string           not null
-#  start_state_of_production :jsonb
-#  started_on                :date             not null
-#  stopped_on                :date             not null
+#  activity_family     :string           not null
+#  agroedi_crop_code   :string
+#  color               :string
+#  idea_botanic_family :string
+#  idea_output_family  :string
+#  idea_specie_family  :string
+#  life_duration       :interval
+#  reference_name      :string           not null, primary key
+#  season              :string
+#  specie              :string
+#  started_on          :date             not null
+#  stopped_on          :date             not null
+#  translation_id      :string           not null
+#  usage               :string
 #
 class MasterProduction < LexiconRecord
   ARBITRARY_CHOOSEN_YEAR = 2000

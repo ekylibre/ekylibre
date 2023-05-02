@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,30 +26,30 @@
 # == Table: outgoing_payments
 #
 #  accounted_at      :datetime
-#  affair_id         :integer
+#  affair_id         :integer(4)
 #  amount            :decimal(19, 4)   default(0.0), not null
 #  bank_check_number :string
-#  cash_id           :integer          not null
+#  cash_id           :integer(4)       not null
 #  created_at        :datetime         not null
-#  creator_id        :integer
+#  creator_id        :integer(4)
 #  currency          :string           not null
 #  custom_fields     :jsonb
 #  delivered         :boolean          default(FALSE), not null
 #  downpayment       :boolean          default(FALSE), not null
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer
-#  list_id           :integer
-#  lock_version      :integer          default(0), not null
-#  mode_id           :integer          not null
+#  id                :integer(4)       not null, primary key
+#  journal_entry_id  :integer(4)
+#  list_id           :integer(4)
+#  lock_version      :integer(4)       default(0), not null
+#  mode_id           :integer(4)       not null
 #  number            :string
 #  paid_at           :datetime
-#  payee_id          :integer          not null
-#  position          :integer
-#  responsible_id    :integer          not null
+#  payee_id          :integer(4)       not null
+#  position          :integer(4)
+#  responsible_id    :integer(4)       not null
 #  to_bank_at        :datetime         not null
 #  type              :string
 #  updated_at        :datetime         not null
-#  updater_id        :integer
+#  updater_id        :integer(4)
 #
 
 class OutgoingPayment < ApplicationRecord

@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,10 +25,9 @@
 #
 # == Table: master_legal_positions
 #
-#  code             :string           not null
+#  code             :string           not null, primary key
 #  country          :string           not null
 #  fiscal_positions Array<:text>
-#  id               :integer          not null, primary key
 #  insee_code       :string           not null
 #  name             :jsonb
 #  nature           :string           not null

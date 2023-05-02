@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,26 +25,26 @@
 #
 # == Table: financial_years
 #
-#  accountant_id             :integer
+#  accountant_id             :integer(4)
 #  already_existing          :boolean          default(FALSE), not null
 #  closed                    :boolean          default(FALSE), not null
-#  closer_id                 :integer
+#  closer_id                 :integer(4)
 #  code                      :string           not null
 #  created_at                :datetime         not null
-#  creator_id                :integer
+#  creator_id                :integer(4)
 #  currency                  :string           not null
-#  currency_precision        :integer
+#  currency_precision        :integer(4)
 #  custom_fields             :jsonb
-#  id                        :integer          not null, primary key
-#  last_journal_entry_id     :integer
-#  lock_version              :integer          default(0), not null
+#  id                        :integer(4)       not null, primary key
+#  last_journal_entry_id     :integer(4)
+#  lock_version              :integer(4)       default(0), not null
 #  started_on                :date             not null
 #  state                     :string
 #  stopped_on                :date             not null
 #  tax_declaration_frequency :string
 #  tax_declaration_mode      :string           not null
 #  updated_at                :datetime         not null
-#  updater_id                :integer
+#  updater_id                :integer(4)
 #
 
 class FinancialYear < ApplicationRecord

@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,25 +25,25 @@
 #
 # == Table: subscriptions
 #
-#  address_id     :integer
+#  address_id     :integer(4)
 #  created_at     :datetime         not null
-#  creator_id     :integer
+#  creator_id     :integer(4)
 #  custom_fields  :jsonb
 #  description    :text
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  nature_id      :integer
+#  id             :integer(4)       not null, primary key
+#  lock_version   :integer(4)       default(0), not null
+#  nature_id      :integer(4)
 #  number         :string
-#  parent_id      :integer
-#  quantity       :integer          not null
-#  sale_item_id   :integer
+#  parent_id      :integer(4)
+#  quantity       :integer(4)       not null
+#  sale_item_id   :integer(4)
 #  started_on     :date             not null
 #  stopped_on     :date             not null
-#  subscriber_id  :integer
+#  subscriber_id  :integer(4)
 #  suspended      :boolean          default(FALSE), not null
 #  swim_lane_uuid :uuid             not null
 #  updated_at     :datetime         not null
-#  updater_id     :integer
+#  updater_id     :integer(4)
 #
 
 class Subscription < ApplicationRecord

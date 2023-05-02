@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,26 +25,30 @@
 #
 # == Table: taxes
 #
-#  active                            :boolean          default(FALSE), not null
-#  amount                            :decimal(19, 4)   default(0.0), not null
-#  collect_account_id                :integer
-#  country                           :string           not null
-#  created_at                        :datetime         not null
-#  creator_id                        :integer
-#  deduction_account_id              :integer
-#  description                       :text
-#  fixed_asset_collect_account_id    :integer
-#  fixed_asset_deduction_account_id  :integer
-#  id                                :integer          not null, primary key
-#  intracommunity                    :boolean          default(FALSE), not null
-#  intracommunity_payable_account_id :integer
-#  lock_version                      :integer          default(0), not null
-#  name                              :string           not null
-#  nature                            :string           not null
-#  provider                          :jsonb
-#  reference_name                    :string
-#  updated_at                        :datetime         not null
-#  updater_id                        :integer
+#  active                               :boolean          default(FALSE), not null
+#  amount                               :decimal(19, 4)   default(0.0), not null
+#  collect_account_id                   :integer(4)
+#  collect_isacompta_code               :string
+#  country                              :string           not null
+#  created_at                           :datetime         not null
+#  creator_id                           :integer(4)
+#  deduction_account_id                 :integer(4)
+#  deduction_isacompta_code             :string
+#  description                          :text
+#  fixed_asset_collect_account_id       :integer(4)
+#  fixed_asset_collect_isacompta_code   :string
+#  fixed_asset_deduction_account_id     :integer(4)
+#  fixed_asset_deduction_isacompta_code :string
+#  id                                   :integer(4)       not null, primary key
+#  intracommunity                       :boolean          default(FALSE), not null
+#  intracommunity_payable_account_id    :integer(4)
+#  lock_version                         :integer(4)       default(0), not null
+#  name                                 :string           not null
+#  nature                               :string           not null
+#  provider                             :jsonb
+#  reference_name                       :string
+#  updated_at                           :datetime         not null
+#  updater_id                           :integer(4)
 #
 
 class Tax < ApplicationRecord

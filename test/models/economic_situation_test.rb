@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,14 +27,14 @@
 #  client_accounting_balance   :decimal(, )
 #  client_trade_balance        :decimal(, )
 #  created_at                  :datetime
-#  creator_id                  :integer
-#  id                          :integer          primary key
-#  lock_version                :integer
+#  creator_id                  :integer(4)
+#  id                          :integer(4)       primary key
+#  lock_version                :integer(4)
 #  supplier_accounting_balance :decimal(, )
 #  supplier_trade_balance      :decimal(, )
 #  trade_balance               :decimal(, )
 #  updated_at                  :datetime
-#  updater_id                  :integer
+#  updater_id                  :integer(4)
 #
 require 'test_helper'
 

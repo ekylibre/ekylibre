@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,18 +23,19 @@
 #
 # == Table: teams
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  depth        :integer          default(0), not null
-#  description  :text
-#  id           :integer          not null, primary key
-#  lft          :integer
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  parent_id    :integer
-#  rgt          :integer
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at              :datetime         not null
+#  creator_id              :integer(4)
+#  depth                   :integer(4)       default(0), not null
+#  description             :text
+#  id                      :integer(4)       not null, primary key
+#  isacompta_analytic_code :string(2)
+#  lft                     :integer(4)
+#  lock_version            :integer(4)       default(0), not null
+#  name                    :string           not null
+#  parent_id               :integer(4)
+#  rgt                     :integer(4)
+#  updated_at              :datetime         not null
+#  updater_id              :integer(4)
 #
 
 require 'test_helper'

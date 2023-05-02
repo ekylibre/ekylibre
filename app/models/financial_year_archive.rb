@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,8 +25,8 @@
 #
 # == Table: financial_year_archives
 #
-#  financial_year_id  :integer          not null
-#  id                 :integer          not null, primary key
+#  financial_year_id  :integer(4)       not null
+#  id                 :integer(4)       not null, primary key
 #  path               :string           not null
 #  sha256_fingerprint :string           not null
 #  signature          :text             not null

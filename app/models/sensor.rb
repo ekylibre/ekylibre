@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -29,22 +29,22 @@
 #  active               :boolean          default(TRUE), not null
 #  battery_level        :decimal(19, 4)
 #  created_at           :datetime         not null
-#  creator_id           :integer
+#  creator_id           :integer(4)
 #  custom_fields        :jsonb
 #  embedded             :boolean          default(FALSE), not null
 #  euid                 :string
-#  host_id              :integer
-#  id                   :integer          not null, primary key
+#  host_id              :integer(4)
+#  id                   :integer(4)       not null, primary key
 #  last_transmission_at :datetime
-#  lock_version         :integer          default(0), not null
+#  lock_version         :integer(4)       default(0), not null
 #  model_euid           :string
 #  name                 :string           not null
 #  partner_url          :string
-#  product_id           :integer
+#  product_id           :integer(4)
 #  retrieval_mode       :string           not null
 #  token                :string
 #  updated_at           :datetime         not null
-#  updater_id           :integer
+#  updater_id           :integer(4)
 #  vendor_euid          :string
 #
 

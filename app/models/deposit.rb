@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,21 +27,21 @@
 #
 #  accounted_at     :datetime
 #  amount           :decimal(19, 4)   default(0.0), not null
-#  cash_id          :integer          not null
+#  cash_id          :integer(4)       not null
 #  created_at       :datetime         not null
-#  creator_id       :integer
+#  creator_id       :integer(4)
 #  custom_fields    :jsonb
 #  description      :text
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer
-#  lock_version     :integer          default(0), not null
+#  id               :integer(4)       not null, primary key
+#  journal_entry_id :integer(4)
+#  lock_version     :integer(4)       default(0), not null
 #  locked           :boolean          default(FALSE), not null
-#  mode_id          :integer          not null
+#  mode_id          :integer(4)       not null
 #  number           :string           not null
-#  payments_count   :integer          default(0), not null
-#  responsible_id   :integer
+#  payments_count   :integer(4)       default(0), not null
+#  responsible_id   :integer(4)
 #  updated_at       :datetime         not null
-#  updater_id       :integer
+#  updater_id       :integer(4)
 #
 
 class Deposit < ApplicationRecord

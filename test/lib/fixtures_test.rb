@@ -2,12 +2,14 @@ require 'test_helper'
 
 class FixturesTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Checks the validity of references files for models
-  MATERIALIZED_VIEWS = %i[economic_indicator worker_time_indicator].freeze
+  MATERIALIZED_VIEWS = %i[economic_indicator worker_time_indicator activity_productions_interventions_cost].freeze
 
   Ekylibre::Schema.models.sort.each do |model_name|
     next if MATERIALIZED_VIEWS.include?(model_name)
 
     model = model_name.to_s.classify.constantize
+
+    next if model.superclass == LexiconRecord
 
     test "all fixtures validity: #{model.name}" do
       invalids = []

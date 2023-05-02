@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,17 +25,22 @@
 #
 # == Table: activity_tactics
 #
-#  activity_id  :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  mode         :string
-#  mode_delta   :integer
-#  name         :string           not null
-#  planned_on   :date
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  activity_id            :integer(4)       not null
+#  campaign_id            :integer(4)
+#  created_at             :datetime         not null
+#  creator_id             :integer(4)
+#  default                :boolean          default(FALSE)
+#  id                     :integer(4)       not null, primary key
+#  lock_version           :integer(4)       default(0), not null
+#  mode                   :string
+#  mode_delta             :integer(4)
+#  name                   :string           not null
+#  planned_on             :date
+#  technical_itinerary_id :integer(4)
+#  technical_sequence_id  :string
+#  technical_workflow_id  :string
+#  updated_at             :datetime         not null
+#  updater_id             :integer(4)
 #
 class ActivityTactic < ApplicationRecord
   enumerize :mode, in: %i[sowed harvested], default: :sowed

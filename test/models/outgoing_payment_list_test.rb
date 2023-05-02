@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,16 +23,16 @@
 #
 # == Table: outgoing_payment_lists
 #
-#  cached_payment_count :integer
+#  cached_payment_count :integer(4)
 #  cached_total_sum     :decimal(, )
 #  created_at           :datetime
-#  creator_id           :integer
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  mode_id              :integer          not null
+#  creator_id           :integer(4)
+#  id                   :integer(4)       not null, primary key
+#  lock_version         :integer(4)       default(0), not null
+#  mode_id              :integer(4)       not null
 #  number               :string
 #  updated_at           :datetime
-#  updater_id           :integer
+#  updater_id           :integer(4)
 #
 require 'test_helper'
 

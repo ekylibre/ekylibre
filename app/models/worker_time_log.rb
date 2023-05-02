@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,18 +24,21 @@
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: worker_time_logs
-#  created_at                     :datetime         not null
-#  creator_id                     :integer
-#  custom_fields          :jsonb
-#  description            :text
-#  duration               :integer             not null
-#  id                             :integer          not null, primary key
-#  provider               :jsonb
-#  worker_id              :integer             not null
-#  started_at             :datetime            not null
-#  stopped_at             :datetime            not null
-#  updated_at                     :datetime         not null
-#  updater_id                     :integer
+#
+#  created_at    :datetime         not null
+#  creator_id    :integer(4)
+#  custom_fields :jsonb            default("{}")
+#  description   :text
+#  duration      :integer(4)       not null
+#  id            :integer(4)       not null, primary key
+#  lock_version  :integer(4)       default(0), not null
+#  provider      :jsonb            default("{}")
+#  started_at    :datetime         not null
+#  stopped_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer(4)
+#  worker_id     :integer(4)       not null
+#
 
 class WorkerTimeLog < ApplicationRecord
   include Customizable
