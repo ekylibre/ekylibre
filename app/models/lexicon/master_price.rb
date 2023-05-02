@@ -1,5 +1,50 @@
 # frozen_string_literal: true
 
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2023 Ekylibre SAS
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: master_prices
+#
+#  currency                     :string           not null
+#  id                           :string           not null, primary key
+#  main_indicator               :string
+#  main_indicator_maximal_value :decimal(19, 4)
+#  main_indicator_minimal_value :decimal(19, 4)
+#  main_indicator_unit          :string
+#  packaging_id                 :string
+#  reference_article_name       :string           not null
+#  reference_name               :string           not null
+#  reference_packaging_name     :string           not null
+#  started_on                   :date             not null
+#  threshold_max_value          :decimal(19, 4)
+#  threshold_min_value          :decimal(19, 4)
+#  unit_pretax_amount           :decimal(19, 4)   not null
+#  usage                        :string           not null
+#  variant_id                   :string
+#  working_flow_unit            :string
+#  working_flow_value           :decimal(19, 4)
+#
+
 class MasterPrice < LexiconRecord
   include Lexiconable
 

@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,20 +24,20 @@
 # == Table: sequences
 #
 #  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  last_cweek       :integer
-#  last_month       :integer
-#  last_number      :integer
-#  last_year        :integer
-#  lock_version     :integer          default(0), not null
+#  creator_id       :integer(4)
+#  id               :integer(4)       not null, primary key
+#  last_cweek       :integer(4)
+#  last_month       :integer(4)
+#  last_number      :integer(4)
+#  last_year        :integer(4)
+#  lock_version     :integer(4)       default(0), not null
 #  name             :string           not null
 #  number_format    :string           not null
-#  number_increment :integer          default(1), not null
-#  number_start     :integer          default(1), not null
+#  number_increment :integer(4)       default(1), not null
+#  number_start     :integer(4)       default(1), not null
 #  period           :string           default("number"), not null
 #  updated_at       :datetime         not null
-#  updater_id       :integer
+#  updater_id       :integer(4)
 #  usage            :string
 #
 

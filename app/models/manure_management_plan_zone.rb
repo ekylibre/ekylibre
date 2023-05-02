@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,18 +26,18 @@
 # == Table: manure_management_plan_zones
 #
 #  absorbed_nitrogen_at_opening                    :decimal(19, 4)
-#  activity_production_id                          :integer          not null
+#  activity_production_id                          :integer(4)       not null
 #  administrative_area                             :string
 #  computation_method                              :string           not null
 #  created_at                                      :datetime         not null
-#  creator_id                                      :integer
+#  creator_id                                      :integer(4)
 #  cultivation_variety                             :string
 #  expected_yield                                  :decimal(19, 4)
 #  humus_mineralization                            :decimal(19, 4)
-#  id                                              :integer          not null, primary key
+#  id                                              :integer(4)       not null, primary key
 #  intermediate_cultivation_residue_mineralization :decimal(19, 4)
 #  irrigation_water_nitrogen                       :decimal(19, 4)
-#  lock_version                                    :integer          default(0), not null
+#  lock_version                                    :integer(4)       default(0), not null
 #  maximum_nitrogen_input                          :decimal(19, 4)
 #  meadow_humus_mineralization                     :decimal(19, 4)
 #  mineral_nitrogen_at_opening                     :decimal(19, 4)
@@ -45,12 +45,12 @@
 #  nitrogen_input                                  :decimal(19, 4)
 #  nitrogen_need                                   :decimal(19, 4)
 #  organic_fertilizer_mineral_fraction             :decimal(19, 4)
-#  plan_id                                         :integer          not null
+#  plan_id                                         :integer(4)       not null
 #  previous_cultivation_residue_mineralization     :decimal(19, 4)
 #  soil_nature                                     :string
 #  soil_production                                 :decimal(19, 4)
 #  updated_at                                      :datetime         not null
-#  updater_id                                      :integer
+#  updater_id                                      :integer(4)
 #
 class ManureManagementPlanZone < ApplicationRecord
   belongs_to :plan, class_name: 'ManureManagementPlan', inverse_of: :zones

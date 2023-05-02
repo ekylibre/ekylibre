@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,10 +25,15 @@
 #
 # == Table: idea_diagnostic_results
 #
-#  id                 :integer          not null, primary key
-#  idea_diagnostic_id :integer
+#  created_at         :datetime         not null
+#  creator_id         :integer(4)
+#  id                 :integer(4)       not null, primary key
+#  idea_diagnostic_id :integer(4)
+#  lock_version       :integer(4)       default(0), not null
 #  normal_result      :string
 #  overlap_resut      :string
+#  updated_at         :datetime         not null
+#  updater_id         :integer(4)
 #
 class IdeaDiagnosticResult < ApplicationRecord
   belongs_to :idea_diagnostic

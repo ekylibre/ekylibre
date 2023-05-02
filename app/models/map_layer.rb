@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,22 +28,22 @@
 #  attribution    :string
 #  by_default     :boolean          default(FALSE), not null
 #  created_at     :datetime         not null
-#  creator_id     :integer
+#  creator_id     :integer(4)
 #  enabled        :boolean          default(FALSE), not null
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
+#  id             :integer(4)       not null, primary key
+#  lock_version   :integer(4)       default(0), not null
 #  managed        :boolean          default(FALSE), not null
-#  max_zoom       :integer
-#  min_zoom       :integer
+#  max_zoom       :integer(4)
+#  min_zoom       :integer(4)
 #  name           :string           not null
 #  nature         :string
-#  opacity        :integer
-#  position       :integer
+#  opacity        :integer(4)
+#  position       :integer(4)
 #  reference_name :string
 #  subdomains     :string
 #  tms            :boolean          default(FALSE), not null
 #  updated_at     :datetime         not null
-#  updater_id     :integer
+#  updater_id     :integer(4)
 #  url            :string           not null
 #
 class MapLayer < ApplicationRecord

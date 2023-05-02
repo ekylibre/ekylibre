@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,21 +25,18 @@
 #
 # == Table: master_variants
 #
-#  category            :string
-#  class_name          :string
-#  default_unit        :string
-#  eu_product_code     :string
-#  id                  :string           not null, primary key
-#  indicators          :jsonb
-#  label_fra           :string           not null
-#  name                :jsonb
-#  nature              :string
-#  reference_name      :string           not null
-#  specie              :string
-#  sub_nature          :string
-#  target_specie       :string
-#  variant_category_id :integer
-#  variant_nature_id   :integer
+#  category       :string           not null
+#  default_unit   :string           not null
+#  family         :string           not null
+#  indicators     :jsonb
+#  name_tags      Array<:text>
+#  nature         :string           not null
+#  pictogram      :string
+#  reference_name :string           not null, primary key
+#  specie         :string
+#  sub_family     :string
+#  target_specie  :string
+#  translation_id :string           not null
 #
 class MasterVariant < LexiconRecord
   include Lexiconable

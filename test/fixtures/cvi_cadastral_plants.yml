@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,11 +27,11 @@
 #  area_value                      :decimal(19, 4)
 #  cadastral_ref_updated           :boolean          default(FALSE)
 #  created_at                      :datetime         not null
-#  creator_id                      :integer
-#  cvi_cultivable_zone_id          :integer
-#  cvi_statement_id                :integer
-#  designation_of_origin_id        :integer
-#  id                              :integer          not null, primary key
+#  creator_id                      :integer(4)
+#  cvi_cultivable_zone_id          :integer(4)
+#  cvi_statement_id                :integer(4)
+#  designation_of_origin_id        :integer(4)
+#  id                              :integer(4)       not null, primary key
 #  inter_row_distance_unit         :string
 #  inter_row_distance_value        :decimal(19, 4)
 #  inter_vine_plant_distance_unit  :string
@@ -39,14 +39,14 @@
 #  land_modification_date          :date
 #  land_parcel_id                  :string
 #  land_parcel_number              :string
-#  lock_version                    :integer          default(0), not null
+#  lock_version                    :integer(4)       default(0), not null
 #  planting_campaign               :string
 #  rootstock_id                    :string
 #  section                         :string           not null
 #  state                           :string           not null
 #  type_of_occupancy               :string
 #  updated_at                      :datetime         not null
-#  updater_id                      :integer
+#  updater_id                      :integer(4)
 #  vine_variety_id                 :string
 #  work_number                     :string           not null
 #

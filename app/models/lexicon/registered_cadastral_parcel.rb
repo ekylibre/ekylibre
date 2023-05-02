@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,13 +23,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: cadastral_land_parcel_zones
+# == Table: registered_cadastral_parcels
 #
 #  centroid         :geometry({:srid=>4326, :type=>"st_point"})
 #  id               :string           not null, primary key
-#  net_surface_area :integer
+#  net_surface_area :integer(4)
 #  section          :string
+#  section_prefix   :string
 #  shape            :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+#  town_insee_code  :string
 #  work_number      :string
 #
 class RegisteredCadastralParcel < LexiconRecord

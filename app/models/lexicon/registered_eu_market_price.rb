@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,16 +23,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_protected_designation_of_origins
+# == Table: registered_eu_market_prices
 #
-#  eu_sign                :string
-#  fr_sign                :string
-#  geographic_area        :string
-#  id                     :integer          not null, primary key
-#  ida                    :integer          not null
-#  product_human_name     :jsonb
-#  product_human_name_fra :string
-#  reference_number       :string
+#  category                  :string
+#  country                   :string
+#  end_date                  :date
+#  id                        :string           not null, primary key
+#  nature                    :string
+#  price                     :decimal(8, 2)
+#  product_code              :string
+#  product_description       :string
+#  product_label             :string
+#  production_reference_name :string
+#  sector_code               :string
+#  specie                    :string
+#  start_date                :date
+#  unit_name                 :string
+#  unit_value                :integer(4)
 #
 class RegisteredEuMarketPrice < LexiconRecord
   include Lexiconable

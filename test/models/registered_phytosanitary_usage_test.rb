@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,34 +23,42 @@
 #
 # == Table: registered_phytosanitary_usages
 #
-#  applications_count         :integer
-#  applications_frequency     :interval
-#  crop                       :jsonb
-#  crop_label_fra             :string
-#  decision_date              :date
-#  description                :jsonb
-#  development_stage_max      :integer
-#  development_stage_min      :integer
-#  dose_quantity              :decimal(19, 4)
-#  dose_unit                  :string
-#  dose_unit_factor           :float
-#  dose_unit_name             :string
-#  ephy_usage_phrase          :string           not null
-#  id                         :string           not null, primary key
-#  lib_court                  :integer
-#  pre_harvest_delay          :interval
-#  pre_harvest_delay_bbch     :integer
-#  product_id                 :integer          not null
-#  record_checksum            :integer
-#  species                    Array<:text>
-#  state                      :string           not null
-#  target_name                :jsonb
-#  target_name_label_fra      :string
-#  treatment                  :jsonb
-#  untreated_buffer_aquatic   :integer
-#  untreated_buffer_arthropod :integer
-#  untreated_buffer_plants    :integer
-#  usage_conditions           :string
+#  applications_count                :integer(4)
+#  applications_frequency            :interval
+#  crop                              :jsonb
+#  crop_label_fra                    :string
+#  decision_date                     :date
+#  description                       :jsonb
+#  development_stage_max             :integer(4)
+#  development_stage_min             :integer(4)
+#  dose_quantity                     :decimal(19, 4)
+#  dose_unit                         :string
+#  dose_unit_factor                  :float
+#  dose_unit_name                    :string
+#  ephy_usage_phrase                 :string           not null
+#  extract_spray_volume_max_quantity :string
+#  extract_spray_volume_max_unit     :string
+#  id                                :string           not null, primary key
+#  lib_court                         :integer(4)
+#  pre_harvest_delay                 :interval
+#  pre_harvest_delay_bbch            :integer(4)
+#  product_id                        :integer(4)       not null
+#  record_checksum                   :integer(4)
+#  species                           Array<:text>
+#  spray_volume_max_dose_quantity    :decimal(19, 4)
+#  spray_volume_max_dose_unit        :string
+#  spray_volume_max_dose_unit_name   :string
+#  spray_volume_max_quantity         :decimal(19, 4)
+#  spray_volume_max_unit             :string
+#  spray_volume_max_unit_name        :string
+#  state                             :string           not null
+#  target_name                       :jsonb
+#  target_name_label_fra             :string
+#  treatment                         :jsonb
+#  untreated_buffer_aquatic          :integer(4)
+#  untreated_buffer_arthropod        :integer(4)
+#  untreated_buffer_plants           :integer(4)
+#  usage_conditions                  :string
 #
 require 'test_helper'
 

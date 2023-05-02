@@ -54,6 +54,10 @@ class ApplicationRecord < ActiveRecord::Base
     respond_to?(:custom_fields)
   end
 
+  def self.sti_descendant?
+    self.base_class != self
+  end
+
   def customizable?
     self.class.customizable?
   end

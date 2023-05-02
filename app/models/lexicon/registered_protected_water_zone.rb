@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,10 +25,12 @@
 #
 # == Table: registered_protected_water_zones
 #
-# id character varying NOT NULL,
-# name character varying,
-# updated_on date,
-# shape postgis.geometry(MultiPolygon, 4326) NOT NULL
+#  administrative_zone :string
+#  creator_name        :string
+#  id                  :string           not null
+#  name                :string
+#  shape               :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+#  updated_on          :date
 #
 class RegisteredProtectedWaterZone < LexiconRecord
   include Lexiconable

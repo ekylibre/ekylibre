@@ -228,7 +228,7 @@ module Clean
 
       # Lists all models that inherits of ActiveRecord but are not system
       def models_in_file
-        Dir.glob(Rails.root.join('app', 'models', '*.rb')).each { |file| require file }
+        Dir.glob(Rails.root.join('app', 'models', '**', '*.rb')).sort!.each { |file| require file }
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass < ActiveRecord::Base }

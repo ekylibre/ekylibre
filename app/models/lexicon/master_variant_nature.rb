@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,14 +27,14 @@
 #
 #  abilities           Array<:text>
 #  derivative_of       :string
-#  id                  :integer          not null, primary key
-#  indicators          Array<:text>
-#  label_fra           :string           not null
-#  name                :jsonb
-#  nature              :string
+#  family              :string           not null
+#  frozen_indicators   Array<:text>
+#  pictogram           :string
 #  population_counting :string           not null
-#  reference_name      :string           not null
-#  variety             :string
+#  reference_name      :string           not null, primary key
+#  translation_id      :string           not null
+#  variable_indicators Array<:text>
+#  variety             :string           not null
 #
 class MasterVariantNature < LexiconRecord
   extend Enumerize

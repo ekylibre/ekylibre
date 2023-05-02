@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,51 +27,52 @@
 #  absolute_currency         :string           not null
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  absolute_pretax_amount    :decimal(19, 4)   default(0.0), not null
-#  account_id                :integer          not null
+#  account_id                :integer(4)       not null
 #  accounting_label          :string
-#  activity_budget_id        :integer
+#  activity_budget_id        :integer(4)
 #  balance                   :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id         :integer
+#  bank_statement_id         :integer(4)
 #  bank_statement_letter     :string
 #  created_at                :datetime         not null
-#  creator_id                :integer
+#  creator_id                :integer(4)
 #  credit                    :decimal(19, 4)   default(0.0), not null
 #  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
 #  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
 #  currency                  :string           not null
 #  debit                     :decimal(19, 4)   default(0.0), not null
 #  description               :text
-#  entry_id                  :integer          not null
+#  entry_id                  :integer(4)       not null
 #  entry_number              :string           not null
-#  equipment_id              :integer
-#  financial_year_id         :integer          not null
-#  id                        :integer          not null, primary key
-#  journal_id                :integer          not null
+#  equipment_id              :integer(4)
+#  financial_year_id         :integer(4)       not null
+#  id                        :integer(4)       not null, primary key
+#  isacompta_letter          :string(4)
+#  journal_id                :integer(4)       not null
 #  letter                    :string
 #  lettered_at               :datetime
-#  lock_version              :integer          default(0), not null
+#  lock_version              :integer(4)       default(0), not null
 #  name                      :string           not null
-#  position                  :integer
+#  position                  :integer(4)
 #  pretax_amount             :decimal(19, 4)   default(0.0), not null
 #  printed_on                :date             not null
-#  project_budget_id         :integer
+#  project_budget_id         :integer(4)
 #  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  real_pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  resource_id               :integer
+#  resource_id               :integer(4)
 #  resource_prism            :string
 #  resource_type             :string
 #  state                     :string           not null
-#  tax_declaration_item_id   :integer
+#  tax_declaration_item_id   :integer(4)
 #  tax_declaration_mode      :string
-#  tax_id                    :integer
-#  team_id                   :integer
+#  tax_id                    :integer(4)
+#  team_id                   :integer(4)
 #  updated_at                :datetime         not null
-#  updater_id                :integer
-#  variant_id                :integer
+#  updater_id                :integer(4)
+#  variant_id                :integer(4)
 #
 
 require 'test_helper'

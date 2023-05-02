@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,7 +24,18 @@
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: pfi_intervention_parameters
-#  id                       :integer          not null, primary key
+#
+#  campaign_id  :integer(4)
+#  created_at   :datetime
+#  id           :integer(4)       not null, primary key
+#  input_id     :integer(4)
+#  nature       :string           not null
+#  pfi_value    :decimal(19, 4)   default(1.0), not null
+#  response     :jsonb            not null
+#  segment_code :string
+#  signature    :text
+#  target_id    :integer(4)
+#  updated_at   :datetime
 #
 class PfiInterventionParameter < ApplicationRecord
   belongs_to :input, class_name: 'InterventionInput', inverse_of: :pfi_input

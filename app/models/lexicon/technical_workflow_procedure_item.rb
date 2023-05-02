@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2019 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,10 +23,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: registered_pfi_crops
+# == Table: technical_workflow_procedure_items
 #
-#  id                  :integer          not null, primary key
-#  reference_label_fra :string
+#  actor_reference                 :string
+#  article_reference               :string
+#  procedure_item_reference        :string
+#  procedure_reference             :string           not null
+#  quantity                        :decimal(19, 4)
+#  reference_name                  :string           not null, primary key
+#  technical_workflow_procedure_id :string           not null
+#  unit                            :string
 #
 class TechnicalWorkflowProcedureItem < LexiconRecord
   include Lexiconable

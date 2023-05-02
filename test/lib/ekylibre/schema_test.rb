@@ -18,8 +18,13 @@ module Ekylibre
       end
     end
 
-    test 'uniqueness of model human names' do
-      names = Ekylibre::Schema.models.collect do |model|
+    test 'uniqueness of model human names, except for sti models' do
+      models = Ekylibre::Schema.models.reject do |model_name|
+        model = model_name.to_s.classify.constantize
+        model.respond_to?('sti_descendant?') && model.sti_descendant?
+      end
+
+      names = models.map do |model|
         model.to_s.classify.constantize.model_name.human
       end
       assert_equal names.size, names.uniq.size, 'Not unique names in models: ' + names.uniq.select { |t| names.count { |l| l == t } > 1 }.sort.to_sentence(locale: :eng)

@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,19 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: pfi_campaigns_activities_interventions
+#
+#  activity_id                      :integer(4)
+#  activity_pfi_value               :decimal(, )
+#  activity_production_id           :integer(4)
+#  activity_production_pfi_value    :decimal(, )
+#  activity_production_surface_area :decimal(19, 4)
+#  campaign_id                      :integer(4)
+#  crop_id                          :integer(4)
+#  crop_pfi_value                   :decimal(, )
+#  crop_surface_area                :decimal(19, 4)
+#  segment_code                     :string
 #
 
 class PfiCampaignsActivitiesIntervention < ApplicationRecord

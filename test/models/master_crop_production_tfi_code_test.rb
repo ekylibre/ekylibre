@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,8 +23,10 @@
 #
 # == Table: master_crop_production_tfi_codes
 #
-#  id                  :integer          not null, primary key
-#  reference_label_fra :string
+#  campaign   :integer(4)       not null
+#  production :string
+#  tfi_code   :string           not null
+#  tfi_label  :string           not null
 #
 require 'test_helper'
 

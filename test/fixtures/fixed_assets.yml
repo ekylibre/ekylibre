@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,12 +24,13 @@
 # == Table: fixed_assets
 #
 #  accounted_at                        :datetime
-#  allocation_account_id               :integer
-#  asset_account_id                    :integer
+#  activity_id                         :integer(4)
+#  allocation_account_id               :integer(4)
+#  asset_account_id                    :integer(4)
 #  ceded                               :boolean
 #  ceded_on                            :date
 #  created_at                          :datetime         not null
-#  creator_id                          :integer
+#  creator_id                          :integer(4)
 #  currency                            :string           not null
 #  current_amount                      :decimal(19, 4)
 #  custom_fields                       :jsonb
@@ -40,36 +41,36 @@
 #  depreciation_percentage             :decimal(19, 4)
 #  depreciation_period                 :string
 #  description                         :text
-#  expenses_account_id                 :integer
-#  id                                  :integer          not null, primary key
-#  journal_entry_id                    :integer
-#  journal_id                          :integer          not null
-#  lock_version                        :integer          default(0), not null
+#  expenses_account_id                 :integer(4)
+#  id                                  :integer(4)       not null, primary key
+#  journal_entry_id                    :integer(4)
+#  journal_id                          :integer(4)       not null
+#  lock_version                        :integer(4)       default(0), not null
 #  name                                :string           not null
 #  number                              :string           not null
 #  pretax_selling_amount               :decimal(19, 4)
-#  product_id                          :integer
+#  product_id                          :integer(4)
 #  provider                            :jsonb
 #  purchase_amount                     :decimal(19, 4)
-#  purchase_id                         :integer
-#  purchase_item_id                    :integer
+#  purchase_id                         :integer(4)
+#  purchase_item_id                    :integer(4)
 #  purchased_on                        :date
-#  sale_id                             :integer
-#  sale_item_id                        :integer
-#  scrapped_journal_entry_id           :integer
+#  sale_id                             :integer(4)
+#  sale_item_id                        :integer(4)
+#  scrapped_journal_entry_id           :integer(4)
 #  scrapped_on                         :date
 #  selling_amount                      :decimal(19, 4)
-#  sold_journal_entry_id               :integer
+#  sold_journal_entry_id               :integer(4)
 #  sold_on                             :date
-#  special_imputation_asset_account_id :integer
+#  special_imputation_asset_account_id :integer(4)
 #  started_on                          :date             not null
 #  state                               :string
 #  stopped_on                          :date
-#  tax_id                              :integer
+#  tax_id                              :integer(4)
 #  updated_at                          :datetime         not null
-#  updater_id                          :integer
-#  waiting_asset_account_id            :integer
-#  waiting_journal_entry_id            :integer
+#  updater_id                          :integer(4)
+#  waiting_asset_account_id            :integer(4)
+#  waiting_journal_entry_id            :integer(4)
 #  waiting_on                          :date
 #
 ---

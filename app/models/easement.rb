@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,19 +25,20 @@
 #
 # == Table: products
 #
-#  activity_production_id       :integer
-#  address_id                   :integer
+#  activity_production_id       :integer(4)
+#  address_id                   :integer(4)
 #  birth_date_completeness      :string
 #  birth_farm_number            :string
 #  born_at                      :datetime
-#  category_id                  :integer          not null
+#  category_id                  :integer(4)       not null
 #  codes                        :jsonb
+#  conditioning_unit_id         :integer(4)
 #  country                      :string
 #  created_at                   :datetime         not null
-#  creator_id                   :integer
+#  creator_id                   :integer(4)
 #  custom_fields                :jsonb
 #  dead_at                      :datetime
-#  default_storage_id           :integer
+#  default_storage_id           :integer(4)
 #  derivative_of                :string
 #  description                  :text
 #  end_of_life_reason           :string
@@ -46,50 +47,52 @@
 #  father_variety               :string
 #  filiation_status             :string
 #  first_calving_on             :datetime
-#  fixed_asset_id               :integer
-#  id                           :integer          not null, primary key
+#  fixed_asset_id               :integer(4)
+#  id                           :integer(4)       not null, primary key
 #  identification_number        :string
 #  initial_born_at              :datetime
-#  initial_container_id         :integer
+#  initial_container_id         :integer(4)
 #  initial_dead_at              :datetime
-#  initial_enjoyer_id           :integer
-#  initial_father_id            :integer
+#  initial_enjoyer_id           :integer(4)
+#  initial_father_id            :integer(4)
 #  initial_geolocation          :geometry({:srid=>4326, :type=>"st_point"})
-#  initial_mother_id            :integer
-#  initial_movement_id          :integer
-#  initial_owner_id             :integer
+#  initial_mother_id            :integer(4)
+#  initial_movement_id          :integer(4)
+#  initial_owner_id             :integer(4)
 #  initial_population           :decimal(19, 4)   default(0.0)
 #  initial_shape                :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  lock_version                 :integer          default(0), not null
-#  member_variant_id            :integer
+#  isacompta_analytic_code      :string(2)
+#  lock_version                 :integer(4)       default(0), not null
+#  member_variant_id            :integer(4)
 #  mother_country               :string
 #  mother_identification_number :string
 #  mother_variety               :string
 #  name                         :string           not null
-#  nature_id                    :integer          not null
+#  nature_id                    :integer(4)       not null
 #  number                       :string           not null
 #  origin_country               :string
 #  origin_identification_number :string
-#  originator_id                :integer
-#  parent_id                    :integer
-#  person_id                    :integer
+#  originator_id                :integer(4)
+#  parent_id                    :integer(4)
+#  person_id                    :integer(4)
 #  picture_content_type         :string
 #  picture_file_name            :string
-#  picture_file_size            :integer
+#  picture_file_size            :integer(4)
 #  picture_updated_at           :datetime
 #  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
 #  specie_variety               :jsonb            default("{}")
-#  team_id                      :integer
-#  tracking_id                  :integer
+#  team_id                      :integer(4)
+#  tracking_id                  :integer(4)
 #  type                         :string
 #  type_of_occupancy            :string
 #  updated_at                   :datetime         not null
-#  updater_id                   :integer
+#  updater_id                   :integer(4)
 #  uuid                         :uuid
-#  variant_id                   :integer          not null
+#  variant_id                   :integer(4)       not null
 #  variety                      :string           not null
 #  work_number                  :string
+#  worker_group_item_id         :integer(4)
 #
 class Easement < Zone
   refers_to :variety, scope: :easement

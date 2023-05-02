@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,25 +25,25 @@
 #
 # == Table: financial_year_exchanges
 #
-#  analytical_codes                  :boolean          default(FALSE), not null
 #  closed_at                         :datetime
 #  created_at                        :datetime         not null
-#  creator_id                        :integer
-#  financial_year_id                 :integer          not null
+#  creator_id                        :integer(4)
+#  exported_journal_ids              Array<:string>    default("{}")
+#  financial_year_id                 :integer(4)       not null
 #  format                            :string           default("ekyagri"), not null
-#  id                                :integer          not null, primary key
+#  id                                :integer(4)       not null, primary key
 #  import_file_content_type          :string
 #  import_file_file_name             :string
-#  import_file_file_size             :integer
+#  import_file_file_size             :integer(4)
 #  import_file_updated_at            :datetime
-#  lock_version                      :integer          default(0), not null
+#  lock_version                      :integer(4)       default(0), not null
 #  public_token                      :string
 #  public_token_expired_at           :datetime
 #  started_on                        :date             not null
 #  stopped_on                        :date             not null
 #  transmit_isacompta_analytic_codes :boolean          default(FALSE)
 #  updated_at                        :datetime         not null
-#  updater_id                        :integer
+#  updater_id                        :integer(4)
 #
 
 class FinancialYearExchange < ApplicationRecord

@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,37 +28,38 @@
 #  accounted_at                   :datetime
 #  actions                        :string
 #  auto_calculate_working_periods :boolean          default(FALSE)
-#  costing_id                     :integer
+#  costing_id                     :integer(4)
 #  created_at                     :datetime         not null
-#  creator_id                     :integer
+#  creator_id                     :integer(4)
 #  currency                       :string
 #  custom_fields                  :jsonb
 #  description                    :text
-#  event_id                       :integer
-#  id                             :integer          not null, primary key
-#  issue_id                       :integer
-#  journal_entry_id               :integer
-#  lock_version                   :integer          default(0), not null
+#  event_id                       :integer(4)
+#  id                             :integer(4)       not null, primary key
+#  intervention_proposal_id       :integer(4)
+#  issue_id                       :integer(4)
+#  journal_entry_id               :integer(4)
+#  lock_version                   :integer(4)       default(0), not null
 #  nature                         :string           not null
 #  number                         :string
-#  parent_id                      :integer
-#  prescription_id                :integer
+#  parent_id                      :integer(4)
+#  prescription_id                :integer(4)
 #  procedure_name                 :string           not null
 #  provider                       :jsonb
 #  providers                      :jsonb
-#  purchase_id                    :integer
+#  purchase_id                    :integer(4)
 #  request_compliant              :boolean
-#  request_intervention_id        :integer
+#  request_intervention_id        :integer(4)
 #  started_at                     :datetime         not null
 #  state                          :string           not null
 #  stopped_at                     :datetime         not null
 #  trouble_description            :text
 #  trouble_encountered            :boolean          default(FALSE), not null
 #  updated_at                     :datetime         not null
-#  updater_id                     :integer
-#  validator_id                   :integer
-#  whole_duration                 :integer          not null
-#  working_duration               :integer          not null
+#  updater_id                     :integer(4)
+#  validator_id                   :integer(4)
+#  whole_duration                 :integer(4)       not null
+#  working_duration               :integer(4)       not null
 #
 
 class Intervention < ApplicationRecord

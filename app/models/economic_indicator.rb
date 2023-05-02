@@ -8,7 +8,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,8 +23,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Materialized View: economic_indicators
+# == Table: economic_indicators
 #
+#  activity_id            :integer(4)
+#  activity_size_unit     :string
+#  activity_size_value    :decimal(, )
+#  amount                 :decimal(, )
+#  campaign_id            :integer(4)
+#  economic_indicator     :text
+#  output_variant_id      :integer(4)
+#  output_variant_unit_id :integer(4)
 #
 class EconomicIndicator < ApplicationRecord
 

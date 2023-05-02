@@ -6,7 +6,7 @@
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
-# Copyright (C) 2015-2021 Ekylibre SAS
+# Copyright (C) 2015-2023 Ekylibre SAS
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,7 +30,7 @@
 #  confirmation_token                     :string
 #  confirmed_at                           :datetime
 #  created_at                             :datetime         not null
-#  creator_id                             :integer
+#  creator_id                             :integer(4)
 #  current_sign_in_at                     :datetime
 #  current_sign_in_ip                     :string
 #  description                            :text
@@ -38,39 +38,39 @@
 #  employed                               :boolean          default(FALSE), not null
 #  employment                             :string
 #  encrypted_password                     :string           default(""), not null
-#  failed_attempts                        :integer          default(0)
+#  failed_attempts                        :integer(4)       default(0)
 #  first_name                             :string           not null
-#  id                                     :integer          not null, primary key
+#  id                                     :integer(4)       not null, primary key
 #  invitation_accepted_at                 :datetime
 #  invitation_created_at                  :datetime
-#  invitation_limit                       :integer
+#  invitation_limit                       :integer(4)
 #  invitation_sent_at                     :datetime
 #  invitation_token                       :string
-#  invitations_count                      :integer          default(0)
-#  invited_by_id                          :integer
+#  invitations_count                      :integer(4)       default(0)
+#  invited_by_id                          :integer(4)
 #  language                               :string           not null
 #  last_name                              :string           not null
 #  last_sign_in_at                        :datetime
 #  last_sign_in_ip                        :string
-#  lock_version                           :integer          default(0), not null
+#  lock_version                           :integer(4)       default(0), not null
 #  locked                                 :boolean          default(FALSE), not null
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
-#  person_id                              :integer
+#  person_id                              :integer(4)
 #  provider                               :string
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
 #  rights                                 :text
-#  role_id                                :integer
-#  sign_in_count                          :integer          default(0)
+#  role_id                                :integer(4)
+#  sign_in_count                          :integer(4)       default(0)
 #  signup_at                              :datetime
-#  team_id                                :integer
+#  team_id                                :integer(4)
 #  uid                                    :string
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
 #  updated_at                             :datetime         not null
-#  updater_id                             :integer
+#  updater_id                             :integer(4)
 #
 require 'test_helper'
 
