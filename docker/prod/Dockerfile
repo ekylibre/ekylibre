@@ -13,8 +13,8 @@ WORKDIR /app
 RUN mkdir -p private
 RUN mkdir -p tmp
 
-COPY /docker/staging/unicorn.rb config/unicorn.rb
-COPY --chown=ekylibre /docker/staging/tenants.yml config/tenants.yml
+COPY /docker/prod/unicorn.rb config/unicorn.rb
+COPY --chown=ekylibre /docker/prod/tenants.yml config/tenants.yml
 
 RUN bundle install -j $(nproc) --path "/app/vendor/bundle" --without development test
 RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
