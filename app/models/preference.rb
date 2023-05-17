@@ -191,15 +191,15 @@ class Preference < ApplicationRecord
   prefer :accounting_system, :accounting_system, Onoma::AccountingSystem.default('fr_pcga')
   prefer :fiscal_position, :fiscal_position, Onoma::FiscalPosition.default('fr_ba_ir')
   prefer :commercial_accountancy_workflow, :boolean, true
-  prefer :language, :language, Onoma::Language.default
-  prefer :country,  :country, Onoma::Country.default
+  prefer :language, :language, Onoma::Language.default('fra')
+  prefer :country,  :country, Onoma::Country.default('fr')
   prefer :currency, :currency, :EUR
   prefer :map_measure_srs, :spatial_reference_system, Onoma::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true
-  prefer :client_account_radix, :string, ''
-  prefer :supplier_account_radix, :string, ''
-  prefer :employee_account_radix, :string, ''
+  prefer :client_account_radix, :string, '411'
+  prefer :supplier_account_radix, :string, '401'
+  prefer :employee_account_radix, :string, '421'
   prefer :account_number_digits, :integer, 8
   # TODO: manage period as list selector
   prefer :default_depreciation_period, :string, 'yearly'
