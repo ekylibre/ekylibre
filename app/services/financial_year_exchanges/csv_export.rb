@@ -23,7 +23,9 @@ module FinancialYearExchanges
                  debit
                  credit
                  lettrage
-                 code_tva].freeze
+                 code_tva
+                 activite
+                 campagne].freeze
 
     def generate_ekyagri(exchange)
       Tempfile.open do |tempfile|
@@ -38,16 +40,21 @@ module FinancialYearExchanges
               journal_entry_items.absolute_debit AS debit,
               journal_entry_items.absolute_credit AS credit,
               journal_entry_items.letter AS letter,
-              CASE
-                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.deduction_account_id THEN taxes.deduction_isacompta_code
-                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.collect_account_id THEN taxes.collect_isacompta_code
-                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_deduction_account_id THEN taxes.fixed_asset_deduction_isacompta_code
-                WHEN journal_entry_items.tax_id IS NOT NULL AND journal_entry_items.account_id = taxes.fixed_asset_collect_account_id THEN taxes.fixed_asset_collect_isacompta_code
-                ELSE NULL
-              END AS vat_code
+              taxes.name AS vat_code,
+              activities.name AS activity_name,
+              campaigns.name AS campaign_name
           FROM journal_entries
           JOIN journal_entry_items ON (journal_entries.id = journal_entry_items.entry_id)
           JOIN accounts ON (journal_entry_items.account_id = accounts.id)
+          LEFT JOIN activity_budgets ON (
+            journal_entry_items.activity_budget_id = activity_budgets.id
+          )
+          LEFT JOIN activities ON (
+            activity_budgets.activity_id = activities.id
+          )
+          LEFT JOIN campaigns ON (
+            activity_budgets.campaign_id = campaigns.id
+          )
           LEFT JOIN entities ON
             (
               accounts.id = entities.supplier_account_id OR
@@ -75,7 +82,9 @@ module FinancialYearExchanges
               row['debit'],
               row['credit'],
               row['letter'],
-              row['vat_code']
+              row['vat_code'],
+              row['activity_name'],
+              row['campaign_name']
             ]
           end
         end

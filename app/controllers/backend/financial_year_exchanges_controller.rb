@@ -42,13 +42,29 @@ module Backend
         if @financial_year_exchange.save
           notify_success(:record_x_created, record: 'activerecord.models.financial_year_exchange'.t, name: @financial_year_exchange.id)
 
-          journal_ids = params[:exported_journal_ids]
-          new_exchanged_journals = Journal.where(id: journal_ids).where("isacompta_code IS NULL OR isacompta_code = ''")
-          if @financial_year_exchange.isacompta? && new_exchanged_journals.any?
-            journals_link = new_exchanged_journals.map do |journal|
-              view_context.link_to(journal.name, edit_backend_journal_url(journal))
-            end.join(', ')
-            notify(:complete_isacompta_journal_code_html.tl(journals_link: journals_link), html: true)
+          if @financial_year_exchange.isacompta?
+            puts @financial_year_exchange.exported_journal_ids.inspect.yellow
+            journal_ids = @financial_year_exchange.exported_journal_ids
+            if journal_ids.any?
+              missing_code_exchanged_journals = Journal.where(id: journal_ids).where(isacompta_code: [nil, ""])
+            else
+              missing_code_exchanged_journals = Journal.where(isacompta_code: [nil, ""])
+            end
+            puts missing_code_exchanged_journals.inspect.yellow
+            if missing_code_exchanged_journals.count > 0
+              journals_link = missing_code_exchanged_journals.map do |journal|
+                view_context.link_to(journal.name, edit_backend_journal_url(journal))
+              end.join(', ')
+              notify(:complete_isacompta_journal_code_html.tl(journals_link: journals_link), html: true)
+            end
+            # warning about isacompta code on vat
+            taxes = Tax.where(active: true).where('collect_isacompta_code IS NULL OR deduction_isacompta_code IS NULL OR fixed_asset_deduction_isacompta_code IS NULL OR fixed_asset_collect_isacompta_code IS NULL')
+            if taxes.any? && taxes.count > 0
+              taxes_link = taxes.map do |tax|
+                view_context.link_to(tax.name, edit_backend_tax_url(tax))
+              end.join(', ')
+              notify(:complete_isacompta_tax_code_html.tl(taxes_link: taxes_link), html: true)
+            end
           end
           redirect_to(backend_financial_year_url(@financial_year_exchange.financial_year))
         else
@@ -60,27 +76,43 @@ module Backend
     def journal_entries_export
       return unless (exchange = find_and_check)
 
-      # check if a isacompta code is missing on a Model linkt to a segment
-      if exchange.transmit_isacompta_analytic_codes
-        missing_segment = 0
-        AnalyticSegment.all.each do |segment|
-          missing_code_count = segment.name.classify.constantize.where("isacompta_analytic_code IS NULL OR isacompta_analytic_code = ''").count
-          if missing_code_count > 0
-            missing_segment += missing_code_count
-            notify_error :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+      if exchange.format == 'isacompta'
+        # check if a isacompta code is missing on a Model link to a segment
+        if exchange.transmit_isacompta_analytic_codes
+          missing_segment = 0
+          AnalyticSegment.all.each do |segment|
+            missing_code_count = segment.name.classify.constantize.where(isacompta_analytic_code: [nil, ""]).count
+            if missing_code_count > 0
+              missing_segment += missing_code_count
+              notify_error :fill_analytic_codes_of_your_activities.tl(segment: segment.name.text.downcase, missing_code_count: missing_code_count)
+            end
+          end
+          if missing_segment > 0
+            redirect_to_back
+            return
           end
         end
-        if missing_segment > 0
+        # redirect to back if no isacompta journal code exist
+        if exchange.exported_journal_ids.any?
+          missing_code_exchanged_journals = Journal.where(id: exchange.exported_journal_ids).where(isacompta_code: [nil, ""], isacompta_label: [nil, ""])
+        else
+          missing_code_exchanged_journals = Journal.where(isacompta_code: [nil, ""], isacompta_label: [nil, ""])
+        end
+        if missing_code_exchanged_journals.count > 0
+          notify_error(:complete_isacompta_journal_code_html.tl(journals_link: view_context.link_to(missing_journal_isacompta.count, { controller: "/backend/journals", action: :index })), html: true)
           redirect_to_back
           return
         end
-      end
-      # redirect to back if no isacompta journal code exist
-      missing_journal_isacompta = Journal.where("isacompta_code IS NULL OR isacompta_code = '' OR isacompta_label IS NULL OR isacompta_label = ''")
-      if exchange.format == 'isacompta' && missing_journal_isacompta.count > 0
-        notify_error(:complete_isacompta_journal_code_html.tl(journals_link: view_context.link_to(missing_journal_isacompta.count, { controller: "/backend/journals", action: :index })), html: true)
-        redirect_to_back
-        return
+        # warning about isacompta code on vat
+        taxes = Tax.where(active: true).where(collect_isacompta_code: nil, deduction_isacompta_code: nil, fixed_asset_deduction_isacompta_code: nil, fixed_asset_collect_isacompta_code: nil)
+        if taxes.any? && taxes.count > 0
+          taxes_link = taxes.map do |tax|
+            view_context.link_to(tax.name, edit_backend_tax_url(tax))
+          end.join(', ')
+          notify_error(:complete_isacompta_tax_code_html.tl(taxes_link: taxes_link), html: true)
+          redirect_to_back
+          return
+        end
       end
       # generate export
       FinancialYearExchangeExportJob.perform_later(exchange, params[:format], exchange.transmit_isacompta_analytic_codes, current_user)

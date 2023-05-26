@@ -35,6 +35,10 @@ module Backend
       t.column :collect_account, url: true, label_method: :number
       t.column :fixed_asset_deduction_account, url: true, hidden: true, label_method: :number
       t.column :fixed_asset_collect_account, url: true, hidden: true, label_method: :number
+      t.column :collect_isacompta_code, hidden: true
+      t.column :deduction_isacompta_code, hidden: true
+      t.column :fixed_asset_deduction_isacompta_code, hidden: true
+      t.column :fixed_asset_collect_isacompta_code, hidden: true
     end
 
     def load
