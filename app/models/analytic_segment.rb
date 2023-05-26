@@ -40,7 +40,10 @@ class AnalyticSegment < ApplicationRecord
 
   before_create do
     last_segment = analytic_sequence.segments.last
-    self.position = 0 unless analytic_sequence.segments.any?
-    self.position = last_segment.position + 1 if analytic_sequence.segments.any?
+    if analytic_sequence.segments.any? && analytic_sequence.segments.count > 1
+      self.position = last_segment.position + 1
+    else
+      self.position = 0
+    end
   end
 end
