@@ -311,7 +311,7 @@ module Telepac
           label = 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s
           ensure_georeading(label, cap_land_parcel.shape)
 
-          create_activity_production(cap_land_parcel, cap_year: self.class.campaign, is_organic: is_organic)
+          create_activity_production(cap_land_parcel, cap_year: self.class.campaign, is_organic: is_organic) if Preference[:create_activities_from_telepac]
 
           w.check_point
         end

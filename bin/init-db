@@ -50,4 +50,7 @@ else
 fi
 psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA ${extensions_schema};"
 
+# Create pg_trgm extension
+psql -d ${dbname} -c "CREATE EXTENSION IF NOT EXISTS \"pg_trgm\" WITH SCHEMA ${extensions_schema};"
+
 echo ${password}

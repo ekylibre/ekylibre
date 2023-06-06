@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="generic_covering" categories="crop_protection" optional-actions="game_repellent, frost_protection, sun_protection, insect_repellent, bird_repellent">
+    <parameters>
+      <target name="cultivation" filter="(is plant or is land_parcel)"/>
+      <input name="protective_net" filter="(is canvas_cover or is straw)" cardinality="*">
+        <handler name="population"/>
+        <handler indicator="length" unit="meter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length?"
+                 backward="POPULATION * PRODUCT..length(meter)"
+                 forward="VALUE / PRODUCT..length(meter)"/>
+        <handler indicator="net_surface_area" unit="square_meter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length? and PRODUCT..width?"
+                 backward="POPULATION * (PRODUCT..length(meter) * PRODUCT..width(meter))"
+                 forward="VALUE / (PRODUCT..length(meter) * PRODUCT..width(meter))"/>
+      </input>
+      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle" cardinality="*"/>
+      <tool name="soil_tool" filter="is trailed_equipment" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

@@ -100,6 +100,7 @@ class Worker < Product
   belongs_to :team
   has_one :user, through: :person
   include Attachable
+  include Providable
   validates :person, presence: true
   has_many :intervention_participations, inverse_of: :product, foreign_key: :product_id, dependent: :destroy
   has_many :time_logs, class_name: 'WorkerTimeLog', inverse_of: :worker, foreign_key: :worker_id, dependent: :destroy

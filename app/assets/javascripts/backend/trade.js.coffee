@@ -124,7 +124,7 @@
     _handleTaxSelectorValue: ($taxSelector, tax_ids) ->
       if tax_ids.length > 0
         $taxSelector.val(tax_ids[0])
-    
+
     _handleTaxSelectorOptions: ($taxSelector, tax_ids) ->
       if tax_ids.length > 1
         $taxSelector.children('option').toArray().map((option) ->

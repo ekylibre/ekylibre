@@ -251,6 +251,15 @@ module Backend
       t.column :producer, hidden: true
     end
 
+    list(:yield_observations, joins: :plants, conditions: ['products.id = ?', 'params[:id]'.c] ) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :observed_at, datatype: :datetime
+      t.column :description
+      t.column :issues_name, label: :issues
+    end
+
     # Returns value of an indicator
     def take
       return unless @product = find_and_check

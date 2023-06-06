@@ -69,6 +69,7 @@ activity_productions_001:
   id: 6
   irrigated: false
   lock_version: 0
+  name: Blé tendre La Crédanpouille 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -98,6 +99,7 @@ activity_productions_002:
   id: 7
   irrigated: false
   lock_version: 0
+  name: Blé tendre Bernessard 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -128,6 +130,7 @@ activity_productions_003:
   id: 8
   irrigated: false
   lock_version: 0
+  name: Blé tendre Le pallet 2013
   nitrate_fixing: false
   rank_number: 3
   size_indicator_name: net_surface_area
@@ -157,6 +160,7 @@ activity_productions_004:
   id: 9
   irrigated: false
   lock_version: 0
+  name: Blé tendre Le silo 2013
   nitrate_fixing: false
   rank_number: 4
   size_indicator_name: net_surface_area
@@ -187,6 +191,7 @@ activity_productions_005:
   id: 10
   irrigated: false
   lock_version: 0
+  name: Blé tendre La chaumasse 2013
   nitrate_fixing: false
   rank_number: 5
   size_indicator_name: net_surface_area
@@ -214,6 +219,7 @@ activity_productions_006:
   id: 11
   irrigated: false
   lock_version: 0
+  name: Blé tendre Orme 2013
   nitrate_fixing: false
   rank_number: 1
   season_id: 3
@@ -241,6 +247,7 @@ activity_productions_007:
   id: 12
   irrigated: false
   lock_version: 0
+  name: Blé tendre Le terrier 2013
   nitrate_fixing: false
   rank_number: 2
   season_id: 3
@@ -267,6 +274,7 @@ activity_productions_008:
   id: 13
   irrigated: false
   lock_version: 0
+  name: Blé tendre La bouchaniere 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: members_population
@@ -288,6 +296,7 @@ activity_productions_010:
   id: 15
   irrigated: false
   lock_version: 1
+  name: Blé tendre Raguenaud 2013
   nitrate_fixing: false
   rank_number: 3
   size_indicator_name: members_population
@@ -310,6 +319,7 @@ activity_productions_011:
   id: 16
   irrigated: false
   lock_version: 0
+  name: Blé tendre Vinci 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -342,6 +352,7 @@ activity_productions_013:
   id: 18
   irrigated: false
   lock_version: 0
+  name: Blé tendre Eiffel 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -382,6 +393,7 @@ activity_productions_014:
   id: 19
   irrigated: false
   lock_version: 0
+  name: Blé tendre Gandi 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -428,6 +440,7 @@ activity_productions_015:
   id: 20
   irrigated: false
   lock_version: 0
+  name: Blé tendre Flibustier 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -457,6 +470,7 @@ activity_productions_016:
   id: 21
   irrigated: false
   lock_version: 0
+  name: Blé tendre Ormeau 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -485,6 +499,7 @@ activity_productions_017:
   id: 22
   irrigated: false
   lock_version: 0
+  name: Blé tendre Ornière 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -516,6 +531,7 @@ activity_productions_018:
   id: 23
   irrigated: false
   lock_version: 0
+  name: Blé tendre Zoulou 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -558,6 +574,7 @@ activity_productions_019:
   id: 24
   irrigated: false
   lock_version: 0
+  name: Blé tendre LFD 2013
   nitrate_fixing: false
   rank_number: 3
   size_indicator_name: net_surface_area
@@ -594,6 +611,7 @@ activity_productions_020:
   id: 25
   irrigated: false
   lock_version: 0
+  name: Blé tendre Agia Pellagia 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -623,6 +641,7 @@ activity_productions_021:
   id: 26
   irrigated: false
   lock_version: 0
+  name: Blé tendre Minotaure 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -657,6 +676,7 @@ activity_productions_022:
   id: 27
   irrigated: false
   lock_version: 0
+  name: Blé tendre Orpailleur 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -691,6 +711,7 @@ activity_productions_023:
   id: 28
   irrigated: false
   lock_version: 0
+  name: Blé tendre Bleu 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -723,6 +744,7 @@ activity_productions_024:
   id: 29
   irrigated: false
   lock_version: 0
+  name: Blé tendre Ornicar 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -753,6 +775,7 @@ activity_productions_025:
   id: 30
   irrigated: false
   lock_version: 0
+  name: Blé tendre Zeus 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -789,6 +812,7 @@ activity_productions_026:
   id: 31
   irrigated: false
   lock_version: 0
+  name: Blé tendre Folle avoine 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -817,6 +841,7 @@ activity_productions_027:
   id: 32
   irrigated: false
   lock_version: 0
+  name: Blé tendre Posseidon 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -849,6 +874,7 @@ activity_productions_028:
   id: 33
   irrigated: false
   lock_version: 0
+  name: Blé tendre AA 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -881,6 +907,7 @@ activity_productions_029:
   id: 34
   irrigated: false
   lock_version: 0
+  name: Blé tendre BB 2013
   nitrate_fixing: false
   rank_number: 4
   size_indicator_name: net_surface_area
@@ -914,6 +941,7 @@ activity_productions_030:
   id: 35
   irrigated: false
   lock_version: 0
+  name: Blé tendre CC 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -942,6 +970,7 @@ activity_productions_031:
   id: 36
   irrigated: false
   lock_version: 0
+  name: Blé tendre DD 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -968,6 +997,7 @@ activity_productions_032:
   id: 37
   irrigated: false
   lock_version: 0
+  name: Blé tendre OF 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -992,6 +1022,7 @@ activity_productions_033:
   id: 38
   irrigated: false
   lock_version: 0
+  name: Blé tendre OR 2013
   nitrate_fixing: false
   rank_number: 2
   size_indicator_name: net_surface_area
@@ -1020,6 +1051,7 @@ activity_productions_034:
   id: 39
   irrigated: false
   lock_version: 0
+  name: Blé tendre HT 2013
   nitrate_fixing: false
   rank_number: 3
   size_indicator_name: net_surface_area
@@ -1043,6 +1075,7 @@ activity_productions_035:
   id: 40
   irrigated: false
   lock_version: 0
+  name: Blé tendre OE 2013
   nitrate_fixing: false
   rank_number: 4
   size_indicator_name: net_surface_area
@@ -1066,6 +1099,7 @@ activity_productions_036:
   id: 41
   irrigated: false
   lock_version: 0
+  name: Blé tendre RF 2013
   nitrate_fixing: false
   rank_number: 5
   size_indicator_name: net_surface_area
@@ -1097,6 +1131,7 @@ activity_productions_037:
   id: 42
   irrigated: false
   lock_version: 0
+  name: Blé tendre RRT 2013
   nitrate_fixing: false
   rank_number: 6
   size_indicator_name: net_surface_area
@@ -1122,6 +1157,7 @@ activity_productions_038:
   id: 43
   irrigated: false
   lock_version: 0
+  name: Blé tendre RFCD 2013
   nitrate_fixing: false
   rank_number: 7
   size_indicator_name: net_surface_area
@@ -1146,6 +1182,7 @@ activity_productions_039:
   id: 44
   irrigated: false
   lock_version: 0
+  name: Blé tendre RFDS 2013
   nitrate_fixing: false
   rank_number: 3
   size_indicator_name: net_surface_area
@@ -1171,6 +1208,7 @@ activity_productions_040:
   id: 45
   irrigated: false
   lock_version: 0
+  name: Blé tendre DFSSQ 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -1198,6 +1236,7 @@ activity_productions_041:
   id: 46
   irrigated: false
   lock_version: 0
+  name: Blé tendre DFZSF 2013
   nitrate_fixing: false
   rank_number: 4
   size_indicator_name: net_surface_area
@@ -1249,6 +1288,7 @@ activity_productions_042:
   id: 47
   irrigated: false
   lock_version: 0
+  name: Blé tendre dfdfd 2013
   nitrate_fixing: false
   rank_number: 8
   size_indicator_name: net_surface_area
@@ -1275,6 +1315,7 @@ activity_productions_043:
   id: 48
   irrigated: false
   lock_version: 0
+  name: Blé tendre RECB 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area
@@ -1302,6 +1343,7 @@ activity_productions_044:
   id: 49
   irrigated: false
   lock_version: 0
+  name: Blé tendre POIK 2013
   nitrate_fixing: false
   rank_number: 1
   season_id: 1
@@ -1331,6 +1373,7 @@ activity_productions_045:
   id: 50
   irrigated: false
   lock_version: 0
+  name: Blé tendre POLIU 2013
   nitrate_fixing: false
   rank_number: 1
   size_indicator_name: net_surface_area

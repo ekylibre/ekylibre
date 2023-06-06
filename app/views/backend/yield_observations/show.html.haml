@@ -1,0 +1,46 @@
+#yield-observation-show
+  - main_toolbar do |t|
+    = t.edit resource
+    = t.destroy
+
+  = main_informations attachment: true do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :observed_at
+      - l.attribute :activity, url: { controller: '/backend/activities', id: resource.activity.id }
+
+  = cobbles do |c|
+    - if resource.vegetative_stage || resource.issues.any?
+      - c.cobble :general_informations do
+        = infos do
+          .med-info
+            - if resource.vegetative_stage
+              %span.title= YieldObservation.human_attribute_name :vegetative_stage
+              %span.value
+                %i.picto{class: "picto-leaf"}
+                = resource.vegetative_stage.label
+
+            - if resource.issues.any?
+              .issues
+                %span.title= :issues.tl
+                - links = []
+                - resource.issues.each do |issue|
+                  - links << link_to(issue.issue_nature.label, backend_issue_path(id: issue.id))
+                %span.links= links.to_sentence.html_safe
+
+    - c.cobble :plants, title: :crops.tl do
+      = cobble_list(:plants)
+
+    - c.cobble :observations, title: :description.tl do
+      = infos do
+        .med-info= resource.description
+
+    -  if resource.geolocation
+      - c.cobble :map do
+        = visualization(view: {zoom: 18}) do |v|
+          - v.serie :main, [{name: "origine", shape: resource.geolocation}]
+          - v.points :geolocation, :main
+          - v.control :zoom, 18
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector

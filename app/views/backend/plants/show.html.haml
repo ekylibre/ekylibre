@@ -48,6 +48,11 @@
       = t.new(params: {controller: :trackings, product_id: resource.id, active: true})
     = cobble_list(:trackings)
 
+  - c.cobble(:yield_observations, title: :x_observations.tl(count: resource.yield_observations.count)) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :yield_observations, activity_id: resource.activity_production&.activity_id})
+    = cobble_list(:yield_observations)
+
   - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})

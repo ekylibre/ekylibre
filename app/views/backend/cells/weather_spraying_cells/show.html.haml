@@ -1,7 +1,7 @@
 - if @forecast
     %table.weather-spraying
-        %thead 
-            %tr 
+        %thead
+            %tr
                 %th.fixed.center-align{:scope => "row"} Date
                 - @date.each do |date|
                     %th.center-align{:scope => "col"}
@@ -41,5 +41,3 @@
                             %span="weather_spraying_#{cond}".to_sym.tl
 - else
     = no_data
-
-        

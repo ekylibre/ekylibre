@@ -1,0 +1,5 @@
+= field_set do
+  - natures = Onoma::IssueNature.list
+  = f.input :nature, collection: natures.collect{|i| [i.human_name, i.name]}.sort{|a,b| a.first.ascii <=> b.first.ascii}
+  = f.input :category
+  = f.input :label

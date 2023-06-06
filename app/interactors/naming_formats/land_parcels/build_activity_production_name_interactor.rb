@@ -16,16 +16,7 @@ module NamingFormats
       end
 
       def run
-        @build_name = NamingFormats::LandParcels::BuildNamingService
-                      .new(cultivable_zone: @activity_production.cultivable_zone,
-                           activity: @activity_production.activity,
-                           campaign: @activity_production.campaign,
-                           season: @activity_production.season,
-                           free_field: @activity_production.custom_name)
-                      .perform(field_values: naming_format_fields_names)
-
-        rank_number = :rank.t(number: @activity_production.rank_number)
-        @build_name.concat(" #{rank_number}")
+        @build_name = NamingFormats::LandParcels::BuildNamingService.new(activity_production: @activity_production).perform
       rescue StandardError => exception
         fail!(exception.message)
       end
@@ -42,10 +33,6 @@ module NamingFormats
 
         def fail!(error)
           @error = error
-        end
-
-        def naming_format_fields_names
-          NamingFormatLandParcel.last.fields.map(&:field_name)
         end
     end
   end

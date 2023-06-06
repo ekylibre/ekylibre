@@ -56,7 +56,12 @@ class Issue < ApplicationRecord
   include Customizable
   refers_to :nature, class_name: 'IssueNature'
   has_many :interventions
+  has_many :issues_yield_observations, foreign_key: :issue_id, class_name: 'IssuesYieldObservation'
+  has_many :yield_observations, through: :issues_yield_observations, class_name: 'YieldObservation'
   belongs_to :target, polymorphic: true
+  belongs_to :issue_nature, class_name: 'IssueNature', inverse_of: :issues
+  belongs_to :products_yield_observation, class_name: 'ProductsYieldObservation', inverse_of: :pyo_issues
+  delegate :category, :label, to: :issue_nature, prefix: true, allow_nil: true
 
   has_geometry :geolocation, type: :point
   has_picture
@@ -127,6 +132,10 @@ class Issue < ApplicationRecord
     self.target_type = target.class.base_class.name if target
     self.priority ||= 0
     self.gravity ||= 0
+    if issue_nature
+      self.nature = issue_nature.nature
+      self.description = [:issue_registered_from_observation.tl, issue_nature.label].join(', ')
+    end
     if nature
       self.name = (target ? tc(:name_with_target, nature: nature.l, target: target.name) : tc(:name_without_target, nature: nature.l))
     end

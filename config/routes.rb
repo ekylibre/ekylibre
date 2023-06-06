@@ -792,6 +792,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :issue_natures, concerns: %i[list unroll]
+
     resources :januses, only: [] do
       member do
         post :toggle
@@ -835,6 +837,7 @@ Rails.application.routes.draw do
       member do
         get :list_interventions
         get :list_plants
+        get :list_yield_observations
       end
     end
 
@@ -1065,6 +1068,7 @@ Rails.application.routes.draw do
       member do
         get :list_plant_countings
         get :list_plant_readings
+        get :list_yield_observations
       end
     end
 
@@ -1416,6 +1420,13 @@ Rails.application.routes.draw do
 
     %i[master_variants master_variant_natures master_variant_categories registered_phytosanitary_products master_user_roles].each do |controller|
       resources controller, only: [], concerns: :unroll
+    end
+
+    resources :vegetative_stages, path: 'vegetative-stages', concerns: [:unroll]
+    resources :yield_observations, path: 'yield-observations', concerns: [:list] do
+      member do
+        get :list_plants
+      end
     end
 
     resources :visuals, only: [] do
