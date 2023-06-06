@@ -157,7 +157,7 @@ module Ekylibre
       if can_load_default?(:accounts)
         # Account number can't start with a '0' and are 8 caracters length
         @manifest[:accounts] = Cash.nature.values.each_with_object({}) do |nature, hash|
-          nature_account = { bank_account: '512', cash_box: '53', associate_account: '455' }
+          nature_account = { bank_account: '51200001', cash_box: '53000001', associate_account: '45500001' }
           hash[nature] = { name: "enumerize.cash.nature.#{nature}".t,
                            number: nature_account[nature.to_sym] }
           hash

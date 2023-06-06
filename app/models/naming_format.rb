@@ -35,7 +35,7 @@
 #  updater_id   :integer(4)
 #
 class NamingFormat < ApplicationRecord
-  has_many :fields, class_name: 'NamingFormatField'
+  has_many :fields, class_name: 'NamingFormatField', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]

@@ -12,6 +12,10 @@ base:
     path: 'alamano/accounts.csv'
   ekylibre_variants:
     path: 'alamano/variants.ods'
+  ekylibre_issue_natures:
+    path: 'alamano/issue_natures.ods'
+  ekylibre_vegetative_stages:
+    path: 'alamano/vegetative_stages.ods'
 
 # Entities
 entities:
@@ -77,6 +81,9 @@ land_parcels:
 
   telepac_v2022_cap_statements:
     path: 'telepac/2022/statement.xml'
+
+  telepac_v2021_cap_zip_statements:
+    path: 'telepac/2021/statements.zip'
 
   ekylibre_plants:
     path: 'alamano/plants.csv'

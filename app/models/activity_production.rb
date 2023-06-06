@@ -198,13 +198,6 @@ class ActivityProduction < ApplicationRecord
     end
   end
 
-  before_validation on: :create do
-    if activity
-      self.rank_number = activity.productions_next_rank_number
-    end
-    true
-  end
-
   before_validation do
     self.state ||= :opened
     self.batch_planting ||= false
@@ -216,7 +209,9 @@ class ActivityProduction < ApplicationRecord
       self.stopped_on ||= self.started_on + life_duration.to_i.year if perennial?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (activity.productions.maximum(:rank_number) || 0) + 1
+      self.rank_number ||= activity.productions_next_rank_number
+      self.cultivable_zone_rank_number ||= cultivable_zone.computed_next_cultivable_zone_rank_number(campaign) if cultivable_zone
+      self.name = NamingFormats::LandParcels::BuildNamingService.new(activity_production: self).perform
       if valid_period_for_support?
         if plant_farming? || vine_farming?
           initialize_land_parcel_support!
@@ -229,12 +224,6 @@ class ActivityProduction < ApplicationRecord
     end
     # planning
     destroy_batch
-    true
-  end
-
-  before_validation(on: :create) do
-    self.state ||= :opened
-    self.batch_planting ||= false
     true
   end
 
@@ -296,7 +285,7 @@ class ActivityProduction < ApplicationRecord
   end
 
   def update_names
-    if support
+    if support && name
       support.update_column(:name, name) if support.name != name
     end
   end
@@ -790,27 +779,6 @@ class ActivityProduction < ApplicationRecord
   def human_area(unit = :hectare)
     if support_shape
       support_shape_area.convert(unit).round(2).l(precision: 2)
-    end
-  end
-
-  # Returns unique i18nized name for given production
-  # FIXME: Not unique if interactor fails
-  def name(_options = {})
-    interactor = NamingFormats::LandParcels::BuildActivityProductionNameInteractor
-                 .call(activity_production: self)
-
-    if interactor.success?
-      interactor.build_name
-      # interactor is not loaded before the rake first run task
-    else
-      list = []
-      list << cultivable_zone.name if cultivable_zone && (plant_farming? || vine_farming?)
-      list << activity.name
-      list << campaign.harvest_year.to_s if activity.annual? && started_on && campaign_id
-      # list << started_on.to_date.l(format: :month) if activity.annual? && started_on
-      list << :rank.t(number: rank_number)
-      list = list.reverse! if 'i18n.dir'.t == 'rtl'
-      list.join(' ')
     end
   end
 

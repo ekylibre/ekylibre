@@ -1,0 +1,5 @@
+.nested-fields.issue-fields
+  = link_to_remove_nested_association(:pyo_issue, f)
+  = f.input :pyo, label: Issue.model_name.human, wrapper: :append  do
+    = f.referenced_association :issue_nature
+    = f.input :observed_at, value: read_at

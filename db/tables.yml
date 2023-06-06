@@ -632,6 +632,9 @@ activity_productions:
     type: integer
     references: cultivable_zone
     limit: 4
+  cultivable_zone_rank_number:
+    type: integer
+    limit: 4
   custom_fields:
     type: jsonb
   custom_name:
@@ -653,6 +656,8 @@ activity_productions:
     type: integer
     limit: 4
     required: true
+  name:
+    type: string
   nitrate_fixing:
     type: boolean
     required: true
@@ -5817,6 +5822,20 @@ inventory_items:
     type: integer
     references: user
     limit: 4
+issue_natures:
+  category:
+    type: string
+    required: true
+  id:
+    type: integer
+    limit: 4
+    required: true
+  label:
+    type: string
+    required: true
+  nature:
+    type: string
+    required: true
 issues:
   created_at:
     type: datetime
@@ -5844,6 +5863,10 @@ issues:
     type: integer
     limit: 4
     required: true
+  issue_nature_id:
+    type: integer
+    references: issue_nature
+    limit: 4
   lock_version:
     type: integer
     limit: 4
@@ -5869,6 +5892,10 @@ issues:
   priority:
     type: integer
     limit: 4
+  products_yield_observation_id:
+    type: integer
+    references: products_yield_observation
+    limit: 4
   state:
     type: string
   target_id:
@@ -5884,6 +5911,21 @@ issues:
     type: integer
     references: user
     limit: 4
+issues_yield_observations:
+  id:
+    type: integer
+    limit: 4
+    required: true
+  issue_id:
+    type: integer
+    references: issue
+    limit: 4
+    required: true
+  yield_observation_id:
+    type: integer
+    references: yield_observation
+    limit: 4
+    required: true
 journal_entries:
   absolute_credit:
     type: decimal
@@ -9906,6 +9948,30 @@ products:
     type: integer
     references: worker_group_item
     limit: 4
+products_yield_observations:
+  id:
+    type: integer
+    limit: 4
+    required: true
+  product_id:
+    type: integer
+    references: product
+    limit: 4
+    required: true
+  vegetative_stage_id:
+    type: integer
+    references: vegetative_stage
+    limit: 4
+  working_zone:
+    type: geometry
+    limit:
+      srid: 4326
+      type: geometry
+  yield_observation_id:
+    type: integer
+    references: yield_observation
+    limit: 4
+    required: true
 project_budgets:
   created_at:
     type: datetime
@@ -12584,6 +12650,38 @@ users:
     type: integer
     references: user
     limit: 4
+vegetative_stages:
+  bbch_number:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 4
+  id:
+    type: integer
+    limit: 4
+    required: true
+  label:
+    type: string
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 4
+  variety:
+    type: string
+    required: true
 version:
   version:
     type: string
@@ -13061,3 +13159,48 @@ worker_time_logs:
     references: worker
     limit: 4
     required: true
+yield_observations:
+  activity_id:
+    type: integer
+    references: activity
+    limit: 4
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 4
+  description:
+    type: text
+  geolocation:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  id:
+    type: integer
+    limit: 4
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  number:
+    type: string
+  observed_at:
+    type: datetime
+  provider:
+    type: jsonb
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 4
+  vegetative_stage_id:
+    type: integer
+    references: vegetative_stage
+    limit: 4

@@ -365,6 +365,12 @@ fra:
     food_preparation: "Préparation des aliments"
     fuel_up: "Plein de carburant"
     gas_weeding: "Désherbage thermique au gaz"
+    generic_covering: "Bachage / Paillage (PV)"
+    generic_fertilizing: "Fertilisation (PV)"
+    generic_sowing: "Semis / Plantation (PV)"
+    generic_spraying: "Pulvérisation (PV)"
+    generic_tillage: "Travail du sol (PV)"
+    generic_transport_harvesting: "Récolte / Transport (PV)"
     grain_transport: "Transport de grain" #?
     grains_harvest: "Moisson" #?
     grape_pressing: "Pressage de raisin"

@@ -98,6 +98,8 @@ class Plant < Bioproduct
   include Providable
 
   has_many :plant_countings
+  has_many :products_yield_observations, foreign_key: :product_id, class_name: 'ProductsYieldObservation'
+  has_many :yield_observations, through: :products_yield_observations, class_name: 'YieldObservation'
   refers_to :variety, scope: :plant
 
   has_shape

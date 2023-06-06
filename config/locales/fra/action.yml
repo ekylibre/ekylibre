@@ -933,6 +933,10 @@ fra:
       index: "Temps des équipiers"
       new: "Nouvelle saisie de temps "
       show: "Détail saisie de temps"
+    backend/yield_observations:
+      edit: "Modifier observation: %{number}"
+      index: "Observations"
+      show: "Observation: %{number}"
     public:
       index: "Accueil"
   errors:
@@ -2423,6 +2427,7 @@ fra:
     issue: "Incident"
     issues: "Incidents"
     issues_count: "Nombre d’incidents"
+    issue_registered_from_observation: "Incident déclaré lors d'une observation"
     isu_index: "Index génétique ISU" #?
     item_concentration_per_hectare: "Concentration en élèment par hectare"
     items: "Éléments"
@@ -4423,6 +4428,7 @@ fra:
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
     backend/interventions: "%{number}"
+    backend/issue_natures: "%{label}"
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
@@ -4443,3 +4449,4 @@ fra:
     backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"
+    backend/vegetative_stages: "%{label}"

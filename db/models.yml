@@ -135,6 +135,8 @@
 - inventory
 - inventory_item
 - issue
+- issue_nature
+- issues_yield_observation
 - journal
 - journal_entry
 - journal_entry_item
@@ -215,6 +217,7 @@
 - product_phase
 - product_population
 - product_reading
+- products_yield_observation
 - project_budget
 - purchase
 - purchase_affair
@@ -322,6 +325,7 @@
 - variants/service_variant
 - variants/worker_variant
 - variants/zone_variant
+- vegetative_stage
 - version
 - wice_grid_serialized_query
 - wine_incoming_harvest
@@ -337,4 +341,5 @@
 - worker_group_labelling
 - worker_time_indicator
 - worker_time_log
+- yield_observation
 - zone

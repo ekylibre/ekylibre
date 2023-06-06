@@ -1,0 +1,7 @@
+= kujaku do |k|
+  - k.text
+  - crop_list = Product.where(id: ProductsYieldObservation.select(:product_id).distinct).order(:name).pluck(:name, :id)
+  - k.list :plant, list_values: crop_list
+  - k.list :activity, value_label: :name
+
+= main_list

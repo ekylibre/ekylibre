@@ -1,0 +1,7 @@
+- issue = f.object
+- label_selector_values = issue.issue_nature.nil? ? IssueNature.all_label_values : IssueNature.labels_of_category(issue.issue_nature_category)
+.nested-fields.issue-fields
+  %span.issue-category= issue.issue_nature_category
+  = f.select(:issue_nature_id, label_selector_values)
+  = f.input :observed_at
+  = link_to_remove_nested_association(content_tag(:i) + h(:destroy.ta), f)

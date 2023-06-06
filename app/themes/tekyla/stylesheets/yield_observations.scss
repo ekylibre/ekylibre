@@ -1,0 +1,40 @@
+.edit_yield_observation{
+  .issue-fields {
+    margin: 7px;
+    .issue-category {
+      display: inline-block;
+      width: 30%;
+    }
+    select {
+      width: 280px;
+    }
+  }
+  .add-issue-link {
+    display: flex;
+    justify-content: center;
+    select {
+      width: 150px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+
+#yield-observation-show {
+  .med-info {
+    .issues {
+      display: flex;
+      .links {
+        font-size: 17px;
+        margin-left: 15px;
+      }
+      .title {
+        font-size: 15px;
+      }
+      a {
+        vertical-align: baseline;
+        font-size: 17px;
+      }
+    }
+  }
+}

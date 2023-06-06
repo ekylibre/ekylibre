@@ -70,7 +70,7 @@ module Ekylibre
     config.middleware.use Rack::Cors do
       allow do
         origins /https:\/\/ekylibre.stoplight.io\.*/
-        resource '*', 
+        resource '*',
           headers: :any,
           methods: %i[get post put patch delete]
       end

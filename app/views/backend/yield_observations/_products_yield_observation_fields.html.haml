@@ -1,0 +1,8 @@
+- activity = Activity.find(@yield_observation.activity_id)
+- productions = activity.productions
+.nested-fields.plant-fields
+  = f.referenced_association :plant, required: true, source: { scope: { of_productions: productions } }
+  = f.geometry :working_zone, { show: {}, editor: { useFeatures: true, overlaySelector: { editionLayer: :shape } } }
+  = f.referenced_association :vegetative_stage, new: false, source: { scope: { of_variety: activity.cultivation_variety } }
+  = field_set :issues do
+    = f.nested_association(:pyo_issues, locals: { read_at: @yield_observation.observed_at })

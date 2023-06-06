@@ -1084,6 +1084,18 @@
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
       </item>
+      <item name="yield_observations">
+        <page to="backend/yield_observations#index"/>
+        <page to="backend/yield_observations#create"/>
+        <page to="backend/yield_observations#destroy"/>
+        <page to="backend/yield_observations#list"/>
+        <page to="backend/yield_observations#list_plants"/>
+        <page to="backend/yield_observations#show"/>
+        <page to="backend/yield_observations#new"/>
+        <page to="backend/yield_observations#edit"/>
+        <page to="backend/yield_observations#update"/>
+        <page to="backend/yield_observations#unroll"/>
+      </item>
       <item name="issues">
         <page to="backend/issues#index"/>
         <page to="backend/issues#create"/>

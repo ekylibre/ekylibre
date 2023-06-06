@@ -1331,7 +1331,9 @@ CREATE TABLE public.activity_productions (
     headland_shape postgis.geometry(Geometry,4326),
     custom_name character varying,
     starting_year integer,
-    reference_name character varying
+    reference_name character varying,
+    name character varying,
+    cultivable_zone_rank_number integer
 );
 
 
@@ -6350,6 +6352,38 @@ ALTER SEQUENCE public.inventory_items_id_seq OWNED BY public.inventory_items.id;
 
 
 --
+-- Name: issue_natures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.issue_natures (
+    id integer NOT NULL,
+    category character varying NOT NULL,
+    label character varying NOT NULL,
+    nature character varying NOT NULL
+);
+
+
+--
+-- Name: issue_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.issue_natures_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: issue_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.issue_natures_id_seq OWNED BY public.issue_natures.id;
+
+
+--
 -- Name: issues; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6375,7 +6409,9 @@ CREATE TABLE public.issues (
     lock_version integer DEFAULT 0 NOT NULL,
     geolocation postgis.geometry(Point,4326),
     custom_fields jsonb,
-    dead boolean DEFAULT false
+    dead boolean DEFAULT false,
+    issue_nature_id integer,
+    products_yield_observation_id integer
 );
 
 
@@ -6397,6 +6433,37 @@ CREATE SEQUENCE public.issues_id_seq
 --
 
 ALTER SEQUENCE public.issues_id_seq OWNED BY public.issues.id;
+
+
+--
+-- Name: issues_yield_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.issues_yield_observations (
+    id integer NOT NULL,
+    yield_observation_id integer NOT NULL,
+    issue_id integer NOT NULL
+);
+
+
+--
+-- Name: issues_yield_observations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.issues_yield_observations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: issues_yield_observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.issues_yield_observations_id_seq OWNED BY public.issues_yield_observations.id;
 
 
 --
@@ -8843,6 +8910,39 @@ ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
 
 
 --
+-- Name: products_yield_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_yield_observations (
+    id integer NOT NULL,
+    yield_observation_id integer NOT NULL,
+    product_id integer NOT NULL,
+    working_zone postgis.geometry(Geometry,4326),
+    vegetative_stage_id integer
+);
+
+
+--
+-- Name: products_yield_observations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.products_yield_observations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: products_yield_observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.products_yield_observations_id_seq OWNED BY public.products_yield_observations.id;
+
+
+--
 -- Name: project_budgets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10170,6 +10270,43 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: vegetative_stages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.vegetative_stages (
+    id integer NOT NULL,
+    bbch_number character varying NOT NULL,
+    label character varying NOT NULL,
+    variety character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: vegetative_stages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.vegetative_stages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: vegetative_stages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.vegetative_stages_id_seq OWNED BY public.vegetative_stages.id;
+
+
+--
 -- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10720,6 +10857,47 @@ CREATE SEQUENCE public.worker_time_logs_id_seq
 --
 
 ALTER SEQUENCE public.worker_time_logs_id_seq OWNED BY public.worker_time_logs.id;
+
+
+--
+-- Name: yield_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.yield_observations (
+    id integer NOT NULL,
+    observed_at timestamp without time zone,
+    activity_id integer NOT NULL,
+    vegetative_stage_id integer,
+    geolocation postgis.geometry(Point,4326),
+    description text,
+    number character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb DEFAULT '{}'::jsonb
+);
+
+
+--
+-- Name: yield_observations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.yield_observations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: yield_observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.yield_observations_id_seq OWNED BY public.yield_observations.id;
 
 
 --
@@ -11472,10 +11650,24 @@ ALTER TABLE ONLY public.inventory_items ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: issue_natures id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.issue_natures ALTER COLUMN id SET DEFAULT nextval('public.issue_natures_id_seq'::regclass);
+
+
+--
 -- Name: issues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.issues ALTER COLUMN id SET DEFAULT nextval('public.issues_id_seq'::regclass);
+
+
+--
+-- Name: issues_yield_observations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.issues_yield_observations ALTER COLUMN id SET DEFAULT nextval('public.issues_yield_observations_id_seq'::regclass);
 
 
 --
@@ -11864,6 +12056,13 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: products_yield_observations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_yield_observations ALTER COLUMN id SET DEFAULT nextval('public.products_yield_observations_id_seq'::regclass);
+
+
+--
 -- Name: project_budgets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -12095,6 +12294,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Name: vegetative_stages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vegetative_stages ALTER COLUMN id SET DEFAULT nextval('public.vegetative_stages_id_seq'::regclass);
+
+
+--
 -- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -12183,6 +12389,13 @@ ALTER TABLE ONLY public.worker_groups ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.worker_time_logs ALTER COLUMN id SET DEFAULT nextval('public.worker_time_logs_id_seq'::regclass);
+
+
+--
+-- Name: yield_observations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.yield_observations ALTER COLUMN id SET DEFAULT nextval('public.yield_observations_id_seq'::regclass);
 
 
 --
@@ -13492,11 +13705,27 @@ ALTER TABLE ONLY public.inventory_items
 
 
 --
+-- Name: issue_natures issue_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.issue_natures
+    ADD CONSTRAINT issue_natures_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: issues issues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.issues
     ADD CONSTRAINT issues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: issues_yield_observations issues_yield_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.issues_yield_observations
+    ADD CONSTRAINT issues_yield_observations_pkey PRIMARY KEY (id);
 
 
 --
@@ -13940,6 +14169,14 @@ ALTER TABLE ONLY public.products
 
 
 --
+-- Name: products_yield_observations products_yield_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_yield_observations
+    ADD CONSTRAINT products_yield_observations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: project_budgets project_budgets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14212,6 +14449,14 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: vegetative_stages vegetative_stages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.vegetative_stages
+    ADD CONSTRAINT vegetative_stages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14313,6 +14558,14 @@ ALTER TABLE ONLY public.worker_groups
 
 ALTER TABLE ONLY public.worker_time_logs
     ADD CONSTRAINT worker_time_logs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: yield_observations yield_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.yield_observations
+    ADD CONSTRAINT yield_observations_pkey PRIMARY KEY (id);
 
 
 --
@@ -19720,6 +19973,20 @@ CREATE INDEX index_issues_on_updater_id ON public.issues USING btree (updater_id
 
 
 --
+-- Name: index_issues_yield_observations_on_issue_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_issues_yield_observations_on_issue_id ON public.issues_yield_observations USING btree (issue_id);
+
+
+--
+-- Name: index_issues_yield_observations_on_yield_observation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_issues_yield_observations_on_yield_observation_id ON public.issues_yield_observations USING btree (yield_observation_id);
+
+
+--
 -- Name: index_journal_entries_on_continuous_number; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -22723,6 +22990,20 @@ CREATE INDEX index_products_on_worker_group_item_id ON public.products USING btr
 
 
 --
+-- Name: index_products_yield_observations_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_yield_observations_on_product_id ON public.products_yield_observations USING btree (product_id);
+
+
+--
+-- Name: index_products_yield_observations_on_yield_observation_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_yield_observations_on_yield_observation_id ON public.products_yield_observations USING btree (yield_observation_id);
+
+
+--
 -- Name: index_project_budgets_on_creator_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24368,6 +24649,34 @@ CREATE INDEX index_users_on_updater_id ON public.users USING btree (updater_id);
 
 
 --
+-- Name: index_vegetative_stages_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vegetative_stages_on_created_at ON public.vegetative_stages USING btree (created_at);
+
+
+--
+-- Name: index_vegetative_stages_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vegetative_stages_on_creator_id ON public.vegetative_stages USING btree (creator_id);
+
+
+--
+-- Name: index_vegetative_stages_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vegetative_stages_on_updated_at ON public.vegetative_stages USING btree (updated_at);
+
+
+--
+-- Name: index_vegetative_stages_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_vegetative_stages_on_updater_id ON public.vegetative_stages USING btree (updater_id);
+
+
+--
 -- Name: index_versions_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24806,6 +25115,48 @@ CREATE INDEX index_worker_time_logs_on_updater_id ON public.worker_time_logs USI
 --
 
 CREATE INDEX index_worker_time_logs_on_worker_id ON public.worker_time_logs USING btree (worker_id);
+
+
+--
+-- Name: index_yield_observations_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_yield_observations_on_activity_id ON public.yield_observations USING btree (activity_id);
+
+
+--
+-- Name: index_yield_observations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_yield_observations_on_created_at ON public.yield_observations USING btree (created_at);
+
+
+--
+-- Name: index_yield_observations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_yield_observations_on_creator_id ON public.yield_observations USING btree (creator_id);
+
+
+--
+-- Name: index_yield_observations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_yield_observations_on_updated_at ON public.yield_observations USING btree (updated_at);
+
+
+--
+-- Name: index_yield_observations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_yield_observations_on_updater_id ON public.yield_observations USING btree (updater_id);
+
+
+--
+-- Name: index_yield_observations_on_vegetative_stage_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_yield_observations_on_vegetative_stage_id ON public.yield_observations USING btree (vegetative_stage_id);
 
 
 --
@@ -25361,6 +25712,14 @@ ALTER TABLE ONLY public.crop_group_labellings
 
 ALTER TABLE ONLY public.ride_set_equipments
     ADD CONSTRAINT fk_rails_38d40f03b1 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: issues fk_rails_392a6ab73f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.issues
+    ADD CONSTRAINT fk_rails_392a6ab73f FOREIGN KEY (issue_nature_id) REFERENCES public.issue_natures(id);
 
 
 --
@@ -26906,16 +27265,20 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220328232801'),
 ('20220414120300'),
 ('20220414120336'),
+('20220427143501'),
 ('20220429082601'),
 ('20220429184701'),
 ('20220505102323'),
 ('20220510111701'),
 ('20220512094001'),
 ('20220512132701'),
+('20220523113601'),
+('20220601100701'),
 ('20220603121153'),
 ('20220622174701'),
 ('20220622183901'),
 ('20220627090824'),
+('20220630164401'),
 ('20220708090701'),
 ('20220708171301'),
 ('20220728083430'),

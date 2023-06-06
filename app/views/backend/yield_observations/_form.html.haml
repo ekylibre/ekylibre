@@ -1,0 +1,31 @@
+- if Rails.env.development? && f.object.errors.any?
+  = f.object.errors.inspect
+:ruby
+  observation = f.object
+  issue_nature_ids = observation.issues.pluck(:issue_nature_id).uniq
+  issues = []
+  issue_nature_ids.each { |id| issues << observation.issues.where(issue_nature_id: id).first}
+
+= field_set do
+  = f.referenced_association :activity, source: { controller: '/backend/activities' }
+  = f.input :observed_at
+  = f.input :description
+  = f.geolocation
+
+= field_set :issues do
+  .nested-association.issues
+    = f.simple_fields_for :issues, issues do |issue|
+      = render 'issue_fields', f: issue
+    .add-issue-link
+      = :add_item.tl
+      = select_tag(:issue_nature_category, options_for_select(IssueNature.categories))
+      = link_to_add_association :add.tl, f, :issues, partial: 'issue_fields', class: 'btn'
+
+= field_set :crops do
+  .nested-association{ data: { association_insertion_minimum: 1 } }
+    = f.simple_fields_for :products_yield_observations do |products_yield_observation|
+      = render 'products_yield_observation_fields', f: products_yield_observation
+    .links
+      = link_to_add_association :add_x.tl(x: :plant.tl), f, :products_yield_observations, partial: 'products_yield_observation_fields', class: 'nested-add'
+
+= f.attachments_field_set

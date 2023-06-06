@@ -350,7 +350,10 @@ fra:
     naming_format_field_land_parcel:
       field_name:
         activity: "Activité"
-        campaign: "Campagne"
+        activity_rank_number: "N° ordre Parcelle (/Activité)"
+        campaign: "Campagne (YYYY) - ex 2022"
+        campaign_short_year: "Campagne (YY) - ex 22"
+        cultivable_zone_rank_number: "N° ordre Activité (/Zone Cultivable)"
         cultivable_zone_code: "Code de la zone cultivable"
         cultivable_zone_name: "Nom de la zone cultivable"
         production_mode: "Mode de production"

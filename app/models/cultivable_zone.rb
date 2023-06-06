@@ -106,6 +106,15 @@ class CultivableZone < ApplicationRecord
     nil
   end
 
+  # compute the number of unique activity on a cultivable zone on a year
+  def computed_next_cultivable_zone_rank_number(campaign)
+    if campaign.present?
+      activity_productions.of_campaign(campaign).pluck(:activity_id).uniq.count
+    else
+      activity_productions.pluck(:activity_id).uniq.count
+    end
+  end
+
   def city_name
     islets = CapIslet.shape_intersecting(shape).order(id: :desc)
     return islets.first.city_name if islets.any?

@@ -149,6 +149,7 @@ linters:
       - "app/views/backend/variants/shared/_main_informations.html.haml"
       - "app/views/backend/worker_time_logs/index.html.haml"
       - "app/views/backend/workers/show.html.haml"
+      - "app/views/backend/yield_observations/show.html.haml"
       - "app/views/helpers/state-bar/_state_bar.html.haml"
       - "app/views/kujaku/feather/_multi_choice_feather.html.haml"
       - "app/views/layouts/_navigation.html.haml"
@@ -341,6 +342,7 @@ linters:
       - "app/views/backend/invalid_journal_entries/_list.html.haml"
       - "app/views/backend/inventories/show.html.haml"
       - "app/views/backend/issues/show.html.haml"
+      - "app/views/backend/issue_natures/show.html.haml"
       - "app/views/backend/journal_entries/_form.html.haml"
       - "app/views/backend/journal_entries/show.html.haml"
       - "app/views/backend/journals/_index.html.haml"
@@ -415,6 +417,8 @@ linters:
       - "app/views/backend/worker_contracts/show.html.haml"
       - "app/views/backend/worker_time_logs/index.html.haml"
       - "app/views/backend/worker_time_logs/show.html.haml"
+      - "app/views/backend/yield_observations/index.html.haml"
+      - "app/views/backend/yield_observations/show.html.haml"
       - "app/views/layouts/_side.html.haml"
 
   # Offense count: 34
@@ -593,6 +597,7 @@ linters:
       - "app/views/backend/trial_balances/show.html.haml"
       - "app/views/backend/variants/shared/_main_informations.html.haml"
       - "app/views/backend/workers/show.html.haml"
+      - "app/views/backend/yield_observations/show.html.haml"
       - "app/views/layouts/authentication.html.haml"
       - "app/views/layouts/exception.html.haml"
       - "app/views/layouts/zen.html.haml"

@@ -211,7 +211,7 @@
               unitName = $(parentBlock).find('select[data-intervention-field="quantity-handler"]').val()
               E.interventionForm.displayCost(targettedElement, quantity, unitName)
 
-            isUsingMap = $("[data-intervention-updater$='working_zone_area_value']").length == 0 
+            isUsingMap = $("[data-intervention-updater$='working_zone_area_value']").length == 0
             isTargetProductUpdate = data.updater_id.includes('targets_attributes') && data.updater_id.includes('product_id')
 
             if isUsingMap && isTargetProductUpdate
@@ -508,7 +508,7 @@
 
     E.interventionForm.checkPlantLandParcelSelector(productId, landParcelPlantSelectorElement)
     E.interventionForm.checkHarvestInProgress(event, productId, landParcelPlantSelectorElement)
-    
+
   $(document).on 'selector:change', "[data-selector-id=intervention_target_product_id]", (event, _selectedElement, wasInitializing) ->
     if wasInitializing
       return
@@ -656,7 +656,7 @@
         started_at = $('#intervention_working_periods_attributes_0_started_at').val()
         $(this).each ->
           E.interventions.updateAvailabilityInstant(started_at)
-    
+
     setWorkingZoneArea: (productId, $workingZoneAreaInput) ->
       $.ajax
         url: "/backend/products/#{productId}.json",
@@ -1125,8 +1125,8 @@
     productId = $nestedField.find(sprayerForm.selectors.toolInput).next().val()
     sprayerForm.updateReadingInputs($nestedField,productId)
   
-  refreshQuantityWithDelay =  -> 
-    $("*[data-intervention-updater$='quantity_value']").each (i) -> 
+  refreshQuantityWithDelay =  ->
+    $("*[data-intervention-updater$='quantity_value']").each (i) ->
       that = this
       debounceTime = 1000 * (1 + i * 2) # Refresh won't be performed if executed at the same time, each quantity refresh will be performed every seconds
       _.debounce( ->

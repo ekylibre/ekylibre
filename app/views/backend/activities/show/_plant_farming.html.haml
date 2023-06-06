@@ -6,8 +6,8 @@
       - d.item :global_costs_xslx_export.tl, action: :global_costs_xslx_export, campaign_id: current_campaign.id
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :activities, action: :index) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
-
-  = render partial: 'backend/activities/documents_printers', locals: {action: :show, conditions: @activity} 
+  = tool_to :new.ta, {action: :new, controller: :yield_observations, activity_id: resource.id }, tool: :new
+  = render partial: 'backend/activities/documents_printers', locals: {action: :show, conditions: @activity}
   - main_period_selector(:year)
 
 = main_informations attachment: true do
