@@ -14,10 +14,10 @@
                  backward="POPULATION * (PRODUCT..length(meter) * PRODUCT..width(meter))"
                  forward="VALUE / (PRODUCT..length(meter) * PRODUCT..width(meter))"/>
       </input>
-      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="driver" filter="is worker" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="is motorized_vehicle" cardinality="*"/>
-      <tool name="soil_tool" filter="is trailed_equipment" cardinality="*"/>
+      <tool name="soil_tool" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

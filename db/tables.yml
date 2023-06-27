@@ -4498,6 +4498,160 @@ imports:
     type: integer
     references: user
     limit: 4
+incoming_harvest_crops:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 8
+  crop_id:
+    type: integer
+    references: product
+    limit: 8
+    required: true
+  harvest_intervention_id:
+    type: integer
+    references: intervention
+    limit: 8
+  harvest_percentage_repartition:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    limit: 8
+    required: true
+  incoming_harvest_id:
+    type: integer
+    references: incoming_harvest
+    limit: 8
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 8
+incoming_harvest_storages:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 8
+  id:
+    type: integer
+    limit: 8
+    required: true
+  incoming_harvest_id:
+    type: integer
+    references: incoming_harvest
+    limit: 8
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  product_id:
+    type: integer
+    references: product
+    limit: 8
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  storage_id:
+    type: integer
+    references: product
+    limit: 8
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 8
+incoming_harvests:
+  additional_informations:
+    type: jsonb
+  analysis_id:
+    type: integer
+    references: analysis
+    limit: 8
+  campaign_id:
+    type: integer
+    references: campaign
+    limit: 8
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 8
+  description:
+    type: text
+  driver_id:
+    type: integer
+    references: product
+    limit: 8
+  id:
+    type: integer
+    limit: 8
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+    limit: 8
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  number:
+    type: string
+  quantity_unit:
+    type: string
+    required: true
+  quantity_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  received_at:
+    type: datetime
+    required: true
+  ticket_number:
+    type: string
+  tractor_id:
+    type: integer
+    references: product
+    limit: 8
+  trailer_id:
+    type: integer
+    references: product
+    limit: 8
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 8
 incoming_payment_modes:
   active:
     type: boolean

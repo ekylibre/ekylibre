@@ -163,6 +163,16 @@ module Backend
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
     end
 
+    list(:incoming_harvests, conditions: { intervention_id: 'params[:id]'.c }, order: { received_at: :desc }) do |t|
+      t.column :number, url: true
+      t.column :received_at
+      t.column :tractor, url: true
+      t.column :trailer, url: true
+      t.column :human_crops_names
+      t.column :quantity, on_select: :sum, value_method: :quantity, datatype: :measure, class: 'center'
+      t.column :human_storages_names
+    end
+
     list(
       :service_deliveries,
       model: :reception_items,

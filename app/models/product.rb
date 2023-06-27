@@ -335,6 +335,8 @@ class Product < ApplicationRecord
   scope :plants, -> { where(type: 'Plant') }
   scope :workers, -> { where(type: 'Worker') }
   scope :land_parcels, -> { where(type: 'LandParcel') }
+  scope :building_divisions, -> { where(type: 'BuildingDivision') }
+  scope :crops, -> { where(type: %w[LandParcel Plant]) }
   scope :animals, -> { where(type: 'Animal') }
   scope :of_available_animal_group, -> { where(type: 'AnimalGroup', activity_production_id: nil) }
 

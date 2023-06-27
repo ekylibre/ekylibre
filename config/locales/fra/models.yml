@@ -260,6 +260,34 @@ fra:
         depreciable_amount: "Valeur nette comptable (VNC)" #?
       idea_diagnostic:
         auditor: "Auditeur"
+      incoming_harvest:
+        harvest_dock: "Quai de réception"
+        harvest_nature: "Type de récolte"
+        harvest_transportation_duration: "Durée de transport"
+        last_load: "Dernier chargement"
+        quantity_unit: "Unité"
+        quantity_value: "Quantité"
+        harvest_description: "Description"
+        ticket_number: "Ticket"
+        tractor: "Tracteur"
+        trailer: "Remorque"
+        driver: "Conducteur"
+        vehicle_trailer: "Id. du véhicule de transport"
+        human_crops_names: "Parcelle(s) / Culture(s)"
+        human_plants_names: "Parcelle(s) / Culture(s)"
+        human_storages_names: "Lieux de stockage"
+        net_harvest_areas_sum: "Superficie récoltée (ha)"
+        human_species_variesties_names: "Variété(s)"
+      incoming_harvest_crop:
+        harvest_percentage_repartition: "Proportion de la parcelle / culture dans la réception (%)"
+        harvest_quantity: "Quantité récoltée"
+        net_harvest_area: "Superficie récoltée (ha)"
+        crop: "Parcelle / Culture"
+        plant_specie_variety_name: "Variété"
+        rows_harvested: "Rangs récoltés"
+        quantity_unit: "Unité"
+      incoming_harvest_storage:
+        storage: "Lieu de stockage"
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
       inspection: #?
@@ -523,6 +551,7 @@ fra:
         tavp: 'TAVP (%vol.)'
         ticket_number: "Ticket"
         vehicle_trailer: "Id. du véhicule de transport"
+        human_crops_names: "Parcelles / Cultures"
         human_plants_names: "Culture(s)"
         human_storages_names: "Cuverie"
         net_harvest_areas_sum: "Superficie récoltée (ha)"
@@ -751,6 +780,10 @@ fra:
           attributes: #?
             started_on: #?
               invalid_start_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
+        incoming_harvest_crop:
+          attributes:
+            base:
+              total_harvest_percentage_repartition_must_be_equal_to_100: "Le total de la répartation des parcelles / cultures doit être de 100%"
         incoming_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
         incoming_payment:

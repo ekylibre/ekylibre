@@ -22,7 +22,7 @@ module ChartsHelper
     hash
   end.freeze
 
-  TYPES = %i[line spline area area_spline column bar pie scatter area_range area_spline_range column_range waterfall packedbubble].each_with_object({}) do |name, hash|
+  TYPES = %i[line spline area area_spline column bar pie scatter area_range area_spline_range column_range waterfall bubble packedbubble].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.delete('_')
     hash
   end.freeze

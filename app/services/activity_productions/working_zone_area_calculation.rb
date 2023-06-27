@@ -19,7 +19,7 @@ module ActivityProductions
             activity_productions.id AS activity_production_id,
             CASE
               WHEN interventions.procedure_name NOT IN (#{PLANTING})
-              THEN ST_Area(intervention_parameters.working_zone, TRUE) / 10000
+              THEN intervention_parameters.working_zone_area_value
               /* if procedure is planting, it should take the initial shape of
                  the associated products                                    */
               ELSE ST_Area(products.initial_shape, TRUE) / 10000

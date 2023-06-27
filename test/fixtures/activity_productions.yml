@@ -849,7 +849,7 @@ activity_productions_027:
   size_value: 2.3421
   started_on: 2015-01-01
   state: opened
-  stopped_on: 2015-12-31
+  stopped_on: 2016-08-31
   support_id: 159
   support_nature: cultivation
   support_shape: SRID=4326;MultiPolygon (((-0.770137045346216 45.8266597555803, -0.770148418563064
@@ -1005,7 +1005,7 @@ activity_productions_032:
   size_value: 2.039
   started_on: 2015-01-01
   state: opened
-  stopped_on: 2015-12-31
+  stopped_on: 2016-08-31
   support_id: 164
   support_nature: cultivation
   support_shape: SRID=4326;MultiPolygon (((-0.747529743313611 45.8384256282279, -0.748124326171744

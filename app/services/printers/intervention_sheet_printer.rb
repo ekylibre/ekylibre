@@ -30,12 +30,11 @@ module Printers
     #  @param [InterventionTarget] target
     #  @return [Float] worked_area per target in hectare
     def worked_area(target)
-      worked_area = if target.working_area.present?
-                      target.working_area
-                    else
-                      target.product.net_surface_area
-                    end
-      worked_area.in_hectare.round(3)
+      if target.working_zone_area.present?
+        target.working_zone_area.round(2)
+      else
+        target.product.net_surface_area.round(2)
+      end
     end
 
     #  Intervention total area
@@ -90,13 +89,28 @@ module Printers
       end
     end
 
+    # compute shape as SVG, write into a file and return path
+    def compute_image(target)
+      svg_filename = target.class.name.downcase + '_' + target.id.to_s + '.svg'
+      file_path = Ekylibre::Tenant.private_directory.join('tmp', 'svg', svg_filename)
+      FileUtils.mkdir_p(file_path.dirname) unless file_path.dirname.exist?
+      if target.product&.shape&.present?
+        svg_flow = target.product.shape_svg.gsub!(/\"/, '\'')&.delete("\n")
+        File.write file_path, svg_flow
+        file_path
+      else
+        nil
+      end
+    end
+
     def compute_dataset
       #  Create Targets
       targets = @intervention.targets.map do |target|
-        if target.working_zone
+        if target.working_zone_area
           {
             name: target.product.name,
             type: target.product.nature.name,
+            img: compute_image(target),
             area: target.product&.net_surface_area.to_d,
             w_area: worked_area(target).to_d,
             pct: target_area(target)
@@ -141,13 +155,15 @@ module Printers
       dataset = compute_dataset
       #  Outside Tables
       r.add_field 'INTERV_NAME', @intervention.name
+      r.add_field 'INTERV_ID', @id.to_s
+      r.add_field 'INTERV_STATUS', @intervention.human_status
       r.add_field 'INTERV_DATE', @intervention.started_at.strftime("%d/%m/%Y")
       r.add_field 'AREA', total_area.round_l
       r.add_field 'INTERV_DESC', @intervention.description
       # Inside Table-targets
       r.add_table('Table-target', dataset.targets, header: true) do |t|
         t.add_field(:tar_name) { |target| target[:name] }
-        t.add_field(:tar_type) { |target| target[:type] }
+        t.add_image(:img) { |target| target[:img] }
         t.add_field(:tar_area) { |target| target[:area]}
         t.add_field(:tar_pct) { |target| target[:pct]}
         t.add_field(:tar_w_area) { |target| target[:w_area]}

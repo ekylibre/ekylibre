@@ -1,0 +1,77 @@
+- if campaign && activity
+  :ruby
+    ihis = IncomingHarvestIndicator.of_campaign(campaign).of_activity(activity)
+    currency = Onoma::Currency.find(Preference[:currency])
+    activity_net_surface_area = activity.decorate.human_net_surface_area(campaign)
+    data = []
+    average_yield = []
+    average_cost = []
+    average_p_yield = []
+    average_p_cost = []
+    ihis.each do |ihi|
+      crop_yield = ihi.crop_incoming_harvest_yield_value
+      average_yield << crop_yield
+      average_p_yield << (crop_yield * ihi.crop_area_value)
+      ap_cost = ihi.activity_production_cost_per_area.to_s.to_f
+      average_cost << ap_cost
+      average_p_cost << (ap_cost * ihi.crop_area_value)
+      data <<   {
+                  x: ap_cost,
+                  y: crop_yield.to_s.to_f,
+                  z: ihi.crop_area_value.to_s.to_f,
+                  name: ihi.crop.name
+                }
+    end
+
+    # compute average cost and yield
+    final_average_cost = (average_cost.sum.to_f / average_cost.size).round(2)
+    final_average_yield = (average_yield.sum.to_f / average_yield.size).round(2)
+    final_average_p_cost = (average_p_cost.sum.to_f / activity_net_surface_area.to_f).round(2)
+    final_average_p_yield = (average_p_yield.sum.to_f / activity_net_surface_area.to_f).round(2)
+
+    title = "#{activity.name} #{campaign.name} (#{activity_net_surface_area})"
+
+    series = [{ data: data, colorByPoint: false }]
+
+    point_format = '<tr><th colspan="2"><h3>{point.name}</h3></th></tr>'
+    point_format << '<tr><th>'+ :cultivated_hectare_costs.tl + ':</th><td>{point.x} ' + currency.symbol + '/ha' + '</td></tr>'
+    point_format << '<tr><th>'+ :yield.tl + ':</th><td>{point.y} ' + 't/ha | k./ha' + '</td></tr>'
+    point_format << '<tr><th>'+ :area_measure.tl + ':</th><td>{point.z} ' + 'ha' + '</td></tr>'
+
+    tooltip = {
+        useHTML: true,
+        headerFormat: '<table>',
+        pointFormat: point_format,
+        footerFormat: '</table>',
+        followPointer: true
+    }
+
+    x_plot_line_1_label = { rotation: 0, y: 15, align: 'top', style: { fontStyle: 'italic' }, text: :average_production_cost.tl + " : #{final_average_cost.to_s}" }
+    x_plot_line_1 = { color: 'red', dashStyle: 'dot', width: 2, value: final_average_cost, label: x_plot_line_1_label, zIndex: 3 }
+    x_plot_line_2_label = { rotation: 0, y: 100, align: 'bottom', style: { fontStyle: 'bold' }, text: :average_ponderate_production_cost.tl + " : #{final_average_p_cost.to_s}" }
+    x_plot_line_2 = { color: 'green', dashStyle: 'dot', width: 3, value: final_average_p_cost, label: x_plot_line_1_label, zIndex: 3 }
+
+    x_axis = {
+              gridLineWidth: 1,
+              title: { text: :cultivated_hectare_costs.tl },
+              labels: { format: '{value} €/ha' },
+              plotLines: [ x_plot_line_1 , x_plot_line_2 ]
+    }
+
+    y_plot_line_1_label = { align: 'right', style: { fontStyle: 'italic' }, text: :average_yield.tl + " : #{final_average_yield.to_s}", x: -10 }
+    y_plot_line_1 = { color: 'red', dashStyle: 'dot', width: 2, value: final_average_yield, label: y_plot_line_1_label, zIndex: 3 }
+    y_plot_line_2_label = { align: 'left', style: { fontStyle: 'bold' }, text: :average_ponderate_yield.tl + " : #{final_average_p_yield.to_s}", x: -10 }
+    y_plot_line_2 = { color: 'green', dashStyle: 'dot', width: 3, value: final_average_p_yield, label: y_plot_line_2_label, zIndex: 3 }
+
+    y_axis = {
+              startOnTick: false,
+              endOnTick: false,
+              title: { text: :yield.tl },
+              labels: { format: '{value} t/ha | k./ha' },
+              maxPadding: 0.2,
+              plotLines: [ y_plot_line_1, y_plot_line_2 ]
+    }
+
+  = bubble_highcharts(series, colors: ["#ffc683"], title: title, x_axis: x_axis, y_axis: y_axis, tooltip: tooltip, legend: { enabled: false })
+- else
+  = no_data

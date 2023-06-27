@@ -97,6 +97,10 @@
 - idea_diagnostic_result
 - identifier
 - import
+- incoming_harvest
+- incoming_harvest_crop
+- incoming_harvest_indicator
+- incoming_harvest_storage
 - incoming_payment
 - incoming_payment_mode
 - inspection

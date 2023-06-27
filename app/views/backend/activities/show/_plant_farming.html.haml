@@ -73,6 +73,9 @@
           - v.control :scale
           - v.control :fullscreen
           - v.control :layer_selector
+  - if IncomingHarvestIndicator.of_campaign(current_campaign).of_activity(resource).any?
+    - c.cobble(:harvest_costs, title: :harvest_costs.tl) do
+      = render partial: 'backend/shared/harvest_costs', locals: { campaign: current_campaign, activity: resource }
 
   - c.cobble(:production_costs, title: :production_costs.tl) do
     = render partial: 'backend/shared/production_costs', locals: { costs: resource.decorate.production_costs(current_campaign) }

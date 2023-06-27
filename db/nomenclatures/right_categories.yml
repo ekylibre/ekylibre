@@ -49,6 +49,7 @@ productions:
 - crop_groups
 - cultivable_zones
 - equipments
+- incoming_harvests
 - interventions
 - issues
 - land_parcels

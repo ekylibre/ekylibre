@@ -223,7 +223,7 @@ GEM
     combine_pdf (1.0.22)
       matrix
       ruby-rc4 (>= 0.1.5)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     connection_pool (2.2.5)
     corindon (0.8.0)
       semantic (~> 1.6)
@@ -295,6 +295,8 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
     fastimage (2.2.6)
     ffaker (2.18.0)
     ffi (1.15.5)
@@ -350,7 +352,7 @@ GEM
       rack
       socksify
     humanize (2.5.1)
-    i18n (1.12.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     i18n-complements (1.1.1)
       i18n (>= 0.6)
@@ -431,7 +433,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.2)
     minitest (5.17.0)
     minitest-reporters (1.4.3)
       ansi
@@ -452,6 +454,9 @@ GEM
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nordigen-ruby (1.0.1)
+      faraday (~> 1.8.0)
+      faraday_middleware (~> 1.2.0)
     nori (2.6.0)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -465,7 +470,7 @@ GEM
     omniauth-oauth2 (1.7.2)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    onoma (0.8.5)
+    onoma (0.8.6)
       activesupport (>= 4.2)
       nokogiri (>= 1.10.4)
       zeitwerk (~> 2.4.0)
@@ -510,7 +515,7 @@ GEM
       json (~> 2.1.0)
       rest-client (~> 2.0.2)
     raabro (1.4.0)
-    racc (1.6.2)
+    racc (1.7.1)
     rack (2.2.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -600,6 +605,7 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
+    rocketchat (0.2.2)
     rodf (1.1.1)
       builder (>= 3.0)
       dry-inflector (~> 0.1)
@@ -644,6 +650,7 @@ GEM
     scenic (1.5.4)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
+    securerandom (0.2.2)
     semantic (1.6.1)
     sepa_king (0.12.0)
       activemodel (>= 3.1)
@@ -685,6 +692,11 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     state_machine (1.2.0)
+    stripe (8.5.0)
+    stripe-rails (1.10.2)
+      rails (>= 3)
+      responders
+      stripe (>= 1.36.2)
     sysexits (1.2.0)
     temple (0.8.2)
     terrapin (0.6.0)
@@ -715,7 +727,7 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
-    tzinfo (1.2.10)
+    tzinfo (1.2.11)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
@@ -736,6 +748,7 @@ GEM
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
     victor (0.3.3)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -847,10 +860,11 @@ DEPENDENCIES
   minitest-reporters (~> 1.4)
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8)
+  nordigen-ruby
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.8.5)
+  onoma (~> 0.8.6)
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
@@ -876,6 +890,7 @@ DEPENDENCIES
   rgeo-geojson (~> 2.1)
   rgeo-shapefile (~> 3.0)
   rjb (= 1.6.2)
+  rocketchat
   rodf (~> 1.0)
   roo (~> 2.8)
   rubocop (~> 1.11.0)
@@ -885,6 +900,7 @@ DEPENDENCIES
   sassc-rails (~> 2.0)
   savon (~> 2.12)
   scenic
+  securerandom
   semantic (~> 1.6)
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
@@ -897,6 +913,7 @@ DEPENDENCIES
   simplecov-cobertura (~> 2.1.0)
   sprockets (< 4.0)
   state_machine (~> 1.2)
+  stripe-rails (~> 1.10, >= 1.10.2)
   therubyracer
   time_diff (~> 0.3.0)
   timecop (~> 0.9.0)
@@ -910,6 +927,7 @@ DEPENDENCIES
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   vcr (~> 6.0.0)
+  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webmock (~> 3.13.0)

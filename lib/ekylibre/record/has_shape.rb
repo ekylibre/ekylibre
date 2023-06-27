@@ -83,6 +83,35 @@ module Ekylibre
           end
         end
 
+        # More robust implementation of to_svg from Charta for multiple objects
+        def compute_svg(column_name, options = {})
+          plucked_ids = pluck(:id).join(',')
+
+          options[:color] ||= 'black'
+          options[:stroke_width] ||= 1
+          options[:height] ||= 180
+          options[:width] ||= 180
+
+          if plucked_ids.blank?
+            nil
+          else
+            svg = ActiveRecord::Base.connection.execute <<~SQL
+              WITH
+                query AS (SELECT #{column_name} AS geometry FROM #{table_name} WHERE id IN (#{plucked_ids}) ),
+                q AS (SELECT
+                    ST_XMin(ST_Collect(geometry)) as x_min,
+                    ST_XMax(ST_Collect(geometry)) as x_max,
+                    ST_YMin(ST_Collect(geometry)) as y_min,
+                    ST_YMax(ST_Collect(geometry)) as y_max,
+                    ARRAY_TO_STRING(ARRAY_AGG(CONCAT('<path d="', ST_AsSVG(geometry), '" ', 'fill="none" ', 'stroke="#{options[:color]}" ', 'stroke-linecap="butt" ', 'stroke-linejoin="round" ', 'stroke-width="#{options[:stroke_width].to_s}%"', ' />')),'') as svg FROM query )
+              SELECT
+                CONCAT('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="#{options[:height].to_s}" width="#{options[:width].to_s}" viewBox="',
+                    CONCAT_WS(' ', q.x_min, -1 * q.y_max, q.x_max-q.x_min, q.y_max-q.y_min), '">', q.svg, '</svg>') FROM q;
+            SQL
+            svg.first["concat"].gsub(/\"/, '\'')
+          end
+        end
+
         def has_geometry(*columns)
           options = columns.extract_options!
           options[:type] ||= :multi_polygon

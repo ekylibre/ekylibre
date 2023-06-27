@@ -1,0 +1,34 @@
+/ - financial_year = FinancialYear.find_by(id: params[:current_financial_year])
+/ - financial_year ||= FinancialYear.current
+/ - main_financial_year_selector(financial_year)
+
+- main_toolbar do |t|
+  = t.new params: { redirect: nil }
+  = dropdown_menu_button(:reception_report.tl, icon: :print) do |d|
+    - d.item :pdf_format.tl, { controller: :incoming_harvests, action: :index, key: Printers::HarvestReceptionPrinter.build_key(period: params[:period]), template: @harvest_reception_document.id, period: params[:period], driver_id: params[:driver_id], crop_id: params[:crop_id], storage_id: params[:storage_id], format: :pdf}, remote: false
+    - d.item :odt_format.tl, { controller: :incoming_harvests, action: :index, key: Printers::HarvestReceptionPrinter.build_key(period: params[:period]), template: @harvest_reception_document.id, period: params[:period], driver_id: params[:driver_id], crop_id: params[:crop_id], storage_id: params[:storage_id], format: :odt}, remote: false
+  #autolink-incoming-harvest-to-intervention
+    = link_to(:autolink_incoming_harvests_on_harvest_intervention.tl, autolink_incoming_harvests_backend_incoming_harvests_path(incoming_harvest_ids: 0), method: :put, class: "btn btn-primary disabled")
+
+- main_period_selector(:year)
+
+= kujaku do |k|
+  - k.text
+  - k.helper :journal_period_crit
+  - k.helper do
+    - driver_ids = IncomingHarvest.pluck(:driver_id).compact.uniq
+    .label-container
+      %label= IncomingHarvest.human_attribute_name(:driver)
+    = select_tag(:driver_id, options_for_select([[]] + Worker.where(id: driver_ids).reorder(:name).pluck(:name, :id), params[:driver_id].to_i))
+  - k.helper do
+    - crop_ids = IncomingHarvestCrop.pluck(:crop_id).uniq
+    .label-container
+      %label= IncomingHarvestCrop.human_attribute_name(:crop)
+    = select_tag(:crop_id, options_for_select([[]] + Product.where(id: crop_ids).reorder(:name).pluck(:name, :id), params[:crop_id].to_i))
+  - k.helper do
+    - storage_ids = IncomingHarvestStorage.pluck(:storage_id).compact.uniq
+    .label-container
+      %label= IncomingHarvestStorage.human_attribute_name(:storage)
+    = select_tag(:storage_id, options_for_select([[]] + Product.where(id: storage_ids).reorder(:name).pluck(:name, :id), params[:storage_id].to_i))
+
+= main_list(:incoming_harvests)

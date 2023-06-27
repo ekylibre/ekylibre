@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="generic_harvesting_without_output" categories="harvesting" actions="harvest" hidden="true">
+    <parameters>
+      <target name="plant" filter="(is plant or is land_parcel) and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        <attribute name="killable"/>
+        <handler indicator="shape">
+          <compute to="shape" expr="intersection(VALUE, PRODUCT.shape)"/>
+          <compute to="population" expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
+        </handler>
+      </target>
+      <doer name="driver" filter="is worker" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="is equipment" cardinality="*"/>
+      <tool name="trailer" filter="is equipment" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

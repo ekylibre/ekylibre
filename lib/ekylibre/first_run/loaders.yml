@@ -297,6 +297,9 @@ interventions:
       - 'interventions.csv'
     in: 'viniteca'
 
+  ekylibre_incoming_harvests:
+    path: 'alamano/incoming_harvests.csv'
+
   # Import interventions from isaculture files
   isagri_isaculture_csv_import:
     format: :archive
