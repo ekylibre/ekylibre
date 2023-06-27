@@ -112,6 +112,10 @@
               %span.title= item.indicator.l
               %span.value= item.value.is_a?(Measure) ? item.value.round_l : item.value
 
+  - if resource.incoming_harvests.any?
+    - c.cobble(:incoming_harvests) do
+      = cobble_list(:incoming_harvests)
+
   - if resource.receptions.any?
     - c.cobble(:service_deliveries) do
       = cobble_list(:service_deliveries)

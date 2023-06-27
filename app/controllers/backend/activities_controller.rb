@@ -43,6 +43,7 @@ module Backend
     def show
       return unless @activity = find_and_check
 
+      IncomingHarvestIndicator.refresh
       @phytosanitary_document = DocumentTemplate.find_by(nature: :phytosanitary_register)
       @land_parcel_document = DocumentTemplate.find_by(nature: :land_parcel_register)
       @intervention_document = DocumentTemplate.find_by(nature: :intervention_register)

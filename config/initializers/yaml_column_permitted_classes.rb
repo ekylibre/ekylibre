@@ -15,6 +15,7 @@ Rails.application.config.active_record.yaml_column_permitted_classes =
     RGeo::Geographic::ProjectedMultiPolygonImpl,
     RGeo::Geographic::ProjectedPointImpl,
     RGeo::Geographic::Factory,
+    Symbol,
     Time,
     Date,
     Nori::StringWithAttributes

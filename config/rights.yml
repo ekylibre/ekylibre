@@ -1984,6 +1984,23 @@ imports:
     - "backend/imports#abort"
     - "backend/imports#run"
 
+incoming_harvests:
+  read:
+    actions:
+      - "backend/incoming_harvests#index"
+      - "backend/incoming_harvests#show"
+      - "backend/incoming_harvests#list"
+      - "backend/incoming_harvests#unroll"
+  write:
+    dependencies:
+    - read-incoming_harvests
+    actions:
+      - "backend/incoming_harvests#edit"
+      - "backend/incoming_harvests#autolink_incoming_harvests"
+      - "backend/incoming_harvests#create"
+      - "backend/incoming_harvests#update"
+      - "backend/incoming_harvests#destroy"
+
 incoming_payment_modes:
   read:
     actions:

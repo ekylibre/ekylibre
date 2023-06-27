@@ -49,6 +49,7 @@ fra:
     ekylibre_equipments_json: "Équipements (JSON) ‒ Ekylibre"
     ekylibre_fixed_assets: "Immobilisations (CSV) ‒ Ekylibre"
     ekylibre_georeadings: "Relevés topographiques (SHP/ZIP) ‒ Ekylibre"
+    ekylibre_incoming_harvests: "Reception de récoltes (CSV) ‒ Ekylibre"
     ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"
     ekylibre_interventions: "Interventions (CSV) ‒ Ekylibre"
     ekylibre_issue_natures: "Type d'incidents (ODS) ‒ Ekylibre"

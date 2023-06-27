@@ -3,10 +3,10 @@
   <procedure name="generic_tillage" categories="soil_working" optional-actions="weeding, loosening">
     <parameters>
       <target name="cultivation" filter="(is plant or is land_parcel)"/>
-      <doer name="driver" filter="is worker and can drive(equipment)" cardinality="*"/>
+      <doer name="driver" filter="is worker" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
       <tool name="tractor" filter="is motorized_vehicle" cardinality="*"/>
-      <tool name="soil_tool" filter="is trailed_equipment" cardinality="*"/>
+      <tool name="soil_tool" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

@@ -423,6 +423,11 @@ eng:
       # progress: "Progress import: %{name}"
       run: "Run import"
       show: "Import: %{nature}"
+    backend/incoming_harvests:
+      edit: "Edit incoming harvest\_: %{number}"
+      index: "Incoming harvests"
+      new: "New incoming harvest"
+      show: "Incoming harvest\_: %{number}"
     backend/incoming_payment_modes:
       edit: "Edit incoming payment mode: %{name}"
       index: "Incoming payment modes"
@@ -1522,6 +1527,19 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    add_tank: "Add storage"
+    silo: "Storage"
+    product_unit: "Unity"
+    product_quantity: "Quantity"
+    reception_date_label: "Received at"
+    reception_ticket: "Ticket number"
+    total_area_in_hectare: "Total area"
+    silo_destination: "Tank storage"
+    harvested_crops: "Landparcel / plant linked"
+    incoming_harvest_quantity: "Incoming harvest quantity"
+    reception_report: "Incoming harvest sheet"
+    pdf_format: "PDF"
+    odt_format: "ODT"
     import_or_create_technical_itinerary: "Import a technical itinerary from reference or create it first"
     pick_existing_technical_itinerary: "Pick an existing technical itinerary"
     pick_technical_workflow_from_lexicon: "Set a technical itinerary from reference (Lexicon), it will import it in your database."

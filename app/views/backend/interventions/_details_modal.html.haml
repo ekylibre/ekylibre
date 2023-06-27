@@ -1,32 +1,29 @@
 = modal_header(intervention.name)
 
 .modal-body{ data: { intervention_id: intervention.id }}
-
-  .indicators
-    .med-info.total-cost
-      %span.title= :total_cost.tl
-      %span.value
+  .big-infos
+    .big-info{ style: "width: 50%;" }
+      %span.title= Intervention.human_attribute_name(:started_at)
+      %span.value{ style: "font-size: 32px;" }
+        %i.picto.picto-clock-o
+        = resource.started_at.l(format: :compact)
+    .big-info{ style: "width: 50%;" }
+      %span.title= Intervention.human_attribute_name(:stopped_at)
+      %span.value{ style: "font-size: 32px;" }
+        %i.picto.picto-clock-o
+        = resource.stopped_at.l(format: :compact)
+    .big-info{ style: "width: 50%;" }
+      %span.title= Intervention.human_attribute_name(:working_duration)
+      %span.value{ style: "font-size: 32px;" }
         %i.picto.picto-timelapse
+        = human_duration(resource.working_duration)
+    .big-info{ style: "width: 50%;" }
+      %span.title= :total_cost.tl
+      %span.value{ style: "font-size: 32px;" }
+        %i.picto.picto-money
         - currency = Onoma::Currency.find(resource.currency)
         = resource.total_cost.round(currency.precision).l(currency: currency.name)
 
-    .med-info
-      %span.title= Intervention.human_attribute_name(:working_duration)
-      %span.value
-        %i.picto.picto-timelapse
-        = human_duration(resource.working_duration)
-
-    .med-info
-      %span.title= Intervention.human_attribute_name(:started_at)
-      %span.value
-        %i.picto.picto-clock-o
-        = resource.started_at.l(format: :compact)
-
-    .med-info
-      %span.title= Intervention.human_attribute_name(:stopped_at)
-      %span.value
-        %i.picto.picto-clock-o
-        = resource.stopped_at.l(format: :compact)
 
   - if intervention.activities.any?
     .intervention-activities
@@ -34,7 +31,6 @@
         = link_to({ action: :show, controller: :activities, id: activity.id}, style: "background-color: #{activity.color}; color: #{contrasted_color(activity.color)}", class: 'label') do
           = activity.name
   .blocks
-
     - if intervention.targets.any?
       .block
         %h3.block-title= Intervention.human_attribute_name(:targets)
@@ -43,12 +39,12 @@
           - title = target.product.name
           - detail = target.product.nature.name
           - if target.product.has_indicator? :shape
-            - detail << ' - ' + target.human_working_zone_area unless target.working_zone_area.nil?
+            - detail << ' - ' + target.working_zone_area.l unless target.working_zone_area.nil?
           = add_detail_to_modal_block(title, detail, {icon: 'picto-land-parcels'})
 
     - if intervention.doers.any?
       .block
-        %h3.block-title= Intervention.human_attribute_name(:doers)
+        %h3.block-title= Intervention.human_attribute_name(:doers)  + ' | ' + resource.cost(:doer).round(currency.precision).l(currency: currency.name)
 
         - intervention.doers.each do |doer|
           - title = doer.product.name
@@ -58,8 +54,10 @@
     - %i(inputs outputs).each do |parameter_type|
       - if intervention.send(parameter_type).any?
         .block
-          %h3.block-title= Intervention.human_attribute_name(parameter_type)
-
+          - if parameter_type == :inputs
+            %h3.block-title= Intervention.human_attribute_name(parameter_type) + ' | ' + resource.cost(:input).round(currency.precision).l(currency: currency.name)
+          - else
+            %h3.block-title= Intervention.human_attribute_name(parameter_type)
           - intervention.send(parameter_type).each do |quantified_parameter|
             - target = parameter_type == :inputs ? quantified_parameter.product.presence : quantified_parameter.variant
             - title = target.name
@@ -87,7 +85,7 @@
 
     - if intervention.tools.any?
       .block
-        %h3.block-title= :equipments.tl
+        %h3.block-title= :equipments.tl + ' | ' + resource.cost(:tool).round(currency.precision).l(currency: currency.name)
 
         - intervention.tools.each do |tool|
           - title = tool.product.name
@@ -96,7 +94,7 @@
 
     - if intervention.receptions.any?
       .block
-        %h3.block-title= :service_deliveries.tl
+        %h3.block-title= :service_deliveries.tl + ' | ' + resource.receptions_cost.round(currency.precision).l(currency: currency.name)
         - intervention.receptions.each do |reception|
           - title = reception.sender.name
           - detail = ''

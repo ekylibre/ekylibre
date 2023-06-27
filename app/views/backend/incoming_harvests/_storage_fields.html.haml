@@ -1,0 +1,5 @@
+.nested-fields
+  = f.referenced_association :storage, source: { scope: :storage }, label: :silo.tl, new: false
+  = f.input :quantity_value, label: :product_quantity.tl
+  = f.input :quantity_unit, label: :product_unit.tl
+  = link_to_remove_nested_association(:storages, f)

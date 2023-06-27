@@ -1,0 +1,9 @@
+- if @campaigns
+  = visualization({ async_url: backend_visualizations_incoming_harvest_map_cells_visualizations_path(@url_params) }, {}) do |v|
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
+    - v.center ActivityProduction.where.not(support_shape: nil).first.support_shape_centroid
+- else
+  .placeholding-message= :no_production_defined_for_current_campaign.tn

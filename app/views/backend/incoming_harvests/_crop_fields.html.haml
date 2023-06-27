@@ -1,0 +1,6 @@
+.nested-fields
+  = f.referenced_association :crop, source: { scope: :crops }
+  = f.input :harvest_percentage_repartition, wrapper: :append do
+    = f.input_field :harvest_percentage_repartition, class: 'harvest-percentage-repartition'
+    %span.percentage= '%'
+  = link_to_remove_nested_association(:plants, f)

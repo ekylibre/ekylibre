@@ -194,6 +194,7 @@ Rails.application.routes.draw do
       resource :expenses_by_product_nature_category_cell, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
+      resource :incoming_harvest_map_cell, only: :show
       resource :last_analyses_cell, only: :show
       resource :last_documents_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
@@ -709,6 +710,16 @@ Rails.application.routes.draw do
 
     resources :exchanger_template_files, only: [:show]
 
+    resources :incoming_harvests, concerns: :list do
+      collection do
+        put :autolink_incoming_harvests
+      end
+      member do
+        get :list_crops
+        get :list_storages
+      end
+    end
+
     resources :incoming_payments, concerns: %i[list unroll]
 
     resources :incoming_payment_modes, concerns: %i[list unroll] do
@@ -751,6 +762,7 @@ Rails.application.routes.draw do
         get :list_product_parameters
         get :list_record_interventions
         get :list_service_deliveries
+        get :list_incoming_harvests
       end
     end
 
@@ -1442,6 +1454,7 @@ Rails.application.routes.draw do
       resource :resources_visualizations, only: :show
       resource :non_treatment_areas_visualizations, only: :show
       resource :inspections_visualizations, only: :show
+      resource :incoming_harvest_map_cells_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

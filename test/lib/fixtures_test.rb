@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FixturesTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   # Checks the validity of references files for models
-  MATERIALIZED_VIEWS = %i[economic_indicator worker_time_indicator activity_productions_interventions_cost].freeze
+  MATERIALIZED_VIEWS = %i[economic_indicator incoming_harvest_indicator worker_time_indicator activity_productions_interventions_cost].freeze
 
   Ekylibre::Schema.models.sort.each do |model_name|
     next if MATERIALIZED_VIEWS.include?(model_name)

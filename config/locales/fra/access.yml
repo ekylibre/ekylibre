@@ -65,6 +65,7 @@ fra:
       identifiers: "Identifiants"
       imports: "Imports"
       incoming_deliveries: "Réceptions"
+      incoming_harvests: "Réceptions de récolte"
       incoming_payment_modes: "Modes d’encaissement"
       incoming_payments: "Encaissements"
       integrations: "Connexions partenaires"

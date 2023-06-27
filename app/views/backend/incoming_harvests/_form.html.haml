@@ -1,0 +1,32 @@
+= field_set do
+  = f.input :ticket_number, label: :reception_ticket.tl
+  = f.input :received_at, label: :reception_date_label.tl
+  = f.referenced_association :tractor, source: :tools
+  = f.referenced_association :trailer, source: :tools
+  = f.referenced_association :driver, source: :workers
+  = f.input :quantity, label: :received_quantity.tl, wrapper: :append do
+    = f.input :quantity_value, wrapper: :simplest
+    = f.input :quantity_unit, collection: %i[kilogram quintal ton].map { |u| [Onoma::Unit.find(u).human_name, u] }, include_blank: false, wrapper: :simplest
+
+= field_set :harvested_crops do
+  .nested-association
+    = f.simple_fields_for(:crops, f.object.crops) do |d|
+      = render '/backend/incoming_harvests/crop_fields', f: d
+    .links
+      = link_to_add_association :add_crop.tl, f, :crops, partial: '/backend/incoming_harvests/crop_fields', class: 'nested-add'
+
+= field_set :silo_destination do
+  .nested-association
+    = f.simple_fields_for(:storages, f.object.storages) do |d|
+      = render '/backend/incoming_harvests/storage_fields', f: d
+    .links
+      = link_to_add_association :add_tank.tl, f, :storages, partial: '/backend/incoming_harvests/storage_fields', class: 'nested-add'
+
+= field_set :additional_informations do
+  = f.input :harvest_description
+  = f.input :vehicle_trailer
+  = f.input :harvest_transportation_duration, wrapper: :append do
+    = f.input_field :harvest_transportation_duration, as: :integer
+    %span.add-on= Onoma::Unit.find(:minute).symbol
+  = f.input :harvest_nature, as: :select, collection: [[:mechanical.tl, 'mechanical'], [:manual_f.tl, 'manual']]
+  = f.input :harvest_dock

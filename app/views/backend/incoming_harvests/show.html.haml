@@ -1,0 +1,43 @@
+- analysis = resource.analysis
+
+- main_toolbar do |t|
+  = t.edit resource
+  - if analysis
+    = link_to :edit_analysis.tl, { controller: :analyses, action: :edit, id: analysis.id } , { class: 'btn btn-default icn btn-edit'}
+
+= main_informations attachment: true do
+  = infos do
+    .med-info.important
+      %span.title= :incoming_harvest_quantity.tl
+      %span.value= resource.quantity.round_l
+
+  = attributes_list(resource) do |l|
+    - l.attribute :number
+    - l.attribute :ticket_number
+    - l.attribute :received_at
+    - l.attribute :analysis, url: true
+
+= cobbles do |c|
+  - c.cobble(:crops, title: :harvested_crops.tl) do
+    = cobble_list(:crops)
+
+  - c.cobble(:storages, title: :silo_destination.tl) do
+    = cobble_list(:storages)
+
+  - if analysis
+    - c.cobble(:analysis) do
+      / TODO: Dirty, would need to spend more time to have a proper behavior handled by attributes_list helper
+      .attributes-list
+        - analysis.items.each do |item|
+          %dl
+            %dt= Onoma::Indicator.find(item.indicator_name).human_name
+            %dd= Maybe(attribute_item(item, :value).last).or_else { '-' }
+
+  - unless resource.additional_informations.empty?
+    - c.cobble(:additional_informations) do
+      = attributes_list(resource, stamps: false) do |l|
+        - l.attribute :harvest_description
+        - l.attribute :vehicle_trailer
+        - l.custom IncomingHarvest.human_attribute_name(:harvest_transportation_duration), resource.harvest_transportation_duration.present? ? "#{resource.harvest_transportation_duration} min" : '-'
+        - l.custom IncomingHarvest.human_attribute_name(:harvest_nature), resource.harvest_nature.present? ? resource.harvest_nature.tl : '-'
+        - l.attribute :harvest_dock

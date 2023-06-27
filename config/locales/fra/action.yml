@@ -338,6 +338,11 @@ fra:
       new: "Nouvel import"
       run: "Exécuter l’import\_: %{name}"
       show: "Import\_: %{name}"
+    backend/incoming_harvests:
+      edit: "Modifier la réception de récolte\_: %{number}"
+      new: "Enregistrer une nouvelle réception de récolte" #?
+      index: "Réceptions de récolte"
+      show: "Réception de récolte\_: %{number}"
     backend/incoming_parcel_items: #?
       new: "Nouvel élément" #?
     backend/incoming_parcels: #?
@@ -1213,6 +1218,21 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    harvest_costs: "Coût de production / Rendement par parcelle"
+    autolink_incoming_harvests_on_harvest_intervention: "Lier réceptions et interventions de récolte"
+    add_tank: "Ajouter un lieu de stockage"
+    silo: "Lieu de stockage"
+    product_unit: "Unité"
+    product_quantity: "Quantité"
+    reception_date_label: "Date / heure de reception"
+    reception_ticket: "N° ticket apport"
+    total_area_in_hectare: "Superficie totale"
+    silo_destination: "Lieu de stockage"
+    harvested_crops: "Parcelle(s) / Culture(s) liées"
+    incoming_harvest_quantity: "Quantité receptionnée"
+    reception_report: "Réceptions de récolte"
+    pdf_format: "Format PDF"
+    odt_format: "Format tableur ODT"
     import_or_create_technical_itinerary: "Créer un itinéraire cultural ou importer un itinéraire cultural de référence"
     pick_existing_technical_itinerary: "Sélectionner un itinéraire cultural existant"
     pick_technical_workflow_from_lexicon: "Sélectionner un itinéraire cultural depuis une référence (Lexicon), il sera importé et disponible dans votre base"
@@ -1576,6 +1596,10 @@ fra:
     available_area: "Surface disponible"
     available_columns: "Champs disponibles\_: %{columns}"
     average: "Moyenne"
+    average_ponderate_production_cost: "Coût de production pondéré"
+    average_ponderate_yield: "Rendement pondéré"
+    average_production_cost: "Coût de production moyen"
+    average_yield: "Rendement moyen"
     add_catalog_price: "Ajouter un prix catalogue"
     add_child: "Ajouter un sous-composant"
     back: "Revenir à la page précédente"
@@ -2335,6 +2359,7 @@ fra:
     import_incoming_payments: "Importer des encaissements"
     import_sales: "Importer des ventes"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
+    incoming_harvest_map: "Production : carte des rendements (basé sur les receptions de récolte)"
     in_production: "En production" #?
     in_progress: "En cours"
     inactive: "Inactif"
@@ -2343,6 +2368,7 @@ fra:
     including_vat: "TTC"
     income_statement: "Compte de résultat"
     incoming: "Entrant" #?
+    incoming_harvests: "Réceptions de récoltes"
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
@@ -3991,6 +4017,8 @@ fra:
       success: "Opération réussie\_!"
       warning: "Attention\_!"
     messages:
+      error_linked_harvest_intervention_with_incoming_harvest: "Une erreur est survenue durant le traitement : %{error}"
+      successful_linked_harvest_intervention_with_incoming_harvest: "%{ihc_count} receptions de récolte ont été liées à %{it_count} interventions de récolte"
       jei_updated_with_activity_budget: "%{count} écriture(s) comptable(s) ont été affecté au budget %{budget_name} pour un montant total de %{amount}€"
       missing_activity_budget: "Aucun budget n'est présent"
       no_reference_budget_found: "Aucun budget de référence n'a été trouvé pour cette activité"

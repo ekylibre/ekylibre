@@ -97,6 +97,7 @@ class Intervention < ApplicationRecord
   has_many :parameter_settings, class_name: 'InterventionParameterSetting', dependent: :nullify
   has_many :parameter_setting_items, class_name: 'InterventionSettingItem', through: :parameter_settings, source: :settings
   has_many :settings, class_name: 'InterventionSettingItem', dependent: :destroy
+  has_many :incoming_harvests, class_name: 'IncomingHarvest', dependent: :destroy
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :activity_productions
@@ -306,6 +307,7 @@ class Intervention < ApplicationRecord
   scope :with_input_of_maaids, ->(*maaids) { where(id: InterventionInput.of_maaids(*maaids).pluck(:intervention_id)) }
   scope :with_input_presence, -> { where(id: InterventionInput.all.pluck(:intervention_id).uniq) }
   scope :without_input_presence, -> { where.not(id: InterventionInput.all.pluck(:intervention_id).uniq) }
+  scope :with_output_presence, -> { where(id: InterventionOutput.all.pluck(:intervention_id).uniq) }
   scope :without_output_presence, -> { where.not(id: InterventionOutput.all.pluck(:intervention_id).uniq) }
   scope :done, -> {}
 
