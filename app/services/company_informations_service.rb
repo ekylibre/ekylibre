@@ -65,6 +65,8 @@ class CompanyInformationsService
       return {} unless response.dig(:features, 0, :geometry, :coordinates)
 
       response[:features][0][:geometry][:coordinates]
+    rescue RestClient::Exception => e
+      {}
     end
 
     def build_address(raw_address)
