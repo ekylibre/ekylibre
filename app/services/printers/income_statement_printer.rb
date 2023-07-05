@@ -9,11 +9,10 @@ module Printers
       current_compute = AccountancyComputation.new(@financial_year)
       previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
       # products
-      # puts @accounting_system.inspect.red
       g1 = HashWithIndifferentAccess.new
       g1[:group_name] = :operating_revenues.tl
       g1[:items] = []
-      if @accounting_system == :fr_pcga
+      if @accounting_system == :fr_pcga || @accounting_system == :fr_pcga2023
         items = [:products_sales, :animal_sales, :productions_sales,
                  :inventory_variations, :capitalised_production, :subsidies,
                  :provisions_revenues, :other_products]

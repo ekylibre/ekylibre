@@ -1,6 +1,10 @@
 = field_set do
   = f.input :code
   = f.input :currency
+  - if f.object == FinancialYear.opened.last
+    = f.referenced_nomenclature :accounting_system, collection: Onoma::AccountingSystem.where(country: Preference[:country].to_sym).selection, include_blanks: false
+  - else
+    = f.input :accounting_system, disabled: true
   = f.input :started_on
   = f.input :stopped_on
   = f.referenced_association :accountant
@@ -17,9 +21,8 @@
         %span.title= :tax_declaration_mode.tl
         %span.value= f.object.tax_declaration_mode.human_name
 
-      .med-info.important    
+      .med-info.important
         %span.title= :tax_declaration_frequency.tl
         %span.value= f.object.tax_declaration_frequency.human_name
 
 = f.attachments_field_set
-

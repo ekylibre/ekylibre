@@ -89,12 +89,15 @@ class FinancialYearClose
 
       @logger.info((CLOSURE_STEPS[0]).to_s)
       @year.update_attributes({ state: 'opened' })
+      @logger.info('1 - Dump tenant')
       dump_tenant
+      @logger.info('2 - Generate documents')
       generate_documents('prior_to_closure')
       @progress.increment!
 
       @logger.info((CLOSURE_STEPS[1]).to_s)
       benchmark('Compute Balance') do
+        @logger.info('3 - Compute Balance')
         @year.compute_balances!
         @progress.increment!
       end
@@ -134,10 +137,11 @@ class FinancialYearClose
       end
       @progress.increment!
 
-      @logger.info((CLOSURE_STEPS[6]).to_s)
       @logger.info("Close Financial Year")
+      @logger.info(@year.balanced_balance_sheet?(:post_closure).to_s)
       raise UnbalancedBalanceSheet.new(:closure_failed_because_balance_sheet_unbalanced.tl) unless @year.balanced_balance_sheet?(:post_closure)
 
+      @logger.info((CLOSURE_STEPS[6]).to_s)
       generate_documents('post_closure')
       @progress.increment!
 

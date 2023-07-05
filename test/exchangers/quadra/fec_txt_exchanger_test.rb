@@ -4,7 +4,7 @@ module Quadra
   class FecTxtExchangerTest < ActiveExchanger::TestCase
     setup do
       FinancialYear.delete_all
-      FinancialYear.create! started_on: '2018-08-01', stopped_on: '2019-07-31'
+      FinancialYear.create! started_on: '2018-08-01', stopped_on: '2019-07-31', accounting_system: 'fr_pcg82'
       # We want to keep tracking of import resource
       I18n.locale = :fra
       Preference.set!(:accounting_system, 'fr_pcg82')

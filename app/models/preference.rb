@@ -188,7 +188,7 @@ class Preference < ApplicationRecord
   prefer :use_global_search, :boolean, false
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ''
-  prefer :accounting_system, :accounting_system, Onoma::AccountingSystem.default('fr_pcga')
+  prefer :accounting_system, :accounting_system, Onoma::AccountingSystem.default('fr_pcga2023')
   prefer :fiscal_position, :fiscal_position, Onoma::FiscalPosition.default('fr_ba_ir')
   prefer :commercial_accountancy_workflow, :boolean, true
   prefer :language, :language, Onoma::Language.default('fra')

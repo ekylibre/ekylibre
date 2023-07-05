@@ -18,7 +18,7 @@ module Printers
 
       g = HashWithIndifferentAccess.new
       g[:items] = []
-      if @accounting_system == :fr_pcga
+      if @accounting_system == :fr_pcga || @accounting_system == :fr_pcga2023
         items = [
           [0, :unsubcribed_capital, :capitals_values],
           [1, :incorporeal_assets_total, :capitals_emissions],
@@ -39,7 +39,7 @@ module Printers
           [0, :entities_advance_charges, :others_debts_advance_products],
           [0, :entities_assets_gaps, :others_debts_liabilities_gaps]
         ]
-      elsif @accounting_system == :fr_pcg82
+      elsif @accounting_system == :fr_pcg82 || @accounting_system == :fr_pcg2023
         items = [
           [0, :unsubcribed_capital, :capitals_values],
           [1, :incorporeal_assets_total, :capitals_emissions],

@@ -46,6 +46,7 @@
 #
 ---
 financial_years_001:
+  accounting_system: fr_pcga
   already_existing: false
   closed: false
   code: EX1991-92

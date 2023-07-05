@@ -4,7 +4,7 @@ module Accountancy
   class AccountCategoryChanging
     attr_reader :result_infos
     # modes Array of String, could be ['sale', 'purchase', 'fixed_asset', 'fixed_asset_allocation', 'fixed_asset_expenses']
-    # financial_year FinancialYear, default is FinancialYear.current
+    # financial_year_ids
     # category ProductNatureCategory
     # variant_id Integer of ProductNatureVariant
     def initialize(category:, financial_year_ids:, modes:, variant_id: nil)
@@ -17,8 +17,8 @@ module Accountancy
       @financial_years = FinancialYear.where(id: financial_year_ids).opened.reorder(:started_on)
       @started_on = @financial_years.first.started_on
       @stopped_on = @financial_years.last.stopped_on
-      @started_at = @started_on.to_time
-      @stopped_at = @stopped_on.to_time
+      @started_at = @started_on.to_time.beginning_of_day
+      @stopped_at = @stopped_on.to_time.end_of_day
       @modes = modes
       @result_infos = []
     end

@@ -33,6 +33,7 @@ module Backend
       t.column :tax_declaration_mode
       t.column :tax_declaration_frequency
       t.column :accountant, url: true
+      t.column :accounting_system
       # t.column :currency_precision
     end
 
