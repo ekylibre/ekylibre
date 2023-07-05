@@ -7,10 +7,11 @@ class FinancialYearCloseTest < Ekylibre::Testing::ApplicationTestCase
     @today = Date.new(2019, 3, 15)
     @dumpster_account = Account.create!(name: 'TestDumpster', number: '10001')
     @dumpster_journal = Journal.create!(name: 'Dumpster journal', code: 'DMPTST')
+    @accounting_system = 'fr_pcga'
     @beginning = (@today - 1.month).beginning_of_month
     @end = (@today - 1.month).end_of_month
-    @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end)
-    @next_year = FinancialYear.create!(started_on: @today.beginning_of_month, stopped_on: @today.end_of_month)
+    @year = FinancialYear.create!(started_on: @beginning, stopped_on: @end, accounting_system: @accounting_system)
+    @next_year = FinancialYear.create!(started_on: @today.beginning_of_month, stopped_on: @today.end_of_month, accounting_system: @accounting_system)
     @profits = Account.create!(name: 'FinancialYear result profit', number: '120', usages: :financial_year_result_profit)
     @losses = Account.create!(name: 'FinancialYear result loss', number: '129', usages: :financial_year_result_loss)
 

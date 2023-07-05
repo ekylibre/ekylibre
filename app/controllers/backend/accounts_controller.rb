@@ -36,6 +36,11 @@ module Backend
       code << "unless params[:period].blank? or params[:period]='all'\n"
       code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
       code << "end\n"
+      code << "if params[:state] == 'active'\n"
+      code << "  c[0] += ' AND #{Account.table_name}.active IS TRUE'\n"
+      code << "elsif params[:state] == 'inactive'\n"
+      code << "  c[0] += ' AND #{Account.table_name}.active IS FALSE'\n"
+      code << "end\n"
       code << "c\n"
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       code.c
@@ -48,7 +53,10 @@ module Backend
       t.column :name, url: true
       t.column :usages, hidden: true
       t.column :nature
+      t.column :active
       t.column :description
+      t.column :updated_at, hidden: true
+      t.column :updater, hidden: true
     end
 
     # Displays the main page with the list of accounts

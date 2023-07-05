@@ -16,7 +16,7 @@ module Printers
       super(template: template)
 
       @financial_year = financial_year
-      @accounting_system = Preference[:accounting_system].to_sym
+      @accounting_system = @financial_year.accounting_system.to_sym
       @current_compute = AccountancyComputation.new(@financial_year)
       @previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
       @document_scope = :balance_sheet
@@ -66,7 +66,7 @@ module Printers
       end
 
       # PCGA - alive corporeal_assets, short & long_cycle_alive_products, stocks
-      if @accounting_system == :fr_pcga
+      if @accounting_system == :fr_pcga || @accounting_system == :fr_pcga2023
         pcga_alive_active = [
           [:alive_corporeal_assets, true, [:alive_corporeal_assets_adult_animals, :alive_corporeal_assets_young_animals,
                                            :alive_corporeal_assets_service_animals, :alive_corporeal_assets_perennial_plants,

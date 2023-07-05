@@ -5,8 +5,8 @@ module Isagri
     class EcrJournalEntriesExchangerTest < ActiveExchanger::TestCase
       setup do
         FinancialYear.delete_all
-        FinancialYear.create! started_on: '2020-01-01', stopped_on: '2020-12-31'
-        FinancialYear.create! started_on: '2021-01-01', stopped_on: '2021-12-31'
+        FinancialYear.create! started_on: '2020-01-01', stopped_on: '2020-12-31', accounting_system: 'fr_pcga'
+        FinancialYear.create! started_on: '2021-01-01', stopped_on: '2021-12-31', accounting_system: 'fr_pcga'
         I18n.locale = :fra
         Preference.set!(:accounting_system, 'fr_pcga')
         @import = Import.create!(nature: :isagri_isapaye_ecr_journal_entries, creator: User.first)

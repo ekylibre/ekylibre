@@ -5,7 +5,7 @@ module BordeauxSciencesAgro
     class FecTxtExchangerTest < ActiveExchanger::TestCase
       setup do
         FinancialYear.delete_all
-        FinancialYear.create! started_on: '2020-01-01', stopped_on: '2020-12-31'
+        FinancialYear.create! started_on: '2020-01-01', stopped_on: '2020-12-31', accounting_system: 'fr_pcga'
         Preference.set!(:accounting_system, 'fr_pcga')
         # We want to keep tracking of import resource
         I18n.locale = :fra

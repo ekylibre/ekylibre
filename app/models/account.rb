@@ -209,6 +209,14 @@ class Account < ApplicationRecord
     where(nature: 'auxiliary')
   }
 
+  scope :actives, -> {
+    where(active: true)
+  }
+
+  scope :unactives, -> {
+    where(active: false)
+  }
+
   scope :tax_declarations, -> {
     of_usages(:fixed_assets, :expenses, :revenues)
   }
@@ -477,7 +485,7 @@ class Account < ApplicationRecord
 
     # FIXME: This is an aberration of internationalization.
     def french_accounting_system?
-      %w[fr_pcg82 fr_pcga].include?(accounting_system)
+      %w[fr_pcg82 fr_pcga fr_pcg2023 fr_pcga2023].include?(accounting_system)
     end
 
     # Returns the name of the used accounting system

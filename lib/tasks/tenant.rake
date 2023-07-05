@@ -63,7 +63,7 @@ namespace :tenant do
       puts "#{tenant.inspect.green} - Preference set (default is language: fra, country: fr, currency: EUR, SRS: WGS84)."
       # Load default data
       ::I18n.locale = Preference[:language]
-      Account.accounting_system = 'fr_pcga'
+      Preference.set! :accounting_system, 'fr_pcga2023'
       Account.load_defaults
       Tax.load_defaults
       Unit.load_defaults
@@ -71,11 +71,11 @@ namespace :tenant do
       DocumentTemplate.load_defaults
       MapLayer.load_defaults
       NamingFormatLandParcel.load_defaults
-      fy = FinancialYear.create!(started_on: Date.new(Time.zone.now.year, 1, 1), stopped_on: Date.new(Time.zone.now.year, 12, 31))
+      fy = FinancialYear.create!(accounting_system: 'fr_pcga2023', started_on: Date.new(Time.zone.now.year, 1, 1), stopped_on: Date.new(Time.zone.now.year, 12, 31))
       Journal.load_defaults
       SaleNature.load_defaults
       PurchaseNature.load_defaults
-      puts "#{tenant.inspect.green} - Default configuration loaded (default is accounting: fr_pcga, fy: #{fy.name})."
+      puts "#{tenant.inspect.green} - Default configuration loaded (default is accounting: fr_pcga2023, fy: #{fy.name})."
 
       attributes = {
         language: 'fra',

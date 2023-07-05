@@ -315,7 +315,8 @@ CREATE TABLE public.accounts (
     centralizing_account_name character varying,
     already_existing boolean DEFAULT false NOT NULL,
     provider jsonb,
-    last_isacompta_letter jsonb DEFAULT '{}'::jsonb
+    last_isacompta_letter jsonb DEFAULT '{}'::jsonb,
+    active boolean DEFAULT true NOT NULL
 );
 
 
@@ -3988,7 +3989,8 @@ CREATE TABLE public.financial_years (
     accountant_id integer,
     state character varying,
     already_existing boolean DEFAULT false NOT NULL,
-    closer_id integer
+    closer_id integer,
+    accounting_system character varying
 );
 
 
@@ -25791,6 +25793,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230615182801'),
 ('20230619125601'),
 ('20230619181501'),
-('20230620161201');
+('20230620161201'),
+('20230627152701');
 
 

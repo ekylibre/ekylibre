@@ -52,6 +52,7 @@ class FinancialYear < ApplicationRecord
   include Customizable
   attr_readonly :currency
   refers_to :currency
+  refers_to :accounting_system, class_name: 'AccountingSystem'
   enumerize :tax_declaration_frequency, in: %i[monthly quaterly yearly none],
             default: :monthly, predicates: { prefix: true }
   enumerize :tax_declaration_mode, in: %i[debit payment none], default: :none, predicates: { prefix: true }
@@ -201,6 +202,12 @@ class FinancialYear < ApplicationRecord
       errors.add(:started_on, :on_or_after, restriction: company.born_on) if started_on && company.born_on > started_on
     end
     errors.add(:state, :can_only_update_code) if (state_was.in? ['locked', 'closed']) && (changed.exclude?(code) || changed.many?)
+  end
+
+  after_save do
+    if (Preference[:accounting_system] != self.accounting_system) && (self == FinancialYear.opened.last)
+      Accountancy::AccountingSystemChangingJob.perform_later(financial_year_id: self.id, old_accounting_system: Preference[:accounting_system], new_accounting_system: self.accounting_system, perform_as: self.updater)
+    end
   end
 
   def journal_entries(conditions = nil)

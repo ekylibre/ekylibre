@@ -43,6 +43,18 @@
       %span.title= :currency.t(scope: 'preferences')
       %span.value= Onoma::Currency.find(resource.currency).human_name.upcase
 
+    .med-info.important
+      %span.title= :accounting_system.tl
+      %span.value= resource.accounting_system
+
+    .med-info.important
+      %span.title= :tax_declaration_mode.tl
+      %span.value= resource.tax_declaration_mode.l
+
+    .med-info.important
+      %span.title= :tax_declaration_frequency.tl
+      %span.value= resource.tax_declaration_frequency.l
+
     - if resource.closed? && resource.archives.any?
       - ['prior_to', 'post'].each do |timing|
         .med-info.important
@@ -52,7 +64,7 @@
           %br
           .controls
             = button_tag :display_electronic_signature.tl, data: { toggle: 'modal', target: "##{timing}-signature-modal" }, class: "btn btn-default signature-trigger", id: "lock-btn", type: 'button'
- 
+
   = render 'progress', value: @progress_status[:value], resource: resource, refresh: false, current_step: @progress_status[:step], steps_count: @progress_status[:total], step_label: @progress_status[:label]
 
 #exchanges-list

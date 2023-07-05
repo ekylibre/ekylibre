@@ -74,6 +74,10 @@ account_balances:
     references: user
     limit: 4
 accounts:
+  active:
+    type: boolean
+    required: true
+    default: true
   already_existing:
     type: boolean
     required: true
@@ -3689,6 +3693,8 @@ financial_years:
     type: integer
     references: entity
     limit: 4
+  accounting_system:
+    type: string
   already_existing:
     type: boolean
     required: true

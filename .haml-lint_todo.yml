@@ -253,6 +253,7 @@ linters:
   # Offense count: 834
   ConsecutiveSilentScripts:
     exclude:
+      - "app/views/backend/accounts/index.html.haml"
       - "app/views/backend/accounts/mark.html.haml"
       - "app/views/backend/accounts/reconciliation.html.haml"
       - "app/views/backend/accounts/show.html.haml"
