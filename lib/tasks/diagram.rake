@@ -15,6 +15,7 @@ namespace :diagrams do
       cash: [Cash, CashSession, CashTransfer, BankStatement, BankStatementItem, Deposit, IncomingPaymentMode, OutgoingPaymentMode, Loan, LoanRepayment],
       entity: [Entity, EntityLink, EntityAddress, Task, Event, EventParticipation, Observation, PostalZone, District],
       intervention: [Intervention, InterventionProductParameter, InterventionGroupParameter, InterventionParameterReading, ActivityProduction, Activity, InterventionWorkingPeriod, InterventionParticipation, Product, InterventionLabelling, Label],
+      incoming_harvest: [IncomingHarvest, IncomingHarvestCrop, IncomingHarvestStorage, IncomingHarvestIndicator, Product, ActivityProduction, Activity, Campaign, Analysis],
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       plant_counting: [Plant, Product, PlantCounting, PlantCountingItem, PlantDensityAbacus, PlantDensityAbacusItem, Activity],
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
@@ -23,7 +24,7 @@ namespace :diagrams do
       plots: [LandParcel, CultivableZone, ActivityProduction, CapStatement, CapIslet, CapLandParcel, InterventionTarget, Intervention],
       sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit, Affair, Gap, GapItem],
       purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, PurchasePayment, OutgoingPaymentMode, Affair, Gap, GapItem],
-      cap_statement: [CapStatement, CapIslet, CapLandParcel, Entity, Campaign],
+      cap_statement: [CapStatement, CapIslet, CapLandParcel, CapNeutralArea, Entity, Campaign],
       delivery: [Delivery, Parcel, ParcelItem, Analysis, DeliveryTool]
     }.each do |name, models|
       graph = Diagram::Model.relational(*models, name: "#{name}-relational")
