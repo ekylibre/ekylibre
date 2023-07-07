@@ -138,7 +138,7 @@ module Diagram
     end
 
     def node(name, options = {})
-      @content << "  #{name}"
+      @content << "  #{remove_unwanted_caracters(name)}"
       @content << " #{options_for_dot(options)}" if options.any?
       @content << ";\n"
     end
@@ -160,13 +160,13 @@ module Diagram
         options["edge_#{key}".to_sym] = options.delete(key) if options[key]
       end
       operator = options.delete(:operator) || '--'
-      @content << "  #{from} #{operator} #{to}"
+      @content << "  #{remove_unwanted_caracters(from)} #{operator} #{remove_unwanted_caracters(to)}"
       @content << " #{options_for_dot(options)}" if options.any?
       @content << ";\n"
     end
 
     def subgraph(name, options = {}, &_block)
-      @content << "  subgraph #{name} {\n"
+      @content << "  subgraph #{remove_unwanted_caracters(name)} {\n"
       if options[:node]
         @content << "  node #{options_for_dot(options.delete(:node))};\n"
       end
@@ -179,7 +179,7 @@ module Diagram
     end
 
     def to_dot
-      graph = "#{@type} #{@name.to_s.underscore} {\n"
+      graph = "#{@type} #{remove_unwanted_caracters(@name).to_s.underscore} {\n"
       graph << "  graph #{options_for_dot(@options)};\n"
       graph << "  node  #{options_for_dot(@node_options)};\n"
       graph << "  edge  #{options_for_dot(@edge_options)};\n"
@@ -206,6 +206,12 @@ module Diagram
           value = value.to_s if value.is_a?(Symbol)
           "#{OPTIONS[key] || key}=#{value.inspect}"
         end.join('; ') + ']'
+      end
+
+      def remove_unwanted_caracters(field)
+        field
+          .gsub(/(;|"|\?|<|>|\=|\*|\^|\$|\~|`|\t|\%|\!|\§|#|@)/, '')
+          .gsub(%r{(::|/)}, '_')
       end
   end
 end

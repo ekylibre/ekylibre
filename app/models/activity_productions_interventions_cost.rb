@@ -38,7 +38,7 @@ class ActivityProductionsInterventionsCost < ApplicationRecord
 
   belongs_to :activity_production
   belongs_to :intervention
-  belongs_to :target
+  belongs_to :target, class_name: 'Product'
 
   scope :of_intervention, ->(intervention) { where(intervention: intervention)}
   scope :of_activity_production, ->(activity_production) { where(activity_production: activity_production)}
