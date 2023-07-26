@@ -55,6 +55,7 @@ class ProductMembership < ApplicationRecord
   # ]VALIDATORS]
 
   before_validation do
+    self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
     self.nature ||= (group ? :interior : :exterior)
   end
 

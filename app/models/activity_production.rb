@@ -815,6 +815,6 @@ class ActivityProduction < ApplicationRecord
   private def stopped_on_after_last_intervention
     return if interventions.none?
 
-    validates_date :stopped_on, after: ->{ interventions.order(:stopped_at).pluck(:stopped_at).last }
+    validates_date :stopped_on, after: ->{ interventions.order(:stopped_at).pluck(:stopped_at).last.to_date }
   end
 end

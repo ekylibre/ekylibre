@@ -59,6 +59,10 @@ class ProductLink < ApplicationRecord
 
   scope :with, ->(nature) { where(nature: nature.to_s) }
 
+  before_validation do
+    self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
+  end
+
   # Returns all the siblings
   def siblings
     product&.links&.with(nature) || ProductLink.none

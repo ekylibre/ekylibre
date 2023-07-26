@@ -2,7 +2,7 @@
 
 ## Pour commencer 
 
-Il est conseillé d'avoir enregistré dans un premier temps vos fournisseurs grâce au module [**Tiers**](/backend/dashboards/relationship). La création d'**articles**, le paramétrage d'un ou de plusieurs [**types d'achat**](https://doc.ekylibre.com/v2/fr/chapitre6/#types){:target="_blank"} et une personnalisation des documents avec votre **logo** peuvent également être configurés selon vos besoins, dans le module [**Configuration**](/backend/dashboards/settings).
+Il est conseillé d'avoir enregistré dans un premier temps vos fournisseurs grâce au module [**Tiers**](/backend/dashboards/relationship). La création d'**articles**, le paramétrage d'un ou de plusieurs [**types d'achat**](https://doc.ekylibre.com/fr/chapitre6/#types){:target="_blank"} et une personnalisation des documents avec votre **logo** peuvent également être configurés selon vos besoins, dans le module [**Configuration**](/backend/dashboards/settings).
 
 ## Comment gérer les achats ?
 
@@ -31,18 +31,18 @@ Dans la barre latérale du module&nbsp;:
 
 **[Achats]** 
 
-Cliquez sur **"Commandes"** pour afficher la liste des [**commandes**](https://doc.ekylibre.com/v2/fr/chapitre6/#achats){:target="_blank"} enregistrées dans l'application et vous permettre d'en créer de nouvelles.
+Cliquez sur **"Commandes"** pour afficher la liste des [**commandes**](https://doc.ekylibre.com/fr/chapitre6/#achats){:target="_blank"} enregistrées dans l'application et vous permettre d'en créer de nouvelles.
 
-Cliquez sur **"Factures"** pour afficher la liste des [**factures**](https://doc.ekylibre.com/v2/fr/chapitre6/#facturation){:target="_blank"} enregistrées dans l'application et vous permettre d'en créer de nouvelles. Une facture peut également être générée depuis une réception avec un rapprochement automatique.
+Cliquez sur **"Factures"** pour afficher la liste des [**factures**](https://doc.ekylibre.com/fr/chapitre6/#facturation){:target="_blank"} enregistrées dans l'application et vous permettre d'en créer de nouvelles. Une facture peut également être générée depuis une réception avec un rapprochement automatique.
 
 Cliquez sur **"Contrats"** pour afficher la liste des contrats enregistrés dans l'application et vous permettre d'en créer de nouveaux en renseignant l'évolution d'une négociation.
 
 **[Règlements]** 
 
-Cliquez sur **"Décaissements"** pour accéder à la liste des [**décaissements**](https://doc.ekylibre.com/v2/fr/chapitre6/#decaissements){:target="_blank"} enregistrés dans l'application et vous permettre d'en créer de nouveaux. Un décaissement peut, plus facilement, être renseigné depuis la vue d'une facture.
+Cliquez sur **"Décaissements"** pour accéder à la liste des [**décaissements**](https://doc.ekylibre.com/fr/chapitre6/#decaissements){:target="_blank"} enregistrés dans l'application et vous permettre d'en créer de nouveaux. Un décaissement peut, plus facilement, être renseigné depuis la vue d'une facture.
 
-Cliquez sur **"Lots de décaissements"** pour accéder à la liste des [**lots de décaissements**](https://doc.ekylibre.com/v2/fr/chapitre6/#lots){:target="_blank"} enregistrés dans l'application et vous permettre d'en créer de nouveaux. Ils permettent de réaliser plusieurs règlements en une seule opération ainsi que la génération de lettres-chèques.
+Cliquez sur **"Lots de décaissements"** pour accéder à la liste des [**lots de décaissements**](https://doc.ekylibre.com/fr/chapitre6/#lots){:target="_blank"} enregistrés dans l'application et vous permettre d'en créer de nouveaux. Ils permettent de réaliser plusieurs règlements en une seule opération ainsi que la génération de lettres-chèques.
 
 ## Personnalisation du tableau de bord 
 
-La configuration de ce tableau de bord est personnalisable en suivant les instructions délivrées dans la documentation [via ce lien](https://doc.ekylibre.com/v2/fr/chapitre4/#perso){:target="_blank"}.
+La configuration de ce tableau de bord est personnalisable en suivant les instructions délivrées dans la documentation [via ce lien](https://doc.ekylibre.com/fr/chapitre4/#perso){:target="_blank"}.

@@ -13,7 +13,7 @@ class FinancialYearExchangeExportMailer < ActionMailer::Base
       financial_year_name: exchange.financial_year.name,
       started_on: exchange.started_on.l,
       stopped_on: exchange.stopped_on.l,
-      help_doc_url: "https://doc.ekylibre.com/v2/fr/chapitre5/#echanges"
+      help_doc_url: "https://doc.ekylibre.com/fr/chapitre5/#echanges"
     }
 
     mail(

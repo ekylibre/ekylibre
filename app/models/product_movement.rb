@@ -60,6 +60,7 @@ class ProductMovement < ApplicationRecord
 
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0
+    self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
     self.population = 0.0
     self.stopped_at = started_at + 1.day if started_at
   end

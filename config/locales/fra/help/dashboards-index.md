@@ -33,4 +33,4 @@ Dans la barre latérale du module&nbsp;:
 Cliquez sur **"Tableaux de bord"** pour afficher la liste des tableaux de bord et vous permettre d'en configurer de nouveaux. Ou cliquez sur le tableau de bord de votre choix pour afficher les cellules que vous avez sélectionnées lors de son paramétrage.
 
 ## Le tableau de bord  
-Configuré par défaut pour chaque module et [personnalisable](https://doc.ekylibre.com/v2/fr/chapitre4/#perso){:target="_blank"} grâce à différents indicateurs, il vous permet, en un coup d'œil, de visualiser des informations générales ou ciblées pouvant nécessiter une action de votre part.
+Configuré par défaut pour chaque module et [personnalisable](https://doc.ekylibre.com/fr/chapitre4/#perso){:target="_blank"} grâce à différents indicateurs, il vous permet, en un coup d'œil, de visualiser des informations générales ou ciblées pouvant nécessiter une action de votre part.

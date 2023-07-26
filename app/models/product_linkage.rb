@@ -58,6 +58,10 @@ class ProductLinkage < ApplicationRecord
 
   scope :with, ->(point) { where(point: point) }
 
+  before_validation do
+    self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
+  end
+
   after_save do
     # # If carried is already carried, detach it!
     # if self.occupied? and self.carried
