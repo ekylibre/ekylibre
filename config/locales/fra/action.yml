@@ -4159,7 +4159,7 @@ fra:
       no_availables_product_on_current_campaign: "Votre cible (parcelle/culture) n'est pas disponnible pour la période mentionnée par défault dans l'intervention."
       no_balance_template: "Pas de modèle de document pour la balance" #?
       no_bank_statement_found_for_this_period: "Aucun relevé de compte trouvé pour cette période."
-      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante. Plus d'information sur la gestion des budgets prévisionnels <a href=\"https://doc.ekylibre.com/v2/fr/performance/#budgets\" target=\"_blank\">ici  <i class=\"icon icon-help\"></i></a>"
+      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante. Plus d'information sur la gestion des budgets prévisionnels <a href=\"https://doc.ekylibre.com/fr/performance/#budgets\" target=\"_blank\">ici  <i class=\"icon icon-help\"></i></a>"
       no_building: "Aucune zone de stockage n’est définie. Veuillez en créer une pour pouvoir gérer vos stocks" #?
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."

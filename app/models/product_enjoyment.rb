@@ -55,6 +55,7 @@ class ProductEnjoyment < ApplicationRecord
   validates :enjoyer, presence: { if: :other? }
 
   before_validation do
+    self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
     self.nature ||= (enjoyer.blank? ? :unknown : enjoyer == Entity.of_company ? :own : :other)
   end
 

@@ -65,6 +65,10 @@ class ProductPhase < ApplicationRecord
     end
   end
 
+  before_validation do
+    self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
+  end
+
   # Updates product
   after_save do
     if last_for_now?

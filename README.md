@@ -44,7 +44,7 @@ We encourage you to contribute to Ekylibre.
 ## See also
 
 * [Forum](http://forum.ekylibre.org)
-* [User Documentation - FR](https://doc.ekylibre.com/v2/fr/demarrage/)
+* [User Documentation - FR](https://doc.ekylibre.com/fr/demarrage/)
 * [Official Demo](https://demo-innovation.ekylibre.io/backend)
 * [Official Demo dataset - FR](https://github.com/ekylibre/first_run-demo)
 
