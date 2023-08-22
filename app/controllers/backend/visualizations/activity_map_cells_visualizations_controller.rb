@@ -15,8 +15,13 @@ module Backend
         if activity_production_ids
           activity_productions = activity_productions.where(id: activity_production_ids)
         end
+        if campaigns
+          aps = activity_productions.where.not(support_shape: nil).of_campaign(campaigns)
+        else
+          aps = activity_productions.where.not(support_shape: nil)
+        end
 
-        if campaigns && activity_productions.where.not(support_shape: nil).any?
+        if aps.any?
           sensor_data = []
           if Sensor.any?
             Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
@@ -53,6 +58,21 @@ module Backend
               sensor_data += (items || []).compact
             end
           end
+          geometries = aps.map(&:support_shape)
+          union = geometries.reduce { |geometry, union| union.merge(geometry) }
+          bounding_box = Charta.new_geometry(union).bounding_box
+          area_items = RegisteredAreaItem.in_bounding_box(bounding_box.to_bbox_string)
+
+          if area_items.any?
+            area_items_data = area_items.map do |area_item|
+              {
+                name: area_item.name,
+                category: area_item.nature,
+                shape: area_item.geometry
+              }
+            end
+          end
+
           if CapNeutralArea.any?
             campaign = Campaign.find(campaigns)
             if CapNeutralArea.of_campaign([*campaign.previous].push(campaign)).any?
@@ -83,9 +103,7 @@ module Backend
             end
           end
 
-          activity_productions.of_campaign(campaigns).includes(:activity, :campaign, :cultivable_zone, :interventions).find_each do |support|
-            next unless support.support_shape
-
+          aps.includes(:activity, :campaign, :cultivable_zone, :interventions).find_each do |support|
             popup_content = []
 
             # for support
@@ -127,6 +145,11 @@ module Backend
             if cap_neutral_areas_data.present?
               v.serie :cap_neutral_areas_data, cap_neutral_areas_data
               v.categories :neutral_area_category, :cap_neutral_areas_data, without_ghost_label: true
+            end
+
+            if area_items_data.present?
+              v.serie :area_items_data, area_items_data
+              v.categories :category, :area_items_data, without_ghost_label: true
             end
 
             v.choropleth :pfi_activity_production, :main, stop_color: "#AA00AA"

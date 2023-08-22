@@ -60,10 +60,11 @@ module TechnicalItineraries
         assert_attributes_equal(expected_attributes, ti_inter_template_with_last_position)
         assert_equal(26, InterventionTemplate.count)
 
-        intervention_template = InterventionTemplate.first
+        intervention_template = InterventionTemplate.reorder(:id).first
 
         product_parameters = intervention_template.product_parameters
-        assert_equal(4, product_parameters.count)
+
+        assert_equal(1, product_parameters.count)
 
         product_parameter = product_parameters.first
         expected = {
@@ -74,8 +75,8 @@ module TechnicalItineraries
           quantity: 0.1e1,
           unit: "unit",
           type: "InterventionTemplate::Doer",
-          procedure: { "name"=>"", "type"=>"driver" },
-          intervention_model_item_id: "FER_COM_LV_driver_permanent_worker",
+          procedure: { "name"=>"", "type"=>"worker" },
+          intervention_model_item_id: "LIFTING_worker_permanent_worker",
           technical_workflow_procedure_item_id: nil,
         }
         assert_attributes_equal(expected, product_parameter)

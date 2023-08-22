@@ -138,6 +138,28 @@ class CultivableZone < ApplicationRecord
     nil
   end
 
+  # return edge intersecting cultivable_zone
+  def edge_zones
+    edge_zones = RegisteredAreaItem.of_nature(:edge).buffer_intersecting(0.7, shape)
+    return edge_zones if edge_zones.any?
+
+    nil
+  end
+
+  # return edge length bordering cultivable_zone in meter
+  def edge_length
+    edges = edge_zones
+    if edges.present?
+      total = 0.0
+      edges.each do |edge|
+        total += edge.geometry.to_rgeo.length
+      end
+      total.round(2).in_meter
+    else
+      nil
+    end
+  end
+
   # return theoritical soil depth intersecting cultivable_zone
   def theoritical_soil_depths
     zones = RegisteredSoilDepth.shape_intersecting(shape)

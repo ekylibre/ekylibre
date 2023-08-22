@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA lexicon;
-
-
---
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
 --
 

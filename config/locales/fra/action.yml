@@ -1218,6 +1218,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    edge_length: "Longueur de haies"
     harvest_costs: "Coût de production / Rendement par parcelle"
     autolink_incoming_harvests_on_harvest_intervention: "Lier réceptions et interventions de récolte"
     add_tank: "Ajouter un lieu de stockage"
