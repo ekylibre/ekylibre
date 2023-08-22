@@ -112,6 +112,19 @@ module Ekylibre
           end
         end
 
+        def perimeters(column_name, options = {})
+          plucked_ids = pluck(:id).join(',')
+          if plucked_ids.blank?
+            nil
+          else
+            per = ActiveRecord::Base.connection.execute <<~SQL
+              SELECT SUM(ST_Perimeter(#{column_name}::geography)) AS sum_perimeter FROM #{table_name} WHERE id IN (#{plucked_ids});
+            SQL
+            perimeter = per.first["sum_perimeter"]
+            perimeter.round(2).in_meter
+          end
+        end
+
         def has_geometry(*columns)
           options = columns.extract_options!
           options[:type] ||= :multi_polygon

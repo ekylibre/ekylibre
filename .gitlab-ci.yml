@@ -2,10 +2,7 @@ stages:
   - lint
   - build
   - test
-#  - review
   - build_version
-  - doc
-  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -117,41 +114,6 @@ build_version:
 #  script:
 #    - helm tiller run "$KUBE_NAMESPACE" -- helm delete --purge ci-eky-${CI_COMMIT_REF_SLUG}
 #  when: manual
-
-doc_build:
-  image: registry.gitlab.com/ekylibre/docker-base-images/tools/deploy:1
-  stage: doc
-  only:
-    - tags
-  dependencies:
-    - build_test
-  services:
-    - docker:19.03-dind
-  before_script:
-    - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-  script:
-    - /exec ruby /build.rb -v -a TEST_IMAGE -r $CI_COMMIT_REF_SLUG -b $CI_REGISTRY_IMAGE -f docker/doc/Dockerfile -i doc
-
-deploy_doc:
-  image: registry.gitlab.com/ekylibre/helm-charts/ci-tool:master
-  stage: deploy
-  only:
-    - tags
-  when: manual
-  variables:
-    GIT_STRATEGY: none
-    KUBE_DOC_NAMESPACE: ekylibre-doc
-  script:
-    - helm --kube-context ekylibre-doc tiller run "$KUBE_DOC_NAMESPACE" --
-      helm upgrade
-      --install
-      --namespace "$KUBE_DOC_NAMESPACE"
-      --set doc.component=ekylibre
-      --set doc.version=latest
-      --set image.repository=registry.gitlab.com/ekylibre/eky/doc
-      --set image.tag=${CI_COMMIT_REF_SLUG}
-      ekylibre-latest
-      /apps/doc
 
 #########################################
 #                  LINT                 #

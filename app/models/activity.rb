@@ -179,6 +179,16 @@ class Activity < ApplicationRecord
   scope :of_cultivation_variety, lambda { |variety|
     where(cultivation_variety: (variety.is_a?(Onoma::Item) ? variety : Onoma::Variety.find(variety)).self_and_children.map(&:name))
   }
+  scope :of_cultivation_varieties, lambda { |*varieties|
+    v = varieties.flatten.collect do |variety|
+      if variety.is_a?(Onoma::Item)
+        variety.self_and_children.compact.uniq.map(&:name)
+      elsif Onoma::Variety.find(variety.to_s).present?
+        Onoma::Variety.find(variety.to_s).self_and_children.compact.uniq.map(&:name)
+      end
+    end.flatten.compact.uniq
+    where(cultivation_variety: v)
+  }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }
   scope :of_families, ->(*families) {

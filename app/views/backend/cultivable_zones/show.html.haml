@@ -14,6 +14,10 @@
     .med-info
       %span.title= CultivableZone.human_attribute_name(:net_surface_area)
       %span.value= resource.human_shape_area
+    - if resource.edge_length
+      .med-info
+        %span.title= :edge_length.tl
+        %span.value= resource.edge_length.l(round: 2, precision: 2)
     - if resource.production_system
       .med-info
         %span.title= CultivableZone.human_attribute_name(:production_system)

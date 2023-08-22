@@ -149,6 +149,9 @@ class ActivityProduction < ApplicationRecord
   scope :of_cultivation_variety, lambda { |variety|
     where(activity: Activity.of_cultivation_variety(variety))
   }
+  scope :of_cultivation_varieties, lambda { |*varieties|
+    where(activity: Activity.of_cultivation_varieties(*varieties))
+  }
   scope :of_current_campaigns, -> {
     of_campaign(Campaign.current.last)
   }

@@ -30,6 +30,7 @@ module Backend
       t.column :name, url: true
       t.column :work_number
       t.column :human_shape_area, datatype: :measure
+      t.column :edge_length, datatype: :measure
       # FIXME: Remove use of "_name" for nomen columns
       t.column :production_system_name
       t.column :farmer, url: true

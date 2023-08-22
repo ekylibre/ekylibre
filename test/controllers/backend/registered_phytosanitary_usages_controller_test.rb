@@ -11,7 +11,7 @@ module Backend
       # Date de retrait de l'usage : 14/09/2022
 
       @product = create :phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2000087_copless')
-      @usage = RegisteredPhytosanitaryUsage.find('20220906094534891668')
+      @usage = RegisteredPhytosanitaryUsage.find('20230420111315257856')
 
       # create 2 interventions
       2.times { |index| create_intervention(index) }
