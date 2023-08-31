@@ -6,3 +6,8 @@
     = f.input_field :human_duration, readonly: true, disabled: true
   = f.input :description, as: :text
   = f.custom_fields
+
+  = field_set(:project) do
+    = f.referenced_association :project_task
+    = f.input :travel_expense
+    = f.input :travel_expense_details

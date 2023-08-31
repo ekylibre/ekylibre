@@ -819,6 +819,57 @@ activity_tactics:
     type: integer
     references: user
     limit: 4
+affair_labellings:
+  affair_id:
+    type: integer
+    references: affair
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+affair_natures:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 affairs:
   accounted_at:
     type: datetime
@@ -876,6 +927,9 @@ affairs:
     required: true
   name:
     type: string
+  nature_id:
+    type: integer
+    references: affair_nature
   number:
     type: string
   origin:
@@ -888,6 +942,9 @@ affairs:
     type: decimal
     precision: 19
     scale: 4
+  provider_id:
+    type: integer
+    references: entity
   responsible_id:
     type: integer
     references: entity
@@ -3425,10 +3482,18 @@ entity_addresses:
     type: integer
     limit: 4
     required: true
+  latitude:
+    type: decimal
+    precision: 19
+    scale: 15
   lock_version:
     type: integer
     limit: 4
     required: true
+  longitude:
+    type: decimal
+    precision: 19
+    scale: 15
   mail_auto_update:
     type: boolean
     required: true
@@ -6330,6 +6395,9 @@ journal_entry_items:
   printed_on:
     type: date
     required: true
+  project_task_id:
+    type: integer
+    references: project_task
   project_budget_id:
     type: integer
     references: project_budget
@@ -10146,6 +10214,13 @@ project_budgets:
     type: integer
     limit: 4
     required: true
+  name:
+    type: string
+  description:
+    type: text
+  lock_version:
+    type: integer
+    required: true
   isacompta_analytic_code:
     type: string
     limit: 2
@@ -10153,8 +10228,6 @@ project_budgets:
     type: integer
     limit: 4
     required: true
-  name:
-    type: string
   updated_at:
     type: datetime
     required: true
@@ -10162,6 +10235,139 @@ project_budgets:
     type: integer
     references: user
     limit: 4
+project_members:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  project_id:
+    type: integer
+    references: project
+    required: true
+  role:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  user_id:
+    type: integer
+    references: user
+purchase_natures:
+  active:
+    type: boolean
+    required: true
+    default: true
+  by_default:
+    type: boolean
+    required: true
+project_tasks:
+  billing_method:
+    type: string
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  forecast_duration:
+    type: decimal
+    precision: 9
+    scale: 2
+  forecast_duration_unit:
+    type: string
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  project_id:
+    type: integer
+    references: project
+    required: true
+  responsible_id:
+    type: integer
+    references: user
+  sale_contract_item_id:
+    type: integer
+    references: sale_contract_item
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  work_number:
+    type: string
+projects:
+  activity_id:
+    type: integer
+    references: activity
+  closed:
+    type: boolean
+    required: true
+    default: false
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  nature:
+    type: string
+    required: true
+  responsible_id:
+    type: integer
+    references: user
+  sale_contract_id:
+    type: integer
+    references: sale_contract
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  team_id:
+    type: integer
+    references: team
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  work_number:
+    type: string
 purchase_items:
   account_id:
     type: integer
@@ -10243,6 +10449,9 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
+  project_task_id:
+    type: integer
+    references: project_task
   project_budget_id:
     type: integer
     references: project_budget
@@ -11207,6 +11416,89 @@ roles:
     type: integer
     references: user
     limit: 4
+sale_contract_natures:
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  template_name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+sale_contracts:
+  client_id:
+    type: integer
+    references: entity
+    required: true
+  closed:
+    type: boolean
+    required: true
+    default: false
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  custom_fields:
+    type: jsonb
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  nature_id:
+    type: integer
+    references: sale_contract_nature
+  number:
+    type: string
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  responsible_id:
+    type: integer
+    references: entity
+  sale_opportunity_id:
+    type: integer
+    references: sale_opportunity
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 sale_items:
   account_id:
     type: integer
@@ -11297,6 +11589,9 @@ sale_items:
     precision: 19
     scale: 4
     required: true
+  project_task_id:
+    type: integer
+    references: project_task
   quantity:
     type: decimal
     precision: 19
@@ -11553,6 +11848,9 @@ sales:
     required: true
   subject:
     type: string
+  subscription_id:
+    type: integer
+    references: subscription
   transporter_id:
     type: integer
     references: entity
@@ -11720,7 +12018,8 @@ subscriptions:
   address_id:
     type: integer
     references: entity_address
-    limit: 4
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -11728,6 +12027,10 @@ subscriptions:
     type: integer
     references: user
     limit: 4
+  current_period_started_at:
+    type: datetime
+  current_period_stopped_at:
+    type: datetime
   custom_fields:
     type: jsonb
   description:
@@ -11761,6 +12064,8 @@ subscriptions:
   started_on:
     type: date
     required: true
+  status:
+    type: string
   stopped_on:
     type: date
     required: true
@@ -11775,6 +12080,10 @@ subscriptions:
   swim_lane_uuid:
     type: uuid
     required: true
+  trial_started_at:
+    type: datetime
+  trial_stopped_at:
+    type: datetime
   updated_at:
     type: datetime
     required: true
@@ -13299,6 +13608,9 @@ worker_time_logs:
     type: integer
     limit: 4
     required: true
+  project_task_id:
+    type: integer
+    references: project_task
   provider:
     type: jsonb
   started_at:
@@ -13307,6 +13619,12 @@ worker_time_logs:
   stopped_at:
     type: datetime
     required: true
+  travel_expense_details:
+    type: string
+  travel_expense:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true

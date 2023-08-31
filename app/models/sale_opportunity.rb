@@ -61,6 +61,7 @@ class SaleOpportunity < SaleAffair
   refers_to :origin, class_name: 'OpportunityOrigin'
   belongs_to :client, class_name: 'Entity', foreign_key: :third_id
   has_many :tasks
+  has_many :sale_contracts, inverse_of: :sale_opportunity
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
   validates :client, :responsible, presence: true

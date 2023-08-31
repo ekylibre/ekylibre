@@ -221,15 +221,19 @@ Rails.application.routes.draw do
         end
       end
       resource :last_socleo_import_cell, only: :show
+      resource :opportunities_indicators_cell, only: :show
       resource :parts_cell, only: :show
       resource :profit_and_loss_cell, only: :show
+      resource :purchase_counts_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :revenues_by_sale_nature_cell, only: :show
       resource :rss_cell, only: :show
+      resource :sale_indicators_cell, only: :show
       resource :settings_statistics_cell, only: :show
       resource :square_revenues_by_category_cell, only: :show
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
+      resource :subscriptions_indicators_cell, only: :show
       resource :trade_counts_cell, only: :show
       resource :traceability_check_cell, only: :show
       resource :unbalanced_clients_cell, only: :show, concerns: :list
@@ -267,6 +271,7 @@ Rails.application.routes.draw do
       member do
         get :list_distributions
         get :list_productions
+        get :list_projects
         get :compute_pfi_report
         get :traceability_xslx_export
         get :global_costs_xslx_export
@@ -303,6 +308,8 @@ Rails.application.routes.draw do
 
     # resources :affairs, concerns: [:affairs, :list], only: [:show, :index]
     resources :affairs, only: [:unroll]
+
+    resources :affair_natures, concerns: %i[list unroll]
 
     resources :analyses, concerns: %i[list unroll] do
       member do
@@ -1094,6 +1101,18 @@ Rails.application.routes.draw do
 
     resources :products, concerns: %i[products many]
 
+    resources :projects, concerns: %i[list unroll] do
+      member do
+        get :list_tasks
+      end
+    end
+
+    resources :project_tasks, concerns: %i[list unroll] do
+      member do
+        get :list_task_logs
+      end
+    end
+
     namespace :purchase_process do
       resources :reconciliation, only: [] do
         collection do
@@ -1274,9 +1293,20 @@ Rails.application.routes.draw do
 
     resources :sale_affairs, concerns: %i[affairs list], only: %i[index show], path: 'sale-affairs'
 
+    resources :sale_contracts, concerns: %i[list unroll], path: 'sale-contracts' do
+      member do
+        get :list_items
+        get :list_projects
+      end
+    end
+
+    resources :sale_contract_natures, concerns: %i[list unroll], path: 'sale-contract-natures'
+
     resources :sale_opportunities, concerns: %i[affairs list], path: 'sale-opportunities' do
       member do
         get :list_tasks
+        get :list_events
+        get :list_sale_contracts
         post :prospect
         post :evaluate
         post :lose

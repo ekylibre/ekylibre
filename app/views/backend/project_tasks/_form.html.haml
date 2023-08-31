@@ -1,0 +1,12 @@
+:ruby
+  contract = f.object.project.sale_contract
+= field_set do
+  = f.input :name
+  = f.input :work_number
+  = f.referenced_association :project
+  = f.referenced_association :responsible
+  - if contract
+    = f.input :sale_contract_item_id, collection: contract.items.map{|u| [u.name, u.id] }
+  = f.input :comment
+  = f.input(:forecast_duration)
+  = f.input(:forecast_duration_unit)

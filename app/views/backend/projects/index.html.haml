@@ -1,0 +1,71 @@
+:ruby
+  current_financial_year = params[:current_financial_year] || current_user.current_financial_year&.id
+  main_financial_year_selector(current_financial_year) if current_financial_year
+  projects = Project.all.order(:name)
+  started_at = FinancialYear.find(current_financial_year).started_on.beginning_of_day
+  stopped_at = FinancialYear.find(current_financial_year).stopped_on.end_of_day
+  logs = WorkerTimeLog.where.not(project_task: nil).between(started_at , stopped_at)
+  workers = Worker.where(id: logs.pluck(:worker_id).compact.uniq).reorder(:name)
+
+= kujaku do |k|
+  - k.text
+  - k.helper do
+    - teams = Team.where(id: Project.pluck(:team_id).compact.uniq).reorder(:name)
+    %label= Project.human_attribute_name(:team)
+    = select_tag(:team_id, options_for_select([[]] + teams.collect{|u| [u.name, u.id]}, params[:team_id]))
+
+= main_toolbar do |t|
+  = t.new params: { redirect: nil }
+
+= janus do |j|
+  - j.face :list do
+    = main_list
+  - j.face :projects_chart do
+    :ruby
+      series = []
+      categories = []
+
+      workers.each do |worker|
+        data = []
+        projects.each do |project|
+          categories << "#{project.name}"
+          task_ids = ProjectTask.where(project_id: project.id).pluck(:id)
+          projects_logs = logs.where(project_task_id: task_ids, worker_id: worker.id)
+          if projects_logs.any?
+            data << projects_logs.durations.to_f
+          else
+            data << 0
+          end
+        end
+        series << {name: "#{worker.name}", data: data}
+      end
+
+    - if series.any?
+      = bar_highcharts(series, y_axis: {min: 0, title: {text: :duration.tl}}, x_axis: { categories: categories}, legend: {reverse: true}, plot_options: { series: {stacking: 'normal'}})
+    - else
+      = no_data
+
+  - j.face :workers_chart do
+    :ruby
+      series = []
+      categories = []
+
+      projects.each do |project|
+        data = []
+        task_ids = ProjectTask.where(project_id: project.id).pluck(:id)
+        workers.each do |worker|
+          categories << "#{worker.name}"
+          worker_logs = logs.where(project_task_id: task_ids, worker_id: worker.id)
+          if worker_logs.any?
+            data << worker_logs.durations.to_f
+          else
+            data << 0
+          end
+        end
+        series << {name: project.name, data: data}
+      end
+
+    - if series.any?
+      = bar_highcharts(series, y_axis: {min: 0, title: {text: :duration.tl}}, x_axis: { categories: categories}, legend: {reverse: true}, plot_options: { series: {stacking: 'normal'}})
+    - else
+      = no_data

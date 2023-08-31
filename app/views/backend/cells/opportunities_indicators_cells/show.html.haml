@@ -1,0 +1,14 @@
+- if @started_at && @stopped_at
+  :ruby
+    so = SaleOpportunity.between(@started_at, @stopped_at)
+
+  = infos do
+    .big-info.important
+      %span.title= :x_current_opportunities.tl(count: so.opened.count)
+      %span.value= link_to(so.opened.map(&:probability_value).compact.sum.round(2).l(currency: Preference[:currency]), backend_sale_opportunities_path(state: ["prospecting", "qualification", "value_proposition", "price_quote", "negociation"]))
+    .big-info
+      %span.title= :x_expired_opportunities.tl(count: so.opened.expired.count)
+      %span.value= so.opened.expired.map(&:probability_value).compact.sum.round(2).l(currency: Preference[:currency])
+    .big-info.important
+      %span.title= :x_won_opportunities.tl(count: so.where(state: :won).count)
+      %span.value= link_to(so.where(state: :won).map(&:probability_value).compact.sum.round(2).l(currency: Preference[:currency]), backend_sale_opportunities_path(state: ["won"]))

@@ -386,6 +386,17 @@
         <page to="backend/sale_tickets#show"/>
         <page to="backend/sale_tickets#unroll"/>
       </item>
+      <item name="sale_contracts">
+        <page to="backend/sale_contracts#index"/>
+        <page to="backend/sale_contracts#create"/>
+        <page to="backend/sale_contracts#destroy"/>
+        <page to="backend/sale_contracts#edit"/>
+        <page to="backend/sale_contracts#list"/>
+        <page to="backend/sale_contracts#list_items"/>
+        <page to="backend/sale_contracts#new"/>
+        <page to="backend/sale_contracts#show"/>
+        <page to="backend/sale_contracts#update"/>
+      </item>
       <item name="subscriptions">
         <page to="backend/subscriptions#index"/>
         <page to="backend/subscriptions#create"/>
@@ -1148,6 +1159,31 @@
   </part>
   <part name="humans" icon="user-cowboy">
     <page to="backend/dashboards#humans"/>
+    <group name="projects" icon="tasks">
+      <item name="projects">
+        <page to="backend/projects#index"/>
+        <page to="backend/projects#create"/>
+        <page to="backend/projects#destroy"/>
+        <page to="backend/projects#edit"/>
+        <page to="backend/projects#list"/>
+        <page to="backend/projects#list_tasks"/>
+        <page to="backend/projects#new"/>
+        <page to="backend/projects#show"/>
+        <page to="backend/projects#unroll"/>
+        <page to="backend/projects#update"/>
+      </item>
+      <item name="project_tasks">
+        <page to="backend/project_tasks#index"/>
+        <page to="backend/project_tasks#create"/>
+        <page to="backend/project_tasks#destroy"/>
+        <page to="backend/project_tasks#edit"/>
+        <page to="backend/project_tasks#list"/>
+        <page to="backend/project_tasks#new"/>
+        <page to="backend/project_tasks#show"/>
+        <page to="backend/project_tasks#unroll"/>
+        <page to="backend/project_tasks#update"/>
+      </item>
+    </group>
     <group name="payslips" icon="archive">
       <item name="payslips">
         <page to="backend/payslips#index"/>
@@ -1195,6 +1231,17 @@
       </item>
     </group>
     <group name="teams" icon="people">
+      <item name="teams">
+        <page to="backend/teams#index"/>
+        <page to="backend/teams#create"/>
+        <page to="backend/teams#destroy"/>
+        <page to="backend/teams#edit"/>
+        <page to="backend/teams#list"/>
+        <page to="backend/teams#new"/>
+        <page to="backend/teams#show"/>
+        <page to="backend/teams#unroll"/>
+        <page to="backend/teams#update"/>
+      </item>
       <item name="workers">
         <page to="backend/workers#index"/>
         <page to="backend/workers#create"/>

@@ -127,13 +127,7 @@ class Worker < Product
 
     start = Time.new(campaign.harvest_year, 1, 1).beginning_of_day.utc
     stop = Time.new(campaign.harvest_year, 12, 31).end_of_day.utc
-    WorkerTimeIndicator.refresh
-    total = WorkerTimeIndicator.of_workers(self).between(start, stop).sum(:duration)
-    if total == "0"
-      minutes = 0.00
-    else
-      minutes = ActiveSupport::Duration.parse(total).in_full(:minute)
-    end
-    Measure.new(minutes, :minute).convert(unit).round(2).l(precision: 2)
+
+    total = WorkerTimeIndicator.of_workers(self).between(start, stop).durations(unit).l(precision: 2)
   end
 end

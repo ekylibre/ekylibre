@@ -74,6 +74,8 @@ class Affair < ApplicationRecord
   belongs_to :journal_entry
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   belongs_to :third, class_name: 'Entity'
+  belongs_to :provider, class_name: 'Entity'
+  belongs_to :nature, class_name: 'AffairNature'
   # FIXME: Gap#affair_id MUST NOT be mandatory
   has_many :events
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
@@ -83,6 +85,8 @@ class Affair < ApplicationRecord
   has_many :purchase_invoices, inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :regularizations,   inverse_of: :affair, dependent: :destroy
+  has_many :labellings, class_name: 'AffairLabelling', dependent: :destroy, inverse_of: :affair
+  has_many :labels, through: :labellings
   has_many :debt_transfers, inverse_of: :affair, dependent: :nullify
   has_many :debt_regularizations, inverse_of: :debt_transfer_affair, foreign_key: :debt_transfer_affair_id, class_name: 'DebtTransfer', dependent: :nullify
 
@@ -98,6 +102,9 @@ class Affair < ApplicationRecord
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
+  accepts_nested_attributes_for :labellings, allow_destroy: true
+
+  acts_as_numbered
 
   scope :closeds, -> { where(closed: true) }
   scope :opened, -> { where(closed: false) }

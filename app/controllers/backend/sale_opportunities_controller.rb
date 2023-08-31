@@ -30,6 +30,18 @@ module Backend
       code << "  c[0] += \" AND \#{SaleOpportunity.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"
       code << "end\n"
+      code << "if params[:provider_id].to_i > 0\n"
+      code << "  c[0] += \" AND \#{SaleOpportunity.table_name}.provider_id = ?\"\n"
+      code << "  c << params[:provider_id]\n"
+      code << "end\n"
+      code << "if params[:nature_id].to_i > 0\n"
+      code << "  c[0] += \" AND \#{SaleOpportunity.table_name}.nature_id = ?\"\n"
+      code << "  c << params[:nature_id]\n"
+      code << "end\n"
+      code << "if params[:state].is_a?(Array) && !params[:state].empty?\n"
+      code << "  c[0] << ' AND #{SaleOpportunity.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end
@@ -38,15 +50,18 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :number, url: true
+      t.column :nature
       t.column :name
       t.column :created_at
       t.column :dead_line_at
       t.column :client, url: true
       t.column :responsible, hidden: true
       t.column :description, hidden: true
+      t.column :provider, hidden: true
       t.status
       t.column :state_label, hidden: true
       t.column :pretax_amount, currency: true
+      t.column :probability_percentage
     end
 
     list(:tasks, conditions: { sale_opportunity_id: 'params[:id]'.c }, order: :state, line_class: 'RECORD.state'.c) do |t|
@@ -58,6 +73,24 @@ module Backend
       t.column :due_at
       t.column :executor, url: true
       t.column :entity, url: true
+    end
+
+    list(:sale_contracts, conditions: { sale_opportunity_id: 'params[:id]'.c }) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :name, url: true
+      t.column :pretax_amount
+      t.column :responsible
+    end
+
+    list(:events, conditions: { affair_id: 'params[:id]'.c }, order: :started_at) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :name, url: true
+      t.column :started_at
+      t.column :nature
+      t.column :duration
+      t.column :place
     end
 
     SaleOpportunity.state_machine.events.each do |event|

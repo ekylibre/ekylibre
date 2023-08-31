@@ -45,7 +45,7 @@
 
 class Sequence < ApplicationRecord
   enumerize :period, in: %i[cweek month number year]
-  enumerize :usage, in: %i[affairs analyses animals campaigns cash_transfers contracts debt_transfers deliveries deposits documents entities fixed_assets gaps wine_incoming_harvests incoming_harvests incoming_payments inspections interventions inventories opportunities outgoing_payments outgoing_payment_lists parcels payslips plants plant_countings products product_natures product_nature_categories product_nature_variants purchases sales sales_invoices subscriptions tax_declarations rides ride_sets yield_observations]
+  enumerize :usage, in: %i[affairs analyses animals campaigns cash_transfers contracts debt_transfers deliveries deposits documents entities fixed_assets gaps wine_incoming_harvests incoming_harvests incoming_payments inspections interventions inventories opportunities outgoing_payments outgoing_payment_lists parcels payslips plants plant_countings products product_natures product_nature_categories product_nature_variants purchases sales sale_contracts sales_invoices subscriptions tax_declarations rides ride_sets yield_observations]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :last_cweek, :last_month, :last_number, :last_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true

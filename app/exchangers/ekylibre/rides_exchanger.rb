@@ -7,7 +7,7 @@ module Ekylibre
     category :plant_farming
     vendor :ekylibre
 
-    DEFAULT_TOOL_WIDTH = 3.5
+    DEFAULT_TOOL_WIDTH = 3.0
 
     def import
       # Unzip file
@@ -46,6 +46,8 @@ module Ekylibre
               nature: record.attributes['nature'],
               number: record.attributes['id'].to_s,
               group: record.attributes['group'].to_s,
+              tractor_work_number: record.attributes['tractor'].to_s,
+              tool_work_number: record.attributes['tool'].to_s,
               started_at: start,
               stopped_at: stop,
               duration: record.attributes['duration'],
@@ -53,6 +55,8 @@ module Ekylibre
             }
 
             ride_set = find_or_create_ride_set(attributes)
+
+            create_ride_equipment(ride_set, attributes)
 
             create_ride(ride_set, attributes)
           end
@@ -69,10 +73,6 @@ module Ekylibre
       return unless shape
 
       CultivableZone.shape_matching(shape).first
-    end
-
-    def machine_equipment
-      Equipment.find_by(work_number: 'TRAC_745')
     end
 
     def find_or_create_ride_set(attributes)
@@ -103,7 +103,7 @@ module Ekylibre
         nature: attributes[:nature],
         duration: attributes[:duration].seconds,
         shape: attributes[:shape],
-        product_id: machine_equipment&.id,
+        product_id: Equipment.find_by(work_number: attributes[:tractor_work_number])&.id,
         ride_set_id: ride_set.id,
         cultivable_zone: (cz.present? ? cz : nil),
         provider: provider_value(id: attributes[:number], machine_equipment_tool_width: 2.0)
@@ -115,8 +115,31 @@ module Ekylibre
       end
     end
 
+    def create_ride_equipment(ride_set, attributes)
+      tractor = Equipment.find_by(work_number: attributes[:tractor_work_number])
+      if tractor
+        ride_set_equipment = RideSetEquipment.of_provider_name(self.class.vendor, provider_name).where(product_id: tractor.id, ride_set_id: ride_set.id).first
+        ride_set_equipment ||= RideSetEquipment.create!(
+          ride_set_id: ride_set.id,
+          product_id: tractor.id,
+          nature: 'main',
+          provider: provider_value(id: attributes[:tractor_work_number])
+        )
+      end
+      tool = Equipment.find_by(work_number: attributes[:tool_work_number])
+      if tool
+        ride_set_equipment_tool = RideSetEquipment.of_provider_name(self.class.vendor, provider_name).where(product_id: tool.id, ride_set_id: ride_set.id).first
+        ride_set_equipment_tool ||= RideSetEquipment.create!(
+          ride_set_id: ride_set.id,
+          product_id: tool.id,
+          nature: 'additional',
+          provider: provider_value(id: attributes[:tool_work_number])
+        )
+      end
+    end
+
     def update_shape_on_ride_set
-      RideSet.of_provider_name(self.class.vendor, 'samsys_ride_set').each do |ride_set|
+      RideSet.of_provider_name(self.class.vendor, provider_name).each do |ride_set|
         points = []
         w.info "RideSet to update : #{ride_set.inspect}".green
         ride_set.rides.order(:started_at).each do |ride|
@@ -134,12 +157,7 @@ module Ekylibre
     protected
 
       def tool_width(ride_set)
-        width = begin
-                  ride_set.rides.first.equipment.width&.to_f
-                rescue NoMethodError => e
-                  DEFAULT_TOOL_WIDTH
-                end
-        width.zero? ? DEFAULT_TOOL_WIDTH : width
+        ride_set.products.map{ |product| product.get(:application_width).to_f }.compact.max || DEFAULT_TOOL_WIDTH
       end
 
       # @return [Import]

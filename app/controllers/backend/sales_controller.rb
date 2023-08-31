@@ -77,6 +77,7 @@ module Backend
       t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
       t.column :reference_number
+      t.column :nature, hidden: true
       t.column :created_at
       t.column :invoiced_at
       t.column :client, url: true

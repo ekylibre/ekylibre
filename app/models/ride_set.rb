@@ -52,7 +52,7 @@ class RideSet < ApplicationRecord
   include HasInterval
   has_many :rides, dependent: :destroy
   has_many :crumbs, through: :rides
-  has_many :equipments, class_name: 'RideSetEquipment', dependent: :destroy
+  has_many :equipments, class_name: 'RideSetEquipment', inverse_of: :ride_set, dependent: :destroy
   has_many :products, through: :equipments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :area_smart, :area_with_overlap, :area_without_overlap, :gasoline, numericality: true, allow_blank: true

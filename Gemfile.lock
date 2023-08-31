@@ -1,4 +1,75 @@
 GIT
+  remote: git@gitlab.com:ekylibre/ekylibre-banking.git
+  revision: f190620e5031e08a6f486858899b7b46c215535f
+  branch: dev
+  specs:
+    ekylibre-banking (0.1.2)
+      nordigen-ruby (~> 1.0.0)
+      securerandom (~> 0.2.0)
+
+GIT
+  remote: git@gitlab.com:ekylibre/ekylibre-baqio.git
+  revision: 29a2981f2e7a1d6a7be8897fe6cb9dfbf7f5093b
+  branch: dev
+  specs:
+    ekylibre-baqio (0.5.1)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
+
+GIT
+  remote: git@gitlab.com:ekylibre/ekylibre-economic
+  revision: d50ad9be4d06162d7bb8543c88942098f86da0e0
+  branch: dev
+  specs:
+    ekylibre-economic (0.2.0)
+      activesupport (>= 5.2)
+      rails (>= 5.2)
+
+GIT
+  remote: git@gitlab.com:ekylibre/ekylibre-imepe.git
+  revision: f525fec0c48fbad747e6e699976f5edd9c280cbc
+  branch: dev
+  specs:
+    ekylibre_imepe (0.5.0)
+      vcr
+      webmock
+
+GIT
+  remote: git@gitlab.com:ekylibre/ekylibre-planning.git
+  revision: d3f29e32b9cc77ec9ae205be2e603d66e134025f
+  branch: dev
+  specs:
+    planning (0.1.1)
+      coffee-rails
+      factory_bot
+      jbuilder
+      lodash-rails
+      onoma
+      rails (~> 5.2)
+      sassc-rails (~> 2.0)
+      vuejs-rails
+
+GIT
+  remote: git@gitlab.com:ekylibre/ekylibre-weenat.git
+  revision: 3f5f8ac5f179322afdd93ecaf1a0e07c6a3321fe
+  branch: dev
+  specs:
+    weenat (0.1.1)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
+
+GIT
+  remote: git@gitlab.com:ekylibre/ekylibre_ekyviti.git
+  revision: 6c79fd067a2fd6e6de4565b2e0220a14a4840b3d
+  branch: dev
+  specs:
+    ekylibre_ekyviti (1.2.5)
+      interactor-rails
+      rails (~> 5.2)
+
+GIT
   remote: https://github.com/ekylibre/agric.git
   revision: 7a400bb2469c53bf3833e3cbc4eeea100f89d210
   branch: master
@@ -68,6 +139,14 @@ GIT
   specs:
     xml_errors_parser (0.0.3)
       i18n
+
+PATH
+  remote: ../ekylibre-samsys
+  specs:
+    ekylibre-samsys (0.8.0)
+      dotenv
+      vcr
+      webmock
 
 GEM
   remote: https://rubygems.org/
@@ -295,6 +374,8 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
     fastimage (2.2.6)
     ffaker (2.18.0)
     ffi (1.15.5)
@@ -357,6 +438,10 @@ GEM
     i18n-js (3.9.0)
       i18n (>= 0.6.6)
     iban-tools (1.1.0)
+    interactor (3.1.2)
+    interactor-rails (2.2.1)
+      interactor (~> 3.0)
+      rails (>= 4.2)
     io-console (0.5.9)
     irb (1.3.7)
       reline (>= 0.2.7)
@@ -404,6 +489,8 @@ GEM
       semantic (~> 1.6)
       zeitwerk (~> 2.4)
     libv8 (3.16.14.19)
+    lodash-rails (4.17.21)
+      railties (>= 3.1)
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -452,7 +539,13 @@ GEM
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
+    nordigen-ruby (1.0.1)
+      faraday (~> 1.8.0)
+      faraday_middleware (~> 1.2.0)
     nori (2.6.0)
+    oauth (0.6.2)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -622,6 +715,12 @@ GEM
     ruby-prof (1.4.3)
     ruby-progressbar (1.11.0)
     ruby-rc4 (0.1.5)
+    ruby-trello (2.2.0)
+      activemodel (>= 3.2.0)
+      addressable (~> 2.3)
+      json
+      oauth (>= 0.4.5)
+      rest-client (>= 1.8.0)
     ruby2_keywords (0.0.5)
     rubyntlm (0.6.3)
     rubyzip (1.3.0)
@@ -644,6 +743,7 @@ GEM
     scenic (1.5.4)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
+    securerandom (0.2.2)
     semantic (1.6.1)
     sepa_king (0.12.0)
       activemodel (>= 3.1)
@@ -676,6 +776,9 @@ GEM
       simplecov (~> 0.19)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
     socksify (1.7.1)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
@@ -735,7 +838,9 @@ GEM
     validates_timeliness (4.1.1)
       timeliness (>= 0.3.10, < 1)
     vcr (6.0.0)
+    version_gem (1.1.3)
     victor (0.3.3)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -812,7 +917,13 @@ DEPENDENCIES
   devise_invitable (~> 2.0)
   dotenv (~> 2.7)
   draper (~> 3.0)
+  ekylibre-banking!
+  ekylibre-baqio!
+  ekylibre-economic!
   ekylibre-ofx-parser (~> 1.2)
+  ekylibre-samsys!
+  ekylibre_ekyviti!
+  ekylibre_imepe!
   elastic-apm (~> 3.4.0)
   enumerize (~> 2.4)
   exception_notification (~> 4.4)
@@ -847,6 +958,7 @@ DEPENDENCIES
   minitest-reporters (~> 1.4)
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8)
+  nordigen-ruby
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
@@ -856,6 +968,7 @@ DEPENDENCIES
   paranoia (~> 2.2)
   pdf-reader (~> 2.4)
   pg (~> 1.0)
+  planning!
   possibly!
   prawn (~> 2.4)
   pry (~> 0.12.0)
@@ -880,11 +993,13 @@ DEPENDENCIES
   roo (~> 2.8)
   rubocop (~> 1.11.0)
   ruby-prof (~> 1.4)
+  ruby-trello
   rubyntlm (>= 0.3.2)
   rubyzip (~> 1.3.0)
   sassc-rails (~> 2.0)
   savon (~> 2.12)
   scenic
+  securerandom
   semantic (~> 1.6)
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
@@ -910,10 +1025,12 @@ DEPENDENCIES
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   vcr (~> 6.0.0)
+  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webmock (~> 3.13.0)
   webpacker (~> 4.x)
+  weenat!
   wice_grid (~> 4.0)
   xml_errors_parser!
   yard (~> 0.9.26)

@@ -33,6 +33,7 @@
     - l.attribute :pretax_amount, currency: true
     - l.attribute :description if resource.description?
     - l.attribute :origin
+  = labels_info(resource.labels)
 
 = janus do |j|
   - j.face :timeline do
@@ -55,3 +56,11 @@
         = cobble_toolbar do |t|
           = t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
         = cobble_list(:tasks)
+      - c.cobble :events, title: :x_events.tl(count: resource.events.count) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.third_id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}})
+        = cobble_list(:events)
+      - c.cobble :sale_contracts, title: :x_sale_contracts.tl(count: resource.sale_contracts.count) do
+        = cobble_toolbar do |t|
+          = t.new(params: {controller: :sale_contracts, sale_opportunity_id: resource.id, client_id: resource.third_id})
+        = cobble_list(:sale_contracts)

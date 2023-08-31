@@ -1,0 +1,18 @@
+-# = f.object.errors.inspect
+= field_set do
+  = f.input :name
+  = f.input :work_number
+  = f.input :nature
+  = f.referenced_association :activity
+  = f.referenced_association :team
+  = f.referenced_association :responsible
+  = f.input :comment
+  = f.referenced_association :sale_contract
+  = f.input :started_on
+  = f.input :stopped_on
+  = f.input :closed
+  = f.custom_fields
+  = f.nested_association(:members)
+
+= f.attachments_field_set
+
