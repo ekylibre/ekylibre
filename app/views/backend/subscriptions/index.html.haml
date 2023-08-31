@@ -1,11 +1,53 @@
+:ruby
+  subscriptions = Subscription.all
+  subscription_natures = SubscriptionNature.all.reorder(:name)
 = kujaku do |k|
+  - k.text
   - k.helper do
-    %div.label-container
-      = select_tag(:nature_id, options_for_select(SubscriptionNature.all.map{|x| [x.name, x.id]}, selected: params[:nature_id].to_i), data: {dependents: "#subscriptions_options"})
-      %label= :select_date.tl
-    %div.value-container
-      = date_field_tag(:instant, session[:subscriptions_instant])
+    = select_tag(:nature_id, options_for_select(subscription_natures.map{ |x| [x.name, x.id] }, selected: params[:nature_id].to_i), data: { dependents: "#subscriptions_options" })
+    %label= :select_date.tl
+    = date_field_tag(:instant, session[:subscriptions_instant])
+  - k.multi_choice(:state, [:trialing, :past_due, :unpaid, :active, :canceled].map{ |s| [s.tl, s] })
 
 - main_toolbar
 
-= main_list
+= janus do |j|
+  - j.face :list do
+    = main_list
+
+  - j.face :map do
+    :ruby
+      color = {
+              "E1 - Ekylibre" => "#008000",
+              "E0 - Ekylibre" => "#00FF00",
+              "EKY - Ekylibre" => "#008000",
+              "CNF - Clic_and_farm" => "#0000FF",
+              "EKYAN - Ekylibre annuel" => "#008000"
+              }
+      subscriptions_serie = subscriptions.collect do |s|
+        a = s.subscriber.default_mail_address if s.subscriber
+        next unless a && a.mail_geolocation
+
+        popup_content = []
+        popup_content << {label: SaleOpportunity.human_attribute_name(:nature), value: s.nature.name}
+        popup_content << {label: Subscription.human_attribute_name(:status), value: s.status}
+        {
+          name: s.subscriber.full_name,
+          group: s.nature.name,
+          status: s.status,
+          shape: a.mail_geolocation,
+          shape_color: color[s.nature.name],
+          popup: {header: true, content: popup_content}
+        }
+      end.flatten.compact
+
+    - if subscriptions_serie.any?
+      = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
+        - v.serie :main, subscriptions_serie
+        - v.point_group :nature, :main
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+    - else
+      = :no_sale_opportunities_to_show.tl

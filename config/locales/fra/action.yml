@@ -620,6 +620,16 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
+    backend/project_tasks:
+      edit: "Modifier une tâche d'un projet: %{name}"
+      index: "Tâches de projets"
+      new: "Nouvelle tâche de projet"
+      show: "Tâche de projet: %{name}"
+    backend/projects:
+      edit: "Modifier un projet: %{name}"
+      index: "Projets"
+      new: "Nouveau projet"
+      show: "Projet: %{name}"
     backend/project_budgets:
       edit: "Modifier le budget interne\_: %{name}"
       index: "Budgets internes "
@@ -697,6 +707,22 @@ fra:
       new: "Nouveau rôle"
       pick: "Importer un rôle\_"
       show: "Rôle\_: %{name}"
+    backend/saas_subscriptions:
+      index: "Abonnements SAAS"
+      show: "Abonnement\_: %{name}"
+    backend/sale_contracts:
+      index: "Contrat de ventes"
+      show: "Contrat de vente\_: %{name}"
+    backend/sale_contract_natures:
+      edit: "Modifier un type de contrat: %{name}"
+      index: "Types de contrat"
+      new: "Nouveau type de contrat"
+      show: "Type de contrat: %{name}"
+    backend/sale_contracts:
+      edit: "Modifier un contrat de vente\_: %{name}"
+      index: "Contrats de vente"
+      new: "Nouveau contrat de vente"
+      show: "Contrat de vente: %{name}"
     backend/sale_credits:
       new: "Passage en avoir de la facture %{number}"
     backend/sale_items: #?
@@ -1653,6 +1679,7 @@ fra:
     canals: "Coordonnées"
     cancel: "Annuler"
     cancelation: "Annulation"
+    canceled: "Annulé" #?
     cancelled: "Passées en avoir" #?
     cannot_be_mixed_with: "Ne peut être mélangé avec le produit %{phyto}"
     cannot_be_mixed_with_any_product: "Ne peut être mélangé avec aucun autre produit"
@@ -2406,6 +2433,7 @@ fra:
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
     inspections: "Agréages"
+    interactive_maps: "Une librairie JavaScript pour des cartes interactives"
     interface_preferences: "Préférences de l’interface"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: " personnalisé"
@@ -2681,6 +2709,7 @@ fra:
     natures: "Profils"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
+    negociation: "Négociation"
     needed_quantity: "Quantité nécessaire"
     # negative_debit_or_credit: "The entry has a negative debit or credit"
     negative_or_empty_debit_or_credit: "L’écriture possède un débit ou un crédit négatif ou nul" #?
@@ -2835,6 +2864,7 @@ fra:
     operating_revenues: "Produits d'exploitation"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
+    opportunities_indicators: "Opportunités"
     options: "Options"
     or: "Ou"
     order: "Commande" #?
@@ -2896,6 +2926,7 @@ fra:
     parts: "Modules"
     passive_totals: "Total général"
     password: "Mot de passe"
+    past_due: "Expiré"
     paths_to_convert: "Chemins à convertir" #?
     pay: "Payer" #?
     payable_taxes: "Taxes payables"
@@ -3004,6 +3035,7 @@ fra:
     price: "Prix"
     price_amount: "Prix HT" #?
     price_amount_with_taxes: "Prix TTC" #?
+    price_quote: "Devis"
     prices: "Prix"
     prices_evolutions: "Évolutions des prix" #?
     prices_export: "Exporter vos tarifs au format CSV" #?
@@ -3062,6 +3094,7 @@ fra:
     profitability: "Rentabilité" #?
     profits: "Produits d’exploitation"
     profits_and_losses: "Les profits et pertes"
+    prospecting: "Prospection"
     progress_bar_current_step: "Étape %{current}/%{total} : %{label}..."
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provide_mandatory_information_before_putting_on_hold: "Veuillez fournir les informations nécessaires à la mise en attente de votre immobilisation. Une fois redirigé(e), cliquez à nouveau sur 'En attente' pour finaliser la procédure."
@@ -3100,6 +3133,7 @@ fra:
       order: "Commande" #?
       refused: "Refusée" #?
     purchases_stocks_variation: "Variation de stocks d’approvisionnements"
+    qualification: "Qualification"
     quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
@@ -3121,6 +3155,7 @@ fra:
     readings: "Relevés d’indicateur"
     ready: "Prêt(e)"
     ready_to_harvest: "Prêt(e) à être récolté(e)"
+    real_duration: "Durée relle"
     receipt_date: "Date de réception"
     receipt_responsible: "Responsable réception"
     receive: "Recevoir" #?
@@ -3236,6 +3271,7 @@ fra:
       summary: "Facture et encaissements" #?
     sales: "Ventes"
     sales_conditions: "Conditions de vente"
+    sale_indicators: "Indicateurs de vente"
     sales_invoice: "Facture"
     sales_invoice_items: "Lignes de la facture" #?
     sales_invoice_number: "Numéro de facture" #?
@@ -3411,6 +3447,7 @@ fra:
     subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
     submit: "Envoyer"
     subscribed_on: "Abonné au"
+    subscribed_since: "Abonné depuis"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
     subscriber_quantity: "Abonné(e) au numéro %{subscribed_at}"
     subscription_nature: "Type d’abonnement"
@@ -3418,6 +3455,7 @@ fra:
     subscription_natures_up: "Incrémenter le numéro actuel (+1)" #?
     subscriptions: "Abonnements"
     subscriptions_evolution: "Évolution des abonnements"
+    subscriptions_indicators: "Indicateurs des abonnements"
     subsidies: "Indémnités et subventions d’exploitation"
     substances_mixing_not_allowed_due_to_znt_buffer: "Mélange de substances non autorisé à cause de l'usage %{usage} du produit %{phyto} (ZNT aquatique >= 100 m)"
     subtitle: "Informations générales" #?
@@ -3425,6 +3463,7 @@ fra:
     subtotals_at_level: "Sous-totaux aux niveaux"
     supplier: "Fournisseur"
     supplier_code: "Code fournisseur" #?
+    merged_entity: "Entitées fusionnées (ID=%{other}):\n"
     supplier_informations: "Informations fournisseur"
     supplier_payment_mode: "Mode de paiement"
     supplier_receivables: "Fournisseurs d'exploitations et comptes rattachés"
@@ -3492,6 +3531,8 @@ fra:
     timeline_outgoing_mail: "%{author} a écrit à %{entity} à propos de %{name} %{when}"
     timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} %{when}"
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} %{when}"
+    timeline_sale_contract: "%{type} %{name} de %{pretax_amount} ajouté par %{author} %{when}" #?
+    timeline_sale_opportunity: "%{type} %{name} de %{pretax_amount} ajouté par %{author} %{when}" #?
     timeline_task: "%{author} a ajouté une tâche %{name} %{when}"
     times: "Temps"
     title_change_status_selected_interventions: "Changer le statut des interventions selectionées" #?
@@ -3589,6 +3630,7 @@ fra:
     travel_intervention_duration: "Durée de déplacement"
     treatment: "Traitement" #?
     treatment_type: "Type de traitement"
+    trialing: "Essai"
     trimester: "Trimestre"
     true: "Vrai" #?
     type_of_structure: "Type de structure"
@@ -3675,6 +3717,8 @@ fra:
     validate_x_entries:
       one: "Valider l'écriture"
       other: "Valider les %{count} écritures"
+    validated: "Validé"
+    value_proposition: "Proposition de valeur"
     validated: "Validée"
     validated_by: "Validée par"
     validated_vat_declaration: "État de TVA définitif"
@@ -3806,6 +3850,9 @@ fra:
     x_events_of_nature_y:
       one: "%{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: "%{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
+    x_expired_opportunities:
+      one: "%{count} opportunité ouverte & expirée"
+      other: "%{count} opportunités ouvertes & expirées"
     x_fixed_assets:
       one: "%{count} immobilisation"
       other: "%{count} immobilisations"
@@ -3845,6 +3892,9 @@ fra:
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
+    x_lost_subscriptions:
+      one: "%{count} abonnement perdu"
+      other: "%{count} abonnements perdus"
     x_key_indicators:
       one: "%{count} indicateur clé"
       other: "%{count} indicateurs clés"
@@ -3863,6 +3913,9 @@ fra:
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"
+    x_new_subscriptions:
+      one: "%{count} nouvel abonnement"
+      other: "%{count} nouveaux abonnements"
     x_negative_or_empty_debit_or_credit:
       one: "1 écriture possède un débit ou un crédit négatif ou nul"
       other: "%{count} écritures possèdent un débit ou un crédit négatif ou nul"
@@ -3897,6 +3950,9 @@ fra:
     x_prices: #?
       one: "%{count} prix" #?
       other: "%{count} prix" #?
+    x_projects:
+      one: "%{count} projet"
+      other: "%{count} projets"
     x_printed_on_more_than_60_days_ago:
       one: "1 écriture présente une date de valeur inférieure à 60 jours par rapport à date du jour"
       other: "%{count} écritures présentent une date de valeur inférieure à 60 jours par rapport à date du jour"
@@ -3930,6 +3986,9 @@ fra:
     x_risky_keyword:
       one: "1 écriture présente des mots clefs sujets à erreur"
       other: "%{count} écritures présentent des mots clefs sujets à erreur"
+    x_sale_contracts:
+      one: "%{count} contrat de vente"
+      other: "%{count} contrats de vente"
     x_sale_opportunities:
       one: "%{count} opportunité"
       other: "%{count} opportunités"
@@ -3957,6 +4016,9 @@ fra:
     x_supplier_journal_entry_items:
       one: "%{count} ligne d’écritures comptables fournisseurs"
       other: "%{count} lignes d’écritures comptables fournisseurs"
+    x_task_logs:
+      one: "%{count} saisie de temps"
+      other: "%{count} saisies de temps"
     x_tasks:
       one: "%{count} tâche"
       other: "%{count} tâches"
@@ -3989,6 +4051,9 @@ fra:
     x_waiting_outgoing_deliveries:
       one: "%{count} colis à expédier en attente"
       other: "%{count} colis à expédier en attente"
+    x_won_opportunities:
+      one: "%{count} opportunité gagnée"
+      other: "%{count} opportunités gagnées"
     x_years:
       one: "%{count} an"
       other: "%{count} ans"
@@ -4475,6 +4540,7 @@ fra:
     backend/products:
       default: "%{work_number} %{name} (%{number}) - %{container_name}"
       land_parcels: "%{name}"
+    backend/project_tasks: "%{name} (%{project_name})" #?
     backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"

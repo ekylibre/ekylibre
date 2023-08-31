@@ -1,0 +1,45 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2015-2023 Ekylibre SAS
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: sale_contracts
+#
+---
+sale_contracts_001:
+  client_id: 7
+  closed: false
+  comment: Abonnement et developpement
+  created_at: 2018-11-05 09:52:05.483838000 Z
+  creator_id: 1
+  currency: EUR
+  id: 1
+  lock_version: 4
+  name: Contrat n°1
+  nature_id: 1
+  number: C2014000001
+  pretax_amount: 1200.0
+  responsible_id: 9
+  sale_opportunity_id: 32
+  started_on: 2018-11-01
+  stopped_on: 2019-10-31
+  updated_at: 2018-11-05 09:58:26.779080000 Z
+  updater_id: 1

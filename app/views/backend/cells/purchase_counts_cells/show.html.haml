@@ -1,0 +1,4 @@
+= infos do
+  .big-info.important
+    %span.title= :x_unpaid_purchases.tl(count: PurchaseInvoice.unpaid.count)
+    %span.value= link_to(PurchaseInvoice.unpaid.map(&:affair_balance).compact.sum.round(2).l(currency: Preference[:currency]), backend_purchase_invoices_path(nature: 'unpaid'))

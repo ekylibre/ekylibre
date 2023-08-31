@@ -43,6 +43,7 @@
 class WorkerTimeLog < ApplicationRecord
   include Customizable
   include Providable
+  belongs_to :project_task, inverse_of: :logs
   belongs_to :worker
   has_one :person, through: :worker
   has_one :user, through: :person
@@ -53,6 +54,8 @@ class WorkerTimeLog < ApplicationRecord
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(worker_time_log) { worker_time_log.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :worker, presence: true
+  validates :travel_expense_details, length: { maximum: 500 }, allow_blank: true
+  validates :travel_expense, inclusion: { in: [true, false] }
   # ]VALIDATORS]
   validates :duration, presence: true, numericality: { greater_than: 0, less_than: 86_400 }
   validate :duration_is_between_0_and_24h, if: :duration
@@ -99,6 +102,10 @@ class WorkerTimeLog < ApplicationRecord
 
   def human_duration(unit = :hour)
     duration&.in(:second)&.convert(unit)&.round(2)&.l(precision: 2)
+  end
+
+  def self.durations(unit = :hour)
+    self.sum(:duration).in(:second)&.convert(unit)&.round(2)
   end
 
   private

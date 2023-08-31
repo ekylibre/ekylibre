@@ -1,4 +1,5 @@
 = field_set do
+  = f.referenced_association :nature
   = f.input :name
   = f.referenced_association :client # , source: :clients
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
@@ -9,6 +10,8 @@
   = f.input :probability_percentage
   -# = f.input :state
   = f.input :description
+  #labellings
+    = f.nested_association(:labellings)
   = f.custom_fields
 
 = f.attachments_field_set

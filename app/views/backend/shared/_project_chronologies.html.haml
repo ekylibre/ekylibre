@@ -1,0 +1,17 @@
+.projects
+  - projects.each do |project|
+    - color = project.activity.color if project.activity
+    .project
+      .project-infos
+        = link_to(project.name, { action: :show, controller: :projects, id: project.id })
+        %span.pull-right= project.forecast_duration.round(2).l(precision: 2) rescue nil
+      .project-chronology
+        .chronology
+          .grades
+            - grades.each_with_index do |grade, index|
+              .grade{ class: (grade.month == 1 ? 'grade-start' : 'grade-middle') + ' ' + ((index == 0 || grade.month == 1) ? 'grade-year' : 'grade-month') }= ((index == 0 || grade.month == 1) ? grade.year.to_s : I18n.t('date.abbr_month_names')[grade.month])
+          .periods
+            - url_options = { action: :show, controller: :projects, id: project.id }
+            - html_options = { :title => project.full_name }
+          = product_chronology_period(project.started_on, project.stopped_on, period_started_on, duration, color, url_options, html_options)
+

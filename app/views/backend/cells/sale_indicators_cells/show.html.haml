@@ -1,0 +1,14 @@
+- if @started_on && @stopped_on
+  :ruby
+    sales = Sale.where(state: :invoice).invoiced_between(@started_on, @stopped_on)
+
+  = infos do
+    .big-info.important
+      %span.title= :x_sales.tl(count: sales.count)
+      %span.value= link_to(sales.map(&:pretax_amount).compact.sum.round(2).l(currency: Preference[:currency]), backend_sales_path(state: ["invoice"]))
+    .big-info.important
+      %span.title= :x_unpaid_sales.tl(count: sales.unpaid.count)
+      %span.value= link_to(sales.unpaid.map(&:affair_balance).compact.sum.round(2).l(currency: Preference[:currency]), backend_sales_path(state: ["order", "invoice"], nature: 'unpaid'))
+    -# .big-info
+      %span.title= :x_incoming_payments_to_deposit.tl(count: IncomingPayment.depositables.count)
+      %span.value= link_to(IncomingPayment.depositables.sum(:amount).round(2).l(currency: Preference[:currency]), backend_incoming_payments_path(s: "to_deposit_now"))

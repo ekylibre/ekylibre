@@ -1,0 +1,36 @@
+= field_set do
+  = f.input :sale_opportunity_id, as: :hidden
+  = f.referenced_association :client, source: :clients, new: { client: 1 }
+  = f.referenced_association :nature
+  = f.input :name
+  = f.input :started_on
+  = f.input :stopped_on
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
+  = f.input :comment, as: :text
+  = f.input :closed
+  = f.custom_fields
+
+= field_set SaleContract.human_attribute_name(:items) do
+  .items
+    %table#items-table
+      %thead
+        %tr
+          %th= SaleContractItem.human_attribute_name(:variant)
+          %th= SaleContractItem.human_attribute_name(:quantity)
+          %th= SaleContractItem.human_attribute_name(:quantity_unit)
+          %th= SaleContractItem.human_attribute_name(:unit_pretax_amount)
+          %th= SaleContractItem.human_attribute_name(:pretax_amount)
+          %th= SaleContractItem.human_attribute_name(:currency)
+          %th
+      - precision = Onoma::Currency[f.object.currency].precision
+      %tfoot
+        %tr.total
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+          %th{ colspan: 2 }= :total.tl
+          %td.decimal#pta{ data:{ use: ".pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
+          %td.currency= f.object.currency
+          %th
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render 'item_fields', f: item
+
+= f.attachments_field_set

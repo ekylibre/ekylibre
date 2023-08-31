@@ -1,0 +1,29 @@
+= main_toolbar do |t|
+  = t.edit resource
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :name
+    - l.attribute :work_number
+    - l.attribute :responsible if resource.responsible
+    - l.attribute :project, url: true
+    - l.attribute :forecast_duration
+
+  = infos do
+    - if resource.time_ratio
+      .med-info.important
+        %span.title= ProjectTask.human_attribute_name(:time_ratio)
+        %span.value
+          = resource.time_ratio.in(:percent).l
+    - if resource.project.timeleft
+      .med-info
+        %span.title= SaleOpportunity.human_attribute_name(:timeleft)
+        %span.value= human_interval(resource.project.timeleft, display: 2)
+
+
+= cobbles do |c|
+  - c.cobble(:task_logs, title: :x_task_logs.tl(count: resource.logs.count)) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :worker_time_logs, project_task_id: resource.id})
+    - if resource.logs.any?
+      = cobble_list(:task_logs)

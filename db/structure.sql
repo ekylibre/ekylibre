@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA lexicon;
+
+
+--
 -- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -1194,6 +1201,78 @@ ALTER SEQUENCE public.activity_tactics_id_seq OWNED BY public.activity_tactics.i
 
 
 --
+-- Name: affair_labellings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.affair_labellings (
+    id integer NOT NULL,
+    affair_id integer NOT NULL,
+    label_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: affair_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.affair_labellings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: affair_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.affair_labellings_id_seq OWNED BY public.affair_labellings.id;
+
+
+--
+-- Name: affair_natures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.affair_natures (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: affair_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.affair_natures_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: affair_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.affair_natures_id_seq OWNED BY public.affair_natures.id;
+
+
+--
 -- Name: affairs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1224,7 +1303,9 @@ CREATE TABLE public.affairs (
     type character varying,
     state character varying,
     probability_percentage numeric(19,4) DEFAULT 0.0,
-    letter character varying
+    letter character varying,
+    provider_id integer,
+    nature_id integer
 );
 
 
@@ -3398,6 +3479,7 @@ CREATE TABLE public.journal_entry_items (
     resource_prism character varying,
     variant_id integer,
     tax_declaration_mode character varying,
+    project_task_id integer,
     project_budget_id integer,
     equipment_id integer,
     accounting_label character varying,
@@ -3471,6 +3553,7 @@ CREATE TABLE public.purchase_items (
     depreciable_product_id integer,
     fixed_asset_id integer,
     preexisting_asset boolean,
+    project_task_id integer,
     equipment_id integer,
     role character varying,
     project_budget_id integer,
@@ -3556,6 +3639,7 @@ CREATE TABLE public.sale_items (
     team_id integer,
     codes jsonb,
     compute_from character varying NOT NULL,
+    project_task_id integer,
     accounting_label character varying,
     fixed boolean DEFAULT false NOT NULL,
     preexisting_asset boolean,
@@ -3618,6 +3702,7 @@ CREATE TABLE public.sales (
     codes jsonb,
     undelivered_invoice_journal_entry_id integer,
     quantity_gap_on_invoice_journal_entry_id integer,
+    subscription_id integer,
     client_reference character varying,
     provider jsonb
 );
@@ -3728,7 +3813,9 @@ CREATE TABLE public.entity_addresses (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    latitude numeric(19,15),
+    longitude numeric(19,15)
 );
 
 
@@ -8210,6 +8297,177 @@ ALTER SEQUENCE public.project_budgets_id_seq OWNED BY public.project_budgets.id;
 
 
 --
+-- Name: project_members; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.project_members (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    role character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: project_members_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.project_members_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.project_members_id_seq OWNED BY public.project_members.id;
+
+
+--
+-- Name: project_task_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.project_task_logs (
+    id integer NOT NULL,
+    project_task_id integer NOT NULL,
+    worker_id integer,
+    worked_on date NOT NULL,
+    duration numeric(9,2) NOT NULL,
+    sale_item_id integer,
+    started_at timestamp without time zone,
+    comment text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    travel_expenses boolean DEFAULT false NOT NULL,
+    travel_expense_details character varying,
+    working_entity_id integer
+);
+
+
+--
+-- Name: project_task_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.project_task_logs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_task_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.project_task_logs_id_seq OWNED BY public.project_task_logs.id;
+
+
+--
+-- Name: project_tasks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.project_tasks (
+    id integer NOT NULL,
+    project_id integer NOT NULL,
+    responsible_id integer,
+    sale_contract_item_id integer,
+    billing_method character varying,
+    started_on date,
+    stopped_on date,
+    forecast_duration numeric(9,2),
+    name character varying NOT NULL,
+    comment text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    forecast_duration_unit character varying,
+    work_number character varying
+);
+
+
+--
+-- Name: project_tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.project_tasks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: project_tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.project_tasks_id_seq OWNED BY public.project_tasks.id;
+
+
+--
+-- Name: projects; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.projects (
+    id integer NOT NULL,
+    activity_id integer,
+    nature character varying NOT NULL,
+    name character varying NOT NULL,
+    responsible_id integer,
+    sale_contract_id integer,
+    started_on date,
+    stopped_on date,
+    comment text,
+    closed boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    team_id integer,
+    work_number character varying
+);
+
+
+--
+-- Name: projects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.projects_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.projects_id_seq OWNED BY public.projects.id;
+
+
+--
 -- Name: purchase_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -8501,6 +8759,130 @@ ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
+-- Name: sale_contract_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sale_contract_items (
+    id integer NOT NULL,
+    sale_contract_id integer NOT NULL,
+    variant_id integer NOT NULL,
+    quantity numeric(19,4) DEFAULT 0.0 NOT NULL,
+    unit_pretax_amount numeric(19,4) NOT NULL,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    quantity_unit character varying
+);
+
+
+--
+-- Name: sale_contract_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sale_contract_items_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sale_contract_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sale_contract_items_id_seq OWNED BY public.sale_contract_items.id;
+
+
+--
+-- Name: sale_contract_natures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sale_contract_natures (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    template_name character varying,
+    comment text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: sale_contract_natures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sale_contract_natures_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sale_contract_natures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sale_contract_natures_id_seq OWNED BY public.sale_contract_natures.id;
+
+
+--
+-- Name: sale_contracts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sale_contracts (
+    id integer NOT NULL,
+    number character varying,
+    name character varying NOT NULL,
+    started_on date,
+    stopped_on date,
+    custom_fields jsonb,
+    pretax_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
+    currency character varying NOT NULL,
+    responsible_id integer,
+    client_id integer NOT NULL,
+    sale_opportunity_id integer,
+    comment text,
+    closed boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    nature_id integer
+);
+
+
+--
+-- Name: sale_contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sale_contracts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sale_contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sale_contracts_id_seq OWNED BY public.sale_contracts.id;
+
+
+--
 -- Name: sale_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -8735,7 +9117,7 @@ ALTER SEQUENCE public.subscription_natures_id_seq OWNED BY public.subscription_n
 CREATE TABLE public.subscriptions (
     id integer NOT NULL,
     started_on date NOT NULL,
-    stopped_on date NOT NULL,
+    stopped_on date,
     address_id integer,
     quantity integer NOT NULL,
     suspended boolean DEFAULT false NOT NULL,
@@ -8751,7 +9133,13 @@ CREATE TABLE public.subscriptions (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     parent_id integer,
-    swim_lane_uuid uuid NOT NULL
+    swim_lane_uuid uuid NOT NULL,
+    codes jsonb,
+    trial_started_at timestamp without time zone,
+    trial_stopped_at timestamp without time zone,
+    current_period_started_at timestamp without time zone,
+    current_period_stopped_at timestamp without time zone,
+    status character varying
 );
 
 
@@ -10009,7 +10397,10 @@ CREATE TABLE public.worker_time_logs (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    project_task_id bigint,
+    travel_expense boolean DEFAULT false NOT NULL,
+    travel_expense_details text
 );
 
 
@@ -10226,6 +10617,20 @@ ALTER TABLE ONLY public.activity_seasons ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.activity_tactics ALTER COLUMN id SET DEFAULT nextval('public.activity_tactics_id_seq'::regclass);
+
+
+--
+-- Name: affair_labellings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affair_labellings ALTER COLUMN id SET DEFAULT nextval('public.affair_labellings_id_seq'::regclass);
+
+
+--
+-- Name: affair_natures id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affair_natures ALTER COLUMN id SET DEFAULT nextval('public.affair_natures_id_seq'::regclass);
 
 
 --
@@ -11307,6 +11712,34 @@ ALTER TABLE ONLY public.project_budgets ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: project_members id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_members ALTER COLUMN id SET DEFAULT nextval('public.project_members_id_seq'::regclass);
+
+
+--
+-- Name: project_task_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_task_logs ALTER COLUMN id SET DEFAULT nextval('public.project_task_logs_id_seq'::regclass);
+
+
+--
+-- Name: project_tasks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_tasks ALTER COLUMN id SET DEFAULT nextval('public.project_tasks_id_seq'::regclass);
+
+
+--
+-- Name: projects id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects ALTER COLUMN id SET DEFAULT nextval('public.projects_id_seq'::regclass);
+
+
+--
 -- Name: purchase_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -11360,6 +11793,27 @@ ALTER TABLE ONLY public.rides ALTER COLUMN id SET DEFAULT nextval('public.rides_
 --
 
 ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+
+
+--
+-- Name: sale_contract_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contract_items ALTER COLUMN id SET DEFAULT nextval('public.sale_contract_items_id_seq'::regclass);
+
+
+--
+-- Name: sale_contract_natures id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contract_natures ALTER COLUMN id SET DEFAULT nextval('public.sale_contract_natures_id_seq'::regclass);
+
+
+--
+-- Name: sale_contracts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contracts ALTER COLUMN id SET DEFAULT nextval('public.sale_contracts_id_seq'::regclass);
 
 
 --
@@ -11901,6 +12355,22 @@ ALTER TABLE ONLY public.activity_seasons
 
 ALTER TABLE ONLY public.activity_tactics
     ADD CONSTRAINT activity_tactics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: affair_labellings affair_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affair_labellings
+    ADD CONSTRAINT affair_labellings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: affair_natures affair_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affair_natures
+    ADD CONSTRAINT affair_natures_pkey PRIMARY KEY (id);
 
 
 --
@@ -13128,6 +13598,38 @@ ALTER TABLE ONLY public.project_budgets
 
 
 --
+-- Name: project_members project_members_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_members
+    ADD CONSTRAINT project_members_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: project_task_logs project_task_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_task_logs
+    ADD CONSTRAINT project_task_logs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: project_tasks project_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_tasks
+    ADD CONSTRAINT project_tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: purchase_items purchase_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -13189,6 +13691,30 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.roles
     ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sale_contract_items sale_contract_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contract_items
+    ADD CONSTRAINT sale_contract_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sale_contract_natures sale_contract_natures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contract_natures
+    ADD CONSTRAINT sale_contract_natures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sale_contracts sale_contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contracts
+    ADD CONSTRAINT sale_contracts_pkey PRIMARY KEY (id);
 
 
 --
@@ -14156,6 +14682,90 @@ CREATE INDEX index_activity_tactics_on_updater_id ON public.activity_tactics USI
 
 
 --
+-- Name: index_affair_labellings_on_affair_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_labellings_on_affair_id ON public.affair_labellings USING btree (affair_id);
+
+
+--
+-- Name: index_affair_labellings_on_affair_id_and_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_affair_labellings_on_affair_id_and_label_id ON public.affair_labellings USING btree (affair_id, label_id);
+
+
+--
+-- Name: index_affair_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_labellings_on_created_at ON public.affair_labellings USING btree (created_at);
+
+
+--
+-- Name: index_affair_labellings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_labellings_on_creator_id ON public.affair_labellings USING btree (creator_id);
+
+
+--
+-- Name: index_affair_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_labellings_on_label_id ON public.affair_labellings USING btree (label_id);
+
+
+--
+-- Name: index_affair_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_labellings_on_updated_at ON public.affair_labellings USING btree (updated_at);
+
+
+--
+-- Name: index_affair_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_labellings_on_updater_id ON public.affair_labellings USING btree (updater_id);
+
+
+--
+-- Name: index_affair_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_natures_on_created_at ON public.affair_natures USING btree (created_at);
+
+
+--
+-- Name: index_affair_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_natures_on_creator_id ON public.affair_natures USING btree (creator_id);
+
+
+--
+-- Name: index_affair_natures_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_natures_on_name ON public.affair_natures USING btree (name);
+
+
+--
+-- Name: index_affair_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_natures_on_updated_at ON public.affair_natures USING btree (updated_at);
+
+
+--
+-- Name: index_affair_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affair_natures_on_updater_id ON public.affair_natures USING btree (updater_id);
+
+
+--
 -- Name: index_affairs_on_cash_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14191,10 +14801,24 @@ CREATE INDEX index_affairs_on_name ON public.affairs USING btree (name);
 
 
 --
+-- Name: index_affairs_on_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affairs_on_nature_id ON public.affairs USING btree (nature_id);
+
+
+--
 -- Name: index_affairs_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_affairs_on_number ON public.affairs USING btree (number);
+
+
+--
+-- Name: index_affairs_on_provider_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_affairs_on_provider_id ON public.affairs USING btree (provider_id);
 
 
 --
@@ -18615,6 +19239,13 @@ CREATE INDEX index_journal_entry_items_on_project_budget_id ON public.journal_en
 
 
 --
+-- Name: index_journal_entry_items_on_project_task_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_project_task_id ON public.journal_entry_items USING btree (project_task_id);
+
+
+--
 -- Name: index_journal_entry_items_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21471,6 +22102,209 @@ CREATE INDEX index_project_budgets_on_updater_id ON public.project_budgets USING
 
 
 --
+-- Name: index_project_members_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_members_on_created_at ON public.project_members USING btree (created_at);
+
+
+--
+-- Name: index_project_members_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_members_on_creator_id ON public.project_members USING btree (creator_id);
+
+
+--
+-- Name: index_project_members_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_members_on_project_id ON public.project_members USING btree (project_id);
+
+
+--
+-- Name: index_project_members_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_members_on_updated_at ON public.project_members USING btree (updated_at);
+
+
+--
+-- Name: index_project_members_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_members_on_updater_id ON public.project_members USING btree (updater_id);
+
+
+--
+-- Name: index_project_members_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_members_on_user_id ON public.project_members USING btree (user_id);
+
+
+--
+-- Name: index_project_task_logs_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_created_at ON public.project_task_logs USING btree (created_at);
+
+
+--
+-- Name: index_project_task_logs_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_creator_id ON public.project_task_logs USING btree (creator_id);
+
+
+--
+-- Name: index_project_task_logs_on_project_task_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_project_task_id ON public.project_task_logs USING btree (project_task_id);
+
+
+--
+-- Name: index_project_task_logs_on_sale_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_sale_item_id ON public.project_task_logs USING btree (sale_item_id);
+
+
+--
+-- Name: index_project_task_logs_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_updated_at ON public.project_task_logs USING btree (updated_at);
+
+
+--
+-- Name: index_project_task_logs_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_updater_id ON public.project_task_logs USING btree (updater_id);
+
+
+--
+-- Name: index_project_task_logs_on_worker_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_worker_id ON public.project_task_logs USING btree (worker_id);
+
+
+--
+-- Name: index_project_task_logs_on_working_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_task_logs_on_working_entity_id ON public.project_task_logs USING btree (working_entity_id);
+
+
+--
+-- Name: index_project_tasks_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_created_at ON public.project_tasks USING btree (created_at);
+
+
+--
+-- Name: index_project_tasks_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_creator_id ON public.project_tasks USING btree (creator_id);
+
+
+--
+-- Name: index_project_tasks_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_project_id ON public.project_tasks USING btree (project_id);
+
+
+--
+-- Name: index_project_tasks_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_responsible_id ON public.project_tasks USING btree (responsible_id);
+
+
+--
+-- Name: index_project_tasks_on_sale_contract_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_sale_contract_item_id ON public.project_tasks USING btree (sale_contract_item_id);
+
+
+--
+-- Name: index_project_tasks_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_updated_at ON public.project_tasks USING btree (updated_at);
+
+
+--
+-- Name: index_project_tasks_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_project_tasks_on_updater_id ON public.project_tasks USING btree (updater_id);
+
+
+--
+-- Name: index_projects_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_activity_id ON public.projects USING btree (activity_id);
+
+
+--
+-- Name: index_projects_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_created_at ON public.projects USING btree (created_at);
+
+
+--
+-- Name: index_projects_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_creator_id ON public.projects USING btree (creator_id);
+
+
+--
+-- Name: index_projects_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_responsible_id ON public.projects USING btree (responsible_id);
+
+
+--
+-- Name: index_projects_on_sale_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_sale_contract_id ON public.projects USING btree (sale_contract_id);
+
+
+--
+-- Name: index_projects_on_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_team_id ON public.projects USING btree (team_id);
+
+
+--
+-- Name: index_projects_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_updated_at ON public.projects USING btree (updated_at);
+
+
+--
+-- Name: index_projects_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_projects_on_updater_id ON public.projects USING btree (updater_id);
+
+
+--
 -- Name: index_purchase_items_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21524,6 +22358,13 @@ CREATE INDEX index_purchase_items_on_fixed_asset_id ON public.purchase_items USI
 --
 
 CREATE INDEX index_purchase_items_on_project_budget_id ON public.purchase_items USING btree (project_budget_id);
+
+
+--
+-- Name: index_purchase_items_on_project_task_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_project_task_id ON public.purchase_items USING btree (project_task_id);
 
 
 --
@@ -21877,6 +22718,132 @@ CREATE INDEX index_roles_on_updater_id ON public.roles USING btree (updater_id);
 
 
 --
+-- Name: index_sale_contract_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_items_on_created_at ON public.sale_contract_items USING btree (created_at);
+
+
+--
+-- Name: index_sale_contract_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_items_on_creator_id ON public.sale_contract_items USING btree (creator_id);
+
+
+--
+-- Name: index_sale_contract_items_on_sale_contract_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_items_on_sale_contract_id ON public.sale_contract_items USING btree (sale_contract_id);
+
+
+--
+-- Name: index_sale_contract_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_items_on_updated_at ON public.sale_contract_items USING btree (updated_at);
+
+
+--
+-- Name: index_sale_contract_items_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_items_on_updater_id ON public.sale_contract_items USING btree (updater_id);
+
+
+--
+-- Name: index_sale_contract_items_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_items_on_variant_id ON public.sale_contract_items USING btree (variant_id);
+
+
+--
+-- Name: index_sale_contract_natures_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_natures_on_created_at ON public.sale_contract_natures USING btree (created_at);
+
+
+--
+-- Name: index_sale_contract_natures_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_natures_on_creator_id ON public.sale_contract_natures USING btree (creator_id);
+
+
+--
+-- Name: index_sale_contract_natures_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_natures_on_updated_at ON public.sale_contract_natures USING btree (updated_at);
+
+
+--
+-- Name: index_sale_contract_natures_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contract_natures_on_updater_id ON public.sale_contract_natures USING btree (updater_id);
+
+
+--
+-- Name: index_sale_contracts_on_client_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_client_id ON public.sale_contracts USING btree (client_id);
+
+
+--
+-- Name: index_sale_contracts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_created_at ON public.sale_contracts USING btree (created_at);
+
+
+--
+-- Name: index_sale_contracts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_creator_id ON public.sale_contracts USING btree (creator_id);
+
+
+--
+-- Name: index_sale_contracts_on_nature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_nature_id ON public.sale_contracts USING btree (nature_id);
+
+
+--
+-- Name: index_sale_contracts_on_responsible_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_responsible_id ON public.sale_contracts USING btree (responsible_id);
+
+
+--
+-- Name: index_sale_contracts_on_sale_opportunity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_sale_opportunity_id ON public.sale_contracts USING btree (sale_opportunity_id);
+
+
+--
+-- Name: index_sale_contracts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_updated_at ON public.sale_contracts USING btree (updated_at);
+
+
+--
+-- Name: index_sale_contracts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_contracts_on_updater_id ON public.sale_contracts USING btree (updater_id);
+
+
+--
 -- Name: index_sale_items_on_account_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -21923,6 +22890,13 @@ CREATE INDEX index_sale_items_on_credited_item_id ON public.sale_items USING btr
 --
 
 CREATE INDEX index_sale_items_on_fixed_asset_id ON public.sale_items USING btree (fixed_asset_id);
+
+
+--
+-- Name: index_sale_items_on_project_task_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_project_task_id ON public.sale_items USING btree (project_task_id);
 
 
 --
@@ -23536,6 +24510,13 @@ CREATE INDEX index_worker_time_logs_on_creator_id ON public.worker_time_logs USI
 
 
 --
+-- Name: index_worker_time_logs_on_project_task_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_worker_time_logs_on_project_task_id ON public.worker_time_logs USING btree (project_task_id);
+
+
+--
 -- Name: index_worker_time_logs_on_started_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24272,6 +25253,14 @@ ALTER TABLE ONLY public.parcels
 
 
 --
+-- Name: project_members fk_rails_49ebe01c9d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_members
+    ADD CONSTRAINT fk_rails_49ebe01c9d FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: wine_incoming_harvest_inputs fk_rails_4ba0624d55; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24285,6 +25274,14 @@ ALTER TABLE ONLY public.wine_incoming_harvest_inputs
 
 ALTER TABLE ONLY public.purchase_items
     ADD CONSTRAINT fk_rails_4cc3eb3f99 FOREIGN KEY (conditioning_unit_id) REFERENCES public.units(id);
+
+
+--
+-- Name: project_tasks fk_rails_5026d411e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_tasks
+    ADD CONSTRAINT fk_rails_5026d411e7 FOREIGN KEY (project_id) REFERENCES public.projects(id);
 
 
 --
@@ -24349,6 +25346,14 @@ ALTER TABLE ONLY public.pfi_intervention_parameters
 
 ALTER TABLE ONLY public.activity_budgets
     ADD CONSTRAINT fk_rails_60e5867b44 FOREIGN KEY (technical_itinerary_id) REFERENCES public.technical_itineraries(id);
+
+
+--
+-- Name: project_task_logs fk_rails_6290611d8e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_task_logs
+    ADD CONSTRAINT fk_rails_6290611d8e FOREIGN KEY (project_task_id) REFERENCES public.project_tasks(id);
 
 
 --
@@ -24544,6 +25549,14 @@ ALTER TABLE ONLY public.crop_group_items
 
 
 --
+-- Name: affairs fk_rails_81d2de543a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affairs
+    ADD CONSTRAINT fk_rails_81d2de543a FOREIGN KEY (provider_id) REFERENCES public.entities(id);
+
+
+--
 -- Name: rides fk_rails_81dbf669e7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24557,6 +25570,14 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.payslip_natures
     ADD CONSTRAINT fk_rails_82e76fb89d FOREIGN KEY (journal_id) REFERENCES public.journals(id);
+
+
+--
+-- Name: affair_labellings fk_rails_863dd93b3f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affair_labellings
+    ADD CONSTRAINT fk_rails_863dd93b3f FOREIGN KEY (label_id) REFERENCES public.labels(id);
 
 
 --
@@ -24589,6 +25610,22 @@ ALTER TABLE ONLY public.planning_scenarios
 
 ALTER TABLE ONLY public.intervention_working_periods
     ADD CONSTRAINT fk_rails_8903897a2c FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
+-- Name: affair_labellings fk_rails_8b00474e25; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affair_labellings
+    ADD CONSTRAINT fk_rails_8b00474e25 FOREIGN KEY (affair_id) REFERENCES public.affairs(id);
+
+
+--
+-- Name: project_tasks fk_rails_8e82ccf866; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_tasks
+    ADD CONSTRAINT fk_rails_8e82ccf866 FOREIGN KEY (responsible_id) REFERENCES public.users(id);
 
 
 --
@@ -24816,6 +25853,14 @@ ALTER TABLE ONLY public.idea_diagnostics
 
 
 --
+-- Name: sale_contract_items fk_rails_bd66061954; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sale_contract_items
+    ADD CONSTRAINT fk_rails_bd66061954 FOREIGN KEY (sale_contract_id) REFERENCES public.sale_contracts(id);
+
+
+--
 -- Name: journals fk_rails_be4d04c726; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -24861,6 +25906,14 @@ ALTER TABLE ONLY public.payslips
 
 ALTER TABLE ONLY public.parcels
     ADD CONSTRAINT fk_rails_c4b289405e FOREIGN KEY (intervention_id) REFERENCES public.interventions(id);
+
+
+--
+-- Name: projects fk_rails_c82beb9424; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_c82beb9424 FOREIGN KEY (responsible_id) REFERENCES public.users(id);
 
 
 --
@@ -25032,6 +26085,22 @@ ALTER TABLE ONLY public.financial_year_exchanges
 
 
 --
+-- Name: project_task_logs fk_rails_f343a209d7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_task_logs
+    ADD CONSTRAINT fk_rails_f343a209d7 FOREIGN KEY (worker_id) REFERENCES public.users(id);
+
+
+--
+-- Name: project_members fk_rails_f3b43b5269; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.project_members
+    ADD CONSTRAINT fk_rails_f3b43b5269 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
 -- Name: journal_entry_items fk_rails_f46de3d8ed; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25072,6 +26141,14 @@ ALTER TABLE ONLY public.daily_charges
 
 
 --
+-- Name: affairs fk_rails_f7cd9f5e00; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.affairs
+    ADD CONSTRAINT fk_rails_f7cd9f5e00 FOREIGN KEY (nature_id) REFERENCES public.affair_natures(id);
+
+
+--
 -- Name: cap_neutral_areas fk_rails_f9fd6a9e09; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25101,6 +26178,14 @@ ALTER TABLE ONLY public.products
 
 ALTER TABLE ONLY public.financial_years
     ADD CONSTRAINT fk_rails_fe34e6ff17 FOREIGN KEY (closer_id) REFERENCES public.users(id);
+
+
+--
+-- Name: projects fk_rails_fec1ab30f2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT fk_rails_fec1ab30f2 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
 
 
 --
@@ -25372,8 +26457,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170831071726'),
 ('20170831180835'),
 ('20171010075206'),
+('20171011183701'),
+('20171011191701'),
+('20171012213101'),
+('20171013013801'),
+('20171014182220'),
+('20171101130601'),
+('20171107111201'),
 ('20171122125351'),
 ('20171210080901'),
+('20171210180701'),
 ('20171211091817'),
 ('20171212100101'),
 ('20180112135843'),
@@ -25381,6 +26474,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180112151052'),
 ('20180115135241'),
 ('20180116133217'),
+('20180122103601'),
 ('20180124113015'),
 ('20180124130951'),
 ('20180126094309'),
@@ -25391,6 +26485,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180226104505'),
 ('20180227140040'),
 ('20180306085858'),
+('20180315130701'),
 ('20180328094106'),
 ('20180404145130'),
 ('20180405123945'),
@@ -25488,6 +26583,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181125122238'),
 ('20181126152417'),
 ('20190104105501'),
+('20190204234101'),
 ('20190207094545'),
 ('20190313140443'),
 ('20190313201333'),
@@ -25787,6 +26883,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230619125601'),
 ('20230619181501'),
 ('20230620161201'),
-('20230627152701');
+('20230627152701'),
+('20230828141701');
 
 

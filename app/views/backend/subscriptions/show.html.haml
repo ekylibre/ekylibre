@@ -14,8 +14,8 @@
     = resource_info :started_on
     = resource_info :stopped_on
   = attributes_list(resource) do |l|
-    - l.attribute :subscriber, url: true
-    - l.attribute :address
+    - l.attribute :subscriber, url: true if resource.subscriber
+    - l.attribute :address if resource.subscriber
     - l.attribute :sale, url: true if resource.sale
     - l.attribute :quantity
     - l.attribute :suspended

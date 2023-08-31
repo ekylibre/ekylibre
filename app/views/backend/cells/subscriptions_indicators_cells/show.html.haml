@@ -1,0 +1,16 @@
+- if @started_on && @stopped_on
+  :ruby
+    su = Subscription.active_up_to(@stopped_on)
+    start_su = Subscription.started_between(@started_on, @stopped_on)
+    stop_su = Subscription.stopped_between(@started_on, @stopped_on)
+
+  = infos do
+    .big-info.important
+      %span.title= :x_current_subscriptions.tl(count: su.count)
+      %span.value= su.where(status: 'active').count.to_s + " active"
+    .big-info
+      %span.title= :x_new_subscriptions.tl(count: start_su.count)
+      %span.value= su.where(status: 'unpaid').count.to_s + " unpaid"
+    .big-info.important
+      %span.title= :x_lost_subscriptions.tl(count: stop_su.count)
+      %span.value= su.paying.where(status: 'active').count.to_s + " paying"

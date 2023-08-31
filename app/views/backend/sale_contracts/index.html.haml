@@ -1,0 +1,10 @@
+= kujaku do |k|
+  - k.text
+  - responsibles = Entity.where(id: SaleContract.select(:responsible_id).distinct)
+  - if responsibles.any?
+    - k.helper do
+      %label= Contract.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] +  responsibles.map{|u| [u.full_name, u.id]}, params[:responsible_id].to_i))
+- main_toolbar do |t|
+  = t.new
+= main_list

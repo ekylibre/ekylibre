@@ -62,6 +62,8 @@ fra:
     ekylibre_outgoing_payments: "Décaissements (CSV) ‒ Ekylibre"
     ekylibre_pictures: "Images équipements / tiers"
     ekylibre_plants: "Plantations et cultures ‒ Ekylibre"
+    ekylibre_project_task_logs: "Temps travaux Projets (ODS) ‒ Ekylibre"
+    ekylibre_project_tasks: "Tâches & Projets (ODS) ‒ Ekylibre"
     ekylibre_purchases: "Achats (CSV) ‒ Ekylibre"
     ekylibre_rides: "Trajets (ZIP ‒ ’SHP’) ‒ Ekylibre"
     ekylibre_sales: "Ventes (CSV) ‒ Ekylibre"

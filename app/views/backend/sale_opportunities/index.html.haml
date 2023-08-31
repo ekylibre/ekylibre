@@ -1,11 +1,98 @@
+:ruby
+  responsibles = Entity.where(id: SaleOpportunity.pluck(:responsible_id).compact.uniq).reorder(:full_name)
+  sale_opportunities = SaleOpportunity.where(state: [:prospecting, :qualification, :value_proposition, :price_quote, :negociation])
+  entities = Entity.where(id: SaleOpportunity.pluck(:provider_id).compact.uniq).reorder(:full_name)
 = kujaku do |k|
   - k.text
+  - k.multi_choice :state, [:prospecting, :qualification, :value_proposition, :price_quote, :negociation, :won, :lost].map{ |s| [s.tl, s] }, label: SaleOpportunity.human_attribute_name(:states)
   - k.helper do
-    %div.label-container
-      %label= SaleOpportunity.human_attribute_name(:responsible)
-    = select_tag(:responsible_id, options_for_select([[]] + Entity.users.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
+    %label= SaleOpportunity.human_attribute_name(:responsible)
+    = select_tag(:responsible_id, options_for_select([[]] + responsibles.collect{|u| [u.full_name, u.id]}, params[:responsible_id]))
+  - k.helper do
+    %label= SaleOpportunity.human_attribute_name(:provider)
+    = select_tag(:provider_id, options_for_select([[]] + entities.collect{|u| [u.full_name, u.id]}, params[:provider_id]))
+  - k.helper do
+    %label= SaleOpportunity.human_attribute_name(:nature)
+    = select_tag(:nature_id, options_for_select([[]] + AffairNature.all.collect{|u| [u.name, u.id]}, params[:nature_id]))
 
 - main_toolbar do |t|
   = t.new params: { redirect: nil }
 
-= main_list
+= janus do |j|
+  - j.face :list do
+    = main_list
+  - j.face :timeline do
+    :ruby
+      series = []
+      state = { lost: -1, prospecting: 1, qualification: 2, value_proposition: 3, price_quote: 4, negociation: 5, won: 6 }
+      unit = Onoma::Currency[sale_opportunities.first.currency]
+      data = []
+      s_opps = SaleOpportunity.where.not(dead_line_at: nil).reorder(:dead_line_at)
+      s_opps.each do |s_opp|
+        # duration_in_day = (s_opp.dead_line_at - Time.zone.now).in(:second).convert(:day).to_d.to_i
+        duration_in_month = (s_opp.dead_line_at - Time.zone.now).in(:second).convert(:day).to_d / 30
+        data << { x: duration_in_month.to_s.to_f, y: state[s_opp.state.to_sym], z: s_opp.probability_value.to_s.to_f, name: s_opp.third.full_name }
+      end
+      series << {data: data}
+    - if series.any?
+      = bubble_highcharts(series, legend: {enabled: true}, title: {text: ''}, x_axis: { title: {text: :duration.tl}, labels: {format: '{value} mois'}, grid_line_width: 5, padding: 30, plot_lines: [{color: 'red', dash_style: 'dot', width: 10, value: 0, label: {rotation: 0, y: 5}, z_index: 3}]}, y_axis: { title: {text: :state.tl}, labels: {format: '{value}'}, min: -2, max: 7, max_padding: 1.0} , tooltip: {use_html: true, header_format: '<table>', point_format: '<tr><th colspan="2"><h3>{point.name}</h3></th></tr>' + '<tr><th> | </th><td>{point.z} € pondere</td></tr>', footer_format: '</table>'}, plot_options: { series: {data_labels: {enabled: true, format: '{point.name}'}}})
+    - else
+      = no_data
+
+  - j.face :chart do
+    :ruby
+      series = []
+      unit = Nomen::Currency[sale_opportunities.first.currency]
+      categories = ["prospecting", "qualification", "value_proposition", "price_quote", "negociation"]
+      responsibles.each do |responsible|
+        data = []
+        h = sale_opportunities.where(responsible_id: responsible.id).reorder(:state).group(:state).sum(:pretax_amount)
+        categories.each do |category|
+          if h[category]
+            data << h[category].to_s.to_f
+          else
+            data << 0
+          end
+        end
+        series << {name: responsible.full_name, data: data}
+      end
+    - if series.any?
+      = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.map(&:tl)}, legend: true, plot_options: { column: {stacking: 'normal'}})
+    - else
+      = no_data
+
+  - j.face :map do
+    :ruby
+      opportunities_serie = sale_opportunities.collect do |o|
+        a = o.client.default_mail_address if o.client
+        next unless a && a.mail_geolocation
+
+        popup_content = []
+        popup_content << {label: SaleOpportunity.human_attribute_name(:responsible), value: o.responsible.full_name} if o.responsible
+        popup_content << {label: SaleOpportunity.human_attribute_name(:provider), value: o.provider.full_name} if o.provider
+        popup_content << {label: SaleOpportunity.human_attribute_name(:pretax_amount), value: o.pretax_amount}
+        popup_content << {label: SaleOpportunity.human_attribute_name(:timeleft), value: human_interval(o.timeleft, display: 2)}
+        popup_content << {label: SaleOpportunity.human_attribute_name(:age), value: human_interval(o.age, display: 2)}
+        popup_content << {label: SaleOpportunity.human_attribute_name(:probability_percentage), value: o.probability_percentage}
+        popup_content << {label: SaleOpportunity.human_attribute_name(:state_label), value: o.state_label}
+        popup_content << {value: labels_info(o.labels)} if o.labels.any?
+        popup_content << {value: lights(o.status)}
+        popup_content << render('popup', opportunity: o)
+        {
+          name: o.client.full_name,
+          shape: a.mail_geolocation,
+          pretax_amount: o.pretax_amount.to_s.to_f,
+          popup: {header: true, content: popup_content}
+        }
+      end.flatten.compact
+
+    - if opportunities_serie.any?
+      = visualization({box: {height: "100%"}}, class: 'map-fullwidth') do |v|
+        - v.serie :main, opportunities_serie
+        - v.bubbles :pretax_amount, :main
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+    - else
+      = :no_sale_opportunities_to_show.tl

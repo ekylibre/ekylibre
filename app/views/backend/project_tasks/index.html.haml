@@ -1,0 +1,22 @@
+= kujaku do |k|
+  - k.text
+  - k.helper do
+    - teams = Team.where(id: Project.pluck(:team_id).compact.uniq).reorder(:name)
+    %label= Project.human_attribute_name(:team)
+    = select_tag(:team_id, options_for_select([[]] + teams.collect{|u| [u.name, u.id]}, params[:team_id]))
+  - k.helper do
+    - responsibles = User.where(id: ProjectTask.pluck(:responsible_id).compact.uniq).reorder(:last_name)
+    %label= Project.human_attribute_name(:responsible)
+    = select_tag(:responsible_id, options_for_select([[]] + responsibles.collect{|u| [u.name, u.id]}, params[:responsible_id]))
+  - k.helper do
+    - projects = Project.where(id: ProjectTask.pluck(:project_id).compact.uniq).reorder(:name)
+    %label= Project.model_name.human
+    = select_tag(:project_id, options_for_select([[]] + projects.collect{|u| [u.name, u.id]}, params[:project_id]))
+
+= main_toolbar do |t|
+  = t.new params: { redirect: nil }
+
+= janus do |j|
+  - j.face :list do
+    = main_list
+  -# j.face :chart do

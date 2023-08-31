@@ -15,6 +15,8 @@
 - activity_season
 - activity_tactic
 - affair
+- affair_labelling
+- affair_nature
 - alert
 - alert_phase
 - analysis
@@ -221,6 +223,9 @@
 - product_phase
 - product_population
 - product_reading
+- project
+- project_member
+- project_task
 - products_yield_observation
 - project_budget
 - purchase
@@ -261,6 +266,9 @@
 - role
 - sale
 - sale_affair
+- sale_contract
+- sale_contract_item
+- sale_contract_nature
 - sale_gap
 - sale_item
 - sale_nature

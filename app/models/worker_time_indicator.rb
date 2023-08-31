@@ -54,6 +54,16 @@ class WorkerTimeIndicator < ApplicationRecord
     def refresh
       Scenic.database.refresh_materialized_view(table_name, concurrently: false, cascade: false)
     end
+
+    def durations(unit = :hour)
+      total = self.sum(:duration)
+      if total == "0"
+        minutes = 0.00
+      else
+        minutes = ActiveSupport::Duration.parse(total).in_full(:minute)
+      end
+      Measure.new(minutes, :minute).convert(unit).round(2)
+    end
   end
 
   def readonly?
