@@ -38,6 +38,8 @@ DROP TABLE IF EXISTS master_productions;
           cap_code character varying NOT NULL,
           cap_label character varying NOT NULL,
           production character varying NOT NULL,
+          cap_precision character varying,
+          cap_category character varying,
           year integer NOT NULL,
           PRIMARY KEY(cap_code, production, year)
         );
