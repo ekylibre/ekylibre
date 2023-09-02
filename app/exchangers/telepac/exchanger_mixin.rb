@@ -5,7 +5,7 @@ module Telepac
     extend ActiveSupport::Concern
 
     IGNORED = %w[BFP BFS BOR BTA MRS SNE].freeze
-    FALLOW_LAND = %w[J5M J6S J6P JNO].freeze
+    FALLOW_LAND = %w[J5M J6S J6P JNO JAC].freeze
 
     module ClassMethods
       def campaign(campaign = nil)
@@ -160,7 +160,12 @@ module Telepac
         else
           number = 'ZC#' + format('%02d', cap_land_parcel.islet_number.to_s)
           cultivable_zone = CultivableZone.find_or_initialize_by(work_number: number)
-          cultivable_zone.name ||= cap_land_parcel.islet.city_name + " #" + format('%02d', cap_land_parcel.islet_number.to_s)
+          city_name = cap_land_parcel.islet.city_name
+          if city_name
+            cultivable_zone.name ||= cap_land_parcel.islet.city_name + " #" + format('%02d', cap_land_parcel.islet_number.to_s)
+          else
+            cultivable_zone.name ||= "#" + format('%02d', cap_land_parcel.islet_number.to_s)
+          end
           cultivable_zone.shape ||= cap_islet_shape
           cultivable_zone.save!
         end
