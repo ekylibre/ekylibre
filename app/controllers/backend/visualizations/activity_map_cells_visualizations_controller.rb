@@ -58,20 +58,6 @@ module Backend
               sensor_data += (items || []).compact
             end
           end
-          geometries = aps.map(&:support_shape)
-          union = geometries.reduce { |geometry, union| union.merge(geometry) }
-          bounding_box = Charta.new_geometry(union).bounding_box
-          area_items = RegisteredAreaItem.in_bounding_box(bounding_box.to_bbox_string)
-
-          if area_items.any?
-            area_items_data = area_items.map do |area_item|
-              {
-                name: area_item.name,
-                category: area_item.nature,
-                shape: area_item.geometry
-              }
-            end
-          end
 
           if CapNeutralArea.any?
             campaign = Campaign.find(campaigns)
@@ -145,11 +131,6 @@ module Backend
             if cap_neutral_areas_data.present?
               v.serie :cap_neutral_areas_data, cap_neutral_areas_data
               v.categories :neutral_area_category, :cap_neutral_areas_data, without_ghost_label: true
-            end
-
-            if area_items_data.present?
-              v.serie :area_items_data, area_items_data
-              v.categories :category, :area_items_data, without_ghost_label: true
             end
 
             v.choropleth :pfi_activity_production, :main, stop_color: "#AA00AA"
