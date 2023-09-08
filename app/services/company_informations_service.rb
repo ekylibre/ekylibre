@@ -8,18 +8,22 @@ class CompanyInformationsService
   def initialize(
     company_info_client: Clients::Insee::SireneClient.new(key: ENV['INSEE_SIRENE_API_KEY'], secret: ENV['INSEE_SIRENE_API_SECRET']),
     address_info_client: Clients::Gouv::AddressClient.new,
-    siren:
+    siren: nil,
+    siret: nil
   )
     @company_info_client = company_info_client
     @address_info_client = address_info_client
     @siren = siren
+    @siret = siret
   end
 
   def call
-    nic = siren_infos.dig(:uniteLegale, :periodesUniteLegale)&.first&.fetch(:nicSiegeUniteLegale)
-    return {} unless nic
+    if @siren.present?
+      nic = siren_infos.dig(:uniteLegale, :periodesUniteLegale)&.first&.fetch(:nicSiegeUniteLegale)
+      return {} unless nic
 
-    @siret = siren + nic
+      @siret = siren + nic
+    end
     etablissement = siret_infos[:etablissement]
     return {} unless etablissement
 
@@ -36,8 +40,8 @@ class CompanyInformationsService
       company_creation_date: Date.parse(etablissement[:uniteLegale][:dateCreationUniteLegale]),
       activity_code: etablissement[:uniteLegale][:activitePrincipaleUniteLegale],
       vat_number: nil,
-      lng: coordinates[0],
-      lat: coordinates[1],
+      lng: (coordinates.present? ? coordinates[0] : nil),
+      lat: (coordinates.present? ? coordinates[1] : nil),
       siret_number: siret
     }
   end
