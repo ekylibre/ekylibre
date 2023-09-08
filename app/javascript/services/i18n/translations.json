@@ -55,7 +55,15 @@
                     "reentry": "Reentry:"
                 }
             },
-            "labels": { "cadastral_land_parcel_zones": "Cadastral land parcels" },
+            "labels": {
+                "cadastral_land_parcel_zones": "Cadastral land parcels",
+                "eu_price": "EU price",
+                "farmer_price": "Farm price",
+                "market_threshold": "Market threshold",
+                "matif_price": "MATIF price",
+                "shipping_price": "Ship price",
+                "world_price": "World price"
+            },
             "land_parcel": { "create_modal": { "title": "Choose an activity" } },
             "leaflet": {
                 "cut": { "panel": { "coordinatesProperty": "Coordinates", "surfacesProperty": "Surfaces", "title": "Plot splitting" } },
@@ -154,6 +162,12 @@
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
             },
+            "notifications": {
+                "levels": { "error": "Error!" },
+                "messages": {
+                    "unvalid_cvi_cadastral_plant": "One or more land parcel zones in list have not been found. Please delete/correct the element shown in red in list below."
+                }
+            },
             "production": {
                 "start_state_of_production": {
                     "n_2_3_leaf": "N+2 (3rd leaf)",
@@ -163,6 +177,16 @@
                 "zoomGuidance": "Insufficient zoom level",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
+            },
+            "templates": {
+                "actions": { "edit": "Edit", "regroup": "Group", "split": "Split" },
+                "form": {
+                    "calculated_area": "Calculated area",
+                    "land_parcel": "Land parcel",
+                    "name": "Name",
+                    "required": "required",
+                    "vine_variety_name": "Variety of vine"
+                }
             },
             "unroll": { "server_error": "Server error" }
         },
@@ -241,7 +265,15 @@
                     "reentry": "Réentrée :"
                 }
             },
-            "labels": { "cadastral_land_parcel_zones": "Parcelles cadastrales" },
+            "labels": {
+                "cadastral_land_parcel_zones": "Parcelles cadastrales",
+                "eu_price": "Prix UE",
+                "farmer_price": "Prix départ ferme",
+                "market_threshold": "Seuil de commercialisation",
+                "matif_price": "Prix MATIF",
+                "shipping_price": "Prix départ port",
+                "world_price": "Prix mondial"
+            },
             "land_parcel": { "create_modal": { "title": "Choisir une activité" } },
             "leaflet": {
                 "cut": {
@@ -364,6 +396,16 @@
                 "zoomGuidance": "Insufficient zoom level",
                 "zoomInTitle": "Zoom in",
                 "zoomOutTitle": "Zoom out"
+            },
+            "templates": {
+                "actions": { "edit": "Modifier", "regroup": "Regrouper", "split": "Dissocier" },
+                "form": {
+                    "calculated_area": "Superficie calculée",
+                    "land_parcel": "Parcelle",
+                    "name": "Nom",
+                    "required": "Obligatoire",
+                    "vine_variety_name": "variety"
+                }
             },
             "unroll": { "server_error": "Erreur serveur" }
         },

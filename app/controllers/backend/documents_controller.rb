@@ -67,7 +67,7 @@ module Backend
     end
 
     def create
-      if params[:document][:file]&.content_type&.match(/image/) || (params[:document][:file]&.size || 0) > 300_000
+      if params[:document][:file]&.content_type&.match(/image/) || (params[:document][:file]&.size || 0) > 600_000
         file_params = { path: permitted_params[:file].tempfile.path, filename: permitted_params[:file].original_filename, content_type: permitted_params[:file].content_type }
         File.open(permitted_params[:file].tempfile.path)
         document_params = permitted_params.to_h.except(:file)
@@ -117,8 +117,13 @@ module Backend
       return unless @document = Document.find(params[:id])
 
       # launch OCR to create metadata if does not exist
+      # or show error
       unless @document.klippa_metadata.present?
-        PurchaseInvoices::KlippaOcr.new.post_document_and_parse(@document)
+        p = PurchaseInvoices::SaisigoOcr.new.post_document_and_parse(@document)
+        if p[:status] != :success
+          notify(p[:message], p[:status])
+          redirect_to params[:redirect] || { action: :show, id: @document.id }
+        end
       end
       # launch Parser on metadata to create purchase
       if @document.attach_to_resource && @document.klippa_metadata.present?
@@ -126,7 +131,7 @@ module Backend
         notify :already_transform_purchase_document
         redirect_to backend_purchase_invoice_path(id: purchase_id)
       elsif @document.klippa_metadata.present?
-        klippa_parser = PurchaseInvoices::KlippaParser.new(@document.id)
+        klippa_parser = PurchaseInvoices::SaisigoParser.new(@document.id)
         new_purchase_id = klippa_parser.parse_and_create_invoice
         if new_purchase_id
           redirect_to backend_purchase_invoice_path(id: new_purchase_id)
