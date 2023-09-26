@@ -1,12 +1,20 @@
 eng:
   interbank_transaction_codes:
     paid_check: Paid check
+    card: CB payment
+    qonto_fee: QONTO Fee
+    transfer: Transfer
+    recall: Recall
+    cheque: Paid check
+    income: Income
+    swift_income: Swift income
     check_deposit: Check deposit
     unpaid_check: Unpaid check
     cash_payment: Cash payment
     received_transfer: Received transfer
     issued_transfer: Issued transfer
     preauthorized_bill_of_exchange: Preauthorized bill of exchange
+    direct_debit: SEPA direct debit
     direct_debit_and_domiciled_ipo: Direct debit and domiciled ipo
     issued_direct_debit_and_ipo: Issued direct debit and ipo
     rejected_direct_debit_and_ipo: Rejected direct debit and ipo

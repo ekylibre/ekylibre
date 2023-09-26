@@ -78,6 +78,7 @@ fra:
     ekylibre_zones: "Zones de stockage - Ekylibre"
     fiea_galactea: "Analyses de lait par animal Galactea ‒ FIEA"
     galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
+    isagri_geofolia_land_parcels: "Parcelles import (SHP/ZIP) - Geofolia - Isagri"
     isagri_isacompta_export: "Isacompta - Isagri"
     isagri_isacompta_fec_txt: "FEC import (TXT) - Isacompta - Isagri"
     isagri_isacompta_fixed_assets: "Immobilisation Isacompta ‒ Isagri"
@@ -90,6 +91,7 @@ fra:
     legrain_epicea_accounts: "Plan de comptes Epicea ‒ Legrain"
     legrain_epicea_journals: "Journaux Epicea ‒ Legrain"
     lely_milk_robot_individual_production: "Production journalière individuelle - Lely Astronaut"
+    listo_od_txt: "OD de paye (CSV) - Listo"
     lilco_milk_analyses: "Analyses de lait ‒ Lilco"
     logicall_entities: "Clients (CSV) ‒ Logic’All"
     milklic_individual_production: "Production laitière individuelle - Milklic"
@@ -142,6 +144,7 @@ fra:
     isagri: "Isagri"
     lely_milk_robot: "Lely Milk Robot"
     lilco: "Lilco"
+    listo: "Listo Paye"
     logicall: "Logic’All"
     milklic: "Mil'Klic"
     none: "None"

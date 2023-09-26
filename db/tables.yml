@@ -3586,6 +3586,39 @@ entity_links:
     type: integer
     references: user
     limit: 4
+entity_payment_methods:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  expired_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  nature:
+    type: string
+  provider:
+    type: jsonb
+  description:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 event_participations:
   created_at:
     type: datetime
@@ -3656,6 +3689,8 @@ events:
     required: true
   place:
     type: string
+  provider:
+    type: jsonb
   restricted:
     type: boolean
     required: true
@@ -11416,6 +11451,57 @@ roles:
     type: integer
     references: user
     limit: 4
+saas_subscriptions:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  started_at:
+    type: datetime
+    required: true
+  status:
+    type: string
+  name:
+    type: string
+  tenant_name:
+    type: string
+  stopped_at:
+    type: datetime
+  canceled_at:
+    type: datetime
+  catalog_item_id:
+    type: integer
+    references: catalog_item
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  entity_payment_method_id:
+    type: integer
+    references: entity_payment_method
+  partner_id:
+    type: integer
+    references: entity
+  trial_started_at:
+    type: datetime
+  trial_stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 sale_contract_natures:
   comment:
     type: text

@@ -47,6 +47,8 @@ module ActiveExchanger
         Date.parse(value)
       when :us_date
         Date.strptime(value, "%m/%d/%y")
+      when :fr_date
+        Date.strptime(value, "%d%m%Y")
       when :string
         value.to_s.strip
       else

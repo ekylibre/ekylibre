@@ -67,6 +67,7 @@ eng:
     ekylibre_worker_time_logs: "Ekylibre worker time logs"
     ekylibre_zones: "Ekylibre storage zones"
     fiea_galactea: "FIEA galactea"
+    isagri_geofolia_land_parcels: "Isagri Geofolia Land parcel import (SHP/ZIP)"
     isagri_isacompta_export: "Isagri Isacompta"
     isagri_isacompta_fec_txt: "Isagri Isacompta FEC import (TXT)"
     isagri_isacompta_fixed_assets: "Isagri Isacompta fixed assets"

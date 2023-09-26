@@ -54,6 +54,7 @@ module Backend
       t.column :usages, hidden: true
       t.column :nature
       t.column :active
+      t.column :reconcilable
       t.column :description
       t.column :updated_at, hidden: true
       t.column :updater, hidden: true

@@ -73,6 +73,7 @@ class SaleItem < ApplicationRecord
   belongs_to :activity_budget
   belongs_to :team
   belongs_to :fixed_asset
+  belongs_to :project_task
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
   belongs_to :depreciable_product, class_name: 'Product'

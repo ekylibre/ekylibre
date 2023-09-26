@@ -120,21 +120,26 @@ module Ekylibre
 
         if @company[:vegetal_activities].present?
           @company[:vegetal_activities].each do |activity|
-            open_activity =  Activity.create!(
-              family: activity[:family],
-              cultivation_variety: activity[:variety],
-              name: activity[:label_fr],
-              reference_name: activity[:production_reference_name],
-              production_system_name: activity[:production_system_name],
-              production_started_on: activity[:production_started_on],
-              production_stopped_on: activity[:production_stopped_on],
-              production_cycle: activity[:production_cycle],
-              production_started_on_year: activity[:production_started_on_year],
-              production_stopped_on_year: activity[:production_stopped_on_year],
-              life_duration: activity[:life_duration],
-              start_state_of_production_year: activity[:start_state_of_production_year],
-              codes: { hajimari_id: activity[:id] }
-            )
+            existing_activity = Activity.find_by(name: activity[:label_fr], family: activity[:family], reference_name: activity[:production_reference_name])
+            if existing_activity.present?
+              open_activity = existing_activity
+            else
+              open_activity =  Activity.create!(
+                family: activity[:family],
+                cultivation_variety: activity[:variety],
+                name: activity[:label_fr],
+                reference_name: activity[:production_reference_name],
+                production_system_name: activity[:production_system_name],
+                production_started_on: activity[:production_started_on],
+                production_stopped_on: activity[:production_stopped_on],
+                production_cycle: activity[:production_cycle],
+                production_started_on_year: activity[:production_started_on_year],
+                production_stopped_on_year: activity[:production_stopped_on_year],
+                life_duration: activity[:life_duration],
+                start_state_of_production_year: activity[:start_state_of_production_year],
+                codes: { hajimari_id: activity[:id] }
+              )
+            end
 
             current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
             open_activity.budgets.find_or_create_by!(campaign: current_campaign)

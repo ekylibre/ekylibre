@@ -55,7 +55,7 @@
 class Document < ApplicationRecord
   include Customizable
   belongs_to :template, class_name: 'DocumentTemplate'
-  has_many :attachments, dependent: :destroy
+  has_many :attachments, dependent: :destroy, inverse_of: :document
   has_attached_file :file, path: ':tenant/:class/:id_partition/:style.:extension',
                            styles: {
                              default:   { format: :pdf, processors: %i[reader counter freezer], clean: true },

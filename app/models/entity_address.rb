@@ -61,12 +61,13 @@ class EntityAddress < ApplicationRecord
   has_many :sales, foreign_key: :address_id
   has_many :subscriptions, foreign_key: :address_id
   enumerize :canal, in: %i[mail email phone mobile fax website], default: :email, predicates: true
-
+  has_geometry :mail_geolocation, type: :point
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
   validates :canal, :entity, presence: true
   validates :coordinate, presence: true, length: { maximum: 500 }
-  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :latitude, :longitude, numericality: { greater_than: -10_000, less_than: 10_000 }, allow_blank: true
   validates :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :thread, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :mail_country, length: { allow_nil: true, maximum: 2 }
@@ -81,6 +82,8 @@ class EntityAddress < ApplicationRecord
   # Use unscoped to get all historic
   default_scope -> { actives }
   scope :actives, -> { where(deleted_at: nil).order(:coordinate) }
+
+  geocoded_by :full_street_address
 
   # Defines test and scope methods for.all canals
   canal.values.each do |canal|
@@ -125,6 +128,15 @@ class EntityAddress < ApplicationRecord
     end
   end
 
+  after_validation :geocode_address
+  after_update :geocode_address
+
+  def geocode_address
+    geocode
+    c = ::Charta.new_point(latitude, longitude) if latitude && longitude
+    self.mail_geolocation = c if c
+  end
+
   def update # _without_.allbacks
     # raise StandardError.new "UPDAAAAAAAAAAAATE"
     current_time = Time.zone.now
@@ -146,6 +158,10 @@ class EntityAddress < ApplicationRecord
 
   def destroy # _without_.allbacks
     self.class.where(id: id).update_all(deleted_at: Time.zone.now) unless new_record?
+  end
+
+  def full_street_address
+    [mail_line_4, mail_line_6, mail_country].compact.join(', ')
   end
 
   def self.exportable_columns

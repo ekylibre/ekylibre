@@ -45,6 +45,7 @@
 
 class Event < ApplicationRecord
   include Attachable
+  include Providable
   include Customizable
   belongs_to :affair
   has_one :intervention, inverse_of: :event

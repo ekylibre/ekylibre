@@ -37,6 +37,7 @@ module Backend
       t.column :reference_tax, url: true
       t.column :all_taxes_included
       t.column :catalog, url: true
+      t.column :provider, hidden: true
     end
   end
 end

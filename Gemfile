@@ -177,6 +177,7 @@ gem 'rest-client', '~> 2.0'
 gem 'rubyntlm', '>= 0.3.2'
 gem 'ruby-trello'
 gem 'savon', '~> 2.12'
+gem 'stripe'
 
 # Using git until we have a proper release system for cartography
 gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
@@ -201,9 +202,10 @@ group :development do
   gem 'ruby-prof', '~> 1.4'
 
   # Code metrics
-  gem 'haml_lint', require: false
+  gem 'haml_lint', '0.40.0', require: false
   gem 'rails_best_practices', '~> 1.20', require: false
-  gem 'rubocop', '~> 1.11.0', require: false
+  gem 'rubocop', '1.11.0', require: false
+  gem 'rubocop-ast', '1.15.0', require: false
 
   # Webservers
   gem 'rack-handlers'

@@ -122,6 +122,14 @@ class SaleOpportunity < SaleAffair
     end
   end
 
+  scope :opened, -> { where(state: %w[prospecting qualification value_proposition price_quote negociation]) }
+
+  scope :expired, -> { where("dead_line_at < ?", Time.now) }
+
+  scope :between, lambda { |_started_at, stopped_at|
+    where("closed_at  < ?", stopped_at).where("created_at  < ?", stopped_at)
+  }
+
   before_validation(on: :create) do
     self.state ||= :prospecting
     self.currency ||= Preference[:currency]
@@ -158,5 +166,13 @@ class SaleOpportunity < SaleAffair
     return nil if created_at.nil?
 
     (at - created_at)
+  end
+
+  def probability_value
+    value = 0.0
+    if pretax_amount && probability_percentage
+      value = pretax_amount * probability_percentage * 0.01
+    end
+    value
   end
 end
