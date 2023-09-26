@@ -56,12 +56,18 @@ class Measure
     unit = nil
     if args.size == 1
       expr = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
-      unless expr =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/
-        raise InvalidExpression.new("#{expr} cannot be parsed.")
-      end
 
-      unit = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
-      value = expr[0...-unit.size].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
+      if expr.include?(' ')
+        value = expr.split(' ').first.strip.to_d
+        unit = expr.split(' ').last
+      else
+        unless expr =~ /\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/
+          raise InvalidExpression.new("#{expr} cannot be parsed.")
+        end
+
+        unit = expr.gsub(/\A-?([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
+        value = expr[0...-unit.size].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
+      end
     elsif args.size == 2
       value = args.shift
       unit = args.shift

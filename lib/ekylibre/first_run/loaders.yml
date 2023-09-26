@@ -184,6 +184,10 @@ workers:
     id_column: work_number
   ekylibre_worker_time_logs:
     path: 'alamano/worker_time_logs.csv'
+  ekylibre_project_tasks:
+    path: 'alamano/projects.ods'
+  ekylibre_project_task_logs:
+    path: 'alamano/projects.ods'
 
 products:
   ekylibre_matters:
@@ -287,8 +291,8 @@ interventions:
     path: 'alamano/interventions.csv'
 
   # Import interventions from DAPLOS EDI
-  #agroedi_daplos:
-    #path: 'daplos/interventions.edi'
+  agroedi_daplos:
+    path: 'daplos/interventions.edi'
   # Import interventions from viniteca
   viniteca_interventions:
     format: :archive
@@ -340,3 +344,5 @@ accountancy:
     path: 'alamano/fixed_assets.csv'
   odicom_fec_txt:
     path: 'odicom/fec.txt'
+  listo_od_txt:
+    path: 'listo/wages.csv'

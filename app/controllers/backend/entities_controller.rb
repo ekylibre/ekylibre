@@ -38,18 +38,18 @@ module Backend
     #   :q Text search
     def self.entities_conditions
       code = ''
-      code = search_conditions(entities: %i[number full_name description iban siret_number vat_number custom_fields]) + " ||= []\n"
+      code = search_conditions(entities: %i[number full_name description iban siret_number vat_number custom_fields], entity_addresses: [:coordinate]) + " ||= []\n"
 
       code << "  c[0] << ' AND #{Entity.table_name}.of_company IS FALSE'\n"
 
       code << "unless params[:state].blank?\n"
-      code << "  if params[:state] == 'client'\n"
+      code << "  if params[:state].include?('client')\n"
       code << "    c[0] << ' AND #{Entity.table_name}.client IS TRUE'\n"
       code << "  end\n"
-      code << "  if params[:state] == 'supplier'\n"
+      code << "  if params[:state].include?('supplier')\n"
       code << "    c[0] << ' AND #{Entity.table_name}.supplier IS TRUE'\n"
       code << "  end\n"
-      code << "  if params[:state] == 'active'\n"
+      code << "  if params[:state].include?('active')\n"
       code << "    c[0] << ' AND #{Entity.table_name}.active IS TRUE'\n"
       code << "  end\n"
       code << "end\n"
@@ -68,9 +68,13 @@ module Backend
 
       code << "unless params[:subscription_nature_id].blank? || params[:subscription_test].blank?\n"
       code << "  if params[:subscription_test] == 'subscribed_on'\n"
-      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND ? BETWEEN started_on AND stopped_on)'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND started_on <= ?)'\n"
       code << "    c << params[:subscription_nature_id]\n"
       code << "    c << params[:subscribed_on]\n"
+      code << "  elsif params[:subscription_test] == 'subscribed_since'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND started_on >= ?)'\n"
+      code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:subscribed_since]\n"
       code << "  elsif params[:subscription_test] == 'expired_within'\n"
       code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND stopped_on BETWEEN CURRENT_DATE AND CURRENT_DATE + ?::INTERVAL) AND #{Entity.table_name}.id NOT IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND stopped_on > CURRENT_DATE + ?::INTERVAL)'\n"
       code << "    c << params[:subscription_nature_id]\n"
@@ -181,7 +185,7 @@ module Backend
     end
 
     # Lists issues of the current product
-    list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'controller_name.classify'.c }, order: { observed_at: :desc }) do |t|
+    list(:issues, conditions: { target_id: 'params[:id]'.c, target_type: 'Entity' }, order: { observed_at: :desc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :nature, url: true

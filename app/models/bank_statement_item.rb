@@ -48,7 +48,7 @@
 #
 class BankStatementItem < ApplicationRecord
   include Providable
-
+  include Attachable
   refers_to :currency
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
@@ -142,5 +142,21 @@ class BankStatementItem < ApplicationRecord
     else
       self.debit = -new_balance
     end
+  end
+
+  def first_document_name
+    return nil if attachments.nil?
+
+    if attachments.count == 1
+      attachments.first.document.name
+    elsif attachments.count > 1
+      Document.where(id: attachments.pluck(:document_id)).pluck(:name)
+    end
+  end
+
+  def first_document_id
+    return nil if attachments.nil?
+
+    attachments.first.document_id
   end
 end

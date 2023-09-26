@@ -44,11 +44,12 @@ module Backend
     end
 
     list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
-      t.column :transfered_on
+      t.column :transfered_on, url: true
       t.column :name
       t.column :memo
       t.column :transaction_nature, label_method: "transaction_nature&.t(scope: 'interbank_transaction_codes')"
       t.column :letter
+      t.column :first_document_name, icon_name: 'cart-plus', url: { controller: :documents, action: :show, id: 'RECORD.first_document_id'.c }
       t.column :journal_entry, url: true
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency

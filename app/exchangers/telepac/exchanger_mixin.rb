@@ -43,26 +43,36 @@ module Telepac
       campaign = Campaign.find_or_create_by!(harvest_year: self.class.campaign)
 
       # get the exploitation siret_number
-      siret_number = doc.at_css('demandeur siret').text
+      siret_number = doc.at_css('demandeur siret').text if doc.at_css('demandeur siret').present?
 
       # get global SRID
-      first_town = doc.at_css('commune').text
-      global_srid = find_srid(first_town)
+      global_srid = 2154
+      if doc.at_css('commune').present?
+        first_town = doc.at_css('commune').text
+        global_srid = find_srid(first_town)
+      end
 
       # get the exploitation name
       farm_name = guess_exploitation_name(doc)
 
       ## find or create Entity
-      declarant = Entity.find_by('last_name ILIKE ?', farm_name)
-      if declarant.nil?
-        country_preference = Preference[:country]
-        declarant = Entity.create!(
-          last_name: farm_name,
-          active: true,
-          nature: :organization,
-          country: country_preference,
-          siret_number: siret_number
-        )
+      if farm_name.present? && siret_number.present?
+        declarant = Entity.find_by('last_name ILIKE ?', farm_name)
+        declarant ||= Entity.find_by(siret_number: siret_number)
+        if declarant.nil?
+          country_preference = Preference[:country]
+          declarant = Entity.create!(
+            last_name: farm_name,
+            active: true,
+            nature: :organization,
+            country: country_preference,
+            siret_number: siret_number
+          )
+        end
+      else
+        declarant = Entity.of_company
+        siret_number = declarant.siret_number
+        farm_name = declarant.full_name
       end
 
       cap_statement = CapStatement
@@ -214,7 +224,7 @@ module Telepac
         elsif (exploitation_nature = doc.at_css('identification-individuelle identite'))
           exploitation_nature.text
         else
-          raise "No farm name found in TelePAC folder."
+          nil
         end
       end
 

@@ -68,6 +68,7 @@ class PurchaseItem < ApplicationRecord
   belongs_to :activity_budget
   belongs_to :project_budget
   belongs_to :team
+  belongs_to :project_task
   belongs_to :purchase, inverse_of: :items
   belongs_to :equipment, class_name: 'Product', inverse_of: :purchase_items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items

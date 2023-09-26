@@ -11,6 +11,7 @@
       = f.input :auxiliary_number, required: true
   = f.input :name, as: :text
   = f.input :active
+  = f.input :reconcilable
   = f.input :description, as: :text
   - filtered_collection = Onoma::Account.list.reject { |a| a.send(Account.accounting_system) == 'NONE' }.sort_by { |a| a.send(Account.accounting_system) }
   = f.input :usages, collection: filtered_collection, value_method: :name, label_method: lambda { |a| a.send(Account.accounting_system) + " - " + a.human_name }, input_html: { data: { filter_collection_url: '/backend/accounts/filter_select_collection' } }

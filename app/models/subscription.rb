@@ -187,7 +187,11 @@ class Subscription < ApplicationRecord
   end
 
   def past?
-    stopped_on < Time.zone.today
+    if stopped_on.present?
+      stopped_on < Time.zone.today
+    else
+      nil
+    end
   end
 
   def suspend

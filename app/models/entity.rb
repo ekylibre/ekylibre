@@ -146,6 +146,7 @@ class Entity < ApplicationRecord
            class_name: 'Sale', foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
   has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
+  has_many :sale_contracts, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :destroy
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: 'Sale'
   has_many :sale_items, through: :sales, source: :items
   has_many :subscriptions, foreign_key: :subscriber_id, dependent: :restrict_with_error
@@ -173,6 +174,7 @@ class Entity < ApplicationRecord
   has_one :worker, foreign_key: :person_id
   has_one :user, foreign_key: :person_id
   has_many :worker_contracts, class_name: 'WorkerContract', inverse_of: :entity, foreign_key: :entity_id, dependent: :destroy
+  has_many :payment_methods, class_name: 'EntityPaymentMethod', inverse_of: :entity, foreign_key: :entity_id, dependent: :destroy
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

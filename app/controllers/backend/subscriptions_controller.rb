@@ -33,22 +33,24 @@ module Backend
     unroll
 
     def self.subscriptions_conditions
-      code = ''
-      # COALESCE(#{Sale.table_name}.state NOT INsale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))
-      code << "conditions = ['1=1']\n"
+      code = search_conditions(subscriptions: %i[codes description number], entities: %i[number full_name]) + " ||= []\n"
       code << "unless params[:nature_id].to_i.zero?\n"
-      code << "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
-      code << "  conditions << params[:nature_id].to_i\n"
+      code << "  c[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
+      code << "  c << params[:nature_id].to_i\n"
       code << "end\n"
+      code << "if params[:state].is_a?(Array) && !params[:state].empty?\n"
+      code << "  c[0] << ' AND #{Subscription.table_name}.status IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n "
       code << "if params[:subscribed_on].to_s =~ /\A\d\d\d\d\-\d\d\-\d\d\z/.nil?\n"
-      code << "  conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
-      code << "  conditions << params[:subscribed_on]\n"
+      code << "  c[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
+      code << "  c << params[:subscribed_on]\n"
       code << "end\n"
-      code << "conditions\n"
+      code << "c\n "
       code.c
     end
 
-    list(conditions: subscriptions_conditions, order: { started_on: :desc }, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? ' squeezed' : '')".c) do |t|
+    list(conditions: subscriptions_conditions, order: { started_on: :desc }, joins: :subscriber, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? 'squeezed' : '')".c) do |t|
       t.action :edit
       t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
       t.action :suspend, method: :post, if: :suspendable?
@@ -57,11 +59,14 @@ module Backend
       t.column :number, url: true
       t.column :subscriber, url: true
       t.column :coordinate, through: :address, url: true
+      t.column :default_mail_coordinate, through: :subscriber
       # t.column :product_nature
-      t.column :quantity
-      t.column :sale, url: true
+      t.column :status
+      # t.column :sale, url: true
       t.column :started_on
       t.column :stopped_on
+      t.column :trial_started_at
+      t.column :trial_stopped_at
     end
 
     def renew

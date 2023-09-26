@@ -1079,6 +1079,11 @@ fra:
       product_population: "Quantité de produit"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
+      project: "Projet"
+      project_member: "Membre du projet"
+      project_task: "Tâche de projet"
+      project_task_log: "Journal des tâches du projet"
+      project_budget: "Budget interne"
       project_budget: "Budget interne" #?
       providers: "Solution tierce"
       provider_vendor: "Solution tierce"
@@ -2014,7 +2019,7 @@ fra:
     memo: "Note"
     merge_stock: "Fusionner avec les stocks existants"
     message: "Message"
-    # messages: "Messages"
+    messages: "Messages"
     metadata: "Méta-données"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
     min_zoom: "Zoom minimal"
@@ -2242,6 +2247,7 @@ fra:
     product_way: "Voie du produit" #?
     product_work_number: "N° de travail"
     production: "Production"
+    production_campaign: "Campagne rattachée"
     production_cycle: "Cycle de production"
     production_nature: "Production de référence"
     production_support: "Support de production"

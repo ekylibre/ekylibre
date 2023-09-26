@@ -2233,6 +2233,7 @@ CREATE TABLE public.catalog_items (
     unit_id integer NOT NULL,
     sale_item_id integer,
     purchase_item_id integer,
+    provider jsonb DEFAULT '{}'::jsonb,
     product_id integer
 );
 
@@ -2275,7 +2276,7 @@ CREATE TABLE public.catalogs (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    provider jsonb
+    provider jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -3884,6 +3885,46 @@ ALTER SEQUENCE public.entity_links_id_seq OWNED BY public.entity_links.id;
 
 
 --
+-- Name: entity_payment_methods; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.entity_payment_methods (
+    id integer NOT NULL,
+    entity_id integer NOT NULL,
+    name character varying,
+    nature character varying,
+    description text,
+    expired_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb DEFAULT '{}'::jsonb
+);
+
+
+--
+-- Name: entity_payment_methods_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.entity_payment_methods_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: entity_payment_methods_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.entity_payment_methods_id_seq OWNED BY public.entity_payment_methods.id;
+
+
+--
 -- Name: event_participations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3940,7 +3981,8 @@ CREATE TABLE public.events (
     lock_version integer DEFAULT 0 NOT NULL,
     nature character varying NOT NULL,
     affair_id integer,
-    custom_fields jsonb
+    custom_fields jsonb,
+    provider jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -8759,6 +8801,54 @@ ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
+-- Name: saas_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.saas_subscriptions (
+    id integer NOT NULL,
+    entity_id integer NOT NULL,
+    entity_payment_method_id integer,
+    catalog_item_id integer,
+    name character varying,
+    status character varying,
+    tenant_name character varying,
+    description text,
+    partner_id integer,
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone,
+    canceled_at timestamp without time zone,
+    trial_started_at timestamp without time zone,
+    trial_stopped_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL,
+    provider jsonb DEFAULT '{}'::jsonb
+);
+
+
+--
+-- Name: saas_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.saas_subscriptions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: saas_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.saas_subscriptions_id_seq OWNED BY public.saas_subscriptions.id;
+
+
+--
 -- Name: sale_contract_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10977,6 +11067,13 @@ ALTER TABLE ONLY public.entity_links ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: entity_payment_methods id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.entity_payment_methods ALTER COLUMN id SET DEFAULT nextval('public.entity_payment_methods_id_seq'::regclass);
+
+
+--
 -- Name: event_participations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -11793,6 +11890,13 @@ ALTER TABLE ONLY public.rides ALTER COLUMN id SET DEFAULT nextval('public.rides_
 --
 
 ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+
+
+--
+-- Name: saas_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.saas_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.saas_subscriptions_id_seq'::regclass);
 
 
 --
@@ -12766,6 +12870,14 @@ ALTER TABLE ONLY public.entity_links
 
 
 --
+-- Name: entity_payment_methods entity_payment_methods_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.entity_payment_methods
+    ADD CONSTRAINT entity_payment_methods_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: event_participations event_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -13694,6 +13806,14 @@ ALTER TABLE ONLY public.roles
 
 
 --
+-- Name: saas_subscriptions saas_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.saas_subscriptions
+    ADD CONSTRAINT saas_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sale_contract_items sale_contract_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14066,6 +14186,13 @@ CREATE INDEX cash_provider_index ON public.cashes USING gin (((provider -> 'vend
 
 
 --
+-- Name: catalog_item_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX catalog_item_provider_index ON public.catalog_items USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: catalog_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14080,10 +14207,24 @@ CREATE INDEX cultivable_zone_provider_index ON public.cultivable_zones USING gin
 
 
 --
+-- Name: entity_payment_method_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX entity_payment_method_provider_index ON public.entity_payment_methods USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: entity_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX entity_provider_index ON public.entities USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
+-- Name: event_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX event_provider_index ON public.events USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
 
 
 --
@@ -16919,6 +17060,41 @@ CREATE INDEX index_entity_links_on_updated_at ON public.entity_links USING btree
 --
 
 CREATE INDEX index_entity_links_on_updater_id ON public.entity_links USING btree (updater_id);
+
+
+--
+-- Name: index_entity_payment_methods_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entity_payment_methods_on_created_at ON public.entity_payment_methods USING btree (created_at);
+
+
+--
+-- Name: index_entity_payment_methods_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entity_payment_methods_on_creator_id ON public.entity_payment_methods USING btree (creator_id);
+
+
+--
+-- Name: index_entity_payment_methods_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entity_payment_methods_on_entity_id ON public.entity_payment_methods USING btree (entity_id);
+
+
+--
+-- Name: index_entity_payment_methods_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entity_payment_methods_on_updated_at ON public.entity_payment_methods USING btree (updated_at);
+
+
+--
+-- Name: index_entity_payment_methods_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entity_payment_methods_on_updater_id ON public.entity_payment_methods USING btree (updater_id);
 
 
 --
@@ -22718,6 +22894,62 @@ CREATE INDEX index_roles_on_updater_id ON public.roles USING btree (updater_id);
 
 
 --
+-- Name: index_saas_subscriptions_on_catalog_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_catalog_item_id ON public.saas_subscriptions USING btree (catalog_item_id);
+
+
+--
+-- Name: index_saas_subscriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_created_at ON public.saas_subscriptions USING btree (created_at);
+
+
+--
+-- Name: index_saas_subscriptions_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_creator_id ON public.saas_subscriptions USING btree (creator_id);
+
+
+--
+-- Name: index_saas_subscriptions_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_entity_id ON public.saas_subscriptions USING btree (entity_id);
+
+
+--
+-- Name: index_saas_subscriptions_on_entity_payment_method_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_entity_payment_method_id ON public.saas_subscriptions USING btree (entity_payment_method_id);
+
+
+--
+-- Name: index_saas_subscriptions_on_partner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_partner_id ON public.saas_subscriptions USING btree (partner_id);
+
+
+--
+-- Name: index_saas_subscriptions_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_updated_at ON public.saas_subscriptions USING btree (updated_at);
+
+
+--
+-- Name: index_saas_subscriptions_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_saas_subscriptions_on_updater_id ON public.saas_subscriptions USING btree (updater_id);
+
+
+--
 -- Name: index_sale_contract_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24734,6 +24966,13 @@ CREATE INDEX product_nature_variant_provider_index ON public.product_nature_vari
 
 
 --
+-- Name: saas_subscription_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX saas_subscription_provider_index ON public.saas_subscriptions USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: sale_nature_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24965,6 +25204,14 @@ ALTER TABLE ONLY public.crop_group_labellings
 
 
 --
+-- Name: saas_subscriptions fk_rails_0da6d616e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.saas_subscriptions
+    ADD CONSTRAINT fk_rails_0da6d616e9 FOREIGN KEY (entity_payment_method_id) REFERENCES public.entity_payment_methods(id);
+
+
+--
 -- Name: cvi_cadastral_plant_cvi_land_parcels fk_rails_0e970be37a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -25053,11 +25300,27 @@ ALTER TABLE ONLY public.planning_scenario_activity_plots
 
 
 --
+-- Name: saas_subscriptions fk_rails_1aeab563b0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.saas_subscriptions
+    ADD CONSTRAINT fk_rails_1aeab563b0 FOREIGN KEY (entity_id) REFERENCES public.entities(id);
+
+
+--
 -- Name: interventions fk_rails_1f3a6ab6a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT fk_rails_1f3a6ab6a0 FOREIGN KEY (intervention_proposal_id) REFERENCES public.intervention_proposals(id);
+
+
+--
+-- Name: saas_subscriptions fk_rails_1f915e6ce8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.saas_subscriptions
+    ADD CONSTRAINT fk_rails_1f915e6ce8 FOREIGN KEY (partner_id) REFERENCES public.entities(id);
 
 
 --
@@ -25450,6 +25713,14 @@ ALTER TABLE ONLY public.parcel_items
 
 ALTER TABLE ONLY public.cvi_land_parcels
     ADD CONSTRAINT fk_rails_71a1e59459 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: entity_payment_methods fk_rails_7270565800; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.entity_payment_methods
+    ADD CONSTRAINT fk_rails_7270565800 FOREIGN KEY (entity_id) REFERENCES public.entities(id);
 
 
 --
@@ -26034,6 +26305,14 @@ ALTER TABLE ONLY public.daily_charges
 
 ALTER TABLE ONLY public.intervention_proposal_parameters
     ADD CONSTRAINT fk_rails_e4aa584bc6 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: saas_subscriptions fk_rails_e5d74447d2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.saas_subscriptions
+    ADD CONSTRAINT fk_rails_e5d74447d2 FOREIGN KEY (catalog_item_id) REFERENCES public.catalog_items(id);
 
 
 --
@@ -26831,6 +27110,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211206150144'),
 ('20211209142107'),
 ('20211210174201'),
+('20211213172901'),
 ('20211217170401'),
 ('20211220140042'),
 ('20220120092001'),

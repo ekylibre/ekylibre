@@ -77,6 +77,7 @@
 - entity
 - entity_address
 - entity_link
+- entity_payment_method
 - equipment
 - equipment_fleet
 - event
@@ -264,6 +265,7 @@
 - ride_set
 - ride_set_equipment
 - role
+- saas_subscription
 - sale
 - sale_affair
 - sale_contract

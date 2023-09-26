@@ -40,7 +40,7 @@
 #  updater_id    :integer(4)
 #
 class Attachment < ApplicationRecord
-  belongs_to :document
+  belongs_to :document, inverse_of: :attachments
   belongs_to :resource, polymorphic: true, inverse_of: :attachments
 
   acts_as_paranoid
