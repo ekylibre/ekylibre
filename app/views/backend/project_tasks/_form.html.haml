@@ -1,5 +1,5 @@
 :ruby
-  contract = f.object.project.sale_contract
+  contract = f.object&.project&.sale_contract
 = field_set do
   = f.input :name
   = f.input :work_number

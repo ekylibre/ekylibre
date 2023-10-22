@@ -305,6 +305,7 @@ fra:
         closure: "Clôture"
         fixed_assets: "Immobilisations"
         forward: "Report à nouveaux"
+        payslip: "Paie"
         purchases: "Achats"
         result: "Résultat"
         sales: "Ventes"
@@ -386,6 +387,10 @@ fra:
         third: "Par le tiers"
         transporter: "Par tranporteur"
         us: "Par nos soins"
+    payslip_nature:
+      nature:
+        net_salary: "Salaire net"
+        social_expense: "Charge sociale"
     plant_counting:
       nature:
         germination: "À la levée"
@@ -688,6 +693,7 @@ fra:
         outgoing_payments: "Décaissements"
         parcels: "Colis"
         payslips: "Salaires"
+        payslip_contributions: "Charges sociales"
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories comptables"

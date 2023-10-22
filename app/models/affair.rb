@@ -55,17 +55,17 @@
 #
 
 # Where to put amounts. The point of view is third's one.
-#       Deal      |  Debit  |  Credit |
-# Sale            |    X    |         |
-# SaleCredit      |         |    X    |
-# SaleGap         | Profit! |  Loss!  |
-# Payslip         |         |    X    |
-# Purchase        |         |    X    |
-# PurchaseCredit  |         |         |
-# PurchaseGap     | Profit! |  Loss!  |
-# OutgoingPayment |    X    |         |
-# IncomingPayment |         |    X    |
-# Regularization  |    ?    |    ?    |
+#       Deal                  |  Debit  |  Credit |
+# Sale                        |    X    |         |
+# SaleCredit                  |         |    X    |
+# SaleGap                     | Profit! |  Loss!  |
+# Payslip                     |         |    X    |
+# Purchase                    |         |    X    |
+# PurchaseCredit              |    X    |         |
+# PurchaseGap                 | Profit! |  Loss!  |
+# OutgoingPayment             |    X    |         |
+# IncomingPayment             |         |    X    |
+# Regularization              |    ?    |    ?    |
 #
 class Affair < ApplicationRecord
   include Attachable

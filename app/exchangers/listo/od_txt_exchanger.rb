@@ -2,7 +2,7 @@
 
 module Listo
   class OdTxtExchanger < ActiveExchanger::Base
-    category :accountancy
+    category :human_resources
     vendor :listo
 
     #  0 - A: JournalCode : "OD"

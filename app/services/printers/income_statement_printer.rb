@@ -12,11 +12,11 @@ module Printers
       g1 = HashWithIndifferentAccess.new
       g1[:group_name] = :operating_revenues.tl
       g1[:items] = []
-      if @accounting_system == :fr_pcga || @accounting_system == :fr_pcga2023
+      if @accounting_system.in?(AGRI_PCG)
         items = [:products_sales, :animal_sales, :productions_sales,
                  :inventory_variations, :capitalised_production, :subsidies,
                  :provisions_revenues, :other_products]
-      elsif @accounting_system == :fr_pcg82
+      elsif @accounting_system.in?(GENERAL_PCG)
         items = [:products_sales, :productions_sales, :services_sales,
                  :inventory_variations, :capitalised_production, :subsidies,
                  :provisions_revenues, :other_products]
@@ -36,11 +36,11 @@ module Printers
       g2 = HashWithIndifferentAccess.new
       g2[:group_name] = :operating_costs.tl
       g2[:items] = []
-      if @accounting_system == :fr_pcga
+      if @accounting_system.in?(AGRI_PCG)
         items = [:merchandises_purchases, :merchandises_purchases_stocks_variation, :products_purchases,
                  :purchases_stocks_variation, :animal_purchases, :other_purchases,
                  :taxes, :wages, :social_expenses, :depreciations_inputations_expenses, :other_expenses]
-      elsif @accounting_system == :fr_pcg82
+      elsif @accounting_system.in?(GENERAL_PCG)
         items = [:merchandises_purchases, :merchandises_purchases_stocks_variation, :products_purchases,
                  :purchases_stocks_variation, :other_purchases,
                  :taxes, :wages, :social_expenses, :depreciations_inputations_expenses, :other_expenses]

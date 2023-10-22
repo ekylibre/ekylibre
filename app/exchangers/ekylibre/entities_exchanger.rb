@@ -15,7 +15,7 @@ module Ekylibre
         r = {
           first_name: row[0].blank? ? '' : row[0].to_s,
           last_name: row[1].blank? ? '' : row[1].to_s,
-          nature: (%w[person contact sir madam doctor professor sir_and_madam].include?(row[2].to_s.downcase) ? :contact : :organization),
+          nature: (%w[person contact].include?(row[2].to_s.downcase) ? :contact : :organization),
           client_account_number: row[3].blank? ? nil : row[3].to_s,
           supplier_account_number: row[4].blank? ? nil : row[4].to_s,
           address: row[5].to_s,
@@ -35,7 +35,7 @@ module Ekylibre
           vat_number: row[19].blank? ? nil : row[19].to_s,
           ape_number: row[20].blank? ? nil : row[20].to_s,
           number: row[21].blank? ? nil : row[21].to_s,
-          supplier: row[22].present?
+          social_account_number: row[22].blank? ? nil : row[22].to_s
         }.to_struct
 
         person = Entity.find_by(number: r.number) if r.number
@@ -52,21 +52,20 @@ module Ekylibre
           prospect: r.prospect,
           transporter: r.transporter
         )
-          person.save!
         end
         if r.client_account_number
           person.client = true
           # person.client_account = Account.find_or_create_by_number(r.client_account_number, name: person.full_name)
-          person.save!
         end
         if r.supplier_account_number
           person.supplier = true
           # person.supplier_account = Account.find_or_create_by_number(r.supplier_account_number, name: person.full_name)
-          person.save!
         end
-        if r.supplier
-          person.supplier = true
-          person.save!
+        if r.social_account_number && r.nature == :organization
+          person.payslip_contributor = true
+          person.payslip_contributor_account = Account.find_or_create_by_number(r.social_account_number)
+        elsif r.social_account_number && r.nature == :contact
+          person.employee = true
         end
 
         # Add SIREN, VAT or APE numbers if given
@@ -77,18 +76,17 @@ module Ekylibre
           else
             person.siret_number = r.siren_number
           end
-          person.save!
         end
 
         if r.vat_number
           person.vat_number = r.vat_number
-          person.save!
         end
 
         if r.ape_number
           person.activity_code = r.ape_number
-          person.save!
         end
+
+        person.save!
 
         # Add mail address if given
         if r.postal_code && r.city

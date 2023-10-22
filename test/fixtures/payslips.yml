@@ -53,16 +53,25 @@ payslips_001:
   created_at: 2017-06-07 16:14:22.854184000 Z
   creator_id: 1
   currency: EUR
+  custom_fields: {}
+  description: ''
   emitted_on: 2017-06-07
   employee_id: 9
   id: 1
+  invoiced_at: 2017-06-07 16:14:28.774219000 Z
   journal_entry_id: 118
   lock_version: 1
   nature_id: 1
   number: BS2017060001
+  other_social_expenses_amount: 700.0
+  raw_amount: 1500.0
+  reference_number: ''
+  social_security_amount: 500.0
+  source_revenue_amount: 66.0
   started_on: 2017-01-01
   state: invoice
   stopped_on: 2017-01-31
+  total_company_social_amount: 1000.0
   updated_at: 2017-06-07 16:14:28.663910000 Z
   updater_id: 1
 payslips_002:
@@ -73,16 +82,25 @@ payslips_002:
   created_at: 2017-06-07 16:15:26.736704000 Z
   creator_id: 1
   currency: EUR
+  custom_fields: {}
+  description: ''
   emitted_on: 2017-06-07
   employee_id: 10
   id: 2
+  invoiced_at: 2017-06-07 16:15:32.090545000 Z
   journal_entry_id: 120
   lock_version: 1
   nature_id: 1
   number: BS2017060002
+  other_social_expenses_amount: 700.0
+  raw_amount: 1500.0
+  reference_number: ''
+  social_security_amount: 500.0
+  source_revenue_amount: 100.0
   started_on: 2017-01-01
   state: invoice
   stopped_on: 2017-01-31
+  total_company_social_amount: 1000.0
   updated_at: 2017-06-07 16:15:32.007316000 Z
   updater_id: 1
 payslips_003:
@@ -93,13 +111,22 @@ payslips_003:
   created_at: 2017-06-07 16:21:11.892529000 Z
   creator_id: 1
   currency: EUR
+  custom_fields: {}
+  description: ''
   employee_id: 12
   id: 3
+  invoiced_at: 2017-06-07 16:21:11.949666000 Z
   lock_version: 0
   nature_id: 1
   number: BS2017060003
+  other_social_expenses_amount: 700.0
+  raw_amount: 2500.0
+  reference_number: ''
+  social_security_amount: 650.0
+  source_revenue_amount: 150.0
   started_on: 2017-01-01
   state: draft
   stopped_on: 2017-01-31
+  total_company_social_amount: 1000.0
   updated_at: 2017-06-07 16:21:11.892529000 Z
   updater_id: 1

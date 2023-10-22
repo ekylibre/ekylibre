@@ -3,7 +3,10 @@ class PfiCalculationJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   # Compute and store(create or update) pfi for each intervention in a campaign
-  def perform(campaign, interventions, perform_as)
+  def perform(campaign_id, intervention_ids, perform_as)
+    # set params
+    campaign = Campaign.find(campaign_id)
+    interventions = Intervention.where(id: intervention_ids)
     if Interventions::Phytosanitary::PfiClientApi.new(campaign: campaign).down?
       perform_as.notifications.create!(pfi_api_down_notification_generation)
       return
@@ -34,7 +37,7 @@ class PfiCalculationJob < ApplicationJob
         interpolations: {}
       }
 
-      if interventions.length == 1
+      if interventions.count == 1
         intervention = interventions.first
         attributes.merge!(
           {

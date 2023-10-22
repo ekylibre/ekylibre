@@ -37,7 +37,7 @@
 #
 class Identifier < ApplicationRecord
   refers_to :nature, class_name: 'IdentifierNature'
-  belongs_to :net_service
+  belongs_to :net_service, inverse_of: :identifiers
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, presence: true
   validates :value, presence: true, length: { maximum: 500 }

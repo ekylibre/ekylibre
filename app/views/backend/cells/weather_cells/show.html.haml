@@ -17,5 +17,7 @@
     ]
 
   = spline_highcharts(series, x_axis: {categories: categories}, y_axis: y_axis, legend: true)
+- elsif @error
+  = flash_message_tag(:error, @error)
 - else
   = no_data

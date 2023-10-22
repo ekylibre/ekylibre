@@ -46,6 +46,7 @@ payslip_natures_001:
   creator_id: 1
   currency: EUR
   id: 1
+  imported_centralizing_entries: true
   journal_id: 13
   lock_version: 1
   name: Permanent
@@ -60,6 +61,7 @@ payslip_natures_002:
   creator_id: 1
   currency: EUR
   id: 2
+  imported_centralizing_entries: true
   journal_id: 13
   lock_version: 1
   name: Saisonnier

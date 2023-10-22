@@ -39,5 +39,7 @@
                         .flex-wrap
                             %span.spraying-condition-color{:class => "#{cond}"}
                             %span="weather_spraying_#{cond}".to_sym.tl
+- elsif @error
+    = flash_message_tag(:error, @error)
 - else
     = no_data

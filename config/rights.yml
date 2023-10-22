@@ -2545,6 +2545,25 @@ outgoing_payments:
     - "backend/purchase_payments#new"
     - "backend/purchase_payments#update"
 
+payslip_contribution_payments:
+  read:
+    dependencies:
+    - read-human_dashboard
+    actions:
+    - "backend/payslip_contribution_payments#index"
+    - "backend/payslip_contribution_payments#list"
+    - "backend/payslip_contribution_payments#show"
+    - "backend/payslip_contribution_payments#unroll"
+  write:
+    dependencies:
+    - read-payslip_contribution_payments
+    actions:
+    - "backend/payslip_contribution_payments#create"
+    - "backend/payslip_contribution_payments#destroy"
+    - "backend/payslip_contribution_payments#edit"
+    - "backend/payslip_contribution_payments#new"
+    - "backend/payslip_contribution_payments#update"
+
 payslip_natures:
   read:
     dependencies:

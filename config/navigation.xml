@@ -1207,17 +1207,6 @@
         <page to="backend/payslip_affairs#show"/>
         <page to="backend/payslip_affairs#unroll"/>
       </item>
-      <item name="payslip_natures">
-        <page to="backend/payslip_natures#index"/>
-        <page to="backend/payslip_natures#create"/>
-        <page to="backend/payslip_natures#destroy"/>
-        <page to="backend/payslip_natures#edit"/>
-        <page to="backend/payslip_natures#list"/>
-        <page to="backend/payslip_natures#new"/>
-        <page to="backend/payslip_natures#show"/>
-        <page to="backend/payslip_natures#unroll"/>
-        <page to="backend/payslip_natures#update"/>
-      </item>
       <item name="payslip_payments">
         <page to="backend/payslip_payments#index"/>
         <page to="backend/payslip_payments#create"/>
@@ -1228,6 +1217,17 @@
         <page to="backend/payslip_payments#show"/>
         <page to="backend/payslip_payments#unroll"/>
         <page to="backend/payslip_payments#update"/>
+      </item>
+      <item name="payslip_contribution_payments">
+        <page to="backend/payslip_contribution_payments#index"/>
+        <page to="backend/payslip_contribution_payments#create"/>
+        <page to="backend/payslip_contribution_payments#destroy"/>
+        <page to="backend/payslip_contribution_payments#edit"/>
+        <page to="backend/payslip_contribution_payments#list"/>
+        <page to="backend/payslip_contribution_payments#new"/>
+        <page to="backend/payslip_contribution_payments#show"/>
+        <page to="backend/payslip_contribution_payments#unroll"/>
+        <page to="backend/payslip_contribution_payments#update"/>
       </item>
     </group>
     <group name="teams" icon="people">
@@ -1969,6 +1969,17 @@
         <page to="backend/teams#show"/>
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
+      </item>
+      <item name="payslip_natures">
+        <page to="backend/payslip_natures#index"/>
+        <page to="backend/payslip_natures#create"/>
+        <page to="backend/payslip_natures#destroy"/>
+        <page to="backend/payslip_natures#edit"/>
+        <page to="backend/payslip_natures#list"/>
+        <page to="backend/payslip_natures#new"/>
+        <page to="backend/payslip_natures#show"/>
+        <page to="backend/payslip_natures#unroll"/>
+        <page to="backend/payslip_natures#update"/>
       </item>
       <item name="postal_zones">
         <page to="backend/postal_zones#index"/>

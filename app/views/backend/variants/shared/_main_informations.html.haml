@@ -27,6 +27,10 @@
       %span.title= :quantity_to_receive.tl
       %span.value{ title: quantity_to_receive(resource) }
         = quantity_to_receive resource
+    - if resource.provider_vendor
+      .med-info.important
+        %span.title= ProductNatureVariant.human_attribute_name(:provider)
+        %span.value= resource.provider_vendor&.capitalize
     .med-info.important
       %span.title= ProductNatureVariant.human_attribute_name(:category)
       %span.value

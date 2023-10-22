@@ -94,6 +94,8 @@ fra:
       outgoing_payments: "Décaissements"
       payslip_natures: "Types de salaire"
       payslip_payments: "Paiements de salaire"
+      payslip_contribution_payments: "Paiements des charges sociales"
+      payslip_contributions: "Charges sociales"
       payslips: "Salaires"
       plant_countings: "Dénombrements des plantes"
       plants: "Cultures végétales"

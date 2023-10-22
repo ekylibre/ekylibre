@@ -81,7 +81,6 @@
 #  updater_id                   :integer(4)
 #  vat_number                   :string
 #  vat_subjected                :boolean          default(TRUE), not null
-#
 
 require 'digest/sha2'
 
@@ -108,6 +107,7 @@ class Entity < ApplicationRecord
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
+  belongs_to :payslip_contributor_account, class_name: 'Account'
   belongs_to :supplier_payment_mode, class_name: 'OutgoingPaymentMode'
   belongs_to :client_payment_mode, class_name: 'IncomingPaymentMode'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
@@ -206,6 +206,7 @@ class Entity < ApplicationRecord
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
   scope :employees,    -> { where(employee: true) }
+  scope :payslip_contributors,    -> { where(payslip_contributor: true) }
   scope :company,      -> { where(of_company: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
@@ -397,6 +398,7 @@ class Entity < ApplicationRecord
 
       account_nomen = nature.to_s.pluralize
       account_nomen = :staff_due_remunerations if nature == :employee
+      account_nomen = :other_social_organisation if nature == :payslip_contributor
 
       if account_nomen == 'clients' || account_nomen == 'suppliers'
         if Preference[:use_entity_codes_for_account_numbers]
@@ -415,10 +417,12 @@ class Entity < ApplicationRecord
           end
           valid_account = Account.create(nature: 'auxiliary', auxiliary_number: suffix.to_s, name: full_name, centralizing_account_name: account_nomen, reconcilable: true)
         end
-      else
+      elsif account_nomen == :staff_due_remunerations
         _employees_account = Account.find_or_import_from_nomenclature(account_nomen)
 
         valid_account = Account.find_or_create_by_number(Account.generate_employee_account_number_for(id), name: full_name)
+      elsif account_nomen == :other_social_organisation
+        valid_account = Account.find_or_create_by_number(Account.generate_payslip_contributor_account_number_for(id), name: full_name)
       end
       reload.update_column("#{nature}_account_id", valid_account.id)
     end

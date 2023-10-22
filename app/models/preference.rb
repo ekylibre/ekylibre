@@ -200,6 +200,7 @@ class Preference < ApplicationRecord
   prefer :client_account_radix, :string, '411'
   prefer :supplier_account_radix, :string, '401'
   prefer :employee_account_radix, :string, '421'
+  prefer :payslip_contributor_account_radix, :string, '437'
   prefer :account_number_digits, :integer, 8
   # TODO: manage period as list selector
   prefer :default_depreciation_period, :string, 'yearly'
@@ -212,7 +213,7 @@ class Preference < ApplicationRecord
   prefer :check_fec_compliance, :boolean, true
 
   # DEPRECATED PREFERENCES
-  prefer :host, :string, 'erp.example.com'
+  prefer :host, :string, 'erp.ekylibre.org'
 
   # Returns the name of the column used to store preference data
   def value_attribute

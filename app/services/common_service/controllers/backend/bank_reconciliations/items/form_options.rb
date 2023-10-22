@@ -28,6 +28,8 @@ module CommonService
                 journal_url_params: form_options_journal_url_params,
                 url_redirect_params: form_options_url_redirect_params,
                 purchase_natures: PurchaseNature.find_each,
+                payslip_natures: PayslipNature.find_each,
+                payslip_contribution_natures: PayslipNature.find_each,
                 sale_natures: SaleNature.find_each,
                 period_items: form_options_period_items,
                 add_line_button: form_options_add_line_button,

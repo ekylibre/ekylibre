@@ -193,6 +193,7 @@
 - parcel_item_storing
 - payslip
 - payslip_affair
+- payslip_contribution_payment
 - payslip_nature
 - payslip_payment
 - pfi_campaigns_activities_intervention
@@ -224,11 +225,11 @@
 - product_phase
 - product_population
 - product_reading
+- products_yield_observation
 - project
+- project_budget
 - project_member
 - project_task
-- products_yield_observation
-- project_budget
 - purchase
 - purchase_affair
 - purchase_gap
@@ -241,6 +242,7 @@
 - reception_item
 - reference_unit
 - registered_agroedi_code
+- registered_area_item
 - registered_cadastral_building
 - registered_cadastral_parcel
 - registered_cadastral_price

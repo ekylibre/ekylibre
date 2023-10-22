@@ -3,6 +3,7 @@ fra:
     messages: &error_messages
       accepted: "%{attribute} doit être accepté"
       after: "%{attribute} doit être après le %{restriction}"
+      amounts_are_not_balanced: "Les montants ne sont pas équilibrés comptablement" #?
       before: "%{attribute} doit être avant le %{restriction}"
       blank: "%{attribute} ne peut pas être vide"
       confirmation: "%{attribute} est différent du champ de confirmation"
@@ -359,9 +360,19 @@ fra:
         quantity: "Quantité totale"
         reception_given_at: "Donné le"
         reception_planned_at: "Prévu le"
+      payslip_contribution_payment: #?
+        delivered: "Remis au prestataire social" #?
+        list: "Lot de décaissements" #?
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
+      payslip:
+        amount: 'Salaire net'
+        raw_amount: 'Salaire brut'
+        source_revenue_amount: "Prélèvement à la source (salariales)"
+        social_security_amount: "Cotisations de sécurité sociales (salariales + patronnales)"
+        other_social_expenses_amount: "Autres cotisations sociales (salariales + patronnales)"
+        total_company_social_amount: "Total des cotisations (patronnales)"
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
@@ -853,6 +864,10 @@ fra:
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
+        payslip:
+          attributes:
+            amount:
+              amounts_are_not_balanced: "Les montants ne sont pas équilibrés comptablement" #?
         intervention_template:
           label: "%{name} - Campagne %{campaign}"
         product_nature_variant: #?
@@ -1049,7 +1064,10 @@ fra:
       parcel_item_storing: "Zone de stockage des éléments de colis" #?
       payslip: "Salaire"
       payslip_affair: "Affaire de salaire"
+      payslip_contribution: "Charge sociale"
+      payslip_contribution_affair: "Affaire de charges sociales"
       payslip_nature: "Type de salaire"
+      payslip_contribution_payment: "Paiement de charges sociales"
       payslip_payment: "Paiement de salaire"
       plant: "Plante"
       plant_counting: "Comptage"
@@ -2142,6 +2160,9 @@ fra:
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
     payslips: "Salaires"
+    payslip_contributions: "Charges sociales"
+    payslip_contributor: "Collecteur charges sociales"
+    payslip_contributor_account: "Compte de collecte social"
     period: "Période"
     person: "Personne"
     phases: "Phases"
@@ -3035,6 +3056,22 @@ fra:
       states:
         draft: "Brouillon"
         invoice: "Facturé"
+    payslip_contribution:
+      bookkeep: "[%{resource} %{number}] %{supplier} du %{started_on} au %{stopped_on}"
+      states:
+        draft: "Brouillon"
+        invoice: "Facturé"
+    payslip_contribution_payment:
+      bookkeep: "[%{resource} %{number}] %{mode} pour %{payee}"
+      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    payslip_nature:
+      default:
+        temporary_salary:
+          name: "Saisonnier"
+        permanent_salary:
+          name: "Salarié permanent"
+        associate:
+          name: "Exploitant / Associé non salarié"
     payslip_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
@@ -3180,6 +3217,7 @@ fra:
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
         payslips: "BS[year|4][month|2][number|4]"
+        payslip_contributions: "CS[year|4][month|2][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "P[number|11]"
         purchases: "A[year|4][month|2][number|6]"

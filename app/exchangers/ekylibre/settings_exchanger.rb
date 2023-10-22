@@ -248,6 +248,15 @@ module Ekylibre
       create_records(:outgoing_payment_modes)
       w.check_point
 
+      # Load payslip natures
+      if can_load_default?(:payslip_natures)
+        nature = :payslip
+        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
+        @manifest[:payslip_natures] = { default: { name: PayslipNature.tc('default.name'), active: true, journal: journal } }
+      end
+      create_records(:payslip_natures)
+      w.check_point
+
       # Load sale natures
       if can_load_default?(:sale_natures)
         nature = :sales

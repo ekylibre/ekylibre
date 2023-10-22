@@ -32,7 +32,10 @@ fra:
         caution: "Brouillon"
         stop: "Remboursé"
       payslip:
-        go:  "Facturé"
+        go:  "Emis"
+        stop: "Brouillon"
+      payslip_contribution:
+        go:  "Emis"
         stop: "Brouillon"
       plant:
         go:  "En cours"

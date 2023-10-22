@@ -75,6 +75,7 @@ schedulings:
 - schedulings
 human_resources:
 - humans_dashboard
+- payslip_contribution_payments
 - payslip_natures
 - payslip_payments
 - payslips

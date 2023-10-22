@@ -1,15 +1,13 @@
 :ruby
   trade_model_name   = @trade.class.model_name
   payment_model_name = @payment.class.model_name
-  url_interpolate = @trade.is_a?(PurchaseInvoice) ? 'purchases' : 'sales'
-  url_helper = :"backend_quick_#{url_interpolate}_path"
   payment_scope = if (bsi = @bank_statement_items.first).present?
                     { scope: { matching_cash: bsi.bank_statement.cash_id } }
                   else
                     {}
                   end
 
-= backend_form_for @affair, as: :affair, url: send(url_helper, redirect: @redirect_to) do |a|
+= backend_form_for @affair, as: :affair, url: send(@url_helper, redirect: @redirect_to) do |a|
   = field_set do
     = a.referenced_association :third
     - [:trade, :payment].each do |attribute|
@@ -31,22 +29,22 @@
         = t.input :tax_payability, as: :radio_buttons
       = t.input :description
       = t.input_field :nature_id, as: :hidden
-
-      .items
-        %table#items-table
-          %thead
-            %tr
-              %th= PurchaseItem.human_attribute_name(:variant)
-              %th= PurchaseItem.human_attribute_name(:conditioning_unit)
-              %th= PurchaseItem.human_attribute_name(:conditioning_quantity)
-              %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
-              %th= PurchaseItem.human_attribute_name(:tax)
-              %th= PurchaseItem.human_attribute_name(:reduction_percentage)
-              %th= PurchaseItem.human_attribute_name(:amount)
-              %th{colspan: 3}= link_to_add_association :add_item.tl, t, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-          = t.simple_fields_for :items, t.object.items do |item|
-            = render 'item_fields', f: item
-      #trade_amount.hidden{ 'data-calculate': 'sum', 'data-use': '.items td.amount input', 'data-use-closest': '.fieldset-fields' }
+      - if @trade.is_a?(Purchase) || @trade.is_a?(Sale)
+        .items
+          %table#items-table
+            %thead
+              %tr
+                %th= PurchaseItem.human_attribute_name(:variant)
+                %th= PurchaseItem.human_attribute_name(:conditioning_unit)
+                %th= PurchaseItem.human_attribute_name(:conditioning_quantity)
+                %th= PurchaseItem.human_attribute_name(:unit_pretax_amount)
+                %th= PurchaseItem.human_attribute_name(:tax)
+                %th= PurchaseItem.human_attribute_name(:reduction_percentage)
+                %th= PurchaseItem.human_attribute_name(:amount)
+                %th{colspan: 3}= link_to_add_association :add_item.tl, t, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+            = t.simple_fields_for :items, t.object.items do |item|
+              = render 'item_fields', f: item
+        #trade_amount.hidden{ 'data-calculate': 'sum', 'data-use': '.items td.amount input', 'data-use-closest': '.fieldset-fields' }
 
 
   = field_set trade_model_name.human, class: 'existing-trade hidden' do

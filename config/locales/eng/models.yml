@@ -4,6 +4,7 @@ eng:
       accepted: "%{attribute} must be accepted"
       after: "%{attribute} must be after %{restriction}"
       already_confirmed: "was already confirmed, please try signing in"
+      amounts_are_not_balanced: "Amount are not balanced" #?
       before: "%{attribute} must be before %{restriction}"
       blank: "%{attribute} can't be blank"
       can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
@@ -526,6 +527,9 @@ eng:
       # parcel_item_storing: "Parcel item storing"
       payslip: "Payslip"
       payslip_affair: "Payslip affair"
+      payslip_contribution: "Payslip contribution"
+      payslip_contribution_affair: "Payslip contribution affair"
+      payslip_contribution_payment: "Payslip contribution payment"
       payslip_nature: "Payslip type"
       payslip_payment: "Payslip payment"
       plant: "Plant"
@@ -657,6 +661,7 @@ eng:
       wine_incoming_harvest_storage: "Wine incoming harvest storage"
       zone: "Zone"
   attributes:
+    amounts_are_not_balanced: "Amounts are not balanced"
     spray_volume_value: "Spray volume"
     starting_year: "Starting year"
     isacompta_code: "Isacompta code"
@@ -1579,6 +1584,7 @@ eng:
     payments_count: "Payments count"
     # payslip_natures: "Payslip natures"
     payslips: "Payslips"
+    payslip_contributions: "Payslip contributions"
     period: "Period"
     person: "Person"
     # pesticide_name: "Pesticide name"
@@ -2327,6 +2333,14 @@ eng:
       states:
         draft: "Draft"
         invoice: "Invoice"
+    payslip_contribution:
+      bookkeep: "%{payslip_contributor} [%{resource} %{number}] from %{started_on} to %{stopped_on}"
+      states:
+        draft: "Draft"
+        invoice: "Invoice"
+    payslip_contribution_payment:
+      bookkeep: "%{payee} [%{resource} %{number}] %{mode} %{check_number}"
+      label: "%{payee} %{number}. %{amount} on %{date} in %{mode}"
     payslip_payment:
       bookkeep: "%{payee} [%{resource} %{number}] %{mode} %{check_number}"
       label: "%{payee} %{number}. %{amount} on %{date} in %{mode}"
@@ -2467,6 +2481,7 @@ eng:
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
         payslips: "PS[year|4][month|2][number|4]"
+        payslip_contributions: "PSC[year|4][month|2][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "PR[number|11]"
         purchases: "PU[year|4][month|2][number|6]"

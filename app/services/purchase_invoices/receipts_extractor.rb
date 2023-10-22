@@ -42,8 +42,11 @@ module PurchaseInvoices
         tmp_path = Pathname.new(tmpdir)
         pdf = CombinePDF.new
 
+        # generate first page resume for the month
+        first_page = make_first_page(purchase_invoices, tmp_path)
+        pdf << CombinePDF.load(first_page)
+        # generate invoice pdf for the month
         purchase_invoices.each do |invoice|
-
           if invoice.attachments.empty?
             document = make_separator(invoice, tmp_path, false)
             pdf << CombinePDF.load(document)
@@ -74,11 +77,11 @@ module PurchaseInvoices
 
       pdf = Prawn::Document.generate(path, page_size: 'A4', page_layout: :portrait) do
         move_down 300
-        text "#{:purchase_receipts_export_file.tl} | #{invoice.invoiced_at.strftime('%m/%Y')}", align: :center, size: 26
+        text "#{:invoice_date_export_file.tl} : #{invoice.invoiced_at.strftime('%d/%m/%Y')}", align: :center, size: 21
         move_down 30
         text "#{:purchase_invoice_number.tl} : #{invoice.number}", align: :center, size: 21
         move_down 30
-        text "#{:invoice_date_export_file.tl} : #{invoice.invoiced_at.strftime('%d/%m/%Y')}", align: :center, size: 21
+        text invoice.supplier.name.to_s, align: :center, size: 21
         move_down 30
         text :reference_supplier.tl(reference_number: invoice.reference_number), align: :center, size: 16, inline_format: true
         move_down 30
@@ -87,6 +90,36 @@ module PurchaseInvoices
           move_down 100
           text :no_invoice_receipts_for_purchase_invoice.tl, align: :center, size: 20, color: 'ff0000'
         end
+      end
+
+      path
+    end
+
+    def make_first_page(invoices, dir)
+      path = dir.join("#{invoices.first.invoiced_at.strftime('%Y-%m')}.pdf")
+      arr_invoices = []
+      # heading
+      arr_invoices << [
+          Purchase.human_attribute_name(:invoiced_at),
+          Purchase.human_attribute_name(:number),
+          Purchase.human_attribute_name(:supplier),
+          Purchase.human_attribute_name(:pretax_amount),
+          :tax_amount.tl
+        ]
+      invoices.each do |invoice|
+        arr_invoices << [
+          invoice.invoiced_at.strftime('%d/%m/%Y'),
+          invoice.number,
+          invoice.supplier.name,
+          invoice.pretax_amount.l(currency: invoice.currency, precision: 2),
+          invoice.taxes_amount.l(currency: invoice.currency, precision: 2)
+        ]
+      end
+      pdf = Prawn::Document.generate(path, page_size: 'A4', page_layout: :portrait) do
+        move_down 30
+        text "#{:purchase_receipts_export_file.tl} | #{invoices.first.invoiced_at.strftime('%m/%Y')}", align: :center, size: 26
+        move_down 30
+        table arr_invoices, position: :center, row_colors: %w[F0F0F0 E1EAFE]
       end
 
       path

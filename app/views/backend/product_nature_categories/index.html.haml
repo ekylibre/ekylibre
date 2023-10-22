@@ -1,6 +1,12 @@
 = kujaku do |k|
   - k.text
   - k.choice :all, :active, :inactive
+  - providers = ProductNatureCategory.providers_vendors
+  - if providers.any?
+    - k.helper do
+      %div.label-container
+        %label= ProductNatureCategory.human_attribute_name(:providers)
+      = select_tag(:provider, options_for_select([[]] + providers.map(&:capitalize), params[:provider].to_s))
 
 - main_toolbar do
   - %w[article animal crop equipment service worker zone].each do |nature|

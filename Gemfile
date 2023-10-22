@@ -104,7 +104,7 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Reference data
-gem 'onoma', '~> 0.8.9'
+gem 'onoma', '~> 0.9.0'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop', '~> 1.6'
@@ -163,6 +163,7 @@ gem 'mimemagic', '~> 0.3.5'
 gem 'nokogiri', '~> 1.8'
 gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: 'dev'
 gem 'prawn', '~> 2.4'
+gem 'prawn-table'
 gem 'quandl', '~> 1.1'
 gem 'rodf', '~> 1.0'
 gem 'roo', '~> 2.8'
