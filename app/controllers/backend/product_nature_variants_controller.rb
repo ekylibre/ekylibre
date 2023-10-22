@@ -60,6 +60,10 @@ module Backend
       code << "  c[0] += ' AND product_nature_variants.active = ?'\n"
       code << "  c << false\n"
       code << "end\n"
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{ProductNatureVariant.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -73,8 +77,13 @@ module Backend
       t.column :work_number, hidden: true
       t.column :nature, hidden: true, url: { controller: '/backend/product_natures' }
       t.column :category, url: { controller: '/backend/product_nature_categories' }
+      t.column :product_account, label_method: 'product_account&.label', hidden: true
+      t.column :charge_account, label_method: 'charge_account&.label', hidden: true
+      t.column :stock_account, hidden: true
+      t.column :stock_movement_account, hidden: true
       t.column :current_stock_displayed, label: :current_stock
       # t.column :current_outgoing_stock_ordered_not_delivered_displayed
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
       t.column :unit_name, label: :unit
       t.column :variety
       t.column :derivative_of

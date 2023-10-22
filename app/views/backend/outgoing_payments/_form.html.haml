@@ -4,13 +4,20 @@
       f.object.affair = PurchaseAffair.find(params[:affair_id])
     elsif f.object.is_a?(PayslipPayment)
       f.object.affair = PayslipAffair.find(params[:affair_id])
+    elsif f.object.is_a?(PayslipContributionPayment)
+      f.object.affair = PayslipAffair.find(params[:affair_id])
     end
   end
 
 = field_set do
   - if f.object.affair
     = f.association :affair, as: :hidden
-  = f.referenced_association :payee
+  - if f.object.is_a?(PayslipPayment)
+    = f.referenced_association :payee ,source: :employees, new: { employee: 1, nature: 'contact' }, label: Payslip.human_attribute_name(:employee)
+  - elsif f.object.is_a?(PayslipContributionPayment)
+    = f.referenced_association :payee ,source: :payslip_contributors, new: { payslip_contributor: 1, nature: 'organization' }
+  - else
+    = f.referenced_association :payee
   = f.input :amount
   = f.input :to_bank_at, wrapper_html: { class: 'apply-fy-date' }
   %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }

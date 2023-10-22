@@ -823,6 +823,7 @@ affair_labellings:
   affair_id:
     type: integer
     references: affair
+    limit: 4
     required: true
   created_at:
     type: datetime
@@ -830,15 +831,19 @@ affair_labellings:
   creator_id:
     type: integer
     references: user
+    limit: 4
   id:
     type: integer
+    limit: 4
     required: true
   label_id:
     type: integer
     references: label
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   updated_at:
     type: datetime
@@ -846,6 +851,7 @@ affair_labellings:
   updater_id:
     type: integer
     references: user
+    limit: 4
 affair_natures:
   created_at:
     type: datetime
@@ -853,13 +859,16 @@ affair_natures:
   creator_id:
     type: integer
     references: user
+    limit: 4
   description:
     type: text
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   name:
     type: string
@@ -870,6 +879,7 @@ affair_natures:
   updater_id:
     type: integer
     references: user
+    limit: 4
 affairs:
   accounted_at:
     type: datetime
@@ -930,6 +940,7 @@ affairs:
   nature_id:
     type: integer
     references: affair_nature
+    limit: 4
   number:
     type: string
   origin:
@@ -945,6 +956,7 @@ affairs:
   provider_id:
     type: integer
     references: entity
+    limit: 4
   responsible_id:
     type: integer
     references: entity
@@ -1983,6 +1995,8 @@ catalog_items:
     type: integer
     references: product
     limit: 4
+  provider:
+    type: jsonb
   purchase_item_id:
     type: integer
     references: purchase_item
@@ -3391,6 +3405,14 @@ entities:
     type: boolean
     required: true
     default: false
+  payslip_contributor:
+    type: boolean
+    required: true
+    default: false
+  payslip_contributor_account_id:
+    type: integer
+    references: account
+    limit: 8
   picture_content_type:
     type: string
   picture_file_name:
@@ -3593,17 +3615,23 @@ entity_payment_methods:
   creator_id:
     type: integer
     references: user
+    limit: 4
+  description:
+    type: text
   entity_id:
     type: integer
     references: entity
+    limit: 4
     required: true
   expired_at:
     type: datetime
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   name:
     type: string
@@ -3611,14 +3639,13 @@ entity_payment_methods:
     type: string
   provider:
     type: jsonb
-  description:
-    type: string
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+    limit: 4
 event_participations:
   created_at:
     type: datetime
@@ -6430,12 +6457,13 @@ journal_entry_items:
   printed_on:
     type: date
     required: true
-  project_task_id:
-    type: integer
-    references: project_task
   project_budget_id:
     type: integer
     references: project_budget
+    limit: 4
+  project_task_id:
+    type: integer
+    references: project_task
     limit: 4
   real_balance:
     type: decimal
@@ -7266,12 +7294,16 @@ master_chart_of_accounts:
   reference_name:
     type: string
 master_crop_production_cap_codes:
+  cap_category:
+    type: string
   cap_code:
     type: string
     required: true
   cap_label:
     type: string
     required: true
+  cap_precision:
+    type: string
   production:
     type: string
     required: true
@@ -8464,6 +8496,10 @@ payslip_natures:
     type: integer
     limit: 4
     required: true
+  imported_centralizing_entries:
+    type: boolean
+    required: true
+    default: false
   journal_id:
     type: integer
     references: journal
@@ -8513,6 +8549,8 @@ payslips:
   currency:
     type: string
     required: true
+  description:
+    type: string
   custom_fields:
     type: jsonb
   emitted_on:
@@ -8525,6 +8563,8 @@ payslips:
     type: integer
     limit: 4
     required: true
+  invoiced_at:
+    type: datetime
   journal_entry_id:
     type: integer
     references: journal_entry
@@ -8541,6 +8581,24 @@ payslips:
   number:
     type: string
     required: true
+  other_social_expenses_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  raw_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  reference_number:
+    type: string
+  social_security_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  source_revenue_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   started_on:
     type: date
     required: true
@@ -8550,6 +8608,10 @@ payslips:
   stopped_on:
     type: date
     required: true
+  total_company_social_amount:
+    type: decimal
+    precision: 19
+    scale: 4
   updated_at:
     type: datetime
     required: true
@@ -10249,13 +10311,6 @@ project_budgets:
     type: integer
     limit: 4
     required: true
-  name:
-    type: string
-  description:
-    type: text
-  lock_version:
-    type: integer
-    required: true
   isacompta_analytic_code:
     type: string
     limit: 2
@@ -10263,6 +10318,8 @@ project_budgets:
     type: integer
     limit: 4
     required: true
+  name:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -10277,15 +10334,19 @@ project_members:
   creator_id:
     type: integer
     references: user
+    limit: 4
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   project_id:
     type: integer
     references: project
+    limit: 4
     required: true
   role:
     type: string
@@ -10295,16 +10356,11 @@ project_members:
   updater_id:
     type: integer
     references: user
+    limit: 4
   user_id:
     type: integer
     references: user
-purchase_natures:
-  active:
-    type: boolean
-    required: true
-    default: true
-  by_default:
-    type: boolean
+    limit: 4
     required: true
 project_tasks:
   billing_method:
@@ -10317,6 +10373,7 @@ project_tasks:
   creator_id:
     type: integer
     references: user
+    limit: 4
   forecast_duration:
     type: decimal
     precision: 9
@@ -10325,9 +10382,11 @@ project_tasks:
     type: string
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   name:
     type: string
@@ -10335,13 +10394,16 @@ project_tasks:
   project_id:
     type: integer
     references: project
+    limit: 4
     required: true
   responsible_id:
     type: integer
     references: user
+    limit: 4
   sale_contract_item_id:
     type: integer
     references: sale_contract_item
+    limit: 4
   started_on:
     type: date
   stopped_on:
@@ -10352,12 +10414,14 @@ project_tasks:
   updater_id:
     type: integer
     references: user
+    limit: 4
   work_number:
     type: string
 projects:
   activity_id:
     type: integer
     references: activity
+    limit: 4
   closed:
     type: boolean
     required: true
@@ -10370,11 +10434,14 @@ projects:
   creator_id:
     type: integer
     references: user
+    limit: 4
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   name:
     type: string
@@ -10385,9 +10452,11 @@ projects:
   responsible_id:
     type: integer
     references: user
+    limit: 4
   sale_contract_id:
     type: integer
     references: sale_contract
+    limit: 4
   started_on:
     type: date
   stopped_on:
@@ -10395,12 +10464,14 @@ projects:
   team_id:
     type: integer
     references: team
+    limit: 4
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+    limit: 4
   work_number:
     type: string
 purchase_items:
@@ -10484,12 +10555,13 @@ purchase_items:
     precision: 19
     scale: 4
     required: true
-  project_task_id:
-    type: integer
-    references: project_task
   project_budget_id:
     type: integer
     references: project_budget
+    limit: 4
+  project_task_id:
+    type: integer
+    references: project_task
     limit: 4
   purchase_id:
     type: integer
@@ -10710,6 +10782,34 @@ registered_agroedi_codes:
     type: integer
     limit: 4
     required: true
+registered_area_items:
+  centroid:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  id:
+    type: string
+    required: true
+  lines:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_line_string
+  name:
+    type: jsonb
+  nature:
+    type: string
+  point:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
 registered_cadastral_buildings:
   centroid:
     type: geometry
@@ -10721,6 +10821,8 @@ registered_cadastral_buildings:
     limit: 4
     required: true
   nature:
+    type: string
+  reference_name:
     type: string
   shape:
     type: geometry
@@ -10847,6 +10949,8 @@ registered_eu_market_prices:
     type: integer
     limit: 4
 registered_graphic_parcels:
+  cap_crop_code:
+    type: string
   centroid:
     type: geometry
     limit:
@@ -10864,6 +10968,11 @@ registered_graphic_parcels:
       type: st_polygon
     required: true
 registered_hydrographic_items:
+  centroid:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
   id:
     type: string
     required: true
@@ -11452,46 +11561,55 @@ roles:
     references: user
     limit: 4
 saas_subscriptions:
+  canceled_at:
+    type: datetime
+  catalog_item_id:
+    type: integer
+    references: catalog_item
+    limit: 4
   created_at:
     type: datetime
     required: true
   creator_id:
     type: integer
     references: user
+    limit: 4
   description:
     type: text
+  entity_id:
+    type: integer
+    references: entity
+    limit: 4
+    required: true
+  entity_payment_method_id:
+    type: integer
+    references: entity_payment_method
+    limit: 4
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
+  name:
+    type: string
+  partner_id:
+    type: integer
+    references: entity
+    limit: 4
+  provider:
+    type: jsonb
   started_at:
     type: datetime
     required: true
   status:
     type: string
-  name:
-    type: string
-  tenant_name:
-    type: string
   stopped_at:
     type: datetime
-  canceled_at:
-    type: datetime
-  catalog_item_id:
-    type: integer
-    references: catalog_item
-  entity_id:
-    type: integer
-    references: entity
-    required: true
-  entity_payment_method_id:
-    type: integer
-    references: entity_payment_method
-  partner_id:
-    type: integer
-    references: entity
+  tenant_name:
+    type: string
   trial_started_at:
     type: datetime
   trial_stopped_at:
@@ -11502,6 +11620,57 @@ saas_subscriptions:
   updater_id:
     type: integer
     references: user
+    limit: 4
+sale_contract_items:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 4
+  id:
+    type: integer
+    limit: 4
+    required: true
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  quantity_unit:
+    type: string
+  sale_contract_id:
+    type: integer
+    references: sale_contract
+    limit: 4
+    required: true
+  unit_pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 4
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    limit: 4
+    required: true
 sale_contract_natures:
   comment:
     type: text
@@ -11511,11 +11680,14 @@ sale_contract_natures:
   creator_id:
     type: integer
     references: user
+    limit: 4
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   name:
     type: string
@@ -11528,10 +11700,12 @@ sale_contract_natures:
   updater_id:
     type: integer
     references: user
+    limit: 4
 sale_contracts:
   client_id:
     type: integer
     references: entity
+    limit: 4
     required: true
   closed:
     type: boolean
@@ -11545,6 +11719,7 @@ sale_contracts:
   creator_id:
     type: integer
     references: user
+    limit: 4
   currency:
     type: string
     required: true
@@ -11552,9 +11727,11 @@ sale_contracts:
     type: jsonb
   id:
     type: integer
+    limit: 4
     required: true
   lock_version:
     type: integer
+    limit: 4
     required: true
   name:
     type: string
@@ -11562,6 +11739,7 @@ sale_contracts:
   nature_id:
     type: integer
     references: sale_contract_nature
+    limit: 4
   number:
     type: string
   pretax_amount:
@@ -11572,9 +11750,11 @@ sale_contracts:
   responsible_id:
     type: integer
     references: entity
+    limit: 4
   sale_opportunity_id:
     type: integer
     references: sale_opportunity
+    limit: 4
   started_on:
     type: date
   stopped_on:
@@ -11585,6 +11765,7 @@ sale_contracts:
   updater_id:
     type: integer
     references: user
+    limit: 4
 sale_items:
   account_id:
     type: integer
@@ -11678,6 +11859,7 @@ sale_items:
   project_task_id:
     type: integer
     references: project_task
+    limit: 4
   quantity:
     type: decimal
     precision: 19
@@ -11937,6 +12119,7 @@ sales:
   subscription_id:
     type: integer
     references: subscription
+    limit: 4
   transporter_id:
     type: integer
     references: entity
@@ -12104,6 +12287,7 @@ subscriptions:
   address_id:
     type: integer
     references: entity_address
+    limit: 4
   codes:
     type: jsonb
   created_at:
@@ -12154,7 +12338,6 @@ subscriptions:
     type: string
   stopped_on:
     type: date
-    required: true
   subscriber_id:
     type: integer
     references: entity
@@ -13697,6 +13880,7 @@ worker_time_logs:
   project_task_id:
     type: integer
     references: project_task
+    limit: 8
   provider:
     type: jsonb
   started_at:
@@ -13705,12 +13889,12 @@ worker_time_logs:
   stopped_at:
     type: datetime
     required: true
-  travel_expense_details:
-    type: string
   travel_expense:
     type: boolean
     required: true
     default: false
+  travel_expense_details:
+    type: text
   updated_at:
     type: datetime
     required: true

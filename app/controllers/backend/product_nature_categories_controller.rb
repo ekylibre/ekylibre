@@ -33,6 +33,10 @@ module Backend
       code << "  c[0] += ' AND product_nature_categories.active = ?'\n"
       code << "  c << false\n"
       code << "end\n"
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{ProductNatureCategory.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -50,6 +54,7 @@ module Backend
       t.column :stock_account, if: :storable?, url: { controller: '/backend/accounts' }
       t.column :depreciable, hidden: true
       t.column :fixed_asset_account, if: :depreciable?, url: { controller: '/backend/accounts' }
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
       t.column :variants_count, hidden: true
     end
 

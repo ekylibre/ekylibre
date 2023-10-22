@@ -114,3 +114,4 @@ yarn-debug.log*
 # Remote rubocop configurations
 /.rubocop-*
 .rbenv-gemsets
+ekylibre-document-ai.json

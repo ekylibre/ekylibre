@@ -60,6 +60,7 @@ fra:
     ekylibre_ofx_import: "Relevés de compte (ZIP ‒ OFX) - Ekylibre"
     ekylibre_original_purchase_files: "Pièces originales d’achats (ZIP ‒ ’PDF/JPG’)- Ekylibre" #?
     ekylibre_outgoing_payments: "Décaissements (CSV) ‒ Ekylibre"
+    ekylibre_payslips: "Bulletins de paie (CSV) ‒ Ekylibre"
     ekylibre_pictures: "Images équipements / tiers"
     ekylibre_plants: "Plantations et cultures ‒ Ekylibre"
     ekylibre_project_task_logs: "Temps travaux Projets (ODS) ‒ Ekylibre"

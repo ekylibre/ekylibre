@@ -2,8 +2,9 @@
 
 - main_tools = capture do
   - if current_user
+    
     - count = current_user.unread_notifications.count
-
+    %li.changelog= link_to(content_tag(:i), "#changelog")
     %li{ class: controller_name == 'notifications' ? :active : nil }
       .navbar__notifications.dropdown.show
         .notifications-btn.dropdown-toggle{ data: { toggle: 'dropdown' } }

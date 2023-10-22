@@ -1139,9 +1139,9 @@ class Intervention < ApplicationRecord
   private def compute_pfi_async
     return if !eligible_for_pfi_calculation?
 
-    campaign = Campaign.find_by(harvest_year: started_at.year)
+    campaign = Campaign.find_or_create_by(harvest_year: started_at.year)
 
-    PfiCalculationJob.perform_later(campaign, [self], creator)
+    PfiCalculationJob.perform_later(campaign.id, id, creator)
   end
 
   # @private

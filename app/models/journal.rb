@@ -66,7 +66,7 @@ class Journal < ApplicationRecord
   has_many :purchase_natures, dependent: :restrict_with_exception
   has_many :sale_natures, dependent: :restrict_with_exception
   has_many :inventories, inverse_of: :journal
-  enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure result], default: :various, predicates: true
+  enumerize :nature, in: %i[sales purchases fixed_assets bank forward various cash stocks closure result payslip], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
@@ -107,6 +107,7 @@ class Journal < ApplicationRecord
   scope :results,         -> { where(nature: 'result') }
   scope :stocks,          -> { where(nature: 'stocks') }
   scope :fixed_assets,    -> { where(nature: 'fixed_assets') }
+  scope :payslips,        -> { where(nature: 'payslip') }
   scope :banks_or_cashes, -> { where(nature: %w[cashes bank]) }
   scope :purchases_or_fixed_assets, -> { where(nature: %w[purchases fixed_assets]) }
   scope :currently_exchanged, -> { joins(:financial_year_exchange).where("financial_year_exchanges.format = 'isacompta' AND (isacompta_code IS NULL OR isacompta_label IS NULL)") }

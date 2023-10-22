@@ -2,14 +2,17 @@ module Backend
   module Cells
     class WeatherCellsController < Backend::Cells::WeatherCellsBaseController
       def show
-        json = api_weather_data
-        @forecast = json.fmap { |j| build_hourly_forecast j }.or_nil
-        rescue Net::OpenTimeout => e
+        response = api_weather_data
+        if response && response["cod"] != "200"
           @forecast = nil
-          logger.warn "Net::OpenTimeout: Cannot open service OpenWeatherMap in time (#{e.message})"
-        rescue Net::ReadTimeout => e
+          @error = response["message"]
+        elsif response
+          @forecast = build_hourly_forecast(response)
+          @error = nil
+        else
           @forecast = nil
-          logger.warn "Net::ReadTimeout: Cannot read service OpenWeatherMap in time (#{e.message})"
+          @error = nil
+        end
       end
     end
   end

@@ -35,13 +35,13 @@
 #
 class NetService < ApplicationRecord
   refers_to :reference_name, class_name: 'NetService'
-  has_many :identifiers, -> { order(:nature) }
+  has_many :identifiers, -> { order(:nature) }, inverse_of: :net_service, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :reference_name, presence: true
   # ]VALIDATORS]
   validates :reference_name, uniqueness: true
 
-  accepts_nested_attributes_for :identifiers
+  accepts_nested_attributes_for :identifiers, allow_destroy: true
 
   delegate :url, to: :reference
 

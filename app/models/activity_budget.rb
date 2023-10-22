@@ -60,6 +60,7 @@ class ActivityBudget < ApplicationRecord
   validate :one_default_revenue_exist, if: -> { activity && activity.main? }
 
   scope :opened, -> { where(activity: Activity.actives) }
+  scope :availables, -> { where(activity: Activity.availables) }
   scope :of_campaign, ->(campaign) { where(campaign: campaign) }
   scope :excepted, ->(exception) {where.not(id: exception)}
   scope :of_activity, ->(activity) { where(activity: activity) }

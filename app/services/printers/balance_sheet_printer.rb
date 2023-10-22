@@ -5,6 +5,9 @@ module Printers
   class BalanceSheetPrinter < PrinterBase
     include ApplicationHelper
 
+    AGRI_PCG = [:fr_pcga, :fr_pcga2023].freeze
+    GENERAL_PCG = [:fr_pcg82, :fr_pcg2023].freeze
+
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(financial_year:)
@@ -16,7 +19,7 @@ module Printers
       super(template: template)
 
       @financial_year = financial_year
-      @accounting_system = @financial_year.accounting_system.to_sym
+      @accounting_system = @financial_year.accounting_system&.to_sym || Preference[:accounting_system]&.to_sym
       @current_compute = AccountancyComputation.new(@financial_year)
       @previous_compute = AccountancyComputation.new(@financial_year.previous) if @financial_year.previous
       @document_scope = :balance_sheet
@@ -66,7 +69,7 @@ module Printers
       end
 
       # PCGA - alive corporeal_assets, short & long_cycle_alive_products, stocks
-      if @accounting_system == :fr_pcga || @accounting_system == :fr_pcga2023
+      if @accounting_system.in?(AGRI_PCG)
         pcga_alive_active = [
           [:alive_corporeal_assets, true, [:alive_corporeal_assets_adult_animals, :alive_corporeal_assets_young_animals,
                                            :alive_corporeal_assets_service_animals, :alive_corporeal_assets_perennial_plants,
@@ -90,7 +93,7 @@ module Printers
       end
 
       # PCG82 - alive corporeal_assets, short & long_cycle_alive_products, stocks
-      if @accounting_system == :fr_pcg82
+      if @accounting_system.in?(GENERAL_PCG)
         pcg82_stock_active = [
           [:stocks, true, [:raw_matters, :stocks_supply_products, :stocks_supply_services, :stocks_middle_products, :stocks_end_products]]
 

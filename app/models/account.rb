@@ -51,7 +51,7 @@
 class Account < ApplicationRecord
   include Customizable
   include Providable
-  CENTRALIZING_NATURES = %i[client supplier employee].freeze
+  CENTRALIZING_NATURES = %i[client supplier employee payslip_contributor].freeze
 
   @@references = []
   # has_many :account_balances
@@ -80,6 +80,7 @@ class Account < ApplicationRecord
   has_many :stocks_movement_categories,   class_name: 'ProductNatureCategory', foreign_key: :stock_movement_account_id
   has_many :suppliers,                    class_name: 'Entity', foreign_key: :supplier_account_id
   has_many :employees,                    class_name: 'Entity', foreign_key: :employee_account_id
+  has_many :payslip_contributors,         class_name: 'Entity', foreign_key: :payslip_contributor_account_id
   has_many :stocks_variants,              class_name: 'ProductNatureVariant', foreign_key: :stock_account_id
   has_many :stocks_movement_variants,     class_name: 'ProductNatureVariant', foreign_key: :stock_movement_account_id
   has_many :loans,                        class_name: 'Loan', foreign_key: :loan_account_id
@@ -124,8 +125,9 @@ class Account < ApplicationRecord
   }
 
   scope :clients,   -> { of_usages(:clients, :social_agricultural_mutuality, :usual_associates_current_accounts) }
-  scope :suppliers, -> { of_usages(:suppliers, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :suppliers, -> { of_usages(:suppliers, :entity_collectable_taxes, :usual_associates_current_accounts) }
   scope :employees, -> { of_usages(:staff_due_remunerations, :associates_current_accounts) }
+  scope :payslip_contributors, -> { of_usages(:social_agricultural_mutuality, :social_security, :other_social_organisation) }
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
@@ -282,6 +284,7 @@ class Account < ApplicationRecord
 
       account_nomen = nature.to_s.pluralize
       account_nomen = :staff_due_remunerations if nature == :employee
+      account_nomen = :other_social_organisation if nature == :payslip_contributor
 
       prefix = Preference[:"#{nature}_account_radix"]
       if prefix.blank?
@@ -293,6 +296,15 @@ class Account < ApplicationRecord
 
     def generate_employee_account_number_for(entity_id)
       prefix = centalizing_account_prefix_for(:employee)
+      suffix_length = Preference[:account_number_digits] - prefix.length
+
+      suffix = entity_id.to_s.rjust(suffix_length, '0')
+
+      "#{prefix}#{suffix}"
+    end
+
+    def generate_payslip_contributor_account_number_for(entity_id)
+      prefix = centalizing_account_prefix_for(:payslip_contributor)
       suffix_length = Preference[:account_number_digits] - prefix.length
 
       suffix = entity_id.to_s.rjust(suffix_length, '0')

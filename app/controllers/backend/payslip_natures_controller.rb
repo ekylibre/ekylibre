@@ -11,6 +11,7 @@ module Backend
       t.column :active
       t.column :currency
       t.column :with_accounting
+      t.column :imported_centralizing_entries
       t.column :journal, url: true
       t.column :account, url: true
     end

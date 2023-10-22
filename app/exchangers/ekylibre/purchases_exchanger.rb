@@ -28,7 +28,7 @@ module Ekylibre
 
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          supplier_full_name: (row[1].blank? ? nil : row[1]),
+          supplier_full_name: (row[1].blank? ? nil : row[1].to_s.strip),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           variant_code:       (row[3].blank? ? nil : row[3]),
           role:         (row[4].blank? ? 'merchandise' : row[4]),
@@ -81,7 +81,7 @@ module Ekylibre
 
         r = {
           invoiced_at:        (row[0].blank? ? nil : Date.parse(row[0].to_s)),
-          supplier_full_name: (row[1].blank? ? nil : row[1]),
+          supplier_full_name: (row[1].blank? ? nil : row[1].to_s.strip),
           reference_number:   (row[2].blank? ? nil : row[2].upcase),
           variant_code:       (row[3].blank? ? nil : row[3]),
           role:               (row[4].blank? ? 'merchandise' : row[4]),
@@ -175,7 +175,7 @@ module Ekylibre
             reconciliation_state: :accepted,
             description: r.description
           )
-          if @attachments_dir.present?
+          if @attachments_dir.present? && purchase.reference_number.present?
             attachment_potential_path = @attachments_dir.join(purchase.supplier.name.parameterize,
                                                               purchase.reference_number + ".*")
             attachment_paths = Dir.glob(attachment_potential_path)

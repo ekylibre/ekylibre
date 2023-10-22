@@ -1,3 +1,3 @@
 - main_toolbar do |t|
-  = t.new label: :save_salary.tl, variants: PayslipNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }.presence, class: ("disabled" if PayslipNature.count.zero?)
+  = t.new label: :save_salary.tl, variants: PayslipNature.all.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }.presence, class: ("disabled" if PayslipNature.all.count.zero?)
 = main_list

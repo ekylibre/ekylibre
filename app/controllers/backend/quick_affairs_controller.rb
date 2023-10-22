@@ -1,5 +1,5 @@
 module Backend
-  # This controller handles sales and purchases generation from BankStatements.
+  # This controller handles sales, purchases, payslips and payslip contributions generation from BankStatements.
   class QuickAffairsController < Backend::BaseController
     def new
       return head :bad_request unless nature = params[:nature_id]
@@ -8,7 +8,11 @@ module Backend
 
       date     = Maybe(@bank_statement_items).minimum(:transfered_on).or_nil
       @trade   = self.class::Trade.new(invoiced_at: date, nature_id: nature)
-      @trade.items.new
+      if (@trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase) || @trade.is_a?(Sale))
+        @trade.items.new
+      end
+
+      @url_helper = :"backend_quick_#{url_interpolate}_path"
 
       @amount   = @bank_statement_items ? @bank_statement_items.sum(:credit) - @bank_statement_items.sum(:debit) : 0
       @amount  *= self.class::Payment.sign_of_amount
@@ -28,7 +32,7 @@ module Backend
 
       @trade = new_trade
       @payment = new_payment(@trade.third, @trade.invoiced_at)
-
+      @url_helper = :"backend_quick_#{url_interpolate}_path"
       @amount  = @bank_statement_items ? @bank_statement_items.sum(:credit) - @bank_statement_items.sum(:debit) : 0
       @amount *= self.class::Payment.sign_of_amount
 
@@ -37,7 +41,7 @@ module Backend
           unless @trade.valid? && @payment.valid?
             @affair = self.class::Trade.affair_class.new
             @redirect_to = params[:redirect]
-            @trade.items.new if @trade.items.size.zero?
+            @trade.items.new if @trade.items.size.zero? && (@trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase) || @trade.is_a?(Sale))
             return render :new
           end
           @trade.save!   && @trade.reload
@@ -63,11 +67,25 @@ module Backend
 
     protected
 
-      def new_trade
-        return self.class::Trade.find_by(id: affair_params[:trade_id]) if @mode_for[:trade] =~ /existing/
+      def url_interpolate
+        if @trade.is_a?(Sale)
+          url_interpolate = 'sales'
+          @trade.items.new
+        elsif @trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase)
+          url_interpolate = 'purchases'
+          @trade.items.new
+        elsif @trade.is_a?(Payslip)
+          url_interpolate = 'payslips'
+        end
+      end
 
-        third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
-        self.class::Trade.new(trade_params.merge(third_param))
+      def new_trade
+        if @mode_for[:trade] =~ /existing/ && affair_params[:trade_id].present?
+          self.class::Trade.find_by(id: affair_params[:trade_id])
+        else
+          third_param = { self.class::Trade.third_attribute => Entity.find_by(id: affair_params[:third_id]) }
+          self.class::Trade.new(trade_params.merge(third_param))
+        end
       end
 
       def new_payment(third, at)

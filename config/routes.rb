@@ -1079,6 +1079,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :payslip_contribution_payments, concerns: %i[list unroll], path: 'payslip-contribution-payments'
+
     resources :plant_density_abaci, except: [:index], path: 'plant-density-abaci'
 
     resources :plant_density_abacus_items, only: [:new], concerns: [:unroll], path: 'plant-density-abacus-items'
@@ -1247,6 +1249,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :quick_payslips, only: %i[new create], path: 'quick-payslips'
+    resources :quick_payslip_contributions, only: %i[new create], path: 'quick-payslip-contributions'
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 

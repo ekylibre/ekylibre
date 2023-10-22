@@ -14,6 +14,8 @@ module Ekylibre
   # H: Sale pretax amount price
   # I: Price unity
   # J: Indicators - HASH
+  # K: france maaid
+  # L: accoutancy_category
   class VariantsExchanger < ActiveExchanger::Base
     category :settings
     vendor :ekylibre
@@ -45,7 +47,11 @@ module Ekylibre
               h[i.first.strip.downcase.to_sym] = i.second
               h
             end,
-            france_maaid: s.cell('K', row).blank? ? nil : s.cell('K', row).to_s.strip
+            france_maaid: s.cell('K', row).blank? ? nil : s.cell('K', row).to_s.strip,
+            category_name: s.cell('L', row).blank? ? nil : s.cell('L', row).to_s.strip,
+            category_reference_name: s.cell('M', row).blank? ? nil : s.cell('M', row).to_s.strip.downcase.to_sym,
+            category_product_account_number: s.cell('N', row).blank? ? nil : s.cell('N', row).to_s.strip,
+            category_charge_account_number: s.cell('O', row).blank? ? nil : s.cell('O', row).to_s.strip
           }.to_struct
 
           unless r.reference_name
@@ -80,7 +86,25 @@ module Ekylibre
           variant.work_number = r.work_number if r.work_number
           variant.unit_name ||= :unit.tl
           variant.france_maaid = r.france_maaid if r.france_maaid
+          if r.category_reference_name
+            if ProductNatureCategory.find_by_name(r.category_name)
+              category = ProductNatureCategory.find_by_name(r.category_name)
+            else
+              category = ProductNatureCategory.import_from_lexicon(r.category_reference_name, true)
+              category.name = r.category_name
+              category.save!
+            end
+            variant.category = category
+          end
           variant.save!
+          # update category with attributes
+          if r.category_product_account_number
+            variant.category.product_account = find_or_create_account(r.category_product_account_number, r.name)
+          end
+          if r.category_charge_account_number
+            variant.category.charge_account = find_or_create_account(r.category_charge_account_number, r.name)
+          end
+          variant.category.save! if (r.category_product_account_number || r.category_charge_account_number)
 
           if r.indicators.any?
             r.indicators.each do |indicator_name, value|
@@ -108,5 +132,45 @@ module Ekylibre
         w.check_point
       end
     end
+
+    private
+
+      # @param [String] acc_number
+      # @param [String] acc_name
+      # @return [Account]
+      def find_or_create_account(acc_number, acc_name = nil)
+        Maybe(find_or_create_account_by_number(acc_number, acc_name))
+          .or_raise
+      end
+
+      # @param [String] acc_number
+      # @param [String] acc_name
+      # @return [Account]
+      def find_or_create_account_by_number(acc_number, acc_name = nil)
+        normalized = account_normalizer.normalize!(acc_number)
+
+        Maybe(Account.find_by(number: normalized))
+          .recover { create_account(acc_number, normalized, acc_name) }
+          .or_raise
+      end
+
+      # @param [String] acc_number
+      # @param [String] acc_name
+      # @return [Account]
+      def create_account(acc_number, acc_number_normalized, acc_name = nil)
+        attrs = {
+          name: acc_name,
+          number: acc_number_normalized
+        }
+        Account.create!(attrs)
+      end
+
+    protected
+
+      # @return [Accountancy::AccountNumberNormalizer]
+      def account_normalizer
+        @account_normalizer ||= Accountancy::AccountNumberNormalizer.build
+      end
+
   end
 end

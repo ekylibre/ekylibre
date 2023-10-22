@@ -272,6 +272,10 @@ purchases:
     path: 'alamano/purchases.csv'
     options:
       attachments_path: 'alamano/purchases'
+  ekylibre_payslips:
+    path: 'alamano/payslips.csv'
+    options:
+      attachments_path: 'alamano/payslips'
   ekylibre_outgoing_payments:
     path: 'alamano/outgoing_payments.csv'
 

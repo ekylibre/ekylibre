@@ -1,9 +1,21 @@
 = field_set do
   = f.referenced_association :nature
   = f.referenced_association :employee, source: :employees, new: { employee: 1, nature: 'contact' }, label: Payslip.human_attribute_name(:employee)
+
+= field_set(:periods) do
   = f.input :started_on
   = f.input :stopped_on
-  = f.input :amount
   = f.input :emitted_on
+
+= field_set do
+  = f.input :amount
+  - if f.object.with_accounting && f.object.imported_centralizing_entries
+    = ' '
+  - elsif f.object.with_accounting
+    = f.input :raw_amount
+    = f.input :source_revenue_amount
+    = f.input :social_security_amount
+    = f.input :other_social_expenses_amount
+    = f.input :total_company_social_amount
 
 = f.attachments_field_set

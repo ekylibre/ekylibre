@@ -14,6 +14,12 @@
       %div.label-container
         %label= ProductNatureVariant.human_attribute_name(:nature)
       = select_tag(:nature_id, options_for_select([[]] + natures.order(:name).collect{|u| [u.name, u.id]}, params[:nature_id]))
+  - providers = ProductNatureVariant.providers_vendors
+  - if providers.any?
+    - k.helper do
+      %div.label-container
+        %label= ProductNatureVariant.human_attribute_name(:providers)
+      = select_tag(:provider, options_for_select([[]] + providers.map(&:capitalize), params[:provider].to_s))
 
 - main_toolbar do
   = dropdown_menu_button(:articles.tl, main_class: 'btn-pill') do |d|

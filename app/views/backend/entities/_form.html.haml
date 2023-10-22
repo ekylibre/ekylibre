@@ -52,6 +52,13 @@
     = f.referenced_association :supplier_payment_mode
     = f.input :transporter
 
+= field_set(:payslip_contributor_informations) do
+  = f.input :payslip_contributor, show: '#payslip-contributor-informations'
+  #payslip-contributor-informations
+    - new_number = Account.find_or_import_from_nomenclature(:staff_due_remunerations, create_if_nonexistent: false).number.ljust(Preference[:account_number_digits], '0')
+    - new_number.succ! while Account.find_by(number: new_number).present?
+    = f.referenced_association :payslip_contributor_account, source: :payslip_contributors, new: { number: new_number}
+
 = field_set(:bank_account) do
   = f.input :bank_account_holder_name
   = f.input :bank_identifier_code

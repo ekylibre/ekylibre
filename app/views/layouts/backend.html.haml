@@ -12,6 +12,12 @@
     = javascript_pack_tag :legacy
     = javascript_pack_tag :application
     = javascript_include_tag :application, "data-turbolinks-track" => "reload"
+    :javascript
+      var HW_config = {
+        selector: "#user",
+        account:  "xdQWg7"
+      };
+    %script{async: '', src: "https://cdn.headwayapp.co/widget.js"}
   :ruby
     body_attrs = {}
     if content_for?(:tour)

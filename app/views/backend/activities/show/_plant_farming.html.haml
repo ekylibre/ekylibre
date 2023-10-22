@@ -62,17 +62,11 @@
       - dimension = resource.unit_preference(current_user)
 
     - c.cobble :map do
-      - data = support_series(resource)
+      - data = resource.productions.of_campaign(current_campaign)
       - if data.empty?
         .placeholding-message= :no_production_defined_for_current_campaign.tn
       - else
-        = visualization(optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path) do |v|
-          - v.serie :main, data
-          - v.simple :support, :main
-          - v.control :zoom
-          - v.control :scale
-          - v.control :fullscreen
-          - v.control :layer_selector
+        = model_map(data, shape_method: :support_shape, layer_options: {fill_color: resource.color, fill_opacity:0.8 })
   - if IncomingHarvestIndicator.of_campaign(current_campaign).of_activity(resource).any?
     - c.cobble(:harvest_costs, title: :harvest_costs.tl) do
       = render partial: 'backend/shared/harvest_costs', locals: { campaign: current_campaign, activity: resource }

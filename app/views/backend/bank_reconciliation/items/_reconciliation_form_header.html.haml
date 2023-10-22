@@ -10,6 +10,15 @@
                   class: 'from-selected-bank from-selected-journal gap-creation',        |
                   title: regul_journal[:name]                                            |
 
+  = dropdown_menu_button :new_payslip, icon: false do |menu|
+    - payslip_natures.each do |nature|
+      - menu.item nature.name,                                                                                   |
+                new_backend_quick_payslip_path(nature_id: nature.id, redirect: url_for(url_redirect_params)), |
+                tabindex: -1,                                                                                  |
+                method: :get,                                                                                  |
+                class: 'from-selected-bank',                                                                   |
+                title: nature.name
+
   = dropdown_menu_button :new_purchase, icon: false do |menu|
     - purchase_natures.each do |nature|
       - menu.item nature.name,                                                                                   |

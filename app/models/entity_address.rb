@@ -128,8 +128,7 @@ class EntityAddress < ApplicationRecord
     end
   end
 
-  after_validation :geocode_address
-  after_update :geocode_address
+  after_save :geocode_address
 
   def geocode_address
     geocode

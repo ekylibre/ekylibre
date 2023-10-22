@@ -45,9 +45,8 @@ class PayslipNature < ApplicationRecord
   belongs_to :account
   belongs_to :journal
   has_many :payslips, foreign_key: :nature_id, dependent: :restrict_with_exception
-
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :by_default, :with_accounting, inclusion: { in: [true, false] }
+  validates :active, :by_default, :with_accounting, :imported_centralizing_entries, inclusion: { in: [true, false] }
   validates :currency, :journal, presence: true
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
@@ -55,12 +54,51 @@ class PayslipNature < ApplicationRecord
 
   selects_among_all
 
+  scope :actives, -> { where(active: true) }
+
   after_initialize if: :new_record? do
-    self.active = true
-    self.with_accounting = true
+    self.active ||= true
+    self.with_accounting ||= false
+    self.imported_centralizing_entries ||= false
+  end
+
+  before_validation do
+    self.currency ||= Preference[:currency]
+    self.active ||= true
+    self.with_accounting ||= false
+    self.imported_centralizing_entries ||= false
+    self.journal ||= Journal.create!(name: "enumerize.journal.nature.payslip".t,
+                                  nature: 'payslip', currency: Preference[:currency],
+                                  closed_on: Date.new(1899, 12, 31).end_of_month)
+    if with_accounting && imported_centralizing_entries
+      self.account ||= Account.find_or_import_from_nomenclature(:staff_due_remunerations)
+    elsif with_accounting
+      self.account ||= Account.find_or_import_from_nomenclature(:staff_expenses)
+    end
   end
 
   protect on: :destroy do
     payslips.any?
+  end
+
+  class << self
+    # Load default payslip nature
+    def load_defaults(**_options)
+      nature = :payslip
+      currency = Preference[:currency]
+      journal = Journal.find_by(nature: nature, currency: currency)
+      journal ||= Journal.create!(name: "enumerize.journal.nature.#{nature}".t,
+                                  nature: nature.to_s, currency: currency,
+                                  closed_on: Date.new(1899, 12, 31).end_of_month)
+      unless find_by(name: PayslipNature.tc('default.name'))
+        create!(
+          name: PayslipNature.tc('default.name'),
+          active: true,
+          with_accounting: false,
+          imported_centralizing_entries: false,
+          journal: journal
+        )
+      end
+    end
   end
 end

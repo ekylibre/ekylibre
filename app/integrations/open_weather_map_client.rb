@@ -6,12 +6,13 @@ class OpenWeatherMapClient
   attr_accessor :apikey, :current_user
 
   def self.from_identifier(identifier, current_user)
-    new(Maybe(identifier).value, current_user)
+    new(identifier&.value&.strip, current_user)
   end
 
   def initialize(apikey, current_user)
     @apikey = apikey
-    @language = current_user.language[0..1] || 'en'
+    lg = current_user&.language
+    @language = (lg.present? ? lg[0..1] : 'en')
   end
 
   def client
@@ -20,24 +21,28 @@ class OpenWeatherMapClient
 
   def fetch_forecast(coordinates)
     if coordinates.nil?
-      return None()
+      logger.warn 'Missing Coordinates'
+      return { "cod" => "401", "message" => :openweathermap_missing_coordinates.tl }
     end
 
-    if apikey.is_none?
-      logger.warn 'Missing OpenWeatherMap api key in identifiers)'
-      return None()
+    if apikey.nil?
+      logger.warn 'Missing OpenWeatherMap api key in identifiers'
+      return { "cod" => "401", "message" => :openweathermap_missing_apikey.tl }
     end
 
     begin
-      return Maybe(client.get(url_for(*coordinates))).fmap { |res| JSON.parse(res.body).presence }
+      call = client.get(url_for(*coordinates))
+      response = JSON.parse(call.body)
     rescue Net::OpenTimeout => e
       logger.warn "Net::OpenTimeout: Cannot open service OpenWeatherMap in time (#{e.message})"
+      nil
     rescue Net::ReadTimeout => e
       logger.warn "Net::ReadTimeout: Cannot read service OpenWeatherMap in time (#{e.message})"
+      nil
     rescue StandardError => e
       logger.warn "Unexpected error while requesting data from OpenWeatherMap (#{e.message})"
+      nil
     end
-    None()
   end
 
   private
@@ -47,7 +52,7 @@ class OpenWeatherMapClient
     end
 
     def url_for(lat, lng)
-      "/data/2.5/onecall?lat=#{lat}&lon=#{lng}&mode=json&units=metric&lang=#{@language}&APPID=#{apikey.get}"
+      "/data/2.5/forecast?lat=#{lat}&lon=#{lng}&units=metric&lang=#{@language}&appid=#{@apikey}"
     end
 
     def build_client

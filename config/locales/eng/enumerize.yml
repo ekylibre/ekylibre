@@ -376,6 +376,10 @@ eng:
         third: "Transported by recipient"
         transporter: "Transported by transporter"
         us: "Transported by us"
+    payslip_nature:
+      nature:
+        net_salary: "Net salary"
+        social_expense: "Social expense"
     plant_counting:
       nature:
         germination: "At germination"

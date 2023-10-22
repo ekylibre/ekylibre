@@ -51,6 +51,7 @@ class Payslip < ApplicationRecord
   include Attachable
   include Customizable
   belongs_to :account
+  belongs_to :affair
   belongs_to :employee, class_name: 'Entity'
   belongs_to :journal_entry
   belongs_to :nature, class_name: 'PayslipNature'
@@ -66,13 +67,30 @@ class Payslip < ApplicationRecord
   # ]VALIDATORS]
   validates :emitted_on, presence: { if: :invoice? }
   validates :amount, numericality: { greater_than: 0 }
+  validates :employee, presence: true
 
   delegate :with_accounting, to: :nature
+  delegate :imported_centralizing_entries, to: :nature
 
   alias_attribute :third_id, :employee_id
 
   acts_as_numbered
   acts_as_affairable :employee, class_name: 'PayslipAffair'
+
+  before_validation do
+    self.state ||= :draft
+    if nature
+      self.currency = nature.currency
+      self.account ||= nature.account if nature.account
+    end
+    self.emitted_on ||= Time.zone.today if invoice?
+  end
+
+  validate do
+    if with_accounting
+      amount_accountancy_equality
+    end
+  end
 
   state_machine :state, initial: :draft do
     state :draft
@@ -95,21 +113,56 @@ class Payslip < ApplicationRecord
 
   # This callback permits to add journal entries corresponding to the payslip
   # It depends on the preference which permit to activate the "automatic bookkeeping"
+  ## imported_centralizing_entries
+  # C 421XX  amount
+  # D 421    amount
+  ## no imported_centralizing_entries
+  # C 421XX  amount
+  # C 431    social_security_amount
+  # C 437    other_social_expenses_amount
+  # C 4421   source_revenue_amount
+  # D 6411   raw_amount
+  # D 645    total_company_social_amount
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
-      entry.add_debit(label, (account || nature.account || Account.find_or_import_from_nomenclature(:staff_expenses)).id, amount, as: :expense)
-      entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)
+    if imported_centralizing_entries
+      b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
+        label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
+        # amount
+        entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)
+        # compensation_amount
+        entry.add_debit(label, (account || nature.account || Account.find_or_import_from_nomenclature(:staff_due_remunerations)).id, amount, as: :expense)
+      end
+    else
+      b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
+        label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
+        # amount
+        entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)
+        # social_security_amount
+        entry.add_credit(label, Account.find_or_import_from_nomenclature(:social_security).id, social_security_amount, as: :expense)
+        # other_social_expenses_amount
+        entry.add_credit(label, Account.find_or_import_from_nomenclature(:other_social_organisation).id, other_social_expenses_amount, as: :expense)
+        # source_revenue_amount
+        entry.add_credit(label, Account.find_or_import_from_nomenclature(:source_revenue_taxes).id, source_revenue_amount, as: :expense)
+        # raw_amount
+        entry.add_debit(label, (account || nature.account || Account.find_or_import_from_nomenclature(:staff_expenses)).id, amount, as: :expense)
+        # total_company_social_amount
+        entry.add_debit(label, Account.find_or_import_from_nomenclature(:salary_social_contribution_expenses).id, total_company_social_amount, as: :expense)
+      end
     end
   end
 
-  before_validation do
-    self.state ||= :draft
-    if nature
-      self.currency = nature.currency
-      self.account ||= nature.account if nature.account
+  def amount_accountancy_equality
+    if imported_centralizing_entries == false && credit_account_part.to_f != debit_account_part.to_f
+      errors.add(:amount, :amounts_are_not_balanced)
     end
-    self.emitted_on ||= Time.zone.today if invoice?
+  end
+
+  def credit_account_part
+    amount + source_revenue_amount + social_security_amount + other_social_expenses_amount
+  end
+
+  def debit_account_part
+    raw_amount + total_company_social_amount
   end
 
   def label
@@ -134,4 +187,29 @@ class Payslip < ApplicationRecord
 
     :stop
   end
+
+  def self.affair_class
+    PayslipAffair
+  end
+
+  def self.third_attribute
+    :employee
+  end
+
+  def default_currency
+    currency || nature.currency
+  end
+
+  def precision
+    Onoma::Currency.find(currency).precision
+  end
+
+  def refresh
+    save
+  end
+
+  def third
+    send(third_attribute)
+  end
+  delegate :third_attribute, to: :class
 end
