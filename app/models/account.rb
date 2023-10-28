@@ -449,8 +449,12 @@ class Account < ApplicationRecord
       raise ArgumentError.new("The usage #{usage.inspect} is unknown") unless item
       raise ArgumentError.new("The usage #{usage.inspect} is not implemented in #{accounting_system.inspect}") unless acc_number
 
+      # find existing usage
       account = find_by_usage(usage, except: { nature: :auxiliary })
-      unless account
+      # find existing number
+      norm_number = acc_number.ljust(Preference[:account_number_digits], '0')
+      account ||= find_by_number(norm_number)
+      if number_unique?(norm_number) && account.nil?
         return unless valid_item?(item) && acc_number.match(/\A[1-9]0*\z|\A0/).nil?
 
         account = new(
