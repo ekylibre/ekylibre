@@ -80,8 +80,8 @@ class SaleNature < ApplicationRecord
   scope :actives, -> { where(active: true) }
 
   before_validation do
-    self.expiration_delay = '0 minutes' if expiration_delay.blank?
-    self.payment_delay    = '1 week' if payment_delay.blank?
+    self.expiration_delay = '30 day' if expiration_delay.blank?
+    self.payment_delay    = '30 days' if payment_delay.blank?
     self.downpayment_minimum ||= 0
     self.downpayment_percentage ||= 0
   end
