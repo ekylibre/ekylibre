@@ -1105,6 +1105,10 @@ fra:
       project_budget: "Budget interne" #?
       providers: "Solution tierce"
       provider_vendor: "Solution tierce"
+      project: "Projet"
+      project_member: "Membre du projet"
+      project_task: "Tâche de projet"
+      project_budget: "Budget interne"
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"

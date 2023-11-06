@@ -53,7 +53,7 @@ class Payslip < ApplicationRecord
   belongs_to :account
   belongs_to :affair
   belongs_to :employee, class_name: 'Entity'
-  belongs_to :journal_entry
+  belongs_to :journal_entry, dependent: :destroy
   belongs_to :nature, class_name: 'PayslipNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -105,10 +105,6 @@ class Payslip < ApplicationRecord
 
   protect do
     (journal_entry && (journal_entry.closed? || journal_entry.confirmed?))
-  end
-
-  after_destroy do
-    journal_entry.remove if (journal_entry.present? && journal_entry.draft?)
   end
 
   # This callback permits to add journal entries corresponding to the payslip
