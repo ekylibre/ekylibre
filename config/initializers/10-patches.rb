@@ -331,7 +331,7 @@ module Charta
       SQL
       query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, feature: feature.as_text])
       result = ActiveRecord::Base.connection.execute(query).first['reason']
-      result.start_with?("Hole lies outside shell")  
+      result.start_with?("Hole lies outside shell")
     end
 
   end

@@ -7,6 +7,7 @@
     - l.attribute :name
     - l.attribute :description
     - l.attribute :started_at
+    - l.attribute :stopped_at if resource.stopped_at
     - l.attribute :nature, url: true
     - l.attribute(:intervention, url: true) if resource.intervention
     - l.attribute(:affair, url: true) if resource.affair

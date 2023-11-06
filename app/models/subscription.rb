@@ -76,6 +76,8 @@ class Subscription < ApplicationRecord
   scope :renewed_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
   scope :between, ->(started_on, stopped_on) { where('started_on BETWEEN ? AND ? OR stopped_on BETWEEN ? AND ? OR (started_on < ? AND ? < stopped_on)', started_on, stopped_on, started_on, stopped_on, started_on, stopped_on) }
   scope :active, -> { where('NOT suspended AND ? BETWEEN started_on AND stopped_on', Time.zone.today) }
+  scope :active_up_to, ->(stopped_on) { where('NOT suspended AND stopped_on IS NULL AND started_on < ?', stopped_on) }
+  scope :paying, -> { where(id: Sale.where(state: :invoice).where('amount > ?', 0.0).pluck(:subscription_id).compact.uniq) }
 
   delegate :name, to: :nature, prefix: true
 
@@ -95,18 +97,18 @@ class Subscription < ApplicationRecord
 
   before_validation(on: :create) do
     self.started_on ||= Time.zone.today
-    if product_nature
-      unless stopped_on
-        self.stopped_on = product_nature.subscription_stopped_on(self.started_on)
-      end
-    end
+    # if product_nature
+    # unless stopped_on
+    #    self.stopped_on = product_nature.subscription_stopped_on(self.started_on)
+    #  end
+    # end
   end
 
   validate do
     if self.started_on && stopped_on
       errors.add(:stopped_on, :posterior, to: started_on.l) unless started_on <= stopped_on
     end
-    errors.add(:address_id, :invalid) if address && !address.mail?
+    # errors.add(:address_id, :invalid) if address && !address.mail?
   end
 
   def destroyable_by_user?
@@ -114,7 +116,7 @@ class Subscription < ApplicationRecord
   end
 
   def subscriber_name
-    address.mail_line_1
+    subscriber.full_name || address.mail_line_1 || address.coordinate
   end
 
   def renewable?
@@ -160,9 +162,10 @@ class Subscription < ApplicationRecord
       attributes[:started_on] = last_subscription.stopped_on + 1
     else
       attributes[:started_on] = Time.zone.today
+      attributes[:started_on] = Time.zone.today
     end
     product_nature = self.product_nature || last_subscription.product_nature
-    attributes[:stopped_on] = if product_nature
+    attributes[:stopped_on] = if product_nature.present?
                                 product_nature.subscription_stopped_on(attributes[:started_on])
                               else
                                 attributes[:started_on] + 1.year - 1.day
@@ -175,7 +178,7 @@ class Subscription < ApplicationRecord
   end
 
   def active?
-    !(past? || future?)
+    !(past? || future?) || self.status == 'active'
   end
 
   def disabled?

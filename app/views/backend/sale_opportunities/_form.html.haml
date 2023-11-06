@@ -6,6 +6,7 @@
   = f.input :dead_line_at
   = f.input :pretax_amount
   = f.input :currency, collection: Onoma::Currency.where(name: SaleNature.actives.pluck(:currency).uniq.map(&:to_sym)).selection, include_blank: false
+  = f.referenced_association :provider # , source: :clients
   = f.input :origin
   = f.input :probability_percentage
   -# = f.input :state

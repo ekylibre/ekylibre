@@ -68,8 +68,9 @@ module Backend
 
       code << "unless params[:subscription_nature_id].blank? || params[:subscription_test].blank?\n"
       code << "  if params[:subscription_test] == 'subscribed_on'\n"
-      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND started_on <= ?)'\n"
+      code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND ((started_on <= ? AND stopped_on IS NULL) OR (stopped_on IS NOT NULL AND ? BETWEEN started_on AND stopped_on)) )'\n"
       code << "    c << params[:subscription_nature_id]\n"
+      code << "    c << params[:subscribed_on]\n"
       code << "    c << params[:subscribed_on]\n"
       code << "  elsif params[:subscription_test] == 'subscribed_since'\n"
       code << "    c[0] << ' AND #{Entity.table_name}.id IN (SELECT subscriber_id FROM subscriptions WHERE nature_id = ? AND started_on >= ?)'\n"
