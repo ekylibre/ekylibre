@@ -128,12 +128,14 @@ class EntityAddress < ApplicationRecord
     end
   end
 
-  after_save :geocode_address
+  before_save :geolocate_address, if: lambda{ |obj| obj.canal == 'mail' && (obj.mail_line_4_changed? || obj.mail_line_6_changed?) }
 
-  def geocode_address
-    geocode
-    c = ::Charta.new_point(latitude, longitude) if latitude && longitude
-    self.mail_geolocation = c if c
+  def geolocate_address
+    if mail_line_4.present? && mail_line_6.present? && mail_country.present?
+      self.geocode
+      c = ::Charta.new_point(latitude, longitude) if latitude && longitude
+      self.mail_geolocation = c if c.present?
+    end
   end
 
   def update # _without_.allbacks

@@ -348,5 +348,7 @@ accountancy:
     path: 'alamano/fixed_assets.csv'
   odicom_fec_txt:
     path: 'odicom/fec.txt'
+  acom_fec_txt:
+    path: 'acom/fec.txt'
   listo_od_txt:
     path: 'listo/wages.csv'

@@ -105,6 +105,10 @@ module Agroedi
           # find correct reference from Lexicon by nature and target_specie
           if specie_edicode
             lexicon_variants = MasterVariant.where(family: 'article', nature: nature_edicode.to_s, target_specie: specie_edicode.to_s)
+            if lexicon_variants.nil? || !lexicon_variants.present?
+              lexicon_variants = MasterVariant.where(family: 'article', nature: nature_edicode.to_s)
+              puts "No way to create variant from specie edicode #{specie_edicode.inspect.red} missing in Ekylibre Lexicon"
+            end
           else
             lexicon_variants = MasterVariant.where(family: 'article', nature: nature_edicode.to_s)
           end

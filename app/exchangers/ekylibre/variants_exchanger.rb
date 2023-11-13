@@ -84,6 +84,7 @@ module Ekylibre
           # update variant with attributes in the current row
           variant.name = r.name if r.name
           variant.work_number = r.work_number if r.work_number
+          variant.default_unit_name ||= :unity
           variant.unit_name ||= :unit.tl
           variant.france_maaid = r.france_maaid if r.france_maaid
           if r.category_reference_name

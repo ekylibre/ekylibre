@@ -97,6 +97,12 @@ module Agroedi
       def regroup_interventions!
         saved_interventions = Intervention.where(id: interventions.map(&:record).uniq.pluck(:id))
 
+        # set Daplos label on interventions
+        label = Label.find_or_create_by(name: 'Daplos', color: '#fcaf3e')
+        saved_interventions.each do |int|
+          InterventionLabelling.find_or_create_by(intervention_id: int.id, label_id: label.id)
+        end
+
         # Grouping intervention with inputs with same inputs, same started_at and same nature
         merge_input_groups = saved_interventions.with_input_presence.reorder(:started_at).group_by do |int|
           [int.procedure_name,

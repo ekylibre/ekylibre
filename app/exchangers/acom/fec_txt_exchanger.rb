@@ -2,6 +2,8 @@
 
 module Acom
   class FecTxtExchanger < ActiveExchanger::Base
+    category :accountancy
+    vendor :acom
     #  0 - A: JournalCode : "2"
     #  1 - B: JournalLib : "BILAN D'OUVERTURE"
     #  2 - C: EcritureNum : "0"
@@ -45,7 +47,7 @@ module Acom
       # Imports FEC journal entries into journal to make accountancy in CSV format
       # From local software ODICOM (CER 49)
       # filename example : 451104780FEC20200331.TXT
-      # separator is '|' and encoding is ISO-8859-15
+      # separator is '\t' and encoding is ISO-8859-15
 
       rows, errors = parse_file(file)
       w.count = rows.size
@@ -129,10 +131,10 @@ module Acom
             account_suffix = row.auxiliary_account_number
 
             account = find_or_create_account((account_prefix + account_suffix), row.auxiliary_account_name)
-            find_or_create_entity(row.printed_on, account, (account_prefix + account_suffix))
+            # find_or_create_entity(row.printed_on, account, (account_prefix + account_suffix))
           else
             account = find_or_create_account(row.account_number, row.account_name)
-            find_or_create_entity(row.printed_on, account, row.account_number)
+            # find_or_create_entity(row.printed_on, account, row.account_number)
           end
           w.info "third account & entity created: #{account.label.inspect.green}"
         else
@@ -172,9 +174,14 @@ module Acom
       # @param [String] acc_name
       # @return [Account]
       def find_or_create_account(acc_number, acc_name)
+        normalized = account_normalizer.normalize!(acc_number)
+
         Maybe(find_account_by_provider(acc_number))
-          .recover { find_or_create_account_by_number(acc_number, acc_name) }
+          .recover { Account.find_by(number: acc_number) }
+          .recover { Account.find_by(number: normalized) }
+          .recover { create_account(acc_number, normalized, acc_name) }
           .or_raise
+
       end
 
       # @param [String] account_number
@@ -184,18 +191,6 @@ module Acom
           Account.of_provider_name(provider_vendor, provider_name)
                  .of_provider_data(:account_number, account_number)
         end
-      end
-
-      # @param [String] acc_number
-      # @param [String] acc_name
-      # @return [Account]
-      def find_or_create_account_by_number(acc_number, acc_name)
-        normalized = account_normalizer.normalize!(acc_number)
-
-        Maybe(Account.find_by(number: acc_number))
-          .recover { Account.find_by(number: normalized)}
-          .recover { create_account(acc_number, normalized, acc_name) }
-          .or_raise
       end
 
       # @param [String] acc_number

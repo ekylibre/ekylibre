@@ -1,5 +1,6 @@
 :ruby
   trade_model_name   = @trade.class.model_name
+  human_amount = @bank_statement_items.map(&:balance).sum.l(precision: 2, currency: @bank_statement_items.first.currency)
   payment_model_name = @payment.class.model_name
   payment_scope = if (bsi = @bank_statement_items.first).present?
                     { scope: { matching_cash: bsi.bank_statement.cash_id } }
@@ -9,7 +10,17 @@
 
 = backend_form_for @affair, as: :affair, url: send(@url_helper, redirect: @redirect_to) do |a|
   = field_set do
+    .flash
+      - @bank_statement_items.each do |bs|
+        = picto_tag('card')
+        %span= "#{bs.transfered_on.l} | #{bs.name} (#{bs.memo}) |"
+        %span.add-on= bs.balance.l(precision: 2, currency: bs.currency)
+        %br
+    .flash.information
+      %p= :need_to_select_an_entity_for_bank_statement_items_to_transform.tl
     = a.referenced_association :third
+    .flash.information
+      %p= :need_to_select_or_create_invoice_for_bank_statement_items_to_transform.tl(amount: human_amount)
     - [:trade, :payment].each do |attribute|
       .existing-inputs
         .control-group
