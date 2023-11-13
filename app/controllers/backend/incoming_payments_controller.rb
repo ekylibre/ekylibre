@@ -31,7 +31,7 @@ module Backend
       }
     )
 
-    unroll :number, :amount, :currency, mode: :name, payer: :full_name
+    unroll :number, :to_bank_at, :amount, :currency, mode: :name, payer: :full_name
 
     def self.incoming_payments_conditions(_options = {})
       code = search_conditions(incoming_payments: %i[amount bank_check_number number bank_account_number], entities: %i[number full_name]) + "||=[]\n"

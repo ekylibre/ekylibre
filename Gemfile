@@ -177,7 +177,7 @@ gem 'mechanize', '~> 2.7'
 gem 'rest-client', '~> 2.0'
 gem 'rubyntlm', '>= 0.3.2'
 gem 'ruby-trello'
-gem 'savon', '~> 2.12'
+gem 'savon', '2.12'
 gem 'stripe'
 
 # Using git until we have a proper release system for cartography

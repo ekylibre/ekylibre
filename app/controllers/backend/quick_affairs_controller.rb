@@ -70,10 +70,8 @@ module Backend
       def url_interpolate
         if @trade.is_a?(Sale)
           url_interpolate = 'sales'
-          @trade.items.new
         elsif @trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase)
           url_interpolate = 'purchases'
-          @trade.items.new
         elsif @trade.is_a?(Payslip)
           url_interpolate = 'payslips'
         end

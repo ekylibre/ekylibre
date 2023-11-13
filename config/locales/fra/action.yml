@@ -2723,6 +2723,8 @@ fra:
     natures: "Profils"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
+    need_to_select_an_entity_for_bank_statement_items_to_transform: "Vous devez selectionner ou créer un tiers pour créer une facture à partir des lignes bancaires ci-dessus"
+    need_to_select_or_create_invoice_for_bank_statement_items_to_transform: "Vous devez ensuite selectionner / créer une facture et un paiement pour finaliser la conversion des lignes bancaires ci-dessus pour un montant total de %{amount}"
     negociation: "Négociation"
     needed_quantity: "Quantité nécessaire"
     # negative_debit_or_credit: "The entry has a negative debit or credit"
@@ -4545,13 +4547,13 @@ fra:
     backend/entities: "%{full_name} ‒ %{number}"
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
-    backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
+    backend/incoming_payments: "%{to_bank_at} %{payer_full_name}  - %{amount} %{currency} - %{mode_name} %{number}"
     backend/interventions: "%{number}"
     backend/issue_natures: "%{label}"
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
-    backend/outgoing_payments: "%{number} %{mode_name} %{payee_full_name} %{amount} %{currency}"
+    backend/outgoing_payments: "%{to_bank_at} %{payee_full_name} - %{amount} %{currency} - %{mode_name} %{bank_check_number} %{number}"
     backend/parcels: "%{number} ‒ %{reference_number}"
     backend/payslip_contribution_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/payslip_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
@@ -4566,8 +4568,10 @@ fra:
       default: "%{work_number} %{name} (%{number}) - %{container_name}"
       land_parcels: "%{name}"
     backend/project_tasks: "%{name} (%{project_name})" #?
-    backend/purchase_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
-    backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €" #?
+    backend/purchase_payments: "%{to_bank_at} %{payee_full_name} - %{amount} %{currency} - %{mode_name} %{bank_check_number} %{number}"
+    backend/purchase_invoices: "%{invoiced_at} %{supplier_full_name} - %{amount} %{currency} - %{number}"
+    backend/purchases: "%{number} - %{reference_number} - %{ordered_at} - %{pretax_amount} €"
+    backend/sales: "%{invoiced_at} %{client_full_name} - %{amount} %{currency} - %{number}"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"
     backend/vegetative_stages: "%{label}"

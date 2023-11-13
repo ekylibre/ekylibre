@@ -14,6 +14,6 @@ module Backend
       }
     )
 
-    unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
+    unroll :amount, :to_bank_at, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
   end
 end

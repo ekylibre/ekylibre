@@ -23,7 +23,7 @@ module Backend
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
-    unroll :number, :amount, :currency, :created_at, supplier: :full_name
+    unroll :number, :amount, :currency, :invoiced_at, supplier: :full_name
 
     before_action :save_search_preference, only: :index
 
