@@ -109,7 +109,8 @@ module BordeauxSciencesAgro
             real_debit: r.debit_amount.to_f,
             real_credit: r.credit_amount.to_f,
             account: account,
-            name: r.entry_item_name
+            name: r.entry_item_name,
+            provider: item_metadata(r)
           }
           w.check_point
         end
@@ -124,6 +125,22 @@ module BordeauxSciencesAgro
       end
 
       private
+
+        # build provider metadata for items
+        def item_metadata(item)
+          # build and grad metadata from analytics if exists
+          metadata = {}
+          if item.account_name.present?
+            metadata['name'] = item.account_name
+          end
+          if item.analytic_quantity.present?
+            metadata['quantity'] = item.analytic_quantity
+          end
+          if item.analytic_unit.present?
+            metadata['unit'] = item.analytic_unit
+          end
+          provider_jei_value(metadata)
+        end
 
         # @return [Accountancy::AccountNumberNormalizer]
         def number_normalizer
@@ -306,7 +323,9 @@ module BordeauxSciencesAgro
             journal_name: row[3].to_s.strip,
             entry_name: row[4].to_s.delete(" ").strip,
             account_number: row[6].to_s.strip,
-            account_name: (row[9].blank? ? nil : row[9].to_s.strip),
+            account_name: (row[9].blank? ? nil : row[9].to_s.lower.strip),
+            analytic_quantity: (row[10].blank? ? nil : row[10].tr(',', '.').to_d),
+            analytic_unit: (row[11].blank? ? nil : row[11].to_s.lower.strip),
             entry_item_name: row[17].to_s.strip,
             debit_amount: (row[18].blank? ? 0.0 : row[18].tr(',', '.').to_d),
             credit_amount: (row[19].blank? ? 0.0 : row[19].tr(',', '.').to_d),
@@ -341,6 +360,10 @@ module BordeauxSciencesAgro
 
         def provider_value(**data)
           { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: { sender_infos: '', **data } }
+        end
+
+        def provider_jei_value(data)
+          { vendor: self.class.vendor, name: provider_name, id: import_resource.id, data: data }
         end
 
         def provider_name

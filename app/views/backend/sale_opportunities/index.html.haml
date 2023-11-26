@@ -42,7 +42,7 @@
   - j.face :chart do
     :ruby
       series = []
-      unit = Nomen::Currency[sale_opportunities.first.currency]
+      unit = Onoma::Currency[sale_opportunities.first.currency]
       categories = ["prospecting", "qualification", "value_proposition", "price_quote", "negociation"]
       responsibles.each do |responsible|
         data = []

@@ -6465,6 +6465,8 @@ journal_entry_items:
     type: integer
     references: project_task
     limit: 4
+  provider:
+    type: jsonb
   real_balance:
     type: decimal
     precision: 19

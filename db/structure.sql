@@ -4393,7 +4393,8 @@ CREATE TABLE public.journal_entry_items (
     accounting_label character varying,
     lettered_at timestamp without time zone,
     isacompta_letter character varying(4),
-    project_task_id integer
+    project_task_id integer,
+    provider jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -26942,6 +26943,13 @@ CREATE INDEX journal_entries_compliance_index ON public.journal_entries USING gi
 
 
 --
+-- Name: journal_entry_item_provider_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX journal_entry_item_provider_index ON public.journal_entry_items USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
+
+
+--
 -- Name: journal_entry_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -29218,6 +29226,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230620161201'),
 ('20230627152701'),
 ('20230828141701'),
-('20231003114701');
+('20231003114701'),
+('20231120175701');
 
 
