@@ -116,6 +116,7 @@ module Agroedi
           return unless production
           return unless started_on && stopped_on
 
+          production.reload
           # update started_on and stopped_on if present on crop in file
           production.started_on = started_on if started_on < production.started_on
           production.stopped_on = stopped_on+1 if stopped_on > production.stopped_on

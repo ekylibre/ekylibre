@@ -69,7 +69,7 @@ class Intervention < ApplicationRecord
   include Providable
 
   PLANNED_REALISED_ACCEPTED_GAP = { intervention_doer: 1.2, intervention_tool: 1.2, intervention_input: 1.2 }.freeze
-  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing all_in_one_planting sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
+  PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing all_in_one_sowing_without_plant_output all_in_one_planting sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
   SETTINGS = %i[spray_mix_volume_area_density].freeze
   SPRAYING_PROCEDURE_NAMES = %w[spraying sowing_with_spraying vine_spraying_without_fertilizing vine_spraying_with_fertilizing].freeze
 
@@ -895,6 +895,20 @@ class Intervention < ApplicationRecord
       global_volume_area_indicator.value
     else
       nil
+    end
+  end
+
+  # return pfi values for current intervention
+  def pfi_intervention
+    if using_phytosanitary?
+      pfis = PfiInterventionParameter.of_intervention(self)
+      if pfis.any?
+        pfis.pluck(:pfi_value).compact.sum.round(2).l(precision: 2)
+      else
+        "?"
+      end
+    else
+      "∅"
     end
   end
 

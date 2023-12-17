@@ -2169,6 +2169,7 @@ fra:
     payslip_contributor_account: "Compte de collecte social"
     period: "Période"
     person: "Personne"
+    pfi_intervention: "IFT"
     phases: "Phases"
     phone_number: "Numéro de téléphone" #?
     phones: "Téléphones"

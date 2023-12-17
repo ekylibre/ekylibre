@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS master_productions;
           production character varying NOT NULL,
           cap_precision character varying,
           cap_category character varying,
+          is_seed boolean,
           year integer NOT NULL,
           PRIMARY KEY(cap_code, production, year)
         );
@@ -55,6 +56,7 @@ DROP TABLE IF EXISTS master_productions;
           tfi_code character varying NOT NULL,
           tfi_label character varying NOT NULL,
           production character varying,
+          tfi_crop_group character varying,
           campaign integer NOT NULL
         );
 

@@ -46,6 +46,7 @@ module Backend
     list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
       t.column :transfered_on, url: true
       t.column :name
+      t.column :entity
       t.column :memo
       t.column :transaction_nature, label_method: "transaction_nature&.t(scope: 'interbank_transaction_codes')"
       t.column :letter

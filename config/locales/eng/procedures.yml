@@ -215,6 +215,7 @@ eng:
     administrative_tasks: "Administrative tasks"
     all_in_one_planting: "All-in-one planting"
     all_in_one_sowing: "All-in-one seeding"
+    all_in_one_sowing_without_plant_output: "All-in-one seeding without crop management"
     animal_artificial_insemination: "Artificial insemination"
     animal_group_changing: "Animal movement"
     animal_housing_cleaning: "Cleaning"

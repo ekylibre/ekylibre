@@ -65,6 +65,10 @@ class PfiInterventionParameter < ApplicationRecord
     where(campaign: campaign)
   }
 
+  scope :of_intervention, lambda { |intervention|
+    where(nature: 'intervention', input: InterventionInput.where(intervention: intervention))
+  }
+
   scope :of_segment, lambda { |segment|
     where(segment_code: segment.to_s)
   }

@@ -101,12 +101,15 @@ module Telepac
 
         crop_code = cap_land_parcel.main_crop_code
 
+        is_seed = cap_land_parcel.main_crop_seed_production
+
         return nil if IGNORED.include?(crop_code.to_s)
 
         # check in Lexicon
         cap_year = [2017, cap_year].max
         lexicon_production_nature = MasterProduction.joins(:cap_codes)
-                                                        .where('master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?', crop_code, cap_year).first
+                                                        .where('(master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.is_seed = ? AND master_crop_production_cap_codes.year = ?) OR (master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?)', crop_code, is_seed, cap_year, crop_code, cap_year)
+                                                        .first
         raise StandardError.new("The code #{crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
 
         # find annual or perennial activity

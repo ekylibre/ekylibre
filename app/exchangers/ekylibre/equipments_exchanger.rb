@@ -13,7 +13,7 @@ module Ekylibre
       rows.each do |row|
         r = {
           name: row[0].blank? ? nil : row[0].to_s,
-          variant_reference_name: row[1].blank? ? nil : row[1].to_sym,
+          variant_reference_name: row[1].blank? ? nil : row[1].to_s,
           work_number: row[2].blank? ? nil : row[2].to_s,
           place_code: row[3].blank? ? nil : row[3].to_s,
           born_at: (row[4].blank? ? Date.civil(2000, 2, 2) : row[4]).to_datetime,
@@ -40,6 +40,8 @@ module Ekylibre
         unless variant
           if Onoma::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
+          elsif MasterVariant.find_by(reference_name: r.variant_reference_name.downcase.to_s)
+            variant = ProductNatureVariant.import_from_lexicon(r.variant_reference_name.downcase.to_sym)
           else
             raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           end

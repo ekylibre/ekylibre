@@ -46,6 +46,10 @@ module Ekylibre
 
         # PROCEDURE GIVE A CAMPAIGN WHO DOES NOT EXIST IN DB
         #
+        if r.campaign_code.blank?
+          w.error "#{prompt} No campaign given"
+          valid = false
+        end
         unless campaign = Campaign.find_by(name: r.campaign_code)
           w.warn "#{prompt} #{r.campaign_code} will be created as a campaign"
         end
@@ -166,31 +170,44 @@ module Ekylibre
           # a same cultivable zone could be a support of many productions
           # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
           p_ids = []
+          ap = ActivityProduction.of_campaign(r.campaign)
           r.supports.each do |support|
+            puts support.inspect.green
             # case A1 : CZ
-            if support.is_a?(CultivableZone) && r.campaign
-              ap = ActivityProduction.of_campaign(r.campaign)
-              # find by variety, campaign and cultivable zone id or try to find by geolocation intersection
-              if r.target_variety && support.shape
-                aps = ap.of_cultivation_variety(r.target_variety).where(cultivable_zone: support)
-                aps ||= ap.support_shape_intersecting(support.shape).of_cultivation_variety(r.target_variety)
+            if support.is_a?(CultivableZone)
+              # find by variety, campaign and cultivable zone id
+              if ap.where(cultivable_zone: support).any?
+                if r.target_variety
+                  aps = ap.of_cultivation_variety(r.target_variety).where(cultivable_zone: support)
+                end
+                # or try to find without variety if theres only one production for the current campaign and cultivable zone
+                if aps.blank?
+                  aps = ap.where(cultivable_zone: support)
+                end
               end
-              # or try to find without variety if theres only one production for the current campaign and cultivable zone
-              if aps.blank? && ap.where(cultivable_zone: support).any?
-                aps = ap.where(cultivable_zone: support)
-              end
-              # or try to find with shape if theres only one production for the current campaign
               if aps.blank? && ap.support_shape_intersecting(support.shape).any?
-                aps = ap.support_shape_intersecting(support.shape)
+                # or try to find by geolocation intersection
+                if r.target_variety
+                  aps = ap.support_shape_intersecting(support.shape).of_cultivation_variety(r.target_variety)
+                end
+                # or try to find with shape if theres only one production for the current campaign
+                if aps.blank?
+                  aps = ap.support_shape_intersecting(support.shape)
+                end
               end
-              ps = aps.map(&:support)
+              puts aps.inspect.red
+              if aps.any?
+                ps = aps.map(&:support)
+              else
+                ps = []
+              end
               w.info "case A1 : CZ #{ps}".inspect.blue
             # case A2 : Product
             elsif support.is_a?(Product) || support.is_a?(LandParcel)
               ps = [support]
               w.info "case A2 : Product #{ps}".inspect.blue
             end
-            p_ids += ps.map(&:id)
+            p_ids += ps.map(&:id) if ps.any?
           end
           w.debug "Intervention #{r.intervention_number}".inspect.blue
           supports = Product.find(p_ids)
@@ -207,7 +224,7 @@ module Ekylibre
 
         w.debug supports.inspect.yellow
 
-        raise "stop #{r.target_variety}" unless supports.any?
+        raise "stop #{r.intervention_number}" unless supports.any?
 
         # case 1 supports exists
         if supports.any?

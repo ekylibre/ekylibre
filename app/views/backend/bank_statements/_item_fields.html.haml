@@ -4,6 +4,7 @@
   %tr{ class: table_row_class_name }
     %td= f.input :name, wrapper: :nested
     %td= f.input :memo, wrapper: :nested
+    %td= f.referenced_association(:entity, wrapper: :nested)
     %td.transfered_on= f.input :transfered_on, wrapper: :nested
     %td.decimal= f.input :debit, wrapper: :nested, input_html: { data: { exclusive_nullify: (item.persisted? ? ".#{table_row_class_name} .credit" : 'filledbyjs') }, class: 'debit lg-numeric' }
     %td.currency= item.cash_currency
