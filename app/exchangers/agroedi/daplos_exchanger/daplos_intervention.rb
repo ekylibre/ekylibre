@@ -92,7 +92,7 @@ module Agroedi
         )
         ekylibre_agroedi = match_record&.ekylibre_value&.to_sym
         unless ekylibre_agroedi
-          raise "Intervention nature #{code.inspect} has no equivalent in Ekylibre reference"
+          raise "Intervention nature #{code.inspect} in GUID #{daplos.intervention_guid.inspect} has no equivalent in Ekylibre reference"
         end
 
         @memo_agroedi_code = ekylibre_agroedi

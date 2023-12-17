@@ -27,7 +27,6 @@
 #
 #  ekylibre_scope  :string
 #  ekylibre_value  :string
-#  id              :integer(4)       not null, primary key
 #  reference_code  :string
 #  reference_id    :integer(4)       not null
 #  reference_label :string

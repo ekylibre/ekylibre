@@ -13,27 +13,27 @@
 = f.attachments_field_set
 
 = field_set BankStatement.human_attribute_name(:items) do
-  .active-list
-    %table.list#items-table
-      %thead
-        %tr
-          %th= BankStatementItem.human_attribute_name(:name)
-          %th= BankStatementItem.human_attribute_name(:memo)
-          %th= BankStatementItem.human_attribute_name(:transfered_on)
-          %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:debit)
-          %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:credit)
-          %th
-      %tfoot
-        %tr
-          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-        %tr#total.total
-          %th{ colspan: 2 }
-            %span= :total.tl
-          %td#debit.decimal{data: {use: "input.debit", calculate_round: 2}}=  f.object.debit
-          %td.txt= f.object.cash_currency
-          %td#credit.decimal{data: {use: "input.credit", calculate_round: 2}}= f.object.credit
-          %td.txt= f.object.cash_currency
-          %th.action
+  %table.list#items-table
+    %thead
+      %tr
+        %th= BankStatementItem.human_attribute_name(:name)
+        %th= BankStatementItem.human_attribute_name(:memo)
+        %th= Entity.human_attribute_name(:name)
+        %th= BankStatementItem.human_attribute_name(:transfered_on)
+        %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:debit)
+        %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:credit)
+        %th
+    %tfoot
+      %tr
+        %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
+      %tr#total.total
+        %th{ colspan: 2 }
+          %span= :total.tl
+        %td#debit.decimal{data: {use: "input.debit", calculate_round: 2}}=  f.object.debit
+        %td.txt= f.object.cash_currency
+        %td#credit.decimal{data: {use: "input.credit", calculate_round: 2}}= f.object.credit
+        %td.txt= f.object.cash_currency
+        %th.action
 
-      = f.simple_fields_for :items, f.object.items do |item|
-        = render 'item_fields', f: item
+    = f.simple_fields_for :items, f.object.items do |item|
+      = render 'item_fields', f: item

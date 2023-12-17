@@ -31,7 +31,8 @@ module Ekylibre
           georeading_number: (row[3].blank? ? nil : row[3].to_s),
           soil_nature: (row[4].blank? ? nil : row[4].to_sym),
           owner_name: (row[5].blank? ? nil : row[5].to_s),
-          farmer_name: (row[6].blank? ? nil : row[6].to_s)
+          farmer_name: (row[6].blank? ? nil : row[6].to_s),
+          description: (row[7].blank? ? nil : row[7].to_s)
         }.to_struct
 
         # check if existing CultivableZone cover or overlap a current object to import
@@ -51,6 +52,7 @@ module Ekylibre
         # update name & code anyway
         zone.name = r.name if r.name
         zone.work_number = r.code if r.code
+        zone.description = r.description if r.description
         if r.soil_nature && Onoma::SoilNature[r.soil_nature]
           zone.soil_nature ||= r.soil_nature
         end

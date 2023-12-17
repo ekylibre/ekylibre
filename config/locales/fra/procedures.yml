@@ -325,6 +325,7 @@ fra:
     administrative_tasks: "Tâches administratives"
     all_in_one_planting: "Plantation «\_tout-en-un\_»"
     all_in_one_sowing: "Semis «\_tout-en-un\_»"
+    all_in_one_sowing_without_plant_output: "Semis «\_tout-en-un\_» (sans gestion des cultures)"
     animal_antibiotic_treatment: "Traitement antibiotique" #?
     animal_artificial_insemination: "Insémination artificielle"
     animal_birth: "Naissance d’un animal" #?

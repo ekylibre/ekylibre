@@ -1325,6 +1325,10 @@ bank_statement_items:
     precision: 19
     scale: 4
     required: true
+  entity_id:
+    type: integer
+    references: entity
+    limit: 4
   id:
     type: integer
     limit: 4

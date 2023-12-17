@@ -53,6 +53,7 @@ class BankStatementItem < ApplicationRecord
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
   has_one :journal, through: :cash
+  belongs_to :entity
   belongs_to :journal_entry, dependent: :destroy
   delegate :started_on, :stopped_on, to: :bank_statement, allow_nil: true
 

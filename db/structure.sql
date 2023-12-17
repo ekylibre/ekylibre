@@ -2603,7 +2603,8 @@ CREATE TABLE public.bank_statement_items (
     accounted_at timestamp without time zone,
     journal_entry_id integer,
     transaction_nature character varying,
-    provider jsonb DEFAULT '{}'::jsonb
+    provider jsonb DEFAULT '{}'::jsonb,
+    entity_id bigint
 );
 
 
@@ -17325,6 +17326,13 @@ CREATE INDEX index_bank_statement_items_on_creator_id ON public.bank_statement_i
 
 
 --
+-- Name: index_bank_statement_items_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bank_statement_items_on_entity_id ON public.bank_statement_items USING btree (entity_id);
+
+
+--
 -- Name: index_bank_statement_items_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -29227,6 +29235,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230627152701'),
 ('20230828141701'),
 ('20231003114701'),
-('20231120175701');
+('20231120175701'),
+('20231124093401');
 
 

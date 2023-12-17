@@ -35,7 +35,10 @@ module Agroedi
               code = intervention.intervention_nature_edicode
               start_on = Date.parse(intervention.intervention_started_at)
               # false if no RegisteredAgroediCode exist
-              unless RegisteredAgroediCode.find_by(repository_id: 14, reference_code: code)
+              if RegisteredAgroediCode.find_by(repository_id: 14, reference_code: code)
+                w.info "reference exist for EDICODE : #{code} on repository 14"
+                valid = true
+              else
                 w.error "No reference found for EDICODE : #{code} on repository 14"
                 valid = false
               end
