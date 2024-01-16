@@ -41,7 +41,7 @@ build_version:
   services:
     - docker:19.03-dind
   before_script:
-    - echo "${CI_BUILD_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
     - /exec ruby /build.rb -v -b $CI_REGISTRY_IMAGE -f docker/prod/Dockerfile -i ekylibre -r latest #-r $CI_COMMIT_TAG
 #build_ci:
