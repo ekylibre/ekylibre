@@ -58,7 +58,7 @@
     - c.cobble(:readings, title: :x_key_indicators.tl(count: resource.readings.pluck(:indicator_name).uniq.count)) do
       = infos do
         - resource.readings.group_by(&:indicator_name).each do |indicator_name, _items|
-          - if indicator_name != 'geolocation'
+          - if indicator_name != 'geolocation' && indicator_name != 'shape'
             - item = resource.reading(indicator_name, {at: last_time_of_year})
             - if item
               .med-info

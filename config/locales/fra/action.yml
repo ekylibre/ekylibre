@@ -972,12 +972,13 @@ fra:
     backend/worker_time_logs:
       edit: "Modifier une saisie de temps"
       index: "Temps des équipiers"
-      new: "Nouvelle saisie de temps "
+      new: "Nouvelle saisie de temps"
       show: "Détail saisie de temps"
     backend/yield_observations:
       edit: "Modifier observation: %{number}"
       index: "Observations"
       show: "Observation: %{number}"
+      new: "Nouvelle observation"
     public:
       index: "Accueil"
   errors:
@@ -1254,6 +1255,7 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    degree_day: "Degrée Jour"
     workers_chart: "Temps / personne"
     projects_chart: "Temps / projet"
     edge_length: "Longueur de haies"
@@ -2312,6 +2314,7 @@ fra:
     flammable_agents: "Matières inflammables"
     forbidden: "Non autorisé"
     forecast_harvest_week: "Semaine de récolte"
+    forum: "Forum"
     france_maaid: "N° AMM" #?
     from: "À partir du"
     from_year: "À partir de"
@@ -2377,6 +2380,7 @@ fra:
     hide_lettered_lines: "Cacher les lignes lettrées"
     hint: "Astuce\_: %{value}"
     historic: "Historique"
+    historical_weather: "Météo historique"
     home: "Accueil"
     hour: "Heure"
     hour_counter: "Compteur horaire"
@@ -2694,6 +2698,8 @@ fra:
     minutes: "Min"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
+    missing_weather_public_data_in_lexicon: "Les données météorologiques ne sont pas présentes pour cette période"
+    missing_weather_public_station_in_preferences: "Aucune station météo. selectionnée dans les préférences"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
     mobile: "Portable"
     mode: "Mode"
@@ -3125,12 +3131,14 @@ fra:
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisionnal_budget: "Budget prévisionnel" #?
     provisions_revenues: "Reprises sur provisions et transfert de charges"
+    public_weather_stations: "Stations météorologiques"
     purchase: "Achat"
     purchase_invoice_items: "Facture d'achats"
     purchase_invoice_number: "N° de facture"
     purchase_items: "Lignes d'achat"
     purchase_number: "N° d’achat"
     purchase_order: "Commande"
+    purchase_order_sent_to_supplier: "La commande %{number} a été transmise au fournisseur via l'email : %{email}"
     purchase_order_items: "Commandes d'achats"
     purchase_payments: "Décaissements"
     purchase_receipts_export_file: "Justificatif(s) d'achat"
@@ -3289,6 +3297,7 @@ fra:
       general: "Description" #?
       products: "Produits" #?
       summary: "Facture et encaissements" #?
+    sale_sent_to_client: "La vente %{number} a été transmise au client via l'email : %{email}"
     sales: "Ventes"
     sales_conditions: "Conditions de vente"
     sale_indicators: "Indicateurs de vente"
@@ -3720,6 +3729,7 @@ fra:
     usage_phyto: "Usage"
     use_forward: "Sélectionnez un journal pour reporter les à nouveaux" #?
     use_incoming_payment: "Rattacher l’encaissement %{payment}" #?
+    use_this_weather_station: "Utiliser cette station météo"
     use_transfer_price: "Utiliser le prix de cession"
     used_accounts: "Comptes utilisés seulement" #?
     used_on: "Première utilisation le"
@@ -3774,7 +3784,8 @@ fra:
     watering_concentration: "Eau consommée"
     waters: "Eaux"
     wear: "Usure" #?
-    weather: "Météo"
+    weather: "Météo prévisionnelle à 5 jours / 3 Heures"
+    weather_public_station: "Station météo publique préférée"
     weather_spraying: "Météo avec conditions de pulvérisation"
     weather_spraying_go: "Idéales"
     weather_spraying_caution: "Possibles"
@@ -4105,6 +4116,7 @@ fra:
       success: "Opération réussie\_!"
       warning: "Attention\_!"
     messages:
+      no_weather_station_are_availables_for_your_zone: "Aucune station météo publique n'est disponible dans votre zone."
       error_linked_harvest_intervention_with_incoming_harvest: "Une erreur est survenue durant le traitement : %{error}"
       successful_linked_harvest_intervention_with_incoming_harvest: "%{ihc_count} receptions de récolte ont été liées à %{it_count} interventions de récolte"
       jei_updated_with_activity_budget: "%{count} écriture(s) comptable(s) ont été affecté au budget %{budget_name} pour un montant total de %{amount}€"
@@ -4173,7 +4185,7 @@ fra:
       equipment_is_worn_out: "L’équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       error_client_account_empty: "Opération impossible, le compte client est vide"
       error_during_intervention_creation_from_rides: "Une erreur est survenue lors de la création de l'intervention à partir d'un trajet géolocalisé"
-      error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier"
+      error_during_file_generation: "Une erreur est survenue durant la génération d'un fichier : %{error_message}"
       error_during_pfi_report_generation: "Rapport IFT : %{error_message}"
       error_during_vat_declaration_generation: "Une erreur est survenue durant la génération de la déclaration de TVA."
       error_on_field: "%{field} est invalide\_: %{message}"
@@ -4284,6 +4296,7 @@ fra:
       no_worker_associated_with_entity_account: "Aucun travailleur n'est associé à ce tiers"
       no_user_with_email: "Aucun utilisateur avec l'email '%{email}'"
       no_entity_with_email: "Aucun tiers avec l'email '%{email}'"
+      no_station_id_present: "Aucune station de référence présente"
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
       pfi_have_been_computed: "IFT calculés"
       pfi_have_not_been_computed: "Erreur : IFT non calculés"
@@ -4323,6 +4336,7 @@ fra:
       some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
+      station_set_as_default: "La station %{station_id} est maintenant votre station de référence"
       subscription_is_not_renewable: "L’abonnement est non renouvelable"
       synchronization_operation_failed: "L’opération %{operation_name} a échoué: %{target} %{message}"
       synchronization_operation_finished_successfully: "L’opération %{operation_name} s’est finie correctement"
@@ -4407,6 +4421,7 @@ fra:
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     use_global_search: "Utiliser la recherche globale"
     use_sale_catalog: "Mettre à jour le catalogue de prix de vente après facturation"
+    weather_public_station: "Identificant de la station météo de référence"
   rest:
     actions:
       abort: "Annuler"
@@ -4439,6 +4454,8 @@ fra:
       edit: "Modifier"
       edit_interval: "Rapprocher"
       edit_many: "Modifier plusieurs"
+      email_client: "Envoyer par email au client"
+      email_supplier: "Envoyer par email au fournisseur"
       evaluate: "Évaluer"
       export: "Exporter"
       export_closing_documents: "Export Bilan / Compte de résultat"

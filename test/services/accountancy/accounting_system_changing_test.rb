@@ -9,9 +9,9 @@ module Accountancy
       FinancialYear.delete_all
       Preference.set!(:accounting_system, 'fr_pcga')
       Preference.set!(:account_number_digits, 8)
-      @fy_first = create(:financial_year, year: 2022, accounting_system: 'fr_pcga')
-      @fy_last = create(:financial_year, year: 2023, accounting_system: 'fr_pcga')
-      @invoiced_at = DateTime.parse('2023-06-01T00:00:00Z')
+      @fy_first = create(:financial_year, year: 2023, accounting_system: 'fr_pcga')
+      @fy_last = create(:financial_year, year: 2024, accounting_system: 'fr_pcga')
+      @invoiced_at = DateTime.parse('2024-01-02T00:00:00Z')
       @nature = PurchaseNature.first
       @supplier = Entity.normal.suppliers.first
       @standard_vat = Tax.create!(

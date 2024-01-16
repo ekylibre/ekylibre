@@ -1,12 +1,44 @@
 module Backend
   class CompaniesController < Backend::BaseController
-    before_action :set_preferences, only: %I[edit]
+    before_action :set_preferences, only: %i[edit]
 
     def edit
       notify_mandatory_informations
       Preference.check!
       @company = Entity.of_company
       @have_journal_entries = JournalEntry.any?
+      @url_params = build_attributes_for_weather
+    end
+
+    def set_station_as_default
+      if params[:station_id]
+        Preference.set!(:weather_public_station, params[:station_id], :string)
+        station = RegisteredWeatherStation.find_by(reference_name: params[:station_id])
+        notify_success(:station_set_as_default, station_id: station.name)
+        redirect_to params[:redirect] || { action: :edit }
+      else
+        notify_error(:no_station_id_present)
+        redirect_to params[:redirect] || { action: :edit }
+      end
+    end
+
+    def build_attributes_for_weather
+      company = Entity.of_company
+      mail_address = company.default_mail_address
+      postal_code = mail_address.mail_postal_zone.postal_code
+      country = mail_address.mail_postal_zone.country
+      country ||= Preference[:country]
+      if mail_address.mail_geolocation
+        centroid = mail_address.mail_geolocation
+      elsif CultivableZone.any?
+        centroid = CultivableZone.first.shape_centroid
+      end
+      if postal_code.present? && country.present?
+        stations = RegisteredWeatherStation.of_country(country).of_country_zone(postal_code[0..1])
+      elsif country.present?
+        stations = RegisteredWeatherStation.of_country(country)
+      end
+      { station_ids: stations.pluck(:reference_name), shape_centroid: centroid }
     end
 
     def update
@@ -16,6 +48,7 @@ module Backend
         @company.update_attributes(permitted_params[:entity])
         @company.nature = :organization
         @company.save!
+        @url_params = build_attributes_for_weather
         # Update preferences
         params[:preferences].each do |key, data|
           preference = Preference.get!(key)

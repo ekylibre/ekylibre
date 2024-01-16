@@ -18,3 +18,35 @@ fra:
 
         %{current_user_name}
       notify_accountant_subject: "%{name} | Echange comptable %{exchange_name} disponible."
+    purchase_order_export:
+      notify_supplier: |
+        Bonjour %{supplier_name},
+
+        Une nouvelle commande %{number} est en cours en provenance de %{name}
+
+        - Date de commande : %{ordered_at}
+        - Montant : %{pretax_amount}
+
+        Cordialement
+
+        %{current_user_name}
+      notify_supplier_subject: "Commande %{number} recue de %{name}"
+    sale_export:
+      notify_estimate: |
+        Bonjour %{client_full_name},
+
+        Un nouveau devis %{number} est disponible ci-joint.
+
+        Cordialement
+
+        %{current_user_name}
+      notify_estimate_subject: "Devis %{number}"
+      notify_invoice: |
+        Bonjour %{client_full_name},
+
+        Une nouvelle facture %{number} est disponible ci-jointe.
+
+        Cordialement
+
+        %{current_user_name}
+      notify_invoice_subject: "Facture %{number}"

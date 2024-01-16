@@ -8,7 +8,8 @@
       date = date + 1.month
     end
 
-    purchase_items_datasource = PurchaseItem.between(@started_at, @stopped_at)
+    purchase_items_datasource = PurchaseItem.between(@started_at, @stopped_at).reorder(:invoiced_at)
+    last_year_purchase_items_datasource = PurchaseItem.between(@started_at - 1.year, @stopped_at - 1.year).reorder(:invoiced_at)
 
     # Total expenses per month
     if purchase_items_datasource.any?
@@ -16,23 +17,50 @@
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
-      series << {type: 'spline', name: :total.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+      series << { type: 'spline', name: :total.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2} }
     end
 
-    # Expenses by product_nature_category
-    data = []
-    ProductNatureCategory.availables.find_each do |category|
-      purchase_items = purchase_items_datasource.of_product_nature_category(category)
-      if purchase_items.any?
-        sum_expenses = purchase_items.sum(:pretax_amount)
-        data << {name: category.name, y: sum_expenses.to_s.to_f, url: backend_product_nature_category_path(category)}
+    # Total expenses per month N-1
+    if last_year_purchase_items_datasource.any?
+      item_h = last_year_purchase_items_datasource.sums_of_periods.sort.inject({}) do |hash, pair|
+        year = pair.expr.to_i.to_s[0..3].to_i + 1
+        key = year.to_s + pair.expr.to_i.to_s[4..6]
+        hash[key] = pair.sum.to_d
+        hash
       end
+      series << { type: 'spline', name: :total.tl + " N-1", data: normalize_serie(item_h, categories.keys), marker: {line_width: 1} }
     end
+
+    # Expense per category
+    data = []
+    variant_ids = purchase_items_datasource.pluck(:variant_id).compact.uniq
+    category_ids = ProductNatureVariant.where(id: variant_ids).pluck(:category_id).compact.uniq
+    category_ids.each do |category_id|
+      pnc = ProductNatureCategory.find(category_id)
+      # N
+      item_c = purchase_items_datasource.of_product_nature_category(pnc).sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
+        hash
+      end
+      series << { name: pnc.name, data: normalize_serie(item_c, categories.keys), stack: 'N'}
+      # N - 1
+      item_last_year = last_year_purchase_items_datasource.of_product_nature_category(pnc).sums_of_periods.sort.inject({}) do |hash, pair|
+        year = pair.expr.to_i.to_s[0..3].to_i + 1
+        key = year.to_s + pair.expr.to_i.to_s[4..6]
+        hash[key] = pair.sum.to_d
+        hash
+      end
+      series << { name: pnc.name + " N-1", data: normalize_serie(item_last_year, categories.keys), stack: 'N-1'}
+      # SUM N
+      sum_expenses = purchase_items_datasource.of_product_nature_category(pnc).sum(:pretax_amount)
+      data << { name: pnc.name, y: sum_expenses.to_s.to_f, url: backend_product_nature_category_path(pnc) }
+    end
+
     if data.any?
       series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
     end
   - if series.any?
-    = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+    = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}, stack_labels: { enabled: true }}, x_axis: { categories: categories.values}, plot_options: { column: { stacking: 'normal'}}, legend: true)
   - else
     = no_data
 

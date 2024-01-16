@@ -1,17 +1,21 @@
 openapi: 3.0.0
 info:
-  description: 'The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded and json request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.'
+  description: |-
+    The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded and json request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
+
+    This v1 API is deprecated but is **still used by** our first mobile app.
   title: Ekylibre
   contact:
     name: Ekylibre developers
     email: dev@ekylibre.com
-    url: ekylibre.com
+    url: 'https://ekylibre.com'
   version: '1.0'
+  termsOfService: 'https://ekylibre.com/terms/'
+  license:
+    url: 'https://github.com/ekylibre/ekylibre/blob/main/LICENSE'
+    name: AGPLv3
 servers:
-  - url: 'https://demo.ekylibre.farm/api/v1'
-    variables: {}
-    description: Production
-  - url: 'https://demo.ekylibre-alpha.farm/api/v1'
+  - url: 'https://demo-innovation.ekylibre.io/api/v1'
     description: Test
 paths:
   /tokens:

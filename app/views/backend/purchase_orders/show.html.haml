@@ -2,7 +2,7 @@
   = t.edit resource if resource.updateable?
   = t.export(:purchases_order, item_label: :export_as_pdf.tl, key: resource.number, target:"_blank") do |menu|
     - menu.item :export_as_odt.tl, format: :odt
-
+  = tool_to :email_supplier.ta, {action: :email_supplier, controller: :purchase_orders, id: resource.id }, tool: :email 
   = t.destroy
   - if current_user.can?(:write, :incoming_deliveries) && resource.can_generate_parcel?
     - disabled = resource.closed? || resource.fully_reconciled?

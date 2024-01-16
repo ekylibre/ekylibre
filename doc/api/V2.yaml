@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  description: |-
+  description: |
     # Overview
 
     The ekylibre API is organized around REST. Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
@@ -9,6 +9,22 @@ info:
 
     By defaut, labels and errors are translated to user preffered locale. It can be override, by passing `locale: <locale>` to request body, or by setting the Accept-Language headers.
     Availables values are `['fra', 'eng']`.
+
+    ## Auth
+
+    If you have a farm with user, you can use the authentication_token directly in headers by concat with space `simple-token` `#user_email` `#authentication_token`
+
+    Example 
+
+    ```json
+    Authorization: simple-token demo@ekylibre.org y_geHxfwwDtLwi3bTomE
+    ```
+
+    If you don't know your token, you can use the `POST` `/tokens` path to grad an existing `#authentication_token` or create a new one if not exist with `#user_email` and `#user_password` as a value for query parameters.
+
+    ```json
+    POST /tokens, query_parameters { email: #user_email, password: #user_password }
+    ```
   title: Ekylibre
   contact:
     name: Ekylibre developers
@@ -17,6 +33,8 @@ info:
   version: '2.0'
   license:
     name: AGPLv3
+    url: 'https://github.com/ekylibre/ekylibre/blob/main/LICENSE'
+  termsOfService: 'https://ekylibre.com/terms/'
 servers:
   - url: 'https://demo-innovation.ekylibre.io/api/v2'
     variables: {}
@@ -31,23 +49,8 @@ paths:
       summary: create token
       operationId: Gettoken
       parameters:
-        - name: email
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: demo@ekylibre.org
-        - name: password
-          in: query
-          description: ''
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: a#K36Tbpb$BNGX3B
+        - $ref: '#/components/parameters/email'
+        - $ref: '#/components/parameters/password'
       responses:
         '200':
           description: ''
@@ -112,6 +115,114 @@ paths:
         in: path
         required: true
         description: token
+  '/farm_profiles/{harvest_year}':
+    get:
+      summary: Get Farm profiles
+      operationId: get_farm_profiles
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Content-Type'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  general_informations:
+                    type: object
+                    properties:
+                      harvest_year:
+                        type: integer
+                      farm_name:
+                        type: string
+                      farm_siret:
+                        type: string
+                      farm_ape:
+                        type: string
+                      farm_legal_position:
+                        type: string
+                      farm_default_address:
+                        type: string
+                      farm_default_address_lat:
+                        type: string
+                      farm_default_address_lon:
+                        type: string
+                      farm_telepac_sau:
+                        type: string
+                  weather_informations:
+                    type: object
+                    properties:
+                      watering_intervention:
+                        type: string
+                      yearly_weather_day_items:
+                        type: integer
+                      yearly_weather_provider:
+                        type: string
+                      yearly_rain:
+                        type: string
+                      yearly_min_temp:
+                        type: string
+                      yearly_max_temp:
+                        type: string
+                x-examples:
+                  Example 1:
+                    general_informations:
+                      harvest_year: 2022
+                      farm_name: GAEC JOULIN
+                      farm_siret: '32627372900011'
+                      farm_ape: 0111Z
+                      farm_legal_position: GAEC
+                      farm_default_address: 'GAEC JOULIN, 8 rue du bouil bleu, 17250 SAINT-PORCHAIRE, France'
+                      farm_default_address_lat: '45.8268358'
+                      farm_default_address_lon: '-0.7856846'
+                      farm_telepac_sau: '112,10 ha'
+                    weather_informations:
+                      watering_intervention: par mm / ha irrigué ? par mm au global ?
+                      yearly_weather_day_items: 365
+                      yearly_weather_provider: 'Météo France | Station : FR17308001 - ST AGNANT'
+                      yearly_rain: '472,00 mm'
+                      yearly_min_temp: '10,14 °C'
+                      yearly_max_temp: '19,65 °C'
+              examples:
+                Response for demo farm for year 2022:
+                  value:
+                    general_informations:
+                      harvest_year: 2022
+                      farm_name: GAEC JOULIN
+                      farm_siret: '32627372900011'
+                      farm_ape: 0111Z
+                      farm_legal_position: GAEC
+                      farm_default_address: 'GAEC JOULIN, 8 rue du bouil bleu, 17250 SAINT-PORCHAIRE, France'
+                      farm_default_address_lat: '45.8268358'
+                      farm_default_address_lon: '-0.7856846'
+                      farm_telepac_sau: '112,10 ha'
+                    weather_informations:
+                      watering_intervention: par mm / ha irrigué ? par mm au global ?
+                      yearly_weather_day_items: 365
+                      yearly_weather_provider: 'Météo France | Station : FR17308001 - ST AGNANT'
+                      yearly_rain: '472,00 mm'
+                      yearly_min_temp: '10,14 °C'
+                      yearly_max_temp: '19,65 °C'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                    x-stoplight:
+                      id: 1hfuwunnyy725
+      deprecated: false
+      security: []
+      description: Returns data about of farm profiles
+      tags:
+        - Farm profiles
+    parameters:
+      - $ref: '#/components/parameters/harvest_year'
   '/cultivable_zones/{uuid}':
     put:
       summary: Update a cultivable zone
@@ -2367,6 +2478,7 @@ components:
       schema:
         type: string
         default: application/json
+        example: application/json
       description: content type
     modified_since:
       name: modified_since
@@ -2384,9 +2496,42 @@ components:
         type: string
         default: 'true'
       description: Activate pagination ("true"/"false")
+    harvest_year:
+      name: harvest_year
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int32
+        enum:
+          - 2022
+          - 2023
+          - 2024
+          - 2021
+          - 2020
+        example: 2022
+      description: a year corresponding to harvest year
+    email:
+      name: email
+      in: query
+      required: true
+      schema:
+        type: string
+        format: email
+        example: admin@ekylibre.org
+      description: Email of an existing user in Ekylibre instance
+    password:
+      name: password
+      in: query
+      required: true
+      schema:
+        type: string
+        format: password
+      description: Password of an existing user in Ekylibre instance
   securitySchemes: {}
 tags:
   - name: Auth
+  - name: Farm profiles
   - name: Interventions
   - name: Plants
   - name: Product nature variants

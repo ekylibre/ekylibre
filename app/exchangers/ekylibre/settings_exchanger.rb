@@ -28,6 +28,9 @@ module Ekylibre
       Preference.set!(:currency, currency)
       Preference.set!(:country, country)
       Preference.set!(:sales_conditions, sales_conditions)
+      if @manifest[:weather_public_station]
+        Preference.set!(:weather_public_station, @manifest[:weather_public_station], :string)
+      end
       # Load stripe credentials of the instance
       if @manifest[:customer_id] && @manifest[:subscription_id]
         Preference.set!(:saassy_stripe_customer_id, @manifest[:customer_id], :string)

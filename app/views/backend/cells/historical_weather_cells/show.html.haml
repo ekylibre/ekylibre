@@ -1,0 +1,30 @@
+- if @historical_forecast
+  :ruby
+    categories = @historical_forecast.collect{ |d| d[:at] }
+    series = []
+    series << { name: :humidity.tl, data: @historical_forecast.collect{|d| d[:humidity].to_f.round(1)}, tooltip: {value_suffix: ' %' }, y_axis: 0 }
+    series << { name: :pluviometry.tl, type: 'column', data: @historical_forecast.collect{|d| d[:pluviometry].to_f.round(1)}, tooltip: {value_suffix: ' mm' }, y_axis: 1 }
+    series << { name: :wind_speed.tl, data: @historical_forecast.collect{|d| d[:max_wind_speed].to_f.round(1)}, tooltip: {value_suffix: ' km/h' }, y_axis: 2 }
+    series << { name: :minimal_temperature.tl, data: @historical_forecast.collect{|d| d[:min_temperature].to_f.round(1) }, tooltip: {value_suffix: '°C' }, y_axis: 3 }
+    series << { name: :maximal_temperature.tl, data: @historical_forecast.collect{|d| d[:max_temperature].to_f.round(1) }, tooltip: {value_suffix: '°C' }, y_axis: 3 }
+    series << { name: :degree_day.tl, data: @historical_forecast.collect{|d| d[:degree_day].to_f.round(1) }, tooltip: {value_suffix: '°C/24H' }, y_axis: 4 }
+
+    y_axis = [
+      {title: { text: :humidity.tl }, labels: { format: '{value} %' }, opposite: true},
+      {title: { text: :pluviometry.tl }, labels: { format: '{value} mm' }, opposite: true},
+      {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }},
+      {title: {text: Onoma::Indicator[:temperature].human_name}, labels: { format: '{value} °C' }},
+      {title: {text: Onoma::Indicator[:temperature].human_name}, labels: { format: '{value} °C/24H' }},
+    ]
+
+    sum_pluviometry = @historical_forecast.collect{|d| d[:pluviometry].to_f}.compact.sum.round(0)
+    sum_degree_day = @historical_forecast.collect{|d| d[:degree_day].to_f}.compact.sum.round(0)
+
+    station_name = RegisteredWeatherStation.find_by(reference_name: Preference[:weather_public_station]).name
+    title = "#{station_name} | #{:pluviometry.tl} : #{sum_pluviometry.to_s} mm | #{sum_degree_day.to_s} °/#{:day.tl}"
+
+  = spline_highcharts(series, x_axis: {categories: categories}, y_axis: y_axis, legend: true, title: title.html_safe)
+- elsif @error
+  = flash_message_tag(:error, @error)
+- else
+  = no_data

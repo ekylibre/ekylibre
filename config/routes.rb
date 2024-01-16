@@ -115,6 +115,7 @@ Rails.application.routes.draw do
 
     namespace :v2, defaults: { format: 'json' } do
       resources :cultivable_zones, only: %i[index create update], param: :uuid
+      get 'farm_profiles/:harvest_year', to: 'farm_profiles#show'
       resources :tokens, only: %i[create destroy]
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
@@ -194,6 +195,7 @@ Rails.application.routes.draw do
       resource :expenses_by_product_nature_category_cell, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
+      resource :historical_weather_cell, only: :show
       resource :incoming_harvest_map_cell, only: :show
       resource :last_analyses_cell, only: :show
       resource :last_documents_cell, only: :show, concerns: :list
@@ -435,7 +437,11 @@ Rails.application.routes.draw do
 
     resources :cobblers, only: [:update]
 
-    resource :company, only: %i[edit update]
+    resource :company, only: %i[edit update] do
+      collection do
+        get :set_station_as_default
+      end
+    end
 
     resources :conditionings, concerns: :list do
       collection do
@@ -1235,6 +1241,7 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_service_deliveries
+        get :email_supplier
         post :open
         post :close
       end
@@ -1337,6 +1344,7 @@ Rails.application.routes.draw do
         get :list_subscriptions
         get :list_shipments
         get :list_credits
+        get :email_client
         post :abort
         post :confirm
         post :correct
@@ -1489,6 +1497,7 @@ Rails.application.routes.draw do
       resource :non_treatment_areas_visualizations, only: :show
       resource :inspections_visualizations, only: :show
       resource :incoming_harvest_map_cells_visualizations, only: :show
+      resource :weather_station_map_cells_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

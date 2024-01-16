@@ -23,7 +23,7 @@ module Backend
       @properties.insert(0, [tl(:ekylibre_version), Ekylibre.version])
       @properties << [tl(:database_version), ActiveRecord::Migrator.current_version]
 
-      @properties << [tl(:lexicon_version), File.open('.lexicon-version', &:gets)&.strip]
+      @properties << [tl(:lexicon_version), LexiconVersion.version]
     end
 
     list(:datasources,

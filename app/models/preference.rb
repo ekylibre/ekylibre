@@ -195,6 +195,7 @@ class Preference < ApplicationRecord
   prefer :country,  :country, Onoma::Country.default('fr')
   prefer :currency, :currency, :EUR
   prefer :map_measure_srs, :spatial_reference_system, Onoma::SpatialReferenceSystem.default
+  prefer :weather_public_station, :string, 'FR17308001'
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true
   prefer :client_account_radix, :string, '411'
