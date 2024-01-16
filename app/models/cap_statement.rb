@@ -66,10 +66,10 @@ class CapStatement < ApplicationRecord
   }
 
   def net_surface_area(unit = :hectare)
-    cap_islets.map(&:net_surface_area).sum.in(unit)
+    cap_islets.map(&:net_surface_area).sum.in(unit).round(2)
   end
 
   def human_net_surface_area(unit = :hectare)
-    net_surface_area(unit).round(2)
+    net_surface_area(unit).round_l
   end
 end

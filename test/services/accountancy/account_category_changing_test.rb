@@ -8,8 +8,8 @@ module Accountancy
       I18n.locale = :fra
       FinancialYear.delete_all
       Preference.set!(:accounting_system, 'fr_pcga')
-      @fy_first = create(:financial_year, year: 2022)
-      @fy_last = create(:financial_year, year: 2023)
+      @fy_first = create(:financial_year, year: 2023)
+      @fy_last = create(:financial_year, year: 2024)
       @nature = SaleNature.find_or_create_by(currency: 'EUR')
       @client = Entity.normal.first
       @standard_vat = Tax.create!(
@@ -24,7 +24,7 @@ module Accountancy
 
     test 'change sale account on category when sales already exist' do
       variant = ProductNatureVariant.import_from_lexicon('eggplant')
-      sale = Sale.new(nature: @nature, client: @client, invoiced_at: DateTime.parse('2023-01-02T00:00:00Z'))
+      sale = Sale.new(nature: @nature, client: @client, invoiced_at: DateTime.parse('2024-01-02T00:00:00Z'))
       sale.items.new(variant: variant,
                       compute_from: :unit_pretax_amount,
                       conditioning_quantity: 50.to_d,

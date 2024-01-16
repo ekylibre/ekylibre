@@ -195,7 +195,6 @@
         %span.title= Intervention.human_attribute_name(:prescription)
         %span.value= link_to(resource.prescription.name, {controller: :prescriptions, action: :show, id: resource.prescription})
 
-
     - if resource.journal_entry
       .info
         %span.title= Intervention.human_attribute_name(:journal_entry)
@@ -220,3 +219,6 @@
         %span.title= Intervention.human_attribute_name(:trouble_encountered)
         %span.value= resource.trouble_description
     = labels_info(resource.labels)
+  
+  - c.cobble :historical_weather do
+    = cell :historical_weather, params: { period: :hourly, started_at: resource.started_at, stopped_at: resource.stopped_at }

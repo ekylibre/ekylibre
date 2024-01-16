@@ -91,23 +91,14 @@ module Backend
         format.odt do
           return unless template = DocumentTemplate.find_active_template(:purchases_order, 'odt')
 
-          printer = Printers::PurchaseOrderPrinter.new(template: template, purchase_order: @purchase_order)
-          generator = Ekylibre::DocumentManagement::DocumentGenerator.build
-          odt_data = generator.generate_odt(template: template, printer: printer)
-
-          send_data odt_data, filename: "#{printer.document_name}.odt"
+          printed = print(template: template, format: :odt)
+          send_data printed[:data], filename: "#{printed[:name]}.odt"
         end
         format.pdf do
           return unless template = find_and_check(:document_template, params[:template])
 
-          printer = Printers::PurchaseOrderPrinter.new(template: template, purchase_order: @purchase_order)
-          generator = Ekylibre::DocumentManagement::DocumentGenerator.build
-          pdf_data = generator.generate_pdf(template: template, printer: printer)
-          archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
-
-          archiver.archive_document(pdf_content: pdf_data, template: template, key: printer.key, name: printer.document_name)
-
-          send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'attachment'
+          printed = print(template: template, format: :pdf)
+          send_data printed[:data], filename: "#{printed[:name]}.pdf", type: 'application/pdf', disposition: 'attachment'
         end
       end
     end
@@ -178,5 +169,40 @@ module Backend
       @purchase_order.close
       redirect_to action: :show, id: @purchase_order.id
     end
+
+    def email_supplier
+      return unless @purchase_order = find_and_check
+
+      return unless template = DocumentTemplate.find_active_template(:purchases_order, 'odt')
+
+      if @purchase_order.supplier.default_email_address
+        printed = print(template: template, format: :pdf, archived: true)
+        document = printed[:document]
+        PurchaseOrderExportJob.perform_later(@purchase_order, document, current_user)
+        notify_success :email_in_preparation
+      else
+        notify_error :supplier_default_email_address_missing
+      end
+
+      redirect_to action: :show, id: @purchase_order.id
+    end
+
+    def print(template:, format: :pdf, archived: true)
+      printer = Printers::PurchaseOrderPrinter.new(template: template, purchase_order: @purchase_order)
+      generator = Ekylibre::DocumentManagement::DocumentGenerator.build
+      if format == :pdf
+        data = generator.generate_pdf(template: template, printer: printer)
+      elsif format == :odt
+        data = generator.generate_odt(template: template, printer: printer)
+      end
+      if archived == true && format == :pdf
+        archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
+        document = archiver.archive_document(pdf_content: data, template: template, key: printer.key, name: printer.document_name)
+      else
+        document = nil
+      end
+      { data: data, name: printer.document_name, document: document }
+    end
+
   end
 end

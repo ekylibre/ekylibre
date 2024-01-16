@@ -22,7 +22,7 @@ module Backend
   class SalesControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     test_restfully_all_actions cancel: :redirected_get,
                                contacts: :index_xhr,
-                               except: %i[generate_parcel update]
+                               except: %i[generate_parcel update email_client]
 
     test 'should print an invoice' do
       sale = sales(:sales_001)

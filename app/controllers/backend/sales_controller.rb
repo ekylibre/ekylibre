@@ -351,9 +351,35 @@ module Backend
       render json: Sale.find_by_id(params[:id])&.ratio_conditioning?
     end
 
+    def email_client
+      return unless @sale = find_and_check
+
+      if @sale.parcels.any? && @sale.invoice?
+        template = :sales_invoice_shipment
+      elsif @sale.invoice?
+        template = :sales_invoice
+      elsif @sale.order?
+        template = :sales_order
+      elsif @sale.estimate? || @sale.draft? || @sale.refused?
+        template = :sales_estimate
+      end
+
+      return unless document_template = DocumentTemplate.find_active_template(template, 'odt')
+
+      if @sale.client.default_email_address && document_template
+        document = generate_n_send_pdf_for(@sale, document_template, true)
+        SaleExportJob.perform_later(@sale, document, current_user)
+        notify_success :email_in_preparation
+      else
+        notify_error :client_default_email_address_missing
+      end
+
+      redirect_to action: :show, id: @sale.id
+    end
+
     private
 
-      def generate_n_send_pdf_for(sale, template)
+      def generate_n_send_pdf_for(sale, template, only_archive = false)
         klass = printer_class(template.nature)
         if klass.nil?
           notify_error(:document_template_not_handled, nature: template.nature)
@@ -366,16 +392,18 @@ module Backend
         pdf_data = g.generate_pdf(template: template, printer: printer)
 
         archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
-        archiver.archive_document(
+        document = archiver.archive_document(
           pdf_content: pdf_data,
           template: template,
           key: printer.key,
           name: printer.document_name
         )
-
-        send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
-
-        true
+        if only_archive
+          document
+        else
+          send_data pdf_data, filename: "#{printer.document_name}.pdf", type: 'application/pdf', disposition: 'inline'
+          true
+        end
       end
 
       def printer_class(nature)

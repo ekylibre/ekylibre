@@ -896,16 +896,6 @@
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
       </item>
-      <item name="incoming_harvests">
-        <page to="backend/incoming_harvests#index"/>
-        <page to="backend/incoming_harvests#create"/>
-        <page to="backend/incoming_harvests#destroy"/>
-        <page to="backend/incoming_harvests#edit"/>
-        <page to="backend/incoming_harvests#list"/>
-        <page to="backend/incoming_harvests#new"/>
-        <page to="backend/incoming_harvests#show"/>
-        <page to="backend/incoming_harvests#update"/>
-      </item>
       <item name="equipments">
         <page to="backend/equipments#index"/>
         <page to="backend/equipments#create"/>
@@ -934,6 +924,16 @@
         <page to="backend/equipments#list_carrier_linkages"/>
         <page to="backend/equipments#list_trackings"/>
         <page to="backend/equipments#picture"/>
+      </item>
+      <item name="incoming_harvests">
+        <page to="backend/incoming_harvests#index"/>
+        <page to="backend/incoming_harvests#create"/>
+        <page to="backend/incoming_harvests#destroy"/>
+        <page to="backend/incoming_harvests#edit"/>
+        <page to="backend/incoming_harvests#list"/>
+        <page to="backend/incoming_harvests#new"/>
+        <page to="backend/incoming_harvests#show"/>
+        <page to="backend/incoming_harvests#update"/>
       </item>
     </group>
     <group name="field_distribution" icon="land-parcels">
@@ -1499,6 +1499,7 @@
       <item name="settings">
         <page to="backend/companies#edit"/>
         <page to="backend/companies#update"/>
+        <page to="backend/visualizations/weather_station_map_cells_visualizations#show"/>
       </item>
       <item name="about">
         <page to="backend/settings#about"/>

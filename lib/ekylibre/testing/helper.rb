@@ -11,7 +11,7 @@ module Ekylibre
         setup_factories
 
         setup_timestamp_format
-        Ekylibre::Lexicon.load
+        Ekylibre::Lexicon.load_for_test
 
         # TODO: reactivate this when we have a rails version compatible (5.2/6.0)
         # setup_minitest_reporters

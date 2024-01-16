@@ -251,7 +251,9 @@ class ActivityProduction < ApplicationRecord
   end
 
   protect(on: :destroy) do
-    interventions.any? || products.where.not(id: support.id).any?
+    if support
+      interventions.any? || products.where.not(id: support.id).any?
+    end
   end
 
   def self.retrieve_varieties_ancestors(*varieties)

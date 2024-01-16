@@ -138,6 +138,14 @@ class CultivableZone < ApplicationRecord
     nil
   end
 
+  # return natural_zones intersecting cultivable_zone
+  def natural_zones
+    natural_zones = RegisteredNaturalZone.shape_intersecting(shape)
+    return natural_zones if natural_zones.any?
+
+    nil
+  end
+
   # return edge intersecting cultivable_zone
   def edge_zones
     edge_zones = RegisteredAreaItem.of_nature(:edge).buffer_intersecting(0.7, shape)

@@ -38,6 +38,12 @@
         %span.value
           %i.picto{ class: 'picto-water-protection' }
           = resource.protected_water_zones.first.label
+    - if resource.natural_zones
+      .med-info
+        %span.title= :natural_zones.tl
+        %span.value
+          %i.picto{ class: 'picto-water-protection' }
+          = resource.natural_zones.first.name
     - if resource.theoritical_soil_depths
       .med-info
         %span.title= :theoritical_soil_depths.tl

@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   class PurchaseOrdersControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions open: :touch, close: :touch, except: %i[payment_mode create]
+    test_restfully_all_actions open: :touch, close: :touch, except: %i[payment_mode create email_supplier print]
 
     test "an order can't be created without at least one item" do
       supplier_one = create(:entity, :supplier)
