@@ -692,15 +692,20 @@ class FinancialYearClose
     end
 
     def dump_tenant
-      # @year state will be set to 'closing' when restoring this dump, think about updating it to 'opened'
-      tenant = Ekylibre::Tenant.current
-      @logger.info("Dump #{tenant.to_s}")
-      dump_path = Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
-      FileUtils.mkdir_p dump_path
-      @logger.info("Create folder in #{dump_path.to_s}")
-      Dir.mktmpdir do |dir|
-        Ekylibre::Tenant.dump(tenant, path: Pathname.new(dir))
-        FileUtils.mv "#{dir}/#{tenant}.zip", dump_path
+      if @disable_document_generation
+        Rails.logger.info("Skipping dump tenant as they are disabled")
+        return
+      else
+        # @year state will be set to 'closing' when restoring this dump, think about updating it to 'opened'
+        tenant = Ekylibre::Tenant.current
+        @logger.info("Dump #{tenant.to_s}")
+        dump_path = Ekylibre::Tenant.private_directory.join('prior_to_closure_dump')
+        FileUtils.mkdir_p dump_path
+        @logger.info("Create folder in #{dump_path.to_s}")
+        Dir.mktmpdir do |dir|
+          Ekylibre::Tenant.dump(tenant, path: Pathname.new(dir))
+          FileUtils.mv "#{dir}/#{tenant}.zip", dump_path
+        end
       end
     end
 end

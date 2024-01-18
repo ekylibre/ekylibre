@@ -80,9 +80,9 @@ module Printers
           item[:entry_number] = e.number
           item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
           item[:journal_name] = e.journal.name.to_s
-          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-          item[:reference_number] = e.reference_number.to_s
-          item[:label] = e.items.first.displayed_label_in_accountancy.to_s
+          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number.present?
+          item[:reference_number] = e.reference_number.to_s if e.reference_number.present?
+          item[:label] = e.items.first.displayed_label_in_accountancy.to_s if e.items.any?
           item[:state] = e.state_label
           item[:real_debit] = e.real_debit
           item[:real_credit] = e.real_credit

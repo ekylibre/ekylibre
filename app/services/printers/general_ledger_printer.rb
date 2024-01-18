@@ -141,8 +141,8 @@ module Printers
         journal_entry_items.each do |e|
           item = HashWithIndifferentAccess.new
           item[:entry_number] = e.entry_number
-          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number
-          item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number
+          item[:continuous_number] = e.continuous_number.to_s if e.continuous_number.present?
+          item[:reference_number] = e.entry.reference_number.to_s if e.entry.reference_number.present?
           item[:printed_on] = e.printed_on.strftime('%d/%m/%Y')
           item[:name] = e.name.to_s
           item[:variant] = e.variant.name if e.variant
