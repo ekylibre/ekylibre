@@ -2,7 +2,7 @@
 
 class SaleExportMailer < ActionMailer::Base
   def notify_client(sale, document, current_user)
-    attachments[document.name] = File.read(document.file.path)
+    attachments[document.file_file_name] = File.read(document.file.path)
 
     locales_values = {
       number: sale.number,

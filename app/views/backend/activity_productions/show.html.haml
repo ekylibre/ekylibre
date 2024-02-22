@@ -96,6 +96,10 @@
         - viewed_at = Time.zone.now.change(year: current_campaign.harvest_year)
         %span.value= resource.support.members_at(viewed_at)&.count.to_i
 
+      .med-info.important
+        %span.title= :provisionnal_number_of_animals.tl
+        %span.value= resource.size_value.to_i
+
     = attributes_list stamps: false do |l|
       - l.attribute :activity, url: true
       - l.attribute :support_nature

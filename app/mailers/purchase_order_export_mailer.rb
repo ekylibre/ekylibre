@@ -2,7 +2,7 @@
 
 class PurchaseOrderExportMailer < ActionMailer::Base
   def notify_supplier(purchase_order, document, current_user)
-    attachments[document.name] = File.read(document.file.path)
+    attachments[document.file_file_name] = File.read(document.file.path)
 
     locales_values = {
       name: Entity.of_company.full_name,

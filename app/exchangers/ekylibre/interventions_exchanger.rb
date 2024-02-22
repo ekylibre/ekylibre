@@ -153,6 +153,8 @@ module Ekylibre
         line_number = _index + 2
         r = parse_row(row)
 
+        puts r.intervention_number.inspect.yellow
+
         # Check duration
         if r.intervention_duration_in_hour.hours
           r.intervention_stopped_at = r.intervention_started_at + r.intervention_duration_in_hour.hours
@@ -263,6 +265,9 @@ module Ekylibre
 
         w.check_point
       end
+      # clean data
+      ActivityProduction.all.map(&:save)
+      Intervention.all.map(&:save)
     end
 
     protected
@@ -611,6 +616,10 @@ module Ekylibre
 
         w.debug "targets : #{targets.map(&:name)}".inspect.yellow
 
+        ## grab varieties of targets
+        activity_ids = ActivityProduction.where(id: targets.pluck(:activity_production_id).compact.uniq).pluck(:activity_id).compact.uniq
+        varieties = Activity.where(id: activity_ids).pluck(:cultivation_variety).compact.uniq
+
         ## targets
         targets.each_with_index do |target, index|
           procedure.parameters_of_type(:target).each do |support|
@@ -638,6 +647,8 @@ module Ekylibre
             product_measure = actor_measure_conversion(actor[0])
             # find best handler for product measure
             i = input.best_handler_for(product_measure)
+            next if i.nil?
+
             handler = if i.is_a?(Array)
                         input.best_handler_for(product_measure).first.name
                       else
@@ -648,6 +659,12 @@ module Ekylibre
             # check usage_id presence in Lexicon
             if actor[1].present? && RegisteredPhytosanitaryUsage.find_by(id: actor[1])
               usage_id = actor[1]
+            elsif actor[0].product.variant.reference_name.present?
+              phyto_product = RegisteredPhytosanitaryProduct.find_by(reference_name: actor[0].product.variant.reference_name)
+              if phyto_product.present? && varieties.any?
+                usages = phyto_product.usages.of_varieties(varieties.first.to_s)
+                usage_id = usages.first.id if usages.any?
+              end
             end
 
             attributes[:inputs_attributes] ||= {}

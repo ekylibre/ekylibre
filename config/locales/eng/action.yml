@@ -1534,6 +1534,10 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    chemical_and_physical_weeding: "Physical and chemical weeding"
+    chemical_weeding: "Chemical weeding"
+    physical_weeding: "Physical weeding"
+    no_weeding: "No weeding"
     add_tank: "Add storage"
     silo: "Storage"
     product_unit: "Unity"

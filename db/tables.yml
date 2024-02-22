@@ -735,6 +735,8 @@ activity_productions:
   usage:
     type: string
     required: true
+  uuid:
+    type: uuid
 activity_seasons:
   activity_id:
     type: integer
@@ -1328,7 +1330,7 @@ bank_statement_items:
   entity_id:
     type: integer
     references: entity
-    limit: 4
+    limit: 8
   id:
     type: integer
     limit: 4
@@ -7310,6 +7312,8 @@ master_crop_production_cap_codes:
     required: true
   cap_precision:
     type: string
+  is_seed:
+    type: boolean
   production:
     type: string
     required: true
@@ -7339,6 +7343,8 @@ master_crop_production_tfi_codes:
   tfi_code:
     type: string
     required: true
+  tfi_crop_group:
+    type: string
   tfi_label:
     type: string
     required: true
@@ -8555,10 +8561,10 @@ payslips:
   currency:
     type: string
     required: true
-  description:
-    type: string
   custom_fields:
     type: jsonb
+  description:
+    type: string
   emitted_on:
     type: date
   employee_id:
@@ -10772,10 +10778,6 @@ registered_agroedi_codes:
     type: string
   ekylibre_value:
     type: string
-  id:
-    type: integer
-    limit: 4
-    required: true
   reference_code:
     type: string
   reference_id:
@@ -10788,6 +10790,15 @@ registered_agroedi_codes:
     type: integer
     limit: 4
     required: true
+registered_agroedi_crops:
+  agroedi_code:
+    type: string
+    required: true
+  agroedi_name:
+    type: string
+    required: true
+  production:
+    type: string
 registered_area_items:
   centroid:
     type: geometry
@@ -10973,6 +10984,53 @@ registered_graphic_parcels:
       srid: 4326
       type: st_polygon
     required: true
+registered_hourly_weathers:
+  average_temp:
+    type: decimal
+    precision: 19
+    scale: 4
+  frozen_duration:
+    type: decimal
+    precision: 19
+    scale: 4
+  humidity:
+    type: decimal
+    precision: 19
+    scale: 4
+  max_temp:
+    type: decimal
+    precision: 19
+    scale: 4
+  max_wind_speed:
+    type: decimal
+    precision: 19
+    scale: 4
+  mesured_delay:
+    type: interval
+  min_temp:
+    type: decimal
+    precision: 19
+    scale: 4
+  pressure:
+    type: decimal
+    precision: 19
+    scale: 4
+  rain:
+    type: decimal
+    precision: 19
+    scale: 4
+  soil_state:
+    type: string
+  started_at:
+    type: datetime
+  station_id:
+    type: string
+  weather_description:
+    type: string
+  wind_direction:
+    type: decimal
+    precision: 19
+    scale: 4
 registered_hydrographic_items:
   centroid:
     type: geometry
@@ -11001,6 +11059,21 @@ registered_hydrographic_items:
     limit:
       srid: 4326
       type: multi_polygon
+registered_natural_zones:
+  id:
+    type: string
+    required: true
+  name:
+    type: string
+  nature:
+    type: string
+    required: true
+  shape:
+    type: geometry
+    limit:
+      srid: 4326
+      type: multi_polygon
+    required: true
 registered_phytosanitary_cropsets:
   crop_labels:
     type: jsonb
@@ -11333,6 +11406,30 @@ registered_vine_varieties:
     required: true
   utilities:
     type: text
+registered_weather_stations:
+  centroid:
+    type: geometry
+    limit:
+      srid: 4326
+      type: st_point
+  country:
+    type: string
+    required: true
+  country_zone:
+    type: string
+    required: true
+  elevation:
+    type: integer
+    limit: 4
+  reference_name:
+    type: string
+    required: true
+  station_code:
+    type: string
+    required: true
+  station_name:
+    type: string
+    required: true
 regularizations:
   affair_id:
     type: integer

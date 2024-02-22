@@ -73,7 +73,7 @@ class ProjectTask < ApplicationRecord
     elsif logs.any?
       duration = logs.between(start_on, stop_on).sum(:duration)
     end
-    duration&.in(:second)&.convert(unit)&.round(2)&.l
+    duration&.in(:second)&.convert(unit)&.round(2)&.l(precision: 2)
   end
 
   def time_ratio

@@ -118,8 +118,12 @@ module Backend
     def confirm
       return unless (record = find_and_check)
 
-      record.confirm(ongoing_at: Time.zone.now, current_user: current_user)
-
+      l = Loan::Transitions::Confirm.new(record, ongoing_at: Time.zone.now, current_user: current_user)
+      if l.can_run?
+        l.transition
+      else
+        notify_error :error_during_transition
+      end
       redirect_to action: :show, id: record.id
     end
 

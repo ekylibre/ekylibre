@@ -56,5 +56,13 @@ module Backend
       f.close
       KramdownToHtmlService.call(content: content)
     end
+
+    # Open an help file and returns corresponding PDF
+    def pdf(file)
+      f = File.open(file, 'rb:UTF-8')
+      content = f.read
+      f.close
+      KramdownToHtmlService.pdf(content: content)
+    end
   end
 end

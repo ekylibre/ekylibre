@@ -50,7 +50,8 @@ class Project < ApplicationRecord
   belongs_to :sale_contract
   belongs_to :responsible, class_name: 'User'
   has_many :members, class_name: 'ProjectMember', dependent: :destroy, inverse_of: :project
-  has_many :tasks, class_name: 'ProjectTask', dependent: :destroy
+  has_many :tasks, class_name: 'ProjectTask', dependent: :destroy, inverse_of: :project
+  has_many :logs, through: :tasks
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
@@ -87,14 +88,14 @@ class Project < ApplicationRecord
     duration.in(:hour).round(2).l
   end
 
-  def real_duration(start_on = nil, stop_on = nil)
+  def real_duration(start_on = nil, stop_on = nil, unit = :hour)
     duration = 0.0
-    if tasks.any?
-      tasks.each do |t|
-        duration += t.real_duration(start_on, stop_on).to_f
-      end
+    if logs.any? && (start_on.nil? || stop_on.nil?)
+      duration = logs.sum(:duration)
+    elsif logs.any?
+      duration = logs.between(start_on, stop_on).sum(:duration)
     end
-    duration.in(:hour).round(2).l
+    duration&.in(:second)&.convert(unit)&.round(2)&.l(precision: 2)
   end
 
   def time_ratio

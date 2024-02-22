@@ -63,6 +63,7 @@ module Backend
       t.action :destroy
       t.column :started_at, datatype: :datetime
       t.column :stopped_at, datatype: :datetime
+      t.column :project_task
       t.column :description
       t.column :human_duration, on_select: :sum, value_method: 'duration.in(:second).in(:hour)', datatype: :decimal, class: 'center-align'
     end
