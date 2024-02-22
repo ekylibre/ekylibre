@@ -149,6 +149,7 @@
 - journal_entry_item
 - label
 - land_parcel
+- lexicon_version
 - listing
 - listing_node
 - listing_node_item
@@ -248,7 +249,9 @@
 - registered_cadastral_price
 - registered_eu_market_price
 - registered_graphic_parcel
+- registered_hourly_weather
 - registered_hydrographic_item
+- registered_natural_zone
 - registered_phytosanitary_cropset
 - registered_phytosanitary_product
 - registered_phytosanitary_risk
@@ -262,6 +265,7 @@
 - registered_soil_available_water_capacity
 - registered_soil_depth
 - registered_vine_variety
+- registered_weather_station
 - regularization
 - ride
 - ride_set

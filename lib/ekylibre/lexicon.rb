@@ -43,9 +43,9 @@ module Ekylibre
 
     def load(enable, keep_lexicon_versions)
       if @current_version.present? && @current_version == @target_version
-        error("Lexicon #{@target_version} is already loaded and activated.")
+        info("Lexicon #{@target_version} is already loaded and activated.")
       elsif check_version_in_db == 1
-        error("Lexicon #{@target_version} is already loaded. You must activated it")
+        info("Lexicon #{@target_version} is already loaded. You must activated it")
       else
         info("Loading Lexicon ...")
         if keep_lexicon_versions == false

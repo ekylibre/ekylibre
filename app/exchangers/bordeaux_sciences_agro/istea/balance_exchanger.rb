@@ -34,16 +34,17 @@ module BordeauxSciencesAgro
             printed_on: Date.parse(row[0].to_s),
             account_number: row[1].to_s,
             account_name: row[2].to_s,
-            start_debit_amount: (row[3].blank? ? 0.0 : row[3].to_f),
-            start_credit_amount: (row[4].blank? ? 0.0 : row[4].to_f),
-            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].to_f),
-            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].to_f),
-            global_balance: (row[7].blank? ? 0.0 : row[7].to_f)
+            start_debit_amount: (row[3].blank? ? 0.0 : row[3].tr(',', '.').to_d),
+            start_credit_amount: (row[4].blank? ? 0.0 : row[4].tr(',', '.').to_d),
+            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].tr(',', '.').to_d),
+            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].tr(',', '.').to_d),
+            global_balance: (row[7].blank? ? 0.0 : row[7].tr(',', '.').to_d)
           }.to_struct
           # w.check_point
 
-          fy = FinancialYear.where("stopped_on = ?", r.printed_on).first
+          fy = FinancialYear.at(r.printed_on)
           unless fy
+            w.error "FinancialYear does not exist for #{r.printed_on} in line : #{line_number} - #{valid}".red
             valid = false
           end
 
@@ -73,11 +74,11 @@ module BordeauxSciencesAgro
             printed_on: Date.parse(row[0].to_s),
             account_number: row[1].to_s,
             account_name: row[2].to_s,
-            start_debit_amount: (row[3].blank? ? 0.0 : row[3].to_f),
-            start_credit_amount: (row[4].blank? ? 0.0 : row[4].to_f),
-            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].to_f),
-            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].to_f),
-            global_balance: (row[7].blank? ? 0.0 : row[7].to_f)
+            start_debit_amount: (row[3].blank? ? 0.0 : row[3].tr(',', '.').to_d),
+            start_credit_amount: (row[4].blank? ? 0.0 : row[4].tr(',', '.').to_d),
+            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].tr(',', '.').to_d),
+            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].tr(',', '.').to_d),
+            global_balance: (row[7].blank? ? 0.0 : row[7].tr(',', '.').to_d)
           }.to_struct
 
           number = r.printed_on.to_s
@@ -101,7 +102,7 @@ module BordeauxSciencesAgro
             w.info "account : #{account.label.inspect.red}"
           end
 
-          if r.start_debit_amount.to_f > 0.0
+          if r.start_debit_amount > 0.0
             id = (entries[number][:items_attributes].keys.max || 0) + 1
             entries[number][:items_attributes][id] = {
               real_debit: r.start_debit_amount.to_f,
@@ -110,7 +111,7 @@ module BordeauxSciencesAgro
               name: r.account_name
             }
           end
-          if r.start_credit_amount.to_f > 0.0
+          if r.start_credit_amount > 0.0
             id = (entries[number][:items_attributes].keys.max || 0) + 1
             entries[number][:items_attributes][id] = {
               real_debit: 0.0,
@@ -119,7 +120,7 @@ module BordeauxSciencesAgro
               name: r.account_name
             }
           end
-          if r.variation_debit_amount.to_f > 0.0
+          if r.variation_debit_amount > 0.0
             id = (entries[number][:items_attributes].keys.max || 0) + 1
             entries[number][:items_attributes][id] = {
               real_debit: r.variation_debit_amount.to_f,
@@ -128,7 +129,7 @@ module BordeauxSciencesAgro
               name: r.account_name
             }
           end
-          if r.variation_credit_amount.to_f > 0.0
+          if r.variation_credit_amount > 0.0
             id = (entries[number][:items_attributes].keys.max || 0) + 1
             entries[number][:items_attributes][id] = {
               real_debit: 0.0,

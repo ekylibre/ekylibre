@@ -37,7 +37,7 @@ module Ekylibre
                 bypass = changed.all? { |change| allowed_fields.map(&:to_s).include?(change) }
 
                 unless send("#{callback}able?") || bypass
-                  raise "Ekylibre::Record::RecordNot#{callback.to_s.camelcase}able".constantize.new("Record cannot be #{callback}d", self)
+                  raise "Ekylibre::Record::RecordNot#{callback.to_s.camelcase}able".constantize.new("Record cannot be #{callback}d")
                 end
               end
 

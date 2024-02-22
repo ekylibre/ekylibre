@@ -30,7 +30,7 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Allow every Ekylibre url to subscribe to actionCable
-  config.action_cable.allowed_request_origins = [/https?:\/\/.{1,40}\.(ekylibre|ekyviti)(-dev)?\.(com|io|farm)/]
+  config.action_cable.allowed_request_origins = ENV['ACTION_CABLE_ALLOW_REQUEST_ORIGIN'] || [/https?:\/\/.{1,40}\.(ekylibre|ekyviti)(-dev)?\.(com|io|farm)/]
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
@@ -47,8 +47,6 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
-
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 

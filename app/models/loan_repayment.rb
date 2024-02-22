@@ -80,8 +80,12 @@ class LoanRepayment < ApplicationRecord
   end
 
   # Prevents from deleting if entry exist and validated
-  protect on: %i[update destroy] do
-    locked || (journal_entry && !journal_entry.destroyable?)
+  protect on: :update do
+    (journal_entry && !journal_entry.editable?)
+  end
+
+  protect on: :destroy do
+    (journal_entry && !journal_entry.destroyable?)
   end
 
   bookkeep do |b|

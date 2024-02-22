@@ -184,6 +184,11 @@ class Intervention < ApplicationRecord
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
+
+  scope :of_action, lambda { |action|
+    where('actions LIKE ?', "%#{action.to_s}%")
+  }
+
   scope :of_campaign, lambda { |campaign|
     where(id: HABTM_Campaigns.select(:intervention_id).where(campaign: campaign))
   }

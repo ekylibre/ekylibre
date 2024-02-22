@@ -207,6 +207,7 @@ class ActivityProduction < ApplicationRecord
     self.started_on ||= Date.today
     self.usage ||= Onoma::ProductionUsage.first
     self.support_nature ||= :cultivation
+    self.uuid ||= UUIDTools::UUID.random_create.to_s
     if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.stopped_on ||= self.started_on + life_duration.to_i.year if perennial?
@@ -282,6 +283,22 @@ class ActivityProduction < ApplicationRecord
     work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
     work_number << '_' + campaign.harvest_year.to_s if campaign
     work_number
+  end
+
+  # return if production is chemical, physical, both or none for weeding intervention
+  def weeding_nature
+    chemical_interventions = interventions.of_action(:herbicide).with_input_presence
+    physical_interventions = interventions.of_action(:weeding).without_input_presence
+    herbicide_pfi = PfiCampaignsActivitiesIntervention.of_activity_production(self).of_segment("S3")
+    if (chemical_interventions.any? || herbicide_pfi.any?) && physical_interventions.any?
+      :chemical_and_physical_weeding.tl
+    elsif chemical_interventions.any? || herbicide_pfi.any?
+      :chemical_weeding.tl
+    elsif physical_interventions.any?
+      :physical_weeding.tl
+    else
+      :no_weeding.tl
+    end
   end
 
   def interventions_of_nature(nature)

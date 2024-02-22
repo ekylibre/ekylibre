@@ -1255,6 +1255,10 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    chemical_and_physical_weeding: "Désherbage physique et chimique"
+    chemical_weeding: "Désherbage chimique"
+    physical_weeding: "Désherbage physique"
+    no_weeding: "Absence de désherbage"
     degree_day: "Degrée Jour"
     workers_chart: "Temps / personne"
     projects_chart: "Temps / projet"
@@ -1333,7 +1337,8 @@ fra:
     ekylibre_format_exchanges: "Échanges au format Ekylibre"
     complete_isacompta_journal_code_html: "Complétez les codes des journaux Isacompta sélectionnés dans votre échange comptable : %{journals_link}"
     complete_isacompta_tax_code_html: "Complétez les taxes avec les codes Isacompta de votre comptable : %{taxes_link}"
-    number_of_animals: "Membres"
+    number_of_animals: "Nombre d'animaux présents"
+    provisionnal_number_of_animals: "Nombre d'animaux prévisionnel"
     warning_could_not_use_ift: "Attention, si la production de référence n'est pas renseignée, les IFT ne pourront pas être calculés."
     warning_could_not_compute_stock: "Stock comptable négatif. Faites une OD."
     start_state_of_production: "1ère année de production (plantation année N)"

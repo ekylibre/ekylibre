@@ -265,7 +265,15 @@ $large-controls-margin-left: round($large-label-width * 1.1);
     }
 
     & .lights-message.warning {
-      color: #f44336;
+      color: rgba(255, 136, 17, 0.8);
+    }
+
+    & .lights-message.go {
+      color: rgba(101, 169, 7, 0.8);
+    }
+
+    & .lights-message.stop {
+      color: rgba(216, 30, 8, 0.8);
     }
   }
 

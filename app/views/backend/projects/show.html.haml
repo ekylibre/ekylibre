@@ -1,11 +1,16 @@
 = main_toolbar do |t|
   = t.edit resource
 
+- main_period_selector(:year)
+
 = main_informations attachment: true do
   = attributes_list do |l|
     - l.attribute :activity, url: true
     - l.attribute :responsible, url: true
+    - l.attribute :activity
     - l.attribute :sale_contract, url: true
+    - l.attribute :started_on
+    - l.attribute :stopped_on
     - l.attribute :comment
 
   = infos do
@@ -13,7 +18,7 @@
       .med-info.important
         %span.title= ProjectTask.human_attribute_name(:time_ratio)
         %span.value
-          = resource.time_ratio.in(:percent).round(2).l
+          = resource.time_ratio.in(:percent).round(2).l(precision: 2)
     - if resource.timeleft
       .med-info
         %span.title= SaleOpportunity.human_attribute_name(:timeleft)
@@ -25,3 +30,32 @@
       = t.new(params: {controller: :project_tasks, project_id: resource.id})
     - if resource.tasks.any?
       = cobble_list(:tasks)
+  - c.cobble(:chart) do
+    :ruby
+      year = current_period.to_date.year
+      start = Date.new(year, 1, 1)
+      stop = Date.new(year, 12, 31)
+      title = "#{resource.name} | #{year.to_s} | #{:real_duration.tl} : #{resource.real_duration(start, stop)}"
+      series = []
+      categories = []
+      workers = Worker.all.reorder(:name)
+      
+      tasks = ProjectTask.where(project_id: resource.id)
+      tasks.each do |task|
+        data = []
+        workers.each do |worker|
+          categories << "#{worker.name}"
+          worker_logs = resource.logs.where(project_task_id: task.id, worker_id: worker.id).of_year(year)
+          if worker_logs.any?
+            data << worker_logs.durations.to_f
+          else
+            data << 0
+          end
+        end
+        series << { name: task.name, data: data }
+      end
+
+    - if series.any?
+      = bar_highcharts(series, title: { text: title }, y_axis: {min: 0, title: {text: :duration.tl}}, x_axis: { categories: categories}, legend: {reverse: true}, plot_options: { series: {stacking: 'normal'}})
+    - else
+      = no_data
