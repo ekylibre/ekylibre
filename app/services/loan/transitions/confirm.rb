@@ -26,9 +26,9 @@ class Loan
       end
 
       def can_run?
-        financial_year = FinancialYear.at(ongoing_at)
+        financial_year = FinancialYear.at(@ongoing_at)
 
-        if super && resource.valid?
+        if super && financial_year.present? && resource.valid?
           !resource.initial_releasing_amount || (financial_year.opened? || (financial_year.closure_in_preparation? && financial_year.updater == current_user))
         else
           false
