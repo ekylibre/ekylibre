@@ -24,6 +24,10 @@
     = :warning_date_not_in_period.tl
   = f.input :delivered
   = f.referenced_association :mode
+  = f.input :with_discount, show: '#discount-fields'
+  #discount-fields
+    = f.input :discount_amount
+    = f.referenced_association :discount_vat, new: false, source: :current
   = f.custom_fields
 
 = field_set(:depositable_options) do

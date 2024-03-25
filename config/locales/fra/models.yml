@@ -291,6 +291,9 @@ fra:
         storage: "Lieu de stockage"
       incoming_payment: #?
         to_bank_at: "À encaisser le" #?
+        with_discount: "Avec escompte"
+        discount_amount: "Montant TTC de l'escompte"
+        discount_vat: "Taxe sur l'escompte"
       inspection: #?
         forecast_harvest_week: "Semaine de récolte prévisionnelle" #?
         points: "Points de contrôle" #?
@@ -343,6 +346,9 @@ fra:
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
         list: "Lot de décaissements"
+        with_discount: "Avec escompte"
+        discount_amount: "Montant TTC de l'escompte"
+        discount_vat: "Taxe sur l'escompte"
       outgoing_payment_list:
         payments_sum: "Total"
       outgoing_payment_mode: #?
@@ -464,6 +470,9 @@ fra:
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
+        with_discount: "Avec escompte"
+        discount_amount: "Montant TTC de l'escompte"
+        discount_vat: "Taxe sur l'escompte"
       registered_phytosanitary_product:
         active_compounds: "Substance(s) active(s)"
         firm_name: "Fabricant" #?

@@ -35,7 +35,7 @@
 #  file_updated_at        :datetime
 #  id                     :integer(4)       not null, primary key
 #  key                    :string           not null
-#  klippa_metadata        :jsonb            default("{}")
+#  metadata               :jsonb            default("{}")
 #  lock_version           :integer(4)       default(0), not null
 #  mandatory              :boolean          default(FALSE)
 #  name                   :string           not null

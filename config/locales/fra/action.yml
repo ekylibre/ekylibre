@@ -3803,6 +3803,7 @@ fra:
     wish_to_see_other_available_import_in_the_list_html: "Vous souhaitez voir d'autres imports disponibles dans la liste ? Faites le nous savoir dans <strong>le chat</strong> en bas de la page !"
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
+    with_discount: "Avec escompte"
     worked_on: "Travaillé le" #?
     worked_zone_not_corresponding: "La zone travaillée ne correspond pas à celle planifiée"
     worker: "Équipier" #?

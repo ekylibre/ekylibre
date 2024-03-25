@@ -11,6 +11,10 @@
   %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
     = :warning_date_not_in_period.tl
   = f.input :received
+  = f.input :with_discount, show: '#discount-fields'
+  #discount-fields
+    = f.input :discount_amount
+    = f.referenced_association :discount_vat, new: false, source: :current
   = f.custom_fields
 
 = field_set(:depositable_options) do

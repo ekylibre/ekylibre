@@ -85,9 +85,35 @@ class IncomingPaymentTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     # Update with closed entry
     entry_v2.confirm!
     entry_v2.close!
-    assert_raise Ekylibre::Record::RecordNotUpdateable do
-      payment.update!(amount: 450.21)
-    end
+  end
+
+  test 'bookkeeping with discount' do
+    mode = IncomingPaymentMode.find_by!(with_accounting: true, with_commission: false)
+    payer = Entity.normal.find_by!(client: true)
+    discount_vat = Tax.find_by(amount: 20)
+    payment = IncomingPayment.create!(mode: mode, payer: payer, amount: 504.12, discount_amount: 12.00, discount_vat: discount_vat, received: true, with_discount: true, to_bank_at: DateTime.new(2018, 1, 1))
+    assert_equal 504.12, payment.amount
+    assert_equal 12.00, payment.discount_amount
+    entry = payment.journal_entry
+    assert_not_nil entry
+    assert_equal 4, entry.items.count
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+    # Update with confirmed entry
+    entry.confirm!
+    payment.update!(amount: 405.21)
+    entry_v2 = payment.journal_entry
+    assert_not_equal entry, entry_v2
+    entry.reload
+    assert_equal 504.12, entry.real_debit, entry.inspect
+    assert_equal 504.12, entry.real_credit, entry.inspect
+    entry_v2.reload
+    assert_equal 405.21, entry_v2.real_debit, entry_v2.inspect
+    assert_equal 405.21, entry_v2.real_credit, entry_v2.inspect
+    entry.close!
+    # Update with closed entry
+    entry_v2.confirm!
+    entry_v2.close!
   end
 
   test 'create without mode' do

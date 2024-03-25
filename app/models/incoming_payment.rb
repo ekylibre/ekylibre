@@ -39,6 +39,8 @@
 #  currency              :string           not null
 #  custom_fields         :jsonb
 #  deposit_id            :integer(4)
+#  discount              :boolean          default(FALSE), not null
+#  discount_amount       :decimal(19, 4)
 #  downpayment           :boolean          default(TRUE), not null
 #  id                    :integer(4)       not null, primary key
 #  journal_entry_id      :integer(4)
@@ -67,6 +69,7 @@ class IncomingPayment < ApplicationRecord
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
   refers_to :currency
   belongs_to :commission_account, class_name: 'Account'
+  belongs_to :discount_vat, class_name: 'Tax'
   belongs_to :responsible, class_name: 'User'
   belongs_to :deposit, inverse_of: :payments
   belongs_to :journal_entry # , dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
@@ -86,8 +89,11 @@ class IncomingPayment < ApplicationRecord
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :amount, numericality: true
   validates :commission_amount, numericality: { greater_than_or_equal_to: 0.0 }
+  validates :discount_amount, numericality: { greater_than_or_equal_to: 0.0 }
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
+  validates :discount_amount, presence: { if: :with_discount? }
+  validates :discount_vat, presence: { if: :with_discount? }
   validates :to_bank_at, financial_year_writeable: true, ongoing_exchanges: true
   validates :currency, match: { with: :mode }
   validates :mode, match: { with: :deposit, to_invalidate: :deposit_id }, allow_blank: true
@@ -122,6 +128,7 @@ class IncomingPayment < ApplicationRecord
   end
 
   before_validation do
+    self.discount_amount ||= 0.0
     if mode
       self.commission_account ||= mode.commission_account
       self.commission_amount ||= mode.commission_amount(amount)
@@ -149,17 +156,31 @@ class IncomingPayment < ApplicationRecord
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    # mode = mode
+    # for discount case
+    if with_discount && discount_amount.present? && discount_amount > 0.0
+      discount_account = Account.find_or_import_from_nomenclature(:discount_granted_expenses)
+      discount_vat_account_id = discount_vat.collect_account_id
+      discount_pretax_amount = discount_vat.pretax_amount_of(discount_amount).round(2)
+      discount_vat_amount = (discount_amount - discount_pretax_amount).round(2)
+      discount_global_amount = discount_amount
+    else
+      discount_global_amount = 0.0
+    end
+    # with deposit
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payer: payer.full_name, mode: mode.name, check_number: bank_check_number)
     if mode.with_deposit?
       b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
-        entry.add_debit(label,  mode.depositables_account_id, amount - self.commission_amount, as: :deposited)
+        entry.add_debit(label,  mode.depositables_account_id, amount - (self.commission_amount + discount_global_amount), as: :deposited)
+        entry.add_debit(label,  discount_account.id, discount_pretax_amount, as: :discount) if with_discount && self.discount_amount > 0
+        entry.add_debit(label,  discount_vat_account_id, discount_vat_amount, as: :discount) if with_discount && self.discount_amount > 0
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
       b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received)) do |entry|
-        entry.add_debit(label,  mode.cash.account_id, amount - self.commission_amount, as: :bank)
+        entry.add_debit(label,  mode.cash.account_id, amount - (self.commission_amount + discount_global_amount), as: :bank)
+        entry.add_debit(label,  discount_account.id, discount_pretax_amount, as: :discount) if with_discount && self.discount_amount > 0
+        entry.add_debit(label,  discount_vat_account_id, discount_vat_amount, as: :discount) if with_discount && self.discount_amount > 0
         entry.add_debit(label,  commission_account_id, self.commission_amount, as: :commission) if self.commission_amount > 0
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end

@@ -3200,7 +3200,7 @@ documents:
   key:
     type: string
     required: true
-  klippa_metadata:
+  metadata:
     type: jsonb
   lock_version:
     type: integer
@@ -4912,6 +4912,14 @@ incoming_payments:
     type: integer
     references: deposit
     limit: 4
+  discount_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  discount_vat_id:
+    type: integer
+    references: tax
+    limit: 4
   downpayment:
     type: boolean
     required: true
@@ -4967,6 +4975,10 @@ incoming_payments:
     type: integer
     references: user
     limit: 4
+  with_discount:
+    type: boolean
+    required: true
+    default: false
 inspection_calibrations:
   created_at:
     type: datetime
@@ -8086,6 +8098,14 @@ outgoing_payments:
     type: boolean
     required: true
     default: false
+  discount_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  discount_vat_id:
+    type: integer
+    references: tax
+    limit: 4
   downpayment:
     type: boolean
     required: true
@@ -8140,6 +8160,10 @@ outgoing_payments:
     type: integer
     references: user
     limit: 4
+  with_discount:
+    type: boolean
+    required: true
+    default: false
 parcel_item_storings:
   conditioning_quantity:
     type: decimal

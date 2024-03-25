@@ -60,6 +60,7 @@ payslip_payments_001:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 11
   journal_entry_id: 119
@@ -73,6 +74,7 @@ payslip_payments_001:
   type: PayslipPayment
   updated_at: 2017-06-07 16:14:55.054983000 Z
   updater_id: 1
+  with_discount: false
 payslip_payments_002:
   accounted_at: 2017-06-07 16:15:58.250768000 Z
   affair_id: 56
@@ -83,6 +85,7 @@ payslip_payments_002:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 12
   journal_entry_id: 121
@@ -96,6 +99,7 @@ payslip_payments_002:
   type: PayslipPayment
   updated_at: 2017-06-07 16:15:58.164208000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_001:
   accounted_at: 2014-11-07 13:58:25.752963000 Z
   affair_id: 23
@@ -106,6 +110,7 @@ purchase_payments_001:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 1
   journal_entry_id: 20
@@ -119,6 +124,7 @@ purchase_payments_001:
   type: PurchasePayment
   updated_at: 2014-11-07 13:58:25.645961000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_002:
   accounted_at: 2014-11-07 13:58:35.193036000 Z
   affair_id: 25
@@ -129,6 +135,7 @@ purchase_payments_002:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 2
   journal_entry_id: 25
@@ -142,6 +149,7 @@ purchase_payments_002:
   type: PurchasePayment
   updated_at: 2014-11-07 13:58:35.126560000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_003:
   accounted_at: 2014-11-05 13:40:55.901993000 Z
   affair_id: 15
@@ -152,6 +160,7 @@ purchase_payments_003:
   creator_id: 1
   currency: EUR
   delivered: false
+  discount_amount: 0.0
   downpayment: true
   id: 3
   lock_version: 0
@@ -164,6 +173,7 @@ purchase_payments_003:
   type: PurchasePayment
   updated_at: 2014-11-05 13:40:55.895164000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_004:
   accounted_at: 2014-11-07 15:58:34.242278000 Z
   affair_id: 26
@@ -174,6 +184,7 @@ purchase_payments_004:
   creator_id: 1
   currency: EUR
   delivered: false
+  discount_amount: 0.0
   downpayment: true
   id: 4
   lock_version: 0
@@ -186,6 +197,7 @@ purchase_payments_004:
   type: PurchasePayment
   updated_at: 2014-11-07 15:58:34.235757000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_005:
   accounted_at: 2014-11-07 16:53:26.229792000 Z
   affair_id: 30
@@ -196,6 +208,7 @@ purchase_payments_005:
   creator_id: 1
   currency: EUR
   delivered: false
+  discount_amount: 0.0
   downpayment: true
   id: 5
   lock_version: 0
@@ -208,6 +221,7 @@ purchase_payments_005:
   type: PurchasePayment
   updated_at: 2014-11-07 16:53:26.222034000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_006:
   accounted_at: 2016-10-01 14:33:26.229792000 Z
   affair_id: 15
@@ -218,6 +232,7 @@ purchase_payments_006:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 6
   journal_entry_id: 86
@@ -232,6 +247,7 @@ purchase_payments_006:
   type: PurchasePayment
   updated_at: 2016-10-01 14:43:26.229792000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_007:
   accounted_at: 2016-10-01 14:33:26.229792000 Z
   affair_id: 17
@@ -242,6 +258,7 @@ purchase_payments_007:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 7
   journal_entry_id: 87
@@ -256,6 +273,7 @@ purchase_payments_007:
   type: PurchasePayment
   updated_at: 2016-10-01 14:43:26.229792000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_008:
   accounted_at: 2016-10-26 15:31:44.310429000 Z
   affair_id: 30
@@ -265,6 +283,7 @@ purchase_payments_008:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 8
   journal_entry_id: 88
@@ -279,6 +298,7 @@ purchase_payments_008:
   type: PurchasePayment
   updated_at: 2016-10-26 15:31:44.113817000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_009:
   accounted_at: 2016-11-20 22:14:52.631615000 Z
   affair_id: 49
@@ -289,6 +309,7 @@ purchase_payments_009:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 9
   journal_entry_id: 104
@@ -302,6 +323,7 @@ purchase_payments_009:
   type: PurchasePayment
   updated_at: 2016-11-20 22:14:52.572838000 Z
   updater_id: 1
+  with_discount: false
 purchase_payments_010:
   accounted_at: 2016-12-20 18:17:18.756633000 Z
   affair_id: 54
@@ -312,6 +334,7 @@ purchase_payments_010:
   creator_id: 1
   currency: EUR
   delivered: true
+  discount_amount: 0.0
   downpayment: true
   id: 10
   journal_entry_id: 115
@@ -325,3 +348,4 @@ purchase_payments_010:
   type: PurchasePayment
   updated_at: 2016-12-20 18:17:18.697888000 Z
   updater_id: 1
+  with_discount: false
