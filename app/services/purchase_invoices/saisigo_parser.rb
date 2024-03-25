@@ -7,7 +7,7 @@ module PurchaseInvoices
 
     def initialize(document_id)
       @document = Document.find(document_id)
-      @data = @document.klippa_metadata.deep_symbolize_keys
+      @data = @document.metadata_by_vendor(VENDOR).deep_symbolize_keys
       if @data[:fields][:supplier_siren].present?
         @siren_or_siret_number = @data[:fields][:supplier_siren].delete(' ')
         if @siren_or_siret_number.length == 9

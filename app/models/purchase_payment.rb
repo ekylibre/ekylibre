@@ -58,10 +58,22 @@ class PurchasePayment < OutgoingPayment
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
+    # for discount case
+    if with_discount && discount_amount.present? && discount_amount > 0.0
+      discount_account = Account.find_or_import_from_nomenclature(:reductions)
+      discount_vat_account_id = discount_vat.deduction_account_id
+      discount_pretax_amount = discount_vat.pretax_amount_of(discount_amount).round(2)
+      discount_vat_amount = (discount_amount - discount_pretax_amount).round(2)
+      discount_global_amount = discount_amount
+    else
+      discount_global_amount = 0.0
+    end
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payee: payee.full_name, mode: mode.name, check_number: bank_check_number)
     b.journal_entry(mode.cash.journal, printed_on: to_bank_at.to_date, if: (mode.with_accounting? && delivered)) do |entry|
       entry.add_debit(label, payee.account(:supplier).id, amount, as: :payee, resource: payee)
-      entry.add_credit(label, mode.cash.account_id, amount, as: :bank)
+      entry.add_credit(label, discount_account.id, discount_pretax_amount, as: :discount) if with_discount && self.discount_amount > 0
+      entry.add_credit(label, discount_vat_account_id, discount_vat_amount, as: :discount) if with_discount && self.discount_amount > 0
+      entry.add_credit(label, mode.cash.account_id, amount - discount_global_amount, as: :bank)
     end
   end
 end

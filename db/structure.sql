@@ -4222,7 +4222,7 @@ CREATE TABLE public.documents (
     signature text,
     mandatory boolean DEFAULT false,
     processable_attachment boolean DEFAULT true NOT NULL,
-    klippa_metadata jsonb DEFAULT '{}'::jsonb
+    metadata jsonb DEFAULT '{}'::jsonb
 );
 
 
@@ -4397,7 +4397,10 @@ CREATE TABLE public.incoming_payments (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     codes jsonb,
-    provider jsonb
+    provider jsonb,
+    with_discount boolean DEFAULT false NOT NULL,
+    discount_amount numeric(19,4),
+    discount_vat_id bigint
 );
 
 
@@ -4491,6 +4494,9 @@ CREATE TABLE public.outgoing_payments (
     list_id integer,
     "position" integer,
     type character varying,
+    with_discount boolean DEFAULT false NOT NULL,
+    discount_amount numeric(19,4),
+    discount_vat_id bigint,
     CONSTRAINT outgoing_payment_delivered CHECK (((delivered = false) OR ((delivered = true) AND (paid_at IS NOT NULL))))
 );
 
@@ -20461,6 +20467,13 @@ CREATE INDEX index_incoming_payments_on_deposit_id ON public.incoming_payments U
 
 
 --
+-- Name: index_incoming_payments_on_discount_vat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_incoming_payments_on_discount_vat_id ON public.incoming_payments USING btree (discount_vat_id);
+
+
+--
 -- Name: index_incoming_payments_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -22418,6 +22431,13 @@ CREATE INDEX index_outgoing_payments_on_created_at ON public.outgoing_payments U
 --
 
 CREATE INDEX index_outgoing_payments_on_creator_id ON public.outgoing_payments USING btree (creator_id);
+
+
+--
+-- Name: index_outgoing_payments_on_discount_vat_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_outgoing_payments_on_discount_vat_id ON public.outgoing_payments USING btree (discount_vat_id);
 
 
 --
@@ -29390,6 +29410,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231003114701'),
 ('20231120175701'),
 ('20231124093401'),
-('20240206122201');
+('20240206122201'),
+('20240314141501'),
+('20240315104301');
 
 

@@ -61,6 +61,7 @@ class OutgoingPayment < ApplicationRecord
   belongs_to :cash
   belongs_to :journal_entry # , dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
   belongs_to :mode, class_name: 'OutgoingPaymentMode'
+  belongs_to :discount_vat, class_name: 'Tax'
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :list, class_name: 'OutgoingPaymentList', inverse_of: :payments
@@ -74,6 +75,9 @@ class OutgoingPayment < ApplicationRecord
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :amount, numericality: true
+  validates :discount_amount, numericality: { greater_than_or_equal_to: 0.0 }
+  validates :discount_amount, presence: { if: :with_discount? }
+  validates :discount_vat, presence: { if: :with_discount? }
   validates :to_bank_at, financial_year_writeable: true, ongoing_exchanges: true
 
   delegate :full_name, to: :payee, prefix: true
@@ -99,6 +103,7 @@ class OutgoingPayment < ApplicationRecord
   end
 
   before_validation do
+    self.discount_amount ||= 0.0
     self.paid_at ||= Time.zone.now if delivered
     if mode
       self.cash = mode.cash

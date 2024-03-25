@@ -255,7 +255,7 @@ class PurchaseInvoice < Purchase
   def has_klippa_ocr_attachment
     if self.attachments.present?
       document = self.attachments.first.document
-      if document.klippa_metadata.present?
+      if document.metadata.present?
         document
       else
         nil

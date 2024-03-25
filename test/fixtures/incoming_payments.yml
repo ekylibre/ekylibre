@@ -64,6 +64,7 @@ incoming_payments_001:
   creator_id: 1
   currency: EUR
   deposit_id: 4
+  discount_amount: 0.0
   downpayment: true
   id: 1
   journal_entry_id: 15
@@ -76,6 +77,7 @@ incoming_payments_001:
   to_bank_at: 2009-07-18 22:00:00.000000000 Z
   updated_at: 2014-11-05 12:45:57.840651000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_002:
   accounted_at: 2014-11-07 13:55:38.758657000 Z
   affair_id: 24
@@ -88,6 +90,7 @@ incoming_payments_002:
   creator_id: 1
   currency: EUR
   deposit_id: 5
+  discount_amount: 0.0
   downpayment: true
   id: 2
   journal_entry_id: 7
@@ -101,6 +104,7 @@ incoming_payments_002:
   to_bank_at: 2009-07-18 22:00:00.000000000 Z
   updated_at: 2014-11-05 12:46:06.215514000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_003:
   accounted_at: 2014-11-05 14:07:45.790887000 Z
   affair_id: 21
@@ -113,6 +117,7 @@ incoming_payments_003:
   creator_id: 1
   currency: EUR
   deposit_id: 4
+  discount_amount: 0.0
   downpayment: true
   id: 3
   journal_entry_id: 8
@@ -125,6 +130,7 @@ incoming_payments_003:
   to_bank_at: 2009-07-18 22:00:00.000000000 Z
   updated_at: 2014-11-05 12:45:57.743007000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_004:
   accounted_at: 2014-11-05 14:07:42.844167000 Z
   affair_id: 22
@@ -133,6 +139,7 @@ incoming_payments_004:
   created_at: 2014-10-31 18:51:59.234679000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 4
   lock_version: 0
@@ -146,6 +153,7 @@ incoming_payments_004:
   to_bank_at: 2014-10-30 23:00:00.000000000 Z
   updated_at: 2014-10-31 18:51:59.234679000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_005:
   accounted_at: 2014-11-05 09:58:15.883989000 Z
   affair_id: 10
@@ -157,6 +165,7 @@ incoming_payments_005:
   created_at: 2014-11-05 09:58:15.763955000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 5
   journal_entry_id: 13
@@ -171,6 +180,7 @@ incoming_payments_005:
   to_bank_at: 2014-11-01 00:30:00.000000000 Z
   updated_at: 2014-11-05 09:58:15.763955000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_006:
   accounted_at: 2014-11-05 10:02:25.622501000 Z
   affair_id: 12
@@ -182,6 +192,7 @@ incoming_payments_006:
   created_at: 2014-11-05 10:02:25.617133000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 6
   lock_version: 0
@@ -195,6 +206,7 @@ incoming_payments_006:
   to_bank_at: 2014-11-04 23:00:00.000000000 Z
   updated_at: 2014-11-05 10:02:25.617133000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_007:
   accounted_at: 2014-11-05 13:36:45.646520000 Z
   affair_id: 17
@@ -206,6 +218,7 @@ incoming_payments_007:
   created_at: 2014-11-05 13:36:45.639839000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 7
   lock_version: 0
@@ -219,6 +232,7 @@ incoming_payments_007:
   to_bank_at: 2014-11-01 23:00:00.000000000 Z
   updated_at: 2014-11-05 13:36:45.639839000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_008:
   accounted_at: 2016-11-20 22:09:40.218918000 Z
   affair_id: 43
@@ -230,6 +244,7 @@ incoming_payments_008:
   created_at: 2016-11-20 22:09:40.159990000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 8
   journal_entry_id: 91
@@ -244,6 +259,7 @@ incoming_payments_008:
   to_bank_at: 2016-11-19 23:00:00.000000000 Z
   updated_at: 2016-11-20 22:09:40.159990000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_009:
   accounted_at: 2016-11-20 22:10:53.000679000 Z
   affair_id: 45
@@ -255,6 +271,7 @@ incoming_payments_009:
   created_at: 2016-11-20 22:10:52.940167000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 9
   journal_entry_id: 94
@@ -269,6 +286,7 @@ incoming_payments_009:
   to_bank_at: 2016-11-19 23:00:00.000000000 Z
   updated_at: 2016-11-20 22:10:52.940167000 Z
   updater_id: 1
+  with_discount: false
 incoming_payments_010:
   accounted_at: 2016-12-20 08:58:53.128227000 Z
   affair_id: 52
@@ -280,6 +298,7 @@ incoming_payments_010:
   created_at: 2016-12-20 08:58:52.977894000 Z
   creator_id: 1
   currency: EUR
+  discount_amount: 0.0
   downpayment: true
   id: 10
   journal_entry_id: 111
@@ -294,3 +313,4 @@ incoming_payments_010:
   to_bank_at: 2016-12-19 23:00:00.000000000 Z
   updated_at: 2016-12-20 08:58:52.977894000 Z
   updater_id: 1
+  with_discount: false

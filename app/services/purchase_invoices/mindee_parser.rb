@@ -7,7 +7,7 @@ module PurchaseInvoices
 
     def initialize(document_id)
       @document = Document.find(document_id)
-      @data = JSON.parse(@document.klippa_metadata).deep_symbolize_keys.to_struct
+      @data = JSON.parse(@document.metadata[VENDOR.to_s]).deep_symbolize_keys.to_struct
       @sirene = find_entity_on_sirene_v3 if @data.locale[:language] == 'fr'
     end
 
@@ -88,7 +88,7 @@ module PurchaseInvoices
       variant = guess_variant(description, supplier)
       infos = {
         variant: variant,
-        tax: guess_tax(vat_percentage, supplier),
+        tax: guess_tax(vat_percentage, supplier, variant),
         unit: guess_unit(variant)
       }
     end
@@ -133,16 +133,17 @@ module PurchaseInvoices
       Unit.import_from_lexicon(:unity)
     end
 
-    def guess_tax(percentage, supplier)
-      tax = Tax.where(active: true, amount: ((percentage * 0.95)..(percentage * 1.05))).first
-      if tax.nil?
+    def guess_tax(percentage, supplier, variant)
+      if percentage.present?
+        tax = Tax.where(active: true, amount: ((percentage * 0.95)..(percentage * 1.05))).first
+      elsif variant.present?
         tax = if (purchase_items=PurchaseItem.where(variant: variant)).any?
                 purchase_items.order(id: :desc).first.tax
               elsif MasterVariantCategory.find_by_reference_name(variant.category.reference_name).present?
                 Tax.where(amount: MasterVariantCategory.find_by_reference_name(variant.category.reference_name).default_vat_rate).first
-              else
-                Tax.last
               end
+      else
+        tax = Tax.last
       end
       tax
     end

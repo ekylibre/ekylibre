@@ -116,29 +116,14 @@ module Backend
     def purchase_scan
       return unless @document = Document.find(params[:id])
 
-      # launch OCR to create metadata if does not exist
-      # or show error
-      unless @document.klippa_metadata.present?
-        p = PurchaseInvoices::MindeeOcr.new.post_document_and_parse(@document)
-        if p[:status] != :success
-          notify(p[:message], p[:status])
-          redirect_to params[:redirect] || { action: :show, id: @document.id }
-        end
-      end
-      # launch Parser on metadata to create purchase
-      if @document.attach_to_resource && @document.klippa_metadata.present?
+      if @document.attach_to_resource
         purchase_id = @document.attach_to_resource
-        notify :already_transform_purchase_document
         redirect_to backend_purchase_invoice_path(id: purchase_id)
-      elsif @document.klippa_metadata.present?
-        klippa_parser = PurchaseInvoices::MindeeParser.new(@document.id)
-        new_purchase_id = klippa_parser.parse_and_create_invoice
-        if new_purchase_id
-          redirect_to backend_purchase_invoice_path(id: new_purchase_id)
-        else
-          notify_error :cannot_transform_purchase_document
-          redirect_to params[:redirect] || { action: :show, id: @document.id }
-        end
+      else
+        # launch OCR to create metadata if does not exist
+        PurchaseInvoiceClassifierJob.perform_later(params[:id], params[:vendor].to_s, current_user.id)
+        notify_success(:document_in_preparation)
+        redirect_to action: :show, id: @document.id
       end
     end
 
