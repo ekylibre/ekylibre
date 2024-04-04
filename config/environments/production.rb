@@ -30,8 +30,7 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Allow every Ekylibre url to subscribe to actionCable
-  config.action_cable.allowed_request_origins = ENV['ACTION_CABLE_ALLOW_REQUEST_ORIGIN'] || [/https?:\/\/.{1,40}\.(ekylibre|ekyviti)(-dev)?\.(com|io|farm)/]
-
+  config.action_cable.allowed_request_origins = [/https?:\/\/.{1,40}\.#{Regexp.quote(ENV.fetch('HOST_DOMAIN_NAME', 'ekylibre.farm'))}/]
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.

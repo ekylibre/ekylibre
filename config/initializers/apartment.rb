@@ -97,3 +97,7 @@ elsif ENV['ELEVATOR'] == 'header'
 else
   Rails.application.config.middleware.use Apartment::Elevators::SecuredSubdomain
 end
+
+if ENV['HOST_SUBDOMAIN_NAME'].present?
+  Apartment::Elevators::SecuredSubdomain.excluded_subdomains = ENV['HOST_SUBDOMAIN_NAME']
+end
