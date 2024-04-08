@@ -10,14 +10,32 @@
                   class: 'from-selected-bank from-selected-journal gap-creation',        |
                   title: regul_journal[:name]                                            |
 
-  = dropdown_menu_button :new_payslip, icon: false do |menu|
-    - payslip_natures.each do |nature|
-      - menu.item nature.name,                                                                                   |
-                new_backend_quick_payslip_path(nature_id: nature.id, redirect: url_for(url_redirect_params)), |
+  = dropdown_menu_button :new_payslip_payment, icon: false do |menu|
+    - Entity.employees.each do |employee|
+      - menu.item employee.full_name,                                                                                   |
+                create_payslip_payment_backend_bank_statement_items_path(payee_id: employee.id, redirect: url_for(url_redirect_params)), |
                 tabindex: -1,                                                                                  |
                 method: :get,                                                                                  |
                 class: 'from-selected-bank',                                                                   |
-                title: nature.name
+                title: employee.full_name
+
+  = dropdown_menu_button :new_payslip_contribution_payment, icon: false do |menu|
+    - Entity.payslip_contributors.each do |entity|
+      - menu.item entity.full_name,                                                                                   |
+                create_payslip_contribution_payment_backend_bank_statement_items_path(payee_id: entity.id, redirect: url_for(url_redirect_params)),
+                tabindex: -1,
+                method: :get,
+                class: 'from-selected-bank',
+                title: entity.full_name
+  
+  = dropdown_menu_button :new_tax_payment, icon: false do |menu|
+    - TaxPayment.nature.values.each do |nature|
+      - menu.item I18n.t("enumerize.tax_payment.nature.#{nature.to_sym}"),                                                                                   |
+                create_vat_payment_backend_bank_statement_items_path(nature: nature, redirect: url_for(url_redirect_params)),
+                tabindex: -1,
+                method: :get,
+                class: 'from-selected-bank',
+                title: :nature.tl
 
   = dropdown_menu_button :new_purchase, icon: false do |menu|
     - purchase_natures.each do |nature|

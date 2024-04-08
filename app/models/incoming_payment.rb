@@ -82,7 +82,8 @@ class IncomingPayment < ApplicationRecord
   validates :amount, :commission_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :bank_account_number, :bank_check_number, :bank_name, :number, length: { maximum: 500 }, allow_blank: true
   validates :currency, :mode, presence: true
-  validates :downpayment, :received, :scheduled, inclusion: { in: [true, false] }
+  validates :discount_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :downpayment, :received, :scheduled, :with_discount, inclusion: { in: [true, false] }
   validates :receipt, length: { maximum: 500_000 }, allow_blank: true
   validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]

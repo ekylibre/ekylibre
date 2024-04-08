@@ -9363,50 +9363,6 @@ ALTER SEQUENCE public.project_members_id_seq OWNED BY public.project_members.id;
 
 
 --
--- Name: project_task_logs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.project_task_logs (
-    id integer NOT NULL,
-    project_task_id integer NOT NULL,
-    worker_id integer,
-    worked_on date NOT NULL,
-    duration numeric(9,2) NOT NULL,
-    sale_item_id integer,
-    started_at timestamp without time zone,
-    comment text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    travel_expenses boolean DEFAULT false NOT NULL,
-    travel_expense_details character varying,
-    working_entity_id integer
-);
-
-
---
--- Name: project_task_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.project_task_logs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: project_task_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.project_task_logs_id_seq OWNED BY public.project_task_logs.id;
-
-
---
 -- Name: project_tasks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -10573,6 +10529,50 @@ CREATE SEQUENCE public.tax_declarations_id_seq
 --
 
 ALTER SEQUENCE public.tax_declarations_id_seq OWNED BY public.tax_declarations.id;
+
+
+--
+-- Name: tax_payments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tax_payments (
+    id bigint NOT NULL,
+    accounted_at timestamp without time zone,
+    amount numeric(19,4) NOT NULL,
+    cash_id bigint,
+    currency character varying NOT NULL,
+    description text,
+    financial_year_id bigint NOT NULL,
+    journal_entry_id bigint,
+    nature character varying NOT NULL,
+    number character varying NOT NULL,
+    paid_at timestamp without time zone NOT NULL,
+    state character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id bigint,
+    updater_id bigint,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: tax_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tax_payments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tax_payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tax_payments_id_seq OWNED BY public.tax_payments.id;
 
 
 --
@@ -12817,13 +12817,6 @@ ALTER TABLE ONLY public.project_members ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
--- Name: project_task_logs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.project_task_logs ALTER COLUMN id SET DEFAULT nextval('public.project_task_logs_id_seq'::regclass);
-
-
---
 -- Name: project_tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -13024,6 +13017,13 @@ ALTER TABLE ONLY public.tax_declaration_items ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.tax_declarations ALTER COLUMN id SET DEFAULT nextval('public.tax_declarations_id_seq'::regclass);
+
+
+--
+-- Name: tax_payments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tax_payments ALTER COLUMN id SET DEFAULT nextval('public.tax_payments_id_seq'::regclass);
 
 
 --
@@ -15071,14 +15071,6 @@ ALTER TABLE ONLY public.project_members
 
 
 --
--- Name: project_task_logs project_task_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.project_task_logs
-    ADD CONSTRAINT project_task_logs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: project_tasks project_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -15316,6 +15308,14 @@ ALTER TABLE ONLY public.tax_declaration_items
 
 ALTER TABLE ONLY public.tax_declarations
     ADD CONSTRAINT tax_declarations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tax_payments tax_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tax_payments
+    ADD CONSTRAINT tax_payments_pkey PRIMARY KEY (id);
 
 
 --
@@ -24555,62 +24555,6 @@ CREATE INDEX index_project_members_on_user_id ON public.project_members USING bt
 
 
 --
--- Name: index_project_task_logs_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_created_at ON public.project_task_logs USING btree (created_at);
-
-
---
--- Name: index_project_task_logs_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_creator_id ON public.project_task_logs USING btree (creator_id);
-
-
---
--- Name: index_project_task_logs_on_project_task_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_project_task_id ON public.project_task_logs USING btree (project_task_id);
-
-
---
--- Name: index_project_task_logs_on_sale_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_sale_item_id ON public.project_task_logs USING btree (sale_item_id);
-
-
---
--- Name: index_project_task_logs_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_updated_at ON public.project_task_logs USING btree (updated_at);
-
-
---
--- Name: index_project_task_logs_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_updater_id ON public.project_task_logs USING btree (updater_id);
-
-
---
--- Name: index_project_task_logs_on_worker_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_worker_id ON public.project_task_logs USING btree (worker_id);
-
-
---
--- Name: index_project_task_logs_on_working_entity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_project_task_logs_on_working_entity_id ON public.project_task_logs USING btree (working_entity_id);
-
-
---
 -- Name: index_project_tasks_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -26155,6 +26099,55 @@ CREATE INDEX index_tax_declarations_on_updated_at ON public.tax_declarations USI
 --
 
 CREATE INDEX index_tax_declarations_on_updater_id ON public.tax_declarations USING btree (updater_id);
+
+
+--
+-- Name: index_tax_payments_on_cash_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_cash_id ON public.tax_payments USING btree (cash_id);
+
+
+--
+-- Name: index_tax_payments_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_created_at ON public.tax_payments USING btree (created_at);
+
+
+--
+-- Name: index_tax_payments_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_creator_id ON public.tax_payments USING btree (creator_id);
+
+
+--
+-- Name: index_tax_payments_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_financial_year_id ON public.tax_payments USING btree (financial_year_id);
+
+
+--
+-- Name: index_tax_payments_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_journal_entry_id ON public.tax_payments USING btree (journal_entry_id);
+
+
+--
+-- Name: index_tax_payments_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_updated_at ON public.tax_payments USING btree (updated_at);
+
+
+--
+-- Name: index_tax_payments_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tax_payments_on_updater_id ON public.tax_payments USING btree (updater_id);
 
 
 --
@@ -27854,14 +27847,6 @@ ALTER TABLE ONLY public.activity_budgets
 
 
 --
--- Name: project_task_logs fk_rails_6290611d8e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.project_task_logs
-    ADD CONSTRAINT fk_rails_6290611d8e FOREIGN KEY (project_task_id) REFERENCES public.project_tasks(id);
-
-
---
 -- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -28603,14 +28588,6 @@ ALTER TABLE ONLY public.outgoing_payments
 
 ALTER TABLE ONLY public.financial_year_exchanges
     ADD CONSTRAINT fk_rails_f0120f1957 FOREIGN KEY (financial_year_id) REFERENCES public.financial_years(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: project_task_logs fk_rails_f343a209d7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.project_task_logs
-    ADD CONSTRAINT fk_rails_f343a209d7 FOREIGN KEY (worker_id) REFERENCES public.users(id);
 
 
 --
@@ -29412,6 +29389,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231124093401'),
 ('20240206122201'),
 ('20240314141501'),
-('20240315104301');
+('20240315104301'),
+('20240328141701'),
+('20240408105801');
 
 

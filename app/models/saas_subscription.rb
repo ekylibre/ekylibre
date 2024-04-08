@@ -56,6 +56,12 @@ class SaasSubscription < ApplicationRecord
   has_one :variant, through: :catalog_item, class_name: 'ProductNatureVariant'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :canceled_at, :trial_started_at, :trial_stopped_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :name, :tenant_name, length: { maximum: 500 }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(saas_subscription) { saas_subscription.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :entity, presence: true
   # ]VALIDATORS]
   scope :active, -> { where('canceled_at IS NULL AND stopped_at IS NULL') }
   scope :started_between, ->(started_at, stopped_at) { where('started_at BETWEEN ? AND ?', started_at, stopped_at) }

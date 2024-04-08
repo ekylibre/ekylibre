@@ -48,6 +48,69 @@ module Backend
       end
     end
 
+    def create_vat_payment
+      return head :bad_request unless params[:bank_statement_item_ids].present? && params[:nature].present?
+
+      bsi = BankStatementItem.where(id: params[:bank_statement_item_ids])
+
+      return head :bad_request unless bsi
+
+      fy = FinancialYear.on(bsi.first.transfered_on)
+      amount  = bsi.sum(:debit) - bsi.sum(:credit)
+      tax_payment = TaxPayment.create!(
+        cash_id: bsi.first.cash.id,
+        paid_at: bsi.first.transfered_on.to_time,
+        nature: params[:nature].to_sym,
+        financial_year_id: fy.id,
+        amount: amount.abs,
+        state: :validated
+      )
+      tax_payment.letter_with(bsi)
+      redirect_to params[:redirect]
+    end
+
+    def create_payslip_contribution_payment
+      return head :bad_request unless params[:bank_statement_item_ids].present? && params[:payee_id].present?
+
+      bsi = BankStatementItem.where(id: params[:bank_statement_item_ids])
+
+      return head :bad_request unless bsi
+
+      amount  = bsi.sum(:debit) - bsi.sum(:credit)
+      payslip_contribution_payment = PayslipContributionPayment.create!(
+        mode: bsi.first.cash.outgoing_payment_modes.first,
+        to_bank_at: bsi.first.transfered_on.to_time,
+        paid_at: bsi.first.transfered_on.to_time,
+        amount: amount.abs,
+        payee_id: params[:payee_id],
+        responsible: current_user,
+        delivered: true
+      )
+      payslip_contribution_payment.letter_with(bsi)
+      redirect_to params[:redirect]
+    end
+
+    def create_payslip_payment
+      return head :bad_request unless params[:bank_statement_item_ids].present? && params[:payee_id].present?
+
+      bsi = BankStatementItem.where(id: params[:bank_statement_item_ids])
+
+      return head :bad_request unless bsi
+
+      amount  = bsi.sum(:debit) - bsi.sum(:credit)
+      payslip_payment = PayslipPayment.create!(
+        mode: bsi.first.cash.outgoing_payment_modes.first,
+        to_bank_at: bsi.first.transfered_on.to_time,
+        paid_at: bsi.first.transfered_on.to_time,
+        amount: amount.abs,
+        payee_id: params[:payee_id],
+        responsible: current_user,
+        delivered: true
+      )
+      payslip_payment.letter_with(bsi)
+      redirect_to params[:redirect]
+    end
+
     protected
 
       def permitted_params

@@ -369,9 +369,11 @@ fra:
       payslip_contribution_payment: #?
         delivered: "Remis au prestataire social" #?
         list: "Lot de décaissements" #?
+        with_discount: "Avec escompte"
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
+        with_discount: "Avec escompte"
       payslip:
         amount: 'Salaire net'
         raw_amount: 'Salaire brut'
@@ -1172,9 +1174,10 @@ fra:
       target_distribution: "Répartition de cible"
       task: "Tâche"
       tax: "Taxe"
-      tax_declaration: "Déclaration d’impôts"
+      tax_declaration: "Déclaration TVA"
       tax_declaration_item: "Tax élément de déclaration"
       tax_declaration_item_part: "Partie d’élément de déclaration fiscale"
+      tax_payment: "Paiement TVA"
       team: "Service"
       token: "Jeton"
       tracking: "Lot traçable"
@@ -2589,12 +2592,13 @@ fra:
     targets: "Cibles"
     tasks: "Tâches"
     tax: "Taxe"
-    tax_declaration: "Déclaration d’impôts"
+    tax_declaration: "Déclaration TVA"
     tax_declaration_frequency: "Fréquence de déclaration de TVA"
     tax_declaration_item: "Tax élément de déclaration"
     tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration de TVA"
     tax_declarations: "Déclarations fiscales"
+    tax_payment: "Paiement TVA"
     tax_payability: "Exigibilité fiscale"
     taxations: "Taxations"
     team: "Équipe"
@@ -3238,6 +3242,8 @@ fra:
         sales: "V[year|4][month|2][number|6]"
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
+        tax_declarations: "TAX[year|4][number|4]"
+        tax_payments: "TAXP[year|4][number|4]"
         transports: "TR[number|8]"
     shipment:
       bookkeep: "[%{resource} %{number}] %{entity}"
@@ -3258,6 +3264,11 @@ fra:
       states:
         draft: "Brouillon"
         sent: "Envoyée"
+        validated: "Validée"
+    tax_payment:
+      bookkeep: "[%{resource} %{number}] - %{mode} %{year}"
+      states:
+        draft: "Brouillon"
         validated: "Validée"
     team:
       default: "Général"

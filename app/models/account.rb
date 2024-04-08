@@ -91,7 +91,7 @@ class Account < ApplicationRecord
   refers_to :centralizing_account, -> { where(centralizing: true) }, class_name: 'Account'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :already_existing, :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :active, :already_existing, :debtor, :reconcilable, inclusion: { in: [true, false] }
   validates :auxiliary_number, :last_letter, length: { maximum: 500 }, allow_blank: true
   validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
   validates :label, :name, :number, presence: true, length: { maximum: 500 }
@@ -224,6 +224,7 @@ class Account < ApplicationRecord
   }
 
   before_validation do
+    self.active ||= true
     if general? && number.present? && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A(401|411)0*\z/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?
@@ -253,6 +254,7 @@ class Account < ApplicationRecord
       self.reconcilable = reconcilableable? if reconcilable.nil?
       self.label = tc(:label, number: number.to_s, name: name.to_s)
       self.usages = Account.find_parent_usage(number) if usages.blank? && number
+      self.active ||= true
     end
   end
 

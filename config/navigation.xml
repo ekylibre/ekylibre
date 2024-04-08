@@ -216,6 +216,18 @@
         <page to="backend/tax_declarations#unroll"/>
         <page to="backend/tax_declarations#update"/>
       </item>
+      <item name="tax_payments">
+        <page to="backend/tax_payments#index"/>
+        <page to="backend/tax_payments#create"/>
+        <page to="backend/tax_payments#destroy"/>
+        <page to="backend/tax_payments#edit"/>
+        <page to="backend/tax_payments#list"/>
+        <page to="backend/tax_payments#confirm"/>
+        <page to="backend/tax_payments#new"/>
+        <page to="backend/tax_payments#show"/>
+        <page to="backend/tax_payments#unroll"/>
+        <page to="backend/tax_payments#update"/>
+      </item>
     </group>
     <group name="cash" icon="money">
       <item name="cashes">

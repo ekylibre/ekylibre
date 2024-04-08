@@ -42,7 +42,7 @@ class IncomingHarvestStorage < ApplicationRecord
   belongs_to :storage, class_name: 'Product'
   belongs_to :product, class_name: 'Product'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :quantity_unit, :storage, :incoming_harvest, presence: true
+  validates :incoming_harvest, :quantity_unit, :storage, presence: true
   validates :quantity_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   # ]VALIDATORS]
   # before link campaign depends on received_at

@@ -103,9 +103,9 @@ class ActivityProduction < ApplicationRecord
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :batch_planting, inclusion: { in: [true, false] }, allow_blank: true
-  validates :custom_name, :reference_name, :state, length: { maximum: 500 }, allow_blank: true
+  validates :cultivable_zone_rank_number, :number_of_batch, :sowing_interval, :starting_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :custom_name, :name, :reference_name, :state, length: { maximum: 500 }, allow_blank: true
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
-  validates :number_of_batch, :sowing_interval, :starting_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :predicated_sowing_date, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years }, type: :date }, allow_blank: true
   validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :activity, :size_indicator_name, :support, :usage, presence: true
@@ -146,12 +146,23 @@ class ActivityProduction < ApplicationRecord
   scope :with_cultivation_variety, lambda { |variety|
     where(activity: Activity.with_cultivation_variety(variety))
   }
+
   scope :of_cultivation_variety, lambda { |variety|
     where(activity: Activity.of_cultivation_variety(variety))
   }
+
+  scope :of_exact_cultivation_variety, lambda { |variety|
+    where(activity: Activity.where(cultivation_variety: variety.to_s))
+  }
+
   scope :of_cultivation_varieties, lambda { |*varieties|
     where(activity: Activity.of_cultivation_varieties(*varieties))
   }
+
+  scope :of_production_cycle, lambda { |cycle|
+    where(activity: Activity.of_production_cycle(cycle))
+  }
+
   scope :of_current_campaigns, -> {
     of_campaign(Campaign.current.last)
   }
@@ -283,6 +294,14 @@ class ActivityProduction < ApplicationRecord
     work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
     work_number << '_' + campaign.harvest_year.to_s if campaign
     work_number
+  end
+
+  def label
+    if cap_land_parcel.present?
+      "#{name} | PAC #{cap_land_parcel.islet_number}-#{cap_land_parcel.land_parcel_number}"
+    else
+      name.to_s
+    end
   end
 
   # return if production is chemical, physical, both or none for weeding intervention

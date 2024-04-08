@@ -40,7 +40,7 @@ class WorkerContractDistribution < ApplicationRecord
   belongs_to :main_activity, class_name: 'Activity'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :affectation_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :worker_contract, :main_activity, presence: true
+  validates :main_activity, :worker_contract, presence: true
   # ]VALIDATORS]
   validates :affectation_percentage, numericality: { greater_than: 0 }
 

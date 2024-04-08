@@ -67,3 +67,7 @@ eng:
         go: "Sent"
         caution: "Checked"
         stop: "Draft"
+      tax_payment:
+        go: "Sent"
+        caution: "Draft"
+        stop: "Stop"

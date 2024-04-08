@@ -129,6 +129,7 @@ fra:
       supervisions: "Supervisions"
       tasks: "Tâches"
       tax_declarations: "Déclarations fiscales"
+      tax_payments: "Paiements TVA"
       taxes: "Taxes"
       teams: "Équipes"
       technical_itineraries: "Itinéraires techniques"

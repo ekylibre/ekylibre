@@ -303,6 +303,7 @@
 - tax_declaration
 - tax_declaration_item
 - tax_declaration_item_part
+- tax_payment
 - team
 - technical_itinerary
 - technical_itinerary_intervention_template

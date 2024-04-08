@@ -54,7 +54,8 @@ class TechnicalItinerary < ApplicationRecord
   has_one :linked_technical_itinerary, class_name: 'TechnicalItinerary', foreign_key: 'originator_id', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, :name, length: { maximum: 500 }, allow_blank: true
+  validates :description, :name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :plant_density, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :activity, presence: true
   validates :name, :campaign_id, presence: true

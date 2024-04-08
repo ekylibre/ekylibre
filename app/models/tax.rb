@@ -70,6 +70,7 @@ class Tax < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :intracommunity, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :collect_isacompta_code, :deduction_isacompta_code, :fixed_asset_collect_isacompta_code, :fixed_asset_deduction_isacompta_code, length: { maximum: 500 }, allow_blank: true
   validates :country, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }

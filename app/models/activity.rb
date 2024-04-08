@@ -165,6 +165,8 @@ class Activity < ApplicationRecord
 
   scope :of_support_variety, ->(variety) { where(support_variety: variety) }
 
+  scope :of_production_cycle, ->(cycle) { where(production_cycle: cycle.to_s) }
+
   scope :of_campaign, ->(campaign) {
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) || campaign.is_a?(String) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }

@@ -57,8 +57,8 @@ class Project < ApplicationRecord
   validates :comment, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :nature, presence: true
-  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :stopped_on, timeliness: { on_or_after: ->(project) { project.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :stopped_on, timeliness: { on_or_after: ->(project) { project.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
   validates :work_number, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
