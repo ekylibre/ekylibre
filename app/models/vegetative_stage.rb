@@ -36,6 +36,10 @@
 #  variety          :string           not null
 #
 class VegetativeStage < ApplicationRecord
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :bbch_number, :label, presence: true, length: { maximum: 500 }
+  validates :variety, presence: true
+  # ]VALIDATORS]
   refers_to :variety
 
   scope :of_variety, lambda { |variety|

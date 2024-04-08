@@ -708,8 +708,8 @@ fra:
         sales_invoices: "Factures de ventes"
         subscriptions: "Abonnements"
         tax_declarations: "Déclarations fiscales"
+        tax_payments: "Paiements TVA"
         wine_incoming_harvest: "Réception de vendange"
-
     synchronization_operation:
       operation_name:
         authenticate: "Authentification"
@@ -737,6 +737,14 @@ fra:
       mode:
         debit: "Débit"
         payment: "Paiement"
+    tax_payment:
+      nature:
+        advance_payment: "Acompte"
+        incoming_payment: "Remboursement"
+        outgoing_payment: "Paiement"
+      state:
+        draft: "Brouillon"
+        validated: "Validée"
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"

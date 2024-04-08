@@ -5,6 +5,7 @@ class PfiCalculationJob < ApplicationJob
   # Compute and store(create or update) pfi for each intervention in a campaign
   def perform(campaign_id, intervention_ids, perform_as)
     # set params
+    perform_as ||= User.first
     campaign = Campaign.find(campaign_id)
     interventions = Intervention.where(id: intervention_ids)
     if Interventions::Phytosanitary::PfiClientApi.new(campaign: campaign).down?

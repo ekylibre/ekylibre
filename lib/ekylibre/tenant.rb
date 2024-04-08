@@ -9,7 +9,7 @@ module Ekylibre
 
   class Tenant
     AGGREGATION_NAME = '__all__'.freeze
-    AGG_TABLES_NAME = %w[activities activity_productions].freeze
+    AGG_TABLES_NAME = %w[activities activity_productions pfi_campaigns_activities_interventions interventions intervention_parameters products product_nature_variants].freeze
 
     class << self
       # Tests existence of a tenant
@@ -218,25 +218,31 @@ module Ekylibre
         write
       end
 
-      def drop_aggregation_schema!
-        ActiveRecord::Base.connection.execute("DROP SCHEMA IF EXISTS #{AGGREGATION_NAME} CASCADE;")
+      def drop_aggregation_schema!(aggregation_schema_name = nil)
+        s_name = (aggregation_schema_name || AGGREGATION_NAME).to_s.strip
+        ActiveRecord::Base.connection.execute("DROP SCHEMA IF EXISTS #{s_name} CASCADE;")
       end
 
-      def create_aggregation_schema!
-        create_aggregation_views_schema!
+      def create_aggregation_schema!(aggregation_schema_name = nil)
+        create_aggregation_views_schema!(aggregation_schema_name = aggregation_schema_name)
       end
 
-      def create_aggregation_views_schema!
-        raise 'No tenant to build an aggregation schema' if list.empty?
+      def create_aggregation_views_schema!(aggregation_schema_name = nil, tenant_list = {})
+        name = (aggregation_schema_name || AGGREGATION_NAME).to_s.strip
+        agg_list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+        if tenant_list.any?
+          agg_list = tenant_list
+        end
 
-        name = AGGREGATION_NAME
+        raise 'No tenant to build an aggregation schema' if agg_list[env].empty?
+
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
         AGG_TABLES_NAME.each do |table|
           connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
           columns = Ekylibre::Schema.columns(table)
-          queries = list.collect do |tenant|
-            "SELECT '#{tenant}' AS tenant_name, " + columns.collect { |c| c[:name] }.join(', ') + " FROM #{tenant}.#{table}"
+          queries = agg_list[env].collect do |tenant|
+            "SELECT '#{tenant}' AS tenant_name, " + columns.collect { |c| c[:name] }.join(', ') + " FROM " + '"' + tenant + '"' + ".#{table}"
           end
           query = "CREATE VIEW #{name}.#{table} AS " + queries.join(' UNION ALL ')
           connection.execute(query)

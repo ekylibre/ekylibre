@@ -2509,6 +2509,11 @@ eng:
         draft: "Draft"
         sent: "Sent"
         validated: "Validated"
+    tax_payment:
+      bookkeep: "%{mode} %{number}"
+      states:
+        draft: "Draft"
+        validated: "Validated"
     team:
       default: "Main team"
     technical_itinerary:

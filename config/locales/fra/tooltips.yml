@@ -70,3 +70,6 @@ fra:
         go: "Envoyée"
         caution: "Validée"
         stop: "Brouillon"
+      tax_payment:
+        go: "Envoyée"
+        caution: "Brouillon"

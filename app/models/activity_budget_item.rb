@@ -84,7 +84,7 @@ class ActivityBudgetItem < ApplicationRecord
   has_many :economic_cash_indicators, class_name: 'EconomicCashIndicator', inverse_of: :activity_budget_item, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :amount, :global_amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :amount, :global_amount, :global_pretax_amount, :pretax_amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :activity_budget, :computation_method, :currency, :direction, :frequency, presence: true
   validates :locked, :use_transfer_price, inclusion: { in: [true, false] }, allow_blank: true
   validates :main_output, inclusion: { in: [true, false] }

@@ -172,7 +172,7 @@ module Ekylibre
           # a same cultivable zone could be a support of many productions
           # ex : corn_crop, zea_mays_lg452, ZC42 have to return all supports with corn_crop of variety zea_mays_lg452 in ZC42
           p_ids = []
-          ap = ActivityProduction.of_campaign(r.campaign)
+          ap = ActivityProduction.of_campaign(r.campaign).at(r.intervention_started_at)
           r.supports.each do |support|
             puts support.inspect.green
             # case A1 : CZ

@@ -966,6 +966,12 @@ eng:
       new: "New tax declaration"
       propose: "Propose tax declaration: %{number}"
       show: "Tax declaration: %{number}"
+    backend/tax_payments:
+      confirm: "Confirm tax payment: %{number}"
+      edit: "Edit tax payment: %{number}"
+      index: "Tax payments"
+      new: "New tax payment"
+      show: "Tax payment: %{number}"
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -3221,6 +3227,7 @@ eng:
     tax_declarations_states: "Tax declarations states"
     tax_label: "Tax label"
     tax_declaration_sales_order : "Before making your VAT return, you must first convert the following sales to invoice status: %{x}"
+    tax_payments: "VAT payments"
     taxations: "Taxations"
     taxes: "Taxes"
     taxes_and_wages: "Taxes and wages"

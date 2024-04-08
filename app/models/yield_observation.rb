@@ -43,7 +43,7 @@ class YieldObservation < ApplicationRecord
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true
-  validates :observed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
+  validates :observed_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :activity, presence: true
   # ]VALIDATORS]
   has_many :products_yield_observations, class_name: 'ProductsYieldObservation', foreign_key: :yield_observation_id, dependent: :destroy

@@ -3305,6 +3305,24 @@ tax_declarations:
     - "backend/tax_declarations#propose"
     - "backend/tax_declarations#update"
 
+tax_payments:
+  read:
+    actions:
+    - "backend/tax_payments#index"
+    - "backend/tax_payments#list"
+    - "backend/tax_payments#show"
+    - "backend/tax_payments#unroll"
+  write:
+    dependencies:
+    - read-tax_payments
+    actions:
+    - "backend/tax_payments#confirm"
+    - "backend/tax_payments#create"
+    - "backend/tax_payments#destroy"
+    - "backend/tax_payments#edit"
+    - "backend/tax_payments#new"
+    - "backend/tax_payments#update"
+
 taxes:
   read:
     actions:

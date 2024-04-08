@@ -1,0 +1,11 @@
+- if @financial_year && Account.french_accounting_system? && JournalEntry.where(financial_year: @financial_year).any? && @vat_declarations.any?
+  = infos do
+    .big-info.important
+      %span.title= :x_tax_declarations.tl(count: @vat_declarations.count)
+      %span.value= link_to(@vat_declarations_balance.l(currency: Preference[:currency]), backend_tax_declarations_path)
+    .big-info.important
+      %span.title= :x_tax_payments.tl(count: @vat_payments.count)
+      %span.value= link_to(@vat_payments_balance.l(currency: Preference[:currency]), backend_tax_payments_path)
+    .big-info{class: @result_class}
+      %span.title= :balance.tl
+      %span.value= @vat_global_balance.l(currency: Preference[:currency])

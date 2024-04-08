@@ -46,7 +46,7 @@ class PayslipNature < ApplicationRecord
   belongs_to :journal
   has_many :payslips, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :by_default, :with_accounting, :imported_centralizing_entries, inclusion: { in: [true, false] }
+  validates :active, :by_default, :imported_centralizing_entries, :with_accounting, inclusion: { in: [true, false] }
   validates :currency, :journal, presence: true
   validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]

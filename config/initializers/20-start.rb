@@ -19,6 +19,7 @@ autoload :ActiveSensor,    'active_sensor'
 
 # App-specific libs
 require 'ekylibre'
+require 'clients'
 
 require 'working_set'
 

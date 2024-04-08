@@ -162,7 +162,7 @@ module Telepac
         unless cap_land_parcel_inside_cultivable_zone.any?
           # info << "Overlaps!\n"
           cap_land_parcel_inside_cultivable_zone = CultivableZone.shape_matching(cap_land_parcel_shape, 0.10)
-          cap_land_parcel_inside_cultivable_zone ||= CultivableZone.shape_intersecting(cap_land_parcel_shape, 0.02)
+          cap_land_parcel_inside_cultivable_zone ||= CultivableZone.shape_intersecting(cap_land_parcel_shape)
         end
 
         # find or create a CultivableZone according to islet link to cap_land_parcel
@@ -186,9 +186,17 @@ module Telepac
         # find or create an activity_production according to current informations
         # FIXME find_by_shape doesn't work...
         campaign = Campaign.find_or_create_by!(harvest_year: cap_year)
+        if production_cycle != :perennial
+          # check if a perennial exist with same activity on previous year and keep it without recreating it
+          existing_perennial_production_always_active = ActivityProduction.of_production_cycle(:perennial).of_campaign(campaign).support_shape_covering(cap_land_parcel_shape, 0.05)
+          if existing_perennial_production_always_active.present?
+            existing_perennial_production_always_active.update_all(stopped_on: Date.new((cap_year -1), 12, 31))
+          end
+        end
+
         productions = activity.productions.of_campaign(campaign).support_shape_matching(cap_land_parcel_shape, 0.02)
 
-        if productions.any?
+        if productions.present?
           activity_production = productions.first
         else
           activity_production = activity.productions.new(campaign: campaign)

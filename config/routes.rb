@@ -236,6 +236,7 @@ Rails.application.routes.draw do
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
       resource :subscriptions_indicators_cell, only: :show
+      resource :tax_balance_cell, only: :show
       resource :trade_counts_cell, only: :show
       resource :traceability_check_cell, only: :show
       resource :unbalanced_clients_cell, only: :show, concerns: :list
@@ -373,7 +374,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :bank_statement_items, only: %i[new create show destroy], path: 'bank-statement-items'
+    resources :bank_statement_items, only: %i[new create show destroy], path: 'bank-statement-items' do
+      collection do
+        get :create_vat_payment
+        get :create_payslip_contribution_payment
+        get :create_payslip_payment
+      end
+    end
 
     resources :beehives, only: [:update] do
       member do
@@ -1256,8 +1263,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :quick_payslips, only: %i[new create], path: 'quick-payslips'
-    resources :quick_payslip_contributions, only: %i[new create], path: 'quick-payslip-contributions'
     resources :quick_purchases, only: %i[new create], path: 'quick-purchases'
     resources :quick_sales,     only: %i[new create], path: 'quick-sales'
 
@@ -1416,6 +1421,12 @@ Rails.application.routes.draw do
     resources :taxes, concerns: %i[list unroll] do
       collection do
         post :load
+      end
+    end
+
+    resources :tax_payments, concerns: %i[unroll list], path: 'tax-payments' do
+      member do
+        post :confirm
       end
     end
 

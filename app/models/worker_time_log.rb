@@ -49,13 +49,12 @@ class WorkerTimeLog < ApplicationRecord
   has_one :user, through: :person
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :description, :travel_expense_details, length: { maximum: 500_000 }, allow_blank: true
   validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   validates :stopped_at, presence: true, timeliness: { on_or_after: ->(worker_time_log) { worker_time_log.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
-  validates :worker, presence: true
-  validates :travel_expense_details, length: { maximum: 500 }, allow_blank: true
   validates :travel_expense, inclusion: { in: [true, false] }
+  validates :worker, presence: true
   # ]VALIDATORS]
   validates :duration, presence: true, numericality: { greater_than: 0, less_than: 86_400 }
   validate :duration_is_between_0_and_24h, if: :duration

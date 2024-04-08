@@ -17,6 +17,7 @@ accountancy:
 - journal_entries
 - loans
 - tax_declarations
+- tax_payments
 - taxes
 sales:
 - sales

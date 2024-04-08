@@ -917,6 +917,16 @@ class Intervention < ApplicationRecord
     end
   end
 
+  # return phytosanitary status for current intervention
+  def phytosanitary_status
+    if using_phytosanitary?
+      # return :caution if in_progress? || request?
+      # return :go if done? || validated?
+      # return :stop if rejected?
+      nil
+    end
+  end
+
   def activity_imputation(activity)
     if activity.size_indicator == :net_surface_area
       unit = :hectare
@@ -1159,8 +1169,11 @@ class Intervention < ApplicationRecord
     return if !eligible_for_pfi_calculation?
 
     campaign = Campaign.find_or_create_by(harvest_year: started_at.year)
-
-    PfiCalculationJob.perform_later(campaign.id, id, creator)
+    if new_record?
+      PfiCalculationJob.perform_later(campaign.id, id, creator)
+    else
+      PfiCalculationJob.perform_later(campaign.id, id, updater)
+    end
   end
 
   # @private

@@ -57,10 +57,12 @@ class Payslip < ApplicationRecord
   belongs_to :nature, class_name: 'PayslipNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :accounted_at, :invoiced_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :number, :state, presence: true, length: { maximum: 500 }
+  validates :description, :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :emitted_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }, allow_blank: true
+  validates :other_social_expenses_amount, :raw_amount, :social_security_amount, :source_revenue_amount, :total_company_social_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(payslip) { payslip.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :nature, presence: true

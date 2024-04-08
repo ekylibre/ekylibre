@@ -151,7 +151,7 @@ class TaxDeclaration < ApplicationRecord
     self.class.state_machine.state(self.state.to_sym).human_name
   end
 
-  # This callback bookkeeps the sale depending on its state
+  # This callback bookkeeps the tax declaration depending on its state
   bookkeep do |b|
     journal = Journal.used_for_tax_declarations!(currency: currency)
     b.journal_entry(journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
@@ -170,7 +170,17 @@ class TaxDeclaration < ApplicationRecord
           account = Account.find_or_import_from_nomenclature(:vat_to_pay)
           # account = Account.find_or_create_by!(number: '44551', usages: :collected_vat)
         end
-        entry.add_credit(label, account, global_balance, as: :balance)
+        entry.add_credit(label, account, global_balance.round, as: :balance)
+        # check where to put tva round (result is 451.48 then french vat declaration must be 451.00)
+        exp_account = Account.find_or_import_from_nomenclature(:other_usual_running_expenses)
+        pro_account = Account.find_or_import_from_nomenclature(:other_usual_running_profits)
+        if global_balance > global_balance.round
+          # profits
+          entry.add_credit(label, pro_account, (global_balance - global_balance.round).round(2), as: :running_expenses)
+        elsif global_balance < global_balance.round
+          # pertes
+          entry.add_debit(label, exp_account, (global_balance.round - global_balance).round(2), as: :running_expenses)
+        end
       end
     end
   end

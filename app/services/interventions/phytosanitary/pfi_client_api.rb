@@ -22,7 +22,7 @@ module Interventions
       # @param [<<Array>> Activity] activities
       # @param [String] report_title
       def initialize(campaign:, activity: nil, intervention_parameter_input: nil, area_ratio: 100, activities: nil, report_title: nil, notify_user: false)
-        @pfi_client = Clients::Gouv::PfiClient.new
+        @pfi_client = ::Clients::Gouv::PfiClient.new
         @campaign = campaign
         @activity = activity
         @intervention_parameter_input = intervention_parameter_input

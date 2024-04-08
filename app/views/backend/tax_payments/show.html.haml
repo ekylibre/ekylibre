@@ -1,0 +1,15 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy resource
+
+= main_state_bar(resource)
+
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :amount, currency: true
+    - l.attribute :nature
+    - l.attribute :paid_at
+    - l.attribute :journal_entry, url: true
+
+

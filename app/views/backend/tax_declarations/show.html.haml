@@ -46,9 +46,15 @@
           - if to_pay >= 0
             %th{ colspan: 5}= :to_pay.tl
             %td= to_pay.l(currency: resource.currency)
+            %tr.total
+              %th{ colspan: 5}= :to_pay_on_declaration.tl
+              %td= to_pay.round.l(currency: resource.currency)
           - else
             %th{ colspan: 5}= :to_reclaim.tl
             %td= (-to_pay).l(currency: resource.currency)
+            %tr.total
+              %th{ colspan: 5}= :to_reclaim_on_declaration.tl
+              %td= (-to_pay).round.l(currency: resource.currency)
 
       - resource.items.where.not(tax_id: Tax.intracommunity.pluck(:id)).joins(:tax).reorder("taxes.amount DESC").each do |item|
         - tax = Tax.find(item.tax_id)

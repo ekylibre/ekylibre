@@ -1,0 +1,11 @@
+= field_set do
+  = f.referenced_association :financial_year
+  = f.input :nature, as: :radio_buttons
+  = f.input :paid_at, wrapper_html: { class: 'apply-fy-date' }
+  %span.hidden#financial-year-dates{ financial_year_started_on_stopped_on }
+    = :warning_date_not_in_period.tl
+  = f.referenced_association :cash
+  = f.input :amount
+  = f.input :description
+
+= f.attachments_field_set
