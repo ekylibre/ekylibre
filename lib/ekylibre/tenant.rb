@@ -114,6 +114,9 @@ module Ekylibre
         start = Time.current
         dump_v3(name, options)
         duration = Time.current - start
+        if options[:s3_backup].present?
+          backup_on_external_storage(name, options)
+        end
         puts "Done! (#{duration.round(2)}s)".yellow if verbose
       end
 
@@ -329,6 +332,30 @@ module Ekylibre
       end
 
       private
+
+        def backup_on_external_storage(name, options = {})
+          start_backup_duration = Time.current
+          puts "Backup #{name} on S3 storage...".yellow
+          s3 = ::Aws::S3::Client.new(endpoint: ENV.fetch('S3_BACKUP_HOST', nil),
+                                    access_key_id: ENV.fetch('S3_BACKUP_ACCESS_KEY', nil),
+                                    secret_access_key: ENV.fetch('S3_BACKUP_SECRET_KEY', nil),
+                                    force_path_style: true,
+                                    region: ENV.fetch('S3_BACKUP_REGION', nil))
+          bucket_name = ENV.fetch('S3_BACKUP_BUCKET', nil)
+          # compute file to backup
+          destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
+          archive_file = destination_path.join("#{name}.zip")
+          file = File.binread(archive_file)
+          key = "#{name}.zip"
+          # backup on S3
+          if bucket_name.present? && file.present?
+            s3.put_object(bucket: bucket_name, key: key, body: file)
+            backup_duration = Time.current - start_backup_duration
+            puts "Backup #{name} on S3 storage Done! (#{backup_duration.round(2)}s)".green
+          else
+            puts "Fail ! Missing bucket_name : #{bucket_name} or archive_file : #{archive_file}".red
+          end
+        end
 
         def config_file
           Rails.root.join('config', 'tenants.yml')

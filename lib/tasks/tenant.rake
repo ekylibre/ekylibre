@@ -127,12 +127,15 @@ namespace :tenant do
     Ekylibre::Tenant.clear!
   end
 
+  desc 'Backup a tenant (with TENANT/ARCHIVE/S3_BACKUP variables)'
   task dump: :environment do
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
+    s3_backup = ENV['S3_BACKUP'] || ENV['s3_backup']
     raise 'Need TENANT env variable to dump' unless tenant
 
     options = {}
+    options[:s3_backup] = s3_backup
     options[:path] = Pathname.new(archive) if archive
     options[:path] ||= Rails.root.join('tmp', 'archives') if tenant
     path_to_archive = options[:path] && options[:path].join("#{tenant}.zip")
