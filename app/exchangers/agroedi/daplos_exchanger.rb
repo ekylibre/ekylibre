@@ -73,7 +73,9 @@ module Agroedi
 
       @children[:crops].each(&:import)
 
-      regroup_interventions!
+      # regroup_interventions!
+      set_usage_on_phyto_interventions
+
       true
     end
 
@@ -94,6 +96,26 @@ module Agroedi
       def force_utf8_encoding
         content = File.read(file).encode("UTF-8", invalid: :replace, undef: :replace, replace: "_")
         File.write(file, content)
+      end
+
+      def set_usage_on_phyto_interventions
+        saved_phyto_interventions = Intervention.of_nature_using_phytosanitary.where(id: interventions.map(&:record).uniq.pluck(:id))
+        # set first usage if phyto product
+        saved_phyto_interventions.each do |int|
+          int.inputs.each do |input|
+            variant = input.product&.variant
+            varieties = int.targets.map{|t| t.best_activity&.cultivation_variety}.compact.uniq
+            phyto_product = RegisteredPhytosanitaryProduct.find_by(reference_name: variant.reference_name)
+            if phyto_product.present? && varieties.any? && varieties.count == 1
+              usages = phyto_product.usages.of_varieties(varieties.first.to_s)
+              input.usage_id = usages.first.id if usages.any?
+              input.save!
+            else
+              nil
+            end
+            int.save!
+          end
+        end
       end
 
       # TODO: Do this as pre-import work instead of destroying interventions

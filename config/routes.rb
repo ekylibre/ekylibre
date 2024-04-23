@@ -348,6 +348,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :associates, concerns: %i[list unroll] do
+      member do
+        get :list_associate_journal_entry_items
+      end
+    end
+
     resources :attachments, only: %i[show create destroy]
 
     namespace :bank_reconciliation, path: 'bank-reconciliation' do
@@ -1509,6 +1515,7 @@ Rails.application.routes.draw do
       resource :inspections_visualizations, only: :show
       resource :incoming_harvest_map_cells_visualizations, only: :show
       resource :weather_station_map_cells_visualizations, only: :show
+      resource :cadastral_parcels_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

@@ -1,0 +1,13 @@
+= field_set do
+  = f.input :associate_nature, as: :radio_buttons
+  = f.referenced_association :entity
+  = f.input :started_on, as: :date
+  = f.input :stopped_on, as: :date
+  = f.custom_fields
+
+= field_set(:accountancy) do
+  = f.input :share_quantity
+  = f.input :share_unit_amount
+  = f.referenced_association :associate_account, source: :associates
+
+= f.attachments_field_set

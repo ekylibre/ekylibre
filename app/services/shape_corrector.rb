@@ -22,8 +22,7 @@ class ShapeCorrector
   # @option opts [Symbol] :geometry_type type of expected geometry
   # @return [Maybe<Charta::Geometry>]
   def try_fix(shape, geometry_type: nil)
-    try_fix_ewkt(shape.to_ewkt)
-      .fmap { |ewkt| Charta.new_geometry(ewkt) }
+    try_fix_ewkt(shape.to_ewkt).fmap { |ewkt| Charta.new_geometry(ewkt) }
   rescue => e
     if geometry_type.present?
       try_complex_fix_ewkt(shape.to_ewkt, geometry_type: geometry_type)
@@ -62,6 +61,10 @@ class ShapeCorrector
       .fmap { |ewkt| Charta.new_geometry(ewkt) }
   end
 
+  def extract_polygon_and_one_ring(ewkt)
+    postgis_polygon_extraction(ewkt).fmap { |ewkt| Charta.new_geometry(ewkt) }
+  end
+
   private
 
     def postgis_geometries_extraction(ewkt, geometry_type)
@@ -71,11 +74,46 @@ class ShapeCorrector
             ST_collectionExtract(
               ST_GeomFromEWKT('#{ewkt}')
             , #{find_postgis_integer_type(geometry_type)})
-          )AS extracted_shape
+          ) AS extracted_shape
       SQL
-
       if res.present?
         Maybe(res['extracted_shape'])
+      else
+        None()
+      end
+    end
+
+    def postgis_polygon_extraction(ewkt)
+      res = @connection.execute(<<~SQL).to_a.first
+        SELECT
+          ST_AsEWKT(
+              ST_GeometryN(
+                  ST_GeomFromEWKT('#{ewkt}'), 1
+                )
+          ) AS extracted_shape
+      SQL
+      # extract first exterior ring
+      ring = @connection.execute(<<~SQL).to_a.first
+        SELECT
+          ST_AsEWKT(
+              ST_MakeValid(
+                ST_ExteriorRing(
+                  ST_GeomFromEWKT('#{res['extracted_shape']}')
+                )
+              )
+          ) AS extracted_shape
+      SQL
+      # create polygon with exterior ring
+      poly = @connection.execute(<<~SQL).to_a.first
+        SELECT
+          ST_AsEWKT(
+            ST_MakePolygon(
+              ST_GeomFromEWKT('#{ring['extracted_shape']}')
+            )
+          ) AS clean_polygon
+      SQL
+      if poly.present?
+        Maybe(poly['clean_polygon'])
       else
         None()
       end

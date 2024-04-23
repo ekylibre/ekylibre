@@ -27,6 +27,11 @@ module Agroedi
 
         return unless daplos.interventions.any?
 
+        puts daplos.land_parcel_work_number.inspect.green
+        puts daplos.crop_name_details.inspect.green
+        puts production_nature.inspect.red
+        puts activity_production.inspect.yellow
+
         children[:interventions].each { |i| i.import; parent.w.check_point }
       end
 
@@ -46,6 +51,14 @@ module Agroedi
 
       def specie_code
         daplos.crop_specie_edicode
+      end
+
+      def soil_nature
+        match_record = RegisteredAgroediCode.find_by(
+          repository_id: 43,
+          reference_code: daplos.soil_nature_edicode
+        )
+        ekylibre_edicode = match_record&.ekylibre_value&.to_sym
       end
 
       # return MasterProduction
@@ -87,8 +100,7 @@ module Agroedi
       def activity_production
         return @activity_production if @activity_production
 
-        production = guess_production_from_islet ||
-                     guess_production_from_specie_and_area
+        production = guess_production_from_islet
 
         production ||= create_activity_production
 
@@ -139,23 +151,16 @@ module Agroedi
         def guess_production_from_islet
           return unless cap_support_ids.any?
 
-          ActivityProduction.of_campaign(campaign)
-                            .with_cultivation_variety(production_nature.specie)
-                            .where(id: cap_support_ids)
-                            .first
-        end
-
-        def guess_production_from_specie_and_area
           crop_area = daplos.crop_areas.first.area_nature_value_in_hectare.to_f
           max_area = crop_area + (crop_area * 0.02)
-          min_area = crop_area - (crop_area * 0.50)
+          min_area = crop_area - (crop_area * 0.02)
 
-          ActivityProduction
-            .with_cultivation_variety(production_nature.specie)
-            .of_campaign(campaign)
-            .where('size_value <= ?', max_area)
-            .where('size_value >= ?', min_area)
-            .first
+          ActivityProduction.of_campaign(campaign)
+                            .of_exact_cultivation_variety(production_nature.specie)
+                            .where(id: cap_support_ids)
+                            .where('size_value <= ?', max_area)
+                            .where('size_value >= ?', min_area)
+                            .first
         end
 
         def create_activity_production
@@ -262,9 +267,10 @@ module Agroedi
           if crop_inside_cultivable_zone.any?
             cultivable_zone = crop_inside_cultivable_zone.first
           else
-            number = 'ZC#' + format('%02d', daplos.land_parcel_work_number.to_s)
+            number = 'ZC#' + format('%02d', daplos.land_parcel_work_number.to_i.to_s)
             cultivable_zone = CultivableZone.find_or_initialize_by(work_number: number)
-            cultivable_zone.name ||= daplos.crop_name_details + ' ' + daplos.cap_islet_number
+            cultivable_zone.name ||= daplos.crop_name_details + ' ' + daplos.cap_islet_number.to_i.to_s
+            cultivable_zone.soil_nature = soil_nature.to_s if soil_nature.present?
             cultivable_zone.shape ||= shape
             cultivable_zone.save!
           end
@@ -273,8 +279,11 @@ module Agroedi
 
         # return polygon shape in 4326 from multi-points in 27572 or 4326
         def build_shape
+          # A40 crop_area.area_nature_edicode - PS line = islet shape
+          # A17 crop_area.area_nature_edicode - PS line = activity_production shape
           if daplos.crop_areas&.first
             c_area = daplos.crop_areas.first
+            puts c_area.area_nature_edicode.inspect.yellow
             if c_area.crop_spatial_coordinates.any?
               srs = c_area.crop_spatial_coordinates.first.srs.strip
               if srs == '3'
@@ -293,6 +302,9 @@ module Agroedi
               end
               # build linear_ring
               outerring = factory.linear_ring(points)
+
+              puts outerring.invalid_reason.inspect.red unless outerring.valid?
+
               # build polygon from linear_ring as outer ring (exterior ring)
               square = factory.polygon(outerring)
               # convert from source srid to 4326 and fix is simple if needed
@@ -312,12 +324,14 @@ module Agroedi
         def transform_geometry(geometry, srid)
           geom = ::Charta.new_geometry(geometry, srid).transform(:WGS84)
           if !geom.simple?
-            corrected_geom = shape_corrector.try_fix(geom)
-            raise StandardError.new('Invalid geometry') if !corrected_geom.simple?
-
-            geom = corrected_geom.or_raise
+            # fix_geom = shape_corrector.extract_geometries(corrected_geom.or_raise.to_ewkt, 'polygon')
+            fix_geom = shape_corrector.extract_polygon_and_one_ring(geom.to_ewkt)
+            puts fix_geom.inspect.yellow
+            fix_geom.or_raise
+          else
+            puts geom.inspect.red
+            geom
           end
-          geom
         end
 
     end

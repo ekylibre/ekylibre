@@ -245,6 +245,11 @@ class Product < ApplicationRecord
   scope :of_production, lambda { |production|
     where(activity_production: production)
   }
+
+  scope :of_production_ids, lambda { |*production_ids|
+    where(activity_production_id: production_ids)
+  }
+
   scope :of_productions, lambda { |*productions|
     of_production(productions.flatten)
   }

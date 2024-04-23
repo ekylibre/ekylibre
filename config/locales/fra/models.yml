@@ -194,6 +194,14 @@ fra:
       animal_group:
         born_at: "Créé le"
         dead_at: "Date de fin"
+      associate:
+        associate_account: "Compte courant"
+        associate_nature: "Type de part sociale"
+        percentage_on_company: "Pourcentage de détention"
+        share_quantity: "Nombre d'actions"
+        share_unit_amount: "Montant unitaire de l'action"
+        started_on: "Entrée au capital"
+        stopped_on: "Sortie du capital"
       building:
         born_at: "Construit le"
         content_maximal_quantity: "Quantité maximale supportée" #?
@@ -2737,7 +2745,7 @@ fra:
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
     working_zone_area: "Surface travaillée"
-    worked_on: "Travaillé le"    
+    worked_on: "Travaillé le"
     worker: "Équipier"
     worker_contract: "Contrat de travail"
     worker_contract_distribution: "Répartitions analytiques des contrats de travail"

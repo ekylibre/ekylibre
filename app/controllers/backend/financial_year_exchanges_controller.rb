@@ -99,7 +99,7 @@ module Backend
           missing_code_exchanged_journals = Journal.where(isacompta_code: [nil, ""], isacompta_label: [nil, ""])
         end
         if missing_code_exchanged_journals.count > 0
-          notify_error(:complete_isacompta_journal_code_html.tl(journals_link: view_context.link_to(missing_journal_isacompta.count, { controller: "/backend/journals", action: :index })), html: true)
+          notify_error(:complete_isacompta_journal_code_html.tl(journals_link: view_context.link_to(missing_code_exchanged_journals.count, { controller: "/backend/journals", action: :index })), html: true)
           redirect_to_back
           return
         end

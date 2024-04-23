@@ -1,0 +1,31 @@
+- main_toolbar do |t|
+  = t.new
+
+- current_financial_year = params[:current_financial_year] || current_user.current_financial_year&.id
+- main_financial_year_selector(current_financial_year) if current_financial_year
+- fy = FinancialYear.find(current_financial_year)
+:ruby
+  account_series = []
+  account_categories = [fy.previous.name, fy.name]
+  associate_serie = []
+  Associate.all.each do |associate|
+    account_series << { name: associate.entity_name, data: [associate.balance&.to_f, associate.balance(fy)&.to_f] }
+    associate_serie << { name: associate.entity_name, y: associate.percentage_on_company.to_s.to_f }
+  end
+
+  series = [{name: Associate.model_name.human, data: associate_serie, size: "100%", inner_size: "60%", data_labels: {enabled: true}}]
+
+= janus do |j|
+  - j.face :list do
+    = main_list
+  - j.face :chart do
+    - if associate_serie.any?
+      = pie_highcharts(series, tooltip: {point_format: "{point.y: 1.2f}%"}, title: :associate_repartition, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
+    - else
+      = no_data
+  - j.face :associate_account_chart do
+    - if account_series.any?
+      = column_highcharts(account_series, y_axis: {min: 0, title: {text: :amount.tl}, stack_labels: {enabled: true}}, x_axis: { categories: account_categories}, legend: {reverse: false}, plot_options: { series: {stacking: 'normal'}})
+    - else
+      = no_data
+    

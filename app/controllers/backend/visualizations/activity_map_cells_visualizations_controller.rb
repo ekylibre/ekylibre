@@ -23,6 +23,9 @@ module Backend
 
         if aps.any?
           sensor_data = []
+          cumulated_rainfall_data = []
+          ind = Onoma::Indicator[:cumulated_rainfall]
+          unit = Onoma::Unit.find(ind.unit)
           if Sensor.any?
             Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
               items = sensors.map do |sensor|
@@ -90,8 +93,45 @@ module Backend
           end
 
           aps.includes(:activity, :campaign, :cultivable_zone, :interventions).find_each do |support|
-            popup_content = []
 
+            ## for cumulated_rainfall_sensor
+            # get all real interventions of vine protections during campaign
+            crop_protection_interventions = support.interventions.real.of_category(:crop_protection).reorder(started_at: :desc)
+            support_shape = support.support_shape
+            if support_shape.present? && crop_protection_interventions.any?
+              cumulated_rainfall_popup_content = []
+              crop_protection_last_intervention = crop_protection_interventions.first
+              # get the analysis with cumulated_rainfall near support shape at max 5 km from intervention stopped at and now
+              rainfall_geo_analyses = Analysis.with_indicator(ind.name)
+                                              .geolocation_near(support_shape, 5000)
+                                              .where(sensor_id: Sensor.nearest_of_and_within(support_shape, 5000).pluck(:id))
+                                              .between(crop_protection_last_intervention.stopped_at, Time.now)
+                                              .select('DISTINCT ON (analyses.sampled_at) *')
+              if rainfall_geo_analyses.any?
+                final_items = AnalysisItem.where(indicator_name: ind.name, analysis_id: rainfall_geo_analyses.collect(&:id))
+                # compute distance between sensor and intervention shape
+                sensor_position = rainfall_geo_analyses.take.geolocation
+                shape = Charta.new_geometry(support_shape.to_rgeo.simplify(0))
+                distance = Measure.new(shape.distance(sensor_position), :meter)
+                cumulated_rainfall = final_items.map(&:value).compact.sum
+                # build popup
+                cumulated_rainfall_popup_content << { label: :last_intervention.tl, value: view_context.link_to(crop_protection_last_intervention.name, backend_intervention_path(crop_protection_last_intervention)) }
+                cumulated_rainfall_popup_content << { label: :date.tl, value: crop_protection_last_intervention.started_at.l }
+                cumulated_rainfall_popup_content << { label: ind.human_name, value: cumulated_rainfall.l(precision: 2) } # #{:manual_period.tl(start: start.l, finish: stop.l)}
+                cumulated_rainfall_popup_content << { label: :sensors.tl, value: distance.round(2).l(precision: 2) }
+
+                cr_item = {
+                  name: support.name,
+                  shape: support_shape,
+                  shape_color: support.activity.color,
+                  cumulated_rainfall: cumulated_rainfall.to_f,
+                  popup: { header: true, content: cumulated_rainfall_popup_content }
+                }
+                cumulated_rainfall_data << cr_item
+              end
+            end
+
+            popup_content = []
             # for support
             # popup_content << {label: :campaign.tl, value: view_context.link_to(params[:campaigns.name, backend_campaign_path(params[:campaigns))}
             popup_content << { label: ActivityProduction.human_attribute_name(:net_surface_area), value: support.human_support_shape_area }
@@ -132,7 +172,10 @@ module Backend
               v.serie :cap_neutral_areas_data, cap_neutral_areas_data
               v.categories :neutral_area_category, :cap_neutral_areas_data, without_ghost_label: true
             end
-
+            if cumulated_rainfall_data.present?
+              v.serie :main_c_r, cumulated_rainfall_data
+              v.choropleth :cumulated_rainfall, :main_c_r, label: ind.human_name, unit: unit.symbol, stop_color: '#002AFF'
+            end
             v.choropleth :pfi_activity_production, :main, stop_color: "#AA00AA"
             v.categories :activity, :main
           end

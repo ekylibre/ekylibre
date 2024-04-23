@@ -1273,6 +1273,21 @@ animals:
     - "backend/animals#update"
     - "backend/animals#update_many"
 
+associates:
+  read:
+    actions:
+    - "backend/associates#index"
+    - "backend/associates#list"
+    - "backend/associates#show"
+    - "backend/associates#unroll"
+  write:
+    actions:
+    - "backend/associates#create"
+    - "backend/associates#destroy"
+    - "backend/associates#new"
+    - "backend/associates#edit"
+    - "backend/associates#update"
+
 bank_statements:
   read:
     actions:

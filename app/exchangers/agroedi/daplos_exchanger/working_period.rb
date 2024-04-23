@@ -43,11 +43,11 @@ module Agroedi
           h = duration[2, 2].to_i.hours
           s = duration[4, 2].to_i.minutes
           duration = j + h + s
-          start + duration
+          duration
         end
 
         def work_time_duration
-          flows = InterventionModel.where(procedure_reference: intervention.procedure.name, working_flow_unit: 'ha/h')
+          flows = InterventionModel.where(procedure_reference: intervention.procedure.name, working_flow_unit: 'hectare_per_hour')
           return unless flows.any?
 
           inverse_speed = flows.average(:working_flow)
