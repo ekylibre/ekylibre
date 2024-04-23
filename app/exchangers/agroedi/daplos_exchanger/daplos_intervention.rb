@@ -86,11 +86,21 @@ module Agroedi
         return @memo_agroedi_code if @memo_agroedi_code
 
         code = daplos.intervention_nature_edicode
+        category_code = daplos.intervention_category_edicode
         match_record = RegisteredAgroediCode.find_by(
           repository_id: 14,
           reference_code: code
         )
+        intervention_category = RegisteredAgroediCode.find_by(
+          repository_id: 26,
+          reference_code: category_code
+        )
         ekylibre_agroedi = match_record&.ekylibre_value&.to_sym
+        # check if spraying without inputs then hoeing, case of V95 code
+        if ekylibre_agroedi && ekylibre_agroedi == :spraying && intervention_category && intervention_category.reference_code != 'ZG7'
+          ekylibre_agroedi = :hoeing
+        end
+
         unless ekylibre_agroedi
           raise "Intervention nature #{code.inspect} in GUID #{daplos.intervention_guid.inspect} has no equivalent in Ekylibre reference"
         end

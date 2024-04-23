@@ -84,6 +84,11 @@ fra:
       index: "Animaux"
       new: "Nouvel animal"
       show: "%{nature}\_: %{name}"
+    backend/associates:
+      edit: "Modifier l’associé"
+      index: "Associés | Actionnaires"
+      new: "Nouvel associé"
+      show: "Associé"
     backend/bank_reconciliation/items:
       index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
       reconciliate: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})"
@@ -1261,6 +1266,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    cadastral_parcels: "Parcelles cadastrales"
+    associate_account_chart: "Comptes courants"
     new_payslip_payment: "Nouveau paiement de salaire net"
     new_payslip_contribution_payment: "Nouveau paiement social"
     new_tax_payment: "Nouveau paiement TVA"
@@ -4584,6 +4591,7 @@ fra:
     backend/activity_inspection_point_natures: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"
+    backend/associates: "%{entity_name}"
     backend/campaigns: "%{name}"
     backend/catalog_items: "%{name}"
     backend/entities: "%{full_name} ‒ %{number}"

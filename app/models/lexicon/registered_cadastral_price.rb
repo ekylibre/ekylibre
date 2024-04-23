@@ -43,11 +43,12 @@
 #
 class RegisteredCadastralPrice < LexiconRecord
   include Lexiconable
+  include Ekylibre::Record::HasShape
+  belongs_to :cadastral_parcel, class_name: 'RegisteredCadastralParcel'
   scope :in_bounding_box, lambda { |bounding_box|
-    where("registered_cadastral_prices.centroid && ST_MakeEnvelope(#{bounding_box.join(', ')})")
+    where("#{self.table_name}.centroid && ST_MakeEnvelope(#{bounding_box.join(', ')})")
   }
 
-  def centroid
-    ::Charta.new_geometry(self[:centroid])
-  end
+  has_geometry :centroid, type: :point
+
 end

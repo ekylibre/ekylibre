@@ -2,11 +2,16 @@
   = t.new params: { redirect: nil }
 
 = janus do |j|
-  - if resource_model.any?
-    - j.face :map do
-      = main_resources_map(async: true, optional_data_url: backend_visualizations_non_treatment_areas_visualizations_path)
-    -# if current_campaign
-      - j.face :chart do
-        = cell :cropping_plan_on_cultivable_zones, params: {campaign_id: current_campaign.id}
   - j.face :list do
     = main_list
+  - if resource_model.any?
+    - j.face :map do
+      - cache resource_model.all do
+        = visualization({box: {height: "100%"}, async_url: backend_visualizations_resources_visualizations_path(resource_name: resource_model.model_name.singular), optional_data_url: backend_visualizations_cadastral_parcels_visualizations_path }, class: 'map-fullwidth') do |v|
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
+          - v.center resource_model.first.shape_centroid
+  
+

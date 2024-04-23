@@ -37,7 +37,7 @@
 class RegisteredCadastralParcel < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
-
+  has_many :cadastral_prices, class_name: 'RegisteredCadastralPrice', foreign_key: :cadastral_parcel_id, dependent: :restrict_with_exception
   has_many :cvi_cadastral_plants, foreign_key: :land_parcel_id, inverse_of: :land_parcel
   scope :find_with, ->(postal_code, section, work_number) { where('id LIKE ? and section = ? and work_number =?', "#{postal_code}%", section, work_number)}
 
@@ -47,5 +47,26 @@ class RegisteredCadastralParcel < LexiconRecord
 
   has_geometry :shape
   has_geometry :centroid, type: :point
+
+  def label
+    "#{section}#{work_number}"
+  end
+
+  def mutations
+    if cadastral_prices.any?
+      infos = []
+      cadastral_prices.group_by { |d| d[:mutation_id] }.each do |mutation_id, items|
+        item = {}
+        item[:mutation_id] = mutation_id
+        item[:mutation_on] = items.first.mutation_date
+        item[:mutation_price] = items.first.cadastral_price
+        item[:mutation_area] = items.collect(&:cadastral_parcel_area).compact.uniq.sum
+        infos << item
+      end
+      infos
+    else
+      nil
+    end
+  end
 
 end

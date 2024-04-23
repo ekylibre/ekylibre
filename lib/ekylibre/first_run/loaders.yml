@@ -351,3 +351,5 @@ accountancy:
     path: 'acom/fec.txt'
   listo_od_txt:
     path: 'listo/wages.csv'
+  ekylibre_associates:
+    path: 'alamano/associates.csv'

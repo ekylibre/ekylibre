@@ -107,6 +107,7 @@ tools:
 settings:
 - accounts
 - analytic_sequences
+- associates
 - buildings
 - catalogs
 - companies

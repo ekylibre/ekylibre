@@ -1513,6 +1513,17 @@
         <page to="backend/companies#update"/>
         <page to="backend/visualizations/weather_station_map_cells_visualizations#show"/>
       </item>
+      <item name="associates">
+        <page to="backend/associates#index"/>
+        <page to="backend/associates#new"/>
+        <page to="backend/associates#create"/>
+        <page to="backend/associates#edit"/>
+        <page to="backend/associates#update"/>
+        <page to="backend/associates#destroy"/>
+        <page to="backend/associates#show"/>
+        <page to="backend/associates#unroll"/>
+        <page to="backend/associates#list"/>
+      </item>
       <item name="about">
         <page to="backend/settings#about"/>
       </item>

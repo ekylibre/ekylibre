@@ -80,6 +80,11 @@ fra:
         certified: "Certifié"
         uncertified: "Non certifié"
         unknown: "Inconnu"
+    associate:
+      associate_nature:
+        owner: "Associé | Actionnaire - Pleine propriété"
+        usufructuary: "Associé | Actionnaire - Usufruitier"
+        bare_owner: "Associé | Actionnaire - Nu propriétaire"
     call_message:
       nature:
         incoming: "Nouveau"

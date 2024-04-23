@@ -1,0 +1,30 @@
+- main_toolbar do |t|
+  = t.edit resource
+
+- current_financial_year = params[:current_financial_year] || current_user.current_financial_year&.id
+- main_financial_year_selector(current_financial_year) if current_financial_year
+- fy = FinancialYear.find(current_financial_year)
+
+= main_informations attachment: true do
+  - if resource.associate_account.present?
+    .pull-right
+      .med-info.important
+        %span.title= resource.human_attribute_name(:balance) + ' ' + fy.name.to_s
+        %span.value= resource.balance(fy).l(currency: resource.currency)
+      .med-info.important
+        %span.title= resource.human_attribute_name(:balance)
+        %span.value= resource.balance.l(currency: resource.currency)
+  = attributes_list do |l|
+    - l.attribute :entity, url: true
+    - l.attribute :associate_account, url: true
+    - l.attribute :associate_nature
+    - l.attribute :started_on
+    - l.attribute :stopped_on
+    - l.attribute :share_quantity
+    - l.attribute :share_unit_amount
+    - l.attribute :description
+
+= cobbles do |c|
+  - c.cobble(:journal_entry_items) do
+    - if resource.main_journal_entry_items.any?
+      = cobble_list(:associate_journal_entry_items)

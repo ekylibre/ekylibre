@@ -91,6 +91,7 @@ module Agroedi
         def find_or_create_variant!
 
           varieties = [target_variety, *target_variety.parents]
+          # find correct reference in Ekylibre by nature and target_specie
           possible_variants = ProductNatureVariant.where(
             variety: nature_edicode,
             active: true
@@ -101,19 +102,15 @@ module Agroedi
 
           return variant if variant
 
-          # variant = ProductNatureVariant.find_or_import!(nature_edicode).first
           # find correct reference from Lexicon by nature and target_specie
-          if specie_edicode
-            lexicon_variants = MasterVariant.where(family: 'article', nature: nature_edicode.to_s, target_specie: specie_edicode.to_s)
-            if lexicon_variants.nil? || !lexicon_variants.present?
-              lexicon_variants = MasterVariant.where(family: 'article', nature: nature_edicode.to_s)
-              puts "No way to create variant from specie edicode #{specie_edicode.inspect.red} missing in Ekylibre Lexicon"
-            end
-          else
-            lexicon_variants = MasterVariant.where(family: 'article', nature: nature_edicode.to_s)
-          end
-          if lexicon_variants.any?
-            ref = lexicon_variants.first.reference_name
+          lexicon_variant = varieties.lazy.map do |variety|
+            MasterVariant.find_by(family: 'article', nature: nature_edicode.to_s, target_specie: variety.name.to_s)
+          end.find(&:present?)
+          # or find correct reference from Lexicon by nature
+          lexicon_variant ||= MasterVariant.find_by(family: 'article', nature: nature_edicode.to_s)
+
+          if lexicon_variant.present?
+            ref = lexicon_variant.reference_name
             variant ||= ProductNatureVariant.import_from_lexicon(ref, true)
           end
 

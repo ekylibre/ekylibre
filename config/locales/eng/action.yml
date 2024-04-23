@@ -1540,6 +1540,7 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    cadastral_parcels: "Cadastral parcels"
     chemical_and_physical_weeding: "Physical and chemical weeding"
     chemical_weeding: "Chemical weeding"
     physical_weeding: "Physical weeding"
@@ -4087,6 +4088,7 @@ eng:
     backend/activity_budgets: "%{activity_name} %{campaign_name}"
     backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     backend/animals: "%{name} #%{work_number}"
+    backend/associates: "%{entity_name}"
     backend/campaigns: "%{name}"
     backend/catalog_items: "%{name}"
     backend/entities: "%{full_name} ‒ %{number}"
