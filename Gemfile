@@ -87,7 +87,7 @@ gem 'semantic', '~> 1.6'
 
 # Exception analysis and metrics
 gem 'binding_of_caller', '~> 1.0'
-gem 'elastic-apm', '~> 3.4.0'
+# gem 'elastic-apm', '~> 3.4.0'
 gem 'exception_notification', '~> 4.4'
 gem 'redis-namespace', '~> 1.8'
 
