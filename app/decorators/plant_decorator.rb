@@ -288,7 +288,6 @@ class PlantDecorator < ProductDecorator
                        costs[key].to_i
                      rescue FloatDomainError => e
                        :error.tl
-                       ElasticAPM.report(e)
                      end
       end
     end
@@ -300,8 +299,6 @@ class PlantDecorator < ProductDecorator
         begin
           value.to_i
         rescue FloatDomainError => e
-          ElasticAPM.report(e)
-
           :error.tl
         end
       end

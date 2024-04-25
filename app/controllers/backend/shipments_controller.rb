@@ -160,7 +160,6 @@ module Backend
       rescue StandardError => error
         Rails.logger.error error
         Rails.logger.error error.backtrace.join("\n")
-        ElasticAPM.report(error)
         notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
         redirect_to(params[:redirect] || { action: :index })
       end

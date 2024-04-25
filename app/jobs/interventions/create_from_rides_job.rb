@@ -25,7 +25,6 @@ module Interventions
           Rails.logger.error error
           Rails.logger.error error.backtrace.join("\n")
           ExceptionNotifier.notify_exception(error, data: { message: error })
-          ElasticAPM.report(error)
           perform_as.notifications.create!(error_notification_params(error.message))
         end
       end

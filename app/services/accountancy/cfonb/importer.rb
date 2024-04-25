@@ -99,7 +99,6 @@ module Accountancy
           result
         end
       rescue StandardError => e
-        ElasticAPM.report(e)
         Failure.new(e)
       end
 
