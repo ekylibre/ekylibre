@@ -156,10 +156,21 @@ class JournalEntryItem < ApplicationRecord
     self.name = name.to_s[0..254]
     self.letter = nil if letter.blank?
     self.bank_statement_letter = nil if bank_statement_letter.blank?
+
     # computes the values depending on currency rate
     # for debit and credit.
 
     compute
+
+    # compute pretax_amount when manually entry sale or purchase with tax
+    if tax.present? && resource_id.blank? && resource_prism.blank?
+      if entry.journal.nature == 'sales'
+        self.account_id = tax.collect_account_id
+      elsif entry.journal.nature == 'purchases'
+        self.account_id = tax.deduction_account_id
+      end
+      self.pretax_amount = tax.pretax_amount_of_vat_amount(real_balance.abs)&.round(2)
+    end
 
     # CAREFUL /!\ This is complementary to behaviour from postgres triggers that are in DB.
     if letter.present?

@@ -124,6 +124,12 @@ class Tax < ApplicationRecord
       end
     end
 
+    def clean_inactive!
+      Tax.find_each do |tax|
+        tax.update(active: false) if tax.destroyable?
+      end
+    end
+
     # Find a tax at the given date. Conditions can be given to filter on
     # `country`, `nature`, and `amount`. `nature` is a name of a tax nature (See
     # `tax_natures` nomenclature.
@@ -234,6 +240,15 @@ class Tax < ApplicationRecord
   # Returns the amount of a pretax amount
   def amount_of(pretax_amount)
     (pretax_amount.to_d * coefficient)
+  end
+
+  # Returns the pretax amount of a vat amount
+  def pretax_amount_of_vat_amount(vat_amount)
+    if usable_amount > 0 && vat_amount.to_d >= 0.0
+      (vat_amount.to_d * 100) / usable_amount
+    else
+      0.0
+    end
   end
 
   # Returns true if amount is equal to 0

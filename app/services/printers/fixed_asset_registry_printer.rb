@@ -24,7 +24,7 @@ module Printers
     end
 
     def compute_dataset
-      fixed_assets_by_account = FixedAsset.used.start_before(@stopped_on).group_by(&:asset_account_id)
+      fixed_assets_by_account = FixedAsset.used.asset_account_ordered.start_before(@stopped_on).group_by(&:asset_account_id)
 
       fixed_asset_dataset = fixed_assets_by_account.map do |asset_account_id, fixed_assets|
         account = Account.find(asset_account_id)
@@ -52,7 +52,7 @@ module Printers
             amount: amount,
             tax_amount: amount - fixed_asset.depreciable_amount,
             depreciable_amount: fixed_asset.depreciable_amount,
-            depreciation_percentage: fixed_asset.depreciation_percentage,
+            depreciation_percentage: fixed_asset.depreciation_percentage&.round(2),
             depreciation_method: fixed_asset.depreciation_method,
             depreciated_amount: depreciated_amount,
             current_depreciation_amount: current_depreciation_amount,

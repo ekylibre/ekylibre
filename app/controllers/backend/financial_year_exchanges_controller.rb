@@ -79,6 +79,11 @@ module Backend
       if exchange.format == 'isacompta'
         # check if a isacompta code is missing on a Model link to a segment
         if exchange.transmit_isacompta_analytic_codes
+          if AnalyticSegment.count == 0
+            notify_error :add_analytic_segments.tl
+            redirect_to_back
+            return
+          end
           missing_segment = 0
           AnalyticSegment.all.each do |segment|
             missing_code_count = segment.name.classify.constantize.where(isacompta_analytic_code: [nil, ""]).count
