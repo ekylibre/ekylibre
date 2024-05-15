@@ -78,6 +78,9 @@ land_parcels:
   
   telepac_v2023_cap_statements:
     path: 'telepac/2023/statement.xml'
+  
+  telepac_v2024_cap_statements:
+    path: 'telepac/2024/statement.xml'
 
   telepac_v2021_cap_zip_statements:
     path: 'telepac/2021/statements.zip'

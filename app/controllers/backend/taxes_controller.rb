@@ -22,12 +22,29 @@ module Backend
 
     unroll
 
-    list do |t|
+    def self.taxes_conditions
+      code = search_conditions(taxes: %i[amount reference_name name nature country], accounts: %i[number name]) + " ||= []\n"
+      code << "if params[:state].present?\n"
+      code << "  if params[:state] == 'active'\n"
+      code << "    c[0] << ' AND #{Tax.table_name}.active = TRUE'\n"
+      code << "  elsif params[:state] == 'inactive'\n"
+      code << "    c[0] << ' AND #{Tax.table_name}.active = FALSE'\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "if params[:provider].present?\n"
+      code << "  c[0] += \" AND \#{Tax.table_name}.provider ->> 'vendor' = ?\"\n"
+      code << "  c << params[:provider].tap { |e| e[0] = e[0].downcase }.to_s\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(conditions: taxes_conditions, joins: %i[collect_account deduction_account]) do |t|
       t.action :edit
       t.action :destroy
       t.column :active
       t.column :name, url: true
-      t.column :amount, precision: 3
+      t.column :amount, precision: 2
       t.column :nature
       t.column :intracommunity
       t.column :country
@@ -39,6 +56,7 @@ module Backend
       t.column :deduction_isacompta_code, hidden: true
       t.column :fixed_asset_deduction_isacompta_code, hidden: true
       t.column :fixed_asset_collect_isacompta_code, hidden: true
+      t.column :provider_vendor, label_method: 'provider_vendor&.capitalize', hidden: true
     end
 
     def load

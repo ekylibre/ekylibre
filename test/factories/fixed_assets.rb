@@ -17,6 +17,7 @@ FactoryBot.define do
     association :expenses_account, factory: :fixed_asset_expenses_account
 
     trait(:yearly) { depreciation_period { :yearly } }
+    trait(:quarterly) { depreciation_period { :quarterly } }
     trait(:monthly) { depreciation_period { :monthly } }
 
     trait(:not_depreciable) {

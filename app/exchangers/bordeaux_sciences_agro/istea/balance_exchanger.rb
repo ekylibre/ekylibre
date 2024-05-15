@@ -31,14 +31,14 @@ module BordeauxSciencesAgro
           line_number = index + 2
           prompt = "L#{line_number.to_s.yellow}"
           r = {
-            printed_on: Date.parse(row[0].to_s),
-            account_number: row[1].to_s,
-            account_name: row[2].to_s,
-            start_debit_amount: (row[3].blank? ? 0.0 : row[3].tr(',', '.').to_d),
-            start_credit_amount: (row[4].blank? ? 0.0 : row[4].tr(',', '.').to_d),
-            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].tr(',', '.').to_d),
-            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].tr(',', '.').to_d),
-            global_balance: (row[7].blank? ? 0.0 : row[7].tr(',', '.').to_d)
+            printed_on: Date.parse(row[0].to_s.strip),
+            account_number: row[1].to_s.strip,
+            account_name: row[2].to_s.strip,
+            start_debit_amount: (row[3].blank? ? 0.0 : row[3].gsub(/\s+/, "").tr(',', '.').to_d),
+            start_credit_amount: (row[4].blank? ? 0.0 : row[4].gsub(/\s+/, "").tr(',', '.').to_d),
+            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].gsub(/\s+/, "").tr(',', '.').to_d),
+            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].gsub(/\s+/, "").tr(',', '.').to_d),
+            global_balance: (row[7].blank? ? 0.0 : row[7].gsub(/\s+/, "").tr(',', '.').to_d)
           }.to_struct
           # w.check_point
 
@@ -71,14 +71,14 @@ module BordeauxSciencesAgro
           line_number = index + 2
           prompt = "L#{line_number.to_s.yellow}"
           r = {
-            printed_on: Date.parse(row[0].to_s),
-            account_number: row[1].to_s,
-            account_name: row[2].to_s,
-            start_debit_amount: (row[3].blank? ? 0.0 : row[3].tr(',', '.').to_d),
-            start_credit_amount: (row[4].blank? ? 0.0 : row[4].tr(',', '.').to_d),
-            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].tr(',', '.').to_d),
-            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].tr(',', '.').to_d),
-            global_balance: (row[7].blank? ? 0.0 : row[7].tr(',', '.').to_d)
+            printed_on: Date.parse(row[0].to_s.strip),
+            account_number: row[1].to_s.strip,
+            account_name: row[2].to_s.strip,
+            start_debit_amount: (row[3].blank? ? 0.0 : row[3].gsub(/\s+/, "").tr(',', '.').to_d),
+            start_credit_amount: (row[4].blank? ? 0.0 : row[4].gsub(/\s+/, "").tr(',', '.').to_d),
+            variation_debit_amount: (row[5].blank? ? 0.0 : row[5].gsub(/\s+/, "").tr(',', '.').to_d),
+            variation_credit_amount: (row[6].blank? ? 0.0 : row[6].gsub(/\s+/, "").tr(',', '.').to_d),
+            global_balance: (row[7].blank? ? 0.0 : row[7].gsub(/\s+/, "").tr(',', '.').to_d)
           }.to_struct
 
           number = r.printed_on.to_s

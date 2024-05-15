@@ -54,7 +54,7 @@ module Backend
       # t.column :number, through: :bank_statement, url: true, hidden: true
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :letter, through: :journal_entry
-      t.column :real_debit,  currency: :real_currency
+      t.column :real_debit, currency: :real_currency
       t.column :real_credit, currency: :real_currency
       t.column :debit,  currency: true, hidden: true
       t.column :credit, currency: true, hidden: true
@@ -63,6 +63,8 @@ module Backend
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :activity_budget, hidden: true
       t.column :team, hidden: true
+      t.column :tax, hidden: true
+      t.column :pretax_amount, hidden: true
       t.column :product_item_to_tax_label, label: :tax_label, hidden: true
     end
 
@@ -223,7 +225,7 @@ module Backend
     protected
 
       def permitted_params
-        params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :reference_number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id team_id equipment_id _destroy])
+        params.require(:journal_entry).permit(:printed_on, :journal_id, :number, :reference_number, :real_currency_rate, items_attributes: %i[id name variant_id account_id real_debit real_credit activity_budget_id project_budget_id tax_id team_id equipment_id _destroy])
       end
 
       def notify_global_errors

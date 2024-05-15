@@ -28,6 +28,7 @@
             %tr
               %th= JournalEntryItem.human_attribute_name(:name)
               %th= JournalEntryItem.human_attribute_name(:account)
+              %th= JournalEntryItem.human_attribute_name(:tax)
               %th= JournalEntryItem.human_attribute_name(:variant)
               - if budget_size > 0
                 %th= JournalEntryItem.human_attribute_name(:activity_budget)

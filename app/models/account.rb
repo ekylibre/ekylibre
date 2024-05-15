@@ -226,6 +226,7 @@ class Account < ApplicationRecord
 
   before_validation do
     self.active ||= true
+    self.name = name.strip if name.present?
     if general? && number.present? && !already_existing
       errors.add(:number, :centralizing_number) if number.match(/\A(401|411)0*\z/).present?
       errors.add(:number, :radical_class) if number.match(/\A[1-9]0*\z/).present?

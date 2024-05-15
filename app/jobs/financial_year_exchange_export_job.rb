@@ -58,7 +58,7 @@ class FinancialYearExchangeExportJob < ApplicationJob
 
   private def error_generation_notification_params(error)
     {
-      message: :error_during_file_generation.tl,
+      message: 'error_during_file_generation',
       level: :error,
       interpolations: {
         error_message: error

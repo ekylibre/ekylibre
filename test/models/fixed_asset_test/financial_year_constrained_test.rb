@@ -2,12 +2,36 @@ require 'test_helper'
 
 module FixedAssetTest
   class FinancialYearConstrainedTest < Ekylibre::Testing::ApplicationTestCase
-    test 'depreciations periods are computed correctly when the FinancialYear does not start the first day of the year' do
-      create :financial_year, year: 2017, month: 3
+    test 'depreciations periods when fy start 01/03 and fa start after 6 months of fy' do
+      create :financial_year, year: 2020, month: 3
 
-      fa = create :fixed_asset, started_on: Date.new(2017, 3, 1)
+      fa = create :fixed_asset, :linear, :yearly, started_on: Date.new(2020, 10, 29)
+
+      assert fa.depreciations.to_a.drop(1).all? { |dep| dep.started_on.month == 3 }, "All (except first) depreciations periods should start on the same month as the begining of the FinancialYear"
+    end
+
+    test 'depreciations periods when fy start 01/03 and fa start 01/03' do
+      create :financial_year, year: 2020, month: 3
+
+      fa = create :fixed_asset, :linear, :yearly, started_on: Date.new(2020, 3, 1)
 
       assert fa.depreciations.to_a.all? { |dep| dep.started_on.month == 3 }, "All depreciations periods should start on the same month as the begining of the FinancialYear"
+    end
+
+    test 'depreciations periods when fy start on leap year 01/03 and fa start 01/03' do
+      create :financial_year, year: 2019, month: 3
+
+      fa = create :fixed_asset, :linear, :yearly, started_on: Date.new(2019, 3, 1)
+
+      assert fa.depreciations.to_a.all? { |dep| dep.started_on.month == 3 }, "All depreciations periods should start on the same month as the begining of the FinancialYear"
+    end
+
+    test 'quaterly depreciations periods when fy start 01/03 and fa start 01/03' do
+      create :financial_year, year: 2019, month: 3
+
+      fa = create :fixed_asset, :linear, :quarterly, started_on: Date.new(2019, 3, 1)
+
+      assert fa.depreciations.to_a.all? { |dep| dep.started_on.day == 1 }, "All depreciations periods should start on the same month as the begining of the FinancialYear"
     end
 
     test 'on_unclosed_periods? with closed journal' do

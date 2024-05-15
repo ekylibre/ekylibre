@@ -112,7 +112,7 @@ class OutgoingPayment < ApplicationRecord
   end
 
   after_destroy do
-    journal_entry.remove if journal_entry.draft?
+    journal_entry.remove if journal_entry && journal_entry.draft?
   end
 
   protect do

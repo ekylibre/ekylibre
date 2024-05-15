@@ -88,12 +88,9 @@ class TaxDeclarationItem < ApplicationRecord
     end
 
     def generate_debit_parts
-      entry_items = JournalEntryItem
-                    .where(financial_year_id: tax_declaration.financial_year_id)
+      entry_items = JournalEntryItem.where(financial_year_id: tax_declaration.financial_year_id, tax_declaration_mode: 'debit', tax: tax)
                     .where('printed_on <= ? ', stopped_on)
-                    .where(tax_declaration_mode: 'debit')
-                    .where(tax: tax)
-                    .where.not(resource_type: 'TaxDeclarationItem')
+                    .where("resource_type <> 'TaxDeclarationItem' OR resource_type IS NULL")
                     .where.not(id: TaxDeclarationItemPart.select(:journal_entry_item_id))
 
       tax_account_ids_by_direction.each do |direction, account_id|

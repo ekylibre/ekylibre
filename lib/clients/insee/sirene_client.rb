@@ -2,7 +2,7 @@ module Clients
   module Insee
     class SireneClient
       TOKEN_URL = 'https://api.insee.fr/token'.freeze
-      BASE_URL = 'https://api.insee.fr/entreprises/sirene/V3/'.freeze
+      BASE_URL = 'https://api.insee.fr/entreprises/sirene/V3.11/'.freeze
       SIREN_END_POINT = (BASE_URL + 'siren/').freeze
       SIRET_END_POINT = (BASE_URL + 'siret/').freeze
 

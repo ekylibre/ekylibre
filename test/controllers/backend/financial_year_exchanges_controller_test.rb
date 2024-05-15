@@ -32,7 +32,8 @@ module Backend
         get :journal_entries_export, params: { id: @exchange.id, format: 'toto' }
       end
 
-      assert Notification.find_by(message: :error_during_file_generation.tl)
+      notification = Notification.find_by(message: 'error_during_file_generation')
+      assert notification
     end
 
     test 'selecting journals should set financial year exchange id then close should remove it' do
@@ -47,12 +48,12 @@ module Backend
       assert_equal exchange.id, journal1.reload.financial_year_exchange_id
       assert_equal exchange.id, journal2.reload.financial_year_exchange_id
       assert_equal exchange.id, journal3.reload.financial_year_exchange_id
-      assert_equal nil, journal4.reload.financial_year_exchange_id
+      assert_nil journal4.reload.financial_year_exchange_id
       get :close, params: { id: exchange.id }
-      assert_equal nil, journal1.reload.financial_year_exchange_id
-      assert_equal nil, journal2.reload.financial_year_exchange_id
-      assert_equal nil, journal3.reload.financial_year_exchange_id
-      assert_equal nil, journal4.reload.financial_year_exchange_id
+      assert_nil journal1.reload.financial_year_exchange_id
+      assert_nil journal2.reload.financial_year_exchange_id
+      assert_nil journal3.reload.financial_year_exchange_id
+      assert_nil journal4.reload.financial_year_exchange_id
     end
 
     private def run_journal_entries_export_with_format(format)

@@ -1255,6 +1255,17 @@ fra:
         n_3_4_leaf: "N+3 (4ème feuille)"
         n_2_3_leaf: "N+2 (3ème feuille)"
         n_4_5_leaf: "N+4 (5ème feuille"
+    templates:
+      actions:
+        edit: "Modifier"
+        regroup: "Regrouper"
+        split: "Dissocier"
+      form:
+        calculated_area: "Superficie calculée"
+        land_parcel: "Parcelle"
+        name: "Nom"
+        required: "Obligatoire"
+        vine_variety_name: "variety"
     active_list:
       labels:
         manage_land_parcels: "Gérer le parcellaire"
@@ -1453,6 +1464,7 @@ fra:
     add_a_worker: "Ajouter un équipier"
     add_an_account: "Ajouter un compte"
     add_an_evaluation_for_this_intervention: "Evaluer cette intervention avant de la valider" #?
+    add_analytic_segments: "Vous devez ajouter des segments analytiques si vous souhaitez exporter ces données"
     add_animal: "Ajouter un animal"
     add_animal_group: "Ajouter un troupeau"
     add_animals: "Ajouter une bande d'animaux"

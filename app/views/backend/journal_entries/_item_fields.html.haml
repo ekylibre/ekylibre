@@ -6,6 +6,7 @@
   %tr
     %td= f.input(:name, wrapper: :nested)
     %td= f.referenced_association(:account, { input_html: { data: { add_details: '/backend/account_balances/:id', add_details_on: '#journal_entry_printed_on' } }, wrapper: :nested })
+    %td= f.referenced_association(:tax, wrapper: :nested)
     %td= f.referenced_association(:variant, wrapper: :nested)
     - if budget_size > 0
       %td= f.referenced_association(:activity_budget, wrapper: :nested)

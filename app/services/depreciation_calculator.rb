@@ -18,21 +18,25 @@ class DepreciationCalculator
     return months if @depreciation_period == :monthly
 
     fy_start = financial_year_start_day
-    fy_shift = (fy_start - fy_start.beginning_of_year).days
+    # shift for non leap year before Februar on reference
+    # 2020 => 01/03/2020 - 01/01/2020 => 60.days - 1
+    # 2019 => 01/03/2019 - 01/01/2019 => 59.days
+    fy_shift = if fy_start.month > 2 && Date.leap?(fy_start.year)
+                 (fy_start - fy_start.beginning_of_year).days - 1.day
+               else
+                 (fy_start - fy_start.beginning_of_year).days
+               end
 
     groups = case @depreciation_period
              when :quarterly
-               months.group_by do |m|
-                 shifted = m.started_on - fy_shift
-                 [shifted.year, shifted.month % 3]
-               end
+               months.group_by { |m_started_on, _m_stopped_on, _| ((Date.leap?(m_started_on.year) && m_started_on.month > 2) ? (m_started_on - fy_shift + 1).beginning_of_quarter : (m_started_on - fy_shift).beginning_of_quarter) }
              when :yearly
-               months.group_by { |m_started_on, _, _| (m_started_on - fy_shift).year }
+               months.group_by { |m_started_on, _m_stopped_on, _| ((Date.leap?(m_started_on.year) && m_started_on.month > 2) ? (m_started_on - fy_shift + 1).year : (m_started_on - fy_shift).year) }
              else
                return nil
              end
 
-    groups.map do |_, v|
+    j = groups.map do |_, v|
       first_period_start = v.first.first
       last_period_end = v.last.second
       period_duration = v.sum(&:third)
@@ -59,7 +63,7 @@ class DepreciationCalculator
       remaining_days -= month_duration
     end
     if remaining_days > 0
-      months << [current, current + remaining_days.days, remaining_days]
+      months << [current, current + remaining_days.days, remaining_days.to_i]
     end
 
     months

@@ -165,6 +165,8 @@ class FixedAsset < ApplicationRecord
     where('fixed_assets.started_on >= ? AND fixed_assets.started_on <= ?', started_on, stopped_on)
   }
 
+  scope :asset_account_ordered, -> { includes(:asset_account).reorder('accounts.number') }
+
   # return all fixed_asset for the consider product_nature_category
   scope :of_product_nature_category, lambda { |product_nature_category|
     joins(:variant).merge(ProductNatureVariant.of_category(product_nature_category))
@@ -504,6 +506,8 @@ class FixedAsset < ApplicationRecord
   def net_book_value(on = Date.today)
     if on < started_on
       depreciable_amount
+    elsif depreciation_method == :none
+      depreciable_amount
     elsif (depreciation = current_depreciation(on)).present?
       depreciation.depreciated_amount
     else
@@ -517,6 +521,8 @@ class FixedAsset < ApplicationRecord
   # @return [Numeric]
   def already_depreciated_value(on = Date.today)
     if on < started_on
+      0
+    elsif depreciation_method == :none
       0
     elsif (depreciation = current_depreciation(on)).present?
       depreciation.depreciated_amount
