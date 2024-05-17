@@ -1,8 +1,8 @@
 module Clients
   module Mistral
-    class Ner
-      API_KEY = ENV['MISTRAL_API_KEY']
-      BASE_URL = 'https://api.mistral.ai/v1/chat/completions'.freeze
+    class NerGroq
+      API_KEY = ENV['GROQ_API_KEY']
+      BASE_URL = 'https://api.groq.com/openai/v1/chat/completions'.freeze
       DEFAULT_BS_INSTRUCTION = <<~TEXT.freeze
         From the user prompt coming from bank statement below, extract Organizations strictly as instructed below for each item.
         Most of the time, the pattern of an item is composed of [payment_mode, Organization, transaction_number]
@@ -37,12 +37,12 @@ module Clients
         Question: Now, extract the Organizations for the text below -
       TEXT
 
-      def initialize(model = "mistral-large-latest")
+      def initialize(model = "mixtral-8x7b-32768")
         @content_to_send = { model: model, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: nil }, { role: 'user', content: nil }] }
       end
 
       def extract_metadata_from_bank_statements(data, instructions = nil)
-        return { error: "missing MISTRAL_API_KEY in .env" } if API_KEY.blank?
+        return { error: "missing GROQ_API_KEY in .env" } if API_KEY.blank?
 
         return { error: "missing data" } unless data.present?
 

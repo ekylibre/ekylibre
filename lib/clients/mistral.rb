@@ -3,3 +3,4 @@ module Clients
   end
 end
 require 'clients/mistral/ner'
+require 'clients/mistral/ner_groq'
