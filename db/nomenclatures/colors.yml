@@ -1,5 +1,6 @@
 ---
 varieties:
+  achillea_millefolium: FloralWhite
   adoxaceae: Linen
   ajuga: Amethyst
   allium: AntiqueWhite
@@ -91,6 +92,8 @@ varieties:
   humulus: LightGreen
   hydrangeaceae: Seashell
   hypericum: Yellow
+  hylotelephium: Pink
+  hyssopus_officinalis: Purple
   convolvulaceae: Peru
   juglans: Tan
   laburnum: Yellow
@@ -105,6 +108,8 @@ varieties:
   lolium: Green
   lotus: Yellow
   lupinus: Orchid
+  lycium: Red
+  lycium_chinese: Red
   malus: DarkRed
   malva: Plum
   mangifera: PeachPuff

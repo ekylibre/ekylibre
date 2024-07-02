@@ -280,6 +280,8 @@ productions:
   winery: productions/winery.jpg
 varieties:
   acer: varieties/acer.jpg
+  achillea: varieties/achillea.jpg
+  achillea_millefolium: varieties/achillea.jpg
   actinopterygii: varieties/actinopterygii.jpg
   administrative: varieties/administrative.jpg
   adoxaceae: varieties/adoxaceae.jpg
@@ -389,6 +391,8 @@ varieties:
   humulus: varieties/humulus.jpg
   hydrangeaceae: varieties/hydrangeaceae.jpg
   hypericum: varieties/hypericum.jpg
+  hylotelephium: varieties/hylotelephium.jpg
+  hyssopus_officinalis: varieties/hyssopus_officinalis.jpg
   insecta: varieties/insecta.jpg
   ipomoea_batatas: varieties/ipomoea_batatas.jpg
   juglans: varieties/juglans.jpg
@@ -407,6 +411,8 @@ varieties:
   lolium: varieties/lolium.jpg
   lotus: varieties/lotus.jpg
   lupinus: varieties/lupinus.jpg
+  lycium: varieties/lycium.jpg
+  lycium_chinense: varieties/lycium.jpg
   malus: varieties/malus.jpg
   malva: varieties/malva.jpg
   mangifera: varieties/mangifera.jpg
@@ -484,6 +490,7 @@ varieties:
   trigonella: varieties/trigonella.jpg
   triticosecale: varieties/triticosecale.jpg
   triticum: varieties/triticum.jpg
+  urtica: varieties/urtica.jpg
   valeriana: varieties/valeriana.jpg
   valerianella: varieties/valerianella.jpg
   vanilla: varieties/vanilla.jpg
