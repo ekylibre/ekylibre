@@ -1,7 +1,9 @@
 - if @document.nature == 'purchases_original'
   - unless @document.attach_to_resource
     - main_toolbar do |t|
-      = t.action :purchase_scan, "data-confirm" => :are_you_sure_you_want_to_convert_into_purchase_via_ocr.tl, method: :post, params: { id: @document.id, vendor: :mindee}
+      = t.action :purchase_scan, label: :purchase_ai_convert_with_mindee.tl, "data-confirm" => :are_you_sure_you_want_to_convert_into_purchase_via_ocr.tl, method: :post, params: { id: @document.id, vendor: :mindee}, disabled: true
+      = t.action :purchase_scan, label: :purchase_ai_convert_with_mistral.tl, "data-confirm" => :are_you_sure_you_want_to_convert_into_purchase_via_ocr.tl, method: :post, params: { id: @document.id, vendor: :mistral}, disabled: Identifier.find_by_nature('mistral_api_key').nil?
+      = t.action :purchase_scan, label: :purchase_ai_convert_with_groq.tl, "data-confirm" => :are_you_sure_you_want_to_convert_into_purchase_via_ocr.tl, method: :post, params: { id: @document.id, vendor: :groq}, disabled: Identifier.find_by_nature('groq_api_key').nil?
 = main_informations do   
   - if @document.file.exists?
     .picture

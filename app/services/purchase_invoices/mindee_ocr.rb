@@ -22,7 +22,7 @@ module PurchaseInvoices
 
       if response.present? && response.api_request.status == :success
         if response.document.inference.present?
-          meta = { VENDOR.to_sym => response.document.inference.prediction.to_json }
+          meta = { VENDOR.to_sym => response.document.inference.prediction }
           document.metadata.merge!(meta)
           document.save!
           { status: :success, message: :successfully_document_transformation }

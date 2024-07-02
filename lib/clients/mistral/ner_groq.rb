@@ -1,55 +1,29 @@
 module Clients
   module Mistral
     class NerGroq
-      API_KEY = ENV['GROQ_API_KEY']
-      BASE_URL = 'https://api.groq.com/openai/v1/chat/completions'.freeze
-      DEFAULT_BS_INSTRUCTION = <<~TEXT.freeze
-        From the user prompt coming from bank statement below, extract Organizations strictly as instructed below for each item.
-        Most of the time, the pattern of an item is composed of [payment_mode, Organization, transaction_number]
-        1. First, look for the Organization Entity type in the text and extract the needed information defined below:
-        `id` property of each item must be alphanumeric and must be unique among the items.
-        `id` property of each item is present at the beginning of each item and is an integer.
-        You will be referring this property to define the relationship between entities. NEVER create new entity types that aren't mentioned below.
-        name of the entity must be store under 'name' property.
-        Try to detect if the entity nature is a physical person or an organisation under `nature` property
-        Try to detect the transaction_number under `transaction_number` property
-        Document must be summarized and stored inside Organization entity under `description` property
-          Entity Types:
-          label:'Organization',id:integer,name:string,nature:string,payment_mode:string,transaction_number:string,role:string,description:string //Organization Node
-        2. Description property should be a crisp text summary and MUST NOT be more than 100 characters
-        3. If you cannot find any information on the entities & relationships above, it is okay to return empty value. DO NOT create fictious data
-        4. Extract the payment mode in under 'payment_mode' property and try to match with this list : [ card, direct_debit, transfer, paid_check ]
-        the rules for extracting payment_mode to match with the list is :
-         PRELEVEMENT match with direct_debit
-         VIREMENT match with transfer
-         VIREMENT EMIS WEB match with transfer
-         CHEQUE EMIS match with paid_check
-         REMBOURSEMENT DE PRET match with direct_debit.
-        5. If you cannot find any information about payment mode above, it is okay to return empty value.
-        6. Restrict yourself to extract only Organization information, payment_mode and transaction_number.
-        7. Try to find the role according to the farming world like machinery, animals, plants...
-        8. NEVER Impute missing values
-        Example Output JSON:
-          {{"entities": [{{"label":"Organization","id":"25","name":"Groupama","nature":"organisation","transaction_number":"FA52635,"payment_mode":"card","role":"insurance","description":"insurance fee from Groupama"}}]}}
-        9. Information come from France in french language
-        10. Return the entities in JSON format.
+      include AiHelper
 
-        Question: Now, extract the Organizations for the text below -
-      TEXT
+      BASE_URL = 'https://api.groq.com/openai/v1/chat/completions'.freeze
+      PROMPT_LIMIT = 25_000
 
       def initialize(model = "mixtral-8x7b-32768")
+        @api_key = Identifier.find_by_nature('groq_api_key')&.value&.strip
         @content_to_send = { model: model, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: nil }, { role: 'user', content: nil }] }
       end
 
-      def extract_metadata_from_bank_statements(data, instructions = nil)
-        return { error: "missing GROQ_API_KEY in .env" } if API_KEY.blank?
+      def extract_metadata(data, model_nature = nil)
+
+        return { error: "missing groq_api_key in services" } if @api_key.blank?
 
         return { error: "missing data" } unless data.present?
 
-        return { error: "data parameter is too long : #{data.size.to_s} characters instead of 5000 max" } if data.size > 5000
+        return { error: "missing model_nature" } unless model_nature.present?
+
+        return { error: "data parameter is too long : #{data.size.to_s} characters instead of #{PROMPT_LIMIT} max" } if data.size > PROMPT_LIMIT
 
         # set instructions
-        instructions ||= DEFAULT_BS_INSTRUCTION
+        instructions = item_ai_instruction(model_nature)
+        instructions << item_ai_output_schema(model_nature) if item_ai_output_schema(model_nature)
         @content_to_send[:messages][0][:content] = instructions
         @content_to_send[:messages][1][:content] = data
         # call Mistral API
@@ -64,7 +38,7 @@ module Clients
       end
 
       def headers
-        { content_type: 'application/json', accept: 'application/json', authorization: "Bearer #{API_KEY}" }
+        { content_type: 'application/json', accept: 'application/json', authorization: "Bearer #{@api_key}" }
       end
 
     end

@@ -40,6 +40,8 @@ class PurchaseInvoiceClassifierJob < ActiveJob::Base
         if p[:status] != :success
           "#{p[:message]} #{p[:status]}"
         end
+      else
+        PurchaseInvoices::MistralOcr.new(vendor).post_document_and_parse(@document)
       end
     end
 
@@ -47,6 +49,9 @@ class PurchaseInvoiceClassifierJob < ActiveJob::Base
       if vendor == 'mindee'
         mindee_parser = PurchaseInvoices::MindeeParser.new(@document.id)
         mindee_parser.parse_and_create_invoice
+      else
+        mistral_parser = PurchaseInvoices::MistralParser.new(vendor, @document.id)
+        mistral_parser.parse_and_create_invoice
       end
     end
 

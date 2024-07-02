@@ -4,7 +4,7 @@
     - document.metadata.each do |k, h|
       .med-info
         %span.title= k.to_s
-        %span.text= JSON.parse(h).deep_symbolize_keys
+        %span.text= h.deep_symbolize_keys
 
 - if document.attach_to_resource
   - purchase = PurchaseInvoice.find(document.attach_to_resource)

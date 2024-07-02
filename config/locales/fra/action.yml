@@ -1277,6 +1277,9 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    purchase_ai_convert_with_mistral: "Transformer en facture avec Mistral AI"
+    purchase_ai_convert_with_groq: "Transformer en facture avec Groq"
+    purchase_ai_convert_with_mindee: "Transformer en facture avec Mindee"
     cadastral_parcels: "Parcelles cadastrales"
     associate_account_chart: "Comptes courants"
     new_payslip_payment: "Nouveau paiement de salaire net"

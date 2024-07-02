@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 module PurchaseInvoices
-  class MindeeParser
+  class MistralParser
 
-    VENDOR = 'mindee'
-
-    def initialize(document_id)
+    # @data : document structure must respect db/nomenclatures/ai_context.yml
+    # items = [{}, {}]
+    # supplier = {}
+    # invoice = {}
+    def initialize(vendor, document_id)
       @document = Document.find(document_id)
-      @data = @document.metadata[VENDOR.to_s].deep_symbolize_keys.to_struct
-      @sirene = find_entity_on_sirene_v3 if @data.locale[:language] == 'fr'
+      @data = @document.metadata[vendor.to_s].deep_symbolize_keys.to_struct
+      @sirene = find_entity_on_sirene_v3 if %w[fr france].include? @data.supplier[:country].downcase
     end
 
     # return nil or an id of pruchase created
@@ -18,7 +20,14 @@ module PurchaseInvoices
         puts "No supplier found and error on created".inspect.red
         return nil
       end
-      invoiced_at = Date.parse(@data.date[:value]).to_time if @data.date.present?
+      if @data.invoice[:invoiced_on].present? && @data.invoice[:invoiced_on].size < 10
+        old_date = @data.invoice[:invoiced_on].split('/')
+        year = "20" + old_date[2]
+        invoiced_at = Date.parse("#{old_date[0]}/#{old_date[1]}/#{year}")
+      elsif @data.invoice[:invoiced_on].present?
+        invoiced_at = Date.parse(@data.invoice[:invoiced_on]).to_time
+      end
+
       unless invoiced_at
         puts "Purchase date not present".inspect.red
         return nil
@@ -26,11 +35,11 @@ module PurchaseInvoices
       purchase = PurchaseInvoice.new(
         planned_at: invoiced_at,
         invoiced_at: invoiced_at,
-        reference_number: @data.invoice_number[:value],
-        currency: @data.locale[:currency],
+        reference_number: @data.invoice[:number],
+        currency: @data.invoice[:currency],
         supplier: supplier,
         nature: PurchaseNature.actives.first,
-        description: "#{supplier.name} | #{invoiced_at.to_date.to_s} | #{@data.invoice_number[:value]}"
+        description: "#{supplier.name} | #{invoiced_at.to_date.to_s} | #{@data.invoice[:number]}"
       )
       clean_lines = build_lines(invoiced_at, supplier)
       if purchase && clean_lines.any?
@@ -50,32 +59,34 @@ module PurchaseInvoices
     # build lines items
     def build_lines(invoiced_at, supplier)
       items = []
-      if @data.line_items.any?
-        @data.line_items.each do |line|
+      if @data.items.any?
+        @data.items.each do |line|
           puts line.inspect.yellow
-          # :product_code=>nil,
+          # :name=>nil,
           # :quantity=>nil,
-          # :unit_price=>19.99,
-          # :total_amount=>19.99,
+          # :unit_amount=>19.99,
+          # :unit_pretax_amount=>19.99,
+          # :amount => ,
+          # :pretax_amount=>19.99,
           # :tax_amount=>nil,
           # :tax_rate=>nil,
-          # :description=>"Vos abonnements, options et services du 01/10/2023 au 31/10/2023 - Abonnement Forfait Mobile Free Pro du 01/10/2023 au 31/10/2023",
-          # :page_id=>nil
-          if line[:tax_rate].nil? || (detect_global_vat_rate && line[:tax_rate]&.to_d == 0.0)
-            vat_percentage = detect_global_vat_rate
-          elsif line[:tax_rate].present?
+          # :nature=>nil
+          next if line[:unit_pretax_amount]&.to_d == 0.0 && line[:pretax_amount]&.to_d == 0.0
+
+          if line[:tax_rate].present?
             vat_percentage = line[:tax_rate].to_d
           else
             vat_percentage = 0.0
           end
-          puts vat_percentage.inspect.red
-          infos = guess_line_info(product_code: line[:product_code], description: line[:description], vat_percentage: vat_percentage, supplier: supplier)
-          items << { role: 'merchandise',
-                      annotation: line[:description],
+          infos = guess_line_info(product_code: line[:number], description: line[:name], vat_percentage: vat_percentage, supplier: supplier, category: line[:nature])
+          next unless infos
+
+          items << {  role: ( line[:role] || :merchandise),
+                      annotation: line[:name],
                       conditioning_quantity: (line[:quantity]&.to_d || 1.0),
                       conditioning_unit_id: infos[:unit].id,
                       tax_id: infos[:tax].id,
-                      unit_pretax_amount: (line[:unit_price]&.to_d || line[:total_amount]&.to_d),
+                      unit_pretax_amount: (line[:unit_pretax_amount]&.to_d || line[:pretax_amount]&.to_d),
                       variant_id: infos[:variant].id,
                       fixed: false }
         end
@@ -83,34 +94,34 @@ module PurchaseInvoices
       items
     end
 
-    def guess_line_info(product_code: nil, description:, vat_percentage:, supplier:)
-      puts vat_percentage.inspect.yellow
-      variant = guess_variant(description, supplier)
-      infos = {
-        variant: variant,
-        tax: guess_tax(vat_percentage, supplier, variant),
-        unit: guess_unit(variant)
-      }
-    end
-
-    def detect_global_vat_rate
-      rate = nil
-      if @data.taxes.present? && @data.taxes.count == 1
-        rate = @data.taxes.first[:rate]
-      elsif @data.total_tax.present? && @data.total_net.present?
-        rate = ((@data.total_tax[:value].to_d / @data.total_net[:value].to_d) * 100).round(2)
+    def guess_line_info(product_code: nil, description:, vat_percentage:, supplier:, category:)
+      puts description.inspect.yellow
+      puts supplier.inspect.yellow
+      puts category.inspect.yellow
+      variant = guess_variant(description, supplier, category)
+      if variant.present?
+        infos = {
+          variant: variant,
+          tax: guess_tax(vat_percentage, supplier, variant),
+          unit: guess_unit(variant)
+        }
       else
-        rate = 0.0
+        nil
       end
-      puts rate.inspect.green
-      rate
     end
 
-    def guess_variant(title, supplier)
+    def guess_variant(title, supplier, category)
+      similar_variants_05 = ProductNatureVariant.where("similarity(unaccent(name), unaccent(?)) >= 0.5", title.strip)
+      similar_variants_02 = ProductNatureVariant.where("similarity(unaccent(name), unaccent(?)) >= 0.2", title.strip)
+      # similar_categories = ProductNatureCategory.where("similarity(unaccent(name), unaccent(?)) >= 0.5", category.strip) if category.present?
       article = Duke::Skill::DukeArticle.new(user_input: title, supplier: supplier)
       products = Duke::DukeMatchingArray.new
       article.extract_user_specifics(duke_json: { supplier_article: products })
-      if (product=article.supplier_article.max).present?
+      if similar_variants_05.present?
+        variant = similar_variants_05.first
+      elsif similar_variants_02.present?
+        variant = similar_variants_02.first
+      elsif (product=article.supplier_article.max).present?
         variant = ProductNatureVariant.find(product.key)
       else
         article.extract_user_specifics(duke_json: { product_nature_variant: products })
@@ -125,7 +136,6 @@ module PurchaseInvoices
           end
         end
       end
-      puts variant.inspect.green
       variant
     end
 
@@ -151,7 +161,11 @@ module PurchaseInvoices
     # find an Entity
     def find_supplier
       # NAME
-      entity = Entity.where('full_name ILIKE ?', @data.supplier_name[:value].strip).first if @data.supplier_name.present?
+      if @data.supplier[:name].present?
+        similar_entity = Entity.where("similarity(unaccent(full_name), unaccent(?)) >= 0.5", @data.supplier[:name].strip)
+        ilike_entity = Entity.where('full_name ILIKE ?', @data.supplier[:name].strip)
+      end
+      entity = similar_entity.first || ilike_entity.first
 
       # VAT NUMBER
       entity ||= Entity.find_by(vat_number: @sirene[:vat_number]) if @sirene && @sirene[:vat_number].present?
@@ -181,12 +195,12 @@ module PurchaseInvoices
 
     # create an Entity
     def create_supplier
-      if @data.supplier_name.present?
+      if @data.supplier[:name].present?
         entity = Entity.new
         entity.nature = :organization
         entity.active = true
         entity.supplier = true
-        entity.last_name = @data.supplier_name[:value].strip
+        entity.last_name = @data.supplier[:name].strip
         # complete informations with SIRENE v3 API
         if @sirene.present?
           entity.siret_number ||= @sirene[:siret_number] if @sirene[:siret_number].present?
@@ -204,15 +218,15 @@ module PurchaseInvoices
     end
 
     def create_default_mail_address(entity)
-      if @data[:merchant_country_code].present?
+      if entity.present?
         # create mail address from metadata
-        if entity && @data[:merchant_zipcode].present? && @data[:merchant_city].present?
-          line_6 = @data[:merchant_zipcode] + ' ' + @data[:merchant_city]
-          line_4 = @data[:merchant_address]
+        if @data.supplier[:address].present? && @data.supplier[:postal_code].present? && @data.supplier[:town].present?
+          line_6 = @data.supplier[:postal_code] + ' ' + @data.supplier[:town]
+          line_4 = @data.supplier[:address]
           attrs = { by_default: true, mail_line_6: line_6, mail_country: 'fr' }
           attrs[:mail_line_4] = line_4 if line_4.present?
         # create mail address from entity siret and SIRENE v3 API
-        elsif entity && @sirene.present?
+        elsif @sirene.present?
           line_6 = @sirene[:city]
           line_4 = @sirene[:address]
           attrs = { by_default: true, mail_line_6: line_6, mail_country: 'fr' }
@@ -239,17 +253,22 @@ module PurchaseInvoices
     def find_entity_on_sirene_v3
       siret_number = nil
       siren_number = nil
-      @data.supplier_company_registrations.each do |supplier_ident|
-        if supplier_ident[:type] == "SIRET"
-          siret_number = supplier_ident[:value]
-        elsif supplier_ident[:type] == "SIREN"
-          siren_number = supplier_ident[:value]
+      if @data.supplier[:registration_number].present?
+        ident = @data.supplier[:registration_number].delete(" ").gsub(/[^0-9]/, '')
+        if ident.size == 14
+          siret_number = ident
+        elsif ident.size == 9
+          siren_number = ident
         end
       end
       if siret_number.present?
         CompanyInformationsService.call(siret: siret_number)
       elsif siren_number.present?
         CompanyInformationsService.call(siren: siren_number)
+      elsif @data.supplier[:name].present? && @data.supplier[:postal_code].present?
+        CompanyInformationsService.call(name: @data.supplier[:name].strip, postal_code: @data.supplier[:postal_code].strip)
+      elsif @data.supplier[:name].present?
+        CompanyInformationsService.call(name: @data.supplier[:name].strip)
       else
         nil
       end

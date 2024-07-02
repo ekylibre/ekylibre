@@ -20,4 +20,5 @@
       = select_tag(:payment_mode_id, options_for_select([[]] +  supplier_payment_modes.map{|u| [u.name, u.id]}, params[:payment_mode_id].to_i))
 - main_toolbar do |t|
   = t.new variants: PurchaseNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }
+  = t.new icon: :scanner, label: :purchase_scan.tl, params: { controller: '/backend/documents', action: :new, nature: :purchases_original, redirect: nil }
 = main_list
