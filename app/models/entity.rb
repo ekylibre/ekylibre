@@ -160,6 +160,7 @@ class Entity < ApplicationRecord
   has_many :purchase_affairs, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
   has_many :client_journal_entry_items, through: :client_account, source: :journal_entry_items
   has_many :supplier_journal_entry_items, through: :supplier_account, source: :journal_entry_items
+  has_many :article_tags, class_name: 'ProductNatureVariantTag', foreign_key: :entity_id, inverse_of: :entity
 
   with_options class_name: 'EntityAddress' do
     has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }

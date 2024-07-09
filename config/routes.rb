@@ -1225,6 +1225,8 @@ Rails.application.routes.draw do
 
     resources :product_nature_variant_components, only: [],
                                                   concerns: %i[autocomplete unroll]
+    
+    resources :product_nature_variant_tags, concerns: %i[list unroll]
 
     resources :purchase_affairs, concerns: %i[affairs list], only: %i[show index], path: 'purchase-affairs'
 

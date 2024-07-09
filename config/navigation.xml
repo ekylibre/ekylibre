@@ -1743,6 +1743,17 @@
         <page to="backend/product_natures#list_variants"/>
         <page to="backend/product_natures#unroll"/>
       </item>
+      <item name="product_nature_variant_tags">
+        <page to="backend/product_nature_variant_tags#index"/>
+        <page to="backend/product_nature_variant_tags#create"/>
+        <page to="backend/product_nature_variant_tags#destroy"/>
+        <page to="backend/product_nature_variant_tags#edit"/>
+        <page to="backend/product_nature_variant_tags#list"/>
+        <page to="backend/product_nature_variant_tags#new"/>
+        <page to="backend/product_nature_variant_tags#show"/>
+        <page to="backend/product_nature_variant_tags#update"/>
+        <page to="backend/product_nature_variant_tags#unroll"/>
+      </item>
     </group>
     <group name="access" icon="shield">
       <item name="roles">

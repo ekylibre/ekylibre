@@ -111,13 +111,21 @@ module PurchaseInvoices
     end
 
     def guess_variant(title, supplier, category)
+      # 1 / find variants from tags
+      tag = ProductNatureVariantTag.where(name: title.strip, entity_id: supplier.id)&.first
+      tags = ProductNatureVariantTag.where("similarity(unaccent(name), unaccent(?)) >= 0.9", title.strip)
+      # 2 / find variants from variant name
       similar_variants_05 = ProductNatureVariant.where("similarity(unaccent(name), unaccent(?)) >= 0.5", title.strip)
       similar_variants_02 = ProductNatureVariant.where("similarity(unaccent(name), unaccent(?)) >= 0.2", title.strip)
       # similar_categories = ProductNatureCategory.where("similarity(unaccent(name), unaccent(?)) >= 0.5", category.strip) if category.present?
       article = Duke::Skill::DukeArticle.new(user_input: title, supplier: supplier)
       products = Duke::DukeMatchingArray.new
       article.extract_user_specifics(duke_json: { supplier_article: products })
-      if similar_variants_05.present?
+      if tag.present?
+        variant = tag.variant
+      elsif tags.any?
+        variant = tags.first.variant
+      elsif similar_variants_05.present?
         variant = similar_variants_05.first
       elsif similar_variants_02.present?
         variant = similar_variants_02.first
@@ -136,6 +144,10 @@ module PurchaseInvoices
           end
         end
       end
+      # add infos in product_nature_variant_tag model
+      unless tag
+        variant.article_tags.create!(entity: supplier, name: title.strip)
+      end
       variant
     end
 
@@ -145,15 +157,15 @@ module PurchaseInvoices
 
     def guess_tax(percentage, supplier, variant)
       if percentage.present?
-        tax = Tax.where(active: true, amount: ((percentage * 0.95)..(percentage * 1.05))).first
+        tax = Tax.where(active: true, amount: ((percentage * 0.95)..(percentage * 1.05))).last
       elsif variant.present?
         tax = if (purchase_items=PurchaseItem.where(variant: variant)).any?
                 purchase_items.order(id: :desc).first.tax
               elsif MasterVariantCategory.find_by_reference_name(variant.category.reference_name).present?
-                Tax.where(amount: MasterVariantCategory.find_by_reference_name(variant.category.reference_name).default_vat_rate).first
+                Tax.where(amount: MasterVariantCategory.find_by_reference_name(variant.category.reference_name).default_vat_rate).last
               end
       else
-        tax = Tax.last
+        tax = Tax.where(active: true, amount: 0.00).last
       end
       tax
     end

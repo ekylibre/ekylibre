@@ -9768,6 +9768,48 @@ product_nature_variant_readings:
     references: product_nature_variant
     limit: 4
     required: true
+product_nature_variant_tags:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 4
+  document_id:
+    type: integer
+    references: document
+    limit: 4
+  entity_id:
+    type: integer
+    references: entity
+    limit: 4
+    required: true
+  id:
+    type: integer
+    limit: 4
+    required: true
+  name:
+    type: string
+    required: true
+  description:
+    type: text
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 4
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    limit: 4
+    required: true
 product_nature_variants:
   active:
     type: boolean

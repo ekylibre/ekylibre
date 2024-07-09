@@ -110,6 +110,7 @@ class ProductNatureVariant < ApplicationRecord
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_many :phases, class_name: 'ProductPhase', foreign_key: :variant_id, inverse_of: :variant
   has_many :intervention_template_product_parameters, class_name: 'InterventionTemplate::ProductParameter', foreign_key: :product_nature_variant_id, inverse_of: :product_nature_variant
+  has_many :article_tags, class_name: 'ProductNatureVariantTag', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
