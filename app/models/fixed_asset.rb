@@ -258,6 +258,10 @@ class FixedAsset < ApplicationRecord
   end
 
   before_update do
+    # case of many purchase items link to same fixed asset
+    if self.purchase_items.any?
+      self.purchase_amount = self.purchase_items.sum(:pretax_amount)
+    end
     @auto_depreciate = false
     # if no depreciations present, then generate it
     @auto_depreciate = true if self.depreciations.count == 0

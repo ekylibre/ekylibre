@@ -195,15 +195,13 @@ class PurchaseItem < ApplicationRecord
   after_update do
     if fixed && fixed_asset && purchase.purchased?
       fixed_asset.reload
-      amount_difference = pretax_amount.to_f - pretax_amount_before_last_save.to_f
-      fixed_asset.add_amount(amount_difference) if amount_difference.nonzero?
     end
     true
   end
 
   after_destroy do
     if fixed && fixed_asset && purchase.purchased?
-      fixed_asset.add_amount(-pretax_amount.to_f) if fixed_asset
+      fixed_asset.reload
     end
     true
   end

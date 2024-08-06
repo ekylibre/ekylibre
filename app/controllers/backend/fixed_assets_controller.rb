@@ -129,7 +129,7 @@ module Backend
 
       if @fixed_asset.purchase_amount.present? && (@fixed_asset.purchase_amount != @fixed_asset.depreciable_amount)
         diff_amount = (@fixed_asset.purchase_amount - @fixed_asset.depreciable_amount).abs
-        notify_warning_now(:amount_different_between_purchase_and_fixed_asset, amount: diff_amount)
+        notify_warning_now(:amount_different_between_purchase_and_fixed_asset, amount: diff_amount, purchase_amount: @fixed_asset.purchase_amount)
       end
 
       notify_warning_now(:closed_financial_periods) unless @fixed_asset.on_unclosed_periods?
