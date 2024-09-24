@@ -57,7 +57,7 @@ class Associate < ApplicationRecord
     if fy.nil?
       main_journal_entry_items.sum('real_credit - real_debit') || 0.0
     else
-      main_journal_entry_items.where(financial_year: fy).sum('real_credit - real_debit') || 0.0
+      main_journal_entry_items.of_unclosure_journal.where(financial_year: fy).sum('real_credit - real_debit') || 0.0
     end
   end
 

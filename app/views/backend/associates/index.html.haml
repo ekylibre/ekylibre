@@ -6,10 +6,13 @@
 - fy = FinancialYear.find(current_financial_year)
 :ruby
   account_series = []
-  account_categories = [fy.previous.name, fy.name]
+  account_categories = [fy.previous.name, fy.name] if fy.previous.present?
+  account_categories ||= [fy.name]
   associate_serie = []
   Associate.all.each do |associate|
-    account_series << { name: associate.entity_name, data: [associate.balance&.to_f, associate.balance(fy)&.to_f] }
+    data = [associate.balance(fy.previous)&.to_f, associate.balance(fy)&.to_f] if fy.previous.present?
+    data ||= [associate.balance&.to_f]
+    account_series << { name: associate.entity_name, data: data }
     associate_serie << { name: associate.entity_name, y: associate.percentage_on_company.to_s.to_f }
   end
 

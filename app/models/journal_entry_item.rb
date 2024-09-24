@@ -146,6 +146,10 @@ class JournalEntryItem < ApplicationRecord
     where(account_id: Account.find_with_regexp('1 2 3 4 5 6 7').select(:id))
   }
 
+  scope :of_unclosure_journal, -> {
+    where.not(journal_id: Journal.closures.select(:id))
+  }
+
   state_machine :state, initial: :draft do
     state :draft
     state :confirmed
