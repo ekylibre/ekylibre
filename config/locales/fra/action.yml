@@ -1277,6 +1277,8 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    quantity_during_sowing: "Quantité semée ou plantée"
+    classify_with_ai: "Compléter avec Mistral AI"
     purchase_ai_convert_with_mistral: "Transformer en facture avec Mistral AI"
     purchase_ai_convert_with_groq: "Transformer en facture avec Groq"
     purchase_ai_convert_with_mindee: "Transformer en facture avec Mindee"

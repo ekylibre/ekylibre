@@ -71,6 +71,7 @@ module Backend
       t.column :net_surface_area, datatype: :measure
       t.status
       t.column :human_status, label: :state, hidden: true
+      t.column :human_quantity_during_last_sowing, label: :quantity_during_sowing, hidden: true
       t.column :born_at
       t.column :dead_at
     end

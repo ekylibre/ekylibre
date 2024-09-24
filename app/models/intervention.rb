@@ -72,6 +72,7 @@ class Intervention < ApplicationRecord
   PHYTO_PROCEDURE_NAMES = %w[spraying all_in_one_sowing all_in_one_sowing_without_plant_output all_in_one_planting sowing_with_spraying vine_spraying_without_fertilizing vine_leaves_fertilizing vine_spraying_with_fertilizing chemical_mechanical_weeding vine_chemical_weeding vine_capsuls_dispersing].freeze
   SETTINGS = %i[spray_mix_volume_area_density].freeze
   SPRAYING_PROCEDURE_NAMES = %w[spraying sowing_with_spraying vine_spraying_without_fertilizing vine_spraying_with_fertilizing].freeze
+  SOWING_PROCEDURE_NAMES = %w[mechanical_planting sowing_with_spraying sowing wine_planting all_in_one_sowing all_in_one_planting].freeze
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
@@ -180,6 +181,7 @@ class Intervention < ApplicationRecord
 
   scope :of_nature, ->(reference_name) { where(procedure_name: reference_name) }
   scope :of_nature_using_phytosanitary, -> { where(procedure_name: PHYTO_PROCEDURE_NAMES) }
+  scope :of_nature_sowing, -> { where(procedure_name: SOWING_PROCEDURE_NAMES) }
 
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))

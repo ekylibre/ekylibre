@@ -16,6 +16,11 @@
     = product_info(:age) do
       %i.picto{class: "picto-clock-o"}
       = human_age(resource.born_at, display: 2)
+  - if resource.last_sowing.present?
+    .med-info.important
+      %span.title= :quantity_during_sowing.tl
+      %span.value
+        = resource.human_quantity_during_last_sowing
   -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground
   -# if resource.inspections.any? && stock
     .med-info

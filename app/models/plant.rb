@@ -190,17 +190,27 @@ class Plant < Bioproduct
     end
   end
 
+  # get last sowing or planting intervention to produce current plant
   def last_sowing
     Intervention
       .real
+      .of_nature_sowing
       .where(
-        procedure_name: :sowing,
         id: InterventionOutput
           .where(product: self)
           .select(:intervention_id)
       )
       .order(started_at: :desc)
       .first
+  end
+
+  def quantity_during_last_sowing
+    inputs_during_sowing = last_sowing.inputs.where(reference_name: %i[plants seeds])
+    inputs_during_sowing.map(&:quantity).sum
+  end
+
+  def human_quantity_during_last_sowing
+    quantity_during_last_sowing.round(2).l(precision: 2)
   end
 
   def sower
