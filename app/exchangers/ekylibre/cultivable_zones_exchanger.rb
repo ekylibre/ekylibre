@@ -38,14 +38,16 @@ module Ekylibre
         # check if existing CultivableZone cover or overlap a current object to import
         georeading = Georeading.find_by(number: r.georeading_number) ||
                      Georeading.find_by(name: r.georeading_number)
+        cadastral_parcel = RegisteredCadastralParcel.find_by(id: r.georeading_number)
         default_zone = find_or_init_by_number(r.code)
 
         if georeading
           shape = georeading.content
-          zone = find_zone_by_matching_shape(shape)&.tap { |z| z.shape = shape }
-          zone ||= default_zone.tap { |z| z.shape = shape }
+        elsif cadastral_parcel
+          shape = cadastral_parcel.shape
         end
-
+        zone = find_zone_by_matching_shape(shape)&.tap { |z| z.shape = shape }
+        zone ||= default_zone.tap { |z| z.shape = shape }
         Rails.logger.warn "Cannot find georeading: #{r.georeading_number}" unless zone
         zone ||= default_zone.tap { |z| z.shape = DEFAULT_SHAPE.dup }
 
