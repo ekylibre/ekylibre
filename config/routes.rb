@@ -372,6 +372,9 @@ Rails.application.routes.draw do
     end
 
     resources :bank_statements, concerns: %i[list unroll], path: 'bank-statements' do
+      member do
+        post :classify
+      end
       collection do
         get :list_items
         match :import_ofx, via: %i[get post]

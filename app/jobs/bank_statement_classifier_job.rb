@@ -4,6 +4,7 @@ class BankStatementClassifierJob < ActiveJob::Base
 
   def perform(bs_ids:, user:)
     begin
+      BankStatementClassifierService.classify_from_data(bank_statement_ids: bs_ids)
       service = BankStatementClassifierService.call(bank_statement_ids: bs_ids)
       notification = user.notifications.build(success_on_bank_classification_notification(service))
     rescue StandardError => e

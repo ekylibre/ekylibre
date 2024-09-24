@@ -1,6 +1,7 @@
 - main_toolbar do |t|
   = t.edit resource
   = t.index params: { controller: '/backend/bank_reconciliation/items', bank_statement_id: resource.id }, label: :to_point.tl
+  = t.action :classify, label: :classify_with_ai.tl, method: :post, params: { id: resource.id, vendor: :groq }
   = t.destroy resource
 
 = main_informations attachment: true do

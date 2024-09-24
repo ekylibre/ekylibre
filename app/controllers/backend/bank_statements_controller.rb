@@ -106,6 +106,15 @@ module Backend
       end
     end
 
+    def classify
+      return unless @bank_statement = BankStatement.find(params[:id])
+
+      # launch IA to classify metadata if does not exist
+      BankStatementClassifierJob.perform_later(bs_ids: params[:id], user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to action: :show, id: @bank_statement.id
+    end
+
     def edit_interval; end
   end
 end
