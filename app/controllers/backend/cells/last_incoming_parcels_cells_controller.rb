@@ -7,7 +7,7 @@ module Backend
         t.column :sender, url: { controller: '/backend/entities' }
         t.column :given_at
         t.status
-        t.column :state, hidden: true
+        t.column :state_label, hidden: true
         t.column :delivery, url: { controller: '/backend/deliveries' }, hidden: true
         t.column :delivery_mode, hidden: true
       end

@@ -63,7 +63,7 @@
 #
 class PurchaseOrder < Purchase
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
-
+  # not sure it work because many order many reception
   has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id
 
   validates :ordered_at, presence: true
@@ -135,6 +135,45 @@ class PurchaseOrder < Purchase
 
   def has_content?
     items.any?
+  end
+
+  def count_receptions
+    ReceptionItem.where(purchase_order_item_id: items.pluck(:id)).count
+  end
+
+  # Returns status of affair if invoiced else "stop"
+  def status
+    if count_receptions > 0 && fully_reconciled?
+      :go
+    elsif count_receptions > 0 && opened?
+      :caution
+    else
+      :stop
+    end
+  end
+
+  # Prints human name of current state
+  def state_label
+    translation_key =
+    if opened?
+      if has_content? && count_receptions == 0
+        "opened_and_no_receptions"
+      elsif count_receptions > 0 && fully_reconciled?
+        "opened_and_full_receptions"
+      elsif count_receptions > 0
+        "opened_and_partial_receptions"
+      end
+    elsif closed?
+      if has_content? && count_receptions == 0
+        "closed_and_no_receptions"
+      elsif count_receptions > 0 && fully_reconciled?
+        "closed_and_full_receptions"
+      elsif count_receptions > 0
+        "closed_and_partial_receptions"
+      end
+    end
+
+    I18n.t("tooltips.models.purchase_order.#{translation_key}")
   end
 
   def fully_reconciled?

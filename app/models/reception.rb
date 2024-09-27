@@ -148,7 +148,28 @@ class Reception < Parcel
 
   # Prints human name of current state
   def state_label
-    self.class.state(self.state.to_sym).human_name
+    items_invoiced = items.map(&:purchase_invoice_item_id).compact.count
+    items_ordered = items.map(&:purchase_order_item_id).compact.count
+    translation_key =
+    if items_ordered > 0
+      if items.count > 0 && items_invoiced > 0 && items.count == items_invoiced
+        "ordered_fully_invoiced"
+      elsif items.count > 0 && items_invoiced > 0 && items.count > items_invoiced
+        "ordered_partially_invoiced"
+      else items.count > 0 && items_invoiced == 0
+        "ordered_no_invoiced"
+      end
+    else
+      if items.count > 0 && items_invoiced > 0 && items.count == items_invoiced
+        "fully_invoiced"
+      elsif items.count > 0 && items_invoiced > 0 && items.count > items_invoiced
+        "partially_invoiced"
+      else items.count > 0 && items_invoiced == 0
+        "no_invoiced"
+      end
+    end
+
+    I18n.t("tooltips.models.reception.#{translation_key}")
   end
 
   def invoiced?

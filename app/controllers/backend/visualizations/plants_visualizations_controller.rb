@@ -33,6 +33,10 @@ module Backend
             popup_content << { label: :last_issue.tl, value: view_context.link_to(last_issue.name, backend_issue_path(last_issue)) }
           end
 
+          if p.quantity_during_last_sowing.present?
+            popup_content << { label: :quantity_during_sowing.tl, value: p.human_quantity_during_last_sowing }
+          end
+
           # for inspection and marketable_quantity
           inspection = p.inspections.reorder(sampled_at: :desc).first
           if inspection

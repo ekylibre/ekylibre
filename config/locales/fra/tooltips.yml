@@ -43,6 +43,20 @@ fra:
       product_nature_variant:
         go: "Autorisé"
         stop: "Non autorisé"
+      purchase_order:
+        closed_and_no_receptions: "Fermée, Réceptionnée 0%"
+        closed_and_full_receptions: "Fermée, Réceptionnée 100%"
+        closed_and_partial_receptions: "Fermée, Réceptionnée -- %"
+        opened_and_no_receptions: "Ouverte, Réceptionnée 0%"
+        opened_and_full_receptions: "Ouverte, Réceptionnée 100%"
+        opened_and_partial_receptions: "Ouverte, Réceptionnée -- %"
+      reception:
+        ordered_fully_invoiced: "Commandée, Facturée 100%"
+        ordered_partially_invoiced: "Commandée, Facturée -- %"
+        ordered_no_invoiced: "Commandée, Facturée 0%"
+        fully_invoiced: "Facturée 100%"
+        partially_invoiced: "Facturée -- %"
+        no_invoiced: "Facturée 0%"
       registered_phytosanitary_usage:
         go: "Autorisé"
         stop: "Non autorisé"

@@ -57,6 +57,8 @@ module Backend
       t.column :number, url: true
       t.column :reference_number, url: true
       t.column :created_at
+      t.status
+      t.column :state_label
       t.column :supplier, url: true
       t.column :pretax_amount, currency: true, on_select: :sum
       t.column :amount, currency: true, on_select: :sum
