@@ -156,7 +156,7 @@ class Reception < Parcel
         "ordered_fully_invoiced"
       elsif items.count > 0 && items_invoiced > 0 && items.count > items_invoiced
         "ordered_partially_invoiced"
-      else items.count > 0 && items_invoiced == 0
+      elsif items.count > 0 && items_invoiced == 0
         "ordered_no_invoiced"
       end
     else
@@ -164,7 +164,9 @@ class Reception < Parcel
         "fully_invoiced"
       elsif items.count > 0 && items_invoiced > 0 && items.count > items_invoiced
         "partially_invoiced"
-      else items.count > 0 && items_invoiced == 0
+      elsif items.count > 0 && items_invoiced == 0
+        "no_invoiced"
+      else
         "no_invoiced"
       end
     end
