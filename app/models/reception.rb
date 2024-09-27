@@ -159,16 +159,14 @@ class Reception < Parcel
       elsif items.count > 0 && items_invoiced == 0
         "ordered_no_invoiced"
       end
+    elsif items.count > 0 && items_invoiced > 0 && items.count == items_invoiced
+      "fully_invoiced"
+    elsif items.count > 0 && items_invoiced > 0 && items.count > items_invoiced
+      "partially_invoiced"
+    elsif items.count > 0 && items_invoiced == 0
+      "no_invoiced"
     else
-      if items.count > 0 && items_invoiced > 0 && items.count == items_invoiced
-        "fully_invoiced"
-      elsif items.count > 0 && items_invoiced > 0 && items.count > items_invoiced
-        "partially_invoiced"
-      elsif items.count > 0 && items_invoiced == 0
-        "no_invoiced"
-      else
-        "no_invoiced"
-      end
+      "no_invoiced"
     end
 
     I18n.t("tooltips.models.reception.#{translation_key}")
