@@ -1,0 +1,3 @@
+= button_group do
+  = tool_to(:show.ta, {action: :show, controller: "/backend/cultivable_zones", id: cz.id, redirect: params[:redirect] }, tool: false)
+  = tool_to(:edit.ta, {action: :edit, controller: "/backend/cultivable_zones", id: cz.id, redirect: params[:redirect] }, tool: false)

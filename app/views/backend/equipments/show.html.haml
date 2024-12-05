@@ -34,6 +34,13 @@
       %span.value
         %i.picto{class: "picto-timelapse"}
         = resource.current_work_life.in_hour.round(2).l precision: 1
+
+    .med-info
+      %span.title= Equipment.human_attribute_name(:worked_area)
+      %span.value
+        %i.picto{class: "picto-timelapse"}
+        = resource.total_worked_area.round(2).l precision: 1
+
     - if resource.remaining_working_lifespan
       .med-info
         %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
@@ -50,6 +57,13 @@
       .med-info
         %span.title= Equipment.human_attribute_name(:description)
         %span.value= resource.description
+
+    - if resource.decorate.hour_counter_present?
+      .med-info
+        %span.title= :hour_counter.tl
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.decorate.human_hour_counter
 
   = labels_info(resource.labels)
 

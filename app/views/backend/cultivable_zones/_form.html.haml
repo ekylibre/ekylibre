@@ -7,5 +7,7 @@
   = f.referenced_association :owner
   = f.input :description
   -# = f.input :uuid
-  = f.shape :shape
+  -# = f.shape :shape
+  - optional_data = { optional_data_url: backend_map_editor_shapes_path(layers: [:cadastral_parcels]) }
+  = f.geometry :shape, { show: {}, editor: { useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:shape) }, dynamic_series: backend_map_editor_shapes_path(layers: [:cultivable_zones]) }.merge(optional_data) }
   = f.custom_fields

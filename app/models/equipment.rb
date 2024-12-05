@@ -220,6 +220,16 @@ class Equipment < Matter
     current_work_life / total_working_lifespan
   end
 
+  #### [0 - 100%]
+
+  def lifespan_progress_percent
+    lifespan_progress * 100
+  end
+
+  def working_lifespan_progress_percent
+    working_lifespan_progress * 100
+  end
+
   ##################################################
   ### Work duration ################################
 
@@ -339,11 +349,11 @@ class Equipment < Matter
 
   ####### [0 - 100%]
 
-  def lifespan_progress_percent
+  def lifespan_progress_percent_of(component)
     lifespan_progress_of(component) * 100
   end
 
-  def working_lifespan_progress_percent
+  def working_lifespan_progress_percent_of(component)
     working_lifespan_progress_of(component) * 100
   end
 
@@ -390,6 +400,10 @@ class Equipment < Matter
       target: self,
       level: :warning
     )
+  end
+
+  def total_worked_area
+    interventions.with_nature(:record).map(&:working_zone_area).sum.in(:hectare)
   end
 
   def state

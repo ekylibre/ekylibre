@@ -63,6 +63,7 @@
 //= require bootstrap-slider
 //= require leaflet/L.KML
 //= require chart/highcharts
+//= require tinymce
 
 //= require sortablejs/Sortable.min.js
 

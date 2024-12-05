@@ -25,7 +25,7 @@ module Interventions
           }
         end
 
-        if  target_parameter_group_name.present?
+        if target_parameter_group_name.present?
           options[:group_parameters_attributes] = target_options.map do |target|
             {
               reference_name:  target_parameter_group_name,

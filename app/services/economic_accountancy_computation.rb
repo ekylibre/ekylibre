@@ -7,6 +7,7 @@ class EconomicAccountancyComputation
     if activity
       @activity = activity
       @activity_budget = ActivityBudget.find_by(campaign: @campaign, activity: @activity)
+      # production started_on - 4 month to include purchase during summer
       @started_on = Date.new(@campaign.harvest_year + @activity.production_started_on_year, @activity.production_started_on.month, @activity.production_started_on.day)
       # production stopped_on + 1 year to include payment delay on price complements
       @stopped_on = Date.new(@campaign.harvest_year + @activity.production_stopped_on_year + 1, @activity.production_stopped_on.month, @activity.production_stopped_on.day)
@@ -22,11 +23,11 @@ class EconomicAccountancyComputation
   def sum_entry_items_by_line(line = nil, options = {})
     # remove closure entries
     options[:unwanted_journal_nature] ||= %i[result closure]
-    options[:started_on] = @started_on
-    options[:stopped_on] = @stopped_on
     if @activity_budget
       options[:activity_budget_id] = @activity_budget.id
     else
+      options[:started_on] = @started_on
+      options[:stopped_on] = @stopped_on
       options[:activity_budget_id] = 'only_nil'
     end
 

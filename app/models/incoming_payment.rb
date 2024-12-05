@@ -130,10 +130,10 @@ class IncomingPayment < ApplicationRecord
 
   before_validation do
     self.discount_amount ||= 0.0
-    if mode
-      self.commission_account ||= mode.commission_account
-      self.commission_amount ||= mode.commission_amount(amount)
-      self.currency = mode.currency
+    self.currency = mode.currency if mode
+    if mode && mode.with_commission
+      self.commission_account = mode.commission_account
+      self.commission_amount = mode.commission_amount(self.amount)
     end
     true
   end

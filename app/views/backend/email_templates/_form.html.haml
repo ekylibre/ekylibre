@@ -1,0 +1,23 @@
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
+= field_set do
+  = f.input :name
+  = f.input :by_default
+  = f.input :nature, collection: Onoma::DocumentNature.selection
+
+= field_set :technical_informations, collapsed: true do
+  = f.input :path, readonly: true
+  = f.input :locale, as: :hidden
+  = f.input :language
+  = f.input :handler, readonly: true
+  = f.input :format, readonly: true
+
+= field_set :email_body_customization do
+  = label_tag :body.tl
+  = f.text_area :body, class: 'tinymce'
+  = tinymce
+
+= field_set :custom_fields do
+  - f.object.metadata.each do |k, v|
+    .name= v.to_s
+    .nature= "{{" + k.to_s + "}}"
+    = "----------------"

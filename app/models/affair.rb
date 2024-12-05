@@ -168,7 +168,7 @@ class Affair < ApplicationRecord
     # Removes empty affairs in the whole table
     def clean_deads
       query = "journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})".dup
-      query << self.class.affairable_types.collect do |type|
+      query << affairable_types.collect do |type|
         model = type.constantize
         " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
       end.join

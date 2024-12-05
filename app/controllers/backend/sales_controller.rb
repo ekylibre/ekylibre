@@ -354,24 +354,34 @@ module Backend
     def email_client
       return unless @sale = find_and_check
 
-      if @sale.parcels.any? && @sale.invoice?
-        template = :sales_invoice_shipment
-      elsif @sale.invoice?
-        template = :sales_invoice
-      elsif @sale.order?
-        template = :sales_order
-      elsif @sale.estimate? || @sale.draft? || @sale.refused?
-        template = :sales_estimate
+      unless @sale.client.default_email_address
+        notify_error :client_default_email_address_missing
+        return
       end
 
-      return unless document_template = DocumentTemplate.find_active_template(template, 'odt')
+      if @sale.parcels.any? && @sale.invoice?
+        nature = :sales_invoice_shipment
+      elsif @sale.invoice?
+        nature = :sales_invoice
+      elsif @sale.order?
+        nature = :sales_order
+      elsif @sale.estimate? || @sale.draft? || @sale.refused?
+        nature = :sales_estimate
+      end
 
-      if @sale.client.default_email_address && document_template
-        document = generate_n_send_pdf_for(@sale, document_template, true)
+      existing_document = Document.of(nature.to_s, @sale.number).reorder(:created_at)
+      document_template = DocumentTemplate.find_active_template(nature, 'odt')
+
+      if existing_document.any?
+        document = existing_document.last
         SaleExportJob.perform_later(@sale, document, current_user)
         notify_success :email_in_preparation
+      elsif document_template
+        document = generate_n_send_pdf_for(@sale, document_template, true)
+        SaleExportJob.perform_later(@sale, document, current_user)
+        notify_success :document_and_email_in_preparation
       else
-        notify_error :client_default_email_address_missing
+        notify_error :document_template_missing
       end
 
       redirect_to action: :show, id: @sale.id

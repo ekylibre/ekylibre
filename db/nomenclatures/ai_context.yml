@@ -1,4 +1,16 @@
 ---
+accountancy_classification:
+  instructions: |
+    From the user prompt coming from accountancy items below, try to classify each item link to agricultural activities list.
+    the pattern of an accountancy item is composed of [id, label]
+    `id` property of each item is present at the beginning of each item and is an integer.
+    `label` property of each item represent a description of the accountancy item as a string.
+    1. You must use the value of the `label` property to classify item according to the activity list.
+    2. If you cannot find any classification about the item, it is okay to return nil value.
+    3. Return the result of this classification in JSON format with 2 properties id and classification in an array of hash evenif there only one item.
+    example for JSON structure return [{"id": "12", "classification": "activity 1"}, {"id": "13", "classification": "activity 1"}, {"id": "14", "classification": "activity 2"}]
+    4. You must classify ONLY FROM activities list.
+    5. The activities list is :
 bank_statement:
   instructions: |
     From the user prompt coming from bank statement below, extract Organizations strictly as instructed below for each item.

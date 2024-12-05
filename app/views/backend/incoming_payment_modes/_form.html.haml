@@ -17,4 +17,4 @@
     #commission_options
       = f.input :commission_base_amount
       = f.input :commission_percentage
-      = f.referenced_association :commission_account, :source => {scope: {of_usage: :expenses}}, :new => {:number => Account.find_or_import_from_nomenclature(:expenses)}
+      = f.referenced_association :commission_account, :source => {scope: {of_usage: :fees_expenses}}, :new => {:number => Account.find_or_import_from_nomenclature(:fees_expenses)}

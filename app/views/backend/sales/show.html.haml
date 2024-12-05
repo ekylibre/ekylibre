@@ -5,7 +5,7 @@
   - exports << :sales_order if resource.order?
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
   = t.export(*exports, key: :number, target: "_blank")
-  = tool_to :email_client.ta, {action: :email_client, controller: :sales, id: resource.id }, tool: :email
+  = tool_to :email_client.ta, { action: :email_client, controller: :sales, id: resource.id }, tool: :email
   = t.duplicate resource, method: :post, params: {redirect: nil}
   - if current_user.can?(:write, :outgoing_deliveries) && resource.can_generate_parcel?
     - shipment_items_attributes = resource.items.map do |item|
@@ -47,6 +47,7 @@
       - l.attribute :function_title
       - l.attribute :introduction
       - l.attribute :conclusion
+    - l.attribute :last_email_at if resource.last_email_at?
 
 = cobbles do |c|
   - c.cobble :items, title: Sale.human_attribute_name(:items) do

@@ -3364,6 +3364,57 @@ economic_cash_indicators:
     type: integer
     references: worker_contract
     limit: 4
+email_templates:
+  body:
+    type: text
+  by_default:
+    type: boolean
+    required: true
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+    limit: 4
+  format:
+    type: string
+  handler:
+    type: string
+  id:
+    type: integer
+    limit: 4
+    required: true
+  metadata:
+    type: jsonb
+  language:
+    type: string
+    required: true
+  locale:
+    type: string
+  lock_version:
+    type: integer
+    limit: 4
+    required: true
+  name:
+    type: string
+    required: true
+  nature:
+    type: string
+  path:
+    type: string
+  partial:
+    type: boolean
+    required: true
+    default: false
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+    limit: 4
 entities:
   active:
     type: boolean
@@ -12298,6 +12349,8 @@ sales:
     type: integer
     references: journal_entry
     limit: 4
+  last_email_at:
+    type: datetime
   letter_format:
     type: boolean
     required: true

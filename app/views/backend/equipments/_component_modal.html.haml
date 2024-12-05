@@ -26,24 +26,17 @@
       .placeholding-message= :no_replacements_since_beginning.tn
   .modal-footer
     :ruby
-      target = {}
-      target[:reference_name] = :equipment
-      target[:product_id] = resource.id
 
-      input = {}
-      input[:reference_name] = :replacement_part
-      input[:component_id] = component.id
-      input[:assembly_id] = resource.id
+      target = { reference_name: 'equipment', product_id: resource.id }
 
       group = {}
-      group[:reference_name] = :work
-      group[:targets_attributes] = { '0' => target }
-      group[:inputs_attributes] = { '0' => input }
+      group[:reference_name] = 'work'
+      group[:targets_attributes] = [target]
 
       prefill = {}
       prefill[:procedure_name] = :equipment_maintenance
       prefill[:actions] = [:curative_maintenance]
-      prefill[:group_parameters_attributes] = { '0' => group}
+      prefill[:group_parameters_attributes] = [group]
 
       url_options = {}
       url_options[:action] = :new

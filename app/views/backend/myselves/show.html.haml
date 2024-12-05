@@ -3,6 +3,7 @@
     = simple_form_for([:backend, @user], url: backend_myself_path, method: :patch) do |f|
       = f.input :first_name
       = f.input :last_name
+      = f.input :authentication_token, readonly: true
       = f.input :language, collection: available_languages
       = f.input :theme, as: :radio_buttons, collection: Ekylibre::Application.instance.themes.map(&:name).sort.map{|t| [t.humanize, t] }
       = form_actions do

@@ -395,6 +395,24 @@
 
       E.interventions.refresh $(this), options
 
+  $(document).on 'selector:change', '.intervention_group_parameters_targets_product .selector-search', (event) ->
+    toolId = $(event.target).closest('.selector').find('.selector-value').val()
+
+    $.ajax
+      url: "/backend/products/indicators/#{ toolId }/variable_indicators"
+      success: (data, status, request) ->
+        return if data['is_hour_counter'] == false
+
+        hourCounterBlock = $(event.target).closest('.nested-product-parameter').find('.tool-nested-readings')
+
+        return if hourCounterBlock.hasClass('visible')
+
+        hourCounterBlock.removeClass('hidden')
+        hourCounterBlock.addClass('visible')
+
+        hourCounterLinks = hourCounterBlock.find('.links')
+        hourCounterBlock.find('.add-reading').trigger('click') if hourCounterLinks.is(':visible')
+
   $(document).on 'selector:change', '.intervention_tools_product .selector-search', (event) ->
     toolId = $(event.target).closest('.selector').find('.selector-value').val()
 

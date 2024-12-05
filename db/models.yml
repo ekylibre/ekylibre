@@ -75,6 +75,7 @@
 - economic_cash_indicator
 - economic_indicator
 - economic_situation
+- email_template
 - entity
 - entity_address
 - entity_link

@@ -149,7 +149,35 @@ paths:
                         type: string
                       farm_default_address_lon:
                         type: string
+                      farm_associates:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            full_name:
+                              type: string
+                            started_at:
+                              type: string
+                      farm_soil_analysis:
+                        type: object
+                        properties:
+                          analysed_at:
+                            type: string
+                          geolocation:
+                            type: string
+                          soil_nature:
+                            type: string
+                          potential_hydrogen:
+                            type: string
+                          organic_matter_concentration:
+                            type: string
                       farm_telepac_sau:
+                        type: string
+                      farm_fallow_area:
+                        type: string
+                      farm_meadow_area:
+                        type: string
+                      farm_big_crop_area:
                         type: string
                   weather_informations:
                     type: object
@@ -166,10 +194,62 @@ paths:
                         type: string
                       yearly_max_temp:
                         type: string
+                      first_frozen_day:
+                        type: string
+                      last_frozen_day:
+                        type: string
+                      yearly_min_frozen_temp:
+                        type: string
+                  biodiversity_informations:
+                    type: object
+                    properties:
+                      edges_total_length:
+                        type: number
+                      biodiversity_area:
+                        type: number
+                  crop_rotations_n:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        variety:
+                          type: string
+                        net_surface_area:
+                          type: string
+                        color:
+                          type: string
+                  crop_rotations_n_1:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        variety:
+                          type: string
+                        net_surface_area:
+                          type: string
+                        color:
+                          type: string
+                  crop_rotations_n_2:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        variety:
+                          type: string
+                        net_surface_area:
+                          type: string
+                        color:
+                          type: string
                 x-examples:
                   Example 1:
                     general_informations:
-                      harvest_year: 2022
+                      harvest_year: 2023
                       farm_name: GAEC JOULIN
                       farm_siret: '32627372900011'
                       farm_ape: 0111Z
@@ -177,7 +257,23 @@ paths:
                       farm_default_address: 'GAEC JOULIN, 8 rue du bouil bleu, 17250 SAINT-PORCHAIRE, France'
                       farm_default_address_lat: '45.8268358'
                       farm_default_address_lon: '-0.7856846'
+                      farm_associates:                                             
+                        - full_name: "Christian JOULIN"
+                          started_at: "25/10/1983"
+                        - full_name: "Dominique JOULIN"
+                          started_at: "25/10/1994"
+                        - full_name: "Laurent JOULIN"
+                          started_at: "25/10/1994"
+                      farm_soil_analysis:
+                        analysed_at: "16/08/2013 00:00"
+                        geolocation: "{\"type\":\"Point\",\"coordinates\":[-0.832678606291108,45.816705017488]}",
+                        soil_nature: "clay_limestone_soil"
+                        potential_hydrogen: "8.0"
+                        organic_matter_concentration: "3.3 percent"
                       farm_telepac_sau: '112,10 ha'
+                      farm_fallow_area: 0
+                      farm_meadow_area: 11.01
+                      farm_big_crop_area: 94.66
                     weather_informations:
                       watering_intervention: par mm / ha irrigué ? par mm au global ?
                       yearly_weather_day_items: 365
@@ -185,6 +281,39 @@ paths:
                       yearly_rain: '472,00 mm'
                       yearly_min_temp: '10,14 °C'
                       yearly_max_temp: '19,65 °C'
+                      first_frozen_day: "26/11/2023 06:00"
+                      last_frozen_day: "06/03/2023 08:00"
+                      yearly_min_frozen_temp: "-3,80 °C"
+                    biodiversity_informations:
+                      edges_total_length: 2978.73
+                      biodiversity_area: 0.3928
+                    crop_rotations_n:
+                      - name: "Maïs grain"
+                        variety: "zea_mays"
+                        net_surface_area: "21 ha"
+                        color: "Yellow"
+                      - name: "Blé tendre d’hiver"
+                        variety: "triticum_aestivum"
+                        net_surface_area: "11 ha"
+                        color: "Wheat"
+                    crop_rotations_n_1:
+                      - name: "Maïs grain"
+                        variety: "zea_mays"
+                        net_surface_area: "21 ha"
+                        color: "Yellow"
+                      - name: "Blé tendre d’hiver"
+                        variety: "triticum_aestivum"
+                        net_surface_area: "11 ha"
+                        color: "Wheat"
+                    crop_rotations_n_2:
+                      - name: "Maïs grain"
+                        variety: "zea_mays"
+                        net_surface_area: "21 ha"
+                        color: "Yellow"
+                      - name: "Blé tendre d’hiver"
+                        variety: "triticum_aestivum"
+                        net_surface_area: "11 ha"
+                        color: "Wheat"
               examples:
                 Response for demo farm for year 2022:
                   value:
