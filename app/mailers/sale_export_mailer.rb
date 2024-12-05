@@ -3,7 +3,6 @@
 class SaleExportMailer < ActionMailer::Base
   include Templatable
   prepend_view_path EmailTemplate.resolver
-  default from: "#{Entity.of_company.full_name} <#{ENV['MAILER_SENDER']}>"
 
   before_action { @sale = params[:sale]
                   @document = params[:document]
@@ -26,6 +25,7 @@ class SaleExportMailer < ActionMailer::Base
     # build and send email
     # grab body from EmailTemplate model and subject from email_templates.yml
     mail(
+      from: @current_user.email,
       reply_to: full_from(@current_user),
       to: @sale.client.default_email_address.coordinate,
       cc: @current_user.email,
@@ -39,6 +39,7 @@ class SaleExportMailer < ActionMailer::Base
     # build and send email
     # grab body from EmailTemplate model and subject from email_templates.yml
     mail(
+      from: @current_user.email,
       reply_to: full_from(@current_user),
       to: @sale.client.default_email_address.coordinate,
       cc: @current_user.email,
