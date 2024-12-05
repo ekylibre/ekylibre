@@ -69,8 +69,12 @@
 
     $(document).ready(function () {
         const $selectorBtnWrapper = $('#set-activity-budget-on-jei');
+        const $selectorBtnWrapperC = $('#classify-activity-budget-on-jei');
         if ($selectorBtnWrapper.length > 0) {
             listControlledSelectorBtn.handleSelectorBtn('journal_entry_item', $selectorBtnWrapper);
+        }
+        if ($selectorBtnWrapperC.length > 0) {
+            listControlledSelectorBtn.handleSelectorBtn('journal_entry_item', $selectorBtnWrapperC);
         }
     });
 })(jQuery);

@@ -132,6 +132,12 @@ gem 'omniauth-oauth2', '~> 1.7'
 gem 'paperclip', '~> 5.3'
 gem 'paperclip-document', '~> 0.0.11'
 
+# Emailing
+gem 'liquid-rails'
+gem "panoramic"
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+
 # I18n and localeapp
 gem 'http_accept_language', '~> 2.1'
 gem 'humanize', '~> 2.5'

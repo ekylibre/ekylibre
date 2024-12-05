@@ -107,12 +107,11 @@ module Backend
     ]) do |t|
       t.column :intervention, url: true
       t.column :reference, label_method: :name, sort: :reference_name
+      t.column :description, through: :intervention
       t.column :started_at, through: :intervention, datatype: :datetime
       t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
-      t.column :human_activities_names, through: :intervention
       t.column :actions, label_method: :human_actions_names, through: :intervention
       t.column :human_working_duration, through: :intervention
-      t.column :human_working_zone_area, through: :intervention
     end
 
     def index

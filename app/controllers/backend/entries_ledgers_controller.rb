@@ -30,6 +30,10 @@ module Backend
       code << journals_crit('params')
       code << amount_range_crit('params')
       code << journal_letter_crit('params')
+      code << "unless params[:activity_budget_id].blank?\n"
+      code << "  c[0] << ' AND #{JournalEntryItem.table_name}.activity_budget_id = ?'\n"
+      code << "  c << params[:activity_budget_id]\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
@@ -103,7 +107,16 @@ module Backend
       else
         notify_error(:missing_activity_budget)
       end
-      redirect_to action: :show
+      redirect_to params[:redirect] || { action: :show }
+    end
+
+    def classify
+      journal_entry_item_ids = params[:journal_entry_item_ids].split(',') if params[:journal_entry_item_ids]
+
+      # launch IA to classify metadata if does not exist
+      AccountancyClassifierJob.perform_later(journal_entry_item_ids: journal_entry_item_ids, user: current_user)
+      notify_success(:document_in_preparation)
+      redirect_to params[:redirect] || { action: :show }
     end
 
   end

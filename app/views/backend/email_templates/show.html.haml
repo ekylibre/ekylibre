@@ -1,0 +1,11 @@
+- main_toolbar do |t|
+  = t.edit
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :name
+    - l.attribute :nature
+
+= cobbles do |c|
+  - c.cobble :template do
+    = resource.body.html_safe

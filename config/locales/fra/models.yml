@@ -533,6 +533,7 @@ fra:
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
         items: "Lignes de vente" #?
+        last_email_at: "Dernier email envoyé"
       sale_item: #?
         amount: "Montant TTC" #?
         label: "Produit" #?

@@ -605,8 +605,16 @@ class Sale < ApplicationRecord
     c
   end
 
+  def unpaid?
+    !affair.closed && (unpaid_days > payment_delay.to_i)
+  end
+
   def unpaid_days
-    (Time.zone.now - self.invoiced_at) if invoice?
+    if invoice? && invoiced_at.present?
+      ((Time.zone.now - invoiced_at) / 86_400).to_i
+    else
+      0
+    end
   end
 
   def products

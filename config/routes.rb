@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     namespace :v2, defaults: { format: 'json' } do
       resources :cultivable_zones, only: %i[index create update], param: :uuid
       get 'farm_profiles/:harvest_year', to: 'farm_profiles#show'
+      get 'farm_accountancy/:harvest_year', to: 'farm_accountancy#show'
       resources :tokens, only: %i[create destroy]
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
@@ -572,6 +573,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :email_templates, concerns: %i[list], path: 'email-templates' do
+      collection do
+        post :load
+      end
+    end
+
     resources :entities, concerns: %i[autocomplete list unroll] do
       collection do
         match 'import', via: %i[get post]
@@ -621,6 +628,7 @@ Rails.application.routes.draw do
       end
       member do
         get :list_journal_entry_items
+        post :classify
       end
     end
 
@@ -1515,6 +1523,7 @@ Rails.application.routes.draw do
       resource :activity_map_cells_visualizations, only: :show
       resource :stock_container_map_cells_visualizations, only: :show
       resource :land_parcels_visualizations, only: :show
+      resource :cultivable_zones_visualizations, only: :show
       resource :resources_visualizations, only: :show
       resource :non_treatment_areas_visualizations, only: :show
       resource :inspections_visualizations, only: :show

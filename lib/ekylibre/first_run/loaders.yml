@@ -233,6 +233,8 @@ analyses:
     path: 'agro_systemes/analyses_sol.csv'
   agro_systemes_water_analyses:
     path: 'agro_systemes/analyses_eau.txt'
+  ekylibre_soil_analyses:
+    path: 'alamano/analyses_sol.csv'
   lilco_milk_analyses:
     path: 'lilco/HistoIP_V.csv'
   fiea_galactea:
@@ -339,9 +341,7 @@ accountancy:
   isagri_isacompta_fixed_assets:
     path: 'isacompta/fixed_assets.csv'
   bordeaux_sciences_agro_istea_balance:
-    path: 'istea/balance_2016_2018.TXT'
-  bordeaux_sciences_agro_istea_journal_entries:
-    path: 'istea/journal_entries_2020_2022.TXT'
+    path: 'istea/balance.TXT'
   bordeaux_sciences_agro_istea_journal_entries:
     path: 'istea/journal_entries.TXT'
   ekylibre_ofx_import:

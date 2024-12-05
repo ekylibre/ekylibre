@@ -1840,6 +1840,17 @@
         <page to="backend/document_templates#show"/>
         <page to="backend/document_templates#unroll"/>
       </item>
+      <item name="email_templates">
+        <page to="backend/email_templates#index"/>
+        <page to="backend/email_templates#create"/>
+        <page to="backend/email_templates#destroy"/>
+        <page to="backend/email_templates#edit"/>
+        <page to="backend/email_templates#list"/>
+        <page to="backend/email_templates#load"/>
+        <page to="backend/email_templates#new"/>
+        <page to="backend/email_templates#update"/>
+        <page to="backend/email_templates#show"/>
+      </item>
       <item name="naming_format">
         <page to="backend/naming_formats#index"/>
         <page to="backend/naming_format_land_parcels#edit"/>

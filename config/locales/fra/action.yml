@@ -240,6 +240,12 @@ fra:
       show: "Document\_: %{name}"
     backend/draft_journals:
       show: "Brouillard"
+    backend/email_templates:
+      edit: "Modifier le modèle d'email\_: %{name}"
+      index: "Modèles emails"
+      load: "Charger les modèles emails par défaut"
+      new: "Nouveau modèle d'email"
+      show: "Modèle email: %{name}"
     backend/entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -2130,6 +2136,7 @@ fra:
     electronic_signature: "Signature électronique"
     element_status: "Statut"
     email: "Email:"
+    email_body_customization: "Personnalisation du corps du mail"
     emissions_and_reevaluation_gaps: "Ecart de réévaluation, primes d’émission"
     employee: "Employé" #?
     employee_and_wages: "Salariés et impôts"
@@ -3567,6 +3574,7 @@ fra:
     taxes_and_wages: "Taxes et charges de personnels"
     team: "Équipe"
     teams: "Équipes"
+    technical_informations: "Informations technique"
     technical_itinerary_sheet: "Itinéraire technique"
     temperature: "Température" #?
     temporary_worker: "Travailleur temporaire"

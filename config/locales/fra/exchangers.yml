@@ -71,6 +71,7 @@ fra:
     ekylibre_rides: "Trajets (ZIP ‒ ’SHP’) ‒ Ekylibre"
     ekylibre_sales: "Ventes (CSV) ‒ Ekylibre"
     ekylibre_settings: "Configuration ‒ Ekylibre"
+    ekylibre_soil_analyses: "Analyses de sol ‒ Ekylibre"
     ekylibre_storages_json: "Ekylibre storages json" #?
     ekylibre_variants: "Articles - Ekylibre"
     ekylibre_vegetative_stages: "Stades végétatifs (ODS) ‒ Ekylibre"

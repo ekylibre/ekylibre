@@ -1,0 +1,65 @@
+fra:
+  email_templates:
+    sale:
+      name: "Envoi Facture Client"
+      nature: "sales_invoice"
+      by_default: true
+      handler: "liquid"
+      format: "html"
+      path: "sale_export_mailer/notify_client"
+      body: |
+        <p>Bonjour {{client_full_name}},</p>
+        <p>Une nouvelle facture {{invoice_number}} est disponible ci-jointe.</p>
+        <p>Cordialement</p>
+        <p>{{current_user_name}} - {{current_user_email}}</p>
+        <p>{{entity_full_name}}</p>
+      subject: "%{entity_full_name} - Facture %{invoice_number}"
+      metadata:
+        entity_full_name: Nom de votre société
+        invoice_number: Numéro de facture
+        client_full_name: Nom complet du client
+        current_user_name: Nom complet de l'utilisateur connecté
+        current_user_email: Email de l'utilisateur connecté
+    unpaid_sale:
+      name: "Relance Facture Client"
+      nature: "sales_invoice"
+      by_default: true
+      handler: "liquid"
+      format: "html"
+      path: "sale_export_mailer/notify_unpaid_sale"
+      body: |
+        <p>Bonjour {{client_full_name}},</p>
+        <p>Nous nous permettons de vous relancer concernant la facture {{invoice_number}} disponible ci-jointe.</p>
+        <p>Nous vous prions de bien vouloir proc&eacute;der &agrave; son r&egrave;glement dans les meilleurs d&eacute;lais.</p>
+        <p>Si par ailleurs votre paiement venait &agrave; nous parvenir avant la r&eacute;ception de cette relance, nous vous saurions gr&eacute; de ne pas tenir compte de cette derni&egrave;re.</p>
+        <p>Cordialement</p>
+        <p>{{current_user_name}} - {{current_user_email}}</p>
+        <p>{{entity_full_name}}</p>
+      subject: "%{entity_full_name} - [RELANCE IMPAYEE] - Facture %{invoice_number}"
+      metadata:
+        entity_full_name: Nom de votre société
+        invoice_number: Numéro de facture
+        client_full_name: Nom complet du client
+        current_user_name: Nom complet de l'utilisateur connecté
+        current_user_email: Email de l'utilisateur connecté
+    estimate:
+      name: "Envoi Devis Client"
+      nature: "sales_estimate"
+      by_default: true
+      handler: "liquid"
+      format: "html"
+      path: "estimate_export_mailer/notify_client"
+      body: |
+        <p>Bonjour {{client_full_name}},</p>
+        <p>Un nouveau devis {{number}} est disponible ci-joint.</p>
+        <p>Cordialement</p>
+        <p>{{current_user_name}} - {{current_user_email}}</p>
+        <p>{{entity_full_name}}</p>
+      subject: "%{entity_full_name} - Devis %{number}"
+      metadata:
+        entity_full_name: Nom de votre société
+        number: Numéro du devis
+        client_full_name: Nom complet du client
+        current_user_name: Nom complet de l'utilisateur connecté
+        current_user_email: Email de l'utilisateur connecté
+      
