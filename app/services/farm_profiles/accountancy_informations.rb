@@ -12,6 +12,7 @@ module FarmProfiles
     end
 
     def global_ratio_informations
+      EconomicIndicator.refresh
       # Products
       exercice_production = @base_compute.sum_entry_items_by_line(:ratio, :exercice_production)
       # commercial_margin

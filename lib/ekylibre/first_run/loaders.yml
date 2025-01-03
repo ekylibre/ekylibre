@@ -352,6 +352,8 @@ accountancy:
     path: 'odicom/fec.txt'
   acom_fec_txt:
     path: 'acom/fec.txt'
+  quadra_fec_txt:
+    path: 'quadra/fec.txt'
   listo_od_txt:
     path: 'listo/wages.csv'
   ekylibre_associates:
