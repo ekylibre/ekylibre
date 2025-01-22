@@ -5,7 +5,7 @@ module Clients
       BASE_URL = 'https://api.mistral.ai/v1/chat/completions'.freeze
       PROMPT_LIMIT = 25_000
 
-      def initialize(model = "open-mixtral-8x22b")
+      def initialize(model = "mistral-large-latest")
         @api_key = Identifier.find_by_nature('mistral_api_key')&.value&.strip
         @content_to_send = { model: model, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: nil }, { role: 'user', content: nil }] }
       end
