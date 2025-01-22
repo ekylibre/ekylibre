@@ -54,6 +54,8 @@ class ProductOwnership < ApplicationRecord
   # ]VALIDATORS]
   validates :owner, presence: { if: :other? }
 
+  after_validation :set_nature, on: %i[create update]
+
   before_validation do
     self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
     self.nature ||= (owner.blank? ? :unknown : owner == Entity.of_company ? :own : :other)
@@ -63,5 +65,13 @@ class ProductOwnership < ApplicationRecord
 
     def siblings
       product&.ownerships || ProductOwnership.none
+    end
+
+    def set_nature
+      if self.owner.blank?
+        self.nature = :unknown
+      else
+        self.nature = (owner == Entity.of_company ? :own : :other)
+      end
     end
 end

@@ -48,7 +48,7 @@ module Sage
         # Imports FEC journal entries into journal to make accountancy in CSV format
         # From local software SAGE i7
         # in ZIP file containing filename example FR9495059FEC20181231.txt
-        # separator is '|' and encoding is ISO-8859-15
+        # separator is '\t' TAB and encoding is UTF-8
 
         rows, errors = parse_file(file)
         w.count = rows.size

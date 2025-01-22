@@ -39,6 +39,8 @@ module FarmProfiles
       yearly_rain = @historical_forecast.collect{|d| d[:pluviometry].to_f}.compact.sum.round(0).in(:millimeter).round_l
       yearly_min_temp = (@historical_forecast.collect{|d| d[:min_temperature].to_f}.compact.sum.round(2) / @historical_forecast.collect{|d| d[:min_temperature].to_f}.compact.count).round(2)
       yearly_max_temp = (@historical_forecast.collect{|d| d[:max_temperature].to_f}.compact.sum.round(2) / @historical_forecast.collect{|d| d[:max_temperature].to_f}.compact.count).round(2)
+      frozen_data_08_12 = @weather_data.where("min_temp <= 0.0 AND EXTRACT(MONTH from started_at) > 08").reorder(:started_at)
+      frozen_data_01_06 = @weather_data.where("min_temp <= 0.0 AND EXTRACT(MONTH from started_at) < 06").reorder(:started_at)
       {
         watering_intervention: "par mm / ha irrigué ? par mm au global ?",
         yearly_weather_day_items: @historical_forecast.count,
@@ -46,9 +48,9 @@ module FarmProfiles
         yearly_rain: yearly_rain,
         yearly_min_temp: yearly_min_temp.in(:celsius).round_l,
         yearly_max_temp: yearly_max_temp.in(:celsius).round_l,
-        first_frozen_day: @weather_data.where("min_temp <= 0.0 AND EXTRACT(MONTH from started_at) > 08").reorder(:started_at).first.started_at.l,
-        last_frozen_day: @weather_data.where("min_temp <= 0.0 AND EXTRACT(MONTH from started_at) < 06").reorder(:started_at).last.started_at.l,
-        yearly_min_frozen_temp: @weather_data.where("min_temp <= 0.0").reorder(:min_temp).first.min_temp.in(:celsius).round_l
+        first_frozen_day: (frozen_data_08_12.first.nil? ? frozen_data_01_06.first&.started_at&.l : frozen_data_08_12.first&.started_at&.l),
+        last_frozen_day: (frozen_data_01_06.last.nil? ? frozen_data_08_12.last&.started_at&.l : frozen_data_01_06.last.started_at&.l),
+        yearly_min_frozen_temp: @weather_data.where("min_temp <= 0.0").reorder(:min_temp).first&.min_temp&.in(:celsius)&.round_l
       }
     end
 
@@ -68,7 +70,7 @@ module FarmProfiles
         activity_rotation << {
           name: act.name,
           variety: act.cultivation_variety,
-          net_surface_area: act.support_shape_area(c).convert(:hectare).round(2),
+          net_surface_area: act.support_shape_area(c).convert(:hectare).round(2).l,
           color: act.color
         }
       end

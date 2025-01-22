@@ -6,7 +6,8 @@ module Clients
       BASE_URL = 'https://api.groq.com/openai/v1/chat/completions'.freeze
       PROMPT_LIMIT = 25_000
 
-      def initialize(model = "mixtral-8x7b-32768")
+      #  or mixtral-8x7b-32768
+      def initialize(model = "llama-3.3-70b-versatile")
         @api_key = Identifier.find_by_nature('groq_api_key')&.value&.strip
         @content_to_send = { model: model, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: nil }, { role: 'user', content: nil }] }
       end

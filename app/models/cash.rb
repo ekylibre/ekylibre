@@ -300,8 +300,9 @@ class Cash < ApplicationRecord
 
   # Return last date of bank_item from bank statements link to current cash
   def last_bank_statement_stopped_on
-    if last_bank_statement
-      last_bank_statement.stopped_on
+    if last_bank_statement && last_bank_statement.items.any?
+      item = last_bank_statement.items.reorder(:initiated_on).last
+      item.transfered_on
     else
       nil
     end
