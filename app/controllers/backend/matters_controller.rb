@@ -80,12 +80,13 @@ module Backend
 
     end
 
-    list(conditions: matters_conditions, selectable: true, join: :variant, distinct: true) do |t|
+    list(conditions: matters_conditions, selectable: true, join: :variant, distinct: true, order: { born_at: :desc }) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
+      t.column :born_at, type: :date
       t.column :work_number
-      t.column :identification_number
+      t.column :identification_number, hidden: true
       t.column :name, url: true
       t.column :variant, url: { controller: 'RECORD.variant.class.name.tableize'.c, namespace: :backend }
       t.column :variety

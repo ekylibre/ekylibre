@@ -51,6 +51,8 @@ Rails.application.routes.draw do
       get :list_members
       get :list_shipment_items
       get :list_reception_items
+      get :list_storage_reception_items
+      get :list_storage_shipment_items
       get :list_places
       get :take
     end
@@ -224,6 +226,7 @@ Rails.application.routes.draw do
         end
       end
       resource :last_socleo_import_cell, only: :show
+      resource :ndvi_cell, only: :show
       resource :opportunities_indicators_cell, only: :show
       resource :parts_cell, only: :show
       resource :profit_and_loss_cell, only: :show
@@ -236,6 +239,7 @@ Rails.application.routes.draw do
       resource :square_revenues_by_category_cell, only: :show
       resource :stewardship_cell, only: :show
       resource :stock_container_map_cell, only: :show
+      resource :stock_article_list_cell, only: :show, concerns: :list
       resource :subscriptions_indicators_cell, only: :show
       resource :tax_balance_cell, only: :show
       resource :trade_counts_cell, only: :show
@@ -558,6 +562,7 @@ Rails.application.routes.draw do
     resources :documents, concerns: %i[list unroll] do
       collection do
         post :purchase_scan
+        post :sale_scan
       end
     end
 
@@ -1085,7 +1090,7 @@ Rails.application.routes.draw do
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
-
+        get :list_sale_items
         post :ship
         post :invoice
         post :order

@@ -94,12 +94,21 @@ module Backend
     list(:items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :source_product, url: true
       t.column :product, url: true, hidden: true
+      t.column :container, through: :product, label_method: 'container&.name'
       t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
       t.column :product_identification_number, hidden: true
       t.column :conditioning_quantity, class: 'left-align'
       t.column :conditioning_unit
       t.column :unit_pretax_sale_amount, currency: true, class: 'center-align'
       t.column :analysis, url: true
+    end
+
+    list(:sale_items, conditions: ["#{SaleItem.table_name}.sale_id = (SELECT sale_id FROM #{Shipment.table_name} WHERE #{Shipment.table_name}.id = ?)", 'params[:id]'.c]) do |t|
+      t.column :label
+      t.column :annotation, hidden: true
+      t.column :conditioning_unit
+      t.column :conditioning_quantity, class: 'right-align'
+      t.column :unit_pretax_amount, currency: true, class: 'right-align'
     end
 
     Shipment.state_machine.events.each do |event|
@@ -133,8 +142,10 @@ module Backend
     end
 
     def new
+      # new from shipment index
       if params[:sale_nature_id] && nature = SaleNature.find_by(id: params[:sale_nature_id])
         @shipment = Shipment.new(shipment_params.merge({ sale_nature_id: params[:sale_nature_id] }))
+      # new from sale show
       else
         @shipment = Shipment.new(shipment_params)
       end

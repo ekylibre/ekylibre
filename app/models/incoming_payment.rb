@@ -134,6 +134,8 @@ class IncomingPayment < ApplicationRecord
     if mode && mode.with_commission
       self.commission_account = mode.commission_account
       self.commission_amount = mode.commission_amount(self.amount)
+    else
+      self.commission_amount ||= 0.0
     end
     true
   end

@@ -85,26 +85,26 @@ class EconomicIndicator < ApplicationRecord
         items[:proportional_direct_charges] = indicators.find_by(economic_indicator: 'proportional_direct_charge')&.amount.to_f.round(2) || 0.0
         items[:fixed_direct_charges] = fixed_direct_charges
         items[:gross_margin] = EconomicIndicator.activity_gross_margin_amount(target_activity, campaign).to_f.round(2) || 0.0
-        items[:activity_indirect_products] = { activity_value: (EconomicIndicator.activity_indirect_amount(campaign, :global_indirect_product).to_f.round(2) || 0.0) * ratio, activity_ratio: ratio }
+        items[:activity_indirect_products] = { activity_value: ((EconomicIndicator.activity_indirect_amount(campaign, :global_indirect_product).to_f || 0.0) * ratio).round(2), activity_ratio: ratio }
         items[:activity_cash_provisions] = { activity_value: 0.0, activity_ratio: ratio }
-        items[:activity_indirect_charges] = { activity_value: (EconomicIndicator.activity_indirect_amount(campaign, :global_indirect_charge).to_f.round(2) || 0.0) * ratio, activity_ratio: ratio }
-        items[:activity_employees_wages] = { activity_value: ((WorkerContract.where.not(distribution_key: 'percentage').annual_cost(%w[permanent_worker temporary_worker external_staff], campaign, true).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
-        items[:activity_depreciations_charges] = { activity_value: ((EconomicIndicator.depreciations_charges_amount(campaign).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
-        items[:activity_loans_charges] = { activity_value: ((EconomicIndicator.loan_repayments_charges_amount(campaign).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
-        items[:activity_farmer_wages] = { activity_value: ((WorkerContract.where.not(distribution_key: 'percentage').annual_cost(%w[permanent_worker], campaign, false).to_f.round(2) || 0.0) * ratio), activity_ratio: ratio }
+        items[:activity_indirect_charges] = { activity_value: ((EconomicIndicator.activity_indirect_amount(campaign, :global_indirect_charge).to_f || 0.0) * ratio).round(2), activity_ratio: ratio }
+        items[:activity_employees_wages] = { activity_value: ((WorkerContract.where.not(distribution_key: 'percentage').annual_cost(%w[permanent_worker temporary_worker external_staff], campaign, true).to_f || 0.0) * ratio).round(2), activity_ratio: ratio }
+        items[:activity_depreciations_charges] = { activity_value: ((EconomicIndicator.depreciations_charges_amount(campaign).to_f || 0.0) * ratio).round(2), activity_ratio: ratio }
+        items[:activity_loans_charges] = { activity_value: ((EconomicIndicator.loan_repayments_charges_amount(campaign).to_f || 0.0) * ratio).round(2), activity_ratio: ratio }
+        items[:activity_farmer_wages] = { activity_value: ((WorkerContract.where.not(distribution_key: 'percentage').annual_cost(%w[permanent_worker], campaign, false).to_f || 0.0) * ratio).round(2), activity_ratio: ratio }
         # REALISED VALUES
         items[:real_proportional_main_product_products] = main_indicator.first.compute_realised_element(:main_direct_products)
         items[:real_fixed_direct_products] = main_indicator.first.compute_realised_element(:fixed_direct_products)
         items[:real_proportional_direct_charges] = main_indicator.first.compute_realised_element(:proportional_direct_charges)
         items[:real_fixed_direct_charges] = main_indicator.first.compute_realised_element(:fixed_direct_charges)
         items[:real_gross_margin] = (items[:real_proportional_main_product_products] + items[:real_fixed_direct_products]) - (items[:real_proportional_direct_charges] + items[:real_fixed_direct_charges])
-        items[:real_activity_indirect_products] = { activity_value: main_indicator.first.compute_realised_element(:indirect_products, :all) * ratio, activity_ratio: ratio }
-        items[:real_activity_cash_provisions] = { activity_value: main_indicator.first.compute_realised_element(:cash_provisions, :all) * ratio, activity_ratio: ratio }
-        items[:real_activity_indirect_charges] = { activity_value: main_indicator.first.compute_realised_element(:indirect_charges, :all) * ratio, activity_ratio: ratio }
-        items[:real_activity_employees_wages] = { activity_value: main_indicator.first.compute_realised_element(:employees_wages, :all) * ratio, activity_ratio: ratio }
-        items[:real_activity_depreciations_charges] = { activity_value: main_indicator.first.compute_realised_element(:depreciations_charges, :all) * ratio, activity_ratio: ratio }
-        items[:real_activity_loans_charges] = { activity_value: main_indicator.first.compute_realised_element(:loans_charges, :all) * ratio, activity_ratio: ratio }
-        items[:real_activity_farmer_wages] = { activity_value: main_indicator.first.compute_realised_element(:farmer_wages, :all) * ratio, activity_ratio: ratio }
+        items[:real_activity_indirect_products] = { activity_value: (main_indicator.first.compute_realised_element(:indirect_products, :all) * ratio).round(2), activity_ratio: ratio }
+        items[:real_activity_cash_provisions] = { activity_value: (main_indicator.first.compute_realised_element(:cash_provisions, :all) * ratio).round(2), activity_ratio: ratio }
+        items[:real_activity_indirect_charges] = { activity_value: (main_indicator.first.compute_realised_element(:indirect_charges, :all) * ratio).round(2), activity_ratio: ratio }
+        items[:real_activity_employees_wages] = { activity_value: (main_indicator.first.compute_realised_element(:employees_wages, :all) * ratio).round(2), activity_ratio: ratio }
+        items[:real_activity_depreciations_charges] = { activity_value: (main_indicator.first.compute_realised_element(:depreciations_charges, :all) * ratio).round(2), activity_ratio: ratio }
+        items[:real_activity_loans_charges] = { activity_value: (main_indicator.first.compute_realised_element(:loans_charges, :all) * ratio).round(2), activity_ratio: ratio }
+        items[:real_activity_farmer_wages] = { activity_value: (main_indicator.first.compute_realised_element(:farmer_wages, :all) * ratio).round(2), activity_ratio: ratio }
         items
       else
         nil

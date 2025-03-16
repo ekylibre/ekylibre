@@ -161,6 +161,7 @@ module Backend
       t.column :amount, currency: true, class: 'right-align'
       t.column :activity_budget, hidden: true, class: 'right-align'
       t.column :team, hidden: true, class: 'right-align'
+      t.column :undelivered_quantity, label_method: :undelivered_quantity, hidden: true
     end
 
     # Displays details of one sale selected with +params[:id]+

@@ -1,0 +1,10 @@
+- item ||= f
+- variant = item.variant
+
+%tbody.nested-fields
+  %tr
+    %td= item.variant.name
+    %td= item.conditioning_quantity
+    %td= item.conditioning_unit.name
+    %td= item.undelivered_quantity
+    %td= item.unit_pretax_amount

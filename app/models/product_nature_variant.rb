@@ -546,9 +546,9 @@ class ProductNatureVariant < ApplicationRecord
     if variety == 'service'
       quantity_purchased - quantity_received
     elsif into_default_unit
-      products.alive.map { |product| UnitComputation.convert_into_variant_default_unit(product.variant, product.population, product.conditioning_unit) }.sum
+      products.alive.map { |product| UnitComputation.convert_into_variant_default_unit(product.variant, product.population, product.conditioning_unit) }.sum.round(2)
     else
-      products.alive.map { |product| UnitComputation.convert_into_variant_population(product.variant, product.population, product.conditioning_unit) }.sum
+      products.alive.map { |product| UnitComputation.convert_into_variant_population(product.variant, product.population, product.conditioning_unit) }.sum.round(2)
     end
   end
 

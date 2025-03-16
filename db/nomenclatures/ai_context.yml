@@ -162,3 +162,112 @@ purchase_invoice:
       role:
         description: "merchandise or service"
         type: string
+sale_invoice:
+  instructions: |
+    From the user prompt coming from sale invoice below, extract informations strictly as instructed.
+    Most of the time, the pattern of a sale invoice is composed of client informations, invoice informations and one or many invoice lines.
+    The sale invoice is concerning agricultural items and may content item like cow, wheat, meat, grain, milk.
+    Information come from France in french language.
+    Return the sale informations in JSON format like an API according to the schema.
+    Do not return 'description', 'type' or 'format' attributes in the response.
+    Use it only to detect correct value of each attributes.
+    example of a response : { client: { name: "AXA", address: "10 rue du Bouil bleu", postal_code: "17250", ... }, invoice: {number: "FA25632", ... }, items: [{number: '1', ... }, {number: '2', ... }, ...]}.
+    for the items, try to detect the role of the item in 'merchandise' or 'service' in role attribute.
+    for all the date, try to convert it in the following format : 'DD/MM/YYYY'.
+    for the items, try to classify it like an accountant in nature attribute.
+  output_schema:
+    client:
+      name:
+        description: "Name of the client"
+        type: string
+      address:
+        description: "Address of the client"
+        type: string
+      postal_code:
+        description: "Postal code of the client"
+        type: string
+        format: numeric
+      town:
+        description: "Town of the client"
+        type: string
+      country:
+        description: "Country of the client"
+        type: string
+        format: string(2)
+      email:
+        description: "Email of the client"
+        type: string
+        format: email
+      phone_number:
+        description: "phone number of the client"
+        type: string
+        format: number
+      website:
+        description: "website of the client"
+        type: string
+        format: url
+      vat_code:
+        description: "vat code number of the client"
+        type: string
+      registration_number:
+        description: "unique number of the client"
+        type: string
+    invoice:
+      number:
+        description: "unique number of the invoice"
+        type: string
+      invoiced_on:
+        description: "date of the invoice"
+        type: string
+        format: date
+      total_pretax_amount:
+        description: "total pretax amount of the invoice"
+        type: string
+        format: number
+      total_amount:
+        description: "total amount of the invoice"
+        type: string
+        format: number
+      currency:
+        description: "currency of the invoice"
+        type: string
+    items:
+      number:
+        description: "number or id of an invoice item"
+        type: string
+        format: number
+      tax_rate:
+        description: "tax rate of an invoice item"
+        type: string
+        format: number
+      quantity:
+        description: "quantity of an invoice item"
+        type: string
+        format: number
+      unit_amount:
+        description: "unit price with tax of an invoice item"
+        type: string
+        format: number
+      unit_pretax_amount:
+        description: "unit price without tax of an invoice item"
+        type: string
+        format: number
+      pretax_amount:
+        description: "amount without tax of an invoice item (quantity multiply by unit_pretax_amount if exist)"
+        type: string
+        format: number
+      amount:
+        description: "amount with tax of an invoice item (quantity multiply by unit_amout price if exist)"
+        type: string
+        format: number
+      name:
+        description: "name or description of an invoice item"
+        type: string
+        format: text
+      nature:
+        description: "nature, category or tag classification of an invoice item"
+        type: string
+        format: text
+      role:
+        description: "merchandise or service"
+        type: string

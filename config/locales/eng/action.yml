@@ -109,6 +109,11 @@ eng:
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
       # update_many: "Update many animal: %{name}"
+    backend/associates:
+      edit: "Edit associate: %{name}"
+      index: "Associates"
+      new: "New associate"
+      show: "Associate: %{name} "
     backend/attachments:
       # show: "Attachment: %{name}"
     backend/bank_reconciliation/items:
@@ -288,6 +293,12 @@ eng:
       # confirm: "Confirm draft journal: %{name}"
       # confirm_all: "Confirm all draft journal: %{name}"
       show: "Draft"
+    backend/email_templates:
+      edit: "Edit email template\_: %{name}"
+      index: "Email templates"
+      load: "Load default email templates"
+      new: "New email template"
+      show: "Email template\_: %{name}"
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
@@ -660,6 +671,11 @@ eng:
       # invoice: "Invoice payslip: %{name}"
       new: "New payslip contribution"
       show: "Payslip contribution: %{number}"
+    backend/payslip_contribution_payments:
+      edit: "Edit payslip contribution payment: %{number}"
+      index: "Payslip contribution payments"
+      new: "New payslip contribution payment"
+      show: "Payslip contribution payment\_: %{number}"
     backend/plant_countings:
       edit: "Edit plant counting: #%{number}"
       index: "Countings"
@@ -722,6 +738,12 @@ eng:
       # quantifiers: "Quantifiers product nature variant: %{name}"
       show: "Article: %{name}"
       # storage_detail: "Storage detail product nature variant: %{name}"
+    backend/product_nature_variant_tags:
+      create: "New variant tag"
+      edit: "Edit variant tag\_: %{name}"
+      index: "Variant tags"
+      new: "New variant tag"
+      show: "Show variant tag\_: %{name}"
     backend/product_natures:
       # compatible_varieties: "Compatible varieties product nature: %{name}"
       edit: "Edit functional profile: %{name}"
@@ -749,6 +771,16 @@ eng:
       show: "%{nature}: %{name}"
       # take: "Take product: %{name}"
       # update_many: "Update many product: %{name}"
+    backend/project_tasks:
+      edit: "Edit project task: %{name}"
+      index: "Project tasks"
+      new: "New project task"
+      show: "Project task: %{name}"
+    backend/projects:
+      edit: "Edit project: %{name}"
+      index: "Projects"
+      new: "New project"
+      show: "Project: %{name}"
     backend/project_budgets:
       edit: "Edit project budget: %{name}"
       index: "Project budgets"
@@ -842,6 +874,16 @@ eng:
       # index: "Sale affairs"
       # select: "Select sale affair: %{name}"
       # show: "Sale affair: %{name}"
+    backend/sale_contract_natures:
+      edit: "Edit sale contract nature\_: %{name}"
+      index: "Sale contract natures"
+      new: "New sale contract nature"
+      show: "Sale contract nature\_: %{name}"
+    backend/sale_contracts:
+      edit: "Edit sale contract\_: %{name}"
+      index: "Sale contracts"
+      new: "New sale contract"
+      show: "Sale contract\_: %{name}"
     backend/sale_credits:
       new: "Cancel sales invoice %{number}"
     backend/sale_gaps:
@@ -1253,11 +1295,26 @@ eng:
       show: "Worker: %{name}"
       # take: "Take worker: %{name}"
       # update_many: "Update many worker: %{name}"
+    backend/worker_contracts:
+      edit: "Edit worker contract\_: %{name}"
+      index: "Worker contracts"
+      new: "New worker contract"
+      show: "Worker contract\_: %{name}"
     backend/worker_groups:
       index: "Worker groups"
       edit: "Edit a worker group"
       new: "New worker group"
       show: "Worker group : %{name}"
+    backend/worker_time_logs:
+      edit: "Edit worker time log\_: %{name}"
+      index: "Worker time logs"
+      new: "New worker time log"
+      show: "Worker time log\_: %{name}"
+    backend/yield_observations:
+      edit: "Edit yield observation\_: %{number}"
+      index: "Yield observation"
+      show: "Yield observation\_: %{number}"
+      new: "New yield observation"
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
@@ -1540,11 +1597,29 @@ eng:
     unroll:
       server_error: "Server error"
   labels:
+    occupation_percentage: "Occupation percentage"
+    quantity_during_sowing: "Quantity during sowing"
+    classify_with_ai: "Complete with Mistral AI"
+    sale_ai_convert_with_mistral: "Convert sale with Mistral AI"
+    sale_ai_convert_with_groq: "Convert sale with Groq AI"
+    purchase_ai_convert_with_mistral: "Convert purchase with Mistral AI"
+    purchase_ai_convert_with_groq: "Convert purchase with avec Groq"
+    purchase_ai_convert_with_mindee: "Convert purchase with Mindee"
     cadastral_parcels: "Cadastral parcels"
+    associate_account_chart: "Associates account chart"
+    new_payslip_payment: "New payslip payment"
+    new_payslip_contribution_payment: "New payslip contrbution payment"
+    new_tax_payment: "New tax payment"
     chemical_and_physical_weeding: "Physical and chemical weeding"
     chemical_weeding: "Chemical weeding"
     physical_weeding: "Physical weeding"
     no_weeding: "No weeding"
+    degree_day: "Degree Day"
+    workers_chart: "Time / worker"
+    projects_chart: "Time / project"
+    edge_length: "Edge length"
+    harvest_costs: "Production cost / parcel yield"
+    autolink_incoming_harvests_on_harvest_intervention: "Link incoming harvest and intervention"
     add_tank: "Add storage"
     silo: "Storage"
     product_unit: "Unity"

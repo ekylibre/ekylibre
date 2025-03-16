@@ -1,0 +1,113 @@
+:ruby
+  items = resource.products.joins(:container)
+  containers = items.map{|p| p.container}.uniq
+- c.cobble(:article_product_by_container_list) do
+  %table.list#items-table
+    %thead
+      %tr
+      %th= BuildingDivision.human_attribute_name(:name)
+      %th= Sale.human_attribute_name(:conditioning_quantity)
+    - containers.each do |container|
+      %tbody.nested-fields
+        %tr
+          %td= container.name
+          %td= container.contents.where(variant: resource).alive.map { |product| UnitComputation.convert_into_variant_default_unit(product.variant, product.population, product.conditioning_unit) }.sum.round(2)
+
+- c.cobble(:article_product_by_container_map) do
+  :ruby
+    series = []
+    levels = [{
+          level: 1,
+          layoutAlgorithm: 'sliceAndDice',
+          dataLabels: {
+              enabled: true,
+              align: 'left',
+              verticalAlign: 'top',
+              style: {
+                  fontSize: '15px',
+                  fontWeight: 'bold'
+              }
+          }
+      }]
+    data = []
+
+    containers.each do |container|
+      if container.present?
+        data << {  id: container.id.to_s, name: container.name, color: cycle(theme_colors) }
+      else
+        data << {  id: '0', name: :unknow.tl, color: cycle(theme_colors) }
+      end
+    end
+
+    items.each do |item|
+      if item.container.present?
+        data << { name: item.name, parent: item.container.id.to_s, value: item.population.to_i }
+      else
+        data << { name: item.name, parent: '0' , value: item.population.to_i }
+      end
+    end
+    
+    series << {
+                type: 'treemap',
+                layoutAlgorithm: 'sliceAndDice',
+                alternateStartingDirection: true,
+                borderColor: '#fff',
+                borderRadius: 6,
+                borderWidth: 2,
+                dataLabels: {
+                    style: {
+                        textOutline: 'none'
+                    }
+                },
+                levels: levels,
+                data: data
+    }
+
+  = column_highcharts(series, title: {text: resource.name, align: 'center'}, subtitle: {}, tooltip: {})
+
+- series = []
+- c.cobble(:article_product_by_container_graph) do
+  :ruby
+    dataset = resource.products
+    variant_data = {}
+    if dataset.any?
+      dataset.map do |product|
+        items = ProductMovement.where(product: product).reorder(:started_at)
+        item_h = items.sort.inject({}) do |hash, pair|
+          hash[pair.started_at.to_usec] = UnitComputation.convert_into_variant_default_unit(product.variant, pair.population.to_d, product.conditioning_unit)
+          hash
+        end
+        data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
+
+        series << { name: product.name, data: data, visible: false }
+      end
+
+      datas = series.map { |s| s[:data] }
+      sorted_datas = datas.map do |data|
+        changes = (data + [[0, 0]]).sort_by(&:first).reverse.each_cons(2).map do |one, two|
+          [one.first, one.last - two.last]
+        end
+        changes.reverse
+      end
+      variant_datas = sorted_datas.flatten(1).sort_by(&:first).reduce([]) do |vd, data_point|
+        key = data_point.first
+        value = Maybe(vd.last).last.or_else(0)
+        vd << [key, value+data_point.last]
+      end
+
+      series << { name: tl(:accumulated_stock, name: resource.name), data: variant_datas.to_a, visible: true }
+    end
+
+  - if series.any?
+    :ruby
+      options =
+        {
+          legend: { layout: 'horizontal', vertical_align: 'bottom', border_width: 0, align: 'center' },
+          y_axis: { title: { text: :population.tl }, min: 0 },
+          x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }},
+          chart: { spacing_bottom: 40 },
+          tooltip: { value_decimals: 2, xDateFormat: '%Y-%m-%d, %H:%M' }
+        }
+    = line_highcharts(series, options)
+  - else
+    = no_data

@@ -46,6 +46,7 @@ class ProductLocalization < ApplicationRecord
   include Taskable
   belongs_to :container, class_name: 'Product'
   belongs_to :product
+  has_many :shipment_items, class_name: 'ParcelItem', primary_key: :product_id, foreign_key: :source_product_id
   enumerize :nature, in: %i[transfer interior exterior], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, :product, presence: true

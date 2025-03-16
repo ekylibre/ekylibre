@@ -18,7 +18,7 @@
 
 module Backend
   class ProductNatureVariantTagsController < Backend::BaseController
-    manage_restfully
+    manage_restfully t3e: { name: :name }
 
     unroll
 

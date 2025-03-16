@@ -63,14 +63,17 @@ module FarmProfiles
         c = @campaign.preceding
       # N -2
       elsif year == :antepreceding
-        c = @campaign.preceding.preceding
+        c = @campaign.preceding&.preceding
       end
       activity_rotation = []
       Activity.main_of_campaign(c).of_family(:plant_farming).each do |act|
+        area = act.support_shape_area(c).convert(:hectare)
         activity_rotation << {
           name: act.name,
+          reference_name: act.reference_name,
           variety: act.cultivation_variety,
-          net_surface_area: act.support_shape_area(c).convert(:hectare).round(2).l,
+          net_surface_area_value: area.to_f.round(2),
+          net_surface_area_unit: area.unit,
           color: act.color
         }
       end
@@ -79,8 +82,10 @@ module FarmProfiles
 
     def biodiversity_informations
       {
-        edges_total_length: edges_total_length,
-        biodiversity_area: (grass_borders + boskets_and_ponds_area)
+        edges_total_length_value: edges_total_length,
+        edges_total_length_unit: 'meter',
+        biodiversity_area_value: (grass_borders + boskets_and_ponds_area).round(2),
+        biodiversity_area_unit: 'hectare'
       }
     end
 
