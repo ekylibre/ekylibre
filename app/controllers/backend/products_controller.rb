@@ -115,6 +115,7 @@ module Backend
     # Lists contained products of the current product
     list(:contained_products, model: :product_localizations, joins: { product: :variant }, conditions: { product_nature_variants: { active: true }, container_id: 'params[:id]'.c, stopped_at: nil }, order: { started_at: :desc }) do |t|
       t.column :product, url: true
+      t.column :variant, label_method: "product.variant.name"
       t.column :population, through: :product
       t.column :unit_name, label_method: "product.conditioning_unit.name"
       t.column :started_at, datatype: :datetime
@@ -155,7 +156,7 @@ module Backend
       t.column :stopped_on
     end
 
-    # Lists groups of the current product
+    # Lists inspections of the current product
     list(:inspections, conditions: { product_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
       t.column :number, url: true
       t.column :position
@@ -202,6 +203,16 @@ module Backend
       t.column :stopped_at
     end
 
+    # Lists incoming items (product) localize in the current product (building_division or other)
+    list(:storage_reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { storage_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
+      t.column :nature, label_method: :reception_nature
+      t.column :given_at, label_method: :reception_given_at, datatype: :datetime
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
+      t.column :product_identification_number, through: :parcel_item
+    end
+
     # Lists parcel items of the current product
     list(:reception_items, model: :parcel_item_storings, joins: :parcel_item, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :reception, label_method: :reception_number, url: { controller: :receptions, id: 'RECORD.parcel_item.parcel_id'.c }
@@ -212,7 +223,17 @@ module Backend
       t.column :product_identification_number, through: :parcel_item
     end
 
-    # Lists parcel items of the current product
+    # Lists shipment items localize in the current product (building_division or other) ['products.id = ?', 'params[:id]'.c]
+    list(:storage_shipment_items, model: :shipment_items, joins: :localization, conditions: ['product_localizations.container_id = ?', 'params[:id]'.c], order: { created_at: :desc }) do |t|
+      t.column :shipment, url: { controller: :shipments }
+      t.column :nature, through: :shipment
+      t.column :given_at, through: :shipment, datatype: :datetime
+      t.column :conditioning_unit
+      t.column :conditioning_quantity
+      t.column :product_identification_number
+    end
+
+    # Lists shipment items of the current product
     list(:shipment_items, model: :shipment_items, conditions: { product_id: 'params[:id]'.c, parcels: { nature: :outgoing } }, order: { created_at: :desc }) do |t|
       t.column :shipment, url: { controller: :shipments }
       t.column :nature, through: :shipment

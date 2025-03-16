@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class DocumentsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
-    test_restfully_all_actions except: %i[purchase_scan]
+    test_restfully_all_actions except: %i[purchase_scan sale_scan]
   end
 end

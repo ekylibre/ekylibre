@@ -106,6 +106,14 @@ class ShipmentItem < ParcelItem
       self.population = source_product.population if population.nil? || population.zero?
     end
 
+    # case of creation of a shipment item from a sale
+    if shipment&.sale.present? && variant.present?
+      s_items = shipment.sale.items.where(variant: variant)
+      if s_items.any?
+        self.sale_item_id = s_items.first.id
+      end
+    end
+
     # Update product_id when a product is added in edit shipment
     if product_id.nil?
       self.product_id = source_product_id

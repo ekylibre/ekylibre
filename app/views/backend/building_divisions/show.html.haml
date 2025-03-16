@@ -3,7 +3,8 @@
 
 = cobbles do |c|
   - c.cobble :general_informations do
-    = product_mini_map
+    - if resource.shape.present?
+      = product_mini_map
     = infos do
       .med-info.important
         - icon = resource.pictogram
@@ -11,11 +12,67 @@
         %span.value
           %i.picto{class: "picto-#{icon}"}
           = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-      - if resource.born_at && resource.age >= 1.day
+      .med-info
+        %span.title= Matter.human_attribute_name(:work_number)
+        %span.value
+          %i.picto{class: "picto-barcode"}
+          = resource.work_number
+      - if resource.shape.present?
         .med-info
-          %span.title= Matter.human_attribute_name(:work_number)
+          %span.title= :net_surface_area.tl
           %span.value
             %i.picto{class: "picto-barcode"}
-            = resource.work_number
+            = resource.human_shape_area
+  - c.cobble(:storage_reception_items) do
+    = cobble_list(:storage_reception_items)
   - c.cobble(:contained_products) do
     = cobble_list(:contained_products)
+  - c.cobble(:storage_shipment_items) do
+    = cobble_list(:storage_shipment_items)
+  - c.cobble(:stock_map) do
+    :ruby
+      series = []
+      levels = [{
+            level: 1,
+            layoutAlgorithm: 'sliceAndDice',
+            dataLabels: {
+                enabled: true,
+                align: 'left',
+                verticalAlign: 'top',
+                style: {
+                    fontSize: '15px',
+                    fontWeight: 'bold'
+                }
+            }
+        }]
+      data = []
+
+      items = resource.content_localizations.joins(:product).where(stopped_at: nil)
+      variants = items.map{|p| p.product.variant}.compact.uniq
+      variants.each do |variant|
+        data << {  id: variant.id.to_s, name: variant.name, color: cycle(theme_colors) }
+      end
+
+      items.each do |item|
+        data << { name: item.product.name, parent: item.product.variant.id.to_s, value: item.product.population.to_i }
+      end
+
+      puts data.inspect.red
+      
+      series << {
+                  type: 'treemap',
+                  layoutAlgorithm: 'sliceAndDice',
+                  alternateStartingDirection: true,
+                  borderColor: '#fff',
+                  borderRadius: 6,
+                  borderWidth: 2,
+                  dataLabels: {
+                      style: {
+                          textOutline: 'none'
+                      }
+                  },
+                  levels: levels,
+                  data: data
+      }
+
+    = column_highcharts(series, title: {text: resource.name + ' remplis à ' + resource.occupation_percentage.to_s + ' %', align: 'center'}, subtitle: {}, tooltip: {})

@@ -5,10 +5,12 @@ DROP TABLE IF EXISTS registered_soil_depths;
           id character varying PRIMARY KEY NOT NULL,
           soil_depth_value numeric(19,4),
           soil_depth_unit character varying,
-          shape postgis.geometry(MultiPolygon, 4326) NOT NULL
+          shape postgis.geometry(MultiPolygon, 4326) NOT NULL,
+          centroid postgis.geometry(Point, 4326)
         );
         CREATE INDEX registered_soil_depths_id ON registered_soil_depths (id);
         CREATE INDEX registered_soil_depths_shape ON registered_soil_depths USING GIST (shape);
+        CREATE INDEX registered_soil_depths_centroid ON registered_soil_depths USING GIST (centroid);
 
         CREATE TABLE registered_soil_available_water_capacities (
           id character varying PRIMARY KEY NOT NULL,
@@ -17,7 +19,9 @@ DROP TABLE IF EXISTS registered_soil_depths;
           available_water_max_value numeric(19,4),
           available_water_unit character varying,
           available_water_label character varying,
-          shape postgis.geometry(MultiPolygon, 4326) NOT NULL
+          shape postgis.geometry(MultiPolygon, 4326) NOT NULL,
+          centroid postgis.geometry(Point, 4326)
         );
         CREATE INDEX registered_soil_available_water_capacities_id ON registered_soil_available_water_capacities (id);
         CREATE INDEX registered_soil_available_water_capacities_shape ON registered_soil_available_water_capacities USING GIST (shape);
+        CREATE INDEX registered_soil_available_water_capacities_centroid ON registered_soil_available_water_capacities USING GIST (centroid);

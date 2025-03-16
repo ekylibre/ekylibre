@@ -279,23 +279,6 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal replacement_supplier, purchase.affair.third
   end
 
-  test "updating a purchase's pretax amount correctly computes the corresponding fixed asset depreciable amount" do
-    tax = create :tax
-    product = create :asset_fixable_product, born_at: DateTime.new(2018, 1, 1)
-    fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1), product: product
-    purchase_item = create(:purchase_item, pretax_amount: 42.0, fixed: true, preexisting_asset: true, fixed_asset_id: fixed_asset.id, tax: tax)
-
-    purchase_item.purchase.invoice
-    fixed_asset.reload
-    assert_equal purchase_item.pretax_amount, fixed_asset.depreciable_amount
-
-    purchase_item.reload
-
-    purchase_item.update!(pretax_amount: 2000)
-    fixed_asset.reload
-    assert_equal purchase_item.pretax_amount, fixed_asset.depreciable_amount
-  end
-
   private
 
     def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)

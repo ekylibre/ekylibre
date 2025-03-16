@@ -18,7 +18,7 @@
 
 module Backend
   class AssociatesController < Backend::BaseController
-    manage_restfully t3e: { entity_name: :entity_name }
+    manage_restfully t3e: { entity_name: :entity_name, name: :entity_name }
 
     # unroll entity: :name
 

@@ -32,7 +32,20 @@
 
 
 = cobbles do |c|
-
   - c.cobble :items, title: resource_model.human_attribute_name(:items) do
     = cobble_list :items
+  - if resource.sale.present?
+    - c.cobble :sale_items, title: :sale_origin_shipment.tl(number: resource.sale.number, confirmed_at: resource.sale.confirmed_at.l) do
+      %table.list#items-table
+        %thead
+          %tr
+          %th= Sale.human_attribute_name(:name)
+          %th= Sale.human_attribute_name(:conditioning_quantity)
+          %th= Sale.human_attribute_name(:conditioning_unit)
+          %th= Sale.human_attribute_name(:undelivered_quantity)
+          %th= Sale.human_attribute_name(:unit_pretax_amount)
+          
+        - resource.sale.items.each do |item|
+          = render 'sale_item_fields', f: item
+    
 

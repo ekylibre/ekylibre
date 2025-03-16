@@ -1,3 +1,5 @@
+- if f.object.sale_id.present?
+  - sale = Sale.find(f.object.sale_id)
 = field_set :general_informations do
   = f.input :contract_id, as: :hidden
   .delivery-item
@@ -23,6 +25,20 @@
   = f.custom_fields
   = f.attachments
   -# = f.object.errors.inspect
+
+- if sale.present?
+  = field_set :sale_origin_shipment.tl(number: sale.number, confirmed_at: sale.confirmed_at.l) do
+    %table.list#items-table
+      %thead
+        %tr
+        %th= Sale.human_attribute_name(:name)
+        %th= Sale.human_attribute_name(:conditioning_quantity)
+        %th= Sale.human_attribute_name(:conditioning_unit)
+        %th= Sale.human_attribute_name(:undelivered_quantity)
+        %th= Sale.human_attribute_name(:unit_pretax_amount)
+        
+      - sale.items.each do |item|
+        = render 'sale_item_fields', f: item
 
 - if f.object.allow_items_update?
   = field_set f.object.class.human_attribute_name(:items) do

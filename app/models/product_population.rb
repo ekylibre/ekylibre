@@ -55,6 +55,18 @@ class ProductPopulation < ApplicationRecord
   scope :first_after,             ->(time)    { after(time).reorder(started_at: :asc).limit(1) }
   scope :before_with,             ->(time)    { where(arel_table[:started_at].lteq(time)) }
   scope :after_with,              ->(time)    { where(arel_table[:started_at].gteq(time)) }
+  scope :with_population,         ->          { where(arel_table[:value].gt(0.0)) }
+  scope :last_unique, -> do
+    from(
+      <<~SQL
+        (
+          SELECT DISTINCT ON (#{ProductPopulation.table_name}.product_id) #{ProductPopulation.table_name}.*
+          FROM #{ProductPopulation.table_name}
+          ORDER BY product_id ASC, started_at DESC
+        ) #{ProductPopulation.table_name}
+      SQL
+    )
+  end
 
   def sequence
     self.class.sequence(product)

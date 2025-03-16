@@ -1,9 +1,11 @@
 = beehive(:stock) do |b|
   - b.hbox do
+    - b.cell :stock_container_map
+  - b.hbox do
+    - b.cell :stock_article_list
+  - b.hbox do
     - b.cell :last_incoming_parcels
     - b.cell :last_outgoing_parcels
   - b.hbox do
     - b.cell :last_foreward_incoming_parcels
     - b.cell :last_foreward_outgoing_parcels
-  - b.hbox do
-    - b.cell :stock_container_map

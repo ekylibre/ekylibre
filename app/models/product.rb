@@ -318,6 +318,11 @@ class Product < ApplicationRecord
       available.at(at)
     end
   }
+  # return the product with population at the given date
+  scope :population_availables, ->(at: Time.now) {
+    where(id: ProductPopulation.before(at).last_unique.with_population.pluck(:product_id))
+  }
+
   scope :interventionables, ->(at: Time.now) {
     at(at).joins(:activity_production).merge(ActivityProduction.at(at))
   }
@@ -1010,8 +1015,13 @@ class Product < ApplicationRecord
     indicator_value
   end
 
-  def stock_info
-    "#{population.round(2)} #{conditioning_unit.name}"
+  def stock_info(at = Time.zone.now)
+    stock_at = populations.before(at).last_unique.first
+    if stock_at
+      "#{stock_at.value.round(2)} #{conditioning_unit.name}"
+    else
+      ""
+    end
   end
 
   def used_in_interventions_before(date)

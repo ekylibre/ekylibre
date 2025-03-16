@@ -18,7 +18,7 @@
 
 module Backend
   class WorkerTimeLogsController < Backend::BaseController
-    manage_restfully except: :index, stopped_at: 'Time.zone.now'.c, started_at: 'Time.zone.now - 4.hours'.c
+    manage_restfully except: :index, stopped_at: 'Time.zone.now'.c, started_at: 'Time.zone.now - 4.hours'.c, t3e: { name: 'RECORD.start_name'.c }
 
     def self.list_conditions
       code = search_conditions(worker_time_logs: %i[description started_at], workers: %i[name]) + " ||= []\n"
