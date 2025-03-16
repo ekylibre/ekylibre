@@ -56,6 +56,18 @@
         %span.value
           %i.picto{ class: 'picto-water-arrow-up' }
           = resource.theoritical_water_capacities.first.name
+    - if resource.last_soil_moisture.present?
+      .med-info
+        %span.title= :last_soil_moisture.tl(analysed_at: resource.last_soil_moisture[:analysed_at].l(format: "%d/%m/%y %HH"))
+        %span.value
+          %i.picto{ class: 'picto-water-arrow-down' }
+          = resource.last_soil_moisture[:value].l(precision: 0)
+    - if resource.last_soil_10cm_depth_surface_temperature.present?
+      .med-info
+        %span.title= :last_soil_10cm_depth_surface_temperature.tl(analysed_at: resource.last_soil_10cm_depth_surface_temperature[:analysed_at].l(format: "%d/%m/%y %HH"))
+        %span.value
+          %i.picto{ class: 'picto-blur-linear' }
+          = resource.last_soil_10cm_depth_surface_temperature[:value].l(precision: 0) 
     - if resource.current_cultivations.any?
       .med-info
         %span.title= :current_cultivation.tl
@@ -65,10 +77,11 @@
           = list.to_sentence.html_safe
 
 = cobbles do |c|
-
-  - c.cobble :weather do
-    = cell :weather, params: {centroid: resource.shape.centroid}
-
+  - if Preference[:weather_public_station].present?
+    - c.cobble :historical_weather do
+      = cell :historical_weather, params: { period: :weekly, campaign: current_campaign }
+  - c.cobble :ndvi do
+    = cell :ndvi, params: {cultivable_zone_id: resource.id}
   - c.cobble(:productions) do
     - disabled = Activity.count.zero?
     %button{ class: "btn btn-default btn-default--parcel #{'disabled' if disabled}", id: "generate-land-parcel-btn", title: "#{:before_add_a_land_parcel.tl if disabled}", data: { cultivable_zone: resource.id} }

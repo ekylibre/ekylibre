@@ -276,7 +276,7 @@ class SaleItem < ApplicationRecord
   end
 
   def undelivered_quantity
-    quantity - parcel_items.sum(:quantity)
+    quantity - shipment_items.sum(:quantity)
   end
 
   def designation

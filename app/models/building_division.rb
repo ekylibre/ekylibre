@@ -102,4 +102,27 @@ class BuildingDivision < SubZone
   scope :of_production, lambda { |production|
     where(activity_production: production)
   }
+
+  def occupation_percentage
+    if content_localizations.any? && shape.present?
+      product_occupation = []
+      # compute in square meters all the product inside
+      content_localizations.each do |content_localization|
+        product_occupation << (content_localization.product.variant.easement_area * content_localization.product.population)
+      end
+      # compute the percentage of occupation
+      ((product_occupation.compact.sum / shape.area) * 100).to_s.to_f.round(2)
+    else
+      0
+    end
+  end
+
+  def human_shape_area
+    if shape.present?
+      shape.area.in(:square_meter).round_l
+    else
+      0
+    end
+  end
+
 end

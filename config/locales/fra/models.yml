@@ -2124,6 +2124,7 @@ fra:
     # number_of_batch: "Number of batch"
     number_start: "Début de la numération"
     ocr_presence: "OCR"
+    occupation_percentage: "Taux de remplissage (%)"
     observations: "Observations"
     observed_at: "Observé à"
     of_company: "Dossier basé sur cette entreprise"

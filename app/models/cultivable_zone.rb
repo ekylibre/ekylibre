@@ -55,7 +55,8 @@ class CultivableZone < ApplicationRecord
   belongs_to :owner, class_name: 'Entity'
   has_many :activity_productions, foreign_key: :cultivable_zone_id
   has_many :activities, through: :activity_productions
-  has_many :analyses, dependent: :nullify
+  has_many :analyses, foreign_key: :cultivable_zone_id, inverse_of: :cultivable_zone, dependent: :destroy
+  has_many :analyse_items, through: :analyses, source: :cultivable_zone
   has_many :current_activity_productions, -> { current }, foreign_key: :cultivable_zone_id, class_name: 'ActivityProduction'
   has_many :current_supports, through: :current_activity_productions, source: :support
   has_many :supports, through: :activity_productions
@@ -104,6 +105,24 @@ class CultivableZone < ApplicationRecord
     return islets.first.islet_number if islets.any?
 
     nil
+  end
+
+  def last_soil_moisture
+    last_analysis = analyses.with_indicator('soil_moisture').reorder(:analysed_at).last
+    if last_analysis.present?
+      { analysed_at: last_analysis.analysed_at, value: (last_analysis.get(:soil_moisture)&.value.to_f * 100).round(2).in_percent }
+    else
+      nil
+    end
+  end
+
+  def last_soil_10cm_depth_surface_temperature
+    last_analysis = analyses.with_indicator('soil_10cm_depth_surface_temperature').reorder(:analysed_at).last
+    if last_analysis.present?
+      { analysed_at: last_analysis.analysed_at, value: last_analysis.get(:soil_10cm_depth_surface_temperature)&.value.to_f.round(2).in_celsius }
+    else
+      nil
+    end
   end
 
   # compute the number of unique activity on a cultivable zone on a year
@@ -189,7 +208,23 @@ class CultivableZone < ApplicationRecord
     Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)
   end
 
+  after_save do
+    initiate_satellite_data
+  end
+
   after_destroy do
     Ekylibre::Hook.publish(:cultivable_zone_destroy, cultivable_zone_id: id)
+    if self.is_provided_by?(vendor: 'agromonitoring', name: 'agromonitoring_polygons')
+      identifier = Identifier.find_by(nature: :agromonitoring_api_key)
+      AgroMonitoringClient.from_identifier(identifier, self, updater).remove_polygon
+    end
   end
+
+  private
+
+    def initiate_satellite_data
+      if net_surface_area.convert(:hectare).to_f > 1.0
+        AgromonitoringJob.perform_later(parcel_id: id, user_id: updater_id)
+      end
+    end
 end

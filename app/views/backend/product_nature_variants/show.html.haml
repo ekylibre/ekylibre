@@ -1,5 +1,14 @@
 = render 'backend/variants/shared/show_toolbar_links'
 = render 'backend/variants/shared/main_informations'
 
-= cobbles do |c|
-  = render 'backend/variants/shared/show_cobbles', c: c
+= janus do |j|
+  - j.face :cobbles do
+    = cobbles do |c|
+      = render 'backend/variants/shared/show_cobbles', c: c
+  - j.face :incoming_outgoing do
+    = cobbles do |c|
+      = render 'backend/variants/shared/show_incoming_outgoing', c: c
+  - if resource.storable?
+    - j.face :stocks do
+      = cobbles do |c|
+        = render 'backend/variants/shared/show_stocks', c: c

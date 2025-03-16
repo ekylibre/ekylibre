@@ -27,7 +27,7 @@ build_test:
   except:
     - tags
   services:
-    - docker:19.03-dind
+    - docker:28.0.1-dind
   before_script:
     - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:
@@ -39,7 +39,7 @@ build_version:
   only:
     - tags
   services:
-    - docker:19.03-dind
+    - docker:28.0.1-dind
   before_script:
     - echo "${CI_JOB_TOKEN}" | docker login --username $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
   script:

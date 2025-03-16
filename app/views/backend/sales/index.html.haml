@@ -21,6 +21,7 @@
 
 - main_toolbar do |t|
   = t.new variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}] }
+  = t.new icon: :scanner, label: :sale_scan.tl, params: { controller: '/backend/documents', action: :new, nature: :purchases_original, redirect: nil }
 
 = main_list
 

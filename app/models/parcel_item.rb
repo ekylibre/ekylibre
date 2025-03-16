@@ -76,6 +76,7 @@ class ParcelItem < ApplicationRecord
   enumerize :delivery_mode, in: %i[transporter us third none], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :analysis
   belongs_to :parcel, inverse_of: :items
+  belongs_to :localization, inverse_of: :shipment_items, class_name: 'ProductLocalization', foreign_key: :source_product_id, primary_key: :product_id
   # belongs_to :reception, inverse_of: :items, class_name: 'Reception', foreign_key: :parcel_id
   belongs_to :purchase_order_item, foreign_key: 'purchase_order_item_id', class_name: 'PurchaseItem'
   belongs_to :purchase_invoice_item, foreign_key: 'purchase_invoice_item_id', class_name: 'PurchaseItem'

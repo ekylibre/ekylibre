@@ -615,12 +615,18 @@ fra:
       pick: "Importer une catégorie de référence"
       show: "Catégorie comptable\_: %{name}"
     backend/product_nature_variants:
-      create: "Nouvel article"
+      create: "Nouvelle article"
       edit: "Modifier l'article\_: %{name}"
       index: "Articles"
       new: "Nouvel article"
       pick: "Importer un article de référence"
       show: "Article\_: %{name}"
+    backend/product_nature_variant_tags:
+      create: "Nouvelle étiquette d'article"
+      edit: "Modifier l'étiquette d'article\_: %{name}"
+      index: "Etiquettes d'article"
+      new: "Nouvelle étiquette d'article"
+      show: "Etiquette d'article\_: %{name}"
     backend/product_natures:
       edit: "Modifier le profil fonctionnel\_: %{name}"
       index: "Profils fonctionnels"
@@ -731,9 +737,6 @@ fra:
     backend/saas_subscriptions:
       index: "Abonnements SAAS"
       show: "Abonnement\_: %{name}"
-    backend/sale_contracts:
-      index: "Contrat de ventes"
-      show: "Contrat de vente\_: %{name}"
     backend/sale_contract_natures:
       edit: "Modifier un type de contrat: %{name}"
       index: "Types de contrat"
@@ -743,7 +746,7 @@ fra:
       edit: "Modifier un contrat de vente\_: %{name}"
       index: "Contrats de vente"
       new: "Nouveau contrat de vente"
-      show: "Contrat de vente: %{name}"
+      show: "Contrat de vente\_: %{name}"
     backend/sale_credits:
       new: "Passage en avoir de la facture %{number}"
     backend/sale_items: #?
@@ -987,10 +990,10 @@ fra:
       new: "Nouveau groupe d'équipiers"
       show: "Groupe d'équipiers : %{name}"
     backend/worker_time_logs:
-      edit: "Modifier une saisie de temps"
+      edit: "Modifier une saisie de temps\_: %{name}"
       index: "Temps des équipiers"
       new: "Nouvelle saisie de temps"
-      show: "Détail saisie de temps"
+      show: "Détail saisie de temps\_: %{name}"
     backend/yield_observations:
       edit: "Modifier observation: %{number}"
       index: "Observations"
@@ -1283,8 +1286,15 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    occupation_percentage: "Taux de remplissage"
+    ndvi_index: "Indice NDVI"
+    minimal_ndvi_index: "Indice NDVI min"
+    maximal_ndvi_index: "Indice NDVI max"
+    average_ndvi_index: "Indice NDVI moyen"
     quantity_during_sowing: "Quantité semée ou plantée"
     classify_with_ai: "Compléter avec Mistral AI"
+    sale_ai_convert_with_mistral: "Transformer en vente avec Mistral AI"
+    sale_ai_convert_with_groq: "Transformer en vente avec Groq"
     purchase_ai_convert_with_mistral: "Transformer en facture avec Mistral AI"
     purchase_ai_convert_with_groq: "Transformer en facture avec Groq"
     purchase_ai_convert_with_mindee: "Transformer en facture avec Mindee"
@@ -1351,6 +1361,8 @@ fra:
     file_content_text: "Contenu textuel du document"
     ocr_informations: "Informations générées par IA"
     purchase_invoice_generated_by_ai: "Facture d'achat générée automatiquement"
+    sale_generated_by_ai: "Facture de vente générée automatiquement"
+    sale_invoice_generated_by_ai: "Facture de vente générée automatiquement"
     depreciation_percentage: Pourcentage d'amortissement
     depreciation_period: Durée d'amortissement
     type_of_value: Type de valeur
@@ -1652,10 +1664,14 @@ fra:
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_convert_into_purchase_via_ocr: "Êtes-vous sûr(e) de vouloir lancer la conversion automatique (OCR) en facture\_?"
+    are_you_sure_you_want_to_convert_into_sale_via_ocr: "Êtes-vous sûr(e) de vouloir lancer la conversion automatique (OCR) en vente\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area: "Zone"
     area_measure: "Superficie" #?
     articles: "Articles stockables"
+    article_product_by_container_graph: "Evolution des stocks"
+    article_product_by_container_list: "Liste des lieux de stockages"
+    article_product_by_container_map: "Répartition des stocks par lieu de stockage"
     seeds_or_plants_stock: "Des semences ou des plants en stock"
     assessable_operations: "Opérations imposables (H.T)" #?
     asset_exists: "Immobilisation en cours existante"
@@ -2461,6 +2477,7 @@ fra:
     income_statement: "Compte de résultat"
     incoming: "Entrant" #?
     incoming_harvests: "Réceptions de récoltes"
+    incoming_outgoing: "Entrées / Sorties" #?
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
@@ -2617,6 +2634,8 @@ fra:
     last_purchases_invoices: "Dernières factures"
     last_purchases_orders: "Dernières commandes"
     last_sales: "Dernières ventes"
+    last_soil_moisture: "Humidité du sol au %{analysed_at}"
+    last_soil_10cm_depth_surface_temperature: "Température à 10cm dans le sol au %{analysed_at}"
     last_synchronisation_at: "Dernière synchronisation le : %{sync_at}"
     last_workers: "Equipiers"
     late: "En retard"
@@ -2911,6 +2930,7 @@ fra:
     number_with_param: "N° %{number}"
     numbers: "Numéros"
     objective_costs_per_hectare: "Objectif de coûts totaux (/ha)" #?
+    Occupation percentage: "Remplissage (%)"
     ocr_level_1: "Extraction textuelle (niv 1 : OCR)"
     ocr_level_2: "Extraction avancée (niv 2 : IA)"
     ofx: "Format OFX"
@@ -3336,6 +3356,8 @@ fra:
     sale_deliveries: "Livraisons" #?
     sale_items: "Lignes de la vente"
     sale_opportunities: "Opportunités de vente"
+    sale_origin_shipment: "Commande %{number} liée confirmée le %{confirmed_at}" #?
+    sale_scan: "Convertir en facture de vente"
     sale_steps: #?
       deliveries: "Planification des livraisons" #?
       estimate: "Création du devis" #?
@@ -3517,6 +3539,8 @@ fra:
     stopped_on: "Nous nous sommes arrêtés sur"
     stopped_on_block: "Date de fin" #?
     storage: "Zone de stockage"
+    storage_reception_items: "Entrées / Receptions"
+    storage_shipment_items: "Sorties / Expéditions"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     subledger_of_accounts_x: "Grand-livre auxiliaire des comptes %{account}"
@@ -4576,6 +4600,7 @@ fra:
       reset: "Ré-initialiser"
       retrieve: "Relever"
       run: "Exécuter"
+      sale_scan: "Convertir le document en facture de vente (OCR)"
       scrap: "Mettre au rebut"
       search: "Rechercher"
       select: "Selectionner"
@@ -4640,7 +4665,7 @@ fra:
     backend/product_nature_variants/saleables: "%{name} - %{product_account_number}"
     backend/product_natures: "%{name}"
     backend/products:
-      default: "%{work_number} %{name} (%{number}) - %{container_name}"
+      default: "%{work_number} %{name} - %{container_name}"
       land_parcels: "%{name}"
     backend/project_tasks: "%{name} (%{project_name})" #?
     backend/purchase_payments: "%{to_bank_at} %{payee_full_name} - %{amount} %{currency} - %{mode_name} %{bank_check_number} %{number}"

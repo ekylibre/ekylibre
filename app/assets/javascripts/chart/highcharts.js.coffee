@@ -8,6 +8,7 @@
 #= require highcharts/modules/drilldown
 #= require highcharts/modules/exporting
 #= require highcharts/modules/export-data
+#= require highcharts/modules/treemap
 #= require highcharts/modules/accessibility
 
 (($) ->

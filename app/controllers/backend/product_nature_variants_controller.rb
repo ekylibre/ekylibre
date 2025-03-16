@@ -108,6 +108,7 @@ module Backend
       t.column :born_at, datatype: :datetime
       t.column :population
       t.column :conditioning_unit
+      t.column :container, url: { controller: '/backend/products' }
     end
 
     list(:sale_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
@@ -158,8 +159,8 @@ module Backend
       t.column :reception_given_at, through: :parcel_item, datatype: :datetime
       t.column :product, url: { controller: '/backend/products' }
       t.column :storage, url: { controller: '/backend/products' }
-      t.column :conditioning_unit
       t.column :conditioning_quantity
+      t.column :conditioning_unit
       t.column :unit_pretax_amount, through: :parcel_item, hidden: true
       t.column :sender, label_method: 'sender.full_name', through: :parcel_item, label: :supplier, url: { controller: '/backend/entities', action: :show, id: 'RECORD.parcel_item.sender.id'.c }
     end
@@ -167,8 +168,12 @@ module Backend
     list(:shipments, model: :shipment_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, through: :shipment, url: { controller: '/backend/shipments' }
       t.column :planned_at, through: :shipment, datatype: :datetime
-      t.column :conditioning_unit
+      t.column :given_at, through: :shipment, datatype: :datetime
+      t.column :source_product, url: { controller: '/backend/products' }
       t.column :conditioning_quantity
+      t.column :conditioning_unit
+      t.column :state, through: :shipment, label_method: :human_state_name
+      t.column :recipient, label_method: 'recipient.full_name', through: :shipment, url: { controller: '/backend/entities' }
     end
 
     list(:suppliers,

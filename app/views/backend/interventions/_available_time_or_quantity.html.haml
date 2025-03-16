@@ -1,10 +1,22 @@
+:ruby
+  if params[:scope][:availables].present?
+    date = params[:scope][:availables].first[:at]
+  elsif params[:scope][:alive].present?
+    date = params[:scope][:alive].first[:at]
+  elsif params[:scope][:population_availables].present?
+    date = params[:scope][:population_availables].first[:at]
+  else
+    date = nil
+  end
+  
 = label_item(item, filters, controller_path)
 %span.amount-part
-  - if defined?(Planning) && params[:scope][:availables].present?
-    - date = params[:scope][:availables].first[:at]
+  - if defined?(Planning) && date.present?
     - if item.time_use_in_date(date).zero?
-      = '(' + item.stock_info + ')'
+      = '[' + item.stock_info(date) + ']'
     - else
-      = '(' + item.working_duration_info(date) + ')'
+      = '[' + item.working_duration_info(date) + ']'
+  - elsif date.present?
+    = '[' + item.stock_info(date) + ']'
   - else
-    = '(' + item.stock_info + ')'
+    = '[' + item.stock_info + ']'

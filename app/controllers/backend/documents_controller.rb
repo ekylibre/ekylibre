@@ -127,5 +127,19 @@ module Backend
       end
     end
 
+    def sale_scan
+      return unless @document = Document.find(params[:id])
+
+      if @document.attach_to_resource
+        sale_id = @document.attach_to_resource
+        redirect_to backend_sale_path(id: sale_id)
+      else
+        # launch OCR to create metadata if does not exist
+        SaleClassifierJob.perform_later(params[:id], params[:vendor].to_s, current_user.id)
+        notify_success(:document_in_preparation)
+        redirect_to action: :show, id: @document.id
+      end
+    end
+
   end
 end

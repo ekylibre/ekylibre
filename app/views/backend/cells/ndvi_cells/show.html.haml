@@ -1,0 +1,22 @@
+- if @dataset
+  :ruby
+    categories = @dataset.collect{|d| d.sampled_at.l(format: "%d/%m/%y") }
+    series = []
+    analysis_ids = @dataset.pluck(:id)
+    data_minimal_ndvi_index = AnalysisItem.where(analysis_id: analysis_ids, indicator_name: 'minimal_ndvi_index').collect{|d| d.decimal_value.to_f.round(2)}
+    data_maximal_ndvi_index = AnalysisItem.where(analysis_id: analysis_ids, indicator_name: 'maximal_ndvi_index').collect{|d| d.decimal_value.to_f.round(2)}
+    data_average_ndvi_index = AnalysisItem.where(analysis_id: analysis_ids, indicator_name: 'average_ndvi_index').collect{|d| d.decimal_value.to_f.round(2)}
+    
+    series << {name: :minimal_ndvi_index.tl, data: data_minimal_ndvi_index, tooltip: {value_suffix: '' }, y_axis: 0 }
+    series << {name: :maximal_ndvi_index.tl, data: data_maximal_ndvi_index, tooltip: {value_suffix: '' }, y_axis: 0 }
+    series << {name: :average_ndvi_index.tl, data: data_average_ndvi_index, tooltip: {value_suffix: '' }, y_axis: 0 }
+
+    y_axis = [
+      {title: { text: :ndvi_index.tl }}
+    ]
+
+  = spline_highcharts(series, x_axis: {categories: categories}, y_axis: y_axis, legend: true)
+- elsif @error
+  = flash_message_tag(:error, @error)
+- else
+  = no_data
