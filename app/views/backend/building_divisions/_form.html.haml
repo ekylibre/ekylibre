@@ -2,3 +2,7 @@
   = field_set :identification do
     = f.picture
     = f.input :description, :field => :text
+  = field_set :stock do
+    = f.input :with_easement_capacity, show: '#easement-capacity-fields'
+    #easement-capacity-fields
+      = f.input :easement_capacity_variety

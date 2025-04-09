@@ -106,6 +106,7 @@ class Product < ApplicationRecord
 
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
+  refers_to :easement_capacity_variety, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :category, class_name: 'ProductNatureCategory'
   belongs_to :default_storage, class_name: 'Product'
@@ -295,7 +296,7 @@ class Product < ApplicationRecord
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:category).merge(ProductNatureCategory.saleables) }
-  scope :deliverables, -> { joins(:category).merge(ProductNatureCategory.stockables) }
+  scope :deliverables, -> { joins(:category).merge(ProductNatureCategory.stockables).reorder(name: :asc, initial_born_at: :asc) }
   scope :depreciables, -> { joins(:category).merge(ProductNatureCategory.depreciables) }
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety(%i[cultivable_zone animal_group equipment]) }
@@ -571,7 +572,7 @@ class Product < ApplicationRecord
   end
 
   def unroll_name
-    'unrolls.backend/products'.t(attributes.symbolize_keys.merge(population: population, unit_name: unit_name))
+    'unrolls.backend/products'.t(attributes.symbolize_keys.merge(population: population, unit_name: unit_name, initial_born_at: initial_born_at))
   end
 
   def unambiguous_name

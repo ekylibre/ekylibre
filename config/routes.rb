@@ -192,6 +192,7 @@ Rails.application.routes.draw do
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show
+      resource :easement_capacity_cell, only: :show
       resource :economic_map_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :elapsed_interventions_times_by_workers_cell, only: :show

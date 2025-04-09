@@ -29,9 +29,9 @@ module Backend
 
     # TODO: ProductsController shoudln't rely on  an Intervention partial. Polymorphism maybe?
     if defined?(Planning)
-      unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity', custom_sort: :sort_by_time_use
+      unroll :name, :number, :work_number, :initial_born_at, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity', custom_sort: :sort_by_time_use
     else
-      unroll :name, :number, :work_number, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity'
+      unroll :name, :number, :work_number, :initial_born_at, :identification_number, container: :name, partial: 'backend/interventions/available_time_or_quantity'
     end
     # params:
     #   :q Text search

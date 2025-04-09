@@ -104,14 +104,49 @@ class BuildingDivision < SubZone
   }
 
   def occupation_percentage
-    if content_localizations.any? && shape.present?
+    if content_localizations.any? && shape.present? && with_easement_capacity && occupation_area.to_d > 0
+      ((occupation_area / shape.area.to_f) * 100).round(2)
+    else
+      0
+    end
+  end
+
+  def occupation_area
+    if content_localizations.any? && shape.present? && with_easement_capacity
       product_occupation = []
+      if easement_capacity_variety.present?
+        product_inside = Product.where(id: content_localizations.pluck(:product_id)).of_variety(easement_capacity_variety)
+      else
+        product_inside = Product.where(id: content_localizations.pluck(:product_id))
+      end
       # compute in square meters all the product inside
-      content_localizations.each do |content_localization|
-        product_occupation << (content_localization.product.variant.easement_area * content_localization.product.population)
+      product_inside.each do |content_localization|
+        product_occupation << (content_localization.variant.easement_area * content_localization.population)
       end
       # compute the percentage of occupation
-      ((product_occupation.compact.sum / shape.area) * 100).to_s.to_f.round(2)
+      product_occupation.compact.sum.to_s.to_f.round(2)
+    else
+      0
+    end
+  end
+
+  def occupation_population
+    ((occupation_percentage * 0.01) * occupation_capacity).round(2)
+  end
+
+  def occupation_capacity
+    if shape.present? && with_easement_capacity && easement_capacity_variety.present?
+      if content_localizations.any?
+        product_inside = Product.where(id: content_localizations.pluck(:product_id)).of_variety(easement_capacity_variety).first
+      else
+        product_inside = Product.of_variety(easement_capacity_variety).first
+      end
+      # compute in square meters all the product inside
+      if product_inside&.variant&.easement_area&.present?
+        (shape.area / product_inside.variant.easement_area.to_f).round(2)
+      else
+        0
+      end
     else
       0
     end

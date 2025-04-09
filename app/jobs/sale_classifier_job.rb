@@ -24,7 +24,7 @@ class SaleClassifierJob < ActiveJob::Base
       else
         notification = user.notifications.build(error_on_sale_classification_notification('no metadata present on document'))
       end
-      notification = user.notifications.build(success_on_sale_classification_notification(service))
+      notification = user.notifications.build(success_on_sale_classification_notification)
     rescue StandardError => e
       ExceptionNotifier.notify_exception(e, data: { message: e })
       notification = user.notifications.build(error_on_sale_classification_notification(e.message))
@@ -54,12 +54,11 @@ class SaleClassifierJob < ActiveJob::Base
       }
     end
 
-    def success_on_sale_classification_notification(result)
+    def success_on_sale_classification_notification
       {
         message: "success_on_purchase_classification",
         level: :success,
         interpolations: {
-          it_count: result[:items_classified]
         }
       }
     end
