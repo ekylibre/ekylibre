@@ -1,0 +1,51 @@
+- if @varieties.any?
+  :ruby
+    data = []
+    @varieties.each do |variety|
+      bds = BuildingDivision.where(with_easement_capacity: true, easement_capacity_variety: variety)
+      global_capacity = 0.0
+      booked_capacity = 0.0
+      bds.each do |bd|
+        global_capacity += bd.occupation_capacity
+        booked_capacity += bd.occupation_population
+      end
+      name = "#{Onoma::Variety[variety.to_sym].human_name} (#{global_capacity.round.to_s})"
+      data << { id: variety.to_s, name: name, color: cycle(theme_colors) }
+      free_capacity = global_capacity - booked_capacity
+      data << { name: :booked_capacity.tl, parent: variety.to_s, value: booked_capacity.round.to_i, color: 'orange' }
+      data << { name: :free_capacity.tl, parent: variety.to_s, value: free_capacity.round.to_i, color: 'green' }
+    end
+    levels = [{
+          level: 1,
+          layoutAlgorithm: 'sliceAndDice',
+          dataLabels: {
+              enabled: true,
+              align: 'left',
+              verticalAlign: 'top',
+              style: {
+                  fontSize: '15px',
+                  fontWeight: 'bold'
+              }
+          }
+      }]
+
+    series = [{
+                type: 'treemap',
+                layoutAlgorithm: 'sliceAndDice',
+                alternateStartingDirection: true,
+                borderColor: '#fff',
+                borderRadius: 6,
+                borderWidth: 2,
+                dataLabels: {
+                    style: {
+                        textOutline: 'none'
+                    }
+                },
+                levels: levels,
+                data: data
+    }]
+
+  = column_highcharts(series, title: {text: :easement_capacity.tl, align: 'center'}, subtitle: {}, tooltip: {})
+
+- else
+  = no_data

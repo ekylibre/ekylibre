@@ -24,9 +24,13 @@ module Backend
       t.column :name, url: true
       t.column :work_number
       t.column :human_shape_area, datatype: :measure
+      t.column :occupation_area, datatype: :numeric
       t.column :occupation_percentage
-      t.column :identification_number
+      t.column :occupation_population
       t.column :description
+      t.column :with_easement_capacity
+      t.column :easement_capacity_variety
+      t.column :occupation_capacity, datatype: :numeric
     end
   end
 end

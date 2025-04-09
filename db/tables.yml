@@ -10299,6 +10299,8 @@ products:
     type: string
   description:
     type: text
+  easement_capacity_variety:
+    type: string
   end_of_life_reason:
     type: string
   father_country:
@@ -10451,6 +10453,10 @@ products:
   variety:
     type: string
     required: true
+  with_easement_capacity:
+    type: boolean
+    required: true
+    default: false
   work_number:
     type: string
   worker_group_item_id:

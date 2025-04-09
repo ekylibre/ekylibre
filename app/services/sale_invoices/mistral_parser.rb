@@ -33,7 +33,7 @@ module SaleInvoices
         return nil
       end
       sale = Sale.new(
-        planned_at: invoiced_at,
+        confirmed_at: invoiced_at,
         invoiced_at: invoiced_at,
         reference_number: @data.invoice[:number],
         currency: @data.invoice[:currency],
@@ -81,14 +81,16 @@ module SaleInvoices
           infos = guess_line_info(product_code: line[:number], description: line[:name], vat_percentage: vat_percentage, supplier: client, category: line[:nature])
           next unless infos
 
-          items << {  role: ( line[:role] || :merchandise),
-                      annotation: line[:name],
+          items << {  annotation: line[:name],
                       conditioning_quantity: (line[:quantity]&.to_d || 1.0),
                       conditioning_unit_id: infos[:unit].id,
                       tax_id: infos[:tax].id,
+                      amount: nil,
+                      pretax_amount: nil,
                       unit_pretax_amount: (line[:unit_pretax_amount]&.to_d || line[:pretax_amount]&.to_d),
                       variant_id: infos[:variant].id,
-                      fixed: false }
+                      fixed: false,
+                      compute_from: :unit_pretax_amount }
         end
       end
       items

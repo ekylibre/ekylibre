@@ -28,7 +28,7 @@ class EconomicAccountancyComputation
     else
       options[:started_on] = @started_on
       options[:stopped_on] = @stopped_on
-      options[:activity_budget_id] = 'only_nil'
+      options[:activity_budget_id] = 'nil_or_auxiliary'
     end
 
     equation = get_mandatory_line_calculation(line) if line

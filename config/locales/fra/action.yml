@@ -1739,6 +1739,7 @@ fra:
     body: "Corps du message"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Comptabiliser avec paiement"
+    booked_capacity: "Capacité de stockage utilisée" #?
     budget: "Budget"
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
@@ -2140,6 +2141,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
     earns: "Gains" #?
+    easement_capacity: "Stocks - Capacité de stockage" #?
     economic_map: "Production : carte des coûts d’intervention"
     economics: "Économique"
     edit: "Modifier"
@@ -2377,6 +2379,7 @@ fra:
     forecast_harvest_week: "Semaine de récolte"
     forum: "Forum"
     france_maaid: "N° AMM" #?
+    free_capacity: "Capacité de stockage libre" #?
     from: "À partir du"
     from_year: "À partir de"
     to_next_year: "Au"
@@ -2930,7 +2933,10 @@ fra:
     number_with_param: "N° %{number}"
     numbers: "Numéros"
     objective_costs_per_hectare: "Objectif de coûts totaux (/ha)" #?
-    Occupation percentage: "Remplissage (%)"
+    occupation_area: "Surface occupée(m2)"
+    occupation_percentage: "Remplissage (%)"
+    occupation_capacity: "Capacité totale"
+    occupation_population: "Capacité occupée"
     ocr_level_1: "Extraction textuelle (niv 1 : OCR)"
     ocr_level_2: "Extraction avancée (niv 2 : IA)"
     ofx: "Format OFX"
@@ -3509,6 +3515,7 @@ fra:
     stewardship: "Assistant"
     stock: "Stock"
     stock_after_order: "Stock après commande"
+    stock_article_list: "Stocks - Stock par article"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
     stock_in_ground_by_calibration: "Stock en terre net par calibre"
@@ -4665,7 +4672,7 @@ fra:
     backend/product_nature_variants/saleables: "%{name} - %{product_account_number}"
     backend/product_natures: "%{name}"
     backend/products:
-      default: "%{work_number} %{name} - %{container_name}"
+      default: "%{work_number} %{name} %{initial_born_at} - %{container_name}"
       land_parcels: "%{name}"
     backend/project_tasks: "%{name} (%{project_name})" #?
     backend/purchase_payments: "%{to_bank_at} %{payee_full_name} - %{amount} %{currency} - %{mode_name} %{bank_check_number} %{number}"

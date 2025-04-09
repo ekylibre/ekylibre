@@ -421,7 +421,9 @@ class Journal < ApplicationRecord
 
       if options[:activity_budget_id] && options[:activity_budget_id] == 'only_nil'
         from_where << " AND #{journal_entry_items}.activity_budget_id IS NULL"
-      elsif options[:activity_budget_id] && options[:activity_budget_id] != 'only_nil'
+      elsif options[:activity_budget_id] && options[:activity_budget_id] == 'nil_or_auxiliary'
+        from_where << " AND (#{journal_entry_items}.activity_budget_id IS NULL OR #{journal_entry_items}.activity_budget_id IN (SELECT ab.id FROM activity_budgets AS ab JOIN activities AS act ON act.id = ab.activity_id WHERE act.nature = 'auxiliary'))"
+      elsif options[:activity_budget_id]
         from_where << " AND #{journal_entry_items}.activity_budget_id = #{options[:activity_budget_id]}"
       end
 
