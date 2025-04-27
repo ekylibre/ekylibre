@@ -40,6 +40,7 @@
 #
 class ParcelItemStoring < ApplicationRecord
   belongs_to :parcel_item, inverse_of: :storings
+  has_one :parcel, through: :parcel_item
   belongs_to :storage, class_name: 'Product'
   belongs_to :product, class_name: 'Product', foreign_key: :product_id
   belongs_to :conditioning_unit, class_name: 'Unit'

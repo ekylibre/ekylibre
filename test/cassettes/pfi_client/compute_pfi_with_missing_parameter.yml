@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://alim-pprd.agriculture.gouv.fr/ift-api/api/campagnes/2020
+    uri: https://alim-pprd.api.agriculture.gouv.fr/ift/v5/api/campagnes/2020
     body:
       encoding: US-ASCII
       string: ''
@@ -14,7 +14,7 @@ http_interactions:
       User-Agent:
       - rest-client/2.0.2 (linux-gnu x86_64) ruby/2.6.6p146
       Host:
-      - alim-pprd.agriculture.gouv.fr
+      - alim-pprd.api.agriculture.gouv.fr
   response:
     status:
       code: 200

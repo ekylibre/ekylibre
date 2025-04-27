@@ -9,7 +9,7 @@
   }
 
   function totalSumRemainedToAllocate() {
-    return (Math.abs(balanceBetweenResultsAndCarryForward()) - getAllocatedInputAmountSum())
+    return (Math.abs(balanceBetweenResultsAndCarryForward()).toFixed(2) - getAllocatedInputAmountSum().toFixed(2))
   }
 
   function fillAmountToAllocate() {

@@ -205,12 +205,20 @@ class Plant < Bioproduct
   end
 
   def quantity_during_last_sowing
-    inputs_during_sowing = last_sowing.inputs.where(reference_name: %i[plants seeds])
-    inputs_during_sowing.map(&:quantity).sum
+    if last_sowing.present?
+      inputs_during_sowing = last_sowing.inputs.where(reference_name: %i[plants seeds])
+      inputs_during_sowing.map(&:quantity).sum
+    else
+      nil
+    end
   end
 
   def human_quantity_during_last_sowing
-    quantity_during_last_sowing.round(2).l(precision: 2)
+    if last_sowing.present?
+      quantity_during_last_sowing.round(2).l(precision: 2)
+    else
+      nil
+    end
   end
 
   def sower
