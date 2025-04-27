@@ -150,10 +150,10 @@ module Interventions
           @activities.each do |activity|
             ActivityProduction.of_activity(activity).of_campaign(@campaign).each do |ap|
               crop = {}.with_indifferent_access
-              crop["type"] = 'parcelle'
-              crop["campagne"] = { idMetier: @campaign.harvest_year, libelle: @campaign.name, active: true }
-              crop["culture"] = { idMetier: grab_pfi_crop_code(activity), libelle: "", groupeCultures: { idMetier: "", libelle: "" } }
+              # crop["type"] = 'parcelle'
+              # crop["campagne"] = { idMetier: @campaign.harvest_year, libelle: @campaign.name, active: true }
               crop["parcelle"] = { nom: ap.name, surface: ap.support_shape_area.convert(:hectare).to_f.round(2) }
+              crop["culture"] = { idMetier: grab_pfi_crop_code(activity) || "", libelle: "", groupeCultures: { idMetier: "", libelle: "" } }
               crop["traitements"] = []
               ap.interventions.where(nature: 'record').of_campaign(@campaign).of_nature_using_phytosanitary.each do |int|
                 int.inputs.each do |intervention_input|
@@ -190,9 +190,10 @@ module Interventions
             # if traitement["avertissement"]
             # traitement.delete!("avertissement")
             # end
+            started_on = intervention_input.intervention.started_at.strftime("%Y-%m-%d") # ("%FT%T.%LZ")
             traitement["id"] = pfi_data.response["id"]
-            traitement["date"] = intervention_input.intervention.started_at.strftime("%FT%T.%LZ")
-            traitement["dateTraitement"] = intervention_input.intervention.started_at.strftime("%Y-%m-%d")
+            traitement["date"] = started_on
+            traitement["dateTraitement"] = started_on
             traitement
           else
             nil
