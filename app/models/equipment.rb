@@ -111,6 +111,8 @@ class Equipment < Matter
 
   before_destroy :delete_samsys_machine, if: proc { |equipment| equipment.provider? && equipment.provider_vendor == 'samsys' && equipment.provider_data[:id].present? }
 
+  scope :tractors, -> { of_variety(:tractor) }
+
   def tractor?
     variety == :tractor
   end

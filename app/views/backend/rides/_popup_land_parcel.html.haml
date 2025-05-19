@@ -1,0 +1,4 @@
+%div{ style:'display: flex; flex-direction: column; align-items: left'}
+ %span{ class: 'popup-block-label'}= LandParcel.human_attribute_name(:net_surface_area)
+ %span= parcel.net_surface_area
+ %div{ style: 'margin-top: 1em' }= link_to LandParcel.model_name.human, backend_land_parcel_path(parcel.id), class: 'btn btn-default'

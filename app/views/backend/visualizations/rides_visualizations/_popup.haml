@@ -1,0 +1,5 @@
+%div{ style:'display: flex; flex-direction: column; align-items: left'}
+ %span
+  = :ride_paused_at.tl + ' : ' + crumb.metadata["start_date"].to_time.strftime("%H:%M:%S")
+ %span
+  = :ride_duration.tl + ' : ' +  Time.at(crumb.metadata["duration"]).utc.strftime("%H:%M:%S")

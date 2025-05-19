@@ -937,6 +937,12 @@
         <page to="backend/equipments#list_trackings"/>
         <page to="backend/equipments#picture"/>
       </item>
+      <item name="ride_sets">
+      	<page to="backend/ride_sets#index"/>
+        <page to="backend/ride_sets#show"/>
+        <page to="backend/rides#index"/>
+        <page to="backend/rides#show"/>
+      </item>
       <item name="incoming_harvests">
         <page to="backend/incoming_harvests#index"/>
         <page to="backend/incoming_harvests#create"/>

@@ -1088,6 +1088,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :rides, concerns: %i[list], only: %i[index show destroy]
+
+    resources :ride_sets, concerns: %i[list], only: %i[index show destroy] do
+      member do
+        get :list_rides
+      end
+    end
+
     resources :shipments, concerns: %i[list unroll] do
       member do
         get :list_items
@@ -1536,6 +1544,8 @@ Rails.application.routes.draw do
       resource :incoming_harvest_map_cells_visualizations, only: :show
       resource :weather_station_map_cells_visualizations, only: :show
       resource :cadastral_parcels_visualizations, only: :show
+      resource :ride_sets_visualizations, only: :show
+      resource :rides_visualizations, only: :show
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]

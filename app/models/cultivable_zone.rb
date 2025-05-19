@@ -94,6 +94,11 @@ class CultivableZone < ApplicationRecord
     shape.to_geojson
   end
 
+  def shape_to_wkt_polygon(swap = false)
+    a = shape.coordinates.first.first
+    Charta.make_polygon(a, {swap: swap}).to_wkt
+  end
+
   # get the first object with variety 'plant', availables
   def current_cultivations(at = Time.zone.now)
     Plant.contained_by(current_supports, at)
@@ -139,6 +144,23 @@ class CultivableZone < ApplicationRecord
     return islets.first.city_name if islets.any?
 
     nil
+  end
+
+  def compute_human_name
+    compute_name = []
+    compute_name << work_number
+    compute_name << name
+    compute_name << human_shape_area
+    compute_name.compact.to_sentence(words_connector: ' | ', last_word_connector: ' | ')
+  end
+
+  def compute_human_description
+    compute_name = []
+    compute_name << " #{city_name} | #{CapIslet.human_attribute_name(:islet_number)} : #{cap_number}" if cap_number
+    compute_name << "#{CultivableZone.human_attribute_name(:soil_nature)} : #{human_soil_nature_name}" if soil_nature
+    # compute_name << "#{:protected_water_zones.tl} : #{I18n.transliterate(protected_water_zones.first.label, replacement: "")}" if protected_water_zones
+    # compute_name << "#{:natural_zones.tl} : #{I18n.transliterate(natural_zones.first.name, replacement: "")}" if natural_zones
+    compute_name.compact.to_sentence(words_connector: ' | ', last_word_connector: ' | ')
   end
 
   # return cadastral_land_parcels intersecting cultivable_zone
