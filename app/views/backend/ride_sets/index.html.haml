@@ -1,6 +1,13 @@
 %div{ id: 'notifications-tag' }
 = kujaku do |k|
   - k.text
+  - k.helper :plant_period_crit, label: RideSet.human_attribute_name(:started_at)
+  - equipments = Equipment.where(id: RideSetEquipment.select(:product_id).distinct)
+  - if equipments.any?
+    - k.helper do
+      %div.label-container
+        %label= Equipment.human_attribute_name(:name)
+      = select_tag(:equipment_id, options_for_select([[]] +  equipments.map{|u| [u.name, u.id]}, params[:equipment_id].to_i))
 = janus do |j|
   - j.face :list do
     = main_list

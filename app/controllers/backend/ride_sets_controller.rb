@@ -4,7 +4,29 @@ module Backend
 
     unroll
 
-    list(selectable: true, order: { started_at: :desc }) do |t|
+    def self.list_conditions
+      code = ''
+      code = search_conditions(ride_sets: %i[number ]) + " ||= []\n"
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{RideSet.table_name}.started_at::DATE BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
+      code << "end\n"
+      code << "if params[:equipment_id].to_i > 0\n"
+      code << "  c[0] += ' AND #{RideSet.table_name}.id IN (SELECT DISTINCT ride_set_id FROM #{RideSetEquipment.table_name} WHERE product_id = ?)'\n"
+      code << "  c << params[:equipment_id]\n"
+      code << "end\n"
+      code << "c\n "
+      code.c
+    end
+
+    list(conditions: list_conditions, selectable: true, order: { started_at: :desc }) do |t|
       t.column :number, url: true
       t.column :nature
       t.column :state, label_method: :decorated_state
@@ -61,8 +83,10 @@ line_class: 'RECORD.state'.c) do |t|
     private
 
       def notify_ride_set_information
-        if RideSet.count.zero?
-          notify_warning_now(helpers.link_to(:ride_set_message.tl, backend_integrations_path))
+        if Integration.where(nature: ['samsys', 'traccar']).count.zero?
+          notify_warning_now(helpers.link_to(:ride_set_no_integration.tl, backend_integrations_path))
+        elsif RideSet.count.zero?
+          notify_now(:ride_set_no_data.tl)
         else
           notify_now(:ride_set_to_ride_information.tl)
         end

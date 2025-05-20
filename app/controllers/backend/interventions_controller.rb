@@ -302,11 +302,7 @@ module Backend
         rides = Ride.find(params[:ride_ids])
         ::Interventions::CreateFromRidesJob.perform_later(options, rides, perform_as: current_user)
         notify_success(:intervention_in_preparation)
-        if defined?(EkylibreSamsys)
-          redirect_to backend_ride_set_path(rides.first.ride_set)
-        else
-          redirect_to_back
-        end
+        redirect_to backend_ride_set_path(rides.first.ride_set)
         return
       end
 

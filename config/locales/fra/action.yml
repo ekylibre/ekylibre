@@ -1286,6 +1286,9 @@ fra:
     unroll:
       server_error: "Erreur serveur"
   labels:
+    ride_set_no_integration: "Pour synchroniser vos trajets géolocalisés avec vos capteurs connectés, veuillez configurer votre compte dans Outils > Connexions partenaires"
+    ride_set_no_data: "Vous pouvez synchroniser vos equipements, parcelles et trajets géolocalisés via le bouton de synchronisation en haut à gauche de la page"
+    ride_set_to_ride_information:  "Cliquez sur un trajet géolocalisé pour le visualiser sur une carte, puis sélectionnez ses différentes sections pour le convertir en nouvelle intervention ou le rapprocher d'une intervention déjà planifiée"
     occupation_percentage: "Taux de remplissage"
     ndvi_index: "Indice NDVI"
     minimal_ndvi_index: "Indice NDVI min"

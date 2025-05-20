@@ -26,7 +26,7 @@ module Backend
       list << ['', 'all']
 
       # Add year and month period
-      first_date = Plant.order(name).first[name] || Time.now - 2.years
+      first_date = Plant.order(:born_at)&.first&.born_at || Time.now - 2.years
       period = (first_date.year..Time.now.year).map { |p| p }
 
       period.reverse_each do |year|
