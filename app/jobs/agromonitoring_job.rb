@@ -2,8 +2,8 @@ class AgromonitoringJob < ActiveJob::Base
   queue_as :default
   include Rails.application.routes.url_helpers
 
-  def perform(parcel_id:, user_id:)
-    user = User.find(user_id)
+  def perform(parcel_id:, user_id: nil)
+    user = User.find(user_id) if user_id
     parcel = CultivableZone.find(parcel_id)
     identifier = Identifier.find_by(nature: :agromonitoring_api_key)
     begin
@@ -24,12 +24,12 @@ class AgromonitoringJob < ActiveJob::Base
       soil_item = service.grab_current_soil
       # store soil in DB
       cz_analysis_service.create_agromonitoring_soil_analysis(soil_item)
-      notification = user.notifications.build(success_on_agromonitoring_notification)
+      notification = user.notifications.build(success_on_agromonitoring_notification) if user.present?
     rescue StandardError => e
       ExceptionNotifier.notify_exception(e, data: { message: e })
-      notification = user.notifications.build(error_on_agromonitoring_notification(e.message))
+      notification = user.notifications.build(error_on_agromonitoring_notification(e.message)) if user.present?
     end
-    notification.save
+    notification.save if notification.present?
   end
 
   private

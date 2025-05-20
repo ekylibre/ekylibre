@@ -245,7 +245,8 @@ class CultivableZone < ApplicationRecord
   private
 
     def initiate_satellite_data
-      if net_surface_area.convert(:hectare).to_f > 1.0
+      identifier = Identifier.find_by(nature: :agromonitoring_api_key)
+      if identifier.present? && net_surface_area.convert(:hectare).to_f > 1.0
         AgromonitoringJob.perform_later(parcel_id: id, user_id: updater_id)
       end
     end

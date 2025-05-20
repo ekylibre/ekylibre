@@ -13,13 +13,13 @@ class AgroMonitoringClient
 
   attr_accessor :apikey, :current_user, :parcel
 
-  def self.from_identifier(identifier, parcel, current_user)
+  def self.from_identifier(identifier, parcel, current_user = nil)
     new(identifier&.value&.strip, parcel, current_user)
   end
 
-  def initialize(apikey, parcel, current_user)
+  def initialize(apikey, parcel, current_user = nil)
     @apikey = apikey
-    lg = current_user&.language
+    lg = (current_user.present? ? current_user.language : User.first.language)
     @language = (lg.present? ? lg[0..1] : 'en')
     @parcel = parcel
   end

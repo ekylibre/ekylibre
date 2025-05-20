@@ -70,16 +70,6 @@ line_class: 'RECORD.state'.c) do |t|
       super
     end
 
-    def synchronize
-      SamsysFetchUpdateCreateJob.perform_later(stopped_on: Time.now.to_s, started_on: (Time.now - 2.days).to_s, user_id: current_user.id)
-      redirect_to backend_ride_sets_path
-    end
-
-    def delete_selected_ride_sets
-      SamysDeleteSelectedRideSetsJob.perform_later(ride_set_ids: params["ride_set_ids"].map(&:to_i), user_id: current_user.id)
-      redirect_to backend_ride_sets_path(ride_set_job_notify: :delete_ride_set_processing.tl)
-    end
-
     private
 
       def notify_ride_set_information
