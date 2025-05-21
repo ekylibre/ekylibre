@@ -6,7 +6,7 @@ module Backend
 
     def self.list_conditions
       code = ''
-      code = search_conditions(ride_sets: %i[number ]) + " ||= []\n"
+      code = search_conditions(ride_sets: %i[number]) + " ||= []\n"
       code << "if params[:period].present? && params[:period].to_s != 'all'\n"
       code << "  c[0] << ' AND #{RideSet.table_name}.started_at::DATE BETWEEN ? AND ?'\n"
       code << "  if params[:period].to_s == 'interval'\n"
@@ -43,7 +43,6 @@ module Backend
       t.column :provider_vendor
     end
 
-
     list(:rides, selectable: true, model: :ride, conditions: { ride_set_id: 'params[:id]'.c }, order: 'rides.started_at DESC',
 line_class: 'RECORD.state'.c) do |t|
       t.column :number, url: true, class: 'ride-title'
@@ -57,7 +56,7 @@ line_class: 'RECORD.state'.c) do |t|
       t.column :main_equipment, url: { controller: 'backend/equipments', id: "RECORD.ride_set.equipments.of_nature('main').first.product_id".c }
       t.column :additional_tool_one, url: { controller: 'backend/equipments', id: "RECORD.ride_set.equipments.of_nature('additional')[0].product_id".c }, hidden: :additional_tool_one.nil?
       t.column :additional_tool_two, url: { controller: 'backend/equipments', id: "RECORD.ride_set.equipments.of_nature('additional')[1].product_id".c }, hidden: :additional_tool_two.nil?
-      t.column :provider_vendor, label_method: :provider_vendor 
+      t.column :provider_vendor, label_method: :provider_vendor
     end
 
     def index
@@ -66,14 +65,14 @@ line_class: 'RECORD.state'.c) do |t|
       if params[:ride_set_job_notify]
         notify_now(params[:ride_set_job_notify])
       end
-      
+
       super
     end
 
     private
 
       def notify_ride_set_information
-        if Integration.where(nature: ['samsys', 'traccar']).count.zero?
+        if Integration.where(nature: %w[samsys traccar]).count.zero?
           notify_warning_now(helpers.link_to(:ride_set_no_integration.tl, backend_integrations_path))
         elsif RideSet.count.zero?
           notify_now(:ride_set_no_data.tl)

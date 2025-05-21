@@ -96,7 +96,7 @@ class CultivableZone < ApplicationRecord
 
   def shape_to_wkt_polygon(swap = false)
     a = shape.coordinates.first.first
-    Charta.make_polygon(a, {swap: swap}).to_wkt
+    Charta.make_polygon(a, { swap: swap }).to_wkt
   end
 
   # get the first object with variety 'plant', availables
