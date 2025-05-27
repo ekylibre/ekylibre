@@ -66,7 +66,7 @@ module Backend
 
         config = view_context.configure_visualization do |v|
           v.serie :main, data
-          v.choropleth :occupation_percentage, :main, stop_color: "#F10000", start_color: "#00F116", opacity: 0.5
+          v.choropleth :occupation_percentage, :main, stop_color: "#F10000", start_color: "#FFFFFF", opacity: 0.5
         end
 
         respond_with config

@@ -96,11 +96,11 @@ module Ekylibre
 
         if r.variant_reference_name
           # find or import from variant reference_nameclature the correct ProductNatureVariant
-          variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
-          variant ||= ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
+          variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name.downcase)
+          variant ||= ProductNatureVariant.find_by(reference_name: r.variant_reference_name.downcase)
           unless variant
             # if phyto product found with maaid
-            if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
+            if RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name.downcase)
               item = RegisteredPhytosanitaryProduct.find_by_id(r.variant_reference_name)
               variant = ProductNatureVariant.import_phyto_from_lexicon(item.reference_name)
             elsif MasterVariant.find_by(reference_name: r.variant_reference_name.downcase.to_sym)
@@ -145,7 +145,9 @@ module Ekylibre
             matter = pmodel.create!(
               variant: variant,
               work_number: r.work_number,
+              description: r.notes,
               name: r.name,
+              born_at: r.born_at,
               initial_born_at: r.born_at,
               initial_population: r.indicators[:population].to_f * conditioning_data[:quantity],
               initial_owner: owner,
@@ -158,9 +160,7 @@ module Ekylibre
             raise "No variant created or no matching model for #{r.variant_reference_name.inspect}"
           end
 
-          if matter && r.work_number
-            matter.work_number = r.work_number
-            matter.save!
+          if matter && r.indicators.any?
             # create indicators linked to matters
             r.indicators.each do |indicator, value|
               next unless indicator != :population

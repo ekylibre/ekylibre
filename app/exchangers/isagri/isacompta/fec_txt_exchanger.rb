@@ -46,9 +46,9 @@ module Isagri
 
       def check
         # Imports FEC journal entries into journal to make accountancy in CSV format
-        # From local software SAGE i7
-        # in ZIP file containing filename example FR9495059FEC20181231.txt
-        # separator is '|' and encoding is ISO-8859-15
+        # From local ISACOMPTA
+        # in ZIP file containing filename example 9495059FEC20181231.txt
+        # separator is 'tab' and encoding is ISO-8859-15
 
         rows, errors = parse_file(file)
         w.count = rows.size
@@ -95,7 +95,8 @@ module Isagri
         entries = {}
         rows.each_with_index do |row, index|
           line_number = index + 2
-
+          puts line_number.inspect.red
+          puts row.inspect.yellow
           # case of negative values
           if row.debit_amount < 0.0
             row.credit_amount = -row.debit_amount

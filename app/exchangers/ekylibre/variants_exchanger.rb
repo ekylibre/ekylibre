@@ -36,7 +36,7 @@ module Ekylibre
           r = {
             name: s.cell('A', row).blank? ? nil : s.cell('A', row).to_s.strip,
             reference_name: s.cell('B', row).blank? ? nil : s.cell('B', row).downcase.to_sym,
-            work_number: s.cell('C', row).blank? ? nil : s.cell('C', row).to_s.strip,
+            work_number: s.cell('C', row).blank? ? nil : s.cell('C', row).downcase.to_s.strip,
             variety: s.cell('D', row).blank? ? nil : s.cell('D', row).to_s.strip,
             derivative_of: s.cell('E', row).blank? ? nil : s.cell('E', row).to_s.strip,
             purchase_unit_pretax_amount: s.cell('F', row).blank? ? nil : s.cell('F', row).to_d,

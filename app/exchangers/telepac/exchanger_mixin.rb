@@ -107,10 +107,8 @@ module Telepac
 
         # check in Lexicon
         cap_year = [2017, cap_year].max
-        # waiting for lexicon 2024 cap codes compiling
-        max_year = (cap_year == 2024 ? 2023 : cap_year)
         lexicon_production_nature = MasterProduction.joins(:cap_codes)
-                                                        .where('(master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.is_seed = ? AND master_crop_production_cap_codes.year = ?) OR (master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?)', crop_code, is_seed, max_year, crop_code, max_year)
+                                                        .where('(master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.is_seed = ? AND master_crop_production_cap_codes.year = ?) OR (master_crop_production_cap_codes.cap_code = ? AND master_crop_production_cap_codes.year = ?)', crop_code, is_seed, cap_year, crop_code, cap_year)
                                                         .first
         raise StandardError.new("The code #{crop_code} was not found in the lexicon") if lexicon_production_nature.nil?
 

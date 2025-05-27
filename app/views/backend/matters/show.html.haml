@@ -17,7 +17,7 @@
     - if resource.born_at && resource.age && resource.age >= 1.day
       = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
-        = human_age(age, display: 2)
+        = human_age(resource.born_at, display: 2)
     - if resource.variant.france_maaid
       = resource_info(:france_maaid) do |france_maaid|
         %i.picto{class: "picto-flask"}
