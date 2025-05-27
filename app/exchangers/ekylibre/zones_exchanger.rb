@@ -65,7 +65,7 @@ module Ekylibre
           zone.initial_shape = shape
           # zone.initial_shape_area = Measure.new(shape.area.round(2), :square_meter)
           zone.save!
-          zone.read!(:shape, shape, at: zone.initial_born_at, force: true) 
+          zone.read!(:shape, shape, at: zone.initial_born_at, force: true)
           zone.read!(:net_surface_area, Measure.new(shape.area.round(2), :square_meter), at: zone.initial_born_at, force: true)
         else
           zone.save!
