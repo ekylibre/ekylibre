@@ -295,6 +295,12 @@ module Backend
     def invoice
       return unless @sale = find_and_check
 
+      if @sale.invoiced_at.nil?
+        notify_error :sale_invoiced_at_missing
+        redirect_to action: :edit, id: @sale.id
+        return
+      end
+
       if FinancialYearExchange.opened.at(@sale.invoiced_at).any?
         notify_error :financial_year_exchange_on_this_period
       elsif @sale.client.client_account.present?
@@ -310,12 +316,23 @@ module Backend
     def propose
       return unless @sale = find_and_check
 
-      @sale.propose
-      redirect_to action: :show, id: @sale.id
+      if @sale.invoiced_at.nil?
+        notify_error :sale_invoiced_at_missing
+        redirect_to action: :edit, id: @sale.id
+      else
+        @sale.propose
+        redirect_to action: :show, id: @sale.id
+      end
     end
 
     def propose_and_invoice
       return unless @sale = find_and_check
+
+      if @sale.invoiced_at.nil?
+        notify_error :sale_invoiced_at_missing
+        redirect_to action: :edit, id: @sale.id
+        return
+      end
 
       ApplicationRecord.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
