@@ -27,7 +27,7 @@
   -# = f.object.errors.inspect
 
 - if sale.present?
-  = field_set :sale_origin_shipment.tl(number: sale.number, confirmed_at: sale.confirmed_at.l) do
+  = field_set :sale_origin_shipment.tl(number: sale.number, confirmed_at: sale.confirmed_at&.l) do
     %table.list#items-table
       %thead
         %tr

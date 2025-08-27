@@ -35,7 +35,7 @@
   - c.cobble :items, title: resource_model.human_attribute_name(:items) do
     = cobble_list :items
   - if resource.sale.present?
-    - c.cobble :sale_items, title: :sale_origin_shipment.tl(number: resource.sale.number, confirmed_at: resource.sale.confirmed_at.l) do
+    - c.cobble :sale_items, title: :sale_origin_shipment.tl(number: resource.sale.number, confirmed_at: resource.sale.confirmed_at&.l) do
       %table.list#items-table
         %thead
           %tr
