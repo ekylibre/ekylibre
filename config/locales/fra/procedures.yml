@@ -361,6 +361,7 @@ fra:
     equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"
+    plant_moving: "Changement de zone de stockage (lot entier)"
     field_plant_sorting: "Tri au champ"
     filling: "Remplissage" #?
     food_preparation: "Préparation des aliments"

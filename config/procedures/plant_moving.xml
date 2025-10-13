@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="plant_moving" categories="plants_transformation" actions="field_plant_sorting">
+    <parameters>
+      <target name="sortable" filter="is seedling" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <attribute name="new_container" filter="is building_division and can store(seedling)"/>
+      </target>
+      <doer name="doer" filter="is worker" cardinality="*"/>
+      <tool name="tractor" filter="is motorized_vehicle and can tow(equipment)" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

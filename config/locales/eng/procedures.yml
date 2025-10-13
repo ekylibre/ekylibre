@@ -236,6 +236,7 @@ eng:
     equipment_maintenance: "Repair and maintenance"
     fermentation: "Fermentation"
     fertilizing: "Fertilizing"
+    plant_moving: "Field plant moving"
     field_plant_sorting: "Field plant sorting"
     food_preparation: "Food preparation"
     fuel_up: "Fuel up"
