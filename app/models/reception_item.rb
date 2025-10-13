@@ -166,6 +166,7 @@ class ReceptionItem < ParcelItem
           name: product_name || "#{variant.name} (#{reception.number})",
           identification_number: product_identification_number,
           work_number: product_work_number,
+          description: annotation,
           initial_born_at: [reception_prepared_at, reception_given_at].compact.min,
           conditioning_unit_id: storing.conditioning_unit_id
         }

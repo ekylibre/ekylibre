@@ -226,6 +226,7 @@ class ParcelItem < ApplicationRecord
 
       product_params[:name] = product_name
       product_params[:name] ||= "#{variant.name} (#{parcel.number})"
+      product_params[:description] = annotation
       product_params[:identification_number] = product_identification_number
       product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 

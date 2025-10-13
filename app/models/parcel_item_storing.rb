@@ -53,7 +53,7 @@ class ParcelItemStoring < ApplicationRecord
   validates :quantity, presence: true
   validates :conditioning_unit, conditioning: true
 
-  delegate :variant, to: :parcel_item
+  delegate :variant, :annotation, to: :parcel_item
   delegate :dimension, :of_dimension?, to: :unit
 
   alias_attribute :unit, :conditioning_unit

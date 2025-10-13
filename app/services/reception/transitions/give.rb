@@ -118,6 +118,7 @@ class Reception
             name: item.product_name.presence || default_product_name(item),
             identification_number: item.product_identification_number,
             work_number: item.product_work_number,
+            description: item.annotation,
             initial_born_at: given_at,
             conditioning_unit_id: new_conditioning_id
           }

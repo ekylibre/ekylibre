@@ -96,6 +96,7 @@ module Backend
       t.column :product_name
       t.column :product_work_number
       t.column :conditioning_unit
+      t.column :annotation, hidden: true
       t.column :conditioning_quantity, class: 'left-align'
       t.column :unit_pretax_stock_amount, currency: true
       t.column :unit_pretax_amount, currency: true
@@ -202,6 +203,7 @@ module Backend
         new_matter = Matter.new(
           name: f_matter.name,
           variant: f_matter.variant,
+          description: f_matter.description,
           initial_container: f_matter.container,
           variety: f_matter.variety,
           derivative_of: f_matter.derivative_of,
