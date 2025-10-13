@@ -84,6 +84,8 @@ module Apartment
 
     class PostgresqlSchemaFromSqlAdapter < PostgresqlSchemaAdapter
       PSQL_DUMP_BLACKLISTED_STATEMENTS << /CREATE SCHEMA/i
+      PSQL_DUMP_BLACKLISTED_STATEMENTS << /\\restrict/i
+      PSQL_DUMP_BLACKLISTED_STATEMENTS << /\\unrestrict/i
     end
   end
 end
