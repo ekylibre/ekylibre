@@ -230,18 +230,24 @@ module Ekylibre
         create_aggregation_views_schema!(aggregation_schema_name = aggregation_schema_name)
       end
 
-      def create_aggregation_views_schema!(aggregation_schema_name = nil, tenant_list = {})
-        name = (aggregation_schema_name || AGGREGATION_NAME).to_s.strip
-        agg_list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+      def create_aggregation_views_schema!(aggregation_schema_name = AGGREGATION_NAME, tenant_list = {}, agg_tables_name = AGG_TABLES_NAME)
+        name = aggregation_schema_name.to_s.strip
         if tenant_list.any?
           agg_list = tenant_list
+        elsif File.exist?(config_file)
+          agg_list = YAML.load_file(config_file)
+        else
+          agg_list = {}
         end
 
         raise 'No tenant to build an aggregation schema' if agg_list[env].empty?
 
+        puts "Creating aggregation schema #{name} for tenants: #{agg_list[env].join(', ')}".yellow
+        puts "Creating aggregation schema #{name} for tables: #{agg_tables_name.join(', ')}".yellow
+
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
-        AGG_TABLES_NAME.each do |table|
+        agg_tables_name.each do |table|
           connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
           columns = Ekylibre::Schema.columns(table)
           queries = agg_list[env].collect do |tenant|

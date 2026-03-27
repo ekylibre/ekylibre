@@ -9,6 +9,8 @@ module Agroedi
 
       def initialize(*args)
         super
+        puts daplos.cap_islet_number.inspect.yellow
+        puts daplos.crop_name_details.inspect.yellow
         daplos.interventions&.each do |i|
           DaplosExchanger::DaplosIntervention.new(self, i).register
         end
@@ -27,8 +29,6 @@ module Agroedi
 
         return unless daplos.interventions.any?
 
-        puts daplos.land_parcel_work_number.inspect.green
-        puts daplos.crop_name_details.inspect.green
         puts production_nature.inspect.red
         puts activity_production.inspect.yellow
 
@@ -283,7 +283,8 @@ module Agroedi
           # A17 crop_area.area_nature_edicode - PS line = activity_production shape
           if daplos.crop_areas&.first
             c_area = daplos.crop_areas.first
-            puts c_area.area_nature_edicode.inspect.yellow
+            # puts daplos.land_parcel_work_number.inspect.green
+            # puts daplos.cap_islet_number.inspect.green
             if c_area.crop_spatial_coordinates.any?
               srs = c_area.crop_spatial_coordinates.first.srs.strip
               if srs == '3'
@@ -303,12 +304,14 @@ module Agroedi
               # build linear_ring
               outerring = factory.linear_ring(points)
 
-              puts outerring.invalid_reason.inspect.red unless outerring.valid?
+              # puts outerring.invalid_reason.inspect.red unless outerring.valid?
 
               # build polygon from linear_ring as outer ring (exterior ring)
               square = factory.polygon(outerring)
               # convert from source srid to 4326 and fix is simple if needed
               shape = transform_geometry(square, srid)
+              puts shape.inspect.green
+              shape
             else
               nil
             end
@@ -326,10 +329,10 @@ module Agroedi
           if !geom.simple?
             # fix_geom = shape_corrector.extract_geometries(corrected_geom.or_raise.to_ewkt, 'polygon')
             fix_geom = shape_corrector.extract_polygon_and_one_ring(geom.to_ewkt)
-            puts fix_geom.inspect.yellow
+            # puts fix_geom.inspect.yellow
             fix_geom.or_raise
           else
-            puts geom.inspect.red
+            # puts geom.inspect.red
             geom
           end
         end

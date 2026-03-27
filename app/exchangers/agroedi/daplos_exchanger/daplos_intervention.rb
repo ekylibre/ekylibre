@@ -102,7 +102,8 @@ module Agroedi
         end
 
         unless ekylibre_agroedi
-          raise "Intervention nature #{code.inspect} in GUID #{daplos.intervention_guid.inspect} has no equivalent in Ekylibre reference"
+          puts "Intervention nature #{code.inspect} in GUID #{daplos.intervention_guid.inspect} has no equivalent in Ekylibre reference"
+          ekylibre_agroedi = :hoeing
         end
 
         @memo_agroedi_code = ekylibre_agroedi
