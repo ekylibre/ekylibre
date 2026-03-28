@@ -10,20 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA lexicon;
-
-
---
--- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA postgis;
-
-
---
 -- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -35,6 +21,20 @@ CREATE SCHEMA public;
 --
 
 COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
+-- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA lexicon;
+
+
+--
+-- Name: postgis; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA postgis;
 
 
 --
@@ -198,6 +198,24 @@ $$;
 
 
 --
+-- Name: st_asbinary(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.st_asbinary(text) RETURNS bytea
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$ SELECT ST_AsBinary($1::geometry);$_$;
+
+
+--
+-- Name: st_astext(bytea); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.st_astext(bytea) RETURNS text
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$ SELECT ST_AsText($1::geometry);$_$;
+
+
+--
 -- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -239,6 +257,13 @@ BEGIN
   RETURN NEW;
 END;
 $$;
+
+
+--
+-- Name: gist_geometry_ops; Type: OPERATOR FAMILY; Schema: public; Owner: -
+--
+
+CREATE OPERATOR FAMILY public.gist_geometry_ops USING gist;
 
 
 SET default_tablespace = '';
@@ -800,7 +825,8 @@ CREATE TABLE lexicon.registered_enterprises (
     address character varying,
     postal_code character varying,
     city character varying,
-    country character varying
+    country character varying,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -885,7 +911,8 @@ CREATE TABLE lexicon.registered_natural_zones (
     id character varying NOT NULL,
     name character varying,
     nature character varying NOT NULL,
-    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1034,7 +1061,8 @@ CREATE TABLE lexicon.registered_protected_water_zones (
     creator_name character varying,
     name character varying,
     updated_on date,
-    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1079,7 +1107,8 @@ CREATE TABLE lexicon.registered_soil_available_water_capacities (
     available_water_max_value numeric(19,4),
     available_water_unit character varying,
     available_water_label character varying,
-    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1091,7 +1120,8 @@ CREATE TABLE lexicon.registered_soil_depths (
     id character varying NOT NULL,
     soil_depth_value numeric(19,4),
     soil_depth_unit character varying,
-    shape postgis.geometry(MultiPolygon,4326) NOT NULL
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1661,7 +1691,9 @@ CREATE TABLE public.products (
     specie_variety jsonb DEFAULT '{}'::jsonb,
     provider jsonb DEFAULT '{}'::jsonb,
     isacompta_analytic_code character varying(2),
-    worker_group_item_id integer
+    worker_group_item_id integer,
+    with_easement_capacity boolean DEFAULT false NOT NULL,
+    easement_capacity_variety character varying
 );
 
 
@@ -2601,6 +2633,49 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: associates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.associates (
+    id bigint NOT NULL,
+    share_unit_amount numeric(19,4) NOT NULL,
+    share_quantity integer DEFAULT 0 NOT NULL,
+    associate_account_id bigint,
+    entity_id bigint NOT NULL,
+    currency character varying NOT NULL,
+    description text,
+    associate_nature character varying,
+    started_on date NOT NULL,
+    stopped_on date,
+    custom_fields jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id bigint,
+    updater_id bigint,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: associates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.associates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: associates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.associates_id_seq OWNED BY public.associates.id;
+
+
+--
 -- Name: attachments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3202,8 +3277,8 @@ CREATE TABLE public.catalog_items (
     unit_id integer NOT NULL,
     sale_item_id integer,
     purchase_item_id integer,
-    product_id integer,
-    provider jsonb DEFAULT '{}'::jsonb
+    provider jsonb DEFAULT '{}'::jsonb,
+    product_id integer
 );
 
 
@@ -4454,12 +4529,12 @@ CREATE TABLE public.journal_entry_items (
     resource_prism character varying,
     variant_id integer,
     tax_declaration_mode character varying,
+    project_task_id integer,
     project_budget_id integer,
     equipment_id integer,
     accounting_label character varying,
     lettered_at timestamp without time zone,
     isacompta_letter character varying(4),
-    project_task_id integer,
     provider jsonb DEFAULT '{}'::jsonb
 );
 
@@ -4532,6 +4607,7 @@ CREATE TABLE public.purchase_items (
     depreciable_product_id integer,
     fixed_asset_id integer,
     preexisting_asset boolean,
+    project_task_id integer,
     equipment_id integer,
     role character varying,
     project_budget_id integer,
@@ -4539,8 +4615,7 @@ CREATE TABLE public.purchase_items (
     accounting_label character varying,
     conditioning_unit_id integer NOT NULL,
     conditioning_quantity numeric(20,10) NOT NULL,
-    catalog_item_id integer,
-    project_task_id integer
+    catalog_item_id integer
 );
 
 
@@ -4618,6 +4693,7 @@ CREATE TABLE public.sale_items (
     team_id integer,
     codes jsonb,
     compute_from character varying NOT NULL,
+    project_task_id integer,
     accounting_label character varying,
     fixed boolean DEFAULT false NOT NULL,
     preexisting_asset boolean,
@@ -4627,8 +4703,7 @@ CREATE TABLE public.sale_items (
     conditioning_quantity numeric(20,10) NOT NULL,
     catalog_item_id integer,
     shipment_item_id integer,
-    catalog_item_update boolean DEFAULT false,
-    project_task_id integer
+    catalog_item_update boolean DEFAULT false
 );
 
 
@@ -4681,9 +4756,10 @@ CREATE TABLE public.sales (
     codes jsonb,
     undelivered_invoice_journal_entry_id integer,
     quantity_gap_on_invoice_journal_entry_id integer,
+    subscription_id integer,
     client_reference character varying,
     provider jsonb,
-    subscription_id integer
+    last_email_at timestamp without time zone
 );
 
 
@@ -4743,6 +4819,50 @@ CREATE VIEW public.economic_situations AS
                    FROM (public.entities entities_1
                      JOIN public.outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) supplier_tradings
           GROUP BY supplier_tradings.entity_id) supplier_trade ON ((entities.id = supplier_trade.entity_id)));
+
+
+--
+-- Name: email_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_templates (
+    id bigint NOT NULL,
+    body text NOT NULL,
+    by_default boolean DEFAULT false NOT NULL,
+    name character varying NOT NULL,
+    nature character varying,
+    language character varying,
+    path character varying,
+    locale character varying,
+    handler character varying,
+    partial boolean DEFAULT false NOT NULL,
+    format character varying,
+    metadata jsonb DEFAULT '{}'::jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id bigint,
+    updater_id bigint,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_templates_id_seq OWNED BY public.email_templates.id;
 
 
 --
@@ -8959,6 +9079,44 @@ CREATE VIEW public.product_nature_variant_suppliers_infos AS
 
 
 --
+-- Name: product_nature_variant_tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_nature_variant_tags (
+    id bigint NOT NULL,
+    entity_id bigint NOT NULL,
+    variant_id bigint NOT NULL,
+    document_id bigint,
+    description text,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id bigint,
+    updater_id bigint,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: product_nature_variant_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.product_nature_variant_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_nature_variant_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.product_nature_variant_tags_id_seq OWNED BY public.product_nature_variant_tags.id;
+
+
+--
 -- Name: product_nature_variants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -11774,6 +11932,13 @@ ALTER TABLE ONLY public.analytic_sequences ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: associates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.associates ALTER COLUMN id SET DEFAULT nextval('public.associates_id_seq'::regclass);
+
+
+--
 -- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -12044,6 +12209,13 @@ ALTER TABLE ONLY public.documents ALTER COLUMN id SET DEFAULT nextval('public.do
 --
 
 ALTER TABLE ONLY public.economic_cash_indicators ALTER COLUMN id SET DEFAULT nextval('public.economic_cash_indicators_id_seq'::regclass);
+
+
+--
+-- Name: email_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates ALTER COLUMN id SET DEFAULT nextval('public.email_templates_id_seq'::regclass);
 
 
 --
@@ -12751,6 +12923,13 @@ ALTER TABLE ONLY public.product_nature_variant_components ALTER COLUMN id SET DE
 --
 
 ALTER TABLE ONLY public.product_nature_variant_readings ALTER COLUMN id SET DEFAULT nextval('public.product_nature_variant_readings_id_seq'::regclass);
+
+
+--
+-- Name: product_nature_variant_tags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_nature_variant_tags ALTER COLUMN id SET DEFAULT nextval('public.product_nature_variant_tags_id_seq'::regclass);
 
 
 --
@@ -13895,6 +14074,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: associates associates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.associates
+    ADD CONSTRAINT associates_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -14196,6 +14383,14 @@ ALTER TABLE ONLY public.documents
 
 ALTER TABLE ONLY public.economic_cash_indicators
     ADD CONSTRAINT economic_cash_indicators_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_templates email_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates
+    ADD CONSTRAINT email_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -15004,6 +15199,14 @@ ALTER TABLE ONLY public.product_nature_variant_components
 
 ALTER TABLE ONLY public.product_nature_variant_readings
     ADD CONSTRAINT product_nature_variant_readings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_nature_variant_tags product_nature_variant_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_nature_variant_tags
+    ADD CONSTRAINT product_nature_variant_tags_pkey PRIMARY KEY (id);
 
 
 --
@@ -16036,6 +16239,13 @@ CREATE INDEX registered_hydrographic_items_shape ON lexicon.registered_hydrograp
 
 
 --
+-- Name: registered_natural_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_natural_zones_centroid ON lexicon.registered_natural_zones USING gist (centroid);
+
+
+--
 -- Name: registered_natural_zones_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -16176,6 +16386,13 @@ CREATE INDEX registered_postal_codes_shape ON lexicon.registered_postal_codes US
 
 
 --
+-- Name: registered_protected_water_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_protected_water_zones_centroid ON lexicon.registered_protected_water_zones USING gist (centroid);
+
+
+--
 -- Name: registered_protected_water_zones_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -16204,6 +16421,13 @@ CREATE INDEX registered_seed_varieties_id_specie ON lexicon.registered_seed_vari
 
 
 --
+-- Name: registered_soil_available_water_capacities_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_centroid ON lexicon.registered_soil_available_water_capacities USING gist (centroid);
+
+
+--
 -- Name: registered_soil_available_water_capacities_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -16215,6 +16439,13 @@ CREATE INDEX registered_soil_available_water_capacities_id ON lexicon.registered
 --
 
 CREATE INDEX registered_soil_available_water_capacities_shape ON lexicon.registered_soil_available_water_capacities USING gist (shape);
+
+
+--
+-- Name: registered_soil_depths_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_centroid ON lexicon.registered_soil_depths USING gist (centroid);
 
 
 --
@@ -17412,6 +17643,48 @@ CREATE INDEX index_analysis_items_on_updater_id ON public.analysis_items USING b
 --
 
 CREATE INDEX index_analytic_segments_on_analytic_sequence_id ON public.analytic_segments USING btree (analytic_sequence_id);
+
+
+--
+-- Name: index_associates_on_associate_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_associates_on_associate_account_id ON public.associates USING btree (associate_account_id);
+
+
+--
+-- Name: index_associates_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_associates_on_created_at ON public.associates USING btree (created_at);
+
+
+--
+-- Name: index_associates_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_associates_on_creator_id ON public.associates USING btree (creator_id);
+
+
+--
+-- Name: index_associates_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_associates_on_entity_id ON public.associates USING btree (entity_id);
+
+
+--
+-- Name: index_associates_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_associates_on_updated_at ON public.associates USING btree (updated_at);
+
+
+--
+-- Name: index_associates_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_associates_on_updater_id ON public.associates USING btree (updater_id);
 
 
 --
@@ -19050,6 +19323,41 @@ CREATE INDEX index_economic_indicators_on_activity_id ON public.economic_indicat
 --
 
 CREATE INDEX index_economic_indicators_on_campaign_id ON public.economic_indicators USING btree (campaign_id);
+
+
+--
+-- Name: index_email_templates_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_templates_on_created_at ON public.email_templates USING btree (created_at);
+
+
+--
+-- Name: index_email_templates_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_templates_on_creator_id ON public.email_templates USING btree (creator_id);
+
+
+--
+-- Name: index_email_templates_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_templates_on_name ON public.email_templates USING btree (name);
+
+
+--
+-- Name: index_email_templates_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_templates_on_updated_at ON public.email_templates USING btree (updated_at);
+
+
+--
+-- Name: index_email_templates_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_templates_on_updater_id ON public.email_templates USING btree (updater_id);
 
 
 --
@@ -23964,6 +24272,62 @@ CREATE INDEX index_product_nature_variant_readings_on_updater_id ON public.produ
 --
 
 CREATE INDEX index_product_nature_variant_readings_on_variant_id ON public.product_nature_variant_readings USING btree (variant_id);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_created_at ON public.product_nature_variant_tags USING btree (created_at);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_creator_id ON public.product_nature_variant_tags USING btree (creator_id);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_document_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_document_id ON public.product_nature_variant_tags USING btree (document_id);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_entity_id ON public.product_nature_variant_tags USING btree (entity_id);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_name ON public.product_nature_variant_tags USING btree (name);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_updated_at ON public.product_nature_variant_tags USING btree (updated_at);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_updater_id ON public.product_nature_variant_tags USING btree (updater_id);
+
+
+--
+-- Name: index_product_nature_variant_tags_on_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variant_tags_on_variant_id ON public.product_nature_variant_tags USING btree (variant_id);
 
 
 --
@@ -29391,6 +29755,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240314141501'),
 ('20240315104301'),
 ('20240328141701'),
-('20240408105801');
+('20240408105801'),
+('20240413183901'),
+('20240709160801'),
+('20241128201701'),
+('20250405175301');
 
 

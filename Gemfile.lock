@@ -1,15 +1,6 @@
 GIT
-  remote: https://github.com/ekylibre/agric.git
-  revision: 7a400bb2469c53bf3833e3cbc4eeea100f89d210
-  branch: master
-  specs:
-    agric (4.1.0)
-      railties (>= 3.2, < 6)
-      sassc-rails (~> 2)
-
-GIT
-  remote: https://gitlab.com/ekylibre/active_list.git
-  revision: 507f5add216a023e04cd20df319774fbb08c1419
+  remote: https://github.com/ekylibre/active_list.git
+  revision: 6eb36c6e162d46337f862a915f01f709f7c416ac
   branch: master
   specs:
     active_list (8.1.0)
@@ -22,15 +13,24 @@ GIT
       rubyzip (>= 1.0)
 
 GIT
-  remote: https://gitlab.com/ekylibre/cartography.git
+  remote: https://github.com/ekylibre/agric.git
+  revision: 7a400bb2469c53bf3833e3cbc4eeea100f89d210
+  branch: master
+  specs:
+    agric (4.1.0)
+      railties (>= 3.2, < 6)
+      sassc-rails (~> 2)
+
+GIT
+  remote: https://github.com/ekylibre/cartography.git
   revision: 9279e954e7ba5fc48595075bfd9ec42060c435d5
   branch: eky
   specs:
     cartography (0.0.1)
 
 GIT
-  remote: https://gitlab.com/ekylibre/charta.git
-  revision: a19e700bc10b74a956910609bf8528c394402860
+  remote: https://github.com/ekylibre/charta.git
+  revision: 33d855d1bbecc63e0499c268d2a75c83fc074ed3
   branch: master
   specs:
     charta (0.4.0)
@@ -44,16 +44,135 @@ GIT
       zeitwerk (~> 2.4.0)
 
 GIT
-  remote: https://gitlab.com/ekylibre/eky-possibly.git
-  revision: 483d102852e2ab8fcbf695b9e25a40902302a593
-  tag: v3.1.1
+  remote: https://github.com/ekylibre/ekylibre-banking.git
+  revision: ad91729044303664ad170658e1ddb97210d46d5b
+  branch: master
   specs:
-    possibly (3.1.1)
+    ekylibre-banking (0.1.3)
+      nordigen-ruby
+      securerandom
 
 GIT
-  remote: https://gitlab.com/ekylibre/odf-report.git
-  revision: 75f49de1db820ed6c78264d4d199684875db4ac6
+  remote: https://github.com/ekylibre/ekylibre-baqio.git
+  revision: 300ca7b1b61db64996ea95474d7fcb9e769ccca2
+  branch: master
+  specs:
+    ekylibre-baqio (0.5.3)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-duke.git
+  revision: cba30a5e7ec3134f93eaea5269985e00c2520606
   branch: dev
+  specs:
+    duke (2.4.0)
+      httparty (~> 0.17.3)
+      ibm_watson (~> 1.6.0)
+      rails (~> 5.2)
+      sidekiq (~> 4.2.10)
+      similar_text (~> 0.0.4)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-economic.git
+  revision: 78137e18d0ee9e89e7e7f288af6ca4332ec7d98a
+  branch: main
+  specs:
+    ekylibre-economic (0.2.0)
+      activesupport (>= 5.2)
+      rails (>= 5.2)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-ednotif.git
+  revision: 6a09548144f903217011fff31e68ae4978ac2c92
+  branch: master
+  specs:
+    ekylibre-ednotif (1.0.0)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-hajimari.git
+  revision: 713bd60696340d849d63be2e68f342295724fcdd
+  branch: master
+  specs:
+    hajimari (3.5.0)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-idea.git
+  revision: fbf7cfbaa08e9f05c34a019f36c510d8ab88b84e
+  branch: dev
+  specs:
+    idea (1.0.0)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-natuition.git
+  revision: 9c84e01a51a256b4ed19b669c8de5e6425c67cfe
+  branch: main
+  specs:
+    ekylibre-natuition (0.1.0)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-planning.git
+  revision: d3f29e32b9cc77ec9ae205be2e603d66e134025f
+  branch: dev
+  specs:
+    planning (0.1.1)
+      coffee-rails
+      factory_bot
+      jbuilder
+      lodash-rails
+      onoma
+      rails (~> 5.2)
+      sassc-rails (~> 2.0)
+      vuejs-rails
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-qonto.git
+  revision: a3b65dcab8b4bcb62720eb4f429c655064eae113
+  branch: main
+  specs:
+    ekylibre-qonto (0.1.0)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-samsys.git
+  revision: 15cc1cd92a357f4601ab2404bb17d224236884e6
+  branch: master
+  specs:
+    ekylibre-samsys (1.0.0)
+      dotenv
+      vcr
+      webmock
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-traccar.git
+  revision: 132608c3a193c0354455b009435b0dd5cce8db0c
+  branch: master
+  specs:
+    ekylibre-traccar (0.1.0)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-viti.git
+  revision: 4ba96c645bfd17c0a308ea2eb665b577a33f7619
+  branch: master
+  specs:
+    ekylibre_ekyviti (1.2.5)
+      interactor-rails
+      rails (~> 5.2)
+
+GIT
+  remote: https://github.com/ekylibre/ekylibre-weenat.git
+  revision: 94bfa1d6837200d50f26cdab67a7a801a4f83e0d
+  branch: master
+  specs:
+    weenat (0.2.0)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
+
+GIT
+  remote: https://github.com/ekylibre/odf-report.git
+  revision: 75f49de1db820ed6c78264d4d199684875db4ac6
+  branch: master
   specs:
     odf-report (0.7.3)
       fastimage (~> 2.1)
@@ -62,9 +181,16 @@ GIT
       rubyzip (>= 1.3.0)
 
 GIT
-  remote: https://gitlab.com/ekylibre/xsd_errors_parser.git
-  revision: 28b3c703463642ca52194038294bddabefc1fee3
+  remote: https://github.com/ekylibre/possibly.git
+  revision: 483d102852e2ab8fcbf695b9e25a40902302a593
   branch: master
+  specs:
+    possibly (3.1.1)
+
+GIT
+  remote: https://github.com/ekylibre/xsd_errors_parser.git
+  revision: d80e9abb3c1a93c6492b593de675ddfbb0b8a914
+  branch: main
   specs:
     xml_errors_parser (0.0.3)
       i18n
@@ -163,6 +289,7 @@ GEM
       aws-sigv4 (~> 1.6)
     aws-sigv4 (1.6.0)
       aws-eventstream (~> 1, >= 1.0.2)
+    base64 (0.3.0)
     bcrypt (3.1.19)
     beardley (1.4.2)
       rjb (>= 1.4.8)
@@ -262,41 +389,28 @@ GEM
       regexp_parser (~> 2.2)
     ekylibre-ofx-parser (1.2.2)
       hpricot (>= 0.6)
-    elastic-apm (3.4.0)
-      concurrent-ruby (~> 1.0)
-      http (>= 3.0)
     enumerize (2.5.0)
       activesupport (>= 3.2)
     erubi (1.12.0)
     erubis (2.7.0)
     et-orbi (1.2.7)
       tzinfo
+    eventmachine (1.2.7)
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
     execjs (2.9.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    faraday (1.8.0)
-      faraday-em_http (~> 1.0)
-      faraday-em_synchrony (~> 1.0)
-      faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0.1)
-      faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.1)
-      faraday-patron (~> 1.0)
-      faraday-rack (~> 1.0)
-      multipart-post (>= 1.2, < 3)
+    faraday (2.8.1)
+      base64
+      faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-em_http (1.0.0)
-    faraday-em_synchrony (1.0.0)
-    faraday-excon (1.1.0)
-    faraday-httpclient (1.0.1)
-    faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.2.0)
-    faraday-patron (1.0.0)
-    faraday-rack (1.0.0)
-    fastimage (2.2.7)
+    faraday-net_http (3.0.2)
+    fastimage (2.4.1)
+    faye-websocket (0.11.4)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.5.1, < 0.8.0)
     ffaker (2.21.0)
     ffi (1.15.5)
     fiddle (1.1.1)
@@ -378,6 +492,9 @@ GEM
     http-form_data (2.3.0)
     http_accept_language (2.1.1)
     http_parser.rb (0.6.0)
+    httparty (0.17.3)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     httpi (2.5.0)
       rack
@@ -390,6 +507,22 @@ GEM
     i18n-js (3.9.2)
       i18n (>= 0.6.6)
     iban-tools (1.1.0)
+    ibm_cloud_sdk_core (1.1.2)
+      concurrent-ruby (~> 1.0)
+      http (~> 4.1.0)
+      jwt (~> 2.2.1)
+    ibm_watson (1.6.0)
+      concurrent-ruby (~> 1.0)
+      eventmachine (~> 1.2)
+      faye-websocket (~> 0.10)
+      http (~> 4.1.0)
+      ibm_cloud_sdk_core (~> 1.1.1)
+      jwt (~> 2.2.1)
+    interactor (3.2.0)
+      ostruct
+    interactor-rails (2.2.1)
+      interactor (~> 3.0)
+      rails (>= 4.2)
     io-console (0.6.0)
     irb (1.6.3)
       reline (>= 0.3.0)
@@ -439,6 +572,13 @@ GEM
       semantic (~> 1.6)
       zeitwerk (~> 2.4)
     libv8 (3.16.14.19-x86_64-linux)
+    liquid (4.0.4)
+    liquid-rails (0.2.0)
+      kaminari (~> 1.1.1)
+      liquid (~> 4.0.0)
+      rails (>= 5.0.6)
+    lodash-rails (4.17.21)
+      railties (>= 3.1)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -481,7 +621,6 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    multipart-post (2.3.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
@@ -498,6 +637,8 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
+    nordigen-ruby (2.2.1)
+      faraday (~> 2.5)
     nori (2.6.0)
     oauth (0.6.2)
       snaky_hash (~> 2.0)
@@ -515,12 +656,15 @@ GEM
     omniauth-oauth2 (1.7.3)
       oauth2 (>= 1.4, < 3)
       omniauth (>= 1.9, < 3)
-    onoma (0.9.0)
+    onoma (0.9.8)
       activesupport (>= 4.2)
       nokogiri (>= 1.10.4)
       zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.1.4)
+    ostruct (0.6.3)
+    panoramic (0.0.6)
+      rails (>= 3.0.7)
     paperclip (5.3.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -705,6 +849,7 @@ GEM
     scenic (1.7.0)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
+    securerandom (0.3.2)
     semantic (1.6.1)
     sepa_king (0.12.0)
       activemodel (>= 3.1)
@@ -728,6 +873,7 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    similar_text (0.0.4)
     simple_calendar (2.4.3)
       rails (>= 3.0)
     simple_form (4.1.0)
@@ -773,6 +919,10 @@ GEM
     timecop (0.9.8)
     timeliness (0.4.5)
     timeout (0.4.0)
+    tinymce-rails (7.9.2)
+      railties (>= 3.1.1)
+    tinymce-rails-langs (7.20240507)
+      tinymce-rails (~> 7.0)
     trailblazer-option (0.1.2)
     treetop (1.6.12)
       polyglot (~> 0.3)
@@ -812,6 +962,7 @@ GEM
     vcr (6.0.0)
     version_gem (1.1.3)
     victor (0.3.4)
+    vuejs-rails (2.5.13)
     wannabe_bool (0.7.1)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -887,12 +1038,21 @@ DEPENDENCIES
   devise_invitable (~> 2.0)
   dotenv (~> 2.7)
   draper (~> 3.0)
+  duke!
+  ekylibre-banking!
+  ekylibre-baqio!
+  ekylibre-economic!
+  ekylibre-ednotif!
+  ekylibre-natuition!
   ekylibre-ofx-parser (~> 1.2)
-  elastic-apm (~> 3.4.0)
+  ekylibre-qonto!
+  ekylibre-samsys!
+  ekylibre-traccar!
+  ekylibre_ekyviti!
   enumerize (~> 2.4)
   exception_notification (~> 4.4)
   factory_bot (< 5)
-  faraday (~> 1.8.0)
+  faraday (~> 2.5)
   ffaker (~> 2.0)
   fiddle
   font-awesome-sass (~> 5.15)
@@ -903,6 +1063,7 @@ DEPENDENCIES
   google-cloud-bigquery
   googleauth
   gpgme (~> 2.0)
+  hajimari!
   haml (~> 5.2)
   haml_lint (= 0.40.0)
   holidays
@@ -910,6 +1071,7 @@ DEPENDENCIES
   humanize (~> 2.5)
   i18n-complements (>= 0.0.14)
   i18n-js (~> 3.8)
+  idea!
   irb (~> 1.3)
   jbuilder (~> 2.0)
   jquery-rails (~> 4.4)
@@ -917,6 +1079,7 @@ DEPENDENCIES
   kaminari (~> 1.1)
   letter_opener (~> 1.7)
   lexicon-common (~> 0.2.0)
+  liquid-rails
   luhn (~> 1.0)
   mechanize (~> 2.7)
   mimemagic (~> 0.3.5)
@@ -924,15 +1087,18 @@ DEPENDENCIES
   minitest-reporters (~> 1.4)
   momentjs-rails (>= 2.9.0)
   nokogiri (~> 1.8)
+  nordigen-ruby
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.9.0)
+  onoma (~> 0.9.8)
+  panoramic
   paperclip (~> 5.3)
   paperclip-document (~> 0.0.11)
   paranoia (~> 2.2)
   pdf-reader (~> 2.4)
   pg (~> 1.0)
+  planning!
   possibly!
   prawn (~> 2.4)
   prawn-table
@@ -964,6 +1130,7 @@ DEPENDENCIES
   sassc-rails (~> 2.0)
   savon (= 2.12)
   scenic
+  securerandom
   semantic (~> 1.6)
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
@@ -980,6 +1147,8 @@ DEPENDENCIES
   therubyracer
   time_diff (~> 0.3.0)
   timecop (~> 0.9.0)
+  tinymce-rails
+  tinymce-rails-langs
   treetop (~> 1.6)
   turbolinks (~> 5.2.1)
   turnout (~> 2.5)
@@ -990,10 +1159,12 @@ DEPENDENCIES
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
   vcr (~> 6.0.0)
+  vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)
   webmock (~> 3.13.0)
   webpacker (~> 4.x)
+  weenat!
   wice_grid (~> 4.0)
   xml_errors_parser!
   yard (~> 0.9.26)
@@ -1002,4 +1173,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.3.26
+   2.4.12

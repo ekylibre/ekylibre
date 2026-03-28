@@ -69,7 +69,7 @@ gem 'turbolinks', '~> 5.2.1'
 gem 'twitter-typeahead-rails', '~> 0.11.1'
 
 # Front
-gem 'active_list', gitlab: 'ekylibre/active_list', branch: 'master'
+gem 'active_list', github: 'ekylibre/active_list', branch: 'master'
 gem 'formize', '~> 2.1.0'
 gem 'kaminari', '~> 1.1'
 gem 'remotipart', '~> 1.2'
@@ -82,7 +82,7 @@ gem 'jbuilder', '~> 2.0'
 
 # Ruby extensions
 gem 'code_string', '~> 0.0.1'
-gem 'possibly', gitlab: 'ekylibre/eky-possibly', tag: 'v3.1.1'
+gem 'possibly', github: 'ekylibre/possibly', branch: 'master'
 gem 'semantic', '~> 1.6'
 
 # Exception analysis and metrics
@@ -92,7 +92,7 @@ gem 'exception_notification', '~> 4.4'
 gem 'redis-namespace', '~> 1.8'
 
 # Manipulate map data
-gem 'charta', gitlab: 'ekylibre/charta', tag: 'v0.5.0'
+gem 'charta', github: 'ekylibre/charta', branch: 'master'
 gem 'geocoder', '~> 1.6'
 gem 'rgeo', '~> 2.2'
 gem 'rgeo-geojson', '~> 2.1'
@@ -167,14 +167,14 @@ gem 'holidays' # Deal with statutory and other holidays
 gem 'luhn', '~> 1.0'
 gem 'mimemagic', '~> 0.3.5'
 gem 'nokogiri', '~> 1.8'
-gem 'odf-report', gitlab: 'ekylibre/odf-report', branch: 'dev'
+gem 'odf-report', github: 'ekylibre/odf-report', branch: 'master'
 gem 'prawn', '~> 2.4'
 gem 'prawn-table'
 gem 'rodf', '~> 1.0'
 gem 'roo', '~> 2.8'
 gem 'rubyzip', '~> 1.3.0'
 gem 'sepa_king', '~> 0.12.0'
-gem 'xml_errors_parser', gitlab: 'ekylibre/xsd_errors_parser', branch: 'master'
+gem 'xml_errors_parser', github: 'ekylibre/xsd_errors_parser', branch: 'main'
 
 # Web services
 gem 'faraday', '~> 2.5'
@@ -187,7 +187,7 @@ gem 'savon', '2.12'
 gem 'stripe'
 
 # Using git until we have a proper release system for cartography
-gem 'cartography', gitlab: 'ekylibre/cartography', branch: 'eky'
+gem 'cartography', github: 'ekylibre/cartography', branch: 'eky'
 
 # Used to convert markdown to html
 gem 'gitlab_kramdown', '~> 0.6'
