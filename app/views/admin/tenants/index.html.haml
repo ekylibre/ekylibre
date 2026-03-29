@@ -1,0 +1,438 @@
+:css
+  /* ---- Tabs ---- */
+  .tab-radio { display: none; }
+  .tabs-nav { display: flex; gap: 0; border-bottom: 2px solid #ddd; margin-bottom: 24px; }
+  .tabs-nav label {
+    padding: 10px 22px; cursor: pointer; border: 1px solid transparent;
+    border-bottom: none; font-weight: 600; color: #666; background: #f0f0f0;
+    border-radius: 4px 4px 0 0; margin-right: 4px; user-select: none;
+  }
+  .tabs-nav label:hover { color: #333; background: #e4e4e4; }
+  .tab-panel { display: none; }
+
+  #tab-tenants:checked ~ .tabs-nav label[for="tab-tenants"],
+  #tab-demo:checked    ~ .tabs-nav label[for="tab-demo"],
+  #tab-restore:checked ~ .tabs-nav label[for="tab-restore"] {
+    background: white; color: #333; border-color: #ddd #ddd white;
+    border-bottom-color: white; margin-bottom: -2px; padding-bottom: 12px;
+  }
+  #tab-tenants:checked ~ #panel-tenants,
+  #tab-demo:checked    ~ #panel-demo,
+  #tab-restore:checked ~ #panel-restore { display: block; }
+
+  /* ---- Tenant table ---- */
+  .badge-demo { background:#4a7c59;color:white;padding:2px 8px;border-radius:10px;font-size:0.8em; }
+  .actions-cell { white-space:nowrap; }
+  .actions-cell form { display:inline; }
+  .archive-cell { min-width: 220px; }
+  .archive-date { font-size: 0.8em; color: #888; margin-bottom: 4px; }
+  .archive-dl-link { font-size: 0.85em; display: block; margin-bottom: 8px; color: #4a7c59; font-weight: 600; }
+  .dump-status { font-size:0.85em; color:#555; font-style:italic; margin-top:4px; }
+  .dump-status.status-done  { color:#4a7c59; font-weight:bold; font-style:normal; }
+  .dump-status.status-error { color:#dc3545; font-weight:bold; font-style:normal; }
+  .size-cell { font-size:0.85em; color:#555; white-space:nowrap; text-align:right; }
+
+  /* ---- Demo ---- */
+  #demo-card { background:white; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:24px; }
+  #demo-card p { margin:0 0 16px; }
+  .progress-wrap { background:#e9ecef; border-radius:4px; height:12px; overflow:hidden; margin-bottom:8px; }
+  .progress-fill { height:100%; background:#4a7c59; transition:width 0.5s ease; border-radius:4px; }
+  #progress-pct { font-size:0.85em; color:#666; margin-bottom:20px; }
+  .steps-list { list-style:none; padding:0; margin:0; columns:2; column-gap:24px; }
+  .steps-list li { padding:5px 0 5px 24px; position:relative; font-size:0.9em; color:#aaa; border-bottom:1px solid #f0f0f0; break-inside:avoid; }
+  .steps-list li::before { content:'○'; position:absolute; left:4px; }
+  .steps-list li.step-done { color:#4a7c59; }
+  .steps-list li.step-done::before { content:'✓'; color:#4a7c59; }
+  .steps-list li.step-active { color:#333; font-weight:bold; }
+  .steps-list li.step-active::before { content:'▶'; color:#f0a500; }
+  #demo-message { font-style:italic; color:#555; margin-bottom:12px; font-size:0.95em; }
+  .done-notice { color:#4a7c59; font-weight:bold; font-size:1.05em; }
+
+  /* ---- Restore ---- */
+  #restore-card { background:white; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:24px; }
+  #restore-card p { margin:0 0 16px; }
+  #restore-file-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  #restore-message { font-style:italic; color:#555; margin-top:12px; font-size:0.95em; }
+  #restore-message.status-done  { color:#4a7c59; font-weight:bold; font-style:normal; }
+  #restore-message.status-error { color:#dc3545; font-weight:bold; font-style:normal; }
+
+%input#tab-tenants.tab-radio{ type: 'radio', name: 'admin-tab', checked: true }
+%input#tab-demo.tab-radio{    type: 'radio', name: 'admin-tab' }
+%input#tab-restore.tab-radio{ type: 'radio', name: 'admin-tab' }
+
+.tabs-nav
+  %label{for: 'tab-tenants'} Tenants
+  %label{for: 'tab-demo'}    Données de démo
+  %label{for: 'tab-restore'} Restaurer une archive
+
+/ ==================== PANEL TENANTS ====================
+#panel-tenants.tab-panel
+  = link_to 'Nouveau tenant', new_admin_tenant_path, class: 'btn btn-primary'
+  %br
+  %br
+  - if @tenants.empty?
+    %p Aucun tenant existant.
+  - else
+    %table
+      %thead
+        %tr
+          %th Nom
+          %th
+          %th{style:'text-align:right'} DB
+          %th{style:'text-align:right'} Fichiers
+          %th Archive
+          %th Actions
+      %tbody
+        - @tenants.each do |tenant|
+          - info = @archive_info[tenant] || { exists: false }
+          %tr
+            %td= tenant
+            %td
+              - if tenant == 'demo'
+                %span.badge-demo demo
+            - sizes = @tenant_sizes[tenant] || { db: 'N/A', files: 'N/A' }
+            %td.size-cell= sizes[:db]
+            %td.size-cell= sizes[:files]
+            %td.archive-cell
+              - if info[:exists]
+                .archive-date= "Générée le #{info[:mtime].strftime('%d/%m/%Y à %H:%M')}"
+                = link_to "⬇ #{tenant}.zip", dump_download_admin_tenant_path(tenant), class: 'archive-dl-link'
+              %button.btn.btn-secondary.dump-btn{ data: { tenant: tenant, dump_url: dump_admin_tenant_path(tenant), status_url: dump_status_admin_tenant_path(tenant) } }
+                = info[:exists] ? 'Régénérer' : 'Créer une archive'
+              %div{ id: "dump-status-#{tenant}", class: 'dump-status', data: { tenant: tenant, status_url: dump_status_admin_tenant_path(tenant) } }
+            %td.actions-cell
+              = button_to 'Supprimer', admin_tenant_path(tenant), method: :delete,
+                  data: { confirm: "Supprimer le tenant '#{tenant}' et toutes ses données ?" },
+                  class: 'btn btn-danger'
+  :javascript
+    (function() {
+      var csrfToken = (document.querySelector('meta[name="csrf-token"]') || {}).content;
+      var timers = {};
+
+      function setStatus(tenant, text, cls, downloadUrl, date) {
+        var el = document.getElementById('dump-status-' + tenant);
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'dump-status' + (cls ? ' ' + cls : '');
+
+        if (downloadUrl) {
+          // Update the archive-cell with date + link
+          var cell = el.closest('td') || el.parentElement;
+          var existingDate = cell.querySelector('.archive-date');
+          var existingLink = cell.querySelector('.archive-dl-link');
+          var btn = cell.querySelector('.dump-btn');
+
+          if (existingDate) {
+            existingDate.textContent = date || '';
+          } else {
+            var d = document.createElement('div');
+            d.className = 'archive-date';
+            d.textContent = date || '';
+            cell.insertBefore(d, btn);
+          }
+          if (existingLink) {
+            existingLink.href = downloadUrl;
+            existingLink.textContent = '⬇ ' + tenant + '.zip';
+          } else {
+            var a = document.createElement('a');
+            a.href = downloadUrl;
+            a.textContent = '⬇ ' + tenant + '.zip';
+            a.className = 'archive-dl-link';
+            cell.insertBefore(a, btn);
+          }
+          if (btn) btn.textContent = 'Régénérer';
+          el.textContent = '';
+        }
+      }
+
+      function pollDump(tenant, statusUrl) {
+        fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.status === 'running') {
+              setStatus(tenant, data.message);
+            } else if (data.status === 'done') {
+              setStatus(tenant, '', 'status-done', data.download, data.archive_date);
+              clearInterval(timers[tenant]);
+              delete timers[tenant];
+              var btn = document.querySelector('.dump-btn[data-tenant="' + tenant + '"]');
+              if (btn) btn.disabled = false;
+            } else if (data.status === 'error') {
+              setStatus(tenant, data.message, 'status-error');
+              clearInterval(timers[tenant]);
+              delete timers[tenant];
+              var btn = document.querySelector('.dump-btn[data-tenant="' + tenant + '"]');
+              if (btn) btn.disabled = false;
+            }
+          })
+          .catch(function() {});
+      }
+
+      // Resume polling for any tenant already running on page load
+      document.querySelectorAll('.dump-status[data-status-url]').forEach(function(el) {
+        var tenant    = el.dataset.tenant;
+        var statusUrl = el.dataset.statusUrl;
+        fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.status === 'running') {
+              setStatus(tenant, data.message);
+              var btn = document.querySelector('.dump-btn[data-tenant="' + tenant + '"]');
+              if (btn) btn.disabled = true;
+              timers[tenant] = setInterval(function() { pollDump(tenant, statusUrl); }, 2000);
+            } else if (data.status === 'error') {
+              setStatus(tenant, data.message, 'status-error');
+            }
+          })
+          .catch(function() {});
+      });
+
+      document.querySelectorAll('.dump-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var tenant    = btn.dataset.tenant;
+          var dumpUrl   = btn.dataset.dumpUrl;
+          var statusUrl = btn.dataset.statusUrl;
+
+          if (!confirm("Créer une archive pour le tenant '" + tenant + "' ?")) return;
+
+          btn.disabled = true;
+          setStatus(tenant, "Lancement en cours...");
+
+          fetch(dumpUrl, {
+            method: 'POST',
+            headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+          })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.error) {
+              setStatus(tenant, data.error, 'status-error');
+              btn.disabled = false;
+              return;
+            }
+            setStatus(tenant, data.message);
+            timers[tenant] = setInterval(function() { pollDump(tenant, statusUrl); }, 2000);
+          })
+          .catch(function(e) {
+            setStatus(tenant, 'Erreur réseau : ' + e, 'status-error');
+            btn.disabled = false;
+          });
+        });
+      });
+    })();
+
+/ ==================== PANEL DEMO ====================
+#panel-demo.tab-panel
+  #demo-card
+    - demo_exists = @tenants.include?('demo')
+    - if demo_exists
+      %p.done-notice ✓ Le tenant demo est déjà chargé.
+    - else
+      %p Charge le jeu de données de démonstration dans un tenant dédié <strong>demo</strong>.
+      %button#demo-btn.btn.btn-primary{style:'margin-bottom:20px;'} Charger les données de démo
+
+    #demo-progress{style:'display:none;'}
+      .progress-wrap
+        .progress-fill#progress-fill{style:'width:0%'}
+      #progress-pct 0%
+      #demo-message
+      %ul.steps-list
+        - Admin::LoadDemoJob::LOADER_LABELS.each do |key, label|
+          %li{id: "step-#{key}", 'data-key': key}= label
+
+  - demo_status_url = admin_demo_status_path
+  - demo_load_url   = admin_demo_load_path
+  - loader_keys     = Admin::LoadDemoJob::LOADER_LABELS.keys.to_json
+
+  :javascript
+    (function() {
+      var btn        = document.getElementById('demo-btn');
+      var progress   = document.getElementById('demo-progress');
+      var fill       = document.getElementById('progress-fill');
+      var pct        = document.getElementById('progress-pct');
+      var msgEl      = document.getElementById('demo-message');
+      var statusUrl  = #{raw demo_status_url.to_json};
+      var loadUrl    = #{raw demo_load_url.to_json};
+      var loaderKeys = #{raw loader_keys};
+      var csrfToken  = (document.querySelector('meta[name="csrf-token"]') || {}).content;
+      var pollTimer  = null;
+
+      function stepEl(key) { return document.getElementById('step-' + key); }
+      function setStepState(key, state) {
+        var el = stepEl(key);
+        if (el) el.className = 'step-' + state;
+      }
+
+      function updateUI(data) {
+        var status  = data.status;
+        var message = data.message;
+        var step    = data.step    || 0;
+        var total   = data.total_steps || #{Admin::LoadDemoJob::LOADER_LABELS.size};
+
+        if (status === 'idle') return;
+        if (progress) progress.style.display = 'block';
+        if (btn) btn.disabled = true;
+
+        if (status === 'cloning') {
+          if (fill) fill.style.width = '5%';
+          if (pct)  pct.textContent  = '5%';
+          if (msgEl) msgEl.textContent = message;
+          return;
+        }
+        if (status === 'loading') {
+          var pctVal = total > 0 ? Math.round(10 + (step / total) * 85) : 10;
+          if (fill) fill.style.width = pctVal + '%';
+          if (pct)  pct.textContent  = pctVal + '%';
+          if (msgEl) msgEl.textContent = message;
+          loaderKeys.forEach(function(key, idx) {
+            var stepNum = idx + 1;
+            if (stepNum < step)       setStepState(key, 'done');
+            else if (stepNum === step) setStepState(key, 'active');
+            else                       setStepState(key, '');
+          });
+          return;
+        }
+        if (status === 'done') {
+          if (fill) fill.style.width = '100%';
+          if (pct)  pct.textContent  = '100%';
+          if (msgEl) msgEl.textContent = message;
+          loaderKeys.forEach(function(key) { setStepState(key, 'done'); });
+          clearInterval(pollTimer);
+          setTimeout(function() { location.reload(); }, 1500);
+          return;
+        }
+        if (status === 'error') {
+          if (msgEl) { msgEl.textContent = message; msgEl.style.color = '#dc3545'; }
+          clearInterval(pollTimer);
+          if (btn) btn.disabled = false;
+        }
+      }
+
+      function poll() {
+        fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(updateUI)
+          .catch(function() {});
+      }
+
+      poll();
+      fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.status === 'cloning' || data.status === 'loading') {
+            pollTimer = setInterval(poll, 2000);
+          }
+        }).catch(function() {});
+
+      if (btn) {
+        btn.addEventListener('click', function() {
+          if (!confirm('Lancer le chargement des données de démonstration ?')) return;
+          fetch(loadUrl, {
+            method: 'POST',
+            headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+          })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.error) { alert(data.error); return; }
+            updateUI(data);
+            pollTimer = setInterval(poll, 2000);
+          });
+        });
+      }
+    })();
+
+/ ==================== PANEL RESTORE ====================
+#panel-restore.tab-panel
+  - restore_action_url = admin_restore_path
+  - restore_status_url = admin_restore_status_path
+
+  #restore-card
+    %p Restaure un tenant à partir d'une archive ZIP Ekylibre. Le nom du tenant sera déduit du nom de fichier.
+    #restore-file-row
+      %input#restore-file{type: 'file', accept: '.zip', style: 'flex:1; min-width:200px;'}
+      %button#restore-btn.btn.btn-warning Restaurer la sauvegarde
+    #restore-message
+
+  :javascript
+    (function() {
+      var btn       = document.getElementById('restore-btn');
+      var fileInput = document.getElementById('restore-file');
+      var msgEl     = document.getElementById('restore-message');
+      var actionUrl = #{raw restore_action_url.to_json};
+      var statusUrl = #{raw restore_status_url.to_json};
+      var csrfToken = (document.querySelector('meta[name="csrf-token"]') || {}).content;
+      var pollTimer = null;
+
+      function setMsg(text, cls) {
+        msgEl.textContent = text;
+        msgEl.className   = cls || '';
+      }
+
+      function pollRestore() {
+        fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.status === 'running') {
+              setMsg(data.message);
+            } else if (data.status === 'done') {
+              setMsg('✔ ' + data.message, 'status-done');
+              clearInterval(pollTimer);
+              pollTimer = null;
+              if (btn) btn.disabled = false;
+              setTimeout(function() { location.reload(); }, 1500);
+            } else if (data.status === 'error') {
+              setMsg('✘ ' + data.message, 'status-error');
+              clearInterval(pollTimer);
+              pollTimer = null;
+              if (btn) btn.disabled = false;
+            }
+          })
+          .catch(function() {});
+      }
+
+      fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.status === 'running') {
+            setMsg(data.message);
+            if (btn) btn.disabled = true;
+            pollTimer = setInterval(pollRestore, 2000);
+          }
+        }).catch(function() {});
+
+      if (btn) {
+        btn.addEventListener('click', function() {
+          if (!fileInput.files || !fileInput.files[0]) {
+            alert("Veuillez sélectionner un fichier d'archive .zip");
+            return;
+          }
+          var tenant = fileInput.files[0].name.replace(/\.[^.]+$/, '');
+          if (!confirm("Restaurer le tenant '" + tenant + "' ? Le tenant existant sera écrasé.")) return;
+
+          var formData = new FormData();
+          formData.append('archive', fileInput.files[0]);
+
+          btn.disabled = true;
+          setMsg("Envoi de l'archive en cours...");
+
+          fetch(actionUrl, {
+            method: 'POST',
+            headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest' },
+            body: formData
+          })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.error) {
+              setMsg('✘ ' + data.error, 'status-error');
+              btn.disabled = false;
+              return;
+            }
+            setMsg(data.message || "Restauration de '" + tenant + "' lancée...");
+            pollTimer = setInterval(pollRestore, 2000);
+          })
+          .catch(function(e) {
+            setMsg('✘ Erreur réseau : ' + e, 'status-error');
+            btn.disabled = false;
+          });
+        });
+      }
+    })();
