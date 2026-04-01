@@ -1,4 +1,5 @@
 # First-runs tasks
+require 'ekylibre/first_run'
 namespace :first_run do
   namespace :default do
     task generate: :environment do

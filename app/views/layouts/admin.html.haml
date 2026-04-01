@@ -1,0 +1,38 @@
+!!! 5
+%html{lang: 'fr'}
+  %head
+    %meta{charset: 'utf-8'}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    %title Ekylibre — Administration
+    = csrf_meta_tags
+    :css
+      * { box-sizing: border-box; }
+      body { font-family: sans-serif; background: #f5f5f5; color: #333; margin: 0; padding: 0; }
+      #wrap { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+      h1 { font-size: 1.6em; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+      .logo { font-size: 1.2em; font-weight: bold; color: #4a7c59; margin-bottom: 30px; }
+      .notice { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; }
+      .error  { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; }
+      table { width: 100%; border-collapse: collapse; background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+      th, td { text-align: left; padding: 10px 15px; border-bottom: 1px solid #eee; }
+      th { background: #f0f0f0; font-weight: 600; }
+      .btn { display: inline-block; padding: 8px 16px; border-radius: 4px; text-decoration: none; cursor: pointer; border: none; font-size: 0.9em; }
+      .btn-primary { background: #4a7c59; color: white; }
+      .btn-primary:hover { background: #3a6347; }
+      .btn-danger  { background: #dc3545; color: white; }
+      .btn-danger:hover  { background: #b02a37; }
+      .btn-secondary { background: #6c757d; color: white; }
+      .btn-warning   { background: #e0a500; color: white; }
+      .btn-warning:hover { background: #c8920a; }
+      form .field { margin-bottom: 15px; }
+      form label { display: block; font-weight: 600; margin-bottom: 4px; }
+      form input, form select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+      form .actions { margin-top: 20px; }
+  %body
+    #wrap
+      .logo Ekylibre — Administration
+      - if flash[:notice]
+        .notice= flash[:notice]
+      - if flash[:error]
+        .error= flash[:error]
+      = yield

@@ -8,7 +8,8 @@ WORKDIR /app
 
 COPY . /app
 
-RUN addgroup --gid $GID ekylibre  && \
+RUN mkdir -p /app/vendor/bundle && \
+    addgroup --gid $GID ekylibre  && \
     useradd --create-home --home-dir /home/ekylibre -s /bin/bash -g $GID -u $UID ekylibre && \
     chown -R ekylibre:ekylibre /app
 

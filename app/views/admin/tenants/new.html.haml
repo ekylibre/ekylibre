@@ -1,0 +1,29 @@
+%h1 Nouveau tenant
+
+= form_with url: admin_tenants_path, method: :post do |f|
+  .field
+    = f.label :name, 'Nom du tenant (lettres minuscules, chiffres, underscores)'
+    = f.text_field :name, name: 'tenant[name]', placeholder: 'ex: ferme_dupont', required: true, pattern: '[a-z0-9_]+'
+
+  %h3 Compte administrateur
+  .field
+    = f.label :email, 'Email'
+    = f.email_field :email, name: 'tenant[email]', placeholder: 'admin@example.com', value: 'admin@ekylibre.org'
+  .field
+    = f.label :password, 'Mot de passe (laissez vide pour générer automatiquement)'
+    = f.password_field :password, name: 'tenant[password]', autocomplete: 'new-password'
+
+  %h3 Localisation
+  .field
+    = f.label :language, 'Langue'
+    = f.select :language, [['Français', 'fra'], ['English', 'eng'], ['Español', 'spa']], {}, name: 'tenant[language]'
+  .field
+    = f.label :country, 'Pays'
+    = f.select :country, [['France', 'fr'], ['Belgique', 'be'], ['Suisse', 'ch']], {}, name: 'tenant[country]'
+  .field
+    = f.label :currency, 'Devise'
+    = f.select :currency, [['Euro (EUR)', 'EUR'], ['Franc suisse (CHF)', 'CHF'], ['Dollar (USD)', 'USD']], {}, name: 'tenant[currency]'
+
+  .actions
+    = f.submit 'Créer le tenant', class: 'btn btn-primary'
+    = link_to 'Annuler', admin_root_path, class: 'btn btn-secondary'

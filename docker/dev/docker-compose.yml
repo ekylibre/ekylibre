@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
   app:
     stdin_open: true
@@ -18,24 +16,25 @@ services:
       - ../..:/app
       - bundle-volume:/app/vendor/bundle
       - docker-dev:/app/docker/dev
-      - ~/.ssh:/home/ekylibre/.ssh
-      - ../../../plugins/:/plugins/
     command: docker/startup.sh
     depends_on:
-      - redis
-      - db
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   sidekiq:
     build:
       dockerfile: docker/dev/Dockerfile
       context: ../..
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     env_file: .env
     volumes:
       - ../..:/app
       - bundle-volume:/app/vendor/bundle
       - docker-dev:/app/docker/dev
-      - ~/.ssh:/home/ekylibre/.ssh
-      - ../../../plugins/:/plugins/
     command: /app/docker/dev/sidekiq_startup.sh
     depends_on:
       db:
@@ -46,8 +45,22 @@ services:
         condition: service_started
     restart: on-failure
 
+  dnsmasq:
+    image: jpillora/dnsmasq
+    ports:
+      - "127.0.0.2:53:53/udp"  # DNS sur loopback alias (127.0.0.53 est pris par systemd-resolved)
+      - "5380:8080"             # Interface web (admin/admin)
+    environment:
+      HTTP_USER: admin
+      HTTP_PASS: admin
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
   redis:
-    image: redis:5.0-alpine
+    image: redis:7-alpine
 
   db:
     image: kartoza/postgis:13

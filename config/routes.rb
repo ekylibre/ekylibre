@@ -3,6 +3,21 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  namespace :admin do
+    resources :tenants, only: [:index, :new, :create, :destroy] do
+      member do
+        post :dump
+        get  :dump_status
+        get  :dump_download
+      end
+    end
+    post 'demo/load', to: 'demo#load_demo', as: :demo_load
+    get  'demo/status', to: 'demo#status', as: :demo_status
+    post 'restore',        to: 'restore#create',  as: :restore
+    get  'restore/status', to: 'restore#status',  as: :restore_status
+    root to: 'tenants#index'
+  end
+
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
     get :unroll, on: :collection

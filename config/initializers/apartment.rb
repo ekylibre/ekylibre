@@ -51,6 +51,8 @@ module Apartment
 
     class SecuredSubdomain < Apartment::Elevators::Subdomain
       def call(env)
+        request = Rack::Request.new(env)
+        return @app.call(env) if request.path.start_with?('/admin')
         super
       rescue ::Apartment::TenantNotFound
         request = Rack::Request.new(env)
@@ -91,7 +93,10 @@ module Apartment
 end
 
 if ENV['TENANT']
-  Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |_request| ENV['TENANT'] }
+  Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |request|
+    next nil if request.path.start_with?('/admin')
+    ENV['TENANT']
+  }
 elsif Rails.env.test?
   Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |_request| 'test' }
 elsif ENV['ELEVATOR'] == 'header'
