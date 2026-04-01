@@ -31,6 +31,8 @@
   .dump-status.status-done  { color:#4a7c59; font-weight:bold; font-style:normal; }
   .dump-status.status-error { color:#dc3545; font-weight:bold; font-style:normal; }
   .size-cell { font-size:0.85em; color:#555; white-space:nowrap; text-align:right; }
+  .tenant-url-link { font-size:1.1em; text-decoration:none; color:#4a7c59; }
+  .tenant-url-link:hover { color:#2d5a3d; }
 
   /* ---- Demo ---- */
   #demo-card { background:white; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:24px; }
@@ -65,6 +67,21 @@
   %label{for: 'tab-demo'}    Données de démo
   %label{for: 'tab-restore'} Restaurer une archive
 
+:javascript
+  // Restore active tab from sessionStorage
+  (function() {
+    var saved = sessionStorage.getItem('admin-active-tab');
+    if (saved) {
+      var radio = document.getElementById(saved);
+      if (radio) radio.checked = true;
+    }
+    document.querySelectorAll('.tab-radio').forEach(function(r) {
+      r.addEventListener('change', function() {
+        sessionStorage.setItem('admin-active-tab', this.id);
+      });
+    });
+  })();
+
 / ==================== PANEL TENANTS ====================
 #panel-tenants.tab-panel
   = link_to 'Nouveau tenant', new_admin_tenant_path, class: 'btn btn-primary'
@@ -78,6 +95,8 @@
         %tr
           %th Nom
           %th
+          - if @tenant_url
+            %th URL
           %th{style:'text-align:right'} DB
           %th{style:'text-align:right'} Fichiers
           %th Archive
@@ -90,6 +109,10 @@
             %td
               - if tenant == 'demo'
                 %span.badge-demo demo
+            - if @tenant_url
+              %td
+                = link_to "↗", @tenant_url.call(tenant), target: '_blank', rel: 'noopener',
+                    class: 'tenant-url-link', title: @tenant_url.call(tenant)
             - sizes = @tenant_sizes[tenant] || { db: 'N/A', files: 'N/A' }
             %td.size-cell= sizes[:db]
             %td.size-cell= sizes[:files]
@@ -297,7 +320,10 @@
           if (msgEl) msgEl.textContent = message;
           loaderKeys.forEach(function(key) { setStepState(key, 'done'); });
           clearInterval(pollTimer);
-          setTimeout(function() { location.reload(); }, 1500);
+          if (!sessionStorage.getItem('demo-reloaded')) {
+            sessionStorage.setItem('demo-reloaded', '1');
+            setTimeout(function() { location.reload(); }, 1500);
+          }
           return;
         }
         if (status === 'error') {
@@ -326,6 +352,7 @@
       if (btn) {
         btn.addEventListener('click', function() {
           if (!confirm('Lancer le chargement des données de démonstration ?')) return;
+          sessionStorage.removeItem('demo-reloaded');
           fetch(loadUrl, {
             method: 'POST',
             headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
@@ -378,7 +405,10 @@
               clearInterval(pollTimer);
               pollTimer = null;
               if (btn) btn.disabled = false;
-              setTimeout(function() { location.reload(); }, 1500);
+              if (!sessionStorage.getItem('restore-reloaded')) {
+                sessionStorage.setItem('restore-reloaded', '1');
+                setTimeout(function() { location.reload(); }, 1500);
+              }
             } else if (data.status === 'error') {
               setMsg('✘ ' + data.message, 'status-error');
               clearInterval(pollTimer);
@@ -411,6 +441,7 @@
           var formData = new FormData();
           formData.append('archive', fileInput.files[0]);
 
+          sessionStorage.removeItem('restore-reloaded');
           btn.disabled = true;
           setMsg("Envoi de l'archive en cours...");
 

@@ -18,7 +18,7 @@ docker login registry.gitlab.com -u <votre-username-gitlab> -p <votre-token>
 
 ---
 
-## 2. Configurer le fichier `.env`
+## 2. Configurer le fichier `.env` et ajouter dnsmasq
 
 Copier le fichier de configuration d'exemple :
 
@@ -38,6 +38,19 @@ Puis éditer `docker/dev/.env` et renseigner au minimum :
 | `GITLAB_REGISTRY_TOKEN` | Personal Access Token GitLab (`read_registry`) |
 
 > **Important :** si votre UID/GID n'est pas `1000`, il faut impérativement définir `UID` et `GID` dans le `.env` afin que le container puisse écrire dans le répertoire monté.
+
+Ajouter la configuration pour dnsmasq (éviter de modifier le fichier host pour chaque tenant)
+si vous avez changé la variable HOST_DOMAIN_NAME=ekylibre.lan, modifier votre doamine également dans la commande ci-dessous. 
+
+```bash
+sudo mkdir -p /etc/systemd/resolved.conf.d/
+sudo tee /etc/systemd/resolved.conf.d/ekylibre.conf << 'EOF'
+[Resolve]
+DNS=127.0.0.2
+Domains=~ekylibre.lan
+EOF
+sudo systemctl restart systemd-resolved
+```
 
 ---
 
@@ -64,20 +77,24 @@ A. Au **premier démarrage**, le container `app` va automatiquement :
 1. Installer les gems (`bundle install`)
 2. Installer les packages JS (`yarn install`)
 3. Créer et migrer la base de données (`db:create`, `db:migrate`)
-4. Charger le lexique (`lexicon:load`) — cette étape peut prendre plusieurs minutes
+4. Charger le lexicon (`lexicon:load`) mentionné dans le fichier .lexicon-version — cette étape peut prendre plusieurs minutes
 5. Démarrer le serveur Rails sur le port `3000`
 
-L'application est accessible sur [http://localhost:3000](http://localhost:3000).
+L'interface d'administration est accessible sur [http://localhost:3000/admin](http://localhost:3000/admin).
 
-B. Charger le lexicon mentionné dans le fichier .lexicon-version
+En ligne de commande, vous pouvez également
+
+Charger le lexicon
 
 ```bash
 docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake lexicon:load
 ```
 
-C. Charger les données de démonstration
+Charger les données de démonstration
 
-
+```bash
+docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake first_run
+```
 
 ---
 
@@ -90,6 +107,8 @@ C. Charger les données de démonstration
 | `db` | `5431` | PostgreSQL 13 (PostGIS) |
 | `redis` | — | Redis 7 (interne) |
 | `sidekiq` | — | Worker de jobs en arrière-plan |
+| `dnsmasq` | `5353/udp` | DNS wildcard `*.ekylibre.lan → 127.0.0.1` |
+| `dnsmasq` | `5380` | Interface web dnsmasq (admin/admin) |
 
 Connexion directe à la base depuis l'hôte :
 
@@ -111,7 +130,7 @@ docker compose -f docker/dev/docker-compose.yml logs -f app
 # Ouvrir un shell dans le container app
 docker compose -f docker/dev/docker-compose.yml exec app bash
 
-# Lancer une commande Rails
+# Lancer la console Rails
 docker compose -f docker/dev/docker-compose.yml exec app bundle exec rails c
 ```
 
@@ -169,7 +188,37 @@ docker compose -f docker/dev/docker-compose.yml exec app bundle install --path v
 
 ---
 
-## 8. Résolution de problèmes
+## 8. DNS wildcard pour l'accès multi-tenant
+
+Chaque tenant est accessible via son sous-domaine : `http://{tenant}.ekylibre.lan:3000/`.  
+Le service `dnsmasq` inclus dans le docker-compose résout automatiquement `*.ekylibre.lan → 127.0.0.2`.
+
+Pour activer cette résolution **une seule fois** sur l'hôte Linux (Ubuntu 20.04+ avec systemd-resolved) :
+
+```bash
+sudo mkdir -p /etc/systemd/resolved.conf.d/
+sudo tee /etc/systemd/resolved.conf.d/ekylibre.conf << 'EOF'
+[Resolve]
+DNS=127.0.0.2
+Domains=~ekylibre.lan
+EOF
+sudo systemctl restart systemd-resolved
+```
+
+Vérifier que la résolution fonctionne :
+
+```bash
+dig @127.0.0.2 -p 5353 demo.ekylibre.lan
+# Doit retourner 127.0.0.2
+```
+
+Une fois configuré, **tous les tenants** créés dans l'interface admin sont automatiquement accessibles via leur URL, sans modifier `/etc/hosts`. L'interface admin affiche un lien direct `↗` pour chaque tenant (uniquement en environnement de développement).
+
+> **Note :** Si le domaine utilisé est différent de `ekylibre.lan`, adapter `HOST_DOMAIN_NAME` dans `docker/dev/.env` et mettre à jour la config dnsmasq (`docker/dev/dnsmasq.conf`) en conséquence.
+
+---
+
+## 9. Résolution de problèmes
 
 ### Erreur de permissions sur `vendor/bundle` ou `/app`
 

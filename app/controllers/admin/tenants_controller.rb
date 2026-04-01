@@ -10,6 +10,11 @@ class Admin::TenantsController < Admin::BaseController
     @tenant_sizes = @tenants.each_with_object({}) do |name, h|
       h[name] = { db: tenant_schema_size(name), files: tenant_files_size(name) }
     end
+    if Rails.env.development?
+      domain = ENV['HOST_DOMAIN_NAME'] || 'ekylibre.lan'
+      port   = ENV.fetch('HOST_APP_PORT', 3000)
+      @tenant_url = ->(name) { "http://#{name}.#{domain}:#{port}/" }
+    end
   end
 
   def new

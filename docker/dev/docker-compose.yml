@@ -45,6 +45,20 @@ services:
         condition: service_started
     restart: on-failure
 
+  dnsmasq:
+    image: jpillora/dnsmasq
+    ports:
+      - "127.0.0.2:53:53/udp"  # DNS sur loopback alias (127.0.0.53 est pris par systemd-resolved)
+      - "5380:8080"             # Interface web (admin/admin)
+    environment:
+      HTTP_USER: admin
+      HTTP_PASS: admin
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
   redis:
     image: redis:7-alpine
 
