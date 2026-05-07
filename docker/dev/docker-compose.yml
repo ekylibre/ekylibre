@@ -55,8 +55,6 @@ services:
       HTTP_PASS: admin
     volumes:
       - ./dnsmasq.conf:/etc/dnsmasq.conf
-    cap_add:
-      - NET_ADMIN
     restart: unless-stopped
 
   redis:
