@@ -68,10 +68,13 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DEV_NAME}
+      DUKE_USER: ${DUKE_USER}
+      DUKE_PASSWORD: ${DUKE_PASSWORD}
       TZ: Europe/Paris
     volumes:
       - database-volume:/var/lib/postgresql/data
-      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
     ports:
       - "5431:5432"
     command: ["postgres", "-c", "log_statement=all"]
