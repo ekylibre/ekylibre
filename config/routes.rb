@@ -166,6 +166,10 @@ Rails.application.routes.draw do
       end
     end
 
+    # Duke chat widget runtime configuration (token, tenant, ws url).
+    # Rendered on demand when the user opens the chat bubble.
+    get 'duke/config', to: 'duke_widget#show', as: :duke_config
+
     resource :settings, only: [] do
       member do
         get :about
