@@ -140,6 +140,7 @@ Rails.application.routes.draw do
       resources :variants, only: %i[index]
       get 'profile', to: 'users#show'
       put 'profile', to: 'users#update'
+      get 'users/me', to: 'users#me'
       namespace :lexicon do
         resources :registered_phytosanitary_cropsets, only: %i[index create]
         resources :registered_phytosanitary_risks, only: %i[index create]
