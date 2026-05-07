@@ -17,11 +17,16 @@
 
   productsInfos =
     display: () ->
+      @_debouncedDisplay ?= _.debounce(@_displayNow.bind(this), 400)
+      @_debouncedDisplay()
+
+    _displayNow: () ->
       that = this
+      @_inFlight?.abort?()
       $('.nested-plant_medicine').each -> that._clear($(this))
       values = @._retrieveValues()
 
-      $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos',dataType: "json", data: values, method: 'POST')
+      @_inFlight = $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos',dataType: "json", data: values, method: 'POST')
        .done( (data) =>
           for id, infos of data
             $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
@@ -30,6 +35,7 @@
             @._displayBadge($productField, infos.state, infos.check_conditions)
             @._displayMessages($productField, infos.messages)
         )
+       .always(=> @_inFlight = null)
 
     _displayAllowedMentions: ($productField, allowedMentions) ->
       $productField.find('span.allowed-mentions').insertAfter($productField.find('.intervention_inputs_product .selector'))
@@ -272,21 +278,25 @@
     productListManager.filterProduct($(this), productListManager.retrieveProductsIds())
 
   # Re-trigger all filters on target change
-  $(document).on 'selector:change', "[data-selector-id='intervention_target_product_id']", ->
+  $(document).on 'selector:change', "[data-selector-id='intervention_target_product_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
 
-  $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", ->
+  $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     productsInfos.display()
     usageMainInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
   # Refresh usages, allowed mentions and badges on product update
-  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
+  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     productsInfos.display()
     $usageInput = $(this).closest('.nested-plant_medicine').find("[data-selector-id='intervention_input_usage_id']").first()
     if $(this).val() != ''
       $usageInput.attr('disabled', false)
 
-  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
+  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     productListManager.filterProducts()
 
   # Update allowed doses on quantity change
