@@ -1,14 +1,26 @@
 module Api
   module V2
     class UsersController < Api::V2::BaseController
+      # GET /api/v2/profile
+      # Returns the full serialization of the currently authenticated user.
+      #
+      # Authentication: required.
+      #
+      # Responses:
+      # - 200 OK  Full user record (Jbuilder template)
       def show
         @user = current_user
         respond_with @user
       end
 
       # GET /api/v2/users/me
-      # Stable, minimal session payload consumed by external clients (e.g. Duke).
+      # Returns a minimal, stable session payload for external clients (e.g. Duke).
       # Distinct from #show which returns the full User serialization.
+      #
+      # Authentication: required.
+      #
+      # Responses:
+      # - 200 OK  { id, email, full_name, locale, role }
       def me
         user = current_user
         render status: :ok, json: {
@@ -20,6 +32,20 @@ module Api
         }
       end
 
+      # PUT /api/v2/profile
+      # Updates the profile of the currently authenticated user.
+      #
+      # Authentication: required.
+      #
+      # Request body params (all optional):
+      # - first_name [String]
+      # - last_name  [String]
+      # - email      [String]
+      # - language   [String] One of the available locales (e.g. "fra", "eng")
+      #
+      # Responses:
+      # - 200 OK          { "id": <user_id> }
+      # - 400 Bad Request { "errors": [<full error messages>] }
       def update
         @user = current_user
         if @user.update(permitted_params)

@@ -10,8 +10,9 @@ const HEARTBEAT_INTERVAL_MS = 30 * 1000;
 const AUTH_TIMEOUT_MS = 10 * 1000;
 
 export class DukeClient {
-  constructor({ wsUrl, token, tenant, locale }) {
+  constructor({ wsUrl, email, token, tenant, locale }) {
     this.wsUrl = wsUrl;
+    this.email = email;
     this.token = token;
     this.tenant = tenant;
     this.locale = locale || 'fr';
@@ -63,6 +64,7 @@ export class DukeClient {
       this.ws.addEventListener('open', () => {
         this._send({
           type: 'auth',
+          email: this.email,
           token: this.token,
           tenant: this.tenant,
           locale: this.locale,
@@ -145,6 +147,10 @@ export class DukeClient {
 
   confirmIntervention(id, draft) {
     this._send({ type: 'confirm_intervention', id, draft });
+  }
+
+  clarify(id, answer) {
+    this._send({ type: 'clarify', id, answer });
   }
 
   cancel(id) {

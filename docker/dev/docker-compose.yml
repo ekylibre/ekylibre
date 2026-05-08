@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: app
     stdin_open: true
     tty: true
     build:
@@ -25,6 +26,7 @@ services:
         condition: service_started
 
   sidekiq:
+    container_name: sidekiq
     build:
       dockerfile: docker/dev/Dockerfile
       context: ../..
@@ -49,6 +51,7 @@ services:
 
   dnsmasq:
     image: jpillora/dnsmasq
+    container_name: dnsmasq
     ports:
       - "127.0.0.2:53:53/udp"  # DNS sur loopback alias (127.0.0.53 est pris par systemd-resolved)
       - "5380:8080"             # Interface web (admin/admin)
@@ -64,6 +67,7 @@ services:
 
   db:
     image: kartoza/postgis:13
+    container_name: db
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}

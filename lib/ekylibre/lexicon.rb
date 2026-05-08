@@ -222,6 +222,7 @@ module Ekylibre
             INSERT INTO "lexicon"."version" VALUES ('#{package.version}');
           COMMIT;
         SQL
+        Ekylibre::Tenant.grant_read_only_access('lexicon')
         success("#{package.version.to_s} is enabled.")
       end
 
@@ -241,6 +242,7 @@ module Ekylibre
             INSERT INTO "lexicon"."version" VALUES ('#{@target_version}');
           COMMIT;
         SQL
+        Ekylibre::Tenant.grant_read_only_access('lexicon')
         success("#{@target_version} is enabled.")
       end
 

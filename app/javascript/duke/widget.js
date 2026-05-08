@@ -30,12 +30,31 @@ const I18N = {
   fieldInputs: 'Intrants',
   successCreated: 'Intervention enregistrée',
   outOfScope: 'Cette fonction n\'est pas encore disponible.',
+  micStart: 'Dicter le message',
+  micStop: 'Arrêter la dictée',
+  micUnavailable: 'Reconnaissance vocale indisponible sur ce navigateur.',
+  micPermission: 'Accès au micro refusé. Autorise-le dans les réglages du navigateur.',
+  micNoSpeech: 'Aucune voix détectée.',
+  micError: 'La dictée a rencontré un problème.',
+  clarifyPlaceholder: 'Réponds à la question ci-dessus pour préciser…',
 };
 
 const ICON_BUBBLE = `
 <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
   <path d="M12 3a9 9 0 0 0-9 9c0 1.7.5 3.4 1.4 4.8L3 21l4.4-1.3A9 9 0 1 0 12 3z"/>
 </svg>`;
+
+const ICON_MIC = `
+<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+  <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11z"/>
+</svg>`;
+
+// Browser-side STT lives in the widget by design (REQUIREMENTS.md §2): Duke
+// only ever sees text. We use the Web Speech API (Chrome/Edge — Firefox lacks
+// support as of 2026, Safari requires user gesture and supports it on iOS 14+).
+function getSpeechRecognitionCtor() {
+  return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+}
 
 let nextMessageId = 1;
 function newId() {
@@ -51,6 +70,11 @@ export class DukeWidget {
     this.connecting = false;
     this.streamBuffers = new Map();
     this.draftsById = new Map();
+    this.recognition = null;     // active SpeechRecognition instance (or null)
+    this.recognizing = false;    // true while the mic is live
+    this._committedTranscript = '';  // text already accepted; interim results append to it
+    this.pendingClarifyId = null;    // when set, textarea sends `clarify` instead of `user_message`
+    this._defaultPlaceholder = I18N.placeholder;
     this._render();
   }
 
@@ -70,6 +94,9 @@ export class DukeWidget {
         <div class="duke-panel__messages" role="log" aria-live="polite"></div>
         <form class="duke-panel__composer" autocomplete="off">
           <textarea rows="2" placeholder="${I18N.placeholder}" required></textarea>
+          <button type="button" class="duke-mic" aria-label="${I18N.micStart}" hidden>
+            ${ICON_MIC}
+          </button>
           <button type="submit">${I18N.send}</button>
         </form>
       </section>
@@ -80,6 +107,7 @@ export class DukeWidget {
     this.messagesEl = this.root.querySelector('.duke-panel__messages');
     this.composer = this.root.querySelector('.duke-panel__composer');
     this.textarea = this.composer.querySelector('textarea');
+    this.micButton = this.composer.querySelector('.duke-mic');
 
     this.bubble.addEventListener('click', () => this.open());
     this.root.querySelector('.duke-panel__close').addEventListener('click', () => this.close());
@@ -93,6 +121,93 @@ export class DukeWidget {
         this._submitMessage();
       }
     });
+
+    if (getSpeechRecognitionCtor()) {
+      this.micButton.hidden = false;
+      this.micButton.addEventListener('click', () => this._toggleRecognition());
+    }
+  }
+
+  // --- Voice input (Web Speech API) ---
+
+  _toggleRecognition() {
+    if (this.recognizing) {
+      this.recognition?.stop();
+      return;
+    }
+    const Ctor = getSpeechRecognitionCtor();
+    if (!Ctor) {
+      this._appendSystem(I18N.micUnavailable);
+      return;
+    }
+
+    const recognition = new Ctor();
+    recognition.lang = 'fr-FR';
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.maxAlternatives = 1;
+
+    this._committedTranscript = this.textarea.value
+      ? this.textarea.value.trimEnd() + ' '
+      : '';
+
+    recognition.onstart = () => {
+      this.recognizing = true;
+      this.micButton.classList.add('duke-mic--recording');
+      this.micButton.setAttribute('aria-label', I18N.micStop);
+    };
+
+    recognition.onresult = (event) => {
+      let interim = '';
+      for (let i = event.resultIndex; i < event.results.length; i += 1) {
+        const result = event.results[i];
+        const transcript = result[0]?.transcript || '';
+        if (result.isFinal) {
+          this._committedTranscript += transcript;
+        } else {
+          interim += transcript;
+        }
+      }
+      this.textarea.value = (this._committedTranscript + interim).trimStart();
+    };
+
+    recognition.onerror = (event) => {
+      // 'aborted' fires on user-initiated stop and is not an error to surface.
+      const fatal = event.error && event.error !== 'aborted';
+      if (fatal) {
+        this._appendSystem(this._micErrorMessage(event.error));
+      }
+    };
+
+    recognition.onend = () => {
+      this.recognizing = false;
+      this.recognition = null;
+      this.micButton.classList.remove('duke-mic--recording');
+      this.micButton.setAttribute('aria-label', I18N.micStart);
+      this.textarea.focus();
+    };
+
+    this.recognition = recognition;
+    try {
+      recognition.start();
+    } catch (e) {
+      // Calling start() on an already-running recognition throws InvalidStateError.
+      // Surface as a soft system message rather than an exception in the console.
+      this._appendSystem(I18N.micError);
+      this.recognition = null;
+    }
+  }
+
+  _micErrorMessage(code) {
+    switch (code) {
+      case 'not-allowed':
+      case 'service-not-allowed':
+        return I18N.micPermission;
+      case 'no-speech':
+        return I18N.micNoSpeech;
+      default:
+        return I18N.micError;
+    }
   }
 
   // --- Lifecycle ---
@@ -112,6 +227,7 @@ export class DukeWidget {
     this.panelOpen = false;
     this.bubble.hidden = false;
     this.panel.hidden = true;
+    if (this.recognizing) this.recognition?.stop();
     if (this.client) {
       this.client.close();
       this.client = null;
@@ -137,8 +253,22 @@ export class DukeWidget {
       return;
     }
 
+    const missing = [];
+    if (!cfg.user?.email) missing.push('email');
+    if (!cfg.token) missing.push('token');
+    if (!cfg.tenant) missing.push('tenant');
+    if (missing.length) {
+      // Surfaces missing fields immediately rather than letting the WS handshake
+      // fail with a generic "Invalid auth payload". Usually means the widget
+      // pack wasn't rebuilt or the controller response is mis-shaped.
+      this._appendError(`${I18N.authError} (config incomplet: ${missing.join(', ')})`);
+      this.connecting = false;
+      return;
+    }
+
     this.client = new DukeClient({
       wsUrl: cfg.ws_url,
+      email: cfg.user.email,
       token: cfg.token,
       tenant: cfg.tenant,
       locale: cfg.locale,
@@ -167,12 +297,24 @@ export class DukeWidget {
   // --- Send ---
 
   _submitMessage() {
+    if (this.recognizing) this.recognition?.stop();
     const text = this.textarea.value.trim();
     if (!text || !this.client) return;
+
+    if (this.pendingClarifyId) {
+      // Continuation of the open draft: answers the pending question rather
+      // than starting a new turn. Duke re-extracts and re-emits the draft.
+      this._appendUser(text);
+      this.client.clarify(this.pendingClarifyId, text);
+      this.textarea.value = '';
+      this._committedTranscript = '';
+      return;
+    }
 
     const id = newId();
     this._appendUser(text);
     this.textarea.value = '';
+    this._committedTranscript = '';
     this.client.sendUserMessage(id, text);
   }
 
@@ -191,7 +333,18 @@ export class DukeWidget {
   }
 
   _showThinking(id) {
-    const node = this._append('assistant thinking', `<em>${I18N.thinking}</em>`, id);
+    // Reuse the existing card if any (e.g. on a clarify round-trip the draft
+    // node carries the same id and should briefly show "Duke réfléchit…"
+    // before being re-rendered). Without reuse we'd stack a fresh thinking
+    // node on top of the draft, leaving "Duke réfléchit…" visible after the
+    // new draft replaces only the original node.
+    let node = this.messagesEl.querySelector(`[data-msg-id="${id}"]`);
+    if (node) {
+      node.className = 'duke-msg duke-msg--assistant duke-msg--thinking';
+      node.innerHTML = `<em>${I18N.thinking}</em>`;
+    } else {
+      node = this._append('assistant thinking', `<em>${I18N.thinking}</em>`, id);
+    }
     this.streamBuffers.set(id, { node, text: '', thinking: true });
   }
 
@@ -243,7 +396,23 @@ export class DukeWidget {
     const stoppedAt = fields.stopped_at ? this._formatDate(fields.stopped_at) : '—';
     const procedure = this._escape(fields.procedure_name || '—');
 
-    const ambiguities = (msg.ambiguities || []).map((a) => `<li>${this._escape(a.question)}</li>`).join('');
+    const ambiguities = (msg.ambiguities || [])
+      .map((a, idx) => {
+        const opts = (a.options || [])
+          .map(
+            (opt) =>
+              `<button type="button" class="duke-draft__option" ` +
+              `data-msg-id="${msg.id}" data-amb-idx="${idx}" ` +
+              `data-option="${this._escape(opt)}">${this._escape(opt)}</button>`,
+          )
+          .join('');
+        return (
+          `<li>${this._escape(a.question)}` +
+          (opts ? `<div class="duke-draft__options">${opts}</div>` : '') +
+          `</li>`
+        );
+      })
+      .join('');
 
     const html = `
       <div class="duke-draft">
@@ -262,28 +431,69 @@ export class DukeWidget {
         </div>
       </div>
     `;
-    const node = this._append('assistant draft', html, msg.id);
 
-    const blockSubmit = (msg.ambiguities || []).length > 0;
+    // After a clarify round-trip, Duke re-emits a draft with the same id.
+    // Replace the existing card in place rather than stacking a new one.
+    const existing = this.messagesEl.querySelector(`[data-msg-id="${msg.id}"]`);
+    let node;
+    if (existing) {
+      existing.classList.remove('cancelled');
+      existing.innerHTML = html;
+      node = existing;
+    } else {
+      node = this._append('assistant draft', html, msg.id);
+    }
+
+    const hasAmbiguities = (msg.ambiguities || []).length > 0;
     const confirmBtn = node.querySelector('.duke-draft__confirm');
-    if (blockSubmit) {
+    if (hasAmbiguities) {
       confirmBtn.disabled = true;
+      this._setClarifying(msg.id);
+    } else if (this.pendingClarifyId === msg.id) {
+      this._clearClarifying();
     }
     confirmBtn.addEventListener('click', () => this._confirmDraft(msg.id));
     node.querySelector('.duke-draft__cancel').addEventListener('click', () => this._cancelDraft(msg.id, node));
+
+    node.querySelectorAll('.duke-draft__option').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (!this.client) return;
+        const option = btn.dataset.option;
+        // Surface the choice in the message log so the user has a record.
+        this._appendUser(option);
+        this.client.clarify(msg.id, option);
+        // Disable all options on this card to prevent double-clicks.
+        node.querySelectorAll('.duke-draft__option').forEach((b) => (b.disabled = true));
+      });
+    });
   }
 
   _confirmDraft(id) {
     const draft = this.draftsById.get(id);
     if (!draft || !this.client) return;
+    if (this.pendingClarifyId === id) this._clearClarifying();
     this.client.confirmIntervention(id, draft);
   }
 
   _cancelDraft(id, node) {
     if (this.client) this.client.cancel(id);
     this.draftsById.delete(id);
+    if (this.pendingClarifyId === id) this._clearClarifying();
     node.classList.add('cancelled');
     node.querySelectorAll('button').forEach((b) => (b.disabled = true));
+  }
+
+  _setClarifying(id) {
+    this.pendingClarifyId = id;
+    this.textarea.placeholder = I18N.clarifyPlaceholder;
+    this.composer.classList.add('duke-panel__composer--clarifying');
+    this.textarea.focus();
+  }
+
+  _clearClarifying() {
+    this.pendingClarifyId = null;
+    this.textarea.placeholder = this._defaultPlaceholder;
+    this.composer.classList.remove('duke-panel__composer--clarifying');
   }
 
   _renderInterventionCreated(msg) {

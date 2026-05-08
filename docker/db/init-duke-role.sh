@@ -6,7 +6,7 @@ if [ -z "$DUKE_USER" ] || [ -z "$DUKE_PASSWORD" ]; then
   exit 0
 fi
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+psql -v ON_ERROR_STOP=1 --host=localhost --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
   DO \$\$
   BEGIN
     IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = '${DUKE_USER}') THEN

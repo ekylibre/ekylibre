@@ -83,6 +83,19 @@
   .duke-widget .duke-draft__ambiguities {
     margin: 0 0 8px 0; padding-left: 18px; color: #b87a00; font-size: 13px;
   }
+  .duke-widget .duke-draft__ambiguities li { margin-bottom: 6px; }
+  .duke-widget .duke-draft__options {
+    margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .duke-widget .duke-draft__option {
+    background: #fff; color: #2c7a4b; border: 1px solid #2c7a4b;
+    border-radius: 14px; padding: 4px 10px; font-size: 12px;
+    cursor: pointer; line-height: 1.2;
+  }
+  .duke-widget .duke-draft__option:hover { background: #e8f5ed; }
+  .duke-widget .duke-draft__option:disabled {
+    background: #f0f2f1; color: #888; border-color: #d0d6d3; cursor: default;
+  }
   .duke-widget .duke-draft__actions {
     display: flex; gap: 8px; justify-content: flex-end;
   }
@@ -108,12 +121,35 @@
   .duke-widget .duke-panel__composer textarea:focus {
     outline: none; border-color: #2c7a4b;
   }
+  .duke-widget .duke-panel__composer--clarifying textarea {
+    border-color: #b87a00; background: #fffaf0;
+  }
+  .duke-widget .duke-panel__composer--clarifying textarea:focus {
+    border-color: #b87a00;
+  }
   .duke-widget .duke-panel__composer button {
     background: #2c7a4b; color: #fff; border: none;
     border-radius: 8px; padding: 0 16px;
     cursor: pointer; font-weight: 600;
   }
   .duke-widget .duke-panel__composer button:hover { background: #1f5d38; }
+
+  .duke-widget .duke-mic {
+    width: 40px; padding: 0; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #f0f2f1; color: #2c7a4b;
+  }
+  .duke-widget .duke-mic[hidden] { display: none; }
+  .duke-widget .duke-mic:hover { background: #e2e6e3; }
+  .duke-widget .duke-mic--recording {
+    background: #c93838; color: #fff;
+    animation: duke-mic-pulse 1.2s ease-in-out infinite;
+  }
+  .duke-widget .duke-mic--recording:hover { background: #a02828; }
+  @keyframes duke-mic-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 56, 56, 0.45); }
+    50%      { box-shadow: 0 0 0 8px rgba(201, 56, 56, 0); }
+  }
 
 #duke-widget-root{ data: { config_url: backend_duke_config_path } }
 = javascript_pack_tag :duke_widget

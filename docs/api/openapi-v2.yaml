@@ -1,0 +1,1010 @@
+openapi: 3.0.3
+info:
+  title: Ekylibre API v2
+  description: |
+    REST API exposed by Ekylibre (Farm Management Information System).
+    Each farm is a separate PostgreSQL schema (tenant) selected via the
+    request hostname (subdomain) or via the `X-Tenant` header.
+
+    All endpoints (except `POST /tokens`) require authentication via a
+    user-bound simple token. After obtaining the token via `POST /tokens`,
+    send it on every subsequent request:
+
+        Authorization: simple-token <user_email> <token>
+
+    Or, alternatively, as query parameters:
+
+        ?access_email=<user_email>&access_token=<token>
+
+    All responses are JSON.
+  version: '2.0'
+  contact:
+    name: Ekylibre
+    url: https://ekylibre.com
+  license:
+    name: AGPL-3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.html
+
+servers:
+  - url: https://{tenant}.{domain}/api/v2
+    description: Production
+    variables:
+      tenant:
+        default: demo
+        description: Tenant subdomain (one per farm)
+      domain:
+        default: ekylibre.com
+  - url: http://{tenant}.{domain}:3000/api/v2
+    description: Local development
+    variables:
+      tenant:
+        default: demo
+      domain:
+        default: ekylibre.lan
+
+security:
+  - SimpleTokenAuth: []
+  - QueryTokenAuth: []
+
+tags:
+  - name: Auth
+    description: Authentication tokens
+  - name: Users
+    description: Current user profile
+  - name: CultivableZones
+    description: Farm parcels (cultivable zones)
+  - name: Products
+    description: Farm products (animals, equipment, plants…)
+  - name: Variants
+    description: Product nature variants (catalog)
+  - name: Interventions
+    description: Recorded farm work
+  - name: FarmProfiles
+    description: Aggregated yearly farm profile
+  - name: FarmAccountancy
+    description: Aggregated yearly accountancy
+  - name: Lexicon
+    description: Reference data (phytosanitary lexicon)
+  - name: Procedures
+    description: Static procedure definitions (config/procedures/*.xml)
+
+paths:
+  /tokens:
+    post:
+      tags: [Auth]
+      summary: Authenticate and retrieve a token
+      description: Returns a simple authentication token to be used on subsequent requests.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: Missing credentials
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+        '401':
+          description: Invalid email or password
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
+  /tokens/{id}:
+    delete:
+      tags: [Auth]
+      summary: Invalidate a token
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The authentication token to invalidate
+          schema: { type: string }
+      responses:
+        '200':
+          description: Token invalidated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '404':
+          description: Token does not match any user
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
+  /profile:
+    get:
+      tags: [Users]
+      summary: Get the full profile of the current user
+      responses:
+        '200':
+          description: Full user record
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/User' }
+    put:
+      tags: [Users]
+      summary: Update the current user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name: { type: string }
+                last_name:  { type: string }
+                email:      { type: string, format: email }
+                language:   { type: string, description: 'Locale code (e.g. fra, eng)' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: integer }
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /users/me:
+    get:
+      tags: [Users]
+      summary: Minimal session payload (stable across versions)
+      responses:
+        '200':
+          description: Minimal user info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:        { type: integer }
+                  email:     { type: string, format: email }
+                  full_name: { type: string }
+                  locale:    { type: string }
+                  role:      { type: string, nullable: true }
+
+  /cultivable_zones:
+    get:
+      tags: [CultivableZones]
+      summary: List all cultivable zones (parcels)
+      responses:
+        '200':
+          description: Zone list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CultivableZone' }
+    post:
+      tags: [CultivableZones]
+      summary: Create a cultivable zone
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [uuid, name]
+              properties:
+                uuid:        { type: string, format: uuid }
+                name:        { type: string }
+                work_number: { type: string }
+                shape:
+                  oneOf:
+                    - type: string
+                      description: WKT geometry
+                    - type: object
+                      description: GeoJSON
+      responses:
+        '201':
+          description: Zone created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid: { type: string, format: uuid }
+        '403':
+          description: Validation error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /cultivable_zones/{uuid}:
+    put:
+      tags: [CultivableZones]
+      summary: Update a cultivable zone by UUID
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:        { type: string }
+                work_number: { type: string }
+                shape:
+                  oneOf:
+                    - type: string
+                    - type: object
+      responses:
+        '200':
+          description: Zone updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid: { type: string, format: uuid }
+        '404': { description: Zone not found }
+        '403':
+          description: Validation error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /products:
+    get:
+      tags: [Products]
+      summary: List products (all accepted types)
+      parameters:
+        - $ref: '#/components/parameters/ModifiedSince'
+      responses:
+        '200':
+          description: Product list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Product' }
+
+  /products/{product_type}:
+    get:
+      tags: [Products]
+      summary: List products of a given type
+      parameters:
+        - name: product_type
+          in: path
+          required: true
+          description: 'Accepted: animal, worker, equipment, land_parcel, building_division, plant, matter'
+          schema:
+            type: string
+            enum: [animal, worker, equipment, land_parcel, building_division, plant, matter]
+        - $ref: '#/components/parameters/ModifiedSince'
+      responses:
+        '200':
+          description: Product list filtered by type
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Product' }
+        '400':
+          description: Invalid product_type
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
+  /variants:
+    get:
+      tags: [Variants]
+      summary: List product nature variants
+      parameters:
+        - name: modified_since
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Variant list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Variant' }
+
+  /interventions:
+    get:
+      tags: [Interventions]
+      summary: List interventions assigned to a worker
+      parameters:
+        - name: contact_email
+          in: query
+          schema: { type: string, format: email }
+        - name: user_email
+          in: query
+          schema: { type: string, format: email }
+        - name: with_interventions
+          in: query
+          schema: { type: string, enum: ['true', 'false'] }
+        - name: nature
+          in: query
+          schema: { type: string, enum: [request, record] }
+      responses:
+        '200':
+          description: Intervention list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Intervention' }
+        '412':
+          description: Worker not associated with the email
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+        '422':
+          description: Unknown email or invalid filter
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+    post:
+      tags: [Interventions]
+      summary: Create a recorded intervention
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/InterventionCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: integer }
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /interventions/{id}:
+    put:
+      tags: [Interventions]
+      summary: Update an existing intervention
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/InterventionUpdate' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: integer }
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /farm_profiles/{harvest_year}:
+    get:
+      tags: [FarmProfiles]
+      summary: Get aggregated farm profile for a harvest year
+      parameters:
+        - name: harvest_year
+          in: path
+          required: true
+          schema: { type: integer, example: 2025 }
+      responses:
+        '200':
+          description: Farm profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  general_informations:      { type: object }
+                  weather_informations:      { type: object }
+                  biodiversity_informations: { type: object }
+                  crop_rotations_n:          { type: object }
+                  crop_rotations_n_1:        { type: object }
+                  crop_rotations_n_2:        { type: object }
+        '400':
+          description: Missing harvest_year
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /farm_accountancy/{harvest_year}:
+    get:
+      tags: [FarmAccountancy]
+      summary: Get aggregated accountancy for a harvest year
+      parameters:
+        - name: harvest_year
+          in: path
+          required: true
+          schema: { type: integer, example: 2025 }
+      responses:
+        '200':
+          description: Farm accountancy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  global_ratio: { type: object }
+                  accountancy:  { type: object }
+                  economic:     { type: object }
+        '400':
+          description: Missing harvest_year
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /procedures:
+    get:
+      tags: [Procedures]
+      summary: List all procedures defined in config/procedures
+      parameters:
+        - name: category
+          in: query
+          description: Filter by category name (e.g. animal_breeding)
+          schema: { type: string }
+        - name: action
+          in: query
+          description: Filter by action name
+          schema: { type: string }
+        - name: activity_family
+          in: query
+          description: Filter by activity family
+          schema: { type: string }
+        - name: include_deprecated
+          in: query
+          schema: { type: string, enum: ['true', 'false'] }
+        - name: include_hidden
+          in: query
+          schema: { type: string, enum: ['true', 'false'] }
+      responses:
+        '200':
+          description: Procedure list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Procedure' }
+
+  /procedures/{id}:
+    get:
+      tags: [Procedures]
+      summary: Show a procedure by name
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Procedure name (e.g. animal_artificial_insemination)
+          schema: { type: string }
+      responses:
+        '200':
+          description: Procedure description
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Procedure' }
+        '404':
+          description: Procedure not found
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+
+  /lexicon/registered_phytosanitary_cropsets:
+    get:
+      tags: [Lexicon]
+      summary: List phytosanitary cropsets
+      parameters:
+        - $ref: '#/components/parameters/LexiconModifiedSince'
+        - $ref: '#/components/parameters/Paginate'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Cropset list, paginated payload, or up-to-date marker
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: string
+                    description: Last update date (DD/MM/YYYY) — cache up-to-date
+                  - type: array
+                    items: { $ref: '#/components/schemas/PhytoCropset' }
+                  - $ref: '#/components/schemas/PaginatedPhytoCropset'
+    post:
+      tags: [Lexicon]
+      summary: Compute sync diff for cropsets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LexiconSyncRequest' }
+      responses:
+        '200':
+          description: Diff
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LexiconSyncResponse' }
+
+  /lexicon/registered_phytosanitary_products:
+    get:
+      tags: [Lexicon]
+      summary: List phytosanitary products
+      parameters:
+        - $ref: '#/components/parameters/LexiconModifiedSince'
+        - name: user_product
+          in: query
+          description: '"true" to restrict to user-linked products'
+          schema: { type: string, enum: ['true', 'false'] }
+        - $ref: '#/components/parameters/Paginate'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Product list, paginated payload, or up-to-date marker
+    post:
+      tags: [Lexicon]
+      summary: Compute sync diff for phytosanitary products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LexiconSyncRequest' }
+      responses:
+        '200':
+          description: Diff
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LexiconSyncResponse' }
+
+  /lexicon/registered_phytosanitary_risks:
+    get:
+      tags: [Lexicon]
+      summary: List phytosanitary risks
+      parameters:
+        - $ref: '#/components/parameters/LexiconModifiedSince'
+        - $ref: '#/components/parameters/Paginate'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Risk list, paginated payload, or up-to-date marker
+    post:
+      tags: [Lexicon]
+      summary: Compute sync diff for phytosanitary risks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LexiconSyncRequest' }
+      responses:
+        '200':
+          description: Diff
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LexiconSyncResponse' }
+
+  /lexicon/registered_phytosanitary_usages:
+    get:
+      tags: [Lexicon]
+      summary: List phytosanitary usages
+      parameters:
+        - $ref: '#/components/parameters/LexiconModifiedSince'
+        - name: user_product
+          in: query
+          description: '"true" to restrict to user-linked products'
+          schema: { type: string, enum: ['true', 'false'] }
+        - $ref: '#/components/parameters/Paginate'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Usage list, paginated payload, or up-to-date marker
+    post:
+      tags: [Lexicon]
+      summary: Compute sync diff for phytosanitary usages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LexiconSyncRequest' }
+      responses:
+        '200':
+          description: Diff
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LexiconSyncResponse' }
+
+components:
+  securitySchemes:
+    SimpleTokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: |
+        Simple token authentication. Format:
+        `simple-token <user_email> <token>`
+    QueryTokenAuth:
+      type: apiKey
+      in: query
+      name: access_token
+      description: |
+        Token via query string. Must be combined with `access_email`.
+
+  parameters:
+    ModifiedSince:
+      name: modified_since
+      in: query
+      description: ISO8601 datetime — only return records updated after this date
+      schema: { type: string, format: date-time }
+
+    LexiconModifiedSince:
+      name: modified_since
+      in: query
+      description: Last sync date (DD/MM/YYYY)
+      schema: { type: string, example: '01/01/2025' }
+
+    Paginate:
+      name: paginate
+      in: query
+      description: When provided, response is paginated
+      schema: { type: string }
+
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, default: 1 }
+
+    PerPage:
+      name: per_page
+      in: query
+      schema: { type: integer, default: 100, maximum: 1000 }
+
+  schemas:
+    Message:
+      type: object
+      properties:
+        message: { type: string }
+
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items: { type: string }
+
+    User:
+      type: object
+      properties:
+        id:         { type: integer }
+        email:      { type: string, format: email }
+        first_name: { type: string }
+        last_name:  { type: string }
+        full_name:  { type: string }
+        language:   { type: string }
+
+    CultivableZone:
+      type: object
+      properties:
+        uuid:        { type: string, format: uuid }
+        name:        { type: string }
+        work_number: { type: string }
+        shape:
+          description: GeoJSON or WKT
+          oneOf:
+            - type: string
+            - type: object
+
+    Product:
+      type: object
+      properties:
+        id:         { type: integer }
+        type:       { type: string, enum: [Animal, Worker, Equipment, LandParcel, BuildingDivision, Plant, Matter] }
+        name:       { type: string }
+        updated_at: { type: string, format: date-time }
+
+    Variant:
+      type: object
+      properties:
+        id:         { type: integer }
+        name:       { type: string }
+        nature:     { type: object }
+        updated_at: { type: string, format: date-time }
+
+    Reading:
+      type: object
+      properties:
+        boolean_value:        { type: boolean }
+        indicator_name:       { type: string }
+        measure_value_value:  { type: number }
+        measure_value_unit:   { type: string }
+        choice_value:         { type: string }
+        decimal_value:        { type: number }
+        string_value:         { type: string }
+
+    InterventionWorkingPeriod:
+      type: object
+      properties:
+        id:         { type: integer }
+        started_at: { type: string, format: date-time }
+        stopped_at: { type: string, format: date-time }
+        _destroy:   { type: boolean }
+
+    InterventionInput:
+      type: object
+      properties:
+        id:                  { type: integer }
+        product_id:          { type: integer }
+        quantity_value:      { type: number }
+        quantity_handler:    { type: string }
+        reference_name:      { type: string }
+        quantity_population: { type: number }
+        usage_id:            { type: integer }
+        _destroy:            { type: boolean }
+
+    InterventionOutput:
+      type: object
+      properties:
+        id:                  { type: integer }
+        variant_id:          { type: integer }
+        quantity_value:      { type: number }
+        quantity_handler:    { type: string }
+        reference_name:      { type: string }
+        quantity_population: { type: number }
+        _destroy:            { type: boolean }
+
+    InterventionTool:
+      type: object
+      properties:
+        id:                 { type: integer }
+        product_id:         { type: integer }
+        reference_name:     { type: string }
+        _destroy:           { type: boolean }
+        readings_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/Reading' }
+
+    InterventionTarget:
+      allOf:
+        - $ref: '#/components/schemas/InterventionTool'
+
+    InterventionDoer:
+      type: object
+      properties:
+        id:             { type: integer }
+        product_id:     { type: integer }
+        reference_name: { type: string }
+        _destroy:       { type: boolean }
+
+    InterventionGroupParameter:
+      type: object
+      properties:
+        id:                  { type: integer }
+        reference_name:      { type: string }
+        _destroy:            { type: boolean }
+        inputs_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionInput' }
+        outputs_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionOutput' }
+        targets_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionTarget' }
+        tools_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionTool' }
+        doers_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionDoer' }
+
+    Provider:
+      type: object
+      required: [vendor, name]
+      properties:
+        vendor: { type: string }
+        name:   { type: string }
+        id:     { type: string }
+        data:   { type: object, additionalProperties: true }
+
+    InterventionCreate:
+      type: object
+      required: [procedure_name, provider]
+      properties:
+        id:             { type: integer }
+        procedure_name: { type: string }
+        description:    { type: string }
+        actions:
+          type: array
+          items: { type: string }
+        provider: { $ref: '#/components/schemas/Provider' }
+        working_periods_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionWorkingPeriod' }
+        inputs_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionInput' }
+        outputs_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionOutput' }
+        tools_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionTool' }
+        targets_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionTarget' }
+        doers_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionDoer' }
+        group_parameters_attributes:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionGroupParameter' }
+
+    InterventionUpdate:
+      allOf:
+        - $ref: '#/components/schemas/InterventionCreate'
+      description: Same payload as create, but `provider` is not strictly required.
+
+    Intervention:
+      type: object
+      properties:
+        id:             { type: integer }
+        procedure_name: { type: string }
+        nature:         { type: string }
+        state:          { type: string }
+        description:    { type: string }
+        started_at:     { type: string, format: date-time }
+        stopped_at:     { type: string, format: date-time }
+
+    ProcedureCardinality:
+      type: object
+      properties:
+        minimum: { type: integer, nullable: true }
+        maximum: { type: integer, nullable: true }
+
+    ProcedureNamedItem:
+      type: object
+      properties:
+        name:       { type: string }
+        human_name: { type: string }
+
+    ProcedureParameter:
+      type: object
+      properties:
+        name:          { type: string }
+        human_name:    { type: string }
+        type:
+          type: string
+          description: 'One of: group, target, tool, doer, input, output'
+        cardinality: { $ref: '#/components/schemas/ProcedureCardinality' }
+        required:      { type: boolean }
+        filter:        { type: string, nullable: true, description: Working set expression }
+        variety:       { type: string, nullable: true }
+        derivative_of: { type: string, nullable: true }
+        default_name:  { type: string, nullable: true }
+        handlers:
+          type: array
+          description: Names of handlers (only for product parameters)
+          items: { type: string }
+        parameters:
+          type: array
+          description: Nested parameters (only for group parameters)
+          items: { $ref: '#/components/schemas/ProcedureParameter' }
+
+    Procedure:
+      type: object
+      properties:
+        name:       { type: string, example: animal_artificial_insemination }
+        human_name: { type: string }
+        position:   { type: integer, nullable: true }
+        deprecated: { type: boolean }
+        hidden:     { type: boolean }
+        categories:
+          type: array
+          items: { $ref: '#/components/schemas/ProcedureNamedItem' }
+        mandatory_actions:
+          type: array
+          items: { $ref: '#/components/schemas/ProcedureNamedItem' }
+        optional_actions:
+          type: array
+          items: { $ref: '#/components/schemas/ProcedureNamedItem' }
+        activity_families:
+          type: array
+          items: { type: string }
+        varieties:
+          type: array
+          items: { type: string }
+        parameters:
+          type: array
+          items: { $ref: '#/components/schemas/ProcedureParameter' }
+
+    LexiconSyncRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required: [id, record_checksum]
+            properties:
+              id:              { oneOf: [{ type: integer }, { type: string }] }
+              record_checksum: { type: string }
+
+    LexiconSyncResponse:
+      type: object
+      properties:
+        removed:
+          type: array
+          description: IDs no longer present server-side
+          items:
+            type: object
+            properties:
+              id: { oneOf: [{ type: integer }, { type: string }] }
+        updated:
+          type: array
+          description: Records that have been added or updated since the client cache
+          items: { type: object, additionalProperties: true }
+
+    PhytoCropset:
+      type: object
+      properties:
+        id:              { type: integer }
+        record_checksum: { type: string }
+        name:            { type: string }
+
+    PaginatedPhytoCropset:
+      type: object
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/PhytoCropset' }
+        pagination:
+          type: object
+          properties:
+            elements:       { type: integer }
+            page:           { type: integer }
+            total_elements: { type: integer }
+            page_count:     { type: integer }

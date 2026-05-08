@@ -4,6 +4,24 @@ module Api
     class InterventionsController < Api::V2::BaseController
       READING_PARAMS = %i[tools targets].freeze
 
+      # GET /api/v2/interventions
+      # Lists interventions assigned to a worker, optionally filtered by nature
+      # or whether they have child interventions.
+      #
+      # Authentication: required.
+      #
+      # Query string params:
+      # - contact_email      [String, optional] Filter by entity (contact) email
+      # - user_email         [String, optional] Filter by user email
+      # - with_interventions [String, optional] "true" / "false" — filter request
+      #                                          interventions that have / have not
+      #                                          a recorded child intervention
+      # - nature             [String, optional] e.g. "request", "record"
+      #
+      # Responses:
+      # - 200 OK                       Array of interventions
+      # - 412 Precondition Required    Worker not associated with the email
+      # - 422 Unprocessable Entity     Invalid filter or unknown email
       def index
         @interventions = Intervention
 
@@ -57,6 +75,48 @@ module Api
         @interventions = @interventions.where.not(state: :rejected).order(:id)
       end
 
+      # POST /api/v2/interventions
+      # Creates a new recorded intervention with its full graph of nested
+      # resources (working periods, inputs, outputs, tools, targets, doers,
+      # group_parameters, and readings). Defaults: nature = "record",
+      # state = "done", working periods auto-calculated.
+      #
+      # Authentication: required.
+      #
+      # Request body params:
+      # - id                          [Integer, optional]
+      # - procedure_name              [String, required]
+      # - description                 [String, optional]
+      # - actions                     [Array<String>]
+      # - working_periods_attributes  [Array] { id, started_at, stopped_at, _destroy }
+      # - inputs_attributes           [Array] { id, product_id, quantity_value,
+      #                                        quantity_handler, reference_name,
+      #                                        quantity_population, usage_id, _destroy }
+      # - outputs_attributes          [Array] { id, variant_id, quantity_value,
+      #                                        quantity_handler, reference_name,
+      #                                        quantity_population, _destroy }
+      # - tools_attributes            [Array] { id, product_id, reference_name,
+      #                                        _destroy, readings_attributes[] }
+      # - targets_attributes          [Array] { id, product_id, reference_name,
+      #                                        _destroy, readings_attributes[] }
+      # - doers_attributes            [Array] { id, product_id, reference_name, _destroy }
+      # - group_parameters_attributes [Array] { id, reference_name, _destroy,
+      #                                        inputs_attributes[], outputs_attributes[],
+      #                                        targets_attributes[], tools_attributes[],
+      #                                        doers_attributes[] }
+      # - provider                    [Object, required]
+      #     - vendor [String, required]
+      #     - name   [String, required]
+      #     - id     [String, optional]
+      #     - data   [Object, optional]
+      #
+      # readings_attributes items: { boolean_value, indicator_name,
+      #   measure_value_value, measure_value_unit, choice_value, decimal_value,
+      #   string_value }
+      #
+      # Responses:
+      # - 201 Created     { "id": <intervention_id> }
+      # - 400 Bad Request { "errors": [<message>] }
       def create
         interactor = Interventions::BuildInterventionInteractor.new(create_params, intervention_options)
 
@@ -68,6 +128,21 @@ module Api
         end
       end
 
+      # PUT/PATCH /api/v2/interventions/:id
+      # Updates an existing intervention. Accepts the same nested attributes as
+      # `create`. Children can be removed via `_destroy: true`.
+      #
+      # Authentication: required.
+      #
+      # URL params:
+      # - id [Integer, required] Intervention id
+      #
+      # Request body params: same as POST /api/v2/interventions but without
+      # the `provider` requirement.
+      #
+      # Responses:
+      # - 200 OK          { "id": <intervention_id> }
+      # - 400 Bad Request { "errors": <message> }
       def update
         interactor = Interventions::BuildInterventionInteractor.new(update_params, intervention_options)
 

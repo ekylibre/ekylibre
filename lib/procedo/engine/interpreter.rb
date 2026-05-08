@@ -24,38 +24,38 @@ module Procedo
       protected
 
         def run(node)
-          if node.is_a?(Procedo::Formula::Language::StringExpression)
+          if node.is_a?(Procedo::Formula::Nodes::StringExpression)
             node.string_body.elements.collect do |element|
               run(element)
             end.compact.join('')
-          elsif node.is_a?(Procedo::Formula::Language::Text)
+          elsif node.is_a?(Procedo::Formula::Nodes::Text)
             node.text_value
-          elsif node.is_a?(Procedo::Formula::Language::Interpolation)
+          elsif node.is_a?(Procedo::Formula::Nodes::Interpolation)
             run(node.expression)
-          elsif node.is_a?(Procedo::Formula::Language::Expression)
+          elsif node.is_a?(Procedo::Formula::Nodes::Expression)
             run(node.expression)
-          elsif node.is_a?(Procedo::Formula::Language::BooleanExpression)
+          elsif node.is_a?(Procedo::Formula::Nodes::BooleanExpression)
             run(node.boolean_expression)
-          elsif node.is_a?(Procedo::Formula::Language::Condition)
+          elsif node.is_a?(Procedo::Formula::Nodes::Condition)
             run(node.test) ? run(node.if_true) : run(node.if_false)
-          elsif node.is_a?(Procedo::Formula::Language::Conjunction)
+          elsif node.is_a?(Procedo::Formula::Nodes::Conjunction)
             run(node.head) && run(node.operand)
-          elsif node.is_a?(Procedo::Formula::Language::ExclusiveDisjunction)
+          elsif node.is_a?(Procedo::Formula::Nodes::ExclusiveDisjunction)
             run(node.head) ^ run(node.operand)
-          elsif node.is_a?(Procedo::Formula::Language::Disjunction)
+          elsif node.is_a?(Procedo::Formula::Nodes::Disjunction)
             run(node.head) || run(node.operand)
-          elsif node.is_a?(Procedo::Formula::Language::Multiplication)
+          elsif node.is_a?(Procedo::Formula::Nodes::Multiplication)
             run(node.head) * run(node.operand)
-          elsif node.is_a?(Procedo::Formula::Language::Division)
+          elsif node.is_a?(Procedo::Formula::Nodes::Division)
             raise "Cannot divide by zero: #{node.head.text_value} / #{node.operand.text_value} (#{run(node.head)} / #{run(node.operand)})" if run(node.operand).zero?
 
             result = run(node.head) / run(node.operand)
             result
-          elsif node.is_a?(Procedo::Formula::Language::Addition)
+          elsif node.is_a?(Procedo::Formula::Nodes::Addition)
             run(node.head) + run(node.operand)
-          elsif node.is_a?(Procedo::Formula::Language::Substraction)
+          elsif node.is_a?(Procedo::Formula::Nodes::Substraction)
             run(node.head) - run(node.operand)
-          elsif node.is_a?(Procedo::Formula::Language::Comparison)
+          elsif node.is_a?(Procedo::Formula::Nodes::Comparison)
             case node.operator.text_value
             when '>' then run(node.head) > run(node.operand)
             when '<' then run(node.head) < run(node.operand)
@@ -66,9 +66,9 @@ module Procedo
             else
               raise 'Invalid operator: ' + node.operator.text_value
             end
-          elsif node.is_a?(Procedo::Formula::Language::NegativeTest)
+          elsif node.is_a?(Procedo::Formula::Nodes::NegativeTest)
             !run(node.negated_test)
-          elsif node.is_a?(Procedo::Formula::Language::FunctionCall)
+          elsif node.is_a?(Procedo::Formula::Nodes::FunctionCall)
             arguments = []
             args = node.args
             if args
@@ -80,11 +80,11 @@ module Procedo
               end
             end
             Procedo::Engine::Functions.send(node.function_name.text_value.to_sym, *arguments)
-          elsif node.is_a?(Procedo::Formula::Language::Symbol)
+          elsif node.is_a?(Procedo::Formula::Nodes::Symbol)
             node.text_value[1..-1].to_sym
-          elsif node.is_a?(Procedo::Formula::Language::EnvironmentVariable)
+          elsif node.is_a?(Procedo::Formula::Nodes::EnvironmentVariable)
             @env[node.text_value]
-          elsif node.is_a?(Procedo::Formula::Language::Variable)
+          elsif node.is_a?(Procedo::Formula::Nodes::Variable)
             @variables << node.text_value.to_sym
             if RESERVED_VARIABLES.include?(node.text_value.to_sym)
               @intervention.send("#{node.text_value}_parameter")
@@ -92,14 +92,14 @@ module Procedo
               @intervention.parameter_set(node.text_value)
             end
 
-          elsif node.is_a?(Procedo::Formula::Language::Numeric)
+          elsif node.is_a?(Procedo::Formula::Nodes::Numeric)
             node.text_value.to_d
-          elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)
+          elsif node.is_a?(Procedo::Formula::Nodes::ActorPresenceTest)
             # puts "PRESENCE: #{run(node.object)}".blue
             run(node.object).present?
-          elsif node.is_a?(Procedo::Formula::Language::VariablePresenceTest)
+          elsif node.is_a?(Procedo::Formula::Nodes::VariablePresenceTest)
             run(node.variable).any?
-          elsif node.is_a?(Procedo::Formula::Language::IndicatorPresenceTest)
+          elsif node.is_a?(Procedo::Formula::Nodes::IndicatorPresenceTest)
             indicator = Onoma::Indicator.find!(node.indicator.text_value)
             product = run(node.object)
             unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
@@ -109,7 +109,7 @@ module Procedo
 
             !!(product.has_indicator?(indicator.name.to_sym) &&
               (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?))
-          elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
+          elsif node.is_a?(Procedo::Formula::Nodes::IndividualIndicatorPresenceTest)
             indicator = Onoma::Indicator.find!(node.indicator.text_value)
             product = run(node.object)
             unless product.is_a?(Product)
@@ -120,7 +120,7 @@ module Procedo
 
             !!(variant.has_frozen_indicator?(indicator.name.to_sym) &&
               (indicator.datatype == :measure ? variant.get(indicator.name.to_sym).to_f.nonzero? : variant.get(indicator.name.to_sym).present?))
-          elsif node.is_a?(Procedo::Formula::Language::Reading)
+          elsif node.is_a?(Procedo::Formula::Nodes::Reading)
             unit = nil
             if node.options && node.options.respond_to?(:unit)
               unless unit = Onoma::Unit[node.options.unit.text_value]
@@ -136,7 +136,7 @@ module Procedo
               Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value
               # raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value
             end
-            if node.is_a?(Procedo::Formula::Language::IndividualReading)
+            if node.is_a?(Procedo::Formula::Nodes::IndividualReading)
               product = product.variant
             end
 

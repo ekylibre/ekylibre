@@ -44,6 +44,27 @@ Si la base existe déjà (le volume n'est pas recréé), exécuter le script man
 docker compose -f docker/dev/docker-compose.yml exec db bash /docker-entrypoint-initdb.d/02-init-duke-role.sh
 ```
 
+### Schemas créés dynamiquement
+
+Le rôle Duke obtient automatiquement les permissions sur :
+
+- **Nouveaux tenants** : `Ekylibre::Tenant.create` appelle `grant_read_only_access` après `Apartment::Tenant.create`
+- **Schema `lexicon`** : `Ekylibre::Lexicon` appelle `grant_read_only_access('lexicon')` lors de l'activation (`enable_package_in_db` / `enable_version_in_db`), juste après le `ALTER SCHEMA RENAME` qui transforme `lexicon__VERSION` en `lexicon`
+
+La méthode `grant_read_only_access` applique :
+
+- `GRANT USAGE ON SCHEMA`
+- `GRANT SELECT ON ALL TABLES IN SCHEMA`
+- `ALTER DEFAULT PRIVILEGES` pour les futures tables
+
+Cela suppose que `DUKE_USER` est défini dans l'environnement de l'app Rails (transmis via `env_file: .env`).
+
+Si un schema a été créé sans le hook (ex : avant l'ajout de cette fonctionnalité), il faut grant manuellement :
+
+```ruby
+Ekylibre::Tenant.grant_read_only_access('mytenant')
+```
+
 ### Connexion depuis Duke
 
 Duke se connecte via le réseau Docker partagé `ekylibre` :

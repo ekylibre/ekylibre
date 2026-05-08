@@ -138,6 +138,7 @@ Rails.application.routes.draw do
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
       resources :variants, only: %i[index]
+      resources :procedures, only: %i[index show], constraints: { id: /[^\/]+/ }
       get 'profile', to: 'users#show'
       put 'profile', to: 'users#update'
       get 'users/me', to: 'users#me'
