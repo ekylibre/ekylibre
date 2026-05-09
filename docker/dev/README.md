@@ -18,7 +18,7 @@ docker login registry.gitlab.com -u <votre-username-gitlab> -p <votre-token>
 
 ---
 
-## 2. Configurer le fichier `.env` et ajouter dnsmasq
+## 2. Configurer le fichier `.env`
 
 Copier le fichier de configuration d'exemple :
 
@@ -39,18 +39,7 @@ Puis éditer `docker/dev/.env` et renseigner au minimum :
 
 > **Important :** si votre UID/GID n'est pas `1000`, il faut impérativement définir `UID` et `GID` dans le `.env` afin que le container puisse écrire dans le répertoire monté.
 
-Ajouter la configuration pour dnsmasq (éviter de modifier le fichier host pour chaque tenant)
-si vous avez changé la variable HOST_DOMAIN_NAME=ekylibre.lan, modifier votre doamine également dans la commande ci-dessous. 
-
-```bash
-sudo mkdir -p /etc/systemd/resolved.conf.d/
-sudo tee /etc/systemd/resolved.conf.d/ekylibre.conf << 'EOF'
-[Resolve]
-DNS=127.0.0.2
-Domains=~ekylibre.lan
-EOF
-sudo systemctl restart systemd-resolved
-```
+> Aucune configuration DNS ou `/etc/hosts` à faire : `*.ekylibre.localhost` est résolu nativement par systemd-resolved / glibc (RFC 6761). Voir **section 8**.
 
 ---
 
@@ -80,7 +69,7 @@ A. Au **premier démarrage**, le container `app` va automatiquement :
 4. Charger le lexicon (`lexicon:load`) mentionné dans le fichier .lexicon-version — cette étape peut prendre plusieurs minutes
 5. Démarrer le serveur Rails sur le port `3000`
 
-L'interface d'administration est accessible sur [http://localhost:3000/admin](http://localhost:3000/admin).
+L'interface d'administration est accessible sur [http://localhost:3000/admin](http://localhost:3000/admin) (ou en HTTPS via `https://ekylibre.localhost/admin` après avoir suivi la **section 8**).
 
 En ligne de commande, vous pouvez également
 
@@ -107,8 +96,7 @@ docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake first_
 | `db` | `5431` | PostgreSQL 13 (PostGIS) |
 | `redis` | — | Redis 7 (interne) |
 | `sidekiq` | — | Worker de jobs en arrière-plan |
-| `dnsmasq` | `5353/udp` | DNS wildcard `*.ekylibre.lan → 127.0.0.1` |
-| `dnsmasq` | `5380` | Interface web dnsmasq (admin/admin) |
+| `caddy` | `127.0.0.1:80` / `127.0.0.1:443` | Reverse-proxy HTTPS pour `duke.ekylibre.localhost` (→ duke local) et `(*.)ekylibre.localhost` (→ app:3000) |
 
 Connexion directe à la base depuis l'hôte :
 
@@ -188,33 +176,62 @@ docker compose -f docker/dev/docker-compose.yml exec app bundle install --path v
 
 ---
 
-## 8. DNS wildcard pour l'accès multi-tenant
+## 8. HTTPS multi-tenant — Caddy + `.localhost`
 
-Chaque tenant est accessible via son sous-domaine : `http://{tenant}.ekylibre.lan:3000/`.  
-Le service `dnsmasq` inclus dans le docker-compose résout automatiquement `*.ekylibre.lan → 127.0.0.2`.
+Tout passe sous `ekylibre.localhost`, en HTTPS, via **Caddy** uniquement. Aucun DNS local à configurer : `*.localhost` est résolu nativement par systemd-resolved / glibc (RFC 6761).
 
-Pour activer cette résolution **une seule fois** sur l'hôte Linux (Ubuntu 20.04+ avec systemd-resolved) :
-
-```bash
-sudo mkdir -p /etc/systemd/resolved.conf.d/
-sudo tee /etc/systemd/resolved.conf.d/ekylibre.conf << 'EOF'
-[Resolve]
-DNS=127.0.0.2
-Domains=~ekylibre.lan
-EOF
-sudo systemctl restart systemd-resolved
+```
+navigateur ─► 127.0.0.1:443 (Caddy, cert auto via tls internal)
+                ├─ duke.ekylibre.localhost  ─► host.docker.internal:8000 (Duke local)
+                ├─ ekylibre.localhost       ─► app:3000  (landing page)
+                └─ *.ekylibre.localhost     ─► app:3000  (tenants)
 ```
 
-Vérifier que la résolution fonctionne :
+### a. Démarrer la stack
 
 ```bash
-dig @127.0.0.2 -p 5353 demo.ekylibre.lan
-# Doit retourner 127.0.0.2
+docker compose -f docker/dev/docker-compose.yml up -d
 ```
 
-Une fois configuré, **tous les tenants** créés dans l'interface admin sont automatiquement accessibles via leur URL, sans modifier `/etc/hosts`. L'interface admin affiche un lien direct `↗` pour chaque tenant (uniquement en environnement de développement).
+### b. Faire confiance à la CA Caddy (une fois)
 
-> **Note :** Si le domaine utilisé est différent de `ekylibre.lan`, adapter `HOST_DOMAIN_NAME` dans `docker/dev/.env` et mettre à jour la config dnsmasq (`docker/dev/dnsmasq.conf`) en conséquence.
+Au premier démarrage, Caddy génère sa propre CA dans le volume `caddy-data`. Pour que les navigateurs et les outils CLI valident `https://*.ekylibre.localhost/` :
+
+```bash
+sudo apt install -y libnss3-tools   # une seule fois si manquant (Firefox/Chrome)
+docker/dev/trust-ca.sh
+```
+
+Le script :
+- récupère la CA Caddy (`/data/caddy/pki/authorities/local/root.crt`) ;
+- l'installe dans `/usr/local/share/ca-certificates/` (store système Ubuntu) ;
+- l'ajoute aux bases NSS de Firefox / Chromium (si `certutil` est dispo).
+
+Redémarrer le navigateur après. Idempotent : à relancer si le volume `caddy-data` est recréé.
+
+### c. Vérifications
+
+```bash
+resolvectl query demo.ekylibre.localhost
+# 127.0.0.1, ::1 — synthetic (résolution native)
+
+curl -I https://ekylibre.localhost/
+# HTTP/2 200 — landing page
+
+curl -I https://closeriedesterres.ekylibre.localhost/
+# HTTP/2 200 — tenant Rails
+
+curl -I https://duke.ekylibre.localhost/health
+# Réponse de Duke (port 8000 sur l'hôte)
+```
+
+Tous les tenants créés via l'admin sont accessibles instantanément, sans toucher à `/etc/hosts` ni redémarrer Caddy.
+
+> **Migration depuis l'ancien setup `.test` + dnsmasq :** supprimer `/etc/systemd/resolved.conf.d/ekylibre.conf` puis `sudo systemctl restart systemd-resolved`. La CA Caddy précédente reste valide. Faire un `docker compose up -d caddy` pour libérer/réassigner les ports si besoin.
+
+> **Migration depuis l'ancien setup slim :** `slim down && slim uninstall` (optionnel). Enlever les lignes `# slim` de `/etc/hosts`.
+
+> **Changer le domaine** : éditer `HOST_DOMAIN_NAME` dans `.env` et le `Caddyfile`. Note : seul `.localhost` est résolu nativement — pour tout autre TLD il faut remettre dnsmasq ou alimenter `/etc/hosts`.
 
 ---
 

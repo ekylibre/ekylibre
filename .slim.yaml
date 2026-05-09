@@ -1,4 +1,0 @@
-services:
-  - domain: ekylibre
-    port: 3000
-log_mode: minimal

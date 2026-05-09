@@ -77,6 +77,25 @@ function newId() {
   return `m${nextMessageId++}`;
 }
 
+// Ambiguity kinds for which the user typically picks several values
+// (parcels for an intervention, tools, workers, intrants). Duke can also
+// force the multi-select UI explicitly with `multi: true` per ambiguity.
+const MULTI_FIELD_KINDS = new Set([
+  'targets', 'parcels', 'parcel',
+  'tools', 'tool',
+  'workers', 'worker',
+  'inputs', 'input', 'products', 'product',
+]);
+
+function isMultiAmbiguity(a) {
+  if (a == null) return false;
+  // Explicit `multi` from Duke wins (true forces multi, false forces single).
+  // Heuristic on the field name only kicks in when Duke didn't say.
+  if (typeof a.multi === 'boolean') return a.multi;
+  const kind = (a.kind || a.field || a.field_kind || '').toString().toLowerCase();
+  return MULTI_FIELD_KINDS.has(kind);
+}
+
 export class DukeWidget {
   constructor(rootEl) {
     this.root = rootEl;
@@ -592,7 +611,33 @@ export class DukeWidget {
 
     const ambiguities = (msg.ambiguities || [])
       .map((a, idx) => {
-        const opts = (a.options || [])
+        const options = a.options || [];
+        if (isMultiAmbiguity(a)) {
+          const preSelected = new Set(a.selected || []);
+          const opts = options
+            .map(
+              (opt, oidx) =>
+                `<label class="duke-draft__multi-option">` +
+                `<input type="checkbox" ` +
+                `data-msg-id="${msg.id}" data-amb-idx="${idx}" data-opt-idx="${oidx}" ` +
+                `value="${this._escape(opt)}"` +
+                (preSelected.has(opt) ? ' checked' : '') +
+                `>` +
+                `<span class="duke-checkbox" aria-hidden="true"></span>` +
+                `<span>${this._escape(opt)}</span>` +
+                `</label>`,
+            )
+            .join('');
+          const banner = `<div class="duke-draft__multi-label">${this._escape(a.question)}</div>`;
+          const block = opts
+            ? `<div class="duke-draft__multi-options">${opts}</div>` +
+              `<button type="button" class="duke-draft__multi-submit" ` +
+              `data-msg-id="${msg.id}" data-amb-idx="${idx}" disabled>${I18N.validate}</button>`
+            : '';
+          return `<li>${banner}${block}</li>`;
+        }
+
+        const opts = options
           .map(
             (opt) =>
               `<button type="button" class="duke-draft__option" ` +
@@ -627,16 +672,11 @@ export class DukeWidget {
     `;
 
     // After a clarify round-trip, Duke re-emits a draft with the same id.
-    // Replace the existing card in place rather than stacking a new one.
+    // Drop the previous card and append a fresh one so the new draft lands
+    // *below* the user's clarify reply rather than at the original position.
     const existing = this.messagesEl.querySelector(`[data-msg-id="${msg.id}"]`);
-    let node;
-    if (existing) {
-      existing.classList.remove('cancelled');
-      existing.innerHTML = html;
-      node = existing;
-    } else {
-      node = this._append('assistant draft', html, msg.id);
-    }
+    if (existing) existing.remove();
+    const node = this._append('assistant draft', html, msg.id);
 
     const hasAmbiguities = (msg.ambiguities || []).length > 0;
     const confirmBtn = node.querySelector('.duke-draft__confirm');
@@ -658,6 +698,38 @@ export class DukeWidget {
         this.client.clarify(msg.id, option);
         // Disable all options on this card to prevent double-clicks.
         node.querySelectorAll('.duke-draft__option').forEach((b) => (b.disabled = true));
+      });
+    });
+
+    // Multi-select: enable the per-ambiguity Valider button only when at
+    // least one checkbox is ticked, then submit the joined values via clarify.
+    node.querySelectorAll('.duke-draft__multi-options').forEach((group) => {
+      const submitBtn = group.parentElement.querySelector('.duke-draft__multi-submit');
+      if (!submitBtn) return;
+      const refresh = () => {
+        const checked = group.querySelectorAll('input[type="checkbox"]:checked');
+        submitBtn.disabled = checked.length === 0;
+      };
+      group.addEventListener('change', refresh);
+      // Pre-checked options (from `a.selected`) need the button live on render.
+      refresh();
+      submitBtn.addEventListener('click', () => {
+        if (!this.client) return;
+        const checked = Array.from(
+          group.querySelectorAll('input[type="checkbox"]:checked'),
+        );
+        if (checked.length === 0) return;
+        const values = checked.map((i) => i.value);
+        const answer = values.join(', ');
+        this._appendUser(answer);
+        this.client.clarify(msg.id, answer);
+        // Lock this ambiguity so the user can't re-submit before the new
+        // draft lands. Other multi groups in the same card stay interactive.
+        checked.forEach((i) => (i.disabled = true));
+        group
+          .querySelectorAll('input[type="checkbox"]:not(:disabled)')
+          .forEach((i) => (i.disabled = true));
+        submitBtn.disabled = true;
       });
     });
   }
@@ -691,8 +763,14 @@ export class DukeWidget {
   }
 
   _renderInterventionCreated(msg) {
-    const url = msg.url ? `<a href="${msg.url}" target="_blank" rel="noopener">#${msg.ekylibre_id}</a>` : `#${msg.ekylibre_id}`;
-    this._append('assistant success', `${I18N.successCreated} ${url}`);
+    const id = Number(msg.ekylibre_id);
+    if (!Number.isInteger(id) || id <= 0) {
+      this._append('assistant success', I18N.successCreated);
+      return;
+    }
+    const href = msg.url || `/backend/interventions/${id}`;
+    const link = `<a href="${this._escape(href)}" target="_blank" rel="noopener">#${id}</a>`;
+    this._append('assistant success', `${I18N.successCreated} ${link}`);
   }
 
   _renderOutOfScope(msg) {

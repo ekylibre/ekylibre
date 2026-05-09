@@ -49,17 +49,20 @@ services:
         condition: service_started
     restart: on-failure
 
-  dnsmasq:
-    image: jpillora/dnsmasq
-    container_name: dnsmasq
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
     ports:
-      - "127.0.0.2:53:53/udp"  # DNS sur loopback alias (127.0.0.53 est pris par systemd-resolved)
-      - "5380:8080"             # Interface web (admin/admin)
-    environment:
-      HTTP_USER: admin
-      HTTP_PASS: admin
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
     volumes:
-      - ./dnsmasq.conf:/etc/dnsmasq.conf
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - app
     restart: unless-stopped
 
   redis:
@@ -89,6 +92,8 @@ volumes:
   database-volume:
   bundle-volume:
   docker-dev:
+  caddy-data:
+  caddy-config:
 
 networks:
   default:

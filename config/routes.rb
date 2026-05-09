@@ -1615,6 +1615,10 @@ Rails.application.routes.draw do
     end
   end
 
+  constraints subdomain: '' do
+    root to: 'landing#show', as: :landing_root
+  end
+
   root to: 'public#index'
   mount ActionCable.server, at: '/cable'
 end

@@ -39,7 +39,7 @@ module Apartment
   module Elevators
     # Resolves the tenant from `X-Tenant` header (used by Duke and other
     # service-to-service calls), falling back to the request subdomain so
-    # browser navigation (`closeriedesterres.ekylibre.lan`) keeps working.
+    # browser navigation (`closeriedesterres.ekylibre.localhost`) keeps working.
     # Inheriting Subdomain reuses its host parsing for the fallback path.
     class Header < Apartment::Elevators::Subdomain
       def parse_tenant_name(request)
