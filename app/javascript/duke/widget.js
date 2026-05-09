@@ -36,6 +36,7 @@ const I18N = {
   micPermission: 'Accès au micro refusé. Autorise-le dans les réglages du navigateur.',
   micNoSpeech: 'Aucune voix détectée.',
   micError: 'La dictée a rencontré un problème.',
+  micTranscribing: 'Transcription en cours…',
   clarifyPlaceholder: 'Réponds à la question ci-dessus pour préciser…',
 };
 
@@ -49,11 +50,26 @@ const ICON_MIC = `
   <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11z"/>
 </svg>`;
 
-// Browser-side STT lives in the widget by design (REQUIREMENTS.md §2): Duke
-// only ever sees text. We use the Web Speech API (Chrome/Edge — Firefox lacks
-// support as of 2026, Safari requires user gesture and supports it on iOS 14+).
+// Browser-side STT is the default path (REQUIREMENTS.md §2): the Web Speech
+// API runs in the browser and Duke only sees text. When unavailable (Firefox,
+// some mobile contexts) we fall back to recording audio with MediaRecorder
+// and POSTing it to Duke's `/api/v1/stt/transcribe` endpoint, gated by the
+// `stt_server_enabled` flag returned by the widget config controller.
 function getSpeechRecognitionCtor() {
   return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+}
+
+function hasMediaRecorder() {
+  return typeof window.MediaRecorder !== 'undefined' && !!navigator.mediaDevices;
+}
+
+function pickWebmMimeType() {
+  if (typeof MediaRecorder === 'undefined') return 'audio/webm';
+  const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'];
+  for (const mt of candidates) {
+    if (MediaRecorder.isTypeSupported(mt)) return mt;
+  }
+  return '';
 }
 
 let nextMessageId = 1;
@@ -71,10 +87,16 @@ export class DukeWidget {
     this.streamBuffers = new Map();
     this.draftsById = new Map();
     this.recognition = null;     // active SpeechRecognition instance (or null)
-    this.recognizing = false;    // true while the mic is live
+    this.recognizing = false;    // true while the mic is live (either backend)
     this._committedTranscript = '';  // text already accepted; interim results append to it
     this.pendingClarifyId = null;    // when set, textarea sends `clarify` instead of `user_message`
     this._defaultPlaceholder = I18N.placeholder;
+    this.sttServerEnabled = false;   // populated from widget config
+    this.sttUrl = null;
+    this._auth = null;               // {email, token, tenant} for STT POST auth
+    this.mediaRecorder = null;       // active MediaRecorder when using server STT
+    this._mediaStream = null;
+    this._mediaChunks = [];
     this._render();
   }
 
@@ -122,25 +144,54 @@ export class DukeWidget {
       }
     });
 
+    // Show the mic if Web Speech is available right now. The server-STT
+    // fallback may unhide it later in `_connect` once we know the
+    // `stt_server_enabled` flag from the widget config.
     if (getSpeechRecognitionCtor()) {
       this.micButton.hidden = false;
-      this.micButton.addEventListener('click', () => this._toggleRecognition());
     }
+    this.micButton.addEventListener('click', () => this._toggleRecognition());
   }
 
-  // --- Voice input (Web Speech API) ---
+  // --- Voice input ---
+  //
+  // Two backends, transparent to the rest of the widget — both end up
+  // appending text to the textarea and let the user review/edit before
+  // submitting:
+  //
+  //   1. Web Speech API (in-browser, streaming interim results, free) —
+  //      used whenever the browser exposes it. Duke never sees the audio.
+  //   2. MediaRecorder + POST to Duke's `/api/v1/stt/transcribe` — server-
+  //      side Whisper, used when Web Speech is missing AND the widget
+  //      config flag `stt_server_enabled` is true. Audio is sent only
+  //      after the user stops recording (no streaming).
 
   _toggleRecognition() {
     if (this.recognizing) {
-      this.recognition?.stop();
-      return;
-    }
-    const Ctor = getSpeechRecognitionCtor();
-    if (!Ctor) {
-      this._appendSystem(I18N.micUnavailable);
+      // Stop whichever backend is live.
+      if (this.recognition) {
+        this.recognition.stop();
+      } else if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+        this.mediaRecorder.stop();
+      }
       return;
     }
 
+    if (getSpeechRecognitionCtor()) {
+      this._startWebSpeech();
+      return;
+    }
+
+    if (this.sttServerEnabled && this.sttUrl && hasMediaRecorder()) {
+      this._startServerRecording();
+      return;
+    }
+
+    this._appendSystem(I18N.micUnavailable);
+  }
+
+  _startWebSpeech() {
+    const Ctor = getSpeechRecognitionCtor();
     const recognition = new Ctor();
     recognition.lang = 'fr-FR';
     recognition.interimResults = true;
@@ -210,6 +261,119 @@ export class DukeWidget {
     }
   }
 
+  async _startServerRecording() {
+    let stream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      this._appendSystem(
+        e?.name === 'NotAllowedError' ? I18N.micPermission : I18N.micError,
+      );
+      return;
+    }
+
+    const mimeType = pickWebmMimeType();
+    let recorder;
+    try {
+      recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+    } catch (e) {
+      stream.getTracks().forEach((t) => t.stop());
+      this._appendSystem(I18N.micError);
+      return;
+    }
+
+    this._mediaStream = stream;
+    this.mediaRecorder = recorder;
+    this._mediaChunks = [];
+
+    recorder.ondataavailable = (e) => {
+      if (e.data && e.data.size > 0) this._mediaChunks.push(e.data);
+    };
+
+    recorder.onstop = async () => {
+      const tracks = this._mediaStream?.getTracks() || [];
+      tracks.forEach((t) => t.stop());
+      this._mediaStream = null;
+      const chunks = this._mediaChunks;
+      this._mediaChunks = [];
+      this.mediaRecorder = null;
+      this.recognizing = false;
+      this.micButton.classList.remove('duke-mic--recording');
+      this.micButton.setAttribute('aria-label', I18N.micStart);
+
+      const blobType = recorder.mimeType || mimeType || 'audio/webm';
+      const blob = new Blob(chunks, { type: blobType });
+      if (blob.size === 0) {
+        this._appendSystem(I18N.micNoSpeech);
+        return;
+      }
+      await this._uploadAudio(blob);
+    };
+
+    this.recognizing = true;
+    this.micButton.classList.add('duke-mic--recording');
+    this.micButton.setAttribute('aria-label', I18N.micStop);
+    try {
+      recorder.start();
+    } catch (e) {
+      stream.getTracks().forEach((t) => t.stop());
+      this._mediaStream = null;
+      this.mediaRecorder = null;
+      this.recognizing = false;
+      this.micButton.classList.remove('duke-mic--recording');
+      this.micButton.setAttribute('aria-label', I18N.micStart);
+      this._appendSystem(I18N.micError);
+    }
+  }
+
+  async _uploadAudio(blob) {
+    if (!this.sttUrl || !this._auth) {
+      this._appendSystem(I18N.micError);
+      return;
+    }
+
+    // Snapshot the placeholder so we don't trample the `clarify` mode hint.
+    const previousPlaceholder = this.textarea.placeholder;
+    this.textarea.placeholder = I18N.micTranscribing;
+    this.textarea.disabled = true;
+
+    try {
+      const form = new FormData();
+      const ext = blob.type.includes('ogg') ? 'ogg' : 'webm';
+      form.append('audio', blob, `clip.${ext}`);
+
+      const resp = await fetch(this.sttUrl, {
+        method: 'POST',
+        headers: {
+          Authorization: `simple-token ${this._auth.email} ${this._auth.token}`,
+          'X-Tenant': this._auth.tenant,
+        },
+        body: form,
+      });
+
+      if (!resp.ok) {
+        this._appendSystem(I18N.micError);
+        return;
+      }
+      const data = await resp.json();
+      const text = (data?.text || '').trim();
+      if (!text) {
+        this._appendSystem(I18N.micNoSpeech);
+        return;
+      }
+
+      const prefix = this.textarea.value ? this.textarea.value.trimEnd() + ' ' : '';
+      this.textarea.value = (prefix + text).trimStart();
+      this._committedTranscript = this.textarea.value;
+    } catch (e) {
+      this._appendSystem(I18N.micError);
+    } finally {
+      this.textarea.disabled = false;
+      this.textarea.placeholder = previousPlaceholder;
+      this.textarea.focus();
+    }
+  }
+
   // --- Lifecycle ---
 
   async open() {
@@ -227,7 +391,17 @@ export class DukeWidget {
     this.panelOpen = false;
     this.bubble.hidden = false;
     this.panel.hidden = true;
-    if (this.recognizing) this.recognition?.stop();
+    if (this.recognizing) {
+      if (this.recognition) {
+        this.recognition.stop();
+      } else if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+        this.mediaRecorder.stop();
+      }
+    }
+    if (this._mediaStream) {
+      this._mediaStream.getTracks().forEach((t) => t.stop());
+      this._mediaStream = null;
+    }
     if (this.client) {
       this.client.close();
       this.client = null;
@@ -264,6 +438,26 @@ export class DukeWidget {
       this._appendError(`${I18N.authError} (config incomplet: ${missing.join(', ')})`);
       this.connecting = false;
       return;
+    }
+
+    this._auth = {
+      email: cfg.user.email,
+      token: cfg.token,
+      tenant: cfg.tenant,
+    };
+    this.sttServerEnabled = !!cfg.stt_server_enabled;
+    this.sttUrl = cfg.stt_url || null;
+
+    // If the browser has no Web Speech API but the server fallback is wired,
+    // unhide the mic now — `_render` only flagged it visible for the
+    // browser-native path.
+    if (
+      this.micButton.hidden &&
+      this.sttServerEnabled &&
+      this.sttUrl &&
+      hasMediaRecorder()
+    ) {
+      this.micButton.hidden = false;
     }
 
     this.client = new DukeClient({

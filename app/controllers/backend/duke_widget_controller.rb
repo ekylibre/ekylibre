@@ -21,7 +21,9 @@ module Backend
           id: user.id,
           full_name: user.full_name,
           email: user.email
-        }
+        },
+        stt_server_enabled: stt_server_enabled?,
+        stt_url: stt_server_enabled? ? duke_stt_url : nil
       }
     end
 
@@ -29,6 +31,24 @@ module Backend
 
       def duke_ws_url
         ENV.fetch('DUKE_WS_URL', 'ws://localhost:8000/ws')
+      end
+
+      # Whisper fallback transcription endpoint. Defaults to the same host as
+      # `DUKE_WS_URL` with the scheme swapped (ws → http) and `/ws` stripped.
+      # Override with `DUKE_HTTP_URL` when Duke is reverse-proxied behind a
+      # different path/host than the WS.
+      def duke_stt_url
+        base = ENV.fetch('DUKE_HTTP_URL') do
+          duke_ws_url
+            .sub(%r{\Aws://}, 'http://')
+            .sub(%r{\Awss://}, 'https://')
+            .sub(%r{/ws\z}, '')
+        end
+        "#{base}/api/v1/stt/transcribe"
+      end
+
+      def stt_server_enabled?
+        ActiveModel::Type::Boolean.new.cast(ENV['DUKE_STT_SERVER_ENABLED']) == true
       end
   end
 end
