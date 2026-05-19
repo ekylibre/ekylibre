@@ -47,7 +47,7 @@ module Clean
 
       private def translate_or_nil(*args)
         result = I18n.translate(*args)
-        (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
+        (result.to_s =~ /(translation missing|\(\(\()/i ? nil : result)
       end
 
       def clean!

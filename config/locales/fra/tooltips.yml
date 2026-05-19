@@ -87,4 +87,4 @@ fra:
       tax_payment:
         caution: "Brouillon"
         go: "Envoyée"
-        # stop: "Stop"
+        stop: "Arrête"

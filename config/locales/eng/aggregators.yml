@@ -5,8 +5,8 @@ eng:
     stopped_on: "Stopped on"
   aggregator_properties:
     #~ address: "Address"
-    #~ animal_husbandry_register: "Translation missing: eng.attributes.animal_husbandry_register"
-    #~ animal_productions: "Translation missing: eng.attributes.animal_productions"
+    animal_husbandry_register: "Animal husbandry register"
+    animal_productions: "Animal productions"
     area: "Area"
     born_at: "Born at"
     breeding_number: "Breeding number"

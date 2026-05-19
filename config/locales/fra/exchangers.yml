@@ -24,7 +24,7 @@ fra:
     bordeaux_sciences_agro_istea_balance: "Balance comptable ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_fec_txt: "FEC import (TXT) ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_general_ledger: "Grand-livre ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
-    bordeaux_sciences_agro_istea_journal_entries: "Écritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
+    bordeaux_sciences_agro_istea_journal_entries: "Écritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bovins_croissance_cattle_performance_controls: "Contrôles de performance ‒ Bovins Croissance"
     caj_incoming_deliveries: "Approvisionnements (CSV) ‒ CAJ"
@@ -36,7 +36,7 @@ fra:
     ekylibre_animal_groups: "Groupe d’animaux ‒ Ekylibre"
     ekylibre_animals: "Animaux ‒ Ekylibre"
     ekylibre_associates: "Associés - Ekylibre"
-    ekylibre_backup: "Sauvegarde ‒ Ekylibre" #?
+    ekylibre_backup: "Sauvegarde ‒ Ekylibre"
     ekylibre_bank_statements: "Relevé de banque ‒ Ekylibre"
     ekylibre_budgets: "Budgets ‒ Ekylibre "
     ekylibre_buildings_json: "Bâtiments (JSON) ‒ Ekylibre"
@@ -54,9 +54,9 @@ fra:
     ekylibre_incoming_harvests: "Reception de récoltes (CSV) ‒ Ekylibre"
     ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"
     ekylibre_interventions: "Interventions (CSV) ‒ Ekylibre"
-    ekylibre_issue_natures: "Type d'incidents (ODS) ‒ Ekylibre" #?
+    ekylibre_issue_natures: "Type d'incidents (ODS) ‒ Ekylibre"
     ekylibre_land_parcels: "Parcelles (CSV) ‒ Ekylibre" #?
-    ekylibre_land_parcels_json: "Parcelles (JSON) ‒ Ekylibre" #?
+    ekylibre_land_parcels_json: "Parcelles (JSON) ‒ Ekylibre"
     ekylibre_loans: "Emprunts (CSV) ‒ Ekylibre"
     ekylibre_matters: "Matières ‒ Ekylibre"
     ekylibre_ofx_import: "Relevés de compte (ZIP ‒ OFX) - Ekylibre"
@@ -65,8 +65,8 @@ fra:
     ekylibre_payslips: "Bulletins de paie (CSV) ‒ Ekylibre"
     ekylibre_pictures: "Images équipements / tiers"
     ekylibre_plants: "Plantations et cultures ‒ Ekylibre"
-    ekylibre_project_task_logs: "Temps travaux Projets (ODS) ‒ Ekylibre" #?
-    ekylibre_project_tasks: "Tâches & Projets (ODS) ‒ Ekylibre" #?
+    ekylibre_project_task_logs: "Temps travaux Projets (ODS) ‒ Ekylibre"
+    ekylibre_project_tasks: "Tâches & Projets (ODS) ‒ Ekylibre"
     ekylibre_purchases: "Achats (CSV) ‒ Ekylibre"
     ekylibre_rides: "Trajets (ZIP ‒ ’SHP’) ‒ Ekylibre"
     ekylibre_sales: "Ventes (CSV) ‒ Ekylibre"
@@ -74,11 +74,11 @@ fra:
     ekylibre_soil_analyses: "Analyses de sol ‒ Ekylibre"
     ekylibre_storages_json: "Ekylibre storages json" #?
     ekylibre_variants: "Articles - Ekylibre"
-    ekylibre_vegetative_stages: "Stades végétatifs (ODS) ‒ Ekylibre" #?
+    ekylibre_vegetative_stages: "Stades végétatifs (ODS) ‒ Ekylibre"
     ekylibre_visuals: "Fond écran page de connexion - Ekylibre"
     ekylibre_worker_time_logs: "Temps de travaux des équipiers (CSV) ‒ Ekylibre"
     ekylibre_workers: "Équipiers (CSV) ‒ Ekylibre"
-    ekylibre_workers_json: "Équipiers (JSON) ‒ Ekylibre" #?
+    ekylibre_workers_json: "Équipiers (JSON) ‒ Ekylibre"
     ekylibre_zones: "Zones de stockage - Ekylibre"
     fiea_galactea: "Analyses de lait par animal Galactea ‒ FIEA"
     galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
@@ -97,18 +97,20 @@ fra:
     legrain_epicea_journals: "Journaux Epicea ‒ Legrain" #?
     lely_milk_robot_individual_production: "Production journalière individuelle - Lely Astronaut"
     lilco_milk_analyses: "Analyses de lait ‒ Lilco"
-    listo_od_txt: "OD de paye (CSV) - Listo" #?
+    listo_od_txt: "OD de paye (CSV) - Listo"
     logicall_entities: "Clients (CSV) ‒ Logic’All"
     milklic_individual_production: "Production laitière individuelle - Milklic"
     odicom_fec_txt: "FEC import (TXT) - Odicom"
-    planete_vegetal_soil_analyses: "Analyses de sol (CSV) ‒ Planète végétal" #?
+    planete_vegetal_soil_analyses: "Analyses de sol (CSV) ‒ Planète végétal"
     process_to_wine_activity_productions_kml: "Parcelles (KML) ‒ Process2Wine"
     quadra_fec_txt: "FEC import (TXT) - Quadra"
     sage_coala_fec_txt: "FEC import (TXT) ‒ Sage Coala"
     sage_i_seven_fec_txt: "FEC import (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
+    socleo_base: "Base Socleo"
     socleo_incoming_payments: "Encaissements (CSV) ‒ Socleo"
     socleo_sales: "Ventes (CSV) ‒ Socleo"
+    square_base: "Base carrée"
     square_incoming_payments: "Encaissements | transactions (CSV) ‒ Square"
     square_sales: "Ventes | détails des articles (CSV) ‒ Square"
     synel_animals: "Animaux ‒ Synel"
@@ -126,11 +128,11 @@ fra:
     telepac_v2019_cap_statements: "Déclaration TelePAC 2019 (XML)"
     telepac_v2020_cap_statements: "Déclaration TelePAC 2020 (XML)"
     telepac_v2021_cap_statements: "Déclaration TelePAC 2021 (XML)"
-    telepac_v2021_cap_zip_statements: "Déclarations TelePAC 2021 (XML) en ZIP" #?
+    telepac_v2021_cap_zip_statements: "Déclarations TelePAC 2021 (XML) en ZIP"
     telepac_v2022_cap_statements: "Déclaration TelePAC 2022 (XML)"
-    telepac_v2023_cap_statements: "Déclaration TelePAC 2023 (XML)" #?
-    telepac_v2024_cap_statements: "Déclaration TelePAC 2024 (XML)" #?
-    telepac_v2025_cap_statements: "Déclaration TelePAC 2025 (XML)" #?
+    telepac_v2023_cap_statements: "Déclaration TelePAC 2023 (XML)"
+    telepac_v2024_cap_statements: "Déclaration TelePAC 2024 (XML)"
+    telepac_v2025_cap_statements: "Déclaration TelePAC 2025 (XML)"
     unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque" #?
     unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque" #?
     upra_reproductors: "Liste des reproducteurs ‒ UPRA"

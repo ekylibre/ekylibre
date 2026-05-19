@@ -9,7 +9,8 @@ fra:
     actor_name: "Nom de l'acteur" #?
     animal_group_name: "Nom du groupe d'animaux" #?
     animal_group_population: "Population du groupe d'animaux" #?
-    animal_husbandry_register: "Registre d'élevage" #?
+    animal_husbandry_register: "Registre d'élevage"
+    animal_productions: "Production animale"
     area: "Surface"
     area_in_hectare: "Surface (ha)" #?
     born_at: "Né(e) à"
@@ -86,7 +87,7 @@ fra:
     person_name: "Nom" #?
     pictogram: "Pictogramme" #?
     picture_path: "Chemin d'image"
-    # plan: "Plan"
+    plan: "Plan"
     prescription: "Ordonnance"
     pretax_amount: "Montant avant impôt" #?
     previous_production_name: "Précédente production" #?

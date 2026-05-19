@@ -1,12 +1,12 @@
 fra:
   enumerize:
-    account: #?
-      nature: #?
-        auxiliary: "Auxiliaire" #?
-        general: "General" #?
+    account:
+      nature:
+        auxiliary: "Auxiliaire"
+        general: "General"
     activity:
       distribution_key:
-        equipment_intervention_duration: "Temps de travail des équipements" #?
+        equipment_intervention_duration: "Temps de travail des équipements"
         gross_margin: "Marge brute"
         percentage: "Pourcentage"
       nature:
@@ -19,6 +19,10 @@ fra:
       production_cycle:
         annual: "Annuelle"
         perennial: "Pérenne"
+    activity_budget:
+      nature:
+        compute_from_lexicon: "Calculer à partir du lexique"
+        manual: "Manuel"
     activity_budget_item:
       computation_method:
         per_campaign: "Par campagne"
@@ -27,9 +31,13 @@ fra:
       direction:
         expense: "Frais"
         revenue: "Revenu"
-      nature: #?
-        dynamic: "Dynamique" #?
-        static: "Statique" #?
+      nature:
+        dynamic: "Dynamique"
+        static: "Statique"
+      origin:
+        automatic: "Automatique"
+        itk: "Itk"
+        manual: "Manuel"
     activity_inspection_point_nature:
       category:
         deformity: "Malformation"
@@ -86,11 +94,35 @@ fra:
         certified: "Certifié"
         uncertified: "Non certifié"
         unknown: "Inconnu"
-    associate: #?
-      associate_nature: #?
-        bare_owner: "Associé | Actionnaire - Nu propriétaire" #?
-        owner: "Associé | Actionnaire - Pleine propriété" #?
-        usufructuary: "Associé | Actionnaire - Usufruitier" #?
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    animal_group:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    associate:
+      associate_nature:
+        bare_owner: "Associé | Actionnaire - Nu propriétaire"
+        owner: "Associé | Actionnaire - Pleine propriété"
+        usufructuary: "Associé | Actionnaire - Usufruitier"
+    bioproduct:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    building:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    building_division:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     call_message:
       nature:
         incoming: "Nouveau"
@@ -118,6 +150,18 @@ fra:
         sale: "Vente"
         stock: "Stock"
         travel_cost: "Déplacement"
+    conditioning:
+      dimension:
+        distance: "Distance"
+        energy: "Énergie"
+        mass: "Messe"
+        none: "Aucun"
+        surface_area: "Surface"
+        time: "Heure"
+        volume: "Volume"
+      type:
+        Conditioning: "Conditionnement"
+        ReferenceUnit: "Unité de référence"
     crop_group:
       target:
         land_parcel: "Parcelle"
@@ -126,8 +170,8 @@ fra:
       nature:
         hard_start: "Dur début"
         hard_stop: "Disque arrêt"
-        # pause: "Pause"
-        # point: "Point"
+        pause: "Pause"
+        point: "Point"
         resume: "CV"
         scan: "Balayage"
         start: "Démarrer"
@@ -150,12 +194,14 @@ fra:
     cvi_cultivable_zone:
       land_parcels_status:
         completed: "Terminé"
+        created: "Créé"
+        not_created: "N'a pas été créé"
         not_started: "Non commencé"
         started: "En cours"
-    cvi_land_parcel: #?
-      state: #?
-        planted: "Plantées" #?
-        removed_with_authorization: "Arrachées avec autorisation" #?
+    cvi_land_parcel:
+      state:
+        planted: "Plantées"
+        removed_with_authorization: "Arrachées avec autorisation"
     cvi_statement:
       state:
         converted: "Parcellaire converti"
@@ -177,22 +223,68 @@ fra:
         last_of_template: "Dernier du modèle"
         none: "Aucun du type"
         none_of_template: "Aucun du modèle"
+      file_extension:
+        odt: "Odt"
+        xml: "XML"
+    easement:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    economic_cash_indicator:
+      direction:
+        expense: "Dépense"
+        revenue: "Chiffre d'affaires"
+      nature:
+        dynamic: "Dynamique"
+        external_staff: "Personnel externe"
+        permanent_worker: "Salarié à durée indéterminée"
+        static: "Statique"
+        temporary_worker: "Travailleur intérimaire"
+      origin:
+        automatic: "Automatique"
+        contract: "Contrat"
+        itk: "Itk"
+        loan: "Prêt"
+        manual: "Manuel"
     entity:
-      client_payment_delay: #?
-        1 week: "à réception" #?
-        30 days: "30 jours" #?
-        30 days, end of month: "30 jours fin du mois" #?
-        60 days: "60 jours" #?
-        60 days, end of month: "60 jours fin du mois" #?
+      client_payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
+      legal_position_code:
+        ASSO: "Asso"
+        COOP: "Coop"
+        CUMA: "Vendredi"
+        EARL: "comte"
+        EI: "Ei"
+        EIRL: "Eirl"
+        EURL: "EURL"
+        GAEC: "GAEC"
+        GFA: "Gfa"
+        GIE: "Gie"
+        SA: "Sa"
+        SARL: "SARL"
+        SAS: "Sas"
+        SASU: "Sasu"
+        SCA: "Sca"
+        SCEA: "Scea"
+        SCI: "Sci"
+        SCS: "Scs"
+        SEP: "sept."
+        SICA: "Sica"
+        SNC: "Snc"
       nature:
         contact: "Contact"
         organization: "Organisation"
-      supplier_payment_delay: #?
-        1 week: "à réception" #?
-        30 days: "30 jours" #?
-        30 days, end of month: "30 jours fin du mois" #?
-        60 days: "60 jours" #?
-        60 days, end of month: "60 jours fin du mois" #?
+      supplier_payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
     entity_address:
       canal:
         email: "E-mail"
@@ -201,6 +293,16 @@ fra:
         mobile: "Téléphone portable"
         phone: "Téléphone fixe"
         website: "Site web"
+    equipment:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    equipment_fleet:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     event_participation:
       state:
         accepted: "Accepté"
@@ -223,6 +325,14 @@ fra:
         debit: "Débits"
         none: "Aucun"
         payment: "Encaissements"
+    financial_year_archive:
+      timing:
+        post_closure: "Après la fermeture"
+        prior_to_closure: "Avant la fermeture"
+    financial_year_exchange:
+      format:
+        ekylibre: "Ekylibre"
+        isacompta: "Isacompta"
     fixed_asset:
       depreciation_method:
         linear: "Linéaire"
@@ -233,6 +343,11 @@ fra:
         monthly: "Mensuelle"
         quarterly: "Trimestrielle"
         yearly: "Annuelle"
+    fungus:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     gap:
       direction:
         loss: "Perte"
@@ -264,6 +379,10 @@ fra:
         failed: "Échoué"
         passed: "Passé"
         passed_with_warnings: "Passé avec des avertissements"
+    idea_diagnostic:
+      state:
+        done: "C'est fait"
+        idea_doing: "Mise en pratique"
     import:
       state:
         aborted: "Avorté"
@@ -289,7 +408,7 @@ fra:
         integer: "Entier"
         measure: "Mesure"
         multi_polygon: "Multi polygone"
-        # point: "Point"
+        point: "Point"
         string: "Chaîne"
     intervention_parameter_setting:
       nature:
@@ -299,10 +418,22 @@ fra:
         done: "Terminé"
         in_progress: "En cours"
         validated: "Validé"
-    intervention_template: #?
-      workflow_unit: #?
-        hectare_per_hour: "Ha/H" #?
-        plant_per_hour: "Plante ou Pied/H" #?
+    intervention_setting_item:
+      indicator_datatype:
+        boolean: "Booléen"
+        choice: "Choix"
+        decimal: "Décimal"
+        geometry: "Géométrie"
+        integer: "Entier"
+        measure: "Mesure"
+        multi_polygon: "Multipolygone"
+        point: "Point"
+        string: "Chaîne"
+    intervention_template:
+      workflow_unit:
+        head_per_hour: "Tête par heure"
+        hectare_per_hour: "Ha/H"
+        plant_per_hour: "Plante ou Pied/H"
     intervention_working_period:
       nature:
         intervention: "Intervention"
@@ -316,19 +447,24 @@ fra:
         closure: "Clôture"
         fixed_assets: "Immobilisations"
         forward: "Report à nouveaux"
-        payslip: "Paie" #?
+        payslip: "Paie"
         purchases: "Achats"
         result: "Résultat"
         sales: "Ventes"
         stocks: "Réserves"
         various: "Opérations diverses"
+    land_parcel:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     listing_node:
       nature:
         belongs_to: "Appartient à"
         boolean: "Booléen"
         column: "Colonne"
         custom: "Coutume"
-        # datetime: "Datetime"
+        datetime: "Date et heure"
         has_many: "A beaucoup"
         numeric: "Numérique"
         root: "Racine"
@@ -356,15 +492,37 @@ fra:
       nature:
         background: "Fond"
         overlay: "Calque"
+    master_budget:
+      direction:
+        expense: "Dépense"
+        revenue: "Chiffre d'affaires"
+      frequency:
+        per_month: "Par mois"
+        per_year: "Par an"
+      mode:
+        global: "Mondial"
+        output: "Résultat"
+        production: "Production"
+        uo: "Uo"
+    master_variant_nature:
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+    matter:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activité"
-        activity_rank_number: "N° ordre Parcelle (/Activité)" #?
+        activity_rank_number: "N° ordre Parcelle (/Activité)"
         campaign: "Campagne (YYYY) - ex 2022"
-        campaign_short_year: "Campagne (YY) - ex 22" #?
+        campaign_short_year: "Campagne (YY) - ex 22"
         cultivable_zone_code: "Code de la zone cultivable"
         cultivable_zone_name: "Nom de la zone cultivable"
-        cultivable_zone_rank_number: "N° ordre Activité (/Zone Cultivable)" #?
+        cultivable_zone_rank_number: "N° ordre Activité (/Zone Cultivable)"
         free_field: "Champ libre"
         production_mode: "Mode de production"
         season: "Saisonnalité"
@@ -387,8 +545,12 @@ fra:
       nature:
         incoming: "Entrant"
         outgoing: "Sortant"
+      reconciliation_state:
+        reconcile: "Réconcilier"
+        to_reconcile: "Pour concilier"
     parcel_item:
       delivery_mode:
+        none: "Aucun"
         third: "Par le tiers"
         transporter: "Par tranporteur"
         us: "Par nos soins"
@@ -396,6 +558,15 @@ fra:
       nature: #?
         net_salary: "Salaire net" #?
         social_expense: "Charge sociale" #?
+    pfi_intervention_parameter:
+      nature:
+        crop: "Recadrer"
+        intervention: "Intervention"
+    plant:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     plant_counting:
       nature:
         germination: "À la levée"
@@ -407,6 +578,7 @@ fra:
         country: "Pays"
         currency: "Devise"
         decimal: "Décimal"
+        fiscal_position: "Situation budgétaire"
         integer: "Entier"
         language: "Langue"
         record: "Enregistrement"
@@ -422,6 +594,11 @@ fra:
         other: "Autre"
         own: "Posséder"
         unknown: "Inconnu"
+    product_group:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     product_linkage:
       nature:
         available: "Disponible"
@@ -449,6 +626,9 @@ fra:
         purchase: "Achat"
         sale: "Vente"
     product_nature:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
       population_counting:
         decimal: "Décimal"
         integer: "Entier"
@@ -462,6 +642,9 @@ fra:
         VariantTypes::WorkerType: "Équipiers"
         VariantTypes::ZoneType: "Zones"
     product_nature_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
       pictogram: #?
         bank: "Banque" #?
         barn: "Grange" #?
@@ -525,6 +708,9 @@ fra:
         second: "Seconde"
         square_meter: "Mètre carré"
         unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
       type:
         Variants::AnimalVariant: "Animaux"
         Variants::ArticleVariant: "Articles stockables"
@@ -550,7 +736,7 @@ fra:
         integer: "Entier"
         measure: "Mesure"
         multi_polygon: "Multi polygone"
-        # point: "Point"
+        point: "Point"
         string: "Chaîne"
     product_ownership:
       nature:
@@ -566,26 +752,26 @@ fra:
         integer: "Entier"
         measure: "Mesure"
         multi_polygon: "Multi polygone"
-        # point: "Point"
+        point: "Point"
         string: "Chaîne"
-    project: #?
-      nature: #?
-        direct_earning: "Profit" #?
-        indirect_earning: "Coût" #?
-    project_task: #?
-      billing_method: #?
-        elapsed_time: "Temps passé" #?
-        fixed: "Fixe" #?
-      forecast_duration_unit: #?
-        day: "Jour" #?
-        hour: "Heure" #?
+    project:
+      nature:
+        direct_earning: "Profit"
+        indirect_earning: "Coût"
+    project_task:
+      billing_method:
+        elapsed_time: "Temps passé"
+        fixed: "Fixe"
+      forecast_duration_unit:
+        day: "Jour"
+        hour: "Heure"
     purchase:
-      payment_delay: #?
-        1 week: "à réception" #?
-        30 days: "30 jours" #?
-        30 days, end of month: "30 jours fin du mois" #?
-        60 days: "60 jours" #?
-        60 days, end of month: "60 jours fin du mois" #?
+      payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
       reconciliation_state:
         accepted: "Accepté"
         reconcile: "Rapproché"
@@ -593,22 +779,92 @@ fra:
       tax_payability:
         at_invoicing: "À la facturation (débit)"
         at_paying: "Au paiement"
+    purchase_gap:
+      direction:
+        loss: "Perte"
+        profit: "Bénéfice"
+    purchase_invoice:
+      payment_delay:
+        # 1 week: "1 week"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days, end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days, end of month"
+      reconciliation_state:
+        accepted: "Accepté"
+        reconcile: "Réconcilier"
+        to_reconcile: "Pour concilier"
+      tax_payability:
+        at_invoicing: "À la facturation"
+        at_paying: "Au moment du paiement"
+    purchase_item:
+      role:
+        fees: "Frais"
+        merchandise: "Produits dérivés"
+        service: "Service"
     purchase_nature: #?
       nature: #?
         payslip: "Fiche de paie" #?
         purchase: "Achat" #?
-    purchase_order: #?
-      command_mode: #?
-        fax: "Fax" #?
-        letter: "Courrier" #?
-        mail: "Email" #?
-        market_place: "Boutique WEB" #?
-        oral: "Verbal" #?
-        sms: "SMS" #?
+    purchase_order:
+      command_mode:
+        fax: "Fax"
+        letter: "Courrier"
+        mail: "Email"
+        market_place: "Boutique WEB"
+        oral: "Verbal"
+        sms: "SMS"
+      payment_delay:
+        # 1 week: "1 week"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days, end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days, end of month"
+      reconciliation_state:
+        accepted: "Accepté"
+        reconcile: "Réconcilier"
+        to_reconcile: "Pour concilier"
+      tax_payability:
+        at_invoicing: "À la facturation"
+        at_paying: "Au moment du paiement"
+    reception:
+      delivery_mode:
+        third: "Troisième"
+        transporter: "Transporteur"
+        us: "Nous"
+      nature:
+        incoming: "À venir"
+        outgoing: "Sortant"
+      reconciliation_state:
+        reconcile: "Réconcilier"
+        to_reconcile: "Pour concilier"
+    reception_item:
+      delivery_mode:
+        none: "Aucun"
+        third: "Troisième"
+        transporter: "Transporteur"
+        us: "Nous"
+      role:
+        fees: "Frais"
+        merchandise: "Produits dérivés"
+        service: "Service"
+    reference_unit:
+      dimension:
+        distance: "Distance"
+        energy: "Énergie"
+        mass: "Messe"
+        none: "Aucun"
+        surface_area: "Surface"
+        time: "Heure"
+        volume: "Volume"
+      type:
+        Conditioning: "Conditionnement"
+        ReferenceUnit: "Unité de référence"
     registered_phytosanitary_product:
       state:
         authorized: "Autorisé"
         inherited: "Hérité"
+        provisional: "Provisoire"
         withdrawn: "Retiré"
     registered_phytosanitary_usage:
       state:
@@ -623,6 +879,19 @@ fra:
       nature:
         road: "Route"
         work: "Travail"
+    ride_set_equipment:
+      nature:
+        additional: "En outre"
+        main: "Accueil"
+    saas_subscription:
+      status:
+        active: "Actif"
+        canceled: "Annulé"
+        incomplete: "Incomplet"
+        incomplete_expired: "Incomplet et périmé"
+        past_due: "En retard"
+        trialing: "En phase d'essai"
+        unpaid: "Non payé"
     saas_subscriptions: #?
       status: #?
         active: "Actif" #?
@@ -632,29 +901,34 @@ fra:
         past_due: "En retard" #?
         trialing: "Période d'essai" #?
         unpaid: "Impayée" #?
-    sale: #?
-      payment_delay: #?
-        1 week: "à réception" #?
-        30 days: "30 jours" #?
-        30 days, end of month: "30 jours fin du mois" #?
-        60 days: "60 jours" #?
-        60 days, end of month: "60 jours fin du mois" #?
-    sale_contract_item: #?
-      quantity_unit: #?
-        day: "Jour" #?
-        fixed: "Fixe" #?
-        hour: "Heure" #?
-    sale_item: #?
-      compute_from: #?
-        pretax_amount: "Montant avant impôts" #?
-        unit_pretax_amount: "Unité montant avant impôts" #?
-    sale_nature: #?
-      payment_delay: #?
-        1 week: "à réception" #?
-        30 days: "30 jours" #?
-        30 days, end of month: "30 jours fin du mois" #?
-        60 days: "60 jours" #?
-        60 days, end of month: "60 jours fin du mois" #?
+    sale:
+      payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
+    sale_contract_item:
+      quantity_unit:
+        day: "Jour"
+        fixed: "Fixe"
+        hour: "Heure"
+    sale_gap:
+      direction:
+        loss: "Perte"
+        profit: "Bénéfice"
+    sale_item:
+      compute_from:
+        amount: "Montant"
+        pretax_amount: "Montant avant impôts"
+        unit_pretax_amount: "Unité montant avant impôts"
+    sale_nature:
+      payment_delay:
+        1 week: "à réception"
+        30 days: "30 jours"
+        30 days, end of month: "30 jours fin du mois"
+        60 days: "60 jours"
+        60 days, end of month: "60 jours fin du mois"
     sensor:
       retrieval_mode:
         integration: "Intégration"
@@ -680,6 +954,7 @@ fra:
         entities: "Tiers"
         fixed_assets: "Immobilisations"
         gaps: "Écarts"
+        incoming_harvests: "Récoltes à venir"
         incoming_payments: "Encaissements"
         inspections: "Agréages"
         interventions: "Interventions"
@@ -688,7 +963,7 @@ fra:
         outgoing_payment_lists: "Listes de paiement sortant"
         outgoing_payments: "Décaissements"
         parcels: "Colis"
-        payslip_contributions: "Charges sociales" #?
+        payslip_contributions: "Charges sociales"
         payslips: "Salaires"
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
@@ -699,14 +974,43 @@ fra:
         purchases: "Achats"
         ride: "Sections d'un trajet" #?
         ride_sets: "Trajets géolocalisés"
-        sale_contracts: "Contrats de vente" #?
+        rides: "Manèges"
+        sale_contracts: "Contrats de vente"
         sales: "Ventes"
         sales_invoices: "Factures de ventes"
         subscriptions: "Abonnements"
         tax_declarations: "Déclarations fiscales"
-        tax_payments: "Paiements TVA" #?
+        tax_payments: "Paiements TVA"
         wine_incoming_harvest: "Réception de vendange" #?
-        # wine_incoming_harvests: "Wine incoming harvests"
+        wine_incoming_harvests: "Vins des prochaines récoltes"
+        yield_observations: "Observations sur les rendements"
+    settlement:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    shipment:
+      delivery_mode:
+        third: "Troisième"
+        transporter: "Transporteur"
+        us: "Nous"
+      nature:
+        incoming: "À venir"
+        outgoing: "Sortant"
+      reconciliation_state:
+        reconcile: "Réconcilier"
+        to_reconcile: "Pour concilier"
+    shipment_item:
+      delivery_mode:
+        none: "Aucun"
+        third: "Troisième"
+        transporter: "Transporteur"
+        us: "Nous"
+    sub_zone:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
     synchronization_operation:
       operation_name:
         authenticate: "Authentification"
@@ -734,14 +1038,25 @@ fra:
       mode:
         debit: "Débit"
         payment: "Paiement"
-    tax_payment: #?
-      nature: #?
-        advance_payment: "Acompte" #?
-        incoming_payment: "Remboursement" #?
-        outgoing_payment: "Paiement" #?
+    tax_declaration_item_part:
+      direction:
+        collected: "Recueil"
+        deductible: "Franchise"
+        fixed_asset_deductible: "Amortissement des immobilisations"
+        intracommunity_payable: "Dette intracommunautaire"
+    tax_payment:
+      nature:
+        advance_payment: "Acompte"
+        incoming_payment: "Remboursement"
+        outgoing_payment: "Paiement"
       state: #?
         draft: "Brouillon" #?
         validated: "Validée" #?
+    technical_itinerary_intervention_template:
+      frequency:
+        per_day: "Par jour"
+        per_month: "Par mois"
+        per_year: "Par an"
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"
@@ -756,16 +1071,645 @@ fra:
         surface_area: "Surface"
         time: "Temps"
         volume: "Volume"
+      type:
+        Conditioning: "Conditionnement"
+        ReferenceUnit: "Unité de référence"
+    variant_categories/animal_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie animale"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_categories/article_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie animale"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_categories/crop_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie d'animaux"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_categories/equipment_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie animale"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_categories/service_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie animale"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_categories/worker_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie d'animaux"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_categories/zone_category:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        VariantCategories::AnimalCategory: "Catégories de variantes :: Catégorie animale"
+        VariantCategories::ArticleCategory: "Catégories de variantes :: Catégorie d'article"
+        VariantCategories::CropCategory: "Catégories de variantes :: Catégorie de culture"
+        VariantCategories::EquipmentCategory: "Catégories de variantes :: Catégorie d'équipement"
+        VariantCategories::ServiceCategory: "Catégories de variantes :: Catégorie de service"
+        VariantCategories::WorkerCategory: "Catégories de variantes :: Catégorie de travailleurs"
+        VariantCategories::ZoneCategory: "Catégories de variantes :: Catégorie de zone"
+    variant_types/animal_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variant_types/article_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: Type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variant_types/crop_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: Type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variant_types/equipment_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: Type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variant_types/service_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: Type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variant_types/worker_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: Type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variant_types/zone_type:
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+      type:
+        VariantTypes::AnimalType: "Types de variantes :: type d'animal"
+        VariantTypes::ArticleType: "Types de variantes :: Type d'article"
+        VariantTypes::CropType: "Types de variantes :: type de culture"
+        VariantTypes::EquipmentType: "Types de variantes :: type d'équipement"
+        VariantTypes::ServiceType: "Types de variantes :: type de service"
+        VariantTypes::WorkerType: "Types de variantes :: type d'ouvrier"
+        VariantTypes::ZoneType: "Types de variantes :: type de zone"
+    variants/animal_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes::équipements::outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/article_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variante de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/articles/farm_product_article:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes :: servicevariant"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes : zonevariant"
+    variants/articles/fertilizer_article:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes::équipements::outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes :: variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/articles/plant_medicine_article:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes :: variante de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes : variante-ouvrier"
+        Variants::ZoneVariant: "Variantes : zonevariant"
+    variants/articles/seed_and_plant_article:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variante de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes :: variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/crop_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/equipment_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes::équipements::outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes : variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/equipments/fixed_equipment_equipment:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes : variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/equipments/motorized_equipment_equipment:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes::variété"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/equipments/tool_equipment:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes::équipements::outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/equipments/trailed_equipment_equipment:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Compteur"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes :: variante de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes::équipements::outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes :: variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/service_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes::équipements::outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/worker_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes : variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
+    variants/zone_variant:
+      default_unit_name:
+        joule: "joule"
+        kilogram: "Kilogramme"
+        liter: "litre"
+        meter: "Mètre"
+        second: "Deuxièmement"
+        square_meter: "Mètre carré"
+        unity: "Unité"
+      imported_from:
+        Lexicon: "Lexique"
+        Nomenclature: "Nomenclature"
+      type:
+        Variants::AnimalVariant: "Variantes : animalvariant"
+        Variants::ArticleVariant: "Variantes::variant-d'article"
+        Variants::Articles::FarmProductArticle: "Variantes::articles::article-sur-les-produits-agricoles"
+        Variants::Articles::FertilizerArticle: "Variantes::articles::article-sur-les-engrais"
+        Variants::Articles::PlantMedicineArticle: "Variantes::articles::article-sur-la-phytothérapie"
+        Variants::Articles::SeedAndPlantArticle: "Variantes::articles::article-sur-les-graines-et-les-plantes"
+        Variants::CropVariant: "Variantes : variant de culture"
+        Variants::EquipmentVariant: "Variantes :: variante d'équipement"
+        Variants::Equipments::FixedEquipmentEquipment: "Variantes :: Équipements :: Équipements fixes"
+        Variants::Equipments::MotorizedEquipmentEquipment: "Variantes :: Équipements :: Équipements motorisés"
+        Variants::Equipments::ToolEquipment: "Variantes :: Équipements :: Outillage"
+        Variants::Equipments::TrailedEquipmentEquipment: "Variantes :: Équipements :: Équipements de remorque"
+        Variants::ServiceVariant: "Variantes :: variante de service"
+        Variants::WorkerVariant: "Variantes :: variante-ouvrier"
+        Variants::ZoneVariant: "Variantes :: zonevariant"
     version:
       event:
         create: "Créer"
         destroy: "Détruire"
         update: "Mettre à jour"
-    worker_contract: #?
-      distribution_key: #?
-        gross_margin: "Marge brute" #?
-        percentage: "Pourcentage" #?
-      nature: #?
-        external_staff: "Main d'oeuvre extérieure" #?
-        permanent_worker: "Main d'oeuvre permanente" #?
-        temporary_worker: "Main d'oeuvre temporaire" #?
+    worker:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"
+    worker_contract:
+      distribution_key:
+        gross_margin: "Marge brute"
+        percentage: "Pourcentage"
+      nature:
+        external_staff: "Main d'oeuvre extérieure"
+        permanent_worker: "Main d'oeuvre permanente"
+        temporary_worker: "Main d'oeuvre temporaire"
+    zone:
+      type_of_occupancy:
+        owner: "Propriétaire"
+        rent: "Loyer"
+        sharecropper: "métayer"

@@ -14,12 +14,17 @@ fra:
     mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
     mass_area_density_in_ton: "Densité surfacique en tonnes"
     mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare"
+    mass_area_density_nitrogen: "Densité massique de l'azote"
+    mass_area_density_ton: "Densité massique en tonnes"
     mass_volume_density: "Masse volumique"
+    medicine_mass_per_animal: "Dose de médicament par animal"
+    medicine_volume_per_animal: "Dose de médicament par animal"
     milk_mass_per_animal: "Masse de lait par animal" #?
     net_length: "Longueur nette"
     net_mass: "Masse nette"
     net_mass_in_kilogram: "Masse nette en kilogrammes"
     net_mass_in_ton: "Masse nette en tonnes"
+    net_mass_ton: "Tonne de masse nette"
     net_surface_area: "Surface"
     net_volume: "Volume"
     net_volume_in_liter: "Volume net en litre"
@@ -38,26 +43,33 @@ fra:
     sulfur_dioxide_density: "Dioxyde de soufre par volume"
     surface_area_percentage: "% de surface couverte"
     ton: "Tonnes"
+    unit: "Unité"
     volume_area_density: "Densité surfacique"
     volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
     volume_density: "Densité volumique"
   procedure_killable_parameters:
-    # is_cultivation_completely_destroyed_by_chemical_mechanical_weeding: "Is cultivation completely destroyed by chemical mechanical weeding?"
-    # is_cultivation_completely_destroyed_by_crop_residues_grinding: "Is cultivation completely destroyed by crop residues grinding?"
-    # is_cultivation_completely_destroyed_by_gas_weeding: "Is cultivation completely destroyed by gas weeding?"
-    # is_cultivation_completely_destroyed_by_hand_weeding: "Is cultivation completely destroyed by hand weeding?"
-    # is_cultivation_completely_destroyed_by_indirect_silage: "Is cultivation completely destroyed by indirect silage?"
+    is_cultivation_completely_destroyed_by_chemical_mechanical_weeding: "Le désherbage chimique et mécanique détruit-il complètement la culture ?"
+    is_cultivation_completely_destroyed_by_crop_residues_grinding: "Le broyage des résidus de culture détruit-il complètement la culture ?"
+    is_cultivation_completely_destroyed_by_gas_weeding: "Le désherbage au gaz détruit-il complètement les cultures ?"
+    is_cultivation_completely_destroyed_by_generic_spraying: "La culture est-elle complètement détruite par les pulvérisations de produits génériques ?"
+    is_cultivation_completely_destroyed_by_hand_weeding: "Le désherbage manuel détruit-il complètement la culture ?"
+    is_cultivation_completely_destroyed_by_indirect_silage: "La culture est-elle complètement détruite par l'ensilage indirect ?"
     is_cultivation_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
-    # is_cultivation_completely_destroyed_by_spraying: "Is cultivation completely destroyed by spraying?"
-    # is_cultivation_completely_destroyed_by_steam_weeding: "Is cultivation completely destroyed by steam weeding?"
-    # is_cultivation_completely_destroyed_by_straw_bunching: "Is cultivation completely destroyed by straw bunching?"
-    # is_cultivation_completely_destroyed_by_swathing: "Is cultivation completely destroyed by swathing?"
+    is_cultivation_completely_destroyed_by_spraying: "La culture est-elle complètement détruite par la pulvérisation ?"
+    is_cultivation_completely_destroyed_by_steam_weeding: "Le désherbage à la vapeur détruit-il complètement les cultures ?"
+    is_cultivation_completely_destroyed_by_straw_bunching: "La culture est-elle complètement détruite par l'entassement de la paille ?"
+    is_cultivation_completely_destroyed_by_swathing: "La culture est-elle complètement détruite par l'andainage ?"
     is_it_completely_destroyed_by_intervention: "L'intervention détruit-elle la culture\_?"
-    # is_plant_completely_destroyed_by_harvesting: "Is plant completely destroyed by harvesting?"
+    is_plant_completely_destroyed_by_direct_silage: "La plante est-elle complètement détruite par l'ensilage direct ?"
+    is_plant_completely_destroyed_by_generic_harvesting: "La plante est-elle complètement détruite par une récolte classique ?"
+    is_plant_completely_destroyed_by_generic_harvesting_without_output: "La plante est-elle complètement détruite par une récolte générique sans rendement ?"
+    is_plant_completely_destroyed_by_harvesting: "La récolte détruit-elle complètement la plante ?"
+    is_plant_completely_destroyed_by_harvesting_with_plant_or_land_parcel: "La culture est-elle entièrement détruite lors de la récolte, au niveau de la culture ou de la parcelle ?"
     is_plant_completely_destroyed_by_intervention: "L'intervention détruit-elle cette culture\_?"
-    # is_plant_completely_destroyed_by_lifting: "Is plant completely destroyed by lifting?"
-    # is_plant_completely_destroyed_by_plant_mowing: "Is plant completely destroyed by plant mowing?"
-    # is_plant_completely_destroyed_by_topkilling: "Is plant completely destroyed by topkilling?"
+    is_plant_completely_destroyed_by_lifting: "La plante est-elle complètement détruite par l'arrachage ?"
+    is_plant_completely_destroyed_by_plant_mowing: "La plante est-elle complètement détruite par la tonte ?"
+    is_plant_completely_destroyed_by_topkilling: "La plante est-elle complètement détruite par la mort du sommet ?"
+    is_plant_completely_destroyed_by_vine_grubbing: "La plante est-elle complètement détruite par l'arrachage de la vigne ?"
   procedure_parameters:
     adding_wine: "Vin (mineur)"
     adding_wine_to_blend: "Vin à assembler (mineur)" #?
@@ -87,7 +99,7 @@ fra:
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Écimeuse"
     cover_implanter: "Plastiqueuse"
-    crop: "Culture" #?
+    crop: "Culture"
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
@@ -175,6 +187,7 @@ fra:
     mammal_to_milk: "Animal à traire"
     manure: "Fumier" #?
     manure_to_spread: "Fumier à épandre" #?
+    matter: "Matière"
     matters: "Matières"
     mechanic: "Mécanicien"
     mechanical_pollinator: "Pollinisateur artificiel"
@@ -253,6 +266,7 @@ fra:
     silage_unloader: "Désileuse" #?
     silo: "Silo" #?
     soil_loosener: "Décompacteur"
+    soil_tool: "Outil pour le sol"
     sortable: "Produit à trier"
     sorted_product: "Produits triés"
     sorted_seedlings: "Plants triés"
@@ -300,6 +314,7 @@ fra:
     vine_trimmer: "Rogneuse"
     walnuts: "Noix" #?
     water: "Eau"
+    water_equipment: "Équipements pour l'eau"
     water_to_spread: "Eau à apporter" #?
     weeding_kit: "Kit de désherbage"
     weedkiller: "Désherbant" #?
@@ -367,8 +382,9 @@ fra:
     gas_weeding: "Désherbage thermique au gaz"
     generic_covering: "Bachage / Paillage (PV)"
     generic_fertilizing: "Fertilisation (PV)"
-    generic_harvesting: "Arrachage / Récolte / Moisson (PV)" #?
-    generic_sowing: "Semis / Plantation (PV)" #?
+    generic_harvesting: "Arrachage / Récolte / Moisson (PV)"
+    generic_harvesting_without_output: "Récolte générique sans sortie"
+    generic_sowing: "Semis / Plantation (PV)"
     generic_spraying: "Pulvérisation (PV)"
     generic_tillage: "Travail du sol (PV)"
     generic_transport_harvesting: "Transport de récolte (PV)"
@@ -429,7 +445,7 @@ fra:
     pasturing: "Pâturage"
     plant_cover_sowing: "Semis de couvert"
     plant_covering: "Bâchage"
-    plant_grinding: "Broyage de végétaux" #?
+    plant_grinding: "Broyage de végétaux"
     plant_moving: "Changement de zone de stockage (lot entier)"
     plant_mowing: "Fauchage"
     plant_mulching: "Paillage/Mulching"
@@ -468,6 +484,7 @@ fra:
     swathing: "Andainage"
     technical_task: "Tâche technique générale" #?
     topkilling: "Défanage"
+    transportation: "Transports"
     trellising: "Palissage"
     triple_food_mixing: "Mélange alimentaire avec trois ingrédients" #?
     triple_seed_mixing: "Mélange de semences avec trois semences" #?
