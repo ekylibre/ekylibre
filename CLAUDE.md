@@ -112,6 +112,48 @@ rake lexicon:load
 
 Templates use **HAML**. The backend layout (`app/views/layouts/backend.html.haml`) uses a beehive/cell dashboard system. Dialog/popover layouts exist for modal content. The admin interface uses a plain `app/views/layouts/admin.html.haml` with no tenant dependencies.
 
+## Translations
+
+The app supports `eng` (default, reference) and `fra` — declared in `config/initializers/i18n.rb`. Other directories under `config/locales/` (`ita`, `por`, `cmn`, `jpn`, `arb`, `deu`, `spa`) are dormant archives, not loaded at runtime.
+
+### Update & sort
+
+```bash
+# Regenerate all locale files (sort keys, mark missing entries with leading "# ")
+docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake clean:locales
+
+# Dry-run: report completion % without writing
+DRY_RUN=true rake clean:locales
+```
+
+The task fails if any plugin is registered (`Cannot clean locales if plugins are activated`) — disable `Gemfile.local`/`Gemfile.plugins` first.
+
+### Missing entries convention
+
+`Clean::Support.missing_prompt` is `"# "`. Untranslated entries are written as commented lines: `# key: "Humanized default"`. Reviewers can search for `^\s*#\s+\S` to find untranslated keys.
+
+Orphan markers: `#~` (auto-derivable from another scope), `#?` (key not found in source code anymore), `#<` (parent reference inside nomenclatures).
+
+### Completion helpers
+
+```bash
+# Decomment auto-humanized missing entries (use after rake clean:locales)
+bin/decomment_locales.rb [locale] [file]
+
+# Machine-translate fra missing entries via DeepL (eng→fra)
+DEEPL_API_KEY=xxx bin/translate_locales_deepl.rb [file_glob]
+DRY_RUN=true bin/translate_locales_deepl.rb     # count without API calls
+DEEPL_API_PRO=true bin/translate_locales_deepl.rb # use api.deepl.com
+```
+
+The DeepL script protects `%{...}` and `{{...}}` placeholders, escapes XML chars, retries on HTTP 429, and only touches single-line entries (skips `|` block scalars).
+
+### Known limitations
+
+- `Clean::Support.hash_diff` accumulates `#?` markers on orphan multi-line block entries (only impacts `fra/mailers.yml` today — non-breaking).
+- Multi-line block entries (`# key: |`) are skipped by `decomment_locales.rb` and `translate_locales_deepl.rb` — handle manually if needed.
+- Some YAML keys (with spaces or dots, e.g. enum values `1 week`, `liquid_10_25_d1.4`) fall outside the decomment regex; they remain commented as humanized defaults.
+
 ## Background Jobs
 
 Sidekiq 4.x with `apartment-sidekiq` middleware, which switches to the correct tenant schema before each job. Jobs that must run **without** a tenant context (e.g. admin tasks) must not go through Sidekiq — use `Process.spawn` with a rake task instead to avoid the middleware conflict.
