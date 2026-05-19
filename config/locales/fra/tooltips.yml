@@ -2,16 +2,16 @@ fra:
   tooltips:
     models:
       affair:
-        go: "Facture acquittée"
         caution: "Décaissement différent du montant de la facture"
+        go: "Facture acquittée"
         stop: "Facture à payer"
       animal:
-        caution:  "En service"
+        caution: "En service"
         stop: "Consommé/Mort"
       equipment:
-        go:  "En service"
-        stop: "Au rebut/vendu"
         caution: "Incident"
+        go: "En service"
+        stop: "Au rebut/vendu"
       fixed_asset:
         draft: "Brouillon"
         in_use: "En service"
@@ -19,59 +19,59 @@ fra:
         sold: "Vendue"
         waiting: "En attente"
       intervention:
-        in_progress: "En cours"
-        request: "Planifiée"
-        rejected: "Rejetée"
         done: "Terminée"
+        in_progress: "En cours"
+        rejected: "Rejetée"
+        request: "Planifiée"
       issue:
-        go: "Incident résolu"
         caution: "Résolution de l'incident"
+        go: "Incident résolu"
         stop: "Incident en cours"
       loan:
-        go: "En cours"
         caution: "Brouillon"
+        go: "En cours"
         stop: "Remboursé"
       payslip:
-        go:  "Emis"
+        go: "Emis"
         stop: "Brouillon"
-      payslip_contribution:
-        go:  "Emis"
-        stop: "Brouillon"
+      payslip_contribution: #?
+        go: "Emis" #?
+        stop: "Brouillon" #?
       plant:
-        go:  "En cours"
+        go: "En cours"
         stop: "Détruite/Récoltée"
       product_nature_variant:
         go: "Autorisé"
         stop: "Non autorisé"
-      purchase_order:
-        closed_and_no_receptions: "Fermée, Réceptionnée 0%"
-        closed_and_full_receptions: "Fermée, Réceptionnée 100%"
-        closed_and_partial_receptions: "Fermée, Réceptionnée -- %"
-        opened_and_no_receptions: "Ouverte, Réceptionnée 0%"
-        opened_and_full_receptions: "Ouverte, Réceptionnée 100%"
-        opened_and_partial_receptions: "Ouverte, Réceptionnée -- %"
-      reception:
-        ordered_fully_invoiced: "Commandée, Facturée 100%"
-        ordered_partially_invoiced: "Commandée, Facturée -- %"
-        ordered_no_invoiced: "Commandée, Facturée 0%"
-        fully_invoiced: "Facturée 100%"
-        partially_invoiced: "Facturée -- %"
-        no_invoiced: "Facturée 0%"
+      purchase_order: #?
+        closed_and_full_receptions: "Fermée, Réceptionnée 100%" #?
+        closed_and_no_receptions: "Fermée, Réceptionnée 0%" #?
+        closed_and_partial_receptions: "Fermée, Réceptionnée -- %" #?
+        opened_and_full_receptions: "Ouverte, Réceptionnée 100%" #?
+        opened_and_no_receptions: "Ouverte, Réceptionnée 0%" #?
+        opened_and_partial_receptions: "Ouverte, Réceptionnée -- %" #?
+      reception: #?
+        fully_invoiced: "Facturée 100%" #?
+        no_invoiced: "Facturée 0%" #?
+        ordered_fully_invoiced: "Commandée, Facturée 100%" #?
+        ordered_no_invoiced: "Commandée, Facturée 0%" #?
+        ordered_partially_invoiced: "Commandée, Facturée -- %" #?
+        partially_invoiced: "Facturée -- %" #?
       registered_phytosanitary_usage:
         go: "Autorisé"
         stop: "Non autorisé"
       sale:
         aborted: "Devis abandonné"
-        expired_quote: "Devis expiré"
         draft_quote: "Devis brouillon"
-        invoiced_and_paid_sale: "Vente facturée et payée"
-        incoming_payment_different_from_the_amount_of_the_invoice: "Encaissement différent du montant de la facture"
-        order: "Commande"
-        refused_quote: "Devis refusé"
         estimate: "Devis envoyé"
-        unpaid_invoice: "Facture impayée"
+        expired_quote: "Devis expiré"
+        incoming_payment_different_from_the_amount_of_the_invoice: "Encaissement différent du montant de la facture"
         invalid_state: "État invalide"
+        invoiced_and_paid_sale: "Vente facturée et payée"
+        order: "Commande"
         paid_order: "Commande payée"
+        refused_quote: "Devis refusé"
+        unpaid_invoice: "Facture impayée"
       sale_opportunity:
         lost: "Perdue"
         negociation: "Négociation"
@@ -81,9 +81,10 @@ fra:
         value_proposition: "Proposition de valeur"
         won: "Gagnée"
       tax_declaration:
-        go: "Envoyée"
         caution: "Validée"
+        go: "Envoyée"
         stop: "Brouillon"
       tax_payment:
-        go: "Envoyée"
         caution: "Brouillon"
+        go: "Envoyée"
+        # stop: "Stop"

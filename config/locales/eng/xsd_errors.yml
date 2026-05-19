@@ -1,0 +1,7 @@
+eng:
+  xsd_errors:
+    1824: "The value '%{value}' for attribute '%{element}' is not valid with respect to the definition of type '%{type}'"
+    1826: "The value '%{value}' for attribute '%{element}' is not valid with respect to the definition of type '%{type}'"
+    1831: "The value for attribute '%{element}' is %{length} characters long, the minimum allowed is %{min_length} characters"
+    1839: "The value '%{value}' for attribute '%{element}' does not match the pattern %{pattern}"
+    1871: "The child attribute '%{child}' is missing on element '%{element}'"

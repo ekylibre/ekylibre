@@ -1,75 +1,11 @@
 fra:
-  errors:
-    messages: &error_messages
-      accepted: "%{attribute} doit être accepté"
-      after: "%{attribute} doit être après le %{restriction}"
-      amounts_are_not_balanced: "Les montants ne sont pas équilibrés comptablement" #?
-      before: "%{attribute} doit être avant le %{restriction}"
-      blank: "%{attribute} ne peut pas être vide"
-      confirmation: "%{attribute} est différent du champ de confirmation"
-      contains_blank_line: "%{attribute} contient une ligne vide" #?
-      contains_blank_page: "%{attribute} contient une page vide" #?
-      currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
-      empty: "%{attribute} ne peut pas être vide"
-      entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
-      equal_to: "%{attribute} doit être égal à %{count}"
-      even: "%{attribute} doit être impair"
-      exclusion: "%{attribute} est reservé"
-      greater_than: "%{attribute} doit être plus grand que %{count}"
-      greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
-      included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
-      inclusion: "%{attribute} n’est pas inclus dans la liste"
-      invalid: "%{attribute} est invalide"
-      invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
-      invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
-      invalid_conditioning_dimension: "La dimension de l'article sélectionné (%{variant_dimension}) n'étant pas la même que celle du conditionnement choisi (%{conditioning_dimension}), il est ainsi nécessaire de renseigner au préalable l'indicateur %{indicator_name} de l'article"
-      invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
-      invalid_datetime: "%{attribute} est invalide"
-      invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
-      invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
-      invalid_time: "%{attribute} est invalide"
-      invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
-      is: "%{attribute} doit être un(e) %{thing}"
-      is_at: "%{attribute} doit être le %{restriction}"
-      items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
-      less_than: "%{attribute} doit être inférieur(e) à %{count}"
-      less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
-      models: #?
-        sepa/credit_transfer_transaction: #?
-          attributes: #?
-            amount: #?
-              greater_than: "Le montant à payer doit être supérieur à zéro" #?
-      missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
-      must_be_a_mail_address: "%{attribute} doit être une adresse e-mail" #?
-      no_opened_financial_year: "Aucun exercice comptable ouvert à cette date"
-      not_a_number: "%{attribute} n’est pas un nombre" #?
-      not_an_end_of_month: "%{attribute} doit être une fin de mois" #?
-      not_opened_financial_year: "Un exercice comptable ouvert est nécessaire pour la (les) période(s)"
-      not_an_integer: "%{attribute} doit être un nombre entier" #?
-      nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser." #?
-      odd: "%{attribute} doit être pair" #?
-      on_or_after: "%{attribute} doit être le ou après le %{restriction}" #?
-      on_or_after_field: "%{attribute} doit être le ou après le %{restriction} (%{model} %{field})" #?
-      on_or_before: "%{attribute} doit être le ou avant le %{restriction}" #?
-      overlap: "%{attribute} se trouve sur un enregistrement existant" #?
-      overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement" #?
-      period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-      posterior: "%{attribute} doit être postérieure à %{to}" #?
-      record_invalid: "Validations échouées\_: %{errors}" #?
-      should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
-      should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois." #?
-      taken: "%{attribute} a déjà été pris" #?
-      too_long: "%{attribute} est trop long (%{count} caractères maximum)" #?
-      too_short: "%{attribute} est trop court (%{count} caractères minimum)" #?
-      unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un" #?
-      wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)" #?
   activemodel:
-
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
         after: "%{attribute} doit être après le %{restriction}"
         # already_confirmed: "was already confirmed, please try signing in"
+        # amounts_are_not_balanced: "Amount are not balanced"
         before: "%{attribute} doit être avant le %{restriction}"
         blank: "%{attribute} ne peut pas être vide"
         # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
@@ -88,6 +24,7 @@ fra:
         exclusion: "%{attribute} est reservé"
         # expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
         # expired: "has expired, please request a new one"
+        # financial_year_exchange_deposit: "The deposit could not be created. An financial year exchange is in progress on the accounting year : %{code}"
         # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
         # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
         # financial_year_not_found: "There is no financial year at this date"
@@ -96,12 +33,14 @@ fra:
         # harvest_in_progress: "Be careful, this crop is being harvested"
         included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
         inclusion: "%{attribute} n’est pas inclus dans la liste"
+        # intervention_crops_rejected: "Following Land parcels/plants could not be defined as target, because they don't match intervention target filter\_: %{crops}"
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
         invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
+        # invalid_conditioning_dimension: "As the selected article's dimension (%{variant_dimension}) is not the same as the chosen conditioning's (%{conditioning_dimension}), it is mandatory to provide a value for the article indicator %{indicator_name}"
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
-        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a quantity of %{population} as it is supposed to be unique."
         invalid_shape: "La forme géographique n'est pas valide"
         invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
@@ -113,6 +52,8 @@ fra:
         items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
         less_than: "%{attribute} doit être inférieur(e) à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
+        # main_activity_must_have_one_default_product: "A main activity must have a default product"
+        # mandatory_reading: "Please provide a value for the %{name} indicator"
         missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         models: #?
           sepa/credit_transfer_transaction: #?
@@ -147,36 +88,38 @@ fra:
         # record_is_not_valid: "The record is invalid"
         should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
         should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
+        # start_date_before_end_date: "Start date must be before end date."
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+        # unicity_by_campaign: "A diagnostic has already been created for this campaign"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+        # used_in_intervention: "%{attribute} must be on of after %{restriction} (date on which %{model} is used for the last time in interventions)"
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
   activerecord:
     attributes:
-      financial_year_exchange:
-        transmit_isacompta_analytic_codes: 'Transmettre les codes analytiques Isacompta'
       account:
         cumulated_absolute_credit_balance: "Solde crédit"
         cumulated_absolute_debit_balance: "Solde débit"
-      activity: #?
+      activity:
+        distribution_key: "Clé de répartition analytique" #?
+        isacompta_analytic_code: "Code analytique Isacompta"
+        life_duration: "Durée de vie"
         nature: "Type de centre analytique" #?
         net_margin: "Marge nette" #?
         parent: "Activité parente" #?
-        work_unit: "Unité d’œuvre" #?
-        start_state_of_production_year: "1ère année de production"
-        isacompta_analytic_code: "Code analytique Isacompta"
-        life_duration: "Durée de vie"
         production_cycle_period: "Campagne annuelle de production"
-        distribution_key: "Clé de répartition analytique"
+        # start_state_of_production: "Start state of production"
+        start_state_of_production_year: "1ère année de production" #?
+        work_unit: "Unité d’œuvre" #?
       activity_budget:
         balance: "Solde TTC"
         expenses_amount: "Montant des dépenses TTC"
         expenses_pretax_amount: "Montant des dépenses HT"
+        isacompta_analytic_code: "Code analytique Isacompta"
         pretax_balance: "Solde HT"
         revenues_amount: "Montant des recettes TTC"
         revenues_pretax_amount: "Montant des recettes HT"
-        isacompta_analytic_code: "Code analytique Isacompta"
       activity_production: #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
@@ -185,23 +128,25 @@ fra:
         default: "Par défaut"
         mode: "Type de planification"
         plan_on: "Date" #?
-      analysis:
-        has_attachments: "Pièces jointes"
-      animal: #?
-        born_at: "Né(e) le" #?
-        variety: "Race" #?
+      analysis: #?
+        has_attachments: "Pièces jointes" #?
+      analytic_segment: #?
+        name: "Segment" #?
+      animal:
+        born_at: "Né(e) le"
         dead_at: "Date de sortie"
+        variety: "Race"
       animal_group:
         born_at: "Créé le"
         dead_at: "Date de fin"
-      associate:
-        associate_account: "Compte courant"
-        associate_nature: "Type de part sociale"
-        percentage_on_company: "Pourcentage de détention"
-        share_quantity: "Nombre d'actions"
-        share_unit_amount: "Montant unitaire de l'action"
-        started_on: "Entrée au capital"
-        stopped_on: "Sortie du capital"
+      associate: #?
+        associate_account: "Compte courant" #?
+        associate_nature: "Type de part sociale" #?
+        percentage_on_company: "Pourcentage de détention" #?
+        share_quantity: "Nombre d'actions" #?
+        share_unit_amount: "Montant unitaire de l'action" #?
+        started_on: "Entrée au capital" #?
+        stopped_on: "Sortie du capital" #?
       building:
         born_at: "Construit le"
         content_maximal_quantity: "Quantité maximale supportée" #?
@@ -212,20 +157,20 @@ fra:
       cashes:
         main_account: "Compte principal"
       catalog_item:
-        unit: "Conditionnement"
         started_at: "En vigueur à partir du"
         stopped_at: "En vigueur jusqu'au"
+        unit: "Conditionnement"
       conditioning:
         base_unit: "Unité"
         coefficient: "Quantité"
       cvi_statement:
-        cvi_number: "Numéro de CVI"
-        extraction_date: "Date d'extraction"
         created_at: "Créé le"
+        cvi_number: "Numéro de CVI"
         declarant: "Déclarant"
+        extraction_date: "Date d'extraction"
         farm_name: "Nom du domaine"
-        total_area: "Surface totale"
         state: "État"
+        total_area: "Surface totale"
       document:
         filename: "Fichier"
       document_archive: #?
@@ -245,7 +190,7 @@ fra:
         dead_at: "Mis au rebut le"
         initial_born_at: "Construit à"
         initial_dead_at: "Demantelé au"
-        isacompta_analytic_code: "Code analytique Isacompta"
+        isacompta_analytic_code: "Code analytique Isacompta" #?
         parent_place: "Lieu de parking" #?
         variety: "Type" #?
       event: #?
@@ -256,6 +201,8 @@ fra:
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
         stopped_on: "Date de clôture"
+      financial_year_exchange:
+        transmit_isacompta_analytic_codes: "Transmettre les codes analytiques Isacompta"
       fixed_asset:
         asset_account: "Compte d'immobilisation"
         asset_expenses_account: "Compte d'amortissement" #?
@@ -267,41 +214,41 @@ fra:
         accounted: "Comptabilisé"
         asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
-      idea_diagnostic:
-        auditor: "Auditeur"
-      incoming_harvest:
-        harvest_dock: "Quai de réception"
-        harvest_nature: "Type de récolte"
-        harvest_transportation_duration: "Durée de transport"
-        last_load: "Dernier chargement"
-        quantity_unit: "Unité"
-        quantity_value: "Quantité"
-        harvest_description: "Description"
-        ticket_number: "Ticket"
-        tractor: "Tracteur"
-        trailer: "Remorque"
-        driver: "Conducteur"
-        vehicle_trailer: "Id. du véhicule de transport"
-        human_crops_names: "Parcelle(s) / Culture(s)"
-        human_plants_names: "Parcelle(s) / Culture(s)"
-        human_storages_names: "Lieux de stockage"
-        net_harvest_areas_sum: "Superficie récoltée (ha)"
-        human_species_variesties_names: "Variété(s)"
-      incoming_harvest_crop:
-        harvest_percentage_repartition: "Proportion de la parcelle / culture dans la réception (%)"
-        harvest_quantity: "Quantité récoltée"
-        net_harvest_area: "Superficie récoltée (ha)"
-        crop: "Parcelle / Culture"
-        plant_specie_variety_name: "Variété"
-        rows_harvested: "Rangs récoltés"
-        quantity_unit: "Unité"
-      incoming_harvest_storage:
-        storage: "Lieu de stockage"
+      idea_diagnostic: #?
+        auditor: "Auditeur" #?
+      incoming_harvest: #?
+        driver: "Conducteur" #?
+        harvest_description: "Description" #?
+        harvest_dock: "Quai de réception" #?
+        harvest_nature: "Type de récolte" #?
+        harvest_transportation_duration: "Durée de transport" #?
+        human_crops_names: "Parcelle(s) / Culture(s)" #?
+        human_plants_names: "Parcelle(s) / Culture(s)" #?
+        human_species_variesties_names: "Variété(s)" #?
+        human_storages_names: "Lieux de stockage" #?
+        last_load: "Dernier chargement" #?
+        net_harvest_areas_sum: "Superficie récoltée (ha)" #?
+        quantity_unit: "Unité" #?
+        quantity_value: "Quantité" #?
+        ticket_number: "Ticket" #?
+        tractor: "Tracteur" #?
+        trailer: "Remorque" #?
+        vehicle_trailer: "Id. du véhicule de transport" #?
+      incoming_harvest_crop: #?
+        crop: "Parcelle / Culture" #?
+        harvest_percentage_repartition: "Proportion de la parcelle / culture dans la réception (%)" #?
+        harvest_quantity: "Quantité récoltée" #?
+        net_harvest_area: "Superficie récoltée (ha)" #?
+        plant_specie_variety_name: "Variété" #?
+        quantity_unit: "Unité" #?
+        rows_harvested: "Rangs récoltés" #?
+      incoming_harvest_storage: #?
+        storage: "Lieu de stockage" #?
       incoming_payment: #?
+        discount_amount: "Montant TTC de l'escompte" #?
+        discount_vat: "Taxe sur l'escompte" #?
         to_bank_at: "À encaisser le" #?
-        with_discount: "Avec escompte"
-        discount_amount: "Montant TTC de l'escompte"
-        discount_vat: "Taxe sur l'escompte"
+        with_discount: "Avec escompte" #?
       inspection: #?
         forecast_harvest_week: "Semaine de récolte prévisionnelle" #?
         points: "Points de contrôle" #?
@@ -329,9 +276,9 @@ fra:
       land_parcel:
         born_at: "Créé le"
         children: "Sous-parcelle" #?
+        dead_at: "Date de fin"
         number: "Numéro de parcelle" #?
         real_quantity: "Surface" #?
-        dead_at: "Date de fin"
       land_parcel_group:
         born_at: "Créé le"
         children: "Sous-îlots" #?
@@ -340,23 +287,21 @@ fra:
       loan:
         ongoing_at: "Date de déblocage des fonds"
         started_on: "Date de la 1ère échéance"
-      matter: #?
+      matter:
         born_at: "En stock depuis le"
-        dead_at: "Détruit/consommé le" #?
+        dead_at: "Détruit/consommé le"
       naming_format_field:
         field_name: "Champ"
       notification:
         done: "Effectué"
-      analytic_segment:
-        name: "Segment"
       outgoing_parcel: #?
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
+        discount_amount: "Montant TTC de l'escompte" #?
+        discount_vat: "Taxe sur l'escompte" #?
         list: "Lot de décaissements"
-        with_discount: "Avec escompte"
-        discount_amount: "Montant TTC de l'escompte"
-        discount_vat: "Taxe sur l'escompte"
+        with_discount: "Avec escompte" #?
       outgoing_payment_list:
         payments_sum: "Total"
       outgoing_payment_mode: #?
@@ -364,38 +309,38 @@ fra:
       parcel:
         contract: "Contrat"
       parcel_item:
-        parcels_conditioning_quantity: "Quantité globale"
-        parcels_conditioning_unit_name: "Unité"
+        parcels_conditioning_quantity: "Quantité globale" #?
+        parcels_conditioning_unit_name: "Unité" #?
         population: "Quantité"
         product_name: "Nom du produit"
       parcel_item_storing:
-        conditioning_unit: "Conditionnement"
         conditioning_quantity: "Quantité"
+        conditioning_unit: "Conditionnement"
         quantity: "Quantité totale"
         reception_given_at: "Donné le"
         reception_planned_at: "Prévu le"
+      payslip: #?
+        amount: "Salaire net" #?
+        other_social_expenses_amount: "Autres cotisations sociales (salariales + patronnales)" #?
+        raw_amount: "Salaire brut" #?
+        social_security_amount: "Cotisations de sécurité sociales (salariales + patronnales)" #?
+        source_revenue_amount: "Prélèvement à la source (salariales)" #?
+        total_company_social_amount: "Total des cotisations (patronnales)" #?
       payslip_contribution_payment: #?
         delivered: "Remis au prestataire social" #?
         list: "Lot de décaissements" #?
-        with_discount: "Avec escompte"
+        with_discount: "Avec escompte" #?
       payslip_payment: #?
         delivered: "Remis au bénéficiaire" #?
         list: "Lot de décaissements" #?
-        with_discount: "Avec escompte"
-      payslip:
-        amount: 'Salaire net'
-        raw_amount: 'Salaire brut'
-        source_revenue_amount: "Prélèvement à la source (salariales)"
-        social_security_amount: "Cotisations de sécurité sociales (salariales + patronnales)"
-        other_social_expenses_amount: "Autres cotisations sociales (salariales + patronnales)"
-        total_company_social_amount: "Total des cotisations (patronnales)"
+        with_discount: "Avec escompte" #?
       plant:
         born_at: "Planté/semé le"
+        dead_at: "Détruit/récolté le"
         nature: "Nature de la culture" #?
         reproductor: "Multiplication" #?
-        dead_at: "Détruit/récolté le"
-        variety: "Espèce" #?
         specie_variety_name: "Variété / Cépage" #?
+        variety: "Espèce" #?
       plant_counting:
         expected_plants_count: "Nombre de graines théorique" #?
         expected_seeding_density: "Densité théorique" #?
@@ -439,8 +384,8 @@ fra:
       production: #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      project_budget:
-        isacompta_analytic_code: "Code analytique Isacompta"
+      project_budget: #?
+        isacompta_analytic_code: "Code analytique Isacompta" #?
       purchase:
         affair_balance: "Solde"
         amount: "Montant TTC" #?
@@ -451,21 +396,21 @@ fra:
       purchase_invoice:
         delivery_address: "Adresse de facturation"
         description: "Notes" #?
+        has_attachments: "Pièce(s) jointe(s)"
         invoiced_at: "Date de facture" #?
         payment_delay: "Échéance" #?
         reference_number: "N° facture fournisseur" #?
-        has_attachments: "Pièce(s) jointe(s)"
       purchase_item:
         amount: "Montant TTC" #?
         average_unit_pretax_amount: "PU moyen HT"
-        conditioning_unit: "Conditionnement"
-        conditioning_quantity: "Quantité"
+        conditioning: "Conditionnement" #?
+        conditioning_quantity: "Quantité" #?
+        conditioning_unit: "Conditionnement" #?
         discount_with_percent: "Réduction (%)"
         fixed_asset_stopped_on: "Immobilisation arrêtée le"
         last_unit_pretax_amount: "Dernier prix HT"
         ordered_quantity: "Quantité commandée"
         quantity: "Quantité" #?
-        conditioning: "Conditionnement"
         supplier_name: "Fournisseur"
         total_amount_without_taxes: "Montant HT"
         variant_name_with_unit: "Article"
@@ -479,10 +424,10 @@ fra:
         responsible: "Responsable de commande" #?
       purchase_payment: #?
         delivered: "Remis au bénéficiaire" #?
+        discount_amount: "Montant TTC de l'escompte" #?
+        discount_vat: "Taxe sur l'escompte" #?
         list: "Lot de décaissements" #?
-        with_discount: "Avec escompte"
-        discount_amount: "Montant TTC de l'escompte"
-        discount_vat: "Taxe sur l'escompte"
+        with_discount: "Avec escompte" #?
       registered_phytosanitary_product:
         active_compounds: "Substance(s) active(s)"
         firm_name: "Fabricant" #?
@@ -518,8 +463,8 @@ fra:
         additional_tool_one: "Outil 1"
         additional_tool_two: "Outil 2"
         main_equipment: "Équipement"
+        provider_vendor: "Fournisseur" #?
         sleep_duration: "Temps de pause"
-        provider_vendor: "Fournisseur"
       ride_set:
         additional_tool_one: "Outil 1"
         additional_tool_two: "Outil 2"
@@ -533,7 +478,7 @@ fra:
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
         items: "Lignes de vente" #?
-        last_email_at: "Dernier email envoyé"
+        last_email_at: "Dernier email envoyé" #?
       sale_item: #?
         amount: "Montant TTC" #?
         label: "Produit" #?
@@ -561,75 +506,78 @@ fra:
         deductible: "Déductible"
         fixed_asset_deductible: "Déductible sur immobilisation"
         intracommunity_payable: "Intra-communautaire"
-      team:
-        isacompta_analytic_code: "Code analytique Isacompta"
-      technical_itinerary:
-        plant_density: 'Densité'
+      team: #?
+        isacompta_analytic_code: "Code analytique Isacompta" #?
+      technical_itinerary: #?
+        plant_density: "Densité" #?
       user: #?
         locked: "Compte verrouillé" #?
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)" #?
         name: "Nom d’utilisateur" #?
-        role_id: "Rôle"
+        role_id: "Rôle" #?
+      variant_categories/animal_category: #?
+        asset_fixable: "Immobilisable" #?
+      variant_categories/article_category: #?
+        asset_fixable: "Immobilisable" #?
+      variant_categories/equipment_category: #?
+        asset_fixable: "Immobilisable" #?
+      variant_categories/service_category: #?
+        asset_fixable: "Immobilisable" #?
+      variant_categories/zone_category: #?
+        asset_fixable: "Immobilisable" #?
       wine_incoming_harvest:
+        harvest_description: "Description" #?
         harvest_dock: "Quai de réception de la vendange"
         harvest_nature: "Type de vendange"
         harvest_transportation_duration: "Durée de transport"
+        human_crops_names: "Parcelles / Cultures" #?
+        human_plants_names: "Culture(s)" #?
+        human_species_variesties_names: "Cépage(s)" #?
+        human_storages_names: "Cuverie" #?
         last_load: "Dernier chargement"
+        net_harvest_areas_sum: "Superficie récoltée (ha)" #?
+        # pressing_schedule: "Pressing schedule"
+        # pressing_started_at: "Pressing started at"
         quantity_unit: "Unité"
         quantity_value: "Quantité"
         sedimentation_duration: "Temps de décantation"
-        harvest_description: "Description"
-        tavp: 'TAVP (%vol.)'
+        tavp: "TAVP (%vol.)"
         ticket_number: "Ticket"
         vehicle_trailer: "Id. du véhicule de transport"
-        human_crops_names: "Parcelles / Cultures"
-        human_plants_names: "Culture(s)"
-        human_storages_names: "Cuverie"
-        net_harvest_areas_sum: "Superficie récoltée (ha)"
-        human_species_variesties_names: "Cépage(s)"
       wine_incoming_harvest_plant:
         harvest_percentage_received: "Superficie récoltée (%)"
-        harvest_quantity: "Quantité récoltée"
+        harvest_quantity: "Quantité récoltée" #?
         net_harvest_area: "Superficie récoltée (ha)"
         plant: "Culture"
         plant_specie_variety_name: "Cépage"
-        rows_harvested: "Rangs récoltés"
-        quantity_unit: "Unité"
+        quantity_unit: "Unité" #?
+        rows_harvested: "Rangs récoltés" #?
+      wine_incoming_harvest_press: #?
+        press: "Pressoir" #?
+        pressing_schedule: "Programme de pressurage" #?
+        pressing_started_at: "Heure de démarrage" #?
       wine_incoming_harvest_storage:
         storage: "Cuve"
-      wine_incoming_harvest_press:
-        press: "Pressoir"
-        pressing_schedule: "Programme de pressurage"
-        pressing_started_at: "Heure de démarrage"
-      variant_categories/animal_category:
-        asset_fixable: "Immobilisable"
-      variant_categories/article_category:
-        asset_fixable: "Immobilisable"
-      variant_categories/equipment_category:
-        asset_fixable: "Immobilisable"
-      variant_categories/zone_category: #?
-        asset_fixable: "Immobilisable"
-      variant_categories/service_category: #?
-        asset_fixable: "Immobilisable"
-      worker: #?
-        variety: "Qualification" #?
+      worker:
+        age: "Ancienneté"
         born_at: "Date d'entrée"
         dead_at: "Date de sortie"
-        age: "Ancienneté"
+        variety: "Qualification"
       worker_contract: #?
-        distribution_key: "Clé de répartition analytique"
+        distribution_key: "Clé de répartition analytique" #?
         monthly_duration: "Durée de travail mensuelle" #?
-        raw_hourly_amount: "Taux horaire brut"
-        started_at: "Date de début de contrat"
-        stopped_at: "Date de fin de contrat"
-        salaried: "Salarié"
+        raw_hourly_amount: "Taux horaire brut" #?
+        salaried: "Salarié" #?
+        started_at: "Date de début de contrat" #?
+        stopped_at: "Date de fin de contrat" #?
       worker_time_log:
-        human_duration: "Durée" #?
+        human_duration: "Durée"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
         after: "%{attribute} doit être après le %{restriction}"
         # already_confirmed: "was already confirmed, please try signing in"
+        # amounts_are_not_balanced: "Amount are not balanced"
         before: "%{attribute} doit être avant le %{restriction}"
         blank: "%{attribute} ne peut pas être vide"
         # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
@@ -648,6 +596,7 @@ fra:
         exclusion: "%{attribute} est reservé"
         # expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
         # expired: "has expired, please request a new one"
+        # financial_year_exchange_deposit: "The deposit could not be created. An financial year exchange is in progress on the accounting year : %{code}"
         # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
         # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
         # financial_year_not_found: "There is no financial year at this date"
@@ -656,17 +605,17 @@ fra:
         # harvest_in_progress: "Be careful, this crop is being harvested"
         included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
         inclusion: "%{attribute} n’est pas inclus dans la liste"
+        # intervention_crops_rejected: "Following Land parcels/plants could not be defined as target, because they don't match intervention target filter\_: %{crops}"
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
         invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
         invalid_conditioning_dimension: "La dimension de l'article sélectionné (%{variant_dimension}) n'étant pas la même que celle du conditionnement choisi (%{conditioning_dimension}), il est ainsi nécessaire de renseigner au préalable l'indicateur %{indicator_name} de l'article"
         invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
         invalid_datetime: "%{attribute} est invalide"
-        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
+        # invalid_population_for_unitary_product: "The equipment %{name} cannot have a quantity of %{population} as it is supposed to be unique."
         invalid_shape: "La forme géographique n'est pas valide"
         invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
-        invalid_shape: "La forme géographique n'est pas valide"
         invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
         # invalid_uploaded_file: "Invalid uploaded file"
@@ -675,6 +624,7 @@ fra:
         items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
         less_than: "%{attribute} doit être inférieur(e) à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
+        # main_activity_must_have_one_default_product: "A main activity must have a default product"
         mandatory_reading: "Veuillez saisir une valeur pour l'indicateur %{name}"
         missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
         models: #?
@@ -716,6 +666,7 @@ fra:
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         unicity_by_campaign: "Un diagnostic IDEA a déjà été créé sur cette campagne"
         unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
+        # used_in_intervention: "%{attribute} must be on of after %{restriction} (date on which %{model} is used for the last time in interventions)"
         wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
       models: #?
         account: #?
@@ -725,9 +676,9 @@ fra:
               centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
               incorrect_length: "Le numéro n'a pas la bonne longueur (%{number_length} caractères)" #?
               radical_class: "Le numéro ne peut pas correspondre à une classe radicale" #?
-              truncation_error:
-                one: "Impossible d'ajuster la longueur de %{value} pour correspondre à la configuration (%{standard_length} caractères), le dernier caractère ne peut être supprimé."
-                other: "Impossible d'ajuster la longueur de %{value} pour correspondre à la configuration (%{standard_length} caractères), les %{count} derniers caractères ne peuvent être supprimés."
+              truncation_error: #?
+                one: "Impossible d'ajuster la longueur de %{value} pour correspondre à la configuration (%{standard_length} caractères), le dernier caractère ne peut être supprimé." #?
+                other: "Impossible d'ajuster la longueur de %{value} pour correspondre à la configuration (%{standard_length} caractères), les %{count} derniers caractères ne peuvent être supprimés." #?
               unauthorized: "Ce numéro ne peut pas correspondre à une classe radicale." #?
           cant_start_with_0: "Le numéro ne peut pas commencer par un '0'" #?
           centralizing_number: "Le numéro ne peut pas commencer par '401' ou '411' qui sont réservés pour les comptes auxiliaires" #?
@@ -736,11 +687,11 @@ fra:
         activity: #?
           checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité" #?
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée" #?
-          productions_present: "Des productions sont présentes sur cette activité"
-        activity_production:
-          attributes:
-            stopped_on:
-              after: "La date de fin doit être après la dernière intervention réalisée : %{restriction}"
+          productions_present: "Des productions sont présentes sur cette activité" #?
+        activity_production: #?
+          attributes: #?
+            stopped_on: #?
+              after: "La date de fin doit être après la dernière intervention réalisée : %{restriction}" #?
         bank_statement: #?
           initial_balance_credit: #?
             unvalid_amounts: "Le solde initial doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps." #?
@@ -760,14 +711,14 @@ fra:
               financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        cvi_cadastral_plant:
-          attributes:
-            land_parcel:
-              cannot_find_land_parcel: "Erreur : Aucune parcelle cadastrale n'a été trouvée"
-        catalog_item:
-          attributes:
-            started_at:
-              there_is_already_a_catalog_item_starting_at_the_exact_same_time: "Cette date de mise en vigueur est déjà utilisée dans ce catalogue pour cet article avec ce conditionnement"
+        catalog_item: #?
+          attributes: #?
+            started_at: #?
+              there_is_already_a_catalog_item_starting_at_the_exact_same_time: "Cette date de mise en vigueur est déjà utilisée dans ce catalogue pour cet article avec ce conditionnement" #?
+        cvi_cadastral_plant: #?
+          attributes: #?
+            land_parcel: #?
+              cannot_find_land_parcel: "Erreur : Aucune parcelle cadastrale n'a été trouvée" #?
         deposit: #?
           must_be_a_bank_account: "%{attribute} doit être un compte bancaire et non une caisse" #?
         entity: #?
@@ -783,7 +734,7 @@ fra:
               on_or_after: "La date de début doit être postérieure à la date de création de la société (%{restriction})" #?
             stopped_on: #?
               end_of_month: "%{attribute} doit être une date de fin de mois" #?
-              jei_on_other_fy: "Changement de date impossible, %{count} écritures se trouvent sur des dates en dehors de l'exercice"
+              jei_on_other_fy: "Changement de date impossible, %{count} écritures se trouvent sur des dates en dehors de l'exercice" #?
           can_only_have_two_years_opened: "Vous ne pouvez avoir que 2 exercices ouverts en même temps" #?
           can_only_update_code: "Vous ne pouvez que modifier uniquement le code d'un exercice comptable fermé ou clotûré" #?
           overlap: "%{attribute} se trouve sur un exercice existant" #?
@@ -811,29 +762,35 @@ fra:
           attributes: #?
             started_on: #?
               invalid_start_date: "La période d’amortissement doit débuter le %{start} ou en début de mois" #?
-        incoming_harvest_crop:
-          attributes:
-            base:
-              total_harvest_percentage_repartition_must_be_equal_to_100: "Le total de la répartation des parcelles / cultures doit être de 100%"
+        incoming_harvest_crop: #?
+          attributes: #?
+            base: #?
+              total_harvest_percentage_repartition_must_be_equal_to_100: "Le total de la répartation des parcelles / cultures doit être de 100%" #?
         incoming_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
-        incoming_payment:
-          attributes:
-            to_bank_at:
+        incoming_payment: #?
+          attributes: #?
+            to_bank_at: #?
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
         integration: #?
           attributes: #?
             parameters: #?
               check_errored: "La connexion au partenaire a échoué. Veuillez vérifier les informations saisies ou réessayer plus tard." #?
-        intervention:
-          attributes:
-            base:
+        intervention: #?
+          attributes: #?
+            base: #?
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période et le mode gestion des stocks permanent est activé" #?
-        intervention_target:
-          attributes:
-            product:
+        intervention_output: #?
+          attributes: #?
+            variant_id: #?
+              already_used: "Cet extrant ne peut pas être modifié car il a déjà été utilisé" #?
+        intervention_target: #?
+          attributes: #?
+            product: #?
               target_dont_exist_after: "%{target} sélectionné(e) n'existe pas après le %{date}" #?
               target_dont_exist_before: "%{target} sélectionné(e) n'existe pas avant le %{date}" #?
+        intervention_template: #?
+          label: "%{name} - Campagne %{campaign}" #?
         intervention_working_period: #?
           attributes: #?
             started_at: #?
@@ -842,17 +799,13 @@ fra:
             stopped_at: #?
               inferior: "La date de fin d'intervention saisie doit être antérieure à la date de fin des cultures sélectionnées (%{to})" #?
               posterior: "La date de fin d'intervention saisie doit être postérieure à la date de début des cultures sélectionnées (%{to})" #?
-        intervention_output:
-          attributes:
-            variant_id:
-              already_used: "Cet extrant ne peut pas être modifié car il a déjà été utilisé"
-        journal:
-          attributes:
-            accountant:
-              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
-              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses"
-              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices"
-            closed_on:
+        journal: #?
+          attributes: #?
+            accountant: #?
+              entity_frozen: "Les journaux réservés au %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
+              present: "Le comptable ne peut être précisé que pour les journaux de type opérations diverses" #?
+              previous_entity_frozen: "Les journaux réservés au précédent %{attribute} ne peuvent être modifiés lorsqu'un échange est ouvert pour ses exercices" #?
+            closed_on: #?
               draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
               end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})" #?
         journal_entry: #?
@@ -871,25 +824,23 @@ fra:
             ongoing_at: #?
               financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
               not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-            started_on:
-              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période"
+            started_on: #?
+              financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
         outgoing_parcel_item: #?
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})" #?
-        outgoing_payment:
-          attributes:
-            to_bank_at:
+        outgoing_payment: #?
+          attributes: #?
+            to_bank_at: #?
               financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
         parcel: #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
-        payslip:
-          attributes:
-            amount:
+        payslip: #?
+          attributes: #?
+            amount: #?
               amounts_are_not_balanced: "Les montants ne sont pas équilibrés comptablement" #?
-        intervention_template:
-          label: "%{name} - Campagne %{campaign}"
         product_nature_variant: #?
           cannot_change_maaid_number_if_it_has_already_been_set: "Le numéro d'AMM pointe déjà vers un produit phytosanitaire et ne peut être modifié" #?
         purchase: #?
@@ -898,10 +849,6 @@ fra:
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
           not_opened_financial_year: "Un exercice comptable ouvert est nécessaire" #?
           payment_delay_custom_validation_message: "Formats acceptés : %{values}" #?
-        purchase_payment:
-          attributes:
-            to_bank_at:
-              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur"
         purchase_item: #?
           attributes: #?
             fixed: #?
@@ -912,8 +859,12 @@ fra:
               fixed_asset_stopped_on_invalid: "Vous devez spécifier une date de fin d'immobilisation" #?
           building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}." #?
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur" #?
+        purchase_payment: #?
+          attributes: #?
+            to_bank_at: #?
+              financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
         sale: #?
-          a_sale_must_have_at_least_one_sale_item: "Une vente doit comporter au moins une ligne de vente"
+          a_sale_must_have_at_least_one_sale_item: "Une vente doit comporter au moins une ligne de vente" #?
           financial_year_exchange_on_this_period: "Un échange comptable est ouvert à cette période" #?
           financial_year_matching_this_date_is_in_closure_preparation: "L'exercice comptable correspondant à cette date est en préparation de clôture par un autre utilisateur" #?
           financial_year_not_found: "Il n'y a pas d'exercice comptable pour cette date" #?
@@ -975,17 +926,20 @@ fra:
       conditioning: "Conditionnement"
       contract: "Contrat"
       contract_item: "Élément du contrat"
-      crop_group_item : "Groupement parcellaire - Élément"
-      crop_group_labeling : "Groupement parcellaire - Étiquetage"
+      # crop_group: "Crop group"
+      crop_group_item: "Groupement parcellaire - Élément"
+      crop_group_labeling: "Groupement parcellaire - Étiquetage" #?
+      # crop_group_labelling: "Crop group labelling"
       crumb: "Miette"
       cultivable_zone: "Zone cultivable"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
+      # custom_name: "custom name"
       cvi_cadastral_plant: "Parcelle cadastrale CVI"
-      cvi_statement: "Casier Viticole Informatisé"
+      cvi_cadastral_plant_cvi_land_parcel: "CVI - Lien parcelle culturale et parcelle cadastrale CVI"
       cvi_cultivable_zone: "Zone cultivable CVI"
       cvi_land_parcel: "Parcelle CVI"
-      cvi_cadastral_plant_cvi_land_parcel : "CVI - Lien parcelle culturale et parcelle cadastrale CVI"
+      cvi_statement: "Casier Viticole Informatisé"
       dashboard: "Tableau de bord"
       debt_transfer: "Transfert de dettes"
       delivery: "Livraison"
@@ -1004,13 +958,13 @@ fra:
       event: "Évènement"
       event_participation: "Participation à un évènement"
       financial_year: "Exercice"
-      financial_year_archive: "Exercice comptable"
+      financial_year_archive: "Exercice comptable" #?
       financial_year_exchange: "Échange de l’exercice"
       fixed_asset: "Immobilisation"
       fixed_asset_depreciation: "Amortissement d’immobilisation"
-      formatted_cvi_cadastral_plant : "CVI - Parcelle cadastrale CVI formatée"
-      formatted_cvi_cultivable_zone : "CVI - Zone cultivable formatée"
-      formatted_cvi_land_parcel : "CVI - Parcelle culturale formatée"
+      formatted_cvi_cadastral_plant: "CVI - Parcelle cadastrale CVI formatée"
+      formatted_cvi_cultivable_zone: "CVI - Zone cultivable formatée"
+      formatted_cvi_land_parcel: "CVI - Parcelle culturale formatée"
       fungus: "Champignon"
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
@@ -1031,7 +985,7 @@ fra:
       interest_account: "Compte d'intérêt" #?
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
-      intervention_costing: "Coût d’intervention" #?
+      intervention_costing: "Coût d’intervention"
       intervention_doer: "Opérateur d’intervention"
       intervention_group_parameter: "Groupe de paramètre d’intervention"
       intervention_input: "Intrant d’intervention"
@@ -1042,6 +996,7 @@ fra:
       intervention_participation: "Participation d’intervention"
       intervention_product_parameter: "Paramètre produit d’intervention"
       intervention_target: "Cible d’intervention"
+      # intervention_template: ""
       intervention_tool: "Outil d’intervention"
       intervention_working_period: "Période d’intervention"
       inventory: "Inventaire"
@@ -1052,14 +1007,15 @@ fra:
       journal_entry_item: "Ligne d’écriture"
       label: "Étiquette"
       land_parcel: "Parcelle"
-      land_parcel_rootstock : "CVI - Porte-greffe"
+      land_parcel_rootstock: "CVI - Porte-greffe"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
       loan: "Emprunt"
       loan_account: "Compte de prêt"
       loan_repayment: "Remboursement d’emprunt"
-      main_output: "Produit principal"
+      # location: "Location"
+      main_output: "Produit principal" #?
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
       map_layer: "Couche de carte"
@@ -1075,7 +1031,9 @@ fra:
       net_service: "Service en ligne"
       notification: "Notification"
       observation: "Observation"
-      ocr_presence: "OCR"
+      ocr_presence: "OCR" #?
+      # opportunities: "Opportunities"
+      # opportunity: "Opportunity"
       outgoing_payment: "Décaissement"
       outgoing_payment_list: "Liste de décaissements"
       outgoing_payment_mode: "Mode de décaissement"
@@ -1086,14 +1044,15 @@ fra:
       payslip_affair: "Affaire de salaire"
       payslip_contribution: "Charge sociale"
       payslip_contribution_affair: "Affaire de charges sociales"
-      payslip_nature: "Type de salaire"
       payslip_contribution_payment: "Paiement de charges sociales"
+      payslip_nature: "Type de salaire"
       payslip_payment: "Paiement de salaire"
       plant: "Plante"
       plant_counting: "Comptage"
       plant_counting_item: "Mesure du nombre de plants"
       plant_density_abacus: "Abaque de densité de plants"
       plant_density_abacus_item: "Référence de densité"
+      # planting_campaign: "Tree-planting campaign"
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -1117,18 +1076,14 @@ fra:
       product_population: "Quantité de produit"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
-      project: "Projet"
-      project_member: "Membre du projet"
-      project_task: "Tâche de projet"
-      project_task_log: "Journal des tâches du projet"
-      project_budget: "Budget interne"
+      # production_nature: "Production nature"
+      project: "Projet" #?
       project_budget: "Budget interne" #?
-      providers: "Solution tierce"
-      provider_vendor: "Solution tierce"
-      project: "Projet"
-      project_member: "Membre du projet"
-      project_task: "Tâche de projet"
-      project_budget: "Budget interne"
+      project_member: "Membre du projet" #?
+      project_task: "Tâche de projet" #?
+      project_task_log: "Journal des tâches du projet" #?
+      provider_vendor: "Solution tierce" #?
+      providers: "Solution tierce" #?
       purchase: "Achat"
       purchase_affair: "Affaire d’achat"
       purchase_gap: "Écart d’achat"
@@ -1142,8 +1097,8 @@ fra:
       reference_unit: "Unité de référence"
       registered_agroedi_code: "Code agroedi référencé"
       registered_building_zone: "Zone de bâtiment référencée" #?
-      registered_legal_position: "Forme juridique"
       registered_cadastral_building: "Zone de bâtiment référencée" #?
+      registered_legal_position: "Forme juridique" #?
       registered_pfi_crop: "Récolte pfi référencée"
       registered_pfi_dose: "Dose pfi référencée"
       registered_pfi_target: "Cible pfi référencée"
@@ -1156,19 +1111,20 @@ fra:
       registered_water_lake: "Eau de lac référencée" #?
       registered_water_river: "Eau de rivière référencée" #?
       regularization: "Régularisation"
-      ride : "Section de trajet géolocalisé"
-      ride_set : "Trajet géolocalisé"
+      ride: "Section de trajet géolocalisé" #?
+      ride_set: "Trajet géolocalisé"
       role: "Rôle"
       sale: "Vente"
       sale_affair: "Affaire de vente"
-      sale_contract: "Contrat de vente"
-      sale_contract_item: "Article du contrat de vente"
-      sale_contract_nature: "Contrat de vente nature"
+      sale_contract: "Contrat de vente" #?
+      sale_contract_item: "Article du contrat de vente" #?
+      sale_contract_nature: "Contrat de vente nature" #?
       sale_gap: "Écart sur vente"
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sale_opportunity: "Opportunité de vente"
       sale_ticket: "Ticket de caisse"
+      # scenario_activity/animal: "Animal scenario activity"
       sensor: "Capteur"
       sequence: "Séquence"
       settlement: "Installation"
@@ -1188,17 +1144,18 @@ fra:
       tax_declaration_item_part: "Partie d’élément de déclaration fiscale"
       tax_payment: "Paiement TVA"
       team: "Service"
+      # technical_itinerary: ""
       token: "Jeton"
       tracking: "Lot traçable"
-      unit: "Conditionnement"
+      unit: "Conditionnement" #?
       user: "Utilisateur"
       vegetal_activity: "Activité végétale" #?
       version: "Version"
       wice_grid_serialized_query: "Requête de tableau en série" #?
-      wine_incoming_harvest: "Réception de vendange"
-      wine_incoming_harvest_input : "Réception de vendange - Quantité réceptionnée"
-      wine_incoming_harvest_plant : "Réception de vendange - Cultures récoltées"
-      wine_incoming_harvest_storage : "Réception de vendange - Cuverie"
+      wine_incoming_harvest: "Réception de vendange" #?
+      wine_incoming_harvest_input: "Réception de vendange - Quantité réceptionnée"
+      wine_incoming_harvest_plant: "Réception de vendange - Cultures récoltées"
+      wine_incoming_harvest_storage: "Réception de vendange - Cuverie"
       worker: "Équipier"
       worker_contract: "Contrat de travail"
       worker_contract_distribution: "Distribution du travailleur entre activité"
@@ -1207,24 +1164,6 @@ fra:
       worker_time_log: "Saisie des temps"
       zone: "Zone"
   attributes:
-    occupation_capacity: "Capacité totale"
-    easement_capacity_variety: "Calcul de la capacité par rapport à la variété"
-    with_easement_capacity: "Gérer la capacité de stockage"
-    spray_volume_value: "Volume de bouillie"
-    attachement_presence: "Pièce de gestion"
-    starting_year: "L’année de début"
-    declared_area: "Superficie déclarée"
-    calculated_area: "Superficie calculée"
-    product_human_name_fra: "Produit"
-    additional_informations: "Information complémentaire"
-    designation_of_origin_name: "Produit" #?
-    inter_row_distance_value: "Inter-rang (cm)" #?
-    inter_vine_plant_distance_value: "Inter-pied (cm)" #?
-    rootstock_name: "Porte-greffe"
-    rootstock_names: "Porte-greffe(s)"
-    vine_variety_name: "Cépage" #?
-    isacompta_code: "Codes Isacompta"
-    isacompta_label: "Libellé Isacompta"
     abilities: "Compétences"
     abilities_list: "Liste des compétences"
     absolute_credit: "Crédit (absolu)"
@@ -1262,14 +1201,17 @@ fra:
     activity_budgets: "Budgets"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
+    # activity_family: "Activity family"
     activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
+    activity_productions_list: "Productions"
     activity_season: "Saisonnalité" #?
     actor: "Acteur"
     actual_number: "Numéro en cours"
     actual_population: "Quantité après inventaire"
     actual_shape: "Forme réelle"
+    additional_informations: "Information complémentaire"
     address: "Adresse"
     addresses: "Adresses"
     administrative_area: "Zone administrative"
@@ -1293,6 +1235,7 @@ fra:
     allowed_mentions: "Mentions autorisées"
     # already_existing: "Already existing"
     amount: "Montant"
+    # amounts_are_not_balanced: "Amounts are not balanced"
     analysed_at: "Analysé le"
     analyser: "Analyseur"
     analyses: "Analyses"
@@ -1310,13 +1253,19 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
-    # area: "Area"
-    # area_value: "Area value"
+    area: "Surface"
+    # area_smart: "Area smart"
+    # area_with_overlap: "Area with overlap"
+    # area_without_overlap: "Area without overlap"
     # arguments: "Arguments"
+    # article_reference: "Article reference"
+    # article_tags: "Article tags"
     assembly: "Assemblée"
     asset_account: "Compte d’actifs"
     asset_exists: "Immobilisation en cours existante."
     # asset_fixable: "Fixed asset registrable"
+    # associate_nature: "Associate nature"
+    attachement_presence: "Pièce de gestion" #?
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -1330,7 +1279,7 @@ fra:
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     auxiliary_number: "Numéro auxiliaire"
     average_value: "Valeur moyenne"
-    # average_yield: "Average yield"
+    average_yield: "Rendement moyen"
     balance: "Solde"
     balance_amount: "Solde" #?
     balance_pretax_amount: "Solde montant HT"
@@ -1354,9 +1303,10 @@ fra:
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
     base_unit: "Unité de référence"
+    base_unit_amount: "PU HT (Unité)" #?
     # batch: "Batch"
     batch_number: "N° de lot"
-    # batch_planting: "Batch planting"
+    batch_planting: "Implantation des cultures par lot"
     battery_level: "Niveau de la batterie"
     billing_method: "Methode de facturation"
     birth: "Naissance" #?
@@ -1366,12 +1316,15 @@ fra:
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
     budget: "Budget" #?
-    budget_items: "Élément de budget" #?
+    budget_items: "Élément de budget"
     budgets: "Budgets"
     building: "Bâtiment" #?
     buildings: "Bâtiments"
     by_default: "Par défaut"
     cached_payment_count: "Nombre de paiements"
+    calculated_area: "Superficie calculée"
+    # calculated_area_unit: "Calculated area unit"
+    # calculated_area_value: "Calculated area value"
     calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
     campaigns: "Campagnes"
@@ -1386,6 +1339,7 @@ fra:
     cap_number: "Numéro PAC" #?
     cap_statement: "Déclaration PAC"
     cap_statements: "Déclarations PAC"
+    # capacity_unit: "Capacity unit"
     carried: "Tracté"
     carrier: "Tracteur"
     carrier_linkages: "Points d’attache du tracteur"
@@ -1397,6 +1351,7 @@ fra:
     cashes_accounts: "Comptes de caisse" #?
     casts: "Acteurs" #?
     catalog: "Catalogue de prix"
+    # catalog_item: "Catalog item"
     catalog_items: "Entrées de catalogue"
     category: "Catégorie"
     ceded: "Cédé"
@@ -1421,7 +1376,7 @@ fra:
     client_accounts: "Comptes clients" #?
     client_payment_delay: "Delai de paiement client"
     client_payment_mode: "Mode de paiement"
-    client_payment_modes: "Modes de paiement du client"
+    client_payment_modes: "Modes de paiement du client" #?
     client_reference: "N° du bon de commande (référence client)"
     client_trade_balance: "Balance commerciale du client"
     clients: "Clients"
@@ -1435,7 +1390,7 @@ fra:
     # codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
-    collect_isacompta_code: "Code Isacompta - TVA collectée"
+    collect_isacompta_code: "Code Isacompta - TVA collectée" #?
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute" #?
     collected_pretax_amount: "Montant HT collectées"
@@ -1447,18 +1402,19 @@ fra:
     # command_mode: "Command mode"
     comment: "Commentaire"
     commercial: "Activité commerciale"
+    commercial_accountancy_workflow: "Comptabilité d'engagement" #?
     commercial_description: "Description commerciale"
     commercial_name: "Nom commercial"
     commission_account: "Compte à utiliser pour la commission"
-    commercial_accountancy_workflow: "Comptabilité d'engagement"
     commission_amount: "Montant de la commission"
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
-    commune: "Commune"
-    communes: "Commune(s)"
+    commune: "Commune" #?
+    communes: "Commune(s)" #?
     company_creation_date: "Date de création de l'entreprise"
     company_name: "Nom de l'entreprise"
+    # compliance: "Compliance"
     component: "Composant"
     components: "Composants"
     computation_method: "Méthode de calcul"
@@ -1468,8 +1424,9 @@ fra:
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
-    conditioning_unit: "Conditionnement"
     conditioning_quantity: "Quantité"
+    conditioning_unit: "Conditionnement"
+    # conditionings: "Conditionings"
     conditions: "Conditions (SQL)"
     confirmation_sent_at: "Confirmation envoyée le"
     confirmation_token: "Jeton de confirmation"
@@ -1488,6 +1445,7 @@ fra:
     continuous_number: "N° unique"
     contour: "Silhouette" #?
     contract: "Contrat"
+    # contract_end: "Contract end"
     contract_items: "Éléments du contrat"
     contracts: "Contrats"
     coordinate: "Coordonnée"
@@ -1504,6 +1462,9 @@ fra:
     credited_sale: "Facture mise en avoir"
     credits: "Avoirs"
     # crop: "Crop"
+    # crop_group: "Crop group"
+    # crop_group_items: "Crop group items"
+    # crop_groups: "Crop groups"
     crumbs: "Miettes"
     cultivable_zone: "Zone cultivable"
     cultivable_zones: "Zones cultivables"
@@ -1534,14 +1495,19 @@ fra:
     custom_field: "Champ complémentaire"
     custom_fields: "Champs complémentaires"
     custom_fields_columns: "Champs personnalisés colonnes"
-    custom_name: "Nommage du support"
+    custom_name: "Nommage du support" #?
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
+    # cvi_cadastral_plant_cvi_land_parcels: "Cvi cadastral plant cvi land parcels"
     cvi_cadastral_plants: "Parcelles cadastrales CVI"
+    # cvi_cultivable_zone: "Cvi cultivable zone"
+    # cvi_land_parcels: "Cvi land parcels"
+    # cvi_statement: "Cvi statement"
     # daily_charges: "Daily charges"
     daily_nitrogen_production: "Excrétion d’azote journalière"
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
+    day_interval: "Semés/plantés tous les :"
     dead: "Mort"
     dead_at: "Date de décès"
     dead_line_at: "Date butoir"
@@ -1556,14 +1522,18 @@ fra:
     decimal: "Décimal" #?
     decimal_value: "Valeur décimale"
     declarant: "Déclarant"
+    declared_area: "Superficie déclarée"
+    # declared_area_unit: "Declared area unit"
+    # declared_area_value: "Declared area value"
     declared_at: "Déclarée le" #?
     deductible_pretax_amount: "Montant HT déductible"
     deductible_tax_amount: "Montant de la taxe déductible"
     deduction_account: "TVA déductible"
-    deduction_isacompta_code: "Code Isacompta - TVA déductible"
+    deduction_isacompta_code: "Code Isacompta - TVA déductible" #?
     deduction_taxes: "TVA déductible" #?
     default_computation_method: "Méthode de calcul par défaut"
     default_mail_address: "Adresse email par défaut"
+    # default_quantity: "Default quantity"
     default_storage: "Emplacement par défaut"
     default_unit: "Unité par défaut"
     default_unit_name: "Unité par défaut"
@@ -1601,16 +1571,23 @@ fra:
     depth: "Profondeur"
     derivative: "Dérivé" #?
     derivative_of: "Dérivé de"
+    # derivative_units: "Derivative units"
     derivatives_list: "Liste des dérivés"
     description: "Description"
+    # designation_of_origin: "Designation of origin"
+    designation_of_origin_name: "Produit" #?
     detail_payments: "Détailler les paiements"
     device_uid: "ID unique de l’appareil"
     diff_less: "Droits enlevés" #?
     diff_more: "Droits rajoutés" #?
+    # dimension: "Dimension"
     direct_links: "Liens directs"
     direction: "Type"
+    # discount_amount: "Discount amount"
     discount_percentage: "Pourcentage d’escompte" #?
+    # discount_vat: "Discount vat"
     distributed_on_productions: "Distribué sur les productions"
+    # distribution_key: "Distribution key"
     distributions: "Répartitions"
     district: "Zone administrative"
     document: "Document"
@@ -1634,8 +1611,10 @@ fra:
     due_at: "Due le"
     due_on: "Due le"
     duration: "Durée"
+    easement_capacity_variety: "Calcul de la capacité par rapport à la variété"
+    # economic_cash_indicators: "Economic cash indicators"
     economic_situation: "Situation économique"
-    edit_cadastral_ref: "Éditer la référence cadastrale"
+    edit_cadastral_ref: "Éditer la référence cadastrale" #?
     email: "Courriel (e-mail)"
     emails: "Courriels (e-mails)"
     embedded: "Embarqué"
@@ -1668,10 +1647,11 @@ fra:
     entry_on: "Entrée le"
     entry_reason: "Raison de l'entrée"
     equipment: "Équipement"
-    equipment_name: "Équipement"
+    equipment_name: "Équipement" #?
     # equipment_nature: "Equipment nature"
     establishment: "Établissement" #?
     # estimate_reception_date: "Estimate reception date"
+    estimated_sowing_date: "Date prévisionnelle de semis/plantation"
     # euid: "EUID"
     event: "Évènement"
     event_participation: "Participation à un évènement"
@@ -1725,6 +1705,7 @@ fra:
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
+    # financial_year_exchange: "Financial year exchange"
     finish: "Fin"
     finish_junction: "Jonction de fin" #?
     finish_way: "Voie de fin" #?
@@ -1741,13 +1722,12 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
-    fixed_assets_categories: "Catégories comptables avec immobilisation" #?
     fixed_asset_collect_account: "TVA collectée sur les immobilisations"
-    fixed_asset_collect_isacompta_code: "Code Isacompta - TVA collectée sur les immobilisations"
+    fixed_asset_collect_isacompta_code: "Code Isacompta - TVA collectée sur les immobilisations" #?
     fixed_asset_deductible_pretax_amount: "Montant HT déductibles sur immobilisation"
     fixed_asset_deductible_tax_amount: "Montant taxes déductibles sur immobilisation"
     fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
-    fixed_asset_deduction_isacompta_code: "Code Isacompta - TVA déductible sur les immobilisations"
+    fixed_asset_deduction_isacompta_code: "Code Isacompta - TVA déductible sur les immobilisations" #?
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -1755,7 +1735,7 @@ fra:
     fixed_asset_depreciations_inputations_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation" #?
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
-    fixed_assets_categories: "Catégories de produits avec immobilisation" #?
+    fixed_assets_categories: "Catégories de produits avec immobilisation"
     following: "Suivant"
     forecast_duration: "Durée prévu"
     forecast_duration_unit: "Unité de la durée prévu"
@@ -1764,12 +1744,13 @@ fra:
     forward_journal: "Journal des reports à nouveaux"
     france_maaid: "N° AMM"
     frequency: "Fréquence"
-    frozen_indicators: "Indicateurs gelés" #?
+    frozen_indicators: "Indicateurs gelés"
     frozen_indicators_list: "Liste des indicateurs fixes"
     full_name: "Nom complet"
     function_title: "Civilités"
     gap: "Écart"
     gaps: "Écarts"
+    # gasoline: "Gasoline"
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
     germination_percentage: "Pourcentage de germination attendu"
@@ -1809,6 +1790,7 @@ fra:
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
     headers: "Têtes"
+    # headland_shape: "Headland shape"
     host: "Hôte"
     hour_counter: "Compteur horaire"
     # hour_counter_unit_name: "Hour counter unit name"
@@ -1821,6 +1803,7 @@ fra:
     humus_mineralization: "Minéralisation de l’humus (Mh)"
     iban: "IBAN"
     id: "ID"
+    # idea_diagnostic: "Idea diagnostic"
     identification_number: "Numéro d’identification"
     identifiers: "Identifiants"
     implanter_application_width: "Largeur de l'outil de semis ou de plantation"
@@ -1835,7 +1818,9 @@ fra:
     # in_field_reentry_delay: "In field reentry delay"
     in_preparation_at: "En préparation le"
     included: "Incluse"
+    # incoming_harvest: "Incoming harvest"
     incoming_parcel_item: "Élément de colis à réceptionner"
+    # incoming_parcel_item_storing: "Incoming parcel item storing"
     incoming_parcel_items: "Éléments de colis à réceptionner" #?
     incoming_parcels: "Colis à réceptionner"
     incoming_payment_modes: "Modes d’encaissement"
@@ -1865,6 +1850,7 @@ fra:
     initial_shape: "Forme initiale"
     initialization_vectors: "Vecteurs d’initialisation"
     initiated_on: "Lancé le"
+    # input: "Input"
     inputs: "Intrants"
     inputs_cost: "Coût des intrants" #?
     inspection: "Agréage"
@@ -1879,6 +1865,10 @@ fra:
     insurance_repayment_method: "Méthode de remboursement de l'assurance"
     integer_value: "Valeur entière"
     integration_name: "Nom d’intégration"
+    # inter_row_distance_unit: "Inter row distance unit"
+    inter_row_distance_value: "Inter-rang (cm)"
+    # inter_vine_plant_distance_unit: "Inter vine plant distance unit"
+    inter_vine_plant_distance_value: "Inter-pied (cm)"
     interest_account: "Compte comptable des intérêts" #?
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
@@ -1886,15 +1876,20 @@ fra:
     interpolations: "Interpolations"
     intervention: "Intervention"
     intervention_cast: "Acteur de l’intervention"
+    # intervention_crop_groups: "Intervention crop groups"
     # intervention_id: "Intervention"
+    # intervention_model: "Intervention model"
     intervention_parameter: "Paramètre d’intervention"
     intervention_participation: "Participation d’intervention"
     intervention_participations: "Participations d’intervention"
     intervention_product_parameters: "Casting"
     # intervention_proposal: "Intervention proposal"
     # intervention_proposals: "Intervention proposals"
+    # intervention_targets: "Intervention targets"
     # intervention_template: "Intervention template"
+    # intervention_template_product_parameters: "Intervention template product parameters"
     intervention_templates: "Modèles d'intervention"
+    intervention_templates_list: "Liste des interventions"
     interventions: "Interventions"
     interventions_used_in: "Interventions utilisées dans"
     intracommunity: "Intracommunautaire"
@@ -1920,6 +1915,9 @@ fra:
     # irregular_batch: "Irregular batch"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
+    # isacompta_analytic_code: "Isacompta analytic code"
+    isacompta_code: "Codes Isacompta"
+    isacompta_label: "Libellé Isacompta"
     isacompta_letter: "Lettre Isacompta"
     islet: "Ilôt"
     islet_number: "Numéro de l’ilot PAC"
@@ -1927,6 +1925,7 @@ fra:
     issue: "Incident"
     issues: "Incidents"
     issues_count: "Nombre d’incidents"
+    # issues_yield_observations: "Issues yield observations"
     item: "Élément"
     item_changes: "Changement de l’élément"
     item_listing: "Nœud de l’extraction"
@@ -1952,6 +1951,7 @@ fra:
     # label_fra: "Label fra"
     labellings: "Étiquetages"
     labels: "Étiquettes"
+    # land_modification_date: "Land modification date"
     land_parcel_number: "Numéro de la parcelle PAC"
     land_parcels: "Parcelles"
     land_parcels_status: "Statut parcellaire"
@@ -1980,6 +1980,7 @@ fra:
     letter_format: "Devis au format lettre"
     level: "Niveau"
     lft: "Limite gauche"
+    # life_duration: "Life duration"
     # lines: "Lines"
     linkage_points_list: "Points d’attache"
     linkages: "Attaches"
@@ -1987,6 +1988,7 @@ fra:
     linked_role: "Rôle du tiers lié"
     links: "Liens"
     list: "Liste"
+    list_of_activities: "Nom des activités"
     listing: "Extraction"
     loan: "Emprunt"
     loan_account: "Compte comptable des emprunts" #?
@@ -1994,9 +1996,11 @@ fra:
     local_count: "Population"
     local_credit: "Crédit"
     local_debit: "Débit"
-    locality: "Lieu-dit"
-    localities: "Lieu-dit(s)"
+    localities: "Lieu-dit(s)" #?
+    locality: "Lieu-dit" #?
+    # localization: "Localization"
     localizations: "Localisations"
+    # locations: "Locations"
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
@@ -2025,6 +2029,7 @@ fra:
     main_crop_commercialisation: "Commercialisation"
     main_crop_precision: "Code précision de la culture principale"
     main_crop_seed_production: "Production de semence"
+    # main_journal_entry_items: "Main journal entry items"
     main_output: "Produit principal"
     main_production: "Production principale"
     managed: "Géré par le système"
@@ -2040,6 +2045,7 @@ fra:
     marketable_quantity: "Quantité commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
+    # master_variant: "Master variant"
     max_inputs_count: "Nombre maximum d'applications"
     max_zoom: "Zoom maximal"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
@@ -2102,8 +2108,8 @@ fra:
     net_service: "Service web"
     net_surface_area: "Surface"
     net_volume: "Volume net" #?
-    neutral_area_category: "Catégorie de SNA"
-    neutral_area_nature: "Type de SNA"
+    neutral_area_category: "Catégorie de SNA" #?
+    neutral_area_nature: "Type de SNA" #?
     new_container: "Nouvel emplacement"
     new_group: "Nouveau groupe"
     new_name: "Nouveau nom"
@@ -2126,12 +2132,13 @@ fra:
     number_increment: "Incrément"
     # number_of_batch: "Number of batch"
     number_start: "Début de la numération"
-    ocr_presence: "OCR"
-    occupation_area: "Capacité occupée(m2)"
-    occupation_percentage: "Taux de remplissage (%)"
-    occupation_population: "Capacité occupée"
     observations: "Observations"
     observed_at: "Observé à"
+    occupation_area: "Capacité occupée(m2)" #?
+    occupation_capacity: "Capacité totale" #?
+    occupation_percentage: "Taux de remplissage (%)" #?
+    occupation_population: "Capacité occupée" #?
+    ocr_presence: "OCR" #?
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
@@ -2140,8 +2147,8 @@ fra:
     operation: "Travail"
     operation_name: "Nom de l’opération"
     operations: "Travaux" #?
-    opportunity: "Opportunité"
-    opportunities: "Opportunités"
+    opportunities: "Opportunités" #?
+    opportunity: "Opportunité" #?
     ordered_at: "Commandé le"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
@@ -2160,7 +2167,9 @@ fra:
     owner: "Propriétaire"
     ownerships: "Possessions"
     pacage_number: "Numéro de PACAGE"
+    # packaging: "Packaging"
     paid_at: "Réglé le"
+    # paid_on: "Paid on"
     paid_taxes: "Taxes payées"
     parameter_name: "Nom du paramètre"
     parameters: "Paramètres"
@@ -2180,6 +2189,7 @@ fra:
     partner_url: "Url partenaire"
     password: "Mot de passe"
     password_confirmation: "Confirmation du mot de passe"
+    # path: "Path"
     payee: "Bénéficiaire"
     payer: "Payeur"
     payment_at: "À régler au plus tard le"
@@ -2190,13 +2200,14 @@ fra:
     payments_count: "Nombre d’encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
-    payslips: "Salaires"
     payslip_contributions: "Charges sociales"
-    payslip_contributor: "Collecteur charges sociales"
-    payslip_contributor_account: "Compte de collecte social"
+    payslip_contributor: "Collecteur charges sociales" #?
+    payslip_contributor_account: "Compte de collecte social" #?
+    payslips: "Salaires"
+    # percentage: "Percentage"
     period: "Période"
     person: "Personne"
-    pfi_intervention: "IFT"
+    pfi_intervention: "IFT" #?
     phases: "Phases"
     phone_number: "Numéro de téléphone" #?
     phones: "Téléphones"
@@ -2212,19 +2223,21 @@ fra:
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu sur"
     plant: "Plante"
-    planting_campaign: "Année"
     plant_counting: "Comptage"
     plant_countings: "Comptages"
+    # plant_density: "Plant density"
     plant_density_abaci: "Abaques de densité de plant"
     plant_density_abacus: "Abaque de densité de plant"
     plant_density_abacus_item: "Densité théorique de semis"
+    planting_campaign: "Année"
+    # plants: "Plants"
     plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"
     points: "Points"
     population: "Quantité"
     population_counting: "Gestion quantitative"
-    # populations: "Populations"
+    # populations: "Quantities"
     position: "Position"
     post: "Poste"
     postal_code: "Code postal"
@@ -2232,8 +2245,10 @@ fra:
     postal_zones: "Zones postales"
     # pre_harvest_delay: "Pre harvest delay"
     pre_harvest_interval: "DAR"
+    predicated_sowing_date: "Date prévisionnelle de semis/plantation"
     # preexisting_asset: "Preexisting asset"
     preferences: "Préférences"
+    preparation_time: "Temps de préparation"
     prepared_at: "Préparé le"
     prereduction_amount: "Montant TTC avant réduction" #?
     prereduction_pretax_amount: "Montant HT avant réduction" #?
@@ -2251,7 +2266,9 @@ fra:
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
     # procedure: "Procedure"
+    # procedure_item_reference: "Procedure item reference"
     procedure_name: "Nom de la procédure"
+    # procedure_reference: "Procedure reference"
     procedures: "Procédures" #?
     process: "Process" #?
     producer: "Producteur"
@@ -2267,6 +2284,7 @@ fra:
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
+    product_human_name_fra: "Produit"
     product_identification_number: "Numéro d’identification"
     product_junctions: "Product junctions" #?
     product_linkages: "Attelages de produit"
@@ -2288,6 +2306,7 @@ fra:
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
+    # product_parameter: "Product parameter"
     product_parameters: "Paramètres du produit"
     product_phases: "Phases de produit"
     product_quadruple_mixings: "Quadruple mélanges de produit" #?
@@ -2300,9 +2319,14 @@ fra:
     product_way: "Voie du produit" #?
     product_work_number: "N° de travail"
     production: "Production"
-    production_campaign: "Campagne rattachée"
+    production_campaign: "Campagne rattachée" #?
     production_cycle: "Cycle de production"
     production_nature: "Production de référence"
+    # production_reference_name: "Production reference name"
+    # production_started_on: "Production started on"
+    # production_started_on_year: "Production started on year"
+    # production_stopped_on: "Production stopped on"
+    # production_stopped_on_year: "Production stopped on year"
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_system: "Système de production"
@@ -2311,21 +2335,19 @@ fra:
     productions: "Productions"
     products: "Produits"
     products_categories: "Catégories comptables avec produit"
+    # products_yield_observations: "Products yield observations"
     progression_percentage: "Progression (%)"
     project: "Projet"
+    project_budget: "Budget interne"
     project_task: "Tâche de projet"
-    project_tasks: "Tâches de projet"
+    project_tasks: "Tâches de projet" #?
     projects: "Projets"
     proposer: "Parrain"
     prospect: "Prospect"
-    provider: "Apporteur"
-    project_budget: "Budget interne"
-    proposer: "Parrain"
-    prospect: "Prospect"
     provider: "Fournisseur"
-    providers: "Solution tierce"
+    provider_name: "Fournisseur" #?
     provider_vendor: "Solution tierce"
-    provider_name: "Fournisseur"
+    providers: "Solution tierce"
     provisional: "Prévisionnel"
     provisional_intervention: "Intervention prévisionnelle"
     provisional_procedure: "Procédure prévisionnelle" #?
@@ -2399,10 +2421,12 @@ fra:
     reduction_percentage: "Réduction (%)"
     reductions: "Lignes de réductions" #?
     reference: "Référence" #?
+    # reference_article_name: "Reference article name"
     # reference_data: "Reference data"
     # reference_label_fra: "Reference label fra"
     reference_name: "Type d'intervention"
     reference_number: "N° référence"
+    # reference_packaging_name: "Reference packaging name"
     reference_source_content_type: "Référence type de contenu source"
     reference_source_file_name: "Référence Nom du fichier source"
     reference_source_file_size: "Taille Référence du fichier source"
@@ -2413,6 +2437,7 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"
+    # registered_postal_zone: "Registered postal zone"
     regularizations: "Régularisations"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
@@ -2425,6 +2450,7 @@ fra:
     repayment_method: "Méthode de remboursement"
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
+    # repetition: "Repetition"
     replaced_at: "Remplacé le"
     replacements: "Remplacements"
     reporter: "Rapporteur"
@@ -2438,6 +2464,7 @@ fra:
     resource: "Ressource"
     resource_prism: "Prisme de ressources"
     resource_type: "Type de ressource"
+    # response: "Response"
     responses: "Réponses"
     responsible: "Responsable"
     restricted: "Réservé"
@@ -2447,6 +2474,7 @@ fra:
     retrieval_status: "Statut de la récupération"
     revenues: "Produits"
     rgt: "Limite droite"
+    # ride_set: "Ride set"
     rides: "Sections du trajet géolocalisé"
     rights: "Droits"
     # risks: "Risks"
@@ -2458,10 +2486,14 @@ fra:
     root_model_name: "Racine"
     root_node: "Nœud racine"
     root_parameters: "Paramètres Root"
+    # rootstock: "Rootstock"
+    rootstock_name: "Porte-greffe"
+    rootstock_names: "Porte-greffe(s)"
     rows_count_value: "Nombre de rangs"
+    # salaried: "Salaried"
     sale: "Vente"
     sale_contract: "Contrat de vente"
-    sale_contract_item: "Ligne de contrat de vente"
+    sale_contract_item: "Ligne de contrat de vente" #?
     sale_contracts: "Contrats de vente"
     sale_credit: "Avoir"
     sale_item: "Ligne de vente"
@@ -2483,6 +2515,7 @@ fra:
     sampling_length_unit: "Unité de longueur d’échantillonnage"
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
+    # scenario_activity: "Scenario activity"
     scheduled: "Encaissement programmé"
     scrapped_journal_entry: "Ecriture de mise au rebut"
     scrapped_on: "Date de mise au rebut"
@@ -2490,8 +2523,10 @@ fra:
     seasons: "Saisonnalités"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
+    # section: "Section"
     seeding_density_unit: "Unité de densité de semis"
     seeding_density_value: "Densité de semis"
+    # segment_code: "Segment code"
     selected: "Sélectionné"
     selected_manure_management_plan: "Plan de fumure sélectionné"
     selected_manure_management_plan_zone: "Zone de plan de fumure sélectionné"
@@ -2502,15 +2537,17 @@ fra:
     sent_at: "Expédié le"
     sepa: "SEPA"
     separated_stock: "Ne pas fusionner avec les stocks existants"
+    # sequences: "Sequences"
     serial: "N°Lot"
     serial_number: "Serial number"
     services: "Services" #?
     sessions: "Sessions"
+    # settings: "Settings"
     # sha256_fingerprint: "Sha256 fingerprint"
     shape: "Forme"
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"
-    shipment: "Expédition" #?
+    shipment: "Expédition"
     # shipment_items: "Shipment items"
     shipments: "Expéditions"
     sign_in_count: "Nombre de connexions"
@@ -2524,12 +2561,12 @@ fra:
     size_unit: "Unité de taille"
     size_unit_name: "Taille Nom de l’unité"
     size_value: "Valeur Taille"
+    sleep_count: "Nombre de pause"
+    sleep_duration: "Temps de pause"
     soil_nature: "Nature du sol"
     soil_production: "Contribution en azote du sol (Po)"
     sold_journal_entry: "Écriture de cession"
     sold_on: "Date de cession"
-    sleep_count: "Nombre de pause"
-    sleep_duration: "Temps de pause"
     source: "Source"
     source_product: "Produit Source"
     # source_product_movement: "Source product movement"
@@ -2537,14 +2574,18 @@ fra:
     spaced_iban: "IBAN"
     special_imputation_asset_account: "Compte d'imputation spéciale"
     specie: "Espèce"
-    specie_variety_name: "Variété / Cépage"
+    # specie_variety: "Specie variety"
+    specie_variety_name: "Variété / Cépage" #?
+    spray_volume_value: "Volume de bouillie"
     sql_type: "Type SQL"
     ssl: "Ssl"
     start: "Début"
     start_junction: "Jonction de départ" #?
+    # start_month: "Start month"
     start_way: "Voie de départ" #?
     started_at: "Débuté le"
     started_on: "Débuté le"
+    starting_year: "L’année de début"
     state: "État"
     state_label: "État"
     static_support: "Support statique" #?
@@ -2613,11 +2654,15 @@ fra:
     tax_declaration_items: "Articles de déclaration d’impôt"
     tax_declaration_mode: "Mode de déclaration de TVA"
     tax_declarations: "Déclarations fiscales"
-    tax_payment: "Paiement TVA"
     tax_payability: "Exigibilité fiscale"
+    tax_payment: "Paiement TVA" #?
     taxations: "Taxations"
     team: "Équipe"
-    # technical_itinerary: "Technical itinerary"
+    technical_itineraries: "Itinéraires culturaux"
+    technical_itinerary: "Itinéraire cultural"
+    technical_itinerary_parameters: "Paramètres de l'itinéraire cultural"
+    technical_sequence: "Séquence d'itinéraires techniques (Lexicon)"
+    technical_workflow: "Itinéraire technique (Lexicon)"
     template: "Modèle"
     theme: "Thème"
     theoretical_number: "Numéro théorique"
@@ -2628,6 +2673,7 @@ fra:
     third_role: "Rôle tiers"
     thread: "Fil"
     ticket: "Ticket" #?
+    # ticket_number: "Ticket number"
     time_window: "Fenêtre de temps (en secondes)"
     # timing: "Timing"
     title: "Titre"
@@ -2658,13 +2704,16 @@ fra:
     transfered_at: "Transféré à"
     transfered_on: "Transféré le"
     transfers: "Transferts" #?
+    # translation: "Translation"
     transport: "Transport" #?
     transporter: "Transporteur"
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
-    travel_expense_details: "Détails des frais de déplacement"
-    travel_expenses: "Frais de déplacement"
+    travel_expense_details: "Détails des frais de déplacement" #?
+    travel_expenses: "Frais de déplacement" #?
+    # trial_started_at: "Trial started at"
+    # trial_stopped_at: "Trial stopped at"
     trouble_description: "Description du problème"
     trouble_encountered: "Problème durant l'intervention"
     type: "Type"
@@ -2680,7 +2729,6 @@ fra:
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
     unit_pretax_amount_explicit: "Prix unitaire HT"
-    base_unit_amount: "PU HT (Unité)"
     unit_pretax_sale_amount: "Prix unitaire de vente HT"
     unit_pretax_stock_amount: "Prix unitaire d'inventaire"
     unit_price: "Prix unitaire" #?
@@ -2710,6 +2758,7 @@ fra:
     used_for_tax_declarations: "Utilisé pour les déclarations fiscales"
     used_for_unbilled_payables: "Utilisé pour factures non parvenues"
     used_intervention_parameters: "Paramètres d’intervention d’occasion"
+    # used_on: "Used on"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
@@ -2717,7 +2766,7 @@ fra:
     uuid: "UUID"
     validated_at: "Validée le"
     value: "Valeur"
-    variable_indicators: "Indicateurs variables" #?
+    variable_indicators: "Indicateurs variables"
     variable_indicators_list: "Liste des indicateurs variables"
     variant: "Article"
     variant_indicator: "Indicateur de l'article"
@@ -2729,64 +2778,64 @@ fra:
     vat_account: "Compte TVA"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
+    # vegetative_stage: "Vegetative stage"
     vendor_euid: "Constructeur"
-    vendors: "Logiciel"
+    vendors: "Logiciel" #?
     verb: "Verbe"
     versions: "Versions"
     view_parameters: "Voir paramètres"
+    # vine_variety: "Vine variety"
+    vine_variety_name: "Cépage" #?
     waiting_asset_account: "Compte d'immobilisation en attente"
     waiting_deliveries: "Livraisons en attente"
     waiting_on: "Date d'inscription au bilan"
     ways: "Voies" #?
     websites: "Sites web"
     whole_duration: "Toute la durée"
+    # wind_direction: "Wind direction"
     wine_incoming_harvest: "Réception de vendange"
     with_accounting: "Passer en comptabilité"
     with_commission: "Inclure une commission"
     with_cultivation: "Avec une culture"
     with_delivery: "Avec livraison"
     with_deposit: "Utiliser les remises en banque"
+    # with_discount: "With discount"
+    with_easement_capacity: "Gérer la capacité de stockage"
     with_supports: "Avec des supports"
     with_transport: "Avec transport"
     work_code: "Code de travail"
     work_name: "Nom de travail"
     work_number: "Numéro de travail"
-    working_zone_area: "Surface travaillée"
-    worked_on: "Travaillé le"
+    worked_on: "Travaillé le" #?
     worker: "Équipier"
     worker_contract: "Contrat de travail"
-    worker_contract_distribution: "Répartitions analytiques des contrats de travail"
+    worker_contract_distribution: "Répartitions analytiques des contrats de travail" #?
+    # worker_group: "Worker group"
+    # worker_group_items: "Worker group items"
+    # worker_groups: "Worker groups"
     workflow: "Débit de chantier" #?
+    # workflow_unit: "Workflow unit"
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
+    # working_flow_unit: "Working flow unit"
     working_periods: "Périodes de travail"
     working_shape: "Forme de travail" #?
     working_unit: "Unité d’œuvre" #?
     working_width_value: "Largeur de l'outil de semis"
     working_zone: "Zone travaillée"
     working_zone_area: "Surface de la zone travaillée"
+    # working_zone_area_value: "Working zone area value"
+    # year: "Year"
+    # yield_observation: "Yield observation"
+    # yield_observations: "Yield observations"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
-    list_of_activities: Nom des activités
-    preparation_time: Temps de préparation
-    average_yield: Rendement moyen
-    technical_itinerary: Itinéraire cultural
-    technical_workflow: "Itinéraire technique (Lexicon)"
-    technical_sequence: "Séquence d'itinéraires techniques (Lexicon)"
-    technical_itineraries: Itinéraires culturaux
-    intervention_templates_list: Liste des interventions
-    technical_itinerary_parameters: Paramètres de l'itinéraire cultural
-    predicated_sowing_date: Date prévisionnelle de semis/plantation
-    batch_planting: Implantation des cultures par lot
-    day_interval: "Semés/plantés tous les :"
-    estimated_sowing_date: "Date prévisionnelle de semis/plantation"
-    area: Surface
-    activity_productions_list: Productions
   errors:
     messages:
       accepted: "%{attribute} doit être accepté"
       after: "%{attribute} doit être après le %{restriction}"
       # already_confirmed: "was already confirmed, please try signing in"
+      # amounts_are_not_balanced: "Amount are not balanced"
       before: "%{attribute} doit être avant le %{restriction}"
       blank: "%{attribute} ne peut pas être vide"
       # can_only_have_two_years_opened: "You can have only have two financial years opened at the same time."
@@ -2805,6 +2854,7 @@ fra:
       exclusion: "%{attribute} est reservé"
       # expecting_only_one: "Expecting only one %{model} but found %{count} for %{key} account number"
       # expired: "has expired, please request a new one"
+      # financial_year_exchange_deposit: "The deposit could not be created. An financial year exchange is in progress on the accounting year : %{code}"
       # financial_year_exchange_on_this_period: "There is an opened accounting exchange at this date"
       # financial_year_matching_this_date_is_in_closure_preparation: "The financial year matching this date is currently being prepared for closure by another user"
       # financial_year_not_found: "There is no financial year at this date"
@@ -2813,12 +2863,15 @@ fra:
       # harvest_in_progress: "Be careful, this crop is being harvested"
       included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
       inclusion: "%{attribute} n’est pas inclus dans la liste"
+      # intervention_crops_rejected: "Following Land parcels/plants could not be defined as target, because they don't match intervention target filter\_: %{crops}"
       invalid: "%{attribute} est invalide"
       invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
       invalid_child: "Au moins une des valeurs de %{attribute} n'est pas valide."
+      # invalid_conditioning_dimension: "As the selected article's dimension (%{variant_dimension}) is not the same as the chosen conditioning's (%{conditioning_dimension}), it is mandatory to provide a value for the article indicator %{indicator_name}"
       invalid_date: "Veuillez saisir une date au format jj-mm-aaaa ou jj/mm/aaaa"
       invalid_datetime: "%{attribute} est invalide"
-      # invalid_population_for_unitary_product: "The equipment %{name} cannot have a population of %{population} as it is supposed to be unique."
+      # invalid_population_for_unitary_product: "The equipment %{name} cannot have a quantity of %{population} as it is supposed to be unique."
+      # invalid_shape: "The geographic shape is invalid"
       invalid_siret: "%{value} n'est pas un numéro de SIRET valide" #?
       invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
       invalid_time: "%{attribute} est invalide"
@@ -2829,6 +2882,8 @@ fra:
       items_present_in_catalog: "Des éléments sont présents dans le catalogue, cette option ne peut pas être modifiée."
       less_than: "%{attribute} doit être inférieur(e) à %{count}"
       less_than_or_equal_to: "%{attribute} doit être inférieur(e) ou égal à %{count}"
+      # main_activity_must_have_one_default_product: "A main activity must have a default product"
+      # mandatory_reading: "Please provide a value for the %{name} indicator"
       missing_bank_details_for_sepa: "Les valeurs IBAN et/ou Titulaire du compte sont manquantes pour la trésorerie sélectionnée."
       models: #?
         sepa/credit_transfer_transaction: #?
@@ -2863,9 +2918,11 @@ fra:
       # record_is_not_valid: "The record is invalid"
       should_be_consecutive: "Les exercices fiscaux doivent être consécutifs, %{attribute} doit donc être %{expected}."
       should_be_the_last_day_of_month: "%{attribute} doit être le dernier jour du mois."
+      # start_date_before_end_date: "Start date must be before end date."
       taken: "%{attribute} a déjà été pris"
       too_long: "%{attribute} est trop long (%{count} caractères maximum)"
       too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+      # unicity_by_campaign: "A diagnostic has already been created for this campaign"
       unitary_in_parcel: "Articles unitaires ne peuvent être envoyés un par un"
       used_in_intervention: "%{attribute} doit être le ou après le %{restriction} (date à laquelle %{model} est utilisé dans les interventions pour la dernière fois)"
       wrong_length: "%{attribute} n’est pas d’une bonne longueur (%{count} caractères)"
@@ -2980,6 +3037,8 @@ fra:
     intervention:
       bookkeep: "[%{resource}] %{name}"
       name: "%{intervention} n°%{number}"
+    intervention_template:
+      # label: "%{name} - Campagne %{campaign}"
     intervention_working_period:
       attributes:
         started_at:
@@ -3097,14 +3156,14 @@ fra:
     payslip_contribution_payment:
       bookkeep: "[%{resource} %{number}] %{mode} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
-    payslip_nature:
-      default:
-        temporary_salary:
-          name: "Saisonnier"
-        permanent_salary:
-          name: "Salarié permanent"
-        associate:
-          name: "Exploitant / Associé non salarié"
+    payslip_nature: #?
+      default: #?
+        associate: #?
+          name: "Exploitant / Associé non salarié" #?
+        permanent_salary: #?
+          name: "Salarié permanent" #?
+        temporary_salary: #?
+          name: "Saisonnier" #?
     payslip_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
@@ -3249,16 +3308,16 @@ fra:
         opportunities: "OP[year|4][number|6]"
         outgoing_parcels: "EXP[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
-        payslips: "BS[year|4][month|2][number|4]"
         payslip_contributions: "CS[year|4][month|2][number|4]"
+        payslips: "BS[year|4][month|2][number|4]"
         plants: "PLANT[year|4][number|4]"
         products: "P[number|11]"
         purchases: "A[year|4][month|2][number|6]"
         sales: "V[year|4][month|2][number|6]"
         sales_invoices: "F[year|4][number|6]"
         subscriptions: "ABO[number|8]"
-        tax_declarations: "TAX[year|4][number|4]"
-        tax_payments: "TAXP[year|4][number|4]"
+        tax_declarations: "TAX[year|4][number|4]" #?
+        tax_payments: "TAXP[year|4][number|4]" #?
         transports: "TR[number|8]"
     shipment:
       bookkeep: "[%{resource} %{number}] %{entity}"
@@ -3287,6 +3346,8 @@ fra:
         validated: "Validée"
     team:
       default: "Général"
+    technical_itinerary:
+      # plant_density: "Density"
     user:
       invitation:
         accepted: "Acceptée"

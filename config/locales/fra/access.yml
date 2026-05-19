@@ -1,5 +1,17 @@
 fra:
   access:
+    categories: #?
+      accountancy: "Comptabilité" #?
+      economics: "Économique" #?
+      entities: "Tiers" #?
+      human_resources: "RH" #?
+      productions: "Productions" #?
+      purchases: "Achats" #?
+      sales: "Ventes" #?
+      schedulings: "Planification" #?
+      settings: "Configuration" #?
+      stocks: "Stocks" #?
+      tools: "Outils" #?
     interactions:
       cancel: "Annuler"
       close: "Fermer"
@@ -12,22 +24,22 @@ fra:
       reopen: "Réouvrir" #?
       write: "Écrire"
     resources:
-      access_all_accountancy: "Tout cocher"
-      access_all_economics: "Tout cocher"
-      access_all_entities: "Tout cocher"
-      access_all_human_resources: "Tout cocher"
-      access_all_productions: "Tout cocher"
-      access_all_purchases: "Tout cocher"
-      access_all_sales: "Tout cocher"
-      access_all_settings: "Tout cocher"
-      access_all_stocks: "Tout cocher"
-      access_all_tools: "Tout cocher"
-      access_all_schedulings: "Tout cocher"
+      access_all_accountancy: "Tout cocher" #?
+      access_all_economics: "Tout cocher" #?
+      access_all_entities: "Tout cocher" #?
+      access_all_human_resources: "Tout cocher" #?
+      access_all_productions: "Tout cocher" #?
+      access_all_purchases: "Tout cocher" #?
+      access_all_sales: "Tout cocher" #?
+      access_all_schedulings: "Tout cocher" #?
+      access_all_settings: "Tout cocher" #?
+      access_all_stocks: "Tout cocher" #?
+      access_all_tools: "Tout cocher" #?
       accounts: "Comptes comptables"
       activities: "Activités"
       affairs: "Affaires"
-      analytic_sequences: "Séquence analytique"
       analyses: "Analyses"
+      analytic_sequences: "Séquence analytique"
       animal_groups: "Troupeaux"
       animals: "Animaux"
       bank_statements: "Relevés de banque"
@@ -41,9 +53,9 @@ fra:
       companies: "Société"
       conditionings: "Conditionnements"
       contracts: "Contrats"
+      crop_groups: "Groupements parcellaires"
       cultivable_zones: "Zones cultivables"
       custom_fields: "Champs personnalisés"
-      crop_groups: "Groupements parcellaires"
       dashboards: "Tableaux de bord"
       deposits: "Remises en banque"
       districts: "Districts"
@@ -56,15 +68,15 @@ fra:
       financial_year_exchanges: "Échanges comptables"
       financial_years: "Exercices comptables"
       fixed_assets: "Immobilisations"
-      fungi: "Champignons"
+      fungi: "Champignons" #?
       gaps: "Écarts"
       georeadings: "Relevés topographiques"
-      guide_analyses: "Analyses de guide"
-      guides: "Guides"
+      guide_analyses: "Analyses de guide" #?
+      guides: "Guides" #?
       humans_dashboard: "Tableau de bord RH"
       identifiers: "Identifiants"
       imports: "Imports"
-      incoming_deliveries: "Réceptions"
+      incoming_deliveries: "Réceptions" #?
       incoming_harvests: "Réceptions de récolte"
       incoming_payment_modes: "Modes d’encaissement"
       incoming_payments: "Encaissements"
@@ -81,10 +93,10 @@ fra:
       land_parcels: "Parcelles"
       listings: "Extractions"
       loans: "Emprunts"
-      manure_management_plans: "Plans de fumure"
+      manure_management_plans: "Plans de fumure" #?
       map_layers: "Couches de carte"
       matters: "Matières"
-      myselves: "Mon compte"
+      myselves: "Mon compte" #?
       naming_formats: "Formats de nommage"
       net_services: "Services en ligne"
       observations: "Observations"
@@ -92,10 +104,10 @@ fra:
       outgoing_payment_lists: "Listes de paiements sortants"
       outgoing_payment_modes: "Modes de décaissement"
       outgoing_payments: "Décaissements"
+      payslip_contribution_payments: "Paiements des charges sociales" #?
+      payslip_contributions: "Charges sociales" #?
       payslip_natures: "Types de salaire"
       payslip_payments: "Paiements de salaire"
-      payslip_contribution_payments: "Paiements des charges sociales"
-      payslip_contributions: "Charges sociales"
       payslips: "Salaires"
       plant_countings: "Dénombrements des plantes"
       plants: "Cultures végétales"
@@ -107,50 +119,38 @@ fra:
       product_natures: "Profils fonctionnels"
       productions: "Productions"
       products: "Produits"
-      project_tasks: "Taĉhes de projet"
-      projects: "Projets"
       project_budgets: "Budgets internes"
+      project_tasks: "Taĉhes de projet" #?
+      projects: "Projets" #?
+      purchase_invoices: "Factures d'achat" #?
       purchase_natures: "Types d’achat"
-      purchase_orders: "Commandes"
-      purchase_invoices: "Factures d'achat"
-      receptions: "Réceptions"
+      purchase_orders: "Commandes" #?
+      receptions: "Réceptions" #?
       registrations: "Inscriptions"
       roles: "Rôles"
-      sale_contracts: "Contrats de vente"
+      sale_contracts: "Contrats de vente" #?
       sale_natures: "Types de vente"
       sales: "Ventes"
       schedulings: "Planifications"
       sensors: "Capteurs"
       sequences: "Séquences"
-      settings: "Paramétrage"
+      settings: "Paramétrage" #?
       settlements: "Installations"
       subscription_natures: "Type d’abonnements"
       subscriptions: "Abonnements"
       supervisions: "Supervisions"
       tasks: "Tâches"
       tax_declarations: "Déclarations fiscales"
-      tax_payments: "Paiements TVA"
+      tax_payments: "Paiements TVA" #?
       taxes: "Taxes"
       teams: "Équipes"
       technical_itineraries: "Itinéraires techniques"
       trackings: "Lots tracés"
       transports: "Livraisons"
-      unreceived_purchase_orders: "Commandes à réceptionner"
+      unreceived_purchase_orders: "Commandes à réceptionner" #?
       users: "Utilisateurs"
       wine_tanks: "Cuves à vin"
-      worker_groups: "Groupe d'équipiers"
       worker_contracts: "Contrats de travail"
+      worker_groups: "Groupe d'équipiers"
       worker_time_logs: "Temps des équipiers"
       workers: "Équipiers"
-    categories:
-      accountancy: "Comptabilité"
-      economics: "Économique"
-      entities: "Tiers"
-      human_resources: "RH"
-      productions: "Productions"
-      purchases: "Achats"
-      sales: "Ventes"
-      settings: "Configuration"
-      stocks: "Stocks"
-      tools: "Outils"
-      schedulings: "Planification"

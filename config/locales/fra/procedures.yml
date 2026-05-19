@@ -44,7 +44,6 @@ fra:
   procedure_killable_parameters:
     # is_cultivation_completely_destroyed_by_chemical_mechanical_weeding: "Is cultivation completely destroyed by chemical mechanical weeding?"
     # is_cultivation_completely_destroyed_by_crop_residues_grinding: "Is cultivation completely destroyed by crop residues grinding?"
-    # is_cultivation_completely_destroyed_by_direct_silage: "Is cultivation completely destroyed by direct silage?"
     # is_cultivation_completely_destroyed_by_gas_weeding: "Is cultivation completely destroyed by gas weeding?"
     # is_cultivation_completely_destroyed_by_hand_weeding: "Is cultivation completely destroyed by hand weeding?"
     # is_cultivation_completely_destroyed_by_indirect_silage: "Is cultivation completely destroyed by indirect silage?"
@@ -92,7 +91,7 @@ fra:
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
-    cutting_equipment: "Équipement de coupe"
+    cutting_equipment: "Équipement de coupe" #?
     destination_tank: "Cuve de destination"
     disinfectant: "Désinfectant"
     doer: "Opérateur"
@@ -135,7 +134,7 @@ fra:
     grape_reaper_driver: "Conducteur de machine à vendanger" #?
     grape_to_deliver: "Raisin à livrer" #?
     grape_to_press: "Raisin à presser" #?
-    grass: "Herbe"
+    grass: "Herbe" #?
     grinded: "Résidu de culture" #?
     grinder: "Broyeur"
     group: "Groupe" #?
@@ -145,7 +144,7 @@ fra:
     harvester_man: "Récolteur" #?
     hay_rake: "Andaineur"
     hazelnuts: "Noisettes" #?
-    herbicide: "Herbicide"
+    herbicide: "Herbicide" #?
     herd: "Troupeau"
     hiller: "Butteuse"
     hive: "Ruche"
@@ -361,16 +360,15 @@ fra:
     equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"
-    plant_moving: "Changement de zone de stockage (lot entier)"
     field_plant_sorting: "Tri au champ"
     filling: "Remplissage" #?
     food_preparation: "Préparation des aliments"
     fuel_up: "Plein de carburant"
     gas_weeding: "Désherbage thermique au gaz"
     generic_covering: "Bachage / Paillage (PV)"
-    generic_harvesting: "Arrachage / Récolte / Moisson (PV)"
     generic_fertilizing: "Fertilisation (PV)"
-    generic_sowing: "Semis / Plantation (PV)"
+    generic_harvesting: "Arrachage / Récolte / Moisson (PV)" #?
+    generic_sowing: "Semis / Plantation (PV)" #?
     generic_spraying: "Pulvérisation (PV)"
     generic_tillage: "Travail du sol (PV)"
     generic_transport_harvesting: "Transport de récolte (PV)"
@@ -404,8 +402,8 @@ fra:
     individual_feeding: "Alimentation individuelle"
     installation_maintenance: "Entretien des installations"
     inter_row_hoeing: "Binage inter-rangs"
-    intervine_hilling: "Chaussage | Rechaussage"
     intervine_hill_removing: "Déchaussage"
+    intervine_hilling: "Chaussage | Rechaussage"
     intervine_maintenance: "Entretien intercep"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
@@ -432,6 +430,7 @@ fra:
     plant_cover_sowing: "Semis de couvert"
     plant_covering: "Bâchage"
     plant_grinding: "Broyage de végétaux" #?
+    plant_moving: "Changement de zone de stockage (lot entier)"
     plant_mowing: "Fauchage"
     plant_mulching: "Paillage/Mulching"
     plant_uncovering: "Débâchage"
@@ -477,12 +476,13 @@ fra:
     tunnel_removing: "Retrait de chenille ou tunnel"
     uncompacting: "Décompactage"
     vine_capsuls_dispersing: "Pose de capsules de bio-contrôle"
+    vine_chemical_weeding: "Désherbage chimique"
     vine_complanting: "Complantation"
     vine_folding: "Pliage"
     vine_frost_protecting: "Protection anti-gel"
     vine_grapes_removing: "Éclaircissage"
     vine_grubbing: "Arrachage"
-    vine_harvesting: "Vendange" #?
+    vine_harvesting: "Vendange"
     vine_inter_row_grinding: "Broyage/roulage couvert inter-rang"
     vine_inter_row_sowing: "Semis inter-rang"
     vine_inter_row_weeding: "Désherbage inter-rang" #?
@@ -503,21 +503,20 @@ fra:
     vine_soil_fertilizing: "Épandage engrais | Amendement"
     vine_spraying_with_fertilizing: "Pulvérisation (avec fertilisation)"
     vine_spraying_without_fertilizing: "Pulvérisation (sans fertilisation)"
+    vine_stakes_replacing: "Changement des piquets"
+    vine_trellising_construction: "Construction palissage"
+    vine_trellising_destruction: "Destruction palissage"
+    vine_trellising_maintenance: "Sécaillage | Carassonage"
     vine_trimming: "Écimage | Rognage"
     vine_trunk_cleaning_debudding: "Épamprage | Ébourgeonnage"
     vine_uncompacting: "Décompactage | Sous-solage"
-    vine_chemical_weeding: "Désherbage chimique"
+    vine_watering: "Arrosage des vignes"
+    vine_watering_installation: "Installation de l'irrigation"
+    vine_watering_with_fertilizing: "Fertirrigation"
+    vine_wire_lifting_dropping: "Tombée des fils de levage"
+    vine_wire_tension: "Tension des fils"
     walnuts_harvest: "Récolte de noix" #?
     walnuts_transport: "Transport de noix" #?
     watering: "Irrigation" #?
     wine_blending: "Assemblage de vin"
     wine_bottling: "Mise en bouteille"
-    vine_trellising_maintenance: "Sécaillage | Carassonage"
-    vine_wire_tension: "Tension des fils"
-    vine_stakes_replacing: "Changement des piquets"
-    vine_watering: "Arrosage des vignes"
-    vine_watering_with_fertilizing: "Fertirrigation"
-    vine_watering_installation: "Installation de l'irrigation"
-    vine_wire_lifting_dropping: "Tombée des fils de levage"
-    vine_trellising_construction: "Construction palissage"
-    vine_trellising_destruction: "Destruction palissage"

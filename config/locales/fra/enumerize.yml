@@ -6,16 +6,16 @@ fra:
         general: "General" #?
     activity:
       distribution_key:
-        equipment_intervention_duration: "Temps de travail des équipements"
+        equipment_intervention_duration: "Temps de travail des équipements" #?
         gross_margin: "Marge brute"
         percentage: "Pourcentage"
       nature:
         auxiliary: "Auxiliaire"
         main: "Principale"
         standalone: "Indépendante"
-      production_campaign:
-        at_cycle_end: "Celle de la fin de cycle (Année N+1)"
-        at_cycle_start: "Celle du début de cycle (Année N)"
+      production_campaign: #?
+        at_cycle_end: "Celle de la fin de cycle (Année N+1)" #?
+        at_cycle_start: "Celle du début de cycle (Année N)" #?
       production_cycle:
         annual: "Annuelle"
         perennial: "Pérenne"
@@ -27,23 +27,23 @@ fra:
       direction:
         expense: "Frais"
         revenue: "Revenu"
-      nature:
-        dynamic: "Dynamique"
-        static: "Statique"
+      nature: #?
+        dynamic: "Dynamique" #?
+        static: "Statique" #?
     activity_inspection_point_nature:
       category:
         deformity: "Malformation"
         disease: "Maladie"
         none: "Aucune"
-    activity_production:
-      support_nature:
-        animal_group: "Groupe d’animaux"
-        border: "Bordure"
-        buffer: "Zone tampon"
-        cultivation: "Culture"
-        headland_cultivation: "Culture avec tournières"
-        fallow_land: "Jachère"
-        none: "Aucun"
+    activity_production: #?
+      support_nature: #?
+        animal_group: "Groupe d’animaux" #?
+        border: "Bordure" #?
+        buffer: "Zone tampon" #?
+        cultivation: "Culture" #?
+        fallow_land: "Jachère" #?
+        headland_cultivation: "Culture avec tournières" #?
+        none: "Aucun" #?
     activity_tactic:
       mode:
         harvested: "Date de récolte prévisionnelle"
@@ -66,6 +66,12 @@ fra:
         multi_polygon: "Multi polygone"
         point: "Point"
         string: "Chaîne"
+    analytic_segment:
+      name:
+        activities: "Activités"
+        equipments: "Équipements"
+        project_budgets: "Budgets internes"
+        teams: "Équipes"
     animal:
       birth_date_completeness:
         full_date: "Date complète"
@@ -80,11 +86,11 @@ fra:
         certified: "Certifié"
         uncertified: "Non certifié"
         unknown: "Inconnu"
-    associate:
-      associate_nature:
-        owner: "Associé | Actionnaire - Pleine propriété"
-        usufructuary: "Associé | Actionnaire - Usufruitier"
-        bare_owner: "Associé | Actionnaire - Nu propriétaire"
+    associate: #?
+      associate_nature: #?
+        bare_owner: "Associé | Actionnaire - Nu propriétaire" #?
+        owner: "Associé | Actionnaire - Pleine propriété" #?
+        usufructuary: "Associé | Actionnaire - Usufruitier" #?
     call_message:
       nature:
         incoming: "Nouveau"
@@ -114,8 +120,8 @@ fra:
         travel_cost: "Déplacement"
     crop_group:
       target:
-        land_parcel: Parcelle
-        plant: Culture
+        land_parcel: "Parcelle"
+        plant: "Culture"
     crumb:
       nature:
         hard_start: "Dur début"
@@ -141,15 +147,15 @@ fra:
       type_of_occupancy:
         owner: "Propriétaire"
         tenant_farming: "Fermage"
-    cvi_land_parcel:
-      state:
-        planted: "Plantées"
-        removed_with_authorization: "Arrachées avec autorisation"
     cvi_cultivable_zone:
       land_parcels_status:
+        completed: "Terminé"
         not_started: "Non commencé"
         started: "En cours"
-        completed: "Terminé"
+    cvi_land_parcel: #?
+      state: #?
+        planted: "Plantées" #?
+        removed_with_authorization: "Arrachées avec autorisation" #?
     cvi_statement:
       state:
         converted: "Parcellaire converti"
@@ -172,15 +178,15 @@ fra:
         none: "Aucun du type"
         none_of_template: "Aucun du modèle"
     entity:
-      nature:
-        contact: "Contact"
-        organization: "Organisation"
       client_payment_delay: #?
         1 week: "à réception" #?
         30 days: "30 jours" #?
         30 days, end of month: "30 jours fin du mois" #?
         60 days: "60 jours" #?
         60 days, end of month: "60 jours fin du mois" #?
+      nature:
+        contact: "Contact"
+        organization: "Organisation"
       supplier_payment_delay: #?
         1 week: "à réception" #?
         30 days: "30 jours" #?
@@ -287,16 +293,16 @@ fra:
         string: "Chaîne"
     intervention_parameter_setting:
       nature:
-        spraying: Réglage de la pulvérisation
+        spraying: "Réglage de la pulvérisation"
     intervention_participation:
       state:
         done: "Terminé"
         in_progress: "En cours"
         validated: "Validé"
-    intervention_template:
-      workflow_unit:
-        hectare_per_hour: "Ha/H"
-        plant_per_hour: "Plante ou Pied/H"
+    intervention_template: #?
+      workflow_unit: #?
+        hectare_per_hour: "Ha/H" #?
+        plant_per_hour: "Plante ou Pied/H" #?
     intervention_working_period:
       nature:
         intervention: "Intervention"
@@ -310,7 +316,7 @@ fra:
         closure: "Clôture"
         fixed_assets: "Immobilisations"
         forward: "Report à nouveaux"
-        payslip: "Paie"
+        payslip: "Paie" #?
         purchases: "Achats"
         result: "Résultat"
         sales: "Ventes"
@@ -342,32 +348,26 @@ fra:
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
-      state:
-        draft: "Brouillon"
-        ongoing: "En cours"
-        repaid: "Remboursé"
+      state: #?
+        draft: "Brouillon" #?
+        ongoing: "En cours" #?
+        repaid: "Remboursé" #?
     map_layer:
       nature:
         background: "Fond"
         overlay: "Calque"
-    analytic_segment:
-      name:
-        activities: "Activités"
-        project_budgets: "Budgets internes"
-        teams: "Équipes"
-        equipments: "Équipements"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activité"
-        activity_rank_number: "N° ordre Parcelle (/Activité)"
+        activity_rank_number: "N° ordre Parcelle (/Activité)" #?
         campaign: "Campagne (YYYY) - ex 2022"
-        campaign_short_year: "Campagne (YY) - ex 22"
-        cultivable_zone_rank_number: "N° ordre Activité (/Zone Cultivable)"
+        campaign_short_year: "Campagne (YY) - ex 22" #?
         cultivable_zone_code: "Code de la zone cultivable"
         cultivable_zone_name: "Nom de la zone cultivable"
+        cultivable_zone_rank_number: "N° ordre Activité (/Zone Cultivable)" #?
+        free_field: "Champ libre"
         production_mode: "Mode de production"
         season: "Saisonnalité"
-        free_field: "Champ libre"
     notification:
       level:
         error: "Erreur"
@@ -392,10 +392,10 @@ fra:
         third: "Par le tiers"
         transporter: "Par tranporteur"
         us: "Par nos soins"
-    payslip_nature:
-      nature:
-        net_salary: "Salaire net"
-        social_expense: "Charge sociale"
+    payslip_nature: #?
+      nature: #?
+        net_salary: "Salaire net" #?
+        social_expense: "Charge sociale" #?
     plant_counting:
       nature:
         germination: "À la levée"
@@ -462,50 +462,48 @@ fra:
         VariantTypes::WorkerType: "Équipiers"
         VariantTypes::ZoneType: "Zones"
     product_nature_category:
-      pictogram:
-        bank: "Banque"
-        barn: "Grange"
-        beaker: "Gobelet"
-        bolt: "Boulon"
-        book: "Livre"
-        bug: "Punaise"
-        building: "Bâtiment"
-        car: "Voiture"
-        cc: "Cc"
-        cow: "Vache"
-        credit_card: "Carte de crédit"
-        desktop: "Bureau"
-        drop: "Laissez tomber"
-        # fax: "Fax"
-        fish: "Poisson"
-        food: "Aliments"
-        gift: "Cadeau"
-        group: "Groupe"
-        home: "Accueil"
-        land_parcels: "Les parcelles"
-        laptop: "Portable"
-        leaf: "Feuille"
-        legal: "Légal"
-        lemon: "Citron"
-        light_bulb: "Ampoule"
-        male: "Mâle"
-        matter: "Matière"
-        # medkit: "Medkit"
-        money: "Argent"
-        mushroom: "Champignon"
-        phone: "Téléphone"
-        pill: "Pilule"
-        plane: "Avion"
-        road: "Route"
-        subscription: "Abonnement"
-        tasks: "Les tâches"
-        tractor: "Tracteur"
-        truck: "Un camion"
-        umbrella: "Parapluie"
-        undefined: "Indéfini"
-        user: "Utilisateur"
-        wheat: "Blé"
-        wrench: "Clé"
+      pictogram: #?
+        bank: "Banque" #?
+        barn: "Grange" #?
+        beaker: "Gobelet" #?
+        bolt: "Boulon" #?
+        book: "Livre" #?
+        bug: "Punaise" #?
+        building: "Bâtiment" #?
+        car: "Voiture" #?
+        cc: "Cc" #?
+        cow: "Vache" #?
+        credit_card: "Carte de crédit" #?
+        desktop: "Bureau" #?
+        drop: "Laissez tomber" #?
+        fish: "Poisson" #?
+        food: "Aliments" #?
+        gift: "Cadeau" #?
+        group: "Groupe" #?
+        home: "Accueil" #?
+        land_parcels: "Les parcelles" #?
+        laptop: "Portable" #?
+        leaf: "Feuille" #?
+        legal: "Légal" #?
+        lemon: "Citron" #?
+        light_bulb: "Ampoule" #?
+        male: "Mâle" #?
+        matter: "Matière" #?
+        money: "Argent" #?
+        mushroom: "Champignon" #?
+        phone: "Téléphone" #?
+        pill: "Pilule" #?
+        plane: "Avion" #?
+        road: "Route" #?
+        subscription: "Abonnement" #?
+        tasks: "Les tâches" #?
+        tractor: "Tracteur" #?
+        truck: "Un camion" #?
+        umbrella: "Parapluie" #?
+        undefined: "Indéfini" #?
+        user: "Utilisateur" #?
+        wheat: "Blé" #?
+        wrench: "Clé" #?
       type:
         VariantCategories::AnimalCategory: "Animaux"
         VariantCategories::ArticleCategory: "Articles"
@@ -570,17 +568,17 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
-    project:
-      nature:
-        direct_earning: "Profit"
-        indirect_earning: "Coût"
-    project_task:
-      billing_method:
-        elapsed_time: "Temps passé"
-        fixed: "Fixe"
-      forecast_duration_unit:
-        day: "Jour"
-        hour: "Heure"
+    project: #?
+      nature: #?
+        direct_earning: "Profit" #?
+        indirect_earning: "Coût" #?
+    project_task: #?
+      billing_method: #?
+        elapsed_time: "Temps passé" #?
+        fixed: "Fixe" #?
+      forecast_duration_unit: #?
+        day: "Jour" #?
+        hour: "Heure" #?
     purchase:
       payment_delay: #?
         1 week: "à réception" #?
@@ -599,18 +597,6 @@ fra:
       nature: #?
         payslip: "Fiche de paie" #?
         purchase: "Achat" #?
-    sale_contract_item:
-      quantity_unit:
-        day: "Jour"
-        fixed: "Fixe"
-        hour: "Heure"
-    sale:
-      payment_delay:
-        1 week: "à réception"
-        30 days: "30 jours"
-        30 days, end of month: "30 jours fin du mois"
-        60 days: "60 jours"
-        60 days, end of month: "60 jours fin du mois"
     purchase_order: #?
       command_mode: #?
         fax: "Fax" #?
@@ -631,21 +617,21 @@ fra:
         withdrawn: "Retiré"
     ride:
       nature:
-        work: "Travail"
         road: "Route"
+        work: "Travail"
     ride_set:
       nature:
-        work: "Travail"
         road: "Route"
-    saas_subscriptions:
-      status:
-        active: "Actif"
-        past_due: "En retard"
-        unpaid: "Impayée"
-        canceled: "Annulée"
-        incomplete: "Incomplete"
-        incomplete_expired: "Incomplete expirée"
-        trialing: "Période d'essai"
+        work: "Travail"
+    saas_subscriptions: #?
+      status: #?
+        active: "Actif" #?
+        canceled: "Annulée" #?
+        incomplete: "Incomplete" #?
+        incomplete_expired: "Incomplete expirée" #?
+        past_due: "En retard" #?
+        trialing: "Période d'essai" #?
+        unpaid: "Impayée" #?
     sale: #?
       payment_delay: #?
         1 week: "à réception" #?
@@ -653,6 +639,11 @@ fra:
         30 days, end of month: "30 jours fin du mois" #?
         60 days: "60 jours" #?
         60 days, end of month: "60 jours fin du mois" #?
+    sale_contract_item: #?
+      quantity_unit: #?
+        day: "Jour" #?
+        fixed: "Fixe" #?
+        hour: "Heure" #?
     sale_item: #?
       compute_from: #?
         pretax_amount: "Montant avant impôts" #?
@@ -697,8 +688,8 @@ fra:
         outgoing_payment_lists: "Listes de paiement sortant"
         outgoing_payments: "Décaissements"
         parcels: "Colis"
+        payslip_contributions: "Charges sociales" #?
         payslips: "Salaires"
-        payslip_contributions: "Charges sociales"
         plant_countings: "Comptage des plantes"
         plants: "Cultures"
         product_nature_categories: "Catégories comptables"
@@ -706,15 +697,16 @@ fra:
         product_natures: "Profils fonctionnels"
         products: "Produits"
         purchases: "Achats"
-        ride: "Sections d'un trajet"
+        ride: "Sections d'un trajet" #?
         ride_sets: "Trajets géolocalisés"
+        sale_contracts: "Contrats de vente" #?
         sales: "Ventes"
-        sale_contracts: "Contrats de vente"
         sales_invoices: "Factures de ventes"
         subscriptions: "Abonnements"
         tax_declarations: "Déclarations fiscales"
-        tax_payments: "Paiements TVA"
-        wine_incoming_harvest: "Réception de vendange"
+        tax_payments: "Paiements TVA" #?
+        wine_incoming_harvest: "Réception de vendange" #?
+        # wine_incoming_harvests: "Wine incoming harvests"
     synchronization_operation:
       operation_name:
         authenticate: "Authentification"
@@ -742,14 +734,14 @@ fra:
       mode:
         debit: "Débit"
         payment: "Paiement"
-    tax_payment:
-      nature:
-        advance_payment: "Acompte"
-        incoming_payment: "Remboursement"
-        outgoing_payment: "Paiement"
-      state:
-        draft: "Brouillon"
-        validated: "Validée"
+    tax_payment: #?
+      nature: #?
+        advance_payment: "Acompte" #?
+        incoming_payment: "Remboursement" #?
+        outgoing_payment: "Paiement" #?
+      state: #?
+        draft: "Brouillon" #?
+        validated: "Validée" #?
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"
@@ -757,23 +749,23 @@ fra:
         used_by: "Date Limite de Consommation (DLC)"
     unit:
       dimension:
-        none: "Aucune"
-        volume: "Volume"
-        mass: "Masse"
-        surface_area: "Surface"
         distance: "Distance"
-        time: "Temps"
         energy: "Energie"
+        mass: "Masse"
+        none: "Aucune"
+        surface_area: "Surface"
+        time: "Temps"
+        volume: "Volume"
     version:
       event:
         create: "Créer"
         destroy: "Détruire"
         update: "Mettre à jour"
-    worker_contract:
-      distribution_key:
-        gross_margin: "Marge brute"
-        percentage: "Pourcentage"
-      nature:
-        permanent_worker: "Main d'oeuvre permanente"
-        temporary_worker: "Main d'oeuvre temporaire"
-        external_staff: "Main d'oeuvre extérieure"
+    worker_contract: #?
+      distribution_key: #?
+        gross_margin: "Marge brute" #?
+        percentage: "Pourcentage" #?
+      nature: #?
+        external_staff: "Main d'oeuvre extérieure" #?
+        permanent_worker: "Main d'oeuvre permanente" #?
+        temporary_worker: "Main d'oeuvre temporaire" #?

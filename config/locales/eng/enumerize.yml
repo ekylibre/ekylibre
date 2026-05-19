@@ -6,6 +6,7 @@ eng:
         # general: "General"
     activity:
       distribution_key:
+        # equipment_intervention_duration: "Equipment intervention duration"
         gross_margin: "Gross margin"
         percentage: "Percentage"
       nature:
@@ -15,6 +16,10 @@ eng:
       production_cycle:
         annual: "Annual"
         perennial: "Perennial"
+    activity_budget:
+      nature:
+        # compute_from_lexicon: "Compute from lexicon"
+        # manual: "Manual"
     activity_budget_item:
       computation_method:
         per_campaign: "Per campaign"
@@ -23,19 +28,17 @@ eng:
       direction:
         expense: "Expense"
         revenue: "Revenue"
+      nature:
+        # dynamic: "Dynamic"
+        # static: "Static"
+      origin:
+        # automatic: "Automatic"
+        # itk: "Itk"
+        # manual: "Manual"
     activity_inspection_point_nature:
       category:
         deformity: "Deformity"
         disease: "Disease"
-        none: "None"
-    activity_production:
-      support_nature:
-        animal_group: "Animal group"
-        border: "Border"
-        buffer: "Buffer"
-        cultivation: "Cultivation"
-        headland_cultivation: "Headland cultivation"
-        fallow_land: "Fallow land"
         none: "None"
     activity_tactic:
       mode:
@@ -59,6 +62,12 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    analytic_segment:
+      name:
+        activities: "Activities"
+        equipments: "Equipments"
+        project_budgets: "Budgets"
+        teams: "Teams"
     animal:
       birth_date_completeness:
         full_date: "Full date"
@@ -73,6 +82,35 @@ eng:
         certified: "Certified"
         uncertified: "Uncertified"
         unknown: "Unknown"
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    animal_group:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    associate:
+      associate_nature:
+        # bare_owner: "Bare owner"
+        # owner: "Owner"
+        # usufructuary: "Usufructuary"
+    bioproduct:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    building:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    building_division:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     call_message:
       nature:
         incoming: "Incoming"
@@ -100,10 +138,22 @@ eng:
         sale: "Sale"
         stock: "Stock"
         travel_cost: "Travel"
+    conditioning:
+      dimension:
+        # distance: "Distance"
+        # energy: "Energy"
+        # mass: "Mass"
+        # none: "None"
+        # surface_area: "Surface area"
+        # time: "Time"
+        # volume: "Volume"
+      type:
+        # Conditioning: "Conditioning"
+        # ReferenceUnit: "Referenceunit"
     crop_group:
       target:
-        land_parcel: Land parcel
-        plant: Plant
+        land_parcel: "Land parcel"
+        plant: "Plant"
     crumb:
       nature:
         hard_start: "Hard start"
@@ -131,14 +181,15 @@ eng:
         tenant_farming: "Tenant farming"
     cvi_cultivable_zone:
       land_parcels_status:
+        completed: "Completed"
+        # created: "Created"
+        # not_created: "Not created"
         not_started: "Not Started"
         started: "In progress"
-        completed: "Completed"
-    formatted_cvi_cultivable_zone:
-      land_parcels_status:
-          not_started: "Not Started"
-          started: "In progress"
-          completed: "Completed"
+    cvi_land_parcel:
+      state:
+        # planted: "Planted"
+        # removed_with_authorization: "Removed with authorization"
     cvi_statement:
       state:
         converted: "Converted"
@@ -163,7 +214,56 @@ eng:
       file_extension:
         # odt: "Odt"
         # xml: "Xml"
+    easement:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    economic_cash_indicator:
+      direction:
+        # expense: "Expense"
+        # revenue: "Revenue"
+      nature:
+        # dynamic: "Dynamic"
+        # external_staff: "External staff"
+        # permanent_worker: "Permanent worker"
+        # static: "Static"
+        # temporary_worker: "Temporary worker"
+      origin:
+        # automatic: "Automatic"
+        # contract: "Contract"
+        # itk: "Itk"
+        # loan: "Loan"
+        # manual: "Manual"
     entity:
+      client_payment_delay:
+        # 1 week: "1 week"
+        # 30 days: "30 days"
+        # 30 days, end of month: "30 days, end of month"
+        # 60 days: "60 days"
+        # 60 days, end of month: "60 days, end of month"
+      legal_position_code:
+        # ASSO: "Asso"
+        # COOP: "Coop"
+        # CUMA: "Cuma"
+        # EARL: "Earl"
+        # EI: "Ei"
+        # EIRL: "Eirl"
+        # EURL: "Eurl"
+        # GAEC: "Gaec"
+        # GFA: "Gfa"
+        # GIE: "Gie"
+        # SA: "Sa"
+        # SARL: "Sarl"
+        # SAS: "Sas"
+        # SASU: "Sasu"
+        # SCA: "Sca"
+        # SCEA: "Scea"
+        # SCI: "Sci"
+        # SCS: "Scs"
+        # SEP: "Sep"
+        # SICA: "Sica"
+        # SNC: "Snc"
       nature:
         contact: "Contact"
         organization: "Organization"
@@ -181,6 +281,16 @@ eng:
         mobile: "Mobile phone"
         phone: "Phone"
         website: "Website"
+    equipment:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    equipment_fleet:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     event_participation:
       state:
         accepted: "Accepted"
@@ -207,6 +317,10 @@ eng:
       timing:
         # post_closure: "Post closure"
         # prior_to_closure: "Prior to closure"
+    financial_year_exchange:
+      format:
+        # ekylibre: "Ekylibre"
+        # isacompta: "Isacompta"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
@@ -216,6 +330,11 @@ eng:
         monthly: "Monthly"
         quarterly: "Quarterly"
         yearly: "Yearly"
+    fungus:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     gap:
       direction:
         loss: "Loss"
@@ -246,6 +365,10 @@ eng:
         failed: "Failed"
         passed: "Passed"
         passed_with_warnings: "Passed with warnings"
+    idea_diagnostic:
+      state:
+        # done: "Done"
+        # idea_doing: "Idea doing"
     import:
       state:
         aborted: "Aborted"
@@ -275,12 +398,28 @@ eng:
         string: "String"
     intervention_parameter_setting:
       nature:
-        spraying: Spraying setting
+        spraying: "Spraying setting"
     intervention_participation:
       state:
         done: "Done"
         in_progress: "In progress"
         validated: "Validated"
+    intervention_setting_item:
+      indicator_datatype:
+        # boolean: "Boolean"
+        # choice: "Choice"
+        # decimal: "Decimal"
+        # geometry: "Geometry"
+        # integer: "Integer"
+        # measure: "Measure"
+        # multi_polygon: "Multi polygon"
+        # point: "Point"
+        # string: "String"
+    intervention_template:
+      workflow_unit:
+        # head_per_hour: "Head per hour"
+        # hectare_per_hour: "Hectare per hour"
+        # plant_per_hour: "Plant per hour"
     intervention_working_period:
       nature:
         intervention: "Intervention"
@@ -294,11 +433,17 @@ eng:
         closure: "Closure"
         fixed_assets: "Fixed assets"
         forward: "Carried-forward"
+        # payslip: "Payslip"
         purchases: "Purchases"
         result: "Result"
         sales: "Sales"
         stocks: "Stocks"
         various: "Various operations"
+    land_parcel:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     listing_node:
       nature:
         belongs_to: "Belongs to"
@@ -325,29 +470,44 @@ eng:
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
-      state:
-        draft: "Draft"
-        ongoing: "Ongoing"
-        repaid: "Repaid"
     map_layer:
       nature:
         background: "Background"
         overlay: "Overlay"
-    analytic_segment:
-      name:
-        activities: "Activities"
-        project_budgets: "Budgets"
-        teams: "Teams"
-        equipments: "Equipments"
+    master_budget:
+      direction:
+        # expense: "Expense"
+        # revenue: "Revenue"
+      frequency:
+        # per_month: "Per month"
+        # per_year: "Per year"
+      mode:
+        # global: "Global"
+        # output: "Output"
+        # production: "Production"
+        # uo: "Uo"
+    master_variant_nature:
+      population_counting:
+        # decimal: "Decimal"
+        # integer: "Integer"
+        # unitary: "Unitary"
+    matter:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     naming_format_field_land_parcel:
       field_name:
         activity: "Activity"
+        # activity_rank_number: "Activity rank number"
         campaign: "Campaign"
+        # campaign_short_year: "Campaign short year"
         cultivable_zone_code: "Cultivable zone code"
         cultivable_zone_name: "Cultivable zone name"
+        # cultivable_zone_rank_number: "Cultivable zone rank number"
+        free_field: "Free field"
         production_mode: "Production mode"
         season: "Season"
-        free_field: "Free field"
     notification:
       level:
         error: "Error"
@@ -376,10 +536,15 @@ eng:
         third: "Transported by recipient"
         transporter: "Transported by transporter"
         us: "Transported by us"
-    payslip_nature:
+    pfi_intervention_parameter:
       nature:
-        net_salary: "Net salary"
-        social_expense: "Social expense"
+        # crop: "Crop"
+        # intervention: "Intervention"
+    plant:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     plant_counting:
       nature:
         germination: "At germination"
@@ -407,6 +572,11 @@ eng:
         other: "Other"
         own: "Own"
         unknown: "Unknown"
+    product_group:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     product_linkage:
       nature:
         available: "Available"
@@ -453,52 +623,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        bank: "Bank"
-        barn: "Barn"
-        beaker: "Beaker"
-        bolt: "Bolt"
-        book: "Book"
-        bug: "Bug"
-        building: "Building"
-        car: "Car"
-        cc: "CC"
-        cow: "Cow"
-        credit_card: "Credit card"
-        desktop: "Desktop"
-        drop: "Drop"
-        fax: "Fax"
-        fish: "Fish"
-        food: "Food"
-        gift: "Gift"
-        group: "Group"
-        home: "Home"
-        land_parcels: "Land parcels"
-        laptop: "Laptop"
-        leaf: "Leaf"
-        legal: "Legal"
-        lemon: "Lemon"
-        light_bulb: "Light bulb"
-        male: "Male"
-        matter: "Matter"
-        medkit: "Medkit"
-        money: "Money"
-        mushroom: "Mushroom"
-        phone: "Phone"
-        pill: "Pill"
-        plane: "Plane"
-        plane: "Plane"
-        road: "Road"
-        subscription: "Subscription"
-        tasks: "Tasks"
-        tractor: "Tractor"
-        truck: "Truck"
-        truck: "Truck"
-        umbrella: "Umbrella"
-        undefined: "Undefined"
-        user: "User"
-        wheat: "Wheat"
-        wrench: "Wrench"
       type:
         VariantCategories::AnimalCategory: "Animals"
         VariantCategories::ArticleCategory: "Articles"
@@ -566,6 +690,17 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    project:
+      nature:
+        # direct_earning: "Direct earning"
+        # indirect_earning: "Indirect earning"
+    project_task:
+      billing_method:
+        # elapsed_time: "Elapsed time"
+        # fixed: "Fixed"
+      forecast_duration_unit:
+        # day: "Day"
+        # hour: "Hour"
     purchase:
       payment_delay:
         # 1 week: "1 week"
@@ -645,24 +780,51 @@ eng:
         # fees: "Fees"
         # merchandise: "Merchandise"
         # service: "Service"
+    reference_unit:
+      dimension:
+        # distance: "Distance"
+        # energy: "Energy"
+        # mass: "Mass"
+        # none: "None"
+        # surface_area: "Surface area"
+        # time: "Time"
+        # volume: "Volume"
+      type:
+        # Conditioning: "Conditioning"
+        # ReferenceUnit: "Referenceunit"
     registered_phytosanitary_product:
       state:
         authorized: "Authorized"
         inherited: "Inherited"
+        # provisional: "Provisional"
         withdrawn: "Withdrawn"
     registered_phytosanitary_usage:
       state:
         authorized: "Authorized"
         provisional: "Provisional"
+        provisional: "Provisional"
         withdrawn: "Withdrawn"
     ride:
       nature:
-        work: "Work"
         road: "Road"
+        work: "Work"
     ride_set:
       nature:
-        work: "Work"
         road: "Road"
+        work: "Work"
+    ride_set_equipment:
+      nature:
+        # additional: "Additional"
+        # main: "Main"
+    saas_subscription:
+      status:
+        # active: "Active"
+        # canceled: "Canceled"
+        # incomplete: "Incomplete"
+        # incomplete_expired: "Incomplete expired"
+        # past_due: "Past due"
+        # trialing: "Trialing"
+        # unpaid: "Unpaid"
     sale:
       payment_delay:
         # 1 week: "1 week"
@@ -670,6 +832,11 @@ eng:
         # 30 days, end of month: "30 days, end of month"
         # 60 days: "60 days"
         # 60 days, end of month: "60 days, end of month"
+    sale_contract_item:
+      quantity_unit:
+        # day: "Day"
+        # fixed: "Fixed"
+        # hour: "Hour"
     sale_gap:
       direction:
         # loss: "Loss"
@@ -711,6 +878,7 @@ eng:
         entities: "Thirds"
         fixed_assets: "Fixed assets"
         gaps: "Gaps"
+        # incoming_harvests: "Incoming harvests"
         incoming_payments: "Incoming payments"
         inspections: "Inspections"
         interventions: "Interventions"
@@ -719,6 +887,7 @@ eng:
         outgoing_payment_lists: "Outgoing payment lists"
         outgoing_payments: "Outgoing payments"
         parcels: "Parcels"
+        # payslip_contributions: "Payslip contributions"
         payslips: "Payslips"
         plant_countings: "Plant countings"
         plants: "Plants"
@@ -727,13 +896,21 @@ eng:
         product_natures: "Functional profiles"
         products: "Products"
         purchases: "Purchases"
-        ride: "Ride"
         ride_sets: "Ride sets"
+        # rides: "Rides"
+        # sale_contracts: "Sale contracts"
         sales: "Sales"
         sales_invoices: "Sales invoices"
         subscriptions: "Subscriptions"
         tax_declarations: "Tax declarations"
+        # tax_payments: "Tax payments"
         wine_incoming_harvests: "Wine incoming harvests"
+        # yield_observations: "Yield observations"
+    settlement:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     shipment:
       delivery_mode:
         # third: "Third"
@@ -751,6 +928,11 @@ eng:
         # third: "Third"
         # transporter: "Transporter"
         # us: "Us"
+    sub_zone:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
     synchronization_operation:
       operation_name:
         authenticate: "Authentication"
@@ -784,6 +966,16 @@ eng:
         # deductible: "Deductible"
         # fixed_asset_deductible: "Fixed asset deductible"
         # intracommunity_payable: "Intracommunity payable"
+    tax_payment:
+      nature:
+        # advance_payment: "Advance payment"
+        # incoming_payment: "Incoming payment"
+        # outgoing_payment: "Outgoing payment"
+    technical_itinerary_intervention_template:
+      frequency:
+        # per_day: "Per day"
+        # per_month: "Per month"
+        # per_year: "Per year"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"
@@ -791,63 +983,20 @@ eng:
         used_by: "Used by date"
     unit:
       dimension:
-        none: "None"
-        volume: "Volume"
-        mass: "Mass"
-        surface_area: "Surface area"
         distance: "Distance"
-        time: "Time"
         energy: "Energy"
+        mass: "Mass"
+        none: "None"
+        surface_area: "Surface area"
+        time: "Time"
+        volume: "Volume"
+      type:
+        # Conditioning: "Conditioning"
+        # ReferenceUnit: "Referenceunit"
     variant_categories/animal_category:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -860,52 +1009,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -918,52 +1021,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -976,52 +1033,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -1034,52 +1045,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -1092,52 +1057,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -1150,52 +1069,6 @@ eng:
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
-      pictogram:
-        # bank: "Bank"
-        # barn: "Barn"
-        # beaker: "Beaker"
-        # bolt: "Bolt"
-        # book: "Book"
-        # bug: "Bug"
-        # building: "Building"
-        # car: "Car"
-        # cc: "Cc"
-        # cow: "Cow"
-        # credit_card: "Credit card"
-        # desktop: "Desktop"
-        # drop: "Drop"
-        # fax: "Fax"
-        # fish: "Fish"
-        # food: "Food"
-        # gift: "Gift"
-        # group: "Group"
-        # home: "Home"
-        # land_parcels: "Land parcels"
-        # laptop: "Laptop"
-        # leaf: "Leaf"
-        # legal: "Legal"
-        # lemon: "Lemon"
-        # light_bulb: "Light bulb"
-        # male: "Male"
-        # matter: "Matter"
-        # medkit: "Medkit"
-        # money: "Money"
-        # mushroom: "Mushroom"
-        # phone: "Phone"
-        # pill: "Pill"
-        # plane: "Plane"
-        # plane: "Plane"
-        # road: "Road"
-        # subscription: "Subscription"
-        # tasks: "Tasks"
-        # tractor: "Tractor"
-        # truck: "Truck"
-        # truck: "Truck"
-        # umbrella: "Umbrella"
-        # undefined: "Undefined"
-        # user: "User"
-        # wheat: "Wheat"
-        # wrench: "Wrench"
       type:
         # VariantCategories::AnimalCategory: "Variantcategories::animalcategory"
         # VariantCategories::ArticleCategory: "Variantcategories::articlecategory"
@@ -1317,152 +1190,422 @@ eng:
         # VariantTypes::WorkerType: "Varianttypes::workertype"
         # VariantTypes::ZoneType: "Varianttypes::zonetype"
     variants/animal_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/article_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
+        # Variants::ServiceVariant: "Variants::servicevariant"
+        # Variants::WorkerVariant: "Variants::workervariant"
+        # Variants::ZoneVariant: "Variants::zonevariant"
+    variants/articles/farm_product_article:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
+      imported_from:
+        # Lexicon: "Lexicon"
+        # Nomenclature: "Nomenclature"
+      type:
+        # Variants::AnimalVariant: "Variants::animalvariant"
+        # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
+        # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
+        # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
+        # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
+        # Variants::CropVariant: "Variants::cropvariant"
+        # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/articles/fertilizer_article:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/articles/plant_medicine_article:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/articles/seed_and_plant_article:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/crop_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/equipment_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
+        # Variants::ServiceVariant: "Variants::servicevariant"
+        # Variants::WorkerVariant: "Variants::workervariant"
+        # Variants::ZoneVariant: "Variants::zonevariant"
+    variants/equipments/fixed_equipment_equipment:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
+      imported_from:
+        # Lexicon: "Lexicon"
+        # Nomenclature: "Nomenclature"
+      type:
+        # Variants::AnimalVariant: "Variants::animalvariant"
+        # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
+        # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
+        # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
+        # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
+        # Variants::CropVariant: "Variants::cropvariant"
+        # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
+        # Variants::ServiceVariant: "Variants::servicevariant"
+        # Variants::WorkerVariant: "Variants::workervariant"
+        # Variants::ZoneVariant: "Variants::zonevariant"
+    variants/equipments/motorized_equipment_equipment:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
+      imported_from:
+        # Lexicon: "Lexicon"
+        # Nomenclature: "Nomenclature"
+      type:
+        # Variants::AnimalVariant: "Variants::animalvariant"
+        # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
+        # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
+        # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
+        # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
+        # Variants::CropVariant: "Variants::cropvariant"
+        # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
+        # Variants::ServiceVariant: "Variants::servicevariant"
+        # Variants::WorkerVariant: "Variants::workervariant"
+        # Variants::ZoneVariant: "Variants::zonevariant"
+    variants/equipments/tool_equipment:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
+      imported_from:
+        # Lexicon: "Lexicon"
+        # Nomenclature: "Nomenclature"
+      type:
+        # Variants::AnimalVariant: "Variants::animalvariant"
+        # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
+        # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
+        # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
+        # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
+        # Variants::CropVariant: "Variants::cropvariant"
+        # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
+        # Variants::ServiceVariant: "Variants::servicevariant"
+        # Variants::WorkerVariant: "Variants::workervariant"
+        # Variants::ZoneVariant: "Variants::zonevariant"
+    variants/equipments/trailed_equipment_equipment:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
+      imported_from:
+        # Lexicon: "Lexicon"
+        # Nomenclature: "Nomenclature"
+      type:
+        # Variants::AnimalVariant: "Variants::animalvariant"
+        # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
+        # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
+        # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
+        # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
+        # Variants::CropVariant: "Variants::cropvariant"
+        # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/service_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/worker_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
     variants/zone_variant:
+      default_unit_name:
+        # joule: "Joule"
+        # kilogram: "Kilogram"
+        # liter: "Liter"
+        # meter: "Meter"
+        # second: "Second"
+        # square_meter: "Square meter"
+        # unity: "Unity"
       imported_from:
         # Lexicon: "Lexicon"
         # Nomenclature: "Nomenclature"
       type:
         # Variants::AnimalVariant: "Variants::animalvariant"
         # Variants::ArticleVariant: "Variants::articlevariant"
+        # Variants::Articles::FarmProductArticle: "Variants::articles::farmproductarticle"
         # Variants::Articles::FertilizerArticle: "Variants::articles::fertilizerarticle"
         # Variants::Articles::PlantMedicineArticle: "Variants::articles::plantmedicinearticle"
         # Variants::Articles::SeedAndPlantArticle: "Variants::articles::seedandplantarticle"
         # Variants::CropVariant: "Variants::cropvariant"
         # Variants::EquipmentVariant: "Variants::equipmentvariant"
+        # Variants::Equipments::FixedEquipmentEquipment: "Variants::equipments::fixedequipmentequipment"
+        # Variants::Equipments::MotorizedEquipmentEquipment: "Variants::equipments::motorizedequipmentequipment"
+        # Variants::Equipments::ToolEquipment: "Variants::equipments::toolequipment"
+        # Variants::Equipments::TrailedEquipmentEquipment: "Variants::equipments::trailedequipmentequipment"
         # Variants::ServiceVariant: "Variants::servicevariant"
         # Variants::WorkerVariant: "Variants::workervariant"
         # Variants::ZoneVariant: "Variants::zonevariant"
@@ -1471,3 +1614,21 @@ eng:
         create: "Create"
         destroy: "Destroy"
         update: "Update"
+    worker:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"
+    worker_contract:
+      distribution_key:
+        # gross_margin: "Gross margin"
+        # percentage: "Percentage"
+      nature:
+        # external_staff: "External staff"
+        # permanent_worker: "Permanent worker"
+        # temporary_worker: "Temporary worker"
+    zone:
+      type_of_occupancy:
+        # owner: "Owner"
+        # rent: "Rent"
+        # sharecropper: "Sharecropper"

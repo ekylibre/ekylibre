@@ -1,3 +1,8 @@
+\restrict 6z4JxWjV83vdkq3dZdlfy1RgCCUH2Z04WuIP1Q7Xu5eoIT1lkrPQci4V8OtptS4
+
+-- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
+-- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -27607,29 +27612,6 @@ CREATE INDEX template_itinerary_id ON public.technical_itinerary_intervention_te
 
 
 --
--- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
---
-
-CREATE OR REPLACE VIEW public.product_populations AS
- SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
-    movements.started_at,
-    sum(precedings.delta) AS value,
-    max(movements.creator_id) AS creator_id,
-    max(movements.created_at) AS created_at,
-    max(movements.updated_at) AS updated_at,
-    max(movements.updater_id) AS updater_id,
-    min(movements.id) AS id,
-    1 AS lock_version
-   FROM (public.product_movements movements
-     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
-            product_movements.product_id,
-            product_movements.started_at
-           FROM public.product_movements
-          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
-  GROUP BY movements.id;
-
-
---
 -- Name: pfi_campaigns_activities_interventions _RETURN; Type: RULE; Schema: public; Owner: -
 --
 
@@ -27656,6 +27638,29 @@ CREATE OR REPLACE VIEW public.pfi_campaigns_activities_interventions AS
   WHERE ((pip.nature)::text = 'crop'::text)
   GROUP BY pip.campaign_id, a.id, ap.id, ap.size_value, p.id, pip.segment_code
   ORDER BY pip.campaign_id, a.id, ap.id, pip.segment_code;
+
+
+--
+-- Name: product_populations _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE VIEW public.product_populations AS
+ SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (public.product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM public.product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
 
 
 --
@@ -27819,18 +27824,18 @@ ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels
 
 
 --
--- Name: wine_incoming_harvests fk_rails_10884b32e0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.wine_incoming_harvests
-    ADD CONSTRAINT fk_rails_10884b32e0 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
-
-
---
 -- Name: incoming_harvests fk_rails_10884b32e0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.incoming_harvests
+    ADD CONSTRAINT fk_rails_10884b32e0 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
+-- Name: wine_incoming_harvests fk_rails_10884b32e0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvests
     ADD CONSTRAINT fk_rails_10884b32e0 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
 
 
@@ -28843,19 +28848,19 @@ ALTER TABLE ONLY public.daily_charges
 
 
 --
--- Name: wine_incoming_harvest_storages fk_rails_daff0b6d0c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.wine_incoming_harvest_storages
-    ADD CONSTRAINT fk_rails_daff0b6d0c FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
-
-
---
 -- Name: incoming_harvest_storages fk_rails_daff0b6d0c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.incoming_harvest_storages
     ADD CONSTRAINT fk_rails_daff0b6d0c FOREIGN KEY (incoming_harvest_id) REFERENCES public.incoming_harvests(id);
+
+
+--
+-- Name: wine_incoming_harvest_storages fk_rails_daff0b6d0c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvest_storages
+    ADD CONSTRAINT fk_rails_daff0b6d0c FOREIGN KEY (wine_incoming_harvest_id) REFERENCES public.wine_incoming_harvests(id);
 
 
 --
@@ -28923,18 +28928,18 @@ ALTER TABLE ONLY public.intervention_participations
 
 
 --
--- Name: wine_incoming_harvests fk_rails_eb0e85e775; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.wine_incoming_harvests
-    ADD CONSTRAINT fk_rails_eb0e85e775 FOREIGN KEY (analysis_id) REFERENCES public.analyses(id);
-
-
---
 -- Name: incoming_harvests fk_rails_eb0e85e775; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.incoming_harvests
+    ADD CONSTRAINT fk_rails_eb0e85e775 FOREIGN KEY (analysis_id) REFERENCES public.analyses(id);
+
+
+--
+-- Name: wine_incoming_harvests fk_rails_eb0e85e775; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wine_incoming_harvests
     ADD CONSTRAINT fk_rails_eb0e85e775 FOREIGN KEY (analysis_id) REFERENCES public.analyses(id);
 
 
@@ -29053,6 +29058,8 @@ ALTER TABLE ONLY public.projects
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict 6z4JxWjV83vdkq3dZdlfy1RgCCUH2Z04WuIP1Q7Xu5eoIT1lkrPQci4V8OtptS4
 
 SET search_path TO public,postgis,lexicon;
 
