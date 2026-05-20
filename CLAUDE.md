@@ -157,3 +157,42 @@ The DeepL script protects `%{...}` and `{{...}}` placeholders, escapes XML chars
 ## Background Jobs
 
 Sidekiq 4.x with `apartment-sidekiq` middleware, which switches to the correct tenant schema before each job. Jobs that must run **without** a tenant context (e.g. admin tasks) must not go through Sidekiq — use `Process.spawn` with a rake task instead to avoid the middleware conflict.
+
+## Performance Hotspots (known issues)
+
+Static analysis surfaced the following recurring sources of slowness. **No APM is configured in production** (`elastic-apm` is commented out in `Gemfile`) — activate Scout APM / Skylight and Postgres `log_min_duration_statement = 200ms` before optimizing further. `bullet` / `rack-mini-profiler` / `ruby-prof` are present in `:development` only.
+
+### Heavy callback cascades on writes
+
+- **`Intervention#save`** (`app/models/intervention.rb:381-489`) triggers 30-100+ SQL queries per save: `targets.find_each` with nested `find_or_create_by`, `participations.update_all` × 2, `update_costing`, `add_activity_production_to_output`, `reconcile_receptions`, `WorkerTimeIndicator.refresh` (REFRESH MATERIALIZED VIEW), `compute_pfi_async`, then bookkeep iterating on inputs+outputs. The `change_state` controller loops compounds the cost.
+- **`Ekylibre::Record::Sums`** (`lib/ekylibre/record/sums.rb:38-58`, used by `sale_item`, `purchase_item`, `contract_item`, `sale_contract_item`, `gap_item`, `fixed_asset_depreciation`) reloads parent and runs `children.find_each` on every item save → O(N²) on imports.
+- **`Ekylibre::Record::Autosave`** (`lib/ekylibre/record/autosave.rb:26-39`) does `assoc.reload.save` cascades that re-trigger the full callback chain (Sums + Bookkeep included).
+- **`Ekylibre::Record::Bookkeep`** (`lib/ekylibre/record/bookkeep.rb:40-58`, ~30 models) queries `Preference[:bookkeep_automatically]` on every save and emits a separate `update_all(accounted_at:)` UPDATE.
+
+When working on these models, prefer `Ekylibre::Record.suppress_callbacks` for bulk operations and recompute totals once at the end.
+
+### N+1 in backend controllers/views
+
+Only **1 occurrence** of `includes`/`preload`/`eager_load` across the 7 hottest controllers (`interventions_controller`, `products_controller`, `activities_controller`, `activity_productions_controller`, `sales_controller`, `purchase_invoices_controller`, `journal_entries_controller`). `app/views/backend/interventions/show.html.haml:100-113` generates ~5N queries per `product_parameter` (accessing `.product`, `.variant`, `.conditioning_unit`, `.product.france_maaid`, `RegisteredPhytosanitaryProduct.where(...)`).
+
+`Intervention#total_cost` and `#cost(role)` (`app/models/intervention.rb:783-822`) are recomputed 6-10× per render of the show page — no memoization.
+
+### Lexicon / Onoma lookups not memoized
+
+183 calls to `Onoma::*` in `app/models`, only 2 are memoized. `Master*` models (`worker_contract.rb:177-180`, `catalog_item.rb:207-208`, `product_nature.rb:405,442`) re-issue the same SQL query in tight loops. The `lexicon` schema is read-only at runtime — safe to memoize per-process or via `Rails.cache.fetch`.
+
+### Exchangers without batching
+
+112 files in `app/exchangers/`, **0 occurrences** of `insert_all`/`upsert_all`/`bulk_insert`, only 1 explicit `transaction do`. `entities_exchanger.rb:95-115` does 5 `create!` per entity in a loop. Imports run all callbacks (Bookkeep, Sums, Autosave) per row. Wrap with `ApplicationRecord.transaction` + `Ekylibre::Record.suppress_callbacks` and prefer `insert_all` when callbacks are not critical.
+
+### Unindexable SQL filters
+
+`app/controllers/backend/interventions_controller.rb:100,111,116` filters with `EXTRACT(YEAR FROM started_at) = ?` — full scan. Use `started_at BETWEEN ... AND ...` or add a functional index.
+
+### Sidekiq config
+
+`config/sidekiq.yml` sets `concurrency: 5` and `config/initializers/sidekiq.rb:18` sets `max_retries: 0` (failures are silent). Some jobs (e.g. `app/jobs/pfi_calculation_job.rb:18`) use `.each` instead of `find_each`.
+
+### HAML partial rendering
+
+`render partial: ..., collection:` is used in only 3 of 26 files that contain `render partial:`. Loose `render partial:` inside `.each` re-parses the template on every iteration (notably `_compare_planned_with_realised_modal.haml`, `_form.html.haml`, `change_page.js.haml`).

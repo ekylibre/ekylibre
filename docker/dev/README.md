@@ -8,13 +8,9 @@
 
 ---
 
-## 1. Authentification au registry GitLab
+## 1. Authentification au registry Github
 
-L'image de base est hébergée sur le registry privé GitLab :
-
-```bash
-docker login registry.gitlab.com -u <votre-username-gitlab> -p <votre-token>
-```
+L'image de base est hébergée sur le registry public Github
 
 ---
 
