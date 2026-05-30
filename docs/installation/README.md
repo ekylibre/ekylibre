@@ -6,8 +6,8 @@
 
 # Global installation
 
-[Ubuntu 20.04 LTS](/wiki/spaces/EKYLIBRE/pages/11829377/Ubuntu+20.04+LTS)
+[Ubuntu 20.04 LTS](./ubuntu-20.04-lts.md)
 
 # Eky/ekylibre installation
 
-[Eky/Ekylibre](/wiki/spaces/EKYLIBRE/pages/7405675)
+[Eky/Ekylibre](./eky-ekylibre.md)

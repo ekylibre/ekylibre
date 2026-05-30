@@ -15,6 +15,12 @@ Le fichier [openapi-v2.yaml](openapi-v2.yaml) décrit l'API v2 d'Ekylibre au for
     -o tmp/api-client
   ```
 
+## Spécifications historiques (Stoplight/Swagger)
+
+Les fichiers [v1.yaml](v1.yaml) et [v2.yaml](v2.yaml) sont les anciennes spécifications
+exportées depuis Stoplight (format Swagger). Ils sont conservés à titre de **référence**.
+La source de vérité pour l'API v2 reste [openapi-v2.yaml](openapi-v2.yaml) (OpenAPI 3.0).
+
 ## Authentification
 
 1. **Obtenir un token** :
