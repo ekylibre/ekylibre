@@ -17,6 +17,9 @@ module Api
       #                                          interventions that have / have not
       #                                          a recorded child intervention
       # - nature             [String, optional] e.g. "request", "record"
+      # - provider_id        [String, optional] Filter by provider identifier
+      #                                          (provider->>'id'), e.g. the
+      #                                          client-supplied UUID
       #
       # Responses:
       # - 200 OK                       Array of interventions
@@ -72,6 +75,10 @@ module Api
           @interventions = @interventions.where(nature: params[:nature])
         end
 
+        if params[:provider_id]
+          @interventions = @interventions.of_provider_id(params[:provider_id])
+        end
+
         @interventions = @interventions.where.not(state: :rejected).order(:id)
       end
 
@@ -114,11 +121,26 @@ module Api
       #   measure_value_value, measure_value_unit, choice_value, decimal_value,
       #   string_value }
       #
+      # Idempotence: when `provider.id` is set and an intervention already
+      # exists for the same (vendor, name, id) triple, the existing one is
+      # returned (200 OK) instead of creating a duplicate.
+      #
       # Responses:
-      # - 201 Created     { "id": <intervention_id> }
+      # - 201 Created     { "id": <intervention_id> } (new intervention)
+      # - 200 OK          { "id": <intervention_id> } (existing, deduplicated)
       # - 400 Bad Request { "errors": [<message>] }
       def create
-        interactor = Interventions::BuildInterventionInteractor.new(create_params, intervention_options)
+        params_to_build = create_params
+
+        # Idempotence: when the client supplies a stable provider id (e.g. a
+        # UUIDv4 from zero-mobile), an identical retried POST must not create a
+        # duplicate. Return the already-recorded intervention instead.
+        if (existing = existing_intervention_for_provider(params_to_build[:provider]))
+          render json: { id: existing.id }, status: :ok
+          return
+        end
+
+        interactor = Interventions::BuildInterventionInteractor.new(params_to_build, intervention_options)
 
         if interactor.run
           intervention = interactor.intervention
@@ -157,7 +179,12 @@ module Api
       protected
 
         def create_params
-          super.permit(common_params_to_permit)
+          # `super` (base controller) extracts and cleans the `provider` block
+          # (vendor/name/id + arbitrary `data`). `permit` would drop it since
+          # `common_params_to_permit` does not list it, so merge it back to keep
+          # the provider persisted on the intervention.
+          base = super
+          base.permit(common_params_to_permit).merge(provider: base[:provider])
         end
 
         def update_params
@@ -199,6 +226,21 @@ module Api
 
         def readings_attributes
           %i[boolean_value indicator_name measure_value_value measure_value_unit choice_value decimal_value string_value]
+        end
+
+        # Looks up an existing intervention matching the (vendor, name, id)
+        # provider triple. Only deduplicates when a provider id is supplied —
+        # without it there is no stable client identifier to reconcile on.
+        #
+        # @return [Intervention, nil]
+        def existing_intervention_for_provider(provider)
+          return if provider.blank? || provider[:id].blank?
+
+          Intervention
+            .of_provider(provider[:vendor], provider[:name], provider[:id])
+            .where.not(state: :rejected)
+            .order(:id)
+            .first
         end
     end
   end

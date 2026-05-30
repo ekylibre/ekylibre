@@ -19,6 +19,7 @@
 
 ## Development
 - [Database schema](./development/db.md)
+- [Exposer un tenant local avec ngrok](./development/ngrok.md)
 - [Interventions algorithm](./development/algo/interventions.md)
 
 ## API

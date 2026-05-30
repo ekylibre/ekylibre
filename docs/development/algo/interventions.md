@@ -334,3 +334,107 @@ Pistes non implémentées :
 - **Pagination/lazy-load des cibles** : pour les interventions avec 100+
   cibles, charger les warnings de réentrée à la demande (au scroll, ou par
   groupe) plutôt qu'en une fois.
+
+---
+
+# API mobile — création d'intervention (`POST /api/v2/interventions`)
+
+> Surface différente des sections ci-dessus (page d'édition backend) : cette
+> partie concerne l'endpoint API consommé par l'app **zero-mobile**, qui passe
+> par `Interventions::Computation::Compute` puis
+> `BuildInterventionInteractor#save!`.
+
+## Bug #2660 — 400 « undefined method `unit' for nil:NilClass »
+
+### Symptôme
+
+Toute création d'intervention **spraying** depuis l'app mobile renvoyait
+`400 Bad Request` avec `{ "errors": ["undefined method 'unit' for
+nil:NilClass"] }`. L'interactor `BuildInterventionInteractor#run` rescue le
+`StandardError` et n'en remonte que le message, sans backtrace — d'où la
+difficulté de diagnostic.
+
+Le déclencheur est la présence d'un **outil `sprayer`** dans le payload : aucun
+autre test d'API n'en envoyait, et la régression #2661 (dispatch `Nodes::*`,
+voir section F) passait à côté car son test n'a pas de `sprayer`.
+
+### Diagnostic
+
+Chaîne complète (reproduite sur le tenant `demo`, produit 332 = « Abacus »,
+correspondant au log de prod) :
+
+1. `Interventions::Computation::ComputeReadings#compute_parameter_readings`
+   amorce **un reading par reading de référence** absent du paramètre, **sans
+   valeur**. La référence `sprayer` (`config/procedures/spraying.xml`) en
+   déclare trois : `nominal_storable_net_volume` + `application_width` (type
+   **measure**) et `rows_count` (integer).
+
+2. `Procedo::Engine::Intervention::Reading#to_hash`
+   (`lib/procedo/engine/intervention/reading.rb`) avait un bug latent sur un
+   reading **measure vide** :
+
+   ```ruby
+   if measure? && @value.present?   # faux quand la valeur est vide
+     ...
+   elsif geometry...                # faux
+   else
+     hash["#{datatype}_value".to_sym] = @value   # datatype == :measure → clé :measure_value !
+   end
+   ```
+
+   Pour `datatype == :measure`, la colonne est `measure_value_value`, **pas**
+   `measure_value`. Le `else` émettait donc `measure_value: nil` — le nom de
+   l'agrégat `composed_of :measure_value` (`app/models/concerns/reading_storable.rb`).
+
+3. À la construction du reading via `readings_attributes=`, le writer
+   `composed_of` d'ActiveRecord (`aggregations.rb:276`, `allow_nil: false`)
+   exécute `mapping.each { |k, v| self[k] = part.send(v) }` sur le `part` nil →
+   **`nil.send(:unit)`** → l'erreur exacte.
+
+Deux crashs latents se cachaient derrière : même en corrigeant l'étape 2,
+`composed_of` (allow_nil false) construit `Measure.new(nil, nil)` (sans
+dimension), donc `absolutize_measure` (`reading_storable.rb`) plante en
+convertissant *none → volume* ; et un reading measure vide échoue de toute
+façon `validates :measure_value, presence:`. **Tout reading vide viole sa
+propre validation `presence`/`inclusion`** — les readings vides ne doivent donc
+jamais être persistés.
+
+### Correctif
+
+`lib/procedo/engine/intervention/product_parameter.rb` — une garde dans les
+deux boucles `@readings.each` (`#to_hash` **et** `#to_attributes`) :
+
+```ruby
+@readings.each do |id, reading|
+  next unless reference.reading(reading.name)
+  next if reading.value.blank?      # ← ignore les readings amorcés sans valeur
+  hash[:readings_attributes] ||= {}
+  hash[:readings_attributes][id] = reading.to_hash
+end
+```
+
+- Sûr pour tous les datatypes : un reading vide, quel qu'en soit le type, échoue
+  son validateur `presence`/`inclusion` ; le retirer est toujours correct.
+- Les readings integer retombent sur `0` (non blank) et survivent ; les readings
+  valués ne sont pas touchés.
+
+Test de non-régression : `test/controllers/api/v2/interventions_controller/create_test.rb`
+→ « create spraying intervention with sprayer tool (prunes empty measure
+readings) » : poste un spraying avec outil `sprayer`, attend `201`, et vérifie
+qu'aucun reading measure sans valeur n'est persisté.
+
+### Note de données (sans rapport avec le bug)
+
+Sur `demo`, le produit cible 31 est **mort le 2018-07-31** : une intervention
+datée 2026 y déclenche légitimement la validation `target_dont_exist_after`.
+C'est un artefact des données de test — le tenant réel de l'app mobile utilise
+une cible vivante. À garder en tête si un *autre* 400 apparaît après ce
+correctif.
+
+## Idempotence & provider (rappel)
+
+Le `create` est idempotent quand `provider.id` est fourni : si une intervention
+existe déjà pour le triplet `(vendor, name, id)`, l'existante est renvoyée
+(`200 OK`) au lieu d'en créer une seconde (`201 Created`). L'index expose le
+bloc `provider` et accepte un filtre `provider_id`. Voir
+`docs/api/openapi-v2.yaml` pour le contrat.

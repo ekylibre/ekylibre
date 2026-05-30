@@ -354,6 +354,12 @@ paths:
         - name: nature
           in: query
           schema: { type: string, enum: [request, record] }
+        - name: provider_id
+          in: query
+          description: >-
+            Filter by the client-supplied provider identifier
+            (`provider->>'id'`), e.g. the zero-mobile UUID.
+          schema: { type: string }
       responses:
         '200':
           description: Intervention list
@@ -375,12 +381,24 @@ paths:
     post:
       tags: [Interventions]
       summary: Create a recorded intervention
+      description: >-
+        Idempotent on `provider.id`: if an intervention already exists for the
+        same `(provider.vendor, provider.name, provider.id)` triple, it is
+        returned with `200 OK` instead of creating a duplicate (`201 Created`).
       requestBody:
         required: true
         content:
           application/json:
             schema: { $ref: '#/components/schemas/InterventionCreate' }
       responses:
+        '200':
+          description: Existing intervention returned (deduplicated by provider id)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: integer }
         '201':
           description: Created
           content:
