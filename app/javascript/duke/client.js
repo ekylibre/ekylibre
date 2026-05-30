@@ -10,12 +10,15 @@ const HEARTBEAT_INTERVAL_MS = 30 * 1000;
 const AUTH_TIMEOUT_MS = 10 * 1000;
 
 export class DukeClient {
-  constructor({ wsUrl, email, token, tenant, locale }) {
+  constructor({ wsUrl, email, token, tenant, locale, llmProvider }) {
     this.wsUrl = wsUrl;
     this.email = email;
     this.token = token;
     this.tenant = tenant;
     this.locale = locale || 'fr';
+    // Selected LLM provider for the session (null = server default). Sent on
+    // auth and echoed on every user_message so the user can switch live.
+    this.llmProvider = llmProvider || null;
     this.ws = null;
     this.heartbeatTimer = null;
     this.listeners = new Map();
@@ -62,13 +65,15 @@ export class DukeClient {
       }, AUTH_TIMEOUT_MS);
 
       this.ws.addEventListener('open', () => {
-        this._send({
+        const auth = {
           type: 'auth',
           email: this.email,
           token: this.token,
           tenant: this.tenant,
           locale: this.locale,
-        });
+        };
+        if (this.llmProvider) auth.llm_provider = this.llmProvider;
+        this._send(auth);
       });
 
       this.ws.addEventListener('message', (event) => {
@@ -141,8 +146,14 @@ export class DukeClient {
     }
   }
 
+  setLlmProvider(name) {
+    this.llmProvider = name || null;
+  }
+
   sendUserMessage(id, text) {
-    this._send({ type: 'user_message', id, text });
+    const msg = { type: 'user_message', id, text };
+    if (this.llmProvider) msg.llm_provider = this.llmProvider;
+    this._send(msg);
   }
 
   confirmIntervention(id, draft) {

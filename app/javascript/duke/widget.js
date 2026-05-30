@@ -14,6 +14,8 @@ const I18N = {
   title: 'Duke',
   open: 'Ouvrir Duke',
   close: 'Fermer',
+  llmLabel: 'Modèle',
+  llmNames: { claude: 'Claude', mistral: 'Mistral', ollama: 'Ollama (local)' },
   placeholder: 'Décris ton intervention ou pose ta question…',
   send: 'Envoyer',
   thinking: 'Duke réfléchit…',
@@ -28,6 +30,8 @@ const I18N = {
   fieldStoppedAt: 'Fin',
   fieldTargets: 'Parcelles',
   fieldInputs: 'Intrants',
+  fieldTools: 'Matériel',
+  fieldDoers: 'Intervenants',
   successCreated: 'Intervention enregistrée',
   outOfScope: 'Cette fonction n\'est pas encore disponible.',
   micStart: 'Dicter le message',
@@ -130,6 +134,7 @@ export class DukeWidget {
       <section class="duke-panel" role="dialog" aria-label="${I18N.title}" hidden>
         <header class="duke-panel__header">
           <strong>${I18N.title}</strong>
+          <select class="duke-panel__llm" aria-label="${I18N.llmLabel}" title="${I18N.llmLabel}" hidden></select>
           <button type="button" class="duke-panel__close" aria-label="${I18N.close}">×</button>
         </header>
         <div class="duke-panel__messages" role="log" aria-live="polite"></div>
@@ -149,9 +154,13 @@ export class DukeWidget {
     this.composer = this.root.querySelector('.duke-panel__composer');
     this.textarea = this.composer.querySelector('textarea');
     this.micButton = this.composer.querySelector('.duke-mic');
+    this.llmSelect = this.root.querySelector('.duke-panel__llm');
 
     this.bubble.addEventListener('click', () => this.open());
     this.root.querySelector('.duke-panel__close').addEventListener('click', () => this.close());
+    this.llmSelect.addEventListener('change', () => {
+      if (this.client) this.client.setLlmProvider(this.llmSelect.value);
+    });
     this.composer.addEventListener('submit', (e) => {
       e.preventDefault();
       this._submitMessage();
@@ -497,7 +506,8 @@ export class DukeWidget {
     this.client.on('disconnect', () => this._appendSystem('Déconnecté.'));
 
     try {
-      await this.client.connect();
+      const authOk = await this.client.connect();
+      this._populateLlmSelector(authOk);
       this._appendSystem(`${cfg.user.full_name}, je t'écoute.`);
     } catch (err) {
       this._appendError(err?.message ? `${I18N.authError} (${err.message})` : I18N.authError);
@@ -505,6 +515,20 @@ export class DukeWidget {
     } finally {
       this.connecting = false;
     }
+  }
+
+  // Fill the model picker from the auth_ok payload. Hidden unless the server
+  // offers more than one provider — no point showing a one-option dropdown.
+  _populateLlmSelector(authOk) {
+    const providers = authOk?.available_providers || [];
+    if (!this.llmSelect || providers.length < 2) return;
+    this.llmSelect.innerHTML = providers
+      .map((p) => `<option value="${p}">${I18N.llmNames[p] || p}</option>`)
+      .join('');
+    const selected = authOk.llm_provider || providers[0];
+    this.llmSelect.value = selected;
+    this.client?.setLlmProvider(selected);
+    this.llmSelect.hidden = false;
   }
 
   // --- Send ---
@@ -604,6 +628,12 @@ export class DukeWidget {
         return qty ? `${qty} de ${name}` : name;
       })
       .join(', ');
+    const tools = (fields.tools || [])
+      .map((t) => this._escape(t.resolved_name || t.raw_name))
+      .join(', ');
+    const doers = (fields.doers || [])
+      .map((d) => this._escape(d.resolved_name || d.raw_name))
+      .join(', ');
 
     const startedAt = fields.started_at ? this._formatDate(fields.started_at) : '—';
     const stoppedAt = fields.stopped_at ? this._formatDate(fields.stopped_at) : '—';
@@ -662,6 +692,8 @@ export class DukeWidget {
           <dt>${I18N.fieldStoppedAt}</dt><dd>${stoppedAt}</dd>
           <dt>${I18N.fieldTargets}</dt><dd>${targets || '—'}</dd>
           <dt>${I18N.fieldInputs}</dt><dd>${inputs || '—'}</dd>
+          ${tools ? `<dt>${I18N.fieldTools}</dt><dd>${tools}</dd>` : ''}
+          ${doers ? `<dt>${I18N.fieldDoers}</dt><dd>${doers}</dd>` : ''}
         </dl>
         ${ambiguities ? `<ul class="duke-draft__ambiguities">${ambiguities}</ul>` : ''}
         <div class="duke-draft__actions">
