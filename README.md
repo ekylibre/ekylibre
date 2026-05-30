@@ -9,17 +9,17 @@ More details can be found on the official website https://ekylibre.com
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
+[![Screens](https://raw.github.com/ekylibre/ekylibre/master/docs/assets/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/docs/assets/screenshots/screens.png)
 
 ## Global requirement
 
 Global requirement before installing Ekylibre
 
-* [Ubuntu 20.04 LTS](<./doc/Installation/Global/Ubuntu 20.04 LTS.md>)
+* [Ubuntu 20.04 LTS](./docs/installation/ubuntu-20.04-lts.md)
 
 ## Ekylibre Installation
 
-* [Installation Ekylibre](./doc/Installation/Eky-Ekylibre.md)
+* [Installation Ekylibre](./docs/installation/eky-ekylibre.md)
 
 ### [Docker](https://github.com/ekylibre/ekylibre/blob/main/docker/README.md)
 
