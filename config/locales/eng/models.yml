@@ -2714,7 +2714,7 @@ eng:
       net_mass: "Mass"
     intervention:
       bookkeep: "[%{resource}] %{name}"
-      name: "%{intervention} #%{number}"
+      default_name_format: "%{intervention} #%{number}"
     intervention_template:
       label: "%{name} - Campagne %{campaign}"
     intervention_working_period:

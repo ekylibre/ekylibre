@@ -1,7 +1,7 @@
 # Emprunt
 
 {:.alert .alert-success}
-<i />{:.icon .icon-book} [**emprunts**](https://doc.ekylibre.com/fr/chapitre5/#emprunts){:target="_blank"}
+<i />{:.icon .icon-book} [**emprunts**](https://ekylibre.github.io/doc/fr/chapitre5/#emprunts){:target="_blank"}
 
 {:.alert .alert-warning}
 Selon le statut de votre emprunt, il n'est pas modifiable si une **écriture comptable est liée et validée**.

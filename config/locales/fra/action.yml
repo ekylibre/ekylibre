@@ -647,8 +647,8 @@ fra:
       duplicate_interventions: "Intervention sur les interventions en double : %{name}"
       edit: "Modifier l’intervention"
       edit_request: "Modifier la demande d’intervention"
-      edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
-      edit_specified_request: "Modifier la planification de %{procedure_name} n°%{number}"
+      edit_specified: "Modifier l’intervention %{name}"
+      edit_specified_request: "Modifier la planification : %{name}"
       export: "Interventions à l'exportation"
       first_run_or_backend: "Première exécution ou intervention sur le backend : %{name}"
       generate_buttons: "Intervention « Générer des boutons » : %{name}"
@@ -663,7 +663,7 @@ fra:
       purchase_order_items: "Intervention sur les lignes de commande : %{name}"
       selection_modal: "Intervention modale de sélection : %{name}"
       sell: "Intervention de vente : %{name}"
-      show: "%{nature} %{procedure_name} n°%{number}"
+      show: "%{nature} %{name}"
       validate_harvest_delay: "Valider l'intervention relative au report de la récolte : %{name}"
       validate_reentry_delay: "Valider l'intervention relative au délai de réentrée : %{name}"
     backend/interventions/costs:
@@ -3590,6 +3590,7 @@ fra:
     intervention_distributed_on: "Intervention répartie sur"
     intervention_duration: "Durée de l'intervention" #?
     intervention_message_miscibility: "Mélange autorisé"
+    intervention_name_hint: "Laissez vide pour générer automatiquement depuis la procédure et le numéro."
     intervention_parameter: "Paramètre d'intervention"
     intervention_product_parameters: "Intervenants"
     intervention_register: "Registre des interventions"
@@ -5763,7 +5764,7 @@ fra:
       no_availables_product_on_current_campaign: "Votre cible (parcelle/culture) n'est pas disponnible pour la période mentionnée par défault dans l'intervention."
       no_balance_template: "Pas de modèle de document pour la balance" #?
       no_bank_statement_found_for_this_period: "Aucun relevé de compte trouvé pour cette période."
-      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante. Plus d'information sur la gestion des budgets prévisionnels <a href=\"https://doc.ekylibre.com/fr/performance/#budgets\" target=\"_blank\">ici  <i class=\"icon icon-help\"></i></a>"
+      no_budget_defined_for_current_campaign: "Aucun budget défini pour la campagne courante. Plus d'information sur la gestion des budgets prévisionnels <a href=\"https://ekylibre.github.io/doc/fr/performance/#budgets\" target=\"_blank\">ici  <i class=\"icon icon-help\"></i></a>"
       no_building: "Aucune zone de stockage n’est définie. Veuillez en créer une pour pouvoir gérer vos stocks"
       no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
       no_closable_journal: "Vous ne pouvez pas clôturer ce journal."

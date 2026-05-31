@@ -3,7 +3,7 @@
   - if f.object.errors.any? && Rails.env.development?
     = f.object.errors.inspect
   - content_for :main_title do
-    - interpolations = { number: f.object.number, nature: f.object.nature.l }
+    - interpolations = { number: f.object.number, nature: f.object.nature.l, name: f.object.name }
     - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
     - if procedure
       - action_title_key << '_specified'
@@ -41,6 +41,7 @@
       - if f.object.record?
         = f.referenced_association :request_intervention, new: false, as: :hidden
       = f.referenced_association :issue, new: false, source: { controller: 'backend/issues' }
+      = f.input :name, hint: :intervention_name_hint.tl
       = f.input :description
       - procedure.mandatory_actions.each do |a|
         = hidden_field_tag('intervention[actions][]', a.name)

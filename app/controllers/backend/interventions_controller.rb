@@ -22,7 +22,7 @@ using Ekylibre::Utils::DateSoftParse
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c },
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c, name: 'RECORD.name'.c },
                      continue: %i[nature procedure_name crop_group_ids]
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -202,7 +202,7 @@ module Backend
     def show
       return unless @intervention = find_and_check
 
-      t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
+      t3e @intervention, procedure_name: @intervention.procedure.human_name, name: @intervention.name, nature: @intervention.request? ? :planning_of.tl : nil
       dataset_params = {
         intervention: @intervention,
       }
@@ -229,7 +229,7 @@ module Backend
     def export
       return unless @intervention = find_and_check
 
-      t3e @intervention, procedure_name: @intervention.procedure.human_name, nature: @intervention.request? ? :planning_of.tl : nil
+      t3e @intervention, procedure_name: @intervention.procedure.human_name, name: @intervention.name, nature: @intervention.request? ? :planning_of.tl : nil
       dataset_params = {
         intervention: @intervention,
       }

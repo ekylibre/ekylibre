@@ -142,6 +142,7 @@ class Intervention < ApplicationRecord
   acts_as_numbered unless: :run_sequence
 
   before_validation :set_number, on: :create
+  before_validation :set_default_name
 
   def set_number
     # planning
@@ -150,6 +151,10 @@ class Intervention < ApplicationRecord
     elsif request_intervention.present?
       self.number = request_intervention.number
     end
+  end
+
+  def set_default_name
+    self[:name] = default_name if self[:name].blank? && procedure_name.present?
   end
 
   def run_sequence
@@ -697,8 +702,14 @@ class Intervention < ApplicationRecord
   end
 
   def name
-    # raise self.inspect if self.procedure_name.blank?
-    tc(:name, intervention: (procedure ? procedure.human_name : "procedures.#{procedure_name}".t(default: procedure_name.humanize)), number: number)
+    self[:name].presence || default_name
+  end
+
+  def default_name
+    return nil if procedure_name.blank?
+
+    procedure_label = procedure ? procedure.human_name : "procedures.#{procedure_name}".t(default: procedure_name.humanize)
+    tc(:default_name_format, intervention: procedure_label, number: number)
   end
 
   def start_time
