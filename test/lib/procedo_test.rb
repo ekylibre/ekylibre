@@ -16,6 +16,20 @@ class ProcedoTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert procedure.find(:home)
   end
 
+  # Regression test for issue #2671: find! must raise a Procedo::Error subclass
+  # so that the interventions#compute controller's `rescue Procedo::Error` can
+  # catch it and render a structured response instead of a 500.
+  test 'find! raises Procedo::Errors::MissingVariable for unknown parameters' do
+    procedure = Procedo::Procedure.new(:say_hello)
+    procedure.add_product_parameter(:speaker, :doer, cardinality: 1)
+
+    error = assert_raises(Procedo::Errors::MissingVariable) do
+      procedure.find!(:land_parcel)
+    end
+    assert_kind_of Procedo::Error, error
+    assert_match(/land_parcel/, error.message)
+  end
+
   test 'procedure parameter filters' do
     invalids = []
     Procedo.each_product_parameter do |parameter|

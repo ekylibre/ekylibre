@@ -98,7 +98,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
 
     # @return [Measure<area>] the area of given targets
     def compute_area(targets)
-      targets.values.sum do |target_info|
+      targets.values.sum(0.0.in(:square_meter)) do |target_info|
         if target_info[:working_zone_area_value]
           target_info[:working_zone_area_value].to_f.in(:hectare)
         else

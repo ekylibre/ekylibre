@@ -62,6 +62,10 @@ class InventoryItem < ApplicationRecord
   delegate :storable?, to: :variant
   delegate :currency, to: :inventory, prefix: true
 
+  def product_conditioning_unit_name
+    product&.conditioning_unit&.name
+  end
+
   after_initialize do
     # callback are 2 times executed during creating inventory.
     if !persisted? && inventory

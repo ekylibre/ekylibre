@@ -72,7 +72,7 @@ module Interventions
 
         # @return [Measure<area>]
         def area
-          targets_zone.sum(&:area)
+          targets_zone.map(&:area).compact.sum(0.0.in(:square_meter))
         end
     end
   end
