@@ -385,6 +385,17 @@ eng:
         in_progress: "In progress"
         rejected: "Rejected"
         validated: "Validated"
+    intervention_input:
+      application_mode:
+        aerial: "Aerial spraying"
+        boom_spraying: "Boom sprayer"
+        broadcast: "Broadcast spreading"
+        drenching: "Drenching"
+        dusting: "Dusting"
+        granular: "Granular spreader"
+        mist_blower: "Mist blower"
+        seed_coating: "Seed coating"
+        spot_treatment: "Spot treatment"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boolean"

@@ -76,6 +76,7 @@ class Intervention < ApplicationRecord
 
   attr_readonly :procedure_name, :production_id, :currency
   refers_to :currency
+  store_accessor :weather_conditions, :weather_condition_code, :temperature, :wind, :humidity
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures'], predicates: true, scope: true
   enumerize :nature, in: %i[request record], default: :record, predicates: true, scope: true
   enumerize :state, in: %i[in_progress done validated rejected], default: :done, predicates: true
@@ -131,6 +132,9 @@ class Intervention < ApplicationRecord
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
   validates :actions, presence: true
+  validates :early_reentry, inclusion: { in: [true, false] }
+  validates :early_reentry_ppe_description, presence: true, if: :early_reentry?
+  validates :beneficiary_siret, format: { with: /\A\d{14}\z/ }, allow_blank: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   serialize :actions, SymbolArray
@@ -143,6 +147,14 @@ class Intervention < ApplicationRecord
 
   before_validation :set_number, on: :create
   before_validation :set_default_name
+  before_validation :compact_weather_conditions
+
+  def compact_weather_conditions
+    return unless weather_conditions.is_a?(Hash)
+
+    cleaned = weather_conditions.reject { |_, v| v.respond_to?(:blank?) ? v.blank? : v.nil? }
+    self.weather_conditions = cleaned.empty? ? nil : cleaned
+  end
 
   def set_number
     # planning

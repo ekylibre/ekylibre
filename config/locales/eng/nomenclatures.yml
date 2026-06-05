@@ -2254,6 +2254,12 @@ eng:
       name: "Guide natures"
     identifier_natures:
       items:
+        # agromonitoring_api_key: "Agromonitoring api key"
+        # cartodb_api_key: "Cartodb api key"
+        # cartodb_login: "Cartodb login"
+        # cartodb_subdomain: "Cartodb subdomain"
+        # cartodb_visualization_default: "Cartodb visualization default"
+        # cartodb_visualization_nitrogen_footprint: "Cartodb visualization nitrogen footprint"
         cattling_number: "Cattling number"
         cattling_root_number: "Cattling root number"
         charentes_alliance_extranet_username: "Charentes alliance extranet username"
@@ -2823,6 +2829,7 @@ eng:
           rest: "Rest"
           soap: "Soap"
       items:
+        # agromonitoring: "Agromonitoring"
         cartodb: "Cartodb"
         charentes_alliance_extranet: "Charentes alliance extranet"
         est_elevage: "Est elevage"

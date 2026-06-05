@@ -2492,12 +2492,12 @@ fra:
       name: "Types de guides"
     identifier_natures:
       items:
-        agromonitoring_api_key: "Clé API Agromonitoring"
-        cartodb_api_key: "Clé API CartoDB"
-        cartodb_login: "Login CartoDB"
-        cartodb_subdomain: "Sous-domaine CartoDB"
-        cartodb_visualization_default: "Visualisation CartoDB par défault"
-        cartodb_visualization_nitrogen_footprint: "Visualisation CartoDB de l’empreinte amendement"
+        agromonitoring_api_key: "Clé API Agromonitoring" #?
+        cartodb_api_key: "Clé API CartoDB" #?
+        cartodb_login: "Login CartoDB" #?
+        cartodb_subdomain: "Sous-domaine CartoDB" #?
+        cartodb_visualization_default: "Visualisation CartoDB par défault" #?
+        cartodb_visualization_nitrogen_footprint: "Visualisation CartoDB de l’empreinte amendement" #?
         cattling_number: "Numéro de détenteur de troupeau"
         cattling_root_number: "Numéro racine du troupeau"
         charentes_alliance_extranet_username: "Login extranet Charentes Alliance "
@@ -3078,7 +3078,7 @@ fra:
           rest: "REST"
           soap: "SOAP"
       items:
-        agromonitoring: "Agromonitoring"
+        agromonitoring: "Agromonitoring" #?
         cartodb: "CartoDB"
         charentes_alliance_extranet: "Extranet Charentes Alliance"
         est_elevage: "Est Élevage"

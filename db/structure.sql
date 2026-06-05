@@ -1,4 +1,4 @@
-\restrict IJbIX5VrOpPh510Zl0ayEIqoci9QEwjyeVgwdVosjP1ydJFoMHbYBjwxPmzuoLi
+\restrict u14dnQltLiStnbXJLaJ5loRoseN786tySsXcKWhE325jgF36aK4Rmy8boC2j32N
 
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
 -- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
@@ -1557,7 +1557,9 @@ CREATE TABLE public.intervention_parameters (
     applications_frequency interval,
     specie_variety jsonb DEFAULT '{}'::jsonb,
     working_zone_area_value numeric(19,4),
-    spray_volume_value numeric(19,4)
+    spray_volume_value numeric(19,4),
+    phenological_bbch_stage integer,
+    application_mode character varying
 );
 
 
@@ -1621,7 +1623,12 @@ CREATE TABLE public.interventions (
     validator_id integer,
     providers jsonb,
     provider jsonb,
-    name character varying
+    name character varying,
+    weather_conditions jsonb,
+    early_reentry boolean DEFAULT false NOT NULL,
+    early_reentry_ppe_description text,
+    early_reentry_reason text,
+    beneficiary_siret character varying
 );
 
 
@@ -1699,7 +1706,10 @@ CREATE TABLE public.products (
     isacompta_analytic_code character varying(2),
     worker_group_item_id integer,
     with_easement_capacity boolean DEFAULT false NOT NULL,
-    easement_capacity_variety character varying
+    easement_capacity_variety character varying,
+    certiphyto_number character varying,
+    certiphyto_kind character varying,
+    certiphyto_expires_on date
 );
 
 
@@ -4303,7 +4313,8 @@ CREATE TABLE public.documents (
     signature text,
     mandatory boolean DEFAULT false,
     processable_attachment boolean DEFAULT true NOT NULL,
-    metadata jsonb DEFAULT '{}'::jsonb
+    metadata jsonb DEFAULT '{}'::jsonb,
+    legal_retention_until date
 );
 
 
@@ -19150,6 +19161,13 @@ CREATE INDEX index_documents_on_creator_id ON public.documents USING btree (crea
 
 
 --
+-- Name: index_documents_on_legal_retention_until; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_documents_on_legal_retention_until ON public.documents USING btree (legal_retention_until);
+
+
+--
 -- Name: index_documents_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -24680,6 +24698,13 @@ CREATE INDEX index_products_on_category_id ON public.products USING btree (categ
 
 
 --
+-- Name: index_products_on_certiphyto_expires_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_certiphyto_expires_on ON public.products USING btree (certiphyto_expires_on);
+
+
+--
 -- Name: index_products_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -29060,7 +29085,7 @@ ALTER TABLE ONLY public.projects
 -- PostgreSQL database dump complete
 --
 
-\unrestrict IJbIX5VrOpPh510Zl0ayEIqoci9QEwjyeVgwdVosjP1ydJFoMHbYBjwxPmzuoLi
+\unrestrict u14dnQltLiStnbXJLaJ5loRoseN786tySsXcKWhE325jgF36aK4Rmy8boC2j32N
 
 SET search_path TO public,postgis,lexicon;
 
@@ -29768,6 +29793,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240709160801'),
 ('20241128201701'),
 ('20250405175301'),
-('20260531000001');
+('20260531000001'),
+('20260605000001'),
+('20260605000002'),
+('20260605000003'),
+('20260605000004'),
+('20260605000005'),
+('20260605000006'),
+('20260605000007');
 
 

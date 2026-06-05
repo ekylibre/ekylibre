@@ -399,6 +399,17 @@ fra:
         in_progress: "En cours"
         rejected: "Rejetée"
         validated: "Validée"
+    intervention_input:
+      application_mode:
+        aerial: "Pulvérisation aérienne"
+        boom_spraying: "Pulvérisation à rampe"
+        broadcast: "Épandage à la volée"
+        drenching: "Arrosage"
+        dusting: "Poudrage"
+        granular: "Épandage granulé"
+        mist_blower: "Atomiseur"
+        seed_coating: "Enrobage de semences"
+        spot_treatment: "Pulvérisation localisée"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booléen"

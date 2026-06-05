@@ -1386,6 +1386,7 @@ fra:
     animal_population: "Population animale"
     animals: "Animaux"
     annotation: "Annotation"
+    # application_mode: "Application mode"
     applications_count: "Le nombre de candidatures compte"
     applications_frequency: "Fréquence des demandes"
     archive: "Archive"
@@ -1542,6 +1543,9 @@ fra:
     centralizing_account: "Compte centralisateur"
     centralizing_account_name: "Centralisation du nom du compte"
     centroid: "Centre de gravité"
+    # certiphyto_expires_on: "Certiphyto expires on"
+    # certiphyto_kind: "Certiphyto kind"
+    # certiphyto_number: "Certiphyto number"
     charge_account: "Compte d’achat"
     charges_categories: "Catégories comptables avec charge"
     check_state: "Vérifier l’état" #?
@@ -2592,6 +2596,7 @@ fra:
     pfi_targets: "Objectifs Pfi"
     pfi_value: "Valeur Pfi"
     phases: "Phases"
+    # phenological_bbch_stage: "Phenological bbch stage"
     phone_number: "Numéro de téléphone" #?
     phones: "Téléphones"
     phrases: "Expressions"

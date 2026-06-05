@@ -2647,6 +2647,18 @@ payslips:
     - "backend/payslips#new"
     - "backend/payslips#update"
 
+phytosanitary_registers:
+  read:
+    actions:
+    - "backend/phytosanitary_registers#index"
+    - "backend/phytosanitary_registers#preview"
+    - "backend/phytosanitary_registers#show"
+  write:
+    dependencies:
+    - read-phytosanitary_registers
+    actions:
+    - "backend/phytosanitary_registers#create"
+
 plant_countings:
   read:
     actions:

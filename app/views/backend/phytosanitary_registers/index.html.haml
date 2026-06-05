@@ -1,0 +1,27 @@
+- main_toolbar
+
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h2= :generate_new_register.tl
+      .panel-body
+        = form_tag preview_backend_phytosanitary_registers_path, method: :get do
+          .form-group
+            = label_tag :campaign_id, Campaign.model_name.human
+            = select_tag :campaign_id, options_from_collection_for_select(@campaigns, :id, :name, @campaigns.first&.id), class: 'form-control'
+          = submit_tag :preview.tl, class: 'btn btn-primary'
+
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h2= :archived_registers.tl
+      .panel-body
+        - if @documents.any?
+          %ul.list-group
+            - @documents.each do |document|
+              %li.list-group-item
+                = link_to document.name, backend_document_path(document)
+                %small.text-muted= l(document.created_at)
+        - else
+          %p.text-muted= :no_archived_registers.tl

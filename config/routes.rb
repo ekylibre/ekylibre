@@ -672,6 +672,12 @@ Rails.application.routes.draw do
 
     resources :exports, only: %i[index show]
 
+    resources :phytosanitary_registers, only: %i[index show create], path: 'phytosanitary-registers' do
+      collection do
+        get :preview
+      end
+    end
+
     resources :fixed_assets, concerns: %i[list unroll], path: 'fixed-assets' do
       collection do
         post :depreciate, action: :depreciate_all
