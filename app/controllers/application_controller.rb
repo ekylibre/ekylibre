@@ -120,6 +120,9 @@ class ApplicationController < ActionController::Base
     # Change the time zone from the given params or reuse session variable
     def set_time_zone
       session[:time_zone] = params[:time_zone] if params[:time_zone]
+      if session[:time_zone].present? && ActiveSupport::TimeZone[session[:time_zone]].nil?
+        session[:time_zone] = nil
+      end
       session[:time_zone] ||= 'UTC'
       Time.zone = session[:time_zone]
     end
