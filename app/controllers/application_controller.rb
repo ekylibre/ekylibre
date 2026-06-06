@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   before_action :check_browser
 
   rescue_from PG::UndefinedTable, Apartment::TenantNotFound, with: :configure_application
+  rescue_from ActionController::InvalidAuthenticityToken, with: :handle_invalid_authenticity_token
 
   attr_accessor :current_theme
 
@@ -140,5 +141,19 @@ class ApplicationController < ActionController::Base
     def configure_application(exception)
       title = exception.class.name.underscore.t(scope: 'exceptions')
       render '/public/configure_application', layout: 'exception', locals: { title: title, message: exception.message, class_name: exception.class.name }, status: 500
+    end
+
+    # Stale CSRF tokens are routine (expired sessions, bot probes on the
+    # login form, password-manager replays, AJAX submits from long-lived
+    # tabs). Treat them as a clean re-auth, not as a 500-class exception
+    # worth paging on.
+    def handle_invalid_authenticity_token(exception)
+      Rails.logger.warn("InvalidAuthenticityToken on #{request.method} #{request.path} (#{exception.message})")
+      if request.xhr? || request.format.json?
+        render json: { error: 'invalid_authenticity_token', reload: true }, status: :unprocessable_entity
+      else
+        reset_session
+        redirect_to root_path
+      end
     end
 end
