@@ -50,6 +50,8 @@ module ActionIntegration
         raise ArgumentError.new('Invalid frequency.') unless %i[day hour].include? every
 
         proc = lambda do
+          next unless ::Integration.exists?(nature: integration_name.underscore)
+
           begin
             to_execute = block || send(method_name).method(:execute)
             to_execute.call
