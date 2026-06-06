@@ -2,7 +2,20 @@
 
 **Demande** : construire un plugin Ekylibre dédié à l'audit HVE3 (Haute Valeur Environnementale), pré-rempli depuis les données existantes du tenant, permettant la saisie complémentaire, le calcul des 4 scores et l'export au format Excel exigé par Certibase.
 
-**Stratégie** : Systematic. Plugin Rails Engine séparé hébergé dans `/home/djoulin/projects/ekylibre-plugins/ekylibre-hve`, livré en **6 PRs successives** (le périmètre fonctionnel est trop large pour une PR unique).
+**Stratégie** : Systematic. **Modèles et migrations dans le core Ekylibre** ; **engine, services de scoring, controllers, vues, seeds et tests d'intégration dans le plugin** `/home/djoulin/projects/ekylibre-plugins/ekylibre-hve`. Livré en **6 PRs successives**.
+
+---
+
+## 0. État d'avancement
+
+| PR | Périmètre | Statut | Doc dédié |
+|---|---|---|---|
+| **PR1** | Squelette plugin + modèles fondamentaux + référentiels (CMR, azote, IFT régionaux) + rake `hve:reference:load` + vues squelette | ✅ **Livré** | (intégré dans ce doc) |
+| **PR2** | Thème Biodiversité (8 items, 36 pts) + modèle IAE + scorers + UI dédiée + clone audit précédent | ✅ **Livré** | `workflow_hve_pr2_biodiversity.md` |
+| **PR3** | Thème Phytosanitaire (10 items, 63 pts) + kill-switch CMR1 + IFT (réutilise `PfiInterventionParameter`) | 📋 **Planifié** | `workflow_hve_pr3_phytosanitary.md` |
+| PR4 | Thème Fertilisation (9 items, 53 pts) + bilan azoté (BGA / apparent) | À planifier | — |
+| PR5 | Thème Irrigation (8 items, 34 pts) + détection « Sans objet » | À planifier | — |
+| PR6 | Verdict global + export Excel Certibase (préservation du template ministériel) | À planifier | — |
 
 ---
 
@@ -21,318 +34,346 @@
 
 **Filières** : barèmes différents selon Grandes Cultures (GC), Viticulture, Arboriculture, Horticulture/Pépinière, Élevage. Tables de scoring distinctes dans la grille Excel pour Pf/Pc IFT par bassin/région.
 
-**Transmission** (note 2025-06-10) : depuis le 28/05/2025, Certibase reçoit les grilles xlsx via les organismes certificateurs. **Pas d'API publique** — le format de transport est le fichier xlsx ministériel, non modifié structurellement (les tabs et cellules doivent rester intacts).
+**Transmission** (note 2025-06-10) : depuis le 28/05/2025, Certibase reçoit les grilles xlsx via les organismes certificateurs. **Pas d'API publique** — le format de transport est le fichier xlsx ministériel, non modifié structurellement (tabs et cellules doivent rester intacts).
 
 ---
 
-## 2. Inventaire Ekylibre — ce qu'on a / ce qu'il faut produire
+## 2. Inventaire Ekylibre — confirmé après investigation PR1-PR3
 
 ### Déjà disponible (à consommer)
 
-| Besoin HVE | Source Ekylibre | Fichier |
+| Besoin HVE | Source Ekylibre | Confirmé par |
 |---|---|---|
-| Phyto interventions (date, produit, dose, surface) | `Intervention` (procedure_name in `SPRAYING_PROCEDURE_NAMES`) | `app/models/intervention.rb:72-74,1177` |
-| AMM, substances actives | `RegisteredPhytosanitaryProduct` (lexicon) | `app/models/lexicon/registered_phytosanitary_product.rb` |
-| Mentions de danger (SGH08 ≈ CMR partiel) | `RegisteredPhytosanitaryRisk` | `app/models/lexicon/registered_phytosanitary_risk.rb:35-44` |
-| IFT/PFI calculé | `PfiCalculationJob` (async, via API externe) | `app/jobs/pfi_calculation_job.rb` |
-| SAU, assolement, productions | `Activity`, `ActivityProduction.support_shape_area` | `app/models/activity.rb`, `activity_production.rb` |
-| Filière (vine_farming/plant_farming/livestock/…) | `Activity#family` (predicates auto-générés) | `app/models/activity.rb:79` |
-| Animaux & effectifs | `Animal < Bioproduct`, `AnimalGroup` | `app/models/animal.rb` |
-| Plan de fumure partiel | `ManureManagementPlan` + zones | `app/models/manure_management_plan.rb` |
-| Génération PDF | `DocumentTemplate` (ODT/Reporting) | `app/models/document_template.rb` |
-| Dashboard cells (beehive) | `backend.html.haml` + `ChartsHelper` (post-migration ECharts) | infrastructure récente |
+| Phyto interventions (procedure_name, date, produit, dose, surface) | `Intervention` (`PHYTO_PROCEDURE_NAMES` ligne 72, `using_phytosanitary?` ligne 1177) | PR3 |
+| AMM, substances actives, natures (Herbicide/Fongicide/…) | `RegisteredPhytosanitaryProduct` lexicon : `france_maaid`, `active_compounds`, `natures`, `state` | PR3 |
+| Usages référence (dose, ZNT, BBCH, durée d'application) | `RegisteredPhytosanitaryUsage` lexicon | PR3 |
+| **IFT déjà calculé** par traitement | `PfiInterventionParameter` (segment_code S2-S6, pfi_value, response API) — alimenté par `PfiCalculationJob` | PR3 ⭐ |
+| Inputs phyto (produit, dose, surface) | `InterventionInput` : `product_id`, `quantity_value`, `quantity_unit_name`, `working_zone_area_value` | PR3 |
+| Cibles d'intervention | `InterventionTarget` : `product_id`, `working_zone_area_value`, `working_zone` (PostGIS) | PR3 |
+| SAU, assolement, productions | `Activity`, `ActivityProduction.support_shape_area`, scope `of_campaign` | PR2 |
+| Filière (vine_farming/plant_farming/livestock/…) | `Activity#family` (predicates auto-générés via `refers_to :family`) | PR2 |
+| Animaux & effectifs | `Animal < Bioproduct`, scope `alive(at:)` | PR2 |
+| Plan de fumure partiel | `ManureManagementPlan` + `ManureManagementPlanZone` | À confirmer PR4 |
+| Génération PDF | `DocumentTemplate` (ODT/Reporting) | PR6 |
+| Dashboard cells (beehive) | `backend.html.haml` + `ChartsHelper` (ECharts migré) | PR2 |
 
-### Absent → à introduire dans le plugin
+### Absent → introduit côté plugin/core HVE
 
-- **IAE** (Infrastructures Agro-Écologiques) : haies, bandes enherbées, arbres isolés, mares, prairies permanentes — aucun modèle. Critère **obligatoire** (4.1) → bloquant pour la certif.
-- **Mapping CMR officiel HVE** : la liste `HVE_Liste des PPP classés CMR_au_21.10.25.vf_.xlsx` (~2 300 produits par snapshot, clé = AMM) — `RegisteredPhytosanitaryRisk` ne couvre **pas** ce mapping CMR1/CMR2 spécifique à HVE.
-- **Coefficients d'export azote par culture × organe** (`Exportations_azote_productions_vegetales_5.pdf`, source Comifer 2013). Pas dans Onoma ni le lexicon.
-- **Tables de scoring IFT régionales** (Pf/Pc par bassin/région) — vendored depuis la grille Excel HVE.
-- **Container d'audit versionné** : aucun équivalent réutilisable. `Inspection` est trop spécifique (un seul objet de mesure).
-- **Variétés/races menacées** (Arrêté 29/04/2015) : référentiel à vendrer.
-- **Outils annexes** : matériels optimisants (annexe 6/7), OAD (PPF/ODP/OPI), abonnement BSV — modèles `Subscription` simples à créer.
+| Besoin | Décision | Justification |
+|---|---|---|
+| IAE (haies, bandes enherbées, mares, prairies permanentes) | **Modèle `HveBiodiversityItem`** (core, créé PR2) | Aucun équivalent dans le core Ekylibre |
+| Classification CMR1/CMR2 par AMM | **Table `HveCmrProduct`** (core, créée PR1) | `RegisteredPhytosanitaryRisk` stocke des phrases de risque en **texte FR libre**, pas les codes H standardisés (H340/H351/H360…). Le modèle `RegisteredPhytosanitaryPhrase` est référencé mais **sans table**. Confirmation PR3 : le lexicon ne peut pas suppléer. |
+| Coefficients export azote par culture × organe | **Table `HveNitrogenExportCoefficient`** (core, créée PR1) | Pas dans Onoma ni lexicon. Source Comifer 2013. |
+| Tables Pc/Pf IFT régionales | **Table `HveScoringTable`** (core, créée PR1) | Spécifique HVE, mises à jour avec la grille ministérielle annuelle. |
+| Coefficients IAE (conversion m → ha-équivalent) | **Table `HveIaeCoefficient`** (core, créée PR2) | Annexe 1 Plan V4.4. |
+| Container d'audit versionné | **Modèles `HveAudit` + `HveAuditItem`** (core, créés PR1) | `Inspection` du core trop spécifique. |
+| Variétés/races menacées (Arrêté 29/04/2015) | Saisie manuelle PR2, vendrer la liste en PR ultérieure | Faible volume, pas critique pour la v0. |
+| Outils annexes (matériels annexe 6/7, OAD, BSV) | Saisie manuelle PR3-5 | Pas modélisable proprement dans le core sans connaître l'usage. |
+
+### Séparation core / plugin (règle établie PR1)
+
+| Type | Emplacement | Pourquoi |
+|---|---|---|
+| Migrations (`db/migrate/*.rb`) | **Core** Ekylibre | Apartment migre toutes les tenants depuis `db/migrate` |
+| Modèles ActiveRecord (`app/models/hve_*.rb`) | **Core** Ekylibre | Nécessaires à `manage_restfully` / unroll / autoload Rails au boot, même sans tenant |
+| Routes | **Core** (`config/routes.rb`) | Pas d'isolation par engine dans Ekylibre |
+| Services scoring (`app/services/hve/scoring/*`) | **Plugin** | Logique métier propre au plugin |
+| Controllers | **Plugin** (`app/controllers/backend/hve_*`) | Auto-chargés via `prepend_view_path` de l'engine |
+| Vues HAML | **Plugin** (`app/views/backend/hve_*`) | Idem |
+| Tests modèles + services | **Core** (`test/...`) | Réutilise `test_helper`, fixtures `Campaign`/`User`, lexicon de test |
+| Seeds référentiels (CSV/YAML) | **Plugin** (`db/seeds/*`) | Versionné avec le code du plugin, chargé via rake |
+| i18n, navigation.xml, gemspec, engine | **Plugin** | Conventions Ekylibre plugins |
 
 ---
 
-## 3. Architecture proposée
+## 3. Architecture — état réel après PR2
 
-### 3.1 Squelette plugin (modèle des autres plugins Ekylibre)
+### 3.1 Squelette plugin (livré PR1, étendu PR2)
 
 ```
 ekylibre-plugins/ekylibre-hve/
 ├── ekylibre_hve.gemspec
+├── README.md
+├── Gemfile
+├── Rakefile
 ├── lib/
-│   ├── ekylibre_hve.rb
-│   └── ekylibre_hve/
-│       ├── engine.rb              # Rails::Engine + init i18n/assets/navigation
-│       ├── plugin.rb              # Ekylibre::Application.instance.plugins << ...
-│       └── version.rb
+│   ├── ekylibre_hve.rb              # Module + constantes (CERTIFICATION_THRESHOLD, MAX_POINTS, …)
+│   ├── ekylibre_hve/
+│   │   ├── engine.rb                # Rails::Engine + init i18n/navigation/views
+│   │   ├── ext_navigation.rb        # injection navigation.xml dans l'arbre core
+│   │   └── version.rb
+│   └── tasks/hve.rake               # hve:reference:load + hve:reference:status
 ├── app/
-│   ├── controllers/backend/hve/
-│   │   ├── audits_controller.rb
-│   │   ├── audit_items_controller.rb
-│   │   ├── biodiversity_items_controller.rb   # IAE
-│   │   └── nitrogen_balances_controller.rb
-│   ├── models/
-│   │   ├── hve_audit.rb
-│   │   ├── hve_audit_item.rb
-│   │   ├── hve_biodiversity_item.rb           # IAE entry (type + length/area)
-│   │   ├── hve_nitrogen_balance.rb            # BGA ou Bilan apparent
-│   │   ├── hve_subscription.rb                # OAD/BSV/charte
-│   │   ├── hve_cmr_product.rb                 # mapping AMM → CMR1/CMR2 (lookup)
-│   │   ├── hve_nitrogen_export_coefficient.rb # crop × organe → kg N/t (lookup)
-│   │   └── hve_scoring_table.rb               # Pf/Pc IFT par filière/région
-│   ├── services/
-│   │   ├── hve/
-│   │   │   ├── scoring/biodiversity_scorer.rb
-│   │   │   ├── scoring/phyto_scorer.rb
-│   │   │   ├── scoring/fertilisation_scorer.rb
-│   │   │   ├── scoring/irrigation_scorer.rb
-│   │   │   ├── scoring/audit_scorer.rb        # orchestrateur 4 scorers + verdict
-│   │   │   └── exports/excel_grid_exporter.rb # remplit la grille xlsx officielle
-│   ├── views/backend/hve/
-│   │   └── audits/{index,show,edit}.html.haml
-│   ├── jobs/
-│   │   └── hve_score_refresh_job.rb           # recalcule scores sur intervention/sale save
-│   └── assets/javascripts/hve_dashboard.js.coffee
+│   ├── controllers/backend/
+│   │   ├── hve_audits_controller.rb              # PR1 + actions custom PR2 (biodiversity, recompute, clone)
+│   │   └── hve_biodiversity_items_controller.rb  # PR2
+│   ├── services/hve/scoring/        # PR2+
+│   │   ├── biodiversity_scorer.rb               # orchestrateur thème (PR2)
+│   │   ├── biodiversity/                        # 8 sous-scorers (PR2)
+│   │   ├── shared/sau_calculator.rb             # SAU / cultures / animaux (PR2, réutilisé PR3-5)
+│   │   ├── phyto_scorer.rb                      # à venir PR3
+│   │   ├── phyto/                               # à venir PR3
+│   │   ├── shared/phyto_inventory.rb            # à venir PR3
+│   │   ├── shared/filiere_detector.rb           # à venir PR3
+│   │   ├── fertilisation_scorer.rb              # à venir PR4
+│   │   ├── irrigation_scorer.rb                 # à venir PR5
+│   │   └── audit_scorer.rb                      # orchestrateur global (PR6)
+│   └── views/backend/
+│       ├── hve_audits/{index,show,new,edit,biodiversity}.html.haml
+│       └── hve_biodiversity_items/{_form,new,edit}.html.haml
 ├── config/
 │   ├── locales/{eng,fra}/hve.yml
-│   ├── navigation.xml                          # menu « Certification HVE »
-│   └── rights.yml                              # permissions
+│   └── navigation.xml
 ├── db/
-│   ├── migrate/                                # tables HVE
-│   └── seeds/
-│       ├── cmr_products_2025.csv               # importé depuis le xlsx HVE
-│       ├── nitrogen_exports.csv                # depuis le PDF Exportations_azote
-│       └── scoring_tables.yml                  # tables IFT régionales
-└── test/
-    ├── fixtures/
-    ├── models/
-    ├── services/scoring/
-    └── integration/
+│   ├── seeds/
+│   │   ├── hve_cmr_products_2025_sample.csv     # PR1 (~20 lignes échantillon)
+│   │   ├── hve_nitrogen_exports.csv             # PR1 (~21 lignes Comifer)
+│   │   ├── hve_scoring_tables.yml               # PR1 (~20 lignes IFT régionales)
+│   │   └── hve_iae_coefficients.yml             # PR2 (16 lignes)
+│   └── templates/                                # PR6 : grilles xlsx Certibase
+└── bin/
+    └── import_cmr_products.rb                    # PR1 : script d'extraction XLSX → CSV
 ```
 
-### 3.2 Modèles principaux
+### 3.2 Modèles dans le core Ekylibre (livrés PR1-PR2)
 
-**`HveAudit`** — racine par campagne :
-- `campaign_id`, `started_on`, `closed_on`, `status` (draft/submitted/certified/refused)
-- `referentiel_version` (ex. « V4.4 »), `filiere` (auto-déduite des activities)
-- `score_biodiversity`, `score_phytosanitary`, `score_fertilisation`, `score_irrigation` (caches)
-- `verdict` (calculé) : `compliant?` = tous ≥ 10 ET `!uses_cmr1_without_derogation`
-- `metadata_jsonb` : trace des inputs manuels, dérogations, justifications
+**Livrés PR1** (5 modèles, 5 migrations) :
 
-**`HveAuditItem`** — un par critère HVE3 (35 lignes par audit) :
-- `audit_id`, `code` (ex. `'4.1'`, `'5.3.herbicide'`), `theme` (biodiv/phyto/…)
-- `value_raw` (input agrégé, ex. % SAU IAE), `value_manual` (override utilisateur), `value_used`
-- `points`, `points_max`, `auto_computed` (bool)
-- `evidence_jsonb` (interventions/parcels qui ont contribué, pour justification audit)
-- `notes` (texte libre du saisisseur)
+| Modèle | Rôle |
+|---|---|
+| `HveAudit` | Container par campagne, scores cachés, verdict, métadonnées (`biodiversity_gate`, etc.) |
+| `HveAuditItem` | Une ligne par critère scoré (~35 par audit), `value_raw` / `value_manual` / `value_used` |
+| `HveCmrProduct` | Snapshot annuel ministère (AMM → CMR1/CMR2) — **maintenue malgré le lexicon** (cf. §2) |
+| `HveNitrogenExportCoefficient` | Coefficients Comifer par culture × organe |
+| `HveScoringTable` | Tables Pc/Pf IFT par filière × région |
 
-**`HveBiodiversityItem`** — un par élément IAE (haies, prairies permanentes, etc.) :
-- `audit_id`, `iae_family` (aquatique/herbager/ligneux/rocheux), `iae_type` (haie/mare/…)
-- `surface_or_length`, `coefficient` (depuis lexicon HVE), `equivalent_iae_ha`
+**Livrés PR2** (2 modèles, 2 migrations) :
 
-**`HveNitrogenBalance`** — BGA ou Bilan apparent par audit :
-- `audit_id`, `method` (`bga` / `apparent`)
-- `e1_organic_produced`, `e2_organic_imported`, `e3_mineral`, etc. (un attribut par poste)
-- `total_inputs`, `total_outputs`, `balance_per_ha`
-- Sources tracées : import depuis Intervention/Purchase/Sale via service dédié
+| Modèle | Rôle |
+|---|---|
+| `HveIaeCoefficient` | Lookup IAE famille × type × unité → coefficient (annexe 1 Plan V4.4) |
+| `HveBiodiversityItem` | Inventaire IAE par audit, hook `compute_equivalent` calcule `equivalent_iae_ha` |
 
-**Tables lexicon (seed only, jamais modifiées au runtime — schéma `lexicon` partagé)** :
+**À introduire PR3** : **aucun nouveau modèle, aucune migration** (confirmé par l'investigation lexicon/PFI/interventions).
 
-Décision : éviter le schéma `lexicon` partagé (cf. CLAUDE.md, c'est sensible). Préférer un seed dans le **schéma tenant**, rechargeable via rake `hve:reference:load`. Tables :
-- `hve_cmr_products(amm_code, product_name, cmr_class, withdrawal_date, snapshot_year)`
-- `hve_nitrogen_export_coefficients(crop_onoma, organ, ms_pct, n_kg_per_t)`
-- `hve_scoring_tables(filiere, region/bassin, pc_value, pf_value, ift_type)`
+**À introduire PR4** : `HveNitrogenBalance` (un par audit, BGA ou Bilan apparent).
 
-### 3.3 Services & calcul
+### 3.3 Services et calcul
 
-Pattern : un scorer par thème, orchestré par `AuditScorer.call(audit:)`. Chaque scorer expose `compute_item(code, audit)` → renvoie `{ value, points, evidence }`. Le scorer écrit dans les `HveAuditItem` correspondants.
+Pattern établi PR2 : 1 sous-scorer par item, 1 orchestrateur par thème, 1 module partagé `Shared::*` pour les agrégations coûteuses (cache memoizé).
 
-Idempotent : peut être rejoué après chaque modification d'intervention/saisie. Déclenché par :
-- `HveScoreRefreshJob` (async, debounced) déclenché par callback sur Intervention/Sale/Purchase save quand un audit `draft` existe pour la campagne courante.
-- Bouton « Recalculer » manuel sur la vue audit.
+**Idempotence** : tous les scorers sont rejouables. Les `value_manual` sont préservées d'un rejeu à l'autre.
+
+**Déclenchement** :
+- Bouton « Recalculer » sur la vue thème (PR2 OK)
+- Bouton « Relancer PFI » sur la vue phyto (PR3)
+- Job auto sur Intervention/Sale/Purchase save : **différé à PR6** pour ne pas étaler des modifications dans le core sur 4 PRs
 
 ### 3.4 UI
 
-**Navigation** : section « Certification HVE » sous le menu principal.
+**Navigation** : section « Certification HVE > Audits HVE » sous le menu principal (PR1).
 
-**Vue index** : liste des audits (un par campagne), badge statut, score-résumé.
+**Vue show audit** (PR1, enrichie PR2) : 4 cells (1 par thème) + cell verdict, lien « Saisir / Voir » sur la cell biodiversité (PR2).
 
-**Vue show** : dashboard à la « beehive », 1 cell par thème :
-- Cell « Biodiversité » : jauge 0-36 + détail des 8 items (auto + manual), bouton « éditer IAE »
-- Cell « Phyto » : jauge + 10 items + **alerte rouge si CMR1 détecté**
-- Cell « Fertilisation » : jauge + 9 items + bouton « éditer bilan azote »
-- Cell « Irrigation » : jauge + 8 items (ou « Sans objet » si non-irrigant)
-- Cell « Verdict » : compliant/non-compliant + 4 mini-jauges par seuil de 10
+**Vues thème** : une page dédiée par thème, structurée en blocks (PR2 : biodiversity ; PR3 : phytosanitary ; etc.).
 
-**Vue edit** : par thème, tableau d'items avec :
-- valeur auto-calculée (read-only) + éventuel override manuel (avec justification)
-- pour les items non auto-déductibles (OAD, surveillance, ruches), formulaire libre
-- pour IAE : sous-écran dédié de saisie en grille (type / coeff / surface) avec calcul total temps réel
+**Saisie IAE** (PR2) : CRUD nested sur `hve_biodiversity_items`, action « Cloner depuis audit précédent » incluse.
 
-**Export** : bouton « Générer la grille xlsx Certibase ». Charge le template fourni (`grille-audit-hvev4-v1.14 - vf.xlsx`) vendoré dans le plugin, remplit les cellules jaunes/bleues mappées via `Hve::Exports::ExcelGridExporter`, le ressort dans le browser. **Le format de la grille reste celui du ministère** — c'est une exigence Certibase.
+**Export Excel** (PR6) : remplit le template ministériel `grille-audit-hvev4-v1.14 - vf.xlsx` sans en altérer la structure.
 
 ---
 
 ## 4. Phasage en PRs
 
-Plan en 6 PRs, chacune mergeable indépendamment, pour limiter le risque et faire avancer la valeur.
-
-### PR1 — Skeleton + données de référence (≈ 2 jours)
+### PR1 — Skeleton + données de référence ✅ **Livré**
 
 - Engine + gemspec + plugin registration (`Gemfile.local` pour dev local)
-- Modèles `HveAudit`, `HveAuditItem` (CRUD basique, pas encore de scoring)
-- Tables `hve_cmr_products`, `hve_nitrogen_export_coefficients`, `hve_scoring_tables` + seeds depuis les sources fournies (XLSX CMR, PDF azote, grille HVE)
-- Rake `hve:reference:load` qui (re)charge les seeds dans le tenant courant
-- Navigation `Certification HVE > Audits`
-- Vue index + new + show (squelette, pas de scoring)
-- Tests : présence des seeds (counts attendus : ~2 300 CMR, ~150 lignes azote), modèles instanciables
+- 5 modèles core (`HveAudit`, `HveAuditItem`, `HveCmrProduct`, `HveNitrogenExportCoefficient`, `HveScoringTable`)
+- 5 migrations core
+- Rake `hve:reference:load` (CMR + azote + scoring + IAE)
+- Navigation `Certification HVE > Audits HVE`
+- Vue index + new + show squelette
+- 18 tests modèles, 44 assertions, 0 échec
 
-### PR2 — Biodiversité (≈ 3 jours)
+**Effort réel** : ~2 jours (conforme estimation).
 
-- Modèle `HveBiodiversityItem` (CRUD IAE)
-- `Hve::Scoring::BiodiversityScorer` couvrant 4.1 à 4.8 :
-  - 4.1 IAE : auto depuis `HveBiodiversityItem` + gating obligatoire (manquant → 0 pts hard)
-  - 4.2 Taille parcelles : auto depuis `LandParcel#shape.area`
-  - 4.3 Poids culture principale : auto depuis `ActivityProduction.support_shape_area`
-  - 4.4 Nb espèces végétales : auto depuis distinct `Activity.cultivation_variety`
-  - 4.5-4.7 : manuel (animaux/ruches/variétés menacées) — saisie dans `HveAuditItem`
-  - 4.8 Qualité bio sol : manuel
-- Vue edit biodiversité (formulaire IAE + saisies manuelles)
-- Tests : par item, calculs auto + cas de bordure (0 IAE, prairies > 75%, exemption < 10 ha)
+### PR2 — Biodiversité ✅ **Livré**
 
-### PR3 — Phyto (≈ 4 jours, le plus dense)
+- 2 modèles core (`HveIaeCoefficient`, `HveBiodiversityItem`)
+- 2 migrations core
+- 8 sous-scorers + 1 orchestrateur + 2 modules partagés (`SauCalculator`, `ActivityInventory`)
+- 16 coefficients IAE seedés
+- 3 actions custom controller : `biodiversity`, `recompute_biodiversity`, `clone_from_previous`
+- Vue dédiée saisie biodiversité + CRUD nested IAE items
+- Routes ajoutées dans `config/routes.rb` du core
+- 34 tests (modèles + services + orchestrateur), 53 assertions, 0 échec
+- Vérifié end-to-end sur tenant `djoulin` : 3 IAE → score 7/36, gate `open`, bonus +2 pts (3 familles)
 
-- `Hve::Scoring::PhytoScorer` couvrant 5.1 à 5.10 :
-  - 5.1 CMR : itère interventions phyto, join sur `hve_cmr_products` via AMM. **Bloquant CMR1** sans dérogation manuelle.
-  - 5.2 % surfaces non traitées : surfaces de `ActivityProduction` sans intervention phyto / SAU
-  - 5.3 IFT herbicide / hors-herbicide : agrégation `PfiCalculationJob` outputs + scoring par filière contre `hve_scoring_tables`
-  - 5.4-5.10 : selon filière, mix auto/manuel
-- Détecteur de filière (GC/viti/arbo/horti) à partir de la composition des `Activity.family` du tenant
-- Vue edit phyto + cell dashboard avec alerte CMR1 rouge
-- Tests : un par item, cas typique « tenant viti avec une seule intervention CMR2 »
+**Effort réel** : ~3 jours (conforme estimation). **Bug attrapé en cours** : association `biodiversity_items` cachée en mémoire après `destroy_all` → fix via requête fresh dans `IaeScorer`.
 
-### PR4 — Fertilisation + outil bilan N (≈ 5 jours)
+### PR3 — Phytosanitaire 📋 **Planifié**
 
-- Modèle `HveNitrogenBalance` (BGA ou Bilan apparent)
-- Service `Hve::NitrogenBalance::Computer` : agrège
-  - Effluents produits (depuis `Animal` + coefficients excrétion N annuelle par espèce — vendoré)
-  - Effluents importés/exportés (via `Purchase`/`Sale` ou saisie manuelle)
-  - Engrais minéraux (depuis interventions de fertilisation)
-  - Exports cultures (depuis `Sale` × `hve_nitrogen_export_coefficients`)
-- Service détecte automatiquement quel formulaire utiliser (élevage présent → BGA, sinon Bilan apparent)
-- `Hve::Scoring::FertilisationScorer` (6.1-6.9), dont 6.1 lit `HveNitrogenBalance.balance_per_ha`
-- Vue dédiée bilan N (page lourde — tableau structuré façon Excel original)
+Voir `workflow_hve_pr3_phytosanitary.md`. Points-clés :
 
-### PR5 — Irrigation (≈ 2 jours)
+- 🎉 **Zéro nouvelle migration, zéro nouveau modèle** (confirmé par l'investigation lexicon/PFI/interventions)
+- Item 5.3 IFT = **lecture seule + agrégation** de `PfiInterventionParameter.pfi_value` (déjà calculé par `PfiCalculationJob`)
+- Item 5.1 CMR : croisement `Intervention#inputs.product.france_maaid` ⋈ `HveCmrProduct` + kill-switch
+- 10 sous-scorers + 1 orchestrateur + 2 modules partagés (`PhytoInventory`, `FiliereDetector`)
+- Vue dédiée avec alerte CMR rouge + bouton « Relancer PFI »
+
+**Effort estimé** : 4 j-dev.
+
+### PR4 — Fertilisation + bilan azoté
+
+- Modèle core `HveNitrogenBalance` (BGA ou Bilan apparent)
+- Service `Hve::NitrogenBalance::Computer` agrège :
+  - Effluents produits (depuis `Animal` + coefficients excrétion N — à vendoriser)
+  - Effluents importés/exportés (via `Purchase`/`Sale` ou saisie)
+  - Engrais minéraux (depuis interventions fertilisantes)
+  - Exports cultures (via `Sale` × `HveNitrogenExportCoefficient` PR1)
+- Détection BGA vs Bilan apparent (élevage présent → BGA)
+- `Hve::Scoring::FertilisationScorer` (6.1-6.9)
+- Vue dédiée bilan N (tableau structuré façon Excel original)
+
+**Effort estimé** : 5 j-dev.
+
+### PR5 — Irrigation
 
 - `Hve::Scoring::IrrigationScorer` (7.1-7.8)
 - Détection auto « Sans objet » si aucune `Intervention.procedure_name == 'watering'` sur la campagne
 - Saisie complémentaire matériels optimisants + démarche collective
 - Tests
 
-### PR6 — Verdict + export Excel Certibase (≈ 4 jours)
+**Effort estimé** : 2 j-dev.
 
-- `Hve::Scoring::AuditScorer.call` : orchestre les 4 scorers, calcule le verdict (4 × ≥ 10 + pas de CMR1)
-- Job async `HveScoreRefreshJob` déclenché sur Intervention/Sale/Purchase save (debounced via Sidekiq unique)
+### PR6 — Verdict + export Excel Certibase
+
+- `Hve::Scoring::AuditScorer.call` : orchestre les 4 scorers thématiques, calcule le verdict (4 × ≥ 10 + pas de CMR1)
+- Job async `HveScoreRefreshJob` déclenché sur callbacks Intervention/Sale/Purchase (debounced via Sidekiq unique)
 - Cell dashboard verdict (4 jauges + statut global + alerte CMR1)
 - `Hve::Exports::ExcelGridExporter` :
-  - Lib Ruby : `rubyXL` ou `roo-xls` (lecture) + `caxlsx` (écriture). À choisir en phase 1 ; mon penchant : `rubyXL` qui sait modifier un xlsx existant en préservant la structure.
-  - Charge le template `db/templates/grille-audit-hvev4-v1.14 - vf.xlsx` vendoré
-  - Itère sur un mapping `code_critere → (sheet, cell)` (le mapping est extrait de la grille en PR1, stocké dans `config/excel_grid_mapping.yml`)
+  - Lib Ruby : **`rubyXL`** (décidé, préserve la structure xlsx du template)
+  - Charge `db/templates/grille-audit-hvev4-v1.14 - vf.xlsx` vendoré
+  - Itère sur un mapping `code_critere → (sheet, cell)` extrait de la grille (stocké dans `config/excel_grid_mapping.yml`)
   - Écrit les valeurs, sauvegarde, renvoie en download
-- Mêmes étapes pour la synthèse collective (`synthese-collectif-hvev4-v1.04 - vf.xlsx`) — feuille `Synthese_coll_v1.04` (226 colonnes copy-pastables)
-- Tests : génération xlsx → ouverture par `roo` → comparaison des valeurs attendues sur 4-5 cellules clés
+- Idem pour la synthèse collective (`synthese-collectif-hvev4-v1.04 - vf.xlsx`)
+- Tests : génère xlsx → ouvre via `roo` → compare 5-10 cellules clés
+
+**Effort estimé** : 4 j-dev.
 
 ---
 
-## 5. Risques et mitigations
+## 5. Risques et mitigations (mis à jour après PR2)
 
-| Risque | Probabilité | Impact | Mitigation |
-|---|---|---|---|
-| Le format Excel Certibase évolue (annuel) | Élevée | Le mapping cellules devient obsolète, export refusé | Vendrer le template versionné (`v1.14`) ; rake task pour régénérer le mapping depuis une nouvelle grille ; ne pas hardcoder les coordonnées en Ruby |
-| Mapping CMR (AMM → CMR1/CMR2) à mettre à jour annuellement | Élevée | Audit non valide ou faux positif | Rake `hve:cmr:update YEAR=2026` qui re-seede depuis le xlsx fourni par le ministère ; conserver les snapshots antérieurs (campagne 2024 vs 2025) |
-| `PfiCalculationJob` dépend d'une API externe (PfiClientApi) | Moyenne | IFT non calculé → 5.3 indisponible | Service fallback qui calcule IFT à partir des interventions sans appel API ; mode dégradé clairement signalé dans l'UI |
-| Coefficients d'export azote non publiés en données ouvertes | Moyenne | Saisie manuelle des `hve_nitrogen_export_coefficients` | Extraction OCR/manuelle depuis le PDF Comifer en PR1, stocké en CSV vendoré ; rake d'update annuel |
-| Filière mixte (polyculture-élevage avec viti) | Moyenne | Scorings différents s'appliquent | Le scoring de chaque item s'applique sur la part de SAU concernée (pondération). Pré-calculer les ratios SAU par filière dans `HveAudit.metadata_jsonb` |
-| Grosses fermes : recalcul des scores lent | Moyenne | UX dégradée sur dashboard | Job async + cache des scores dans `HveAudit.score_*` ; recalcul incrémental par item modifié, pas full audit |
-| Conflit avec `Inspection` (modèle existant similaire) | Faible | Confusion sémantique | Documenter explicitement que `HveAudit` est distinct ; namespacer toutes les classes sous `Hve::` |
-| Migration `RegisteredPhytosanitaryRisk` → ajout du flag CMR HVE | Faible | Évite la duplication | À écarter en PR1 : on garde la table `hve_cmr_products` distincte, plus simple à maintenir et alignée sur le snapshot annuel HVE |
+| Risque | Probabilité | Impact | Mitigation | Statut |
+|---|---|---|---|---|
+| Format Excel Certibase évolue annuellement | Élevée | Mapping cellules obsolète | Template versionné, rake regen | À traiter PR6 |
+| Liste CMR à mettre à jour annuellement | Élevée | Faux positifs/négatifs CMR | Rake `hve:cmr:update YEAR=2026` + snapshots conservés | Cadre PR1 en place |
+| `PfiCalculationJob` peut ne pas avoir tourné sur la campagne | Moyenne | 5.3 IFT indéterminé | Bouton « Relancer PFI » + tag « En attente » UI ; scorer renvoie `nil`, pas `0`, pour ne pas pénaliser | À traiter PR3 |
+| Coefficients export azote depuis le PDF Comifer | Moyenne | Saisie manuelle | Extrait OCR + CSV vendoré, rake update annuel | À traiter PR4 (échantillon livré PR1) |
+| Filière mixte (polyculture-élevage avec viti) | Élevée | Pondération du scoring | `FiliereDetector` calcule ratios SAU, scoring pondéré | À traiter PR3 |
+| Grosses fermes : recalcul lent | Moyenne | UX dégradée | Job async + cache scores dans `HveAudit.score_*` ; recalcul incrémental | Cache PR2, async PR6 |
+| Conflit avec `Inspection` (modèle similaire) | Faible | Confusion sémantique | Namespacer toutes les classes sous `Hve::` | Convention en place |
+| Association `biodiversity_items` cachée en mémoire après mutation | — | Faux gate « closed » | Requête fresh dans le scorer | ✅ Corrigé PR2 |
+| Apartment : controllers chargés sur `public` avant migration | — | `manage_restfully identifier:` requis si pas de `name`/`number`/`id` détecté | Passer `identifier: 'id'` explicitement | ✅ Documenté PR1 |
+| Lexicon = source de vérité CMR | — | Auraient permis de retirer `HveCmrProduct` | **Écarté** : phrases de risque en texte FR libre, pas de codes H | ✅ Validé PR3 |
 
 ---
 
-## 6. Données vendored à produire (artefacts livrés avec le plugin)
+## 6. Données vendored à produire
 
-| Fichier | Source | Format | Taille estimée |
+| Fichier | Source | Format | Statut |
 |---|---|---|---|
-| `db/seeds/hve_cmr_products_2025.csv` | Tab `Snapshot 2025` du XLSX HVE CMR | CSV (amm, nom, cmr_class, withdrawal_date, status) | ~2 300 lignes |
-| `db/seeds/hve_nitrogen_exports.csv` | PDF Exportations_azote (6 tableaux) | CSV (crop_ref Onoma, organe, ms_pct, n_kg_per_t) | ~150 lignes |
-| `db/seeds/hve_scoring_tables.yml` | Tabs `Scoring_GC/Viticulture/Arboriculture` de la grille | YAML (filière → région → {pc, pf, ift_type}) | ~50 entries |
-| `db/templates/grille-audit-hvev4-v1.14 - vf.xlsx` | Tel quel | xlsx binaire | 438 KB |
-| `db/templates/synthese-collectif-hvev4-v1.04 - vf.xlsx` | Tel quel | xlsx binaire | 50 KB |
-| `config/excel_grid_mapping.yml` | Extrait de la grille (cellules de saisie / cellules de score) | YAML (code_critere → {sheet, value_cell, score_cell}) | ~80 entries |
-| `db/seeds/hve_animal_n_excretion.csv` | Arrêté 19/12/2011 | CSV (espèce, classe d'âge, kg N/an) | ~30 lignes |
+| `db/seeds/hve_cmr_products_2025_sample.csv` | Tab `Snapshot 2025` du XLSX ministère | CSV (amm, nom, cmr_class, withdrawal_date, status) | ✅ Échantillon ~20 lignes (PR1) ; extraction complète via `bin/import_cmr_products.rb` |
+| `db/seeds/hve_nitrogen_exports.csv` | PDF Exportations_azote (Comifer 2013) | CSV (crop_ref, organe, ms_pct, n_kg_per_t) | ✅ Échantillon 21 lignes (PR1) ; extraction complète PR4 |
+| `db/seeds/hve_scoring_tables.yml` | Tabs `Scoring_GC/Viticulture/Arboriculture` | YAML (filière → région → {pc, pf, ift_type}) | ✅ ~20 lignes (PR1) |
+| `db/seeds/hve_iae_coefficients.yml` | Annexe 1 Plan V4.4 | YAML (famille × type × unité → coefficient) | ✅ 16 lignes (PR2) |
+| `db/templates/grille-audit-hvev4-v1.14 - vf.xlsx` | Tel quel | xlsx binaire (438 KB) | À vendoriser PR6 |
+| `db/templates/synthese-collectif-hvev4-v1.04 - vf.xlsx` | Tel quel | xlsx binaire (50 KB) | À vendoriser PR6 |
+| `config/excel_grid_mapping.yml` | Extrait de la grille (cellules saisie / score) | YAML (code_critère → {sheet, value_cell, score_cell}) | À produire PR6 |
+| `db/seeds/hve_animal_n_excretion.csv` | Arrêté 19/12/2011 | CSV (espèce, classe d'âge, kg N/an) | À vendoriser PR4 |
 
 ---
 
 ## 7. Tests
 
-- **Modèles** : couverture standard (validations, scopes).
-- **Services scoring** : un test par item HVE (35 items) avec fixtures couvrant les cas typiques + bornes. Total ~60 tests scoring.
-- **Service bilan N** : 5-10 tests sur cas type (élevage seul, GC seul, polyculture-élevage).
-- **Excel exporter** : génère un xlsx en test, ré-ouvre via `roo`, vérifie 5-10 cellules clés. Pas de comparaison binaire (le format Excel a des variations).
-- **Integration** : un test système qui crée un audit minimal sur un tenant fixture, calcule, exporte. Bloque tout régression majeure.
+### État actuel (PR1 + PR2)
+
+- **Modèles core** : 9 tests (HveAudit, HveAuditItem, HveCmrProduct, HveNitrogenExportCoefficient, HveScoringTable, HveIaeCoefficient, HveBiodiversityItem)
+- **Services scoring** : 21 tests (8 scorers biodiv + 1 orchestrateur + 4 cas IaeScorer)
+- **Total** : **34 tests, 53 assertions, 0 échec**
+
+### À venir
+
+- PR3 : ~35 tests (10 sous-scorers phyto + orchestrateur + PhytoInventory + cas CMR/IFT manquant)
+- PR4 : ~25 tests (9 sous-scorers fert + NitrogenBalance::Computer + cas BGA/apparent)
+- PR5 : ~12 tests (8 sous-scorers irrigation + détection « Sans objet »)
+- PR6 : ~15 tests (orchestrateur global + Excel exporter sur 3 fixtures filière + verdict + idempotence)
+
+**Estimation totale fin PR6** : ~120 tests scoring + ~15 tests intégration / contrôleur.
+
+### Convention testing établie PR1-PR2
+
+- Tests modèles dans `ekylibre/test/models/` (réutilise `test_helper` + fixtures Campaign/User)
+- Tests services dans `ekylibre/test/services/hve/scoring/` (même raison)
+- Pas de runner `rails test test/...` (charge toute la suite Ekylibre) → préférer `bundle exec ruby -Itest -e 'Dir[".../*.rb"].each {require ...}'` pour grouper les tests d'une PR
+- Helpers de test : `def score_for(...)` plutôt que `def run(...)` (conflit Minitest)
+- Fixtures campagne : `Campaign.find_or_create_by!(harvest_year: <year>)` plutôt que `campaigns(:current_campaign)` (la fixture symbolique n'est pas chargée par défaut)
 
 ---
 
 ## 8. Arbre de dépendances PRs
 
 ```
-PR1 (skeleton + refs) ─┐
-                       ├─► PR2 (biodiv)   ─┐
-                       ├─► PR3 (phyto)    ─┤
-                       ├─► PR4 (fert)     ─┼─► PR6 (verdict + export Certibase)
-                       └─► PR5 (irrigation)┘
+PR1 ✅ (skeleton + refs) ─┐
+                          ├─► PR2 ✅ (biodiv)   ─┐
+                          ├─► PR3 (phyto)        ─┤
+                          ├─► PR4 (fert)         ─┼─► PR6 (verdict + export Certibase)
+                          └─► PR5 (irrigation)   ─┘
 ```
 
-PR2-3-4-5 sont **parallélisables** une fois PR1 mergée (équipe de 2-3 devs sur quelques semaines, sinon ~6 semaines en séquentiel solo).
+PR2-3-4-5 sont **parallélisables** une fois PR1 mergée. En solo, on enchaîne PR3 → PR4 → PR5 (~11 j-dev), puis PR6 (4 j-dev).
 
 ---
 
 ## 9. Critères d'acceptation globaux
 
-1. ✅ Le plugin se charge via `Gemfile.local` sans modification du core.
-2. ✅ Sur un tenant avec activités GC + élevage + viti, le calcul auto produit des scores cohérents pour ≥ 50 % des items (le reste nécessite saisie manuelle).
-3. ✅ Le verdict reproduit l'arithmétique de la grille officielle sur 3 jeux de données de test (un par filière dominante).
-4. ✅ L'export xlsx généré s'ouvre dans Excel/LibreOffice sans avertissement de corruption, et les cellules de score remplies sont identiques à celles que produit la grille officielle quand on saisit les mêmes valeurs.
-5. ✅ La détection CMR1 sans dérogation déclenche l'alerte UI rouge **et** force le verdict global à « non conforme ».
-6. ✅ Le rejeu de `HveScoreRefreshJob` est idempotent (recalcul = mêmes scores à fixtures identiques).
-7. ✅ Performance : un tenant avec 1 000 interventions sur la campagne calcule le score en < 30 s.
+| # | Critère | Statut |
+|---|---|---|
+| 1 | Le plugin se charge via `Gemfile.local` sans modification du core | ⚠️ Partiel : routes + modèles sont dans le core par contrainte Apartment/manage_restfully |
+| 2 | Sur un tenant avec activités GC + élevage + viti, le calcul auto produit des scores cohérents pour ≥ 50 % des items | À évaluer PR3-5 |
+| 3 | Le verdict reproduit l'arithmétique de la grille officielle sur 3 jeux de données de test | À traiter PR6 |
+| 4 | L'export xlsx généré est binaire-compatible Certibase (mêmes cellules de score que le template) | À traiter PR6 |
+| 5 | La détection CMR1 sans dérogation déclenche l'alerte UI rouge ET force le verdict à `cmr1_blocked` | À traiter PR3 (déjà câblé dans le modèle PR1) |
+| 6 | Le rejeu des scorers est idempotent | ✅ Vérifié PR2 |
+| 7 | Performance : 1 000 interventions / campagne → score en < 30 s | À évaluer fin PR3 |
 
 ---
 
-## 10. Démarrage immédiat (PR1)
+## 10. Démarrage immédiat (PR3)
 
-Pour amorcer sans attendre la planification complète :
+PR1 et PR2 sont **livrées et vérifiées**. La prochaine étape concrète :
 
-1. Créer `/home/djoulin/projects/ekylibre-plugins/ekylibre-hve/` avec le squelette plugin (copier la structure de `ekylibre-idea` ou `ekylibre-viti`).
-2. Ajouter le mount dans `Gemfile.local` du repo principal (path local).
-3. Créer les migrations pour `hve_audits`, `hve_audit_items`, `hve_cmr_products`, `hve_nitrogen_export_coefficients`.
-4. Extraire les seeds depuis les XLSX/PDF fournis (script Ruby + `rubyXL` ou `roo` pour le XLSX CMR).
-5. Vue index + new + show squelette (pas encore de scoring).
-6. Tests minimaux : seeds chargés (counts attendus), modèles instanciables.
-
-**Effort estimé total** : ~20 jours-développeur sur 6 PRs. PR1 livrable en 2 jours.
+1. Valider les 5 décisions ouvertes du `workflow_hve_pr3_phytosanitary.md` §12 (fallback IFT à `nil`, détection biocontrôle via `segment_code='S2'`, dérogation par audit, relaunch PFI direct, pondération filière par SAU).
+2. Lancer `/sc:implement claudedocs/workflow_hve_pr3_phytosanitary.md`.
 
 ---
 
-## 11. Prochaine étape
+## 11. Décisions architecturales tranchées au fil des PRs
 
-Lancer `/sc:implement claudedocs/workflow_plugin_ekylibre_hve.md` pour démarrer **uniquement PR1** (les autres PRs requièrent leur propre exécution `/sc:implement` après merge de la précédente, pour limiter la taille du diff). 
-
-Avant de coder, valider les choix architecturaux ouverts :
-- **Stockage référence CMR** : table tenant vs lexicon partagé → recommandé tenant (cf. risque mise à jour annuelle).
-- **Bibliothèque Excel** : `rubyXL` (modification de templates) vs `caxlsx` (génération from-scratch) → recommandé `rubyXL` pour préserver la structure officielle.
-- **Saisie IAE** : modèle propre `HveBiodiversityItem` vs JSON dans `HveAudit.metadata_jsonb` → recommandé modèle propre pour requêtage et historique inter-audits.
-- **Périmètre PR1 stricte** : ne pas glisser de logique de scoring dans PR1, sinon elle dépasse 2 jours.
+| Décision | Tranchée en | Choix | Raison |
+|---|---|---|---|
+| Stockage référence CMR (lexicon vs tenant) | PR1 | Tenant (`HveCmrProduct`) | Mise à jour annuelle, snapshots, lexicon n'a pas les codes H |
+| Bibliothèque Excel pour export Certibase | PR1 (plan) | `rubyXL` | Préserve la structure xlsx du template ministère |
+| Saisie IAE : modèle dédié vs JSON dans metadata | PR2 | Modèle dédié `HveBiodiversityItem` | Requêtage, historique, clone inter-audits |
+| Migrations + modèles : core ou plugin | PR1 (corrigé en cours) | **Core** | Apartment migration, manage_restfully autoload au boot |
+| Services scoring : core ou plugin | PR2 | **Plugin** | Logique propre au plugin, autoload via engine |
+| Tests : core ou plugin | PR2 | **Core** (test_helper + fixtures) | Réutilisation du Rails environnement |
+| Prairie permanente : détection | PR2 | `Activity.cultivation_variety ∈ {grass, pasture, meadow}` | Pas de migration core nécessaire |
+| Ruches (4.6), races menacées (4.7), qualité sol (4.8) | PR2 | Saisie manuelle dans `HveAuditItem.value_manual` | Pas de modèle Equipment « ruche » dans Onoma actuel |
+| Recompute automatique sur callbacks | PR2 (différé) | **À PR6** | Évite d'éparpiller des modifs dans le core |
+| Clone audit précédent | PR2 | Inclus dans le controller | Gros gain UX, ~30 lignes |
+| `manage_restfully` sans `name`/`number` | PR1 | `identifier: 'id'` explicite | Auto-détection échoue avec colonne `id` seule |
+| Conservation `HveCmrProduct` après investigation lexicon | PR3 (plan) | **Maintenue** | Lexicon stocke des phrases en texte libre, pas de codes H standardisés |
+| IFT (item 5.3) : recalcul ou réutilisation | PR3 (plan) | **Réutilise** `PfiInterventionParameter` | Déjà calculé par `PfiCalculationJob` (API ministère) |
+| Items « Sans objet » | PR3 (plan) | Renvoient `{skip: true}` dans evidence, ne pénalisent pas | Conforme au Plan V4.4 |
