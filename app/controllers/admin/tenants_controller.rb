@@ -1,4 +1,6 @@
 class Admin::TenantsController < Admin::BaseController
+  RESERVED_TENANT_NAMES = %w[admin duke traccar ekylibre].freeze
+
   def index
     Ekylibre::Tenant.load!
     @tenants = Ekylibre::Tenant.list
@@ -28,6 +30,11 @@ class Admin::TenantsController < Admin::BaseController
       return render :new
     end
 
+    if RESERVED_TENANT_NAMES.include?(name)
+      flash.now[:error] = "Le nom '#{name}' est réservé et ne peut pas être utilisé."
+      return render :new
+    end
+
     if Ekylibre::Tenant.exist?(name)
       flash.now[:error] = "Le tenant '#{name}' existe déjà."
       return render :new
@@ -40,9 +47,13 @@ class Admin::TenantsController < Admin::BaseController
       generated_password = initialize_tenant(name)
     end
 
+    email_result = maybe_send_credentials_email(name, generated_password)
+
     msg = "Tenant '#{name}' créé avec succès."
     msg += " Mot de passe admin : #{generated_password}" if generated_password
+    msg += " Email de connexion envoyé à #{email_result[:to]}." if email_result[:sent]
     flash[:notice] = msg
+    flash[:error] = "Le tenant a été créé mais l'envoi de l'email a échoué : #{email_result[:error]}" if email_result[:error]
     redirect_to admin_root_path
   rescue => e
     Ekylibre::Tenant.drop(name) if Ekylibre::Tenant.exist?(name)
@@ -112,6 +123,32 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   private
+
+    def maybe_send_credentials_email(tenant_name, generated_password)
+      return { sent: false } unless params.dig(:tenant, :send_credentials_email) == '1'
+
+      tenant_params = params.require(:tenant).permit(:email, :password, :language)
+      email = tenant_params[:email].presence || 'admin@ekylibre.org'
+      password = generated_password || tenant_params[:password].presence
+      return { sent: false } if password.blank?
+
+      domain = ENV['HOST_DOMAIN_NAME'] || 'ekylibre.localhost'
+      url = "https://#{tenant_name}.#{domain}/"
+      locale = Onoma::Language.find(tenant_params[:language]).try(:name) || 'eng'
+
+      TenantCreationMailer.credentials(
+        email: email,
+        tenant: tenant_name,
+        password: password,
+        url: url,
+        locale: locale
+      ).deliver_now
+
+      { sent: true, to: email }
+    rescue => e
+      Rails.logger.error("TenantCreationMailer failed for tenant=#{tenant_name}: #{e.class} #{e.message}")
+      { sent: false, error: e.message }
+    end
 
     def dump_redis_key(name)
       "ekylibre:admin:dump:#{name}"

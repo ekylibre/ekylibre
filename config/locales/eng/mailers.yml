@@ -16,3 +16,13 @@ eng:
 
         %{current_user_name}
       notify_accountant_subject: "{name} | New entries %{exchange_name} availables"
+    tenant_creation_mailer:
+      credentials:
+        email_label: "Email"
+        greeting: "Hello,"
+        intro: "Your Ekylibre tenant '%{tenant}' has just been created. Here are your sign-in credentials:"
+        password_label: "Password"
+        password_warning: "For security reasons, please change this password the first time you sign in."
+        signature: "The Ekylibre team"
+        subject: "Your Ekylibre tenant '%{tenant}' is ready"
+        url_label: "URL"

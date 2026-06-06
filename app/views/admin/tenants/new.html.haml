@@ -13,6 +13,12 @@
     = f.label :password, 'Mot de passe (laissez vide pour générer automatiquement)'
     = f.password_field :password, name: 'tenant[password]', autocomplete: 'new-password'
 
+  %h3 Notification
+  .field
+    = check_box_tag 'tenant[send_credentials_email]', '1', true, id: 'tenant_send_credentials_email'
+    %label{ for: 'tenant_send_credentials_email' }
+      Envoyer les informations de connexion par email à l'adresse ci-dessus
+
   %h3 Localisation
   .field
     = f.label :language, 'Langue'
