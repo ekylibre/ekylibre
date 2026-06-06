@@ -1619,6 +1619,17 @@ Rails.application.routes.draw do
         get :selection
       end
     end
+
+    # HVE3 audit (plugin ekylibre-hve)
+    resources :hve_audits, concerns: [:list] do
+      member do
+        get  :biodiversity
+        post :recompute_biodiversity
+        post :clone_from_previous
+      end
+      resources :biodiversity_items, controller: 'hve_biodiversity_items',
+                                     except: %i[show index]
+    end
   end
 
   constraints subdomain: '' do
