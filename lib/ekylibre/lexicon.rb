@@ -1,8 +1,73 @@
 # Use Lexicon common to load Lexicon directly into Eky
 require 'lexicon-common'
+require 'net/http'
+require 'uri'
 
 module Ekylibre
   class Lexicon
+    # Duck-typed Aws::S3::Client for anonymous HTTP read on public S3-compatible
+    # buckets (MinIO, AWS S3 with public-read policy). Used by `download_lexicon`
+    # when MINIO_ACCESS_KEY/MINIO_SECRET_KEY are not set, so a self-hosted prod
+    # can fetch the lexicon without sharing Ekylibre's internal credentials.
+    #
+    # Implements only the methods called during a download:
+    #   - `head_bucket(bucket:)` for `Lexicon::Common::Remote::S3Client#bucket_exist?`
+    #   - `get_object(bucket:, key:, response_target:)` for `PackageDownloader`
+    class AnonymousHttpS3Client
+      MAX_REDIRECTS = 3
+
+      def initialize(endpoint:)
+        normalized = endpoint.to_s.chomp('/')
+        @endpoint_uri = URI.parse(normalized)
+      end
+
+      # Mimics Aws::S3::Client#head_bucket — returns truthy on 200, raises on error.
+      def head_bucket(bucket:)
+        request_with_redirects(bucket_uri(bucket), method: :head) { |_resp| }
+        true
+      end
+
+      # Mimics Aws::S3::Client#get_object — streams the body to `response_target`.
+      def get_object(bucket:, key:, response_target:)
+        FileUtils.mkdir_p(File.dirname(response_target))
+        request_with_redirects(object_uri(bucket, key), method: :get) do |response|
+          File.open(response_target, 'wb') do |io|
+            response.read_body { |chunk| io.write(chunk) }
+          end
+        end
+      end
+
+      private
+
+        def bucket_uri(bucket)
+          URI.join("#{@endpoint_uri}/", "#{bucket}/")
+        end
+
+        def object_uri(bucket, key)
+          URI.join("#{@endpoint_uri}/", "#{bucket}/#{key}")
+        end
+
+        def request_with_redirects(uri, method:, redirects_left: MAX_REDIRECTS, &block)
+          raise "Too many redirects fetching #{uri}" if redirects_left.negative?
+
+          Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+            request_class = method == :head ? Net::HTTP::Head : Net::HTTP::Get
+            http.request(request_class.new(uri.request_uri)) do |response|
+              case response.code.to_i
+              when 200..299
+                yield response
+              when 301, 302, 303, 307, 308
+                new_uri = URI.parse(response['location'])
+                new_uri = URI.join(uri, new_uri) unless new_uri.absolute?
+                return request_with_redirects(new_uri, method: method, redirects_left: redirects_left - 1, &block)
+              else
+                raise "HTTP #{response.code} for #{method.upcase} #{uri}"
+              end
+            end
+          end
+        end
+    end
+
     def initialize(target_version = nil)
       @test_mode = Rails.env.test?
       @target_version = target_version || version_in_file
@@ -190,14 +255,27 @@ module Ekylibre
       end
 
       def download_lexicon(out_dir, loader, semantic_version)
-        raw = ::Aws::S3::Client.new(endpoint: ENV.fetch('MINIO_HOST', 'https://io.ekylibre.dev'),
-                                  access_key_id: ENV.fetch('MINIO_ACCESS_KEY', nil),
-                                  secret_access_key: ENV.fetch('MINIO_SECRET_KEY', nil),
-                                  force_path_style: true,
-                                  region: 'us-east-1')
+        raw = build_remote_client
         s3 = ::Lexicon::Common::Remote::S3Client.new(raw: raw)
         downloader = ::Lexicon::Common::Remote::PackageDownloader.new(s3: s3, out_dir: out_dir, package_loader: loader)
         downloader.download(semantic_version)
+      end
+
+      def build_remote_client
+        endpoint = ENV.fetch('MINIO_HOST', 'https://io.ekylibre.tech')
+        access_key = ENV['MINIO_ACCESS_KEY'].to_s
+        secret_key = ENV['MINIO_SECRET_KEY'].to_s
+
+        if access_key.empty? || secret_key.empty?
+          info("MINIO credentials not set — using anonymous HTTP download (public buckets only).")
+          AnonymousHttpS3Client.new(endpoint: endpoint)
+        else
+          ::Aws::S3::Client.new(endpoint: endpoint,
+                              access_key_id: access_key,
+                              secret_access_key: secret_key,
+                              force_path_style: true,
+                              region: 'us-east-1')
+        end
       end
 
       def info(message)
