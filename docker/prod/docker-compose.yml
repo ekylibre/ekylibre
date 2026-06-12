@@ -102,7 +102,7 @@ services:
       EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
       EKYLIBRE_DB_DSN: ${EKYLIBRE_DB_DSN}
       DUKE_DB_DSN: ${DUKE_DB_DSN}
-      MIGRATE_ON_BOOT: "true"
+      MIGRATE_ON_BOOT: ${MIGRATE_ON_BOOT:-false}
     volumes:
       - whisper-cache:/home/duke/.cache/huggingface
     depends_on:
