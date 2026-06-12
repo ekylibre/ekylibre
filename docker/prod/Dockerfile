@@ -1,25 +1,34 @@
-FROM registry.gitlab.com/ekylibre/docker-base-images/ruby2.6:2
+FROM ghcr.io/ekylibre/docker-base-images/ruby2.6:latest
 
-# HARICA Root CA 2021 — base image's ca-certificates 20210119 misses it,
-# breaking TLS to alim*.api.agriculture.gouv.fr (PFI API).
-COPY docker/certs/HARICA-TLS-Root-2021-RSA.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+ARG UID=1000
+ARG GID=1000
+
+# Plugins prod : charges via docker/prod/Gemfile.prod (depots publics uniquement).
+# Voir docker/prod/Gemfile.prod pour la liste exhaustive.
+ENV CUSTOM_PLUGIN_GEMFILE=/app/docker/prod/Gemfile.prod
+
+RUN mkdir /app
+WORKDIR /app
 
 COPY . /app
 
-RUN useradd --create-home --home-dir /home/ekylibre -s /bin/bash ekylibre && \
-    usermod -aG sudo ekylibre && \
+# Supprime Gemfile.local (config plugins dev, peut referencer des paths locaux).
+# La config plugins prod vient de docker/prod/Gemfile.prod (via CUSTOM_PLUGIN_GEMFILE).
+RUN rm -f /app/Gemfile.local /app/Gemfile.local.lock /app/Gemfile.plugins
+
+RUN mkdir -p /app/vendor/bundle /app/private /app/tmp && \
+    addgroup --gid $GID ekylibre && \
+    useradd --create-home --home-dir /home/ekylibre -s /bin/bash -g $GID -u $UID ekylibre && \
     chown -R ekylibre:ekylibre /app
 
 USER ekylibre
 
-WORKDIR /app
+RUN bundle config set --local without 'development test' && \
+    bundle install -j $(nproc) && \
+    bundle clean --force
 
-RUN mkdir -p private
-RUN mkdir -p tmp
+RUN yarn install --frozen-lockfile
 
-COPY /docker/prod/unicorn.rb config/unicorn.rb
-COPY --chown=ekylibre /docker/prod/tenants.yml config/tenants.yml
+RUN SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rake assets:precompile
 
-RUN bundle install -j $(nproc) --path "/app/vendor/bundle" --without development test
-RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
+RUN chmod +x docker/prod/startup.sh docker/prod/sidekiq_startup.sh

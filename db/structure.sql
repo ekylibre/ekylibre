@@ -1,4 +1,4 @@
-\restrict u14dnQltLiStnbXJLaJ5loRoseN786tySsXcKWhE325jgF36aK4Rmy8boC2j32N
+\restrict w4kFMfASrddK0Qva0guRmoAQnrHGXIxM37QaWHJGr9Goa8aQiDehDEVNm2aiBPo
 
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
 -- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
@@ -5617,6 +5617,278 @@ CREATE SEQUENCE public.guides_id_seq
 --
 
 ALTER SEQUENCE public.guides_id_seq OWNED BY public.guides.id;
+
+
+--
+-- Name: hve_audit_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_audit_items (
+    id bigint NOT NULL,
+    hve_audit_id bigint NOT NULL,
+    code character varying NOT NULL,
+    theme character varying NOT NULL,
+    value_raw numeric(12,4),
+    value_manual numeric(12,4),
+    value_used numeric(12,4),
+    points numeric(6,2),
+    points_max numeric(6,2),
+    auto_computed boolean DEFAULT true NOT NULL,
+    notes text,
+    evidence jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_audit_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_audit_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_audit_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_audit_items_id_seq OWNED BY public.hve_audit_items.id;
+
+
+--
+-- Name: hve_audits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_audits (
+    id bigint NOT NULL,
+    campaign_id bigint NOT NULL,
+    referentiel_version character varying DEFAULT 'V4.4'::character varying NOT NULL,
+    filiere character varying,
+    status character varying DEFAULT 'draft'::character varying NOT NULL,
+    started_on date,
+    closed_on date,
+    uses_cmr1_without_derogation boolean DEFAULT false NOT NULL,
+    score_biodiversity numeric(6,2),
+    score_phytosanitary numeric(6,2),
+    score_fertilisation numeric(6,2),
+    score_irrigation numeric(6,2),
+    verdict character varying,
+    metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
+    creator_id bigint,
+    updater_id bigint,
+    lock_version integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_audits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_audits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_audits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_audits_id_seq OWNED BY public.hve_audits.id;
+
+
+--
+-- Name: hve_biodiversity_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_biodiversity_items (
+    id bigint NOT NULL,
+    hve_audit_id bigint NOT NULL,
+    iae_family character varying NOT NULL,
+    iae_type character varying NOT NULL,
+    surface_or_length numeric(12,3) NOT NULL,
+    unit character varying NOT NULL,
+    coefficient numeric(6,3),
+    equivalent_iae_ha numeric(12,4),
+    location_notes character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_biodiversity_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_biodiversity_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_biodiversity_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_biodiversity_items_id_seq OWNED BY public.hve_biodiversity_items.id;
+
+
+--
+-- Name: hve_cmr_products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_cmr_products (
+    id bigint NOT NULL,
+    amm_code character varying NOT NULL,
+    product_name character varying,
+    cmr_class character varying NOT NULL,
+    status character varying,
+    first_authorisation_on date,
+    withdrawal_on date,
+    snapshot_year integer NOT NULL,
+    type_label character varying,
+    active_substances text,
+    functions text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_cmr_products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_cmr_products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_cmr_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_cmr_products_id_seq OWNED BY public.hve_cmr_products.id;
+
+
+--
+-- Name: hve_iae_coefficients; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_iae_coefficients (
+    id bigint NOT NULL,
+    iae_family character varying NOT NULL,
+    iae_type character varying NOT NULL,
+    unit character varying NOT NULL,
+    coefficient numeric(6,3) NOT NULL,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_iae_coefficients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_iae_coefficients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_iae_coefficients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_iae_coefficients_id_seq OWNED BY public.hve_iae_coefficients.id;
+
+
+--
+-- Name: hve_nitrogen_export_coefficients; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_nitrogen_export_coefficients (
+    id bigint NOT NULL,
+    crop_reference character varying NOT NULL,
+    organ character varying NOT NULL,
+    ms_pct numeric(5,2),
+    n_kg_per_t numeric(6,3) NOT NULL,
+    unit character varying DEFAULT 'fresh_matter'::character varying,
+    source character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_nitrogen_export_coefficients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_nitrogen_export_coefficients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_nitrogen_export_coefficients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_nitrogen_export_coefficients_id_seq OWNED BY public.hve_nitrogen_export_coefficients.id;
+
+
+--
+-- Name: hve_scoring_tables; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.hve_scoring_tables (
+    id bigint NOT NULL,
+    filiere character varying NOT NULL,
+    region character varying,
+    ift_type character varying NOT NULL,
+    pc numeric(6,3),
+    pf numeric(6,3),
+    referentiel_version character varying DEFAULT 'V4.4'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hve_scoring_tables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.hve_scoring_tables_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hve_scoring_tables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.hve_scoring_tables_id_seq OWNED BY public.hve_scoring_tables.id;
 
 
 --
@@ -12355,6 +12627,55 @@ ALTER TABLE ONLY public.guides ALTER COLUMN id SET DEFAULT nextval('public.guide
 
 
 --
+-- Name: hve_audit_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audit_items ALTER COLUMN id SET DEFAULT nextval('public.hve_audit_items_id_seq'::regclass);
+
+
+--
+-- Name: hve_audits id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audits ALTER COLUMN id SET DEFAULT nextval('public.hve_audits_id_seq'::regclass);
+
+
+--
+-- Name: hve_biodiversity_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_biodiversity_items ALTER COLUMN id SET DEFAULT nextval('public.hve_biodiversity_items_id_seq'::regclass);
+
+
+--
+-- Name: hve_cmr_products id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_cmr_products ALTER COLUMN id SET DEFAULT nextval('public.hve_cmr_products_id_seq'::regclass);
+
+
+--
+-- Name: hve_iae_coefficients id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_iae_coefficients ALTER COLUMN id SET DEFAULT nextval('public.hve_iae_coefficients_id_seq'::regclass);
+
+
+--
+-- Name: hve_nitrogen_export_coefficients id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_nitrogen_export_coefficients ALTER COLUMN id SET DEFAULT nextval('public.hve_nitrogen_export_coefficients_id_seq'::regclass);
+
+
+--
+-- Name: hve_scoring_tables id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_scoring_tables ALTER COLUMN id SET DEFAULT nextval('public.hve_scoring_tables_id_seq'::regclass);
+
+
+--
 -- Name: idea_diagnostic_item_values id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -14544,6 +14865,62 @@ ALTER TABLE ONLY public.guide_analysis_points
 
 ALTER TABLE ONLY public.guides
     ADD CONSTRAINT guides_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_audit_items hve_audit_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audit_items
+    ADD CONSTRAINT hve_audit_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_audits hve_audits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audits
+    ADD CONSTRAINT hve_audits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_biodiversity_items hve_biodiversity_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_biodiversity_items
+    ADD CONSTRAINT hve_biodiversity_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_cmr_products hve_cmr_products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_cmr_products
+    ADD CONSTRAINT hve_cmr_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_iae_coefficients hve_iae_coefficients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_iae_coefficients
+    ADD CONSTRAINT hve_iae_coefficients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_nitrogen_export_coefficients hve_nitrogen_export_coefficients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_nitrogen_export_coefficients
+    ADD CONSTRAINT hve_nitrogen_export_coefficients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hve_scoring_tables hve_scoring_tables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_scoring_tables
+    ADD CONSTRAINT hve_scoring_tables_pkey PRIMARY KEY (id);
 
 
 --
@@ -20257,6 +20634,104 @@ CREATE INDEX index_guides_on_updated_at ON public.guides USING btree (updated_at
 --
 
 CREATE INDEX index_guides_on_updater_id ON public.guides USING btree (updater_id);
+
+
+--
+-- Name: index_hve_audit_items_on_hve_audit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_audit_items_on_hve_audit_id ON public.hve_audit_items USING btree (hve_audit_id);
+
+
+--
+-- Name: index_hve_audit_items_on_hve_audit_id_and_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hve_audit_items_on_hve_audit_id_and_code ON public.hve_audit_items USING btree (hve_audit_id, code);
+
+
+--
+-- Name: index_hve_audit_items_on_theme; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_audit_items_on_theme ON public.hve_audit_items USING btree (theme);
+
+
+--
+-- Name: index_hve_audits_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_audits_on_campaign_id ON public.hve_audits USING btree (campaign_id);
+
+
+--
+-- Name: index_hve_audits_on_campaign_referentiel; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hve_audits_on_campaign_referentiel ON public.hve_audits USING btree (campaign_id, referentiel_version);
+
+
+--
+-- Name: index_hve_audits_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_audits_on_creator_id ON public.hve_audits USING btree (creator_id);
+
+
+--
+-- Name: index_hve_audits_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_audits_on_updater_id ON public.hve_audits USING btree (updater_id);
+
+
+--
+-- Name: index_hve_biodiversity_items_on_hve_audit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_biodiversity_items_on_hve_audit_id ON public.hve_biodiversity_items USING btree (hve_audit_id);
+
+
+--
+-- Name: index_hve_biodiversity_items_on_hve_audit_id_and_iae_family; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_biodiversity_items_on_hve_audit_id_and_iae_family ON public.hve_biodiversity_items USING btree (hve_audit_id, iae_family);
+
+
+--
+-- Name: index_hve_cmr_on_amm_and_year; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hve_cmr_on_amm_and_year ON public.hve_cmr_products USING btree (amm_code, snapshot_year);
+
+
+--
+-- Name: index_hve_cmr_products_on_snapshot_year_and_cmr_class; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hve_cmr_products_on_snapshot_year_and_cmr_class ON public.hve_cmr_products USING btree (snapshot_year, cmr_class);
+
+
+--
+-- Name: index_hve_iae_coefs_unique; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hve_iae_coefs_unique ON public.hve_iae_coefficients USING btree (iae_family, iae_type, unit);
+
+
+--
+-- Name: index_hve_n_exports_on_crop_organ; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hve_n_exports_on_crop_organ ON public.hve_nitrogen_export_coefficients USING btree (crop_reference, organ);
+
+
+--
+-- Name: index_hve_scoring_unique; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hve_scoring_unique ON public.hve_scoring_tables USING btree (filiere, region, ift_type);
 
 
 --
@@ -28090,6 +28565,14 @@ ALTER TABLE ONLY public.sale_items
 
 
 --
+-- Name: hve_audits fk_rails_4137ad2d92; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audits
+    ADD CONSTRAINT fk_rails_4137ad2d92 FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
+
+
+--
 -- Name: parcel_items fk_rails_41a9d1c170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -28186,11 +28669,27 @@ ALTER TABLE ONLY public.journal_entries
 
 
 --
+-- Name: hve_audits fk_rails_5469a33706; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audits
+    ADD CONSTRAINT fk_rails_5469a33706 FOREIGN KEY (updater_id) REFERENCES public.users(id);
+
+
+--
 -- Name: intervention_setting_items fk_rails_5764cea836; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.intervention_setting_items
     ADD CONSTRAINT fk_rails_5764cea836 FOREIGN KEY (intervention_parameter_setting_id) REFERENCES public.intervention_parameter_settings(id);
+
+
+--
+-- Name: hve_audits fk_rails_59583f15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audits
+    ADD CONSTRAINT fk_rails_59583f15cb FOREIGN KEY (creator_id) REFERENCES public.users(id);
 
 
 --
@@ -28375,6 +28874,14 @@ ALTER TABLE ONLY public.intervention_template_product_parameters
 
 ALTER TABLE ONLY public.intervention_template_activities
     ADD CONSTRAINT fk_rails_7699df6bd9 FOREIGN KEY (intervention_template_id) REFERENCES public.intervention_templates(id);
+
+
+--
+-- Name: hve_biodiversity_items fk_rails_76a178ce2c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_biodiversity_items
+    ADD CONSTRAINT fk_rails_76a178ce2c FOREIGN KEY (hve_audit_id) REFERENCES public.hve_audits(id);
 
 
 --
@@ -28575,6 +29082,14 @@ ALTER TABLE ONLY public.cvi_cadastral_plant_cvi_land_parcels
 
 ALTER TABLE ONLY public.catalog_items
     ADD CONSTRAINT fk_rails_9a8920d164 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: hve_audit_items fk_rails_9c9283aa13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.hve_audit_items
+    ADD CONSTRAINT fk_rails_9c9283aa13 FOREIGN KEY (hve_audit_id) REFERENCES public.hve_audits(id);
 
 
 --
@@ -29085,7 +29600,7 @@ ALTER TABLE ONLY public.projects
 -- PostgreSQL database dump complete
 --
 
-\unrestrict u14dnQltLiStnbXJLaJ5loRoseN786tySsXcKWhE325jgF36aK4Rmy8boC2j32N
+\unrestrict w4kFMfASrddK0Qva0guRmoAQnrHGXIxM37QaWHJGr9Goa8aQiDehDEVNm2aiBPo
 
 SET search_path TO public,postgis,lexicon;
 
@@ -29800,6 +30315,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260605000004'),
 ('20260605000005'),
 ('20260605000006'),
-('20260605000007');
+('20260605000007'),
+('20260606120001'),
+('20260606120002'),
+('20260606120003'),
+('20260606120004'),
+('20260606120005'),
+('20260607090001'),
+('20260607090002');
 
 

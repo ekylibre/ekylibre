@@ -1,0 +1,31 @@
+{
+	email {$LETSENCRYPT_EMAIL}
+	admin off
+}
+
+# === Duke (optionnel) ===
+# Bloc match-specifique AVANT le wildcard Ekylibre.
+# Si le profile `duke` n'est pas activé, Caddy renvoie 502 (comportement attendu).
+duke.{$HOST_DOMAIN_NAME} {
+	reverse_proxy duke-api:8000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-For {remote_host}
+	}
+	encode gzip
+}
+
+# === Ekylibre (landing + tous les tenants) ===
+{$HOST_DOMAIN_NAME}, *.{$HOST_DOMAIN_NAME} {
+	reverse_proxy app:3000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-For {remote_host}
+	}
+	encode gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+}

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  get '/health', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['ok']] }
+
   namespace :admin do
     resources :tenants, only: [:index, :new, :create, :destroy] do
       member do
