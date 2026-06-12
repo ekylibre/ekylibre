@@ -1,7 +1,21 @@
-development:
- :concurrency: 5
 :queues:
   - [duke, 10]
   - [critical, 9]
-  - [default, 2]
+  - [default, 5]
   - [low, 1]
+
+development:
+  :concurrency: 5
+  :queues:
+    - [duke, 10]
+    - [critical, 9]
+    - [default, 2]
+    - [low, 1]
+
+production:
+  :concurrency: 5
+  :queues:
+    - [duke, 10]
+    - [critical, 9]
+    - [default, 5]
+    - [low, 1]

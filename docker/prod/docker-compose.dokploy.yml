@@ -1,0 +1,208 @@
+# Variante de docker-compose.yml adaptee a un deploiement via Dokploy.
+#
+# Differences avec docker-compose.yml :
+#   - Aucun service Caddy (Traefik est embarque dans Dokploy et ecoute sur 80/443)
+#   - Aucun port mappe sur l'hote (Traefik route via le reseau dokploy-network)
+#   - Labels Traefik sur `app` et `duke-api` pour le routing et le TLS
+#   - dokploy-network declare comme external (cree par Dokploy a l'installation)
+#
+# Voir docker/prod/DOKPLOY.md pour la procedure de deploiement complete.
+
+services:
+  app:
+    image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    user: ekylibre
+    env_file: .env
+    volumes:
+      - log:/app/log
+      - uploads:/app/private
+      - public-assets:/app/public
+    command: docker/prod/startup.sh
+    expose:
+      - "3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 600s
+      retries: 3
+    networks:
+      - default
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      # === Domaine racine (landing + admin) ===
+      - "traefik.http.routers.ekylibre-root.rule=Host(`${HOST_DOMAIN_NAME}`)"
+      - "traefik.http.routers.ekylibre-root.entrypoints=websecure"
+      - "traefik.http.routers.ekylibre-root.tls=true"
+      - "traefik.http.routers.ekylibre-root.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ekylibre-root.service=ekylibre"
+      # === Wildcard tenants (HostRegexp) ===
+      # En HTTP-01 : Traefik issue un cert par sous-domaine au premier acces.
+      # En DNS-01 wildcard : voir DOKPLOY.md (necessite cert resolver letsencrypt-dns).
+      - "traefik.http.routers.ekylibre-tenants.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
+      - "traefik.http.routers.ekylibre-tenants.entrypoints=websecure"
+      - "traefik.http.routers.ekylibre-tenants.tls=true"
+      - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ekylibre-tenants.service=ekylibre"
+      # === Service partage entre les deux routers ===
+      - "traefik.http.services.ekylibre.loadbalancer.server.port=3000"
+
+  sidekiq:
+    image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    user: ekylibre
+    env_file: .env
+    volumes:
+      - log:/app/log
+      - uploads:/app/private
+    command: docker/prod/sidekiq_startup.sh
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      app:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - default
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - default
+
+  db:
+    image: kartoza/postgis:13
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_PROD_NAME}
+      POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
+      DUKE_USER: ${DUKE_USER}
+      DUKE_PASSWORD: ${DUKE_PASSWORD}
+      TZ: Europe/Paris
+    volumes:
+      - database-prod-volume:/var/lib/postgresql/data
+      - ../db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "PGPASSWORD=${DB_PASSWORD} pg_isready -h localhost -U ${DB_USERNAME} -d ${DB_PROD_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - default
+
+  # === Duke (profile opt-in : --profile duke) ===
+
+  duke-api:
+    profiles: ["duke"]
+    image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
+    env_file: .env
+    environment:
+      EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
+      EKYLIBRE_DB_DSN: ${EKYLIBRE_DB_DSN}
+      DUKE_DB_DSN: ${DUKE_DB_DSN}
+      MIGRATE_ON_BOOT: "true"
+    volumes:
+      - whisper-cache:/home/duke/.cache/huggingface
+    expose:
+      - "8000"
+    depends_on:
+      postgres-duke:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      app:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - default
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.duke.rule=Host(`duke.${HOST_DOMAIN_NAME}`)"
+      - "traefik.http.routers.duke.entrypoints=websecure"
+      - "traefik.http.routers.duke.tls=true"
+      - "traefik.http.routers.duke.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.duke.service=duke"
+      - "traefik.http.services.duke.loadbalancer.server.port=8000"
+
+  postgres-duke:
+    profiles: ["duke"]
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DUKE_DB_USER}
+      POSTGRES_PASSWORD: ${DUKE_DB_PASSWORD}
+      POSTGRES_DB: ${DUKE_DB_NAME}
+    volumes:
+      - postgres-duke-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DUKE_DB_USER} -d ${DUKE_DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - default
+
+  # === Duke local LLM (profile opt-in : --profile duke-llm-local) ===
+
+  ollama:
+    profiles: ["duke-llm-local"]
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - default
+
+  ollama-pull:
+    profiles: ["duke-llm-local"]
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["ollama", "pull", "${OLLAMA_MODEL:-mistral-nemo}"]
+    restart: "no"
+    networks:
+      - default
+
+volumes:
+  database-prod-volume:
+  redis-data:
+  log:
+  uploads:
+  public-assets:
+  postgres-duke-data:
+  whisper-cache:
+  ollama-models:
+
+networks:
+  default:
+    driver: bridge
+  dokploy-network:
+    external: true

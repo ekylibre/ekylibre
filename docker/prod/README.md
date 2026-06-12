@@ -2,6 +2,8 @@
 
 Déploiement Ekylibre en production sur un serveur unique avec HTTPS automatique (Let's Encrypt) et option d'activer l'assistant chatbot Duke.
 
+> **Déploiement via Dokploy** : si votre serveur héberge plusieurs apps et que vous voulez une UI de gestion (logs, backups, push-to-deploy), voir [`DOKPLOY.md`](./DOKPLOY.md) qui décrit la variante `docker-compose.dokploy.yml`. La doc ci-dessous couvre uniquement le déploiement standalone avec Caddy.
+
 ## Prérequis
 
 - Docker Engine ≥ 24 et Docker Compose v2
@@ -283,6 +285,67 @@ Pull la dernière image et recreate le container `duke-api`.
 ```bash
 docker compose -f docker/prod/docker-compose.yml --profile duke down
 ```
+
+---
+
+## 10b. Secrets optionnels (héritage Salt)
+
+L'ancien déploiement Salt montait plusieurs secrets pour des intégrations spécifiques. Ils sont **optionnels** et seulement nécessaires si vous utilisez les fonctionnalités correspondantes.
+
+### MinIO / S3 (téléchargement lexicon)
+
+Le `rake lexicon:load` peut télécharger les archives depuis un MinIO/S3. Renseigner dans `.env` :
+
+```
+MINIO_HOST=https://your-minio.example.com
+MINIO_ACCESS_KEY=…
+MINIO_SECRET_KEY=…
+```
+
+Si non renseignés, le lexicon est chargé depuis le snapshot embarqué dans l'image (`db/lexicon/`). C'est suffisant pour la plupart des cas.
+
+### GPG (signature emails/exports comptables)
+
+Si vous utilisez les fonctionnalités d'export signé GPG (factures, déclarations fiscales), monter votre `~/.gnupg` dans le container :
+
+```yaml
+# Dans docker-compose.yml, service app :
+volumes:
+  - ./secrets/gnupg:/home/ekylibre/.gnupg:ro
+```
+
+Préparer sur l'hôte :
+```bash
+mkdir -p secrets/gnupg
+gpg --homedir secrets/gnupg --import gpg.private.key
+gpg --homedir secrets/gnupg --import gpg.public.key
+chmod 700 secrets/gnupg
+```
+
+### Saisigo (intégration comptable Google Cloud)
+
+Pour l'intégration Saisigo, fournir le service-account JSON via volume :
+
+```yaml
+volumes:
+  - ./secrets/saisigo_keys.json:/app/config/saisigo_keys.json:ro
+```
+
+### JWT / SSH signing keys
+
+Pour les fonctionnalités qui dépendent de clés SSH/JWT (à confirmer selon votre version) :
+
+```yaml
+volumes:
+  - ./secrets/privkey:/app/config/privkey:ro
+  - ./secrets/pubkey:/app/config/pubkey:ro
+```
+
+### Bonnes pratiques
+
+- Ranger ces secrets dans un sous-dossier `secrets/` ajouté à `.gitignore`
+- `chmod 600 secrets/*` ou `400` selon le besoin
+- Ne pas commit ces fichiers — utiliser un coffre (Vault, 1Password, SOPS) pour le partage en équipe
 
 ---
 
