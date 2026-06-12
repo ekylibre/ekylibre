@@ -8,6 +8,7 @@ services:
       - log:/app/log
       - uploads:/app/private
       - public-assets:/app/public
+      - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
     command: docker/prod/startup.sh
     depends_on:
       db:
@@ -30,6 +31,7 @@ services:
     volumes:
       - log:/app/log
       - uploads:/app/private
+      - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
     command: docker/prod/sidekiq_startup.sh
     depends_on:
       db:
@@ -129,10 +131,8 @@ services:
       timeout: 3s
       retries: 10
 
-  # === Duke local LLM (profile opt-in : --profile duke-llm-local) ===
-
   ollama:
-    profiles: ["duke-llm-local"]
+    profiles: ["duke"]
     image: ollama/ollama:latest
     container_name: ollama
     volumes:
@@ -145,7 +145,7 @@ services:
       retries: 10
 
   ollama-pull:
-    profiles: ["duke-llm-local"]
+    profiles: ["duke"]
     image: ollama/ollama:latest
     container_name: ollama-pull
     depends_on:

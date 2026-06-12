@@ -304,23 +304,17 @@ MINIO_SECRET_KEY=…
 
 Si non renseignés, le lexicon est chargé depuis le snapshot embarqué dans l'image (`db/lexicon/`). C'est suffisant pour la plupart des cas.
 
-### GPG (signature emails/exports comptables)
+### GPG (signature documents et clôtures d'exercice)
 
-Si vous utilisez les fonctionnalités d'export signé GPG (factures, déclarations fiscales), monter votre `~/.gnupg` dans le container :
+Ekylibre signe certains documents (clôtures d'exercice, archives) avec une clé GPG via la gem `gpgme`. Renseigner `GPG_EMAIL` dans `.env` et monter le keyring :
 
 ```yaml
-# Dans docker-compose.yml, service app :
+# Dans docker-compose.yml, services app ET sidekiq :
 volumes:
   - ./secrets/gnupg:/home/ekylibre/.gnupg:ro
 ```
 
-Préparer sur l'hôte :
-```bash
-mkdir -p secrets/gnupg
-gpg --homedir secrets/gnupg --import gpg.private.key
-gpg --homedir secrets/gnupg --import gpg.public.key
-chmod 700 secrets/gnupg
-```
+**Procédure complète** (génération de clé ed25519, export, mount, vérification, rotation, troubleshooting) : voir [`GPG.md`](./GPG.md).
 
 ### Saisigo (intégration comptable Google Cloud)
 
