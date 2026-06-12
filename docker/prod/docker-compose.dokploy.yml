@@ -209,9 +209,12 @@ services:
       retries: 3
     labels:
       - "traefik.enable=true"
+      # Force le reseau utilise par Traefik pour atteindre Caddy (qui est sur 2 networks).
+      - "traefik.docker.network=dokploy-network"
       # === Port 443 : Traefik fait du TCP passthrough sur SNI wildcard ===
       # Traefik ne dechiffre pas TLS, Caddy le fait lui-meme avec ses certs LE.
-      - "traefik.tcp.routers.ekylibre-tls-pass.rule=HostSNI(`*.${HOST_DOMAIN_NAME}`)"
+      # IMPORTANT : HostSNI() n'accepte pas le wildcard partiel (`*.host`), il faut HostSNIRegexp.
+      - "traefik.tcp.routers.ekylibre-tls-pass.rule=HostSNIRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
       - "traefik.tcp.routers.ekylibre-tls-pass.entrypoints=websecure"
       - "traefik.tcp.routers.ekylibre-tls-pass.tls.passthrough=true"
       - "traefik.tcp.routers.ekylibre-tls-pass.service=ekylibre-tls-pass"
