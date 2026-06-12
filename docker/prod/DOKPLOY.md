@@ -95,24 +95,56 @@ ALLOWED_WS_ORIGINS=https://example.com,https://*.example.com
 
 ---
 
-## 4. Configurer le TLS multi-tenant
+## 4. Configurer les domaines
 
-Le compose `docker-compose.dokploy.yml` embarque des labels Traefik pour router :
-- `Host(example.com)` → app (landing)
-- `HostRegexp(^[a-z0-9-]+.example.com$)` → app (tenants)
-- `Host(duke.example.com)` → duke-api (si profile `duke` activé)
+Dokploy impose au moins une entrée dans l'onglet **Domains** pour autoriser le déploiement. Le routing est réparti en deux modes complémentaires :
 
-Deux stratégies de cert TLS, à choisir selon l'échelle prévue.
+| Routing | Configuré dans | Pourquoi |
+|---|---|---|
+| Domaine racine `example.com` → `app:3000` | Onglet **Domains** UI | Satisfait la garde-fou Dokploy, l'UI gère les labels Traefik |
+| Sous-domaine `duke.example.com` → `duke-api:8000` | Onglet **Domains** UI | Idem |
+| Wildcard tenants `*.example.com` → `app:3000` | Labels Traefik dans le compose | L'UI Dokploy ne supporte pas `HostRegexp` ([discussion #2057](https://github.com/Dokploy/dokploy/discussions/2057)) |
 
-### Option A — HTTP-01 par sous-domaine (recommandé < 30 tenants)
+### 4.1 Ajouter les domaines fixes via l'UI Dokploy
 
-**Aucune configuration supplémentaire**. Le resolver `letsencrypt` est livré par défaut avec Dokploy. Chaque sous-domaine déclenche un challenge HTTP-01 au premier accès, Traefik issue un cert dédié.
+Onglet **Domains** de la compose app → bouton **Add Domain** :
 
-⚠️ Limite Let's Encrypt : **50 certs/semaine/domaine racine**. Si vous créez beaucoup de tenants en lot, passer en Option B.
+**Entrée 1 — domaine racine :**
+| Champ | Valeur |
+|---|---|
+| Host | `example.com` |
+| Service Name | `app` |
+| Container Port | `3000` |
+| HTTPS | ✅ |
+| Certificate Provider | Let's Encrypt |
+| Path | `/` |
 
-### Option B — DNS-01 wildcard (recommandé > 30 tenants)
+**Entrée 2 — Duke (uniquement si profile `duke` activé)** :
+| Champ | Valeur |
+|---|---|
+| Host | `duke.example.com` |
+| Service Name | `duke-api` |
+| Container Port | `8000` |
+| HTTPS | ✅ |
+| Certificate Provider | Let's Encrypt |
+| Path | `/` |
 
-Un seul cert `*.example.com` couvre tous les sous-domaines.
+Dokploy injecte automatiquement les labels Traefik correspondants au déploiement. Aucune modif du compose n'est nécessaire pour ces deux hôtes.
+
+### 4.2 Wildcard tenants — déjà en place dans le compose
+
+Le compose embarque déjà ce label sur `app` :
+```yaml
+- "traefik.http.routers.ekylibre-tenants.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
+```
+
+Au premier accès à `acme.example.com`, Traefik issue un cert HTTP-01 dédié → le tenant est joignable.
+
+⚠️ **Limite Let's Encrypt** : 50 certs/semaine/domaine racine. Pour des déploiements > ~30 tenants, basculer en wildcard DNS-01 (cf. §4.3).
+
+### 4.3 Wildcard DNS-01 (optionnel — recommandé > 30 tenants)
+
+Un seul cert `*.example.com` couvre tous les sous-domaines, plus de rate-limit LE.
 
 1. **Configurer un resolver DNS dans Traefik** (côté Dokploy, pas dans le compose) :
 

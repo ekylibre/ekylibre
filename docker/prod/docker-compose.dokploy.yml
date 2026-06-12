@@ -39,22 +39,17 @@ services:
       - dokploy-network
     labels:
       - "traefik.enable=true"
-      # === Domaine racine (landing + admin) ===
-      - "traefik.http.routers.ekylibre-root.rule=Host(`${HOST_DOMAIN_NAME}`)"
-      - "traefik.http.routers.ekylibre-root.entrypoints=websecure"
-      - "traefik.http.routers.ekylibre-root.tls=true"
-      - "traefik.http.routers.ekylibre-root.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.ekylibre-root.service=ekylibre"
-      # === Wildcard tenants (HostRegexp) ===
-      # En HTTP-01 : Traefik issue un cert par sous-domaine au premier acces.
-      # En DNS-01 wildcard : voir DOKPLOY.md (necessite cert resolver letsencrypt-dns).
+      # Le domaine racine (HOST_DOMAIN_NAME) est gere via l'onglet "Domains" de Dokploy
+      # (Dokploy n'autorise pas le deploiement sans au moins une entree dans cette UI).
+      #
+      # Seul le wildcard tenants reste en labels car l'UI Dokploy ne supporte pas
+      # HostRegexp / les sous-domaines wildcard. Voir DOKPLOY.md §4.
       - "traefik.http.routers.ekylibre-tenants.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
       - "traefik.http.routers.ekylibre-tenants.entrypoints=websecure"
       - "traefik.http.routers.ekylibre-tenants.tls=true"
       - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.ekylibre-tenants.service=ekylibre"
-      # === Service partage entre les deux routers ===
-      - "traefik.http.services.ekylibre.loadbalancer.server.port=3000"
+      - "traefik.http.routers.ekylibre-tenants.service=ekylibre-tenants"
+      - "traefik.http.services.ekylibre-tenants.loadbalancer.server.port=3000"
 
   sidekiq:
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
@@ -140,14 +135,8 @@ services:
     networks:
       - default
       - dokploy-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.duke.rule=Host(`duke.${HOST_DOMAIN_NAME}`)"
-      - "traefik.http.routers.duke.entrypoints=websecure"
-      - "traefik.http.routers.duke.tls=true"
-      - "traefik.http.routers.duke.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.duke.service=duke"
-      - "traefik.http.services.duke.loadbalancer.server.port=8000"
+    # Le routing duke.HOST_DOMAIN_NAME est gere via l'onglet "Domains" de Dokploy.
+    # Voir DOKPLOY.md §4.
 
   postgres-duke:
     profiles: ["duke"]
