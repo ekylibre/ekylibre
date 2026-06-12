@@ -50,7 +50,12 @@ services:
       - "traefik.http.routers.ekylibre-tenants.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
       - "traefik.http.routers.ekylibre-tenants.entrypoints=websecure"
       - "traefik.http.routers.ekylibre-tenants.tls=true"
-      - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt"
+      # Cert wildcard via DNS-01 (HTTP-01 ne fonctionne pas avec HostRegexp).
+      # Pre-requis : configurer le resolver `letsencrypt-dns` cote Dokploy/Traefik.
+      # Voir DOKPLOY.md section "Wildcard SSL DNS-01".
+      - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt-dns"
+      - "traefik.http.routers.ekylibre-tenants.tls.domains[0].main=${HOST_DOMAIN_NAME}"
+      - "traefik.http.routers.ekylibre-tenants.tls.domains[0].sans=*.${HOST_DOMAIN_NAME}"
       - "traefik.http.routers.ekylibre-tenants.service=ekylibre-tenants"
       - "traefik.http.services.ekylibre-tenants.loadbalancer.server.port=3000"
       # Priorite basse : tout router Host() explicite (domaine racine, duke.<host>, etc.
