@@ -96,20 +96,61 @@ Au premier démarrage, le container `app` :
 
 Attendre le message `==START PUMA==` avant de tester.
 
-Caddy provisionne les certificats Let's Encrypt automatiquement au premier accès HTTPS sur le domaine.
+Caddy provisionne les certificats Let's Encrypt automatiquement au premier accès HTTPS sur chaque sous-domaine.
+
+### Architecture TLS et provisioning des certs
+
+```
+Browser ─HTTPS─► Caddy :443 (cert LE par sous-domaine)
+                  │ termine TLS, provisionne on-demand via ACME
+                  │
+                  ├─► example.com               → app:3000  (landing)
+                  ├─► duke.example.com          → duke-api:8000 (Duke)
+                  └─► *.example.com (tenants)   → app:3000
+
+Browser ─HTTP─► Caddy :80 (challenge HTTP-01 + redirect HTTPS)
+```
+
+Le `Caddyfile` utilise `on_demand_tls` pour provisionner les certs LE à la volée :
+
+```caddyfile
+on_demand_tls {
+    ask http://app:3000/health
+}
+```
+
+À chaque sous-domaine inédit, Caddy interroge `/health` de l'app Rails avant de demander un cert LE. Cela bloque les bots qui taperaient des hostnames bidons et protège du rate-limit Let's Encrypt (50 certs/semaine/domaine racine).
+
+> **V2 (optionnel)** : remplacer `/health` par un endpoint type `/admin/tenants/exists?host={host}` qui valide en DB que le sous-domaine correspond à un vrai tenant.
 
 ---
 
 ## 4. Vérifier le déploiement
 
 ```bash
-# Healthcheck applicatif
+# 1. Healthcheck applicatif
 curl -I https://example.com/health
 # → HTTP/2 200
 
-# Page de connexion
+# 2. Page de connexion
 curl -I https://example.com/
 # → HTTP/2 302 (redirection vers /users/sign_in)
+
+# 3. Cert présenté pour un tenant (après premier hit pour le provisionner)
+curl -I https://acme.example.com/
+# Premier hit : ~10s (challenge ACME), puis 302 → /sign-in
+
+echo | openssl s_client -connect acme.example.com:443 -servername acme.example.com 2>/dev/null \
+  | openssl x509 -noout -subject -issuer
+# subject=CN = acme.example.com
+# issuer=... Let's Encrypt
+
+# 4. Voir les certs déjà obtenus par Caddy
+docker compose -f docker/prod/docker-compose.yml exec caddy \
+  ls /data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/
+
+# 5. Logs Caddy pour vérifier le provisioning
+docker compose -f docker/prod/docker-compose.yml logs caddy | grep -iE "obtain|certificate" | tail -10
 ```
 
 ---
@@ -371,11 +412,38 @@ volumes:
 
 ## 12. Résolution de problèmes
 
-### `Caddy: failed to provision certificate`
+### Caddy ne provisionne pas de cert
 
-- Vérifier que les ports 80/443 sont ouverts depuis Internet
-- Vérifier la résolution DNS du domaine et du wildcard : `dig +short example.com` et `dig +short test.example.com`
-- Let's Encrypt rate-limit : 50 certs/semaine/domaine. Pour > 30 tenants, envisager le mode DNS-01 wildcard (voir documentation Caddy).
+Vérifier dans l'ordre :
+
+1. **Ports 80/443 ouverts depuis Internet** (challenge ACME)
+   ```bash
+   # Depuis ton poste (pas le serveur)
+   curl -I http://example.com/
+   ```
+
+2. **DNS du domaine ET du wildcard pointent vers le serveur**
+   ```bash
+   dig +short example.com
+   dig +short acme.example.com   # ou n'importe quel sous-domaine
+   ```
+   Les deux doivent renvoyer l'IP du serveur.
+
+3. **L'`ask` endpoint répond** (filtre `on_demand_tls`)
+   ```bash
+   docker compose -f docker/prod/docker-compose.yml exec caddy wget -O- http://app:3000/health
+   # Attendu : ok
+   ```
+   Si pas accessible : vérifier que `app` est healthy et que les containers sont sur le même réseau.
+
+4. **Logs Caddy** pour voir l'erreur exacte
+   ```bash
+   docker compose -f docker/prod/docker-compose.yml logs caddy | grep -iE "obtain|challenge|error" | tail -20
+   ```
+
+5. **Rate-limit Let's Encrypt atteint** (50 certs/semaine/domaine racine)
+   - Si tu vois `urn:ietf:params:acme:error:rateLimited` → attendre 7 jours ou basculer en DNS-01 wildcard
+   - Voir [docs Caddy DNS challenges](https://caddyserver.com/docs/automatic-https#dns-challenge)
 
 ### Lexicon n'est pas chargé
 

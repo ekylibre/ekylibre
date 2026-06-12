@@ -1,31 +1,71 @@
+# Caddyfile pour le deploiement standalone (sans Dokploy).
+#
+# Caddy ecoute directement sur les ports 80/443 de l'hote et :
+#   - Termine TLS avec ses propres certs Let's Encrypt
+#   - Route le trafic vers app:3000 (tenants) ou duke-api:8000 (Duke)
+#
+# Provisionnement de cert au premier acces (on_demand_tls) :
+#   - Necessaire pour le wildcard de tenants (un cert par sous-domaine, emis a la volee)
+#   - Filtre par `ask http://app:3000/health` pour eviter les hostnames bidons
+#
+# Memes mecanismes que Caddyfile.dokploy (mode Dokploy), mais expose directement sur
+# l'hote au lieu d'etre derriere Traefik.
+
 {
 	email {$LETSENCRYPT_EMAIL}
-	admin off
+
+	# Provisionning de cert a la demande : seulement quand l'app Ekylibre
+	# confirme via /health qu'elle est joignable (anti-DoS minimal).
+	# V2 : remplacer par /admin/tenants/exists?host={host} pour valider que
+	# le sous-domaine correspond a un vrai tenant.
+	on_demand_tls {
+		ask http://app:3000/health
+	}
 }
 
-# === Duke (optionnel) ===
-# Bloc match-specifique AVANT le wildcard Ekylibre.
-# Si le profile `duke` n'est pas activé, Caddy renvoie 502 (comportement attendu).
+# === Duke (sous-domaine fixe, profile `duke` actif) ===
+# Si le profile `duke` n'est pas active, Caddy renvoie 502 (comportement attendu).
 duke.{$HOST_DOMAIN_NAME} {
+	tls {
+		on_demand
+	}
+	encode gzip
 	reverse_proxy duke-api:8000 {
 		header_up Host {host}
 		header_up X-Forwarded-Proto https
-		header_up X-Forwarded-For {remote_host}
 	}
-	encode gzip
 }
 
-# === Ekylibre (landing + tous les tenants) ===
-{$HOST_DOMAIN_NAME}, *.{$HOST_DOMAIN_NAME} {
-	reverse_proxy app:3000 {
-		header_up Host {host}
-		header_up X-Forwarded-Proto https
-		header_up X-Forwarded-For {remote_host}
+# === Ekylibre — domaine racine (landing + admin) ===
+{$HOST_DOMAIN_NAME} {
+	tls {
+		on_demand
 	}
 	encode gzip
 	header {
 		Strict-Transport-Security "max-age=31536000; includeSubDomains"
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
+	}
+	reverse_proxy app:3000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
+	}
+}
+
+# === Ekylibre — wildcard tenants ===
+*.{$HOST_DOMAIN_NAME} {
+	tls {
+		on_demand
+	}
+	encode gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+	reverse_proxy app:3000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
 	}
 }
