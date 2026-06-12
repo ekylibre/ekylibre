@@ -93,10 +93,7 @@ services:
       timeout: 5s
       retries: 10
 
-  # === Duke (profile opt-in : --profile duke) ===
-
   duke-api:
-    profiles: ["duke"]
     image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
     pull_policy: always
     container_name: duke-api
@@ -118,7 +115,6 @@ services:
     restart: unless-stopped
 
   postgres-duke:
-    profiles: ["duke"]
     image: postgres:16-alpine
     container_name: postgres-duke
     environment:
@@ -135,7 +131,6 @@ services:
       retries: 10
 
   ollama:
-    profiles: ["duke"]
     image: ollama/ollama:latest
     container_name: ollama
     volumes:
@@ -148,7 +143,6 @@ services:
       retries: 10
 
   ollama-pull:
-    profiles: ["duke"]
     image: ollama/ollama:latest
     container_name: ollama-pull
     depends_on:

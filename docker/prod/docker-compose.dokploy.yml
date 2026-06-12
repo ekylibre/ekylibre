@@ -108,10 +108,7 @@ services:
     networks:
       - default
 
-  # === Duke (profile opt-in : --profile duke) ===
-
   duke-api:
-    profiles: ["duke"]
     image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
     pull_policy: always
     env_file: .env
@@ -139,7 +136,6 @@ services:
     # Voir DOKPLOY.md §4.
 
   postgres-duke:
-    profiles: ["duke"]
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: ${DUKE_DB_USER}
@@ -157,7 +153,6 @@ services:
       - default
 
   ollama:
-    profiles: ["duke"]
     image: ollama/ollama:latest
     volumes:
       - ollama-models:/root/.ollama
@@ -171,7 +166,6 @@ services:
       - default
 
   ollama-pull:
-    profiles: ["duke"]
     image: ollama/ollama:latest
     depends_on:
       ollama:
