@@ -35,6 +35,7 @@ RUN bundle config set --local without 'development test' && \
 
 RUN yarn install --frozen-lockfile
 
-RUN SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rake assets:precompile
+RUN NODE_OPTIONS=--openssl-legacy-provider \
+    SECRET_KEY_BASE=dummy RAILS_ENV=production bundle exec rake assets:precompile
 
 RUN chmod +x docker/prod/startup.sh docker/prod/sidekiq_startup.sh
