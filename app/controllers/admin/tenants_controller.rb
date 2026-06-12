@@ -16,6 +16,8 @@ class Admin::TenantsController < Admin::BaseController
       domain = ENV['HOST_DOMAIN_NAME'] || 'ekylibre.localhost'
       @tenant_url = ->(name) { "https://#{name}.#{domain}/" }
     end
+
+    load_lexicon_data
   end
 
   def new
@@ -152,6 +154,27 @@ class Admin::TenantsController < Admin::BaseController
 
     def dump_redis_key(name)
       "ekylibre:admin:dump:#{name}"
+    end
+
+    def load_lexicon_data
+      @lexicon_active_version  = safe_fetch { LexiconVersion.version }
+      @lexicon_target_version  = safe_fetch { File.open(Rails.root.join('.lexicon-version'), &:gets)&.strip }
+      @lexicon_version_prefix  = derive_version_prefix(@lexicon_target_version || @lexicon_active_version)
+      @lexicon_loaded_versions = safe_fetch([]) { Ekylibre::Lexicon.loaded_versions }
+      @lexicon_credentials_present = ENV['MINIO_ACCESS_KEY'].to_s != '' && ENV['MINIO_SECRET_KEY'].to_s != ''
+    end
+
+    def safe_fetch(default = nil)
+      yield
+    rescue StandardError
+      default
+    end
+
+    def derive_version_prefix(version)
+      return nil if version.blank?
+      # 6.0.2-innovation → 6.0.2-
+      base = version.to_s.split('-').first
+      base.present? ? "#{base}-" : nil
     end
 
     def tenant_schema_size(name)

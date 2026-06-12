@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     get  'demo/status', to: 'demo#status', as: :demo_status
     post 'restore',        to: 'restore#create',  as: :restore
     get  'restore/status', to: 'restore#status',  as: :restore_status
+    get    'lexicon/available', to: 'lexicon#available', as: :lexicon_available
+    get    'lexicon/status',    to: 'lexicon#status',    as: :lexicon_status
+    post   'lexicon/download',  to: 'lexicon#download',  as: :lexicon_download
+    post   'lexicon/activate',  to: 'lexicon#activate',  as: :lexicon_activate
+    delete 'lexicon/remove',    to: 'lexicon#remove',    as: :lexicon_remove
     root to: 'tenants#index'
   end
 

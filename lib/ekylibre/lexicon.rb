@@ -106,6 +106,65 @@ module Ekylibre
       self.new(version_name).enable_version(keep_lexicon_versions)
     end
 
+    # Drop a downloaded but not-activated lexicon schema (lexicon__X_Y_Z).
+    # Refuses to drop the currently active `lexicon` schema.
+    def self.remove(version_name)
+      self.new(version_name).remove_version
+    end
+
+    # Return list of versions already downloaded in the database
+    # (lexicon__X_Y_Z schemas), excluding the active `lexicon` schema.
+    def self.loaded_versions
+      self.new.loaded_versions
+    end
+
+    # Return list of available bucket names on MinIO matching the given prefix.
+    # Requires MINIO_ACCESS_KEY / MINIO_SECRET_KEY — without credentials, listing
+    # buckets is not allowed by S3 and an empty array is returned.
+    def self.available_versions(prefix: nil)
+      endpoint   = ENV.fetch('MINIO_HOST', 'https://io.ekylibre.tech')
+      access_key = ENV['MINIO_ACCESS_KEY'].to_s
+      secret_key = ENV['MINIO_SECRET_KEY'].to_s
+
+      return [] if access_key.empty? || secret_key.empty?
+
+      client = ::Aws::S3::Client.new(
+        endpoint: endpoint,
+        access_key_id: access_key,
+        secret_access_key: secret_key,
+        force_path_style: true,
+        region: 'us-east-1'
+      )
+      names = client.list_buckets.buckets.map(&:name)
+      names = names.select { |n| n.start_with?(prefix) } if prefix
+      names.sort
+    rescue StandardError
+      []
+    end
+
+    def loaded_versions
+      result = @database.query <<~SQL
+        SELECT schema_name FROM information_schema.schemata
+        WHERE schema_name ~ '^lexicon__'
+        ORDER BY schema_name
+      SQL
+      result.to_a.map do |row|
+        name = row['schema_name'].sub(/^lexicon__/, '')
+        prefix, dash, suffix = name.partition('-')
+        prefix.gsub('_', '.') + dash + suffix
+      end
+    rescue StandardError
+      []
+    end
+
+    def remove_version
+      schema = "lexicon__#{@target_version.to_s.gsub('.', '_')}"
+      if @current_version.present? && @current_version == @target_version
+        raise "Cannot drop the currently active lexicon version (#{@target_version}). Activate another version first."
+      end
+      @database.query("DROP SCHEMA IF EXISTS \"#{schema}\" CASCADE")
+    end
+
     def load(enable, keep_lexicon_versions)
       if @current_version.present? && @current_version == @target_version
         info("Lexicon #{@target_version} is already loaded and activated.")

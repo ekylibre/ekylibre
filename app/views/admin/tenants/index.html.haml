@@ -12,13 +12,39 @@
 
   #tab-tenants:checked ~ .tabs-nav label[for="tab-tenants"],
   #tab-demo:checked    ~ .tabs-nav label[for="tab-demo"],
-  #tab-restore:checked ~ .tabs-nav label[for="tab-restore"] {
+  #tab-restore:checked ~ .tabs-nav label[for="tab-restore"],
+  #tab-lexicon:checked ~ .tabs-nav label[for="tab-lexicon"] {
     background: white; color: #333; border-color: #ddd #ddd white;
     border-bottom-color: white; margin-bottom: -2px; padding-bottom: 12px;
   }
   #tab-tenants:checked ~ #panel-tenants,
   #tab-demo:checked    ~ #panel-demo,
-  #tab-restore:checked ~ #panel-restore { display: block; }
+  #tab-restore:checked ~ #panel-restore,
+  #tab-lexicon:checked ~ #panel-lexicon { display: block; }
+
+  /* ---- Lexicon ---- */
+  #lexicon-card { background:white; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:24px; margin-bottom:20px; }
+  #lexicon-card h3 { margin: 0 0 12px; font-size: 1.05em; color:#333; }
+  .lexicon-meta { font-size: 0.95em; margin-bottom: 8px; }
+  .lexicon-meta .label { color:#666; display:inline-block; min-width: 180px; }
+  .lexicon-meta .value { font-weight: 600; color:#333; }
+  .lexicon-meta .value.active { color:#4a7c59; }
+  .lexicon-meta .value.empty  { color:#888; font-style:italic; font-weight: normal; }
+  .lexicon-section { border-top:1px solid #eee; margin-top:18px; padding-top:18px; }
+  .lexicon-list { list-style:none; padding:0; margin:0; }
+  .lexicon-list li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #f0f0f0; }
+  .lexicon-list li:last-child { border-bottom:none; }
+  .lexicon-list .v-name { flex:1; font-family: monospace; font-size:0.95em; }
+  .lexicon-list .v-badge { background:#4a7c59; color:white; padding:2px 8px; border-radius:10px; font-size:0.75em; }
+  .lexicon-list .v-loaded { background:#6c757d; color:white; padding:2px 8px; border-radius:10px; font-size:0.75em; }
+  .lexicon-list .actions { display:flex; gap:6px; }
+  .lexicon-list .actions .btn { font-size: 0.8em; padding: 4px 10px; }
+  #lexicon-message { font-style:italic; color:#555; margin-top:12px; font-size:0.95em; min-height:1.2em; }
+  #lexicon-message.status-done  { color:#4a7c59; font-weight:bold; font-style:normal; }
+  #lexicon-message.status-error { color:#dc3545; font-weight:bold; font-style:normal; }
+  #lexicon-manual-form { display:flex; gap:10px; align-items:center; }
+  #lexicon-manual-form input { flex:1; padding:8px; border:1px solid #ccc; border-radius:4px; font-size:0.95em; }
+  .lexicon-warning { background:#fff3cd; border:1px solid #ffeeba; color:#856404; padding:10px 14px; border-radius:4px; font-size:0.9em; margin-bottom:14px; }
 
   /* ---- Tenant table ---- */
   .badge-demo { background:#4a7c59;color:white;padding:2px 8px;border-radius:10px;font-size:0.8em; }
@@ -61,11 +87,13 @@
 %input#tab-tenants.tab-radio{ type: 'radio', name: 'admin-tab', checked: true }
 %input#tab-demo.tab-radio{    type: 'radio', name: 'admin-tab' }
 %input#tab-restore.tab-radio{ type: 'radio', name: 'admin-tab' }
+%input#tab-lexicon.tab-radio{ type: 'radio', name: 'admin-tab' }
 
 .tabs-nav
   %label{for: 'tab-tenants'} Tenants
   %label{for: 'tab-demo'}    Données de démo
   %label{for: 'tab-restore'} Restaurer une archive
+  %label{for: 'tab-lexicon'} Lexicon
 
 :javascript
   // Restore active tab from sessionStorage
@@ -466,4 +494,302 @@
           });
         });
       }
+    })();
+
+/ ==================== PANEL LEXICON ====================
+#panel-lexicon.tab-panel
+  - lexicon_available_url = admin_lexicon_available_path
+  - lexicon_status_url    = admin_lexicon_status_path
+  - lexicon_download_url  = admin_lexicon_download_path
+  - lexicon_activate_url  = admin_lexicon_activate_path
+  - lexicon_remove_url    = admin_lexicon_remove_path
+
+  #lexicon-card
+    %h3 État courant
+    .lexicon-meta
+      %span.label Version active (lexicon en base) :
+      - if @lexicon_active_version.present?
+        %span.value.active= @lexicon_active_version
+      - else
+        %span.value.empty aucune
+    .lexicon-meta
+      %span.label Version cible (.lexicon-version) :
+      - if @lexicon_target_version.present?
+        %span.value= @lexicon_target_version
+      - else
+        %span.value.empty inconnue
+    - unless @lexicon_credentials_present
+      .lexicon-warning
+        %strong Mode anonyme :
+        Les variables <code>MINIO_ACCESS_KEY</code> / <code>MINIO_SECRET_KEY</code> ne sont pas définies — le listing des versions disponibles sur MinIO est désactivé. Vous pouvez quand même télécharger une version en saisissant son nom exact ci-dessous.
+
+  - if @lexicon_credentials_present
+    #lexicon-card
+      %h3
+        Versions disponibles sur MinIO
+        - if @lexicon_version_prefix
+          %small{style:'color:#888;font-weight:normal;'}= "(préfixe : #{@lexicon_version_prefix})"
+      %button#lexicon-refresh-btn.btn.btn-secondary{style:'margin-bottom:12px;font-size:0.85em;'} ↻ Rafraîchir la liste
+      %ul#lexicon-available-list.lexicon-list
+        %li{style:'color:#888;font-style:italic;'} Chargement en cours...
+
+  #lexicon-card
+    %h3 Télécharger une version
+    %p{style:'font-size:0.9em;color:#666;margin-bottom:14px;'}
+      Téléchargement uniquement (la version ne sera pas activée). Saisissez le nom exact du bucket (ex. <code>#{(@lexicon_version_prefix || '6.0.2-')}xxxxxxx</code>).
+    #lexicon-manual-form
+      %input#lexicon-manual-version{type:'text', placeholder:"#{(@lexicon_version_prefix || '6.0.2-')}…", value: @lexicon_version_prefix.to_s}
+      %button#lexicon-manual-dl-btn.btn.btn-primary Télécharger
+
+  #lexicon-card
+    %h3 Versions présentes en base (non actives)
+    - if @lexicon_loaded_versions.empty?
+      %p{style:'color:#888;font-style:italic;margin:0;'} Aucune version chargée en base hors version active.
+    - else
+      %ul.lexicon-list
+        - @lexicon_loaded_versions.each do |v|
+          %li
+            %span.v-name= v
+            %span.v-loaded téléchargé
+            .actions
+              %button.btn.btn-primary.lexicon-activate-btn{data: {version: v}} Activer
+              %button.btn.btn-danger.lexicon-remove-btn{data: {version: v}} Supprimer
+
+  #lexicon-message
+
+  :javascript
+    (function() {
+      var availableUrl = #{raw lexicon_available_url.to_json};
+      var statusUrl    = #{raw lexicon_status_url.to_json};
+      var downloadUrl  = #{raw lexicon_download_url.to_json};
+      var activateUrl  = #{raw lexicon_activate_url.to_json};
+      var removeUrl    = #{raw lexicon_remove_url.to_json};
+      var prefix       = #{raw (@lexicon_version_prefix || '').to_json};
+      var activeVersion = #{raw (@lexicon_active_version || '').to_json};
+      var loadedVersions = #{raw (@lexicon_loaded_versions || []).to_json};
+      var credsPresent = #{@lexicon_credentials_present ? 'true' : 'false'};
+      var csrfToken    = (document.querySelector('meta[name="csrf-token"]') || {}).content;
+      var msgEl        = document.getElementById('lexicon-message');
+      var pollTimer    = null;
+
+      function setMsg(text, cls) {
+        if (!msgEl) return;
+        msgEl.textContent = text || '';
+        msgEl.className = cls || '';
+      }
+
+      function disableAllButtons(disabled) {
+        document.querySelectorAll('#panel-lexicon .btn').forEach(function(b) { b.disabled = !!disabled; });
+      }
+
+      function pollStatus() {
+        fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.status === 'running') {
+              setMsg(data.message || ('Opération en cours sur ' + data.version + '...'));
+              disableAllButtons(true);
+            } else if (data.status === 'done') {
+              setMsg('✔ ' + (data.message || 'Opération terminée.'), 'status-done');
+              clearInterval(pollTimer); pollTimer = null;
+              disableAllButtons(false);
+              if (!sessionStorage.getItem('lexicon-reloaded')) {
+                sessionStorage.setItem('lexicon-reloaded', '1');
+                setTimeout(function() { location.reload(); }, 1500);
+              }
+            } else if (data.status === 'error') {
+              setMsg('✘ ' + (data.message || 'Erreur'), 'status-error');
+              clearInterval(pollTimer); pollTimer = null;
+              disableAllButtons(false);
+            }
+          })
+          .catch(function() {});
+      }
+
+      function startPolling() {
+        if (pollTimer) return;
+        pollTimer = setInterval(pollStatus, 2000);
+      }
+
+      function postAction(url, body, confirmMsg) {
+        if (confirmMsg && !confirm(confirmMsg)) return;
+        sessionStorage.removeItem('lexicon-reloaded');
+        disableAllButtons(true);
+        setMsg('Lancement en cours...');
+        var form = new URLSearchParams();
+        Object.keys(body || {}).forEach(function(k) { form.append(k, body[k]); });
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'X-CSRF-Token': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: form.toString()
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.error) {
+            setMsg('✘ ' + data.error, 'status-error');
+            disableAllButtons(false);
+            return;
+          }
+          setMsg(data.message || 'Lancée.');
+          startPolling();
+        })
+        .catch(function(e) {
+          setMsg('✘ Erreur réseau : ' + e, 'status-error');
+          disableAllButtons(false);
+        });
+      }
+
+      function deleteAction(url, body, confirmMsg) {
+        if (confirmMsg && !confirm(confirmMsg)) return;
+        sessionStorage.removeItem('lexicon-reloaded');
+        disableAllButtons(true);
+        setMsg('Lancement en cours...');
+        var qs = new URLSearchParams(body || {}).toString();
+        fetch(url + (qs ? '?' + qs : ''), {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.error) {
+            setMsg('✘ ' + data.error, 'status-error');
+            disableAllButtons(false);
+            return;
+          }
+          setMsg(data.message || 'Lancée.');
+          startPolling();
+        })
+        .catch(function(e) {
+          setMsg('✘ Erreur réseau : ' + e, 'status-error');
+          disableAllButtons(false);
+        });
+      }
+
+      function downloadVersion(version) {
+        if (!version) return;
+        postAction(downloadUrl, { version: version },
+                   "Télécharger la version '" + version + "' depuis MinIO ?");
+      }
+
+      function activateVersion(version) {
+        if (!version) return;
+        var keep = confirm("Conserver l'ancienne version active en base après activation de '" + version + "' ?\n\n" +
+                           "OK = conserver (l'ancienne sera renommée en lexicon__X_Y_Z)\n" +
+                           "Annuler = supprimer l'ancienne version (DROP CASCADE)");
+        postAction(activateUrl, { version: version, keep: keep ? 'true' : 'false' });
+      }
+
+      function removeVersion(version) {
+        if (!version) return;
+        deleteAction(removeUrl, { version: version },
+                     "Supprimer DÉFINITIVEMENT la version '" + version + "' de la base ?");
+      }
+
+      function refreshAvailable() {
+        if (!credsPresent) return;
+        var list = document.getElementById('lexicon-available-list');
+        if (!list) return;
+        list.innerHTML = '<li style="color:#888;font-style:italic;">Chargement...</li>';
+        var url = availableUrl + (prefix ? ('?prefix=' + encodeURIComponent(prefix)) : '');
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var versions = data.versions || [];
+            if (versions.length === 0) {
+              list.innerHTML = '<li style="color:#888;font-style:italic;">Aucune version trouvée' +
+                               (prefix ? ' (préfixe ' + prefix + ')' : '') + '.</li>';
+              return;
+            }
+            list.innerHTML = '';
+            versions.forEach(function(v) {
+              var li = document.createElement('li');
+              var name = document.createElement('span');
+              name.className = 'v-name';
+              name.textContent = v;
+              li.appendChild(name);
+              if (v === activeVersion) {
+                var b = document.createElement('span');
+                b.className = 'v-badge'; b.textContent = 'active';
+                li.appendChild(b);
+              } else if (loadedVersions.indexOf(v) >= 0) {
+                var b = document.createElement('span');
+                b.className = 'v-loaded'; b.textContent = 'téléchargé';
+                li.appendChild(b);
+              }
+              var actions = document.createElement('div');
+              actions.className = 'actions';
+              if (v !== activeVersion && loadedVersions.indexOf(v) < 0) {
+                var dl = document.createElement('button');
+                dl.className = 'btn btn-primary';
+                dl.textContent = 'Télécharger';
+                dl.addEventListener('click', function() { downloadVersion(v); });
+                actions.appendChild(dl);
+              }
+              if (loadedVersions.indexOf(v) >= 0 && v !== activeVersion) {
+                var act = document.createElement('button');
+                act.className = 'btn btn-primary';
+                act.textContent = 'Activer';
+                act.addEventListener('click', function() { activateVersion(v); });
+                actions.appendChild(act);
+              }
+              li.appendChild(actions);
+              list.appendChild(li);
+            });
+          })
+          .catch(function() {
+            list.innerHTML = '<li style="color:#dc3545;">Erreur réseau lors du listing.</li>';
+          });
+      }
+
+      // Wire up activate/remove buttons in "Versions présentes en base"
+      document.querySelectorAll('#panel-lexicon .lexicon-activate-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() { activateVersion(btn.dataset.version); });
+      });
+      document.querySelectorAll('#panel-lexicon .lexicon-remove-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() { removeVersion(btn.dataset.version); });
+      });
+
+      // Manual download form
+      var manualBtn = document.getElementById('lexicon-manual-dl-btn');
+      var manualInput = document.getElementById('lexicon-manual-version');
+      if (manualBtn && manualInput) {
+        manualBtn.addEventListener('click', function() {
+          var v = (manualInput.value || '').trim();
+          if (!v) { alert('Veuillez saisir un nom de version.'); return; }
+          downloadVersion(v);
+        });
+      }
+
+      // Refresh available list button
+      var refreshBtn = document.getElementById('lexicon-refresh-btn');
+      if (refreshBtn) refreshBtn.addEventListener('click', refreshAvailable);
+
+      // Initial fetch — only when this tab becomes visible to avoid loading on each page open.
+      var lexiconRadio = document.getElementById('tab-lexicon');
+      var hasFetched = false;
+      function maybeFetch() {
+        if (hasFetched) return;
+        if (!lexiconRadio || !lexiconRadio.checked) return;
+        hasFetched = true;
+        if (credsPresent) refreshAvailable();
+      }
+      if (lexiconRadio) lexiconRadio.addEventListener('change', maybeFetch);
+      maybeFetch();
+
+      // Resume polling if an operation is already running
+      fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.status === 'running') {
+            setMsg(data.message);
+            disableAllButtons(true);
+            startPolling();
+          } else if (data.status === 'error') {
+            setMsg('✘ ' + data.message, 'status-error');
+          }
+        }).catch(function() {});
     })();

@@ -15,6 +15,17 @@ Déploiement Ekylibre en production sur un serveur unique avec HTTPS automatique
   *.example.com     A    <IP_serveur>
   ```
 
+### Configuration sysctl du serveur
+
+À faire **une fois** sur l'hôte avant le premier déploiement (en SSH root) :
+
+```bash
+# vm.overcommit_memory=1 : recommandé par Redis pour éviter les échecs de BGSAVE
+# sous pression mémoire. Sans, Redis logue "WARNING Memory overcommit must be enabled".
+echo "vm.overcommit_memory = 1" > /etc/sysctl.d/99-redis-overcommit.conf
+sysctl --system
+```
+
 ---
 
 ## 1. Configurer le fichier `.env`
