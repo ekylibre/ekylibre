@@ -10,6 +10,9 @@ services:
       - uploads:/app/private
       - public-assets:/app/public
       - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
+      # tenants.yml persiste hors du container pour survivre aux redeploys.
+      # Le fichier doit exister sur l'hote (touch + chown 1000:1000) avant le up.
+      - ${TENANTS_YML_PATH:-./tenants.yml}:/app/config/tenants.yml
     command: docker/prod/startup.sh
     depends_on:
       db:
@@ -34,6 +37,7 @@ services:
       - log:/app/log
       - uploads:/app/private
       - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
+      - ${TENANTS_YML_PATH:-./tenants.yml}:/app/config/tenants.yml
     command: docker/prod/sidekiq_startup.sh
     depends_on:
       db:

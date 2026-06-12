@@ -19,6 +19,9 @@ services:
       - uploads:/app/private
       - public-assets:/app/public
       - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
+      # tenants.yml persiste hors du container pour survivre aux redeploys.
+      # Le fichier doit exister sur l'hote (touch + chown 1000:1000) avant le up.
+      - ${TENANTS_YML_PATH:-./tenants.yml}:/app/config/tenants.yml
     command: docker/prod/startup.sh
     expose:
       - "3000"
@@ -50,6 +53,10 @@ services:
       - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt"
       - "traefik.http.routers.ekylibre-tenants.service=ekylibre-tenants"
       - "traefik.http.services.ekylibre-tenants.loadbalancer.server.port=3000"
+      # Priorite basse : tout router Host() explicite (domaine racine, duke.<host>, etc.
+      # injecte par l'UI Dokploy) doit gagner sur le wildcard. Sinon le HostRegexp catch
+      # `duke.<host>` et route vers Rails au lieu de duke-api.
+      - "traefik.http.routers.ekylibre-tenants.priority=1"
 
   sidekiq:
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
@@ -60,6 +67,7 @@ services:
       - log:/app/log
       - uploads:/app/private
       - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
+      - ${TENANTS_YML_PATH:-./tenants.yml}:/app/config/tenants.yml
     command: docker/prod/sidekiq_startup.sh
     depends_on:
       db:
