@@ -11,6 +11,7 @@
 services:
   app:
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    pull_policy: always
     user: ekylibre
     env_file: .env
     volumes:
@@ -57,6 +58,7 @@ services:
 
   sidekiq:
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    pull_policy: always
     user: ekylibre
     env_file: .env
     volumes:
@@ -116,6 +118,7 @@ services:
   duke-api:
     profiles: ["duke"]
     image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
+    pull_policy: always
     env_file: .env
     environment:
       EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}

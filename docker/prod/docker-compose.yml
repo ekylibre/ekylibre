@@ -2,6 +2,7 @@ services:
   app:
     container_name: app
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    pull_policy: always
     user: ekylibre
     env_file: .env
     volumes:
@@ -26,6 +27,7 @@ services:
   sidekiq:
     container_name: sidekiq
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    pull_policy: always
     user: ekylibre
     env_file: .env
     volumes:
@@ -96,6 +98,7 @@ services:
   duke-api:
     profiles: ["duke"]
     image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
+    pull_policy: always
     container_name: duke-api
     env_file: .env
     environment:
