@@ -39,29 +39,12 @@ services:
       retries: 3
     networks:
       - default
-      - dokploy-network
-    labels:
-      - "traefik.enable=true"
-      # Le domaine racine (HOST_DOMAIN_NAME) est gere via l'onglet "Domains" de Dokploy
-      # (Dokploy n'autorise pas le deploiement sans au moins une entree dans cette UI).
-      #
-      # Seul le wildcard tenants reste en labels car l'UI Dokploy ne supporte pas
-      # HostRegexp / les sous-domaines wildcard. Voir DOKPLOY.md §4.
-      - "traefik.http.routers.ekylibre-tenants.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
-      - "traefik.http.routers.ekylibre-tenants.entrypoints=websecure"
-      - "traefik.http.routers.ekylibre-tenants.tls=true"
-      # Cert wildcard via DNS-01 (HTTP-01 ne fonctionne pas avec HostRegexp).
-      # Pre-requis : configurer le resolver `letsencrypt-dns` cote Dokploy/Traefik.
-      # Voir DOKPLOY.md section "Wildcard SSL DNS-01".
-      - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt-dns"
-      - "traefik.http.routers.ekylibre-tenants.tls.domains[0].main=${HOST_DOMAIN_NAME}"
-      - "traefik.http.routers.ekylibre-tenants.tls.domains[0].sans=*.${HOST_DOMAIN_NAME}"
-      - "traefik.http.routers.ekylibre-tenants.service=ekylibre-tenants"
-      - "traefik.http.services.ekylibre-tenants.loadbalancer.server.port=3000"
-      # Priorite basse : tout router Host() explicite (domaine racine, duke.<host>, etc.
-      # injecte par l'UI Dokploy) doit gagner sur le wildcard. Sinon le HostRegexp catch
-      # `duke.<host>` et route vers Rails au lieu de duke-api.
-      - "traefik.http.routers.ekylibre-tenants.priority=1"
+      - dokploy-network   # Necessaire pour que l'UI Dokploy puisse router le domaine racine
+    # Plus de labels Traefik pour les sous-domaines :
+    # - Domaine racine (HOST_DOMAIN_NAME) : gere via l'onglet "Domains" de Dokploy
+    # - Sous-domaines (*.HOST_DOMAIN_NAME) : geres par le service `caddy-tls` ci-dessous
+    #   qui termine TLS avec ses propres certs Let's Encrypt (provisionning on-demand)
+    # Voir DOKPLOY.md.
 
   sidekiq:
     image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
@@ -190,6 +173,53 @@ services:
     networks:
       - default
 
+  # === Caddy intermediaire : termine TLS pour TOUS les sous-domaines ===
+  # Architecture :
+  #   - Traefik fait passthrough TCP de *.HOST_DOMAIN_NAME vers ce Caddy
+  #   - Caddy termine TLS avec ses propres certs Let's Encrypt (on-demand)
+  #   - Caddy route ensuite vers app:3000 ou duke-api:8000 selon le subdomain
+  #
+  # Avantages :
+  #   - Aucune modif de Dokploy/Traefik (pas de DNS-01, pas de var GANDIV5)
+  #   - Cert valide pour chaque tenant cree, automatiquement
+  #
+  # Pre-requis cote Dokploy UI :
+  #   - Garder l'entree pour HOST_DOMAIN_NAME (racine) -> app:3000
+  #   - SUPPRIMER toute entree pour les sous-domaines (ex: duke.HOST_DOMAIN_NAME)
+  caddy-tls:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./Caddyfile.dokploy:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+    networks:
+      - default
+      - dokploy-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:2019/config/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      # === Port 443 : Traefik fait du TCP passthrough sur SNI wildcard ===
+      # Traefik ne dechiffre pas TLS, Caddy le fait lui-meme avec ses certs LE.
+      - "traefik.tcp.routers.ekylibre-tls-pass.rule=HostSNI(`*.${HOST_DOMAIN_NAME}`)"
+      - "traefik.tcp.routers.ekylibre-tls-pass.entrypoints=websecure"
+      - "traefik.tcp.routers.ekylibre-tls-pass.tls.passthrough=true"
+      - "traefik.tcp.routers.ekylibre-tls-pass.service=ekylibre-tls-pass"
+      - "traefik.tcp.services.ekylibre-tls-pass.loadbalancer.server.port=443"
+      # === Port 80 : forward HTTP pour le challenge ACME HTTP-01 ===
+      # Necessaire pour que Let's Encrypt puisse valider le domaine.
+      - "traefik.http.routers.ekylibre-acme.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
+      - "traefik.http.routers.ekylibre-acme.entrypoints=web"
+      - "traefik.http.routers.ekylibre-acme.service=ekylibre-acme"
+      - "traefik.http.services.ekylibre-acme.loadbalancer.server.port=80"
+
 volumes:
   database-prod-volume:
   redis-data:
@@ -199,6 +229,8 @@ volumes:
   postgres-duke-data:
   whisper-cache:
   ollama-models:
+  caddy-data:
+  caddy-config:
 
 networks:
   default:

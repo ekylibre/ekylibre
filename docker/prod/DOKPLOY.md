@@ -95,21 +95,31 @@ ALLOWED_WS_ORIGINS=https://example.com,https://*.example.com
 
 ---
 
-## 4. Configurer les domaines
+## 4. Architecture du routing et des certificats
 
-Dokploy impose au moins une entrée dans l'onglet **Domains** pour autoriser le déploiement. Le routing est réparti en deux modes complémentaires :
+Le compose Dokploy utilise une **architecture à 2 couches** pour ne pas avoir à modifier Dokploy/Traefik :
 
-| Routing | Configuré dans | Pourquoi |
-|---|---|---|
-| Domaine racine `example.com` → `app:3000` | Onglet **Domains** UI | Satisfait la garde-fou Dokploy, l'UI gère les labels Traefik |
-| Sous-domaine `duke.example.com` → `duke-api:8000` | Onglet **Domains** UI | Idem |
-| Wildcard tenants `*.example.com` → `app:3000` | Labels Traefik dans le compose | L'UI Dokploy ne supporte pas `HostRegexp` ([discussion #2057](https://github.com/Dokploy/dokploy/discussions/2057)) |
+```
+                ┌─ Host(example.com) ──────────► app:3000       (UI Dokploy : cert LE)
+Traefik :443 ───┤
+                └─ HostSNI(*.example.com) ─TCP passthrough─► Caddy :443
+                                                              │ (termine TLS avec ses propres certs LE)
+                                                              ├─► duke.example.com  → duke-api:8000
+                                                              └─► *.example.com     → app:3000
 
-### 4.1 Ajouter les domaines fixes via l'UI Dokploy
+Traefik :80 ─── HostRegexp(*.example.com) ─HTTP forward─► Caddy :80 (challenge ACME)
+```
+
+**Pourquoi cette architecture** :
+- Dokploy/Traefik gère uniquement le domaine racine via son UI (zero config Traefik supplémentaire)
+- Pour les sous-domaines (`HostRegexp` non supporté par l'UI Dokploy + limitations cert wildcard HTTP-01), un **Caddy embarqué** dans le compose Ekylibre prend le relais
+- Caddy provisionne automatiquement un cert LE par sous-domaine (`on_demand_tls`)
+- Aucune var DNS-01, aucun token API, aucune modif de `traefik.yml`
+
+### 4.1 Configurer le domaine racine dans Dokploy UI
 
 Onglet **Domains** de la compose app → bouton **Add Domain** :
 
-**Entrée 1 — domaine racine :**
 | Champ | Valeur |
 |---|---|
 | Host | `example.com` |
@@ -119,63 +129,35 @@ Onglet **Domains** de la compose app → bouton **Add Domain** :
 | Certificate Provider | Let's Encrypt |
 | Path | `/` |
 
-**Entrée 2 — Duke (uniquement si profile `duke` activé)** :
-| Champ | Valeur |
+⚠️ **NE PAS ajouter d'entrée pour les sous-domaines** (ni `duke.example.com`, ni `phaurigot.example.com`, etc.). Le `HostSNI(*.example.com)` du compose va catcher tout ça et le router vers Caddy.
+
+### 4.2 Sous-domaines (gérés automatiquement par Caddy)
+
+Une fois la compose déployée, Caddy provisionne un cert LE au premier accès à chaque sous-domaine :
+
+| URL | Comportement |
 |---|---|
-| Host | `duke.example.com` |
-| Service Name | `duke-api` |
-| Container Port | `8000` |
-| HTTPS | ✅ |
-| Certificate Provider | Let's Encrypt |
-| Path | `/` |
+| `https://phaurigot.example.com/` (1er accès) | Caddy demande un cert HTTP-01 à LE → délai ~10-30s → cert valide → 302 sign-in |
+| `https://phaurigot.example.com/` (accès suivants) | Cert cache → réponse instantanée |
+| `https://duke.example.com/` | Idem, routé vers `duke-api:8000` |
 
-Dokploy injecte automatiquement les labels Traefik correspondants au déploiement. Aucune modif du compose n'est nécessaire pour ces deux hôtes.
+### 4.3 Filtre anti-DoS sur le provisioning à la demande
 
-### 4.2 Wildcard tenants — déjà en place dans le compose
-
-Le compose embarque déjà ce label sur `app` :
-```yaml
-- "traefik.http.routers.ekylibre-tenants.rule=HostRegexp(`^[a-z0-9-]+\\.${HOST_DOMAIN_NAME}$$`)"
+Le Caddyfile contient :
+```caddyfile
+on_demand_tls {
+    ask http://app:3000/health
+}
 ```
 
-Au premier accès à `acme.example.com`, Traefik issue un cert HTTP-01 dédié → le tenant est joignable.
+Caddy n'émettra de cert que si l'app Rails répond à `/health`. Ce filtre est minimal mais suffit à bloquer les bots qui taperaient des hostnames bidons (rate-limit LE = 50 certs/semaine/domaine racine).
 
-⚠️ **Limite Let's Encrypt** : 50 certs/semaine/domaine racine. Pour des déploiements > ~30 tenants, basculer en wildcard DNS-01 (cf. §4.3).
+**V2 (optionnel)** : remplacer `/health` par un endpoint type `/admin/tenants/exists?host={host}` qui valide que le sous-domaine correspond à un vrai tenant en DB.
 
-### 4.3 Wildcard DNS-01 (optionnel — recommandé > 30 tenants)
+### 4.4 Limites Let's Encrypt
 
-Un seul cert `*.example.com` couvre tous les sous-domaines, plus de rate-limit LE.
-
-1. **Configurer un resolver DNS dans Traefik** (côté Dokploy, pas dans le compose) :
-
-   Settings → Traefik → **Configuration** → ajouter au static `traefik.yml` :
-   ```yaml
-   certificatesResolvers:
-     letsencrypt-dns:
-       acme:
-         email: admin@example.com
-         storage: /etc/dokploy/traefik/dynamic/acme-dns.json
-         dnsChallenge:
-           provider: cloudflare      # ou ovh, gandi, route53, etc.
-           resolvers:
-             - "1.1.1.1:53"
-             - "8.8.8.8:53"
-   ```
-
-2. **Ajouter le token DNS** dans les env vars Traefik (UI Dokploy → Settings → Traefik → Environment) :
-   ```
-   CF_DNS_API_TOKEN=<token Cloudflare avec scope Zone:DNS:Edit>
-   ```
-
-3. **Modifier les labels du service `app`** dans `docker-compose.dokploy.yml` :
-   ```yaml
-   # Remplacer "letsencrypt" par "letsencrypt-dns" + ajouter les domaines wildcard
-   - "traefik.http.routers.ekylibre-tenants.tls.certresolver=letsencrypt-dns"
-   - "traefik.http.routers.ekylibre-tenants.tls.domains[0].main=${HOST_DOMAIN_NAME}"
-   - "traefik.http.routers.ekylibre-tenants.tls.domains[0].sans=*.${HOST_DOMAIN_NAME}"
-   ```
-
-4. Redeploy.
+- **50 certs/semaine/domaine racine** côté LE staging
+- En cas de dépassement, basculer vers une stratégie DNS-01 wildcard (un seul cert pour tous). Demande l'ajout d'un resolver DNS-01 dans Traefik côté Dokploy (procédure dans la doc Traefik).
 
 ---
 

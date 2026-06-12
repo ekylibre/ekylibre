@@ -1,0 +1,57 @@
+# Caddy intermediaire pour le deploiement via Dokploy.
+#
+# Architecture :
+#   Browser ─HTTPS─► Traefik:443 ─TCP passthrough HostSNI(*.host)─► Caddy:443
+#                                                                  termine TLS ici
+#                                                                  ├─► duke.host ─► duke-api:8000
+#                                                                  └─► *.host    ─► app:3000
+#
+#   Browser ─HTTP─► Traefik:80 ─HostRegexp(*.host)─► Caddy:80 (challenge ACME)
+#
+# Caddy provisionne un cert Let's Encrypt par sous-domaine au premier acces
+# (mode on_demand_tls). L'endpoint `ask` filtre les requetes pour eviter
+# qu'un bot ne fasse emettre des certs pour des hostnames inexistants.
+
+{
+	email {$LETSENCRYPT_EMAIL}
+	admin off
+
+	# Provisionning de cert a la demande : seulement quand l'app Ekylibre
+	# confirme via /health qu'elle est joignable (anti-DoS minimal).
+	# V2 : remplacer par /admin/tenants/exists?host={host} pour valider que
+	# le sous-domaine correspond a un vrai tenant.
+	on_demand_tls {
+		ask http://app:3000/health
+	}
+}
+
+# === Duke (sous-domaine fixe) ===
+duke.{$HOST_DOMAIN_NAME} {
+	tls {
+		on_demand
+	}
+	encode gzip
+	reverse_proxy duke-api:8000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-For {remote_host}
+	}
+}
+
+# === Tous les autres sous-domaines = tenants Ekylibre ===
+*.{$HOST_DOMAIN_NAME} {
+	tls {
+		on_demand
+	}
+	encode gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+	reverse_proxy app:3000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-For {remote_host}
+	}
+}
