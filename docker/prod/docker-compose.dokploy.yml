@@ -63,7 +63,10 @@ services:
       redis:
         condition: service_started
       app:
-        condition: service_started
+        # Wait for app healthcheck (Puma up + /health 200) before starting.
+        # Sinon Sidekiq tente de charger ses modeles avant la fin du lexicon load
+        # -> erreurs `relation "master_legal_positions" does not exist` en boucle.
+        condition: service_healthy
     restart: on-failure
     networks:
       - default

@@ -22,6 +22,23 @@ Ce mode est une **alternative** au déploiement standalone documenté dans `READ
   *.example.com     A    <IP_serveur>
   ```
 
+### Configuration sysctl du serveur
+
+À faire **une fois** sur l'hôte avant le premier déploiement (en SSH root) :
+
+```bash
+# vm.overcommit_memory=1 : recommandé par Redis pour eviter les echecs de BGSAVE
+# sous pression memoire. Sans, Redis logue "WARNING Memory overcommit must be enabled".
+echo "vm.overcommit_memory = 1" > /etc/sysctl.d/99-redis-overcommit.conf
+sysctl --system
+
+# Verification
+sysctl vm.overcommit_memory
+# vm.overcommit_memory = 1
+```
+
+Non-bloquant : Redis fonctionne sans, mais le warning persiste dans les logs et un BGSAVE peut échouer en cas de forte pression mémoire (rare avec 8 GB RAM et Redis < 100 MB).
+
 ---
 
 ## 1. Créer le projet Dokploy
@@ -267,6 +284,15 @@ Pour Duke : ajouter un second backup pointant sur `postgres-duke`.
 - Vérifier que le profile `duke` est activé
 - Vérifier que `HASH_SECRET` et au moins une clé LLM sont renseignés
 - Logs : Terminal → sélectionner `duke-api`
+
+### Redis : `WARNING Memory overcommit must be enabled`
+
+Non-bloquant. Fix permanente sur l'hôte :
+```bash
+echo "vm.overcommit_memory = 1" > /etc/sysctl.d/99-redis-overcommit.conf
+sysctl --system
+```
+Voir section "Prérequis" → "Configuration sysctl du serveur".
 
 ### Sidekiq ne traite pas les jobs
 

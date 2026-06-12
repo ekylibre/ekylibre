@@ -14,7 +14,10 @@
 
 {
 	email {$LETSENCRYPT_EMAIL}
-	admin off
+
+	# Admin API expose en local du container (port 2019) pour le healthcheck Docker.
+	# Pas de mapping vers l'hote -> pas accessible depuis l'exterieur.
+	admin :2019
 
 	# Provisionning de cert a la demande : seulement quand l'app Ekylibre
 	# confirme via /health qu'elle est joignable (anti-DoS minimal).
