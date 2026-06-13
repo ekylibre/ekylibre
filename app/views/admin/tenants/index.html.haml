@@ -112,9 +112,96 @@
 
 / ==================== PANEL TENANTS ====================
 #panel-tenants.tab-panel
+  / Banniere affichee quand une creation de tenant est en cours en tache de fond.
+  / Le flash final (succes/erreur) est rendu via #flash-container du layout admin.
+  #tenant-creation-banner{style: 'display:none; margin-bottom: 16px; padding: 10px 15px; border-radius: 4px; background: #fff3cd; border: 1px solid #ffeeba; color: #856404; font-style: italic;'}
+
   = link_to 'Nouveau tenant', new_admin_tenant_path, class: 'btn btn-primary'
   %br
   %br
+
+  - tenant_create_status_url = create_status_admin_tenants_path
+  - tenant_clear_status_url  = clear_create_status_admin_tenants_path
+  :javascript
+    (function() {
+      var statusUrl  = #{raw tenant_create_status_url.to_json};
+      var clearUrl   = #{raw tenant_clear_status_url.to_json};
+      var banner     = document.getElementById('tenant-creation-banner');
+      var csrfToken  = (document.querySelector('meta[name="csrf-token"]') || {}).content;
+      var pollTimer  = null;
+
+      function showBanner(text) {
+        if (!banner) return;
+        banner.textContent = text || '';
+        banner.style.display = text ? 'block' : 'none';
+      }
+
+      function showFlash(kind, message) {
+        var container = document.getElementById('flash-container');
+        if (!container) return;
+        var box = document.createElement('div');
+        box.className = kind; // 'notice' ou 'error'
+        var close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'flash-close';
+        close.setAttribute('aria-label', 'Fermer');
+        close.textContent = '×';
+        var span = document.createElement('span');
+        span.textContent = message;
+        box.appendChild(close);
+        box.appendChild(span);
+        container.innerHTML = '';
+        container.appendChild(box);
+      }
+
+      function clearServerStatus() {
+        fetch(clearUrl, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest' }
+        }).catch(function() {});
+      }
+
+      function poll() {
+        fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.status === 'running') {
+              showBanner(data.message || ("Création du tenant '" + data.tenant + "' en cours..."));
+            } else if (data.status === 'done') {
+              clearInterval(pollTimer); pollTimer = null;
+              showBanner('');
+              showFlash('notice', data.message);
+              clearServerStatus();
+              // Pas d'auto-reload : le flash reste affiche jusqu'au clic sur ×.
+              // L'utilisateur refresh manuellement pour voir le nouveau tenant dans la liste.
+            } else if (data.status === 'error') {
+              clearInterval(pollTimer); pollTimer = null;
+              showBanner('');
+              showFlash('error', data.message);
+              clearServerStatus();
+            } else {
+              // idle : rien a faire
+              clearInterval(pollTimer); pollTimer = null;
+              showBanner('');
+            }
+          })
+          .catch(function() {});
+      }
+
+      // Initial check : si une creation tourne deja, on commence a poll.
+      // Si elle est deja done/error (cas typique apres le redirect immediat
+      // depuis /new), on affiche le flash final tout de suite.
+      poll();
+      // Demarrage du polling continu si quelque chose tourne.
+      fetch(statusUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.status === 'running') {
+            pollTimer = setInterval(poll, 2000);
+          }
+        })
+        .catch(function() {});
+    })();
   - if @tenants.empty?
     %p Aucun tenant existant.
   - else

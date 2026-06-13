@@ -93,6 +93,14 @@ services:
       - database-prod-volume:/var/lib/postgresql/data
       - ../db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
       - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
+    command:
+      - postgres
+      - -c
+      - max_wal_size=4GB
+      - -c
+      - checkpoint_timeout=15min
+      - -c
+      - checkpoint_completion_target=0.9
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_PROD_NAME}"]

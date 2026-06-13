@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :tenants, only: [:index, :new, :create, :destroy] do
+      collection do
+        get    :create_status
+        delete :clear_create_status
+      end
       member do
         post :dump
         get  :dump_status

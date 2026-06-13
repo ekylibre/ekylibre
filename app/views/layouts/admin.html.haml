@@ -11,8 +11,11 @@
       #wrap { max-width: 900px; margin: 40px auto; padding: 0 20px; }
       h1 { font-size: 1.6em; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
       .logo { font-size: 1.2em; font-weight: bold; color: #4a7c59; margin-bottom: 30px; }
-      .notice { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; }
-      .error  { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; }
+      .notice { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; position: relative; }
+      .error  { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; position: relative; }
+      .notice .flash-close, .error .flash-close { position: absolute; top: 6px; right: 10px; background: transparent; border: none; font-size: 1.3em; line-height: 1; cursor: pointer; color: inherit; opacity: 0.6; padding: 0 4px; }
+      .notice .flash-close:hover, .error .flash-close:hover { opacity: 1; }
+      .notice.flash-hidden, .error.flash-hidden { display: none; }
       table { width: 100%; border-collapse: collapse; background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
       th, td { text-align: left; padding: 10px 15px; border-bottom: 1px solid #eee; }
       th { background: #f0f0f0; font-weight: 600; }
@@ -27,12 +30,47 @@
       form .field { margin-bottom: 15px; }
       form label { display: block; font-weight: 600; margin-bottom: 4px; }
       form input, form select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
-      form .actions { margin-top: 20px; }
+      form .actions { margin-top: 20px; display: flex; gap: 10px; align-items: center; }
+      form .actions .btn { width: auto; }
+      form .field.notification-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      form .field.notification-row label { font-weight: normal; margin-bottom: 0; flex: 1; }
+      form .field.notification-row input[type="checkbox"] { width: auto; margin: 0; }
   %body
     #wrap
       .logo Ekylibre — Administration
-      - if flash[:notice]
-        .notice= flash[:notice]
-      - if flash[:error]
-        .error= flash[:error]
+      #flash-container
+        - if flash[:notice]
+          .notice
+            %button.flash-close{type: 'button', 'aria-label': 'Fermer'} ×
+            %span= flash[:notice]
+        - if flash[:error]
+          .error
+            %button.flash-close{type: 'button', 'aria-label': 'Fermer'} ×
+            %span= flash[:error]
       = yield
+      :javascript
+        (function() {
+          document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList && e.target.classList.contains('flash-close')) {
+              var box = e.target.closest('.notice, .error');
+              if (box) box.classList.add('flash-hidden');
+            }
+          });
+
+          // Equivalent minimal de Rails UJS pour data-confirm : intercepte tout
+          // submit dont le form (ou bouton porteur) declare data-confirm et
+          // demande confirmation avant de laisser passer.
+          document.addEventListener('submit', function(e) {
+            var form = e.target;
+            var message = form && form.dataset && form.dataset.confirm;
+            if (!message) {
+              var submitter = e.submitter;
+              if (submitter && submitter.dataset && submitter.dataset.confirm) {
+                message = submitter.dataset.confirm;
+              }
+            }
+            if (message && !window.confirm(message)) {
+              e.preventDefault();
+            }
+          });
+        })();

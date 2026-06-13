@@ -84,7 +84,16 @@ services:
       - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
     ports:
       - "5431:5432"
-    command: ["postgres", "-c", "log_statement=all"]
+    command:
+      - postgres
+      - -c
+      - log_statement=all
+      - -c
+      - max_wal_size=4GB
+      - -c
+      - checkpoint_timeout=15min
+      - -c
+      - checkpoint_completion_target=0.9
     healthcheck:
       test: "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_DEV_NAME}"
 

@@ -1,6 +1,6 @@
 %h1 Nouveau tenant
 
-= form_with url: admin_tenants_path, method: :post do |f|
+= form_with url: admin_tenants_path, method: :post, html: { id: 'new-tenant-form' } do |f|
   .field
     = f.label :name, 'Nom du tenant (lettres minuscules, chiffres, underscores)'
     = f.text_field :name, name: 'tenant[name]', placeholder: 'ex: ferme_dupont', required: true, pattern: '[a-z0-9_]+'
@@ -14,10 +14,10 @@
     = f.password_field :password, name: 'tenant[password]', autocomplete: 'new-password'
 
   %h3 Notification
-  .field
-    = check_box_tag 'tenant[send_credentials_email]', '1', true, id: 'tenant_send_credentials_email'
+  .field.notification-row
     %label{ for: 'tenant_send_credentials_email' }
       Envoyer les informations de connexion par email à l'adresse ci-dessus
+    = check_box_tag 'tenant[send_credentials_email]', '1', true, id: 'tenant_send_credentials_email'
 
   %h3 Localisation
   .field
@@ -31,5 +31,60 @@
     = f.select :currency, [['Euro (EUR)', 'EUR'], ['Franc suisse (CHF)', 'CHF'], ['Dollar (USD)', 'USD']], {}, name: 'tenant[currency]'
 
   .actions
-    = f.submit 'Créer le tenant', class: 'btn btn-primary'
+    = f.submit 'Créer le tenant', class: 'btn btn-primary', id: 'submit-tenant-btn'
     = link_to 'Annuler', admin_root_path, class: 'btn btn-secondary'
+
+  #create-tenant-error{style: 'margin-top: 15px;'}
+
+:javascript
+  (function() {
+    var form      = document.getElementById('new-tenant-form');
+    var submitBtn = document.getElementById('submit-tenant-btn');
+    var errorEl   = document.getElementById('create-tenant-error');
+    var indexUrl  = #{raw admin_root_path.to_json};
+    var csrfToken = (document.querySelector('meta[name="csrf-token"]') || {}).content;
+
+    function showInlineError(message) {
+      errorEl.innerHTML = '';
+      var box = document.createElement('div');
+      box.className = 'error';
+      var close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'flash-close';
+      close.setAttribute('aria-label', 'Fermer');
+      close.textContent = '×';
+      var span = document.createElement('span');
+      span.textContent = message;
+      box.appendChild(close);
+      box.appendChild(span);
+      errorEl.appendChild(box);
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      errorEl.innerHTML = '';
+
+      var formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrfToken, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+        body: formData
+      })
+      .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+      .then(function(res) {
+        if (!res.ok || res.data.error) {
+          showInlineError(res.data.error || 'Erreur inconnue.');
+          submitBtn.disabled = false;
+          return;
+        }
+        // Success: job lance, on redirige immediatement vers /admin
+        // qui poll Redis et affiche le flash final.
+        window.location.href = indexUrl;
+      })
+      .catch(function(e) {
+        showInlineError('Erreur réseau : ' + e);
+        submitBtn.disabled = false;
+      });
+    });
+  })();

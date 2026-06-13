@@ -12,7 +12,7 @@ class Admin::TenantsController < Admin::BaseController
     @tenant_sizes = @tenants.each_with_object({}) do |name, h|
       h[name] = { db: tenant_schema_size(name), files: tenant_files_size(name) }
     end
-    if Rails.env.development?
+    if ENV['HOST_DOMAIN_NAME'].present? || Rails.env.development?
       domain = ENV['HOST_DOMAIN_NAME'] || 'ekylibre.localhost'
       @tenant_url = ->(name) { "https://#{name}.#{domain}/" }
     end
@@ -24,43 +24,74 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   def create
-    name = params.require(:tenant).permit(:name, :email, :password, :language, :country, :currency)[:name]
-    name = name.to_s.strip.downcase.gsub(/[^a-z0-9_]/, '_')
+    current = Admin::CreateTenantJob.current_status
+    if current[:status] == 'running'
+      render json: { error: "Une création de tenant est déjà en cours (#{current[:tenant]})." }, status: :conflict
+      return
+    end
+
+    tenant_params = params.require(:tenant).permit(:name, :email, :password, :language, :country, :currency, :send_credentials_email)
+    name = tenant_params[:name].to_s.strip.downcase.gsub(/[^a-z0-9_]/, '_')
 
     if name.blank?
-      flash.now[:error] = "Le nom du tenant est invalide."
-      return render :new
+      render json: { error: "Le nom du tenant est invalide." }, status: :unprocessable_entity
+      return
     end
 
     if RESERVED_TENANT_NAMES.include?(name)
-      flash.now[:error] = "Le nom '#{name}' est réservé et ne peut pas être utilisé."
-      return render :new
+      render json: { error: "Le nom '#{name}' est réservé et ne peut pas être utilisé." }, status: :unprocessable_entity
+      return
     end
 
     if Ekylibre::Tenant.exist?(name)
-      flash.now[:error] = "Le tenant '#{name}' existe déjà."
-      return render :new
+      render json: { error: "Le tenant '#{name}' existe déjà." }, status: :unprocessable_entity
+      return
     end
 
-    Ekylibre::Tenant.create(name)
-    generated_password = nil
-
-    Ekylibre::Tenant.switch(name) do
-      generated_password = initialize_tenant(name)
+    # Pre-ecriture du statut 'running' AVANT le spawn : evite la race ou le navigateur
+    # arrive sur /admin et poll Redis avant que la rake task ait fini de booter Rails
+    # (~5-10s) et d'ecrire son propre statut. Sans ca, le banner ne s'affiche pas tant
+    # qu'on ne refresh pas manuellement.
+    Sidekiq.redis do |r|
+      r.hmset(
+        Admin::CreateTenantJob::REDIS_KEY,
+        'status',  'running',
+        'message', "Demarrage de la creation du tenant '#{name}'...",
+        'tenant',  name
+      )
     end
 
-    email_result = maybe_send_credentials_email(name, generated_password)
+    env = {
+      'RAILS_ENV'        => Rails.env,
+      'TENANT_NAME'      => name,
+      'TENANT_EMAIL'     => tenant_params[:email].to_s.presence || 'admin@ekylibre.org',
+      'TENANT_PASSWORD'  => tenant_params[:password].to_s,
+      'TENANT_LANGUAGE'  => tenant_params[:language].to_s.presence || 'fra',
+      'TENANT_COUNTRY'   => tenant_params[:country].to_s.presence  || 'fr',
+      'TENANT_CURRENCY'  => tenant_params[:currency].to_s.presence || 'EUR',
+      'TENANT_SEND_EMAIL' => tenant_params[:send_credentials_email] == '1' ? '1' : '0'
+    }
 
-    msg = "Tenant '#{name}' créé avec succès."
-    msg += " Mot de passe admin : #{generated_password}" if generated_password
-    msg += " Email de connexion envoyé à #{email_result[:to]}." if email_result[:sent]
-    flash[:notice] = msg
-    flash[:error] = "Le tenant a été créé mais l'envoi de l'email a échoué : #{email_result[:error]}" if email_result[:error]
-    redirect_to admin_root_path
-  rescue => e
-    Ekylibre::Tenant.drop(name) if Ekylibre::Tenant.exist?(name)
-    flash.now[:error] = "Erreur lors de la création : #{e.message}"
-    render :new
+    bundle_bin = Gem.bin_path('bundler', 'bundle')
+    pid = Process.spawn(
+      env,
+      bundle_bin, 'exec', 'rake', 'admin:tenant:create',
+      chdir: Rails.root.to_s,
+      out:   Rails.root.join('log', 'create_tenant.log').to_s,
+      err:   Rails.root.join('log', 'create_tenant.log').to_s
+    )
+    Process.detach(pid)
+
+    render json: { status: 'running', message: "Création du tenant '#{name}' lancée...", tenant: name }
+  end
+
+  def create_status
+    render json: Admin::CreateTenantJob.current_status
+  end
+
+  def clear_create_status
+    Admin::CreateTenantJob.reset!
+    head :no_content
   end
 
   def destroy
@@ -126,32 +157,6 @@ class Admin::TenantsController < Admin::BaseController
 
   private
 
-    def maybe_send_credentials_email(tenant_name, generated_password)
-      return { sent: false } unless params.dig(:tenant, :send_credentials_email) == '1'
-
-      tenant_params = params.require(:tenant).permit(:email, :password, :language)
-      email = tenant_params[:email].presence || 'admin@ekylibre.org'
-      password = generated_password || tenant_params[:password].presence
-      return { sent: false } if password.blank?
-
-      domain = ENV['HOST_DOMAIN_NAME'] || 'ekylibre.localhost'
-      url = "https://#{tenant_name}.#{domain}/"
-      locale = Onoma::Language.find(tenant_params[:language]).try(:name) || 'eng'
-
-      TenantCreationMailer.credentials(
-        email: email,
-        tenant: tenant_name,
-        password: password,
-        url: url,
-        locale: locale
-      ).deliver_now
-
-      { sent: true, to: email }
-    rescue => e
-      Rails.logger.error("TenantCreationMailer failed for tenant=#{tenant_name}: #{e.class} #{e.message}")
-      { sent: false, error: e.message }
-    end
-
     def dump_redis_key(name)
       "ekylibre:admin:dump:#{name}"
     end
@@ -205,57 +210,4 @@ class Admin::TenantsController < Admin::BaseController
       end
     end
 
-  def initialize_tenant(name)
-    tenant_params = params.require(:tenant).permit(:email, :password, :language, :country, :currency)
-
-    language = Onoma::Language.find(tenant_params[:language]).try(:name) || 'fra'
-    country  = Onoma::Country.find(tenant_params[:country]).try(:name)   || 'fr'
-    currency = Onoma::Currency.find(tenant_params[:currency]).try(:name) || 'EUR'
-    email    = tenant_params[:email].presence    || 'admin@ekylibre.org'
-    password = tenant_params[:password].presence || SecureRandom.hex(8)
-
-    Preference.set! :language, language
-    Preference.set! :country, country
-    Preference.set! :currency, currency
-    Preference.set! :map_measure_srs, 'WGS84'
-    Preference.set! :sales_conditions, ''
-    ::I18n.locale = language.to_sym
-
-    Preference.set! :accounting_system, 'fr_pcga2023'
-    Account.load_defaults
-    Tax.load_defaults
-    Unit.load_defaults
-    Sequence.load_defaults
-    DocumentTemplate.load_defaults
-    MapLayer.load_defaults
-    NamingFormatLandParcel.load_defaults
-    FinancialYear.create!(
-      accounting_system: 'fr_pcga2023',
-      started_on: Date.new(Time.zone.now.year, 1, 1),
-      stopped_on: Date.new(Time.zone.now.year, 12, 31)
-    )
-    Journal.load_defaults
-    SaleNature.load_defaults
-    PurchaseNature.load_defaults
-
-    Entity.create!(
-      language: language,
-      currency: currency,
-      nature: :organization,
-      of_company: true,
-      last_name: name.upcase,
-      born_at: Date.new(Time.zone.now.year, 1, 1).to_time
-    )
-
-    User.create!(
-      email: email,
-      administrator: true,
-      password: password,
-      password_confirmation: password,
-      first_name: 'Admin',
-      last_name: name
-    )
-
-    tenant_params[:password].presence ? nil : password
-  end
 end

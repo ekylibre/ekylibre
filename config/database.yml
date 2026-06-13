@@ -1,7 +1,7 @@
 default: &default
   adapter: postgis
   encoding: unicode
-  pool: 5
+  pool: <%= ENV.fetch("DB_POOL", 5) %>
   postgis_extension: []
   schema_search_path: public,postgis,lexicon
   username: <%= ENV.fetch("DB_USERNAME","ekylibre") %>
