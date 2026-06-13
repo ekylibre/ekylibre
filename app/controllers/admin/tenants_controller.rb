@@ -97,6 +97,7 @@ class Admin::TenantsController < Admin::BaseController
   def destroy
     name = params[:id]
     Ekylibre::Tenant.drop(name)
+    Admin::LoadDemoJob.reset! if name == Admin::LoadDemoJob::TENANT_NAME
     flash[:notice] = "Tenant '#{name}' supprimé."
     redirect_to admin_root_path
   rescue => e

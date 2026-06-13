@@ -24,6 +24,11 @@ class Admin::DemoController < Admin::BaseController
   end
 
   def status
-    render json: Admin::LoadDemoJob.current_status
+    current = Admin::LoadDemoJob.current_status
+    if current[:status] == 'done' && !Ekylibre::Tenant.exist?(Admin::LoadDemoJob::TENANT_NAME)
+      Admin::LoadDemoJob.reset!
+      current = Admin::LoadDemoJob.current_status
+    end
+    render json: current
   end
 end

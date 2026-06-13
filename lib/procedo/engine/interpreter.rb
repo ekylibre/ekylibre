@@ -149,6 +149,7 @@ module Procedo
           elsif node.nil?
             nil
           else
+            Rails.logger.error("PROCEDO node #{node.class.name} ancestors=#{node.class.ancestors.map(&:name).inspect}is_a_ActorPresenceTest=#{node.is_a?(Procedo::Formula::Nodes::ActorPresenceTest)} class_id=#{node.class.object_id} const_id=#{Procedo::Formula::Nodes::ActorPresenceTest.object_id}")
             raise 'Dont known how to manage node: ' + node.class.name
           end
         end

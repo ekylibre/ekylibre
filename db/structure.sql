@@ -1,4 +1,4 @@
-\restrict CpI8qhzgEcm92MP5CzIXRCeayWAeQHmgMpzBBABokUHWlHuNjnrmZt40C1NjhZn
+\restrict 9C1ED57smStj4dKfkvZfiuaJtbvNp8plmha3H57qbDcfGBW2n1ALsXp0FfQSNgT
 
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
 -- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
@@ -15,20 +15,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA public;
-
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
---
 -- Name: lexicon; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -40,6 +26,13 @@ CREATE SCHEMA lexicon;
 --
 
 CREATE SCHEMA postgis;
+
+
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
 
 
 --
@@ -203,24 +196,6 @@ $$;
 
 
 --
--- Name: st_asbinary(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.st_asbinary(text) RETURNS bytea
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$ SELECT ST_AsBinary($1::geometry);$_$;
-
-
---
--- Name: st_astext(bytea); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.st_astext(bytea) RETURNS text
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$ SELECT ST_AsText($1::geometry);$_$;
-
-
---
 -- Name: synchronize_jei_with_entry(); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -262,13 +237,6 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
---
--- Name: gist_geometry_ops; Type: OPERATOR FAMILY; Schema: public; Owner: -
---
-
-CREATE OPERATOR FAMILY public.gist_geometry_ops USING gist;
 
 
 SET default_tablespace = '';
@@ -1808,6 +1776,7 @@ CREATE TABLE public.activity_productions (
     cultivable_zone_id integer,
     irrigated boolean DEFAULT false NOT NULL,
     nitrate_fixing boolean DEFAULT false NOT NULL,
+    support_shape postgis.geometry(MultiPolygon,4326),
     support_nature character varying,
     started_on date,
     stopped_on date,
@@ -1823,6 +1792,7 @@ CREATE TABLE public.activity_productions (
     number_of_batch integer,
     sowing_interval integer,
     provider jsonb DEFAULT '{}'::jsonb,
+    headland_shape postgis.geometry(Geometry,4326),
     custom_name character varying,
     starting_year integer,
     reference_name character varying,
@@ -1898,6 +1868,7 @@ CREATE TABLE public.intervention_parameters (
     product_id integer,
     variant_id integer,
     quantity_population numeric(19,4),
+    working_zone postgis.geometry(MultiPolygon,4326),
     reference_name character varying NOT NULL,
     "position" integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -2026,6 +1997,7 @@ CREATE TABLE public.products (
     initial_owner_id integer,
     initial_enjoyer_id integer,
     initial_population numeric(19,4) DEFAULT 0.0,
+    initial_shape postgis.geometry(MultiPolygon,4326),
     initial_father_id integer,
     initial_mother_id integer,
     variety character varying NOT NULL,
@@ -2050,6 +2022,7 @@ CREATE TABLE public.products (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     person_id integer,
+    initial_geolocation postgis.geometry(Point,4326),
     uuid uuid,
     initial_movement_id integer,
     custom_fields jsonb,
@@ -2805,6 +2778,7 @@ CREATE TABLE public.analyses (
     sampler_id integer,
     analyser_id integer,
     description text,
+    geolocation postgis.geometry(Point,4326),
     sampled_at timestamp without time zone NOT NULL,
     analysed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
@@ -2857,9 +2831,11 @@ CREATE TABLE public.analysis_items (
     boolean_value boolean DEFAULT false NOT NULL,
     choice_value character varying,
     decimal_value numeric(19,4),
+    multi_polygon_value postgis.geometry(MultiPolygon,4326),
     integer_value integer,
     measure_value_value numeric(19,4),
     measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
     string_value text,
     annotation text,
     created_at timestamp without time zone NOT NULL,
@@ -2867,7 +2843,8 @@ CREATE TABLE public.analysis_items (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    product_reading_id integer
+    product_reading_id integer,
+    geometry_value postgis.geometry(Geometry,4326)
 );
 
 
@@ -3338,6 +3315,7 @@ CREATE TABLE public.cap_islets (
     cap_statement_id integer NOT NULL,
     islet_number character varying NOT NULL,
     town_number character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -3379,6 +3357,7 @@ CREATE TABLE public.cap_land_parcels (
     main_crop_precision character varying,
     main_crop_seed_production boolean DEFAULT false NOT NULL,
     main_crop_commercialisation boolean DEFAULT false NOT NULL,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -3417,6 +3396,7 @@ CREATE TABLE public.cap_neutral_areas (
     number character varying NOT NULL,
     category character varying NOT NULL,
     nature character varying NOT NULL,
+    shape postgis.geometry(Geometry,4326) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -3927,6 +3907,7 @@ ALTER SEQUENCE public.crop_groups_id_seq OWNED BY public.crop_groups.id;
 CREATE TABLE public.crumbs (
     id integer NOT NULL,
     user_id integer,
+    geolocation postgis.geometry(Point,4326) NOT NULL,
     read_at timestamp without time zone NOT NULL,
     accuracy numeric(19,4) NOT NULL,
     nature character varying NOT NULL,
@@ -3972,6 +3953,7 @@ CREATE TABLE public.cultivable_zones (
     id integer NOT NULL,
     name character varying NOT NULL,
     work_number character varying NOT NULL,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
     description text,
     uuid uuid,
     created_at timestamp without time zone NOT NULL,
@@ -4195,6 +4177,7 @@ CREATE TABLE public.cvi_cultivable_zones (
     calculated_area_unit character varying,
     calculated_area_value numeric(19,4),
     land_parcels_status character varying DEFAULT 'not_started'::character varying,
+    shape postgis.geometry(Geometry,4326),
     cvi_statement_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -4237,6 +4220,7 @@ CREATE TABLE public.cvi_land_parcels (
     calculated_area_value numeric(19,5),
     declared_area_unit character varying,
     declared_area_value numeric(19,5),
+    shape postgis.geometry(Geometry,4326),
     inter_vine_plant_distance_value numeric(19,4),
     inter_vine_plant_distance_unit character varying,
     inter_row_distance_value numeric(19,4),
@@ -5286,6 +5270,7 @@ CREATE TABLE public.entity_addresses (
     mail_line_6 character varying,
     mail_country character varying,
     mail_postal_zone_id integer,
+    mail_geolocation postgis.geometry(Point,4326),
     mail_auto_update boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -5830,6 +5815,7 @@ CREATE TABLE public.georeadings (
     nature character varying NOT NULL,
     number character varying,
     description text,
+    content postgis.geometry(Geometry,4326) NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -6951,16 +6937,19 @@ CREATE TABLE public.intervention_parameter_readings (
     boolean_value boolean DEFAULT false NOT NULL,
     choice_value character varying,
     decimal_value numeric(19,4),
+    multi_polygon_value postgis.geometry(MultiPolygon,4326),
     integer_value integer,
     measure_value_value numeric(19,4),
     measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
     string_value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    parameter_id integer NOT NULL
+    parameter_id integer NOT NULL,
+    geometry_value postgis.geometry(Geometry,4326)
 );
 
 
@@ -7173,9 +7162,11 @@ CREATE TABLE public.intervention_setting_items (
     boolean_value boolean DEFAULT false NOT NULL,
     choice_value character varying,
     decimal_value numeric(19,4),
+    geometry_value postgis.geometry(Geometry,4326),
     integer_value integer,
     measure_value_value numeric(19,4),
     measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
     string_value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -7509,6 +7500,7 @@ CREATE TABLE public.issues (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
+    geolocation postgis.geometry(Point,4326),
     custom_fields jsonb,
     dead boolean DEFAULT false,
     issue_nature_id integer,
@@ -8502,6 +8494,7 @@ CREATE TABLE public.parcel_items (
     variant_id integer,
     parted boolean DEFAULT false NOT NULL,
     population numeric(19,4),
+    shape postgis.geometry(MultiPolygon,4326),
     product_enjoyment_id integer,
     product_ownership_id integer,
     product_localization_id integer,
@@ -9627,15 +9620,18 @@ CREATE TABLE public.product_nature_variant_readings (
     boolean_value boolean DEFAULT false NOT NULL,
     choice_value character varying,
     decimal_value numeric(19,4),
+    multi_polygon_value postgis.geometry(MultiPolygon,4326),
     integer_value integer,
     measure_value_value numeric(19,4),
     measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
     string_value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    geometry_value postgis.geometry(Geometry,4326)
 );
 
 
@@ -9998,15 +9994,18 @@ CREATE TABLE public.product_readings (
     boolean_value boolean DEFAULT false NOT NULL,
     choice_value character varying,
     decimal_value numeric(19,4),
+    multi_polygon_value postgis.geometry(MultiPolygon,4326),
     integer_value integer,
     measure_value_value numeric(19,4),
     measure_value_unit character varying,
+    point_value postgis.geometry(Point,4326),
     string_value text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    geometry_value postgis.geometry(Geometry,4326)
 );
 
 
@@ -10058,6 +10057,7 @@ CREATE TABLE public.products_yield_observations (
     id integer NOT NULL,
     yield_observation_id integer NOT NULL,
     product_id integer NOT NULL,
+    working_zone postgis.geometry(Geometry,4326),
     vegetative_stage_id integer
 );
 
@@ -10422,7 +10422,8 @@ CREATE TABLE public.ride_sets (
     gasoline double precision,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    shape postgis.geometry(Geometry,4326)
 );
 
 
@@ -10473,6 +10474,7 @@ CREATE TABLE public.rides (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     intervention_id integer,
+    shape postgis.geometry(Geometry,4326),
     cultivable_zone_id bigint,
     converting_to_intervention boolean DEFAULT false NOT NULL
 );
@@ -12358,6 +12360,7 @@ CREATE TABLE public.yield_observations (
     observed_at timestamp without time zone,
     activity_id integer NOT NULL,
     vegetative_stage_id integer,
+    geolocation postgis.geometry(Point,4326),
     description text,
     number character varying,
     created_at timestamp without time zone NOT NULL,
@@ -30342,7 +30345,7 @@ ALTER TABLE ONLY public.projects
 -- PostgreSQL database dump complete
 --
 
-\unrestrict CpI8qhzgEcm92MP5CzIXRCeayWAeQHmgMpzBBABokUHWlHuNjnrmZt40C1NjhZn
+\unrestrict 9C1ED57smStj4dKfkvZfiuaJtbvNp8plmha3H57qbDcfGBW2n1ALsXp0FfQSNgT
 
 SET search_path TO public,postgis,lexicon;
 
