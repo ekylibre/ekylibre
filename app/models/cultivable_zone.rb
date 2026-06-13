@@ -230,8 +230,4 @@ class CultivableZone < ApplicationRecord
     Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)
   end
 
-  after_save do
-    initiate_satellite_data
-  end
-
 end
