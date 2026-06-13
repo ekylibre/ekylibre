@@ -97,9 +97,10 @@ jobs:
     # Évite le déclencheur natif Dokploy (push) qui se lance avant la fin du build.
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/5.0-beta'
-    uses: jmischler72/dokploy-deploy-actions@main
-    with:
-      PROJECT_NAME: Ekylibre
-      APPLICATION_NAME: app
-      DOKPLOY_HOST: ${{ secrets.DOKPLOY_HOST }}
-      DOKPLOY_TOKEN: ${{ secrets.DOKPLOY_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Dokploy deploy webhook
+        env:
+          DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
+        run: |
+          curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}"
