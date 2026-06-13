@@ -108,6 +108,31 @@ rake tenant:migrate  # runs on all tenant schemas
 rake lexicon:load
 ```
 
+### Regenerating db/structure.sql
+
+`db/structure.sql` is `pg_dump` of `ekylibre_development`. It captures the `public`, `postgis` and `lexicon` schemas (via `schema_search_path` in `config/database.yml`). Apartment uses it to clone new tenant schemas (`config.use_sql = true`), so any dirty state in it propagates to every newly created tenant.
+
+Canonical regen procedure (no tenants in dev — check first with `Ekylibre::Tenant.list`):
+
+```bash
+# 1. Drop only `public` (preserve postgis + lexicon)
+docker compose -f docker/dev/docker-compose.yml exec db env PGPASSWORD=ekylibre \
+  psql -h localhost -U ekylibre -d ekylibre_development -v ON_ERROR_STOP=1 \
+  -c "DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;"
+
+# 2. Recreate public from migrations
+docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:migrate
+
+# 3. Dump
+docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:structure:dump
+```
+
+The `CASCADE` drop removes anything that was added to `public` outside migrations — historically `hstore`, `pg_cron`, `gist_geometry_ops`, legacy `st_asbinary(text)`/`st_astext(bytea)` compat functions. Re-add them only if app code needs them (none does today; `postgis` schema provides `st_astext`/`st_asbinary` and is in `schema_search_path`).
+
+### Warning: postgis CASCADE corruption
+
+The `kartoza/postgis:13` image re-runs `docker/db/init.sql` on every restart. Without the `IF EXISTS` guard at lines 7-16 of that file, the script silently executes `DROP EXTENSION postgis CASCADE` — which drops **every geometry/geography column** in every schema (`shape`, `geolocation`, `working_zone`, `support_shape`, etc.) without erroring. Symptom: `PG::UndefinedColumn` on geometry columns at runtime, even though migrations and code still reference them. If you ever see this, regen `structure.sql` via the procedure above (a single `pg_dump` after a corruption event will commit the bad state — see commit `3815900722` which lost 80 geometry columns this way).
+
 ## Views
 
 Templates use **HAML**. The backend layout (`app/views/layouts/backend.html.haml`) uses a beehive/cell dashboard system. Dialog/popover layouts exist for modal content. The admin interface uses a plain `app/views/layouts/admin.html.haml` with no tenant dependencies.
