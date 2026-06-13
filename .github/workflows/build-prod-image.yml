@@ -103,4 +103,7 @@ jobs:
         env:
           DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
         run: |
-          curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}"
+          curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}" \
+            -H "X-GitHub-Event: workflow_deploy" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "refs/heads/5.0-beta"}'
