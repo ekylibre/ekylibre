@@ -165,12 +165,12 @@
     _displayDose: ($input, data) ->
       for key, value of data.dose_validation
         addedClass = if key == 'stop' then 'warning' else ''
-        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').addClass("lights-#{key}")
-        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').addClass(addedClass).text("#{value}")
+        $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights').addClass("lights-#{key}")
+        $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights-message').addClass(addedClass).text("#{value}")
 
     _clearLights: ($input) ->
-      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').removeClass("lights-go lights-caution lights-stop")
-      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').removeClass("warning")
+      $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights').removeClass("lights-go lights-caution lights-stop")
+      $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights-message').removeClass("warning")
 
     _retrieveValues: ($input, $productField) ->
       interventionId = $('input#intervention_id').val()
@@ -249,7 +249,7 @@
         $replicaInputs = $(sprayVolume.selectors.replicaInput)
         sprayVolume._updateReplicaInputs($replicaInputs, this.value)
       
-      $(document).on 'cocoon:after-insert', '.nested-inputs', (_e, $insertedItem) ->
+      $(document).on 'cocoon:after-insert', '.nested-product-parameter', (_e, $insertedItem) ->
         $replicaInput = $insertedItem.find(sprayVolume.selectors.replicaInput)
         value = $(sprayVolume.selectors.replicaInput)
           .toArray()
@@ -269,7 +269,7 @@
   $(document).on 'cocoon:after-remove', '.nested-targets', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
 
-  $(document).on 'cocoon:after-remove', '.nested-inputs', ->
+  $(document).on 'cocoon:after-remove', '.nested-product-parameter', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
     productListManager.filterProducts()
     sprayingMap.refresh()

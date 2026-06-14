@@ -102,7 +102,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
         if target_info[:working_zone_area_value]
           target_info[:working_zone_area_value].to_f.in(:hectare)
         else
-          Charta.new_geometry(target_info[:shape]).area
+          Charta.new_geometry(target_info[:shape]).area.to_f.in(:square_meter)
         end
       end.in(:square_meter)
     end

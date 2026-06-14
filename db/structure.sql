@@ -1,4 +1,4 @@
-\restrict 9C1ED57smStj4dKfkvZfiuaJtbvNp8plmha3H57qbDcfGBW2n1ALsXp0FfQSNgT
+\restrict ti1F5FSlYW7tfcY3LjosVeKXSnag9mHayK81FWIii64IbG9HOXloaRfkZl17aU0
 
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
 -- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
@@ -708,6 +708,8 @@ CREATE TABLE lexicon.registered_administrative_areas (
     code character varying NOT NULL,
     name character varying NOT NULL,
     parent_code character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326),
     CONSTRAINT registered_administrative_areas_kind_chk CHECK (((kind)::text = ANY ((ARRAY['region'::character varying, 'department'::character varying])::text[])))
 );
 
@@ -797,7 +799,11 @@ CREATE TABLE lexicon.registered_agroedi_crops (
 CREATE TABLE lexicon.registered_area_items (
     id character varying NOT NULL,
     name jsonb,
-    nature character varying
+    nature character varying,
+    point postgis.geometry(Point,4326),
+    shape postgis.geometry(MultiPolygon,4326),
+    lines postgis.geometry(MultiLineString,4326),
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -808,7 +814,9 @@ CREATE TABLE lexicon.registered_area_items (
 CREATE TABLE lexicon.registered_cadastral_buildings (
     id integer NOT NULL,
     reference_name character varying,
-    nature character varying
+    nature character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -903,6 +911,8 @@ CREATE TABLE lexicon.registered_cadastral_parcels (
     section character varying,
     work_number character varying,
     net_surface_area integer,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326),
     pm_owners_count integer DEFAULT 0,
     has_agricultural_pm_owner boolean DEFAULT false
 );
@@ -970,7 +980,8 @@ CREATE TABLE lexicon.registered_cadastral_prices (
     address character varying,
     postal_code character varying,
     city character varying,
-    department character varying
+    department character varying,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1086,6 +1097,7 @@ CREATE TABLE lexicon.registered_enterprises (
     city character varying,
     insee_code character varying,
     country character varying,
+    centroid postgis.geometry(Point,4326),
     siren character varying
 );
 
@@ -1120,7 +1132,9 @@ CREATE TABLE lexicon.registered_eu_market_prices (
 CREATE TABLE lexicon.registered_graphic_parcels (
     id character varying NOT NULL,
     cap_crop_code character varying,
-    city_name character varying
+    city_name character varying,
+    shape postgis.geometry(Polygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1153,7 +1167,11 @@ CREATE TABLE lexicon.registered_hourly_weathers (
 CREATE TABLE lexicon.registered_hydrographic_items (
     id character varying NOT NULL,
     name jsonb,
-    nature character varying
+    nature character varying,
+    point postgis.geometry(Point,4326),
+    shape postgis.geometry(MultiPolygon,4326),
+    lines postgis.geometry(MultiLineString,4326),
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1200,7 +1218,9 @@ ALTER SEQUENCE lexicon.registered_msa_populations_id_seq OWNED BY lexicon.regist
 CREATE TABLE lexicon.registered_natural_zones (
     id character varying NOT NULL,
     name character varying,
-    nature character varying NOT NULL
+    nature character varying NOT NULL,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1333,7 +1353,9 @@ CREATE TABLE lexicon.registered_postal_codes (
     city_name character varying NOT NULL,
     postal_code character varying NOT NULL,
     city_delivery_name character varying,
-    city_delivery_detail character varying
+    city_delivery_detail character varying,
+    city_centroid postgis.geometry(Point,4326),
+    city_shape postgis.geometry(MultiPolygon,4326)
 );
 
 
@@ -1346,7 +1368,9 @@ CREATE TABLE lexicon.registered_protected_water_zones (
     administrative_zone character varying,
     creator_name character varying,
     name character varying,
-    updated_on date
+    updated_on date,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1463,7 +1487,9 @@ CREATE TABLE lexicon.registered_soil_available_water_capacities (
     available_water_min_value numeric(19,4),
     available_water_max_value numeric(19,4),
     available_water_unit character varying,
-    available_water_label character varying
+    available_water_label character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1474,7 +1500,9 @@ CREATE TABLE lexicon.registered_soil_available_water_capacities (
 CREATE TABLE lexicon.registered_soil_depths (
     id character varying NOT NULL,
     soil_depth_value numeric(19,4),
-    soil_depth_unit character varying
+    soil_depth_unit character varying,
+    shape postgis.geometry(MultiPolygon,4326) NOT NULL,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -1504,7 +1532,8 @@ CREATE TABLE lexicon.registered_weather_stations (
     country_zone character varying NOT NULL,
     station_code character varying NOT NULL,
     station_name character varying NOT NULL,
-    elevation integer
+    elevation integer,
+    centroid postgis.geometry(Point,4326)
 );
 
 
@@ -16923,6 +16952,13 @@ CREATE INDEX master_variants_reference_name ON lexicon.master_variants USING btr
 
 
 --
+-- Name: registered_administrative_areas_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_administrative_areas_centroid ON lexicon.registered_administrative_areas USING gist (centroid);
+
+
+--
 -- Name: registered_administrative_areas_code; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -16934,6 +16970,13 @@ CREATE INDEX registered_administrative_areas_code ON lexicon.registered_administ
 --
 
 CREATE INDEX registered_administrative_areas_parent_code ON lexicon.registered_administrative_areas USING btree (parent_code);
+
+
+--
+-- Name: registered_administrative_areas_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_administrative_areas_shape ON lexicon.registered_administrative_areas USING gist (shape);
 
 
 --
@@ -16965,6 +17008,13 @@ CREATE INDEX registered_agroedi_codes_reference_code ON lexicon.registered_agroe
 
 
 --
+-- Name: registered_area_items_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_area_items_centroid ON lexicon.registered_area_items USING gist (centroid);
+
+
+--
 -- Name: registered_area_items_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -16972,10 +17022,38 @@ CREATE INDEX registered_area_items_id ON lexicon.registered_area_items USING btr
 
 
 --
+-- Name: registered_area_items_lines; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_area_items_lines ON lexicon.registered_area_items USING gist (lines);
+
+
+--
 -- Name: registered_area_items_nature; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_area_items_nature ON lexicon.registered_area_items USING btree (nature);
+
+
+--
+-- Name: registered_area_items_point; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_area_items_point ON lexicon.registered_area_items USING gist (point);
+
+
+--
+-- Name: registered_area_items_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_area_items_shape ON lexicon.registered_area_items USING gist (shape);
+
+
+--
+-- Name: registered_cadastral_buildings_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_buildings_centroid ON lexicon.registered_cadastral_buildings USING gist (centroid);
 
 
 --
@@ -16990,6 +17068,13 @@ CREATE INDEX registered_cadastral_buildings_id ON lexicon.registered_cadastral_b
 --
 
 CREATE INDEX registered_cadastral_buildings_reference_name ON lexicon.registered_cadastral_buildings USING btree (reference_name);
+
+
+--
+-- Name: registered_cadastral_buildings_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_buildings_shape ON lexicon.registered_cadastral_buildings USING gist (shape);
 
 
 --
@@ -17077,6 +17162,13 @@ CREATE INDEX registered_cadastral_parcel_owners_siren ON lexicon.registered_cada
 
 
 --
+-- Name: registered_cadastral_parcels_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_centroid ON lexicon.registered_cadastral_parcels USING gist (centroid);
+
+
+--
 -- Name: registered_cadastral_parcels_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -17102,6 +17194,13 @@ CREATE INDEX registered_cadastral_parcels_section ON lexicon.registered_cadastra
 --
 
 CREATE INDEX registered_cadastral_parcels_section_prefix ON lexicon.registered_cadastral_parcels USING btree (section_prefix);
+
+
+--
+-- Name: registered_cadastral_parcels_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_parcels_shape ON lexicon.registered_cadastral_parcels USING gist (shape);
 
 
 --
@@ -17165,6 +17264,13 @@ CREATE INDEX registered_cadastral_premises_siren ON lexicon.registered_cadastral
 --
 
 CREATE INDEX registered_cadastral_prices_cadastral_parcel_id ON lexicon.registered_cadastral_prices USING btree (cadastral_parcel_id);
+
+
+--
+-- Name: registered_cadastral_prices_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_cadastral_prices_centroid ON lexicon.registered_cadastral_prices USING gist (centroid);
 
 
 --
@@ -17252,6 +17358,13 @@ CREATE INDEX registered_cap_subsidies_year ON lexicon.registered_cap_subsidies U
 
 
 --
+-- Name: registered_enterprises_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_enterprises_centroid ON lexicon.registered_enterprises USING gist (centroid);
+
+
+--
 -- Name: registered_enterprises_city; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -17329,6 +17442,13 @@ CREATE INDEX registered_eu_market_prices_sector_code ON lexicon.registered_eu_ma
 
 
 --
+-- Name: registered_graphic_parcels_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_graphic_parcels_centroid ON lexicon.registered_graphic_parcels USING gist (centroid);
+
+
+--
 -- Name: registered_graphic_parcels_city_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -17340,6 +17460,13 @@ CREATE INDEX registered_graphic_parcels_city_name ON lexicon.registered_graphic_
 --
 
 CREATE INDEX registered_graphic_parcels_id ON lexicon.registered_graphic_parcels USING btree (id);
+
+
+--
+-- Name: registered_graphic_parcels_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_graphic_parcels_shape ON lexicon.registered_graphic_parcels USING gist (shape);
 
 
 --
@@ -17385,10 +17512,38 @@ CREATE INDEX registered_hourly_weathers_station_id ON lexicon.registered_hourly_
 
 
 --
+-- Name: registered_hydrographic_items_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_centroid ON lexicon.registered_hydrographic_items USING gist (centroid);
+
+
+--
+-- Name: registered_hydrographic_items_lines; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_lines ON lexicon.registered_hydrographic_items USING gist (lines);
+
+
+--
 -- Name: registered_hydrographic_items_nature; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_hydrographic_items_nature ON lexicon.registered_hydrographic_items USING btree (nature);
+
+
+--
+-- Name: registered_hydrographic_items_point; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_point ON lexicon.registered_hydrographic_items USING gist (point);
+
+
+--
+-- Name: registered_hydrographic_items_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_hydrographic_items_shape ON lexicon.registered_hydrographic_items USING gist (shape);
 
 
 --
@@ -17406,6 +17561,13 @@ CREATE INDEX registered_msa_populations_year ON lexicon.registered_msa_populatio
 
 
 --
+-- Name: registered_natural_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_natural_zones_centroid ON lexicon.registered_natural_zones USING gist (centroid);
+
+
+--
 -- Name: registered_natural_zones_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -17417,6 +17579,13 @@ CREATE INDEX registered_natural_zones_id ON lexicon.registered_natural_zones USI
 --
 
 CREATE INDEX registered_natural_zones_nature ON lexicon.registered_natural_zones USING btree (nature);
+
+
+--
+-- Name: registered_natural_zones_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_natural_zones_shape ON lexicon.registered_natural_zones USING gist (shape);
 
 
 --
@@ -17504,6 +17673,13 @@ CREATE INDEX registered_phytosanitary_usages_species ON lexicon.registered_phyto
 
 
 --
+-- Name: registered_postal_codes_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_postal_codes_centroid ON lexicon.registered_postal_codes USING gist (city_centroid);
+
+
+--
 -- Name: registered_postal_codes_city_name; Type: INDEX; Schema: lexicon; Owner: -
 --
 
@@ -17525,10 +17701,31 @@ CREATE INDEX registered_postal_codes_postal_code ON lexicon.registered_postal_co
 
 
 --
+-- Name: registered_postal_codes_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_postal_codes_shape ON lexicon.registered_postal_codes USING gist (city_shape);
+
+
+--
+-- Name: registered_protected_water_zones_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_protected_water_zones_centroid ON lexicon.registered_protected_water_zones USING gist (centroid);
+
+
+--
 -- Name: registered_protected_water_zones_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_protected_water_zones_id ON lexicon.registered_protected_water_zones USING btree (id);
+
+
+--
+-- Name: registered_protected_water_zones_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_protected_water_zones_shape ON lexicon.registered_protected_water_zones USING gist (shape);
 
 
 --
@@ -17595,10 +17792,31 @@ CREATE INDEX registered_seed_varieties_id_specie ON lexicon.registered_seed_vari
 
 
 --
+-- Name: registered_soil_available_water_capacities_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_centroid ON lexicon.registered_soil_available_water_capacities USING gist (centroid);
+
+
+--
 -- Name: registered_soil_available_water_capacities_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_soil_available_water_capacities_id ON lexicon.registered_soil_available_water_capacities USING btree (id);
+
+
+--
+-- Name: registered_soil_available_water_capacities_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_available_water_capacities_shape ON lexicon.registered_soil_available_water_capacities USING gist (shape);
+
+
+--
+-- Name: registered_soil_depths_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_centroid ON lexicon.registered_soil_depths USING gist (centroid);
 
 
 --
@@ -17609,10 +17827,24 @@ CREATE INDEX registered_soil_depths_id ON lexicon.registered_soil_depths USING b
 
 
 --
+-- Name: registered_soil_depths_shape; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_soil_depths_shape ON lexicon.registered_soil_depths USING gist (shape);
+
+
+--
 -- Name: registered_vine_varieties_id; Type: INDEX; Schema: lexicon; Owner: -
 --
 
 CREATE INDEX registered_vine_varieties_id ON lexicon.registered_vine_varieties USING btree (id);
+
+
+--
+-- Name: registered_weather_stations_centroid; Type: INDEX; Schema: lexicon; Owner: -
+--
+
+CREATE INDEX registered_weather_stations_centroid ON lexicon.registered_weather_stations USING gist (centroid);
 
 
 --
@@ -30345,7 +30577,7 @@ ALTER TABLE ONLY public.projects
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 9C1ED57smStj4dKfkvZfiuaJtbvNp8plmha3H57qbDcfGBW2n1ALsXp0FfQSNgT
+\unrestrict ti1F5FSlYW7tfcY3LjosVeKXSnag9mHayK81FWIii64IbG9HOXloaRfkZl17aU0
 
 SET search_path TO public,postgis,lexicon;
 
