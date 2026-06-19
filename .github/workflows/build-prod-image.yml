@@ -41,6 +41,38 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Strip plugin GIT sections from Gemfile.lock
+        # Le Gemfile.lock commite des revisions figees pour les plugins listes
+        # dans docker/prod/Gemfile.prod (ex: ekylibre-baqio @ 300ca7b1...). Sans
+        # cette etape, `bundle install` dans le build Docker reutilise ces
+        # revisions et ignore le HEAD des branches declarees (master/main/dev).
+        #
+        # On retire UNIQUEMENT les sections GIT dont l'URL correspond a un plugin
+        # de Gemfile.prod, en laissant intactes les gems coeur (agric, charta,
+        # possibly, etc.) et le reste du lock. Bundler re-resout alors ces gems
+        # contre le HEAD de leur branche au moment du build.
+        #
+        # Modifie uniquement le runner; le Gemfile.lock du repo reste inchange.
+        run: |
+          set -euo pipefail
+          PLUGIN_URLS=$(grep -oE "https://github\.com/[^']+\.git" docker/prod/Gemfile.prod | sort -u)
+          if [ -z "$PLUGIN_URLS" ]; then
+            echo "::error::Aucun plugin git trouve dans docker/prod/Gemfile.prod"
+            exit 1
+          fi
+          PLUGINS_REGEX=$(echo "$PLUGIN_URLS" | sed 's/[.]/\\./g' | paste -sd'|')
+          echo "Plugins a re-resoudre (HEAD de leur branche):"
+          echo "$PLUGIN_URLS" | sed 's/^/  - /'
+          BEFORE=$(grep -cE "^GIT$" Gemfile.lock)
+          awk -v re="$PLUGINS_REGEX" '
+            BEGIN { RS=""; ORS="\n\n" }
+            $1 == "GIT" && $0 ~ re { next }
+            { print }
+          ' Gemfile.lock > Gemfile.lock.tmp
+          mv Gemfile.lock.tmp Gemfile.lock
+          AFTER=$(grep -cE "^GIT$" Gemfile.lock)
+          echo "Sections GIT: $BEFORE -> $AFTER"
+
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5

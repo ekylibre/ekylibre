@@ -66,6 +66,8 @@ Les images tirées :
 
 > **Plugins inclus** : l'image GHCR embarque les plugins publics listés dans `docker/prod/Gemfile.prod` (banking, qonto, baqio, ednotif, planning, samsys, traccar, weenat, sencrop, hve, idea, hajimari, viti, etc.). Pour ajouter / retirer un plugin, éditer ce fichier et déclencher un nouveau build.
 >
+> **Toujours au HEAD de la branche** : chaque build ré-interroge GitHub et installe le dernier commit de la branche déclarée pour chaque plugin (`master` / `main` / `dev` selon le gem). Implémentation : avant le `docker build`, l'étape `Strip plugin GIT sections from Gemfile.lock` du workflow `.github/workflows/build-prod-image.yml` retire les sections `GIT` du `Gemfile.lock` correspondant aux plugins de `Gemfile.prod` ; bundler n'ayant plus de révision figée, il re-résout contre la branche distante. Le `Gemfile.lock` du repo (utilisé en dev) reste inchangé. Pour pousser un nouveau commit d'un plugin en prod : push / merge sur le plugin, puis re-déclencher le workflow (push sur ekylibre, `workflow_dispatch`, ou rebuild Dokploy).
+>
 > **Plugins privés ou path-local** : si votre déploiement nécessite des plugins non-publics, builder localement :
 > ```bash
 > docker build -f docker/prod/Dockerfile -t ghcr.io/ekylibre/ekylibre/app:local .

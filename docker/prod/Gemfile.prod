@@ -7,6 +7,13 @@
 #
 # Les deploiements qui ont besoin de plugins prives ou de gems en path:
 # doivent maintenir leur propre Gemfile.local en parallele (ignore par ce fichier).
+#
+# Resolution au HEAD de la branche : a chaque build d'image, le workflow
+# .github/workflows/build-prod-image.yml strippe les sections GIT correspondant
+# aux URLs ci-dessous depuis Gemfile.lock avant le docker build. Bundler
+# re-resout alors chaque plugin contre le dernier commit de la branche
+# declaree (master/main/dev), sans utiliser de revision figee. Le Gemfile.lock
+# du repo reste inchange (utilise en dev).
 
 # === Gems utilitaires partagees ===
 gem 'securerandom'
