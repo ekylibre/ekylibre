@@ -166,6 +166,13 @@ Rails.application.routes.draw do
     resources :analyses, only: [:create], path: 'a'
   end
 
+  # Streams shared agricultural pictures (variety/production icons) stored
+  # as BYTEA in the lexicon schema. Replaces filesystem assets under
+  # app/assets/images/{varieties,productions,activity_families}.
+  get 'lexicon/pictures/:domain/:name', to: 'lexicon_pictures#show',
+                                        as: :lexicon_picture,
+                                        constraints: { name: %r{[^/]+} }
+
   # Plugins can override backend routes but only complete API ones
   plugins
 
