@@ -128,7 +128,7 @@ jobs:
     # Déclenche le déploiement Dokploy une fois l'image construite et poussée.
     # Évite le déclencheur natif Dokploy (push) qui se lance avant la fin du build.
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/5.0-beta'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/5.0-beta'
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Dokploy deploy webhook
