@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS registered_hydrographic_items;
 DROP TABLE IF EXISTS registered_area_items;
 DROP TABLE IF EXISTS registered_cadastral_buildings;
 
-         CREATE TABLE registered_cadastral_buildings(
+        CREATE TABLE registered_cadastral_buildings(
           id SERIAL PRIMARY KEY NOT NULL,
           reference_name character varying,
           nature character varying,
@@ -30,14 +30,14 @@ DROP TABLE IF EXISTS registered_cadastral_buildings;
         CREATE INDEX registered_area_items_lines ON registered_area_items USING GIST (lines);
         CREATE INDEX registered_area_items_centroid ON registered_area_items USING GIST (centroid);
 
-         CREATE TABLE registered_hydrographic_items (
-           id character varying PRIMARY KEY NOT NULL, 
-           name jsonb,
-           nature character varying,
-           point postgis.geometry(Point,4326),
-           shape postgis.geometry(MultiPolygon,4326),
-           lines postgis.geometry(MultiLineString,4326),
-           centroid postgis.geometry(Point, 4326)
+        CREATE TABLE registered_hydrographic_items (
+          id character varying PRIMARY KEY NOT NULL,
+          name jsonb,
+          nature character varying,
+          point postgis.geometry(Point,4326),
+          shape postgis.geometry(MultiPolygon,4326),
+          lines postgis.geometry(MultiLineString,4326),
+          centroid postgis.geometry(Point, 4326)
         );
         CREATE INDEX registered_hydrographic_items_nature ON registered_hydrographic_items(nature);
         CREATE INDEX registered_hydrographic_items_shape ON registered_hydrographic_items USING GIST (shape);

@@ -8,7 +8,9 @@ DROP TABLE IF EXISTS registered_cadastral_parcels;
           work_number character varying,
           net_surface_area integer,
           shape postgis.geometry(MultiPolygon, 4326) NOT NULL,
-          centroid postgis.geometry(Point, 4326)
+          centroid postgis.geometry(Point, 4326),
+          pm_owners_count integer DEFAULT 0,
+          has_agricultural_pm_owner boolean DEFAULT false
         );
         CREATE INDEX registered_cadastral_parcels_id ON registered_cadastral_parcels(id);
         CREATE INDEX registered_cadastral_parcels_town_insee_code ON registered_cadastral_parcels(town_insee_code);
@@ -17,3 +19,4 @@ DROP TABLE IF EXISTS registered_cadastral_parcels;
         CREATE INDEX registered_cadastral_parcels_work_number ON registered_cadastral_parcels(work_number);
         CREATE INDEX registered_cadastral_parcels_shape ON registered_cadastral_parcels USING GIST (shape);
         CREATE INDEX registered_cadastral_parcels_centroid ON registered_cadastral_parcels USING GIST (centroid);
+        CREATE INDEX registered_cadastral_parcels_pm_owners_count ON registered_cadastral_parcels(pm_owners_count) WHERE pm_owners_count > 0;
