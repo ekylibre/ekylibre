@@ -8,7 +8,6 @@ services:
     volumes:
       - log:/app/log
       - uploads:/app/private
-      - public-assets:/app/public
       - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
       # tenants.yml persiste hors du container pour survivre aux redeploys.
       # Le fichier doit exister sur l'hote (touch + chown 1000:1000) avant le up.
@@ -173,7 +172,6 @@ volumes:
   redis-data:
   log:
   uploads:
-  public-assets:
   caddy-data:
   caddy-config:
   postgres-duke-data:
