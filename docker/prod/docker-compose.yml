@@ -128,6 +128,45 @@ services:
         condition: service_started
     restart: unless-stopped
 
+  # NanoClaw : pont Telegram <-> Duke <-> Ekylibre.
+  # 1 host container + N containers Bun spawned via le socket Docker monte.
+  # Spec : claudedocs/workflow_nanoclaw_telegram_prod.md §5.1.
+  nanoclaw:
+    image: ghcr.io/ekylibre/nanoclaw-ekylibre:${NANOCLAW_IMAGE_TAG:-latest}
+    pull_policy: always
+    container_name: nanoclaw
+    env_file: .env
+    environment:
+      ANTHROPIC_AUTH_TOKEN: ${ANTHROPIC_AUTH_TOKEN}
+      ANTHROPIC_BASE_URL: ${ANTHROPIC_BASE_URL:-}
+      DUKE_WS_URL: ${DUKE_WS_URL:-ws://duke-api:8000/ws}
+      DUKE_HTTP_URL: ${DUKE_HTTP_URL:-http://duke-api:8000}
+      EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
+      NANOCLAW_AGENTS_NETWORK: ekylibre
+      NANOCLAW_LOG_LEVEL: ${NANOCLAW_LOG_LEVEL:-info}
+      NANOCLAW_LLM_PROVIDER: ${NANOCLAW_LLM_PROVIDER:-claude}
+    volumes:
+      - nanoclaw-data:/data
+      # Socket Docker pour spawn des containers agent Bun.
+      # Risque securite documente §8.1 : tourner sur un user host dedie.
+      - /var/run/docker.sock:/var/run/docker.sock
+      # tenants.yml : source de verite de l'enrolement (chmod 0600, root:root).
+      # Doit exister AVANT le up (touch + chmod + chown), sinon Docker le cree
+      # comme un repertoire.
+      - ${NANOCLAW_TENANTS_PATH:-./nanoclaw-tenants.yml}:/etc/nanoclaw/tenants.yml:ro
+    depends_on:
+      duke-api:
+        condition: service_started
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
+
   postgres-duke:
     image: postgres:16-alpine
     container_name: postgres-duke
@@ -177,6 +216,7 @@ volumes:
   postgres-duke-data:
   whisper-cache:
   ollama-models:
+  nanoclaw-data:
 
 networks:
   default:
