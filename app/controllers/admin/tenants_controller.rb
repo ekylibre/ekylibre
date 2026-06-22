@@ -18,6 +18,7 @@ class Admin::TenantsController < Admin::BaseController
     end
 
     load_lexicon_data
+    load_versions_data
   end
 
   def new
@@ -160,6 +161,16 @@ class Admin::TenantsController < Admin::BaseController
 
     def dump_redis_key(name)
       "ekylibre:admin:dump:#{name}"
+    end
+
+    def load_versions_data
+      result = Admin::PluginsInspector.new.call
+      @ekylibre_version = result.ekylibre_version
+      @plugins = result.plugins
+    rescue StandardError => e
+      Rails.logger.warn("[Admin::Versions] #{e.class}: #{e.message}")
+      @ekylibre_version = safe_fetch { Ekylibre::VERSION }
+      @plugins = []
     end
 
     def load_lexicon_data

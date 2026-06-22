@@ -10,17 +10,19 @@
   .tabs-nav label:hover { color: #333; background: #e4e4e4; }
   .tab-panel { display: none; }
 
-  #tab-tenants:checked ~ .tabs-nav label[for="tab-tenants"],
-  #tab-demo:checked    ~ .tabs-nav label[for="tab-demo"],
-  #tab-restore:checked ~ .tabs-nav label[for="tab-restore"],
-  #tab-lexicon:checked ~ .tabs-nav label[for="tab-lexicon"] {
+  #tab-tenants:checked  ~ .tabs-nav label[for="tab-tenants"],
+  #tab-demo:checked     ~ .tabs-nav label[for="tab-demo"],
+  #tab-restore:checked  ~ .tabs-nav label[for="tab-restore"],
+  #tab-lexicon:checked  ~ .tabs-nav label[for="tab-lexicon"],
+  #tab-versions:checked ~ .tabs-nav label[for="tab-versions"] {
     background: white; color: #333; border-color: #ddd #ddd white;
     border-bottom-color: white; margin-bottom: -2px; padding-bottom: 12px;
   }
-  #tab-tenants:checked ~ #panel-tenants,
-  #tab-demo:checked    ~ #panel-demo,
-  #tab-restore:checked ~ #panel-restore,
-  #tab-lexicon:checked ~ #panel-lexicon { display: block; }
+  #tab-tenants:checked  ~ #panel-tenants,
+  #tab-demo:checked     ~ #panel-demo,
+  #tab-restore:checked  ~ #panel-restore,
+  #tab-lexicon:checked  ~ #panel-lexicon,
+  #tab-versions:checked ~ #panel-versions { display: block; }
 
   /* ---- Lexicon ---- */
   #lexicon-card { background:white; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:24px; margin-bottom:20px; }
@@ -84,16 +86,31 @@
   #restore-message.status-done  { color:#4a7c59; font-weight:bold; font-style:normal; }
   #restore-message.status-error { color:#dc3545; font-weight:bold; font-style:normal; }
 
-%input#tab-tenants.tab-radio{ type: 'radio', name: 'admin-tab', checked: true }
-%input#tab-demo.tab-radio{    type: 'radio', name: 'admin-tab' }
-%input#tab-restore.tab-radio{ type: 'radio', name: 'admin-tab' }
-%input#tab-lexicon.tab-radio{ type: 'radio', name: 'admin-tab' }
+  /* ---- Versions ---- */
+  #versions-card { background:white; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:24px; margin-bottom:20px; }
+  #versions-card h3 { margin: 0 0 12px; font-size: 1.05em; color:#333; }
+  .versions-meta { font-size: 0.95em; margin-bottom: 8px; }
+  .versions-meta .label { color:#666; display:inline-block; min-width: 180px; }
+  .versions-meta .value { font-weight: 600; color:#333; }
+  .versions-meta .value.active { color:#4a7c59; }
+  .versions-section { border-top:1px solid #eee; margin-top:18px; padding-top:18px; }
+  #versions-card table code { font-family: monospace; background:#f5f5f5; padding:2px 6px; border-radius:3px; font-size:0.85em; }
+  #versions-card .empty { color:#888; font-style:italic; margin: 0; }
+  #versions-card a { color:#4a7c59; text-decoration:none; }
+  #versions-card a:hover { text-decoration:underline; }
+
+%input#tab-tenants.tab-radio{  type: 'radio', name: 'admin-tab', checked: true }
+%input#tab-demo.tab-radio{     type: 'radio', name: 'admin-tab' }
+%input#tab-restore.tab-radio{  type: 'radio', name: 'admin-tab' }
+%input#tab-lexicon.tab-radio{  type: 'radio', name: 'admin-tab' }
+%input#tab-versions.tab-radio{ type: 'radio', name: 'admin-tab' }
 
 .tabs-nav
-  %label{for: 'tab-tenants'} Tenants
-  %label{for: 'tab-demo'}    Données de démo
-  %label{for: 'tab-restore'} Restaurer une archive
-  %label{for: 'tab-lexicon'} Lexicon
+  %label{for: 'tab-tenants'}  Tenants
+  %label{for: 'tab-demo'}     Données de démo
+  %label{for: 'tab-restore'}  Restaurer une archive
+  %label{for: 'tab-lexicon'}  Lexicon
+  %label{for: 'tab-versions'} Versions
 
 :javascript
   // Restore active tab from sessionStorage
@@ -880,3 +897,41 @@
           }
         }).catch(function() {});
     })();
+
+/ ==================== PANEL VERSIONS ====================
+#panel-versions.tab-panel
+  %h1 Versions
+  #versions-card
+    %h3 Ekylibre
+    .versions-meta
+      %span.label Version actuelle
+      %span.value.active= @ekylibre_version.presence || 'inconnue'
+
+    .versions-section
+      %h3 Plugins ekylibre/* chargés
+      - if @plugins.blank?
+        %p.empty Aucun plugin ekylibre/* détecté dans Gemfile.local ou Gemfile.prod.
+      - else
+        %table
+          %thead
+            %tr
+              %th Nom
+              %th Slug GitHub
+              %th Branche
+              %th Révision
+              %th Version gem
+              %th Source
+          %tbody
+            - @plugins.each do |plugin|
+              %tr
+                %td= plugin.name
+                %td
+                  %a{href: plugin.uri, target: '_blank', rel: 'noopener'}= plugin.slug
+                %td= plugin.branch.presence || '—'
+                %td
+                  - if plugin.short_revision.present?
+                    %code{title: plugin.revision}= plugin.short_revision
+                  - else
+                    —
+                %td= plugin.gem_version.presence || '—'
+                %td= File.basename(plugin.gemfile.to_s)
