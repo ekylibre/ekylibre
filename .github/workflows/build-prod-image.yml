@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 5.0-beta
+      - main
     tags:
       - 'v*'
   workflow_dispatch:
@@ -127,9 +128,17 @@ jobs:
   deploy:
     # Déclenche le déploiement Dokploy une fois l'image construite et poussée.
     # Évite le déclencheur natif Dokploy (push) qui se lance avant la fin du build.
+    #
+    # Le mapping branche -> environnement GitHub Actions :
+    #   - 5.0-beta -> staging
+    #   - main     -> production
+    # Le secret DOKPLOY_WEBHOOK_URL est résolu depuis l'environnement ciblé,
+    # ce qui permet d'avoir une URL distincte par cible de déploiement et de
+    # bénéficier des protections d'environnement (reviewers, branch policies).
     needs: build
-    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/5.0-beta'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/5.0-beta' || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
     steps:
       - name: Trigger Dokploy deploy webhook
         env:
@@ -138,4 +147,4 @@ jobs:
           curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}" \
             -H "X-GitHub-Event: workflow_deploy" \
             -H "Content-Type: application/json" \
-            -d '{"ref": "refs/heads/5.0-beta"}'
+            -d "{\"ref\": \"${GITHUB_REF}\"}"

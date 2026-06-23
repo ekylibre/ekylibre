@@ -152,6 +152,9 @@ services:
     environment:
       ANTHROPIC_AUTH_TOKEN: ${ANTHROPIC_AUTH_TOKEN}
       ANTHROPIC_BASE_URL: ${ANTHROPIC_BASE_URL:-}
+      # OneCLI gateway -- voir notes_nanoclaw_v2.md §1.6
+      ONECLI_API_KEY: ${ONECLI_API_KEY:-}
+      ONECLI_URL: ${ONECLI_URL:-https://app.onecli.sh}
       DUKE_WS_URL: ${DUKE_WS_URL:-ws://duke-api:8000/ws}
       DUKE_HTTP_URL: ${DUKE_HTTP_URL:-http://duke-api:8000}
       EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}

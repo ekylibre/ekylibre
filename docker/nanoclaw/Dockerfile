@@ -56,12 +56,27 @@ RUN rm src/channels/deltachat.ts src/channels/slack.ts \
     && grep -q 'resolveChannelName?: ' src/channels/adapter.ts \
        || (echo "FATAL: patch resolveChannelName failed -- adapter.ts upstream a change" >&2; exit 1)
 
-RUN corepack enable && corepack prepare pnpm@10 --activate \
+# Patch container/Dockerfile (image agent) : pnpm v10+ met le bin global dans
+# $PNPM_HOME/bin, alors qu'upstream pose PATH=$PNPM_HOME:$PATH (sans /bin).
+# Consequence : `pnpm install -g vercel` exit 1 avec "global bin directory
+# /pnpm/bin is not in PATH". A retirer quand upstream corrigera.
+RUN grep -q 'ENV PATH="\$PNPM_HOME:\$PATH"' container/Dockerfile \
+    && sed -i 's#^ENV PATH="\$PNPM_HOME:\$PATH"$#ENV PATH="$PNPM_HOME/bin:$PATH"#' \
+              container/Dockerfile \
+    && grep -q 'ENV PATH="\$PNPM_HOME/bin:\$PATH"' container/Dockerfile \
+       || (echo "FATAL: patch container/Dockerfile PNPM_HOME a echoue" >&2; exit 1)
+
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate \
     && pnpm install --frozen-lockfile \
     && pnpm build
 
 # === Stage 2 : runtime ===
 FROM node:24-bookworm-slim
+
+# pnpm via corepack -- requis au runtime pour `pnpm start` dans init.sh.
+# Pinne sur la meme version que la stage 1 pour eviter les surprises.
+# Le download corepack a lieu pendant le build, pas au boot du container.
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 # Outils runtime necessaires :
 # - docker-cli : NanoClaw spawn ses containers Bun via le socket monte
@@ -69,8 +84,9 @@ FROM node:24-bookworm-slim
 # - yq         : parsing YAML du fichier tenants.yml dans init.sh / nanoclaw CLI
 # - jq         : parsing JSON pour healthcheck et CLI
 # - curl       : healthcheck HTTP local + signal_host() de la CLI
+# - sqlite3    : poll de readiness de v2.db dans init.sh avant init-first-agent
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      ca-certificates docker.io tini jq curl \
+      ca-certificates docker.io tini jq curl sqlite3 \
     && curl -L "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64" -o /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq \
     && rm -rf /var/lib/apt/lists/*

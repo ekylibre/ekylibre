@@ -139,6 +139,11 @@ services:
     environment:
       ANTHROPIC_AUTH_TOKEN: ${ANTHROPIC_AUTH_TOKEN}
       ANTHROPIC_BASE_URL: ${ANTHROPIC_BASE_URL:-}
+      # OneCLI gateway (https://app.onecli.sh) : NanoClaw v2 l'utilise pour
+      # provisionner les credentials Claude des containers agent. Sans cle,
+      # les spawn echouent en exit 125. Inscription sur app.onecli.sh.
+      ONECLI_API_KEY: ${ONECLI_API_KEY:-}
+      ONECLI_URL: ${ONECLI_URL:-https://app.onecli.sh}
       DUKE_WS_URL: ${DUKE_WS_URL:-ws://duke-api:8000/ws}
       DUKE_HTTP_URL: ${DUKE_HTTP_URL:-http://duke-api:8000}
       EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
@@ -147,8 +152,9 @@ services:
       NANOCLAW_LLM_PROVIDER: ${NANOCLAW_LLM_PROVIDER:-claude}
     volumes:
       - nanoclaw-data:/data
-      # Socket Docker pour spawn des containers agent Bun.
-      # Risque securite documente §8.1 : tourner sur un user host dedie.
+      # Socket Docker pour spawn des containers agent + build de l'image agent
+      # au premier boot. Risque securite documente §8.1 : tourner sur un user
+      # host dedie.
       - /var/run/docker.sock:/var/run/docker.sock
       # tenants.yml : source de verite de l'enrolement (chmod 0600, root:root).
       # Doit exister AVANT le up (touch + chmod + chown), sinon Docker le cree
