@@ -7,11 +7,11 @@ Built with [Ruby on Rails](https://rubyonrails.org/), [PostgreSQL](https://www.p
 - 🌐 Website: <https://ekylibre.org>
 - 🚀 Live demo: <https://demo.ekylibre-dev.com>
 - 📚 User documentation (FR): <https://ekylibre.github.io/doc/fr/demarrage/>
-- 💬 Community forum: <http://forum.ekylibre.org>
+- 💬 Community forum: <https://discord.com/invite/BSpD6hq7qR>
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/master/docs/assets/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/docs/assets/screenshots/screens.png)
+[Screen](https://github.com/ekylibre/demo-data/blob/main/demo/alamano/background.jpg)
 
 ## What's new in 5.0
 
@@ -37,21 +37,17 @@ Ekylibre **5.0** (June 2026) is a major release. Highlights:
 - `docker/db/init.sql` requires the new `IF EXISTS` guard around `DROP EXTENSION postgis` — see [CLAUDE.md](CLAUDE.md) for context.
 - **AgroMonitoring** moved out of core into the [`ekylibre-agro-monitoring`](https://github.com/ekylibre/ekylibre-agro-monitoring) plugin.
 
-## Requirements
-
-* [Ubuntu 20.04 LTS](./docs/installation/ubuntu-20.04-lts.md)
-
 ## Installation
 
-* [Install Ekylibre](./docs/installation/eky-ekylibre.md)
+* [Install Ekylibre](https://ekylibre.org/techdoc/)
 * [Docker](./docker/README.md)
 * [Docker production (Dokploy)](./docker/prod/README.md) — Caddy multi-tenant TLS, GHCR images
-* [Plugin sourcing](./docker/prod/Gemfile.prod) — public plugin manifest used by CI
 
 ## Documentation
 
-- [User documentation (FR)](https://ekylibre.github.io/doc/fr/demarrage/)
-- [API v2 — French integration guide](./docs/api/README.md)
+- [User documentation (FR)](https://ekylibre.org/fr/user-doc/demarrage/)
+- [Tech documentation (FR)](https://ekylibre.org/techdoc/)
+- [API v2 — French integration guide](https://ekylibre.org/api/)
 - [API v2 — OpenAPI 3.0 spec](./docs/api/openapi-v2.yaml)
 - [5.0 release notes (FR)](./docs/releases/5.0.fr.md)
 - [Architecture analysis](./docs/analysis/)
@@ -69,17 +65,8 @@ We encourage contributions.
 
 ## See also
 
-* [Forum](http://forum.ekylibre.org)
-* [User Documentation - FR](https://ekylibre.github.io/doc/fr/demarrage/)
 * [Live demo](https://demo.ekylibre-dev.com)
-* [Demo dataset - FR](https://github.com/ekylibre/first_run-demo)
-
-## Follow us
-
-* Website: <https://ekylibre.org>
-* [Twitter / X](https://twitter.com/Ekylibre)
-* [Facebook](https://www.facebook.com/ekylibre)
-* [YouTube](http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g)
+* [Demo dataset - FR](https://github.com/ekylibre/demo-data)
 
 ## License
 
