@@ -79,13 +79,6 @@ GIT
     ekylibre-ednotif (1.0.0)
 
 GIT
-  remote: https://github.com/ekylibre/ekylibre-hajimari.git
-  revision: 713bd60696340d849d63be2e68f342295724fcdd
-  branch: master
-  specs:
-    hajimari (3.5.0)
-
-GIT
   remote: https://github.com/ekylibre/ekylibre-natuition.git
   revision: 9c84e01a51a256b4ed19b669c8de5e6425c67cfe
   branch: main
@@ -135,13 +128,6 @@ GIT
       webmock (~> 3.11)
 
 GIT
-  remote: https://github.com/ekylibre/ekylibre-traccar.git
-  revision: 132608c3a193c0354455b009435b0dd5cce8db0c
-  branch: master
-  specs:
-    ekylibre-traccar (0.1.0)
-
-GIT
   remote: https://github.com/ekylibre/ekylibre-weenat.git
   revision: 94bfa1d6837200d50f26cdab67a7a801a4f83e0d
   branch: master
@@ -176,6 +162,35 @@ GIT
   specs:
     xml_errors_parser (0.0.3)
       i18n
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-agro-monitoring
+  specs:
+    agro_monitoring (0.1.0)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-hajimari
+  specs:
+    hajimari (3.5.0)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-hve
+  specs:
+    ekylibre_hve (0.1.0)
+      rails (~> 5.2)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-idea
+  specs:
+    idea (1.0.0)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-traccar
+  specs:
+    ekylibre-traccar (0.1.0)
 
 PATH
   remote: /ekylibre-plugins/ekylibre-viti
@@ -667,6 +682,8 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.3)
+    puma (5.6.9)
+      nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
@@ -968,6 +985,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (~> 5.0)
   acts_as_list (~> 1.0)
   agric!
+  agro_monitoring!
   apartment (~> 2.2.1)
   apartment-sidekiq (~> 1.2)
   awesome_nested_set (~> 3.2.1)
@@ -1011,6 +1029,7 @@ DEPENDENCIES
   ekylibre-samsys!
   ekylibre-traccar!
   ekylibre_ekyviti!
+  ekylibre_hve!
   enumerize (~> 2.4)
   exception_notification (~> 4.4)
   factory_bot (< 5)
@@ -1033,6 +1052,7 @@ DEPENDENCIES
   humanize (~> 2.5)
   i18n-complements (>= 0.0.14)
   i18n-js (~> 3.8)
+  idea!
   irb (~> 1.3)
   jbuilder (~> 2.0)
   jquery-rails (~> 4.4)
@@ -1066,6 +1086,7 @@ DEPENDENCIES
   pry (~> 0.12.0)
   pry-byebug (~> 3.8)
   pry-rails (~> 0.3.9)
+  puma (~> 5.6)
   rack-cors
   rack-handlers
   rack-mini-profiler
@@ -1116,7 +1137,6 @@ DEPENDENCIES
   turnout (~> 2.5)
   twitter-typeahead-rails (~> 0.11.1)
   uglifier (>= 1.3.0)
-  unicorn (~> 5.8)
   unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
