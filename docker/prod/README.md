@@ -41,6 +41,7 @@ cp docker/prod/.env.dist docker/prod/.env
 | `HOST_DOMAIN_NAME` | Nom de domaine (sans protocole ni sous-domaine), ex: `ekylibre.example.com` |
 | `LETSENCRYPT_EMAIL` | Email pour les notifications Let's Encrypt |
 | `SECRET_KEY_BASE` | À générer : `openssl rand -hex 64` |
+| `INTEGRATION_CIPHER_BASE64_KEY` | Clé AES-256 pour chiffrer les credentials des intégrations tierces. À générer : `ruby -rsecurerandom -rbase64 -e "puts Base64.urlsafe_encode64(SecureRandom.random_bytes(32))"` (ou `openssl rand 32 \| base64 \| tr '+/' '-_' \| tr -d '='`). **Immuable une fois des intégrations créées**. |
 | `ADMIN_USERNAME` / `ADMIN_PASSWORD` | Accès HTTP Basic à `/admin` |
 | `DB_PASSWORD` | Mot de passe PostgreSQL fort |
 
@@ -183,14 +184,17 @@ docker compose -f docker/prod/docker-compose.yml exec -e TENANT=acme app bundle 
 | `db` | `kartoza/postgis:13` | PostgreSQL + PostGIS, port NON exposé |
 | `redis` | `redis:7-alpine` | Cache + Sidekiq, port NON exposé |
 
-Services optionnels (Duke, voir §11) :
+Services optionnels (activés via `--profile` Compose) :
 
-| Service | Image | Profile |
-|---|---|---|
-| `duke-api` | `ghcr.io/ekylibre/duke/duke-api:latest` | `duke` |
-| `postgres-duke` | `postgres:16-alpine` | `duke` |
-| `ollama` | `ollama/ollama:latest` | `duke-llm-local` |
-| `ollama-pull` | `ollama/ollama:latest` | `duke-llm-local` |
+| Service | Image | Profile | Voir |
+|---|---|---|---|
+| `duke-api` | `ghcr.io/ekylibre/duke/duke-api:latest` | `duke` | §10 |
+| `postgres-duke` | `postgres:16-alpine` | `duke` | §10 |
+| `ollama` | `ollama/ollama:latest` | `duke-llm-local` (ou `ollama`) | §10 |
+| `ollama-pull` | `ollama/ollama:latest` | `duke-llm-local` (ou `ollama`) | §10 |
+| `nanoclaw` | `ghcr.io/ekylibre/nanoclaw-ekylibre:latest` | `nanoclaw` | §10c |
+
+Sans profile, `docker compose up -d` ne démarre que le stack de base (`app`, `sidekiq`, `caddy`, `db`, `redis`). Les services optionnels ne sont pull ni démarrés — aucune image parasite n'est tirée sur des installations qui n'en ont pas besoin.
 
 Aucun port DB n'est exposé sur l'hôte. Pour un accès direct à la DB depuis le serveur :
 
@@ -342,6 +346,38 @@ docker compose -f docker/prod/docker-compose.yml --profile duke down
 
 ---
 
+## 10c. Activer NanoClaw (pont Telegram ↔ Duke) — OPTIONNEL
+
+NanoClaw est un service Bun qui relaie les messages Telegram vers Duke et Ekylibre. Il **dépend de Duke** — activer NanoClaw seul n'a pas de sens.
+
+### a. Configurer les variables NanoClaw dans `.env`
+
+```bash
+NANOCLAW_IMAGE_TAG=latest
+ANTHROPIC_AUTH_TOKEN=sk-ant-...
+ONECLI_API_KEY=<clé provisionnée sur app.onecli.sh>
+# Chemin sur l'hôte du fichier tenants.yml (chmod 0600, root:root, créé AVANT le up)
+NANOCLAW_TENANTS_PATH=./nanoclaw-tenants.yml
+```
+
+Voir `docker/prod/nanoclaw-tenants.example.yml` pour le format.
+
+### b. Démarrer NanoClaw en même temps que Duke
+
+```bash
+docker compose -f docker/prod/docker-compose.yml \
+  --profile duke --profile nanoclaw \
+  up -d
+```
+
+Pour arrêter uniquement NanoClaw :
+
+```bash
+docker compose -f docker/prod/docker-compose.yml --profile nanoclaw stop nanoclaw
+```
+
+---
+
 ## 10b. Secrets optionnels (héritage Salt)
 
 L'ancien déploiement Salt montait plusieurs secrets pour des intégrations spécifiques. Ils sont **optionnels** et seulement nécessaires si vous utilisez les fonctionnalités correspondantes.
@@ -475,13 +511,18 @@ Le healthcheck a `start_period: 600s` (10 min) pour laisser le temps au lexicon 
 docker compose -f docker/prod/docker-compose.yml exec db pg_isready -U ekylibre
 ```
 
+### `OpenSSL::Cipher::CipherError: key length too short` sur les intégrations
+
+`INTEGRATION_CIPHER_BASE64_KEY` est vide ou mal encodée. Régénérer avec `openssl rand 32 | base64 | tr '+/' '-_' | tr -d '='` et redémarrer `app` + `sidekiq`. **Ne changer cette clé qu'avant la première intégration** — sinon les credentials déjà chiffrés en base sont perdus.
+
 ---
 
 ## 13. Désinstallation
 
 ```bash
-# Arrêter tous les services (y compris Duke)
-docker compose -f docker/prod/docker-compose.yml --profile duke --profile duke-llm-local down
+# Arrêter tous les services (y compris Duke, Ollama et NanoClaw)
+docker compose -f docker/prod/docker-compose.yml \
+  --profile duke --profile duke-llm-local --profile nanoclaw down
 
 # Supprimer les volumes (ATTENTION : perte de données irréversible)
 docker compose -f docker/prod/docker-compose.yml down -v
@@ -494,7 +535,7 @@ docker compose -f docker/prod/docker-compose.yml down -v
 Voir `docker/prod/.env.dist` pour la liste exhaustive avec valeurs par défaut commentées.
 
 Variables groupées en sections :
-- Application (`RAILS_ENV`, `HOST_DOMAIN_NAME`, `ADMIN_*`, `SECRET_KEY_BASE`, Puma tuning)
+- Application (`RAILS_ENV`, `HOST_DOMAIN_NAME`, `ADMIN_*`, `SECRET_KEY_BASE`, `INTEGRATION_CIPHER_BASE64_KEY`, Puma tuning)
 - Database (`DB_*`)
 - Redis (`REDIS_URL`)
 - TLS (`LETSENCRYPT_EMAIL`)

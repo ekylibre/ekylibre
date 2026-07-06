@@ -244,13 +244,22 @@ Accessible sur `https://acme.example.com` après quelques secondes (provisioning
 
 ---
 
-## 7. Activer Duke (optionnel)
+## 7. Activer Duke / Ollama / NanoClaw (optionnel)
 
-Dans l'onglet **General** de la compose app, ajouter le profile :
+Sans profile, seul le stack de base (`app`, `sidekiq`, `caddy-tls`, `db`, `redis`) est démarré.
 
-- **Compose Profiles** : `duke` (ou `duke,duke-llm-local` pour activer Ollama)
+Dans l'onglet **General** de la compose app, saisir la liste des profiles à activer dans **Compose Profiles** :
 
-Renseigner les vars Duke dans **Environment** (cf. §3). Redeploy.
+| Besoin | Profiles à cocher |
+|---|---|
+| Duke (LLM cloud : Anthropic/Mistral) | `duke` |
+| Duke + LLM local Ollama | `duke,duke-llm-local` |
+| Duke + NanoClaw (bot Telegram) | `duke,nanoclaw` |
+| Tout | `duke,duke-llm-local,nanoclaw` |
+
+> NanoClaw dépend de Duke — activer `nanoclaw` sans `duke` échoue au boot (WS `duke-api` inaccessible).
+
+Renseigner les vars correspondantes dans **Environment** (Duke : cf. §3 ; NanoClaw : `ANTHROPIC_AUTH_TOKEN`, `ONECLI_API_KEY`, `NANOCLAW_TENANTS_PATH`). Redeploy.
 
 Duke accessible sur `https://duke.example.com/healthz`.
 

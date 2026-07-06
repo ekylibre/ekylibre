@@ -34,15 +34,34 @@ docker compose -f docker/test/docker-compose.yml up
 
 ### Production (`prod/`)
 
-Environnement de production avec Nginx et certificats Let's Encrypt (Certbot).
+Environnement de production avec Caddy (reverse-proxy) et certificats Let's Encrypt provisionnés à la volée (`on_demand_tls`).
 
-**Services :** Rails, Sidekiq, PostgreSQL/PostGIS, Redis, Nginx (80/443), Certbot
+**Services de base (toujours actifs) :** `app` (Rails Puma), `sidekiq`, `db` (PostgreSQL/PostGIS), `redis`, `caddy` (80/443).
+
+**Services optionnels (activés via `--profile` Compose) :**
+
+| Profile | Services | Rôle |
+|---|---|---|
+| `duke` | `duke-api`, `postgres-duke` | Assistant chatbot agricole |
+| `duke-llm-local` (ou `ollama`) | `ollama`, `ollama-pull` | LLM local pour Duke (GPU recommandé) |
+| `nanoclaw` | `nanoclaw` | Pont Telegram ↔ Duke (dépend de `duke`) |
+
+Sans profile, `docker compose up -d` ne démarre que le stack de base — aucune image optionnelle n'est tirée.
 
 ```bash
+# Stack de base
 docker compose -f docker/prod/docker-compose.yml up -d
+
+# + Duke
+docker compose -f docker/prod/docker-compose.yml --profile duke up -d
+
+# + Duke + NanoClaw
+docker compose -f docker/prod/docker-compose.yml --profile duke --profile nanoclaw up -d
 ```
 
-→ [Documentation complète](prod/README.md)
+Variante Dokploy : `docker-compose.dokploy.yml` (sans Caddy exposé, routing via Traefik managé par Dokploy). Voir [`prod/DOKPLOY.md`](prod/DOKPLOY.md).
+
+→ [Documentation complète](prod/README.md) — installation §1-5, services optionnels §10 (Duke) / §10c (NanoClaw).
 
 ---
 
@@ -52,8 +71,8 @@ docker compose -f docker/prod/docker-compose.yml up -d
 |---|---|---|---|
 | Image base | `ruby2.6` (GitLab) | `prod/Dockerfile` | `prod/Dockerfile` |
 | Code source | Volume monté | Copié dans l'image | Copié dans l'image |
-| Nginx | Non | Non | Oui |
-| SSL / Certbot | Non | Non | Oui |
-| Port Rails | 3000 | 3000 | 80 / 443 |
-| Port PostgreSQL | 5431 | 5431 | 5431 |
-| Restart auto | Non | Non | Oui |
+| Reverse-proxy | Non | Non | Caddy (80/443, TLS auto) |
+| Port Rails | 3000 (host) | 3000 (host) | 3000 (interne, non exposé) |
+| Port PostgreSQL | 5431 (host) | 5431 (host) | Non exposé (accès via `docker exec`) |
+| Restart auto | Non | Non | `unless-stopped` |
+| Services optionnels | — | — | Duke, NanoClaw, Ollama (profiles) |

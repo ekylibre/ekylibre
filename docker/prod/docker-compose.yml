@@ -111,6 +111,7 @@ services:
     image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
     pull_policy: always
     container_name: duke-api
+    profiles: ["duke"]
     env_file: .env
     environment:
       EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
@@ -135,6 +136,7 @@ services:
     image: ghcr.io/ekylibre/nanoclaw-ekylibre:${NANOCLAW_IMAGE_TAG:-latest}
     pull_policy: always
     container_name: nanoclaw
+    profiles: ["nanoclaw"]
     env_file: .env
     environment:
       ANTHROPIC_AUTH_TOKEN: ${ANTHROPIC_AUTH_TOKEN}
@@ -176,6 +178,7 @@ services:
   postgres-duke:
     image: postgres:16-alpine
     container_name: postgres-duke
+    profiles: ["duke"]
     environment:
       POSTGRES_USER: ${DUKE_DB_USER}
       POSTGRES_PASSWORD: ${DUKE_DB_PASSWORD}
@@ -192,6 +195,7 @@ services:
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
+    profiles: ["ollama", "duke-llm-local"]
     volumes:
       - ollama-models:/root/.ollama
     restart: unless-stopped
@@ -204,6 +208,7 @@ services:
   ollama-pull:
     image: ollama/ollama:latest
     container_name: ollama-pull
+    profiles: ["ollama", "duke-llm-local"]
     depends_on:
       ollama:
         condition: service_healthy
