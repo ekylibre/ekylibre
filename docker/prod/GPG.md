@@ -169,10 +169,12 @@ Le mount GPG est déjà déclaré dans les deux composes prod (`docker-compose.y
 ```yaml
 # Extrait de docker-compose.yml — déjà présent sur app ET sidekiq
 volumes:
-  - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg:ro
+  - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg
 ```
 
-> Le mount en `:ro` évite que le process Rails modifie le keyring par accident. Si vous devez importer/rotater une clé, faites-le hors container.
+> ⚠️ **Ne pas monter en `:ro`**. GnuPG 2.x démarre un `gpg-agent` local pour accéder aux clés privées : il doit pouvoir écrire son socket (`S.gpg-agent`), ses fichiers verrous (`.#lk...`) et éventuellement `trustdb.gpg`/`random_seed` dans le homedir. Un mount `:ro` déclenche `can't connect to the agent: Read-only file system` → `Unusable secret key` → l'`ArgumentError: NULL pointer given` typique dans `gpgme_op_sign_result`.
+>
+> La protection est assurée par les permissions Unix côté hôte (`700`/`600`, propriétaire `1000:1000`) et par le fait que le keyring vit dans un volume dédié — pas par `:ro`.
 
 ### 5.1 Renseigner `GPG_KEYRING_PATH` et `GPG_EMAIL` dans `.env`
 
@@ -295,7 +297,11 @@ gpg --homedir ./ekylibre-gnupg --edit-key ekylibre@example.com
 
 ### `gpg: signing failed: Unusable secret key`
 
-La clé n'est pas trusted ultimate (revoir §3.3) **OU** le keygrip de la clé privée manque dans `private-keys-v1.d/` (le transfert §4.2 a oublié des fichiers).
+Trois causes possibles :
+
+1. Le mount du keyring est en `:ro` — voir §5. GnuPG 2.x doit pouvoir écrire dans le homedir pour lancer `gpg-agent`. Symptôme côté GPG CLI : `can't connect to the agent: Read-only file system`. Symptôme côté Rails : `ArgumentError: NULL pointer given` dans `gpgme_op_sign_result` (bug de rescue dans `gpgme` qui masque la vraie erreur).
+2. La clé n'est pas trusted ultimate — revoir §3.3.
+3. Le keygrip de la clé privée manque dans `private-keys-v1.d/` — le transfert §4.2 a oublié des fichiers.
 
 ### `gpg: skipped "ekylibre@example.com": No secret key`
 
