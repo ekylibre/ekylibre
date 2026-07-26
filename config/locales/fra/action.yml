@@ -4664,6 +4664,15 @@ fra:
     search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)" #?
     search_go: "Lancer la recherche" #?
     search_placeholder: "Rechercher…"
+    prefill_from_sirene: "Pré-remplir depuis le répertoire Sirene"
+    name_siren_or_siret: "Nom, SIREN ou SIRET"
+    source_insee_sirene: "Source : INSEE Sirene"
+    searching_sirene: "Recherche dans le répertoire Sirene…"
+    results_found: "entreprises trouvées"
+    no_company_found: "Aucune entreprise trouvée pour cette recherche."
+    sheet_prefilled_from_insee: "Fiche pré-remplie depuis l'INSEE."
+    sirene_unavailable: "Le répertoire Sirene est indisponible, réessayez."
+    establishment_closed: "Fermé"
     search_sales: "Rechercher des ventes" #?
     second_building_name: "Entrée de" #?
     second_contact: "Adresse secondaire" #?

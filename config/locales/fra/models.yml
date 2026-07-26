@@ -3011,6 +3011,7 @@ fra:
     siren: "N° SIREN"
     siret: "SIRET" #?
     siret_number: "N° SIRET"
+    einvoicing_operational: "E-facturation prête"
     size_indicator: "Indicateur de taille"
     size_indicator_name: "Taille Nom de l’indicateur"
     size_unit: "Unité de taille"

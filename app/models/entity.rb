@@ -449,6 +449,26 @@ class Entity < ApplicationRecord
     default_mail_address ? default_mail_address.id : nil
   end
 
+  # E-invoicing readiness (French e-invoicing): a company is operational once it
+  # carries its routing key (SIRET), a postal address and banking details.
+  # Returns nil for non-organizations, for which it does not apply.
+  def einvoicing_operational
+    return nil unless organization?
+
+    einvoicing_missing_mentions.empty?
+  end
+
+  # @return [Array<Symbol>] :siret | :address | :banking
+  def einvoicing_missing_mentions
+    return [] unless organization?
+
+    missing = []
+    missing << :siret   if siret_number.blank?
+    missing << :address if default_mail_address.blank?
+    missing << :banking if iban.blank?
+    missing
+  end
+
   def link_to!(entity, options = {})
     nature = options[:as] || :undefined
     unless direct_links.actives.where(nature: nature.to_s, linked_id: entity.id).any?

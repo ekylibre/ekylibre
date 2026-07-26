@@ -2284,6 +2284,7 @@ eng:
     signup_at: "Signup at"
     siren: "SIREN"
     siret_number: "SIRET number"
+    einvoicing_operational: "E-invoicing ready"
     size_indicator: "Size indicator"
     size_indicator_name: "Size indicator name"
     size_unit: "Size unit"

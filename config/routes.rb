@@ -629,6 +629,7 @@ Rails.application.routes.draw do
         match 'import', via: %i[get post]
         patch :mask_lettered_items
         match 'merge', via: %i[get post]
+        get :sirene_search
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture

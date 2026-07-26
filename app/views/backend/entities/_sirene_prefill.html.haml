@@ -1,0 +1,146 @@
+-# Sirene (INSEE) pre-fill widget — reads the French business registry to fill a
+-# new company sheet. Quiet by design; the one signature is the grouped-digit
+-# SIRET identifier, the registry's own artifact. UI strings travel in a
+-# data-i18n JSON attribute (HAML escapes it correctly) rather than being
+-# interpolated into the :javascript filter, which would double-escape them.
+.sirene-prefill{ data: { url: sirene_search_backend_entities_path(format: :json),
+  i18n: { prefilled: :sheet_prefilled_from_insee.tl, none: :no_company_found.tl,
+          found: :results_found.tl, searching: :searching_sirene.tl,
+          unavailable: :sirene_unavailable.tl, closed: :establishment_closed.tl }.to_json } }
+  .sirene-prefill__head
+    %label.sirene-prefill__label{ for: 'sirene-prefill-q' }= :prefill_from_sirene.tl
+    %span.sirene-prefill__source= :source_insee_sirene.tl
+  .sirene-prefill__bar
+    %input#sirene-prefill-q.form-control{ type: 'search', autocomplete: 'off',
+      placeholder: :name_siren_or_siret.tl, 'aria-describedby': 'sirene-prefill-status' }
+    %button.btn.btn-default{ type: 'button', data: { role: 'sirene-search' } }= :search.tl
+  %p#sirene-prefill-status.sirene-prefill__status{ 'aria-live': 'polite' }
+  %ul.list-group.sirene-prefill__results{ role: 'listbox', hidden: true }
+
+:css
+  .sirene-prefill { margin: 0 0 1.2em; padding: .9em 1em; background: #f7f9fa; border: 1px solid #e2e8ec; border-radius: 3px; }
+  .sirene-prefill__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .4em; gap: 1em; }
+  .sirene-prefill__label { display: block; font-weight: 600; margin: 0; }
+  .sirene-prefill__bar { display: flex; gap: .5em; }
+  .sirene-prefill__bar .form-control { flex: 1; }
+  .sirene-prefill__status { margin: .5em 0 0; min-height: 1.2em; font-size: .85em; color: #7a8894; }
+  .sirene-prefill__source { color: #9aa7b1; }
+  .sirene-prefill__results { margin-top: .6em; max-height: 20em; overflow-y: auto; }
+  .sirene-prefill__results:empty, .sirene-prefill__results[hidden] { display: none; }
+  .sirene-result { display: flex; align-items: baseline; gap: .75em; cursor: pointer; text-align: left; width: 100%; border: none; background: none; }
+  .sirene-result:hover, .sirene-result:focus { background: #eef3f6; outline: 2px solid #1e4d6b; outline-offset: -2px; }
+  .sirene-result__name { font-weight: 600; flex: 1; }
+  .sirene-result--inactive { background: #fdf3e6; }
+  .sirene-result--inactive:hover, .sirene-result--inactive:focus { background: #fbe6cd; }
+  .sirene-result__closed { color: #b06a1a; font-size: .78em; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+  .sirene-result__city { color: #7a8894; font-size: .9em; }
+  .sirene-result__siret { font-family: Menlo, Consolas, monospace; font-size: .82em; letter-spacing: .04em; color: #1e4d6b; background: #eef3f6; padding: .1em .5em; border-radius: 2px; white-space: nowrap; }
+
+:javascript
+  (function () {
+    'use strict';
+
+    function groupSiret(siret) {
+      var s = String(siret || '').replace(/\D/g, '');
+      return s.length === 14 ? s.replace(/(\d{3})(\d{3})(\d{3})(\d{5})/, '$1 $2 $3 $4') : s;
+    }
+
+    function setField(id, value) {
+      if (value == null || value === '') { return; }
+      var $f = $('#' + id);
+      if ($f.length) { $f.val(value).trigger('change'); }
+    }
+
+    function fill(candidate, $status, i18n) {
+      setField('entity_last_name', candidate.name);
+      setField('entity_siret_number', candidate.siret);
+      setField('entity_activity_code', candidate.activity_code);
+      setField('entity_vat_number', candidate.vat_number);
+      fillAddress(candidate);
+      $status.text(i18n.prefilled);
+    }
+
+    // Sets a nested-address field by id suffix within the given block.
+    function setNested($block, suffix, value) {
+      if (value == null || value === '') { return; }
+      var $f = $block.find('[id$="_' + suffix + '"]').first();
+      if ($f.length) { $f.val(value).trigger('change'); }
+    }
+
+    // Adds a postal address (Cocoon nested EntityAddress) pre-filled from the
+    // company. Replaces a previously auto-added block so repeated picks don't
+    // stack. `coordinate` is derived from the mail_lines by the model.
+    function fillAddress(candidate) {
+      if (!candidate.address && !candidate.city) { return; }
+      var $container = $('#mails-field');
+      var addLink = document.querySelector('#mails-field .add-mail') || document.querySelector('.add-mail');
+      if (!$container.length || !addLink) { return; }
+
+      $container.find('.nested-fields[data-sirene]').remove();
+      addLink.click(); // Cocoon inserts the block synchronously
+      var $block = $container.find('.nested-fields').last();
+      if (!$block.length) { return; }
+
+      $block.attr('data-sirene', '1');
+      setNested($block, 'canal', 'mail');
+      setNested($block, 'mail_line_1', candidate.name);
+      setNested($block, 'mail_line_2', candidate.address_complement);
+      setNested($block, 'mail_line_4', candidate.address);
+      setNested($block, 'mail_line_6', candidate.city);
+      setNested($block, 'mail_country', 'fr');
+    }
+
+    function render($results, $status, i18n, candidates) {
+      $results.empty();
+      if (!candidates.length) {
+        $status.text(i18n.none);
+        $results.attr('hidden', true);
+        return;
+      }
+      $status.text(candidates.length + ' ' + i18n.found);
+      candidates.forEach(function (c) {
+        var $btn = $('<button type="button" class="sirene-result" role="option">')
+          .append($('<span class="sirene-result__name">').text(c.name || ''));
+        if (c.active === false) {
+          $btn.addClass('sirene-result--inactive')
+            .append($('<span class="sirene-result__closed">').text(i18n.closed || ''));
+        }
+        $btn.append($('<span class="sirene-result__city">').text(c.city || ''))
+          .append($('<span class="sirene-result__siret">').text(groupSiret(c.siret)));
+        $btn.on('click', function () {
+          fill(c, $status, i18n);
+          $results.attr('hidden', true).empty();
+        });
+        $results.append($('<li class="list-group-item" style="padding:0">').append($btn));
+      });
+      $results.removeAttr('hidden');
+    }
+
+    function search($widget) {
+      var i18n = $widget.data('i18n') || {};
+      var $results = $widget.find('.sirene-prefill__results');
+      var $status = $widget.find('#sirene-prefill-status');
+      var q = $.trim($widget.find('#sirene-prefill-q').val());
+      if (!q) { return; }
+      $status.text(i18n.searching);
+      $.getJSON($widget.data('url'), { q: q })
+        .done(function (data) { render($results, $status, i18n, (data && data.results) || []); })
+        .fail(function () { $status.text(i18n.unavailable); });
+    }
+
+    // Document-level delegation, bound once: robust to Turbolinks and to script
+    // re-injection, and guarantees the Enter handler prevents the parent form
+    // from submitting.
+    if (!window.__sirenePrefillBound) {
+      window.__sirenePrefillBound = true;
+      $(document)
+        .on('click', '.sirene-prefill [data-role="sirene-search"]', function () {
+          search($(this).closest('.sirene-prefill'));
+        })
+        .on('keydown', '.sirene-prefill #sirene-prefill-q', function (e) {
+          var $widget = $(this).closest('.sirene-prefill');
+          if (e.key === 'Enter') { e.preventDefault(); search($widget); }
+          if (e.key === 'Escape') { $widget.find('.sirene-prefill__results').attr('hidden', true).empty(); }
+        });
+    }
+  })();
