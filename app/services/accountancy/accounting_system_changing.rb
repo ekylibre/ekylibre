@@ -17,7 +17,11 @@ module Accountancy
       @result_infos = {}
       @count_accounts = 0
       @count_entries = 0
-      @logger ||= Logger.new(File.join(Rails.root, 'log', "account-changing-#{Ekylibre::Tenant.current.to_s}-#{@financial_year.code.to_s}.log"))
+      # Sanitize the file name: a financial year code can contain a "/" (e.g.
+      # "EX2026/2027") which would be read as a directory separator and raise
+      # Errno::ENOENT when the sub-directory does not exist.
+      log_basename = "account-changing-#{Ekylibre::Tenant.current}-#{@financial_year.code}".gsub(%r{[^0-9A-Za-z._-]}, '-')
+      @logger ||= Logger.new(File.join(Rails.root, 'log', "#{log_basename}.log"))
     end
 
     def perform

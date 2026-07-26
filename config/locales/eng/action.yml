@@ -4863,6 +4863,7 @@ eng:
       depreciation_successful: "Assets have been successfully depreciated."
       document_and_email_in_preparation: "Document and email in preparation"
       document_in_preparation: "Your document is in preparation a notification will be sent to you when it is ready"
+      document_signature_failed: "The document could not be signed: %{message}"
       document_template_missing: "Document template missing"
       document_template_not_handled: "Document template not handled: %{nature}"
       draft_journal_entries_are_present: "Draft journal entries are present."

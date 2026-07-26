@@ -5720,6 +5720,7 @@ fra:
       depreciation_successful: "Les immobilisations ont correctement été dépréciées."
       document_and_email_in_preparation: "Document et e-mail en cours de préparation"
       document_in_preparation: "Votre document est en cours de préparation et une notification vous sera envoyée dès qu'il sera prêt."
+      document_signature_failed: "Le document n'a pas pu être signé : %{message}"
       document_template_missing: "Modèle de document manquant"
       document_template_not_handled: "Modèle de document non géré: %{nature}"
       draft_journal_entries_are_present: "Des écritures sont encore présentes dans le brouillard."
