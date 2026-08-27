@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency 'ekylibre/record'
 require_dependency 'ekylibre/record/acts/affairable'
 require_dependency 'ekylibre/record/acts/numbered'
 require_dependency 'ekylibre/record/acts/picturable'
