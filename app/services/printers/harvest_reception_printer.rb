@@ -26,6 +26,8 @@ module Printers
         @started_on = FinancialYear.first_of_all.started_on
         @stopped_on = Date.today
       elsif @period == 'interval'
+        raise ArgumentError, 'started_on and stopped_on are required when period is "interval"' if started_on.blank? || stopped_on.blank?
+
         @started_on = Date.parse(started_on)
         @stopped_on = Date.parse(stopped_on)
       else

@@ -4946,6 +4946,7 @@ eng:
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
       missing_activity_budget: "Aucun budget n'est présent"
+      missing_dates_for_interval_period: "Please provide a start and end date when using the custom interval period"
       missing_incoming_harvest: "Missing incoming harvest"
       missing_wsdl: "WSDL are missing"
       need_a_valid_payment_mode: "Need a valid payment mode"
