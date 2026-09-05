@@ -1,4 +1,5 @@
 - nature_check = f.object.nature || params[:nature]
+= hidden_field_tag :wine_incoming_harvest_id, params[:wine_incoming_harvest_id] if params[:wine_incoming_harvest_id].present?
 = field_set do
   - if nature_check
     = f.input :nature, as: :hidden

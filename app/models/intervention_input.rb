@@ -74,6 +74,7 @@
 # follows the new product.
 class InterventionInput < InterventionProductParameter
   CONCENTRATION_HANDLER = %w[specific_weight volume_density].freeze
+  APPLICATION_MODES = %i[boom_spraying mist_blower spot_treatment broadcast granular seed_coating drenching dusting aerial].freeze
 
   belongs_to :intervention, inverse_of: :inputs
   belongs_to :outcoming_product, class_name: 'Product'
@@ -81,6 +82,8 @@ class InterventionInput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   has_one :pfi_input, -> { where(nature: 'intervention') }, class_name: 'PfiInterventionParameter', foreign_key: :input_id, dependent: :destroy
   has_many :pfi_inputs, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :input_id, dependent: :destroy
+
+  enumerize :application_mode, in: APPLICATION_MODES, i18n_scope: 'enumerize.intervention_input.application_mode', predicates: { prefix: true }
   validates :quantity_population, :product, presence: true
   validates :spray_volume_value, presence: true, if: -> { CONCENTRATION_HANDLER.include?(quantity_handler)}
 

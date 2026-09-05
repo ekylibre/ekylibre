@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency 'ekylibre/record'
 require_dependency 'ekylibre/record/acts/affairable'
 require_dependency 'ekylibre/record/acts/numbered'
 require_dependency 'ekylibre/record/acts/picturable'
@@ -92,8 +93,12 @@ class ApplicationRecord < ActiveRecord::Base
     yield
   rescue ActiveRecord::RecordInvalid => would_be_silently_dropped
     Rails.logger.info would_be_silently_dropped.inspect
-    wont_be_dropped = Ekylibre::Record::RecordInvalid.new(would_be_silently_dropped.message,
-                                                          would_be_silently_dropped.record)
+    # Fallback to ActiveRecord::RecordNotSaved when the custom class can't be
+    # resolved (autoloading edge cases) so the original validation error is
+    # never masked by a NameError.
+    klass = defined?(::Ekylibre::Record::RecordInvalid) ? ::Ekylibre::Record::RecordInvalid : ::ActiveRecord::RecordNotSaved
+    wont_be_dropped = klass.new(would_be_silently_dropped.message,
+                                would_be_silently_dropped.record)
     wont_be_dropped.set_backtrace(would_be_silently_dropped.backtrace)
     raise wont_be_dropped
   end

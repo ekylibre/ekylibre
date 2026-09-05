@@ -1,7 +1,6 @@
-version: "3.4"
-
 services:
   app:
+    container_name: app
     stdin_open: true
     tty: true
     build:
@@ -16,52 +15,90 @@ services:
       - '8808:8808'
     volumes:
       - ../..:/app
+      - ../../../ekylibre-plugins:/ekylibre-plugins
       - bundle-volume:/app/vendor/bundle
       - docker-dev:/app/docker/dev
-      - ~/.ssh:/home/ekylibre/.ssh
-      - ../../../plugins/:/plugins/
     command: docker/startup.sh
     depends_on:
-      - redis
-      - db
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   sidekiq:
+    container_name: sidekiq
     build:
       dockerfile: docker/dev/Dockerfile
       context: ../..
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     env_file: .env
     volumes:
       - ../..:/app
+      - ../../../ekylibre-plugins:/ekylibre-plugins
       - bundle-volume:/app/vendor/bundle
       - docker-dev:/app/docker/dev
-      - ~/.ssh:/home/ekylibre/.ssh
-      - ../../../plugins/:/plugins/
     command: /app/docker/dev/sidekiq_startup.sh
     depends_on:
       db:
         condition: service_healthy
       redis:
-        condition: service_started
+        condition: service_healthy
       app:
         condition: service_started
     restart: on-failure
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    ports:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - app
+    restart: unless-stopped
+
   redis:
-    image: redis:5.0-alpine
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   db:
     image: kartoza/postgis:13
+    container_name: db
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DEV_NAME}
+      DUKE_USER: ${DUKE_USER}
+      DUKE_PASSWORD: ${DUKE_PASSWORD}
       TZ: Europe/Paris
     volumes:
       - database-volume:/var/lib/postgresql/data
-      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
     ports:
       - "5431:5432"
-    command: ["postgres", "-c", "log_statement=all"]
+    command:
+      - postgres
+      - -c
+      - log_statement=all
+      - -c
+      - max_wal_size=4GB
+      - -c
+      - checkpoint_timeout=15min
+      - -c
+      - checkpoint_completion_target=0.9
     healthcheck:
       test: "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_DEV_NAME}"
 
@@ -69,3 +106,10 @@ volumes:
   database-volume:
   bundle-volume:
   docker-dev:
+  caddy-data:
+  caddy-config:
+
+networks:
+  default:
+    name: ekylibre
+    driver: bridge

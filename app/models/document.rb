@@ -83,7 +83,11 @@ class Document < ApplicationRecord
   acts_as_numbered
 
   protect(on: :destroy) do
-    mandatory
+    mandatory || under_legal_retention?
+  end
+
+  def under_legal_retention?
+    legal_retention_until.present? && legal_retention_until >= Date.current
   end
 
   # Returns the matching unique document for the given nature and key

@@ -1,4 +1,5 @@
 # First-runs tasks
+require 'ekylibre/first_run'
 namespace :first_run do
   namespace :default do
     task generate: :environment do
@@ -6,7 +7,7 @@ namespace :first_run do
       FileUtils.mkdir_p dir.to_s
       manifest = {
         revision: 1,
-        host: 'default.ekylibre.lan',
+        host: 'default.ekylibre.localhost',
         demo: false,
         currency: 'EUR',
         language: 'fra',

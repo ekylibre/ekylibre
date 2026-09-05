@@ -74,8 +74,8 @@ class IncomingPaymentMode < ApplicationRecord
   validates :depositables_journal, presence: { if: :with_deposit? }
   validates :cash, presence: true
 
-  delegate :currency, to: :cash
-  delegate :journal, to: :cash, prefix: true
+  delegate :currency, to: :cash, allow_nil: true
+  delegate :journal, to: :cash, prefix: true, allow_nil: true
 
   scope :depositers, -> { where(with_deposit: true).order(:name) }
   scope :matching_cash, ->(id) { where(cash_id: id) }

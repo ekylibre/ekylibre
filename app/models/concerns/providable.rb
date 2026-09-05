@@ -7,6 +7,9 @@ module Providable
     scope :of_provider_vendor, ->(vendor) { where("(provider ->> 'vendor') = ?", vendor) }
     scope :of_provider_name, ->(vendor, name) { of_provider_vendor(vendor).where("(provider ->> 'name') = ?", name)}
     scope :of_provider, ->(vendor, name, id) { of_provider_name(vendor, name).where("(provider ->> 'id') = ?", id.to_s)}
+    # Qualified with the table name so it stays unambiguous when chained onto a
+    # query that joins other Providable tables (e.g. products in the interventions index).
+    scope :of_provider_id, ->(id) { where("(#{table_name}.provider ->> 'id') = ?", id.to_s) }
     scope :of_provider_data, ->(key, value) {  where("provider -> 'data' ->> ? = ?", key, value)}
 
     prepend Prepended

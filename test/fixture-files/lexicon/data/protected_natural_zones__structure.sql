@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS registered_natural_zones;
         CREATE TABLE registered_natural_zones (
           id character varying NOT NULL,
           name character varying,
-          nature character varying NOT NULL,            
+          nature character varying NOT NULL,
           shape postgis.geometry(MultiPolygon, 4326) NOT NULL,
           centroid postgis.geometry(Point, 4326)
         );

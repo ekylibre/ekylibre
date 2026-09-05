@@ -28,6 +28,8 @@ class BankStatementClassifierService
           bs_item.update!(entity_id: reference_item.entity_id)
         end
       end
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.warn("BankStatementClassifierService#classify_from_data: skipping bank_statement_item ##{bs_item.id} (#{e.message})")
     end
   end
 
@@ -76,6 +78,8 @@ class BankStatementClassifierService
         end
         @log_result[:items_classified] += 1
       end
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.warn("BankStatementClassifierService#classify_from_ia: skipping bank_statement_item ##{bs_item.id} (#{e.message})")
     end
     @log_result
   end

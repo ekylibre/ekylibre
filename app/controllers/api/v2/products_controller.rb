@@ -4,6 +4,21 @@ module Api
       ACCEPTED_TYPES = %w[Animal Worker Equipment LandParcel BuildingDivision Plant Matter].freeze
       NESTED_INCLUDE_ASSOCIATION = { LandParcel: { activity_production: :activity } }.freeze
 
+      # GET /api/v2/products(/:product_type)
+      # Lists products, optionally filtered by type. Supported types are:
+      # Animal, Worker, Equipment, LandParcel, BuildingDivision, Plant, Matter.
+      #
+      # Authentication: required.
+      #
+      # URL params:
+      # - product_type [String, optional] One of the accepted types
+      #
+      # Query string params:
+      # - modified_since [ISO8601 datetime, optional] Returns only products updated after this date
+      #
+      # Responses:
+      # - 200 OK         Array of products (Jbuilder template)
+      # - 400 Bad Request When product_type is invalid
       def index
         type = params[:product_type] && params[:product_type].to_s.singularize.camelize
 

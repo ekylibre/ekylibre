@@ -1,15 +1,15 @@
 fra:
-  exchanger: 
-    socleo:
-      sales:
-        sale_nature_name: "Vente en ligne - Socleo"
-      incoming_payments:
-        incoming_payment_mode_name: "Socleo"
-    sage:
-      i_seven:
-        journals:
-          closing: "Sage - Écritures de clôture"
-          forward: "Sage - Écritures de report à nouveau"
+  exchanger: #?
+    sage: #?
+      i_seven: #?
+        journals: #?
+          closing: "Sage - Écritures de clôture" #?
+          forward: "Sage - Écritures de report à nouveau" #?
+    socleo: #?
+      incoming_payments: #?
+        incoming_payment_mode_name: "Socleo" #?
+      sales: #?
+        sale_nature_name: "Vente en ligne - Socleo" #?
   formats:
     csv: "Texte CSV"
     doc: "Microsoft Word 97/2000/XP/2003"

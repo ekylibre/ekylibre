@@ -1,0 +1,150 @@
+name: Build & publish prod image
+
+on:
+  push:
+    branches:
+      - 5.0-beta
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Custom tag (in addition to auto-generated tags)"
+        required: false
+        type: string
+
+concurrency:
+  group: build-prod-image-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Strip plugin GIT sections from Gemfile.lock
+        # Le Gemfile.lock commite des revisions figees pour les plugins listes
+        # dans docker/prod/Gemfile.prod (ex: ekylibre-baqio @ 300ca7b1...). Sans
+        # cette etape, `bundle install` dans le build Docker reutilise ces
+        # revisions et ignore le HEAD des branches declarees (master/main/dev).
+        #
+        # On retire UNIQUEMENT les sections GIT dont l'URL correspond a un plugin
+        # de Gemfile.prod, en laissant intactes les gems coeur (agric, charta,
+        # possibly, etc.) et le reste du lock. Bundler re-resout alors ces gems
+        # contre le HEAD de leur branche au moment du build.
+        #
+        # Modifie uniquement le runner; le Gemfile.lock du repo reste inchange.
+        run: |
+          set -euo pipefail
+          PLUGIN_URLS=$(grep -oE "https://github\.com/[^']+\.git" docker/prod/Gemfile.prod | sort -u)
+          if [ -z "$PLUGIN_URLS" ]; then
+            echo "::error::Aucun plugin git trouve dans docker/prod/Gemfile.prod"
+            exit 1
+          fi
+          PLUGINS_REGEX=$(echo "$PLUGIN_URLS" | sed 's/[.]/\\./g' | paste -sd'|')
+          echo "Plugins a re-resoudre (HEAD de leur branche):"
+          echo "$PLUGIN_URLS" | sed 's/^/  - /'
+          BEFORE=$(grep -cE "^GIT$" Gemfile.lock)
+          awk -v re="$PLUGINS_REGEX" '
+            BEGIN { RS=""; ORS="\n\n" }
+            $1 == "GIT" && $0 ~ re { next }
+            { print }
+          ' Gemfile.lock > Gemfile.lock.tmp
+          mv Gemfile.lock.tmp Gemfile.lock
+          AFTER=$(grep -cE "^GIT$" Gemfile.lock)
+          echo "Sections GIT: $BEFORE -> $AFTER"
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix=sha-,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ inputs.tag }},enable=${{ inputs.tag != '' }}
+          labels: |
+            org.opencontainers.image.title=Ekylibre
+            org.opencontainers.image.description=Ekylibre — Farm Management Information System
+            org.opencontainers.image.licenses=AGPL-3.0
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/prod/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Les plugins inclus dans l'image sont definis dans docker/prod/Gemfile.prod
+          # (depots publics uniquement). Voir CUSTOM_PLUGIN_GEMFILE dans le Dockerfile.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+      - name: Image summary
+        env:
+          IMAGE_TAGS: ${{ steps.meta.outputs.tags }}
+          IMAGE_PULL: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        run: |
+          {
+            echo "## Image publiée"
+            echo ""
+            echo "Tags :"
+            echo '```'
+            echo "${IMAGE_TAGS}"
+            echo '```'
+            echo ""
+            echo "Pull :"
+            echo '```bash'
+            echo "docker pull ${IMAGE_PULL}"
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+  deploy:
+    # Déclenche le déploiement Dokploy une fois l'image construite et poussée.
+    # Évite le déclencheur natif Dokploy (push) qui se lance avant la fin du build.
+    #
+    # Le mapping branche -> environnement GitHub Actions :
+    #   - 5.0-beta -> staging
+    #   - main     -> production
+    # Le secret DOKPLOY_WEBHOOK_URL est résolu depuis l'environnement ciblé,
+    # ce qui permet d'avoir une URL distincte par cible de déploiement et de
+    # bénéficier des protections d'environnement (reviewers, branch policies).
+    needs: build
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/5.0-beta' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+    steps:
+      - name: Trigger Dokploy deploy webhook
+        env:
+          DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
+        run: |
+          curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}" \
+            -H "X-GitHub-Event: workflow_deploy" \
+            -H "Content-Type: application/json" \
+            -d "{\"ref\": \"${GITHUB_REF}\"}"

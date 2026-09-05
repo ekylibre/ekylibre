@@ -14,6 +14,7 @@ class FinancialYearClose
   attr_reader :carry_forward_account, :close_error
 
   class UnbalancedBalanceSheet < StandardError; end
+  class UnbalancedAllocation < StandardError; end
 
   CLOSURE_STEPS = {
     0 => 'generate_documents_prior_to_closure',
@@ -153,14 +154,17 @@ class FinancialYearClose
     @year.update_columns(state: 'opened')
     FileUtils.rm_rf Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s)
 
+    @logger.error("Closure failed: #{error.class}: #{error.message}")
+    @logger.error(error.backtrace.join("\n")) if error.backtrace
     Rails.logger.error $!
     Rails.logger.error $!.backtrace.join("\n")
     ExceptionNotifier.notify_exception($!, data: { message: error })
 
-    if error.class == FinancialYearClose::UnbalancedBalanceSheet
+    if [FinancialYearClose::UnbalancedBalanceSheet, FinancialYearClose::UnbalancedAllocation].include?(error.class)
       @closer.notify(error.message, {}, level: :error)
     else
       @closer.notify(:financial_year_x_could_not_be_closed, { name: @year.name }, level: :error)
+      @closer.notify("#{error.class}: #{error.message}", {}, level: :error)
     end
     @close_error = error
     return false
@@ -226,7 +230,7 @@ class FinancialYearClose
 
         {
           account_id: account_balance.account_id,
-          name: account_balance.account.name,
+          name: account_balance.account.name.to_s.strip,
           real_debit: account_balance.balance_credit,
           real_credit: account_balance.balance_debit,
           state: :confirmed
@@ -273,7 +277,7 @@ class FinancialYearClose
     end
 
     def loss_or_profit_item(account, result)
-      item_attributes = { account_id: account.id, name: account.name, state: :confirmed }
+      item_attributes = { account_id: account.id, name: account.name.to_s.strip, state: :confirmed }
       amount = if result.positive?
                  { real_credit: result }
                else
@@ -315,7 +319,7 @@ class FinancialYearClose
 
         unlettered_items << {
           account_id: a.id,
-          name: a.name,
+          name: a.name.to_s.strip,
           real_debit: (balance > 0 ? balance : 0),
           real_credit: (-balance > 0 ? -balance : 0),
           state: :confirmed
@@ -360,7 +364,7 @@ class FinancialYearClose
         lettering_items = items[item_criteria].find_each.map do |item|
           {
             account_id: account.id,
-            name: item.name,
+            name: item.name.to_s.strip,
             real_debit: item.real_debit,
             real_credit: item.real_credit,
             state: :confirmed
@@ -462,6 +466,14 @@ class FinancialYearClose
         end
 
         @logger.info("items for allocate result : #{items.inspect}")
+
+        total_debit = items.sum { |i| (i[:real_debit] || 0).to_f }
+        total_credit = items.sum { |i| (i[:real_credit] || 0).to_f }
+        if (total_debit - total_credit).abs >= 0.01
+          allocations_sum = @options[:allocations].values.sum(&:to_f)
+          raise UnbalancedAllocation, "Allocation déséquilibrée: débit=#{total_debit}, crédit=#{total_credit}, à allouer=#{to_allocate_balance.abs} sur #{debit_or_credit}. Somme des allocations reçues=#{allocations_sum}. Allocations: #{@options[:allocations].inspect}. Vérifier les soldes des comptes de report à nouveau (110/119) et de résultat (120/129)."
+        end
+
         JournalEntry.create!(
           journal: @forward_journal,
           printed_on: @to_close_on + 1.day,
@@ -552,7 +564,7 @@ class FinancialYearClose
         currency: journal.currency,
         items_attributes: items + [{
                                      account_id: account.id,
-                                     name: account.name,
+                                     name: account.name.to_s.strip,
                                      (result > 0 ? :real_debit : :real_credit) => result.abs,
                                      state: :confirmed
                                    }]

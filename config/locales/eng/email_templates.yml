@@ -1,0 +1,64 @@
+eng:
+  email_templates:
+    estimate:
+      body: |
+        <p>Hello {{client_full_name}},</p>
+        <p>A new estimate {{number}} is available, please find it attached.</p>
+        <p>Best regards,</p>
+        <p>{{current_user_name}} - {{current_user_email}}</p>
+        <p>{{entity_full_name}}</p>
+      by_default: "true"
+      format: "html"
+      handler: "liquid"
+      metadata:
+        client_full_name: "Customer's full name"
+        current_user_email: "Email of the logged-in user"
+        current_user_name: "Full name of the logged-in user"
+        entity_full_name: "Your company name"
+        number: "Estimate number"
+      name: "Send Customer Estimate"
+      nature: "sales_estimate"
+      path: "estimate_export_mailer/notify_client"
+      subject: "%{entity_full_name} - Estimate %{number}"
+    sale:
+      body: |
+        <p>Hello {{client_full_name}},</p>
+        <p>A new invoice {{invoice_number}} is available, please find it attached.</p>
+        <p>Best regards,</p>
+        <p>{{current_user_name}} - {{current_user_email}}</p>
+        <p>{{entity_full_name}}</p>
+      by_default: "true"
+      format: "html"
+      handler: "liquid"
+      metadata:
+        client_full_name: "Customer's full name"
+        current_user_email: "Email of the logged-in user"
+        current_user_name: "Full name of the logged-in user"
+        entity_full_name: "Your company name"
+        invoice_number: "Invoice number"
+      name: "Send Customer Invoice"
+      nature: "sales_invoice"
+      path: "sale_export_mailer/notify_client"
+      subject: "%{entity_full_name} - Invoice %{invoice_number}"
+    unpaid_sale:
+      body: |
+        <p>Hello {{client_full_name}},</p>
+        <p>This is a reminder regarding invoice {{invoice_number}}, which you can find attached.</p>
+        <p>Please proceed with payment as soon as possible.</p>
+        <p>If your payment has already been sent before receiving this reminder, please disregard this message.</p>
+        <p>Best regards,</p>
+        <p>{{current_user_name}} - {{current_user_email}}</p>
+        <p>{{entity_full_name}}</p>
+      by_default: "true"
+      format: "html"
+      handler: "liquid"
+      metadata:
+        client_full_name: "Customer's full name"
+        current_user_email: "Email of the logged-in user"
+        current_user_name: "Full name of the logged-in user"
+        entity_full_name: "Your company name"
+        invoice_number: "Invoice number"
+      name: "Customer Invoice Reminder"
+      nature: "sales_invoice"
+      path: "sale_export_mailer/notify_unpaid_sale"
+      subject: "%{entity_full_name} - [PAYMENT REMINDER] - Invoice %{invoice_number}"

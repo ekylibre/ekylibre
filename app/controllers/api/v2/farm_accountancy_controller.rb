@@ -1,6 +1,18 @@
 module Api
   module V2
     class FarmAccountancyController < Api::V2::BaseController
+      # GET /api/v2/farm_accountancy/:harvest_year
+      # Returns aggregated accountancy and economic indicators for a given
+      # harvest year (global ratios, accountancy, economic).
+      #
+      # Authentication: required.
+      #
+      # URL params:
+      # - harvest_year [Integer, required] e.g. 2025
+      #
+      # Responses:
+      # - 200 OK          { global_ratio, accountancy, economic }
+      # - 400 Bad Request When `harvest_year` is missing
       def show
         if params[:harvest_year].present?
           @farm_profile = FarmProfiles::AccountancyInformations.new(params[:harvest_year].to_i)

@@ -111,6 +111,11 @@ yarn-debug.log*
 
 .env
 
+# NanoClaw tenants config — contient des secrets (tokens Telegram + Ekylibre).
+# Le fichier template versionné est docker/prod/nanoclaw-tenants.example.yml.
+nanoclaw-tenants.yml
+/docker/prod/nanoclaw-tenants.yml
+
 # Remote rubocop configurations
 /.rubocop-*
 .rbenv-gemsets

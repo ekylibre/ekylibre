@@ -396,8 +396,10 @@ module Backend
         notify_success :email_in_preparation
       elsif document_template
         document = generate_n_send_pdf_for(@sale, document_template, true)
-        SaleExportJob.perform_later(@sale, document, current_user)
-        notify_success :document_and_email_in_preparation
+        if document
+          SaleExportJob.perform_later(@sale, document, current_user)
+          notify_success :document_and_email_in_preparation
+        end
       else
         notify_error :document_template_missing
       end
@@ -420,12 +422,21 @@ module Backend
         pdf_data = g.generate_pdf(template: template, printer: printer)
 
         archiver = Ekylibre::DocumentManagement::DocumentArchiver.build
-        document = archiver.archive_document(
-          pdf_content: pdf_data,
-          template: template,
-          key: printer.key,
-          name: printer.document_name
-        )
+        begin
+          document = archiver.archive_document(
+            pdf_content: pdf_data,
+            template: template,
+            key: printer.key,
+            name: printer.document_name
+          )
+        rescue Ekylibre::DocumentManagement::SignatureManager::SignatureError => e
+          # A signed template whose GPG signature fails must not 500 the whole
+          # page: the PDF is already generated. Surface a clear error and let the
+          # caller degrade gracefully (redirect back / skip the email export).
+          Rails.logger.error("[Sales#pdf] Document signature failed: #{e.message}")
+          notify_error(:document_signature_failed, message: e.message)
+          return false
+        end
         if only_archive
           document
         else

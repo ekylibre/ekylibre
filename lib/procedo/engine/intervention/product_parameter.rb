@@ -132,6 +132,11 @@ module Procedo
           hash[:working_zone_area_value] = @working_zone_area_value.to_f if working_zone_area_value?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
+            # Skip readings auto-seeded by ComputeReadings that never got a
+            # value: an empty reading fails its presence/inclusion validation,
+            # and for a measure datatype `to_hash` would emit the `measure_value`
+            # composed_of aggregate as nil, crashing on assignment (nil.unit).
+            next if reading.value.blank?
 
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
@@ -156,6 +161,9 @@ module Procedo
           hash[:working_zone_area_value] = @working_zone_area_value.to_f if working_zone_area_value?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
+            # See #to_hash: drop empty auto-seeded readings to keep them out of
+            # the persisted nested attributes (invalid + nil.unit crash on measure).
+            next if reading.value.blank?
 
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash

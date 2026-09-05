@@ -156,11 +156,11 @@ class Payslip < ApplicationRecord
   end
 
   def credit_account_part
-    amount + source_revenue_amount + social_security_amount + other_social_expenses_amount
+    amount + source_revenue_amount.to_d + social_security_amount.to_d + other_social_expenses_amount.to_d
   end
 
   def debit_account_part
-    raw_amount + total_company_social_amount
+    raw_amount.to_d + total_company_social_amount.to_d
   end
 
   def label

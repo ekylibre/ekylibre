@@ -28,9 +28,12 @@ module Clean
           hash_to_yaml(value)
         elsif value.is_a?(Numeric)
           value.to_s
-        else
+        elsif value.to_s =~ /\n/
           v = value.to_s.gsub("\u00A0", '\\_')
-          value =~ /\n/ ? "|\n" + v.strip.indent : '"' + v + '"'
+          "|\n" + v.strip.indent
+        else
+          v = value.to_s.gsub(/[\\"]/) { |c| "\\#{c}" }.gsub("\u00A0", '\\_')
+          '"' + v + '"'
         end
       end
 
@@ -72,7 +75,8 @@ module Clean
       def deep_symbolize_keys(hash)
         hash.each_with_object({}) do |(key, value), result|
           value = deep_symbolize_keys(value) if value.is_a? Hash
-          key = key[2..-3] if key.to_s =~ /^__(yes|no|true|false)__$/
+          key = key.to_s
+          key = key[2..-3] if key =~ /^__(yes|no|true|false)__$/
           result[key.to_sym] = value
           result
         end
@@ -87,10 +91,13 @@ module Clean
           hash_to_yaml(value, depth + 1)
         elsif value.is_a?(Numeric)
           value.to_s
-        else
-          # "'"+value.to_s.gsub("'", "''")+"'"
+        elsif value.to_s =~ /\n/
           v = value.to_s.gsub("\u00A0", '\\_')
-          value =~ /\n/ ? "|\n" + v.strip.dig(depth) : '"' + v + '"'
+          "|\n" + v.strip.dig(depth + 1)
+        else
+          # YAML double-quoted: escape backslashes and double quotes before mapping NBSP to \_
+          v = value.to_s.gsub(/[\\"]/) { |c| "\\#{c}" }.gsub("\u00A0", '\\_')
+          '"' + v + '"'
         end
       end
 

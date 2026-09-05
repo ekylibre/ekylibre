@@ -1,20 +1,20 @@
 fra:
-  exchanger:
-    socleo:
-      sales:
-        errors:
-          sale_data_missing_tax_information: "La vente ayant pour référence %{reference_number} est invalide car elle n'a pas d'information sur la TVA applicable."
-        sale_nature_name: "Vente en ligne - Socleo"
-      incoming_payments:
-        incoming_payment_mode_name: "Socleo"
-    sage:
-      i_seven:
-        errors:
-          expected_nature_journal: "La nature attendue du journal %{name} devrait être %{expected_nature}, actuellement: %{nature}"
-          radical_class_number_unauthorized: "Le compte ne peut pas être créé. Le numéro fourni (%{number}) ne peut pas correspondre à une classe radicale"
-          incorrect_account_number_length: "L’écriture comptable %{name} n’a pas pu s’enregistrer. Numéro déjà existant : %{number}. Veuillez vérifier dans Configuration le nombre de caractères des comptes généraux."
-          financial_year_needed: "Un exercice comptable se terminant au %{stopped_on} est nécessaire."
-          unreachable_code: "Code inaccessible"
+  exchanger: #?
+    sage: #?
+      i_seven: #?
+        errors: #?
+          expected_nature_journal: "La nature attendue du journal %{name} devrait être %{expected_nature}, actuellement: %{nature}" #?
+          financial_year_needed: "Un exercice comptable se terminant au %{stopped_on} est nécessaire." #?
+          incorrect_account_number_length: "L’écriture comptable %{name} n’a pas pu s’enregistrer. Numéro déjà existant : %{number}. Veuillez vérifier dans Configuration le nombre de caractères des comptes généraux." #?
+          radical_class_number_unauthorized: "Le compte ne peut pas être créé. Le numéro fourni (%{number}) ne peut pas correspondre à une classe radicale" #?
+          unreachable_code: "Code inaccessible" #?
+    socleo: #?
+      incoming_payments: #?
+        incoming_payment_mode_name: "Socleo" #?
+      sales: #?
+        errors: #?
+          sale_data_missing_tax_information: "La vente ayant pour référence %{reference_number} est invalide car elle n'a pas d'information sur la TVA applicable." #?
+        sale_nature_name: "Vente en ligne - Socleo" #?
   exchangers:
     acom_fec_txt: "FEC import (TXT) - Acomaudit"
     agrigest_fec_txt: "FEC import (TXT) - Agrigest"
@@ -22,9 +22,9 @@ fra:
     agro_systemes_water_analyses: "Analyses d’eau ‒ AGRO Systèmes"
     agroedi_daplos: "Fiche parcellaire - Daplos Agro-EDI"
     bordeaux_sciences_agro_istea_balance: "Balance comptable ‒ ISTEA ‒ Bordeaux Sciences Agro"
+    bordeaux_sciences_agro_istea_fec_txt: "FEC import (TXT) ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_general_ledger: "Grand-livre ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
-    bordeaux_sciences_agro_istea_journal_entries: "Écritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
-    bordeaux_sciences_agro_istea_fec_txt: "FEC import (TXT) ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
+    bordeaux_sciences_agro_istea_journal_entries: "Écritures comptables ‒ ISTEA ‒ Bordeaux Sciences Agro"
     bordeaux_sciences_agro_istea_journals: "Journaux ‒ ISTEA ‒ Bordeaux Sciences Agro" #?
     bovins_croissance_cattle_performance_controls: "Contrôles de performance ‒ Bovins Croissance"
     caj_incoming_deliveries: "Approvisionnements (CSV) ‒ CAJ"
@@ -33,10 +33,10 @@ fra:
     ebp_edi: "EDI ‒ EBP"
     ekylibre_accounts: "Plan de comptes - Ekylibre"
     ekylibre_activities: "Activités ‒ Ekylibre"
-    ekylibre_associates: "Associés - Ekylibre"
     ekylibre_animal_groups: "Groupe d’animaux ‒ Ekylibre"
     ekylibre_animals: "Animaux ‒ Ekylibre"
-    ekylibre_backup: "Sauvegarde ‒ Ekylibre" #?
+    ekylibre_associates: "Associés - Ekylibre"
+    ekylibre_backup: "Sauvegarde ‒ Ekylibre"
     ekylibre_bank_statements: "Relevé de banque ‒ Ekylibre"
     ekylibre_budgets: "Budgets ‒ Ekylibre "
     ekylibre_buildings_json: "Bâtiments (JSON) ‒ Ekylibre"
@@ -55,7 +55,7 @@ fra:
     ekylibre_incoming_payments: "Encaissements (CSV) - Ekylibre"
     ekylibre_interventions: "Interventions (CSV) ‒ Ekylibre"
     ekylibre_issue_natures: "Type d'incidents (ODS) ‒ Ekylibre"
-    ekylibre_land_parcels: "Parcelles (CSV) ‒ Ekylibre"
+    ekylibre_land_parcels: "Parcelles (CSV) ‒ Ekylibre" #?
     ekylibre_land_parcels_json: "Parcelles (JSON) ‒ Ekylibre"
     ekylibre_loans: "Emprunts (CSV) ‒ Ekylibre"
     ekylibre_matters: "Matières ‒ Ekylibre"
@@ -76,46 +76,52 @@ fra:
     ekylibre_variants: "Articles - Ekylibre"
     ekylibre_vegetative_stages: "Stades végétatifs (ODS) ‒ Ekylibre"
     ekylibre_visuals: "Fond écran page de connexion - Ekylibre"
-    ekylibre_workers: "Équipiers (CSV) ‒ Ekylibre"
     ekylibre_worker_time_logs: "Temps de travaux des équipiers (CSV) ‒ Ekylibre"
+    ekylibre_workers: "Équipiers (CSV) ‒ Ekylibre"
     ekylibre_workers_json: "Équipiers (JSON) ‒ Ekylibre"
     ekylibre_zones: "Zones de stockage - Ekylibre"
     fiea_galactea: "Analyses de lait par animal Galactea ‒ FIEA"
     galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
-    isagri_geofolia_land_parcels: "Parcelles import (SHP/ZIP) - Geofolia - Isagri"
     isagri_geofolia_interventions: "Interventions import (JSON/ZIP) - Geofolia - Isagri"
+    isagri_geofolia_land_parcels: "Parcelles import (SHP/ZIP) - Geofolia - Isagri"
     isagri_isacompta_export: "Isacompta - Isagri"
     isagri_isacompta_fec_txt: "FEC import (TXT) - Isacompta - Isagri"
     isagri_isacompta_fixed_assets: "Immobilisation Isacompta ‒ Isagri"
     isagri_isacompta_journal_entries: "Écritures comptables (GL) Isacompta ‒ Isagri"
-    isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri"
+    isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri" #?
     isagri_isapaye_ecr_journal_entries: "Écritures comptables (ECR) Isapaye ‒ Isagri"
-    la_graine_informatique_vinifera_entities: "Tiers vinifera - La graine informatique"
-    la_graine_informatique_vinifera_products: "Produits vinifera - La graine informatique"
-    la_graine_informatique_vinifera_sales: "Commandes vinifera - La graine informatique"
-    legrain_epicea_accounts: "Plan de comptes Epicea ‒ Legrain"
-    legrain_epicea_journals: "Journaux Epicea ‒ Legrain"
+    la_graine_informatique_vinifera_entities: "Tiers vinifera - La graine informatique" #?
+    la_graine_informatique_vinifera_products: "Produits vinifera - La graine informatique" #?
+    la_graine_informatique_vinifera_sales: "Commandes vinifera - La graine informatique" #?
+    legrain_epicea_accounts: "Plan de comptes Epicea ‒ Legrain" #?
+    legrain_epicea_journals: "Journaux Epicea ‒ Legrain" #?
     lely_milk_robot_individual_production: "Production journalière individuelle - Lely Astronaut"
-    listo_od_txt: "OD de paye (CSV) - Listo"
     lilco_milk_analyses: "Analyses de lait ‒ Lilco"
+    listo_od_txt: "OD de paye (CSV) - Listo"
     logicall_entities: "Clients (CSV) ‒ Logic’All"
     milklic_individual_production: "Production laitière individuelle - Milklic"
     odicom_fec_txt: "FEC import (TXT) - Odicom"
     planete_vegetal_soil_analyses: "Analyses de sol (CSV) ‒ Planète végétal"
     process_to_wine_activity_productions_kml: "Parcelles (KML) ‒ Process2Wine"
     quadra_fec_txt: "FEC import (TXT) - Quadra"
+    sage_coala_fec_txt: "FEC import (TXT) ‒ Sage Coala"
     sage_i_seven_fec_txt: "FEC import (TXT) ‒ Sagei7"
     sage_i_seven_journal_entries: "Comptabilité (ECX) ‒ Sagei7"
-    square_incoming_payments: "Encaissements | transactions (CSV) ‒ Square"
-    sage_coala_fec_txt: "FEC import (TXT) ‒ Sage Coala"
-    square_sales: "Ventes | détails des articles (CSV) ‒ Square"
+    socleo_base: "Base Socleo"
     socleo_incoming_payments: "Encaissements (CSV) ‒ Socleo"
     socleo_sales: "Ventes (CSV) ‒ Socleo"
+    square_base: "Base carrée"
+    square_incoming_payments: "Encaissements | transactions (CSV) ‒ Square"
+    square_sales: "Ventes | détails des articles (CSV) ‒ Square"
     synel_animals: "Animaux ‒ Synel"
     synel_inventory: "Inventaire ‒ Synel"
     synest_inventory: "Inventaire ‒ Synest"
     synest_milk_control: "Analyses de controle laitier ‒ Synest"
+    telepac_v2014_cap_land_parcels: "Îlots 2014 (SHP/ZIP) ‒ TéléPAC" #?
+    telepac_v2014_land_parcels: "Parcelles 2014 (SHP/ZIP) ‒ TéléPAC" #?
+    telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC" #?
     telepac_v2015_cap_statements: "Déclaration TelePAC 2015 (XML)"
+    telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TéléPAC" #?
     telepac_v2016_cap_statements: "Déclaration TelePAC 2016 (XML)"
     telepac_v2017_cap_statements: "Déclaration TelePAC 2017 (XML)"
     telepac_v2018_cap_statements: "Déclaration TelePAC 2018 (XML)"
@@ -127,44 +133,40 @@ fra:
     telepac_v2023_cap_statements: "Déclaration TelePAC 2023 (XML)"
     telepac_v2024_cap_statements: "Déclaration TelePAC 2024 (XML)"
     telepac_v2025_cap_statements: "Déclaration TelePAC 2025 (XML)"
-    telepac_v2014_cap_land_parcels: "Îlots 2014 (SHP/ZIP) ‒ TéléPAC"
-    telepac_v2014_land_parcels: "Parcelles 2014 (SHP/ZIP) ‒ TéléPAC"
-    telepac_v2015_cap_land_parcels: "Îlots 2015 (SHP/ZIP) ‒ TéléPAC"
-    telepac_v2015_land_parcels: "Parcelles 2015 (SHP/ZIP) ‒ TéléPAC"
-    unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque"
-    unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque"
+    unicoque_outgoing_deliveries: "Apports de récole ‒ Unicoque" #?
+    unicoque_plant_zones: "Plantations (SHP/ZIP) ‒ Unicoque" #?
     upra_reproductors: "Liste des reproducteurs ‒ UPRA"
-    viniteca_interventions: "Interventions (CSV/ZIP) ‒ Viniteca"
-    viniteca_plant_zones: "Plantations (SHP/ZIP) ‒ Viniteca"
+    viniteca_interventions: "Interventions (CSV/ZIP) ‒ Viniteca" #?
+    viniteca_plant_zones: "Plantations (SHP/ZIP) ‒ Viniteca" #?
     vivescia_purchase: "Achats - Vivescia"
-  vendors:
-    acom: "Acomaudit"
-    agrigest: "Agrigest"
-    agro_systemes: "Agro Systèmes"
-    agroedi: "Agro-EDI"
-    bordeaux_sciences_agro: "Bordeaux Sciences Agro"
-    bovins_croissance: "Bovins Croissance"
-    caj: "Caj"
-    charentes_alliance: "Charentes Alliance"
-    ebp: "Ebp"
-    ekylibre: "Ekylibre"
-    fiea: "Fiea"
-    isagri: "Isagri"
-    lely_milk_robot: "Lely Milk Robot"
-    lilco: "Lilco"
-    listo: "Listo Paye"
-    logicall: "Logic’All"
-    milklic: "Mil'Klic"
-    none: "None"
-    odicom: "Odicom"
-    planete_vegetal: "Planète Végétal"
-    process_to_wine: "Process2Wine"
-    socleo: "Socleo"
-    quadra: "Quadra"
-    sage: "Sage"
-    square: "Square"
-    synel: "Synel"
-    synest: "Synest"
-    telepac: "TelePAC"
-    upra: "Upra"
-    vivescia: "Vivescia"
+  vendors: #?
+    acom: "Acomaudit" #?
+    agrigest: "Agrigest" #?
+    agro_systemes: "Agro Systèmes" #?
+    agroedi: "Agro-EDI" #?
+    bordeaux_sciences_agro: "Bordeaux Sciences Agro" #?
+    bovins_croissance: "Bovins Croissance" #?
+    caj: "Caj" #?
+    charentes_alliance: "Charentes Alliance" #?
+    ebp: "Ebp" #?
+    ekylibre: "Ekylibre" #?
+    fiea: "Fiea" #?
+    isagri: "Isagri" #?
+    lely_milk_robot: "Lely Milk Robot" #?
+    lilco: "Lilco" #?
+    listo: "Listo Paye" #?
+    logicall: "Logic’All" #?
+    milklic: "Mil'Klic" #?
+    none: "None" #?
+    odicom: "Odicom" #?
+    planete_vegetal: "Planète Végétal" #?
+    process_to_wine: "Process2Wine" #?
+    quadra: "Quadra" #?
+    sage: "Sage" #?
+    socleo: "Socleo" #?
+    square: "Square" #?
+    synel: "Synel" #?
+    synest: "Synest" #?
+    telepac: "TelePAC" #?
+    upra: "Upra" #?
+    vivescia: "Vivescia" #?

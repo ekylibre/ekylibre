@@ -48,5 +48,5 @@ class WineIncomingHarvestStorage < ApplicationRecord
   composed_of :quantity, class_name: 'Measure', mapping: [%w[quantity_value to_d], %w[quantity_unit unit]]
   refers_to :quantity_unit, class_name: 'Unit'
 
-  delegate :name, to: :storage, prefix: true
+  delegate :name, to: :storage, prefix: true, allow_nil: true
 end

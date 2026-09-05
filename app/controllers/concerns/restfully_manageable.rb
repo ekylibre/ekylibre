@@ -320,6 +320,7 @@ module RestfullyManageable
         unique_controller_name = controller_path.camelize.simpleize
         kind_name = kind.to_s.classify
         mod_name = "#{unique_controller_name}#{kind_name}Actions"
+        RestfullyManageable.send(:remove_const, mod_name) if RestfullyManageable.const_defined?(mod_name, false)
         RestfullyManageable.const_set mod_name, mod
       end
 

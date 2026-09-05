@@ -61,10 +61,11 @@ module Clients
         puts response.inspect.yellow
         json_response = response[:choices][0][:message][:content]
         clean_json_response = JSON.parse(json_response)
+        clean_json_response = clean_json_response.deep_symbolize_keys if clean_json_response.is_a?(Hash)
         if clean_json_response.is_a?(Hash) && clean_json_response[:items].present?
           clean_json_response[:items].map(&:deep_symbolize_keys)
         elsif clean_json_response.is_a?(Hash)
-          clean_json_response.deep_symbolize_keys
+          clean_json_response
         elsif clean_json_response.is_a?(Array)
           clean_json_response.map(&:deep_symbolize_keys)
         end

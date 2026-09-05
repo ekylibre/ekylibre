@@ -25,6 +25,12 @@ module Userstamp
         # the controller where you are including the Userstamp module.
         def set_stamper
           User.stamper = current_user
+        rescue ActiveRecord::StaleObjectError
+          # Concurrent requests can race on the User row via Devise
+          # (rememberable cookie refresh, trackable fields). The stamper
+          # only needs the id, so fall back to the warden-cached record
+          # rather than re-entering the auth strategy chain.
+          User.stamper = warden.user(:user)&.id if respond_to?(:warden) && warden
         end
 
         # The <tt>reset_stamper</tt> method as implemented here assumes that a

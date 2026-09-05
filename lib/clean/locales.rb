@@ -38,15 +38,16 @@ module Clean
       def initialize(locale, options = {})
         @locale = locale.to_sym
         @log = options[:log] if options[:log]
+        @dry_run = options[:dry_run] ? true : false
       end
 
       private def locale_label
         "#{I18n.locale} (" + ::I18n.t('i18n.name') + ')'
       end
 
-      private def self.translate_or_nil(*args)
+      private def translate_or_nil(*args)
         result = I18n.translate(*args)
-        (result.to_s =~ /(translation\ missing|\(\(\()/ ? nil : result)
+        (result.to_s =~ /(translation missing|\(\(\()/i ? nil : result)
       end
 
       def clean!
@@ -72,15 +73,22 @@ module Clean
         clean_aggregators!
         clean_file! 'devise'
         clean_file! 'devise.views'
+        clean_file! 'email_templates'
         clean_enumerize!
         clean_file! 'exceptions'
         clean_exchangers!
         clean_file! 'formats'
+        clean_file! 'interbank_transaction_codes'
+        clean_file! 'lexicon'
         clean_file! 'mailers'
         clean_models!
+        clean_file! 'navigation'
         clean_nomenclatures!
         clean_procedures!
         clean_file! 'support'
+        clean_file! 'tooltips'
+        clean_file! 'transitions'
+        clean_file! 'xsd_errors'
 
         # puts " - Locale: #{locale_label} (Reference)"
         log "  - Total:               #{(100 * @count / @total).round.to_s.rjust(3)}% (#{@count}/#{@total})\n"
@@ -675,26 +683,31 @@ module Clean
       # Cleans translation from a reference locale
       def clean_from!(reference_locale)
         ::I18n.locale = @locale
-        FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-        FileUtils.makedirs(locale_dir.join('help')) unless File.exist?(locale_dir.join('help'))
+        unless @dry_run
+          FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
+          FileUtils.makedirs(locale_dir.join('help')) unless File.exist?(locale_dir.join('help'))
+        end
         log "Locale #{locale_label}:\n"
         total = 0
         count = 0
         Dir.glob(Rails.root.join('config', 'locales', reference_locale.to_s, '*.yml')).sort.each do |reference_path|
           file_name = reference_path.split(%r{[\/\\]+})[-1]
           target_path = Rails.root.join('config', 'locales', locale.to_s, file_name)
-          unless File.exist?(target_path)
+          if !File.exist?(target_path) && !@dry_run
             FileUtils.mkdir_p(target_path.dirname)
             File.open(target_path, 'wb') do |file|
               file.write("#{locale}: {}\n")
             end
           end
-          target = Clean::Support.yaml_to_hash(target_path).deep_compact
+          target = File.exist?(target_path) ? Clean::Support.yaml_to_hash(target_path).deep_compact : {}
           reference = Clean::Support.yaml_to_hash(reference_path).deep_compact
           translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[reference_locale], locale == :english ? :humanize : :localize)
           count += scount
           total += stotal
-          log "  - #{(file_name + ':').ljust(20)} #{(stotal.zero? ? 0 : 100 * (stotal - scount) / stotal).round.to_s.rjust(3)}% (#{stotal - scount}/#{stotal})\n"
+          prefix = @dry_run ? '  ~ [dry-run] ' : '  - '
+          log "#{prefix}#{(file_name + ':').ljust(20)} #{(stotal.zero? ? 0 : 100 * (stotal - scount) / stotal).round.to_s.rjust(3)}% (#{stotal - scount}/#{stotal})\n"
+          next if @dry_run
+
           File.open(target_path, 'wb') do |file|
             file.write("#{locale}:\n")
             file.write(translation.indent.gsub(/\ +\n/, "\n"))
@@ -731,8 +744,9 @@ module Clean
 
         def write(file, translation, total, untranslated = 0)
           file = locale_dir.join(file) if file.is_a?(String)
-          File.write(file, translation.strip.gsub(/\ +\n/, "\n"))
-          log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
+          File.write(file, translation.strip.gsub(/\ +\n/, "\n")) unless @dry_run
+          prefix = @dry_run ? '  ~ [dry-run] ' : '  - '
+          log "#{prefix}#{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
           @total += total
           @count += total - untranslated
         end
@@ -771,21 +785,25 @@ module Clean
 
         def load_file(file)
           Clean::Support.yaml_to_hash(file)[locale] || {}
-        rescue
+        rescue Psych::SyntaxError => e
+          warn "[Clean::Locales] YAML syntax error in #{file}: #{e.message}"
+          {}
+        rescue Errno::ENOENT
           {}
         end
     end
 
-    def self.run!(reference = nil)
+    def self.run!(reference = nil, dry_run: false)
       Clean::Support.set_search_path!
       reference ||= I18n.default_locale
       log = File.open(Rails.root.join('log', 'clean-locales.log'), 'wb')
-      Translation.new(reference, log: log).clean!
+      puts ' - Dry-run mode: no file will be written.' if dry_run
+      Translation.new(reference, log: log, dry_run: dry_run).clean!
       locales = ::I18n.available_locales.delete_if do |l|
         l == reference || l.to_s.size != 3
       end.sort_by(&:to_s)
       locales.each do |locale|
-        Translation.new(locale, log: log).clean_from!(reference)
+        Translation.new(locale, log: log, dry_run: dry_run).clean_from!(reference)
       end
     end
   end

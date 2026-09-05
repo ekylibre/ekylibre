@@ -207,11 +207,7 @@ module Visualization
         if info.is_a? String
           block = { type: type, content: info }
         elsif info.is_a? TrueClass
-          if options[:content]
-            block = { type: type, content: options[:content] }
-          else
-            raise StandardError.new('Option :content must be given when info is a TrueClass')
-          end
+          block = { type: type, content: options[:content].to_s }
         elsif info.is_a? Hash
           block = info.merge(type: type)
         else

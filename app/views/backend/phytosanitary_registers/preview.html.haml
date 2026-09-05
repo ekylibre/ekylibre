@@ -1,0 +1,71 @@
+- main_toolbar do |t|
+  = link_to :back_to_index.tl, backend_phytosanitary_registers_path, class: 'btn btn-default'
+
+.panel.panel-default
+  .panel-heading
+    %h2= :phytosanitary_register.tl
+    %p.text-muted
+      - if @campaign
+        = @campaign.name
+      - else
+        = :all_campaigns.tl
+
+  .panel-body
+    %dl.dl-horizontal
+      %dt= :holder_siret.tl
+      %dd= @payload.holder_siret || '—'
+      %dt= :holder_name.tl
+      %dd= @payload.holder_name || '—'
+      %dt= :period_from.tl
+      %dd= @payload.period_from ? l(@payload.period_from.to_date) : '—'
+      %dt= :period_to.tl
+      %dd= @payload.period_to ? l(@payload.period_to.to_date) : '—'
+      %dt= :entry_count.tl
+      %dd= @payload.size
+
+    - if @validation.ok?
+      .alert.alert-success
+        %strong= :register_integrity_ok.tl
+    - else
+      .alert.alert-warning
+        %strong= :register_integrity_warning.tl(count: @validation.total_errors)
+        %ul
+          - @validation.errors_by_entry.first(10).each do |key, fields|
+            %li
+              %code= key.inspect
+              \-
+              = fields.join(', ')
+
+  .panel-footer
+    = form_tag backend_phytosanitary_registers_path, method: :post, class: 'form-inline' do
+      = hidden_field_tag :campaign_id, @campaign&.id
+      = hidden_field_tag :force, @validation.ok? ? 'false' : 'true'
+      .form-group
+        = label_tag :export_format, :format.tl
+        = select_tag :export_format, options_for_select([['XML', 'xml'], ['JSON', 'json'], ['CSV', 'csv']]), class: 'form-control'
+      = submit_tag :generate_and_archive.tl, class: 'btn btn-primary'
+
+- if @payload.entries.any?
+  .panel.panel-default
+    .panel-heading
+      %h2= :first_entries_preview.tl(count: [@payload.size, 20].min)
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th= :intervention.tl
+          %th= :product_name.tl
+          %th= :amm_number.tl
+          %th= :dose.tl
+          %th= :treated_area.tl
+          %th= :crop.tl
+          %th= :date.tl
+      %tbody
+        - @payload.entries.first(20).each do |entry|
+          %tr
+            %td= entry.intervention_number
+            %td= entry.product_name
+            %td= entry.amm_number
+            %td #{entry.dose_value} #{entry.dose_unit}
+            %td #{entry.treated_area_value} #{entry.treated_area_unit}
+            %td= entry.crop_name
+            %td= entry.application_date

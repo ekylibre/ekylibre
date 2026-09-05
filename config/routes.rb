@@ -3,6 +3,32 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  get '/health', to: proc { [200, { 'Content-Type' => 'text/plain' }, ['ok']] }
+
+  namespace :admin do
+    resources :tenants, only: [:index, :new, :create, :destroy] do
+      collection do
+        get    :create_status
+        delete :clear_create_status
+      end
+      member do
+        post :dump
+        get  :dump_status
+        get  :dump_download
+      end
+    end
+    post 'demo/load', to: 'demo#load_demo', as: :demo_load
+    get  'demo/status', to: 'demo#status', as: :demo_status
+    post 'restore',        to: 'restore#create',  as: :restore
+    get  'restore/status', to: 'restore#status',  as: :restore_status
+    get    'lexicon/available', to: 'lexicon#available', as: :lexicon_available
+    get    'lexicon/status',    to: 'lexicon#status',    as: :lexicon_status
+    post   'lexicon/download',  to: 'lexicon#download',  as: :lexicon_download
+    post   'lexicon/activate',  to: 'lexicon#activate',  as: :lexicon_activate
+    delete 'lexicon/remove',    to: 'lexicon#remove',    as: :lexicon_remove
+    root to: 'tenants#index'
+  end
+
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
     get :unroll, on: :collection
@@ -123,8 +149,10 @@ Rails.application.routes.draw do
       resources :interventions, only: %i[index create update]
       get 'products(/:product_type)', to: 'products#index', as: :products
       resources :variants, only: %i[index]
+      resources :procedures, only: %i[index show], constraints: { id: /[^\/]+/ }
       get 'profile', to: 'users#show'
       put 'profile', to: 'users#update'
+      get 'users/me', to: 'users#me'
       namespace :lexicon do
         resources :registered_phytosanitary_cropsets, only: %i[index create]
         resources :registered_phytosanitary_risks, only: %i[index create]
@@ -138,6 +166,13 @@ Rails.application.routes.draw do
     resources :analyses, only: [:create], path: 'a'
   end
 
+  # Streams shared agricultural pictures (variety/production icons) stored
+  # as BYTEA in the lexicon schema. Replaces filesystem assets under
+  # app/assets/images/{varieties,productions,activity_families}.
+  get 'lexicon/pictures/:domain/:name', to: 'lexicon_pictures#show',
+                                        as: :lexicon_picture,
+                                        constraints: { name: %r{[^/]+} }
+
   # Plugins can override backend routes but only complete API ones
   plugins
 
@@ -149,6 +184,10 @@ Rails.application.routes.draw do
         patch :change_password
       end
     end
+
+    # Duke chat widget runtime configuration (token, tenant, ws url).
+    # Rendered on demand when the user opens the chat bubble.
+    get 'duke/config', to: 'duke_widget#show', as: :duke_config
 
     resource :settings, only: [] do
       member do
@@ -590,6 +629,7 @@ Rails.application.routes.draw do
         match 'import', via: %i[get post]
         patch :mask_lettered_items
         match 'merge', via: %i[get post]
+        get :sirene_search
       end
       member do
         match 'picture(/:style)', via: :get, action: :picture, as: :picture
@@ -650,6 +690,12 @@ Rails.application.routes.draw do
     end
 
     resources :exports, only: %i[index show]
+
+    resources :phytosanitary_registers, only: %i[index show create], path: 'phytosanitary-registers' do
+      collection do
+        get :preview
+      end
+    end
 
     resources :fixed_assets, concerns: %i[list unroll], path: 'fixed-assets' do
       collection do
@@ -1592,6 +1638,21 @@ Rails.application.routes.draw do
         get :selection
       end
     end
+
+    # HVE3 audit (plugin ekylibre-hve)
+    resources :hve_audits, concerns: [:list] do
+      member do
+        get  :biodiversity
+        post :recompute_biodiversity
+        post :clone_from_previous
+      end
+      resources :biodiversity_items, controller: 'hve_biodiversity_items',
+                                     except: %i[show index]
+    end
+  end
+
+  constraints subdomain: '' do
+    root to: 'landing#show', as: :landing_root
   end
 
   root to: 'public#index'

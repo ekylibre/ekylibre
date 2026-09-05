@@ -7,7 +7,7 @@ class AccountancyClassifierJob < ActiveJob::Base
       service = AccountancyClassifierService.new(journal_entry_item_ids: journal_entry_item_ids)
       service.classify_from_data
       service.classify_from_ia
-      notification = user.notifications.build(success_on_accountancy_classification_notification(service))
+      notification = user.notifications.build(success_on_accountancy_classification_notification(service.log_result))
     rescue StandardError => e
       ExceptionNotifier.notify_exception(e, data: { message: e })
       notification = user.notifications.build(error_on_accountancy_classification_notification(e.message))

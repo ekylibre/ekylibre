@@ -17,3 +17,8 @@ daily:
 daily_call_records_maintenance:
   cron: '0 3 * * *'
   class: 'CallRecordsMaintenance'
+phytosanitary_register_yearly_archive:
+  # Runs every 15 January at 06:00 — leaves 16 days of slack before the
+  # 31 January regulatory deadline for previous-year records.
+  cron: '0 6 15 1 *'
+  class: 'ScheduledPhytosanitaryRegisterArchiveJob'

@@ -18,9 +18,19 @@
 
 module Backend
   class AnalysesController < Backend::BaseController
-    manage_restfully sampled_at: 'Time.zone.now'.c, sampler_id: 'current_user.person.id'.c
+    manage_restfully sampled_at: 'Time.zone.now'.c, sampler_id: 'current_user.person.id'.c, except: [:create]
 
     unroll
+
+    def create
+      @analysis = Analysis.new(permitted_params)
+      if @analysis.save
+        link_wine_incoming_harvest
+        redirect_to action: :show, id: @analysis.id
+      else
+        render :new
+      end
+    end
 
     # params:
     #   :q Text search
@@ -64,6 +74,14 @@ module Backend
       t.column :indicator, datatype: :item
       t.column :value, datatype: :measure, class: 'center'
       t.column :annotation, class: 'center'
+    end
+
+    private
+
+    def link_wine_incoming_harvest
+      return unless @analysis.persisted? && params[:wine_incoming_harvest_id].present?
+
+      WineIncomingHarvest.where(id: params[:wine_incoming_harvest_id]).update_all(analysis_id: @analysis.id)
     end
   end
 end

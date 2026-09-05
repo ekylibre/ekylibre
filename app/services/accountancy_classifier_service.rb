@@ -36,8 +36,13 @@ class AccountancyClassifierService
     c = Clients::Mistral::Ner.new
     result = c.extract_accountancy_metadata(data, :accountancy_classification, activity_list)
     puts result.inspect.yellow
-    # return result[:error] if result[:error].present?
     @log_result[:items_classified] = 0
+    if result.is_a?(Hash) && result[:error].present?
+      @log_result[:error] = result[:error]
+      return @log_result
+    end
+    return @log_result unless result.is_a?(Array)
+
     not_classify_jei.each do |entry_item|
       matching_item = result.find { |item| item[:id] == entry_item.id.to_s }
       next unless matching_item.present?

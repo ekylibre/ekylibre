@@ -17,11 +17,16 @@
 
   productsInfos =
     display: () ->
+      @_debouncedDisplay ?= _.debounce(@_displayNow.bind(this), 400)
+      @_debouncedDisplay()
+
+    _displayNow: () ->
       that = this
+      @_inFlight?.abort?()
       $('.nested-plant_medicine').each -> that._clear($(this))
       values = @._retrieveValues()
 
-      $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos',dataType: "json", data: values, method: 'POST')
+      @_inFlight = $.ajax(url: '/backend/registered_phytosanitary_products/get_products_infos',dataType: "json", data: values, method: 'POST')
        .done( (data) =>
           for id, infos of data
             $productField = $(".selector-value[value='#{id}']").closest('.nested-plant_medicine')
@@ -30,6 +35,7 @@
             @._displayBadge($productField, infos.state, infos.check_conditions)
             @._displayMessages($productField, infos.messages)
         )
+       .always(=> @_inFlight = null)
 
     _displayAllowedMentions: ($productField, allowedMentions) ->
       $productField.find('span.allowed-mentions').insertAfter($productField.find('.intervention_inputs_product .selector'))
@@ -159,12 +165,12 @@
     _displayDose: ($input, data) ->
       for key, value of data.dose_validation
         addedClass = if key == 'stop' then 'warning' else ''
-        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').addClass("lights-#{key}")
-        $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').addClass(addedClass).text("#{value}")
+        $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights').addClass("lights-#{key}")
+        $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights-message').addClass(addedClass).text("#{value}")
 
     _clearLights: ($input) ->
-      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights').removeClass("lights-go lights-caution lights-stop")
-      $input.closest('.nested-inputs').find('.intervention_inputs_quantity .lights-message').removeClass("warning")
+      $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights').removeClass("lights-go lights-caution lights-stop")
+      $input.closest('.nested-plant_medicine').find('.intervention_inputs_quantity .lights-message').removeClass("warning")
 
     _retrieveValues: ($input, $productField) ->
       interventionId = $('input#intervention_id').val()
@@ -243,7 +249,7 @@
         $replicaInputs = $(sprayVolume.selectors.replicaInput)
         sprayVolume._updateReplicaInputs($replicaInputs, this.value)
       
-      $(document).on 'cocoon:after-insert', '.nested-inputs', (_e, $insertedItem) ->
+      $(document).on 'cocoon:after-insert', '.nested-product-parameter', (_e, $insertedItem) ->
         $replicaInput = $insertedItem.find(sprayVolume.selectors.replicaInput)
         value = $(sprayVolume.selectors.replicaInput)
           .toArray()
@@ -263,7 +269,7 @@
   $(document).on 'cocoon:after-remove', '.nested-targets', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
 
-  $(document).on 'cocoon:after-remove', '.nested-inputs', ->
+  $(document).on 'cocoon:after-remove', '.nested-product-parameter', ->
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
     productListManager.filterProducts()
     sprayingMap.refresh()
@@ -272,21 +278,25 @@
     productListManager.filterProduct($(this), productListManager.retrieveProductsIds())
 
   # Re-trigger all filters on target change
-  $(document).on 'selector:change', "[data-selector-id='intervention_target_product_id']", ->
+  $(document).on 'selector:change', "[data-selector-id='intervention_target_product_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     $("[data-selector-id='intervention_input_product_id']").trigger('selector:change')
 
-  $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", ->
+  $(document).on 'selector:change', "[data-selector-id='intervention_input_usage_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     productsInfos.display()
     usageMainInfos.display($(this), $(this).closest('.nested-plant_medicine'))
 
   # Refresh usages, allowed mentions and badges on product update
-  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
+  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     productsInfos.display()
     $usageInput = $(this).closest('.nested-plant_medicine').find("[data-selector-id='intervention_input_usage_id']").first()
     if $(this).val() != ''
       $usageInput.attr('disabled', false)
 
-  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", ->
+  $(document).on 'selector:change', "input[data-selector-id='intervention_input_product_id']", (event, _selectedElement, wasInitializing) ->
+    return if wasInitializing
     productListManager.filterProducts()
 
   # Update allowed doses on quantity change

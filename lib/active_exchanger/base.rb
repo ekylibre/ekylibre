@@ -166,7 +166,7 @@ module ActiveExchanger
     def run(check: true)
       result = Result.failed("Somethong is wrong, the import didn't run")
 
-      ApplicationRecord.transaction do
+      ApplicationRecord.transaction(requires_new: true) do
         if !check || (result = safe_check).success?
           result = safe_import
         end

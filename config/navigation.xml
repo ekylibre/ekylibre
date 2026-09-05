@@ -897,6 +897,8 @@
         <page to="backend/interventions#sell"/>
         <page to="backend/interventions#unroll"/>
         <page to="backend/intervention_participations#participations_modal"/>
+      </item>
+      <item name="prescriptions">
         <page to="backend/prescriptions#index"/>
         <page to="backend/prescriptions#create"/>
         <page to="backend/prescriptions#destroy"/>

@@ -230,24 +230,4 @@ class CultivableZone < ApplicationRecord
     Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)
   end
 
-  after_save do
-    initiate_satellite_data
-  end
-
-  after_destroy do
-    Ekylibre::Hook.publish(:cultivable_zone_destroy, cultivable_zone_id: id)
-    if self.is_provided_by?(vendor: 'agromonitoring', name: 'agromonitoring_polygons')
-      identifier = Identifier.find_by(nature: :agromonitoring_api_key)
-      AgroMonitoringClient.from_identifier(identifier, self, updater).remove_polygon
-    end
-  end
-
-  private
-
-    def initiate_satellite_data
-      identifier = Identifier.find_by(nature: :agromonitoring_api_key)
-      if identifier.present? && net_surface_area.convert(:hectare).to_f > 1.0
-        AgromonitoringJob.perform_later(parcel_id: id, user_id: updater_id)
-      end
-    end
 end

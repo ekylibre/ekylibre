@@ -225,6 +225,29 @@ class InterventionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal('1.50 h', intervention.human_working_duration)
   end
 
+  test '#name is auto-filled with default format when blank on validation' do
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing], number: '42', working_periods: fake_working_periods)
+    intervention.valid?
+    assert_equal intervention.default_name, intervention.read_attribute(:name)
+    assert_equal intervention.default_name, intervention.name
+  end
+
+  test '#name keeps the user-provided value when present' do
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing], number: '42', name: 'My field campaign', working_periods: fake_working_periods)
+    intervention.valid?
+    assert_equal 'My field campaign', intervention.read_attribute(:name)
+    assert_equal 'My field campaign', intervention.name
+  end
+
+  test '#name falls back to default_name when the stored value is nil (legacy record)' do
+    intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing], number: '42', working_periods: fake_working_periods)
+    intervention.valid?
+    intervention.send(:write_attribute, :name, nil)
+    assert_nil intervention.read_attribute(:name)
+    refute_nil intervention.name
+    assert_equal intervention.default_name, intervention.name
+  end
+
   def add_harvesting_intervention(target, stopped_at)
     Intervention.create!(
       procedure_name: :harvesting,

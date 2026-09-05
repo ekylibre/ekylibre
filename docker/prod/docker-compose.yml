@@ -1,86 +1,238 @@
-version: "3.4"
-
 services:
   app:
+    container_name: app
+    image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    pull_policy: always
     user: ekylibre
     env_file: .env
-    image: registry.gitlab.com/ekylibre/eky/ekylibre:test-ci
-    build:
-      dockerfile: docker/prod/Dockerfile
-      context: ../..
-    ports:
-      - "3000:3000"
-      - '8808:8808'
     volumes:
       - log:/app/log
-      - tmp:/app/tmp
-      - public:/app/public
-    command: docker/startup.sh
+      - uploads:/app/private
+      # GnuPG 2.x doit pouvoir demarrer gpg-agent + creer socket/verrous dans
+      # le homedir : mount en RW obligatoire (sinon signature = Unusable secret key).
+      - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg
+      # tenants.yml persiste hors du container pour survivre aux redeploys.
+      # Le fichier doit exister sur l'hote (touch + chown 1000:1000) avant le up.
+      - ${TENANTS_YML_PATH:-./tenants.yml}:/app/config/tenants.yml
+    command: docker/prod/startup.sh
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_started
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 600s
+      retries: 3
 
   sidekiq:
+    container_name: sidekiq
+    image: ghcr.io/ekylibre/ekylibre/app:${EKYLIBRE_IMAGE_TAG:-latest}
+    pull_policy: always
+    user: ekylibre
     env_file: .env
-    image: registry.gitlab.com/ekylibre/eky/ekylibre:test-ci
-    build:
-      dockerfile: docker/prod/Dockerfile
-      context: ../..
-    command: bundle exec sidekiq
+    volumes:
+      - log:/app/log
+      - uploads:/app/private
+      # cf. commentaire sur le service `app` : mount RW obligatoire pour gpg-agent.
+      - ${GPG_KEYRING_PATH:-./secrets/gnupg}:/home/ekylibre/.gnupg
+      - ${TENANTS_YML_PATH:-./tenants.yml}:/app/config/tenants.yml
+    command: docker/prod/sidekiq_startup.sh
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_started
       app:
-        condition: service_started
+        # Wait for app healthcheck (Puma up + /health 200) before starting.
+        # Sinon Sidekiq tente de charger ses modeles avant la fin du lexicon load
+        # -> erreurs `relation "master_legal_positions" does not exist` en boucle.
+        condition: service_healthy
     restart: on-failure
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file: .env
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
   redis:
-    image: redis:5.0-alpine
+    image: redis:7-alpine
+    container_name: redis
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
 
   db:
     image: kartoza/postgis:13
+    container_name: db
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_PROD_NAME}
       POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
-      ALLOW_IP_RANGE: 0.0.0.0/24
+      DUKE_USER: ${DUKE_USER}
+      DUKE_PASSWORD: ${DUKE_PASSWORD}
       TZ: Europe/Paris
     volumes:
       - database-prod-volume:/var/lib/postgresql/data
-      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5431:5432"
-    command: ["postgres", "-c", "log_statement=all"]
+      - ../db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
+    command:
+      - postgres
+      - -c
+      - max_wal_size=4GB
+      - -c
+      - checkpoint_timeout=15min
+      - -c
+      - checkpoint_completion_target=0.9
+    restart: unless-stopped
     healthcheck:
-      test: "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_PROD_NAME}"
+      test: ["CMD-SHELL", "PGPASSWORD=${DB_PASSWORD} pg_isready -h db -U ${DB_USERNAME} -d ${DB_PROD_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
-  nginx:
-    image: nginx:latest
-    ports:
-      - '80:80'
-      - '443:443'
+  duke-api:
+    image: ghcr.io/ekylibre/duke/duke-api:${DUKE_IMAGE_TAG:-latest}
+    pull_policy: always
+    container_name: duke-api
+    profiles: ["duke"]
+    env_file: .env
+    environment:
+      EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
+      EKYLIBRE_DB_DSN: ${EKYLIBRE_DB_DSN}
+      DUKE_DB_DSN: ${DUKE_DB_DSN}
+      MIGRATE_ON_BOOT: ${MIGRATE_ON_BOOT:-false}
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - public:/app/public     
-      - certs:/etc/letsencrypt
+      - whisper-cache:/home/duke/.cache/huggingface
     depends_on:
-      - app
+      postgres-duke:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      app:
+        condition: service_started
+    restart: unless-stopped
 
-  certbot:
-    image: certbot/certbot
+  # NanoClaw : pont Telegram <-> Duke <-> Ekylibre.
+  # 1 host container + N containers Bun spawned via le socket Docker monte.
+  # Spec : claudedocs/workflow_nanoclaw_telegram_prod.md §5.1.
+  nanoclaw:
+    image: ghcr.io/ekylibre/nanoclaw-ekylibre:${NANOCLAW_IMAGE_TAG:-latest}
+    pull_policy: always
+    container_name: nanoclaw
+    profiles: ["nanoclaw"]
+    env_file: .env
+    environment:
+      ANTHROPIC_AUTH_TOKEN: ${ANTHROPIC_AUTH_TOKEN}
+      ANTHROPIC_BASE_URL: ${ANTHROPIC_BASE_URL:-}
+      # OneCLI gateway (https://app.onecli.sh) : NanoClaw v2 l'utilise pour
+      # provisionner les credentials Claude des containers agent. Sans cle,
+      # les spawn echouent en exit 125. Inscription sur app.onecli.sh.
+      ONECLI_API_KEY: ${ONECLI_API_KEY:-}
+      ONECLI_URL: ${ONECLI_URL:-https://app.onecli.sh}
+      DUKE_WS_URL: ${DUKE_WS_URL:-ws://duke-api:8000/ws}
+      DUKE_HTTP_URL: ${DUKE_HTTP_URL:-http://duke-api:8000}
+      EKYLIBRE_API_BASE_URL: ${EKYLIBRE_API_BASE_URL:-http://app:3000}
+      NANOCLAW_AGENTS_NETWORK: ekylibre
+      NANOCLAW_LOG_LEVEL: ${NANOCLAW_LOG_LEVEL:-info}
+      NANOCLAW_LLM_PROVIDER: ${NANOCLAW_LLM_PROVIDER:-claude}
     volumes:
-      - certs:/etc/letsencrypt
-      - ./letsencrypt:/bin/letsencrypt
-    entrypoint: /bin/sh
+      - nanoclaw-data:/data
+      # Socket Docker pour spawn des containers agent + build de l'image agent
+      # au premier boot. Risque securite documente §8.1 : tourner sur un user
+      # host dedie.
+      - /var/run/docker.sock:/var/run/docker.sock
+      # tenants.yml : source de verite de l'enrolement (chmod 0600, root:root).
+      # Doit exister AVANT le up (touch + chmod + chown), sinon Docker le cree
+      # comme un repertoire.
+      - ${NANOCLAW_TENANTS_PATH:-./nanoclaw-tenants.yml}:/etc/nanoclaw/tenants.yml:ro
+    depends_on:
+      duke-api:
+        condition: service_started
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
+
+  postgres-duke:
+    image: postgres:16-alpine
+    container_name: postgres-duke
+    profiles: ["duke"]
+    environment:
+      POSTGRES_USER: ${DUKE_DB_USER}
+      POSTGRES_PASSWORD: ${DUKE_DB_PASSWORD}
+      POSTGRES_DB: ${DUKE_DB_NAME}
+    volumes:
+      - postgres-duke-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DUKE_DB_USER} -d ${DUKE_DB_NAME}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    profiles: ["ollama", "duke-llm-local"]
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  ollama-pull:
+    image: ollama/ollama:latest
+    container_name: ollama-pull
+    profiles: ["ollama", "duke-llm-local"]
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["ollama", "pull", "${OLLAMA_MODEL:-mistral-nemo}"]
+    restart: "no"
 
 volumes:
   database-prod-volume:
+  redis-data:
   log:
-  tmp:
-  public:
-  certs:
+  uploads:
+  caddy-data:
+  caddy-config:
+  postgres-duke-data:
+  whisper-cache:
+  ollama-models:
+  nanoclaw-data:
+
+networks:
+  default:
+    name: ekylibre
+    driver: bridge

@@ -1,5 +1,7 @@
 - nature = f.object.nature
 - main_title("new_#{nature}".tl) if f.object.new_record?
+- if f.object.organization?
+  = render 'sirene_prefill'
 = field_set do
   = f.input :nature, as: :hidden
   - if f.object.contact?

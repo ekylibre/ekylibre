@@ -196,8 +196,8 @@ gem 'gitlab_kramdown', '~> 0.6'
 gem 'lexicon-common', '~> 0.2.0'
 
 group :production do
-  # Use unicorn as the app server
-  gem 'unicorn', '~> 5.8'
+  # Use puma as the app server
+  gem 'puma', '~> 5.6'
 end
 
 group :development do
