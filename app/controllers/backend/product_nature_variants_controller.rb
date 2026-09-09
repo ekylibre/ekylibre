@@ -268,7 +268,7 @@ module Backend
       end
 
       if @product_nature_variant.picture.file?
-        infos[:picture] = @product_nature_variant.picture.url(:thumb)
+        infos[:picture] = helpers.url_for(@product_nature_variant.picture_variant(:thumb))
       end
 
       if pictogram = @product_nature_variant.category.pictogram

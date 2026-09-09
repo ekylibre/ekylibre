@@ -385,7 +385,6 @@ class Product < ApplicationRecord
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates :uuid, :conditioning_unit, presence: true
-  validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
@@ -881,10 +880,6 @@ class Product < ApplicationRecord
     end
 
     nil
-  end
-
-  def picture_path(style = :original)
-    picture.path(style)
   end
 
   # Returns all contained products of the given variant

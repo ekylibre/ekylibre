@@ -25,7 +25,9 @@ class EntityDecorator < Draper::Decorator
     object.websites.any? ? object.websites.order(:by_default).first.coordinate : ''
   end
 
+  # Le modèle porte désormais has_picture? (concern Picturable) ; le decorator
+  # se contentait de vérifier l'existence du fichier Paperclip.
   def has_picture?
-    picture.path && File.exist?(picture.path)
+    object.has_picture?
   end
 end

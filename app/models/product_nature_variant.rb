@@ -128,7 +128,6 @@ class ProductNatureVariant < ApplicationRecord
   validates :gtin, length: { allow_nil: true, maximum: 14 }
   validates :default_quantity, numericality: { greater_than: 0, less_than: 1_000_000_000_000_000 }
   validate :readings_presence
-  validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name
 
@@ -580,10 +579,6 @@ class ProductNatureVariant < ApplicationRecord
 
   def current_outgoing_stock_ordered_not_delivered_displayed
     variety == 'service' ? '' : current_outgoing_stock_ordered_not_delivered(into_default_unit: true)
-  end
-
-  def picture_path(style = :original)
-    picture.path(style)
   end
 
   def current_stock_per_storage(storage)

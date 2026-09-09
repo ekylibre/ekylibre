@@ -195,7 +195,6 @@ class Entity < ApplicationRecord
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates :iban, iban: true, allow_blank: true
   validates :siret_number, siret_format: { if: :in_france? }, allow_blank: true, length: { allow_nil: true, maximum: 14 }
-  validates_attachment_content_type :picture, content_type: /image/
   validates_delay_format_of :supplier_payment_delay
   validates_with SEPA::BICValidator, field_name: :bank_identifier_code
 
@@ -487,10 +486,6 @@ class Entity < ApplicationRecord
     subscriptions.where(nature: nature).order(stopped_on: :desc).first
   end
 
-  def picture_path(style = :original)
-    picture.path(style)
-  end
-
   def name_with_postal_code_and_city
     desc = (number.nil? ? '' : number) + '. ' + full_name
     c = default_mail_address
@@ -538,8 +533,13 @@ class Entity < ApplicationRecord
       %i[currency country last_name first_name activity_code description born_at dead_at deliveries_conditions first_met_at meeting_origin proposer siret_number supplier_account client_account vat_number language authorized_payments_count].each do |attr|
         send("#{attr}=", other.send(attr)) if send(attr).blank?
       end
-      if other.picture.file? && !picture.file?
-        self.picture = File.open(other.picture.path(:original))
+      # `file?` était l'API Paperclip ; Active Storage la délègue à un attachment
+      # nil, d'où la DelegationError. On reprend la photo de l'autre entité
+      # seulement si celle-ci n'en a pas.
+      if other.has_picture? && !has_picture?
+        picture.attach(io: StringIO.new(other.picture.download),
+                       filename: other.picture_file_name,
+                       content_type: other.picture_content_type)
       end
 
       # Update custom fields

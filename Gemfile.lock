@@ -561,6 +561,7 @@ GEM
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
+    mini_magick (4.13.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.4)
     minitest (5.17.0)
@@ -1029,6 +1030,7 @@ DEPENDENCIES
   luhn (~> 1.0)
   mechanize (~> 2.7)
   mimemagic (~> 0.3.5)
+  mini_magick (~> 4.11)
   minitest (~> 5.17.0)
   minitest-reporters (~> 1.4)
   momentjs-rails (>= 2.9.0)

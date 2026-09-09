@@ -12,8 +12,8 @@
   = t.destroy
 
 = main_informations attachment: true do
-  - if resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))
+  - if resource.has_picture?
+    .picture= image_tag(resource.picture_variant(:identity))
   = infos do
     .med-info.important
       %span.title= Issue.human_attribute_name(:state)

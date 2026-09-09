@@ -76,7 +76,7 @@ module Printers
       company_website = company.websites.any? ? company.websites.where(by_default: true).first.coordinate : ''
 
       r.add_field :printed_at, Time.zone.now.l(format: '%d/%m/%Y %T')
-      r.add_image :company_logo, company.picture.path if company.picture.path
+      company.with_picture_path { |path| r.add_image :company_logo, path } if company.has_picture?
       r.add_field :company_address, company_address.mb_chars.upcase
       r.add_field :company_email, company_email
       r.add_field :company_website, company_website

@@ -303,7 +303,7 @@ module RestfullyManageable
       code << "def picture\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  if #{record_name}.picture.file?\n"
-      code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
+      code << "    send_data(#{record_name}.picture_variant(params[:style] || :original).download, type: #{record_name}.picture_content_type, disposition: 'inline')\n"
       code << "  else\n"
       code << "    head :not_found\n"
       code << "  end\n"

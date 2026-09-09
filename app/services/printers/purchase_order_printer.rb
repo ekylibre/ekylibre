@@ -20,7 +20,7 @@ module Printers
       report[:supplier_mobile_phone] = @purchase_order.supplier.mobiles.first.coordinate if @purchase_order.supplier.mobiles.any?
       report[:supplier_address] = @purchase_order.supplier_address if @purchase_order.supplier_address.present?
       report[:supplier_email] = supplier_email.first.coordinate if supplier_email.any?
-      report[:entity_picture] = Entity.of_company.picture.path
+      Entity.of_company.with_picture_path { |path| report[:entity_picture] = path }
 
       report[:items] = []
 

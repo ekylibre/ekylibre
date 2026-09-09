@@ -78,7 +78,6 @@ class Issue < ApplicationRecord
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :priority, :gravity, inclusion: { in: 0..5 }
-  validates_attachment_content_type :picture, content_type: /image/
 
   delegate :count, to: :interventions, prefix: true
 
@@ -141,10 +140,6 @@ class Issue < ApplicationRecord
 
   def human_status
     I18n.t("tooltips.models.issue.#{status}")
-  end
-
-  def picture_path(style = :original)
-    picture.path(style)
   end
 
   def target_name

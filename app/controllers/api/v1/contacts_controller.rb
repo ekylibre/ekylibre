@@ -22,11 +22,11 @@ module Api
 
         if contact.picture.file?
 
-          unless File.exist?(contact.picture.path(:contact))
+          unless contact.has_picture?
             contact.picture.reprocess! :contact
           end
 
-          f = File.read(contact.picture.path(:contact))
+          f = contact.picture_variant(:contact).download
           render json: { picture: Base64.urlsafe_encode64(f) }
         else
           head :not_found

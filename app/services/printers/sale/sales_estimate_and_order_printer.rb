@@ -23,7 +23,7 @@ module Printers
         description = Maybe(sale).description.fmap { |d| [{ description: d }] }.or_else([])
 
         # Header
-        r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
+        company.with_picture_path { |path| r.add_image :company_logo, path, keep_ratio: true } if company.has_picture?
 
         # Title
         r.add_field :title, title

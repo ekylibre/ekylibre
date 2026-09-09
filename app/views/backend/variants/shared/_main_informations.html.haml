@@ -36,8 +36,8 @@
       %span.value
         %i.picto{class: "picto-#{icon}"}
         = link_to(resource.category.name, { controller: '/backend/product_nature_categories', action: :show, id: resource.category.id }, title: resource.category.name)
-  - if resource.picture.exists?
-    = image_tag(resource.picture.url(:thumb))
+  - if resource.has_picture?
+    = image_tag(resource.picture_variant(:thumb))
 
   = attributes_list(resource) do |l|
     - l.attribute :name

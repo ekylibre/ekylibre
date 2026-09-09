@@ -4,8 +4,8 @@
 
 = cobbles do |c|
   - c.cobble :details do
-    - if resource.picture.exists?
-      .picture= image_tag(resource.picture.url(:thumb))
+    - if resource.has_picture?
+      .picture= image_tag(resource.picture_variant(:thumb))
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :variety, url: true

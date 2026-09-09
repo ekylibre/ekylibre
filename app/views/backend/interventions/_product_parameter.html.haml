@@ -8,7 +8,7 @@
   - if actor
     .picture
       - if actor.picture.file?
-        = image_tag(actor.picture.url(:thumb))
+        = image_tag(actor.picture_variant(:thumb))
       - else
         .picto{class: "picto-#{actor.pictogram}"}
 
@@ -71,7 +71,7 @@
   - elsif variant
     .picture
       - if variant.picture.file?
-        = image_tag(variant.picture.url(:thumb))
+        = image_tag(variant.picture_variant(:thumb))
       - elsif pictogram = variant.pictogram
         .picto{class: "picto-#{pictogram}"}
       - elsif pictogram = variant.category.pictogram

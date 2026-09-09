@@ -34,7 +34,7 @@ module Printers
                       end
 
       # Company_logo
-      r.add_image :company_logo, company.picture.path, keep_ratio: true if company.has_picture?
+      company.with_picture_path { |path| r.add_image :company_logo, path, keep_ratio: true } if company.has_picture?
 
       # Company_address
       r.add_field :company_address, company.address

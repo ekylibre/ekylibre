@@ -114,7 +114,6 @@ class ProductNature < ApplicationRecord
   validates :derivative_of, :reference_name, :variety, length: { allow_nil: true, maximum: 120 }
   validates :number, uniqueness: true
   validates :name, uniqueness: true
-  validates_attachment_content_type :picture, content_type: /image/
   validates :subscription_nature, presence: { if: :subscribing? }
 
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
@@ -301,10 +300,6 @@ class ProductNature < ApplicationRecord
   # Returns list of abilities as an array of ability items from the nomenclature
   def linkage_points
     linkage_points_list
-  end
-
-  def picture_path(style = :original)
-    picture.path(style)
   end
 
   # Return humanized duration

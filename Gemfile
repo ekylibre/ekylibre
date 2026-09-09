@@ -52,6 +52,10 @@ gem 'ros-apartment-sidekiq', '~> 1.2', require: 'apartment-sidekiq'
 # Assets pipeline
 gem 'coffee-rails', '~> 4.1'
 gem 'sassc-rails', '~> 2.0'
+
+# Requis par les variantes Active Storage : en Rails 5.2, ActiveStorage::Variation
+# pilote directement MiniMagick (image_processing n'arrive qu'en Rails 6).
+gem 'mini_magick', '~> 4.11'
 gem 'sprockets', '< 4.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.x'
