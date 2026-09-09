@@ -62,22 +62,17 @@
 #  updater_id                               :integer(4)
 #
 class PurchaseOrder < Purchase
+  include Transitionable
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
   # not sure it work because many order many reception
   has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id
 
   validates :ordered_at, presence: true
 
-  state_machine :state, initial: :opened do
-    state :opened
-    state :closed
-    event :open do
-      transition all => :opened
-    end
-    event :close do
-      transition opened: :closed
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/purchase_order/transitions/.
+  enumerize :state, in: %i[opened closed], default: :opened, predicates: true
 
   before_validation(on: :create) do
     self.state = :opened

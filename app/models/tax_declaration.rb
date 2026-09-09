@@ -48,6 +48,7 @@
 
 class TaxDeclaration < ApplicationRecord
   include Attachable
+  include Transitionable
   attr_readonly :currency
   refers_to :currency
   enumerize :mode, in: %i[debit payment], predicates: true
@@ -86,17 +87,11 @@ class TaxDeclaration < ApplicationRecord
     old.sent?
   end
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :validated
-    state :sent
-    event :propose do
-      transition draft: :validated, if: :has_content?
-    end
-    event :confirm do
-      transition validated: :sent, if: :has_content?
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/tax_declaration/transitions/.
+  enumerize :state, in: %i[draft validated sent], default: :draft, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   before_validation(on: :create) do
     self.state ||= :draft
@@ -148,7 +143,7 @@ class TaxDeclaration < ApplicationRecord
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    state.text
   end
 
   # This callback bookkeeps the tax declaration depending on its state

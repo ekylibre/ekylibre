@@ -209,9 +209,12 @@ class Purchase < ApplicationRecord
     number # tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_address.mail_coordinate.to_s)
   end
 
-  # Prints human name of current state
+  # Prints human name of current state.
+  # PurchaseOrder overrides this; the base implementation therefore only serves
+  # PurchaseInvoice, whose state is always :invoice. state_machine humanized the
+  # state name here, which the default reproduces exactly.
   def state_label
-    self.class.state_machine.state(state.to_sym).human_name
+    I18n.t("models.#{model_name.param_key}.states.#{state}", default: state.to_s.humanize)
   end
 
   def supplier_address

@@ -44,6 +44,7 @@
 
 class Task < ApplicationRecord
   include Attachable
+  include Transitionable
   include Commentable
   include Versionable
   include Customizable
@@ -60,26 +61,9 @@ class Task < ApplicationRecord
   # ]VALIDATORS]
   versionize
 
-  state_machine :state, initial: :todo do
-    state :todo
-    state :doing
-    state :done
-
-    event :reset do
-      transition doing: :todo
-      transition done: :todo
-    end
-
-    event :start do
-      transition todo: :doing
-      transition done: :doing
-    end
-
-    event :finish do
-      transition todo: :done
-      transition doing: :done
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/task/transitions/.
 
   before_validation(on: :create) do
     self.state ||= :todo

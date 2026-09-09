@@ -51,6 +51,7 @@
 
 class Issue < ApplicationRecord
   include Attachable
+  include Transitionable
   include Commentable
   include Versionable
   include Customizable
@@ -93,39 +94,10 @@ class Issue < ApplicationRecord
     where(state: 'opened')
   }
 
-  state_machine :state, initial: :opened do
-    ## define states
-    state :opened
-    state :closed
-    state :aborted
-
-    ## define events
-
-    # # way A1
-    # event :treat do
-    #   transition :opened => :in_progress, if: :has_intervention?
-    # end
-
-    # way A2
-    event :close do
-      # transition :in_progress => :closed, if: :has_intervention?
-      transition opened: :closed # , if: :has_intervention?
-    end
-
-    # way B1
-    event :abort do
-      transition opened: :aborted
-      # transition :in_progress => :aborted
-    end
-
-    # way A3 || B2
-    event :reopen do
-      transition closed: :opened
-      transition aborted: :opened
-    end
-
-    ## define callbacks after and before transition
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/issue/transitions/.
+  enumerize :state, in: %i[opened closed aborted], default: :opened, predicates: true
 
   before_validation do
     self.state ||= :opened
