@@ -46,6 +46,7 @@
 
 class TaxPayment < ApplicationRecord
   include Attachable
+  include Transitionable
   include Letterable
   attr_readonly :currency
   refers_to :currency
@@ -65,13 +66,11 @@ class TaxPayment < ApplicationRecord
 
   acts_as_numbered
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :validated
-    event :confirm do
-      transition draft: :validated
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/tax_payment/transitions/.
+  enumerize :state, in: %i[draft validated], default: :draft, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   before_validation(on: :create) do
     self.state ||= :draft
@@ -136,7 +135,7 @@ class TaxPayment < ApplicationRecord
   end
 
   def state_label
-    I18n.t("enumerize.tax_payment.state.#{self.state.to_sym}")
+    state.text
   end
 
   def nature_label

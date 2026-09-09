@@ -150,11 +150,10 @@ class JournalEntryItem < ApplicationRecord
     where.not(journal_id: Journal.closures.select(:id))
   }
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :confirmed
-    state :closed
-  end
+  # No transitions of its own: the state is driven by the parent JournalEntry.
+  # `enumerize` supplies the predicates (draft?, confirmed?, closed?) that
+  # state_machine used to generate.
+  enumerize :state, in: %i[draft confirmed closed], default: :draft, predicates: true
 
   before_validation do
     self.name = name.to_s[0..254]

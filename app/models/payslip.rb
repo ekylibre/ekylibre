@@ -50,6 +50,7 @@
 class Payslip < ApplicationRecord
   include Attachable
   include Customizable
+  include Transitionable
   belongs_to :account
   belongs_to :affair
   belongs_to :employee, class_name: 'Entity'
@@ -94,16 +95,13 @@ class Payslip < ApplicationRecord
     end
   end
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :invoice
-    event :invoice do
-      transition draft: :invoice
-    end
-    event :correct do
-      transition invoice: :draft, if: :has_no_entry?
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component (app/models/concerns/transitionable.rb), which replaces the
+  # state_machine gem. `enumerize` supplies the state predicates (draft?,
+  # invoice?) and the human labels that state_machine used to generate;
+  # transitions live in app/services/payslip/transitions/.
+  enumerize :state, in: %i[draft invoice], default: :draft, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   protect do
     (journal_entry && (journal_entry.closed? || journal_entry.confirmed?))
@@ -177,7 +175,7 @@ class Payslip < ApplicationRecord
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    state.text
   end
 
   def status
