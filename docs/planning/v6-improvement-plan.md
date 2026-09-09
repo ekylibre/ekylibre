@@ -1,0 +1,448 @@
+# Ekylibre 6.0 — Plan d'amélioration
+
+> **Branche** : `ekylibre-6.0` (créée depuis `5.0-beta`, commit `f1b297cf56`)
+> **Date** : 2026-09-09
+> **Sources** : `ekylibre-architecture-roadmap.md` (architecture cible), `docs/planning/v6-brainstorm.md` (exigences), `docs/analysis/*` (audit 2026-05-07)
+> **Statut** : plan d'exécution. Les métriques de la §1 sont mesurées sur la branche ; les efforts de la §3 sont des estimations d'ingénierie.
+> **Arbitrages du 2026-09-09** : ADR-6.1 (suppression de Jasper), ADR-6.2 (remplacement d'`active_list`), ADR-6.5 (cible Rails 8.1) — cf. §5.
+
+---
+
+## 0. Positionnement
+
+La roadmap d'architecture définit une **cible** (Rails 8.x API-only, mono-base PostgreSQL, `tenant_id` = nom de schéma, PK composite `(tenant_id, id)`, RLS `FORCE`) et une trajectoire en 5 phases. Ce document ne rediscute pas la cible : elle est cohérente, et elle **résout la question ouverte n°1 du brainstorm v6** (l'agrégation inter-exploitations pour les coopératives, incompatible avec le schéma-par-tenant d'Apartment).
+
+Ce document fait trois choses que la roadmap ne fait pas :
+
+1. **Mesurer** le coût réel de chaque phase sur le code existant.
+2. **Corriger le séquencement** là où les mesures contredisent l'ordonnancement proposé.
+3. **Découper en lots livrables** avec critères de sortie vérifiables.
+
+---
+
+## 1. Constat mesuré
+
+### 1.1 Volumétrie
+
+| Dimension | Mesure |
+|---|---:|
+| Fichiers Ruby (`app` + `lib`) | 1 572 |
+| Lignes Ruby (`app` + `lib`) | 148 060 |
+| Modèles | 426 fichiers — 244 racines ActiveRecord + 111 sous-classes STI |
+| Contrôleurs | 410 |
+| Vues HAML | 892 fichiers / 21 311 LOC |
+| Helpers | 60 fichiers / 7 831 LOC |
+| Services / interactors | 188 / 11 |
+| Exchangers | 112 |
+| Jobs | 49 |
+| Tests | 834 fichiers (269 modèles, 292 contrôleurs, 71 exchangers, 43 helpers, 34 lib, 18 jobs, **1 intégration**) |
+| Fixtures | 178 |
+| JS legacy (`app/assets`) | 15 280 LOC / 147 fichiers |
+| Migrations | 721 |
+
+### 1.2 Base de données
+
+| Dimension | Mesure |
+|---|---:|
+| Tables `public` | 240 |
+| Tables `lexicon` | 73 |
+| Colonnes `id integer` (int4) | **219** |
+| Colonnes `id bigint` | 19 |
+| Index | 1 778 (dont **35 uniques**) |
+| Clés étrangères | 169 |
+| Séquences | 248 |
+| Vues matérialisées | 3 |
+| Colonnes géométriques PostGIS | 64 |
+| FK `public` → `lexicon` | **0** |
+
+### 1.3 Couplages structurants
+
+| Couplage | Mesure | Lecture |
+|---|---:|---|
+| Apartment | **9 fichiers / 33 occurrences** | Très faible. Tout transite par `Ekylibre::Tenant` (589 LOC). Levier de remplacement excellent. |
+| Associations ActiveRecord | **1 413** (696 `belongs_to`, 583 `has_many`, 124 `has_one`, 10 HABTM) | Chacune devra porter `query_constraints` sous PK composite. **Poste de coût n°1 de la Phase 1.** |
+| Paperclip | 6 fichiers | Faible. |
+| Jasper / `rjb` / `beardley*` | 13 occurrences / 5 fichiers ; **14 templates `.jrxml`** | Faible. La voie de remplacement existe déjà : 37 `Printers::*` + `DocumentGenerator` (ODFReport + convertisseur PDF) et **154 templates `.odt`**. |
+| `state_machine` (gem morte depuis 2014) | 25 usages / 10+ modèles métier | `sale`, `reception`, `shipment`, `fixed_asset`, `payslip`, `tax_declaration`… |
+| `active_list` (fork Ekylibre) | 318 usages / 149 contrôleurs backend | Fortement couplé aux internes de Rails. Bloquant pour la montée. **Décidé : remplacement (ADR-6.2).** |
+| SQL brut | 81 `connection.execute`, 80 `update_all`, 19 `delete_all`, 18 `select_*`, 7 `joins("…")`, 1 `find_by_sql` | Chaque site est un contournement potentiel de la RLS ou de la PK composite → à auditer. |
+| API existante | 35 contrôleurs (`v1` : 20, `v2` : 15), 44 vues jbuilder, 1 serializer | Surface réelle très inférieure aux 726 routes `backend`. |
+
+### 1.4 Chaîne de dépendances
+
+- **152 gems déclarées**, **333 gems résolues**.
+- **7 forks git Ekylibre** : `agric`, `active_list`, `possibly`, `charta`, `odf-report`, `xml_errors_parser`, `cartography`.
+- **~12 gems plugins internes** : `ekylibre-banking`, `-baqio`, `-economic`, `-ednotif`, `-natuition`, `-samsys`, `-qonto`, `-traccar`, `_hve`, `_ekyviti`, `-ofx-parser`…
+- Chacune doit être montée **en verrou** avec le cœur.
+
+### 1.5 Intégration continue
+
+- GitLab CI : `lint` (rubocop, eslint) → `build` → `test` (`bin/rails test`, couverture Cobertura).
+- **Service de test : `mdillon/postgis:9.6-alpine`** — PostgreSQL 9.6, EOL depuis novembre 2021 — alors que le dev tourne sur `kartoza/postgis:13`.
+- Le job de test rejoue les **721 migrations** à chaque exécution.
+- Plancher de couverture (`SimpleCov.minimum_coverage`) commenté.
+
+---
+
+## 2. Sept écarts entre la roadmap et le code mesuré
+
+### E1 — La montée Rails est bloquée par les gems, pas par le code applicatif
+
+La roadmap chiffre la Phase 0 à 4–6 mois en supposant implicitement un travail réparti sur les 148 kLOC. Les mesures disent l'inverse : le code applicatif est **presque propre** vis-à-vis des API Rails retirées.
+
+| Motif retiré par Rails | Occurrences |
+|---|---:|
+| `update_attributes` (retiré en 6.1) | 22 |
+| `before_filter` / `skip_before_filter` (retiré en 5.1) | 1 |
+| `render text:` (retiré en 5.1) | 0 |
+| `Rails.application.secrets` | 0 |
+| `Fixnum` / `Bignum` | 1 |
+| `serialize` sans coercion (rupture Psych 4) | 14 |
+
+Le blocage est ailleurs, dans le graphe de dépendances :
+
+| Gem | Version | État |
+|---|---|---|
+| `therubyracer` | 0.12.3 | **Bloquant dur.** Abandonnée depuis 2017, `libv8` 3.16 ne compile plus sur les toolchains actuelles. |
+| `state_machine` | 1.2.0 | Abandonnée depuis 2014. 25 usages sur des modèles comptables/logistiques. |
+| `apartment` | 2.2.1 | Non maintenue, monkey-patchée dans `config/initializers/apartment.rb`. Verrouille `apartment-sidekiq`, donc Sidekiq. |
+| `paperclip` | 5.3.0 | Dépréciée depuis 2018. |
+| `rjb` | 1.6.2 | Pont Java, sur le chemin critique de Ruby 3. |
+| `webpacker` | 4.3.0 | Fin de vie. |
+| `coffee-rails` | 4.2.2 | Fin de vie. |
+| `sprockets` | 3.7.2 | Fin de vie. |
+| `active_list` | fork ekylibre | 318 usages, couplé aux internes de Rails. |
+
+**Conséquence sur le plan** : un lot **« désamorçage des dépendances »** doit précéder toute montée de version. Tenter `5.2 → 6.0` avec `therubyracer` et `state_machine` en place échoue au `bundle install`, pas aux tests.
+
+### E2 — La PK composite coûte 1 413 annotations d'associations, pas quelques-unes
+
+La roadmap mentionne `query_constraints` comme un point de vigilance. Mesuré : **1 413 déclarations d'associations** à annoter, réparties sur 426 fichiers de modèles, plus :
+
+- **219 tables en `id integer`** à convertir en `bigint` (la cible impose une séquence globale ; `int4` plafonne à 2,1 milliards et le `setval` global de la §5.5 de la roadmap consomme l'espace d'`id` de **tous** les tenants sur une séquence unique) — chaque `ALTER TABLE … ALTER COLUMN id TYPE bigint` réécrit la table entière ;
+- **169 FK** à recomposer en `(tenant_id, ref_id)` ;
+- **35 index uniques** à préfixer par `tenant_id` ;
+- **240 PK** à recomposer.
+
+**Conséquence sur le plan** : ce lot doit être **mécanisé** (générateur de migrations piloté par une table de correspondance + linter de schéma en CI), jamais écrit à la main. Et il faut un **prototype de bout en bout sur 3 tables représentatives** (`interventions` + `intervention_parameters` + `products`, qui couvrent PK composite, FK composite, STI et colonne géométrique) avant d'engager les 237 autres.
+
+### E3 — Le levier Apartment est bien meilleur que la roadmap ne le suppose
+
+9 fichiers, 33 occurrences, tout derrière `Ekylibre::Tenant` — qui expose déjà `dump`, `restore`, `restore_v2`, `restore_v3`, `switch`, `list`, `migrate`. Le retrait d'Apartment est un travail de **quelques centaines de lignes de Ruby**, pas une réécriture.
+
+Corollaire : `Ekylibre::Tenant.create_aggregation_views_schema!` / `drop_aggregation_schema!` (lignes 241–278) sont un contournement du schéma-par-tenant pour les requêtes inter-tenants. Ils deviennent **du code mort** dès que la mono-base est en place — c'est un gain à inscrire au bilan.
+
+**Le risque de la Phase 1 est SQL et opérationnel, pas Ruby.**
+
+### E4 — L'outil de restauration v5, pièce maîtresse du plan, est aujourd'hui une RCE ouverte
+
+La roadmap fait de la restauration d'archives v5 (§5.5) à la fois le vecteur de migration **et** une capacité produit récurrente. Or, sur la branche, `Ekylibre::Tenant.restore` (`lib/ekylibre/tenant.rb:141-180`) :
+
+1. dézippe l'archive via `system "unzip -d #{archive_path} #{archive_file}"` — argument non échappé ;
+2. lit le nom du tenant dans le `manifest.yml` **contenu dans l'archive** (donc fourni par l'attaquant), ou dans `options[:tenant]` ;
+3. **ne le valide pas** (le garde-fou `/\A[a-z][a-z0-9_]*\z/i` de la ligne 62 n'est appelé ni par `restore`, ni par `restore_v3`) ;
+4. l'interpole dans `sh("echo '… DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; …' | psql …")` (`:554-558`).
+
+Chaîne d'exploitation vérifiée sur la branche, avec deux autres findings de l'audit de mai **toujours ouverts** :
+
+- `protect_from_forgery` **absent** de `ApplicationController` et de `Admin::BaseController` — CSRF globalement désactivé ;
+- `Admin::BaseController` accepte `admin` / `admin` par défaut (`ENV.fetch('ADMIN_PASSWORD', 'admin')`) ;
+- `secret_key_base` dev/test **en clair dans `config/secrets.yml`**, versionné ;
+- 9 exchangers appellent `entry.extract` sans garde ZIP-slip.
+
+**Conséquence sur le plan** : le durcissement de ce chemin n'est pas une tâche d'hygiène à caser plus tard, c'est le **prérequis technique du lot de restauration**. Il passe en P0.
+
+### E5 — Il faut trois plans de données, pas deux
+
+La roadmap décrit un plan de contrôle (`users`, `tenants`, `user_tenants`) et un plan de données (« toutes les autres tables »). Le `lexicon` (**73 tables**, référentiels agronomiques et phytosanitaires, lecture seule au runtime) n'entre dans aucun des deux : il est **partagé entre tous les tenants** et ne doit ni porter `tenant_id`, ni être sous RLS.
+
+Bonne nouvelle mesurée : **0 FK de `public` vers `lexicon`**. La frontière est déjà propre, la séparation en trois plans est déclarative.
+
+À trancher au même moment : les tables de frameworks (Active Storage, Solid Queue/Cable, Action Text) — la roadmap le signale, il faut y ajouter `schema_migrations` et `ar_internal_metadata`, seules tables `public` sans colonne `id`.
+
+### E6 — L'API-only ne peut pas tenir dans la Phase 0
+
+La roadmap place la bascule API-only dans la Phase 0, aux côtés de la montée de version. Le périmètre à supprimer ou remplacer :
+
+- 892 vues HAML / 21 311 LOC ;
+- 60 helpers / 7 831 LOC ;
+- **726 routes** dans le namespace `backend` ;
+- 15 280 LOC de JS legacy + 34 fichiers de packs ;
+- `active_list` : 318 usages sur 149 contrôleurs ;
+- 292 tests de contrôleurs, largement dépendants du rendu.
+
+À comparer à la surface API réelle : **35 contrôleurs et 44 vues jbuilder**. Autrement dit, il faudrait construire un front de remplacement couvrant 726 routes **avant** de pouvoir basculer, à un moment où l'équipe est déjà engagée sur 8 montées de version successives.
+
+**Conséquence sur le plan** : la Phase 0 monte Rails **en conservant le front HAML** (`api_only = false`). L'API-only devient un lot distinct, postérieur à l'API v1 et à la mise en production du front découplé. C'est le seul découpage qui laisse le produit livrable en continu.
+
+### E7 — Les phases 0 et 1 peuvent se chevaucher
+
+La roadmap sérialise strictement Phase 0 → Phase 1 (≈ 10 mois de chemin critique avant le premier bénéfice multi-tenant). Or :
+
+- la **RLS ne dépend d'aucune version de Rails** — c'est du SQL, disponible depuis PostgreSQL 9.5 ;
+- les migrations de schéma (`tenant_id`, `id` → `bigint`, index tenant-aware, FK composites) sont **écrivables et testables dès Rails 5.2** ;
+- seule la **PK composite côté ORM** (`self.primary_key = [:tenant_id, :id]`, `query_constraints`) exige **Rails 7.1**.
+
+**Conséquence sur le plan** : le travail de schéma (lot C) démarre en parallèle de la montée de version (lot B) et converge à l'arrivée en 7.1. Gain estimé sur le chemin critique : **3 à 4 mois**.
+
+---
+
+## 3. Plan révisé — lots livrables
+
+Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 à 4 développeurs.
+
+### P0 — Fermer la chaîne d'exploitation `admin` → `restore`
+
+**Pourquoi maintenant** : prérequis du lot E, et exposition active en production.
+
+| # | Action | Fichier | Effort |
+|---|---|---|---:|
+| P0.1 | `protect_from_forgery with: :exception` dans `ApplicationController` et `Admin::BaseController` ; opt-out explicite sur `Api::*` uniquement | `app/controllers/application_controller.rb`, `admin/base_controller.rb` | 1 |
+| P0.2 | Refus de démarrage si `ADMIN_USERNAME`/`ADMIN_PASSWORD` absents ou < 16 caractères ; suppression des valeurs par défaut | `admin/base_controller.rb` | 0,5 |
+| P0.3 | Validation stricte du nom de tenant à **toutes** les entrées de `Ekylibre::Tenant` (dont `restore`, `restore_v2`, `restore_v3`, `dump_tables_v3`) ; `Shellwords.escape` sur tout argument shell ; `quote_ident` sur tout identifiant SQL | `lib/ekylibre/tenant.rb` | 3 |
+| P0.4 | Helper anti-ZIP-slip (résolution de chemin + rejet des liens symboliques) appliqué aux 9 exchangers concernés | `app/exchangers/**` | 2 |
+| P0.5 | `secret_key_base` dev/test vers l'environnement ; rotation des valeurs versionnées | `config/secrets.yml` | 0,5 |
+| P0.6 | Liste blanche de `params[:id]` contre `Ekylibre::Tenant.list` dans `Admin::TenantsController` (`dump_download`, `destroy`) | `app/controllers/admin/` | 1 |
+| P0.7 | Désactiver `noent` (XXE) dans `backup_exchanger.rb:240` ; ancrer la regex CORS (`\A…\z`, points échappés) dans `config/application.rb:75` | 2 fichiers | 0,5 |
+| P0.8 | Tests de non-régression : archive avec `manifest.yml` malveillant, archive ZIP-slip, POST admin sans jeton CSRF | `test/` | 3 |
+
+**Critère de sortie** : les 3 tests d'attaque du P0.8 passent au rouge sur le commit `f1b297cf56` et au vert sur `HEAD`.
+**Effort : ~12 j·h — 2 à 3 semaines.**
+
+---
+
+### Lot A — Désamorçage des dépendances
+
+**Objectif** : rendre le `Gemfile` compatible Ruby 3 **avant** de toucher à Rails.
+
+| # | Action | Effort |
+|---|---|---:|
+| A.1 | `therubyracer` → `mini_racer` (ou suppression pure : vérifier qu'aucun ExecJS n'est requis au runtime) | 2 |
+| A.2 | `state_machine` → `AASM` sur les 10+ modèles concernés (`sale`, `reception`, `shipment`, `fixed_asset`, `payslip`, `tax_declaration`, `activity_production`, `journal_entry_item`, `sale_opportunity`, `task`) — transitions et hooks à retester un à un | 20 |
+| A.3 | `paperclip` → Active Storage sur 6 modèles (`document`, `guide`, `import`, `financial_year_exchange`, …) + migration des blobs existants | 12 |
+| A.4 | **Suppression de Jasper** (ADR-6.1). La voie de remplacement est déjà en place — `Printers::*` (37 services) + `Ekylibre::DocumentManagement::DocumentGenerator` (ODFReport → PDF), 154 templates `.odt` en production. Reste à faire : migrer les **14 templates `.jrxml`** vers la voie ODT, retirer les appels `Beardley::Report` de `app/models/document_template.rb:141,155`, supprimer les *renderers* de `lib/reporting.rb`, `config/initializers/beardley.rb`, `config/reporting/beardley/`, et les 8 gems `rjb` + `beardley*` du `Gemfile` | 10 |
+| A.5 | `apartment` 2.2.1 → `ros-apartment` (fork maintenu), retrait des monkey-patches de `config/initializers/apartment.rb` ; déverrouille `sidekiq` | 5 |
+| A.6 | Audit des 7 forks git + ~12 gems plugins : pour chacun, statut de maintenance, compatibilité Ruby 3 / Rails 7+, effort de portage. **Livrable : tableau de décision porter / remplacer / abandonner.** | 8 |
+| A.7 | **Remplacement d'`active_list`** (ADR-6.2) — 318 usages / 149 contrôleurs. Le fork n'est **pas porté** : il disparaît avec le front au lot G. Stratégie retenue : figer `active_list` au strict minimum pour survivre aux paliers du lot B (patchs de compatibilité, pas de portage), puis suppression en G.3. **Prérequis : ADR-6.3** (choix du front) pour savoir vers quoi les listes migrent | 12 |
+| A.8 | CI : passage à PostgreSQL 15+ / PostGIS 3.3+ ; réactivation du plancher `SimpleCov` à la valeur mesurée ; extension de CodeQL à `ekylibre-6.0` | 3 |
+
+**Critère de sortie** : `bundle install` réussit sous Ruby 3.3, suite de tests verte sur Rails 5.2 + Ruby 3.3, CI sur PG 15.
+**Effort : ~72 j·h** (était 85 avant les arbitrages ADR-6.1 / ADR-6.2). **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
+
+---
+
+### Lot B — Montée Rails 5.2 → 8.1, front conservé
+
+**Objectif** : sortir de l'EOL. **Pas de bascule API-only ici** (cf. E6).
+
+**Cible retenue : Rails 8.1 (ADR-6.5).** Chemin : `5.2 → 6.0 → 6.1 → 7.0 → 7.1 → 7.2 → 8.0 → 8.1`.
+
+| # | Action | Effort |
+|---|---|---:|
+| B.1 | Ruby 2.6 → 3.3 (arguments nommés, `Psych 4` sur les 14 `serialize`) | 10 |
+| B.2 | 5.2 → 6.0 : Zeitwerk. **Point dur** : `lib/ekylibre/plugin.rb` gère les chemins d'autoload des 16 plugins — à porter en premier | 20 |
+| B.3 | 6.0 → 6.1 : 22 `update_attributes` → `update`, `Rails.application.credentials` | 8 |
+| B.4 | 6.1 → 7.0 : asset pipeline. `active_list` étant condamné (ADR-6.2), **ne pas investir dans `propshaft`/`jsbundling`** : geler `sprockets`/`webpacker` au minimum compatible et laisser le pipeline mourir avec le front au lot G | 10 |
+| B.5 | 7.0 → 7.1 : **jalon de convergence avec le lot C** (PK composites natives disponibles) | 8 |
+| B.6 | 7.1 → 7.2 → 8.0 → **8.1** | 15 |
+| B.7 | Sidekiq 4 → Solid Queue ; Redis → Solid Cable. Réinjection du contexte tenant dans `ApplicationJob` | 12 |
+| B.8 | Devise 4.9 → version courante ; **vérifier la disponibilité réelle d'Argon2id** (`has_secure_password` reste sur bcrypt ; Argon2id passe par `devise-argon2`) — la roadmap l'annonce comme un défaut de Rails 8.2, à confirmer avant de s'y engager | 5 |
+| B.9 | Montée en verrou des 7 forks + 12 plugins à chaque palier | 30 |
+
+**Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
+**Effort : ~118 j·h** (était 125 : B.4 allégé par ADR-6.2, B.6 alourdi par le palier 8.1). **Dépendance : lot A.**
+
+---
+
+### Lot C — Schéma mono-base (démarre en parallèle du lot B)
+
+**Objectif** : préparer et exécuter la transformation de schéma, en SQL, indépendamment de la version de Rails.
+
+| # | Action | Effort |
+|---|---|---:|
+| C.1 | **Prototype 3 tables** : `interventions`, `intervention_parameters`, `products` — `tenant_id`, PK composite, FK composite, index tenant-aware, RLS `FORCE`. Couvre PK/FK composite, STI et colonne géométrique. **Porte de sortie du lot.** | 10 |
+| C.2 | Classification des **313 tables** en trois plans : contrôle (global, hors RLS) / données (tenant, RLS) / référentiel (`lexicon`, partagé). Inclut la décision sur les tables de frameworks et sur `schema_migrations` | 5 |
+| C.3 | **Générateur de migrations** piloté par la classification du C.2 : `tenant_id`, `id integer → bigint` (219 tables), PK composite (240), FK composites (169), index uniques tenant-aware (35) | 15 |
+| C.4 | **Linter de schéma en CI** : toute table du plan de données doit porter `tenant_id NOT NULL`, une PK composite, RLS `ENABLE` + `FORCE` et une politique `USING` + `WITH CHECK`. Échec du build sinon | 5 |
+| C.5 | Exécution du générateur sur les 240 tables + reprise manuelle des cas particuliers (vues matérialisées, 64 colonnes géométriques, HABTM) | 25 |
+| C.6 | Audit des **206 sites de SQL brut** (81 `execute`, 80 `update_all`, 19 `delete_all`, 18 `select_*`, 7 `joins("…")`, 1 `find_by_sql`) : chacun peut contourner la RLS ou casser sur la PK composite | 20 |
+| C.7 | Rôles PostgreSQL : rôle applicatif **non-propriétaire, sans `BYPASSRLS`, non-superuser** ; rôle de maintenance distinct pour migrations et analytique inter-tenants. *(Aujourd'hui : un seul rôle `ekylibre`, propriétaire des tables — d'où la nécessité de `FORCE`.)* | 5 |
+| C.8 | Plan de bascule des séquences : séquence globale par table + `setval` au-dessus du `MAX(id)` **tous tenants confondus**, automatisé et rejouable | 5 |
+
+**Critère de sortie** : le linter C.4 passe sur les 313 tables ; le prototype C.1 démontre l'isolation.
+**Effort : ~90 j·h. Dépendances : C.1→C.8 séquentiels ; les annotations ORM attendent Rails 7.1 (jalon B.5).**
+
+---
+
+### Lot D — Runtime tenant et preuve d'isolation
+
+| # | Action | Effort |
+|---|---|---:|
+| D.1 | Plan de contrôle : `users`, `tenants` (clé = `schema_name`), `user_tenants` (appartenance N–N + rôle) | 8 |
+| D.2 | `TenantRecord` (PK composite) / `ApplicationRecord` (global) / `LexiconRecord` (référentiel) ; reclassement des **244 modèles racines** + 111 STI | 15 |
+| D.3 | **Annotation des 1 413 associations** en `query_constraints` — mécanisée par script, revue par domaine métier | 40 |
+| D.4 | Contexte runtime : `around_action` + `set_config('app.current_tenant_id', …, true)` en transaction ; `Current.tenant` ; **fail-closed** systématique | 8 |
+| D.5 | Propagation du contexte aux chemins asynchrones : Solid Queue (`tenant_id` sérialisé), Solid Cable, tâches rake, exchangers | 10 |
+| D.6 | **Tests d'isolation** : pour chaque modèle du plan de données, vérifier qu'une requête sans contexte renvoie 0 ligne et qu'une requête sous tenant A ne voit jamais une ligne de B. Générés, pas écrits à la main | 15 |
+| D.7 | Retrait d'Apartment (9 fichiers) ; suppression du schéma d'agrégation (`create_aggregation_views_schema!`, `drop_aggregation_schema!`) devenu inutile | 8 |
+| D.8 | Vigilance pooling : `SET LOCAL` uniquement en transaction ; valider le comportement derrière PgBouncer si présent en production | 5 |
+
+**Critère de sortie** : isolation prouvée par les tests D.6 sans aucun filtre applicatif ; Apartment absent du `Gemfile`.
+**Effort : ~110 j·h. Dépendances : lots B (≥ 7.1) et C.**
+
+---
+
+### Lot E — Restauration d'archives v5 industrialisée
+
+| # | Action | Effort |
+|---|---|---:|
+| E.1 | Importeur : lecture du `schema_name` (validé, cf. P0.3), `UPSERT` dans `tenants`, chargement table par table avec injection de `tenant_id` et **conservation des `id` d'origine** | 15 |
+| E.2 | Recalage automatique des séquences globales (`setval` sur le `MAX(id)` global) intégré à l'importeur — jamais une étape manuelle | 5 |
+| E.3 | Contrôles d'intégrité post-import : comptes par table, résolution des FK composites intra-tenant, validation géométrique PostGIS | 8 |
+| E.4 | Idempotence et rejouabilité : reprise sur incident, import partiel détecté et repris | 8 |
+| E.5 | Migration réelle : import d'un tenant de production par vague, avec réconciliation | 20 |
+
+**Critère de sortie** : une archive v5 restaurée à l'identique (comptes et `id` inchangés), procédure rejouable, `setval` automatique.
+**Effort : ~56 j·h. Dépendances : P0, lots C et D.**
+
+---
+
+### Lot F — API v1 et synchronisation offline-first
+
+| # | Action | Effort |
+|---|---|---:|
+| F.1 | Consolidation `v1`/`v2` (35 contrôleurs) en un contrat **v1 stable et versionné** ; conventions de sérialisation homogènes (44 jbuilder + 1 serializer aujourd'hui) | 25 |
+| F.2 | OAuth2 / OIDC ; jetons courts, scopes par entité (aligné sur FR-5.1 du brainstorm v6) | 20 |
+| F.3 | Moteur de synchronisation pull/push pour WatermelonDB : horodatage, résolution de conflits, boîte de réception de synchro (FR-2.5) | 30 |
+| F.4 | Tests de contrat consommés par `zero-mobile` et `duke` | 12 |
+| F.5 | **Combler le trou d'intégration** : 1 seul test d'intégration pour 410 contrôleurs. Cible : couverture des parcours critiques (intervention, vente, écriture comptable, synchro) | 20 |
+
+**Critère de sortie** : `zero-mobile` et `duke` consomment exclusivement l'API v1 ; tests de contrat en CI.
+**Effort : ~107 j·h. Dépendances : lot D.**
+
+---
+
+### Lot G — Découplage front et bascule API-only
+
+**Déplacé depuis la Phase 0 de la roadmap** (cf. E6). Ne démarre qu'une fois l'API v1 stable.
+
+| # | Action | Effort |
+|---|---|---:|
+| G.1 | Cartographie des 726 routes `backend` → surface fonctionnelle à reconstruire ; priorisation par usage réel (nécessite de l'instrumentation en production) | 10 |
+| G.2 | Front web découplé, module par module, avec bascule progressive par tenant (feature flag) | non chiffré — dépend de G.1 |
+| G.3 | Retrait des 892 vues HAML, 60 helpers, 15 280 LOC de JS, `active_list` | 20 |
+| G.4 | `config.api_only = true` | 2 |
+
+**Critère de sortie** : aucune route `backend` servie en HTML ; `api_only = true`.
+**Effort : G.1/G.3/G.4 ≈ 32 j·h + le chantier front (à cadrer séparément).**
+
+---
+
+### Lot H — Satellites et agro-data
+
+Conforme aux phases 3 et 4 de la roadmap, sans écart mesuré : durcissement `zero-mobile` (synchro, OTA, observabilité), `duke` en production (SSE, garde-fous LLM, FinOps), **lexicon exposé comme service versionné** (73 tables, 64 modèles consommateurs, 0 FK entrante — le découpage est déjà propre), puis service `agro-data` (Sentinel-2/NDVI, RPG, météo).
+
+---
+
+### Transverse (continu)
+
+- Observabilité : **aucun APM en production** aujourd'hui (`elastic-apm` commenté). Activer un APM et `log_min_duration_statement = 200ms` **avant** toute optimisation — sinon les hotspots de `docs/analysis/performance.md` restent des hypothèses.
+- Cache : `cache_store` toujours commenté en production (`config/environments/production.rb:64`) → repli sur `:memory_store` par processus alors que Redis tourne déjà. Correction à effort quasi nul, gain immédiat.
+- Dette de tests : 71 tests pour 112 exchangers, 0 test sur le namespace `admin`, 1 test d'intégration.
+- Hotspots connus : `Intervention` (1 495 LOC, `after_save` déclenchant `REFRESH MATERIALIZED VIEW` sous verrou `ACCESS EXCLUSIVE`), `Ekylibre::Record::Sums` en O(N²) sur les imports, 183 appels `Onoma::*` non mémoïsés.
+
+---
+
+## 4. Chemin critique
+
+```mermaid
+gantt
+    title Ekylibre 6.0 — séquencement révisé
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m/%Y
+    section Sécurité
+    P0 Chaîne admin/restore        :crit, p0, 2026-09-15, 20d
+    section Socle
+    A Désamorçage dépendances      :crit, a, 2026-09-15, 90d
+    B Montée Rails 5.2 → 8.1       :crit, b, after a, 150d
+    section Multi-tenance
+    C Schéma mono-base (parallèle) :c, 2026-11-01, 120d
+    D Runtime tenant + isolation   :crit, d, after b, 110d
+    E Restauration v5              :e, after d, 60d
+    section API
+    F API v1 + sync                :f, after d, 110d
+    section Front
+    G Découplage + API-only        :g, after f, 120d
+    section Satellites
+    H Satellites + agro-data       :h, after f, 180d
+    section Continu
+    Observabilité / cache / tests  :t, 2026-09-15, 600d
+```
+
+**Différence avec la roadmap d'origine** : le lot C démarre pendant le lot B au lieu de l'attendre (**–3 à –4 mois** sur le chemin critique), et le lot G sort de la Phase 0 (ce qui **évite un gel produit de 12 mois**).
+
+---
+
+## 5. Décisions à trancher avant de coder
+
+| # | Décision | Pourquoi maintenant | Impact si repoussée |
+|---|---|---|---|
+| ~~ADR-6.1~~ | **TRANCHÉE (2026-09-09) — suppression de Jasper.** Pas de moteur de remplacement à construire : `Printers::*` + ODFReport couvrent déjà 154 templates. Migrer les 14 `.jrxml` restants, puis retirer `rjb` + `beardley*` | — | — |
+| ~~ADR-6.2~~ | **TRANCHÉE (2026-09-09) — remplacement d'`active_list`.** Le fork n'est pas porté : compatibilité minimale pendant le lot B, suppression au lot G.3. Économie : ~18 j·h de portage évités sur A.7 + B.4 | — | — |
+| ADR-6.3 | Front du lot G : SPA dédiée, Hotwire, ou réutilisation de `zero-mobile` en web | **Devenue la décision structurante restante** : ADR-6.2 ayant condamné `active_list`, c'est elle qui dit vers quoi migrent les 318 listes et les 726 routes `backend` | Bloque le cadrage du lot G et le chiffrage de G.2 |
+| ADR-6.4 | Périmètre tenant des tables de frameworks (Active Storage, Solid Queue/Cable, Action Text) | Doit être figé avant le générateur C.3 | Reprise de 240 migrations |
+| ~~ADR-6.5~~ | **TRANCHÉE (2026-09-09) — Rails 8.1.** Lignée stable, sans attendre la 8.2 annoncée « en finalisation » par la roadmap. Les mécanismes de la cible (API-only, PK composites, RLS) sont disponibles dès 7.1 | — | — |
+| ADR-6.6 | Argon2id : réellement disponible en natif, ou via `devise-argon2` | Annoncé comme un défaut de Rails 8.2 dans la roadmap — **à vérifier avant engagement** | Promesse de sécurité non tenue |
+| ADR-6.7 | Partitionnement natif par `tenant_id` : dès le lot C ou plus tard | Repartitionner après coup est bien plus coûteux | Migration lourde ultérieure |
+| ADR-6.8 | Horizon de compatibilité des 30+ exchangers et des 16 plugins | NFR-4 du brainstorm v6 (≥ 18 mois, valeur provisoire) | Engagement client non cadré |
+
+---
+
+## 6. Risques
+
+| Risque | Probabilité | Impact | Atténuation |
+|---|---|---|---|
+| Le lot D (1 413 associations) déborde | Élevée | Élevé | Mécaniser ; porte de sortie sur le prototype C.1 avant d'engager la masse |
+| `ALTER COLUMN id TYPE bigint` sur 219 tables → indisponibilité longue | Élevée | Élevé | Mesurer sur une copie de production ; envisager `pg_repack` ou une bascule par table |
+| Un fork ou un plugin bloque un palier de Rails | Moyenne | Élevé | A.6 en premier : le tableau de décision conditionne la faisabilité du lot B |
+| Rôle applicatif conservé propriétaire ou `BYPASSRLS` → l'invariant tombe silencieusement | Moyenne | Critique | C.7 + test d'isolation exécuté avec le rôle **applicatif**, pas le rôle de maintenance |
+| Fuite de contexte via PgBouncer en pooling transactionnel | Moyenne | Critique | D.8 ; interdire tout `SET` hors transaction ; test dédié |
+| Les 206 sites de SQL brut contournent la RLS | Élevée | Élevé | C.6 exhaustif ; règle rubocop interdisant `connection.execute` hors liste blanche |
+| CI sur PostgreSQL 9.6 masque des comportements RLS/partitionnement | Certaine | Moyen | A.8 en tout début de plan |
+| Gel produit pendant la montée de version | Élevée | Élevé | Front conservé au lot B ; livraison continue de valeur métier en parallèle |
+
+---
+
+## 7. Prochaines actions
+
+**Semaine 1**
+1. Exécuter P0.1 à P0.7 et écrire les tests d'attaque P0.8.
+2. Lancer A.6 (audit des 7 forks + 12 plugins) — c'est ce tableau qui rend le lot B chiffrable.
+3. Basculer la CI sur PostgreSQL 15 / PostGIS 3.3 (A.8).
+4. Décommenter et configurer `cache_store` en production (gain immédiat, effort nul).
+
+**Semaines 2–4**
+5. Trancher **ADR-6.3** (choix du front) — seule décision structurante encore ouverte depuis l'arbitrage du 2026-09-09 ; elle conditionne A.7 et le cadrage du lot G.
+6. Démarrer A.1 (`therubyracer`) et A.2 (`state_machine`), les deux blocages durs.
+7. Lancer C.1 (prototype 3 tables) : il vaut plus que n'importe quelle estimation supplémentaire.
+
+---
+
+## Annexe — Correspondance avec les documents sources
+
+| Roadmap d'architecture | Ce plan | Écart |
+|---|---|---|
+| Phase 0 (socle + API-only, 4–6 mois) | Lots A + B (~190 j·h) | API-only déplacé au lot G (E6) ; ajout du lot A en amont (E1) |
+| Phase 1 (RLS + PK composites + restauration, 4–5 mois) | Lots C + D + E (~256 j·h) | Découpé en trois ; C parallélisé avec B (E7) ; trois plans de données au lieu de deux (E5) |
+| Phase 2 (API & sync, 3–4 mois) | Lot F (~107 j·h) | Ajout de F.5 (dette d'intégration : 1 test pour 410 contrôleurs) |
+| Phase 3 (satellites, 3–4 mois) | Lot H | — |
+| Phase 4 (agro-data, 4–6 mois) | Lot H | — |
+| — | **P0** | Nouveau : chaîne d'exploitation vérifiée ouverte sur le composant même de la Phase 1 (E4) |
+
+| Brainstorm v6 | Statut |
+|---|---|
+| Question ouverte n°1 (modèle inter-tenants) | **Tranchée** par la roadmap : mono-base + `tenant_id` + RLS (option (b)) |
+| FR-1 (agrégation coopérative) | Débloquée par les lots C et D |
+| FR-5.1 (permissions par scopes) | Portée par F.2 |
+| NFR-6 (multi-tenance) | Portée par les lots C, D, E |
+| Questions 2 à 8 (sync, runtime plugins, facturation, gouvernance lexicon, méta-tenant coop, IdP, horizon de compatibilité) | **Toujours ouvertes** — hors périmètre de ce plan |
