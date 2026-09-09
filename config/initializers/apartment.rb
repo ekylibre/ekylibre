@@ -65,28 +65,52 @@ module Apartment
     class PostgresqlSchemaAdapter < Apartment::Adapters::AbstractAdapter
       protected
 
-      def connect_to_new(tenant = nil)
-        return reset if tenant.nil?
+        # Overrides ros-apartment's implementation for two reasons:
+        #
+        # 1. Upstream raises ActiveRecord::StatementInvalid when the schema is
+        #    missing (TenantNotFound only comes from the rescue path). The app
+        #    keys its 404 handling on TenantNotFound — see the SecuredSubdomain
+        #    elevator above and ApplicationController's rescue_from.
+        # 2. No `rescue *rescuable_exceptions`: wrapping every ActiveRecordError
+        #    into TenantNotFound masks genuine database failures as "unknown
+        #    tenant", which is both misleading and a 404 where a 500 is due.
+        #
+        # The connection liveness check gives a clearer error than the
+        # NoDatabaseError that would otherwise surface further down.
+        def connect_to_new(tenant = nil)
+          return reset if tenant.nil?
 
-        raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}" unless Apartment.connection.active?
-        # end
+          unless Apartment.connection.active?
+            raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}"
+          end
 
-        unless Apartment.connection.schema_exists? tenant
-          raise TenantNotFound, "Could not find schema #{tenant}. Search path: [#{full_search_path}]"
+          raise TenantNotFound, "Could not find schema #{tenant}. Search path: [#{full_search_path}]" unless schema_exists?(tenant)
+
+          @current = tenant.is_a?(Array) ? tenant.map(&:to_s) : tenant.to_s
+          Apartment.connection.schema_search_path = full_search_path
         end
-
-        @current = tenant.to_s
-        Apartment.connection.schema_search_path = full_search_path
-
-        # rescue *rescuable_exceptions
-        #   raise TenantNotFound, "One of the following schema(s) is invalid: \"#{tenant}\" #{full_search_path}"
-      end
     end
 
     class PostgresqlSchemaFromSqlAdapter < PostgresqlSchemaAdapter
-      PSQL_DUMP_BLACKLISTED_STATEMENTS << /CREATE SCHEMA/i
-      PSQL_DUMP_BLACKLISTED_STATEMENTS << /\\restrict/i
-      PSQL_DUMP_BLACKLISTED_STATEMENTS << /\\unrestrict/i
+      # ros-apartment freezes PSQL_DUMP_BLACKLISTED_STATEMENTS, so the previous
+      # `<<` appends now raise FrozenError. Rebuild the constant from upstream's
+      # value instead of restating it, so new upstream entries keep flowing in.
+      #
+      # Why each addition is needed:
+      #   CREATE SCHEMA  - upstream only filters `CREATE SCHEMA public`, but
+      #                    db/structure.sql declares every schema it dumps and
+      #                    Apartment creates the tenant schema itself.
+      #   \restrict /    - psql 16+ dump markers; they are meaningless to the
+      #   \unrestrict     SQL executor and abort the load.
+      EXTRA_BLACKLISTED_STATEMENTS = [
+        /CREATE SCHEMA/i,
+        /\\restrict/i,
+        /\\unrestrict/i
+      ].freeze
+
+      statements = (PSQL_DUMP_BLACKLISTED_STATEMENTS + EXTRA_BLACKLISTED_STATEMENTS).freeze
+      remove_const(:PSQL_DUMP_BLACKLISTED_STATEMENTS) if const_defined?(:PSQL_DUMP_BLACKLISTED_STATEMENTS, false)
+      const_set(:PSQL_DUMP_BLACKLISTED_STATEMENTS, statements)
     end
   end
 end

@@ -42,8 +42,13 @@ gem 'pg', '~> 1.0'
 gem 'scenic'
 
 # Multi-tenancy
-gem 'apartment', '~> 2.2.1'
-gem 'apartment-sidekiq', '~> 1.2'
+# ros-apartment est le fork maintenu d'apartment (abandonnée en 2.2.1). Il
+# conserve le namespace Apartment : aucun changement d'appelant.
+# La série 2.11 accepte activerecord >= 5.0, < 7.1 — elle couvre donc le
+# palier actuel (5.2) et les paliers 6.0/6.1/7.0 sans nouvelle bascule.
+# Passer en 3.x plus tard (3.0 exige AR >= 6.1, 3.4 exige AR >= 7.0).
+gem 'ros-apartment', '~> 2.11', require: 'apartment'
+gem 'ros-apartment-sidekiq', '~> 1.2', require: 'apartment-sidekiq'
 
 # Assets pipeline
 gem 'coffee-rails', '~> 4.1'

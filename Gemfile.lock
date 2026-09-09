@@ -101,13 +101,6 @@ GIT
       vuejs-rails
 
 GIT
-  remote: https://github.com/ekylibre/ekylibre-qonto.git
-  revision: a3b65dcab8b4bcb62720eb4f429c655064eae113
-  branch: main
-  specs:
-    ekylibre-qonto (0.1.0)
-
-GIT
   remote: https://github.com/ekylibre/ekylibre-samsys.git
   revision: 15cc1cd92a357f4601ab2404bb17d224236884e6
   branch: master
@@ -188,6 +181,11 @@ PATH
     idea (1.0.0)
 
 PATH
+  remote: /ekylibre-plugins/ekylibre-qonto
+  specs:
+    ekylibre-qonto (0.1.0)
+
+PATH
   remote: /ekylibre-plugins/ekylibre-traccar
   specs:
     ekylibre-traccar (0.1.0)
@@ -263,14 +261,6 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
-    apartment (2.2.1)
-      activerecord (>= 3.1.2, < 6.0)
-      parallel (>= 0.7.1)
-      public_suffix (>= 2)
-      rack (>= 1.3.6)
-    apartment-sidekiq (1.2.0)
-      apartment (>= 1.0)
-      sidekiq (>= 2.11)
     arel (9.0.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.15.0)
@@ -550,7 +540,6 @@ GEM
       pg (~> 1.2)
       semantic (~> 1.6)
       zeitwerk (~> 2.4)
-    libv8 (3.16.14.19-x86_64-linux)
     liquid (4.0.4)
     liquid-rails (0.2.0)
       kaminari (~> 1.1.1)
@@ -681,7 +670,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (5.0.3)
+    public_suffix (4.0.7)
     puma (5.6.9)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -745,7 +734,6 @@ GEM
     redis (3.3.5)
     redis-namespace (1.8.2)
       redis (>= 3.0.4)
-    ref (2.0.0)
     regexp_parser (2.8.1)
     reline (0.3.8)
       io-console (~> 0.5)
@@ -787,6 +775,14 @@ GEM
     roo (2.8.3)
       nokogiri (~> 1)
       rubyzip (>= 1.3.0, < 3.0.0)
+    ros-apartment (2.11.0)
+      activerecord (>= 5.0.0, < 7.1)
+      parallel (< 2.0)
+      public_suffix (>= 2.0.5, < 5.0)
+      rack (>= 1.3.6, < 3.0)
+    ros-apartment-sidekiq (1.2.0)
+      ros-apartment (>= 1.0)
+      sidekiq (>= 2.11)
     rouge (3.30.0)
     rubocop (1.11.0)
       parallel (~> 1.10)
@@ -887,9 +883,6 @@ GEM
     temple (0.10.2)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (1.2.2)
     thread_safe (0.3.6)
     tilt (2.2.0)
@@ -986,8 +979,6 @@ DEPENDENCIES
   acts_as_list (~> 1.0)
   agric!
   agro_monitoring!
-  apartment (~> 2.2.1)
-  apartment-sidekiq (~> 1.2)
   awesome_nested_set (~> 3.2.1)
   beardley (~> 1.3)
   beardley-barcode (>= 1.0.1)
@@ -1103,6 +1094,8 @@ DEPENDENCIES
   rjb (= 1.6.2)
   rodf (~> 1.0)
   roo (~> 2.8)
+  ros-apartment (~> 2.11)
+  ros-apartment-sidekiq (~> 1.2)
   rubocop (= 1.11.0)
   rubocop-ast (= 1.15.0)
   ruby-prof (~> 1.4)
@@ -1127,7 +1120,6 @@ DEPENDENCIES
   sprockets (< 4.0)
   state_machine (~> 1.2)
   stripe
-  therubyracer
   time_diff (~> 0.3.0)
   timecop (~> 0.9.0)
   tinymce-rails

@@ -105,7 +105,7 @@ Le blocage est ailleurs, dans le graphe de dépendances :
 |---|---|---|
 | `therubyracer` | 0.12.3 | **Bloquant dur.** Abandonnée depuis 2017, `libv8` 3.16 ne compile plus sur les toolchains actuelles. |
 | `state_machine` | 1.2.0 | Abandonnée depuis 2014. 25 usages sur des modèles comptables/logistiques. |
-| `apartment` | 2.2.1 | Non maintenue, monkey-patchée dans `config/initializers/apartment.rb`. Verrouille `apartment-sidekiq`, donc Sidekiq. |
+| `apartment` | 2.2.1 | Non maintenue, monkey-patchée dans `config/initializers/apartment.rb`. **Ne verrouille pas Sidekiq** : `apartment-sidekiq` déclare `sidekiq >= 2.11` sans borne haute ; le blocage vient de `gem 'sidekiq', '~> 4.0'` dans le `Gemfile`. |
 | `paperclip` | 5.3.0 | Dépréciée depuis 2018. |
 | `rjb` | 1.6.2 | Pont Java, sur le chemin critique de Ruby 3. |
 | `webpacker` | 4.3.0 | Fin de vie. |
@@ -227,13 +227,20 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | A.2 | `state_machine` → `AASM` sur les 10+ modèles concernés (`sale`, `reception`, `shipment`, `fixed_asset`, `payslip`, `tax_declaration`, `activity_production`, `journal_entry_item`, `sale_opportunity`, `task`) — transitions et hooks à retester un à un | 20 |
 | A.3 | `paperclip` → Active Storage sur 6 modèles (`document`, `guide`, `import`, `financial_year_exchange`, …) + migration des blobs existants | 12 |
 | A.4 | **Suppression de Jasper** (ADR-6.1). La voie de remplacement est déjà en place — `Printers::*` (37 services) + `Ekylibre::DocumentManagement::DocumentGenerator` (ODFReport → PDF), 154 templates `.odt` en production. Reste à faire : migrer les **14 templates `.jrxml`** vers la voie ODT, retirer les appels `Beardley::Report` de `app/models/document_template.rb:141,155`, supprimer les *renderers* de `lib/reporting.rb`, `config/initializers/beardley.rb`, `config/reporting/beardley/`, et les 8 gems `rjb` + `beardley*` du `Gemfile` | 10 |
-| A.5 | `apartment` 2.2.1 → `ros-apartment` (fork maintenu), retrait des monkey-patches de `config/initializers/apartment.rb` ; déverrouille `sidekiq` | 5 |
+| ~~A.5~~ | **FAIT** — `ros-apartment ~> 2.11` + `ros-apartment-sidekiq`. La série 2.11 accepte `activerecord >= 5.0, < 7.1` : elle couvre le palier actuel **et** 6.0/6.1/7.0, sans nouvelle bascule. Aucun appelant modifié (le namespace `Apartment` est conservé). Les patches ne sont **pas** supprimables — voir ci-dessous | 0 |
 | ~~A.6~~ | **FAIT** — [audit des dépendances](v6-dependency-audit.md). 23 dépôts (pas 7+12) ; liste des bloquants produite par Bundler, pas déduite. **Un seul portage réel** (`ekylibre-planning`) ; 4 forks n'ont qu'une borne déclarative à relâcher ; 3 gems publiques ne sont que des épinglages périmés | 0 |
 | A.7 | **Remplacement d'`active_list`** (ADR-6.2) — 318 usages / 149 contrôleurs. Le fork n'est **pas porté** : il disparaît avec le front au lot G. Stratégie retenue : figer `active_list` au strict minimum pour survivre aux paliers du lot B (patchs de compatibilité, pas de portage), puis suppression en G.3. **Prérequis : ADR-6.3** (choix du front) pour savoir vers quoi les listes migrent | 12 |
 | A.8 | **Partiellement fait** — CI passée à `postgis/postgis:13-3.3` (721 migrations vérifiées, schéma identique au dev) ; setup d'extensions décorrélé ; CodeQL étendu à `5.0-beta` et `ekylibre-6.0` (il ne couvrait que des branches `0-x`/`1-x` disparues). **Reste** : plancher `SimpleCov` (exige une mesure sur la suite complète) et PG 15+, bloqué par le `postgresql-client` 13 de l'image de base | 1 |
 
+> **Sur A.5 — les monkey-patches ne sont pas supprimables.** Le plan supposait qu'ils disparaîtraient avec le fork ; l'inverse s'est vérifié :
+>
+> - `connect_to_new` doit rester surchargé. En amont (ros-apartment 2.11 comme apartment 2.2.1) un schéma absent lève `ActiveRecord::StatementInvalid`, et `TenantNotFound` ne vient que du `rescue *rescuable_exceptions`. Or l'application indexe son 404 sur `TenantNotFound` (elevator `SecuredSubdomain`, `rescue_from` d'`ApplicationController`). La surcharge supprime aussi ce `rescue` fourre-tout, qui déguisait toute `ActiveRecordError` en « tenant inconnu ».
+> - `PSQL_DUMP_BLACKLISTED_STATEMENTS` est désormais **gelée** en amont : les `<<` de l'ancien patch auraient levé `FrozenError` au boot. La constante est reconstruite à partir de la valeur amont (7 entrées) plus les 3 nôtres — `CREATE SCHEMA` (amont ne filtre que `CREATE SCHEMA public`) et les marqueurs `\restrict` / `\unrestrict` des dumps psql 16+.
+>
+> Effet de bord : `public_suffix` redescend de 5.0.3 à 4.0.7 (borne de ros-apartment). Sans impact — seul `addressable` le consomme, et il accepte `< 6.0`.
+
 **Critère de sortie** : `bundle install` réussit sous Ruby 3.3, suite de tests verte sur Rails 5.2 + Ruby 3.3, CI sur PG 15.
-**Effort restant : ~57 j·h** (85 → 72 après les arbitrages ; A.1 et A.6 faits, A.8 quasi terminé). **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
+**Effort restant : ~52 j·h** (85 → 72 après les arbitrages ; A.1, A.5 et A.6 faits, A.8 quasi terminé). **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
 
 ---
 

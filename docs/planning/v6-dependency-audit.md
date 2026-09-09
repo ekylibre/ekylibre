@@ -46,11 +46,17 @@ Une version compatible existe déjà sur RubyGems ; il suffit de relâcher la co
 
 `bootstrap-slider-rails` déclare `railties >= 3.2, < 6.0` et **9.8.0 est déjà la dernière version publiée**. C'est une gem d'assets (CSS/JS) : elle disparaît avec le front au lot G. D'ici là, vendorer le composant ou relâcher via un fork minimal.
 
-### 2.3 Trois remplacements déjà planifiés
+### 2.3 Trois remplacements
 
-`apartment` → `ros-apartment` **3.4.4** (lot A.5) · `state_machine` (1.2.0, amont figé depuis 2014) → `aasm` **6.0.0** (lot A.2) · `paperclip` → Active Storage (lot A.3).
+`apartment` → **`ros-apartment 2.11`** (lot A.5, fait) · `state_machine` (1.2.0, amont figé depuis 2014) → `aasm` **6.0.0** (lot A.2) · `paperclip` → Active Storage (lot A.3).
+
+Le choix de la série 2.11 plutôt que de la dernière (3.4.4) est délibéré : elle accepte `activerecord >= 5.0.0, < 7.1`, donc elle fonctionne **dès aujourd'hui sur Rails 5.2** et couvre les paliers 6.0, 6.1 et 7.0 sans nouvelle bascule. La 3.0 exige AR >= 6.1, la 3.4 exige AR >= 7.0 : elles ne seront installables qu'aux derniers paliers.
 
 `state_machine` et `paperclip` ne figurent pas dans la liste des 9 parce qu'ils ne déclarent pas de borne sur Rails — ils cassent à l'exécution, pas à la résolution.
+
+### 2.4 Sidekiq n'est pas verrouillé par Apartment
+
+L'audit de mai (`docs/analysis/`) affirme qu'`apartment` verrouille `apartment-sidekiq` et donc Sidekiq. **C'est faux** : `apartment-sidekiq 1.2.0` déclare `sidekiq >= 2.11`, sans borne supérieure. Le blocage à Sidekiq 4.2.10 vient du `Gemfile` lui-même (`gem 'sidekiq', '~> 4.0'`, et `gem 'sidekiq-unique-jobs', '~> 4.0'` qui doit être relevé de concert). La montée de Sidekiq est donc **indépendante** d'A.5 et réalisable quand on veut.
 
 ---
 
