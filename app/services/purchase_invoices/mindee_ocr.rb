@@ -12,13 +12,12 @@ module PurchaseInvoices
     # return a fields based on a document from Ekylibre Document model
     def post_document_and_parse(document)
       # Load a file from disk
-      input_source = @client.source_from_path(document.file.path)
-
-      # Parse the file
-      response = @client.parse(
-        input_source,
-        Mindee::Product::Invoice::InvoiceV4
-      )
+      response = document.with_file_path do |path|
+        @client.parse(
+          @client.source_from_path(path),
+          Mindee::Product::Invoice::InvoiceV4
+        )
+      end
 
       if response.present? && response.api_request.status == :success
         if response.document.inference.present?

@@ -103,13 +103,18 @@ module Backend
       respond_to do |format|
         format.html { t3e @document }
         format.json
-        format.xlsx { send_data(File.read(@document.file.path), type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', filename: @document.file_file_name) }
-        format.ods { send_data(File.read(@document.file.path), type: 'application/vnd.oasis.opendocument.spreadsheet', filename: @document.file_file_name) }
-        format.xml { send_data(File.read(@document.file.path), type: 'application/xml', filename: @document.file_file_name) }
-        format.text { send_data(File.read(@document.file.path), type: 'text/plain', filename: @document.file_file_name) }
-        format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline', filename: @document.file_file_name) }
-        format.jpg { send_file(@document.file.path(:thumbnail), disposition: 'inline') }
-        format.zip { send_file(@document.file.path, type: 'application/zip', filename: @document.name) }
+        format.xlsx { send_data(@document.file.download, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', filename: @document.file_file_name) }
+        format.ods { send_data(@document.file.download, type: 'application/vnd.oasis.opendocument.spreadsheet', filename: @document.file_file_name) }
+        format.xml { send_data(@document.file.download, type: 'application/xml', filename: @document.file_file_name) }
+        format.text { send_data(@document.file.download, type: 'text/plain', filename: @document.file_file_name) }
+        # `:default` désignait le style PDF de Paperclip, devenu la pièce jointe
+        # pdf_rendition ; sans lui on renvoie l'original.
+        format.pdf do
+          rendition = params[:format] == :default && @document.pdf_rendition.attached? ? @document.pdf_rendition : @document.file
+          send_data(rendition.download, type: 'application/pdf', disposition: 'inline', filename: @document.file_file_name)
+        end
+        format.jpg { send_data(@document.thumbnail.download, type: 'image/jpeg', disposition: 'inline') }
+        format.zip { send_data(@document.file.download, type: 'application/zip', filename: @document.name) }
       end
     end
 

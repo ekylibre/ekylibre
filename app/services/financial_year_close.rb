@@ -638,7 +638,7 @@ class FinancialYearClose
 
       document = print_and_archive(template, printer)
 
-      copy_generated_documents(timing, 'trial_balance', "#{template.nature.human_name} - #{printer.key}", document.file.path)
+      copy_generated_documents(timing, 'trial_balance', "#{template.nature.human_name} - #{printer.key}", document)
     end
 
     def print_and_archive(template, printer)
@@ -656,7 +656,7 @@ class FinancialYearClose
 
       document = print_and_archive(template, printer)
 
-      copy_generated_documents(timing, 'general_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
+      copy_generated_documents(timing, 'general_ledger', "#{template.nature.human_name} - #{printer.key}", document)
     end
 
     def generate_journals_documents(timing, params)
@@ -673,15 +673,19 @@ class FinancialYearClose
 
       document = print_and_archive(template, printer)
 
-      copy_generated_documents(timing, 'journal_ledger', "#{template.nature.human_name} - #{printer.key}", document.file.path)
+      copy_generated_documents(timing, 'journal_ledger', "#{template.nature.human_name} - #{printer.key}", document)
     end
 
-    def copy_generated_documents(timing, nature, key, file_path)
-      destination_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, timing.to_s, nature.to_s, "#{key}.pdf")
-      signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, timing.to_s, nature.to_s, "#{key}.asc")
-      FileUtils.mkdir_p destination_path.dirname
-      FileUtils.ln file_path, destination_path
-      FileUtils.ln file_path.gsub(/\.pdf/, '.asc'), signature_path
+    # @param document [Document] document déjà archivé et signé
+    def copy_generated_documents(timing, nature, key, document)
+      directory = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, timing.to_s, nature.to_s)
+      FileUtils.mkdir_p directory
+      # Copie et non lien dur : la source est désormais un blob Active Storage,
+      # qu'il vaut mieux ne pas lier depuis l'arborescence de clôture.
+      document.with_file_path { |path| FileUtils.cp(path, directory.join("#{key}.pdf")) }
+      # La signature était lue dans un .asc déposé à côté du document par
+      # SignatureManager ; elle vient maintenant de la colonne.
+      File.write(directory.join("#{key}.asc"), document.signature) if document.signature.present?
     end
 
     def generate_archive(timing)

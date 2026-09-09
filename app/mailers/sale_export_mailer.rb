@@ -20,7 +20,7 @@ class SaleExportMailer < ActionMailer::Base
   after_action :set_send_at_to_sale
 
   def notify_client
-    attachments[@document.file_file_name] = File.read(@document.file.path)
+    attachments[@document.file_file_name] = @document.file.download
 
     # build and send email
     # grab body from EmailTemplate model and subject from email_templates.yml
@@ -34,7 +34,7 @@ class SaleExportMailer < ActionMailer::Base
   end
 
   def notify_unpaid_sale
-    attachments[@document.file_file_name] = File.read(@document.file.path)
+    attachments[@document.file_file_name] = @document.file.download
 
     # build and send email
     # grab body from EmailTemplate model and subject from email_templates.yml

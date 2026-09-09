@@ -14,12 +14,14 @@ module Ekylibre
       # @param [Document] document
       # @param [User] user
       def sign(document:, user:)
-        sha256 = Digest::SHA256.file(document.file.path)
+        sha256 = document.with_file_path { |path| Digest::SHA256.file(path) }
         ensure_gpg_key_usable!
         crypto = GPGME::Crypto.new
         signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_EMAIL'])
-        signature_path = document.file.path.gsub(document_extension(document), '.asc')
-        File.write(signature_path, signature)
+        # Paperclip garantissait un chemin prévisible, ce qui permettait de
+        # déposer un .asc à côté du document. Les clés de blob Active Storage
+        # étant aléatoires, la signature n'existe plus que dans la colonne — qui
+        # la portait déjà, et d'où FinancialYearClose la relit désormais.
         document.update!(sha256_fingerprint: sha256.to_s, signature: signature.to_s, mandatory: true, creator: user, updater: user)
       rescue ArgumentError => e
         # gpgme-2.0.x bug: quand ctx.sign leve UnusableSecretKey/BadPassphrase,
@@ -31,10 +33,6 @@ module Ekylibre
       end
 
       private
-
-        def document_extension(document)
-          File.extname(document.file.path)
-        end
 
         def ensure_gpg_key_usable!
           email = ENV['GPG_EMAIL']

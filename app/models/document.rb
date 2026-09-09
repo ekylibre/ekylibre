@@ -54,13 +54,17 @@
 
 class Document < ApplicationRecord
   include Customizable
+  include LegacyAttachmentColumns
   belongs_to :template, class_name: 'DocumentTemplate'
   has_many :attachments, dependent: :destroy, inverse_of: :document
-  has_attached_file :file, path: ':tenant/:class/:id_partition/:style.:extension',
-                           styles: {
-                             default:   { format: :pdf, processors: %i[reader counter freezer], clean: true },
-                             thumbnail: { format: :jpg, processors: %i[sketcher thumbnail], geometry: '320x320>' }
-                           }
+  has_one_attached :file
+  legacy_attachment_columns_for :file
+
+  # Ce que Paperclip produisait sous les styles :default et :thumbnail. Les
+  # variantes Active Storage ne couvrant que les images, ce sont des pièces
+  # jointes à part entière, construites par Documents::DerivativesBuilder.
+  has_one_attached :pdf_rendition
+  has_one_attached :thumbnail
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :file_content_text, :signature, length: { maximum: 500_000 }, allow_blank: true
@@ -75,9 +79,13 @@ class Document < ApplicationRecord
   validates :nature, length: { allow_nil: true, maximum: 120 }
   # validates_inclusion_of :nature, in: nature.values
   # validates_attachment_presence :file
-  validates_attachment_content_type :file, content_type: /(application|image|text)/
+  # Paperclip fournissait validates_attachment_content_type ; Active Storage
+  # n'a pas d'équivalent en Rails 5.2.
+  validate do
+    next unless file.attached?
 
-  before_post_process :processable_attachment?
+    errors.add(:file, :invalid) unless file.content_type.to_s.match?(%r{\A(application|image|text)/})
+  end
 
   delegate :name, to: :template, prefix: true
   acts_as_numbered
@@ -96,10 +104,33 @@ class Document < ApplicationRecord
   end
 
   before_validation do
-    self.name ||= file.original_filename
-    self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
+    # `file.filename` n'est disponible qu'une fois la pièce jointe assignée ;
+    # Paperclip exposait original_filename dès l'affectation.
+    if file.attached?
+      self.name ||= file.filename.to_s
+      self.key ||= "#{Time.now.to_i}-#{file.filename}"
+    end
     # DB limitation
     self.file_content_text = file_content_text.truncate(500_000) if file_content_text
+  end
+
+  # Les dérivés (texte, nombre de pages, PDF, vignette) étaient produits par les
+  # processeurs Paperclip au moment du post-traitement. Ils le sont désormais
+  # après commit, une fois la pièce jointe réellement enregistrée — et toujours
+  # de façon synchrone, la page de consultation liant la vignette dès l'envoi.
+  # La garde de réentrance est indispensable : le builder attache le PDF et la
+  # vignette, et chaque `attach` sauvegarde l'enregistrement, ce qui rappelle ce
+  # même callback. Sans elle, la construction boucle jusqu'au SystemStackError.
+  after_commit on: %i[create update] do
+    unless @building_derivatives || !processable_attachment? || !file.attached? ||
+           (pdf_rendition.attached? && thumbnail.attached?)
+      @building_derivatives = true
+      begin
+        Documents::DerivativesBuilder.new(self).build
+      ensure
+        @building_derivatives = false
+      end
+    end
   end
 
   def attachement_presence

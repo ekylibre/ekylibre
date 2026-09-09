@@ -10,7 +10,7 @@ module Fec
       begin
         template = DocumentTemplate.find_by_nature(:fec_structure_error)
         # Exported XML
-        fec_parser = Nokogiri::XML(File.read(fec_doc.file.path))
+        fec_parser = Nokogiri::XML(fec_doc.file.download)
         format = fec_parser.search('comptabilite').attribute('noNamespaceSchemaLocation').value
         raise 'Missing format' if format.nil?
 
