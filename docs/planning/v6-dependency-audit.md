@@ -145,3 +145,47 @@ Le chiffrage initial du lot B (B.9, « montée en verrou des 7 forks + 12 plugin
 4. **A.3 Paperclip → Active Storage**, **A.4 suppression de Jasper**.
 5. **`ekylibre-planning`** — le seul portage réel ; peut avancer en parallèle.
 6. **A.7 `active_list`** — dépend d'ADR-6.3 (choix du front).
+
+---
+
+## 7. Relâchement des bornes : ce qui bouge maintenant, ce qui bouge avec Rails
+
+L'idée initiale — « relâcher les bornes d'abord, pour obtenir vite un `bundle` résolvable en Rails 6 » — ne tient qu'à moitié. Les épinglages se répartissent en deux familles.
+
+### 7.1 Relâchables immédiatement (fait)
+
+Ces gems ont une version qui couvre **à la fois** Rails 5.2 et les paliers suivants : on la prend tout de suite, elle n'aura plus à bouger.
+
+| Gem | Avant | Après | Portée de la nouvelle version |
+|---|---|---|---|
+| `wice_grid` | `~> 4.0` (capé `rails < 5.3`) | **`~> 6.1`** | `rails >= 5.0`, **sans borne haute** |
+| `deep_cloneable` | `~> 2.4.0` (capé `activerecord < 6`) | **`~> 3.0`** | `activerecord >= 3.1.0, < 9` |
+
+Deux des neuf bloquants de Rails 6 disparaissent ainsi dès le palier actuel.
+
+*(Note : `wice_grid 7.x` exige `rails ~> 7.1` — la 6.1 est donc le bon palier, pas la dernière.)*
+
+### 7.2 Non relâchables : elles montent **avec** Rails, pas avant
+
+`activerecord-postgis-adapter` et `ros-apartment` sont épinglées à une série d'ActiveRecord précise. Les relâcher aujourd'hui installerait une version incompatible avec Rails 5.2 : leur montée fait partie de chaque palier du lot B, elle ne le précède pas.
+
+| Palier Rails | `activerecord-postgis-adapter` | `ros-apartment` | Note |
+|---|---|---|---|
+| **5.2** (actuel) | 5.2.3 (`AR ~> 5.1`) | **2.11** (`AR >= 5.0, < 7.1`) | état courant |
+| 6.0 | 6.0.3 (`AR ~> 6.0.0`) | 2.11 | |
+| 6.1 | 7.1.1 (`AR ~> 6.1`) | 2.11 | |
+| 7.0 | 8.0.3 (`AR ~> 7.0.0`) | 2.11 | dernier palier couvert par la 2.11 |
+| 7.1 | 9.0.2 (`AR ~> 7.1.0`) | 3.0 (`AR >= 6.1, < 7.2`) | |
+| 7.2 | 10.0.3 (`AR ~> 7.2`) | 3.2 (`AR >= 6.1, < 8.1`) | **ruby >= 3.1 requis** |
+| 8.0 | 11.0.0 (`AR ~> 8.0.0`) | 3.4 (`AR >= 7.0, < 8.2`) | |
+| 8.1 (cible) | 11.1.1 (`AR ~> 8.1.0`) | 3.4 | |
+
+C'est une correspondance un pour un : le lot B devient mécanique sur ces deux gems.
+
+### 7.3 Sans issue amont
+
+`bootstrap-slider-rails` reste capée à `railties < 6.0` et 9.8.0 est la dernière version publiée. C'est une gem d'assets Sprockets (`//= require bootstrap-slider` dans `application.js`) : elle disparaît avec le front au lot G. D'ici là, il faudra soit vendorer le composant JS, soit forker la gem pour relever la borne.
+
+### 7.4 Sidekiq peut monter quand on veut
+
+Sidekiq ne déclare **aucune** contrainte sur Rails, seulement sur Ruby (6.5.12 exige `ruby >= 2.5`, satisfait par le 2.6 actuel). Rien n'empêche techniquement de passer à Sidekiq 6 dès aujourd'hui, avec `sidekiq-unique-jobs 7.1.x` (`sidekiq >= 5.0, < 7.0`) en verrou. Ce n'est pas un relâchement de borne mais une migration à part entière (l'API des middlewares et la configuration serveur changent entre 4 et 6) — à traiter comme un lot propre, pas comme un effet de bord.

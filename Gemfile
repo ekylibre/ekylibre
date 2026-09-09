@@ -82,7 +82,10 @@ gem 'formize', '~> 2.1.0'
 gem 'kaminari', '~> 1.1'
 gem 'remotipart', '~> 1.2'
 gem 'simple_form', '~> 4.0'
-gem 'wice_grid', '~> 4.0'
+# 6.1.3 declares `rails >= 5.0` with no upper bound: it runs on 5.2 today and
+# stays valid through 6.x/7.x. 4.x was capped at `rails < 5.3` and was one of
+# the nine gems blocking Rails 6. (7.x requires `rails ~> 7.1`.)
+gem 'wice_grid', '~> 6.1'
 
 # View Engines
 gem 'haml', '~> 5.2'
@@ -120,7 +123,9 @@ gem 'treetop', '~> 1.6'
 # Models helpers
 gem 'acts_as_list', '~> 1.0'
 gem 'awesome_nested_set', '~> 3.2.1'
-gem 'deep_cloneable', '~> 2.4.0'
+# 3.x accepts `activerecord >= 3.1.0, < 9` — valid on 5.2 and on every planned
+# palier. 2.4 was capped at `activerecord < 6`.
+gem 'deep_cloneable', '~> 3.0'
 gem 'draper', "~> 3.0"
 gem 'enumerize', '~> 2.4'
 gem 'paranoia', '~> 2.2' # Hide and restore records without actually deleting them
