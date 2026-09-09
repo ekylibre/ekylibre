@@ -81,11 +81,6 @@ class Reception < Parcel
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
-  def self.state_machine(*)
-    ActiveSupport::Deprecation.warn "Not used anymore on Reception!"
-    nil
-  end
-
   delegate :full_name, to: :sender, prefix: true
   delegate :number, to: :purchase_order, prefix: true, allow_nil: true
 

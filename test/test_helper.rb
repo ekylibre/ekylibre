@@ -369,8 +369,11 @@ module ActionController
             test_code << "assert_response :success, #{context}\n"
           elsif mode == :evolve
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            model.state_machine.states.each do |state|
-              test_code << "patch :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, state: state.name]})\n"
+            # Was driven by model.state_machine.states; the gem is gone and no
+            # controller declares an `evolve` action, so this branch is dead.
+            # Rebuild it from model.state.values if one ever comes back.
+            model.state.values.each do |state|
+              test_code << "patch :#{action}, params: crush_hash(#{sanitized_params[id: 'RECORD.id'.c, state: state]})\n"
               test_code << "assert_response :redirect, #{context}\n"
             end
           elsif mode == :take

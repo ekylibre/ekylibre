@@ -35,9 +35,7 @@ module Backend
       t.column :state
     end
 
-    # Event names now come from the Transitionable concern; Task.state_machine
-    # still answers (the gem lazily builds an empty machine) but its `events`
-    # list is empty, which would silently drop these actions.
+    # Event names come from the Transitionable concern.
     Task.transitions.keys.each do |event|
       define_method event do
         fire_event(event)

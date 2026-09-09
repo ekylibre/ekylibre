@@ -72,9 +72,7 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    # Event names come from the Transitionable concern. Contract.state_machine
-    # still answers (the gem lazily builds an empty machine) but lists no
-    # events, which would silently drop these actions.
+    # Event names come from the Transitionable concern.
     Contract.transitions.keys.each do |event|
       define_method event do
         fire_event(event)

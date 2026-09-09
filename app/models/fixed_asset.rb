@@ -185,11 +185,6 @@ class FixedAsset < ApplicationRecord
   #  - purchase_item_id
   # ]DEPRECATIONS]
 
-  def self.state_machine(*args)
-    ActiveSupport::Deprecation.warn "Not used anymore on FixedAsset!"
-    nil
-  end
-
   after_initialize do
     next if persisted?
 

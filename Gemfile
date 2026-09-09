@@ -129,7 +129,6 @@ gem 'deep_cloneable', '~> 3.0'
 gem 'draper', "~> 3.0"
 gem 'enumerize', '~> 2.4'
 gem 'paranoia', '~> 2.2' # Hide and restore records without actually deleting them
-gem 'state_machine', '~> 1.2'
 gem 'uuidtools', '~> 2.2'
 gem 'validates_timeliness', '~> 4'
 

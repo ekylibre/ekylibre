@@ -129,9 +129,7 @@ module Backend
       end
     end
 
-    # Event names come from the Transitionable concern. Delivery.state_machine
-    # still answers (the gem lazily builds an empty machine) but lists no
-    # events, which would silently drop these actions.
+    # Event names come from the Transitionable concern.
     Delivery.transitions.keys.each do |event|
       define_method event do
         fire_event(event)

@@ -36,36 +36,15 @@ class StateBarBuilder
       !options.fetch(:disable_transitions, false)
     end
 
+    # Every model with a state bar now uses the Transitionable concern; the
+    # state_machine branch this method used to carry is gone with the gem.
     def states_from(resource)
-      return states_from_transitionable resource if defined?(Transitionable) && resource.class < Transitionable
-
-      states_from_state_machine resource
-    end
-
-    def states_from_transitionable(resource)
       resource.class.send(attribute).values
-    end
-
-    def states_from_state_machine(resource)
-      values = resource.class.state_machine.states
-      values.each do |state|
-        def state.to_sym
-          name
-        end
-      end
-
-      values
-    end
-
-    def extract_possible_transitions_from(resource)
-      return extract_possible_transitions_from_transitionable resource if defined?(Transitionable) && resource.class < Transitionable
-
-      extract_possible_transitions_from_state_machine resource
     end
 
     # Uses `to_for` rather than `to`: a transition may land on a different
     # state depending on where it starts from (Delivery#cancel, Shipment#cancel).
-    def extract_possible_transitions_from_transitionable(resource)
+    def extract_possible_transitions_from(resource)
       current = resource.send(attribute).to_sym
       transitions_mod = resource.class.const_get :Transitions
       transitions_mod.constants
@@ -74,12 +53,6 @@ class StateBarBuilder
         .select { |t| t.from.include? current }
         .map { |t| [t.to_for(current), t] }
         .reject { |(destination, _)| destination.nil? }
-        .to_h
-    end
-
-    def extract_possible_transitions_from_state_machine(resource)
-      resource.state_transitions
-        .map { |t| [t.to.to_sym, t] }
         .to_h
     end
 end
