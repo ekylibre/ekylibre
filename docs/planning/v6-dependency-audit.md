@@ -189,3 +189,65 @@ C'est une correspondance un pour un : le lot B devient mécanique sur ces deux g
 ### 7.4 Sidekiq peut monter quand on veut
 
 Sidekiq ne déclare **aucune** contrainte sur Rails, seulement sur Ruby (6.5.12 exige `ruby >= 2.5`, satisfait par le 2.6 actuel). Rien n'empêche techniquement de passer à Sidekiq 6 dès aujourd'hui, avec `sidekiq-unique-jobs 7.1.x` (`sidekiq >= 5.0, < 7.0`) en verrou. Ce n'est pas un relâchement de borne mais une migration à part entière (l'API des middlewares et la configuration serveur changent entre 4 et 6) — à traiter comme un lot propre, pas comme un effet de bord.
+
+---
+
+## 8. Suppression de Jasper (A.4) : ce que l'audit initial avait sous-estimé
+
+L'ADR-6.1 a été tranchée sur un constat partiel : « la voie de remplacement existe déjà — 37 `Printers::*` et 154 templates `.odt` ; restent 14 `.jrxml` à migrer ». La première moitié est exacte, la seconde ne l'est pas.
+
+### 8.1 Comment une nature de document choisit sa voie
+
+`Ekylibre::DocumentManagement::TemplateFileProvider#find_by_nature` résout ainsi :
+
+```ruby
+[*odt_paths(nature), *jasper_paths(nature)].detect(&:exist?)
+```
+
+L'ODT est donc **prioritaire** et le Jasper n'est qu'un repli. Une nature bascule sur la voie moderne dès qu'un `.odt` existe pour elle — le `file_extension` stocké en base n'y change rien (les 26 `DocumentTemplate` du tenant de test valent tous `xml`, alors que 16 d'entre eux sont servis en ODT).
+
+Conséquence : **le nombre de fichiers `.jrxml` n'est pas la mesure du travail restant**. Ce qui compte est le nombre de *natures* dépourvues d'ODT.
+
+### 8.2 Les 13 natures encore liées à Jasper
+
+Sur les 73 natures déclarées, 13 n'ont ni `.odt` ni `Printers::*` et ne peuvent donc être servies que par Jasper :
+
+| Nature | Format Jasper |
+|---|---|
+| `animal_husbandry_register` | `.xml` |
+| `animal_list` | `.xml` |
+| `animal_sheet` | `.xml` |
+| `deposit_list` | `.xml` |
+| `cultivable_zone_sheet` | `.jrxml` |
+| `fr_pcg82_balance_sheet` | `.jrxml` |
+| `fr_pcg82_profit_and_loss_statement` | `.jrxml` |
+| `fr_pcga_balance_sheet` | `.jrxml` |
+| `fr_pcga_profit_and_loss_statement` | `.jrxml` |
+| `journal_entry_sheet` | `.jrxml` |
+| `outgoing_delivery_docket` | `.jrxml` |
+| `purchases_invoice` | `.jrxml` |
+| `veterinary_booklet` | `.jrxml` |
+
+Elles sont atteignables : `ToolbarHelper#export` (36 usages dans les vues) produit des liens `format: :pdf, template: <id>`, et le concern `RespondWithTemplate` injecte `with: params[:template]` dans `respond_with` — ce qui alimente `ActionController::Responder#to_pdf`, défini par `lib/reporting.rb`, donc Beardley/Jasper. Onze contrôleurs empruntent cette voie.
+
+### 8.3 Pourquoi le lot ne peut pas être terminé en l'état
+
+Migrer une nature demande **deux** livrables :
+
+1. une classe `Printers::XxxPrinter` — du code, faisable ;
+2. un gabarit `.odt` — un document LibreOffice, avec sa mise en page, ses champs de fusion et ses tableaux. Ce n'est pas du code : c'est de la conception documentaire, et cela conditionne le rendu vu par le client (factures d'achat, registre d'élevage, carnet vétérinaire, bilans PCG/PCGA).
+
+Les 13 gabarits `.odt` doivent donc être produits par quelqu'un ayant LibreOffice et la maîtrise du rendu attendu. Tant qu'ils n'existent pas, `rjb`, les 7 gems `beardley*`, `lib/reporting.rb`, `config/initializers/beardley.rb` et les appels `Beardley::Report` de `DocumentTemplate#print`/`#export` doivent rester.
+
+### 8.4 Fait dans ce lot
+
+Suppression de 5 fichiers de gabarits morts, sans aucun effet sur la résolution des 73 natures (vérifié avant/après, résultat identique) :
+
+- `eng/reporting/sale.jrxml` et `fra/reporting/matter.xml` — natures absentes de la nomenclature ;
+- `fra/reporting/account_journal_entry_sheet.jrxml`, `outgoing_payment_list__check_letter.jrxml` et `outgoing_payment_list__standard.jrxml` — un `.odt` existe pour ces trois natures et le supplante systématiquement.
+
+Il reste 13 fichiers Jasper, un par nature bloquante.
+
+### 8.5 Anomalie relevée au passage
+
+La nature `purchases_estimate` n'a **aucun** gabarit, ni ODT ni Jasper : `load_defaults` journalise `Cannot load a default document template` et ne crée pas de `DocumentTemplate`. Le bouton d'impression correspondant n'affiche donc rien. 23 autres natures sont dans le même cas (`entity_sheet`, `fixed_asset_sheet`, `prescription`, `stocks`, les registres viticoles…) — à arbitrer : gabarit manquant ou nature à retirer de la nomenclature.
