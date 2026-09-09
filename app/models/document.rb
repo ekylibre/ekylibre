@@ -118,11 +118,16 @@ class Document < ApplicationRecord
   # processeurs Paperclip au moment du post-traitement. Ils le sont désormais
   # après commit, une fois la pièce jointe réellement enregistrée — et toujours
   # de façon synchrone, la page de consultation liant la vignette dès l'envoi.
+  # Permet à la reprise de données (rake attachments:migrate_to_active_storage)
+  # de rattacher les rendus déjà produits par Paperclip au lieu de relancer
+  # LibreOffice sur chaque document.
+  attr_accessor :skip_derivatives
+
   # La garde de réentrance est indispensable : le builder attache le PDF et la
   # vignette, et chaque `attach` sauvegarde l'enregistrement, ce qui rappelle ce
   # même callback. Sans elle, la construction boucle jusqu'au SystemStackError.
   after_commit on: %i[create update] do
-    unless @building_derivatives || !processable_attachment? || !file.attached? ||
+    unless skip_derivatives || @building_derivatives || !processable_attachment? || !file.attached? ||
            (pdf_rendition.attached? && thumbnail.attached?)
       @building_derivatives = true
       begin
