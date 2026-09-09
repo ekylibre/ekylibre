@@ -186,12 +186,6 @@ module Ekylibre
       @right_file = root.join('config', 'rights.yml')
       Ekylibre::Access.load_file(@right_file) if @right_file.exist?
 
-      # Adds aggregators
-      @aggregators_path = @root.join('config', 'aggregators')
-      if @aggregators_path.exist?
-        Aggeratio.load_path += Dir.glob(@aggregators_path.join('**', '*.xml'))
-      end
-
       # Adds initializers
       @initializers_path = @root.join('config', 'initializers')
       if @initializers_path.exist?

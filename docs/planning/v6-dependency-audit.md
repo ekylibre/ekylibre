@@ -282,3 +282,47 @@ Restent 6 natures, toutes **sans bouton d'export** :
 atteignable depuis l'interface est nulle. `rjb` et les gems `beardley*` restent
 néanmoins nécessaires tant que ces 6 natures ne sont pas soit migrées, soit
 retirées de la nomenclature — c'est un arbitrage produit, pas technique.
+
+### 8.7 A.4 terminé : Jasper retiré, page Exports et agrégateurs supprimés
+
+Arbitrage du 2026-09-09 : **supprimer la page Exports et les agrégateurs**, et
+sortir les quatre natures `fr_pcg82_*` / `fr_pcga_*`.
+
+Une correction préalable était nécessaire. J'avais présenté
+`animal_husbandry_register` et `veterinary_booklet` comme des natures mortes, en
+n'ayant cherché que les boutons `t.export` et les gestionnaires `format.pdf`.
+Une troisième voie existait : `exports_controller` → `Aggeratio` → `ExportJob` →
+`DocumentTemplate#export` → `Beardley::Report`. Or `config/aggregators/` ne
+contenait **que** ces deux agrégateurs, et c'étaient les deux seules entrées de
+la page Exports. À l'inverse, `Aggeratio['fr_pcg82_balance_sheet']` renvoyait
+`nil` : les quatre natures comptables n'avaient aucun agrégateur et leurs
+`.jrxml` étaient inertes.
+
+Supprimé : `lib/aggeratio.rb` et `lib/aggeratio/`, `config/aggregators/`,
+`exports_controller`, ses vues, son helper, `ExportJob`, la route, le groupe de
+droits (renommé `synchronizations`, qu'il portait aussi), le chargement dans
+`20-start.rb`, la prise en charge des agrégateurs de plugins et la méthode
+`clean_aggregators!` de `Clean::Locales`.
+
+Jasper avec : `rjb`, les 7 gems `beardley*`, `lib/reporting.rb` (et ses
+*renderers* `Responder#to_pdf`…), `config/initializers/beardley.rb`,
+`config/reporting/beardley/`, les 6 derniers gabarits `.jrxml`/`.xml`, et les
+méthodes `DocumentTemplate#print`, `#export`, `.print` et `import_jasper`.
+
+`bundle` passe de 169 à 161 dépendances déclarées et de 354 à 345 gems.
+
+**Zéro nature n'est plus servie par Jasper** : `load_defaults` crée 43 gabarits
+gérés, tous en `odt`. Un téléversement `.jrxml` est désormais refusé
+(« Source is invalid ») plutôt qu'accepté en silence pour produire un gabarit
+que plus rien ne saurait imprimer.
+
+**Point de vigilance pour la reprise de données** : les gabarits personnalisés
+(`managed: false`) restés en `file_extension = xml` ne sont plus imprimables. Le
+tenant de test en compte 3, dont le fichier source n'existe même pas. À recenser
+sur les tenants de production avant déploiement.
+
+**Reste à arbitrer** : `Ekylibre::Reporting::FORMATS` annonce toujours
+`pdf odt ods docx xlsx`, alors que la chaîne ODFReport ne produit que de l'ODT et
+du PDF. La liste n'a pas été réduite ici, car la validation de
+`DocumentTemplate#formats` retirerait silencieusement les formats devenus
+invalides des enregistrements existants au premier enregistrement.

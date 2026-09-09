@@ -21,18 +21,21 @@ class PrinterJob < ApplicationJob
         Rails.logger.error error
         Rails.logger.error error.backtrace.join("\n")
         ExceptionNotifier.notify_exception(error, data: { message: error })
-        perform_as.notifications.create!(error_notification_params(template.nature, error.message))
+        perform_as.notifications.create!(error_notification_params(error.message))
       end
     end
 
   private
 
-    def error_notification_params(id, error)
+    def error_notification_params(error)
       {
         message: 'error_during_file_generation',
         level: :error,
         target_type: 'Document',
-        target_url: backend_export_path(id),
+        # La route backend_export_path pointait sur la page Exports, supprimée
+        # avec les agrégateurs. La notification d'erreur renvoie désormais vers
+        # la liste des documents, seul endroit qui ait encore du sens.
+        target_url: backend_documents_path,
         interpolations: {
           error_message: error
         }

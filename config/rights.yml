@@ -1839,11 +1839,11 @@ events:
     - "backend/events#new"
     - "backend/events#update"
 
-exports:
+# Le groupe s'appelait « exports » du temps de la page Exports/Aggeratio, qui
+# n'existe plus. Il ne porte plus que les synchronisations.
+synchronizations:
   read:
     actions:
-    - "backend/exports#index"
-    - "backend/exports#show"
     - "backend/synchronizations#index"
     - "backend/synchronizations#run"
 

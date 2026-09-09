@@ -689,7 +689,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :exports, only: %i[index show]
 
     resources :phytosanitary_registers, only: %i[index show create], path: 'phytosanitary-registers' do
       collection do

@@ -25,7 +25,6 @@ require 'working_set'
 
 # XML definitions
 autoload :Onoma,     'onoma'
-autoload :Aggeratio, 'aggeratio'
 # autoload :Procedo,   'procedo'
 # require 'nomen'
 # require 'aggeratio'
@@ -48,7 +47,6 @@ end
 # autoload :Calculus, 'calculus'
 
 # Other things...
-require 'reporting'
 require 'enumerize/xml'
 
 require 'open_weather_map' if Onoma[:indicators]
@@ -62,8 +60,6 @@ Ekylibre.load_integrations
 Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false' || ENV['RAILS_ENV'] == 'test'
 Ekylibre::Plugin.plug
 
-Aggeratio.load_path += Dir.glob(Rails.root.join('config', 'aggregators', '**', '*.xml'))
-Aggeratio.load
 
 # Map and co
 autoload :Map, 'map'

@@ -31,7 +31,6 @@ gem 'rake', '~> 12.0'
 # TO REMOVE ASAP
 gem 'browser', '~> 5.2' # Only used in ApplicationController to check for IE
 gem 'ffaker', '~> 2.0' # Should not be present in production. Is used to generate names for Products.
-gem 'rjb', '1.6.2' # Version 1.6.4 segfaults on test server, jasper repors should be trashed anyway....
 gem 'time_diff', '~> 0.3.0' # Only used in InterventionWorkingPeriod
 gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
@@ -156,18 +155,6 @@ gem 'humanize', '~> 2.5'
 gem 'i18n-complements', '>= 0.0.14'
 gem 'i18n-js', '~> 3.8'
 
-# Reporting (Jasper): DEPRECATED
-# Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-# If you encounter a Segfault related to those gems you need to add
-# JAVA_TOOL_OPTIONS=-Xss1280k to your env vars
-# cf. https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1699772
-gem 'beardley', '~> 1.3'
-gem 'beardley-barcode', '>= 1.0.1'
-gem 'beardley-batik', '>= 1.0.1'
-gem 'beardley-charts', '>= 0.0.1'
-gem 'beardley-groovy', '>= 2.0.1'
-gem 'beardley-open_sans', '>= 0.0.2'
-gem 'beardley-xml', '>= 1.1.2'
 
 # Import/Export
 gem 'caxlsx'

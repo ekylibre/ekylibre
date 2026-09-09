@@ -70,7 +70,6 @@ module Clean
 
         clean_access!
         clean_action!
-        clean_aggregators!
         clean_file! 'devise'
         clean_file! 'devise.views'
         clean_file! 'email_templates'
@@ -301,81 +300,6 @@ module Clean
 
         # Finishing...
         write('action.yml', translation, to_translate, untranslated)
-      end
-
-      def clean_aggregators!
-        # Aggregators
-        file = locale_dir.join('aggregators.yml')
-        ref = load_file(file)
-        to_translate = 0
-        untranslated = 0
-
-        translation  = "#{locale}:\n"
-
-        # Parameters
-        translation << "  aggregator_parameters:\n"
-        ref[:aggregator_parameters] ||= {}
-        all_parameters = []
-        Aggeratio.each do |aggregator|
-          all_parameters += aggregator.parameters.map(&:name).map(&:to_sym)
-        end
-        all_parameters.uniq!.sort!
-        all_parameters.each do |param_name|
-          to_translate += 1
-          if (name = ref[:aggregator_parameters][param_name]) && name.present?
-            translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif name = translate_or_nil("labels.#{param_name}") || translate_or_nil("attributes.#{param_name}")
-            to_translate -= 1
-            translation << "    #~ #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
-          else
-            translation << "    #{missing_prompt}#{param_name}: " + Clean::Support.yaml_value(param_name.to_s.humanize) + "\n"
-            untranslated += 1
-          end
-        end
-
-        # Properties, title...
-        translation << "  aggregator_properties:\n"
-        ref[:aggregator_properties] ||= {}
-        all_properties = []
-        Aggeratio.each_xml_aggregator do |element|
-          all_properties += Aggeratio::Base.new(element).properties.reject { |e| e.attr('level').to_s == 'api' }.collect { |e| e.attr('name').to_sym }
-        end
-        all_properties.uniq!.sort!
-        all_properties.each do |property_name|
-          to_translate += 1
-          if (name = ref[:aggregator_properties][property_name]) && name.present?
-            translation << "    #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif property_name.to_s.underscore != property_name.to_s
-            to_translate -= 1
-            translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(property_name.to_s.underscore.humanize) + "\n"
-          elsif name = translate_or_nil("attributes.#{property_name}") || translate_or_nil("labels.#{property_name}") || translate_or_nil("activerecord.models.#{property_name}")
-            to_translate -= 1
-            translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
-          else
-            translation << "    #{missing_prompt}#{property_name}: " + Clean::Support.yaml_value(property_name.to_s.humanize) + "\n"
-            untranslated += 1
-          end
-        end
-
-        # Agrgegators
-        translation << "  aggregators:\n"
-        ref[:aggregators] ||= {}
-        Aggeratio.each do |aggregator|
-          to_translate += 1
-          agg_name = aggregator.aggregator_name.to_sym
-          if (name = ref[:aggregators][agg_name]) && name.present?
-            translation << "    #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(name) + "\n"
-          elsif item = Onoma::DocumentNature[agg_name]
-            to_translate -= 1
-            translation << "    #~ #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(item.human_name) + "\n"
-          else
-            translation << "    #{missing_prompt}#{aggregator.aggregator_name}: " + Clean::Support.yaml_value(agg_name.to_s.humanize) + "\n"
-            untranslated += 1
-          end
-        end
-
-        # Finishing...
-        write(file, translation, to_translate, untranslated)
       end
 
       def clean_enumerize!
