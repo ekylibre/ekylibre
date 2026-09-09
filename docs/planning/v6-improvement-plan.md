@@ -228,7 +228,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | ~~A.3~~ | **FAIT** — `paperclip` et `paperclip-document` retirées du `Gemfile`. 9 attachements portés sur Active Storage (`Document#file` + ses deux rendus, `Guide#reference_source`, `Import#archive`, `FinancialYearExchange#import_file`, et les 5 `has_picture`). Le stockage suit le tenant (`TenantDiskService`), donc les blobs restent dans le répertoire qu'archive `Ekylibre::Tenant.dump`. Reprise des fichiers historiques par `ImportPaperclipAttachments`, migration jouée aussi bien par `tenant:migrate` que par la restauration d'une archive ancienne, avant la suppression des 37 colonnes | 0 |
 | ~~A.4~~ | **FAIT** — Jasper entièrement retiré : `rjb`, les 7 gems `beardley*`, `lib/reporting.rb`, l'initializer et les gabarits. 7 natures migrées vers `Printers::*` + ODT ; la page Exports et les agrégateurs supprimés sur arbitrage ; les 4 natures `fr_pcg*` sorties. Zéro nature sur Jasper, 43 gabarits gérés tous en `odt`. Les 7 gabarits générés restent à mettre en page. [Audit §8](v6-dependency-audit.md) | 0 |
 | ~~A.5~~ | **FAIT** — `ros-apartment ~> 2.11` + `ros-apartment-sidekiq`. La série 2.11 accepte `activerecord >= 5.0, < 7.1` : elle couvre le palier actuel **et** 6.0/6.1/7.0, sans nouvelle bascule. Aucun appelant modifié (le namespace `Apartment` est conservé). Les patches ne sont **pas** supprimables — voir ci-dessous | 0 |
-| ~~A.6~~ | **FAIT** — [audit des dépendances](v6-dependency-audit.md). 23 dépôts (pas 7+12) ; liste des bloquants produite par Bundler, pas déduite. **Un seul portage réel** (`ekylibre-planning`) ; 4 forks n'ont qu'une borne déclarative à relâcher ; 3 gems publiques ne sont que des épinglages périmés | 0 |
+| ~~A.6~~ | **FAIT** — [audit des dépendances](v6-dependency-audit.md). 23 dépôts (pas 7+12) ; liste des bloquants produite par Bundler, pas déduite. Le seul « portage réel » identifié (`ekylibre-planning`) s'est révélé n'en pas être un une fois mesuré — [§3.4](v6-dependency-audit.md) ; 4 forks n'ont qu'une borne déclarative à relâcher ; 3 gems publiques ne sont que des épinglages périmés | 0 |
 | A.7 | **Remplacement d'`active_list`** (ADR-6.2) — 318 usages / 149 contrôleurs. Le fork n'est **pas porté** : il disparaît avec le front au lot G. Stratégie retenue : figer `active_list` au strict minimum pour survivre aux paliers du lot B (patchs de compatibilité, pas de portage), puis suppression en G.3. **Prérequis : ADR-6.3** (choix du front) pour savoir vers quoi les listes migrent | 12 |
 | ~~A.9~~ | **FAIT** — relâchement des bornes relâchables : `wice_grid ~> 4.0` → `~> 6.1` (la 6.1.3 déclare `rails >= 5.0` sans borne haute) et `deep_cloneable ~> 2.4.0` → `~> 3.0` (`activerecord >= 3.1, < 9`). Deux des neuf bloquants de Rails 6 tombent dès le palier actuel. `activerecord-postgis-adapter` et `ros-apartment` ne sont **pas** relâchables : elles montent avec chaque palier — [table de correspondance](v6-dependency-audit.md#7-relâchement-des-bornes--ce-qui-bouge-maintenant-ce-qui-bouge-avec-rails) | 0 |
 | A.8 | **Partiellement fait** — CI passée à `postgis/postgis:13-3.3` (721 migrations vérifiées, schéma identique au dev) ; setup d'extensions décorrélé ; CodeQL étendu à `5.0-beta` et `ekylibre-6.0` (il ne couvrait que des branches `0-x`/`1-x` disparues). **Reste** : plancher `SimpleCov` (exige une mesure sur la suite complète) et PG 15+, bloqué par le `postgresql-client` 13 de l'image de base | 1 |
@@ -240,6 +240,8 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 >
 > Le chemin de Paperclip se rebâtit à partir de la **classe de l'enregistrement**, pas de sa table : l'interpolation `:class` donnait `equipments/` ou `workers/`, jamais `products/`. Vérifié sur les archives de tenants, où aucun répertoire `products/` n'existe. Les accesseurs `<nom>_file_name`, `_content_type`, `_file_size` et `_updated_at` survivent à la suppression des colonnes — `LegacyAttachmentColumns` les recalcule depuis l'attachement — ce qui évite de réécrire les vues, exchangers et impressions qui les consomment.
 
+> **Sur A.3 — deux plugins restent à reprendre.** Le retrait de Paperclip casse tout site qui *écrivait* via ses attributs. Le balayage des 23 dépôts en a trouvé trois : `ekylibre-planning` (`ScenarioExportJob`, corrigé avec le portage), `ekylibre-viti` (`backend/wine_incoming_harvests_controller.rb:134`) et `ekylibre-baqio` (`integrations/baqio/handlers/sales.rb:149`). Ces deux derniers lèveront à la première génération de document tant qu'ils ne sont pas repris — le motif est identique et la correction tient en trois lignes. Les sites en *lecture* ne sont pas concernés : `LegacyAttachmentColumns` continue de les servir.
+
 > **Sur A.5 — les monkey-patches ne sont pas supprimables.** Le plan supposait qu'ils disparaîtraient avec le fork ; l'inverse s'est vérifié :
 >
 > - `connect_to_new` doit rester surchargé. En amont (ros-apartment 2.11 comme apartment 2.2.1) un schéma absent lève `ActiveRecord::StatementInvalid`, et `TenantNotFound` ne vient que du `rescue *rescuable_exceptions`. Or l'application indexe son 404 sur `TenantNotFound` (elevator `SecuredSubdomain`, `rescue_from` d'`ApplicationController`). La surcharge supprime aussi ce `rescue` fourre-tout, qui déguisait toute `ActiveRecordError` en « tenant inconnu ».
@@ -248,7 +250,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 > Effet de bord : `public_suffix` redescend de 5.0.3 à 4.0.7 (borne de ros-apartment). Sans impact — seul `addressable` le consomme, et il accepte `< 6.0`.
 
 **Critère de sortie** : `bundle install` réussit sous Ruby 3.3, suite de tests verte sur Rails 5.2 + Ruby 3.3, CI sur PG 15.
-**Effort restant : ~40 j·h** (85 → 72 après les arbitrages ; A.1, A.3, A.5 et A.6 faits, A.8 quasi terminé). Reste A.7 (`active_list`, 12), le portage d'`ekylibre-planning` et le plancher SimpleCov. **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
+**Effort restant : ~13 j·h** (85 → 72 après les arbitrages ; A.1, A.3, A.5 et A.6 faits, A.8 quasi terminé). Reste A.7 (`active_list`, 12) et le plancher SimpleCov. **`ekylibre-planning` est porté** — le couplage annoncé n'existait pas : voir [l'audit §3.4](v6-dependency-audit.md). **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
 
 ---
 
@@ -268,10 +270,10 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | B.6 | 7.1 → 7.2 → 8.0 → **8.1** | 15 |
 | B.7 | Sidekiq 4 → Solid Queue ; Redis → Solid Cable. Réinjection du contexte tenant dans `ApplicationJob` | 12 |
 | B.8 | Devise 4.9 → version courante ; **vérifier la disponibilité réelle d'Argon2id** (`has_secure_password` reste sur bcrypt ; Argon2id passe par `devise-argon2`) — la roadmap l'annonce comme un défaut de Rails 8.2, à confirmer avant de s'y engager | 5 |
-| B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 12 j·h** par l'audit A.6 : 12 dépôts n'ont rien à faire, 4 n'ont qu'une borne de gemspec à relâcher, 1 seul (`ekylibre-planning`) demande un portage réel | 12 |
+| B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 6 j·h** : l'audit A.6 avait déjà écarté 12 dépôts sans rien à faire et 4 à simple borne de gemspec ; `ekylibre-planning`, qui portait le reste du chiffrage, est mesuré et porté | 6 |
 
 **Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
-**Effort : ~100 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5). **Dépendance : lot A.**
+**Effort : ~94 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté). **Dépendance : lot A.**
 
 ---
 

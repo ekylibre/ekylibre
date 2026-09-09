@@ -71,7 +71,7 @@ L'audit de mai (`docs/analysis/`) affirme qu'`apartment` verrouille `apartment-s
 | `active_list` | 2026-03-28 | `rails >= 3.2, < 6` | 2 823 | 4 | 5 | **Remplacer** (ADR-6.2) — compat minimale d'ici le lot G |
 | `agric` | 2026-03-28 | `railties >= 3.2, < 6` | 119 | 0 | 0 | **Relâcher** — aucun couplage |
 | `charta` | 2026-03-28 | `activesupport ~> 5.0` | 2 282 | 0 | 0 | **Relâcher** — aucun couplage |
-| `ekylibre-planning` | **2023-03-20** | `rails ~> 5.2` + `coffee-rails` | 5 819 | 37 | 1 | **Porter** — en production, seul fork à couplage réel |
+| `ekylibre-planning` | **2023-03-20** | `rails ~> 5.2` + `coffee-rails` | 5 819 | 0 | 1 | ~~**Porter**~~ → **FAIT** — le couplage annoncé n'existait pas ; voir §3.4 |
 | `ekylibre-viti` | 2026-05-07 | `rails ~> 5.2` | 2 799 | 8 | 0 | **Relâcher + vérifier** |
 | `ekylibre-hve` | 2026-06-21 | `rails ~> 5.2` | 856 | 1 | 0 | **Relâcher** |
 | `ekylibre-economic` | 2026-03-28 | `rails >= 5.2` | 966 | 0 | 0 | Rien à faire (borne ouverte) |
@@ -104,7 +104,32 @@ L'audit de mai (`docs/analysis/`) affirme qu'`apartment` verrouille `apartment-s
   - `lib/active_list/rails/engine.rb:6-7` — `include` dans `ActionController::Base` et `ActionView::Base` (fonctionne en Rails 6/7) ;
   - `lib/active_list/rails/integration.rb:18` — `ActionView::Base.send(:class_eval, generator.view_method_code)`, **le seul point réellement risqué** (la résolution des helpers a changé en Rails 6+).
 
-Sur les 23 dépôts, **un seul** (`ekylibre-planning`) présente un couplage substantiel : 37 références aux internes d'ActiveRecord, dernier commit en mars 2023, dépendances `coffee-rails` / `vuejs-rails`. Il est chargé en production (`docker/prod/Gemfile.prod`), donc non abandonnable.
+`ekylibre-planning` semblait faire exception avec 37 références aux internes d'ActiveRecord. **Le décompte était faux** : voir §3.4.
+
+### 3.4 `ekylibre-planning` : le portage qui n'en était pas un
+
+Le chiffre de 37 « AR-int » comptait tous les fichiers du dépôt. Réparti par répertoire :
+
+| Répertoire | Références `ActiveRecord::` | Nature |
+|---|---:|---|
+| `app/` + `lib/` + `config/` | **0** | le code livré |
+| `spec/` | 42 | dont **40 dans `spec/dummy`**, l'application factice |
+| `test/` | 2 | `ActiveRecord::Migrator.migrations_paths` dans `test_helper.rb` |
+
+L'engine **n'a aucun modèle** : il n'apporte que des contrôleurs, des helpers, des vues et un job — tous les modèles (`InterventionTemplate`, `TechnicalItinerary`, `Scenario`…) viennent de l'application hôte. D'où l'absence totale de couplage. Aucune API retirée en Rails 6/7/8 n'y figure non plus.
+
+Le portage s'est donc réduit aux bornes, vérifiées par Bundler et non déduites : le gemspec se résout jusqu'à **Rails 7.1 sous Ruby 3.0**, et pour Rails 8.0 le seul conflit restant oppose `Ruby >= 3.2` (exigé par Rails) au Ruby de la machine de test — plus rien ne vient du plugin.
+
+**Le seul vrai portage de code ne venait pas de Rails mais de nous.** `ScenarioExportJob` créait son document d'export en passant `file:` un StringIO et le nom sous `file_file_name:`, deux attributs que Paperclip acceptait. Le lot A.3 ayant retiré Paperclip et supprimé ces colonnes, le job levait sur toute exportation. Corrigé et vérifié en exécution.
+
+> **Trois autres plugins écrivaient de la même façon** et sont cassés par A.3 tant qu'ils ne sont pas repris : `ekylibre-viti` (`wine_incoming_harvests_controller.rb:134`) et `ekylibre-baqio` (`integrations/baqio/handlers/sales.rb:149`). `ekylibre-qonto` n'est concerné qu'en lecture (`file_file_name.present?` dans un test), ce que `LegacyAttachmentColumns` continue de servir.
+
+L'état de la suite de tests est en revanche mauvais, et indépendant de la montée :
+
+- `spec/` (20 fichiers, ~64 cas) repose sur `spec/dummy`, une application factice dont les migrations héritent de `ActiveRecord::Migration` **sans version** — invalide depuis Rails 5.0. Son `schema.rb` date de 2018. Cette suite ne s'exécute plus depuis des années ; le dépôt n'a même pas de `Gemfile.lock`.
+- `test/` (10 fichiers) ne contient que 8 cas réels, dont 7 dans `technical_itineraries_controller_test.rb` — qui **échoue déjà aujourd'hui en Rails 5.2** : le harnais de l'application ne charge pas les fixtures du plugin (`undefined method 'technical_itineraries'`).
+
+Autrement dit, ce plugin n'a aujourd'hui **aucun filet de sécurité automatisé**, ce qui pèse davantage sur la montée que son couplage — inexistant.
 
 ### 3.3 Dev et production chargent la même liste
 
@@ -121,11 +146,11 @@ Le chiffrage initial du lot B (B.9, « montée en verrou des 7 forks + 12 plugin
 | Épinglages à relâcher (gems publiques) | 3 | trivial |
 | Bornes de gemspec à relâcher (forks sans couplage) | 4 — `agric`, `charta`, `ekylibre-hve`, `ekylibre-viti` | faible |
 | Rien à faire | 12 | nul |
-| Portage réel | **1** — `ekylibre-planning` | substantiel |
+| Portage réel | **0** — `ekylibre-planning` mesuré : aucun couplage (§3.4) | ~~substantiel~~ → fait |
 | Remplacement | 4 — `active_list`, `apartment`, `state_machine`, `paperclip` | déjà chiffré en A.2/A.3/A.5/A.7 |
 | Amont mort à contourner | 1 — `bootstrap-slider-rails` | faible, disparaît au lot G |
 
-**B.9 est ramené de 30 à ~12 j·h.** Le lot B passe donc de ~118 à **~100 j·h**.
+**B.9 est ramené de 30 à ~12 j·h**, puis à **~6 j·h** une fois `ekylibre-planning` mesuré et porté (§3.4) : il concentrait l'essentiel du reliquat. Le lot B passe donc de ~118 à **~94 j·h**.
 
 ---
 
@@ -143,7 +168,7 @@ Le chiffrage initial du lot B (B.9, « montée en verrou des 7 forks + 12 plugin
 2. **A.2 `state_machine` → `aasm`** — le plus gros poste (20 j·h) et le plus risqué : 10+ modèles comptables et logistiques. À démarrer tôt.
 3. **Relâchement des bornes** — 3 épinglages publics + 4 gemspecs de forks. Rapide, et rend la montée testable de bout en bout.
 4. **A.3 Paperclip → Active Storage**, **A.4 suppression de Jasper**.
-5. **`ekylibre-planning`** — le seul portage réel ; peut avancer en parallèle.
+5. ~~**`ekylibre-planning`**~~ — **fait** ; le portage annoncé n'existait pas, seules les bornes bloquaient (§3.4).
 6. **A.7 `active_list`** — dépend d'ADR-6.3 (choix du front).
 
 ---
