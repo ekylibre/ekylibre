@@ -63,13 +63,17 @@ class StateBarBuilder
       extract_possible_transitions_from_state_machine resource
     end
 
+    # Uses `to_for` rather than `to`: a transition may land on a different
+    # state depending on where it starts from (Delivery#cancel, Shipment#cancel).
     def extract_possible_transitions_from_transitionable(resource)
+      current = resource.send(attribute).to_sym
       transitions_mod = resource.class.const_get :Transitions
       transitions_mod.constants
         .map { |c| transitions_mod.const_get c }
         .select { |c| c < Transitionable::Transition }
-        .select { |t| t.from.include? resource.send(attribute).to_sym }
-        .map { |t| [t.to, t] }
+        .select { |t| t.from.include? current }
+        .map { |t| [t.to_for(current), t] }
+        .reject { |(destination, _)| destination.nil? }
         .to_h
     end
 

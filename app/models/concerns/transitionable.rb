@@ -129,6 +129,21 @@ module Transitionable
       end
 
       ##
+      # Destination state reached when the transition runs from +source+.
+      #
+      # Most transitions have a single destination and need not override this.
+      # A few (Delivery#cancel, Shipment#cancel) step back to a different state
+      # depending on where they start from, which the `to` DSL alone cannot
+      # express. Overriding this keeps the state bar accurate for them.
+      #
+      # @param source [Symbol] the state the resource is currently in
+      # @return [Symbol, nil] destination state, or nil when +source+ is not a
+      #   valid starting point
+      def to_for(_source)
+        to
+      end
+
+      ##
       # DSL to define (or get when no argument is provided) the name of the event that the Transition represents
       def event(name = nil)
         return @event unless name.present?
@@ -232,18 +247,52 @@ module Transitionable
         end
       end
 
+      # Event methods are defined in a module that is then included, rather
+      # than directly on the class. That way a model can override an event and
+      # still reach this implementation with `super` — several do
+      # (Sale#confirm, Delivery#start, Shipment#order...), and state_machine
+      # supported it because its generated methods also lived in a module.
+      #
+      # Positional arguments are swallowed: overrides such as
+      # `Sale#confirm(confirmed_at = Time.zone.now)` forward them through a
+      # bare `super`, and state_machine's generated events accepted them.
       def define_methods_for(transitions)
-        transitions.keys.each do |event|
-          define_method "can_#{event}?" do |**options|
-            _get_transition(event).new(self, **options).can_run?
-          end
+        mod = Module.new do
+          transitions.keys.each do |event|
+            define_method "can_#{event}?" do |*_args, **options|
+              _get_transition(event).new(self, **options).can_run?
+            end
 
-          define_method event do |**options|
-            transition = _get_transition event
+            define_method event do |*_args, **options|
+              transition = _get_transition event
 
-            transition.new(self, **options).run if transition
+              transition.new(self, **options).run if transition
+            end
+
+            # Bang variant, as state_machine also generated it:
+            #   object.send(event, *args) || raise(InvalidTransition)
+            # It DELEGATES to the non-bang method rather than running the
+            # transition itself, so a model override still applies. Several
+            # rely on that — Sale#invoice(invoiced_at) sets invoiced_at before
+            # calling super, and `sale.invoice!(date)` must go through it.
+            define_method "#{event}!" do |*args, **options|
+              # `send(event, *args, **{})` would hand an empty positional hash
+              # to a zero-arity override under Ruby 2.6, so only forward the
+              # options when there are any.
+              result = options.empty? ? send(event, *args) : send(event, *args, **options)
+
+              result || raise(
+                Transitionable::TransitionError.new(
+                  "Transition #{event} failed for #{self}",
+                  resource: self,
+                  transition: _get_transition(event)
+                )
+              )
+            end
           end
         end
+
+        include mod
       end
   end
 end

@@ -111,9 +111,12 @@ module Backend
       t.column :unit_pretax_amount, currency: true, class: 'right-align'
     end
 
-    Shipment.state_machine.events.each do |event|
-      define_method event.name do
-        fire_event(event.name)
+    # Event names come from the Transitionable concern. Shipment.state_machine
+    # still answers (the gem lazily builds an empty machine) but lists no
+    # events, which would silently drop these actions.
+    Shipment.transitions.keys.each do |event|
+      define_method event do
+        fire_event(event)
       end
     end
 

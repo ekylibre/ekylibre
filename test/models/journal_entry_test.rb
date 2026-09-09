@@ -267,7 +267,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'can be closed when confirmed' do
     entry = create(:journal_entry, state: :confirmed, items: fake_items)
     assert entry.close
-    assert_equal :closed, entry.state_name
+    assert_equal :closed, entry.state.to_sym
   end
 
   test 'confirm set the validated at' do

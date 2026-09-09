@@ -2,8 +2,7 @@
 
 = kujaku do |k|
   - k.text
-  - sm = Sale.state_machine.states
-  - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Sale.human_attribute_name(:state)
+  - k.multi_choice :state, Sale.state.options.map { |text, value| [text, value.to_sym] }, label: Sale.human_attribute_name(:state)
   - k.helper :journal_period_crit
   - k.choice :all, :unpaid, name: :nature
   - responsibles = Entity.where(id: Sale.select(:responsible_id).distinct)

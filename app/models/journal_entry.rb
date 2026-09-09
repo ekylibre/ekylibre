@@ -66,6 +66,7 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < ApplicationRecord
+  include Transitionable
   class IncompatibleCurrencies < StandardError; end
 
   include Attachable
@@ -129,24 +130,11 @@ class JournalEntry < ApplicationRecord
     where(printed_on: started_on..stopped_on)
   }
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :confirmed
-    state :closed
-    before_transition to: :confirmed do |model, _transition|
-      model.validated_at = Time.zone.now
-    end
-    event :confirm do
-      transition draft: :confirmed, if: :balanced?
-    end
-    event :close do
-      transition draft: :closed, if: :balanced?
-      transition confirmed: :closed, if: :balanced?
-    end
-    # event :reopen do
-    #   transition :closed => :confirmed
-    # end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. The `before_transition
+  # to: :confirmed` callback that set validated_at now lives in
+  # app/services/journal_entry/transitions/confirm.rb.
+  enumerize :state, in: %i[draft confirmed closed], default: :draft, predicates: true
 
   class << self
     # Build an SQL condition based on options which should contains acceptable states
@@ -199,7 +187,7 @@ class JournalEntry < ApplicationRecord
 
     # Returns states names
     def states
-      state_machine.states.collect(&:name)
+      state.values.map(&:to_sym)
     end
 
     private
@@ -371,7 +359,7 @@ class JournalEntry < ApplicationRecord
   end
 
   def editable?
-    state_name == :draft
+    draft?
   end
 
   def need_currency_change?

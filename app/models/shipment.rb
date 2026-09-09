@@ -68,6 +68,7 @@
 #  with_delivery                        :boolean          default(FALSE), not null
 #
 class Shipment < Parcel
+  include Transitionable
   belongs_to :sale, inverse_of: :parcels
   belongs_to :sale_nature, inverse_of: :shipments
   has_many :items, class_name: 'ShipmentItem', inverse_of: :shipment, foreign_key: :parcel_id, dependent: :destroy
@@ -77,36 +78,11 @@ class Shipment < Parcel
   alias_method :entity, :recipient
   alias_method :third, :recipient
 
-  state_machine initial: :draft do
-    state :draft
-    state :ordered
-    state :in_preparation
-    state :prepared
-    state :given
-
-    event :order do
-      transition draft: :ordered, if: :any_items?
-    end
-    event :prepare do
-      transition draft: :in_preparation, if: :any_items?
-      transition ordered: :in_preparation, if: :any_items?
-    end
-    event :check do
-      transition draft: :prepared, if: :all_items_prepared?
-      transition ordered: :prepared, if: :all_items_prepared?
-      transition in_preparation: :prepared, if: :all_items_prepared?
-    end
-    event :give do
-      transition draft: :given, if: :giveable?
-      transition ordered: :given, if: :giveable?
-      transition in_preparation: :given, if: :giveable?
-      transition prepared: :given, if: :giveable?
-    end
-    event :cancel do
-      transition ordered: :draft
-      transition in_preparation: :ordered
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/shipment/transitions/.
+  enumerize :state, in: %i[draft ordered in_preparation prepared given], default: :draft, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   after_initialize do
     next if persisted?
@@ -151,7 +127,15 @@ class Shipment < Parcel
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    state.text
+  end
+
+  # Replaces the method state_machine used to generate. Consumed by the list
+  # columns declared with `label_method: :human_state_name`.
+  #
+  # @return [String] translated name of the current state
+  def human_state_name
+    state.text
   end
 
   def check

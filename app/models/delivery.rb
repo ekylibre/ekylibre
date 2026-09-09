@@ -47,6 +47,7 @@
 
 class Delivery < ApplicationRecord
   include Attachable
+  include Transitionable
   include Customizable
   acts_as_numbered
   enumerize :mode, in: %i[transporter us third], predicates: true, default: :us
@@ -70,40 +71,11 @@ class Delivery < ApplicationRecord
   accepts_nested_attributes_for :tools, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :parcels, reject_if: :all_blank, allow_destroy: true
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :ordered
-    state :in_preparation
-    state :prepared
-    state :started
-    state :finished
-
-    event :order do
-      transition draft: :ordered
-    end
-    event :prepare do
-      transition ordered: :in_preparation
-    end
-    event :check do
-      transition in_preparation: :prepared, if: :all_parcels_almost_prepared?
-    end
-    event :start do
-      transition in_preparation: :started, if: :all_parcels_prepared?
-      transition prepared: :started, if: :all_parcels_prepared?
-    end
-    event :finish do
-      transition in_preparation: :finished, if: :all_parcels_prepared?
-      transition prepared: :finished, if: :all_parcels_prepared?
-      transition started: :finished, if: :all_parcels_prepared?
-    end
-    event :cancel do
-      transition ordered: :draft
-      transition in_preparation: :ordered
-      # transition prepared: :in_preparation
-      transition started: :prepared
-      # transition finished: :started
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/delivery/transitions/.
+  enumerize :state, in: %i[draft ordered in_preparation prepared started finished], default: :draft, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   before_validation do
     self.state ||= :draft
@@ -172,7 +144,15 @@ class Delivery < ApplicationRecord
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    state.text
+  end
+
+  # Replaces the method state_machine used to generate. Consumed by the list
+  # columns declared with `label_method: :human_state_name`.
+  #
+  # @return [String] translated name of the current state
+  def human_state_name
+    state.text
   end
 
   def all_parcels_almost_prepared?

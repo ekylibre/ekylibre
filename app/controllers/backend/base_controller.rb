@@ -478,7 +478,7 @@ module Backend
         # accountancy -> crit_params
         def crit_params(hash)
           nh = {}
-          keys = JournalEntry.state_machine.states.collect(&:name)
+          keys = JournalEntry.states
           keys += %i[period started_at stopped_at accounts centralize]
           hash.keys.each do |k|
             nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) || keys.include?(k.to_sym)

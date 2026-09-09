@@ -76,6 +76,7 @@ require 'benchmark'
 
 class Sale < ApplicationRecord
   include Attachable
+  include Transitionable
   include Customizable
   include Providable
   attr_readonly :currency
@@ -146,37 +147,11 @@ class Sale < ApplicationRecord
 
   scope :unpaid, -> { where(state: %w[order invoice]).where.not(affair: Affair.closeds) }
 
-  state_machine :state, initial: :draft do
-    state :draft
-    state :estimate
-    state :refused
-    state :order
-    state :invoice
-    state :aborted
-
-    event :propose do
-      transition draft: :estimate, if: :has_content?
-      transition refused: :estimate
-    end
-    event :correct do
-      transition estimate: :draft
-      transition refused: :draft
-      transition order: :draft # , if: lambda{|sale| !sale.partially_closed?}
-    end
-    event :refuse do
-      transition estimate: :refused, if: :has_content?
-    end
-    event :confirm do
-      transition estimate: :order, if: :has_content?
-    end
-    event :invoice do
-      transition %i[draft estimate order] => :invoice, if: :has_content?
-    end
-    event :abort do
-      transition draft: :aborted
-      transition estimate: :aborted
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/sale/transitions/.
+  enumerize :state, in: %i[draft estimate refused order invoice aborted], default: :draft, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   after_initialize do
     next if persisted?
@@ -514,6 +489,14 @@ class Sale < ApplicationRecord
     end
     hash[:items_attributes] = items_attributes
     self.class.create!(hash.with_indifferent_access.deep_merge(attributes))
+  end
+
+  # Replaces the method state_machine used to generate. Consumed by the list
+  # columns declared with `label_method: :human_state_name`.
+  #
+  # @return [String] translated name of the current state
+  def human_state_name
+    state.text
   end
 
   # Prints human name of current state
