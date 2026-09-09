@@ -64,6 +64,7 @@
 
 class ActivityProduction < ApplicationRecord
   include Attachable
+  include Transitionable
   include Customizable
   include Providable
 
@@ -193,24 +194,11 @@ class ActivityProduction < ApplicationRecord
 
   scope :with_technical_itinerary, -> { where.not(technical_itinerary: nil)}
 
-  state_machine :state, initial: :opened do
-    state :opened
-    state :aborted
-    state :closed
-
-    event :abort do
-      transition opened: :aborted
-    end
-
-    event :close do
-      transition opened: :closed
-    end
-
-    event :reopen do
-      transition closed: :opened
-      transition aborted: :opened
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/activity_production/transitions/.
+  enumerize :state, in: %i[opened aborted closed], default: :opened, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   before_validation do
     self.state ||= :opened

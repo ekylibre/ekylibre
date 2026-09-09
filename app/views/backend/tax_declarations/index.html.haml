@@ -9,8 +9,7 @@
 
 = kujaku do |k|
   - k.text
-  - sm = TaxDeclaration.state_machine.states
-  - k.multi_choice :state, [:draft, :validated, :sent].map{|s| [sm[s].human_name, s] }, label: TaxDeclaration.human_attribute_name(:state)
+  - k.multi_choice :state, TaxDeclaration.state.options.map { |text, value| [text, value.to_sym] }, label: TaxDeclaration.human_attribute_name(:state)
   - args = FinancialYear.current ? { default: "#{FinancialYear.current.started_on}_#{FinancialYear.current.stopped_on}" } : {}
   - k.helper :journal_period_crit, args
 

@@ -2,8 +2,11 @@
 
 = kujaku do |k|
   - k.text
-  - sm = Purchase.state_machine.states
-  - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Purchase.human_attribute_name(:state)
+  -# Purchase never declared a state_machine, so `sm[s]` was always nil here and
+  -# this filter raised NoMethodError. The list itself looks copy-pasted from
+  -# Sale: the states a Purchase actually takes are draft (base), opened/closed
+  -# (PurchaseOrder) and invoice (PurchaseInvoice).
+  - k.multi_choice :state, %i[draft opened closed invoice].map { |s| [I18n.t("models.purchase.states.#{s}", default: s.to_s.humanize), s] }, label: Purchase.human_attribute_name(:state)
   - k.helper :journal_period_crit, label: :invoice_period.tl
   - k.choice :all, :unpaid, name: :nature
   - responsibles = User.where(id: Purchase.select(:responsible_id).distinct)

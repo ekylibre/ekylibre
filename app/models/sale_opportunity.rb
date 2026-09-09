@@ -56,6 +56,7 @@
 
 class SaleOpportunity < SaleAffair
   include Commentable
+  include Transitionable
   include Versionable
   attr_readonly :currency
   refers_to :origin, class_name: 'OpportunityOrigin'
@@ -67,60 +68,11 @@ class SaleOpportunity < SaleAffair
   validates :client, :responsible, presence: true
   validates :probability_percentage, numericality: { in: 0..100 }
 
-  state_machine :state, initial: :prospecting do
-    state :prospecting
-    state :qualification
-    state :value_proposition
-    state :price_quote
-    state :negociation
-    state :won
-    state :lost
-
-    event :prospect do
-      transition all => :prospecting
-      # transition :prospecting => :qualification
-      # transition :value_proposition => :qualification
-    end
-
-    event :qualify do
-      transition all => :qualification
-      # transition :prospecting => :qualification
-      # transition :value_proposition => :qualification
-    end
-
-    event :evaluate do
-      transition all => :value_proposition
-      # transition :qualification => :value_proposition
-      # transition :price_quote => :value_proposition
-    end
-
-    event :quote do
-      transition all => :price_quote
-      # transition :value_proposition => :price_quote
-      # transition :negociation => :price_quote
-    end
-
-    event :negociate do
-      transition all => :negociation
-      # transition :price_quote => :negociation
-      # transition :won => :negociation
-      # transition :lost => :negociation
-    end
-
-    event :win do
-      transition all => :won
-      #  transition :negociation => :won
-    end
-
-    event :lose do
-      transition all => :lost
-      # transition :prospecting => :lost
-      # transition :qualification => :lost
-      # transition :value_proposition => :lost
-      # transition :price_quote => :lost
-      # transition :negociation => :lost
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/sale_opportunity/transitions/.
+  enumerize :state, in: %i[prospecting qualification value_proposition price_quote negociation won lost], default: :prospecting, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   scope :opened, -> { where(state: %w[prospecting qualification value_proposition price_quote negociation]) }
 
@@ -158,7 +110,7 @@ class SaleOpportunity < SaleAffair
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    state.text
   end
 
   # Returns age in seconds of the sale opportunities

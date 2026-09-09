@@ -1,7 +1,6 @@
 = kujaku do |k|
   - k.text
-  - sm = Contract.state_machine.states
-  - k.multi_choice :state, [:prospecting, :price_quote, :negociation, :won, :lost].map{|s| [sm[s].human_name, s] }, label: Contract.human_attribute_name(:state)
+  - k.multi_choice :state, Contract.state.options.map { |text, value| [text, value.to_sym] }, label: Contract.human_attribute_name(:state)
   - responsibles = User.where(id: Contract.select(:responsible_id).distinct)
   - if responsibles.any?
     - k.helper do

@@ -46,6 +46,7 @@
 
 class Contract < ApplicationRecord
   include Attachable
+  include Transitionable
   include Customizable
   attr_readonly :currency
   refers_to :currency
@@ -72,33 +73,11 @@ class Contract < ApplicationRecord
 
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
 
-  state_machine :state, initial: :prospecting do
-    state :prospecting
-    state :price_quote
-    state :negociation
-    state :won
-    state :lost
-
-    event :prospect do
-      transition all => :prospecting
-    end
-
-    event :quote do
-      transition all => :price_quote
-    end
-
-    event :negociate do
-      transition all => :negociation
-    end
-
-    event :win do
-      transition all => :won
-    end
-
-    event :lose do
-      transition all => :lost
-    end
-  end
+  # States and transitions are handled by the in-house Transitionable
+  # component, which replaces the state_machine gem. Transitions live in
+  # app/services/contract/transitions/.
+  enumerize :state, in: %i[prospecting price_quote negociation won lost], default: :prospecting, predicates: true,
+                    i18n_scope: "models.#{model_name.param_key}.states"
 
   before_validation(on: :create) do
     self.state ||= :prospecting
@@ -125,7 +104,7 @@ class Contract < ApplicationRecord
 
   # Prints human name of current state
   def state_label
-    self.class.state_machine.state(self.state.to_sym).human_name
+    state.text
   end
 
   # Returns dayleft in day of the contract
