@@ -10,7 +10,6 @@ module Backend
         t.column :ocr_presence, datatype: :boolean
         t.column :uploaded, hidden: true
         t.column :file_pages_count, class: "center-align"
-        t.column :file_fingerprint, hidden: true
       end
 
       def show; end

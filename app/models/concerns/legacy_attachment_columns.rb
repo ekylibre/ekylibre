@@ -13,9 +13,11 @@
 # working, which is what makes the migration model-by-model rather than
 # big-bang.
 #
-# The columns themselves are still present and still hold the values written by
-# Paperclip: they are the fallback for records whose file has not been migrated
-# yet. They will be dropped once the data migration has run everywhere.
+# The columns are gone since DropPaperclipColumns, but the fallback on
+# `self[...]` stays: `read_attribute` returns nil for an unknown attribute
+# rather than raising, and the fallback is what ImportPaperclipAttachments reads
+# to recover a file's original name and type — at that point in the migration
+# series the columns are still there.
 module LegacyAttachmentColumns
   extend ActiveSupport::Concern
 

@@ -41,10 +41,6 @@
 #  lock_version              :integer(4)       default(0), not null
 #  name                      :string           not null
 #  number                    :string           not null
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer(4)
-#  picture_updated_at        :datetime
 #  population_counting       :string           not null
 #  provider                  :jsonb
 #  reference_name            :string
@@ -105,9 +101,7 @@ class ProductNature < ApplicationRecord
   validates :active, :evolvable, :subscribing, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
-  validates :picture_content_type, :picture_file_name, :reference_name, length: { maximum: 500 }, allow_blank: true
-  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :population_counting, :variety, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 30 }

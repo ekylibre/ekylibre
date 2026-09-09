@@ -27,12 +27,7 @@
 #  creator_id             :integer(4)
 #  custom_fields          :jsonb
 #  file_content_text      :text
-#  file_content_type      :string
-#  file_file_name         :string
-#  file_file_size         :integer(4)
-#  file_fingerprint       :string
 #  file_pages_count       :integer(4)
-#  file_updated_at        :datetime
 #  id                     :integer(4)       not null, primary key
 #  key                    :string           not null
 #  metadata               :jsonb            default("{}")

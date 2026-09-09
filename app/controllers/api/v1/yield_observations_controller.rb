@@ -30,10 +30,8 @@ module Api
         end
 
         observation.attachments = base64_pictures.each_with_index.collect do |pic, i|
-          file = Paperclip.io_adapters.for(pic, hash_digest: Digest::MD5)
-          ext = Rack::Mime::MIME_TYPES.invert[file.content_type]
-          file.original_filename = "observation_#{i+1}_#{Time.zone.now.to_i}#{ext}"
-          Attachment.new(document_attributes: { file: file })
+          document = build_document_from_data_uri(pic, "observation_#{i + 1}_#{Time.zone.now.to_i}")
+          Attachment.new(document: document)
         end
 
         if observation.save
@@ -46,6 +44,29 @@ module Api
       end
 
       protected
+
+        # Paperclip.io_adapters savait lire une data-URI base64 ; Active Storage
+        # attend un io. On décode donc nous-mêmes.
+        #
+        # @param data_uri [String] "data:image/jpeg;base64,...."
+        # @param basename [String] nom du fichier, sans extension
+        # @return [Document]
+        # @raise [ActionController::BadRequest] si la data-URI est malformée
+        def build_document_from_data_uri(data_uri, basename)
+          match = data_uri.to_s.match(%r{\Adata:(?<type>[-\w.+]+/[-\w.+]+);base64,(?<payload>.+)\z}m)
+          raise ActionController::BadRequest.new('Malformed picture payload') if match.nil?
+
+          content_type = match[:type]
+          extension = Rack::Mime::MIME_TYPES.invert[content_type]
+          filename = "#{basename}#{extension}"
+
+          # Comme avant : aucune nature n'est fixée ici, Document s'en charge.
+          document = Document.new(name: filename, key: "#{Time.now.to_i}-#{filename}")
+          document.file.attach(io: StringIO.new(Base64.decode64(match[:payload])),
+                               filename: filename,
+                               content_type: content_type)
+          document
+        end
 
         def permitted_params
           super.permit(:observed_at, :activity_id, :vegetative_stage_id, :geolocation, :description, pictures: [], plants: %i[id], issues: %i[id])

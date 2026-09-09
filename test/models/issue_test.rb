@@ -35,10 +35,6 @@
 #  name                 :string           not null
 #  nature               :string           not null
 #  observed_at          :datetime         not null
-#  picture_content_type :string
-#  picture_file_name    :string
-#  picture_file_size    :integer(4)
-#  picture_updated_at   :datetime
 #  priority             :integer(4)
 #  state                :string
 #  target_id            :integer(4)

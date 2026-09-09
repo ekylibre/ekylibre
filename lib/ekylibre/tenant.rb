@@ -85,8 +85,9 @@ module Ekylibre
       def grant_read_only_access(name)
         duke_user = ENV['DUKE_USER']
         return if duke_user.blank?
+
         validate_name!(name)
-        raise ArgumentError, "Invalid duke user: #{duke_user}" unless duke_user.match?(NAME_PATTERN)
+        raise ArgumentError.new("Invalid duke user: #{duke_user}") unless duke_user.match?(NAME_PATTERN)
 
         connection = ActiveRecord::Base.connection
         return unless connection.select_value("SELECT 1 FROM pg_roles WHERE rolname = #{connection.quote(duke_user)}")
@@ -206,6 +207,7 @@ module Ekylibre
           unless name = requested || manifest[:tenant]
             raise 'No given name for the tenant'
           end
+
           # manifest.yml ships inside the archive: attacker-controlled too.
           name = validate_name!(name)
 
@@ -540,7 +542,15 @@ module Ekylibre
               path: tables_path,
               verbose: verbose
             )
+            # Une archive antérieure à Active Storage porte ses fichiers sous
+            # files/attachments/, à l'emplacement que Paperclip calculait, et
+            # ses colonnes <nom>_file_name renseignées — mais aucun blob. Les
+            # fichiers ayant déjà été remis en place ci-dessus, la reprise se
+            # fait toute seule : elle est une migration (ImportPaperclipAttachments)
+            # que le bloc rejoue au passage, juste avant que les colonnes ne
+            # soient supprimées.
             yield(restore_options)
+
             puts 'Restored!'.yellow if verbose
           end
 

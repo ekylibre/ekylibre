@@ -43,10 +43,6 @@
 #  nature_id                 :integer(4)       not null
 #  number                    :string           not null
 #  pictogram                 :string
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer(4)
-#  picture_updated_at        :datetime
 #  provider                  :jsonb
 #  providers                 :jsonb
 #  reference_name            :string
@@ -117,11 +113,9 @@ class ProductNatureVariant < ApplicationRecord
   validates :active, inclusion: { in: [true, false] }
   validates :default_quantity, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :category, :default_unit, :default_unit_name, :nature, :variety, presence: true
-  validates :france_maaid, :gtin, :pictogram, :picture_content_type, :picture_file_name, :reference_name, :specie_variety, :unit_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :france_maaid, :gtin, :pictogram, :reference_name, :specie_variety, :unit_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
-  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }

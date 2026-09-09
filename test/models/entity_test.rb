@@ -59,10 +59,6 @@
 #  nature                       :string           not null
 #  number                       :string
 #  of_company                   :boolean          default(FALSE), not null
-#  picture_content_type         :string
-#  picture_file_name            :string
-#  picture_file_size            :integer(4)
-#  picture_updated_at           :datetime
 #  proposer_id                  :integer(4)
 #  prospect                     :boolean          default(FALSE), not null
 #  provider                     :jsonb

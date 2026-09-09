@@ -1327,7 +1327,6 @@ eng:
     file_extension: "File extension"
     file_file_name: "File file name"
     file_file_size: "File size"
-    file_fingerprint: "File fingerprint"
     file_pages_count: "Pages count"
     file_size: "file size"
     file_updated_at: "Updated at"

@@ -59,10 +59,6 @@
 #  nature                       :string           not null
 #  number                       :string
 #  of_company                   :boolean          default(FALSE), not null
-#  picture_content_type         :string
-#  picture_file_name            :string
-#  picture_file_size            :integer(4)
-#  picture_updated_at           :datetime
 #  proposer_id                  :integer(4)
 #  prospect                     :boolean          default(FALSE), not null
 #  provider                     :jsonb
@@ -103,10 +99,6 @@ entities_001:
   nature: organization
   number: '129'
   of_company: true
-  picture_content_type: image/png
-  picture_file_name: logo.png
-  picture_file_size: 9354
-  picture_updated_at: 2015-09-17 16:25:23.013765000 Z
   prospect: false
   reminder_submissive: false
   siret_number: ''

@@ -4,8 +4,11 @@ namespace :attachments do
   desc <<~DESC
     Reprend les fichiers Paperclip dans Active Storage.
 
-    À exécuter APRÈS déploiement du code et AVANT le retrait des colonnes
-    Paperclip : jusque-là, les fichiers historiques ne sont pas lisibles.
+    La reprise est normalement faite par la migration ImportPaperclipAttachments,
+    qui précède immédiatement la suppression des colonnes. Cette tâche sert au
+    rejeu à froid et à l'inventaire — elle n'a plus rien à reprendre une fois les
+    colonnes <nom>_file_name supprimées, faute desquelles plus rien ne relie une
+    ligne à son fichier.
 
       TENANT=demo rake attachments:migrate_to_active_storage
       rake attachments:migrate_to_active_storage            # tous les tenants

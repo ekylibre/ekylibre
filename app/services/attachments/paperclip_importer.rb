@@ -27,18 +27,29 @@ module Attachments
     # [model, attachment name, path builder]
     def self.specifications
       [
-        [Document, :file, ->(record) { partitioned_directory('documents', record.id) }],
-        [Guide, :reference_source, ->(record) { flat_directory('guides', record.id) }],
-        [FinancialYearExchange, :import_file, ->(record) { flat_directory('financial_year_exchanges', record.id) }],
-        [Import, :archive, ->(record) { flat_directory('imports', record.id) }],
+        [Document, :file, ->(record) { partitioned_directory(class_segment(record), record.id) }],
+        [Guide, :reference_source, ->(record) { flat_directory(class_segment(record), record.id) }],
+        [FinancialYearExchange, :import_file, ->(record) { flat_directory(class_segment(record), record.id) }],
+        [Import, :archive, ->(record) { flat_directory(class_segment(record), record.id) }],
         *picture_specifications
       ]
     end
 
     def self.picture_specifications
       [Product, ProductNature, ProductNatureVariant, Issue, Entity].map do |model|
-        [model, :picture, ->(record) { partitioned_directory("#{model.table_name}/pictures", record.id) }]
+        [model, :picture, ->(record) { partitioned_directory("#{class_segment(record)}/pictures", record.id) }]
       end
+    end
+
+    # Paperclip's `:class` interpolation was the RECORD's class, not the table.
+    # It matters for the STI hierarchies: a Product picture lives under
+    # `equipments/` or `workers/`, never under `products/`. Confirmed against
+    # the tenant archives in tmp/archives.
+    #
+    # @param record [ApplicationRecord]
+    # @return [String]
+    def self.class_segment(record)
+      record.class.name.underscore.pluralize
     end
 
     def self.attachments_root
@@ -73,6 +84,10 @@ module Attachments
       attr_reader :dry_run, :logger
 
       def import(model, name, directory_for)
+        # Une fois DropPaperclipColumns passée, plus rien n'est à reprendre et
+        # la colonne n'existe plus : filtrer dessus lèverait PG::UndefinedColumn.
+        return unless model.column_names.include?("#{name}_file_name")
+
         scope = model.where.not("#{name}_file_name" => nil)
         return if scope.none?
 

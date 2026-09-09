@@ -53,6 +53,11 @@ gem 'ros-apartment-sidekiq', '~> 1.2', require: 'apartment-sidekiq'
 gem 'coffee-rails', '~> 4.1'
 gem 'sassc-rails', '~> 2.0'
 
+# Docsplit arrivait jusqu'ici par paperclip-document (retirée) : il reste
+# nécessaire à Documents::DerivativesBuilder, qui extrait le texte, compte les
+# pages et convertit en PDF.
+gem 'burisu-docsplit', '~> 0.7.9', require: 'docsplit'
+
 # Requis par les variantes Active Storage : en Rails 5.2, ActiveStorage::Variation
 # pilote directement MiniMagick (image_processing n'arrive qu'en Rails 6).
 gem 'mini_magick', '~> 4.11'
@@ -144,8 +149,6 @@ gem 'omniauth', '~> 1.9'
 gem 'omniauth-oauth2', '~> 1.7'
 
 # Attachments
-gem 'paperclip', '~> 5.3'
-gem 'paperclip-document', '~> 0.0.11'
 
 # Emailing
 gem 'liquid-rails'

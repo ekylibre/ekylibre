@@ -1,4 +1,4 @@
-\restrict 0Ct9lcgQCjFT7WZO4G5Ol5Sd1bNOApMmco7ayRh1vPrqtxmA1P0BGAnz19Yfnsz
+\restrict U9iZSafuTGJKTWRbjUK5RovK401DZPrjt3fvZmRHT8S8bQOFHZ3wDHcwLVkRNCw
 
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
 -- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
@@ -2104,10 +2104,6 @@ CREATE TABLE public.products (
     born_at timestamp without time zone,
     dead_at timestamp without time zone,
     description text,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
     identification_number character varying,
     work_number character varying,
     address_id integer,
@@ -4745,11 +4741,6 @@ CREATE TABLE public.documents (
     lock_version integer DEFAULT 0 NOT NULL,
     uploaded boolean DEFAULT false NOT NULL,
     template_id integer,
-    file_file_name character varying,
-    file_file_size integer,
-    file_content_type character varying,
-    file_updated_at timestamp without time zone,
-    file_fingerprint character varying,
     file_pages_count integer,
     file_content_text text,
     custom_fields jsonb,
@@ -4869,10 +4860,6 @@ CREATE TABLE public.entities (
     siret_number character varying,
     locked boolean DEFAULT false NOT NULL,
     of_company boolean DEFAULT false NOT NULL,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -5611,10 +5598,6 @@ CREATE TABLE public.financial_year_exchanges (
     closed_at timestamp without time zone,
     public_token character varying,
     public_token_expired_at timestamp without time zone,
-    import_file_file_name character varying,
-    import_file_content_type character varying,
-    import_file_file_size integer,
-    import_file_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -6031,10 +6014,6 @@ CREATE TABLE public.guides (
     external boolean DEFAULT false NOT NULL,
     frequency character varying NOT NULL,
     reference_name character varying,
-    reference_source_file_name character varying,
-    reference_source_content_type character varying,
-    reference_source_file_size integer,
-    reference_source_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -6538,10 +6517,6 @@ CREATE TABLE public.imports (
     id integer NOT NULL,
     state character varying NOT NULL,
     nature character varying NOT NULL,
-    archive_file_name character varying,
-    archive_content_type character varying,
-    archive_file_size integer,
-    archive_updated_at timestamp without time zone,
     importer_id integer,
     imported_at timestamp without time zone,
     progression_percentage numeric(19,4),
@@ -7588,10 +7563,6 @@ CREATE TABLE public.issues (
     state character varying,
     name character varying NOT NULL,
     description text,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -9864,10 +9835,6 @@ CREATE TABLE public.product_nature_variants (
     reference_name character varying,
     unit_name character varying,
     active boolean DEFAULT true NOT NULL,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
@@ -9930,10 +9897,6 @@ CREATE TABLE public.product_natures (
     frozen_indicators_list text,
     linkage_points_list text,
     derivatives_list text,
-    picture_file_name character varying,
-    picture_content_type character varying,
-    picture_file_size integer,
-    picture_updated_at timestamp without time zone,
     description text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -30908,7 +30871,7 @@ ALTER TABLE ONLY public.projects
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 0Ct9lcgQCjFT7WZO4G5Ol5Sd1bNOApMmco7ayRh1vPrqtxmA1P0BGAnz19Yfnsz
+\unrestrict U9iZSafuTGJKTWRbjUK5RovK401DZPrjt3fvZmRHT8S8bQOFHZ3wDHcwLVkRNCw
 
 SET search_path TO public,postgis,lexicon;
 
@@ -31634,6 +31597,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260726120001'),
 ('20260726120002'),
 ('20260726120003'),
-('20260909175612');
+('20260909175612'),
+('20260909180000'),
+('20260909180100');
 
 

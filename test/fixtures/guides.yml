@@ -33,10 +33,6 @@
 #  name                          :string           not null
 #  nature                        :string           not null
 #  reference_name                :string
-#  reference_source_content_type :string
-#  reference_source_file_name    :string
-#  reference_source_file_size    :integer(4)
-#  reference_source_updated_at   :datetime
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer(4)
 #

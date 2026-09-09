@@ -25,10 +25,6 @@
 #
 # == Table: imports
 #
-#  archive_content_type   :string
-#  archive_file_name      :string
-#  archive_file_size      :integer(4)
-#  archive_updated_at     :datetime
 #  created_at             :datetime         not null
 #  creator_id             :integer(4)
 #  id                     :integer(4)       not null, primary key
@@ -51,9 +47,7 @@ class Import < ApplicationRecord
   has_one_attached :archive
   legacy_attachment_columns_for :archive
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :archive_content_type, :archive_file_name, length: { maximum: 500 }, allow_blank: true
-  validates :archive_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :archive_updated_at, :imported_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :imported_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
   validates :nature, :state, presence: true
   validates :progression_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]

@@ -75,10 +75,6 @@
 #  originator_id                :integer(4)
 #  parent_id                    :integer(4)
 #  person_id                    :integer(4)
-#  picture_content_type         :string
-#  picture_file_name            :string
-#  picture_file_size            :integer(4)
-#  picture_updated_at           :datetime
 #  provider                     :jsonb            default("{}")
 #  reading_cache                :jsonb            default("{}")
 #  specie_variety               :jsonb            default("{}")

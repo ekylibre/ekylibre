@@ -63,7 +63,6 @@ module Backend
       t.column :file_pages_count, class: "center-align"
       t.column :file_size, class: "center-align"
       t.column :file_content_text, hidden: true
-      t.column :file_fingerprint, hidden: true
     end
 
     def create

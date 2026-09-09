@@ -32,10 +32,6 @@
 #  financial_year_id                 :integer(4)       not null
 #  format                            :string           default("ekyagri"), not null
 #  id                                :integer(4)       not null, primary key
-#  import_file_content_type          :string
-#  import_file_file_name             :string
-#  import_file_file_size             :integer(4)
-#  import_file_updated_at            :datetime
 #  lock_version                      :integer(4)       default(0), not null
 #  public_token                      :string
 #  public_token_expired_at           :datetime
@@ -57,10 +53,9 @@ class FinancialYearExchange < ApplicationRecord
   has_one_attached :import_file
   legacy_attachment_columns_for :import_file
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed_at, :import_file_updated_at, :public_token_expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
-  validates :exported_journal_ids, :import_file_content_type, :import_file_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :closed_at, :public_token_expired_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }, allow_blank: true
+  validates :exported_journal_ids, length: { maximum: 500 }, allow_blank: true
   validates :financial_year, :format, presence: true
-  validates :import_file_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :public_token, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year_exchange) { financial_year_exchange.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 100.years }, type: :date }

@@ -23,10 +23,6 @@
 #
 # == Table: imports
 #
-#  archive_content_type   :string
-#  archive_file_name      :string
-#  archive_file_size      :integer
-#  archive_updated_at     :datetime
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  id                     :integer          not null, primary key

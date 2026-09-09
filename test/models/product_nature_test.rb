@@ -39,10 +39,6 @@
 #  lock_version              :integer(4)       default(0), not null
 #  name                      :string           not null
 #  number                    :string           not null
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer(4)
-#  picture_updated_at        :datetime
 #  population_counting       :string           not null
 #  provider                  :jsonb
 #  reference_name            :string

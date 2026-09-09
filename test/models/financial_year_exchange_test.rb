@@ -30,10 +30,6 @@
 #  financial_year_id                 :integer(4)       not null
 #  format                            :string           default("ekyagri"), not null
 #  id                                :integer(4)       not null, primary key
-#  import_file_content_type          :string
-#  import_file_file_name             :string
-#  import_file_file_size             :integer(4)
-#  import_file_updated_at            :datetime
 #  lock_version                      :integer(4)       default(0), not null
 #  public_token                      :string
 #  public_token_expired_at           :datetime

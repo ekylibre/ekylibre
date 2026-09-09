@@ -43,10 +43,6 @@
 #  nature_id                 :integer(4)       not null
 #  number                    :string           not null
 #  pictogram                 :string
-#  picture_content_type      :string
-#  picture_file_name         :string
-#  picture_file_size         :integer(4)
-#  picture_updated_at        :datetime
 #  provider                  :jsonb
 #  providers                 :jsonb
 #  reference_name            :string
