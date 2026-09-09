@@ -76,6 +76,21 @@ module Backend
       return unless @journal_entry = find_and_check
 
       t3e @journal_entry
+
+      # The PDF branch is handled before respond_with: it used to fall through
+      # to ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered
+      # by Jasper. It now goes through Printers::JournalEntrySheetPrinter and an
+      # ODT template, like every other document.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::JournalEntrySheetPrinter', template: template,
+                                                                      journal_entry: @journal_entry,
+                                                                      perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :show, id: @journal_entry.id })
+      end
+
       respond_with(@journal_entry, methods: %i[state_label bank_statement_number],
                                    include: [
                                      { financial_year: {} },

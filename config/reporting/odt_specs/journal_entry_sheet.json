@@ -1,0 +1,11 @@
+{
+  "title": "Fiche d'écriture comptable",
+  "fields": ["company_name", "company_address", "number", "printed_on", "state",
+             "journal_name", "journal_code", "financial_year_code", "currency",
+             "real_debit", "real_credit", "resource_number", "created_at", "updated_at", "printed_at"],
+  "tables": [{
+    "name": "ITEMS",
+    "columns": ["position", "account_number", "name", "letter", "tax_name", "item_real_debit", "item_real_credit"],
+    "headers": ["N°", "Compte", "Libellé", "Lettrage", "Taxe", "Débit", "Crédit"]
+  }]
+}
