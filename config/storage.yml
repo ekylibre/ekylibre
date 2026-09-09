@@ -1,9 +1,14 @@
+# TenantDisk : le stockage suit le tenant courant (lib/active_storage/service/
+# tenant_disk_service.rb). Les fichiers atterrissent sous
+# private/<tenant>/storage, c'est-à-dire dans le répertoire qu'archive
+# Ekylibre::Tenant.dump. Le `root` ci-dessous n'est que le repli utilisé quand
+# aucun tenant n'est sélectionné.
 test:
-  service: Disk
+  service: TenantDisk
   root: <%= Rails.root.join("tmp/storage") %>
 
 local:
-  service: Disk
+  service: TenantDisk
   root: <%= Rails.root.join("storage") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
