@@ -221,11 +221,7 @@ module Ekylibre
 
       # Unzip file
       dir = w.tmp_dir
-      Zip::File.open(file) do |zile|
-        zile.each do |entry|
-          entry.extract(dir.join(entry.name))
-        end
-      end
+      Ekylibre::SafeZip.extract_all(file, into: dir)
 
       w.check_point
 
@@ -236,8 +232,11 @@ module Ekylibre
       w.check_point
 
       f = File.open(database)
+      # No `noent`: entity substitution on an uploaded archive lets a crafted
+      # DTD read local files (`<!ENTITY x SYSTEM "file:///etc/passwd">`).
+      # `nonet` only blocks the network, not the filesystem.
       doc = Nokogiri::XML(f) do |config|
-        config.strict.nonet.noblanks.noent
+        config.strict.nonet.noblanks
       end
       f.close
 

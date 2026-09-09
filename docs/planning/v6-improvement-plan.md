@@ -143,12 +143,18 @@ La roadmap fait de la restauration d'archives v5 (§5.5) à la fois le vecteur d
 3. **ne le valide pas** (le garde-fou `/\A[a-z][a-z0-9_]*\z/i` de la ligne 62 n'est appelé ni par `restore`, ni par `restore_v3`) ;
 4. l'interpole dans `sh("echo '… DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; …' | psql …")` (`:554-558`).
 
-Chaîne d'exploitation vérifiée sur la branche, avec deux autres findings de l'audit de mai **toujours ouverts** :
+Vecteur d'entrée vérifié de bout en bout : `Admin::RestoreController#create` dérive `tenant_name` du **nom du fichier uploadé** (`File.basename(filename, '.*')`, aucune validation), le passe en variable d'environnement `TENANT` à `rake admin:restore:run`, qui appelle `Ekylibre::Tenant.restore(tenant: …)`. Le `manifest.yml` de l'archive est un second vecteur, utilisé quand `TENANT` est absent (usage CLI).
 
-- `protect_from_forgery` **absent** de `ApplicationController` et de `Admin::BaseController` — CSRF globalement désactivé ;
-- `Admin::BaseController` accepte `admin` / `admin` par défaut (`ENV.fetch('ADMIN_PASSWORD', 'admin')`) ;
+Findings de l'audit de mai **toujours ouverts** et confirmés :
+
+- `Admin::BaseController` accepte `admin` / `admin` par défaut (`ENV.fetch('ADMIN_PASSWORD', 'admin')`) — et l'authentification HTTP Basic n'a besoin d'aucun jeton CSRF ;
 - `secret_key_base` dev/test **en clair dans `config/secrets.yml`**, versionné ;
-- 9 exchangers appellent `entry.extract` sans garde ZIP-slip.
+- 9 exchangers appellent `entry.extract(dest_path)` sans garde ZIP-slip — le contrôle `name_safe?` de rubyzip **ne s'applique que si `dest_path` est absent** (« the caller is responsible », dit la gem), donc il ne s'exécute jamais ici.
+
+**Deux findings de l'audit ne tiennent pas à la vérification :**
+
+- *« CSRF globalement désactivé »* (sec C1) est un **faux positif**. `config/application.rb:31` appelle `config.load_defaults 5.2`, ce qui active `action_controller.default_protect_from_forgery` ; le railtie d'ActionPack pose alors `protect_from_forgery with: :exception` sur `ActionController::Base`. Vérifié empiriquement sur une application minimale utilisant les gems installées : `verify_authenticity_token` est bien dans la chaîne de callbacks, stratégie `Exception`. Seul `config/environments/test.rb:29` la désactive — pratique standard. `ApplicationController` porte d'ailleurs déjà un `rescue_from ActionController::InvalidAuthenticityToken`, et les 7 layouts émettent `csrf_meta_tags`.
+- *« liste blanche de `params[:id]` »* (P0.6) vise un risque **déjà couvert** : `Ekylibre::Tenant.drop` et `.dump` commencent tous deux par `raise unless exist?(name)`, et `exist?` teste l'appartenance à `Ekylibre::Tenant.list`. La liste blanche reste utile en défense en profondeur sur `dump_download` (construction de chemin), pas comme correctif.
 
 **Conséquence sur le plan** : le durcissement de ce chemin n'est pas une tâche d'hygiène à caser plus tard, c'est le **prérequis technique du lot de restauration**. Il passe en P0.
 
@@ -197,17 +203,17 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 
 | # | Action | Fichier | Effort |
 |---|---|---|---:|
-| P0.1 | `protect_from_forgery with: :exception` dans `ApplicationController` et `Admin::BaseController` ; opt-out explicite sur `Api::*` uniquement | `app/controllers/application_controller.rb`, `admin/base_controller.rb` | 1 |
+| ~~P0.1~~ | ~~Activer `protect_from_forgery`~~ — **sans objet** : déjà actif via `load_defaults 5.2` (cf. E4) | — | 0 |
 | P0.2 | Refus de démarrage si `ADMIN_USERNAME`/`ADMIN_PASSWORD` absents ou < 16 caractères ; suppression des valeurs par défaut | `admin/base_controller.rb` | 0,5 |
 | P0.3 | Validation stricte du nom de tenant à **toutes** les entrées de `Ekylibre::Tenant` (dont `restore`, `restore_v2`, `restore_v3`, `dump_tables_v3`) ; `Shellwords.escape` sur tout argument shell ; `quote_ident` sur tout identifiant SQL | `lib/ekylibre/tenant.rb` | 3 |
 | P0.4 | Helper anti-ZIP-slip (résolution de chemin + rejet des liens symboliques) appliqué aux 9 exchangers concernés | `app/exchangers/**` | 2 |
 | P0.5 | `secret_key_base` dev/test vers l'environnement ; rotation des valeurs versionnées | `config/secrets.yml` | 0,5 |
-| P0.6 | Liste blanche de `params[:id]` contre `Ekylibre::Tenant.list` dans `Admin::TenantsController` (`dump_download`, `destroy`) | `app/controllers/admin/` | 1 |
+| P0.6 | Défense en profondeur : liste blanche de `params[:id]` contre `Ekylibre::Tenant.list` dans `Admin::TenantsController` (`dump`, `dump_status`, `dump_download`) | `app/controllers/admin/` | 1 |
 | P0.7 | Désactiver `noent` (XXE) dans `backup_exchanger.rb:240` ; ancrer la regex CORS (`\A…\z`, points échappés) dans `config/application.rb:75` | 2 fichiers | 0,5 |
-| P0.8 | Tests de non-régression : archive avec `manifest.yml` malveillant, archive ZIP-slip, POST admin sans jeton CSRF | `test/` | 3 |
+| P0.8 | Tests de non-régression : archive ZIP-slip, archive au `manifest.yml` malveillant, nom de tenant injecté, panneau admin sans identifiants configurés | `test/` | 3 |
 
-**Critère de sortie** : les 3 tests d'attaque du P0.8 passent au rouge sur le commit `f1b297cf56` et au vert sur `HEAD`.
-**Effort : ~12 j·h — 2 à 3 semaines.**
+**Critère de sortie** : les tests du P0.8 échouent sur le commit `f1b297cf56` et passent sur `HEAD`.
+**Effort : ~11 j·h — 2 semaines.**
 
 ---
 

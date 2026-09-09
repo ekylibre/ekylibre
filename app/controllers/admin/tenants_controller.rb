@@ -107,7 +107,7 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   def dump
-    name = params[:id]
+    name = known_tenant!(params[:id]) or return
     redis_key = dump_redis_key(name)
 
     current = Sidekiq.redis { |r| r.hgetall(redis_key) }
@@ -132,7 +132,7 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   def dump_status
-    name = params[:id]
+    name = known_tenant!(params[:id]) or return
     result = Sidekiq.redis { |r| r.hgetall(dump_redis_key(name)) }
     archive_path = Rails.root.join('tmp', 'archives', "#{name}.zip")
     archive_exists = result['status'] == 'done' && archive_path.exist?
@@ -145,7 +145,7 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   def dump_download
-    name = params[:id]
+    name = known_tenant!(params[:id]) or return
     archive_path = Rails.root.join('tmp', 'archives', "#{name}.zip")
     unless archive_path.exist?
       render plain: 'Archive introuvable.', status: :not_found
@@ -158,6 +158,18 @@ class Admin::TenantsController < Admin::BaseController
   end
 
   private
+
+    # `params[:id]` reaches file paths, Redis keys and (through the rake tasks)
+    # `Ekylibre::Tenant`. Only ever accept a name we already know about.
+    #
+    # @return [String, nil] the tenant name, or nil after rendering 404
+    def known_tenant!(name)
+      name = name.to_s
+      return name if Ekylibre::Tenant.list.include?(name)
+
+      render plain: 'Tenant inconnu.', status: :not_found
+      nil
+    end
 
     def dump_redis_key(name)
       "ekylibre:admin:dump:#{name}"

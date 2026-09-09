@@ -9,13 +9,7 @@ module Ekylibre
     def import
       # Unzip file
       dir = w.tmp_dir
-      Zip::File.open(file) do |zile|
-        zile.each do |entry|
-          file = dir.join(entry.name)
-          FileUtils.mkdir_p(file.dirname)
-          entry.extract(file)
-        end
-      end
+      Ekylibre::SafeZip.extract_all(file, into: dir)
 
       mimetype = File.read(dir.join('mimetype')).to_s.strip
       nature = mimetype.split('.').last

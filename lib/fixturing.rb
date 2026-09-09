@@ -32,6 +32,8 @@ module Fixturing
     end
 
     def restore(tenant, options = {})
+      # Interpolated raw into DDL below: never trust the caller's name.
+      tenant = Ekylibre::Tenant.validate_name!(tenant)
       path = options[:path] || directory
       version = options[:version] || current_version
       verbose = !options[:verbose].is_a?(FalseClass)

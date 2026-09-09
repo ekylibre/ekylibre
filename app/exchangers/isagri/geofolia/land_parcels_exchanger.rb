@@ -9,13 +9,8 @@ module Isagri
       def import
         # Unzip file
         dir = w.tmp_dir
-        path_to_get = nil
-        Zip::File.open(file) do |zile|
-          zile.each do |entry|
-            path_to_get = entry.name.split('.').first
-            entry.extract(dir.join(entry.name))
-          end
-        end
+        extracted = Ekylibre::SafeZip.extract_all(file, into: dir)
+        path_to_get = extracted.last&.split('.')&.first
 
         RGeo::Shapefile::Reader.open(dir.join("#{path_to_get}.shp").to_s, srid: 2154) do |file|
           # Set number of shapes

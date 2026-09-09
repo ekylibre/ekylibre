@@ -12,11 +12,7 @@ module Ekylibre
     def import
       # Unzip file
       dir = w.tmp_dir
-      Zip::File.open(file) do |zile|
-        zile.each do |entry|
-          entry.extract(dir.join(entry.name))
-        end
-      end
+      Ekylibre::SafeZip.extract_all(file, into: dir)
 
       # Parse file and create rides and ride_sets
       RGeo::Shapefile::Reader.open(dir.join('rides.shp').to_s, srid: 4326) do |file|

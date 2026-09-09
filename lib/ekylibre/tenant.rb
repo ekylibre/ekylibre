@@ -1,6 +1,7 @@
 require 'apartment'
 require 'ekylibre/schema'
 require 'shellwords'
+require 'English'
 
 module Ekylibre
   class TenantError < StandardError; end
@@ -8,10 +9,35 @@ module Ekylibre
   class ForbiddenImport < StandardError; end
 
   class Tenant
+    # A tenant name is used verbatim as a PostgreSQL schema identifier and, in
+    # the dump/restore paths, is interpolated into shell commands piped to psql.
+    # Anything outside this pattern is a shell or SQL injection vector.
+    #
+    # Hyphens are allowed (deployed tenants such as `sci-chenes-verts` use them)
+    # but never in first position, so a name can never be read as an option by
+    # `pg_dump -n <name>`.
+    NAME_PATTERN = /\A[a-z][a-z0-9_-]*\z/i.freeze
+
     AGGREGATION_NAME = '__all__'.freeze
     AGG_TABLES_NAME = %w[activities activity_productions pfi_campaigns_activities_interventions interventions intervention_parameters products product_nature_variants].freeze
 
     class << self
+      # Validates a tenant name before it reaches a schema identifier or a shell
+      # command. Every entry point that accepts a name from outside (rake ENV,
+      # admin upload filename, archive manifest) must go through here.
+      #
+      # @param name [String] candidate tenant name
+      # @return [String] the validated name
+      # @raise [TenantError] if the name is not a bare identifier
+      def validate_name!(name)
+        name = name.to_s
+        unless name.match?(NAME_PATTERN)
+          raise TenantError.new("Invalid tenant name: #{name.inspect}")
+        end
+
+        name
+      end
+
       # Tests existence of a tenant
       def exist?(name)
         list.include?(name)
@@ -46,7 +72,7 @@ module Ekylibre
 
       # Create a new tenant with tables and co
       def create(name)
-        name = name.to_s
+        name = validate_name!(name)
         check!(name)
         raise TenantError.new('Already existing tenant') if exist?(name)
 
@@ -59,8 +85,8 @@ module Ekylibre
       def grant_read_only_access(name)
         duke_user = ENV['DUKE_USER']
         return if duke_user.blank?
-        raise ArgumentError, "Invalid tenant name: #{name}" unless name =~ /\A[a-z][a-z0-9_]*\z/i
-        raise ArgumentError, "Invalid duke user: #{duke_user}" unless duke_user =~ /\A[a-z][a-z0-9_]*\z/i
+        validate_name!(name)
+        raise ArgumentError, "Invalid duke user: #{duke_user}" unless duke_user.match?(NAME_PATTERN)
 
         connection = ActiveRecord::Base.connection
         return unless connection.select_value("SELECT 1 FROM pg_roles WHERE rolname = #{connection.quote(duke_user)}")
@@ -74,6 +100,7 @@ module Ekylibre
 
       # Adds a tenant in config. No schema are created.
       def add(name)
+        name = validate_name!(name)
         list << name unless list.include?(name)
         write
         # byebug
@@ -89,7 +116,7 @@ module Ekylibre
 
       # Drop tenant
       def drop(name, options = {})
-        name = name.to_s
+        name = validate_name!(name)
         raise TenantError.new("Unexistent tenant: #{name}") unless exist?(name)
 
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
@@ -100,6 +127,7 @@ module Ekylibre
 
       # Migrate tenant to wanted version
       def migrate(name, options = {})
+        name = validate_name!(name)
         switch(name) do
           ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, options[:to])
         end
@@ -108,6 +136,8 @@ module Ekylibre
       def rename(old, new)
         return if old == new
 
+        old = validate_name!(old)
+        new = validate_name!(new)
         check!(old)
         raise TenantError.new("Unexistent tenant: #{old}") unless Apartment.connection.schema_exists?(old)
         raise TenantError.new("Tenant already exists: #{new}") if Apartment.connection.schema_exists?(new)
@@ -125,6 +155,7 @@ module Ekylibre
       # Dump database and files data to a zip archive with specific places
       # This archive is database independent
       def dump(name, options = {})
+        name = validate_name!(name)
         raise "Tenant doesn't exist: #{name}" unless exist?(name)
 
         verbose = !options[:verbose].is_a?(FalseClass)
@@ -139,7 +170,10 @@ module Ekylibre
 
       # Restore an archive
       def restore(archive_file, options = {})
-        code = options[:tenant] || Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
+        # The requested name reaches us from untrusted places (admin upload
+        # filename, TENANT env var). Validate before it is used to build a path.
+        requested = options[:tenant].presence && validate_name!(options[:tenant])
+        code = requested || Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
         verbose = !options[:verbose].is_a?(FalseClass)
 
         archive_path = Rails.root.join('tmp', 'archives', "#{code}-restore")
@@ -148,7 +182,14 @@ module Ekylibre
 
         puts "Decompressing #{archive_file.basename} to #{archive_path.basename}...".yellow if verbose
 
-        system "unzip -d #{archive_path} #{archive_file} > /dev/null"
+        # Array form: no shell, so neither path is interpolated into a command
+        # line. Exit status 1 is unzip's "warning" (e.g. extra bytes before the
+        # archive) and was tolerated before, so keep tolerating it.
+        system('unzip', '-q', '-o', '-d', archive_path.to_s, archive_file.to_s)
+        status = $CHILD_STATUS
+        unless status&.exitstatus&.between?(0, 1)
+          raise TenantError.new("Cannot decompress archive #{archive_file} (unzip exit #{status&.exitstatus.inspect})")
+        end
 
         puts 'Checking archive...'.yellow if verbose
         if !archive_path.join('manifest.yml').exist?
@@ -162,13 +203,17 @@ module Ekylibre
               manifest[:tenant] = f.gsub('.sql', '') if f
             end
           end
-          unless name = options[:tenant] || manifest[:tenant]
+          unless name = requested || manifest[:tenant]
             raise 'No given name for the tenant'
           end
+          # manifest.yml ships inside the archive: attacker-controlled too.
+          name = validate_name!(name)
 
           format_version = manifest[:format_version].to_s
           if format_version == '3'
-            restore_v3(archive_path, name, options.merge(dump_file: archive_path.join("#{manifest[:tenant]}.sql")))
+            # Also used to build a path inside the archive: validate before join.
+            source_name = validate_name!(manifest[:tenant])
+            restore_v3(archive_path, name, options.merge(dump_file: archive_path.join("#{source_name}.sql")))
           elsif ['2.0', '2'].include? format_version
             restore_v2(archive_path, name, options)
           else
@@ -537,7 +582,9 @@ module Ekylibre
 
         def dump_tables_v3(options)
           path = options[:archive_path]
-          tenant = options[:tenant_name]
+          # Defence in depth: callers validate, but this method interpolates
+          # straight into a shell command.
+          tenant = validate_name!(options[:tenant_name])
           Dir.chdir path do
             sh("pg_dump -n #{tenant} -x -O --dbname=#{db_url} > #{tenant}.sql")
             sh("sed -i'' -e '/^CREATE SCHEMA/d' #{tenant}.sql")
@@ -548,7 +595,9 @@ module Ekylibre
 
         def restore_tables_v3(options)
           path = options[:path]
-          tenant_name = options[:tenant_name]
+          # Interpolated into a SQL identifier inside a shell command: the only
+          # thing standing between an archive filename and `psql`.
+          tenant_name = validate_name!(options[:tenant_name])
 
           # DROP/CREATE
           sh("echo 'SET client_min_messages TO WARNING; DROP SCHEMA IF EXISTS \"#{tenant_name}\" CASCADE; SET client_min_messages TO NOTICE;' | psql --dbname=#{db_url}")

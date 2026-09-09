@@ -9,14 +9,8 @@ module Ekylibre
     def import
       # unzip of bank statement
       dir = w.tmp_dir
-      Zip::File.open(file) do |zile|
-        w.count = zile.count
-        zile.each do |entry|
-          file = dir.join(entry.name)
-          FileUtils.mkdir_p(file.dirname)
-          entry.extract(file)
-        end
-      end
+      w.count = Ekylibre::SafeZip.count(file)
+      Ekylibre::SafeZip.extract_all(file, into: dir)
 
       Dir.chdir(dir) do
         Dir.glob('*') do |file|

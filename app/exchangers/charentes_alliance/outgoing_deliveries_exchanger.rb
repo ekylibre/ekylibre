@@ -8,11 +8,7 @@ module CharentesAlliance
     def import
       # Unzip files
       dir = w.tmp_dir
-      Zip::File.open(file) do |zile|
-        zile.each do |entry|
-          entry.extract(dir.join(entry.name))
-        end
-      end
+      Ekylibre::SafeZip.extract_all(file, into: dir)
 
       outgoing_deliveries_file = dir.join('apports.csv')
       silo_transcode_file = dir.join('silo_transcode.csv')

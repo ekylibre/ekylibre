@@ -72,7 +72,9 @@ module Ekylibre
 
     config.middleware.use Rack::Cors do
       allow do
-        origins /https:\/\/ekylibre.stoplight.io\.*/
+        # Anchored and dot-escaped: the previous unanchored regex matched any
+        # origin merely *containing* the pattern (https://ekylibre.stoplight.io.attacker.com).
+        origins %r{\Ahttps://ekylibre\.stoplight\.io\z}
         resource '*',
           headers: :any,
           methods: %i[get post put patch delete]

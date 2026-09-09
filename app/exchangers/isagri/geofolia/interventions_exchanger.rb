@@ -9,11 +9,7 @@ module Isagri
       def import
         # Unzip file (Action.Json / Field.Json)
         dir = w.tmp_dir
-        Zip::File.open(file) do |zile|
-          zile.each do |entry|
-            entry.extract(dir.join(entry.name))
-          end
-        end
+        Ekylibre::SafeZip.extract_all(file, into: dir)
 
         # parse file
         data_file = File.read(dir.join("Field.Json").to_s)
