@@ -1,0 +1,4 @@
+{ "title": "Remise en banque",
+  "fields": ["company_name","number","amount","created_at","accounted_at","mode_name","responsible_full_name","cash_name","cash_iban","cash_bank_name","printed_at"],
+  "tables": [{ "name": "PAYMENTS", "columns": ["payment_number","payer_full_name","bank_check_number","to_bank_at","payment_amount"],
+               "headers": ["N° règlement","Payeur","N° chèque","Mise en banque","Montant"] }] }

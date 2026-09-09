@@ -168,6 +168,19 @@ module Backend
       @entity_of_company_full_name = Entity.of_company.full_name
       @entity_of_company_id = Entity.of_company.id
 
+      # Handled before respond_with: the PDF format used to fall through to
+      # ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered by
+      # Jasper. It now goes through a Printers::* class and an ODT template.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::AnimalListPrinter', template: template,
+                                 animals: @animals,
+                                 perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :index })
+      end
+
       respond_with @animals, methods: %i[picture_path sex_text variety_text], include: %i[initial_father initial_mother nature variant]
     end
 
@@ -186,6 +199,19 @@ module Backend
       params.delete('dialog')
 
       t3e @animal, nature: @animal.nature_name
+      # Handled before respond_with: the PDF format used to fall through to
+      # ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered by
+      # Jasper. It now goes through a Printers::* class and an ODT template.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::AnimalSheetPrinter', template: template,
+                                 animal: @animal,
+                                 perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :index })
+      end
+
       respond_with(@animal, methods: %i[picture_path sex_text variety_text], include: [:father, :mother, :variant, :nature, :variety,
                                                                                        { readings: {} },
                                                                                        { intervention_product_parameters: { include: :intervention } },

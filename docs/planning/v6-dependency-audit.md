@@ -251,3 +251,34 @@ Il reste 13 fichiers Jasper, un par nature bloquante.
 ### 8.5 Anomalie relevée au passage
 
 La nature `purchases_estimate` n'a **aucun** gabarit, ni ODT ni Jasper : `load_defaults` journalise `Cannot load a default document template` et ne crée pas de `DocumentTemplate`. Le bouton d'impression correspondant n'affiche donc rien. 23 autres natures sont dans le même cas (`entity_sheet`, `fixed_asset_sheet`, `prescription`, `stocks`, les registres viticoles…) — à arbitrer : gabarit manquant ou nature à retirer de la nomenclature.
+
+### 8.6 Option 2 retenue : 7 natures migrées avec gabarits provisoires
+
+L'option 2 a été choisie — écrire les classes `Printers::*` en s'appuyant sur les
+champs déclarés par les `.jrxml`, et générer des gabarits `.odt` sans mise en
+forme, à remettre en page ensuite.
+
+`bin/generate_odt_template.rb` produit ces gabarits depuis une spécification JSON
+(`config/reporting/odt_specs/`). **Piège ODF** : l'entrée `mimetype` doit être la
+première de l'archive **et stockée sans compression**, sinon `MimeMagic` ne
+reconnaît rien, `DocumentTemplate` garde `file_extension = xml` et tente de
+parser le fichier comme du Jasper.
+
+Migrées (7) : `journal_entry_sheet`, `animal_sheet`, `animal_list`,
+`deposit_list`, `cultivable_zone_sheet`, `outgoing_delivery_docket`,
+`purchases_invoice`. Chacune a désormais un printer, un gabarit ODT et une
+branche PDF dans son contrôleur, placée **avant** `respond_with` — sans quoi la
+requête retombait dans `Responder#to_pdf`, donc dans Jasper.
+
+Restent 6 natures, toutes **sans bouton d'export** :
+
+- `animal_husbandry_register` et `veterinary_booklet` — aucune référence hors
+  nomenclature et gabarit : natures mortes ;
+- `fr_pcg82_balance_sheet`, `fr_pcg82_profit_and_loss_statement`,
+  `fr_pcga_balance_sheet`, `fr_pcga_profit_and_loss_statement` — listées dans
+  `HIDDEN_AGGREGATORS` de `exports_controller.rb`, donc masquées de l'interface.
+
+**Bilan** : 43 natures sur ODT, 6 sur Jasper, 24 sans gabarit. La surface Jasper
+atteignable depuis l'interface est nulle. `rjb` et les gems `beardley*` restent
+néanmoins nécessaires tant que ces 6 natures ne sont pas soit migrées, soit
+retirées de la nomenclature — c'est un arbitrage produit, pas technique.

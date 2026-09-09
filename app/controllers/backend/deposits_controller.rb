@@ -85,6 +85,19 @@ module Backend
       return unless @deposit = find_and_check
 
       t3e @deposit
+      # Handled before respond_with: the PDF format used to fall through to
+      # ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered by
+      # Jasper. It now goes through a Printers::* class and an ODT template.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::DepositListPrinter', template: template,
+                                 deposit: @deposit,
+                                 perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :index })
+      end
+
       respond_with(@deposit, include: [:responsible, :journal_entry, :mode, :cash,
                                        { payments: { include: :payer } }])
     end

@@ -1,0 +1,3 @@
+{ "title": "Fiche animal",
+  "fields": ["company_name","name","identification_number","work_number","variety","sex","born_at","dead_at","mother_name","father_name","nature_name","description","printed_at"],
+  "tables": [{ "name": "READINGS", "columns": ["indicator","value","read_at"], "headers": ["Indicateur","Valeur","Relevé le"] }] }

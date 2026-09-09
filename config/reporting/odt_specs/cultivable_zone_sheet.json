@@ -1,0 +1,4 @@
+{ "title": "Fiche de zone cultivable",
+  "fields": ["company_name","name","work_number","cap_number","description","human_shape_area","printed_at"],
+  "tables": [{ "name": "PRODUCTIONS", "columns": ["production_name","activity_name","started_on","stopped_on","production_area"],
+               "headers": ["Production","Activité","Début","Fin","Surface"] }] }

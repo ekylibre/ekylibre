@@ -123,6 +123,19 @@ module Backend
       if @purchase_invoice.versions.find_by(event: :create).nil?
         Version.create!(event: :create, item: @purchase_invoice, created_at: @purchase_invoice.created_at, creator_id: @purchase_invoice.creator_id)
       end
+      # Handled before respond_with: the PDF format used to fall through to
+      # ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered by
+      # Jasper. It now goes through a Printers::* class and an ODT template.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::PurchasesInvoicePrinter', template: template,
+                                 purchase: @purchase_invoice,
+                                 perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :index })
+      end
+
       respond_with(@purchase_invoice, methods: %i[taxes_amount affair_closed],
                    include: { delivery_address: { methods: [:mail_coordinate] },
                               supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },

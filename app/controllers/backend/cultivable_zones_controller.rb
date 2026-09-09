@@ -55,6 +55,19 @@ module Backend
       return unless @cultivable_zone = find_and_check
 
       t3e @cultivable_zone
+      # Handled before respond_with: the PDF format used to fall through to
+      # ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered by
+      # Jasper. It now goes through a Printers::* class and an ODT template.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::CultivableZoneSheetPrinter', template: template,
+                                 cultivable_zone: @cultivable_zone,
+                                 perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :index })
+      end
+
       respond_with(@cultivable_zone, methods: %i[shape_svg cap_number human_shape_area],
                                      include: [
                                        { activity_productions: {

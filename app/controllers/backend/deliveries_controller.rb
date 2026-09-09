@@ -107,6 +107,19 @@ module Backend
       @entity_of_company_picture_path = Entity.of_company.picture_path
       return unless @delivery = find_and_check
 
+      # Handled before respond_with: the PDF format used to fall through to
+      # ActionController::Responder#to_pdf (lib/reporting.rb) and be rendered by
+      # Jasper. It now goes through a Printers::* class and an ODT template.
+      if request.format.pdf?
+        return unless template = find_and_check(:document_template, params[:template])
+
+        PrinterJob.perform_later('Printers::OutgoingDeliveryDocketPrinter', template: template,
+                                 delivery: @delivery,
+                                 perform_as: current_user)
+        notify_success(:document_in_preparation)
+        return redirect_back(fallback_location: { action: :index })
+      end
+
       respond_with(@delivery, methods: %i[human_delivery_mode],
                               include: {
                                 parcels: {

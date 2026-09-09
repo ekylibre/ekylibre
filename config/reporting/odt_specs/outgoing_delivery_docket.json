@@ -1,0 +1,4 @@
+{ "title": "Bon de livraison sortante",
+  "fields": ["company_name","delivery_number","delivery_reference_number","delivery_mode","started_at","stopped_at","transporter_full_name","driver_full_name","responsible_full_name","printed_at"],
+  "tables": [{ "name": "ITEMS", "columns": ["parcel_number","recipient_full_name","product_name","product_number","population"],
+               "headers": ["N° colis","Destinataire","Produit","N° produit","Quantité"] }] }

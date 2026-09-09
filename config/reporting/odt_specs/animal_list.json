@@ -1,0 +1,4 @@
+{ "title": "Liste des animaux",
+  "fields": ["company_name","animal_count","printed_at"],
+  "tables": [{ "name": "ANIMALS", "columns": ["identification_number","name","work_number","variety","sex","born_at","mother_name"],
+               "headers": ["N° identification","Nom","N° travail","Variété","Sexe","Né le","Mère"] }] }

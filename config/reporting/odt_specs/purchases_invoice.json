@@ -1,0 +1,6 @@
+{ "title": "Facture d'achat",
+  "fields": ["company_name","company_address","number","reference_number","invoiced_on","description",
+             "supplier_full_name","supplier_address","supplier_siren","supplier_vat_number",
+             "currency","pretax_amount","taxes_amount","amount","printed_at"],
+  "tables": [{ "name": "ITEMS", "columns": ["label","annotation","quantity","unit_name","unit_pretax_amount","tax_name","item_pretax_amount","item_amount"],
+               "headers": ["Désignation","Annotation","Quantité","Unité","P.U. HT","Taxe","Total HT","Total TTC"] }] }
