@@ -166,8 +166,16 @@ test:
     TZ: Europe/Paris
     GIT_STRATEGY: none
   services:
-    # TODO switch to postgis/postgis:13-3.1-alpine when ready
-    - name: mdillon/postgis:9.6-alpine
+    # PostgreSQL 13 aligns CI with the dev stack (kartoza/postgis:13) and
+    # retires 9.6 (EOL 2021-11). Verified: the 721 migrations apply cleanly on
+    # postgis/postgis:13-3.3 and produce the same schema as the dev database
+    # (251 tables, 35 geometry columns, 1837 indexes, 169 FKs).
+    #
+    # Going further (15/16) additionally requires bumping postgresql-client in
+    # ekylibre/docker-base-images: the client is 13 there, and `pg_dump` refuses
+    # to dump a newer server ("server version mismatch"), which breaks both
+    # db:structure:dump and Ekylibre::Tenant.dump.
+    - name: postgis/postgis:13-3.3
       alias: postgres
     - name: redis:5.0-alpine
       alias: redis

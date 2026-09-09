@@ -223,17 +223,17 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 
 | # | Action | Effort |
 |---|---|---:|
-| A.1 | `therubyracer` → `mini_racer` (ou suppression pure : vérifier qu'aucun ExecJS n'est requis au runtime) | 2 |
+| ~~A.1~~ | **FAIT** — `therubyracer` retiré. La version d'ExecJS installée ne le liste plus parmi ses runtimes et sélectionne déjà Node 20 (fourni par l'image de base, dev et prod). Pas de `mini_racer` : la gem était du poids mort, `libv8 3.16` part avec elle | 0 |
 | A.2 | `state_machine` → `AASM` sur les 10+ modèles concernés (`sale`, `reception`, `shipment`, `fixed_asset`, `payslip`, `tax_declaration`, `activity_production`, `journal_entry_item`, `sale_opportunity`, `task`) — transitions et hooks à retester un à un | 20 |
 | A.3 | `paperclip` → Active Storage sur 6 modèles (`document`, `guide`, `import`, `financial_year_exchange`, …) + migration des blobs existants | 12 |
 | A.4 | **Suppression de Jasper** (ADR-6.1). La voie de remplacement est déjà en place — `Printers::*` (37 services) + `Ekylibre::DocumentManagement::DocumentGenerator` (ODFReport → PDF), 154 templates `.odt` en production. Reste à faire : migrer les **14 templates `.jrxml`** vers la voie ODT, retirer les appels `Beardley::Report` de `app/models/document_template.rb:141,155`, supprimer les *renderers* de `lib/reporting.rb`, `config/initializers/beardley.rb`, `config/reporting/beardley/`, et les 8 gems `rjb` + `beardley*` du `Gemfile` | 10 |
 | A.5 | `apartment` 2.2.1 → `ros-apartment` (fork maintenu), retrait des monkey-patches de `config/initializers/apartment.rb` ; déverrouille `sidekiq` | 5 |
-| A.6 | Audit des 7 forks git + ~12 gems plugins : pour chacun, statut de maintenance, compatibilité Ruby 3 / Rails 7+, effort de portage. **Livrable : tableau de décision porter / remplacer / abandonner.** | 8 |
+| ~~A.6~~ | **FAIT** — [audit des dépendances](v6-dependency-audit.md). 23 dépôts (pas 7+12) ; liste des bloquants produite par Bundler, pas déduite. **Un seul portage réel** (`ekylibre-planning`) ; 4 forks n'ont qu'une borne déclarative à relâcher ; 3 gems publiques ne sont que des épinglages périmés | 0 |
 | A.7 | **Remplacement d'`active_list`** (ADR-6.2) — 318 usages / 149 contrôleurs. Le fork n'est **pas porté** : il disparaît avec le front au lot G. Stratégie retenue : figer `active_list` au strict minimum pour survivre aux paliers du lot B (patchs de compatibilité, pas de portage), puis suppression en G.3. **Prérequis : ADR-6.3** (choix du front) pour savoir vers quoi les listes migrent | 12 |
-| A.8 | CI : passage à PostgreSQL 15+ / PostGIS 3.3+ ; réactivation du plancher `SimpleCov` à la valeur mesurée ; extension de CodeQL à `ekylibre-6.0` | 3 |
+| A.8 | **Partiellement fait** — CI passée à `postgis/postgis:13-3.3` (721 migrations vérifiées, schéma identique au dev) ; setup d'extensions décorrélé ; CodeQL étendu à `5.0-beta` et `ekylibre-6.0` (il ne couvrait que des branches `0-x`/`1-x` disparues). **Reste** : plancher `SimpleCov` (exige une mesure sur la suite complète) et PG 15+, bloqué par le `postgresql-client` 13 de l'image de base | 1 |
 
 **Critère de sortie** : `bundle install` réussit sous Ruby 3.3, suite de tests verte sur Rails 5.2 + Ruby 3.3, CI sur PG 15.
-**Effort : ~72 j·h** (était 85 avant les arbitrages ADR-6.1 / ADR-6.2). **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
+**Effort restant : ~57 j·h** (85 → 72 après les arbitrages ; A.1 et A.6 faits, A.8 quasi terminé). **Dépendances : aucune — démarre immédiatement, en parallèle de P0.**
 
 ---
 
@@ -253,10 +253,10 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | B.6 | 7.1 → 7.2 → 8.0 → **8.1** | 15 |
 | B.7 | Sidekiq 4 → Solid Queue ; Redis → Solid Cable. Réinjection du contexte tenant dans `ApplicationJob` | 12 |
 | B.8 | Devise 4.9 → version courante ; **vérifier la disponibilité réelle d'Argon2id** (`has_secure_password` reste sur bcrypt ; Argon2id passe par `devise-argon2`) — la roadmap l'annonce comme un défaut de Rails 8.2, à confirmer avant de s'y engager | 5 |
-| B.9 | Montée en verrou des 7 forks + 12 plugins à chaque palier | 30 |
+| B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 12 j·h** par l'audit A.6 : 12 dépôts n'ont rien à faire, 4 n'ont qu'une borne de gemspec à relâcher, 1 seul (`ekylibre-planning`) demande un portage réel | 12 |
 
 **Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
-**Effort : ~118 j·h** (était 125 : B.4 allégé par ADR-6.2, B.6 alourdi par le palier 8.1). **Dépendance : lot A.**
+**Effort : ~100 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5). **Dépendance : lot A.**
 
 ---
 
@@ -438,7 +438,7 @@ gantt
 
 | Roadmap d'architecture | Ce plan | Écart |
 |---|---|---|
-| Phase 0 (socle + API-only, 4–6 mois) | Lots A + B (~190 j·h) | API-only déplacé au lot G (E6) ; ajout du lot A en amont (E1) |
+| Phase 0 (socle + API-only, 4–6 mois) | Lots A + B (~157 j·h) | API-only déplacé au lot G (E6) ; ajout du lot A en amont (E1) |
 | Phase 1 (RLS + PK composites + restauration, 4–5 mois) | Lots C + D + E (~256 j·h) | Découpé en trois ; C parallélisé avec B (E7) ; trois plans de données au lieu de deux (E5) |
 | Phase 2 (API & sync, 3–4 mois) | Lot F (~107 j·h) | Ajout de F.5 (dette d'intégration : 1 test pour 410 contrôleurs) |
 | Phase 3 (satellites, 3–4 mois) | Lot H | — |

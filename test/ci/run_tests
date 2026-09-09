@@ -12,7 +12,14 @@ function psql_exec {
 
     bash test/ci/wait_pg.sh "${POSTGRES_HOST}" "${POSTGRES_USER}" "${POSTGRES_DB}"
 
-    psql_exec 'CREATE SCHEMA IF NOT EXISTS postgis; DROP EXTENSION postgis CASCADE;'
+    # One statement per psql call, and IF EXISTS on the drop. These two used to
+    # share a single -c, which couples them: a failing DROP EXTENSION rolls back
+    # the CREATE SCHEMA in the same implicit transaction, and every following
+    # CREATE EXTENSION then dies with 'schema "postgis" does not exist'. That
+    # does not happen with an image shipping postgis pre-installed, but it makes
+    # the setup depend on what the image happens to provide.
+    psql_exec 'DROP EXTENSION IF EXISTS postgis CASCADE;'
+    psql_exec 'CREATE SCHEMA IF NOT EXISTS postgis;'
     psql_exec 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
     psql_exec 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
     psql_exec 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'

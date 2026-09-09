@@ -64,7 +64,10 @@ gem 'jquery-rails', '~> 4.4'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'simple_calendar', '~> 2.4.0'
-gem 'therubyracer', platforms: :ruby
+# therubyracer retiré : ExecJS >= 2.8 ne le liste plus parmi ses runtimes
+# (therubyrhino, GraalVM, Duktape, mini_racer, Bun.sh, Node.js, ...), et
+# l'image de base fournit Node 20, qu'ExecJS sélectionne déjà. La gem et
+# son libv8 3.16 (abandonné en 2017) bloquaient la montée Ruby 3.
 gem 'turbolinks', '~> 5.2.1'
 gem 'twitter-typeahead-rails', '~> 0.11.1'
 
