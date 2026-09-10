@@ -30,7 +30,9 @@ module PurchaseInvoices
         generator = ExportTools::ZipFileGenerator.new
         generator.compress_folder(root) do |zip_file_path|
           name = :purchase_receipts_file_name.tl
-          Document.create!(name: "#{name}.zip", processable_attachment: false, file: File.open(zip_file_path), file_file_name: "#{name.parameterize}.zip")
+          document = Document.new(name: "#{name}.zip", processable_attachment: false)
+          document.attach_file(Pathname.new(zip_file_path), filename: "#{name.parameterize}.zip")
+          document.save!
         end
       end
     end

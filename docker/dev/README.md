@@ -3,8 +3,7 @@
 ## Prérequis
 
 - [Docker](https://docs.docker.com/get-docker/) et Docker Compose v2
-- Accès au registry GitLab Ekylibre (`registry.gitlab.com`)
-- Un Personal Access Token GitLab avec le scope `read_registry`
+- Accès à `ghcr.io/ekylibre` (image de base publique : aucune authentification requise)
 
 ---
 
@@ -261,8 +260,9 @@ sudo sysctl vm.overcommit_memory=1
 
 ### Image de base inaccessible (`403 Forbidden`)
 
-Le registry GitLab est privé. S'authentifier avant de builder :
+L'image de base est publique sur GHCR : aucune authentification n'est nécessaire.
+Pour une image privée du même registre :
 
 ```bash
-docker login registry.gitlab.com
+docker login ghcr.io
 ```

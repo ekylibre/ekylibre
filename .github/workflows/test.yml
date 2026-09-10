@@ -1,0 +1,142 @@
+# Suite de tests. Remplace le job `test` de .gitlab-ci.yml, la CI passant
+# entièrement sur GitHub.
+#
+# Le job tourne DANS l'image de base du projet plutôt que sur ubuntu-latest :
+# la suite a besoin de Ruby 2.6, de GraphicsMagick, LibreOffice, Ghostscript,
+# poppler et du client PostgreSQL, tous déjà présents dans cette image, qui est
+# aussi celle du développement et de la production. Les reconstituer étape par
+# étape sur un runner nu serait long et divergerait avec le temps.
+name: Tests
+
+on:
+  push:
+    branches: [main, 5.0-beta, ekylibre-6.0]
+  pull_request:
+    branches: [main, 5.0-beta, ekylibre-6.0]
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/ekylibre/docker-base-images/ruby2.6:latest
+
+    services:
+      # PostgreSQL 13 aligne la CI sur la pile de développement
+      # (kartoza/postgis:13). Monter en 15/16 impose d'abord de faire monter
+      # postgresql-client dans ekylibre/docker-base-images : il y est en 13, et
+      # pg_dump refuse de vider un serveur plus récent — ce qui casserait
+      # db:structure:dump comme Ekylibre::Tenant.dump.
+      postgres:
+        image: postgis/postgis:13-3.3
+        env:
+          POSTGRES_USER: ekylibre
+          POSTGRES_DB: ekylibre_test
+          # test/ci/database.yml ne porte pas de mot de passe : le serveur doit
+          # donc accepter les connexions sans authentification. Poser un
+          # POSTGRES_PASSWORD ferait basculer l'image en scram et casserait
+          # aussi bien psql que la connexion de Rails.
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+      redis:
+        image: redis:5.0-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      RAILS_ENV: test
+      COVERAGE: 'true'
+      CI: 'true'
+      TZ: Europe/Paris
+      REDIS_URL: redis://redis:6379/
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: ekylibre
+      POSTGRES_DB: ekylibre_test
+      DB_HOST: postgres
+      DB_USERNAME: ekylibre
+      DB_TEST_NAME: ekylibre_test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache des gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/ruby
+          key: gems-${{ runner.os }}-ruby2.6-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-${{ runner.os }}-ruby2.6-
+
+      - name: Cache des paquets node
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: node-${{ runner.os }}-
+
+      - name: Installer les dépendances
+        run: |
+          set -euo pipefail
+          bundle config --local build.sassc --disable-march-tune-native
+          bundle config --local path vendor/ruby
+          bundle install -j "$(nproc)"
+          yarn install --frozen-lockfile
+
+      - name: Préparer les extensions PostgreSQL
+        # Une instruction par appel psql, et IF EXISTS sur le DROP. Regroupées
+        # dans un seul -c, elles sont couplées : un DROP EXTENSION en échec
+        # annule le CREATE SCHEMA de la même transaction implicite, et chaque
+        # CREATE EXTENSION suivant meurt sur « schema "postgis" does not exist ».
+        run: |
+          set -euo pipefail
+          psql_exec() { psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "$1"; }
+          psql_exec 'DROP EXTENSION IF EXISTS postgis CASCADE;'
+          psql_exec 'CREATE SCHEMA IF NOT EXISTS postgis;'
+          psql_exec 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+          psql_exec 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'
+          psql_exec 'CREATE EXTENSION IF NOT EXISTS "unaccent" SCHEMA postgis;'
+          psql_exec 'CREATE EXTENSION IF NOT EXISTS "pg_trgm" SCHEMA postgis;'
+          cp -f test/ci/database.yml config/database.yml
+
+      - name: Importer la clé GPG des tests
+        # Les tests de signature de document en ont besoin.
+        run: gpg --import test/fixture-files/my-private-key.asc
+
+      - name: Migrer la base de test
+        run: bundle exec rake db:migrate VERBOSE=false
+
+      - name: Compiler les packs Webpacker
+        # Sans eux, toute vue rendant `javascript_pack_tag :legacy` échoue sur un
+        # manifest packs-test vide — ce qui met en erreur les tests de contrôleur
+        # rendant une mise en page.
+        #
+        # --openssl-legacy-provider est indispensable : webpack 4 hache en MD4,
+        # qu'OpenSSL 3 (Node 17+) refuse, et `bin/webpack` meurt sur
+        # ERR_OSSL_EVP_UNSUPPORTED. C'est la vraie cause du manifest vide.
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+        run: bundle exec bin/webpack
+
+      - name: Exécuter la suite
+        run: bundle exec bin/rails test
+
+      - name: Publier le rapport de couverture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 14

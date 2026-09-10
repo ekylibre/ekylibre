@@ -11,14 +11,14 @@ class GeneralLedgerPrinterJob < ApplicationJob
         printer.run_csv(csv)
       end
 
-      document = Document.create!(
+      document = Document.new(
         nature: template.nature,
         key: printer.key,
         name: printer.document_name,
-        file: StringIO.new(csv_string),
-        file_file_name: "#{printer.document_name}.#{extension}",
         template: template
       )
+      document.attach_file(csv_string, filename: "#{printer.document_name}.#{extension}")
+      document.save!
 
       perform_as.notifications.create!(success_notification_params(document.id))
     rescue StandardError => error

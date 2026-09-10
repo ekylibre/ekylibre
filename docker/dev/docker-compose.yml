@@ -10,6 +10,12 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
     env_file: .env
+    environment:
+      # webpack 4 hache en MD4, qu'OpenSSL 3 refuse depuis Node 17 : sans ce
+      # drapeau `bin/webpack` meurt sur ERR_OSSL_EVP_UNSUPPORTED, le manifest
+      # packs-test reste vide, et toute vue rendant `javascript_pack_tag :legacy`
+      # échoue — d'où les tests de contrôleur en erreur de longue date.
+      NODE_OPTIONS: --openssl-legacy-provider
     ports:
       - "3000:3000"
       - '8808:8808'

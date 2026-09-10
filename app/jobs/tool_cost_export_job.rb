@@ -23,7 +23,9 @@ class ToolCostExportJob < ActiveJob::Base
       document_name = "#{:document_tool_costs.tl} - #{compute_export_name}"
       filename = "#{:export_tool_costs.tl}_#{compute_export_name}.xlsx"
       # create document
-      document = Document.create!(key: "#{Time.now.to_i}-#{filename}", name: document_name, file: data, file_file_name: filename)
+      document = Document.new(key: "#{Time.now.to_i}-#{filename}", name: document_name)
+      document.attach_file(data, filename: filename)
+      document.save!
       notification = user.notifications.build(success_full_interventions_registry_notification(document_name, document.id))
     rescue StandardError => error
       Rails.logger.error error

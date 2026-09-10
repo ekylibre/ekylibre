@@ -1,0 +1,63 @@
+# Lint. Remplace les jobs `rubocop` et `eslint` de .gitlab-ci.yml.
+#
+# RuboCop tourne via Bundler plutôt que depuis une image de lint dédiée : la
+# version est ainsi celle que le Gemfile épingle (1.11.0), la même qu'en local.
+# L'image de lint GitLab avait sa propre version, qui pouvait diverger.
+name: Lint
+
+on:
+  push:
+    branches: [main, 5.0-beta, ekylibre-6.0]
+  pull_request:
+    branches: [main, 5.0-beta, ekylibre-6.0]
+  workflow_dispatch:
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ekylibre/docker-base-images/ruby2.6:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache des gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/ruby
+          key: gems-${{ runner.os }}-ruby2.6-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-${{ runner.os }}-ruby2.6-
+
+      - name: Installer les gems
+        run: |
+          set -euo pipefail
+          bundle config --local build.sassc --disable-march-tune-native
+          bundle config --local path vendor/ruby
+          bundle install -j "$(nproc)"
+
+      - name: RuboCop
+        run: bundle exec rubocop --parallel
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Installer Node
+        uses: actions/setup-node@v4
+        with:
+          # eslint 7 et la chaîne webpack du projet ne sont pas éprouvées
+          # au-delà : on reste sur la version qu'utilisait la CI GitLab.
+          node-version: '14'
+          cache: yarn
+
+      - name: Installer les paquets
+        run: yarn install --frozen-lockfile
+
+      - name: ESLint
+        run: yarn eslint .

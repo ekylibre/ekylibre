@@ -25,14 +25,14 @@ module Ekylibre
       # @param [String] name
       # @return [Document]
       def archive_document(pdf_content:, template:, key:, name:)
-        document = Document.create!(
+        document = Document.new(
           nature: template.nature,
           key: key,
           name: name,
-          file: StringIO.new(pdf_content),
-          file_file_name: "#{name}.pdf",
           template: template
         )
+        document.attach_file(pdf_content, filename: "#{name}.pdf", content_type: 'application/pdf')
+        document.save!
 
         if template.signed
           signer.sign(document: document, user: document.creator)

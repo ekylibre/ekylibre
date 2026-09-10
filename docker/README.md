@@ -20,17 +20,6 @@ docker compose -f docker/dev/docker-compose.yml up
 
 ---
 
-### Test (`test/`)
-
-Image de build pour la CI/CD (GitLab CI). Utilise le même `Dockerfile` que la production (`docker/prod/Dockerfile`), publiée sur le registry GitLab sous le tag `test-ci`.
-
-**Services :** Rails, Sidekiq, PostgreSQL/PostGIS, Redis
-
-```bash
-docker compose -f docker/test/docker-compose.yml up
-```
-
----
 
 ### Production (`prod/`)
 

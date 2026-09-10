@@ -3234,20 +3234,9 @@ documents:
     type: jsonb
   file_content_text:
     type: text
-  file_content_type:
-    type: string
-  file_file_name:
-    type: string
-  file_file_size:
-    type: integer
-    limit: 4
-  file_fingerprint:
-    type: string
   file_pages_count:
     type: integer
     limit: 4
-  file_updated_at:
-    type: datetime
   id:
     type: integer
     limit: 4
@@ -3525,15 +3514,6 @@ entities:
     type: integer
     references: account
     limit: 8
-  picture_content_type:
-    type: string
-  picture_file_name:
-    type: string
-  picture_file_size:
-    type: integer
-    limit: 4
-  picture_updated_at:
-    type: datetime
   proposer_id:
     type: integer
     references: entity
@@ -3894,15 +3874,6 @@ financial_year_exchanges:
     type: integer
     limit: 4
     required: true
-  import_file_content_type:
-    type: string
-  import_file_file_name:
-    type: string
-  import_file_file_size:
-    type: integer
-    limit: 4
-  import_file_updated_at:
-    type: datetime
   lock_version:
     type: integer
     limit: 4
@@ -4491,15 +4462,6 @@ guides:
     required: true
   reference_name:
     type: string
-  reference_source_content_type:
-    type: string
-  reference_source_file_name:
-    type: string
-  reference_source_file_size:
-    type: integer
-    limit: 4
-  reference_source_updated_at:
-    type: datetime
   updated_at:
     type: datetime
     required: true
@@ -4694,15 +4656,6 @@ identifiers:
     type: string
     required: true
 imports:
-  archive_content_type:
-    type: string
-  archive_file_name:
-    type: string
-  archive_file_size:
-    type: integer
-    limit: 4
-  archive_updated_at:
-    type: datetime
   created_at:
     type: datetime
     required: true
@@ -6291,15 +6244,6 @@ issues:
   observed_at:
     type: datetime
     required: true
-  picture_content_type:
-    type: string
-  picture_file_name:
-    type: string
-  picture_file_size:
-    type: integer
-    limit: 4
-  picture_updated_at:
-    type: datetime
   priority:
     type: integer
     limit: 4
@@ -9922,15 +9866,6 @@ product_nature_variants:
     required: true
   pictogram:
     type: string
-  picture_content_type:
-    type: string
-  picture_file_name:
-    type: string
-  picture_file_size:
-    type: integer
-    limit: 4
-  picture_updated_at:
-    type: datetime
   provider:
     type: jsonb
   providers:
@@ -10010,15 +9945,6 @@ product_natures:
   number:
     type: string
     required: true
-  picture_content_type:
-    type: string
-  picture_file_name:
-    type: string
-  picture_file_size:
-    type: integer
-    limit: 4
-  picture_updated_at:
-    type: datetime
   population_counting:
     type: string
     required: true
@@ -10409,15 +10335,6 @@ products:
     type: integer
     references: entity
     limit: 4
-  picture_content_type:
-    type: string
-  picture_file_name:
-    type: string
-  picture_file_size:
-    type: integer
-    limit: 4
-  picture_updated_at:
-    type: datetime
   provider:
     type: jsonb
   reading_cache:

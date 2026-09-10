@@ -2,6 +2,8 @@
 
 **Date:** 2026-05-07
 
+> **Note de suivi (2026-09-10).** Les constats ci-dessous sont ceux du jour de l'audit et sont conservés tels quels. Deux ont été traités depuis, dans le cadre du [plan v6](../planning/v6-improvement-plan.md) : la CI a quitté GitLab pour GitHub Actions (PostgreSQL 13, plus 9.6), et le plancher `SimpleCov` est posé — la mesure sur laquelle reposait le `43` commenté était faussée, `SimpleCov.start` s'exécutant après le chargement de l'application.
+
 ## Metrics summary
 
 - **Source**: 418 model files, 404 controller files, 112 exchanger files, 703 migrations.
@@ -117,10 +119,8 @@ CLAUDE.md mentions `rake first_run` and `rake tenant:init` — these exist (in `
 
 ## Key files referenced
 
-- `.gitlab-ci.yml`
-- `.github/workflows/codeql.yml`
+- `.github/workflows/test.yml`, `lint.yml`, `codeql.yml`
 - `test/test_helper.rb`
-- `test/ci/run_tests`
 - `.rubocop.yml`, `.rubocop_todo.yml`
 - `Gemfile.lock`
 - `app/controllers/admin/base_controller.rb`

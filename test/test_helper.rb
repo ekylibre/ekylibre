@@ -1,19 +1,9 @@
-require 'minitest/mock'
-require "minitest/reporters"
-Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
-
-ENV['RAILS_ENV'] ||= 'test'
-
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
-
-require 'rake'
-require 'minitest/mock'
-require 'database_cleaner'
-
-helper = Ekylibre::Testing::Helper.new
-helper.setup
-
+# SimpleCov doit démarrer AVANT le chargement de l'application : Ruby n'instrumente
+# que les fichiers chargés après `Coverage.start`. Placé après
+# `require config/environment`, comme il l'était, tout ce que le boot charge
+# — lib/ekylibre en particulier — était rapporté à 0 %, alors même que ces
+# fichiers s'exécutent en permanence. Mesuré : lib/ekylibre/tenant.rb affichait
+# 0,0 %.
 if ENV['COVERAGE']
   require 'simplecov'
 
@@ -31,16 +21,45 @@ if ENV['COVERAGE']
     add_group 'Services', 'app/services'
     add_group 'Exchangers', 'app/exchangers'
     add_group 'Validators', 'app/validators'
+
+    # Les fichiers de moins de sept lignes sont surtout des coquilles vides
+    # (modules de namespace, concerns d'une ligne) : les compter fausserait la
+    # mesure dans les deux sens.
     add_filter do |source_file|
       source_file.lines.count < 7
     end
-  end
 
-  SimpleCov.at_exit do
-    # SimpleCov.minimum_coverage 43
-    SimpleCov.result.format!
+    # Plancher de couverture : la CI échoue en dessous.
+    #
+    # Mesure du 2026-09-10 sur la suite complète : **58,34 %**
+    # (44 138 / 75 662 lignes, 3 849 tests, 31 min). Le `43` qui traînait ici en
+    # commentaire venait d'une mesure faussée — `SimpleCov.start` s'exécutait
+    # après le chargement de l'application, si bien que tout ce que le boot
+    # charge était compté à 0 % (cf. l'en-tête de ce fichier).
+    #
+    # Le plancher est posé trois points sous la mesure, pas à ras : 408 tests
+    # sont encore en erreur, et les chemins qu'ils n'atteignent pas varient avec
+    # l'ordre d'exécution. **À relever au fur et à mesure que la suite
+    # s'assainit** — c'est un cliquet, pas une cible.
+    minimum_coverage 55
   end
 end
+
+require 'minitest/mock'
+require "minitest/reporters"
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
+ENV['RAILS_ENV'] ||= 'test'
+
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
+
+require 'rake'
+require 'minitest/mock'
+require 'database_cleaner'
+
+helper = Ekylibre::Testing::Helper.new
+helper.setup
 
 class Minitest::Result
   def method(name)
