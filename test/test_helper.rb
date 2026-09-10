@@ -549,8 +549,13 @@ module ActionController
   end
 end
 
+# `Proc.new` sans argument capturait le bloc de la méthode englobante ; Ruby 3
+# le refuse (`tried to create Proc object without a block`). Il rendait ici le
+# bloc de test lui-même, que `stub` installait à la place de `puts` — de sorte
+# qu'un `puts` dans le bloc l'aurait réexécuté. Un no-op dit ce que le nom
+# annonce : faire taire la sortie.
 def without_output(&block)
-  main.stub :puts, Proc.new, &block
+  main.stub :puts, ->(*) {}, &block
 end
 
 module FFaker

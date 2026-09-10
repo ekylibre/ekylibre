@@ -5,8 +5,8 @@ module Interventions
     class OrderByRideSimilarities
       DATE_MIN_SCORE = -7
 
-      def self.call(*args)
-        new(*args).call
+      def self.call(*args, **options)
+        new(*args, **options).call
       end
 
       def initialize(interventions_similarity_scores:)

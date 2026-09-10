@@ -288,7 +288,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 
 | # | Action | Effort |
 |---|---|---:|
-| B.1 | Ruby 2.6 → 3.3 (arguments nommés, `Psych 4` sur les 14 `serialize`). **Avance prise** : toute la chaîne i18n est convertie — `tl`/`ta`/`tn`/`th`/`tc` de l'application (374 appels) **et** `translate`/`localize` d'`i18n-complements`, forkée en branche `6.0` (354 appels). Aucun site d'appel modifié de part et d'autre | 10 → **6** |
+| B.1 | Ruby 2.6 → 3.3. **Le code est prêt, la bascule est bloquée** : aucune image de base Ruby 3 n'existe (`ghcr.io/ekylibre/docker-base-images/ruby3.x` → 403 ; seule `ruby2.7` répond). Fait côté code : toute la chaîne i18n (728 appels, dont la gem `i18n-complements` forkée), les 12 relais `self.call(*args)` → `initialize` à mots-clés, `Proc.new` sans bloc, et les 4 relais i18n à hash positionnel. **Reste** : `Psych 4` sur 4 des 14 `serialize` — mesuré, voir ci-dessous — et le bump lui-même | 10 → **3** |
 | B.2 | 5.2 → 6.0 : Zeitwerk. **Point dur** : `lib/ekylibre/plugin.rb` gère les chemins d'autoload des 16 plugins — à porter en premier | 20 |
 | B.3 | 6.0 → 6.1 : 22 `update_attributes` → `update`, `Rails.application.credentials` | 8 |
 | B.4 | 6.1 → 7.0 : asset pipeline. `active_list` étant condamné (ADR-6.2), **ne pas investir dans `propshaft`/`jsbundling`** : geler `sprockets`/`webpacker` au minimum compatible et laisser le pipeline mourir avec le front au lot G | 10 |
@@ -298,8 +298,33 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | B.8 | Devise 4.9 → version courante ; **vérifier la disponibilité réelle d'Argon2id** (`has_secure_password` reste sur bcrypt ; Argon2id passe par `devise-argon2`) — la roadmap l'annonce comme un défaut de Rails 8.2, à confirmer avant de s'y engager | 5 |
 | B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 6 j·h** : l'audit A.6 avait déjà écarté 12 dépôts sans rien à faire et 4 à simple borne de gemspec ; `ekylibre-planning`, qui portait le reste du chiffrage, est mesuré et porté | 6 |
 
+> **Sur B.1 — la bascule de version est bloquée hors de ce dépôt.** Interrogé sur GHCR : `ruby3.3`, `ruby3.2`, `ruby3.1` et `ruby3.0` répondent 403 (inexistantes ou privées), `ruby2.7` répond 200. Passer à Ruby 3 impose donc d'abord une image dans `ekylibre/docker-base-images`. **Ruby 2.7 est disponible et c'est le palier canonique** : c'est la version qui *avertit* sur la séparation des arguments nommés au lieu de lever, et une exécution de la suite sous 2.7 donnerait la liste exhaustive des ruptures restantes plutôt que l'analyse statique menée ici.
+
+> **Sur B.1 — ce qui a été corrigé, et comment on le sait.** Le motif fautif est toujours le même : Ruby 2 convertissait en mots-clés le hash final d'un appel, Ruby 3 ne le fait plus.
+>
+> | Motif | Sites | Vérification |
+> |---|---:|---|
+> | Raccourcis i18n `tl`/`ta`/`tn`/`th`/`tc` | 374 | équivalence sur 12 formes, Ruby 2.6 |
+> | `translate`/`localize` d'`i18n-complements` | 354 | suite de la gem, 12 erreurs → 0 sous Ruby 3.0 |
+> | `self.call(*args)` → `initialize(x:)` dans les services | 12 | rupture et correctif reproduits sous Ruby 3.0 |
+> | Relais i18n à hash positionnel (`human_action_name`, `stl`, 2 mailers) | 4 | — |
+> | `Proc.new` sans bloc (`without_output`) | 1 | `tenant_test` 4/4 avant comme après |
+>
+> Les API réellement retirées, elles, ne posent presque rien : sur `URI.escape`, `Fixnum`, `taint`, `File.exists?`, `$SAFE` et consorts, un seul site vivant — les autres occurrences sont en commentaire ou dans des comparaisons de chaînes.
+
+> **Sur B.1 — Psych 4 casse 4 des 14 `serialize`, mesuré.** Sous Psych 4 (défaut à partir de Ruby 3.1), `YAML.load` applique les règles de `safe_load`. Testé sur les types réellement stockés :
+>
+> | Type | Psych 4 |
+> |---|---|
+> | Hash à clés symboles, tableaux de symboles ou de chaînes | accepté |
+> | `HashWithIndifferentAccess`, `Date`, `Time`, `BigDecimal` | **refusé** (`DisallowedClass`) |
+>
+> `Version#item_object` et `#item_changes` sérialisent des instantanés d'attributs de modèles : ils contiennent dates, horodatages et décimaux, et sont donc certains de casser — sur la table d'audit, la plus volumineuse. Les `HashSerializer` (`specie_variety`, `additional_informations`) sont exposés au même risque selon leur contenu.
+>
+> Rien n'est applicable sur Rails 5.2 : le crochet `yaml_column_permitted_classes` n'existe qu'à partir de 6.1/7.0. **À traiter au palier B.3**, pas avant.
+
 **Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
-**Effort : ~90 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté, → 90 toute la chaîne i18n étant convertie par anticipation en A.7a). **Dépendance : lot A.**
+**Effort : ~87 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté, → 87 la préparation Ruby 3 étant faite). **B.1 est désormais bloqué par une dépendance externe** : l'image de base. **Dépendance : lot A.**
 
 ---
 

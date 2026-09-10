@@ -3,12 +3,12 @@
 class AccountancyClassifierService
   attr_reader :log_result
 
-  def self.classify_from_data(*args)
-    new(*args).classify_from_data
+  def self.classify_from_data(*args, **options)
+    new(*args, **options).classify_from_data
   end
 
-  def self.call(*args)
-    new(*args).classify_from_ia
+  def self.call(*args, **options)
+    new(*args, **options).classify_from_ia
   end
 
   def initialize(journal_entry_item_ids: )

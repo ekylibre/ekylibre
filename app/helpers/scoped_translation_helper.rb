@@ -38,6 +38,8 @@ module ScopedTranslationHelper
   def stl(unit, **options)
     return unit if unit.is_a?(String) && unit == ''
 
-    t ScopedTranslationHelper.translation_key(ScopedTranslationHelper.i18n_scope, unit), options
+    # `translate` devient `translate(key, **options)` dès Rails 6 : le hash doit
+    # être éclaté, faute de quoi il resterait positionnel sous Ruby 3.
+    t ScopedTranslationHelper.translation_key(ScopedTranslationHelper.i18n_scope, unit), **options
   end
 end

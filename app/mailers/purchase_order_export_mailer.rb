@@ -17,8 +17,8 @@ class PurchaseOrderExportMailer < ActionMailer::Base
       from: current_user.email,
       to: purchase_order.supplier.default_email_address.coordinate,
       cc: current_user.email,
-      subject: I18n.t('mailers.purchase_order_export.notify_supplier_subject', locales_values),
-      body: I18n.t('mailers.purchase_order_export.notify_supplier', locales_values)
+      subject: I18n.t('mailers.purchase_order_export.notify_supplier_subject', **locales_values),
+      body: I18n.t('mailers.purchase_order_export.notify_supplier', **locales_values)
     )
   end
 end

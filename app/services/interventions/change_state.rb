@@ -9,8 +9,8 @@ module Interventions
       @validator = validator
     end
 
-    def self.call(*args)
-      new(*args).call
+    def self.call(*args, **options)
+      new(*args, **options).call
     end
 
     def call

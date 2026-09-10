@@ -49,7 +49,10 @@ class ApplicationController < ActionController::Base
       options[:default] << default unless options[:default].include?(default)
       klass = klass.superclass
     end
-    ::I18n.translate(root + action, options)
+    # `I18n.translate` est `translate(key = nil, **options)` : elle n'accepte
+    # qu'un positionnel. Passer `options` en second positionnel ne marchait que
+    # par la conversion automatique de Ruby 2 (cf. config/initializers/10-patches.rb).
+    ::I18n.translate(root + action, **options)
   end
 
   helper_method :human_action_name

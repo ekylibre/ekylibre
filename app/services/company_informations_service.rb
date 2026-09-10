@@ -12,8 +12,8 @@ class CompanyInformationsService
     OpenSSL::SSL::SSLError
   ].freeze
 
-  def self.call(*args)
-    new(*args).call
+  def self.call(*args, **options)
+    new(*args, **options).call
   end
 
   def initialize(

@@ -4,8 +4,8 @@ module Interventions
   module Geolocation
     # Build intervention target attributes (including computed working zone) from rides
     class AttributesBuilderFromRides
-      def self.call(*args)
-        new(*args).call
+      def self.call(*args, **options)
+        new(*args, **options).call
       end
 
       def initialize(ride_ids:, procedure_name:, target_class: nil)

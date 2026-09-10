@@ -3,8 +3,8 @@
 module Variants
   class CreateProductService
 
-    def self.call(*args)
-      new(*args).call
+    def self.call(*args, **options)
+      new(*args, **options).call
     end
 
     def initialize(variant:, current_time: Time.zone.now )
