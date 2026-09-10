@@ -148,7 +148,15 @@ Une application Rails jetable a été montée pour exercer une vraie liste — m
 
 **La rupture Ruby 3 dépasse largement `active_list`.** `String#t` et `Symbol#t` (i18n-complements, de Brice Texier — hors des 23 dépôts) appellent `I18n.translate(self, options)` avec deux arguments positionnels. I18n n'en accepte qu'un : Ruby 2 convertissait le hash final en mots-clés, Ruby 3 ne le fait plus. Sous Ruby 3, toute liste levait `wrong number of arguments (given 2, expected 0..1)` — y compris pour `'list.menu'.t` sans argument, qui transmet `{}`. Les dix sites d'`active_list` sont convertis en `::I18n.translate`, traductions comparées une à une.
 
-> **Le même piège attend l'application au lot B.1.** `config/initializers/10-patches.rb` définit `tl`, `ta`, `tn` et `th` en `def tl(*args); I18n.translate('labels.' + to_s, *args); end`. Sur **2 260 appels**, **303 passent des arguments** et lèveront sous Ruby 3. La correction tient en une ligne par méthode (`*args, **opts`), mais elle doit être faite avec Ruby 3 sous la main pour être vérifiable — donc en B.1, pas avant.
+> **Le même piège frappait l'application — corrigé.** `config/initializers/10-patches.rb` définissait `tl`, `ta`, `tn`, `th` et les deux `tc` contextuels sur la même construction fautive. Décompte exact : **2 351 sites d'appel, dont 374 passent des arguments** et levaient sous Ruby 3. Les huit définitions sont reprises ; **aucun des 374 appels n'a été modifié** — la correction est à la définition, pas à l'appel.
+>
+> Le correctif naïf (`*args, **options`) ne suffisait pas : **27 sites passent un hash en positionnel** (`:x.th(defaults)` dans les vues de chronologie, `"...".tl(options)`, `.tl(@i18n)`), forme que Ruby 3 ne convertit plus en mots-clés. `Ekylibre::I18n.translation_options` normalise les deux. Un balayage classant les 374 sites par forme d'argument garantit qu'aucune n'a été oubliée : 346 mots-clés, 27 hash positionnels, 6 hashrockets, 1 double-splat, 0 inclassable.
+>
+> Effet de bord corrigé au passage : `th` modifiait **en place** le hash de son appelant pour y insérer les `<em>`. Il travaille désormais sur une copie ; le rendu est identique (la mutation était rendue inoffensive par le test `html_safe?`, qui la rendait idempotente).
+
+> **Le jumeau du même défaut reste ouvert : `localize`.** La gem `i18n-complements` (Brice Texier, `github.com/burisu/i18n-complements` — hors des 23 dépôts) définit `localize`/`l` sur `String`, `Numeric`, `Date`, `DateTime` et `Time` en `def localize(options = {}); I18n.localize(self, options); end` — exactement la construction qui casse, `I18n.localize` étant `localize(object, locale:, format:, **options)`. **354 appels de l'application passent des arguments** (`.l(format: :long)`, `.l(currency: …)`). Ses `translate`/`t` ont le même défaut : c'est ce qui cassait `active_list` (§3.5).
+>
+> À trancher en B.1, la gem n'étant pas dans notre périmètre : fork sur une branche `6.0` comme les autres, surcharge défensive dans `10-patches.rb`, ou abandon de la gem. Rien n'est fait ici, faute de mandat sur ce dépôt.
 
 Vérifications :
 

@@ -5,35 +5,69 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
+module Ekylibre
+  module I18n
+    # Ruby 2 convertissait en mots-clés le hash final d'un appel ; Ruby 3 ne le
+    # fait plus. Or les raccourcis de traduction ci-dessous relaient leurs
+    # arguments à `I18n.translate`, dont la signature est
+    # `translate(key = nil, **options)` : elle n'accepte qu'un positionnel.
+    # Sous Ruby 3, `:x.tl(count: 3)` levait donc
+    # `wrong number of arguments (given 2, expected 0..1)`.
+    #
+    # Deux formes d'appel coexistent dans l'application et doivent survivre
+    # toutes les deux : les mots-clés — `:x.tl(count: 3)`, l'immense majorité —
+    # et le hash passé en positionnel — `:x.th(defaults)` dans les vues de
+    # chronologie, `"...".tl(options)` dans les helpers. La seconde ne se
+    # convertit plus toute seule, d'où cette normalisation explicite.
+    #
+    # @param args [Array] positionnels résiduels : au plus un hash d'options
+    # @param options [Hash] mots-clés reçus
+    # @return [Hash] options à passer à `I18n.translate`
+    # @raise [ArgumentError] si un positionnel n'est pas un hash d'options
+    def self.translation_options(args, options)
+      return options if args.empty?
+
+      positional = args.last
+      unless args.size == 1 && positional.is_a?(::Hash)
+        raise ArgumentError, "Expected at most one options hash, got #{args.inspect}"
+      end
+
+      # `merge` rend un nouveau hash : les mots-clés l'emportent, et le hash de
+      # l'appelant n'est jamais modifié — ce que `th` faisait auparavant.
+      positional.merge(options)
+    end
+  end
+end
+
 class ::String
-  def tl(*args)
-    ::I18n.translate('labels.' + self, *args)
+  def tl(*args, **options)
+    ::I18n.translate('labels.' + self, **::Ekylibre::I18n.translation_options(args, options))
   end
 end
 
 class ::Symbol
-  def tl(*args)
-    ::I18n.translate('labels.' + to_s, *args)
+  def tl(*args, **options)
+    ::I18n.translate('labels.' + to_s, **::Ekylibre::I18n.translation_options(args, options))
   end
 
-  def ta(*args)
-    ::I18n.translate('rest.actions.' + to_s, *args)
+  def ta(*args, **options)
+    ::I18n.translate('rest.actions.' + to_s, **::Ekylibre::I18n.translation_options(args, options))
   end
 
-  def tn(*args)
-    ::I18n.translate('notifications.messages.' + to_s, *args)
+  def tn(*args, **options)
+    ::I18n.translate('notifications.messages.' + to_s, **::Ekylibre::I18n.translation_options(args, options))
   end
 
-  def th(*args)
-    args.each_with_index do |arg, _index|
-      next unless arg.is_a?(Hash)
-      for k, v in arg
-        unless %i[locale scope default].include?(k)
-          arg[k] = (v.html_safe? ? v : ('<em>' + CGI.escapeHTML(v) + '</em>').html_safe)
-        end
-      end
+  # Met en évidence chaque interpolation, sauf les options d'I18n elles-mêmes.
+  def th(*args, **options)
+    emphasized = ::Ekylibre::I18n.translation_options(args, options).each_with_object({}) do |(key, value), result|
+      result[key] = if %i[locale scope default].include?(key) || value.html_safe?
+                      value
+                    else
+                      ('<em>' + CGI.escapeHTML(value) + '</em>').html_safe
+                    end
     end
-    tl(*args).html_safe
+    tl(**emphasized).html_safe
   end
 end
 
@@ -119,24 +153,26 @@ end
 
 module Ekylibre
   module I18n
+    # Ces trois raccourcis prennent leur clé en premier argument positionnel ;
+    # le reste suit la même normalisation que String#tl et Symbol#tl.
     module ContextualModelHelpers
-      def tc(*args)
-        args[0] = 'models.' + model_name.singular + '.' + args[0].to_s
-        ::I18n.translate(*args)
+      def tc(key, *args, **options)
+        ::I18n.translate('models.' + model_name.singular + '.' + key.to_s,
+                         **::Ekylibre::I18n.translation_options(args, options))
       end
     end
 
     module ContextualModelInstanceHelpers
-      def tc(*args)
-        args[0] = 'models.' + self.class.model_name.singular + '.' + args[0].to_s
-        ::I18n.translate(*args)
+      def tc(key, *args, **options)
+        ::I18n.translate('models.' + self.class.model_name.singular + '.' + key.to_s,
+                         **::Ekylibre::I18n.translation_options(args, options))
       end
     end
 
     module ContextualHelpers
-      def tl(*args)
-        args[0] = 'labels.' + args[0].to_s
-        ::I18n.translate(*args)
+      def tl(key, *args, **options)
+        ::I18n.translate('labels.' + key.to_s,
+                         **::Ekylibre::I18n.translation_options(args, options))
       end
     end
   end

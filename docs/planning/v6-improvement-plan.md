@@ -250,6 +250,10 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 >
 > Reste dans le gel, sans effet avant Ruby 3.1 : le code généré appelle `YAML::load` sur les préférences de liste, que Psych 4 refusera sans `permitted_classes`. À traiter en B.1, avec le reste de Psych.
 
+> **Sur A.7a — la rupture Ruby 3 des raccourcis i18n est corrigée dans l'application.** Le défaut trouvé dans `active_list` était le même dans `config/initializers/10-patches.rb` : `tl`, `ta`, `tn`, `th` et les deux `tc` relayaient `*args` à `I18n.translate`, qui n'accepte qu'un positionnel. **2 351 sites d'appel, dont 374 avec arguments**, tous couverts — et **aucun appel n'a été touché** : la correction est aux huit définitions. Le correctif naïf `*args, **options` était insuffisant, 27 sites passant un hash en positionnel (`:x.th(defaults)`) que Ruby 3 ne convertit plus. Équivalence vérifiée sous Ruby 2.6 sur le tenant de test (12 formes, aucune divergence) et sous Ruby 3.0 sur le code réel du correctif.
+>
+> **Le jumeau reste ouvert** : `localize`/`l` d'`i18n-complements` a le même défaut sur 5 classes, avec 354 appels. La gem est hors périmètre (dépôt tiers) — la décision revient à B.1.
+
 > **Sur A.7a — `onoma` bloquait Rails 7.0, l'audit ne l'avait pas vu.** La sonde a buté sur `zeitwerk ~> 2.4.0` déclaré par `onoma`, quand Rails 7.0 exige `~> 2.5` : aucune résolution possible. La borne était déclarative — onoma n'utilise que `Zeitwerk::Loader.for_gem`, présent dans toute la série 2.x — et l'audit avait classé le dépôt en « rien à faire » sur la seule foi de sa borne `activesupport >= 4.2`. Relâchée sur une branche `6.0` publiée. L'application consomme `onoma` en gem publique (`~> 0.9.8`) : la bascule ou une publication reste à faire, mais rien ne presse — le conflit ne mord qu'au palier 7.0.
 
 > **Sur A.3 — trois plugins écrivaient via Paperclip, tous repris.** Le retrait de Paperclip casse tout site qui *écrivait* via ses attributs ; le balayage des 23 dépôts en a trouvé trois, corrigés chacun sur une branche `6.0` publiée : `ekylibre-planning` (`ScenarioExportJob`), `ekylibre-viti` (`backend/wine_incoming_harvests_controller.rb`, registre de vendange) et `ekylibre-baqio` (`integrations/baqio/handlers/sales.rb`, facture attachée à la vente). `Gemfile.prod` consomme les trois. Les sites en *lecture* n'étaient pas concernés : `LegacyAttachmentColumns` continue de les servir.
@@ -274,7 +278,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 
 | # | Action | Effort |
 |---|---|---:|
-| B.1 | Ruby 2.6 → 3.3 (arguments nommés, `Psych 4` sur les 14 `serialize`) | 10 |
+| B.1 | Ruby 2.6 → 3.3 (arguments nommés, `Psych 4` sur les 14 `serialize`). **Avance prise** : les raccourcis i18n `tl`/`ta`/`tn`/`th`/`tc` sont déjà convertis (374 appels couverts sans en modifier aucun). **Reste ouvert** : `localize`/`l` d'`i18n-complements`, même défaut, 354 appels — voir [l'audit §3.5](v6-dependency-audit.md) | 10 → **8** |
 | B.2 | 5.2 → 6.0 : Zeitwerk. **Point dur** : `lib/ekylibre/plugin.rb` gère les chemins d'autoload des 16 plugins — à porter en premier | 20 |
 | B.3 | 6.0 → 6.1 : 22 `update_attributes` → `update`, `Rails.application.credentials` | 8 |
 | B.4 | 6.1 → 7.0 : asset pipeline. `active_list` étant condamné (ADR-6.2), **ne pas investir dans `propshaft`/`jsbundling`** : geler `sprockets`/`webpacker` au minimum compatible et laisser le pipeline mourir avec le front au lot G | 10 |
@@ -285,7 +289,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 6 j·h** : l'audit A.6 avait déjà écarté 12 dépôts sans rien à faire et 4 à simple borne de gemspec ; `ekylibre-planning`, qui portait le reste du chiffrage, est mesuré et porté | 6 |
 
 **Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
-**Effort : ~94 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté). **Dépendance : lot A.**
+**Effort : ~92 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté, → 92 les raccourcis i18n étant convertis par anticipation en A.7a). **Dépendance : lot A.**
 
 ---
 
