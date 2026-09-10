@@ -289,7 +289,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | # | Action | Effort |
 |---|---|---:|
 | B.1 | Ruby 2.6 → 3.3. **Le code est prêt, la bascule est bloquée** : aucune image de base Ruby 3 n'existe (`ghcr.io/ekylibre/docker-base-images/ruby3.x` → 403 ; seule `ruby2.7` répond). Fait côté code : toute la chaîne i18n (728 appels, dont la gem `i18n-complements` forkée), les 12 relais `self.call(*args)` → `initialize` à mots-clés, `Proc.new` sans bloc, et les 4 relais i18n à hash positionnel. **Reste** : `Psych 4` sur 4 des 14 `serialize` — mesuré, voir ci-dessous — et le bump lui-même | 10 → **3** |
-| B.2 | 5.2 → 6.0 : Zeitwerk. **Point dur** : `lib/ekylibre/plugin.rb` gère les chemins d'autoload des 16 plugins — à porter en premier | 20 |
+| B.2 | 5.2 → 6.0 : Zeitwerk. ~~**Point dur** : `lib/ekylibre/plugin.rb`~~ — **le mécanisme est mort** : `plugins/` est vide, `registered_plugins` aussi, et les 19 plugins sont des Rails Engines, dont Rails 6 indexe les chemins tout seul. **Conformité de nommage faite et prouvée** : 0 écart sur 1 675 fichiers de l'application, 0 sur 229 de plugins actifs, configuration Zeitwerk écrite et vérifiée. **Reste** : la bascule de version elle-même | 20 → **8** |
 | B.3 | 6.0 → 6.1 : 22 `update_attributes` → `update`, `Rails.application.credentials` | 8 |
 | B.4 | 6.1 → 7.0 : asset pipeline. `active_list` étant condamné (ADR-6.2), **ne pas investir dans `propshaft`/`jsbundling`** : geler `sprockets`/`webpacker` au minimum compatible et laisser le pipeline mourir avec le front au lot G | 10 |
 | B.5 | 7.0 → 7.1 : **jalon de convergence avec le lot C** (PK composites natives disponibles) | 8 |
@@ -297,6 +297,20 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | B.7 | Sidekiq 4 → Solid Queue ; Redis → Solid Cable. Réinjection du contexte tenant dans `ApplicationJob` | 12 |
 | B.8 | Devise 4.9 → version courante ; **vérifier la disponibilité réelle d'Argon2id** (`has_secure_password` reste sur bcrypt ; Argon2id passe par `devise-argon2`) — la roadmap l'annonce comme un défaut de Rails 8.2, à confirmer avant de s'y engager | 5 |
 | B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 6 j·h** : l'audit A.6 avait déjà écarté 12 dépôts sans rien à faire et 4 à simple borne de gemspec ; `ekylibre-planning`, qui portait le reste du chiffrage, est mesuré et porté | 6 |
+
+> **Sur B.2 — le point dur annoncé n'existe pas.** Le plan désignait `lib/ekylibre/plugin.rb` et sa gestion des chemins d'autoload des « 16 plugins ». Mesuré : le répertoire `plugins/` est **vide**, `Ekylibre::Plugin.registered_plugins` rend `[]`, et les 19 plugins de `Gemfile.local` sont chargés comme **Rails Engines** (`Planning::Engine`, `EkylibreBaqio::Engine`, `Ekylibre::Banking::Engine`…). Or Rails 6 agrège les chemins des engines dans le chargeur principal sans rien demander. `Ekylibre::Plugin` reste du code — environ 300 lignes — mais il n'est sur le chemin critique de rien. À décider séparément : le retirer, ou le documenter comme mécanisme alternatif.
+>
+> Ce qui était vraiment à faire, la conformité de nommage, est **fait et prouvé**. Zeitwerk part du fichier pour en déduire la constante, à l'inverse du chargeur classique : un contrôle statique sur les **1 675 fichiers autochargés** a relevé 21 écarts, de trois natures.
+>
+> | Nature | Nombre | Traitement |
+> |---|---:|---|
+> | Acronymes (`XML`, `JSON`, `HTML`, `CSV`, `SQL`, `DSL`, `SVF`, `GeoJSON`, `FEC`, `EBP`, `EDI`) | 12 | inflecteur **de Zeitwerk**, pas `ActiveSupport::Inflector.acronym` — ce dernier est global et changerait aussi noms de routes, clés i18n et `model_name` |
+> | Fichiers non autochargeables (extensions du cœur, monkey-patches, gabarits de générateurs) | 8 | `ignore` |
+> | Code mort (`lib/routing/params.rb`, jamais chargé ; un fichier de 0 octet) | 2 | supprimés |
+>
+> La configuration est **vérifiée, pas supposée** : le contrôle rejoué en appliquant les inflexions et exclusions déclarées rend **0 écart**. Un piège évité au passage — inflechir `version` en `VERSION` pour `lib/ekylibre/version.rb` aurait cassé `app/models/version.rb`, le modèle de la piste d'audit, l'inflecteur étant global au chargeur ; le fichier est exclu à la place.
+>
+> Côté plugins : **229 fichiers contrôlés, 3 écarts**. Un fichier vide dans `ekylibre-viti` (supprimé — Zeitwerk lève sur un fichier qui ne définit rien), `GeoJSONModel` dans `ekylibre-hajimari` (inflexion ajoutée), et un `InvoiceXMLExportService` dans `ekylibre-imepe`, plugin désactivé dans `Gemfile.local`.
 
 > **Sur B.1 — la bascule de version est bloquée hors de ce dépôt.** Interrogé sur GHCR : `ruby3.3`, `ruby3.2`, `ruby3.1` et `ruby3.0` répondent 403 (inexistantes ou privées), `ruby2.7` répond 200. Passer à Ruby 3 impose donc d'abord une image dans `ekylibre/docker-base-images`. **Ruby 2.7 est disponible et c'est le palier canonique** : c'est la version qui *avertit* sur la séparation des arguments nommés au lieu de lever, et une exécution de la suite sous 2.7 donnerait la liste exhaustive des ruptures restantes plutôt que l'analyse statique menée ici.
 
@@ -324,7 +338,7 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 > Rien n'est applicable sur Rails 5.2 : le crochet `yaml_column_permitted_classes` n'existe qu'à partir de 6.1/7.0. **À traiter au palier B.3**, pas avant.
 
 **Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
-**Effort : ~87 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté, → 87 la préparation Ruby 3 étant faite). **B.1 est désormais bloqué par une dépendance externe** : l'image de base. **Dépendance : lot A.**
+**Effort : ~75 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté, → 87 la préparation Ruby 3 étant faite). **B.1 est désormais bloqué par une dépendance externe** : l'image de base. **Dépendance : lot A.**
 
 ---
 

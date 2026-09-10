@@ -38,6 +38,58 @@ module Ekylibre
     config.autoload_paths << Rails.root.join('app', 'models', 'bookkeepers')
     config.autoload_paths << Rails.root.join('app', 'models', 'lexicon')
 
+    # --- Préparation Zeitwerk (Rails 6, lot B.2 du plan v6) ------------------
+    #
+    # Zeitwerk parcourt les chemins d'autoload et exige que chaque fichier
+    # définisse la constante que son chemin implique — l'inverse du chargeur
+    # classique, qui part de la constante pour deviner le fichier. Un contrôle
+    # statique sur les 1 677 fichiers autochargés a relevé 20 écarts, de deux
+    # natures seulement.
+    #
+    # Le bloc est inerte tant que `Rails.autoloaders` n'existe pas, c'est-à-dire
+    # sur Rails 5.2 : il documente et prépare le palier sans rien changer ici.
+    if Rails.respond_to?(:autoloaders) && Rails.autoloaders.respond_to?(:main)
+      main = Rails.autoloaders.main
+
+      # 1. Acronymes. On passe par l'inflecteur *de Zeitwerk* et non par
+      #    ActiveSupport::Inflector.acronym : ce dernier est global et
+      #    changerait aussi les noms de routes, les clés i18n et `model_name`.
+      main.inflector.inflect(
+        'svf' => 'SVF',
+        'geo_json' => 'GeoJSON',
+        'xml' => 'XML',
+        'html' => 'HTML',
+        'json' => 'JSON',
+        'csv' => 'CSV',
+        'fec' => 'FEC',
+        'ebp' => 'EBP',
+        'dsl' => 'DSL',
+        'sql_compiler' => 'SQLCompiler',
+        'edi_exchanger' => 'EDIExchanger',
+        # Fichier d'un plugin : en Rails 6 les chemins des engines sont indexés
+        # par le chargeur principal, l'inflecteur de l'application s'y applique.
+        'geo_json_model' => 'GeoJSONModel'
+      )
+
+      # 2. Fichiers qui ne définissent aucune constante autochargeable et
+      #    n'ont donc rien à faire dans l'index de Zeitwerk :
+      #    - extensions du cœur et monkey-patches, chargés explicitement par
+      #      config/initializers/20-start.rb ;
+      #    - gabarits de générateurs, qui ne sont pas du Ruby à exécuter.
+      main.ignore(
+        Rails.root.join('lib', 'safe_string.rb'),
+        Rails.root.join('lib', 'enumerize', 'xml.rb'),
+        Rails.root.join('lib', 'generators', '**', 'templates'),
+        # `Ekylibre::VERSION` est une constante, pas une classe : Zeitwerk
+        # attendrait `Ekylibre::Version` de ce chemin. On ne peut pas inflechir
+        # `version` en `VERSION` pour autant — `app/models/version.rb` définit
+        # le modèle `Version` de la piste d'audit, et l'inflecteur est global au
+        # chargeur. Le fichier est donc exclu et déclaré en autoload maison dans
+        # lib/ekylibre.rb, comme aujourd'hui.
+        Rails.root.join('lib', 'ekylibre', 'version.rb')
+      )
+    end
+
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
 
