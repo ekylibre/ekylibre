@@ -1920,6 +1920,7 @@ fra:
       confirmation: "%{attribute} ne correspond pas à la confirmation"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       currency_does_not_match: "La devise de l'%{attribute}e est différente de celle d'%{currency}"
+      currency_rate_unavailable: "Le taux de change %{from} → %{to} n'a pas pu être obtenu. Saisissez-le manuellement."
       default_error_message: "Un problème est survenue"
       empty: "%{attribute} ne peut pas être vide"
       empty_shape: "La structure « %{attribute} » ne peut pas être vide"

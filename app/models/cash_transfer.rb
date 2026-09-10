@@ -72,6 +72,7 @@ class CashTransfer < ApplicationRecord
   validates :transfered_at, presence: true, financial_year_writeable: true, ongoing_exchanges: true
 
   before_validation do
+    @currency_rate_unavailable = false
     self.transfered_at ||= Time.zone.today
     self.emission_currency = emission_cash.currency if emission_cash
     self.reception_currency = reception_cash.currency if reception_cash
@@ -79,7 +80,7 @@ class CashTransfer < ApplicationRecord
       self.currency_rate = if emission_currency == reception_currency
                              1
                            else
-                             I18n.currency_rate(emission_currency, reception_currency)
+                             lookup_currency_rate
                            end
     end
     if emission_amount && currency_rate
@@ -89,6 +90,15 @@ class CashTransfer < ApplicationRecord
 
   validate do
     errors.add(:reception_cash, :invalid) if reception_cash_id == emission_cash_id
+
+    if @currency_rate_unavailable
+      # Remplace le « ne peut pas être vide » du validateur de présence, qui
+      # n'indique ni la cause ni le remède. L'attribut n'ayant pas de valeur,
+      # c'est la seule erreur qui puisse s'y trouver.
+      errors.delete(:currency_rate)
+      errors.add(:currency_rate, :currency_rate_unavailable,
+                 from: emission_currency, to: reception_currency)
+    end
   end
 
   after_destroy do
@@ -121,4 +131,23 @@ class CashTransfer < ApplicationRecord
   def transferred_during_financial_year_closure_preparation?
     FinancialYear.on(transfered_at)&.closure_in_preparation?
   end
+
+  private
+
+    # Le taux de change provient d'une source extérieure — les taux de
+    # référence de la BCE — qui peut être injoignable. Laisser l'exception
+    # remonter depuis une validation donnerait une 500, alors que le modèle
+    # accepte parfaitement un taux saisi à la main : on la convertit en erreur
+    # de validation, pour que l'utilisateur ait un recours.
+    #
+    # @return [BigDecimal, nil] nil si aucun taux n'a pu être obtenu
+    def lookup_currency_rate
+      I18n.currency_rate(emission_currency, reception_currency)
+    rescue I18n::CurrencyRateUnavailable => e
+      Rails.logger.warn(
+        "[CashTransfer] taux #{emission_currency} -> #{reception_currency} indisponible : #{e.message}"
+      )
+      @currency_rate_unavailable = true
+      nil
+    end
 end

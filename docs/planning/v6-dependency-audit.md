@@ -170,7 +170,7 @@ Une application Rails jetable a été montée pour exercer une vraie liste — m
 >
 > Suite de la gem : de « ne peut pas passer » à **39 tests, 0 échec**, sans réseau. Mesuré dans l'application sous Ruby 2.6 : 100 conversions en 0,1 ms grâce au cache.
 >
-> **Reste à décider côté Ekylibre** : `CashTransfer` laisse toujours remonter l'erreur depuis sa validation. Elle est désormais propre et rare, mais un `CurrencyRateUnavailable` y produit encore une 500 alors que le modèle accepte un `currency_rate` saisi à la main — le convertir en erreur de validation est une décision d'ergonomie, pas de montée de version.
+> **Côté Ekylibre, l'erreur est convertie en erreur de validation.** `CashTransfer` cherche son taux depuis un `before_validation` : une source injoignable y produisait une 500 à l'enregistrement, alors que le modèle accepte parfaitement un `currency_rate` saisi à la main. `I18n::CurrencyRateUnavailable` est désormais rattrapée et transformée en erreur sur `currency_rate`, avec un message qui nomme les deux devises et indique le recours. Elle **remplace** le « ne peut pas être vide » du validateur de présence généré, qui n'apprenait rien à l'utilisateur. Le modèle passe de 1 test vide à **6 tests, 15 assertions**.
 
 Vérifications :
 

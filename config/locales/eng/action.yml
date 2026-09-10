@@ -1776,6 +1776,7 @@ eng:
       confirmation: "%{attribute} doesn't match confirmation"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+      currency_rate_unavailable: "The %{from} → %{to} exchange rate could not be retrieved. Enter it manually."
       default_error_message: "An error occured"
       empty: "%{attribute} can't be empty"
       empty_shape: "The shape of %{attribute} cannot be empty"
