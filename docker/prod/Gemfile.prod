@@ -36,7 +36,7 @@ gem 'hajimari',          git: 'https://github.com/ekylibre/ekylibre-hajimari.git
 gem 'idea',              git: 'https://github.com/ekylibre/ekylibre-idea.git',     branch: 'dev'
 
 # === Planning ===
-gem 'planning',          git: 'https://github.com/ekylibre/ekylibre-planning.git', branch: 'dev'
+gem 'planning',          git: 'https://github.com/ekylibre/ekylibre-planning.git', branch: '6.0'
 
 # === Materiel / capteurs / IoT ===
 gem 'ekylibre-samsys',     git: 'https://github.com/ekylibre/ekylibre-samsys.git',     branch: 'master'

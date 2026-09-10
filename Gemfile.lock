@@ -87,17 +87,16 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-planning.git
-  revision: d3f29e32b9cc77ec9ae205be2e603d66e134025f
-  branch: dev
+  revision: a18cf5979c464f61c39b4aef1e3962274296068b
+  branch: 6.0
   specs:
     planning (0.1.1)
-      coffee-rails
-      factory_bot
-      jbuilder
+      coffee-rails (>= 4.1, < 6)
+      jbuilder (>= 2.0, < 3)
       lodash-rails
       onoma
-      rails (~> 5.2)
-      sassc-rails (~> 2.0)
+      rails (>= 5.2, < 9)
+      sassc-rails (>= 2.0, < 3)
       vuejs-rails
 
 GIT
