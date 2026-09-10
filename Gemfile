@@ -159,7 +159,7 @@ gem 'tinymce-rails-langs'
 # I18n and localeapp
 gem 'http_accept_language', '~> 2.1'
 gem 'humanize', '~> 2.5'
-gem 'i18n-complements', '>= 0.0.14'
+gem 'i18n-complements', git: 'https://github.com/ekylibre/i18n-complements.git', branch: '6.0'
 gem 'i18n-js', '~> 3.8'
 
 

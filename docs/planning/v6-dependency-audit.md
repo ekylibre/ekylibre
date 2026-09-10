@@ -154,9 +154,13 @@ Une application Rails jetable a été montée pour exercer une vraie liste — m
 >
 > Effet de bord corrigé au passage : `th` modifiait **en place** le hash de son appelant pour y insérer les `<em>`. Il travaille désormais sur une copie ; le rendu est identique (la mutation était rendue inoffensive par le test `html_safe?`, qui la rendait idempotente).
 
-> **Le jumeau du même défaut reste ouvert : `localize`.** La gem `i18n-complements` (Brice Texier, `github.com/burisu/i18n-complements` — hors des 23 dépôts) définit `localize`/`l` sur `String`, `Numeric`, `Date`, `DateTime` et `Time` en `def localize(options = {}); I18n.localize(self, options); end` — exactement la construction qui casse, `I18n.localize` étant `localize(object, locale:, format:, **options)`. **354 appels de l'application passent des arguments** (`.l(format: :long)`, `.l(currency: …)`). Ses `translate`/`t` ont le même défaut : c'est ce qui cassait `active_list` (§3.5).
+> **Le jumeau du même défaut — `i18n-complements` — est corrigé sur une branche `6.0`.** La gem définissait `translate`/`t` et `localize`/`l` sur huit classes en relayant leurs options en positionnel, exactement la construction qui casse. **354 appels de l'application** en dépendaient (`.l(format: :long)`, `.l(currency: …)`), et ses `translate`/`t` sont ce qui cassait `active_list` (§3.5). Neuf relais éclatés avec `**`. Sa suite passe de **12 erreurs à 0** sous Ruby 3.0.
 >
-> À trancher en B.1, la gem n'étant pas dans notre périmètre : fork sur une branche `6.0` comme les autres, surcharge défensive dans `10-patches.rb`, ou abandon de la gem. Rien n'est fait ici, faute de mandat sur ce dépôt.
+> Un fork existait déjà chez `ekylibre`, ignoré du `Gemfile` qui consommait la gem publique. Il était **en retard sur rubygems** : la 1.1.1 publiée n'a jamais été poussée dans le dépôt, et emportait deux correctifs de formatage numérique — espace insécable comme séparateur de milliers, décimales non groupées. Basculer le `Gemfile` sur le fork tel quel aurait donc régressé l'affichage de **tout montant**. La 1.1.1 est rattrapée d'abord, puis la correction Ruby 3 ; la branche est en 1.2.0 pour que la divergence avec rubygems soit lisible.
+>
+> Sa suite était par ailleurs restée sur les attentes de la 1.1.0 : trois assertions sur le groupement des décimales, réalignées sur le code publié. La 1.1.1 avait manifestement été livrée sans faire tourner ses tests — ce qui explique qu'elle n'ait jamais atterri dans le dépôt.
+>
+> **Reste un échec, préexistant et sans rapport avec Ruby :** `test_conversion_rate` interroge `webservicex.net` puis `download.finance.yahoo.com`, éteints depuis des années. Ce n'est pas qu'un test mort : `Numisma.currency_rate` est appelé **en production** par `CashTransfer#currency_rate`, et lève donc pour tout transfert entre deux devises hors taux fixes hérités. À reprendre avec une source de taux vivante — hors périmètre ici.
 
 Vérifications :
 

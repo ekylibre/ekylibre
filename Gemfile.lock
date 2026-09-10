@@ -128,6 +128,14 @@ GIT
       webmock (~> 3.11)
 
 GIT
+  remote: https://github.com/ekylibre/i18n-complements.git
+  revision: dddd00e7e76d4343e705e2f66b52900c9454e52b
+  branch: 6.0
+  specs:
+    i18n-complements (1.2.0)
+      i18n (>= 0.6)
+
+GIT
   remote: https://github.com/ekylibre/odf-report.git
   revision: 75f49de1db820ed6c78264d4d199684875db4ac6
   branch: master
@@ -463,8 +471,6 @@ GEM
     humanize (2.5.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    i18n-complements (1.1.1)
-      i18n (>= 0.6)
     i18n-js (3.9.2)
       i18n (>= 0.6.6)
     iban-tools (1.1.0)
@@ -1002,7 +1008,7 @@ DEPENDENCIES
   holidays
   http_accept_language (~> 2.1)
   humanize (~> 2.5)
-  i18n-complements (>= 0.0.14)
+  i18n-complements!
   i18n-js (~> 3.8)
   idea!
   irb (~> 1.3)
