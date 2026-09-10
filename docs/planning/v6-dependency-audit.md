@@ -160,7 +160,17 @@ Une application Rails jetable a été montée pour exercer une vraie liste — m
 >
 > Sa suite était par ailleurs restée sur les attentes de la 1.1.0 : trois assertions sur le groupement des décimales, réalignées sur le code publié. La 1.1.1 avait manifestement été livrée sans faire tourner ses tests — ce qui explique qu'elle n'ait jamais atterri dans le dépôt.
 >
-> **Reste un échec, préexistant et sans rapport avec Ruby :** `test_conversion_rate` interroge `webservicex.net` puis `download.finance.yahoo.com`, éteints depuis des années. Ce n'est pas qu'un test mort : `Numisma.currency_rate` est appelé **en production** par `CashTransfer#currency_rate`, et lève donc pour tout transfert entre deux devises hors taux fixes hérités. À reprendre avec une source de taux vivante — hors périmètre ici.
+> **Sa source de taux de change était morte — remplacée par la BCE.** `Numisma.currency_rate` interrogeait `webservicex.net` puis `download.finance.yahoo.com`, éteints tous deux depuis des années ; la première branche ne pouvait de toute façon pas fonctionner, appelant `LibXML` qui n'est déclarée nulle part. Ce n'était pas qu'un test mort : Ekylibre appelle `I18n.currency_rate` dans `CashTransfer`, **en `before_validation`** — tout transfert entre deux devises échouait à l'enregistrement.
+>
+> Source retenue : les taux de référence de la **Banque centrale européenne** (`eurofxref-daily.xml`), faisant autorité en zone euro, gratuite, sans clé d'API, en HTTPS, publiée à la même adresse depuis une vingtaine d'années. 29 devises contre l'euro ; les taux croisés passent par lui.
+>
+> La réécriture va au-delà du changement d'adresse : mise en cache sous mutex (l'ancien code sortait sur le réseau **à chaque conversion**, depuis une validation), bornes de temps (5 s / 10 s — sans elles une adresse morte retient un fil du serveur), tolérance à la panne (les derniers taux connus sont servis si la source ne répond pas, mais refusés au-delà de sept jours), erreur explicite `I18n::CurrencyRateUnavailable` au lieu d'un SocketError brut, et source substituable via `Numisma.rates_source`.
+>
+> Quatre parités **fixées par un texte** manquaient et qu'aucune source ne publie : XOF, XAF (francs CFA), XPF (franc CFP) et KMF (franc comorien) — Afrique francophone, Pacifique français, Comores. Les quatre devises étaient déclarées actives mais sans taux : toute conversion les impliquant échouait.
+>
+> Suite de la gem : de « ne peut pas passer » à **39 tests, 0 échec**, sans réseau. Mesuré dans l'application sous Ruby 2.6 : 100 conversions en 0,1 ms grâce au cache.
+>
+> **Reste à décider côté Ekylibre** : `CashTransfer` laisse toujours remonter l'erreur depuis sa validation. Elle est désormais propre et rare, mais un `CurrencyRateUnavailable` y produit encore une 500 alors que le modèle accepte un `currency_rate` saisi à la main — le convertir en erreur de validation est une décision d'ergonomie, pas de montée de version.
 
 Vérifications :
 

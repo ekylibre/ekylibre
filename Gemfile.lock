@@ -129,11 +129,12 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/i18n-complements.git
-  revision: dddd00e7e76d4343e705e2f66b52900c9454e52b
+  revision: a5cd27bcbd931e9bc839c4b4e7bd1f4f24205a90
   branch: 6.0
   specs:
     i18n-complements (1.2.0)
       i18n (>= 0.6)
+      rexml
 
 GIT
   remote: https://github.com/ekylibre/odf-report.git
