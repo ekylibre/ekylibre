@@ -56,7 +56,10 @@ class Notification < ApplicationRecord
 
   # take care of desactivate this after_create for action cable during local test mode because of SocketError: getaddrinfo
   after_create do
-    ActionCable.server.broadcast("main_#{recipient.email}", event: 'new_notification')
+    # Le second argument est le *message* diffusé, pas des options : sans les
+    # accolades, Ruby 2.7 le prend pour des mots-clés et avertit, et Ruby 3 le
+    # passerait à `coder:`.
+    ActionCable.server.broadcast("main_#{recipient.email}", { event: 'new_notification' })
   end
 
   def read!

@@ -806,8 +806,8 @@ module ApplicationHelper
   def are_you_sure_you_want_to(action_expr, options = {})
     options[:default] ||= []
     options[:default] = [options[:default]] unless options[:default].is_a?(Array)
-    options[:default] << "are_you_sure_you_want_to_#{action_expr}".tl(options)
-    "are_you_sure_you_want_to.#{action_expr}".tl(options)
+    options[:default] << "are_you_sure_you_want_to_#{action_expr}".tl(**options)
+    "are_you_sure_you_want_to.#{action_expr}".tl(**options)
   end
 
   # def tool(code = nil, &block)

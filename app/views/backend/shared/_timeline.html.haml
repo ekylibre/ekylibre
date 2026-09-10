@@ -47,4 +47,4 @@
                 - if Rails.root.join("app", "views", "backend", "shared", "timeline", "content", "_#{side.model_name}.html.haml").exist?
                   = render "backend/shared/timeline/content/#{side.model_name}", avatar_size: avatar_size, side: side, step: step, defaults: defaults, side.model_name => step.record
                 - else
-                  = :timeline_item_added.th(defaults)
+                  = :timeline_item_added.th(**defaults)

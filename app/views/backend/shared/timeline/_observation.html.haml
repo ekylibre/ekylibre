@@ -10,6 +10,6 @@
       = link_to(edit_backend_observation_path(observation, redirect: request.fullpath), class: "log-action log-action-edit") do
         %i
         = :edit.tl
-      = :timeline_comment.th(defaults)
+      = :timeline_comment.th(**defaults)
     .log-body
       .log-content= preserve(observation.content)

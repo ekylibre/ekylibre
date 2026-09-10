@@ -288,11 +288,18 @@ class FixedAsset < ApplicationRecord
     end
   end
 
+  # Colonnes encore modifiables une fois l'immobilisation engagée comptablement.
+  # La constante était assignée *dans* le bloc `protect`, donc réassignée à
+  # chaque mise à jour — d'où l'avertissement « already initialized constant »
+  # que Ruby 2.7 remonte.
+  AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount
+                          pretax_selling_amount sold_on scrapped_on updater_id
+                          updated_at state].freeze
+
   protect on: :update do
     return true if (old_record.scrapped? || old_record.sold?)
 
     if depreciations.any?(&:locked_or_journal_entry_confirmed?) || (journal_entry && journal_entry.confirmed?)
-      AUTHORIZED_COLUMNS = %w[product_id sale_id sale_item_id tax_id selling_amount pretax_selling_amount sold_on scrapped_on updater_id updated_at state].freeze
       (changes_to_save.keys - AUTHORIZED_COLUMNS).any?
     else
       false

@@ -13,7 +13,9 @@ module Ekylibre
           columns = [:by_default] if columns.empty?
           code  = ''
 
-          scope = table_name.classify.constantize.name # "self.class"
+          # `Module#name` rend une chaîne gelée depuis Ruby 2.7 : le `<<` qui
+          # suit lèverait FrozenError. Le `+` unaire en rend une copie mutable.
+          scope = +table_name.classify.constantize.name
           scope << ".#{options[:subset]}" if options[:subset]
           scope_columns = []
           if s = options[:scope]

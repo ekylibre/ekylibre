@@ -117,7 +117,7 @@ module ActiveExchanger
 
       def build(file, supervisor_mode: :normal, options: {}, &block)
         supervisor = Supervisor.new(supervisor_mode, &block)
-        new(file, supervisor, options)
+        new(file, supervisor, **options)
       end
 
       def find(nature)

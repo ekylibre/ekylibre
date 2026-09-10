@@ -12,15 +12,15 @@
         %i
         = :edit.tl
       - if task.outgoing_call?
-        = :timeline_outgoing_call.th(defaults)
+        = :timeline_outgoing_call.th(**defaults)
       - elsif task.incoming_call?
-        = :timeline_incoming_call.th(defaults)
+        = :timeline_incoming_call.th(**defaults)
       - elsif task.outgoing_mail? || task.outgoing_email?
-        = :timeline_outgoing_mail.th(defaults)
+        = :timeline_outgoing_mail.th(**defaults)
       - elsif task.incoming_mail? || task.incoming_email?
-        = :timeline_incoming_mail.th(defaults)
+        = :timeline_incoming_mail.th(**defaults)
       - else
-        = :timeline_task.th(defaults)
+        = :timeline_task.th(**defaults)
 
     - unless task.description.blank?
       .log-body

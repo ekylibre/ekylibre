@@ -2,8 +2,8 @@
   - defaults[:name] = attachment.id
   - is_created_at = (step.at == attachment.created_at ? true : false)
   - if is_created_at
-    = :timeline_item_added.th(defaults)
+    = :timeline_item_added.th(**defaults)
   - else
-    = :timeline_item_deleted.th(defaults)
+    = :timeline_item_deleted.th(**defaults)
 - else
-  = :timeline_item_added.th(defaults)
+  = :timeline_item_added.th(**defaults)

@@ -6,6 +6,6 @@
     link_to(participant.name, {controller: :entities, action: :show, id: participant.id})
   end
 - if participants.blank?
-  = :timeline_event_without_participants.th(defaults)
+  = :timeline_event_without_participants.th(**defaults)
 - else
-  = :timeline_event.th(defaults.merge(participants: participants.to_sentence.html_safe))
+  = :timeline_event.th(**defaults.merge(participants: participants.to_sentence.html_safe))

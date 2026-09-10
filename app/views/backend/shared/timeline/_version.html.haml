@@ -7,9 +7,9 @@
   .log-wrapper
     .log-symbol
     - if version.create?
-      .log-heading= :created_by_ago.th(defaults)
+      .log-heading= :created_by_ago.th(**defaults)
     - elsif version.update?
-      .log-heading= :updated_by_ago.th(defaults)
+      .log-heading= :updated_by_ago.th(**defaults)
       - if changes.any?
         .log-body
           %ul.log-changes
@@ -23,4 +23,4 @@
                   - else
                     = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: resource.human_changed_attribute_value(change, 'old'), b: resource.human_changed_attribute_value(change, 'new'))
     - elsif version.destroy?
-      %p.log-heading= :destroyed_by_ago.th(defaults)
+      %p.log-heading= :destroyed_by_ago.th(**defaults)

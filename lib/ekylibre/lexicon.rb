@@ -2,6 +2,7 @@
 require 'lexicon-common'
 require 'net/http'
 require 'uri'
+require 'erb'
 
 module Ekylibre
   class Lexicon
@@ -306,7 +307,17 @@ module Ekylibre
         port = db_config['port'] || '5432'
         dbname = db_config['database']
         password = db_config['password']
-        URI.encode("postgresql://#{user}:#{password}@#{host}:#{port}/#{dbname}")
+
+        # `URI.encode` (alias d'`URI.escape`) est obsolète depuis Ruby 2.7 et
+        # supprimée en Ruby 3.0. Elle échappait la chaîne entière une fois
+        # construite, ce qui laissait passer les caractères réservés d'un
+        # identifiant ou d'un mot de passe : un « @ » ou un « : » y coupait
+        # l'URL au mauvais endroit. Chaque composant est donc échappé avant
+        # assemblage. `url_encode`, contrairement à `CGI.escape`, rend un
+        # espace en %20 et non en « + », seule forme valide hors chaîne de
+        # requête.
+        userinfo = [user, password].map { |part| ERB::Util.url_encode(part.to_s) }.join(':')
+        "postgresql://#{userinfo}@#{host}:#{port}/#{ERB::Util.url_encode(dbname.to_s)}"
       end
 
       def db_config

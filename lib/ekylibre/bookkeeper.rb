@@ -13,9 +13,9 @@ module Ekylibre
         recorder.journal_entry(*args, &block)
       end
 
-      def method_missing(method_name, *args, &block)
+      def method_missing(method_name, *args, **options, &block)
         super unless resource.respond_to? method_name
-        resource.send(method_name, *args, &block)
+        resource.send(method_name, *args, **options, &block)
       end
 
       def respond_to_missing?(method_name)
