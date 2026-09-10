@@ -34,7 +34,7 @@ module Backend
     def show
       return unless (@attachment = find_and_check)
 
-      if @attachment.document.file?
+      if @attachment.document.file.attached?
         render json: {
           document: {
             file_path: backend_document_path(@attachment.document, format: :pdf)

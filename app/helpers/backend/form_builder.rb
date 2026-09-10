@@ -227,8 +227,11 @@ module Backend
       format = options.delete(:format) || :thumb
       input(attribute_name, options) do
         html = file_field(attribute_name)
-        if @object.send(attribute_name).file?
-          html << @template.content_tag(:div, @template.image_tag(@object.send(attribute_name).url(format)), class: 'preview picture')
+        # `.file?` et `.url(style)` étaient l'API Paperclip. Active Storage
+        # répond `attached?`, et la vignette se demande via `picture_variant`,
+        # que `has_picture` définit — c'est déjà ce que font les vues.
+        if @object.send(attribute_name).attached?
+          html << @template.content_tag(:div, @template.image_tag(@object.picture_variant(format)), class: 'preview picture')
         end
         html
       end

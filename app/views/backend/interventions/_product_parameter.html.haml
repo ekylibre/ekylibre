@@ -7,7 +7,7 @@
   - spray_mix_volume_area_density = resource.spray_mix_volume_area_density
   - if actor
     .picture
-      - if actor.picture.file?
+      - if actor.picture.attached?
         = image_tag(actor.picture_variant(:thumb))
       - else
         .picto{class: "picto-#{actor.pictogram}"}
@@ -70,7 +70,7 @@
 
   - elsif variant
     .picture
-      - if variant.picture.file?
+      - if variant.picture.attached?
         = image_tag(variant.picture_variant(:thumb))
       - elsif pictogram = variant.pictogram
         .picto{class: "picto-#{pictogram}"}

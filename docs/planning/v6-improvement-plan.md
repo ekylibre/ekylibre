@@ -307,6 +307,20 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 >
 > La méthode vaut d'être notée : les avertissements de Ruby 2.7 sont noyés par les internes de Rails 5.2 — il faut filtrer sur `/app/`. C'est à ce prix qu'on obtient une liste exhaustive plutôt qu'une intuition.
 
+> **Sur B.1 — Ruby 3.3 ne peut pas précéder Rails 6.0, mesuré.** Une application Rails minimale montée dans l'image `ruby3.3`, une version par palier :
+>
+> | Rails sous Ruby 3.3 | Résultat |
+> |---|---|
+> | 5.2.8.1 | **échoue** — `ActionDispatch::Static#initialize`, la séparation des arguments nommés dans le middleware de Rails lui-même |
+> | 6.0.6.1 | démarre, ActiveRecord fonctionne |
+> | 6.1.7.10, 7.0.8.7 | démarrent |
+>
+> **L'ordre du plan est donc inversé pour la partie Ruby 3** : B.1 place le passage à 3.3 avant B.2, alors qu'il en dépend. Ruby 2.7 — fait — est le seul palier Ruby atteignable avant le travail Rails. Un piège à connaître pour qui refera la sonde : `concurrent-ruby >= 1.3.5` retire `Concurrent::Logger`, ce qui fait échouer ActiveSupport 6.x au chargement et donne l'illusion d'une incompatibilité Rails/Ruby ; l'épingler en 1.3.4 lève l'ambiguïté.
+
+> **Sur B.1 — ce que la suite complète sous 2.7 a réellement dit.** Première lecture : 738 erreurs contre 408 sous 2.6, soit +330. **C'était un artefact.** Le cache d'assets Sprockets de `tmp/` appartenait à un autre uid que celui du conteneur reconstruit, d'où des `Permission denied` en cascade dans le rendu des gabarits. Cache purgé, les cinq classes les plus touchées reviennent exactement à la référence 2.6 (dashboards 4, fixed_assets 1, accounts 1, activities 1, deposits 1). **Ruby 2.7 n'introduit aucune régression.**
+>
+> La suite a en revanche révélé **88 erreurs préexistantes dues à A.3** : neuf sites appelaient encore `.file?`, l'API de Paperclip, sur ce qui est devenu un attachement Active Storage — dont le formulaire d'attachement, la fiche entité et le `picture` du form builder, qui utilisait aussi `.url(style)`. Corrigés en `attached?` et `picture_variant`, ce que les vues faisaient déjà.
+
 > **Sur B.1 — la production reste en Ruby 2.6, délibérément.** Seuls `docker/dev/Dockerfile` et les deux workflows sont passés en 2.7 ; `docker/prod/Dockerfile` est inchangé. C'est un écart assumé le temps de la transition, mais il a un coût : **la CI ne valide plus exactement ce qui est livré**. Deux points à trancher avant de le laisser durer — basculer la production en 2.7 une fois la suite stabilisée, et relever le plancher du `Gemfile` (`ruby '>= 2.6.6', '< 3.0.0'`), qui ne peut pas monter tant que la production est en 2.6.
 >
 > Note pratique : le volume `bundle-volume` contient des extensions natives compilées pour l'ABI de Ruby 2.6. Après un `git pull`, il faut le supprimer et laisser le conteneur réinstaller — sans quoi rien ne démarre.

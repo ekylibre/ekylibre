@@ -259,7 +259,7 @@ class InterventionWorkingTimeDurationCalculationServiceTest < Ekylibre::Testing:
                                                product: product)
 
       InterventionWorkingTimeDurationCalculationService
-        .new(working_params)
+        .new(**working_params)
         .perform(nature: nature, modal: modal)
     end
 

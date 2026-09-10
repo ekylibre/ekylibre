@@ -267,7 +267,7 @@ module Backend
         infos[:subscription][:address_id] = address.id if address
       end
 
-      if @product_nature_variant.picture.file?
+      if @product_nature_variant.picture.attached?
         infos[:picture] = helpers.url_for(@product_nature_variant.picture_variant(:thumb))
       end
 

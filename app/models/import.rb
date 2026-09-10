@@ -169,7 +169,7 @@ class Import < ApplicationRecord
   end
 
   def runnable?
-    undone? && archive.file?
+    undone? && archive.attached?
   end
 
   # Removing progress file is the signal to interrupt the process

@@ -2,7 +2,7 @@
   = link_to_remove_nested_association(:attachment, f)
   - f.object.document = Document.new if f.object.new_record?
   = f.backend_fields_for(:document) do |i|
-    - if i.object.file?
+    - if i.object.file.attached?
       = image_tag(backend_document_path(i.object, format: :jpg), width: 100, height: 'auto')
       = i.object.name
     - else

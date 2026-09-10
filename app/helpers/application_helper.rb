@@ -757,9 +757,9 @@ module ApplicationHelper
   def subheading(i18n_key, options = {})
     raise StandardError.new('A subheading has already been given.') if content_for?(:subheading)
     if options[:here]
-      return subheading_tag(tl(i18n_key, options))
+      return subheading_tag(tl(i18n_key, **options))
     else
-      content_for(:subheading, tl(i18n_key, options))
+      content_for(:subheading, tl(i18n_key, **options))
     end
   end
 

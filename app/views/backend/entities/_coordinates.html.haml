@@ -1,5 +1,5 @@
 .picture.picture-identity
-  - if resource.picture.file?
+  - if resource.picture.attached?
     = image_tag(resource.picture_variant(:identity))
   - else
     .picto{class: "picto-#{resource.organization? ? :building : :user}"}

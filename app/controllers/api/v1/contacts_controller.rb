@@ -20,7 +20,7 @@ module Api
       def picture
         return unless contact = Entity.find_by(id: params[:contact_id])
 
-        if contact.picture.file?
+        if contact.picture.attached?
 
           unless contact.has_picture?
             contact.picture.reprocess! :contact
