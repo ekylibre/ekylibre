@@ -21,7 +21,7 @@ gem 'nordigen-ruby'
 gem 'vuejs-rails'
 
 # === Integrations comptables et bancaires ===
-gem 'ekylibre-baqio',    git: 'https://github.com/ekylibre/ekylibre-baqio.git',    branch: 'master'
+gem 'ekylibre-baqio',    git: 'https://github.com/ekylibre/ekylibre-baqio.git',    branch: '6.0'
 gem 'ekylibre-banking',  git: 'https://github.com/ekylibre/ekylibre-banking.git',  branch: 'master'
 gem 'ekylibre-qonto',    git: 'https://github.com/ekylibre/ekylibre-qonto.git',    branch: 'main'
 gem 'ekylibre-economic', git: 'https://github.com/ekylibre/ekylibre-economic.git', branch: 'main'
@@ -49,7 +49,7 @@ gem 'sencrop',         git: 'https://github.com/ekylibre/ekylibre-sencrop.git', 
 gem 'agro_monitoring', git: 'https://github.com/ekylibre/ekylibre-agro-monitoring.git', branch: 'main'
 
 # === Viticulture ===
-gem 'ekylibre_ekyviti', git: 'https://github.com/ekylibre/ekylibre-viti.git', branch: 'master'
+gem 'ekylibre_ekyviti', git: 'https://github.com/ekylibre/ekylibre-viti.git', branch: '6.0'
 
 # === Audit HVE3 (Haute Valeur Environnementale) ===
 gem 'ekylibre_hve', git: 'https://github.com/ekylibre/ekylibre-hve.git', branch: 'main'

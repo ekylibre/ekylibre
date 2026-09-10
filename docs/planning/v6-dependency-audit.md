@@ -122,7 +122,7 @@ Le portage s'est donc réduit aux bornes, vérifiées par Bundler et non déduit
 
 **Le seul vrai portage de code ne venait pas de Rails mais de nous.** `ScenarioExportJob` créait son document d'export en passant `file:` un StringIO et le nom sous `file_file_name:`, deux attributs que Paperclip acceptait. Le lot A.3 ayant retiré Paperclip et supprimé ces colonnes, le job levait sur toute exportation. Corrigé et vérifié en exécution.
 
-> **Trois autres plugins écrivaient de la même façon** et sont cassés par A.3 tant qu'ils ne sont pas repris : `ekylibre-viti` (`wine_incoming_harvests_controller.rb:134`) et `ekylibre-baqio` (`integrations/baqio/handlers/sales.rb:149`). `ekylibre-qonto` n'est concerné qu'en lecture (`file_file_name.present?` dans un test), ce que `LegacyAttachmentColumns` continue de servir.
+> **Deux autres plugins écrivaient de la même façon**, et sont repris avec celui-ci sur une branche `6.0` publiée : `ekylibre-viti` (registre de vendange) et `ekylibre-baqio` (facture attachée à la vente). `ekylibre-qonto` n'est concerné qu'en lecture (`file_file_name.present?` dans un test), ce que `LegacyAttachmentColumns` continue de servir. Au passage, la borne `rails ~> 5.2` d'`ekylibre-viti` est relâchée : ses 9 références à ActiveRecord sont toutes des API publiques (`Base.transaction`, `RecordNotFound`, un `connection.execute` de SQL PostGIS).
 
 L'état de la suite de tests est en revanche mauvais, et indépendant de la montée :
 

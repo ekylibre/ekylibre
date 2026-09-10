@@ -54,8 +54,8 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-baqio.git
-  revision: 300ca7b1b61db64996ea95474d7fcb9e769ccca2
-  branch: master
+  revision: 65379fd218b6e27c7919ab4ddb456044fbed9605
+  branch: 6.0
   specs:
     ekylibre-baqio (0.5.3)
       dotenv (~> 2.7)
@@ -194,7 +194,7 @@ PATH
   specs:
     ekylibre_ekyviti (1.2.5)
       interactor-rails
-      rails (~> 5.2)
+      rails (>= 5.2, < 9)
 
 GEM
   remote: https://rubygems.org/
