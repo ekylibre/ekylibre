@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on Rails 5.2 / Ruby 2.6 / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on Rails 5.2 / PostgreSQL+PostGIS. Dev and CI run **Ruby 2.7** (stepping stone to 3.3, lot B.1 of the v6 plan); **production is still on Ruby 2.6** — see `docker/prod/Dockerfile`. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
 
 ## Development Environment
 

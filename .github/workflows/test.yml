@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/ekylibre/docker-base-images/ruby2.6:latest
+      image: ghcr.io/ekylibre/docker-base-images/ruby2.7:latest
 
     services:
       # PostgreSQL 13 aligne la CI sur la pile de développement
@@ -77,8 +77,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor/ruby
-          key: gems-${{ runner.os }}-ruby2.6-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: gems-${{ runner.os }}-ruby2.6-
+          key: gems-${{ runner.os }}-ruby2.7-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-${{ runner.os }}-ruby2.7-
 
       - name: Cache des paquets node
         uses: actions/cache@v4

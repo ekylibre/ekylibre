@@ -20,7 +20,7 @@ jobs:
   rubocop:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ekylibre/docker-base-images/ruby2.6:latest
+      image: ghcr.io/ekylibre/docker-base-images/ruby2.7:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,8 +29,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor/ruby
-          key: gems-${{ runner.os }}-ruby2.6-${{ hashFiles('Gemfile.lock') }}
-          restore-keys: gems-${{ runner.os }}-ruby2.6-
+          key: gems-${{ runner.os }}-ruby2.7-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-${{ runner.os }}-ruby2.7-
 
       - name: Installer les gems
         run: |
