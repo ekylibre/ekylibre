@@ -1,16 +1,14 @@
 GIT
   remote: https://github.com/ekylibre/active_list.git
-  revision: 6eb36c6e162d46337f862a915f01f709f7c416ac
-  branch: master
+  revision: 96b75750711c752e5786c1b8b30e9272539122f2
+  branch: 6.0
   specs:
     active_list (8.1.0)
-      arel (>= 5.0.0)
       code_string (>= 0.0.1)
       i18n-complements
       onoma (~> 0.4)
-      rails (>= 3.2, < 6)
+      rails (>= 5.2, < 9)
       rodf (~> 1.1)
-      rubyzip (>= 1.0)
 
 GIT
   remote: https://github.com/ekylibre/agric.git

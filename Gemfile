@@ -85,7 +85,7 @@ gem 'turbolinks', '~> 5.2.1'
 gem 'twitter-typeahead-rails', '~> 0.11.1'
 
 # Front
-gem 'active_list', github: 'ekylibre/active_list', branch: 'master'
+gem 'active_list', github: 'ekylibre/active_list', branch: '6.0'
 gem 'formize', '~> 2.1.0'
 gem 'kaminari', '~> 1.1'
 gem 'remotipart', '~> 1.2'

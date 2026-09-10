@@ -68,14 +68,14 @@ L'audit de mai (`docs/analysis/`) affirme qu'`apartment` verrouille `apartment-s
 
 | Dépôt | Dernier commit | Contrainte Rails déclarée | LOC | AR-int | AV-int | Décision |
 |---|---|---|---:|---:|---:|---|
-| `active_list` | 2026-03-28 | `rails >= 3.2, < 6` | 2 823 | 4 | 5 | **Remplacer** (ADR-6.2) — compat minimale d'ici le lot G |
+| `active_list` | 2026-03-28 | ~~`rails >= 3.2, < 6`~~ → `>= 5.2, < 9` | 2 823 | 4 | 5 | **Remplacer** (ADR-6.2) — **compat gelée et vérifiée** (§3.5), plus rien à y faire d'ici le lot G |
 | `agric` | 2026-03-28 | `railties >= 3.2, < 6` | 119 | 0 | 0 | **Relâcher** — aucun couplage |
 | `charta` | 2026-03-28 | `activesupport ~> 5.0` | 2 282 | 0 | 0 | **Relâcher** — aucun couplage |
 | `ekylibre-planning` | **2023-03-20** | `rails ~> 5.2` + `coffee-rails` | 5 819 | 0 | 1 | ~~**Porter**~~ → **FAIT** — le couplage annoncé n'existait pas ; voir §3.4 |
 | `ekylibre-viti` | 2026-05-07 | `rails ~> 5.2` | 2 799 | 8 | 0 | **Relâcher + vérifier** |
 | `ekylibre-hve` | 2026-06-21 | `rails ~> 5.2` | 856 | 1 | 0 | **Relâcher** |
 | `ekylibre-economic` | 2026-03-28 | `rails >= 5.2` | 966 | 0 | 0 | Rien à faire (borne ouverte) |
-| `onoma` | 2026-03-28 | `activesupport >= 4.2` | 2 268 | 0 | 0 | Rien à faire |
+| `onoma` | 2026-03-28 | `activesupport >= 4.2` **+ `zeitwerk ~> 2.4.0`** | 2 268 | 0 | 0 | ~~Rien à faire~~ → **bloquait Rails 7.0**, borne relâchée (§3.5) |
 | `odf-report` | — | aucune (rubyzip, nokogiri) | 1 801 | 0 | 0 | Rien à faire — **socle d'ADR-6.1** |
 | `possibly` | — | aucune | 547 | 0 | 0 | Rien à faire |
 | `xsd_errors_parser` | 2026-03-28 | aucune | 294 | 0 | 0 | Rien à faire |
@@ -101,8 +101,8 @@ L'audit de mai (`docs/analysis/`) affirme qu'`apartment` verrouille `apartment-s
 - `charta` — cœur géospatial, consommé partout — ne référence **aucune** constante `ActiveSupport::*`. Son seul lien est `require 'active_support/core_ext'`. La borne `~> 5.0` est une sur-déclaration ; la relâcher est une ligne de gemspec.
 - `agric` : 119 LOC, zéro couplage, borne `< 6` purement déclarative.
 - `active_list` n'a que **trois** points de contact réels hors code de test :
-  - `lib/active_list/rails/engine.rb:6-7` — `include` dans `ActionController::Base` et `ActionView::Base` (fonctionne en Rails 6/7) ;
-  - `lib/active_list/rails/integration.rb:18` — `ActionView::Base.send(:class_eval, generator.view_method_code)`, **le seul point réellement risqué** (la résolution des helpers a changé en Rails 6+).
+  - `lib/active_list/rails/engine.rb:6-7` — `include` dans `ActionController::Base` et `ActionView::Base` ;
+  - `lib/active_list/rails/integration.rb:18` — `ActionView::Base.send(:class_eval, generator.view_method_code)`, présenté ici comme **le seul point réellement risqué**. **Mesuré depuis : il ne l'est pas** — voir §3.5.
 
 `ekylibre-planning` semblait faire exception avec 37 références aux internes d'ActiveRecord. **Le décompte était faux** : voir §3.4.
 
@@ -131,6 +131,35 @@ L'état de la suite de tests est en revanche mauvais, et indépendant de la mont
 
 Autrement dit, ce plugin n'a aujourd'hui **aucun filet de sécurité automatisé**, ce qui pèse davantage sur la montée que son couplage — inexistant.
 
+### 3.5 `active_list` : le point risqué n'était pas le bon
+
+`active_list` est le composant de liste de l'UI ; ADR-6.2 la condamne, elle sera remplacée ou réécrite avec le front (lot G). Le travail mené ici n'est donc pas un portage mais un **gel de compatibilité**, pour qu'elle ne bloque pas la montée d'ici là.
+
+Une application Rails jetable a été montée pour exercer une vraie liste — modèle, contrôleur avec `list(…)`, requête HTTP, rendu — successivement sous plusieurs paliers.
+
+`ActionView::Base.send(:class_eval, …)`, désigné plus haut comme le point risqué, **fonctionne tel quel en 6.1 et 7.0** : les helpers définis sur `ActionView::Base` restent hérités par les sous-classes de vue que Rails 6 introduit (`with_empty_template_cache`). Ce qui bloquait vraiment :
+
+| Blocage | Nature |
+|---|---|
+| `rails >= 3.2, < 6` | aucune résolution possible au-delà de 5.2 |
+| `arel`, `rubyzip` | dépendances mortes, absentes de `lib/`. `arel` est la plus gênante : la gem a été fusionnée dans ActiveRecord en Rails 6 |
+| `'clé'.t(…)` dans le code généré | **rupture Ruby 3, pas Rails** |
+| `zeitwerk ~> 2.4.0` (via `onoma`) | Rails 7.0 exige `~> 2.5` |
+
+**La rupture Ruby 3 dépasse largement `active_list`.** `String#t` et `Symbol#t` (i18n-complements, de Brice Texier — hors des 23 dépôts) appellent `I18n.translate(self, options)` avec deux arguments positionnels. I18n n'en accepte qu'un : Ruby 2 convertissait le hash final en mots-clés, Ruby 3 ne le fait plus. Sous Ruby 3, toute liste levait `wrong number of arguments (given 2, expected 0..1)` — y compris pour `'list.menu'.t` sans argument, qui transmet `{}`. Les dix sites d'`active_list` sont convertis en `::I18n.translate`, traductions comparées une à une.
+
+> **Le même piège attend l'application au lot B.1.** `config/initializers/10-patches.rb` définit `tl`, `ta`, `tn` et `th` en `def tl(*args); I18n.translate('labels.' + to_s, *args); end`. Sur **2 260 appels**, **303 passent des arguments** et lèveront sous Ruby 3. La correction tient en une ligne par méthode (`*args, **opts`), mais elle doit être faite avec Ruby 3 sous la main pour être vérifiable — donc en B.1, pas avant.
+
+Vérifications :
+
+| Palier | Résultat |
+|---|---|
+| Rails 5.2 / Ruby 2.6 — application réelle | `eager_load!` compile les 298 helpers et 300 méthodes de contrôleur ; rendu complet d'une liste (33 730 octets, 21 en-têtes, 360 cellules, libellés traduits) |
+| Rails 6.1 / Ruby 3.0 — sonde | requête HTTP → 200, table rendue, données présentes |
+| Rails 7.0 / Ruby 3.0 — sonde | idem |
+
+Reste dans le gel, sans effet avant Ruby 3.1 : le code généré appelle `YAML::load` sur les préférences de liste, que Psych 4 refusera sans `permitted_classes`. À traiter en B.1 avec le reste de Psych.
+
 ### 3.3 Dev et production chargent la même liste
 
 Les 19 plugins de `Gemfile.local` et de `docker/prod/Gemfile.prod` sont **identiques**. Aucun écart à réconcilier — mais aucun plugin n'est non plus « seulement de dev », donc chacun doit suivre la montée.
@@ -143,11 +172,11 @@ Le chiffrage initial du lot B (B.9, « montée en verrou des 7 forks + 12 plugin
 
 | Catégorie | Nombre | Effort |
 |---|---:|---|
-| Épinglages à relâcher (gems publiques) | 3 | trivial |
+| Épinglages à relâcher (gems publiques) | 3 (+ `onoma`, bloquant Rails 7.0 — §3.5) | trivial |
 | Bornes de gemspec à relâcher (forks sans couplage) | 4 — `agric`, `charta`, `ekylibre-hve`, `ekylibre-viti` | faible |
 | Rien à faire | 12 | nul |
 | Portage réel | **0** — `ekylibre-planning` mesuré : aucun couplage (§3.4) | ~~substantiel~~ → fait |
-| Remplacement | 4 — `active_list`, `apartment`, `state_machine`, `paperclip` | déjà chiffré en A.2/A.3/A.5/A.7 |
+| Remplacement | 4 — `active_list` (compat **gelée**, §3.5), `apartment`, `state_machine`, `paperclip` | déjà chiffré en A.2/A.3/A.5/A.7 |
 | Amont mort à contourner | 1 — `bootstrap-slider-rails` | faible, disparaît au lot G |
 
 **B.9 est ramené de 30 à ~12 j·h**, puis à **~6 j·h** une fois `ekylibre-planning` mesuré et porté (§3.4) : il concentrait l'essentiel du reliquat. Le lot B passe donc de ~118 à **~94 j·h**.
