@@ -13,7 +13,8 @@ module ImportTest
         path = Pathname.new(dir).join('dummy.csv')
         File.write(path, "42")
 
-        @import = Import.create!(nature: :import_test_import_test_dummy, archive: File.new(path))
+        @import = Import.create!(nature: :import_test_import_test_dummy)
+        @import.attach_archive(path)
       end
     end
 

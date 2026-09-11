@@ -24,12 +24,10 @@ fra:
       new: "Connexion"
       renew: "Renouveler la session" #?
     backend/account_balances:
-      first_run_or_backend: "Premier cycle ou solde du compte backend : %{name}"
       show: "Solde du compte : %{name}"
     backend/accounts:
       edit: "Modifier le compte\_: %{label}"
       filter_select_collection: "Filtrer la sélection des comptes de recouvrement : %{name}"
-      first_run_or_backend: "Première exécution ou compte backend : %{name}"
       index: "Plan de comptes"
       load: "Changer de plan de comptes"
       mark: "Lettrage du compte\_: %{label}"
@@ -44,7 +42,6 @@ fra:
       compute_pfi_report: "Calculer l'activité du rapport PFI : %{name}"
       edit: "Modifier une activité\_: %{name}"
       family: "Famille d’activité\_: %{name}"
-      first_run_or_backend: "Première exécution ou activité en arrière-plan : %{name}"
       generate_budget: "Générer une opération budgétaire : %{name}"
       global_costs_xslx_export: "Coûts globaux liés à l'exportation au format XSLX : %{name}"
       index: "Activités"
@@ -53,18 +50,15 @@ fra:
       traceability_xslx_export: "Traçabilité des activités d'exportation xslx : %{name}"
     backend/activity_budgets:
       edit: "Modifier le budget\_: %{name}"
-      first_run_or_backend: "Budget de la première diffusion ou des activités en arrière-plan : %{name}"
       index: "Budgets par activité"
       new: "Nouveau budget\_: %{name}"
       show: "Budget: %{name}"
     backend/activity_inspection_point_natures:
       autocomplete: "Nature du point de contrôle de l'activité de saisie semi-automatique : %{name}"
-      first_run_or_backend: "Nature du point de contrôle lors de la première exécution ou de l'activité en arrière-plan : %{name}"
     backend/activity_productions:
       create_plants: "Créer une activité de production de plantes : %{name}"
       edit: "Modifier une production"
       edit_specified: "Modifier la production de %{activity}"
-      first_run_or_backend: "Première diffusion ou production d'activité en arrière-plan : %{name}"
       index: "Productions"
       new: "Nouvelle production"
       new_specified: "Nouvelle production de %{activity}"
@@ -80,13 +74,11 @@ fra:
       show: "Parcelle\_: %{name}" #?
     backend/activity_seasons:
       edit: "Modifier la saison d'activité : %{name}"
-      first_run_or_backend: "Première diffusion ou saison d'activités en coulisses : %{name}"
       index: "Saisons d'activités"
       new: "Nouvelle saison d'activités"
       show: "Saison des activités : %{name}"
     backend/affair_natures:
       edit: "Modifier la nature de l'affaire : %{name}"
-      first_run_or_backend: "Première diffusion ou diffusion en différé : %{name}"
       index: "Les affaires de la nature"
       new: "Une nouvelle histoire d'amour avec la nature"
       show: "Nature de l'affaire : %{name}"
@@ -95,22 +87,18 @@ fra:
       detach: "Dissocier une affaire"
       detach_gaps: "Affaire « Detach gaps » : %{name}"
       finish: "Passer en perte et profit le reliquat"
-      first_run_or_backend: "Première diffusion ou émission en différé : %{name}"
       index: "Affaires"
       select: "Ajouter une transaction"
       show: "Affaire N°%{number}"
     backend/analyses:
       edit: "Modifier l’analyse N°%{number}"
-      first_run_or_backend: "Première exécution ou analyse du backend : %{name}"
       index: "Analyses"
       new: "Nouvelle analyse"
       show: "Analyse N°%{number}"
     backend/analysis_items:
-      first_run_or_backend: "Premier passage ou élément d'analyse en arrière-plan : %{name}"
       new: "Nouvel élèment d’analyse"
     backend/analytic_sequences:
       edit: "Modifier séquence analytique"
-      first_run_or_backend: "Première exécution ou séquence d'analyse en arrière-plan : %{name}"
       index: "Séquence analytique"
       new: "Nouvelle séquence analytique"
     backend/animal_foods: #?
@@ -118,7 +106,6 @@ fra:
     backend/animal_groups:
       edit: "Modifier le groupe d’animaux\_: %{name}"
       edit_many: "Modifier plusieurs groupes d'animaux : %{name}"
-      first_run_or_backend: "Première série ou groupe d'animaux de fond : %{name}"
       index: "Groupes d’animaux"
       new: "Nouveau groupe d’animaux"
       show: "Groupe\_: %{name}"
@@ -140,7 +127,6 @@ fra:
       change: "Changer d'animal : %{name}"
       edit: "Modifier l’animal\_: %{name}"
       edit_many: "Modifier de nombreux animaux : %{name}"
-      first_run_or_backend: "Premier passage ou animal de fond : %{name}"
       index: "Animaux"
       keep: "Conserver l'animal : %{name}"
       load_animals: "Charger les animaux : %{name}"
@@ -152,49 +138,36 @@ fra:
       update_many: "Mise à jour concernant de nombreux animaux : %{name}"
     backend/associates:
       edit: "Modifier l’associé"
-      first_run_or_backend: "Première exécution ou collaborateur backend : %{name}"
       index: "Associés | Actionnaires"
       new: "Nouvel associé"
       show: "Associé"
     backend/attachments:
-      first_run_or_backend: "Première diffusion ou fichier joint : %{name}"
       show: "Pièce jointe : %{name}"
-    backend/bank_reconciliation/gaps:
-      first_run_or_backend: "Première diffusion ou interruption technique : %{name}"
     backend/bank_reconciliation/items:
       count: "Référence : %{name}"
-      first_run_or_backend: "Première publication ou élément du backend : %{name}"
       index: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
       reconciliate: "Relevés de la trésorerie %{cash} (du %{started_on} au %{stopped_on})"
-    backend/bank_reconciliation/letters:
-      first_run_or_backend: "Première édition ou lettre de fin de série : %{name}"
     backend/bank_statement_items:
       create_payslip_contribution_payment: "Créer un poste de relevé bancaire pour le paiement des cotisations sur la fiche de paie : %{name}"
       create_payslip_payment: "Créer un poste de relevé bancaire pour le paiement des fiches de paie : %{name}"
       create_vat_payment: "Créer un poste de relevé bancaire pour le paiement de la TVA : %{name}"
-      first_run_or_backend: "Premier cycle ou poste de relevé bancaire en arrière-plan : %{name}"
       new: "Nouveau poste sur le relevé bancaire"
       show: "Ligne de relevé de compte : %{name}"
     backend/bank_statements:
       classify: "Classement des relevés bancaires : %{name}"
       edit: "Modifier le relevé N°%{number}"
       edit_interval: "Périodes des relevés bancaires a rapprocher"
-      first_run_or_backend: "Premier cycle ou relevé bancaire du backend : %{name}"
       import: "Importer un fichier OFX"
       import_cfonb: "Importer un fichier CFONB"
       import_ofx: "Importer un fichier OFX"
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
       show: "Relevé de compte N°%{number}"
-    backend/base:
-      first_run_or_backend: "Première version ou base backend : %{name}"
     backend/beehives:
-      first_run_or_backend: "Première exécution ou « backend beehive » : %{name}"
       reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
       edit_many: "Modifier plusieurs divisions de bâtiment : %{name}"
-      first_run_or_backend: "Première exécution ou division de développement backend : %{name}"
       index: "Zones de stockage"
       new: "Nouvelle zone"
       show: "Zone\_: %{name}"
@@ -204,7 +177,6 @@ fra:
     backend/buildings:
       edit: "Modifier un bâtiment"
       edit_many: "Modifier plusieurs bâtiments : %{name}"
-      first_run_or_backend: "Première exécution ou compilation du backend : %{name}"
       index: "Bâtiments"
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
@@ -217,7 +189,6 @@ fra:
       close: "Campagne « Close » : %{name}"
       current: "Campagne"
       edit: "Campagne\_: %{name}"
-      first_run_or_backend: "Première diffusion ou campagne backend : %{name}"
       index: "Campagnes"
       new: "Nouvelle campagne"
       open: "Lancer la campagne : %{name}"
@@ -226,78 +197,61 @@ fra:
     backend/cap_islets:
       convert: "Convertir l'îlot de Cap : %{name}"
       edit: "Modifier l’îlot PAC\_: %{islet_number}"
-      first_run_or_backend: "Première version ou islet de la couche arrière : %{name}"
       index: "Îlots PAC"
       new: "Nouvel îlot PAC"
       show: "Îlot PAC\_: %{islet_number}"
     backend/cap_land_parcels:
       edit: "Modifier la parcelle PAC\_: %{land_parcel_number}"
-      first_run_or_backend: "Parcelle de terrain de la première phase ou de la zone arrière : %{name}"
       index: "Parcelles PAC"
       new: "Nouvelle parcelle PAC"
       show: "Parcelle PAC\_: %{land_parcel_number}"
     backend/cap_statements:
       edit: "Modifier la déclaration PAC\_: %{id}"
-      first_run_or_backend: "Première exécution ou déclaration de limite du backend : %{name}"
       index: "Déclarations PAC"
       new: "Nouvelle déclaration PAC"
       show: "Déclaration PAC\_: %{id}"
     backend/cash_transfers:
       edit: "Modifier le virement interne\_: %{number}"
-      first_run_or_backend: "Première phase ou transfert de fonds en arrière-plan : %{name}"
       index: "Virements internes"
       new: "Faire un nouveau virement interne"
       show: "Virement interne\_: %{number}"
     backend/cashes:
       edit: "Modifier la trésorerie\_: %{name}"
-      first_run_or_backend: "Première diffusion ou paiement différé : %{name}"
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
     backend/catalog_items:
       edit: "Modifier un prix"
-      first_run_or_backend: "Première diffusion ou élément du catalogue backend : %{name}"
       index: "Prix" #?
       new: "Nouveau prix"
       show: "Prix"
     backend/catalogs:
       edit: "Modifier le catalogue de prix\_: %{name}"
-      first_run_or_backend: "Première diffusion ou catalogue des programmes : %{name}"
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
     backend/cells/stewardship_cells: #?
       show: "Assistant: %{name}" #?
-    backend/cobblers:
-      first_run_or_backend: "Première version ou version « Backend Cobbler » : %{name}"
-    backend/cobbles/base:
-      first_run_or_backend: "Première version ou base backend : %{name}"
     backend/cobbles/inspections_cobbles:
-      first_run_or_backend: "Première mise en service ou inspections du backend : %{name}"
       show: "Lien vers les inspections : %{name}"
     backend/cobbles/production_cost_cobbles:
-      first_run_or_backend: "Première version ou aperçu des coûts de production en arrière-plan : %{name}"
       show: "Coût de production : %{name}"
     backend/cobbles/stock_in_ground_cobbles:
-      first_run_or_backend: "Première édition ou stock de fond en pavés : %{name}"
       show: "Galerie de photos de pavés en place : %{name}"
     backend/companies:
       build_attributes_for_weather: "Créer des attributs pour une entreprise spécialisée dans la météo : %{name}"
       edit: "Société"
-      first_run_or_backend: "Start-up ou entreprise de services : %{name}"
       set_station_as_default: "Définir la station comme entreprise par défaut : %{name}"
     backend/conditionings:
       conditioning_data: "Traitement des données : %{name}"
       create_on_the_go: "Créez un soin revitalisant à emporter : %{name}"
       edit: "Modifier le conditionnement\_: %{name}"
-      first_run_or_backend: "Première exécution ou conditionnement du backend : %{name}"
       index: "Conditionnements"
       new: "Nouveau conditionnement"
       new_on_the_go: "Associer un conditionnement"
       show: "Conditionnement\_: %{name}"
     backend/contracts:
       edit: "Modifier le contrat %{number}"
-      first_run_or_backend: "Première exécution ou contrat backend : %{name}"
       index: "Contrats"
       lose: "Perte de contrat : %{name}"
       negociate: "Négocier le contrat : %{name}"
@@ -307,30 +261,22 @@ fra:
       show: "Contrat %{number}"
       win: "Remporter un contrat : %{name}"
     backend/controller_helpers/activity_production_creations:
-      first_run_or_backend: "Première exécution ou création d'une activité de production en arrière-plan : %{name}"
       new: "Création d'une nouvelle activité"
     backend/crop_groups:
       edit: "Modifier le groupement parcellaire\_: %{name}"
-      first_run_or_backend: "Première série ou groupe de cultures en arrière-plan : %{name}"
       index: "Groupements parcellaires"
       kujaku_options: "Groupe de cultures Kujaku : %{name}"
       new: "Nouveau groupement parcellaire"
       show: "Groupement parcellaire\_: %{name}"
-    backend/crops:
-      first_run_or_backend: "Première récolte ou récolte de fin de saison : %{name}"
     backend/crumbs: #?
       index: "Miettes" #?
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
-      first_run_or_backend: "Première phase ou zone cultivable en arrière-plan : %{name}"
       index: "Zones cultivables"
       new: "Nouvelle zone cultivable"
       show: "Zone cultivable %{name}"
-    backend/custom_field_choices:
-      first_run_or_backend: "Choix entre le premier passage ou le champ personnalisé du backend : %{name}"
     backend/custom_fields:
       edit: "Modifier le champ personnalisé\_: %{name}"
-      first_run_or_backend: "Première exécution ou champ personnalisé du backend : %{name}"
       index: "Champs personnalisés"
       new: "Nouveau champ personnalisé"
       show: "Champ personnalisé\_: %{name}"
@@ -339,7 +285,6 @@ fra:
       accountancy: "Tableau de bord comptable"
       economic: "Tableau de bord économique : %{name}"
       edit: "Modifier le tableau de bord\_: %{name}"
-      first_run_or_backend: "Première exécution ou tableau de bord backend : %{name}"
       home: "Tableau de bord général"
       humans: "Tableau de bord des ressources humaines"
       index: "Tableaux de bord"
@@ -356,14 +301,11 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
-    backend/debt_transfers:
-      first_run_or_backend: "Première émission ou transfert de dette en arrière-plan : %{name}"
     backend/deliveries:
       cancel: "Annuler la livraison : %{name}"
       check: "Vérifier la livraison : %{name}"
       edit: "Modifier la livraison %{number}"
       finish: "Lien de téléchargement : %{name}"
-      first_run_or_backend: "Première diffusion ou diffusion en différé : %{name}"
       index: "Livraisons"
       new: "Nouvelle livraison"
       order: "Livraison de la commande : %{name}"
@@ -372,14 +314,12 @@ fra:
       start: "Commencer la livraison : %{name}"
     backend/deposits:
       edit: "Modifier la remise en banque n°%{number} du %{created_at}"
-      first_run_or_backend: "Premier versement ou dépôt initial : %{name}"
       index: "Remises en banque"
       new: "Effectuer une remise"
       show: "Remise en banque %{number} du %{created_at}"
       unvalidateds: "Remises en banque non validées"
     backend/districts:
       edit: "Modifier la zone administrative\_: %{name}"
-      first_run_or_backend: "Première élection ou circonscription de rattachement : %{name}"
       index: "Zones administratives"
       new: "Nouvelle zone administrative"
       show: "Circonscription : %{name}"
@@ -387,7 +327,6 @@ fra:
       show: "Archive\_: %{name}" #?
     backend/document_templates:
       edit: "Modifier le modèle de document\_: %{name}"
-      first_run_or_backend: "Première exécution ou modèle de document backend : %{name}"
       index: "Modèles de document"
       load: "Charger les modèles de document par défaut"
       new: "Nouveau modèle de document"
@@ -395,7 +334,6 @@ fra:
       show: "Modèle de document: %{name}"
     backend/documents:
       edit: "Modifier le document"
-      first_run_or_backend: "Première version ou document de référence : %{name}"
       index: "Mes documents"
       new: "Nouveau document"
       purchase_scan: "Document de scan de l'achat : %{name}"
@@ -405,14 +343,11 @@ fra:
       confirm: "Valider le brouillon de l'article : %{name}"
       confirmation_modal: "Modèle de fenêtre contextuelle de confirmation du journal : %{name}"
       fec_compliance_errors: "Projet de journal des erreurs de conformité FEC : %{name}"
-      first_run_or_backend: "Première version ou brouillon du journal : %{name}"
       show: "Brouillard"
     backend/duke_widget:
-      first_run_or_backend: "Première exécution ou widget Backend Duke : %{name}"
       show: "Widget Duke : %{name}"
     backend/email_templates:
       edit: "Modifier le modèle d'email\_: %{name}"
-      first_run_or_backend: "Première exécution ou modèle d'e-mail côté serveur : %{name}"
       index: "Modèles emails"
       load: "Charger les modèles emails par défaut"
       new: "Nouveau modèle d'email"
@@ -422,7 +357,6 @@ fra:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
       export: "Exportation de fiches"
-      first_run_or_backend: "Première exécution ou entité backend : %{name}"
       import: "Importation de fiches"
       index: "Tiers"
       mask_lettered_items: "Entité des articles portant l'inscription « Mask » : %{name}"
@@ -433,25 +367,21 @@ fra:
       toggle: "Afficher/masquer l'entité : %{name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
-      first_run_or_backend: "Première exécution ou adresse de l'entité backend : %{name}"
       index: "Adresses des entités"
       new: "Nouvelle coordonnée"
       show: "Coordonnée"
     backend/entity_links:
       edit: "Modifier le lien"
-      first_run_or_backend: "Lien vers la première publication ou l'entité backend : %{name}"
       index: "Liens entre entités"
       new: "Nouveau lien"
       show: "Lien"
     backend/entries_ledgers:
       classify: "Registre des écritures comptables : %{name}"
-      first_run_or_backend: "Premier cycle ou registre des écritures de back-end : %{name}"
       show: "Écritures"
       update_journal_entry_items: "Mise à jour des écritures du journal et du grand livre : %{name}"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
       edit_many: "Modifier plusieurs équipements : %{name}"
-      first_run_or_backend: "Première mise en service ou équipement de fond : %{name}"
       index: "Équipements"
       new: "Nouvel équipement"
       show: "Équipement\_: %{name}"
@@ -465,7 +395,6 @@ fra:
       new: "Nouvel établissement" #?
     backend/event_participations:
       edit: "Modifier la participation de %{participant_name}"
-      first_run_or_backend: "Première édition ou participation à un événement en coulisses : %{name}"
       index: "Participations à des événements"
       new: "Participation à un nouvel événement"
       show: "Inscription à l'événement : %{name}"
@@ -473,24 +402,16 @@ fra:
       autocomplete: "Événement « Saisie semi-automatique » : %{name}"
       change_minutes: "Modifier l'événement « minutes » : %{name}"
       edit: "Modifier l’évènement\_: %{name}"
-      first_run_or_backend: "Première diffusion ou événement en arrière-plan : %{name}"
       index: "Évènements"
       new: "Nouvel évènement"
       show: "Évènement\_: %{name}"
     backend/exchanger_template_files:
-      first_run_or_backend: "Fichier modèle pour la première exécution ou l'échangeur backend : %{name}"
       show: "Fichier modèle d'Exchanger : %{name}"
     backend/exports:
-      first_run_or_backend: "Première exécution ou exportation du backend : %{name}"
       index: "Exports"
       show: "Export\_: %{name}"
-    backend/financial_year_archives:
-      first_run_or_backend: "Première publication ou archives de l'exercice comptable : %{name}"
-    backend/financial_year_closure_preparations:
-      first_run_or_backend: "Première exécution ou préparation de la clôture de l'exercice comptable : %{name}"
     backend/financial_year_exchanges:
       close: "Échange de fin d'exercice : %{name}"
-      first_run_or_backend: "Première diffusion ou conversion des exercices comptables : %{name}"
       journal_entries_export: "Exportation des écritures comptables et conversion des exercices comptables : %{name}"
       journal_entries_import: "Import d’échange comptable"
       new: "Nouvel échange"
@@ -502,7 +423,6 @@ fra:
       compute_balances: "Calculer la balance de l’exercice"
       destroy_all_empty: "Supprimer tous les exercices comptables vides : %{name}"
       edit: "Modifier un nouvel exercice"
-      first_run_or_backend: "Premier exercice comptable ou exercice comptable de référence : %{name}"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
       index: "Exercices comptables"
       lock: "Verrouiller l'exercice %{code}"
@@ -510,14 +430,12 @@ fra:
       run_progress: "Évolution budgétaire de l'exercice : %{name}"
       show: "Exercice comptable %{code}"
     backend/fixed_asset_depreciations:
-      first_run_or_backend: "Premier amortissement ou amortissement des immobilisations du backend : %{name}"
       show: "Amortissement des immobilisations : %{name}"
     backend/fixed_assets:
       cede: "Céder l’immobilisation" #?
       depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
       depreciate_all: "Amortir l'ensemble des immobilisations : %{name}"
       edit: "Modifier l’immobilisation\_: %{name}"
-      first_run_or_backend: "Première mise en service ou immobilisation du backend : %{name}"
       index: "Immobilisations"
       link_to_sale: "Lien vers l'annonce de vente d'immobilisations : %{name}"
       new: "Nouvelle immobilisation"
@@ -529,7 +447,6 @@ fra:
     backend/fungi:
       edit: "Modifier une culture de champignons\_: %{name}"
       edit_many: "Modifier de nombreux champignons : %{name}"
-      first_run_or_backend: "Première apparition ou mycose du bas-ventre : %{name}"
       index: "Champignons"
       new: "Nouvelle culture de champignons"
       show: "Culture de champignons\_: %{name}"
@@ -537,23 +454,19 @@ fra:
       take: "Prenez « fungus » : %{name}"
       update_many: "Mise à jour sur de nombreuses espèces de champignons : %{name}"
     backend/gaps:
-      first_run_or_backend: "Première diffusion ou interruption technique : %{name}"
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
     backend/general_ledgers:
-      first_run_or_backend: "Premier cycle ou grand livre général du backend : %{name}"
       index: "%{ledger}"
       mask_draft_items: "Modèle de compte du grand livre : %{name}"
       mask_lettered_items: "Masquer les postes comptabilisés dans le grand livre : %{name}"
       show: "Grand-livre"
     backend/georeadings:
       edit: "Modifier le relevé topographique\_: %{name}"
-      first_run_or_backend: "Première exécution ou lecture géographique en arrière-plan : %{name}"
       index: "Relevés topographiques"
       new: "Nouveau relevé topographique"
       show: "Relevé topographique\_: %{name}"
     backend/golumns:
-      first_run_or_backend: "Première publication ou rubrique « Backend » : %{name}"
       reset: "Réinitialiser la colonne : %{name}"
       show: "Article : %{name}"
     backend/grading_quality_criteria: #?
@@ -562,30 +475,25 @@ fra:
       new: "Nouveau critère qualité d’agréage" #?
       show: "Critère qualité d’agréage\_: %{name}" #?
     backend/guide_analyses:
-      first_run_or_backend: "Première exécution ou analyse du guide du backend : %{name}"
       show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:
       edit: "Modifier le référentiel\_: %{name}"
-      first_run_or_backend: "Guide de première utilisation ou du backend : %{name}"
       index: "Référentiels"
       new: "Nouveau référentiel"
       run: "Tester un référentiel\_: %{name}"
       show: "Référentiel\_: %{name}"
     backend/helps:
-      first_run_or_backend: "Première utilisation ou assistance technique : %{name}"
       index: "Aide"
       show: "Voir l’aide"
       toggle: "Basculer l’aide"
     backend/identifiers:
       edit: "Modifier l’identifiant\_: %{name}"
-      first_run_or_backend: "Identifiant de la première exécution ou du backend : %{name}"
       index: "Identifiants"
       new: "Nouvel identifiant"
       show: "Identifiant\_: %{name}"
     backend/imports:
       abort: "Annuler l'importation : %{name}"
       edit: "Modifier l’import\_: %{name}"
-      first_run_or_backend: "Première exécution ou importation du backend : %{name}"
       index: "Imports"
       new: "Nouvel import"
       progress: "Importation de Progress : %{name}"
@@ -594,7 +502,6 @@ fra:
     backend/incoming_harvests:
       autolink_incoming_harvests: "Lien automatique vers les récoltes à venir : %{name}"
       edit: "Modifier la réception de récolte\_: %{number}"
-      first_run_or_backend: "Première exécution ou collecte des données du backend : %{name}"
       index: "Réceptions de récolte"
       new: "Enregistrer une nouvelle réception de récolte"
       show: "Réception de récolte\_: %{number}"
@@ -608,13 +515,11 @@ fra:
       show: "Colis à recevoir %{number} (%{reference_number})" #?
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
-      first_run_or_backend: "Premier cycle ou mode de paiement entrant en arrière-plan : %{name}"
       index: "Modes d’encaissement"
       new: "Nouveau mode d’encaissement"
       show: "Mode d’encaissement: %{name}"
     backend/incoming_payments:
       edit: "Modifier l’encaissement n°%{number}"
-      first_run_or_backend: "Premier cycle ou encaissement en arrière-plan : %{name}"
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
@@ -623,19 +528,16 @@ fra:
     backend/inspections:
       edit: "Modifier l’agréage\_: %{number}"
       export: "Contrôles à l'exportation"
-      first_run_or_backend: "Première mise en service ou inspection des installations techniques : %{name}"
       index: "Agréages"
       new: "Nouvel agréage"
       show: "Agréage\_: %{number}"
     backend/integrations:
       check: "Voir l'intégration : %{name}"
       edit: "Modifier la connexion %{name}"
-      first_run_or_backend: "Première exécution ou intégration du backend : %{name}"
       index: "Connexions partenaires"
       new: "Activer la connexion %{name}"
     backend/intervention_participations:
       convert: "Convert intervention participation: %{name}"
-      first_run_or_backend: "Première participation ou intervention en arrière-plan : %{name}"
       index: "Participations d’intervention"
       participations_modal: "Participations : intervention modale : %{name}"
     backend/interventions:
@@ -650,7 +552,6 @@ fra:
       edit_specified: "Modifier l’intervention %{name}"
       edit_specified_request: "Modifier la planification : %{name}"
       export: "Interventions à l'exportation"
-      first_run_or_backend: "Première exécution ou intervention sur le backend : %{name}"
       generate_buttons: "Intervention « Générer des boutons » : %{name}"
       index: "Interventions"
       link_rides_to_planned: "Lien vers l'intervention prévue : %{name}"
@@ -667,28 +568,21 @@ fra:
       validate_harvest_delay: "Valider l'intervention relative au report de la récolte : %{name}"
       validate_reentry_delay: "Valider l'intervention relative au délai de réentrée : %{name}"
     backend/interventions/costs:
-      first_run_or_backend: "Coût de la première diffusion ou du backend : %{name}"
       parameter_cost: "Paramètre « cost » : %{name}"
     backend/invalid_journal_entries:
       delete_all: "Supprimer toutes les écritures comptables non valides : %{name}"
-      first_run_or_backend: "Première exécution ou écriture comptable non valide dans le backend : %{name}"
       index: "Écritures à équilibrer"
     backend/inventories:
       edit: "Modifier l’inventaire"
-      first_run_or_backend: "Première diffusion ou inventaire du backend : %{name}"
       index: "Inventaires"
       new: "Nouvel inventaire"
       refresh: "Actualiser le stock : %{name}"
       show: "Inventaire %{number}"
-    backend/inventory_items:
-      first_run_or_backend: "Article de première livraison ou de stock de réserve : %{name}"
     backend/invitations:
-      first_run_or_backend: "Première diffusion ou invitation via le backend : %{name}"
       index: "Invitations"
       new: "Nouvelle invitation"
     backend/issue_natures:
       edit: "Modifier la nature du problème : %{name}"
-      first_run_or_backend: "Nature du problème lors de la première exécution ou au niveau du backend : %{name}"
       index: "Nature des problèmes"
       new: "Nouveau numéro : Nature"
       show: "Nature du problème : %{name}"
@@ -696,24 +590,20 @@ fra:
       abort: "Annuler"
       close: "Fermer"
       edit: "Modifier l’incident\_: %{name} (%{nature})"
-      first_run_or_backend: "Problème lors de la première exécution ou au niveau du backend : %{name}"
       index: "Incidents"
       new: "Nouvel incident"
       reopen: "Réouvrir"
       show: "Incident %{name}"
     backend/januses:
-      first_run_or_backend: "Première exécution ou backend Januse : %{name}"
       toggle: "Basculer vers januse : %{name}"
     backend/journal_entries:
       currency_state: "Écriture comptable relative à la devise : %{name}"
       edit: "Modifier l’écriture\_: %{number}"
-      first_run_or_backend: "Première exécution ou écriture comptable en arrière-plan : %{name}"
       index: "Écritures comptables"
       new: "Nouvelle écriture"
       show: "Écriture comptable\_: %{number}"
       toggle_autocompletion: "Activer/désactiver la saisie semi-automatique des écritures comptables : %{name}"
     backend/journal_entry_items:
-      first_run_or_backend: "Première exécution ou écriture comptable en arrière-plan : %{name}"
       index: "Lignes d’écritures"
       new: "Nouvelle ligne d’écriture" #?
       show: "Ligne d’écriture: %{name}"
@@ -721,7 +611,6 @@ fra:
       bookkeep: "Bascule comptable"
       close: "Clôturer le journal\_: %{name}"
       edit: "Modifier le journal\_: %{name}"
-      first_run_or_backend: "Première publication ou journal de fond : %{name}"
       import: "Importer des données comptables" #?
       index: "Journaux"
       new: "Nouveau journal"
@@ -729,11 +618,9 @@ fra:
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
     backend/kujakus:
-      first_run_or_backend: "Première exécution ou backend Kujaku : %{name}"
       toggle: "Basculer vers kujaku : %{name}"
     backend/labels:
       edit: "Modifier l’étiquette\_: %{name}"
-      first_run_or_backend: "Première édition ou étiquette au dos : %{name}"
       index: "Étiquettes"
       new: "Nouvelle étiquette"
       show: "Étiquette\_: %{name}"
@@ -753,7 +640,6 @@ fra:
       divide: "Diviser la parcelle\_: %{name}" #?
       edit: "Modifier la parcelle\_: %{name}"
       edit_many: "Modifier plusieurs parcelles : %{name}"
-      first_run_or_backend: "Première phase ou parcelle de terrain en arrière-plan : %{name}"
       index: "Parcelles"
       merge: "Fusionner des parcelles" #?
       new: "Nouvelle parcelle"
@@ -761,22 +647,17 @@ fra:
       sort_by_time_use: "Trier par utilisation des sols : %{name}"
       take: "Consultez la fiche cadastrale : %{name}"
       update_many: "Mise à jour de nombreuses parcelles : %{name}"
-    backend/listing_node_items:
-      first_run_or_backend: "Première publication ou élément de la liste du backend : %{name}"
     backend/listing_nodes:
       edit: "Modifier le nœud"
-      first_run_or_backend: "Nœud de la première exécution ou de la liste des backends : %{name}"
       new: "Nouveau nœud"
     backend/listings:
       edit: "Modifier l’extraction\_: %{name}"
       extract: "Extraire les données de\_: %{name}"
-      first_run_or_backend: "Première publication ou liste des serveurs : %{name}"
       index: "Extractions"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/loan_repayments:
       edit: "Modifier le remboursement du %{due_on} de l’emprunt %{loan_name}"
-      first_run_or_backend: "Premier versement ou remboursement d'un prêt de fonds propres : %{name}"
       index: "Remboursement des prêts"
       new: "Nouvelle échéance"
       show: "Remboursement du prêt : %{name}"
@@ -784,7 +665,6 @@ fra:
       bookkeep: "Prêt Bookkeep : %{name}"
       confirm: "Confirmer le prêt : %{name}"
       edit: "Modifier l’emprunt\_: %{name}"
-      first_run_or_backend: "Prêt initial ou prêt de second rang : %{name}"
       index: "Emprunts"
       new: "Nouvel emprunt"
       repay: "Rembourser un prêt : %{name}"
@@ -793,7 +673,6 @@ fra:
       new: "Nouvelle réception de matériels et de matières" #?
     backend/manure_management_plans:
       edit: "Modifier le plan de fumure\_: %{name}"
-      first_run_or_backend: "Première mise en œuvre ou plan de gestion du fumier en amont : %{name}"
       index: "Plans de fumure"
       new: "Nouveau plan de fumure"
       show: "Plan de fumure\_: %{name}"
@@ -802,14 +681,11 @@ fra:
       index: "Fonds de carte" #?
       new: "Nouveau fond de carte" #?
     backend/map_editor_shapes:
-      first_run_or_backend: "Première version ou forme de l'éditeur de cartes backend : %{name}"
       index: "Formes de l'éditeur de carte"
     backend/map_editors:
-      first_run_or_backend: "Première version ou éditeur de cartes backend : %{name}"
       upload: "Télécharger l'éditeur de cartes : %{name}"
     backend/map_layers:
       edit: "Modifier la couche de carte : %{name}"
-      first_run_or_backend: "Première exécution ou couche cartographique du backend : %{name}"
       index: "Couches de carte"
       load: "Charger la couche cartographique : %{name}"
       new: "Nouvelle couche de carte"
@@ -817,23 +693,12 @@ fra:
       star: "Couche de carte stellaire : %{name}"
       toggle: "Afficher/masquer la couche de la carte : %{name}"
     backend/master_doer_contracts:
-      first_run_or_backend: "Contrat « First run » ou « Backend master doer » : %{name}"
       show: "Contrat de prestataire : %{name}"
     backend/master_productions:
-      first_run_or_backend: "Première diffusion ou production principale du backend : %{name}"
       show: "Production : %{name}"
-    backend/master_user_roles:
-      first_run_or_backend: "Premier exécution ou rôle d'utilisateur principal du backend : %{name}"
-    backend/master_variant_categories:
-      first_run_or_backend: "Catégorie de variante « premier passage » ou « backend master » : %{name}"
-    backend/master_variant_natures:
-      first_run_or_backend: "Nature de la variante du premier cycle ou du maître backend : %{name}"
-    backend/master_variants:
-      first_run_or_backend: "Première version ou variante principale du backend : %{name}"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       edit_many: "Modifier divers éléments : %{name}"
-      first_run_or_backend: "Qu'importe la première exécution ou le backend : %{name}"
       index: "Matières"
       new: "Nouvelle matière"
       picture: "Visuel" #?
@@ -843,38 +708,31 @@ fra:
       update_many: "Mise à jour sur plusieurs sujets : %{name}"
     backend/measures:
       convert: "Convertir la mesure : %{name}"
-      first_run_or_backend: "Première exécution ou mesure du backend : %{name}"
     backend/myselves:
       change_password: "Changer de mot de passe"
-      first_run_or_backend: "Lancez-le vous-même ou exécutez-le en arrière-plan : %{name}"
       show: "Mon compte"
     backend/naming_format_land_parcels:
       build: "Format de dénomination des parcelles : %{name}"
       build_example: "Exemple de format de nommage d'une parcelle : %{name}"
       edit: "Format de nommage des Parcelles"
-      first_run_or_backend: "Premier passage ou format de dénomination des parcelles en arrière-plan : %{name}"
       index: "Formats de nommage"
       new: "Nouveau format de dénomination des parcelles"
       show: "Format de dénomination des parcelles : %{name}"
     backend/naming_formats:
       edit: "Modifier le format de nommage : %{name}"
-      first_run_or_backend: "Format de nommage de la première exécution ou du backend : %{name}"
       index: "Formats de nommage"
       new: "Nouveau format de nommage"
       show: "Format de nommage : %{name}"
     backend/net_services:
       edit: "Modifier un service en ligne"
-      first_run_or_backend: "Première exécution ou service réseau backend : %{name}"
       index: "Services en ligne"
       new: "Nouveau service en ligne"
       show: "Service en ligne\_: %{name}"
     backend/notifications:
-      first_run_or_backend: "Première exécution ou notification du backend : %{name}"
       index: "Notifications"
       show: "Avis : %{name}"
     backend/observations:
       edit: "Modifier une observation"
-      first_run_or_backend: "Première exécution ou observation du backend : %{name}"
       new: "Nouvelle observation"
     backend/operations: #?
       edit: "Modifier le travail" #?
@@ -895,26 +753,22 @@ fra:
       show: "Colis à expédier\_: %{number}" #?
     backend/outgoing_payment_lists:
       export_to_sepa: "Exporter vers la liste des paiements sortants SEPA : %{name}"
-      first_run_or_backend: "Premier cycle ou liste des paiements sortants du backend : %{name}"
       index: "Lots de décaissements"
       new: "Nouveau lot de décaissements"
       show: "Lots de décaissements"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
-      first_run_or_backend: "Première exécution ou mode de paiement sortant en arrière-plan : %{name}"
       index: "Modes de décaissement"
       new: "Nouveau mode de décaissement"
       sepa: "Mode de paiement sortant SEPA : %{name}"
       show: "Mode de paiement : %{name}"
     backend/outgoing_payments:
       edit: "Modifier le décaissement\_: %{number}"
-      first_run_or_backend: "Premier cycle ou paiement sortant en arrière-plan : %{name}"
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
     backend/parcels:
       edit: "Modifier le colis %{nature}\_: %{number}"
-      first_run_or_backend: "Première diffusion ou paquet backend : %{name}"
       index: "Colis"
       new: "Nouveau colis"
       ship: "Expédier les colis"
@@ -924,13 +778,11 @@ fra:
       detach: "Affaire des fiches de paie détachées : %{name}"
       detach_gaps: "Affaire des écarts dans les fiches de paie : %{name}"
       finish: "Affaire des fiches de paie : %{name}"
-      first_run_or_backend: "Première publication ou affaire des fiches de paie du backend : %{name}"
       index: "Tout ce qui concerne les fiches de paie"
       select: "Affaire relative aux bulletins de paie : %{name}"
       show: "Affaire des fiches de paie : %{name}"
     backend/payslip_contribution_payments:
       edit: "Modifier le paiement de charge sociale\_: %{number}"
-      first_run_or_backend: "Premier versement ou paiement des cotisations via le bulletin de paie : %{name}"
       index: "Paiements de charge sociale"
       new: "Nouveau paiement de charge sociale"
       show: "Paiement de charge sociale\_: %{number}"
@@ -941,20 +793,17 @@ fra:
       show: "Charge sociale\_: %{number}" #?
     backend/payslip_natures:
       edit: "Modifier le type de salaire\_: %{name}"
-      first_run_or_backend: "Nature de la première exécution ou de la fiche de paie en arrière-plan : %{name}"
       index: "Types de salaires / charges"
       new: "Nouveau type de salaire / charges"
       show: "Type de salaire\_: %{name}"
     backend/payslip_payments:
       edit: "Modifier le paiement de salaire\_: %{number}"
-      first_run_or_backend: "Premier paiement ou paiement via la fiche de paie du backend : %{name}"
       index: "Paiements de salaire"
       new: "Nouveau paiement de salaire"
       show: "Paiement de salaire\_: %{number}"
     backend/payslips:
       correct: "Fiche de paie correcte : %{name}"
       edit: "Modifier le salaire\_: %{number}"
-      first_run_or_backend: "Première génération ou fiche de paie du backend : %{name}"
       index: "Salaires"
       invoice: "Facture et fiche de paie : %{name}"
       new: "Nouveau salaire"
@@ -966,22 +815,18 @@ fra:
       show: "Registre phytosanitaire"
     backend/plant_countings:
       edit: "Modifier le comptage\_: %{number}"
-      first_run_or_backend: "Première mise en service ou comptage des installations en arrière-plan : %{name}"
       index: "Comptages"
       new: "Nouveau comptage"
       show: "Comptage\_: %{number}"
     backend/plant_density_abaci:
       edit: "Modifier le calculateur de densité de plantation : %{name}"
-      first_run_or_backend: "Calculateur de densité pour la première plantation ou les plantations en arrière-plan : %{name}"
       new: "Nouveau calculateur de densité de plantation"
       show: "Calculateur de densité de plantation : %{name}"
     backend/plant_density_abacus_items:
-      first_run_or_backend: "Article Abacus sur la densité des installations de première génération ou de fond de panier : %{name}"
       new: "Nouvel article « Abacus » sur la densité de plantation"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       edit_many: "Modifier plusieurs plantes : %{name}"
-      first_run_or_backend: "Première mise en service ou installation de fond : %{name}"
       index: "Cultures"
       new: "Nouvelle culture"
       show: "Culture\_: %{name}"
@@ -991,50 +836,37 @@ fra:
     backend/postal_zones:
       autocomplete: "Saisie semi-automatique de la zone postale : %{name}"
       edit: "Modifier la zone postale\_: %{name}"
-      first_run_or_backend: "Premier passage ou zone postale de fond : %{name}"
       index: "Zones postales"
       new: "Nouvelle zone postale"
       show: "Code postal : %{name}"
-    backend/preferences:
-      first_run_or_backend: "Première exécution ou préférence de backend : %{name}"
     backend/prescriptions:
       edit: "Modifier la prescription\_: %{reference_number}"
-      first_run_or_backend: "Première consultation ou ordonnance de suivi : %{name}"
       index: "Prescriptions"
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
     backend/product_groups:
       edit: "Modifier le groupe\_: %{name}"
       edit_many: "Modifier plusieurs groupes de produits : %{name}"
-      first_run_or_backend: "Première version ou groupe de produits backend : %{name}"
       index: "Groupes de produits"
       new: "Créer un groupe"
       show: "Groupe\_: %{name}"
       sort_by_time_use: "Trier par durée d'utilisation du groupe de produits : %{name}"
       take: "Voir la gamme de produits : %{name}"
       update_many: "Mise à jour de nombreux groupes de produits : %{name}"
-    backend/product_linkages:
-      first_run_or_backend: "Première diffusion ou intégration du produit en arrière-plan : %{name}"
     backend/product_localizations:
       edit: "Editer la localisation du produit:"
-      first_run_or_backend: "Première mise en service ou localisation de produits backend : %{name}"
       new: "Nouvelle localisation du produit"
-    backend/product_memberships:
-      first_run_or_backend: "Première édition ou adhésion au produit backend : %{name}"
     backend/product_nature_categories:
       edit: "Modifier la catégorie comptable\_: %{name}"
-      first_run_or_backend: "Catégorie « Premier lancement » ou « Produits backend » : %{name}"
       index: "Catégories comptables"
       new: "Nouvelle catégorie comptable"
       pick: "Importer une catégorie de référence"
       show: "Catégorie comptable\_: %{name}"
     backend/product_nature_variant_components:
       autocomplete: "Composant de suggestion automatique pour les variantes de nature de produit : %{name}"
-      first_run_or_backend: "Première version ou variante de composant liée à la nature du produit backend : %{name}"
     backend/product_nature_variant_tags:
       create: "Nouvelle étiquette d'article"
       edit: "Modifier l'étiquette d'article\_: %{name}"
-      first_run_or_backend: "Balise de variante de nature du produit (première version ou backend) : %{name}"
       index: "Etiquettes d'article"
       new: "Nouvelle étiquette d'article"
       show: "Etiquette d'article\_: %{name}"
@@ -1042,7 +874,6 @@ fra:
       create: "Nouvelle article"
       detail: "Fiche détaillée de la variante de produit : %{name}"
       edit: "Modifier l'article\_: %{name}"
-      first_run_or_backend: "Première version ou variante de nature du produit backend : %{name}"
       index: "Articles"
       new: "Nouvel article"
       pick: "Importer un article de référence"
@@ -1052,21 +883,14 @@ fra:
     backend/product_natures:
       compatible_varieties: "Variétés compatibles : %{name}"
       edit: "Modifier le profil fonctionnel\_: %{name}"
-      first_run_or_backend: "Première version ou nature du produit backend : %{name}"
       index: "Profils fonctionnels"
       new: "Nouveau profil fonctionnel"
       pick: "Importer un profil fonctionnel"
       show: "Profil fonctionnel\_: %{name}"
-    backend/product_ownerships:
-      first_run_or_backend: "Première version ou gestion de produit côté serveur : %{name}"
-    backend/product_phases:
-      first_run_or_backend: "Phase de lancement ou de développement du produit : %{name}"
     backend/product_readings:
       edit: "Modifier l'indicateur\_: %{indicator_name}"
-      first_run_or_backend: "Première lecture ou présentation du produit backend : %{name}"
       new: "Nouvel indicateur"
     backend/production_usages:
-      first_run_or_backend: "Première exécution ou utilisation en production : %{name}"
       show: "Utilisation en production : %{name}"
     backend/productions: #?
       edit: "Modifier la production\_: %{name}" #?
@@ -1076,7 +900,6 @@ fra:
     backend/products:
       edit: "Modifier un produit"
       edit_many: "Distribuer les produits non affectés"
-      first_run_or_backend: "Première version ou produit backend : %{name}"
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
@@ -1084,32 +907,25 @@ fra:
       take: "Voir le produit : %{name}"
       update_many: "Mise à jour de nombreux produits : %{name}"
     backend/products/indicators:
-      first_run_or_backend: "Indicateur de première exécution ou de backend : %{name}"
       variable_indicators: "Indicateur des variables : %{name}"
     backend/products/interventions:
-      first_run_or_backend: "Première exécution ou intervention sur le backend : %{name}"
       has_harvesting: "Intervention de récolte : %{name}"
     backend/products/search_products:
       datas: "Recherche de produits Datas : %{name}"
-      first_run_or_backend: "Première version ou produit de recherche backend : %{name}"
     backend/products/search_variants:
-      first_run_or_backend: "Première exécution ou variante de recherche en arrière-plan : %{name}"
       search_by_expression: "Recherche par variante d'expression : %{name}"
     backend/project_budgets:
       edit: "Modifier le budget interne\_: %{name}"
-      first_run_or_backend: "Budget pour la première édition ou le projet de fond : %{name}"
       index: "Budgets internes "
       new: "Nouveau budget interne"
       show: "Budget du projet : %{name}"
     backend/project_tasks:
       edit: "Modifier une tâche d'un projet: %{name}"
-      first_run_or_backend: "Première exécution ou tâche du projet backend : %{name}"
       index: "Tâches de projets"
       new: "Nouvelle tâche de projet"
       show: "Tâche de projet: %{name}"
     backend/projects:
       edit: "Modifier un projet: %{name}"
-      first_run_or_backend: "Première exécution ou projet backend : %{name}"
       index: "Projets"
       new: "Nouveau projet"
       show: "Projet: %{name}"
@@ -1118,17 +934,14 @@ fra:
       detach: "Lien vers l'achat : %{name}"
       detach_gaps: "Affaire concernant l'achat de Detach Gaps : %{name}"
       finish: "Finaliser l'achat : %{name}"
-      first_run_or_backend: "Première diffusion ou achat de droits de diffusion : %{name}"
       index: "Affaires d'achat"
       select: "Sélectionner l'offre d'achat : %{name}"
       show: "Lien d'achat : %{name}"
     backend/purchase_gaps:
-      first_run_or_backend: "Écart entre la première diffusion et l'achat en différé : %{name}"
       index: "Lacunes dans les achats"
       show: "Écart d'achat : %{name}"
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
-      first_run_or_backend: "Première commande ou facture d'achat de produits en stock : %{name}"
       index: "Factures"
       new: "Nouvelle facture"
       pay: "Payer"
@@ -1139,7 +952,6 @@ fra:
       new: "Nouveau produit à la commande" #?
     backend/purchase_natures:
       edit: "Modifier le type d’achat\_: %{name}"
-      first_run_or_backend: "Nature de la première diffusion ou de l'achat en arrière-plan : %{name}"
       index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
@@ -1147,7 +959,6 @@ fra:
       close: "Commander : %{number}"
       edit: "Modifier la commande\_: %{number}"
       email_supplier: "Envoyer la commande au fournisseur par e-mail : %{name}"
-      first_run_or_backend: "Première commande ou commande de réapprovisionnement : %{name}"
       index: "Commandes"
       new: "Nouvelle commande"
       open: "Commande en cours : %{number}"
@@ -1156,12 +967,10 @@ fra:
       show: "Commande\_: %{number} au fournisseur %{supplier}"
     backend/purchase_payments:
       edit: "Modifier le décaissement\_: %{number}"
-      first_run_or_backend: "Paiement de la première diffusion ou de l'achat de droits de rediffusion : %{name}"
       index: "Décaissements"
       new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
     backend/purchase_process/reconciliation:
-      first_run_or_backend: "Premier cycle ou rapprochement des données de fond : %{name}"
       purchase_orders_to_reconciliate: "Commandes d'achat à rapprocher : %{name}"
       receptions_to_reconciliate: "Réceptions pour favoriser la réconciliation : %{name}"
     backend/purchases:
@@ -1170,7 +979,6 @@ fra:
       correct: "Corriger l’achat" #?
       edit: "Modifier l’achat\_: %{number}" #?
       finish: "Finir l’achat" #?
-      first_run_or_backend: "Première diffusion ou achat du contenu : %{name}"
       index: "Achats" #?
       invoice: "Réception de la facture" #?
       new: "Nouvel achat" #?
@@ -1180,24 +988,19 @@ fra:
       refuse: "Commande refusée" #?
       show: "Achat\_: %{number} au fournisseur %{supplier}"
     backend/purchases/reconciliation_states:
-      first_run_or_backend: "État de la première exécution ou du rapprochement en arrière-plan : %{name}"
       put_accepted_state: "Mettre à jour l'état de la réconciliation : %{name}"
       put_reconcile_state: "État de la réconciliation : %{name}"
       put_to_reconcile_state: "Accédez à l'état de rapprochement : %{name}"
     backend/quick_affairs:
-      first_run_or_backend: "Première lecture ou coup d'œil rapide : %{name}"
       new: "Une nouvelle aventure sans lendemain"
     backend/quick_purchases:
-      first_run_or_backend: "Première diffusion ou achat rapide en arrière-plan : %{name}"
       new: "Nouvel Achat/Décaissement"
     backend/quick_sales:
-      first_run_or_backend: "Première diffusion ou vente rapide en arrière-plan : %{name}"
       new: "Nouvelle Vente/Encaissement"
     backend/receptions:
       cancel: "Annuler réception: %{number}" #?
       check: "Vérifier réception: %{number}" #?
       edit: "Modifier réception: %{number}"
-      first_run_or_backend: "Première diffusion ou réception sur le serveur : %{name}"
       give: "Give reception: %{number}"
       index: "Réceptions"
       invoice: "Invoice reception: %{number}" #?
@@ -1211,40 +1014,32 @@ fra:
     backend/reference_units:
       conditioning_data: "Référence de l'unité de données de conditionnement : %{name}"
       edit: "Modifier l'unité'\_: %{name}"
-      first_run_or_backend: "Première exécution ou unité de référence du backend : %{name}"
       index: "Unités"
       new: "Nouvelle unité"
       show: "Unité\_: %{name}"
     backend/registered_phytosanitary_products:
-      first_run_or_backend: "Produit phytosanitaire homologué pour la première fois ou enregistré en tant que produit de base : %{name}"
       get_products_infos: "Consultez les informations sur les produits phytosanitaires homologués : %{name}"
     backend/registered_phytosanitary_usages:
       dose_validations: "Validations des doses pour les utilisations phytosanitaires homologuées : %{name}"
       filter_usages: "Filtrer les utilisations : utilisations phytosanitaires homologuées : %{name}"
-      first_run_or_backend: "Première utilisation ou utilisation phytosanitaire enregistrée en arrière-plan : %{name}"
       get_usage_infos: "Pour obtenir des informations sur l'utilisation, consultez les données phytosanitaires enregistrées : %{name}"
     backend/registrations:
       edit: "Modifier inscription"
-      first_run_or_backend: "Première session ou inscription au backend : %{name}"
       index: "Inscriptions"
     backend/regularizations:
-      first_run_or_backend: "Première exécution ou régularisation du backend : %{name}"
       show: "Régularisation : %{name}"
     backend/ride_sets:
       edit: "Modifier l'ensemble de parcours : %{name}"
-      first_run_or_backend: "Première descente ou série de descentes : %{name}"
       index: "Trajets géolocalisés"
       new: "Nouvel ensemble d'attractions"
       show: "Trajet géolocalisé : %{number}"
     backend/rides:
       edit: "Modifier la sortie : %{name}"
-      first_run_or_backend: "Première descente ou parcours en arrière : %{name}"
       index: "Trajets géolocalisés"
       new: "Nouvelle attraction"
       show: "Trajet géolocalisé : %{number}"
     backend/roles:
       edit: "Modifier le rôle\_: %{name}"
-      first_run_or_backend: "Première exécution ou rôle backend : %{name}"
       incorporate: "Fonction au sein de l'entreprise : %{name}"
       index: "Rôles"
       new: "Nouveau rôle"
@@ -1258,27 +1053,22 @@ fra:
       detach: "Vente de déstockage : %{name}"
       detach_gaps: "Affaire de la vente de Detach Gaps : %{name}"
       finish: "Fin de la vente : %{name}"
-      first_run_or_backend: "Première diffusion ou vente en arrière-plan : %{name}"
       index: "Affaires commerciales"
       select: "Offre spéciale : %{name}"
       show: "Promotion : %{name}"
     backend/sale_contract_natures:
       edit: "Modifier un type de contrat: %{name}"
-      first_run_or_backend: "Nature du contrat de première diffusion ou de vente des droits de diffusion : %{name}"
       index: "Types de contrat"
       new: "Nouveau type de contrat"
       show: "Type de contrat: %{name}"
     backend/sale_contracts:
       edit: "Modifier un contrat de vente\_: %{name}"
-      first_run_or_backend: "Contrat de première diffusion ou de vente des droits de diffusion : %{name}"
       index: "Contrats de vente"
       new: "Nouveau contrat de vente"
       show: "Contrat de vente\_: %{name}"
     backend/sale_credits:
-      first_run_or_backend: "Source de la première publication ou de la vente en arrière-plan : %{name}"
       new: "Passage en avoir de la facture %{number}"
     backend/sale_gaps:
-      first_run_or_backend: "Écart entre le prix de lancement et le prix de vente en fin de série : %{name}"
       index: "Écarts de prix"
       show: "Écart de vente : %{name}"
     backend/sale_items: #?
@@ -1287,7 +1077,6 @@ fra:
       new: "Nouveau produit à la vente" #?
     backend/sale_natures:
       edit: "Modifier le type de vente\_: %{name}"
-      first_run_or_backend: "Première diffusion ou vente de droits de diffusion : %{name}"
       index: "Types de vente"
       new: "Nouveau type de vente"
       show: "Type de vente\_: %{name}"
@@ -1298,7 +1087,6 @@ fra:
       edit: "Modifier l’opportunité\_: %{name}"
       evaluate: "Évaluer une opportunité de vente : %{name}"
       finish: "Offre de vente à saisir : %{name}"
-      first_run_or_backend: "Première diffusion ou opportunité de vente en arrière-plan : %{name}"
       index: "Opportunités"
       lose: "Occasion manquée : %{name}"
       negociate: "Opportunité de vente à négocier : %{name}"
@@ -1314,7 +1102,6 @@ fra:
       detach: "Télécharger le bon de vente : %{name}"
       detach_gaps: "Billets en vente pour « Detach gaps » : %{name}"
       finish: "Lien vers la billetterie : %{name}"
-      first_run_or_backend: "Billets pour la première représentation ou la vente de fin de série : %{name}"
       index: "Billets en promotion"
       select: "Acheter un billet : %{name}"
       show: "Billets en vente : %{name}"
@@ -1329,7 +1116,6 @@ fra:
       default_conditioning_unit: "Vente d'un climatiseur en défaut de paiement : %{name}"
       edit: "Modifier la vente N°%{number}"
       email_client: "Vente de clients de messagerie : %{name}"
-      first_run_or_backend: "Première diffusion ou vente en arrière-plan : %{name}"
       index: "Ventes"
       invoice: "Facturer directement tout le devis"
       new: "Nouvelle vente"
@@ -1341,7 +1127,6 @@ fra:
     backend/sensors:
       detail: "Fiche technique du capteur : %{name}"
       edit: "Modifier le capteur\_: %{name}"
-      first_run_or_backend: "Première exécution ou capteur arrière : %{name}"
       index: "Capteurs"
       last_locations: "Dernier capteur de position : %{name}"
       models: "Modèles de capteurs : %{name}"
@@ -1350,7 +1135,6 @@ fra:
       show: "Capteur\_: %{name}"
     backend/sequences:
       edit: "Modifier la séquence\_: %{name}"
-      first_run_or_backend: "Première exécution ou séquence de backend : %{name}"
       index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Nouvelle séquence"
@@ -1359,11 +1143,9 @@ fra:
       index: "Prestations de service" #?
     backend/settings:
       about: "À propos…"
-      first_run_or_backend: "Première exécution ou configuration du backend : %{name}"
     backend/settlements:
       edit: "Modifier l’installation\_: %{name}"
       edit_many: "Modifier plusieurs règlements : %{name}"
-      first_run_or_backend: "Premier cycle ou règlement en arrière-plan : %{name}"
       index: "Installations"
       new: "Nouvelle installation"
       show: "Installation\_: %{name}"
@@ -1374,7 +1156,6 @@ fra:
       cancel: "Annuler l'expédition: %{number}"
       check: "Vérifier l'expédition: %{number}"
       edit: "Modifier l'expédition: %{number}"
-      first_run_or_backend: "Première livraison ou expédition en arrière-plan : %{name}"
       give: "Give shipment: %{number}"
       index: "Expéditions"
       invoice: "Invoice shipment: %{number}"
@@ -1384,18 +1165,15 @@ fra:
       ship: "Expédier la réception"
       show: "Expédition\_: %{number}"
     backend/snippets:
-      first_run_or_backend: "Extrait du code d'exécution initiale ou du backend : %{name}"
       toggle: "Afficher/masquer l'extrait : %{name}"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
-      first_run_or_backend: "Première exécution ou nature de l'abonnement au backend : %{name}"
       index: "Types d’abonnement"
       new: "Nouveau type d’abonnement"
       show: "Type d’abonnement\_: %{name}"
     backend/subscriptions:
       coordinates: "Rafraîchir les coordonnées et la période" #?
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
-      first_run_or_backend: "Première diffusion ou abonnement au contenu : %{name}"
       index: "Abonnements"
       new: "Nouvel abonnement"
       renew: "Renouveler l'abonnement : %{name}"
@@ -1404,12 +1182,10 @@ fra:
       takeover: "Inscription à l'offre publique d'achat : %{name}"
     backend/supervisions:
       edit: "Modifier la supervision\_: %{name}"
-      first_run_or_backend: "Première exécution ou supervision du backend : %{name}"
       index: "Supervisions"
       new: "Nouvelle supervision"
       show: "Supervision\_: %{name}"
     backend/synchronizations:
-      first_run_or_backend: "Première exécution ou synchronisation du backend : %{name}"
       index: "Synchronisations"
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
@@ -1422,7 +1198,6 @@ fra:
     backend/tasks:
       edit: "Modifier la tâche\_: %{name}"
       finish: "Terminer la tâche : %{name}"
-      first_run_or_backend: "Première exécution ou tâche en arrière-plan : %{name}"
       index: "Tâches"
       new: "Nouvelle tâche"
       reset: "Réinitialiser la tâche : %{name}"
@@ -1431,7 +1206,6 @@ fra:
     backend/tax_declarations:
       confirm: "Confirmer la déclaration TVA: %{number}"
       edit: "Modifier la déclaration TVA\_: %{number}"
-      first_run_or_backend: "Première exécution ou déclaration fiscale en arrière-plan : %{name}"
       index: "Déclarations TVA"
       new: "Nouvelle déclaration TVA"
       propose: "Proposer la déclaration TVA: %{number}"
@@ -1439,70 +1213,54 @@ fra:
     backend/tax_payments:
       confirm: "Confirmer le paiement TVA: %{number}"
       edit: "Modifier le paiement TVA\_: %{number}"
-      first_run_or_backend: "Première déclaration ou paiement d'impôts : %{name}"
       index: "Paiements TVA"
       new: "Nouveau paiement TVA"
       show: "Paiement TVA\_: %{number}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
-      first_run_or_backend: "Première émission ou taxe sur les titres : %{name}"
       index: "Taxes"
       load: "Taxe sur le chargement : %{name}"
       new: "Nouvelle taxe"
       show: "Taxe\_: %{name}"
     backend/teams:
       edit: "Modifier l’équipe\_: %{name}"
-      first_run_or_backend: "Équipe de lancement ou d'infrastructure : %{name}"
       index: "Équipes"
       new: "Nouvelle équipe"
       show: "Équipe\_: %{name}"
-    backend/technical_sequences:
-      first_run_or_backend: "Première exécution ou séquence technique du backend : %{name}"
-    backend/technical_workflows:
-      first_run_or_backend: "Première exécution ou flux de travail technique en arrière-plan : %{name}"
     backend/tours:
       finish: "Fin de la visite : %{name}"
-      first_run_or_backend: "Première diffusion ou visite des coulisses : %{name}"
     backend/trackings:
       edit: "Modifier le numéro de suivi\_: %{name} - %{serial}"
-      first_run_or_backend: "Première exécution ou suivi en arrière-plan : %{name}"
       index: "Numéros de suivi"
       new: "Nouveau numéro de suivi"
       show: "Numéro de suivi\_: %{name} - %{serial}"
     backend/transformed_products: #?
       index: "Produits transformés" #?
     backend/trial_balances:
-      first_run_or_backend: "Premier cycle ou balance de vérification du backend : %{name}"
       show: "Balance"
     backend/units:
       conditioning_data: "Unité de données de conditionnement : %{name}"
-      first_run_or_backend: "Première exécution ou unité de fond : %{name}"
       show: "Unité : %{name}"
     backend/unreceived_purchase_orders:
       edit: "Modifier une commande non reçue : %{name}"
-      first_run_or_backend: "Premier traitement ou bon de commande non reçu par le système de gestion : %{name}"
       index: "Commandes à réceptionner"
       show: "Commande non reçue : %{name}"
     backend/user_tickets:
       edit: "Modifier le ticket d'un utilisateur : %{name}"
-      first_run_or_backend: "Première exécution ou ticket utilisateur backend : %{name}"
       index: "Tickets utilisateur"
       new: "Ticket pour nouvel utilisateur"
       show: "Ticket utilisateur : %{name}"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
-      first_run_or_backend: "Première exécution ou utilisateur backend : %{name}"
       index: "Utilisateurs"
       lock: "Verrouiller l’utilisateur"
       new: "Nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
     backend/users/wice_grid_preferences:
-      first_run_or_backend: "Préférence concernant la première exécution ou la grille WICE en arrière-plan : %{name}"
       save_column: "Enregistrer les préférences de la grille « Wice » : %{name}"
     backend/variant_categories/animal_categories:
       edit: "Modifier la catégorie d'animaux : %{name}"
-      first_run_or_backend: "Première course ou catégorie des animaux de fond : %{name}"
       incorporate: "Ajouter une catégorie d'animaux : %{name}"
       index: "Catégories d'animaux"
       new: "Nouvelle catégorie d'animaux"
@@ -1510,7 +1268,6 @@ fra:
       show: "Catégorie d'animaux : %{name}"
     backend/variant_categories/article_categories:
       edit: "Modifier la catégorie de l'article : %{name}"
-      first_run_or_backend: "Première publication ou catégorie d'articles du backend : %{name}"
       incorporate: "Catégorie de l'article : %{name}"
       index: "Catégories d'articles stockables"
       new: "Nouvelle catégorie d'articles"
@@ -1518,7 +1275,6 @@ fra:
       show: "Catégorie de l'article : %{name}"
     backend/variant_categories/crop_categories:
       edit: "Modifier la catégorie des cultures : %{name}"
-      first_run_or_backend: "Catégorie « Première récolte » ou « Récolte de fin de cycle » : %{name}"
       incorporate: "Ajouter une catégorie de culture : %{name}"
       index: "Catégories de cultures"
       new: "Nouvelle catégorie de produits"
@@ -1526,7 +1282,6 @@ fra:
       show: "Catégorie de culture : %{name}"
     backend/variant_categories/equipment_categories:
       edit: "Modifier la catégorie d'équipement : %{name}"
-      first_run_or_backend: "Catégorie « Première mise en service » ou « Équipements de fond » : %{name}"
       incorporate: "Catégorie d'équipement : %{name}"
       index: "Catégories d'équipements"
       new: "Nouvelle catégorie d'équipements"
@@ -1534,7 +1289,6 @@ fra:
       show: "Catégorie d'équipement : %{name}"
     backend/variant_categories/service_categories:
       edit: "Modifier la catégorie de service : %{name}"
-      first_run_or_backend: "Catégorie « Premier lancement » ou « Service d'arrière-plan » : %{name}"
       incorporate: "Catégorie de service : %{name}"
       index: "Catégories de services"
       new: "Nouvelle catégorie de services"
@@ -1542,7 +1296,6 @@ fra:
       show: "Catégorie de service : %{name}"
     backend/variant_categories/worker_categories:
       edit: "Modifier la catégorie de travailleur : %{name}"
-      first_run_or_backend: "Première exécution ou catégorie de worker backend : %{name}"
       incorporate: "Catégorie de travailleurs : %{name}"
       index: "Catégories d'équipiers"
       new: "Nouvelle catégorie de travailleurs"
@@ -1550,7 +1303,6 @@ fra:
       show: "Catégorie de travailleurs : %{name}"
     backend/variant_categories/zone_categories:
       edit: "Modifier la catégorie de la zone : %{name}"
-      first_run_or_backend: "Catégorie « Première diffusion » ou « Zone arrière » : %{name}"
       incorporate: "Catégorie de zone : %{name}"
       index: "Catégories de zones"
       new: "Nouvelle catégorie de zone"
@@ -1559,7 +1311,6 @@ fra:
     backend/variant_types/animal_types:
       compatible_varieties: "Variétés compatibles avec ce type d'animal : %{name}"
       edit: "Modifier le type d'animal : %{name}"
-      first_run_or_backend: "Première exécution ou type d'animal en arrière-plan : %{name}"
       incorporate: "Type d'animal : %{name}"
       index: "Profils d'animaux"
       new: "Nouveau type d'animal"
@@ -1568,7 +1319,6 @@ fra:
     backend/variant_types/article_types:
       compatible_varieties: "Variétés compatibles : type d'article : %{name}"
       edit: "Modifier le type d'article : %{name}"
-      first_run_or_backend: "Première publication ou type d'article backend : %{name}"
       incorporate: "Intégrer le type d'article : %{name}"
       index: "Profils d'articles stockables"
       new: "Nouveau type d'article"
@@ -1577,7 +1327,6 @@ fra:
     backend/variant_types/crop_types:
       compatible_varieties: "Variétés compatibles : type de culture : %{name}"
       edit: "Modifier le type de culture : %{name}"
-      first_run_or_backend: "Type de culture lors de la première récolte ou en fin de cycle : %{name}"
       incorporate: "Ajouter un type de culture : %{name}"
       index: "Profils de cultures"
       new: "Nouveau type de culture"
@@ -1586,7 +1335,6 @@ fra:
     backend/variant_types/equipment_types:
       compatible_varieties: "Types d'équipements compatibles : %{name}"
       edit: "Modifier le type d'équipement : %{name}"
-      first_run_or_backend: "Type d'équipement de première génération ou de second plan : %{name}"
       incorporate: "Intégrer le type d'équipement : %{name}"
       index: "Profils d'équipements"
       new: "Nouveau type d'équipement"
@@ -1595,7 +1343,6 @@ fra:
     backend/variant_types/service_types:
       compatible_varieties: "Type de service « Variétés compatibles » : %{name}"
       edit: "Modifier le type de service : %{name}"
-      first_run_or_backend: "Type de première exécution ou de service d'arrière-plan : %{name}"
       incorporate: "Type de service à intégrer : %{name}"
       index: "Profils de services"
       new: "Nouveau type de service"
@@ -1604,7 +1351,6 @@ fra:
     backend/variant_types/worker_types:
       compatible_varieties: "Variétés compatibles avec ce type d'outil : %{name}"
       edit: "Modifier le type de travailleur : %{name}"
-      first_run_or_backend: "Type de première exécution ou de worker backend : %{name}"
       incorporate: "Intégrer le type de travailleur : %{name}"
       index: "Profils d'équipiers"
       new: "Nouveau type de travailleur"
@@ -1613,7 +1359,6 @@ fra:
     backend/variant_types/zone_types:
       compatible_varieties: "Type de zone de compatibilité des variétés : %{name}"
       edit: "Modifier le type de zone : %{name}"
-      first_run_or_backend: "Type de première exécution ou de zone backend : %{name}"
       incorporate: "Type de zone à intégrer : %{name}"
       index: "Profils de zones"
       new: "Nouveau type de zone"
@@ -1622,7 +1367,6 @@ fra:
     backend/variants/animal_variants:
       detail: "Fiche détaillée de la variante animale : %{name}"
       edit: "Modifier la variante animale : %{name}"
-      first_run_or_backend: "Première version ou variante « backend » : %{name}"
       incorporate: "Intégrer la variante animale : %{name}"
       index: "Animaux"
       new: "Nouvelle variante animale"
@@ -1633,7 +1377,6 @@ fra:
     backend/variants/article_variants:
       detail: "Fiche détaillée du produit : %{name}"
       edit: "Modifier la variante de l'article : %{name}"
-      first_run_or_backend: "Première publication ou variante de l'article en arrière-plan : %{name}"
       incorporate: "Lien vers la version de l'article : %{name}"
       index: "Autres articles stockables"
       new: "Nouvelle variante de l'article"
@@ -1644,7 +1387,6 @@ fra:
     backend/variants/articles/farm_product_articles:
       detail: "Fiche détaillée du produit agricole : %{name}"
       edit: "Modifier l'article sur les produits agricoles : %{name}"
-      first_run_or_backend: "Article sur le premier lancement ou le produit de la ferme de serveurs : %{name}"
       incorporate: "Article sur les produits agricoles : %{name}"
       index: "Produits de l'exploitation"
       new: "Nouvel article sur les produits agricoles"
@@ -1655,7 +1397,6 @@ fra:
     backend/variants/articles/fertilizer_articles:
       detail: "Article détaillé sur les engrais : %{name}"
       edit: "Modifier l'article sur les engrais : %{name}"
-      first_run_or_backend: "Article sur la première application ou l'apport d'engrais de fond : %{name}"
       incorporate: "Article sur l'incorporation d'engrais : %{name}"
       index: "Engrais"
       new: "Nouvel article sur les engrais"
@@ -1666,7 +1407,6 @@ fra:
     backend/variants/articles/plant_medicine_articles:
       detail: "Article détaillé sur la phytothérapie : %{name}"
       edit: "Modifier l'article sur la phytothérapie : %{name}"
-      first_run_or_backend: "Première publication ou article sur la médecine par les plantes : %{name}"
       incorporate: "Article sur la médecine par les plantes : %{name}"
       index: "Produits phytosanitaires"
       new: "Nouvel article sur la phytothérapie"
@@ -1677,7 +1417,6 @@ fra:
     backend/variants/articles/seed_and_plant_articles:
       detail: "Article détaillé sur les semences et les plantes : %{name}"
       edit: "Modifier l'article sur les semences et les plantes : %{name}"
-      first_run_or_backend: "Première publication ou article de référence sur les semis et la plantation : %{name}"
       incorporate: "Article sur les semences et les plantes : %{name}"
       index: "Semences et plants"
       new: "Nouvel article sur les semences et les plantes"
@@ -1688,7 +1427,6 @@ fra:
     backend/variants/crop_variants:
       detail: "Fiche détaillée de la variété : %{name}"
       edit: "Modifier la variante de coupe : %{name}"
-      first_run_or_backend: "Première version ou variante de la récolte en arrière-plan : %{name}"
       incorporate: "Intégrer la variante de recadrage : %{name}"
       index: "Cultures"
       new: "Nouvelle variété"
@@ -1699,7 +1437,6 @@ fra:
     backend/variants/equipment_variants:
       detail: "Détails de la version de l'équipement : %{name}"
       edit: "Modifier la variante d'équipement : %{name}"
-      first_run_or_backend: "Première version ou variante matérielle : %{name}"
       incorporate: "Intégrer la variante d'équipement : %{name}"
       index: "Équipements"
       new: "Nouvelle version de l'équipement"
@@ -1710,7 +1447,6 @@ fra:
     backend/variants/equipments/fixed_equipment_equipments:
       detail: "Détails sur les équipements fixes : %{name}"
       edit: "Modifier les équipements fixes : %{name}"
-      first_run_or_backend: "Première mise en service ou équipement fixe en arrière-plan : %{name}"
       incorporate: "Intégrer des équipements fixes : %{name}"
       index: "Équipements fixes"
       new: "Nouveaux équipements fixes"
@@ -1721,7 +1457,6 @@ fra:
     backend/variants/equipments/motorized_equipment_equipments:
       detail: "Équipements motorisés : %{name}"
       edit: "Modifier les équipements motorisés : %{name}"
-      first_run_or_backend: "Première mise en service ou équipement motorisé en arrière-plan : %{name}"
       incorporate: "Intégrer des équipements motorisés : %{name}"
       index: "Équipements motorisés"
       new: "Nouveaux équipements motorisés"
@@ -1732,7 +1467,6 @@ fra:
     backend/variants/equipments/tool_equipments:
       detail: "Équipement pour l'entretien automobile : %{name}"
       edit: "Équipement de l'atelier de montage : %{name}"
-      first_run_or_backend: "Équipement de première utilisation ou outils de gestion : %{name}"
       incorporate: "Équipement et outillage : %{name}"
       index: "Outils"
       new: "Nouveaux outils"
@@ -1743,7 +1477,6 @@ fra:
     backend/variants/equipments/trailed_equipment_equipments:
       detail: "Détails sur les équipements tractés : %{name}"
       edit: "Modifier les équipements tractés : %{name}"
-      first_run_or_backend: "Équipements de première ligne ou remorqués : %{name}"
       incorporate: "Intégrer des équipements tractés : %{name}"
       index: "Équipements tractés"
       new: "Nouveaux équipements tractés"
@@ -1754,7 +1487,6 @@ fra:
     backend/variants/service_variants:
       detail: "Détails de la variante de service : %{name}"
       edit: "Modifier la variante de service : %{name}"
-      first_run_or_backend: "Première exécution ou variante du service d'arrière-plan : %{name}"
       incorporate: "Intégrer la variante de service : %{name}"
       index: "Services"
       new: "Nouvelle option de service"
@@ -1765,7 +1497,6 @@ fra:
     backend/variants/worker_variants:
       detail: "Fiche détaillée de la variante de l'ouvrier : %{name}"
       edit: "Modifier la variante de travail : %{name}"
-      first_run_or_backend: "Première exécution ou variante du worker backend : %{name}"
       incorporate: "Intégrer la variante « worker » : %{name}"
       index: "Équipiers"
       new: "Nouvelle variante de travailleur"
@@ -1776,7 +1507,6 @@ fra:
     backend/variants/zone_variants:
       detail: "Fiche détaillée de la variante : %{name}"
       edit: "Modifier la variante de zone : %{name}"
-      first_run_or_backend: "Première version ou variante de la zone backend : %{name}"
       incorporate: "Intégrer la variante de zone : %{name}"
       index: "Zones"
       new: "Nouvelle variante de zone"
@@ -1785,31 +1515,20 @@ fra:
       show: "Variante de zone : %{name}"
       storage_detail: "Variante de la zone de détails de stockage : %{name}"
     backend/varieties:
-      first_run_or_backend: "Première diffusion ou version en arrière-plan : %{name}"
       selection: "Variété sélectionnée : %{name}"
-    backend/vegetative_stages:
-      first_run_or_backend: "Première poussée ou phase végétative de fond : %{name}"
-    backend/visualizations:
-      first_run_or_backend: "Première exécution ou visualisation du backend : %{name}"
     backend/visualizations/activity_map_cells_visualizations:
-      first_run_or_backend: "Visualisation des cellules de la carte d'activité lors de la première exécution ou en arrière-plan : %{name}"
       show: "Visualisation des cellules de la carte d'activité : %{name}"
     backend/visualizations/cadastral_parcels_visualizations:
-      first_run_or_backend: "Première exécution ou visualisation des parcelles cadastrales en arrière-plan : %{name}"
       show: "Visualisation des parcelles cadastrales : %{name}"
     backend/visualizations/cultivable_zones_visualizations:
-      first_run_or_backend: "Première exécution ou visualisation des zones cultivables en arrière-plan : %{name}"
       show: "Visualisation des zones cultivables : %{name}"
     backend/visualizations/economic_map_cells_visualizations:
-      first_run_or_backend: "Première exécution ou visualisation des cellules de la carte économique en arrière-plan : %{name}"
       show: "Visualisation des cellules de la carte économique : %{name}"
     backend/visualizations/incoming_harvest_map_cells_visualizations:
-      first_run_or_backend: "Visualisation des cellules de la carte de récolte lors de la première exécution ou en arrière-plan : %{name}"
       show: "Visualisation des cellules de la carte des récoltes à venir : %{name}"
     backend/visualizations/inspections_visualizations:
       caliber_series: "Visualisation des inspections de la série Caliber : %{name}"
       chart_style: "Visualisation des inspections par type de graphique : %{name}"
-      first_run_or_backend: "Visualisation des inspections de première mise en service ou des inspections en arrière-plan : %{name}"
       inspection_series: "Visualisation des inspections de la série d'inspections : %{name}"
       number_to_cool: "Lien vers la visualisation des inspections de refroidissement : %{name}"
       ratio_to_cool: "Rapport sur la visualisation des inspections de refroidissement : %{name}"
@@ -1818,59 +1537,44 @@ fra:
       spline_series: "Visualisation des inspections de séries splinées : %{name}"
       support_series: "Visualisation des inspections de la série Support : %{name}"
     backend/visualizations/land_parcels_visualizations:
-      first_run_or_backend: "Première visualisation des parcelles foncières ou des zones de développement : %{name}"
       show: "Visualisation des parcelles : %{name}"
     backend/visualizations/non_treatment_areas_visualizations:
-      first_run_or_backend: "Visualisation des zones non traitées lors du premier passage ou en arrière-plan : %{name}"
       show: "Visualisation des zones non traitées : %{name}"
     backend/visualizations/plants_visualizations:
-      first_run_or_backend: "Visualisation des premières installations ou des installations en arrière-plan : %{name}"
       show: "Visualisation des usines : %{name}"
     backend/visualizations/resources_visualizations:
-      first_run_or_backend: "Première exécution ou visualisation des ressources du backend : %{name}"
       show: "Visualisation des ressources : %{name}"
     backend/visualizations/ride_sets_visualizations:
-      first_run_or_backend: "Visualisation des séries de la première descente ou de la descente en aval : %{name}"
       show: "Visualisation des parcours : %{name}"
     backend/visualizations/rides_visualizations:
-      first_run_or_backend: "Visualisation des premières sorties ou des parcours en arrière-plan : %{name}"
       show: "Visualisation des trajets : %{name}"
     backend/visualizations/stock_container_map_cells_visualizations:
-      first_run_or_backend: "Visualisation des cellules de la carte des conteneurs de stock lors de la première exécution ou en arrière-plan : %{name}"
       show: "Visualisation des cellules de la carte des conteneurs de stock : %{name}"
     backend/visualizations/weather_station_map_cells_visualizations:
-      first_run_or_backend: "Visualisation des cellules cartographiques lors de la première exécution ou via la station météo backend : %{name}"
       show: "Visualisation des cellules cartographiques des stations météorologiques : %{name}"
-    backend/visuals:
-      first_run_or_backend: "Première version ou aperçu du backend : %{name}"
     backend/wine_tanks:
-      first_run_or_backend: "Première cuvée ou cuve de vin de garde : %{name}"
       index: "Cuverie"
     backend/wine_transformers: #?
       index: "Produits œnologiques" #?
     backend/worker_contracts:
       edit: "Modifier un contrat de travail"
-      first_run_or_backend: "Première exécution ou contrat de travail en arrière-plan : %{name}"
       index: "Contrats de travail"
       new: "Nouveau contrat de travail"
       show: "Détail contrat de travail\_: %{name}"
     backend/worker_groups:
       edit: "Modifier un groupe d'équipiers"
-      first_run_or_backend: "Première exécution ou groupe de travailleurs backend : %{name}"
       index: "Groupes d'équipiers"
       kujaku_options: "Groupe de travail sur les options Kujaku : %{name}"
       new: "Nouveau groupe d'équipiers"
       show: "Groupe d'équipiers : %{name}"
     backend/worker_time_logs:
       edit: "Modifier une saisie de temps\_: %{name}"
-      first_run_or_backend: "Journal des temps de la première exécution ou des workers backend : %{name}"
       index: "Temps des équipiers"
       new: "Nouvelle saisie de temps"
       show: "Détail saisie de temps\_: %{name}"
     backend/workers:
       edit: "Modifier l’équipier %{name}"
       edit_many: "Modifier plusieurs travailleurs : %{name}"
-      first_run_or_backend: "Première exécution ou worker backend : %{name}"
       index: "Équipiers"
       new: "Nouvel équipier"
       show: "Équipier %{name}"
@@ -1879,7 +1583,6 @@ fra:
       update_many: "Mise à jour concernant de nombreux travailleurs : %{name}"
     backend/yield_observations:
       edit: "Modifier observation: %{number}"
-      first_run_or_backend: "Première exécution ou observation du rendement du backend : %{name}"
       index: "Observations"
       new: "Nouvelle observation"
       permitted_params: "Observation des paramètres autorisés : %{name}"
@@ -6133,7 +5836,6 @@ fra:
       filter_select_collection: "Filtrer la sélection"
       filter_usages: "Utilisations du filtre"
       finish: "Finir"
-      first_run_or_backend: "Première exécution ou backend"
       flash: "Flash"
       formate_and_translate: "Mettre en forme et traduire"
       generate_budget: "Établir un budget"

@@ -14,7 +14,7 @@ class PhytosanitaryRegisterArchiveJobTest < Ekylibre::Testing::ApplicationTestCa
   end
 
   def read_archived(document)
-    File.read(document.file.path)
+    document.file.download
   end
 
   test 'perform with xml format produces XML content' do

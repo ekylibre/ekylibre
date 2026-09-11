@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class HveAuditItemTest < ActiveSupport::TestCase
+class HveAuditItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   def audit
     @audit ||= HveAudit.create!(
-      campaign_id: campaigns(:current_campaign).id,
+      campaign_id: campaigns(:campaigns_001).id,
       referentiel_version: 'V4.4',
       status: 'draft'
     )

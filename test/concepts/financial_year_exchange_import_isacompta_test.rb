@@ -72,7 +72,7 @@ class FinancialYearExchangeImportIsacomptaTest < Ekylibre::Testing::ApplicationT
     file = File.open(fixture_file('financial_year_exchange_import_isacompta_balance_invalid.csv'))
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
     refute import.run
-    refute financial_year_exchange.reload.import_file.exists?
+    refute financial_year_exchange.reload.import_file.attached?
   end
 
   test 'creates journal entries in journal booked by the accountant' do
@@ -104,10 +104,10 @@ class FinancialYearExchangeImportIsacomptaTest < Ekylibre::Testing::ApplicationT
 
   test 'store the file' do
     file = File.open(fixture_file('financial_year_exchange_import_isacompta.csv'))
-    assert financial_year_exchange.import_file.blank?
+    refute financial_year_exchange.import_file.attached?
     import = FinancialYearExchangeImport.new(file, financial_year_exchange)
     assert import.run, "Error during import: #{import.error.inspect}"
     financial_year_exchange.reload
-    assert_equal financial_year_exchange.import_file.size, file.size
+    assert_equal file.size, financial_year_exchange.import_file.byte_size
   end
 end

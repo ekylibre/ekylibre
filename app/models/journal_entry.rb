@@ -340,6 +340,11 @@ class JournalEntry < ApplicationRecord
       real_currency: real_currency,
       real_currency_rate: real_currency_rate
     )
+    # Les lignes viennent d'être réécrites en base sans passer par les objets
+    # chargés : ceux-ci sont périmés. Sous Rails 6 `update_all` incrémente en
+    # plus `lock_version`, et l'autosave de l'association tenterait de les
+    # réenregistrer à la sauvegarde suivante — d'où un `StaleObjectError`.
+    items.reset
     regularizations.each(&:save)
 
     compliance = { vendor: :fec, name: :journal_entries, data: { errors: FEC::Check::JournalEntry.validate(self) } }

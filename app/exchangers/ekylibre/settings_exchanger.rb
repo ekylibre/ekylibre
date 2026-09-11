@@ -339,7 +339,10 @@ module Ekylibre
             record = options[:unless_exist] ? model.find_by(main_column => identifier) : nil
             record ||= model.new
             record.attributes = attributes
-            if record.save(attributes)
+            # `save` prend des options nommées, pas les attributs — déjà
+            # affectés juste au-dessus. Rails 5.2 acceptait ce hash positionnel
+            # et l'ignorait ; Rails 6 déclare `save(**options)` et lève.
+            if record.save
               @records[records][identifier.to_s] = record
             else
               w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"

@@ -157,6 +157,10 @@ class FinancialYearExchangeImport
     end
 
     def save_file
+      # `read_and_parse_file` a consommé l'io jusqu'au bout ; Active Storage
+      # calcule une empreinte sur ce qu'il lit et refuserait un contenu vide
+      # (ActiveStorage::IntegrityError).
+      file.rewind if file.respond_to?(:rewind)
       exchange.import_file = file
       @error = ActiveRecord::RecordInvalid.new(exchange) unless exchange.save
     end

@@ -23,12 +23,10 @@ eng:
       destroy: "Log out"
       new: "New session"
     backend/account_balances:
-      first_run_or_backend: "First run or backend account balance: %{name}"
       show: "Account balance: %{name}"
     backend/accounts:
       edit: "Edit account: %{label}"
       filter_select_collection: "Filter select collection account: %{name}"
-      first_run_or_backend: "First run or backend account: %{name}"
       index: "Accounting plans"
       load: "Load an accounting plan"
       mark: "Reconciliate account: %{label}"
@@ -43,7 +41,6 @@ eng:
       compute_pfi_report: "Compute pfi report activity: %{name}"
       edit: "Edit activity: %{name}"
       family: "Family activity: %{name}"
-      first_run_or_backend: "First run or backend activity: %{name}"
       generate_budget: "Generate budget activity: %{name}"
       global_costs_xslx_export: "Global costs xslx export activity: %{name}"
       index: "Activities"
@@ -52,18 +49,15 @@ eng:
       traceability_xslx_export: "Traceability xslx export activity: %{name}"
     backend/activity_budgets:
       edit: "Edit budget: %{name}"
-      first_run_or_backend: "First run or backend activity budget: %{name}"
       index: "Activity budgets"
       new: "New budget"
       show: "Activity budget: %{name}"
     backend/activity_inspection_point_natures:
       autocomplete: "Autocomplete activity inspection point nature: %{name}"
-      first_run_or_backend: "First run or backend activity inspection point nature: %{name}"
     backend/activity_productions:
       create_plants: "Create plants activity production: %{name}"
       edit: "Edit production: %{name}"
       edit_specified: "Edit production: %{activity}"
-      first_run_or_backend: "First run or backend activity production: %{name}"
       index: "Productions"
       new: "New production"
       new_specified: "New production: %{activity}"
@@ -71,13 +65,11 @@ eng:
       traceability_xslx_export: "Traceability xslx export activity production: %{name}"
     backend/activity_seasons:
       edit: "Edit activity season: %{name}"
-      first_run_or_backend: "First run or backend activity season: %{name}"
       index: "Activity seasons"
       new: "New activity season"
       show: "Activity season: %{name}"
     backend/affair_natures:
       edit: "Edit affair nature: %{name}"
-      first_run_or_backend: "First run or backend affair nature: %{name}"
       index: "Affair natures"
       new: "New affair nature"
       show: "Affair nature: %{name}"
@@ -86,28 +78,23 @@ eng:
       detach: "Detach from affair %{number}"
       detach_gaps: "Detach gaps affair: %{name}"
       finish: "Finish affair %{number}"
-      first_run_or_backend: "First run or backend affair: %{name}"
       index: "Affairs"
       select: "Select a record to add to affair"
       show: "Affair: %{number}"
     backend/analyses:
       edit: "Edit analysis #%{number}"
-      first_run_or_backend: "First run or backend analysis: %{name}"
       index: "Analyses"
       new: "New analysis"
       show: "Analysis #%{number}"
     backend/analysis_items:
-      first_run_or_backend: "First run or backend analysis item: %{name}"
       new: "New analysis item"
     backend/analytic_sequences:
       edit: "Edit analytic sequence"
-      first_run_or_backend: "First run or backend analytic sequence: %{name}"
       index: "Analytic sequences"
       new: "New analytic sequence"
     backend/animal_groups:
       edit: "Edit animal group: %{name}"
       edit_many: "Edit many animal group: %{name}"
-      first_run_or_backend: "First run or backend animal group: %{name}"
       index: "Animal groups"
       new: "New animal group"
       show: "Animal group: %{name}"
@@ -122,7 +109,6 @@ eng:
       change: "Change animal: %{name}"
       edit: "Edit animal: %{name}"
       edit_many: "Edit many animal: %{name}"
-      first_run_or_backend: "First run or backend animal: %{name}"
       index: "Animals"
       keep: "Keep animal: %{name}"
       load_animals: "Load animals animal: %{name}"
@@ -134,49 +120,36 @@ eng:
       update_many: "Update many animal: %{name}"
     backend/associates:
       edit: "Edit associate: %{name}"
-      first_run_or_backend: "First run or backend associate: %{name}"
       index: "Associates"
       new: "New associate"
       show: "Associate: %{name} "
     backend/attachments:
-      first_run_or_backend: "First run or backend attachment: %{name}"
       show: "Attachment: %{name}"
-    backend/bank_reconciliation/gaps:
-      first_run_or_backend: "First run or backend gap: %{name}"
     backend/bank_reconciliation/items:
       count: "Count item: %{name}"
-      first_run_or_backend: "First run or backend item: %{name}"
       index: "Reconciliate bank statement %{cash} %{number} (from %{started_on} to %{stopped_on})"
       reconciliate: "Bank statements of %{cash} (from %{started_on} to %{stopped_on})"
-    backend/bank_reconciliation/letters:
-      first_run_or_backend: "First run or backend letter: %{name}"
     backend/bank_statement_items:
       create_payslip_contribution_payment: "Create payslip contribution payment bank statement item: %{name}"
       create_payslip_payment: "Create payslip payment bank statement item: %{name}"
       create_vat_payment: "Create vat payment bank statement item: %{name}"
-      first_run_or_backend: "First run or backend bank statement item: %{name}"
       new: "New bank statement item"
       show: "Bank statement item : %{name}"
     backend/bank_statements:
       classify: "Classify bank statement: %{name}"
       edit: "Edit bank statement %{number}"
       edit_interval: "Bank statements periods to reconciliate"
-      first_run_or_backend: "First run or backend bank statement: %{name}"
       import: "Import OFX file"
       import_cfonb: "Import cfonb bank statement: %{name}"
       import_ofx: "Import ofx bank statement: %{name}"
       index: "Bank statements"
       new: "New bank statement"
       show: "Bank statement #%{number}"
-    backend/base:
-      first_run_or_backend: "First run or backend base: %{name}"
     backend/beehives:
-      first_run_or_backend: "First run or backend beehive: %{name}"
       reset: "Reset beehive: %{name}"
     backend/building_divisions:
       edit: "Edit building division: %{name}"
       edit_many: "Edit many building division: %{name}"
-      first_run_or_backend: "First run or backend building division: %{name}"
       index: "Building divisions"
       new: "New building division"
       show: "Building division: %{name}"
@@ -186,7 +159,6 @@ eng:
     backend/buildings:
       edit: "Edit building: %{name}"
       edit_many: "Edit many building: %{name}"
-      first_run_or_backend: "First run or backend building: %{name}"
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
@@ -197,7 +169,6 @@ eng:
       close: "Close campaign: %{name}"
       current: "Campaign"
       edit: "Edit campaign: %{name}"
-      first_run_or_backend: "First run or backend campaign: %{name}"
       index: "Campaigns"
       new: "New campaign"
       open: "Open campaign: %{name}"
@@ -206,75 +177,58 @@ eng:
     backend/cap_islets:
       convert: "Convert cap islet: %{name}"
       edit: "Edit CAP islet: %{islet_number}"
-      first_run_or_backend: "First run or backend cap islet: %{name}"
       index: "CAP islets"
       new: "New CAP islet"
       show: "CAP islet: %{islet_number}"
     backend/cap_land_parcels:
       edit: "Edit CAP land parcel: %{land_parcel_number}"
-      first_run_or_backend: "First run or backend cap land parcel: %{name}"
       index: "CAP land parcels"
       new: "New CAP land parcel"
       show: "CAP land parcel: %{land_parcel_number}"
     backend/cap_statements:
       edit: "Edit CAP statement: %{id}"
-      first_run_or_backend: "First run or backend cap statement: %{name}"
       index: "CAP statements"
       new: "New CAP statement"
       show: "CAP statement: %{id}"
     backend/cash_transfers:
       edit: "Edit cash transfer: %{number}"
-      first_run_or_backend: "First run or backend cash transfer: %{name}"
       index: "Cash transfers"
       new: "New cash transfer"
       show: "Cash transfer: %{number}"
     backend/cashes:
       edit: "Edit cash: %{name}"
-      first_run_or_backend: "First run or backend cash: %{name}"
       index: "Cashes"
       new: "New cash"
       show: "%{nature}: %{name}"
     backend/catalog_items:
       edit: "Edit catalog item: %{name}"
-      first_run_or_backend: "First run or backend catalog item: %{name}"
       new: "New catalog item"
       show: "Catalog item: %{name}"
     backend/catalogs:
       edit: "Edit catalog: %{name}"
-      first_run_or_backend: "First run or backend catalog: %{name}"
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
-    backend/cobblers:
-      first_run_or_backend: "First run or backend cobbler: %{name}"
-    backend/cobbles/base:
-      first_run_or_backend: "First run or backend base: %{name}"
     backend/cobbles/inspections_cobbles:
-      first_run_or_backend: "First run or backend inspections cobble: %{name}"
       show: "Inspections cobble: %{name}"
     backend/cobbles/production_cost_cobbles:
-      first_run_or_backend: "First run or backend production cost cobble: %{name}"
       show: "Production cost cobble: %{name}"
     backend/cobbles/stock_in_ground_cobbles:
-      first_run_or_backend: "First run or backend stock in ground cobble: %{name}"
       show: "Stock in ground cobble: %{name}"
     backend/companies:
       build_attributes_for_weather: "Build attributes for weather company: %{name}"
       edit: "Company settings"
-      first_run_or_backend: "First run or backend company: %{name}"
       set_station_as_default: "Set station as default company: %{name}"
     backend/conditionings:
       conditioning_data: "Conditioning data conditioning: %{name}"
       create_on_the_go: "Create on the go conditioning: %{name}"
       edit: "Edit conditioning: %{name}"
-      first_run_or_backend: "First run or backend conditioning: %{name}"
       index: "Conditionings"
       new: "New conditioning"
       new_on_the_go: "Associate a conditioning"
       show: "Conditioning: %{name}"
     backend/contracts:
       edit: "Edit contract %{number}"
-      first_run_or_backend: "First run or backend contract: %{name}"
       index: "Contracts"
       lose: "Lose contract: %{name}"
       negociate: "Negociate contract: %{name}"
@@ -284,28 +238,20 @@ eng:
       show: "Contract %{number}"
       win: "Win contract: %{name}"
     backend/controller_helpers/activity_production_creations:
-      first_run_or_backend: "First run or backend activity production creation: %{name}"
       new: "New activity production creation"
     backend/crop_groups:
       edit: "Edit crop group: %{name}"
-      first_run_or_backend: "First run or backend crop group: %{name}"
       index: "Crop groups"
       kujaku_options: "Kujaku options crop group: %{name}"
       new: "New crop group"
       show: "Crop group: %{name}"
-    backend/crops:
-      first_run_or_backend: "First run or backend crop: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
-      first_run_or_backend: "First run or backend cultivable zone: %{name}"
       index: "Cultivable zones"
       new: "New cultivable zone"
       show: "Cultivable zone: %{name}"
-    backend/custom_field_choices:
-      first_run_or_backend: "First run or backend custom field choice: %{name}"
     backend/custom_fields:
       edit: "Edit custom field: %{name}"
-      first_run_or_backend: "First run or backend custom field: %{name}"
       index: "Custom fields"
       new: "New custom field"
       show: "Custom field: %{name}"
@@ -314,7 +260,6 @@ eng:
       accountancy: "Accountancy dashboard"
       economic: "Economic dashboard: %{name}"
       edit: "Edit dashboard: %{name}"
-      first_run_or_backend: "First run or backend dashboard: %{name}"
       home: "Home dashboard"
       humans: "Human resources dashboard"
       index: "Dashboards"
@@ -331,14 +276,11 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
-    backend/debt_transfers:
-      first_run_or_backend: "First run or backend debt transfer: %{name}"
     backend/deliveries:
       cancel: "Cancel delivery: %{name}"
       check: "Check delivery: %{name}"
       edit: "Edit delivery %{number}"
       finish: "Finish delivery: %{name}"
-      first_run_or_backend: "First run or backend delivery: %{name}"
       index: "Deliveries"
       new: "New delivery"
       order: "Order delivery: %{name}"
@@ -347,27 +289,23 @@ eng:
       start: "Start delivery: %{name}"
     backend/deposits:
       edit: "Edit deposit: %{number}"
-      first_run_or_backend: "First run or backend deposit: %{name}"
       index: "Deposits"
       new: "New deposit"
       show: "Deposit %{number} on %{created_at}"
       unvalidateds: "Unvalidated deposits"
     backend/districts:
       edit: "Edit district: %{name}"
-      first_run_or_backend: "First run or backend district: %{name}"
       index: "Districts"
       new: "New district"
       show: "District: %{name}"
     backend/document_templates:
       edit: "Edit document template: %{name}"
-      first_run_or_backend: "First run or backend document template: %{name}"
       index: "Document templates"
       load: "Load default document templates (overwrite the old templates)"
       new: "New document template"
       show: "Document template: %{name}"
     backend/documents:
       edit: "Edit document: %{name}"
-      first_run_or_backend: "First run or backend document: %{name}"
       index: "My Document"
       new: "New document"
       purchase_scan: "Purchase scan document: %{name}"
@@ -377,14 +315,11 @@ eng:
       confirm: "Confirm draft journal: %{name}"
       confirmation_modal: "Confirmation modal draft journal: %{name}"
       fec_compliance_errors: "Fec compliance errors draft journal: %{name}"
-      first_run_or_backend: "First run or backend draft journal: %{name}"
       show: "Draft"
     backend/duke_widget:
-      first_run_or_backend: "First run or backend duke widget: %{name}"
       show: "Duke widget: %{name}"
     backend/email_templates:
       edit: "Edit email template\_: %{name}"
-      first_run_or_backend: "First run or backend email template: %{name}"
       index: "Email templates"
       load: "Load default email templates"
       new: "New email template"
@@ -393,7 +328,6 @@ eng:
       autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
       export: "Export people"
-      first_run_or_backend: "First run or backend entity: %{name}"
       import: "Import people"
       index: "People"
       mask_lettered_items: "Mask lettered items entity: %{name}"
@@ -403,25 +337,21 @@ eng:
       toggle: "Toggle entity: %{name}"
     backend/entity_addresses:
       edit: "Edit address: %{name}"
-      first_run_or_backend: "First run or backend entity address: %{name}"
       index: "Entity addresses"
       new: "New address"
       show: "Entity address: %{name}"
     backend/entity_links:
       edit: "Edit link"
-      first_run_or_backend: "First run or backend entity link: %{name}"
       index: "Entity links"
       new: "New link"
       show: "Entity link: %{name}"
     backend/entries_ledgers:
       classify: "Classify entries ledger: %{name}"
-      first_run_or_backend: "First run or backend entries ledger: %{name}"
       show: "Entries"
       update_journal_entry_items: "Update journal entry items entries ledger: %{name}"
     backend/equipments:
       edit: "Edit equipment: %{name}"
       edit_many: "Edit many equipment: %{name}"
-      first_run_or_backend: "First run or backend equipment: %{name}"
       index: "Equipment"
       new: "New equipment"
       show: "Equipment: %{name}"
@@ -431,7 +361,6 @@ eng:
       update_many: "Update many equipment: %{name}"
     backend/event_participations:
       edit: "Edit participation: %{participant_name}"
-      first_run_or_backend: "First run or backend event participation: %{name}"
       index: "Event participations"
       new: "New event participation"
       show: "Event participation: %{name}"
@@ -439,24 +368,16 @@ eng:
       autocomplete: "Autocomplete event: %{name}"
       change_minutes: "Change minutes event: %{name}"
       edit: "Edit event"
-      first_run_or_backend: "First run or backend event: %{name}"
       index: "Events"
       new: "New event"
       show: "Event: %{name}"
     backend/exchanger_template_files:
-      first_run_or_backend: "First run or backend exchanger template file: %{name}"
       show: "Exchanger template file: %{name}"
     backend/exports:
-      first_run_or_backend: "First run or backend export: %{name}"
       index: "Exports"
       show: "Export: %{name}"
-    backend/financial_year_archives:
-      first_run_or_backend: "First run or backend financial year archive: %{name}"
-    backend/financial_year_closure_preparations:
-      first_run_or_backend: "First run or backend financial year closure preparation: %{name}"
     backend/financial_year_exchanges:
       close: "Close financial year exchange: %{name}"
-      first_run_or_backend: "First run or backend financial year exchange: %{name}"
       journal_entries_export: "Journal entries export financial year exchange: %{name}"
       journal_entries_import: "Financial year exchange import"
       new: "New exchange"
@@ -468,7 +389,6 @@ eng:
       compute_balances: "Compute financial year balance"
       destroy_all_empty: "Destroy all empty financial year: %{name}"
       edit: "Edit new financial year"
-      first_run_or_backend: "First run or backend financial year: %{name}"
       generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "Financial years"
       lock: "Lock financial year %{code}"
@@ -476,13 +396,11 @@ eng:
       run_progress: "Run progress financial year: %{name}"
       show: "Financial year %{code}"
     backend/fixed_asset_depreciations:
-      first_run_or_backend: "First run or backend fixed asset depreciation: %{name}"
       show: "Fixed asset depreciation: %{name}"
     backend/fixed_assets:
       depreciate: "Depreciate fixed asset: %{name}"
       depreciate_all: "Depreciate all fixed asset: %{name}"
       edit: "Edit fixed asset: %{name}"
-      first_run_or_backend: "First run or backend fixed asset: %{name}"
       index: "Fixed assets"
       link_to_sale: "Link to sale fixed asset: %{name}"
       new: "New fixed asset"
@@ -494,7 +412,6 @@ eng:
     backend/fungi:
       edit: "Edit fungus: %{name}"
       edit_many: "Edit many fungus: %{name}"
-      first_run_or_backend: "First run or backend fungus: %{name}"
       index: "Fungi"
       new: "New fungus"
       show: "Fungus: %{name}"
@@ -502,50 +419,41 @@ eng:
       take: "Take fungus: %{name}"
       update_many: "Update many fungus: %{name}"
     backend/gaps:
-      first_run_or_backend: "First run or backend gap: %{name}"
       index: "Gaps"
       show: "Gap: %{number}"
     backend/general_ledgers:
-      first_run_or_backend: "First run or backend general ledger: %{name}"
       index: "%{ledger}"
       mask_draft_items: "Mask draft items general ledger: %{name}"
       mask_lettered_items: "Mask lettered items general ledger: %{name}"
       show: "General ledger"
     backend/georeadings:
       edit: "Edit georeading: %{name}"
-      first_run_or_backend: "First run or backend georeading: %{name}"
       index: "Georeadings"
       new: "New georeading"
       show: "Georeading: %{name}"
     backend/golumns:
-      first_run_or_backend: "First run or backend golumn: %{name}"
       reset: "Reset golumn: %{name}"
       show: "Golumn: %{name}"
     backend/guide_analyses:
-      first_run_or_backend: "First run or backend guide analysis: %{name}"
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
       edit: "Edit guide: %{name}"
-      first_run_or_backend: "First run or backend guide: %{name}"
       index: "Guides"
       new: "New guide"
       run: "Run guide: %{name}"
       show: "Guide: %{name}"
     backend/helps:
-      first_run_or_backend: "First run or backend help: %{name}"
       index: "Help"
       show: "Help: %{name}"
       toggle: "Toggle help: %{name}"
     backend/identifiers:
       edit: "Edit identifier: %{name}"
-      first_run_or_backend: "First run or backend identifier: %{name}"
       index: "Identifiers"
       new: "New identifier"
       show: "Identifier: %{name}"
     backend/imports:
       abort: "Abort import: %{name}"
       edit: "Edit import: %{nature}"
-      first_run_or_backend: "First run or backend import: %{name}"
       index: "Imports"
       new: "New import"
       progress: "Progress import: %{name}"
@@ -554,42 +462,35 @@ eng:
     backend/incoming_harvests:
       autolink_incoming_harvests: "Autolink incoming harvests incoming harvest: %{name}"
       edit: "Edit incoming harvest\_: %{number}"
-      first_run_or_backend: "First run or backend incoming harvest: %{name}"
       index: "Incoming harvests"
       new: "New incoming harvest"
       show: "Incoming harvest\_: %{number}"
     backend/incoming_payment_modes:
       edit: "Edit incoming payment mode: %{name}"
-      first_run_or_backend: "First run or backend incoming payment mode: %{name}"
       index: "Incoming payment modes"
       new: "New incoming payment mode"
       show: "Incoming payment mode: %{name}"
     backend/incoming_payments:
       edit: "Edit incoming payment %{number}"
-      first_run_or_backend: "First run or backend incoming payment: %{name}"
       index: "Incoming payments"
       new: "New incoming payment"
       show: "Incoming payment %{number} of %{entity}"
     backend/inspections:
       edit: "Edit product grading\_: %{number}"
       export: "Export inspections"
-      first_run_or_backend: "First run or backend inspection: %{name}"
       index: "Product gradings"
       new: "New product grading"
       show: "Product grading\_: %{number}"
     backend/integrations:
       check: "Check integration: %{name}"
       edit: "Edit integration: %{name}"
-      first_run_or_backend: "First run or backend integration: %{name}"
       index: "Integrations"
       new: "Activate integration: %{name}"
     backend/intervention_participations:
       convert: "Convert intervention participation: %{name}"
-      first_run_or_backend: "First run or backend intervention participation: %{name}"
       index: "Intervention participations"
       participations_modal: "Participations modal intervention participation: %{name}"
     backend/interventions/costs:
-      first_run_or_backend: "First run or backend cost: %{name}"
       parameter_cost: "Parameter cost cost: %{name}"
     backend/interventions:
       change_page: "Change page intervention: %{name}"
@@ -603,7 +504,6 @@ eng:
       edit_specified: "Edit %{name}"
       edit_specified_request: "Edit request: %{name}"
       export: "Export interventions"
-      first_run_or_backend: "First run or backend intervention: %{name}"
       generate_buttons: "Generate buttons intervention: %{name}"
       index: "Interventions"
       link_rides_to_planned: "Link rides to planned intervention: %{name}"
@@ -621,24 +521,18 @@ eng:
       validate_reentry_delay: "Validate reentry delay intervention: %{name}"
     backend/invalid_journal_entries:
       delete_all: "Delete all invalid journal entry: %{name}"
-      first_run_or_backend: "First run or backend invalid journal entry: %{name}"
       index: "Invalid journal entries"
     backend/inventories:
       edit: "Edit inventory"
-      first_run_or_backend: "First run or backend inventory: %{name}"
       index: "Inventories"
       new: "New inventory"
       refresh: "Refresh inventory: %{name}"
       show: "Inventory: %{name}"
-    backend/inventory_items:
-      first_run_or_backend: "First run or backend inventory item: %{name}"
     backend/invitations:
-      first_run_or_backend: "First run or backend invitation: %{name}"
       index: "Invitations"
       new: "New invitation"
     backend/issue_natures:
       edit: "Edit issue nature: %{name}"
-      first_run_or_backend: "First run or backend issue nature: %{name}"
       index: "Issue natures"
       new: "New issue nature"
       show: "Issue nature: %{name}"
@@ -646,70 +540,57 @@ eng:
       abort: "Abort issue: %{name}"
       close: "Close issue: %{name}"
       edit: "Edit issue: %{name}"
-      first_run_or_backend: "First run or backend issue: %{name}"
       index: "Issues"
       new: "New issue"
       reopen: "Reopen issue: %{name}"
       show: "Issue: %{name}"
     backend/januses:
-      first_run_or_backend: "First run or backend januse: %{name}"
       toggle: "Toggle januse: %{name}"
     backend/journal_entries:
       currency_state: "Currency state journal entry: %{name}"
       edit: "Edit journal entry: %{number}"
-      first_run_or_backend: "First run or backend journal entry: %{name}"
       index: "Journal entries"
       new: "New entry"
       show: "Journal entry: %{number}"
       toggle_autocompletion: "Toggle autocompletion journal entry: %{name}"
     backend/journal_entry_items:
-      first_run_or_backend: "First run or backend journal entry item: %{name}"
       index: "Journal entry items"
       show: "Journal entry item: %{name}"
     backend/journals:
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
       edit: "Edit journal: %{name}"
-      first_run_or_backend: "First run or backend journal: %{name}"
       index: "Journals"
       new: "New journal"
       reopen: "Reopen journal: %{name}"
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
-      first_run_or_backend: "First run or backend kujaku: %{name}"
       toggle: "Toggle kujaku: %{name}"
     backend/labels:
       edit: "Edit label: %{name}"
-      first_run_or_backend: "First run or backend label: %{name}"
       index: "Labels"
       new: "New label"
       show: "Label: %{name}"
     backend/land_parcels:
       edit: "Edit land parcel: %{name}"
       edit_many: "Edit many land parcel: %{name}"
-      first_run_or_backend: "First run or backend land parcel: %{name}"
       index: "Land parcels"
       new: "New land parcel"
       show: "Land parcel %{name}"
       sort_by_time_use: "Sort by time use land parcel: %{name}"
       take: "Take land parcel: %{name}"
       update_many: "Update many land parcel: %{name}"
-    backend/listing_node_items:
-      first_run_or_backend: "First run or backend listing node item: %{name}"
     backend/listing_nodes:
       edit: "Edit listing node"
-      first_run_or_backend: "First run or backend listing node: %{name}"
       new: "New listing node"
     backend/listings:
       edit: "Edit listing: %{name}"
       extract: "Extract listing: %{name}"
-      first_run_or_backend: "First run or backend listing: %{name}"
       index: "Listings and mailings"
       mail: "Send an email to: %{name}"
       new: "New listing"
     backend/loan_repayments:
       edit: "Edit repayment due on %{due_on} of loan %{loan_name}"
-      first_run_or_backend: "First run or backend loan repayment: %{name}"
       index: "Loan repayments"
       new: "New loan repayment"
       show: "Loan repayment: %{name}"
@@ -717,26 +598,21 @@ eng:
       bookkeep: "Bookkeep loan: %{name}"
       confirm: "Confirm loan: %{name}"
       edit: "Edit loan: %{name}"
-      first_run_or_backend: "First run or backend loan: %{name}"
       index: "Loans"
       new: "New loan"
       repay: "Repay loan: %{name}"
       show: "Loan: %{name}"
     backend/manure_management_plans:
       edit: "Edit manure management plan: %{name}"
-      first_run_or_backend: "First run or backend manure management plan: %{name}"
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
     backend/map_editor_shapes:
-      first_run_or_backend: "First run or backend map editor shape: %{name}"
       index: "Map editor shapes"
     backend/map_editors:
-      first_run_or_backend: "First run or backend map editor: %{name}"
       upload: "Upload map editor: %{name}"
     backend/map_layers:
       edit: "Edit map layer: %{name}"
-      first_run_or_backend: "First run or backend map layer: %{name}"
       index: "Map layers"
       load: "Load map layer: %{name}"
       new: "New map layer"
@@ -744,23 +620,12 @@ eng:
       star: "Star map layer: %{name}"
       toggle: "Toggle map layer: %{name}"
     backend/master_doer_contracts:
-      first_run_or_backend: "First run or backend master doer contract: %{name}"
       show: "Master doer contract: %{name}"
     backend/master_productions:
-      first_run_or_backend: "First run or backend master production: %{name}"
       show: "Master production: %{name}"
-    backend/master_user_roles:
-      first_run_or_backend: "First run or backend master user role: %{name}"
-    backend/master_variant_categories:
-      first_run_or_backend: "First run or backend master variant category: %{name}"
-    backend/master_variant_natures:
-      first_run_or_backend: "First run or backend master variant nature: %{name}"
-    backend/master_variants:
-      first_run_or_backend: "First run or backend master variant: %{name}"
     backend/matters:
       edit: "Edit matter: %{name}"
       edit_many: "Edit many matter: %{name}"
-      first_run_or_backend: "First run or backend matter: %{name}"
       index: "Matters"
       new: "New matter"
       show: "Matter: %{name}"
@@ -769,61 +634,50 @@ eng:
       update_many: "Update many matter: %{name}"
     backend/measures:
       convert: "Convert measure: %{name}"
-      first_run_or_backend: "First run or backend measure: %{name}"
     backend/myselves:
       change_password: "Change password myself: %{name}"
-      first_run_or_backend: "First run or backend myself: %{name}"
       show: "My informations"
     backend/naming_format_land_parcels:
       build: "Build naming format land parcel: %{name}"
       build_example: "Build example naming format land parcel: %{name}"
       edit: "Land parcel naming format"
-      first_run_or_backend: "First run or backend naming format land parcel: %{name}"
       index: "Naming format land parcels"
       new: "New naming format land parcel"
       show: "Naming format land parcel: %{name}"
     backend/naming_formats:
       edit: "Edit naming format: %{name}"
-      first_run_or_backend: "First run or backend naming format: %{name}"
       index: "Naming formats"
       new: "New naming format"
       show: "Naming format: %{name}"
     backend/net_services:
       edit: "Edit net service"
-      first_run_or_backend: "First run or backend net service: %{name}"
       index: "Net services"
       new: "New net service"
       show: "Net service: %{name}"
     backend/notifications:
-      first_run_or_backend: "First run or backend notification: %{name}"
       index: "Notifications"
       show: "Notification: %{name}"
     backend/observations:
       edit: "Edit observation"
-      first_run_or_backend: "First run or backend observation: %{name}"
       new: "New observation"
     backend/outgoing_payment_lists:
       export_to_sepa: "Export to sepa outgoing payment list: %{name}"
-      first_run_or_backend: "First run or backend outgoing payment list: %{name}"
       index: "Disbursement lists"
       new: "New disbursement list"
       show: "Disbursement list: %{number} "
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
-      first_run_or_backend: "First run or backend outgoing payment mode: %{name}"
       index: "Disbursement modes"
       new: "New disbursement mode"
       sepa: "Sepa outgoing payment mode: %{name}"
       show: "Disbursement mode: %{name}"
     backend/outgoing_payments:
       edit: "Edit disbursement: %{name}"
-      first_run_or_backend: "First run or backend outgoing payment: %{name}"
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement: %{name}"
     backend/parcels:
       edit: "Edit %{nature} parcel: %{number}"
-      first_run_or_backend: "First run or backend parcel: %{name}"
       index: "Parcels"
       new: "New parcel"
       ship: "Ship parcels"
@@ -833,32 +687,27 @@ eng:
       detach: "Detach payslip affair: %{name}"
       detach_gaps: "Detach gaps payslip affair: %{name}"
       finish: "Finish payslip affair: %{name}"
-      first_run_or_backend: "First run or backend payslip affair: %{name}"
       index: "Payslip affairs"
       select: "Select payslip affair: %{name}"
       show: "Payslip affair: %{name}"
     backend/payslip_contribution_payments:
       edit: "Edit payslip contribution payment: %{number}"
-      first_run_or_backend: "First run or backend payslip contribution payment: %{name}"
       index: "Payslip contribution payments"
       new: "New payslip contribution payment"
       show: "Payslip contribution payment\_: %{number}"
     backend/payslip_natures:
       edit: "Edit payslip nature: %{name}"
-      first_run_or_backend: "First run or backend payslip nature: %{name}"
       index: "Payslip natures"
       new: "New payslip nature"
       show: "Payslip nature: %{name}"
     backend/payslip_payments:
       edit: "Edit payslip payment: %{number}"
-      first_run_or_backend: "First run or backend payslip payment: %{name}"
       index: "Payslip payments"
       new: "New payslip payment"
       show: "Payslip payment: %{number}"
     backend/payslips:
       correct: "Correct payslip: %{name}"
       edit: "Edit payslip: %{number}"
-      first_run_or_backend: "First run or backend payslip: %{name}"
       index: "Payslips"
       invoice: "Invoice payslip: %{name}"
       new: "New payslip"
@@ -870,22 +719,18 @@ eng:
       show: "Phytosanitary register"
     backend/plant_countings:
       edit: "Edit plant counting: #%{number}"
-      first_run_or_backend: "First run or backend plant counting: %{name}"
       index: "Countings"
       new: "New counting"
       show: "Plant counting #%{number}"
     backend/plant_density_abaci:
       edit: "Edit plant density abacus: %{name}"
-      first_run_or_backend: "First run or backend plant density abacus: %{name}"
       new: "New plant density abacus"
       show: "Plant density abacus: %{name}"
     backend/plant_density_abacus_items:
-      first_run_or_backend: "First run or backend plant density abacus item: %{name}"
       new: "New plant density abacus item"
     backend/plants:
       edit: "Edit crop: %{name}"
       edit_many: "Edit many plant: %{name}"
-      first_run_or_backend: "First run or backend plant: %{name}"
       index: "Crops"
       new: "New crop"
       show: "Crop: %{name}"
@@ -895,50 +740,37 @@ eng:
     backend/postal_zones:
       autocomplete: "Autocomplete postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
-      first_run_or_backend: "First run or backend postal zone: %{name}"
       index: "Postal zones"
       new: "New postal zone"
       show: "Postal zone: %{name}"
-    backend/preferences:
-      first_run_or_backend: "First run or backend preference: %{name}"
     backend/prescriptions:
       edit: "Edit prescription: %{reference_number}"
-      first_run_or_backend: "First run or backend prescription: %{name}"
       index: "Prescriptions"
       new: "New prescription"
       show: "Prescription: %{reference_number}"
     backend/product_groups:
       edit: "Edit group: %{name}"
       edit_many: "Edit many product group: %{name}"
-      first_run_or_backend: "First run or backend product group: %{name}"
       index: "Product groups"
       new: "New group"
       show: "Group: %{name}"
       sort_by_time_use: "Sort by time use product group: %{name}"
       take: "Take product group: %{name}"
       update_many: "Update many product group: %{name}"
-    backend/product_linkages:
-      first_run_or_backend: "First run or backend product linkage: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
-      first_run_or_backend: "First run or backend product localization: %{name}"
       new: "New product localization"
-    backend/product_memberships:
-      first_run_or_backend: "First run or backend product membership: %{name}"
     backend/product_nature_categories:
       edit: "Edit accounting category: %{name}"
-      first_run_or_backend: "First run or backend product nature category: %{name}"
       index: "Accounting categories"
       new: "New accounting category"
       pick: "Pick a reference category"
       show: "Accounting category: %{name}"
     backend/product_nature_variant_components:
       autocomplete: "Autocomplete product nature variant component: %{name}"
-      first_run_or_backend: "First run or backend product nature variant component: %{name}"
     backend/product_nature_variant_tags:
       create: "New variant tag"
       edit: "Edit variant tag\_: %{name}"
-      first_run_or_backend: "First run or backend product nature variant tag: %{name}"
       index: "Variant tags"
       new: "New variant tag"
       show: "Show variant tag\_: %{name}"
@@ -946,7 +778,6 @@ eng:
       create: "New article"
       detail: "Detail product nature variant: %{name}"
       edit: "Edit article: %{name}"
-      first_run_or_backend: "First run or backend product nature variant: %{name}"
       index: "Articles"
       new: "New article"
       pick: "Pick reference article"
@@ -956,38 +787,26 @@ eng:
     backend/product_natures:
       compatible_varieties: "Compatible varieties product nature: %{name}"
       edit: "Edit functional profile: %{name}"
-      first_run_or_backend: "First run or backend product nature: %{name}"
       index: "Functional profiles"
       new: "New functional profile"
       pick: "Pick functional profile"
       show: "Functional profile: %{name}"
-    backend/product_ownerships:
-      first_run_or_backend: "First run or backend product ownership: %{name}"
-    backend/product_phases:
-      first_run_or_backend: "First run or backend product phase: %{name}"
     backend/product_readings:
       edit: "Edit indicator:"
-      first_run_or_backend: "First run or backend product reading: %{name}"
       new: "New indicator"
     backend/production_usages:
-      first_run_or_backend: "First run or backend production usage: %{name}"
       show: "Production usage: %{name}"
     backend/products/indicators:
-      first_run_or_backend: "First run or backend indicator: %{name}"
       variable_indicators: "Variable indicators indicator: %{name}"
     backend/products/interventions:
-      first_run_or_backend: "First run or backend intervention: %{name}"
       has_harvesting: "Has harvesting intervention: %{name}"
     backend/products/search_products:
       datas: "Datas search product: %{name}"
-      first_run_or_backend: "First run or backend search product: %{name}"
     backend/products/search_variants:
-      first_run_or_backend: "First run or backend search variant: %{name}"
       search_by_expression: "Search by expression search variant: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
       edit_many: "Distribute unaffected products"
-      first_run_or_backend: "First run or backend product: %{name}"
       index: "Products"
       new: "New product"
       show: "%{nature}: %{name}"
@@ -996,19 +815,16 @@ eng:
       update_many: "Update many product: %{name}"
     backend/project_budgets:
       edit: "Edit project budget: %{name}"
-      first_run_or_backend: "First run or backend project budget: %{name}"
       index: "Project budgets"
       new: "New project budget"
       show: "Project budget: %{name}"
     backend/project_tasks:
       edit: "Edit project task: %{name}"
-      first_run_or_backend: "First run or backend project task: %{name}"
       index: "Project tasks"
       new: "New project task"
       show: "Project task: %{name}"
     backend/projects:
       edit: "Edit project: %{name}"
-      first_run_or_backend: "First run or backend project: %{name}"
       index: "Projects"
       new: "New project"
       show: "Project: %{name}"
@@ -1017,17 +833,14 @@ eng:
       detach: "Detach purchase affair: %{name}"
       detach_gaps: "Detach gaps purchase affair: %{name}"
       finish: "Finish purchase affair: %{name}"
-      first_run_or_backend: "First run or backend purchase affair: %{name}"
       index: "Purchase affairs"
       select: "Select purchase affair: %{name}"
       show: "Purchase affair: %{name}"
     backend/purchase_gaps:
-      first_run_or_backend: "First run or backend purchase gap: %{name}"
       index: "Purchase gaps"
       show: "Purchase gap: %{name}"
     backend/purchase_invoices:
       edit: "Edit invoice: %{number}"
-      first_run_or_backend: "First run or backend purchase invoice: %{name}"
       index: "Invoices"
       new: "New invoice"
       pay: "Pay invoice: %{number}"
@@ -1035,7 +848,6 @@ eng:
       show: "Invoice: %{number}"
     backend/purchase_natures:
       edit: "Edit purchase type"
-      first_run_or_backend: "First run or backend purchase nature: %{name}"
       index: "Purchase types"
       new: "New purchase type"
       show: "Purchase type: %{name}"
@@ -1043,7 +855,6 @@ eng:
       close: "Close order: %{number}"
       edit: "Edit order: %{number}"
       email_supplier: "Email supplier purchase order: %{name}"
-      first_run_or_backend: "First run or backend purchase order: %{name}"
       index: "Orders"
       new: "New order"
       open: "Open order: %{number}"
@@ -1052,34 +863,26 @@ eng:
       show: "Purchase order: %{number}"
     backend/purchase_payments:
       edit: "Edit disbursement: %{number}"
-      first_run_or_backend: "First run or backend purchase payment: %{name}"
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
     backend/purchase_process/reconciliation:
-      first_run_or_backend: "First run or backend reconciliation: %{name}"
       purchase_orders_to_reconciliate: "Purchase orders to reconciliate reconciliation: %{name}"
       receptions_to_reconciliate: "Receptions to reconciliate reconciliation: %{name}"
     backend/purchases/reconciliation_states:
-      first_run_or_backend: "First run or backend reconciliation state: %{name}"
       put_accepted_state: "Put accepted state reconciliation state: %{name}"
       put_reconcile_state: "Put reconcile state reconciliation state: %{name}"
       put_to_reconcile_state: "Put to reconcile state reconciliation state: %{name}"
     backend/purchases:
-      first_run_or_backend: "First run or backend purchase: %{name}"
       show: "Purchase: %{name}"
     backend/quick_affairs:
-      first_run_or_backend: "First run or backend quick affair: %{name}"
       new: "New quick affair"
     backend/quick_purchases:
-      first_run_or_backend: "First run or backend quick purchase: %{name}"
       new: "New Purchase/Disbursement"
     backend/quick_sales:
-      first_run_or_backend: "First run or backend quick sale: %{name}"
       new: "New Sale/Incoming payment"
     backend/receptions:
       edit: "Edit reception: %{number}"
-      first_run_or_backend: "First run or backend reception: %{name}"
       give: "Give reception: %{number}"
       index: "Receptions"
       merge_matters: "Merge matters reception: %{name}"
@@ -1089,40 +892,32 @@ eng:
     backend/reference_units:
       conditioning_data: "Conditioning data reference unit: %{name}"
       edit: "Edit unit: %{name}"
-      first_run_or_backend: "First run or backend reference unit: %{name}"
       index: "Units"
       new: "New unit"
       show: "Unit: %{name}"
     backend/registered_phytosanitary_products:
-      first_run_or_backend: "First run or backend registered phytosanitary product: %{name}"
       get_products_infos: "Get products infos registered phytosanitary product: %{name}"
     backend/registered_phytosanitary_usages:
       dose_validations: "Dose validations registered phytosanitary usage: %{name}"
       filter_usages: "Filter usages registered phytosanitary usage: %{name}"
-      first_run_or_backend: "First run or backend registered phytosanitary usage: %{name}"
       get_usage_infos: "Get usage infos registered phytosanitary usage: %{name}"
     backend/registrations:
       edit: "Edit registration"
-      first_run_or_backend: "First run or backend registration: %{name}"
       index: "Registrations"
     backend/regularizations:
-      first_run_or_backend: "First run or backend regularization: %{name}"
       show: "Regularization: %{name}"
     backend/ride_sets:
       edit: "Edit ride set: %{name}"
-      first_run_or_backend: "First run or backend ride set: %{name}"
       index: "Geolocated Rides"
       new: "New ride set"
       show: "Geolocated Ride: %{number}"
     backend/rides:
       edit: "Edit ride: %{name}"
-      first_run_or_backend: "First run or backend ride: %{name}"
       index: "Geolocated Rides"
       new: "New ride"
       show: "Geolocated Ride: %{number}"
     backend/roles:
       edit: "Edit role: %{name}"
-      first_run_or_backend: "First run or backend role: %{name}"
       incorporate: "Incorporate role: %{name}"
       index: "Roles"
       new: "New role"
@@ -1133,32 +928,26 @@ eng:
       detach: "Detach sale affair: %{name}"
       detach_gaps: "Detach gaps sale affair: %{name}"
       finish: "Finish sale affair: %{name}"
-      first_run_or_backend: "First run or backend sale affair: %{name}"
       index: "Sale affairs"
       select: "Select sale affair: %{name}"
       show: "Sale affair: %{name}"
     backend/sale_contract_natures:
       edit: "Edit sale contract nature\_: %{name}"
-      first_run_or_backend: "First run or backend sale contract nature: %{name}"
       index: "Sale contract natures"
       new: "New sale contract nature"
       show: "Sale contract nature\_: %{name}"
     backend/sale_contracts:
       edit: "Edit sale contract\_: %{name}"
-      first_run_or_backend: "First run or backend sale contract: %{name}"
       index: "Sale contracts"
       new: "New sale contract"
       show: "Sale contract\_: %{name}"
     backend/sale_credits:
-      first_run_or_backend: "First run or backend sale credit: %{name}"
       new: "Cancel sales invoice %{number}"
     backend/sale_gaps:
-      first_run_or_backend: "First run or backend sale gap: %{name}"
       index: "Sale gaps"
       show: "Sale gap: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
-      first_run_or_backend: "First run or backend sale nature: %{name}"
       index: "Sale types"
       new: "New type of sale"
       show: "Sale type: %{name}"
@@ -1169,7 +958,6 @@ eng:
       edit: "Edit opportunity: %{name}"
       evaluate: "Evaluate sale opportunity: %{name}"
       finish: "Finish sale opportunity: %{name}"
-      first_run_or_backend: "First run or backend sale opportunity: %{name}"
       index: "Opportunities"
       lose: "Lose sale opportunity: %{name}"
       negociate: "Negociate sale opportunity: %{name}"
@@ -1185,7 +973,6 @@ eng:
       detach: "Detach sale ticket: %{name}"
       detach_gaps: "Detach gaps sale ticket: %{name}"
       finish: "Finish sale ticket: %{name}"
-      first_run_or_backend: "First run or backend sale ticket: %{name}"
       index: "Sale tickets"
       select: "Select sale ticket: %{name}"
       show: "Sale ticket: %{name}"
@@ -1200,7 +987,6 @@ eng:
       default_conditioning_unit: "Default conditioning unit sale: %{name}"
       edit: "Edit sale %{number}"
       email_client: "Email client sale: %{name}"
-      first_run_or_backend: "First run or backend sale: %{name}"
       index: "Sales"
       invoice: "Invoice sale: %{name}"
       new: "New sale"
@@ -1211,7 +997,6 @@ eng:
     backend/sensors:
       detail: "Detail sensor: %{name}"
       edit: "Edit sensor: %{name}"
-      first_run_or_backend: "First run or backend sensor: %{name}"
       index: "Sensors"
       last_locations: "Last locations sensor: %{name}"
       models: "Models sensor: %{name}"
@@ -1220,18 +1005,15 @@ eng:
       show: "Sensor: %{name}"
     backend/sequences:
       edit: "Edit sequence: %{name}"
-      first_run_or_backend: "First run or backend sequence: %{name}"
       index: "Sequences"
       load: "Load missing sequences"
       new: "New sequence"
       show: "Sequence: %{name}"
     backend/settings:
       about: "About Ekylibre"
-      first_run_or_backend: "First run or backend setting: %{name}"
     backend/settlements:
       edit: "Edit settlement: %{name}"
       edit_many: "Edit many settlement: %{name}"
-      first_run_or_backend: "First run or backend settlement: %{name}"
       index: "Settlements"
       new: "New settlement"
       show: "Settlement: %{name}"
@@ -1242,7 +1024,6 @@ eng:
       cancel: "Cancel shipment: %{number}"
       check: "Check shipment: %{number}"
       edit: "Edit shipment: %{number}"
-      first_run_or_backend: "First run or backend shipment: %{name}"
       give: "Give shipment: %{number}"
       index: "Shipments"
       invoice: "Invoice shipment: %{name}"
@@ -1252,17 +1033,14 @@ eng:
       ship: "Ship shipment: %{number}"
       show: "Shipment: %{number}"
     backend/snippets:
-      first_run_or_backend: "First run or backend snippet: %{name}"
       toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
       edit: "Edit subscription type: %{name}"
-      first_run_or_backend: "First run or backend subscription nature: %{name}"
       index: "Subscription types"
       new: "New subscription type"
       show: "subscription type: %{name}"
     backend/subscriptions:
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
-      first_run_or_backend: "First run or backend subscription: %{name}"
       index: "Subscriptions"
       new: "New subscription"
       renew: "Renew subscription: %{name}"
@@ -1271,18 +1049,15 @@ eng:
       takeover: "Takeover subscription: %{name}"
     backend/supervisions:
       edit: "Edit supervision: %{name}"
-      first_run_or_backend: "First run or backend supervision: %{name}"
       index: "Supervisions"
       new: "New supervision"
       show: "Supervision: %{name}"
     backend/synchronizations:
-      first_run_or_backend: "First run or backend synchronization: %{name}"
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
     backend/tasks:
       edit: "Edit task: %{name}"
       finish: "Finish task: %{name}"
-      first_run_or_backend: "First run or backend task: %{name}"
       index: "Tasks"
       new: "New task"
       reset: "Reset task: %{name}"
@@ -1291,7 +1066,6 @@ eng:
     backend/tax_declarations:
       confirm: "Confirm tax declaration: %{number}"
       edit: "Edit tax declaration: %{number}"
-      first_run_or_backend: "First run or backend tax declaration: %{name}"
       index: "Tax declarations"
       new: "New tax declaration"
       propose: "Propose tax declaration: %{number}"
@@ -1299,60 +1073,45 @@ eng:
     backend/tax_payments:
       confirm: "Confirm tax payment: %{number}"
       edit: "Edit tax payment: %{number}"
-      first_run_or_backend: "First run or backend tax payment: %{name}"
       index: "Tax payments"
       new: "New tax payment"
       show: "Tax payment: %{number}"
     backend/taxes:
       edit: "Edit tax: %{name}"
-      first_run_or_backend: "First run or backend tax: %{name}"
       index: "Taxes"
       load: "Load tax: %{name}"
       new: "New tax"
       show: "Tax: %{name}"
     backend/teams:
       edit: "Edit team: %{name}"
-      first_run_or_backend: "First run or backend team: %{name}"
       index: "Teams"
       new: "New team"
       show: "Team: %{name}"
-    backend/technical_sequences:
-      first_run_or_backend: "First run or backend technical sequence: %{name}"
-    backend/technical_workflows:
-      first_run_or_backend: "First run or backend technical workflow: %{name}"
     backend/tours:
       finish: "Finish tour: %{name}"
-      first_run_or_backend: "First run or backend tour: %{name}"
     backend/trackings:
       edit: "Edit tracking: %{name}"
-      first_run_or_backend: "First run or backend tracking: %{name}"
       index: "Trackings"
       new: "New tracking"
       show: "Tracking: %{name}"
     backend/trial_balances:
-      first_run_or_backend: "First run or backend trial balance: %{name}"
       show: "Trial balance"
     backend/units:
       conditioning_data: "Conditioning data unit: %{name}"
-      first_run_or_backend: "First run or backend unit: %{name}"
       show: "Unit: %{name}"
     backend/unreceived_purchase_orders:
       edit: "Edit unreceived order: %{name}"
-      first_run_or_backend: "First run or backend unreceived purchase order: %{name}"
       index: "Unreceived orders"
       show: "Unreceived order: %{name}"
     backend/user_tickets:
       edit: "Edit user ticket: %{name}"
-      first_run_or_backend: "First run or backend user ticket: %{name}"
       index: "User tickets"
       new: "New user ticket"
       show: "User ticket: %{name}"
     backend/users/wice_grid_preferences:
-      first_run_or_backend: "First run or backend wice grid preference: %{name}"
       save_column: "Save column wice grid preference: %{name}"
     backend/users:
       edit: "Edit user: %{first_name} %{last_name}"
-      first_run_or_backend: "First run or backend user: %{name}"
       index: "Users"
       lock: "Lock user"
       new: "New user"
@@ -1360,7 +1119,6 @@ eng:
       unlock: "Unlock user"
     backend/variant_categories/animal_categories:
       edit: "Edit animal category: %{name}"
-      first_run_or_backend: "First run or backend animal category: %{name}"
       incorporate: "Incorporate animal category: %{name}"
       index: "Animals categories"
       new: "New animal category"
@@ -1368,7 +1126,6 @@ eng:
       show: "Animal category: %{name}"
     backend/variant_categories/article_categories:
       edit: "Edit article category: %{name}"
-      first_run_or_backend: "First run or backend article category: %{name}"
       incorporate: "Incorporate article category: %{name}"
       index: "Stockables articles categories"
       new: "New article category"
@@ -1376,7 +1133,6 @@ eng:
       show: "Article category: %{name}"
     backend/variant_categories/crop_categories:
       edit: "Edit crop category: %{name}"
-      first_run_or_backend: "First run or backend crop category: %{name}"
       incorporate: "Incorporate crop category: %{name}"
       index: "Crops categories"
       new: "New crop category"
@@ -1384,7 +1140,6 @@ eng:
       show: "Crop category: %{name}"
     backend/variant_categories/equipment_categories:
       edit: "Edit equipment category: %{name}"
-      first_run_or_backend: "First run or backend equipment category: %{name}"
       incorporate: "Incorporate equipment category: %{name}"
       index: "Equipments categories"
       new: "New equipment category"
@@ -1392,7 +1147,6 @@ eng:
       show: "Equipment category: %{name}"
     backend/variant_categories/service_categories:
       edit: "Edit service category: %{name}"
-      first_run_or_backend: "First run or backend service category: %{name}"
       incorporate: "Incorporate service category: %{name}"
       index: "Services categories"
       new: "New service category"
@@ -1400,7 +1154,6 @@ eng:
       show: "Service category: %{name}"
     backend/variant_categories/worker_categories:
       edit: "Edit worker category: %{name}"
-      first_run_or_backend: "First run or backend worker category: %{name}"
       incorporate: "Incorporate worker category: %{name}"
       index: "Workers categories"
       new: "New worker category"
@@ -1408,7 +1161,6 @@ eng:
       show: "Worker category: %{name}"
     backend/variant_categories/zone_categories:
       edit: "Edit zone category: %{name}"
-      first_run_or_backend: "First run or backend zone category: %{name}"
       incorporate: "Incorporate zone category: %{name}"
       index: "Zones categories"
       new: "New zone category"
@@ -1417,7 +1169,6 @@ eng:
     backend/variant_types/animal_types:
       compatible_varieties: "Compatible varieties animal type: %{name}"
       edit: "Edit animal type: %{name}"
-      first_run_or_backend: "First run or backend animal type: %{name}"
       incorporate: "Incorporate animal type: %{name}"
       index: "Animals profiles"
       new: "New animal type"
@@ -1426,7 +1177,6 @@ eng:
     backend/variant_types/article_types:
       compatible_varieties: "Compatible varieties article type: %{name}"
       edit: "Edit article type: %{name}"
-      first_run_or_backend: "First run or backend article type: %{name}"
       incorporate: "Incorporate article type: %{name}"
       index: "Stockables articles profiles"
       new: "New article type"
@@ -1435,7 +1185,6 @@ eng:
     backend/variant_types/crop_types:
       compatible_varieties: "Compatible varieties crop type: %{name}"
       edit: "Edit crop type: %{name}"
-      first_run_or_backend: "First run or backend crop type: %{name}"
       incorporate: "Incorporate crop type: %{name}"
       index: "Crops profiles"
       new: "New crop type"
@@ -1444,7 +1193,6 @@ eng:
     backend/variant_types/equipment_types:
       compatible_varieties: "Compatible varieties equipment type: %{name}"
       edit: "Edit equipment type: %{name}"
-      first_run_or_backend: "First run or backend equipment type: %{name}"
       incorporate: "Incorporate equipment type: %{name}"
       index: "Equipments profiles"
       new: "New equipment type"
@@ -1453,7 +1201,6 @@ eng:
     backend/variant_types/service_types:
       compatible_varieties: "Compatible varieties service type: %{name}"
       edit: "Edit service type: %{name}"
-      first_run_or_backend: "First run or backend service type: %{name}"
       incorporate: "Incorporate service type: %{name}"
       index: "Services profiles"
       new: "New service type"
@@ -1462,7 +1209,6 @@ eng:
     backend/variant_types/worker_types:
       compatible_varieties: "Compatible varieties worker type: %{name}"
       edit: "Edit worker type: %{name}"
-      first_run_or_backend: "First run or backend worker type: %{name}"
       incorporate: "Incorporate worker type: %{name}"
       index: "Workers profiles"
       new: "New worker type"
@@ -1471,7 +1217,6 @@ eng:
     backend/variant_types/zone_types:
       compatible_varieties: "Compatible varieties zone type: %{name}"
       edit: "Edit zone type: %{name}"
-      first_run_or_backend: "First run or backend zone type: %{name}"
       incorporate: "Incorporate zone type: %{name}"
       index: "Zones profiles"
       new: "New zone type"
@@ -1480,7 +1225,6 @@ eng:
     backend/variants/animal_variants:
       detail: "Detail animal variant: %{name}"
       edit: "Edit animal variant: %{name}"
-      first_run_or_backend: "First run or backend animal variant: %{name}"
       incorporate: "Incorporate animal variant: %{name}"
       index: "Animals"
       new: "New animal variant"
@@ -1491,7 +1235,6 @@ eng:
     backend/variants/article_variants:
       detail: "Detail article variant: %{name}"
       edit: "Edit article variant: %{name}"
-      first_run_or_backend: "First run or backend article variant: %{name}"
       incorporate: "Incorporate article variant: %{name}"
       index: "Other stockables articles"
       new: "New article variant"
@@ -1502,7 +1245,6 @@ eng:
     backend/variants/articles/farm_product_articles:
       detail: "Detail farm product article: %{name}"
       edit: "Edit farm product article: %{name}"
-      first_run_or_backend: "First run or backend farm product article: %{name}"
       incorporate: "Incorporate farm product article: %{name}"
       index: "Farm products"
       new: "New farm product article"
@@ -1513,7 +1255,6 @@ eng:
     backend/variants/articles/fertilizer_articles:
       detail: "Detail fertilizer article: %{name}"
       edit: "Edit fertilizer article: %{name}"
-      first_run_or_backend: "First run or backend fertilizer article: %{name}"
       incorporate: "Incorporate fertilizer article: %{name}"
       index: "Fertilizers"
       new: "New fertilizer article"
@@ -1524,7 +1265,6 @@ eng:
     backend/variants/articles/plant_medicine_articles:
       detail: "Detail plant medicine article: %{name}"
       edit: "Edit plant medicine article: %{name}"
-      first_run_or_backend: "First run or backend plant medicine article: %{name}"
       incorporate: "Incorporate plant medicine article: %{name}"
       index: "Plant medicines"
       new: "New plant medicine article"
@@ -1535,7 +1275,6 @@ eng:
     backend/variants/articles/seed_and_plant_articles:
       detail: "Detail seed and plant article: %{name}"
       edit: "Edit seed and plant article: %{name}"
-      first_run_or_backend: "First run or backend seed and plant article: %{name}"
       incorporate: "Incorporate seed and plant article: %{name}"
       index: "Seed and plants"
       new: "New seed and plant article"
@@ -1546,7 +1285,6 @@ eng:
     backend/variants/crop_variants:
       detail: "Detail crop variant: %{name}"
       edit: "Edit crop variant: %{name}"
-      first_run_or_backend: "First run or backend crop variant: %{name}"
       incorporate: "Incorporate crop variant: %{name}"
       index: "Crops"
       new: "New crop variant"
@@ -1557,7 +1295,6 @@ eng:
     backend/variants/equipment_variants:
       detail: "Detail equipment variant: %{name}"
       edit: "Edit equipment variant: %{name}"
-      first_run_or_backend: "First run or backend equipment variant: %{name}"
       incorporate: "Incorporate equipment variant: %{name}"
       index: "Equipements"
       new: "New equipment variant"
@@ -1568,7 +1305,6 @@ eng:
     backend/variants/equipments/fixed_equipment_equipments:
       detail: "Detail fixed equipment equipment: %{name}"
       edit: "Edit fixed equipment equipment: %{name}"
-      first_run_or_backend: "First run or backend fixed equipment equipment: %{name}"
       incorporate: "Incorporate fixed equipment equipment: %{name}"
       index: "Fixed equipments"
       new: "New fixed equipment equipment"
@@ -1579,7 +1315,6 @@ eng:
     backend/variants/equipments/motorized_equipment_equipments:
       detail: "Detail motorized equipment equipment: %{name}"
       edit: "Edit motorized equipment equipment: %{name}"
-      first_run_or_backend: "First run or backend motorized equipment equipment: %{name}"
       incorporate: "Incorporate motorized equipment equipment: %{name}"
       index: "Motorized equipments"
       new: "New motorized equipment equipment"
@@ -1590,7 +1325,6 @@ eng:
     backend/variants/equipments/tool_equipments:
       detail: "Detail tool equipment: %{name}"
       edit: "Edit tool equipment: %{name}"
-      first_run_or_backend: "First run or backend tool equipment: %{name}"
       incorporate: "Incorporate tool equipment: %{name}"
       index: "Tools"
       new: "New tool equipment"
@@ -1601,7 +1335,6 @@ eng:
     backend/variants/equipments/trailed_equipment_equipments:
       detail: "Detail trailed equipment equipment: %{name}"
       edit: "Edit trailed equipment equipment: %{name}"
-      first_run_or_backend: "First run or backend trailed equipment equipment: %{name}"
       incorporate: "Incorporate trailed equipment equipment: %{name}"
       index: "Trailed equipments"
       new: "New trailed equipment equipment"
@@ -1612,7 +1345,6 @@ eng:
     backend/variants/service_variants:
       detail: "Detail service variant: %{name}"
       edit: "Edit service variant: %{name}"
-      first_run_or_backend: "First run or backend service variant: %{name}"
       incorporate: "Incorporate service variant: %{name}"
       index: "Services"
       new: "New service variant"
@@ -1623,7 +1355,6 @@ eng:
     backend/variants/worker_variants:
       detail: "Detail worker variant: %{name}"
       edit: "Edit worker variant: %{name}"
-      first_run_or_backend: "First run or backend worker variant: %{name}"
       incorporate: "Incorporate worker variant: %{name}"
       index: "Workers"
       new: "New worker variant"
@@ -1634,7 +1365,6 @@ eng:
     backend/variants/zone_variants:
       detail: "Detail zone variant: %{name}"
       edit: "Edit zone variant: %{name}"
-      first_run_or_backend: "First run or backend zone variant: %{name}"
       incorporate: "Incorporate zone variant: %{name}"
       index: "Zones"
       new: "New zone variant"
@@ -1643,29 +1373,20 @@ eng:
       show: "Zone variant: %{name}"
       storage_detail: "Storage detail zone variant: %{name}"
     backend/varieties:
-      first_run_or_backend: "First run or backend variety: %{name}"
       selection: "Selection variety: %{name}"
-    backend/vegetative_stages:
-      first_run_or_backend: "First run or backend vegetative stage: %{name}"
     backend/visualizations/activity_map_cells_visualizations:
-      first_run_or_backend: "First run or backend activity map cells visualization: %{name}"
       show: "Activity map cells visualization: %{name}"
     backend/visualizations/cadastral_parcels_visualizations:
-      first_run_or_backend: "First run or backend cadastral parcels visualization: %{name}"
       show: "Cadastral parcels visualization: %{name}"
     backend/visualizations/cultivable_zones_visualizations:
-      first_run_or_backend: "First run or backend cultivable zones visualization: %{name}"
       show: "Cultivable zones visualization: %{name}"
     backend/visualizations/economic_map_cells_visualizations:
-      first_run_or_backend: "First run or backend economic map cells visualization: %{name}"
       show: "Economic map cells visualization: %{name}"
     backend/visualizations/incoming_harvest_map_cells_visualizations:
-      first_run_or_backend: "First run or backend incoming harvest map cells visualization: %{name}"
       show: "Incoming harvest map cells visualization: %{name}"
     backend/visualizations/inspections_visualizations:
       caliber_series: "Caliber series inspections visualization: %{name}"
       chart_style: "Chart style inspections visualization: %{name}"
-      first_run_or_backend: "First run or backend inspections visualization: %{name}"
       inspection_series: "Inspection series inspections visualization: %{name}"
       number_to_cool: "Number to cool inspections visualization: %{name}"
       ratio_to_cool: "Ratio to cool inspections visualization: %{name}"
@@ -1674,59 +1395,42 @@ eng:
       spline_series: "Spline series inspections visualization: %{name}"
       support_series: "Support series inspections visualization: %{name}"
     backend/visualizations/land_parcels_visualizations:
-      first_run_or_backend: "First run or backend land parcels visualization: %{name}"
       show: "Land parcels visualization: %{name}"
     backend/visualizations/non_treatment_areas_visualizations:
-      first_run_or_backend: "First run or backend non treatment areas visualization: %{name}"
       show: "Non treatment areas visualization: %{name}"
     backend/visualizations/plants_visualizations:
-      first_run_or_backend: "First run or backend plants visualization: %{name}"
       show: "Plants visualization: %{name}"
     backend/visualizations/resources_visualizations:
-      first_run_or_backend: "First run or backend resources visualization: %{name}"
       show: "Resources visualization: %{name}"
     backend/visualizations/ride_sets_visualizations:
-      first_run_or_backend: "First run or backend ride sets visualization: %{name}"
       show: "Ride sets visualization: %{name}"
     backend/visualizations/rides_visualizations:
-      first_run_or_backend: "First run or backend rides visualization: %{name}"
       show: "Rides visualization: %{name}"
     backend/visualizations/stock_container_map_cells_visualizations:
-      first_run_or_backend: "First run or backend stock container map cells visualization: %{name}"
       show: "Stock container map cells visualization: %{name}"
     backend/visualizations/weather_station_map_cells_visualizations:
-      first_run_or_backend: "First run or backend weather station map cells visualization: %{name}"
       show: "Weather station map cells visualization: %{name}"
-    backend/visualizations:
-      first_run_or_backend: "First run or backend visualization: %{name}"
-    backend/visuals:
-      first_run_or_backend: "First run or backend visual: %{name}"
     backend/wine_tanks:
-      first_run_or_backend: "First run or backend wine tank: %{name}"
       index: "Wine tanks"
     backend/worker_contracts:
       edit: "Edit worker contract\_: %{name}"
-      first_run_or_backend: "First run or backend worker contract: %{name}"
       index: "Worker contracts"
       new: "New worker contract"
       show: "Worker contract\_: %{name}"
     backend/worker_groups:
       edit: "Edit a worker group"
-      first_run_or_backend: "First run or backend worker group: %{name}"
       index: "Worker groups"
       kujaku_options: "Kujaku options worker group: %{name}"
       new: "New worker group"
       show: "Worker group : %{name}"
     backend/worker_time_logs:
       edit: "Edit worker time log\_: %{name}"
-      first_run_or_backend: "First run or backend worker time log: %{name}"
       index: "Worker time logs"
       new: "New worker time log"
       show: "Worker time log\_: %{name}"
     backend/workers:
       edit: "Edit worker: %{name}"
       edit_many: "Edit many worker: %{name}"
-      first_run_or_backend: "First run or backend worker: %{name}"
       index: "Workers"
       new: "New worker"
       show: "Worker: %{name}"
@@ -1735,7 +1439,6 @@ eng:
       update_many: "Update many worker: %{name}"
     backend/yield_observations:
       edit: "Edit yield observation\_: %{number}"
-      first_run_or_backend: "First run or backend yield observation: %{name}"
       index: "Yield observation"
       new: "New yield observation"
       permitted_params: "Permitted params yield observation: %{name}"
@@ -5200,7 +4903,6 @@ eng:
       filter_select_collection: "Filter select collection"
       filter_usages: "Filter usages"
       finish: "Finish"
-      first_run_or_backend: "First run or backend"
       flash: "Flash"
       formate_and_translate: "Formate and translate"
       generate_budget: "Generate budget"

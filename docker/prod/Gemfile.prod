@@ -30,7 +30,7 @@ gem 'ekylibre-economic', git: 'https://github.com/ekylibre/ekylibre-economic.git
 gem 'ekylibre-ednotif',  git: 'https://github.com/ekylibre/ekylibre-ednotif.git',  branch: 'master'
 
 # === First-run / chargement initial ===
-gem 'hajimari',          git: 'https://github.com/ekylibre/ekylibre-hajimari.git', branch: 'master'
+gem 'hajimari',          git: 'https://github.com/ekylibre/ekylibre-hajimari.git', branch: '6.0'
 
 # === Boite a idees / feedback utilisateurs ===
 gem 'idea',              git: 'https://github.com/ekylibre/ekylibre-idea.git',     branch: 'dev'

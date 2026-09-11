@@ -64,7 +64,11 @@ class Import < ApplicationRecord
   # @param file [String, Pathname] chemin du fichier à importer
   def attach_archive(file)
     path = Pathname.new(file.to_s)
-    archive.attach(io: File.open(path), filename: path.basename.to_s)
+    archive.attach(LegacyAttachmentColumns.upload_blob(io: File.open(path), filename: path.basename.to_s))
+    # `attach` ne persiste l'attachement que si l'enregistrement est déjà
+    # sauvegardé *et* sans modification en attente ; sinon il le met en réserve
+    # jusqu'à la prochaine sauvegarde.
+    save! if persisted? && changed?
     self
   end
 

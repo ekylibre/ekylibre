@@ -96,47 +96,6 @@ class Document < ApplicationRecord
     where(nature: nature.to_s, key: key.to_s)
   end
 
-  # Paperclip acceptait n'importe quel io sous `file:`, et le nom sous
-  # `file_file_name:`. Active Storage, lui, n'attache que ce qu'il reconnaît :
-  # un Blob, un UploadedFile, une chaîne d'identifiant signé, ou un hash
-  # `{io:, filename:}`. En Rails 5.2, tout le reste — un File, un StringIO —
-  # tombe dans un `else nil` et **n'attache rien, sans lever**.
-  #
-  # Une quinzaine d'appels de l'application passent encore un File ouvert. Les
-  # réécrire un à un les rendrait verbeux sans les rendre plus sûrs, et rien
-  # n'empêcherait la même erreur demain : l'affectation normalise donc
-  # elle-même ce dont le nom de fichier se déduit sans ambiguïté.
-  #
-  # Un io sans chemin (StringIO) reste refusé : son nom ne peut pas être
-  # deviné, et l'inventer produirait des documents intitulés « blob ».
-  # Ces appels-là doivent passer par #attach_file.
-  #
-  # @param attachable [File, Pathname, ActiveStorage::Blob, Hash, String, nil]
-  module FileNormalization
-    def file=(attachable)
-      super(Document.normalize_attachable(attachable))
-    end
-  end
-  # `has_one_attached` définit `file=` **directement sur la classe** en
-  # Rails 5.2 — ce n'est qu'en Rails 6 qu'il passe par un module inclus. Une
-  # redéfinition avec `super` n'aurait donc aucune cible : d'où le prepend.
-  prepend FileNormalization
-
-  # @return [Object] un attachable qu'Active Storage sait reconnaître
-  # @raise [ArgumentError] si le nom de fichier ne peut pas être déduit
-  def self.normalize_attachable(attachable)
-    case attachable
-    when ::Pathname
-      { io: File.open(attachable), filename: attachable.basename.to_s }
-    when ::File
-      { io: attachable, filename: File.basename(attachable.path) }
-    when ::IO, ::StringIO
-      raise ArgumentError.new("Document#file= : un io sans chemin n'a pas de nom de fichier ; utiliser #attach_file")
-    else
-      attachable
-    end
-  end
-
   # Attache un contenu dont le nom ne se déduit pas de lui-même.
   #
   # @param content [IO, String, Pathname, File] contenu ou chemin
@@ -149,7 +108,7 @@ class Document < ApplicationRecord
          when ::Pathname then File.open(content)
          else content
          end
-    file.attach({ io: io, filename: filename, content_type: content_type }.compact)
+    file.attach(LegacyAttachmentColumns.upload_blob(io: io, filename: filename, content_type: content_type))
     self
   end
 

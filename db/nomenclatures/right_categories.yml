@@ -57,6 +57,7 @@ productions:
 - observations
 - plant_countings
 - plants
+- phytosanitary_registers
 - prescriptions
 - product_groups
 - productions
@@ -94,7 +95,7 @@ tools:
 - cvi_statement_conversions
 - cvi_statements
 - documents
-- exports
+- synchronizations
 - identifiers
 - imports
 - integrations

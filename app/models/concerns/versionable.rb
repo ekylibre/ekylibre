@@ -14,16 +14,23 @@ module Versionable
     self.versioning_excluded_attributes = %i[updated_at updater_id lock_version]
   end
 
+  # Les versions sont créées par `Version.create!` et non par `versions.create!` :
+  # ce dernier pousse l'enregistrement dans la cible chargée de l'association,
+  # et l'autosave d'Active Record la reparcourt après les callbacks `after_create`
+  # / `after_update`. Rails 6 y voit alors une version déjà persistée à
+  # réenregistrer, ce que `Version#before_update` interdit — Rails 5.2 n'y
+  # échappait que parce qu'une sauvegarde imbriquée remettait à faux son drapeau
+  # `@new_record_before_save`, comportement corrigé depuis.
   def add_creation_version
-    versions.create!(event: :create)
+    Version.create!(item: self, event: :create)
   end
 
   def add_update_version
-    versions.create!(event: :update) if notably_changed?
+    Version.create!(item: self, event: :update) if notably_changed?
   end
 
   def add_destruction_version
-    versions.create!(event: :destroy)
+    Version.create!(item: self, event: :destroy)
   end
 
   def notably_changed?

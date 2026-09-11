@@ -42,7 +42,18 @@ module Ekylibre
             unsuppress do
               send(core_method_name, Ekylibre::Record::Bookkeep::Base.new(self, action, draft))
             end
-            self.class.where(id: id).update_all(configuration[:column] => Time.zone.now)
+            # `update_columns` et non `where(id:).update_all` : depuis Rails 6,
+            # `update_all` incrémente lui-même `lock_version` quand le modèle a
+            # le verrouillage optimiste. L'écriture de `accounted_at` rendait
+            # alors périmée l'instance en mémoire — celle-là même qui vient de
+            # déclencher le callback — et toute sauvegarde ultérieure levait
+            # `StaleObjectError`. `update_columns` écrit la colonne sans toucher
+            # au verrou et garde l'attribut à jour côté Ruby.
+            #
+            # Sur `after_destroy` la ligne n'existe plus : l'`update_all` d'hier
+            # n'y touchait aucune ligne, tandis qu'`update_columns` refuserait
+            # d'écrire sur un enregistrement détruit.
+            update_columns(configuration[:column] => Time.zone.now) unless destroyed?
           end
 
           configuration[:on] = [configuration[:on]].flatten

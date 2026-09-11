@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class HveAuditTest < ActiveSupport::TestCase
+class HveAuditTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test 'recompute_verdict returns compliant when all scores meet threshold' do
     audit = HveAudit.new(
-      campaign_id: campaigns(:current_campaign).id,
+      campaign_id: campaigns(:campaigns_001).id,
       referentiel_version: 'V4.4',
       status: 'draft',
       score_biodiversity: 12, score_phytosanitary: 15,
@@ -17,7 +17,7 @@ class HveAuditTest < ActiveSupport::TestCase
 
   test 'recompute_verdict returns non_compliant when any score is below threshold' do
     audit = HveAudit.new(
-      campaign_id: campaigns(:current_campaign).id,
+      campaign_id: campaigns(:campaigns_001).id,
       referentiel_version: 'V4.4',
       status: 'draft',
       score_biodiversity: 9, score_phytosanitary: 15,
@@ -30,7 +30,7 @@ class HveAuditTest < ActiveSupport::TestCase
 
   test 'recompute_verdict returns cmr1_blocked overriding scores' do
     audit = HveAudit.new(
-      campaign_id: campaigns(:current_campaign).id,
+      campaign_id: campaigns(:campaigns_001).id,
       referentiel_version: 'V4.4',
       status: 'draft',
       score_biodiversity: 36, score_phytosanitary: 63,
@@ -44,7 +44,7 @@ class HveAuditTest < ActiveSupport::TestCase
 
   test 'recompute_verdict returns non_compliant when scores are partial' do
     audit = HveAudit.new(
-      campaign_id: campaigns(:current_campaign).id,
+      campaign_id: campaigns(:campaigns_001).id,
       referentiel_version: 'V4.4',
       status: 'draft',
       score_biodiversity: 12,

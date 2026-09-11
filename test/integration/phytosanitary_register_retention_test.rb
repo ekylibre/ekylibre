@@ -37,7 +37,7 @@ class PhytosanitaryRegisterRetentionTest < Ekylibre::Testing::ApplicationTestCas
   end
 
   test 'sha256_fingerprint matches recomputed digest of archived file' do
-    content = File.read(@document.file.path)
+    content = @document.file.download
     assert_equal Digest::SHA256.hexdigest(content), @document.sha256_fingerprint
   end
 

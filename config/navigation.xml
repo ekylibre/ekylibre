@@ -1036,7 +1036,6 @@
         <page to="backend/crop_groups#create"/>
         <page to="backend/crop_groups#destroy"/>
         <page to="backend/crop_groups#edit"/>
-        <page to="backend/crop_groups#first_run_or_backend"/>
         <page to="backend/crop_groups#new"/>
         <page to="backend/crop_groups#update"/>
       </item>
@@ -1369,10 +1368,6 @@
         <page to="backend/identifiers#new"/>
         <page to="backend/identifiers#show"/>
         <page to="backend/identifiers#update"/>
-      </item>
-      <item name="exports">
-        <page to="backend/exports#index"/>
-        <page to="backend/exports#show"/>
       </item>
       <item name="listings">
         <page to="backend/listings#index"/>

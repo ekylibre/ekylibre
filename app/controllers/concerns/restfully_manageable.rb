@@ -130,6 +130,13 @@ module RestfullyManageable
       if options[:subclass_inheritance]
         if self != Backend::BaseController
           class_code << "def self.inherited(subclass)\n"
+          # `super` est indispensable : plusieurs modules de Rails s'accrochent
+          # à `inherited` pour initialiser l'état de la sous-classe. En Rails 6,
+          # `ActionController::ParameterEncoding` y pose `@_parameter_encodings`,
+          # que `binary_params_for?` lit à *chaque* requête — sans `super` il
+          # reste nil et toute requête lève `undefined method '[]' for nil`.
+          # Rails 5 ne consultait pas cet état, ce qui masquait l'oubli.
+          class_code << "  super\n"
           # TODO: inherit from superclass parameters (superclass.manage_restfully_options)
           class_code << "  subclass.manage_restfully(#{options.inspect})\n"
           class_code << "end\n"
