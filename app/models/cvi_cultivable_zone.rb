@@ -53,7 +53,9 @@ class CviCultivableZone < CviShapedRecord
 
   enumerize :land_parcels_status, in: %i[not_started started not_created created completed], predicates: true
 
-  after_save :set_calculated_area, on: %i[create update], if: :shape_changed?
+  # Voir CviShapedRecord : `:on` n'existe pas pour `after_save`, et
+  # `%i[create update]` désigne déjà tous les enregistrements.
+  after_save :set_calculated_area, if: :shape_changed?
 
   def has_cvi_land_parcels?
     cvi_land_parcels.any?

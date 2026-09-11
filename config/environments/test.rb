@@ -32,6 +32,15 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory
   config.active_storage.service = :test
 
+  # Rails 6 vérifie au démarrage des tests que le schéma est à jour, et recharge
+  # `db/structure.sql` s'il juge des migrations en attente. Le contrôle n'a pas
+  # de sens ici : avec Apartment, chaque tenant a son propre schéma PostgreSQL,
+  # et c'est `Ekylibre::Testing::Helper` qui les construit — la base de test ne
+  # porte d'ailleurs aucune table `schema_migrations`, ni dans `public` ni dans
+  # les tenants. Laisser Rails « maintenir » le schéma reviendrait à défaire ce
+  # que le harnais vient de bâtir.
+  config.active_record.maintain_test_schema = false
+
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.

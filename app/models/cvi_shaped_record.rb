@@ -3,7 +3,11 @@
 class CviShapedRecord < ApplicationRecord
   self.abstract_class = true
 
-  before_save :set_calculated_area, on: %i[create update], if: :shape_changed?
+  # `:on` n'est pas une option de `before_save` : elle ne vaut que pour
+  # `before_validation` et les rappels de commit. Rails 5 l'ignorait, Rails 6
+  # lève `Unknown key: :on`. `%i[create update]` couvrait de toute façon les
+  # deux cas, c'est-à-dire exactement ce que fait `before_save` sans option.
+  before_save :set_calculated_area, if: :shape_changed?
 
   scope :in_bounding_box, lambda { |bounding_box|
     where("#{self.table_name}.shape && ST_MakeEnvelope(#{bounding_box})")

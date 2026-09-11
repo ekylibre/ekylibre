@@ -31,8 +31,19 @@ module Ekylibre
           end
 
           columns.each do |column|
-            code << "before_save(:set_#{column}_if_first, on: :create)\n"
-            code << "before_save(:set_#{column}_if_alone, on: :update)\n"
+            # `:on` n'a jamais été une option de `before_save` — elle n'existe que
+            # pour `before_validation` et les rappels de commit. Rails 5
+            # l'ignorait en silence, si bien que les deux méthodes s'exécutaient
+            # de toute façon à la création comme à la mise à jour ; Rails 6 lève
+            # `Unknown key: :on`. L'option est retirée sans rien changer au
+            # comportement effectif.
+            #
+            # Reste une question de fond, laissée en l'état faute de mandat :
+            # les noms disent l'intention d'origine — `_if_first` à la création,
+            # `_if_alone` à la mise à jour — et cette séparation n'a jamais eu
+            # lieu. La rétablir changerait le comportement de neuf modèles.
+            code << "before_save(:set_#{column}_if_first)\n"
+            code << "before_save(:set_#{column}_if_alone)\n"
             code << "after_save(:ensure_#{column}_uniqueness)\n"
 
             pode = "self.update_column(:#{column}, true)\n"

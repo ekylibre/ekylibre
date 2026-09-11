@@ -45,7 +45,20 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 gem 'activemodel-serializers-xml', '~> 1.0'
 gem 'activerecord-postgis-adapter', '~> 5.0'
 gem 'pg', '~> 1.0'
-gem 'scenic'
+# scenic 1.9 emploie le passage de bloc anonyme (`&`), syntaxe de Ruby 3.1 :
+# elle ne se charge pas sous 2.7. Borne à lever avec le passage à Ruby 3.
+gem 'scenic', '< 1.9'
+
+# Psych 4 désactive les alias YAML par défaut. `config/database.yml` en utilise
+# (`<<: *default`), et Rails n'a appris à passer `aliases: true` qu'en 6.1.7 /
+# 7.0.4 : sous Rails 6.0 la configuration de base devient illisible. Borne à
+# lever au palier B.3, où le crochet existe.
+gem 'psych', '< 4'
+
+# json 3.0 retire l'option `quirks_mode`, que l'encodeur JSON d'ActiveSupport
+# passe encore en Rails 6.x. Même famille de piège que concurrent-ruby et
+# scenic : une gem par ailleurs transitive qui, laissée flotter, casse le boot.
+gem 'json', '< 3'
 
 # Multi-tenancy
 # ros-apartment est le fork maintenu d'apartment (abandonnée en 2.2.1). Il

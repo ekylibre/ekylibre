@@ -48,7 +48,13 @@ module Ekylibre
     #
     # Le bloc est inerte tant que `Rails.autoloaders` n'existe pas, c'est-à-dire
     # sur Rails 5.2 : il documente et prépare le palier sans rien changer ici.
-    if Rails.respond_to?(:autoloaders) && Rails.autoloaders.respond_to?(:main)
+    # La garde porte sur `zeitwerk_enabled?` et non sur la seule présence de
+    # `Rails.autoloaders` : en Rails 6.0 l'objet existe toujours, mais tant que
+    # l'application déclare `load_defaults 5.2` le chargeur reste le classique
+    # et `autoloaders.main` vaut nil. Passer à Zeitwerk demande
+    # `config.autoloader = :zeitwerk` — ou `load_defaults 6.0`.
+    if Rails.respond_to?(:autoloaders) && Rails.autoloaders.respond_to?(:zeitwerk_enabled?) &&
+       Rails.autoloaders.zeitwerk_enabled?
       main = Rails.autoloaders.main
 
       # 1. Acronymes. On passe par l'inflecteur *de Zeitwerk* et non par

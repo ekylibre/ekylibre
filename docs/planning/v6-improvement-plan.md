@@ -325,6 +325,22 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 >
 > Note pratique : le volume `bundle-volume` contient des extensions natives compilées pour l'ABI de Ruby 2.6. Après un `git pull`, il faut le supprimer et laisser le conteneur réinstaller — sans quoi rien ne démarre.
 
+> **Sur B.2 — le bundle Rails 6.0 est installé et la suite tourne : 3 849 tests, 1 288 erreurs.** Mesuré dans un conteneur isolé (Ruby 2.7, volume de gems dédié) pour ne pas toucher l'environnement 5.2. L'application **démarre** sous Rails 6.0.6.1, ce qui n'allait pas de soi. Sept obstacles ont dû tomber, dans cet ordre :
+>
+> | Obstacle | Nature |
+> |---|---|
+> | `scenic 1.9` | emploie le bloc anonyme `&`, syntaxe de Ruby 3.1 — borne `< 1.9` |
+> | `psych 5` | désactive les alias YAML, dont `database.yml` se sert ; Rails n'apprend `aliases: true` qu'en 6.1.7 — borne `< 4` |
+> | `json 3.0` | retire `quirks_mode`, que l'encodeur d'ActiveSupport 6 passe encore — borne `< 3` |
+> | garde Zeitwerk | ma propre garde était trop faible : en 6.0 avec `load_defaults 5.2`, le chargeur reste classique et `autoloaders.main` vaut nil |
+> | `maintain_test_schema` | Rails 6 veut recharger `structure.sql` s'il juge des migrations en attente ; avec Apartment le contrôle n'a pas de sens et **défait ce que le harnais vient de bâtir** — désactivé en test |
+> | `scope :excluding` sur `Product` | ActiveSupport 6 ajoute `Enumerable#excluding` ; Rails 6 refuse le scope. Il n'était appelé nulle part, et le garder aurait été pire : la méthode d'ActiveSupport exclut des *éléments*, pas des identifiants |
+> | `:on` sur `before_save` / `after_save` | option qui n'a jamais existé pour ces rappels — Rails 5 l'ignorait, Rails 6 lève. Trois sites, dont le générateur `selects_among_all` |
+>
+> Deux pièges d'environnement, sans rapport avec Rails, ont brouillé le diagnostic en chemin : la base de test n'avait **aucune table applicative** (ni `public`, ni schéma de tenant, ni `schema_migrations`) — `db:reset_local` l'a rétablie à 242 tables ; et trois gems laissées flotter cassaient le boot pour des raisons qui ressemblaient à des incompatibilités Rails.
+>
+> **Reste 1 288 erreurs**, mais elles ne sont pas 1 288 problèmes : **417 viennent d'un seul point**, le chargement des fixtures dans les tests de contrôleur générés, et 198 sont les `UrlGenerationError` déjà présentes en 5.2. La prochaine étape est ce point unique, pas une longue liste.
+
 > **Sur B.2 — la résolution vers Rails 6.0 converge désormais, plugins compris.** Elle expirait après 40 minutes sans rendre ni verrou ni conflit : Bundler ne refusait pas, il n'arrivait pas à parcourir le graphe. Plutôt que de le laisser chercher, les bloquants ont été identifiés par **lecture du verrou** — il porte déjà, pour chaque gem, ses contraintes sur Rails. Cinq, hors les épinglages internes de Rails qui bougent ensemble :
 >
 > | Gem | Contrainte | Traitement |

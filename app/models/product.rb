@@ -331,9 +331,13 @@ class Product < ApplicationRecord
     # Product.availables(at: date).where(id: product_ids, type: type)
     Product.availables(at: date).where(type: type)
   }
-  scope :excluding, ->(*ids) {
-    where.not(id: ids)
-  }
+  # `scope :excluding` retiré : ActiveSupport 6.0 ajoute `Enumerable#excluding`,
+  # qu'ActiveRecord::Relation hérite, et Rails 6 refuse de définir un scope
+  # portant le nom d'une méthode de classe existante. Le scope n'était appelé
+  # nulle part — l'`excluding` d'`Unrollable::ItemRelation` est une méthode sans
+  # rapport, sur une autre classe. Le garder aurait été pire que le perdre : la
+  # méthode d'ActiveSupport exclut des *éléments*, pas des identifiants, et
+  # aurait donc changé le résultat sans rien signaler.
   scope :alive, ->(at: Time.now) { where('products.dead_at IS NULL OR products.dead_at >= ?', at) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
