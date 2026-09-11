@@ -31,10 +31,16 @@ class PostgresValidatedEwktFeatureBuilder
   end
 end
 
-if (ActiveRecord::Base.connection.present? rescue false)
-  Charta.default_feature_factory = Charta::Factory::SimpleFeatureFactory.new(
-    ewkt_builder: PostgresValidatedEwktFeatureBuilder.new(decorated: Charta::Factory::EwktFeatureBuilder.new, shape_corrector: ShapeCorrector.build),
-    srid_provider: Charta::Factory::SridProvider.build,
-    transformer: Charta::Factory::Transformers::EwktTransformerChain.build
-  )
+# `ShapeCorrector` est du code applicatif (app/services). Rails 7 n'installe le
+# chargeur principal que dans le *finisher*, après les initialiseurs : il faut
+# donc attendre `to_prepare`, qui s'exécute juste après le démarrage et à chaque
+# rechargement. L'affectation est idempotente.
+Rails.application.config.to_prepare do
+  if (ActiveRecord::Base.connection.present? rescue false)
+    Charta.default_feature_factory = Charta::Factory::SimpleFeatureFactory.new(
+      ewkt_builder: PostgresValidatedEwktFeatureBuilder.new(decorated: Charta::Factory::EwktFeatureBuilder.new, shape_corrector: ShapeCorrector.build),
+      srid_provider: Charta::Factory::SridProvider.build,
+      transformer: Charta::Factory::Transformers::EwktTransformerChain.build
+    )
+  end
 end

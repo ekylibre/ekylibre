@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/charta.git
-  revision: 6e46e6db5d21deb3c4862cd605609571c06f4aab
+  revision: 4f1179eb4078c6962cb271dd48b4efeac11e9d41
   branch: 6.0
   specs:
     charta (0.4.0)
@@ -39,7 +39,7 @@ GIT
       rgeo-geojson (~> 2.0)
       rgeo-proj4 (~> 2.0)
       victor (~> 0.3.3)
-      zeitwerk (~> 2.4.0)
+      zeitwerk (>= 2.4, < 3)
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-banking.git
@@ -52,7 +52,7 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-baqio.git
-  revision: 5dc90d30068b7685a87b48740e9f7f469600f5ff
+  revision: f6e539730d9b0c7ea641dd82dd28f14347be7b8b
   branch: 6.0
   specs:
     ekylibre-baqio (0.5.3)
@@ -99,8 +99,8 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-samsys.git
-  revision: 16cd46c9afd9c0d9aea95bb2f56681a53ecc6cb3
-  branch: master
+  revision: 2f5187e0559f080ef751b9c431f52665e016ac25
+  branch: 6.0
   specs:
     ekylibre-samsys (1.0.0)
       dotenv
@@ -109,8 +109,8 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-sencrop.git
-  revision: 14ab6ef23b3a650e5e63718b4f6f7d4238dea22e
-  branch: main
+  revision: 2d16706cd00fd2e531751d2f130d60b9bd024dd6
+  branch: 6.0
   specs:
     sencrop (0.1.0)
       dotenv (~> 2.7)
@@ -119,8 +119,8 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-weenat.git
-  revision: 94bfa1d6837200d50f26cdab67a7a801a4f83e0d
-  branch: master
+  revision: 27378b33a57957d1c1b4798efd5ec9ca80a266ff
+  branch: 6.0
   specs:
     weenat (0.2.0)
       dotenv (~> 2.7)
@@ -146,6 +146,16 @@ GIT
       mime-types
       nokogiri (>= 1.10.0)
       rubyzip (>= 1.3.0)
+
+GIT
+  remote: https://github.com/ekylibre/onoma.git
+  revision: 7b87a8380c965d3f2a801fd284ebd048615b7123
+  branch: 6.0
+  specs:
+    onoma (0.9.8)
+      activesupport (>= 4.2)
+      nokogiri (>= 1.10.4)
+      zeitwerk (>= 2.4, < 3)
 
 GIT
   remote: https://github.com/ekylibre/possibly.git
@@ -207,75 +217,89 @@ GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (2.0.1)
-    actioncable (6.1.7.10)
-      actionpack (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+    actioncable (7.0.10)
+      actionpack (= 7.0.10)
+      activesupport (= 7.0.10)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
-    actionmailbox (6.1.7.10)
-      actionpack (= 6.1.7.10)
-      activejob (= 6.1.7.10)
-      activerecord (= 6.1.7.10)
-      activestorage (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+    actionmailbox (7.0.10)
+      actionpack (= 7.0.10)
+      activejob (= 7.0.10)
+      activerecord (= 7.0.10)
+      activestorage (= 7.0.10)
+      activesupport (= 7.0.10)
       mail (>= 2.7.1)
-    actionmailer (6.1.7.10)
-      actionpack (= 6.1.7.10)
-      actionview (= 6.1.7.10)
-      activejob (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+      net-imap
+      net-pop
+      net-smtp
+    actionmailer (7.0.10)
+      actionpack (= 7.0.10)
+      actionview (= 7.0.10)
+      activejob (= 7.0.10)
+      activesupport (= 7.0.10)
       mail (~> 2.5, >= 2.5.4)
+      net-imap
+      net-pop
+      net-smtp
       rails-dom-testing (~> 2.0)
-    actionpack (6.1.7.10)
-      actionview (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
-      rack (~> 2.0, >= 2.0.9)
+    actionpack (7.0.10)
+      actionview (= 7.0.10)
+      activesupport (= 7.0.10)
+      racc
+      rack (~> 2.0, >= 2.2.4)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
     actionpack-xml_parser (2.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    actiontext (6.1.7.10)
-      actionpack (= 6.1.7.10)
-      activerecord (= 6.1.7.10)
-      activestorage (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+    actiontext (7.0.10)
+      actionpack (= 7.0.10)
+      activerecord (= 7.0.10)
+      activestorage (= 7.0.10)
+      activesupport (= 7.0.10)
+      globalid (>= 0.6.0)
       nokogiri (>= 1.8.5)
-    actionview (6.1.7.10)
-      activesupport (= 6.1.7.10)
+    actionview (7.0.10)
+      activesupport (= 7.0.10)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activejob (6.1.7.10)
-      activesupport (= 6.1.7.10)
+    activejob (7.0.10)
+      activesupport (= 7.0.10)
       globalid (>= 0.3.6)
-    activemodel (6.1.7.10)
-      activesupport (= 6.1.7.10)
+    activemodel (7.0.10)
+      activesupport (= 7.0.10)
     activemodel-serializers-xml (1.0.3)
       activemodel (>= 5.0.0.a)
       activesupport (>= 5.0.0.a)
       builder (~> 3.1)
-    activerecord (6.1.7.10)
-      activemodel (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
-    activerecord-postgis-adapter (7.0.1)
-      activerecord (~> 6.1)
+    activerecord (7.0.10)
+      activemodel (= 7.0.10)
+      activesupport (= 7.0.10)
+    activerecord-postgis-adapter (8.0.3)
+      activerecord (~> 7.0.0)
       rgeo-activerecord (~> 7.0.0)
-    activestorage (6.1.7.10)
-      actionpack (= 6.1.7.10)
-      activejob (= 6.1.7.10)
-      activerecord (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+    activestorage (7.0.10)
+      actionpack (= 7.0.10)
+      activejob (= 7.0.10)
+      activerecord (= 7.0.10)
+      activesupport (= 7.0.10)
       marcel (~> 1.0)
       mini_mime (>= 1.1.0)
-    activesupport (6.1.7.10)
+    activesupport (7.0.10)
+      base64
+      benchmark (>= 0.3)
+      bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      drb
       i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
       minitest (>= 5.1)
+      mutex_m
+      securerandom (>= 0.3)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     acts_as_list (1.1.0)
       activerecord (>= 4.2)
     addressable (2.9.0)
@@ -295,8 +319,8 @@ GEM
       version_gem (~> 1.1, >= 1.1.14)
     autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
-    awesome_nested_set (3.2.1)
-      activerecord (>= 4.0.0, < 7.0)
+    awesome_nested_set (3.9.0)
+      activerecord (>= 4.0.0, < 8.2)
     aws-eventstream (1.4.0)
     aws-partitions (1.1285.0)
     aws-sdk-core (3.255.0)
@@ -319,6 +343,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.3.0)
     bcrypt (3.1.22)
+    benchmark (0.5.0)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -399,6 +424,7 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
+    drb (2.2.3)
     ecma-re-validator (0.4.0)
       regexp_parser (~> 2.2)
     ekylibre-ofx-parser (1.2.2)
@@ -685,10 +711,6 @@ GEM
     omniauth-oauth2 (1.7.3)
       oauth2 (>= 1.4, < 3)
       omniauth (>= 1.9, < 3)
-    onoma (0.9.8)
-      activesupport (>= 4.2)
-      nokogiri (>= 1.10.4)
-      zeitwerk (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.1.4)
     ostruct (0.6.3)
@@ -748,21 +770,20 @@ GEM
       rack
     rack-test (2.2.0)
       rack (>= 1.3)
-    rails (6.1.7.10)
-      actioncable (= 6.1.7.10)
-      actionmailbox (= 6.1.7.10)
-      actionmailer (= 6.1.7.10)
-      actionpack (= 6.1.7.10)
-      actiontext (= 6.1.7.10)
-      actionview (= 6.1.7.10)
-      activejob (= 6.1.7.10)
-      activemodel (= 6.1.7.10)
-      activerecord (= 6.1.7.10)
-      activestorage (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+    rails (7.0.10)
+      actioncable (= 7.0.10)
+      actionmailbox (= 7.0.10)
+      actionmailer (= 7.0.10)
+      actionpack (= 7.0.10)
+      actiontext (= 7.0.10)
+      actionview (= 7.0.10)
+      activejob (= 7.0.10)
+      activemodel (= 7.0.10)
+      activerecord (= 7.0.10)
+      activestorage (= 7.0.10)
+      activesupport (= 7.0.10)
       bundler (>= 1.15.0)
-      railties (= 6.1.7.10)
-      sprockets-rails (>= 2.0.0)
+      railties (= 7.0.10)
     rails-controller-testing (1.0.5)
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
@@ -782,12 +803,13 @@ GEM
       ostruct
       require_all (~> 3.0)
       ruby-progressbar
-    railties (6.1.7.10)
-      actionpack (= 6.1.7.10)
-      activesupport (= 6.1.7.10)
+    railties (7.0.10)
+      actionpack (= 7.0.10)
+      activesupport (= 7.0.10)
       method_source
       rake (>= 12.2)
       thor (~> 1.0)
+      zeitwerk (~> 2.5)
     rainbow (3.1.1)
     raindrops (0.20.1)
     rake (12.3.3)
@@ -1030,7 +1052,7 @@ GEM
       kaminari (~> 1.1)
       rails (>= 5.0)
     yard (0.9.45)
-    zeitwerk (2.4.2)
+    zeitwerk (2.6.18)
 
 PLATFORMS
   x86_64-linux
@@ -1039,11 +1061,11 @@ DEPENDENCIES
   actionpack-xml_parser (~> 2.0)
   active_list!
   activemodel-serializers-xml (~> 1.0)
-  activerecord-postgis-adapter (~> 7.0.0)
+  activerecord-postgis-adapter (~> 8.0.0)
   acts_as_list (~> 1.0)
   agric!
   agro_monitoring!
-  awesome_nested_set (~> 3.2.1)
+  awesome_nested_set (~> 3.5)
   better_errors (~> 2.9)
   binding_of_caller (~> 1.0)
   bootsnap (>= 1.1.0)
@@ -1124,7 +1146,7 @@ DEPENDENCIES
   odf-report!
   omniauth (~> 1.9)
   omniauth-oauth2 (~> 1.7)
-  onoma (~> 0.9.8)
+  onoma!
   panoramic
   paranoia (~> 2.2)
   pdf-reader (~> 2.4)
@@ -1141,7 +1163,7 @@ DEPENDENCIES
   rack-cors
   rack-handlers
   rack-mini-profiler
-  rails (~> 6.1.0)
+  rails (~> 7.0.0)
   rails-controller-testing (~> 1.0)
   rails_best_practices (~> 1.20)
   rake (~> 12.0)

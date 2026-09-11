@@ -22,6 +22,14 @@ require 'zeitwerk'
 spec = Gem.loaded_specs['lexicon-common']
 if spec
   root = File.join(spec.full_gem_path, 'lib', 'lexicon-common.rb')
-  loader = Zeitwerk::Registry.loaders_managing_gems[root]
-  loader&.do_not_eager_load(File.join(spec.full_gem_path, 'lib', 'lexicon', 'common', 'version.rb'))
+  # Le registre s'appelait `loaders_managing_gems` jusqu'à Zeitwerk 2.5 et
+  # `gem_loaders_by_root_file` depuis la 2.6 ; les deux sont indexés par le
+  # fichier racine de la gem.
+  registry = Zeitwerk::Registry
+  by_root = if registry.respond_to?(:gem_loaders_by_root_file)
+              registry.gem_loaders_by_root_file
+            else
+              registry.loaders_managing_gems
+            end
+  by_root[root]&.do_not_eager_load(File.join(spec.full_gem_path, 'lib', 'lexicon', 'common', 'version.rb'))
 end

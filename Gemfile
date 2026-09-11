@@ -16,7 +16,7 @@ ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 
 # concurrent-ruby 1.3.5 retire `Concurrent::Logger`, dont ActiveSupport se sert
 # dans `logger_thread_safe_level` jusqu'à Rails 6.x inclus : sans cette borne,
@@ -43,7 +43,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 7.0.0'
+gem 'activerecord-postgis-adapter', '~> 8.0.0'
 gem 'pg', '~> 1.0'
 # scenic 1.9 emploie le passage de bloc anonyme (`&`), syntaxe de Ruby 3.1 :
 # elle ne se charge pas sous 2.7. Borne à lever avec le passage à Ruby 3.
@@ -151,14 +151,19 @@ gem 'sidekiq-cron', '~> 1.1'
 gem 'sidekiq-unique-jobs', '~> 4.0'
 
 # Reference data
-gem 'onoma', '~> 0.9.8'
+# La gem publiée 0.9.8 borne `zeitwerk ~> 2.4.0`, ce qui bloque Rails 7.0 dont
+# railties exige `~> 2.5`. La branche 6.0 du dépôt ne change que cette borne ;
+# à repointer sur rubygems dès qu'une version le reprendra.
+gem 'onoma', github: 'ekylibre/onoma', branch: '6.0'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop', '~> 1.6'
 
 # Models helpers
 gem 'acts_as_list', '~> 1.0'
-gem 'awesome_nested_set', '~> 3.2.1'
+# 3.2 bornait `activerecord < 7.0` ; 3.5 va jusqu'à 7.1. La série corrige aussi
+# les passages de hash en arguments nommés que Ruby 2.7 signale.
+gem 'awesome_nested_set', '~> 3.5'
 # 3.x accepts `activerecord >= 3.1.0, < 9` — valid on 5.2 and on every planned
 # palier. 2.4 was capped at `activerecord < 6`.
 gem 'deep_cloneable', '~> 3.0'

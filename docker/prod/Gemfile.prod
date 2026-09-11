@@ -39,14 +39,14 @@ gem 'idea',              git: 'https://github.com/ekylibre/ekylibre-idea.git',  
 gem 'planning',          git: 'https://github.com/ekylibre/ekylibre-planning.git', branch: '6.0'
 
 # === Materiel / capteurs / IoT ===
-gem 'ekylibre-samsys',     git: 'https://github.com/ekylibre/ekylibre-samsys.git',     branch: 'master'
-gem 'ekylibre-traccar',    git: 'https://github.com/ekylibre/ekylibre-traccar.git',    branch: 'master'
-gem 'ekylibre-natuition',  git: 'https://github.com/ekylibre/ekylibre-natuition.git',  branch: 'main'
+gem 'ekylibre-samsys',     git: 'https://github.com/ekylibre/ekylibre-samsys.git',     branch: '6.0'
+gem 'ekylibre-traccar',    git: 'https://github.com/ekylibre/ekylibre-traccar.git',    branch: '6.0'
+gem 'ekylibre-natuition',  git: 'https://github.com/ekylibre/ekylibre-natuition.git',  branch: '6.0'
 
 # === Meteo / agronomie ===
-gem 'weenat',          git: 'https://github.com/ekylibre/ekylibre-weenat.git',          branch: 'master'
-gem 'sencrop',         git: 'https://github.com/ekylibre/ekylibre-sencrop.git',         branch: 'main'
-gem 'agro_monitoring', git: 'https://github.com/ekylibre/ekylibre-agro-monitoring.git', branch: 'main'
+gem 'weenat',          git: 'https://github.com/ekylibre/ekylibre-weenat.git',          branch: '6.0'
+gem 'sencrop',         git: 'https://github.com/ekylibre/ekylibre-sencrop.git',         branch: '6.0'
+gem 'agro_monitoring', git: 'https://github.com/ekylibre/ekylibre-agro-monitoring.git', branch: '6.0'
 
 # === Viticulture ===
 gem 'ekylibre_ekyviti', git: 'https://github.com/ekylibre/ekylibre-viti.git', branch: '6.0'

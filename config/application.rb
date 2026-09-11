@@ -91,34 +91,27 @@ module Ekylibre
         # `tekyla-sunrise`, qui ne donne pas un nom de constante valide. Les
         # thèmes ne contiennent que des feuilles de style et des polices.
         Rails.root.join('app', 'themes'),
-        # Fichiers que `config/initializers/20-start.rb` charge explicitement.
-        # Ce sont des extensions de boot — monkey-patches, `include` dans des
-        # classes du framework, définition des unités de Measure — donc des
-        # effets de bord, ce que Zeitwerk demande justement de ne pas
-        # autocharger. Les laisser indexés est pire qu'inutile : en
-        # développement le rechargeur les décharge après les initialiseurs, et
-        # `require` ne les rejoue pas, d'où un `uninitialized constant` au
-        # premier accès.
-        Rails.root.join('lib', 'clients.rb'),
-        Rails.root.join('lib', 'delay.rb'),
-        Rails.root.join('lib', 'ekylibre.rb'),
+        # Ces deux-là ne définissent aucune constante autochargeable : ce
+        # sont des extensions du cœur, chargées explicitement par
+        # config/initializers/20-start.rb.
         Rails.root.join('lib', 'enumerize', 'xml.rb'),
-        Rails.root.join('lib', 'measure.rb'),
-        Rails.root.join('lib', 'migration_helper.rb'),
-        Rails.root.join('lib', 'open_weather_map.rb'),
         Rails.root.join('lib', 'safe_string.rb'),
-        Rails.root.join('lib', 'userstamp.rb'),
-        Rails.root.join('lib', 'userstamp'),
-        Rails.root.join('lib', 'working_set.rb'),
+        # Infrastructure de démarrage, chargée explicitement en tête de ce
+        # fichier : voir le commentaire là-haut.
+        Rails.root.join('lib', 'ekylibre', 'core.rb'),
+        Rails.root.join('lib', 'ekylibre', 'core'),
+        Rails.root.join('lib', 'ekylibre', 'plugin.rb'),
+        Rails.root.join('lib', 'ekylibre', 'plugin'),
+        Rails.root.join('lib', 'ekylibre', 'access.rb'),
+        Rails.root.join('lib', 'ekylibre', 'access'),
+        Rails.root.join('lib', 'ekylibre', 'hook.rb'),
+        Rails.root.join('lib', 'ekylibre', 'view.rb'),
+        Rails.root.join('lib', 'ekylibre', 'view'),
         # Les générateurs sont trouvés par le mécanisme propre à Rails, pas par
         # l'autochargement : leurs classes sont à la racine (`XGenerator`) alors
         # que leur chemin sous `lib/` impliquerait `Generators::X::XGenerator`.
         # Les gabarits, eux, ne sont pas du Ruby à exécuter.
         Rails.root.join('lib', 'generators'),
-        # Rouvre ActionDispatch::Routing::Mapper pour y ajouter `plugins` ; ne
-        # définit aucune constante autochargeable et est requis explicitement
-        # par lib/ekylibre/plugin.rb.
-        Rails.root.join('lib', 'ekylibre', 'plugin', 'routing.rb'),
         # `Ekylibre::VERSION` est une constante, pas une classe : Zeitwerk
         # attendrait `Ekylibre::Version` de ce chemin. On ne peut pas inflechir
         # `version` en `VERSION` pour autant — `app/models/version.rb` définit
@@ -219,3 +212,22 @@ module Ekylibre
     end
   end
 end
+
+# Le registre de plugins est de l'infrastructure de démarrage : il est consulté
+# par l'application elle-même, par `20-start.rb` et par `lib/ekylibre.rb`, tous
+# exécutés pendant l'initialisation. Or Rails 7 n'installe le chargeur principal
+# que dans le *finisher*, après les initialiseurs : plus rien n'est
+# autochargeable à ce moment-là. Ce sous-arbre est donc chargé explicitement et
+# retiré de l'index de Zeitwerk, plus haut.
+#
+# Le chargement a lieu ici, et non en tête de fichier, parce que `Rails.root`
+# n'a de valeur qu'une fois la classe Application définie.
+%w[
+  ekylibre/plugin
+  ekylibre/plugin/base
+  ekylibre/plugin/theme
+  ekylibre/core/plugin
+  ekylibre/access
+  ekylibre/hook
+  ekylibre/view
+].each { |lib| require File.expand_path("../lib/#{lib}", __dir__) }
