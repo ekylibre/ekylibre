@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/charta.git
-  revision: 1dbf022131b7dce3b777a5a4fa6d6ea82b0857cc
+  revision: 6e46e6db5d21deb3c4862cd605609571c06f4aab
   branch: 6.0
   specs:
     charta (0.4.0)
@@ -52,7 +52,7 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-baqio.git
-  revision: 65379fd218b6e27c7919ab4ddb456044fbed9605
+  revision: 5dc90d30068b7685a87b48740e9f7f469600f5ff
   branch: 6.0
   specs:
     ekylibre-baqio (0.5.3)

@@ -1,7 +1,5 @@
 require 'zip'
 
-Mime::Type.register('application/vnd.oasis.opendocument.spreadsheet', :ods) unless defined? Mime::ODS
-
 module Ekylibre
   module Export
     module OpenDocument
@@ -48,11 +46,5 @@ module Ekylibre
         end
       end
     end
-  end
-end
-
-ods.generate do |d|
-  d.header do |h|
-    h
   end
 end

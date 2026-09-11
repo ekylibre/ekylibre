@@ -8,7 +8,9 @@ Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **
 
 The `ekylibre-6.0` branch is a migration branch heading for Rails 8.1; it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
 
-`config/application.rb` deliberately keeps `config.load_defaults 5.2`: the framework is Rails 6, its defaults are not. Zeitwerk is therefore **not** active — the classic autoloader still runs, and the Zeitwerk block in `application.rb` stays inert until `load_defaults 6.0`. Raising the defaults is a separate step, one framework version at a time.
+`config/application.rb` declares `config.load_defaults 6.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
+
+`bin/rails zeitwerk:check` only inspects eager-load paths. `lib`, `app/models/bookkeepers` and `app/models/lexicon` are autoload-only, so the check skips them and says so — to cover them, replay `eager_load` on `Rails.autoloaders.main` collecting errors instead of stopping at the first. Note that Rails 6 calls `Zeitwerk::Loader.eager_load_all`, so a gem shipping its own non-conformant Zeitwerk loader breaks the application's boot too; `config/initializers/05-zeitwerk_gem_loaders.rb` handles the one such case.
 
 ## Development Environment
 

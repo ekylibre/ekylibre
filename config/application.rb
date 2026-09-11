@@ -28,7 +28,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -42,17 +42,17 @@ module Ekylibre
     #
     # Zeitwerk parcourt les chemins d'autoload et exige que chaque fichier
     # définisse la constante que son chemin implique — l'inverse du chargeur
-    # classique, qui part de la constante pour deviner le fichier. Un contrôle
-    # statique sur les 1 677 fichiers autochargés a relevé 20 écarts, de deux
-    # natures seulement.
+    # classique, qui part de la constante pour deviner le fichier. Il est actif
+    # depuis `load_defaults 6.0` ci-dessus.
     #
-    # Le bloc est inerte tant que `Rails.autoloaders` n'existe pas, c'est-à-dire
-    # sur Rails 5.2 : il documente et prépare le palier sans rien changer ici.
-    # La garde porte sur `zeitwerk_enabled?` et non sur la seule présence de
-    # `Rails.autoloaders` : en Rails 6.0 l'objet existe toujours, mais tant que
-    # l'application déclare `load_defaults 5.2` le chargeur reste le classique
-    # et `autoloaders.main` vaut nil. Passer à Zeitwerk demande
-    # `config.autoloader = :zeitwerk` — ou `load_defaults 6.0`.
+    # `bin/rails zeitwerk:check` ne contrôle que les chemins de chargement
+    # hâtif ; pour couvrir aussi `lib`, `app/models/bookkeepers` et
+    # `app/models/lexicon`, qui sont seulement autochargés, il faut rejouer
+    # `eager_load` sur `Rails.autoloaders.main` en collectant les erreurs.
+    #
+    # La garde reste en place : elle rend le bloc inerte si le chargeur
+    # classique revenait (`config.autoloader = :classic`, ou un retour à
+    # `load_defaults 5.2`), où `autoloaders.main` vaut nil.
     if Rails.respond_to?(:autoloaders) && Rails.autoloaders.respond_to?(:zeitwerk_enabled?) &&
        Rails.autoloaders.zeitwerk_enabled?
       main = Rails.autoloaders.main
@@ -72,6 +72,9 @@ module Ekylibre
         'dsl' => 'DSL',
         'sql_compiler' => 'SQLCompiler',
         'edi_exchanger' => 'EDIExchanger',
+        'fiea' => 'FIEA',
+        'upra' => 'UPRA',
+        'omniauth' => 'OmniAuth',
         # Fichier d'un plugin : en Rails 6 les chemins des engines sont indexés
         # par le chargeur principal, l'inflecteur de l'application s'y applique.
         'geo_json_model' => 'GeoJSONModel'
@@ -83,9 +86,22 @@ module Ekylibre
       #      config/initializers/20-start.rb ;
       #    - gabarits de générateurs, qui ne sont pas du Ruby à exécuter.
       main.ignore(
+        # `app/themes` n'est pas du code : Rails indexe tout sous-répertoire de
+        # `app/` comme racine d'autochargement, et Zeitwerk bute sur le tiret de
+        # `tekyla-sunrise`, qui ne donne pas un nom de constante valide. Les
+        # thèmes ne contiennent que des feuilles de style et des polices.
+        Rails.root.join('app', 'themes'),
         Rails.root.join('lib', 'safe_string.rb'),
         Rails.root.join('lib', 'enumerize', 'xml.rb'),
-        Rails.root.join('lib', 'generators', '**', 'templates'),
+        # Les générateurs sont trouvés par le mécanisme propre à Rails, pas par
+        # l'autochargement : leurs classes sont à la racine (`XGenerator`) alors
+        # que leur chemin sous `lib/` impliquerait `Generators::X::XGenerator`.
+        # Les gabarits, eux, ne sont pas du Ruby à exécuter.
+        Rails.root.join('lib', 'generators'),
+        # Rouvre ActionDispatch::Routing::Mapper pour y ajouter `plugins` ; ne
+        # définit aucune constante autochargeable et est requis explicitement
+        # par lib/ekylibre/plugin.rb.
+        Rails.root.join('lib', 'ekylibre', 'plugin', 'routing.rb'),
         # `Ekylibre::VERSION` est une constante, pas une classe : Zeitwerk
         # attendrait `Ekylibre::Version` de ce chemin. On ne peut pas inflechir
         # `version` en `VERSION` pour autant — `app/models/version.rb` définit
@@ -93,6 +109,15 @@ module Ekylibre
         # chargeur. Le fichier est donc exclu et déclaré en autoload maison dans
         # lib/ekylibre.rb, comme aujourd'hui.
         Rails.root.join('lib', 'ekylibre', 'version.rb')
+      )
+
+      # 3. Code de support des tests : autochargeable — les tests s'en servent —
+      #    mais pas chargeable hâtivement. `fixtures` n'existe que sur une
+      #    classe de test, et le chargement hâtif a lieu hors de tout contexte
+      #    de test (démarrage en production).
+      main.do_not_eager_load(
+        Rails.root.join('lib', 'ekylibre', 'testing'),
+        Rails.root.join('lib', 'active_exchanger', 'test_case.rb')
       )
     end
 
