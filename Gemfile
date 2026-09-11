@@ -17,6 +17,13 @@ ruby '>= 2.6.6', '< 3.0.0'
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
 gem 'rails', '5.2.8.1'
+
+# concurrent-ruby 1.3.5 retire `Concurrent::Logger`, dont ActiveSupport se sert
+# dans `logger_thread_safe_level` jusqu'à Rails 6.x inclus : sans cette borne,
+# l'application ne charge plus du tout. Mesuré deux fois pendant la préparation
+# du lot B — la panne se présente comme une incompatibilité Rails/Ruby, ce
+# qu'elle n'est pas. À lever quand Rails aura cessé d'en dépendre.
+gem 'concurrent-ruby', '< 1.3.5'
 gem 'turnout', '~> 2.5' # Maintenance mode
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -68,7 +75,12 @@ gem 'webpacker', '~> 4.x'
 # CSS
 gem 'agric', github: 'ekylibre/agric', branch: 'master'
 gem 'bootstrap-sass', '~> 3.4.1'
-gem 'bootstrap-slider-rails', '~> 9.8'
+# bootstrap-slider-rails retirée : son gemspec borne `railties < 6.0` et son
+# amont est mort (9.8.0 est la dernière version, publiée il y a des années),
+# ce qui bloquait la résolution vers Rails 6.0. La gem n'apportait que deux
+# fichiers d'assets et un engine pour les exposer ; ils sont désormais versionnés
+# dans vendor/assets, comme geographiclib, heatmap et daterangepicker avant eux.
+# Licence MIT conservée à côté du script.
 gem 'font-awesome-sass', '~> 5.15'
 
 # JS

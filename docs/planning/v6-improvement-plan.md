@@ -325,7 +325,19 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 >
 > Note pratique : le volume `bundle-volume` contient des extensions natives compilées pour l'ABI de Ruby 2.6. Après un `git pull`, il faut le supprimer et laisser le conteneur réinstaller — sans quoi rien ne démarre.
 
-> **Sur B.2 — la résolution des dépendances vers Rails 6.0 ne converge pas.** Sonde conservative (verrou conservé, seul `rails` mis à jour) : Bundler **expire après 40 minutes** sans rendre ni verrou ni conflit. Ce n'est pas un refus, c'est un graphe que le résolveur n'arrive pas à parcourir. Avant d'engager le portage, il faudra donc desserrer des contraintes une à une — `sidekiq ~> 4.0` et `sprockets < 4.0` ressortent des tentatives — et non attaquer le code d'abord. **À chiffrer à part** : ce n'est pas du Zeitwerk.
+> **Sur B.2 — la résolution vers Rails 6.0 converge désormais, plugins compris.** Elle expirait après 40 minutes sans rendre ni verrou ni conflit : Bundler ne refusait pas, il n'arrivait pas à parcourir le graphe. Plutôt que de le laisser chercher, les bloquants ont été identifiés par **lecture du verrou** — il porte déjà, pour chaque gem, ses contraintes sur Rails. Cinq, hors les épinglages internes de Rails qui bougent ensemble :
+>
+> | Gem | Contrainte | Traitement |
+> |---|---|---|
+> | `activerecord-postgis-adapter` | `activerecord ~> 5.1` | monte en `~> 6.0` avec le palier, comme prévu par l'audit |
+> | `agric` | `railties >= 3.2, < 6` | borne relâchée — 11 lignes, zéro référence aux internes |
+> | `charta` | `activesupport ~> 5.0` | borne relâchée — 1 738 lignes, zéro référence |
+> | `ekylibre-hve` | `rails ~> 5.2` | borne relâchée — une référence, `Base.transaction` |
+> | `bootstrap-slider-rails` | `railties < 6.0` | **gem retirée** : amont mort, elle n'apportait que deux fichiers d'assets, versionnés dans `vendor/assets` comme `geographiclib` et `heatmap` avant eux |
+>
+> Résultat : **Rails 6.0.6.1 résolu avec les 19 plugins**, 342 gems contre 340. Seule `arel` disparaît — elle est fusionnée dans ActiveRecord en Rails 6. Ni `sidekiq` ni `sprockets` ne sont forcés de monter.
+>
+> Un piège mérite d'être épinglé, littéralement : la résolution libre choisissait `concurrent-ruby 1.3.8`, qui retire `Concurrent::Logger`. ActiveSupport s'en sert jusqu'à Rails 6.x inclus, si bien que le verrou produit **n'aurait pas démarré**. La borne `< 1.3.5` est posée dans le `Gemfile`, avec la raison — cette panne se présente comme une incompatibilité Rails/Ruby, ce qu'elle n'est pas, et m'a déjà induit en erreur deux fois.
 
 > **Sur B.2 — le point dur annoncé n'existe pas.** Le plan désignait `lib/ekylibre/plugin.rb` et sa gestion des chemins d'autoload des « 16 plugins ». Mesuré : le répertoire `plugins/` est **vide**, `Ekylibre::Plugin.registered_plugins` rend `[]`, et les 19 plugins de `Gemfile.local` sont chargés comme **Rails Engines** (`Planning::Engine`, `EkylibreBaqio::Engine`, `Ekylibre::Banking::Engine`…). Or Rails 6 agrège les chemins des engines dans le chargeur principal sans rien demander. `Ekylibre::Plugin` reste du code — environ 300 lignes — mais il n'est sur le chemin critique de rien. À décider séparément : le retirer, ou le documenter comme mécanisme alternatif.
 >
