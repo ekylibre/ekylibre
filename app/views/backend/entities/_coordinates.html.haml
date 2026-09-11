@@ -5,7 +5,7 @@
     .picto{class: "picto-#{resource.organization? ? :building : :user}"}
 - main_links = EntityLink.of_entity(resource)
 - main_entities = [resource.id]
-- main_links.order("(entity_id = #{resource.id} and main) DESC, id ASC").each do |link|
+- main_links.order(Arel.sql("(entity_id = #{resource.id.to_i} and main) DESC, id ASC")).each do |link|
   - next unless link.entity && link.linked
   .info
     %span.title

@@ -16,7 +16,7 @@ class SequenceManager
   def last_numbered_record
     @managed
       .where.not(@column => nil)
-      .reorder("LENGTH(#{@column}) DESC, #{@column} DESC")
+      .reorder(Arel.sql("LENGTH(#{@column}) DESC, #{@column} DESC"))
       .first
   end
 

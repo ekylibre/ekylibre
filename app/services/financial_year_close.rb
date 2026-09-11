@@ -89,7 +89,7 @@ class FinancialYearClose
     ApplicationRecord.transaction do
 
       @logger.info((CLOSURE_STEPS[0]).to_s)
-      @year.update_attributes({ state: 'opened' })
+      @year.update({ state: 'opened' })
       @logger.info('1 - Dump tenant')
       dump_tenant
       @logger.info('2 - Generate documents')
@@ -146,7 +146,7 @@ class FinancialYearClose
       generate_documents('post_closure')
       @progress.increment!
 
-      @year.update_attributes(stopped_on: @to_close_on, closed: true, state: 'closed')
+      @year.update(stopped_on: @to_close_on, closed: true, state: 'closed')
     end
     @closer.notify(:financial_year_x_successfully_closed, { name: @year.name }, level: :success)
     true

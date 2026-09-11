@@ -1,7 +1,7 @@
-\restrict U9iZSafuTGJKTWRbjUK5RovK401DZPrjt3fvZmRHT8S8bQOFHZ3wDHcwLVkRNCw
+\restrict QhOHDFehfHmXpf4xMmQtGso03Htd0tnIxOpAZVQDsjyehGJ1LQ9GrikRZd5CVVm
 
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg110+1)
--- Dumped by pg_dump version 13.23 (Debian 13.23-1.pgdg11+1)
+-- Dumped by pg_dump version 13.23 (Debian 13.23-2.pgdg11+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1763,7 +1763,8 @@ CREATE TABLE public.active_storage_blobs (
     metadata text,
     byte_size bigint NOT NULL,
     checksum character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    service_name character varying NOT NULL
 );
 
 
@@ -30871,7 +30872,7 @@ ALTER TABLE ONLY public.projects
 -- PostgreSQL database dump complete
 --
 
-\unrestrict U9iZSafuTGJKTWRbjUK5RovK401DZPrjt3fvZmRHT8S8bQOFHZ3wDHcwLVkRNCw
+\unrestrict QhOHDFehfHmXpf4xMmQtGso03Htd0tnIxOpAZVQDsjyehGJ1LQ9GrikRZd5CVVm
 
 SET search_path TO public,postgis,lexicon;
 
@@ -31599,6 +31600,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260726120003'),
 ('20260909175612'),
 ('20260909180000'),
-('20260909180100');
+('20260909180100'),
+('20260911120000');
 
 

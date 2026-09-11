@@ -48,7 +48,7 @@ module Backend
       ApplicationRecord.transaction do
         # Update company
         @company = Entity.of_company
-        @company.update_attributes(permitted_params[:entity])
+        @company.update(permitted_params[:entity])
         @company.nature = :organization
         @company.save!
         @url_params = build_attributes_for_weather

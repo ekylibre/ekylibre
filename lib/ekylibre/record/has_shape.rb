@@ -210,7 +210,7 @@ module Ekylibre
               ewkt = ::Charta.new_geometry(c).to_ewkt
               where( col + ' IN (?)', select(col)
                                       .where('ST_Intersects(' + col + ', ST_GeomFromEWKT(ST_MakeValid(?)))', ewkt)
-                                      .order('ST_Distance(' + col + ', ST_Centroid(\'' + ewkt + '\')) ASC')
+                                      .order(Arel.sql('ST_Distance(' + col + ', ST_Centroid(\'' + ewkt + '\')) ASC'))
                                       .limit(1))
             }
 

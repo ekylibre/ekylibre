@@ -23,7 +23,10 @@ module Unrollable
         scopes = Unrollable::Extracting.scopes_from(params)
         excluded_records = params[:exclude]
         search_term = params[:q].to_s.strip
-        keys = search_term.mb_chars.downcase.normalize.split(/[\s\\,]+/)
+        # `Multibyte::Chars#normalize` a disparu en Rails 6.1 ; sa forme par
+        # défaut était NFKC, que Ruby expose nativement. `String#downcase` est
+        # Unicode depuis Ruby 2.4, `mb_chars` n'apporte plus rien ici.
+        keys = search_term.downcase.unicode_normalize(:nfkc).split(/[\s\\,]+/)
         primary_key = params[:primary_key] || options[:primary_key]
 
         items = Unrollable::ItemRelation.new(model.send(default_scope))
@@ -39,7 +42,7 @@ module Unrollable
         end
         kept ||= filtered_items.keeping(params[:id], primary_key) unless Unrollable::Toolbelt.true?(params[:keep])
 
-        items = kept || filtered_items.ordered_matches(keys, searchable_filters, search_term.mb_chars.downcase.normalize)
+        items = kept || filtered_items.ordered_matches(keys, searchable_filters, search_term.downcase.unicode_normalize(:nfkc))
 
         respond_to do |format|
           data_only_view = proc { items.map { |item| { label: UnrollHelper.label_item(item, filters, controller_path, action_name), id: item.id } } }

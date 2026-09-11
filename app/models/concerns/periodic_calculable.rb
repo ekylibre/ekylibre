@@ -42,7 +42,10 @@ module PeriodicCalculable
       options[:at] ||= default_calculable_at
       options[:at] = "#{table_name}.#{options[:at]}" if options[:at].is_a?(Symbol)
       expr = "EXTRACT(YEAR FROM #{options[:at]})*1000 + EXTRACT(#{options[:period]} FROM #{options[:at]})"
-      relation = group(expr).reorder(expr)
+      # `Arel.sql` : `expr` est une expression construite ici à partir de la
+      # table et de la période, que Rails 6.1 refuse dans `reorder` sans cette
+      # marque explicite.
+      relation = group(expr).reorder(Arel.sql(expr))
       relation = relation.joins(options[:joins]) if options[:joins]
       relation.select("#{expr} AS expr, #{operation}(#{column}) AS #{options[:name]}")
     end

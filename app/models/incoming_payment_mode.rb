@@ -106,7 +106,7 @@ class IncomingPaymentMode < ApplicationRecord
 
   def reflect
     unlocked_payments.find_each do |payment|
-      payment.update_attributes(commission_account_id: nil, commission_amount: nil)
+      payment.update(commission_account_id: nil, commission_amount: nil)
     end
   end
 

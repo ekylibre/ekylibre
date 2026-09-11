@@ -188,11 +188,19 @@ class Measure
     to_r >= other.to_r(unit)
   end
 
-  # Returns if self is greater than other
+  # Compare deux mesures, ou renvoie nil si l'autre opérande n'en est pas une.
+  #
+  # `<=>` doit renvoyer nil pour ce qui n'est pas comparable, c'est le contrat
+  # de Ruby : `Comparable`, `sort` et `Array#<=>` s'en servent pour distinguer
+  # « incomparable » de « plus petit ». Lever une exception le rompait, et
+  # Rails 6.1 s'appuie désormais dessus — `ActiveModel::Type::Helpers::Numeric#cast`
+  # teste `value <=> 0` pour savoir si une valeur est numérique, et toute
+  # lecture d'un attribut décimal portant une Measure levait.
+  #
+  # Les comparaisons strictes (`<`, `>`, `<=`, `>=`) continuent, elles, de lever
+  # sur un opérande étranger : c'est aussi ce que fait `Comparable`.
   def <=>(other)
-    unless other.is_a?(Measure)
-      raise ArgumentError.new('Only measure can be compared to another measure')
-    end
+    return nil unless other.is_a?(Measure)
 
     to_r <=> other.to_r(unit)
   end

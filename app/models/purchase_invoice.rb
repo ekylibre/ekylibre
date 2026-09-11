@@ -105,7 +105,7 @@ class PurchaseInvoice < Purchase
   end
 
   after_update do
-    affair.update_attributes(third_id: third.id) if affair && affair.deals.count == 1
+    affair.update(third_id: third.id) if affair && affair.deals.count == 1
     affair.reload_gaps if affair
     true
   end

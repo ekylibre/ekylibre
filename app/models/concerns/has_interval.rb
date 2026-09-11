@@ -6,8 +6,16 @@ module HasInterval
   module ClassMethods
     def has_interval(*columns)
       columns.each do |column|
+        # Rails 6.1 désérialise les colonnes `interval` de PostgreSQL en
+        # `ActiveSupport::Duration` (OID::Interval) ; jusqu'à Rails 6.0 elles
+        # arrivaient sous forme de chaîne, qu'il fallait analyser.
         define_method column do
-          self[column].present? ? ActiveSupport::Duration.parse(self[column]) : nil
+          value = self[column]
+          case value
+          when nil, '' then nil
+          when ActiveSupport::Duration then value
+          else ActiveSupport::Duration.parse(value)
+          end
         end
 
         define_method "#{column}=" do |value|

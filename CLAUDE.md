@@ -4,11 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 6.0** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 6.1** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
 
 The `ekylibre-6.0` branch is a migration branch heading for Rails 8.1; it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
 
-`config/application.rb` declares `config.load_defaults 6.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
+`config/application.rb` declares `config.load_defaults 6.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file. The framework is 6.1 but its defaults are still 6.0 — raising them is a separate step, taken one version at a time.
+
+`config/initializers/zz-defer_boot_unloading.rb` neutralises Rails 6.1's `:warn_if_autoloaded`, which unloads every constant autoloaded during initialization. Ekylibre autoloads about seventy at boot (`20-start.rb`, plus each plugin engine's integration), and the ones brought in by `require` never come back — the app would not boot in development at all. **That file is a deferral, not a fix**: the loading has to move into `Rails.application.reloader.to_prepare` before Rails 7, where the warning becomes a hard error. Delete the file to get Rails' full diagnostic with the list of constants to treat.
 
 `bin/rails zeitwerk:check` only inspects eager-load paths. `lib`, `app/models/bookkeepers` and `app/models/lexicon` are autoload-only, so the check skips them and says so — to cover them, replay `eager_load` on `Rails.autoloaders.main` collecting errors instead of stopping at the first. Note that Rails 6 calls `Zeitwerk::Loader.eager_load_all`, so a gem shipping its own non-conformant Zeitwerk loader breaks the application's boot too; `config/initializers/05-zeitwerk_gem_loaders.rb` handles the one such case.
 

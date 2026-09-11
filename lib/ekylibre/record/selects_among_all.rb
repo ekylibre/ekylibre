@@ -59,7 +59,7 @@ module Ekylibre
             end
             code << "end\n"
 
-            pode = "self.update_attributes!(#{column}: true)\n"
+            pode = "self.update!(#{column}: true)\n"
             code << "def set_#{column}!\n"
             if options[:if]
               code << "  if self.#{options[:if]}\n"

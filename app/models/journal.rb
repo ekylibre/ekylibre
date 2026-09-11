@@ -357,7 +357,7 @@ class Journal < ApplicationRecord
 
   # this method searches the last entries according to a number.
   def last_entries(period, count = 30)
-    period.entries.order("LPAD(number, 20, '0') DESC").limit(count)
+    period.entries.order(Arel.sql("LPAD(number, 20, '0') DESC")).limit(count)
   end
 
   def entry_items_between(started_on, stopped_on)

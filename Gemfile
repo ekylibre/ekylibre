@@ -16,7 +16,7 @@ ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 
 # concurrent-ruby 1.3.5 retire `Concurrent::Logger`, dont ActiveSupport se sert
 # dans `logger_thread_safe_level` jusqu'à Rails 6.x inclus : sans cette borne,
@@ -43,7 +43,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 6.0.0'
+gem 'activerecord-postgis-adapter', '~> 7.0.0'
 gem 'pg', '~> 1.0'
 # scenic 1.9 emploie le passage de bloc anonyme (`&`), syntaxe de Ruby 3.1 :
 # elle ne se charge pas sous 2.7. Borne à lever avec le passage à Ruby 3.
@@ -64,7 +64,7 @@ gem 'json', '< 3'
 # ros-apartment est le fork maintenu d'apartment (abandonnée en 2.2.1). Il
 # conserve le namespace Apartment : aucun changement d'appelant.
 # La série 2.11 accepte activerecord >= 5.0, < 7.1 — elle couvre donc le
-# palier actuel (6.0) et les paliers 6.1/7.0 sans nouvelle bascule.
+# palier actuel (6.1) et le palier 7.0 sans nouvelle bascule.
 # Passer en 3.x plus tard (3.0 exige AR >= 6.1, 3.4 exige AR >= 7.0).
 gem 'ros-apartment', '~> 2.11', require: 'apartment'
 gem 'ros-apartment-sidekiq', '~> 1.2', require: 'apartment-sidekiq'
@@ -78,11 +78,11 @@ gem 'sassc-rails', '~> 2.0'
 # pages et convertit en PDF.
 gem 'burisu-docsplit', '~> 0.7.9', require: 'docsplit'
 
-# Requis par les variantes Active Storage : jusqu'en Rails 6.0 inclus,
-# ActiveStorage::Variation retombe sur MiniMagick quand `image_processing` est
-# absent — avec un avertissement de dépréciation. Le passage à 6.1 rendra
-# `image_processing` obligatoire ; l'ajouter changerait dès maintenant le
-# pipeline de génération des variantes, on le fera avec ce palier.
+# Requis par les variantes Active Storage : Rails 6.1 a retiré
+# `ActiveStorage::Transformers::MiniMagickTransformer`, seul repli quand
+# `image_processing` est absent. `mini_magick` reste la dépendance de travail
+# d'`image_processing`, et sert aussi directement à Documents::DerivativesBuilder.
+gem 'image_processing', '~> 1.12'
 gem 'mini_magick', '~> 4.11'
 gem 'sprockets', '< 4.0'
 gem 'uglifier', '>= 1.3.0'
@@ -235,7 +235,10 @@ group :production do
 end
 
 group :development do
-  gem 'bullet', '~> 5.7.0'
+  # 5.7 refuse de se charger au-delà d'ActiveRecord 6.0 (« Bullet does not
+  # support active_record 6.1 yet ») ; la gem n'étant qu'en développement,
+  # l'incompatibilité ne se voyait pas dans la suite.
+  gem 'bullet', '~> 7.0'
 
   gem 'better_errors', '~> 2.9'
   gem 'rack-mini-profiler'

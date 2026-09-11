@@ -276,7 +276,7 @@ class Cash < ApplicationRecord
   end
 
   def next_reconciliation_letter
-    item = BankStatementItem.where('LENGTH(TRIM(letter)) > 0').order('LENGTH(letter) DESC, letter DESC').first
+    item = BankStatementItem.where('LENGTH(TRIM(letter)) > 0').order(Arel.sql('LENGTH(letter) DESC, letter DESC')).first
     item ? item.letter.succ : 'A'
   end
 

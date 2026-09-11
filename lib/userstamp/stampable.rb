@@ -80,7 +80,7 @@ module Userstamp
       #
       #   Post.without_stamps do
       #     post = Post.find(params[:id])
-      #     post.update_attributes(params[:post])
+      #     post.update(params[:post])
       #     post.save
       #   end
       def without_stamps

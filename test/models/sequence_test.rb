@@ -48,7 +48,7 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'next values' do
     sequence = Sequence.find_by(usage: :sales_invoices)
-    sequence.update_attributes!(number_format: 'Y[year]M[month]N[number|8]', period: :month)
+    sequence.update!(number_format: 'Y[year]M[month]N[number|8]', period: :month)
 
     val1 = sequence.next_value
     val2 = sequence.next_value!
@@ -57,7 +57,7 @@ class SequenceTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   test 'reset' do
     sequence = Sequence.find_by(usage: :sales_invoices)
-    sequence.update_attributes!(number_format: 'Y[year]M[month]N[number|8]', period: :month)
+    sequence.update!(number_format: 'Y[year]M[month]N[number|8]', period: :month)
 
     sequence.next_value!
     val1 = sequence.last_number

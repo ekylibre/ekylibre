@@ -24,7 +24,7 @@ module Autocomplete
                 .select("DISTINCT #{column}, #{start_ordering}")
                 .where("unaccent(#{column}) ILIKE unaccent(?)", pattern)
                 .group(column)
-                .reorder(start_ordering)
+                .reorder(Arel.sql(start_ordering))
                 .order(column => :asc)
                 .limit(15)
         respond_to do |format|

@@ -18,7 +18,7 @@ module Providable
   module ClassMethods
     # @return [Array]
     def providers_vendors
-      pluck("provider->'vendor'").compact.uniq
+      pluck(Arel.sql("provider->'vendor'")).compact.uniq
     end
   end
 

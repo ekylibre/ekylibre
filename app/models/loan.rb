@@ -250,7 +250,7 @@ class Loan < ApplicationRecord
       .compute_repayments(repayment_method)
       .each do |repayment|
         if r = repayments.find_by(position: repayment[:position])
-          r.update_attributes!(repayment)
+          r.update!(repayment)
         else
           r = repayments.create!(repayment)
         end

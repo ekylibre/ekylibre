@@ -203,7 +203,7 @@ module Backend
     def update
       return unless find_and_check_updateability
 
-      if @journal_entry.update_attributes(permitted_params)
+      if @journal_entry.update(permitted_params)
         check_fec_compliance if JournalEntry.fec_compliance_preference
         redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
         return

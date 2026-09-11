@@ -328,7 +328,7 @@ module Telepac
 
           # find and update or create land_parcel according to cap statement and islet
           if (cap_land_parcel = CapLandParcel.find_by(cap_land_parcel_attributes.slice(:land_parcel_number, :cap_islet)))
-            cap_land_parcel.update_attributes!(cap_land_parcel_attributes)
+            cap_land_parcel.update!(cap_land_parcel_attributes)
           else
             cap_land_parcel = CapLandParcel.create!(cap_land_parcel_attributes)
           end
@@ -389,7 +389,7 @@ module Telepac
 
           # find and update or create neutral_area according to cap statement
           if (cap_neutral_area = CapNeutralArea.find_by(cap_neutral_area_attributes.slice(:cap_statement_id, :number)))
-            cap_neutral_area.update_attributes!(cap_neutral_area_attributes)
+            cap_neutral_area.update!(cap_neutral_area_attributes)
           else
             CapNeutralArea.create!(cap_neutral_area_attributes)
           end

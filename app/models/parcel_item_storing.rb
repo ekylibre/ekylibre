@@ -67,20 +67,20 @@ class ParcelItemStoring < ApplicationRecord
   after_create do
     population = parcel_item.population
     population += quantity
-    parcel_item.update_attributes(population: population)
+    parcel_item.update(population: population)
   end
 
   after_update do
     population = parcel_item.population
     population -= quantity_before_last_save
     population += quantity
-    parcel_item.update_attributes(population: population)
+    parcel_item.update(population: population)
   end
 
   after_destroy do
     population = parcel_item.population
     population -= quantity_was
-    parcel_item.update_attributes(population: population)
+    parcel_item.update(population: population)
   end
 
   def reception

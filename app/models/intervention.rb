@@ -1046,7 +1046,7 @@ class Intervention < ApplicationRecord
     ActiveSupport::Deprecation.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
     raise 'Cannot run intervention without procedure' unless runnable?
 
-    update_attributes(state: :done)
+    update(state: :done)
     self
   end
 

@@ -55,13 +55,17 @@ class WorkerTimeIndicator < ApplicationRecord
       Scenic.database.refresh_materialized_view(table_name, concurrently: false, cascade: false)
     end
 
+    # `duration` est une colonne `interval`. Rails 6.0 en rendait la somme sous
+    # forme de chaîne (« 08:30:00 », ou « 0 » quand il n'y avait rien) ; Rails
+    # 6.1 la désérialise en `ActiveSupport::Duration`, et l'ensemble vide donne
+    # l'entier 0. On accepte les trois formes.
     def durations(unit = :hour)
       total = self.sum(:duration)
-      if total == "0"
-        minutes = 0.00
-      else
-        minutes = ActiveSupport::Duration.parse(total).in_full(:minute)
-      end
+      duration = case total
+                 when ActiveSupport::Duration then total
+                 when ::String then total == '0' ? nil : ActiveSupport::Duration.parse(total)
+                 end
+      minutes = duration ? duration.in_full(:minute) : 0.00
       Measure.new(minutes, :minute).convert(unit).round(2)
     end
   end

@@ -176,7 +176,7 @@ module Backend
         for id, values in params[:unvalidateds] || {}
           return unless deposit = find_and_check(id: id)
 
-          deposit.update_attributes!(locked: true) if deposit && values[:validated].to_i == 1
+          deposit.update!(locked: true) if deposit && values[:validated].to_i == 1
         end
         # rubocop:enable Style/For
         redirect_to action: :unvalidateds

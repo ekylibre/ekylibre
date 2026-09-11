@@ -91,8 +91,25 @@ module Ekylibre
         # `tekyla-sunrise`, qui ne donne pas un nom de constante valide. Les
         # thèmes ne contiennent que des feuilles de style et des polices.
         Rails.root.join('app', 'themes'),
-        Rails.root.join('lib', 'safe_string.rb'),
+        # Fichiers que `config/initializers/20-start.rb` charge explicitement.
+        # Ce sont des extensions de boot — monkey-patches, `include` dans des
+        # classes du framework, définition des unités de Measure — donc des
+        # effets de bord, ce que Zeitwerk demande justement de ne pas
+        # autocharger. Les laisser indexés est pire qu'inutile : en
+        # développement le rechargeur les décharge après les initialiseurs, et
+        # `require` ne les rejoue pas, d'où un `uninitialized constant` au
+        # premier accès.
+        Rails.root.join('lib', 'clients.rb'),
+        Rails.root.join('lib', 'delay.rb'),
+        Rails.root.join('lib', 'ekylibre.rb'),
         Rails.root.join('lib', 'enumerize', 'xml.rb'),
+        Rails.root.join('lib', 'measure.rb'),
+        Rails.root.join('lib', 'migration_helper.rb'),
+        Rails.root.join('lib', 'open_weather_map.rb'),
+        Rails.root.join('lib', 'safe_string.rb'),
+        Rails.root.join('lib', 'userstamp.rb'),
+        Rails.root.join('lib', 'userstamp'),
+        Rails.root.join('lib', 'working_set.rb'),
         # Les générateurs sont trouvés par le mécanisme propre à Rails, pas par
         # l'autochargement : leurs classes sont à la racine (`XGenerator`) alors
         # que leur chemin sous `lib/` impliquerait `Generators::X::XGenerator`.
