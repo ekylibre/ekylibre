@@ -16,7 +16,7 @@ ruby '>= 2.6.6', '< 3.0.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '5.2.8.1'
+gem 'rails', '~> 6.0.0'
 
 # concurrent-ruby 1.3.5 retire `Concurrent::Logger`, dont ActiveSupport se sert
 # dans `logger_thread_safe_level` jusqu'à Rails 6.x inclus : sans cette borne,
@@ -43,7 +43,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 5.0'
+gem 'activerecord-postgis-adapter', '~> 6.0.0'
 gem 'pg', '~> 1.0'
 # scenic 1.9 emploie le passage de bloc anonyme (`&`), syntaxe de Ruby 3.1 :
 # elle ne se charge pas sous 2.7. Borne à lever avec le passage à Ruby 3.
@@ -64,7 +64,7 @@ gem 'json', '< 3'
 # ros-apartment est le fork maintenu d'apartment (abandonnée en 2.2.1). Il
 # conserve le namespace Apartment : aucun changement d'appelant.
 # La série 2.11 accepte activerecord >= 5.0, < 7.1 — elle couvre donc le
-# palier actuel (5.2) et les paliers 6.0/6.1/7.0 sans nouvelle bascule.
+# palier actuel (6.0) et les paliers 6.1/7.0 sans nouvelle bascule.
 # Passer en 3.x plus tard (3.0 exige AR >= 6.1, 3.4 exige AR >= 7.0).
 gem 'ros-apartment', '~> 2.11', require: 'apartment'
 gem 'ros-apartment-sidekiq', '~> 1.2', require: 'apartment-sidekiq'
@@ -78,15 +78,18 @@ gem 'sassc-rails', '~> 2.0'
 # pages et convertit en PDF.
 gem 'burisu-docsplit', '~> 0.7.9', require: 'docsplit'
 
-# Requis par les variantes Active Storage : en Rails 5.2, ActiveStorage::Variation
-# pilote directement MiniMagick (image_processing n'arrive qu'en Rails 6).
+# Requis par les variantes Active Storage : jusqu'en Rails 6.0 inclus,
+# ActiveStorage::Variation retombe sur MiniMagick quand `image_processing` est
+# absent — avec un avertissement de dépréciation. Le passage à 6.1 rendra
+# `image_processing` obligatoire ; l'ajouter changerait dès maintenant le
+# pipeline de génération des variantes, on le fera avec ce palier.
 gem 'mini_magick', '~> 4.11'
 gem 'sprockets', '< 4.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.x'
 
 # CSS
-gem 'agric', github: 'ekylibre/agric', branch: 'master'
+gem 'agric', github: 'ekylibre/agric', branch: '6.0'
 gem 'bootstrap-sass', '~> 3.4.1'
 # bootstrap-slider-rails retirée : son gemspec borne `railties < 6.0` et son
 # amont est mort (9.8.0 est la dernière version, publiée il y a des années),
@@ -136,7 +139,7 @@ gem 'exception_notification', '~> 4.4'
 gem 'redis-namespace', '~> 1.8'
 
 # Manipulate map data
-gem 'charta', github: 'ekylibre/charta', branch: 'master'
+gem 'charta', github: 'ekylibre/charta', branch: '6.0'
 gem 'geocoder', '~> 1.6'
 gem 'rgeo', '~> 2.2'
 gem 'rgeo-geojson', '~> 2.1'

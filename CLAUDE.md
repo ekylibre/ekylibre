@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on Rails 5.2 / PostgreSQL+PostGIS. Dev and CI run **Ruby 2.7** (stepping stone to 3.3, lot B.1 of the v6 plan); **production is still on Ruby 2.6** — see `docker/prod/Dockerfile`. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 6.0** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+
+The `ekylibre-6.0` branch is a migration branch heading for Rails 8.1; it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
+
+`config/application.rb` deliberately keeps `config.load_defaults 5.2`: the framework is Rails 6, its defaults are not. Zeitwerk is therefore **not** active — the classic autoloader still runs, and the Zeitwerk block in `application.rb` stays inert until `load_defaults 6.0`. Raising the defaults is a separate step, one framework version at a time.
 
 ## Development Environment
 
