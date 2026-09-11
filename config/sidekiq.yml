@@ -1,14 +1,8 @@
-# Les deux dernières files sont celles qu'Active Storage utilise depuis les
-# valeurs par défaut de Rails 6 (`active_storage.queues.analysis` et
-# `.purge`) : sans elles, l'analyse des pièces jointes et la purge des blobs
-# seraient enfilées sans jamais être dépilées.
 :queues:
   - [duke, 10]
   - [critical, 9]
   - [default, 5]
   - [low, 1]
-  - [active_storage_analysis, 1]
-  - [active_storage_purge, 1]
 
 development:
   :concurrency: 5
@@ -17,8 +11,6 @@ development:
     - [critical, 9]
     - [default, 2]
     - [low, 1]
-    - [active_storage_analysis, 1]
-    - [active_storage_purge, 1]
 
 production:
   :concurrency: 5
@@ -27,5 +19,3 @@ production:
     - [critical, 9]
     - [default, 5]
     - [low, 1]
-    - [active_storage_analysis, 1]
-    - [active_storage_purge, 1]

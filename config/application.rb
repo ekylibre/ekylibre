@@ -28,7 +28,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -137,6 +137,25 @@ module Ekylibre
         Rails.root.join('lib', 'active_exchanger', 'test_case.rb')
       )
     end
+
+    # Seul défaut de Rails 6.1 que l'on n'adopte pas encore.
+    #
+    # `has_many_inversing` fait pointer l'enfant chargé par une association vers
+    # *l'objet même* qui le détient, au lieu d'une instance rechargée. C'est la
+    # bonne sémantique, mais elle met au jour une récursion mutuelle bien
+    # réelle : `PurchaseInvoice#after_save` parcourt ses lignes pour leur créer
+    # une immobilisation, et `PurchaseItem#after_save` termine par
+    # `purchase.save!`. Jusqu'ici la boucle s'arrêtait par accident — `item.purchase`
+    # était une autre instance, dont les lignes relues avaient déjà leur
+    # `fixed_asset_id` ; avec l'inversion, c'est le même objet en mémoire, la
+    # garde ne devient jamais fausse et la pile déborde. Le même partage rend
+    # périmés des `lock_version` lors de la duplication d'intervention.
+    #
+    # Lever cette ligne demande donc de casser la récursion à la source, pas de
+    # la contourner : c'est une modification de callbacks comptables, à mener
+    # pour elle-même. `has_many_inversing` reste un réglage dans Rails 7 comme
+    # dans Rails 8, le report n'engage pas la suite des paliers.
+    config.active_record.has_many_inversing = false
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql

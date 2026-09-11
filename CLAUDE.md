@@ -8,7 +8,9 @@ Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **
 
 The `ekylibre-6.0` branch is a migration branch heading for Rails 8.1; it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
 
-`config/application.rb` declares `config.load_defaults 6.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file. The framework is 6.1 but its defaults are still 6.0 — raising them is a separate step, taken one version at a time.
+`config/application.rb` declares `config.load_defaults 6.1`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
+
+One 6.1 default is deliberately turned back off right below that line: `active_record.has_many_inversing`. It is correct semantics, but it exposes a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity. The comment there says what has to be fixed before the line can go.
 
 `config/initializers/zz-defer_boot_unloading.rb` neutralises Rails 6.1's `:warn_if_autoloaded`, which unloads every constant autoloaded during initialization. Ekylibre autoloads about seventy at boot (`20-start.rb`, plus each plugin engine's integration), and the ones brought in by `require` never come back — the app would not boot in development at all. **That file is a deferral, not a fix**: the loading has to move into `Rails.application.reloader.to_prepare` before Rails 7, where the warning becomes a hard error. Delete the file to get Rails' full diagnostic with the list of constants to treat.
 
