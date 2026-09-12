@@ -28,7 +28,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -160,6 +160,29 @@ module Ekylibre
     # n'engage pas la suite des paliers.
     config.active_record.has_many_inversing = false
     config.active_record.automatic_scope_inversing = false
+
+    # Rails 7.1 cesse de sérialiser les colonnes en YAML par défaut et exige un
+    # codeur explicite. Les quatorze déclarations de l'application en portent un
+    # désormais, mais `wice_grid` — 7.1.4 comprise — déclare toujours
+    # `serialize :query` nu dans `WiceGridSerializedQuery` : la classe lève au
+    # chargement de la gem, avant que rien ne puisse la corriger. Le défaut
+    # historique est donc conservé, le temps de sortir de cette gem ou de la
+    # corriger en amont.
+    config.active_record.default_column_serializer = YAML
+
+    # Rails 7.1 lève désormais quand on affecte un attribut déclaré
+    # `attr_readonly` sur un enregistrement déjà persisté, là où l'affectation
+    # était jusqu'ici acceptée puis silencieusement perdue à l'écriture. La
+    # suite le fait ressortir sur 325 tests : `currency`, `nature`, `journal_id`,
+    # `state`, `listing_id`, `number` et `root_model`, tous écrits par des
+    # setters ou des rappels qui réaffectent sans distinguer la création de la
+    # mise à jour — `Sale#nature=` réaffecte la devise à chaque appel, par
+    # exemple.
+    #
+    # Ces écritures perdues sont un défaut réel, pas une gêne du cadriciel :
+    # les lever demande de revoir les rappels des modèles comptables un à un,
+    # ce qui est un lot en soi et non une marge de montée de version.
+    config.active_record.raise_on_assign_to_attr_readonly = false
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
