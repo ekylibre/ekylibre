@@ -21,6 +21,17 @@ FORBIDDEN_STRINGS = [
   /logger\.debug/  # I almost never want to commit a (Ruby) call to logger.debug.  error, message, etc., but not debug.
 ]
 
+# Motifs qui ne visent que du code applicatif : dans le Gemfile, ce sont des
+# noms de gems légitimes — `pry-byebug` est une dépendance de développement de
+# longue date — et le motif y donnait un faux positif à chaque montée de
+# version. Ce fichier-ci est exempté pour la même raison : il *contient* les
+# motifs.
+FORBIDDEN_IN_CODE_ONLY = FORBIDDEN_STRINGS.select { |re| %w[debugger byebug].any? { |w| re.source.include?(w) } }.freeze
+PATHS_EXEMPT_FROM_CODE_PATTERNS = [
+  %r{\AGemfile(\.lock|\.local|\.prod)?\z},
+  %r{\Abin/hooks/pre-commit\.rb\z}
+].freeze
+
 # Warning signs that someone is committing a private key
 PRIVATE_KEY_INDICATORS = [
   /PRIVATE KEY/,
@@ -50,6 +61,12 @@ full_diff.scan(%r{^\+\+\+ b/(.+)\n@@.*\n([\s\S]*?)(?:^diff|\z)}).each do |file, 
 
   # Scan for "forbidden" calls
   FORBIDDEN_STRINGS.each do |re|
+    # `byebug` et `debugger` désignent ici des appels de débogage oubliés. Dans
+    # le Gemfile et son verrou, ce sont des noms de gems légitimes —
+    # `pry-byebug` est une dépendance de développement déclarée de longue date —
+    # et le motif y donnait un faux positif à chaque montée de version.
+    next if FORBIDDEN_IN_CODE_ONLY.include?(re) && PATHS_EXEMPT_FROM_CODE_PATTERNS.any? { |p| file.match?(p) }
+
     if changed_code_for_file.match(re)
       puts %{Error: git pre-commit hook forbids committing "#{$1 || $&}" to #{file}\n--------------}
       error_found = true

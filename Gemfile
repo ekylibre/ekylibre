@@ -12,18 +12,12 @@ git_source(:gitlab) do |repo_name|
   "https://gitlab.com/#{repo_name}.git"
 end
 
-ruby '>= 2.6.6', '< 3.0.0'
+ruby '>= 3.4.0', '< 3.5.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.1.0'
 
-# concurrent-ruby 1.3.5 retire `Concurrent::Logger`, dont ActiveSupport se sert
-# dans `logger_thread_safe_level` jusqu'à Rails 6.x inclus : sans cette borne,
-# l'application ne charge plus du tout. Mesuré deux fois pendant la préparation
-# du lot B — la panne se présente comme une incompatibilité Rails/Ruby, ce
-# qu'elle n'est pas. À lever quand Rails aura cessé d'en dépendre.
-gem 'concurrent-ruby', '< 1.3.5'
 gem 'turnout', '~> 2.5' # Maintenance mode
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -32,6 +26,17 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # IRB and CLI
 gem 'colored' # , require: false
 gem 'fiddle'
+# Extraites des gems par défaut de Ruby : à déclarer explicitement depuis 3.4,
+# sans quoi leur chargement émet un avertissement puis disparaîtra.
+gem 'base64'
+gem 'benchmark'
+gem 'bigdecimal'
+gem 'csv'
+gem 'drb'
+gem 'logger'
+gem 'mutex_m'
+gem 'observer'
+gem 'ostruct'
 gem 'irb', '~> 1.3'
 gem 'rake', '~> 12.0'
 
@@ -43,30 +48,19 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 8.0.0'
+gem 'activerecord-postgis-adapter', '~> 9.0.0'
 gem 'pg', '~> 1.0'
-# scenic 1.9 emploie le passage de bloc anonyme (`&`), syntaxe de Ruby 3.1 :
-# elle ne se charge pas sous 2.7. Borne à lever avec le passage à Ruby 3.
-gem 'scenic', '< 1.9'
+gem 'scenic'
 
-# Psych 4 désactive les alias YAML par défaut. `config/database.yml` en utilise
-# (`<<: *default`), et Rails n'a appris à passer `aliases: true` qu'en 6.1.7 /
-# 7.0.4 : sous Rails 6.0 la configuration de base devient illisible. Borne à
-# lever au palier B.3, où le crochet existe.
-gem 'psych', '< 4'
 
-# json 3.0 retire l'option `quirks_mode`, que l'encodeur JSON d'ActiveSupport
-# passe encore en Rails 6.x. Même famille de piège que concurrent-ruby et
-# scenic : une gem par ailleurs transitive qui, laissée flotter, casse le boot.
-gem 'json', '< 3'
 
 # Multi-tenancy
 # ros-apartment est le fork maintenu d'apartment (abandonnée en 2.2.1). Il
 # conserve le namespace Apartment : aucun changement d'appelant.
-# La série 2.11 accepte activerecord >= 5.0, < 7.1 — elle couvre donc le
-# palier actuel (6.1) et le palier 7.0 sans nouvelle bascule.
-# Passer en 3.x plus tard (3.0 exige AR >= 6.1, 3.4 exige AR >= 7.0).
-gem 'ros-apartment', '~> 2.11', require: 'apartment'
+# La série 2.11 plafonnait à activerecord < 7.1 ; la 3.x va au-delà. Les deux
+# monkey-patches de config/initializers/apartment.rb restent nécessaires — voir
+# le commentaire qui les accompagne.
+gem 'ros-apartment', '~> 3.0', require: 'apartment'
 gem 'ros-apartment-sidekiq', '~> 1.2', require: 'apartment-sidekiq'
 
 # Assets pipeline
@@ -167,11 +161,15 @@ gem 'awesome_nested_set', '~> 3.5'
 # 3.x accepts `activerecord >= 3.1.0, < 9` — valid on 5.2 and on every planned
 # palier. 2.4 was capped at `activerecord < 6`.
 gem 'deep_cloneable', '~> 3.0'
-gem 'draper', "~> 3.0"
+# 3.1 surcharge `Module#delegate` sans relayer l'argument `to:`, que Rails 7.1
+# exige désormais : `ActiveModel::Naming.extended` levait au démarrage.
+gem 'draper', '~> 4.0'
 gem 'enumerize', '~> 2.4'
 gem 'paranoia', '~> 2.2' # Hide and restore records without actually deleting them
 gem 'uuidtools', '~> 2.2'
-gem 'validates_timeliness', '~> 4'
+# 4.x appelle `Model.default_timezone`, retiré en Rails 7.1 au profit de
+# `ActiveRecord.default_timezone`.
+gem 'validates_timeliness', '~> 7.0'
 
 # Authentication & Authorization
 gem 'devise', '~> 4.7'
@@ -200,11 +198,13 @@ gem 'i18n-js', '~> 3.8'
 gem 'caxlsx'
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'combine_pdf', '~> 1.0'
-gem 'ekylibre-ofx-parser', '~> 1.2'
+# La gem publiée dépend d'hpricot, dont l'extension native ne compile plus sous
+# Ruby 3.4. La branche 7.1 du dépôt la remplace par Nokogiri ; à repointer sur
+# rubygems dès qu'une version le reprendra.
+gem 'ekylibre-ofx-parser', git: 'https://github.com/ekylibre/ofx-parser.git', branch: '7.1'
 gem 'gpgme', '~> 2.0'
 gem 'holidays' # Deal with statutory and other holidays
 gem 'luhn', '~> 1.0'
-gem 'mimemagic', '~> 0.3.5'
 gem 'nokogiri', '~> 1.8'
 gem 'odf-report', github: 'ekylibre/odf-report', branch: 'master'
 gem 'prawn', '~> 2.4'
@@ -269,8 +269,9 @@ end
 group :development, :test do
   gem 'dotenv', '~> 2.7'
 
-  gem 'pry', '~> 0.12.0'
-  gem 'pry-byebug', '~> 3.8'
+  # 0.12 utilise `Object#=~` sur une classe, retiré en Ruby 3.2.
+  gem 'pry', '~> 0.14'
+  gem 'pry-byebug', '~> 3.10'
   gem 'pry-rails', '~> 0.3.9'
 
   # gem 'listen', '>= 3.0.5', '< 3.2' See config/environments/development.rb:68

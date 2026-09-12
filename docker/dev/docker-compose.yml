@@ -16,6 +16,13 @@ services:
       # packs-test reste vide, et toute vue rendant `javascript_pack_tag :legacy`
       # échoue — d'où les tests de contrôleur en erreur de longue date.
       NODE_OPTIONS: --openssl-legacy-provider
+      # L'image place la configuration et le cache de bundler sous
+      # /usr/local/bundle, qui appartient à root : le conteneur tournant en
+      # `ekylibre`, l'installation des gems git échouait sur
+      # `Permission denied @ dir_s_mkdir - /usr/local/bundle/cache/bundler`.
+      # On ramène les deux dans l'arbre de travail, monté et inscriptible.
+      BUNDLE_APP_CONFIG: /app/.bundle
+      BUNDLE_PATH: /app/vendor/bundle
     ports:
       - "3000:3000"
       - '8808:8808'
@@ -40,6 +47,11 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
     env_file: .env
+    environment:
+      # Voir le service `app` : la configuration de bundler doit vivre dans
+      # l'arbre de travail, /usr/local/bundle appartenant à root.
+      BUNDLE_APP_CONFIG: /app/.bundle
+      BUNDLE_PATH: /app/vendor/bundle
     volumes:
       - ../..:/app
       - ../../../ekylibre-plugins:/ekylibre-plugins

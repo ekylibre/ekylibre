@@ -3,7 +3,9 @@ set -e
 
 if [ $RAILS_ENV == "development" ]; then
   cp -n docker/dev/.env.dist .env
-  bundle install --path vendor/bundle
+  # `--path` est déprécié depuis Bundler 2 : le chemin vient de BUNDLE_PATH,
+  # posé dans docker-compose.yml.
+  bundle install
   yarn install --check-files
 fi
 
