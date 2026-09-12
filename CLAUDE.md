@@ -14,10 +14,7 @@ Three defaults are deliberately turned back off right below that line. `active_r
 
 The geometry stack is on **RGeo 3** (`rgeo ~> 3.1`, `rgeo-proj4 ~> 5.0`, `charta` branch `7.1`): the 2.x series builds on PROJ.4's legacy API, removed in PROJ 8, and its extension attaches no method under the libproj 9 the base images ship. Charta resolves SRIDs through `RGeo::CoordSys::Proj4.create(srid)` — PROJ 6 removed the `epsg` text file `SRSDatabase` used to read — and builds its projected factory around an explicit EPSG:6933 projection factory.
 
-**Two old gems are pinned and patched rather than upgraded**, each for a reason worth knowing before touching the `Gemfile`:
-
-- `liquid-rails` 0.2.0 pins `kaminari (~> 1.1.1)`, which locks out the 1.2 series — the first to pass its paginator options as keywords. `config/initializers/10-patches.rb` reimplements `HelperMethods#paginate`. liquid-rails is not dead weight: mail bodies come from `EmailTemplate` rows rendered through the `liquid` handler it installs;
-- `simple_form` 4.1 memoises its labels in class variables created by whichever subclass renders a field first, which Ruby 3 refuses. `config/initializers/simple_form_i18n_cache.rb` creates them on `SimpleForm::Inputs::Base` and `CollectionInput` up front. simple_form 5.1 replaced that mechanism.
+**One old gem is pinned and patched rather than upgraded.** `liquid-rails` 0.2.0 pins `kaminari (~> 1.1.1)`, which locks out the 1.2 series — the first to pass its paginator options as keywords; `config/initializers/10-patches.rb` reimplements `HelperMethods#paginate`. liquid-rails is not dead weight: mail bodies come from `EmailTemplate` rows rendered through the `liquid` handler it installs.
 
 `turnout` (maintenance mode) holds `rack` below 3, which in turn caps `sidekiq` at the 7 series — 8 requires `rack >= 3.1`. Rack 3 is its own migration.
 

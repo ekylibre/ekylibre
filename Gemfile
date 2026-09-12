@@ -33,16 +33,17 @@ gem 'benchmark'
 gem 'bigdecimal'
 gem 'csv'
 gem 'drb'
-gem 'logger'
-gem 'mutex_m'
-gem 'observer'
-gem 'ostruct'
-gem 'rss'
 # json 3 a retiré le mot-clé `quirks_mode`, que l'encodeur d'ActiveSupport 7.1
 # passe encore à `JSON.generate` : sans cette borne, toute sérialisation JSON
 # d'un attribut (colonnes `jsonb`, fixtures comprises) lève `ArgumentError`.
 # À relâcher en montant Rails, qui a cessé d'employer ce mot-clé.
 gem 'json', '~> 2.9'
+gem 'logger'
+gem 'mutex_m'
+gem 'observer'
+gem 'ostruct'
+gem 'rss'
+
 gem 'irb', '~> 1.3'
 gem 'rake', '~> 12.0'
 
@@ -57,8 +58,6 @@ gem 'activemodel-serializers-xml', '~> 1.0'
 gem 'activerecord-postgis-adapter', '~> 9.0.0'
 gem 'pg', '~> 1.0'
 gem 'scenic'
-
-
 
 # Multi-tenancy
 # ros-apartment est le fork maintenu d'apartment (abandonnée en 2.2.1). Il
@@ -117,7 +116,7 @@ gem 'active_list', github: 'ekylibre/active_list', branch: '6.0'
 gem 'formize', '~> 2.1.0'
 gem 'kaminari', '~> 1.1'
 gem 'remotipart', '~> 1.2'
-gem 'simple_form', '~> 4.0'
+gem 'simple_form', '~> 5.4'
 # 6.1.3 declares `rails >= 5.0` with no upper bound: it runs on 5.2 today and
 # stays valid through 6.x/7.x. 4.x was capped at `rails < 5.3` and was one of
 # the nine gems blocking Rails 6. (7.x requires `rails ~> 7.1`.)
@@ -209,7 +208,6 @@ gem 'http_accept_language', '~> 2.1'
 gem 'humanize', '~> 2.5'
 gem 'i18n-complements', git: 'https://github.com/ekylibre/i18n-complements.git', branch: '6.0'
 gem 'i18n-js', '~> 3.8'
-
 
 # Import/Export
 gem 'caxlsx'
