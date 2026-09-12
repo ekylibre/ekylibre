@@ -294,7 +294,11 @@ class Activity < ApplicationRecord
 
   def production_cycle_length
     if production_started_on.present? && production_stopped_on.present? && production_started_on_year.present? && production_stopped_on_year.present?
-      production_stopped_on.change(year: production_stopped_on.year + production_stopped_on_year ) - production_started_on.change(year: production_started_on.year + production_started_on_year )
+      # `+ n.years` et non `change(year:)` : un cycle commençant un 29 février
+      # décalé d'une année non bissextile faisait lever `Date::Error` depuis la
+      # validation, donc une erreur 500 à l'enregistrement. `advance` ramène ce
+      # jour au 28 février, ce que fait aussi le calendrier.
+      (production_stopped_on + production_stopped_on_year.years) - (production_started_on + production_started_on_year.years)
     end
   end
 

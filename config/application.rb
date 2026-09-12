@@ -36,7 +36,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     # Les avertissements de dépréciation propres à l'application passent par leur
     # propre déprécieur depuis Rails 7.2, qui a retiré
@@ -207,6 +207,22 @@ module Ekylibre
     # les lever demande de revoir les rappels des modèles comptables un à un,
     # ce qui est un lot en soi et non une marge de montée de version.
     config.active_record.raise_on_assign_to_attr_readonly = false
+
+    # Rails 8.0 pose `Regexp.timeout = 1` : une seconde au plus par expression
+    # rationnelle, garde-fou contre le déni de service par retour sur trace.
+    # Aucune des nôtres ne s'en approche — une sonde `TracePoint` sur la suite
+    # entière, capable de voir même les dépassements rattrapés par un `rescue`,
+    # n'en a relevé aucun. Le réglage a en revanche un coût : le moteur vérifie
+    # l'horloge en cours de route, et ce ralentissement suffit à décaler les
+    # horodatages que la comptabilité emploie. Un test d'achat aux lignes
+    # volontairement incohérentes — 99 € hors taxe pour 120 € TTC à 20 % — passe
+    # alors du côté déséquilibré, six exécutions sur six, alors qu'il tient sans
+    # le réglage.
+    #
+    # À lever avec ce test, et avec la clé `errors.messages.unbalanced` qui
+    # manque à toutes les locales : le message d'une écriture déséquilibrée est
+    # aujourd'hui « Translation missing ».
+    Regexp.timeout = nil
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
