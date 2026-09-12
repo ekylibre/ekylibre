@@ -235,6 +235,7 @@ class BankStatement < ApplicationRecord
   end
 
   def save_with_items(statement_items)
+    result = false
     ApplicationRecord.transaction do
       saved = save
 
@@ -270,13 +271,15 @@ class BankStatement < ApplicationRecord
         )
       end
 
+      # `result` plutôt qu'un `return` depuis le bloc : depuis Rails 7, un
+      # retour anticipé dans une transaction l'annule au lieu de la valider.
       if saved && reload.save
-        return true
+        result = true
       else
         raise ActiveRecord::Rollback
       end
     end
-    false
+    result
   end
 
   private

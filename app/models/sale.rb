@@ -433,6 +433,11 @@ class Sale < ApplicationRecord
   def invoice(invoiced_at = Time.zone.now)
     return false unless can_invoice?
 
+    # `result` plutôt qu'un `return` depuis le bloc : depuis Rails 7, un retour
+    # anticipé dans une transaction l'**annule** au lieu de la valider. La
+    # facturation entière — numérotation, sauvegarde et écriture comptable
+    # produite par la transition — était donc défaite aussitôt.
+    result = false
     ApplicationRecord.transaction do
       # Set values for invoice
       self.invoiced_at ||= invoiced_at
@@ -451,9 +456,9 @@ class Sale < ApplicationRecord
 
       client.add_event(:sales_invoice_creation, updater.person) if updater
 
-      return super
+      result = super
     end
-    false
+    result
   end
 
   def duplicatable?

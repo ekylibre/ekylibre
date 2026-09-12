@@ -4,15 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 6.1** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 7.0** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
 
-The `ekylibre-6.0` branch is a migration branch heading for Rails 8.1; it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
+The `ekylibre-7.0` branch is the migration branch heading for Rails 8.1 (`ekylibre-6.0` holds the Rails 6.1 state); it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
 
 `config/application.rb` declares `config.load_defaults 6.1`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
 
 One 6.1 default is deliberately turned back off right below that line: `active_record.has_many_inversing`. It is correct semantics, but it exposes a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity. The comment there says what has to be fixed before the line can go.
 
-`config/initializers/zz-defer_boot_unloading.rb` neutralises Rails 6.1's `:warn_if_autoloaded`, which unloads every constant autoloaded during initialization. Ekylibre autoloads about seventy at boot (`20-start.rb`, plus each plugin engine's integration), and the ones brought in by `require` never come back — the app would not boot in development at all. **That file is a deferral, not a fix**: the loading has to move into `Rails.application.reloader.to_prepare` before Rails 7, where the warning becomes a hard error. Delete the file to get Rails' full diagnostic with the list of constants to treat.
+**Nothing can be autoloaded during initialization.** Rails 7 removed classic autoloading and sets the main Zeitwerk loader up in the *finisher*, after every initializer has run. Two shapes are available, and the choice is not cosmetic:
+
+- boot infrastructure — the plugin registry, `Ekylibre::Access`, `Hook`, `View` — is `require`d explicitly at the bottom of `config/application.rb` (after the Application class, which is what gives `Rails.root` a value) and **excluded from the Zeitwerk index** in the same file. It is never reloaded;
+- anything touching reloadable application code goes in `Rails.application.config.to_prepare`, which runs right after boot and on every reload. `config/initializers/{charta,procedo,exchangers}.rb` and each plugin engine's integration registration follow this shape.
 
 `bin/rails zeitwerk:check` only inspects eager-load paths. `lib`, `app/models/bookkeepers` and `app/models/lexicon` are autoload-only, so the check skips them and says so — to cover them, replay `eager_load` on `Rails.autoloaders.main` collecting errors instead of stopping at the first. Note that Rails 6 calls `Zeitwerk::Loader.eager_load_all`, so a gem shipping its own non-conformant Zeitwerk loader breaks the application's boot too; `config/initializers/05-zeitwerk_gem_loaders.rb` handles the one such case.
 

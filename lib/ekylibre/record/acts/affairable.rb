@@ -115,6 +115,12 @@ module Ekylibre
             code << "      end\n"
             # code << "      old_#{reflection_name}.destroy!\n"
             code << "      #{class_name}.destroy(old_#{reflection_name}.id) if #{class_name}.find_by(id: old_#{reflection_name}.id)\n"
+            # `dependent: :nullify` sur l'affaire détruite écrit par `update_all`,
+            # qui incrémente `lock_version` depuis Rails 6. Rails 7 fait en outre
+            # respecter le verrou optimiste à `update_columns` : sans ce
+            # rechargement, l'écriture suivante ne touche aucune ligne et renvoie
+            # `false` en silence — l'objet se retrouvait sans affaire.
+            code << "      self.reload\n"
             code << "    end\n"
             code << "    self.update_column(:#{foreign_key}, affair.id)\n"
             code << "    affair.refresh!\n"

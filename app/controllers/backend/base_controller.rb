@@ -131,6 +131,11 @@ module Backend
 
       def save_and_redirect(record, options = {})
         record.attributes = options[:attributes] if options[:attributes]
+        # `saved` plutôt qu'un `return` depuis le bloc : depuis Rails 7, un
+        # retour anticipé dans une transaction l'**annule** au lieu de la
+        # valider — ici c'est l'enregistrement lui-même qui était défait, sur
+        # toute création ou modification passant par le backend.
+        saved = false
         ApplicationRecord.transaction do
           can_be_saved =  record.new_record? ? record.createable? : record.updateable?
           if can_be_saved && (options[:saved] || record.save(context: options[:context]))
@@ -138,7 +143,8 @@ module Backend
             response.headers['X-Saved-Record-Id'] = record.id.to_s
             if params[:dialog]
               head :ok
-              return true
+              saved = true
+              next
             end
             if options[:notify]
               model = record.class
@@ -159,11 +165,13 @@ module Backend
               end
             end
             url == :back ? redirect_back(fallback_location: root_path) : redirect_to(url)
-            return true
+            saved = true
           else
             raise ActiveRecord::Rollback
           end
         end
+
+        return true if saved
 
         notify_error_now :record_cannot_be_saved.tl
         response.headers['X-Return-Code'] = 'invalid'

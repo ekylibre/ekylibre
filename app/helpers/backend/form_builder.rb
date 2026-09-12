@@ -111,7 +111,9 @@ module Backend
     end
 
     def get_custom_fields_errors(errors)
-      errors.to_h
+      # `ActiveModel::Errors` n'est plus un Hash depuis Rails 7 ; `to_hash`
+      # reste la conversion explicite.
+      errors.to_hash
             .select { |error| error.to_s.start_with?('custom_fields__')}
             .transform_keys { |key| key.to_s.gsub('custom_fields__', '').to_sym }
     end

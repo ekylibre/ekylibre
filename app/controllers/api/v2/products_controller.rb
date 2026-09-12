@@ -42,7 +42,7 @@ module Api
           products = products.includes(association)
         end
 
-        render 'api/v2/products/index.json', locals: { products: products }
+        render 'api/v2/products/index', locals: { products: products }
       end
     end
   end

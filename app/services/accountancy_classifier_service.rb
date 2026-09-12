@@ -26,50 +26,11 @@ class AccountancyClassifierService
     end
   end
 
+  # La reconnaissance d'entités s'appuyait sur `Clients::Mistral::Ner`, retiré
+  # de lib/clients : elle doit désormais passer par un service Python distinct,
+  # qui reste à brancher. La méthode lève plutôt que de renvoyer un résultat
+  # vide, qui se confondrait avec un « rien à classer ».
   def classify_from_ia
-    # filter because maybe already classify from data in the same instanciation
-    not_classify_jei = @jei.where("activity_budget_id IS NULL")
-    # build data to send to Mistral
-    data = not_classify_jei.map{|i| "#{i.id.to_s} - #{i.name + ' ' + i.account.name}"}.join('|')
-    # call Mistral Ner service (::Ner)
-    activity_list = Activity.all.pluck(:name).to_sentence
-    c = Clients::Mistral::Ner.new
-    result = c.extract_accountancy_metadata(data, :accountancy_classification, activity_list)
-    puts result.inspect.yellow
-    @log_result[:items_classified] = 0
-    if result.is_a?(Hash) && result[:error].present?
-      @log_result[:error] = result[:error]
-      return @log_result
-    end
-    return @log_result unless result.is_a?(Array)
-
-    not_classify_jei.each do |entry_item|
-      matching_item = result.find { |item| item[:id] == entry_item.id.to_s }
-      next unless matching_item.present?
-
-      puts entry_item.name.inspect.yellow
-      puts matching_item.inspect.red
-      if matching_item[:classification].present? && matching_item[:classification] != "nil"
-        act = Activity.find_by(name: matching_item[:classification])
-        next unless act
-
-        puts act.inspect.green
-        # if month before production stopped_on
-        # harvest_year = printed_on.year
-        if (entry_item.printed_on.month < act.production_stopped_on.month)
-          campaign = Campaign.find_or_create_by(harvest_year: entry_item.printed_on.year)
-        # if month after or equal production stopped_on
-        # harvest_year = printed_on.year + 1
-        elsif (entry_item.printed_on.month >= act.production_stopped_on.month)
-          campaign = Campaign.find_or_create_by!(harvest_year: entry_item.printed_on.year + 1)
-        end
-        activity_budget = ActivityBudget.find_or_create_by!(campaign: campaign, activity: act)
-        # check production date to set good campaign according to account printed_on
-        # set activity budget to bs_item
-        entry_item.update!(activity_budget_id: activity_budget.id)
-        @log_result[:items_classified] += 1
-      end
-    end
-    @log_result
+    raise NotImplementedError.new("Clients::Mistral a été retiré : brancher le service de reconnaissance d'entités avant d'appeler #classify_from_ia")
   end
 end

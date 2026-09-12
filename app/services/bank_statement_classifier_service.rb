@@ -33,54 +33,11 @@ class BankStatementClassifierService
     end
   end
 
+  # La reconnaissance d'entités s'appuyait sur `Clients::Mistral::Ner`, retiré
+  # de lib/clients : elle doit désormais passer par un service Python distinct,
+  # qui reste à brancher. La méthode lève plutôt que de renvoyer un résultat
+  # vide, qui se confondrait avec un « rien à classer ».
   def classify_from_ia
-    # build data to send to Mistral
-    data = @bank_statement_items.map{|i| "#{i.id.to_s} - #{i.memo}"}.join('|')
-    # call Mistral Ner service (::Ner)
-    c = Clients::Mistral::Ner.new
-    result = c.extract_metadata(data, :bank_statement)
-    puts result.inspect.yellow
-    return result[:error] if result[:error].present?
-
-    @log_result[:items_classified] = 0
-    @bank_statement_items.each do |bs_item|
-      matching_item = result[:entities].find {|item| item[:id] == bs_item.id.to_s }
-      next unless matching_item.present?
-
-      # find payment_mode and link it to bs_item
-      if matching_item[:payment_mode].present? && bs_item.transaction_nature.blank?
-        # set payment_mode to bs_item
-        bs_item.update!(transaction_nature: matching_item[:payment_mode])
-      end
-
-      # find or create entity and link it to bs_item
-      if matching_item[:name].present? && bs_item.entity.blank?
-        # find or create entity
-        entity = Entity.where("similarity(unaccent(full_name), unaccent(?)) >= 0.5", matching_item[:name].strip).first
-        unless entity
-          entity = Entity.new(last_name: matching_item[:name].strip, full_name: matching_item[:name].strip, active: true)
-          if matching_item[:nature] == "organisation"
-            entity.nature = :organization
-          else
-            entity.nature = :contact
-          end
-          if bs_item.balance > 0
-            entity.supplier = true
-          else
-            entity.client = true
-          end
-          entity.save!
-        end
-        # set entity to bs_item
-        bs_item.update!(entity_id: entity.id)
-        if matching_item[:role].present? && entity.present? && entity.description.blank?
-          entity.update!(description: matching_item[:role])
-        end
-        @log_result[:items_classified] += 1
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.warn("BankStatementClassifierService#classify_from_ia: skipping bank_statement_item ##{bs_item.id} (#{e.message})")
-    end
-    @log_result
+    raise NotImplementedError.new("Clients::Mistral a été retiré : brancher le service de reconnaissance d'entités avant d'appeler #classify_from_ia")
   end
 end

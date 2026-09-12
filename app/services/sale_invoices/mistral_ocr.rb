@@ -2,14 +2,12 @@
 
 module SaleInvoices
   class MistralOcr
+    # Le client d'extraction vivait dans `Clients::Mistral`, retiré de
+    # lib/clients : il doit être remplacé par un service Python distinct, qui
+    # reste à brancher. On lève à la construction plutôt qu'à l'appel, pour que
+    # la panne se voie au plus près de son origine.
     def initialize(vendor)
-      if vendor.to_s == 'mistral'
-        @client = Clients::Mistral::Ner.new
-        @vendor = 'mistral'
-      elsif vendor.to_s == 'groq'
-        @client = Clients::Mistral::NerGroq.new
-        @vendor = 'groq'
-      end
+      raise NotImplementedError.new("Clients::Mistral a été retiré : brancher le service d'extraction avant d'instancier #{self.class}")
     end
 
     # return a fields based on a document from Ekylibre Document model

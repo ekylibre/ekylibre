@@ -139,9 +139,12 @@ module ActionController
       reset_locale
     end
 
+    # Rails 7 n'accepte plus dans `fixture_file_upload` de chemin relatif au
+    # répertoire des fixtures : il faut un chemin absolu, ou un nom relatif à
+    # `file_fixture_path`. Les fichiers d'Ekylibre vivent dans
+    # `test/fixture-files`, à côté de `test/fixtures`.
     def fixture_files
-      #     Rails.root.join('test', 'fixture-files')
-      Pathname.new('../fixture-files')
+      Rails.root.join('test', 'fixture-files')
     end
 
     def file_upload(path, mime_type = nil, binary = false)

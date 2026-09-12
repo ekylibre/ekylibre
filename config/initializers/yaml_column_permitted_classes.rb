@@ -22,6 +22,14 @@ require 'rgeo'
 # alors lettre morte. `to_prepare` a en outre le mérite d'être rejoué à chaque
 # rechargement, ce qui évite de garder dans la liste une classe périmée après
 # un reload en développement.
+# Rails 7 a déplacé le réglage d'`ActiveRecord::Base` vers le module
+# `ActiveRecord` lui-même.
+YAML_COLUMN_TARGET = if ActiveRecord.respond_to?(:yaml_column_permitted_classes=)
+                       ActiveRecord
+                     else
+                       ActiveRecord::Base
+                     end
+
 Rails.application.config.to_prepare do
   # Deux familles de géométries cohabitent dans ces colonnes : les objets
   # RGeo bruts, avec leur fabrique, tels qu'ils sortent de l'adaptateur
@@ -47,7 +55,7 @@ Rails.application.config.to_prepare do
     ::Charta::Polygon
   ]
 
-  ActiveRecord::Base.yaml_column_permitted_classes = [
+  YAML_COLUMN_TARGET.yaml_column_permitted_classes = [
     ::ActiveSupport::HashWithIndifferentAccess,
     ::ActiveSupport::TimeWithZone,
     ::ActiveSupport::TimeZone,

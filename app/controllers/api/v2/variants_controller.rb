@@ -24,7 +24,7 @@ module Api
         else
           variants = ProductNatureVariant.all.includes(:nature)
         end
-        render 'api/v2/variants/index.json', locals: { variants: variants }
+        render 'api/v2/variants/index', locals: { variants: variants }
       end
     end
   end

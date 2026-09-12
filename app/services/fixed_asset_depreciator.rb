@@ -23,16 +23,17 @@ class FixedAssetDepreciator
   # @return [Integer]
   # set accountable = true to pass in the bookkeep method of the asset model
   def depreciate_each(depreciables)
+    # Le compteur est ramené hors du bloc : depuis Rails 7, un `return` dans
+    # une transaction l'annule au lieu de la valider.
+    count = 0
     ApplicationRecord.transaction do
       # trusting the bookkeep to take care of the accounting
-      count = 0
       depreciables.find_each do |dep|
         dep.update!(accountable: true)
         count += 1
       end
-      return count
     end
-    0
+    count
   end
 
   def generate_depreciations(assets)
