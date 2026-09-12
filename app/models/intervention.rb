@@ -137,7 +137,7 @@ class Intervention < ApplicationRecord
   validates :beneficiary_siret, format: { with: /\A\d{14}\z/ }, allow_blank: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
-  serialize :actions, SymbolArray
+  serialize :actions, coder: SymbolArray
 
   alias_attribute :duration, :working_duration
 

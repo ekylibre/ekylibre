@@ -67,7 +67,7 @@ class WineIncomingHarvest < ApplicationRecord
   accepts_nested_attributes_for :storages
   accepts_nested_attributes_for :presses
 
-  serialize :additional_informations, HashSerializer
+  serialize :additional_informations, coder: HashSerializer
   store_accessor :additional_informations, :sedimentation_duration, :vehicle_trailer, :harvest_transportation_duration, :last_load, :harvest_nature, :harvest_dock, :harvest_description
 
   # before link campaign depends on received_at

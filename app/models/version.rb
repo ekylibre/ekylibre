@@ -54,8 +54,8 @@ class Version < ActiveRecord::Base
     where(created_at: started_at..stopped_at).order(created_at: :desc)
   }
 
-  serialize :item_object, HashWithIndifferentAccess
-  serialize :item_changes, HashWithIndifferentAccess
+  serialize :item_object, type: HashWithIndifferentAccess, coder: YAML
+  serialize :item_changes, type: HashWithIndifferentAccess, coder: YAML
 
   before_save do
     self.item_type = item.class.base_class.name if item

@@ -185,7 +185,7 @@ class Product < ApplicationRecord
 
   enumerize :type_of_occupancy, in: %i[owner rent sharecropper], predicates: true
 
-  serialize :specie_variety, HashSerializer
+  serialize :specie_variety, coder: HashSerializer
   store_accessor :specie_variety, :specie_variety_name
 
   # find Product by work_numbers (work_numbers must be an Array)

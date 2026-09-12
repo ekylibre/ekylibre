@@ -75,7 +75,7 @@ class InterventionParameter < ApplicationRecord
   belongs_to :intervention, inverse_of: :parameters
   belongs_to :usage, class_name: 'RegisteredPhytosanitaryUsage'
 
-  serialize :specie_variety, HashSerializer
+  serialize :specie_variety, coder: HashSerializer
   store_accessor :specie_variety, :specie_variety_name
 
   has_interval :allowed_entry_factor, :allowed_harvest_factor, :applications_frequency

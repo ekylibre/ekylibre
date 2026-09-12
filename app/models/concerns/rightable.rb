@@ -4,7 +4,7 @@ module Rightable
   extend ActiveSupport::Concern
 
   included do
-    serialize :rights
+    serialize :rights, coder: YAML
 
     before_validation do
       self.rights = rights.to_hash if rights

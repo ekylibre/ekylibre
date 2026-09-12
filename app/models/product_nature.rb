@@ -90,11 +90,11 @@ class ProductNature < ApplicationRecord
 
   has_picture
 
-  serialize :abilities_list, WorkingSet::AbilityArray
-  serialize :derivatives_list, SymbolArray
-  serialize :frozen_indicators_list, SymbolArray
-  serialize :variable_indicators_list, SymbolArray
-  serialize :linkage_points_list, SymbolArray
+  serialize :abilities_list, coder: WorkingSet::AbilityArray
+  serialize :derivatives_list, coder: SymbolArray
+  serialize :frozen_indicators_list, coder: SymbolArray
+  serialize :variable_indicators_list, coder: SymbolArray
+  serialize :linkage_points_list, coder: SymbolArray
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :abilities_list, :derivatives_list, :description, :frozen_indicators_list, :linkage_points_list, :variable_indicators_list, length: { maximum: 500_000 }, allow_blank: true

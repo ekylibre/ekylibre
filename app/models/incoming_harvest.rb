@@ -70,7 +70,7 @@ class IncomingHarvest < ApplicationRecord
   accepts_nested_attributes_for :crops
   accepts_nested_attributes_for :storages
 
-  serialize :additional_informations, HashSerializer
+  serialize :additional_informations, coder: HashSerializer
   store_accessor :additional_informations, :vehicle_trailer, :harvest_transportation_duration, :harvest_nature, :harvest_dock, :harvest_description
 
   scope :between, lambda { |started_at, stopped_at|

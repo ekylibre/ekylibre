@@ -60,7 +60,7 @@ class Crumb < ApplicationRecord
   validates :metadata, length: { maximum: 500_000 }, allow_blank: true
   validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 100.years } }
   # ]VALIDATORS]
-  serialize :metadata, Hash
+  serialize :metadata, type: Hash, coder: YAML
 
   scope :after,   ->(at) { where(arel_table[:read_at].gt(at)) }
   scope :before,  ->(at) { where(arel_table[:read_at].lt(at)) }
