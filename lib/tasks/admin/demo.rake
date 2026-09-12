@@ -32,7 +32,7 @@ namespace :admin do
         Sidekiq.redis do |r|
           args = [redis_key, 'status', status, 'message', message.to_s]
           args += ['step', step.to_s, 'total_steps', total.to_s] if step && total
-          r.hmset(*args)
+          r.hset(*args)
         end
       end
 

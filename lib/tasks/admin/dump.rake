@@ -9,7 +9,7 @@ namespace :admin do
       archive_dir = Rails.root.join('tmp', 'archives')
 
       set_status = lambda do |status, message|
-        Sidekiq.redis { |r| r.hmset(redis_key, 'status', status, 'message', message.to_s) }
+        Sidekiq.redis { |r| r.hset(redis_key, 'status', status, 'message', message.to_s) }
       end
 
       set_status.call('running', "Création de l'archive '#{tenant_name}' en cours...")

@@ -1,20 +1,27 @@
-:queues:
+# Les clés sont écrites sans deux-points initial : sidekiq les symbolise
+# lui-même à la lecture. La forme `:queues:` reposait sur le fait que Psych
+# admette le type `Symbol`, ce que sidekiq n'autorise que par une liste blanche
+# explicite depuis la version 7.
+#
+# Chaque file garde son poids : `[nom, poids]` est toujours lu par
+# `Sidekiq::Capsule#queues=`.
+queues:
   - [duke, 10]
   - [critical, 9]
   - [default, 5]
   - [low, 1]
 
 development:
-  :concurrency: 5
-  :queues:
+  concurrency: 5
+  queues:
     - [duke, 10]
     - [critical, 9]
     - [default, 2]
     - [low, 1]
 
 production:
-  :concurrency: 5
-  :queues:
+  concurrency: 5
+  queues:
     - [duke, 10]
     - [critical, 9]
     - [default, 5]

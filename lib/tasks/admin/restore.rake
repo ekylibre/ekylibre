@@ -9,7 +9,7 @@ namespace :admin do
       tenant_name  = ENV['TENANT']
 
       set_status = lambda do |status, message|
-        Sidekiq.redis { |r| r.hmset(redis_key, 'status', status, 'message', message.to_s) }
+        Sidekiq.redis { |r| r.hset(redis_key, 'status', status, 'message', message.to_s) }
       end
 
       set_status.call('running', "Restauration de '#{tenant_name}' en cours...")

@@ -54,7 +54,7 @@ class Admin::TenantsController < Admin::BaseController
     # (~5-10s) et d'ecrire son propre statut. Sans ca, le banner ne s'affiche pas tant
     # qu'on ne refresh pas manuellement.
     Sidekiq.redis do |r|
-      r.hmset(
+      r.hset(
         Admin::CreateTenantJob::REDIS_KEY,
         'status',  'running',
         'message', "Demarrage de la creation du tenant '#{name}'...",

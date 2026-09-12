@@ -54,7 +54,10 @@ class Notification < ApplicationRecord
   validates :target_type, :target_url, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
-  # take care of desactivate this after_create for action cable during local test mode because of SocketError: getaddrinfo
+  # `config/cable.yml` retient l'adaptateur `test` en environnement de test : la
+  # diffusion y est recueillie en mémoire, sans connexion à Redis — ce qui rend
+  # inutile la mise en sommeil de ce rappel que l'ancien `SocketError:
+  # getaddrinfo` imposait.
   after_create do
     # Le second argument est le *message* diffusé, pas des options : sans les
     # accolades, Ruby 2.7 le prend pour des mots-clés et avertit, et Ruby 3 le

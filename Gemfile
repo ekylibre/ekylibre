@@ -136,7 +136,6 @@ gem 'semantic', '~> 1.6'
 gem 'binding_of_caller', '~> 1.0'
 # gem 'elastic-apm', '~> 3.4.0'
 gem 'exception_notification', '~> 4.4'
-gem 'redis-namespace', '~> 1.8'
 
 # Manipulate map data
 gem 'charta', github: 'ekylibre/charta', branch: '7.1'
@@ -149,9 +148,18 @@ gem 'rgeo-geojson', '~> 2.2'
 gem 'rgeo-shapefile', '~> 3.0'
 
 # Background jobs
-gem 'sidekiq', '~> 4.0'
-gem 'sidekiq-cron', '~> 1.1'
-gem 'sidekiq-unique-jobs', '~> 4.0'
+#
+# sidekiq 7 a remplacé la gem `redis` par `redis-client` : la contrainte
+# `redis (~> 3.2)` de la série 4 interdisait le `redis (>= 4, < 6)` qu'Action
+# Cable réclame, et toute diffusion levait `Gem::LoadError` hors de
+# l'environnement de test. La gem `redis` n'est donc plus déclarée que pour
+# Action Cable, seul consommateur restant.
+#
+# La série 8 exige `rack >= 3.1`, que `turnout` (mode maintenance) interdit
+# encore : le passage à Rack 3 est un chantier à part.
+gem 'redis', '~> 5.4'
+gem 'sidekiq', '~> 7.3'
+gem 'sidekiq-cron', '~> 2.4'
 
 # Reference data
 # La gem publiée 0.9.8 borne `zeitwerk ~> 2.4.0`, ce qui bloque Rails 7.0 dont

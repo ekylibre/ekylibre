@@ -35,7 +35,6 @@ namespace :job do
   task done: :environment do
     job_class = ENV['JOB_CLASS']
     job_tenant = ENV['TENANT']
-    Sidekiq::DeadSet.include Enumerable
     jobs = Sidekiq::DeadSet.new.select do |entry|
       (!job_class || entry.item['args'].first['job_class'] == job_class) &&
         (!job_tenant || entry.item['apartment'] == job_tenant)
@@ -58,7 +57,6 @@ namespace :job do
   task errored: :environment do
     job_class = ENV['JOB_CLASS']
     job_tenant = ENV['TENANT']
-    Sidekiq::DeadSet.include Enumerable
     jobs = Sidekiq::DeadSet.new.select do |entry|
       (!job_class || entry.item['args'].first['job_class'] == job_class) &&
         (!job_tenant || entry.item['apartment'] == job_tenant) &&
@@ -93,15 +91,16 @@ namespace :job do
       puts " - #{process['hostname']}, Busy: #{process['busy']}, PID: #{process['pid']}"
     end
 
-    workers = Sidekiq::Workers.new
-    puts "#{workers.size} Workers:"
-    workers.each do |process_id, thread_id, work|
-      puts " - PID: #{process_id}, TID: #{thread_id}, #{work.inspect}"
+    # `Sidekiq::Workers` n'est plus qu'un alias vers `WorkSet` depuis sidekiq 6,
+    # et l'élément rendu est un `Sidekiq::Work` — dont l'indexation par clé est
+    # dépréciée — au lieu du hash brut.
+    works = Sidekiq::WorkSet.new
+    puts "#{works.size} Workers:"
+    works.each do |process_id, thread_id, work|
+      puts " - PID: #{process_id}, TID: #{thread_id}, queue #{work.queue}, since #{work.run_at}, #{work.payload.inspect}"
       # process_id is a unique identifier per Sidekiq process
       # thread_id is a unique identifier per thread
-      # work is a Hash which looks like:
-      # { 'queue' => name, 'run_at' => timestamp, 'payload' => msg }
-      # run_at is an epoch Integer.
+      # work is a Sidekiq::Work: #queue, #run_at (a Time), #payload and #job.
       # payload is a Hash which looks like:
       # { 'retry' => true,
       #   'queue' => 'default',

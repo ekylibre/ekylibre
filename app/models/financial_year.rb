@@ -209,7 +209,16 @@ class FinancialYear < ApplicationRecord
 
   after_save do
     if (Preference[:accounting_system] != self.accounting_system) && (self == FinancialYear.opened.last)
-      Accountancy::AccountingSystemChangingJob.perform_later(financial_year_id: self.id, old_accounting_system: Preference[:accounting_system], new_accounting_system: self.accounting_system, perform_as: self.updater)
+      # `accounting_system` est un attribut `enumerize` : sa lecture rend un
+      # `Enumerize::Value`, que sidekiq 7 refuse en argument de tâche — il
+      # n'admet que des types JSON natifs, et cette sous-classe de String en
+      # porterait la classe jusque dans la charge. La chaîne suffit au service.
+      Accountancy::AccountingSystemChangingJob.perform_later(
+        financial_year_id: self.id,
+        old_accounting_system: Preference[:accounting_system]&.to_s,
+        new_accounting_system: self.accounting_system&.to_s,
+        perform_as: self.updater
+      )
     end
   end
 

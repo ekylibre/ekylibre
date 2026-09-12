@@ -88,11 +88,11 @@ class Admin::LexiconController < Admin::BaseController
 
     def spawn_task(action, version, initial_message, keep: false)
       Sidekiq.redis do |r|
-        r.hmset(REDIS_KEY,
-                'status', 'running',
-                'message', initial_message,
-                'action', action,
-                'version', version)
+        r.hset(REDIS_KEY,
+               'status', 'running',
+               'message', initial_message,
+               'action', action,
+               'version', version)
       end
 
       bundle_bin = Gem.bin_path('bundler', 'bundle')

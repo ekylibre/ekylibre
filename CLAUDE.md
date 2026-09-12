@@ -14,11 +14,12 @@ Three defaults are deliberately turned back off right below that line. `active_r
 
 The geometry stack is on **RGeo 3** (`rgeo ~> 3.1`, `rgeo-proj4 ~> 5.0`, `charta` branch `7.1`): the 2.x series builds on PROJ.4's legacy API, removed in PROJ 8, and its extension attaches no method under the libproj 9 the base images ship. Charta resolves SRIDs through `RGeo::CoordSys::Proj4.create(srid)` — PROJ 6 removed the `epsg` text file `SRSDatabase` used to read — and builds its projected factory around an explicit EPSG:6933 projection factory.
 
-**Three old gems are pinned and patched rather than upgraded**, each for a reason worth knowing before touching the `Gemfile`:
+**Two old gems are pinned and patched rather than upgraded**, each for a reason worth knowing before touching the `Gemfile`:
 
-- `sidekiq` 4.2.10 constrains `redis (~> 3.2)` while Action Cable 7.1 wants `redis (>= 4, < 6)` as soon as the `redis` adapter is picked. `config/cable.yml` uses the `test` adapter in test, but the conflict **still stands in development and production** — any `ActionCable.server.broadcast` there raises `Gem::LoadError`. Upgrading sidekiq drags `sidekiq-cron`, `sidekiq-unique-jobs` and `ros-apartment-sidekiq` along;
 - `liquid-rails` 0.2.0 pins `kaminari (~> 1.1.1)`, which locks out the 1.2 series — the first to pass its paginator options as keywords. `config/initializers/10-patches.rb` reimplements `HelperMethods#paginate`. liquid-rails is not dead weight: mail bodies come from `EmailTemplate` rows rendered through the `liquid` handler it installs;
 - `simple_form` 4.1 memoises its labels in class variables created by whichever subclass renders a field first, which Ruby 3 refuses. `config/initializers/simple_form_i18n_cache.rb` creates them on `SimpleForm::Inputs::Base` and `CollectionInput` up front. simple_form 5.1 replaced that mechanism.
+
+`turnout` (maintenance mode) holds `rack` below 3, which in turn caps `sidekiq` at the 7 series — 8 requires `rack >= 3.1`. Rack 3 is its own migration.
 
 **`redirect_to` refuses other hosts** since the 7.0 defaults, and rightly so: `params[:redirect]` and the `Referer` header are client-supplied. `Backend::BaseController#local_redirect_target` filters a candidate down to an absolute path or a same-host URL; every `redirect_to params[:redirect]` in the backend goes through it, so a foreign target falls back instead of raising a 500.
 
@@ -204,7 +205,11 @@ The DeepL script protects `%{...}` and `{{...}}` placeholders, escapes XML chars
 
 ## Background Jobs
 
-Sidekiq 4.x with `apartment-sidekiq` middleware, which switches to the correct tenant schema before each job. Jobs that must run **without** a tenant context (e.g. admin tasks) must not go through Sidekiq — use `Process.spawn` with a rake task instead to avoid the middleware conflict.
+Sidekiq 7.3 with `apartment-sidekiq` middleware, which switches to the correct tenant schema before each job. Jobs that must run **without** a tenant context (e.g. admin tasks) must not go through Sidekiq — use `Process.spawn` with a rake task instead to avoid the middleware conflict.
+
+Sidekiq 7 talks to Redis through `redis-client`, not the `redis` gem: `Sidekiq.redis` yields a `Sidekiq::RedisClientAdapter::CompatClient`, which forwards most commands but warns on the ones Redis deprecated (`hmset` among them — use `hset`, which takes several field/value pairs). The `redis` gem is still declared, for Action Cable alone. Key prefixing through `redis-namespace` is gone with sidekiq 7; `REDIS_NAMESPACE` was set in no environment, so no key moved.
+
+The retry count is a configuration entry (`config[:max_retries] = 0` in `config/initializers/sidekiq.rb`), no longer a middleware to insert. sidekiq-cron 2 reads `config/schedule.yml` by itself when the server boots — do not load it from an initializer, where Redis may not be reachable yet.
 
 ## Performance Hotspots (known issues)
 
@@ -239,7 +244,7 @@ Only **1 occurrence** of `includes`/`preload`/`eager_load` across the 7 hottest 
 
 ### Sidekiq config
 
-`config/sidekiq.yml` sets `concurrency: 5` and `config/initializers/sidekiq.rb:18` sets `max_retries: 0` (failures are silent). Some jobs (e.g. `app/jobs/pfi_calculation_job.rb:18`) use `.each` instead of `find_each`.
+`config/sidekiq.yml` sets `concurrency: 5` and `config/initializers/sidekiq.rb` sets `max_retries: 0` (failures are silent). Some jobs (e.g. `app/jobs/pfi_calculation_job.rb:18`) use `.each` instead of `find_each`.
 
 ### HAML partial rendering
 
