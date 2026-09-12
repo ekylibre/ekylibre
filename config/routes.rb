@@ -355,7 +355,11 @@ Rails.application.routes.draw do
     resources :activity_seasons, concerns: [:unroll]
 
     # resources :affairs, concerns: [:affairs, :list], only: [:show, :index]
-    resources :affairs, only: [:unroll]
+    # `only: [:unroll]` ne produisait aucune route — `unroll` n'est pas une
+    # action REST, et Rails 8.0 refuse désormais de l'y trouver. La déclaration
+    # reste inerte, comme elle l'était, à côté de la ligne ci-dessus qui dit ce
+    # que les affaires exposaient jadis.
+    resources :affairs, only: []
 
     resources :affair_natures, concerns: %i[list unroll]
 

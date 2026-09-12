@@ -16,7 +16,7 @@ ruby '>= 3.4.0', '< 3.5.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0.0'
 
 gem 'turnout', '~> 2.5' # Maintenance mode
 
@@ -55,7 +55,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 10.0'
+gem 'activerecord-postgis-adapter', '~> 11.0'
 gem 'pg', '~> 1.0'
 gem 'scenic'
 
@@ -185,7 +185,7 @@ gem 'paranoia', '~> 3.1' # Hide and restore records without actually deleting th
 gem 'uuidtools', '~> 2.2'
 # 4.x appelle `Model.default_timezone`, retiré en Rails 7.1 au profit de
 # `ActiveRecord.default_timezone`.
-gem 'validates_timeliness', '~> 7.0'
+gem 'validates_timeliness', '~> 8.0'
 
 # Authentication & Authorization
 gem 'devise', '~> 4.7'
@@ -258,7 +258,7 @@ group :development do
   # 5.7 refuse de se charger au-delà d'ActiveRecord 6.0 (« Bullet does not
   # support active_record 6.1 yet ») ; la gem n'étant qu'en développement,
   # l'incompatibilité ne se voyait pas dans la suite.
-  gem 'bullet', '~> 7.0'
+  gem 'bullet', '~> 8.2'
 
   gem 'better_errors', '~> 2.9'
   gem 'rack-mini-profiler'
