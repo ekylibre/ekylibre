@@ -141,14 +141,14 @@ class JournalEntry < ApplicationRecord
     # @deprecated
     def state_condition(states = {}, table_name = nil)
       if states.nil?
-        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+        Ekylibre.deprecator.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
 
         states = []
       end
 
       if !states.is_a?(Array)
         if states.respond_to?(:keys)
-          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          Ekylibre.deprecator.warn('Providing something else than an array of states to `state_condition` is deprecated.')
           states = states.keys
         else
           raise StandardError.new("Unable to find any state in the variable provided (#{states})")
@@ -162,14 +162,14 @@ class JournalEntry < ApplicationRecord
     # @deprecated
     def journal_condition(journals = {}, table_name = nil)
       if journals.nil?
-        ActiveSupport::Deprecation.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
+        Ekylibre.deprecator.warn('Providing nil to `state_condition` is deprecated and will not work in the future, give an empty array instead')
 
         journals = []
       end
 
       if !journals.is_a?(Array)
         if journals.respond_to?(:keys)
-          ActiveSupport::Deprecation.warn('Providing something else than an array of states to `state_condition` is deprecated.')
+          Ekylibre.deprecator.warn('Providing something else than an array of states to `state_condition` is deprecated.')
           journals = journals.select { |_k, v| v == '1' }.keys
         else
           raise StandardError.new("Unable to find any state in the variable provided (#{journals})")
@@ -194,7 +194,7 @@ class JournalEntry < ApplicationRecord
 
       # @deprecated
       def condition_builder
-        ActiveSupport::Deprecation.warn 'JournalEntry condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
+        Ekylibre.deprecator.warn 'JournalEntry condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
         Accountancy::ConditionBuilder::JournalEntryConditionBuilder.new(connection: connection)
       end
   end

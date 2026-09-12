@@ -218,7 +218,7 @@ module Backend
     protected
 
       def journal_views
-        ActiveSupport::Deprecation.warn "Journal::journal_views is deprecated, use the class constant JOURNAL_VIEWS"
+        Ekylibre.deprecator.warn "Journal::journal_views is deprecated, use the class constant JOURNAL_VIEWS"
         JOURNAL_VIEWS
       end
 

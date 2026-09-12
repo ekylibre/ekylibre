@@ -112,11 +112,11 @@ class Account < ApplicationRecord
       raise ArgumentError.new("Unknown usage #{usage.inspect}")
     end
 
-    where('usages ~ E?', "\\\\m#{usage}\\\\M")
+    where('usages ~ ?', "\\m#{usage}\\M")
   }
   # return Account which contains usages mentionned (OR)
   scope :of_usages, lambda { |*usages|
-    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|')).reorder(:number)
+    where('usages ~ ?', usages.sort.map { |usage| "\\m#{usage.to_s.gsub(/\W/, '')}\\M" }.join('.*|')).reorder(:number)
   }
 
   scope :used_between, lambda { |started_at, stopped_at|
@@ -275,7 +275,7 @@ class Account < ApplicationRecord
   class << self
     # Trim account number following preferences
     def normalize(number)
-      ActiveSupport::Deprecation.warn("Account.normalize is deprecated. Use Accountancy::AccountNumberNormalizer#normalize! instead.")
+      Ekylibre.deprecator.warn("Account.normalize is deprecated. Use Accountancy::AccountNumberNormalizer#normalize! instead.")
       Accountancy::AccountNumberNormalizer.build.normalize!(number)
     end
 
@@ -605,7 +605,7 @@ class Account < ApplicationRecord
 
       # @deprecated
       def condition_builder
-        ActiveSupport::Deprecation.warn 'Account condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
+        Ekylibre.deprecator.warn 'Account condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
         Accountancy::ConditionBuilder::AccountConditionBuilder.new(connection: connection)
       end
   end

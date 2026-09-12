@@ -10,7 +10,7 @@ module Printers
         if value.nil? || value.is_a?(Array)
           value
         else
-          ActiveSupport::Deprecation.warn "giving #{name} as a Hash from params is deprecated, you should pass an array containing only the active elements"
+          Ekylibre.deprecator.warn "giving #{name} as a Hash from params is deprecated, you should pass an array containing only the active elements"
 
           value.select { |_k, v| v == '1' }.keys
         end

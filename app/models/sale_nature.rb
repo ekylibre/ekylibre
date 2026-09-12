@@ -117,7 +117,7 @@ class SaleNature < ApplicationRecord
   end
 
   def with_accounting
-    ActiveSupport::Deprecation.warn("with_accounting column doesn't exist anymore in sale_natures table")
+    Ekylibre.deprecator.warn("with_accounting column doesn't exist anymore in sale_natures table")
     true
   end
 

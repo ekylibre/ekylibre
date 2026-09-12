@@ -299,7 +299,7 @@ class Product < ApplicationRecord
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> {}
   scope :availables, ->(**args) {
-    ActiveSupport::Deprecation.warn("Product#availables and Product#available are deprecated, use Product#at instead")
+    Ekylibre.deprecator.warn("Product#availables and Product#available are deprecated, use Product#at instead")
 
     at = args[:at]
     return available if at.blank?
@@ -391,7 +391,8 @@ class Product < ApplicationRecord
 
   delegate :dimension, :of_dimension?, to: :unit
 
-  alias_attribute :unit, :conditioning_unit
+  alias_method :unit, :conditioning_unit
+  alias_method :unit=, :conditioning_unit=
 
   store :reading_cache, accessors: Onoma::Indicator.all, coder: ReadingsCoder
 
@@ -668,7 +669,7 @@ class Product < ApplicationRecord
   def choose_default_name
     return if name.present?
 
-    ActiveSupport::Deprecation.warn "Product#choose_default_name is deprecated."
+    Ekylibre.deprecator.warn "Product#choose_default_name is deprecated."
 
     if variant
       if last = variant.products.reorder(id: :desc).first

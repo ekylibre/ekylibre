@@ -56,4 +56,13 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # L'adaptateur de file d'attente est `sidekiq` pour l'application
+  # (config/application.rb). Jusqu'à Rails 7.1, `ActiveJob::TestHelper` le
+  # remplaçait d'office par l'adaptateur de test au démarrage de chaque test ;
+  # depuis la 7.2 il ne le fait plus que si aucun adaptateur n'est déclaré, si
+  # bien que les travaux partaient réellement vers Redis et que
+  # `perform_enqueued_jobs` n'exécutait plus rien. On déclare donc ici
+  # l'adaptateur que le harnais posait auparavant.
+  config.active_job.queue_adapter = :test
 end

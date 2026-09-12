@@ -60,7 +60,7 @@ class Campaign < ApplicationRecord
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) {
-    ActiveSupport::Deprecation.warn "Campaign#at is deprecated, use Campaign#on instead"
+    Ekylibre.deprecator.warn "Campaign#at is deprecated, use Campaign#on instead"
     where(harvest_year: searched_at.year)
   }
   scope :with_interventions, -> { where(id: HABTM_Interventions.select(:campaign_id)) }

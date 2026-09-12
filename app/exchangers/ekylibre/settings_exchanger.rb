@@ -146,7 +146,7 @@ module Ekylibre
       # Load accouting accounting_system
       unless accounting_system = @manifest[:accounting_system]
         if accounting_system = @manifest[:chart_of_accounts] || @manifest[:chart_of_account]
-          ActiveSupport::Deprecation.warn('chart_of_accounts has been deprecated in settings. Please use accounting_system instead.')
+          Ekylibre.deprecator.warn('chart_of_accounts has been deprecated in settings. Please use accounting_system instead.')
         end
       end
       if accounting_system

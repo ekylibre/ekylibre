@@ -225,7 +225,7 @@ class FinancialYear < ApplicationRecord
   def journal_entries(conditions = nil)
     entries = JournalEntry.where(printed_on: started_on..stopped_on)
     if conditions.present?
-      ActiveSupport::Deprecation.warn('Use of conditions in FinancialYear#journal_entries is deprecated. Please use #where after instead.')
+      Ekylibre.deprecator.warn('Use of conditions in FinancialYear#journal_entries is deprecated. Please use #where after instead.')
       entries = entries.where(conditions)
     end
     entries
@@ -350,7 +350,7 @@ class FinancialYear < ApplicationRecord
 
   # When a financial year is closed,.all the matching journals are closed too.
   def close(closer, to_close_on = nil, options = {})
-    ActiveSupport::Deprecation.warn("FinancialYear#close is deprecated, use FinancialYearClose directly")
+    Ekylibre.deprecator.warn("FinancialYear#close is deprecated, use FinancialYearClose directly")
 
     FinancialYearClose.for_year(self, close_on: to_close_on, user: closer, **options).execute
   end

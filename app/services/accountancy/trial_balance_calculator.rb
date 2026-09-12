@@ -30,7 +30,7 @@ module Accountancy
 
     def trial_balance(options = {})
       if options[:states].respond_to?(:keys)
-        ActiveSupport::Deprecation.warn('Giving something else than an array in options[:states] to trial_balance is deprecated.')
+        Ekylibre.deprecator.warn('Giving something else than an array in options[:states] to trial_balance is deprecated.')
         options = { **options, states: options[:states].keys }
       end
 

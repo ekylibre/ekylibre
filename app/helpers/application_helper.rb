@@ -189,7 +189,7 @@ module ApplicationHelper
   private def warn_link_to_params
     if !defined?(@@__warned_link_to)
       @@__warned_link_to = true
-      ActiveSupport::Deprecation.warn "Don't give params to `link_to`. Just don't."
+      Ekylibre.deprecator.warn "Don't give params to `link_to`. Just don't."
     end
   end
 
@@ -953,7 +953,7 @@ module ApplicationHelper
 
   # Wraps a label and its input in a standard wrapper
   def field(label, input = nil, options = {}, &block)
-    ActiveSupport::Deprecation.warn('field helper is deprecated, its time to switch to form objects!')
+    Ekylibre.deprecator.warn('field helper is deprecated, its time to switch to form objects!')
 
     options[:label] ||= {}
     options[:controls] ||= {}

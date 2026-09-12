@@ -326,7 +326,7 @@ module Backend
       end
 
       def redirect_to_current(options = {})
-        ActiveSupport::Deprecation.warn('Use redirect_to_back instead of redirect_to_current')
+        Ekylibre.deprecator.warn('Use redirect_to_back instead of redirect_to_current')
         redirect_to_back(options.merge(direct: true))
       end
 

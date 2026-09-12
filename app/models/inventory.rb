@@ -93,7 +93,7 @@ class Inventory < ApplicationRecord
   bookkeep
 
   def printed_at
-    ActiveSupport::Deprecation.warn('Directly use achieved_at')
+    Ekylibre.deprecator.warn('Directly use achieved_at')
     achieved_at
   end
 

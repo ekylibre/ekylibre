@@ -6,6 +6,14 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Le déprécieur de l'application est déclaré à `config.active_support.deprecators`
+# quelques lignes plus bas : il doit exister avant. Chargement explicite et
+# chemin absolu — rien n'est autochargeable à ce stade, et `Rails.root` n'a pas
+# encore de valeur. Le fichier est retiré de l'index de Zeitwerk plus bas : il
+# définit `Ekylibre.deprecator` et non la constante `Ekylibre::Deprecator` que
+# son chemin implique.
+require File.expand_path('../lib/ekylibre/deprecator', __dir__)
+
 module Ekylibre
   class Application < Rails::Application
     # @return [Array<Ekylibre::Plugin::Base>]
@@ -29,6 +37,19 @@ module Ekylibre
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
+
+    # Les avertissements de dépréciation propres à l'application passent par leur
+    # propre déprécieur depuis Rails 7.2, qui a retiré
+    # `ActiveSupport::Deprecation.warn`. L'inscrire au registre de l'application
+    # le range parmi ceux du cadriciel : le comportement réglé par
+    # environnement — `config.active_support.report_deprecations`, la mise au
+    # silence en production — s'y applique comme aux autres. `before:
+    # :load_environment_config` reprend la place que le railtie d'ActiveSupport
+    # se donne pour le sien : le registre doit être complet avant que
+    # l'environnement fixe le comportement.
+    initializer 'ekylibre.deprecator', before: :load_environment_config do |app|
+      app.deprecators[:ekylibre] = Ekylibre.deprecator
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -118,7 +139,10 @@ module Ekylibre
         # le modèle `Version` de la piste d'audit, et l'inflecteur est global au
         # chargeur. Le fichier est donc exclu et déclaré en autoload maison dans
         # lib/ekylibre.rb, comme aujourd'hui.
-        Rails.root.join('lib', 'ekylibre', 'version.rb')
+        Rails.root.join('lib', 'ekylibre', 'version.rb'),
+        # Définit `Ekylibre.deprecator`, pas `Ekylibre::Deprecator` : chargé
+        # explicitement en tête de ce fichier.
+        Rails.root.join('lib', 'ekylibre', 'deprecator.rb')
       )
 
       # 3. Code de support des tests : autochargeable — les tests s'en servent —

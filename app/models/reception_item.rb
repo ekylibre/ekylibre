@@ -130,7 +130,7 @@ class ReceptionItem < ParcelItem
   end
 
   def check
-    ActiveSupport::Deprecation.warn "Use check! instead"
+    Ekylibre.deprecator.warn "Use check! instead"
     check!
   end
 
@@ -186,7 +186,7 @@ class ReceptionItem < ParcelItem
     end
 
     def give_incoming
-      ActiveSupport::Deprecation.warn "Use check_incoming instead"
+      Ekylibre.deprecator.warn "Use check_incoming instead"
       check_incoming
     end
 end

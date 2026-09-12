@@ -361,7 +361,7 @@ class Entity < ApplicationRecord
   end
 
   def siren
-    ActiveSupport::Deprecation.warn('Entity#siren is deprecated. Please use Entity#siren_number instead. This method will be removed in Ekylibre 3.')
+    Ekylibre.deprecator.warn('Entity#siren is deprecated. Please use Entity#siren_number instead. This method will be removed in Ekylibre 3.')
     siren_number
   end
 

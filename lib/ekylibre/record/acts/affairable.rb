@@ -184,14 +184,28 @@ module Ekylibre
             end
             code << "end\n"
 
-            # Define which amount to take in account
-            code << "alias_attribute :deal_amount, :#{options[:amount]}\n"
+            # Define which amount to take in account. Comme pour le tiers plus
+            # bas, une méthode et non un alias d'attribut : `Regularization`
+            # n'a pas de colonne `amount`, et Rails 7.2 refuse d'aliaser ce qui
+            # n'est pas un attribut.
+            code << "def deal_amount\n"
+            code << "  #{options[:amount]}\n"
+            code << "end\n"
 
             # Define which date to take in account
             code << "alias_attribute :dealt_at, :#{options[:dealt_at]}\n"
 
-            # Define the third of the deal
-            code << "alias_attribute :deal_third, :#{options[:third]}\n"
+            # Define the third of the deal. `alias_attribute` ne vaut que pour
+            # un attribut depuis Rails 7.2, et le tiers est une association —
+            # parfois même une délégation déclarée plus bas dans le modèle, ce
+            # qui interdit `alias_method`, qui exige une méthode déjà définie.
+            # Ces deux-là se résolvent à l'appel, comme le faisait l'alias.
+            code << "def deal_third\n"
+            code << "  #{options[:third]}\n"
+            code << "end\n"
+            code << "def deal_third=(value)\n"
+            code << "  self.#{options[:third]} = value\n"
+            code << "end\n"
 
             # # Define debit amount
             # code << "def deal_debit_amount\n"
@@ -248,7 +262,9 @@ module Ekylibre
 
             # Define the third of the deal
             if options[:taxes].is_a?(Symbol)
-              code << "alias_attribute :deal_taxes, :#{options[:taxes]}\n"
+              code << "def deal_taxes\n"
+              code << "  #{options[:taxes]}\n"
+              code << "end\n"
             elsif ![TrueClass].include?(options[:taxes].class)
               # Computes based on opposite operation taxes
               code << "def deal_taxes(mode = :debit)\n"

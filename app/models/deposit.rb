@@ -82,7 +82,7 @@ class Deposit < ApplicationRecord
   end
 
   def payments_count
-    ActiveSupport::Deprecation.warn "'Deposit::payments_count' is deprecated, directly use payments.count"
+    Ekylibre.deprecator.warn "'Deposit::payments_count' is deprecated, directly use payments.count"
     payments.count
   end
 

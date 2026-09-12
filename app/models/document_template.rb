@@ -199,7 +199,7 @@ class DocumentTemplate < ApplicationRecord
 
     # Compute fallback chain for a given document nature
     def template_fallbacks(nature, locale)
-      ActiveSupport::Deprecation.warn "DocumentTemplate#template_fallbacks is deprecated, use Ekylibre::DocumentManagement::TemplateFileProvider instead."
+      Ekylibre.deprecator.warn "DocumentTemplate#template_fallbacks is deprecated, use Ekylibre::DocumentManagement::TemplateFileProvider instead."
 
       stack = []
       load_path.each do |path|

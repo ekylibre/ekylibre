@@ -72,13 +72,13 @@ module ActiveExchanger
       end
 
       def find_and_import(nature, file, options = {}, &block)
-        ActiveSupport::Deprecation.warn "ActiveExchanger::Base.find_and_import is deprecated, use ActiveExchanger::Base::run instead"
+        Ekylibre.deprecator.warn "ActiveExchanger::Base.find_and_import is deprecated, use ActiveExchanger::Base::run instead"
         find(nature).import(file, options, &block)
       end
 
       # Import file without check
       def import!(file, options = {}, &block)
-        ActiveSupport::Deprecation.warn "ActiveExchanger::Base::import! is deprecated, use ActiveExchanger::Base.run instead"
+        Ekylibre.deprecator.warn "ActiveExchanger::Base::import! is deprecated, use ActiveExchanger::Base.run instead"
 
         build(file, options, &block).import
       end
@@ -89,7 +89,7 @@ module ActiveExchanger
 
       # Import file with check if possible
       def import(file, options = {}, &block)
-        ActiveSupport::Deprecation.warn "ActiveExchanger::Base.import is deprecated, use ActiveExchanger::Base::build and .run instead"
+        Ekylibre.deprecator.warn "ActiveExchanger::Base.import is deprecated, use ActiveExchanger::Base::build and .run instead"
         build(file, options: options, &block).run.success?
       end
 
@@ -138,7 +138,7 @@ module ActiveExchanger
       # This method check file by default by trying a run and
       # and if no exception raise, it's fine so changes are rolled back.
       def check_by_default
-        ActiveSupport::Deprecation.warn "ActiveExchanger::Base.check_by_default is deprecated, use ActiveExchanger::Base::run instead"
+        Ekylibre.deprecator.warn "ActiveExchanger::Base.check_by_default is deprecated, use ActiveExchanger::Base::run instead"
 
         define_method :check do
           import

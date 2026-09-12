@@ -283,7 +283,7 @@ class Journal < ApplicationRecord
     private
       # @deprecated
       def condition_builder
-        ActiveSupport::Deprecation.warn 'Journal condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
+        Ekylibre.deprecator.warn 'Journal condition methods are deprecated, use Accountancy::ConditionBuilder::* instead'
         Accountancy::ConditionBuilder::JournalConditionBuilder.new(connection: self.class.connection)
       end
   end
@@ -499,7 +499,7 @@ class Journal < ApplicationRecord
 
     # @deprecated
     def trial_balance_calculator
-      ActiveSupport::Deprecation.warn "trial_balance* methods are deprecated, use "
+      Ekylibre.deprecator.warn "trial_balance* methods are deprecated, use "
       Accountancy::TrialBalanceCalculator.build(connection: connection)
     end
 

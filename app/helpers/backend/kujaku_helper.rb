@@ -154,7 +154,7 @@ module Backend
       class MultiChoiceFeather < Feather
         def configure(*args)
           if args.last.is_a?(Array)
-            ActiveSupport::Deprecation.warn("Please use an array of hash named 'data' instead of an anonymous array of array : Refer to intervention index view for an example")
+            Ekylibre.deprecator.warn("Please use an array of hash named 'data' instead of an anonymous array of array : Refer to intervention index view for an example")
             choices = args.delete_at(-1)
             @choices = choices.map do |choice|
               {

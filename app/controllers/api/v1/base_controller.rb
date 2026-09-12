@@ -104,7 +104,7 @@ module Api
           end
 
           if params.key?(:providers) && params[:providers].key?(:zero_id)
-            ActiveSupport::Deprecation.warn('zero_id is deprecated')
+            Ekylibre.deprecator.warn('zero_id is deprecated')
             provider_data = { **provider_data, vendor: 'ekylibre', name: 'zero', id: 0, data: { zero_id: params[:providers][:zero_id] } }
           end
 

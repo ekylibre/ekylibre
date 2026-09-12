@@ -56,7 +56,8 @@ class ParcelItemStoring < ApplicationRecord
   delegate :variant, :annotation, to: :parcel_item
   delegate :dimension, :of_dimension?, to: :unit
 
-  alias_attribute :unit, :conditioning_unit
+  alias_method :unit, :conditioning_unit
+  alias_method :unit=, :conditioning_unit=
 
   before_validation do
     self.quantity ||= UnitComputation.convert_into_variant_population(parcel_item.variant, conditioning_quantity, conditioning_unit)

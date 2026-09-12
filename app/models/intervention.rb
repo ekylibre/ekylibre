@@ -674,7 +674,7 @@ class Intervention < ApplicationRecord
 
   # Deprecated method to return procedure
   def reference
-    ActiveSupport::Deprecation.warn 'Intervention#reference is deprecated.' \
+    Ekylibre.deprecator.warn 'Intervention#reference is deprecated.' \
                                     'Please use Intervention#procedure instead.'
     procedure
   end
@@ -917,7 +917,7 @@ class Intervention < ApplicationRecord
   end
 
   def working_area(unit = :hectare)
-    ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
+    Ekylibre.deprecator.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
     working_zone_area(unit)
   end
 
@@ -1045,7 +1045,7 @@ class Intervention < ApplicationRecord
   # Returns intervention
   # DEPRECATED Will be removed in 3.0
   def run!
-    ActiveSupport::Deprecation.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
+    Ekylibre.deprecator.warn 'Intervention#run! is deprecated, because it never works. Use classical AR methods instead to create interventions'
     raise 'Cannot run intervention without procedure' unless runnable?
 
     update(state: :done)

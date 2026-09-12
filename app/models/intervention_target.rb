@@ -103,7 +103,7 @@ class InterventionTarget < InterventionProductParameter
   end
 
   def activity
-    ActiveSupport::Deprecation.warn('InterventionTarget#activity is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity instead.')
+    Ekylibre.deprecator.warn('InterventionTarget#activity is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity instead.')
     best_activity
   end
 
@@ -114,7 +114,7 @@ class InterventionTarget < InterventionProductParameter
   end
 
   def activity_production
-    ActiveSupport::Deprecation.warn('InterventionTarget#activity_production is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity_production instead.')
+    Ekylibre.deprecator.warn('InterventionTarget#activity_production is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity_production instead.')
     best_activity_production
   end
 

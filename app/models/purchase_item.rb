@@ -117,7 +117,8 @@ class PurchaseItem < ApplicationRecord
   # accepts_nested_attributes_for :fixed_asset
 
   alias_attribute :name, :label
-  alias_attribute :unit, :conditioning_unit
+  alias_method :unit, :conditioning_unit
+  alias_method :unit=, :conditioning_unit=
 
   acts_as_list scope: :purchase
   sums :purchase, :items, :pretax_amount, :amount

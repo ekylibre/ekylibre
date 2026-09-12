@@ -56,17 +56,17 @@ class PurchaseNature < ApplicationRecord
   scope :actives, -> { where(active: true) }
 
   def with_accounting?
-    ActiveSupport::Deprecation.warn "All purchase_natures are with accounting = true"
+    Ekylibre.deprecator.warn "All purchase_natures are with accounting = true"
     true
   end
 
   def journal_currency
-    ActiveSupport::Deprecation.warn 'journal_currency is deprecated, directly use `currency` or `journal.currency`'
+    Ekylibre.deprecator.warn 'journal_currency is deprecated, directly use `currency` or `journal.currency`'
     currency
   end
 
   def payslip?
-    ActiveSupport::Deprecation.warn "No purchase_natures are payslips"
+    Ekylibre.deprecator.warn "No purchase_natures are payslips"
     false
   end
 

@@ -123,7 +123,7 @@ class Reception < Parcel
   bookkeep
 
   def remain_owner?
-    ActiveSupport::Deprecation.warn "remain_owner? is deprecated for Receptions and should always return false"
+    Ekylibre.deprecator.warn "remain_owner? is deprecated for Receptions and should always return false"
     super
   end
 

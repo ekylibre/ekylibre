@@ -116,7 +116,7 @@ module ActionIntegration
       end
 
       def auth(type, &block)
-        ActiveSupport::Deprecation.warn 'ActionIntegration::Base.auth is deprecated. Please use ActionIntegration::Base.authenticate_with instead.'
+        Ekylibre.deprecator.warn 'ActionIntegration::Base.auth is deprecated. Please use ActionIntegration::Base.authenticate_with instead.'
         authenticate_with(type, &block)
       end
 

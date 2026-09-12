@@ -72,7 +72,7 @@ module Procedo
     end
 
     def each_variable(&block)
-      ActiveSupport::Deprecation.warn 'Procedo::each_variable is deprecated. Please use Procedo::each_parameter instead.'
+      Ekylibre.deprecator.warn 'Procedo::each_variable is deprecated. Please use Procedo::each_parameter instead.'
       each_parameter(&block)
     end
 

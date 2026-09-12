@@ -199,12 +199,12 @@ class Parcel < ApplicationRecord
   end
 
   def nature
-    # ActiveSupport::Deprecation.warn('Parcel#nature is deprecated, please use Parcel#type instead. This method will be removed in next major release 3.0')
+    # Ekylibre.deprecator.warn('Parcel#nature is deprecated, please use Parcel#type instead. This method will be removed in next major release 3.0')
     super
   end
 
   def nature=(value)
-    # ActiveSupport::Deprecation.warn('Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0')
+    # Ekylibre.deprecator.warn('Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0')
     super(value)
   end
 

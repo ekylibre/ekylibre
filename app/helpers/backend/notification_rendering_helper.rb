@@ -1,7 +1,7 @@
 module Backend
   module NotificationRenderingHelper
     def notification_tag(mode, messages = nil)
-      ActiveSupport::Deprecation.warn "`notification_tag` is deprecated, use `flash_message_tag` or `flash_messages_tags` instead"
+      Ekylibre.deprecator.warn "`notification_tag` is deprecated, use `flash_message_tag` or `flash_messages_tags` instead"
       unless messages
         if flash[:notifications].is_a?(Hash) && flash[:notifications][mode.to_s].is_a?(Array)
           messages = flash[:notifications][mode.to_s]

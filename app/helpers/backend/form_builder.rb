@@ -57,7 +57,7 @@ module Backend
       raise "Association #{association.inspect} not found" unless reflection
 
       if block_given?
-        ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
+        Ekylibre.deprecator.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
       end
       # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
       item = association.to_s.singularize

@@ -160,7 +160,7 @@ module Api
         product = create(:seed_product, born_at: "2017-11-01T00:00:00Z")
         product.variant.read!(:net_mass, '1 kilogram')
         product.read!(:net_mass, '1000 kilogram', at: "2017-11-01T00:00:00Z")
-        ActiveSupport::Deprecation.warn('variety param is deprecated, should be replaced by specie_variety_name')
+        Ekylibre.deprecator.warn('variety param is deprecated, should be replaced by specie_variety_name')
         params = {
           procedure_name: 'sowing',
           providers: { zero_id: 5 },

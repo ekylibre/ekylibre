@@ -41,14 +41,14 @@ module Interventions
 
         # @return [Numeric]
         def quantity
-          ActiveSupport::Deprecation.warn "ProductWithUsage#quantity is deprecated; use the measure instead"
+          Ekylibre.deprecator.warn "ProductWithUsage#quantity is deprecated; use the measure instead"
 
           measure.value
         end
 
         # @return [String]
         def dimension
-          ActiveSupport::Deprecation.warn "ProductWithUsage#dimension is deprecated; use the measure instead"
+          Ekylibre.deprecator.warn "ProductWithUsage#dimension is deprecated; use the measure instead"
 
           case measure.dimension
           when 'volume_concentration'

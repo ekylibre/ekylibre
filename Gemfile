@@ -16,7 +16,7 @@ ruby '>= 3.4.0', '< 3.5.0'
 
 gem 'actionpack-xml_parser', '~> 2.0'
 gem 'rack-cors' # CORS policy
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.2.0'
 
 gem 'turnout', '~> 2.5' # Maintenance mode
 
@@ -55,7 +55,7 @@ gem 'wannabe_bool', '~> 0.7.1' # This Gem is a JOKE
 
 # Database
 gem 'activemodel-serializers-xml', '~> 1.0'
-gem 'activerecord-postgis-adapter', '~> 9.0.0'
+gem 'activerecord-postgis-adapter', '~> 10.0'
 gem 'pg', '~> 1.0'
 gem 'scenic'
 
@@ -181,7 +181,7 @@ gem 'deep_cloneable', '~> 3.0'
 # exige désormais : `ActiveModel::Naming.extended` levait au démarrage.
 gem 'draper', '~> 4.0'
 gem 'enumerize', '~> 2.4'
-gem 'paranoia', '~> 2.2' # Hide and restore records without actually deleting them
+gem 'paranoia', '~> 3.1' # Hide and restore records without actually deleting them
 gem 'uuidtools', '~> 2.2'
 # 4.x appelle `Model.default_timezone`, retiré en Rails 7.1 au profit de
 # `ActiveRecord.default_timezone`.
