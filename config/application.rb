@@ -36,7 +36,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.1
+    config.load_defaults 7.2
 
     # Les avertissements de dépréciation propres à l'application passent par leur
     # propre déprécieur depuis Rails 7.2, qui a retiré
