@@ -19,7 +19,7 @@ module Backend
 
       @payment = self.class::Payment.new(to_bank_at: date, amount: @amount)
       @affair  = self.class::Trade.affair_class.new
-      @redirect_to = params[:redirect]
+      @redirect_to = local_redirect_target(params[:redirect])
     end
 
     def create
@@ -40,7 +40,7 @@ module Backend
         @trade.transaction do
           unless @trade.valid? && @payment.valid?
             @affair = self.class::Trade.affair_class.new
-            @redirect_to = params[:redirect]
+            @redirect_to = local_redirect_target(params[:redirect])
             @trade.items.new if @trade.items.size.zero? && (@trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase) || @trade.is_a?(Sale))
             return render :new
           end
@@ -54,7 +54,7 @@ module Backend
         end
       rescue
         notify_error :could_not_attach_x_or_y_to_affair.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
-        @redirect_to = params[:redirect]
+        @redirect_to = local_redirect_target(params[:redirect])
         return render :new
       end
 
@@ -62,7 +62,7 @@ module Backend
       if !lettered && @bank_statement_items
         notify_warning :saved_but_couldnt_letter_x_and_y.tl(trade: self.class::Trade.model_name.human, payment: self.class::Payment.model_name.human)
       end
-      redirect_to(params[:redirect] || send(:"backend_#{self.class::Trade.affair_class.name.underscore}_path", @affair))
+      redirect_to(local_redirect_target(params[:redirect]) || send(:"backend_#{self.class::Trade.affair_class.name.underscore}_path", @affair))
     end
 
     protected

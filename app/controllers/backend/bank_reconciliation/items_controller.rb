@@ -98,7 +98,7 @@ module Backend
 
         def no_entries
           notify_error :need_entries_to_reconciliate
-          redirect_to params[:redirect] if params[:redirect].present?
+          redirect_to local_redirect_target(params[:redirect]) if local_redirect_target(params[:redirect]).present?
           backend_bank_statement_path(@bank_statement) unless @bank_statement.nil?
           backend_bank_statements_path(@bank_statements) unless @bank_statements.nil?
         end

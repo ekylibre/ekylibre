@@ -122,7 +122,7 @@ module Backend
     end
 
     def create_plants
-      redirect = params[:redirect] || backend_activities_path
+      redirect = local_redirect_target(params[:redirect]) || backend_activities_path
       if params[:activity_production_ids].blank? || params[:campaign_id].blank?
         notify_error_now(:no_production_defined_for_current_campaign)
         redirect_to redirect

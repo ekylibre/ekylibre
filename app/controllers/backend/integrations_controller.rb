@@ -58,7 +58,7 @@ module Backend
 
       t3e(@integration.attributes.merge(name: @integration.name))
       @integration.attributes = permitted_params
-      redirect_url = params[:redirect] ||= backend_integrations_path
+      redirect_url = local_redirect_target(params[:redirect]) || backend_integrations_path
       return if save_and_redirect(@integration, url: redirect_url)
 
       @integration.errors.full_messages.each do |message|

@@ -34,7 +34,7 @@ module Backend
         debt_transfer_affair: debt_transfer_affair
       )
 
-      redirect_to params[:redirect] || backend_debt_transfer_url(transfer)
+      redirect_to local_redirect_target(params[:redirect]) || backend_debt_transfer_url(transfer)
     end
 
     protected

@@ -6,7 +6,7 @@ module Backend
       journal_entry = JournalEntry.find(params[:journal_entry_id])
       affair = Affair.find(params[:affair_id])
       Regularization.create!(journal_entry: journal_entry, affair: affair)
-      redirect_to params[:redirect] || { controller: :affairs, action: :show, id: affair }
+      redirect_to local_redirect_target(params[:redirect]) || { controller: :affairs, action: :show, id: affair }
     end
 
     def show

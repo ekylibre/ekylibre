@@ -334,7 +334,7 @@ module Backend
                    []
                  end
       if saved
-        redirect_to params[:redirect] || backend_activities_path
+        redirect_to local_redirect_target(params[:redirect]) || backend_activities_path
       else
         render 'edit_many'
       end

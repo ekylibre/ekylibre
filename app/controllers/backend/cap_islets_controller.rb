@@ -54,7 +54,7 @@ module Backend
 
       if params[:to] == 'cultivable_zone'
         cultivable_zone = CultivableZone.create!(name: @cap_islet.campaign_name + '-' + @cap_islet.islet_number, shape: @cap_islet.shape)
-        redirect_to params[:redirect] || { controller: :cultivable_zones, action: :show, id: cultivable_zone.id }
+        redirect_to local_redirect_target(params[:redirect]) || { controller: :cultivable_zones, action: :show, id: cultivable_zone.id }
       else
         redirect_to backend_cap_islet(@cap_islet)
       end

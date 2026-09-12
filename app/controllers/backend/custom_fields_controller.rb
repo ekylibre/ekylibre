@@ -47,7 +47,7 @@ module Backend
       return unless @custom_field = find_and_check
 
       @custom_field.sort_choices!
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
   end
 end

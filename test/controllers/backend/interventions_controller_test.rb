@@ -48,9 +48,12 @@ module Backend
     test '#change_state action with redirect false, redirect back' do
       request_intervention = create(:sowing_intervention_with_all_parameters, nature: :request)
       params = { intervention: { interventions_ids: [request_intervention.id].to_json, state: :in_progress, redirect: false } }
-      request.env["HTTP_REFERER"] = "where_i_came_from"
+      # Un chemin absolu, et non « where_i_came_from » : Rails 7 refuse de
+      # rediriger hors de l'hôte courant, et une valeur relative sans barre de
+      # tête est résolue en « http://test.hostwhere_i_came_from ».
+      request.env["HTTP_REFERER"] = "/where_i_came_from"
       post :change_state, params: params
-      assert_redirected_to "where_i_came_from"
+      assert_redirected_to "/where_i_came_from"
     end
   end
 end

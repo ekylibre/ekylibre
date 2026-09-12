@@ -62,7 +62,7 @@ module Backend
     def load
       Tax.clean!
       Tax.import_all_from_nomenclature(active: true)
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
   end
 end

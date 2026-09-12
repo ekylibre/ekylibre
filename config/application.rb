@@ -28,7 +28,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -131,24 +131,35 @@ module Ekylibre
       )
     end
 
-    # Seul défaut de Rails 6.1 que l'on n'adopte pas encore.
+    # Rails 7.0 bascule le processeur de variantes sur libvips. L'image de base
+    # ne le fournit pas, et l'application s'appuie sur MiniMagick — qu'elle
+    # emploie aussi directement dans Documents::DerivativesBuilder, avec des
+    # transformations écrites en options ImageMagick. Bascule à reconsidérer
+    # pour elle-même, pas en marge d'une montée de version.
+    config.active_storage.variant_processor = :mini_magick
+
+    # Les deux réglages d'inversion d'association, seuls défauts que l'on
+    # n'adopte pas encore — `has_many_inversing` vient de Rails 6.1,
+    # `automatic_scope_inversing` de Rails 7.0, et ils ont le même effet :
+    # l'enfant chargé par une association pointe vers *l'objet même* qui le
+    # détient, au lieu d'une instance rechargée.
     #
-    # `has_many_inversing` fait pointer l'enfant chargé par une association vers
-    # *l'objet même* qui le détient, au lieu d'une instance rechargée. C'est la
-    # bonne sémantique, mais elle met au jour une récursion mutuelle bien
+    # C'est la bonne sémantique, et elle met au jour une récursion mutuelle bien
     # réelle : `PurchaseInvoice#after_save` parcourt ses lignes pour leur créer
     # une immobilisation, et `PurchaseItem#after_save` termine par
-    # `purchase.save!`. Jusqu'ici la boucle s'arrêtait par accident — `item.purchase`
-    # était une autre instance, dont les lignes relues avaient déjà leur
-    # `fixed_asset_id` ; avec l'inversion, c'est le même objet en mémoire, la
-    # garde ne devient jamais fausse et la pile déborde. Le même partage rend
-    # périmés des `lock_version` lors de la duplication d'intervention.
+    # `purchase.save!`. Jusqu'ici la boucle s'arrêtait par accident —
+    # `item.purchase` était une autre instance, dont les lignes relues avaient
+    # déjà leur `fixed_asset_id` ; avec l'inversion c'est le même objet en
+    # mémoire, la garde ne devient jamais fausse et la pile déborde. Le même
+    # partage rend périmés des `lock_version` à la duplication d'intervention,
+    # et fait échouer la cession d'immobilisation faute d'exercice comptable.
     #
-    # Lever cette ligne demande donc de casser la récursion à la source, pas de
+    # Lever ces deux lignes demande de casser la récursion à la source, pas de
     # la contourner : c'est une modification de callbacks comptables, à mener
-    # pour elle-même. `has_many_inversing` reste un réglage dans Rails 7 comme
-    # dans Rails 8, le report n'engage pas la suite des paliers.
+    # pour elle-même. Les deux réglages subsistent dans Rails 8, le report
+    # n'engage pas la suite des paliers.
     config.active_record.has_many_inversing = false
+    config.active_record.automatic_scope_inversing = false
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql

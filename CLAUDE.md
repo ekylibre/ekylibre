@@ -8,9 +8,11 @@ Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **
 
 The `ekylibre-7.0` branch is the migration branch heading for Rails 8.1 (`ekylibre-6.0` holds the Rails 6.1 state); it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
 
-`config/application.rb` declares `config.load_defaults 6.1`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
+`config/application.rb` declares `config.load_defaults 7.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
 
-One 6.1 default is deliberately turned back off right below that line: `active_record.has_many_inversing`. It is correct semantics, but it exposes a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity. The comment there says what has to be fixed before the line can go.
+Three defaults are deliberately turned back off right below that line. `active_record.has_many_inversing` (6.1) and `active_record.automatic_scope_inversing` (7.0) are correct semantics, but they expose a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity — the comment there says what has to be fixed before the lines can go. `active_storage.variant_processor` stays on `:mini_magick` because the base image ships no libvips.
+
+**`redirect_to` refuses other hosts** since the 7.0 defaults, and rightly so: `params[:redirect]` and the `Referer` header are client-supplied. `Backend::BaseController#local_redirect_target` filters a candidate down to an absolute path or a same-host URL; every `redirect_to params[:redirect]` in the backend goes through it, so a foreign target falls back instead of raising a 500.
 
 **Nothing can be autoloaded during initialization.** Rails 7 removed classic autoloading and sets the main Zeitwerk loader up in the *finisher*, after every initializer has run. Two shapes are available, and the choice is not cosmetic:
 

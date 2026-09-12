@@ -115,7 +115,7 @@ module Backend
       else
         notify_error(:record_cannot_be_removed)
       end
-      redirect_to(params[:redirect] || { controller: :'backend/yield_observations', action: :index })
+      redirect_to(local_redirect_target(params[:redirect]) || { controller: :'backend/yield_observations', action: :index })
     end
 
     def permitted_params

@@ -61,7 +61,7 @@ module Backend
 
         unless @credited_sale.cancellable?
           notify_error :the_sales_invoice_is_not_cancellable
-          redirect_to params[:redirect] || { action: :index }
+          redirect_to local_redirect_target(params[:redirect]) || { action: :index }
           return false
         end
       end

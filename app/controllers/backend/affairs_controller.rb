@@ -52,7 +52,7 @@ module Backend
                 end
         deal.deal_with! @affair
         # @affair.attach(deal)
-        redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }
+        redirect_to local_redirect_target(params[:redirect]) || { controller: deal.class.name.tableize, action: :show, id: deal.id }
       else
         notify_error(:cannot_find_deal_to_attach)
         redirect_to_best_page
@@ -69,7 +69,7 @@ module Backend
                 end
         deal.undeal! @affair
         # @affair.detach(deal)
-        redirect_to params[:redirect] || { controller: deal.class.name.tableize, action: :show, id: deal.id }
+        redirect_to local_redirect_target(params[:redirect]) || { controller: deal.class.name.tableize, action: :show, id: deal.id }
       else
         notify_error(:cannot_find_deal_to_detach)
         redirect_to_best_page
@@ -80,7 +80,7 @@ module Backend
       return unless @affair = find_and_check
 
       @affair.gaps.each { |g| g.undeal! @affair }
-      redirect_to params[:redirect] || redirect_to_best_page
+      redirect_to local_redirect_target(params[:redirect]) || redirect_to_best_page
     end
 
     def finish
@@ -94,7 +94,7 @@ module Backend
 
       def redirect_to_best_page(affair = nil)
         affair ||= @affair
-        url = params[:redirect]
+        url = local_redirect_target(params[:redirect])
         unless url
           originator = affair.originator
           url = if originator
@@ -103,7 +103,7 @@ module Backend
                   { controller: affair.class.name.tableize, action: :show, id: affair.id }
                 end
         end
-        redirect_to params[:redirect] || url
+        redirect_to local_redirect_target(params[:redirect]) || url
       end
   end
 end

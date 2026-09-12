@@ -426,8 +426,8 @@ module Backend
       variant = instance_variable_get("@#{controller_name.singularize}")
       handle_maaid(variant, params[:phyto_product_id])
       if save_and_redirect(variant,
-                           url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })),
-                           notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
+                           url: (params[:create_and_continue] ? { action: :new, continue: true } : (local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c })),
+                           notify: ((params[:create_and_continue] || local_redirect_target(params[:redirect])) ? :record_x_created : false),
                            identifier: :name)
         if params[:create_zero_intial_stock].to_boolean && variant.storable?
           ::Variants::CreateProductService.call(variant: variant) if params[:create_zero_intial_stock].to_boolean
@@ -445,8 +445,8 @@ module Backend
       @product_nature_variant.attributes = permitted_params
       handle_maaid(@product_nature_variant, params[:phyto_product_id])
       if save_and_redirect(@product_nature_variant,
-                           url: params[:redirect] || { action: :show, id: 'id'.c },
-                           notify: (params[:redirect] ? :record_x_updated : false),
+                           url: local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c },
+                           notify: (local_redirect_target(params[:redirect]) ? :record_x_updated : false),
                            identifier: :name )
         if params[:create_zero_intial_stock].to_boolean && @product_nature_variant.storable?
           ::Variants::CreateProductService.call(variant: @product_nature_variant)

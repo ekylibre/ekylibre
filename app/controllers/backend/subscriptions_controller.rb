@@ -73,12 +73,12 @@ module Backend
       @subscription = find_and_check
       unless @subscription.renewable?
         notify_error :subscription_is_not_renewable
-        redirect_to params[:redirect] || { action: :show, id: @subscription.id }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @subscription.id }
         return
       end
       unless current_user.can?(:write, :sales)
         notify_error :access_denied
-        redirect_to params[:redirect] || { action: :show, id: @subscription.id }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @subscription.id }
         return
       end
       redirect_to(@subscription.renew_attributes.merge(controller: :sales, action: :new))
@@ -87,13 +87,13 @@ module Backend
     def suspend
       @subscription = find_and_check
       @subscription.suspend
-      redirect_to params[:redirect] || { action: :show, id: @subscription.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @subscription.id }
     end
 
     def takeover
       @subscription = find_and_check
       @subscription.takeover
-      redirect_to params[:redirect] || { action: :show, id: @subscription.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @subscription.id }
     end
   end
 end

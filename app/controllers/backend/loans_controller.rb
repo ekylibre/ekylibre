@@ -140,13 +140,13 @@ module Backend
         bookkeep_until = Date.parse(params[:until])
       rescue
         notify_error(:the_bookkeep_date_format_is_invalid)
-        return redirect_to(params[:redirect] || { action: :index })
+        return redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
 
       count = Loan.bookkeep_repayments(until: bookkeep_until)
       notify_success(:x_loan_repayments_have_been_bookkept_successfully, count: count)
 
-      redirect_to(params[:redirect] || { action: :index })
+      redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
     end
   end
 end

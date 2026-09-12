@@ -385,7 +385,7 @@ module Backend
             elsif URI(request.referer).path == '/backend/schedulings/new_detailed_intervention'
               backend_schedulings_path
             else
-              params[:redirect] || { action: :show, id: 'id'.c }
+              local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c }
             end
 
       notify = params[:intervention_proposal] ? :record_x_planned : :record_x_created
@@ -681,7 +681,7 @@ module Backend
         interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
         unless interventions.any?
           notify_error :no_interventions_given
-          redirect_to(params[:redirect] || { action: :index })
+          redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
           return nil
         end
         interventions

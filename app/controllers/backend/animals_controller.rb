@@ -261,7 +261,7 @@ module Backend
         activity_production = ActivityProduction.find(params[:activity_production_id])
         # TODO: fix intervention
         variant.add_products(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_product_nature_variant_path(variant)
+        redirect_to local_redirect_target(params[:redirect]) || backend_product_nature_variant_path(variant)
       else
         params[:started_at] ||= Time.zone.now
       end
@@ -275,7 +275,7 @@ module Backend
         activity_production = ActivityProduction.find(params[:activity_production_id])
         # TODO: fix intervention
         container.add_content_products(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_product_path(container)
+        redirect_to local_redirect_target(params[:redirect]) || backend_product_path(container)
       else
         params[:started_at] ||= Time.zone.now
       end

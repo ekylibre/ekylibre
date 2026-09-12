@@ -181,7 +181,7 @@ module Backend
             account.mark(journal_entry_items_ids)
           end
         end
-        redirect_to params[:redirect] || {
+        redirect_to local_redirect_target(params[:redirect]) || {
           controller: :journal_entries,
           action: :new,
           journal_id: @journal_entry.journal_id,
@@ -205,7 +205,7 @@ module Backend
 
       if @journal_entry.update(permitted_params)
         check_fec_compliance if JournalEntry.fec_compliance_preference
-        redirect_to params[:redirect] || { action: :show, id: @journal_entry.id }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @journal_entry.id }
         return
       end
       notify_global_errors

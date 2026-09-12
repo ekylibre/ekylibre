@@ -104,7 +104,7 @@ module Backend
 
       t3e(@product_nature_category.attributes)
       @product_nature_category.attributes = permitted_params
-      return if save_and_redirect(@product_nature_category, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: (params[:redirect] ? :record_x_updated : false), identifier: :name)
+      return if save_and_redirect(@product_nature_category, url: local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c }, notify: (local_redirect_target(params[:redirect]) ? :record_x_updated : false), identifier: :name)
 
       @form_url = backend_product_nature_category_path(@product_nature_category)
       @key = 'product_nature_category'

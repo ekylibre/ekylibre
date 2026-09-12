@@ -22,7 +22,7 @@ module Backend
 
     def run
       cooperative_cartodb if params[:id] == 'cooperative_cartodb'
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
 
     protected

@@ -66,7 +66,7 @@ module Backend
         state: :validated
       )
       tax_payment.letter_with(bsi)
-      redirect_to params[:redirect]
+      redirect_to local_redirect_target(params[:redirect])
     end
 
     def create_payslip_contribution_payment
@@ -87,7 +87,7 @@ module Backend
         delivered: true
       )
       payslip_contribution_payment.letter_with(bsi)
-      redirect_to params[:redirect]
+      redirect_to local_redirect_target(params[:redirect])
     end
 
     def create_payslip_payment
@@ -108,7 +108,7 @@ module Backend
         delivered: true
       )
       payslip_payment.letter_with(bsi)
-      redirect_to params[:redirect]
+      redirect_to local_redirect_target(params[:redirect])
     end
 
     protected

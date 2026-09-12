@@ -48,7 +48,7 @@ module Backend
         return unless @task = find_and_check
 
         @task.send(event)
-        redirect_to params[:redirect] || { action: :show, id: @task.id }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @task.id }
       end
   end
 end

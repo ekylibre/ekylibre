@@ -8,7 +8,7 @@ module Backend
       rescue ActiveRecord::RecordInvalid => error
         notify_error(:please_contact_support_for_further_information, message: error.message)
       end
-      redirect_to params[:redirect]
+      redirect_to local_redirect_target(params[:redirect])
     end
 
     def destroy
@@ -19,7 +19,7 @@ module Backend
       rescue ActiveRecord::RecordInvalid => error
         notify_error(:please_contact_support_for_further_information, message: error.message)
       end
-      redirect_to params[:redirect]
+      redirect_to local_redirect_target(params[:redirect])
     end
   end
 end

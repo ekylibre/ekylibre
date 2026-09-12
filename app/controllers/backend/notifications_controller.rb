@@ -67,7 +67,7 @@ module Backend
       else
         current_user.unread_notifications.find_each(&:read!)
       end
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
   end
 end

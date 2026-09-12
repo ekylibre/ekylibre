@@ -50,9 +50,9 @@ module Backend
         budget_item.update!(used_on: budget_item.used_on.change(year: budget_item.used_on.year + 1)) if budget_item.used_on.present?
       end
       if params[:edit]
-        redirect_to action: :edit, id: new_activity_budget.id, redirect: params[:redirect]
+        redirect_to action: :edit, id: new_activity_budget.id, redirect: local_redirect_target(params[:redirect])
       else
-        redirect_to params[:redirect] || { controller: :activities, action: :show, id: @activity_budget.id }
+        redirect_to local_redirect_target(params[:redirect]) || { controller: :activities, action: :show, id: @activity_budget.id }
       end
     end
   end

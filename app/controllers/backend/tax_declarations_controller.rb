@@ -134,20 +134,20 @@ module Backend
       sales_order = Sale.order_between(tax_start, tax_stop)
 
       if financial_year.tax_declaration_mode_none?
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
       elsif !financial_year.previous_consecutives?
         notify_error :financial_years_missing
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
       elsif sales_order.any?
         notify_sales_order(sales_order)
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
       elsif financial_year.missing_tax_declaration?
         TaxDeclarationJob.perform_later(financial_year, current_user)
         notify_success(:vat_declaration_in_preparation)
         redirect_back(fallback_location: root_path)
       else
         notify_error :all_tax_declarations_have_already_existing
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
       end
     end
 

@@ -148,7 +148,7 @@ module Backend
       else
         return if save_and_redirect(@reception,
                                     url: (params[:create_and_continue] ? { action: :new, continue: true } : { action: :show, id: 'id'.c }),
-                                    notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false),
+                                    notify: ((params[:create_and_continue] || local_redirect_target(params[:redirect])) ? :record_x_created : false),
                                     identifier: :number)
       end
       render(locals: { cancel_url: { action: :index }, with_continue: false })
@@ -164,7 +164,7 @@ module Backend
       if @reception.items.all?(&:marked_for_destruction?)
         notify_error_now :reception_need_at_least_one_item
       elsif @reception.save
-        return redirect_to(params[:redirect] || { action: :show, id: @reception.id },
+        return redirect_to(local_redirect_target(params[:redirect]) || { action: :show, id: @reception.id },
                            notify: :record_x_updated,
                            identifier: :number)
       end
@@ -183,7 +183,7 @@ module Backend
       end
 
       redirect_action = ok ? :show : :edit
-      redirect_to params[:redirect] || { action: redirect_action, id: record.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: redirect_action, id: record.id }
     end
 
     def mergeable_matters

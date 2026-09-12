@@ -40,8 +40,8 @@ module Backend
         if request.post?
           head :ok
         else
-          if params[:redirect]
-            redirect_to(params[:redirect])
+          if local_redirect_target(params[:redirect])
+            redirect_to(local_redirect_target(params[:redirect]))
           else
             raise ActionController::RoutingError.new('Not Found')
           end

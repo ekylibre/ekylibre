@@ -29,7 +29,7 @@ module Backend
         parcels = parcel_ids.map { |id| Parcel.find_by(id: id) }.compact
         unless parcels.any?
           notify_error :no_parcels_given
-          redirect_to(params[:redirect] || { action: :index })
+          redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
           return nil
         end
         parcels

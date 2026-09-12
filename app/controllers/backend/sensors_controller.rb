@@ -80,7 +80,7 @@ module Backend
 
       # SensorReadingJob.perform_later(id: @sensor.id, started_at: Time.now, stopped_at: Time.now)
       @sensor.retrieve(started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now)
-      redirect_to params[:redirect] || { action: :show, id: params[:id] }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: params[:id] }
     end
 
     def last_locations

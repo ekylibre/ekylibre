@@ -56,7 +56,7 @@ module Backend
         inspections = Inspection.where(id: inspection_ids)
         unless inspections.any?
           notify_error :no_inspections_given
-          redirect_to(params[:redirect] || { action: :index })
+          redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
           return nil
         end
         inspections

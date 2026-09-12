@@ -178,12 +178,12 @@ module RestfullyManageable
             continue_url_options[d] = "@#{record_name}.#{d}".c
           end
         end
-        code << "  return if save_and_redirect(@#{record_name}, url: (params[:create_and_continue] ? #{continue_url_options.inspect} : (params[:redirect] || (#{after_save_url})))"
+        code << "  return if save_and_redirect(@#{record_name}, url: (params[:create_and_continue] ? #{continue_url_options.inspect} : (local_redirect_target(params[:redirect]) || (#{after_save_url})))"
         notification_message = ':record_x_created'
         code << if notify_after_save
                   ", notify: #{notification_message}"
                 else
-                  ", notify: ((params[:create_and_continue] || params[:redirect]) ? #{notification_message} : false)"
+                  ", notify: ((params[:create_and_continue] || local_redirect_target(params[:redirect])) ? #{notification_message} : false)"
                 end
         code << ", identifier: :#{options[:identifier]}"
         code << ")\n"
@@ -205,12 +205,12 @@ module RestfullyManageable
         code << find_and_check_code
         code << "  #{t3e_code}\n"
         code << "  @#{record_name}.attributes = permitted_params\n"
-        code << "  return if save_and_redirect(@#{record_name}, url: params[:redirect] || (#{after_save_url})"
+        code << "  return if save_and_redirect(@#{record_name}, url: local_redirect_target(params[:redirect]) || (#{after_save_url})"
         notification_message = ':record_x_updated'
         code << if notify_after_save
                   ", notify: #{notification_message}"
                 else
-                  ", notify: (params[:redirect] ? #{notification_message} : false)"
+                  ", notify: (local_redirect_target(params[:redirect]) ? #{notification_message} : false)"
                 end
         code << ", identifier: :#{options[:identifier]}"
         code << ")\n"
@@ -244,7 +244,7 @@ module RestfullyManageable
           code << "  notify_success(:record_has_been_correctly_removed)\n"
         end
         # code << "  redirect_to #{after_destroy_url ? after_destroy_url : model.name.underscore.pluralize+'_url'}\n"
-        code << "  redirect_to(params[:redirect] || #{after_destroy_url}) unless request.xhr?\n"
+        code << "  redirect_to(local_redirect_target(params[:redirect]) || #{after_destroy_url}) unless request.xhr?\n"
         code << "end\n"
       end
 

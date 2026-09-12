@@ -153,7 +153,7 @@ module Backend
 
     def create
       @fixed_asset = resource_model.new(parameters_with_processed_percentage)
-      return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || params[:redirect]) ? :record_x_created : false), identifier: :name)
+      return if save_and_redirect(@fixed_asset, url: (params[:create_and_continue] ? { action: :new, continue: true } : (local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c })), notify: ((params[:create_and_continue] || local_redirect_target(params[:redirect])) ? :record_x_created : false), identifier: :name)
 
       render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
@@ -176,13 +176,13 @@ module Backend
                        :your_fixed_asset_is_now_ready_to_be_scrapped
                      elsif params[:mode] == 'stand_by'
                        :your_fixed_asset_is_now_ready_to_be_put_on_hold
-                     elsif params[:redirect]
+                     elsif local_redirect_target(params[:redirect])
                        :record_x_updated
                      else
                        false
                      end
 
-      return if save_and_redirect(@fixed_asset, url: params[:redirect] || { action: :show, id: 'id'.c }, notify: notification, identifier: :name)
+      return if save_and_redirect(@fixed_asset, url: local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c }, notify: notification, identifier: :name)
 
       render(locals: { cancel_url: { action: :index }, with_continue: false })
     end
@@ -202,16 +202,16 @@ module Backend
         bookkeep_until = Date.parse(params[:until])
       rescue
         notify_error(:the_bookkeep_date_format_is_invalid)
-        return redirect_to(params[:redirect] || { action: :index })
+        return redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
 
       if FinancialYear.on(bookkeep_until)
         Accountancy::FixedAssetDepreciationJob.perform_later(FixedAsset.all.pluck(:id), up_to: params[:until], perform_as: current_user)
         notify_success(:fixed_asset_depreciations_in_preparation)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       else
         notify_error(:need_financial_year_over_entire_period)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
     end
 
@@ -225,7 +225,7 @@ module Backend
 
       redirect_action = ok ? :show : :edit
       redirect_params = redirect_action == :edit ? { mode: 'sell' } : {}
-      redirect_to params[:redirect] || { action: redirect_action, id: record.id }.merge(redirect_params)
+      redirect_to local_redirect_target(params[:redirect]) || { action: redirect_action, id: record.id }.merge(redirect_params)
       record
     end
 
@@ -239,7 +239,7 @@ module Backend
 
       redirect_action = ok ? :show : :edit
       redirect_params = redirect_action == :edit ? { mode: 'scrap' } : {}
-      redirect_to params[:redirect] || { action: redirect_action, id: record.id }.merge(redirect_params)
+      redirect_to local_redirect_target(params[:redirect]) || { action: redirect_action, id: record.id }.merge(redirect_params)
       record
     end
 
@@ -251,7 +251,7 @@ module Backend
         notify_error :error_on_field, { field: FixedAsset.human_attribute_name(field), message: message.join(", ") }
       end
 
-      redirect_to params[:redirect] || { action: :show, id: record.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: record.id }
       record
     end
 
@@ -265,7 +265,7 @@ module Backend
 
       redirect_action = ok ? :show : :edit
       redirect_params = redirect_action == :edit ? { mode: 'stand_by' } : {}
-      redirect_to params[:redirect] || { action: redirect_action, id: record.id }.merge(redirect_params)
+      redirect_to local_redirect_target(params[:redirect]) || { action: redirect_action, id: record.id }.merge(redirect_params)
       record
     end
 
@@ -275,7 +275,7 @@ module Backend
 
       unless fixed_assets.all?(&:depreciable?)
         notify_error(:all_fixed_assets_must_be_depreciable)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
         return
       end
     end
@@ -287,7 +287,7 @@ module Backend
         fixed_assets = FixedAsset.where(id: fixed_asset_ids)
         unless fixed_assets.any?
           notify_error :no_fixed_assets_given
-          redirect_to(params[:redirect] || { action: :index })
+          redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
           return nil
         end
         fixed_assets

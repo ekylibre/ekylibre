@@ -46,7 +46,7 @@ module Backend
       @import = resource_model.new(permitted_params)
       if save_and_redirect(
         @import,
-        url: (params[:create_and_continue] ? { action: :new, continue: true } : (params[:redirect] || { action: :show, id: 'id'.c })),
+        url: (params[:create_and_continue] ? { action: :new, continue: true } : (local_redirect_target(params[:redirect]) || { action: :show, id: 'id'.c })),
         identifier: :id
       )
         notify(:import_creation_successful_suggest_execute)
@@ -61,7 +61,7 @@ module Backend
       return unless import
 
       import.run_later
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
 
     def progress
@@ -76,7 +76,7 @@ module Backend
       return unless @import
 
       @import.abort
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
   end
 end

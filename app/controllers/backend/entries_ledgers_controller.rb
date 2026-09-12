@@ -107,7 +107,7 @@ module Backend
       else
         notify_error(:missing_activity_budget)
       end
-      redirect_to params[:redirect] || { action: :show }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show }
     end
 
     def classify
@@ -116,7 +116,7 @@ module Backend
       # launch IA to classify metadata if does not exist
       AccountancyClassifierJob.perform_later(journal_entry_item_ids: journal_entry_item_ids, user: current_user)
       notify_success(:document_in_preparation)
-      redirect_to params[:redirect] || { action: :show }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show }
     end
 
   end

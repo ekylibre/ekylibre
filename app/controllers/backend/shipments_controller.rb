@@ -173,7 +173,7 @@ module Backend
         Rails.logger.error error
         Rails.logger.error error.backtrace.join("\n")
         notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
     end
 
@@ -194,7 +194,7 @@ module Backend
         redirect_to(options.merge(controller: :deliveries, action: :new))
       else
         notify_error(:some_parcels_are_not_shippable)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
     end
 

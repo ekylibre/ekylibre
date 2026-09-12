@@ -289,16 +289,40 @@ module Backend
         file
       end
 
+      # Destination de redirection fournie par le client — `local_redirect_target(params[:redirect])`
+      # ou l'en-tête `Referer` — ramenée à nil si elle sort de l'hôte courant.
+      #
+      # Rails 7 refuse par défaut de rediriger vers un autre hôte, et il a
+      # raison : ces deux sources sont contrôlées par l'appelant, c'est la
+      # définition d'une redirection ouverte. Plutôt que de laisser lever une
+      # `UnsafeRedirectError` — une 500 sur un chemin nominal — on écarte la
+      # destination et on retombe sur le repli.
+      #
+      # @return [String, nil]
+      def local_redirect_target(url)
+        return nil if url.blank?
+
+        # Seuls un chemin absolu ou une URL sur l'hôte courant sont acceptés.
+        # Une valeur relative sans barre de tête (« where_i_came_from ») est
+        # résolue par Rails contre l'hôte et en change : elle est écartée.
+        return url if url.start_with?('/')
+
+        uri = begin
+                URI.parse(url)
+              rescue URI::InvalidURIError
+                return nil
+              end
+        return url if uri.host == request.host
+
+        nil
+      end
+
       def redirect_to_back(fallback_location: nil, **options)
-        if params[:redirect].present?
-          redirect_to params[:redirect], options
-        elsif request.referer && request.referer != request.fullpath
-          redirect_to request.referer, options
-        elsif fallback_location.present?
-          redirect_to fallback_location
-        else
-          redirect_to(root_path)
-        end
+        target = local_redirect_target(local_redirect_target(params[:redirect]))
+        target ||= local_redirect_target(request.referer) if request.referer != request.fullpath
+        target ||= fallback_location.presence || root_path
+
+        redirect_to target, **options
       end
 
       def redirect_to_current(options = {})
@@ -310,7 +334,7 @@ module Backend
         return unless record = find_and_check
 
         state = do_fire_event record, event
-        redirect_to params[:redirect] || { action: :show, id: record.id }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: record.id }
 
         record
       end

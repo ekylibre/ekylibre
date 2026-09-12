@@ -147,7 +147,7 @@ module Backend
       budgets.each do |budget|
         budget.duplicate!(budget.activity, new_campaign)
       end
-      redirect_to params[:redirect] || { action: :index }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :index }
     end
 
     # add itk on all current campaign activities
@@ -156,13 +156,13 @@ module Backend
         activities = Activity.of_campaign(current_campaign)
       rescue
         notify_error(:no_activities_present)
-        return redirect_to(params[:redirect] || { action: :index })
+        return redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
       if activities.any?
         ItkImportJob.perform_later(activity_ids: activities.pluck(:id), current_campaign: current_campaign, user: current_user)
       else
         notify_error(:no_activities_present)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
     end
 

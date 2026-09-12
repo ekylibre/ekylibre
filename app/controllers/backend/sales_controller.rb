@@ -233,18 +233,18 @@ module Backend
 
       unless @sale.duplicatable?
         notify_error :sale_is_not_duplicatable
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
         return
       end
       copy = @sale.duplicate(responsible: current_user.person)
-      redirect_to params[:redirect] || { action: :show, id: copy.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: copy.id }
     end
 
     def cancel
       return unless @sale = find_and_check
 
       url = { controller: :sale_credits, action: :new, credited_sale_id: @sale.id }
-      url[:redirect] = params[:redirect] if params[:redirect]
+      url[:redirect] = local_redirect_target(params[:redirect]) if local_redirect_target(params[:redirect])
       redirect_to url
     end
 

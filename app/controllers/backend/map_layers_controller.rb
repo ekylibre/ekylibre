@@ -12,10 +12,10 @@ module Backend
     def load
       begin
         MapLayer.load_defaults
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
       rescue ActiveRecord::StaleObjectError
         notify_error :locking_version_error
-        redirect_to params[:redirect] || { action: :index }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :index }
       end
     end
 

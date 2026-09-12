@@ -135,7 +135,7 @@ module Backend
         notify_error_now :purchase_order_need_at_least_one_item
       else
         return if save_and_redirect(@purchase_order,
-                                    url: (params[:create_and_continue] ? { action: :new, continue: true, nature_id: @purchase_order.nature_id } : (params[:redirect] || { action: :show, id: "id".c })),
+                                    url: (params[:create_and_continue] ? { action: :new, continue: true, nature_id: @purchase_order.nature_id } : (local_redirect_target(params[:redirect]) || { action: :show, id: "id".c })),
                                     notify: :record_x_created, identifier: :number)
       end
       render(locals: { cancel_url: { action: :index }, with_continue: true })
@@ -151,7 +151,7 @@ module Backend
       if @purchase_order.items.all?(&:marked_for_destruction?)
         notify_error_now :purchase_order_need_at_least_one_item
       elsif @purchase_order.save
-        return redirect_to(params[:redirect] || { action: :show, id: @purchase_order.id },
+        return redirect_to(local_redirect_target(params[:redirect]) || { action: :show, id: @purchase_order.id },
                            notify: :record_x_updated,
                            identifier: :number)
       end

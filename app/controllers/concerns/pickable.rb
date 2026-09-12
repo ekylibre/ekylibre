@@ -25,11 +25,11 @@ module Pickable
         else
           instance_variable_set "@#{record_name}", model.send('import_from_lexicon', reference_name, true)
         end
-        if params[:redirect_show_path].present?
-          show_url = params[:redirect_show_path] + '/' + instance_variable_get("@#{record_name}").id.to_s
+        if local_redirect_target(params[:redirect_show_path]).present?
+          show_url = local_redirect_target(params[:redirect_show_path]) + '/' + instance_variable_get("@#{record_name}").id.to_s
         end
 
-        if params[:redirect_show_path].present? && params[:redirect_edit_path].present?
+        if local_redirect_target(params[:redirect_show_path]).present? && params[:redirect_edit_path].present?
           edit_url = params[:redirect_edit_path] + '/' + instance_variable_get("@#{record_name}").id.to_s + '/edit?' + { redirect: show_url }.to_query
         end
 
@@ -38,8 +38,8 @@ module Pickable
         redirect_to edit_url || show_url || :back
       rescue => e
         notify_error :an_error_was_raised_during_import
-        if params[:redirect_show_path].present?
-          redirect_to params[:redirect_show_path]
+        if local_redirect_target(params[:redirect_show_path]).present?
+          redirect_to local_redirect_target(params[:redirect_show_path])
         else
           redirect_back(fallback_location: root_path)
         end
@@ -63,11 +63,11 @@ module Pickable
       define_method :incorporate do
         instance_variable_set "@#{record_name}", model.send('import_from_nomenclature', params[record_name][:reference_name], true)
 
-        if params[:redirect_show_path].present?
-          show_url = params[:redirect_show_path] + '/' + instance_variable_get("@#{record_name}").id.to_s
+        if local_redirect_target(params[:redirect_show_path]).present?
+          show_url = local_redirect_target(params[:redirect_show_path]) + '/' + instance_variable_get("@#{record_name}").id.to_s
         end
 
-        if params[:redirect_show_path].present? && params[:redirect_edit_path].present?
+        if local_redirect_target(params[:redirect_show_path]).present? && params[:redirect_edit_path].present?
           edit_url = params[:redirect_edit_path] + '/' + instance_variable_get("@#{record_name}").id.to_s + '/edit?' + { redirect: show_url }.to_query
         end
 
@@ -75,7 +75,7 @@ module Pickable
         redirect_to edit_url || show_url || :back
       rescue => e
         notify_error :an_error_was_raised_during_import
-        redirect_to params[:redirect_show_path] || :back
+        redirect_to local_redirect_target(params[:redirect_show_path]) || :back
       end
     end
   end

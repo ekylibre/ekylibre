@@ -28,14 +28,14 @@ module Backend
       return unless @payslip = find_and_check
 
       @payslip.correct
-      redirect_to params[:redirect] || { action: :show, id: @payslip.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @payslip.id }
     end
 
     def invoice
       return unless @payslip = find_and_check
 
       @payslip.invoice
-      redirect_to params[:redirect] || { action: :show, id: @payslip.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @payslip.id }
     end
   end
 end

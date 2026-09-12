@@ -373,7 +373,7 @@ module Backend
     def toggle
       @entity = Entity.find_by!(id: params[:id])
       @entity.toggle!
-      redirect_to params[:redirect] || { action: :show, id: @entity.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @entity.id }
     end
 
     def import

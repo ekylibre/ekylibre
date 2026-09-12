@@ -69,7 +69,7 @@ module Backend
 
       activity = Activity.find(params[:activity_id])
       activity.budgets.find_or_create_by!(campaign: @campaign)
-      redirect_to params[:redirect] || { action: :show, id: @campaign.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @campaign.id }
     end
 
     def close
@@ -80,7 +80,7 @@ module Backend
 
       activity_budget = activity.budgets.find_by(campaign: @campaign)
       activity_budget.destroy if activity_budget
-      redirect_to params[:redirect] || { action: :show, id: @campaign.id }
+      redirect_to local_redirect_target(params[:redirect]) || { action: :show, id: @campaign.id }
     end
 
     def current

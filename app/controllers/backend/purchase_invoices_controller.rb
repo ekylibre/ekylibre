@@ -229,7 +229,7 @@ module Backend
       if @purchase_invoice.items.all?(&:marked_for_destruction?)
         notify_error_now :purchase_invoice_need_at_least_one_item
       elsif @purchase_invoice.save
-        return redirect_to(params[:redirect] || { action: :show, id: @purchase_invoice.id },
+        return redirect_to(local_redirect_target(params[:redirect]) || { action: :show, id: @purchase_invoice.id },
                            notify: :record_x_updated,
                            identifier: :number)
       end
@@ -275,14 +275,14 @@ module Backend
 
       unless purchases.all?
         notify_error(:all_purchases_must_be_ordered_or_invoiced)
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
         return
       end
 
       if mode.sepa?
         unless purchases.all?(&:sepable?)
           notify_error(:purchases_invalid_for_sepa)
-          redirect_to(params[:redirect] || { action: :index })
+          redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
           return
         end
       end
@@ -297,7 +297,7 @@ module Backend
         redirect_to backend_outgoing_payment_lists_path
       else
         notify_error(payments_list.errors.full_messages.join(', '))
-        redirect_to(params[:redirect] || { action: :index })
+        redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
       end
     end
 
@@ -308,7 +308,7 @@ module Backend
         purchases = purchase_ids.map { |id| PurchaseInvoice.find_by(id: id) }.compact
         unless purchases.any?
           notify_error :no_purchases_given
-          redirect_to(params[:redirect] || { action: :index })
+          redirect_to(local_redirect_target(params[:redirect]) || { action: :index })
           return nil
         end
         purchases

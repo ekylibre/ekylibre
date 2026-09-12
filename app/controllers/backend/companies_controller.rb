@@ -15,10 +15,10 @@ module Backend
         Preference.set!(:weather_public_station, params[:station_id], :string)
         station = RegisteredWeatherStation.find_by(reference_name: params[:station_id])
         notify_success(:station_set_as_default, station_id: station.name)
-        redirect_to params[:redirect] || { action: :edit }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :edit }
       else
         notify_error(:no_station_id_present)
-        redirect_to params[:redirect] || { action: :edit }
+        redirect_to local_redirect_target(params[:redirect]) || { action: :edit }
       end
     end
 
