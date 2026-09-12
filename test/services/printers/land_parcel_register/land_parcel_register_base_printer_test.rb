@@ -51,7 +51,9 @@ module Printers
           { product: :prod2, working_area: 1.in_square_meter },
           { product: :prod1, working_area: 1.in_square_meter },
         ]
-        target_mocks = targets.map(&method(:make_target_mock))
+        # `make_target_mock` ne prend que des mots-clés : Ruby 3 ne convertit
+        # plus le hash que `map` lui passe en position.
+        target_mocks = targets.map { |attributes| make_target_mock(**attributes) }
 
         intervention = Minitest::Mock.new(Object.new)
         intervention.expect :targets, target_mocks
@@ -85,7 +87,9 @@ module Printers
           { product: :prod1, working_area: 1.in_square_meter },
           { product: :prod3, working_area: 1.in_square_meter },
         ]
-        target_mocks = targets.map(&method(:make_target_mock))
+        # `make_target_mock` ne prend que des mots-clés : Ruby 3 ne convertit
+        # plus le hash que `map` lui passe en position.
+        target_mocks = targets.map { |attributes| make_target_mock(**attributes) }
 
         intervention = Minitest::Mock.new(Object.new)
         intervention.expect :targets, target_mocks

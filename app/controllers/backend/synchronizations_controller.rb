@@ -79,8 +79,9 @@ module Backend
         end
 
         def exec(sql)
-          Rails.logger.debug "[#{@account}] #{sql}"
-          Rails.logger.debug "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))
+          # `URI.encode` a disparu avec Ruby 3.0 ; `url_encode` échappe tout ce
+          # qui n'est pas littéral dans une valeur de paramètre.
+          Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{ERB::Util.url_encode(sql)}&api_key=#{@key}"))
         end
       end
   end

@@ -25,7 +25,7 @@ module Sage
             data_exported_on = doc.at_css('INFORMATION').attribute('DATECREATION').value
             version_information = doc.at_css('INFORMATION').attribute('VERSIONECX').value + ' - ' + doc.at_css('INFORMATION').attribute('VERSIONEMETTEUR').value
 
-            new(period_started_on, period_stopped_on, data_exported_on, version_information, doc, options)
+            new(period_started_on, period_stopped_on, data_exported_on, version_information, doc, **options)
           end
 
           def load_from(file, **options)
@@ -33,7 +33,7 @@ module Sage
             detection = CharlockHolmes::EncodingDetector.detect(source)
 
             doc = Nokogiri.XML(source, nil, detection[:encoding], &:noblanks)
-            SageFileInformation.read_from(doc, options)
+            SageFileInformation.read_from(doc, **options)
           end
         end
 
@@ -88,7 +88,7 @@ module Sage
 
         #  @return [SageFileInformation]
         def file_info
-          @file_info ||= SageFileInformation.load_from(file, options)
+          @file_info ||= SageFileInformation.load_from(file, **options)
         end
 
         # @return [FinancialYear, nil]

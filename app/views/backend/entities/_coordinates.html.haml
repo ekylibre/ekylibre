@@ -34,7 +34,7 @@
       - elsif address.phone? || address.mobile?
         %a{:href => "tel:#{address.coordinate}"}= address.coordinate
       - elsif address.mail?
-        = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.mail_lines(without: :line_1))}")
+        = link_to(address.coordinate, "https://maps.google.fr/?q=#{ERB::Util.url_encode(address.mail_lines(without: :line_1).to_s)}")
       - elsif address.website?
         = link_to(address.coordinate, address.coordinate)
       - else

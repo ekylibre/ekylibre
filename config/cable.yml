@@ -1,5 +1,13 @@
 development: &default
   adapter: redis
   url: <%= ENV.fetch('REDIS_URL', 'redis://localhost:6379') %>
-test: *default
+
+# L'adaptateur `test` recueille les diffusions en mémoire : c'est la
+# configuration que Rails génère pour cet environnement, et elle évite de
+# charger le client redis. Action Cable 7.1 exige `redis (>= 4, < 6)` quand
+# l'adaptateur `redis` est retenu, là où sidekiq 4 impose `redis (~> 3.2)` :
+# le chargement échouait sur un conflit d'activation de gem.
+test:
+  adapter: test
+
 production: *default

@@ -57,7 +57,9 @@ class ProductLink < ApplicationRecord
 
   delegate :name, to: :linked, prefix: true
 
-  scope :with, ->(nature) { where(nature: nature.to_s) }
+  # Rails 7.1 ajoute `ActiveRecord::QueryMethods#with` (expressions de table
+  # communes) : le scope homonyme est désormais refusé au chargement du modèle.
+  scope :of_nature, ->(nature) { where(nature: nature.to_s) }
 
   before_validation do
     self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
@@ -65,6 +67,6 @@ class ProductLink < ApplicationRecord
 
   # Returns all the siblings
   def siblings
-    product&.links&.with(nature) || ProductLink.none
+    product&.links&.of_nature(nature) || ProductLink.none
   end
 end

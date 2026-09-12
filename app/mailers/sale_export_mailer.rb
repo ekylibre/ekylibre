@@ -29,7 +29,7 @@ class SaleExportMailer < ActionMailer::Base
       reply_to: full_from(@current_user),
       to: @sale.client.default_email_address.coordinate,
       cc: @current_user.email,
-      subject: I18n.t('email_templates.sale.subject', { entity_full_name: @email_values['entity_full_name'], invoice_number: @email_values['invoice_number'] })
+      subject: I18n.t('email_templates.sale.subject', **{ entity_full_name: @email_values['entity_full_name'], invoice_number: @email_values['invoice_number'] })
     )
   end
 
@@ -43,7 +43,7 @@ class SaleExportMailer < ActionMailer::Base
       reply_to: full_from(@current_user),
       to: @sale.client.default_email_address.coordinate,
       cc: @current_user.email,
-      subject: I18n.t('email_templates.unpaid_sale.subject', { entity_full_name: @email_values['entity_full_name'], invoice_number: @email_values['invoice_number'] })
+      subject: I18n.t('email_templates.unpaid_sale.subject', **{ entity_full_name: @email_values['entity_full_name'], invoice_number: @email_values['invoice_number'] })
     )
   end
 

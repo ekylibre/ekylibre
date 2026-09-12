@@ -22,19 +22,51 @@ require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
 # valeurs par défaut, `lib/install/config/webpacker.yml`, par un simple
 # `YAML.load_file`, et l'application ne démarrait plus.
 #
-# On rétablit les alias pour `load_file` uniquement, et seulement quand
-# l'appelant n'a rien précisé. Ce n'est pas la surface d'attaque que Psych 4
-# visait : ces fichiers viennent du disque, pas d'une entrée utilisateur. Les
-# colonnes `serialize`, elles, restent protégées par
-# `ActiveRecord.yaml_column_permitted_classes` — voir l'initialiseur du même nom.
+# Psych 4 a par ailleurs fait de `YAML.load_file` un chargement restreint : les
+# seules classes admises sont les scalaires JSON. Or nos fichiers emploient
+# couramment des dates, des heures et des symboles — les fixtures de test,
+# `config/sorting_reference.yml`, le manifeste d'une sauvegarde de ferme. Psych 3
+# les désérialisait sans rien demander.
+#
+# On rétablit donc, pour `load_file` uniquement et seulement quand l'appelant
+# n'a rien précisé, les alias et ces quelques types. Tous sont des porteurs de
+# données inertes : leur relecture ne rend jamais le contrôle au document. Les
+# objets applicatifs, eux, restent refusés — y compris dans le manifeste d'une
+# archive téléversée, qui passe par ce chemin. Les colonnes `serialize` sont
+# protégées séparément par `ActiveRecord.yaml_column_permitted_classes` — voir
+# l'initialiseur du même nom.
 #
 # Le correctif se pose après bootsnap, qui décore aussi `load_file`.
-module PsychFileAliases
+module PsychFileDefaults
+  # Résolues au premier appel : `boot.rb` s'exécute avant ActiveSupport.
+  SCALAR_NAMES = %w[
+    ActiveSupport::TimeWithZone
+    ActiveSupport::TimeZone
+    Date
+    DateTime
+    Symbol
+    Time
+  ].freeze
+
+  class << self
+    def permitted_classes
+      return @permitted_classes if @permitted_classes&.size == SCALAR_NAMES.size
+
+      @permitted_classes = SCALAR_NAMES.filter_map do |name|
+        begin
+          Object.const_get(name)
+        rescue NameError
+          nil
+        end
+      end
+    end
+  end
+
   def load_file(path, **options)
-    super(path, **{ aliases: true }.merge(options))
+    super(path, **{ aliases: true, permitted_classes: PsychFileDefaults.permitted_classes }.merge(options))
   end
 end
-YAML.singleton_class.prepend(PsychFileAliases)
+YAML.singleton_class.prepend(PsychFileDefaults)
 
 # Filtre les warnings irreductibles (gems en conflit Ruby 2.6 stdlib + valeurs d'enum
 # qui collisionnent avec des predicats d'ActiveSupport). Les autres warnings Ruby

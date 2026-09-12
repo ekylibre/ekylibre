@@ -110,7 +110,9 @@ module Customizable
   end
 
   private def add_custom_field_error(field, message, **options)
-    custom_fields_model.errors.add(field, message, options)
+    # `ActiveModel::Errors#add` déclare ses options en mots-clés : un hash
+    # positionnel y lève depuis Ruby 3.
+    custom_fields_model.errors.add(field, message, **options)
   end
 
   module ClassMethods

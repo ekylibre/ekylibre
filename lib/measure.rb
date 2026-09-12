@@ -205,6 +205,19 @@ class Measure
     to_r <=> other.to_r(unit)
   end
 
+  # `Array#sum` et `Enumerable#sum` démarrent leur accumulation sur l'entier 0 :
+  # `Integer#+` cherche alors un `coerce` sur son opérande, et sans lui toute
+  # somme d'une liste de mesures levait `TypeError: Measure can't be coerced
+  # into Integer`. Le zéro est le seul nombre admissible — lui seul est neutre
+  # quelle que soit l'unité, les autres n'ayant pas de dimension.
+  def coerce(other)
+    unless other.is_a?(Numeric) && other.zero?
+      raise TypeError.new("#{other.class} can't be coerced into #{self.class}")
+    end
+
+    [self.class.new(0, unit), self]
+  end
+
   # Test if measure is null
   def zero?
     @value.zero?

@@ -143,7 +143,7 @@ module Backend
         li_options[:class] = 'active' if options.delete(:active)
 
         kontroller = (url.is_a?(Hash) ? url[:controller] : nil) || controller_name
-        options[:title] ||= ::I18n.t("actions.#{kontroller}.#{name}".to_sym, { default: ["labels.#{name}".to_sym] }.merge(options.delete(:i18n) || {}))
+        options[:title] ||= ::I18n.t("actions.#{kontroller}.#{name}".to_sym, **{ default: ["labels.#{name}".to_sym] }.merge(options.delete(:i18n) || {}))
         if icon = options.delete(:icon)
           item[:title] = content_tag(:i, '', class: 'icon-' + icon.to_s) + ' '.html_safe + h(item[:title])
         end

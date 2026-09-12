@@ -62,6 +62,9 @@ Rails.application.config.to_prepare do
     ::BigDecimal,
     ::Date,
     ::DateTime,
+    # Écrit par `Versionable#version_object` jusqu'à Rails 7.0 : la classe n'est
+    # plus produite mais les lignes d'avant la bascule en contiennent.
+    ::Enumerize::Value,
     ::Measure,
     ::Nori::StringWithAttributes,
     ::OpenStruct,

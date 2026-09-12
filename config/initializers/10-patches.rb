@@ -290,65 +290,45 @@ module Charta
   end
 end
 
-# Because RGeo broke compatibility in their serialization model with `projector_class` becoming `projectorclass`
-module RGeo
-  module Geographic
-    class Factory
-      def init_with(coder)
-        # :nodoc:
-        if (proj4_data = coder["proj4"])
-          CoordSys.check!(:proj4)
-          if proj4_data.is_a?(Hash)
-            proj4 = CoordSys::Proj4.create(proj4_data["proj4"], radians: proj4_data["radians"])
-          else
-            proj4 = CoordSys::Proj4.create(proj4_data.to_s)
-          end
-        else
-          proj4 = nil
-        end
-        if (coord_sys_data = coder["cs"])
-          coord_sys = CoordSys::CS.create_from_wkt(coord_sys_data.to_s)
-        else
-          coord_sys = nil
-        end
-        initialize(coder["impl_prefix"],
-                   has_z_coordinate: coder["has_z_coordinate"],
-                   has_m_coordinate: coder["has_m_coordinate"],
-                   srid: coder["srid"],
-                   wkt_generator: symbolize_hash(coder["wkt_generator"]),
-                   wkb_generator: symbolize_hash(coder["wkb_generator"]),
-                   wkt_parser: symbolize_hash(coder["wkt_parser"]),
-                   wkb_parser: symbolize_hash(coder["wkb_parser"]),
-                   uses_lenient_assertions: coder["lenient_assertions"],
-                   buffer_resolution: coder["buffer_resolution"],
-                   proj4: proj4,
-                   coord_sys: coord_sys
-        )
-        if (proj_klass = coder["projectorclass"] || coder["projector_class"]) && (proj_factory = coder["projection_factory"])
-          klass_ = RGeo::Geographic.const_get(proj_klass)
-          if klass_
-            projector = klass_.allocate
-            projector.set_factories(self, proj_factory)
-            @projector = projector
-          end
-        end
-      end
-      
-      #patch waiting for rgeo 3.0 https://github.com/rgeo/rgeo/issues/277
-      def set_property(prop, value)
-        case prop
-        when :has_z_coordinate
-          @support_z = value
-        when :has_m_coordinate
-          @support_m = value
-        when :uses_lenient_assertions
-          @lenient_assertions = value
-        when :buffer_resolution
-          @buffer_resolution = value
-        when :is_geographic
-          value
-        end
-      end
-    end
+
+# kaminari-core 1.1.1 construit son paginateur par
+# `paginator_class.new(template, options)` alors que `Paginator#initialize` ne
+# déclare que des mots-clés : Ruby 2.7 convertissait encore le hash, Ruby 3
+# lève `ArgumentError: wrong number of arguments (given 2, expected 1)`. Toute
+# vue paginée — celles de wice_grid comme les nôtres — échouait.
+#
+# La série 1.2 a corrigé cela, mais `liquid-rails` 0.2 épingle `kaminari
+# ~> 1.1.1` et nous n'avons pas le choix de la version : le corps des courriels
+# vient d'`EmailTemplate`, rendu par le gabarit `liquid` que cette gem installe.
+# Ce correctif tombera avec la montée de `liquid-rails`.
+module KaminariKeywordOptions
+  def paginate(scope, paginator_class: ::Kaminari::Helpers::Paginator, template: nil, **options)
+    options[:total_pages] ||= scope.total_pages
+    options.reverse_merge!(current_page: scope.current_page, per_page: scope.limit_value, remote: false)
+
+    paginator_class.new(template || self, **options).to_s
   end
 end
+Kaminari::Helpers::HelperMethods.prepend(KaminariKeywordOptions)
+
+# Rails 7.1 a ajouté `touch: true` à l'association `record` d'
+# `ActiveStorage::Attachment` : poser ou retirer une pièce jointe touche
+# désormais la ligne porteuse. Or un `touch` incrémente `lock_version`, et il
+# part de l'instance que détient l'attachement, non de celle que tient
+# l'appelant — laquelle se retrouve périmée d'autant de crans qu'il y a de
+# pièces jointes. La première écriture suivante lève `StaleObjectError` :
+# `Import#run_result` n'arrivait plus à consigner l'état d'un import, et un
+# `Document` créé avec son fichier ne pouvait plus être détruit.
+#
+# Le touch est différé à `before_committed!`, donc hors de portée de tout
+# rattrapage dans les callbacks du porteur. On le supprime pour les seuls
+# attachements, ce qui rétablit le comportement d'avant 7.1 : aucune vue ne
+# construit de clé de cache sur l'`updated_at` d'un porteur de pièce jointe.
+module ActiveStorageAttachmentWithoutTouch
+  def touch_record(object, *args)
+    return if defined?(::ActiveStorage::Attachment) && object.is_a?(::ActiveStorage::Attachment)
+
+    super
+  end
+end
+ActiveRecord::Associations::Builder::BelongsTo.singleton_class.prepend(ActiveStorageAttachmentWithoutTouch)

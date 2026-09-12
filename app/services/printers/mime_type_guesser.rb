@@ -15,7 +15,11 @@ module Printers
     # @param file [String, Pathname, IO] chemin ou flux à examiner
     # @return [String] type MIME, « application/octet-stream » à défaut
     def guess(file)
-      Marcel::MimeType.for(Pathname.new(file.to_s))
+      # `Marcel::MimeType.for` lit la signature d'un flux et ouvre un chemin ;
+      # seule une chaîne demande d'être convertie. Convertir sans distinction
+      # transformait un `File` en la chaîne « #<File:0x…> », que marcel tentait
+      # alors d'ouvrir — `Errno::ENOENT` sur tout gabarit téléversé.
+      Marcel::MimeType.for(file.is_a?(::String) ? ::Pathname.new(file) : file)
     end
   end
 end

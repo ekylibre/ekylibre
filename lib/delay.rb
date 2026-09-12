@@ -185,7 +185,7 @@ class DelayValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     Delay.new(value)
   rescue InvalidDelayExpression
-    record.errors.add(attribute, method(:bad_delay_message).to_proc, options.merge(value: value))
+    record.errors.add(attribute, method(:bad_delay_message).to_proc, **options.merge(value: value))
   end
 
   private

@@ -233,7 +233,7 @@ module Printers
       harvest_interventions
         .flat_map(&:outputs)
         .map { |output| [output.product, weight_quantity_by_area(output.quantity, targets, output.intervention), intervention_working_area_for(targets, output.intervention), output.intervention] }
-        .reject { |(_1, _2, area, _3)| area.is_none? }
+        .reject { |(_product, _quantity, area, _intervention)| area.is_none? }
         .map { |(product, quantity, area, intervention)| [product, quantity, area.get, intervention] }
         .map { |product, quantity, working_area, intervention| [product, normalize_to_base_unit(quantity, working_area), working_area, intervention] }
         .group_by(&:first)
@@ -272,7 +272,7 @@ module Printers
     end
 
     def to_standard_yield_dataset(product, values, base_unit:)
-      quantity, area = values.reduce([0.in(base_unit), 0.in(:hectare)]) { |(qt, ar), (_1, q, a, _2)| [qt +q, ar + a] }
+      quantity, area = values.reduce([0.in(base_unit), 0.in(:hectare)]) { |(qt, ar), (_product, q, a, _intervention)| [qt +q, ar + a] }
       yieldd = area.zero? ? 0 : (quantity.to_d(base_unit) / area.to_d(:hectare)).in("#{base_unit}_per_hectare".to_sym)
 
       { product: product, yield: yieldd, quantity: quantity, interventions: values.map(&:third).uniq }

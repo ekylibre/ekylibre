@@ -4,13 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 7.0** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 7.1** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
 
-The `ekylibre-7.0` branch is the migration branch heading for Rails 8.1 (`ekylibre-6.0` holds the Rails 6.1 state); it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 2.7** — a stepping stone to 3.3, which Rails 6.0 now unblocks.
+The `ekylibre-7.1` branch is the migration branch heading for Rails 8.1 (`ekylibre-7.0` and `ekylibre-6.0` hold the previous rungs); it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 3.4.10** from this rung on — `activerecord-postgis-adapter` 9.0, the only series accepting ActiveRecord 7.1, requires Ruby >= 3.0, so the two moves are one.
 
-`config/application.rb` declares `config.load_defaults 7.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
+`config/application.rb` declares `config.load_defaults 7.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file. The framework is on 7.1 but its defaults are not: raising `load_defaults` is a separate step, taken once the framework bump runs clean.
 
 Three defaults are deliberately turned back off right below that line. `active_record.has_many_inversing` (6.1) and `active_record.automatic_scope_inversing` (7.0) are correct semantics, but they expose a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity — the comment there says what has to be fixed before the lines can go. `active_storage.variant_processor` stays on `:mini_magick` because the base image ships no libvips.
+
+The geometry stack is on **RGeo 3** (`rgeo ~> 3.1`, `rgeo-proj4 ~> 5.0`, `charta` branch `7.1`): the 2.x series builds on PROJ.4's legacy API, removed in PROJ 8, and its extension attaches no method under the libproj 9 the base images ship. Charta resolves SRIDs through `RGeo::CoordSys::Proj4.create(srid)` — PROJ 6 removed the `epsg` text file `SRSDatabase` used to read — and builds its projected factory around an explicit EPSG:6933 projection factory.
+
+**Three old gems are pinned and patched rather than upgraded**, each for a reason worth knowing before touching the `Gemfile`:
+
+- `sidekiq` 4.2.10 constrains `redis (~> 3.2)` while Action Cable 7.1 wants `redis (>= 4, < 6)` as soon as the `redis` adapter is picked. `config/cable.yml` uses the `test` adapter in test, but the conflict **still stands in development and production** — any `ActionCable.server.broadcast` there raises `Gem::LoadError`. Upgrading sidekiq drags `sidekiq-cron`, `sidekiq-unique-jobs` and `ros-apartment-sidekiq` along;
+- `liquid-rails` 0.2.0 pins `kaminari (~> 1.1.1)`, which locks out the 1.2 series — the first to pass its paginator options as keywords. `config/initializers/10-patches.rb` reimplements `HelperMethods#paginate`. liquid-rails is not dead weight: mail bodies come from `EmailTemplate` rows rendered through the `liquid` handler it installs;
+- `simple_form` 4.1 memoises its labels in class variables created by whichever subclass renders a field first, which Ruby 3 refuses. `config/initializers/simple_form_i18n_cache.rb` creates them on `SimpleForm::Inputs::Base` and `CollectionInput` up front. simple_form 5.1 replaced that mechanism.
 
 **`redirect_to` refuses other hosts** since the 7.0 defaults, and rightly so: `params[:redirect]` and the `Referer` header are client-supplied. `Backend::BaseController#local_redirect_target` filters a candidate down to an absolute path or a same-host URL; every `redirect_to params[:redirect]` in the backend goes through it, so a foreign target falls back instead of raising a 500.
 

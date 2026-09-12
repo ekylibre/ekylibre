@@ -42,7 +42,12 @@ module Backend
       code << "  c[0] << ' AND #{Subscription.table_name}.status IN (?)'\n"
       code << "  c << params[:state]\n"
       code << "end\n "
-      code << "if params[:subscribed_on].to_s =~ /\A\d\d\d\d\-\d\d\-\d\d\z/.nil?\n"
+      # Les antislashs doivent survivre à la chaîne qui porte le code généré,
+      # sans quoi le motif devenait /Adddd-dd-ddz/ ; et `.nil?` s'appliquait au
+      # littéral, jamais nil, si bien que la comparaison portait sur `false`.
+      # Le filtre par date n'a donc jamais été posé — et depuis Ruby 3.2, qui a
+      # retiré `Object#=~`, le rendu de la liste levait `NoMethodError`.
+      code << "if params[:subscribed_on].to_s =~ /\\A\\d{4}-\\d{2}-\\d{2}\\z/\n"
       code << "  c[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
       code << "  c << params[:subscribed_on]\n"
       code << "end\n"

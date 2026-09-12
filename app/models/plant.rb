@@ -203,7 +203,8 @@ class Plant < Bioproduct
   def quantity_during_last_sowing
     if last_sowing.present?
       inputs_during_sowing = last_sowing.inputs.where(reference_name: %i[plants seeds])
-      inputs_during_sowing.map(&:quantity).sum
+      # `Array#sum` part de l'entier 0, qu'une `Measure` ne sait pas accueillir.
+      inputs_during_sowing.map(&:quantity).compact.reduce(:+)
     else
       nil
     end

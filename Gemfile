@@ -37,6 +37,12 @@ gem 'logger'
 gem 'mutex_m'
 gem 'observer'
 gem 'ostruct'
+gem 'rss'
+# json 3 a retiré le mot-clé `quirks_mode`, que l'encodeur d'ActiveSupport 7.1
+# passe encore à `JSON.generate` : sans cette borne, toute sérialisation JSON
+# d'un attribut (colonnes `jsonb`, fixtures comprises) lève `ArgumentError`.
+# À relâcher en montant Rails, qui a cessé d'employer ce mot-clé.
+gem 'json', '~> 2.9'
 gem 'irb', '~> 1.3'
 gem 'rake', '~> 12.0'
 
@@ -133,10 +139,13 @@ gem 'exception_notification', '~> 4.4'
 gem 'redis-namespace', '~> 1.8'
 
 # Manipulate map data
-gem 'charta', github: 'ekylibre/charta', branch: '6.0'
+gem 'charta', github: 'ekylibre/charta', branch: '7.1'
 gem 'geocoder', '~> 1.6'
-gem 'rgeo', '~> 2.2'
-gem 'rgeo-geojson', '~> 2.1'
+# rgeo 3 est imposé par rgeo-proj4 5.x, seule série à employer l'API moderne
+# de PROJ : la 2.x s'appuie sur l'API retirée dans PROJ 8 et son extension,
+# bien que compilée, n'attache aucune méthode sous libproj 9.
+gem 'rgeo', '~> 3.1'
+gem 'rgeo-geojson', '~> 2.2'
 gem 'rgeo-shapefile', '~> 3.0'
 
 # Background jobs

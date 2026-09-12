@@ -56,7 +56,9 @@ class ProductLinkage < ApplicationRecord
   # ]VALIDATORS]
   validates :carried, presence: { if: :occupied? }
 
-  scope :with, ->(point) { where(point: point) }
+  # Rails 7.1 ajoute `ActiveRecord::QueryMethods#with` (expressions de table
+  # communes) : le scope homonyme est désormais refusé au chargement du modèle.
+  scope :at_point, ->(point) { where(point: point) }
 
   before_validation do
     self.started_at = Time.new(1, 1, 1).in_time_zone if started_at.present? && started_at < Time.new(1, 1, 1).in_time_zone
@@ -75,6 +77,6 @@ class ProductLinkage < ApplicationRecord
 
     # Returns all siblings in the chronological line
     def siblings
-      carrier&.linkages&.with(point) || ProductLinkage.none
+      carrier&.linkages&.at_point(point) || ProductLinkage.none
     end
 end

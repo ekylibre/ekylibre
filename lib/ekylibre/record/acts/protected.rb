@@ -33,8 +33,17 @@ module Ekylibre
               send("before_#{callback}", "raise_exception_unless_#{callback}able?".to_sym)
 
               define_method "raise_exception_unless_#{callback}able?" do
-                allowed_fields = options[:"allow_#{callback}_on"] || []
-                bypass = changed.all? { |change| allowed_fields.map(&:to_s).include?(change) }
+                allowed_fields = (options[:"allow_#{callback}_on"] || []).map(&:to_s)
+                # Une mise à jour échappe à la protection si toutes ses
+                # modifications portent sur des champs explicitement autorisés —
+                # une sauvegarde sans modification, `changed` vide, aussi :
+                # elle n'écrit rien de protégé.
+                #
+                # La destruction, elle, ne se contourne pas ainsi. `changed.all?`
+                # valant vrai sur une liste vide, tout enregistrement propre —
+                # relu, ou tout juste créé — passait au travers de la protection.
+                bypass = callback.to_sym != :destroy &&
+                         changed.all? { |change| allowed_fields.include?(change) }
 
                 unless send("#{callback}able?") || bypass
                   raise "Ekylibre::Record::RecordNot#{callback.to_s.camelcase}able".constantize.new("Record cannot be #{callback}d")

@@ -881,7 +881,9 @@ class Intervention < ApplicationRecord
     options = args.extract_options!
     unit = args.shift || options[:unit] || :hectare
     area = if targets.any?
-             targets.with_working_zone_area.map(&:working_area).sum.in(unit)
+             # `working_area` rend une `Measure` ou nil, et `Array#sum` part de
+             # l'entier 0 qu'une `Measure` ne sait pas accueillir.
+             (targets.with_working_zone_area.map(&:working_area).compact.reduce(:+) || 0.0.in(unit)).in(unit)
            else
              0.0.in(unit)
            end

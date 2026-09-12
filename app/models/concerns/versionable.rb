@@ -47,7 +47,14 @@ module Versionable
   def version_object
     hash = attributes.with_indifferent_access
     hash.delete_if { |k, _v| self.class.versioning_excluded_attributes.include?(k.to_sym) }
-    hash
+    # `attributes` rend la valeur d'un attribut `enumerize` sous la forme d'un
+    # `Enumerize::Value`, sous-classe de String qui porte l'attribut dont elle
+    # vient. Rails 7.1 écrit les colonnes sérialisées avec `YAML.safe_dump` et
+    # la refuserait ; et rien ne justifie de graver une classe de gem dans la
+    # colonne, la chaîne décrivant la version tout aussi bien. Les lignes
+    # écrites avant cette bascule en contiennent : la classe reste admise en
+    # lecture, voir `config/initializers/yaml_column_permitted_classes.rb`.
+    hash.transform_values { |value| value.is_a?(::Enumerize::Value) ? value.to_s : value }
   end
 
   module ClassMethods

@@ -280,12 +280,18 @@ class Inspection < ApplicationRecord
       on_scales = scales if scale.nil?
       return 0 if on_scales.empty?
 
+      # `Array#sum` part de l'entier 0, qu'une `Measure` ne sait pas accueillir
+      # (`Integer#+` cherche un `coerce` qu'elle n'expose pas) : on replie sur
+      # `+` sans graine, qui rend nil quand il n'y a rien à sommer.
       sum_per_calib = on_scales.map do |s|
         calib = calibrations.of_scale(s)
         calib = calib.marketable if marketable
-        calib.map(&mappable(method_name, dimension)).compact.sum
+        calib.map(&mappable(method_name, dimension)).compact.reduce(:+)
       end
-      sum_per_calib.compact.reject(&:zero?).sum / sum_per_calib.size
+      total = sum_per_calib.compact.reject(&:zero?).reduce(:+)
+      return 0 if total.nil?
+
+      total / sum_per_calib.size
     end
 
     def sum_on_points(method, from: nil, with: nil, round: false)

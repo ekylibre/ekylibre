@@ -72,8 +72,10 @@ module MigrationHelper
         st_point :point_value, srid: 4326
         text :string_value
         if options[:index]
-          options[:index] = {} unless options[:index].is_a?(Hash)
-          index(:indicator_name, options[:index])
+          index_options = options[:index].is_a?(Hash) ? options[:index] : {}
+          # `**` et non un hash positionnel : `TableDefinition#index` prend des
+          # arguments nommés, et Ruby 3 ne convertit plus l'un en l'autre.
+          index(:indicator_name, **index_options)
         end
       end
     end

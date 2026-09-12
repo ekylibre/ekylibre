@@ -11,8 +11,9 @@ module Clients
       private
 
         def address_url(address)
-          encoded_address = URI.encode(address)
-          BASE_URL + "?q=#{encoded_address}&type=housenumber&autocomplete=0"
+          # `URI.encode` a disparu avec Ruby 3.0. `url_encode` échappe tout ce
+          # qui n'est pas littéral dans une valeur de paramètre, l'espace inclus.
+          BASE_URL + "?q=#{ERB::Util.url_encode(address.to_s)}&type=housenumber&autocomplete=0"
         end
     end
   end
