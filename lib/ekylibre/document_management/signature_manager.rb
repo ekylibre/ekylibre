@@ -29,17 +29,18 @@ module Ekylibre
         # ce qui fait remonter un "NULL pointer given" opaque a la place de
         # l'erreur reelle. Voir docker/prod/GPG.md §10.
         raise unless e.message.include?('NULL pointer')
-        raise SignatureError, "GPG signature failed for '#{ENV['GPG_EMAIL']}' (masked by gpgme rescue bug). Common causes: keyring mounted read-only (gpg-agent cannot start), key not trusted ultimate, missing keygrip in private-keys-v1.d/, or key has a passphrase. See docker/prod/GPG.md §10."
+
+        raise SignatureError.new("GPG signature failed for '#{ENV['GPG_EMAIL']}' (masked by gpgme rescue bug). Common causes: keyring mounted read-only (gpg-agent cannot start), key not trusted ultimate, missing keygrip in private-keys-v1.d/, or key has a passphrase. See docker/prod/GPG.md §10.")
       end
 
       private
 
         def ensure_gpg_key_usable!
           email = ENV['GPG_EMAIL']
-          raise SignatureError, 'GPG_EMAIL is blank — cannot sign document.' if email.blank?
+          raise SignatureError.new('GPG_EMAIL is blank — cannot sign document.') if email.blank?
           return if GPGME::Key.find(:secret, email, :sign).any?
 
-          raise SignatureError, "No usable secret GPG key found for '#{email}'. Check `gpg --list-secret-keys` inside the container and docker/prod/GPG.md §10."
+          raise SignatureError.new("No usable secret GPG key found for '#{email}'. Check `gpg --list-secret-keys` inside the container and docker/prod/GPG.md §10.")
         end
     end
   end

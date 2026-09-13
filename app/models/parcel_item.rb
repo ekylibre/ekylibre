@@ -112,8 +112,8 @@ class ParcelItem < ApplicationRecord
   validates :population, presence: true
 
   alias_attribute :quantity, :population
-  alias_method :unit, :conditioning_unit
-  alias_method :unit=, :conditioning_unit=
+  alias unit conditioning_unit
+  alias unit= conditioning_unit=
 
   accepts_nested_attributes_for :products
   accepts_nested_attributes_for :storings, allow_destroy: true

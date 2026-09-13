@@ -10,7 +10,7 @@ namespace :admin do
       set_status = lambda do |status, message|
         Sidekiq.redis do |r|
           r.hset(redis_key, 'status', status, 'message', message.to_s,
-                             'action', action, 'version', version)
+                 'action', action, 'version', version)
         end
       end
 

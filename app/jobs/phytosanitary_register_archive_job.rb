@@ -3,8 +3,8 @@ require 'digest/sha2'
 class PhytosanitaryRegisterArchiveJob < ApplicationJob
   queue_as :default
 
-  DOCUMENT_NATURE = 'phytosanitary_register'
-  DEFAULT_FORMAT = 'xml'
+  DOCUMENT_NATURE = 'phytosanitary_register'.freeze
+  DEFAULT_FORMAT = 'xml'.freeze
   # Arrêté du 24/12/2025 requires a 5-year minimum retention. We add a 1-month
   # buffer so reviews on the last day still find the record alive.
   LEGAL_RETENTION = 5.years + 1.month
@@ -22,7 +22,7 @@ class PhytosanitaryRegisterArchiveJob < ApplicationJob
     year ||= Time.zone.today.year - 1
     format = format.to_s.downcase
     config = FORMAT_TO_EXPORTER.fetch(format) do
-      raise ArgumentError, "Unknown format: #{format}"
+      raise ArgumentError.new("Unknown format: #{format}")
     end
 
     campaign = Campaign.find_by(harvest_year: year)

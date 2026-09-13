@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # One physical element of the farm's IAE (Infrastructures Agro-
 # Écologiques) inventory, attached to a single HveAudit. The set of
 # items drives criterion 4.1 of the HVE3 audit (Biodiversité — IAE,
@@ -29,6 +31,7 @@ class HveBiodiversityItem < ApplicationRecord
 
     def resolve_coefficient
       return if coefficient.present?
+
       row = HveIaeCoefficient.find_for(family: iae_family, type: iae_type, unit: unit)
       self.coefficient = row&.coefficient
     end
@@ -42,6 +45,7 @@ class HveBiodiversityItem < ApplicationRecord
     # stay obvious.
     def compute_equivalent
       return self.equivalent_iae_ha = nil if coefficient.blank?
+
       self.equivalent_iae_ha = surface_or_length.to_d * coefficient.to_d
     end
 end

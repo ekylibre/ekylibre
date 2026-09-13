@@ -438,7 +438,7 @@ module Api
         assert_response :ok
         ids = json_response.map { |i| i['id'] }
         assert_includes ids, created_id
-        assert json_response.all? { |i| i['provider'] && i['provider']['id'] == uuid }
+        assert(json_response.all? { |i| i['provider'] && i['provider']['id'] == uuid })
       end
 
       # Regression: issue #2661 — a spraying intervention with targets + inputs

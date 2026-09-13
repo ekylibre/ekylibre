@@ -51,8 +51,8 @@ class CapStatement < ApplicationRecord
   # ]VALIDATORS]
   validates :farm_name, :pacage_number, :siret_number, presence: true
 
-  alias_method :entity, :declarant
-  alias_method :entity=, :declarant=
+  alias entity declarant
+  alias entity= declarant=
 
   delegate :harvest_year, to: :campaign, prefix: false
 

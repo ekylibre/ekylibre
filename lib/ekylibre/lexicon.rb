@@ -163,6 +163,7 @@ module Ekylibre
       if @current_version.present? && @current_version == @target_version
         raise "Cannot drop the currently active lexicon version (#{@target_version}). Activate another version first."
       end
+
       @database.query("DROP SCHEMA IF EXISTS \"#{schema}\" CASCADE")
     end
 

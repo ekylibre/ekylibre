@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema information
 # (see db/migrate/20260606120001_create_hve_audits.rb)
 #

@@ -66,7 +66,10 @@ class PseudoEnvironment < SimpleDelegator
   end
 
   def ===(other)
-    (current_env || real_env) === other
+    # `===` est justement ce que l'on implémente : `case Rails.env` doit se
+    # comporter comme sur l'`ActiveSupport::StringInquirer` réel. Le déléguer
+    # est le but, pas une maladresse.
+    (current_env || real_env) === other # rubocop:disable Style/CaseEquality
   end
 
   # Les prédicats d'environnement (`production?`, `development?`, …) sont

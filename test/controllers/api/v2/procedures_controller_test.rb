@@ -10,7 +10,7 @@ module Api
         get :index, params: {}
         assert_response :ok
         assert json_response.is_a?(Array)
-        assert json_response.any? { |p| p['name'] == 'spraying' }
+        assert(json_response.any? { |p| p['name'] == 'spraying' })
       end
 
       test 'show returns 404 for unknown procedure' do
@@ -64,8 +64,10 @@ module Api
         # Depth-first lookup of a parameter by name across nested group parameters.
         def find_parameter(parameters, name)
           return nil unless parameters
+
           parameters.each do |param|
             return param if param['name'] == name
+
             if param['parameters']
               found = find_parameter(param['parameters'], name)
               return found if found

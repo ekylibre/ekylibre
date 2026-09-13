@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Vendored reference table for IAE (Infrastructures Agro-Écologiques)
 # conversion coefficients. The HVE3 V4.4 control plan (annex 1) lists,
 # for each IAE type, how a linear (m) or area (ha) measurement converts

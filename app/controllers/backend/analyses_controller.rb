@@ -78,10 +78,10 @@ module Backend
 
     private
 
-    def link_wine_incoming_harvest
-      return unless @analysis.persisted? && params[:wine_incoming_harvest_id].present?
+      def link_wine_incoming_harvest
+        return unless @analysis.persisted? && params[:wine_incoming_harvest_id].present?
 
-      WineIncomingHarvest.where(id: params[:wine_incoming_harvest_id]).update_all(analysis_id: @analysis.id)
-    end
+        WineIncomingHarvest.where(id: params[:wine_incoming_harvest_id]).update_all(analysis_id: @analysis.id)
+      end
   end
 end

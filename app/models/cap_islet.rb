@@ -53,7 +53,6 @@ class CapIslet < ApplicationRecord
   delegate :name, to: :campaign, prefix: true
   delegate :pacage_number, to: :cap_statement, prefix: false
 
-
   scope :of_campaign, lambda { |*campaigns|
     joins(:cap_statement).merge(CapStatement.of_campaign(*campaigns))
   }

@@ -4,14 +4,14 @@
 import { DukeWidget } from 'duke/widget';
 
 function boot() {
-  const root = document.getElementById('duke-widget-root');
-  if (!root || root.dataset.dukeBooted === '1') return;
-  root.dataset.dukeBooted = '1';
-  new DukeWidget(root);
+    const root = document.getElementById('duke-widget-root');
+    if (!root || root.dataset.dukeBooted === '1') return;
+    root.dataset.dukeBooted = '1';
+    new DukeWidget(root);
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', boot, { once: true });
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
 } else {
-  boot();
+    boot();
 }

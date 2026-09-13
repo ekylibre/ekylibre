@@ -12,7 +12,7 @@ module Clients
         return nil unless digits.length == 9
 
         key = (12 + 3 * (digits.to_i % 97)) % 97
-        format('FR%02d%s', key, digits)
+        format('FR%<key>02d%<digits>s', key: key, digits: digits)
       end
     end
   end

@@ -1,6 +1,6 @@
 module Backend
   class PhytosanitaryRegistersController < Backend::BaseController
-    DOCUMENT_NATURE = 'phytosanitary_register'
+    DOCUMENT_NATURE = 'phytosanitary_register'.freeze
 
     SUPPORTED_FORMATS = {
       'xml' => { mime: 'application/xml', exporter: ::Phytosanitary::Register::Exporters::XmlExporter },

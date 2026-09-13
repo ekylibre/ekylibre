@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tenant-local snapshot of the official CMR phytosanitary products
 # list published every year by the ministry. Used by HVE criterion 5.1:
 # any application of a CMR1 product without an explicit derogation
@@ -22,6 +24,7 @@ class HveCmrProduct < ApplicationRecord
   # the snapshot year shipped with the plugin).
   def self.classify(amm_code, year: EkylibreHve::CMR_SNAPSHOT_YEAR)
     return nil if amm_code.blank?
+
     where(amm_code: amm_code.to_s.strip, snapshot_year: year).limit(1).pluck(:cmr_class).first
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Per-crop nitrogen export coefficients used by the BGA (Bilan Global
 # Azoté) computation tool. Source: Comifer 2013 + technical institutes,
 # distributed via Exportations_azote_productions_vegetales_5.pdf.
@@ -17,8 +19,10 @@ class HveNitrogenExportCoefficient < ApplicationRecord
   # matter tonne.
   def self.exported(crop_reference:, organ:, yield_tonnes:)
     return 0.0 if yield_tonnes.to_f.zero?
+
     row = for_crop(crop_reference).where(organ: organ.to_s).take
     return 0.0 unless row
+
     tonnes = yield_tonnes.to_f
     tonnes *= (row.ms_pct.to_f / 100.0) if row.unit == 'dry_matter' && row.ms_pct
     tonnes * row.n_kg_per_t.to_f

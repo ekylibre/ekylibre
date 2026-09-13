@@ -20,7 +20,7 @@ module Accountancy
       # Sanitize the file name: a financial year code can contain a "/" (e.g.
       # "EX2026/2027") which would be read as a directory separator and raise
       # Errno::ENOENT when the sub-directory does not exist.
-      log_basename = "account-changing-#{Ekylibre::Tenant.current}-#{@financial_year.code}".gsub(%r{[^0-9A-Za-z._-]}, '-')
+      log_basename = "account-changing-#{Ekylibre::Tenant.current}-#{@financial_year.code}".gsub(/[^0-9A-Za-z._-]/, '-')
       @logger ||= Logger.new(File.join(Rails.root, 'log', "#{log_basename}.log"))
     end
 

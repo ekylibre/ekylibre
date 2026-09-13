@@ -221,7 +221,7 @@ module ChartsHelper
   TYPES.each do |type, absolute_type|
     define_method "#{type}_highcharts" do |series, options = {}, html_options = {}|
       if UNSUPPORTED_TYPES.include?(absolute_type)
-        raise NotImplementedError, "Chart type '#{absolute_type}' is not supported by the ECharts backend yet. Add it to ChartsHelper if needed."
+        raise NotImplementedError.new("Chart type '#{absolute_type}' is not supported by the ECharts backend yet. Add it to ChartsHelper if needed.")
       end
 
       options = options.dup
@@ -297,18 +297,23 @@ module ChartsHelper
     def derive_categories_from_series!(options, series)
       xa = options[:x_axis]
       return if xa.is_a?(Array)
+
       xa = xa.is_a?(Hash) ? xa : {}
       return if xa[:categories].present?
       return unless %w[category].include?(xa[:type].to_s)
+
       first = series.first
       return unless first.is_a?(Hash) && first[:data].is_a?(Array)
+
       names = first[:data].map { |p| p.is_a?(Hash) ? p[:name] : nil }
       return if names.compact.empty?
+
       options[:x_axis] = xa.merge(categories: names)
     end
 
     def build_title(title, subtitle)
       return nil if title.nil? && subtitle.nil?
+
       out = {}
       if title.is_a?(Hash)
         out[:text] = title[:text] if title[:text]
@@ -327,6 +332,7 @@ module ChartsHelper
     def build_legend(legend)
       return nil if legend.nil? || legend == false
       return { show: true } if legend == true
+
       if legend.is_a?(Hash)
         show = legend.key?(:enabled) ? legend[:enabled] : true
         out = { show: show ? true : false }
@@ -508,11 +514,13 @@ module ChartsHelper
     # Pass-through for numeric values and arrays (bubble/scatter).
     def translate_data_points(data)
       return data unless data.is_a?(Array)
+
       data.map { |pt| translate_data_point(pt) }
     end
 
     def translate_data_point(point)
       return point unless point.is_a?(Hash)
+
       pt = point.dup
       # y → value (Highcharts → ECharts)
       pt[:value] = pt.delete(:y) if pt.key?(:y) && !pt.key?(:value)
@@ -540,7 +548,7 @@ module ChartsHelper
       connectors  = []  # series of {value: tip_height} used to draw a thin connector line
       running     = 0.0
 
-      raw.each_with_index do |point, idx|
+      raw.each_with_index do |point, _idx|
         is_sum = point.is_a?(Hash) && (point[:is_sum] || point[:isSum] || point[:isIntermediateSum] || point[:is_intermediate_sum])
         if is_sum
           placeholder << '-'

@@ -46,7 +46,7 @@ namespace :admin do
         tmp_path = Rails.root.join('tmp', "demo-data-#{Process.pid}")
         begin
           success = system('git', 'clone', '--depth', '1', '--quiet', demo_repo, tmp_path.to_s)
-          raise "Échec du clonage git (code #{$?.exitstatus})" unless success
+          raise "Échec du clonage git (code #{$CHILD_STATUS.exitstatus})" unless success
 
           cloned_demo = tmp_path.join(demo_folder)
           raise "Dossier '#{demo_folder}' introuvable dans le dépôt cloné." unless cloned_demo.exist?

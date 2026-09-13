@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HveAuditItem < ApplicationRecord
   belongs_to :audit, class_name: 'HveAudit',
                      foreign_key: :hve_audit_id,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Regional Pf/Pc thresholds used to score the IFT (Indice de Fréquence
 # de Traitements) item 5.3. Pc is the 20th percentile (plancher), Pf
 # the 70th percentile (plafond); each scoring class is one quarter of
@@ -19,8 +21,10 @@ class HveScoringTable < ApplicationRecord
   def score_for(ift_value)
     return nil if pc.nil? || pf.nil?
     return 5 if ift_value <= pc
+
     step = (pf - pc) / 4.0
     return 0 if ift_value >= pf
+
     [5 - ((ift_value - pc) / step).floor, 0].max
   end
 end

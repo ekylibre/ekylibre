@@ -11,32 +11,32 @@ module Phytosanitary
       # locale changes are picked up per request.
       CODE_KEYS = [
         # Group 8xx: Clear / Clouds
-        ['800', 'weather_clear_sky'],
-        ['801', 'weather_few_clouds'],
-        ['802', 'weather_scattered_clouds'],
-        ['803', 'weather_broken_clouds'],
-        ['804', 'weather_overcast'],
+        %w[800 weather_clear_sky],
+        %w[801 weather_few_clouds],
+        %w[802 weather_scattered_clouds],
+        %w[803 weather_broken_clouds],
+        %w[804 weather_overcast],
         # Group 7xx: Atmosphere
-        ['701', 'weather_mist'],
-        ['721', 'weather_haze'],
-        ['741', 'weather_fog'],
-        ['781', 'weather_tornado'],
+        %w[701 weather_mist],
+        %w[721 weather_haze],
+        %w[741 weather_fog],
+        %w[781 weather_tornado],
         # Group 6xx: Snow
-        ['600', 'weather_light_snow'],
-        ['601', 'weather_snow'],
-        ['602', 'weather_heavy_snow'],
+        %w[600 weather_light_snow],
+        %w[601 weather_snow],
+        %w[602 weather_heavy_snow],
         # Group 5xx: Rain
-        ['500', 'weather_light_rain'],
-        ['501', 'weather_moderate_rain'],
-        ['502', 'weather_heavy_rain'],
-        ['511', 'weather_freezing_rain'],
+        %w[500 weather_light_rain],
+        %w[501 weather_moderate_rain],
+        %w[502 weather_heavy_rain],
+        %w[511 weather_freezing_rain],
         # Group 3xx: Drizzle
-        ['300', 'weather_light_drizzle'],
-        ['301', 'weather_drizzle'],
+        %w[300 weather_light_drizzle],
+        %w[301 weather_drizzle],
         # Group 2xx: Thunderstorm
-        ['200', 'weather_thunderstorm_light_rain'],
-        ['201', 'weather_thunderstorm_rain'],
-        ['211', 'weather_thunderstorm']
+        %w[200 weather_thunderstorm_light_rain],
+        %w[201 weather_thunderstorm_rain],
+        %w[211 weather_thunderstorm]
       ].freeze
 
       def self.options

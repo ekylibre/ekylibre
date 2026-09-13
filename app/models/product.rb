@@ -391,8 +391,8 @@ class Product < ApplicationRecord
 
   delegate :dimension, :of_dimension?, to: :unit
 
-  alias_method :unit, :conditioning_unit
-  alias_method :unit=, :conditioning_unit=
+  alias unit conditioning_unit
+  alias unit= conditioning_unit=
 
   store :reading_cache, accessors: Onoma::Indicator.all, coder: ReadingsCoder
 

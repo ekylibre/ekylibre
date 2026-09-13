@@ -7,6 +7,7 @@ class ChartsHelperTest < ActionView::TestCase
   def extract_options(html)
     match = html.match(/data-echarts="([^"]+)"/)
     raise "no data-echarts attribute in: #{html.inspect}" unless match
+
     JSON.parse(CGI.unescapeHTML(match[1]))
   end
 

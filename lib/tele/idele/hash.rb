@@ -7,8 +7,10 @@ module Tele
         def from_xml(xml_io)
           result = Nokogiri::XML(xml_io)
           return { result.root.name.to_sym => xml_node_to_hash(result.root) }
-        rescue Exception => e
-          # raise your custom exception here
+        rescue StandardError
+          # Le corps est vide depuis l'origine : un XML illisible rend `nil`.
+          # `Exception` attrapait en outre les signaux et `SystemExit`, ce qui
+          # rendait ce parseur capable d'avaler un Ctrl-C.
         end
 
         def xml_node_to_hash(node)

@@ -47,7 +47,7 @@ module Procedo
       # Returns parameter with its name. Raise exception if parameter not found
       def find!(name)
         parameter = find(name)
-        raise Procedo::Errors::MissingVariable, "Cannot find parameter: #{name.inspect}" unless parameter
+        raise Procedo::Errors::MissingVariable.new("Cannot find parameter: #{name.inspect}") unless parameter
 
         parameter
       end

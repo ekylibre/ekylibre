@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   # Inspecte l'etat Bundler en memoire pour exposer la version Ekylibre et la liste
   # des plugins charges depuis Gemfile.local ou Gemfile.prod dont la source est un
@@ -31,13 +33,14 @@ module Admin
         definition = Bundler.definition
         specs_by_name = definition.specs.each_with_object({}) { |s, h| h[s.name] = s }
 
-        definition.dependencies.each_with_object([]) do |dep, list|
+        plugins = definition.dependencies.each_with_object([]) do |dep, list|
           slug = slug_from(dep)
           next unless slug
           next unless eligible_gemfile?(dep)
 
           list << build_plugin(dep, slug, specs_by_name[dep.name])
-        end.sort_by { |p| p.slug.to_s.downcase }
+        end
+        plugins.sort_by { |plugin| plugin.slug.to_s.downcase }
       rescue StandardError => e
         Rails.logger.warn("[Admin::PluginsInspector] #{e.class}: #{e.message}") if defined?(Rails)
         []

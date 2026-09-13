@@ -105,8 +105,8 @@ class SaleItem < ApplicationRecord
   delegate :dimension, :of_dimension?, to: :unit
 
   # alias product_nature variant_nature
-  alias_method :unit, :conditioning_unit
-  alias_method :unit=, :conditioning_unit=
+  alias unit conditioning_unit
+  alias unit= conditioning_unit=
 
   acts_as_list scope: :sale
   accepts_nested_attributes_for :subscriptions

@@ -14,6 +14,7 @@ class FinancialYearClose
   attr_reader :carry_forward_account, :close_error
 
   class UnbalancedBalanceSheet < StandardError; end
+
   class UnbalancedAllocation < StandardError; end
 
   CLOSURE_STEPS = {
@@ -471,7 +472,7 @@ class FinancialYearClose
         total_credit = items.sum { |i| (i[:real_credit] || 0).to_f }
         if (total_debit - total_credit).abs >= 0.01
           allocations_sum = @options[:allocations].values.sum(&:to_f)
-          raise UnbalancedAllocation, "Allocation déséquilibrée: débit=#{total_debit}, crédit=#{total_credit}, à allouer=#{to_allocate_balance.abs} sur #{debit_or_credit}. Somme des allocations reçues=#{allocations_sum}. Allocations: #{@options[:allocations].inspect}. Vérifier les soldes des comptes de report à nouveau (110/119) et de résultat (120/129)."
+          raise UnbalancedAllocation.new("Allocation déséquilibrée: débit=#{total_debit}, crédit=#{total_credit}, à allouer=#{to_allocate_balance.abs} sur #{debit_or_credit}. Somme des allocations reçues=#{allocations_sum}. Allocations: #{@options[:allocations].inspect}. Vérifier les soldes des comptes de report à nouveau (110/119) et de résultat (120/129).")
         end
 
         JournalEntry.create!(
