@@ -1055,7 +1055,7 @@ GEM
     validates_timeliness (8.0.0)
       activemodel (>= 8.0.0, < 9)
       timeliness (>= 0.3.10, < 1)
-    vcr (6.0.0)
+    vcr (6.4.0)
     version_gem (1.1.15)
     victor (0.3.4)
     vuejs-rails (2.5.13)
@@ -1257,7 +1257,7 @@ DEPENDENCIES
   unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 8.0)
-  vcr (~> 6.0.0)
+  vcr (~> 6.4)
   vuejs-rails
   wannabe_bool (~> 0.7.1)
   web-console (~> 3.0)

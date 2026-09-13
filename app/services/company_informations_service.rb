@@ -46,8 +46,6 @@ class CompanyInformationsService
       @siret = etablissement[:siret]
     end
 
-    puts etablissement.inspect.green
-
     return {} unless etablissement
 
     address_etablissement = etablissement[:adresseEtablissement]

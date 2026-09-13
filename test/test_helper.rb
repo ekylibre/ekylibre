@@ -610,4 +610,25 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.ignore_request { ENV.fetch('DISABLE_VCR', nil) }
   config.ignore_localhost = true
+
+  # Les clés d'API ne doivent pas se retrouver dans une cassette : elles sont
+  # versionnées, et une cassette enregistrée sur un poste part avec le secret
+  # qui s'y trouvait. Chacune est remplacée à l'enregistrement par son
+  # marque-place, et réinjectée à la relecture depuis l'environnement — absent
+  # en CI, ce qui est sans importance puisque l'appariement des requêtes ne
+  # porte pas sur les en-têtes.
+  {
+    'INSEE_SIRENE_API_KEY' => '<INSEE_SIRENE_API_KEY>'
+  }.each do |variable, placeholder|
+    config.filter_sensitive_data(placeholder) { ENV.fetch(variable, nil) }
+  end
+
+  # Les cookies n'ont aucun rôle dans l'appariement des requêtes et n'ont donc
+  # rien à faire dans un fichier versionné : ceux de l'INSEE ne portent que
+  # l'adresse de son répartiteur de charge, mais un autre service y mettrait une
+  # session.
+  config.before_record do |interaction|
+    interaction.response.headers.delete('Set-Cookie')
+    interaction.request.headers.delete('Cookie')
+  end
 end

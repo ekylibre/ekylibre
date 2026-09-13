@@ -317,7 +317,7 @@ group :test do
 
   gem 'rails-controller-testing', '~> 1.0'
 
-  gem 'vcr', "~> 6.0.0"
+  gem 'vcr', '~> 6.4'
   gem 'webmock', "~> 3.13.0"
 end
 

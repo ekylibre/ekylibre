@@ -1,0 +1,203 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.insee.fr/api-sirene/3.11/siren/808534283
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.4.10p104
+      X-Insee-Api-Key-Integration:
+      - "<INSEE_SIRENE_API_KEY>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.insee.fr
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Gravitee-Client-Identifier:
+      - 99238bb1-343e-4efb-a38b-b1343efefba7
+      X-Quota-Limit:
+      - '2000'
+      X-Quota-Remaining:
+      - '1998'
+      X-Quota-Reset:
+      - '1789331073461'
+      X-Rate-Limit-Limit:
+      - '30'
+      X-Rate-Limit-Remaining:
+      - '29'
+      X-Rate-Limit-Reset:
+      - '1789327760018'
+      Cache-Control:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sun, 13 Sep 2026 19:28:20 GMT
+      Server:
+      - unknown
+      X-Gravitee-Transaction-Id:
+      - e6a45cd3-43c2-4dc6-a45c-d343c28dc639
+      X-Gravitee-Request-Id:
+      - e6a45cd3-43c2-4dc6-a45c-d343c28dc639
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK"},"uniteLegale":{"siren":"808534283","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2014-11-20","sigleUniteLegale":null,"sexeUniteLegale":null,"prenom1UniteLegale":null,"prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":null,"pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":"01","anneeEffectifsUniteLegale":"2023","dateDernierTraitementUniteLegale":"2025-12-06T06:04:01.322","nombrePeriodesUniteLegale":5,"categorieEntreprise":"PME","anneeCategorieEntreprise":"2023","activitePrincipaleNAF25UniteLegale":"62.10Y","periodesUniteLegale":[{"dateFin":null,"dateDebut":"2023-07-01","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"EKYLIBRE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"5710","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"62.01Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00045","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":"N","changementEconomieSocialeSolidaireUniteLegale":false,"societeMissionUniteLegale":null,"changementSocieteMissionUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false},{"dateFin":"2023-06-30","dateDebut":"2019-09-10","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"EKYLIBRE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"5710","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"62.01Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00037","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":"N","changementEconomieSocialeSolidaireUniteLegale":true,"societeMissionUniteLegale":null,"changementSocieteMissionUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false},{"dateFin":"2019-09-09","dateDebut":"2017-04-25","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"EKYLIBRE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"5710","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"62.01Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00037","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"societeMissionUniteLegale":null,"changementSocieteMissionUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false},{"dateFin":"2017-04-24","dateDebut":"2016-07-21","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"EKYLIBRE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"5710","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"62.01Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00029","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"societeMissionUniteLegale":null,"changementSocieteMissionUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false},{"dateFin":"2016-07-20","dateDebut":"2014-11-20","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"EKYLIBRE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"5710","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"62.01Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00011","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"societeMissionUniteLegale":null,"changementSocieteMissionUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false}]}}'
+  recorded_at: Sun, 13 Sep 2026 19:28:20 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/api-sirene/3.11/siret/80853428300045
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.4.10p104
+      X-Insee-Api-Key-Integration:
+      - "<INSEE_SIRENE_API_KEY>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api.insee.fr
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Gravitee-Client-Identifier:
+      - 99238bb1-343e-4efb-a38b-b1343efefba7
+      X-Quota-Limit:
+      - '2000'
+      X-Quota-Remaining:
+      - '1997'
+      X-Quota-Reset:
+      - '1789331073461'
+      X-Rate-Limit-Limit:
+      - '30'
+      X-Rate-Limit-Remaining:
+      - '28'
+      X-Rate-Limit-Reset:
+      - '1789327760018'
+      Cache-Control:
+      - no-cache
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sun, 13 Sep 2026 19:28:20 GMT
+      Server:
+      - unknown
+      X-Gravitee-Transaction-Id:
+      - 2baf76a2-e14d-4c85-af76-a2e14d9c8502
+      X-Gravitee-Request-Id:
+      - 2baf76a2-e14d-4c85-af76-a2e14d9c8502
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"ok"},"etablissement":{"siren":"808534283","nic":"00045","siret":"80853428300045","statutDiffusionEtablissement":"O","dateCreationEtablissement":"2023-07-01","trancheEffectifsEtablissement":"01","anneeEffectifsEtablissement":"2023","activitePrincipaleRegistreMetiersEtablissement":null,"dateDernierTraitementEtablissement":"2025-12-05T19:05:17.883","etablissementSiege":true,"nombrePeriodesEtablissement":1,"activitePrincipaleNAF25Etablissement":"62.10Y","uniteLegale":{"etatAdministratifUniteLegale":"A","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2014-11-20","categorieJuridiqueUniteLegale":"5710","denominationUniteLegale":"EKYLIBRE","sigleUniteLegale":null,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"sexeUniteLegale":null,"nomUniteLegale":null,"nomUsageUniteLegale":null,"prenom1UniteLegale":null,"prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":null,"pseudonymeUniteLegale":null,"activitePrincipaleUniteLegale":"62.01Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","identifiantAssociationUniteLegale":null,"economieSocialeSolidaireUniteLegale":"N","societeMissionUniteLegale":null,"caractereEmployeurUniteLegale":null,"trancheEffectifsUniteLegale":"01","anneeEffectifsUniteLegale":"2023","nicSiegeUniteLegale":"00045","dateDernierTraitementUniteLegale":"2025-12-06T06:04:01.322","categorieEntreprise":"PME","anneeCategorieEntreprise":"2023","activitePrincipaleNAF25UniteLegale":"62.10Y"},"adresseEtablissement":{"complementAdresseEtablissement":null,"numeroVoieEtablissement":"8","indiceRepetitionEtablissement":null,"dernierNumeroVoieEtablissement":null,"indiceRepetitionDernierNumeroVoieEtablissement":null,"typeVoieEtablissement":"RUE","libelleVoieEtablissement":"DU
+        BOUIL BLEU","codePostalEtablissement":"17250","libelleCommuneEtablissement":"SAINT-PORCHAIRE","libelleCommuneEtrangerEtablissement":null,"distributionSpecialeEtablissement":null,"codeCommuneEtablissement":"17387","codeCedexEtablissement":null,"libelleCedexEtablissement":null,"codePaysEtrangerEtablissement":null,"libellePaysEtrangerEtablissement":null,"identifiantAdresseEtablissement":"173870031_B","coordonneeLambertAbscisseEtablissement":"406357.09162569116","coordonneeLambertOrdonneeEtablissement":"6532387.962874614"},"adresse2Etablissement":{"complementAdresse2Etablissement":null,"numeroVoie2Etablissement":null,"indiceRepetition2Etablissement":null,"typeVoie2Etablissement":null,"libelleVoie2Etablissement":null,"codePostal2Etablissement":null,"libelleCommune2Etablissement":null,"libelleCommuneEtranger2Etablissement":null,"distributionSpeciale2Etablissement":null,"codeCommune2Etablissement":null,"codeCedex2Etablissement":null,"libelleCedex2Etablissement":null,"codePaysEtranger2Etablissement":null,"libellePaysEtranger2Etablissement":null},"periodesEtablissement":[{"dateFin":null,"dateDebut":"2023-07-01","etatAdministratifEtablissement":"A","changementEtatAdministratifEtablissement":false,"enseigne1Etablissement":null,"enseigne2Etablissement":null,"enseigne3Etablissement":null,"changementEnseigneEtablissement":false,"denominationUsuelleEtablissement":null,"changementDenominationUsuelleEtablissement":false,"activitePrincipaleEtablissement":"62.01Z","nomenclatureActivitePrincipaleEtablissement":"NAFRev2","changementActivitePrincipaleEtablissement":false,"caractereEmployeurEtablissement":"O","changementCaractereEmployeurEtablissement":false}]}}'
+  recorded_at: Sun, 13 Sep 2026 19:28:20 GMT
+- request:
+    method: get
+    uri: https://api-adresse.data.gouv.fr/search/?autocomplete=0&q=8%20RUE%20DU%20BOUIL%20BLEU%2017250%20SAINT-PORCHAIRE&type=housenumber
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.4.10p104
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - api-adresse.data.gouv.fr
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.29.5
+      Date:
+      - Sun, 13 Sep 2026 19:28:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      X-Ratelimit-Limit-Second:
+      - '1'
+      Ratelimit-Limit:
+      - '50'
+      Vary:
+      - Origin
+      Etag:
+      - W/"27e-JpvcR/UjGJs/VVoM3m8yenqjDRs"
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE, PATCH, OPTIONS
+      Access-Control-Allow-Headers:
+      - DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization,Content-Disposition,Content-Length,X-Community
+      Access-Control-Max-Age:
+      - '1728000'
+      X-Iplb-Request-Id:
+      - 3344521F:2720_91EFC1E7:01BB_6AA6F954_AD8D29FB:3DA25E
+      X-Iplb-Instance:
+      - '61218'
+      X-Infra:
+      - gpf
+      Location:
+      - https://data.geopf.fr/geocodage/search/?q=8%20RUE%20DU%20BOUIL%20BLEU%2017250%20SAINT-PORCHAIRE&type=housenumber&autocomplete=0
+      Deprecation:
+      - Sat, 31 Jan 2026 22:59:59 GMT
+      Sunset:
+      - Sat, 31 Jan 2026 22:59:59 GMT
+      X-Api-Deprecated:
+      - 'true'
+      X-Api-New-Host:
+      - https://data.geopf.fr/geocodage/
+      X-Api-Old-Host:
+      - https://api-adresse.data.gouv.fr
+      X-Api-Migration:
+      - permanent
+      X-Api-Notice:
+      - L'URL api-adresse.data.gouv.fr va etre decommissionnee. Merci d'utiliser l'URL
+        de la Geoplateforme https://data.geopf.fr/geocodage/
+      Strict-Transport-Security:
+      - max-age=86400; includeSubDomains; preload;
+    body:
+      encoding: ASCII-8BIT
+      string: '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-0.783794,45.827801]},"properties":{"label":"8
+        Rue du Bouil Bleu 17250 Saint-Porchaire","score":0.9460590909090908,"housenumber":"8","id":"17387_0031_00008","banId":"8042511b-5466-4254-92ae-8731367f8e9b","name":"8
+        Rue du Bouil Bleu","postcode":"17250","citycode":"17387","x":406357.09,"y":6532387.96,"city":"Saint-Porchaire","context":"17,
+        Charente-Maritime, Nouvelle-Aquitaine","type":"housenumber","importance":0.40665,"depcode":"17","street":"Rue
+        du Bouil Bleu","_type":"address"}}],"query":"8 RUE DU BOUIL BLEU 17250 SAINT-PORCHAIRE"}'
+  recorded_at: Sun, 13 Sep 2026 19:28:20 GMT
+recorded_with: VCR 6.4.0
