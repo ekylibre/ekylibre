@@ -8,7 +8,7 @@ Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **
 
 The **`6.0-alpha`** branch holds **Rails 8.1 with the 8.1 defaults** — the target of lot B. It is the rung branches merged into one: `ekylibre-6.0`, `ekylibre-7.0` and `ekylibre-7.1` were deleted once 8.1 landed, each being an ancestor of this one, so no commit was lost. The three workflows trigger on `main`, `5.0-beta` and `6.0-alpha` — renaming the branch without updating them would silence the CI. It is still **not deployed**: the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose, and putting 8.1 in service is its own piece of work. Dev and CI run **Ruby 3.4.10** since the 7.1 rung — `activerecord-postgis-adapter` required Ruby >= 3.0 from the series accepting ActiveRecord 7.1 onwards, so the two moves were one. The adapter is now on the 11 series.
 
-Each rung was crossed the same way, and the criterion never changed: **the suite returns its reference measure** — 3650 tests, 17 failures, 15 errors — first with the framework bumped, then with `load_defaults` raised. A rung is not "done" because the application boots.
+Each rung was crossed the same way, and the criterion never changed: **the suite returns its reference measure** — 3650 tests, 17 failures, 15 errors — first with the framework bumped, then with `load_defaults` raised. A rung is not "done" because the application boots. Those 32 inherited red cases have since been cleared (lot 0.1); see *Running Tests* below.
 
 `config/application.rb` declares `config.load_defaults 8.1`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
 
@@ -84,11 +84,20 @@ COVERAGE=true bundle exec rake test
 
 Tests use **Minitest**. The test tenant is always named `test` and is switched via Apartment middleware in test env.
 
-**The reference measure is 3650 tests, 17 failures, 15 errors, 4 skips.** Compare against it, not against zero. And beware of three known instabilities before blaming your own change:
+**The reference measure was 3650 tests, 17 failures, 15 errors, 4 skips** for the whole ladder — that was the parity criterion, not a target. Lot 0.1 took those 32 red cases one by one and **they all pass now**; compare against zero from here on, and read any red case as a regression to explain.
+
+Roughly half of them were real defects, not stale assertions: `Printers::*.new(hash)` without `**` had left financial-year closure unable to produce its journal documents (and both FEC error reports dead) since Ruby 3; two `show` pages raised; the Socleo import was unusable in English; accounting archives carried the wrong MIME type. When a test goes red under a new framework version, suspect the application first.
+
+**Do not freeze a lexicon identifier in a test.** `RegisteredPhytosanitaryUsage.find('20210727175041473315')` and a `CviCadastralPlant` fixture pointing at cadastral parcel `170300000B0809` both broke when the reference data was renumbered — and `find` returning nil surfaces far from the cause (a vote falling to `:unknown`). Select the row by the property the test actually needs (`where('untreated_buffer_aquatic >= 100')`).
+
+Three known instabilities remain, so check them before blaming your own change:
 
 - **the order decides.** `config.active_support.test_order = :random`, and a handful of tests depend on state a previous one left. A purchase test whose lines cannot balance (99 € excl. tax for 120 € incl. at 20 %) tips over depending on the run — 6 times out of 14 measured runs. Fixing those amounts is the real work; the `errors.messages.unbalanced` key, which used to make the failure read « Translation missing », is now in place;
-- **running one controller test file alone can fail on its own.** `bank_reconciliation/letters_controller_test` raises Devise's « Could not find a valid mapping for #<User …> »: `Devise.mappings` holds a stale class reference. The same file passes inside the full suite. Do not read this as a regression — check under the previous rung's defaults before concluding;
+- **running one test file alone used to fail on its own** — Devise's « Could not find a valid mapping for #<User …> ». That one is fixed: routes load lazily since 7.1, so `devise_for` populated `Devise.mappings` only on first access and any test calling `sign_in` before issuing a request lost. `test/test_helper.rb` now calls `reload_routes_unless_loaded`, and a single file is a reliable unit of work;
 - **the suite rewrites `db/structure.sql`** (a `pg_dump` 17 against a server 13 in the container, so the whole file churns). Check `git status` after a run and restore the file — a commit made without looking propagates that state to every newly created tenant.
+
+**`config/environments/test.rb` pins `ENV['GPG_EMAIL']`** to the testing key shipped in the dev images and imported by the CI workflow. `SignatureManager` reads that variable from the ambient environment, and `docker/dev/.env` declares a production identity whose key is in nobody's keyring — document signature, financial-year closure and document archiving then fail on your machine only. Pinning it also means the suite cannot sign with a real key.
+
 
 ## Tenant Management
 
