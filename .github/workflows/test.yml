@@ -68,6 +68,11 @@ jobs:
       DB_HOST: postgres
       DB_USERNAME: ekylibre
       DB_TEST_NAME: ekylibre_test
+      # Identité de la clé importée à l'étape « Importer la clé GPG des tests ».
+      # Sans elle, la signature de document refuse de s'exécuter — « GPG_EMAIL is
+      # blank » — et les tests d'impression signée échouent, alors que la clé est
+      # bien dans le trousseau.
+      GPG_EMAIL: do-not-trust-key@ekylibre.com
 
     steps:
       - name: Checkout

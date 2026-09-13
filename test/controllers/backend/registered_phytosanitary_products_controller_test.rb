@@ -6,10 +6,16 @@ module Backend
       @land_parcel = create :lemon_land_parcel, :organic, born_at: DateTime.new(2018, 1, 1)
       phyto_references = { copless: '2000087_copless', award: '2190613_award', sultan: '2000003_sultan', zebra: '2000085_zebra' }
       phyto_references.each { |name, ref| instance_variable_set "@#{name}", create(:phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name(ref)) }
-      # award usage is
-      # Agrumes*Trt Part.Aer.*Acariens et phytoptes
-      # 1,2 L/ha
-      @award_usage = RegisteredPhytosanitaryUsage.find('20210727175041473315')
+      # Un usage d'AWARD dont la zone non traitée aquatique atteint 100 m : c'est
+      # la seule propriété dont les tests ci-dessous ont besoin. Elle était
+      # jusqu'ici désignée par un identifiant de lexique figé
+      # (`20210727175041473315`), que la livraison suivante a renuméroté — un
+      # identifiant de référentiel ne survit pas à ses mises à jour.
+      @award_usage = RegisteredPhytosanitaryUsage
+                     .where(product_id: RegisteredPhytosanitaryProduct.find_by(reference_name: '2190613_award')&.id)
+                     .where('untreated_buffer_aquatic >= 100')
+                     .order(:id)
+                     .first
       user_sign_in
     end
 

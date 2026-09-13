@@ -33,7 +33,11 @@ module Accountancy
                      tax: @standard_vat)
       sale.save!
       sale.propose!
-      sale.confirm!
+      # Confirmer à une date couverte par les exercices créés ci-dessus. Sans
+      # argument, `confirm` horodate à `Time.zone.now` : l'écriture comptable
+      # produite par la transition tombait alors hors exercice — le test ne
+      # passait que les années où « aujourd'hui » appartenait encore à 2025.
+      sale.confirm!(Date.parse('2025-02-02').to_time)
       assert_equal sale.items.first.account_id, variant.category.product_account.id
       account = Account.find_or_create_by_number('70200000')
       variant.category.update(product_account: account)

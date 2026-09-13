@@ -670,7 +670,7 @@ class FinancialYearClose
         template: template
       )
 
-      printer = Printers::JournalLedgerPrinter.new(full_params)
+      printer = Printers::JournalLedgerPrinter.new(**full_params)
 
       document = print_and_archive(template, printer)
 

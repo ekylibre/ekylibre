@@ -8,7 +8,7 @@ module FEC
       begin
         template = DocumentTemplate.find_by_nature(:fec_data_error)
         dataset_params = { template: template, financial_year: financial_year, fiscal_position: fiscal_position }
-        printer = Printers::FecDataErrorPrinter.new(dataset_params)
+        printer = Printers::FecDataErrorPrinter.new(**dataset_params)
         entries = printer.compute_dataset
 
         if entries.empty?

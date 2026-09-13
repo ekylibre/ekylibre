@@ -8,11 +8,18 @@ module Ekylibre
       end
 
       test 'all natures have a template' do
+        # Natures présentes dans la nomenclature Onoma mais sans gabarit livré.
+        # Les cinq dernières ont rejoint cette liste avec le retrait de Jasper et
+        # des agrégateurs (A.4, commit f656ab9b97) : leurs gabarits `.xml` sont
+        # partis avec la page Exports, et rien ne les remplace en ODT.
         missing = %w[
-          entity_sheet equipment_certification exchange_accountancy_file_fr fixed_asset_sheet incoming_delivery_docket journal
+          animal_husbandry_register entity_sheet equipment_certification exchange_accountancy_file_fr fixed_asset_sheet
+          fr_pcg82_balance_sheet fr_pcg82_profit_and_loss_statement fr_pcga_balance_sheet fr_pcga_profit_and_loss_statement
+          incoming_delivery_docket journal
           manure_management_plan manure_management_plan_sheet outgoing_deliveries_journal pfi_land_parcel_register
           phytosanitary_certification prescription products_sheet provisional_manure_management_plan purchases_estimate
-          purchases_original security_data_sheet stocks tax_assessment vine_phytosanitary_register wine_bottling_register
+          purchases_original security_data_sheet stocks tax_assessment veterinary_booklet
+          vine_phytosanitary_register wine_bottling_register
           wine_detention_register wine_manipulation_register wine_incoming_harvest_register
 ]
 

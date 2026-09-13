@@ -19,7 +19,7 @@ module FEC
         xsd = Nokogiri::XML::Schema(File.read(format_file))
 
         dataset_params = { template: template, financial_year: financial_year, xsd: xsd, fec_parser: fec_parser }
-        printer = Printers::FecStructureErrorPrinter.new(dataset_params)
+        printer = Printers::FecStructureErrorPrinter.new(**dataset_params)
 
         # Nokogiri does the checks here
         errors = printer.compute_dataset

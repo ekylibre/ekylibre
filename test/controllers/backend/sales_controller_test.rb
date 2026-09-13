@@ -28,7 +28,11 @@ module Backend
       sale = sales(:sales_001)
       assert sale.valid?, "Sales 001 must be valid (#{sale.errors.inspect})"
       DocumentTemplate.of_nature(:sales_invoice).update_all(active: false)
-      template = DocumentTemplate.create!(nature: :sales_invoice, language: I18n.locale, name: 'sales_invoice', active: true, source: File.open(fixture_file('sales_invoice.jrxml')))
+      # Le gabarit doit être un ODT : depuis le retrait de Jasper, `source` refuse
+      # tout autre format, et le `.jrxml` que ce test téléversait n'était plus
+      # imprimable. On prend celui que l'application livre pour cette nature.
+      template = DocumentTemplate.create!(nature: :sales_invoice, language: I18n.locale, name: 'sales_invoice', active: true,
+                                          source: File.open(Rails.root.join('config', 'locales', 'fra', 'reporting', 'sales_invoice.odt')))
       assert template, 'No template found for sales_invoice'
       assert_nothing_raised do # "Template #{template.inspect} doesn't seems to work"
         get :show, params: { id: sale.id, format: :pdf, key: sale.number, template: template.id }
