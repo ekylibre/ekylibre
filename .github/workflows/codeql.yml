@@ -14,11 +14,11 @@ name: "CodeQL"
 on:
   push:
     # The 0-x/1-x stable branches are long gone; active development happens on
-    # 5.0-beta and ekylibre-6.0, which CodeQL had never analysed.
-    branches: [ "main", "5.0-beta", "ekylibre-6.0" ]
+    # 5.0-beta and 6.0-alpha, which CodeQL had never analysed.
+    branches: [ "main", "5.0-beta", "6.0-alpha" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main", "5.0-beta", "ekylibre-6.0" ]
+    branches: [ "main", "5.0-beta", "6.0-alpha" ]
   schedule:
     - cron: '39 7 * * 3'
 

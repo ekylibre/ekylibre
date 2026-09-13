@@ -10,9 +10,9 @@ name: Tests
 
 on:
   push:
-    branches: [main, 5.0-beta, ekylibre-6.0]
+    branches: [main, 5.0-beta, 6.0-alpha]
   pull_request:
-    branches: [main, 5.0-beta, ekylibre-6.0]
+    branches: [main, 5.0-beta, 6.0-alpha]
   workflow_dispatch:
 
 concurrency:

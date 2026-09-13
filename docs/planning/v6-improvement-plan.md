@@ -1,6 +1,6 @@
 # Ekylibre 6.0 — Plan d'amélioration
 
-> **Branche** : `ekylibre-6.0` (créée depuis `5.0-beta`, commit `f1b297cf56`)
+> **Branche** : `6.0-alpha` (créée depuis `5.0-beta`, commit `f1b297cf56` ; nommée `ekylibre-6.0` puis `ekylibre-7.0` et `ekylibre-7.1` au fil des paliers, renommée à l'arrivée en Rails 8.1)
 > **Date** : 2026-09-09
 > **Sources** : `ekylibre-architecture-roadmap.md` (architecture cible), `docs/planning/v6-brainstorm.md` (exigences), `docs/analysis/*` (audit 2026-05-07)
 > **Statut** : plan d'exécution. Les métriques de la §1 sont mesurées sur la branche ; les efforts de la §3 sont des estimations d'ingénierie.
