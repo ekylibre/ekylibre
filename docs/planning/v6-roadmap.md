@@ -9,7 +9,11 @@ qui est déjà fait.
 
 **À lire avec :** [v6-etat-des-lieux.md](v6-etat-des-lieux.md) (état mesuré au
 13 septembre), [v6-improvement-plan.md](v6-improvement-plan.md) (lots A à H et
-efforts), [v6-dependency-audit.md](v6-dependency-audit.md).
+efforts), [v6-dependency-audit.md](v6-dependency-audit.md),
+[ui_ux_v6.md](ui_ux_v6.md) (écrans et parcours).
+
+**Les lots 8 à 11 découlent du guide du § 12** et sont placés après lui, à la
+suite ; les lots 0 à 7 en tiennent compte là où il les touche.
 
 ---
 
@@ -45,6 +49,14 @@ Effet de bord à connaître : `db/structure.sql` versionné a été produit par
 `pg_dump` 13.23. **Toute régénération avec le client 17 produit un diff de
 ~1400 lignes** (ordre et forme des contraintes). Il faut l'assumer une fois,
 dans un commit dédié, et fixer la version de `pg_dump` employée.
+
+**0.5 — « 100 % open source » entre en tension avec l'ADR-005.** L'objectif à un
+an (§ 12.1) est de rénover la pile **en conservant 100 % de briques open
+source**. Or l'ADR-005 route la saisie terrain par WhatsApp Cloud API, donc par
+Meta, et l'ADR le reconnaît lui-même comme une « tension de souveraineté ». Avec
+cet objectif, ce n'est plus une tension mais une contradiction : l'adaptateur
+Telegram, ou SMS/e-mail, cesse d'être un repli commode pour devenir le chemin
+principal. À trancher avant d'écrire `voice-gateway`, pas après.
 
 **0.4 — Solid Queue et Propshaft ne sont pas là.** L'ADR-012 les présente comme
 adoptés. État réel : `sidekiq` 7.3.10 (la série 8 exige `rack >= 3.1`, que
@@ -108,6 +120,8 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 | 0.11 | Les **39 avertissements TypeScript** (types `any`, retours manquants) |
 | 0.12 | Décider du sort de `Ekylibre::Plugin` (≈300 lignes) : le mécanisme `plugins/` est mort, les 19 greffons sont des engines. Le retirer ou le documenter |
 | 0.13 | Supprimer les constantes autochargées pendant l'initialisation (avertissement Rails ; 76 fichiers de `lib/` chargés avant la fin de l'initialisation) |
+| 0.18 | **Faire tourner les tests des greffons.** La suite du cœur ne les ramasse pas et aucun des 19 greffons n'a de CI : leurs suites ne s'exécutent nulle part. Deux voies — une CI par greffon, ou un `Gemfile.ci` versionné qui les monte dans la CI du cœur (`docker/prod/Gemfile.prod` montre déjà comment les déclarer en git public) |
+| 0.19 | Empêcher le retour du couplage inverse : un test du cœur ne doit pas dépendre d'un greffon. Contrôle mécanique possible — la suite du cœur, exécutée sans `Gemfile.local`, ne doit produire aucune erreur de constante |
 
 ### 2.3 — Mise en service du palier
 
@@ -175,6 +189,7 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 | 2.5 | Retirer Devise du chemin nominal ; conserver le compte de secours `admin` hors tenant |
 | 2.6 | Stabiliser et versionner l'API v1 ; décider du sort de l'API v2 existante |
 | 2.7 | Device flow / Authorization Code + PKCE pour le mobile |
+| 2.8 | **API « très bien documentée, simple et très interopérable » sur les données agricoles** (§ 12.2) : spécification publiée (OpenAPI), versionnée, avec un jeu d'exemples. C'est le contrat que Duke, Zero et les greffons hors Ruby consommeront — il précède leur écriture |
 
 **Dépend de :** lot 1 (le claim n'a de sens qu'avec le contexte tenant).
 
@@ -202,6 +217,11 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 ---
 
 ## 6. Lot 4 — Mobile offline et interfaces par profil (ADR-008, 011)
+
+*Les écrans, les parcours et l'ordre de construction sont détaillés dans
+[ui_ux_v6.md](ui_ux_v6.md), qui répond au § 12.2 — concentrer la valeur dans le
+moins d'écrans possible, pour les agriculteurs et les conseillers. Ce lot n'en
+porte que la charpente technique.*
 
 | # | À faire |
 |---|---|
@@ -275,23 +295,43 @@ Lot 0.5–0.9  défauts Rails          ─┘
                      │
              1.1–1.3 décisions ADR-003  ← bloquant
                      │
-             Lot 1   mono-schéma + isolation
+        ┌────────────┴────────────┐
+   Lot 1 mono-schéma        Lot 8 Lexicon + onoma
+   + isolation              (même reclassement des modèles)
+        └────────────┬────────────┘
                      │
-             Lot 2   Keycloak et API
+             Lot 2   Keycloak et API (dont 2.8 : l'API documentée)
                    ┌─┴─┐
-           Lot 3 saisie   Lot 4 mobile
+           Lot 3 saisie   Lot 4 mobile + UI/UX
                    └─┬─┘
-             Lot 5   facture électronique  ← contrainte de calendrier propre
+             Lot 9   restauration des archives v5
+             Lot 11  staging Dokploy
              Lot 6   infrastructure
-             Lot 7   front
+             Lot 10  plugins niveau A ─┐ se confond avec 4.7
+             Lot 7   front            ─┘ (manifestes d'écran)
+
+Lot 5  facture électronique  ← indépendant, calendrier réglementaire propre
 ```
 
-Deux remarques sur cet ordre. Le **lot 5 ne dépend d'aucun autre** : sa contrainte
-est réglementaire, et la réception est déjà en retard — il peut démarrer tout de
-suite, par l'adaptateur d'une seule PA. Et le **lot 0 avant tout le reste** n'est
-pas une précaution de principe : un chantier qui ajoute `tenant_id` à 240 tables
-et des politiques RLS partout produira des régressions, et il faut qu'elles soient
-visibles.
+Quatre remarques sur cet ordre.
+
+**Le lot 5 ne dépend d'aucun autre** : sa contrainte est réglementaire, et la
+réception est déjà en retard — il peut démarrer tout de suite, par l'adaptateur
+d'une seule PA.
+
+**Le lot 0 avant tout le reste** n'est pas une précaution de principe : un
+chantier qui ajoute `tenant_id` à 240 tables et des politiques RLS partout
+produira des régressions, et il faut qu'elles soient visibles.
+
+**Les lots 1 et 8 vont ensemble.** Le mono-schéma reclasse les modèles en trois
+plans, dont le référentiel ; sortir Lexicon dans sa propre base reclasse les
+mêmes 53 modèles. Les séparer, c'est faire deux fois le même travail sur les
+mêmes fichiers.
+
+**Les lots 10 et 4.7 sont le même mécanisme.** Le manifeste d'écran par profil
+métier (ADR-011) et le plugin déclaratif de niveau A demandent tous deux une
+description de blocs typés rendue par le cœur. En spécifier deux serait en
+inventer un de trop.
 
 ---
 
@@ -307,4 +347,191 @@ visibles.
 | PDF/A-3 : Python ou Ruby | avant l'émission | 5.5 |
 | Périmètre du langage de manifeste d'écran | lot 4 | 4.7 |
 | Liste des PA prioritaires | lot 5 | 5.3 |
-| Sort d'`Ekylibre::Plugin` | opportuniste | 0.12 |
+| Sort d'`Ekylibre::Plugin` | opportuniste | 0.12, 10.3 |
+| **Canal de saisie terrain et « 100 % open source »** : Meta est-il acceptable, ou Telegram/SMS deviennent-ils le chemin principal ? | avant d'écrire `voice-gateway` | lot 3, § 0.5 |
+| **Comment faire tourner les tests des greffons** : une CI par dépôt, ou un `Gemfile.ci` dans celle du cœur | avant le lot 1 | 0.18, et toute reprise de greffon |
+| **Périmètre de Lexicon** : ce qui part en base séparée et ce qui reste au cœur | avec le lot 1 | lot 8 entier |
+| Domaine du staging (`ekylibre.org` ou `ekylibre.io`) | avant 11.2 | certificats, redirections |
+
+---
+
+## 12. Guide et régles ajoutées par le chef de projet historique (David)
+
+### 12.1 Objectifs à 1 an
+
+- Renover technologiquement la stack Ekylibre en conservant 100% de briques open source
+- Developper une vrai communauté "utilisateurs" et "developpeurs" au travers d'OSFarm
+- Rendre les interfaces user-friendly et très simple d'usage
+- Permettre aux utilisateurs de faire évoluer la solution très simplement
+- Faciliter la gestion des fonctionnalités supplémentaires (plugins)
+
+### 12.2 Contraintes à respecter
+
+- L'UI et L'UX vont fortement évoluer donc l'ensemble des vues et controlleurs aussi. Je te donnerais des exemples où nous allons chercher à concentrer la valeur et les fonctionnalités dans le moins d'ecran possible pour simplifier l'usage par les agriculteurs et les conseillers agricoles (comptable, technicien, ...) voir le fichier 'docs/planning/ui_ux_v6.md'
+
+- un dump d'une ancienne version d'Ekylibre 5.0 doit être restaurable dans la version 6.0 (exemples present dans /home/djoulin/projects/ekylibre/tmp/archives notamment : closeriedesterres.zip, phaurigot.zip, sci-chenes-verts.zip). Il faudra prévoir d'adapter la méthode de restauration des tenants en conséquence (db + fichiers)
+
+- le systeme de plugins doit évoluer vers un systeme plus simple permettant à des utilisateurs de décrire leur besoin et de le faire developper par Claude Code par exemple. En terme technique, il doit soit être independant (React via API Rails 8.1) ou au sein d Ekylibre via Hotwire et autres.
+Je te laisse faire une analyse de l'existant pour me donner la meilleure solution sachant que les modèles et migrations necessaires aux plugins sont portées exclusivement par Ekylibre.
+
+- les fonctionnalités "IA" seront portés par Duke (python) et pourront être appellées depuis Ekylibre ou Zero
+
+- les fonctionnalités "Dictionnaires de références" ou "données de référence" seront portés par Lexicon
+
+- Une API très bien documenté, simple et très interopérable sur les données agricoles sera necessaire.
+
+### 12.3 Composants
+
+- l'architecture globale integrant Ekylibre 6.0 comportera les elements suivants :
+
+        1. Le projet **Lexicon** (https://github.com/osfarm/lexicon) qui pourra évoluer si besoin et qui sera accessible dans Ekylibre au sein d'une DB à part et non plus un schéma, il faudra donc adapter les méthodes de chargement (load et autres) et les modèles 'lexicon' pour pouvoir charger le lexicon dans une DB à part. Le lexicon comporte toutes les données de référence, open data et autres ainsi que des données vectorisées pour l'usage de l'IA plus tard. D'autres micro-services s'y connecterons. La gem onoma est déjà présente (https://github.com/osfarm/lexicon/blob/main/lib/datasources/open_nomenclature.rb) et ne sera donc plus necessaire dans Ekylibre 6.0 (item dans la roadmap à prévoir).
+
+        2. Le projet **Duke** (https://github.com/ekylibre/duke) qui pourra évoluer si besoin comportera les traitements IA et pourra utiliser le lexicon et ekylibre.
+
+        3. Le projet **Zero** (https://github.com/ekylibre/zero-mobile) qui pourra évoluer si besoin comportera les fonctionnalités orientées "Utilisateur Terrain" et se reposera sur Ekylibre, Lexicon et Duke
+
+        4. Autres services necessaires si besoins au sein du meme reseau interne Docker
+
+        L'ensemble de cette architecture doit être présente dans un Docker Compose déployable sur Dokploy pour une première version **staging** lié au domaine "ekylibre.org" ou "ekylibre.io"
+
+---
+
+## 13. Lot 8 — Lexicon en base séparée, et sortie d'`onoma` (§ 12.3.1)
+
+*Le plus gros lot issu du guide, et le plus sous-estimé : `onoma` n'est pas une
+dépendance de bordure, c'est le vocabulaire du domaine.*
+
+### 13.1 Ce que pèse la sortie d'`onoma`
+
+| Mesure | Volume |
+|---|---:|
+| Appels `Onoma::*` dans `app/` et `lib/` | **444**, répartis sur **148 fichiers** |
+| Déclarations `refers_to` (attributs résolus contre une nomenclature) | **126** |
+| Modèles du lexique (`Master*`, `Registered*`) | **53** |
+
+Et une dépendance en travers, qui commande l'ordre : **`active_list` dépend de
+la gem `onoma`** (`active_list 8.1.0 → onoma ~> 0.4`). Sortir `onoma` suppose
+donc d'avoir traité `active_list`, déjà condamné par l'ADR-6.2 — les deux lots
+se tiennent.
+
+| # | À faire |
+|---|---|
+| 8.1 | Inventorier les 444 appels par nature : lecture d'item, résolution `refers_to`, énumération, traduction. Ce sont quatre besoins différents, et ils ne se remplacent pas de la même façon |
+| 8.2 | Définir le contrat que Lexicon expose en remplacement — lecture d'item, liste, hiérarchie, libellés traduits — avant de toucher un appelant |
+| 8.3 | Remplacer les 126 `refers_to` : c'est le cœur du sujet, puisqu'ils portent la validation et les prédicats |
+| 8.4 | Retirer la gem du `Gemfile` — après `active_list` |
+
+### 13.2 Lexicon en base distincte
+
+Aujourd'hui le lexique est un **schéma** dans le `schema_search_path`
+(`public,postgis,lexicon`), ce qui autorise les jointures SQL avec les tables
+applicatives. En base séparée, ActiveRecord ne joint plus entre connexions.
+
+| # | À faire | Volume mesuré |
+|---|---|---|
+| 8.5 | `LexiconRecord` sur une connexion dédiée (`connects_to`, natif en Rails 8.1) | 53 modèles |
+| 8.6 | **Convertir les associations qui traversent la frontière** en résolutions applicatives ou en appels d'API | **43 associations** vers `Master*`/`Registered*`, dont **5 `belongs_to`** directs |
+| 8.7 | Adapter `lexicon:load` et l'écran d'administration : la cible n'est plus un schéma de la base applicative | `lib/tasks/lexicon.rake`, `Admin::LexiconController` |
+| 8.8 | Retirer `lexicon` du `schema_search_path` et des dumps de tenant | `config/database.yml`, `Ekylibre::Tenant.dump` |
+| 8.9 | Prévoir l'accès concurrent : Duke et Zero se connecteront au même lexique | — |
+
+**Bonne nouvelle mesurée :** aucune jointure SQL brute vers `lexicon.` dans le
+code applicatif. Le couplage est entièrement porté par ActiveRecord, donc
+localisable et mécanisable.
+
+**Ordre :** ce lot dépend du mono-schéma (lot 1), qui reclasse déjà les modèles
+en trois plans dont le référentiel. Faire les deux d'un seul geste évite de
+reclasser deux fois les mêmes 53 modèles.
+
+---
+
+## 14. Lot 9 — Restauration des archives v5 (§ 12.2)
+
+*Contrainte : « un dump d'une ancienne version d'Ekylibre 5.0 doit être
+restaurable dans la version 6.0 », base **et** fichiers.*
+
+Archives de référence présentes dans `tmp/archives/` :
+
+| Archive | Taille |
+|---|---:|
+| `closeriedesterres.zip` | 62 Mo |
+| `sci-chenes-verts.zip` | — |
+| `phaurigot.zip` | — |
+| *(pour mémoire)* `domainedes5autels.zip` | **9,9 Go** |
+| *(pour mémoire)* `entredeuxterres.zip` | 1,5 Go |
+
+| # | À faire |
+|---|---|
+| 9.1 | Restaurer une archive v5 **telle quelle** sur la 6.0 : c'est le test d'acceptation du lot, à écrire en premier |
+| 9.2 | Injection de `tenant_id` à l'import, **en conservant les `id` d'origine** (les archives en dépendent) |
+| 9.3 | Recalage automatique des séquences globales — jamais une étape manuelle |
+| 9.4 | Reprise des fichiers joints : la v5 a connu Paperclip puis Active Storage, une archive ancienne porte l'ancienne arborescence |
+| 9.5 | Contrôles d'intégrité : comptes par table, FK composites intra-tenant, validation géométrique PostGIS |
+| 9.6 | Idempotence : un import interrompu se reprend |
+| 9.7 | Tenir l'échelle : 9,9 Go pour une seule exploitation, l'import ne peut pas tout charger en mémoire |
+
+**Rappel de sécurité :** la restauration était une RCE ouverte (nom de fichier
+d'archive passé à `psql`), corrigée par `validate_name!`. Toute réécriture de ce
+chemin doit conserver cette validation.
+
+---
+
+## 15. Lot 10 — Système de plugins : analyse et recommandation (§ 12.2)
+
+**Ce que l'existant dit**, mesuré :
+
+- **19 greffons**, tous des Rails engines in-process, montés par `Gemfile.local` ;
+- `Ekylibre::Plugin` — le registre maison, ~300 lignes — **est mort** : le
+  répertoire `plugins/` est vide, `registered_plugins` rend `[]`. Ce que font
+  réellement les greffons, ce sont des engines que Rails indexe seul ;
+- **aucun n'a de CI**, et la suite du cœur ne ramasse pas leurs tests ;
+- le couplage part dans les deux sens : le cœur portait jusqu'ici des tests et
+  des constantes d'un greffon (corrigé pour `hve`, à surveiller ailleurs) ;
+- contrainte du guide : **les modèles et migrations restent portés par
+  Ekylibre**.
+
+**Recommandation.** Ne pas introduire un second runtime tant que rien ne
+l'exige. La contrainte « les modèles et migrations sont au cœur » ferme d'ailleurs
+la porte au plugin hors-processus autonome : un greffon qui ne peut ni créer de
+table ni déclarer de modèle n'a plus besoin d'un processus à lui — il a besoin
+d'**un manifeste et de points d'extension**.
+
+Trois niveaux, du moins coûteux au plus coûteux, à ouvrir dans cet ordre :
+
+| Niveau | Ce qu'il permet | Ce qu'il coûte |
+|---|---|---|
+| **A — déclaratif** | un manifeste décrit des écrans, des blocs de tableau de bord, des champs supplémentaires, des exports. Rendu par Hotwire côté cœur. C'est ce qu'un utilisateur peut faire décrire à un assistant sans écrire de Ruby | le langage de manifeste (ADR-011), à garder pauvre |
+| **B — engine** | ce qui touche au modèle, aux migrations, au métier : les 19 greffons actuels | l'existant, plus une CI (lot 0.18) |
+| **C — hors-processus** | un service tiers qui consomme l'API avec un jeton délégué et reçoit des webhooks | Keycloak (lot 2), l'outbox, l'API documentée (2.8) |
+
+**Le niveau A est le seul qui réponde à l'objectif « permettre aux utilisateurs
+de faire évoluer la solution très simplement »** ; B et C existent déjà ou
+découlent d'autres lots. C'est donc lui qu'il faut spécifier en premier, et il
+se confond largement avec les manifestes d'écran de l'ADR-011 — un seul mécanisme
+sert les deux besoins, ce qui est un argument pour ne pas en inventer un second.
+
+| # | À faire |
+|---|---|
+| 10.1 | Spécifier le manifeste de niveau A : blocs typés, points d'ancrage, champs supplémentaires. **Volontairement pauvre** |
+| 10.2 | Un greffon de référence écrit en niveau A seul, sans Ruby, comme preuve |
+| 10.3 | Trancher le sort d'`Ekylibre::Plugin` (retirer ou documenter) — cf. 0.12 |
+| 10.4 | Documenter la frontière : ce qu'un greffon peut faire sans toucher au cœur, et ce qui impose un engine |
+
+---
+
+## 16. Lot 11 — Déploiement staging (§ 12.3.4)
+
+*Cible : un Docker Compose déployable sur Dokploy, lié à `ekylibre.org` ou
+`ekylibre.io`.*
+
+| # | À faire |
+|---|---|
+| 11.1 | Un `docker-compose` de staging réunissant `eky-core`, Lexicon (base séparée, lot 8), Duke, Zero et les services d'appui, sur un même réseau interne |
+| 11.2 | Reverse proxy et certificats (Traefik selon l'architecture) ; nommage des services aligné sur l'architecture |
+| 11.3 | Choisir le domaine et le réserver — décision à prendre, elle conditionne certificats et redirections |
+| 11.4 | Sauvegardes et restauration éprouvées **avant** d'y mettre une exploitation réelle ; le lot 9 en fournit le mécanisme |
+| 11.5 | Observabilité minimale : journaux centralisés et APM (cf. 6.10) |
+| 11.6 | Faire de ce staging la cible de `build-prod-image` (cf. 0.16), au lieu d'un déploiement manuel |
+
+**Dépend de :** rien techniquement, mais un staging n'a d'intérêt qu'avec de
+quoi le peupler — donc après le lot 9.
