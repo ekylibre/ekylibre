@@ -34,6 +34,12 @@
 #
 class RegisteredAgroediCode < LexiconRecord
   include Lexiconable
+
+  # La table n'a ni clé primaire ni index unique : `first` y rendait une ligne
+  # arbitraire, au gré du plan choisi par PostgreSQL. `reference_id` est l'une
+  # des deux colonnes non nulles et suffit à rendre cet ordre déterministe.
+  self.implicit_order_column = :reference_id
+
   scope :of_reference_code, ->(code) { where(reference_code: code.to_s) }
   scope :of_ekylibre_codes, lambda { |context, value|
     where(ekylibre_scope: context.to_s, reference_code: value.to_s)

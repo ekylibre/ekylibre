@@ -36,7 +36,7 @@ module Ekylibre
     end
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 8.1
 
     # Les avertissements de dépréciation propres à l'application passent par leur
     # propre déprécieur depuis Rails 7.2, qui a retiré
@@ -223,6 +223,24 @@ module Ekylibre
     # manque à toutes les locales : le message d'une écriture déséquilibrée est
     # aujourd'hui « Translation missing ».
     Regexp.timeout = nil
+
+    # Rails 8.1 lève quand `first` ou `last` porte sur une relation sans ordre
+    # et sur un modèle dont il ne peut deviner aucun ordre — ni clé primaire, ni
+    # `implicit_order_column`, ni `query_constraints`. Le reproche est fondé :
+    # la ligne rendue est alors celle que le plan d'exécution veut bien donner.
+    #
+    # Quatorze tables du schéma `lexicon` sont dans ce cas — les référentiels
+    # importés n'ont pas de clé technique : registered_agroedi_codes et _crops,
+    # registered_graphic_parcels, registered_hourly_weathers,
+    # registered_natural_zones, registered_protected_water_zones,
+    # master_budgets, master_crop_production_tfi_codes,
+    # master_production_prices, _start_states et _yields, datasource_credits,
+    # technical_workflow_sequences, version. Leur donner une clé n'est pas une
+    # formalité : c'est décider, référentiel par référentiel, ce qui identifie
+    # une ligne — le travail même du lot C, qui pose des clés composites
+    # natives. `RegisteredAgroediCode`, seul cas que la suite atteint, a reçu
+    # son ordre implicite ; le réglage attend les treize autres.
+    config.active_record.raise_on_missing_required_finder_order_columns = false
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
