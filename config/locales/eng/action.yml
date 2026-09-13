@@ -1549,6 +1549,7 @@ eng:
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      unbalanced: "Debit and credit do not match"
       unicity_by_campaign: "A diagnostic has already been created for this campaign"
       unitary_in_parcel: "Unitary items can only be sent one by one"
       used_in_intervention: "%{attribute} must be on of after %{restriction} (date on which %{model} is used for the last time in interventions)"

@@ -1696,6 +1696,7 @@ fra:
       taken: "%{attribute} has already been taken"
       too_long: "%{attribute} is too long (maximum is %{count} characters)"
       too_short: "%{attribute} is too short (minimum is %{count} characters)"
+      unbalanced: "Le débit et le crédit ne correspondent pas"
       unicity_by_campaign: "Un rapport de diagnostic a déjà été généré pour cette campagne"
       unitary_in_parcel: "Les articles individuels ne peuvent être envoyés qu'un par un"
       used_in_intervention: "%{attribute} doit être postérieure au %{restriction} (date à laquelle %{model} a été utilisé pour la dernière fois dans les interventions)"

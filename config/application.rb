@@ -212,16 +212,20 @@ module Ekylibre
     # rationnelle, garde-fou contre le déni de service par retour sur trace.
     # Aucune des nôtres ne s'en approche — une sonde `TracePoint` sur la suite
     # entière, capable de voir même les dépassements rattrapés par un `rescue`,
-    # n'en a relevé aucun. Le réglage a en revanche un coût : le moteur vérifie
-    # l'horloge en cours de route, et ce ralentissement suffit à décaler les
-    # horodatages que la comptabilité emploie. Un test d'achat aux lignes
-    # volontairement incohérentes — 99 € hors taxe pour 120 € TTC à 20 % — passe
-    # alors du côté déséquilibré, six exécutions sur six, alors qu'il tient sans
-    # le réglage.
+    # n'en a relevé aucun.
     #
-    # À lever avec ce test, et avec la clé `errors.messages.unbalanced` qui
-    # manque à toutes les locales : le message d'une écriture déséquilibrée est
-    # aujourd'hui « Translation missing ».
+    # Il aggrave en revanche une instabilité de la suite, sans en être la seule
+    # condition : un test d'achat aux lignes volontairement incohérentes — 99 €
+    # hors taxe pour 120 € TTC à 20 % — bascule du côté déséquilibré cinq
+    # exécutions sur cinq quand le réglage est actif, une sur cinq quand il ne
+    # l'est pas, et aucune sur les quatre paliers qui précèdent son existence.
+    # L'hypothèse tenable est que le moteur, qui consulte l'horloge en cours
+    # d'appariement, décale les horodatages dont la comptabilité se sert ; elle
+    # n'est pas démontrée, et le réglage n'est donc écarté que par prudence.
+    #
+    # Ce qu'il faut vraiment corriger est ce test, dont les montants ne peuvent
+    # pas s'équilibrer. La clé `errors.messages.unbalanced`, qui rendait son
+    # échec illisible, est posée depuis.
     Regexp.timeout = nil
 
     # Rails 8.1 lève quand `first` ou `last` porte sur une relation sans ordre
