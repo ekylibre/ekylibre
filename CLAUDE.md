@@ -4,13 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 7.1** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
+Ekylibre is a multi-tenant Farm Management Information System (FMIS) built on **Rails 8.1** / PostgreSQL+PostGIS. Each farm is an isolated PostgreSQL schema (tenant) managed by the `apartment` gem.
 
-The `ekylibre-7.1` branch is the migration branch heading for Rails 8.1 (`ekylibre-7.0` and `ekylibre-6.0` hold the previous rungs); it is **not deployed**. Deployment is deliberately deferred until that target is reached, so the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose. Dev and CI run **Ruby 3.4.10** from this rung on — `activerecord-postgis-adapter` 9.0, the only series accepting ActiveRecord 7.1, requires Ruby >= 3.0, so the two moves are one.
+The `ekylibre-7.1` branch keeps its name from the rung where it started; it now holds **Rails 8.1 with the 8.1 defaults** — the target of lot B (`ekylibre-7.0` and `ekylibre-6.0` hold the previous rungs). It is still **not deployed**: the production image (`docker/prod/Dockerfile`, still Ruby 2.6) lags on purpose, and putting 8.1 in service is its own piece of work. Dev and CI run **Ruby 3.4.10** since the 7.1 rung — `activerecord-postgis-adapter` required Ruby >= 3.0 from the series accepting ActiveRecord 7.1 onwards, so the two moves were one. The adapter is now on the 11 series.
 
-`config/application.rb` declares `config.load_defaults 7.0`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file. The framework is on 7.1 but its defaults are not: raising `load_defaults` is a separate step, taken once the framework bump runs clean.
+Each rung was crossed the same way, and the criterion never changed: **the suite returns its reference measure** — 3650 tests, 17 failures, 15 errors — first with the framework bumped, then with `load_defaults` raised. A rung is not "done" because the application boots.
 
-Three defaults are deliberately turned back off right below that line. `active_record.has_many_inversing` (6.1) and `active_record.automatic_scope_inversing` (7.0) are correct semantics, but they expose a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity — the comment there says what has to be fixed before the lines can go. `active_storage.variant_processor` stays on `:mini_magick` because the base image ships no libvips.
+`config/application.rb` declares `config.load_defaults 8.1`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
+
+**Seven defaults are deliberately turned back off right below that line**, each with the reason and the work its removal needs. They are not framework concessions: most of them name a real defect of the application.
+
+| Setting | Since | Why it is off |
+|---|---|---|
+| `has_many_inversing`, `automatic_scope_inversing` | 6.1, 7.0 | correct semantics, but they expose a mutual `after_save` recursion between `PurchaseInvoice` and `PurchaseItem` that used to terminate only by accident of object identity |
+| `active_storage.variant_processor` | 7.0 | stays on `:mini_magick`: the base image ships no libvips |
+| `default_column_serializer` | 7.1 | `wice_grid` — 7.1.4 included — still declares a bare `serialize :query`, and the class raises as the gem loads, before the application can fix it. Our own fourteen declarations all carry an explicit coder |
+| `raise_on_assign_to_attr_readonly` | 7.1 | 325 tests: setters and callbacks reassign `currency`, `nature`, `journal_id`, `state`, `listing_id`, `number`, `root_model` without telling creation from update. Those writes are silently lost today — a real defect, and an accounting-callback job of its own |
+| `Regexp.timeout` (1 s) | 8.0 | none of our regexes comes near it (a `TracePoint` over the whole suite, which sees even rescued timeouts, found nothing), but the guard makes the engine poll the clock, and that slowdown shifts the timestamps accounting uses — a purchase test with deliberately inconsistent lines then tips over |
+| `raise_on_missing_required_finder_order_columns` | 8.1 | fourteen `lexicon` tables have neither primary key nor unique index, so `first` returns whatever the plan gives. Giving them a key means deciding what identifies a row in each imported reference set — lot C's work |
+
+When a new default breaks something, measure before deciding: run the suite, name the cause, and either fix the defect or turn the setting off **with its reason written down**. A rung's exit criterion is suite parity, not adopting every default.
 
 The geometry stack is on **RGeo 3** (`rgeo ~> 3.1`, `rgeo-proj4 ~> 5.0`, `charta` branch `7.1`): the 2.x series builds on PROJ.4's legacy API, removed in PROJ 8, and its extension attaches no method under the libproj 9 the base images ship. Charta resolves SRIDs through `RGeo::CoordSys::Proj4.create(srid)` — PROJ 6 removed the `epsg` text file `SRSDatabase` used to read — and builds its projected factory around an explicit EPSG:6933 projection factory.
 
@@ -18,12 +31,18 @@ The geometry stack is on **RGeo 3** (`rgeo ~> 3.1`, `rgeo-proj4 ~> 5.0`, `charta
 
 `turnout` (maintenance mode) holds `rack` below 3, which in turn caps `sidekiq` at the 7 series — 8 requires `rack >= 3.1`. Rack 3 is its own migration.
 
+`wice_grid` is the other gem that holds a default back (see the table above). Its 7.1 series does not fix the bare `serialize`, and asks for `coffee-rails >= 5.0` on top: leaving this gem, or fixing it upstream, is a piece of work in itself. Four controllers use `initialize_grid`.
+
 **`redirect_to` refuses other hosts** since the 7.0 defaults, and rightly so: `params[:redirect]` and the `Referer` header are client-supplied. `Backend::BaseController#local_redirect_target` filters a candidate down to an absolute path or a same-host URL; every `redirect_to params[:redirect]` in the backend goes through it, so a foreign target falls back instead of raising a 500.
 
 **Nothing can be autoloaded during initialization.** Rails 7 removed classic autoloading and sets the main Zeitwerk loader up in the *finisher*, after every initializer has run. Two shapes are available, and the choice is not cosmetic:
 
 - boot infrastructure — the plugin registry, `Ekylibre::Access`, `Hook`, `View` — is `require`d explicitly at the bottom of `config/application.rb` (after the Application class, which is what gives `Rails.root` a value) and **excluded from the Zeitwerk index** in the same file. It is never reloaded;
 - anything touching reloadable application code goes in `Rails.application.config.to_prepare`, which runs right after boot and on every reload. `config/initializers/{charta,procedo,exchangers}.rb` and each plugin engine's integration registration follow this shape.
+
+`add_autoload_paths_to_load_path` is false since the 7.1 defaults, and it changed **nothing** here: Rails puts `lib` on the `$LOAD_PATH` itself, through `paths["lib"].load_path?`, whatever that setting says. Only `app/models/bookkeepers` and `app/models/lexicon` leave the load path, and no `require` targets them. So the hundred-odd `require 'measure'` / `autoload :X, 'ekylibre/…'` in the tree keep resolving — do not rewrite them for this reason, it was measured.
+
+What *is* true, and worth remembering before touching an initializer: `Rails.autoloaders.main.dirs` is **empty** during the initializers. 76 files of `lib/` are nonetheless loaded before the initialization ends, plugins included — one plugin engine's initializer reaches `Ekylibre::Navigation` — and they all get there through explicit loading.
 
 `bin/rails zeitwerk:check` only inspects eager-load paths. `lib`, `app/models/bookkeepers` and `app/models/lexicon` are autoload-only, so the check skips them and says so — to cover them, replay `eager_load` on `Rails.autoloaders.main` collecting errors instead of stopping at the first. Note that Rails 6 calls `Zeitwerk::Loader.eager_load_all`, so a gem shipping its own non-conformant Zeitwerk loader breaks the application's boot too; `config/initializers/05-zeitwerk_gem_loaders.rb` handles the one such case.
 
@@ -65,6 +84,12 @@ COVERAGE=true bundle exec rake test
 
 Tests use **Minitest**. The test tenant is always named `test` and is switched via Apartment middleware in test env.
 
+**The reference measure is 3650 tests, 17 failures, 15 errors, 4 skips.** Compare against it, not against zero. And beware of three known instabilities before blaming your own change:
+
+- **the order decides.** `config.active_support.test_order = :random`, and a handful of tests depend on state a previous one left. A purchase test whose lines cannot balance (99 € excl. tax for 120 € incl. at 20 %) tips over depending on the run — its error message is unreadable on top, because the `errors.messages.unbalanced` key exists in no locale;
+- **running one controller test file alone can fail on its own.** `bank_reconciliation/letters_controller_test` raises Devise's « Could not find a valid mapping for #<User …> »: `Devise.mappings` holds a stale class reference. The same file passes inside the full suite. Do not read this as a regression — check under the previous rung's defaults before concluding;
+- **the suite rewrites `db/structure.sql`** (a `pg_dump` 17 against a server 13 in the container, so the whole file churns). Check `git status` after a run and restore the file — a commit made without looking propagates that state to every newly created tenant.
+
 ## Tenant Management
 
 ```bash
@@ -99,6 +124,12 @@ Three namespaces: `backend` (authenticated ERP), `api/v1` and `api/v2` (token au
 - `app/models/lexicon/` contains `Master*` and `Registered*` read-only reference models (backed by the shared `lexicon` PostgreSQL schema, never modified at runtime).
 - `app/models/bookkeepers/` contains accounting journal entry writers (called from model callbacks via `Ekylibre::Record::Bookkeep`).
 - `lib/ekylibre/record/` contains model mixins: `Autosave`, `Bookkeep`, `HasShape`, `Sums`, etc.
+
+**Deprecating an application API** goes through `Ekylibre.deprecator` (`lib/ekylibre/deprecator.rb`), not `ActiveSupport::Deprecation.warn` — the class-level method is gone in 7.2. The deprecator is registered in `app.deprecators` by an initializer placed `before: :load_environment_config`, like the ActiveSupport railtie's own, so the per-environment behaviour applies to it.
+
+**`alias_attribute` only aliases attributes** since 7.2. For an association, a `store_accessor`, or a method, use `alias_method` — and generate plain methods instead when the target may be defined *after* the alias (that is why `acts_as_affairable` writes `deal_third`, `deal_amount` and `deal_taxes` out in full: `DebtTransfer` delegates `third` a hundred lines below its call).
+
+**Qualify columns in a `where` that precedes a join and feeds `update_all`.** Rails 8.1 compiles that into `UPDATE … FROM` instead of a subquery on ids, so an unqualified column name becomes ambiguous for PostgreSQL — it bit `TaxDeclaration#set_entry_items_tax_modes` (`printed_on`) and the bank-reconciliation letters controller (`letter`). Likewise, condition values are bound parameters now: `usages ~ E?` and `delivery_id IS ?` used to be interpolated and no longer work (`E$1`, `IS $2`).
 
 ### Exchangers
 `app/exchangers/` contains data import/export adapters for 30+ agricultural software formats (Isagri, Telepac, Vinifera, etc.). Each exchanger subclasses `ActiveExchanger::Base` and implements `import` or `export`.
@@ -201,6 +232,10 @@ The DeepL script protects `%{...}` and `{{...}}` placeholders, escapes XML chars
 - Some YAML keys (with spaces or dots, e.g. enum values `1 week`, `liquid_10_25_d1.4`) fall outside the decomment regex; they remain commented as humanized defaults.
 
 ## Background Jobs
+
+**In test, `config.active_job.queue_adapter = :test`** (`config/environments/test.rb`), and that line is load-bearing. Until Rails 7.1, `ActiveJob::TestHelper` swapped the adapter in at the start of every test; since 7.2 it only does so when the application declares none — and `config/application.rb` declares `:sidekiq` for every environment. Without the test-env line, jobs really go to Redis during the suite and `perform_enqueued_jobs` executes nothing. The measurable symptom before it was put back: 2919 queued and 505 dead jobs piled up in the development Redis, and four accounting-export tests failed.
+
+Note also that the `sidekiq` dev container needs rebuilding whenever the base image changes (`docker compose -f docker/dev/docker-compose.yml build sidekiq`): it shares `app`'s Dockerfile, but a stale image keeps running the old Ruby and the container restart-loops on `Your Ruby version is 2.6.10, but your Gemfile specified >= 3.4.0`.
 
 Sidekiq 7.3 with `apartment-sidekiq` middleware, which switches to the correct tenant schema before each job. Jobs that must run **without** a tenant context (e.g. admin tasks) must not go through Sidekiq — use `Process.spawn` with a rake task instead to avoid the middleware conflict.
 

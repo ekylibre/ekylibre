@@ -292,8 +292,8 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 | B.2 | 5.2 → 6.0 : Zeitwerk. ~~**Point dur** : `lib/ekylibre/plugin.rb`~~ — **le mécanisme est mort** : `plugins/` est vide, `registered_plugins` aussi, et les 19 plugins sont des Rails Engines, dont Rails 6 indexe les chemins tout seul. **Conformité de nommage faite et prouvée** : 0 écart sur 1 675 fichiers de l'application, 0 sur 229 de plugins actifs, configuration Zeitwerk écrite et vérifiée. **Reste** : la bascule de version elle-même | 20 → **8** |
 | B.3 | 6.0 → 6.1 : 22 `update_attributes` → `update`, `Rails.application.credentials` | 8 |
 | B.4 | 6.1 → 7.0 : asset pipeline. `active_list` étant condamné (ADR-6.2), **ne pas investir dans `propshaft`/`jsbundling`** : geler `sprockets`/`webpacker` au minimum compatible et laisser le pipeline mourir avec le front au lot G | 10 |
-| B.5 | 7.0 → 7.1 : **jalon de convergence avec le lot C** (PK composites natives disponibles) | 8 |
-| B.6 | 7.1 → 7.2 → 8.0 → **8.1** | 15 |
+| ~~B.5~~ | **FAIT** — 7.0 → 7.1, valeurs par défaut comprises. Les PK composites natives du lot C sont désormais disponibles | 0 |
+| ~~B.6~~ | **FAIT** — 7.1 → 7.2 → 8.0 → **8.1**, valeurs par défaut de chaque palier comprises. La cible est atteinte ; voir le bilan ci-dessous | 0 |
 | B.7 | Sidekiq 4 → Solid Queue ; Redis → Solid Cable. Réinjection du contexte tenant dans `ApplicationJob` | 12 |
 | B.8 | Devise 4.9 → version courante ; **vérifier la disponibilité réelle d'Argon2id** (`has_secure_password` reste sur bcrypt ; Argon2id passe par `devise-argon2`) — la roadmap l'annonce comme un défaut de Rails 8.2, à confirmer avant de s'y engager | 5 |
 | B.9 | Montée en verrou des 23 dépôts à chaque palier. **Ramené de 30 à 6 j·h** : l'audit A.6 avait déjà écarté 12 dépôts sans rien à faire et 4 à simple borne de gemspec ; `ekylibre-planning`, qui portait le reste du chiffrage, est mesuré et porté | 6 |
@@ -394,7 +394,28 @@ Efforts en **jours-homme (j·h)**, hors coordination. Hypothèse : équipe de 3 
 >
 > Rien n'est applicable sur Rails 5.2 : le crochet `yaml_column_permitted_classes` n'existe qu'à partir de 6.1/7.0. **À traiter au palier B.3**, pas avant.
 
-**Critère de sortie** : Rails 8.1, Ruby 3.3, CI verte, aucune dépendance EOL critique, front HAML fonctionnel.
+> **Bilan des paliers 7.1 → 8.1 (2026-09-13).** Quatre montées de cadriciel et quatre bascules de valeurs par défaut, huit commits, la suite rendant à chaque étape sa mesure de référence — 3650 tests, 17 échecs, 15 erreurs. Ruby est resté en 3.4.10 du début à la fin : aucun palier n'a demandé autre chose.
+>
+> **Ce que les gems ont coûté** : cinq montées, toutes bloquantes au démarrage ou à la résolution — `activerecord-postgis-adapter` 9 → 11, `paranoia` 2.6 → 3.1 (bornait `activerecord < 7.2`), `validates_timeliness` 7 → 8 (bornait `activemodel < 8`), `bullet` 7 → 8.2 (refuse ActiveRecord 8 au chargement), `sidekiq` 4 → 7.3 au palier 7.1. `ros-apartment` 3.4 et `awesome_nested_set` 3.9 annonçaient déjà `< 8.2` : rien à faire. Aucune gem n'a eu à être retirée.
+>
+> **Ce que le code a coûté**, par nature de rupture :
+>
+> | Palier | Rupture | Ampleur |
+> |---|---|---:|
+> | 7.1 | codeur explicite sur `serialize` | 14 sites |
+> | 7.2 | `alias_attribute` réservé aux attributs | 9 sites, ~900 erreurs |
+> | 7.2 | valeurs de condition passées en paramètres liés (`E?`, `IS ?`) | 2 sites, 88 erreurs |
+> | 7.2 | `ActiveSupport::Deprecation.warn` retiré | 52 sites |
+> | 7.2 | l'adaptateur de file de test n'est plus imposé | 1 ligne, 4 tests |
+> | 8.0 | actions de `:only`/`:except` vérifiées | 2 sites, dont 1 greffon |
+> | 8.1 | initialiseurs homonymes refusés | 1 greffon |
+> | 8.1 | `update_all` joint compilé en `UPDATE … FROM` | 2 sites, 12 erreurs |
+>
+> **Quatre défauts d'application trouvés en chemin**, tous antérieurs aux paliers : `Activity#production_cycle_length` levait `Date::Error` sur un cycle démarrant un 29 février (corrigé) ; deux `alias_attribute` pointaient vers des cibles inexistantes depuis toujours ; `resources :affairs, only: [:unroll]` ne produisait aucune route alors que le contrôleur existe ; la clé `errors.messages.unbalanced` manque à toutes les locales, si bien qu'une écriture comptable déséquilibrée rend « Translation missing ».
+>
+> **Ce qui reste, et que le lot B ne doit pas porter** : sept valeurs par défaut désactivées, chacune documentée dans `config/application.rb` avec le travail qu'elle attend. Les deux plus lourdes sont `raise_on_assign_to_attr_readonly` — 325 tests, des écritures aujourd'hui perdues en silence dans les rappels comptables — et `raise_on_missing_required_finder_order_columns`, qui attend que les quatorze tables du lexique sans clé reçoivent la leur : c'est le lot C. S'y ajoutent la sortie de `wice_grid` (qui retient `default_column_serializer`), celle de `turnout` (qui retient `rack` sous la 3, donc `sidekiq` sous la 8), et **un commit à pousser sur la branche `6.0` du greffon `baqio`**, sans quoi la CI rejouera le `TSort::Cyclic` du démarrage.
+
+**Critère de sortie** : ~~Rails 8.1, Ruby 3.3~~ **ATTEINT** — Rails 8.1.3.1, Ruby 3.4.10, valeurs par défaut 8.1, suite à parité, front HAML fonctionnel. Reste à vérifier la CI et à trancher la mise en service (production encore en Ruby 2.6).
 **Effort : ~75 j·h** (125 → 118 après les arbitrages, → 100 après l'audit A.6 qui divise B.9 par 2,5, → 94 une fois `ekylibre-planning` mesuré et porté, → 87 la préparation Ruby 3 étant faite). **B.1 est désormais bloqué par une dépendance externe** : l'image de base. **Dépendance : lot A.**
 
 ---
