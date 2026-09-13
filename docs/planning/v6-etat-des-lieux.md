@@ -1,4 +1,4 @@
-# Ekylibre v6 — État des lieux au 13 septembre 2026
+# Ekylibre v6 — État des lieux au 13 septembre 2026 (soir)
 
 > Document de reprise. Il dit où en est le chantier, ce que la montée de version a
 > laissé derrière elle, et ce qu'il faut avoir tranché avant d'ouvrir le lot
@@ -19,14 +19,22 @@ ancêtre de celle-ci).
 | Rails | 5.2 (EOL) | **8.1.3.1**, valeurs par défaut 8.1 |
 | Ruby | 2.6 | **3.4.10** (dev et CI) |
 | Production | Ruby 2.6, Rails 5.2 | **inchangée** — rien n'est déployé |
-| Suite | 3650 tests, 17 échecs, 15 erreurs | **identique** |
+| Suite | 3650 tests, 17 échecs, 15 erreurs | **3620 tests, 0 échec, 0 erreur** attendu ; dernière mesure CI 1 erreur, corrigée depuis |
+| Job `Tests` de la CI | rouge depuis toujours | vert au prochain passage |
 | RuboCop | 1.11, plantait sous Ruby 3.4 | **1.91, sort au vert** (809 offenses au todo) |
 | ESLint | 1657 erreurs | **0 erreur** |
+| CodeQL | n'analysait aucune branche active | vert sur `6.0-alpha` |
 
 Le lot B est achevé : **la cible du plan est atteinte**. Le critère de sortie
 retenu à chaque palier était la parité de la suite, jamais le simple démarrage de
 l'application — et il a été tenu huit fois de suite, framework puis valeurs par
 défaut.
+
+**Le lot 0.1 est achevé à son tour** : les 32 cas rouges hérités des paliers sont
+traités. La référence n'est donc plus la parité mais zéro — un rouge est
+désormais une régression à expliquer. Le compte de tests passe de 3650 à 3620
+sans qu'aucun n'ait été perdu de vue : 27 tests HVE sont partis avec le
+découplage cœur/greffon, et 3 couvraient la page Exports supprimée en A.4.
 
 ## 2. Ce que la montée a appris
 
@@ -55,6 +63,43 @@ puis annulés ; et `Regexp.timeout` n'explique pas l'instabilité qu'on lui
 imputait sur une seule exécution (5 sur 5 avec le réglage, 1 sur 5 sans, sur
 quatorze exécutions tabulées).
 
+**Le lot 0.1 confirme la leçon précédente : la moitié des 32 cas rouges étaient
+de vrais défauts utilisateur**, pas des assertions périmées. Par ordre de gravité :
+
+- `Printers::JournalLedgerPrinter.new(full_params)` sans double étoile. **La
+  clôture d'exercice ne pouvait produire aucun document de journal** depuis le
+  passage à Ruby 3, alors que ses deux voisines immédiates, dans le même fichier,
+  écrivent bien `**`. Le même motif frappait les deux rapports d'erreurs FEC :
+  trois fonctions comptables inopérantes ;
+- deux pages `show` plantaient (écarts de vente et d'achat) ; l'import Socleo
+  était inutilisable en anglais ; les archives comptables partaient au mauvais
+  type MIME ; deux tableaux de bord fantômes existaient dans le cœur ; trois
+  modèles n'avaient pas de libellé en anglais ; deux messages de validation
+  étaient illisibles.
+
+**Trois tests ne dépendaient pas du code mais de la machine**, et c'est le motif
+le plus coûteux à diagnostiquer :
+
+- la signature GPG lisait `GPG_EMAIL` dans l'environnement ambiant — vide en CI,
+  pointant une identité de production dans le `docker/dev/.env` du poste. Trois
+  fonctions tombaient avec (clôture, archivage, impression signée). L'identité
+  est désormais fixée par `config/environments/test.rb`, ce qui interdit aussi à
+  la suite de signer avec une vraie clé ;
+- `CompanyInformationsServiceTest` appelait vraiment l'API Sirene de l'INSEE,
+  donc ne passait que là où la clé d'API est renseignée. Il rejoue une cassette
+  VCR, clé et cookies filtrés à l'enregistrement ;
+- deux tests phytosanitaires et une fixture désignaient une ligne du `lexicon`
+  par son identifiant, renuméroté par une livraison du référentiel. Ils
+  sélectionnent la ligne par la propriété qu'ils mettent en jeu.
+
+**Et une correction qui change le confort de travail** : l'« instabilité Devise »
+n'en était pas une. Les routes se chargent paresseusement depuis Rails 7.1,
+`devise_for` ne peuplant `Devise.mappings` qu'à leur premier accès, tout test
+appelant `sign_in` avant d'émettre une requête échouait. Le harnais charge
+maintenant les routes explicitement : **un fichier de test isolé est redevenu une
+unité de travail fiable**, ce qui rend la règle « ne jouer que les tests touchés »
+praticable.
+
 ## 3. La dette que le lot B laisse
 
 ### 3.1 Sept valeurs par défaut désactivées
@@ -73,11 +118,15 @@ travail que leur levée demande. Par poids décroissant :
 
 ### 3.2 Qualité
 
-- **la suite n'est pas verte** : 17 échecs et 15 erreurs, hérités des paliers
-  antérieurs. C'est la raison pour laquelle le job `Tests` de la CI échoue, et
-  il échouera tant que ces 32 cas ne seront pas traités. Trois instabilités
-  connues s'y ajoutent (ordre des tests, `Devise.mappings` en exécution isolée,
-  réécriture de `db/structure.sql` par la suite) — voir `CLAUDE.md` ;
+- ~~la suite n'est pas verte~~ — **traité.** Les 32 cas rouges sont corrigés ; la
+  dernière mesure de CI donne 3620 tests, 0 échec, 1 erreur, et cette erreur est
+  corrigée depuis. Deux instabilités subsistent sur les trois : l'ordre des tests
+  (le test d'achat aux montants inconciliables, point 0.2 de la feuille de route)
+  et la réécriture de `db/structure.sql` par la suite (point 0.4). Celle de
+  `Devise.mappings` est réglée à la racine — voir `CLAUDE.md` ;
+- **4 tests ignorés** : le manifeste de packs est vide en test, si bien qu'un
+  gabarit appelant `javascript_pack_tag` ne se rend pas. À reprendre avec la
+  bascule du front (lot 7), pas avant ;
 - **809 offenses RuboCop** consignées dans `.rubocop_todo.yml` à la montée en
   1.91, dont 542 auto-corrigeables : dette de style, à résorber par lots ;
 - **39 avertissements TypeScript** (types `any`, retours manquants).
@@ -93,48 +142,72 @@ travail que leur levée demande. Par poids décroissant :
 - le conteneur `sidekiq` de développement doit être reconstruit quand l'image de
   base change — il a tourné des semaines sous Ruby 2.6 en boucle de redémarrage
   sans que rien ne le signale ;
-- la CI ne se déclenche que sur `main`, `5.0-beta` et `6.0-alpha` : **renommer la
-  branche éteint la CI** si l'on n'y touche pas.
+- la CI ne se déclenche plus que sur **`6.0-alpha`** : `main` et `5.0-beta` ne
+  bougent plus, et les y laisser n'ajoutait que du bruit. Corollaire à ne pas
+  oublier — **renommer la branche éteint la CI** si l'on n'y touche pas ;
+- **`build-prod-image` ne suit aucune branche.** Le brancher sur `6.0-alpha`
+  l'aurait mis en échec à chaque commit : `docker/prod/Dockerfile` part encore de
+  l'image `ruby2.6` alors que le `Gemfile` exige `>= 3.4.0`, donc son
+  `bundle install` s'arrête avant la première gem. L'image se construit sur une
+  étiquette `v*` ou à la demande, et le job `deploy` reste neutralisé ;
+- `stale.yml` (fermeture automatique des tickets inactifs) a été supprimé.
 
 ## 4. Ce qui vient ensuite
 
-Le plan prévoit les lots C à H. Deux d'entre eux forment le cœur de la v6 et
-sont désormais débloqués :
+La feuille de route opérationnelle, lot par lot, est dans
+[v6-roadmap.md](v6-roadmap.md) — c'est elle qui fait autorité sur l'ordre et le
+découpage depuis qu'elle intègre le guide du chef de projet (§ 12). Ce qui suit
+n'en est que le sommet.
 
-**Lot C — schéma mono-base (~90 j·h).** Passer des schémas PostgreSQL par ferme à
-une base unique avec `tenant_id`, PK composites et RLS `FORCE`. Le palier 7.1 a
-livré ce qui manquait côté ORM : `query_constraints` et les PK composites
-natives. Porte d'entrée : le prototype sur trois tables (C.1), qui couvre à lui
-seul PK/FK composites, STI et colonne géométrique.
+**Le reste du lot 0 est désormais la seule chose qui sépare du lot 1.** Trois
+points y restent ouverts et sont de nature différente :
 
-**Lot D — runtime tenant et preuve d'isolation (~110 j·h).** Plan de contrôle,
-`TenantRecord`, annotation des 1 413 associations, contexte `set_config` en
-transaction, propagation aux chemins asynchrones, tests d'isolation générés,
-retrait d'Apartment. Dépend de C.
+| Point | Nature |
+|---|---|
+| 0.2 — corriger le test d'achat aux montants inconciliables (99 € HT pour 120 € TTC à 20 %), puis rétablir `Regexp.timeout` | une heure, et la dernière instabilité d'ordre disparaît |
+| 0.4 — empêcher la suite de réécrire `db/structure.sql` | un piège à commit, à traiter avant d'écrire des migrations en série |
+| 0.17 — **monter le serveur PostgreSQL de 13 à 18** | préalable de `uuidv7()` native, donc du lot 1 lui-même |
 
-**Lot E — restauration d'archives v5 (~56 j·h)**, puis F (API et offline-first),
-G (découplage du front, API-only) et H (satellites).
+Les points 0.5 à 0.9 (les sept valeurs par défaut) et 0.10 à 0.13 (dette
+d'outillage) ne bloquent pas le lot 1 ; `raise_on_assign_to_attr_readonly` et
+`raise_on_missing_required_finder_order_columns` s'y rattachent naturellement,
+le premier par les rappels comptables, le second par la classification des
+tables du `lexicon`.
 
-## 5. À trancher avant d'ouvrir le lot C
+**Lot 1 — mono-schéma et isolation (ADR-002, ADR-003).** Passer des schémas
+PostgreSQL par ferme à une base unique avec `tenant_id` uuid, PK composites et
+RLS `FORCE`, puis le runtime qui va avec — `TenantRecord`, contexte `set_config`
+en transaction, propagation aux chemins asynchrones, tests d'isolation générés,
+retrait d'Apartment. Le palier 7.1 a livré ce qui manquait côté ORM :
+`query_constraints` et les PK composites natives. Porte d'entrée : le prototype
+sur trois tables, qui couvre à lui seul PK/FK composites, STI et colonne
+géométrique.
 
-1. **La production suit-elle maintenant ?** Le palier 8.1 tient, mais il n'est
-   pas déployé et l'écart avec la production grandit. Trois questions liées :
-   basculer `docker/prod/Dockerfile` en Ruby 3.4, relever le plancher du
-   `Gemfile`, et décider si la v6 se déploie avant ou après le mono-schéma.
-2. **Dans quel ordre prendre la dette du lot B ?** Les 32 tests en échec valent
-   d'être traités avant le lot C : ils rendent la CI illisible et masqueront les
-   régressions du chantier de schéma. `raise_on_assign_to_attr_readonly` touche
-   les mêmes rappels comptables que ces tests — il y a là un lot cohérent.
-3. **PostgreSQL 13 est-il tenable pour le lot C ?** La RLS, les PK composites et
-   les index tenant-aware fonctionnent en 13, mais monter l'image de base
-   (`postgresql-client`) conditionne tout passage en 15/16 et devrait être
-   décidé avant d'écrire 240 migrations.
-4. **Les 14 tables du lexique sans clé** : leur donner une clé relève du lot C
-   (C.2, classification des 313 tables). Le faire au passage lèverait
-   `raise_on_missing_required_finder_order_columns`.
-5. **`turnout` et le mode maintenance** : il retient `rack` sous la 3 et
-   `sidekiq` sous la 8. Le lot B.7 prévoit Solid Queue ; la question se posera
-   à ce moment-là, pas avant.
+## 5. Ce qui est tranché, et ce qui ne l'est pas
+
+Décisions prises le 13 septembre 2026 et inscrites dans la feuille de route :
+
+- **PostgreSQL 18**, pour `uuidv7()` native ;
+- **`tenant_id` en uuid, avec un slug** à côté pour rester lisible
+  (`phaurigot`) ; l'uuid est compatible avec l'application mobile et Duke ;
+- **remplacement complet d'`active_list`** — la technologie du front change de
+  toute façon ;
+- **déploiement du palier 8.1 sur le staging `ekylibre.io`** via Dokploy,
+  **après** le mono-schéma ;
+- **Solid Queue, Solid Cable et Solid Cache** ;
+- un canal de saisie terrain **Telegram ou équivalent**, pas WhatsApp.
+
+Reste ouvert :
+
+1. **`turnout` et le mode maintenance.** Il retient `rack` sous la 3 et plafonne
+   `sidekiq` à la série 7. La question se tranche au passage à Solid Queue, pas
+   avant.
+2. **La CI des greffons** (point 0.18). Aucun des 19 greffons n'a de CI : leurs
+   suites ne s'exécutent nulle part. Deux voies — une CI par greffon, ou un
+   `Gemfile.ci` versionné qui les monte dans la CI du cœur. À décider avant que
+   le mono-schéma ne les touche, sans quoi leurs régressions seront invisibles.
+3. **Le sort d'`Ekylibre::Plugin`** (point 0.12) : le mécanisme `plugins/` est
+   mort, les greffons sont des engines. Le retirer ou le documenter.
 
 ---
 
@@ -161,3 +234,25 @@ e97c59e3e1  Réparer l'étape de base de données de la CI
 Côté greffons : `ekylibre-viti` `9b312aa85e` (`:patch` retiré des actions d'une
 ressource) et `ekylibre-baqio` `2dc98cd` (initialiseur dupliqué), tous deux
 poussés sur leur branche `6.0`.
+
+## Annexe — Les commits du lot 0.1 (32 cas rouges)
+
+```
+57c26b9d0a  Découpler les modèles HVE du greffon qui les alimente
+52e7b9c3e5  Reprendre dix-neuf tests rouges, dont onze défauts réels
+fd5b876e6a  Reprendre sept tests rouges, dont trois défauts réels
+1c522b39cd  Fixer l'identité de signature de la suite, et le dernier identifiant figé
+e35327d044  Actualiser la mesure de référence : le lot 0.1 est au vert
+0b9bab20b4  Engendrer les actions de tableau de bord sans eval
+8593fd6245  Restreindre la CI à 6.0-alpha, et sortir l'image de prod des pushes
+d0763167be  Sortir le dernier test rouge du réseau, et taire le bruit de VCR
+```
+
+## Annexe — Où reprendre
+
+1. **Lire la mesure de CI du commit `d0763167be`.** Si elle sort à zéro, le job
+   `Tests` est vert pour la première fois et le lot 0.1 est clos.
+2. Puis, dans cet ordre : point 0.2 (montants d'achat inconciliables, puis
+   rétablir `Regexp.timeout`), point 0.4 (`db/structure.sql`), point 0.17
+   (PostgreSQL 13 → 18 et régénération de `structure.sql` dans un commit dédié).
+3. Le lot 1 s'ouvre sur le prototype de mono-schéma à trois tables.

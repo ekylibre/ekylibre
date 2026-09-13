@@ -1,7 +1,7 @@
 # Ekylibre V6 — Feuille de route opérationnelle
 
 **Statut :** proposition — à valider
-**Date :** 13 septembre 2026
+**Date :** 13 septembre 2026 — progression mise à jour le soir même (lot 0.1 clos)
 **Complément de :** [v6-architecture.md](v6-architecture.md) (ADR-001 à ADR-012),
 dont il reprend le découpage en phases. Là où l'architecture dit *pourquoi* et
 *quoi*, ce document dit *ce qu'il faut écrire ou modifier*, dans quel ordre, et ce
@@ -83,6 +83,10 @@ préalable.
 | CI GitHub Actions, CodeQL, plancher de couverture 55 % | fait (lot A.8) |
 | RCE du restore de tenant | corrigée (lot P0) |
 | RuboCop 1.11 → **1.91**, ESLint au vert | fait |
+| **Lot 0.1 — les 32 cas rouges hérités des paliers** | fait, 13 septembre 2026 (8 commits, `57c26b9d0a` → `d0763167be`) |
+| Découplage des modèles HVE du greffon qui les alimente | fait (préalable du 0.1) |
+| `Devise.mappings` en exécution isolée (point 0.3) | fait — routes paresseuses depuis 7.1, le harnais les charge |
+| CI restreinte à `6.0-alpha` ; `Lint` et `CodeQL` au vert | fait |
 
 ---
 
@@ -94,15 +98,24 @@ se perdra dans le bruit.*
 
 ### 2.0 — La suite verte, d'abord (**bloquant**)
 
-| # | À faire | Mesure actuelle |
+| # | À faire | État |
 |---|---|---|
-| 0.1 | Traiter les **17 échecs et 15 erreurs** de la suite, hérités des paliers antérieurs | 3650 tests, 32 cas rouges |
-| 0.2 | Corriger le test d'achat aux montants inconciliables (99 € HT / 120 € TTC à 20 %), puis rétablir `Regexp.timeout` | 1 cas instable |
-| 0.3 | Stabiliser `Devise.mappings` en exécution isolée (référence de classe périmée) | 7 erreurs en fichier seul |
-| 0.4 | Empêcher la suite de réécrire `db/structure.sql` (`maintain_test_schema`, ou tâche dédiée) | diff à restaurer après chaque exécution |
+| 0.1 | ~~Traiter les **17 échecs et 15 erreurs** de la suite~~ | **fait.** 3620 tests (−27 HVE partis au greffon, −3 de la page Exports supprimée). Dernière mesure CI : 0 échec, 1 erreur, corrigée par `d0763167be` — mesure à confirmer |
+| 0.2 | Corriger le test d'achat aux montants inconciliables (99 € HT / 120 € TTC à 20 %), puis rétablir `Regexp.timeout` | à faire — dernière instabilité d'ordre |
+| 0.3 | ~~Stabiliser `Devise.mappings` en exécution isolée~~ | **fait.** Ce n'était pas une référence de classe périmée : les routes se chargent paresseusement depuis Rails 7.1, `devise_for` ne peuplait donc `Devise.mappings` qu'à leur premier accès. `test/test_helper.rb` appelle `reload_routes_unless_loaded` |
+| 0.4 | Empêcher la suite de réécrire `db/structure.sql` (`maintain_test_schema`, ou tâche dédiée) | à faire — piège à commit, à traiter avant d'écrire des migrations en série |
+| 0.20 | Reprendre les **4 tests ignorés** : le manifeste de packs est vide en test, un gabarit appelant `javascript_pack_tag` ne se rend pas | à faire **avec le lot 7**, pas avant |
 
 **Critère de sortie :** `bin/rails test` sort au vert, donc le job `Tests` de la
-CI passe. C'est aujourd'hui la seule raison de son échec.
+CI passe. Il ne reste que les points 0.2 et 0.4 pour que ce soit vrai de façon
+stable, exécution après exécution.
+
+Ce que le lot 0.1 a appris est consigné dans
+[v6-etat-des-lieux.md](v6-etat-des-lieux.md) § 2 et dans `CLAUDE.md` : **la
+moitié des 32 cas étaient de vrais défauts utilisateur** — la clôture d'exercice
+ne produisait aucun document de journal depuis le passage à Ruby 3 — et trois
+autres ne dépendaient pas du code mais de la machine (identité GPG, clé d'API
+INSEE, identifiants de `lexicon` figés).
 
 ### 2.1 — Les sept valeurs par défaut désactivées
 
@@ -134,7 +147,7 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 |---|---|
 | 0.14 | `docker/prod/Dockerfile` en Ruby 3.4 ; relever le plancher du `Gemfile` (`ruby '>= 3.4'`) |
 | 0.15 | ~~Décider~~ — **tranché : le déploiement vient après le mono-schéma**, sur le staging `ekylibre.io` via Dokploy (lot 11). L'écart avec la production grandit d'autant : à surveiller, c'est le prix assumé de ce choix |
-| 0.16 | Déclencher `build-prod-image` sur `6.0-alpha` le jour de cette décision, pas avant |
+| 0.16 | Déclencher `build-prod-image` sur `6.0-alpha` le jour de cette décision, pas avant. **Essayé le 13 septembre, retiré aussitôt** : `docker/prod/Dockerfile` part de l'image `ruby2.6` alors que le `Gemfile` exige `>= 3.4.0`, donc le `bundle install` s'arrête avant la première gem — le job serait rouge à chaque commit. Le workflow ne suit plus aucune branche (étiquette `v*` ou à la demande) ; c'est le point 0.14 qui le débloque |
 | 0.17 | **Monter le serveur PostgreSQL de 13 à 18** (décidé) : `postgis/postgis:18-3.6` existe, le client 17.11 de l'image de base suffit pour le dumper. Régénérer `structure.sql` dans un commit dédié. C'est le préalable de `uuidv7()` native, donc du lot 1 |
 
 ---
