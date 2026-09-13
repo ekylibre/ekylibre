@@ -52,7 +52,7 @@ GIT
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-baqio.git
-  revision: f6e539730d9b0c7ea641dd82dd28f14347be7b8b
+  revision: 2dc98cd11bbf954e9b3e5d0c3843c685b2ad0f35
   branch: 6.0
   specs:
     ekylibre-baqio (0.5.3)
