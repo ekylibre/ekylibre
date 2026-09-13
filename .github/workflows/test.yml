@@ -115,8 +115,34 @@ jobs:
         # Les tests de signature de document en ont besoin.
         run: gpg --import test/fixture-files/my-private-key.asc
 
-      - name: Migrer la base de test
-        run: bundle exec rake db:migrate VERBOSE=false
+      - name: Charger le schéma de test, puis les migrations postérieures
+        # `db:migrate` ne suffit plus depuis Rails 8 : sur une base sans
+        # `schema_migrations`, il charge d'abord `db/structure.sql` — et ce
+        # chargement échoue ici pour deux raisons cumulées. Le dump contient
+        # `CREATE SCHEMA postgis` et `CREATE SCHEMA public`, que l'étape
+        # précédente a déjà créés pour y installer les extensions, et Rails
+        # impose `ON_ERROR_STOP=1` à son `psql`.
+        #
+        # Rejouer les 721 migrations depuis zéro n'est pas une solution de
+        # repli : `t.attachment`, que Paperclip fournissait aux migrations, est
+        # employé par `20121212122000_create_base.rb:306` et la gem est partie
+        # avec le passage à Active Storage.
+        #
+        # Le dump est donc chargé à la main, sans arrêt sur erreur, et les seules
+        # erreurs tolérées sont ces schémas déjà présents : toute autre fait
+        # échouer l'étape. `db:migrate` applique ensuite les migrations
+        # postérieures au dump — celles qu'il contient sont déjà inscrites dans
+        # `schema_migrations`.
+        run: |
+          set -euo pipefail
+          psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" \
+               --quiet --no-psqlrc --output /dev/null -f db/structure.sql 2> psql-load.err || true
+          if grep -E '^psql:.*ERROR' psql-load.err | grep -qv 'already exists'; then
+            echo "Erreurs inattendues au chargement du schéma :"
+            cat psql-load.err
+            exit 1
+          fi
+          bundle exec rake db:migrate VERBOSE=false
 
       - name: Compiler les packs Webpacker
         # Sans eux, toute vue rendant `javascript_pack_tag :legacy` échoue sur un
