@@ -49,8 +49,15 @@ class HveAudit < ApplicationRecord
     verdict == 'compliant'
   end
 
+  # Seuil, en points, que chaque indicateur thématique doit atteindre pour la
+  # certification (référentiel HVE V4.4). Il vit ici et non dans le greffon
+  # `ekylibre_hve` : la table `hve_audits` et ce modèle sont au cœur, et un
+  # modèle du cœur ne peut pas dépendre d'un greffon qui n'est pas toujours
+  # monté — la CI ne monte aucun greffon.
+  CERTIFICATION_THRESHOLD = 10
+
   def threshold
-    EkylibreHve::CERTIFICATION_THRESHOLD
+    CERTIFICATION_THRESHOLD
   end
 
   def scores
