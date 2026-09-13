@@ -133,9 +133,9 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 | # | À faire |
 |---|---|
 | 0.14 | `docker/prod/Dockerfile` en Ruby 3.4 ; relever le plancher du `Gemfile` (`ruby '>= 3.4'`) |
-| 0.15 | Décider si la V6 se déploie **avant** le mono-schéma (recommandé : livrer Rails 8.1 en production réduit l'écart et valide la pile sous charge réelle) |
+| 0.15 | ~~Décider~~ — **tranché : le déploiement vient après le mono-schéma**, sur le staging `ekylibre.io` via Dokploy (lot 11). L'écart avec la production grandit d'autant : à surveiller, c'est le prix assumé de ce choix |
 | 0.16 | Déclencher `build-prod-image` sur `6.0-alpha` le jour de cette décision, pas avant |
-| 0.17 | Monter le serveur PostgreSQL (13 → 16 ou 17), le client le permet déjà ; régénérer `structure.sql` dans un commit dédié |
+| 0.17 | **Monter le serveur PostgreSQL de 13 à 18** (décidé) : `postgis/postgis:18-3.6` existe, le client 17.11 de l'image de base suffit pour le dumper. Régénérer `structure.sql` dans un commit dédié. C'est le préalable de `uuidv7()` native, donc du lot 1 |
 
 ---
 
@@ -146,11 +146,16 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 
 ### 3.1 Préalables de décision
 
-| # | À trancher | Pourquoi maintenant |
+**Tranché le 13 septembre 2026 :** PostgreSQL **18**, donc `uuidv7()` native ;
+**UUIDv7** pour les entités créées sur le terrain, forme compatible avec
+l'application mobile et Duke ; `tenant_id` en **`uuid`**, la table `tenants`
+conservant le nom actuel du tenant (`phaurigot`, `sci-chenes-verts`…) comme
+`slug` lisible — l'UUID porte l'identité, le slug porte la lisibilité.
+
+| # | Ce qu'il reste à faire avant la première migration | Pourquoi |
 |---|---|---|
-| 1.1 | **Type de `tenant_id`** (`uuid` recommandé) et **périmètre UUIDv7** | la fusion renumérote les PK de toute façon : écrire des UUIDv7 coûte le même passage. Séparer les deux oblige à réécrire les mêmes tables deux fois |
-| 1.2 | **Audit préalable** : aucun greffon ni export réglementaire ne doit sérialiser des `id` numériques (EDI, `ednotif`, exports comptables, Isacompta, Telepac) | une dépendance invisible dans le schéma casse à la première déclaration |
-| 1.3 | **Version de PostgreSQL cible** : `uuidv7()` native exige la 18 ; sinon `pg_uuidv7` ou génération Ruby | conditionne 1.1, et la montée serveur (0.17) |
+| 1.2 | **Audit préalable** : aucun greffon ni export réglementaire ne doit sérialiser des `id` numériques (EDI, `ednotif`, exports comptables, Isacompta, Telepac) | une dépendance invisible dans le schéma casse à la première déclaration — c'est le seul préalable qui reste, et il ne demande aucune décision |
+| 1.3 | Monter le serveur en 18 (cf. 0.17) et vérifier `uuidv7()` sur la pile réelle | `uuidv7()` est le fondement du choix ; mieux vaut le constater que le supposer |
 
 ### 3.2 Schéma
 
@@ -268,10 +273,10 @@ Interopérer (API ISAGRI, AGIRIS, centres de gestion).
 
 | # | À faire | Préalable |
 |---|---|---|
-| 6.1 | **Solid Queue** en remplacement de Sidekiq | `sidekiq` 8 exige `rack >= 3.1`, que `turnout` interdit : sortir de `turnout` ou changer de mode maintenance **d'abord** |
+| 6.1 | **Solid Queue** en remplacement de Sidekiq (décidé) | **plus de préalable** : `solid_queue` 1.7 ne dépend que d'`activejob`, `activerecord`, `railties`, `fugit`, `thor` — pas de `rack`. Le blocage `turnout` ne valait que pour `sidekiq` 8, qu'on n'atteindra jamais puisqu'on quitte sidekiq |
 | 6.2 | Base ou rôle **dédié hors RLS** pour Solid Queue / Cache / Cable | lot 1 (sinon files vides ou jobs fantômes) |
 | 6.3 | Solid Cache, Solid Cable ; retirer Redis | 6.1 |
-| 6.4 | **Sprockets 3.7 + Webpacker 4 → Propshaft** : lot de travail dédié, non un effet de bord | dépend du sort d'`active_list` et du front (lot 7) |
+| 6.4 | **Sprockets 3.7 + Webpacker 4 → Propshaft** : lot de travail dédié, non un effet de bord | `active_list` est **remplacé intégralement** (décidé) — le front change de toute façon. Le calendrier de Propshaft suit donc celui du lot 7 |
 | 6.5 | Sortir de `liquid-rails` (épingle `kaminari` 1.1, paginateur repris à la main) ou le remplacer pour les gabarits d'e-mails | — |
 | 6.6 | Manifeste de greffons **out-of-process** : scopes OAuth, webhooks, points d'extension UI | lot 2 |
 | 6.7 | Table **outbox** + diffuseur léger — pas de Kafka | — |
@@ -344,11 +349,11 @@ inventer un de trop.
 
 | Sujet | Échéance | Bloquant pour |
 |---|---|---|
-| Type de `tenant_id`, périmètre UUIDv7, version PostgreSQL cible | **avant la première migration** | lot 1 entier |
-| Déployer Rails 8.1 en production avant ou après le mono-schéma | avant le lot 1 | 0.14–0.16 |
+| ~~Type de `tenant_id`, périmètre UUIDv7, version PostgreSQL~~ — **tranché : PG 18, UUIDv7 terrain, `tenant_id` uuid + slug** | 13 septembre 2026 | lot 1 débloqué |
+| ~~Déployer avant ou après le mono-schéma~~ — **tranché : après**, sur le staging `ekylibre.io` | 13 septembre 2026 | 0.15, lot 11 |
 | Ordre de la dette du lot 0 | maintenant | lisibilité du lot 1 |
-| Sortie de `turnout` (mode maintenance) | avant 6.1 | Solid Queue |
-| Remplacement d'`active_list` | avant 6.4 | Propshaft |
+| ~~Sortie de `turnout`~~ — **sans objet pour la file** : Solid Queue ne dépend pas de `rack`. Reste un frein pour Rack 3 seul | — | — |
+| ~~Remplacement d'`active_list`~~ — **tranché : remplacement intégral**, le front change | 13 septembre 2026 | 6.4, lot 7 |
 | PDF/A-3 : Python ou Ruby | avant l'émission | 5.5 |
 | Périmètre du langage de manifeste d'écran | lot 4 | 4.7 |
 | Liste des PA prioritaires | lot 5 | 5.3 |

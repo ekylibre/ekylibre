@@ -146,7 +146,10 @@ Côté Rails, un middleware positionne `SET LOCAL app.tenant_id` en début de tr
 
 ### ADR-003 — Types d'identifiants : UUID pour `tenant_id`, UUIDv7 pour les entités terrain
 
-**Statut :** proposé — **décision bloquante, à trancher avant la fusion des schémas**
+**Statut :** **décidé (13 septembre 2026)** — PostgreSQL **18**, donc `uuidv7()`
+native ; UUIDv7 pour ce que le terrain produit, dans une forme que l'application
+mobile et Duke partagent ; `tenant_id` en `uuid`, le nom actuel du tenant
+(`phaurigot`, `sci-chenes-verts`…) devenant le `slug` de la table `tenants`
 
 **Contexte.** Deux questions distinctes se cachent derrière « quel type pour les identifiants ». `tenant_id` est un discriminant : quelques centaines à quelques milliers de valeurs répétées sur des dizaines de millions de lignes. Les PK métier sont des milliards de valeurs distinctes, et c'est là que se joue la synchronisation offline.
 
@@ -371,7 +374,9 @@ Permet d'écrire un plugin en Python, Node ou autre sans toucher au core. C'est 
 
 ### ADR-012 — Adopter les défauts Rails 8.1
 
-**Statut :** proposé
+**Statut :** **décidé (13 septembre 2026)** — Solid Queue, Solid Cache et Solid
+Cable remplacent Redis et Sidekiq ; `active_list` est remplacé intégralement, ce
+qui lève le préalable de Propshaft
 
 **Décision.** Solid Queue, Solid Cache et Solid Cable remplacent Redis et Sidekiq. Propshaft remplace Sprockets.
 
@@ -379,6 +384,7 @@ Permet d'écrire un plugin en Python, Node ou autre sans toucher au core. C'est 
 - Redis et Sidekiq disparaissent du schéma d'infrastructure : une brique et un point de panne en moins.
 - **Piège :** Solid Queue avec un discriminant `tenant_id` exige une base ou un rôle dédié, hors RLS, sinon les politiques de sécurité s'appliquent aux jobs et produisent des files vides ou des jobs fantômes (voir ADR-002, point 4).
 - Migration Sprockets → Propshaft à budgéter : c'est un poste de travail non trivial sur une base de code de cet âge.
+- **Bonne nouvelle vérifiée :** `solid_queue` 1.7 ne dépend que d'`activejob`, `activerecord`, `railties`, `fugit` et `thor` — **pas de `rack`**. Le blocage que `turnout` faisait peser sur la file d'attente ne valait que pour `sidekiq` 8 ; en quittant sidekiq, il disparaît. `turnout` ne retient plus que Rack 3 lui-même.
 
 ---
 
