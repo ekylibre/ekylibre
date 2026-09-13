@@ -38,7 +38,7 @@ module Backend
       page = part.pages.first || part.default_page
       next unless page&.controller == 'backend/dashboards'
 
-      class_eval "def #{part.name}\nend\n"
+      define_method(part.name) {}
     end
 
     def home; end
