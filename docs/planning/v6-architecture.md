@@ -36,8 +36,8 @@ Leur véritable avantage n'est pas logiciel — un interlocuteur dans un rayon d
 ```
 ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
 │ Messagerie   │  │ App mobile   │  │ Web          │
-│ WhatsApp /   │  │ React Native │  │ Hotwire      │
-│ Telegram     │  │ offline      │  │ + SPA ciblé  │
+│ Telegram /   │  │ React Native │  │ Hotwire      │
+│ Matrix       │  │ offline      │  │ + SPA ciblé  │
 └──────┬───────┘  └──────┬───────┘  └──────┬───────┘
        │                 │                 │
        └─────────────────┼─────────────────┘
@@ -194,9 +194,9 @@ UUIDv7 plutôt que v4 : le préfixe temporel préserve la localité d'insertion 
 
 ---
 
-### ADR-005 — Canal de saisie terrain : port `Channel::Adapter`, Telegram en développement, WhatsApp en production
+### ADR-005 — Canal de saisie terrain : port `Channel::Adapter`, Telegram et messagerie souveraine — WhatsApp écarté
 
-**Statut :** proposé
+**Statut :** **décidé (13 septembre 2026)** — révision : WhatsApp est abandonné
 
 **Contexte.** Le canal d'entrée conditionne l'adoption. WhatsApp et Telegram permettent tous deux image, texte et vocal.
 
@@ -208,17 +208,50 @@ UUIDv7 plutôt que v4 : le préfixe temporel préserve la localité d'insertion 
 | Fichiers | 20 Mo (2 Go en Bot API auto-hébergé) | via media ID, URLs éphémères |
 | Adoption agriculteurs FR | marginale | massive |
 
-**Décision.** `voice-gateway` expose un port `Channel::Adapter` — primitives `receive_media`, `receive_text`, `send_ack` — avec :
+**Décision (révisée).** `voice-gateway` expose un port `Channel::Adapter` —
+primitives `receive_media`, `receive_text`, `send_ack` — avec :
 
-- **Telegram** comme implémentation de référence : développement sans friction, sans coût, sans boucle d'approbation.
-- **WhatsApp Cloud API** comme adaptateur de production.
-- **SMS / e-mail** comme adaptateur de repli souverain, à prévoir dans le port sans l'implémenter immédiatement.
+- **Telegram** comme implémentation de référence **et de production** :
+  développement sans friction, sans coût par message, sans boucle d'approbation ;
+- **une messagerie auto-hébergeable** comme cible de souveraineté — Matrix
+  (serveur Synapse) est le candidat sérieux, XMPP l'alternative ;
+- **SMS / e-mail** comme repli, à prévoir dans le port sans l'implémenter
+  immédiatement.
 
-**Contrainte économique majeure.** L'API WhatsApp On-Premises a été fermée le 23 octobre 2025 : tout passe désormais par les serveurs Meta. Surtout, **à partir du 1er octobre 2026, Meta facture chaque message métier, y compris les réponses de service dans la fenêtre de 24 heures**, auparavant gratuites. C'est précisément le régime sur lequel repose le modèle Tellia.
+**WhatsApp Cloud API est écarté**, pour deux raisons qui se cumulent. L'objectif
+à un an est de rénover la pile **en conservant 100 % de briques open source**
+(roadmap § 12.1) : router les observations terrain par Meta le contredit
+frontalement. Et depuis le 1er octobre 2026, Meta facture chaque message métier,
+y compris les réponses de service dans la fenêtre de 24 heures — le modèle
+économique sur lequel reposait l'adaptateur a disparu en cours de rédaction.
 
-*Conséquence de conception :* **ne pas répondre dans le fil de discussion par défaut.** Le bot émet un accusé de réception unique et groupé ; la boucle de validation se fait dans l'application ou sur le web. Cela réduit la facture et produit un meilleur écran de validation que du texte.
+**Ce que cette décision ne règle pas, et qu'il faut dire.** Telegram supprime le
+coût et la dépendance à Meta, mais **son serveur reste propriétaire** : seul le
+client et le *Bot API server* sont ouverts, et ce dernier dialogue de toute façon
+avec l'infrastructure Telegram. La chaîne n'est donc pas « 100 % open source »
+pour autant. Telegram est le bon choix pour démarrer — gratuit, sans friction,
+massivement installé — mais la cible souveraine reste une messagerie
+auto-hébergeable, et c'est le rôle du port de rendre ce passage possible sans
+réécrire `voice-gateway`.
 
-**Tension de souveraineté à documenter.** Router les observations terrain via Meta contredit le discours d'IA souveraine. La ligne défendable : le canal ne transporte que le média brut que l'agriculteur a lui-même choisi d'envoyer ; la transcription et l'extraction s'exécutent sur infrastructure propre ; aucune donnée agronomique ne repart chez Meta. À formaliser dans la documentation de conformité, pas à découvrir en audit.
+**Pour mémoire, ce qui a fait écarter WhatsApp.** L'API On-Premises a été fermée
+le 23 octobre 2025 : tout passait désormais par les serveurs Meta. Et depuis le
+1er octobre 2026, Meta facture chaque message métier, y compris les réponses de
+service dans la fenêtre de 24 heures, auparavant gratuites — c'est précisément le
+régime sur lequel repose le modèle Tellia.
+
+*Conséquence de conception, qui reste valable quel que soit le canal :* **ne pas
+répondre dans le fil de discussion par défaut.** Le bot émet un accusé de
+réception unique et groupé ; la boucle de validation se fait dans l'application
+ou sur le web. La raison n'est plus la facture, mais l'ergonomie : un écran de
+validation vaut mieux qu'un échange de texte, et c'est ce que dit
+[ui_ux_v6.md](ui_ux_v6.md).
+
+**Ce qui reste à documenter en conformité.** Quel que soit le canal tiers retenu,
+la ligne est la même : il ne transporte que le média brut que l'agriculteur a
+lui-même choisi d'envoyer ; la transcription et l'extraction s'exécutent sur
+infrastructure propre ; aucune donnée agronomique ne repart chez le fournisseur
+du canal.
 
 ---
 
@@ -356,11 +389,11 @@ Permet d'écrire un plugin en Python, Node ou autre sans toucher au core. C'est 
 | R1 | Fuite inter-tenants après passage en `tenant_id` | Moyenne | **Critique** (RGPD) | RLS avec `FORCE`, rôle non-propriétaire, tests d'isolation automatisés en CI |
 | R2 | Index unique non converti découvert en production | **Élevée** | Élevé | Test de scan `pg_indexes` bloquant en CI (ADR-002) |
 | R3 | Décision sur les types d'identifiants reportée après la fusion | Moyenne | Élevé | Trancher ADR-003 avant le démarrage de la fusion ; double réécriture sinon |
-| R4 | Hausse tarifaire WhatsApp du 1er oct. 2026 non anticipée | **Certaine** | Moyen | Accusé groupé, validation hors messagerie (ADR-005) |
+| ~~R4~~ | ~~Hausse tarifaire WhatsApp~~ — **sans objet** : WhatsApp écarté (ADR-005 révisé) | — | — | — |
 | R5 | Extraction LLM produisant des registres phyto erronés | Moyenne | **Critique** (contrôle PAC) | Validation humaine obligatoire, schéma contraint (ADR-006, 007) |
 | R6 | Dérive du contrat de synchro mobile | Élevée | Élevé | Spec écrite avant code, contrainte intégrée en revue |
 | R7 | Absence de PDF/A-3 bloquante pour l'émission 2027 | Moyenne | Élevé | Arbitrage en phase 2, pas plus tard |
-| R8 | Dépendance Meta contradictoire avec le discours souveraineté | Certaine | Moyen | Documentation de conformité explicite, adaptateur de repli prévu au port |
+| R8 | Dépendance à un canal tiers (Telegram) encore propriétaire côté serveur | Certaine | **Faible** — Meta écarté | Port `Channel::Adapter` conçu pour accueillir une messagerie auto-hébergeable (Matrix) sans réécriture ; conformité documentée |
 | R9 | Sérialisation d'`id` numériques dans un export réglementaire | Moyenne | Élevé | Audit préalable des plugins et exports (ADR-003) |
 | R10 | Dégradation des écrans cartographiques à la montée en charge | Moyenne | Moyen | Index GiST composites `btree_gist` dès la migration |
 | R11 | Migration Sprockets → Propshaft sous-estimée | Élevée | Moyen | Lot de travail dédié en phase 0, pas un effet de bord |
@@ -408,7 +441,6 @@ Permet d'écrire un plugin en Python, Node ou autre sans toucher au core. C'est 
 - ASR asynchrone sur infrastructure propre (note vocale traitée en quelques secondes)
 - `duke` repositionné en extraction contrainte, schéma JSON dérivé des modèles
 - `pending_records` et écran de validation
-- Adaptateur WhatsApp, vérification Meta Business
 - Arbitrage PDF/A-3 pour Factur-X
 
 **Critères de sortie.**

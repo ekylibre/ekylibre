@@ -50,13 +50,18 @@ Effet de bord à connaître : `db/structure.sql` versionné a été produit par
 ~1400 lignes** (ordre et forme des contraintes). Il faut l'assumer une fois,
 dans un commit dédié, et fixer la version de `pg_dump` employée.
 
-**0.5 — « 100 % open source » entre en tension avec l'ADR-005.** L'objectif à un
-an (§ 12.1) est de rénover la pile **en conservant 100 % de briques open
-source**. Or l'ADR-005 route la saisie terrain par WhatsApp Cloud API, donc par
-Meta, et l'ADR le reconnaît lui-même comme une « tension de souveraineté ». Avec
-cet objectif, ce n'est plus une tension mais une contradiction : l'adaptateur
-Telegram, ou SMS/e-mail, cesse d'être un repli commode pour devenir le chemin
-principal. À trancher avant d'écrire `voice-gateway`, pas après.
+**0.5 — « 100 % open source » : WhatsApp est écarté (tranché le 13 septembre
+2026).** L'objectif à un an (§ 12.1) est de rénover la pile en conservant 100 %
+de briques open source ; l'ADR-005 routait la saisie terrain par WhatsApp Cloud
+API, donc par Meta. La contradiction est levée : **WhatsApp est abandonné**,
+Telegram devient le canal de production et une messagerie auto-hébergeable
+(Matrix) la cible de souveraineté. L'ADR-005 est révisé en ce sens.
+
+Ce que cela ne règle pas, et qu'il faut garder en tête : **le serveur Telegram
+reste propriétaire**. Seuls le client et le *Bot API server* sont ouverts, et ce
+dernier dialogue de toute façon avec l'infrastructure Telegram. La chaîne n'est
+donc pas encore « 100 % open source » — c'est le rôle du port `Channel::Adapter`
+de rendre le passage à Matrix possible sans réécrire `voice-gateway`.
 
 **0.4 — Solid Queue et Propshaft ne sont pas là.** L'ADR-012 les présente comme
 adoptés. État réel : `sidekiq` 7.3.10 (la série 8 exige `rack >= 3.1`, que
@@ -207,9 +212,9 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 | 3.6 | `pending_records` : score de confiance, trace d'extraction, alternatives écartées |
 | 3.7 | Écran de validation (mobile et web) ; validation par lot pour la confiance élevée |
 | 3.8 | Test automatisé : **aucune écriture métier sans validation explicite** |
-| 3.9 | Adaptateur WhatsApp, vérification Meta Business |
-| 3.10 | Accusé de réception **unique et groupé** — ne pas répondre dans le fil (facturation Meta au 1er octobre 2026) |
-| 3.11 | Documenter la position de souveraineté : le canal ne transporte que le média choisi par l'agriculteur ; transcription et extraction sur infrastructure propre |
+| 3.9 | **Adaptateur Matrix** (serveur Synapse auto-hébergé) : la cible de souveraineté. Le port existe pour ça — l'écrire prouve qu'il tient |
+| 3.10 | Accusé de réception **unique et groupé** — ne pas répondre dans le fil. La raison n'est plus la facture mais l'ergonomie : un écran de validation vaut mieux qu'un échange de texte (cf. `ui_ux_v6.md`) |
+| 3.11 | Documenter la position de souveraineté : le canal ne transporte que le média choisi par l'agriculteur ; transcription et extraction sur infrastructure propre ; rien ne repart chez le fournisseur du canal |
 | 3.12 | Adaptateur de repli SMS/e-mail : **prévu dans le port, pas implémenté** |
 
 **Dépend de :** lot 2 (jeton délégué). Mesure de sortie : corpus réel de 200 messages par filière.
@@ -348,7 +353,8 @@ inventer un de trop.
 | Périmètre du langage de manifeste d'écran | lot 4 | 4.7 |
 | Liste des PA prioritaires | lot 5 | 5.3 |
 | Sort d'`Ekylibre::Plugin` | opportuniste | 0.12, 10.3 |
-| **Canal de saisie terrain et « 100 % open source »** : Meta est-il acceptable, ou Telegram/SMS deviennent-ils le chemin principal ? | avant d'écrire `voice-gateway` | lot 3, § 0.5 |
+| ~~Canal de saisie terrain et « 100 % open source »~~ — **tranché** : WhatsApp écarté, Telegram en production, Matrix en cible | 13 septembre 2026 | ADR-005 révisé |
+| Quand passer de Telegram à Matrix, et avec quel serveur | après 3.1 | 3.9 |
 | **Comment faire tourner les tests des greffons** : une CI par dépôt, ou un `Gemfile.ci` dans celle du cœur | avant le lot 1 | 0.18, et toute reprise de greffon |
 | **Périmètre de Lexicon** : ce qui part en base séparée et ce qui reste au cœur | avec le lot 1 | lot 8 entier |
 | Domaine du staging (`ekylibre.org` ou `ekylibre.io`) | avant 11.2 | certificats, redirections |
