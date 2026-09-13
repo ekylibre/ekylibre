@@ -2,9 +2,10 @@
 
 **Statut :** proposition — à valider
 **Date :** 13 septembre 2026
-**Complément de :** le document d'architecture V6 (ADR-001 à ADR-012), dont il reprend
-le découpage en phases. Là où l'architecture dit *pourquoi* et *quoi*, ce document
-dit *ce qu'il faut écrire ou modifier*, dans quel ordre, et ce qui est déjà fait.
+**Complément de :** [v6-architecture.md](v6-architecture.md) (ADR-001 à ADR-012),
+dont il reprend le découpage en phases. Là où l'architecture dit *pourquoi* et
+*quoi*, ce document dit *ce qu'il faut écrire ou modifier*, dans quel ordre, et ce
+qui est déjà fait.
 
 **À lire avec :** [v6-etat-des-lieux.md](v6-etat-des-lieux.md) (état mesuré au
 13 septembre), [v6-improvement-plan.md](v6-improvement-plan.md) (lots A à H et
