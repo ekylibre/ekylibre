@@ -357,7 +357,7 @@ inventer un de trop.
 | Quand passer de Telegram à Matrix, et avec quel serveur | après 3.1 | 3.9 |
 | **Comment faire tourner les tests des greffons** : une CI par dépôt, ou un `Gemfile.ci` dans celle du cœur | avant le lot 1 | 0.18, et toute reprise de greffon |
 | **Périmètre de Lexicon** : ce qui part en base séparée et ce qui reste au cœur | avec le lot 1 | lot 8 entier |
-| Domaine du staging (`ekylibre.org` ou `ekylibre.io`) | avant 11.2 | certificats, redirections |
+| ~~Domaine du staging~~ — **tranché : `ekylibre.io`** | 13 septembre 2026 | 11.2, 11.3 |
 
 ---
 
@@ -423,7 +423,7 @@ se tiennent.
 | # | À faire |
 |---|---|
 | 8.1 | Inventorier les 444 appels par nature : lecture d'item, résolution `refers_to`, énumération, traduction. Ce sont quatre besoins différents, et ils ne se remplacent pas de la même façon |
-| 8.2 | Définir le contrat que Lexicon expose en remplacement — lecture d'item, liste, hiérarchie, libellés traduits — avant de toucher un appelant |
+| 8.2 | Définir le contrat que Lexicon expose en remplacement — lecture d'item, liste, hiérarchie, libellés traduits — avant de toucher un appelant. **Le dépôt `osfarm/lexicon` n'est pas sur la machine de développement** : ce contrat s'écrit donc *à destination* de Lexicon, comme une spécification que le projet devra honorer, et se vérifie ensuite par accès distant |
 | 8.3 | Remplacer les 126 `refers_to` : c'est le cœur du sujet, puisqu'ils portent la validation et les prédicats |
 | 8.4 | Retirer la gem du `Gemfile` — après `active_list` |
 
@@ -533,8 +533,9 @@ sert les deux besoins, ce qui est un argument pour ne pas en inventer un second.
 | # | À faire |
 |---|---|
 | 11.1 | Un `docker-compose` de staging réunissant `eky-core`, Lexicon (base séparée, lot 8), Duke, Zero et les services d'appui, sur un même réseau interne |
+| 11.1b | **Y déclarer le service Keycloak** — l'instance est en cours de création côté infrastructure ; le compose doit la porter, pas la découvrir |
 | 11.2 | Reverse proxy et certificats (Traefik selon l'architecture) ; nommage des services aligné sur l'architecture |
-| 11.3 | Choisir le domaine et le réserver — décision à prendre, elle conditionne certificats et redirections |
+| 11.3 | ~~Choisir le domaine~~ — **tranché : `ekylibre.io`**, Dokploy est disponible |
 | 11.4 | Sauvegardes et restauration éprouvées **avant** d'y mettre une exploitation réelle ; le lot 9 en fournit le mécanisme |
 | 11.5 | Observabilité minimale : journaux centralisés et APM (cf. 6.10) |
 | 11.6 | Faire de ce staging la cible de `build-prod-image` (cf. 0.16), au lieu d'un déploiement manuel |
