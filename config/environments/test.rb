@@ -65,4 +65,15 @@ Rails.application.configure do
   # `perform_enqueued_jobs` n'exécutait plus rien. On déclare donc ici
   # l'adaptateur que le harnais posait auparavant.
   config.active_job.queue_adapter = :test
+
+  # Identité de signature GPG de la suite. `SignatureManager` lit `GPG_EMAIL`
+  # dans l'environnement ; en test cette valeur ne doit jamais venir d'ailleurs :
+  #   - vide, la signature refuse de s'exécuter (c'était le cas sur la CI) ;
+  #   - pointant une identité réelle — `docker/dev/.env` déclare
+  #     `support@ekylibre.com` — la clé est absente du trousseau du conteneur et
+  #     quatre tests comptables tombent selon la machine.
+  # La clé de test (« Should not be trusted… ») est la seule présente dans les
+  # images de développement et importée par le workflow de CI. On la force, pour
+  # que la suite ne puisse pas non plus signer avec une clé de production.
+  ENV['GPG_EMAIL'] = 'do-not-trust-key@ekylibre.com'
 end

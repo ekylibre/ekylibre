@@ -10,7 +10,16 @@ module Interventions
         area = Measure.new(shape.area, :square_meter)
         product = create(:phytosanitary_product, variant: ProductNatureVariant.find_by_reference_name('2190613_award'))
         phyto = product.phytosanitary_product
-        usage = RegisteredPhytosanitaryUsage.find('20210727175041473315')
+        # Un usage d'AWARD dont la zone non traitée aquatique atteint 100 m :
+        # c'est la seule propriété dont ce test a besoin. L'identifiant de
+        # lexique qui la désignait (`20210727175041473315`) a été renuméroté par
+        # une livraison du référentiel, et `find` rendait alors nil — le vote
+        # tombait à :unknown.
+        usage = RegisteredPhytosanitaryUsage
+                .where(product_id: phyto.id)
+                .where('untreated_buffer_aquatic >= 100')
+                .order(:id)
+                .first
 
         targets_zone = [::Interventions::Phytosanitary::Models::TargetZone.new(target, shape, area)]
         products_usages = [::Interventions::Phytosanitary::Models::ProductWithUsage.new(product, phyto, usage, 1.in(:population), nil)]
