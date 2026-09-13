@@ -36,7 +36,7 @@ module Backend
           bsi_jeis = JournalEntryItem.where(resource: bsi)
           bsi_jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil, letter: nil)
         else
-          bsi = BankStatementItem.joins(bank_statement: :cash).where("letter = ? AND bank_statements.cash_id = ?", letter, cash_id)
+          bsi = BankStatementItem.joins(bank_statement: :cash).where("bank_statement_items.letter = ? AND bank_statements.cash_id = ?", letter, cash_id)
           jeis = JournalEntryItem.where(bank_statement_letter: letter, account_id: account_id)
           bsi.update_all(letter: nil)
           jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil)
