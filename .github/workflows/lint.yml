@@ -1,15 +1,15 @@
 # Lint. Remplace les jobs `rubocop` et `eslint` de .gitlab-ci.yml.
 #
 # RuboCop tourne via Bundler plutôt que depuis une image de lint dédiée : la
-# version est ainsi celle que le Gemfile épingle (1.11.0), la même qu'en local.
+# version est ainsi celle que le Gemfile épingle (1.91), la même qu'en local.
 # L'image de lint GitLab avait sa propre version, qui pouvait diverger.
 name: Lint
 
 on:
   push:
-    branches: [main, 5.0-beta, 6.0-alpha]
+    branches: [ 6.0-alpha ]
   pull_request:
-    branches: [main, 5.0-beta, 6.0-alpha]
+    branches: [ 6.0-alpha ]
   workflow_dispatch:
 
 concurrency:

@@ -13,12 +13,13 @@ name: "CodeQL"
 
 on:
   push:
-    # The 0-x/1-x stable branches are long gone; active development happens on
-    # 5.0-beta and 6.0-alpha, which CodeQL had never analysed.
-    branches: [ "main", "5.0-beta", "6.0-alpha" ]
+    # The 0-x/1-x stable branches are long gone, and 5.0-beta no longer moves:
+    # `6.0-alpha` is where development happens. Note that the weekly scheduled
+    # run analyses the default branch (`main`) whatever this list says.
+    branches: [ "6.0-alpha" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main", "5.0-beta", "6.0-alpha" ]
+    branches: [ "6.0-alpha" ]
   schedule:
     - cron: '39 7 * * 3'
 

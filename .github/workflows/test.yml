@@ -2,7 +2,7 @@
 # entièrement sur GitHub.
 #
 # Le job tourne DANS l'image de base du projet plutôt que sur ubuntu-latest :
-# la suite a besoin de Ruby 2.6, de GraphicsMagick, LibreOffice, Ghostscript,
+# la suite a besoin de Ruby 3.4.10, de GraphicsMagick, LibreOffice, Ghostscript,
 # poppler et du client PostgreSQL, tous déjà présents dans cette image, qui est
 # aussi celle du développement et de la production. Les reconstituer étape par
 # étape sur un runner nu serait long et divergerait avec le temps.
@@ -10,9 +10,9 @@ name: Tests
 
 on:
   push:
-    branches: [main, 5.0-beta, 6.0-alpha]
+    branches: [ 6.0-alpha ]
   pull_request:
-    branches: [main, 5.0-beta, 6.0-alpha]
+    branches: [ 6.0-alpha ]
   workflow_dispatch:
 
 concurrency:

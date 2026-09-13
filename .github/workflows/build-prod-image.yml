@@ -1,10 +1,13 @@
+# Image de production. Aucun push de branche ne la construit : `6.0-alpha` porte
+# Rails 8.1 sur Ruby 3.4.10 alors que `docker/prod/Dockerfile` part encore de
+# l'image `ruby2.6`, si bien que son `bundle install` s'arrête sur le
+# `ruby '>= 3.4.0'` du Gemfile. Mettre le palier 8.1 en service est un chantier
+# à part, prévu après le mono-schéma — jusque-là l'image se construit sur une
+# étiquette `v*` ou à la demande, jamais par accident.
 name: Build & publish prod image
 
 on:
   push:
-    branches:
-      - 5.0-beta
-      - main
     tags:
       - 'v*'
   workflow_dispatch:
@@ -109,8 +112,11 @@ jobs:
       - name: Image summary
         env:
           IMAGE_TAGS: ${{ steps.meta.outputs.tags }}
-          IMAGE_PULL: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         run: |
+          # Le premier tag produit, et non `:latest` : celui-ci n'est posé que sur
+          # la branche par défaut (`enable={{is_default_branch}}`), que ce workflow
+          # ne construit pas. Afficher `:latest` donnait une commande qui échoue.
+          IMAGE_PULL="$(echo "${IMAGE_TAGS}" | head -n 1)"
           {
             echo "## Image publiée"
             echo ""
@@ -125,7 +131,7 @@ jobs:
             echo '```'
           } >> "${GITHUB_STEP_SUMMARY}"
 
-  deploy:
+  # deploy:
     # Déclenche le déploiement Dokploy une fois l'image construite et poussée.
     # Évite le déclencheur natif Dokploy (push) qui se lance avant la fin du build.
     #
@@ -135,16 +141,16 @@ jobs:
     # Le secret DOKPLOY_WEBHOOK_URL est résolu depuis l'environnement ciblé,
     # ce qui permet d'avoir une URL distincte par cible de déploiement et de
     # bénéficier des protections d'environnement (reviewers, branch policies).
-    needs: build
-    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/5.0-beta' || github.ref == 'refs/heads/main')
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
-    steps:
-      - name: Trigger Dokploy deploy webhook
-        env:
-          DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
-        run: |
-          curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}" \
-            -H "X-GitHub-Event: workflow_deploy" \
-            -H "Content-Type: application/json" \
-            -d "{\"ref\": \"${GITHUB_REF}\"}"
+    # needs: build
+    # if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/5.0-beta' || github.ref == 'refs/heads/main')
+    # runs-on: ubuntu-latest
+    # environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+    # steps:
+      # - name: Trigger Dokploy deploy webhook
+        # env:
+          # DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
+        # run: |
+          # curl -fsSL -X POST "${DOKPLOY_WEBHOOK_URL}" \
+            # -H "X-GitHub-Event: workflow_deploy" \
+            # -H "Content-Type: application/json" \
+            # -d "{\"ref\": \"${GITHUB_REF}\"}"
