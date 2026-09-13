@@ -198,9 +198,25 @@ Rails.application.routes.draw do
 
     resources :dashboards, concerns: [:list] do
       collection do
-        %i[home relationship accountancy sales purchases stocks production humans tools settings idea].each do |part|
-          get part
-        end
+        # `Backend::DashboardsController` engendre une action par partie de
+        # navigation, greffons compris. Lister les routes à la main faisait deux
+        # sources de vérité : un greffon qui ajoutait une partie — `planning`,
+        # `economic` — obtenait une action sans route, et le test qui parcourt
+        # les actions du contrôleur levait `UrlGenerationError`.
+        #
+        # Les parties du cœur restent écrites : elles servent de socle si la
+        # navigation n'est pas encore chargée, et disent ce que le cœur expose
+        # sans greffon.
+        socle = %i[home relationship accountancy sales purchases stocks production humans tools settings idea]
+        parties = begin
+                    Ekylibre::Navigation.parts.select { |part|
+                      page = part.pages.first || part.default_page
+                      page&.controller == 'backend/dashboards'
+                    }.map { |part| part.name.to_sym }
+                  rescue StandardError
+                    []
+                  end
+        (socle | parties).each { |part| get part }
         get :sandbox
       end
     end

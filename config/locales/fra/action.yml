@@ -939,7 +939,7 @@ fra:
       show: "Lien d'achat : %{name}"
     backend/purchase_gaps:
       index: "Lacunes dans les achats"
-      show: "Écart d'achat : %{name}"
+      show: "Écart d'achat : %{number}"
     backend/purchase_invoices:
       edit: "Modifier la facture: %{number}"
       index: "Factures"
@@ -1070,7 +1070,7 @@ fra:
       new: "Passage en avoir de la facture %{number}"
     backend/sale_gaps:
       index: "Écarts de prix"
-      show: "Écart de vente : %{name}"
+      show: "Écart de vente : %{number}"
     backend/sale_items: #?
       detail: "Détailler une ligne de la vente" #?
       edit: "Modifier une ligne de la vente" #?
@@ -5403,6 +5403,7 @@ fra:
       cannot_change_to_in_use_state: "La date de mise en service doit se situer avant la fin du dernier exercice comptable ouvert"
       cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
       cannot_find_deal_to_attach: "Impossible de trouver la transaction à rattacher"
+      cannot_find_land_parcel: "Aucune parcelle cadastrale ne correspond à cette référence"
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
       cannot_finish_affair: "Impossible de terminer l’affaire"

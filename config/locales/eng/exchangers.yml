@@ -1,4 +1,18 @@
 eng:
+  # Scope `exchanger` (au singulier) : les libellés que les exchangers Socleo et
+  # Sage résolvent par leur propre helper `tl`, sous
+  # `exchanger.<éditeur>.<flux>.<clé>`. Il n'existait qu'en français ; en
+  # anglais, `I18n.t` rendait « translation missing: … », soit 74 caractères
+  # écrits tels quels dans le nom d'un mode de paiement, que sa validation de
+  # longueur (50) refusait ensuite.
+  exchanger:
+    socleo:
+      incoming_payments:
+        incoming_payment_mode_name: "Socleo"
+      sales:
+        errors:
+          sale_data_missing_tax_information: "Sale %{reference_number} is invalid: it carries no VAT information."
+        sale_nature_name: "Online sale - Socleo"
   exchangers:
     acom_fec_txt: "FEC import (TXT) - Acomaudit"
     agrigest_fec_txt: "FEC import (TXT) - Agrigest"

@@ -21,7 +21,14 @@ class FinancialYearExchangeExportJob < ApplicationJob
           user.notifications.create!(accountant_notified_notification_params)
         else
           # TODO: Change nature of doc ?
-          document = Document.create!(nature: "exchange_accountancy_file_fr", processable_attachment: false, file: tempzip, name: zipname)
+          # `Tempfile.create` ne donne aucune extension au fichier, et Active
+          # Storage déduit le type MIME du nom — Paperclip, lui, le devinait au
+          # contenu. Sans nom explicite, le document s'enregistrait en
+          # `application/octet-stream` au lieu de `application/zip`, ce que la
+          # visionneuse de documents lit pour choisir son rendu.
+          document = Document.create!(nature: "exchange_accountancy_file_fr", processable_attachment: false,
+                                      file: { io: File.open(tempzip.path), filename: zipname },
+                                      name: zipname)
           user.notifications.create!(valid_generation_notification_params(document.id))
         end
       end

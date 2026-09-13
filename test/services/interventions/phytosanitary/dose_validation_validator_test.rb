@@ -47,7 +47,7 @@ module Interventions
         result = validator.send(:area)
 
         assert_kind_of Measure, result
-        assert_equal :square_meter, result.unit
+        assert_equal 'square_meter', result.unit
         assert_in_delta 2.0, result.to_f, 0.0001
       end
 
@@ -61,7 +61,7 @@ module Interventions
         result = validator.send(:area)
 
         assert_kind_of Measure, result
-        assert_equal :square_meter, result.unit
+        assert_equal 'square_meter', result.unit
         assert result.zero?
       end
     end

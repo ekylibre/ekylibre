@@ -63,7 +63,7 @@ cvi_cadastral_plants_001:
   inter_row_distance_value: 9.9
   inter_vine_plant_distance_unit: meter
   inter_vine_plant_distance_value: 9.99
-  land_parcel_id: "170300000B0809"
+  land_parcel_id: "17387000AC0001"
   land_parcel_number: String
   rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
   section: String
@@ -89,7 +89,7 @@ cvi_cadastral_plants_002:
   inter_row_distance_value: 9.9
   inter_vine_plant_distance_unit: meter
   inter_vine_plant_distance_value: 9.99
-  land_parcel_id: "170300000B0809"
+  land_parcel_id: "17387000AC0001"
   land_parcel_number: String
   rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
   section: String
@@ -115,7 +115,7 @@ cvi_cadastral_plants_003:
   inter_row_distance_value: 9.9
   inter_vine_plant_distance_unit: meter
   inter_vine_plant_distance_value: 9.99
-  land_parcel_id: "170300000B0809"
+  land_parcel_id: "17387000AC0001"
   land_parcel_number: String
   rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
   section: String
@@ -141,7 +141,7 @@ cvi_cadastral_plants_004:
   inter_row_distance_value: 9.9
   inter_vine_plant_distance_unit: meter
   inter_vine_plant_distance_value: 9.99
-  land_parcel_id: "170300000B0809"
+  land_parcel_id: "17387000AC0001"
   land_parcel_number: String
   rootstock_id: "017dfaf3f77d487f1da1acee8a7b782f5742458c"
   section: String

@@ -7,7 +7,7 @@ module Backend
         sign_in(user)
         activity_production = create(:activity_production)
         get :show, params: { id: activity_production.id }
-        refute_empty Nokogiri::HTML(response.body).search('div[data-highcharts]')
+        refute_empty Nokogiri::HTML(response.body).search('div[data-echarts]')
       end
     end
   end

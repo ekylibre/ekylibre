@@ -56,7 +56,10 @@ class IncomingPaymentModeTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
   # raise Module::DelegationError nightly. The delegations must tolerate nil.
   test 'currency and cash_journal return nil when cash is missing' do
     mode = create(:incoming_payment_mode)
-    mode.update_columns(cash_id: nil)
+    # `update_columns` respecte `attr_readonly` depuis Rails 8 et lève ici ;
+    # `update_all` écrit directement en SQL, ce qui est le seul moyen de
+    # reproduire la ligne héritée que ce test décrit.
+    IncomingPaymentMode.where(id: mode.id).update_all(cash_id: nil)
     mode.reload
 
     assert_nil mode.cash

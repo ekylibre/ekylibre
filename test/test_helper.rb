@@ -54,6 +54,19 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+# Les routes sont chargées paresseusement depuis Rails 7.1, et `devise_for` —
+# qui peuple `Devise.mappings` — ne s'exécute qu'à ce moment-là. Un test qui
+# appelle `sign_in` avant d'avoir émis la moindre requête trouvait donc des
+# mappings vides et levait « Could not find a valid mapping for #<User …> ».
+# Dans la suite complète, un test antérieur avait déjà touché les routes : le
+# défaut ne se voyait qu'en exécution isolée, ce qui le faisait passer pour une
+# instabilité.
+if Rails.application.respond_to?(:reload_routes_unless_loaded)
+  Rails.application.reload_routes_unless_loaded
+else
+  Rails.application.routes.routes
+end
+
 require 'rake'
 require 'minitest/mock'
 require 'database_cleaner'

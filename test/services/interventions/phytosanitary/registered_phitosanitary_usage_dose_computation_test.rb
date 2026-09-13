@@ -216,7 +216,7 @@ module Interventions
         result = @service.send(:compute_area, targets)
 
         assert_kind_of Measure, result
-        assert_equal :square_meter, result.unit
+        assert_equal 'square_meter', result.unit
         assert_measure_equal 3.5.in(:hectare).in(:square_meter), result
       end
 
@@ -224,7 +224,7 @@ module Interventions
         result = @service.send(:compute_area, @targets_area)
 
         assert_kind_of Measure, result
-        assert_equal :square_meter, result.unit
+        assert_equal 'square_meter', result.unit
       end
 
       test 'compute dose message' do

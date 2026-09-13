@@ -27,12 +27,18 @@ module Backend
       t.column :description
     end
 
+    # Une action par partie de navigation — mais seulement pour les parties qui
+    # pointent vers *ce* contrôleur. Les greffons qui apportent leur propre
+    # tableau de bord déclarent une partie visant leur contrôleur et leur vue
+    # (`planning/dashboards#planning`, `economic/dashboards#economic`) : leur
+    # engendrer ici une action vide créait une action sans gabarit, que le
+    # parcours des actions du contrôleur faisait échouer en
+    # `MissingExactTemplate`.
     Ekylibre::Navigation.parts.each do |part|
-      code = "def #{part.name}\n"
-      # code << " notify_warning_now(:dashboard_is_being_developed)"
-      # code << "  render :file => 'backend/dashboards/#{part}', :layout => dialog_or_not\n"
-      code << "end\n"
-      class_eval code
+      page = part.pages.first || part.default_page
+      next unless page&.controller == 'backend/dashboards'
+
+      class_eval "def #{part.name}\nend\n"
     end
 
     def home; end

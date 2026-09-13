@@ -838,7 +838,7 @@ eng:
       show: "Purchase affair: %{name}"
     backend/purchase_gaps:
       index: "Purchase gaps"
-      show: "Purchase gap: %{name}"
+      show: "Purchase gap: %{number}"
     backend/purchase_invoices:
       edit: "Edit invoice: %{number}"
       index: "Invoices"
@@ -945,7 +945,7 @@ eng:
       new: "Cancel sales invoice %{number}"
     backend/sale_gaps:
       index: "Sale gaps"
-      show: "Sale gap: %{name}"
+      show: "Sale gap: %{number}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -4550,6 +4550,7 @@ eng:
       cannot_change_to_in_use_state: "The start date must be before the end of the last opened financial year"
       cannot_find_deal_to_attach: "Cannot find deal to attach"
       cannot_find_deal_to_detach: "Cannot find deal to detach"
+      cannot_find_land_parcel: "No cadastral parcel matches this reference"
       cannot_finish_affair: "Cannot finish affair"
       cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
