@@ -529,7 +529,7 @@ class Product < ApplicationRecord
   end
 
   def working_duration_info(date)
-    "#{self.time_use_in_date(date).to_s.gsub!(/\./, ',')} h"
+    "#{self.time_use_in_date(date).to_s.gsub!('.', ',')} h"
   end
   # planning
 

@@ -57,7 +57,7 @@ module Backend
 
         if key_words.any?
           @search[:words] = key_words
-          reg = /(#{key_words.join("|")})/i
+          reg = /(#{key_words.join('|')})/i
           results.delete_if do |details|
             file = details['file']
             File.open(file, 'rb:UTF-8') do |f|
@@ -75,7 +75,7 @@ module Backend
             results.each { |r| r[:pertinence] = (max.zero? ? 0 : (100 * r[:count] / max).to_i) }
           end
 
-          @search[:records] = results[((page - 1) * per_page)..(page * per_page - 1)]
+          @search[:records] = results[((page - 1) * per_page)..((page * per_page) - 1)]
           @search[:last_page] = (@search[:count].to_f / per_page).ceil
 
           if @search[:records].empty? && page > 1

@@ -88,10 +88,10 @@ module Backend
       code << "if params[:current_campaign].present?\n"
       code << " c[0] << 'AND #{InterventionParameter.table_name}.intervention_id IN (SELECT id FROM interventions JOIN campaigns_interventions ON campaigns_interventions.intervention_id = interventions.id WHERE campaigns_interventions.campaign_id = ? AND interventions.nature = ?) '\n"
       code << " c << current_campaign.id\n"
-      code << " c << \'record\' \n"
+      code << " c << 'record' \n"
       code << "else"
       code << " c[0] << 'AND #{InterventionParameter.table_name}.intervention_id IN (SELECT id FROM interventions WHERE interventions.nature = ?) '\n"
-      code << " c << \'record\' \n"
+      code << " c << 'record' \n"
       code << "end\n"
       code << "c\n "
       code.c

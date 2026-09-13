@@ -19,7 +19,7 @@ module Accountancy
           day2 = [30, stop.day].min
           day_diff = day2 - day1
 
-          year_diff * 12 * 30 + months_diff * 30 + day_diff
+          (year_diff * 12 * 30) + (months_diff * 30) + day_diff
         end
     end
   end

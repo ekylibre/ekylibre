@@ -97,7 +97,7 @@ module ReadingStorable
         raise ArgumentError.new("Expecting an indicator name. Got #{indicator_name.inspect}.")
       end
 
-      { measure: :measure_value_value }[indicator.datatype] || "#{indicator.datatype}_value".to_sym
+      { measure: :measure_value_value }[indicator.datatype] || :"#{indicator.datatype}_value"
     end
 
     def indicator_table_name(_indicator_name)

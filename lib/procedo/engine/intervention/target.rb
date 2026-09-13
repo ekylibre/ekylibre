@@ -8,7 +8,7 @@ module Procedo
         attr_accessor :identification_number
 
         def initialize(intervention, id, attributes = {})
-          super(intervention, id, attributes)
+          super
           attributes = Maybe(attributes)
           @new_group = Product.find_by(id: attributes[:new_group_id].to_i.or_else(0))
           @new_container = Product.find_by(id: attributes[:new_container_id].to_i.or_else(0))

@@ -2,10 +2,10 @@
 namespace :phyto_register do
   desc 'Archive the phytosanitary register for the given YEAR (default: last year) across all tenants. Optional TENANT=name to scope to one tenant. Optional FORMAT=xml|json|csv (default xml).'
   task enqueue_all: :environment do
-    year = (ENV['YEAR'] || ENV['year']).to_i
+    year = (ENV['YEAR'] || ENV.fetch('year', nil)).to_i
     year = Time.zone.today.year - 1 if year.zero?
     format = (ENV['FORMAT'] || ENV['format'] || 'xml').to_s.downcase
-    tenant_name = ENV['TENANT'] || ENV['tenant']
+    tenant_name = ENV['TENANT'] || ENV.fetch('tenant', nil)
 
     Ekylibre::Tenant.load!
     tenants = tenant_name.present? ? [tenant_name] : Ekylibre::Tenant.list
@@ -27,7 +27,7 @@ namespace :phyto_register do
   task verify: :environment do
     require 'digest/sha2'
 
-    tenant_name = ENV['TENANT'] || ENV['tenant']
+    tenant_name = ENV['TENANT'] || ENV.fetch('tenant', nil)
     Ekylibre::Tenant.load!
     tenants = tenant_name.present? ? [tenant_name] : Ekylibre::Tenant.list
 
@@ -66,10 +66,10 @@ namespace :phyto_register do
 
   desc 'Run the archive synchronously for the current TENANT, useful for backfill and debugging. Requires TENANT=name. Optional YEAR, FORMAT.'
   task run_now: :environment do
-    tenant_name = ENV['TENANT'] || ENV['tenant']
+    tenant_name = ENV['TENANT'] || ENV.fetch('tenant', nil)
     raise 'TENANT env var is required (e.g. TENANT=acme)' if tenant_name.blank?
 
-    year = (ENV['YEAR'] || ENV['year']).to_i
+    year = (ENV['YEAR'] || ENV.fetch('year', nil)).to_i
     year = Time.zone.today.year - 1 if year.zero?
     format = (ENV['FORMAT'] || ENV['format'] || 'xml').to_s.downcase
 

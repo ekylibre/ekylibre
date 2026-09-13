@@ -126,12 +126,12 @@ module Diagram
       @edge_options[:font_color] ||= '#688ED8'
       %i[head size tail].each do |key|
         if @edge_options[key]
-          @edge_options["arrow_#{key}".to_sym] = @edge_options.delete(key)
+          @edge_options[:"arrow_#{key}"] = @edge_options.delete(key)
         end
       end
       %i[url href target tooltip length separator].each do |key|
         if @edge_options[key]
-          @edge_options["edge_#{key}".to_sym] = @edge_options.delete(key)
+          @edge_options[:"edge_#{key}"] = @edge_options.delete(key)
         end
       end
       @content = ''
@@ -149,7 +149,7 @@ module Diagram
 
     def arrow(from, to, options = {})
       %i[head size tail].each do |key|
-        options["arrow_#{key}".to_sym] = options.delete(key) if options[key]
+        options[:"arrow_#{key}"] = options.delete(key) if options[key]
       end
       options[:operator] = '->'
       edge(from, to, options)
@@ -157,7 +157,7 @@ module Diagram
 
     def edge(from, to, options = {})
       %i[url href target tooltip length separator].each do |key|
-        options["edge_#{key}".to_sym] = options.delete(key) if options[key]
+        options[:"edge_#{key}"] = options.delete(key) if options[key]
       end
       operator = options.delete(:operator) || '--'
       @content << "  #{remove_unwanted_caracters(from)} #{operator} #{remove_unwanted_caracters(to)}"

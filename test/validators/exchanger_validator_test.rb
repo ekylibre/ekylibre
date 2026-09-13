@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ExchangerValidatable
   include ActiveModel::Validations
+
   attr_accessor :exchanger
 
   validates :exchanger, exchanger: true
@@ -9,6 +10,7 @@ end
 
 class ExchangerValidatableWithTransformMethod
   include ActiveModel::Validations
+
   attr_accessor :id
   validates :id, exchanger: { transform: :exchanger_name }
 
@@ -17,6 +19,7 @@ end
 
 class ExchangerValidatableWithTransformCallable
   include ActiveModel::Validations
+
   attr_accessor :id
   validates :id, exchanger: { transform: ->(_record, _value) { 'other_exchanger_name' } }
 end

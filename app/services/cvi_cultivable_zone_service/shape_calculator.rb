@@ -11,7 +11,7 @@ module CviCultivableZoneService
                                       array[
                                         ST_MakeValid(cvi_land_parcels.shape),
                                         ST_MakeValid(
-                                          ST_GeomFromText(\'#{shape.as_text}\')
+                                          ST_GeomFromText('#{shape.as_text}')
                                         )
                                       ]
                                     )

@@ -35,6 +35,7 @@
 #
 class AffairLabelling < ApplicationRecord
   include Labellable
+
   belongs_to :affair, inverse_of: :labellings
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :affair, :label, presence: true

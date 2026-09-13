@@ -4,6 +4,7 @@ module Interventions
   module Exports
     class InterventionsXslxExport
       include Rails.application.routes.url_helpers
+
       def generate(activity_id: nil, activity_production_id: nil, land_parcel_id: nil, plant_id: nil, campaign_ids: nil, with_land_parcel_interventions_on_plant: false)
 
         # we want only intervention related to plant farming but no sowing in plant/land_parcel case to avoid double

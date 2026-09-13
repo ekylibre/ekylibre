@@ -36,5 +36,5 @@ class FinancialYearArchive < ApplicationRecord
   enumerize :timing, in: %i[prior_to_closure post_closure]
   belongs_to :financial_year
 
-  PUBLIC_KEY_URL = ENV['PUBLIC_KEY_URL']
+  PUBLIC_KEY_URL = ENV.fetch('PUBLIC_KEY_URL', nil)
 end

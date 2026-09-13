@@ -47,6 +47,7 @@ class Event < ApplicationRecord
   include Attachable
   include Providable
   include Customizable
+
   belongs_to :affair
   has_one :intervention, inverse_of: :event
   has_many :participations, class_name: 'EventParticipation', dependent: :destroy, inverse_of: :event

@@ -40,6 +40,7 @@
 class Prescription < ApplicationRecord
   include Attachable
   include Customizable
+
   belongs_to :prescriptor, class_name: 'Entity'
   has_many :interventions
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

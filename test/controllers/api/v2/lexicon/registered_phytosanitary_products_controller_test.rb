@@ -4,6 +4,7 @@ module Api
     module Lexicon
       class RegisteredPhytosanitaryProductsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
         extend ActiveSupport::Concern
+
         connect_with_token
 
         test 'index' do

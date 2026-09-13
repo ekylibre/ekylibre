@@ -21,7 +21,7 @@ class InventoryBookkeeper < Ekylibre::Bookkeeper
   def call
     return if disable_accountancy || recorder.action == :destroy
 
-    journal_entry(journal, printed_on: achieved_at.to_date, if: (financial_year && reflected?)) do |entry|
+    journal_entry(journal, printed_on: achieved_at.to_date, if: financial_year && reflected?) do |entry|
       fy_started_at = financial_year.started_on.to_time
 
       # get all variants corresponding to current items

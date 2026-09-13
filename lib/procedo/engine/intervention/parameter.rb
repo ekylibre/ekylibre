@@ -5,6 +5,7 @@ module Procedo
     class Intervention
       class Parameter
         include Reassignable
+
         attr_reader :name, :intervention, :group, :id, :reference, :type
 
         delegate :procedure, to: :intervention
@@ -39,7 +40,7 @@ module Procedo
         alias to_attributes to_hash
 
         def param_name
-          "#{type.to_s.pluralize}_attributes".to_sym
+          :"#{type.to_s.pluralize}_attributes"
         end
 
         def impact_with(_steps)

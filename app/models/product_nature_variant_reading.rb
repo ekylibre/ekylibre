@@ -50,6 +50,7 @@
 
 class ProductNatureVariantReading < ApplicationRecord
   include ReadingStorable
+
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :readings
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

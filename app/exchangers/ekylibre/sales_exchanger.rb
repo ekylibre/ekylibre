@@ -6,7 +6,7 @@ module Ekylibre
     vendor :ekylibre
 
     def initialize(file, supervisor, options = {})
-      super file, supervisor
+      super(file, supervisor)
       @attachments_dir = options['attachments_path']
       @attachments_dir &&= Pathname.new(@attachments_dir)
     end

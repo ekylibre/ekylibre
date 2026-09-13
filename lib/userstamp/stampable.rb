@@ -3,7 +3,7 @@ module Userstamp
   # responsible for creating, updating, and deleting the current object. See the Stamper
   # and Userstamp modules for further documentation on how the entire process works.
   module Stampable
-    def self.included(base) #:nodoc:
+    def self.included(base) # :nodoc:
       super
 
       base.extend(ClassMethods)
@@ -90,14 +90,14 @@ module Userstamp
         self.record_userstamp = original_value
       end
 
-      def stamper_class #:nodoc:
+      def stamper_class # :nodoc:
         stamper_class_name.to_s.capitalize.constantize
       rescue
         nil
       end
     end
 
-    module InstanceMethods #:nodoc:
+    module InstanceMethods # :nodoc:
       private
 
         def has_stamper?
@@ -110,7 +110,7 @@ module Userstamp
           return unless record_userstamp
 
           if respond_to?(creator_attribute.to_sym) && has_stamper?
-            send("#{creator_attribute}=".to_sym, self.class.stamper_class.stamper)
+            send(:"#{creator_attribute}=", self.class.stamper_class.stamper)
           end
         end
 
@@ -118,7 +118,7 @@ module Userstamp
           return unless record_userstamp
 
           if respond_to?(updater_attribute.to_sym) && has_stamper?
-            send("#{updater_attribute}=".to_sym, self.class.stamper_class.stamper)
+            send(:"#{updater_attribute}=", self.class.stamper_class.stamper)
           end
         end
 
@@ -126,7 +126,7 @@ module Userstamp
           return unless record_userstamp
 
           if respond_to?(deleter_attribute.to_sym) && has_stamper?
-            send("#{deleter_attribute}=".to_sym, self.class.stamper_class.stamper)
+            send(:"#{deleter_attribute}=", self.class.stamper_class.stamper)
             save
           end
         end

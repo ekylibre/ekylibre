@@ -62,7 +62,7 @@ module Agroedi
       crops = daplos&.interchange&.crops
       raise ActiveExchanger::NotWellFormedFileError unless crops
 
-      #+1 to account for the regrouping
+      # +1 to account for the regrouping
       w.count = crops.flat_map(&:interventions).compact.count
 
       @children = {}

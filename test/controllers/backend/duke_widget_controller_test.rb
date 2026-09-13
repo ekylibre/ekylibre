@@ -18,7 +18,7 @@ module Backend
     end
 
     test 'config defaults stt_server_enabled to false and omits stt_url' do
-      original = ENV['DUKE_STT_SERVER_ENABLED']
+      original = ENV.fetch('DUKE_STT_SERVER_ENABLED', nil)
       ENV['DUKE_STT_SERVER_ENABLED'] = nil
       begin
         get :show
@@ -32,9 +32,9 @@ module Backend
     end
 
     test 'config exposes stt_url when DUKE_STT_SERVER_ENABLED is true' do
-      original_enabled = ENV['DUKE_STT_SERVER_ENABLED']
-      original_ws = ENV['DUKE_WS_URL']
-      original_http = ENV['DUKE_HTTP_URL']
+      original_enabled = ENV.fetch('DUKE_STT_SERVER_ENABLED', nil)
+      original_ws = ENV.fetch('DUKE_WS_URL', nil)
+      original_http = ENV.fetch('DUKE_HTTP_URL', nil)
       ENV['DUKE_STT_SERVER_ENABLED'] = 'true'
       ENV['DUKE_WS_URL'] = 'wss://duke.example.com/ws'
       ENV['DUKE_HTTP_URL'] = nil
@@ -53,8 +53,8 @@ module Backend
     end
 
     test 'config honors explicit DUKE_HTTP_URL override for stt_url' do
-      original_enabled = ENV['DUKE_STT_SERVER_ENABLED']
-      original_http = ENV['DUKE_HTTP_URL']
+      original_enabled = ENV.fetch('DUKE_STT_SERVER_ENABLED', nil)
+      original_http = ENV.fetch('DUKE_HTTP_URL', nil)
       ENV['DUKE_STT_SERVER_ENABLED'] = 'true'
       ENV['DUKE_HTTP_URL'] = 'https://api.duke.example.com'
       begin
@@ -78,7 +78,7 @@ module Backend
     end
 
     test 'config respects DUKE_WS_URL env override' do
-      original = ENV['DUKE_WS_URL']
+      original = ENV.fetch('DUKE_WS_URL', nil)
       ENV['DUKE_WS_URL'] = 'wss://duke.example.com/ws'
       begin
         get :show

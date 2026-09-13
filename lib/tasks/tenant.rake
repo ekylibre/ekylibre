@@ -16,7 +16,7 @@ namespace :tenant do
 
   desc 'Drop a tenant (with TENANT variable)'
   task drop: :environment do
-    name = ENV['TENANT'] || ENV['name']
+    name = ENV['TENANT'] || ENV.fetch('name', nil)
     if Ekylibre::Tenant.exist?(name)
       puts "Drop tenant: #{name.inspect.red}"
       Ekylibre::Tenant.drop(name)
@@ -27,7 +27,7 @@ namespace :tenant do
 
   desc 'Create a tenant (with TENANT variable)'
   task create: :environment do
-    name = ENV['TENANT'] || ENV['name']
+    name = ENV['TENANT'] || ENV.fetch('name', nil)
     Ekylibre::Tenant.create(name) unless Ekylibre::Tenant.exist?(name)
 
     Ekylibre::Tenant.switch(name) do
@@ -43,7 +43,7 @@ namespace :tenant do
 
   desc 'Create a tenant with alone admin user (with TENANT, EMAIL, PASSWORD variable)'
   task init: :environment do
-    tenant = ENV['TENANT']
+    tenant = ENV.fetch('TENANT', nil)
     raise 'Need TENANT variable' unless tenant
 
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
@@ -52,17 +52,17 @@ namespace :tenant do
       Preference.set!(:saassy_stripe_customer_id, ENV['CUS_ID'], :string) if ENV['CUS_ID']
       Preference.set!(:saassy_stripe_subscription_id, ENV['SUB_ID'], :string) if ENV['SUB_ID']
       # Set basic preferences
-      language = Onoma::Language.find(ENV['LANGUAGE'])
+      language = Onoma::Language.find(ENV.fetch('LANGUAGE', nil))
       Preference.set! :language, language ? language.name : 'fra'
-      country = Onoma::Country.find(ENV['COUNTRY'])
+      country = Onoma::Country.find(ENV.fetch('COUNTRY', nil))
       Preference.set! :country, country ? country.name : 'fr'
-      currency = Onoma::Currency.find(ENV['CURRENCY'])
+      currency = Onoma::Currency.find(ENV.fetch('CURRENCY', nil))
       Preference.set! :currency, currency ? currency.name : 'EUR'
       Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
       Preference.set!(:sales_conditions, '')
       puts "#{tenant.inspect.green} - Preference set (default is language: fra, country: fr, currency: EUR, SRS: WGS84)."
       # Load default data
-      ::I18n.locale = Preference[:language]
+      I18n.locale = Preference[:language]
       Preference.set! :accounting_system, 'fr_pcga2023'
       Account.load_defaults
       Tax.load_defaults
@@ -113,8 +113,8 @@ namespace :tenant do
 
   desc 'Rename a tenant (with OLD/NEW variables)'
   task rename: :environment do
-    old = ENV['OLD'] || ENV['name']
-    new = ENV['NEW']
+    old = ENV['OLD'] || ENV.fetch('name', nil)
+    new = ENV.fetch('NEW', nil)
     if Ekylibre::Tenant.exist?(old)
       Ekylibre::Tenant.rename(old, new)
     else
@@ -129,9 +129,9 @@ namespace :tenant do
 
   desc 'Backup a tenant (with TENANT/ARCHIVE/S3_BACKUP variables)'
   task dump: :environment do
-    archive = ENV['ARCHIVE'] || ENV['archive']
-    tenant = ENV['TENANT'] || ENV['name']
-    s3_backup = ENV['S3_BACKUP'] || ENV['s3_backup']
+    archive = ENV['ARCHIVE'] || ENV.fetch('archive', nil)
+    tenant = ENV['TENANT'] || ENV.fetch('name', nil)
+    s3_backup = ENV['S3_BACKUP'] || ENV.fetch('s3_backup', nil)
     raise 'Need TENANT env variable to dump' unless tenant
 
     options = {}
@@ -164,7 +164,7 @@ namespace :tenant do
   end
 
   task enable_support: :environment do
-    tenant = ENV['TENANT']
+    tenant = ENV.fetch('TENANT', nil)
     unless tenant.present?
       puts "TENANT varibale need to be set".yellow
       exit(1)
@@ -175,7 +175,7 @@ namespace :tenant do
       exit(1)
     end
 
-    password = ENV['PASSWORD']
+    password = ENV.fetch('PASSWORD', nil)
     password ||= SecureRandom.urlsafe_base64(12)
 
     Ekylibre::Tenant.switch tenant do
@@ -202,8 +202,8 @@ namespace :tenant do
       raise Ekylibre::ForbiddenImport.new('No restore is allowed on the production server.')
     end
 
-    archive = ENV['ARCHIVE'] || ENV['archive']
-    tenant = ENV['TENANT'] || ENV['name']
+    archive = ENV['ARCHIVE'] || ENV.fetch('archive', nil)
+    tenant = ENV['TENANT'] || ENV.fetch('name', nil)
     options = {}
     if tenant.present?
       archive ||= Rails.root.join('tmp', 'archives', "#{tenant}.zip")
@@ -234,9 +234,9 @@ namespace :tenant do
 
   namespace :restore do
     task easy_login: :restore do
-      Ekylibre::Tenant.switch!(ENV['TENANT'] || ENV['name'])
+      Ekylibre::Tenant.switch!(ENV['TENANT'] || ENV.fetch('name', nil))
       puts
-      puts '== ' + 'Modifying User'.yellow + '=' * 61
+      puts '== ' + 'Modifying User'.yellow + ('=' * 61)
       User.first.update!(email: 'admin@ekylibre.org', password: '12345678')
       puts
       puts 'Done!'.yellow

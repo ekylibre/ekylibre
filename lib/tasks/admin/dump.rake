@@ -4,7 +4,7 @@ namespace :admin do
     task run: :environment do
       require 'ekylibre/tenant'
 
-      tenant_name = ENV['TENANT']
+      tenant_name = ENV.fetch('TENANT', nil)
       redis_key   = "ekylibre:admin:dump:#{tenant_name}"
       archive_dir = Rails.root.join('tmp', 'archives')
 

@@ -173,8 +173,8 @@ module Printers
 
       # build filters
       data_filters = []
-      data_filters << :currency.tl + " : " + @financial_year.currency
-      data_filters << :accounting_system.tl + " : " + Onoma::AccountingSystem.find(@accounting_system).human_name
+      data_filters << (:currency.tl + " : " + @financial_year.currency)
+      data_filters << (:accounting_system.tl + " : " + Onoma::AccountingSystem.find(@accounting_system).human_name)
 
       # build started and stopped
       started_on = @financial_year.started_on

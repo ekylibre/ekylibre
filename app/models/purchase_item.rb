@@ -63,6 +63,7 @@
 
 class PurchaseItem < ApplicationRecord
   include PeriodicCalculable
+
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
@@ -319,8 +320,8 @@ class PurchaseItem < ApplicationRecord
 
   def designation
     d = product_name
-    d << "\n" + annotation.to_s if annotation.present?
-    d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
+    d << ("\n" + annotation.to_s) if annotation.present?
+    d << ("\n" + tc(:tracking, serial: tracking.serial.to_s)) if tracking
     d
   end
 

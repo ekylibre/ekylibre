@@ -44,6 +44,7 @@
 
 class FinancialYearExchange < ApplicationRecord
   include LegacyAttachmentColumns
+
   belongs_to :financial_year
 
   has_many :journal_entries, dependent: :nullify

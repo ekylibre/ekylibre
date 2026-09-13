@@ -3,6 +3,7 @@ module NotificationModule
 
   included do
     include ScopedTranslationHelper
+
     protected :stl, :with_i18n_scope
   end
 

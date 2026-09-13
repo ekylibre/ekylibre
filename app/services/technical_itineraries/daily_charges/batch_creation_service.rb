@@ -4,7 +4,7 @@ module TechnicalItineraries
   module DailyCharges
     class BatchCreationService < CreationService
       def initialize(activity_production)
-        super(activity_production)
+        super
       end
 
       def perform

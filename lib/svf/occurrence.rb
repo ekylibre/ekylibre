@@ -21,7 +21,7 @@ module SVF
       elsif @range.is_a? Integer
         @range = @range..@range
       elsif @range =~ /\.\./
-        pr = @range.split(/\.\./)[0..1]
+        pr = @range.split('..')[0..1]
         pr[1] = -1 if pr[1].blank?
         @range = pr[0].to_i..pr[1].to_i
       end

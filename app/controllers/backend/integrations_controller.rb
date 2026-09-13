@@ -20,7 +20,7 @@ module Backend
         redirect_to action: :edit, controller: :integrations, id: existing.id
         return
       end
-      @integration = Integration.new(nature: params[:nature], parameters: (params[:parameters] || {}))
+      @integration = Integration.new(nature: params[:nature], parameters: params[:parameters] || {})
       t3e(@integration.attributes.merge(name: @integration.name))
       render(locals: { cancel_url: :back })
     end

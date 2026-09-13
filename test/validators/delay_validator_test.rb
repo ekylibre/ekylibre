@@ -2,6 +2,7 @@ require 'test_helper'
 
 class DelayValidatable
   include ActiveModel::Validations
+
   attr_accessor :delay
 
   validates_with DelayValidator, attributes: :delay

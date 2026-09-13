@@ -30,7 +30,7 @@ class InterventionWorkingTimeDurationCalculationService
 
     return tool_working_duration(nature, not_nature) if times == 0 && any_tool?
 
-    if times > 0 && (!any_tractor? && !any_tool?)
+    if times > 0 && !any_tractor? && !any_tool?
       return 0 if @intervention.nil?
 
       return intervention_working_duration

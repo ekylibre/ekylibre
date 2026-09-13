@@ -34,6 +34,7 @@
 #
 class RegisteredHourlyWeather < LexiconRecord
   include Lexiconable
+
   composed_of :station_elevation, class_name: 'Measure', mapping: [%w[elevation to_d]], constructor: proc { |value| Measure.new(value, 'meter') }
   composed_of :cumulated_rainfall, class_name: 'Measure', mapping: [%w[rain to_d]], constructor: proc { |value| Measure.new(value, 'millimeter') }
   composed_of :average_temperature, class_name: 'Measure', mapping: [%w[average_temp to_d]], constructor: proc { |value| Measure.new(value, 'celsius') }

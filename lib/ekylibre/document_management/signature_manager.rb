@@ -17,7 +17,7 @@ module Ekylibre
         sha256 = document.with_file_path { |path| Digest::SHA256.file(path) }
         ensure_gpg_key_usable!
         crypto = GPGME::Crypto.new
-        signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_EMAIL'])
+        signature = crypto.clearsign(sha256.to_s, signer: ENV.fetch('GPG_EMAIL', nil))
         # Paperclip garantissait un chemin prévisible, ce qui permettait de
         # déposer un .asc à côté du document. Les clés de blob Active Storage
         # étant aléatoires, la signature n'existe plus que dans la colonne — qui
@@ -30,13 +30,13 @@ module Ekylibre
         # l'erreur reelle. Voir docker/prod/GPG.md §10.
         raise unless e.message.include?('NULL pointer')
 
-        raise SignatureError.new("GPG signature failed for '#{ENV['GPG_EMAIL']}' (masked by gpgme rescue bug). Common causes: keyring mounted read-only (gpg-agent cannot start), key not trusted ultimate, missing keygrip in private-keys-v1.d/, or key has a passphrase. See docker/prod/GPG.md §10.")
+        raise SignatureError.new("GPG signature failed for '#{ENV.fetch('GPG_EMAIL', nil)}' (masked by gpgme rescue bug). Common causes: keyring mounted read-only (gpg-agent cannot start), key not trusted ultimate, missing keygrip in private-keys-v1.d/, or key has a passphrase. See docker/prod/GPG.md §10.")
       end
 
       private
 
         def ensure_gpg_key_usable!
-          email = ENV['GPG_EMAIL']
+          email = ENV.fetch('GPG_EMAIL', nil)
           raise SignatureError.new('GPG_EMAIL is blank — cannot sign document.') if email.blank?
           return if GPGME::Key.find(:secret, email, :sign).any?
 

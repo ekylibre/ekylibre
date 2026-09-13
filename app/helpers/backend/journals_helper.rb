@@ -40,7 +40,7 @@ module Backend
     def journal_view_tag
       code = content_tag(:dt, :view.tl)
       controller.journal_views.each do |mode|
-        code << content_tag(:dd, link_to(h("journal_view.#{mode}".tl(default: ["labels.#{mode}".to_sym, mode.to_s.humanize])), params.merge(view: mode)), (@journal_view == mode ? { class: :active } : nil)) # content_tag(:i) + " " +
+        code << content_tag(:dd, link_to(h("journal_view.#{mode}".tl(default: [:"labels.#{mode}", mode.to_s.humanize])), params.merge(view: mode)), (@journal_view == mode ? { class: :active } : nil)) # content_tag(:i) + " " +
       end
       content_tag(:dl, code, id: 'journal-views')
     end
@@ -234,7 +234,7 @@ module Backend
           key = state.to_s
           name = "states[#{key}]"
           id = "states_#{key}"
-          if active = (params[:states][key] == '1' || no_state)
+          if active = params[:states][key] == '1' || no_state
             params[:states][key] = '1'
           else
             params[:states].delete(key)
@@ -265,7 +265,7 @@ module Backend
           key = nature.to_s
           name = "natures[#{key}]"
           id = "natures_#{key}"
-          if (active = (params[:natures][key] == '1' || no_nature))
+          if (active = params[:natures][key] == '1' || no_nature)
             params[:natures][key] = '1'
           else
             params[:natures].delete(key)
@@ -297,7 +297,7 @@ module Backend
           key = journal.id.to_s
           name = "#{field}[#{key}]"
           id = "#{field}_#{key}"
-          if active = (params[field][key] == '1' || no_journal)
+          if active = params[field][key] == '1' || no_journal
             params[field][key] = '1'
           else
             params[field].delete(key)

@@ -41,6 +41,7 @@
 
 class Import < ApplicationRecord
   include LegacyAttachmentColumns
+
   belongs_to :importer, class_name: 'User'
   enumerize :nature, in: ActiveExchanger::Base.importers.keys, i18n_scope: ['exchangers']
   enumerize :state, in: %i[undone in_progress errored aborted finished], predicates: true, default: :undone

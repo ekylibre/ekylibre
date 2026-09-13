@@ -68,6 +68,7 @@ class Loan < ApplicationRecord
   include Customizable
   include Transitionable
   include Providable
+
   # take care to restart serveur when updating code because of Transitionable lib
   # locale in app/services/loan/transitions
   enumerize :repayment_method, in: %i[constant_rate constant_amount], default: :constant_amount
@@ -125,7 +126,7 @@ class Loan < ApplicationRecord
   end
 
   after_save do
-    generate_repayments if (draft? || ongoing?)
+    generate_repayments if draft? || ongoing?
     # if accountable_repayments_started_on, locked repayments before accountable_repayments_started_on
     if accountable_repayments_started_on
       r = repayments.where('due_on < ?', accountable_repayments_started_on)
@@ -185,7 +186,7 @@ class Loan < ApplicationRecord
 
     existing_financial_year = FinancialYear.at(ongoing_at)
 
-    b.journal_entry(journal, printed_on: ongoing_at.to_date, if: (initial_releasing_amount && ongoing_at? && ongoing_at <= Time.zone.now && existing_financial_year)) do |entry|
+    b.journal_entry(journal, printed_on: ongoing_at.to_date, if: initial_releasing_amount && ongoing_at? && ongoing_at <= Time.zone.now && existing_financial_year) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name)
 
       entry.add_debit(label, cash.account_id, amount, as: :bank)

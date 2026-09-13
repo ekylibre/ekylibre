@@ -45,6 +45,7 @@
 
 class Unit < ApplicationRecord
   include Providable
+
   # INFO to convert unit or price, see service UnitComputation
   BASE_UNIT_PER_DIMENSION = { none: 'unity',
                               volume: 'liter',

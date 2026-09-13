@@ -79,6 +79,7 @@ class Sale < ApplicationRecord
   include Transitionable
   include Customizable
   include Providable
+
   attr_readonly :currency
   refers_to :currency
   belongs_to :affair
@@ -253,7 +254,7 @@ class Sale < ApplicationRecord
       products_info = items.pluck(:label).to_sentence
     end
 
-    b.journal_entry(self.nature.journal, reference_number: r_number, printed_on: invoiced_on, if: ((invoice? || order?) && items.any?)) do |entry|
+    b.journal_entry(self.nature.journal, reference_number: r_number, printed_on: invoiced_on, if: (invoice? || order?) && items.any?) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: products_info, sale: initial_number)
       # TODO: Uncommented this once we handle debt correctly and account 462 has been added to nomenclature
       # if items.all? { |item| item.fixed_asset_id }
@@ -293,7 +294,7 @@ class Sale < ApplicationRecord
     # if more quantity on sale than parcel then i have value in C of stock account
     permanent_stock = Preference[:permanent_stock_inventory]
     journal = Journal.used_for_permanent_stock_inventory!(currency: self.currency)
-    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: (permanent_stock && invoice? && items.any?)) do |entry|
+    b.journal_entry(journal, reference_number: number, printed_on: invoiced_on, as: :quantity_gap_on_invoice, if: permanent_stock && invoice? && items.any?) do |entry|
       label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: client.full_name)
 
       items.each do |item|
@@ -380,7 +381,7 @@ class Sale < ApplicationRecord
   delegate :third_attribute, to: :class
 
   def nature=(value)
-    super(value)
+    super
     self.currency = self.nature.currency if self.nature
   end
 
@@ -405,7 +406,7 @@ class Sale < ApplicationRecord
   # Returns if the sale has been validated and so if it can be
   # considered as sold.
   def sold?
-    (order? || invoice?)
+    order? || invoice?
   end
 
   # Check if sale can generate parcel from all the items of the sale
@@ -677,13 +678,13 @@ class Sale < ApplicationRecord
         next if item || sale_item.unit_pretax_amount.blank? || sale_item.unit_pretax_amount.zero?
 
         sale_item.variant.catalog_items.create!(catalog: catalog,
-                                      all_taxes_included: false,
-                                      amount: sale_item.unit_pretax_amount,
-                                      currency: sale_item.currency,
-                                      sale_item: sale_item,
-                                      started_at: invoice_date,
-                                      reference_tax: sale_item.tax,
-                                      unit: sale_item.conditioning_unit)
+                                                all_taxes_included: false,
+                                                amount: sale_item.unit_pretax_amount,
+                                                currency: sale_item.currency,
+                                                sale_item: sale_item,
+                                                started_at: invoice_date,
+                                                reference_tax: sale_item.tax,
+                                                unit: sale_item.conditioning_unit)
       end
     end
 

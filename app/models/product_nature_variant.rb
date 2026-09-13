@@ -560,7 +560,7 @@ class ProductNatureVariant < ApplicationRecord
 
       undelivered = si.quantity if variants_in_parcel_in_sale.none? && !si.sale.draft? && !si.sale.refused? && !si.sale.aborted?
       undelivered = [undelivered, si.quantity - delivered_variants_in_parcel_in_sale.sum(:population)].max if variants_in_parcel_in_sale.present?
-      sale_not_canceled = (si.sale.draft? || si.sale.estimate? || si.sale.order? || si.sale.invoice?)
+      sale_not_canceled = si.sale.draft? || si.sale.estimate? || si.sale.order? || si.sale.invoice?
       undelivered = [undelivered, variants_in_transit_parcel_in_sale.sum(:population)].max if sale_not_canceled && variants_in_transit_parcel_in_sale.present?
 
       undelivered

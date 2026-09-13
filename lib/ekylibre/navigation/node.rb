@@ -8,7 +8,7 @@ module Ekylibre
             node.add_page(page.attr('to'), default: (page.attr('default').to_s == 'true'))
           end
           if levels[1]
-            element.xpath((levels[1]).to_s).each do |item|
+            element.xpath(levels[1].to_s).each do |item|
               node.add_child(browse_element(item, levels[1..-1]))
             end
           end
@@ -74,8 +74,8 @@ module Ekylibre
       end
 
       def human_name
-        default = ["navigation.#{@name}".to_sym]
-        default << "labels.#{@name}".to_sym if @children.any?
+        default = [:"navigation.#{@name}"]
+        default << :"labels.#{@name}" if @children.any?
         default << default_page.human_name if default_page
         "navigation.#{@name}_#{@type}".t(default: default)
       end

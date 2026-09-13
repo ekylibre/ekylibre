@@ -102,7 +102,7 @@ class AnimalGroup < ProductGroup
       raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
 
-    super(member, options)
+    super
   end
 
   # Remove a member from the group
@@ -111,7 +111,7 @@ class AnimalGroup < ProductGroup
       raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}")
     end
 
-    super(member, options)
+    super
   end
 
   # Returns members of the group at a given time (or now by default)

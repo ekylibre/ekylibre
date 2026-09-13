@@ -86,7 +86,7 @@ class ActivityTactic < ApplicationRecord
   def set_planned_on
     year_delta = activity.production_started_on_year
     if planned_on.blank? && year_delta && technical_workflow && campaign
-      self.planned_on = Date.new((campaign.harvest_year + year_delta), technical_workflow.start_month, technical_workflow.start_day)
+      self.planned_on = Date.new(campaign.harvest_year + year_delta, technical_workflow.start_month, technical_workflow.start_day)
     end
   end
 

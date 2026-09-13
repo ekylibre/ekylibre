@@ -45,6 +45,7 @@
 # A product move is a movement of population
 class ProductMovement < ApplicationRecord
   include Taskable
+
   belongs_to :intervention
   belongs_to :product
   has_one :container, through: :product

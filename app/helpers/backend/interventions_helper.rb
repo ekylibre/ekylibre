@@ -88,7 +88,7 @@ module Backend
       if doers_count > 0 && !intervention.doers[0].product.nil?
 
         doers_text = intervention.doers[0].product.name
-        doers_text << ' +' + (doers_count - 1).to_s if doers_count > 1
+        doers_text << (' +' + (doers_count - 1).to_s) if doers_count > 1
 
         task_datas << { icon: 'user', text: doers_text, class: 'doers', category: 'parameters' }
       end

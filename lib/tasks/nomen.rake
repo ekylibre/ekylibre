@@ -46,9 +46,7 @@ namespace :nomen do
         # xml.tag(version: "1.0")
       end
     end
-    File.open(Rails.root.join('db', 'nomenclatures', 'flatten.xml'), 'wb') do |f|
-      f.write builder.to_xml
-    end
+    File.binwrite(Rails.root.join('db', 'nomenclatures', 'flatten.xml'), builder.to_xml)
   end
 
   task list: :environment do

@@ -3,7 +3,7 @@ namespace :maintenance do
   namespace :products do
     desc 'Update all products phases'
     task update_product_phases: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
 
       raise 'Need TENANT variable' unless tenant
 
@@ -17,7 +17,7 @@ namespace :maintenance do
 
     desc 'Count all products where phases are not updated'
     task count_products_with_phases_to_update: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
 
       raise 'Need TENANT variable' unless tenant
 

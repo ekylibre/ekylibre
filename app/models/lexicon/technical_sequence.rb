@@ -34,6 +34,7 @@
 class TechnicalSequence < LexiconRecord
   include Lexiconable
   include ScopeIntrospection
+
   belongs_to :translation, class_name: 'MasterTranslation'
   has_many :tactics, class_name: 'ActivityTactic', foreign_key: :technical_workflow_sequence_id
   has_many :sequences,  class_name: 'TechnicalWorkflowSequence', foreign_key: :technical_sequence_id
@@ -53,7 +54,7 @@ class TechnicalSequence < LexiconRecord
   scope :for_activity, ->(activity) {
     of_family(activity.family)
     .of_production(activity.reference_name)
-    .where(production_system: (activity.production_system_name || 'intensive_farming'))
+    .where(production_system: activity.production_system_name || 'intensive_farming')
   }
 
 end

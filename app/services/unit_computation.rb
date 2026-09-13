@@ -20,7 +20,7 @@ class UnitComputation
           convert_stock((quantity / unity_net_mass).round(2), unity_unit, to)
         elsif from.dimension == 'none' && pmg_unit.dimension == to.dimension
           unity_net_mass = convert_stock(pmg.value, pmg_unit, to) / 1000
-          convert_stock((quantity * unity_net_mass), from, unity_unit)
+          convert_stock(quantity * unity_net_mass, from, unity_unit)
         elsif from.dimension == to.dimension && (to.dimension == 'mass' || to.dimension == 'none')
           convert_stock(quantity, from, to)
         else

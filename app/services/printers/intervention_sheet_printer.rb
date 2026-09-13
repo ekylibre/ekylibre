@@ -95,7 +95,7 @@ module Printers
       file_path = Ekylibre::Tenant.private_directory.join('tmp', 'svg', svg_filename)
       FileUtils.mkdir_p(file_path.dirname) unless file_path.dirname.exist?
       if target.product&.shape&.present?
-        svg_flow = target.product.shape_svg.gsub!(/\"/, '\'')&.delete("\n")
+        svg_flow = target.product.shape_svg.gsub!('"', '\'')&.delete("\n")
         File.write file_path, svg_flow
         file_path
       else

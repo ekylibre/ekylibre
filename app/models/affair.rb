@@ -69,6 +69,7 @@
 #
 class Affair < ApplicationRecord
   include Attachable
+
   refers_to :currency
   belongs_to :cash_session
   belongs_to :journal_entry

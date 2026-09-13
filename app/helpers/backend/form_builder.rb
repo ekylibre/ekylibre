@@ -61,7 +61,7 @@ module Backend
       end
       # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
       item = association.to_s.singularize
-      partial = options[:partial] || item + '_fields'
+      partial = options[:partial] || (item + '_fields')
       options[:locals] ||= {}
       html = simple_fields_for(association, options[:collection]) do |nested|
         @template.render(partial, options[:locals].merge(f: nested))
@@ -150,7 +150,7 @@ module Backend
       html_options = { data: { variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}" } }
       # Adds quantifier
       %i[population working_duration].each do |quantifier|
-        html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if options[quantifier]
+        html_options[:data][:"quantifiers_#{quantifier}"] = true if options[quantifier]
       end
       # Specify scope
       html_options[:data][:use_closest] = options[:closest] if options[:closest]
@@ -212,7 +212,7 @@ module Backend
         options[:input_html]['data-filter-on-empty'] = filter[:on_empty].to_s if filter.key? :on_empty
         options[:input_html]['data-filter-rules'] = data_filters.to_json
       end
-      super(attribute_name, options, &block)
+      super
     end
 
     def find_input(attribute_name, options = {}, &block)

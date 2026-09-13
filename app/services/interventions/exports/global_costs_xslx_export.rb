@@ -4,6 +4,7 @@ module Interventions
   module Exports
     class GlobalCostsXslxExport
       include Rails.application.routes.url_helpers
+
       def generate(activity_id: nil, land_parcel_id: nil, plant_id: nil, campaign_ids: nil)
 
         activity_production_ids = ActivityProduction.of_campaign(campaign_ids).of_activity(activity_id).pluck(:id) if activity_id.present? && campaign_ids.present?

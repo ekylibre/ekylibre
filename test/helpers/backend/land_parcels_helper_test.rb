@@ -4,6 +4,7 @@ module Backend
   class LandParcelsHelperTest < ActionView::TestCase
     class MockLandParcelHelper
       include Backend::LandParcelsHelper
+
       def backend_visualizations_land_parcels_visualizations_path
         ''
       end

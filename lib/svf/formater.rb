@@ -23,7 +23,7 @@ module SVF
       code << "  end\n\n"
 
       code << "  class Base\n"
-      code << '    attr_accessor ' + @root.collect { |x| ":#{x.name}" }.join(', ') + "\n\n"
+      code << ('    attr_accessor ' + @root.collect { |x| ":#{x.name}" }.join(', ') + "\n\n")
       code << "    def initialize\n"
       @root.each do |attr|
         code << "    @#{attr.name} = []\n" if attr.numerous?
@@ -38,9 +38,9 @@ module SVF
         line_code = nil
         if line.cells.any?
           line_code = "begin\n"
-          line_code << "  #{line.class_name(@name)}.new(\n" + line.cells.map do |c|
+          line_code << ("  #{line.class_name(@name)}.new(\n" + line.cells.map do |c|
             "  #{c.parse_value}"
-          end.join(",\n") + "\n)\n"
+          end.join(",\n") + "\n)\n")
           line_code << "rescue Exception => e\n"
           line_code << "  puts \"[Line #\#{_number + 1}][\#{e.inspect}] Cannot parse #{line.name}: \" + line.inspect.cyan\n"
           line.cells.each do |c|
@@ -63,7 +63,7 @@ module SVF
       code << "      base = Base.new\n"
       code << "      ::File.open(file, 'rb:#{@encoding}') do |f|\n"
       code << "        line_number = 0\n"
-      code << parse_code(@root, file: 'f', root: 'base').strip.gsub(/^/, '        ') + "\n"
+      code << (parse_code(@root, file: 'f', root: 'base').strip.gsub(/^/, '        ') + "\n")
       code << "      end\n"
       code << "      base\n"
       code << "    end\n\n"
@@ -71,7 +71,7 @@ module SVF
       code << "    # Build file as a string\n"
       code << "    def to_s\n"
       code << "      _string = ''\n"
-      code << build_code(@root, variable: '_string', root: 'self').strip.gsub(/^/, '      ') + "\n"
+      code << (build_code(@root, variable: '_string', root: 'self').strip.gsub(/^/, '      ') + "\n")
       code << "      _string\n"
       code << "    end\n\n"
 
@@ -89,13 +89,13 @@ module SVF
 
     def compile_element(element, _depth = 0)
       code = "class #{element.class_name}\n"
-      code << '  attr_accessor ' + element.cells.collect { |c| ":#{c.name}" }.join(', ') + "\n" if element.has_cells?
-      code << '  attr_accessor ' + element.children.collect { |c| ":#{c.name}" }.join(', ') + "\n" if element.has_children?
+      code << ('  attr_accessor ' + element.cells.collect { |c| ":#{c.name}" }.join(', ') + "\n") if element.has_cells?
+      code << ('  attr_accessor ' + element.children.collect { |c| ":#{c.name}" }.join(', ') + "\n") if element.has_children?
       code << "  attr_accessor :text\n" if element.to
       element.cells.select { |c| c.type == :boolean }.each do |bool|
         code << "  alias #{bool.name}? #{bool.name}\n"
       end
-      code << '  def initialize(' + element.cells.collect(&:name).join(', ') + ")\n"
+      code << ('  def initialize(' + element.cells.collect(&:name).join(', ') + ")\n")
       if element.has_cells?
         element.cells.each do |c|
           code << "    @#{c.name} = #{c.name}\n"
@@ -108,7 +108,7 @@ module SVF
       code << "  end\n"
       code << "\n  def to_s\n"
       unless element.to
-        code << "    '#{element.key}' + " + element.cells.collect { |c| c.format_value("@#{c.name}") }.join(' + ') + " + \"\\r\\n\"\n"
+        code << ("    '#{element.key}' + " + element.cells.collect { |c| c.format_value("@#{c.name}") }.join(' + ') + " + \"\\r\\n\"\n")
       end
       code << "  end\n"
       code << "end\n\n"
@@ -133,14 +133,14 @@ module SVF
         if line.to
           code << "    line = #{options[:file]}.gets\n"
           code << "    line_number += 1\n"
-          code << "    while !line.nil? && line =~ /^#{line.to.gsub(/\ /, '\\ ')}\\ *$/\n"
+          code << "    while !line.nil? && line =~ /^#{line.to.gsub(' ', '\\ ')}\\ *$/\n"
           code << "      #{full_name}.text << line\n"
           code << "      line = #{options[:file]}.gets\n"
           code << "      line_number += 1\n"
           code << "    end\n"
         end
         if line.has_children?
-          code << parse_code(line.children, file: options[:file], root: sibling.line, parents: siblings, all_parents: siblings + all_parents).strip.gsub(/^/, '    ') + "\n"
+          code << (parse_code(line.children, file: options[:file], root: sibling.line, parents: siblings, all_parents: siblings + all_parents).strip.gsub(/^/, '    ') + "\n")
         else
           code << "    line = parse_line(#{options[:file]}.gets, line_number)\n"
           code << "    line_number += 1\n"
@@ -149,7 +149,7 @@ module SVF
       end
       if !parents.empty?
 
-        code << 'if [' + all_parents.collect { |s| raise([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n"
+        code << ('if [' + all_parents.collect { |s| raise([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n")
 
         # code << "if "+all_parents.collect{|s| "line.is_a?(#{@lines[s.line].class_name(@name)})"}.join(" or ")+"\n"
         code << "    break\n"
@@ -177,11 +177,11 @@ module SVF
         code << "if #{sibling.name}\n"
         if sibling.range.max == 1
           code << "  #{var} << #{sibling.name}.to_s\n"
-          code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '  ') + "\n" if line.has_children?
+          code << (build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '  ') + "\n") if line.has_children?
         else
           code << "  #{sibling.name}.each do |#{sibling.line}|\n"
           code << "    #{var} << #{sibling.line}.to_s\n"
-          code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '    ') + "\n" if line.has_children?
+          code << (build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '    ') + "\n") if line.has_children?
           code << "  end\n"
         end
         code << "end\n"

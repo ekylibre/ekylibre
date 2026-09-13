@@ -48,6 +48,7 @@
 
 class SaasSubscription < ApplicationRecord
   include Providable
+
   enumerize :status, in: %i[active past_due unpaid canceled incomplete incomplete_expired trialing], predicates: true
   belongs_to :partner, class_name: 'Entity'
   belongs_to :entity_payment_method, class_name: 'EntityPaymentMethod'

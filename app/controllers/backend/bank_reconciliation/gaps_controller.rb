@@ -38,11 +38,11 @@ module Backend
         def accounts(gap)
           bank = @cash.account
           if gap > 0
-            return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_profits).count.nonzero?
+            return head(:bad_request) && nil unless Account.of_usage(:other_usual_running_profits).count.nonzero?
 
             return [bank, credit_gap_account]
           end
-          return (head(:bad_request) && nil) unless Account.of_usage(:other_usual_running_expenses).count.nonzero?
+          return head(:bad_request) && nil unless Account.of_usage(:other_usual_running_expenses).count.nonzero?
 
           [debit_gap_account, bank]
         end

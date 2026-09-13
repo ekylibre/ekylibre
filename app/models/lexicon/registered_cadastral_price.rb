@@ -44,6 +44,7 @@
 class RegisteredCadastralPrice < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
+
   belongs_to :cadastral_parcel, class_name: 'RegisteredCadastralParcel'
   scope :in_bounding_box, lambda { |bounding_box|
     where("#{self.table_name}.centroid && ST_MakeEnvelope(#{bounding_box.join(', ')})")

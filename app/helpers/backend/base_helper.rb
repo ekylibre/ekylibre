@@ -143,7 +143,7 @@ module Backend
         li_options[:class] = 'active' if options.delete(:active)
 
         kontroller = (url.is_a?(Hash) ? url[:controller] : nil) || controller_name
-        options[:title] ||= ::I18n.t("actions.#{kontroller}.#{name}".to_sym, **{ default: ["labels.#{name}".to_sym] }.merge(options.delete(:i18n) || {}))
+        options[:title] ||= ::I18n.t(:"actions.#{kontroller}.#{name}", default: [:"labels.#{name}"], **options.delete(:i18n) || {})
         if icon = options.delete(:icon)
           item[:title] = content_tag(:i, '', class: 'icon-' + icon.to_s) + ' '.html_safe + h(item[:title])
         end
@@ -186,11 +186,11 @@ module Backend
       unless options[:title].is_a?(FalseClass)
         html << "<a href='#{url_for(controller: '/backend/snippets', action: :toggle, id: name)}' class='snippet-title' data-toggle-snippet='true'>"
         html << "<i class='collapser'></i>"
-        html << '<h3><i></i>' + (options[:title] || "snippets.#{name}".t(default: ["labels.#{name}".to_sym])) + '</h3>'
+        html << ('<h3><i></i>' + (options[:title] || "snippets.#{name}".t(default: [:"labels.#{name}"])) + '</h3>')
         html << '</a>'
       end
 
-      html << "<div class='snippet-content'" + (collapsed ? ' style="display: none"' : '') + '>'
+      html << ("<div class='snippet-content'" + (collapsed ? ' style="display: none"' : '') + '>')
       begin
         html << capture(&block)
       rescue Exception => e
@@ -209,7 +209,7 @@ module Backend
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
-      min = resource.born_at || now - window
+      min = resource.born_at || (now - window)
       min = now - window if (now - min) < window
       indicators.each do |indicator| # [:population, :nitrogen_concentration].collect{|i| Onoma::Indicator[i] }
         items = ProductReading.where(indicator_name: indicator.name, product: resource).where('? < read_at AND read_at < ?', min, now).order(:read_at)
@@ -235,7 +235,7 @@ module Backend
       series = []
       now = Time.zone.now
       window = 1.day
-      min = resource.born_at || now - window
+      min = resource.born_at || (now - window)
       min = now - window if (now - min) < window
       if populations.any?
         data = []
@@ -318,7 +318,7 @@ module Backend
 
     def janus(*args, &_block)
       options = args.extract_options!
-      name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
+      name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(':').second).parameterize
 
       lister = Ekylibre::Support::Lister.new(:face)
       yield lister
@@ -520,7 +520,7 @@ module Backend
           title: "tours.#{name}.#{id}.title".tl,
           text: "tours.#{name}.#{id}.content".tl,
           attachTo: {
-            element: step.options[:element] || '#' + id.to_s,
+            element: step.options[:element] || ('#' + id.to_s),
             on: on.tr('_', ' ')
           }
         }

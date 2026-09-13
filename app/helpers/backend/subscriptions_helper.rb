@@ -6,15 +6,15 @@ module Backend
       series = []
 
       options[:months] ||= 35
-      stopped_on = options[:stopped_on] || Time.zone.today + 11.months
-      started_on = options[:started_on] || stopped_on.beginning_of_month - options[:months].months
+      stopped_on = options[:stopped_on] || (Time.zone.today + 11.months)
+      started_on = options[:started_on] || (stopped_on.beginning_of_month - options[:months].months)
 
       categories = []
       date = started_on
       stopped_on = started_on + 1 if started_on >= stopped_on
       while date <= stopped_on
         categories << [date, date.end_of_month, date.l(format: '%b %Y')]
-        date = date >> 1
+        date >>= 1
       end
 
       renewed = []

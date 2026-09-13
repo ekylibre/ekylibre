@@ -31,7 +31,7 @@ module AgroSystemes
         r = OpenStruct.new(
           code_distri: (row[0].blank? ? nil : row[0].to_s),
           reference_number: row[6].to_s,
-          at: (row[7].blank? ? nil : Date.civil(*row[7].to_s.split(/\//).reverse.map(&:to_i))),
+          at: (row[7].blank? ? nil : Date.civil(*row[7].to_s.split('/').reverse.map(&:to_i))),
           land_parcel_work_number: row[8].blank? ? nil : find_land_parcel(row[8]),
           analyse_soil_nature: row[10].blank? ? nil : SOIL_NATURES[row[10]],
           organic_matter_concentration: row[38].blank? ? nil : row[38].to_d.in_percent,
@@ -47,7 +47,7 @@ module AgroSystemes
           mn_ppm_value: row[88].blank? ? nil : row[88].to_d.in_parts_per_million,
           cu_ppm_value: row[91].blank? ? nil : row[91].to_d.in_parts_per_million,
           fe_ppm_value: row[94].blank? ? nil : row[94].to_d.in_parts_per_million,
-          sampled_at: (row[179].blank? ? nil : Date.civil(*row[179].to_s.split(/\//).reverse.map(&:to_i)))
+          sampled_at: (row[179].blank? ? nil : Date.civil(*row[179].to_s.split('/').reverse.map(&:to_i)))
         )
 
         analysis = Analysis.create_with(

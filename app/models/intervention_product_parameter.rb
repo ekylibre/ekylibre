@@ -259,7 +259,7 @@ class InterventionProductParameter < InterventionParameter
       if reference.known_variant?
         return quantity.present?
       else
-        return (self.variant && quantity.present?)
+        return self.variant && quantity.present?
       end
     elsif reference.produced?
       return self.variant

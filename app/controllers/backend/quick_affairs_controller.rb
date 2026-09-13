@@ -8,7 +8,7 @@ module Backend
 
       date     = Maybe(@bank_statement_items).minimum(:transfered_on).or_nil
       @trade   = self.class::Trade.new(invoiced_at: date, nature_id: nature)
-      if (@trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase) || @trade.is_a?(Sale))
+      if @trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase) || @trade.is_a?(Sale)
         @trade.items.new
       end
 
@@ -26,8 +26,8 @@ module Backend
       @bank_statement_items = BankStatementItem.where(id: payment_params[:bank_statement_item_ids].split(' ')) if payment_params[:bank_statement_item_ids]
 
       @mode_for = {
-        trade: params[:"mode-trade"],
-        payment: params[:"mode-payment"]
+        trade: params[:'mode-trade'],
+        payment: params[:'mode-payment']
       }
 
       @trade = new_trade

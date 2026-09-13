@@ -78,7 +78,7 @@ module Ekylibre
       end
 
       def initialize(*args)
-        super(*args)
+        super
         @matchings = {}.with_indifferent_access
         @indexes = {}.with_indifferent_access
       end

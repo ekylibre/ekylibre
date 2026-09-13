@@ -121,7 +121,7 @@ class BankStatement < ApplicationRecord
   end
 
   bookkeep do |b|
-    b.journal_entry(cash_journal, printed_on: stopped_on, if: (!cash.enable_bookkeep_bank_item_details && cash.suspend_until_reconciliation)) do |entry|
+    b.journal_entry(cash_journal, printed_on: stopped_on, if: !cash.enable_bookkeep_bank_item_details && cash.suspend_until_reconciliation) do |entry|
       # label = "BS #{cash.name} #{number}"
       # balance = items.sum('credit - debit')
       items.each do |item|

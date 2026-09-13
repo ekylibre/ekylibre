@@ -279,8 +279,8 @@ class ActivityProduction < ApplicationRecord
     work_number = 'P'.dup
     work_number << '_' << activity.cultivation_variety[0].upcase
     work_number << rank_number.to_s
-    work_number << '_' << cultivable_zone.work_number || cultivable_zone.cap_number || cultivable_zone.id.to_s
-    work_number << '_' + campaign.harvest_year.to_s if campaign
+    (work_number << '_' << cultivable_zone.work_number) || cultivable_zone.cap_number || cultivable_zone.id.to_s
+    work_number << ('_' + campaign.harvest_year.to_s) if campaign
     work_number
   end
 
@@ -553,7 +553,7 @@ class ActivityProduction < ApplicationRecord
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
         # TODO: for method phosphorus_concentration(input)
         n = (input.actor ? input.actor.send(indicator_name).to_d(:unity) : 0.0)
-        balance << m * n
+        balance << (m * n)
       end
     end
     # if net_surface_area, make the division
@@ -671,7 +671,7 @@ class ActivityProduction < ApplicationRecord
       Rails.logger.warn 'No surface area. Cannot compute harvest yield'
       return nil
     end
-    harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
+    harvest_yield_unit_name = :"#{size_unit_name}_per_#{surface_unit_name}"
     unless Onoma::Unit.find(harvest_yield_unit_name)
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end

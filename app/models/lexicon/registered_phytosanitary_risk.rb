@@ -32,6 +32,7 @@
 #
 class RegisteredPhytosanitaryRisk < LexiconRecord
   include Lexiconable
+
   MENTIONS_TYPE = { 'H2' => :physical_h2, 'H3' => :health_h3, 'H4' => :environment_h4 }.freeze
   SYMBOLS_DESCRIPTION = { 'SGH01' => :explosive_substances,
                           'SGH02' => :flammable_agents,

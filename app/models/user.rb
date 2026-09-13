@@ -86,6 +86,7 @@ class User < ApplicationRecord
     PREFERENCE_SHOW_COMPARE_REALISED_PLANNED => :boolean
   }.freeze
   include Rightable
+
   refers_to :language
   belongs_to :team
   belongs_to :person, -> { contacts }, class_name: 'Entity'

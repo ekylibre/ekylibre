@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     end
     klass = superclass
     while klass != ApplicationController
-      default = "actions.#{klass.controller_path}.#{action}".to_sym
+      default = :"actions.#{klass.controller_path}.#{action}"
       options[:default] << default unless options[:default].include?(default)
       klass = klass.superclass
     end

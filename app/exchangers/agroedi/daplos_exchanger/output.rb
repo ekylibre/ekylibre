@@ -34,7 +34,7 @@ module Agroedi
       end
 
       def handler
-        super value
+        super(value)
       end
 
       def name

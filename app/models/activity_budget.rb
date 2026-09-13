@@ -231,11 +231,11 @@ class ActivityBudget < ApplicationRecord
       if a.per_working_unit?
         next if productions_size.zero?
 
-        result << a.quantity * productions_size
+        result << (a.quantity * productions_size)
       elsif a.per_production?
         next if productions_count.zero?
 
-        result << a.quantity * productions_count
+        result << (a.quantity * productions_count)
       else
         result << a.quantity
       end

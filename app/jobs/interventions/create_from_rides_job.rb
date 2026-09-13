@@ -3,6 +3,7 @@
 module Interventions
   class CreateFromRidesJob < ApplicationJob
     include Rails.application.routes.url_helpers
+
     queue_as :default
 
     protected

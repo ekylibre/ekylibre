@@ -79,12 +79,12 @@ module Ekylibre
             w.info "Log already exist : #{p.id}".inspect.red if p
           else
             p = WorkerTimeLog.create!(started_at: started_at,
-                                     project_task_id: project_task.id,
-                                     duration: (r.duration * 3600).to_i,
-                                     description: r.description,
-                                     worker_id: worker.id,
-                                     travel_expense: !r.travel_expense_details.nil?,
-                                     travel_expense_details: (r.travel_expense_details.nil? ? nil : r.travel_expense_details),)
+                                      project_task_id: project_task.id,
+                                      duration: (r.duration * 3600).to_i,
+                                      description: r.description,
+                                      worker_id: worker.id,
+                                      travel_expense: !r.travel_expense_details.nil?,
+                                      travel_expense_details: (r.travel_expense_details.nil? ? nil : r.travel_expense_details),)
             w.info "Log created : #{p.id}".inspect.yellow if p
           end
         end

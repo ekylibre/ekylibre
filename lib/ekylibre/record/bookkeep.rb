@@ -1,5 +1,5 @@
 module Ekylibre
-  module Record #:nodoc:
+  module Record # :nodoc:
     module Bookkeep
       extend ActiveSupport::Concern
 
@@ -21,7 +21,7 @@ module Ekylibre
             if klass.nil? || const_defined?(implicit_bookkeeper_name)
               klass ||= const_get(implicit_bookkeeper_name)
             end
-            raise ArgumentError.new('Provided class does not respond to #call method') unless klass.nil? || klass.instance_methods.include?(:call)
+            raise ArgumentError.new('Provided class does not respond to #call method') unless klass.nil? || klass.method_defined?(:call)
           end
 
           raise ArgumentError.new('Neither bookkeeping class nor block given') unless klass || block

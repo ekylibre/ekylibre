@@ -65,6 +65,7 @@
 class Purchase < ApplicationRecord
   include Attachable
   include Customizable
+
   attr_readonly :currency, :nature_id
   enumerize :tax_payability, in: %i[at_paying at_invoicing], default: :at_invoicing
   enumerize :reconciliation_state, in: %i[to_reconcile accepted reconcile], default: :to_reconcile
@@ -184,7 +185,7 @@ class Purchase < ApplicationRecord
   end
 
   def purchased?
-    (order? || invoice?)
+    order? || invoice?
   end
 
   # Computes an amount (with or without taxes) of the undelivered products

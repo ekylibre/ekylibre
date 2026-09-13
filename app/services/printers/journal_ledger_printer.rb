@@ -122,7 +122,7 @@ module Printers
         content << :draft.tl if @states.include?('draft')
         content << :confirmed.tl if @states.include?('confirmed')
         content << :closed.tl if @states.include?('closed')
-        data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
+        data_filters << (:journal_entries_states.tl + ' : ' + content.to_sentence)
       end
 
       ledger << data_filters

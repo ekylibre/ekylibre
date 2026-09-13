@@ -205,12 +205,12 @@ module BordeauxSciencesAgro
 
         # @return [String]
         def client_account_radix
-          @client_account_radix ||= (Preference.value(:client_account_radix).presence || '411')
+          @client_account_radix ||= Preference.value(:client_account_radix).presence || '411'
         end
 
         # @return [String]
         def supplier_account_radix
-          @supplier_account_radix ||= (Preference.value(:supplier_account_radix).presence || '401')
+          @supplier_account_radix ||= Preference.value(:supplier_account_radix).presence || '401'
         end
 
         # @param [Date] period_started_on

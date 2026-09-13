@@ -55,12 +55,12 @@ module Ekylibre
 
         # Compute approximately day time duration in France at given date
         def daytime_duration(on)
-          12.0 - 4.0 * Math.cos((on + 11.days).yday.to_f / (365.25 / Math::PI / 2))
+          12.0 - (4.0 * Math.cos((on + 11.days).yday.to_f / (365.25 / Math::PI / 2)))
         end
 
         # Compute approximately sunrise hour in France at given date
         def sunrise(on, shift = 1.5)
-          shift + (24.0 - daytime_duration(on)) / 2.0
+          shift + ((24.0 - daytime_duration(on)) / 2.0)
         end
 
         # Compute approximately sunset hour in France at given date
@@ -108,7 +108,7 @@ module Ekylibre
 
           # Split into many interventions
           periods = []
-          total = duration * 1.0 - fixed_duration
+          total = (duration * 1.0) - fixed_duration
           duration_days.times do
             started_at = on.to_time + sunrise(on).hours + 1.hour
             d = self.daytime_duration(on) - 2.0 - fixed_duration

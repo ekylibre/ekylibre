@@ -23,7 +23,7 @@ module Procedo
 
       # Translate the name of the parameter
       def human_name(options = {})
-        "procedure_parameters.#{name}".t(options.merge(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize]))
+        "procedure_parameters.#{name}".t(options.merge(default: [:"labels.#{name}", :"attributes.#{name}", name.to_s.humanize]))
       end
 
       def self.type

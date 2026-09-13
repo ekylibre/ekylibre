@@ -3,7 +3,7 @@ module ActiveGuide
     attr_reader :items
 
     def initialize(group, name, options = {}, &block)
-      super group, name, options
+      super(group, name, options)
       @items = []
       instance_eval(&block) if block_given?
     end

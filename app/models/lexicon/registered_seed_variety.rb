@@ -34,6 +34,7 @@
 #
 class RegisteredSeedVariety < LexiconRecord
   include Lexiconable
+
   self.id_column = :number
   self.name_column = "name->>'fra'"
 

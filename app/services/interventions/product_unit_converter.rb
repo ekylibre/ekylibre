@@ -53,11 +53,11 @@ module Interventions
           convert_net_into_concentration(measure, into: into, area: area, net_mass: net_mass, net_volume: net_volume, spray_volume: spray_volume)
         # Concentration => area_density
         elsif measure.repartition_dimension == :surface_area
-          measure_concentration = Measure.new(((measure.value / spray_volume.get.value) * 100).to_f, "#{measure.base_unit}_per_hectoliter".to_sym)
+          measure_concentration = Measure.new(((measure.value / spray_volume.get.value) * 100).to_f, :"#{measure.base_unit}_per_hectoliter")
           Maybe(measure_concentration.in(into))
         # Area_density => concentration
         elsif into.repartition_dimension == :surface_area
-          measure_area_density = Measure.new(((measure.value * spray_volume.get.value) / 100).to_f, "#{measure.base_unit}_per_hectare".to_sym)
+          measure_area_density = Measure.new(((measure.value * spray_volume.get.value) / 100).to_f, :"#{measure.base_unit}_per_hectare")
           Maybe(measure_area_density.in(into))
         else
           None()
@@ -164,7 +164,7 @@ module Interventions
     def convert_net_into_area_density(measure, into:, area:)
       if into.dimension.to_s.include?(measure.dimension.to_s)
         area.fmap do |area|
-          Measure.new((measure.in(into.base_unit).value.to_f / area.in(into.repartition_unit).value.to_f), into)
+          Measure.new(measure.in(into.base_unit).value.to_f / area.in(into.repartition_unit).value.to_f, into)
         end
       else
         None()

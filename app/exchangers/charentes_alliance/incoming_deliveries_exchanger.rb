@@ -48,15 +48,15 @@ module CharentesAlliance
       rows.sort_by(&:first).each do |row|
         r = OpenStruct.new(
           reception_number: row[0],
-          ordered_on: Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-          product_nature_name: (variants_transcode[row[3].to_s] || 'common_consumable'),
+          ordered_on: Date.civil(*row[1].to_s.split('/').reverse.map(&:to_i)),
+          product_nature_name: variants_transcode[row[3].to_s] || 'common_consumable',
           matter_name: row[4],
           coop_variant_reference_name: 'coop:' + row[4].downcase.gsub(/[\W\_]+/, '_'),
           coop_reference_name: row[4].to_s,
           quantity: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),
           product_deliver_quantity: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
           product_unit_price: (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
-          reception_status: (status[row[8]] || :draft)
+          reception_status: status[row[8]] || :draft
         )
 
         # Create delivery if reception_number change and all items concerning the same reception are already created.

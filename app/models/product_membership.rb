@@ -44,6 +44,7 @@
 class ProductMembership < ApplicationRecord
   include TimeLineable
   include Taskable
+
   enumerize :nature, in: %i[interior exterior], default: :interior, predicates: true
   belongs_to :group, class_name: 'ProductGroup', inverse_of: :memberships
   belongs_to :member, class_name: 'Product', inverse_of: :memberships

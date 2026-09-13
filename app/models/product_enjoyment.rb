@@ -43,6 +43,7 @@
 class ProductEnjoyment < ApplicationRecord
   include TimeLineable
   include Taskable
+
   belongs_to :enjoyer, class_name: 'Entity'
   belongs_to :product
   enumerize :nature, in: %i[unknown own other], default: :unknown, predicates: true

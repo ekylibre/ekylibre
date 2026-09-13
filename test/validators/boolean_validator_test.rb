@@ -2,6 +2,7 @@ require 'test_helper'
 
 class BooleanValidatable
   include ActiveModel::Validations
+
   attr_accessor :bool
 
   validates :bool, boolean: true

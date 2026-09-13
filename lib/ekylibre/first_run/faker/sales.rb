@@ -117,7 +117,7 @@ module Ekylibre
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
             (140 + rand(20)).times do |i|
               # Sale
-              d = Time.zone.now - (7 * i - rand(4)).days
+              d = Time.zone.now - ((7 * i) - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
               # Sale items
               (rand(5) + 1).times do
@@ -162,7 +162,7 @@ module Ekylibre
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
             (140 + rand(20)).times do |i|
               # Sale
-              d = Time.zone.now - (7 * i - rand(4)).days
+              d = Time.zone.now - ((7 * i) - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id)
               # Sale items
               (rand(5) + 1).times do
@@ -248,7 +248,7 @@ module Ekylibre
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
             (140 + rand(20)).times do |i|
               # Sale
-              d = Time.zone.now - (7 * i - rand(4)).days
+              d = Time.zone.now - ((7 * i) - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
               # Sale items
               (rand(5) + 1).times do
@@ -294,7 +294,7 @@ module Ekylibre
             sale_nature ||= SaleNature.create!(name: I18n.t('models.sale_nature.default.name'), currency: Preference[:currency], active: true)
             (2 + rand(2)).times do |i|
               # Sale
-              d = Time.zone.now - (7 * i - rand(4)).days
+              d = Time.zone.now - ((7 * i) - rand(4)).days
               sale = Sale.create!(created_at: d, client_id: cooperative.id, nature_id: sale_nature.id, responsible: responsibles.sample)
               # Sale items
               (rand(5) + 1).times do

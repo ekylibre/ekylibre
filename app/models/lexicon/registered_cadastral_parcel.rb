@@ -37,6 +37,7 @@
 class RegisteredCadastralParcel < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
+
   has_many :cadastral_prices, class_name: 'RegisteredCadastralPrice', foreign_key: :cadastral_parcel_id, dependent: :restrict_with_exception
   has_many :cvi_cadastral_plants, foreign_key: :land_parcel_id, inverse_of: :land_parcel
   scope :find_with, ->(postal_code, section, work_number) { where('id LIKE ? and section = ? and work_number =?', "#{postal_code}%", section, work_number)}

@@ -48,7 +48,7 @@ module Backend
       end
 
       def stt_server_enabled?
-        ActiveModel::Type::Boolean.new.cast(ENV['DUKE_STT_SERVER_ENABLED']) == true
+        ActiveModel::Type::Boolean.new.cast(ENV.fetch('DUKE_STT_SERVER_ENABLED', nil)) == true
       end
   end
 end

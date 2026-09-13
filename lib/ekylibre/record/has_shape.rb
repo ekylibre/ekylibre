@@ -1,6 +1,6 @@
 module Ekylibre
   module Record
-    module HasShape #:nodoc:
+    module HasShape # :nodoc:
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -108,7 +108,7 @@ module Ekylibre
                 CONCAT('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="#{options[:height].to_s}" width="#{options[:width].to_s}" viewBox="',
                     CONCAT_WS(' ', q.x_min, -1 * q.y_max, q.x_max-q.x_min, q.y_max-q.y_min), '">', q.svg, '</svg>') FROM q;
             SQL
-            svg.first["concat"].gsub(/\"/, '\'')
+            svg.first["concat"].gsub('"', '\'')
           end
         end
 

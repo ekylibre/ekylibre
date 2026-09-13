@@ -55,7 +55,7 @@ module Backend
       )
 
       # TODO: Refactor this to have it only in the Validators
-      usage_applications = if stopped_at.nil? || product.nil? || usage.nil? || usage.applications_count == 1 && usage.applications_frequency.present?
+      usage_applications = if stopped_at.nil? || product.nil? || usage.nil? || (usage.applications_count == 1 && usage.applications_frequency.present?)
                              { none: '' }
                            else
                              compare_applications_count(usage, application_validator.compute_usage_application(product))

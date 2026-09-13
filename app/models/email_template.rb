@@ -59,7 +59,7 @@ class EmailTemplate < ApplicationRecord
   class << self
     # Loads in DB all default email templates depending to the locales
     def load_defaults(options = {})
-      locale = (options[:locale] || Preference[:language] || I18n.locale)
+      locale = options[:locale] || Preference[:language] || I18n.locale
 
       mail_template_file = Rails.root.join('config', 'locales', locale.to_s, 'email_templates.yml')
       mail_template = (mail_template_file.exist? ? YAML.load_file(mail_template_file) : {}).deep_symbolize_keys.freeze

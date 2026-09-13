@@ -74,7 +74,7 @@ module Agrigest
           valid = false
         end
 
-        next if (row.credit_amount == 0.0 && row.debit_amount == 0.0)
+        next if row.credit_amount == 0.0 && row.debit_amount == 0.0
 
         if (row.debit_amount - row.credit_amount) == 0.0
           w.error "Errors on amount in line : #{line_number} - #{valid}".red
@@ -98,7 +98,7 @@ module Agrigest
       rows.each_with_index do |row, index|
         line_number = index + 2
 
-        next if (row.credit_amount == 0.0 && row.debit_amount == 0.0)
+        next if row.credit_amount == 0.0 && row.debit_amount == 0.0
 
         # case of negative values
         if row.debit_amount < 0.0

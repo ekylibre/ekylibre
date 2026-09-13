@@ -37,7 +37,7 @@ module Backend
     private
 
       def text_to_html_message(message)
-        h(message).gsub(/\n/, '<br/>').html_safe
+        h(message).gsub("\n", '<br/>').html_safe
       end
 
       def flash_html_message_tag(mode, html)

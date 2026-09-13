@@ -33,7 +33,7 @@ namespace :first_run do
 
   desc 'Load the default first-run'
   task default: :environment do
-    ENV['name'] ||= ENV['TENANT']
+    ENV['name'] ||= ENV.fetch('TENANT', nil)
     unless Ekylibre::FirstRun.path.join('default').exist?
       Rake::Task['first_run:default:generate'].invoke
     end
@@ -43,6 +43,6 @@ end
 
 desc 'Load first run in one transaction'
 task first_run: :environment do
-  ENV['name'] ||= ENV['TENANT']
+  ENV['name'] ||= ENV.fetch('TENANT', nil)
   Ekylibre::FirstRun.launch! ENV.to_hash.symbolize_keys.slice(:folder, :name, :max, :mode, :verbose, :path)
 end

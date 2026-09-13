@@ -26,7 +26,7 @@ module ScopeIntrospection
       self.scopes ||= []
       self.scopes << Scope.new(name.to_sym, body.arity)
 
-      super(name, body, &block)
+      super
     end
   end
 end

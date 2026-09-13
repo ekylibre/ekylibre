@@ -196,7 +196,7 @@ module Accountancy
                    raise StandardError.new(:no_valid_amount, amount: str)
                  end
 
-          norm.to_f / 10**decimals_str.to_i
+          norm.to_f / (10**decimals_str.to_i)
         end
 
         # @param [String] date_str

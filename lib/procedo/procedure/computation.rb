@@ -10,7 +10,7 @@ module Procedo
       attr_reader :destinations
 
       def initialize(parameter, name, options = {})
-        super(parameter, name, options)
+        super
         @destinations = options[:destinations]
         self.expression = options[:expression]
         self.condition = options[:if]

@@ -48,9 +48,9 @@ module Ekylibre
             name
           elsif value.is_a?(Symbol)
             if ROLES.include?(value.to_s)
-              "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
+              :"#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}"
             elsif value.to_s =~ /^\d+$/
-              "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
+              :"#{@prefix}_#{value.to_s.rjust(3, '0')}"
             else
               value
             end

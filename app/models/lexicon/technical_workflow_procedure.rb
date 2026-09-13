@@ -37,6 +37,7 @@
 #
 class TechnicalWorkflowProcedure < LexiconRecord
   include Lexiconable
+
   has_many :items, class_name: 'TechnicalWorkflowProcedureItem', foreign_key: :technical_workflow_procedure_id, dependent: :restrict_with_exception
   belongs_to :intervention_model, class_name: 'InterventionModel', foreign_key: :procedure_reference
   with_options inverse_of: :intervention do

@@ -72,10 +72,10 @@ module PurchaseInvoices
           infos = guess_line_info(product_code: line[:product_code], description: line[:description], vat_percentage: vat_percentage, supplier: supplier)
           items << { role: 'merchandise',
                       annotation: line[:description],
-                      conditioning_quantity: (line[:quantity]&.to_d || 1.0),
+                      conditioning_quantity: line[:quantity]&.to_d || 1.0,
                       conditioning_unit_id: infos[:unit].id,
                       tax_id: infos[:tax].id,
-                      unit_pretax_amount: (line[:unit_price]&.to_d || line[:total_amount]&.to_d),
+                      unit_pretax_amount: line[:unit_price]&.to_d || line[:total_amount]&.to_d,
                       variant_id: infos[:variant].id,
                       fixed: false }
         end

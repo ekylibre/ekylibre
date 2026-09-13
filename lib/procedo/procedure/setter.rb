@@ -10,7 +10,7 @@ module Procedo
       attr_accessor :computed_filter, :filter
 
       def initialize(parameter, name, options = {})
-        super(parameter, name, options)
+        super
         @hidden = !!options[:hidden]
         self.default_value = options[:default_value]
         self.condition = options[:if]

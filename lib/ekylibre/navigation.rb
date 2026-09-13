@@ -89,18 +89,18 @@ module Ekylibre
 
       # Returns the human name of a group
       def part_human_name(part)
-        ::I18n.translate("menus.#{part}".to_sym, default: ["labels.menus.#{part}".to_sym, "labels.#{part}".to_sym])
+        ::I18n.translate(:"menus.#{part}", default: [:"labels.menus.#{part}", :"labels.#{part}"])
       end
 
       # Returns the human name of a group
       def group_human_name(part, group)
-        ::I18n.translate(('menus.' + [part, group].join('.')).to_sym, default: ["menus.#{group}".to_sym, "labels.menus.#{group}".to_sym, "labels.#{group}".to_sym])
+        ::I18n.translate(('menus.' + [part, group].join('.')).to_sym, default: [:"menus.#{group}", :"labels.menus.#{group}", :"labels.#{group}"])
       end
 
       # Returns the human name of an item
       def item_human_name(part, group, item)
         p = hash[part][group][item].first
-        ::I18n.translate(('menus.' + [part, group, item].join('.')).to_sym, default: ["menus.#{item}".to_sym, "labels.menus.#{item}".to_sym, "actions.#{p[:controller][1..-1]}.#{p[:action]}".to_sym, "labels.#{item}".to_sym])
+        ::I18n.translate(('menus.' + [part, group, item].join('.')).to_sym, default: [:"menus.#{item}", :"labels.menus.#{item}", :"actions.#{p[:controller][1..-1]}.#{p[:action]}", :"labels.#{item}"])
       end
 
       # Returns icon name

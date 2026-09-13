@@ -44,6 +44,7 @@
 #
 class Project < ApplicationRecord
   include Attachable
+
   enumerize :nature, in: %i[direct_earning indirect_earning], predicates: { prefix: true }
   belongs_to :activity
   belongs_to :team

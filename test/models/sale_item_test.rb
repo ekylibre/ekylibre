@@ -219,13 +219,13 @@ class SaleItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     tractor_sale = Sale.new(nature: nature, client: client, invoiced_at: DateTime.new(2018, 1, 1))
     tractor_variant = ProductNatureVariant.import_from_lexicon(:tractor)
     sale_item = tractor_sale.items.new(variant: tractor_variant,
-                              compute_from: :amount,
-                              conditioning_quantity: 1,
-                              unit_pretax_amount: 10_000,
-                              pretax_amount: 10_000,
-                              amount: 12_000,
-                              conditioning_unit: tractor_variant.guess_conditioning[:unit],
-                              tax: standard_vat)
+                                       compute_from: :amount,
+                                       conditioning_quantity: 1,
+                                       unit_pretax_amount: 10_000,
+                                       pretax_amount: 10_000,
+                                       amount: 12_000,
+                                       conditioning_unit: tractor_variant.guess_conditioning[:unit],
+                                       tax: standard_vat)
     tractor_sale.save!
 
     fixed_asset = create :fixed_asset, :in_use, started_on: Date.new(2018, 1, 1)

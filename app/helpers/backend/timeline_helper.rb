@@ -178,7 +178,7 @@ module Backend
         options[:label_method] ||= %i[label name number coordinates id].detect { |m| available_methods.include?(m) } || :id
         options[:params] ||= {}
         options[:params][reflection.foreign_key.to_sym] ||= @object.id
-        options[:params]["#{reflection.options[:as]}_type".to_sym] ||= @model.name if reflection.options[:as]
+        options[:params][:"#{reflection.options[:as]}_type"] ||= @model.name if reflection.options[:as]
         options[:label] ||= @model.human_attribute_name(name)
         @sides << Side.new(self, name.to_sym, klass, options)
       end

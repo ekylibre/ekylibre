@@ -10,6 +10,7 @@ class ShapeValidatorTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
   class ShapeStrictValidatable
     include ActiveModel::Validations
+
     attr_accessor :shape
 
     validates :shape, shape: true, presence: true

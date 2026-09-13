@@ -5,8 +5,8 @@ namespace :admin do
       require 'ekylibre/tenant'
 
       redis_key    = 'ekylibre:admin:restore'
-      archive_path = Pathname.new(ENV['ARCHIVE'])
-      tenant_name  = ENV['TENANT']
+      archive_path = Pathname.new(ENV.fetch('ARCHIVE', nil))
+      tenant_name  = ENV.fetch('TENANT', nil)
 
       set_status = lambda do |status, message|
         Sidekiq.redis { |r| r.hset(redis_key, 'status', status, 'message', message.to_s) }

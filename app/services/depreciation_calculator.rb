@@ -29,9 +29,9 @@ class DepreciationCalculator
 
     groups = case @depreciation_period
              when :quarterly
-               months.group_by { |m_started_on, _m_stopped_on, _| ((Date.leap?(m_started_on.year) && m_started_on.month > 2) ? (m_started_on - fy_shift + 1).beginning_of_quarter : (m_started_on - fy_shift).beginning_of_quarter) }
+               months.group_by { |m_started_on, _m_stopped_on, _| (Date.leap?(m_started_on.year) && m_started_on.month > 2) ? (m_started_on - fy_shift + 1).beginning_of_quarter : (m_started_on - fy_shift).beginning_of_quarter }
              when :yearly
-               months.group_by { |m_started_on, _m_stopped_on, _| ((Date.leap?(m_started_on.year) && m_started_on.month > 2) ? (m_started_on - fy_shift + 1).year : (m_started_on - fy_shift).year) }
+               months.group_by { |m_started_on, _m_stopped_on, _| (Date.leap?(m_started_on.year) && m_started_on.month > 2) ? (m_started_on - fy_shift + 1).year : (m_started_on - fy_shift).year }
              else
                return nil
              end

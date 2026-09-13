@@ -500,9 +500,7 @@ module ActionController
 
         file = Rails.root.join('tmp', 'code', 'test', "#{controller_path}.rb")
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
 
         class_eval(code, "(test) #{controller_path}") # :#{__LINE__}
       end
@@ -530,14 +528,14 @@ module ActionController
         action_name = array.last.to_sym
         if action_name == :new
           model = begin
-                    array.first.split(/\//).last.classify.constantize
+                    array.first.split('/').last.classify.constantize
                   rescue
                     nil
                   end
           return :new_product if model && model <= Product
         elsif action_name == :show
           model = begin
-                    array.first.split(/\//).last.classify.constantize
+                    array.first.split('/').last.classify.constantize
                   rescue
                     nil
                   end
@@ -578,19 +576,11 @@ module ImportTest
     mattr_accessor :check_block, :import_block
 
     def check
-      if check_block.nil?
-        true
-      else
-        check_block.call
-      end
+      check_block.nil? || check_block.call
     end
 
     def import
-      if import_block.nil?
-        true
-      else
-        import_block.call
-      end
+      import_block.nil? || import_block.call
     end
   end
 end
@@ -605,6 +595,6 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = true
   config.cassette_library_dir = File.expand_path('test/cassettes', __dir__)
   config.hook_into :webmock
-  config.ignore_request { ENV['DISABLE_VCR'] }
+  config.ignore_request { ENV.fetch('DISABLE_VCR', nil) }
   config.ignore_localhost = true
 end

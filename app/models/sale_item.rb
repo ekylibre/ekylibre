@@ -65,6 +65,7 @@
 
 class SaleItem < ApplicationRecord
   include PeriodicCalculable
+
   attr_readonly :sale_id
   enumerize :compute_from, in: %i[unit_pretax_amount pretax_amount amount],
                            default: :unit_pretax_amount, predicates: { prefix: true }
@@ -282,8 +283,8 @@ class SaleItem < ApplicationRecord
 
   def designation
     d = label
-    d << "\n" + annotation.to_s if annotation.present?
-    d << "\n" + tc(:tracking, serial: tracking.serial.to_s) if tracking
+    d << ("\n" + annotation.to_s) if annotation.present?
+    d << ("\n" + tc(:tracking, serial: tracking.serial.to_s)) if tracking
     d
   end
 

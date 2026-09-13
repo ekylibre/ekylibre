@@ -26,7 +26,7 @@ module Backend
       list << ['', 'all']
 
       # Add year and month period
-      first_date = Plant.order(:born_at)&.first&.born_at || Time.now - 2.years
+      first_date = Plant.order(:born_at)&.first&.born_at || (Time.now - 2.years)
       period = (first_date.year..Time.now.year).map { |p| p }
 
       period.reverse_each do |year|
@@ -82,7 +82,7 @@ module Backend
       code << select_tag(name, options_for_select(list, value), :id => custom_id, 'data-show-value' => "##{configuration[:id]}_")
 
       # if configuration[:custom]
-      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag("#{name}_started_on".to_sym, params["#{name}_started_on"], size: 10), finish: date_field_tag("#{name}_stopped_on".to_sym, params["#{name}_stoped_on"], size: 10)).html_safe, id: "#{configuration[:id]}_interval")
+      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:"#{name}_started_on", params["#{name}_started_on"], size: 10), finish: date_field_tag(:"#{name}_stopped_on", params["#{name}_stoped_on"], size: 10)).html_safe, id: "#{configuration[:id]}_interval")
       # end
 
       code.html_safe

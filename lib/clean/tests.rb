@@ -9,9 +9,7 @@ module Clean
         end
         file = Rails.root.join('test', 'controllers', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       def write_model_test_file(klass)
@@ -22,9 +20,7 @@ module Clean
         end
         file = Rails.root.join('test', 'models', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       def write_helper_test_file(klass)
@@ -35,9 +31,7 @@ module Clean
         end
         file = Rails.root.join('test', 'helpers', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       def write_job_test_file(klass)
@@ -48,9 +42,7 @@ module Clean
         end
         file = Rails.root.join('test', 'jobs', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       def write_exchanger_test_file(klass)
@@ -63,16 +55,14 @@ module Clean
           extension = 'csv'
           extension = files.first.split('.').last if files.any?
           x = "test 'import' do\n"
-          x << "  #{main_klass}.import(fixture_files_path.join('imports', '" + main_klass.underscore.gsub(/\_exchanger\z/, '').split(/\//).join("', '") + ".#{extension}'))\n"
+          x << ("  #{main_klass}.import(fixture_files_path.join('imports', '" + main_klass.underscore.gsub(/\_exchanger\z/, '').split('/').join("', '") + ".#{extension}'))\n")
           x << "end\n"
           x.gsub!(/^/, '# ') if files.empty?
           c << x
         end
         file = Rails.root.join('test', 'exchangers', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       def write_service_test_file(klass)
@@ -83,9 +73,7 @@ module Clean
         end
         file = Rails.root.join('test', 'services', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       def write_concept_test_file(klass)
@@ -96,9 +84,7 @@ module Clean
         end
         file = Rails.root.join('test', 'concepts', klass.underscore + '.rb')
         FileUtils.mkdir_p(file.dirname)
-        File.open(file, 'wb') do |f|
-          f.write(code)
-        end
+        File.binwrite(file, code)
       end
 
       # Check Class test for a dir in app/<name>
@@ -107,7 +93,7 @@ module Clean
         errors_count = 0
         tests_dir = Rails.root.join('test', name)
         files = Dir.glob(tests_dir.join('**', '*_test.rb')).map(&:to_s)
-        write_method = "write_#{name.singularize}_test_file".to_sym
+        write_method = :"write_#{name.singularize}_test_file"
         log.write("> Search for #{name}...\n") if verbose
         classes = Clean::Support.send("#{name}_in_file")
         log.write("> Check #{classes.count} #{name}\n")

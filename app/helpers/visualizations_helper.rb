@@ -34,7 +34,7 @@ module Visualization
 
     def layer(name, serie, options = {})
       unless options[:label]
-        options[:label] = name.is_a?(String) ? name : name.tl(default: "attributes.#{name}".to_sym)
+        options[:label] = name.is_a?(String) ? name : name.tl(default: :"attributes.#{name}")
       end
       name = name.to_s.parameterize.tr('-', '_') unless name.is_a?(Symbol)
       @config[:layers] ||= []
@@ -163,7 +163,7 @@ module Visualization
                   raise "Not implemented array block for #{object.class}"
                 end
                 if block[:label].is_a?(TrueClass)
-                  block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
+                  block[:label] = "attributes.#{attribute}".t(default: [:"labels.#{attribute}", attribute.to_s.humanize])
                 elsif !block[:label]
                   block.delete(:label)
                 end
@@ -181,7 +181,7 @@ module Visualization
                   block[:label] = true
                 end
                 if block[:label].is_a?(TrueClass)
-                  block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
+                  block[:label] = "attributes.#{attribute}".t(default: [:"labels.#{attribute}", attribute.to_s.humanize])
                 elsif !block[:label]
                   block.delete(:label)
                 end

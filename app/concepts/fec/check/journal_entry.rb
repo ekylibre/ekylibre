@@ -69,7 +69,7 @@ module FEC
           if (item.real_debit.zero? && item.real_credit.zero?) || (item.real_debit.blank? && item.real_credit.blank?)
             add_error(:zero_value_on_debit_and_credit)
           # Journal entry item : debit and credit > 0
-          elsif (item.real_debit > 0 && item.real_credit > 0)
+          elsif item.real_debit > 0 && item.real_credit > 0
             add_error(:value_on_debit_and_credit)
           end
 
@@ -85,7 +85,7 @@ module FEC
         add_error(:out_of_current_financial_year) if @journal_entry.printed_on < fy.started_on || @journal_entry.printed_on > fy.stopped_on
 
         # Journal entry : Validation date outside printed_on + 60 days
-        compare_date = (@journal_entry.validated_at || Date.today)
+        compare_date = @journal_entry.validated_at || Date.today
         add_error(:printed_on_more_than_60_days_ago) if @journal_entry.printed_on + 60.days < compare_date
 
         # Journal entry : Negative or empty debit or credit

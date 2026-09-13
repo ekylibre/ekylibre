@@ -7,7 +7,7 @@ module Backend
         activity_crops = Plant
                           .joins(:inspections)
                           .where(activity_production_id: @activity.productions.map(&:id),
-                                dead_at: nil)
+                                 dead_at: nil)
                           .where.not(inspections: { forecast_harvest_week: nil })
                           .uniq
 

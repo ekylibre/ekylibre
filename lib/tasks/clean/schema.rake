@@ -83,13 +83,9 @@ namespace :clean do
       end.join(",\n").dig
     end.join(",\n").dig
 
-    File.open(Ekylibre::Schema.root.join('tables.yml'), 'wb') do |f|
-      f.write(schema_hash.to_yaml)
-    end
+    File.binwrite(Ekylibre::Schema.root.join('tables.yml'), schema_hash.to_yaml)
 
-    File.open(Ekylibre::Schema.root.join('models.yml'), 'wb') do |f|
-      f.write(models.collect { |m| m.name.underscore }.uniq.sort.to_yaml)
-    end
+    File.binwrite(Ekylibre::Schema.root.join('models.yml'), models.collect { |m| m.name.underscore }.uniq.sort.to_yaml)
 
     Ekylibre::Schema.reset!
 

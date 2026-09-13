@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CollectionValidatable
   include ActiveModel::Validations
+
   attr_accessor :collection
 
   validates :collection, collection: true

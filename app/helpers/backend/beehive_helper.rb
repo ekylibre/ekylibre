@@ -24,7 +24,7 @@ module Backend
     def beehive(name = nil, &block)
       html = ''
       # return html unless block_given?
-      name ||= "#{controller_name}_#{action_name}".to_sym
+      name ||= :"#{controller_name}_#{action_name}"
       board = Beehive.new(name, self)
       if block_given?
         if block.arity < 1

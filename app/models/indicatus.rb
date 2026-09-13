@@ -57,7 +57,7 @@ class Indicatus
                 raise StandardError.new('Cannot compute superficial count with a product with null net_surface_area indicator. Maybe indicator is variable and not already read.')
               end
 
-              return (whole.to_f(:square_meter) / individual.to_f(:square_meter))
+              return whole.to_f(:square_meter) / individual.to_f(:square_meter)
             else
               raise StandardError.new('Cannot compute superficial count with a product without net_surface_area indicator')
             end

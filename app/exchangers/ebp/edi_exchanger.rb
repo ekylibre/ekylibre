@@ -36,7 +36,7 @@ module EBP
             unless FinancialYear.find_by(started_on: started_on, stopped_on: stopped_on)
               FinancialYear.create!(started_on: started_on, stopped_on: stopped_on)
             end
-            line = line.encode('utf-8').split(/\;/)
+            line = line.encode('utf-8').split(';')
             if line[0] == 'C'
               unless Account.find_by(number: [line[1], line[1].ljust(Preference[:account_number_digits], '0')])
                 # Attributes are set for a general account by default

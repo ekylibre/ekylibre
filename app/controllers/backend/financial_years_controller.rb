@@ -330,7 +330,7 @@ module Backend
         sub_progress = Progress.fetch(FinancialYearClose::CLOSURE_STEPS[current_progress_step], id: id)
         sub_progress_value = sub_progress ? sub_progress.value : 0
 
-        { value: (progress_value + sub_progress_value * step_value / 100).round,
+        { value: (progress_value + (sub_progress_value * step_value / 100)).round,
           step: current_progress_step + 1,
           total: progress_steps_count,
           label: FinancialYearClose::CLOSURE_STEPS[current_progress_step] }

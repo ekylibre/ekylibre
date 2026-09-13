@@ -2,7 +2,7 @@ namespace :maintenance do
   namespace :journal_entries do
     desc 'Fix some invalid datas in entries in for the FEC export to have correct'
     task fec_corrections: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
       started_on = Date.parse(ENV['STARTED_ON']) if ENV['STARTED_ON']
       stopped_on = Date.parse(ENV['STOPPED_ON']) if ENV['STOPPED_ON']
 

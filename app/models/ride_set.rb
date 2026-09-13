@@ -50,6 +50,7 @@ class RideSet < ApplicationRecord
   include Attachable
   include Providable
   include HasInterval
+
   has_many :rides, dependent: :destroy
   has_many :crumbs, through: :rides
   has_many :equipments, class_name: 'RideSetEquipment', inverse_of: :ride_set, dependent: :destroy

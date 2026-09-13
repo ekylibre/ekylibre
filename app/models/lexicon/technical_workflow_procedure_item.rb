@@ -36,6 +36,7 @@
 #
 class TechnicalWorkflowProcedureItem < LexiconRecord
   include Lexiconable
+
   belongs_to :procedure, class_name: 'TechnicalWorkflowProcedure', foreign_key: :technical_workflow_procedure_id
   composed_of :value, class_name: 'Measure', mapping: [%w[quantity to_d], %w[unit unit]]
 end

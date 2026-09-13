@@ -152,7 +152,7 @@ class DebtTransfer < ApplicationRecord
     if purchase_regularization?
 
       # Debit on supplier account + credit on regularization account
-      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: ((reflect ? true : debt_transfer_affair.unbalanced?) && affair.unbalanced? && debt_transfer_affair.deals_count > 0)) do |entry|
+      b.journal_entry(debt_transfer_affair.journal_entry ? debt_transfer_affair.journal_entry.journal : debt_transfer_affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (reflect ? true : debt_transfer_affair.unbalanced?) && affair.unbalanced? && debt_transfer_affair.deals_count > 0) do |entry|
         label = tc(nature, resource: debt_transfer_affair.class.model_name.human, number: debt_transfer_affair.number, entity: debt_transfer_affair.third.full_name)
 
         debt_transfer_affair.third.reload
@@ -165,7 +165,7 @@ class DebtTransfer < ApplicationRecord
     if sale_regularization?
 
       # debit on regularization account + Credit on client account
-      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: ((reflect ? true : debt_transfer_affair.unbalanced?) && affair.unbalanced? && affair.deals_count > 0)) do |entry|
+      b.journal_entry(affair.journal_entry ? affair.journal_entry.journal : affair.originator.journal_entry.journal, printed_on: accounted_at.to_date, if: (reflect ? true : debt_transfer_affair.unbalanced?) && affair.unbalanced? && affair.deals_count > 0) do |entry|
         label = tc(nature, resource: affair.class.model_name.human, number: affair.number, entity: affair.third.full_name)
 
         affair.third.reload

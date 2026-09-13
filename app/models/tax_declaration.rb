@@ -49,6 +49,7 @@
 class TaxDeclaration < ApplicationRecord
   include Attachable
   include Transitionable
+
   attr_readonly :currency
   refers_to :currency
   enumerize :mode, in: %i[debit payment], predicates: true
@@ -149,7 +150,7 @@ class TaxDeclaration < ApplicationRecord
   # This callback bookkeeps the tax declaration depending on its state
   bookkeep do |b|
     journal = Journal.used_for_tax_declarations!(currency: currency)
-    b.journal_entry(journal, printed_on: invoiced_on, if: (has_content? && (validated? || sent?))) do |entry|
+    b.journal_entry(journal, printed_on: invoiced_on, if: has_content? && (validated? || sent?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, started_on: started_on.l, stopped_on: stopped_on.l)
       items.each do |item|
         entry.add_debit(label, item.tax.collect_account.id, item.collected_tax_amount.round(2), tax: item.tax, resource: item, as: :collect) unless item.collected_tax_amount.zero?

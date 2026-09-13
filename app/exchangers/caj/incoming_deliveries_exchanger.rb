@@ -53,7 +53,7 @@ module Caj
         r = OpenStruct.new(
           parcel_number: row[0].to_s,
           ordered_on: Date.parse(row[1].to_s),
-          product_nature_name: (variants_transcode[row[2].to_s.strip] || 'common_consumable'),
+          product_nature_name: variants_transcode[row[2].to_s.strip] || 'common_consumable',
           coop_reference_number: row[3].to_s.strip,
           coop_reference_name: row[4].to_s.downcase.strip,
           quantity: (row[5].blank? ? nil : row[5].tr(',', '.').to_d),

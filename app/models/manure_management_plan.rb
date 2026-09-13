@@ -42,6 +42,7 @@
 #
 class ManureManagementPlan < ApplicationRecord
   include Attachable
+
   belongs_to :campaign
   belongs_to :recommender, class_name: 'Entity'
   has_many :zones, class_name: 'ManureManagementPlanZone', dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id

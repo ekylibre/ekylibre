@@ -43,6 +43,7 @@
 class MasterBudget < LexiconRecord
   extend Enumerize
   include Lexiconable
+
   enumerize :direction, in: %i[revenue expense], predicates: true
   enumerize :frequency, in: %i[per_year per_month], predicates: true
   enumerize :mode, in: %i[uo output global production], default: 'uo', predicates: true

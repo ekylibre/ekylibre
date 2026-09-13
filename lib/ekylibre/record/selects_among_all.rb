@@ -1,6 +1,6 @@
 module Ekylibre
   module Record
-    module SelectsAmongAll #:nodoc:
+    module SelectsAmongAll # :nodoc:
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -24,10 +24,10 @@ module Ekylibre
               raise ArgumentError.new('Scope must be given as a Symbol or an Array of Symbol')
             end
 
-            scope << '.where(' + s.collect do |c|
+            scope << ('.where(' + s.collect do |c|
               scope_columns << c.to_sym
               "#{c}: self.#{c}"
-            end.join(', ') + ')'
+            end.join(', ') + ')')
           end
 
           columns.each do |column|
@@ -107,13 +107,13 @@ module Ekylibre
             end
             code << "end\n"
 
-            code << "def self.#{column}(" + scope_columns.collect { |c| "#{c} = nil" }.join(', ') + ")\n"
+            code << ("def self.#{column}(" + scope_columns.collect { |c| "#{c} = nil" }.join(', ') + ")\n")
             if scope_columns.any?
-              code << '  if ' + scope_columns.collect { |c| "#{c}.nil?" }.join(' or ') + "\n"
-              code << "    fail ArgumentError, '#{scope_columns.size} arguments expected: " + scope_columns.join(', ') + "'\n"
+              code << ('  if ' + scope_columns.collect { |c| "#{c}.nil?" }.join(' or ') + "\n")
+              code << ("    fail ArgumentError, '#{scope_columns.size} arguments expected: " + scope_columns.join(', ') + "'\n")
               code << "  end\n"
             end
-            code << '  self.find_by(' + scope_columns.collect { |c| "#{c}: #{c}, " }.join + "#{column}: true)\n"
+            code << ('  self.find_by(' + scope_columns.collect { |c| "#{c}: #{c}, " }.join + "#{column}: true)\n")
             code << "end\n"
           end
 

@@ -93,11 +93,11 @@ class MeasureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     assert_equal m2, 1.045.in_ton
 
     assert_raise Measure::IncompatibleDimensions do
-      (m2 != 1.045.in_square_meter)
+      m2 != 1.045.in_square_meter
     end
 
     assert_raise Measure::IncompatibleDimensions do
-      (m2 == 1.045.in_square_meter)
+      m2 == 1.045.in_square_meter
     end
 
     assert m1 != m2

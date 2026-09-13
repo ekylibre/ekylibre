@@ -28,9 +28,9 @@ module Ekylibre
             options[:on] = %i[update destroy] unless options[:on]
             code = ''.c
             [options[:on]].flatten.each do |callback|
-              method_name = "protected_on_#{callback}?".to_sym
+              method_name = :"protected_on_#{callback}?"
 
-              send("before_#{callback}", "raise_exception_unless_#{callback}able?".to_sym)
+              send("before_#{callback}", :"raise_exception_unless_#{callback}able?")
 
               define_method "raise_exception_unless_#{callback}able?" do
                 allowed_fields = (options[:"allow_#{callback}_on"] || []).map(&:to_s)
@@ -67,7 +67,7 @@ module Ekylibre
               options[:on] = %i[update destroy] unless options[:on]
               code = ''.c
               [options[:on]].flatten.each do |callback|
-                method_name = "secured_on_#{callback}?".to_sym
+                method_name = :"secured_on_#{callback}?"
 
                 code << "before_#{callback} :secure_#{callback}ability!\n"
 

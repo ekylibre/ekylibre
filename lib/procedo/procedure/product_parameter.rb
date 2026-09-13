@@ -7,6 +7,7 @@ module Procedo
     # outputs and tools in procedure.
     class ProductParameter < Procedo::Procedure::Parameter
       include Codeable
+
       attr_reader :filter, :birth_nature, :default_name, :new_value,
                   :destinations, :default_actor, :default_variant,
                   :display_status, :procedure, :producer_name, :roles,
@@ -101,8 +102,8 @@ module Procedo
         "is_#{name}_completely_destroyed_by_#{procedure.name}".t(
           scope: [:procedure_killable_parameters],
           default: [
-            "is_#{name}_completely_destroyed_by_intervention".to_sym,
-            "is_this_completely_destroyed_by_#{procedure.name}".to_sym,
+            :"is_#{name}_completely_destroyed_by_intervention",
+            :"is_this_completely_destroyed_by_#{procedure.name}",
             :is_this_completely_destroyed_by_this_intervention
           ]
         )
@@ -148,7 +149,7 @@ module Procedo
           return candidates.first if candidates.count == 1
 
           best = candidates.find { |h| h.unit.name.to_s == quantity.unit.to_s }
-          (best || candidates.first)
+          best || candidates.first
         elsif quantity.is_a?(Numeric)
           candidates = handlers.select { |h| h.indicator.datatype == :decimal }
           return nil unless candidates.any?
@@ -167,7 +168,7 @@ module Procedo
       end
 
       TYPES.each do |the_type|
-        send(:define_method, "#{the_type}?".to_sym) do
+        send(:define_method, :"#{the_type}?") do
           type == the_type
         end
       end
@@ -198,7 +199,7 @@ module Procedo
         return nil unless attribute
         return attribute unless attribute =~ /\:/
 
-        attr, other = attribute.split(/\:/)[0..1].map(&:strip)
+        attr, other = attribute.split(':')[0..1].map(&:strip)
         attr = attribute_name.to_s.underscore if attr.blank?
         unless parameter = @procedure.parameters[other]
           raise Procedo::Errors::MissingParameter.new("Parameter #{other.inspect} can not be found")

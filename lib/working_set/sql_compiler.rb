@@ -135,7 +135,7 @@ module WorkingSet
       end
 
       def indicator_test(type, exp)
-        column = column_for("#{type}_indicators_list".to_sym)
+        column = column_for(:"#{type}_indicators_list")
         "(#{column} IS NOT NULL AND #{column} ~ #{exp})"
       end
   end

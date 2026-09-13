@@ -1,6 +1,6 @@
 module Ekylibre
   module Record
-    module Autosave #:nodoc:
+    module Autosave # :nodoc:
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -11,7 +11,7 @@ module Ekylibre
           options = { callbacks: %i[after_save after_destroy] }
           options.merge(reflections_list.delete_at(-1)) if reflections_list.last.is_a? Hash
 
-          method_name = options[:method] || 'autosave_' + reflections_list.join('_and_')
+          method_name = options[:method] || ('autosave_' + reflections_list.join('_and_'))
           options[:callbacks].each do |callback|
             code << "#{callback} :#{method_name}\n"
           end

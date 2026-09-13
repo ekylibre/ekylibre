@@ -18,7 +18,7 @@ module Backend
            params: {
              products_data: {
                '0' => { product_id: @copless.id.to_s, usage_id: '' },
-               '1' => { product_id: @award.id.to_s.to_s, usage_id: '' }
+               '1' => { product_id: @award.id.to_s, usage_id: '' }
              },
              targets_data: {
                '0' => { id: @land_parcel.id.to_s }
@@ -40,7 +40,7 @@ module Backend
            params: {
              products_data: {
                '0' => { product_id: @copless.id.to_s, usage_id: '' },
-               '1' => { product_id: @award.id.to_s.to_s, usage_id: '' }
+               '1' => { product_id: @award.id.to_s, usage_id: '' }
              }
            },
            format: :json
@@ -56,7 +56,7 @@ module Backend
            params: {
              products_data: {
                '0' => { product_id: @copless.id.to_s, usage_id: '' },
-               '1' => { product_id: @award.id.to_s.to_s, usage_id: @award_usage.id.to_s }
+               '1' => { product_id: @award.id.to_s, usage_id: @award_usage.id.to_s }
              }
            },
            format: :json
@@ -74,7 +74,7 @@ module Backend
            params: {
              products_data: {
                '0' => { product_id: @award.id.to_s, usage_id: '' },
-               '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' }
+               '1' => { product_id: @sultan.id.to_s, usage_id: '' }
              }
            },
            format: :json
@@ -90,7 +90,7 @@ module Backend
            params: {
              products_data: {
                '0' => { product_id: @zebra.id.to_s, usage_id: '' },
-               '1' => { product_id: @sultan.id.to_s.to_s, usage_id: '' }
+               '1' => { product_id: @sultan.id.to_s, usage_id: '' }
              }
            },
            format: :json

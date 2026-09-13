@@ -196,7 +196,7 @@ module Agroedi
           end
 
           # set thousand_grains_mass on seed
-          if variant && article.nature.to_sym == :seed || article.nature.to_sym == :seedling
+          if (variant && article.nature.to_sym == :seed) || article.nature.to_sym == :seedling
             variant.read! :thousand_grains_mass, Measure.new(50, :gram)
           end
 

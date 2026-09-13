@@ -1,6 +1,6 @@
 namespace :check_balance do
   task equality: :environment do
-    Ekylibre::Tenant.switch! ENV['TENANT']
+    Ekylibre::Tenant.switch! ENV.fetch('TENANT', nil)
     puts '----------------Start____________'
 
     journal_entry_debit = 0

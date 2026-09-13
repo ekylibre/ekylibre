@@ -52,6 +52,7 @@
 class Journal < ApplicationRecord
   include Customizable
   include Providable
+
   attr_readonly :currency
   refers_to :currency
   belongs_to :accountant, class_name: 'Entity'
@@ -411,12 +412,12 @@ class Journal < ApplicationRecord
       from_where = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)".dup
       if options[:unwanted_journal_nature]
         from_where << " JOIN #{Journal.table_name} AS #{journals} ON (#{journal_entries}.journal_id=#{journals}.id)"
-        from_where << " WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')'
+        from_where << (" WHERE #{journals}.nature NOT IN (" + options[:unwanted_journal_nature].map { |c| "'#{c}'" }.join(', ') + ')')
       else
         from_where << ' WHERE true'
       end
       if options[:started_on] || options[:stopped_on]
-        from_where << ' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries)
+        from_where << (' AND ' + JournalEntry.period_condition(:interval, options[:started_on], options[:stopped_on], journal_entries))
       end
 
       if options[:activity_budget_id] && options[:activity_budget_id] == 'only_nil'
@@ -427,7 +428,7 @@ class Journal < ApplicationRecord
         from_where << " AND #{journal_entry_items}.activity_budget_id = #{options[:activity_budget_id]}"
       end
 
-      values = expression.split(/\,/).collect do |expr|
+      values = expression.split(',').collect do |expr|
         words = expr.strip.split(/\s+/)
         direction = 1
         direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'

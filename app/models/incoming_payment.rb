@@ -65,6 +65,7 @@ class IncomingPayment < ApplicationRecord
   include PeriodicCalculable
   include Customizable
   include Providable
+
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
   refers_to :currency
@@ -172,7 +173,7 @@ class IncomingPayment < ApplicationRecord
     # with deposit
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payer: payer.full_name, mode: mode.name, check_number: bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received), as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
+      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, if: mode && mode.with_accounting? && received, as: :waiting_incoming_payment, column: :journal_entry_id) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, amount - (self.commission_amount + discount_global_amount), as: :deposited)
         entry.add_debit(label,  discount_account.id, discount_pretax_amount, as: :discount) if with_discount && self.discount_amount > 0
         entry.add_debit(label,  discount_vat_account_id, discount_vat_amount, as: :discount) if with_discount && self.discount_amount > 0
@@ -180,7 +181,7 @@ class IncomingPayment < ApplicationRecord
         entry.add_credit(label, payer.account(:client).id, amount, as: :payer, resource: payer) unless amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: (mode && mode.with_accounting? && received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, if: mode && mode.with_accounting? && received) do |entry|
         entry.add_debit(label,  mode.cash.account_id, amount - (self.commission_amount + discount_global_amount), as: :bank)
         entry.add_debit(label,  discount_account.id, discount_pretax_amount, as: :discount) if with_discount && self.discount_amount > 0
         entry.add_debit(label,  discount_vat_account_id, discount_vat_amount, as: :discount) if with_discount && self.discount_amount > 0

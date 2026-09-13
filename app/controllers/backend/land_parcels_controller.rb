@@ -22,7 +22,7 @@ module Backend
     #   :q Text search
     def self.list_conditions
       # Neede to handle campaign for perennial activities.
-      sql = <<~SQL.gsub(/\n/, ' ')
+      sql = <<~SQL.gsub("\n", ' ')
         SELECT lp.id
         FROM #{LandParcel.table_name} lp
         JOIN #{ActivityProduction.table_name} ap ON lp.id = ap.support_id

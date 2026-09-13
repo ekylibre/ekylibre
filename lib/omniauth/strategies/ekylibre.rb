@@ -2,8 +2,8 @@ module OmniAuth
   module Strategies
     class Ekylibre < OmniAuth::Strategies::OAuth2
       option :client_options,
-             site: ENV['EKYLIBRE_OAUTH2_SITE'],
-             authorize_path: ENV['EKYLIBRE_OAUTH2_AUTHORIZE_PATH']
+             site: ENV.fetch('EKYLIBRE_OAUTH2_SITE', nil),
+             authorize_path: ENV.fetch('EKYLIBRE_OAUTH2_AUTHORIZE_PATH', nil)
 
       uid do
         raw_info['uid']
@@ -22,7 +22,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get(ENV['EKYLIBRE_OAUTH2_API_ME_ENDPOINT']).parsed
+        @raw_info ||= access_token.get(ENV.fetch('EKYLIBRE_OAUTH2_API_ME_ENDPOINT', nil)).parsed
       end
 
       def invitation_token_param

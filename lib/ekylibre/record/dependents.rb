@@ -1,5 +1,5 @@
 module Ekylibre
-  module Record #:nodoc:
+  module Record # :nodoc:
     module Dependents
       # Look for all has_one, has_many and has_and_belongs_to_many reflections
       def has_dependents?
@@ -10,13 +10,13 @@ module Ekylibre
         unless respond_to?(method_name)
           code = ''
           code << "def #{method_name}\n"
-          code << '  return (' + refs.collect do |r|
+          code << ('  return (' + refs.collect do |r|
             if r.macro.to_s == 'has_one'
               "self.#{r.name}"
             else
               "self.#{r.name}.first"
             end
-          end.join(' || ') + ")\n"
+          end.join(' || ') + ")\n")
           code << "end\n"
           class_eval(code)
         end

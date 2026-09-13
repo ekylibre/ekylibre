@@ -34,7 +34,7 @@ module PeriodSelectorHelper
   def dropdown_to_current_period(period_interval, current_period, intervals)
     displayed_period = displayed_period(period_interval, current_period)
     button_group do
-      content_tag(:button, nil, { class: "btn btn-with-intervals period #{period_interval}", "data-toggle": "dropdown" }) do
+      content_tag(:button, nil, { class: "btn btn-with-intervals period #{period_interval}", 'data-toggle': "dropdown" }) do
         content_tag(:span, displayed_period) + content_tag(:span, nil, class: 'caret')
       end +
       content_tag(:ul, nil, class: "dropdown-menu interval-menu") do

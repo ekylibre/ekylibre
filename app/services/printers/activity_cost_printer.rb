@@ -99,7 +99,7 @@ module Printers
         %i[inputs tools doers receptions].each do |cost|
           total_cost = summary[cost].nil? ? 0 : summary[cost]
           summary[cost] = total_cost.round_l << currency
-          summary["#{cost}_ha".to_sym] =  act[:area].to_f != 0 ? (total_cost/act[:area].to_f).to_i.to_s << "#{currency}/ha" : "0€/ha"
+          summary[:"#{cost}_ha"] =  act[:area].to_f != 0 ? (total_cost/act[:area].to_f).to_i.to_s << "#{currency}/ha" : "0€/ha"
         end
       end
       activities

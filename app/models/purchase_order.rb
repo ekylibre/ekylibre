@@ -63,6 +63,7 @@
 #
 class PurchaseOrder < Purchase
   include Transitionable
+
   enumerize :command_mode, in: %i[letter fax mail oral sms market_place], default: :mail
   # not sure it work because many order many reception
   has_many :receptions, class_name: 'Reception', foreign_key: :purchase_id

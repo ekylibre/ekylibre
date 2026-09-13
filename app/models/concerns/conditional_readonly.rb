@@ -12,7 +12,7 @@ module ConditionalReadonly
   module KlassMethods
     def attr_readonly(*args)
       options = args.extract_options!
-      return super(*args) unless options[:if]
+      return super unless options[:if]
 
       if options[:if].is_a?(Symbol)
         method_name = options[:if]

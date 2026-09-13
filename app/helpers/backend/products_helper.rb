@@ -23,7 +23,7 @@ module Backend
       date = started_at
       while date < stopped_at
         categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: '%b %Y')
-        date = date >> 1
+        date >>= 1
       end
 
       # data for bar chart times by activities and by month

@@ -7,9 +7,9 @@ namespace :products do
       puts 'You must specify tenant in env variable TENANT'.red
       exit 1
     end
-    Ekylibre::Tenant.switch! ENV['TENANT']
+    Ekylibre::Tenant.switch! ENV.fetch('TENANT', nil)
 
-    file_name = ENV['FILENAME']
+    file_name = ENV.fetch('FILENAME', nil)
     file_path = Rails.root.join(file_name)
 
     change_product_attributes(file_path, ProductNature)
@@ -21,9 +21,9 @@ namespace :products do
       puts 'You must specify tenant in env variable TENANT'.red
       exit 1
     end
-    Ekylibre::Tenant.switch! ENV['TENANT']
+    Ekylibre::Tenant.switch! ENV.fetch('TENANT', nil)
 
-    file_name = ENV['FILENAME']
+    file_name = ENV.fetch('FILENAME', nil)
     file_path = Rails.root.join(file_name)
 
     change_product_attributes(file_path, ProductNatureVariant)

@@ -121,10 +121,10 @@ module Printers
         content << :draft.tl if @states.include?('draft')
         content << :confirmed.tl if @states.include?('confirmed')
         content << :closed.tl if @states.include?('closed')
-        h[:data_filters] << :journal_entries_states.tl + ' : ' + content.to_sentence
+        h[:data_filters] << (:journal_entries_states.tl + ' : ' + content.to_sentence)
       end
 
-      h[:data_filters] << :account_lettering_state.tl + ' : ' + lettered_content.to_sentence
+      h[:data_filters] << (:account_lettering_state.tl + ' : ' + lettered_content.to_sentence)
       h.compact
     end
 

@@ -106,8 +106,8 @@ module Backend
         tool = intervention_tool
         auto_calcul_mode = params[:auto_calcul_mode]
 
-        return [] if !auto_calcul_mode.nil? &&
-                     auto_calcul_mode.to_sym == :false ||
+        return [] if (!auto_calcul_mode.nil? &&
+                     auto_calcul_mode.to_sym == :false) ||
                      participations.blank? || tool.nil?
 
         working_duration_params = { intervention: intervention,

@@ -10,8 +10,8 @@ module Ekylibre
         end
 
         def journal_entry(journal, options = {})
-          return if (options.key?(:unless) && options[:unless])
-          return if (options.key?(:if) && !options[:if])
+          return if options.key?(:unless) && options[:unless]
+          return if options.key?(:if) && !options[:if]
 
           entry = Entry.new(journal: journal)
           yield entry

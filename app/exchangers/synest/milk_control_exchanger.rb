@@ -44,7 +44,7 @@ module Synest
           tp_daily_production: row[10].blank? ? nil : row[10].tr(',', '.').to_d.in_gram_per_liter,
           animal_state: (row[11].blank? ? nil : trans_animal_state[row[11].to_s]),
           somatic_cell_concentration: row[12].blank? ? nil : row[12].to_i.in_thousand_per_milliliter,
-          calving_date: (row[13].blank? ? nil : Date.civil(*row[0].to_s.split(/\//).reverse.map(&:to_i))),
+          calving_date: (row[13].blank? ? nil : Date.civil(*row[0].to_s.split('/').reverse.map(&:to_i))),
           day_from_calving_date: row[14],
           milk_production_from_calving_date: row[15],
           tb_average_production: row[16],

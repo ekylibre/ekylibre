@@ -43,6 +43,7 @@
 #
 class RegisteredEuMarketPrice < LexiconRecord
   include Lexiconable
+
   scope :of_specie, ->(specie) { where(specie: specie.to_s) }
   scope :of_country, ->(country) { where(country: country.to_s) }
   scope :between, lambda { |started_on, stopped_on|

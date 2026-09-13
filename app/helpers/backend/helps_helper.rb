@@ -22,9 +22,9 @@ module Backend
       if Ekylibre.helps[I18n.locale]
         kontroller, aktion = name.to_s.split('-')[0..1]
         possibilities = [name]
-        possibilities << kontroller + '-edit' if aktion == 'update'
-        possibilities << kontroller + '-new' if %w[create update edit].include?(aktion)
-        possibilities << kontroller + '-index'
+        possibilities << (kontroller + '-edit') if aktion == 'update'
+        possibilities << (kontroller + '-new') if %w[create update edit].include?(aktion)
+        possibilities << (kontroller + '-index')
         return possibilities.detect do |p|
           Ekylibre.helps[I18n.locale].key?(p)
         end
@@ -41,7 +41,7 @@ module Backend
 
       content = nil
       File.open(Ekylibre.helps[I18n.locale][file][:file], 'rb:UTF-8') { |f| content = f.read }
-      content = content.split(/\n/)[1..-1].join("\n") if options.delete(:without_title)
+      content = content.split("\n")[1..-1].join("\n") if options.delete(:without_title)
       KramdownToHtmlService.call(content: content)
     end
 

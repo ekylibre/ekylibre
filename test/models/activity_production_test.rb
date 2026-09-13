@@ -148,11 +148,11 @@ class ActivityProductionTest < Ekylibre::Testing::ApplicationTestCase::WithFixtu
     )
     intervention2.save
     assert_equal(
-      (intervention1.costing.doers_cost + intervention2.costing.doers_cost),
+      intervention1.costing.doers_cost + intervention2.costing.doers_cost,
       production.decorate.global_costs(campaign)[:doers]
     )
     assert_equal(
-      (intervention1.costing.inputs_cost + intervention2.costing.inputs_cost),
+      intervention1.costing.inputs_cost + intervention2.costing.inputs_cost,
       production.decorate.global_costs(campaign)[:inputs]
     )
   end

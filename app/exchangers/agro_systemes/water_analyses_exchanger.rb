@@ -26,11 +26,11 @@ module AgroSystemes
         r = OpenStruct.new(
           code_distri: (row[0].blank? ? nil : row[0].to_s),
           reference_number: row[6].to_s,
-          at: (row[7].blank? ? nil : Date.civil(*row[7].to_s.split(/\//).reverse.map(&:to_i))),
+          at: (row[7].blank? ? nil : Date.civil(*row[7].to_s.split('/').reverse.map(&:to_i))),
           water_work_number: row[8].blank? ? nil : land_parcels_transcode[row[8]],
           potential_hydrogen: row[9].blank? ? nil : row[9].to_d,
           nitrogen_concentration: row[10].blank? ? nil : row[10].to_d.in_percent,
-          sampled_at: (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i))),
+          sampled_at: (row[12].blank? ? nil : Date.civil(*row[12].to_s.split('/').reverse.map(&:to_i))),
           geolocation: (row[13].blank? ? nil : row[13].to_s)
         )
         unless (analysis = Analysis.find_by(reference_number: r.reference_number, analyser: analyser))

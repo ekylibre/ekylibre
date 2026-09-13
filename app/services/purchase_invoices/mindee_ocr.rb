@@ -6,7 +6,7 @@ module PurchaseInvoices
     VENDOR = 'mindee'
 
     def initialize
-      @client = Mindee::Client.new(api_key: ENV['MINDEE_API_KEY'])
+      @client = Mindee::Client.new(api_key: ENV.fetch('MINDEE_API_KEY', nil))
     end
 
     # return a fields based on a document from Ekylibre Document model

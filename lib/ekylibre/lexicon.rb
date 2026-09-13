@@ -342,10 +342,10 @@ module Ekylibre
           AnonymousHttpS3Client.new(endpoint: endpoint)
         else
           ::Aws::S3::Client.new(endpoint: endpoint,
-                              access_key_id: access_key,
-                              secret_access_key: secret_key,
-                              force_path_style: true,
-                              region: 'us-east-1')
+                                access_key_id: access_key,
+                                secret_access_key: secret_key,
+                                force_path_style: true,
+                                region: 'us-east-1')
         end
       end
 

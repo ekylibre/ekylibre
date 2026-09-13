@@ -3,8 +3,8 @@
 module FinancialYearExchanges
   class CsvExport
 
-    LABEL_REGEXP= "[^! »#$%&’()*+,-.\/ :;<>= ?@[\\]^_{|}0-9A-Za-z]"
-    NAME_REGEXP = "[^! »#$%&’()*+,-.\/ :;<>= ?@[\\]^_{|}0-9A-Za-z]"
+    LABEL_REGEXP= "[^! »#$%&’()*+,-./ :;<>= ?@[\\]^_{|}0-9A-Za-z]"
+    NAME_REGEXP = "[^! »#$%&’()*+,-./ :;<>= ?@[\\]^_{|}0-9A-Za-z]"
 
     def generate_file(exchange, transmit_isacompta_analytic_codes)
       if exchange.format == 'isacompta'
@@ -168,10 +168,10 @@ module FinancialYearExchanges
                 Date.parse(row['printed_on']).strftime('%d%m%Y'),
                 row['account_number'],
                 row['journal_code'],
-                row['journal_label']&.[](0..29)&.gsub(/LABEL_REGEXP/, ''),
+                row['journal_label']&.[](0..29)&.gsub('LABEL_REGEXP', ''),
                 row['account_type']&.[](0..1),
                 row['journal_entry_number'],
-                row['name']&.[](0..29)&.gsub(/NAME_REGEXP/, ''),
+                row['name']&.[](0..29)&.gsub('NAME_REGEXP', ''),
                 row['debit'],
                 row['credit'],
                 row['letter'],
@@ -231,10 +231,10 @@ module FinancialYearExchanges
                 Date.parse(row['printed_on']).strftime('%d%m%Y'),
                 row['account_number'],
                 row['journal_code'],
-                row['journal_label']&.[](0..29)&.gsub(/LABEL_REGEXP/, ''),
+                row['journal_label']&.[](0..29)&.gsub('LABEL_REGEXP', ''),
                 row['account_type']&.[](0..1),
                 row['journal_entry_number'],
-                row['name']&.[](0..29)&.gsub(/NAME_REGEXP/, ''),
+                row['name']&.[](0..29)&.gsub('NAME_REGEXP', ''),
                 row['debit'],
                 row['credit'],
                 row['letter'],

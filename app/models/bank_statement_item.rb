@@ -49,6 +49,7 @@
 class BankStatementItem < ApplicationRecord
   include Providable
   include Attachable
+
   refers_to :currency
   belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
@@ -107,7 +108,7 @@ class BankStatementItem < ApplicationRecord
   end
 
   bookkeep do |b|
-    b.journal_entry(cash_journal, printed_on: transfered_on, if: (cash.enable_bookkeep_bank_item_details && cash.suspend_until_reconciliation)) do |entry|
+    b.journal_entry(cash_journal, printed_on: transfered_on, if: cash.enable_bookkeep_bank_item_details && cash.suspend_until_reconciliation) do |entry|
       entry.add_debit(name, cash.main_account_id, credit_balance, as: :bank)
       entry.add_credit(name, cash.suspense_account_id, credit_balance, as: :suspended, resource: self)
     end

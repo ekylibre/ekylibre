@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OnomaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
-    I18n.locale = ENV['LOCALE']
+    I18n.locale = ENV.fetch('LOCALE', nil)
   end
 
   Onoma.each do |nomenclature|
@@ -26,9 +26,9 @@ class OnomaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     details = invalids.map do |invalid|
       item = invalid[:item]
       exception = invalid[:exception]
-      "#{item.name.to_s.yellow}:\n" \
-      "  expression: #{item.expression.inspect}\n" \
-      "  exception: #{exception.message}"
+      "#{item.name.to_s.yellow}:\n  " \
+        "expression: #{item.expression.inspect}\n  " \
+        "exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} working sets have invalid syntax:\n" + details.dig
@@ -46,9 +46,9 @@ class OnomaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     details = invalids.map do |invalid|
       item = invalid[:item]
       exception = invalid[:exception]
-      "#{item.name.to_s.yellow}:\n" \
-      "  expression: #{item.abilities.inspect}\n" \
-      "  exception: #{exception.message}"
+      "#{item.name.to_s.yellow}:\n  " \
+        "expression: #{item.abilities.inspect}\n  " \
+        "exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} product nature have invalid abilities:\n" + details.dig
@@ -71,9 +71,9 @@ class OnomaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     details = invalids.map do |invalid|
       item = invalid[:item]
       exception = invalid[:exception]
-      "#{item.name.to_s.yellow}:\n" \
-      "  expression: #{item.abilities.inspect}\n" \
-      "  exception: #{exception.message}"
+      "#{item.name.to_s.yellow}:\n  " \
+        "expression: #{item.abilities.inspect}\n  " \
+        "exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} product nature have invalid abilities:\n" + details.dig

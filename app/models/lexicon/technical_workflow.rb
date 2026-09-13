@@ -40,6 +40,7 @@
 class TechnicalWorkflow < LexiconRecord
   include Lexiconable
   include ScopeIntrospection
+
   # refers_to :family, class_name: 'ActivityFamily', predicates: true
   # refers_to :specie, class_name: 'Variety'
   belongs_to :translation, class_name: 'MasterTranslation'
@@ -64,7 +65,7 @@ class TechnicalWorkflow < LexiconRecord
   scope :for_activity, ->(activity) {
     of_family(activity.family)
     .of_production(activity.reference_name)
-    .where(production_system: (activity.production_system_name || 'intensive_farming'), life_cycle: activity.production_cycle)
+    .where(production_system: activity.production_system_name || 'intensive_farming', life_cycle: activity.production_cycle)
   }
 
 end

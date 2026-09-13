@@ -3,7 +3,7 @@ namespace :maintenance do
   namespace :intervention do
     desc 'Fill participations where interventions have no participations but doers'
     task fill_empty_participations: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
 
       raise 'Need TENANT variable' unless tenant
 
@@ -18,7 +18,7 @@ namespace :maintenance do
 
     desc 'Count participations where interventions have no participations but doers'
     task count_empty_participations: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
 
       raise 'Need TENANT variable' unless tenant
 

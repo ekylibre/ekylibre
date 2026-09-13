@@ -8,13 +8,13 @@ module Backend
         data = []
 
         transcode_icon = { 'Variants::EquipmentVariant': :tractor,
-                          'Variants::Articles::SeedAndPlantArticle': :"seedling-solid",
+                          'Variants::Articles::SeedAndPlantArticle': :'seedling-solid',
                           'Variants::Articles::FertilizerArticle': :fertilization,
                           'Variants::Articles::FarmProductArticle': :wheat,
-                          'Variants::Articles::PlantMedicineArticle': :"chemical-product",
+                          'Variants::Articles::PlantMedicineArticle': :'chemical-product',
                           'Variants::AnimalVariant': :cow,
                           'Variants::ArticleVariant': :matter,
-                          'Variants::ServiceVariant': :"users-cog" }
+                          'Variants::ServiceVariant': :'users-cog' }
 
         visualization_face = params[:visualization]
         campaigns = params[:campaigns]

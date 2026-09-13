@@ -130,7 +130,7 @@ module Acom
             account_prefix = row.account_number[0...client_account_radix.size]
             account_suffix = row.auxiliary_account_number
 
-            account = find_or_create_account((account_prefix + account_suffix), row.auxiliary_account_name)
+            account = find_or_create_account(account_prefix + account_suffix, row.auxiliary_account_name)
             # find_or_create_entity(row.printed_on, account, (account_prefix + account_suffix))
           else
             account = find_or_create_account(row.account_number, row.account_name)

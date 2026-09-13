@@ -63,7 +63,7 @@ class AccountancyComputation
 
   def sum_entry_items_by_line(document = @document, line = nil, options = {})
     # remove closure entries
-    options[:unwanted_journal_nature] ||= [:closure] if (document == :balance_sheet || document == :short_balance_sheet)
+    options[:unwanted_journal_nature] ||= [:closure] if document == :balance_sheet || document == :short_balance_sheet
     options[:unwanted_journal_nature] ||= %i[result closure]
 
     equation = get_mandatory_line_calculation(document, line) if line

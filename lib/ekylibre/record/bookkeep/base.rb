@@ -37,7 +37,7 @@ module Ekylibre
             prism ||= resource.class.name.underscore
             column ||= :journal_entry_id
           else
-            column ||= "#{prism}_journal_entry_id".to_sym
+            column ||= :"#{prism}_journal_entry_id"
           end
 
           attributes = options

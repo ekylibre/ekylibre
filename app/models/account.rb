@@ -51,6 +51,7 @@
 class Account < ApplicationRecord
   include Customizable
   include Providable
+
   CENTRALIZING_NATURES = %i[client supplier employee payslip_contributor].freeze
 
   @@references = []
@@ -332,19 +333,19 @@ class Account < ApplicationRecord
       if account
         if item && !account.usages_array.include?(item)
           account.usages ||= ''
-          account.usages << ' ' + item.name.to_s
+          account.usages << (' ' + item.name.to_s)
           account.save!
         end
       else
         if item
           options[:name] ||= item.human_name
           options[:usages] ||= ''
-          options[:usages] << ' ' + item.name.to_s
+          options[:usages] << (' ' + item.name.to_s)
         end
         options[:name] ||= options.delete(:default_name) || number.to_s
         merge_attributes = {
           number: number,
-          already_existing: (options[:already_existing] || false)
+          already_existing: options[:already_existing] || false
         }
         account = create!(options.merge(merge_attributes))
       end
@@ -412,14 +413,14 @@ class Account < ApplicationRecord
       end
       conditions = ''.dup
       if normals.any?
-        conditions << '(' + normals.sort.collect do |c|
+        conditions << ('(' + normals.sort.collect do |c|
           "#{table}.number LIKE '#{c}%'"
-        end.join(' OR ') + ')'
+        end.join(' OR ') + ')')
       end
       if excepts.any?
-        conditions << ' AND NOT (' + excepts.sort.collect do |c|
+        conditions << (' AND NOT (' + excepts.sort.collect do |c|
           "#{table}.number LIKE '#{c}%'"
-        end.join(' OR ') + ')'
+        end.join(' OR ') + ')')
       end
       conditions
     end
@@ -787,7 +788,7 @@ class Account < ApplicationRecord
     hash[:balance_debit] = 0.0
     hash[:balance_credit] = 0.0
     hash[:balance] = (hash[:debit] - hash[:credit]).abs
-    hash["balance_#{hash[:debit] > hash[:credit] ? 'debit' : 'credit'}".to_sym] = hash[:balance]
+    hash[:"balance_#{hash[:debit] > hash[:credit] ? 'debit' : 'credit'}"] = hash[:balance]
     hash
   end
 

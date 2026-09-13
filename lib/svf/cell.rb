@@ -55,7 +55,7 @@ module SVF
       if type == :boolean
         value = "(#{value} == '1' ? true : false)"
       elsif type == :date
-        value = "(#{value}.blank? ? nil : Date.civil(#{line}[#{start + 4}..#{start + 7}].to_i, #{line}[#{start + 2}..#{start + 3}].to_i, #{line}[#{start + 0}..#{start + 1}].to_i))"
+        value = "(#{value}.blank? ? nil : Date.civil(#{line}[#{start + 4}..#{start + 7}].to_i, #{line}[#{start + 2}..#{start + 3}].to_i, #{line}[#{start}..#{start + 1}].to_i))"
       elsif type == :integer
         value = "#{value}.to_s.strip.to_i"
       elsif type == :float

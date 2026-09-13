@@ -9,7 +9,7 @@ module CobblesHelper
       @cobbler = cobbler
       @name = name
       @id = options[:id] || name.to_s.parameterize.dasherize
-      @title = options[:title] || @name.tl(default: ["attributes.#{@name}".to_sym, @name.to_s.humanize])
+      @title = options[:title] || @name.tl(default: [:"attributes.#{@name}", @name.to_s.humanize])
       @@current = self
       @content = @cobbler.template.capture(&block)
       @position = options[:position] || 1000
@@ -65,7 +65,7 @@ module CobblesHelper
   # Cobbles are a simple layout with all cobble in one list.
   # List is sortable and cobbles are hideable/collapseable
   def cobbles(options = {}, &_block)
-    name = options[:name] || "#{controller_name}-#{action_name}".to_sym
+    name = options[:name] || :"#{controller_name}-#{action_name}"
     config = YAML.safe_load(current_user.preference("cobbler.#{name}", {}.to_yaml).value).deep_symbolize_keys
     cobbler = Cobbler.new(self, name, order: config[:order])
     yield cobbler
@@ -80,30 +80,30 @@ module CobblesHelper
   end
 
   def cobble_toolbar(options = {}, &block)
-    content_for("cobble_#{Cobble.current.id}_main_toolbar".to_sym, toolbar(options.merge(wrap: false), &block))
+    content_for(:"cobble_#{Cobble.current.id}_main_toolbar", toolbar(options.merge(wrap: false), &block))
     nil
   end
 
   def cobble_meta_toolbar(&block)
     id = Cobble.current.id
-    content_for("cobble_#{id}_meta_toolbar".to_sym, &block)
+    content_for(:"cobble_#{id}_meta_toolbar", &block)
   end
 
   def cobble_list(name, options = {}, &block)
     id = Cobble.current.id
     list = list(name, options.deep_merge(content_for: {
-                                    settings:   "cobble_#{id}_meta_toolbar".to_sym,
-                                    pagination: "cobble_#{id}_meta_toolbar".to_sym,
-                                    actions:    "cobble_#{id}_main_toolbar".to_sym
+                                    settings:   :"cobble_#{id}_meta_toolbar",
+                                    pagination: :"cobble_#{id}_meta_toolbar",
+                                    actions:    :"cobble_#{id}_main_toolbar"
                                   }), &block)
     footer_pagination = content_tag :div, class: 'list-footer-pagination' do
-      content_for("cobble_#{id}_meta_toolbar".to_sym)
+      content_for(:"cobble_#{id}_meta_toolbar")
     end
     return list << footer_pagination
   end
 
   def cobble_toolbar_tag(cobble, name)
-    tbid = "cobble_#{cobble.id}_#{name}_toolbar".to_sym
+    tbid = :"cobble_#{cobble.id}_#{name}_toolbar"
     if content_for?(tbid)
       content_tag(:div, content_for(tbid), class: "cobble-toolbar cobble-#{name.to_s.dasherize}-toolbar")
     end

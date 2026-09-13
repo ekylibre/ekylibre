@@ -39,7 +39,7 @@ module Calculus
       end
 
       def human_method_name(name, options = {})
-        "manure_management_method.#{name}".t({ default: ["labels.#{name}".to_sym, name.to_s.humanize] }.merge(options))
+        "manure_management_method.#{name}".t({ default: [:"labels.#{name}", name.to_s.humanize] }.merge(options))
       end
     end
   end

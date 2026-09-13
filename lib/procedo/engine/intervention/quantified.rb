@@ -5,7 +5,7 @@ module Procedo
         attr_reader :quantity_handler, :quantity_population, :quantity_value
 
         def initialize(intervention, id, attributes = {})
-          super(intervention, id, attributes)
+          super
           @quantity_handler = attributes[:quantity_handler]
           @quantity_value = attributes[:quantity_value].to_d if attributes[:quantity_value]
           @quantity_population = attributes[:quantity_population].to_d if attributes[:quantity_population]
@@ -80,7 +80,7 @@ module Procedo
         end
 
         def impact_dependencies!(field)
-          super(field)
+          super
           impact_on_handlers(field)
         end
 

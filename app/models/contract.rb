@@ -48,6 +48,7 @@ class Contract < ApplicationRecord
   include Attachable
   include Transitionable
   include Customizable
+
   attr_readonly :currency
   refers_to :currency
   belongs_to :supplier, class_name: 'Entity'

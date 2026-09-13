@@ -3,7 +3,7 @@ module ActiveGuide
     attr_reader :subtests, :validate_block
 
     def initialize(parent, name, options = {}, &block)
-      super parent, name, options
+      super(parent, name, options)
       @subtests = []
       validate(&options.delete(:validate)) if options[:validate].respond_to?(:call)
       instance_eval(&block) if block_given?

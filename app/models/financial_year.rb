@@ -50,6 +50,7 @@
 class FinancialYear < ApplicationRecord
   include Attachable
   include Customizable
+
   attr_readonly :currency
   refers_to :currency
   refers_to :accounting_system, class_name: 'AccountingSystem'
@@ -427,15 +428,15 @@ class FinancialYear < ApplicationRecord
     if !forceds.empty? || !negatives.empty?
       forceds_and_negatives = forceds & negatives
       balance = 'CASE'.dup
-      balance << ' WHEN ' + forceds_and_negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit, forced: true)}" unless forceds_and_negatives.empty?
-      balance << ' WHEN ' + forceds.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN #{FinancialYear.balance_expr(credit, forced: true)}" unless forceds.empty?
-      balance << ' WHEN ' + negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit)}" unless negatives.empty?
+      balance << (' WHEN ' + forceds_and_negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit, forced: true)}") unless forceds_and_negatives.empty?
+      balance << (' WHEN ' + forceds.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN #{FinancialYear.balance_expr(credit, forced: true)}") unless forceds.empty?
+      balance << (' WHEN ' + negatives.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + " THEN -#{FinancialYear.balance_expr(!credit)}") unless negatives.empty?
       balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
 
     query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{id}".dup
-    query << ' AND (' + normals.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')'
-    query << ' AND NOT (' + excepts.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')' unless excepts.empty?
+    query << (' AND (' + normals.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')')
+    query << (' AND NOT (' + excepts.sort.collect { |c| "a.number LIKE '#{c}%'" }.join(' OR ') + ')') unless excepts.empty?
     balance = ApplicationRecord.connection.select_value(query)
     (balance.blank? ? nil : balance.to_d)
   end

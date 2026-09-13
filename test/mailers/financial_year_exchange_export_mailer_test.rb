@@ -11,7 +11,7 @@ class FinancialYearExchangeExportMailerTest < ActionMailer::TestCase
     @exchange = create(:financial_year_exchange, financial_year: fy)
     @user = create(:user)
     @file = File.new(Dir.pwd + "/tmp/test.pdf", "w")
-    File.open(@file, "w") { |f| f.write("Random stuff") }
+    File.write(@file, "Random stuff")
   end
 
   test 'notify accountant' do

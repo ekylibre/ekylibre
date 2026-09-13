@@ -78,19 +78,19 @@ module Printers
         content << :draft.tl if @states.include?('draft') && @states['draft'].to_i == 1
         content << :confirmed.tl if @states.include?('confirmed') && @states['confirmed'].to_i == 1
         content << :closed.tl if @states.include?('closed') && @states['closed'].to_i == 1
-        data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
+        data_filters << (:journal_entries_states.tl + ' : ' + content.to_sentence)
       end
 
       if @balance
-        data_filters << :display_accounts.tl + ' : ' + @balance.to_sym.tl
+        data_filters << (:display_accounts.tl + ' : ' + @balance.to_sym.tl)
       end
 
       if @accounts.present?
-        data_filters << :accounts_starting_with.tl + ' : ' + @accounts.split(' ').to_sentence
+        data_filters << (:accounts_starting_with.tl + ' : ' + @accounts.split(' ').to_sentence)
       end
 
       if @centralize.present?
-        data_filters << :group_by_centralizing_accounts.tl + ' : ' + @centralize.split(' ').to_sentence
+        data_filters << (:group_by_centralizing_accounts.tl + ' : ' + @centralize.split(' ').to_sentence)
       end
 
       e = Entity.of_company

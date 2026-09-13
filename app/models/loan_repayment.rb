@@ -81,18 +81,18 @@ class LoanRepayment < ApplicationRecord
 
   # Prevents from deleting if entry exist and validated
   protect on: :update do
-    (journal_entry && !journal_entry.editable?)
+    journal_entry && !journal_entry.editable?
   end
 
   protect on: :destroy do
-    (journal_entry && !journal_entry.destroyable?)
+    journal_entry && !journal_entry.destroyable?
   end
 
   bookkeep do |b|
     # when payment arrive (due_on)
     financial_year = FinancialYear.on(due_on)
     # puts [journal.writable_on?(due_on), !locked, accountable, amount > 0, due_on <= Time.zone.today, financial_year.present?, loan.ongoing?].inspect.yellow
-    b.journal_entry(journal, printed_on: due_on, if: (!locked && accountable && amount > 0 && due_on <= Time.zone.today && financial_year.present? && loan.ongoing?)) do |entry|
+    b.journal_entry(journal, printed_on: due_on, if: !locked && accountable && amount > 0 && due_on <= Time.zone.today && financial_year.present? && loan.ongoing?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, name: name, year: due_on.year, month: due_on.month, position: position)
       # puts label.inspect.magenta
       entry.add_debit(label, loan.loan_account_id, base_amount, as: :repayment)

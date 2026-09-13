@@ -68,7 +68,7 @@ module Backend
 
       code << "unless params[:mail_line_6].blank?\n"
       code << "  c[0] << ' AND #{Entity.table_name}.id IN (SELECT entity_id FROM entity_addresses WHERE mail_line_6 ILIKE E? AND by_default AND deleted_at IS NULL)'\n"
-      code << "  c << '%' + params[:mail_line_6].to_s.strip.gsub(/[\,\s\-]+/, '%') + '%'\n"
+      code << "  c << '%' + params[:mail_line_6].to_s.strip.gsub(/[,\s-]+/, '%') + '%'\n"
       code << "end\n"
 
       code << "unless params[:subscription_nature_id].blank? || params[:subscription_test].blank?\n"
@@ -322,7 +322,7 @@ module Backend
 
     def self.entities_moves_client_conditions(params)
       code = ''
-      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << (search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n")
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
       code << "c << Entity.find(#{params[:id]}).client_account_id\n"
       code << "c\n"
@@ -347,7 +347,7 @@ module Backend
 
     def self.entities_moves_supplier_conditions(params)
       code = ''
-      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << (search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number] }, conditions: 'c', variable: 'params[:b]'.c) + "\n")
       code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
       code << "c << Entity.find(#{params[:id]}).supplier_account_id\n"
       code << "c\n"
@@ -389,7 +389,7 @@ module Backend
           tmp = Rails.root.join('tmp', 'uploads')
           FileUtils.mkdir_p(tmp)
           file = tmp.join("entities_import_#{data.original_filename.gsub(/[^\w]/, '_')}")
-          File.open(file, 'wb') { |f| f.write(data.read) }
+          File.binwrite(file, data.read)
           session[:entities_import_file] = file
           redirect_to action: :import, id: :columns
         end
@@ -410,9 +410,9 @@ module Backend
           end
           cols = {}
           columns = all_columns
-          columns.values.collect { |x| x.split(/\-/)[0] }.uniq.each do |prefix|
+          columns.values.collect { |x| x.split('-')[0] }.uniq.each do |prefix|
             cols[prefix.to_sym] = {}
-            columns.select { |_k, v| v.match(/^#{prefix}-/) }.each { |k, v| cols[prefix.to_sym][k.to_s] = v.split(/\-/)[1].to_sym }
+            columns.select { |_k, v| v.match(/^#{prefix}-/) }.each { |k, v| cols[prefix.to_sym][k.to_s] = v.split('-')[1].to_sym }
           end
           cols[:entity] ||= {}
           if cols[:entity].keys.size <= 0 || !cols[:entity].values.detect { |x| x == :last_name }

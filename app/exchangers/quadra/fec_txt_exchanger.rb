@@ -101,8 +101,8 @@ module Quadra
             account_prefix = r.account_number[0...client_account_radix.size]
             account_suffix = r.auxiliary_account_number
 
-            account = find_or_create_account((account_prefix + account_suffix), r.auxiliary_account_name)
-            find_or_create_entity(r.printed_on, account, (account_prefix + account_suffix))
+            account = find_or_create_account(account_prefix + account_suffix, r.auxiliary_account_name)
+            find_or_create_entity(r.printed_on, account, account_prefix + account_suffix)
           else
             account = find_or_create_account(r.account_number, r.account_name)
             find_or_create_entity(r.printed_on, account, r.account_number)
@@ -241,12 +241,12 @@ module Quadra
 
       # @return [String]
       def client_account_radix
-        @client_account_radix ||= (Preference.value(:client_account_radix).presence || '411')
+        @client_account_radix ||= Preference.value(:client_account_radix).presence || '411'
       end
 
       # @return [String]
       def supplier_account_radix
-        @supplier_account_radix ||= (Preference.value(:supplier_account_radix).presence || '401')
+        @supplier_account_radix ||= Preference.value(:supplier_account_radix).presence || '401'
       end
 
       # @param [Date] period_started_on

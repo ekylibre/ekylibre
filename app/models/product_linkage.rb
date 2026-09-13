@@ -44,6 +44,7 @@
 class ProductLinkage < ApplicationRecord
   include TimeLineable
   include Taskable
+
   belongs_to :carrier, class_name: 'Product'
   belongs_to :carried, class_name: 'Product'
   enumerize :nature, in: %i[available unavailable occupied], default: :available, predicates: true

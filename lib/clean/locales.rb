@@ -147,12 +147,12 @@ module Clean
           translateable_actions += (actions.delete_if { |a| %i[update create picture destroy up down decrement increment duplicate reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
 
-          translation << '    ' + controller_path + ":\n"
+          translation << ('    ' + controller_path + ":\n")
           translateable_actions.each do |action_name|
             name = translate_or_nil("actions.#{controller_path}.#{action_name}")
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?
-            translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
+            translation << ("      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3))
             # translation << ' #?' unless actions.include?(action_name)
             translation << "\n"
           end
@@ -160,11 +160,11 @@ module Clean
 
         # Errors
         to_translate += Clean::Support.hash_count(::I18n.translate('errors'))
-        translation << '  errors:' + Clean::Support.hash_to_yaml(::I18n.translate('errors'), 2) + "\n"
+        translation << ('  errors:' + Clean::Support.hash_to_yaml(::I18n.translate('errors'), 2) + "\n")
 
         # Front end
         to_translate += Clean::Support.hash_count(::I18n.translate('front-end'))
-        translation << '  front-end:' + Clean::Support.hash_to_yaml(::I18n.translate('front-end'), 2) + "\n"
+        translation << ('  front-end:' + Clean::Support.hash_to_yaml(::I18n.translate('front-end'), 2) + "\n")
 
         # Labels
         translation << "  labels:\n"
@@ -195,16 +195,16 @@ module Clean
             untranslated += 1
             line << missing_prompt
           end
-          line << "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+          line << ("#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2))
 
-          translation << line + "\n"
+          translation << (line + "\n")
         end
         warnings << "#{unknown_labels.size} unknown labels" if unknown_labels.any?
 
         # Notifications
         translation << "  notifications:\n"
         to_translate += Clean::Support.hash_count(::I18n.translate('notifications.levels'))
-        translation << '    levels:' + Clean::Support.hash_to_yaml(::I18n.translate('notifications.levels'), 3) + "\n"
+        translation << ('    levels:' + Clean::Support.hash_to_yaml(::I18n.translate('notifications.levels'), 3) + "\n")
         translation << "    messages:\n"
         notifications = ::I18n.t('notifications.messages')
         unknown_notifications = ::I18n.t('notifications.messages').keys
@@ -221,7 +221,7 @@ module Clean
           end
           line += "#{key}:" + (trans.is_a?(Hash) ? '' : ' ') + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
           # line.gsub!(/\ *$/, ' #?') if unknown_notifications.include?(key)
-          translation << line + "\n"
+          translation << (line + "\n")
         end
         warnings << "#{unknown_notifications.size} unknown notifications" if unknown_notifications.any?
 
@@ -247,7 +247,7 @@ module Clean
           end
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
           # line.gsub!(/$/, ' #?') if unknown_preferences.include?(key)
-          translation << line + "\n"
+          translation << (line + "\n")
         end
         warnings << "#{unknown_preferences.size} unknown preferences" if unknown_preferences.any?
 
@@ -273,13 +273,13 @@ module Clean
           end
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
           # line.gsub!(/$/, ' #?') if unknown_actions.include?(key)
-          translation << line + "\n"
+          translation << (line + "\n")
         end
         warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
 
         # Simple form
         to_translate += Clean::Support.hash_count(::I18n.translate('simple_form'))
-        translation << '  simple_form:' + Clean::Support.hash_to_yaml(::I18n.translate('simple_form'), 2) + "\n"
+        translation << ('  simple_form:' + Clean::Support.hash_to_yaml(::I18n.translate('simple_form'), 2) + "\n")
 
         # Unroll
         translation << "  unrolls:\n"
@@ -294,7 +294,7 @@ module Clean
           line = '    '
           line += "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
           # line.gsub!(/$/, ' #?') if unknown_unrolls.include?(key)
-          translation << line + "\n"
+          translation << (line + "\n")
         end
         warnings << "#{unknown_unrolls.size} unknown unrolls" if unknown_unrolls.any?
 
@@ -392,14 +392,14 @@ module Clean
         translation = "#{locale}:\n"
         translation << "  errors:\n"
         to_translate += Clean::Support.hash_count(::I18n.translate('errors'))
-        translation << "    messages: &error_messages" + Clean::Support.hash_to_yaml(::I18n.translate('errors.messages'), 3) + "\n"
+        translation << ("    messages: &error_messages" + Clean::Support.hash_to_yaml(::I18n.translate('errors.messages'), 3) + "\n")
         translation << "  activemodel:\n"
         translation << "    errors:\n"
         translation << "      messages:\n"
         translation << "        <<: *error_messages\n"
         translation << "  activerecord:\n"
         to_translate += Clean::Support.hash_count(::I18n.translate('activerecord.attributes'))
-        translation << '    attributes:' + Clean::Support.hash_to_yaml(::I18n.translate('activerecord.attributes'), 3) + "\n"
+        translation << ('    attributes:' + Clean::Support.hash_to_yaml(::I18n.translate('activerecord.attributes'), 3) + "\n")
         translation << "    errors:\n"
         translation << "      messages:\n"
         translation << "        <<: *error_messages\n"
@@ -407,7 +407,7 @@ module Clean
         models.sort.each do |model, definition|
           translation << '      '
           translation << missing_prompt if definition[1] == :undefined
-          translation << "#{model}: " + Clean::Support.yaml_value(definition[0])
+          translation << ("#{model}: " + Clean::Support.yaml_value(definition[0]))
           # translation << ' #?' if definition[1] == :unused
           translation << "\n"
         end
@@ -416,7 +416,7 @@ module Clean
           # unless attribute.to_s.match(%r(_id$))
           translation << '    '
           translation << missing_prompt if definition[1] == :undefined
-          translation << "#{attribute}: " + Clean::Support.yaml_value(definition[0])
+          translation << ("#{attribute}: " + Clean::Support.yaml_value(definition[0]))
           # translation << ' #?' if definition[1] == :unused
           translation << "\n"
           # end
@@ -430,7 +430,7 @@ module Clean
           next unless definition[2]
 
           to_translate += Clean::Support.hash_count(definition[2])
-          translation << "    #{model}:" + Clean::Support.yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
+          translation << ("    #{model}:" + Clean::Support.yaml_value(definition[2], 2).gsub("\n", (definition[1] == :unused ? " #?\n" : "\n")) + "\n")
         end
 
         write('models.yml', translation, to_translate, untranslated)
@@ -537,12 +537,12 @@ module Clean
         handlers.sort.each do |handler|
           to_translate += 1
           if name = ref[:procedure_handlers][handler]
-            translation << "    #{handler}: " + Clean::Support.yaml_value(name) + "\n"
+            translation << ("    #{handler}: " + Clean::Support.yaml_value(name) + "\n")
           elsif Onoma::Indicator[handler] # Facultative translation
             to_translate -= 1
-            translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
+            translation << ("    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n")
           else
-            translation << "    #{missing_prompt}#{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
+            translation << ("    #{missing_prompt}#{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n")
             untranslated += 1
           end
         end
@@ -554,18 +554,18 @@ module Clean
         Procedo.each_product_parameter do |parameter|
           next unless parameter.attribute(:killable)
 
-          key = "is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}".to_sym
+          key = :"is_#{parameter.name}_completely_destroyed_by_#{parameter.procedure.name}"
           killables << key
-          key = "is_#{parameter.name}_completely_destroyed_by_intervention".to_sym
+          key = :"is_#{parameter.name}_completely_destroyed_by_intervention"
           killables << key unless killables.include? key
         end
         ref[:procedure_killable_parameters] ||= {}
         killables.sort.each do |killable|
           to_translate += 1
           if (found = ref[:procedure_killable_parameters][killable])
-            translation << "    #{killable}: " + Clean::Support.yaml_value(found) + "\n"
+            translation << ("    #{killable}: " + Clean::Support.yaml_value(found) + "\n")
           else
-            translation << "    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n"
+            translation << ("    #{missing_prompt}#{killable}: " + Clean::Support.yaml_value(killable.to_s.humanize + '?') + "\n")
             untranslated += 1
           end
         end
@@ -580,9 +580,9 @@ module Clean
         parameters.sort.each do |parameter|
           to_translate += 1
           if name = ref[:procedure_parameters][parameter]
-            translation << "    #{parameter}: " + Clean::Support.yaml_value(name) + "\n"
+            translation << ("    #{parameter}: " + Clean::Support.yaml_value(name) + "\n")
           else
-            translation << "    #{missing_prompt}#{parameter}: " + Clean::Support.yaml_value(parameter.to_s.humanize) + "\n"
+            translation << ("    #{missing_prompt}#{parameter}: " + Clean::Support.yaml_value(parameter.to_s.humanize) + "\n")
             untranslated += 1
           end
         end
@@ -593,9 +593,9 @@ module Clean
         procedures.sort.each do |procedure|
           to_translate += 1
           if name = ref[:procedures][procedure]
-            translation << "    #{procedure}: " + Clean::Support.yaml_value(name) + "\n"
+            translation << ("    #{procedure}: " + Clean::Support.yaml_value(name) + "\n")
           else
-            translation << "    #{missing_prompt}#{procedure}: " + Clean::Support.yaml_value(procedure.to_s.humanize) + "\n"
+            translation << ("    #{missing_prompt}#{procedure}: " + Clean::Support.yaml_value(procedure.to_s.humanize) + "\n")
             untranslated += 1
           end
         end
@@ -619,9 +619,7 @@ module Clean
           target_path = Rails.root.join('config', 'locales', locale.to_s, file_name)
           if !File.exist?(target_path) && !@dry_run
             FileUtils.mkdir_p(target_path.dirname)
-            File.open(target_path, 'wb') do |file|
-              file.write("#{locale}: {}\n")
-            end
+            File.binwrite(target_path, "#{locale}: {}\n")
           end
           target = File.exist?(target_path) ? Clean::Support.yaml_to_hash(target_path).deep_compact : {}
           reference = Clean::Support.yaml_to_hash(reference_path).deep_compact

@@ -23,7 +23,7 @@ module Backend
     def kujaku(*args)
       options = args.extract_options!
       url = options[:url] || {}
-      name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize
+      name = args.shift || ("#{controller_path}-#{action_name}-" + caller.first.split(':').second).parameterize
       k = Kujaku.new(self, name)
       if block_given?
         yield k

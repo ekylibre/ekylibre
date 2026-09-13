@@ -82,12 +82,12 @@ module SaleInvoices
           next unless infos
 
           items << {  annotation: line[:name],
-                      conditioning_quantity: (line[:quantity]&.to_d || 1.0),
+                      conditioning_quantity: line[:quantity]&.to_d || 1.0,
                       conditioning_unit_id: infos[:unit].id,
                       tax_id: infos[:tax].id,
                       amount: nil,
                       pretax_amount: nil,
-                      unit_pretax_amount: (line[:unit_pretax_amount]&.to_d || line[:pretax_amount]&.to_d),
+                      unit_pretax_amount: line[:unit_pretax_amount]&.to_d || line[:pretax_amount]&.to_d,
                       variant_id: infos[:variant].id,
                       fixed: false,
                       compute_from: :unit_pretax_amount }

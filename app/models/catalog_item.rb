@@ -52,6 +52,7 @@
 # CatalogItem stores all the prices used in sales and purchases.
 class CatalogItem < ApplicationRecord
   include Providable
+
   attr_readonly :catalog_id
   refers_to :currency
   belongs_to :variant, class_name: 'ProductNatureVariant'

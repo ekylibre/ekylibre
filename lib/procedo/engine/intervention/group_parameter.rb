@@ -14,7 +14,7 @@ module Procedo
                                   tools_attributes group_parameters_attributes].freeze
 
         def initialize(intervention, id, attributes = {})
-          super(intervention, id, attributes)
+          super
           @members = {}.with_indifferent_access
         end
 

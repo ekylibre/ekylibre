@@ -73,7 +73,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   # Returns a relation for all other records
   def others
-    self.class.where.not(id: (id || -1))
+    self.class.where.not(id: id || -1)
   end
 
   # Returns a relation for the old record in DB

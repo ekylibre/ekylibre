@@ -273,7 +273,7 @@ module Printers
 
     def to_standard_yield_dataset(product, values, base_unit:)
       quantity, area = values.reduce([0.in(base_unit), 0.in(:hectare)]) { |(qt, ar), (_product, q, a, _intervention)| [qt +q, ar + a] }
-      yieldd = area.zero? ? 0 : (quantity.to_d(base_unit) / area.to_d(:hectare)).in("#{base_unit}_per_hectare".to_sym)
+      yieldd = area.zero? ? 0 : (quantity.to_d(base_unit) / area.to_d(:hectare)).in(:"#{base_unit}_per_hectare")
 
       { product: product, yield: yieldd, quantity: quantity, interventions: values.map(&:third).uniq }
     end
@@ -282,7 +282,7 @@ module Printers
     def normalize_to_base_unit(quantity, area)
       if quantity.has_repartition_dimension?(:surface_area)
         base_unit = quantity.base_unit
-        (quantity.in("#{base_unit}_per_hectare".to_sym).to_d * area.in(:hectare).to_d).in(base_unit)
+        (quantity.in(:"#{base_unit}_per_hectare").to_d * area.in(:hectare).to_d).in(base_unit)
       else
         quantity
       end

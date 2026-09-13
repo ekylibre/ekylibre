@@ -13,7 +13,7 @@ module Backend
       stopped_on = started_on + 1 if started_on >= stopped_on
       while date <= stopped_on
         categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: '%b %Y')
-        date = date >> 1
+        date >>= 1
       end
 
       sale_items = entity.sale_items.between(started_on, stopped_on)

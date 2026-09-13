@@ -52,7 +52,7 @@ module Ekylibre
                   # Organic Fertilizing  01-09-N-1 -> 30-09-N-1
                   Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, year - 1, 9, 1, 0.96 * coeff, support: support) do |i|
                     i.add_cast(reference_name: 'manure',      actor: products[:manure].sample)
-                    i.add_cast(reference_name: 'manure_to_spread', population: 0.2 + 4 * coeff)
+                    i.add_cast(reference_name: 'manure_to_spread', population: 0.2 + (4 * coeff))
                     i.add_cast(reference_name: 'spreader',    actor: products[:spreader].sample)
                     i.add_cast(reference_name: 'driver',      actor: workers.sample)
                     i.add_cast(reference_name: 'tractor',     actor: products[:tractor][:spreader].sample)
@@ -81,7 +81,7 @@ module Ekylibre
                   # Fertilizing  01-03-M -> 31-03-M
                   Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
                     i.add_cast(reference_name: 'fertilizer', actor: products[:fertilizer].sample)
-                    i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + coeff * rand(0.6))
+                    i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + (coeff * rand(0.6)))
                     i.add_cast(reference_name: 'spreader',    actor: products[:spreader].sample)
                     i.add_cast(reference_name: 'driver',      actor: workers.sample)
                     i.add_cast(reference_name: 'tractor',     actor: products[:tractor][:spreader].sample)
@@ -93,7 +93,7 @@ module Ekylibre
                     # Treatment herbicide 01-04 30-04
                     Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 4, 1, 1.07 * coeff, support: support) do |i|
                       i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
-                      i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + 0.9 * coeff)
+                      i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + (0.9 * coeff))
                       i.add_cast(reference_name: 'sprayer',  actor: products[:sprayer].sample)
                       i.add_cast(reference_name: 'driver',   actor: workers.sample)
                       i.add_cast(reference_name: 'tractor',  actor: products[:tractor][:catcher].sample)
@@ -171,7 +171,7 @@ module Ekylibre
                   # Fertilizing  01-05-M -> 15-06-M
                   Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, year, 5, 25, 0.96 * coeff, support: support) do |i|
                     i.add_cast(reference_name: 'fertilizer', actor: products[:fertilizer].sample)
-                    i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + coeff * rand(0.6))
+                    i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + (coeff * rand(0.6)))
                     i.add_cast(reference_name: 'spreader',    actor: products[:spreader].sample)
                     i.add_cast(reference_name: 'driver',      actor: workers.sample)
                     i.add_cast(reference_name: 'tractor',     actor: products[:tractor][:spreader].sample)
@@ -184,7 +184,7 @@ module Ekylibre
                       # Treatment herbicide 01-04 30-04
                       Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 5, 27, 1.07 * coeff, support: support) do |i|
                         i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
-                        i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + 0.9 * coeff)
+                        i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + (0.9 * coeff))
                         i.add_cast(reference_name: 'sprayer',  actor: products[:sprayer].sample)
                         i.add_cast(reference_name: 'driver',   actor: workers.sample)
                         i.add_cast(reference_name: 'tractor',  actor: products[:tractor][:catcher].sample)

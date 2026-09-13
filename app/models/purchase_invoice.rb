@@ -63,6 +63,7 @@
 #
 class PurchaseInvoice < Purchase
   include Versionable
+
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :undelivered_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :quantity_gap_on_invoice_journal_entry, class_name: 'JournalEntry', dependent: :destroy

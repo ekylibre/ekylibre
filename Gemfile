@@ -268,8 +268,8 @@ group :development do
   # Code metrics
   gem 'haml_lint', '0.40.0', require: false
   gem 'rails_best_practices', '~> 1.20', require: false
-  gem 'rubocop', '1.11.0', require: false
-  gem 'rubocop-ast', '1.15.0', require: false
+  gem 'rubocop', '~> 1.91', require: false
+  gem 'rubocop-ast', '~> 1.47', require: false
 
   # Webservers
   gem 'rack-handlers'

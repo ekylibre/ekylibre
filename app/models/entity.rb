@@ -87,6 +87,7 @@ class Entity < ApplicationRecord
   include Versionable
   include Customizable
   include Providable
+
   attr_accessor :password_confirmation, :old_password
   refers_to :currency
   refers_to :language
@@ -349,7 +350,7 @@ class Entity < ApplicationRecord
 
   # Returns an entity scope for.all other entities
   def others
-    self.class.where('id != ?', (id || 0))
+    self.class.where('id != ?', id || 0)
   end
 
   def label

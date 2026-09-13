@@ -17,7 +17,7 @@ class CompanyInformationsService
   end
 
   def initialize(
-    company_info_client: Clients::Insee::SireneClient.new(api_key: ENV['INSEE_SIRENE_API_KEY']),
+    company_info_client: Clients::Insee::SireneClient.new(api_key: ENV.fetch('INSEE_SIRENE_API_KEY', nil)),
     address_info_client: Clients::Gouv::AddressClient.new,
     siren: nil,
     siret: nil,

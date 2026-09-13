@@ -3,6 +3,7 @@
 module Printers
   class GeneralLedgerPrinter < PrinterBase
     include ApplicationHelper
+
     class << self
       # TODO move this elsewhere when refactoring the Document Management System
       def build_key(started_on:, stopped_on:, lettering_state:, states:, ledger:, account_number:)
@@ -184,7 +185,7 @@ module Printers
         content << :partially_lettered.tl if @lettering_state.include?('partially_lettered')
         content << :lettered.tl if @lettering_state.include?('lettered')
         content << :unlettered_at.tl if @lettering_state.include?('unlettered_at')
-        data_filters << :lettering_state.tl + ' : ' + content.to_sentence
+        data_filters << (:lettering_state.tl + ' : ' + content.to_sentence)
       end
 
       if @states&.any?
@@ -192,11 +193,11 @@ module Printers
         content << :draft.tl if @states.include?('draft') && @states['draft'].to_i == 1
         content << :confirmed.tl if @states.include?('confirmed') && @states['confirmed'].to_i == 1
         content << :closed.tl if @states.include?('closed') && @states['closed'].to_i == 1
-        data_filters << :journal_entries_states.tl + ' : ' + content.to_sentence
+        data_filters << (:journal_entries_states.tl + ' : ' + content.to_sentence)
       end
 
       unless list_accounts.empty?
-        data_filters << :accounts.tl + ' : ' + list_accounts.to_sentence
+        data_filters << (:accounts.tl + ' : ' + list_accounts.to_sentence)
       end
 
       ledger << data_filters

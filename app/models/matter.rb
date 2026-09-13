@@ -92,6 +92,7 @@
 #
 class Matter < Product
   include Providable
+
   refers_to :variety, scope: :matter
   validates :initial_population, presence: true
   validates :born_at, presence: true

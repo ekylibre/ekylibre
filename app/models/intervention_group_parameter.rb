@@ -71,6 +71,7 @@
 
 class InterventionGroupParameter < InterventionParameter
   include CastGroupable
+
   belongs_to :group, class_name: 'InterventionGroupParameter' # , inverse_of: :group_parameters
   belongs_to :intervention, inverse_of: :group_parameters
   belongs_to :parent, class_name: 'InterventionGroupParameter',

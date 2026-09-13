@@ -28,7 +28,7 @@ module Backend
 
     def self.accounts_conditions
       code = ''
-      code << search_conditions(accounts: %i[name number description]) + ';'
+      code << (search_conditions(accounts: %i[name number description]) + ';')
       code << "if params[:prefix]\n"
       code << "  c[0] += ' AND number LIKE ?'\n"
       code << "  c << params[:prefix].to_s+'%'\n"
@@ -96,7 +96,7 @@ module Backend
 
     def self.account_moves_conditions(_options = {})
       code = ''
-      code << search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number], product_nature_variant: [:name] }, conditions: 'c', variable: 'params[:b]'.c) + "\n"
+      code << (search_conditions({ journal_entry_item: %i[name debit credit real_debit real_credit], journal_entry: [:number], product_nature_variant: [:name] }, conditions: 'c', variable: 'params[:b]'.c) + "\n")
       code << journal_period_crit('params')
       code << journal_letter_crit('params')
       code << journal_entries_states_crit('params')

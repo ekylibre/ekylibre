@@ -15,7 +15,7 @@ module Rightable
   def rights_array
     array = []
     each_right do |resource, action|
-      array << resource + '-' + action
+      array << (resource + '-' + action)
     end
     array
   end
@@ -24,7 +24,7 @@ module Rightable
   def resource_actions
     array = []
     each_right do |resource, action|
-      array << action + '-' + resource
+      array << (action + '-' + resource)
     end
     array
   end

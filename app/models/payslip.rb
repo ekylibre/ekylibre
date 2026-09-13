@@ -51,6 +51,7 @@ class Payslip < ApplicationRecord
   include Attachable
   include Customizable
   include Transitionable
+
   belongs_to :account
   belongs_to :affair
   belongs_to :employee, class_name: 'Entity'
@@ -104,7 +105,7 @@ class Payslip < ApplicationRecord
                     i18n_scope: "models.#{model_name.param_key}.states"
 
   protect do
-    (journal_entry && (journal_entry.closed? || journal_entry.confirmed?))
+    journal_entry && (journal_entry.closed? || journal_entry.confirmed?)
   end
 
   # This callback permits to add journal entries corresponding to the payslip
@@ -121,7 +122,7 @@ class Payslip < ApplicationRecord
   # D 645    total_company_social_amount
   bookkeep do |b|
     if imported_centralizing_entries
-      b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
+      b.journal_entry(nature.journal, printed_on: emitted_on, if: with_accounting && invoice?) do |entry|
         label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
         # amount
         entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)
@@ -129,7 +130,7 @@ class Payslip < ApplicationRecord
         entry.add_debit(label, (account || nature.account || Account.find_or_import_from_nomenclature(:staff_due_remunerations)).id, amount, as: :expense)
       end
     else
-      b.journal_entry(nature.journal, printed_on: emitted_on, if: (with_accounting && invoice?)) do |entry|
+      b.journal_entry(nature.journal, printed_on: emitted_on, if: with_accounting && invoice?) do |entry|
         label = tc(:bookkeep, resource: self.class.model_name.human, number: number, employee: employee.full_name, started_on: started_on.l, stopped_on: stopped_on.l)
         # amount
         entry.add_credit(label, employee.account(:employee).id, amount, as: :employee)

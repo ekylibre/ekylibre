@@ -36,6 +36,7 @@
 #
 class InterventionLabelling < ApplicationRecord
   include Labellable
+
   belongs_to :intervention, inverse_of: :labellings
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :intervention, :label, presence: true

@@ -171,7 +171,7 @@ class Tax < ApplicationRecord
         name: item.human_name,
         nature: item.nature,
         country: item.country,
-        active: (active.nil? ? true : active),
+        active: active.nil? || active,
         reference_name: item.name
       }
       %i[deduction collect fixed_asset_deduction fixed_asset_collect].each do |account|

@@ -39,7 +39,7 @@ module Backend
       conn = Intervention.connection
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
-      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN #{Intervention.table_name}.procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
+      expressions << ('CASE ' + Procedo.selection.map { |l, n| "WHEN #{Intervention.table_name}.procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END")
 
       code = <<~RUBY
         #{search_conditions({ interventions: %i[state procedure_name number] }, expressions: expressions)} ||= []

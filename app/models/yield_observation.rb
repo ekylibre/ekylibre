@@ -40,6 +40,7 @@
 class YieldObservation < ApplicationRecord
   include Attachable
   include Providable
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, length: { maximum: 500 }, allow_blank: true

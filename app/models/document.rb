@@ -50,6 +50,7 @@
 class Document < ApplicationRecord
   include Customizable
   include LegacyAttachmentColumns
+
   belongs_to :template, class_name: 'DocumentTemplate'
   has_many :attachments, dependent: :destroy, inverse_of: :document
   has_one_attached :file

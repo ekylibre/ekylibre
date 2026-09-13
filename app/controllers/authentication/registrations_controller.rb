@@ -65,7 +65,7 @@ module Authentication
       def build_resource(hash = nil)
         hash[:signup_at] = Time.now if hash.is_a?(Hash)
 
-        super(hash)
+        super
       end
   end
 end

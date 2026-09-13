@@ -41,6 +41,7 @@
 
 class InterventionWorkingPeriod < ApplicationRecord
   include PeriodicCalculable
+
   belongs_to :intervention
   belongs_to :intervention_participation
   has_one    :intervention_participated_to, through: :intervention_participation, source: :intervention

@@ -22,7 +22,7 @@ module Backend
 
     def self.list_conditions
       code = ''
-      code << search_conditions + ';'
+      code << (search_conditions + ';')
       code << "if params[:tax_declaration_item_id]\n"
       code << "  c[0] += ' AND #{JournalEntryItem.table_name}.id IN (SELECT DISTINCT journal_entry_item_id FROM #{TaxDeclarationItemPart.table_name} WHERE tax_declaration_item_id = ?)'\n"
       code << "  c << params[:tax_declaration_item_id].to_i\n"

@@ -53,13 +53,13 @@ module Printers
       h = HashWithIndifferentAccess.new
       h[:data_filters] = []
       if @driver
-        h[:data_filters] << :driver.tl + ' : ' + @driver.name
+        h[:data_filters] << (:driver.tl + ' : ' + @driver.name)
       end
       if @crop
-        h[:data_filters] << :crop.tl + ' : ' + @crop.name
+        h[:data_filters] << (:crop.tl + ' : ' + @crop.name)
       end
       if @storage
-        h[:data_filters] << :storage.tl + ' : ' + @storage.name
+        h[:data_filters] << (:storage.tl + ' : ' + @storage.name)
       end
       h[:dates] = []
       ihgs = IncomingHarvest.between(@started_on.to_time.beginning_of_day, @stopped_on.to_time.end_of_day).reorder(:received_at).group_by { |i| i.received_at.to_date }

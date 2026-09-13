@@ -67,10 +67,12 @@
 #  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < ApplicationRecord
   include Transitionable
+
   class IncompatibleCurrencies < StandardError; end
 
   include Attachable
   include ComplianceCheckable
+
   attr_readonly :journal_id
   refers_to :currency
   refers_to :real_currency, class_name: 'Currency'
@@ -272,7 +274,7 @@ class JournalEntry < ApplicationRecord
         error_to_update = [(error_sum * prorata).ceil / magnitude.to_f, left].min
         item.send(:"#{column}=", item.send(column) + error_to_update)
 
-        left - error_to_update * magnitude
+        left - (error_to_update * magnitude)
       end
 
       self.debit = items.to_a.reduce(0) { |sum, item| sum + (item.debit || 0) }

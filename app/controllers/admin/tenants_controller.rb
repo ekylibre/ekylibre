@@ -209,8 +209,8 @@ module Admin
 
       def tenant_schema_size(name)
         quoted = ActiveRecord::Base.connection.quote(name)
-        sql = "SELECT SUM(pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename)))::bigint" \
-              " FROM pg_tables WHERE schemaname = #{quoted}"
+        sql = "SELECT SUM(pg_total_relation_size(quote_ident(schemaname) || '.' || quote_ident(tablename)))::bigint " \
+              "FROM pg_tables WHERE schemaname = #{quoted}"
         result = ActiveRecord::Base.connection.select_one(sql)
         bytes = result['sum'].to_f
         format_tenant_size(bytes)

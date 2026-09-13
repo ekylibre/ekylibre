@@ -26,7 +26,7 @@ module Hve
         test 'linear ratio scoring without family bonus' do
           HveIaeCoefficient.find_or_create_by!(iae_family: 'ligneux', iae_type: 'haie', unit: 'm') { |c| c.coefficient = 0.001 }
           HveBiodiversityItem.create!(audit: @audit, iae_family: 'ligneux', iae_type: 'haie',
-                                       surface_or_length: 7_000, unit: 'm')  # 7 ha-équivalent
+                                      surface_or_length: 7_000, unit: 'm')  # 7 ha-équivalent
           result = Hve::Scoring::Biodiversity::IaeScorer.new(audit: @audit, sau: FakeSau.new(arable_ha: 100)).call
           assert_equal 7.0, result[:value_raw].to_f         # 7 % ratio
           assert_equal 4,   result[:points]                  # ratio 7 % → 4 pts
@@ -37,7 +37,7 @@ module Hve
           %w[ligneux herbager aquatique].each_with_index do |fam, i|
             HveIaeCoefficient.find_or_create_by!(iae_family: fam, iae_type: "type#{i}", unit: 'ha') { |c| c.coefficient = 1.0 }
             HveBiodiversityItem.create!(audit: @audit, iae_family: fam, iae_type: "type#{i}",
-                                         surface_or_length: 3.0, unit: 'ha')  # 3 ha-équivalent each
+                                        surface_or_length: 3.0, unit: 'ha')  # 3 ha-équivalent each
           end
           # total IAE = 9 ha, arable = 100 → ratio 9 % → 6 pts + 2 bonus = 8 pts
           result = Hve::Scoring::Biodiversity::IaeScorer.new(audit: @audit, sau: FakeSau.new(arable_ha: 100)).call
@@ -57,7 +57,7 @@ module Hve
                                                                                   else
                                                                                     (fam == 'herbager' ? 'bande' : 'mare')
                                                                                   end,
-                                         surface_or_length: 10.0, unit: 'ha')  # 30 ha total
+                                        surface_or_length: 10.0, unit: 'ha')  # 30 ha total
           end
           # ratio 30 % → 7 pts + 2 bonus
           result = Hve::Scoring::Biodiversity::IaeScorer.new(audit: @audit, sau: FakeSau.new(arable_ha: 100)).call

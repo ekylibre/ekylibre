@@ -35,7 +35,7 @@ namespace :admin do
           Preference.set! :currency, currency_name
           Preference.set! :map_measure_srs, 'WGS84'
           Preference.set! :sales_conditions, ''
-          ::I18n.locale = language_name.to_sym
+          I18n.locale = language_name.to_sym
 
           Preference.set! :accounting_system, 'fr_pcga2023'
           Account.load_defaults

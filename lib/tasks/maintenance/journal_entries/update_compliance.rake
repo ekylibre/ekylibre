@@ -2,7 +2,7 @@ namespace :maintenance do
   namespace :journal_entries do
     desc 'Update compliance field for historical journal entries as it not filled in migration adding the field'
     task update_compliance: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
       started_on = Date.parse(ENV['STARTED_ON']) if ENV['STARTED_ON']
       stopped_on = Date.parse(ENV['STOPPED_ON']) if ENV['STOPPED_ON']
 

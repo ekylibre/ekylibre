@@ -48,6 +48,7 @@ class Task < ApplicationRecord
   include Commentable
   include Versionable
   include Customizable
+
   enumerize :state, in: %i[todo doing done], default: :todo, predicates: true,
                     i18n_scope: "models.#{model_name.param_key}.states"
   enumerize :nature, in: %i[incoming_call outgoing_call incoming_mail outgoing_mail incoming_email outgoing_email], default: :outgoing_call, predicates: true # , :quote, :document

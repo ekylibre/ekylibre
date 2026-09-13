@@ -218,7 +218,7 @@ module Backend
         else
           new_matter.update(
             conditioning_unit: f_matter.variant.default_unit,
-            initial_population: matters.sum{|matter| (matter.population * matter.conditioning_unit.coefficient)}
+            initial_population: matters.sum{|matter| matter.population * matter.conditioning_unit.coefficient}
           )
           if (price_attributes = merged_matters_price_attributes(matters)).present?
             if (catalog_item = CatalogItem.of_variant(f_matter.variant_id).of_unit(f_matter.variant.default_unit_id).of_usage(:stock).first)

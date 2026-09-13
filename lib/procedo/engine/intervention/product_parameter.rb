@@ -10,7 +10,7 @@ module Procedo
         delegate :get, to: :product
 
         def initialize(intervention, id, attributes = {})
-          super(intervention, id, attributes)
+          super
           if @attributes[:product_id].present?
             @product = Product.find_by(id: @attributes[:product_id])
           end
@@ -189,7 +189,7 @@ module Procedo
         end
 
         def impact_dependencies!(field = nil)
-          super(field)
+          super
           impact_on_attributes(field)
           impact_on_readings(field)
           impact_on_components(field)

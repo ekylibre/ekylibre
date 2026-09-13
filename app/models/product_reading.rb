@@ -54,6 +54,7 @@
 class ProductReading < ApplicationRecord
   include PeriodicCalculable
   include ReadingStorable
+
   belongs_to :product, inverse_of: :readings
   belongs_to :originator, polymorphic: true
   has_one :variant, through: :product

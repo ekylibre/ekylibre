@@ -51,6 +51,7 @@ class Issue < ApplicationRecord
   include Commentable
   include Versionable
   include Customizable
+
   refers_to :nature, class_name: 'IssueNature'
   has_many :interventions
   has_many :issues_yield_observations, foreign_key: :issue_id, class_name: 'IssuesYieldObservation'

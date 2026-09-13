@@ -9,8 +9,8 @@ module UnrollHelper
     controller = "#{controller}/#{action_name.gsub(/^unroll_/, '')}" if action_name && action_name != 'unroll'
 
     defaults = [
-      "unrolls.#{controller}.default".to_sym,
-      "unrolls.#{controller}".to_sym,
+      :"unrolls.#{controller}.default",
+      :"unrolls.#{controller}",
       filters.map { |f| "%{#{f.name}}" }.join(', ')
     ]
 

@@ -3,7 +3,7 @@ module Procedo
     # An Attribute defines an information to complete
     class Reading < Procedo::Procedure::Setter
       def initialize(parameter, name, options = {})
-        super(parameter, name, options)
+        super
         unless Onoma::Indicator.find(@name)
           raise "Unknown reading type for #{procedure_name}/#{parameter_name}: " + @name.inspect
         end

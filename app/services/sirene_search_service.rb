@@ -14,7 +14,7 @@ class SireneSearchService
 
   def initialize(query, client: nil)
     @raw = query.to_s.strip
-    @client = client || Clients::Insee::SireneClient.new(api_key: ENV['INSEE_SIRENE_API_KEY'])
+    @client = client || Clients::Insee::SireneClient.new(api_key: ENV.fetch('INSEE_SIRENE_API_KEY', nil))
   end
 
   # @return [Array<Hash>] candidates

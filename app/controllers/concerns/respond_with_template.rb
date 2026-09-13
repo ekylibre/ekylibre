@@ -6,6 +6,6 @@ module RespondWithTemplate
       resources[-1][param] = params[param] if params[param]
     end
 
-    super(*resources, &block)
+    super
   end
 end

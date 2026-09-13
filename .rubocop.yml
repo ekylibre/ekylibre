@@ -1,6 +1,12 @@
 # This file contains configuration specific for this repository that are different from the default Ekylibre style guide
 
-inherit_from: .rubocop_todo.yml
+# La configuration de style commune vient du dépôt d'outils ; `.rubocop_todo.yml`
+# passe en dernier pour que ses exclusions l'emportent. L'héritage distant vivait
+# dans le todo, que `--auto-gen-config` réécrit : il aurait disparu à la première
+# régénération.
+inherit_from:
+  - https://gitlab.com/ekylibre/tools/rubocop/-/raw/0.2.0/.rubocop.yml
+  - .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 2.6

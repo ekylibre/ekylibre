@@ -44,6 +44,7 @@
 class ProductLocalization < ApplicationRecord
   include TimeLineable
   include Taskable
+
   belongs_to :container, class_name: 'Product'
   belongs_to :product
   has_many :shipment_items, class_name: 'ParcelItem', primary_key: :product_id, foreign_key: :source_product_id

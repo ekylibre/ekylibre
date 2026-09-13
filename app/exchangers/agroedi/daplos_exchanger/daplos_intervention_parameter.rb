@@ -46,10 +46,8 @@ module Agroedi
       end
 
       def daplos_unit
-        @daplos_unit ||= (
-          RegisteredAgroediCode.of_reference_code(unit_edicode).first&.ekylibre_value ||
+        @daplos_unit ||= RegisteredAgroediCode.of_reference_code(unit_edicode).first&.ekylibre_value ||
             raise("No way to find unit of #{unit_edicode}")
-        )
       end
 
       def nature

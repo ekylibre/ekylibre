@@ -63,6 +63,7 @@ class Cash < ApplicationRecord
   include Attachable
   include Customizable
   include Providable
+
   BBAN_TRANSLATIONS = {
     fr: %w[abcdefghijklmonpqrstuvwxyz 12345678912345678923456789]
   }.freeze
@@ -223,7 +224,7 @@ class Cash < ApplicationRecord
   def self.valid_bban?(country_code, options = {})
     case cc = country_code.lower.to_sym
     when :fr
-      ban = (options['bank_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 89 + options['bank_agency_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 15 + options['bank_account_number'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 3)
+      ban = ((options['bank_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 89) + (options['bank_agency_code'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 15) + (options['bank_account_number'].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i * 3))
       (options['bank_account_key'].to_i + ban.modulo(97) - 97).zero?
     else
       raise ArgumentError.new("Unknown country code #{country_code.inspect}")

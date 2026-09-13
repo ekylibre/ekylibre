@@ -7,15 +7,15 @@ namespace :accountancy do
       puts 'You must specify tenant in env variable TENANT'.red
       exit 1
     end
-    Ekylibre::Tenant.switch! ENV['TENANT']
+    Ekylibre::Tenant.switch! ENV.fetch('TENANT', nil)
 
     if ENV['TARGET_NUMBER'].blank?
       puts 'You must specify target account number in env variable TARGET_NUMBER'.red
       exit 3
     end
-    target_account = Account.find_by(number: ENV['TARGET_NUMBER'])
+    target_account = Account.find_by(number: ENV.fetch('TARGET_NUMBER', nil))
     unless target_account
-      puts 'Cannot find target account with number: ' + ENV['TARGET_NUMBER']
+      puts 'Cannot find target account with number: ' + ENV.fetch('TARGET_NUMBER', nil)
       exit 31
     end
 
@@ -44,9 +44,9 @@ namespace :accountancy do
       puts 'You must specify tenant in env variable TENANT'.red
       exit 1
     end
-    Ekylibre::Tenant.switch! ENV['TENANT']
+    Ekylibre::Tenant.switch! ENV.fetch('TENANT', nil)
 
-    file_name = ENV['FILENAME']
+    file_name = ENV.fetch('FILENAME', nil)
     file_path = Rails.root.join(file_name)
 
     CSV.foreach(file_path, headers: true) do |row|

@@ -8,7 +8,7 @@ module Ekylibre
     self.deprecated = true
 
     def initialize(file, supervisor, options = {})
-      super file, supervisor
+      super(file, supervisor)
       @attachments_dir = options['attachments_path']
       @attachments_dir &&= Pathname.new(@attachments_dir)
     end
@@ -121,7 +121,7 @@ module Ekylibre
               r.variant[:fixed_asset_depreciation_percentage] ||= 15
             end
             %w[product charge fixed_asset fixed_asset_allocation fixed_asset_expenses].each do |type|
-              key = "#{type}_account".to_sym
+              key = :"#{type}_account"
               account_infos = r.variant[key].to_s.split(':')
               account_number = account_infos.shift
               account_name = account_infos.shift
@@ -137,7 +137,7 @@ module Ekylibre
             attrs[:saleable] = true if attrs[:product_account]
             attrs[:purchasable] = true if attrs[:charge_account]
             attrs[:depreciable] = true if attrs[:fixed_asset_account]
-            attrs[:type]= variant.type.gsub(/Variant/, 'Category') if variant.present?
+            attrs[:type]= variant.type.gsub('Variant', 'Category') if variant.present?
             unless category = ProductNatureCategory.find_by(attrs)
               category = ProductNatureCategory.create!(attrs.merge(active: true, pictogram: :undefined))
             end
@@ -146,7 +146,7 @@ module Ekylibre
             n_attrs[:name] = attrs[:name]
             n_attrs[:variety] = attrs[:variety]
             n_attrs[:population_counting] = :decimal
-            n_attrs[:type]= variant.type.gsub(/Variant/, 'Type') if variant.present?
+            n_attrs[:type]= variant.type.gsub('Variant', 'Type') if variant.present?
             nature = ProductNature.find_or_create_by!(n_attrs)
 
             unless variant = nature.variants.first

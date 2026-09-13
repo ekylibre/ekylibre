@@ -48,6 +48,7 @@
 class SaleContract < ApplicationRecord
   include Attachable
   include Customizable
+
   attr_readonly :currency
   refers_to :currency
   belongs_to :client, class_name: 'Entity'

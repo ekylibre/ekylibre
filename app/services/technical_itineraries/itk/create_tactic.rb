@@ -17,7 +17,7 @@ module TechnicalItineraries
       def create_or_update_activity_tactic
         year_delta = @activity.production_started_on_year
         if year_delta && @technical_workflow
-          sowed_started_on = Date.new((@campaign.harvest_year + year_delta), @technical_workflow.start_month, @technical_workflow.start_day)
+          sowed_started_on = Date.new(@campaign.harvest_year + year_delta, @technical_workflow.start_month, @technical_workflow.start_day)
         else
           sowed_started_on = nil
         end
@@ -106,21 +106,21 @@ module TechnicalItineraries
           # basic case : 1 per_year, no conversion
           if twp.repetition == 1 && twp.frequency == 'per_year'
             tiit = TechnicalItineraryInterventionTemplate.find_or_create_by!(technical_itinerary_id: ti.id,
-                                                                  intervention_template_id: it.id,
-                                                                  position: twp.position,
-                                                                  day_since_start: twp.period.to_f,
-                                                                  repetition: 1,
-                                                                  frequency: 'per_year')
+                                                                             intervention_template_id: it.id,
+                                                                             position: twp.position,
+                                                                             day_since_start: twp.period.to_f,
+                                                                             repetition: 1,
+                                                                             frequency: 'per_year')
           # complex case : 2 per_month, conversion per year
           else
             reps = create_repetition(twp)
             (1..reps.intervention_count).each_with_index do |_rep, index|
               tiit = TechnicalItineraryInterventionTemplate.find_or_create_by!(technical_itinerary_id: ti.id,
-                                                                    intervention_template_id: it.id,
-                                                                    position: (twp.position + index),
-                                                                    day_since_start: reps.initial_start + (index * reps.individual_offset),
-                                                                    repetition: 1,
-                                                                    frequency: 'per_year')
+                                                                               intervention_template_id: it.id,
+                                                                               position: (twp.position + index),
+                                                                               day_since_start: reps.initial_start + (index * reps.individual_offset),
+                                                                               repetition: 1,
+                                                                               frequency: 'per_year')
             end
           end
         end

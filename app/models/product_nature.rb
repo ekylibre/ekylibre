@@ -270,13 +270,13 @@ class ProductNature < ApplicationRecord
   # Returns list of abilities as an array of ability items from the nomenclature
   def abilities
     abilities_list.collect do |i|
-      (Onoma::Ability[i.to_s.split(/\(/).first] ? i.to_s : nil)
+      Onoma::Ability[i.to_s.split('(').first] ? i.to_s : nil
     end.compact
   end
 
   def ability(name)
     abilities_list.select do |a|
-      a.to_s.split(/\(/).first == name.to_s
+      a.to_s.split('(').first == name.to_s
     end
   end
 

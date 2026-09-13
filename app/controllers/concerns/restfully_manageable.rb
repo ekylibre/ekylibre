@@ -19,9 +19,9 @@ module RestfullyManageable
       columns = model.columns_definition.keys
 
       if after_save_url.blank?
-        if instance_methods(true).include?(:show) || actions.include?(:show)
+        if method_defined?(:show) || actions.include?(:show)
           after_save_url = :show
-        elsif instance_methods(true).include?(:index) || actions.include?(:index)
+        elsif method_defined?(:index) || actions.include?(:index)
           after_save_url = :index
         end
       end
@@ -33,9 +33,9 @@ module RestfullyManageable
       elsif after_save_url == :index
         after_save_url = '{ action: :index }'.c
       elsif after_save_url.is_a?(CodeString)
-        after_save_url.gsub!(/RECORD/, "@#{record_name}")
+        after_save_url.gsub!('RECORD', "@#{record_name}")
       elsif after_save_url.is_a?(Hash)
-        after_save_url = after_save_url.inspect.gsub(/RECORD/, "@#{record_name}")
+        after_save_url = after_save_url.inspect.gsub('RECORD', "@#{record_name}")
       end
 
       options[:identifier] ||= %w[name number id].detect { |i| columns.include?(i) }
@@ -50,8 +50,8 @@ module RestfullyManageable
                                  :back
                                end
       locals = ["cancel_url: #{options[:cancel_url].inspect}"]
-      locals << 'with_continue: ' + (options[:continue] ? 'true' : 'false')
-      render_form_options << 'locals: { ' + locals.join(', ') + ' }'
+      locals << ('with_continue: ' + (options[:continue] ? 'true' : 'false'))
+      render_form_options << ('locals: { ' + locals.join(', ') + ' }')
       render_form = 'render(' + render_form_options.join(', ') + ')'
 
       after_save_url ||= options[:cancel_url].inspect
@@ -59,9 +59,9 @@ module RestfullyManageable
       t3e_code = "t3e(@#{record_name}.attributes"
       t3e = options[:t3e]
       if t3e
-        t3e_code << '.merge(' + t3e.collect do |k, v|
-          "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub(/RECORD/, '@' + record_name)) + ')'
-        end.join(', ') + ')'
+        t3e_code << ('.merge(' + t3e.collect do |k, v|
+          "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub('RECORD', '@' + record_name)) + ')'
+        end.join(', ') + ')')
       end
       t3e_code << ')'
 
@@ -223,15 +223,15 @@ module RestfullyManageable
         if after_destroy_url == :index
           after_destroy_url = "{controller: :'#{path}', action: :index}".c
         elsif after_destroy_url.is_a?(CodeString)
-          after_destroy_url.gsub!(/RECORD/, "@#{record_name}")
+          after_destroy_url.gsub!('RECORD', "@#{record_name}")
         elsif after_destroy_url.is_a?(Hash)
-          after_destroy_url = after_destroy_url.inspect.gsub(/RECORD/, "@#{record_name}")
+          after_destroy_url = after_destroy_url.inspect.gsub('RECORD', "@#{record_name}")
         end
 
         # this action deletes or hides an existing record.
         code << "def destroy\n"
         code << find_and_check_code
-        if model.instance_methods.include?(:destroyable?)
+        if model.method_defined?(:destroyable?)
           code << "  if @#{record_name}.destroyable?\n"
           # code << "    resource_model.destroy(@#{record_name}.id)\n"
           code << "    @#{record_name}.destroy\n"
@@ -340,6 +340,7 @@ module RestfullyManageable
           eval class_code
         end
         include restful_module
+
         self
       end
   end

@@ -21,7 +21,7 @@ module Ekylibre
             options = args.extract_options!
             scope = args.shift
             Rails.logger.warn "Cannot support Proc scope in #{self.class.name}" unless scope.nil?
-            column = ["#{name}_tid".to_sym, "#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
+            column = [:"#{name}_tid", :"#{name}_name", name].detect { |c| columns_definition[c] }
             options[:foreign_key] ||= column
             reflection = Onoma::Reflection.new(self, name, options)
             @nomenclature_reflections ||= {}.with_indifferent_access
@@ -51,7 +51,7 @@ module Ekylibre
             end
 
             # Define a default scope "of_<name>"
-            scope("of_#{name}".to_sym, proc { |*items|
+            scope(:"of_#{name}", proc { |*items|
               where(reflection.foreign_key => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
             })
 

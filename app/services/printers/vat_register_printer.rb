@@ -77,7 +77,7 @@ module Printers
         content << :draft.tl if @state.include?('draft')
         content << :confirmed.tl if @state.include?('validated')
         content << :sent.tl if @state.include?('sent')
-        data_filters << :tax_declarations_states.tl + ' : ' + content.to_sentence
+        data_filters << (:tax_declarations_states.tl + ' : ' + content.to_sentence)
       end
 
       vat_dataset << data_filters

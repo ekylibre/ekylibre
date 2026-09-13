@@ -57,6 +57,7 @@ class OutgoingPayment < ApplicationRecord
   include Customizable
   include PeriodicCalculable
   include Letterable
+
   refers_to :currency
   belongs_to :cash
   belongs_to :journal_entry # , dependent: :destroy DO NOT USE HERE because we cancel the bookkeep if needed
@@ -146,7 +147,7 @@ class OutgoingPayment < ApplicationRecord
     c = Onoma::Currency[currency]
     precision = c.precision
     integers, decimals = amount.round(precision).divmod(1)
-    decimals = (decimals * 10**precision).round
+    decimals = (decimals * (10**precision)).round
     locale = I18n.t('i18n.iso2').to_sym
     items = [integers.to_i.humanize(locale: locale) + ' ' + c.human_name.downcase.pluralize]
     if decimals > 0

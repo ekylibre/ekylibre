@@ -38,6 +38,7 @@
 
 class Version < ActiveRecord::Base
   extend Enumerize
+
   cattr_accessor :current_user
   belongs_to :creator, class_name: 'User'
   belongs_to :item, polymorphic: true

@@ -194,7 +194,7 @@ module ChartsHelper
     r = color[1..2].to_i(16)
     g = color[3..4].to_i(16)
     b = color[5..6].to_i(16)
-    0.299 * r + 0.587 * g + 0.114 * b
+    (0.299 * r) + (0.587 * g) + (0.114 * b)
   end
 
   def contrasted_color(color)
@@ -298,7 +298,7 @@ module ChartsHelper
       xa = options[:x_axis]
       return if xa.is_a?(Array)
 
-      xa = xa.is_a?(Hash) ? xa : {}
+      xa = {} unless xa.is_a?(Hash)
       return if xa[:categories].present?
       return unless %w[category].include?(xa[:type].to_s)
 
@@ -375,8 +375,8 @@ module ChartsHelper
     def convert_point_format(fmt)
       fmt = fmt.to_s
       fmt = fmt.gsub(/\{point\.y[^}]*\}/, '{c}')
-      fmt = fmt.gsub(/\{point\.name\}/, '{b}')
-      fmt = fmt.gsub(/\{series\.name\}/, '{a}')
+      fmt = fmt.gsub('{point.name}', '{b}')
+      fmt = fmt.gsub('{series.name}', '{a}')
       fmt
     end
 

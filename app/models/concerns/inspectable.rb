@@ -57,7 +57,7 @@ module Inspectable
 
   # Quantities
   def quantity_value(dimension)
-    return (send(:"#{dimension}_value") || 0) if respond_to?(:"#{dimension}_value")
+    return send(:"#{dimension}_value") || 0 if respond_to?(:"#{dimension}_value")
 
     unknown_dimension(dimension)
   end

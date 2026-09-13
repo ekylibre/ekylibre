@@ -32,6 +32,7 @@
 #
 class TechnicalWorkflowSequence < LexiconRecord
   include Lexiconable
+
   belongs_to :technical_sequence, class_name: 'TechnicalSequence'
 
 end

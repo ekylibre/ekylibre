@@ -71,6 +71,7 @@
 class Parcel < ApplicationRecord
   include Attachable
   include Customizable
+
   attr_readonly :currency
   refers_to :currency
   enumerize :nature, in: %i[incoming outgoing], predicates: true, scope: true, default: :incoming
@@ -205,7 +206,7 @@ class Parcel < ApplicationRecord
 
   def nature=(value)
     # Ekylibre.deprecator.warn('Parcel#nature= is deprecated, please use STI instead. This method will be removed in next major release 3.0')
-    super(value)
+    super
   end
 
   # Number of products delivered
@@ -265,7 +266,7 @@ class Parcel < ApplicationRecord
       purchase = nil
       transaction do
         parcels = parcels.collect do |d|
-          (d.is_a?(self) ? d : find(d))
+          d.is_a?(self) ? d : find(d)
         end.sort_by(&:first_available_date)
         third = detect_third(parcels)
         planned_at = parcels.last.first_available_date || Time.zone.now

@@ -49,6 +49,7 @@ class Delivery < ApplicationRecord
   include Attachable
   include Transitionable
   include Customizable
+
   acts_as_numbered
   enumerize :mode, in: %i[transporter us third], predicates: true, default: :us
   belongs_to :driver, -> { contacts }, class_name: 'Entity'

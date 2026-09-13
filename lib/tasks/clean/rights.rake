@@ -64,9 +64,7 @@ namespace :clean do
       end
     end
 
-    File.open(Ekylibre::Access.config_file, 'wb') do |file|
-      file.write yaml
-    end
+    File.binwrite(Ekylibre::Access.config_file, yaml)
 
     print "#{unused_actions.size.to_s.rjust(3)} public actions, #{unexistent_actions.size.to_s.rjust(3)} deletable actions\n"
   end

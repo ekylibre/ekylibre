@@ -36,8 +36,8 @@ module FinancialYearTest
       assert File.exist? f.prior_to_closure_archive.path
       assert File.exist? f.post_closure_archive.path
 
-      assert File.exist? f.prior_to_closure_archive.path.gsub(/zip/, 'asc')
-      assert File.exist? f.post_closure_archive.path.gsub(/zip/, 'asc')
+      assert File.exist? f.prior_to_closure_archive.path.gsub('zip', 'asc')
+      assert File.exist? f.post_closure_archive.path.gsub('zip', 'asc')
 
       crypto = GPGME::Crypto.new
       assert_equal crypto.verify(f.prior_to_closure_archive.signature) { |s| s.valid? }.class, GPGME::Data

@@ -5,7 +5,7 @@ module Procedo
     # Parameter group is a a group of parameter like a directory in a FS.
     class GroupParameter < Procedo::Procedure::Parameter
       def initialize(procedure, name, options = {})
-        super(procedure, name, options)
+        super
         @parameters = {}.with_indifferent_access
       end
 

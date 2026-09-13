@@ -297,7 +297,7 @@ class FixedAsset < ApplicationRecord
                           updated_at state].freeze
 
   protect on: :update do
-    return true if (old_record.scrapped? || old_record.sold?)
+    return true if old_record.scrapped? || old_record.sold?
 
     if depreciations.any?(&:locked_or_journal_entry_confirmed?) || (journal_entry && journal_entry.confirmed?)
       (changes_to_save.keys - AUTHORIZED_COLUMNS).any?
@@ -317,7 +317,7 @@ class FixedAsset < ApplicationRecord
       if started_on
         months = 12 * (100.0 / depreciation_percentage.to_f)
         self.stopped_on = started_on + months.floor.months
-        self.stopped_on += (months - months.floor) * 30.0 - 1
+        self.stopped_on += ((months - months.floor) * 30.0) - 1
       end
     end
     if depreciation_method_regressive?
@@ -325,7 +325,7 @@ class FixedAsset < ApplicationRecord
       if started_on
         months = 12 * (100.0 / depreciation_percentage.to_f)
         self.stopped_on = started_on >> months.floor
-        self.stopped_on += (months - months.floor) * 30.0 - 1
+        self.stopped_on += ((months - months.floor) * 30.0) - 1
       end
     end
   end
@@ -560,7 +560,7 @@ class FixedAsset < ApplicationRecord
         days = 30 - sa + 1
         cursor = started_on.beginning_of_month
         while (cursor >> 1) < stopped_on.beginning_of_month
-          cursor = cursor >> 1
+          cursor >>= 1
           days += 30
         end
         days += so
@@ -575,7 +575,7 @@ class FixedAsset < ApplicationRecord
         days = 30 - sa + 1
         cursor = started_on.beginning_of_month
         while (cursor >> 1) < stopped_on.beginning_of_month
-          cursor = cursor >> 1
+          cursor >>= 1
           days += 30
         end
         days += so

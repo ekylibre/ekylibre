@@ -12,7 +12,7 @@ module Backend
 
     def self.crop_groups_conditions
       code = ''
-      code << search_conditions(crop_groups: %i[name target], labels: %i[name], products: %i[name]) + " ||= []\n"
+      code << (search_conditions(crop_groups: %i[name target], labels: %i[name], products: %i[name]) + " ||= []\n")
       code << "unless params[:label].blank? \n"
       code << "  c[0] << ' AND labels.name = ?'\n"
       code << "  c << params[:label]\n"

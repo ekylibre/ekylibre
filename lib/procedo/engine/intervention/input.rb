@@ -8,7 +8,7 @@ module Procedo
         attr_accessor :spray_volume_value
 
         def initialize(intervention, id, attributes = {})
-          super(intervention, id, attributes)
+          super
           if @attributes[:usage_id].present?
             self.usage_id = @attributes[:usage_id]
           end

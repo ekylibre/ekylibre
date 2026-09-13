@@ -4,7 +4,7 @@ require 'procedo'
 module Procedo
   class FormulaTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
-      I18n.locale = ENV['LOCALE']
+      I18n.locale = ENV.fetch('LOCALE', nil)
     end
 
     test 'valid expressions' do

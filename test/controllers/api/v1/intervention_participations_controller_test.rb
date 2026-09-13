@@ -3,6 +3,7 @@ module Api
   module V1
     module BasicBehaviourTest
       extend ActiveSupport::Concern
+
       included do
         test 'receiving an empty payload doesn\'t blow up' do
           assert_nothing_raised { post :create, params: {} }
@@ -94,6 +95,7 @@ module Api
 
     module InterventionCreationTest
       extend ActiveSupport::Concern
+
       included do
         test 'instantiate an intervention if it doesn\'t exist' do
           original_count = Intervention.where(nature: :record).count
@@ -120,6 +122,7 @@ module Api
 
     module WorkingPeriodsTest
       extend ActiveSupport::Concern
+
       included do
         test 'no error should be raised if no working_periods are provided' do
           payload = correct_payload.except(:working_periods)
@@ -377,6 +380,7 @@ module Api
 
     module HourCounterTest
       extend ActiveSupport::Concern
+
       included do
         test 'add hour counter on intervention tools from request intervention to done intervention' do
           default_setup

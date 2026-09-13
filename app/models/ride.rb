@@ -55,6 +55,7 @@ class Ride < ApplicationRecord
   include Attachable
   include Providable
   include HasInterval
+
   belongs_to :ride_set
   belongs_to :intervention, dependent: :destroy
   has_many :crumbs, dependent: :destroy

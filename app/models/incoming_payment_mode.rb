@@ -101,7 +101,7 @@ class IncomingPaymentMode < ApplicationRecord
   end
 
   def commission_amount(amount)
-    (amount * self.commission_percentage * 0.01 + self.commission_base_amount).round(2)
+    ((amount * self.commission_percentage * 0.01) + self.commission_base_amount).round(2)
   end
 
   def reflect

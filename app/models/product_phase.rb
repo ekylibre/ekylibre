@@ -44,6 +44,7 @@
 class ProductPhase < ApplicationRecord
   include TimeLineable
   include Taskable
+
   belongs_to :product
   belongs_to :variant,  class_name: 'ProductNatureVariant'
   belongs_to :nature,   class_name: 'ProductNature'

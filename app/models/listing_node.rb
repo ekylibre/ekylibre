@@ -189,7 +189,7 @@ class ListingNode < ApplicationRecord
   def self.condition(column, operator, value, nature, datatype = 'string')
     operation = @@corresponding_comparators[operator.to_sym] || @@corresponding_comparators[:equal]
     c = operation.gsub('{{COLUMN}}', column)
-    c.gsub!('{{LIST}}', '(' + value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.tr("\t", ',')) }.join(', ') + ')')
+    c.gsub!('{{LIST}}', '(' + value.to_s.gsub(',,', "\t").split(/\s*\,\s*/).collect { |x| connection.quote(x.tr("\t", ',')) }.join(', ') + ')')
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
       n = m[2..-3].gsub('VALUE', value.to_s.send(operator.to_s =~ /_cs$/ ? 'to_s' : 'lower'))
       #       if datatype == "date"

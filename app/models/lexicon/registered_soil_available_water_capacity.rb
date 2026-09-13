@@ -36,6 +36,7 @@
 class RegisteredSoilAvailableWaterCapacity < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
+
   composed_of :available_water_max, class_name: 'Measure', mapping: [%w[available_water_max_value to_d], %w[available_water_unit unit]]
   composed_of :available_water_min, class_name: 'Measure', mapping: [%w[available_water_min_value to_d], %w[available_water_unit unit]]
 

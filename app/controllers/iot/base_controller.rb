@@ -19,6 +19,7 @@
 module Iot
   class BaseController < ::ApiController
     include ActionController::Flash
+
     before_action :authenticate_thing!
 
     protected

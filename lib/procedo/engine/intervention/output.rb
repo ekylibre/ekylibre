@@ -9,7 +9,7 @@ module Procedo
         attr_reader :new_name, :specie_variety_name, :identification_number, :variety, :batch_number
 
         def initialize(intervention, id, attributes = {})
-          super(intervention, id, attributes)
+          super
           if @attributes[:variant_id].present?
             @variant = ProductNatureVariant.find_by(id: @attributes[:variant_id])
           end

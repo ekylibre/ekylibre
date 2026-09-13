@@ -16,7 +16,7 @@ namespace :http do
       maintenance_path = Rails.root.join('lib', 'tasks', 'http', 'errors', 'maintenance.haml')
       maintenance_template = Tilt.new(maintenance_path.to_s)
 
-      ::I18n.available_locales.delete_if { |l| l.to_s.size != 3 }.each do |locale|
+      I18n.available_locales.delete_if { |l| l.to_s.size != 3 }.each do |locale|
         I18n.locale = locale
         errors.each do |name, code|
           details = I18n.translate("http.errors.#{name}", default: '', fallback: [])

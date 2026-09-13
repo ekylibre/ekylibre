@@ -176,7 +176,7 @@ module Clean
         browse(paths) do |file|
           source = File.read(file)
           source.gsub(/notify(_error|_warning|_success)?(_now)?(\(\s*|\s+)\:\w+/) do |exp|
-            list << exp.split(/\:/)[1].to_sym
+            list << exp.split(':')[1].to_sym
           end
           source.gsub(/\:\w+\.tn/) do |exp|
             list << exp[1..-4].to_sym

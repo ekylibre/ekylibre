@@ -49,6 +49,7 @@
 #
 class InterventionSettingItem < ApplicationRecord
   include ReadingStorable
+
   belongs_to :intervention_parameter_setting, optional: true
   belongs_to :intervention, optional: true
 

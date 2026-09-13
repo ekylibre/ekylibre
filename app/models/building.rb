@@ -103,7 +103,7 @@ class Building < ProductGroup
       raise ArgumentError.new("BuildingDivision expected, got #{member.class}:#{member.inspect}")
     end
 
-    super(member, started_at)
+    super
   end
 
   # Remove a member from the group
@@ -112,7 +112,7 @@ class Building < ProductGroup
       raise ArgumentError.new("BuildingDivision expected, got #{member.class}:#{member.inspect}")
     end
 
-    super(member, stopped_at)
+    super
   end
 
   # Returns members of the group at a given time (or now by default)

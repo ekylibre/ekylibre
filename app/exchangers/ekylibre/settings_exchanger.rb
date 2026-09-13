@@ -84,7 +84,7 @@ module Ekylibre
           if value.is_a?(Hash)
             value[:canal] ||= address
             (1..6).to_a.each do |index|
-              value["mail_line_#{index}"] = value.delete("line_#{index}".to_sym)
+              value["mail_line_#{index}"] = value.delete(:"line_#{index}")
             end
             company.addresses.create!(value)
           else

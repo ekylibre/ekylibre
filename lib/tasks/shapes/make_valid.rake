@@ -2,7 +2,7 @@
 namespace :shapes do
   desc 'Find invalid productions support shapes (resolve GEOSUnaryUnion: TopologyException error)'
   task find_invalid_productions: :environment do
-    tenant = ENV['TENANT']
+    tenant = ENV.fetch('TENANT', nil)
 
     raise 'Need TENANT variable' unless tenant
 
@@ -17,7 +17,7 @@ namespace :shapes do
 
   desc 'Make valid invalid productions support shapes (resolve GEOSUnaryUnion: TopologyException error)'
   task make_valid_productions: :environment do
-    tenant = ENV['TENANT']
+    tenant = ENV.fetch('TENANT', nil)
 
     raise 'Need TENANT variable' unless tenant
 

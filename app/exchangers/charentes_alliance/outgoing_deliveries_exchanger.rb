@@ -35,8 +35,8 @@ module CharentesAlliance
         r = OpenStruct.new(
           delivery_number: row[0],
           delivery_on: Date.parse(row[1].to_s),
-          building_division_work_number: (silos_transcode[row[2].to_s]),
-          product_variant: (variants_transcode[row[3].to_s]),
+          building_division_work_number: silos_transcode[row[2].to_s],
+          product_variant: variants_transcode[row[3].to_s],
           net_weight: row[4].tr(',', '.').to_d,
           normalized_weight: row[5].tr(',', '.').to_d,
           moisture: row[6].tr(',', '.').to_d,

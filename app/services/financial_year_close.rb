@@ -48,7 +48,7 @@ class FinancialYearClose
     if @previous_now
       moment << sprintf('%.2f', now - @previous_now).rjust(6).green
     else
-      moment << '—' * 6
+      moment << ('—' * 6)
     end
     moment << '] '
 
@@ -89,7 +89,7 @@ class FinancialYearClose
 
     ApplicationRecord.transaction do
 
-      @logger.info((CLOSURE_STEPS[0]).to_s)
+      @logger.info(CLOSURE_STEPS[0].to_s)
       @year.update({ state: 'opened' })
       @logger.info('1 - Dump tenant')
       dump_tenant
@@ -97,21 +97,21 @@ class FinancialYearClose
       generate_documents('prior_to_closure')
       @progress.increment!
 
-      @logger.info((CLOSURE_STEPS[1]).to_s)
+      @logger.info(CLOSURE_STEPS[1].to_s)
       benchmark('Compute Balance') do
         @logger.info('3 - Compute Balance')
         @year.compute_balances!
         @progress.increment!
       end
 
-      @logger.info((CLOSURE_STEPS[2]).to_s)
+      @logger.info(CLOSURE_STEPS[2].to_s)
       benchmark('Generate Result Entry') do
         @logger.info('4 - Generate result entry')
         generate_result_entry!
         @progress.increment!
       end
 
-      @logger.info((CLOSURE_STEPS[3]).to_s)
+      @logger.info(CLOSURE_STEPS[3].to_s)
       log("Disable Partial Lettering Triggers")
       @logger.info("5 - Disable Partial Lettering Triggers")
       disable_partial_lettering
@@ -122,7 +122,7 @@ class FinancialYearClose
       enable_partial_lettering
       @progress.increment!
 
-      @logger.info((CLOSURE_STEPS[4]).to_s)
+      @logger.info(CLOSURE_STEPS[4].to_s)
       @logger.info("7 - Allocate Result")
       @logger.info("forward_journal_id : #{@forward_journal.id}") if @forward_journal
       allocate_results if @forward_journal
@@ -130,7 +130,7 @@ class FinancialYearClose
       enable_partial_lettering
       @progress.increment!
 
-      @logger.info((CLOSURE_STEPS[5]).to_s)
+      @logger.info(CLOSURE_STEPS[5].to_s)
       @logger.info("Locked depreciations repayments")
       locked_depreciations_repayments
       @logger.info("Close Journals")
@@ -143,7 +143,7 @@ class FinancialYearClose
       @logger.info(@year.balanced_balance_sheet?(:post_closure).to_s)
       raise UnbalancedBalanceSheet.new(:closure_failed_because_balance_sheet_unbalanced.tl) unless @year.balanced_balance_sheet?(:post_closure)
 
-      @logger.info((CLOSURE_STEPS[6]).to_s)
+      @logger.info(CLOSURE_STEPS[6].to_s)
       generate_documents('post_closure')
       @progress.increment!
 
@@ -514,10 +514,10 @@ class FinancialYearClose
           model = type.constantize
           table = model.table_name
           root_model = model.table_name.singularize.camelize
-          query = "UPDATE affairs SET letter = #{ApplicationRecord.connection.quote(new_letter)} " \
-                '  FROM journal_entry_items AS jei' \
-                "    JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ApplicationRecord.connection.quote(root_model)}) " \
-                "  WHERE jei.account_id = #{account_id} AND jei.letter = #{ApplicationRecord.connection.quote(letter)} AND jei.printed_on > #{ApplicationRecord.connection.quote(@to_close_on)} "
+          query = "UPDATE affairs SET letter = #{ApplicationRecord.connection.quote(new_letter)}   " \
+                  'FROM journal_entry_items AS jei    ' \
+                  "JOIN #{table} AS res ON (resource_id = res.id AND resource_type = #{ApplicationRecord.connection.quote(root_model)})   " \
+                  "WHERE jei.account_id = #{account_id} AND jei.letter = #{ApplicationRecord.connection.quote(letter)} AND jei.printed_on > #{ApplicationRecord.connection.quote(@to_close_on)} "
           '    AND res.affair_id = affairs.id'
           Affair.connection.execute query
         end
@@ -653,7 +653,7 @@ class FinancialYearClose
 
     def generate_general_ledger_documents(timing, params)
       template = DocumentTemplate.find_by_nature(:general_ledger)
-      printer = Printers::GeneralLedgerPrinter.new(**params.merge(template: template))
+      printer = Printers::GeneralLedgerPrinter.new(**params, template: template)
 
       document = print_and_archive(template, printer)
 
@@ -702,7 +702,7 @@ class FinancialYearClose
 
       sha256 = Digest::SHA256.file zip_path
       crypto = GPGME::Crypto.new
-      signature = crypto.clearsign(sha256.to_s, signer: ENV['GPG_EMAIL'])
+      signature = crypto.clearsign(sha256.to_s, signer: ENV.fetch('GPG_EMAIL', nil))
       signature_path = Ekylibre::Tenant.private_directory.join('attachments', 'documents', 'financial_year_closures', @year.id.to_s, "#{@year.id}_#{timing}.asc")
       File.write(signature_path, signature)
       @year.archives.create!(timing: timing, sha256_fingerprint: sha256.to_s, signature: signature.to_s, path: zip_path)

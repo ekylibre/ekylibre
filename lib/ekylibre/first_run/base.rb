@@ -124,7 +124,7 @@ module Ekylibre
         elsif @verbose
           text = [" ∅ #{nature.to_s.humanize}", " (#{p.basename})"]
           if text.join.length < @term_width
-            text << ' ' * (@term_width - text.join.length)
+            text << (' ' * (@term_width - text.join.length))
           end
           text[0] = text[0].yellow
           puts text.join
@@ -204,7 +204,7 @@ module Ekylibre
             line = status.join
             done = (progress * @term_width / 100.0).round.to_i
             done = @term_width if done > @term_width
-            print "\r" * last.size + line[0..done].blue + (done == @term_width ? '' : line[(done + 1)..-1])
+            print ("\r" * last.size) + line[0..done].blue + (done == @term_width ? '' : line[(done + 1)..-1])
             last = line
             total = count
           end
@@ -213,7 +213,7 @@ module Ekylibre
         if @verbose
           stop = Time.zone.now
           status = [' ✔ ' + nature.to_s.humanize, ' (' + Pathname.new(file).basename.to_s + ') ']
-          status << ' ' + total.to_s
+          status << (' ' + total.to_s)
           status << ' done in '
           status << "#{(stop - start).to_i}s"
           l = @term_width - status.join.length
@@ -230,7 +230,7 @@ module Ekylibre
           status[0] = status[0].green
           # status[1] = status[1].green
           # status[0 + n] = status[0 + n].green
-          puts "\r" * last.size + status.join
+          puts ("\r" * last.size) + status.join
         end
       end
 

@@ -52,7 +52,7 @@ module Backend
       @draft_entries = @draft_entries.page(@current_page).per(20)
       @entries_to_validate_count = @draft_entries.where(financial_year_exchange_id: nil).count
       @unbalanced_entries_count = journal_entries.where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).reject(&:balanced?).count
-      @can_validate = (@entries_to_validate_count > 0 && @unbalanced_entries_count == 0)
+      @can_validate = @entries_to_validate_count > 0 && @unbalanced_entries_count == 0
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) if @unbalanced_entries_count > 0
     end
 
@@ -68,7 +68,7 @@ module Backend
       @draft_entries = @draft_entries.page(@current_page).per(20)
       @entries_to_validate_count = @draft_entries.where(financial_year_exchange_id: nil).count
       @unbalanced_entries_count = journal_entries.where('printed_on BETWEEN ? AND ?', @current_from_date, @current_to_date).reject(&:balanced?).count
-      @can_validate = (@entries_to_validate_count > 0 && @unbalanced_entries_count == 0)
+      @can_validate = @entries_to_validate_count > 0 && @unbalanced_entries_count == 0
       notify_warning_now(:there_are_x_remaining_unbalanced_entries, count: @unbalanced_entries_count) if @unbalanced_entries_count > 0
     end
 

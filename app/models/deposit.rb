@@ -46,6 +46,7 @@
 
 class Deposit < ApplicationRecord
   include Customizable
+
   acts_as_numbered
   belongs_to :cash
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'

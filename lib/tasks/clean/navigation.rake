@@ -64,9 +64,7 @@ namespace :clean do
     undefined.add_child(undefined_group)
 
     doc.root.add_child(undefined)
-    File.open(menu_file, 'wb') do |f|
-      f.write doc.to_s
-    end
+    File.binwrite(menu_file, doc.to_s)
     print "#{unused_actions.size.to_s.rjust(3)} unused actions, #{deleted.to_s.rjust(3)} deletable actions\n"
   end
 end

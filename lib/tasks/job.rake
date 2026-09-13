@@ -13,8 +13,8 @@ namespace :job do
   task running: :environment do
     next false if Sidekiq::Stats.new.enqueued.zero?
 
-    job_class = ENV['JOB_CLASS']
-    job_tenant = ENV['TENANT']
+    job_class = ENV.fetch('JOB_CLASS', nil)
+    job_tenant = ENV.fetch('TENANT', nil)
     running = false
     Sidekiq::Queue.all.each do |queue|
       jobs = queue.entries.select do |entry|
@@ -33,8 +33,8 @@ namespace :job do
   end
 
   task done: :environment do
-    job_class = ENV['JOB_CLASS']
-    job_tenant = ENV['TENANT']
+    job_class = ENV.fetch('JOB_CLASS', nil)
+    job_tenant = ENV.fetch('TENANT', nil)
     jobs = Sidekiq::DeadSet.new.select do |entry|
       (!job_class || entry.item['args'].first['job_class'] == job_class) &&
         (!job_tenant || entry.item['apartment'] == job_tenant)
@@ -55,8 +55,8 @@ namespace :job do
 
   desc "Displays all matching errored jobs"
   task errored: :environment do
-    job_class = ENV['JOB_CLASS']
-    job_tenant = ENV['TENANT']
+    job_class = ENV.fetch('JOB_CLASS', nil)
+    job_tenant = ENV.fetch('TENANT', nil)
     jobs = Sidekiq::DeadSet.new.select do |entry|
       (!job_class || entry.item['args'].first['job_class'] == job_class) &&
         (!job_tenant || entry.item['apartment'] == job_tenant) &&

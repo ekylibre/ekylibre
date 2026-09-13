@@ -43,6 +43,7 @@
 class WorkerTimeLog < ApplicationRecord
   include Customizable
   include Providable
+
   belongs_to :project_task, inverse_of: :logs
   belongs_to :worker
   has_one :person, through: :worker

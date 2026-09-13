@@ -37,5 +37,6 @@
 class RegisteredQualityAndOriginSign < LexiconRecord
   self.primary_key = :id
   include Lexiconable
+
   has_many :cvi_cadastral_plants, foreign_key: :designation_of_origin_id, inverse_of: :designation_of_origin
 end

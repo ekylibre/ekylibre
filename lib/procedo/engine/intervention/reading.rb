@@ -28,7 +28,7 @@ module Procedo
               @value = attributes[:measure_value_value].to_d.in(attributes[:measure_value_unit])
             end
           else
-            val = attributes["#{datatype}_value".to_sym]
+            val = attributes[:"#{datatype}_value"]
             @value = if %i[point geometry multi_polygon].include?(datatype)
                        if val.blank? || val == 'null'
                          Charta.empty_geometry
@@ -62,7 +62,7 @@ module Procedo
         end
 
         def assign(attribute, value)
-          super(attribute, value)
+          super
           impact_dependencies!
         end
 
@@ -100,9 +100,9 @@ module Procedo
             hash[:measure_value_value] = @value.to_d.to_s.to_f
             hash[:measure_value_unit] = @value.unit
           elsif %i[point geometry multi_polygon].include?(datatype)
-            hash["#{datatype}_value".to_sym] = @value.to_json
+            hash[:"#{datatype}_value"] = @value.to_json
           else
-            hash["#{datatype}_value".to_sym] = @value
+            hash[:"#{datatype}_value"] = @value
           end
           hash
         end

@@ -114,11 +114,11 @@ class PlantCounting < ApplicationRecord
 
   def density_computable?
     (working_width_value.present? && rows_count_value.present?) ||
-      plant_sower.present? &&
+      (plant_sower.present? &&
         plant_sower.product.variant.has_indicator?(:application_width) &&
         plant_sower.product.variant.application_width(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero? &&
         plant_sower.product.variant.has_indicator?(:rows_count) &&
-        plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero?
+        plant_sower.product.variant.rows_count(at: plant_last_sowing && plant_last_sowing.stopped_at).nonzero?)
   end
 
   def implanter_working_width

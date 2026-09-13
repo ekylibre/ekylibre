@@ -197,7 +197,7 @@ module Ekylibre
           started_on: row.started_on,
           depreciable_amount: row.depreciable_amount,
           depreciation_method: DEPRECIATION_METHODS[row.depreciation_method].to_s,
-          journal: (journal.presence || default_journal),
+          journal: journal.presence || default_journal,
           asset_account: find_or_create_account(row.asset_account_number),
           state: STATES[row.state].to_s,
           provider: provider_value(number: row.number)

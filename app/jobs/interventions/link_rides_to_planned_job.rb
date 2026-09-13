@@ -3,6 +3,7 @@
 module Interventions
   class LinkRidesToPlannedJob < ApplicationJob
     include Rails.application.routes.url_helpers
+
     queue_as :default
 
     before_enqueue do |job|

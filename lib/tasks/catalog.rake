@@ -1,6 +1,6 @@
 namespace :catalog do
   task procedures: :environment do
-    I18n.locale = ENV['LOCALE']
+    I18n.locale = ENV.fetch('LOCALE', nil)
     lang = 'i18n.iso2'.t
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.send('procedures-catalog', locale: I18n.locale, lang: lang, 'xml:lang' => lang) do
@@ -28,7 +28,7 @@ namespace :catalog do
   end
 
   task variants: :environment do
-    I18n.locale = ENV['LOCALE']
+    I18n.locale = ENV.fetch('LOCALE', nil)
     lang = 'i18n.iso2'.t
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.send('variants-catalog', locale: I18n.locale, lang: lang, 'xml:lang' => lang) do

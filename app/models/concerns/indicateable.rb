@@ -208,7 +208,7 @@ module Indicateable
   # Substract a value to a list of indicator data
   def compute_and_read(operand, options = {})
     read_at = options[:at] || Time.zone.now
-    taken_at = options[:taken_at] || read_at - 0.000001
+    taken_at = options[:taken_at] || (read_at - 0.000001)
     operation = options[:operation] || :add
     whole_indicators_list.each do |indicator_name|
       operand_value = operand.send(indicator_name)

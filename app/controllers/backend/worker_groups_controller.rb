@@ -30,7 +30,7 @@ module Backend
 
     def self.worker_groups_conditions
       code = ''
-      code << search_conditions(products: %i[name]) + " ||= []\n"
+      code << (search_conditions(products: %i[name]) + " ||= []\n")
       code << "unless params[:label].blank? \n"
       code << "  c[0] << ' AND labels.name = ?'\n"
       code << "  c << params[:label]\n"

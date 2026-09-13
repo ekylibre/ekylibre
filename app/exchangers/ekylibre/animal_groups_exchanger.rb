@@ -46,7 +46,7 @@ module Ekylibre
             valid = false
           end
         end
-        r.member_nature = "#{r.member_nature}_band".to_sym if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
+        r.member_nature = :"#{r.member_nature}_band" if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
         r.member_nature = :young_rabbit if r.member_nature.to_s =~ /^(fe)?male_young_rabbit$/
         animal_variant = ProductNatureVariant.find_by(number: r.member_nature) ||
                          ProductNatureVariant.find_by(reference_name: r.member_nature) ||
@@ -103,7 +103,7 @@ module Ekylibre
           variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
         end
 
-        r.member_nature = "#{r.member_nature}_band".to_sym if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
+        r.member_nature = :"#{r.member_nature}_band" if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
         r.member_nature = :young_rabbit if r.member_nature.to_s =~ /^(fe)?male_young_rabbit$/
         animal_variant = ProductNatureVariant.find_by(work_number: r.member_nature) ||
                          ProductNatureVariant.find_by(reference_name: r.member_nature) ||

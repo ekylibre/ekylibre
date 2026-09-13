@@ -83,7 +83,7 @@ module Ekylibre
 
       # Grant SELECT on the new tenant schema to the read-only role (if configured)
       def grant_read_only_access(name)
-        duke_user = ENV['DUKE_USER']
+        duke_user = ENV.fetch('DUKE_USER', nil)
         return if duke_user.blank?
 
         validate_name!(name)
@@ -174,7 +174,7 @@ module Ekylibre
         # The requested name reaches us from untrusted places (admin upload
         # filename, TENANT env var). Validate before it is used to build a path.
         requested = options[:tenant].presence && validate_name!(options[:tenant])
-        code = requested || Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36)
+        code = requested || (Time.zone.now.to_i.to_s(36) + rand(999_999_999).to_s(36))
         verbose = !options[:verbose].is_a?(FalseClass)
 
         archive_path = Rails.root.join('tmp', 'archives', "#{code}-restore")
@@ -407,10 +407,10 @@ module Ekylibre
           start_backup_duration = Time.current
           puts "Backup #{name} on S3 storage...".yellow
           s3 = ::Aws::S3::Client.new(endpoint: ENV.fetch('S3_BACKUP_HOST', nil),
-                                    access_key_id: ENV.fetch('S3_BACKUP_ACCESS_KEY', nil),
-                                    secret_access_key: ENV.fetch('S3_BACKUP_SECRET_KEY', nil),
-                                    force_path_style: true,
-                                    region: ENV.fetch('S3_BACKUP_REGION', nil))
+                                     access_key_id: ENV.fetch('S3_BACKUP_ACCESS_KEY', nil),
+                                     secret_access_key: ENV.fetch('S3_BACKUP_SECRET_KEY', nil),
+                                     force_path_style: true,
+                                     region: ENV.fetch('S3_BACKUP_REGION', nil))
           bucket_name = ENV.fetch('S3_BACKUP_BUCKET', nil)
           # compute file to backup
           destination_path = options.delete(:path) || Rails.root.join('tmp', 'archives')
@@ -559,9 +559,7 @@ module Ekylibre
         end
 
         def dump_mimetype(archive_path)
-          File.open(archive_path.join('mimetype'), 'wb') do |f|
-            f.write 'application/vnd.ekylibre.tenant.archive'
-          end
+          File.binwrite(archive_path.join('mimetype'), 'application/vnd.ekylibre.tenant.archive')
         end
 
         def dump_manifest(archive_path, version, name, options = {})

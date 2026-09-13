@@ -90,9 +90,9 @@ module Ekylibre
         unless IncomingHarvest.find_by(ticket_number: r.ticket_number)
           ih = IncomingHarvest.new(received_at: r.received_at,
                                    ticket_number: r.ticket_number,
-                                       quantity: product_measure,
-                                       trailer_id: (r.trailer_code.present? ? Product.find_by(work_number: r.trailer_code)&.id : nil),
-                                       tractor_id: (r.tractor_code.present? ? Product.find_by(work_number: r.tractor_code)&.id : nil))
+                                   quantity: product_measure,
+                                   trailer_id: (r.trailer_code.present? ? Product.find_by(work_number: r.trailer_code)&.id : nil),
+                                   tractor_id: (r.tractor_code.present? ? Product.find_by(work_number: r.tractor_code)&.id : nil))
           ih.driver_id = Product.find_by(work_number: r.worker_code)&.id if r.worker_code.present?
           ih.storages.new(storage_id: Product.find_by(work_number: r.storage_code)&.id, quantity: product_measure) if r.storage_code.present?
           r.support_codes.each do |support_code|
@@ -109,7 +109,7 @@ module Ekylibre
     end
 
     def find_crop(code, at)
-      return nil unless (code.present? && at.present?)
+      return nil unless code.present? && at.present?
 
       if cz = CultivableZone.find_by(work_number: code)
         ap = ActivityProduction.of_campaign(Campaign.on(at.to_date)).where(cultivable_zone: cz)

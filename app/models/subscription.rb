@@ -48,6 +48,7 @@
 
 class Subscription < ApplicationRecord
   include Customizable
+
   acts_as_numbered
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :nature, class_name: 'SubscriptionNature', inverse_of: :subscriptions

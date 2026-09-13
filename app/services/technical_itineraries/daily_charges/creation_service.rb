@@ -102,7 +102,7 @@ module TechnicalItineraries
             quantity = intervention_template.quantity_of_parameter(product_parameter, @net_surface_area)
 
             if general_type == :doer
-              quantity += ((intervention_template.preparation_time_hours || 0) + (intervention_template.preparation_time_minutes || 0) / 60.0) * product_parameter.quantity
+              quantity += ((intervention_template.preparation_time_hours || 0) + ((intervention_template.preparation_time_minutes || 0) / 60.0)) * product_parameter.quantity
             end
 
             duration = itinerary_template.duration

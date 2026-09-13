@@ -39,9 +39,7 @@ namespace :clean do
           content.sub!(regexp, '  ' + tag_start + " Do not edit these lines directly. Use `rake clean:validations`.\n" + validations.to_s + '  ' + tag_end)
 
           # Save file
-          File.open(file, 'wb') do |f|
-            f.write content
-          end
+          File.binwrite(file, content)
 
         end
       rescue StandardError => e
@@ -61,7 +59,7 @@ namespace :clean do
       errors = []
 
       Dir[Rails.root.join('app', 'models', '*.rb')].sort.each do |file|
-        class_name = file.split(/\/\\/)[-1].sub(/\.rb$/, '').camelize
+        class_name = file.split("/\\")[-1].sub(/\.rb$/, '').camelize
         begin
           # Get content
           content = nil
@@ -83,9 +81,7 @@ namespace :clean do
           content.sub!(regexp, '  ' + tag_start + "\n  " + tag_end)
 
           # Save file
-          File.open(file, 'wb') do |f|
-            f.write content
-          end
+          File.binwrite(file, content)
         rescue StandardError => e
           puts "Unable to adds validations on #{class_name}: #{e.message}\n" + e.backtrace.join("\n")
         end

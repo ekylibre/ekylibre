@@ -60,7 +60,7 @@ module Clean
 
           attrs = []
           if col.default
-            attrs << 'default(' + (col.default.is_a?(Date) ? 'CURRENT_DATE' : quote_value(col.default, col.type)) + ')'
+            attrs << ('default(' + (col.default.is_a?(Date) ? 'CURRENT_DATE' : quote_value(col.default, col.type)) + ')')
           end
           attrs << 'not null' unless col.null
           attrs << 'primary key' if col.name == klass.primary_key
@@ -184,7 +184,7 @@ module Clean
           rescue LoadError => le
             errors << "Unable to annotate #{class_name}: #{le.message}\n"
           rescue StandardError => e
-            errors << "Unable to annotate #{class_name}: #{e.message}\n" + e.backtrace.join("\n")
+            errors << ("Unable to annotate #{class_name}: #{e.message}\n" + e.backtrace.join("\n"))
           end
         end
 

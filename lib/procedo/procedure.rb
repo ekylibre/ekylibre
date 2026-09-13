@@ -244,8 +244,8 @@ module Procedo
     # Returns human_name of the procedure
     def human_name(options = {})
       default = []
-      default << "labels.procedures.#{name}".to_sym
-      default << "labels.#{name}".to_sym
+      default << :"labels.procedures.#{name}"
+      default << :"labels.#{name}"
       default << name.to_s.humanize
       "procedures.#{name}".t(options.merge(default: default))
     end

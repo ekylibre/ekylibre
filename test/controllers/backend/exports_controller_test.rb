@@ -3,6 +3,7 @@ require 'test_helper'
 module Backend
   class ExportsControllerTest < Ekylibre::Testing::ApplicationControllerTestCase::WithFixtures
     include ActiveJob::TestHelper
+
     test 'Show with pdf Should create a job' do
       sign_in_user
       request.env['HTTP_REFERER'] = 'http://test.com/sessions/new'

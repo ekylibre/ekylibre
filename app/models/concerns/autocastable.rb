@@ -18,7 +18,7 @@ module Autocastable
         return klass.new(*attributes, &block)
       end
 
-      super(*attributes, &block)
+      super
     end
   end
 end

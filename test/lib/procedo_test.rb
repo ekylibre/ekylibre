@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProcedoTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   setup do
-    I18n.locale = ENV['LOCALE']
+    I18n.locale = ENV.fetch('LOCALE', nil)
   end
 
   test 'procedure methods' do
@@ -45,9 +45,9 @@ class ProcedoTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     details = invalids.map do |invalid|
       parameter = invalid[:parameter]
       exception = invalid[:exception]
-      "#{parameter.name.to_s.yellow} in #{parameter.procedure.name.to_s.red}:\n" \
-      "  expression: #{parameter.filter.inspect}\n" \
-      "  exception: #{exception.message}"
+      "#{parameter.name.to_s.yellow} in #{parameter.procedure.name.to_s.red}:\n  " \
+        "expression: #{parameter.filter.inspect}\n  " \
+        "exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} procedure parameters have invalid abilities:\n" + details.dig

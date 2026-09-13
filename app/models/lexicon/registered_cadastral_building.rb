@@ -33,6 +33,7 @@
 class RegisteredCadastralBuilding < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
+
   has_geometry :shape
   has_geometry :centroid, type: :point
 end

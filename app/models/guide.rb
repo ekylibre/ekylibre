@@ -41,6 +41,7 @@
 
 class Guide < ApplicationRecord
   include LegacyAttachmentColumns
+
   has_many :analyses, class_name: 'GuideAnalysis', dependent: :destroy
   has_one :last_analysis, -> { where(latest: true) }, class_name: 'GuideAnalysis'
   refers_to :nature, class_name: 'GuideNature'

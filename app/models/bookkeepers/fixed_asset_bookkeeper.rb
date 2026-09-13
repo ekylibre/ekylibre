@@ -61,7 +61,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
 
     def bookkeep_purchase_item_link
       # puts "with purchase".inspect.red
-      journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
+      journal_entry(journal, printed_on: started_on, if: in_use? && asset_account) do |entry|
         amount = []
         purchase_items.each do |p_item|
           # TODO: get entry item concerning
@@ -85,17 +85,17 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
         # puts "without purchase".inspect.green
         if waiting_journal_entry
           waiting_account_id = waiting_asset_account_id || @generic_waiting_asset_account.id
-          journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
+          journal_entry(journal, printed_on: started_on, if: in_use? && asset_account) do |entry|
             entry.add_credit(@label, waiting_account_id, depreciable_amount, resource: resource, as: :fixed_asset)
             entry.add_debit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
           end
         elsif special_imputation_asset_account
-          journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
+          journal_entry(journal, printed_on: started_on, if: in_use? && asset_account) do |entry|
             entry.add_credit(@label, special_imputation_asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
             entry.add_debit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
           end
         else
-          journal_entry(journal, printed_on: started_on, if: (in_use? && asset_account)) do |entry|
+          journal_entry(journal, printed_on: started_on, if: in_use? && asset_account) do |entry|
             entry.add_credit(@label, @fixed_assets_suppliers_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
             entry.add_debit(@label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset)
           end
@@ -107,7 +107,7 @@ class FixedAssetBookkeeper < Ekylibre::Bookkeeper
           # This is a FixedAsset import
           generic_waiting_account = Account.find_or_import_from_nomenclature(:suspense)
 
-          journal_entry(journal, printed_on: current_fy.started_on, if: (in_use? && asset_account)) do |entry|
+          journal_entry(journal, printed_on: current_fy.started_on, if: in_use? && asset_account) do |entry|
             entry.add_credit @label, generic_waiting_account.id, depreciable_amount, resource: resource, as: :fixed_asset
             entry.add_debit @label, asset_account.id, depreciable_amount, resource: resource, as: :fixed_asset
           end

@@ -41,9 +41,9 @@ module Interventions
         # @param [Period] period
         # @return [Boolean]
         def intersect?(period)
-          start_date <= period.start_date && period.start_date <= end_date ||
-            start_date <= period.end_date && period.end_date <= end_date ||
-            period.start_date <= start_date && end_date <= period.end_date
+          (start_date <= period.start_date && period.start_date <= end_date) ||
+            (start_date <= period.end_date && period.end_date <= end_date) ||
+            (period.start_date <= start_date && end_date <= period.end_date)
         end
 
         def duration

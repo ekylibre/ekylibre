@@ -71,7 +71,7 @@ module Variants
         elsif nature.equipment? && Onoma::Variety.find(nature.variety) <= Onoma::Variety.find(:motorized_vehicle)
           'Variants::Equipments::MotorizedEquipmentEquipment'
         else
-          "Variants::#{nature.type.split('::').last.gsub(/Type/, 'Variant')}"
+          "Variants::#{nature.type.split('::').last.gsub('Type', 'Variant')}"
         end
       end
   end

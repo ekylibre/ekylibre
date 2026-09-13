@@ -193,7 +193,7 @@ module TechnicalItineraries
             at.technical_workflow
           else
             activity_reference_name = activity.reference_name
-            tw_by_att = TechnicalWorkflow.of_family(activity.family).of_production(activity_reference_name).where(production_system: (activity.production_system_name || 'intensive_farming'), life_cycle: activity.production_cycle)
+            tw_by_att = TechnicalWorkflow.of_family(activity.family).of_production(activity_reference_name).where(production_system: activity.production_system_name || 'intensive_farming', life_cycle: activity.production_cycle)
             if tw_by_att.any?
               tw_by_att.first
             else
@@ -208,7 +208,7 @@ module TechnicalItineraries
             at.technical_sequence
           else
             activity_reference_name = activity.reference_name
-            ts_by_att = TechnicalSequence.of_family(activity.family).of_production(activity_reference_name).where(production_system: (activity.production_system_name || 'intensive_farming'))
+            ts_by_att = TechnicalSequence.of_family(activity.family).of_production(activity_reference_name).where(production_system: activity.production_system_name || 'intensive_farming')
             if ts_by_att.any?
               ts_by_att.first
             else
@@ -260,7 +260,7 @@ module TechnicalItineraries
           # select only ap in plain production
           aps = activity.productions.where('starting_year <= ?', @campaign.harvest_year)
           aps.each do |ap|
-            p_start_date = Date.new((@campaign.harvest_year + ap.production_started_on_year), tw.start_month, tw.start_day)
+            p_start_date = Date.new(@campaign.harvest_year + ap.production_started_on_year, tw.start_month, tw.start_day)
             ap.technical_itinerary_id = ti.id
             ap.predicated_sowing_date = p_start_date
             ap.save!

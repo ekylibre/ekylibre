@@ -31,7 +31,7 @@ module Transitionable
     attr_reader :original, :resource, :transition
 
     def initialize(msg, resource:, transition:, original: nil)
-      super msg
+      super(msg)
       @original = original
       @resource = resource
       @transition = transition
@@ -54,7 +54,7 @@ module Transitionable
   # Basic error raised when no additional data is provided
   class TransitionFailedError < TransitionError
     def initialize(resource:, transition:, original: nil)
-      super "Error while running transition for #{resource}: #{original.message}", resource: resource, original: original, transition: transition
+      super("Error while running transition for #{resource}: #{original.message}", resource: resource, original: original, transition: transition)
     end
   end
 
@@ -62,7 +62,7 @@ module Transitionable
   # Error raised when a transition is attempted and the can_run? method return false
   class PreconditionFailedError < TransitionError
     def initialize(resource:, transition:)
-      super "Cannot run transition for #{resource}: precondition test is false", resource: resource, transition: transition
+      super("Cannot run transition for #{resource}: precondition test is false", resource: resource, transition: transition)
     end
   end
 
@@ -72,7 +72,7 @@ module Transitionable
     attr_accessor :reason
 
     def initialize(reason, resource:, transition:)
-      super "Transition manually aborted: #{reason}", resource: resource, transition: transition
+      super("Transition manually aborted: #{reason}", resource: resource, transition: transition)
     end
 
     def interpolations
@@ -86,7 +86,7 @@ module Transitionable
     attr_reader :explanation, :options
 
     def initialize(explanation, options, transition:, resource:, original:)
-      super generate_message(resource, transition, original, explanation), resource: resource, original: original, transition: transition
+      super(generate_message(resource, transition, original, explanation), resource: resource, original: original, transition: transition)
 
       @explanation = explanation
       @options = options

@@ -50,6 +50,7 @@
 class Inventory < ApplicationRecord
   include Attachable
   include Customizable
+
   attr_readonly :currency
   refers_to :currency
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'

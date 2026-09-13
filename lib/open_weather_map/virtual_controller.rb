@@ -32,7 +32,7 @@ module OpenWeatherMap
       values[:relative_humidity] = json[:main][:humidity].to_f.in_percent
       values[:wind_speed] = json[:wind][:speed].to_f.in_meter_per_second
       values[:wind_direction] = json[:wind][:deg].to_f.in_degree
-      average_rain = Maybe(json[:rain])[:"3h"].or_else(0).to_f / 3.0
+      average_rain = Maybe(json[:rain])[:'3h'].or_else(0).to_f / 3.0
       values[:rainfall] = average_rain.in_millimeter_per_hour
 
       report = {

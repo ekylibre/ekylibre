@@ -81,9 +81,7 @@ module Fixturing
       Clean::Annotations.run(only: :fixtures, verbose: false)
 
       # Dump last schema_migrations into schema_migrations file
-      File.open(migrations_file, 'wb') do |f|
-        f.write version
-      end
+      File.binwrite(migrations_file, version)
     end
 
     # Extract data from DB into given path or test/fixtures by default
@@ -93,7 +91,7 @@ module Fixturing
       Ekylibre::Schema.tables.each do |table, columns|
         records = {}
         sort_column = %w[id number name].detect { |column| ActiveRecord::Base.connection.column_exists?(table, column) }
-        ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} #{sort_column ? 'ORDER BY ' + sort_column : ''}").each do |row|
+        ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} #{'ORDER BY ' + sort_column if sort_column}").each do |row|
           record = {}
           row.sort.each do |attribute, value|
             if columns[attribute]
@@ -109,9 +107,7 @@ module Fixturing
           records["#{table}_#{row['id'].rjust(3, '0')}"] = record
         end
 
-        File.open(path.join("#{table}.yml"), 'wb') do |f|
-          f.write records.to_yaml.gsub(/[\ \t]+\n/, "\n")
-        end
+        File.binwrite(path.join("#{table}.yml"), records.to_yaml.gsub(/[\ \t]+\n/, "\n"))
       end
 
       version = ActiveRecord::Base.connection.select_value("SELECT * FROM #{migrations_table} ORDER BY 1 DESC")
@@ -140,7 +136,7 @@ module Fixturing
 
     def say(text, color = :yellow)
       size = text.size
-      puts '== ' + text.send(color) + ' ' + '=' * (79 - size - 4) + "\n\n"
+      puts '== ' + text.send(color) + ' ' + ('=' * (79 - size - 4)) + "\n\n"
     end
 
     # Convert reflection to hard representation in fixtures
@@ -212,9 +208,7 @@ module Fixturing
 
       # Write
       Ekylibre::Schema.tables.each do |table, _columns|
-        File.open(directory.join("#{table}.yml"), 'wb') do |f|
-          f.write data[table].to_yaml
-        end
+        File.binwrite(directory.join("#{table}.yml"), data[table].to_yaml)
       end
 
       # Clean
@@ -289,9 +283,7 @@ module Fixturing
 
       # Write
       Ekylibre::Schema.tables.each do |table, _columns|
-        File.open(directory.join("#{table}.yml"), 'wb') do |f|
-          f.write data[table].to_yaml
-        end
+        File.binwrite(directory.join("#{table}.yml"), data[table].to_yaml)
       end
 
       # Clean
@@ -330,9 +322,7 @@ module Fixturing
 
       # Write
       Ekylibre::Schema.tables.each do |table, _columns|
-        File.open(path.join("#{table}.yml"), 'wb') do |f|
-          f.write data[table].to_yaml
-        end
+        File.binwrite(path.join("#{table}.yml"), data[table].to_yaml)
       end
     end
 

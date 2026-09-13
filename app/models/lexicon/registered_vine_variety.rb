@@ -37,6 +37,7 @@
 class RegisteredVineVariety < LexiconRecord
   self.primary_key = 'id'
   include Lexiconable
+
   scope :vine_varieties, -> { where(category: %w[variety hybrid]) }
   scope :rootstocks, -> { where(category: 'rootstock') }
 

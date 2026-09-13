@@ -6,6 +6,7 @@ module Printers
   module Sale
     class SalesInvoiceShipmentPrinter < SalePrinterBase
       include ApplicationHelper
+
       def initialize(sale:, template:)
         super(sale: SaleDecorator.decorate(sale), template: template)
       end
@@ -125,7 +126,7 @@ module Printers
         # Details
         r.add_table('details', sale.other_deals) do |s|
           s.add_field(:payment_date) { |item| AffairableDecorator.decorate(item).payment_date.l(format: '%d %B %Y') }
-          s.add_field(:payment_mode) { |item| (item.is_a?(IncomingPayment) ? item.mode.name : '') }
+          s.add_field(:payment_mode) { |item| item.is_a?(IncomingPayment) ? item.mode.name : '' }
           s.add_field(:payment_number, &:number)
           s.add_field(:payment_amount) { |item| if item.class == sale.class
                                                   ''

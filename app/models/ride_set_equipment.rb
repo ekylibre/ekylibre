@@ -39,6 +39,7 @@
 
 class RideSetEquipment < ApplicationRecord
   include Providable
+
   belongs_to :ride_set, inverse_of: :equipments
   belongs_to :product
 

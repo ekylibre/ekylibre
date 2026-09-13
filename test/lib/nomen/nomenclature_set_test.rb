@@ -3,7 +3,7 @@ require 'test_helper'
 module Onoma
   class NomenclatureSetTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     setup do
-      I18n.locale = ENV['LOCALE']
+      I18n.locale = ENV.fetch('LOCALE', nil)
     end
 
     test 'set manipulation' do

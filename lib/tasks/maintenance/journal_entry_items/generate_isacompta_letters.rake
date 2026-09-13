@@ -3,7 +3,7 @@ namespace :maintenance do
   namespace :journal_entry_items do
     desc 'Generate isacompta letters for journal_entry_items'
     task generate_isacompta_letters: :environment do
-      tenant = ENV['TENANT']
+      tenant = ENV.fetch('TENANT', nil)
       raise "Missing argument TENANT" unless tenant
 
       Ekylibre::Tenant.switch(tenant) do

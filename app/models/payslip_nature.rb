@@ -68,8 +68,8 @@ class PayslipNature < ApplicationRecord
     self.with_accounting ||= false
     self.imported_centralizing_entries ||= false
     self.journal ||= Journal.create!(name: "enumerize.journal.nature.payslip".t,
-                                  nature: 'payslip', currency: Preference[:currency],
-                                  closed_on: Date.new(1899, 12, 31).end_of_month)
+                                     nature: 'payslip', currency: Preference[:currency],
+                                     closed_on: Date.new(1899, 12, 31).end_of_month)
     if with_accounting && imported_centralizing_entries
       self.account ||= Account.find_or_import_from_nomenclature(:staff_due_remunerations)
     elsif with_accounting

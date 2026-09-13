@@ -58,8 +58,7 @@ class SaleClassifierJob < ActiveJob::Base
       {
         message: "success_on_purchase_classification",
         level: :success,
-        interpolations: {
-        }
+        interpolations: {}
       }
     end
 

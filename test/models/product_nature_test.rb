@@ -74,7 +74,7 @@ class ProductNatureTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
           puts "Invalid abilities list: #{e.message}".red
           next
         end
-        expr << ' and (' + n.abilities_list.map { |a| "can #{a}" }.join(' and ') + ')'
+        expr << (' and (' + n.abilities_list.map { |a| "can #{a}" }.join(' and ') + ')')
       end
       expr
     end.compact.uniq

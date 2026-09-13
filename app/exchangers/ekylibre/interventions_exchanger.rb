@@ -530,7 +530,7 @@ module Ekylibre
           options[:support].each do |support|
             # try to find the current plants on cultivable zone if exists
             support_shape = Charta.new_geometry(support.shape)
-            w.debug "support_shape : #{support_shape.to_geojson}".to_s.red
+            w.debug "support_shape : #{support_shape.to_geojson}".red
             w.debug "plant count : #{Plant.count}".red
             w.debug "plant count : #{Plant.pluck(:name).to_sentence}".white
             product_around = Plant.shape_within(support_shape)

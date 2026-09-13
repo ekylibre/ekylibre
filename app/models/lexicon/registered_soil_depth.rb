@@ -33,6 +33,7 @@
 class RegisteredSoilDepth < LexiconRecord
   include Lexiconable
   include Ekylibre::Record::HasShape
+
   composed_of :soil_depth, class_name: 'Measure', mapping: [%w[soil_depth_value to_d], %w[soil_depth_unit unit]]
 
   has_geometry :shape

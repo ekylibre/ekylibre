@@ -33,5 +33,6 @@
 #
 class WorkerGroupLabelling < ApplicationRecord
   include Labellable
+
   belongs_to :worker_group
 end

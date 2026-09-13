@@ -11,7 +11,7 @@ module Procedo
       attr_reader :unit, :indicator, :parameter, :widget
 
       def initialize(parameter, name, options = {})
-        super(parameter, name, options)
+        super
         @trees = {}.with_indifferent_access
         if population?
           options[:forward] = 'VALUE'

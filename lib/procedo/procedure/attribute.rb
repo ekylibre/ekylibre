@@ -5,7 +5,7 @@ module Procedo
       TYPES = %i[new_name working_zone working_zone_area_value new_container new_group new_variant killable identification_number usage_id allowed_entry_factor allowed_harvest_factor spray_volume_value].freeze
 
       def initialize(parameter, name, options = {})
-        super(parameter, name, options)
+        super
         unless TYPES.include?(@name)
           raise "Unknown attribute type for #{procedure_name}/#{parameter_name}: " + @name.inspect
         end

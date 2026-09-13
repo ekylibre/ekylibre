@@ -1,7 +1,7 @@
 module Ekylibre
   module Record
-    module Acts #:nodoc:
-      module Affairable #:nodoc:
+    module Acts # :nodoc:
+      module Affairable # :nodoc:
         def self.included(base)
           base.extend(ClassMethods)
         end
@@ -17,7 +17,7 @@ module Ekylibre
             options[:role] ||= options[:third].to_s
             options[:good] ||= :debit
 
-            class_name = options[:class_name] || name + 'Affair'
+            class_name = options[:class_name] || (name + 'Affair')
             foreign_key = options[:foreign_key] || :affair_id
             reflection_name = options[:reflection] || :affair
             reflection = reflect_on_association(reflection_name)

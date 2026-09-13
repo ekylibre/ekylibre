@@ -44,6 +44,7 @@
 
 class WineIncomingHarvest < ApplicationRecord
   include Attachable
+
   belongs_to :analysis, class_name: 'Analysis'
   belongs_to :campaign, class_name: 'Campaign'
   has_many :inputs, class_name: 'WineIncomingHarvestInput', dependent: :destroy

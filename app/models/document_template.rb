@@ -174,7 +174,7 @@ class DocumentTemplate < ApplicationRecord
     end
 
     # Creates document if not exist
-    document = Document.create!(nature: nature, key: key, name: (options[:name] || tc('document_name', nature: nature.l, key: key)), file: File.open(data_or_path), template_id: id)
+    document = Document.create!(nature: nature, key: key, name: options[:name] || tc('document_name', nature: nature.l, key: key), file: File.open(data_or_path), template_id: id)
 
     # Removes useless docs
     Document.destroy removables

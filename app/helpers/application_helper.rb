@@ -244,7 +244,7 @@ module ApplicationHelper
       html_options ||= {}
       html_options = html_options.symbolize_keys
 
-      content_tag(:a, (name || url), { href: url, **html_options })
+      content_tag(:a, name || url, { href: url, **html_options })
     end
   end
 
@@ -301,7 +301,7 @@ module ApplicationHelper
     html_options = html_options.merge(data: { perform_job_button: true, job: job })
     active = Preference[job + '_running'] rescue false
     link_to(options, html_options) do
-      (label + " " + content_tag('span', nil, class: "spinner #{active ? 'active' : nil}")).html_safe
+      (label + " " + content_tag('span', nil, class: "spinner #{'active' if active}")).html_safe
     end
   end
 
@@ -316,10 +316,10 @@ module ApplicationHelper
       value = object.send(attribute)
       model = object.class
       model_name = model.name.underscore
-      default = ["activerecord.attributes.#{model_name}.#{attribute}_id".to_sym]
-      default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s =~ /_label$/
-      default << "attributes.#{attribute}".to_sym
-      default << "attributes.#{attribute}_id".to_sym
+      default = [:"activerecord.attributes.#{model_name}.#{attribute}_id"]
+      default << :"activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}" if attribute.to_s =~ /_label$/
+      default << :"attributes.#{attribute}"
+      default << :"attributes.#{attribute}_id"
       label = "activerecord.attributes.#{model_name}.#{attribute}".t(default: default)
       if value.is_a? ActiveRecord::Base
         record = value
@@ -365,8 +365,8 @@ module ApplicationHelper
       duration *= 60 if options[:duration] == :minutes
       duration *= 3600 if options[:duration] == :hours
       hours = (duration / 3600).floor.to_i
-      minutes = (duration / 60 - 60 * hours).floor.to_i
-      seconds = (duration - 60 * minutes - 3600 * hours).round.to_i
+      minutes = ((duration / 60) - (60 * hours)).floor.to_i
+      seconds = (duration - (60 * minutes) - (3600 * hours)).round.to_i
       value = :duration_in_hours_and_minutes.tl(hours: hours, minutes: minutes, seconds: seconds)
       title = Some(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
@@ -473,9 +473,9 @@ module ApplicationHelper
   def dropdown_toggle_button(name = nil, options = {})
     class_attribute = options[:main_class] || 'btn btn-default'
     class_attribute << ' dropdown-toggle'
-    class_attribute << ' ' + options[:class].to_s if options[:class].present?
+    class_attribute << (' ' + options[:class].to_s) if options[:class].present?
     class_attribute << ' sr-only' if name.blank?
-    class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
+    class_attribute << (' icn btn-' + options[:icon].to_s) if options[:icon]
     content_tag(:button, name, class: class_attribute,
                 data: { toggle: 'dropdown', disable_with: options[:disable_with] },
                 aria: { haspopup: 'true', expanded: 'false' })
@@ -513,20 +513,20 @@ module ApplicationHelper
 
     if name.is_a?(Symbol)
       options[:icon] ||= name unless options[:icon].is_a?(FalseClass)
-      name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
+      name = options[:label] || name.ta(default: [:"labels.#{name}"])
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
     if options[:class]
       if item_options[:class]
-        item_options[:class] << ' ' + options[:class].to_s
+        item_options[:class] << (' ' + options[:class].to_s)
       else
         item_options[:class] = options[:class].to_s
       end
     end
     item_options[:tool] = options[:icon] if options.key?(:icon)
     html_options = { class: 'btn-group' + (options[:dropup] ? ' dropup' : '') }
-    html_options[:class] << ' ' + options[:class].to_s if options[:class]
+    html_options[:class] << (' ' + options[:class].to_s) if options[:class]
     html_options[:id] = options[:id] if options[:id]
     html_options[:title] = options[:title].to_s if options[:title]
     content_tag(:div, html_options) do
@@ -534,7 +534,7 @@ module ApplicationHelper
         html = tool_to(default_item.args.first, default_item.args.second,
                        item_options, &default_item.block)
         if menu_size > 1
-          html << dropdown_toggle_button + dropdown_menu(menu.items)
+          html << (dropdown_toggle_button + dropdown_menu(menu.items))
         end
         html
       elsif menu.list.size == 1 && menu.first.type == :item && !options[:force_menu]
@@ -664,17 +664,17 @@ module ApplicationHelper
   def icon_tags(options = {})
     # Favicon
     html = tag(:link, rel: 'icon', type: 'image/png', href: image_path('icon/favicon.png'), 'data-turbolinks-track' => "reload")
-    html << "\n".html_safe + tag(:link, rel: 'shortcut icon', href: image_path('icon/favicon.ico'), 'data-turbolinks-track' => "reload")
+    html << ("\n".html_safe + tag(:link, rel: 'shortcut icon', href: image_path('icon/favicon.ico'), 'data-turbolinks-track' => "reload"))
     # Apple touch icon
     icon_sizes = { iphone: '57x57', ipad: '72x72', 'iphone-retina' => '114x114', 'ipad-retina' => '144x144' }
     unless options[:app].is_a?(FalseClass)
       icon_sizes.each do |name, sizes|
-        html << "\n".html_safe + tag(:link, rel: 'apple-touch-icon', sizes: sizes, href: image_path("icon/#{name}.png"), 'data-turbolinks-track' => "reload")
+        html << ("\n".html_safe + tag(:link, rel: 'apple-touch-icon', sizes: sizes, href: image_path("icon/#{name}.png"), 'data-turbolinks-track' => "reload"))
       end
     end
     if options[:precomposed]
       icon_sizes.each do |name, sizes|
-        html << "\n".html_safe + tag(:link, rel: 'apple-touch-icon-precomposed', sizes: sizes, href: image_path("icon/precomposed-#{name}.png"), 'data-turbolinks-track' => "reload")
+        html << ("\n".html_safe + tag(:link, rel: 'apple-touch-icon-precomposed', sizes: sizes, href: image_path("icon/precomposed-#{name}.png"), 'data-turbolinks-track' => "reload"))
       end
     end
     html
@@ -799,7 +799,7 @@ module ApplicationHelper
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
     options[:class] += ' ' + icon.to_s if icon
     link_to(url, options) do
-      (icon ? content_tag(:span, '', class: 'icon') + content_tag(:span, name, class: 'text') : content_tag(:span, name, class: 'text'))
+      icon ? content_tag(:span, '', class: 'icon') + content_tag(:span, name, class: 'text') : content_tag(:span, name, class: 'text')
     end
   end
 
@@ -824,7 +824,7 @@ module ApplicationHelper
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     tooltip_options = options.delete(:tooltip_options)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
-    options[:class] << ' icn btn-' + icon.to_s if icon
+    options[:class] << (' icn btn-' + icon.to_s) if icon
 
     if url.is_a?(Hash)
       if url.key?(:redirect)
@@ -844,7 +844,7 @@ module ApplicationHelper
   end
 
   def toolbar_tag(name, wrap: true)
-    toolbar = "#{name}_toolbar".to_sym
+    toolbar = :"#{name}_toolbar"
     return unless content_for?(toolbar)
 
     if wrap.is_a? TrueClass
@@ -975,7 +975,7 @@ module ApplicationHelper
   def field_set(*args, &block)
     options = args.extract_options!
     options[:fields_class] ||= 'fieldset-fields'
-    name = args.shift || :"general-informations"
+    name = args.shift || :'general-informations'
     buttons = [options[:buttons] || []].flatten
     buttons << link_to('', '#', :class => 'toggle', 'data-toggle' => 'fields')
     classes = ['fieldset', name.to_s, options.fetch(:class, [])].flatten
@@ -984,7 +984,7 @@ module ApplicationHelper
     name_sym = name.to_s.tr('-', '_').to_sym
     wrap(content_tag(:div,
                      content_tag(:div,
-                                 link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name_sym.tl(default: ["form.legends.#{name_sym}".to_sym, "attributes.#{name_sym}".to_sym, name_sym.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
+                                 link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name_sym.tl(default: [:"form.legends.#{name_sym}", :"attributes.#{name_sym}", name_sym.to_s.humanize]) : name.to_s), '#', :class => 'title', 'data-toggle' => 'fields') +
                                    content_tag(:span, buttons.join.html_safe, class: :buttons),
                                  class: 'fieldset-legend') +
                      content_tag(:div, capture(&block), class: options[:fields_class]), class: classes, id: name), options[:in])
@@ -1007,8 +1007,8 @@ module ApplicationHelper
 
   def condition_label(condition)
     if condition =~ /^generic/
-      klass = condition.split(/\-/)[1].pluralize.classify.constantize
-      attribute = condition.split(/\-/)[2]
+      klass = condition.split('-')[1].pluralize.classify.constantize
+      attribute = condition.split('-')[2]
       tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
     else
       tl("conditions.#{condition}")
@@ -1119,9 +1119,9 @@ module ApplicationHelper
     # `filled <= (n - 1) * 2 - 1` tells us if there's
     # enough roomin the inner levels to handle the elements
     # or if we should take some of the burden.
-    if filled <= (n - 1) * 2 - 1
+    if filled <= ((n - 1) * 2) - 1
       result << filler
-      result << even_cells(*(cells.compact + [nil] * (empties - 2)), **options)
+      result << even_cells(*(cells.compact + ([nil] * (empties - 2))), **options)
       result << filler
     else
       result << content_tag(
@@ -1129,7 +1129,7 @@ module ApplicationHelper
         cells.compact.first,
         class: options[:cell_class]
       )
-      result << even_cells(*(cells.compact[1...-1] + [nil] * empties), **options)
+      result << even_cells(*(cells.compact[1...-1] + ([nil] * empties)), **options)
       result << content_tag(
         options[:cell_tag],
         cells.compact.last,
@@ -1155,11 +1155,11 @@ module ApplicationHelper
     def default_evening_options(options)
       defaults = {}
       defaults[:filler_tag] = options[:filler_tag] || :div
-      defaults[:filler_class] = options[:filler_class] || :"even-filler"
+      defaults[:filler_class] = options[:filler_class] || :'even-filler'
       defaults[:filler_content] = options[:filler_content] || nil
 
       defaults[:cell_tag] = options[:cell_tag] || :div
-      defaults[:cell_class] = options[:cell_class] || :"even-cell"
+      defaults[:cell_class] = options[:cell_class] || :'even-cell'
       defaults
     end
 end

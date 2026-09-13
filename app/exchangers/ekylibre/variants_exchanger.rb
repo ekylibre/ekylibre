@@ -105,7 +105,7 @@ module Ekylibre
           if r.category_charge_account_number
             variant.category.charge_account = find_or_create_account(r.category_charge_account_number, r.name)
           end
-          variant.category.save! if (r.category_product_account_number || r.category_charge_account_number)
+          variant.category.save! if r.category_product_account_number || r.category_charge_account_number
 
           if r.indicators.any?
             r.indicators.each do |indicator_name, value|

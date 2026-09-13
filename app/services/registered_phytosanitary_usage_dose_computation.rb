@@ -54,7 +54,7 @@ class RegisteredPhytosanitaryUsageDoseComputation
     #   True if the amount can be computed from population (the product has a net_mass or net_volume)
     def check_indicators(product, usage)
       %i[mass volume].none? do |el|
-        usage.among_dimensions?(el, "#{el}_area_density".to_sym) && (!product.has_indicator?("net_#{el}".to_sym) || product.send("net_#{el}".to_sym).to_f == 0)
+        usage.among_dimensions?(el, :"#{el}_area_density") && (!product.has_indicator?(:"net_#{el}") || product.send(:"net_#{el}").to_f == 0)
       end
     end
 

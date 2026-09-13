@@ -368,7 +368,7 @@ class JournalEntryTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   def fake_items(options = {})
-    amount = options[:amount] || (500 * rand + 1).round(2)
+    amount = options[:amount] || ((500 * rand) + 1).round(2)
     name = options[:name] || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
     [
       JournalEntryItem.new(account: Account.first, real_debit: amount, real_credit: 0, name: name),

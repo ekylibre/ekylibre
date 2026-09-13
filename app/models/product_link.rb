@@ -44,6 +44,7 @@
 class ProductLink < ApplicationRecord
   include TimeLineable
   include Taskable
+
   belongs_to :product
   belongs_to :linked, class_name: 'Product'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

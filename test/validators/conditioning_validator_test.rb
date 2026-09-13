@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ConditioningValidatable
   include ActiveModel::Validations
+
   attr_accessor :unit, :variant
 
   def initialize(variant:)

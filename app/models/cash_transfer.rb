@@ -50,6 +50,7 @@
 class CashTransfer < ApplicationRecord
   include Customizable
   include Attachable
+
   acts_as_numbered
   attr_readonly :number
   refers_to :emission_currency, class_name: 'Currency'

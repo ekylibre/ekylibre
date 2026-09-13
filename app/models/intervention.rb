@@ -488,7 +488,7 @@ class Intervention < ApplicationRecord
       end
     end
 
-    b.journal_entry(stock_journal, printed_on: printed_on, if: (Preference[:permanent_stock_inventory] && record?)) do |entry|
+    b.journal_entry(stock_journal, printed_on: printed_on, if: Preference[:permanent_stock_inventory] && record?) do |entry|
       write_parameter_entry_items = lambda do |parameter, input|
         variant = parameter.variant
         stock_amount = parameter.stock_amount.round(2) if parameter.stock_amount
@@ -675,7 +675,7 @@ class Intervention < ApplicationRecord
   # Deprecated method to return procedure
   def reference
     Ekylibre.deprecator.warn 'Intervention#reference is deprecated.' \
-                                    'Please use Intervention#procedure instead.'
+                             'Please use Intervention#procedure instead.'
     procedure
   end
 
@@ -741,7 +741,7 @@ class Intervention < ApplicationRecord
     reference_names = reference_names.map(&:to_sym)
     parameters_names = procedure.parameters.map(&:name).uniq
 
-    result = parameters_names - reference_names | reference_names - parameters_names
+    result = (parameters_names - reference_names) | (reference_names - parameters_names)
     result.empty?
   end
 
@@ -1343,7 +1343,7 @@ class Intervention < ApplicationRecord
 
       result = []
       Procedo.procedures do |procedure_key, procedure|
-        coeff[procedure_key] = 1.0 + 2.0 * (history[procedure_key].to_f / history_size) + 3.0 * provisional.count(procedure_key).to_f
+        coeff[procedure_key] = 1.0 + (2.0 * (history[procedure_key].to_f / history_size)) + (3.0 * provisional.count(procedure_key).to_f)
         matched_parameters = procedure.matching_parameters_for(actors)
         if matched_parameters.any?
           result << [procedure, (((matched_parameters.values.count.to_f / actors.count) * coeff[procedure_key]) / denominator), matched_parameters.values.count]
@@ -1359,7 +1359,7 @@ class Intervention < ApplicationRecord
       purchase = nil
       transaction do
         interventions = interventions
-                          .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
+                          .collect { |intv| intv.is_a?(self) ? intv : find(intv) }
                           .sort_by(&:stopped_at)
         planned_at = interventions.last.stopped_at
         owners = interventions.map(&:doers).map { |t| t.map(&:product).map(&:owner).compact }.flatten.uniq
@@ -1423,7 +1423,7 @@ class Intervention < ApplicationRecord
       sale = nil
       transaction do
         interventions = interventions
-                          .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
+                          .collect { |intv| intv.is_a?(self) ? intv : find(intv) }
                           .sort_by(&:stopped_at)
         planned_at = interventions.last.stopped_at
 

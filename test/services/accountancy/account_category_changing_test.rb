@@ -26,11 +26,11 @@ module Accountancy
       variant = ProductNatureVariant.import_from_lexicon('eggplant')
       sale = Sale.new(nature: @nature, client: @client, invoiced_at: Date.parse('2025-02-02').to_time)
       sale.items.new(variant: variant,
-                      compute_from: :unit_pretax_amount,
-                      conditioning_quantity: 50.to_d,
-                      unit_pretax_amount: 50.0,
-                      conditioning_unit: variant.guess_conditioning[:unit],
-                      tax: @standard_vat)
+                     compute_from: :unit_pretax_amount,
+                     conditioning_quantity: 50.to_d,
+                     unit_pretax_amount: 50.0,
+                     conditioning_unit: variant.guess_conditioning[:unit],
+                     tax: @standard_vat)
       sale.save!
       sale.propose!
       sale.confirm!

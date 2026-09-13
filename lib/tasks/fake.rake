@@ -65,15 +65,15 @@ module Ekylibre
       end
 
       def unit_pretax_amount
-        (@cost * (1 + 0.07 * (rand - 0.5))).round(1)
+        (@cost * (1 + (0.07 * (rand - 0.5)))).round(1)
       end
 
       def sale_quantity
-        record.population_counting_unitary? ? 1 : (@sale_default_quantity * (1 + 0.07 * (rand - 0.5))).round
+        record.population_counting_unitary? ? 1 : (@sale_default_quantity * (1 + (0.07 * (rand - 0.5)))).round
       end
 
       def purchase_quantity
-        record.population_counting_unitary? ? 1 : (@purchase_default_quantity * (1 + 0.07 * (rand - 0.5))).round
+        record.population_counting_unitary? ? 1 : (@purchase_default_quantity * (1 + (0.07 * (rand - 0.5)))).round
       end
 
       def deliverable?
@@ -107,7 +107,7 @@ module Ekylibre
         @started_on = options[:started_on] || Date.civil(2016, 8, 6)
         @stopped_on = options[:stopped_on] || Date.today
         @cash_minimum = options[:cash_minimun] || options[:cash_min] || -12_000
-        @cash_maximum = options[:cash_maximun] || options[:cash_max] || @cash_minimum + 80_000
+        @cash_maximum = options[:cash_maximun] || options[:cash_max] || (@cash_minimum + 80_000)
       end
 
       def bank_balance
@@ -222,7 +222,7 @@ module Ekylibre
         relation = options[:scope].call(relation) if options[:scope]
         journal = relation.find_by(currency: currency.name, nature: nature)
         unless journal
-          name = options[:journal_name] || "enumerize.journal.nature.#{nature}".t + ' 1'
+          name = options[:journal_name] || ("enumerize.journal.nature.#{nature}".t + ' 1')
           code = name.codeize[0..1]
           code.succ! while Journal.find_by(code: code)
           journal = Journal.create!(
@@ -239,7 +239,7 @@ module Ekylibre
         currency = find_currency!(options[:currency])
         cash = Cash.find_by(nature: :bank_account, currency: currency.name)
         unless cash
-          cash_name = options[:cash_name] || currency.human_name(locale: :eng) + ' Bank'
+          cash_name = options[:cash_name] || (currency.human_name(locale: :eng) + ' Bank')
           account = options[:account] || Account.find_or_create_by_number('5120' + cash_name.codeize[0..7])
           journal = options[:journal] || find_or_create_journal(
             currency: currency.name,
@@ -749,6 +749,6 @@ module Ekylibre
 end
 
 task fake: :environment do
-  Ekylibre::Tenant.switch! ENV['TENANT']
-  Ekylibre::Fake.run currency: ENV['CURRENCY'], env: ENV['FAKE_ENV']
+  Ekylibre::Tenant.switch! ENV.fetch('TENANT', nil)
+  Ekylibre::Fake.run currency: ENV.fetch('CURRENCY', nil), env: ENV.fetch('FAKE_ENV', nil)
 end

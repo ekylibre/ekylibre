@@ -116,7 +116,7 @@ class Measure
   alias in! convert!
 
   Measure.units.each do |unit|
-    define_method "in_#{unit}".to_sym do
+    define_method :"in_#{unit}" do
       self.in(unit)
     end
   end

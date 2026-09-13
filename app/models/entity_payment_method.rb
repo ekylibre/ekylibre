@@ -60,5 +60,6 @@ class EntityPaymentMethod < ApplicationRecord
   validates :entity, presence: true
   # ]VALIDATORS]
   include Providable
+
   belongs_to :entity, inverse_of: :payment_methods
 end

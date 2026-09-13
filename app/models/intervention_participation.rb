@@ -166,7 +166,7 @@ class InterventionParticipation < ApplicationRecord
   def assign_parameters(group, attributes = {}, options = {})
     zone = working_zone(options[:working_width])
     group.each_parameter do |parameter|
-      key = "#{parameter.reflection_name}_attributes".to_sym
+      key = :"#{parameter.reflection_name}_attributes"
       attributes[key] ||= []
       if parameter.is_a?(Procedo::Procedure::GroupParameter)
         target_parameters = parameter.parameters_of_type(:target)

@@ -18,7 +18,7 @@ module Hve
 
       test 'idempotent — re-running produces same score' do
         HveBiodiversityItem.create!(audit: @audit, iae_family: 'ligneux', iae_type: 'haie',
-                                     surface_or_length: 5_000, unit: 'm')
+                                    surface_or_length: 5_000, unit: 'm')
         first  = Hve::Scoring::BiodiversityScorer.call(audit: @audit)
         second = Hve::Scoring::BiodiversityScorer.call(audit: @audit)
         assert_equal first[:score], second[:score]
@@ -35,7 +35,7 @@ module Hve
 
       test 'score_biodiversity is updated on the audit' do
         HveBiodiversityItem.create!(audit: @audit, iae_family: 'ligneux', iae_type: 'haie',
-                                     surface_or_length: 5_000, unit: 'm')
+                                    surface_or_length: 5_000, unit: 'm')
         Hve::Scoring::BiodiversityScorer.call(audit: @audit)
         @audit.reload
         refute_nil @audit.score_biodiversity

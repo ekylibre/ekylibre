@@ -52,6 +52,7 @@
 
 class AnalysisItem < ApplicationRecord
   include ReadingStorable
+
   belongs_to :analysis, inverse_of: :items
   belongs_to :product_reading, dependent: :destroy
   has_one :product, through: :analysis
