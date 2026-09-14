@@ -78,8 +78,22 @@ module MonoschemaPlan
   def plane_of(schema, table)
     return 'reference' if schema == REFERENCE_SCHEMA
     return 'control' if classification.fetch('control', {}).key?(table)
+    return 'reference' if classification.fetch('move_to_reference', {}).key?(table)
+    return 'drop' if classification.fetch('drop', {}).key?(table)
 
     'data'
+  end
+
+  # Une table décidée pour le référentiel n'y est pas encore : elle vit dans
+  # `public` et porte les lignes de chaque ferme. Le plan doit dire les deux —
+  # où elle va, et d'où elle part —, sans quoi le générateur du point 1.6 la
+  # traiterait comme une table du `lexicon`, qui n'a rien à migrer.
+  def status_of(schema, table)
+    return 'à déplacer vers le lexicon' if classification.fetch('move_to_reference', {}).key?(table)
+    return 'à supprimer' if classification.fetch('drop', {}).key?(table)
+    return 'suppression conditionnelle' if classification.fetch('drop_pending', {}).key?(table)
+
+    nil
   end
 
   def id_type_of(table, columns)
@@ -97,6 +111,7 @@ module MonoschemaPlan
     {
       'schema' => schema,
       'plane' => plane,
+      'status' => status_of(schema, table),
       'reason' => reason_for(plane, table),
       'id' => id_type_of(table, cols),
       'primary_key' => primary_key(schema, table),
@@ -144,6 +159,12 @@ module MonoschemaPlan
   end
 
   def reason_for(plane, table)
+    moved = classification.fetch('move_to_reference', {})[table]
+    return moved if moved
+
+    dropped = classification.fetch('drop', {})[table] || classification.fetch('drop_pending', {})[table]
+    return dropped if dropped
+
     case plane
     when 'control' then classification.fetch('control')[table]
     when 'reference' then 'schéma lexicon : référentiel partagé, lu seulement'
@@ -161,7 +182,9 @@ module MonoschemaPlan
       # découle ou se mesure sur db/structure.sql. Ce fichier est ce que lira le
       # générateur de migrations du point 1.6.
       #
-      #   plane   : control (global, hors RLS) | data (tenant, RLS) | reference (lexicon)
+      #   plane   : control (global, hors RLS) | data (tenant, RLS) |
+      #             reference (lexicon) | drop (ne passe pas le lot)
+      #   status  : ce qui reste à faire quand la table n'est pas déjà à sa place
       #   id      : type visé pour la clé primaire — uuid pour ce que le terrain
       #             crée hors ligne (ADR-003), bigint sinon, none si la table n'a
       #             pas de colonne `id`
@@ -177,6 +200,9 @@ module MonoschemaPlan
       'contrôle' => plan.count { |_t, e| e['plane'] == 'control' },
       'données' => data.size,
       'référentiel' => plan.count { |_t, e| e['plane'] == 'reference' },
+      'dont à déplacer vers le lexicon' => plan.count { |_t, e| e['status'] == 'à déplacer vers le lexicon' },
+      'à supprimer' => plan.count { |_t, e| e['plane'] == 'drop' },
+      'suppression conditionnelle' => plan.count { |_t, e| e['status'] == 'suppression conditionnelle' },
       'clés uuidv7' => data.count { |_t, e| e['id'] == 'uuid' },
       'clés bigint' => data.count { |_t, e| e['id'] == 'bigint' },
       'sans clé primaire' => plan.count { |_t, e| e['primary_key'].nil? },
@@ -199,7 +225,10 @@ module MonoschemaPlan
   def unknown_tables
     known = classification.fetch('control', {}).keys +
             classification.fetch('data', []) +
-            classification.fetch('review', {}).keys
+            classification.fetch('review', {}).keys +
+            classification.fetch('move_to_reference', {}).keys +
+            classification.fetch('drop', {}).keys +
+            classification.fetch('drop_pending', {}).keys
     tables.filter_map { |schema, table| table if schema != REFERENCE_SCHEMA && known.exclude?(table) }
   end
 end

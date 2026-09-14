@@ -50,18 +50,43 @@ uuid_v7:
   active_storage_blobs: "support des pièces jointes"
   active_storage_attachments: "support des pièces jointes"
   active_storage_variant_records: "support des pièces jointes"
+  activity_productions: "la production d'une parcelle se cale et se corrige depuis le terrain (décision du 15 septembre)"
+  cultivable_zones: "une zone cultivable se trace au champ"
+  cap_islets: "îlot PAC : dessiné et corrigé sur la parcelle"
+  cap_land_parcels: "parcelle PAC : dessinée et corrigée sur la parcelle"
+  cap_neutral_areas: "surface non productive PAC : relevée au champ"
+  georeadings: "relevé géographique, produit par le terrain"
+  trackings: "traçabilité : le numéro de lot se saisit au moment du geste"
+  incoming_harvests: "apport de récolte : saisi au quai, souvent sans réseau"
+  yield_observations: "observation de rendement faite au champ"
+  ride_sets: "trajets d'engins remontés par les boîtiers"
+  inventory_items: "ligne d'inventaire : comptée en magasin"
+  cvi_statements: "déclaration CVI : saisie et corrigée hors ligne"
+  cvi_land_parcels: "parcelle du CVI, du même geste"
+  cvi_cultivable_zones: "zone du CVI, du même geste"
+  cvi_cadastral_plants: "plantation du CVI, du même geste"
 
-# Questions ouvertes : ces tables ne sont pas classées tant que la question
-# n'est pas tranchée. Elles restent au plan de données par défaut, et `classify`
-# les rappelle à chaque exécution.
-review:
-  districts: "référentiel géographique dupliqué dans chaque ferme. Le passer au plan référentiel supposerait qu'aucune ferme ne l'édite — à vérifier avant de trancher"
-  postal_zones: "même question que `districts`"
-  vegetative_stages: "stades BBCH : référentiel agronomique dupliqué par ferme, alors que le lexicon en porte déjà"
-  net_services: "liste de services, sans donnée propre à la ferme : candidate au plan référentiel"
-  units: "unités de mesure : le lexicon porte `master_units`. Fusionner ou garder une table par ferme est une décision agronomique, pas technique"
-  saas_subscriptions: "porte un `tenant_name` : une ligne d'une ferme désigne une *autre* ferme par son nom. C'est exactement le lien inter-tenant que le point 1.22 doit rendre explicite"
-  users: "reste au plan de données pour le lot 1 — Devise y est encore. Le trio du point 1.14 (`tenants`, `users`, `user_tenants`) est neuf ; le lot 2 réconciliera les deux avec Keycloak"
+# Décidé le 15 septembre 2026, sur le questionnaire : ces tables passent au
+# référentiel partagé. Elles n'y sont pas encore — elles vivent dans `public` et
+# portent les lignes de chaque ferme —, et les y porter demande de dédupliquer
+# ces lignes puis de réécrire les colonnes qui les désignent.
+move_to_reference:
+  districts: "référentiel géographique, le même pour toutes les fermes (réponse du 15 septembre : « lexicon »). Une seule colonne le désigne — postal_zones.district_id"
+  postal_zones: "même décision que `districts` ; aucune colonne du schéma ne la désigne aujourd'hui"
+  vegetative_stages: "stades BBCH : référentiel agronomique, et le lexicon en porte déjà. Deux colonnes le désignent"
+  net_services: "liste de services, sans donnée propre à la ferme. Une seule colonne le désigne — identifiers.net_service_id"
+  units: "à **fusionner avec `master_units`** du lexicon, pas seulement à déplacer (réponse du 15 septembre). C'est le déplacement le plus lourd des cinq : dix colonnes dans dix tables désignent une unité, la table est en STI (Unit, ReferenceUnit, Conditioning), et une ferme peut aujourd'hui en créer depuis l'écran — ce qu'elle ne pourra plus"
+
+# Tables qui ne passent pas le lot. Les supprimer n'est pas qu'une migration :
+# un écran, des routes et des vues disparaissent avec elles.
+drop:
+  saas_subscriptions: "ancienne table de gestion des abonnements (réponse du 15 septembre). Elle désignait une autre ferme par son `tenant_name` — ce lien inter-tenant n'a plus à être porté"
+  user_tickets: "table morte : trois mentions dans le code, aucune fixture. Un écran du backend la sert encore, il part avec elle"
+
+# Suppression décidée mais conditionnée à un travail qui n'est pas celui du
+# lot 1 : la table reste au plan de données en attendant.
+drop_pending:
+  users: "table historique des utilisateurs d'une ferme (réponse du 15 septembre) : à supprimer **si** le trio `tenants` / `users` / `user_tenants` du point 1.14 porte les accès et les droits. Devise s'en sert encore ; la décision se solde au lot 2, avec Keycloak"
 
 # Plan de données : la ferme est propriétaire de la ligne.
 data:
@@ -284,7 +309,6 @@ data:
   - technical_itinerary_intervention_templates
   - tokens
   - trackings
-  - user_tickets
   - versions
   - wice_grid_serialized_queries
   - wine_incoming_harvest_inputs

@@ -5,6 +5,12 @@
 > le document rempli, ses réponses sont reportées dans
 > `db/monoschema/classification.yml`, qui fait foi.
 
+> **Dépouillé le 15 septembre 2026.** Les réponses de ce document ont été
+> reportées dans `db/monoschema/classification.yml`, qui fait foi, et
+> `plan.yml` régénéré : 234 tables au plan de données, 5 à déplacer vers le
+> `lexicon`, 2 supprimées, 40 clés en UUIDv7. Ce fichier reste le relevé des
+> réponses — le régénérer les effacerait.
+
 Ce document accompagne le point 1.5 de
 [la feuille de route](v6-roadmap.md) : chacune des **241 tables du
 plan de données** doit recevoir une décision avant que le générateur de
@@ -48,43 +54,43 @@ demandent plus qu'un mot : la réponse attendue est une phrase.
 
 référentiel géographique dupliqué dans chaque ferme. Le passer au plan référentiel supposerait qu'aucune ferme ne l'édite — à vérifier avant de trancher
 
-**Réponse :**
+**Réponse : lexicon**
 
 ### postal_zones
 
 même question que `districts`
 
-**Réponse :**
+**Réponse :lexicon**
 
 ### vegetative_stages
 
 stades BBCH : référentiel agronomique dupliqué par ferme, alors que le lexicon en porte déjà
 
-**Réponse :**
+**Réponse :lexicon**
 
 ### net_services
 
 liste de services, sans donnée propre à la ferme : candidate au plan référentiel
 
-**Réponse :**
+**Réponse :lexicon**
 
 ### units
 
 unités de mesure : le lexicon porte `master_units`. Fusionner ou garder une table par ferme est une décision agronomique, pas technique
 
-**Réponse :**
+**Réponse :fusionner et a mettre dans lexicon**
 
 ### saas_subscriptions
 
 porte un `tenant_name` : une ligne d'une ferme désigne une *autre* ferme par son nom. C'est exactement le lien inter-tenant que le point 1.22 doit rendre explicite
 
-**Réponse :**
+**Réponse :supprimer ancienne table pour gérer les abonnements**
 
 ### users
 
 reste au plan de données pour le lot 1 — Devise y est encore. Le trio du point 1.14 (`tenants`, `users`, `user_tenants`) est neuf ; le lot 2 réconciliera les deux avec Keycloak
 
-**Réponse :**
+**Réponse : table historique des utilisateurs d'une ferme dans un tenant, à supprimer si on considere que le trio gerera les acces et droits**
 
 ---
 
@@ -132,11 +138,11 @@ candidates à la suppression.
 | affair_natures | AffairNature | 8 | 0 | 2 | 4 | — | oui | 2017-10 |  |  |
 | financial_year_archives | FinancialYearArchive | 6 | 0 | 1 | 4 | — | oui | 2018-11 |  |  |
 | pfi_intervention_parameters | PfiInterventionParameter | 11 | 3 | 0 | 4 | — | non | 2021-04 |  |  |
-| saas_subscriptions | SaasSubscription | 20 | 4 | 2 | 4 | — | non | 2021-12 |  |  |
+| saas_subscriptions | SaasSubscription | 20 | 4 | 2 | 4 | — | non | 2021-12 |  | supprimer |
 | vegetative_stages | VegetativeStage | 9 | 0 | 2 | 4 | — | oui | 2022-04 |  |  |
 | active_storage_attachments | ActiveStorage::Attachment | 6 | 1 | 1 | 3 | — | non | 2026-09 | uuidv7 |  |
 | planning_scenario_activity_plots | ScenarioActivity::Plot | 12 | 2 | 2 | 3 | — | non | 2018-07 |  |  |
-| user_tickets | UserTicket | 13 | 0 | 2 | 3 | — | oui | 2023-04 |  |  |
+| user_tickets | UserTicket | 13 | 0 | 2 | 3 | — | oui | 2023-04 |  | supprimer |
 | wice_grid_serialized_queries | WiceGridSerializedQuery | 6 | 0 | 0 | 3 | 0 | non | 2018-07 |  |  |
 | economic_cash_indicators | EconomicCashIndicator | 22 | 0 | 9 | 2 | — | non | 2022-01 |  |  |
 | idea_diagnostic_item_values | IdeaDiagnosticItemValue | 13 | 0 | 3 | 2 | — | non | 2021-06 |  |  |
@@ -237,13 +243,13 @@ données ».
 | journal_entries | JournalEntry | 33 | 1 | 5 | 308 | 250 | oui | 2021-02 |  |  |
 | documents | Document | 21 | 0 | 3 | 307 | 13 | oui | 2026-09 | uuidv7 |  |
 | campaigns | Campaign | 11 | 0 | 2 | 299 | 8 | oui | 2021-06 |  |  |
-| units | Unit, ReferenceUnit, Conditioning *(STI)* | 16 | 0 | 3 | 298 | 6 | oui | 2023-02 |  |  |
+| units | Unit, ReferenceUnit, Conditioning *(STI)* | 16 | 0 | 3 | 298 | 6 | oui | 2023-02 |  | lexicon |
 | product_natures | ProductNature, VariantTypes::ZoneType, VariantTypes::WorkerType, VariantTypes::ServiceType, VariantTypes::EquipmentType, VariantTypes::CropType, VariantTypes::ArticleType, VariantTypes::AnimalType *(STI)* | 29 | 0 | 3 | 291 | 61 | oui | 2026-09 |  |  |
 | financial_years | FinancialYear | 21 | 2 | 3 | 274 | 29 | oui | 2023-06 |  |  |
 | product_nature_categories | ProductNatureCategory, VariantCategories::ZoneCategory, VariantCategories::WorkerCategory, VariantCategories::ServiceCategory, VariantCategories::EquipmentCategory, VariantCategories::CropCategory, VariantCategories::ArticleCategory, VariantCategories::AnimalCategory *(STI)* | 32 | 0 | 9 | 262 | 26 | oui | 2021-02 |  |  |
 | labels | Label | 8 | 0 | 2 | 261 | 3 | oui | 2018-07 |  |  |
 | users | User | 48 | 0 | 6 | 228 | 4 | oui | 2026-06 |  |  |
-| activity_productions | ActivityProduction *(géo)* | 38 | 1 | 8 | 227 | 43 | oui | 2024-02 |  |  |
+| activity_productions | ActivityProduction *(géo)* | 38 | 1 | 8 | 227 | 43 | oui | 2024-02 | uuidv7 |  |
 | affairs | Affair, PurchaseAffair, PayslipAffair, SaleAffair, SaleTicket, SaleOpportunity *(STI)* | 29 | 2 | 6 | 201 | 40 | oui | 2019-10 |  |  |
 | subscriptions | Subscription | 25 | 0 | 7 | 196 | 5 | oui | 2021-12 |  |  |
 | issues | Issue *(géo)* | 20 | 1 | 4 | 195 | 6 | oui | 2026-09 | uuidv7 |  |
@@ -257,7 +263,7 @@ données ».
 | events | Event | 17 | 0 | 3 | 151 | 48 | oui | 2026-07 |  |  |
 | incoming_payments | IncomingPayment | 33 | 0 | 10 | 150 | 10 | oui | 2024-03 |  |  |
 | loans | Loan | 36 | 1 | 9 | 150 | 4 | oui | 2021-02 |  |  |
-| cultivable_zones | CultivableZone *(géo)* | 18 | 0 | 4 | 142 | 39 | oui | 2021-12 |  |  |
+| cultivable_zones | CultivableZone *(géo)* | 18 | 0 | 4 | 142 | 39 | oui | 2021-12 | uuidv7 |  |
 | payslips | Payslip | 28 | 5 | 2 | 140 | 3 | oui | 2023-10 |  |  |
 | tasks | Task | 15 | 0 | 5 | 136 | 3 | oui | 2018-01 | uuidv7 |  |
 | contracts | Contract | 17 | 0 | 4 | 132 | 2 | oui | 2022-05 |  |  |
@@ -279,7 +285,7 @@ données ».
 | sale_natures | SaleNature | 22 | 0 | 5 | 92 | 2 | oui | 2022-02 |  |  |
 | rides | Ride *(géo)* | 25 | 4 | 2 | 87 | 2 | oui | 2022-12 |  |  |
 | roles | Role | 9 | 0 | 2 | 83 | 2 | oui | 2016-02 |  |  |
-| trackings | Tracking | 14 | 0 | 4 | 81 | 3 | oui | 2016-02 |  |  |
+| trackings | Tracking | 14 | 0 | 4 | 81 | 3 | oui | 2016-02 | uuidv7 |  |
 | plant_countings | PlantCounting | 16 | 0 | 5 | 79 | 2 | oui | 2016-11 | uuidv7 |  |
 | tax_declarations | TaxDeclaration | 19 | 0 | 5 | 78 | 5 | oui | 2019-10 |  |  |
 | observations | Observation | 12 | 0 | 4 | 77 | 5 | oui | 2022-06 | uuidv7 |  |
@@ -295,30 +301,30 @@ données ».
 | parcel_items | ParcelItem, ReceptionItem, ShipmentItem *(STI)* *(géo)* | 44 | 7 | 16 | 68 | 32 | non | 2022-02 |  |  |
 | outgoing_payment_modes | OutgoingPaymentMode | 12 | 0 | 3 | 64 | 3 | oui | 2017-04 |  |  |
 | bank_statement_items | BankStatementItem | 21 | 0 | 5 | 63 | 24 | oui | 2023-11 |  |  |
-| georeadings | Georeading *(géo)* | 11 | 0 | 2 | 61 | 3 | oui | 2016-02 |  |  |
+| georeadings | Georeading *(géo)* | 11 | 0 | 2 | 61 | 3 | oui | 2016-02 | uuidv7 |  |
 | purchase_natures | PurchaseNature | 11 | 0 | 3 | 61 | 2 | oui | 2019-10 |  |  |
-| cap_land_parcels | CapLandParcel *(géo)* | 14 | 0 | 4 | 60 | 31 | oui | 2016-02 |  |  |
-| cap_islets | CapIslet *(géo)* | 10 | 0 | 3 | 58 | 26 | oui | 2016-02 |  |  |
+| cap_land_parcels | CapLandParcel *(géo)* | 14 | 0 | 4 | 60 | 31 | oui | 2016-02 | uuidv7 |  |
+| cap_islets | CapIslet *(géo)* | 10 | 0 | 3 | 58 | 26 | oui | 2016-02 | uuidv7 |  |
 | map_layers | MapLayer | 20 | 0 | 2 | 58 | 36 | oui | 2019-06 |  |  |
 | sequences | Sequence | 16 | 0 | 2 | 56 | 34 | oui | 2021-02 |  |  |
 | cap_statements | CapStatement | 11 | 0 | 4 | 54 | 2 | oui | 2016-02 |  |  |
 | guides | Guide | 12 | 0 | 2 | 54 | 2 | oui | 2026-09 |  |  |
 | cash_transfers | CashTransfer | 20 | 0 | 6 | 52 | 2 | oui | 2016-02 |  |  |
 | financial_year_exchanges | FinancialYearExchange | 15 | 1 | 2 | 50 | 1 | oui | 2026-09 |  |  |
-| incoming_harvests | IncomingHarvest | 19 | 2 | 6 | 50 | 2 | oui | 2023-06 |  |  |
+| incoming_harvests | IncomingHarvest | 19 | 2 | 6 | 50 | 2 | oui | 2023-06 | uuidv7 |  |
 | entity_links | EntityLink | 16 | 0 | 4 | 49 | 8 | oui | 2016-11 |  |  |
 | net_services | NetService | 7 | 0 | 2 | 48 | 3 | oui | 2016-02 |  |  |
 | intervention_participations | InterventionParticipation | 11 | 2 | 2 | 47 | 3 | oui | 2020-10 | uuidv7 |  |
 | payslip_natures | PayslipNature | 14 | 2 | 2 | 46 | 2 | oui | 2023-10 |  |  |
 | supervisions | Supervision | 10 | 0 | 2 | 46 | 2 | oui | 2016-02 |  |  |
-| postal_zones | PostalZone | 13 | 0 | 3 | 45 | 13 | oui | 2016-02 |  |  |
+| postal_zones | PostalZone | 13 | 0 | 3 | 45 | 13 | oui | 2016-02 |  |  lexicon |
 | subscription_natures | SubscriptionNature | 8 | 0 | 2 | 45 | 3 | oui | 2016-05 |  |  |
 | crop_groups | CropGroup | 8 | 0 | 2 | 44 | 2 | oui | 2021-03 |  |  |
 | outgoing_payment_lists | OutgoingPaymentList | 10 | 0 | 3 | 42 | 2 | oui | 2017-04 |  |  |
 | listing_nodes | ListingNode | 25 | 0 | 6 | 40 | 5 | oui | 2015-02 |  |  |
 | product_readings | ProductReading *(géo)* | 24 | 0 | 4 | 40 | 228 | oui | 2022-05 | uuidv7 |  |
 | project_budgets | ProjectBudget | 9 | 0 | 2 | 39 | 3 | oui | 2021-03 |  |  |
-| districts | District | 8 | 0 | 2 | 37 | 2 | oui | 2016-02 |  |  |
+| districts | District | 8 | 0 | 2 | 37 | 2 | oui | 2016-02 |  | lexicon |
 | manure_management_plans | ManureManagementPlan | 14 | 0 | 4 | 37 | — | oui | 2015-02 |  |  |
 | naming_formats | NamingFormat, NamingFormatLandParcel *(STI)* | 8 | 0 | 2 | 37 | 1 | oui | 2018-09 |  |  |
 | plant_density_abaci | PlantDensityAbacus | 11 | 0 | 3 | 35 | 2 | oui | 2016-07 |  |  |
@@ -330,37 +336,37 @@ données ».
 | worker_groups | WorkerGroup | 10 | 0 | 2 | 29 | 1 | oui | 2022-03 |  |  |
 | worker_contracts | WorkerContract | 19 | 1 | 2 | 28 | 2 | oui | 2022-05 |  |  |
 | analysis_items | AnalysisItem *(géo)* | 23 | 0 | 4 | 27 | 77 | oui | 2016-02 | uuidv7 |  |
-| cap_neutral_areas | CapNeutralArea *(géo)* | 11 | 1 | 2 | 26 | 0 | non | 2018-04 |  |  |
+| cap_neutral_areas | CapNeutralArea *(géo)* | 11 | 1 | 2 | 26 | 0 | non | 2018-04 | uuidv7 |  |
 | loan_repayments | LoanRepayment | 18 | 0 | 4 | 26 | 243 | oui | 2017-03 |  |  |
 | product_memberships | ProductMembership | 14 | 0 | 6 | 26 | 1 | oui | 2021-06 |  |  |
 | regularizations | Regularization | 9 | 2 | 2 | 26 | 2 | oui | 2017-04 |  |  |
 | tax_payments | TaxPayment | 17 | 0 | 5 | 26 | 2 | oui | 2024-03 |  |  |
 | guide_analyses | GuideAnalysis | 12 | 0 | 3 | 24 | 3 | oui | 2015-02 |  |  |
 | intervention_templates | InterventionTemplate | 17 | 1 | 3 | 24 | — | non | 2022-06 |  |  |
-| yield_observations | YieldObservation *(géo)* | 13 | 0 | 4 | 22 | — | oui | 2022-06 |  |  |
+| yield_observations | YieldObservation *(géo)* | 13 | 0 | 4 | 22 | — | oui | 2022-06 | uuidv7 |  |
 | event_participations | EventParticipation | 9 | 0 | 4 | 21 | 67 | oui | 2016-02 |  |  |
 | analytic_sequences | AnalyticSequence | 3 | 0 | 0 | 20 | — | oui | 2021-02 |  |  |
 | issue_natures | IssueNature | 4 | 0 | 0 | 20 | — | oui | 2022-04 |  |  |
 | project_tasks | ProjectTask | 17 | 2 | 3 | 20 | — | oui | 2018-01 |  |  |
-| ride_sets | RideSet *(géo)* | 20 | 0 | 2 | 20 | 2 | oui | 2022-05 |  |  |
+| ride_sets | RideSet *(géo)* | 20 | 0 | 2 | 20 | 2 | oui | 2022-05 | uuidv7 |  |
 | account_balances | AccountBalance | 17 | 0 | 4 | 19 | 2 | oui | 2017-03 |  |  |
 | plant_density_abacus_items | PlantDensityAbacusItem | 9 | 0 | 3 | 18 | 6 | oui | 2016-04 |  |  |
 | tax_declaration_items | TaxDeclarationItem | 19 | 0 | 4 | 18 | 30 | non | 2016-11 |  |  |
 | sale_contracts | SaleContract | 19 | 0 | 6 | 17 | 1 | oui | 2017-10 |  |  |
 | activity_budget_items | ActivityBudgetItem | 35 | 4 | 4 | 16 | 5 | non | 2022-07 |  |  |
 | email_templates | EmailTemplate | 17 | 0 | 2 | 15 | — | oui | 2024-11 |  |  |
-| inventory_items | InventoryItem | 13 | 0 | 5 | 15 | 2 | oui | 2017-04 |  |  |
+| inventory_items | InventoryItem | 13 | 0 | 5 | 15 | 2 | oui | 2017-04 | uuidv7 |  |
 | product_nature_variant_components | ProductNatureVariantComponent | 11 | 0 | 5 | 14 | 3 | oui | 2016-07 |  |  |
 | activity_seasons | ActivitySeason | 8 | 0 | 3 | 12 | 5 | oui | 2016-07 |  |  |
 | product_phases | ProductPhase | 15 | 0 | 8 | 11 | 120 | oui | 2018-09 |  |  |
 | activity_inspection_point_natures | ActivityInspectionPointNature | 9 | 0 | 3 | 10 | 4 | oui | 2016-05 |  |  |
 | product_ownerships | ProductOwnership | 14 | 0 | 6 | 10 | 127 | oui | 2018-09 |  |  |
 | call_messages | CallMessage, CallResponse, CallRequest *(STI)* | 18 | 0 | 4 | 9 | 42 | non | 2018-09 |  |  |
-| cvi_land_parcels | CviLandParcel *(géo)* | 24 | 2 | 3 | 8 | 2 | non | 2021-03 |  |  |
-| cvi_cadastral_plants | CviCadastralPlant | 26 | 2 | 3 | 6 | 4 | non | 2020-08 |  |  |
-| cvi_cultivable_zones | CviCultivableZone *(géo)* | 14 | 1 | 2 | 6 | 2 | non | 2021-03 |  |  |
+| cvi_land_parcels | CviLandParcel *(géo)* | 24 | 2 | 3 | 8 | 2 | non | 2021-03 | uuidv7 |  |
+| cvi_cadastral_plants | CviCadastralPlant | 26 | 2 | 3 | 6 | 4 | non | 2020-08 | uuidv7 |  |
+| cvi_cultivable_zones | CviCultivableZone *(géo)* | 14 | 1 | 2 | 6 | 2 | non | 2021-03 | uuidv7 |  |
 | activity_tactics | ActivityTactic | 16 | 1 | 4 | 4 | 2 | non | 2021-10 |  |  |
-| cvi_statements | CviStatement | 17 | 1 | 2 | 4 | 2 | non | 2020-08 |  |  |
+| cvi_statements | CviStatement | 17 | 1 | 2 | 4 | 2 | non | 2020-08 | uuidv7 |  |
 | sale_contract_natures | SaleContractNature | 9 | 0 | 2 | 3 | 1 | oui | 2017-10 |  |  |
 | listing_node_items | ListingNodeItem | 9 | 0 | 3 | 1 | 2 | oui | 2015-02 |  |  |
 | intervention_parameter_readings | InterventionParameterReading *(géo)* | 21 | 0 | 3 | 0 | 14 | non | 2016-02 | uuidv7 |  |

@@ -4,7 +4,9 @@
 # découle ou se mesure sur db/structure.sql. Ce fichier est ce que lira le
 # générateur de migrations du point 1.6.
 #
-#   plane   : control (global, hors RLS) | data (tenant, RLS) | reference (lexicon)
+#   plane   : control (global, hors RLS) | data (tenant, RLS) |
+#             reference (lexicon) | drop (ne passe pas le lot)
+#   status  : ce qui reste à faire quand la table n'est pas déjà à sa place
 #   id      : type visé pour la clé primaire — uuid pour ce que le terrain
 #             crée hors ligne (ADR-003), bigint sinon, none si la table n'a
 #             pas de colonne `id`
@@ -1263,7 +1265,7 @@ activity_budget_items:
     plane: data
   - columns: unit_id
     table: units
-    plane: data
+    plane: reference
   - columns: tax_id
     table: taxes
     plane: data
@@ -1408,7 +1410,7 @@ activity_production_irregular_batches:
 activity_productions:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -1796,7 +1798,7 @@ campaigns:
 cap_islets:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -1814,7 +1816,7 @@ cap_islets:
 cap_land_parcels:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -1833,7 +1835,7 @@ cap_land_parcels:
 cap_neutral_areas:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -2089,7 +2091,7 @@ crumbs:
 cultivable_zones:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -2163,7 +2165,7 @@ cvi_cadastral_plant_cvi_land_parcels:
 cvi_cadastral_plants:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -2189,7 +2191,7 @@ cvi_cadastral_plants:
 cvi_cultivable_zones:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -2209,7 +2211,7 @@ cvi_cultivable_zones:
 cvi_land_parcels:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -2235,7 +2237,7 @@ cvi_land_parcels:
 cvi_statements:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -2270,7 +2272,7 @@ daily_charges:
     plane: data
   - columns: quantity_unit_id
     table: units
-    plane: data
+    plane: reference
   - columns: activity_production_id
     table: activity_productions
     plane: data
@@ -2373,7 +2375,10 @@ deposits:
   columns: 17
 districts:
   schema: public
-  plane: data
+  plane: reference
+  status: à déplacer vers le lexicon
+  reason: 'référentiel géographique, le même pour toutes les fermes (réponse du 15
+    septembre : « lexicon »). Une seule colonne le désigne — postal_zones.district_id'
   id: bigint
   primary_key:
   - id
@@ -2728,7 +2733,7 @@ gaps:
 georeadings:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -3062,7 +3067,7 @@ incoming_harvest_storages:
 incoming_harvests:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -3571,7 +3576,7 @@ inventories:
 inventory_items:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -3937,7 +3942,10 @@ naming_formats:
   columns: 8
 net_services:
   schema: public
-  plane: data
+  plane: reference
+  status: à déplacer vers le lexicon
+  reason: liste de services, sans donnée propre à la ferme. Une seule colonne le désigne
+    — identifiers.net_service_id
   id: bigint
   primary_key:
   - id
@@ -4069,7 +4077,7 @@ parcel_item_storings:
     plane: data
   - columns: conditioning_unit_id
     table: units
-    plane: data
+    plane: reference
   implicit_references:
   - parcel_item_id
   - storage_id
@@ -4109,7 +4117,7 @@ parcel_items:
     plane: data
   - columns: conditioning_unit_id
     table: units
-    plane: data
+    plane: reference
   implicit_references:
   - parcel_id
   - sale_item_id
@@ -4399,7 +4407,9 @@ plant_density_abacus_items:
   columns: 9
 postal_zones:
   schema: public
-  plane: data
+  plane: reference
+  status: à déplacer vers le lexicon
+  reason: même décision que `districts` ; aucune colonne du schéma ne la désigne aujourd'hui
   id: bigint
   primary_key:
   - id
@@ -4703,7 +4713,7 @@ product_nature_variants:
   references:
   - columns: default_unit_id
     table: units
-    plane: data
+    plane: reference
   implicit_references:
   - category_id
   - nature_id
@@ -4810,7 +4820,7 @@ products:
   references:
   - columns: conditioning_unit_id
     table: units
-    plane: data
+    plane: reference
   - columns: worker_group_item_id
     table: worker_group_items
     plane: data
@@ -4958,7 +4968,7 @@ purchase_items:
   references:
   - columns: conditioning_unit_id
     table: units
-    plane: data
+    plane: reference
   - columns: project_budget_id
     table: project_budgets
     plane: data
@@ -5112,7 +5122,7 @@ ride_set_equipments:
 ride_sets:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -5173,7 +5183,11 @@ roles:
   columns: 9
 saas_subscriptions:
   schema: public
-  plane: data
+  plane: drop
+  status: à supprimer
+  reason: ancienne table de gestion des abonnements (réponse du 15 septembre). Elle
+    désignait une autre ferme par son `tenant_name` — ce lien inter-tenant n'a plus
+    à être porté
   id: bigint
   primary_key:
   - id
@@ -5271,7 +5285,7 @@ sale_items:
     plane: data
   - columns: conditioning_unit_id
     table: units
-    plane: data
+    plane: reference
   implicit_references:
   - sale_id
   - variant_id
@@ -5695,7 +5709,7 @@ tokens:
 trackings:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false
@@ -5712,7 +5726,13 @@ trackings:
   columns: 14
 units:
   schema: public
-  plane: data
+  plane: reference
+  status: à déplacer vers le lexicon
+  reason: 'à **fusionner avec `master_units`** du lexicon, pas seulement à déplacer
+    (réponse du 15 septembre). C''est le déplacement le plus lourd des cinq : dix
+    colonnes dans dix tables désignent une unité, la table est en STI (Unit, ReferenceUnit,
+    Conditioning), et une ferme peut aujourd''hui en créer depuis l''écran — ce qu''elle
+    ne pourra plus'
   id: bigint
   primary_key:
   - id
@@ -5729,7 +5749,10 @@ units:
   columns: 16
 user_tickets:
   schema: public
-  plane: data
+  plane: drop
+  status: à supprimer
+  reason: 'table morte : trois mentions dans le code, aucune fixture. Un écran du
+    backend la sert encore, il part avec elle'
   id: bigint
   primary_key:
   - id
@@ -5746,6 +5769,11 @@ user_tickets:
 users:
   schema: public
   plane: data
+  status: suppression conditionnelle
+  reason: 'table historique des utilisateurs d''une ferme (réponse du 15 septembre)
+    : à supprimer **si** le trio `tenants` / `users` / `user_tenants` du point 1.14
+    porte les accès et les droits. Devise s''en sert encore ; la décision se solde
+    au lot 2, avec Keycloak'
   id: bigint
   primary_key:
   - id
@@ -5771,7 +5799,10 @@ users:
   columns: 48
 vegetative_stages:
   schema: public
-  plane: data
+  plane: reference
+  status: à déplacer vers le lexicon
+  reason: 'stades BBCH : référentiel agronomique, et le lexicon en porte déjà. Deux
+    colonnes le désignent'
   id: bigint
   primary_key:
   - id
@@ -6031,7 +6062,7 @@ worker_time_logs:
 yield_observations:
   schema: public
   plane: data
-  id: bigint
+  id: uuid
   primary_key:
   - id
   sti: false

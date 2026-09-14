@@ -34,19 +34,20 @@ docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake monosc
 
 ## Ce que la mesure donne
 
-316 tables, au 14 septembre 2026 :
+316 tables, au 15 septembre 2026, questionnaire dépouillé :
 
 | | |
 |---|---:|
-| plan de données | **241** |
+| plan de données | **234** |
 | plan de contrôle | 2 |
-| référentiel (`lexicon`) | 73 |
-| clés en UUIDv7 (ADR-003) | 25 |
-| clés en `bigint` | 216 |
-| PK composites à poser | 241 |
+| référentiel | 78, dont **5 à déplacer** depuis `public` |
+| à supprimer | 2, plus une suppression conditionnelle |
+| clés en UUIDv7 (ADR-003) | 40 |
+| clés en `bigint` | 194 |
+| PK composites à poser | 234 |
 | index uniques à préfixer par `tenant_id` | 38 |
-| clés étrangères déclarées, cible au plan de données | 171 |
-| clés étrangères déclarées, cible hors tenant | 0 |
+| clés étrangères déclarées, cible au plan de données | 159 |
+| clés étrangères déclarées, cible hors tenant | 8 |
 | **références implicites** (colonne en `_id` entière, sans contrainte) | **896** |
 | références par code vers le référentiel | 16 |
 | colonnes géométriques (index GiST composites) | 35, sur 24 tables |
@@ -63,9 +64,12 @@ déduire la cible d'une colonne, il faut la lui dire ou la déduire du modèle
 Ruby. C'est le vrai volume du lot, et il est cinq fois supérieur à ce que le
 schéma avoue.
 
-**Aucune clé étrangère ne pointe hors du plan de données.** Le référentiel est
-désigné par des codes (`usage_id` est une chaîne, pas un entier), jamais par une
-clé étrangère — ce qui simplifie le lot : aucune FK à *ne pas* rendre composite.
+**Huit clés étrangères pointent hors du plan de données, et toutes vers
+`units`.** Avant le dépouillement il n'y en avait aucune : le référentiel était
+désigné par des codes (`usage_id` est une chaîne), jamais par une clé. C'est la
+décision de déplacer `units` vers le `lexicon` qui les crée. Ces huit-là ne
+deviennent pas composites — leur cible n'aura pas de `tenant_id` — et c'est
+précisément ce que le plan doit dire au générateur du point 1.6.
 
 **Les 14 tables sans clé primaire sont toutes du `lexicon`.** Ce sont celles qui
 retiennent `raise_on_missing_required_finder_order_columns` (point 0.8) : leur
@@ -88,27 +92,50 @@ ne modifie — la question du référentiel partagé —, puis le reste. Une foi
 document rempli, ses réponses se reportent dans `classification.yml`, qui fait
 foi. **Le régénérer écrase les réponses.**
 
-## Les sept questions ouvertes
+## Les sept questions, tranchées le 15 septembre 2026
 
-`classify` les rappelle à chaque exécution. Aucune n'est technique — chacune
-demande de savoir comment la donnée est employée, ce que le code seul ne dit
-pas :
+Le questionnaire est revenu rempli. Aucune des sept n'était technique, et les
+réponses ouvrent chacune un travail :
 
-- `districts`, `postal_zones`, `vegetative_stages`, `net_services`, `units` —
-  du référentiel dupliqué dans chaque ferme. Les passer au plan partagé
-  suppose qu'aucune ferme ne les édite ; `units` recoupe `master_units` du
-  `lexicon` ;
-- `saas_subscriptions` porte un `tenant_name` : une ligne d'une ferme y désigne
-  une *autre* ferme par son nom. C'est le lien inter-tenant que le point 1.22
-  doit rendre explicite, pas une chaîne de caractères ;
-- `users` reste au plan de données pour le lot 1 — Devise y est encore. Le trio
-  du point 1.14 (`tenants`, `users`, `user_tenants`) est neuf, et le lot 2 le
-  réconciliera avec Keycloak. Cette décision-là est datée : elle vaut jusqu'à
-  ce que l'identité passe à Keycloak, pas au-delà.
+**Cinq tables passent au référentiel partagé** — `districts`, `postal_zones`,
+`vegetative_stages`, `net_services`, `units`. Elles n'y sont pas encore : elles
+vivent dans `public` et portent les lignes de *chaque* ferme. Les y porter, ce
+n'est pas déplacer une table, c'est **dédupliquer N jeux de lignes en un seul**,
+puis réécrire les colonnes qui les désignent. Le volume est mesuré :
+
+| Table | Colonnes qui la désignent | Ce que le déplacement coûte |
+|---|---:|---|
+| `postal_zones` | 0 | rien à réécrire |
+| `districts` | 1 | `postal_zones.district_id`, qui part avec elle |
+| `net_services` | 1 | `identifiers.net_service_id` |
+| `vegetative_stages` | 2 | `yield_observations`, `products_yield_observations` |
+| **`units`** | **10, dans 10 tables** | à **fusionner** avec `master_units`, pas seulement à déplacer |
+
+`units` est le vrai morceau, et pas seulement par le nombre : la table est en
+STI (`Unit`, `ReferenceUnit`, `Conditioning`), elle est mentionnée 298 fois, et
+**une ferme peut aujourd'hui créer une unité depuis un écran** — ce qu'elle ne
+pourra plus. C'est une décision fonctionnelle autant que technique ; elle mérite
+d'être confirmée avant que la migration ne soit écrite.
+
+**Deux tables sont supprimées** : `saas_subscriptions`, l'ancienne gestion des
+abonnements — c'est elle qui portait le `tenant_name`, ce lien inter-tenant en
+chaîne de caractères —, et `user_tickets`, que trois lignes de code mentionnent.
+Les supprimer n'est pas qu'une migration : un écran, des routes et des vues
+partent avec elles.
+
+**`users` est une suppression conditionnelle.** La table historique des
+utilisateurs d'une ferme disparaît *si* le trio du point 1.14 porte les accès et
+les droits. Devise s'en sert encore : elle reste au plan de données, et la
+décision se solde au lot 2, avec Keycloak.
 
 ## Le choix de clé, qui est le seul irréversible
 
-25 tables prennent une clé UUIDv7. Le critère n'est pas l'importance de la
+**40 tables** prennent une clé UUIDv7 — 25 à la première passe, quinze ajoutées
+au dépouillement : le parcellaire (`activity_productions`, `cultivable_zones`,
+les quatre tables PAC, `georeadings`), le CVI en entier, la traçabilité
+(`trackings`), les apports de récolte, les observations de rendement, les
+trajets d'engins et les lignes d'inventaire. Toutes se créent ou se corrigent
+sur le terrain. Le critère n'est pas l'importance de la
 table, c'est **« le mobile peut-il en créer une ligne sans réseau ? »** — une
 intervention et tout ce qui naît du même geste, une observation, un incident
 signalé depuis la parcelle, une trace GPS, un comptage, un pointage, une

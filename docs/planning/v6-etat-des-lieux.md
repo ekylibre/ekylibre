@@ -247,14 +247,19 @@ points suivants :
   recommande l'index GiST composite sans dire qu'il faut, en plus, marquer les
   opérateurs de PostGIS — ce qui est une décision de sécurité.
 
-**La classification des tables est faite aussi** (point 1.5) : `db/monoschema/`,
-**316 tables** — 241 au plan de données, 2 au contrôle, 73 au référentiel —, avec
-un fichier de décisions tenu à la main et un plan engendré que lira le générateur
-de migrations. La CI échoue désormais sur toute table non classée. Sept questions
-restent ouvertes, et aucune n'est technique : cinq référentiels dupliqués dans
-chaque ferme (`districts`, `postal_zones`, `vegetative_stages`, `net_services`,
-`units`), la table `saas_subscriptions` qui désigne une autre ferme par son nom,
-et le sort de `users` avant Keycloak.
+**La classification des tables est faite aussi** (point 1.5), et ses sept
+questions sont tranchées depuis le 15 septembre : `db/monoschema/`, **316
+tables** — 234 au plan de données, 2 au contrôle, 78 au référentiel dont cinq à
+y déplacer, deux supprimées. La CI échoue désormais sur toute table non classée.
+
+Les réponses ouvrent chacune un travail. Cinq tables passent au référentiel
+partagé, ce qui n'est pas les déplacer mais **dédupliquer N jeux de lignes en
+un seul** : trivial pour quatre d'entre elles, lourd pour `units`, à fusionner
+avec `master_units` — dix colonnes dans dix tables la désignent, elle est en
+STI, et une ferme peut aujourd'hui créer une unité depuis un écran, ce qu'elle
+ne pourra plus. `saas_subscriptions` et `user_tickets` disparaissent, avec leurs
+écrans. `users` attend Keycloak. Et le choix de clé s'étend : **40 tables en
+UUIDv7** au lieu de 25, le parcellaire et le CVI ayant rejoint la liste.
 
 La mesure a surtout corrigé le volume du lot : le schéma déclare **171 clés
 étrangères** là où **896 colonnes en `_id` désignent une ligne sans aucune
