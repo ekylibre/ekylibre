@@ -168,6 +168,10 @@ jobs:
           set -euo pipefail
           bundle exec rake monoschema:check
           bundle exec rake monoschema:classify
+          # `safe.directory` : le job tourne en root dans le conteneur, la copie
+          # de travail appartient à un autre utilisateur, et git refuse sinon de
+          # lire un dépôt « douteux ».
+          git config --global --add safe.directory "$PWD"
           git diff --exit-code db/monoschema/plan.yml
 
       - name: Monter la base du prototype de mono-schéma
