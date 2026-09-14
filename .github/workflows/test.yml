@@ -28,10 +28,14 @@ jobs:
 
     services:
       # PostgreSQL 13 aligne la CI sur la pile de développement
-      # (kartoza/postgis:13). Monter en 15/16 impose d'abord de faire monter
-      # postgresql-client dans ekylibre/docker-base-images : il y est en 13, et
-      # pg_dump refuse de vider un serveur plus récent — ce qui casserait
-      # db:structure:dump comme Ekylibre::Tenant.dump.
+      # (kartoza/postgis:13). Le client de ekylibre/docker-base-images est
+      # désormais en 17.11, donc monter le serveur jusqu'à 17 ne demande plus
+      # que de changer cette image. La cible du point 0.17 est en revanche
+      # PostgreSQL 18, et pg_dump refuse toujours de vider un serveur plus
+      # récent que lui — mesuré : « server version: 18.6 ; pg_dump version:
+      # 17.11 ». Monter le serveur en 18 impose donc d'abord un client 18 dans
+      # l'image de base, faute de quoi db:structure:dump et
+      # Ekylibre::Tenant.dump cessent de fonctionner.
       postgres:
         image: postgis/postgis:13-3.3
         env:

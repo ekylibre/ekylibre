@@ -1,4 +1,4 @@
-# Ekylibre v6 — État des lieux au 13 septembre 2026 (soir)
+# Ekylibre v6 — État des lieux au 14 septembre 2026
 
 > Document de reprise. Il dit où en est le chantier, ce que la montée de version a
 > laissé derrière elle, et ce qu'il faut avoir tranché avant d'ouvrir le lot
@@ -19,7 +19,7 @@ ancêtre de celle-ci).
 | Rails | 5.2 (EOL) | **8.1.3.1**, valeurs par défaut 8.1 |
 | Ruby | 2.6 | **3.4.10** (dev et CI) |
 | Production | Ruby 2.6, Rails 5.2 | **inchangée** — rien n'est déployé |
-| Suite | 3650 tests, 17 échecs, 15 erreurs | **3620 tests, 0 échec, 0 erreur** attendu ; dernière mesure CI 1 erreur, corrigée depuis |
+| Suite | 3650 tests, 17 échecs, 15 erreurs | **3621 tests, 0 échec, 0 erreur, 4 ignorés** — mesuré en local le 14 septembre, suite entière, 26 min |
 | Job `Tests` de la CI | rouge depuis toujours | vert au prochain passage |
 | RuboCop | 1.11, plantait sous Ruby 3.4 | **1.91, sort au vert** (809 offenses au todo) |
 | ESLint | 1657 erreurs | **0 erreur** |
@@ -55,13 +55,17 @@ donc un Ctrl-C ; la clé `errors.messages.unbalanced` manquait à toutes les
 locales, si bien qu'une écriture comptable déséquilibrée affichait
 « Translation missing ».
 
-**Mesurer avant de conclure.** Deux diagnostics se sont révélés faux en cours de
-route, et les deux fois c'est une mesure qui a tranché, pas un raisonnement :
+**Mesurer avant de conclure.** Quatre diagnostics se sont révélés faux en cours
+de route, et chaque fois c'est une mesure qui a tranché, pas un raisonnement :
 `add_autoload_paths_to_load_path` ne casse rien ici (Rails garde `lib` dans le
 `$LOAD_PATH` par `paths["lib"]`) — cent vingt chargements réécrits pour rien,
-puis annulés ; et `Regexp.timeout` n'explique pas l'instabilité qu'on lui
+puis annulés ; `Regexp.timeout` n'explique pas l'instabilité qu'on lui
 imputait sur une seule exécution (5 sur 5 avec le réglage, 1 sur 5 sans, sur
-quatorze exécutions tabulées).
+quatorze exécutions tabulées) — la cause était un `find_by` sans ordre, et le
+réglage est rétabli ; les « montants inconciliables » de ce même test n'étaient
+pas la cause non plus, seulement ce qui la rendait visible ; et la réécriture de
+`db/structure.sql`, imputée à la suite, venait du `rake db:migrate` que le
+conteneur de développement lance à chaque démarrage.
 
 **Le lot 0.1 confirme la leçon précédente : la moitié des 32 cas rouges étaient
 de vrais défauts utilisateur**, pas des assertions périmées. Par ordre de gravité :
@@ -102,7 +106,7 @@ praticable.
 
 ## 3. La dette que le lot B laisse
 
-### 3.1 Sept valeurs par défaut désactivées
+### 3.1 Six valeurs par défaut désactivées
 
 Toutes documentées dans `config/application.rb`, avec ce qu'elles révèlent et le
 travail que leur levée demande. Par poids décroissant :
@@ -113,17 +117,19 @@ travail que leur levée demande. Par poids décroissant :
 | `raise_on_missing_required_finder_order_columns` | 14 tables du `lexicon` sans clé ni index unique : `first` y rend une ligne arbitraire. **Recoupe le lot C** |
 | `default_column_serializer` | sortir de `wice_grid` ou corriger son `serialize :query` nu en amont |
 | `has_many_inversing`, `automatic_scope_inversing` | casser la récursion mutuelle `PurchaseInvoice` ↔ `PurchaseItem` |
-| `Regexp.timeout` | corriger le test d'achat aux montants inconciliables (99 € HT pour 120 € TTC à 20 %) |
 | `active_storage.variant_processor` | libvips dans l'image de base |
+
+La septième, `Regexp.timeout`, est rétablie depuis le 14 septembre : le test
+d'achat qu'elle semblait faire tomber tenait à un `find_by` sans ordre, pas au
+réglage (§ 4).
 
 ### 3.2 Qualité
 
 - ~~la suite n'est pas verte~~ — **traité.** Les 32 cas rouges sont corrigés ; la
   dernière mesure de CI donne 3620 tests, 0 échec, 1 erreur, et cette erreur est
-  corrigée depuis. Deux instabilités subsistent sur les trois : l'ordre des tests
-  (le test d'achat aux montants inconciliables, point 0.2 de la feuille de route)
-  et la réécriture de `db/structure.sql` par la suite (point 0.4). Celle de
-  `Devise.mappings` est réglée à la racine — voir `CLAUDE.md` ;
+  corrigée depuis. **Les trois instabilités sont réglées à la racine** : celle de
+  `Devise.mappings` en juillet, celle de l'ordre des tests et celle de
+  `db/structure.sql` le 14 septembre (points 0.2 et 0.4, § 4) ;
 - **4 tests ignorés** : le manifeste de packs est vide en test, si bien qu'un
   gabarit appelant `javascript_pack_tag` ne se rend pas. À reprendre avec la
   bascule du front (lot 7), pas avant ;
@@ -136,9 +142,14 @@ travail que leur levée demande. Par poids décroissant :
 - la **production reste en Ruby 2.6 / Rails 5.2** : `docker/prod/Dockerfile` n'a
   pas bougé, et `build-prod-image` ne se déclenche pas sur cette branche,
   délibérément ;
-- `postgresql-client` est en 13 dans l'image de base, ce qui **plafonne
-  PostgreSQL à 13** : `pg_dump` refuse un serveur plus récent, et c'est lui qui
-  fait `db:structure:dump` comme `Ekylibre::Tenant.dump` ;
+- `postgresql-client` est en **17.11** dans l'image de base (`pg_dump` et `psql`
+  vérifiés dans le conteneur), le serveur de développement en 13.4. Le plafond
+  documenté jusqu'ici — un client 13 refusant un serveur plus récent — est donc
+  levé jusqu'à 17 ; **monter le serveur en 18 (point 0.17) demandera un client
+  18**, `pg_dump` refusant toujours un serveur plus récent que lui. Effet de
+  bord connu : le `db/structure.sql` versionné vient d'un `pg_dump` 13.23, et
+  toute régénération avec le client 17 produit ~1400 lignes de diff de pure
+  forme — à assumer une fois, dans un commit dédié ;
 - le conteneur `sidekiq` de développement doit être reconstruit quand l'image de
   base change — il a tourné des semaines sous Ruby 2.6 en boucle de redémarrage
   sans que rien ne le signale ;
@@ -159,16 +170,34 @@ La feuille de route opérationnelle, lot par lot, est dans
 découpage depuis qu'elle intègre le guide du chef de projet (§ 12). Ce qui suit
 n'en est que le sommet.
 
-**Le reste du lot 0 est désormais la seule chose qui sépare du lot 1.** Trois
-points y restent ouverts et sont de nature différente :
+**Le reste du lot 0 est désormais la seule chose qui sépare du lot 1.** Les
+points 0.2 et 0.4 ont été traités le 14 septembre, et tous deux ont désigné
+autre chose que ce que l'on croyait :
+
+- **0.2 — l'instabilité d'ordre ne tenait pas aux montants, mais à un `find_by`
+  sans ordre.** `PurchaseTest#simple creation` demandait `Tax.find_by(amount: 20)`
+  *après* avoir créé une seconde taxe à 20 %, intracommunautaire celle-là. Sans
+  `ORDER BY`, la ligne rendue est celle que le plan d'exécution veut bien donner,
+  et il suffit qu'une mise à jour déplace le tuple vivant de la première pour que
+  le choix bascule — mesuré. Or une taxe intracommunautaire n'ajoute rien au
+  hors-taxe : le montant TTC imposé de la ligne laissait alors 21 € de trou, et
+  l'écriture comptable entière déséquilibrée. Le test désigne maintenant la taxe
+  qu'il vise et pose des montants qui se réconcilient. `Regexp.timeout` est
+  rétabli du même coup — le réglage n'était qu'un révélateur ;
+- **0.4 — ce n'était pas la suite qui réécrivait `db/structure.sql`**, mais
+  `docker/startup.sh` : il lance `rake db:migrate` à chaque démarrage du
+  conteneur, et `db:migrate` enchaînait sur `db:structure:dump`. Un
+  `docker compose up` suffisait donc à salir un fichier versionné, qu'Apartment
+  clone dans chaque nouveau tenant. `dump_schema_after_migration` est désormais
+  faux ; `DUMP_SCHEMA=1` rétablit l'enchaînement le temps d'une commande.
+
+Reste un point ouvert avant le lot 1 :
 
 | Point | Nature |
 |---|---|
-| 0.2 — corriger le test d'achat aux montants inconciliables (99 € HT pour 120 € TTC à 20 %), puis rétablir `Regexp.timeout` | une heure, et la dernière instabilité d'ordre disparaît |
-| 0.4 — empêcher la suite de réécrire `db/structure.sql` | un piège à commit, à traiter avant d'écrire des migrations en série |
-| 0.17 — **monter le serveur PostgreSQL de 13 à 18** | préalable de `uuidv7()` native, donc du lot 1 lui-même |
+| 0.17 — **monter le serveur PostgreSQL de 13 à 18** | préalable de `uuidv7()` native, donc du lot 1 lui-même. Demande aussi un client 18 dans l'image de base, celle-ci étant en 17.11 |
 
-Les points 0.5 à 0.9 (les sept valeurs par défaut) et 0.10 à 0.13 (dette
+Les points 0.5 à 0.9 (les six valeurs par défaut) et 0.10 à 0.13 (dette
 d'outillage) ne bloquent pas le lot 1 ; `raise_on_assign_to_attr_readonly` et
 `raise_on_missing_required_finder_order_columns` s'y rattachent naturellement,
 le premier par les rappels comptables, le second par la classification des
@@ -248,11 +277,22 @@ e35327d044  Actualiser la mesure de référence : le lot 0.1 est au vert
 d0763167be  Sortir le dernier test rouge du réseau, et taire le bruit de VCR
 ```
 
+## Annexe — Les commits du 14 septembre (points 0.2 et 0.4)
+
+La suite entière, jouée en local après ces deux corrections et avec
+`Regexp.timeout` actif : **3621 tests, 15717 assertions, 0 échec, 0 erreur,
+4 ignorés**, en 26 minutes — et `git status` propre au sortir, ce qui valide le
+point 0.4 de bout en bout. La CI comptait 3620 tests : le test d'écart reste à
+identifier au prochain passage, il n'est ni rouge ni ignoré.
+
 ## Annexe — Où reprendre
 
-1. **Lire la mesure de CI du commit `d0763167be`.** Si elle sort à zéro, le job
-   `Tests` est vert pour la première fois et le lot 0.1 est clos.
-2. Puis, dans cet ordre : point 0.2 (montants d'achat inconciliables, puis
-   rétablir `Regexp.timeout`), point 0.4 (`db/structure.sql`), point 0.17
-   (PostgreSQL 13 → 18 et régénération de `structure.sql` dans un commit dédié).
+1. **Lire la mesure de CI.** La suite est verte en local ; le job `Tests` doit
+   maintenant sortir à zéro, pour la première fois.
+2. Puis le point 0.17 — **PostgreSQL 13 → 18**, qui commence par un client 18
+   dans `ekylibre/docker-base-images` : le client 17.11 refuse un serveur 18
+   (mesuré), et c'est `pg_dump` qui fait `db:structure:dump` comme
+   `Ekylibre::Tenant.dump`. Régénérer `structure.sql` dans un commit dédié, en
+   sachant que le passage du client 13 au client 18 coûte à lui seul ~1400
+   lignes de diff de pure forme.
 3. Le lot 1 s'ouvre sur le prototype de mono-schéma à trois tables.

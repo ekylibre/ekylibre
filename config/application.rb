@@ -208,26 +208,6 @@ module Ekylibre
     # ce qui est un lot en soi et non une marge de montée de version.
     config.active_record.raise_on_assign_to_attr_readonly = false
 
-    # Rails 8.0 pose `Regexp.timeout = 1` : une seconde au plus par expression
-    # rationnelle, garde-fou contre le déni de service par retour sur trace.
-    # Aucune des nôtres ne s'en approche — une sonde `TracePoint` sur la suite
-    # entière, capable de voir même les dépassements rattrapés par un `rescue`,
-    # n'en a relevé aucun.
-    #
-    # Il aggrave en revanche une instabilité de la suite, sans en être la seule
-    # condition : un test d'achat aux lignes volontairement incohérentes — 99 €
-    # hors taxe pour 120 € TTC à 20 % — bascule du côté déséquilibré cinq
-    # exécutions sur cinq quand le réglage est actif, une sur cinq quand il ne
-    # l'est pas, et aucune sur les quatre paliers qui précèdent son existence.
-    # L'hypothèse tenable est que le moteur, qui consulte l'horloge en cours
-    # d'appariement, décale les horodatages dont la comptabilité se sert ; elle
-    # n'est pas démontrée, et le réglage n'est donc écarté que par prudence.
-    #
-    # Ce qu'il faut vraiment corriger est ce test, dont les montants ne peuvent
-    # pas s'équilibrer. La clé `errors.messages.unbalanced`, qui rendait son
-    # échec illisible, est posée depuis.
-    Regexp.timeout = nil
-
     # Rails 8.1 lève quand `first` ou `last` porte sur une relation sans ordre
     # et sur un modèle dont il ne peut deviner aucun ordre — ni clé primaire, ni
     # `implicit_order_column`, ni `query_constraints`. Le reproche est fondé :
@@ -248,6 +228,22 @@ module Ekylibre
 
     # We want to use the structure.sql file
     config.active_record.schema_format = :sql
+
+    # …mais le dump ne se déclenche que si on le demande. `db:migrate` enchaîne
+    # sinon sur `db:structure:dump`, et le fichier — versionné, et cloné par
+    # Apartment dans chaque nouveau tenant — est réécrit à l'insu de qui migre.
+    # Ce n'est pas théorique : `docker/startup.sh` lance `rake db:migrate` à
+    # *chaque* démarrage du conteneur de développement, si bien qu'un simple
+    # `docker compose up` salit l'arbre de travail. Le dump reflète alors la
+    # base locale — migration de sonde comprise, schéma `lexicon` compris s'il
+    # manque — et le `pg_dump` du conteneur, plus récent que le serveur,
+    # réécrit le fichier entier sans qu'une ligne de schéma ait bougé.
+    #
+    # La régénération est donc explicite, et documentée dans `CLAUDE.md` :
+    # `rake db:structure:dump` depuis le conteneur, contre
+    # `ekylibre_development`. `DUMP_SCHEMA=1` rétablit l'enchaînement
+    # automatique pour qui le veut le temps d'une commande.
+    config.active_record.dump_schema_after_migration = ENV['DUMP_SCHEMA'].present?
 
     config.active_record.time_zone_aware_types = [:datetime, :time]
 

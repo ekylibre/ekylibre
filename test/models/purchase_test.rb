@@ -102,7 +102,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     purchase = new_purchase
     3.times do |index|
       variant = ProductNatureVariant.first
-      tax = Tax.find_by(amount: 20)
+      tax = standard_vat
       quantity = index + 1
       item = purchase.items.build(variant: variant,
                                   unit_pretax_amount: 100,
@@ -140,18 +140,20 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     item = purchase.items.build(variant: variant,
                                 unit_pretax_amount: 100,
-                                tax: Tax.find_by(amount: 20),
+                                tax: standard_vat,
                                 conditioning_quantity: 0.999,
                                 pretax_amount: 100,
                                 conditioning_unit: variant.guess_conditioning[:unit])
     item.save!
     assert_equal 100, item.pretax_amount
 
+    # Montants imposés : ils priment sur le produit quantité × prix unitaire,
+    # mais doivent rester compatibles entre eux — 100 € HT à 20 % font 120 € TTC.
     item = purchase.items.build(variant: variant,
                                 unit_pretax_amount: 100,
-                                tax: Tax.find_by(amount: 20),
+                                tax: standard_vat,
                                 conditioning_quantity: 0.999,
-                                pretax_amount: 99,
+                                pretax_amount: 100,
                                 amount: 120,
                                 conditioning_unit: variant.guess_conditioning[:unit])
     item.save!
@@ -166,7 +168,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
 
     items_attributes = [
       {
-        tax: Tax.find_by!(amount: 20.to_d),
+        tax: standard_vat,
         variant: first_variant,
         unit_pretax_amount: 100,
         conditioning_quantity: 1,
@@ -217,7 +219,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     unit = first_variant.guess_conditioning[:unit]
 
     items_attributes = [{
-      tax: Tax.find_by!(amount: 20),
+      tax: standard_vat,
       variant: first_variant,
       unit_pretax_amount: 100,
       conditioning_quantity: 1,
@@ -248,7 +250,7 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
     unit = first_variant.guess_conditioning[:unit]
 
     items_attributes = [{
-      tax: Tax.find_by!(amount: 20),
+      tax: standard_vat,
       variant: first_variant,
       unit_pretax_amount: 100,
       conditioning_quantity: 1,
@@ -280,6 +282,15 @@ class PurchaseTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   end
 
   private
+
+    # La TVA à 20 % ordinaire. `Tax.find_by(amount: 20)` ne suffit pas : le test
+    # « simple creation » crée une seconde taxe à 20 %, intracommunautaire, et
+    # rend alors le choix dépendant de l'ordre physique des lignes — une taxe
+    # intracommunautaire n'ajoute rien au HT, si bien qu'un montant TTC imposé
+    # déséquilibre l'écriture comptable.
+    def standard_vat
+      Tax.find_by!(amount: 20, intracommunity: false)
+    end
 
     def new_purchase(type: 'PurchaseInvoice', nature: nil, supplier: nil, invoiced_at: nil, currency: 'EUR', state: nil, items_attributes: nil)
       attributes = {

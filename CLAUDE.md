@@ -12,7 +12,7 @@ Each rung was crossed the same way, and the criterion never changed: **the suite
 
 `config/application.rb` declares `config.load_defaults 8.1`, so **Zeitwerk is the autoloader**. Its acronyms, ignores and eager-load exclusions live in the same file.
 
-**Seven defaults are deliberately turned back off right below that line**, each with the reason and the work its removal needs. They are not framework concessions: most of them name a real defect of the application.
+**Six defaults are deliberately turned back off right below that line**, each with the reason and the work its removal needs. They are not framework concessions: most of them name a real defect of the application.
 
 | Setting | Since | Why it is off |
 |---|---|---|
@@ -20,7 +20,6 @@ Each rung was crossed the same way, and the criterion never changed: **the suite
 | `active_storage.variant_processor` | 7.0 | stays on `:mini_magick`: the base image ships no libvips |
 | `default_column_serializer` | 7.1 | `wice_grid` — 7.1.4 included — still declares a bare `serialize :query`, and the class raises as the gem loads, before the application can fix it. Our own fourteen declarations all carry an explicit coder |
 | `raise_on_assign_to_attr_readonly` | 7.1 | 325 tests: setters and callbacks reassign `currency`, `nature`, `journal_id`, `state`, `listing_id`, `number`, `root_model` without telling creation from update. Those writes are silently lost today — a real defect, and an accounting-callback job of its own |
-| `Regexp.timeout` (1 s) | 8.0 | none of our regexes comes near it (a `TracePoint` over the whole suite, which sees even rescued timeouts, found nothing), but it aggravates a suite instability without being its only condition: the unbalanced purchase test below tips over 5 runs out of 5 with the setting on, 1 out of 5 with it off. Off out of caution, not proof |
 | `raise_on_missing_required_finder_order_columns` | 8.1 | fourteen `lexicon` tables have neither primary key nor unique index, so `first` returns whatever the plan gives. Giving them a key means deciding what identifies a row in each imported reference set — lot C's work |
 
 When a new default breaks something, measure before deciding: run the suite, name the cause, and either fix the defect or turn the setting off **with its reason written down**. A rung's exit criterion is suite parity, not adopting every default.
@@ -90,11 +89,11 @@ Roughly half of them were real defects, not stale assertions: `Printers::*.new(h
 
 **Do not freeze a lexicon identifier in a test.** `RegisteredPhytosanitaryUsage.find('20210727175041473315')` and a `CviCadastralPlant` fixture pointing at cadastral parcel `170300000B0809` both broke when the reference data was renumbered — and `find` returning nil surfaces far from the cause (a vote falling to `:unknown`). Select the row by the property the test actually needs (`where('untreated_buffer_aquatic >= 100')`).
 
-Three known instabilities remain, so check them before blaming your own change:
+The three known instabilities are cleared, and each one named an ordinary defect rather than a quirk of the harness:
 
-- **the order decides.** `config.active_support.test_order = :random`, and a handful of tests depend on state a previous one left. A purchase test whose lines cannot balance (99 € excl. tax for 120 € incl. at 20 %) tips over depending on the run — 6 times out of 14 measured runs. Fixing those amounts is the real work; the `errors.messages.unbalanced` key, which used to make the failure read « Translation missing », is now in place;
+- **the order decided, through an ambiguous `find_by`.** `config.active_support.test_order = :random`, and `PurchaseTest#simple creation` asked for `Tax.find_by(amount: 20)` *after* creating a second 20 % tax, intracommunity this time. Without an order the row returned is the planner's choice, and any UPDATE moving the fixture's live tuple flips it — measured. An intracommunity tax adds nothing to the pre-tax amount, so the item's forced 120 € incl. left the entry 21 € short and the whole purchase unbalanced. The test now pins the tax it means (`intracommunity: false`) and states amounts that reconcile (100 € excl. → 120 € incl.). **Never let a test select by a non-unique column without an order**;
 - **running one test file alone used to fail on its own** — Devise's « Could not find a valid mapping for #<User …> ». That one is fixed: routes load lazily since 7.1, so `devise_for` populated `Devise.mappings` only on first access and any test calling `sign_in` before issuing a request lost. `test/test_helper.rb` now calls `reload_routes_unless_loaded`, and a single file is a reliable unit of work;
-- **the suite rewrites `db/structure.sql`** (a `pg_dump` 17 against a server 13 in the container, so the whole file churns). Check `git status` after a run and restore the file — a commit made without looking propagates that state to every newly created tenant.
+- **`db/structure.sql` was rewritten behind your back** — by `docker/startup.sh`, not by the suite: it runs `rake db:migrate` on every container start, and `db:migrate` used to chain into `db:structure:dump`. The container's `pg_dump` being newer than the server, the whole file churned without a line of schema having moved. `config.active_record.dump_schema_after_migration` is false since (see below); regenerate deliberately, or set `DUMP_SCHEMA=1` for one command.
 
 **`config/environments/test.rb` pins `ENV['GPG_EMAIL']`** to the testing key shipped in the dev images and imported by the CI workflow. `SignatureManager` reads that variable from the ambient environment, and `docker/dev/.env` declares a production identity whose key is in nobody's keyring — document signature, financial-year closure and document archiving then fail on your machine only. Pinning it also means the suite cannot sign with a real key.
 
@@ -187,6 +186,8 @@ docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:mig
 # 3. Dump
 docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:structure:dump
 ```
+
+**Step 3 is the only thing that writes the file.** `config.active_record.dump_schema_after_migration` is false (`config/application.rb`), so `db:migrate` no longer chains into the dump — which is what kept a plain `docker compose up`, and any probe migration, rewriting a versioned file. Pass `DUMP_SCHEMA=1` to restore the automatic chaining for one command. Whatever writes it, always read `git diff --numstat db/structure.sql` before committing: a dump made against a mismatched server version churns the whole file for nothing.
 
 The `CASCADE` drop removes anything that was added to `public` outside migrations — historically `hstore`, `pg_cron`, `gist_geometry_ops`, legacy `st_asbinary(text)`/`st_astext(bytea)` compat functions. Re-add them only if app code needs them (none does today; `postgis` schema provides `st_astext`/`st_asbinary` and is in `schema_search_path`).
 

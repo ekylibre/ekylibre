@@ -41,9 +41,17 @@ Propshaft.
 **0.3 — PostgreSQL n'est plus plafonné par le client.** L'image de base
 `ruby3.4.10` embarque désormais `psql`/`pg_dump` **17.11** ; le serveur de
 développement et la CI sont en **13.4**. Le blocage documenté jusqu'ici (« le
-client 13 refuse un serveur plus récent ») est levé : monter le serveur en 15, 16
-ou 17 ne demande plus que de changer l'image du service. C'est ce qui ouvre la
-porte à l'ADR-003b, `uuidv7()` native n'existant qu'en PostgreSQL 18.
+client 13 refuse un serveur plus récent ») est donc repoussé de quatre versions :
+monter le serveur en 15, 16 ou 17 ne demande plus que de changer l'image du
+service.
+
+**Il n'est pas levé pour autant, et la cible est justement au-delà.** `pg_dump`
+refuse un serveur plus récent que lui quelle que soit sa version — mesuré le
+14 septembre : un `pg_dump` 17.11 contre un serveur 18.6 s'arrête sur
+« aborting because of server version mismatch ». Comme `uuidv7()` native
+n'existe qu'en PostgreSQL 18, le point 0.17 commence par **monter
+`postgresql-client` en 18 dans `ekylibre/docker-base-images`**, et seulement
+ensuite le serveur.
 
 Effet de bord à connaître : `db/structure.sql` versionné a été produit par
 `pg_dump` 13.23. **Toute régénération avec le client 17 produit un diff de
@@ -86,6 +94,8 @@ préalable.
 | **Lot 0.1 — les 32 cas rouges hérités des paliers** | fait, 13 septembre 2026 (8 commits, `57c26b9d0a` → `d0763167be`) |
 | Découplage des modèles HVE du greffon qui les alimente | fait (préalable du 0.1) |
 | `Devise.mappings` en exécution isolée (point 0.3) | fait — routes paresseuses depuis 7.1, le harnais les charge |
+| Instabilité d'ordre du test d'achat (point 0.2), `Regexp.timeout` rétabli | fait, 14 septembre 2026 — un `find_by` sans ordre sur une colonne non unique |
+| `db/structure.sql` réécrit à l'insu du développeur (point 0.4) | fait, 14 septembre 2026 — le dump ne suit plus `db:migrate` |
 | CI restreinte à `6.0-alpha` ; `Lint` et `CodeQL` au vert | fait |
 
 ---
@@ -100,15 +110,16 @@ se perdra dans le bruit.*
 
 | # | À faire | État |
 |---|---|---|
-| 0.1 | ~~Traiter les **17 échecs et 15 erreurs** de la suite~~ | **fait.** 3620 tests (−27 HVE partis au greffon, −3 de la page Exports supprimée). Dernière mesure CI : 0 échec, 1 erreur, corrigée par `d0763167be` — mesure à confirmer |
-| 0.2 | Corriger le test d'achat aux montants inconciliables (99 € HT / 120 € TTC à 20 %), puis rétablir `Regexp.timeout` | à faire — dernière instabilité d'ordre |
+| 0.1 | ~~Traiter les **17 échecs et 15 erreurs** de la suite~~ | **fait.** 3620 tests (−27 HVE partis au greffon, −3 de la page Exports supprimée). Dernière mesure CI : 0 échec, 1 erreur, corrigée par `d0763167be`. **Confirmé en local le 14 septembre**, après les points 0.2 et 0.4 : 3621 tests, 0 échec, 0 erreur, 4 ignorés |
+| 0.2 | ~~Corriger le test d'achat aux montants inconciliables (99 € HT / 120 € TTC à 20 %), puis rétablir `Regexp.timeout`~~ | **fait.** La cause n'était pas les seuls montants : `PurchaseTest#simple creation` demandait `Tax.find_by(amount: 20)` **après** avoir créé une seconde taxe à 20 %, intracommunautaire. Sans ordre, la ligne rendue est celle que le plan veut bien donner, et une taxe intracommunautaire n'ajoute rien au HT — d'où les 21 € manquants et l'écriture déséquilibrée. Le test désigne désormais la taxe qu'il vise (`intracommunity: false`) et pose des montants qui se réconcilient (100 € HT → 120 € TTC). `Regexp.timeout` est rétabli : le réglage n'y était pour rien |
 | 0.3 | ~~Stabiliser `Devise.mappings` en exécution isolée~~ | **fait.** Ce n'était pas une référence de classe périmée : les routes se chargent paresseusement depuis Rails 7.1, `devise_for` ne peuplait donc `Devise.mappings` qu'à leur premier accès. `test/test_helper.rb` appelle `reload_routes_unless_loaded` |
-| 0.4 | Empêcher la suite de réécrire `db/structure.sql` (`maintain_test_schema`, ou tâche dédiée) | à faire — piège à commit, à traiter avant d'écrire des migrations en série |
+| 0.4 | ~~Empêcher la suite de réécrire `db/structure.sql`~~ | **fait.** Ce n'était pas la suite : `docker/startup.sh` lance `rake db:migrate` à chaque démarrage du conteneur, et `db:migrate` enchaînait sur `db:structure:dump`. Un `docker compose up` suffisait donc à salir l'arbre. `config.active_record.dump_schema_after_migration` est désormais faux, `DUMP_SCHEMA=1` rétablissant l'enchaînement le temps d'une commande ; la régénération reste celle de `CLAUDE.md` |
 | 0.20 | Reprendre les **4 tests ignorés** : le manifeste de packs est vide en test, un gabarit appelant `javascript_pack_tag` ne se rend pas | à faire **avec le lot 7**, pas avant |
 
 **Critère de sortie :** `bin/rails test` sort au vert, donc le job `Tests` de la
-CI passe. Il ne reste que les points 0.2 et 0.4 pour que ce soit vrai de façon
-stable, exécution après exécution.
+CI passe. Les points 0.2 et 0.4 étant traités, il ne reste plus d'instabilité
+connue : le point 0.20 est le seul ouvert de cette section, et il attend le
+lot 7.
 
 Ce que le lot 0.1 a appris est consigné dans
 [v6-etat-des-lieux.md](v6-etat-des-lieux.md) § 2 et dans `CLAUDE.md` : **la
@@ -117,9 +128,10 @@ ne produisait aucun document de journal depuis le passage à Ruby 3 — et trois
 autres ne dépendaient pas du code mais de la machine (identité GPG, clé d'API
 INSEE, identifiants de `lexicon` figés).
 
-### 2.1 — Les sept valeurs par défaut désactivées
+### 2.1 — Les six valeurs par défaut désactivées
 
-Chacune est documentée dans `config/application.rb`. Deux forment un lot cohérent
+Chacune est documentée dans `config/application.rb` — `Regexp.timeout`, la
+septième, est rétablie depuis le point 0.2. Deux forment un lot cohérent
 avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 
 | # | À faire |
@@ -148,7 +160,7 @@ avec le point 0.1, parce qu'elles touchent les mêmes rappels comptables :
 | 0.14 | `docker/prod/Dockerfile` en Ruby 3.4 ; relever le plancher du `Gemfile` (`ruby '>= 3.4'`) |
 | 0.15 | ~~Décider~~ — **tranché : le déploiement vient après le mono-schéma**, sur le staging `ekylibre.io` via Dokploy (lot 11). L'écart avec la production grandit d'autant : à surveiller, c'est le prix assumé de ce choix |
 | 0.16 | Déclencher `build-prod-image` sur `6.0-alpha` le jour de cette décision, pas avant. **Essayé le 13 septembre, retiré aussitôt** : `docker/prod/Dockerfile` part de l'image `ruby2.6` alors que le `Gemfile` exige `>= 3.4.0`, donc le `bundle install` s'arrête avant la première gem — le job serait rouge à chaque commit. Le workflow ne suit plus aucune branche (étiquette `v*` ou à la demande) ; c'est le point 0.14 qui le débloque |
-| 0.17 | **Monter le serveur PostgreSQL de 13 à 18** (décidé) : `postgis/postgis:18-3.6` existe, le client 17.11 de l'image de base suffit pour le dumper. Régénérer `structure.sql` dans un commit dédié. C'est le préalable de `uuidv7()` native, donc du lot 1 |
+| 0.17 | **Monter le serveur PostgreSQL de 13 à 18** (décidé) : `postgis/postgis:18-3.6` existe. **Le client 17.11 de l'image de base ne suffit pas** — mesuré le 14 septembre contre un serveur 18.6 : « pg_dump: aborting because of server version mismatch ». `pg_dump` refuse un serveur plus récent que lui, et c'est lui qui fait `db:structure:dump` comme `Ekylibre::Tenant.dump` : le point commence donc par un **client 18 dans `ekylibre/docker-base-images`**, comme le point 0.14 commence par le Ruby de l'image de prod. Régénérer `structure.sql` dans un commit dédié — le fichier versionné vient d'un `pg_dump` 13.23, la régénération coûtera ~1400 lignes de diff de pure forme. C'est le préalable de `uuidv7()` native, donc du lot 1 |
 
 ---
 
