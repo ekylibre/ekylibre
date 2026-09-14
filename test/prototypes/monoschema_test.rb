@@ -92,27 +92,45 @@ module Monoschema
   # L'équivalent du futur `TenantRecord` : une transaction, un `SET LOCAL`, et
   # le contexte meurt avec elle. `SET` et non `SET LOCAL` fuirait vers la
   # requête suivante du pool (ADR-002).
-  # Le cache de requêtes est indexé sur le texte SQL seul : il ne sait rien du
-  # tenant. Changer de contexte sans le vider rend les lignes du précédent —
-  # mesuré, voir le test « le cache de requêtes ne connaît pas le tenant ».
+  # L'équivalent du futur `TenantRecord`. Trois précautions, toutes apprises en
+  # mesurant :
+  #
+  #   — vider le cache de requêtes de part et d'autre. Il est indexé sur le seul
+  #     texte SQL et ne sait rien du tenant : sans cela, une lecture faite sous A
+  #     est resservie sous B, ou hors de tout contexte ;
+  #   — `SET LOCAL` porte sur la *transaction*, pas sur le bloc Ruby. Dans une
+  #     transaction imbriquée (savepoint), le réglage survit à la sortie du bloc
+  #     et contamine le reste de la transaction englobante — c'est le cas dans
+  #     une suite de tests, qui enveloppe chaque test. On restaure donc soi-même
+  #     la valeur précédente ;
+  #   — restaurer, et non « réinitialiser » : le bloc peut être imbriqué dans un
+  #     autre contexte de tenant qu'il ne doit pas détruire.
   def self.with_tenant(tenant_id, &block)
     Record.connection.clear_query_cache
+    previous = current_tenant
     Record.transaction do
-      Record.connection.execute("SET LOCAL app.tenant_id = #{Record.connection.quote(tenant_id)}")
+      set_tenant(tenant_id)
       block.call
     end
   ensure
     Record.connection.clear_query_cache
+    set_tenant(previous)
   end
 
   def self.without_tenant(&block)
-    Record.connection.clear_query_cache
-    Record.transaction do
-      Record.connection.execute('SET LOCAL app.tenant_id = DEFAULT')
-      block.call
+    with_tenant(nil, &block)
+  end
+
+  def self.current_tenant
+    Record.connection.uncached { Record.connection.select_value("SELECT current_setting('app.tenant_id', true)") }
+  end
+
+  def self.set_tenant(tenant_id)
+    if tenant_id.blank?
+      Record.connection.execute("SET LOCAL app.tenant_id = ''")
+    else
+      Record.connection.execute("SET LOCAL app.tenant_id = #{Record.connection.quote(tenant_id)}")
     end
-  ensure
-    Record.connection.clear_query_cache
   end
 end
 
@@ -206,8 +224,12 @@ class MonoschemaTest < ActiveSupport::TestCase
     assert_equal inside, outside,
                  'le cache devrait resservir le compte du tenant A hors de tout contexte'
     # `uncached` et non « hors du bloc » : le cache est actif par défaut sur
-    # cette connexion, le bloc ne faisait que le rendre visible.
-    conn.uncached { assert_equal 0, conn.select_value(sql), 'hors cache, la fermeture par defaut doit jouer' }
+    # cette connexion, le bloc ne faisait que le rendre visible. Et le contexte
+    # est rétabli explicitement — le `SET LOCAL` ci-dessus a pu survivre à sa
+    # transaction si celle-ci n'était qu'un savepoint.
+    Monoschema.without_tenant do
+      conn.uncached { assert_equal 0, conn.select_value(sql), 'hors cache, la fermeture par defaut doit jouer' }
+    end
   end
 
   test 'vider le cache au changement de contexte suffit à rétablir la vérité' do
@@ -312,15 +334,21 @@ class MonoschemaTest < ActiveSupport::TestCase
   end
 
   test 'le verrou optimiste tient sous clé composite' do
+    number = "VERROU-#{SecureRandom.hex(4)}"
     Monoschema.with_tenant(ALPHA) do
-      product = Monoschema::Product.find_by!(number: 'ALPHA-2')
-      stale = Monoschema::Product.find_by!(number: 'ALPHA-2')
+      # Une ligne à soi : le test ne doit dépendre ni de l'ordre, ni de ce
+      # qu'une exécution précédente a laissé dans la base de sonde.
+      Monoschema::Product.create!(product_attributes(ALPHA, number))
+      product = Monoschema::Product.find_by!(number: number)
+      stale = Monoschema::Product.find_by!(number: number)
 
       product.update!(name: 'premier écrivain')
       stale.name = 'second écrivain'
 
       assert_raises(ActiveRecord::StaleObjectError) { stale.save! }
     end
+  ensure
+    Monoschema.with_tenant(ALPHA) { Monoschema::Product.where(number: number).delete_all }
   end
 
   # --- Plan d'exécution ---------------------------------------------------

@@ -43,7 +43,7 @@ la clé : `(tenant_id, intervention_id) → (tenant_id, id)`.
 **L'index unique devient local au tenant.** Deux fermes peuvent porter le même
 numéro de produit ; la même ferme deux fois, non.
 
-## Les quatre pièges mesurés
+## Les cinq pièges mesurés
 
 Ce sont eux qui justifient le prototype : aucun ne se lit dans les ADR.
 
@@ -86,7 +86,22 @@ d'isolation eux-mêmes. Le prototype vide le cache à l'entrée et à la sortie 
 `with_tenant` ; le futur `TenantRecord` doit faire de même, et le point 1.20 doit
 en tenir compte, sans quoi ses tests se prouveront l'un l'autre.
 
-### 4. Sous RLS, l'index spatial cesse de servir
+### 4. `SET LOCAL` porte sur la transaction, pas sur le bloc
+
+`SET LOCAL` meurt avec la transaction — c'est la propriété recherchée, et elle
+tient : après le `COMMIT`, la base ne rend plus rien. Mais **une transaction
+imbriquée est un savepoint**, et un savepoint relâché ne défait pas le réglage :
+il contamine le reste de la transaction englobante. Un savepoint *annulé*, lui,
+le défait — mesuré dans les deux sens.
+
+Le cas n'est pas théorique : une suite de tests enveloppe chaque test dans une
+transaction, et tout code applicatif qui ouvre une transaction avant de choisir
+son tenant est dans la même situation. `with_tenant` relève donc la valeur
+précédente et la restaure lui-même, au lieu de compter sur la fin de
+transaction. Le futur `TenantRecord` devra faire de même — et c'est aussi ce qui
+permet d'imbriquer deux contextes sans que le second détruise le premier.
+
+### 5. Sous RLS, l'index spatial cesse de servir
 
 C'est la mesure la plus coûteuse du lot, et elle contredit l'ADR-002 telle
 qu'elle est écrite. PostgreSQL n'évalue une condition **avant** la politique que
@@ -129,10 +144,8 @@ parcours par bitmap disponible**, puisque c'est par lui que passe un index GiST.
 - **l'échelle.** Deux tenants et 5 000 lignes : les coûts ci-dessus comparent des
   chemins, ils ne prédisent pas le comportement à 1 000 fermes. La mesure
   d'échelle appartient au point 1.9 ;
-- **le contexte hors transaction.** `SET LOCAL` meurt avec la transaction, ce qui
-  est la propriété recherchée ; mais l'application lit beaucoup hors
-  transaction. C'est le point 1.17, et il devra trancher : ouvrir une
-  transaction pour toute requête, ou poser le contexte à la prise de connexion
-  et le nettoyer au retour au pool ;
+- **le contexte hors transaction.** L'application lit beaucoup hors transaction ;
+  le point 1.17 devra trancher : ouvrir une transaction pour toute requête, ou
+  poser le contexte à la prise de connexion et le nettoyer au retour au pool ;
 - **les 310 autres tables**, les vues matérialisées, les HABTM, les séquences
   globales — points 1.5, 1.10 et 1.11.
