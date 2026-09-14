@@ -1,0 +1,301 @@
+# Classification des tables — point 1.5 de la feuille de route v6.
+#
+# Ce fichier ne porte que des *décisions*. Tout ce qui se mesure — colonnes,
+# index, clés étrangères, géométries — est engendré dans `plan.yml` par
+# `rake monoschema:classify`, qui lit `db/structure.sql`.
+#
+# Trois plans, et la règle qui les sépare :
+#
+#   données     — la ligne appartient à une ferme. `tenant_id`, PK composite,
+#                 RLS `FORCE`. C'est le défaut, mais un défaut *choisi* : toute
+#                 table y figure nommément, et `rake monoschema:check` échoue
+#                 sur une table qui n'apparaîtrait nulle part.
+#   contrôle    — la ligne n'appartient à personne, ou à tout le monde :
+#                 infrastructure et identité inter-fermes. Hors RLS.
+#   référentiel — le schéma `lexicon` en entier, partagé et lu seulement. Rien
+#                 à déclarer ici : l'appartenance au schéma suffit.
+#
+# `uuid_v7` porte la décision de l'ADR-003, la seule vraiment irréversible :
+# ce que le terrain peut créer hors ligne engendre sa clé côté client, donc en
+# UUIDv7. Le reste garde une clé entière. Le critère est « le mobile peut-il en
+# créer une ligne sans réseau ? », pas « est-ce important ».
+
+control:
+  schema_migrations: "infrastructure Rails : une seule par base, jamais par ferme"
+  ar_internal_metadata: "infrastructure Rails : une seule par base, jamais par ferme"
+
+uuid_v7:
+  interventions: "l'ADR-003 la nomme : c'est l'objet que le terrain crée hors ligne"
+  intervention_parameters: "créée dans le même geste hors ligne que son intervention"
+  intervention_working_periods: "idem : le temps de travail se saisit avec l'intervention"
+  intervention_participations: "idem : les participants se saisissent avec l'intervention"
+  intervention_parameter_readings: "idem : les relevés accompagnent le paramètre"
+  intervention_setting_items: "idem : les réglages accompagnent l'intervention"
+  observations: "l'ADR-003 la nomme"
+  tasks: "l'ADR-003 la nomme"
+  issues: "un incident se signale depuis la parcelle, souvent sans réseau"
+  crumbs: "trace GPS produite par le mobile, par définition hors ligne"
+  plant_countings: "comptage fait au champ"
+  plant_counting_items: "idem, créé dans le même geste"
+  inspections: "mesure faite au champ"
+  inspection_points: "idem, créé dans le même geste"
+  inspection_calibrations: "idem, créé dans le même geste"
+  analyses: "prélèvement fait au champ"
+  analysis_items: "idem, créé dans le même geste"
+  worker_time_logs: "pointage fait sur le terrain"
+  products: "un animal ou une plante se crée au champ, et porte déjà une colonne `uuid`"
+  product_readings: "relevé fait au champ"
+  attachments: "pièce jointe : l'ADR-003 les nomme"
+  documents: "idem : une photo prise au champ est un document"
+  active_storage_blobs: "support des pièces jointes"
+  active_storage_attachments: "support des pièces jointes"
+  active_storage_variant_records: "support des pièces jointes"
+
+# Questions ouvertes : ces tables ne sont pas classées tant que la question
+# n'est pas tranchée. Elles restent au plan de données par défaut, et `classify`
+# les rappelle à chaque exécution.
+review:
+  districts: "référentiel géographique dupliqué dans chaque ferme. Le passer au plan référentiel supposerait qu'aucune ferme ne l'édite — à vérifier avant de trancher"
+  postal_zones: "même question que `districts`"
+  vegetative_stages: "stades BBCH : référentiel agronomique dupliqué par ferme, alors que le lexicon en porte déjà"
+  net_services: "liste de services, sans donnée propre à la ferme : candidate au plan référentiel"
+  units: "unités de mesure : le lexicon porte `master_units`. Fusionner ou garder une table par ferme est une décision agronomique, pas technique"
+  saas_subscriptions: "porte un `tenant_name` : une ligne d'une ferme désigne une *autre* ferme par son nom. C'est exactement le lien inter-tenant que le point 1.22 doit rendre explicite"
+  users: "reste au plan de données pour le lot 1 — Devise y est encore. Le trio du point 1.14 (`tenants`, `users`, `user_tenants`) est neuf ; le lot 2 réconciliera les deux avec Keycloak"
+
+# Plan de données : la ferme est propriétaire de la ligne.
+data:
+  - account_balances
+  - accounts
+  - active_storage_attachments
+  - active_storage_blobs
+  - active_storage_variant_records
+  - activities
+  - activity_budget_items
+  - activity_budgets
+  - activity_distributions
+  - activity_inspection_calibration_natures
+  - activity_inspection_calibration_scales
+  - activity_inspection_point_natures
+  - activity_production_batches
+  - activity_production_irregular_batches
+  - activity_productions
+  - activity_seasons
+  - activity_tactics
+  - affair_labellings
+  - affair_natures
+  - affairs
+  - alert_phases
+  - alerts
+  - analyses
+  - analysis_items
+  - analytic_segments
+  - analytic_sequences
+  - associates
+  - attachments
+  - bank_statement_items
+  - bank_statements
+  - call_messages
+  - calls
+  - campaigns
+  - cap_islets
+  - cap_land_parcels
+  - cap_neutral_areas
+  - cap_statements
+  - cash_sessions
+  - cash_transfers
+  - cashes
+  - catalog_items
+  - catalogs
+  - contract_items
+  - contracts
+  - crop_group_items
+  - crop_group_labellings
+  - crop_groups
+  - crumbs
+  - cultivable_zones
+  - custom_field_choices
+  - custom_fields
+  - cvi_cadastral_plant_cvi_land_parcels
+  - cvi_cadastral_plants
+  - cvi_cultivable_zones
+  - cvi_land_parcels
+  - cvi_statements
+  - daily_charges
+  - dashboards
+  - debt_transfers
+  - deliveries
+  - delivery_tools
+  - deposits
+  - document_templates
+  - documents
+  - economic_cash_indicators
+  - email_templates
+  - entities
+  - entity_addresses
+  - entity_links
+  - entity_payment_methods
+  - event_participations
+  - events
+  - financial_year_archives
+  - financial_year_exchanges
+  - financial_years
+  - fixed_asset_depreciations
+  - fixed_assets
+  - gap_items
+  - gaps
+  - georeadings
+  - guide_analyses
+  - guide_analysis_points
+  - guides
+  - hve_audit_items
+  - hve_audits
+  - hve_biodiversity_items
+  - hve_cmr_products
+  - hve_iae_coefficients
+  - hve_nitrogen_export_coefficients
+  - hve_scoring_tables
+  - idea_diagnostic_item_values
+  - idea_diagnostic_items
+  - idea_diagnostic_results
+  - idea_diagnostics
+  - identifiers
+  - imports
+  - incoming_harvest_crops
+  - incoming_harvest_storages
+  - incoming_harvests
+  - incoming_payment_modes
+  - incoming_payments
+  - inspection_calibrations
+  - inspection_points
+  - inspections
+  - integrations
+  - intervention_costings
+  - intervention_crop_groups
+  - intervention_labellings
+  - intervention_parameter_readings
+  - intervention_parameter_settings
+  - intervention_parameters
+  - intervention_participations
+  - intervention_proposal_parameters
+  - intervention_proposals
+  - intervention_setting_items
+  - intervention_template_activities
+  - intervention_template_product_parameters
+  - intervention_templates
+  - intervention_working_periods
+  - interventions
+  - inventories
+  - inventory_items
+  - issue_natures
+  - issues
+  - issues_yield_observations
+  - journal_entries
+  - journal_entry_items
+  - journals
+  - labels
+  - listing_node_items
+  - listing_nodes
+  - listings
+  - loan_repayments
+  - loans
+  - locations
+  - manure_management_plan_zones
+  - manure_management_plans
+  - map_layers
+  - naming_format_fields
+  - naming_formats
+  - notifications
+  - observations
+  - outgoing_payment_lists
+  - outgoing_payment_modes
+  - outgoing_payments
+  - parcel_item_storings
+  - parcel_items
+  - parcels
+  - payslip_natures
+  - payslips
+  - pfi_intervention_parameters
+  - planning_scenario_activities
+  - planning_scenario_activity_animals
+  - planning_scenario_activity_plots
+  - planning_scenarios
+  - plant_counting_items
+  - plant_countings
+  - plant_density_abaci
+  - plant_density_abacus_items
+  - preferences
+  - prescriptions
+  - product_enjoyments
+  - product_labellings
+  - product_linkages
+  - product_links
+  - product_localizations
+  - product_memberships
+  - product_movements
+  - product_nature_categories
+  - product_nature_category_taxations
+  - product_nature_variant_components
+  - product_nature_variant_readings
+  - product_nature_variant_tags
+  - product_nature_variants
+  - product_natures
+  - product_ownerships
+  - product_phases
+  - product_readings
+  - products
+  - products_yield_observations
+  - project_budgets
+  - project_members
+  - project_tasks
+  - projects
+  - purchase_items
+  - purchase_natures
+  - purchases
+  - qonto_inbound_invoices
+  - qonto_outbound_invoices
+  - regularizations
+  - ride_set_equipments
+  - ride_sets
+  - rides
+  - roles
+  - sale_contract_items
+  - sale_contract_natures
+  - sale_contracts
+  - sale_items
+  - sale_natures
+  - sales
+  - sensors
+  - sequences
+  - subscription_natures
+  - subscriptions
+  - supervision_items
+  - supervisions
+  - synchronization_operations
+  - target_distributions
+  - tasks
+  - tax_declaration_item_parts
+  - tax_declaration_items
+  - tax_declarations
+  - tax_payments
+  - taxes
+  - teams
+  - technical_itineraries
+  - technical_itinerary_intervention_templates
+  - tokens
+  - trackings
+  - user_tickets
+  - versions
+  - wice_grid_serialized_queries
+  - wine_incoming_harvest_inputs
+  - wine_incoming_harvest_plants
+  - wine_incoming_harvest_presses
+  - wine_incoming_harvest_storages
+  - wine_incoming_harvests
+  - worker_contract_distributions
+  - worker_contracts
+  - worker_group_items
+  - worker_group_labellings
+  - worker_groups
+  - worker_time_logs
+  - yield_observations

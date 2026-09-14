@@ -247,9 +247,22 @@ points suivants :
   recommande l'index GiST composite sans dire qu'il faut, en plus, marquer les
   opérateurs de PostGIS — ce qui est une décision de sécurité.
 
-Reste la suite du lot : classifier les 313 tables, engendrer les migrations,
-`TenantRecord` et le contexte, les 206 sites de SQL brut, et le retrait
-d'Apartment.
+**La classification des tables est faite aussi** (point 1.5) : `db/monoschema/`,
+**316 tables** — 241 au plan de données, 2 au contrôle, 73 au référentiel —, avec
+un fichier de décisions tenu à la main et un plan engendré que lira le générateur
+de migrations. La CI échoue désormais sur toute table non classée. Sept questions
+restent ouvertes, et aucune n'est technique : cinq référentiels dupliqués dans
+chaque ferme (`districts`, `postal_zones`, `vegetative_stages`, `net_services`,
+`units`), la table `saas_subscriptions` qui désigne une autre ferme par son nom,
+et le sort de `users` avant Keycloak.
+
+La mesure a surtout corrigé le volume du lot : le schéma déclare **171 clés
+étrangères** là où **896 colonnes en `_id` désignent une ligne sans aucune
+contrainte**. Le générateur du point 1.6 ne peut pas en déduire la cible — il
+faudra la tirer des modèles Ruby.
+
+Reste la suite du lot : engendrer les migrations, `TenantRecord` et le contexte,
+les 206 sites de SQL brut, et le retrait d'Apartment.
 
 ## 5. Ce qui est tranché, et ce qui ne l'est pas
 

@@ -158,6 +158,18 @@ jobs:
           fi
           bundle exec rake db:migrate VERBOSE=false
 
+      - name: Vérifier la classification des tables
+        # Point 1.5 : toute table de db/structure.sql doit être classée dans un
+        # plan — contrôle, données ou référentiel. Une migration qui en ajoute
+        # une sans le dire met la CI au rouge ici, plutôt que de laisser une
+        # table sans `tenant_id` jusqu'à ce qu'un client voie les données d'un
+        # autre. Le plan engendré doit par ailleurs être à jour dans le dépôt.
+        run: |
+          set -euo pipefail
+          bundle exec rake monoschema:check
+          bundle exec rake monoschema:classify
+          git diff --exit-code db/monoschema/plan.yml
+
       - name: Monter la base du prototype de mono-schéma
         # Point 1.4 : les garanties d'isolation (RLS, clés composites, index
         # tenant-aware) sont vérifiées à chaque passage, pas une fois pour

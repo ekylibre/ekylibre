@@ -1,0 +1,6049 @@
+# ENGENDRÉ PAR `rake monoschema:classify` — NE PAS MODIFIER À LA MAIN.
+#
+# Les décisions sont dans db/monoschema/classification.yml ; tout ce qui est ici en
+# découle ou se mesure sur db/structure.sql. Ce fichier est ce que lira le
+# générateur de migrations du point 1.6.
+#
+#   plane   : control (global, hors RLS) | data (tenant, RLS) | reference (lexicon)
+#   id      : type visé pour la clé primaire — uuid pour ce que le terrain
+#             crée hors ligne (ADR-003), bigint sinon, none si la table n'a
+#             pas de colonne `id`
+#
+datasource_credits:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+intervention_model_items:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references:
+  - intervention_model_id
+  columns: 7
+intervention_models:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+master_agricultural_pictures:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+master_budgets:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 13
+master_chart_of_accounts:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+master_crop_production_cap_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - cap_code
+  - production
+  - year
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+master_crop_production_cap_sna_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 4
+master_crop_production_tfi_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+master_dimensions:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 3
+master_doer_contracts:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 10
+master_legal_positions:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+master_packagings:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 4
+master_phenological_stages:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+master_phytosanitary_prices:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+master_prices:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references:
+  - variant_id
+  - packaging_id
+  columns: 18
+master_production_documentations:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - production_reference_name
+  - source
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 3
+master_production_prices:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 14
+master_production_start_states:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 3
+master_production_yields:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+master_productions:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 14
+master_taxonomy:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 4
+master_translations:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 3
+master_units:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 7
+master_user_roles:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 3
+master_variant_categories:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 15
+master_variant_natures:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 10
+master_variants:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 12
+registered_administrative_areas:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - kind
+  - code
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+registered_agricultural_naf_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 2
+registered_agricultural_naf_otex_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 3
+registered_agricultural_otex_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 4
+registered_agroedi_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references:
+  - repository_id
+  - reference_id
+  code_references: []
+  columns: 6
+registered_agroedi_crops:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 3
+registered_area_items:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - point
+  - shape
+  - lines
+  - centroid
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+registered_cadastral_buildings:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+registered_cadastral_owners:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - majic_number
+  - department_code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+registered_cadastral_parcel_owners:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references: []
+  code_references:
+  - cadastral_parcel_id
+  columns: 16
+registered_cadastral_parcels:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 10
+registered_cadastral_premises:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references: []
+  code_references:
+  - cadastral_parcel_id
+  columns: 16
+registered_cadastral_prices:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - centroid
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references: []
+  code_references:
+  - mutation_id
+  - cadastral_parcel_id
+  columns: 15
+registered_cap_beneficiaries:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 12
+registered_cap_subsidies:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 11
+registered_enterprises:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - establishment_number
+  sti: false
+  geometry:
+  - centroid
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 10
+registered_eu_market_prices:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 15
+registered_graphic_parcels:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+registered_hourly_weathers:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references: []
+  code_references:
+  - station_id
+  columns: 14
+registered_hydrographic_items:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - point
+  - shape
+  - lines
+  - centroid
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+registered_msa_populations:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+registered_natural_zones:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+registered_phytosanitary_cropsets:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+registered_phytosanitary_products:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 18
+registered_phytosanitary_risks:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - product_id
+  - risk_code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references:
+  - product_id
+  code_references: []
+  columns: 4
+registered_phytosanitary_symbols:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 2
+registered_phytosanitary_target_name_to_pfi_targets:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - ephy_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references:
+  - pfi_id
+  code_references:
+  - default_pfi_treatment_type_id
+  columns: 4
+registered_phytosanitary_usages:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - product_id
+  code_references: []
+  columns: 36
+registered_postal_codes:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - city_centroid
+  - city_shape
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 9
+registered_protected_water_zones:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+registered_quality_and_origin_signs:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+registered_rica_holdings:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 20
+registered_rica_modalities:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - year
+  - variable_code
+  - modality_code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 4
+registered_rica_variables:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - year
+  - code
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+registered_seed_varieties:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+registered_soil_available_water_capacities:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+registered_soil_depths:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  - centroid
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 5
+registered_vine_varieties:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+registered_weather_stations:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry:
+  - centroid
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 7
+technical_sequences:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 5
+technical_workflow_procedure_items:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references:
+  - technical_workflow_procedure_id
+  columns: 8
+technical_workflow_procedures:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references:
+  - technical_workflow_id
+  columns: 9
+technical_workflow_sequences:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references:
+  - technical_sequence_id
+  - technical_workflow_id
+  columns: 4
+technical_workflows:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  primary_key:
+  - reference_name
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references: []
+  code_references:
+  - translation_id
+  columns: 11
+version:
+  schema: lexicon
+  plane: reference
+  reason: 'schéma lexicon : référentiel partagé, lu seulement'
+  id: none
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 1
+account_balances:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - account_id
+  - financial_year_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+accounts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 22
+active_storage_attachments:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_active_storage_attachments_uniqueness
+  indexes: 2
+  references:
+  - columns: blob_id
+    table: active_storage_blobs
+    plane: data
+  implicit_references:
+  - record_id
+  code_references: []
+  columns: 6
+active_storage_blobs:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_active_storage_blobs_on_key
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 9
+active_storage_variant_records:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_active_storage_variant_records_uniqueness
+  indexes: 1
+  references:
+  - columns: blob_id
+    table: active_storage_blobs
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 3
+activities:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 40
+activity_budget_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references:
+  - columns: product_parameter_id
+    table: intervention_template_product_parameters
+    plane: data
+  - columns: unit_id
+    table: units
+    plane: data
+  - columns: tax_id
+    table: taxes
+    plane: data
+  - columns: transfered_activity_budget_id
+    table: activity_budgets
+    plane: data
+  implicit_references:
+  - variant_id
+  - creator_id
+  - updater_id
+  - activity_budget_id
+  code_references: []
+  columns: 35
+activity_budgets:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_activity_budgets_on_activity_id_and_campaign_id
+  indexes: 7
+  references:
+  - columns: technical_itinerary_id
+    table: technical_itineraries
+    plane: data
+  implicit_references:
+  - activity_id
+  - campaign_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+activity_distributions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - activity_id
+  - main_activity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+activity_inspection_calibration_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - scale_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+activity_inspection_calibration_scales:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - activity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+activity_inspection_point_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - activity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+activity_production_batches:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references:
+  - columns: activity_production_id
+    table: activity_productions
+    plane: data
+  - columns: planning_scenario_activity_plot_id
+    table: planning_scenario_activity_plots
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 8
+activity_production_irregular_batches:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references:
+  - columns: activity_production_batch_id
+    table: activity_production_batches
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 6
+activity_productions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - support_shape
+  - headland_shape
+  unique_indexes: []
+  indexes: 12
+  references:
+  - columns: technical_itinerary_id
+    table: technical_itineraries
+    plane: data
+  implicit_references:
+  - support_id
+  - creator_id
+  - updater_id
+  - activity_id
+  - cultivable_zone_id
+  - campaign_id
+  - season_id
+  - tactic_id
+  code_references: []
+  columns: 38
+activity_seasons:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - activity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+activity_tactics:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  implicit_references:
+  - activity_id
+  - creator_id
+  - updater_id
+  - technical_itinerary_id
+  code_references:
+  - technical_workflow_id
+  - technical_sequence_id
+  columns: 16
+affair_labellings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_affair_labellings_on_affair_id_and_label_id
+  indexes: 7
+  references:
+  - columns: label_id
+    table: labels
+    plane: data
+  - columns: affair_id
+    table: affairs
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+affair_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+affairs:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes:
+  - index_affairs_on_number
+  indexes: 12
+  references:
+  - columns: provider_id
+    table: entities
+    plane: data
+  - columns: nature_id
+    table: affair_natures
+    plane: data
+  implicit_references:
+  - third_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  - cash_session_id
+  - responsible_id
+  code_references: []
+  columns: 29
+alert_phases:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references:
+  - columns: alert_id
+    table: alerts
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+alerts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references:
+  - columns: sensor_id
+    table: sensors
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+analyses:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - geolocation
+  unique_indexes: []
+  indexes: 13
+  references:
+  - columns: cultivable_zone_id
+    table: cultivable_zones
+    plane: data
+  implicit_references:
+  - product_id
+  - sampler_id
+  - analyser_id
+  - creator_id
+  - updater_id
+  - host_id
+  - sensor_id
+  code_references: []
+  columns: 24
+analysis_items:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - multi_polygon_value
+  - point_value
+  - geometry_value
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - analysis_id
+  - creator_id
+  - updater_id
+  - product_reading_id
+  code_references: []
+  columns: 23
+analytic_segments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references:
+  - columns: analytic_sequence_id
+    table: analytic_sequences
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 6
+analytic_sequences:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 3
+ar_internal_metadata:
+  schema: public
+  plane: control
+  reason: 'infrastructure Rails : une seule par base, jamais par ferme'
+  id: none
+  primary_key:
+  - key
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 4
+associates:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - associate_account_id
+  - entity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 16
+attachments:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - resource_id
+  - document_id
+  - creator_id
+  - updater_id
+  - deleter_id
+  code_references: []
+  columns: 13
+bank_statement_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - bank_statement_id
+  - creator_id
+  - updater_id
+  - journal_entry_id
+  - entity_id
+  code_references: []
+  columns: 21
+bank_statements:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - cash_id
+  - creator_id
+  - updater_id
+  - journal_entry_id
+  code_references: []
+  columns: 18
+call_messages:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - request_id
+  - call_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 18
+calls:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - source_id
+  code_references: []
+  columns: 12
+campaigns:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+cap_islets:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - cap_statement_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+cap_land_parcels:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - cap_islet_id
+  - support_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+cap_neutral_areas:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 5
+  references:
+  - columns: cap_statement_id
+    table: cap_statements
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+cap_statements:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - campaign_id
+  - declarant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+cash_sessions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - cash_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+cash_transfers:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - emission_cash_id
+  - emission_journal_entry_id
+  - reception_cash_id
+  - reception_journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 20
+cashes:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - journal_id
+  - main_account_id
+  - creator_id
+  - updater_id
+  - container_id
+  - owner_id
+  - suspense_account_id
+  code_references: []
+  columns: 32
+catalog_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 13
+  references:
+  - columns: product_id
+    table: products
+    plane: data
+  implicit_references:
+  - variant_id
+  - catalog_id
+  - reference_tax_id
+  - creator_id
+  - updater_id
+  - unit_id
+  - sale_item_id
+  - purchase_item_id
+  code_references: []
+  columns: 23
+catalogs:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+contract_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - contract_id
+  - variant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+contracts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - responsible_id
+  - supplier_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+crop_group_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: crop_group_id
+    table: crop_groups
+    plane: data
+  implicit_references:
+  - crop_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+crop_group_labellings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: label_id
+    table: labels
+    plane: data
+  - columns: crop_group_id
+    table: crop_groups
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+crop_groups:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+crumbs:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - geolocation
+  unique_indexes: []
+  indexes: 10
+  references:
+  - columns: intervention_participation_id
+    table: intervention_participations
+    plane: data
+  - columns: ride_id
+    table: rides
+    plane: data
+  implicit_references:
+  - user_id
+  - creator_id
+  - updater_id
+  - intervention_parameter_id
+  code_references: []
+  columns: 17
+cultivable_zones:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - owner_id
+  - farmer_id
+  code_references: []
+  columns: 18
+custom_field_choices:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - custom_field_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+custom_fields:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+cvi_cadastral_plant_cvi_land_parcels:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: cvi_land_parcel_id
+    table: cvi_land_parcels
+    plane: data
+  - columns: cvi_cadastral_plant_id
+    table: cvi_cadastral_plants
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+cvi_cadastral_plants:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: cvi_statement_id
+    table: cvi_statements
+    plane: data
+  - columns: cvi_cultivable_zone_id
+    table: cvi_cultivable_zones
+    plane: data
+  implicit_references:
+  - designation_of_origin_id
+  - creator_id
+  - updater_id
+  code_references:
+  - vine_variety_id
+  - rootstock_id
+  - land_parcel_id
+  columns: 26
+cvi_cultivable_zones:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 3
+  references:
+  - columns: cvi_statement_id
+    table: cvi_statements
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+cvi_land_parcels:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: activity_id
+    table: activities
+    plane: data
+  - columns: cvi_cultivable_zone_id
+    table: cvi_cultivable_zones
+    plane: data
+  implicit_references:
+  - designation_of_origin_id
+  - creator_id
+  - updater_id
+  code_references:
+  - vine_variety_id
+  - rootstock_id
+  columns: 24
+cvi_statements:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+daily_charges:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: intervention_template_product_parameter_id
+    table: intervention_template_product_parameters
+    plane: data
+  - columns: activity_id
+    table: activities
+    plane: data
+  - columns: quantity_unit_id
+    table: units
+    plane: data
+  - columns: activity_production_id
+    table: activity_productions
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 13
+dashboards:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - owner_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+debt_transfers:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - affair_id
+  - debt_transfer_affair_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+deliveries:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - transporter_id
+  - responsible_id
+  - transporter_purchase_id
+  - creator_id
+  - updater_id
+  - driver_id
+  code_references: []
+  columns: 18
+delivery_tools:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - delivery_id
+  - tool_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+deposits:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - cash_id
+  - mode_id
+  - responsible_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+districts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+document_templates:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 16
+documents:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - template_id
+  code_references: []
+  columns: 21
+economic_cash_indicators:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 17
+  references: []
+  implicit_references:
+  - activity_id
+  - activity_budget_id
+  - activity_budget_item_id
+  - worker_contract_id
+  - loan_id
+  - campaign_id
+  - product_nature_variant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 22
+email_templates:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+entities:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 16
+  references:
+  - columns: client_payment_mode_id
+    table: incoming_payment_modes
+    plane: data
+  implicit_references:
+  - client_account_id
+  - supplier_account_id
+  - responsible_id
+  - proposer_id
+  - creator_id
+  - updater_id
+  - employee_account_id
+  - supplier_payment_mode_id
+  - payslip_contributor_account_id
+  code_references: []
+  columns: 54
+entity_addresses:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - mail_geolocation
+  unique_indexes: []
+  indexes: 9
+  references: []
+  implicit_references:
+  - entity_id
+  - mail_postal_zone_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 25
+entity_links:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references: []
+  implicit_references:
+  - entity_id
+  - linked_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 16
+entity_payment_methods:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: entity_id
+    table: entities
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+event_participations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - event_id
+  - participant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+events:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - affair_id
+  code_references: []
+  columns: 17
+financial_year_archives:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references:
+  - financial_year_id
+  code_references: []
+  columns: 6
+financial_year_exchanges:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_financial_year_exchanges_on_public_token
+  indexes: 6
+  references:
+  - columns: financial_year_id
+    table: financial_years
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 15
+financial_years:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: accountant_id
+    table: entities
+    plane: data
+  - columns: closer_id
+    table: users
+    plane: data
+  implicit_references:
+  - last_journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 21
+fixed_asset_depreciations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - fixed_asset_id
+  - journal_entry_id
+  - financial_year_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 18
+fixed_assets:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 19
+  references:
+  - columns: activity_id
+    table: activities
+    plane: data
+  implicit_references:
+  - allocation_account_id
+  - journal_id
+  - purchase_id
+  - purchase_item_id
+  - sale_id
+  - sale_item_id
+  - expenses_account_id
+  - creator_id
+  - updater_id
+  - product_id
+  - journal_entry_id
+  - asset_account_id
+  - sold_journal_entry_id
+  - scrapped_journal_entry_id
+  - tax_id
+  - waiting_journal_entry_id
+  - waiting_asset_account_id
+  - special_imputation_asset_account_id
+  code_references: []
+  columns: 49
+gap_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - gap_id
+  - tax_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+gaps:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references: []
+  implicit_references:
+  - affair_id
+  - entity_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+georeadings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - content
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+guide_analyses:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - guide_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+guide_analysis_points:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - analysis_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+guides:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+hve_audit_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_hve_audit_items_on_hve_audit_id_and_code
+  indexes: 3
+  references:
+  - columns: hve_audit_id
+    table: hve_audits
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 14
+hve_audits:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_hve_audits_on_campaign_referentiel
+  indexes: 4
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  - columns: updater_id
+    table: users
+    plane: data
+  - columns: creator_id
+    table: users
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 19
+hve_biodiversity_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: hve_audit_id
+    table: hve_audits
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 11
+hve_cmr_products:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_hve_cmr_on_amm_and_year
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 13
+hve_iae_coefficients:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_hve_iae_coefs_unique
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 8
+hve_nitrogen_export_coefficients:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_hve_n_exports_on_crop_organ
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 9
+hve_scoring_tables:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_hve_scoring_unique
+  indexes: 1
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 9
+idea_diagnostic_item_values:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - idea_diagnostic_item_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 13
+idea_diagnostic_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - idea_diagnostic_id
+  - creator_id
+  - updater_id
+  code_references:
+  - idea_id
+  columns: 12
+idea_diagnostic_results:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - idea_diagnostic_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+idea_diagnostics:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: auditor_id
+    table: entities
+    plane: data
+  implicit_references:
+  - campaign_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+identifiers:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - net_service_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+imports:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - importer_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+incoming_harvest_crops:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: incoming_harvest_id
+    table: incoming_harvests
+    plane: data
+  implicit_references:
+  - crop_id
+  - creator_id
+  - updater_id
+  - harvest_intervention_id
+  code_references: []
+  columns: 10
+incoming_harvest_storages:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: incoming_harvest_id
+    table: incoming_harvests
+    plane: data
+  implicit_references:
+  - storage_id
+  - creator_id
+  - updater_id
+  - product_id
+  code_references: []
+  columns: 11
+incoming_harvests:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 12
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  - columns: analysis_id
+    table: analyses
+    plane: data
+  implicit_references:
+  - intervention_id
+  - tractor_id
+  - trailer_id
+  - driver_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 19
+incoming_payment_modes:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references: []
+  implicit_references:
+  - cash_id
+  - commission_account_id
+  - depositables_account_id
+  - depositables_journal_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 20
+incoming_payments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 14
+  references: []
+  implicit_references:
+  - mode_id
+  - payer_id
+  - deposit_id
+  - responsible_id
+  - journal_entry_id
+  - commission_account_id
+  - affair_id
+  - creator_id
+  - updater_id
+  - discount_vat_id
+  code_references: []
+  columns: 33
+inspection_calibrations:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - inspection_id
+  - nature_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+inspection_points:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - inspection_id
+  - nature_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+inspections:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - activity_id
+  - product_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 18
+integrations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_integrations_on_nature
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+intervention_costings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+intervention_crop_groups:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: crop_group_id
+    table: crop_groups
+    plane: data
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+intervention_labellings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_intervention_labellings_on_intervention_id_and_label_id
+  indexes: 7
+  references: []
+  implicit_references:
+  - intervention_id
+  - label_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+intervention_parameter_readings:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - multi_polygon_value
+  - point_value
+  - geometry_value
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - parameter_id
+  code_references: []
+  columns: 21
+intervention_parameter_settings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: intervention_parameter_id
+    table: intervention_parameters
+    plane: data
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+intervention_parameters:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: true
+  geometry:
+  - working_zone
+  unique_indexes: []
+  indexes: 21
+  references: []
+  implicit_references:
+  - intervention_id
+  - product_id
+  - variant_id
+  - creator_id
+  - updater_id
+  - event_participation_id
+  - outcoming_product_id
+  - new_container_id
+  - new_group_id
+  - new_variant_id
+  - group_id
+  - component_id
+  - assembly_id
+  code_references:
+  - usage_id
+  columns: 44
+intervention_participations:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  - columns: product_id
+    table: products
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+intervention_proposal_parameters:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references:
+  - columns: product_nature_variant_id
+    table: product_nature_variants
+    plane: data
+  - columns: intervention_proposal_id
+    table: intervention_proposals
+    plane: data
+  - columns: product_id
+    table: products
+    plane: data
+  implicit_references:
+  - intervention_template_product_parameter_id
+  code_references: []
+  columns: 10
+intervention_proposals:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references:
+  - columns: activity_production_irregular_batch_id
+    table: activity_production_irregular_batches
+    plane: data
+  - columns: technical_itinerary_intervention_template_id
+    table: technical_itinerary_intervention_templates
+    plane: data
+  - columns: activity_production_id
+    table: activity_productions
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 11
+intervention_setting_items:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - geometry_value
+  - point_value
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: intervention_parameter_setting_id
+    table: intervention_parameter_settings
+    plane: data
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 21
+intervention_template_activities:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: activity_id
+    table: activities
+    plane: data
+  - columns: intervention_template_id
+    table: intervention_templates
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 5
+intervention_template_product_parameters:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references:
+  - columns: product_nature_id
+    table: product_natures
+    plane: data
+  - columns: product_nature_variant_id
+    table: product_nature_variants
+    plane: data
+  - columns: intervention_template_id
+    table: intervention_templates
+    plane: data
+  - columns: activity_id
+    table: activities
+    plane: data
+  implicit_references: []
+  code_references:
+  - intervention_model_item_id
+  - technical_workflow_procedure_item_id
+  columns: 13
+intervention_templates:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  - originator_id
+  code_references:
+  - technical_workflow_procedure_id
+  - intervention_model_id
+  columns: 17
+intervention_working_periods:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  - columns: intervention_participation_id
+    table: intervention_participations
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+interventions:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 16
+  references:
+  - columns: intervention_proposal_id
+    table: intervention_proposals
+    plane: data
+  - columns: purchase_id
+    table: purchases
+    plane: data
+  implicit_references:
+  - issue_id
+  - prescription_id
+  - creator_id
+  - updater_id
+  - event_id
+  - request_intervention_id
+  - journal_entry_id
+  - parent_id
+  - costing_id
+  - validator_id
+  code_references: []
+  columns: 41
+inventories:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references:
+  - columns: journal_id
+    table: journals
+    plane: data
+  - columns: product_nature_category_id
+    table: product_nature_categories
+    plane: data
+  implicit_references:
+  - responsible_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  - financial_year_id
+  code_references: []
+  columns: 20
+inventory_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - inventory_id
+  - product_id
+  - creator_id
+  - updater_id
+  - product_movement_id
+  code_references: []
+  columns: 13
+issue_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 4
+issues:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - geolocation
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: issue_nature_id
+    table: issue_natures
+    plane: data
+  implicit_references:
+  - target_id
+  - creator_id
+  - updater_id
+  - products_yield_observation_id
+  code_references: []
+  columns: 20
+issues_yield_observations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - yield_observation_id
+  - issue_id
+  code_references: []
+  columns: 3
+journal_entries:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_journal_entries_on_continuous_number
+  indexes: 13
+  references:
+  - columns: financial_year_exchange_id
+    table: financial_year_exchanges
+    plane: data
+  implicit_references:
+  - journal_id
+  - financial_year_id
+  - resource_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 33
+journal_entry_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 24
+  references:
+  - columns: variant_id
+    table: product_nature_variants
+    plane: data
+  - columns: project_budget_id
+    table: project_budgets
+    plane: data
+  implicit_references:
+  - entry_id
+  - journal_id
+  - bank_statement_id
+  - financial_year_id
+  - account_id
+  - creator_id
+  - updater_id
+  - activity_budget_id
+  - team_id
+  - tax_id
+  - tax_declaration_item_id
+  - resource_id
+  - project_task_id
+  - equipment_id
+  code_references: []
+  columns: 52
+journals:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: financial_year_exchange_id
+    table: financial_year_exchanges
+    plane: data
+  - columns: accountant_id
+    table: entities
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 22
+labels:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_labels_on_name
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+listing_node_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - node_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+listing_nodes:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 11
+  references: []
+  implicit_references:
+  - parent_id
+  - item_listing_id
+  - item_listing_node_id
+  - listing_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 25
+listings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+loan_repayments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - loan_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 18
+loans:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references:
+  - columns: activity_id
+    table: activities
+    plane: data
+  implicit_references:
+  - lender_id
+  - cash_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  - loan_account_id
+  - interest_account_id
+  - insurance_account_id
+  - bank_guarantee_account_id
+  code_references: []
+  columns: 36
+locations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references:
+  - localizable_id
+  - creator_id
+  - updater_id
+  code_references:
+  - registered_postal_zone_id
+  columns: 10
+manure_management_plan_zones:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - plan_id
+  - activity_production_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 26
+manure_management_plans:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - campaign_id
+  - recommender_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+map_layers:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 20
+naming_format_fields:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references:
+  - naming_format_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+naming_formats:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+net_services:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 7
+notifications:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - recipient_id
+  - target_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+observations:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - subject_id
+  - author_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+outgoing_payment_lists:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - mode_id
+  code_references: []
+  columns: 10
+outgoing_payment_modes:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - cash_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+outgoing_payments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 11
+  references:
+  - columns: mode_id
+    table: outgoing_payment_modes
+    plane: data
+  - columns: list_id
+    table: outgoing_payment_lists
+    plane: data
+  - columns: payee_id
+    table: entities
+    plane: data
+  - columns: journal_entry_id
+    table: journal_entries
+    plane: data
+  implicit_references:
+  - responsible_id
+  - cash_id
+  - affair_id
+  - creator_id
+  - updater_id
+  - discount_vat_id
+  code_references: []
+  columns: 28
+parcel_item_storings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: product_id
+    table: products
+    plane: data
+  - columns: conditioning_unit_id
+    table: units
+    plane: data
+  implicit_references:
+  - parcel_item_id
+  - storage_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+parcel_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 19
+  references:
+  - columns: purchase_order_to_close_id
+    table: purchases
+    plane: data
+  - columns: project_budget_id
+    table: project_budgets
+    plane: data
+  - columns: purchase_order_item_id
+    table: purchase_items
+    plane: data
+  - columns: activity_budget_id
+    table: activity_budgets
+    plane: data
+  - columns: team_id
+    table: teams
+    plane: data
+  - columns: purchase_invoice_item_id
+    table: purchase_items
+    plane: data
+  - columns: conditioning_unit_id
+    table: units
+    plane: data
+  implicit_references:
+  - parcel_id
+  - sale_item_id
+  - source_product_id
+  - product_id
+  - analysis_id
+  - variant_id
+  - product_enjoyment_id
+  - product_ownership_id
+  - product_localization_id
+  - creator_id
+  - updater_id
+  - product_movement_id
+  - source_product_movement_id
+  - delivery_id
+  - transporter_id
+  - equipment_id
+  code_references: []
+  columns: 44
+parcels:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes:
+  - index_parcels_on_number
+  indexes: 21
+  references:
+  - columns: sale_nature_id
+    table: sale_natures
+    plane: data
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  implicit_references:
+  - recipient_id
+  - sender_id
+  - address_id
+  - storage_id
+  - delivery_id
+  - sale_id
+  - purchase_id
+  - transporter_id
+  - creator_id
+  - updater_id
+  - journal_entry_id
+  - undelivered_invoice_journal_entry_id
+  - contract_id
+  - responsible_id
+  code_references: []
+  columns: 41
+payslip_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_payslip_natures_on_name
+  indexes: 7
+  references:
+  - columns: account_id
+    table: accounts
+    plane: data
+  - columns: journal_id
+    table: journals
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+payslips:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 12
+  references:
+  - columns: nature_id
+    table: payslip_natures
+    plane: data
+  - columns: account_id
+    table: accounts
+    plane: data
+  - columns: employee_id
+    table: entities
+    plane: data
+  - columns: affair_id
+    table: affairs
+    plane: data
+  - columns: journal_entry_id
+    table: journal_entries
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 28
+pfi_intervention_parameters:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  - columns: target_id
+    table: intervention_parameters
+    plane: data
+  - columns: input_id
+    table: intervention_parameters
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 11
+planning_scenario_activities:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: activity_id
+    table: activities
+    plane: data
+  - columns: planning_scenario_id
+    table: planning_scenarios
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 7
+planning_scenario_activity_animals:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: planning_scenario_activity_id
+    table: planning_scenario_activities
+    plane: data
+  - columns: technical_itinerary_id
+    table: technical_itineraries
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+planning_scenario_activity_plots:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: technical_itinerary_id
+    table: technical_itineraries
+    plane: data
+  - columns: planning_scenario_activity_id
+    table: planning_scenario_activities
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+planning_scenarios:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 1
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+plant_counting_items:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - plant_counting_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+plant_countings:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - plant_id
+  - plant_density_abacus_id
+  - plant_density_abacus_item_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 16
+plant_density_abaci:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_plant_density_abaci_on_name
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - activity_id
+  code_references: []
+  columns: 11
+plant_density_abacus_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - plant_density_abacus_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+postal_zones:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - district_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 13
+preferences:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_preferences_on_user_id_and_name
+  indexes: 8
+  references: []
+  implicit_references:
+  - record_value_id
+  - user_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 15
+prescriptions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - prescriptor_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+product_enjoyments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - originator_id
+  - product_id
+  - enjoyer_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 14
+product_labellings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_product_labellings_on_product_id_and_label_id
+  indexes: 7
+  references: []
+  implicit_references:
+  - product_id
+  - label_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+product_linkages:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - originator_id
+  - carrier_id
+  - carried_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 15
+product_links:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - originator_id
+  - product_id
+  - linked_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 14
+product_localizations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - originator_id
+  - product_id
+  - container_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 14
+product_memberships:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - originator_id
+  - member_id
+  - group_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 14
+product_movements:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references: []
+  implicit_references:
+  - product_id
+  - intervention_id
+  - originator_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 15
+product_nature_categories:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes:
+  - index_product_nature_categories_on_number
+  indexes: 14
+  references: []
+  implicit_references:
+  - charge_account_id
+  - product_account_id
+  - fixed_asset_account_id
+  - stock_account_id
+  - creator_id
+  - updater_id
+  - fixed_asset_allocation_account_id
+  - fixed_asset_expenses_account_id
+  - stock_movement_account_id
+  code_references: []
+  columns: 32
+product_nature_category_taxations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - product_nature_category_id
+  - tax_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+product_nature_variant_components:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_product_nature_variant_name_unique
+  indexes: 9
+  references: []
+  implicit_references:
+  - product_nature_variant_id
+  - part_product_nature_variant_id
+  - parent_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+product_nature_variant_readings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - multi_polygon_value
+  - point_value
+  - geometry_value
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - variant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 21
+product_nature_variant_tags:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - entity_id
+  - variant_id
+  - document_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+product_nature_variants:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes:
+  - index_product_nature_variants_on_number
+  indexes: 10
+  references:
+  - columns: default_unit_id
+    table: units
+    plane: data
+  implicit_references:
+  - category_id
+  - nature_id
+  - creator_id
+  - updater_id
+  - stock_account_id
+  - stock_movement_account_id
+  code_references: []
+  columns: 30
+product_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes:
+  - index_product_natures_on_number
+  indexes: 8
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  - subscription_nature_id
+  code_references: []
+  columns: 29
+product_ownerships:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - originator_id
+  - product_id
+  - owner_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 14
+product_phases:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 12
+  references: []
+  implicit_references:
+  - originator_id
+  - product_id
+  - variant_id
+  - nature_id
+  - category_id
+  - creator_id
+  - updater_id
+  - intervention_id
+  code_references: []
+  columns: 15
+product_readings:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - multi_polygon_value
+  - point_value
+  - geometry_value
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - originator_id
+  - product_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 24
+products:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: true
+  geometry:
+  - initial_shape
+  - initial_geolocation
+  unique_indexes:
+  - index_products_on_number
+  indexes: 29
+  references:
+  - columns: conditioning_unit_id
+    table: units
+    plane: data
+  - columns: worker_group_item_id
+    table: worker_group_items
+    plane: data
+  - columns: activity_production_id
+    table: activity_productions
+    plane: data
+  - columns: category_id
+    table: product_nature_categories
+    plane: data
+  implicit_references:
+  - variant_id
+  - nature_id
+  - initial_container_id
+  - initial_owner_id
+  - initial_enjoyer_id
+  - initial_father_id
+  - initial_mother_id
+  - tracking_id
+  - fixed_asset_id
+  - address_id
+  - parent_id
+  - default_storage_id
+  - creator_id
+  - updater_id
+  - person_id
+  - initial_movement_id
+  - team_id
+  - member_variant_id
+  - originator_id
+  code_references: []
+  columns: 69
+products_yield_observations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - working_zone
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - yield_observation_id
+  - product_id
+  - vegetative_stage_id
+  code_references: []
+  columns: 5
+project_budgets:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+project_members:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: user_id
+    table: users
+    plane: data
+  - columns: project_id
+    table: projects
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+project_tasks:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references:
+  - columns: project_id
+    table: projects
+    plane: data
+  - columns: responsible_id
+    table: users
+    plane: data
+  implicit_references:
+  - sale_contract_item_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+projects:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references:
+  - columns: responsible_id
+    table: users
+    plane: data
+  - columns: activity_id
+    table: activities
+    plane: data
+  implicit_references:
+  - sale_contract_id
+  - creator_id
+  - updater_id
+  - team_id
+  code_references: []
+  columns: 17
+purchase_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 15
+  references:
+  - columns: conditioning_unit_id
+    table: units
+    plane: data
+  - columns: project_budget_id
+    table: project_budgets
+    plane: data
+  implicit_references:
+  - purchase_id
+  - variant_id
+  - tax_id
+  - account_id
+  - creator_id
+  - updater_id
+  - activity_budget_id
+  - team_id
+  - depreciable_product_id
+  - fixed_asset_id
+  - project_task_id
+  - equipment_id
+  - catalog_item_id
+  code_references: []
+  columns: 35
+purchase_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - journal_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+purchases:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 15
+  references: []
+  implicit_references:
+  - supplier_id
+  - delivery_address_id
+  - journal_entry_id
+  - responsible_id
+  - nature_id
+  - affair_id
+  - creator_id
+  - updater_id
+  - undelivered_invoice_journal_entry_id
+  - quantity_gap_on_invoice_journal_entry_id
+  - contract_id
+  code_references: []
+  columns: 35
+qonto_inbound_invoices:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_qonto_inbound_invoices_on_remote_id
+  indexes: 5
+  references:
+  - columns: document_id
+    table: documents
+    plane: data
+  - columns: purchase_id
+    table: purchases
+    plane: data
+  - columns: entity_id
+    table: entities
+    plane: data
+  implicit_references: []
+  code_references:
+  - remote_id
+  columns: 18
+qonto_outbound_invoices:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_qonto_outbound_invoices_on_remote_id
+  - index_qonto_outbound_invoices_on_sale_id
+  indexes: 3
+  references:
+  - columns: sale_id
+    table: sales
+    plane: data
+  implicit_references: []
+  code_references:
+  - remote_id
+  columns: 14
+regularizations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: affair_id
+    table: affairs
+    plane: data
+  - columns: journal_entry_id
+    table: journal_entries
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+ride_set_equipments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: ride_set_id
+    table: ride_sets
+    plane: data
+  - columns: product_id
+    table: products
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+ride_sets:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 20
+rides:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - shape
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: ride_set_id
+    table: ride_sets
+    plane: data
+  - columns: intervention_id
+    table: interventions
+    plane: data
+  - columns: product_id
+    table: products
+    plane: data
+  - columns: cultivable_zone_id
+    table: cultivable_zones
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 25
+roles:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+saas_subscriptions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references:
+  - columns: entity_payment_method_id
+    table: entity_payment_methods
+    plane: data
+  - columns: entity_id
+    table: entities
+    plane: data
+  - columns: partner_id
+    table: entities
+    plane: data
+  - columns: catalog_item_id
+    table: catalog_items
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 20
+sale_contract_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: sale_contract_id
+    table: sale_contracts
+    plane: data
+  implicit_references:
+  - variant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+sale_contract_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+sale_contracts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - responsible_id
+  - client_id
+  - sale_opportunity_id
+  - creator_id
+  - updater_id
+  - nature_id
+  code_references: []
+  columns: 19
+sale_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 15
+  references:
+  - columns: depreciable_product_id
+    table: products
+    plane: data
+  - columns: conditioning_unit_id
+    table: units
+    plane: data
+  implicit_references:
+  - sale_id
+  - variant_id
+  - tax_id
+  - account_id
+  - credited_item_id
+  - creator_id
+  - updater_id
+  - activity_budget_id
+  - team_id
+  - project_task_id
+  - fixed_asset_id
+  - catalog_item_id
+  - shipment_item_id
+  code_references: []
+  columns: 37
+sale_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - payment_mode_id
+  - catalog_id
+  - journal_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 22
+sales:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_sales_on_number
+  indexes: 21
+  references: []
+  implicit_references:
+  - client_id
+  - nature_id
+  - address_id
+  - invoice_address_id
+  - delivery_address_id
+  - responsible_id
+  - transporter_id
+  - journal_entry_id
+  - credited_sale_id
+  - affair_id
+  - creator_id
+  - updater_id
+  - undelivered_invoice_journal_entry_id
+  - quantity_gap_on_invoice_journal_entry_id
+  - subscription_id
+  code_references: []
+  columns: 48
+schema_migrations:
+  schema: public
+  plane: control
+  reason: 'infrastructure Rails : une seule par base, jamais par ferme'
+  id: none
+  primary_key:
+  - version
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 0
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 1
+sensors:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 9
+  references: []
+  implicit_references:
+  - product_id
+  - host_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 21
+sequences:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 16
+subscription_natures:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+subscriptions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 11
+  references: []
+  implicit_references:
+  - address_id
+  - nature_id
+  - subscriber_id
+  - sale_item_id
+  - creator_id
+  - updater_id
+  - parent_id
+  code_references: []
+  columns: 25
+supervision_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - supervision_id
+  - sensor_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+supervisions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+synchronization_operations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - notification_id
+  - creator_id
+  - updater_id
+  - originator_id
+  code_references: []
+  columns: 14
+target_distributions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - target_id
+  - activity_production_id
+  - activity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 11
+tasks:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - entity_id
+  - executor_id
+  - sale_opportunity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 15
+tax_declaration_item_parts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references:
+  - columns: account_id
+    table: accounts
+    plane: data
+  - columns: tax_declaration_item_id
+    table: tax_declaration_items
+    plane: data
+  - columns: journal_entry_item_id
+    table: journal_entry_items
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+tax_declaration_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - tax_declaration_id
+  - tax_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 19
+tax_declarations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - financial_year_id
+  - journal_entry_id
+  - responsible_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 19
+tax_payments:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 7
+  references: []
+  implicit_references:
+  - cash_id
+  - financial_year_id
+  - journal_entry_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 17
+taxes:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 10
+  references: []
+  implicit_references:
+  - collect_account_id
+  - deduction_account_id
+  - creator_id
+  - updater_id
+  - fixed_asset_deduction_account_id
+  - fixed_asset_collect_account_id
+  - intracommunity_payable_account_id
+  code_references: []
+  columns: 24
+teams:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references: []
+  implicit_references:
+  - parent_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 13
+technical_itineraries:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  - columns: activity_id
+    table: activities
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  - originator_id
+  code_references: []
+  columns: 12
+technical_itinerary_intervention_templates:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: intervention_template_id
+    table: intervention_templates
+    plane: data
+  - columns: technical_itinerary_id
+    table: technical_itineraries
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 14
+tokens:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_tokens_on_name
+  indexes: 5
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 8
+trackings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - product_id
+  - producer_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 14
+units:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: true
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references:
+  - base_unit_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 16
+user_tickets:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 13
+users:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes:
+  - index_users_on_authentication_token
+  - index_users_on_confirmation_token
+  - index_users_on_email
+  - index_users_on_invitation_token
+  - index_users_on_reset_password_token
+  - index_users_on_unlock_token
+  indexes: 17
+  references: []
+  implicit_references:
+  - person_id
+  - role_id
+  - team_id
+  - creator_id
+  - updater_id
+  - invited_by_id
+  code_references: []
+  columns: 48
+vegetative_stages:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+versions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 3
+  references: []
+  implicit_references:
+  - item_id
+  - creator_id
+  code_references: []
+  columns: 9
+wice_grid_serialized_queries:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references: []
+  code_references: []
+  columns: 6
+wine_incoming_harvest_inputs:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: wine_incoming_harvest_id
+    table: wine_incoming_harvests
+    plane: data
+  implicit_references:
+  - input_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+wine_incoming_harvest_plants:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: wine_incoming_harvest_id
+    table: wine_incoming_harvests
+    plane: data
+  implicit_references:
+  - plant_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+wine_incoming_harvest_presses:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: press_id
+    table: products
+    plane: data
+  - columns: wine_incoming_harvest_id
+    table: wine_incoming_harvests
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 12
+wine_incoming_harvest_storages:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references:
+  - columns: wine_incoming_harvest_id
+    table: wine_incoming_harvests
+    plane: data
+  implicit_references:
+  - storage_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+wine_incoming_harvests:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references:
+  - columns: campaign_id
+    table: campaigns
+    plane: data
+  - columns: analysis_id
+    table: analyses
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 15
+worker_contract_distributions:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - worker_contract_id
+  - main_activity_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 9
+worker_contracts:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 5
+  references:
+  - columns: entity_id
+    table: entities
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 19
+worker_group_items:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references: []
+  implicit_references:
+  - worker_id
+  - worker_group_id
+  code_references: []
+  columns: 5
+worker_group_labellings:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 2
+  references:
+  - columns: label_id
+    table: labels
+    plane: data
+  - columns: worker_group_id
+    table: worker_groups
+    plane: data
+  implicit_references: []
+  code_references: []
+  columns: 5
+worker_groups:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 4
+  references: []
+  implicit_references:
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 10
+worker_time_logs:
+  schema: public
+  plane: data
+  id: uuid
+  primary_key:
+  - id
+  sti: false
+  geometry: []
+  unique_indexes: []
+  indexes: 8
+  references:
+  - columns: worker_id
+    table: products
+    plane: data
+  implicit_references:
+  - creator_id
+  - updater_id
+  - project_task_id
+  code_references: []
+  columns: 16
+yield_observations:
+  schema: public
+  plane: data
+  id: bigint
+  primary_key:
+  - id
+  sti: false
+  geometry:
+  - geolocation
+  unique_indexes: []
+  indexes: 6
+  references: []
+  implicit_references:
+  - activity_id
+  - vegetative_stage_id
+  - creator_id
+  - updater_id
+  code_references: []
+  columns: 13
