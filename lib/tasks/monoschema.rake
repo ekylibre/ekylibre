@@ -1,0 +1,313 @@
+# Prototype de mono-schéma (point 1.4 de la feuille de route v6).
+#
+# Trois tables — `interventions`, `intervention_parameters`, `products` — sont
+# transposées du schéma-par-tenant vers une base unique à colonne `tenant_id`,
+# avec PK et FK composites, index tenant-aware et Row Level Security `FORCE`.
+# Le tout vit dans une base à part : rien de ceci ne touche l'application, qui
+# reste sous Apartment jusqu'au lot 1 lui-même.
+#
+# Ces trois tables ne sont pas prises au hasard : elles couvrent à elles seules
+# ce que la transformation générale rencontrera — deux types de clé primaire
+# (uuidv7 pour ce que le terrain crée, bigint pour le reste), du STI sur deux
+# tables, une colonne géométrique, un index unique global à rendre local au
+# tenant, et des références croisées entre les trois.
+#
+#   rake monoschema:generate   # db/structure.sql -> db/prototypes/monoschema/schema.sql
+#   rake monoschema:build      # crée la base de sonde et y charge le schéma
+#   rake monoschema:drop
+#
+# `generate` ne lit que du texte : c'est la répétition en petit du générateur de
+# migrations du point 1.6, et son résultat est versionné pour être relu.
+
+module MonoschemaPrototype
+  DATABASE = ENV.fetch('MONOSCHEMA_DATABASE', 'ekylibre_monoschema')
+  APP_ROLE = ENV.fetch('MONOSCHEMA_APP_ROLE', 'ekylibre_app')
+  APP_PASSWORD = ENV.fetch('MONOSCHEMA_APP_PASSWORD', 'ekylibre_app')
+  SCHEMA_PATH = 'db/prototypes/monoschema/schema.sql'.freeze
+
+  # Ce que chaque table devient. `id_type` porte la décision de l'ADR-003 :
+  # `uuid` pour ce que le terrain peut créer hors ligne, `bigint` pour le reste.
+  TABLES = {
+    'interventions' => {
+      id_type: :uuid,
+      # Colonnes qui pointent vers une autre table du prototype : leur type suit
+      # celui de la clé visée, et elles reçoivent une FK composite.
+      references: {},
+      # Colonnes qui pointent vers la table elle-même.
+      self_references: %w[request_intervention_id parent_id],
+      gist_indexes: []
+    },
+    'intervention_parameters' => {
+      id_type: :bigint,
+      references: { 'intervention_id' => 'interventions', 'product_id' => 'products' },
+      self_references: %w[group_id],
+      gist_indexes: %w[working_zone]
+    },
+    'products' => {
+      id_type: :bigint,
+      references: {},
+      self_references: %w[parent_id],
+      gist_indexes: %w[initial_shape]
+    }
+  }.freeze
+
+  module_function
+
+  def generate
+    structure = Rails.root.join('db', 'structure.sql').read
+    out = +''
+    out << header
+    out << tenants_table
+    TABLES.each_key { |table| out << table_definition(structure, table) }
+    TABLES.each_key { |table| out << table_indexes(structure, table) }
+    out << foreign_keys
+    out << row_level_security
+    out << grants
+
+    path = Rails.root.join(SCHEMA_PATH)
+    path.dirname.mkpath
+    path.write(out)
+    path
+  end
+
+  def header
+    <<~SQL
+      -- ENGENDRÉ PAR `rake monoschema:generate` — NE PAS MODIFIER À LA MAIN.
+      --
+      -- Prototype du point 1.4 : trois tables portées du schéma-par-tenant vers
+      -- une base unique à `tenant_id`, PK et FK composites, index tenant-aware,
+      -- RLS `FORCE`. Les colonnes viennent telles quelles de db/structure.sql.
+      --
+      -- Les extensions vivent dans `public`, les tables applicatives dans le
+      -- schéma `ekylibre` (ADR-002, point 5).
+
+      CREATE SCHEMA IF NOT EXISTS ekylibre;
+      SET search_path TO ekylibre, public, postgis;
+
+    SQL
+  end
+
+  # Plan de contrôle, réduit à ce que le prototype exige : la table qui porte
+  # l'identité des tenants. Elle n'est pas soumise au RLS (point 1.14).
+  def tenants_table
+    <<~SQL
+      CREATE TABLE ekylibre.tenants (
+          id uuid DEFAULT uuidv7() NOT NULL,
+          slug character varying NOT NULL,
+          created_at timestamp(6) without time zone DEFAULT now() NOT NULL,
+          updated_at timestamp(6) without time zone DEFAULT now() NOT NULL,
+          CONSTRAINT tenants_pkey PRIMARY KEY (id),
+          CONSTRAINT tenants_slug_key UNIQUE (slug)
+      );
+
+    SQL
+  end
+
+  def table_definition(structure, table)
+    spec = TABLES.fetch(table)
+    body = structure[/CREATE TABLE public\.#{table} \((.*?)\n\);/m, 1]
+    raise "table #{table} introuvable dans db/structure.sql" if body.nil?
+
+    columns = body.strip.lines.map { |line| line.strip.chomp(',') }
+    columns = columns.map { |column| rewrite_column(column, table, spec) }
+    # `id` en tête est remplacé par le couple (tenant_id, id) : la clé primaire
+    # du mono-schéma.
+    columns.shift
+    columns.unshift("id #{id_definition(spec)} NOT NULL")
+    columns.unshift('tenant_id uuid NOT NULL REFERENCES ekylibre.tenants (id)')
+
+    <<~SQL
+      CREATE TABLE ekylibre.#{table} (
+          #{columns.join(",\n    ")},
+          CONSTRAINT #{table}_pkey PRIMARY KEY (tenant_id, id)
+      );
+
+    SQL
+  end
+
+  def id_definition(spec)
+    spec[:id_type] == :uuid ? 'uuid DEFAULT uuidv7()' : 'bigint GENERATED BY DEFAULT AS IDENTITY'
+  end
+
+  # Une colonne qui désigne une ligne d'une autre table du prototype doit porter
+  # le type de la clé visée. C'est le premier effet de bord du choix d'ADR-003 :
+  # `interventions.id` passant en uuid, tout ce qui le référence suit.
+  def rewrite_column(column, table, spec)
+    name = column[/\A"?([a-z_]+)"?\s/, 1]
+    targets = spec[:references].merge(spec[:self_references].to_h { |c| [c, table] })
+    target = targets[name]
+    return column if target.nil?
+
+    type = TABLES.fetch(target)[:id_type] == :uuid ? 'uuid' : 'bigint'
+    column.sub(/\A("?#{name}"?)\s+\S+/, "\\1 #{type}")
+  end
+
+  # Les index sont repris de db/structure.sql avec `tenant_id` en tête. Pour les
+  # index uniques ce n'est pas un réglage de performance mais une correction :
+  # un unique global rendrait un numéro indisponible à toutes les fermes dès
+  # qu'une seule l'emploie (ADR-002, point 1).
+  def table_indexes(structure, table)
+    spec = TABLES.fetch(table)
+    out = +"-- Index de #{table}, tous préfixés par tenant_id.\n"
+
+    structure.scan(/^CREATE (UNIQUE )?INDEX (\S+) ON public\.#{table} USING btree \((.*?)\);$/) do |unique, name, columns|
+      # Les index fonctionnels (expressions) sortent du cadre du prototype.
+      next if columns.include?('(')
+
+      out << "CREATE #{'UNIQUE ' if unique}INDEX #{name} ON ekylibre.#{table} USING btree (tenant_id, #{columns});\n"
+    end
+
+    spec[:gist_indexes].each do |column|
+      out << "CREATE INDEX index_#{table}_on_tenant_and_#{column} ON ekylibre.#{table} USING gist (tenant_id, #{column});\n"
+    end
+
+    out << "\n"
+  end
+
+  # FK composites : sans le `tenant_id` dans la clé, rien n'empêche une ligne du
+  # tenant A de désigner une ligne du tenant B (ADR-002, point 2).
+  def foreign_keys
+    out = +"-- Clés étrangères composites : la référence ne peut pas franchir le tenant.\n"
+    TABLES.each do |table, spec|
+      spec[:references].each do |column, target|
+        out << foreign_key(table, column, target)
+      end
+      spec[:self_references].each do |column|
+        out << foreign_key(table, column, table)
+      end
+    end
+    out << "\n"
+  end
+
+  def foreign_key(table, column, target)
+    <<~SQL
+      ALTER TABLE ekylibre.#{table}
+          ADD CONSTRAINT fk_#{table}_#{column} FOREIGN KEY (tenant_id, #{column})
+          REFERENCES ekylibre.#{target} (tenant_id, id);
+    SQL
+  end
+
+  # `USING` filtre ce qui est lu, `WITH CHECK` ce qui est écrit : sans le second,
+  # une ligne peut être insérée chez le voisin puis devenir invisible à son
+  # auteur. `current_setting(..., true)` rend NULL quand le contexte manque, et
+  # `tenant_id = NULL` ne rend aucune ligne : la fermeture par défaut.
+  def row_level_security
+    out = +"-- Row Level Security, FORCE comprise (elle seule couvre le proprietaire).\n"
+    TABLES.each_key do |table|
+      out << <<~SQL
+        ALTER TABLE ekylibre.#{table} ENABLE ROW LEVEL SECURITY;
+        ALTER TABLE ekylibre.#{table} FORCE ROW LEVEL SECURITY;
+        CREATE POLICY tenant_isolation ON ekylibre.#{table}
+            USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+            WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
+      SQL
+    end
+    out << "\n"
+  end
+
+  def grants
+    <<~SQL
+      -- Le rôle applicatif n'est pas proprietaire : il ne peut ni modifier le
+      -- schema, ni desactiver une politique.
+      GRANT USAGE ON SCHEMA ekylibre, public, postgis TO #{APP_ROLE};
+      GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ekylibre TO #{APP_ROLE};
+      -- MAINTAIN (PostgreSQL 17+) pour qu'un ANALYZE reste possible sans etre
+      -- proprietaire : le prototype en a besoin pour que le planificateur ait
+      -- des statistiques sur la colonne geometrique.
+      GRANT MAINTAIN ON ALL TABLES IN SCHEMA ekylibre TO #{APP_ROLE};
+      GRANT SELECT ON postgis.spatial_ref_sys TO #{APP_ROLE};
+    SQL
+  end
+
+  # --- Base de sonde ------------------------------------------------------
+
+  def connection_env(database)
+    # L'environnement courant, pas `development` : la CI ne configure que
+    # `test` (voir test/ci/database.yml).
+    configurations = Rails.application.config.database_configuration
+    config = configurations[Rails.env] || configurations['development']
+    {
+      'PGHOST' => config['host'].presence || 'db',
+      'PGPORT' => config['port'].to_s.presence || '5432',
+      'PGUSER' => config['username'],
+      'PGPASSWORD' => config['password'].to_s,
+      'PGDATABASE' => database
+    }
+  end
+
+  def psql(database, args)
+    ok = system(connection_env(database), 'psql', '--quiet', '--no-psqlrc', '-v', 'ON_ERROR_STOP=1', *args)
+    raise "psql a échoué sur #{database}" unless ok
+  end
+
+  def exec_sql(database, sql)
+    psql(database, ['-c', sql])
+  end
+
+  def build
+    schema = Rails.root.join(SCHEMA_PATH)
+    raise "#{SCHEMA_PATH} absent — lancer d'abord rake monoschema:generate" unless schema.exist?
+
+    exec_sql('postgres', "DROP DATABASE IF EXISTS #{DATABASE}")
+    exec_sql('postgres', "CREATE DATABASE #{DATABASE}")
+    # Même disposition que l'application : PostGIS dans son propre schéma, que
+    # les types copiés de db/structure.sql nomment explicitement
+    # (`postgis.geometry(...)`).
+    exec_sql(DATABASE, 'CREATE SCHEMA IF NOT EXISTS postgis')
+    exec_sql(DATABASE, 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis')
+    exec_sql(DATABASE, 'CREATE EXTENSION IF NOT EXISTS btree_gist SCHEMA public')
+    # Rôle applicatif : ni propriétaire, ni superutilisateur, ni BYPASSRLS.
+    # C'est la condition de l'ADR-002 — `FORCE` couvre le propriétaire, mais on
+    # ne veut de toute façon pas que l'application s'y connecte comme tel.
+    exec_sql(DATABASE, <<~SQL)
+      DO $$
+      BEGIN
+        IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '#{APP_ROLE}') THEN
+          CREATE ROLE #{APP_ROLE} LOGIN PASSWORD '#{APP_PASSWORD}';
+        END IF;
+      END
+      $$;
+    SQL
+    psql(DATABASE, ['-f', schema.to_s])
+    mark_spatial_operators_leakproof
+  end
+
+  # Sous RLS, PostgreSQL n'évalue une condition avant la politique que si elle
+  # est `LEAKPROOF` : une fonction qui ne l'est pas ne peut pas devenir condition
+  # d'index. Mesuré sur le prototype — la même requête parcellaire passe de
+  # 63 380 à 229 en coût estimé selon que l'opérateur spatial est marqué ou non.
+  #
+  # Ce marquage est une décision de sécurité, pas un réglage : il affirme que la
+  # fonction ne peut pas divulguer la valeur de ses arguments par un message
+  # d'erreur. Pour un recouvrement de rectangles englobants, c'est défendable ;
+  # la décision revient au lot 1, ce prototype ne fait que la mesurer.
+  def mark_spatial_operators_leakproof
+    exec_sql(DATABASE, 'ALTER FUNCTION postgis.geometry_overlaps(postgis.geometry, postgis.geometry) LEAKPROOF')
+    exec_sql(DATABASE, 'ALTER FUNCTION postgis.st_intersects(postgis.geometry, postgis.geometry) LEAKPROOF')
+  end
+
+  def drop
+    exec_sql('postgres', "DROP DATABASE IF EXISTS #{DATABASE}")
+  end
+end
+
+namespace :monoschema do
+  desc 'Engendre db/prototypes/monoschema/schema.sql à partir de db/structure.sql'
+  task generate: :environment do
+    path = MonoschemaPrototype.generate
+    puts "#{MonoschemaPrototype::SCHEMA_PATH} engendré (#{path.read.lines.count} lignes)"
+  end
+
+  desc 'Crée la base de sonde du prototype et y charge le schéma'
+  task build: :environment do
+    MonoschemaPrototype.build
+    puts "Base #{MonoschemaPrototype::DATABASE} prête."
+    puts 'Tests : bundle exec ruby -Itest test/prototypes/monoschema_test.rb'
+  end
+
+  desc 'Supprime la base de sonde du prototype'
+  task drop: :environment do
+    MonoschemaPrototype.drop
+    puts "Base #{MonoschemaPrototype::DATABASE} supprimée."
+  end
+end

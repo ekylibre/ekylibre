@@ -224,10 +224,32 @@ tables du `lexicon`.
 PostgreSQL par ferme à une base unique avec `tenant_id` uuid, PK composites et
 RLS `FORCE`, puis le runtime qui va avec — `TenantRecord`, contexte `set_config`
 en transaction, propagation aux chemins asynchrones, tests d'isolation générés,
-retrait d'Apartment. Le palier 7.1 a livré ce qui manquait côté ORM :
-`query_constraints` et les PK composites natives. Porte d'entrée : le prototype
-sur trois tables, qui couvre à lui seul PK/FK composites, STI et colonne
-géométrique.
+retrait d'Apartment.
+
+**Le prototype à trois tables est fait** (point 1.4, 14 septembre) :
+`db/prototypes/monoschema/`, dix-neuf mesures que la CI rejoue. L'isolation
+tient, elle est fermée par défaut, la clé étrangère composite refuse la
+référence inter-tenant et l'index unique devient local au tenant. Il a surtout
+sorti quatre pièges qu'aucune ADR ne mentionnait, et qui changent le contenu des
+points suivants :
+
+- sous clé composite, **`record.id` rend le couple** et non la colonne — tout
+  `foo_id: bar.id` du code existant devient faux en silence ;
+- **`query_constraints:` n'existe pas sur une association** en Rails 8.1 : la clé
+  étrangère composite se déclare en `foreign_key: %i[tenant_id …]`. Le point 1.16
+  portait sur la mauvaise annotation, pour 1 413 associations ;
+- **le cache de requêtes ignore le tenant.** Une lecture faite sous A est
+  resservie hors contexte, là où la politique aurait rendu zéro ligne : la
+  fermeture par défaut est contournée avant même d'atteindre la base ;
+- **sous RLS, l'index spatial cesse de servir.** Une condition non `LEAKPROOF`
+  est évaluée après la politique, donc jamais en condition d'index : la même
+  requête parcellaire passe d'un coût estimé de 229 à 63 380. L'ADR-002
+  recommande l'index GiST composite sans dire qu'il faut, en plus, marquer les
+  opérateurs de PostGIS — ce qui est une décision de sécurité.
+
+Reste la suite du lot : classifier les 313 tables, engendrer les migrations,
+`TenantRecord` et le contexte, les 206 sites de SQL brut, et le retrait
+d'Apartment.
 
 ## 5. Ce qui est tranché, et ce qui ne l'est pas
 

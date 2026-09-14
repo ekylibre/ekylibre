@@ -158,6 +158,14 @@ jobs:
           fi
           bundle exec rake db:migrate VERBOSE=false
 
+      - name: Monter la base du prototype de mono-schéma
+        # Point 1.4 : les garanties d'isolation (RLS, clés composites, index
+        # tenant-aware) sont vérifiées à chaque passage, pas une fois pour
+        # toutes. Sans cette base, test/prototypes/monoschema_test.rb s'ignore
+        # au lieu d'échouer — la CI est le seul endroit où il doit tourner
+        # systématiquement.
+        run: bundle exec rake monoschema:build
+
       - name: Compiler les packs Webpacker
         # Sans eux, toute vue rendant `javascript_pack_tag :legacy` échoue sur un
         # manifest packs-test vide — ce qui met en erreur les tests de contrôleur
