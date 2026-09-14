@@ -230,7 +230,7 @@ module Ekylibre
     config.active_record.schema_format = :sql
 
     # …mais le dump ne se déclenche que si on le demande. `db:migrate` enchaîne
-    # sinon sur `db:structure:dump`, et le fichier — versionné, et cloné par
+    # sinon sur `db:schema:dump`, et le fichier — versionné, et cloné par
     # Apartment dans chaque nouveau tenant — est réécrit à l'insu de qui migre.
     # Ce n'est pas théorique : `docker/startup.sh` lance `rake db:migrate` à
     # *chaque* démarrage du conteneur de développement, si bien qu'un simple
@@ -240,7 +240,7 @@ module Ekylibre
     # réécrit le fichier entier sans qu'une ligne de schéma ait bougé.
     #
     # La régénération est donc explicite, et documentée dans `CLAUDE.md` :
-    # `rake db:structure:dump` depuis le conteneur, contre
+    # `rake db:schema:dump` depuis le conteneur, contre
     # `ekylibre_development`. `DUMP_SCHEMA=1` rétablit l'enchaînement
     # automatique pour qui le veut le temps d'une commande.
     config.active_record.dump_schema_after_migration = ENV['DUMP_SCHEMA'].present?

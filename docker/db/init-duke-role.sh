@@ -1,16 +1,23 @@
 #!/bin/bash
 # Cree un role PostgreSQL lecture seule pour Duke (assistant chatbot).
 #
-# ATTENTION : ce script est SOURCE (pas execute) par le docker-entrypoint de
-# kartoza/postgis (`for f in /docker-entrypoint-initdb.d/*; do . $f; done` dans
-# /scripts/env-data.sh). Un `exit N` remonterait au shell parent et
-# interromprait l'initialisation Postgres -> pas de foreground postgres ->
-# container en boucle de redemarrage. On evite donc tout `exit` : quand les
-# vars Duke sont absentes, on log et on ne fait rien.
+# ATTENTION : ne jamais appeler `exit` ici. L'image officielle postgis/postgis
+# execute ce fichier s'il porte le bit x et le SOURCE sinon ; kartoza/postgis,
+# employee jusqu'au passage en 18, le sourcait dans tous les cas. Un `exit N`
+# sous cette seconde forme remonte au shell parent, interrompt l'initialisation
+# Postgres -> pas de foreground postgres -> container en boucle de redemarrage.
+# Quand les vars Duke sont absentes, on log et on ne fait rien.
+#
+# ATTENTION (2) : pas de `--host=localhost` non plus. Pendant l'initialisation,
+# l'image officielle demarre un serveur temporaire qui n'ecoute QUE sur la
+# socket Unix ; kartoza, lui, ecoutait aussi en TCP. Mesure faite : avec
+# `--host=localhost`, psql echoue en « Connection refused » et le conteneur
+# sort en code 2 sans jamais creer la base. Sans l'option, psql passe par la
+# socket, ce qui marche sous les deux images.
 set -e
 
 if [ -n "$DUKE_USER" ] && [ -n "$DUKE_PASSWORD" ]; then
-  psql -v ON_ERROR_STOP=1 --host=localhost --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+  psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     DO \$\$
     BEGIN
       IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = '${DUKE_USER}') THEN

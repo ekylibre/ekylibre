@@ -27,17 +27,15 @@ jobs:
       image: ghcr.io/ekylibre/docker-base-images/ruby3.4.10:latest
 
     services:
-      # PostgreSQL 13 aligne la CI sur la pile de développement
-      # (kartoza/postgis:13). Le client de ekylibre/docker-base-images est
-      # désormais en 17.11, donc monter le serveur jusqu'à 17 ne demande plus
-      # que de changer cette image. La cible du point 0.17 est en revanche
-      # PostgreSQL 18, et pg_dump refuse toujours de vider un serveur plus
-      # récent que lui — mesuré : « server version: 18.6 ; pg_dump version:
-      # 17.11 ». Monter le serveur en 18 impose donc d'abord un client 18 dans
-      # l'image de base, faute de quoi db:structure:dump et
-      # Ekylibre::Tenant.dump cessent de fonctionner.
+      # PostgreSQL 18 aligne la CI sur la pile de développement
+      # (postgis/postgis:18-3.6), et c'est la version qui porte `uuidv7()`
+      # native. Elle exige le client 18 de l'image de base ci-dessus
+      # (docker-base-images@6281aea) : `pg_dump` refuse un serveur plus récent
+      # que lui — mesuré, « server version: 18.6 ; pg_dump version: 17.11 » —
+      # et Apartment l'appelle à chaque création de tenant, donc au montage des
+      # tenants de test.
       postgres:
-        image: postgis/postgis:13-3.3
+        image: postgis/postgis:18-3.6
         env:
           POSTGRES_USER: ekylibre
           POSTGRES_DB: ekylibre_test
@@ -113,6 +111,13 @@ jobs:
           set -euo pipefail
           psql_exec() { psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "$1"; }
           psql_exec 'DROP EXTENSION IF EXISTS postgis CASCADE;'
+          # L'image postgis/postgis installe aussi fuzzystrmatch et le
+          # géocodeur tiger dans `public`. Le CASCADE ci-dessus emporte le
+          # second, pas le premier — même nettoyage qu'en développement.
+          psql_exec 'DROP EXTENSION IF EXISTS fuzzystrmatch;'
+          psql_exec 'DROP SCHEMA IF EXISTS tiger_data CASCADE;'
+          psql_exec 'DROP SCHEMA IF EXISTS tiger CASCADE;'
+          psql_exec 'DROP SCHEMA IF EXISTS topology CASCADE;'
           psql_exec 'CREATE SCHEMA IF NOT EXISTS postgis;'
           psql_exec 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
           psql_exec 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA postgis;'

@@ -92,7 +92,21 @@ services:
       retries: 5
 
   db:
-    image: kartoza/postgis:13
+    # PostgreSQL 18, pour `uuidv7()` native (point 0.17). Deux conséquences à
+    # connaître avant de changer cette ligne :
+    #
+    #   — le client doit être au moins aussi récent que le serveur. `pg_dump`
+    #     refuse un serveur plus récent que lui, et Apartment l'appelle à
+    #     *chaque* création de tenant (`import_database_schema`) : un client en
+    #     retard ne dégrade rien, il empêche de créer un tenant. L'image de base
+    #     porte le client 18 depuis `docker-base-images@6281aea` ;
+    #   — l'image officielle `postgis/postgis` remplace `kartoza/postgis`. Elle
+    #     ne rejoue pas `/docker-entrypoint-initdb.d` à chaque démarrage, ce qui
+    #     retire le piège documenté dans `docker/db/init.sql`, et son `PGDATA`
+    #     est `/var/lib/postgresql/18/docker` — d'où le volume monté un cran
+    #     plus haut. Un répertoire de données 13 ne se relit pas en 18 : la
+    #     bascule passe par un volume neuf.
+    image: postgis/postgis:18-3.6
     container_name: db
     environment:
       POSTGRES_USER: ${DB_USERNAME}
@@ -102,9 +116,16 @@ services:
       DUKE_PASSWORD: ${DUKE_PASSWORD}
       TZ: Europe/Paris
     volumes:
-      - database-volume:/var/lib/postgresql/data
-      - ../db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
-      - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/02-init-duke-role.sh
+      - database-volume:/var/lib/postgresql
+      # Numérotés au-delà de 10 : l'image postgis/postgis apporte son propre
+      # `10_postgis.sh`, qui installe PostGIS dans le schéma courant. Nos
+      # scripts doivent donc passer *après* — `init.sql` remet l'extension dans
+      # le schéma `postgis`, que `schema_search_path` et `structure.sql`
+      # attendent, et sa garde sert précisément à cela. Passer avant échouait :
+      # le script de l'image cherche `postgis_lib_version()` hors du
+      # `search_path` et le conteneur sort en code 3.
+      - ../db/init.sql:/docker-entrypoint-initdb.d/90-init.sql
+      - ../db/init-duke-role.sh:/docker-entrypoint-initdb.d/91-init-duke-role.sh
     ports:
       - "5431:5432"
     command:

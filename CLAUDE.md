@@ -65,6 +65,13 @@ docker compose -f docker/dev/docker-compose.yml logs -f app
 
 The app container runs `bundle install` automatically on startup. Plugins from `Gemfile.local` are loaded via the main `Gemfile` (no rebuild needed to add plugins).
 
+**Dev and CI run PostgreSQL 18 / PostGIS 3.6** (`postgis/postgis:18-3.6`), for native `uuidv7()`. Two consequences worth knowing before touching the stack:
+
+- **a PostgreSQL 13 data directory cannot be read by 18.** Moving to 18 means a fresh volume (`docker volume rm dev_database-volume`), and `docker/startup.sh` rebuilds from there: it loads `db/structure.sql` by hand when the database has no `schema_migrations` (Rails would load it with `ON_ERROR_STOP=1` and die on the `CREATE SCHEMA postgis` that `docker/db/init.sql` just created), then migrates, then loads the lexicon;
+- **the client must be at least as new as the server.** `pg_dump` refuses a newer server, and Apartment shells out to it on *every* tenant creation (`import_database_schema`) — a lagging client does not degrade anything, it makes tenants uncreatable. The base image carries client 18 since `docker-base-images@6281aea`.
+
+The `postgis/postgis` image brings its own `10_postgis.sh`, which installs PostGIS into the current schema; ours are mounted as `90-init.sql` / `91-init-duke-role.sh` so they run after and put the extension back in the `postgis` schema. Production still runs `kartoza/postgis:13` — see the CASCADE warning below.
+
 ## Running Tests
 
 ```bash
@@ -93,9 +100,11 @@ The three known instabilities are cleared, and each one named an ordinary defect
 
 - **the order decided, through an ambiguous `find_by`.** `config.active_support.test_order = :random`, and `PurchaseTest#simple creation` asked for `Tax.find_by(amount: 20)` *after* creating a second 20 % tax, intracommunity this time. Without an order the row returned is the planner's choice, and any UPDATE moving the fixture's live tuple flips it — measured. An intracommunity tax adds nothing to the pre-tax amount, so the item's forced 120 € incl. left the entry 21 € short and the whole purchase unbalanced. The test now pins the tax it means (`intracommunity: false`) and states amounts that reconcile (100 € excl. → 120 € incl.). **Never let a test select by a non-unique column without an order**;
 - **running one test file alone used to fail on its own** — Devise's « Could not find a valid mapping for #<User …> ». That one is fixed: routes load lazily since 7.1, so `devise_for` populated `Devise.mappings` only on first access and any test calling `sign_in` before issuing a request lost. `test/test_helper.rb` now calls `reload_routes_unless_loaded`, and a single file is a reliable unit of work;
-- **`db/structure.sql` was rewritten behind your back** — by `docker/startup.sh`, not by the suite: it runs `rake db:migrate` on every container start, and `db:migrate` used to chain into `db:structure:dump`. The container's `pg_dump` being newer than the server, the whole file churned without a line of schema having moved. `config.active_record.dump_schema_after_migration` is false since (see below); regenerate deliberately, or set `DUMP_SCHEMA=1` for one command.
+- **`db/structure.sql` was rewritten behind your back** — by `docker/startup.sh`, not by the suite: it runs `rake db:migrate` on every container start, and `db:migrate` used to chain into `db:schema:dump`. The container's `pg_dump` being newer than the server, the whole file churned without a line of schema having moved. `config.active_record.dump_schema_after_migration` is false since (see below); regenerate deliberately, or set `DUMP_SCHEMA=1` for one command.
 
-**`config/environments/test.rb` pins `ENV['GPG_EMAIL']`** to the testing key shipped in the dev images and imported by the CI workflow. `SignatureManager` reads that variable from the ambient environment, and `docker/dev/.env` declares a production identity whose key is in nobody's keyring — document signature, financial-year closure and document archiving then fail on your machine only. Pinning it also means the suite cannot sign with a real key.
+**`config/environments/test.rb` pins `ENV['GPG_EMAIL']`** to the testing key (`test/fixture-files/my-private-key.asc`), which the CI workflow imports and `docker/startup.sh` imports into the dev container on every boot. `SignatureManager` reads that variable from the ambient environment, and `docker/dev/.env` declares a production identity whose key is in nobody's keyring — document signature, financial-year closure and document archiving then fail on your machine only. Pinning it also means the suite cannot sign with a real key.
+
+The key lives in the container's keyring, so **rebuilding the image loses it**: `FinancialYear::CloseTest` then reads "No usable secret GPG key found", and printing a signed invoice redirects instead of returning the PDF. That is why the import sits in the startup script rather than in anyone's shell history.
 
 
 ## Tenant Management
@@ -183,15 +192,21 @@ docker compose -f docker/dev/docker-compose.yml exec db env PGPASSWORD=ekylibre 
 # 2. Recreate public from migrations
 docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:migrate
 
-# 3. Dump
-docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:structure:dump
+# 3. Dump — `db:schema:dump`, which honours schema_format = :sql.
+#    `db:structure:dump` is gone since Rails 7; typing it gets you
+#    "Don't know how to build task".
+docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake db:schema:dump
 ```
 
 **Step 3 is the only thing that writes the file.** `config.active_record.dump_schema_after_migration` is false (`config/application.rb`), so `db:migrate` no longer chains into the dump — which is what kept a plain `docker compose up`, and any probe migration, rewriting a versioned file. Pass `DUMP_SCHEMA=1` to restore the automatic chaining for one command. Whatever writes it, always read `git diff --numstat db/structure.sql` before committing: a dump made against a mismatched server version churns the whole file for nothing.
 
+**The file is PostgreSQL 18 syntax** since the server moved there: `pg_dump` 18 writes every `NOT NULL` as a named constraint (`… character varying CONSTRAINT x_not_null NOT NULL`), which an older server refuses. Loading it anywhere still on 13 — production, for one — will not work.
+
 The `CASCADE` drop removes anything that was added to `public` outside migrations — historically `hstore`, `pg_cron`, `gist_geometry_ops`, legacy `st_asbinary(text)`/`st_astext(bytea)` compat functions. Re-add them only if app code needs them (none does today; `postgis` schema provides `st_astext`/`st_asbinary` and is in `schema_search_path`).
 
 ### Warning: postgis CASCADE corruption
+
+This one bit the dev stack while it ran on `kartoza/postgis:13`, and still applies to production, which runs that image (`docker/prod/docker-compose.yml`). Dev and CI are on `postgis/postgis:18-3.6` since the PostgreSQL 18 move, and the official entrypoint only replays `/docker-entrypoint-initdb.d` on an empty `PGDATA`.
 
 The `kartoza/postgis:13` image re-runs `docker/db/init.sql` on every restart. Without the `IF EXISTS` guard at lines 7-16 of that file, the script silently executes `DROP EXTENSION postgis CASCADE` — which drops **every geometry/geography column** in every schema (`shape`, `geolocation`, `working_zone`, `support_shape`, etc.) without erroring. Symptom: `PG::UndefinedColumn` on geometry columns at runtime, even though migrations and code still reference them. If you ever see this, regen `structure.sql` via the procedure above (a single `pg_dump` after a corruption event will commit the bad state — see commit `3815900722` which lost 80 geometry columns this way).
 

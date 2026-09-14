@@ -18,7 +18,8 @@ ancêtre de celle-ci).
 |---|---|---|
 | Rails | 5.2 (EOL) | **8.1.3.1**, valeurs par défaut 8.1 |
 | Ruby | 2.6 | **3.4.10** (dev et CI) |
-| Production | Ruby 2.6, Rails 5.2 | **inchangée** — rien n'est déployé |
+| PostgreSQL | 13 (serveur et client) | **18.6 / PostGIS 3.6** en dev et CI, client 18 dans l'image de base — `uuidv7()` native disponible |
+| Production | Ruby 2.6, Rails 5.2, PostgreSQL 13 | **inchangée** — rien n'est déployé |
 | Suite | 3650 tests, 17 échecs, 15 erreurs | **3621 tests, 0 échec, 0 erreur, 4 ignorés** — mesuré en local le 14 septembre, suite entière, 26 min |
 | Job `Tests` de la CI | rouge depuis toujours | vert au prochain passage |
 | RuboCop | 1.11, plantait sous Ruby 3.4 | **1.91, sort au vert** (809 offenses au todo) |
@@ -142,14 +143,21 @@ réglage (§ 4).
 - la **production reste en Ruby 2.6 / Rails 5.2** : `docker/prod/Dockerfile` n'a
   pas bougé, et `build-prod-image` ne se déclenche pas sur cette branche,
   délibérément ;
-- `postgresql-client` est en **17.11** dans l'image de base (`pg_dump` et `psql`
-  vérifiés dans le conteneur), le serveur de développement en 13.4. Le plafond
-  documenté jusqu'ici — un client 13 refusant un serveur plus récent — est donc
-  levé jusqu'à 17 ; **monter le serveur en 18 (point 0.17) demandera un client
-  18**, `pg_dump` refusant toujours un serveur plus récent que lui. Effet de
-  bord connu : le `db/structure.sql` versionné vient d'un `pg_dump` 13.23, et
-  toute régénération avec le client 17 produit ~1400 lignes de diff de pure
-  forme — à assumer une fois, dans un commit dédié ;
+- **la base est en PostgreSQL 18.6 / PostGIS 3.6** en développement comme en CI
+  (`postgis/postgis:18-3.6`), et l'image de base porte le client 18. L'ordre
+  compte et n'est pas celui qu'on croit : le client d'abord, le serveur ensuite.
+  `pg_dump` refuse un serveur plus récent que lui, et Apartment l'appelle à
+  chaque création de tenant — un client en retard ne dégrade pas, il rend les
+  tenants incréables. Deux corollaires : **un répertoire de données 13 ne se
+  relit pas en 18** (volume neuf obligatoire, `docker/startup.sh` sait
+  reconstruire à partir de là), et **`db/structure.sql` est désormais en syntaxe
+  18** — `pg_dump` 18 nomme les contraintes `NOT NULL`, qu'un serveur plus
+  ancien refuse. La production, restée en 13, ne peut donc pas charger ce
+  fichier ;
+- la **production reste sur `kartoza/postgis:13`**, avec le piège de
+  réexécution de `docker/db/init.sql` que documente `CLAUDE.md` ; dev et CI n'y
+  sont plus exposés, l'image officielle ne rejouant ses scripts d'init que sur
+  un `PGDATA` vide ;
 - le conteneur `sidekiq` de développement doit être reconstruit quand l'image de
   base change — il a tourné des semaines sous Ruby 2.6 en boucle de redémarrage
   sans que rien ne le signale ;
@@ -170,9 +178,9 @@ La feuille de route opérationnelle, lot par lot, est dans
 découpage depuis qu'elle intègre le guide du chef de projet (§ 12). Ce qui suit
 n'en est que le sommet.
 
-**Le reste du lot 0 est désormais la seule chose qui sépare du lot 1.** Les
-points 0.2 et 0.4 ont été traités le 14 septembre, et tous deux ont désigné
-autre chose que ce que l'on croyait :
+**Le lot 0 ne sépare plus du lot 1.** Les trois points qui restaient — 0.2, 0.4
+et 0.17 — ont été traités le 14 septembre, et les trois ont désigné autre chose
+que ce que l'on croyait :
 
 - **0.2 — l'instabilité d'ordre ne tenait pas aux montants, mais à un `find_by`
   sans ordre.** `PurchaseTest#simple creation` demandait `Tax.find_by(amount: 20)`
@@ -189,13 +197,22 @@ autre chose que ce que l'on croyait :
   conteneur, et `db:migrate` enchaînait sur `db:structure:dump`. Un
   `docker compose up` suffisait donc à salir un fichier versionné, qu'Apartment
   clone dans chaque nouveau tenant. `dump_schema_after_migration` est désormais
-  faux ; `DUMP_SCHEMA=1` rétablit l'enchaînement le temps d'une commande.
+  faux ; `DUMP_SCHEMA=1` rétablit l'enchaînement le temps d'une commande ;
+- **0.17 — monter le serveur en 18 commence par le client, pas par le serveur.**
+  `pg_dump` refuse un serveur plus récent que lui, et Apartment l'appelle à
+  chaque création de tenant : le client 17.11 de l'image de base n'aurait pas
+  seulement empêché de dumper, il aurait rendu tout tenant incréable. L'image de
+  base porte donc le client 18 d'abord ; dev et CI passent ensuite sur
+  `postgis/postgis:18-3.6`. Trois cailloux en chemin, tous documentés là où on
+  les rencontrera : l'image officielle installe PostGIS dans le schéma courant
+  (nos scripts d'init sont montés après elle), son serveur temporaire
+  d'initialisation n'écoute que la socket Unix (`--host=localhost` faisait
+  sortir le conteneur en code 2), et le test du lexique de `docker/startup.sh`
+  regardait l'existence du schéma `lexicon` là où `structure.sql` le déclare
+  vide — sur base neuve, le lexique n'était jamais chargé.
 
-Reste un point ouvert avant le lot 1 :
-
-| Point | Nature |
-|---|---|
-| 0.17 — **monter le serveur PostgreSQL de 13 à 18** | préalable de `uuidv7()` native, donc du lot 1 lui-même. Demande aussi un client 18 dans l'image de base, celle-ci étant en 17.11 |
+`uuidv7()` répond sur la pile réelle, ce qui était le point 1.3 de la feuille de
+route. **Le lot 1 peut s'ouvrir.**
 
 Les points 0.5 à 0.9 (les six valeurs par défaut) et 0.10 à 0.13 (dette
 d'outillage) ne bloquent pas le lot 1 ; `raise_on_assign_to_attr_readonly` et
@@ -285,14 +302,29 @@ La suite entière, jouée en local après ces deux corrections et avec
 point 0.4 de bout en bout. La CI comptait 3620 tests : le test d'écart reste à
 identifier au prochain passage, il n'est ni rouge ni ignoré.
 
+## Annexe — Le point 0.17 (PostgreSQL 13 → 18)
+
+Hors de ce dépôt : `ekylibre/docker-base-images@6281aea`, qui remplace
+`postgresql-client-13` par le 18 dans `ruby/3.4.10/Dockerfile.prod`. La CI de ce
+dépôt-là reconstruit et republie `ruby3.4.10:latest`, dont dépendent l'image de
+développement et le conteneur de la CI d'Ekylibre.
+
+Ici : l'image du service `db` (dev et CI), l'ordre et le contenu des scripts
+d'initialisation, `docker/startup.sh`, puis `db/structure.sql` dans son propre
+commit.
+
+**Ce qu'il faut savoir avant de refaire le chemin sur un autre poste** : le
+volume de données doit être neuf (`docker volume rm dev_database-volume`), et
+tout repart de `docker compose up` — chargement de `structure.sql`, migrations,
+lexique. Les tenants de développement sont perdus ; `config/tenants.yml` n'est
+pas versionné et se repeuple à la création.
+
 ## Annexe — Où reprendre
 
-1. **Lire la mesure de CI.** La suite est verte en local ; le job `Tests` doit
-   maintenant sortir à zéro, pour la première fois.
-2. Puis le point 0.17 — **PostgreSQL 13 → 18**, qui commence par un client 18
-   dans `ekylibre/docker-base-images` : le client 17.11 refuse un serveur 18
-   (mesuré), et c'est `pg_dump` qui fait `db:structure:dump` comme
-   `Ekylibre::Tenant.dump`. Régénérer `structure.sql` dans un commit dédié, en
-   sachant que le passage du client 13 au client 18 coûte à lui seul ~1400
-   lignes de diff de pure forme.
-3. Le lot 1 s'ouvre sur le prototype de mono-schéma à trois tables.
+1. **Lire la mesure de CI**, qui tourne pour la première fois sur PostgreSQL 18.
+   Deux choses à y vérifier : que le job `Tests` sort à zéro, et que l'étape de
+   préparation des extensions passe bien sur l'image officielle.
+2. Le lot 0 n'a plus de point bloquant : restent les valeurs par défaut (0.5 à
+   0.9) et la dette d'outillage (0.10 à 0.13), aucun ne séparant du lot 1.
+3. Le lot 1 s'ouvre sur le prototype de mono-schéma à trois tables — sur une
+   base qui porte désormais `uuidv7()`.

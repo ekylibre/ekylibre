@@ -209,7 +209,7 @@ Le chiffrage initial du lot B (B.9, « montée en verrou des 7 forks + 12 plugin
 
 - **`therubyracer` est du poids mort** (lot A.1, fait). La version d'ExecJS installée ne le liste plus parmi ses runtimes (`therubyrhino, GraalVM, Duktape, mini_racer, Bun.sh, Node.js, JavaScriptCore, SpiderMonkey, JScript, V8`) ; ExecJS sélectionne déjà Node 20, fourni par l'image de base commune au dev et à la prod. Retiré du `Gemfile` : la résolution passe et `libv8 3.16` disparaît avec lui. **Aucun `mini_racer` n'est nécessaire.**
 - **PostgreSQL 13 est validé pour la CI** (lot A.8, fait) : les 721 migrations s'appliquent proprement sur `postgis/postgis:13-3.3` et produisent le même schéma que la base de développement — 251 tables, 35 colonnes géométriques, 1 837 index, 169 FK.
-- **PostgreSQL 15 fonctionne aussi** (721 migrations, schéma identique), **mais est bloqué par l'image de base** : `postgresql-client` y est en 13, et `pg_dump` refuse de dumper un serveur plus récent (*server version mismatch*). Cela casserait `db:structure:dump` **et** `Ekylibre::Tenant.dump`. Passer en 15/16 impose donc un bump de `ekylibre/docker-base-images` — hors de ce dépôt.
+- ~~**PostgreSQL 15 fonctionne aussi**, mais est bloqué par l'image de base~~ — **levé le 14 septembre 2026 (point 0.17).** Le diagnostic était bon : `pg_dump` refuse de dumper un serveur plus récent que lui, ce qui casse `db:schema:dump` **et** `Ekylibre::Tenant.dump`, et pire, la création de tenant — Apartment appelle `pg_dump` à chaque fois. Le blocage se lève dans l'ordre inverse de l'intuition : d'abord le client (`docker-base-images@6281aea`, client 18), ensuite le serveur. Dev et CI tournent depuis sur `postgis/postgis:18-3.6`, et `uuidv7()` native répond.
 
 ---
 

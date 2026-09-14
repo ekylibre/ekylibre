@@ -88,7 +88,7 @@ docker compose -f docker/dev/docker-compose.yml exec app bundle exec rake first_
 |---|---|---|
 | `app` | `3000` | Serveur Rails |
 | `app` | `8808` | Rack Mini Profiler |
-| `db` | `5431` | PostgreSQL 13 (PostGIS) |
+| `db` | `5431` | PostgreSQL 18 (PostGIS 3.6) |
 | `redis` | — | Redis 7 (interne) |
 | `sidekiq` | — | Worker de jobs en arrière-plan |
 | `caddy` | `127.0.0.1:80` / `127.0.0.1:443` | Reverse-proxy HTTPS pour `duke.ekylibre.localhost` (→ duke local) et `(*.)ekylibre.localhost` (→ app:3000) |
