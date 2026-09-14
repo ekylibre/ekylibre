@@ -18,6 +18,7 @@
 
 module MonoschemaSchema
   OUTPUT_PATH = 'db/monoschema/schema.sql'.freeze
+  INPLACE_PATH = 'db/monoschema/schema-inplace.sql'.freeze
   DATABASE = ENV.fetch('MONOSCHEMA_FULL_DATABASE', 'ekylibre_monoschema_full')
   APP_ROLE = 'ekylibre_app'.freeze
 
@@ -42,8 +43,21 @@ module MonoschemaSchema
     end
   end
 
+  # `full` engendre tout, pour une base neuve. `inplace` laisse le `lexicon`
+  # existant tranquille et n'y crée que les cinq tables qui viennent de
+  # `public` : c'est la forme qu'attend une migration menée dans la base du
+  # client, à côté des schémas par ferme.
+  def scope
+    ENV.fetch('SCOPE', 'full')
+  end
+
   def kept
-    @kept ||= plan.reject { |_table, entry| entry['plane'] == 'drop' }
+    @kept ||= plan.reject do |_table, entry|
+      next true if entry['plane'] == 'drop'
+      next false unless scope == 'inplace'
+
+      entry['plane'] == 'reference' && entry['schema'] == 'lexicon'
+    end
   end
 
   # --- Colonnes ------------------------------------------------------------
@@ -195,9 +209,9 @@ module MonoschemaSchema
     data.each_key { |table| out << row_level_security(table) }
     out << grants
 
-    path = Rails.root.join(OUTPUT_PATH)
+    path = Rails.root.join(scope == 'full' ? OUTPUT_PATH : INPLACE_PATH)
     path.write(out)
-    { path: path, tables: kept.size, data: data.size, lines: out.lines.count }
+    { path: path.relative_path_from(Rails.root), tables: kept.size, data: data.size, lines: out.lines.count }
   end
 
   def header
@@ -216,6 +230,7 @@ module MonoschemaSchema
 
       CREATE SCHEMA IF NOT EXISTS ekylibre;
       CREATE SCHEMA IF NOT EXISTS lexicon;
+      CREATE EXTENSION IF NOT EXISTS btree_gist;
       SET search_path TO ekylibre, lexicon, public, postgis;
 
     SQL
@@ -273,7 +288,7 @@ namespace :monoschema do
   desc 'Engendre db/monoschema/schema.sql — la forme d’arrivée du mono-schéma'
   task schema: :environment do
     result = MonoschemaSchema.build
-    puts "#{MonoschemaSchema::OUTPUT_PATH} engendré : #{result[:tables]} tables " \
+    puts "#{result[:path]} engendré : #{result[:tables]} tables " \
          "(#{result[:data]} au plan de données), #{result[:lines]} lignes."
   end
 

@@ -188,6 +188,11 @@ jobs:
           git diff --exit-code db/monoschema/schema.sql db/monoschema/references.yml
           bundle exec rake monoschema:schema:build
           bundle exec rake monoschema:audit
+          # Et la recopie des données, sur deux fermes jetables : une migration
+          # qui ne s'est jamais exécutée n'est qu'une intention. La tâche crée
+          # ses tenants, migre, vérifie, et nettoie derrière elle.
+          SCOPE=inplace bundle exec rake monoschema:schema
+          bundle exec rake monoschema:migrate:check
 
       - name: Monter la base du prototype de mono-schéma
         # Point 1.4 : les garanties d'isolation (RLS, clés composites, index

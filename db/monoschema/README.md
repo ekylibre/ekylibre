@@ -133,10 +133,54 @@ point 1.8 réunis :
 5. aucun index unique ne commence ailleurs qu'à `tenant_id` ;
 6. toute clé étrangère entre deux tables du plan de données est composite.
 
-Ce que ce schéma ne fait **pas** : migrer les données. Fusionner N schémas en
-un, renuméroter les clés, engendrer les UUIDv7, dédupliquer les cinq tables qui
-passent au référentiel — tout cela vient après, et sur cette cible. Les vues et
-vues matérialisées ne sont pas non plus reprises : c'est le point 1.10.
+## La recopie des données
+
+```bash
+SCOPE=inplace rake monoschema:schema   # -> schema-inplace.sql, sans le lexicon existant
+rake monoschema:migrate TENANTS=alpha,beta
+rake monoschema:migrate:check          # deux fermes jetables, de bout en bout
+```
+
+La migration se mène **dans la base du client**, à côté des schémas par ferme :
+le schéma `ekylibre` est créé, les lignes y sont recopiées ferme par ferme, puis
+les anciens schémas peuvent partir. Trois choses la rendent plus simple qu'on ne
+le craignait, et une la complique.
+
+**Les clés entières ne bougent pas.** Deux fermes ont toutes deux un
+`products.id = 1` : la clé primaire composite `(tenant_id, id)` l'accepte. Il
+n'y a donc **rien à renuméroter sur 194 des 234 tables** — la « renumérotation
+des PK » que la feuille de route annonçait n'a pas lieu d'être.
+
+**Les 40 tables à clé UUIDv7 en demandent une, elle.** Avec elles, les **132
+colonnes qui les désignent**, réparties dans 73 tables. Une table de
+correspondance par table et par ferme porte l'ancien entier et le nouvel uuid ;
+la recopie joint dessus.
+
+**L'uuid engendré porte la date de la ligne, pas celle de la migration.**
+PostgreSQL 18 accepte un décalage : `uuidv7(created_at - now())` produit un
+identifiant dont le préfixe temporel est celui de la création. Sans cela, dix
+ans d'historique s'entasseraient au même endroit de l'index — l'argument même
+qui a fait préférer UUIDv7 à UUIDv4 serait perdu à la migration.
+
+**Ce qui la complique** : elle contourne la RLS. Elle s'exécute avec un rôle qui
+la traverse — superutilisateur, ou propriétaire après `DISABLE ROW LEVEL
+SECURITY` — et met les contraintes en sommeil (`session_replication_role =
+replica`) le temps de la recopie, le graphe des références ayant des cycles.
+C'est une raison de plus pour que l'application, elle, ne se connecte jamais
+ainsi.
+
+`monoschema:migrate:check` monte deux fermes jetables, y sème des lignes aux
+identifiants volontairement identiques, migre, puis vérifie huit choses : les
+deux fermes sont enregistrées, les quatre produits sont là, les identifiants
+entiers sont conservés collisions comprises, les interventions ont des uuid
+distincts, **l'uuid porte la date de création**, chaque paramètre pointe une
+intervention de sa propre ferme, les séquences repartent au-dessus du plus grand
+`id`, et les politiques sont intactes. La CI le rejoue.
+
+Ce que la recopie ne fait **pas** encore : dédupliquer les cinq tables qui
+passent au référentiel, ni reprendre les onze vues et trois vues matérialisées
+— c'est le point 1.10. Elle n'a par ailleurs été mesurée que sur des fermes
+jetables : le volume réel, lui, se mesurera sur une copie de production.
 
 ## Le questionnaire
 
