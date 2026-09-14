@@ -72,6 +72,22 @@ retiennent `raise_on_missing_required_finder_order_columns` (point 0.8) : leur
 donner une clé, c'est décider ce qui identifie une ligne dans chaque référentiel
 importé. Le lot 1 les rencontre de nouveau ici.
 
+## Le questionnaire
+
+Les décisions se prennent plus facilement sur un document que dans un fichier
+YAML. `rake monoschema:questionnaire` engendre
+[`docs/planning/v6-classification-questions.md`](../../docs/planning/v6-classification-questions.md) :
+les 241 tables du plan de données, chacune avec ses faits mesurés — colonnes,
+clés, mentions dans le code, fixtures, présence d'un écran, dernière migration —
+et une colonne *Décision* à remplir : `conserver`, `lexicon`, `supprimer`,
+`contrôle` ou `discuter`.
+
+Elles y sont rangées par signal, pour qu'on n'ait pas à lire les 241 : les
+tables sans modèle, celles que presque rien ne mentionne, celles qu'aucun écran
+ne modifie — la question du référentiel partagé —, puis le reste. Une fois le
+document rempli, ses réponses se reportent dans `classification.yml`, qui fait
+foi. **Le régénérer écrase les réponses.**
+
 ## Les sept questions ouvertes
 
 `classify` les rappelle à chaque exécution. Aucune n'est technique — chacune
