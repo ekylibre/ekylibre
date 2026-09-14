@@ -174,6 +174,21 @@ jobs:
           git config --global --add safe.directory "$PWD"
           git diff --exit-code db/monoschema/plan.yml
 
+      - name: Engendrer et auditer le schéma mono-base
+        # Points 1.6 à 1.8 : le schéma d'arrivée est engendré du plan, chargé
+        # dans une base neuve, puis passé aux six invariants d'isolation —
+        # `tenant_id`, clé primaire composite, RLS activée et forcée, politique
+        # complète, index uniques préfixés, clés étrangères composites. Une
+        # migration qui les romprait met la CI au rouge avant d'atteindre une
+        # base de client.
+        run: |
+          set -euo pipefail
+          bundle exec rake monoschema:references
+          bundle exec rake monoschema:schema
+          git diff --exit-code db/monoschema/schema.sql db/monoschema/references.yml
+          bundle exec rake monoschema:schema:build
+          bundle exec rake monoschema:audit
+
       - name: Monter la base du prototype de mono-schéma
         # Point 1.4 : les garanties d'isolation (RLS, clés composites, index
         # tenant-aware) sont vérifiées à chaque passage, pas une fois pour

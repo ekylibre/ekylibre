@@ -1,0 +1,3387 @@
+# ENGENDRÉ PAR `rake monoschema:references` — NE PAS MODIFIER À LA MAIN.
+#
+# Pour chaque colonne de référence d'une table du plan de données, la table
+# visée telle que les `belongs_to` des modèles la déclarent, et le plan de
+# cette table :
+#
+#   data        -> la clé étrangère devient composite (tenant_id, colonne)
+#   reference   -> elle reste simple : la cible n'a pas de tenant_id
+#   control     -> idem
+#   polymorphe  -> aucune contrainte possible, la cible change par ligne
+#   inconnu     -> aucun modèle ne le dit ; à traiter à la main
+#
+account_balances:
+  account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+accounts:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+active_storage_attachments:
+  blob_id:
+    target: active_storage_blobs
+    plane: data
+  record_id:
+    target: polymorphe
+    plane: polymorphe
+active_storage_blobs: {}
+active_storage_variant_records:
+  blob_id:
+    target: active_storage_blobs
+    plane: data
+activities:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_budget_items:
+  activity_budget_id:
+    target: activity_budgets
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  product_parameter_id:
+    target: intervention_template_product_parameters
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  transfered_activity_budget_id:
+    target: activity_budgets
+    plane: data
+  unit_id:
+    target: units
+    plane: reference
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+activity_budgets:
+  activity_id:
+    target: activities
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  technical_itinerary_id:
+    target: technical_itineraries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_distributions:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  main_activity_id:
+    target: activities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_inspection_calibration_natures:
+  creator_id:
+    target: users
+    plane: data
+  scale_id:
+    target: activity_inspection_calibration_scales
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_inspection_calibration_scales:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_inspection_point_natures:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_production_batches:
+  activity_production_id:
+    target: activity_productions
+    plane: data
+  planning_scenario_activity_plot_id:
+    target: planning_scenario_activity_plots
+    plane: data
+activity_production_irregular_batches:
+  activity_production_batch_id:
+    target: activity_production_batches
+    plane: data
+activity_productions:
+  activity_id:
+    target: activities
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  cultivable_zone_id:
+    target: cultivable_zones
+    plane: data
+  season_id:
+    target: activity_seasons
+    plane: data
+  support_id:
+    target: products
+    plane: data
+  tactic_id:
+    target: activity_tactics
+    plane: data
+  technical_itinerary_id:
+    target: technical_itineraries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_seasons:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+activity_tactics:
+  activity_id:
+    target: activities
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  technical_itinerary_id:
+    target: technical_itineraries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+affair_labellings:
+  affair_id:
+    target: affairs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  label_id:
+    target: labels
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+affair_natures:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+affairs:
+  cash_session_id:
+    target: cash_sessions
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  nature_id:
+    target: affair_natures
+    plane: data
+  provider_id:
+    target: entities
+    plane: data
+  responsible_id:
+    target: entities
+    plane: data
+  third_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+alert_phases:
+  alert_id:
+    target: alerts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+alerts:
+  creator_id:
+    target: users
+    plane: data
+  sensor_id:
+    target: sensors
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+analyses:
+  analyser_id:
+    target: entities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  cultivable_zone_id:
+    target: cultivable_zones
+    plane: data
+  host_id:
+    target: products
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  sampler_id:
+    target: entities
+    plane: data
+  sensor_id:
+    target: sensors
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+analysis_items:
+  analysis_id:
+    target: analyses
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  product_reading_id:
+    target: product_readings
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+analytic_segments:
+  analytic_sequence_id:
+    target: analytic_sequences
+    plane: data
+analytic_sequences: {}
+associates:
+  associate_account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+attachments:
+  creator_id:
+    target: users
+    plane: data
+  deleter_id:
+    target: users
+    plane: data
+  document_id:
+    target: documents
+    plane: data
+  resource_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+bank_statement_items:
+  bank_statement_id:
+    target: bank_statements
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+bank_statements:
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+call_messages:
+  call_id:
+    target: calls
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  request_id:
+    target: call_messages
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+calls:
+  creator_id:
+    target: users
+    plane: data
+  source_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+campaigns:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cap_islets:
+  cap_statement_id:
+    target: cap_statements
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cap_land_parcels:
+  cap_islet_id:
+    target: cap_islets
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  support_id:
+    target: activity_productions
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cap_neutral_areas:
+  cap_statement_id:
+    target: cap_statements
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cap_statements:
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  declarant_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cash_sessions:
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cash_transfers:
+  creator_id:
+    target: users
+    plane: data
+  emission_cash_id:
+    target: cashes
+    plane: data
+  emission_journal_entry_id:
+    target: journal_entries
+    plane: data
+  reception_cash_id:
+    target: cashes
+    plane: data
+  reception_journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cashes:
+  container_id:
+    target: products
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  main_account_id:
+    target: accounts
+    plane: data
+  owner_id:
+    target: entities
+    plane: data
+  suspense_account_id:
+    target: accounts
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+catalog_items:
+  catalog_id:
+    target: catalogs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  purchase_item_id:
+    target: purchase_items
+    plane: data
+  reference_tax_id:
+    target: taxes
+    plane: data
+  sale_item_id:
+    target: sale_items
+    plane: data
+  unit_id:
+    target: units
+    plane: reference
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+catalogs:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+contract_items:
+  contract_id:
+    target: contracts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+contracts:
+  creator_id:
+    target: users
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  supplier_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+crop_group_items:
+  creator_id:
+    target: users
+    plane: data
+  crop_group_id:
+    target: crop_groups
+    plane: data
+  crop_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+crop_group_labellings:
+  creator_id:
+    target: users
+    plane: data
+  crop_group_id:
+    target: crop_groups
+    plane: data
+  label_id:
+    target: labels
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+crop_groups:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+crumbs:
+  creator_id:
+    target: users
+    plane: data
+  intervention_parameter_id:
+    target: intervention_parameters
+    plane: data
+  intervention_participation_id:
+    target: intervention_participations
+    plane: data
+  ride_id:
+    target: rides
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  user_id:
+    target: users
+    plane: data
+cultivable_zones:
+  creator_id:
+    target: users
+    plane: data
+  farmer_id:
+    target: entities
+    plane: data
+  owner_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+custom_field_choices:
+  creator_id:
+    target: users
+    plane: data
+  custom_field_id:
+    target: custom_fields
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+custom_fields:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cvi_cadastral_plant_cvi_land_parcels:
+  creator_id:
+    target: users
+    plane: data
+  cvi_cadastral_plant_id:
+    target: cvi_cadastral_plants
+    plane: data
+  cvi_land_parcel_id:
+    target: cvi_land_parcels
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cvi_cadastral_plants:
+  creator_id:
+    target: users
+    plane: data
+  cvi_cultivable_zone_id:
+    target: cvi_cultivable_zones
+    plane: data
+  cvi_statement_id:
+    target: cvi_statements
+    plane: data
+  designation_of_origin_id:
+    target: registered_quality_and_origin_signs
+    plane: reference
+  updater_id:
+    target: users
+    plane: data
+cvi_cultivable_zones:
+  creator_id:
+    target: users
+    plane: data
+  cvi_statement_id:
+    target: cvi_statements
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+cvi_land_parcels:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  cvi_cultivable_zone_id:
+    target: cvi_cultivable_zones
+    plane: data
+  designation_of_origin_id:
+    target: registered_quality_and_origin_signs
+    plane: reference
+  updater_id:
+    target: users
+    plane: data
+cvi_statements:
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+daily_charges:
+  activity_id:
+    target: activities
+    plane: data
+  activity_production_id:
+    target: activity_productions
+    plane: data
+  intervention_template_product_parameter_id:
+    target: intervention_template_product_parameters
+    plane: data
+  quantity_unit_id:
+    target: units
+    plane: reference
+dashboards:
+  creator_id:
+    target: users
+    plane: data
+  owner_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+debt_transfers:
+  affair_id:
+    target: affairs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  debt_transfer_affair_id:
+    target: affairs
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+deliveries:
+  creator_id:
+    target: users
+    plane: data
+  driver_id:
+    target: entities
+    plane: data
+  responsible_id:
+    target: entities
+    plane: data
+  transporter_id:
+    target: entities
+    plane: data
+  transporter_purchase_id:
+    target: purchases
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+delivery_tools:
+  creator_id:
+    target: users
+    plane: data
+  delivery_id:
+    target: deliveries
+    plane: data
+  tool_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+deposits:
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  mode_id:
+    target: incoming_payment_modes
+    plane: data
+  responsible_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+document_templates:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+documents:
+  creator_id:
+    target: users
+    plane: data
+  template_id:
+    target: document_templates
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+economic_cash_indicators:
+  activity_budget_id:
+    target: activity_budgets
+    plane: data
+  activity_budget_item_id:
+    target: activity_budget_items
+    plane: data
+  activity_id:
+    target: activities
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  loan_id:
+    target: loans
+    plane: data
+  product_nature_variant_id:
+    target: product_nature_variants
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  worker_contract_id:
+    target: worker_contracts
+    plane: data
+email_templates:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+entities:
+  client_account_id:
+    target: accounts
+    plane: data
+  client_payment_mode_id:
+    target: incoming_payment_modes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  employee_account_id:
+    target: accounts
+    plane: data
+  payslip_contributor_account_id:
+    target: accounts
+    plane: data
+  proposer_id:
+    target: entities
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  supplier_account_id:
+    target: accounts
+    plane: data
+  supplier_payment_mode_id:
+    target: outgoing_payment_modes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+entity_addresses:
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  mail_postal_zone_id:
+    target: postal_zones
+    plane: reference
+  updater_id:
+    target: users
+    plane: data
+entity_links:
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  linked_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+entity_payment_methods:
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+event_participations:
+  creator_id:
+    target: users
+    plane: data
+  event_id:
+    target: events
+    plane: data
+  participant_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+events:
+  affair_id:
+    target: affairs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+financial_year_archives:
+  financial_year_id:
+    target: financial_years
+    plane: data
+financial_year_exchanges:
+  creator_id:
+    target: users
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+financial_years:
+  accountant_id:
+    target: entities
+    plane: data
+  closer_id:
+    target: users
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  last_journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+fixed_asset_depreciations:
+  creator_id:
+    target: users
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  fixed_asset_id:
+    target: fixed_assets
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+fixed_assets:
+  activity_id:
+    target: activities
+    plane: data
+  allocation_account_id:
+    target: accounts
+    plane: data
+  asset_account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  expenses_account_id:
+    target: accounts
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  purchase_id:
+    target:
+    plane: inconnu
+  purchase_item_id:
+    target:
+    plane: inconnu
+  sale_id:
+    target: sales
+    plane: data
+  sale_item_id:
+    target: sale_items
+    plane: data
+  scrapped_journal_entry_id:
+    target: journal_entries
+    plane: data
+  sold_journal_entry_id:
+    target: journal_entries
+    plane: data
+  special_imputation_asset_account_id:
+    target: accounts
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  waiting_asset_account_id:
+    target: accounts
+    plane: data
+  waiting_journal_entry_id:
+    target: journal_entries
+    plane: data
+gap_items:
+  creator_id:
+    target: users
+    plane: data
+  gap_id:
+    target: gaps
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+gaps:
+  affair_id:
+    target: affairs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+georeadings:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+guide_analyses:
+  creator_id:
+    target: users
+    plane: data
+  guide_id:
+    target: guides
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+guide_analysis_points:
+  analysis_id:
+    target: guide_analyses
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+guides:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+hve_audit_items:
+  hve_audit_id:
+    target: hve_audits
+    plane: data
+hve_audits:
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+hve_biodiversity_items:
+  hve_audit_id:
+    target: hve_audits
+    plane: data
+hve_cmr_products: {}
+hve_iae_coefficients: {}
+hve_nitrogen_export_coefficients: {}
+hve_scoring_tables: {}
+idea_diagnostic_item_values:
+  creator_id:
+    target: users
+    plane: data
+  idea_diagnostic_item_id:
+    target: idea_diagnostic_items
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+idea_diagnostic_items:
+  creator_id:
+    target: users
+    plane: data
+  idea_diagnostic_id:
+    target: idea_diagnostics
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+idea_diagnostic_results:
+  creator_id:
+    target: users
+    plane: data
+  idea_diagnostic_id:
+    target: idea_diagnostics
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+idea_diagnostics:
+  auditor_id:
+    target: entities
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+identifiers:
+  creator_id:
+    target: users
+    plane: data
+  net_service_id:
+    target: net_services
+    plane: reference
+  updater_id:
+    target: users
+    plane: data
+imports:
+  creator_id:
+    target: users
+    plane: data
+  importer_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+incoming_harvest_crops:
+  creator_id:
+    target: users
+    plane: data
+  crop_id:
+    target: products
+    plane: data
+  harvest_intervention_id:
+    target: interventions
+    plane: data
+  incoming_harvest_id:
+    target: incoming_harvests
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+incoming_harvest_storages:
+  creator_id:
+    target: users
+    plane: data
+  incoming_harvest_id:
+    target: incoming_harvests
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  storage_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+incoming_harvests:
+  analysis_id:
+    target: analyses
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  driver_id:
+    target: products
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  tractor_id:
+    target: products
+    plane: data
+  trailer_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+incoming_payment_modes:
+  cash_id:
+    target: cashes
+    plane: data
+  commission_account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  depositables_account_id:
+    target: accounts
+    plane: data
+  depositables_journal_id:
+    target: journals
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+incoming_payments:
+  affair_id:
+    target: affairs
+    plane: data
+  commission_account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  deposit_id:
+    target: deposits
+    plane: data
+  discount_vat_id:
+    target: taxes
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  mode_id:
+    target: incoming_payment_modes
+    plane: data
+  payer_id:
+    target: entities
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+inspection_calibrations:
+  creator_id:
+    target: users
+    plane: data
+  inspection_id:
+    target: inspections
+    plane: data
+  nature_id:
+    target: activity_inspection_calibration_natures
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+inspection_points:
+  creator_id:
+    target: users
+    plane: data
+  inspection_id:
+    target: inspections
+    plane: data
+  nature_id:
+    target: activity_inspection_point_natures
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+inspections:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+integrations:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_costings:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_crop_groups:
+  creator_id:
+    target: users
+    plane: data
+  crop_group_id:
+    target: crop_groups
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_labellings:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  label_id:
+    target: labels
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_parameter_readings:
+  creator_id:
+    target: users
+    plane: data
+  parameter_id:
+    target: intervention_parameters
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_parameter_settings:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  intervention_parameter_id:
+    target: intervention_parameters
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_parameters:
+  assembly_id:
+    target: products
+    plane: data
+  component_id:
+    target: product_nature_variant_components
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  event_participation_id:
+    target: event_participations
+    plane: data
+  group_id:
+    target: intervention_parameters
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  new_container_id:
+    target: products
+    plane: data
+  new_group_id:
+    target: products
+    plane: data
+  new_variant_id:
+    target: product_nature_variants
+    plane: data
+  outcoming_product_id:
+    target: products
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+intervention_participations:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_proposal_parameters:
+  intervention_proposal_id:
+    target: intervention_proposals
+    plane: data
+  intervention_template_product_parameter_id:
+    target: intervention_template_product_parameters
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  product_nature_variant_id:
+    target: product_nature_variants
+    plane: data
+intervention_proposals:
+  activity_production_id:
+    target: activity_productions
+    plane: data
+  activity_production_irregular_batch_id:
+    target: activity_production_irregular_batches
+    plane: data
+  technical_itinerary_intervention_template_id:
+    target: technical_itinerary_intervention_templates
+    plane: data
+intervention_setting_items:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  intervention_parameter_setting_id:
+    target: intervention_parameter_settings
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_template_activities:
+  activity_id:
+    target: activities
+    plane: data
+  intervention_template_id:
+    target: intervention_templates
+    plane: data
+intervention_template_product_parameters:
+  activity_id:
+    target: activities
+    plane: data
+  intervention_template_id:
+    target: intervention_templates
+    plane: data
+  product_nature_id:
+    target: product_natures
+    plane: data
+  product_nature_variant_id:
+    target: product_nature_variants
+    plane: data
+intervention_templates:
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  originator_id:
+    target: intervention_templates
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+intervention_working_periods:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  intervention_participation_id:
+    target: intervention_participations
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+interventions:
+  costing_id:
+    target: intervention_costings
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  event_id:
+    target: events
+    plane: data
+  intervention_proposal_id:
+    target: intervention_proposals
+    plane: data
+  issue_id:
+    target: issues
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  parent_id:
+    target:
+    plane: inconnu
+  prescription_id:
+    target: prescriptions
+    plane: data
+  purchase_id:
+    target: purchases
+    plane: data
+  request_intervention_id:
+    target: interventions
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  validator_id:
+    target: users
+    plane: data
+inventories:
+  creator_id:
+    target: users
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  product_nature_category_id:
+    target: product_nature_categories
+    plane: data
+  responsible_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+inventory_items:
+  creator_id:
+    target: users
+    plane: data
+  inventory_id:
+    target: inventories
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  product_movement_id:
+    target: product_movements
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+issue_natures: {}
+issues:
+  creator_id:
+    target: users
+    plane: data
+  issue_nature_id:
+    target: issue_natures
+    plane: data
+  products_yield_observation_id:
+    target: products_yield_observations
+    plane: data
+  target_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+issues_yield_observations:
+  issue_id:
+    target: issues
+    plane: data
+  yield_observation_id:
+    target: yield_observations
+    plane: data
+journal_entries:
+  creator_id:
+    target: users
+    plane: data
+  financial_year_exchange_id:
+    target: financial_year_exchanges
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  resource_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+journal_entry_items:
+  account_id:
+    target: accounts
+    plane: data
+  activity_budget_id:
+    target: activity_budgets
+    plane: data
+  bank_statement_id:
+    target: bank_statements
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  entry_id:
+    target: journal_entries
+    plane: data
+  equipment_id:
+    target: products
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  project_budget_id:
+    target: project_budgets
+    plane: data
+  project_task_id:
+    target:
+    plane: inconnu
+  resource_id:
+    target: polymorphe
+    plane: polymorphe
+  tax_declaration_item_id:
+    target: tax_declaration_items
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+journals:
+  accountant_id:
+    target: entities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  financial_year_exchange_id:
+    target: financial_year_exchanges
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+labels:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+listing_node_items:
+  creator_id:
+    target: users
+    plane: data
+  node_id:
+    target: listing_nodes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+listing_nodes:
+  creator_id:
+    target: users
+    plane: data
+  item_listing_id:
+    target: listings
+    plane: data
+  item_listing_node_id:
+    target: listing_nodes
+    plane: data
+  listing_id:
+    target: listings
+    plane: data
+  parent_id:
+    target: listing_nodes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+listings:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+loan_repayments:
+  creator_id:
+    target: users
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  loan_id:
+    target: loans
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+loans:
+  activity_id:
+    target: activities
+    plane: data
+  bank_guarantee_account_id:
+    target: accounts
+    plane: data
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  insurance_account_id:
+    target: accounts
+    plane: data
+  interest_account_id:
+    target: accounts
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  lender_id:
+    target: entities
+    plane: data
+  loan_account_id:
+    target: accounts
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+locations:
+  creator_id:
+    target: users
+    plane: data
+  localizable_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+manure_management_plan_zones:
+  activity_production_id:
+    target: activity_productions
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  plan_id:
+    target: manure_management_plans
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+manure_management_plans:
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  recommender_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+map_layers:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+naming_format_fields:
+  creator_id:
+    target: users
+    plane: data
+  naming_format_id:
+    target: naming_formats
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+naming_formats:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+notifications:
+  creator_id:
+    target: users
+    plane: data
+  recipient_id:
+    target: users
+    plane: data
+  target_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+observations:
+  author_id:
+    target: users
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  subject_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+outgoing_payment_lists:
+  creator_id:
+    target: users
+    plane: data
+  mode_id:
+    target: outgoing_payment_modes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+outgoing_payment_modes:
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+outgoing_payments:
+  affair_id:
+    target: affairs
+    plane: data
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  discount_vat_id:
+    target: taxes
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  list_id:
+    target: outgoing_payment_lists
+    plane: data
+  mode_id:
+    target: outgoing_payment_modes
+    plane: data
+  payee_id:
+    target: entities
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+parcel_item_storings:
+  conditioning_unit_id:
+    target: units
+    plane: reference
+  creator_id:
+    target: users
+    plane: data
+  parcel_item_id:
+    target: parcel_items
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  storage_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+parcel_items:
+  activity_budget_id:
+    target: activity_budgets
+    plane: data
+  analysis_id:
+    target: analyses
+    plane: data
+  conditioning_unit_id:
+    target: units
+    plane: reference
+  creator_id:
+    target: users
+    plane: data
+  delivery_id:
+    target: deliveries
+    plane: data
+  equipment_id:
+    target: products
+    plane: data
+  parcel_id:
+    target: parcels
+    plane: data
+  product_enjoyment_id:
+    target:
+    plane: inconnu
+  product_id:
+    target: products
+    plane: data
+  product_localization_id:
+    target:
+    plane: inconnu
+  product_movement_id:
+    target:
+    plane: inconnu
+  product_ownership_id:
+    target:
+    plane: inconnu
+  project_budget_id:
+    target: project_budgets
+    plane: data
+  purchase_invoice_item_id:
+    target: purchase_items
+    plane: data
+  purchase_order_item_id:
+    target: purchase_items
+    plane: data
+  purchase_order_to_close_id:
+    target: purchases
+    plane: data
+  sale_item_id:
+    target: sale_items
+    plane: data
+  source_product_id:
+    target: products
+    plane: data
+  source_product_movement_id:
+    target: product_movements
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  transporter_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+parcels:
+  address_id:
+    target: entity_addresses
+    plane: data
+  contract_id:
+    target: contracts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  delivery_id:
+    target: deliveries
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  purchase_id:
+    target: purchases
+    plane: data
+  recipient_id:
+    target: entities
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  sale_id:
+    target: sales
+    plane: data
+  sale_nature_id:
+    target: sale_natures
+    plane: data
+  sender_id:
+    target: entities
+    plane: data
+  storage_id:
+    target: products
+    plane: data
+  transporter_id:
+    target: entities
+    plane: data
+  undelivered_invoice_journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+payslip_natures:
+  account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+payslips:
+  account_id:
+    target: accounts
+    plane: data
+  affair_id:
+    target: affairs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  employee_id:
+    target: entities
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  nature_id:
+    target: payslip_natures
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+pfi_intervention_parameters:
+  campaign_id:
+    target: campaigns
+    plane: data
+  input_id:
+    target: intervention_parameters
+    plane: data
+  target_id:
+    target: intervention_parameters
+    plane: data
+planning_scenario_activities:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  planning_scenario_id:
+    target: planning_scenarios
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+planning_scenario_activity_animals:
+  creator_id:
+    target: users
+    plane: data
+  planning_scenario_activity_id:
+    target: planning_scenario_activities
+    plane: data
+  technical_itinerary_id:
+    target: technical_itineraries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+planning_scenario_activity_plots:
+  creator_id:
+    target: users
+    plane: data
+  planning_scenario_activity_id:
+    target: planning_scenario_activities
+    plane: data
+  technical_itinerary_id:
+    target: technical_itineraries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+planning_scenarios:
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+plant_counting_items:
+  creator_id:
+    target: users
+    plane: data
+  plant_counting_id:
+    target: plant_countings
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+plant_countings:
+  creator_id:
+    target: users
+    plane: data
+  plant_density_abacus_id:
+    target: plant_density_abaci
+    plane: data
+  plant_density_abacus_item_id:
+    target: plant_density_abacus_items
+    plane: data
+  plant_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+plant_density_abaci:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+plant_density_abacus_items:
+  creator_id:
+    target: users
+    plane: data
+  plant_density_abacus_id:
+    target: plant_density_abaci
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+preferences:
+  creator_id:
+    target: users
+    plane: data
+  record_value_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+  user_id:
+    target: entities
+    plane: data
+prescriptions:
+  creator_id:
+    target: users
+    plane: data
+  prescriptor_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_enjoyments:
+  creator_id:
+    target: users
+    plane: data
+  enjoyer_id:
+    target: entities
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_labellings:
+  creator_id:
+    target: users
+    plane: data
+  label_id:
+    target: labels
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_linkages:
+  carried_id:
+    target: products
+    plane: data
+  carrier_id:
+    target: products
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+product_links:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  linked_id:
+    target: products
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_localizations:
+  container_id:
+    target: products
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_memberships:
+  creator_id:
+    target: users
+    plane: data
+  group_id:
+    target: products
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  member_id:
+    target: products
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+product_movements:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_nature_categories:
+  charge_account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  fixed_asset_account_id:
+    target: accounts
+    plane: data
+  fixed_asset_allocation_account_id:
+    target: accounts
+    plane: data
+  fixed_asset_expenses_account_id:
+    target: accounts
+    plane: data
+  product_account_id:
+    target: accounts
+    plane: data
+  stock_account_id:
+    target: accounts
+    plane: data
+  stock_movement_account_id:
+    target: accounts
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_nature_category_taxations:
+  creator_id:
+    target: users
+    plane: data
+  product_nature_category_id:
+    target: product_nature_categories
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_nature_variant_components:
+  creator_id:
+    target: users
+    plane: data
+  parent_id:
+    target: product_nature_variant_components
+    plane: data
+  part_product_nature_variant_id:
+    target: product_nature_variants
+    plane: data
+  product_nature_variant_id:
+    target: product_nature_variants
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_nature_variant_readings:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+product_nature_variant_tags:
+  creator_id:
+    target: users
+    plane: data
+  document_id:
+    target: documents
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+product_nature_variants:
+  category_id:
+    target: product_nature_categories
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  default_unit_id:
+    target: units
+    plane: reference
+  nature_id:
+    target: product_natures
+    plane: data
+  stock_account_id:
+    target: accounts
+    plane: data
+  stock_movement_account_id:
+    target: accounts
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_natures:
+  creator_id:
+    target: users
+    plane: data
+  subscription_nature_id:
+    target: subscription_natures
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_ownerships:
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  owner_id:
+    target: entities
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+product_phases:
+  category_id:
+    target: product_nature_categories
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  nature_id:
+    target: product_natures
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+product_readings:
+  creator_id:
+    target: users
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+products:
+  activity_production_id:
+    target: activity_productions
+    plane: data
+  address_id:
+    target: entity_addresses
+    plane: data
+  category_id:
+    target: product_nature_categories
+    plane: data
+  conditioning_unit_id:
+    target: units
+    plane: reference
+  creator_id:
+    target: users
+    plane: data
+  default_storage_id:
+    target: products
+    plane: data
+  fixed_asset_id:
+    target:
+    plane: inconnu
+  initial_container_id:
+    target: products
+    plane: data
+  initial_enjoyer_id:
+    target: entities
+    plane: data
+  initial_father_id:
+    target: products
+    plane: data
+  initial_mother_id:
+    target: products
+    plane: data
+  initial_movement_id:
+    target: product_movements
+    plane: data
+  initial_owner_id:
+    target: entities
+    plane: data
+  member_variant_id:
+    target: product_nature_variants
+    plane: data
+  nature_id:
+    target: product_natures
+    plane: data
+  originator_id:
+    target: synchronization_operations
+    plane: data
+  parent_id:
+    target: products
+    plane: data
+  person_id:
+    target: entities
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  tracking_id:
+    target: trackings
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+  worker_group_item_id:
+    target: worker_group_items
+    plane: data
+products_yield_observations:
+  product_id:
+    target: products
+    plane: data
+  vegetative_stage_id:
+    target: vegetative_stages
+    plane: reference
+  yield_observation_id:
+    target: yield_observations
+    plane: data
+project_budgets:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+project_members:
+  creator_id:
+    target: users
+    plane: data
+  project_id:
+    target: projects
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  user_id:
+    target: users
+    plane: data
+project_tasks:
+  creator_id:
+    target: users
+    plane: data
+  project_id:
+    target: projects
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  sale_contract_item_id:
+    target: sale_contract_items
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+projects:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  sale_contract_id:
+    target: sale_contracts
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+purchase_items:
+  account_id:
+    target: accounts
+    plane: data
+  activity_budget_id:
+    target: activity_budgets
+    plane: data
+  catalog_item_id:
+    target: catalog_items
+    plane: data
+  conditioning_unit_id:
+    target: units
+    plane: reference
+  creator_id:
+    target: users
+    plane: data
+  depreciable_product_id:
+    target: products
+    plane: data
+  equipment_id:
+    target: products
+    plane: data
+  fixed_asset_id:
+    target: fixed_assets
+    plane: data
+  project_budget_id:
+    target: project_budgets
+    plane: data
+  project_task_id:
+    target: project_tasks
+    plane: data
+  purchase_id:
+    target: purchases
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+purchase_natures:
+  creator_id:
+    target: users
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+purchases:
+  affair_id:
+    target: affairs
+    plane: data
+  contract_id:
+    target: contracts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  delivery_address_id:
+    target: entity_addresses
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  nature_id:
+    target: purchase_natures
+    plane: data
+  quantity_gap_on_invoice_journal_entry_id:
+    target: journal_entries
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  supplier_id:
+    target: entities
+    plane: data
+  undelivered_invoice_journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+qonto_inbound_invoices:
+  document_id:
+    target: documents
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  purchase_id:
+    target: purchases
+    plane: data
+qonto_outbound_invoices:
+  sale_id:
+    target: sales
+    plane: data
+regularizations:
+  affair_id:
+    target: affairs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+ride_set_equipments:
+  creator_id:
+    target: users
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  ride_set_id:
+    target: ride_sets
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+ride_sets:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+rides:
+  creator_id:
+    target: users
+    plane: data
+  cultivable_zone_id:
+    target: cultivable_zones
+    plane: data
+  intervention_id:
+    target: interventions
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  ride_set_id:
+    target: ride_sets
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+roles:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+sale_contract_items:
+  creator_id:
+    target: users
+    plane: data
+  sale_contract_id:
+    target: sale_contracts
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+sale_contract_natures:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+sale_contracts:
+  client_id:
+    target: entities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  nature_id:
+    target: sale_contract_natures
+    plane: data
+  responsible_id:
+    target: entities
+    plane: data
+  sale_opportunity_id:
+    target: affairs
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+sale_items:
+  account_id:
+    target: accounts
+    plane: data
+  activity_budget_id:
+    target: activity_budgets
+    plane: data
+  catalog_item_id:
+    target: catalog_items
+    plane: data
+  conditioning_unit_id:
+    target: units
+    plane: reference
+  creator_id:
+    target: users
+    plane: data
+  credited_item_id:
+    target: sale_items
+    plane: data
+  depreciable_product_id:
+    target: products
+    plane: data
+  fixed_asset_id:
+    target: fixed_assets
+    plane: data
+  project_task_id:
+    target: project_tasks
+    plane: data
+  sale_id:
+    target: sales
+    plane: data
+  shipment_item_id:
+    target: parcel_items
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  variant_id:
+    target: product_nature_variants
+    plane: data
+sale_natures:
+  catalog_id:
+    target: catalogs
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_id:
+    target: journals
+    plane: data
+  payment_mode_id:
+    target: incoming_payment_modes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+sales:
+  address_id:
+    target: entity_addresses
+    plane: data
+  affair_id:
+    target: affairs
+    plane: data
+  client_id:
+    target: entities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  credited_sale_id:
+    target: sales
+    plane: data
+  delivery_address_id:
+    target: entity_addresses
+    plane: data
+  invoice_address_id:
+    target: entity_addresses
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  nature_id:
+    target: sale_natures
+    plane: data
+  quantity_gap_on_invoice_journal_entry_id:
+    target: journal_entries
+    plane: data
+  responsible_id:
+    target: entities
+    plane: data
+  subscription_id:
+    target:
+    plane: inconnu
+  transporter_id:
+    target: entities
+    plane: data
+  undelivered_invoice_journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+sensors:
+  creator_id:
+    target: users
+    plane: data
+  host_id:
+    target: products
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+sequences:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+subscription_natures:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+subscriptions:
+  address_id:
+    target: entity_addresses
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  nature_id:
+    target: subscription_natures
+    plane: data
+  parent_id:
+    target: subscriptions
+    plane: data
+  sale_item_id:
+    target: sale_items
+    plane: data
+  subscriber_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+supervision_items:
+  creator_id:
+    target: users
+    plane: data
+  sensor_id:
+    target: sensors
+    plane: data
+  supervision_id:
+    target: supervisions
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+supervisions:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+synchronization_operations:
+  creator_id:
+    target: users
+    plane: data
+  notification_id:
+    target: notifications
+    plane: data
+  originator_id:
+    target: polymorphe
+    plane: polymorphe
+  updater_id:
+    target: users
+    plane: data
+target_distributions:
+  activity_id:
+    target: activities
+    plane: data
+  activity_production_id:
+    target: activity_productions
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  target_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+tasks:
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  executor_id:
+    target: entities
+    plane: data
+  sale_opportunity_id:
+    target: affairs
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+tax_declaration_item_parts:
+  account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  journal_entry_item_id:
+    target: journal_entry_items
+    plane: data
+  tax_declaration_item_id:
+    target: tax_declaration_items
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+tax_declaration_items:
+  creator_id:
+    target: users
+    plane: data
+  tax_declaration_id:
+    target: tax_declarations
+    plane: data
+  tax_id:
+    target: taxes
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+tax_declarations:
+  creator_id:
+    target: users
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  responsible_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+tax_payments:
+  cash_id:
+    target: cashes
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  financial_year_id:
+    target: financial_years
+    plane: data
+  journal_entry_id:
+    target: journal_entries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+taxes:
+  collect_account_id:
+    target: accounts
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  deduction_account_id:
+    target: accounts
+    plane: data
+  fixed_asset_collect_account_id:
+    target: accounts
+    plane: data
+  fixed_asset_deduction_account_id:
+    target: accounts
+    plane: data
+  intracommunity_payable_account_id:
+    target: accounts
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+teams:
+  creator_id:
+    target: users
+    plane: data
+  parent_id:
+    target: teams
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+technical_itineraries:
+  activity_id:
+    target: activities
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  originator_id:
+    target: technical_itineraries
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+technical_itinerary_intervention_templates:
+  intervention_template_id:
+    target: intervention_templates
+    plane: data
+  technical_itinerary_id:
+    target: technical_itineraries
+    plane: data
+tokens:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+trackings:
+  creator_id:
+    target: users
+    plane: data
+  producer_id:
+    target: entities
+    plane: data
+  product_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+users:
+  creator_id:
+    target: users
+    plane: data
+  invited_by_id:
+    target: users
+    plane: data
+  person_id:
+    target: entities
+    plane: data
+  role_id:
+    target: roles
+    plane: data
+  team_id:
+    target: teams
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+versions:
+  creator_id:
+    target: users
+    plane: data
+  item_id:
+    target: polymorphe
+    plane: polymorphe
+wice_grid_serialized_queries: {}
+wine_incoming_harvest_inputs:
+  creator_id:
+    target: users
+    plane: data
+  input_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  wine_incoming_harvest_id:
+    target: wine_incoming_harvests
+    plane: data
+wine_incoming_harvest_plants:
+  creator_id:
+    target: users
+    plane: data
+  plant_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  wine_incoming_harvest_id:
+    target: wine_incoming_harvests
+    plane: data
+wine_incoming_harvest_presses:
+  creator_id:
+    target: users
+    plane: data
+  press_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  wine_incoming_harvest_id:
+    target: wine_incoming_harvests
+    plane: data
+wine_incoming_harvest_storages:
+  creator_id:
+    target: users
+    plane: data
+  storage_id:
+    target: products
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  wine_incoming_harvest_id:
+    target: wine_incoming_harvests
+    plane: data
+wine_incoming_harvests:
+  analysis_id:
+    target: analyses
+    plane: data
+  campaign_id:
+    target: campaigns
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+worker_contract_distributions:
+  creator_id:
+    target: users
+    plane: data
+  main_activity_id:
+    target: activities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  worker_contract_id:
+    target: worker_contracts
+    plane: data
+worker_contracts:
+  creator_id:
+    target: users
+    plane: data
+  entity_id:
+    target: entities
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+worker_group_items:
+  worker_group_id:
+    target: worker_groups
+    plane: data
+  worker_id:
+    target: products
+    plane: data
+worker_group_labellings:
+  label_id:
+    target: labels
+    plane: data
+  worker_group_id:
+    target: worker_groups
+    plane: data
+worker_groups:
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+worker_time_logs:
+  creator_id:
+    target: users
+    plane: data
+  project_task_id:
+    target: project_tasks
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  worker_id:
+    target: products
+    plane: data
+yield_observations:
+  activity_id:
+    target: activities
+    plane: data
+  creator_id:
+    target: users
+    plane: data
+  updater_id:
+    target: users
+    plane: data
+  vegetative_stage_id:
+    target: vegetative_stages
+    plane: reference

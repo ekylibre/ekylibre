@@ -76,6 +76,68 @@ retiennent `raise_on_missing_required_finder_order_columns` (point 0.8) : leur
 donner une clé, c'est décider ce qui identifie une ligne dans chaque référentiel
 importé. Le lot 1 les rencontre de nouveau ici.
 
+## Du plan au schéma (points 1.6 à 1.8)
+
+Le plan n'est pas un document : il est exécutable. Trois tâches l'emploient, et
+la CI les rejoue à chaque passage.
+
+```bash
+rake monoschema:references     # -> references.yml : ce que chaque colonne désigne
+rake monoschema:schema         # -> schema.sql : la forme d'arrivée, 314 tables
+rake monoschema:schema:build   # la charge dans une base neuve
+rake monoschema:audit          # six invariants d'isolation, sur la base
+```
+
+**Les références se résolvent dans les modèles, pas dans le schéma.** Le schéma
+ne déclare que 159 clés étrangères ; les `belongs_to` en savent bien plus. Sur
+les 1 047 colonnes de référence du plan de données :
+
+| | |
+|---|---:|
+| résolues vers le plan de données — clé composite | **1 000** |
+| résolues vers le référentiel — clé simple | 15 |
+| polymorphes — aucune contrainte possible | 22 |
+| qu'aucun modèle ne résout | **10** |
+
+Les dix dernières n'ont pas de `belongs_to` parce qu'elles n'ont pas
+d'association : `products.fixed_asset_id` existe alors que le lien va dans
+l'autre sens (`fixed_assets.product_id`), `sales.subscription_id` alors que
+l'association passe par les lignes de vente, `interventions.parent_id` alors que
+le code ne s'en sert que comme d'un drapeau. Ce sont des colonnes orphelines :
+le générateur les porte telles quelles, sans contrainte, en attendant qu'on
+décide de les retirer.
+
+**Le schéma d'arrivée se charge.** `schema.sql` fait 314 tables — les 316 moins
+les deux supprimées — et s'est chargé sans une erreur dans une base vide dès la
+première tentative. La base de sonde porte alors :
+
+| | |
+|---|---:|
+| tables dans `ekylibre` | 237 (234 de données, 2 de contrôle, `tenants`) |
+| tables dans `lexicon` | 78 |
+| colonnes `tenant_id` | 234 |
+| politiques RLS, activées **et** forcées | 234 |
+| clés primaires composites | 246 |
+| **clés étrangères composites** | **1 000** |
+| clés étrangères simples (vers le référentiel) | 15 |
+| index GiST composites | 35 |
+
+**Les six invariants tiennent.** `monoschema:audit` les vérifie sur la base, pas
+sur le fichier — c'est le linter du point 1.7 et le scan de `pg_indexes` du
+point 1.8 réunis :
+
+1. toute table du plan de données porte `tenant_id NOT NULL` ;
+2. sa clé primaire est composite et commence par `tenant_id` ;
+3. la RLS y est activée *et* forcée ;
+4. sa politique filtre la lecture (`USING`) comme l'écriture (`WITH CHECK`) ;
+5. aucun index unique ne commence ailleurs qu'à `tenant_id` ;
+6. toute clé étrangère entre deux tables du plan de données est composite.
+
+Ce que ce schéma ne fait **pas** : migrer les données. Fusionner N schémas en
+un, renuméroter les clés, engendrer les UUIDv7, dédupliquer les cinq tables qui
+passent au référentiel — tout cela vient après, et sur cette cible. Les vues et
+vues matérialisées ne sont pas non plus reprises : c'est le point 1.10.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier
