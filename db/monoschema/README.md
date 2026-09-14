@@ -133,6 +133,43 @@ point 1.8 réunis :
 5. aucun index unique ne commence ailleurs qu'à `tenant_id` ;
 6. toute clé étrangère entre deux tables du plan de données est composite.
 
+## Les vues, et ce qu'elles cachent (point 1.10)
+
+**Une vue ordinaire contourne la Row Level Security.** Elle s'exécute avec les
+droits de son propriétaire, et le propriétaire n'est pas soumis aux politiques
+de ses propres tables. Mesuré sur la sonde, deux vues sur la même table, lues
+par le rôle applicatif sous le contexte d'une seule ferme :
+
+| | Lignes rendues |
+|---|---|
+| vue ordinaire | **les deux fermes** |
+| vue `WITH (security_invoker = true)` | une seule |
+| table interrogée directement | une seule |
+
+Les onze vues de l'application sont donc engendrées avec `security_invoker`, et
+un invariant de `monoschema:audit` échoue sur toute vue qui n'en porterait pas.
+Le piège est d'autant plus sournois que plusieurs de ces vues servent de tables
+de jonction à Rails — `activities_interventions`, `campaigns_interventions` —
+et sont donc sur des chemins chauds.
+
+**Les trois vues matérialisées ne sont pas reprises, et pour une raison plus
+grave que l'isolation.** PostgreSQL n'applique pas la RLS à une vue
+matérialisée : ses lignes sont calculées une fois, toutes fermes confondues. On
+pourrait s'en protéger par une vue de filtrage. Mais le vrai problème est
+ailleurs : **leur regroupement ne porte pas `tenant_id`**.
+`worker_time_indicators` regroupe par `worker_id` ; en mono-base, deux fermes
+ont chacune leur travailleur n° 1, et leurs heures se retrouveraient
+*additionnées dans la même ligne*. Ce n'est plus une fuite, c'est un chiffre
+faux — et un chiffre faux sur des heures de travail.
+
+Les trois demandent d'être réécrites à la main pour porter et regrouper par
+`tenant_id`, ce qu'aucune réécriture mécanique ne peut faire sur des requêtes
+de cinquante à cent lignes. `worker_time_indicators` pose en plus une question
+de coût : elle est rafraîchie à **chaque sauvegarde d'intervention**, et un
+`REFRESH` en mono-base recalcule toutes les fermes. Elle est déjà signalée comme
+point chaud dans `CLAUDE.md` ; le mono-schéma transforme ce point chaud en
+problème d'échelle.
+
 ## La recopie des données
 
 ```bash

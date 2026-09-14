@@ -83,6 +83,18 @@ module MonoschemaAudit
          WHERE i.schemaname = 'ekylibre' AND i.indexdef LIKE 'CREATE UNIQUE%'
            AND i.indexdef NOT LIKE '%(tenant_id,%' AND i.indexdef NOT LIKE '%(tenant_id)%'
       SQL
+      ['vues sans security_invoker', <<~SQL],
+        SELECT c.relname FROM pg_class c
+          JOIN pg_namespace n ON n.oid = c.relnamespace
+         WHERE n.nspname = 'ekylibre' AND c.relkind = 'v'
+           AND NOT COALESCE((SELECT option_value::boolean FROM pg_options_to_table(c.reloptions)
+                              WHERE option_name = 'security_invoker'), false)
+      SQL
+      ['vues matérialisées non protégées', <<~SQL],
+        SELECT c.relname FROM pg_class c
+          JOIN pg_namespace n ON n.oid = c.relnamespace
+         WHERE n.nspname = 'ekylibre' AND c.relkind = 'm'
+      SQL
       ['clés étrangères non composites entre tables du plan de données', <<~SQL]
         SELECT k.conname FROM pg_constraint k
           JOIN pg_class source ON source.oid = k.conrelid
@@ -117,6 +129,6 @@ namespace :monoschema do
     end
 
     abort "\n#{failed.size} invariant(s) rompu(s)." if failed.any?
-    puts "\nLes six invariants tiennent sur les 234 tables du plan de données."
+    puts "\nLes huit invariants tiennent sur les 234 tables du plan de données."
   end
 end

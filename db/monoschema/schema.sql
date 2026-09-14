@@ -10900,8 +10900,246 @@ CREATE POLICY tenant_isolation ON ekylibre.yield_observations
     USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 
+-- Vues. `security_invoker` n'est pas une option de confort :
+-- sans elle, la vue contourne la Row Level Security de ses tables.
+CREATE VIEW ekylibre.activities_campaigns WITH (security_invoker = true) AS
+ SELECT DISTINCT c.id AS campaign_id,
+    a.id AS activity_id
+   FROM (ekylibre.activities a
+     LEFT JOIN ekylibre.campaigns c ON ((((a.id, c.id) IN ( SELECT ab.activity_id,
+            ab.campaign_id
+           FROM ekylibre.activity_budgets ab
+          WHERE ((ab.campaign_id = c.id) AND (ab.activity_id = a.id)))) OR ((a.id, c.id) IN ( SELECT ap.activity_id,
+            ap.campaign_id
+           FROM ekylibre.activity_productions ap
+          WHERE ((ap.campaign_id = c.id) AND (ap.activity_id = a.id)))))));
+
+CREATE VIEW ekylibre.activities_interventions WITH (security_invoker = true) AS
+ SELECT DISTINCT interventions.id AS intervention_id,
+    activities.id AS activity_id,
+    intervention_working_periods.started_at AS intervention_started_at,
+    intervention_working_periods.duration AS intervention_working_duration,
+    round(sum(DISTINCT intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
+    ((intervention_working_periods.duration)::numeric * round(sum(DISTINCT intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
+   FROM (((((ekylibre.activities
+     JOIN ekylibre.activity_productions ON ((activity_productions.activity_id = activities.id)))
+     JOIN ekylibre.products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN ekylibre.intervention_parameters ON (((products.id = intervention_parameters.product_id) AND ((intervention_parameters.type)::text = 'InterventionTarget'::text))))
+     JOIN ekylibre.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
+     JOIN ekylibre.intervention_working_periods ON ((interventions.id = intervention_working_periods.intervention_id)))
+  GROUP BY interventions.id, activities.id, intervention_working_periods.started_at, intervention_working_periods.duration
+  ORDER BY interventions.id, activities.id, intervention_working_periods.started_at;
+
+CREATE VIEW ekylibre.activity_productions_campaigns WITH (security_invoker = true) AS
+ SELECT DISTINCT c.id AS campaign_id,
+    ap.id AS activity_production_id
+   FROM ((ekylibre.activity_productions ap
+     JOIN ekylibre.activities a ON ((ap.activity_id = a.id)))
+     JOIN ekylibre.campaigns c ON ((c.id = ap.campaign_id)))
+  WHERE ((a.production_cycle)::text = 'annual'::text)
+UNION
+ SELECT DISTINCT c.id AS campaign_id,
+    ap.id AS activity_production_id
+   FROM ((ekylibre.activity_productions ap
+     JOIN ekylibre.campaigns c ON ((((date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))) OR ((date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))
+     JOIN ekylibre.activities a ON ((ap.activity_id = a.id)))
+  WHERE (((a.production_cycle)::text = 'perennial'::text) AND (ap.stopped_on IS NOT NULL) AND (ap.started_on IS NOT NULL))
+  ORDER BY 1, 2;
+
+CREATE VIEW ekylibre.activity_productions_interventions WITH (security_invoker = true) AS
+ SELECT DISTINCT interventions.id AS intervention_id,
+    products.activity_production_id,
+    intervention_working_periods.started_at AS intervention_started_at,
+    intervention_working_periods.duration AS intervention_working_duration,
+    round(sum(DISTINCT intervention_parameters.imputation_ratio), 2) AS imputation_ratio,
+    ((intervention_working_periods.duration)::numeric * round(sum(DISTINCT intervention_parameters.imputation_ratio), 2)) AS intervention_activity_working_duration
+   FROM ((((ekylibre.activity_productions
+     JOIN ekylibre.products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN ekylibre.intervention_parameters ON (((products.id = intervention_parameters.product_id) AND ((intervention_parameters.type)::text = 'InterventionTarget'::text))))
+     JOIN ekylibre.interventions ON ((intervention_parameters.intervention_id = interventions.id)))
+     JOIN ekylibre.intervention_working_periods ON ((interventions.id = intervention_working_periods.intervention_id)))
+  GROUP BY interventions.id, products.activity_production_id, intervention_working_periods.started_at, intervention_working_periods.duration
+  ORDER BY interventions.id, products.activity_production_id, intervention_working_periods.started_at;
+
+CREATE VIEW ekylibre.activity_productions_interventions_costs WITH (security_invoker = true) AS
+ SELECT activity_productions.id AS activity_production_id,
+    interventions.id AS intervention_id,
+    intervention_targets.product_id AS target_id,
+    (intervention_costings.inputs_cost * intervention_targets.imputation_ratio) AS inputs,
+    (intervention_costings.doers_cost * intervention_targets.imputation_ratio) AS doers,
+    (intervention_costings.tools_cost * intervention_targets.imputation_ratio) AS tools,
+    (intervention_costings.receptions_cost * intervention_targets.imputation_ratio) AS receptions,
+    ((((intervention_costings.inputs_cost + intervention_costings.doers_cost) + intervention_costings.tools_cost) + intervention_costings.receptions_cost) * intervention_targets.imputation_ratio) AS total
+   FROM ((((ekylibre.activity_productions
+     JOIN ekylibre.products ON ((products.activity_production_id = activity_productions.id)))
+     JOIN ekylibre.intervention_parameters intervention_targets ON (((intervention_targets.product_id = products.id) AND ((intervention_targets.type)::text = 'InterventionTarget'::text))))
+     JOIN ekylibre.interventions ON ((interventions.id = intervention_targets.intervention_id)))
+     JOIN ekylibre.intervention_costings ON ((interventions.costing_id = intervention_costings.id)))
+  WHERE (((interventions.state)::text <> 'rejected'::text) AND ((interventions.nature)::text = 'record'::text));
+
+CREATE VIEW ekylibre.animals_interventions WITH (security_invoker = true) AS
+ SELECT 'animal_group'::text AS initial_target,
+    intervention.id AS intervention_id,
+    animal_group.id AS animal_group_id,
+    animal.id AS animal_id
+   FROM ((((ekylibre.interventions intervention
+     JOIN ekylibre.intervention_parameters target ON (((target.intervention_id = intervention.id) AND ((target.type)::text = 'InterventionTarget'::text))))
+     JOIN ekylibre.products animal_group ON (((animal_group.id = target.product_id) AND ((animal_group.type)::text = 'AnimalGroup'::text))))
+     LEFT JOIN ekylibre.product_memberships pm ON (((pm.group_id = animal_group.id) AND (((intervention.started_at >= pm.started_at) AND (intervention.started_at <= pm.stopped_at)) OR ((intervention.started_at > pm.started_at) AND (pm.stopped_at IS NULL)) OR ((intervention.stopped_at >= pm.started_at) AND (intervention.stopped_at <= pm.stopped_at)) OR ((intervention.stopped_at > pm.started_at) AND (pm.stopped_at IS NULL))))))
+     LEFT JOIN ekylibre.products animal ON (((pm.member_id = animal.id) AND ((animal.type)::text = 'Animal'::text))))
+  GROUP BY intervention.id, animal.id, animal_group.id, pm.group_id
+UNION ALL
+ SELECT 'animal'::text AS initial_target,
+    intervention.id AS intervention_id,
+    animal_group.id AS animal_group_id,
+    animal.id AS animal_id
+   FROM ((((ekylibre.interventions intervention
+     JOIN ekylibre.intervention_parameters target ON (((target.intervention_id = intervention.id) AND ((target.type)::text = 'InterventionTarget'::text))))
+     JOIN ekylibre.products animal ON (((animal.id = target.product_id) AND ((animal.type)::text = 'Animal'::text))))
+     LEFT JOIN ekylibre.product_memberships pm ON (((pm.member_id = animal.id) AND (((intervention.started_at >= pm.started_at) AND (intervention.started_at <= pm.stopped_at)) OR ((intervention.started_at > pm.started_at) AND (pm.stopped_at IS NULL)) OR ((intervention.stopped_at >= pm.started_at) AND (intervention.stopped_at <= pm.stopped_at)) OR ((intervention.stopped_at > pm.started_at) AND (pm.stopped_at IS NULL))))))
+     LEFT JOIN ekylibre.products animal_group ON (((pm.group_id = animal_group.id) AND ((animal_group.type)::text = 'AnimalGroup'::text))))
+  GROUP BY intervention.id, animal.id, animal_group.id, pm.group_id;
+
+CREATE VIEW ekylibre.campaigns_interventions WITH (security_invoker = true) AS
+ SELECT DISTINCT c.id AS campaign_id,
+    i.id AS intervention_id
+   FROM (((((ekylibre.interventions i
+     JOIN ekylibre.intervention_parameters ip ON ((ip.intervention_id = i.id)))
+     JOIN ekylibre.products p ON (((p.id = ip.product_id) AND ((p.type)::text <> 'Animal'::text))))
+     JOIN ekylibre.activity_productions ap ON ((ap.id = p.activity_production_id)))
+     JOIN ekylibre.activities a ON ((a.id = ap.activity_id)))
+     JOIN ekylibre.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (i.started_at > COALESCE(make_date(((c.harvest_year + a.production_stopped_on_year) - 1), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date((c.harvest_year - 1), 12, 31))) AND (i.started_at <= COALESCE(make_date((c.harvest_year + a.production_stopped_on_year), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date(c.harvest_year, 12, 31))) AND (i.started_at <= ap.stopped_on)))))
+UNION ALL
+ SELECT DISTINCT c.id AS campaign_id,
+    i.id AS intervention_id
+   FROM (((((((ekylibre.interventions i
+     JOIN ekylibre.intervention_parameters ip ON ((ip.intervention_id = i.id)))
+     JOIN ekylibre.products p ON (((p.id = ip.product_id) AND ((p.type)::text = 'Animal'::text))))
+     JOIN ekylibre.product_memberships pm ON (((pm.member_id = p.id) AND (((i.started_at >= pm.started_at) AND (i.started_at <= pm.stopped_at)) OR ((i.started_at > pm.started_at) AND (pm.stopped_at IS NULL)) OR ((i.stopped_at >= pm.started_at) AND (i.stopped_at <= pm.stopped_at)) OR ((i.stopped_at > pm.started_at) AND (pm.stopped_at IS NULL))))))
+     JOIN ekylibre.products animal_group ON (((pm.group_id = animal_group.id) AND ((animal_group.type)::text = 'AnimalGroup'::text))))
+     JOIN ekylibre.activity_productions ap ON ((ap.id = animal_group.activity_production_id)))
+     JOIN ekylibre.activities a ON ((a.id = ap.activity_id)))
+     JOIN ekylibre.campaigns c ON (((c.id = ap.campaign_id) OR (((a.production_cycle)::text = 'perennial'::text) AND (i.started_at >= ap.started_on) AND (i.started_at > COALESCE(make_date(((c.harvest_year + a.production_stopped_on_year) - 1), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date((c.harvest_year - 1), 12, 31))) AND (i.started_at <= COALESCE(make_date((c.harvest_year + a.production_stopped_on_year), (date_part('month'::text, a.production_stopped_on))::integer, (date_part('day'::text, a.production_stopped_on))::integer), make_date(c.harvest_year, 12, 31))) AND (i.started_at <= ap.stopped_on)))));
+
+CREATE VIEW ekylibre.economic_situations WITH (security_invoker = true) AS
+ SELECT entities.id,
+    COALESCE(client_accounting.balance, (0)::numeric) AS client_accounting_balance,
+    COALESCE(supplier_accounting.balance, (0)::numeric) AS supplier_accounting_balance,
+    (COALESCE(client_accounting.balance, (0)::numeric) + COALESCE(supplier_accounting.balance, (0)::numeric)) AS accounting_balance,
+    COALESCE(client_trade.balance, (0)::numeric) AS client_trade_balance,
+    COALESCE(supplier_trade.balance, (0)::numeric) AS supplier_trade_balance,
+    (COALESCE(client_trade.balance, (0)::numeric) + COALESCE(supplier_trade.balance, (0)::numeric)) AS trade_balance,
+    entities.creator_id,
+    entities.created_at,
+    entities.updater_id,
+    entities.updated_at,
+    entities.lock_version
+   FROM ((((ekylibre.entities
+     LEFT JOIN ( SELECT entities_1.id AS entity_id,
+            (- sum(client_items.balance)) AS balance
+           FROM ((ekylibre.entities entities_1
+             JOIN ekylibre.accounts clients ON ((entities_1.client_account_id = clients.id)))
+             JOIN ekylibre.journal_entry_items client_items ON ((clients.id = client_items.account_id)))
+          GROUP BY entities_1.id) client_accounting ON ((entities.id = client_accounting.entity_id)))
+     LEFT JOIN ( SELECT entities_1.id AS entity_id,
+            (- sum(supplier_items.balance)) AS balance
+           FROM ((ekylibre.entities entities_1
+             JOIN ekylibre.accounts suppliers ON ((entities_1.supplier_account_id = suppliers.id)))
+             JOIN ekylibre.journal_entry_items supplier_items ON ((suppliers.id = supplier_items.account_id)))
+          GROUP BY entities_1.id) supplier_accounting ON ((entities.id = supplier_accounting.entity_id)))
+     LEFT JOIN ( SELECT client_tradings.entity_id,
+            sum(client_tradings.amount) AS balance
+           FROM ( SELECT entities_1.id AS entity_id,
+                    (- sale_items.amount) AS amount
+                   FROM ((ekylibre.entities entities_1
+                     JOIN ekylibre.sales ON ((entities_1.id = sales.client_id)))
+                     JOIN ekylibre.sale_items ON ((sales.id = sale_items.sale_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    incoming_payments.amount
+                   FROM (ekylibre.entities entities_1
+                     JOIN ekylibre.incoming_payments ON ((entities_1.id = incoming_payments.payer_id)))) client_tradings
+          GROUP BY client_tradings.entity_id) client_trade ON ((entities.id = client_trade.entity_id)))
+     LEFT JOIN ( SELECT supplier_tradings.entity_id,
+            sum(supplier_tradings.amount) AS balance
+           FROM ( SELECT entities_1.id AS entity_id,
+                    purchase_items.amount
+                   FROM ((ekylibre.entities entities_1
+                     JOIN ekylibre.purchases ON ((entities_1.id = purchases.supplier_id)))
+                     JOIN ekylibre.purchase_items ON ((purchases.id = purchase_items.purchase_id)))
+                UNION ALL
+                 SELECT entities_1.id AS entity_id,
+                    (- outgoing_payments.amount) AS amount
+                   FROM (ekylibre.entities entities_1
+                     JOIN ekylibre.outgoing_payments ON ((entities_1.id = outgoing_payments.payee_id)))) supplier_tradings
+          GROUP BY supplier_tradings.entity_id) supplier_trade ON ((entities.id = supplier_trade.entity_id)));
+
+CREATE VIEW ekylibre.pfi_campaigns_activities_interventions WITH (security_invoker = true) AS
+SELECT
+    NULL::integer AS campaign_id,
+    NULL::integer AS activity_id,
+    NULL::integer AS activity_production_id,
+    NULL::integer AS crop_id,
+    NULL::character varying AS segment_code,
+    NULL::numeric AS crop_pfi_value,
+    NULL::numeric(19,4) AS activity_production_surface_area,
+    NULL::numeric(19,4) AS crop_surface_area,
+    NULL::numeric AS activity_production_pfi_value,
+    NULL::numeric AS activity_pfi_value;
+
+CREATE VIEW ekylibre.product_nature_variant_suppliers_infos WITH (security_invoker = true) AS
+ SELECT total_purchase_infos.full_name AS supplier_name,
+    total_purchase_infos.entity_id,
+    total_purchase_infos.variant_id,
+    total_purchase_infos.ordered_quantity,
+    total_purchase_infos.ordered_unit_name,
+    round((total_purchase_infos.total_amount / total_purchase_infos.ordered_quantity), 2) AS average_unit_pretax_amount,
+    latest_purchases.unit_pretax_amount AS last_unit_pretax_amount
+   FROM (( SELECT p.supplier_id,
+            sum(pi.conditioning_quantity) AS ordered_quantity,
+            sum((pi.unit_pretax_amount * pi.conditioning_quantity)) AS total_amount,
+            pi_units.name AS ordered_unit_name,
+            pi.variant_id,
+            e.full_name,
+            e.id AS entity_id
+           FROM (((ekylibre.purchase_items pi
+             JOIN lexicon.units pi_units ON ((pi.conditioning_unit_id = pi_units.id)))
+             JOIN ekylibre.purchases p ON ((pi.purchase_id = p.id)))
+             JOIN ekylibre.entities e ON ((e.id = p.supplier_id)))
+          WHERE ((p.type)::text = 'PurchaseInvoice'::text)
+          GROUP BY p.supplier_id, pi.variant_id, pi_units.name, e.full_name, e.id) total_purchase_infos
+     JOIN ( SELECT DISTINCT ON (p.supplier_id, pi.variant_id) p.supplier_id,
+            pi.variant_id,
+            pi.unit_pretax_amount
+           FROM (ekylibre.purchase_items pi
+             JOIN ekylibre.purchases p ON ((pi.purchase_id = p.id)))
+          WHERE ((p.type)::text = 'PurchaseInvoice'::text)
+          ORDER BY p.supplier_id, pi.variant_id, p.invoiced_at DESC) latest_purchases ON (((latest_purchases.supplier_id = total_purchase_infos.supplier_id) AND (latest_purchases.variant_id = total_purchase_infos.variant_id))))
+  WHERE (total_purchase_infos.ordered_quantity <> (0)::numeric);
+
+CREATE VIEW ekylibre.product_populations WITH (security_invoker = true) AS
+SELECT
+    NULL::integer AS product_id,
+    NULL::timestamp without time zone AS started_at,
+    NULL::numeric AS value,
+    NULL::integer AS creator_id,
+    NULL::timestamp without time zone AS created_at,
+    NULL::timestamp without time zone AS updated_at,
+    NULL::integer AS updater_id,
+    NULL::integer AS id,
+    NULL::integer AS lock_version;
+
+
+-- Les trois vues matérialisées — worker_time_indicators,
+-- economic_indicators, incoming_harvest_indicators — ne sont pas reprises
+-- ici : leur regroupement ne porte pas tenant_id, et la RLS ne s'applique
+-- pas à une vue matérialisée. Voir db/monoschema/README.md.
+
 -- Le rôle applicatif n'est pas propriétaire : il ne peut ni modifier le
 -- schéma, ni désactiver une politique.
 GRANT USAGE ON SCHEMA ekylibre, lexicon, public, postgis TO ekylibre_app;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ekylibre TO ekylibre_app;
 GRANT SELECT ON ALL TABLES IN SCHEMA lexicon TO ekylibre_app;
+-- Et surtout pas sur les vues matérialisées, qui portent toutes les
+-- fermes : le `GRANT` ci-dessus vise les tables, pas les matviews.
+REVOKE ALL ON ALL TABLES IN SCHEMA ekylibre FROM PUBLIC;

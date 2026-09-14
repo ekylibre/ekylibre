@@ -182,6 +182,82 @@ module MonoschemaSchema
     end
   end
 
+  # --- Vues ----------------------------------------------------------------
+  #
+  # Une vue s'exécute par défaut avec les droits de son propriétaire, et le
+  # propriétaire n'est pas soumis aux politiques de ses tables : mesuré sur la
+  # sonde, une vue ordinaire rend au rôle applicatif les lignes des *deux*
+  # fermes. `security_invoker` (PostgreSQL 15+) la fait s'exécuter avec les
+  # droits de l'appelant, et l'isolation revient.
+  def views
+    out = +"\n-- Vues. `security_invoker` n'est pas une option de confort :\n" \
+           "-- sans elle, la vue contourne la Row Level Security de ses tables.\n"
+    view_definitions.each do |name, body|
+      out << "CREATE VIEW ekylibre.#{name} WITH (security_invoker = true) AS\n#{rewrite_body(body)};\n\n"
+    end
+    out
+  end
+
+  # Les vues matérialisées ne sont **pas** engendrées, et ce n'est pas un oubli.
+  # Deux raisons, dont la seconde est la plus grave :
+  #
+  #   — PostgreSQL n'applique pas la RLS à une vue matérialisée : ses lignes
+  #     sont déjà calculées, toutes fermes confondues, et quiconque a le droit
+  #     de la lire les lit toutes ;
+  #   — surtout, leur regroupement ne porte pas `tenant_id`.
+  #     `worker_time_indicators` regroupe par `worker_id` ; en mono-base, deux
+  #     fermes ont chacune leur travailleur n° 1, et leurs heures se
+  #     retrouveraient **additionnées dans la même ligne**. Ce n'est plus une
+  #     fuite, c'est un chiffre faux.
+  #
+  # Les trois demandent donc d'être réécrites à la main pour porter et regrouper
+  # par `tenant_id`, ce qu'aucune réécriture mécanique ne peut faire sur des
+  # requêtes de cinquante à cent lignes. `worker_time_indicators` pose en plus
+  # une question de coût : elle est rafraîchie à chaque sauvegarde
+  # d'intervention, et un `REFRESH` en mono-base recalcule *toutes* les fermes.
+  def materialized_views
+    <<~SQL
+
+      -- Les trois vues matérialisées — worker_time_indicators,
+      -- economic_indicators, incoming_harvest_indicators — ne sont pas reprises
+      -- ici : leur regroupement ne porte pas tenant_id, et la RLS ne s'applique
+      -- pas à une vue matérialisée. Voir db/monoschema/README.md.
+    SQL
+  end
+
+  def view_definitions
+    @view_definitions ||= ordered(structure.scan(/^CREATE VIEW public\.(\w+) AS\n(.*?);\n/m))
+  end
+
+  # Une vue peut en lire une autre : on les pose dans l'ordre de leurs
+  # dépendances, sinon la seconde ne trouve pas la première.
+  def ordered(definitions)
+    names = definitions.map(&:first)
+    sorted = []
+    remaining = definitions.dup
+    until remaining.empty?
+      ready, remaining = remaining.partition do |name, body|
+        (names - sorted.map(&:first) - [name]).none? { |other| body.match?(/\b#{other}\b/) }
+      end
+      break if ready.empty?
+
+      sorted.concat(ready)
+    end
+    sorted + remaining
+  end
+
+  # Les corps viennent de `public` ; les tables sont désormais dans `ekylibre`,
+  # le référentiel dans `lexicon`. Les vues matérialisées y gagnent leur
+  # `tenant_id`, que le regroupement doit porter.
+  def rewrite_body(body)
+    body.gsub(/\bpublic\.(\w+)/) do
+      table = Regexp.last_match(1)
+      entry = plan[table]
+      schema = entry.nil? ? 'ekylibre' : target_schema(entry)
+      "#{schema}.#{table}"
+    end
+  end
+
   # --- Isolation -----------------------------------------------------------
 
   def row_level_security(table)
@@ -207,6 +283,8 @@ module MonoschemaSchema
     kept.each { |table, entry| out << foreign_keys(table, entry) }
     out << "\n-- Row Level Security\n"
     data.each_key { |table| out << row_level_security(table) }
+    out << views
+    out << materialized_views
     out << grants
 
     path = Rails.root.join(scope == 'full' ? OUTPUT_PATH : INPLACE_PATH)
@@ -260,6 +338,9 @@ module MonoschemaSchema
       GRANT USAGE ON SCHEMA ekylibre, lexicon, public, postgis TO #{APP_ROLE};
       GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ekylibre TO #{APP_ROLE};
       GRANT SELECT ON ALL TABLES IN SCHEMA lexicon TO #{APP_ROLE};
+      -- Et surtout pas sur les vues matérialisées, qui portent toutes les
+      -- fermes : le `GRANT` ci-dessus vise les tables, pas les matviews.
+      REVOKE ALL ON ALL TABLES IN SCHEMA ekylibre FROM PUBLIC;
     SQL
   end
 
