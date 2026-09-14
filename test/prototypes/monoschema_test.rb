@@ -109,12 +109,12 @@ module Monoschema
     Record.connection.clear_query_cache
     previous = current_tenant
     Record.transaction do
-      set_tenant(tenant_id)
+      apply_tenant(tenant_id)
       block.call
     end
   ensure
     Record.connection.clear_query_cache
-    set_tenant(previous)
+    apply_tenant(previous)
   end
 
   def self.without_tenant(&block)
@@ -125,7 +125,7 @@ module Monoschema
     Record.connection.uncached { Record.connection.select_value("SELECT current_setting('app.tenant_id', true)") }
   end
 
-  def self.set_tenant(tenant_id)
+  def self.apply_tenant(tenant_id)
     if tenant_id.blank?
       Record.connection.execute("SET LOCAL app.tenant_id = ''")
     else
