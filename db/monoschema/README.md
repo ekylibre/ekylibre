@@ -255,6 +255,46 @@ aujourd'hui du nom de schéma, et le job rétablit le contexte le temps de son
 exécution. Un job enfilé sans ferme — une tâche d'administration — s'exécute
 sans contexte plutôt qu'avec un contexte inventé.
 
+## Les associations, et ce que l'annotation achète vraiment (point 1.16)
+
+`rake monoschema:associations` inventorie ce que devient chaque association des
+312 modèles du plan de données. **4 167 associations** — la feuille de route en
+annonçait 1 413, elle comptait plus étroitement :
+
+| | |
+|---|---:|
+| à annoter en `foreign_key: %i[tenant_id …]` | **3 532** |
+| rien à faire — `:through` (513) ou cible hors tenant (90) | 603 |
+| à reprendre à la main — 22 polymorphes, 10 HABTM | **32** |
+
+**Mais l'annotation n'est pas ce qu'on croyait.** Mesuré sur la sonde, avec deux
+fermes portant le même `products.id = 999` :
+
+| `produit.parametres` | Sous la RLS (l'application) | Sans la RLS (migration, administration) |
+|---|---|---|
+| sans annotation | 1 ligne — la bonne | **2 lignes — celles des deux fermes** |
+| avec `foreign_key: %i[tenant_id product_id]` | 1 ligne | 1 ligne |
+
+Autrement dit : **la RLS fait déjà le travail sur les chemins ordinaires**. Une
+association non annotée y produit du SQL juste, parce que la politique filtre.
+L'annotation compte ailleurs — sur tout ce qui traverse la politique : les
+migrations, les tâches d'administration, `without_tenant`, et les requêtes
+inter-fermes du point 1.22.
+
+Cela change la manière de mener le point 1.16 : ce n'est pas un codemod qui doit
+atterrir d'un bloc avant que quoi que ce soit ne fonctionne, mais une **seconde
+ceinture**, à poser par domaine, en commençant par les modèles qu'empruntent les
+chemins qui contournent la RLS. Et c'est aussi ce qui rend la RLS non
+négociable : sans elle, 3 532 associations deviennent autant de fuites
+possibles.
+
+Les 32 cas manuels se répartissent en deux familles, et aucune ne demande
+d'annotation : les **polymorphes** (`Attachment#resource`,
+`JournalEntry#resource`, `Issue#target`…) ne peuvent pas porter de clé composite
+puisque leur cible change d'une ligne à l'autre — la RLS les couvre des deux
+côtés ; les **HABTM** passent par les onze vues de jonction, elles-mêmes filtrées
+par `security_invoker`. Les uns et les autres sont à vérifier, pas à réécrire.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier
