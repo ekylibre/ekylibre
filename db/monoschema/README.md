@@ -152,6 +152,11 @@ Le piège est d'autant plus sournois que plusieurs de ces vues servent de tables
 de jonction à Rails — `activities_interventions`, `campaigns_interventions` —
 et sont donc sur des chemins chauds.
 
+> **Décision du 15 septembre 2026** : elles seront refaites plus tard, au moment
+> des tests fonctionnels — quand on saura ce que chaque indicateur doit mesurer
+> par ferme. Elles restent donc hors du schéma d'arrivée, et l'invariant d'audit
+> veille à ce qu'on ne les y remette pas par inadvertance.
+
 **Les trois vues matérialisées ne sont pas reprises, et pour une raison plus
 grave que l'isolation.** PostgreSQL n'applique pas la RLS à une vue
 matérialisée : ses lignes sont calculées une fois, toutes fermes confondues. On
@@ -178,9 +183,15 @@ rake monoschema:migrate TENANTS=alpha,beta
 rake monoschema:migrate:check          # deux fermes jetables, de bout en bout
 ```
 
-La migration se mène **dans la base du client**, à côté des schémas par ferme :
-le schéma `ekylibre` est créé, les lignes y sont recopiées ferme par ferme, puis
-les anciens schémas peuvent partir. Trois choses la rendent plus simple qu'on ne
+**Ce n'est pas une bascule, c'est un import** (décision du 15 septembre 2026).
+La V6 ne reprendra pas la base de la V5 en place : les données d'un client
+arriveront par dump de tenant, restauré une ferme à la fois. `monoschema:migrate`
+n'est donc pas l'outil d'un grand soir mais le chemin de restauration permanent
+— on restaure le dump dans un schéma, on recopie, on jette le schéma. Pas de
+fenêtre d'indisponibilité, pas d'ordre de passage à décider.
+
+La recopie se mène donc dans une base qui porte le schéma `ekylibre` et, le
+temps de l'opération, le schéma de la ferme restaurée. Trois choses la rendent plus simple qu'on ne
 le craignait, et une la complique.
 
 **Les clés entières ne bougent pas.** Deux fermes ont toutes deux un

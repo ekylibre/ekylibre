@@ -69,12 +69,19 @@ module MonoschemaSchema
       next if line.empty? || line.start_with?('CONSTRAINT')
 
       rewrite_column(table, entry, line)
-    end
+    end.compact
+  end
+
+  def dropped_columns(table)
+    MonoschemaPlan.classification.fetch('drop_columns', {}).fetch(table, [])
   end
 
   def rewrite_column(table, entry, line)
     name = line[/\A"?([a-z_0-9]+)"?\s/, 1]
     return line if name.nil?
+    # Colonnes orphelines, retirées par décision du 15 septembre : aucune
+    # association ne les déclarait, et le lien va dans l'autre sens.
+    return nil if dropped_columns(table).include?(name)
     return id_column(entry) if name == 'id'
 
     type = target_type(table, name)

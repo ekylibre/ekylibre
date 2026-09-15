@@ -88,6 +88,17 @@ drop:
 drop_pending:
   users: "table historique des utilisateurs d'une ferme (réponse du 15 septembre) : à supprimer **si** le trio `tenants` / `users` / `user_tenants` du point 1.14 porte les accès et les droits. Devise s'en sert encore ; la décision se solde au lot 2, avec Keycloak"
 
+# Colonnes orphelines : aucune association ne les déclare, et le lien va dans
+# l'autre sens quand il existe. Décision du 15 septembre 2026 : on les retire.
+# Le générateur ne les porte donc pas dans le schéma d'arrivée.
+drop_columns:
+  fixed_assets: [purchase_id, purchase_item_id]
+  interventions: [parent_id]
+  journal_entry_items: [project_task_id]
+  parcel_items: [product_enjoyment_id, product_localization_id, product_movement_id, product_ownership_id]
+  products: [fixed_asset_id]
+  sales: [subscription_id]
+
 # Plan de données : la ferme est propriétaire de la ligne.
 data:
   - account_balances
