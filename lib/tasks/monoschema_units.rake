@@ -25,8 +25,19 @@ module MonoschemaUnits
       Ekylibre::Tenant.list
   end
 
-  def known_reference_names
-    @known_reference_names ||= connection.select_values('SELECT reference_name FROM lexicon.master_units').to_set
+  # Le Lexicon range les unités en **deux** tables, et c'est la leçon de ce
+  # rapport : `master_units` porte les unités de mesure — un symbole, des
+  # coefficients vers l'unité SI de la dimension — et `master_packagings` les
+  # conditionnements, qui se définissent par une capacité et une unité de base.
+  # Les unités de type `Conditioning` d'une ferme se comparent donc aux
+  # secondes, jamais aux premières : les chercher dans `master_units` les
+  # faisait toutes paraître absentes.
+  def known_reference_names(type)
+    @known_reference_names ||= {
+      'Conditioning' => connection.select_values('SELECT reference_name FROM lexicon.master_packagings').to_set,
+      'default' => connection.select_values('SELECT reference_name FROM lexicon.master_units').to_set
+    }
+    @known_reference_names[type == 'Conditioning' ? 'Conditioning' : 'default']
   end
 
   # Une unité manque si son `reference_name` n'est pas au référentiel. Celles
@@ -61,7 +72,7 @@ module MonoschemaUnits
     tenants.each do |tenant|
       gaps_for(tenant).each do |row|
         reference = row['reference_name']
-        next if reference.present? && known_reference_names.include?(reference)
+        next if reference.present? && known_reference_names(row['type']).include?(reference)
 
         key = reference.presence || "sans_reference/#{row['name']}"
         entry = inventory[key] ||= {
@@ -87,9 +98,11 @@ module MonoschemaUnits
       # ENGENDRÉ PAR `rake monoschema:units_gap` — à relire, puis à proposer au
       # dépôt Lexicon.
       #
-      # Les unités que portent les fermes et que `lexicon.master_units` ne
-      # connaît pas. Deux familles : celles qui ont un `reference_name` inconnu
-      # du référentiel, et celles qui n'en ont aucun — créations locales.
+      # Les unités que portent les fermes et que le Lexicon ne connaît pas.
+      # La comparaison se fait dans la bonne table : `master_packagings` pour
+      # les unités de type `Conditioning`, `master_units` pour les autres.
+      # Deux familles restent : celles dont le `reference_name` est inconnu du
+      # référentiel, et celles qui n'en ont aucun — créations locales.
       #
       # `usages` compte les lignes qui les emploient, sur les dix colonnes du
       # schéma qui désignent une unité — produits, variantes, catalogue,

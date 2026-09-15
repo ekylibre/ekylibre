@@ -462,34 +462,67 @@ La deuxième a été introduite par le chemin inter-fermes du point 1.22 et
 corrigée par cette mesure — elle n'aurait été visible ni à deux fermes, ni sur
 un schéma vide.
 
-## Les unités absentes du lexicon
+## Les unités : rien à ajouter au Lexicon
 
-La fusion de `units` avec `master_units` suppose de savoir ce qui manque au
-référentiel. `rake monoschema:units_gap TENANTS=demo` le dit, et compte les
-usages sur les **dix colonnes** du schéma qui désignent une unité — produits,
-variantes, catalogue, budgets, charges, livraisons, stockages, ventes, achats,
-et les unités dérivées : en compter moins ferait passer une unité employée pour
-morte.
+La fusion de `units` avec le référentiel supposait de savoir ce qui manquait.
+Réponse mesurée sur le jeu de démonstration : **rien**. Les 54 unités de la
+ferme sont toutes connues du Lexicon.
 
-Sur le jeu de démonstration, **onze unités manquent** au référentiel, toutes
-avec un `reference_name` — donc aucune création locale sauvage, ce qui est une
-bonne nouvelle pour la fusion :
-
-| Unité | `reference_name` | Usages |
+| Type dans l'application | Table du Lexicon | Couverture |
 |---|---|---:|
-| Heure d'utilisation d'équipement | `hour_equipment` | 39 |
-| Vrac (t) | `ton_bulk` | 15 |
-| Vrac (l) | `liter_bulk` | 9 |
-| Vrac (q) | `quintal_bulk` | 9 |
-| Vrac (kg) | `kilo_bulk` | 5 |
-| Sac (50 000 / 125 000 / 150 000 grains) | `50tg_bag`, `125tg_bag`, `150tg_bag` | 1 chacune |
-| Vrac (m³), Vrac (hl) | `cubic_meter_bulk`, `hectoliter_bulk` | 1 chacune |
-| Heure de travail | `hour_worker` | 0 |
+| `Conditioning` | `master_packagings` | **12 sur 12** |
+| `ReferenceUnit` | `master_units` | **42 sur 42** |
 
-Le fichier complet — dimension, type, unité de base, coefficient — est dans
-`db/monoschema/units-absentes-du-lexicon.yml`, prêt à être proposé au dépôt
-Lexicon. Il ne migre rien : il dit ce qu'il faut ajouter au référentiel pour que
-la fusion ne perde aucune donnée.
+**Le premier rapport en donnait onze absentes, et il avait tort.** Il ne
+comparait qu'à `master_units`, alors que le Lexicon range les unités en deux
+tables selon ce qu'elles sont : `master_units` porte les unités de *mesure* —
+un symbole, des coefficients vers l'unité SI de leur dimension — et
+`master_packagings` les *conditionnements*, définis par une capacité et une
+unité de base. Les onze « manquantes » étaient toutes de type `Conditioning`, et
+toutes présentes dans la seconde table depuis le premier commit du Lexicon 6.0.
+Les y ajouter aurait créé un doublon, et un doublon mal formé : un
+conditionnement n'a ni symbole ni conversion SI.
+
+C'est le mainteneur du Lexicon qui l'a relevé ; la tâche cherche désormais dans
+la bonne table selon le type, et `rake monoschema:units_gap` sort vide.
+
+**Conséquence pour la fusion** : `units` ne se déplace pas vers *une* table du
+référentiel mais vers **deux**, et le STI de l'application (`Unit`,
+`ReferenceUnit`, `Conditioning`) dit laquelle. Ce n'est plus une déduplication,
+c'est une correspondance — et elle est totale sur le jeu mesuré.
+
+## Les quatre autres référentiels
+
+Décision du 15 septembre : eux aussi rejoignent le Lexicon.
+`rake monoschema:reference_gap TENANTS=demo` extrait leur contenu, dédupliqué
+sur les fermes passées, dans `db/monoschema/referentiels/*.csv`. Et là encore,
+la question n'est pas seulement « que contiennent-ils » mais « le Lexicon ne
+les porte-t-il pas déjà » :
+
+| Table de la ferme | Lignes | Table du Lexicon comparable | Recouvrement |
+|---|---:|---|---|
+| `districts` | **0** | `registered_administrative_areas` (119) | rien à porter — la table est vide dans la démo |
+| `postal_zones` | 14 | `registered_postal_codes` (86) | **2 sur 14** |
+| `vegetative_stages` | 358 | `master_phenological_stages` (54) | **1 sur 358** |
+| `net_services` | 6 | aucune | — |
+
+Deux constats pour la spec :
+
+- **`registered_postal_codes` est partiel** — 86 lignes là où la France en
+  compte des dizaines de milliers. La table existe, la donnée non : c'est une
+  question de source, pas d'extraction ;
+- **`master_phenological_stages` est orientée vigne** (ses colonnes
+  `biaggiolini`, `eichhorn_lorenz`, `chasselas_date` le disent), avec 54 lignes,
+  quand les fermes portent 358 stades BBCH toutes variétés. Soit on l'étend,
+  soit on ajoute une table de stades générique à côté.
+
+`net_services` — six lignes, aucun équivalent — mérite surtout qu'on demande si
+elle sert encore.
+
+**Une limite à garder en tête** : tout ceci est mesuré sur *une* ferme. La
+déduplication entre exploitations, et les divergences qu'elle révélerait, ne se
+verront qu'avec plusieurs jeux réels. La tâche les compte et les signale quand
+elle en trouve.
 
 ## Le questionnaire
 
