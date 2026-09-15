@@ -188,6 +188,9 @@ jobs:
           git diff --exit-code db/monoschema/schema.sql db/monoschema/references.yml
           bundle exec rake monoschema:schema:build
           bundle exec rake monoschema:audit
+          # Puis les deux affirmations d'isolation, sur les 234 tables : sans
+          # contexte aucune ligne, sous une ferme jamais celle d'une autre.
+          bundle exec rake monoschema:isolation
           # Et la recopie des données, sur deux fermes jetables : une migration
           # qui ne s'est jamais exécutée n'est qu'une intention. La tâche crée
           # ses tenants, migre, vérifie, et nettoie derrière elle.

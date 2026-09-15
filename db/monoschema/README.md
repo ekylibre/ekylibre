@@ -331,6 +331,31 @@ plan de données. La RLS les couvre ; ce qu'il faut y vérifier est la clé
 composite et, pour les `update_all` joints, la compilation en `UPDATE … FROM`
 que Rails 8.1 emploie — `CLAUDE.md` en documente déjà deux victimes.
 
+## Les tests d'isolation (point 1.20)
+
+Deux affirmations, pour *chacune* des 234 tables du plan de données : sans
+contexte de ferme, elle ne rend aucune ligne ; sous la ferme A, elle n'en rend
+jamais une de la ferme B. Elles ne se démontrent pas en lisant le schéma — il
+faut des lignes, et il faut les lire avec le rôle applicatif.
+
+```bash
+rake monoschema:isolation
+```
+
+La tâche sème une ligne par table et par ferme, en ne remplissant que les
+colonnes obligatoires avec des valeurs quelconques du bon type, puis relit tout
+sous chaque contexte. Au 15 septembre 2026 :
+
+| | |
+|---|---:|
+| tables semées dans deux fermes et relues | **234 sur 234** |
+| qui rendent une ligne d'une autre ferme | 0 |
+| qui rendent quoi que ce soit sans contexte | 0 |
+
+La couverture est totale, et c'est ce qui compte : une table qu'on n'aurait pas
+su semer serait une affirmation non vérifiée, et la tâche les signale nommément
+plutôt que de les passer sous silence. La CI la rejoue après l'audit.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier
