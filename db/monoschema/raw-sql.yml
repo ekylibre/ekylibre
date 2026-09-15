@@ -1,0 +1,1199 @@
+# ENGENDRÉ PAR `rake monoschema:raw_sql` — NE PAS MODIFIER À LA MAIN.
+#
+# Les sites de SQL écrit à la main, classés par ce qui leur arrive dans le
+# mono-schéma. « sans objet sous RLS » ne veut pas dire « sans risque » :
+# cela veut dire que la politique les couvre tant qu'un contexte de ferme
+# est posé — ce que le point 1.17 garantit.
+#
+- site: app/controllers/admin/tenants_controller.rb:214
+  cas: lecture libre
+  tables: []
+  source: result = ActiveRecord::Base.connection.select_one(sql)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/api/v1/intervention_participations_controller.rb:91
+  cas: écriture en masse
+  tables: []
+  source: intervention.working_periods.delete_all
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/api/v1/lexicon/api_phytosanitary_data_controller.rb:52
+  cas: exécution libre
+  tables: []
+  source: 'ApplicationRecord.connection.execute("SELECT t.id FROM  (values #{ids})
+    as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/api/v1/lexicon/registered_phytosanitary_products_controller.rb:20
+  cas: exécution libre
+  tables: []
+  source: 'ApplicationRecord.connection.execute("SELECT t.id FROM  (values #{ids})
+    as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/api/v1/yield_observations_controller.rb:39
+  cas: écriture en masse
+  tables:
+  - issues
+  source: 'observation.issues.update_all(state: ''opened'')'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/api/v2/lexicon/api_phytosanitary_data_controller.rb:62
+  cas: exécution libre
+  tables: []
+  source: 'ApplicationRecord.connection.execute("SELECT t.id FROM  (values #{ids})
+    as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/api/v2/lexicon/registered_phytosanitary_products_controller.rb:48
+  cas: exécution libre
+  tables: []
+  source: 'ApplicationRecord.connection.execute("SELECT t.id FROM  (values #{ids})
+    as t(id) WHERE t.id not in (SELECT id from #{table_name})").to_a'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/analyses_controller.rb:84
+  cas: écriture en masse
+  tables: []
+  source: 'WineIncomingHarvest.where(id: params[:wine_incoming_harvest_id]).update_all(analysis_id:
+    @analysis.id)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/bank_reconciliation/letters_controller.rb:33
+  cas: écriture en masse
+  tables: []
+  source: 'bsi.update_all(letter: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/bank_reconciliation/letters_controller.rb:34
+  cas: écriture en masse
+  tables: []
+  source: 'jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil, letter:
+    nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/bank_reconciliation/letters_controller.rb:37
+  cas: écriture en masse
+  tables: []
+  source: 'bsi_jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil,
+    letter: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/bank_reconciliation/letters_controller.rb:41
+  cas: écriture en masse
+  tables: []
+  source: 'bsi.update_all(letter: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/bank_reconciliation/letters_controller.rb:42
+  cas: écriture en masse
+  tables: []
+  source: 'jeis.update_all(bank_statement_letter: nil, bank_statement_id: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/cells/trade_counts_cells_controller.rb:12
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute(<<~SQL).first["balance"].to_d
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/cells/trade_counts_cells_controller.rb:24
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute(<<~SQL).first["balance"].to_d
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/dashboards_controller.rb:107
+  cas: lecture libre
+  tables: []
+  source: "@search[:count] = ApplicationRecord.connection.select_value(query).to_i"
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/dashboards_controller.rb:115
+  cas: lecture libre
+  tables: []
+  source: "@search[:records] = ApplicationRecord.connection.select_all(query)"
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/financial_years_controller.rb:299
+  cas: écriture en masse
+  tables: []
+  source: 'FinancialYear.where(id: ids_array).delete_all'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/general_ledgers_controller.rb:79
+  cas: jointure écrite à la main
+  tables:
+  - accounts
+  - journal_entries
+  - journal_entry_items
+  source: q1 = %q{Account.select("rpad(accounts.number, 8, '0') AS account_number,
+    accounts.centralizing_account_name AS account_name, CASE WHEN (SUM(journal_entry_items.
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/controllers/backend/general_ledgers_controller.rb:81
+  cas: jointure écrite à la main
+  tables:
+  - accounts
+  - journal_entries
+  - journal_entry_items
+  source: q2 = %q{Account.select('accounts.number AS account_number, accounts.name,
+    CASE WHEN (SUM(journal_entry_items.real_debit) - SUM(journal_entry_items.real_credit))
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/controllers/backend/interventions_controller.rb:589
+  cas: jointure écrite à la main
+  tables:
+  - interventions
+  source: ".joins('LEFT JOIN interventions record_interventions ON interventions.id
+    = record_interventions.request_intervention_id')"
+  conséquence: sans objet sous RLS
+- site: app/controllers/backend/listings_controller.rb:52
+  cas: lecture libre
+  tables: []
+  source: result = ApplicationRecord.connection.select_rows(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/listings_controller.rb:128
+  cas: lecture libre
+  tables: []
+  source: full_results = ApplicationRecord.connection.select_all(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/controllers/backend/products_controller.rb:353
+  cas: jointure écrite à la main
+  tables:
+  - products
+  source: 'Product.joins("JOIN (values #{array_values}) AS x (id, time) on products.id
+    = x.id").order(''x.time DESC'')'
+  conséquence: sans objet sous RLS
+- site: app/controllers/backend/purchase_process/reconciliation_controller.rb:26
+  cas: jointure écrite à la main
+  tables:
+  - parcel_items
+  - purchase_items
+  - purchases
+  source: PurchaseOrder.joins('INNER JOIN purchase_items ON purchase_items.purchase_id
+    = purchases.id LEFT JOIN parcel_items ON parcel_items.purchase_order_item_id =
+    purc
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/controllers/backend/purchase_process/reconciliation_controller.rb:42
+  cas: jointure écrite à la main
+  tables:
+  - parcel_items
+  - parcels
+  - purchase_items
+  source: ".joins('INNER JOIN parcel_items ON parcel_items.parcel_id = parcels.id
+    LEFT JOIN purchase_items ON purchase_items.id = parcel_items.purchase_invoice_item_id')"
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/controllers/backend/synchronizations_controller.rb:69
+  cas: écriture brute
+  tables:
+  - interventions
+  source: q = 'INSERT INTO interventions (' + insert.join(', ') + ') SELECT ' + values.join(',
+    ')
+  conséquence: 'à reprendre : un INSERT doit désormais fournir tenant_id, sinon la
+    politique le refuse'
+- site: app/controllers/backend/yield_observations_controller.rb:91
+  cas: écriture en masse
+  tables:
+  - issues
+  source: issues.delete_all
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/backend/yield_observations_controller.rb:94
+  cas: écriture en masse
+  tables:
+  - issues
+  source: 'issues.update_all(issue_nature_id: issue_attributes[:issue_nature_id])'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/controllers/concerns/restfully_manageable.rb:283
+  cas: écriture en masse
+  tables: []
+  source: 'sort << "    #{model.name}.where(id: #{record_name}.id).update_all(#{position}
+    => i+1)\n"'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/exchangers/agroedi/daplos_exchanger/input.rb:142
+  cas: écriture en masse
+  tables: []
+  source: 'matter.readings.update_all(read_at: born_at)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/exchangers/ekylibre/backup_exchanger.rb:297
+  cas: écriture en masse
+  tables: []
+  source: 'Entity.where(''title ILIKE ? OR title ILIKE ? OR title ILIKE ?'', ''%Madame%'',
+    ''%Monsieur%'', ''M%'').update_all(nature: ''contact'')'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/exchangers/telepac/exchanger_mixin.rb:193
+  cas: écriture en masse
+  tables: []
+  source: 'existing_perennial_production_always_active.update_all(stopped_on: Date.new(cap_year
+    -1, 12, 31))'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/jobs/call_records_maintenance.rb:6
+  cas: écriture en masse
+  tables:
+  - calls
+  source: 'CallMessage.where(call_id: calls.pluck(:id)).delete_all'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/jobs/call_records_maintenance.rb:7
+  cas: écriture en masse
+  tables:
+  - calls
+  source: calls.delete_all
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/account.rb:691
+  cas: écriture en masse
+  tables: []
+  source: 'items.update_all(letter: letter)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/account.rb:694
+  cas: écriture en masse
+  tables: []
+  source: 'items.where(financial_year_id: financial_year_id).update_all(isacompta_letter:
+    new_isacompta_letter(financial_year_id))'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/account.rb:714
+  cas: écriture en masse
+  tables:
+  - journal_entry_items
+  source: 'journal_entry_items.where(conditions).update_all(letter: letter, isacompta_letter:
+    isacompta_letter)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/account.rb:720
+  cas: écriture en masse
+  tables:
+  - journal_entry_items
+  source: 'journal_entry_items.where(letter: letter).update_all(letter: nil, isacompta_letter:
+    nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/account.rb:748
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id}
+    AND #{column.references} IN #{models_group}")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/account.rb:750
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id}")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/account.rb:796
+  cas: jointure écrite à la main
+  tables:
+  - journal_entries
+  - journal_entry_items
+  source: '#   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS
+    journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_at..stopped_'
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/models/activity_production.rb:186
+  cas: jointure écrite à la main
+  tables:
+  - activity_productions
+  - crumbs
+  source: ".joins('INNER JOIN crumbs ON ST_Contains(ST_CollectionExtract(activity_productions.support_shape,
+    3), crumbs.geolocation)')"
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/models/affair.rb:176
+  cas: écriture en masse
+  tables: []
+  source: where(query).delete_all
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/bank_statement.rb:194
+  cas: écriture en masse
+  tables: []
+  source: 'saved &&= statement_items.update_all(letter: new_letter)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/bank_statement.rb:195
+  cas: écriture en masse
+  tables:
+  - journal_entry_items
+  source: saved &&= journal_entry_items.update_all(
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/bank_statement.rb:268
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntryItem.where(id: journal_entry_item_ids).update_all('
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/bank_statement.rb:290
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntryItem.where(bank_statement_letter: letters).update_all('
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/bank_statement.rb:295
+  cas: écriture en masse
+  tables: []
+  source: 'BankStatementItem.where(letter: letters).update_all(letter: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/bank_statement_item.rb:103
+  cas: écriture en masse
+  tables:
+  - journal_entry_items
+  source: journal_entry_items.update_all(
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/cap_islet.rb:63
+  cas: exécution libre
+  tables:
+  - cap_islets
+  source: box = ApplicationRecord.connection.execute("SELECT ST_Extent(shape) FROM
+    cap_islets WHERE id IN (#{islets.map(&:id).join(', ')})").to_a.first['st_extent']
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/models/cap_islet.rb:65
+  cas: exécution libre
+  tables:
+  - cap_islets
+  source: box = ApplicationRecord.connection.execute('SELECT ST_Extent(shape) FROM
+    cap_islets').to_a.first['st_extent']
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/models/cap_islet.rb:69
+  cas: exécution libre
+  tables: []
+  source: points = ApplicationRecord.connection.execute("SELECT ST_XMin(CAST('#{box}'
+    As box2d)), ST_YMin(CAST('#{box}' As box2d)), ST_XMax(CAST('#{box}' As box2d)),
+    ST_Y
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/cash.rb:342
+  cas: écriture en masse
+  tables: []
+  source: 'saved &&= statement_items.update_all(letter: new_letter)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/cash.rb:343
+  cas: écriture en masse
+  tables:
+  - journal_entry_items
+  source: saved &&= journal_entry_items.update_all(
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/concerns/indicateable.rb:267
+  cas: écriture en masse
+  tables: []
+  source: 'data.update_all(["VALUE = #{expr}".gsub(''VALUE'', "#{indicator.datatype}_value"),
+    value])'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/concerns/letterable.rb:38
+  cas: écriture en masse
+  tables: []
+  source: 'jeis.update_all(bank_statement_letter: letter, bank_statement_id: bank_statement_id)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/concerns/letterable.rb:39
+  cas: écriture en masse
+  tables:
+  - bank_statement_items
+  source: 'bank_statement_items.update_all(letter: letter)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/custom_field_choice.rb:64
+  cas: écriture en masse
+  tables:
+  - custom_fields
+  source: custom_field.customized_model.where("custom_fields->>'#{custom_field.column_name}'
+    = ?", old.value).update_all("custom_fields = jsonb_set(custom_fields, '{#{cus
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/debt_transfer.rb:97
+  cas: écriture en masse
+  tables: []
+  source: ").delete_all"
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/document_template.rb:118
+  cas: écriture en masse
+  tables: []
+  source: self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', nature,
+    '%_of_template', id).update_all("archiving = archiving || '_of_template'")
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/document_template.rb:120
+  cas: écriture en masse
+  tables: []
+  source: 'self.class.where(''nature = ? AND id != ?'', nature, id).update_all(archiving:
+    archiving)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/entity.rb:476
+  cas: jointure écrite à la main
+  tables: []
+  source: '.joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id
+    = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = s'
+  conséquence: sans objet sous RLS
+- site: app/models/entity.rb:505
+  cas: écriture en masse
+  tables: []
+  source: 'EntityAddress.unscoped.where(entity_id: other.id).update_all(thread: thread,
+    by_default: false)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/entity.rb:521
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id}
+    AND #{column.references} IN #{models_group}")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/entity.rb:523
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute("UPDATE #{table} SET #{column.name}=#{id} WHERE #{column.name}=#{other.id}")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/entity_address.rb:156
+  cas: écriture en masse
+  tables: []
+  source: 'self.class.where(id: id).update_all(deleted_at: current_time)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/entity_address.rb:161
+  cas: écriture en masse
+  tables: []
+  source: 'self.class.where(id: id).update_all(deleted_at: Time.zone.now) unless new_record?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/financial_year.rb:440
+  cas: lecture libre
+  tables: []
+  source: balance = ApplicationRecord.connection.select_value(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/financial_year.rb:477
+  cas: lecture libre
+  tables: []
+  source: 'results = ApplicationRecord.connection.select_all("SELECT account_id, sum(debit)
+    AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.tab'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/models/financial_year_exchange.rb:95
+  cas: écriture en masse
+  tables: []
+  source: 'related_journal_entries.update_all(financial_year_exchange_id: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/financial_year_exchange.rb:96
+  cas: écriture en masse
+  tables:
+  - journals
+  source: 'journals.update_all(financial_year_exchange_id: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/financial_year_exchange.rb:141
+  cas: écriture en masse
+  tables: []
+  source: 'related_journal_entries.update_all(financial_year_exchange_id: id)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/financial_year_exchange.rb:142
+  cas: écriture en masse
+  tables: []
+  source: 'Journal.where(id: exported_journal_ids).update_all(financial_year_exchange_id:
+    id) if exported_journal_ids.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/intervention.rb:319
+  cas: jointure écrite à la main
+  tables:
+  - interventions
+  source: ".joins('LEFT OUTER JOIN interventions I ON interventions.id = I.request_intervention_id')"
+  conséquence: sans objet sous RLS
+- site: app/models/intervention.rb:436
+  cas: écriture en masse
+  tables: []
+  source: 'participations.update_all(state: state) unless state == :in_progress'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/intervention.rb:437
+  cas: écriture en masse
+  tables: []
+  source: 'participations.update_all(request_compliant: request_compliant) if request_compliant'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/intervention_proposal.rb:115
+  cas: lecture libre
+  tables:
+  - intervention_proposals
+  source: proposals = find_by_sql(["SELECT intervention_proposals.* FROM intervention_proposals
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/models/journal.rb:322
+  cas: jointure écrite à la main
+  tables:
+  - journal_entries
+  source: 'if entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries
+    ON (entry_id=journal_entries.id)").where(state: :draft).where(printed_on: (self.closed_'
+  conséquence: sans objet sous RLS
+- site: app/models/journal.rb:338
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntryItem.where(journal_id: id).where(''printed_on <= ?'', closed_on).where.not(state:
+    :closed).update_all(state: :closed)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/journal.rb:339
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntry.where(journal_id: id).where(''printed_on <= ?'', closed_on).where.not(state:
+    :closed).update_all(state: :closed)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/journal.rb:365
+  cas: jointure écrite à la main
+  tables:
+  - journal_entries
+  - journal_entry_items
+  source: 'entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON
+    (journal_entries.id=entry_id)").where(printed_on: started_on..stopped_on).order(''printe'
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/models/journal.rb:370
+  cas: jointure écrite à la main
+  tables:
+  - journal_entries
+  source: 'entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON
+    (journal_entries.id=entry_id)").where(printed_on: started_on..stopped_on).calculate(ope'
+  conséquence: sans objet sous RLS
+- site: app/models/journal_entry.rb:336
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntryItem.where(entry_id: id).update_all('
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/journal_entry_item.rb:304
+  cas: écriture en masse
+  tables: []
+  source: 'bank_statement.items.where(letter: bank_statement_letter).update_all(letter:
+    nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/loan.rb:133
+  cas: écriture en masse
+  tables: []
+  source: 'r.update_all(locked: true)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/outgoing_payment_list.rb:99
+  cas: écriture en masse
+  tables: []
+  source: 'OutgoingPayment.where(id: payment_ids).update_all(list_id: nil)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/parcel.rb:133
+  cas: écriture en masse
+  tables: []
+  source: 'product.readings.where(read_at: old_record.given_at).update_all(read_at:
+    given_at)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/preference.rb:166
+  cas: écriture en masse
+  tables: []
+  source: 'Preference.where(id: preference_ids).delete_all if preference_ids.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/product.rb:258
+  cas: jointure écrite à la main
+  tables:
+  - crumbs
+  - product_readings
+  source: .joins("INNER JOIN crumbs ON (product_readings.indicator_datatype = 'shape'
+    AND ST_Contains(ST_CollectionExtract(product_readings.geometry_value, 3), crumbs.geo
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/models/product.rb:365
+  cas: jointure écrite à la main
+  tables:
+  - fixed_assets
+  - products
+  source: scope :usable_in_fixed_asset, -> { depreciables.joins('LEFT JOIN fixed_assets
+    ON products.id = fixed_assets.product_id').where('fixed_assets.id IS NULL') }
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/models/tax_declaration.rb:134
+  cas: exécution libre
+  tables:
+  - tax_declaration_item_parts
+  - tax_declaration_items
+  source: ApplicationRecord.connection.execute("DELETE FROM tax_declaration_item_parts
+    tdip USING tax_declaration_items tdi WHERE tdip.tax_declaration_item_id = tdi.id
+    AN
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/models/tax_declaration.rb:135
+  cas: exécution libre
+  tables:
+  - tax_declaration_items
+  source: 'ApplicationRecord.connection.execute("DELETE FROM tax_declaration_items
+    WHERE tax_declaration_id = #{id}")'
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/models/tax_declaration.rb:266
+  cas: écriture en masse
+  tables: []
+  source: 'entry_items.update_all tax_declaration_mode: financial_year.tax_declaration_mode'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/tax_declaration.rb:272
+  cas: jointure écrite à la main
+  tables:
+  - journal_entry_items
+  - purchase_items
+  source: ".joins('INNER JOIN purchase_items pi ON pi.id = journal_entry_items.resource_id')"
+  conséquence: 'à relire : jointure entre tables du plan de données, à porter sur
+    (tenant_id, id)'
+- site: app/models/tax_declaration.rb:273
+  cas: jointure écrite à la main
+  tables:
+  - purchases
+  source: ".joins('INNER JOIN purchases p ON p.id = pi.purchase_id')"
+  conséquence: sans objet sous RLS
+- site: app/models/tax_declaration.rb:275
+  cas: écriture en masse
+  tables: []
+  source: ".update_all tax_declaration_mode: declaration_mode"
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/models/tax_declaration_item.rb:233
+  cas: exécution libre
+  tables: []
+  source: part_rows = ApplicationRecord.connection.execute(sql)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/accountancy/account_category_changing.rb:39
+  cas: écriture en masse
+  tables:
+  - purchase_items
+  source: 'purchase_items.update_all(account_id: @category.charge_account_id)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/account_category_changing.rb:45
+  cas: écriture en masse
+  tables:
+  - sale_items
+  source: 'sale_items.update_all(account_id: @category.product_account_id)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/account_category_changing.rb:74
+  cas: écriture en masse
+  tables: []
+  source: fixed_assets_items.update_all(attrs)
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:127
+  cas: écriture en masse
+  tables: []
+  source: 'existing_entries.update_all(account_id: new_account.id) if existing_entries.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:130
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.charges_categories.update_all(charge_account_id: new_account.id)
+    if old_account.charges_categories.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:131
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.products_categories.update_all(product_account_id: new_account.id)
+    if old_account.products_categories.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:132
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.stocks_categories.update_all(stock_account_id: new_account.id)
+    if old_account.stocks_categories.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:133
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.stocks_movement_categories.update_all(stock_movement_account_id:
+    new_account.id) if old_account.stocks_movement_categories.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:136
+  cas: écriture en masse
+  tables:
+  - loans
+  source: 'old_account.loans.update_all(loan_account_id: new_account.id) if old_account.loans.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:137
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.loans_as_interest.update_all(interest_account_id: new_account.id)
+    if old_account.loans_as_interest.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:138
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.loans_as_insurance.update_all(insurance_account_id: new_account.id)
+    if old_account.loans_as_insurance.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/accounting_system_changing.rb:139
+  cas: écriture en masse
+  tables: []
+  source: 'old_account.bank_guarantees_loans.update_all(bank_guarantee_account_id:
+    new_account.id) if old_account.bank_guarantees_loans.any?'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/accountancy/trial_balance_calculator.rb:66
+  cas: lecture libre
+  tables: []
+  source: items += connection.select_rows(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/accountancy/trial_balance_calculator.rb:77
+  cas: lecture libre
+  tables: []
+  source: items += connection.select_rows(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/accountancy/trial_balance_calculator.rb:89
+  cas: lecture libre
+  tables: []
+  source: items += connection.select_rows(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/accountancy/trial_balance_calculator.rb:100
+  cas: lecture libre
+  tables: []
+  source: items += connection.select_rows(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/accountancy/trial_balance_calculator.rb:118
+  cas: lecture libre
+  tables: []
+  source: items += connection.select_rows(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/activities/costs_calculation.rb:6
+  cas: exécution libre
+  tables: []
+  source: activity_costs = ActiveRecord::Base.connection.execute <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/activities/net_surface_area_calculation.rb:7
+  cas: exécution libre
+  tables: []
+  source: activity_campaign_net_surface_area = ActiveRecord::Base.connection.execute
+    <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/activities/working_zone_area_calculation.rb:12
+  cas: exécution libre
+  tables: []
+  source: activity_campaign_working_zone_area = ActiveRecord::Base.connection.execute
+    <<-SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/activity_productions/costs_calculation.rb:6
+  cas: exécution libre
+  tables: []
+  source: activity_production_costs = ActiveRecord::Base.connection.execute <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/activity_productions/working_zone_area_calculation.rb:10
+  cas: exécution libre
+  tables: []
+  source: activity_production_working_zone_area = ActiveRecord::Base.connection.execute
+    <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/financial_year_close.rb:180
+  cas: écriture en masse
+  tables: []
+  source: 'FixedAssetDepreciation.up_to(@to_close_on).where(locked: false).update_all(locked:
+    true)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/financial_year_close.rb:182
+  cas: écriture en masse
+  tables: []
+  source: 'LoanRepayment.where(''due_on <= ?'', @to_close_on).where(locked: false).update_all(locked:
+    true)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/financial_year_close.rb:511
+  cas: écriture en masse
+  tables: []
+  source: 'lettered_later.update_all(letter: new_letter)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/financial_year_close.rb:522
+  cas: exécution libre
+  tables: []
+  source: Affair.connection.execute query
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/financial_year_close.rb:528
+  cas: exécution libre
+  tables:
+  - journal_entry_items
+  source: ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items DISABLE
+    TRIGGER compute_partial_lettering_status_insert_delete')
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/services/financial_year_close.rb:529
+  cas: exécution libre
+  tables:
+  - journal_entry_items
+  source: ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items DISABLE
+    TRIGGER compute_partial_lettering_status_update')
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/services/financial_year_close.rb:544
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute <<-SQL.strip_heredoc
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/financial_year_close.rb:552
+  cas: exécution libre
+  tables:
+  - journal_entry_items
+  source: ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items ENABLE
+    TRIGGER compute_partial_lettering_status_insert_delete')
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/services/financial_year_close.rb:553
+  cas: exécution libre
+  tables:
+  - journal_entry_items
+  source: ApplicationRecord.connection.execute('ALTER TABLE journal_entry_items ENABLE
+    TRIGGER compute_partial_lettering_status_update')
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/services/financial_year_exchanges/csv_export.rb:74
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute(query).each do |row|
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/financial_year_exchanges/csv_export.rb:165
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute(query).each do |row|
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/financial_year_exchanges/csv_export.rb:228
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute(query).each do |row|
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/financial_year_locker.rb:7
+  cas: écriture en masse
+  tables: []
+  source: 'get_depreciations_to_lock(year).update_all(locked: true)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/financial_year_locker.rb:8
+  cas: écriture en masse
+  tables: []
+  source: 'get_loan_repayments_to_lock(year).update_all(locked: true)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/fixed_asset/transitions/scrap.rb:33
+  cas: écriture en masse
+  tables: []
+  source: 'resource.depreciations.update_all locked: true'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/fixed_asset/transitions/sell.rb:30
+  cas: écriture en masse
+  tables: []
+  source: 'resource.depreciations.update_all locked: true'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/global_currency.rb:11
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntryItem.update_all("absolute_debit = #{rate} * absolute_debit,
+    absolute_credit = #{rate} * absolute_credit, absolute_currency = ''#{new_currency}'',
+    abso'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/global_currency.rb:13
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntry.update_all("absolute_debit = #{rate} * absolute_debit, absolute_credit
+    = #{rate} * absolute_credit, absolute_currency = ''#{new_currency}''")'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/interventions/autolink_intervention_with_incoming_harvest_service.rb:36
+  cas: écriture en masse
+  tables: []
+  source: 'free_ihc.update_all(harvest_intervention_id: crop_harvest_intervention.id)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/interventions/exports/global_costs_xslx_export.rb:68
+  cas: exécution libre
+  tables: []
+  source: request = ApplicationRecord.connection.execute(sql)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/interventions/exports/global_costs_xslx_export.rb:69
+  cas: exécution libre
+  tables: []
+  source: harvest_request = ApplicationRecord.connection.execute(harvest_sql)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/interventions/exports/interventions_xslx_export.rb:86
+  cas: exécution libre
+  tables: []
+  source: generate_ods(ApplicationRecord.connection.execute(sql))
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/interventions/exports/tool_costs_xslx_export.rb:46
+  cas: exécution libre
+  tables: []
+  source: request = ApplicationRecord.connection.execute(sql)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:71
+  cas: exécution libre
+  tables: []
+  source: res = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:87
+  cas: exécution libre
+  tables: []
+  source: res = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:96
+  cas: exécution libre
+  tables: []
+  source: ring = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:107
+  cas: exécution libre
+  tables: []
+  source: poly = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:125
+  cas: exécution libre
+  tables: []
+  source: res = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:143
+  cas: exécution libre
+  tables: []
+  source: res = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/shape_corrector.rb:178
+  cas: exécution libre
+  tables: []
+  source: res = @connection.execute(<<~SQL).to_a.first
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: app/services/validate_draft_journal_entries_service.rb:10
+  cas: exécution libre
+  tables:
+  - journal_entries
+  source: ApplicationRecord.connection.execute('LOCK journal_entries IN ACCESS EXCLUSIVE
+    MODE')
+  conséquence: 'sans objet sous RLS : la politique filtre aussi le SQL brut'
+- site: app/services/validate_draft_journal_entries_service.rb:11
+  cas: écriture en masse
+  tables: []
+  source: "@entries.update_all(state: :confirmed, validated_at: Time.zone.now)"
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/services/validate_draft_journal_entries_service.rb:12
+  cas: écriture en masse
+  tables: []
+  source: 'JournalEntryItem.where(entry_id: @entries).update_all(state: :confirmed)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: app/validators/shape_validator.rb:16
+  cas: exécution libre
+  tables: []
+  source: pg_res = ApplicationRecord.connection.execute <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/first_run/faker/sales.rb:8
+  cas: écriture en masse
+  tables: []
+  source: 'Sale.where(id: sale.id).update_all(created_at: d)'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/first_run/faker/sales.rb:29
+  cas: écriture en masse
+  tables: []
+  source: "# Sale.where(id: sale.id).update_all(confirmed_at: d)"
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/first_run/faker/sales.rb:37
+  cas: écriture en masse
+  tables: []
+  source: "# Sale.where(id: sale.id).update_all(invoiced_at: d, payment_at: (d + 30.days))"
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/lexicon.rb:371
+  cas: écriture brute
+  tables: []
+  source: INSERT INTO "lexicon"."version" VALUES ('#{package.version}');
+  conséquence: 'à reprendre : un INSERT doit désormais fournir tenant_id, sinon la
+    politique le refuse'
+- site: lib/ekylibre/lexicon.rb:391
+  cas: écriture brute
+  tables: []
+  source: INSERT INTO "lexicon"."version" VALUES ('#{@target_version}');
+  conséquence: 'à reprendre : un INSERT doit désormais fournir tenant_id, sinon la
+    politique le refuse'
+- site: lib/ekylibre/record/bookkeep.rb:45
+  cas: écriture en masse
+  tables: []
+  source: "# `update_columns` et non `where(id:).update_all` : depuis Rails 6,"
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/record/has_shape.rb:98
+  cas: exécution libre
+  tables: []
+  source: svg = ActiveRecord::Base.connection.execute <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/record/has_shape.rb:120
+  cas: exécution libre
+  tables: []
+  source: per = ActiveRecord::Base.connection.execute <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/record/has_shape.rb:267
+  cas: lecture libre
+  tables: []
+  source: code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr}))
+    AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(S
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/record/has_shape.rb:328
+  cas: lecture libre
+  tables: []
+  source: '#   code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(geometry_value)
+    FROM \#{ProductReading.indicator_table_name(:#{indicator})}'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/record/selects_among_all.rb:98
+  cas: écriture en masse
+  tables: []
+  source: 'pode << "  #{scope}.where(#{column}: true).where.not(id: self.id).update_all(#{column}:
+    false)\n"'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/record/sums.rb:55
+  cas: écriture en masse
+  tables: []
+  source: '# code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym,
+    target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.coll'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/record/sums.rb:56
+  cas: écriture en masse
+  tables: []
+  source: '# code << "  " + target_reflection.class_name + ".where(id: self.#{target_id}).update_all("
+    + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"'
+  conséquence: 'à relire : Rails 8.1 compile un update_all joint en UPDATE … FROM,
+    et la clé composite change la clause'
+- site: lib/ekylibre/schema.rb:8
+  cas: exécution libre
+  tables: []
+  source: ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/schema.rb:9
+  cas: exécution libre
+  tables: []
+  source: ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS "postgis"
+    SCHEMA postgis;'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/schema.rb:10
+  cas: exécution libre
+  tables: []
+  source: ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
+    SCHEMA postgis;'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/schema.rb:11
+  cas: exécution libre
+  tables: []
+  source: ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS "unaccent"
+    SCHEMA postgis;'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenancy.rb:98
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute("SET LOCAL #{SETTING} = #{connection.quote(value)}")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:93
+  cas: lecture libre
+  tables: []
+  source: 'return unless connection.select_value("SELECT 1 FROM pg_roles WHERE rolname
+    = #{connection.quote(duke_user)}")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:95
+  cas: exécution libre
+  tables: []
+  source: connection.execute(%(GRANT USAGE ON SCHEMA "#{name}" TO "#{duke_user}"))
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:96
+  cas: exécution libre
+  tables: []
+  source: connection.execute(%(GRANT SELECT ON ALL TABLES IN SCHEMA "#{name}" TO "#{duke_user}"))
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:97
+  cas: exécution libre
+  tables: []
+  source: connection.execute(%(ALTER DEFAULT PRIVILEGES IN SCHEMA "#{name}" GRANT
+    SELECT ON TABLES TO "#{duke_user}"))
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:146
+  cas: exécution libre
+  tables: []
+  source: 'ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect}
+    RENAME TO #{new.to_s.inspect};")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:290
+  cas: exécution libre
+  tables: []
+  source: 'ActiveRecord::Base.connection.execute("DROP SCHEMA IF EXISTS #{s_name}
+    CASCADE;")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:313
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:315
+  cas: exécution libre
+  tables: []
+  source: 'connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:321
+  cas: exécution libre
+  tables: []
+  source: connection.execute(query)
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:351
+  cas: écriture brute
+  tables: []
+  source: connection.execute('INSERT INTO schema_migrations SELECT * FROM public.schema_migrations')
+  conséquence: 'à reprendre : un INSERT doit désormais fournir tenant_id, sinon la
+    politique le refuse'
+- site: lib/ekylibre/tenant.rb:368
+  cas: exécution libre
+  tables: []
+  source: result = connection.execute(
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/tenant.rb:389
+  cas: exécution libre
+  tables: []
+  source: ActiveRecord::Base.connection.execute(
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/ekylibre/testing/helper.rb:23
+  cas: exécution libre
+  tables: []
+  source: ApplicationRecord.connection.execute <<~SQL
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/fixturing.rb:40
+  cas: exécution libre
+  tables: []
+  source: Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/fixturing.rb:41
+  cas: exécution libre
+  tables: []
+  source: Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/fixturing.rb:43
+  cas: exécution libre
+  tables: []
+  source: Apartment.connection.execute("SET search_path TO '#{tenant}', postgis")
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/fixturing.rb:94
+  cas: lecture libre
+  tables: []
+  source: 'ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} #{''ORDER
+    BY '' + sort_column if sort_column}").each do |row|'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'
+- site: lib/fixturing.rb:113
+  cas: lecture libre
+  tables: []
+  source: 'version = ActiveRecord::Base.connection.select_value("SELECT * FROM #{migrations_table}
+    ORDER BY 1 DESC")'
+  conséquence: 'sans objet : ne touche aucune table du plan de données'

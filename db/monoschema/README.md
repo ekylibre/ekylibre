@@ -295,6 +295,42 @@ puisque leur cible change d'une ligne à l'autre — la RLS les couvre des deux
 côtés ; les **HABTM** passent par les onze vues de jonction, elles-mêmes filtrées
 par `security_invoker`. Les uns et les autres sont à vérifier, pas à réécrire.
 
+## Le SQL écrit à la main (point 1.19)
+
+`rake monoschema:raw_sql` recense **190 sites** et les classe par ce qui leur
+arrive — pas par la syntaxe qu'ils emploient.
+
+| | |
+|---|---:|
+| sans objet : ne touchent aucune table du plan de données | 72 |
+| sans objet sous RLS : la politique filtre aussi le SQL brut | 17 |
+| à relire : écritures en masse et jointures écrites à la main | 97 |
+| **à reprendre** : elles échouent | **4** |
+
+**Le SQL brut n'est pas un trou dans l'isolation.** Une requête écrite à la main
+et posée sous un contexte de ferme est filtrée comme les autres, jointures
+comprises : deux tables filtrées chacune sur la même ferme ne peuvent pas se
+joindre entre fermes. C'est tout l'intérêt d'avoir mis l'isolation dans la base
+plutôt que dans un `default_scope`. Ce que le SQL brut risque, c'est la
+*rupture*.
+
+Et les deux ruptures sont bruyantes, ce qui est la bonne nouvelle. Mesurées :
+
+| Ce qu'on écrivait avant | Ce que PostgreSQL répond maintenant |
+|---|---|
+| `INSERT INTO products (id, …)` sans `tenant_id` | `new row violates row-level security policy for table "products"` |
+| `… ON CONFLICT (number)` | `there is no unique or exclusion constraint matching the ON CONFLICT specification` |
+
+La première surprend : c'est la politique qui refuse, pas la contrainte `NOT
+NULL`, parce que `WITH CHECK` est évaluée d'abord. Peu importe — dans les deux
+cas, rien ne passe en silence.
+
+Les 97 « à relire » sont une précaution, pas un diagnostic : ce sont les
+`update_all`, `delete_all` et jointures littérales qui touchent une table du
+plan de données. La RLS les couvre ; ce qu'il faut y vérifier est la clé
+composite et, pour les `update_all` joints, la compilation en `UPDATE … FROM`
+que Rails 8.1 emploie — `CLAUDE.md` en documente déjà deux victimes.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier
