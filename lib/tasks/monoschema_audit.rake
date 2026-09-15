@@ -91,7 +91,7 @@ module MonoschemaAudit
           JOIN pg_class c ON c.oid = p.polrelid
           JOIN pg_namespace n ON n.oid = c.relnamespace
          WHERE n.nspname = 'ekylibre'
-           AND pg_get_expr(p.polwithcheck, p.polrelid) LIKE '%shared_tenants%'
+           AND pg_get_expr(p.polwithcheck, p.polrelid) LIKE '%readable_tenants%'
       SQL
       ['rôle applicatif trop puissant', <<~SQL],
         -- Point 1.13 : ni superutilisateur, ni BYPASSRLS, ni propriétaire des

@@ -275,8 +275,7 @@ module MonoschemaSchema
       ALTER TABLE ekylibre.#{table} ENABLE ROW LEVEL SECURITY;
       ALTER TABLE ekylibre.#{table} FORCE ROW LEVEL SECURITY;
       CREATE POLICY tenant_isolation ON ekylibre.#{table}
-          USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
-                 OR tenant_id = ANY (ekylibre.shared_tenants()))
+          USING (tenant_id = ANY (ekylibre.readable_tenants()))
           WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
     SQL
   end
@@ -346,13 +345,23 @@ module MonoschemaSchema
           CONSTRAINT tenant_shares_unicity UNIQUE (consumer_tenant_id, shared_tenant_id, purpose)
       );
 
-      -- Les fermes réellement lisibles : l'intersection de ce que le chemin
-      -- demande (`app.tenant_ids`) et de ce que le plan de contrôle autorise.
+      -- Les fermes lisibles : la ferme courante, plus celles que le chemin
+      -- inter-fermes demande *et* que le plan de contrôle autorise.
       -- L'application ne peut donc pas s'ouvrir une ferme qui n'a pas
       -- consenti, même en posant le réglage elle-même.
-      CREATE FUNCTION ekylibre.shared_tenants() RETURNS uuid[]
+      --
+      -- Une seule fonction, qui rend un tableau : la politique s'écrit alors
+      -- `tenant_id = ANY (…)`, une condition que le planificateur sait porter
+      -- sur un index. Écrite en `OR` — ferme courante OU fermes partagées —
+      -- elle produisait un `BitmapOr` qui rejetait le prédicat spatial en
+      -- filtre : 1 920 lignes écartées après coup au lieu d'un parcours GiST.
+      -- Mesuré, puis corrigé.
+      CREATE FUNCTION ekylibre.readable_tenants() RETURNS uuid[]
       LANGUAGE sql STABLE AS $$
         SELECT COALESCE(ARRAY(
+          SELECT NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           WHERE NULLIF(current_setting('app.tenant_id', true), '') IS NOT NULL
+          UNION
           SELECT s.shared_tenant_id
             FROM ekylibre.tenant_shares s
            WHERE s.consumer_tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
@@ -391,7 +400,7 @@ module MonoschemaSchema
       GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ekylibre TO #{APP_ROLE};
       GRANT SELECT ON ALL TABLES IN SCHEMA lexicon TO #{APP_ROLE};
       GRANT SELECT ON ekylibre.tenants, ekylibre.tenant_shares TO #{APP_ROLE};
-      GRANT EXECUTE ON FUNCTION ekylibre.shared_tenants() TO #{APP_ROLE};
+      GRANT EXECUTE ON FUNCTION ekylibre.readable_tenants() TO #{APP_ROLE};
       -- Et surtout pas sur les vues matérialisées, qui portent toutes les
       -- fermes : le `GRANT` ci-dessus vise les tables, pas les matviews.
       REVOKE ALL ON ALL TABLES IN SCHEMA ekylibre FROM PUBLIC;
@@ -416,6 +425,10 @@ module MonoschemaSchema
       $$;
     SQL
     MonoschemaPrototype.psql(DATABASE, ['-f', Rails.root.join(OUTPUT_PATH).to_s])
+    # Sans ce marquage, la RLS écarte le prédicat spatial de l'index : mesuré au
+    # point 1.4, 63 380 contre 229 en coût estimé. C'est une décision de
+    # sécurité, prise ici pour la sonde — le lot 1 la prendra pour de bon.
+    MonoschemaPrototype.mark_spatial_operators_leakproof(DATABASE)
   end
 end
 

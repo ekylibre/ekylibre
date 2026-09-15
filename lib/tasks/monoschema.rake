@@ -281,9 +281,9 @@ module MonoschemaPrototype
   # fonction ne peut pas divulguer la valeur de ses arguments par un message
   # d'erreur. Pour un recouvrement de rectangles englobants, c'est défendable ;
   # la décision revient au lot 1, ce prototype ne fait que la mesurer.
-  def mark_spatial_operators_leakproof
-    exec_sql(DATABASE, 'ALTER FUNCTION postgis.geometry_overlaps(postgis.geometry, postgis.geometry) LEAKPROOF')
-    exec_sql(DATABASE, 'ALTER FUNCTION postgis.st_intersects(postgis.geometry, postgis.geometry) LEAKPROOF')
+  def mark_spatial_operators_leakproof(database = DATABASE)
+    exec_sql(database, 'ALTER FUNCTION postgis.geometry_overlaps(postgis.geometry, postgis.geometry) LEAKPROOF')
+    exec_sql(database, 'ALTER FUNCTION postgis.st_intersects(postgis.geometry, postgis.geometry) LEAKPROOF')
   end
 
   def drop

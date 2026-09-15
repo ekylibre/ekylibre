@@ -44,7 +44,10 @@ module MonoschemaIsolation
         'port' => config['port'],
         'database' => MonoschemaSchema::DATABASE,
         'username' => MonoschemaSchema::APP_ROLE,
-        'password' => MonoschemaSchema::APP_ROLE
+        'password' => MonoschemaSchema::APP_ROLE,
+        # `postgis` doit être dans le chemin : un opérateur ne se qualifie pas
+        # par son schéma, et c'est `&&` qui rend l'index GiST utilisable.
+        'schema_search_path' => 'ekylibre,lexicon,public,postgis'
       )
       ApplicationRole.connection
     end

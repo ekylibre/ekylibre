@@ -394,6 +394,40 @@ base, et hors du bloc le réglage est vide, donc la politique se referme.
 `across` journalise l'appel — qui a lu quoi, et pour quel motif : c'est la
 contrepartie du droit de regarder chez le voisin.
 
+## La mesure d'échelle (point 1.9)
+
+Deux fermes prouvent l'isolation ; elles ne disent rien des plans d'exécution.
+`rake monoschema:scale TENANTS=200 ROWS=2000` peuple la sonde — **200 fermes,
+600 000 lignes, 477 Mo, en 33 secondes** — puis lit les plans avec le rôle
+applicatif, sous la politique.
+
+| Requête d'une ferme | Chemin | Lignes parcourues | Temps |
+|---|---|---:|---:|
+| liste de ses parcelles | btree `(tenant_id, …)` | 2 000 | 16 ms |
+| parcelles intersectant une emprise | **GiST `(tenant_id, shape)`** | **80** | **0,54 ms** |
+| interventions des trente derniers jours | btree `(tenant_id, …)` | 1 000 | 2,3 ms |
+
+Aucune requête ne parcourt les 400 000 lignes : le filtre de ferme est servi par
+un index, ce que l'ADR-002 affirmait sans l'avoir montré. C'est la propriété qui
+rend le mono-schéma tenable.
+
+**Mais l'index spatial ne sert qu'à trois conditions réunies**, et il a fallu les
+découvrir une par une :
+
+1. l'opérateur est `LEAKPROOF` — sinon la RLS garde le prédicat au-dessus de la
+   politique, et il devient un filtre (mesuré au point 1.4 : 63 380 contre 229
+   en coût estimé) ;
+2. **la politique tient en une seule condition `= ANY`**. Écrite en `OR` — ferme
+   courante *ou* fermes partagées —, elle produit un `BitmapOr` qui rejette le
+   prédicat spatial en filtre : 1 920 lignes écartées après coup au lieu de 80
+   lues. C'est pourquoi `readable_tenants()` rend un tableau qui contient déjà
+   la ferme courante, au lieu de laisser la politique faire l'union ;
+3. la table est analysée.
+
+La deuxième a été introduite par le chemin inter-fermes du point 1.22 et
+corrigée par cette mesure — elle n'aurait été visible ni à deux fermes, ni sur
+un schéma vide.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier
