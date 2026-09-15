@@ -24,25 +24,31 @@ module MonoschemaReferenceGap
       columns: %w[code name],
       key: %w[code],
       lexicon: 'registered_administrative_areas',
-      note: "Le Lexicon porte `registered_administrative_areas` (régions et départements) : un district y correspond peut-être déjà."
+      note: "Couvert par `registered_administrative_areas`. Le faible recouvrement mesuré ici vient du paquet Lexicon *allégé* de la base de développement, pas d'un manque du référentiel."
     },
     'postal_zones' => {
       columns: %w[postal_code city_name city code country],
       key: %w[country postal_code city_name],
       lexicon: 'registered_postal_codes',
-      note: "Le Lexicon porte `registered_postal_codes`, mais partiellement — à compléter plutôt qu'à dupliquer."
+      note: "Couvert par `registered_postal_codes`, qui porte toutes les communes dans le paquet complet. Les 86 lignes vues ici sont celles du paquet allégé."
     },
     'vegetative_stages' => {
+      # Le format de `master_phenological_stages`, que la décision du
+      # 15 septembre étend à toutes les variétés : un identifiant
+      # `<code bbch>-<variété>`, comme la vigne l'emploie déjà, et un libellé
+      # traduit. Les colonnes propres à la vigne — biaggiolini,
+      # eichhorn_lorenz, chasselas_date — restent vides.
       columns: %w[bbch_number variety label],
       key: %w[variety bbch_number],
       lexicon: 'master_phenological_stages',
-      note: "Le Lexicon porte `master_phenological_stages`, orientée vigne (biaggiolini, eichhorn_lorenz, chasselas). Les stades des autres variétés y manquent."
+      lexicon_shape: true,
+      note: "À verser dans `master_phenological_stages`, étendue au format générique (décision du 15 septembre)."
     },
     'net_services' => {
       columns: %w[reference_name],
       key: %w[reference_name],
       lexicon: nil,
-      note: "Aucun équivalent au Lexicon : table à créer, ou à supprimer si les six lignes ne servent plus."
+      note: "Ne sert plus (décision du 15 septembre) : table supprimée plutôt que portée au référentiel."
     }
   }.freeze
 
@@ -85,6 +91,22 @@ module MonoschemaReferenceGap
     [seen.values, divergences]
   end
 
+  # Au format de la table du Lexicon, prête à y être versée : l'identifiant
+  # suit la convention de la vigne (`00-vitis`), et le libellé est un objet
+  # traduit. Les stades que le référentiel connaît déjà sont écartés.
+  def write_phenological_stages(path, rows)
+    known = connection.select_values('SELECT id FROM lexicon.master_phenological_stages').to_set
+    CSV.open(path, 'w') do |csv|
+      csv << %w[id bbch_code variety label_fra]
+      rows.each do |row|
+        identifier = "#{row['bbch_number']}-#{row['variety']}"
+        next if known.include?(identifier)
+
+        csv << [identifier, row['bbch_number'], row['variety'], row['label']]
+      end
+    end
+  end
+
   def lexicon_count(table)
     return nil if table.nil?
 
@@ -100,9 +122,13 @@ module MonoschemaReferenceGap
     TABLES.map do |table, spec|
       rows, divergences = deduplicate(rows_for(table, spec), spec[:key])
       path = directory.join("#{table}.csv")
-      CSV.open(path, 'w') do |csv|
-        csv << spec[:columns]
-        rows.each { |row| csv << spec[:columns].map { |column| row[column] } }
+      if spec[:lexicon_shape]
+        write_phenological_stages(path, rows)
+      else
+        CSV.open(path, 'w') do |csv|
+          csv << spec[:columns]
+          rows.each { |row| csv << spec[:columns].map { |column| row[column] } }
+        end
       end
 
       { table: table, rows: rows.size, divergences: divergences,

@@ -495,34 +495,37 @@ c'est une correspondance — et elle est totale sur le jeu mesuré.
 
 Décision du 15 septembre : eux aussi rejoignent le Lexicon.
 `rake monoschema:reference_gap TENANTS=demo` extrait leur contenu, dédupliqué
-sur les fermes passées, dans `db/monoschema/referentiels/*.csv`. Et là encore,
-la question n'est pas seulement « que contiennent-ils » mais « le Lexicon ne
-les porte-t-il pas déjà » :
+sur les fermes passées, dans `db/monoschema/referentiels/*.csv`.
 
-| Table de la ferme | Lignes | Table du Lexicon comparable | Recouvrement |
-|---|---:|---|---|
-| `districts` | **0** | `registered_administrative_areas` (119) | rien à porter — la table est vide dans la démo |
-| `postal_zones` | 14 | `registered_postal_codes` (86) | **2 sur 14** |
-| `vegetative_stages` | 358 | `master_phenological_stages` (54) | **1 sur 358** |
-| `net_services` | 6 | aucune | — |
+| Table de la ferme | Lignes | Ce qu'il en advient |
+|---|---:|---|
+| `districts` | 0 | couverte par `registered_administrative_areas` |
+| `postal_zones` | 14 | couverte par `registered_postal_codes` |
+| `vegetative_stages` | **358** | à verser dans `master_phenological_stages`, étendue au format générique |
+| `net_services` | 6 | **supprimée** — elle ne sert plus |
 
-Deux constats pour la spec :
+**Le recouvrement mesuré ici ne veut rien dire, et c'est une leçon pour les
+prochaines mesures** : la base de développement porte un paquet Lexicon
+*allégé*. `registered_postal_codes` n'y a que 86 lignes ; le paquet complet
+porte toutes les communes. Une comparaison au référentiel ne vaut que si l'on
+sait quelle version on interroge — la mienne disait « 2 codes postaux sur 14 »
+là où il n'y a rien à porter.
 
-- **`registered_postal_codes` est partiel** — 86 lignes là où la France en
-  compte des dizaines de milliers. La table existe, la donnée non : c'est une
-  question de source, pas d'extraction ;
-- **`master_phenological_stages` est orientée vigne** (ses colonnes
-  `biaggiolini`, `eichhorn_lorenz`, `chasselas_date` le disent), avec 54 lignes,
-  quand les fermes portent 358 stades BBCH toutes variétés. Soit on l'étend,
-  soit on ajoute une table de stades générique à côté.
+**Les 358 stades phénologiques**, eux, manquent bel et bien :
+`master_phenological_stages` est orientée vigne — ses colonnes `biaggiolini`,
+`eichhorn_lorenz`, `chasselas_date` le disent — et les fermes portent des stades
+BBCH pour vingt-cinq espèces : poacées, cucurbitacées, maïs, colza, soja,
+tournesol, pois chiche… Le CSV est engendré **au format de la table**, prêt à y
+être versé : identifiant `<code bbch>-<variété>` selon la convention que la
+vigne emploie déjà (`00-vitis`), code BBCH, variété, libellé français. Les
+colonnes propres à la vigne restent vides.
 
-`net_services` — six lignes, aucun équivalent — mérite surtout qu'on demande si
-elle sert encore.
-
-**Une limite à garder en tête** : tout ceci est mesuré sur *une* ferme. La
-déduplication entre exploitations, et les divergences qu'elle révélerait, ne se
-verront qu'avec plusieurs jeux réels. La tâche les compte et les signale quand
-elle en trouve.
+**`net_services` disparaît** plutôt que de rejoindre le référentiel. Ses six
+lignes nomment des services externes — `telepac`, `msa`, `cartodb`, `lilco`,
+`synel`, `charentes_alliance_extranet` — et douze `identifiers` les désignaient
+sur la ferme de démonstration. **L'information de service part avec la table** ;
+si elle compte, il faut la garder en clair sur `identifiers` plutôt que par une
+clé étrangère. La colonne `identifiers.net_service_id` est retirée avec elle.
 
 ## Le questionnaire
 

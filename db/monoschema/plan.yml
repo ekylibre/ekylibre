@@ -3942,10 +3942,12 @@ naming_formats:
   columns: 8
 net_services:
   schema: public
-  plane: reference
-  status: à déplacer vers le lexicon
-  reason: liste de services, sans donnée propre à la ferme. Une seule colonne le désigne
-    — identifiers.net_service_id
+  plane: drop
+  status: à supprimer
+  reason: 'liste d''identifiants de services externes qui ne sert plus (décision du
+    15 septembre). Douze lignes d''`identifiers` la désignaient sur la ferme de démonstration
+    : l''information de service disparaît avec elle, à moins de la garder en clair
+    sur `identifiers`'
   id: bigint
   primary_key:
   - id
@@ -5728,11 +5730,12 @@ units:
   schema: public
   plane: reference
   status: à déplacer vers le lexicon
-  reason: 'à **fusionner avec `master_units`** du lexicon, pas seulement à déplacer
-    (réponse du 15 septembre). C''est le déplacement le plus lourd des cinq : dix
-    colonnes dans dix tables désignent une unité, la table est en STI (Unit, ReferenceUnit,
-    Conditioning), et une ferme peut aujourd''hui en créer depuis l''écran — ce qu''elle
-    ne pourra plus'
+  reason: 'à porter vers **deux** tables du Lexicon, et non une : `master_packagings`
+    pour les unités de type `Conditioning`, `master_units` pour les autres — le STI
+    de l''application dit laquelle. Mesuré sur la démonstration, la correspondance
+    est *totale* (12 conditionnements, 42 unités) : il n''y a rien à ajouter au référentiel.
+    Reste le travail de raccordement — dix colonnes dans dix tables désignent une
+    unité — et le fait qu''une ferme ne pourra plus en créer depuis l''écran'
   id: bigint
   primary_key:
   - id

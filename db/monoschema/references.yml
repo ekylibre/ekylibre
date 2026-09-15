@@ -1169,7 +1169,7 @@ identifiers:
     plane: data
   net_service_id:
     target: net_services
-    plane: reference
+    plane: drop
   updater_id:
     target: users
     plane: data
