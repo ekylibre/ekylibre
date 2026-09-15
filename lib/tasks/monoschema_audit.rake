@@ -83,6 +83,17 @@ module MonoschemaAudit
          WHERE i.schemaname = 'ekylibre' AND i.indexdef LIKE 'CREATE UNIQUE%'
            AND i.indexdef NOT LIKE '%(tenant_id,%' AND i.indexdef NOT LIKE '%(tenant_id)%'
       SQL
+      ['rôle applicatif trop puissant', <<~SQL],
+        -- Point 1.13 : ni superutilisateur, ni BYPASSRLS, ni propriétaire des
+        -- tables. `FORCE ROW LEVEL SECURITY` couvre le propriétaire, mais on ne
+        -- veut de toute façon pas que l'application s'y connecte ainsi.
+        SELECT r.rolname FROM pg_roles r
+         WHERE r.rolname = 'ekylibre_app'
+           AND (r.rolsuper OR r.rolbypassrls
+                OR EXISTS (SELECT 1 FROM pg_class c
+                             JOIN pg_namespace n ON n.oid = c.relnamespace
+                            WHERE n.nspname = 'ekylibre' AND c.relowner = r.oid))
+      SQL
       ['vues sans security_invoker', <<~SQL],
         SELECT c.relname FROM pg_class c
           JOIN pg_namespace n ON n.oid = c.relnamespace
@@ -129,6 +140,6 @@ namespace :monoschema do
     end
 
     abort "\n#{failed.size} invariant(s) rompu(s)." if failed.any?
-    puts "\nLes huit invariants tiennent sur les 234 tables du plan de données."
+    puts "\nLes neuf invariants tiennent sur les 234 tables du plan de données."
   end
 end

@@ -219,6 +219,42 @@ passent au référentiel, ni reprendre les onze vues et trois vues matérialisé
 — c'est le point 1.10. Elle n'a par ailleurs été mesurée que sur des fermes
 jetables : le volume réel, lui, se mesurera sur une copie de production.
 
+## Le contexte de ferme (points 1.17 et 1.18)
+
+`lib/ekylibre/tenancy.rb` est le pendant applicatif de la Row Level Security :
+la base refuse de rendre quoi que ce soit tant que `app.tenant_id` n'est pas
+posé, et c'est là qu'il se pose.
+
+```ruby
+Ekylibre::Tenancy.with(tenant_id) { Product.count }
+Ekylibre::Tenancy.without_tenant { ... }   # le chemin explicite, et cherchable
+Ekylibre::Tenancy.current!                 # lève plutôt que de rendre nil
+```
+
+Rien n'en est branché sur l'application tant qu'Apartment est en place : ce
+fichier vit à côté, et sept tests l'éprouvent (`test/lib/ekylibre/tenancy_test.rb`).
+Quatre précautions y sont inscrites, toutes apprises en mesurant :
+
+1. **`SET LOCAL` porte sur la transaction, pas sur le bloc Ruby.** Dans un
+   savepoint, le réglage survivrait à la sortie du bloc ; le contexte rétablit
+   donc lui-même la valeur précédente, ce qui rend au passage deux contextes
+   imbricables ;
+2. **le cache de requêtes ignore le tenant** : il est indexé sur le seul texte
+   SQL, et resservirait sous B une lecture faite sous A. Il est vidé de part et
+   d'autre ;
+3. **hors transaction, `SET LOCAL` n'a aucun effet** — PostgreSQL le dit dans un
+   avertissement. Le contexte en ouvre donc une, et c'est elle qui le fait
+   mourir à la sortie. C'est le choix le plus sûr ; l'autre — poser le réglage
+   sur la connexion et le nettoyer à son retour au pool — évite des transactions
+   longues mais confie l'isolation à un `ensure` de plus ;
+4. **une exception ne laisse rien derrière elle.**
+
+**Les jobs emportent leur ferme** (`Ekylibre::Tenancy::JobPropagation`) : le
+tenant voyage dans la sérialisation, comme `apartment-sidekiq` le fait
+aujourd'hui du nom de schéma, et le job rétablit le contexte le temps de son
+exécution. Un job enfilé sans ferme — une tâche d'administration — s'exécute
+sans contexte plutôt qu'avec un contexte inventé.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier
