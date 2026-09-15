@@ -260,12 +260,23 @@ module MonoschemaSchema
 
   # --- Isolation -----------------------------------------------------------
 
+  # La lecture peut s'élargir, l'écriture jamais.
+  #
+  # `USING` accepte, en plus de la ferme courante, celles que `app.tenant_ids`
+  # énumère : c'est le chemin inter-fermes du point 1.22 — tableau de bord de
+  # CUMA, comparaison de marges, vue coopérative. Il reste *dans* la politique,
+  # au lieu de la contourner par un rôle `BYPASSRLS`, si bien qu'une ferme non
+  # citée reste invisible même à ce chemin-là.
+  #
+  # `WITH CHECK` ne connaît, lui, que la ferme courante : on lit chez le
+  # voisin, on n'y écrit pas.
   def row_level_security(table)
     <<~SQL
       ALTER TABLE ekylibre.#{table} ENABLE ROW LEVEL SECURITY;
       ALTER TABLE ekylibre.#{table} FORCE ROW LEVEL SECURITY;
       CREATE POLICY tenant_isolation ON ekylibre.#{table}
-          USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+          USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+                 OR tenant_id = ANY (ekylibre.shared_tenants()))
           WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
     SQL
   end
@@ -276,6 +287,7 @@ module MonoschemaSchema
     data = kept.select { |_table, entry| entry['plane'] == 'data' }
     out = +header
     out << tenants_table
+    out << shared_tenants_function
     kept.each { |table, entry| out << table_definition(table, entry) }
     out << "-- Index\n"
     kept.each { |table, entry| out << table_indexes(table, entry) }
@@ -314,6 +326,46 @@ module MonoschemaSchema
     SQL
   end
 
+  # Les fermes qu'un chemin inter-fermes a le droit d'ouvrir. La fonction est
+  # `STABLE` et lit un réglage de session : elle rend un tableau vide quand
+  # personne n'a rien ouvert, ce qui referme la politique par défaut.
+  # Qui a le droit d'agréger qui, et pour quoi — puis la fonction qui s'en
+  # sert. Dans cet ordre : PostgreSQL valide le corps d'une fonction SQL à sa
+  # création, et il y lit déjà la table.
+  def shared_tenants_function
+    <<~SQL
+      -- Le plan de contrôle du chemin inter-fermes (point 1.22). Une ferme
+      -- n'entre dans l'agrégation d'une autre que si elle y figure.
+      CREATE TABLE ekylibre.tenant_shares (
+          id uuid DEFAULT uuidv7() NOT NULL,
+          consumer_tenant_id uuid NOT NULL REFERENCES ekylibre.tenants (id),
+          shared_tenant_id uuid NOT NULL REFERENCES ekylibre.tenants (id),
+          purpose character varying NOT NULL,
+          created_at timestamp(6) without time zone DEFAULT now() NOT NULL,
+          CONSTRAINT tenant_shares_pkey PRIMARY KEY (id),
+          CONSTRAINT tenant_shares_unicity UNIQUE (consumer_tenant_id, shared_tenant_id, purpose)
+      );
+
+      -- Les fermes réellement lisibles : l'intersection de ce que le chemin
+      -- demande (`app.tenant_ids`) et de ce que le plan de contrôle autorise.
+      -- L'application ne peut donc pas s'ouvrir une ferme qui n'a pas
+      -- consenti, même en posant le réglage elle-même.
+      CREATE FUNCTION ekylibre.shared_tenants() RETURNS uuid[]
+      LANGUAGE sql STABLE AS $$
+        SELECT COALESCE(ARRAY(
+          SELECT s.shared_tenant_id
+            FROM ekylibre.tenant_shares s
+           WHERE s.consumer_tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+             AND s.shared_tenant_id = ANY (
+               COALESCE(string_to_array(NULLIF(current_setting('app.tenant_ids', true), ''), ',')::uuid[],
+                        ARRAY[]::uuid[])
+             )
+        ), ARRAY[]::uuid[])
+      $$;
+
+    SQL
+  end
+
   def tenants_table
     <<~SQL
       -- Plan de contrôle minimal : le point 1.14 lui ajoutera `users` et
@@ -338,6 +390,8 @@ module MonoschemaSchema
       GRANT USAGE ON SCHEMA ekylibre, lexicon, public, postgis TO #{APP_ROLE};
       GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ekylibre TO #{APP_ROLE};
       GRANT SELECT ON ALL TABLES IN SCHEMA lexicon TO #{APP_ROLE};
+      GRANT SELECT ON ekylibre.tenants, ekylibre.tenant_shares TO #{APP_ROLE};
+      GRANT EXECUTE ON FUNCTION ekylibre.shared_tenants() TO #{APP_ROLE};
       -- Et surtout pas sur les vues matérialisées, qui portent toutes les
       -- fermes : le `GRANT` ci-dessus vise les tables, pas les matviews.
       REVOKE ALL ON ALL TABLES IN SCHEMA ekylibre FROM PUBLIC;

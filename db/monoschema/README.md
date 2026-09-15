@@ -356,6 +356,44 @@ La couverture est totale, et c'est ce qui compte : une table qu'on n'aurait pas
 su semer serait une affirmation non vérifiée, et la tâche les signale nommément
 plutôt que de les passer sous silence. La CI la rejoue après l'audit.
 
+## Le chemin inter-fermes (point 1.22)
+
+C'est le gain fonctionnel du lot : tableau de bord de CUMA, comparaison de
+marges entre exploitations, vue coopérative sur ses apporteurs. Avec un schéma
+par ferme, ces requêtes étaient impossibles ; ici elles le redeviennent — mais
+par un chemin **explicite, borné et tracé**, jamais par un `unscoped`
+opportuniste ni par un rôle `BYPASSRLS`.
+
+```ruby
+Ekylibre::Tenancy.across(%w[uuid-ferme-b uuid-ferme-c], purpose: 'cuma') do
+  Intervention.group(:tenant_id).sum(:working_duration)
+end
+```
+
+**Il élargit la lecture sans quitter la politique.** Celle-ci accepte, en plus
+de la ferme courante, celles que `ekylibre.shared_tenants()` rend — et cette
+fonction croise ce que le chemin demande (`app.tenant_ids`) avec ce que le plan
+de contrôle autorise (`ekylibre.tenant_shares`). Mesuré :
+
+| Sous la ferme A, qui lit | Résultat |
+|---|---|
+| sans rien demander | A seule |
+| en demandant B, qui a consenti | A et B |
+| en demandant C, qui n'a pas consenti | **A seule — la demande est ignorée** |
+| en demandant B et C | A et B |
+
+**Et l'écriture ne s'élargit jamais.** Le `WITH CHECK` ne connaît que la ferme
+courante : un `UPDATE` sur une ligne de la ferme ouverte en lecture est refusé
+— « new row violates row-level security policy ». On lit chez le voisin, on n'y
+écrit pas. Un invariant d'audit échoue sur toute politique dont l'écriture
+mentionnerait `shared_tenants()`.
+
+Trois propriétés, donc, et aucune ne repose sur la discipline du code
+applicatif : le consentement est dans la base, la borne d'écriture est dans la
+base, et hors du bloc le réglage est vide, donc la politique se referme.
+`across` journalise l'appel — qui a lu quoi, et pour quel motif : c'est la
+contrepartie du droit de regarder chez le voisin.
+
 ## Le questionnaire
 
 Les décisions se prennent plus facilement sur un document que dans un fichier

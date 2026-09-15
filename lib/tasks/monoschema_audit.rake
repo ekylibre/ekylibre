@@ -83,6 +83,16 @@ module MonoschemaAudit
          WHERE i.schemaname = 'ekylibre' AND i.indexdef LIKE 'CREATE UNIQUE%'
            AND i.indexdef NOT LIKE '%(tenant_id,%' AND i.indexdef NOT LIKE '%(tenant_id)%'
       SQL
+      ["politiques dont l'écriture s'ouvre au-delà de la ferme", <<~SQL],
+        -- Point 1.22 : la lecture peut s'élargir aux fermes consentantes, pas
+        -- l'écriture. Un `WITH CHECK` qui mentionnerait `shared_tenants()`
+        -- laisserait écrire chez le voisin.
+        SELECT p.polrelid::regclass::text FROM pg_policy p
+          JOIN pg_class c ON c.oid = p.polrelid
+          JOIN pg_namespace n ON n.oid = c.relnamespace
+         WHERE n.nspname = 'ekylibre'
+           AND pg_get_expr(p.polwithcheck, p.polrelid) LIKE '%shared_tenants%'
+      SQL
       ['rôle applicatif trop puissant', <<~SQL],
         -- Point 1.13 : ni superutilisateur, ni BYPASSRLS, ni propriétaire des
         -- tables. `FORCE ROW LEVEL SECURITY` couvre le propriétaire, mais on ne
@@ -140,6 +150,6 @@ namespace :monoschema do
     end
 
     abort "\n#{failed.size} invariant(s) rompu(s)." if failed.any?
-    puts "\nLes neuf invariants tiennent sur les 234 tables du plan de données."
+    puts "\nLes dix invariants tiennent sur les 234 tables du plan de données."
   end
 end

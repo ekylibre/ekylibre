@@ -26,6 +26,35 @@ CREATE TABLE ekylibre.tenants (
     CONSTRAINT tenants_slug_key UNIQUE (slug)
 );
 
+-- Le plan de contrôle du chemin inter-fermes (point 1.22). Une ferme
+-- n'entre dans l'agrégation d'une autre que si elle y figure.
+CREATE TABLE ekylibre.tenant_shares (
+    id uuid DEFAULT uuidv7() NOT NULL,
+    consumer_tenant_id uuid NOT NULL REFERENCES ekylibre.tenants (id),
+    shared_tenant_id uuid NOT NULL REFERENCES ekylibre.tenants (id),
+    purpose character varying NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT now() NOT NULL,
+    CONSTRAINT tenant_shares_pkey PRIMARY KEY (id),
+    CONSTRAINT tenant_shares_unicity UNIQUE (consumer_tenant_id, shared_tenant_id, purpose)
+);
+
+-- Les fermes réellement lisibles : l'intersection de ce que le chemin
+-- demande (`app.tenant_ids`) et de ce que le plan de contrôle autorise.
+-- L'application ne peut donc pas s'ouvrir une ferme qui n'a pas
+-- consenti, même en posant le réglage elle-même.
+CREATE FUNCTION ekylibre.shared_tenants() RETURNS uuid[]
+LANGUAGE sql STABLE AS $$
+  SELECT COALESCE(ARRAY(
+    SELECT s.shared_tenant_id
+      FROM ekylibre.tenant_shares s
+     WHERE s.consumer_tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+       AND s.shared_tenant_id = ANY (
+         COALESCE(string_to_array(NULLIF(current_setting('app.tenant_ids', true), ''), ',')::uuid[],
+                  ARRAY[]::uuid[])
+       )
+  ), ARRAY[]::uuid[])
+$$;
+
 CREATE TABLE lexicon.datasource_credits (
     datasource character varying,
     name character varying,
@@ -9732,1172 +9761,1406 @@ ALTER TABLE ekylibre.yield_observations ADD CONSTRAINT fk_yield_observations_veg
 ALTER TABLE ekylibre.account_balances ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.account_balances FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.account_balances
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.accounts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.accounts FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.accounts
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.active_storage_attachments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.active_storage_attachments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.active_storage_attachments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.active_storage_blobs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.active_storage_blobs FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.active_storage_blobs
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.active_storage_variant_records ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.active_storage_variant_records FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.active_storage_variant_records
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activities FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activities
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_budget_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_budget_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_budget_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_budgets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_budgets FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_budgets
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_distributions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_distributions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_distributions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_inspection_calibration_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_inspection_calibration_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_inspection_calibration_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_inspection_calibration_scales ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_inspection_calibration_scales FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_inspection_calibration_scales
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_inspection_point_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_inspection_point_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_inspection_point_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_production_batches ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_production_batches FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_production_batches
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_production_irregular_batches ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_production_irregular_batches FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_production_irregular_batches
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_productions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_productions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_productions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_seasons ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_seasons FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_seasons
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.activity_tactics ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.activity_tactics FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.activity_tactics
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.affair_labellings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.affair_labellings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.affair_labellings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.affair_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.affair_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.affair_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.affairs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.affairs FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.affairs
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.alert_phases ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.alert_phases FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.alert_phases
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.alerts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.alerts FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.alerts
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.analyses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.analyses FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.analyses
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.analysis_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.analysis_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.analysis_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.analytic_segments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.analytic_segments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.analytic_segments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.analytic_sequences ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.analytic_sequences FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.analytic_sequences
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.associates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.associates FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.associates
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.attachments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.attachments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.attachments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.bank_statement_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.bank_statement_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.bank_statement_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.bank_statements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.bank_statements FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.bank_statements
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.call_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.call_messages FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.call_messages
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.calls ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.calls FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.calls
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.campaigns ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.campaigns FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.campaigns
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cap_islets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cap_islets FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cap_islets
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cap_land_parcels ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cap_land_parcels FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cap_land_parcels
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cap_neutral_areas ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cap_neutral_areas FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cap_neutral_areas
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cap_statements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cap_statements FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cap_statements
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cash_sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cash_sessions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cash_sessions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cash_transfers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cash_transfers FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cash_transfers
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cashes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cashes FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cashes
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.catalog_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.catalog_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.catalog_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.catalogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.catalogs FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.catalogs
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.contract_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.contract_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.contract_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.contracts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.contracts FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.contracts
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.crop_group_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.crop_group_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.crop_group_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.crop_group_labellings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.crop_group_labellings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.crop_group_labellings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.crop_groups ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.crop_groups FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.crop_groups
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.crumbs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.crumbs FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.crumbs
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cultivable_zones ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cultivable_zones FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cultivable_zones
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.custom_field_choices ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.custom_field_choices FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.custom_field_choices
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.custom_fields ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.custom_fields FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.custom_fields
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cvi_cadastral_plant_cvi_land_parcels ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cvi_cadastral_plant_cvi_land_parcels FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cvi_cadastral_plant_cvi_land_parcels
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cvi_cadastral_plants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cvi_cadastral_plants FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cvi_cadastral_plants
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cvi_cultivable_zones ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cvi_cultivable_zones FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cvi_cultivable_zones
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cvi_land_parcels ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cvi_land_parcels FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cvi_land_parcels
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.cvi_statements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.cvi_statements FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.cvi_statements
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.daily_charges ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.daily_charges FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.daily_charges
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.dashboards ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.dashboards FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.dashboards
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.debt_transfers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.debt_transfers FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.debt_transfers
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.deliveries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.deliveries FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.deliveries
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.delivery_tools ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.delivery_tools FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.delivery_tools
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.deposits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.deposits FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.deposits
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.document_templates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.document_templates FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.document_templates
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.documents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.documents FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.documents
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.economic_cash_indicators ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.economic_cash_indicators FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.economic_cash_indicators
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.email_templates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.email_templates FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.email_templates
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.entities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.entities FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.entities
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.entity_addresses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.entity_addresses FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.entity_addresses
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.entity_links ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.entity_links FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.entity_links
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.entity_payment_methods ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.entity_payment_methods FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.entity_payment_methods
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.event_participations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.event_participations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.event_participations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.events FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.events
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.financial_year_archives ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.financial_year_archives FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.financial_year_archives
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.financial_year_exchanges ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.financial_year_exchanges FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.financial_year_exchanges
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.financial_years ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.financial_years FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.financial_years
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.fixed_asset_depreciations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.fixed_asset_depreciations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.fixed_asset_depreciations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.fixed_assets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.fixed_assets FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.fixed_assets
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.gap_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.gap_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.gap_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.gaps ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.gaps FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.gaps
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.georeadings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.georeadings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.georeadings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.guide_analyses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.guide_analyses FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.guide_analyses
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.guide_analysis_points ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.guide_analysis_points FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.guide_analysis_points
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.guides ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.guides FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.guides
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_audit_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_audit_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_audit_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_audits ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_audits FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_audits
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_biodiversity_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_biodiversity_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_biodiversity_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_cmr_products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_cmr_products FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_cmr_products
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_iae_coefficients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_iae_coefficients FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_iae_coefficients
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_nitrogen_export_coefficients ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_nitrogen_export_coefficients FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_nitrogen_export_coefficients
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.hve_scoring_tables ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.hve_scoring_tables FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.hve_scoring_tables
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.idea_diagnostic_item_values ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.idea_diagnostic_item_values FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.idea_diagnostic_item_values
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.idea_diagnostic_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.idea_diagnostic_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.idea_diagnostic_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.idea_diagnostic_results ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.idea_diagnostic_results FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.idea_diagnostic_results
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.idea_diagnostics ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.idea_diagnostics FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.idea_diagnostics
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.identifiers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.identifiers FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.identifiers
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.imports ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.imports FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.imports
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.incoming_harvest_crops ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.incoming_harvest_crops FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.incoming_harvest_crops
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.incoming_harvest_storages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.incoming_harvest_storages FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.incoming_harvest_storages
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.incoming_harvests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.incoming_harvests FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.incoming_harvests
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.incoming_payment_modes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.incoming_payment_modes FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.incoming_payment_modes
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.incoming_payments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.incoming_payments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.incoming_payments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.inspection_calibrations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.inspection_calibrations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.inspection_calibrations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.inspection_points ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.inspection_points FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.inspection_points
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.inspections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.inspections FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.inspections
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.integrations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.integrations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.integrations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_costings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_costings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_costings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_crop_groups ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_crop_groups FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_crop_groups
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_labellings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_labellings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_labellings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_parameter_readings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_parameter_readings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_parameter_readings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_parameter_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_parameter_settings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_parameter_settings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_parameters ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_parameters FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_parameters
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_participations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_participations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_participations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_proposal_parameters ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_proposal_parameters FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_proposal_parameters
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_proposals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_proposals FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_proposals
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_setting_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_setting_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_setting_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_template_activities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_template_activities FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_template_activities
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_template_product_parameters ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_template_product_parameters FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_template_product_parameters
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_templates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_templates FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_templates
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.intervention_working_periods ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.intervention_working_periods FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.intervention_working_periods
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.interventions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.interventions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.interventions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.inventories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.inventories FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.inventories
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.inventory_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.inventory_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.inventory_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.issue_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.issue_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.issue_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.issues ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.issues FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.issues
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.issues_yield_observations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.issues_yield_observations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.issues_yield_observations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.journal_entries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.journal_entries FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.journal_entries
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.journal_entry_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.journal_entry_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.journal_entry_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.journals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.journals FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.journals
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.labels ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.labels FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.labels
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.listing_node_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.listing_node_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.listing_node_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.listing_nodes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.listing_nodes FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.listing_nodes
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.listings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.listings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.listings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.loan_repayments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.loan_repayments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.loan_repayments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.loans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.loans FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.loans
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.locations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.locations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.locations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.manure_management_plan_zones ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.manure_management_plan_zones FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.manure_management_plan_zones
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.manure_management_plans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.manure_management_plans FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.manure_management_plans
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.map_layers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.map_layers FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.map_layers
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.naming_format_fields ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.naming_format_fields FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.naming_format_fields
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.naming_formats ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.naming_formats FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.naming_formats
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.notifications FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.notifications
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.observations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.observations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.observations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.outgoing_payment_lists ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.outgoing_payment_lists FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.outgoing_payment_lists
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.outgoing_payment_modes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.outgoing_payment_modes FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.outgoing_payment_modes
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.outgoing_payments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.outgoing_payments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.outgoing_payments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.parcel_item_storings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.parcel_item_storings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.parcel_item_storings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.parcel_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.parcel_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.parcel_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.parcels ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.parcels FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.parcels
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.payslip_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.payslip_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.payslip_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.payslips ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.payslips FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.payslips
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.pfi_intervention_parameters ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.pfi_intervention_parameters FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.pfi_intervention_parameters
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.planning_scenario_activities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.planning_scenario_activities FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.planning_scenario_activities
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.planning_scenario_activity_animals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.planning_scenario_activity_animals FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.planning_scenario_activity_animals
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.planning_scenario_activity_plots ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.planning_scenario_activity_plots FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.planning_scenario_activity_plots
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.planning_scenarios ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.planning_scenarios FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.planning_scenarios
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.plant_counting_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.plant_counting_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.plant_counting_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.plant_countings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.plant_countings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.plant_countings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.plant_density_abaci ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.plant_density_abaci FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.plant_density_abaci
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.plant_density_abacus_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.plant_density_abacus_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.plant_density_abacus_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.preferences ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.preferences FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.preferences
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.prescriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.prescriptions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.prescriptions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_enjoyments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_enjoyments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_enjoyments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_labellings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_labellings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_labellings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_linkages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_linkages FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_linkages
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_links ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_links FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_links
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_localizations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_localizations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_localizations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_memberships ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_memberships FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_memberships
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_movements ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_movements FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_movements
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_nature_categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_nature_categories FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_nature_categories
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_nature_category_taxations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_nature_category_taxations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_nature_category_taxations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_nature_variant_components ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_nature_variant_components FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_nature_variant_components
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_nature_variant_readings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_nature_variant_readings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_nature_variant_readings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_nature_variant_tags ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_nature_variant_tags FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_nature_variant_tags
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_nature_variants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_nature_variants FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_nature_variants
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_ownerships ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_ownerships FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_ownerships
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_phases ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_phases FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_phases
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.product_readings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.product_readings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.product_readings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.products FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.products
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.products_yield_observations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.products_yield_observations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.products_yield_observations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.project_budgets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.project_budgets FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.project_budgets
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.project_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.project_members FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.project_members
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.project_tasks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.project_tasks FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.project_tasks
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.projects FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.projects
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.purchase_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.purchase_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.purchase_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.purchase_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.purchase_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.purchase_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.purchases ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.purchases FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.purchases
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.qonto_inbound_invoices ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.qonto_inbound_invoices FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.qonto_inbound_invoices
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.qonto_outbound_invoices ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.qonto_outbound_invoices FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.qonto_outbound_invoices
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.regularizations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.regularizations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.regularizations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.ride_set_equipments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.ride_set_equipments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.ride_set_equipments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.ride_sets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.ride_sets FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.ride_sets
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.rides ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.rides FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.rides
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.roles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.roles FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.roles
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sale_contract_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sale_contract_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sale_contract_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sale_contract_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sale_contract_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sale_contract_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sale_contracts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sale_contracts FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sale_contracts
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sale_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sale_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sale_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sale_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sale_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sale_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sales ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sales FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sales
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sensors ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sensors FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sensors
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.sequences ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.sequences FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.sequences
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.subscription_natures ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.subscription_natures FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.subscription_natures
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.subscriptions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.subscriptions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.supervision_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.supervision_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.supervision_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.supervisions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.supervisions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.supervisions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.synchronization_operations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.synchronization_operations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.synchronization_operations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.target_distributions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.target_distributions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.target_distributions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.tasks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.tasks FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.tasks
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.tax_declaration_item_parts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.tax_declaration_item_parts FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.tax_declaration_item_parts
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.tax_declaration_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.tax_declaration_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.tax_declaration_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.tax_declarations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.tax_declarations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.tax_declarations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.tax_payments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.tax_payments FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.tax_payments
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.taxes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.taxes FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.taxes
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.teams ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.teams FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.teams
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.technical_itineraries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.technical_itineraries FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.technical_itineraries
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.technical_itinerary_intervention_templates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.technical_itinerary_intervention_templates FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.technical_itinerary_intervention_templates
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.tokens ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.tokens FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.tokens
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.trackings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.trackings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.trackings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.users FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.users
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.versions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.versions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.versions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.wice_grid_serialized_queries ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.wice_grid_serialized_queries FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.wice_grid_serialized_queries
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.wine_incoming_harvest_inputs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.wine_incoming_harvest_inputs FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.wine_incoming_harvest_inputs
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.wine_incoming_harvest_plants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.wine_incoming_harvest_plants FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.wine_incoming_harvest_plants
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.wine_incoming_harvest_presses ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.wine_incoming_harvest_presses FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.wine_incoming_harvest_presses
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.wine_incoming_harvest_storages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.wine_incoming_harvest_storages FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.wine_incoming_harvest_storages
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.wine_incoming_harvests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.wine_incoming_harvests FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.wine_incoming_harvests
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.worker_contract_distributions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.worker_contract_distributions FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.worker_contract_distributions
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.worker_contracts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.worker_contracts FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.worker_contracts
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.worker_group_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.worker_group_items FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.worker_group_items
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.worker_group_labellings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.worker_group_labellings FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.worker_group_labellings
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.worker_groups ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.worker_groups FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.worker_groups
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.worker_time_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.worker_time_logs FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.worker_time_logs
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 ALTER TABLE ekylibre.yield_observations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ekylibre.yield_observations FORCE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation ON ekylibre.yield_observations
-    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid)
+    USING (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid
+           OR tenant_id = ANY (ekylibre.shared_tenants()))
     WITH CHECK (tenant_id = NULLIF(current_setting('app.tenant_id', true), '')::uuid);
 
 -- Vues. `security_invoker` n'est pas une option de confort :
@@ -11140,6 +11403,8 @@ SELECT
 GRANT USAGE ON SCHEMA ekylibre, lexicon, public, postgis TO ekylibre_app;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ekylibre TO ekylibre_app;
 GRANT SELECT ON ALL TABLES IN SCHEMA lexicon TO ekylibre_app;
+GRANT SELECT ON ekylibre.tenants, ekylibre.tenant_shares TO ekylibre_app;
+GRANT EXECUTE ON FUNCTION ekylibre.shared_tenants() TO ekylibre_app;
 -- Et surtout pas sur les vues matérialisées, qui portent toutes les
 -- fermes : le `GRANT` ci-dessus vise les tables, pas les matviews.
 REVOKE ALL ON ALL TABLES IN SCHEMA ekylibre FROM PUBLIC;

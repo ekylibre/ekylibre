@@ -26,6 +26,9 @@ module Ekylibre
   #      s'échappe du contexte doit rendre zéro ligne, jamais celles d'autrui.
   module Tenancy
     SETTING = 'app.tenant_id'.freeze
+    # Les fermes que le chemin inter-fermes demande à ouvrir en lecture. La
+    # base croise cette liste avec les consentements avant de l'honorer.
+    SHARED_SETTING = 'app.tenant_ids'.freeze
 
     class MissingTenant < StandardError
       def initialize(message = 'Aucune ferme dans le contexte courant')
@@ -53,15 +56,59 @@ module Ekylibre
         switch(tenant_id, &block)
       end
 
-      # Le chemin explicite pour sortir de toute ferme : migrations, tâches
-      # d'administration, requêtes inter-fermes du point 1.22. Il est nommé pour
-      # être cherchable — un `grep without_tenant` doit lister tous les endroits
-      # où l'isolation est volontairement mise de côté.
+      # Le chemin explicite pour sortir de toute ferme : migrations et tâches
+      # d'administration. Il est nommé pour être cherchable — un
+      # `grep without_tenant` doit lister tous les endroits où l'isolation est
+      # volontairement mise de côté.
       def without_tenant(&block)
         switch(nil, &block)
       end
 
+      # Le chemin inter-fermes (point 1.22) : tableau de bord de CUMA,
+      # comparaison de marges, vue coopérative. Il **élargit la lecture sans
+      # quitter la politique** — c'est ce qui le distingue d'un `BYPASSRLS` ou
+      # d'un `unscoped`. Trois propriétés, toutes portées par la base et non
+      # par ce code :
+      #
+      #   — l'écriture reste bornée à la ferme courante, le `WITH CHECK` ne
+      #     connaissant qu'elle. On lit chez le voisin, on n'y écrit pas ;
+      #   — une ferme qui n'a pas consenti reste invisible, même si on la
+      #     demande : `shared_tenants()` croise la demande avec la table
+      #     `tenant_shares` du plan de contrôle ;
+      #   — hors de ce bloc, le réglage est vide, donc la politique se referme.
+      #
+      # L'appel est tracé : une agrégation inter-fermes doit laisser une trace,
+      # c'est la contrepartie du droit de regarder chez le voisin.
+      def across(tenant_ids, purpose:, &block)
+        requested = Array(tenant_ids).compact.uniq
+        raise ArgumentError.new('aucune ferme demandée') if requested.empty?
+        raise MissingTenant if current.blank?
+
+        Rails.logger.info(
+          "[tenancy] lecture inter-fermes par #{current} sur #{requested.join(', ')} — motif : #{purpose}"
+        )
+        with_shared(requested, &block)
+      end
+
       private
+
+        def with_shared(tenant_ids)
+          previous = read_setting(SHARED_SETTING)
+          connection.clear_query_cache
+          write_setting(SHARED_SETTING, tenant_ids.join(','))
+          yield
+        ensure
+          write_setting(SHARED_SETTING, previous)
+          connection.clear_query_cache
+        end
+
+        def read_setting(name)
+          connection.select_value("SELECT current_setting(#{connection.quote(name)}, true)").to_s
+        end
+
+        def write_setting(name, value)
+          connection.execute("SET LOCAL #{name} = #{connection.quote(value.to_s)}")
+        end
 
         def switch(tenant_id, &block)
           previous = Current.tenant_id
