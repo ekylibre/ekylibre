@@ -114,13 +114,24 @@ module Fixturing
       version.to_i
     end
 
+    # Le contexte de migration a quitté la connexion pour la réserve de
+    # connexions en Rails 7.2, et l'ancien appel n'existe plus du tout en 8.1 :
+    # `undefined method 'migration_context'`. C'est ce qui empêchait la
+    # restauration d'une archive de tenant — donc, depuis la décision du
+    # 15 septembre, la seule voie de reprise des données de la V5.
+    def migration_context
+      ActiveRecord::Base.connection_pool.migration_context
+    end
+
     def migrate(tenant, options = {})
-      target = ActiveRecord::Base.connection.migration_context.last_migration.version
+      # `last_migration` n'existe plus non plus : la dernière version se lit
+      # sur la liste des migrations du contexte.
+      target = migration_context.migrations.last.version
       origin = options[:origin] || current_version
       if target != origin
         say 'Migrate fixtures from ' + origin.inspect + ' to ' + target.inspect
         Ekylibre::Tenant.switch(tenant) do
-          ActiveRecord::Base.connection.migration_context.migrate(target)
+          migration_context.migrate(target)
         end
       else
         say 'No more migrations', :green
@@ -130,7 +141,7 @@ module Fixturing
     def rollback(tenant, steps = 1)
       say "Rollback (Steps count: #{steps})"
       Ekylibre::Tenant.switch(tenant) do
-        ActiveRecord::Base.connection.migration_context.rollback(steps)
+        migration_context.rollback(steps)
       end
     end
 

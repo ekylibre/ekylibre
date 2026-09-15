@@ -65,13 +65,17 @@ module MonoschemaMigration
 
   # --- Étapes --------------------------------------------------------------
 
+  # `tenants` peut être une liste de schémas — leur nom sert alors de slug — ou
+  # une table schéma => slug. L'import se sert de la seconde forme : le schéma
+  # d'accueil est temporaire, le slug est celui du client.
   def register_tenants(tenants)
-    tenants.to_h do |slug|
+    tenants = tenants.to_h { |schema| [schema, schema] } if tenants.is_a?(Array)
+    tenants.to_h do |schema, slug|
       existing = connection.select_value("SELECT id FROM ekylibre.tenants WHERE slug = #{quote(slug)}")
       id = existing || connection.select_value(
         "INSERT INTO ekylibre.tenants (slug) VALUES (#{quote(slug)}) RETURNING id"
       )
-      [slug, id]
+      [schema, id]
     end
   end
 

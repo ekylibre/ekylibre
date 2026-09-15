@@ -183,6 +183,27 @@ rake monoschema:migrate TENANTS=alpha,beta
 rake monoschema:migrate:check          # deux fermes jetables, de bout en bout
 ```
 
+### Le chemin complet : archive → ferme
+
+```bash
+rake monoschema:import ARCHIVE=tmp/archives/phaurigot.zip SLUG=phaurigot
+```
+
+Trois temps : l'archive est restaurée dans un schéma d'accueil, les lignes sont
+recopiées sous le slug du client, le schéma d'accueil est jeté. Mesuré sur la
+ferme de démonstration — 43 444 lignes : **4,5 s de restauration, 2,5 s de
+recopie**.
+
+Une contrainte, découverte en le construisant : **une archive v3 ne se restaure
+que sous son nom d'origine**. C'est un `pg_dump` de schéma, qui vide le
+`search_path` puis qualifie chaque objet — demander un autre nom ne déplaçait
+rien, les objets partaient dans le schéma d'origine (l'écrasant s'il existait) et
+le schéma demandé restait vide, sans un mot. `Ekylibre::Tenant.restore` refuse
+désormais le renommage au lieu de le faire semblant ; l'import restaure sous le
+nom d'origine puis renomme par `ALTER SCHEMA`. Réécrire le SQL aurait été
+l'autre voie, mais un `demo.` peut aussi bien être dans une adresse de courriel
+que dans un nom de table.
+
 **Ce n'est pas une bascule, c'est un import** (décision du 15 septembre 2026).
 La V6 ne reprendra pas la base de la V5 en place : les données d'un client
 arriveront par dump de tenant, restauré une ferme à la fois. `monoschema:migrate`

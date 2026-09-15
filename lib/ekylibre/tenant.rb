@@ -215,6 +215,23 @@ module Ekylibre
           if format_version == '3'
             # Also used to build a path inside the archive: validate before join.
             source_name = validate_name!(manifest[:tenant])
+            # Une archive v3 est un `pg_dump` de schéma : elle commence par
+            # vider le `search_path` puis qualifie chaque objet du nom du
+            # schéma d'origine. Demander un autre nom ne la déplaçait pas — les
+            # objets partaient dans le schéma d'origine, écrasant ce qui s'y
+            # trouvait, et le schéma demandé restait vide. Mesuré le
+            # 15 septembre 2026 en restaurant `demo.zip` sous un autre nom.
+            #
+            # Plutôt que de réécrire le SQL — un `demo.` peut aussi bien être
+            # dans une adresse de courriel que dans un identifiant —, on refuse
+            # le renommage : il se fait après coup, par `ALTER SCHEMA`.
+            if name != source_name
+              raise TenantError.new(
+                "Une archive v3 se restaure sous son nom d'origine (#{source_name}), pas sous #{name}. " \
+                'Restaurez-la telle quelle, puis renommez le schéma.'
+              )
+            end
+
             restore_v3(archive_path, name, options.merge(dump_file: archive_path.join("#{source_name}.sql")))
           elsif ['2.0', '2'].include? format_version
             restore_v2(archive_path, name, options)

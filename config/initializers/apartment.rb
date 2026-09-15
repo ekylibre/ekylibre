@@ -80,8 +80,19 @@ module Apartment
         def connect_to_new(tenant = nil)
           return reset if tenant.nil?
 
-          unless Apartment.connection.active?
-            raise ActiveRecord::StatementInvalid, "Could not establish connection to database for schema #{tenant}"
+          # `verify!` et non `active?` : depuis Rails 7.2, une connexion n'est
+          # établie qu'au premier usage, et `active?` rend donc `false` tant
+          # qu'aucune requête n'a eu lieu. Le contrôle transformait alors
+          # « connexion pas encore utilisée » en « base injoignable », et
+          # cassait toute tâche qui bascule de tenant avant d'interroger quoi
+          # que ce soit — `tenant:dump` au premier chef, alors que la reprise
+          # des données de la V5 repose sur lui. `verify!` établit la connexion
+          # si besoin et ne lève que si la base est réellement hors d'atteinte.
+          begin
+            Apartment.connection.verify!
+          rescue StandardError => e
+            raise ActiveRecord::StatementInvalid,
+                  "Could not establish connection to database for schema #{tenant}: #{e.message}"
           end
 
           raise TenantNotFound, "Could not find schema #{tenant}. Search path: [#{full_search_path}]" unless schema_exists?(tenant)
