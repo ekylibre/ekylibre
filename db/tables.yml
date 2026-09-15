@@ -11758,67 +11758,6 @@ roles:
     type: integer
     references: user
     limit: 4
-saas_subscriptions:
-  canceled_at:
-    type: datetime
-  catalog_item_id:
-    type: integer
-    references: catalog_item
-    limit: 4
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-    limit: 4
-  description:
-    type: text
-  entity_id:
-    type: integer
-    references: entity
-    limit: 4
-    required: true
-  entity_payment_method_id:
-    type: integer
-    references: entity_payment_method
-    limit: 4
-  id:
-    type: integer
-    limit: 4
-    required: true
-  lock_version:
-    type: integer
-    limit: 4
-    required: true
-  name:
-    type: string
-  partner_id:
-    type: integer
-    references: entity
-    limit: 4
-  provider:
-    type: jsonb
-  started_at:
-    type: datetime
-    required: true
-  status:
-    type: string
-  stopped_at:
-    type: datetime
-  tenant_name:
-    type: string
-  trial_started_at:
-    type: datetime
-  trial_stopped_at:
-    type: datetime
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-    limit: 4
 sale_contract_items:
   created_at:
     type: datetime
@@ -13472,45 +13411,6 @@ units:
     references: user
     limit: 4
   work_code:
-    type: string
-user_tickets:
-  agent_email:
-    type: string
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-    limit: 8
-  description:
-    type: text
-  id:
-    type: integer
-    limit: 8
-    required: true
-  lock_version:
-    type: integer
-    limit: 4
-    required: true
-  name:
-    type: string
-  provider:
-    type: jsonb
-  ticket_quantity:
-    type: integer
-    limit: 4
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-    limit: 8
-  used_on:
-    type: date
-  user_email:
     type: string
 users:
   administrator:

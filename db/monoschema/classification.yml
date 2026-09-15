@@ -78,10 +78,11 @@ move_to_reference:
 
 # Tables qui ne passent pas le lot. Les supprimer n'est pas qu'une migration :
 # un écran, des routes et des vues disparaissent avec elles.
+#
+# `saas_subscriptions` et `user_tickets` sont déjà parties, tables comprises
+# (migration 20260915090000) : les garder ici n'aurait plus d'objet.
 drop:
-  saas_subscriptions: "ancienne table de gestion des abonnements (réponse du 15 septembre). Elle désignait une autre ferme par son `tenant_name` — ce lien inter-tenant n'a plus à être porté"
   net_services: "liste d'identifiants de services externes qui ne sert plus (décision du 15 septembre). Douze lignes d'`identifiers` la désignaient sur la ferme de démonstration : l'information de service disparaît avec elle, à moins de la garder en clair sur `identifiers`"
-  user_tickets: "table morte : trois mentions dans le code, aucune fixture. Un écran du backend la sert encore, il part avec elle"
 
 # Suppression décidée mais conditionnée à un travail qui n'est pas celui du
 # lot 1 : la table reste au plan de données en attendant.

@@ -274,7 +274,6 @@
 - ride_set
 - ride_set_equipment
 - role
-- saas_subscription
 - sale
 - sale_affair
 - sale_contract
@@ -319,7 +318,6 @@
 - tracking
 - unit
 - user
-- user_ticket
 - variant_categories/animal_category
 - variant_categories/article_category
 - variant_categories/crop_category

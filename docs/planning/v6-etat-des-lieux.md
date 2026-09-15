@@ -1,4 +1,4 @@
-# Ekylibre v6 — État des lieux au 14 septembre 2026
+# Ekylibre v6 — État des lieux au 15 septembre 2026
 
 > Document de reprise. Il dit où en est le chantier, ce que la montée de version a
 > laissé derrière elle, et ce qu'il faut avoir tranché avant d'ouvrir le lot
@@ -20,7 +20,7 @@ ancêtre de celle-ci).
 | Ruby | 2.6 | **3.4.10** (dev et CI) |
 | PostgreSQL | 13 (serveur et client) | **18.6 / PostGIS 3.6** en dev et CI, client 18 dans l'image de base — `uuidv7()` native disponible |
 | Production | Ruby 2.6, Rails 5.2, PostgreSQL 13 | **inchangée** — rien n'est déployé |
-| Suite | 3650 tests, 17 échecs, 15 erreurs | **3621 tests, 0 échec, 0 erreur, 4 ignorés** — mesuré en local le 14 septembre, suite entière, 26 min |
+| Suite | 3650 tests, 17 échecs, 15 erreurs | **3 646 tests** en CI le 15 septembre ; les 13 rouges étaient le test du prototype joué dans la suite, corrigé depuis |
 | Job `Tests` de la CI | rouge depuis toujours | vert au prochain passage |
 | RuboCop | 1.11, plantait sous Ruby 3.4 | **1.91, sort au vert** (809 offenses au todo) |
 | ESLint | 1657 erreurs | **0 erreur** |
@@ -220,54 +220,65 @@ d'outillage) ne bloquent pas le lot 1 ; `raise_on_assign_to_attr_readonly` et
 le premier par les rappels comptables, le second par la classification des
 tables du `lexicon`.
 
-**Lot 1 — mono-schéma et isolation (ADR-002, ADR-003).** Passer des schémas
-PostgreSQL par ferme à une base unique avec `tenant_id` uuid, PK composites et
-RLS `FORCE`, puis le runtime qui va avec — `TenantRecord`, contexte `set_config`
-en transaction, propagation aux chemins asynchrones, tests d'isolation générés,
-retrait d'Apartment.
+**Lot 1 — mono-schéma et isolation (ADR-002, ADR-003).** Le schéma cible
+existe, il se charge, il s'audite et il prouve ce pour quoi il a été fait. Tout
+ce qui suit est dans `db/monoschema/`, engendré et rejoué par la CI à chaque
+passage — rien n'y est tenu à la main sauf les décisions.
 
-**Le prototype à trois tables est fait** (point 1.4, 14 septembre) :
-`db/prototypes/monoschema/`, dix-neuf mesures que la CI rejoue. L'isolation
-tient, elle est fermée par défaut, la clé étrangère composite refuse la
-référence inter-tenant et l'index unique devient local au tenant. Il a surtout
-sorti quatre pièges qu'aucune ADR ne mentionnait, et qui changent le contenu des
-points suivants :
+| | |
+|---|---|
+| plan des 316 tables | 234 au plan de données, 2 au contrôle, 78 au référentiel |
+| schéma d'arrivée | 314 tables, 1 000 clés étrangères composites, 35 index GiST |
+| invariants d'isolation vérifiés sur la base | **10** |
+| tables prouvées isolées, une par une | **234 sur 234** |
+| associations inventoriées | 4 167, dont 3 532 annotables et 32 manuelles |
+| sites de SQL brut classés | 190, dont 4 à reprendre |
+| contexte de ferme et propagation aux jobs | écrits, 7 tests |
+| import depuis une archive de tenant | 43 444 lignes en 7 s |
 
-- sous clé composite, **`record.id` rend le couple** et non la colonne — tout
-  `foo_id: bar.id` du code existant devient faux en silence ;
-- **`query_constraints:` n'existe pas sur une association** en Rails 8.1 : la clé
-  étrangère composite se déclare en `foreign_key: %i[tenant_id …]`. Le point 1.16
-  portait sur la mauvaise annotation, pour 1 413 associations ;
-- **le cache de requêtes ignore le tenant.** Une lecture faite sous A est
-  resservie hors contexte, là où la politique aurait rendu zéro ligne : la
-  fermeture par défaut est contournée avant même d'atteindre la base ;
-- **sous RLS, l'index spatial cesse de servir.** Une condition non `LEAKPROOF`
-  est évaluée après la politique, donc jamais en condition d'index : la même
-  requête parcellaire passe d'un coût estimé de 229 à 63 380. L'ADR-002
-  recommande l'index GiST composite sans dire qu'il faut, en plus, marquer les
-  opérateurs de PostGIS — ce qui est une décision de sécurité.
+**Ce que le lot a appris, et qui ne se lisait dans aucune ADR.** Six mesures ont
+corrigé des prémisses, et c'est le vrai produit de ce travail :
 
-**La classification des tables est faite aussi** (point 1.5), et ses sept
-questions sont tranchées depuis le 15 septembre : `db/monoschema/`, **316
-tables** — 234 au plan de données, 2 au contrôle, 78 au référentiel dont cinq à
-y déplacer, deux supprimées. La CI échoue désormais sur toute table non classée.
+1. **sous clé composite, `record.id` rend le couple**, pas la colonne — tout
+   `foo_id: bar.id` devient faux en silence ;
+2. **`query_constraints:` n'existe pas sur une association** en Rails 8.1 ; la
+   clé composite se déclare en `foreign_key: %i[tenant_id …]` ;
+3. **le cache de requêtes ignore le tenant** : il ressert une lecture faite sous
+   A y compris hors de tout contexte, contournant la fermeture par défaut avant
+   même d'atteindre la base ;
+4. **une vue ordinaire contourne la RLS** — elle s'exécute avec les droits de
+   son propriétaire. Les onze vues de l'application portent désormais
+   `security_invoker` ;
+5. **le SQL brut, lui, ne la contourne pas** : la politique filtre aussi les
+   requêtes écrites à la main, jointures comprises. Ce qu'il risque est la
+   rupture, et elle est bruyante ;
+6. **l'index spatial ne sert qu'à trois conditions réunies** : opérateur
+   `LEAKPROOF`, politique en un seul `= ANY`, table analysée. La deuxième a été
+   introduite par le chemin inter-fermes et trouvée par la mesure d'échelle —
+   80 lignes lues au lieu de 2 000.
 
-Les réponses ouvrent chacune un travail. Cinq tables passent au référentiel
-partagé, ce qui n'est pas les déplacer mais **dédupliquer N jeux de lignes en
-un seul** : trivial pour quatre d'entre elles, lourd pour `units`, à fusionner
-avec `master_units` — dix colonnes dans dix tables la désignent, elle est en
-STI, et une ferme peut aujourd'hui créer une unité depuis un écran, ce qu'elle
-ne pourra plus. `saas_subscriptions` et `user_tickets` disparaissent, avec leurs
-écrans. `users` attend Keycloak. Et le choix de clé s'étend : **40 tables en
-UUIDv7** au lieu de 25, le parcellaire et le CVI ayant rejoint la liste.
+**Et l'annotation des associations n'est pas le mécanisme porteur.** Mesuré avec
+deux fermes partageant un même `id` : sous la RLS, une association non annotée
+produit du SQL juste ; sans la RLS — migrations, administration, inter-fermes —
+elle rend deux lignes au lieu d'une. Les 3 532 annotations sont donc une
+*seconde ceinture*, à poser par domaine, et non un chantier qui doit atterrir
+d'un bloc. Le corollaire est plus sévère : **sans la RLS, ce seraient 3 532
+fuites possibles.**
 
-La mesure a surtout corrigé le volume du lot : le schéma déclare **171 clés
-étrangères** là où **896 colonnes en `_id` désignent une ligne sans aucune
-contrainte**. Le générateur du point 1.6 ne peut pas en déduire la cible — il
-faudra la tirer des modèles Ruby.
+**Le chemin de reprise des données est fermé** (décision du 15 septembre : pas
+de migration de production, mais un import ferme par ferme). Il ne fonctionnait
+pas : le dump tombait sur un garde-fou qui prenait une connexion non encore
+établie pour une base injoignable, la restauration appelait deux API disparues
+en Rails 8.1, et surtout **elle restaurait sous le nom d'origine en écrasant le
+tenant existant** quand on lui en demandait un autre, sans le dire. Les trois
+sont corrigés, et `rake monoschema:import` fait le chemin complet.
 
-Reste la suite du lot : engendrer les migrations, `TenantRecord` et le contexte,
-les 206 sites de SQL brut, et le retrait d'Apartment.
+**Ce qui reste, et qui ne relève plus de la technique** : la spec Lexicon pour
+les 358 stades phénologiques, la réécriture des trois vues matérialisées — leur
+regroupement sans `tenant_id` additionnerait les heures de deux travailleurs
+n° 1 —, et le sort de l'information de service portée par
+`identifiers.net_service_id`. Puis le reclassement des modèles et le retrait
+d'Apartment, qui viendront avec la refonte fonctionnelle.
 
 ## 5. Ce qui est tranché, et ce qui ne l'est pas
 
@@ -361,10 +372,16 @@ pas versionné et se repeuple à la création.
 
 ## Annexe — Où reprendre
 
-1. **Lire la mesure de CI**, qui tourne pour la première fois sur PostgreSQL 18.
-   Deux choses à y vérifier : que le job `Tests` sort à zéro, et que l'étape de
-   préparation des extensions passe bien sur l'image officielle.
-2. Le lot 0 n'a plus de point bloquant : restent les valeurs par défaut (0.5 à
-   0.9) et la dette d'outillage (0.10 à 0.13), aucun ne séparant du lot 1.
-3. Le lot 1 s'ouvre sur le prototype de mono-schéma à trois tables — sur une
-   base qui porte désormais `uuidv7()`.
+1. **Le lot 1 est fait côté schéma et côté outils.** Ce qui manque demande des
+   décisions métier, pas du code : la spec Lexicon des 358 stades
+   phénologiques, la réécriture des trois vues matérialisées, et le sort de
+   `identifiers.net_service_id`.
+2. Le reclassement des modèles sous `TenantRecord` (1.15) et l'annotation des
+   3 532 associations (1.16) peuvent se faire par domaine, sans urgence : la
+   RLS porte l'isolation, l'annotation n'est qu'une seconde ceinture.
+3. Le retrait d'Apartment (1.21) vient avec la refonte fonctionnelle, pas avant
+   — il n'y a plus de bascule de production à préparer, seulement un import
+   ferme par ferme, déjà écrit et mesuré.
+4. Tout ce qui est mesuré l'a été sur des fermes jetables, un jeu de
+   démonstration de 44 610 lignes et 200 fermes synthétiques. **Le volume réel
+   reste à mesurer** : les archives de production sont le bon candidat.

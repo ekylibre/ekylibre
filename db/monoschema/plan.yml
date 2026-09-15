@@ -5183,38 +5183,6 @@ roles:
   - updater_id
   code_references: []
   columns: 9
-saas_subscriptions:
-  schema: public
-  plane: drop
-  status: à supprimer
-  reason: ancienne table de gestion des abonnements (réponse du 15 septembre). Elle
-    désignait une autre ferme par son `tenant_name` — ce lien inter-tenant n'a plus
-    à être porté
-  id: bigint
-  primary_key:
-  - id
-  sti: false
-  geometry: []
-  unique_indexes: []
-  indexes: 9
-  references:
-  - columns: entity_payment_method_id
-    table: entity_payment_methods
-    plane: data
-  - columns: entity_id
-    table: entities
-    plane: data
-  - columns: partner_id
-    table: entities
-    plane: data
-  - columns: catalog_item_id
-    table: catalog_items
-    plane: data
-  implicit_references:
-  - creator_id
-  - updater_id
-  code_references: []
-  columns: 20
 sale_contract_items:
   schema: public
   plane: data
@@ -5750,25 +5718,6 @@ units:
   - updater_id
   code_references: []
   columns: 16
-user_tickets:
-  schema: public
-  plane: drop
-  status: à supprimer
-  reason: 'table morte : trois mentions dans le code, aucune fixture. Un écran du
-    backend la sert encore, il part avec elle'
-  id: bigint
-  primary_key:
-  - id
-  sti: false
-  geometry: []
-  unique_indexes: []
-  indexes: 8
-  references: []
-  implicit_references:
-  - creator_id
-  - updater_id
-  code_references: []
-  columns: 13
 users:
   schema: public
   plane: data

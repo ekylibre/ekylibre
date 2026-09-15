@@ -10718,54 +10718,6 @@ ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
--- Name: saas_subscriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.saas_subscriptions (
-    id integer NOT NULL,
-    entity_id integer NOT NULL,
-    entity_payment_method_id integer,
-    catalog_item_id integer,
-    name character varying,
-    status character varying,
-    tenant_name character varying,
-    description text,
-    partner_id integer,
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone,
-    canceled_at timestamp without time zone,
-    trial_started_at timestamp without time zone,
-    trial_stopped_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL,
-    provider jsonb DEFAULT '{}'::jsonb
-);
-
-
---
--- Name: saas_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.saas_subscriptions_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: saas_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.saas_subscriptions_id_seq OWNED BY public.saas_subscriptions.id;
-
-
---
 -- Name: sale_contract_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -11820,46 +11772,6 @@ CREATE SEQUENCE public.units_id_seq
 --
 
 ALTER SEQUENCE public.units_id_seq OWNED BY public.units.id;
-
-
---
--- Name: user_tickets; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.user_tickets (
-    id bigint NOT NULL,
-    used_on date,
-    user_email character varying,
-    agent_email character varying,
-    ticket_quantity integer NOT NULL,
-    name character varying,
-    description text,
-    provider jsonb DEFAULT '{}'::jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id bigint,
-    updater_id bigint,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: user_tickets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.user_tickets_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: user_tickets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.user_tickets_id_seq OWNED BY public.user_tickets.id;
 
 
 --
@@ -14022,13 +13934,6 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 
 
 --
--- Name: saas_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.saas_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.saas_subscriptions_id_seq'::regclass);
-
-
---
 -- Name: sale_contract_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -14208,13 +14113,6 @@ ALTER TABLE ONLY public.trackings ALTER COLUMN id SET DEFAULT nextval('public.tr
 --
 
 ALTER TABLE ONLY public.units ALTER COLUMN id SET DEFAULT nextval('public.units_id_seq'::regclass);
-
-
---
--- Name: user_tickets id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.user_tickets ALTER COLUMN id SET DEFAULT nextval('public.user_tickets_id_seq'::regclass);
 
 
 --
@@ -16566,14 +16464,6 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- Name: saas_subscriptions saas_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.saas_subscriptions
-    ADD CONSTRAINT saas_subscriptions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: sale_contract_items sale_contract_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -16787,14 +16677,6 @@ ALTER TABLE ONLY public.trackings
 
 ALTER TABLE ONLY public.units
     ADD CONSTRAINT units_pkey PRIMARY KEY (id);
-
-
---
--- Name: user_tickets user_tickets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.user_tickets
-    ADD CONSTRAINT user_tickets_pkey PRIMARY KEY (id);
 
 
 --
@@ -27230,62 +27112,6 @@ CREATE INDEX index_roles_on_updater_id ON public.roles USING btree (updater_id);
 
 
 --
--- Name: index_saas_subscriptions_on_catalog_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_catalog_item_id ON public.saas_subscriptions USING btree (catalog_item_id);
-
-
---
--- Name: index_saas_subscriptions_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_created_at ON public.saas_subscriptions USING btree (created_at);
-
-
---
--- Name: index_saas_subscriptions_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_creator_id ON public.saas_subscriptions USING btree (creator_id);
-
-
---
--- Name: index_saas_subscriptions_on_entity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_entity_id ON public.saas_subscriptions USING btree (entity_id);
-
-
---
--- Name: index_saas_subscriptions_on_entity_payment_method_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_entity_payment_method_id ON public.saas_subscriptions USING btree (entity_payment_method_id);
-
-
---
--- Name: index_saas_subscriptions_on_partner_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_partner_id ON public.saas_subscriptions USING btree (partner_id);
-
-
---
--- Name: index_saas_subscriptions_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_updated_at ON public.saas_subscriptions USING btree (updated_at);
-
-
---
--- Name: index_saas_subscriptions_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_saas_subscriptions_on_updater_id ON public.saas_subscriptions USING btree (updater_id);
-
-
---
 -- Name: index_sale_contract_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -28518,62 +28344,6 @@ CREATE INDEX index_units_on_updater_id ON public.units USING btree (updater_id);
 
 
 --
--- Name: index_user_tickets_on_agent_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_agent_email ON public.user_tickets USING btree (agent_email);
-
-
---
--- Name: index_user_tickets_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_created_at ON public.user_tickets USING btree (created_at);
-
-
---
--- Name: index_user_tickets_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_creator_id ON public.user_tickets USING btree (creator_id);
-
-
---
--- Name: index_user_tickets_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_name ON public.user_tickets USING btree (name);
-
-
---
--- Name: index_user_tickets_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_updated_at ON public.user_tickets USING btree (updated_at);
-
-
---
--- Name: index_user_tickets_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_updater_id ON public.user_tickets USING btree (updater_id);
-
-
---
--- Name: index_user_tickets_on_used_on; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_used_on ON public.user_tickets USING btree (used_on);
-
-
---
--- Name: index_user_tickets_on_user_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_user_tickets_on_user_email ON public.user_tickets USING btree (user_email);
-
-
---
 -- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -29358,13 +29128,6 @@ CREATE INDEX product_nature_variant_provider_index ON public.product_nature_vari
 
 
 --
--- Name: saas_subscription_provider_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX saas_subscription_provider_index ON public.saas_subscriptions USING gin (((provider -> 'vendor'::text)), ((provider -> 'name'::text)), ((provider -> 'id'::text)));
-
-
---
 -- Name: sale_nature_provider_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -29596,14 +29359,6 @@ ALTER TABLE ONLY public.crop_group_labellings
 
 
 --
--- Name: saas_subscriptions fk_rails_0da6d616e9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.saas_subscriptions
-    ADD CONSTRAINT fk_rails_0da6d616e9 FOREIGN KEY (entity_payment_method_id) REFERENCES public.entity_payment_methods(id);
-
-
---
 -- Name: cvi_cadastral_plant_cvi_land_parcels fk_rails_0e970be37a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -29700,27 +29455,11 @@ ALTER TABLE ONLY public.planning_scenario_activity_plots
 
 
 --
--- Name: saas_subscriptions fk_rails_1aeab563b0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.saas_subscriptions
-    ADD CONSTRAINT fk_rails_1aeab563b0 FOREIGN KEY (entity_id) REFERENCES public.entities(id);
-
-
---
 -- Name: interventions fk_rails_1f3a6ab6a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.interventions
     ADD CONSTRAINT fk_rails_1f3a6ab6a0 FOREIGN KEY (intervention_proposal_id) REFERENCES public.intervention_proposals(id);
-
-
---
--- Name: saas_subscriptions fk_rails_1f915e6ce8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.saas_subscriptions
-    ADD CONSTRAINT fk_rails_1f915e6ce8 FOREIGN KEY (partner_id) REFERENCES public.entities(id);
 
 
 --
@@ -30780,14 +30519,6 @@ ALTER TABLE ONLY public.intervention_proposal_parameters
 
 
 --
--- Name: saas_subscriptions fk_rails_e5d74447d2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.saas_subscriptions
-    ADD CONSTRAINT fk_rails_e5d74447d2 FOREIGN KEY (catalog_item_id) REFERENCES public.catalog_items(id);
-
-
---
 -- Name: sale_items fk_rails_e68fe22f2a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -30938,6 +30669,7 @@ ALTER TABLE ONLY public.projects
 SET search_path TO public,postgis,lexicon;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260915090000'),
 ('20260911160000'),
 ('20260911120000'),
 ('20260909180100'),
