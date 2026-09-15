@@ -24,7 +24,7 @@ module Ekylibre
     def import
       currency = Preference[:currency] || 'EUR'
 
-      s = Roo::OpenOffice.new(file)
+      s = Roo::OpenOffice.new(file, file_warning: :ignore)
       w.count = s.sheets.count
 
       s.sheets.each do |sheet_name|

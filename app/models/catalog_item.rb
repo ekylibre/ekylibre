@@ -64,7 +64,6 @@ class CatalogItem < ApplicationRecord
   belongs_to :purchase_item
   has_one :variant_unit, through: :variant, class_name: 'Unit', foreign_key: :default_unit_id
   has_many :products, through: :variant
-  has_many :saas_subscriptions, class_name: 'SaasSubscription', foreign_key: :catalog_item_id
   has_many :interventions, through: :products
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

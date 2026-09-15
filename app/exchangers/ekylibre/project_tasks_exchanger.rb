@@ -5,7 +5,7 @@ module Ekylibre
     category :human_resources
     vendor :ekylibre
     def import
-      s = Roo::OpenOffice.new(file)
+      s = Roo::OpenOffice.new(file, file_warning: :ignore)
       w.count = s.sheets.count
 
       # file format

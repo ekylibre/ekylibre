@@ -137,6 +137,14 @@ end
 Monoschema::Record.establish_connection(Monoschema.configuration)
 
 class MonoschemaTest < ActiveSupport::TestCase
+  # Pas de transaction enveloppante. Jouée seule, cette classe n'en a pas —
+  # `test_helper` n'est pas chargé — et tout va bien ; jouée dans la suite, le
+  # harnais en ouvre une par test et l'annule ensuite. Le semis, fait une fois,
+  # disparaissait alors avec le premier test, et les treize suivants lisaient
+  # une base vide. C'est la CI qui l'a montré : ici, la base de sonde est à
+  # nous, et c'est le semis qui fait le ménage.
+  self.use_transactional_tests = false if respond_to?(:use_transactional_tests=)
+
   ALPHA = '11111111-1111-7111-8111-111111111111'.freeze
   BETA  = '22222222-2222-7222-8222-222222222222'.freeze
 

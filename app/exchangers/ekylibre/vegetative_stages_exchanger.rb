@@ -6,7 +6,7 @@ module Ekylibre
     vendor :ekylibre
 
     def import
-      s = Roo::OpenOffice.new(file)
+      s = Roo::OpenOffice.new(file, file_warning: :ignore)
 
       w.count = s.sheets.count
 
