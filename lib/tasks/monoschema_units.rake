@@ -36,7 +36,16 @@ module MonoschemaUnits
     connection.select_all(<<~SQL).to_a
       SELECT u.reference_name, u.name, u.symbol, u.dimension, u.type, u.coefficient, u.work_code,
              (SELECT b.reference_name FROM #{tenant}.units b WHERE b.id = u.base_unit_id) AS base_unit,
+             -- Les dix colonnes qui désignent une unité, mesurées au point 1.5.
+             -- En compter moins ferait passer une unité employée pour morte.
              (SELECT count(*) FROM #{tenant}.products p WHERE p.conditioning_unit_id = u.id) AS produits,
+             (SELECT count(*) FROM #{tenant}.product_nature_variants v WHERE v.default_unit_id = u.id) AS variantes,
+             (SELECT count(*) FROM #{tenant}.catalog_items c WHERE c.unit_id = u.id) AS articles_catalogue,
+             (SELECT count(*) FROM #{tenant}.activity_budget_items b WHERE b.unit_id = u.id) AS lignes_budget,
+             (SELECT count(*) FROM #{tenant}.daily_charges d WHERE d.quantity_unit_id = u.id) AS charges,
+             (SELECT count(*) FROM #{tenant}.parcel_items pi WHERE pi.conditioning_unit_id = u.id) AS lignes_livraison,
+             (SELECT count(*) FROM #{tenant}.parcel_item_storings ps WHERE ps.conditioning_unit_id = u.id) AS stockages,
+             (SELECT count(*) FROM #{tenant}.units b2 WHERE b2.base_unit_id = u.id) AS unites_derivees,
              (SELECT count(*) FROM #{tenant}.sale_items s WHERE s.conditioning_unit_id = u.id) AS lignes_de_vente,
              (SELECT count(*) FROM #{tenant}.purchase_items a WHERE a.conditioning_unit_id = u.id) AS lignes_achat
         FROM #{tenant}.units u
@@ -67,7 +76,9 @@ module MonoschemaUnits
           'usages' => 0
         }
         entry['fermes'] |= [tenant]
-        entry['usages'] += row.values_at('produits', 'lignes_de_vente', 'lignes_achat').sum(&:to_i)
+        entry['usages'] += row.values_at('produits', 'variantes', 'articles_catalogue', 'lignes_budget',
+                                         'charges', 'lignes_livraison', 'stockages', 'unites_derivees',
+                                         'lignes_de_vente', 'lignes_achat').sum(&:to_i)
       end
     end
 
@@ -80,9 +91,11 @@ module MonoschemaUnits
       # connaît pas. Deux familles : celles qui ont un `reference_name` inconnu
       # du référentiel, et celles qui n'en ont aucun — créations locales.
       #
-      # `usages` compte les lignes qui les emploient (produits, ventes, achats) :
-      # c'est ce qui dit lesquelles comptent vraiment. Une unité à zéro usage
-      # peut disparaître sans rien casser.
+      # `usages` compte les lignes qui les emploient, sur les dix colonnes du
+      # schéma qui désignent une unité — produits, variantes, catalogue,
+      # budgets, charges, livraisons, stockages, ventes, achats, et les unités
+      # qui en dérivent. C'est ce qui dit lesquelles comptent vraiment : une
+      # unité à zéro usage peut disparaître sans rien casser.
       #
       # Ce fichier ne migre rien. Il dit ce qu'il faudrait ajouter au
       # référentiel pour que la fusion ne perde aucune donnée.

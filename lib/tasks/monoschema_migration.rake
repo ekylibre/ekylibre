@@ -174,14 +174,20 @@ module MonoschemaMigration
     reset
   end
 
+  # Une transaction pour tout : une ferme à moitié restaurée serait pire qu'une
+  # ferme absente. Mesuré sur le jeu de démonstration, la recopie tient en
+  # quelques secondes — la durée d'une transaction n'est pas le problème ici,
+  # et c'est un import, pas un chemin applicatif.
   def run(tenants)
-    connection.execute('SET session_replication_role = replica')
-    registered = register_tenants(tenants)
-    build_mappings(registered)
-    counts = registered.to_h { |slug, tenant_id| [slug, copy_tenant(slug, tenant_id)] }
-    sequences = reset_sequences
-    connection.execute('SET session_replication_role = origin')
-    { tenants: registered, counts: counts, sequences: sequences }
+    result = nil
+    connection.transaction do
+      connection.execute('SET LOCAL session_replication_role = replica')
+      registered = register_tenants(tenants)
+      build_mappings(registered)
+      counts = registered.to_h { |slug, tenant_id| [slug, copy_tenant(slug, tenant_id)] }
+      result = { tenants: registered, counts: counts, sequences: reset_sequences }
+    end
+    result
   end
 end
 

@@ -1,0 +1,126 @@
+# ENGENDRÉ PAR `rake monoschema:units_gap` — à relire, puis à proposer au
+# dépôt Lexicon.
+#
+# Les unités que portent les fermes et que `lexicon.master_units` ne
+# connaît pas. Deux familles : celles qui ont un `reference_name` inconnu
+# du référentiel, et celles qui n'en ont aucun — créations locales.
+#
+# `usages` compte les lignes qui les emploient, sur les dix colonnes du
+# schéma qui désignent une unité — produits, variantes, catalogue,
+# budgets, charges, livraisons, stockages, ventes, achats, et les unités
+# qui en dérivent. C'est ce qui dit lesquelles comptent vraiment : une
+# unité à zéro usage peut disparaître sans rien casser.
+#
+# Ce fichier ne migre rien. Il dit ce qu'il faudrait ajouter au
+# référentiel pour que la fusion ne perde aucune donnée.
+#
+- reference_name: hour_equipment
+  name: Heure d'utilisation d'équipement
+  symbol:
+  dimension: time
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: hour
+  fermes:
+  - demo
+  usages: 39
+- reference_name: ton_bulk
+  name: Vrac (t)
+  symbol:
+  dimension: mass
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: ton
+  fermes:
+  - demo
+  usages: 15
+- reference_name: liter_bulk
+  name: Vrac (l)
+  symbol:
+  dimension: volume
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: liter
+  fermes:
+  - demo
+  usages: 9
+- reference_name: quintal_bulk
+  name: Vrac (q)
+  symbol:
+  dimension: mass
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: quintal
+  fermes:
+  - demo
+  usages: 9
+- reference_name: kilo_bulk
+  name: Vrac (kg)
+  symbol:
+  dimension: mass
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: kilogram
+  fermes:
+  - demo
+  usages: 5
+- reference_name: 125tg_bag
+  name: Sac (125000 grains)
+  symbol:
+  dimension: none
+  type: Conditioning
+  coefficient: 125.0
+  base_unit: thousand
+  fermes:
+  - demo
+  usages: 1
+- reference_name: 150tg_bag
+  name: Sac (150000 grains)
+  symbol:
+  dimension: none
+  type: Conditioning
+  coefficient: 150.0
+  base_unit: thousand
+  fermes:
+  - demo
+  usages: 1
+- reference_name: 50tg_bag
+  name: Sac (50000 grains)
+  symbol:
+  dimension: none
+  type: Conditioning
+  coefficient: 50.0
+  base_unit: thousand
+  fermes:
+  - demo
+  usages: 1
+- reference_name: hectoliter_bulk
+  name: Vrac (hl)
+  symbol:
+  dimension: volume
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: hectoliter
+  fermes:
+  - demo
+  usages: 1
+- reference_name: cubic_meter_bulk
+  name: Vrac (m³)
+  symbol:
+  dimension: volume
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: cubic_meter
+  fermes:
+  - demo
+  usages: 1
+- reference_name: hour_worker
+  name: Heure de travail
+  symbol:
+  dimension: time
+  type: Conditioning
+  coefficient: 1.0
+  base_unit: hour
+  fermes:
+  - demo
+  usages: 0

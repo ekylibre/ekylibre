@@ -225,6 +225,29 @@ distincts, **l'uuid porte la date de création**, chaque paramètre pointe une
 intervention de sa propre ferme, les séquences repartent au-dessus du plus grand
 `id`, et les politiques sont intactes. La CI le rejoue.
 
+### Mesurée sur un vrai jeu de données
+
+Le jeu de démonstration — `rake first_run FOLDER=demo`, **44 610 lignes**, une
+ferme complète avec sa comptabilité, ses parcelles et ses analyses — recopié
+dans le mono-schéma :
+
+| | |
+|---|---:|
+| lignes recopiées | **43 444** |
+| durée de la recopie | **~4 secondes** |
+| séquences replacées | 194 |
+| paramètres d'intervention orphelins après remappage | **0** |
+| uuid portant la date de création de leur ligne | 41 sur 41 |
+
+Soit de l'ordre de **10 000 lignes par seconde**. Les 1 166 lignes d'écart entre
+le tenant et la recopie sont celles des tables qui ne passent pas —
+`schema_migrations`, les deux tables supprimées, les cinq passées au
+référentiel.
+
+La recopie se fait **dans une transaction** : une ferme à moitié restaurée
+serait pire qu'une ferme absente. La durée n'y fait pas obstacle à cette
+échelle, et c'est un import, pas un chemin applicatif.
+
 Ce que la recopie ne fait **pas** encore : dédupliquer les cinq tables qui
 passent au référentiel, ni reprendre les onze vues et trois vues matérialisées
 — c'est le point 1.10. Elle n'a par ailleurs été mesurée que sur des fermes
@@ -438,6 +461,35 @@ découvrir une par une :
 La deuxième a été introduite par le chemin inter-fermes du point 1.22 et
 corrigée par cette mesure — elle n'aurait été visible ni à deux fermes, ni sur
 un schéma vide.
+
+## Les unités absentes du lexicon
+
+La fusion de `units` avec `master_units` suppose de savoir ce qui manque au
+référentiel. `rake monoschema:units_gap TENANTS=demo` le dit, et compte les
+usages sur les **dix colonnes** du schéma qui désignent une unité — produits,
+variantes, catalogue, budgets, charges, livraisons, stockages, ventes, achats,
+et les unités dérivées : en compter moins ferait passer une unité employée pour
+morte.
+
+Sur le jeu de démonstration, **onze unités manquent** au référentiel, toutes
+avec un `reference_name` — donc aucune création locale sauvage, ce qui est une
+bonne nouvelle pour la fusion :
+
+| Unité | `reference_name` | Usages |
+|---|---|---:|
+| Heure d'utilisation d'équipement | `hour_equipment` | 39 |
+| Vrac (t) | `ton_bulk` | 15 |
+| Vrac (l) | `liter_bulk` | 9 |
+| Vrac (q) | `quintal_bulk` | 9 |
+| Vrac (kg) | `kilo_bulk` | 5 |
+| Sac (50 000 / 125 000 / 150 000 grains) | `50tg_bag`, `125tg_bag`, `150tg_bag` | 1 chacune |
+| Vrac (m³), Vrac (hl) | `cubic_meter_bulk`, `hectoliter_bulk` | 1 chacune |
+| Heure de travail | `hour_worker` | 0 |
+
+Le fichier complet — dimension, type, unité de base, coefficient — est dans
+`db/monoschema/units-absentes-du-lexicon.yml`, prêt à être proposé au dépôt
+Lexicon. Il ne migre rien : il dit ce qu'il faut ajouter au référentiel pour que
+la fusion ne perde aucune donnée.
 
 ## Le questionnaire
 
