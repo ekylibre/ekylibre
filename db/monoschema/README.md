@@ -512,6 +512,52 @@ référentiel mais vers **deux**, et le STI de l'application (`Unit`,
 `ReferenceUnit`, `Conditioning`) dit laquelle. Ce n'est plus une déduplication,
 c'est une correspondance — et elle est totale sur le jeu mesuré.
 
+## Quand le Lexicon devient bloquant
+
+**Un import refuse de s'exécuter tant que les référentiels de la ferme ne sont
+pas repris au Lexicon**, et c'est la seule dépendance réelle entre les deux
+chantiers :
+
+```
+Cette ferme porte des référentiels qui ne sont pas encore repris au Lexicon :
+    postal_zones : 14 lignes
+    units : 54 lignes
+    vegetative_stages : 358 lignes
+```
+
+La raison est mesurée. Les quatre tables « à déplacer » ne sont pas recopiées —
+leur contenu rejoint une table qui existe *déjà* dans le Lexicon —, si bien que
+les colonnes qui les désignaient pointent dans le vide. Sur la ferme de
+démonstration : **1 486 lignes** pour les seules unités (1 107 produits, 160
+variantes, 157 articles de catalogue, 62 lignes de vente). Sans le garde-fou,
+l'import produisait une base qui viole sa propre clé étrangère, en silence.
+
+`FORCE=1` passe outre, en sachant que la ferme devra être réimportée.
+
+### Ce n'est pas un déplacement de table, c'est un recâblage
+
+La correction la plus importante de cette étape : « passer `units` au
+référentiel » ne veut pas dire créer une table `lexicon.units`. Le Lexicon porte
+déjà ces données, sous d'autres noms **et avec d'autres clés** :
+
+| Table de la ferme | Table du Lexicon | Clé |
+|---|---|---|
+| `units` (type `Conditioning`) | `master_packagings` | `reference_name` |
+| `units` (autres types) | `master_units` | `reference_name` |
+| `vegetative_stages` | `master_phenological_stages` | `id` = `<bbch>-<variété>` |
+| `postal_zones` | `registered_postal_codes` | `postal_code` |
+| `districts` | `registered_administrative_areas` | `code` |
+
+Toutes s'identifient par une **chaîne**, jamais par l'entier que les fermes
+emploient. Les dix colonnes qui désignent une unité ne peuvent donc pas devenir
+des clés étrangères vers `master_units` : elles doivent porter le
+`reference_name`. C'est un travail applicatif — modèles, formulaires, imports —
+et non une transformation de schéma.
+
+Le générateur n'engendre donc plus ces quatre tables, ni les clés étrangères qui
+les visaient, ni la vue `product_nature_variant_suppliers_infos` qui lisait
+`units`. Elles reviendront avec le recâblage.
+
 ## Les quatre autres référentiels
 
 Décision du 15 septembre : eux aussi rejoignent le Lexicon.

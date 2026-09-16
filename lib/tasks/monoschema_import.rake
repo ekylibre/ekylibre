@@ -73,12 +73,43 @@ module MonoschemaImport
     warn "  le schéma d'accueil #{staging} n'a pas pu être jeté : #{e.message.lines.first.strip}"
   end
 
+  # Ce qu'un import laisserait derrière lui tant que les référentiels ne sont
+  # pas repris. Les quatre tables « à déplacer vers le lexicon » ne sont pas
+  # recopiées — leur contenu rejoint une table du référentiel —, si bien que
+  # les colonnes qui les désignaient pointent dans le vide. Mesuré sur la ferme
+  # de démonstration : 1 486 lignes pour les seules unités.
+  def pending_references(staging)
+    plan = YAML.load_file(Rails.root.join(MonoschemaPlan::PLAN_PATH))
+    relocated = plan.select { |_table, entry| entry['status'] == 'à déplacer vers le lexicon' }.keys
+
+    relocated.filter_map do |table|
+      count = connection.select_value(%(SELECT count(*) FROM "#{staging}".#{table})).to_i
+      next if count.zero?
+
+      [table, count]
+    end.to_h
+  rescue StandardError
+    {}
+  end
+
   def run(archive:, slug:)
     staging = staging_name(slug)
     started = Time.current
 
     restore(archive, staging)
     restored = Time.current
+
+    pending = pending_references(staging)
+    if pending.any? && ENV['FORCE'].blank?
+      lines = pending.map { |table, count| "    #{table} : #{count} lignes" }
+      raise <<~TEXT
+        Cette ferme porte des référentiels qui ne sont pas encore repris au Lexicon :
+        #{lines.join("\n")}
+        Ils ne seront pas recopiés, et les colonnes qui les désignent pointeront
+        dans le vide. Reprendre ces référentiels au Lexicon d'abord, ou passer
+        FORCE=1 en sachant que la ferme devra être réimportée ensuite.
+      TEXT
+    end
 
     result = MonoschemaMigration.run(staging => slug)
     copied = Time.current

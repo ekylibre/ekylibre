@@ -51,9 +51,28 @@ module MonoschemaSchema
     ENV.fetch('SCOPE', 'full')
   end
 
+  # Les tables « à déplacer vers le lexicon » ne sont **pas** engendrées, et ce
+  # n'est pas un oubli : leur contenu ne devient pas une table de plus dans le
+  # schéma `lexicon`, il rejoint une table qui y existe déjà —
+  # `master_units` et `master_packagings` pour les unités,
+  # `master_phenological_stages` pour les stades, `registered_postal_codes` et
+  # `registered_administrative_areas` pour la géographie.
+  #
+  # Or ces tables-là ont d'autres clés : `master_units` s'identifie par
+  # `reference_name`, une chaîne, pas par un entier. Les colonnes qui
+  # désignaient une unité ne peuvent donc pas devenir des clés étrangères vers
+  # elle : elles doivent être **recâblées** sur le code du référentiel, ce qui
+  # est un travail applicatif et non une transformation de schéma. En attendant,
+  # elles restent des entiers sans contrainte, et `monoschema:import` refuse
+  # d'importer une ferme dont ces référentiels ne sont pas encore repris.
+  def to_relocate
+    @to_relocate ||= plan.select { |_table, entry| entry['status'] == 'à déplacer vers le lexicon' }.keys.to_set
+  end
+
   def kept
-    @kept ||= plan.reject do |_table, entry|
+    @kept ||= plan.reject do |table, entry|
       next true if entry['plane'] == 'drop'
+      next true if to_relocate.include?(table)
       next false unless scope == 'inplace'
 
       entry['plane'] == 'reference' && entry['schema'] == 'lexicon'
@@ -139,6 +158,9 @@ module MonoschemaSchema
 
     structure.scan(/^CREATE (UNIQUE )?INDEX (\S+) ON #{entry['schema']}\.#{table} USING (\w+) \((.*)\);$/) do |unique, name, method, columns|
       next if method != 'btree' || columns.include?('(')
+      # Un index sur une colonne retirée n'a plus d'objet — et PostgreSQL le dit
+      # brutalement : « column "purchase_id" does not exist ».
+      next if dropped_columns(table).any? { |column| columns.split(', ').include?(column) }
 
       columns = "tenant_id, #{columns}" if prefix
       out << "CREATE #{'UNIQUE ' if unique}INDEX #{name} ON #{schema}.#{table} USING btree (#{columns});\n"
@@ -167,6 +189,9 @@ module MonoschemaSchema
 
       target_entry = kept[target]
       next if target_entry.nil? || target_entry['primary_key'].nil?
+      # Une colonne qui désigne un référentiel repris ailleurs n'a plus de cible
+      # dans ce schéma : pas de contrainte tant qu'elle n'est pas recâblée.
+      next if to_relocate.include?(target)
 
       foreign_key(table, column, target, target_entry)
     end.join
@@ -200,6 +225,16 @@ module MonoschemaSchema
     out = +"\n-- Vues. `security_invoker` n'est pas une option de confort :\n" \
            "-- sans elle, la vue contourne la Row Level Security de ses tables.\n"
     view_definitions.each do |name, body|
+      # Une vue qui lit un référentiel repris ailleurs ne peut pas être
+      # engendrée : sa table n'existe plus ici. Elle reviendra avec le
+      # recâblage, comme les vues matérialisées.
+      blocked = to_relocate.find { |table| body.match?(/\bpublic\.#{table}\b/) }
+      if blocked
+        out << "-- #{name} n'est pas reprise : elle lit `#{blocked}`, dont le contenu\n" \
+               "-- rejoint une table du lexicon et demande un recâblage applicatif.\n\n"
+        next
+      end
+
       out << "CREATE VIEW ekylibre.#{name} WITH (security_invoker = true) AS\n#{rewrite_body(body)};\n\n"
     end
     out
