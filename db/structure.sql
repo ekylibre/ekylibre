@@ -10387,6 +10387,93 @@ CREATE SEQUENCE public.regularizations_id_seq
 --
 -- Name: regularizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
+-- Name: qonto_inbound_invoices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.qonto_inbound_invoices (
+    id bigint NOT NULL,
+    remote_id character varying NOT NULL,
+    status character varying DEFAULT 'to_review'::character varying NOT NULL,
+    supplier_name character varying,
+    supplier_siret character varying,
+    invoice_number character varying,
+    currency character varying,
+    amount numeric(19,4),
+    pretax_amount numeric(19,4),
+    issued_on date,
+    due_on date,
+    entity_id bigint,
+    purchase_id bigint,
+    document_id bigint,
+    payload jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    lines jsonb DEFAULT '[]'::jsonb NOT NULL,
+    kind character varying DEFAULT 'invoice'::character varying NOT NULL
+);
+
+
+--
+-- Name: qonto_inbound_invoices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.qonto_inbound_invoices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: qonto_inbound_invoices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.qonto_inbound_invoices_id_seq OWNED BY public.qonto_inbound_invoices.id;
+
+
+--
+-- Name: qonto_outbound_invoices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.qonto_outbound_invoices (
+    id bigint NOT NULL,
+    sale_id bigint,
+    remote_id character varying,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    remote_status character varying,
+    lifecycle_events jsonb DEFAULT '[]'::jsonb NOT NULL,
+    last_error jsonb DEFAULT '{}'::jsonb NOT NULL,
+    submitted_at timestamp without time zone,
+    issued_at timestamp without time zone,
+    received_at timestamp without time zone,
+    last_polled_at timestamp without time zone,
+    poll_attempts integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: qonto_outbound_invoices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.qonto_outbound_invoices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: qonto_outbound_invoices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.qonto_outbound_invoices_id_seq OWNED BY public.qonto_outbound_invoices.id;
+
+
+--
 
 ALTER SEQUENCE public.regularizations_id_seq OWNED BY public.regularizations.id;
 
@@ -13832,6 +13919,20 @@ ALTER TABLE ONLY public.rides ALTER COLUMN id SET DEFAULT nextval('public.rides_
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+--
+-- Name: qonto_inbound_invoices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_inbound_invoices ALTER COLUMN id SET DEFAULT nextval('public.qonto_inbound_invoices_id_seq'::regclass);
+
+
+--
+-- Name: qonto_outbound_invoices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_outbound_invoices ALTER COLUMN id SET DEFAULT nextval('public.qonto_outbound_invoices_id_seq'::regclass);
+
+
 ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
 
 
@@ -16329,6 +16430,22 @@ ALTER TABLE ONLY public.ride_sets
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: qonto_inbound_invoices qonto_inbound_invoices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_inbound_invoices
+    ADD CONSTRAINT qonto_inbound_invoices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: qonto_outbound_invoices qonto_outbound_invoices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_outbound_invoices
+    ADD CONSTRAINT qonto_outbound_invoices_pkey PRIMARY KEY (id);
 
 
 --
@@ -26783,6 +26900,69 @@ CREATE INDEX index_regularizations_on_journal_entry_id ON public.regularizations
 -- Name: index_regularizations_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
+--
+-- Name: index_qonto_inbound_invoices_on_document_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_qonto_inbound_invoices_on_document_id ON public.qonto_inbound_invoices USING btree (document_id);
+
+
+--
+-- Name: index_qonto_inbound_invoices_on_entity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_qonto_inbound_invoices_on_entity_id ON public.qonto_inbound_invoices USING btree (entity_id);
+
+
+--
+-- Name: index_qonto_inbound_invoices_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_qonto_inbound_invoices_on_kind ON public.qonto_inbound_invoices USING btree (kind);
+
+
+--
+-- Name: index_qonto_inbound_invoices_on_purchase_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_qonto_inbound_invoices_on_purchase_id ON public.qonto_inbound_invoices USING btree (purchase_id);
+
+
+--
+-- Name: index_qonto_inbound_invoices_on_remote_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_qonto_inbound_invoices_on_remote_id ON public.qonto_inbound_invoices USING btree (remote_id);
+
+
+--
+-- Name: index_qonto_inbound_invoices_on_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_qonto_inbound_invoices_on_status ON public.qonto_inbound_invoices USING btree (status);
+
+
+--
+-- Name: index_qonto_outbound_invoices_on_remote_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_qonto_outbound_invoices_on_remote_id ON public.qonto_outbound_invoices USING btree (remote_id);
+
+
+--
+-- Name: index_qonto_outbound_invoices_on_sale_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_qonto_outbound_invoices_on_sale_id ON public.qonto_outbound_invoices USING btree (sale_id);
+
+
+--
+-- Name: index_qonto_outbound_invoices_on_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_qonto_outbound_invoices_on_status ON public.qonto_outbound_invoices USING btree (status);
+
+
 CREATE INDEX index_regularizations_on_updated_at ON public.regularizations USING btree (updated_at);
 
 
@@ -29334,6 +29514,14 @@ ALTER TABLE ONLY public.technical_itinerary_intervention_templates
 
 
 --
+-- Name: qonto_inbound_invoices fk_rails_0f816e7164; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_inbound_invoices
+    ADD CONSTRAINT fk_rails_0f816e7164 FOREIGN KEY (document_id) REFERENCES public.documents(id);
+
+
+--
 -- Name: worker_contracts fk_rails_13690625da; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -29718,6 +29906,22 @@ ALTER TABLE ONLY public.activity_budgets
 
 
 --
+-- Name: qonto_outbound_invoices fk_rails_5c65bf8c77; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_outbound_invoices
+    ADD CONSTRAINT fk_rails_5c65bf8c77 FOREIGN KEY (sale_id) REFERENCES public.sales(id);
+
+
+--
+-- Name: qonto_inbound_invoices fk_rails_5cf1c5d818; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_inbound_invoices
+    ADD CONSTRAINT fk_rails_5cf1c5d818 FOREIGN KEY (purchase_id) REFERENCES public.purchases(id);
+
+
+--
 -- Name: purchase_items fk_rails_62e7d4b959; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -29739,6 +29943,14 @@ ALTER TABLE ONLY public.intervention_proposals
 
 ALTER TABLE ONLY public.intervention_template_product_parameters
     ADD CONSTRAINT fk_rails_65829c9376 FOREIGN KEY (product_nature_variant_id) REFERENCES public.product_nature_variants(id);
+
+
+--
+-- Name: qonto_inbound_invoices fk_rails_60521fbf5c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.qonto_inbound_invoices
+    ADD CONSTRAINT fk_rails_60521fbf5c FOREIGN KEY (entity_id) REFERENCES public.entities(id);
 
 
 --
@@ -31299,6 +31511,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260606120004'),
 ('20260606120005'),
 ('20260607090001'),
-('20260607090002');
+('20260607090002'),
+('20260726120001'),
+('20260726120002'),
+('20260726120003'),
+('20261010200000');
 
 

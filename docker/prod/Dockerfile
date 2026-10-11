@@ -29,6 +29,9 @@ RUN mkdir -p /app/vendor/bundle /app/.bundle /app/private /app/tmp && \
 
 USER ekylibre
 
+# Lecture locale des justificatifs (plugin Qonto) : PyMuPDF ; tesseract et python3 sont dans l'image de base.
+RUN pip3 install --user --no-cache-dir pymupdf==1.26.5
+
 RUN bundle config set --local without 'development test' && \
     bundle install -j $(nproc) && \
     bundle clean --force
