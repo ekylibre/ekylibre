@@ -17,4 +17,7 @@ RUN mkdir -p /app/vendor/bundle && \
 RUN chmod +x docker/dev/sidekiq_startup.sh
 
 USER ekylibre
+
+# Lecture locale des justificatifs (plugin Qonto) : PyMuPDF ; tesseract et python3 sont dans l'image de base.
+RUN pip3 install --user --no-cache-dir pymupdf==1.26.5
  
