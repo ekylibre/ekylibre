@@ -8,8 +8,14 @@ module Backend
 
       date     = Maybe(@bank_statement_items).minimum(:transfered_on).or_nil
       @trade   = self.class::Trade.new(invoiced_at: date, nature_id: nature)
+      @trade.assign_attributes(prefill_params.except(:items_attributes))
       if (@trade.is_a?(PurchaseInvoice) || @trade.is_a?(Purchase) || @trade.is_a?(Sale))
-        @trade.items.new
+        prefilled_items = prefill_params[:items_attributes]
+        if prefilled_items.present?
+          (prefilled_items.respond_to?(:values) ? prefilled_items.values : prefilled_items).each { |attrs| @trade.items.build(attrs) }
+        else
+          @trade.items.new
+        end
       end
 
       @url_helper = :"backend_quick_#{url_interpolate}_path"
@@ -19,6 +25,7 @@ module Backend
 
       @payment = self.class::Payment.new(to_bank_at: date, amount: @amount)
       @affair  = self.class::Trade.affair_class.new
+      @affair.third = Entity.find_by(id: params.dig(:affair, :third_id)) if params.dig(:affair, :third_id).present?
       @redirect_to = params[:redirect]
     end
 
@@ -100,22 +107,32 @@ module Backend
         params[:affair][:"use_existing_#{name}"].present?
       end
 
+      TRADE_PERMITTED_ATTRIBUTES = [
+        :invoiced_at,
+        :nature_id,
+        :reference_number,
+        :tax_payability,
+        :description,
+        { items_attributes: %i[
+          variant_id
+          conditioning_unit_id
+          conditioning_quantity
+          amount
+          tax_id
+          reduction_percentage
+          unit_pretax_amount
+        ] }
+      ].freeze
+
       def trade_params
-        params.require(:trade)
-              .permit :invoiced_at,
-                      :nature_id,
-                      :reference_number,
-                      :tax_payability,
-                      :description,
-                      items_attributes: %i[
-                        variant_id
-                        conditioning_unit_id
-                        conditioning_quantity
-                        amount
-                        tax_id
-                        reduction_percentage
-                        unit_pretax_amount
-                      ]
+        params.require(:trade).permit(*TRADE_PERMITTED_ATTRIBUTES)
+      end
+
+      # Values a caller (a plugin suggesting a purchase from a bank line, say)
+      # may put in the new form. Same whitelist as the submitted form; the
+      # nature always comes from the nature_id parameter.
+      def prefill_params
+        params.fetch(:trade, ActionController::Parameters.new).permit(*TRADE_PERMITTED_ATTRIBUTES).except(:nature_id)
       end
 
       def payment_params
