@@ -442,6 +442,79 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/Errors' }
 
+  /intervention_records:
+    get:
+      tags: [Interventions]
+      summary: List recorded (done) interventions
+      description: >-
+        Read-only list of interventions with `nature = record`, excluding
+        `rejected` ones, sorted by `started_at` descending then `id`
+        descending. Unlike `GET /interventions` (requests assigned to a mobile
+        worker), this endpoint is meant for reporting and question answering.
+      parameters:
+        - name: started_after
+          in: query
+          description: ISO 8601 date or datetime — keeps `started_at >= value`
+          schema: { type: string, format: date-time, example: '2024-09-01' }
+        - name: started_before
+          in: query
+          description: ISO 8601 date or datetime — keeps `started_at <= value`
+          schema: { type: string, format: date-time, example: '2025-08-31T23:59:59Z' }
+        - name: campaign
+          in: query
+          description: >-
+            Harvest year. Interventions are linked to campaigns through the
+            activity productions of their targets (`campaigns_interventions`).
+            An unknown year returns an empty list.
+          schema: { type: integer, example: 2024 }
+        - name: procedure_name
+          in: query
+          description: Procedure name (see `GET /procedures`), e.g. `spraying`
+          schema: { type: string }
+        - name: target_id
+          in: query
+          description: Id of a target product (land parcel, plant, animal group…)
+          schema: { type: integer }
+        - name: input_product_id
+          in: query
+          description: Id of an input product
+          schema: { type: integer }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1, minimum: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 50, minimum: 1, maximum: 100 }
+      responses:
+        '200':
+          description: Paginated list of recorded interventions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      elements:       { type: integer, description: Number of items in this page }
+                      page:           { type: integer }
+                      per_page:       { type: integer }
+                      total_elements: { type: integer }
+                      page_count:     { type: integer }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/InterventionRecord' }
+        '400':
+          description: Invalid filter or pagination parameter
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
   /farm_profiles/{harvest_year}:
     get:
       tags: [FarmProfiles]
@@ -916,6 +989,64 @@ components:
         description:    { type: string }
         started_at:     { type: string, format: date-time }
         stopped_at:     { type: string, format: date-time }
+
+    InterventionRecordParameter:
+      type: object
+      properties:
+        id:             { type: integer }
+        reference_name: { type: string, description: Procedure parameter name, e.g. `land_parcel` }
+        product_id:     { type: integer, nullable: true }
+        name:           { type: string, nullable: true, description: Product name }
+
+    InterventionRecord:
+      type: object
+      properties:
+        id:               { type: integer }
+        number:           { type: string }
+        name:             { type: string }
+        procedure_name:   { type: string }
+        started_at:       { type: string, format: date-time }
+        stopped_at:       { type: string, format: date-time }
+        working_duration: { type: integer, description: Seconds }
+        state:            { type: string, enum: [in_progress, done, validated] }
+        description:      { type: string, nullable: true }
+        provider:
+          type: object
+          nullable: true
+          properties:
+            vendor: { type: string }
+            name:   { type: string }
+            id:     { type: string }
+        targets:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/InterventionRecordParameter'
+              - type: object
+                properties:
+                  activity_production_id:  { type: integer, nullable: true }
+                  working_zone_area_value: { type: number, nullable: true }
+                  working_zone_area_unit:  { type: string, example: hectare }
+        inputs:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/InterventionRecordParameter'
+              - type: object
+                properties:
+                  variant_id:              { type: integer, nullable: true }
+                  variant_name:            { type: string, nullable: true }
+                  quantity_value:          { type: number, nullable: true }
+                  quantity_population:     { type: number, nullable: true }
+                  quantity_handler:        { type: string, nullable: true }
+                  quantity_unit_name:      { type: string, nullable: true }
+                  quantity_indicator_name: { type: string, nullable: true }
+        tools:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionRecordParameter' }
+        doers:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionRecordParameter' }
 
     ProcedureCardinality:
       type: object
