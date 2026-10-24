@@ -23,8 +23,7 @@ module Api
     # the requests assigned to a mobile worker), this endpoint lists what has
     # actually been done on the farm.
     class InterventionRecordsController < Api::V2::BaseController
-      DEFAULT_PER_PAGE = 50
-      MAX_PER_PAGE = 100
+      include Api::V2::ReadParams
 
       # GET /api/v2/intervention_records
       # Lists recorded interventions (nature = "record"), excluding rejected
@@ -57,7 +56,7 @@ module Api
         errors = []
         filters = parse_filters(errors)
         page, per_page = parse_pagination(errors)
-        return render(json: { errors: errors }, status: :bad_request) if errors.any?
+        return render_bad_request(errors) if errors.any?
 
         interventions = filter_interventions(filters)
         total_elements = interventions.count
@@ -68,13 +67,8 @@ module Api
                            .page(page)
                            .per(per_page)
 
-        @pagination = {
-          elements: @interventions.length,
-          page: page,
-          per_page: per_page,
-          total_elements: total_elements,
-          page_count: (total_elements.to_f / per_page).ceil
-        }
+        @pagination = pagination_metadata(page: page, per_page: per_page,
+                                          elements: @interventions.length, total_elements: total_elements)
       end
 
       private
@@ -116,63 +110,12 @@ module Api
 
         def parse_filters(errors)
           filters = {}
-
-          %i[started_after started_before].each do |key|
-            next if params[key].blank?
-
-            filters[key] = parse_time(params[key])
-            errors << "#{key} must be an ISO 8601 date or datetime" if filters[key].nil?
-          end
-
-          if params[:campaign].present?
-            filters[:campaign] = parse_positive_integer(params[:campaign])
-            errors << 'campaign must be a harvest year (e.g. 2024)' if filters[:campaign].nil?
-          end
-
-          if params[:procedure_name].present?
-            name = params[:procedure_name].to_s
-            if Procedo.find(name.to_sym)
-              filters[:procedure_name] = name
-            else
-              errors << "procedure_name is not a known procedure: #{name}"
-            end
-          end
-
-          %i[target_id input_product_id].each do |key|
-            next if params[key].blank?
-
-            filters[key] = parse_positive_integer(params[key])
-            errors << "#{key} must be a positive integer" if filters[key].nil?
-          end
-
-          filters
-        end
-
-        def parse_pagination(errors)
-          page = params[:page].present? ? parse_positive_integer(params[:page]) : 1
-          errors << 'page must be a positive integer' if page.nil?
-
-          per_page = params[:per_page].present? ? parse_positive_integer(params[:per_page]) : DEFAULT_PER_PAGE
-          if per_page.nil? || per_page > MAX_PER_PAGE
-            errors << "per_page must be an integer between 1 and #{MAX_PER_PAGE}"
-          end
-
-          [page, per_page]
-        end
-
-        # @return [ActiveSupport::TimeWithZone, nil]
-        def parse_time(value)
-          Time.zone.iso8601(value.to_s)
-        rescue ArgumentError
-          nil
-        end
-
-        # @return [Integer, nil]
-        def parse_positive_integer(value)
-          return nil unless value.to_s =~ /\A\d+\z/
-
-          integer = value.to_i
-          integer.positive? ? integer : nil
+          parse_times(filters, errors, :started_after, :started_before)
+          campaign = parse_campaign(errors)
+          filters[:campaign] = campaign if campaign
+          procedure_name = parse_procedure_name(errors)
+          filters[:procedure_name] = procedure_name if procedure_name
+          parse_ids(filters, errors, :target_id, :input_product_id)
         end
     end
   end
