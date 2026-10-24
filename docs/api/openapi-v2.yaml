@@ -59,6 +59,8 @@ tags:
     description: Product nature variants (catalog)
   - name: Interventions
     description: Recorded farm work
+  - name: ActivityProductions
+    description: Productions of a campaign (what is grown where)
   - name: FarmProfiles
     description: Aggregated yearly farm profile
   - name: FarmAccountancy
@@ -441,6 +443,201 @@ paths:
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Errors' }
+
+  /intervention_records:
+    get:
+      tags: [Interventions]
+      summary: List recorded (done) interventions
+      description: >-
+        Read-only list of interventions with `nature = record`, excluding
+        `rejected` ones, sorted by `started_at` descending then `id`
+        descending. Unlike `GET /interventions` (requests assigned to a mobile
+        worker), this endpoint is meant for reporting and question answering.
+      parameters:
+        - name: started_after
+          in: query
+          description: ISO 8601 date or datetime — keeps `started_at >= value`
+          schema: { type: string, format: date-time, example: '2024-09-01' }
+        - name: started_before
+          in: query
+          description: ISO 8601 date or datetime — keeps `started_at <= value`
+          schema: { type: string, format: date-time, example: '2025-08-31T23:59:59Z' }
+        - name: campaign
+          in: query
+          description: >-
+            Harvest year. Interventions are linked to campaigns through the
+            activity productions of their targets (`campaigns_interventions`).
+            An unknown year returns an empty list.
+          schema: { type: integer, example: 2024 }
+        - name: procedure_name
+          in: query
+          description: Procedure name (see `GET /procedures`), e.g. `spraying`
+          schema: { type: string }
+        - name: target_id
+          in: query
+          description: Id of a target product (land parcel, plant, animal group…)
+          schema: { type: integer }
+        - name: input_product_id
+          in: query
+          description: Id of an input product
+          schema: { type: integer }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1, minimum: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 50, minimum: 1, maximum: 100 }
+      responses:
+        '200':
+          description: Paginated list of recorded interventions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      elements:       { type: integer, description: Number of items in this page }
+                      page:           { type: integer }
+                      per_page:       { type: integer }
+                      total_elements: { type: integer }
+                      page_count:     { type: integer }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/InterventionRecord' }
+        '400':
+          description: Invalid filter or pagination parameter
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
+  /activity_productions:
+    get:
+      tags: [ActivityProductions]
+      summary: List the activity productions of a campaign
+      description: >-
+        Read-only list of the productions of a campaign (`ActivityProduction.of_campaign`,
+        so a perennial production appears in each of its campaigns), sorted by `id`.
+        Tells what is grown (or raised) where and on which surface.
+      parameters:
+        - name: campaign
+          in: query
+          required: true
+          description: Harvest year. An unknown year returns an empty list.
+          schema: { type: integer, example: 2024 }
+        - name: activity_id
+          in: query
+          schema: { type: integer }
+        - name: cultivable_zone_id
+          in: query
+          schema: { type: integer }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1, minimum: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 50, minimum: 1, maximum: 100 }
+      responses:
+        '200':
+          description: Paginated list of activity productions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination: { $ref: '#/components/schemas/ReadPagination' }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/ActivityProduction' }
+        '400':
+          description: Missing campaign, invalid filter or pagination parameter
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
+  /input_totals:
+    get:
+      tags: [Interventions]
+      summary: Totals of inputs per activity production
+      description: >-
+        One row per (activity production, input product) for a campaign, sorted
+        by activity production id then input product id. Only recorded
+        interventions (`nature = record`, not `rejected`) linked to the campaign
+        are counted. As in Ekylibre production costs, a target belongs to the
+        production its product is attached to (`products.activity_production_id`)
+        and each input is split between the targets of an intervention with
+        their `imputation_ratio` (working zone area of the target / total
+        working zone area of the targets). The consumed quantity is
+        `quantity_population` in the conditioning unit of the product,
+        converted into the reference unit of its dimension; a row never mixes
+        units.
+      parameters:
+        - name: campaign
+          in: query
+          required: true
+          description: Harvest year. An unknown year returns an empty list.
+          schema: { type: integer, example: 2024 }
+        - name: activity_production_id
+          in: query
+          schema: { type: integer }
+        - name: activity_id
+          in: query
+          schema: { type: integer }
+        - name: input_product_id
+          in: query
+          description: Id of an input product
+          schema: { type: integer }
+        - name: procedure_name
+          in: query
+          description: Procedure name (see `GET /procedures`), e.g. `spraying`
+          schema: { type: string }
+        - name: started_after
+          in: query
+          description: ISO 8601 date or datetime — keeps interventions with `started_at >= value`
+          schema: { type: string, format: date-time, example: '2024-09-01' }
+        - name: started_before
+          in: query
+          description: ISO 8601 date or datetime — keeps interventions with `started_at <= value`
+          schema: { type: string, format: date-time, example: '2025-08-31T23:59:59Z' }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1, minimum: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 50, minimum: 1, maximum: 100 }
+      responses:
+        '200':
+          description: Paginated input totals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination: { $ref: '#/components/schemas/ReadPagination' }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/InputTotal' }
+        '400':
+          description: Missing campaign, invalid filter or pagination parameter
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
 
   /farm_profiles/{harvest_year}:
     get:
@@ -916,6 +1113,157 @@ components:
         description:    { type: string }
         started_at:     { type: string, format: date-time }
         stopped_at:     { type: string, format: date-time }
+
+    InterventionRecordParameter:
+      type: object
+      properties:
+        id:             { type: integer }
+        reference_name: { type: string, description: Procedure parameter name, e.g. `land_parcel` }
+        product_id:     { type: integer, nullable: true }
+        name:           { type: string, nullable: true, description: Product name }
+
+    InterventionRecord:
+      type: object
+      properties:
+        id:               { type: integer }
+        number:           { type: string }
+        name:             { type: string }
+        procedure_name:   { type: string }
+        started_at:       { type: string, format: date-time }
+        stopped_at:       { type: string, format: date-time }
+        working_duration: { type: integer, description: Seconds }
+        state:            { type: string, enum: [in_progress, done, validated] }
+        description:      { type: string, nullable: true }
+        provider:
+          type: object
+          nullable: true
+          properties:
+            vendor: { type: string }
+            name:   { type: string }
+            id:     { type: string }
+        targets:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/InterventionRecordParameter'
+              - type: object
+                properties:
+                  activity_production_id:  { type: integer, nullable: true }
+                  working_zone_area_value: { type: number, nullable: true }
+                  working_zone_area_unit:  { type: string, example: hectare }
+        inputs:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/InterventionRecordParameter'
+              - type: object
+                properties:
+                  variant_id:              { type: integer, nullable: true }
+                  variant_name:            { type: string, nullable: true }
+                  quantity_value:          { type: number, nullable: true }
+                  quantity_population:     { type: number, nullable: true }
+                  quantity_handler:        { type: string, nullable: true }
+                  quantity_unit_name:      { type: string, nullable: true }
+                  quantity_indicator_name: { type: string, nullable: true }
+        tools:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionRecordParameter' }
+        doers:
+          type: array
+          items: { $ref: '#/components/schemas/InterventionRecordParameter' }
+
+    ReadPagination:
+      type: object
+      properties:
+        elements:       { type: integer, description: Number of items in this page }
+        page:           { type: integer }
+        per_page:       { type: integer }
+        total_elements: { type: integer }
+        page_count:     { type: integer }
+
+    ActivityProduction:
+      type: object
+      properties:
+        id:          { type: integer }
+        name:        { type: string }
+        started_on:  { type: string, format: date }
+        stopped_on:  { type: string, format: date }
+        state:       { type: string, enum: [opened, aborted, closed] }
+        usage:       { type: string, description: 'Production usage (Onoma), e.g. grain, fodder' }
+        activity:
+          type: object
+          properties:
+            id:               { type: integer }
+            name:             { type: string }
+            family:           { type: string, example: plant_farming }
+            nature:           { type: string, enum: [main, auxiliary, standalone] }
+            production_cycle: { type: string, enum: [annual, perennial] }
+        cultivation_variety:      { type: string, nullable: true, example: triticum_aestivum }
+        cultivation_variety_name: { type: string, nullable: true, description: Human name in the request locale }
+        net_surface_area_value:
+          type: number
+          nullable: true
+          description: Area of the support shape; null when the production has no shape (e.g. animal group)
+        net_surface_area_unit: { type: string, nullable: true, enum: [hectare] }
+        support:
+          type: object
+          properties:
+            id:     { type: integer, description: Support product (land parcel, animal group, equipment fleet) }
+            name:   { type: string }
+            nature: { type: string, nullable: true, example: cultivation }
+        cultivable_zone:
+          type: object
+          nullable: true
+          properties:
+            id:          { type: integer }
+            name:        { type: string }
+            work_number: { type: string }
+        target_product_ids:
+          type: array
+          items: { type: integer }
+          description: >-
+            Products attached to this production (`products.activity_production_id`:
+            support land parcel, plants…). These are the `target_id` values of
+            `GET /intervention_records` that Ekylibre imputes to this production.
+
+    InputTotal:
+      type: object
+      properties:
+        activity_production:
+          type: object
+          properties:
+            id:          { type: integer }
+            name:        { type: string }
+            activity_id: { type: integer }
+        input:
+          type: object
+          properties:
+            product_id:   { type: integer }
+            name:         { type: string }
+            variant_id:   { type: integer, nullable: true }
+            variant_name: { type: string, nullable: true }
+        quantity_value: { type: number, description: Total consumed quantity, in quantity_unit }
+        quantity_unit:
+          type: string
+          description: Reference unit of the quantity dimension
+          example: kilogram
+          enum: [unity, kilogram, liter, square_meter, meter, second, joule]
+        conditioning_quantity_value: { type: number, description: Same total in the conditioning unit of the product }
+        conditioning_unit_name:      { type: string, example: Big bag 500 kg }
+        interventions_count:         { type: integer, description: Number of interventions (passes) }
+        treated_area_value:
+          type: number
+          nullable: true
+          description: Sum of the working zone areas of the targets of this production; null if unknown
+        treated_area_unit: { type: string, nullable: true, enum: [hectare] }
+        nitrogen_value:
+          type: number
+          nullable: true
+          description: >-
+            Units of nitrogen (kg N) = quantity (kg) x `nitrogen_concentration`
+            of the variant. Null if the input is not measured by mass or has no
+            nitrogen concentration.
+        nitrogen_unit: { type: string, nullable: true, enum: [kilogram] }
 
     ProcedureCardinality:
       type: object
