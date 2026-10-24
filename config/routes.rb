@@ -149,6 +149,7 @@ Rails.application.routes.draw do
       resources :interventions, only: %i[index create update]
       resources :intervention_records, only: :index
       resources :activity_productions, only: :index
+      resources :input_totals, only: :index
       get 'products(/:product_type)', to: 'products#index', as: :products
       resources :variants, only: %i[index]
       resources :procedures, only: %i[index show], constraints: { id: /[^\/]+/ }

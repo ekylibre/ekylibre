@@ -566,6 +566,79 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/Message' }
 
+  /input_totals:
+    get:
+      tags: [Interventions]
+      summary: Totals of inputs per activity production
+      description: >-
+        One row per (activity production, input product) for a campaign, sorted
+        by activity production id then input product id. Only recorded
+        interventions (`nature = record`, not `rejected`) linked to the campaign
+        are counted. As in Ekylibre production costs, a target belongs to the
+        production its product is attached to (`products.activity_production_id`)
+        and each input is split between the targets of an intervention with
+        their `imputation_ratio` (working zone area of the target / total
+        working zone area of the targets). The consumed quantity is
+        `quantity_population` in the conditioning unit of the product,
+        converted into the reference unit of its dimension; a row never mixes
+        units.
+      parameters:
+        - name: campaign
+          in: query
+          required: true
+          description: Harvest year. An unknown year returns an empty list.
+          schema: { type: integer, example: 2024 }
+        - name: activity_production_id
+          in: query
+          schema: { type: integer }
+        - name: activity_id
+          in: query
+          schema: { type: integer }
+        - name: input_product_id
+          in: query
+          description: Id of an input product
+          schema: { type: integer }
+        - name: procedure_name
+          in: query
+          description: Procedure name (see `GET /procedures`), e.g. `spraying`
+          schema: { type: string }
+        - name: started_after
+          in: query
+          description: ISO 8601 date or datetime — keeps interventions with `started_at >= value`
+          schema: { type: string, format: date-time, example: '2024-09-01' }
+        - name: started_before
+          in: query
+          description: ISO 8601 date or datetime — keeps interventions with `started_at <= value`
+          schema: { type: string, format: date-time, example: '2025-08-31T23:59:59Z' }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1, minimum: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 50, minimum: 1, maximum: 100 }
+      responses:
+        '200':
+          description: Paginated input totals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination: { $ref: '#/components/schemas/ReadPagination' }
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/InputTotal' }
+        '400':
+          description: Missing campaign, invalid filter or pagination parameter
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Errors' }
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+
   /farm_profiles/{harvest_year}:
     get:
       tags: [FarmProfiles]
@@ -1152,6 +1225,45 @@ components:
             Products attached to this production (`products.activity_production_id`:
             support land parcel, plants…). These are the `target_id` values of
             `GET /intervention_records` that Ekylibre imputes to this production.
+
+    InputTotal:
+      type: object
+      properties:
+        activity_production:
+          type: object
+          properties:
+            id:          { type: integer }
+            name:        { type: string }
+            activity_id: { type: integer }
+        input:
+          type: object
+          properties:
+            product_id:   { type: integer }
+            name:         { type: string }
+            variant_id:   { type: integer, nullable: true }
+            variant_name: { type: string, nullable: true }
+        quantity_value: { type: number, description: Total consumed quantity, in quantity_unit }
+        quantity_unit:
+          type: string
+          description: Reference unit of the quantity dimension
+          example: kilogram
+          enum: [unity, kilogram, liter, square_meter, meter, second, joule]
+        conditioning_quantity_value: { type: number, description: Same total in the conditioning unit of the product }
+        conditioning_unit_name:      { type: string, example: Big bag 500 kg }
+        interventions_count:         { type: integer, description: Number of interventions (passes) }
+        treated_area_value:
+          type: number
+          nullable: true
+          description: Sum of the working zone areas of the targets of this production; null if unknown
+        treated_area_unit: { type: string, nullable: true, enum: [hectare] }
+        nitrogen_value:
+          type: number
+          nullable: true
+          description: >-
+            Units of nitrogen (kg N) = quantity (kg) x `nitrogen_concentration`
+            of the variant. Null if the input is not measured by mass or has no
+            nitrogen concentration.
+        nitrogen_unit: { type: string, nullable: true, enum: [kilogram] }
 
     ProcedureCardinality:
       type: object
