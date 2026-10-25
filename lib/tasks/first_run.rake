@@ -33,6 +33,9 @@ namespace :first_run do
 
   desc 'Load the default first-run'
   task default: :environment do
+    # Accept uppercase env vars (as documented in CLAUDE.md). PATH is excluded
+    # because it is reserved for the shell command lookup path.
+    %w[folder name max mode verbose].each { |k| ENV[k] ||= ENV[k.upcase] }
     ENV['name'] ||= ENV['TENANT']
     unless Ekylibre::FirstRun.path.join('default').exist?
       Rake::Task['first_run:default:generate'].invoke
@@ -43,6 +46,10 @@ end
 
 desc 'Load first run in one transaction'
 task first_run: :environment do
+  # Accept uppercase env vars (as documented in CLAUDE.md). PATH is excluded
+  # because it is reserved for the shell command lookup path.
+  %w[folder name max mode verbose].each { |k| ENV[k] ||= ENV[k.upcase] }
   ENV['name'] ||= ENV['TENANT']
+  ENV['mode'] ||= 'hard' if ENV['HARD'].to_s.downcase == 'true'
   Ekylibre::FirstRun.launch! ENV.to_hash.symbolize_keys.slice(:folder, :name, :max, :mode, :verbose, :path)
 end

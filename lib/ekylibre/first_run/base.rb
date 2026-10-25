@@ -39,10 +39,18 @@ module Ekylibre
         Preference.get('first_run.executed', false)
       end
 
+      # Returns the loaders to run: a per-folder loaders.yml overrides the global one.
+      def loaders
+        local = @path.join('loaders.yml')
+        return LOADERS unless local.exist?
+
+        YAML.load_file(local).deep_symbolize_keys
+      end
+
       # Execute all loaders for a given base
       def run
         secure_transaction(!hard?) do
-          LOADERS.each do |loader, imports|
+          loaders.each do |loader, imports|
             run_loader(loader, imports)
           end
           load_defaults
