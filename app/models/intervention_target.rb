@@ -73,6 +73,7 @@ class InterventionTarget < InterventionProductParameter
   has_many :pfi_targets, -> { where(nature: 'crop') }, class_name: 'PfiInterventionParameter', foreign_key: :target_id, dependent: :destroy
 
   validates :product, presence: true
+  validates :phenological_bbch_stage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 99 }, allow_nil: true
 
   scope :of_activity, ->(activity) { where(product_id: Product.where(activity_production_id: activity.productions.select(:id))) }
   scope :of_activities, ->(activities) { where(product_id: Product.where(activity_production_id: activities.map { |a| a.productions.select(:id) }.flatten.uniq)) }

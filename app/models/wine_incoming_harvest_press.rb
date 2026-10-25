@@ -52,6 +52,6 @@ class WineIncomingHarvestPress < ApplicationRecord
   refers_to :quantity_unit, class_name: 'Unit'
 
   def decorated_pressing_started_at
-    decorate.pressing_started_at_time
+    pressing_started_at&.strftime('%H:%M')
   end
 end

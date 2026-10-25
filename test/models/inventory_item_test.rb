@@ -42,5 +42,15 @@ require 'test_helper'
 
 class InventoryItemTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  # Regression test for issue #2681: the inventories#show list column used
+  # the bare chain `product.conditioning_unit.name` as its label_method.
+  # Hard-deleted products leave inventory_items as orphans (no FK constraint
+  # on product_id), so `product` is nil at render time and the page crashes.
+  # The model now exposes a safe-navigated accessor used by the column.
+  test 'product_conditioning_unit_name returns nil when product is missing' do
+    item = InventoryItem.new
+    assert_nil item.product
+    assert_nil item.product_conditioning_unit_name
+  end
 end

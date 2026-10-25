@@ -107,10 +107,17 @@ class Worker < Product
 
   accepts_nested_attributes_for :time_logs, allow_destroy: true
 
+  validates :certiphyto_expires_on, presence: true, if: -> { certiphyto_number.present? }
+
   scope :drivers, -> { Worker.where(id: InterventionParameter.where(reference_name: :driver).pluck(:product_id).uniq) }
+  scope :certiphyto_valid_on, ->(date) { where('certiphyto_number IS NOT NULL AND certiphyto_expires_on >= ?', date) }
 
   before_validation do
     self.team_id = user.team_id if user && user.team
+  end
+
+  def certiphyto_valid_at?(date)
+    certiphyto_number.present? && certiphyto_expires_on.present? && certiphyto_expires_on >= date.to_date
   end
 
   def participation(intervention)

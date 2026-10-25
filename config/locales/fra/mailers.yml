@@ -18,16 +18,26 @@ fra:
 
         %{current_user_name}
       notify_accountant_subject: "%{name} | Echange comptable %{exchange_name} disponible."
-    purchase_order_export:
-      notify_supplier: |
-        Bonjour %{supplier_name},
-
-        Une nouvelle commande %{number} est en cours en provenance de %{name}
-
-        - Date de commande : %{ordered_at}
-        - Montant : %{pretax_amount}
-
-        Cordialement
-
-        %{current_user_name}
-      notify_supplier_subject: "Commande %{number} recue de %{name}"
+    purchase_order_export: #?
+      notify_supplier: | #?
+        Bonjour %{supplier_name}, #? #? #? #? #? #? #?
+         #? #? #? #? #? #? #?
+        Une nouvelle commande %{number} est en cours en provenance de %{name} #? #? #? #? #? #? #?
+         #? #? #? #? #? #? #?
+        - Date de commande : %{ordered_at} #? #? #? #? #? #? #?
+        - Montant : %{pretax_amount} #? #? #? #? #? #? #?
+         #? #? #? #? #? #? #?
+        Cordialement #? #? #? #? #? #? #?
+         #? #? #? #? #? #? #?
+        %{current_user_name} #? #? #? #? #? #? #?
+      notify_supplier_subject: "Commande %{number} recue de %{name}" #?
+    tenant_creation_mailer:
+      credentials:
+        email_label: "Email"
+        greeting: "Bonjour,"
+        intro: "Votre instance Ekylibre « %{tenant} » vient d'être créée. Voici vos informations de connexion :"
+        password_label: "Mot de passe"
+        password_warning: "Pour des raisons de sécurité, merci de modifier ce mot de passe lors de votre première connexion."
+        signature: "L'équipe Ekylibre"
+        subject: "Votre instance Ekylibre « %{tenant} » est prête"
+        url_label: "URL"

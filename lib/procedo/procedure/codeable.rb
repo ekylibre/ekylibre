@@ -70,7 +70,7 @@ module Procedo
               return [] if tree.blank?
 
               self.class.select_nodes(tree) do |node|
-                node.is_a?(Procedo::Formula::Language::Variable)
+                node.is_a?(Procedo::Formula::Nodes::Variable)
               end.map(&:text_value)
             end
           end
@@ -88,7 +88,7 @@ module Procedo
         def detect_environment_variable(root, name)
           variable_name = name.to_s.upcase
           detect(root) do |node|
-            node.is_a?(Procedo::Formula::Language::EnvironmentVariable) &&
+            node.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) &&
               variable_name == node.text_value
           end
         end
@@ -101,9 +101,9 @@ module Procedo
                              parameter.to_s
                            end
           detect(root) do |node|
-            (node.is_a?(Procedo::Formula::Language::Variable) &&
+            (node.is_a?(Procedo::Formula::Nodes::Variable) &&
              parameter_name == node.text_value) ||
-              (or_self && node.is_a?(Procedo::Formula::Language::EnvironmentVariable) &&
+              (or_self && node.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) &&
                node.text_value == 'SELF')
           end
         end
@@ -144,8 +144,10 @@ module Procedo
 
         # Count variables
         def count_variables(node, name)
-          node_is_self = node.is_a?(Procedo::Formula::Language::Self)
-          node_is_variable = node.is_a?(Procedo::Formula::Language::Variable)
+          # "self" is modelled as an environment variable named SELF, not a
+          # dedicated node class — keep this consistent with #detect_parameter.
+          node_is_self = node.is_a?(Procedo::Formula::Nodes::EnvironmentVariable) && node.text_value == 'SELF'
+          node_is_variable = node.is_a?(Procedo::Formula::Nodes::Variable)
           if (node_is_self && name == :self) ||
              (node_is_variable && name.to_s == node.text_value)
             return 1

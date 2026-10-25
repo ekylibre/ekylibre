@@ -1,12 +1,23 @@
 # frozen_string_literal: true
 
 class CompanyInformationsService
+  NETWORK_ERRORS = [
+    RestClient::Exception,
+    Errno::ECONNRESET,
+    Errno::ECONNREFUSED,
+    Errno::EHOSTUNREACH,
+    Net::OpenTimeout,
+    Net::ReadTimeout,
+    SocketError,
+    OpenSSL::SSL::SSLError
+  ].freeze
+
   def self.call(*args)
     new(*args).call
   end
 
   def initialize(
-    company_info_client: Clients::Insee::SireneClient.new(key: ENV['INSEE_SIRENE_API_KEY'], secret: ENV['INSEE_SIRENE_API_SECRET']),
+    company_info_client: Clients::Insee::SireneClient.new(api_key: ENV['INSEE_SIRENE_API_KEY']),
     address_info_client: Clients::Gouv::AddressClient.new,
     siren: nil,
     siret: nil,
@@ -64,7 +75,8 @@ class CompanyInformationsService
 
     def siren_infos
       company_info_client.get_siren(siren)
-    rescue RestClient::Exception => e
+    rescue *NETWORK_ERRORS => e
+      Rails.logger.warn("CompanyInformationsService: SIREN lookup failed (#{e.class}): #{e.message}")
       { uniteLegale: { periodesUniteLegale: [] } }
     end
 
@@ -72,7 +84,8 @@ class CompanyInformationsService
       return {} unless siret
 
       company_info_client.get_siret(siret)
-    rescue RestClient::Exception => e
+    rescue *NETWORK_ERRORS => e
+      Rails.logger.warn("CompanyInformationsService: SIRET lookup failed (#{e.class}): #{e.message}")
       {}
     end
 
@@ -81,19 +94,22 @@ class CompanyInformationsService
 
       begin
         a = company_info_client.get_legal_unit_by_name(name)
-      rescue RestClient::Exception => e
+      rescue *NETWORK_ERRORS => e
+        Rails.logger.warn("CompanyInformationsService: legal unit lookup failed (#{e.class}): #{e.message}")
         nil
       end
 
       begin
         b = company_info_client.get_enterprise_by_name(name)
-      rescue RestClient::Exception => e
+      rescue *NETWORK_ERRORS => e
+        Rails.logger.warn("CompanyInformationsService: enterprise lookup failed (#{e.class}): #{e.message}")
         nil
       end
 
       begin
         c = company_info_client.get_enterprise_by_name_and_postal_code(name, postal_code) if postal_code.present?
-      rescue RestClient::Exception => e
+      rescue *NETWORK_ERRORS => e
+        Rails.logger.warn("CompanyInformationsService: enterprise+postal lookup failed (#{e.class}): #{e.message}")
         nil
       end
 
@@ -119,7 +135,8 @@ class CompanyInformationsService
       return {} unless response.dig(:features, 0, :geometry, :coordinates)
 
       response[:features][0][:geometry][:coordinates]
-    rescue RestClient::Exception => e
+    rescue *NETWORK_ERRORS => e
+      Rails.logger.warn("CompanyInformationsService: geolocation lookup failed (#{e.class}): #{e.message}")
       {}
     end
 

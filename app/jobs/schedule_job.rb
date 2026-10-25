@@ -6,8 +6,13 @@ class ScheduleJob < ApplicationJob
 
   def perform_on_each_tenant
     Ekylibre::Tenant.load!
-    Ekylibre::Tenant.switch_each do
-      perform_on_tenant
+    Ekylibre::Tenant.switch_each do |tenant|
+      begin
+        perform_on_tenant
+      rescue StandardError => e
+        Rails.logger.error("#{self.class.name} failed on tenant '#{tenant}': #{e.class}: #{e.message}")
+        ExceptionNotifier.notify_exception(e, data: { job: self.class.name, tenant: tenant })
+      end
     end
   end
 

@@ -92,6 +92,25 @@ export function enableDatetimePicker(element) {
     return flatInstance;
 }
 
+export function enableTimePicker(element) {
+    const options = {
+        locale: getLocale(element),
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: 'H:i',
+        altInput: true,
+        allowInput: true,
+        altFormat: 'H:i',
+        time_24hr: true,
+        static: true,
+    };
+    const flatInstance = flatpickr(element, options);
+
+    setupBlurListener(flatInstance);
+
+    return flatInstance;
+}
+
 export function enableDateRangePicker(element) {
     element.type = 'text';
 

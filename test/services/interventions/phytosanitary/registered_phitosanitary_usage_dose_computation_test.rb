@@ -204,6 +204,29 @@ module Interventions
         assert_equal expected.round(round), value.round(round), message
       end
 
+      # Regression test for issue #2672: `Enumerable#sum` without an initial
+      # value seeds with Integer 0, causing `0 + Measure` to raise
+      # `TypeError: Measure can't be coerced into Integer`.
+      test 'compute_area returns a square_meter Measure from working_zone_area_value targets' do
+        targets = {
+          "0" => { working_zone_area_value: 1.0 },
+          "1" => { working_zone_area_value: 2.5 }
+        }
+
+        result = @service.send(:compute_area, targets)
+
+        assert_kind_of Measure, result
+        assert_equal :square_meter, result.unit
+        assert_measure_equal 3.5.in(:hectare).in(:square_meter), result
+      end
+
+      test 'compute_area returns a square_meter Measure from shape targets' do
+        result = @service.send(:compute_area, @targets_area)
+
+        assert_kind_of Measure, result
+        assert_equal :square_meter, result.unit
+      end
+
       test 'compute dose message' do
         units = %i[kilogram liter kilogram_per_hectare liter_per_hectare kilogram_per_hectoliter liter_per_hectoliter]
 

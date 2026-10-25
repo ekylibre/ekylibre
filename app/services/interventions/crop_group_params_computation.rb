@@ -44,7 +44,7 @@ module Interventions
 
     # @return [Array<Crop>] rejected crops
     def rejected_crops
-      @rejected_crops ||= crops.difference(matching_targets)
+      @rejected_crops ||= target_parameter.nil? ? [] : crops.difference(matching_targets)
     end
 
     private
@@ -66,6 +66,8 @@ module Interventions
       end
 
       def matching_targets
+        return Product.none if target_parameter.nil? || target_parameter.filter.blank?
+
         CropGroup.available_crops(crop_group_ids, target_parameter.filter)
       end
 

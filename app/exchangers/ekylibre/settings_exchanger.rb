@@ -31,10 +31,13 @@ module Ekylibre
       if @manifest[:weather_public_station]
         Preference.set!(:weather_public_station, @manifest[:weather_public_station], :string)
       end
-      # Load stripe credentials of the instance
-      if @manifest[:customer_id] && @manifest[:subscription_id]
-        Preference.set!(:saassy_stripe_customer_id, @manifest[:customer_id], :string)
-        Preference.set!(:saassy_stripe_subscription_id, @manifest[:subscription_id], :string)
+      # Load stripe credentials of the instance. Secrets have no business being
+      # committed to a first_run manifest, so ENV takes precedence over the file.
+      stripe_customer_id = ENV['STRIPE_CUSTOMER_ID'].presence || @manifest[:customer_id]
+      stripe_subscription_id = ENV['STRIPE_SUBSCRIPTION_ID'].presence || @manifest[:subscription_id]
+      if stripe_customer_id && stripe_subscription_id
+        Preference.set!(:saassy_stripe_customer_id, stripe_customer_id, :string)
+        Preference.set!(:saassy_stripe_subscription_id, stripe_subscription_id, :string)
       end
       if srs = @manifest[:map_measure_srs]
         Preference.set!(:map_measure_srs, srs)
@@ -135,7 +138,12 @@ module Ekylibre
         attributes[:password_confirmation] = attributes[:password]
         user = User.find_or_initialize_by(email: email.to_s)
         user.attributes = attributes
-        user.save!
+        begin
+          user.save!
+        rescue ActiveRecord::RecordNotUnique
+          user = User.find_by!(email: email.to_s)
+          user.update!(attributes)
+        end
       end
       w.check_point
 
@@ -189,7 +197,7 @@ module Ekylibre
       # Loads journals
       if can_load_default?(:journals)
         @manifest[:journals] = Journal.nature.values.each_with_object({}) do |nature, hash|
-          hash[nature] = { name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month }
+          hash[nature] = { name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: FinancialYear.last_closure || Date.new(1899, 12, 31).end_of_month }
           hash
         end
       end
@@ -254,7 +262,7 @@ module Ekylibre
       # Load payslip natures
       if can_load_default?(:payslip_natures)
         nature = :payslip
-        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
+        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: FinancialYear.last_closure || Date.new(1899, 12, 31).end_of_month)
         @manifest[:payslip_natures] = { default: { name: PayslipNature.tc('default.name'), active: true, journal: journal } }
       end
       create_records(:payslip_natures)
@@ -264,7 +272,7 @@ module Ekylibre
       if can_load_default?(:sale_natures)
         nature = :sales
         usage = :sale
-        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
+        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: FinancialYear.last_closure || Date.new(1899, 12, 31).end_of_month)
         catalog = Catalog.of_usage(:sale).first || Catalog.create!(name: "enumerize.catalog.usage.#{usage}".t, usage: usage, currency: currency)
         @manifest[:sale_natures] = { default: { name: SaleNature.tc('default.name'), active: true, expiration_delay: '30 day', payment_delay: '30 days', downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, journal: journal, catalog: catalog } }
       end
@@ -274,7 +282,7 @@ module Ekylibre
       # Load purchase natures
       if can_load_default?(:purchase_natures)
         nature = :purchases
-        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
+        journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: FinancialYear.last_closure || Date.new(1899, 12, 31).end_of_month)
         @manifest[:purchase_natures] = { default: { name: PurchaseNature.tc('default.name'), active: true, journal: journal } }
       end
       create_records(:purchase_natures)
@@ -290,8 +298,16 @@ module Ekylibre
       end
       w.check_point
 
-      # Load identifiers
-      @manifest[:identifiers].each do |nature, value|
+      # Load identifiers. External API keys are picked up from ENV when
+      # defined, so they stay out of the committed manifest.
+      api_identifiers_from_env = {
+        openweathermap_api_key: ENV['OPENWEATHERMAP_API_KEY'],
+        groq_api_key: ENV['GROQ_API_KEY'],
+        mistral_api_key: ENV['MISTRAL_API_KEY'],
+        agromonitoring_api_key: ENV['AGROMONITORING_API_KEY']
+      }.reject { |_, v| v.blank? }
+      merged_identifiers = api_identifiers_from_env.merge(@manifest[:identifiers] || {})
+      merged_identifiers.each do |nature, value|
         Identifier.create!(nature: nature, value: value)
       end
       w.check_point

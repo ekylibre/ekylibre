@@ -1,5 +1,124 @@
 # Change Log
 
+## [5.0](https://github.com/ekylibre/ekylibre/tree/5.0) (2026-06-27)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/4.35.0...5.0)
+
+Major release. 72 commits, ~40 000 insertions across 489 files since `4.35.0`. Brings four headline features (HVE certification, Phytosanitary register 2027, Duke AI assistant, Admin/landing platform), a substantially extended API v2, a new production-deployment stack, and ~25 bug fixes from tickets #2648–#2686.
+
+### Breaking changes
+
+- **App server**: `unicorn` is replaced by `puma ~> 5.6` in the `:production` group. Update boot scripts / Procfiles. Multi-worker config in `config/puma.rb`, tune with `WEB_CONCURRENCY`.
+- **Node.js**: minimum required version is now **20** (was 14). Asset pipeline still falls back to `NODE_OPTIONS=--openssl-legacy-provider` during precompile.
+- **Lexicon**: pinned to `6.0.2-innovation` (was `6.0.1-test`). Run `rake lexicon:load` after deploy.
+- **Production reverse proxy**: Nginx config removed, replaced by **Caddy** with on-demand TLS (`docker/prod/Caddyfile`). Multi-tenant certs are issued per subdomain via Let's Encrypt.
+- **Plugins sourcing**: production builds now resolve plugins from `docker/prod/Gemfile.prod` (public GitHub forks under `github.com/ekylibre/*`). The CI workflow strips matching entries from `Gemfile.lock` so Bundler always uses branch HEAD.
+- **`docker/db/init.sql`**: added an `IF EXISTS` guard around `DROP EXTENSION postgis`. If you bootstrap PostgreSQL from an older copy of this file, replace it — the unguarded version silently dropped every geometry column on container restart (see CLAUDE.md).
+- **Reserved tenant names**: `admin`, `duke`, `traccar`, `ekylibre` can no longer be created from the admin UI.
+- **AgroMonitoring** integration has moved out of core into a dedicated plugin. `app/integrations/agro_monitoring_client.rb` and `app/jobs/agromonitoring_job.rb` are removed; install the plugin if you used the satellite-imagery feature.
+
+### Implemented enhancements
+
+#### HVE (Haute Valeur Environnementale)
+
+- New audit module for HVE3 certification scoring across four themes (biodiversity, phytosanitary strategy, fertilisation, irrigation), all-or-nothing certification at ≥ 10 points per theme.
+- Seven new models: `HveAudit`, `HveAuditItem`, `HveBiodiversityItem`, `HveCmrProduct`, `HveIaeCoefficient`, `HveNitrogenExportCoefficient`, `HveScoringTable` (`app/models/hve_*.rb`).
+- Routes added: `resources :hve_audits` with members `biodiversity`, `recompute_biodiversity`, `clone_from_previous`, nested `biodiversity_items`.
+- Biodiversity scorer delivered (8 sub-scorers, IAE gating). Phyto/fertilisation/irrigation rolled out via plugin (`ekylibre-hve`).
+- Vendored reference data: IAE coefficients (Plan HVE V4.4, Annex 1), Comifer 2013 nitrogen export coefficients, regional IFT scoring tables, annual CMR1/CMR2 AMM snapshots loadable via `rake hve:reference:load`.
+- Migrations: `db/migrate/20260606120001_*` through `20260607090002_*` (7 tables).
+- Docs: `claudedocs/workflow_plugin_ekylibre_hve.md` plus PR2/PR3 specs.
+
+#### Phytosanitary register 2027 [\#2663](https://github.com/ekylibre/ekylibre/issues/2663)
+
+- New backend page `/backend/phytosanitary-registers` (index, preview, create) generating the legally required treatment register per *Arrêté du 24 décembre 2025*.
+- Service objects under `app/services/phytosanitary/register/`: `Builder`, `Entry` (31 fields including SIRET, AMM, dose, area, geometry, BBCH, seed lot, target pest, application mode, early re-entry, weather), `Payload`, `IntegrityValidator`, `WeatherConditions` (OpenWeatherMap code mapping).
+- Three exporters: `XmlExporter` (schema URN `urn:fr:agri:phyto:register:1.0`), `JsonExporter` (EU Directive 2019/1024), `CsvExporter`. Output is stored as a `Document` with SHA256 fingerprint and `legal_retention_until` = 5 years + 1 month.
+- Background job `PhytosanitaryRegisterArchiveJob` and `ScheduledPhytosanitaryRegisterArchiveJob` (annual cron, January 31, France only).
+- New intervention fields: `weather_conditions` (JSONB store_accessor), `early_reentry` boolean + PPE description / reason, `beneficiary_siret` validated as 14 digits for prestation interventions.
+
+#### Duke AI assistant
+
+- New floating chat widget (`app/javascript/duke/widget.js`, `app/views/shared/_duke_widget.html.haml`) embedded in the backend layout. 360×640 modal with conversation UI, LLM selector (Claude / Mistral / Ollama), French i18n.
+- Speech-to-text: Web Speech API primary path, server-side Whisper fallback via `DUKE_STT_SERVER_ENABLED`.
+- Backend endpoint `GET /backend/duke/config` returns websocket URL, auth token, tenant, locale.
+- Backend services: `BackEnd::DukeWidgetController`, `app/javascript/duke/client.js`, pack `app/javascript/packs/duke_widget.js`.
+- Drafting flow: Duke produces structured intervention drafts (procedure, working periods, targets, inputs, tools, doers) that the user validates with one click; persisted via the new API v2 intervention CRUD.
+- Database role: `db/setup/duke_reader.sql`, `rake duke_reader:grant_tenants` / `:verify`, automatic provisioning via `docker/db/init-duke-role.sh`.
+- Compose services: `duke-api`, `postgres-duke`, `ollama`, `ollama-pull`, `nanoclaw` (Telegram bridge).
+
+#### Admin panel & landing
+
+- New `/admin` namespace (HTTP Basic, `ADMIN_USERNAME`/`ADMIN_PASSWORD`):
+  - `Admin::TenantsController` — list, create (spawns `admin:tenant:create` rake task with email/password/locale/country/currency), destroy, archive metadata, schema/file sizes.
+  - `Admin::DemoController` — load demo data via subprocess + Redis polling.
+  - `Admin::RestoreController` — upload archive and restore.
+  - `Admin::LexiconController` — list available versions, anonymous download from 6.0.2+, activate, remove.
+- Plain HTML5 admin layout (`app/views/layouts/admin.html.haml`), green theme, no Webpacker dependency.
+- Async jobs: `Admin::CreateTenantJob`, `Admin::LoadDemoJob` (16 stage labels exposed for progress UI).
+- Service `Admin::PluginsInspector` exposes Ekylibre version + list of installed plugins (name, slug, branch, revision).
+- `TenantCreationMailer` — sends credentials email after tenant provisioning.
+- Public landing page (`LandingController#show`, `app/views/landing/show.html.haml`, `app/views/layouts/landing.html.haml`) routed at the root domain (no subdomain), 462-line responsive layout with hero, modules grid, canvas animation.
+- `LexiconPicturesController` (`GET /lexicon/pictures/:domain/:name`) streams BYTEA images from `MasterAgriculturalPicture` with one-year cache; helper `lexicon_image_tag(domain, name, fallback:)`.
+
+#### API v2
+
+- **New endpoints**:
+  - `cultivable_zones` — CRUD on parcels with GeoJSON `shape_to_geojson` (issues [\#2659 doc tree], plus geojson commits `6cc50d026c`, `135ae3bc51`).
+  - `users` — `GET/PUT /api/v2/profile`, `GET /api/v2/users/me` (minimal payload for external clients).
+  - `tokens` — `POST` to authenticate, `DELETE` to revoke.
+  - `products(/:product_type)` — filterable by `modified_since`; `LandParcel` items include `shape_geojson`.
+  - `variants` — list `ProductNatureVariant` with `modified_since`.
+  - `procedures` — list/show procedo definitions with parameters tree.
+  - `farm_profiles/:harvest_year` — yearly aggregate (general, weather, biodiversity, rotations).
+  - `farm_accountancy/:harvest_year` — yearly financials (global ratio, accountancy, indicators).
+- **Interventions** — full CRUD with nested working_periods, inputs, outputs, tools, targets, doers, group_parameters, readings; idempotent on provider triple `(vendor, name, id)`; filterable by `contact_email`, `user_email`, `with_interventions`, `nature`, `provider_id`.
+- **Lexicon phytosanitary** controllers (cropsets, products, risks, usages) — pagination params, `POST` returns diff `{ removed, updated }` for client-side sync.
+- OpenAPI 3.0 spec at `docs/api/openapi-v2.yaml` (1028 lines), French integration guide at `docs/api/README.md`.
+
+#### Other enhancements
+
+- Charts migrated from Highcharts to **ECharts** (`app/assets/javascripts/chart/echarts.js.coffee`, `app/helpers/charts_helper.rb`) — issue [\#2686].
+- Interventions: editable `name` field instead of auto-generated procedure-based names ([\#2653]).
+- Translations completed for English (`bin/decomment_locales.rb`) and French (`bin/translate_locales_deepl.rb` via DeepL).
+- Documentation tree consolidated: `doc/` merged into `docs/` with logical subtree ([\#2659]).
+- New CLAUDE.md at repo root documenting tenant management, performance hotspots, lexicon ops.
+- Docker base image migrated from GitLab to `ghcr.io/ekylibre/docker-base-images/ruby2.6:latest`.
+- Dev container: `dnsmasq` for local multi-tenant DNS resolution (`*.localhost`).
+
+### Fixed bugs
+
+- [\#2648](https://github.com/ekylibre/ekylibre/issues/2648) — Phytosanitary intervention crashed and was slow when targeting more than 10 plants/land parcels (TargetZone now preloads in one query instead of N+1 `find_by`).
+- [\#2649](https://github.com/ekylibre/ekylibre/issues/2649) — PFI / French regulatory API calls failed due to missing HARICA TLS root certificate; bundled in Docker images.
+- [\#2651](https://github.com/ekylibre/ekylibre/issues/2651) — Wine harvest and analysis forms missed the time-picker on timestamp fields.
+- [\#2653](https://github.com/ekylibre/ekylibre/issues/2653) — Interventions can be renamed (was auto-generated only). Doc URL updated.
+- [\#2657](https://github.com/ekylibre/ekylibre/issues/2657) — Financial year close now reports unbalanced allocation errors instead of silently swallowing them.
+- [\#2660](https://github.com/ekylibre/ekylibre/issues/2660) — Intervention creation no longer crashes on empty auto-seeded procedo measure readings (e.g. sprayer tool).
+- [\#2661](https://github.com/ekylibre/ekylibre/issues/2661) — Procedo formula nodes now dispatch on `Nodes::*` instead of `Language::*` (regression in spraying API path).
+- [\#2666](https://github.com/ekylibre/ekylibre/issues/2666) — Action-integration scheduler no longer raises when integrations are disabled.
+- [\#2669](https://github.com/ekylibre/ekylibre/issues/2669) — Scheduled jobs isolate failures per tenant; one bad tenant no longer blocks the rest of the cron run.
+- [\#2670](https://github.com/ekylibre/ekylibre/issues/2670) — Company weather lookup uses postal code/country even when the mail address is incomplete.
+- [\#2671](https://github.com/ekylibre/ekylibre/issues/2671), [\#2672](https://github.com/ekylibre/ekylibre/issues/2672) — Inventory items list renders conditioning unit names without N+1 queries.
+- [\#2673](https://github.com/ekylibre/ekylibre/issues/2673) — Payment modes form no longer crashes when the cash account currency is null.
+- [\#2674](https://github.com/ekylibre/ekylibre/issues/2674) — Bank statement classifier logs invalid rows and continues instead of aborting the batch.
+- [\#2675](https://github.com/ekylibre/ekylibre/issues/2675) — Accountancy classifier job notifications now show the correct result.
+- [\#2676](https://github.com/ekylibre/ekylibre/issues/2676) — Document/invoice sequence numbering is now race-safe via DB locks.
+- [\#2677](https://github.com/ekylibre/ekylibre/issues/2677) — Concurrent requests no longer crash user stamping during Devise session refresh.
+- [\#2678](https://github.com/ekylibre/ekylibre/issues/2678) — Payslip accounting uses `BigDecimal` instead of `Float`.
+- [\#2679](https://github.com/ekylibre/ekylibre/issues/2679) — Invalid session time zones are cleared instead of breaking the time-zone selector.
+- [\#2680](https://github.com/ekylibre/ekylibre/issues/2680), [\#2681](https://github.com/ekylibre/ekylibre/issues/2681) — Phytosanitary dose calculation handles zero-area targets without summing crashes.
+- [\#2682](https://github.com/ekylibre/ekylibre/issues/2682) — Ride-set maps no longer crash when the shape geometry is missing.
+- [\#2683](https://github.com/ekylibre/ekylibre/issues/2683) — Stale CSRF tokens redirect to the login page instead of returning HTTP 500.
+- [\#2684](https://github.com/ekylibre/ekylibre/issues/2684) — Tenant creation rejects reserved names and sends a credentials email to the chosen address.
+
+### Infrastructure
+
+- Production stack reworked around **Dokploy**: `docker/prod/docker-compose.yml`, `docker-compose.dokploy.yml`, GHCR-hosted images (`ghcr.io/ekylibre/ekylibre/app:<tag>`), `pull_policy: always`, webhook triggered by CI after image push.
+- CI workflow `.github/workflows/build-prod-image.yml` builds on push to `5.0-beta`, `main`, and any `v*` tag.
+- New prod docs: `docker/prod/README.md`, `docker/prod/DOKPLOY.md`, `docker/prod/GPG.md`, `.env.dist` (170 vars), helper scripts (`duke-up`, `duke-update`, `lexicon-reload`, `tenant-*.sh`).
+- Sidekiq now waits on `app.healthcheck` to prevent model loading before lexicon ready.
+
+---
+
 ## [2.29.0](https://github.com/ekylibre/ekylibre/tree/2.29.0) (2017-01-07)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.28.0...2.29.0)
 

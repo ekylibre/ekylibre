@@ -149,6 +149,14 @@
         = f.input_field(:working_zone_area_value, "data-intervention-updater"=> prefix + 'working_zone_area_value', "data-intervention-field"=> 'working-zone-area-value')
         = content_tag(:span, Onoma::Unit[:hectare].symbol, class: 'add-on')
 
+  - if reference.target? && @intervention&.using_phytosanitary?
+    .phyto-register-field
+      = f.input :phenological_bbch_stage, label: :phenological_bbch_stage.tl, hint: :phenological_bbch_stage_hint.tl, as: :integer, input_html: { min: 0, max: 99, step: 1 }
+
+  - if f.object.reference_name.to_sym == :plant_medicine
+    .phyto-register-field
+      = f.input :application_mode, label: :application_mode.tl, collection: InterventionInput::APPLICATION_MODES.map { |m| [m.to_s.tl, m.to_s] }, include_blank: true
+
   - if reference.attribute(:killable)
     = f.yes_no_radio :dead, label: reference.killable_question, checked: %i[vine_grubbing].include?(reference.procedure_name)
   - if reference.component_of?

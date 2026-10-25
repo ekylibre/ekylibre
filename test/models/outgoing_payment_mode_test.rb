@@ -67,4 +67,16 @@ class OutgoingPaymentModeTest < Ekylibre::Testing::ApplicationTestCase::WithFixt
 
     assert outgoing_payment_mode.valid?
   end
+
+  # Regression test mirroring issue #2670 on the outgoing side: an orphan
+  # OutgoingPaymentMode with a NULL cash_id must not raise
+  # Module::DelegationError when #currency is accessed.
+  test 'currency returns nil when cash is missing' do
+    mode = create(:outgoing_payment_mode)
+    mode.update_columns(cash_id: nil)
+    mode.reload
+
+    assert_nil mode.cash
+    assert_nil mode.currency
+  end
 end

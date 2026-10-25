@@ -1,60 +1,73 @@
 # Ekylibre
 
-Ekylibre is a farm management information system (aka FMIS) web application.
+Ekylibre is a multi-tenant **Farm Management Information System** (FMIS) for crop, livestock, viticulture and accounting management.
 
-Ekylibre is written with [Ruby on Rails framework](https://rubyonrails.org/) and use
-[PostgreSQL](https://www.postgresql.org/) and [PostGIS](https://postgis.net/) stack.
+Built with [Ruby on Rails](https://rubyonrails.org/), [PostgreSQL](https://www.postgresql.org/) + [PostGIS](https://postgis.net/), and packaged for Docker production with Caddy (multi-tenant TLS) and Dokploy.
 
-More details can be found on the official website https://ekylibre.com
+- 🌐 Website: <https://ekylibre.org>
+- 🚀 Live demo: <https://demo.ekylibre-dev.com>
+- 📚 User documentation (FR): <https://ekylibre.github.io/doc/fr/demarrage/>
+- 💬 Community forum: <https://discord.com/invite/BSpD6hq7qR>
 
 ## Screenshot
 
-[![Screens](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg)](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png)
+[Screen](https://github.com/ekylibre/demo-data/blob/main/demo/alamano/background.jpg)
 
-## Global requirement
+## What's new in 5.0
 
-Global requirement before installing Ekylibre
+Ekylibre **5.0** (June 2026) is a major release. Highlights:
 
-* [Ubuntu 20.04 LTS](<./doc/Installation/Global/Ubuntu 20.04 LTS.md>)
+- 🌱 **HVE audit module** — Haute Valeur Environnementale (V4.4) scoring across biodiversity, phytosanitary, fertilisation and irrigation themes.
+- 📋 **Phytosanitary register 2027** — automated legal treatment register (XML / JSON / CSV) per *Arrêté du 24 décembre 2025*, with 5-year archival.
+- 🤖 **Duke AI assistant** — embedded conversational widget with voice input (STT), structured intervention drafting, and a model selector (Claude / Mistral / local Ollama).
+- 🛠 **Admin & landing platform** — `/admin` namespace for tenant CRUD, demo loading, restore, lexicon management, plugins inspector.
+- 🌐 **API v2 expanded** — new endpoints (`cultivable_zones` with GeoJSON, `procedures`, `farm_profiles`, `farm_accountancy`, `users`, `tokens`, `variants`, `products`), idempotent intervention CRUD, OpenAPI 3.0 spec.
+- 📊 **ECharts** replaces Highcharts for all dashboards and analyses.
+- 🧩 **Plugins recentered on GitHub** — 16 public plugins shipped via `docker/prod/Gemfile.prod` (banking, ednotif, hve, idea, traccar, sencrop, weenat, agro-monitoring, etc.).
+- 📱 **Zero Mobile** — pilot React Native app for offline spraying intervention capture (iOS TestFlight + Android Play Internal Testing).
 
-## Ekylibre Installation
+**Full release notes (FR):** [`docs/releases/5.0.fr.md`](docs/releases/5.0.fr.md)
+**Technical changelog:** [`CHANGELOG.md`](CHANGELOG.md)
 
-* [Installation Ekylibre](./doc/Installation/Eky-Ekylibre.md)
+### Breaking changes
 
-### [Docker](https://github.com/ekylibre/ekylibre/blob/main/docker/README.md)
+- App server **Unicorn → Puma 5.6** in production.
+- **Node 20** minimum (was 14).
+- Production reverse proxy **Nginx → Caddy** (on-demand multi-tenant TLS).
+- `docker/db/init.sql` requires the new `IF EXISTS` guard around `DROP EXTENSION postgis` — see [CLAUDE.md](CLAUDE.md) for context.
+- **AgroMonitoring** moved out of core into the [`ekylibre-agro-monitoring`](https://github.com/ekylibre/ekylibre-agro-monitoring) plugin.
+
+## Installation
+
+* [Install Ekylibre](https://ekylibre.org/techdoc/)
+* [Docker](./docker/README.md)
+* [Docker production (Dokploy)](./docker/prod/README.md) — Caddy multi-tenant TLS, GHCR images
+
+## Documentation
+
+- [User documentation (FR)](https://ekylibre.org/fr/user-doc/demarrage/)
+- [Tech documentation (FR)](https://ekylibre.org/techdoc/)
+- [API v2 — French integration guide](https://ekylibre.org/api/)
+- [API v2 — OpenAPI 3.0 spec](./docs/api/openapi-v2.yaml)
+- [5.0 release notes (FR)](./docs/releases/5.0.fr.md)
+- [Architecture analysis](./docs/analysis/)
+- [Developer guide for Claude Code](./CLAUDE.md) — tenant management, performance hotspots, lexicon ops
 
 ## Contributing
 
-We encourage you to contribute to Ekylibre.
+We encourage contributions.
 
-* See our conventions ([Français](https://github.com/ekylibre/ekylibre/wiki/Conventions-de-d%C3%A9veloppement))
-* Check out the latest master to make sure the feature hasn't been implemented
-  or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it
-  and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so we don't break it in a
-  future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to
-  have your own version, or is otherwise necessary, that is fine, but please
-  isolate to its own commit so we can cherry-pick around it.
+* Read the dev conventions ([Français](https://github.com/ekylibre/ekylibre/wiki/Conventions-de-d%C3%A9veloppement))
+* Check the issue tracker before starting work
+* Fork → feature/bugfix branch → commit → PR
+* Add tests for any new behaviour
+* Keep refactors isolated from feature commits
 
 ## See also
 
-* [Forum](http://forum.ekylibre.org)
-* [User Documentation - FR](https://doc.ekylibre.com/fr/demarrage/)
-* [Official Demo](https://demo-innovation.ekylibre.io/backend)
-* [Official Demo dataset - FR](https://github.com/ekylibre/first_run-demo)
-
-## Follow us
-
-* [Twitter](https://twitter.com/Ekylibre)
-* [Facebook](https://www.facebook.com/ekylibre)
-* [YouTube](http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g)
+* [Live demo](https://demo.ekylibre-dev.com)
+* [Demo dataset - FR](https://github.com/ekylibre/demo-data)
 
 ## License
 
-Ekylibre is released under the [GNU/AGPLv3](http://opensource.org/licenses/AGPL-3.0)
-license.
+Ekylibre is released under the [GNU/AGPLv3](http://opensource.org/licenses/AGPL-3.0) license.

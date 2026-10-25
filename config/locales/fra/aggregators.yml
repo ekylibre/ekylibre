@@ -9,9 +9,10 @@ fra:
     actor_name: "Nom de l'acteur" #?
     animal_group_name: "Nom du groupe d'animaux" #?
     animal_group_population: "Population du groupe d'animaux" #?
-    animal_husbandry_register: "Registre d'élevage" #?
+    animal_husbandry_register: "Registre d'élevage"
+    animal_productions: "Production animale"
     area: "Surface"
-    area_in_hectare: "Surface (ha)"
+    area_in_hectare: "Surface (ha)" #?
     born_at: "Né(e) à"
     breeding_number: "Numéro d'élevage"
     campaigns: "Campagnes"
@@ -24,10 +25,10 @@ fra:
     depreciations_inputations_expenses: "Charges des imputations des dépréciations" #?
     derivative: "Dérivé" #?
     doer: "Opérateur" #?
-    doer_cost: "Cout de main d'œuvre"
-    doer_name: "Acteur"
-    doers_name: "Nom des acteurs"
-    duration_in_hour: "Durée (heures)"
+    doer_cost: "Cout de main d'œuvre" #?
+    doer_name: "Acteur" #?
+    doers_name: "Nom des acteurs" #?
+    duration_in_hour: "Durée (heures)" #?
     ede_cattling_number: "Numéro d'élevage EDE"
     ede_owner_number: "Numéro de propriétaire EDE"
     employee_involvement: "Intéressement salarial" #?
@@ -42,16 +43,16 @@ fra:
     exploitation_expenses_total: "Total des charges d'exploitation" #?
     exploitation_products_total: "Total des produits d'exploitation" #?
     exploitation_result: "Résultat d'exploitation" #?
-    family: "Famille"
+    family: "Famille" #?
     financial_expenses: "Charges financières" #?
-    financial_expenses_total: "Total des charges financières"
+    financial_expenses_total: "Total des charges financières" #?
     financial_products: "Produits financiers" #?
     financial_products_total: "Total des produits financiers" #?
     financial_result: "Résultat financier" #?
-    financial_year_name: "Exercice comptable"
-    financial_years: "Exercices comptables"
+    financial_year_name: "Exercice comptable" #?
+    financial_years: "Exercices comptables" #?
     grains_yield: "Rendement en grains" #?
-    harvest_year: "Année de récolte"
+    harvest_year: "Année de récolte" #?
     harvested_at: "Récolté à" #?
     human_roles: "Rôles" #?
     implanted_at: "Implanté à" #?
@@ -68,7 +69,7 @@ fra:
     name: "Nom"
     nature: "Profil"
     net_revenue: "Revenu net" #?
-    net_surface_area: "Surface nette"
+    net_surface_area: "Surface nette" #?
     nitrogen_balance: "Balance azotée" #?
     nitrogen_input_prev: "Apport d'azote prev" #?
     number: "Numéro" #?
@@ -86,14 +87,14 @@ fra:
     person_name: "Nom" #?
     pictogram: "Pictogramme" #?
     picture_path: "Chemin d'image"
-    # plan: "Plan"
+    plan: "Plan"
     prescription: "Ordonnance"
     pretax_amount: "Montant avant impôt" #?
     previous_production_name: "Précédente production" #?
     printed_on: "Imprimé le" #?
     product_account_label: "Compte de produits" #?
     product_nature_name: "Profil fonctionnel" #?
-    production_support: "Support à la production"
+    production_support: "Support à la production" #?
     productions_sales: "Ventes de productions" #?
     products_purchases: "Achats de produits" #?
     products_sales: "Ventes de produits" #?
@@ -120,15 +121,15 @@ fra:
     support_irrigated: "Soutien irrigué" #?
     support_nitrate_fixing: "Soutenir la fixation du nitrate" #?
     target_name: "Cible" #?
-    targets_name: "Nom de la cible"
-    tools_name: "Nom de l'outil"
+    targets_name: "Nom de la cible" #?
+    tools_name: "Nom de l'outil" #?
     total_cost_per_area: "Coût total par zone" #?
     variable_name: "Variable" #?
     variant_name: "Article"
     variant_variety: "Variété de l'article" #?
     vine_yield: "Rendement en vin" #?
     wages: "Salaires" #?
-    working_area: "Superficie travaillée"
+    working_area: "Superficie travaillée" #?
     working_duration_in_hours: "Durée travaillée en heures" #?
   aggregators: #?
     vat_register: "Registre de TVA" #?

@@ -1,0 +1,19 @@
+# docker/prod/nanoclaw-tenants.example.yml
+#
+# Template commitable, sans secret. Copier vers `nanoclaw-tenants.yml` (gitignore)
+# et remplir avec les vrais credentials. Le vrai fichier prod doit avoir
+# `chmod 0600` et `chown root:root`.
+#
+# Spec : claudedocs/workflow_nanoclaw_telegram_prod.md §4.2 + Annexe B.
+
+tenants:
+  - id: REPLACE_ME                              # doit matcher le schema Apartment Ekylibre
+    locale: fra                                 # fra | eng
+    llm_provider: claude                        # claude | mistral | ollama
+    ekylibre:
+      email: REPLACE_ME
+      token: REPLACE_ME                         # user.authentication_token (V1, scoped en V1.5)
+    telegram:
+      bot_token: "REPLACE_ME"                   # @BotFather -> /newbot
+      bot_username: REPLACE_ME
+      authorized_chat_ids: []                   # liste blanche stricte (cf. §8.2)

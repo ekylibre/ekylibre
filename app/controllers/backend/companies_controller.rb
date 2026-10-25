@@ -25,20 +25,22 @@ module Backend
     def build_attributes_for_weather
       company = Entity.of_company
       mail_address = company.default_mail_address
-      postal_code = mail_address.mail_postal_zone.postal_code
-      country = mail_address.mail_postal_zone.country
-      country ||= Preference[:country]
-      if mail_address.mail_geolocation
+      postal_zone = mail_address&.mail_postal_zone
+      postal_code = postal_zone&.postal_code
+      country = postal_zone&.country || Preference[:country]
+      if mail_address&.mail_geolocation
         centroid = mail_address.mail_geolocation
       elsif CultivableZone.any?
         c = CultivableZone.first.shape_centroid
         centroid = ::Charta.new_point(c[0], c[1])
       end
-      if postal_code.present? && country.present?
-        stations = RegisteredWeatherStation.of_country(country).of_country_zone(postal_code[0..1])
-      elsif country.present?
-        stations = RegisteredWeatherStation.of_country(country)
-      end
+      stations = if postal_code.present? && country.present?
+                   RegisteredWeatherStation.of_country(country).of_country_zone(postal_code[0..1])
+                 elsif country.present?
+                   RegisteredWeatherStation.of_country(country)
+                 else
+                   RegisteredWeatherStation.none
+                 end
       { station_ids: stations.pluck(:reference_name), shape_centroid: centroid }
     end
 

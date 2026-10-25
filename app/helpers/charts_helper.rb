@@ -17,15 +17,25 @@
 #
 
 module ChartsHelper
-  OPTIONS = %i[colors credits drilldown exporting labels legend loading navigation pane plot_options series subtitle title tooltip x_axis y_axis].each_with_object({}) do |name, hash|
-    hash[name] = name.to_s.tr('_', '-') # camelize(:lower)
-    hash
-  end.freeze
-
   TYPES = %i[line spline area area_spline column bar pie scatter area_range area_spline_range column_range waterfall bubble packedbubble].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.delete('_')
     hash
   end.freeze
+
+  ECHARTS_TYPE_MAP = {
+    'line' => 'line',
+    'spline' => 'line',
+    'area' => 'line',
+    'areaspline' => 'line',
+    'column' => 'bar',
+    'bar' => 'bar',
+    'pie' => 'pie',
+    'scatter' => 'scatter',
+    'bubble' => 'scatter',
+    'waterfall' => 'bar'
+  }.freeze
+
+  UNSUPPORTED_TYPES = %w[arearange areasplinerange columnrange packedbubble].freeze
 
   COLORS = {
     aliceblue: '#F0F8FF',
@@ -210,31 +220,23 @@ module ChartsHelper
 
   TYPES.each do |type, absolute_type|
     define_method "#{type}_highcharts" do |series, options = {}, html_options = {}|
-      options[:chart] ||= {}
-      options[:chart][:type] = absolute_type
-      options[:chart][:style] ||= {}
-      options[:chart][:style][:font_family] ||= theme_font_family
-      options[:chart][:style][:font_size]   ||= theme_font_size
-      options[:colors] ||= theme_colors
-      if options[:title].is_a?(String)
-        options[:title] = { text: options[:title].dup }
+      if UNSUPPORTED_TYPES.include?(absolute_type)
+        raise NotImplementedError, "Chart type '#{absolute_type}' is not supported by the ECharts backend yet. Add it to ChartsHelper if needed."
       end
-      if options[:subtitle].is_a?(String)
-        options[:subtitle] = { text: options[:subtitle].dup }
-      end
-      series = [series] unless series.is_a?(Array)
-      options[:series] = series
-      OPTIONS.each do |name, _absolute_name|
-        if %i[legend credits].include?(name)
-          if options.has_key?(name.to_sym)
-            options[name.to_sym] = { enabled: true } if options[name.to_sym].is_a?(TrueClass)
-          end
-        end
-        options[name.to_sym][:enabled] = true if options[name.to_sym].is_a?(Hash) and !options[name.to_sym].has_key?(:enabled)
-      end
+
+      options = options.dup
+      series = series.is_a?(Array) ? series.dup : [series]
+
+      echarts_options = build_echarts_options(absolute_type, series, options)
+      echarts_options[:textStyle] ||= {}
+      echarts_options[:textStyle][:fontFamily] ||= theme_font_family if respond_to?(:theme_font_family)
+      echarts_options[:textStyle][:fontSize]   ||= theme_font_size   if respond_to?(:theme_font_size)
+      echarts_options[:color] ||= (respond_to?(:theme_colors) ? theme_colors : nil)
+      echarts_options.compact!
+
       html_options[:data] ||= {}
-      html_options[:data][:highcharts] = options.jsonize_keys.to_json
-      return content_tag(:div, nil, html_options)
+      html_options[:data][:echarts] = echarts_options.to_json
+      content_tag(:div, nil, html_options)
     end
   end
 
@@ -247,4 +249,358 @@ module ChartsHelper
   def formate_and_translate(categories)
     categories.map { |category| category.l(format: "%b %Y") }
   end
+
+  private
+
+    # ------------------------------------------------------------------
+    # ECharts options builder
+    # ------------------------------------------------------------------
+    #
+    # Receives the Highcharts-style options hash that views still write,
+    # plus the resolved Highcharts type (e.g. 'column', 'spline'),
+    # and returns an ECharts-shaped Hash with symbol keys (camelCase).
+    #
+    # The translation is intentionally pragmatic: it covers the patterns
+    # actually used in the codebase (see views and plugins). Exotic
+    # Highcharts options not used in any callsite are dropped silently.
+    def build_echarts_options(hc_type, series, options)
+      echarts_type = ECHARTS_TYPE_MAP[hc_type] || hc_type
+      pie_chart = (hc_type == 'pie')
+
+      # Highcharts derives category labels from each data point's :name
+      # when the x-axis is type 'category' but no :categories array was
+      # supplied. ECharts requires xAxis.data to be set explicitly, so we
+      # do the derivation here before reshaping the series.
+      derive_categories_from_series!(options, series) unless pie_chart
+
+      result = {}
+      result[:title]   = build_title(options[:title], options[:subtitle])
+      result[:legend]  = build_legend(options[:legend])
+      result[:tooltip] = build_tooltip(options[:tooltip], pie_chart, hc_type)
+      unless pie_chart
+        result[:xAxis] = build_axis(options[:x_axis], default_type: hc_type == 'bar' ? 'value' : 'category', is_x: true, hc_type: hc_type)
+        result[:yAxis] = build_axis(options[:y_axis], default_type: hc_type == 'bar' ? 'category' : 'value', is_x: false, hc_type: hc_type)
+        # Ask ECharts to expand the plot grid so that rotated category
+        # labels, axis titles and the legend never overflow the canvas.
+        result[:grid] = { containLabel: true, left: 10, right: 20, top: 40, bottom: 10 }
+      end
+      result[:color]   = options[:colors] if options[:colors]
+
+      stacking, data_labels, type_overrides = extract_plot_options(options[:plot_options], hc_type)
+      result[:series] = build_series(series, hc_type, echarts_type, stacking, data_labels, type_overrides)
+
+      result[:__drilldown] = options[:drilldown] if options[:drilldown].present?
+
+      result
+    end
+
+    def derive_categories_from_series!(options, series)
+      xa = options[:x_axis]
+      return if xa.is_a?(Array)
+      xa = xa.is_a?(Hash) ? xa : {}
+      return if xa[:categories].present?
+      return unless %w[category].include?(xa[:type].to_s)
+      first = series.first
+      return unless first.is_a?(Hash) && first[:data].is_a?(Array)
+      names = first[:data].map { |p| p.is_a?(Hash) ? p[:name] : nil }
+      return if names.compact.empty?
+      options[:x_axis] = xa.merge(categories: names)
+    end
+
+    def build_title(title, subtitle)
+      return nil if title.nil? && subtitle.nil?
+      out = {}
+      if title.is_a?(Hash)
+        out[:text] = title[:text] if title[:text]
+        out[:left] = title[:align] if title[:align]
+      elsif title.is_a?(String) || title.is_a?(Symbol)
+        out[:text] = title.is_a?(Symbol) ? title.tl(default: title.to_s.humanize) : title
+      end
+      if subtitle.is_a?(Hash)
+        out[:subtext] = subtitle[:text] if subtitle[:text]
+      elsif subtitle.is_a?(String) || subtitle.is_a?(Symbol)
+        out[:subtext] = subtitle.to_s
+      end
+      out.empty? ? nil : out
+    end
+
+    def build_legend(legend)
+      return nil if legend.nil? || legend == false
+      return { show: true } if legend == true
+      if legend.is_a?(Hash)
+        show = legend.key?(:enabled) ? legend[:enabled] : true
+        out = { show: show ? true : false }
+        out[:bottom] = 0 if legend[:align] == 'bottom'
+        return out
+      end
+      nil
+    end
+
+    def build_tooltip(tooltip, pie_chart, hc_type = nil)
+      out = { show: true }
+      # 'item' trigger means: hovering a bar/slice shows ONLY that
+      # item's value. 'axis' trigger shows every series at the hovered
+      # category — fine for line/area, noisy for waterfall (the
+      # placeholder/gain/loss/total series each contribute one entry per
+      # category and only one is meaningful at a given x).
+      out[:trigger] = if pie_chart || hc_type == 'waterfall'
+                        'item'
+                      else
+                        'axis'
+                      end
+      if tooltip.is_a?(Hash)
+        out[:show] = false if tooltip[:enabled] == false
+        out[:trigger] = 'axis' if tooltip[:shared] == true
+        if tooltip[:point_format].is_a?(String)
+          out[:formatter] = convert_point_format(tooltip[:point_format])
+        end
+      end
+      out
+    end
+
+    # Converts a small subset of Highcharts point format placeholders to
+    # ECharts placeholders. Best-effort: complex HTML tooltips fall back
+    # to a string with {c} substituted in place of {point.y}.
+    #
+    # Highcharts → ECharts placeholder cheatsheet:
+    #   {point.y[:format]}     → {c}    (numeric value)
+    #   {point.name}           → {b}    (category name)
+    #   {series.name}          → {a}    (series name)
+    def convert_point_format(fmt)
+      fmt = fmt.to_s
+      fmt = fmt.gsub(/\{point\.y[^}]*\}/, '{c}')
+      fmt = fmt.gsub(/\{point\.name\}/, '{b}')
+      fmt = fmt.gsub(/\{series\.name\}/, '{a}')
+      fmt
+    end
+
+    def build_axis(axis, default_type:, is_x:, hc_type:)
+      return { type: default_type } if axis.nil?
+
+      list = axis.is_a?(Array) ? axis : [axis]
+      converted = list.map do |a|
+        build_single_axis(a, default_type: default_type, is_x: is_x, hc_type: hc_type)
+      end
+      list.size == 1 ? converted.first : converted
+    end
+
+    def build_single_axis(axis, default_type:, is_x:, hc_type:)
+      out = {}
+      out[:type] = axis[:type] == 'datetime' ? 'time' : (axis[:type] || default_type)
+      out[:type] = 'category' if axis[:categories]
+      out[:data] = axis[:categories] if axis[:categories]
+      out[:min]  = axis[:min] if axis.key?(:min)
+      out[:max]  = axis[:max] if axis.key?(:max)
+      if axis[:title].is_a?(Hash) && axis[:title][:text]
+        out[:name] = axis[:title][:text]
+        out[:nameLocation] = 'middle'
+        out[:nameGap] = is_x ? 30 : 50
+      end
+      if axis[:labels].is_a?(Hash) && axis[:labels][:format]
+        out[:axisLabel] = { formatter: axis[:labels][:format] }
+      end
+      if axis[:opposite]
+        out[:position] = is_x ? 'top' : 'right'
+      end
+
+      # ECharts thins out category labels automatically when they
+      # overlap. For most Ekylibre charts (especially waterfall and
+      # stacked columns) we want every label to show. Force interval=0
+      # and tilt long labels so they don't collide horizontally.
+      if is_x && out[:type] == 'category' && out[:data].is_a?(Array)
+        out[:axisLabel] ||= {}
+        out[:axisLabel][:interval] = 0 unless out[:axisLabel].key?(:interval)
+        labels = out[:data]
+        avg_len = labels.empty? ? 0 : (labels.sum { |s| s.to_s.length } / labels.size)
+        if !out[:axisLabel].key?(:rotate) && (avg_len > 6 || labels.size > 6)
+          out[:axisLabel][:rotate] = 30
+        end
+      end
+      out
+    end
+
+    # Returns [stacking_mode, data_labels_enabled, type_overrides_hash]
+    # stacking_mode is nil or a string used as ECharts series.stack key.
+    # data_labels_enabled is a boolean.
+    # type_overrides_hash maps series-type-string → hash of options.
+    def extract_plot_options(plot_options, hc_type)
+      stacking = nil
+      data_labels = false
+      type_overrides = {}
+      return [stacking, data_labels, type_overrides] unless plot_options.is_a?(Hash)
+
+      relevant_keys = [hc_type, 'series', hc_type.to_sym, :series, :pie, :column, :bar, :area, :line, :scatter, :spline]
+      relevant_keys.uniq.each do |key|
+        opts = plot_options[key] || plot_options[key.to_s] || plot_options[key.to_sym]
+        next unless opts.is_a?(Hash)
+
+        stacking ||= 'group' if opts[:stacking].to_s == 'normal'
+        if opts[:data_labels].is_a?(Hash)
+          data_labels = true if opts[:data_labels][:enabled]
+        end
+        type_overrides[key.to_s] ||= opts
+      end
+
+      [stacking, data_labels, type_overrides]
+    end
+
+    def build_series(series, hc_type, echarts_type, stacking, data_labels, type_overrides)
+      if hc_type == 'waterfall'
+        return build_waterfall_series(series, data_labels)
+      end
+
+      series.map do |raw|
+        s = raw.is_a?(Hash) ? raw.deep_dup : { data: raw }
+        s[:type] = echarts_type
+        s[:smooth] = true if %w[spline areaspline].include?(hc_type)
+        s[:areaStyle] = {} if %w[area areaspline].include?(hc_type)
+        s[:stack] = stacking if stacking
+
+        # per-series data_labels override (Highcharts allowed it on each
+        # series object as well as via plot_options)
+        per_series_dl = s.delete(:data_labels)
+        if data_labels || (per_series_dl.is_a?(Hash) && per_series_dl[:enabled])
+          s[:label] ||= {}
+          s[:label][:show] = true
+          if per_series_dl.is_a?(Hash) && per_series_dl[:format]
+            s[:label][:formatter] = convert_point_format(per_series_dl[:format])
+          end
+        elsif per_series_dl.is_a?(Hash) && per_series_dl[:enabled] == false
+          s[:label] = { show: false }
+        end
+
+        # Translate per-point data: Highcharts {name, y, color, ...} →
+        # ECharts {name, value, itemStyle: {color}, ...}. Numeric arrays
+        # and nested arrays (used by bubble/scatter) pass through as-is.
+        s[:data] = translate_data_points(s[:data]) if s[:data]
+
+        # pie-specific tweaks
+        if hc_type == 'pie'
+          # Highcharts uses size/inner_size; ECharts uses radius as either
+          # a single value (regular pie) or [inner, outer] (donut).
+          outer = s.delete(:size) || s.delete(:radius)
+          inner = s.delete(:inner_size) || s.delete(:innerSize)
+          if inner
+            s[:radius] = [inner, outer || '80%']
+          elsif outer
+            s[:radius] = outer
+          else
+            s[:radius] ||= '70%'
+          end
+          s[:center] ||= ['50%', '50%']
+
+          pie_overrides = type_overrides['pie'] || {}
+          if pie_overrides[:data_labels].is_a?(Hash) && pie_overrides[:data_labels][:format]
+            s[:label] ||= {}
+            s[:label][:show] = true
+            s[:label][:formatter] = convert_point_format(pie_overrides[:data_labels][:format])
+          end
+        end
+        # bubble: symbolSize from third point coordinate
+        if hc_type == 'bubble'
+          s[:symbolSize] = 'function(val){return Math.sqrt(val[2] || 1) * 5;}'
+        end
+        s
+      end
+    end
+
+    # Translates each Highcharts-style data point to its ECharts form.
+    # Pass-through for numeric values and arrays (bubble/scatter).
+    def translate_data_points(data)
+      return data unless data.is_a?(Array)
+      data.map { |pt| translate_data_point(pt) }
+    end
+
+    def translate_data_point(point)
+      return point unless point.is_a?(Hash)
+      pt = point.dup
+      # y → value (Highcharts → ECharts)
+      pt[:value] = pt.delete(:y) if pt.key?(:y) && !pt.key?(:value)
+      # color → itemStyle.color
+      if (color = pt.delete(:color))
+        pt[:itemStyle] = (pt[:itemStyle] || {}).merge(color: color)
+      end
+      # Highcharts also lets points carry `name`, which ECharts honors.
+      pt
+    end
+
+    # Highcharts waterfall uses a single series with positive/negative
+    # deltas and an optional 'sum'/'intermediateSum' marker. ECharts has
+    # no native waterfall; the canonical recipe uses stacked bar series
+    # (placeholder + gains + losses + totals) computed from the deltas,
+    # plus a connector line so the cascade pattern is recognisable.
+    def build_waterfall_series(series, data_labels)
+      raw = series.first.is_a?(Hash) ? series.first[:data] : series.first
+      raw = [] unless raw.is_a?(Array)
+
+      placeholder = []
+      positives   = []
+      negatives   = []
+      totals      = []
+      connectors  = []  # series of {value: tip_height} used to draw a thin connector line
+      running     = 0.0
+
+      raw.each_with_index do |point, idx|
+        is_sum = point.is_a?(Hash) && (point[:is_sum] || point[:isSum] || point[:isIntermediateSum] || point[:is_intermediate_sum])
+        if is_sum
+          placeholder << '-'
+          positives   << '-'
+          negatives   << '-'
+          totals      << running
+          connectors  << running
+        else
+          value = point.is_a?(Hash) ? (point[:y] || point[:value]) : point
+          value = value.to_f
+          if value >= 0
+            placeholder << running
+            positives   << value
+            negatives   << '-'
+            totals      << '-'
+            running    += value
+          else
+            placeholder << (running + value)
+            positives   << '-'
+            negatives   << value.abs
+            totals      << '-'
+            running    += value
+          end
+          connectors << running
+        end
+      end
+
+      label_block = data_labels ? { show: true, position: 'top' } : nil
+      [
+        # Invisible base that lifts the visible bar to the running total.
+        { name: 'placeholder', type: 'bar', stack: 'waterfall',
+          itemStyle: { color: 'rgba(0,0,0,0)' },
+          emphasis: { itemStyle: { color: 'rgba(0,0,0,0)' } },
+          tooltip: { show: false },
+          data: placeholder },
+        { name: I18n.t('labels.gain', default: 'Gain'),
+          type: 'bar', stack: 'waterfall',
+          itemStyle: { color: '#7cb342' },
+          data: positives, label: label_block }.compact,
+        { name: I18n.t('labels.loss', default: 'Perte'),
+          type: 'bar', stack: 'waterfall',
+          itemStyle: { color: '#e53935' },
+          data: negatives, label: label_block }.compact,
+        { name: I18n.t('labels.total', default: 'Total'),
+          type: 'bar', stack: 'waterfall',
+          itemStyle: { color: '#546e7a' },
+          data: totals, label: label_block }.compact,
+        # Connector line: a thin dashed line linking the top of each bar
+        # to the next so the cascade shape is recognisable. Rendered on
+        # its own canvas layer (zlevel) so it sits above the bar fills,
+        # including the gray total/intermediate-sum bars.
+        { name: '__connector', type: 'line',
+          symbol: 'none',
+          lineStyle: { color: '#9e9e9e', type: 'dashed', width: 1.5 },
+          tooltip: { show: false },
+          z: 10,
+          zlevel: 1,
+          silent: true,
+          legendHoverLink: false,
+          data: connectors }
+      ]
+    end
 end

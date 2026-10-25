@@ -52,7 +52,24 @@ module Ekylibre
 
         add(name)
         Apartment::Tenant.create(name)
-        # byebug
+        grant_read_only_access(name)
+      end
+
+      # Grant SELECT on the new tenant schema to the read-only role (if configured)
+      def grant_read_only_access(name)
+        duke_user = ENV['DUKE_USER']
+        return if duke_user.blank?
+        raise ArgumentError, "Invalid tenant name: #{name}" unless name =~ /\A[a-z][a-z0-9_]*\z/i
+        raise ArgumentError, "Invalid duke user: #{duke_user}" unless duke_user =~ /\A[a-z][a-z0-9_]*\z/i
+
+        connection = ActiveRecord::Base.connection
+        return unless connection.select_value("SELECT 1 FROM pg_roles WHERE rolname = #{connection.quote(duke_user)}")
+
+        connection.execute(%(GRANT USAGE ON SCHEMA "#{name}" TO "#{duke_user}"))
+        connection.execute(%(GRANT SELECT ON ALL TABLES IN SCHEMA "#{name}" TO "#{duke_user}"))
+        connection.execute(%(ALTER DEFAULT PRIVILEGES IN SCHEMA "#{name}" GRANT SELECT ON TABLES TO "#{duke_user}"))
+      rescue StandardError => e
+        Rails.logger.warn("Could not grant read-only access to #{duke_user} on schema #{name}: #{e.message}")
       end
 
       # Adds a tenant in config. No schema are created.

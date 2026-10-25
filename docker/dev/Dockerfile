@@ -1,4 +1,5 @@
-FROM registry.gitlab.com/ekylibre/docker-base-images/ruby2.6:2
+# FROM registry.gitlab.com/ekylibre/docker-base-images/ruby2.6:2
+FROM ghcr.io/ekylibre/docker-base-images/ruby2.6:latest
 
 ARG UID=1000
 ARG GID=1000
@@ -8,11 +9,15 @@ WORKDIR /app
 
 COPY . /app
 
-RUN addgroup --gid $GID ekylibre  && \
+RUN mkdir -p /app/vendor/bundle && \
+    addgroup --gid $GID ekylibre  && \
     useradd --create-home --home-dir /home/ekylibre -s /bin/bash -g $GID -u $UID ekylibre && \
     chown -R ekylibre:ekylibre /app
 
 RUN chmod +x docker/dev/sidekiq_startup.sh
 
 USER ekylibre
+
+# Lecture locale des justificatifs (plugin Qonto) : PyMuPDF ; tesseract et python3 sont dans l'image de base.
+RUN pip3 install --user --no-cache-dir pymupdf==1.26.5
  

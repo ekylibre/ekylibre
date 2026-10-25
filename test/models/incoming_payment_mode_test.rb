@@ -49,5 +49,18 @@ require 'test_helper'
 
 class IncomingPaymentModeTest < Ekylibre::Testing::ApplicationTestCase::WithFixtures
   test_model_actions
-  # Add tests here...
+
+  # Regression test for issue #2670: a legacy IncomingPaymentMode with a NULL
+  # cash_id (cash_id is nullable at the DB level and attr_readonly prevents
+  # rewriting it through ActiveRecord) caused #currency and #cash_journal to
+  # raise Module::DelegationError nightly. The delegations must tolerate nil.
+  test 'currency and cash_journal return nil when cash is missing' do
+    mode = create(:incoming_payment_mode)
+    mode.update_columns(cash_id: nil)
+    mode.reload
+
+    assert_nil mode.cash
+    assert_nil mode.currency
+    assert_nil mode.cash_journal
+  end
 end

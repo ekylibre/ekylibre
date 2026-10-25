@@ -71,8 +71,8 @@ module TechnicalItineraries
             elsif activity.main? && activity.perennial? && activity.vine_farming?
               # 10 - find a default TW in lexicon by activity attributes
               ts = find_technical_sequence(activity, at)
-              plain_prod_tw_id = ts.sequences.reorder(:year_start).last.technical_workflow_id
               if ts
+                plain_prod_tw_id = ts.sequences.reorder(:year_start).last&.technical_workflow_id
                 # 11- create AT with link to TW
                 creation_service = TechnicalItineraries::Itk::CreateTactic.new(activity: activity, technical_sequence: ts, campaign: @campaign)
                 at = creation_service.create_or_update_activity_tactic
@@ -101,8 +101,8 @@ module TechnicalItineraries
             elsif activity.main? && activity.perennial? && activity.animal_farming?
               # 10 - find a default TW in lexicon by activity attributes
               ts = find_technical_sequence(activity, at)
-              plain_prod_tw_id = ts.sequences.reorder(:year_start).last.technical_workflow_id
               if ts
+                plain_prod_tw_id = ts.sequences.reorder(:year_start).last&.technical_workflow_id
                 # 11- create AT with link to TW
                 creation_service = TechnicalItineraries::Itk::CreateTactic.new(activity: activity, technical_sequence: ts, campaign: @campaign)
                 at = creation_service.create_or_update_activity_tactic

@@ -34,6 +34,11 @@ module Backend
 
     autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
+    # Sirene (INSEE) directory search feeding the new-entity pre-fill widget.
+    def sirene_search
+      render json: { results: SireneSearchService.call(params[:q]) }
+    end
+
     # params:
     #   :q Text search
     def self.entities_conditions
@@ -112,6 +117,7 @@ module Backend
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :active, datatype: :boolean
+      t.column :einvoicing_operational, datatype: :boolean
       t.column :nature
       t.column :last_name, url: true
       t.column :first_name, url: true

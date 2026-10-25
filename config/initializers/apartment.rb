@@ -37,20 +37,21 @@ end
 
 module Apartment
   module Elevators
-    # Special elevator which permit to switch on header "X-Tenant"
-    class Header < Apartment::Elevators::Generic
+    # Resolves the tenant from `X-Tenant` header (used by Duke and other
+    # service-to-service calls), falling back to the request subdomain so
+    # browser navigation (`closeriedesterres.ekylibre.localhost`) keeps working.
+    # Inheriting Subdomain reuses its host parsing for the fallback path.
+    class Header < Apartment::Elevators::Subdomain
       def parse_tenant_name(request)
-        return nil unless request.env['HTTP_X_TENANT']
-        request.env.each do |k, v|
-          # puts "#{k.to_s.rjust(30).yellow}: #{v.to_s.red}"
-        end
-        # puts request.env.keys.inspect.red
-        request.env['HTTP_X_TENANT']
+        return request.env['HTTP_X_TENANT'] if request.env['HTTP_X_TENANT'].present?
+        super
       end
     end
 
     class SecuredSubdomain < Apartment::Elevators::Subdomain
       def call(env)
+        request = Rack::Request.new(env)
+        return @app.call(env) if request.path.start_with?('/admin')
         super
       rescue ::Apartment::TenantNotFound
         request = Rack::Request.new(env)
@@ -91,7 +92,10 @@ module Apartment
 end
 
 if ENV['TENANT']
-  Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |_request| ENV['TENANT'] }
+  Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |request|
+    next nil if request.path.start_with?('/admin')
+    ENV['TENANT']
+  }
 elsif Rails.env.test?
   Rails.application.config.middleware.use Apartment::Elevators::Generic, proc { |_request| 'test' }
 elsif ENV['ELEVATOR'] == 'header'

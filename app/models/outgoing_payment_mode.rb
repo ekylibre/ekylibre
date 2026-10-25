@@ -54,7 +54,7 @@ class OutgoingPaymentMode < ApplicationRecord
 
   validate :bank_details_for_sepa
 
-  delegate :currency, to: :cash
+  delegate :currency, to: :cash, allow_nil: true
 
   scope :matching_cash, ->(id) { where(cash_id: id) }
 

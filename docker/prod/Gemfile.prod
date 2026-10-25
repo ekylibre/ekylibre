@@ -1,0 +1,55 @@
+# Plugins Ekylibre pour les builds de production (image GHCR).
+#
+# Ce fichier est charge via CUSTOM_PLUGIN_GEMFILE par le Dockerfile prod
+# (voir docker/prod/Dockerfile). Il ne contient QUE des dependances publiques
+# (depots GitHub publics ou gems sur rubygems.org), pour permettre les builds
+# CI sans secrets.
+#
+# Les deploiements qui ont besoin de plugins prives ou de gems en path:
+# doivent maintenir leur propre Gemfile.local en parallele (ignore par ce fichier).
+#
+# Resolution au HEAD de la branche : a chaque build d'image, le workflow
+# .github/workflows/build-prod-image.yml strippe les sections GIT correspondant
+# aux URLs ci-dessous depuis Gemfile.lock avant le docker build. Bundler
+# re-resout alors chaque plugin contre le dernier commit de la branche
+# declaree (master/main/dev), sans utiliser de revision figee. Le Gemfile.lock
+# du repo reste inchange (utilise en dev).
+
+# === Gems utilitaires partagees ===
+gem 'securerandom'
+gem 'nordigen-ruby'
+gem 'vuejs-rails'
+
+# === Integrations comptables et bancaires ===
+gem 'ekylibre-baqio',    git: 'https://github.com/ekylibre/ekylibre-baqio.git',    branch: 'master'
+gem 'ekylibre-banking',  git: 'https://github.com/ekylibre/ekylibre-banking.git',  branch: 'master'
+gem 'ekylibre-qonto',    git: 'https://github.com/ekylibre/ekylibre-qonto.git',    branch: 'main'
+gem 'ekylibre-economic', git: 'https://github.com/ekylibre/ekylibre-economic.git', branch: 'main'
+
+# === Identification / tracabilite animale ===
+gem 'ekylibre-ednotif',  git: 'https://github.com/ekylibre/ekylibre-ednotif.git',  branch: 'master'
+
+# === First-run / chargement initial ===
+gem 'hajimari',          git: 'https://github.com/ekylibre/ekylibre-hajimari.git', branch: 'master'
+
+# === Boite a idees / feedback utilisateurs ===
+gem 'idea',              git: 'https://github.com/ekylibre/ekylibre-idea.git',     branch: 'dev'
+
+# === Planning ===
+gem 'planning',          git: 'https://github.com/ekylibre/ekylibre-planning.git', branch: 'dev'
+
+# === Materiel / capteurs / IoT ===
+gem 'ekylibre-samsys',     git: 'https://github.com/ekylibre/ekylibre-samsys.git',     branch: 'master'
+gem 'ekylibre-traccar',    git: 'https://github.com/ekylibre/ekylibre-traccar.git',    branch: 'master'
+gem 'ekylibre-natuition',  git: 'https://github.com/ekylibre/ekylibre-natuition.git',  branch: 'main'
+
+# === Meteo / agronomie ===
+gem 'weenat',          git: 'https://github.com/ekylibre/ekylibre-weenat.git',          branch: 'master'
+gem 'sencrop',         git: 'https://github.com/ekylibre/ekylibre-sencrop.git',         branch: 'main'
+gem 'agro_monitoring', git: 'https://github.com/ekylibre/ekylibre-agro-monitoring.git', branch: 'main'
+
+# === Viticulture ===
+gem 'ekylibre_ekyviti', git: 'https://github.com/ekylibre/ekylibre-viti.git', branch: 'master'
+
+# === Audit HVE3 (Haute Valeur Environnementale) ===
+gem 'ekylibre_hve', git: 'https://github.com/ekylibre/ekylibre-hve.git', branch: 'main'

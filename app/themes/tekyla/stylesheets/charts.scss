@@ -1,3 +1,14 @@
+// ECharts requires the container element to have an explicit size.
+// Highcharts auto-measured, so existing views often render the chart
+// inside a generic .chart-cell or similar. Set a sensible default that
+// callers can still override locally. The min-height has to accommodate
+// long rotated category labels (waterfall, stacked bars) plus axis
+// titles and an optional legend.
+[data-echarts] {
+  min-height: 360px;
+  width: 100%;
+}
+
 .chart-table {
   .chart-line {
     .chart-cell {

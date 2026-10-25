@@ -129,11 +129,6 @@ module Ekylibre
         # set email if present
         person.emails.find_or_create_by!(coordinate: r.email) if r.email.present?
 
-        # create the worker contract if present
-        if r.worker_contract_reference_name
-          WorkerContract.import_from_lexicon(reference_name: r.worker_contract_reference_name, entity_id: person.id, started_at: r.worker_contract_started_on)
-        end
-
         # create the user
         if person && r.email.present? && User.where(person_id: person.id).none?
           unless user = User.find_by(email: r.email)
@@ -161,8 +156,14 @@ module Ekylibre
 
         container = Product.find_by(work_number: r.place_code) || building_division
 
-        # create the worker
+        # create the worker BEFORE the contract: WorkerContract#after_create auto-creates a
+        # Worker when none exists for the entity, which would yield a duplicate.
         worker = pmodel.create!(variant: variant, name: r.name, initial_born_at: r.born_at, initial_owner: owner, default_storage: container, work_number: r.work_number, person: person)
+
+        # create the worker contract if present
+        if r.worker_contract_reference_name
+          WorkerContract.import_from_lexicon(reference_name: r.worker_contract_reference_name, entity_id: person.id, started_at: r.worker_contract_started_on)
+        end
 
         # attach georeading if exist for worker
         if georeading = Georeading.find_by(number: r.work_number, nature: :point)

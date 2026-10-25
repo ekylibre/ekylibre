@@ -1,0 +1,23 @@
+{
+	auto_https disable_redirects
+	admin off
+}
+
+# Duke (tourne sur l'hôte en :8000) — match spécifique avant le wildcard.
+duke.ekylibre.localhost {
+	tls internal
+	reverse_proxy host.docker.internal:8000
+}
+
+# Bare ekylibre.localhost (landing) + tous les sous-domaines tenants → Rails.
+ekylibre.localhost, *.ekylibre.localhost {
+	tls internal
+	reverse_proxy app:3000 {
+		header_up Host {host}
+		header_up X-Forwarded-Proto https
+	}
+}
+
+:80 {
+	redir https://{host}{uri} permanent
+}

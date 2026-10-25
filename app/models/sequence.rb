@@ -139,14 +139,15 @@ class Sequence < ApplicationRecord
 
   # Produces the next value of the sequence and update last value in DB
   def next_value!
-    reload
-    # FIXME: Prevent concurrency access to the method
-    counters = next_counters
-    self.last_number = counters[:number]
-    self.last_cweek = counters[:cweek]
-    self.last_month = counters[:month]
-    self.last_year = counters[:year]
-    save!
+    counters = nil
+    with_lock do
+      counters = next_counters
+      self.last_number = counters[:number]
+      self.last_cweek = counters[:cweek]
+      self.last_month = counters[:month]
+      self.last_year = counters[:year]
+      save!
+    end
     compute(counters)
   end
 

@@ -28,7 +28,7 @@
         %span.value= resource.area_with_overlap.round(2).to_s + " ha"
 
 = cobbles do |c|
-  - if resource.rides.any?
+  - if resource.rides.any? && resource.shape.present?
     - c.cobble :map do
       = visualization(async_url: backend_visualizations_ride_sets_visualizations_path(ride_set_id: resource.id), view: {zoom: 16 }) do |v|
         - v.control :zoom

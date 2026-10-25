@@ -21,6 +21,18 @@ module Api
     class TokensController < Api::V2::BaseController
       skip_before_action :authenticate_api_user!
 
+      # POST /api/v2/tokens
+      # Authenticates a user and returns an authentication token to be used
+      # in subsequent requests via the `Authorization: simple-token <email> <token>` header.
+      #
+      # Request body params:
+      # - email     [String, required] User email address
+      # - password  [String, required] User password
+      #
+      # Responses:
+      # - 200 OK            { "token": "<authentication_token>" }
+      # - 400 Bad Request   Missing email or password
+      # - 401 Unauthorized  Invalid email or password
       def create
         email = params[:email]
         password = params[:password]
@@ -48,6 +60,15 @@ module Api
         end
       end
 
+      # DELETE /api/v2/tokens/:id
+      # Invalidates an authentication token (logout).
+      #
+      # URL params:
+      # - id  [String, required] The authentication token to invalidate
+      #
+      # Responses:
+      # - 200 OK         { "token": "<token>" }
+      # - 404 Not Found  Token does not match any user
       def destroy
         @user = User.find_by(authentication_token: params[:id])
         if @user

@@ -3,7 +3,7 @@
   - if f.object.errors.any? && Rails.env.development?
     = f.object.errors.inspect
   - content_for :main_title do
-    - interpolations = { number: f.object.number, nature: f.object.nature.l }
+    - interpolations = { number: f.object.number, nature: f.object.nature.l, name: f.object.name }
     - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
     - if procedure
       - action_title_key << '_specified'
@@ -41,6 +41,7 @@
       - if f.object.record?
         = f.referenced_association :request_intervention, new: false, as: :hidden
       = f.referenced_association :issue, new: false, source: { controller: 'backend/issues' }
+      = f.input :name, hint: :intervention_name_hint.tl
       = f.input :description
       - procedure.mandatory_actions.each do |a|
         = hidden_field_tag('intervention[actions][]', a.name)
@@ -56,6 +57,25 @@
         -#= f.referenced_association :recommender
       #labellings
         = f.nested_association(:labellings, partial: '/backend/interventions/labelling_fields')
+
+    - if f.object.using_phytosanitary?
+      = field_set :phytosanitary_register do
+        = f.input :beneficiary_siret, hint: :beneficiary_siret_hint.tl
+
+        = f.input :weather_condition_code, label: :weather_condition.tl,
+          collection: Phytosanitary::Register::WeatherConditions.options,
+          include_blank: true
+        = f.input :temperature, label: "#{:weather_temperature.tl} (°C)",
+          as: :string, input_html: { type: 'number', step: 'any' }
+        = f.input :wind, label: "#{:weather_wind.tl} (km/h)",
+          as: :string, input_html: { type: 'number', step: 'any', min: 0 }
+        = f.input :humidity, label: "#{:weather_humidity.tl} (%)",
+          as: :string, input_html: { type: 'number', step: 1, min: 0, max: 100 }
+
+        = f.input :early_reentry, label: :early_reentry.tl, hint: :early_reentry_hint.tl
+        #early-reentry-details{ style: f.object.early_reentry ? '' : 'display: none;' }
+          = f.input :early_reentry_ppe_description, as: :text, input_html: { rows: 2 }
+          = f.input :early_reentry_reason, as: :text, input_html: { rows: 2 }
 
     = field_set :parameters do
       - procedure.each_parameter do |parameter|

@@ -63,18 +63,6 @@ GIT
       webmock (~> 3.11)
 
 GIT
-  remote: https://github.com/ekylibre/ekylibre-duke.git
-  revision: cba30a5e7ec3134f93eaea5269985e00c2520606
-  branch: dev
-  specs:
-    duke (2.4.0)
-      httparty (~> 0.17.3)
-      ibm_watson (~> 1.6.0)
-      rails (~> 5.2)
-      sidekiq (~> 4.2.10)
-      similar_text (~> 0.0.4)
-
-GIT
   remote: https://github.com/ekylibre/ekylibre-economic.git
   revision: 78137e18d0ee9e89e7e7f288af6ca4332ec7d98a
   branch: main
@@ -89,20 +77,6 @@ GIT
   branch: master
   specs:
     ekylibre-ednotif (1.0.0)
-
-GIT
-  remote: https://github.com/ekylibre/ekylibre-hajimari.git
-  revision: 713bd60696340d849d63be2e68f342295724fcdd
-  branch: master
-  specs:
-    hajimari (3.5.0)
-
-GIT
-  remote: https://github.com/ekylibre/ekylibre-idea.git
-  revision: fbf7cfbaa08e9f05c34a019f36c510d8ab88b84e
-  branch: dev
-  specs:
-    idea (1.0.0)
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-natuition.git
@@ -144,20 +118,14 @@ GIT
       webmock
 
 GIT
-  remote: https://github.com/ekylibre/ekylibre-traccar.git
-  revision: 132608c3a193c0354455b009435b0dd5cce8db0c
-  branch: master
+  remote: https://github.com/ekylibre/ekylibre-sencrop.git
+  revision: 14ab6ef23b3a650e5e63718b4f6f7d4238dea22e
+  branch: main
   specs:
-    ekylibre-traccar (0.1.0)
-
-GIT
-  remote: https://github.com/ekylibre/ekylibre-viti.git
-  revision: 4ba96c645bfd17c0a308ea2eb665b577a33f7619
-  branch: master
-  specs:
-    ekylibre_ekyviti (1.2.5)
-      interactor-rails
-      rails (~> 5.2)
+    sencrop (0.1.0)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
 
 GIT
   remote: https://github.com/ekylibre/ekylibre-weenat.git
@@ -194,6 +162,42 @@ GIT
   specs:
     xml_errors_parser (0.0.3)
       i18n
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-agro-monitoring
+  specs:
+    agro_monitoring (0.1.0)
+      dotenv (~> 2.7)
+      vcr (~> 6.0)
+      webmock (~> 3.11)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-hajimari
+  specs:
+    hajimari (3.5.0)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-hve
+  specs:
+    ekylibre_hve (0.1.0)
+      rails (~> 5.2)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-idea
+  specs:
+    idea (1.0.0)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-traccar
+  specs:
+    ekylibre-traccar (0.1.0)
+
+PATH
+  remote: /ekylibre-plugins/ekylibre-viti
+  specs:
+    ekylibre_ekyviti (1.2.5)
+      interactor-rails
+      rails (~> 5.2)
 
 GEM
   remote: https://rubygems.org/
@@ -395,7 +399,6 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.7)
       tzinfo
-    eventmachine (1.2.7)
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
@@ -408,9 +411,6 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     fastimage (2.4.1)
-    faye-websocket (0.11.4)
-      eventmachine (>= 0.12.0)
-      websocket-driver (>= 0.5.1, < 0.8.0)
     ffaker (2.21.0)
     ffi (1.15.5)
     fiddle (1.1.1)
@@ -482,19 +482,9 @@ GEM
     holidays (8.6.0)
     hpricot (0.8.6)
     htmlentities (4.3.4)
-    http (4.1.1)
-      addressable (~> 2.3)
-      http-cookie (~> 1.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
-    http-form_data (2.3.0)
     http_accept_language (2.1.1)
-    http_parser.rb (0.6.0)
-    httparty (0.17.3)
-      mime-types (~> 3.0)
-      multi_xml (>= 0.5.2)
     httpclient (2.8.3)
     httpi (2.5.0)
       rack
@@ -507,17 +497,6 @@ GEM
     i18n-js (3.9.2)
       i18n (>= 0.6.6)
     iban-tools (1.1.0)
-    ibm_cloud_sdk_core (1.1.2)
-      concurrent-ruby (~> 1.0)
-      http (~> 4.1.0)
-      jwt (~> 2.2.1)
-    ibm_watson (1.6.0)
-      concurrent-ruby (~> 1.0)
-      eventmachine (~> 1.2)
-      faye-websocket (~> 0.10)
-      http (~> 4.1.0)
-      ibm_cloud_sdk_core (~> 1.1.1)
-      jwt (~> 2.2.1)
     interactor (3.2.0)
       ostruct
     interactor-rails (2.2.1)
@@ -703,6 +682,8 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.3)
+    puma (5.6.9)
+      nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
@@ -873,7 +854,6 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    similar_text (0.0.4)
     simple_calendar (2.4.3)
       rails (>= 3.0)
     simple_form (4.1.0)
@@ -1005,6 +985,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (~> 5.0)
   acts_as_list (~> 1.0)
   agric!
+  agro_monitoring!
   apartment (~> 2.2.1)
   apartment-sidekiq (~> 1.2)
   awesome_nested_set (~> 3.2.1)
@@ -1038,7 +1019,6 @@ DEPENDENCIES
   devise_invitable (~> 2.0)
   dotenv (~> 2.7)
   draper (~> 3.0)
-  duke!
   ekylibre-banking!
   ekylibre-baqio!
   ekylibre-economic!
@@ -1049,6 +1029,7 @@ DEPENDENCIES
   ekylibre-samsys!
   ekylibre-traccar!
   ekylibre_ekyviti!
+  ekylibre_hve!
   enumerize (~> 2.4)
   exception_notification (~> 4.4)
   factory_bot (< 5)
@@ -1105,6 +1086,7 @@ DEPENDENCIES
   pry (~> 0.12.0)
   pry-byebug (~> 3.8)
   pry-rails (~> 0.3.9)
+  puma (~> 5.6)
   rack-cors
   rack-handlers
   rack-mini-profiler
@@ -1132,6 +1114,7 @@ DEPENDENCIES
   scenic
   securerandom
   semantic (~> 1.6)
+  sencrop!
   sepa_king (~> 0.12.0)
   shoulda-context (~> 2.0)
   sidekiq (~> 4.0)
@@ -1154,7 +1137,6 @@ DEPENDENCIES
   turnout (~> 2.5)
   twitter-typeahead-rails (~> 0.11.1)
   uglifier (>= 1.3.0)
-  unicorn (~> 5.8)
   unicorn-rails
   uuidtools (~> 2.2)
   validates_timeliness (~> 4)
@@ -1173,4 +1155,4 @@ RUBY VERSION
    ruby 2.6.6p146
 
 BUNDLED WITH
-   2.4.12
+   2.4.22

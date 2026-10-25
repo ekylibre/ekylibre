@@ -134,6 +134,11 @@
                 update = false if value == element.numericalValue() && element.numericalValue() != 0
               else
                 update = false if value == element.val()
+              # Don't clobber user input from a stale compute response:
+              # - element is currently focused (user is typing)
+              # - response wants to blank a field the user has already filled
+              update = false if element.is(':focus')
+              update = false if (value is null or value is "") and element.val()? and element.val() isnt ""
               if update
                 console.log "Updates ##{subprefix} with: ", value
                 element.val(value)
@@ -1000,7 +1005,8 @@
     $(document).on 'change intervention-field:value-updated', '.nested-fields.working-period input', ->
       updateHarvestDelayWarnings()
 
-    $(document).on 'selector:change', ".nested-targets .intervention_targets_product", ->
+    $(document).on 'selector:change', ".nested-targets .intervention_targets_product", (event, _selectedElement, wasInitializing) ->
+      return if wasInitializing
       updateHarvestDelayWarnings()
 
     $(document).on 'cocoon:after-remove', '.nested-working_periods', ->
@@ -1043,7 +1049,7 @@
             t
     p
 
-  updateHarvestDelayWarnings = _.debounce ->
+  updateHarvestDelayWarnings = _.debounce(->
     $parcelSelectors = $('.nested-targets .intervention_targets_product')
     promises = $('.nested-fields.working-period').toArray().map (e) =>
       queryDelayWarningsForPeriod($(e), $parcelSelectors)
@@ -1053,6 +1059,7 @@
       values.forEach (problems) =>
         harvestImpossible = problems.filter((t) => t.possible == false)
         displayWarningMessages(harvestImpossible)
+  , 400)
 
 
   filter_for = (action) =>

@@ -7,7 +7,7 @@ import { ajax, customFetch } from 'services/ajax';
 import RBush from 'rbush';
 import * as moment from 'moment';
 import { notify, setup } from 'services/notification';
-import { enableDatePicker, enableDateRangePicker, enableDatetimePicker } from 'lib/flatpickr';
+import { enableDatePicker, enableDateRangePicker, enableDatetimePicker, enableTimePicker } from 'lib/flatpickr';
 import { open, openFromElementDataAttributes, openRemote } from 'components/modal';
 import { I18n } from 'services/i18n/index';
 import * as Behave from 'services/behave';
@@ -33,7 +33,7 @@ export let Ekylibre = {
     Dialog: { open: openDialog },
     fetch: customFetch,
     forms: {
-        date: { enableDatePicker, enableDateRangePicker, enableDatetimePicker },
+        date: { enableDatePicker, enableDateRangePicker, enableDatetimePicker, enableTimePicker },
     },
     notification: { setup, notify },
     onElementDetected,

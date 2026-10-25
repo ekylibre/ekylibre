@@ -5,54 +5,189 @@
 <meta charset='UTF-8'>
 <meta content='width=device-width,initial-scale=1' name='viewport'>
 <style>
-  @import url(//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,700,700italic);
-  html {
-    height: 100%;
-    background: #F7F7F7;
-    background-size: cover;
-    color: #333333;
-    font-family: 'Open Sans', sans-serif;
-    margin: 0; }
-    html body {
-      margin: 0; }
+  @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+  *, *::before, *::after {
+    box-sizing: border-box; }
 
-  div.dialog {
-    background: rgba(255, 255, 255, 0.75);
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #f6faf4 0%, #e3eedd 100%);
+    color: #2d3a2d;
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden; }
+
+  canvas#fx-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none; }
+
+  .layout {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center; }
-    div.dialog .content {
-      flex: 1;
-      margin: 4em auto 0;
-      margin: 10vh auto 0;
-      max-width: 33em;
-      padding: 3em;
-      padding: 15vh 20vw;
-      border-top: 1px solid #d81e08;
-      border-bottom: 1px solid #d81e08; }
-      div.dialog .content h1 {
-        font-size: 140%;
-        color: #D81E08;
-        line-height: 1.5em; }
-      div.dialog .content #error-code {
-        text-align: center; }
-    div.dialog.legals {
-      text-align: center;
-      font-size: 80%;
-      padding: 2em;
-      padding: 3vh;
-      background: rgba(255, 255, 255, 0.55); }
+    min-height: 100vh; }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6vh 6vw; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    padding: 0.45em 1em;
+    margin-bottom: 1.8em;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(59, 139, 58, 0.18);
+    border-radius: 999px;
+    font-size: 0.78em;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #3b8b3a; }
+
+  .badge .dot {
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: #3b8b3a;
+    animation: pulse 2.4s ease-in-out infinite; }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1); }
+    50% {
+      opacity: 0.35;
+      transform: scale(0.7); } }
+
+  h1 {
+    font-size: clamp(1.6em, 3.2vw, 2.4em);
+    font-weight: 300;
+    line-height: 1.25;
+    margin: 0 0 0.8em;
+    max-width: 22ch;
+    color: #2d3a2d; }
+
+  p {
+    font-size: clamp(1em, 1.4vw, 1.15em);
+    color: #6a766a;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 42ch; }
+
+  .legals {
+    text-align: center;
+    padding: 1.4em 1em;
+    font-size: 0.78em;
+    letter-spacing: 0.08em;
+    color: #658265;
+    background: rgba(255, 255, 255, 0.45); }
 </style>
+<script src='https://cdn.jsdelivr.net/npm/pixi.js@8.6.6/dist/pixi.min.js'></script>
 </head>
 <body>
-<div class='dialog'>
+<canvas id='fx-canvas'></canvas>
+<div class='layout'>
 <div class='content'>
+<div class='badge'>
+<span class='dot'></span>
+Erreur 422
+</div>
 <h1>Le changement que vous avez demandé a été rejeté</h1>
 <p>Peut-être que vous avez essayé de changer quelque chose auquel vous n’avez pas accès.</p>
 </div>
+<div class='legals'>Ekylibre 5.0</div>
 </div>
-<div class='dialog legals'>Ekylibre 4.31.0
-</div>
+<script>
+  (function () {
+    var canvas = document.getElementById('fx-canvas');
+    if (!canvas || typeof PIXI === 'undefined') return;
+
+    var app = new PIXI.Application();
+    app.init({
+      canvas: canvas,
+      resizeTo: window,
+      backgroundAlpha: 0,
+      antialias: true,
+      autoDensity: true,
+      resolution: Math.min(window.devicePixelRatio || 1, 2)
+    }).then(function () {
+      var TAU = Math.PI * 2;
+      // Variations de teinte autour du rouge Ekylibre (multiplie sur texture blanche)
+      var tints = [0xd81e08, 0xa01806, 0xc94a2e, 0x8b3a1c, 0xe85a3a];
+
+      return PIXI.Assets.load({
+        src: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjMuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkNhbHF1ZV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxMDAwIDEwMDA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGcgZmlsbD0iI2ZmZmZmZiI+Cgk8ZyBmaWxsPSIjZmZmZmZmIj4KCQk8cGF0aCBkPSJNMzc4LjQsMTczLjljLTQzLjEsMC03Ny45LDM2LjYtNzcuOSw4MS44YzAsNDUuMSwzNC44LDgxLjcsNzcuOSw4MS43YzQzLjEsMCw3OC4yLTM2LjYsNzguMi04MS43CgkJCUM0NTYuNiwyMTAuNSw0MjEuNiwxNzMuOSwzNzguNCwxNzMuOXogTTM5OC41LDI3MC41Yy0xNy43LDAtMzItMTUuNC0zMi0zNC41YzAtMTksMTQuMy0zNC41LDMyLTM0LjVjMTcuNywwLDMyLDE1LjQsMzIsMzQuNQoJCQlDNDMwLjUsMjU1LDQxNi4yLDI3MC41LDM5OC41LDI3MC41eiIvPgoJCTxwYXRoIGQ9Ik02NDguNywxNzMuOWMtNDMuMSwwLTc3LjksMzYuNi03Ny45LDgxLjhjMCw0NS4xLDM0LjgsODEuNyw3Ny45LDgxLjdjNDMuMSwwLDc4LjItMzYuNiw3OC4yLTgxLjcKCQkJQzcyNi45LDIxMC41LDY5MS44LDE3My45LDY0OC43LDE3My45eiBNNjY4LjcsMjcwLjVjLTE3LjcsMC0zMi0xNS40LTMyLTM0LjVjMC0xOSwxNC4zLTM0LjUsMzItMzQuNWMxNy43LDAsMzIsMTUuNCwzMiwzNC41CgkJCUM3MDAuNywyNTUsNjg2LjQsMjcwLjUsNjY4LjcsMjcwLjV6Ii8+Cgk8L2c+Cgk8cGF0aCBkPSJNNjYyLjMsOTI5Yy0yLjQsMTIuNC03LjksMjQuNy0xMy4yLDM0LjRjLTMuNyw2LjgtMTMuOCw1LjEtMTUuNS0yLjRjLTAuMS0wLjYtMC4zLTEuMi0wLjQtMS44Yy0yLTguMS0xMy4zLTguMS0xNi0wLjIKCQljLTIuMyw2LjgtNS42LDEzLjctMTAuMSwyMC4xYy0zLjUsNC45LTExLjIsNC40LTE0LjEtMC45Yy01LTkuMS0xMi4xLTI1LTE4LjMtNDkuM2gtMC44Yy0zLjQsMTEuNS01LjcsMjQuNi03LjIsMzQuNAoJCWMtMSw2LjgtOS41LDkuNi0xNC4zLDQuN2MtMTEuNi0xMi0xNi4yLTI4LjUtMTcuNC0zOWgtNTguM2MtMS4yLDEwLjUtNS43LDI2LjgtMTcuMSwzOC44Yy00LjgsNS0xMy40LDIuMi0xNC40LTQuNgoJCWMtMS40LTkuNy0zLjgtMjIuOC03LjEtMzQuMmgtMC44Yy02LjEsMjQuMS0xMy4xLDQwLTE4LDQ5LjFjLTIuOSw1LjQtMTAuNiw1LjktMTQuMiwwLjljLTQuNC02LjMtNy42LTEzLjItOS45LTE5LjkKCQljLTIuNy03LjktMTQuMS02LjktMTYuMSwxLjJjLTAuMSwwLjItMC4xLDAuMy0wLjEsMC41Yy0xLjcsNy42LTExLjgsOS4yLTE1LjUsMi40Yy01LjItOS43LTEwLjUtMjEuOS0xMi45LTM0LjFIMHY2OC44aDEwMDBWOTI5CgkJSDY2Mi4zeiIvPgoJPHBhdGggZD0iTTc0MCwxMDYuNGMyNi4yLTksNTIuNC0xOS43LDc4LjgtMzJjMi4xLTEsMy43LTIuOCw0LjUtNWwxNi42LTQ5LjhjMi40LTcuMi01LjItMTMuNS0xMS45LTEwCgkJYy00OS42LDI2LjEtOTguNCw0NS4zLTE0Ni41LDU4LjhjLTUxLjUtMjUuNy0xMTAuNS0zOC4xLTE3Mi44LTM4LjFjLTU5LjQsMC0xMTQuOCwxMS4zLTE2My4zLDM0LjYKCQljLTQ4LjgtMTQuNy05Ny4yLTM1LjMtMTQ1LjUtNjEuNmMtNi43LTMuNi0xNC4zLDIuNS0xMi4xLDkuOGwxNS42LDUwYzAuNywyLjIsMi4zLDQuMSw0LjQsNS4xYzI2LjIsMTIuOCw1Mi41LDIzLjksNzkuMSwzMy41CgkJYy03Ny41LDYzLTEyNi4yLDE2OS4yLTEyNi4yLDMyNS43YzAsMTk2LjMsNzkuNCwzNjUuOCwxOTQuOSw0NDguNGMzLjUtOC43LDguNi0xNC45LDE1LjgtMTQuOWM2LjUtMC4xLDEwLjksMS43LDEzLjksNC4xCgkJYzMuNywzLDkuMSwyLjYsMTItMS4yYzMuNS00LjcsOS4yLTguOCwxOC4yLTkuM2M5LTAuNCwxNC4zLDMuOCwxNy43LDExLjRjMS45LDQuNCw3LjQsNS4xLDExLjYsMi43YzQuNi0yLjYsMTAuNi0zLDE2LjgtMi42CgkJYzE0LjUsMC4yLDE2LjksMTcuNiwxNS42LDU5LjRjMCwwLjQtMC4yLDEtMC4yLDEuNWMxMi4xLDEuOCwyNC4zLDIuNywzNi44LDIuN2M3LjEsMCwxNC4xLTAuOSwyMS4xLTEuNWMtMC4xLTAuOC0wLjMtMS45LTAuNC0yLjcKCQljLTEuMy00MS44LDEuMS01OS4yLDE1LjgtNTkuNGM2LjMtMC40LDEyLjQsMCwxNywyLjZjNC4yLDIuNCw5LjcsMS42LDExLjctMi44YzMuNC03LjYsOC45LTExLjgsMTcuOS0xMS4zCgkJYzkuMiwwLjQsMTUsNC42LDE4LjUsOS40YzIuOSwzLjgsOC4zLDQuMiwxMS45LDEuMmMzLTIuNSw3LjUtNC4zLDE0LjItNC4yYzkuNCwwLjEsMTUuMywxMC4yLDE4LjcsMjMKCQljMTIxLjgtNzkuMiwyMDYuNi0yNTMuNSwyMDYuNi00NTYuNEM4NjYuOSwyNzQuNiw4MTcuMSwxNjkuOSw3NDAsMTA2LjR6IE0zNzcuOSw3NTAuNWMtMi4xLDguNi0xNC40LDguNi0xNi4zLTAuMWwtMTAuNi00Ni42CgkJbDExLjksMTYuMmMzLjMsNC41LDEwLjEsNC41LDEzLjUsMC4xbDEzLTE3LjRMMzc3LjksNzUwLjV6IE00MTcsNjMwLjRjLTIuMSw4LjYtMTQuNCw4LjYtMTYuMy0wLjFMMzkwLDU4My43bDExLjksMTYuMgoJCWMzLjMsNC41LDEwLjEsNC41LDEzLjUsMC4xbDEzLjEtMTcuNEw0MTcsNjMwLjR6IE01MjEuNSw1NjIuNWMtMi4xLDguNi0xNC40LDguNi0xNi4zLTAuMWwtMTAuNi00Ni42bDExLjksMTYuMgoJCWMzLjMsNC41LDEwLjEsNC41LDEzLjUsMC4xbDEzLTE3LjRMNTIxLjUsNTYyLjV6IE02MjYsNjMwLjRjLTIuMSw4LjYtMTQuNCw4LjYtMTYuMy0wLjFMNTk5LDU4My43bDExLjksMTYuMgoJCWMzLjMsNC41LDEwLjEsNC41LDEzLjUsMC4xbDEzLjEtMTcuNEw2MjYsNjMwLjR6IE02NjUsNzUwLjVjLTIuMSw4LjYtMTQuNCw4LjYtMTYuMy0wLjFMNjM4LDcwMy44bDExLjksMTYuMgoJCWMzLjMsNC41LDEwLjEsNC41LDEzLjUsMC4xbDEzLTE3LjRMNjY1LDc1MC41eiBNNzU0LjEsNDA5LjljLTczLjgsMzIuMi0xNDYuNy0wLjgtMjA2LjYtNjRjLTIuNywxOC45LTE3LjYsNDMuNS0yNi45LDU3CgkJYy0zLjMsNC44LTEwLjQsNC44LTEzLjgsMGMtNy42LTExLTE5LjMtMjkuOC0yNC44LTQ2LjZjLTYyLjksNjMuNy0xMzkuNSw5NC0yMTUuMSw1Ny4xYy04Ny41LTQyLjctNjQuNS0yMDAuNSw0MC4xLTI5OS45CgkJYzIuMi0yLjEsNS40LTIuOCw4LjQtMS45YzAuMSwwLDAuMiwwLjEsMC4zLDAuMWMxNS4yLDQuOCwzMC42LDkuMSw0NS45LDEyLjljMi45LDAuNyw1LjcsMS4zLDguNiwyYzEyLjMsMi45LDI0LjYsNS40LDM3LDcuNgoJCWMzLjgsMC43LDcuNiwxLjMsMTEuNCwxLjljMTIuOSwyLDI1LjksMy43LDM4LjksNWMyLjMsMC4yLDQuNSwwLjUsNi44LDAuN2MxNS42LDEuMywzMS4yLDIuMSw0Ni44LDIuM2MyLDAsNC4xLTAuMSw2LjEtMC4xCgkJYzEzLjMsMC4xLDI2LjYtMC4zLDM5LjktMS4xYzMuOS0wLjIsNy45LTAuNSwxMS45LTAuOGMxMi40LTAuOSwyNC44LTIuMywzNy4zLTMuOWMzLjMtMC40LDYuNS0wLjgsOS43LTEuMwoJCWMxNS44LTIuNCwzMS43LTUuMiw0Ny42LTguOGMwLjQtMC4xLDAuOC0wLjIsMS4yLTAuM2MxNS4xLTMuNCwzMC4yLTcuNSw0NS4zLTEyYzEuNi0wLjUsMy4yLTAuOCw0LjctMS4zYzIuNy0wLjgsNS43LTAuMyw3LjksMS41CgkJQzg0MC45LDIxNC4xLDgzNy40LDM3My42LDc1NC4xLDQwOS45eiIvPgo8L2c+Cjwvc3ZnPgo=',
+        data: { resolution: 4 }
+      }).then(function (texture) {
+        var owls = [];
+        var stage = new PIXI.Container();
+        app.stage.addChild(stage);
+
+        function targetCount() {
+          return Math.min(50, Math.max(15, Math.floor(app.screen.width * app.screen.height / 36000)));
+        }
+
+        function spawn(seedBelow) {
+          var sprite = new PIXI.Sprite(texture);
+          sprite.anchor.set(0.5);
+          var scale = 0.025 + Math.random() * 0.055; // SVG 1000x1000 -> rendu 25..80 px
+          sprite.scale.set(scale);
+          sprite.tint = tints[Math.floor(Math.random() * tints.length)];
+          sprite.alpha = 0.45 + Math.random() * 0.4;
+          sprite.x = Math.random() * app.screen.width;
+          sprite.y = seedBelow ? (app.screen.height + 40 + Math.random() * 80) : Math.random() * app.screen.height;
+          sprite.driftPhase = Math.random() * TAU;
+          sprite.driftSpeed = 0.004 + Math.random() * 0.010;
+          sprite.driftAmp   = 0.4 + Math.random() * 0.9;
+          sprite.bobPhase   = Math.random() * TAU;
+          sprite.bobSpeed   = 0.02 + Math.random() * 0.025;
+          sprite.bobAmp     = 0.10 + Math.random() * 0.22;
+          sprite.vy         = -(0.15 + Math.random() * 0.45);
+          sprite.spin       = (Math.random() - 0.5) * 0.0025;
+          stage.addChild(sprite);
+          owls.push(sprite);
+        }
+
+        var initial = targetCount();
+        for (var i = 0; i < initial; i++) spawn(false);
+
+        app.ticker.add(function (ticker) {
+          var dt = ticker.deltaTime;
+          var w = app.screen.width;
+          var h = app.screen.height;
+          for (var j = owls.length - 1; j >= 0; j--) {
+            var p = owls[j];
+            p.driftPhase += p.driftSpeed * dt;
+            p.bobPhase   += p.bobSpeed * dt;
+            p.x += Math.sin(p.driftPhase) * p.driftAmp * dt;
+            p.y += (p.vy + Math.sin(p.bobPhase) * p.bobAmp) * dt;
+            p.rotation += p.spin * dt;
+            if (p.x < -60) p.x = w + 60;
+            else if (p.x > w + 60) p.x = -60;
+            if (p.y < -80) {
+              stage.removeChild(p);
+              p.destroy();
+              owls.splice(j, 1);
+            }
+          }
+          var want = targetCount();
+          while (owls.length < want) spawn(true);
+        });
+      });
+    }).catch(function () { /* swallow init errors — page still readable */ });
+  })();
+</script>
 </body>
 </html>

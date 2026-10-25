@@ -13,8 +13,8 @@
       width = $(document).width()
       defaultSettings =
         header: "X-Return-Code"
-        width: 0.6
-        height: 0.8
+        width: 0.9
+        height: 0.9
 
       settings = {}  if settings is null or settings is `undefined`
       settings = $.extend({}, defaultSettings, settings)
@@ -63,6 +63,7 @@
             modal: true
             width: width
             maxHeight: height
+          frame.css "overflow-y", "auto"
 
           E.dialog.initialize frame
           frame.dialog "open"

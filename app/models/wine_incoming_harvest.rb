@@ -81,11 +81,11 @@ class WineIncomingHarvest < ApplicationRecord
   end
 
   def human_plants_names
-    self.plants.map(&:plant).map(&:name).to_sentence
+    self.plants.any? ? self.plants.map(&:plant).compact.map(&:name).to_sentence : nil
   end
 
   def human_storages_names
-    self.storages.map(&:storage).map(&:name).to_sentence
+    self.storages.any? ? self.storages.map(&:storage).compact.map(&:name).to_sentence : nil
   end
 
   def net_harvest_areas_sum
@@ -93,7 +93,7 @@ class WineIncomingHarvest < ApplicationRecord
   end
 
   def human_species_variesties_names
-    self.plants.map(&:plant).map(&:specie_variety_name).to_sentence
+    self.plants.any? ? self.plants.map(&:plant).compact.map(&:specie_variety_name).to_sentence : nil
   end
 
   def tavp

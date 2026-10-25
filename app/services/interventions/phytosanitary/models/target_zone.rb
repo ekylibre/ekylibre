@@ -19,8 +19,13 @@ module Interventions
           #       'shape' A GeoJSON String
           # @return [Array<TargetZone>]
           def from_targets_data(targets_data)
+            ids = targets_data.map { |data| data[:id] }.compact.uniq
+            plants_by_id = Plant.where(id: ids).index_by(&:id)
+            land_parcels_by_id = LandParcel.where(id: ids).index_by(&:id)
+
             targets_data.flat_map do |data|
-              target = [Plant, LandParcel].map { |model| model.find_by(id: data[:id]) }.compact.first
+              id = data[:id].to_i
+              target = plants_by_id[id] || land_parcels_by_id[id]
               shape = Charta::new_geometry(data[:shape])
               working_zone_area_value = Measure.new(data[:working_zone_area_value]&.to_f || 0, :hectare).in(:square_meter)
 

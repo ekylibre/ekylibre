@@ -160,7 +160,7 @@ module Ekylibre
             end
 
             define_method "#{col}_centroid" do |_unit = nil|
-              send(col).centroid
+              send(col)&.centroid
             end
 
             scope col + '_overlapping', lambda { |shape|
