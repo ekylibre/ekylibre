@@ -50,11 +50,13 @@ Tests use **Minitest**. The test tenant is always named `test` and is switched v
 # IMPORTANT: lexicon must be loaded before any first_run (local setup only)
 rake lexicon:load
 
-# Create and fully initialize a tenant
-TENANT=myfarmer rake tenant:init EMAIL=admin@example.com PASSWORD=secret
+# Case A — Fresh tenant from a first_run folder with a manifest (`demo`, …):
+#   first_run creates the tenant itself; do NOT also call tenant:init,
+#   it would pre-create a user and catalogs that then collide with the manifest.
+TENANT=myfarmer rake first_run FOLDER=demo HARD=true
 
-# Load a first_run data folder
-TENANT=myfarmer rake first_run FOLDER=demo
+# Case B — Blank tenant for ad-hoc dev (no manifest-driven first_run after):
+TENANT=myfarmer rake tenant:init EMAIL=admin@example.com PASSWORD=secret
 
 # Drop a tenant
 TENANT=myfarmer rake tenant:drop
@@ -62,6 +64,13 @@ TENANT=myfarmer rake tenant:drop
 # Admin UI (HTTP Basic auth via ADMIN_USERNAME/ADMIN_PASSWORD env vars)
 http://localhost:3000/admin
 ```
+
+Both uppercase (`TENANT`, `FOLDER`, `HARD`, `MODE`) and lowercase (`tenant`, `folder`, `mode=hard`) env vars are accepted by the `first_run` task. `PATH` stays reserved for the shell lookup path.
+
+Secrets never live in a committed `manifest.yml`. `settings_exchanger` picks them up from ENV when present (manifest wins over ENV only if a value is actually set):
+
+- Stripe SAASY: `STRIPE_CUSTOMER_ID`, `STRIPE_SUBSCRIPTION_ID` (also accepted via `tenant:init` under the historical names `CUS_ID`, `SUB_ID`).
+- External API keys stored as `Identifier` rows: `OPENWEATHERMAP_API_KEY`, `GROQ_API_KEY`, `MISTRAL_API_KEY`, `AGROMONITORING_API_KEY`.
 
 The `config/tenants.yml` file lists active tenants per Rails environment. `Ekylibre::Tenant` wraps the Apartment gem — use it, not Apartment directly.
 
@@ -89,7 +98,9 @@ The `onoma` gem provides the agricultural nomenclature (crops, units, variants, 
 The `lexicon` PostgreSQL schema is shared across all tenants (persistent schema). It contains master reference data (variants, production systems, phytosanitary products, etc.) loaded by `rake lexicon:load`.
 
 ### FirstRun
-`lib/ekylibre/first_run/` handles tenant initialization from data folders in `db/first_runs/<folder>/`. The `loaders.yml` defines which exchangers to run in order. `rake first_run FOLDER=demo TENANT=name` runs them all in a single transaction (unless `HARD=true`).
+`lib/ekylibre/first_run/` handles tenant initialization from data folders in `db/first_runs/<folder>/`. Each folder may ship its own `loaders.yml` (preferred, see `db/first_runs/demo/loaders.yml`); otherwise the global `lib/ekylibre/first_run/loaders.yml` is used as fallback. `rake first_run FOLDER=demo TENANT=name` runs them all in a single transaction (unless `HARD=true`).
+
+`db/first_runs/demo/` is a mirror of the public CC-BY-SA `demo-data` repo. Refresh with `bin/sync_demo_data` (expects `DEMO_DATA_PATH` to point at a `demo-data` clone, defaults to `../demo-data`). The script writes `db/first_runs/demo/.source_sha` with the demo-data HEAD short SHA; `test/lib/ekylibre/demo_source_sync_test.rb` keeps that marker well-formed. Extrapolation of the dataset for new campaigns lives in `demo-data/bin/` (telepac, operations, compta, cheptel runners).
 
 ### Plugins
 Plugins are Rails engines loaded via `Gemfile.local` or `Gemfile.plugins`. They follow the same conventions as the main app. The `TENANT` env var and SSH keys are available in the dev container.

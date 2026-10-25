@@ -9,8 +9,8 @@ sales_conditions: "Une indemnité forfaitaire de 40 € sera réclamée pour fra
 demo: true                                       # Mode démo (oui/non)
 create_activities_from_telepac: true             # Création des activités uniquement à partir des fichiers TELEPAC
 permanent_stock_inventory: false
-subscription_id: sub_JoVT24Sch1Zr3t             # use for SAASY link to Stripe Offer Ekyagri gestion
-customer_id: cus_JoVSup72ICfT9k                 # use for SAASY link to Stripe customer
+subscription_id: sub_fake_test_subscription_id   # use for SAASY link to Stripe Offer Ekyagri gestion
+customer_id: cus_fake_test_customer_id           # use for SAASY link to Stripe customer
 company:
   last_name: GAEC JOULIN                         # Nom
   activity_code: 0111Z
@@ -191,7 +191,7 @@ net_services:                                    # Services en ligne
     cartodb_login: demo-ekylibre
     password: 000000
 identifiers:                                     # Identifiants
-  openweathermap_api_key: 25ec253e68abca2e4115718432525549
+  openweathermap_api_key: fake_openweathermap_api_key_for_tests
   pacage_number: 12346578                        # Nom et valeur d'un identifiant
   husbandry_owner_number: FR01700006989
   cattling_root_number: 173513

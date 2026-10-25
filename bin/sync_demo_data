@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Synchronise le dossier `demo-data/demo/` (source de vérité CC-BY-SA, repo
+# public) vers `db/first_runs/demo/` (consommé par rake first_run).
+#
+# - La source est le dépôt `demo-data`, pointé par $DEMO_DATA_PATH (défaut :
+#   un sibling `../demo-data` relatif à la racine du dépôt ekylibre).
+# - Écrit `db/first_runs/demo/.source_sha` avec le SHA (court, 12 chars) du
+#   HEAD de `demo-data`, utilisé par le test ci-dessous pour détecter la
+#   dérive silencieuse.
+# - N'utilise jamais `--delete` : les .zip auto-générés par
+#   `check_archive` (georeadings/*, pictures.zip) ou autres artefacts
+#   locaux ne sont pas effacés.
+
+set -euo pipefail
+
+HERE=$(cd "$(dirname "$0")" && pwd)
+EKYLIBRE_ROOT=$(cd "$HERE/.." && pwd)
+DEMO_DATA_PATH="${DEMO_DATA_PATH:-$(cd "$EKYLIBRE_ROOT/../demo-data" 2>/dev/null && pwd || true)}"
+
+if [[ -z "$DEMO_DATA_PATH" || ! -d "$DEMO_DATA_PATH/demo" ]]; then
+  echo "✖ demo-data not found. Set DEMO_DATA_PATH (currently: ${DEMO_DATA_PATH:-unset})." >&2
+  exit 1
+fi
+
+dst="$EKYLIBRE_ROOT/db/first_runs/demo"
+mkdir -p "$dst"
+
+echo "→ rsync $DEMO_DATA_PATH/demo/ → $dst/"
+rsync -a --exclude='.git' --exclude='.source_sha' \
+  "$DEMO_DATA_PATH/demo/" "$dst/"
+
+if command -v git >/dev/null && [[ -d "$DEMO_DATA_PATH/.git" ]]; then
+  sha=$(git -C "$DEMO_DATA_PATH" rev-parse --short=12 HEAD)
+  dirty=$(git -C "$DEMO_DATA_PATH" status --porcelain | head -1)
+  marker="$sha"
+  [[ -n "$dirty" ]] && marker="$sha-dirty"
+  echo "$marker" > "$dst/.source_sha"
+  echo "✔ .source_sha = $marker"
+else
+  echo "unknown" > "$dst/.source_sha"
+  echo "⚠ demo-data is not a git clone — .source_sha = unknown"
+fi
