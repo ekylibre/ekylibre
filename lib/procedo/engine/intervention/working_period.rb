@@ -8,16 +8,20 @@ module Procedo
 
         attr_accessor :started_at, :stopped_at, :id
 
+        # Times are parsed in Time.zone, not in the system time zone: a time
+        # without offset (web form) is read as before, and a time with an offset
+        # (API clients) keeps its instant. #to_hash writes them back without
+        # offset, so they must already be expressed in Time.zone.
         def initialize(id, attributes = {})
           @id = id.to_s
           @started_at = begin
-                          Time.parse(*attributes[:started_at])
+                          Time.zone.parse(*attributes[:started_at])
                         rescue
                           nil
                         end
           @started_at ||= (Time.zone.now - DEFAULT_DURATION)
           @stopped_at = begin
-                          Time.parse(*attributes[:stopped_at])
+                          Time.zone.parse(*attributes[:stopped_at])
                         rescue
                           nil
                         end
